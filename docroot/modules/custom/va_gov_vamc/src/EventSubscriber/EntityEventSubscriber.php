@@ -2,15 +2,26 @@
 
 namespace Drupal\va_gov_vamc\EventSubscriber;
 
-use Drupal\Core\Session\AccountInterface;
+use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\va_gov_user\Service\UserPermsService;
+use Drupal\va_gov_vamc\Service\ContentHardeningDeduper;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * VA.gov VAMC Entity Event Subscriber.
  */
 class EntityEventSubscriber implements EventSubscriberInterface {
+  /**
+   * The content hardening deduper.
+   *
+   * @var \Drupal\va_gov_vamc\Service\ContentHardeningDeduper
+   *  The content hardening deduper service.
+   */
+  private $contentHardeningDeduper;
+
   /**
    * The active user.
    *
@@ -33,13 +44,29 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The current user.
    * @param \Drupal\va_gov_user\Service\UserPermsService $user_perms_service
    *   The user perms service.
+   * @param \Drupal\va_gov_vamc\Service\ContentHardeningDeduper $content_hardening_deduper
+   *   The deduper service.
    */
   public function __construct(
     AccountInterface $currentUser,
-    UserPermsService $user_perms_service
+    UserPermsService $user_perms_service,
+    ContentHardeningDeduper $content_hardening_deduper
   ) {
     $this->currentUser = $currentUser;
     $this->userPermsService = $user_perms_service;
+    $this->contentHardeningDeduper = $content_hardening_deduper;
+  }
+
+  /**
+   * Entity create Event call.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
+   *   The event.
+   */
+  public function entityPresave(EntityPresaveEvent $event): void {
+    // Do some fancy stuff with new entity.
+    $entity = $event->getEntity();
+    $this->contentHardeningDeduper->removeDuplicate($entity);
   }
 
   /**
@@ -82,6 +109,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       // React on banner forms.
       'hook_event_dispatcher.form_node_full_width_banner_alert_form.alter' => 'alterBannerNodeForm',
       'hook_event_dispatcher.form_node_full_width_banner_alert_edit_form.alter' => 'alterBannerNodeForm',
+      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'entityPresave',
     ];
   }
 

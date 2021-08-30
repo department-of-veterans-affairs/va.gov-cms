@@ -18,6 +18,8 @@ Have fun and we look forward to getting to know you! 😊
 
 Projected start date: <insert_here>
 
+Onboarding buddy (short check-in meetings the first week): <insert_here>
+
 ## Day one
 ### How?
 - [ ] Read through our [team norms](https://docs.google.com/document/d/1cs5FePhtR0LIJi63b9ZtqT7T6dphgB584UpfEbejSOc/edit#), which will also give an overview of how we apply the [USDS playbook](https://playbook.cio.gov/) and VA.gov platform [code of conduct](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/policies-work-norms/code-of-conduct.md).
@@ -53,7 +55,7 @@ The goals of this week are: 1) get background paperwork completed as quickly as 
 - [ ] Let's start introducing you to the team and key stakeholders. If you're on a meeting where you don't know someone, feel free to kickstart an introduction. Everyone in the ecosystem is friendly and interested in connecting.
 
 ## Week two
-The goal for this week is to get you set up with the tools you need to be successful. We will pair you up with a buddy on the project that is in your same disipline to help inform which ones are relevant and which aren't. The most important thing to get set up is SOCKS as it will give you access to our systems so try to prioritize that.
+The goal for this week is to get you set up with the tools you need to be successful. We will pair you up with a buddy on the project that is in your same discipline to help inform which ones are relevant and which aren't. The most important thing is to get set up is SOCKS as it will give you access to our systems so try to prioritize that.
 ### What products do we support?
 The following trainings and additional videos can be found on the Knowledge Base on the Drupal CMS prod and lesser environments that require VA network or SOCKS proxy access. They can be watched without VA network or SOCKS access at the links below.
 - [ ] [Review the editor onboarding slides](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/https___prod.cms.va.gov_sites_default_files_2021-07_Welcome%2520to%2520the%2520new%2520VA.gov%2520CMS.pdf).
