@@ -82,6 +82,7 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'override news_story authored on option',
           'override outreach_asset authored on option',
           'override press_release authored on option',
+          'use workbench access',
           'view media',
         ],
       ],
