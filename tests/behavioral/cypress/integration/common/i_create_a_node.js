@@ -11,6 +11,17 @@ const creators = {
     cy.findAllByLabelText('Parent link').select('-- CMS Knowledge Base (disabled)', { force: true });
     return cy.get('form.node-form').find('input#edit-submit').click();
   },
+  health_care_region_detail_page: () => {
+    cy.visit('/node/add/health_care_region_detail_page');
+    cy.scrollTo('top');
+    cy.findAllByLabelText('Page title').type('[Test Data] ' + faker.lorem.sentence(), { force: true });
+    cy.findAllByLabelText('Page introduction').type(faker.lorem.sentence(), { force: true });
+    cy.findAllByLabelText('Section').select('Veterans Affairs', { force: true });
+    cy.findAllByLabelText('Related office or health care system').select('VA Alaska health care', { force: true });
+    cy.findAllByLabelText('Parent link').select('-------- Anchorage VA Medical Center', { force: true });
+    cy.findAllByLabelText('Meta description').type(faker.lorem.sentence(), { force: true });
+    return cy.get('form.node-form').find('input#edit-submit').click();
+  },
   office: () => {
     cy.visit('/node/add/office');
     cy.scrollTo('top');

@@ -1,0 +1,36 @@
+uuid: e5de6eae-f667-43a6-86d9-1d3474f8f8d5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.vamc_system_billing_insurance.field_administration
+    - field.field.node.vamc_system_billing_insurance.field_enforce_unique_combo
+    - field.field.node.vamc_system_billing_insurance.field_enforce_unique_combo_offic
+    - field.field.node.vamc_system_billing_insurance.field_office
+    - node.type.vamc_system_billing_insurance
+  module:
+    - allow_only_one
+    - user
+id: node.vamc_system_billing_insurance.default
+targetEntityType: node
+bundle: vamc_system_billing_insurance
+mode: default
+content:
+  field_enforce_unique_combo_offic:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: allow_only_one
+    region: content
+  links:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  content_moderation_control: true
+  field_administration: true
+  field_enforce_unique_combo: true
+  field_office: true
+  search_api_excerpt: true

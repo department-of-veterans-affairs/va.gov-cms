@@ -1,0 +1,34 @@
+uuid: ae0409cb-1a4f-4485-bfe1-8dcb7c731398
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.vamc_system_register_for_care.field_administration
+    - field.field.node.vamc_system_register_for_care.field_enforce_unique_combo
+    - field.field.node.vamc_system_register_for_care.field_enforce_unique_combo_offic
+    - field.field.node.vamc_system_register_for_care.field_office
+    - node.type.vamc_system_register_for_care
+  module:
+    - user
+id: node.vamc_system_register_for_care.teaser
+targetEntityType: node
+bundle: vamc_system_register_for_care
+mode: teaser
+content:
+  content_moderation_control:
+    weight: -20
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_administration: true
+  field_enforce_unique_combo: true
+  field_enforce_unique_combo_offic: true
+  field_office: true
+  search_api_excerpt: true

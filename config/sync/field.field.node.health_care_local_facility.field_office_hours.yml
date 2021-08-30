@@ -1,0 +1,21 @@
+uuid: ace383c5-ad68-4ebf-ac5e-d7d2daa41860
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_office_hours
+    - node.type.health_care_local_facility
+  module:
+    - office_hours
+id: node.health_care_local_facility.field_office_hours
+field_name: field_office_hours
+entity_type: node
+bundle: health_care_local_facility
+label: Hours
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: office_hours

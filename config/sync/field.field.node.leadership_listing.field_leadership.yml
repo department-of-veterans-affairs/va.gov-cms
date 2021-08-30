@@ -5,14 +5,13 @@ dependencies:
   config:
     - field.storage.node.field_leadership
     - node.type.leadership_listing
-    - node.type.person_profile
   module:
     - entity_reference_validators
 third_party_settings:
   entity_reference_validators:
     circular_reference: false
     circular_reference_deep: false
-    duplicate_reference: false
+    duplicate_reference: true
 id: node.leadership_listing.field_leadership
 field_name: field_leadership
 entity_type: node
@@ -24,13 +23,10 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: unpublished
+  handler: views
   handler_settings:
-    target_bundles:
-      person_profile: person_profile
-    sort:
-      field: title
-      direction: ASC
-    auto_create: 0
-    auto_create_bundle: ''
+    view:
+      view_name: content_entity_reference_source
+      display_name: entity_reference_5
+      arguments: {  }
 field_type: entity_reference

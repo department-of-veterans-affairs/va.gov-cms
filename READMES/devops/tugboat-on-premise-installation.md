@@ -1,6 +1,6 @@
 ## Tugboat On-Premise Install Documentation
 
-The hostname of the Tugboat
+The internal/private DNS of the Tugboat install is https://tugboat.vfs.va.gov. 
 
 ### Database Backups and Restoration
 **Backups** are performed automatically to the /opt/tugboat/data/backups folder nightly at 00:00 UTC. There are three databases, all MongoDB .json and .bson. Then a [Jenkins job](http://jenkins.vfs.va.gov/job/utility/job/tugboat-backup/) goes into the Tugboat server once per day and uploads them to an the dsva-vetsgov-utility-tugboat S3 bucket.
@@ -27,6 +27,20 @@ Manual for now. @SEE "Future" section
 1. git checkout $TAG
 1. (optional) `git stash pop`
 1. make && tbctl reload
+
+### Docker Volume increase (instructions for 4TB, adjust accordingly)
+1. Resize block device in AWS Console UI (very fast, because at the hypervisor level)
+1. Updated /etc/docker/daemon.json, `dm.basesize=4096G"`
+1. `pvresize /dev/sdg`
+1. `lvextend -l+100%FREE -n docker/thinpool`
+1. Suspend all previews so they don't come back in a FAILED state:
+    1. `PREVIEWS=$(tugboat list previews -j | grep '"preview":' | awk '{print $2}' | tr -d ',' | tr -d '"')`
+    1. `for PREVIEW in $PREVIEWS; do (tugboat suspend $PREVIEW &) ; done`
+1. Wait a few minutes (this step can create a timeout error in Tugboat UI for a short time period)
+     ![image](https://user-images.githubusercontent.com/1504756/107723852-37fb2700-6c97-11eb-8f63-cee7fc1f1e43.png)
+1. `reboot`
+1. `tbctl start` (shouldn't have to do this after a reboot but unfortunately do)
+1. `tugboat update 5fd3b8ee7b465711575722d5 quota=4096`
 
 ### Patches
 We currently have a few modifications to Tugboat source code that we need to make sure are either reapplied, or evaluated on each deployment for removal.

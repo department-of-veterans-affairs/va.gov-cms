@@ -1,0 +1,36 @@
+uuid: 037387f2-303f-4801-9e77-177b5a63c11b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_office
+    - node.type.health_care_region_page
+    - node.type.vamc_system_medical_records_offi
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: true
+    circular_reference_deep: false
+    duplicate_reference: true
+id: node.vamc_system_medical_records_offi.field_office
+field_name: field_office
+entity_type: node
+bundle: vamc_system_medical_records_offi
+label: 'VAMC System'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      health_care_region_page: health_care_region_page
+    sort:
+      field: title
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

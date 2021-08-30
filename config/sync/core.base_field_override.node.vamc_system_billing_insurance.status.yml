@@ -1,0 +1,22 @@
+uuid: ab303e1c-250c-4703-a697-152277cef19b
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vamc_system_billing_insurance
+id: node.vamc_system_billing_insurance.status
+field_name: status
+entity_type: node
+bundle: vamc_system_billing_insurance
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

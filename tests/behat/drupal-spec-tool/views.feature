@@ -49,7 +49,6 @@ Feature: Views
 | VAMCs | vamcs | Content | Enabled |  |
 | VHA Health service taxonomy | vha_health_service_taxonomy | Taxonomy terms | Enabled |  |
 | Watchdog | watchdog | Log entries | Enabled | Recent log messages |
-| Webform submissions | webform_submissions | Webform submission | Enabled | Default webform submissions views. |
 | Who's new | who_s_new | Users | Disabled | Shows a list of the newest user accounts on the site. |
 | Who's online block | who_s_online | Users | Disabled | Shows the user names of the most recently active users, and the total number of active users. |
 | User creation & editing activity | user_creation_editing_activity | Users | Enabled |  |
@@ -107,6 +106,7 @@ Feature: Views
 | Content Entity Reference Source | Entity Reference: Publication Listing | entity_reference_2 | Entity Reference |
 | Content Entity Reference Source | Entity Reference: Story Listing | entity_reference_3 | Entity Reference |
 | Content Entity Reference Source | Entity Reference: News Release Listing | entity_reference_4 | Entity Reference |
+| Content Entity Reference Source | Entity Reference: Staff profiles | entity_reference_5 | Entity Reference |
 | Content release logs | Master | default | Default |
 | Content release logs | Page | page_1 | Page |
 | Content served from Drupal | Page | page_1 | Page |
@@ -186,11 +186,6 @@ Feature: Views
 | VHA Health service taxonomy | Master | default | Default |
 | Watchdog | Master | default | Default |
 | Watchdog | Page | page | Page |
-| Webform submissions | Embed: Administer | embed_administer | Embed |
-| Webform submissions | Embed: Default | embed_default | Embed |
-| Webform submissions | Embed: Manage | embed_manage | Embed |
-| Webform submissions | Embed: Review | embed_review | Embed |
-| Webform submissions | Master | default | Default |
 | Who's new | Who's new | block_1 | Block |
 | Who's new | Master | default | Default |
 | Who's online block | Master | default | Default |

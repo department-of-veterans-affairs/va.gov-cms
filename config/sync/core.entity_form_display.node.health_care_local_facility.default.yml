@@ -17,6 +17,7 @@ dependencies:
     - field.field.node.health_care_local_facility.field_mental_health_phone
     - field.field.node.health_care_local_facility.field_meta_tags
     - field.field.node.health_care_local_facility.field_mobile
+    - field.field.node.health_care_local_facility.field_office_hours
     - field.field.node.health_care_local_facility.field_operating_status_facility
     - field.field.node.health_care_local_facility.field_operating_status_more_info
     - field.field.node.health_care_local_facility.field_phone_number
@@ -28,9 +29,9 @@ dependencies:
     - content_moderation
     - field_group
     - media_library
+    - office_hours
     - paragraphs
     - path
-    - tablefield
     - telephone
     - textfield_counter
 third_party_settings:
@@ -39,7 +40,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 9
+      weight: 8
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -54,7 +55,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 10
+      weight: 9
       format_type: fieldset
       format_settings:
         id: ''
@@ -67,7 +68,7 @@ third_party_settings:
       children:
         - field_location_services
       parent_name: ''
-      weight: 7
+      weight: 6
       format_type: details
       format_settings:
         description: 'Add location services available at this facility such as transportation, parking, visiting hours, lodging options, food options, etc. Do not use this for health services.'
@@ -82,7 +83,7 @@ third_party_settings:
         - field_region_page
         - field_main_location
       parent_name: ''
-      weight: 3
+      weight: 2
       format_type: fieldset
       format_settings:
         description: ''
@@ -96,7 +97,7 @@ third_party_settings:
         - field_intro_text
         - field_media
       parent_name: ''
-      weight: 4
+      weight: 3
       format_type: fieldset
       format_settings:
         id: ''
@@ -108,7 +109,7 @@ third_party_settings:
     group_social_media:
       children: {  }
       parent_name: ''
-      weight: 6
+      weight: 5
       format_type: fieldset
       format_settings:
         id: ''
@@ -133,10 +134,9 @@ third_party_settings:
       region: content
     group_meta_tags:
       children:
-        - field_meta_title
         - field_description
       parent_name: ''
-      weight: 5
+      weight: 4
       format_type: fieldset
       format_settings:
         id: ''
@@ -168,7 +168,7 @@ third_party_settings:
         - field_mobile
         - field_phone_number
         - field_mental_health_phone
-        - field_facility_hours
+        - field_office_hours
       parent_name: group_locations_and_contact_info
       weight: 20
       format_type: tooltip
@@ -222,13 +222,6 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
-  field_facility_hours:
-    type: tablefield
-    weight: 28
-    region: content
-    settings:
-      input_type: textfield
-    third_party_settings: {  }
   field_facility_locator_api_id:
     weight: 22
     settings:
@@ -290,6 +283,12 @@ content:
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
+  field_office_hours:
+    weight: 28
+    settings: {  }
+    third_party_settings: {  }
+    type: office_hours_default
+    region: content
   field_operating_status_facility:
     weight: 5
     settings: {  }
@@ -330,7 +329,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 8
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -350,6 +349,7 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_facility_hours: true
   field_local_health_care_service_: true
   field_meta_tags: true
   promote: true

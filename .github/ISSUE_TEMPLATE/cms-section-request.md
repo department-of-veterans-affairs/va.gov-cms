@@ -1,8 +1,8 @@
 ---
 name: CMS section request
 about: Requests a change to the Sections hierarchy
-title: 
-labels: 'Section request, Content governance, Product support team'
+title: ''
+labels: Content governance, Section request
 assignees: ''
 
 ---
@@ -84,4 +84,3 @@ Please leave only the team that will do this work selected. If you're not sure, 
 
 - [x] `Core Application Team`
 - [x] `Product Support Team`
-
