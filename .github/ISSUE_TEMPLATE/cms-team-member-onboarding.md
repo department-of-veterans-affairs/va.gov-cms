@@ -65,6 +65,7 @@ The following trainings and additional videos can be found on the Knowledge Base
 - [ ] [Watch the training video that Campaign Landing Page editors have to complete](https://youtu.be/RcrOLEvL0xQ).
 - [ ] Read the [product sheets](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/VA-CMS-Product-Sheets.pdf).
 #### All users
+ - [ ] [SOCKS proxy request](https://depo-platform-documentation.scrollhelp.site/getting-started/Internal-tools-access-via-SOCKS-proxy.1821081710.html) to access VA network tools until you get a PIV card. This is the first priority for week two.
  - [ ] What do I need to know about my discipline on this team (DevOps, Engineering, Helpdesk, ID, UX)? Discuss with the discipline lead.
  - [ ] What applications do you need access to? Discuss with the discipline lead.
  - [ ] [VA.gov tools overview](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html)
@@ -74,7 +75,6 @@ The following trainings and additional videos can be found on the Knowledge Base
     - [ ] [VA.gov request instructions](https://github.com/department-of-veterans-affairs/github-user-requests/issues/new?labels=add-user-to-org%2C+new-user%2C+user-created&template=add-user-to-the-va-organization.md&title=ADD+USER+TO+ORG+-+%5BUSERNAME%5D)
     - [ ] [CMS team list](https://github.com/orgs/department-of-veterans-affairs/teams/vfs-cms-team/members) - get added
     - [ ] [Zenhub extension instructions](https://www.zenhub.com/extension)
- - [ ] [SOCKS proxy request](https://depo-platform-documentation.scrollhelp.site/getting-started/Internal-tools-access-via-SOCKS-proxy.1821081710.html) to access VA network tools until you get a PIV card
  - [ ] [Citrix Access Gateway instructions](https://www.oit.va.gov/resources/remote-access/index.cfm?) for after you get your PIV card
  - [ ] [Confluence](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/179765342/2020-2021?NO_SSR=1) for team resources and calendar
  - [ ] [Google Drive](https://drive.google.com/drive/u/0/folders/0ADx85_gnl3Y4Uk9PVA?ths=true) for team documents. Generally, VA doesn't use Google products. Use Github or downloadable files when sharing with VA.
