@@ -58,6 +58,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function alterAlertBlocksForm(FormIdAlterEvent $event): void {
     $form = &$event->getForm();
+    $form['#attached']['library'][] = 'va_gov_workflow_assignments/alert_block_treatment';
     if (!$this->userPermsService->hasAdminRole()) {
       $form['field_node_reference']['#disabled'] = TRUE;
     }
