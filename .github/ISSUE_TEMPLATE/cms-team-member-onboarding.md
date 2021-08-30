@@ -95,7 +95,7 @@ The following trainings and additional videos can be found on the Knowledge Base
 #### Instructional Design
  - [ ] Audio/video recording tools
  - [ ] [YouTube channel for training videos](https://www.youtube.com/channel/UC5Y2p4ASQ5HdRR-pQ8RVQKQ)
-#### [Onboarding for UX](https://docs.google.com/document/d/1bKDptaJomOx9aaeZYBakZkqC1J5Eg7kZGtrUbrD7prg/)
+#### Onboarding for UX
 - [ ] Attend design onboarding call 1: You are here
    - The CMS and the products we support
    - Who are our users?
