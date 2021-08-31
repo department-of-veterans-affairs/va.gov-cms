@@ -9,7 +9,7 @@ Feature: Workflow
        Then exactly the following workflows should exist
        | Label | Machine name | Type |
        | Content publisher can archive  | editorial     | Content moderation |
-       | Only Content Admin can archive | content_admin | Content moderation
+       | Only Content Admin can archive | content_admin | Content moderation |
 
   @dst @workflow_states
      Scenario: Workflow states
