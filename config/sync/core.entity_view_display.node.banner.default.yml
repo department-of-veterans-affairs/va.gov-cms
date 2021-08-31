@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.banner.body
     - field.field.node.banner.field_administration
     - field.field.node.banner.field_alert_type
+    - field.field.node.banner.field_dismissible_option
     - field.field.node.banner.field_target_paths
     - node.type.banner
   module:
@@ -26,6 +27,13 @@ content:
     region: content
   field_alert_type:
     weight: 3
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_dismissible_option:
+    weight: 5
     label: above
     settings: {  }
     third_party_settings: {  }

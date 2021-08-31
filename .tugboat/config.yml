@@ -2,7 +2,9 @@ services:
   # What to call the service hosting the site.
   php:
     # Use PHP 7.x with Apache; this syntax pulls in the latest version of PHP 7
-    image: tugboatqa/php:7.3-apache
+    # Pinning to 7.3.28 until we update from Docker 19 to Docker 20
+    # See https://github.com/department-of-veterans-affairs/va.gov-cms/issues/6216
+    image: tugboatqa/php:7.3.28-apache
 
     aliases:
       - cms
@@ -164,7 +166,11 @@ services:
         - find "${DOCROOT}/vendor/va-gov/content-build/script" -type f -exec chmod +x {} \+
 
   memcache:
-    image: vacmsbot/docker-memcached-tugboat:1.6.6
+    image: tugboatqa/memcached:1.6
+    commands:
+      init:
+        - sed -e 's/256/1024/' -i /etc/service/memcached/run
+        - sv restart memcached
 
   # What to call the service hosting MySQL. This name also acts as the
   # hostname to access the service by from the php service.

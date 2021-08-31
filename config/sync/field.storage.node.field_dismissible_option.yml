@@ -1,0 +1,30 @@
+uuid: 3b87e7b6-a1d9-4d1b-b509-fba93929532b
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_dismissible_option
+field_name: field_dismissible_option
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: perm
+      label: 'Don''t allow site visitors to dismiss banner'
+    -
+      value: dismiss-session
+      label: 'Allow site visitors to dismiss banner for a single session'
+    -
+      value: dismiss
+      label: 'Allow site visitors to dismiss banner permanently'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

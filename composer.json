@@ -66,7 +66,7 @@
         "drupal/field_group": "^3.1",
         "drupal/fieldhelptext": "^1.0@beta",
         "drupal/flag": "^4.0@beta",
-        "drupal/flood_control": "^2.1",
+        "drupal/flood_control": "^2.2.2",
         "drupal/govdelivery_bulletins": "^1.2",
         "drupal/graphql": "^3.0",
         "drupal/graphql_core": "^3.1.0",
@@ -121,7 +121,7 @@
         "drupal/simplesamlphp_auth": "^3.2",
         "drupal/site_alert": "1.2",
         "drupal/slack": "^1.2",
-        "drupal/smart_date": "3.3.0",
+        "drupal/smart_date": "3.4.2",
         "drupal/social_media_links": "^2.6",
         "drupal/string_field_formatter": "^2.0",
         "drupal/tablefield": "^2.1",
@@ -134,7 +134,7 @@
         "drupal/views_bulk_edit": "^2.3",
         "drupal/views_bulk_operations": "^3.11",
         "drupal/views_data_export": "^1.0@beta",
-        "drupal/webform": "^6",
+        "drupal/webform": "^6.0",
         "drupal/workbench_access": "^1.0-beta4",
         "drupal/workbench_menu_access": "^1.0",
         "drupal/workflow_assignments": "1.x-dev",
@@ -164,7 +164,7 @@
         "symfony/process": "^4.0",
         "symfony/routing": "^4.0",
         "traviscarden/behat-table-comparison": "~0.2",
-        "va-gov/content-build": "^0.0.832",
+        "va-gov/content-build": "^0.0.1023",
         "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
@@ -234,6 +234,24 @@
         "ewa": {
             "type": "git",
             "url": "https://github.com/agilesix/workflow_assignments.git"
+        },
+        "tippyjs/6.x": {
+            "type": "package",
+            "package": {
+                "name": "tippyjs/6.x",
+                "version": "6.2.6",
+                "type": "drupal-library",
+                "extra": {
+                    "installer-name": "tippyjs/6.x"
+                },
+                "dist": {
+                    "url": "https://unpkg.com/tippy.js@6.2.6/dist/tippy-bundle.umd.min.js",
+                    "type": "file"
+                },
+                "require": {
+                    "composer/installers": "~1.0"
+                }
+            }
         }
     },
     "config": {
@@ -329,7 +347,9 @@
                 "2911932 - Correct vertical tab does not focus on form validation": "https://www.drupal.org/files/issues/2020-12-12/vertical-tabs--focus-on-onvalid-7b.patch",
                 "2893933 - claimItem in the database and memory queues does not use expire correctly": "https://www.drupal.org/files/issues/2021-01-14/2893933-40.patch",
                 "3198608 - Migrate does not set set track_lst_updated from config": "https://www.drupal.org/files/issues/2021-07-27/track-last-updated-tests-3198608-14.patch",
-                "3205691 - Disallow aria-required on fieldsets": "https://www.drupal.org/files/issues/2021-03-25/disallow-aria-required-fieldsets.patch"
+                "3025164 - Make moderation_state available to field queries":"https://www.drupal.org/files/issues/2020-09-25/3025164-28.patch",
+                "3205691 - Disallow aria-required on fieldsets": "https://www.drupal.org/files/issues/2021-03-25/disallow-aria-required-fieldsets.patch",
+                "3229493 - TextareaWidget::errorElement() does not consult violation property path.": "https://www.drupal.org/files/issues/2021-08-23/test_module-3229493-2.patch"
             },
             "drupal/entity_browser": {
                 "Entity display plugin Rendered Entity is missing cache tags/keys": "https://www.drupal.org/files/issues/2020-03-31/rendered-entity-cache-keys-tags-3123876-2.patch",
@@ -351,10 +371,6 @@
             },
             "drupal/feature_toggle": {
                 "3147452 - Make compatible with d9": "https://www.drupal.org/files/issues/2020-06-06/feature_toggle.1.x-dev.rector.patch"
-            },
-            "drupal/flood_control": {
-                "3191346 - Custom events not listed in getEvents() of floodUnblockManager caused undefined index error": "https://www.drupal.org/files/issues/2021-02-16/flood_control-prevent_notices_for_custom_events-3191346-9.patch",
-                "3192020 - Flood control admin form adds contact.settings when Contact module is not enabled": "https://www.drupal.org/files/issues/2021-01-10/3192020-2.patch"
             },
             "drupal/field_group": {
                 "2787179 Visibility of invalid fields": "https://www.drupal.org/files/issues/2021-01-05/2787179-highlight-html5-validation-59.patch",
@@ -384,6 +400,9 @@
             "drupal/migrate_plus": {
                 "3113461 - Allow properties in str_replace process plugin.": "https://www.drupal.org/files/issues/2020-03-16/migrate_plus-properties_str_replace-2.patch",
                 "Allow request options https://gitlab.com/drupalspoons/migrate_plus/-/issues/257": "https://gitlab.com/drupalspoons/migrate_plus/uploads/35f5950f1647e237cdd706f2e3e93c54/257-add-request-option-support-to-http.patch"
+            },
+            "drupal/office_hours": {
+                "3227169 - Form fields in table cell missing labels causes accessibility warnings": "https://www.drupal.org/files/issues/2021-08-09/labels-for-accessibility-3227169-3.patch"
             },
             "drupal/paragraphs": {
                 "Content & Behavior tabs use fixed IDs": "https://www.drupal.org/files/issues/2020-10-14/paragraphs-fix_duplicate_content_behavior_tab_ids-3176946-3.patch",

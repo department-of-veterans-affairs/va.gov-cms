@@ -2,7 +2,7 @@
 
 ## About
 
-[Github Codespaces](https://github.com/features/codespaces) is a cloud-based development environment that can be used in-browser or (preferably) with [Visual Studio Code](https://code.visualstudio.com). Codespaces is currently (Q1 2021) under evaluation by DSVA. Please join [#codespaces](https://dsva.slack.com/archives/C01AN96U39V) for any comments or questions about using Codespaces at VA .
+[Github Codespaces](https://github.com/features/codespaces) is a cloud-based development environment that can be used in-browser or (preferably) with [Visual Studio Code](https://code.visualstudio.com). Please join [#codespaces](https://dsva.slack.com/archives/C01AN96U39V) for any comments or questions about using Codespaces at VA .
 
 ## Access
 
@@ -16,9 +16,9 @@
 4. See [Getting Started](https://github.com/department-of-veterans-affairs/vets-website/blob/master/docs/GithubCodespaces.md#getting-started) in `vets-website` for more detail.
 
 ## Local VS Code
-3. Download and install [Visual Studio Code](https://code.visualstudio.com/download)
+1. Download and install [Visual Studio Code](https://code.visualstudio.com/download)
   1. Arch Linux: `yay --sync visual-studio-code-bin`
-4. Open VS Code and install the [Codespaces plugin](https://marketplace.visualstudio.com/items?itemName=ms-vsonline.vsonline)
+1. Open VS Code and install the [Codespaces plugin](https://marketplace.visualstudio.com/items?itemName=ms-vsonline.vsonline)
   ![codespaces plugin](https://user-images.githubusercontent.com/101649/111006584-4d24ad80-834a-11eb-84d8-b0f574880e49.png)
 1. Once you've received access, go to the main [Codespaces page](https://github.com/codespaces) and click the 'New codespace' button
 1. Make sure your remote fork is updated with the latest in upstream repo (must have .devenvironment to work)
@@ -26,11 +26,16 @@
   ![codespaces creation](https://user-images.githubusercontent.com/101649/111007305-beb12b80-834b-11eb-8c80-138586ca4720.png)
 1. Click "Sign into GitHub", a browser will open authorizing GitHub and VS Code.
    ![image](https://user-images.githubusercontent.com/1504756/111011691-0d13f980-834f-11eb-8595-cff579659869.png)
-1. Click 'Create codespace', and you will be taken to the Web UI. You may close the browser window at any time.
+1. Click 'Create codespace'
+1. You will see this dialog:
+
+<img width="652" alt="Screen Shot 2021-08-24 at 4 24 37 PM" src="https://user-images.githubusercontent.com/101649/130698169-741b0154-28b9-4b38-80d3-ed507225a8b9.png">
+
+1. Choose a machine type with at least 64GB of disk space to ensure that you have enough space to run the project.
 1. Open VS Code, click the 'Remote Explorer' tab on the left, and click the 'Connect to codespace' button (it looks like an electric plug) to choose the codespace you just created:
    ![codespaces connection](https://user-images.githubusercontent.com/101649/111007602-75151080-834c-11eb-8c5d-9ef73ef03b30.png)
 1. After a few seconds, you will be connected to codespaces, and the IDE will function like it is running locally for all intents and purposes
-1. The development environment will automatically configure, install and start [lando](lando.md) on creation (as long as it has the correct .devenvironment file on your fork) , which takes about ~10-15 minutes. To monitor the process, choose 'New Terminal' from the 'Terminal' menu, and run this command: `tail -f ~/post-create.log`. The environment configuration also suggests plugins for linting and code style checking, and sets up the upstream git remote for the main CMS repo.
+1. The development environment will automatically configure, install and start [lando](lando.md) on creation, which takes ~10-15 minutes. To monitor the process, choose 'New Terminal' from the 'Terminal' menu, and run this command: `tail -f ~/post-create.log`. The environment configuration also suggests plugins for linting and code style checking, and sets up the upstream git remote for the main CMS repo.
 1. When the setup process is complete, you will see the text: `File sync from cms-prod-files-latest.tgz is complete.`
 1. 1. You may want to change your git email address for commits with `git config --global user.email first.last@workemail.com`. You can see what is currently listed with `git config --global --list`. 
 1. Your development environment is ready to use! Create a new terminal and run the command `lando info`. Mouse over the link to localhost, and VS Code will provide instructions to open the site in your browser with automatic port forwarding:
@@ -40,9 +45,15 @@
 
 ### Shell environment
 
-To set up your preferred shell environment, you may create a public 'dotfiles' repo under your own github account. More information is available in [the official documentation](https://docs.github.com/en/github/developing-online-with-codespaces/personalizing-codespaces-for-your-account). If you create and populate a `.bash_aliases` file in your dotfiles repository, any aliases you add will be available in the codespaces environment.
+To set up your preferred shell environment, you may create a public 'dotfiles' repo under your own github account. More information is available in [the official documentation](https://docs.github.com/en/github/developing-online-with-codespaces/personalizing-codespaces-for-your-account). If you create and populate a `.bash_aliases` file in your dotfiles repository and [enable your dotfiles repository for Codespaces](https://docs.github.com/en/codespaces/customizing-your-codespace/personalizing-codespaces-for-your-account#enabling-your-dotfiles-repository-for-codespaces), any aliases you add will be available in the codespaces environment.
 
 ## Usage
+
+### Viewing the Drupal site
+
+1. In a terminal, run the command `lando info`
+2. In the `appserver` section of the output, hover over one of the localhost addresses, e.g. `http://localhost:49161`
+3. Command-click to automatically forward the port and open in your local browser
 
 ### Debugging
 
