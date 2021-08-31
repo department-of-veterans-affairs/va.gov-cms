@@ -1,9 +1,9 @@
-uuid: c8368e18-0403-4930-bde1-a5a9293c005b
+uuid: c14f388b-d7fb-4a77-ade1-e0d6add631fe
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_product
+    - field.storage.node.field_products
     - node.type.documentation_page
     - taxonomy.vocabulary.products
   module:
@@ -13,14 +13,14 @@ third_party_settings:
     circular_reference: false
     circular_reference_deep: false
     duplicate_reference: false
-id: node.documentation_page.field_product
-field_name: field_product
+id: node.documentation_page.field_products
+field_name: field_products
 entity_type: node
 bundle: documentation_page
-label: Product
+label: Products
 description: ''
 required: false
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
