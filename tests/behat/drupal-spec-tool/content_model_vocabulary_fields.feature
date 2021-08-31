@@ -10,6 +10,7 @@ Feature: Content model: Vocabulary fields
        | Type | Bundle | Field label | Machine name | Field type | Required | Cardinality | Form widget | Translatable |
 | Vocabulary | Audience - Beneficiaries | Promoted to Resources and Support Homepage | field_audience_rs_homepage | Boolean |  | 1 | Single on/off checkbox |  |
 | Vocabulary | Audience - Non-beneficiaries | Promoted to Resources and Support Homepage | field_audience_rs_homepage | Boolean |  | 1 | Single on/off checkbox | Translatable |
+| Vocabulary | Products | Knowledge base landing page | field_kb_landing_page | Entity reference |  | 1 | Autocomplete |  |
 | Vocabulary | Sections | Description | field_description | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | Sections | Link text | field_email_updates_link_text | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | Sections | Link | field_link | Link |  | 1 | Linkit |  |
