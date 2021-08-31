@@ -7,7 +7,19 @@ const creators = {
     cy.scrollTo('top');
     cy.findAllByLabelText('Page title').type('[Test Data] ' + faker.lorem.sentence(), { force: true });
     cy.findAllByLabelText('Page introduction').type(faker.lorem.sentence(), { force: true });
-    cy.findAllByLabelText('Owner').select('Veterans Affairs', { force: true });
+    cy.findAllByLabelText('Section').select('Veterans Affairs', { force: true });
+    cy.findAllByLabelText('Parent link').select('-- CMS Knowledge Base (disabled)', { force: true });
+    return cy.get('form.node-form').find('input#edit-submit').click();
+  },
+  health_care_region_detail_page: () => {
+    cy.visit('/node/add/health_care_region_detail_page');
+    cy.scrollTo('top');
+    cy.findAllByLabelText('Page title').type('[Test Data] ' + faker.lorem.sentence(), { force: true });
+    cy.findAllByLabelText('Page introduction').type(faker.lorem.sentence(), { force: true });
+    cy.findAllByLabelText('Section').select('Veterans Affairs', { force: true });
+    cy.findAllByLabelText('Related office or health care system').select('VA Alaska health care', { force: true });
+    cy.findAllByLabelText('Parent link').select('-------- Anchorage VA Medical Center', { force: true });
+    cy.findAllByLabelText('Meta description').type(faker.lorem.sentence(), { force: true });
     return cy.get('form.node-form').find('input#edit-submit').click();
   },
   office: () => {
@@ -15,10 +27,10 @@ const creators = {
     cy.scrollTo('top');
     cy.findAllByLabelText('Name').type('[Test Data] ' + faker.lorem.sentence(), { force: true });
     cy.findAllByLabelText('Meta title tag').type('[Test Data] ' + faker.lorem.sentence(), { force: true });
-    cy.findAllByLabelText('Owner').select('Veterans Affairs', { force: true });
+    cy.findAllByLabelText('Section').select('Veterans Affairs', { force: true });
     cy.findAllByLabelText('Provide a menu link').check({ force: true });
     cy.findAllByLabelText('Menu link title').type('[Test Data] ' + faker.lorem.sentence(), { force: true });
-    cy.findAllByLabelText('Enable in menu').uncheck({ force: true });
+    cy.findAllByLabelText('Parent link').select('-- Outreach and events', { force: true });
     return cy.get('form.node-form').find('input#edit-submit').click();
   },
   step_by_step: () => {
@@ -29,7 +41,7 @@ const creators = {
     // Enter text into page intro ckeditor.
     cy.type_ckeditor("edit-field-intro-text-limited-html-0-value", faker.lorem.sentence());
 
-    cy.findAllByLabelText('Owner').select('Veterans Affairs', { force: true });
+    cy.findAllByLabelText('Section').select('Veterans Affairs', { force: true });
     cy.findAllByLabelText('Button Link').type('https://va.gov/', { force: true });
     cy.findAllByLabelText('Button Label').type('va.gov', { force: true });
     cy.findAllByLabelText('Section Header').type(faker.lorem.word(), { force: true });

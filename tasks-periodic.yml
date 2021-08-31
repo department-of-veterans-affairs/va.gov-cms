@@ -10,20 +10,44 @@ tasks:
   # http://jenkins.vfs.va.gov/job/cms/job/cms-daily
   daily:
     cmds:
-      - task: va/background/daily/migrate_copy/va_forms_csv_source
-      - task: va/background/daily/migrate/va_forms
-      - task: va/background/daily/migrate/health_care_local_facility
-      - task: va/background/daily/migrate/vet_centers_facility
-      - task: va/background/daily/migrate/vba_facility
-      - task: va/background/daily/migrate/nca_facility
-      - task: va/background/daily/update/taxonomy_entity_index
+      - |
+        cat <<EOF | bash
+          exit_code=0
+          tasks=(
+            va/background/daily/migrate_copy/va_forms_csv_source
+            va/background/daily/migrate/va_forms
+            va/background/daily/migrate/health_care_local_facility
+            va/background/daily/migrate/vet_centers_facility
+            va/background/daily/migrate/vba_facility
+            va/background/daily/migrate/nca_facility
+            va/background/daily/update/taxonomy_entity_index
+          )
+          trap '{ (( exit_code |=\$? )); }' ERR
+          for i in "\${tasks[@]}"; do
+            task --taskfile=./tasks-periodic.yml \$i
+          done
+          trap - ERR
+          exit \$exit_code;
+        EOF
 
   # Run with: ./bin/task --taskfile=tasks-periodic.yml periodic
   # http://jenkins.vfs.va.gov/job/cms/job/cms-periodic
   periodic:
     cmds:
-      - task: va/background/periodic/migrate/facility_status
-      - task: va/background/periodic/cron
+      - |
+        cat <<EOF | bash
+          exit_code=0
+          tasks=(
+            "va/background/periodic/migrate/facility_status"
+            "va/background/periodic/cron"
+          )
+          trap '{ (( exit_code |=\$? )); }' ERR
+          for i in "\${tasks[@]}"; do
+            task --taskfile=./tasks-periodic.yml \$i
+          done
+          trap - ERR
+          exit \$exit_code;
+        EOF
 
   va/background/daily/migrate_copy/va_forms_csv_source:
     desc: This is because we cannot access the server on the SOCKS proxy right now.

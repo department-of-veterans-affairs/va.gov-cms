@@ -1,0 +1,144 @@
+uuid: 86ce5fa5-0c5e-46d4-a875-d3010434f15e
+langcode: en
+status: true
+dependencies: {  }
+id: facility_health_care_service_visn_10_17_20
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - Content
+  - Node
+migration_group: vamc
+label: 'Node - VAMC Facility Health Services VISN 10,17,20.'
+source:
+  plugin: csv
+  path: modules/custom/va_gov_migrate/data/facility-health-care-service-visn-10-17-20.csv
+  delimiter: ;
+  enclosure: ''''
+  escape: \
+  header_offset: 0
+  track_changes: true
+  ids:
+    - id
+  fields:
+    -
+      name: id
+      label: Id
+    -
+      name: field_facility_location
+      label: 'Facility Name'
+    -
+      name: field_regional_health_service
+      label: 'VAMC System Health Service'
+    -
+      name: field_body
+      label: 'Facility description of services'
+    -
+      name: field_administration
+      label: Owner
+process:
+  field_facility_location:
+    -
+      plugin: callback
+      callable: trim
+      source: field_facility_location
+    -
+      plugin: entity_lookup
+      ignore_case: true
+      value_key: title
+      entity_type: node
+      bundle_key: type
+      bundle: health_care_local_facility
+    -
+      plugin: skip_on_empty
+      method: row
+      message: 'Entity lookup for field_facility_location found nothing.'
+  field_regional_health_service:
+    -
+      plugin: callback
+      callable: trim
+      source: field_regional_health_service
+    -
+      plugin: entity_lookup
+      ignore_case: true
+      value_key: title
+      entity_type: node
+      bundle_key: type
+      bundle: regional_health_care_service_des
+    -
+      plugin: skip_on_empty
+      method: row
+      message: 'Entity lookup for field_regional_health_service found nothing.'
+  field_body/format:
+    plugin: default_value
+    default_value: rich_text
+  field_body/value: field_body
+  field_administration:
+    -
+      plugin: callback
+      callable: trim
+      source: field_administration
+    -
+      plugin: entity_lookup
+      entity_type: taxonomy_term
+      value_key: name
+      bundle_key: vid
+      bundle: administration
+    -
+      plugin: skip_on_empty
+      method: row
+      message: 'Entity lookup for field_administration found nothing.'
+  field_service_location:
+    -
+      plugin: create_default_paragraph_revision
+      paragraph_default:
+        create_paragraph_bundle: service_location
+        field_service_location_address:
+          create_paragraph_bundle: service_location_address
+          field_use_facility_address: true
+        field_hours: 0
+        field_use_facility_address: true
+        field_use_main_facility_phone: true
+  changed:
+    plugin: callback
+    callable: va_gov_migrate_time
+  new_revision:
+    plugin: default_value
+    default_value: true
+  revision_default:
+    plugin: default_value
+    default_value: true
+  revision_log:
+    plugin: default_value
+    default_value: 'Imported by facility_health_care_service_2 migration.'
+  revision_timestamp:
+    plugin: callback
+    callable: va_gov_migrate_time
+  revision_uid:
+    plugin: default_value
+    default_value: 1317
+  langcode:
+    plugin: default_value
+    default_value: en
+  uid:
+    plugin: default_value
+    default_value: 1317
+destination:
+  plugin: 'entity:node'
+  default_bundle: health_care_local_health_service
+  validate: false
+  overwrite_properties:
+    - changed
+    - field_administration
+    - field_facility_location
+    - field_regional_health_service
+    - new_revision
+    - revision_default
+    - revision_log
+    - revision_timestamp
+    - uid
+migration_dependencies:
+  required:
+    - regional_health_care_service_region_keyed
+  optional: {  }

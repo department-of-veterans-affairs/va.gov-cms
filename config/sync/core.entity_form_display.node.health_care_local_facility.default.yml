@@ -16,8 +16,8 @@ dependencies:
     - field.field.node.health_care_local_facility.field_media
     - field.field.node.health_care_local_facility.field_mental_health_phone
     - field.field.node.health_care_local_facility.field_meta_tags
-    - field.field.node.health_care_local_facility.field_meta_title
     - field.field.node.health_care_local_facility.field_mobile
+    - field.field.node.health_care_local_facility.field_office_hours
     - field.field.node.health_care_local_facility.field_operating_status_facility
     - field.field.node.health_care_local_facility.field_operating_status_more_info
     - field.field.node.health_care_local_facility.field_phone_number
@@ -29,9 +29,9 @@ dependencies:
     - content_moderation
     - field_group
     - media_library
+    - office_hours
     - paragraphs
     - path
-    - tablefield
     - telephone
     - textfield_counter
 third_party_settings:
@@ -48,7 +48,7 @@ third_party_settings:
         open: true
         required_fields: true
         weight: -10
-      label: Governance
+      label: 'Section settings'
       region: content
     group_editorial_workflow:
       children:
@@ -118,27 +118,6 @@ third_party_settings:
         required_fields: true
       label: 'Social Media'
       region: content
-    group_facility_api:
-      children:
-        - title
-        - field_facility_locator_api_id
-        - field_facility_classification
-        - field_address
-        - field_mobile
-        - field_phone_number
-        - field_mental_health_phone
-        - field_facility_hours
-      parent_name: ''
-      weight: 0
-      format_type: details
-      format_settings:
-        description: 'The following is automatically populated by the Facility API with location info from a national database of VA facilities. If you need to request a change, <a href="https://vaww.va.gov/WEBCOM/VAMC_Facility_Location_Updates.asp">contact an administrator</a>.'
-        open: true
-        id: ''
-        classes: ''
-        required_fields: false
-      label: 'Basic location data'
-      region: content
     group_operating_status:
       children:
         - field_operating_status_facility
@@ -155,7 +134,6 @@ third_party_settings:
       region: content
     group_meta_tags:
       children:
-        - field_meta_title
         - field_description
       parent_name: ''
       weight: 4
@@ -167,13 +145,53 @@ third_party_settings:
         required_fields: true
       label: 'Meta Tags'
       region: content
+    group_locations_and_contact_info:
+      children:
+        - group_facility_data_from_vast
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      region: content
+      format_settings:
+        description: ''
+        required_fields: true
+        id: locations-and-contact-information
+        classes: ''
+        show_empty_fields: false
+      label: 'Locations and contact information'
+    group_facility_data_from_vast:
+      children:
+        - title
+        - field_facility_locator_api_id
+        - field_facility_classification
+        - field_address
+        - field_mobile
+        - field_phone_number
+        - field_mental_health_phone
+        - field_office_hours
+      parent_name: group_locations_and_contact_info
+      weight: 20
+      format_type: tooltip
+      region: content
+      format_settings:
+        show_label: '1'
+        tooltip_description: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
+        description: 'To request a correction or update to this centrally-managed data, <a class="admin-help-email-tpl" href="mailto:api@va.gov?bcc=vadrupalcms@va.gov&subject=Requested updates to [js_entry_facility_name] facility data&body=Dear API team,%0D%0A%0D%0AI would like to request an update to data for my facility.%0D%0A%0D%0AFacility%0D%0AFacility Name: [js_entry_facility_name]%0D%0AFacility ID: [js_entry_facility_id]%0D%0A%0D%0AAffected data%0D%0AThe following type of information needs to be updated:%0D%0A[Add your response here, for example: facility name, address, phone number, etc.]%0D%0A%0D%0ARequested Update%0D%0APlease make the following changes:%0D%0A[Add your response here, for example, ''''change street address from 123 Fake Street to 456 Real Street.'''']">email an administrator</a>.'
+        required_fields: '1'
+        id: external-content
+        classes: ''
+        show_empty_fields: 0
+        element: div
+        label_element: h3
+        attributes: ''
+      label: 'Facility data'
 id: node.health_care_local_facility.default
 targetEntityType: node
 bundle: health_care_local_facility
 mode: default
 content:
   field_address:
-    weight: 14
+    weight: 24
     settings: {  }
     third_party_settings: {  }
     type: address_default
@@ -199,20 +217,13 @@ content:
     type: string_textfield_with_counter
     region: content
   field_facility_classification:
-    weight: 13
+    weight: 23
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
-  field_facility_hours:
-    weight: 18
-    settings:
-      input_type: textfield
-    third_party_settings: {  }
-    type: tablefield
-    region: content
   field_facility_locator_api_id:
-    weight: 12
+    weight: 22
     settings:
       size: 60
       placeholder: ''
@@ -253,38 +264,30 @@ content:
     region: content
   field_media:
     type: media_library_widget
-    weight: 7
+    weight: 8
     settings:
       media_types: {  }
     region: content
     third_party_settings: {  }
   field_mental_health_phone:
-    weight: 17
+    weight: 27
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
     region: content
-  field_meta_title:
-    weight: 2
-    settings:
-      size: 70
-      placeholder: ''
-      use_field_maxlength: true
-      maxlength: null
-      counter_position: after
-      js_prevent_submit: true
-      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
-      count_html_characters: false
-    third_party_settings: {  }
-    type: string_textfield_with_counter
-    region: content
   field_mobile:
-    weight: 15
+    weight: 25
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
+    region: content
+  field_office_hours:
+    weight: 28
+    settings: {  }
+    third_party_settings: {  }
+    type: office_hours_default
     region: content
   field_operating_status_facility:
     weight: 5
@@ -306,7 +309,7 @@ content:
     type: string_textarea_with_counter
     region: content
   field_phone_number:
-    weight: 16
+    weight: 26
     settings:
       placeholder: ''
     third_party_settings: {  }
@@ -332,7 +335,7 @@ content:
     third_party_settings: {  }
   title:
     type: string_textfield_with_counter
-    weight: 11
+    weight: 21
     region: content
     settings:
       size: 60
@@ -346,6 +349,7 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_facility_hours: true
   field_local_health_care_service_: true
   field_meta_tags: true
   promote: true

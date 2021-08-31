@@ -1,10 +1,10 @@
 <?php
 
-// @codingStandardsIgnoreFile
+// phpcs:ignoreFile
 
 /**
  * For documentation and more options
- * @see https://git.drupalcode.org/project/drupal/blob/8.6.x/sites/default/default.settings.php
+ * @see /docroot/sites/default/default.settings.php
  */
 
 /**
@@ -163,6 +163,9 @@ foreach ($facility_migrations as $facility_migration) {
   $config["migrate_plus.migration.{$facility_migration}"]['source']['headers']['apikey'] = $facility_api_key;
 }
 
+// HTTP client settings
+$settings['http_client_config']['timeout'] = 60;
+
 // Variables for post_api.
 $settings['post_api_endpoint_host'] = getenv('CMS_VAGOV_API_URL') ?: FALSE;
 $settings['post_api_apikey'] = getenv('CMS_VAGOV_API_KEY') ?: FALSE;
@@ -228,9 +231,6 @@ if (!empty($webhost_on_cli)) {
 
   $settings['file_public_base_url'] = "{$webhost}/sites/default/files";
 }
-
-// Disable use of the Symfony autoloader, and use the Composer autoloader instead.
-$settings['class_loader_auto_detect'] = FALSE;
 
 // Memcache-specific settings
 if (extension_loaded('memcache') && !empty($settings['memcache']['servers'])) {

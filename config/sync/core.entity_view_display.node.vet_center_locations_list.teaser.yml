@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.vet_center_locations_list.field_administration
+    - field.field.node.vet_center_locations_list.field_enforce_unique_combo
     - field.field.node.vet_center_locations_list.field_intro_text
     - field.field.node.vet_center_locations_list.field_nearby_mobile_vet_centers
     - field.field.node.vet_center_locations_list.field_nearby_vet_centers
@@ -29,6 +30,7 @@ content:
     region: content
 hidden:
   field_administration: true
+  field_enforce_unique_combo: true
   field_intro_text: true
   field_nearby_mobile_vet_centers: true
   field_nearby_vet_centers: true

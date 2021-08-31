@@ -22,7 +22,7 @@ Feature: The VA Website is generated inside the Drupal CMS code.
     And I select "Published" from "edit-moderation-state-0-state"
     And I fill in "Revision log message" with "Test publishing"
     And I press "Save"
-    Then I should see "Benefits detail page VA blind and low vision rehabilitation services - EDITED has been updated."
+    Then I should see "VA blind and low vision rehabilitation services - EDITED\u003C\/a\u003E\u003C\/em\u003E has been updated."
     And I should see "Recent changes" in the ".view-right-sidebar-latest-revision" element
 
     # Test content unpublishing.

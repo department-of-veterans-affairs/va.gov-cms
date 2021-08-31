@@ -10,6 +10,7 @@ Feature: Content model: Vocabulary fields
        | Type | Bundle | Field label | Machine name | Field type | Required | Cardinality | Form widget | Translatable |
 | Vocabulary | Audience - Beneficiaries | Promoted to Resources and Support Homepage | field_audience_rs_homepage | Boolean |  | 1 | Single on/off checkbox |  |
 | Vocabulary | Audience - Non-beneficiaries | Promoted to Resources and Support Homepage | field_audience_rs_homepage | Boolean |  | 1 | Single on/off checkbox | Translatable |
+| Vocabulary | Products | Knowledge base landing page | field_kb_landing_page | Entity reference |  | 1 | Autocomplete |  |
 | Vocabulary | Sections | Description | field_description | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | Sections | Link text | field_email_updates_link_text | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | Sections | Link | field_link | Link |  | 1 | Linkit |  |
@@ -18,7 +19,7 @@ Feature: Content model: Vocabulary fields
 | Vocabulary | Sections | URL | field_email_updates_url | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | VHA health service taxonomy | Common conditions | field_commonly_treated_condition | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | VHA health service taxonomy | Health Service API ID | field_health_service_api_id | Text (plain) |  | 1 | Textfield |  |
-| Vocabulary | VHA health service taxonomy | Owner | field_owner | Entity reference | Required | 1 | -- Disabled -- |  |
+| Vocabulary | VHA health service taxonomy | Section | field_owner | Entity reference | Required | 1 | -- Disabled -- |  |
 | Vocabulary | VHA health service taxonomy | Patient-friendly name | field_also_known_as | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | VHA health service taxonomy | Type of care | field_service_type_of_care | List (text) |  | 1 | Select list |  |
 | Vocabulary | VHA health service taxonomy | VHA Stop code | field_vha_healthservice_stopcode | Number (integer) |  | 1 | Number field |  |

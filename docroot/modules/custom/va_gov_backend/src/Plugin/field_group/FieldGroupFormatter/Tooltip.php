@@ -2,10 +2,7 @@
 
 namespace Drupal\va_gov_backend\Plugin\field_group\FieldGroupFormatter;
 
-use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\field_group\Plugin\field_group\FieldGroupFormatter\HtmlElement;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Component\Utility\Html;
 
 /**
@@ -21,48 +18,7 @@ use Drupal\Component\Utility\Html;
  *   }
  * )
  */
-class Tooltip extends HtmlElement implements ContainerFactoryPluginInterface {
-  /**
-   * The entity manager service.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
-   */
-  protected $entityManager;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    return new static(
-      $plugin_id,
-      $plugin_definition,
-      $configuration['group'],
-      $configuration['settings'],
-      $configuration['label'],
-      $container->get('entity_type.manager')
-    );
-  }
-
-  /**
-   * Constructs a FieldGroupFormatterBase object.
-   *
-   * @param string $plugin_id
-   *   The plugin_id for the formatter.
-   * @param mixed $plugin_definition
-   *   The plugin implementation definition.
-   * @param object $group
-   *   The group object.
-   * @param array $settings
-   *   The formatter settings.
-   * @param string $label
-   *   The formatter label.
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityManager
-   *   The entity instance.
-   */
-  public function __construct($plugin_id, $plugin_definition, \stdClass $group, array $settings, $label, EntityTypeManagerInterface $entityManager) {
-    parent::__construct($plugin_id, $plugin_definition, $group, $settings, $label);
-    $this->entityManager = $entityManager;
-  }
+class Tooltip extends HtmlElement {
 
   /**
    * {@inheritdoc}
@@ -79,7 +35,7 @@ class Tooltip extends HtmlElement implements ContainerFactoryPluginInterface {
       $element['tooltip_description'] = [
         '#type' => 'html_tag',
         '#tag' => 'div',
-        '#prefix' => '<button class="tooltip-toggle" role="tooltip" title="' . $this->getSetting('tooltip_description') . '" value="' . $this->getSetting('tooltip_description') . '"></button>',
+        '#prefix' => '<button type="button" aria-label="tooltip" class="tooltip-toggle" role="presentation" title="' . $this->getSetting('tooltip_description') . '" value="' . $this->getSetting('tooltip_description') . '"></button>',
         '#attributes' => [
           'id' => [
             Html::getUniqueId('add-tooltip-description'),
@@ -94,6 +50,8 @@ class Tooltip extends HtmlElement implements ContainerFactoryPluginInterface {
         '#type' => 'html_tag',
         '#tag' => 'div',
         '#attributes' => [
+          'aria-label' => 'tooltip',
+          'role' => 'presentation',
           'class' => [
             'description',
           ],
@@ -198,7 +156,7 @@ class Tooltip extends HtmlElement implements ContainerFactoryPluginInterface {
     $defaults = [
       'open' => FALSE,
       'required_fields' => $context == 'form',
-    ] + parent::defaultSettings($context);
+    ] + parent::defaultSettings();
 
     if ($context === 'form') {
       $defaults['required_fields'] = 1;

@@ -93,6 +93,7 @@ For example, when creating the 'Wilmington health care' demo environment, these 
 | Run more advanced commands with the `tugboat` tool on the proxy | See the "Tugboat's CLI tool for software engineers" section of this document. |
 | Want to get the latest .env file | Run a "Refresh" to run the "Build" stage which re-generates the .env file with latest ENV variables. |
 | Use a branch as a base preview for further PRs that will be merged into that branch | Push the base preview branch upstream, then go to branches and click "Build Preview".  From that preview, click "Preview Settings", select "Use this preview as a Base Preview", then select "Branch Base Preview".  PRs representing branches based on the base preview branch will then create previews that use that base preview.| 
+| Send an email and capture it in the Tugboat interface | Manually update the email address of the user in question.|
 
 ## Tugboat config testing operations
 | I want to... | Then you should... |
@@ -113,3 +114,4 @@ For example, when creating the 'Wilmington health care' demo environment, these 
 1. The generated URLs have only been observed to change when the file .tugboat/config.yml is modified by changing the name of a defined service, or changes the default service.
 1. You cannot search logs with a browser right now, it is a known issue. The alternative is to use the `tugboat` CLI tool to view logs.
 1. You cannot scroll the logs while they are outputting, you can only scroll once they are done. If you want to see previous output then use the Tugboat CLI tool with `tugboat log <service id>` and scroll that way.
+1. Email cannot be sent to existing users, as their email addresses are blanked during the database sanitization process (see [#6100](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/6100)).  Email to new users, or users whose email addresses have been updated, can be sent and will be captured in the Tugboat interface.

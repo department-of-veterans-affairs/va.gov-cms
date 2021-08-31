@@ -1,5 +1,6 @@
 import '@testing-library/cypress/add-commands';
 import 'cypress-file-upload';
+import 'cypress-real-events/support';
 
 const compareSnapshotCommand = require('cypress-visual-regression/dist/command');
 
@@ -94,6 +95,13 @@ Cypress.Commands.add('iframe', { prevSubject: 'element' }, ($iframe, callback = 
 
 Cypress.Commands.add("type_ckeditor", (element, content) => {
   cy.window().then((win) => {
+    const elements = Object.keys(win.CKEDITOR.instances);
+    if (elements.indexOf(element) === -1) {
+      const matches = elements.filter((el) => el.includes(element));
+      if (matches.length) {
+        element = matches[0];
+      }
+    }
     win.CKEDITOR.instances[element].setData(content);
   });
 });
@@ -121,7 +129,7 @@ Cypress.Commands.add('unsetWorkbenchAccessSections', () => {
   return cy.get('@uid')
     .then((uid) => {
       const command = `
-        $user = user_load(${uid});
+        $user = \\Drupal\\user\\Entity\\User::load(${uid});
         $section_scheme = \\Drupal::entityTypeManager()->getStorage('access_scheme')->load('section');
         $section_storage = \\Drupal::service('workbench_access.user_section_storage');
         $current_sections = $section_storage->getUserSections($section_scheme, $user);
@@ -138,7 +146,7 @@ Cypress.Commands.add('setWorkbenchAccessSections', (value) => {
     .then(() => cy.get('@uid'))
     .then((uid) => {
       const command = `
-        $user = user_load(${uid});
+        $user = \\Drupal\\user\\Entity\\User::load(${uid});
         $section_scheme = \\Drupal::entityTypeManager()->getStorage('access_scheme')->load('section');
         $section_storage = \\Drupal::service('workbench_access.user_section_storage');
         $section_storage->addUser($section_scheme, $user, explode(',', '${value}'));

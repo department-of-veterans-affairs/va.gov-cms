@@ -5,6 +5,7 @@
  * Contains va_gov_vet_center.module.
  */
 
+use Drupal\views\Views;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
@@ -92,14 +93,38 @@ function _va_gov_vet_center_create_cap_id(EntityInterface $entity) {
 function va_gov_vet_center_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
   if ($form_id === 'node_vet_center_cap_form' || $form_id === 'node_vet_center_cap_edit_form') {
-    $form['field_facility_locator_api_id']['#disabled'] = TRUE;
     // Add after_build callbacks for VC CAP node forms.
     $form['field_address']['widget']['#after_build'][] = 'va_gov_vet_center_vc_cap_address_alter_label_after_build';
     $form['field_facility_hours']['widget']['#after_build'][] = 'va_gov_vet_center_vc_cap_hours_hide_caption_after_build';
   }
 
+  if ($form_id === 'node_vet_center_locations_list_form' || $form_id === 'node_vet_center_locations_list_edit_form') {
+    _va_gov_vet_center_add_facilities_listing_block_to_form($form);
+  }
+
   _va_gov_vet_center_cap_hours_opt_in($form, $form_state, $form_id);
 
+}
+
+/**
+ * Output facility listing view on vc locations node forms.
+ *
+ * @param array $form
+ *   The form array.
+ */
+function _va_gov_vet_center_add_facilities_listing_block_to_form(array &$form) {
+  $form['group_my_locations'] = [
+    '#type' => 'details',
+    '#title' => t('Main and satellite locations'),
+    '#open' => TRUE,
+    '#weight' => 3,
+  ];
+  $form['group_my_locations']['vc_facility_listing_view'] = [
+    '#type' => 'view',
+    '#name' => 'vet_center_facility_listing',
+    '#display_id' => 'vc_listing_for_node_form',
+    '#embed' => TRUE,
+  ];
 }
 
 /**
@@ -135,14 +160,43 @@ function _va_gov_vet_center_cap_hours_opt_in(array &$form, FormStateInterface $f
  * Implements hook_entity_view_alter().
  */
 function va_gov_vet_center_entity_view_alter(array &$build, EntityInterface $entity) {
-
+  _va_gov_vet_center_add_facilities_listing_block_to_view($build, $entity);
   _va_gov_vet_center_unset_cap_hours($build, $entity);
+}
+
+/**
+ * Output facility listing view on vc locations node view page.
+ *
+ * @param array $build
+ *   A renderable array representing the entity content.
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The entity object being rendered.
+ */
+function _va_gov_vet_center_add_facilities_listing_block_to_view(array &$build, EntityInterface $entity) {
+
+  if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'vet_center_locations_list') {
+    $view = Views::getView('vet_center_facility_listing');
+
+    if (is_object($view)) {
+      $view->setDisplay('vc_listing_for_node_form');
+      $view->execute();
+      // Have to break it out to avoid php pass by reference notices.
+      $view_render = $view->render();
+      $rendered_view = \Drupal::service('renderer')->render($view_render);
+      $build['vc_locations_view'] = [
+        '#prefix' => '<div class="field__label">' . t('Main and satellite locations') . '</div>',
+        '#markup' => $rendered_view,
+        '#weight' => 2,
+      ];
+    }
+
+  };
 }
 
 /**
  * Unset field_office_hours on proofing page based on trigger field.
  *
- * @param array &$build
+ * @param array $build
  *   A renderable array representing the entity content.
  * @param \Drupal\Core\Entity\EntityInterface $entity
  *   The entity object being rendered.
@@ -189,4 +243,24 @@ function va_gov_vet_center_vc_cap_hours_hide_caption_after_build(array $element,
   unset($element[0]['#description']);
   unset($element[0]['caption']);
   return $element;
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function va_gov_vet_center_form_node_form_alter(array &$form, FormStateInterface &$form_state) {
+  _va_gov_backend_set_owner_section_default($form, $form_state);
+
+  // Only attach the service select setter to vet_center service bundle.
+  if ($form_state->getformObject()->getEntity()->bundle() === 'vet_center') {
+    $form['#attached']['library'][] = 'va_gov_vet_center/set_ief_service_selects';
+  }
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function va_gov_vet_center_page_attachments(array &$attachments) {
+  // PRevent duplicate services in select.
+  $attachments['#attached']['library'][] = 'va_gov_vet_center/prevent_select_duplicates';
 }

@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.taxonomy_term.products.field_kb_landing_page
     - taxonomy.vocabulary.products
   module:
     - path
@@ -14,11 +15,21 @@ mode: default
 content:
   description:
     type: text_textarea
-    weight: 1
+    weight: 2
     region: content
     settings:
       placeholder: ''
       rows: 5
+    third_party_settings: {  }
+  field_kb_landing_page:
+    type: entity_reference_autocomplete
+    weight: 1
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   name:
     type: string_textfield
@@ -30,7 +41,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 2
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }

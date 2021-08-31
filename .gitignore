@@ -7,6 +7,7 @@
 # Ignore non-custom parts of Drupal.
 .editorconfig
 .gitattributes
+/docroot/behat_failures
 /docroot/core
 /docroot/libraries
 /docroot/modules/contrib
@@ -15,6 +16,7 @@
 /docroot/sites/default/files
 /docroot/sites/simpletest
 /docroot/samlsessiondb.sq3
+/docroot/README.md
 
 # Ignore Composer-managed dependencies.
 /docroot/vendor/
@@ -71,6 +73,10 @@ node_modules/
 .lando.local.yml
 .lando/zzz*local.ini
 .lando.compose.yml
+
+# Cache file used by PHPUnit
+# Can be introduced accidentally by local dev
+.phpunit.result.cache
 
 # Ignore WEB (vets-website)
 # web

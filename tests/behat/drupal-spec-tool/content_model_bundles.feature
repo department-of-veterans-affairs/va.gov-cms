@@ -8,13 +8,14 @@ Feature: Content model bundles
      Scenario: Bundles
        Then exactly the following content entity type bundles should exist
        | Name | Machine name | Type | Description |
+| Banner | banner | Content type | A full width dismissible banner |
 | Benefits Detail Page | page | Content type | These pages hold all of the benefits overview content, such the detail pages linked to from va.gov/disability, va.gov/health-care, and va.gov/education. |
 | Benefits Hub Landing Page | landing_page | Content type | A special page for top-level Benefits content with its own one-off layout and content. |
 | Campaign Landing Page | campaign_landing_page | Content type |  |
 | Centralized Content | centralized_content | Content type | Common content for reuse on other content types. |
 | Checklist | checklist | Content type |  |
-| CMS Help Page | documentation_page | Content type | Help guide pages on how to use the CMS to edit content on VA.gov. |
-| Detail Page | health_care_region_detail_page | Content type | For static pages where there's not another content type already available.  |
+| CMS Knowledge Base Article | documentation_page | Content type | Articles about how to use the VA.gov Drupal Content Management System (CMS). |
+| VAMC Detail Page | health_care_region_detail_page | Content type | For static pages where there's not another content type already available.  |
 | Event | event | Content type | For online or in-person events like support groups, outreach events, public lectures, and more. |
 | Events List | event_listing | Content type | A listing of events. |
 | FAQ - multiple Q&As | faq_multiple_q_a | Content type | Curated collection of Q&As. |
@@ -45,6 +46,9 @@ Feature: Content model bundles
 | VAMC System Health Service | regional_health_care_service_des | Content type | A description of a health service specific to a VAMC system, which appears on a VAMC's health services page and on facility pages, within accordions. |
 | VAMC System Operating Status | vamc_operating_status_and_alerts | Content type | Create one of these pages for each VAMC system. Then you can add banner alerts and update facilities' operating status, all from one place. |
 | VAMC System Policies Page | vamc_system_policies_page | Content type | Add policies specific to this VA medical center to appear on the Policies page. Local policies will appear alongside national policies that apply to all VAMCs. |
+| VAMC System Register for Care | vamc_system_register_for_care | Content type |  |
+| VAMC System Medical Records Office | vamc_system_medical_records_offi | Content type |  |
+| VAMC System Billing and Insurance | vamc_system_billing_insurance | Content type |  |
 | VBA Facility | vba_facility | Content type | A facility within Veterans Benefits Administration system. |
 | Vet Center | vet_center | Content type | Location and page content for community-based counseling centers. |
 | Vet Center - Community Access Point | vet_center_cap | Content type | Location information for Vet Center services situated in another organization. |
@@ -78,7 +82,7 @@ Feature: Content model bundles
 | Link to file or video | downloadable_file | Paragraph type | A download link for an image or document, or a link to a YouTube video. |
 | List of link teasers | list_of_link_teasers | Paragraph type | A paragraph that contains only one type of paragraph: Link teaser. |
 | List of links | list_of_links | Paragraph type | A set of links, with link text and URL required, and an optional header. |
-| Lists of links | lists_of_links | Paragraph type | WARNING: Resources and support and User Guides only! A list of links, or several lists of links, with an optional section header. |
+| Lists of links | lists_of_links | Paragraph type | WARNING: Resources and support and Knowledge Base only! A list of links, or several lists of links, with an optional section header. |
 | Media list - Images | media_list_images | Paragraph type |  |
 | Media list - Videos | media_list_videos | Paragraph type |  |
 | Non-reusable Alert | non_reusable_alert | Paragraph type |  |

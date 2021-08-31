@@ -12,7 +12,7 @@ use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
 use Drupal\taxonomy\TermInterface;
 use Drupal\va_gov_backend\Service\ExclusionTypesInterface;
-use Drupal\va_gov_backend\Service\VaGovUrl;
+use Drupal\va_gov_backend\Service\VaGovUrlInterface;
 use Drupal\va_gov_workflow_assignments\Service\EditorialWorkflowContentRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -22,7 +22,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @Block(
  *   id = "va_gov_workflow_assignments_meta",
  *   admin_label = @Translation("Entity Meta Display"),
- *   context = {
+ *   context_definitions = {
  *     "node" = @ContextDefinition(
  *       "entity:node",
  *       label = @Translation("Node"),
@@ -55,14 +55,14 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
   /**
    * Exclusion Types service.
    *
-   * @var \Drupal\va_gov_backend\ExclusionTypesInterface
+   * @var \Drupal\va_gov_backend\Service\ExclusionTypesInterface
    */
   protected $exclusionTypes;
 
   /**
    * The va.gov URL service.
    *
-   * @var \Drupal\va_gov_backend\Service\VaGovUrl
+   * @var \Drupal\va_gov_backend\Service\VaGovUrlInterface
    */
   protected $vaGovUrl;
 
@@ -83,7 +83,7 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
     RouteMatchInterface $route_match,
     EntityTypeManagerInterface $entity_type_manager,
     ExclusionTypesInterface $exclusionTypes,
-    VaGovUrl $vaGovUrl,
+    VaGovUrlInterface $vaGovUrl,
     EditorialWorkflowContentRepository $editorialWorkflowContentRepository
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
@@ -177,7 +177,7 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
    */
   private function getNode() {
     // Drupal sometimes hands us a nid and sometimes an upcasted node object.
-    // @TODO remove type checks when the patch at
+    // @todo remove type checks when the patch at
     // https://www.drupal.org/project/drupal/issues/2730631
     // is committed. (Should be in 9.2)
     $route_parameter = $this->routeMatch->getParameter('node');
@@ -201,7 +201,7 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
    */
   private function getNodeRevision() {
     // Drupal sometimes hands us a nid and sometimes an upcasted node object.
-    // @TODO remove type checks when the patch at
+    // @todo remove type checks when the patch at
     // https://www.drupal.org/project/drupal/issues/2730631
     // is committed. (Should be in 9.2)
     $route_parameter = $this->routeMatch->getParameter('node_revision');
@@ -225,8 +225,10 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
    */
   public function getSectionHierarchyBreadcrumbLinks(NodeInterface $node) : string {
     $links = [];
-    $owner_term = $node->get('field_administration')->referencedEntities() ?
-      $node->get('field_administration')->referencedEntities()[0] : [];
+    /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $field_administration */
+    $field_administration = $node->get('field_administration');
+    $owner_term = $field_administration->referencedEntities() ?
+      $field_administration->referencedEntities()[0] : [];
 
     if (!empty($owner_term)) {
       $links[] = $this->getTermLink($owner_term);

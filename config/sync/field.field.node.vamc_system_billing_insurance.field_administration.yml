@@ -1,0 +1,36 @@
+uuid: 6e81c317-2548-4f75-b2d5-02ea5ded8df9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_administration
+    - node.type.vamc_system_billing_insurance
+    - taxonomy.vocabulary.administration
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: false
+id: node.vamc_system_billing_insurance.field_administration
+field_name: field_administration
+entity_type: node
+bundle: vamc_system_billing_insurance
+label: Section
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      administration: administration
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

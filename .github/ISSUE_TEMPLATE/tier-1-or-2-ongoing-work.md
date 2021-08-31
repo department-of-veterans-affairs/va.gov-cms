@@ -27,4 +27,3 @@ Please leave only the team that will do this work selected. If you're not sure, 
 
 - [x] `Core Application Team`
 - [x] `Product Support Team`
-

@@ -11,7 +11,7 @@ Feature: Menus
 | Administration | admin | Administrative task links |
 | Burials and memorials benefits hub | burials-and-memorials-benef | For pages in the /burials-and-memorials benefits hub |
 | Careers & employment benefits hub | careers-employment-benefits | va.gov/careers-employment |
-| CMS user guides | documentation | How-to's for editing content in the VA.gov CMS |
+| CMS Knowledge Base | documentation | How-to's for editing content in the VA.gov CMS |
 | Decision reviews | decision-reviews-benefits-h |  |
 | Disability benefits hub | disability-benefits-hub | For pages in the /disability benefits hub |
 | Education benefits hub | education-benefits-hub | For pages in the /education benefits hub |
@@ -168,6 +168,6 @@ Feature: Menus
 | VA Tomah health care | va-tomah-health-care | VISN 12 \| va.gov/tomah-health-care |
 | VA Topeka health care | va-topeka-health-care | VISN 15 \| va.gov/topeka-health-care |
 | VA Tuscaloosa health care | va-tuscaloosa-health-care | VISN 7 \| va.gov/tuscaloosa-health-care |
-| VA Wallawalla health care | va-wallawalla-health-care | VISN 20 \| va.gov/wallawalla-health-care |
+| VA Walla Walla health care | va-walla-walla-health-care | VISN 20 \| va.gov/walla-walla-health-care |
 | VA West Texas health care | va-west-texas-health-care | VISN 17 \| va.gov/west-texas-health-care |
 | VA Wichita health care | va-wichita-health-care | VISN 15 \| va.gov/wichita-health-care |

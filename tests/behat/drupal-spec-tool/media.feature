@@ -27,6 +27,7 @@ Feature: Media
 | Linkit result thumbnail  | linkit_result_thumbnail  |
 | Original | original |
 | 2:3 medium thumbnail  | 2_3_medium_thumbnail  |
+| Viewport width | viewport_width |
 
   @dst @image_effects
      Scenario: Image effects
@@ -57,3 +58,4 @@ Feature: Media
 | Medium (220×220) | Scale | 220×220   |
 | Original | Manual crop | uses Original crop type |
 | Thumbnail (100×100) | Scale | 100×100 |
+| Viewport width | Scale | width 2500 |

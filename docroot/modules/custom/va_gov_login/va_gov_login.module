@@ -27,7 +27,7 @@ function va_gov_login_form_alter(&$form, &$form_state, $form_id) {
  */
 function va_gov_login_simplesamlphp_auth_existing_user($attributes) {
   $saml_mail = $attributes['adEmail'];
-  $existing_users = \Drupal::service('entity.manager')->getStorage('user')->loadByProperties(['mail' => $saml_mail]);
+  $existing_users = \Drupal::service('entity_type.manager')->getStorage('user')->loadByProperties(['mail' => $saml_mail]);
   if ($existing_users) {
     $existing_user = is_array($existing_users) ? reset($existing_users) : FALSE;
     if ($existing_user) {
