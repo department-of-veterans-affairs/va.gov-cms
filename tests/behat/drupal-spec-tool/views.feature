@@ -229,3 +229,7 @@ Feature: Views
 | CMS Knowledge Base search results | Page | knowledge_base_search_page | Page |
 | Knowledge Base Article administration | Master | default | Default |
 | Knowledge Base Article administration | Page | knowledge_base_admin | Page |
+| Content | Content audit CSV export | content_audit_csv_export | Data export |
+| Content | Content audit tools | content_audit_page | Page |
+| Content | Facilities | content_audit_facilities | Page |
+| Content | Facilities export | content_audit_facilities_export | Data export |
