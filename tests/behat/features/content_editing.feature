@@ -133,7 +133,7 @@ Feature: CMS Users may effectively create & edit content
     And I select "Information" from "Alert type"
     And I fill in "Title" with "BeHat Alert title"
     And I fill in "Alert body" with "BeHat Alert body"
-    And I press "Save draft and continue editing"
+    And I press "Save"
     Then I should see "Pages for the following VAMC systems"
     And I should see "BeHat Alert Body"
 
@@ -200,7 +200,8 @@ Feature: CMS Users may effectively create & edit content
     And I fill in "Text" with "BeHat URL Alias Rich text content"
     And I select "Benefits Hubs" from "edit-field-product"
     And I select "Veterans Affairs" from "edit-field-administration"
-    And I press "Save draft and continue editing"
+    And I press "Save"
+    Then I visit the "Edit" page for a node with the title "BeHat URL Alias Title"
     Then I should see "Edit Landing Page BeHat URL Alias Title"
     And the "path[0][pathauto]" checkbox should be checked
 
