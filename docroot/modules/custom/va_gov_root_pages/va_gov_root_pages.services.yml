@@ -1,0 +1,5 @@
+services:
+  va_gov_root_pages.entity_event_subscriber:
+    class: Drupal\va_gov_root_pages\EventSubscriber\EntityEventSubscriber
+    tags:
+      - { name: event_subscriber }
