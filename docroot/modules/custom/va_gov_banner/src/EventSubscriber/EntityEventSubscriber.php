@@ -2,7 +2,9 @@
 
 namespace Drupal\va_gov_banner\EventSubscriber;
 
+use Drupal\core_event_dispatcher\Event\Entity\EntityBundleFieldInfoAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
+use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -43,6 +45,21 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Add validation to paths field.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityBundleFieldInfoAlterEvent $event
+   *   The event.
+   */
+  public function alterPathFieldInfo(EntityBundleFieldInfoAlterEvent $event): void {
+    $type = $event->getEntityType();
+    $bundle = $event->getBundle();
+    $fields = $event->getFields();
+    if ($type->get('id') === 'node' && $bundle === 'banner' && isset($fields['field_target_paths'])) {
+      $fields['field_target_paths']->addConstraint('RequireScope');
+    }
+  }
+
+  /**
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
@@ -50,6 +67,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       // React on banner forms.
       'hook_event_dispatcher.form_node_banner_form.alter' => 'alterBannerNodeForm',
       'hook_event_dispatcher.form_node_banner_edit_form.alter' => 'alterBannerNodeForm',
+      HookEventDispatcherInterface::ENTITY_BUNDLE_FIELD_INFO_ALTER => 'alterPathFieldInfo',
     ];
   }
 
