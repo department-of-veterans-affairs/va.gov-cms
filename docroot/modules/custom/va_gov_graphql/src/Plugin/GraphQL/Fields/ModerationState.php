@@ -26,10 +26,8 @@ class ModerationState extends FieldPluginBase {
    * {@inheritdoc}
    */
   public function resolveValues($value, array $args, ResolveContext $context, ResolveInfo $info) {
-    if ($value instanceof FieldableEntityInterface) {
-      if ($value->hasField('moderation_state')) {
-        yield $value->get('moderation_state')->value;
-      }
+    if ($value instanceof FieldableEntityInterface && $value->hasField('moderation_state')) {
+      yield $value->get('moderation_state')->value;
     }
   }
 
