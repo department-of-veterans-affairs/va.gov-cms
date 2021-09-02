@@ -11,6 +11,9 @@
     title.dispatchEvent(new MouseEvent("click", { shiftKey: true }));
     var menuTitle = document.getElementById("edit-menu-title");
     menuTitle.value = title.value;
+
+    menuTitle.setAttribute("aria-disabled", true);
+    menuTitle.classList.add("disabled-title");
   };
   Drupal.behaviors.vaGovSetMenuTitle = {
     attach: function attach() {

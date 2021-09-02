@@ -11,6 +11,12 @@
     title.dispatchEvent(new MouseEvent("click", { shiftKey: true }));
     const menuTitle = document.getElementById("edit-menu-title");
     menuTitle.value = title.value;
+    // Disable mouse click / typing in input via disabled-title class.
+    // Tell our screenreader item is disabled.
+    // Don't set attribute to disabled in alter,
+    // because drupal will toss the value on form submit.
+    menuTitle.setAttribute("aria-disabled", true);
+    menuTitle.classList.add("disabled-title");
   };
   Drupal.behaviors.vaGovSetMenuTitle = {
     attach() {
