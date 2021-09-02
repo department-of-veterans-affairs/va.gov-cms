@@ -20,6 +20,6 @@ Feature: Access control
 | Content admin | content_admin |
 | Content creator - Benefits hubs | content_creator_benefits_hubs |
 | Content creator - Outreach Hub | office_content_creator |
-| Content creator - Resources and support | content_creator_resources_and_support |
 | Content creator - VAMC | vamc_content_creator |
+| Content creator - Resources and support | content_creator_resources_and_support |
 | Content creator - Vet Center | content_creator_vet_center |

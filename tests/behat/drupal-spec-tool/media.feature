@@ -48,7 +48,7 @@ Feature: Media
 | 7:2 medium thumbnail   | Scale and crop | 1050×300   |
 | Cropped: 2:1 | Manual crop | uses 2:1 crop type |
 | Cropped: 3:2     | Manual crop | uses 3:2 crop type |
-|  Cropped: 7:2   | Manual crop | uses 7:2 crop type |
+| Cropped: 7:2   | Manual crop | uses 7:2 crop type |
 | Cropped: Freeform | Manual crop | uses Freeform crop type |
 | Cropped: Square    | Manual crop | uses Square crop type |
 | Crop thumbnail | Scale | width 400 |
