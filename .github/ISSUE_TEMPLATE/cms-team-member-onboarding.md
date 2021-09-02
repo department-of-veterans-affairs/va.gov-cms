@@ -80,6 +80,9 @@ The following trainings and additional videos can be found on the Knowledge Base
  - [ ] [Trello](https://trello.com/vacmsteam)
  - [ ] What do I need to know about my discipline on this team (DevOps, Engineering, Helpdesk, ID, UX)? Discuss with the discipline lead.
  - [ ] What applications discipline-specific tools are needed? Discuss with the discipline lead.
+ - [ ] Tugboat demo environments
+   - [ ] [Tugboat for engineers](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/f4341c29ad8e998de1dac2fca0b749cdef15c923/READMES/tugboat.md)
+   - [ ] [Tugboat for non-engineers](https://prod.cms.va.gov/help/demo-environments-tugboat-guides) SOCKS required
 #### DevOps
  - [ ] [Request access to Github Codespaces](https://github.com/department-of-veterans-affairs/github-user-requests/issues/new?assignees=&labels=general+issue%2C+user-created&template=general-help-request.md&title=Add%20user%20to%20Codespaces)
  - [ ] [IAM/SSO lower environment access](https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/blob/master/platform/cms/cms-sso-saml-iam-login-braindump.md#testing-login)
