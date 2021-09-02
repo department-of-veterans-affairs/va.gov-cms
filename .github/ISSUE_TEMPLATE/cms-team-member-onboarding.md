@@ -78,12 +78,13 @@ The following trainings and additional videos can be found on the Knowledge Base
  - [ ] [Confluence](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/179765342/2020-2021?NO_SSR=1) for team resources and calendar
  - [ ] [Google Drive](https://drive.google.com/drive/u/0/folders/0ADx85_gnl3Y4Uk9PVA?ths=true) for team documents. Generally, VA doesn't use Google products. Use Github or downloadable files when sharing with VA.
  - [ ] [Trello](https://trello.com/vacmsteam)
- - [ ] What do I need to know about my discipline on this team (DevOps, Engineering, Helpdesk, ID, UX)? Discuss with the discipline lead.
- - [ ] What applications discipline-specific tools are needed? Discuss with the discipline lead.
  - [ ] Tugboat demo environments
    - [ ] [Tugboat for engineers](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/f4341c29ad8e998de1dac2fca0b749cdef15c923/READMES/tugboat.md)
    - [ ] [Tugboat for non-engineers](https://prod.cms.va.gov/help/demo-environments-tugboat-guides) SOCKS required
-#### DevOps
+ - [ ] What do I need to know about my discipline on this team (DevOps, Engineering, Helpdesk, ID, UX)? Discuss with the discipline lead.
+ - [ ] What applications discipline-specific tools are needed? Discuss with the discipline lead.
+
+#### Onboarding for DevOps
  - [ ] [Request access to Github Codespaces](https://github.com/department-of-veterans-affairs/github-user-requests/issues/new?assignees=&labels=general+issue%2C+user-created&template=general-help-request.md&title=Add%20user%20to%20Codespaces)
  - [ ] [IAM/SSO lower environment access](https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/blob/master/platform/cms/cms-sso-saml-iam-login-braindump.md#testing-login)
  - [ ] [Jenkins](http://jenkins.vfs.va.gov/) (SOCKS required)
@@ -91,14 +92,14 @@ The following trainings and additional videos can be found on the Knowledge Base
  - [ ] [Sentry](http://sentry.vfs.va.gov.) (SOCKS required)
  - [ ] [AWS](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html#Requestaccesstotools-Requestaccess) (SOCKS required)
  - [ ] sshuttle
-#### Helpdesk
+#### Onboarding for Helpdesk
  - [ ] [Review the helpdesk Github repo](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/platform/cms/helpdesk).
  - [ ] [Review the helpdesk Google Drive](https://drive.google.com/drive/folders/1opC6DgZyBQ6uEVzIz3FWmISMLt-Y91ts).
  - [ ] [Jira Service Desk](https://va-gov.atlassian.net/jira/servicedesk/projects/VAHELP)
-#### Instructional Design
+#### Onboarding for Instructional Design
  - [ ] Audio/video recording tools
  - [ ] [YouTube channel for training videos](https://www.youtube.com/channel/UC5Y2p4ASQ5HdRR-pQ8RVQKQ)
-#### Product Management
+#### Onboarding for Product Management
   - Review [onboarding docs](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/PM/)
 #### Onboarding for UX
 - [ ] Attend design onboarding call 1: You are here
@@ -128,6 +129,7 @@ The following trainings and additional videos can be found on the Knowledge Base
   - [ ] Refinement sessions
   - [ ] Demos
   - [ ] Retros
+- [ ] Update your time away on the [team calendar on Confluence](https://va-gov.atlassian.net/wiki/spaces/VAGOV/calendars)
  
 ## Month one
 By this point you should have enough context and access to be able to start contributing. Work with your team to identify specific issues to focus on.
