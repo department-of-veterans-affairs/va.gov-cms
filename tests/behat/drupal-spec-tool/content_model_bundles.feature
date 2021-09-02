@@ -114,3 +114,4 @@ Feature: Content model bundles
 | VHA health service taxonomy | health_care_service_taxonomy | Vocabulary | Single source of truth for health service names, descriptions, patient-friendly names, and common conditions. |
 | Vet Center - Mobile Vet Center | vet_center_mobile_vet_center | Content type | Location information for Vet Center services provided out of an RV. |
 | Vet Center - Outstation | vet_center_outstation | Content type | Location information for remote facilities related to a main Vet Center. |
+

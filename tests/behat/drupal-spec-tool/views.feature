@@ -98,6 +98,10 @@ Feature: Views
 | Content | Bulk edit events | events_page | Page |
 | Content | Resources and support | resources_support_dashboard | Page |
 | Content | Resources and support landing page | resources_and_support_landing_page_block | Block |
+| Content | Content audit CSV export | content_audit_csv_export | Data export |
+| Content | Content audit tools | content_audit_page | Page |
+| Content | Facilities | content_audit_facilities | Page |
+| Content | Facilities export | content_audit_facilities_export | Data export |
 | Content entity browsers | Master | default | Default |
 | Content entity browsers | Event entity browser | event_entity_browser | Entity browser |
 | Content entity browsers | Q&A entity browser | entity_browser_1 | Entity browser |
@@ -229,7 +233,3 @@ Feature: Views
 | CMS Knowledge Base search results | Page | knowledge_base_search_page | Page |
 | Knowledge Base Article administration | Master | default | Default |
 | Knowledge Base Article administration | Page | knowledge_base_admin | Page |
-| Content | Content audit CSV export | content_audit_csv_export | Data export |
-| Content | Content audit tools | content_audit_page | Page |
-| Content | Facilities | content_audit_facilities | Page |
-| Content | Facilities export | content_audit_facilities_export | Data export |
