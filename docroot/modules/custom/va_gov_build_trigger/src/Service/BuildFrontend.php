@@ -5,6 +5,8 @@ namespace Drupal\va_gov_build_trigger\Service;
 use Drupal\Component\Plugin\Exception\PluginException;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\node\NodeInterface;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery;
 use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
@@ -13,6 +15,16 @@ use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
  * Class for processing facility status to GovDelivery Bulletin.
  */
 class BuildFrontend implements BuildFrontendInterface {
+
+  use StringTranslationTrait;
+
+  /**
+   * The active user.
+   *
+   * @var \Drupal\Core\Session\AccountInterface
+   *  The user object.
+   */
+  protected $currentUser;
 
   /**
    * The logger service.
@@ -53,17 +65,22 @@ class BuildFrontend implements BuildFrontendInterface {
    *   The Web Build Status.
    * @param \Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery $environment_discovery
    *   The Environment Discovery Service.
+   * @param \Drupal\Core\Session\AccountInterface $current_user
+   *   The current user.
    */
   public function __construct(
     MessengerInterface $messenger,
     LoggerChannelFactoryInterface $logger_factory,
     WebBuildStatusInterface $web_build_status,
-    EnvironmentDiscovery $environment_discovery
+    EnvironmentDiscovery $environment_discovery,
+    AccountInterface $current_user
   ) {
     $this->messenger = $messenger;
     $this->logger = $logger_factory->get('va_gov_build_trigger');
     $this->webStatus = $web_build_status;
     $this->environmentDiscovery = $environment_discovery;
+    $this->currentUser = $current_user;
+
   }
 
   /**
@@ -75,7 +92,7 @@ class BuildFrontend implements BuildFrontendInterface {
     }
     catch (PluginException $e) {
       // In an unaccounted for environment without a plugin.
-      $message = t('You cannot trigger a build in this environment. Only the tugboat, lando, DEV, STAGING and PROD environments support triggering builds.');
+      $message = $this->t('You cannot trigger a build in this environment. Only the tugboat, lando, DEV, STAGING and PROD environments support triggering builds.');
       $this->messenger->addWarning($message);
       $this->logger->warning($message);
       $this->setPendingState(FALSE);
@@ -108,13 +125,8 @@ class BuildFrontend implements BuildFrontendInterface {
     $status_info_field = 'field_operating_status_more_info';
     if ($this->isFacility($node) && $node->hasField($status_field)) {
       // This is a node that should be checked for status change.
-      // Check for change of workflow to published.
-      $mod_state = $node->get('moderation_state')->value;
-      if (($mod_state === 'published') && ($this->changedValue('moderation_state', $node))) {
-        // The status is published and was not before, so definitely release.
-        return TRUE;
-      }
-      elseif ($this->changedValue($status_field, $node) || $this->changedValue($status_info_field, $node)) {
+      $has_status_related_change = $this->changedValue($status_field, $node) || $this->changedValue($status_info_field, $node);
+      if ($this->isTriggerableState($node) && $has_status_related_change) {
         // The status related info changed, so release.
         return TRUE;
       }
@@ -148,17 +160,23 @@ class BuildFrontend implements BuildFrontendInterface {
    * {@inheritdoc}
    */
   public function triggerFrontendBuildFromContentSave(NodeInterface $node) {
-    if (!$this->environmentDiscovery->shouldTriggerFrontendBuild()) {
-      return;
-    }
-
-    $is_published = $node->isPublished();
-
-    if (
-      ($this->isTriggerableType($node) && $is_published)
-      ||
-      $this->facilityChangedStatus()) {
+    if ($this->isTriggerableState($node) && ($this->isTriggerableType($node) || $this->facilityChangedStatus($node))) {
+      $msg_vars = [
+        '%link_to_node' => $node->toLink(NULL, 'canonical', ['absolute' => TRUE])->toString(),
+        '%nid' => $node->id(),
+        '%type' => $node->getType(),
+        '%user' => $this->currentUser->getAccountName(),
+      ];
+      if (!$this->environmentDiscovery->shouldTriggerFrontendBuild()) {
+        $message = $this->t('A content release would have been triggered by a change to %type: %link_to_node , but this environment has it disabled.', $msg_vars);
+        $this->messenger->addStatus($message);
+        return;
+      }
       $this->triggerFrontendBuild();
+      $log_message = $this->t('A content release was triggered by a change to %type: %link_to_node (node%nid) by user %user.', $msg_vars);
+      $this->logger->info($log_message);
+      $message = $this->t('A content release has been triggered by the change you made to the %type: %link_to_node.', $msg_vars);
+      $this->messenger->addStatus($message);
     }
   }
 
@@ -198,6 +216,32 @@ class BuildFrontend implements BuildFrontendInterface {
       'vet_center',
     ];
     return in_array($node->getType(), $facility_content_types);
+  }
+
+  /**
+   * Checks if a node has gone through a state change that warrants a release.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The node being altered.
+   *
+   * @return bool
+   *   TRUE if state change needs a release.  FALSE otherwise.
+   */
+  protected function isTriggerableState(NodeInterface $node): bool {
+    $moderation_state_new = $node->get('moderation_state')->value;
+    if ($moderation_state_new === 'published') {
+      return TRUE;
+    }
+
+    $is_published = $node->isPublished();
+    // If the current state is archived, isPublished lies to us because the save
+    // just happened, so we have to look back in time.
+    $was_published = (isset($node->original) && ($node->original instanceof NodeInterface)) ? $node->original->isPublished() : FALSE;
+    $has_been_published = $is_published || $was_published;
+    if ($has_been_published && ($moderation_state_new === 'archived')) {
+      return TRUE;
+    }
+    return FALSE;
   }
 
   /**
