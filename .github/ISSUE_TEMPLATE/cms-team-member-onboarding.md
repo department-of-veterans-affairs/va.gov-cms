@@ -81,8 +81,8 @@ The following trainings and additional videos can be found on the Knowledge Base
  - [ ] Tugboat demo environments
    - [ ] [Tugboat for engineers](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/f4341c29ad8e998de1dac2fca0b749cdef15c923/READMES/tugboat.md)
    - [ ] [Tugboat for non-engineers](https://prod.cms.va.gov/help/demo-environments-tugboat-guides) SOCKS required
- - [ ] What do I need to know about my discipline on this team (DevOps, Engineering, Helpdesk, ID, UX)? Discuss with the discipline lead.
- - [ ] What applications discipline-specific tools are needed? Discuss with the discipline lead.
+ - [ ] What do I need to know about my discipline on this team (DevOps, Engineering, Helpdesk, ID, UX)? Discuss with your discipline lead.
+ - [ ] What applications or discipline-specific tools are needed? Discuss with your discipline lead.
 
 #### Onboarding for DevOps
  - [ ] [Request access to Github Codespaces](https://github.com/department-of-veterans-affairs/github-user-requests/issues/new?assignees=&labels=general+issue%2C+user-created&template=general-help-request.md&title=Add%20user%20to%20Codespaces)
