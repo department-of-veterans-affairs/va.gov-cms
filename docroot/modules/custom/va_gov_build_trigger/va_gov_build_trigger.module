@@ -6,6 +6,7 @@
  */
 
 use Drupal\node\NodeInterface;
+use Drupal\va_gov_build_trigger\Service\BuildFrontend;
 use Drupal\va_gov_build_trigger\GraphQLEntityQuery;
 
 /**
@@ -16,6 +17,7 @@ use Drupal\va_gov_build_trigger\GraphQLEntityQuery;
  */
 function va_gov_build_trigger_node_update(NodeInterface $node) {
   // Trigger a frontend build for certain content types.
+  /** @var \Drupal\va_gov_build_trigger\Service\BuildFrontend $frontend_service */
   $frontend_service = \Drupal::service('va_gov_build_trigger.build_frontend');
   $frontend_service->triggerFrontendBuildFromContentSave($node);
 }
@@ -25,6 +27,7 @@ function va_gov_build_trigger_node_update(NodeInterface $node) {
  */
 function va_gov_build_trigger_node_insert(NodeInterface $node) {
   // Trigger a frontend build for certain content types.
+  /** @var \Drupal\va_gov_build_trigger\Service\BuildFrontend $frontend_service */
   $frontend_service = \Drupal::service('va_gov_build_trigger.build_frontend');
   $frontend_service->triggerFrontendBuildFromContentSave($node);
 }
