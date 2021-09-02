@@ -34,10 +34,10 @@
 1. Choose a machine type with at least 64GB of disk space to ensure that you have enough space to run the project.
 1. Open VS Code, click the 'Remote Explorer' tab on the left, and click the 'Connect to codespace' button (it looks like an electric plug) to choose the codespace you just created:
    ![codespaces connection](https://user-images.githubusercontent.com/101649/111007602-75151080-834c-11eb-8c5d-9ef73ef03b30.png)
-1. After a few seconds, you will be connected to codespaces, and the IDE will function like it is running locally for all intents and purposes
+1. After a few seconds, you will be connected to codespaces, and the IDE will function like it is running locally for all intents and purposes.
 1. The development environment will automatically configure, install and start [lando](lando.md) on creation, which takes ~10-15 minutes. To monitor the process, choose 'New Terminal' from the 'Terminal' menu, and run this command: `tail -f ~/post-create.log`. The environment configuration also suggests plugins for linting and code style checking, and sets up the upstream git remote for the main CMS repo.
-1. When the setup process is complete, you will see the text: `File sync from cms-prod-files-latest.tgz is complete.`
-1. 1. You may want to change your git email address for commits with `git config --global user.email first.last@workemail.com`. You can see what is currently listed with `git config --global --list`. 
+1. When the setup process is complete, you will see a welcome message.
+1. You may want to change your git email address for commits with `git config --global user.email first.last@workemail.com`. You can see what is currently listed with `git config --global --list`. 
 1. Your development environment is ready to use! Create a new terminal and run the command `lando info`. Mouse over the link to localhost, and VS Code will provide instructions to open the site in your browser with automatic port forwarding:
   ![starting lando](https://user-images.githubusercontent.com/101649/111008775-156c3480-834f-11eb-878d-10a665a777d4.png)
 
