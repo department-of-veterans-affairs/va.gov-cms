@@ -14,4 +14,4 @@ Feature: Content model: User guides Content Type fields
 | Content type | CMS Knowledge Base Article | Generate a table of contents from major headings | field_table_of_contents_boolean | Boolean |  | 1 | -- Disabled -- | Translatable |
 | Content type | CMS Knowledge Base Article | Main content | field_content_block | Entity reference revisions |  | Unlimited | Paragraphs Browser EXPERIMENTAL | Translatable |
 | Content type | CMS Knowledge Base Article | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | CMS Knowledge Base Article | Product | field_product | Entity reference |  | 1 | Select list | Translatable |
+| Content type | CMS Knowledge Base Article | Products | field_products | Entity reference |  | Unlimited | Check boxes/radio buttons | |
