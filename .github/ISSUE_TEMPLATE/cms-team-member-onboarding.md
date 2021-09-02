@@ -95,6 +95,8 @@ The following trainings and additional videos can be found on the Knowledge Base
 #### Instructional Design
  - [ ] Audio/video recording tools
  - [ ] [YouTube channel for training videos](https://www.youtube.com/channel/UC5Y2p4ASQ5HdRR-pQ8RVQKQ)
+#### Product Management
+  - Review [onboarding docs](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/PM/)
 #### Onboarding for UX
 - [ ] Attend design onboarding call 1: You are here
    - The CMS and the products we support
