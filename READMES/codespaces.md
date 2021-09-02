@@ -4,14 +4,10 @@
 
 [Github Codespaces](https://github.com/features/codespaces) is a cloud-based development environment that can be used in-browser or (preferably) with [Visual Studio Code](https://code.visualstudio.com). Please join [#codespaces](https://dsva.slack.com/archives/C01AN96U39V) for any comments or questions about using Codespaces at VA .
 
-## Access
-
-1. Request access to the beta by [creating a Github issue here](https://github.com/department-of-veterans-affairs/github-user-requests/issues/new?assignees=&labels=general+issue%2C+user-created&template=general-help-request.md&title=Add%20user%20to%20Codespaces).
-
 ## Web UI
 
-1. Visit 
-2. Click green "Code" button
+1. Visit [github.com/codespaces](https://github.com/codespaces)
+2. Click the `...` link next to a codespace
 3. Select "Open with Codespaces"
 4. See [Getting Started](https://github.com/department-of-veterans-affairs/vets-website/blob/master/docs/GithubCodespaces.md#getting-started) in `vets-website` for more detail.
 
@@ -20,8 +16,7 @@
   1. Arch Linux: `yay --sync visual-studio-code-bin`
 1. Open VS Code and install the [Codespaces plugin](https://marketplace.visualstudio.com/items?itemName=ms-vsonline.vsonline)
   ![codespaces plugin](https://user-images.githubusercontent.com/101649/111006584-4d24ad80-834a-11eb-84d8-b0f574880e49.png)
-1. Once you've received access, go to the main [Codespaces page](https://github.com/codespaces) and click the 'New codespace' button
-1. Make sure your remote fork is updated with the latest in upstream repo (must have .devenvironment to work)
+1. Go to the main [Codespaces page](https://github.com/codespaces) and click the 'New codespace' button
 1. Type in the name of your fork of the [CMS repo](https://github.com/department-of-veterans-affairs/va.gov-cms) (create one if you haven't already) and choose the master branch. If it doesn't come up in the list you may have to type the full name, e.g. `elijahlynn/va.gov-cms`, not just `va.gov-cms`:
   ![codespaces creation](https://user-images.githubusercontent.com/101649/111007305-beb12b80-834b-11eb-8c80-138586ca4720.png)
 1. Click "Sign into GitHub", a browser will open authorizing GitHub and VS Code.
