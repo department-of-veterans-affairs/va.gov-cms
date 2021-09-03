@@ -229,19 +229,26 @@ class BuildFrontend implements BuildFrontendInterface {
    */
   protected function isTriggerableState(NodeInterface $node): bool {
     $moderation_state_new = $node->get('moderation_state')->value;
-    if ($moderation_state_new === 'published') {
-      return TRUE;
-    }
-
     $is_published = $node->isPublished();
     // If the current state is archived, isPublished lies to us because the save
     // just happened, so we have to look back in time.
     $was_published = (isset($node->original) && ($node->original instanceof NodeInterface)) ? $node->original->isPublished() : FALSE;
     $has_been_published = $is_published || $was_published;
-    if ($has_been_published && ($moderation_state_new === 'archived')) {
-      return TRUE;
+
+    switch (TRUE) {
+      case ($moderation_state_new === 'published'):
+        // Normal publish of revision.
+      case ($has_been_published && ($moderation_state_new === 'archived')):
+        // Archive of published node.
+      case ($is_published && ($moderation_state_new === NULL)):
+        // Covers publishing of entity not governed by workbench moderation.
+      case ($was_published && !$is_published && ($moderation_state_new === NULL)):
+        // Covers unpublishing of entity not governed by workbench moderation.
+        return TRUE;
+
+      default:
+        return FALSE;
     }
-    return FALSE;
   }
 
   /**
