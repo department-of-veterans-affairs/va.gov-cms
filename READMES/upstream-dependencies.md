@@ -21,7 +21,7 @@ Other points of contact for some services are listed on [DSVA Slack](https://dsv
 **Monitoring**
 
 * Alerting
-   * (Pending) Slack notifications via Sentry
+   * Slack notifications via Sentry from Drupal errors.
 * Error logs
    * `/admin/reports/dblog?type%5B%5D=govdelivery_bulletins` (ephemeral)
    * https://sentry.vfs.va.gov/organizations/vsp/issues/?query=logger%3Agovdelivery_bulletins
