@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Drupal\va_gov_api\Plugin\openapi\OpenApiGenerator;
 
 use Drupal\Component\Utility\NestedArray;
@@ -50,7 +49,7 @@ class VAOpenApiGenerator extends JsonApiGenerator {
           continue;
         }
       }
-
+      // *** End customizations
       /** @var \Drupal\jsonapi\ResourceType\ResourceType $resource_type */
       $resource_type = $this->getResourceType($route_name, $route);
       if (!$resource_type instanceof ResourceType) {
@@ -69,8 +68,9 @@ class VAOpenApiGenerator extends JsonApiGenerator {
           'summary' => $this->getRouteMethodSummary($route, $route_name, $method),
           'description' => $this->getRouteMethodDescription($route, $route_name, $method, $resource_type->getTypeName()),
           'parameters' => $this->getMethodParameters($route, $route_name, $resource_type, $method),
-          // *** Overrideen only to reduce the size of the initial json file. ***
-          'tags' => [], //[$this->getBundleTag($entity_type_id, $bundle_name)],
+          // *** Overridden only to reduce the size of the initial json file.
+          'tags' => [],
+          // Old 'tags' => $this->getBundleTag($entity_type_id, $bundle_name)
           'responses' => $this->getEntityResponsesJsonApi($entity_type_id, $method, $bundle_name, $route_name, $route),
         ];
         /*
@@ -89,4 +89,5 @@ class VAOpenApiGenerator extends JsonApiGenerator {
     }
     return $api_paths;
   }
+
 }
