@@ -69,11 +69,15 @@ class PreventLocalFileLinksValidatorTest extends UnitTestCase {
       ],
       [
         FALSE,
-        'I reckon you got a <a href="/U:/My%20Documents/COVID-19/Vaccine/Letter%20to%20Veterans%202021.07.09.pdf">bargain</a>, don\'t you?',
+        'I reckon you got a <a href="///Users/mel.gibson/My%20Documents/COVID-19/Vaccine/Letter%20to%20Veterans%202021.07.09.pdf">bargain</a>, don\'t you?',
       ],
       [
         FALSE,
         'Onward! Bring me the fuel. For the glory of <a href="///C:/Users/MYNAME/AppData/Local/Microsoft/Windows/INetCache/Content.Outlook/AUJLV0UN/">Humungus</a>.',
+      ],
+      [
+        FALSE,
+        'You sent them out this morning to find a vehicle. A <a href="///usr/local/share/gtk-doc/html/libidn2/api-index-full.html">rig</a> big enough to haul that fat tank of gas. What a puny plan! Look around you. This is the Valley of Death.',
       ],
     ];
   }

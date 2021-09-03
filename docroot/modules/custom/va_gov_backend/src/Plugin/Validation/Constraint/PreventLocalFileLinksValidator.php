@@ -21,15 +21,14 @@ class PreventLocalFileLinksValidator extends ConstraintValidator {
     foreach ($items as $delta => $item) {
       /** @var \Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventLocalFileLinks $constraint */
       $html = $item->getValue()['value'];
-      if (!preg_match('#href="/+[A-Z]:/#', $html)) {
+      if (strpos($html, '///') === FALSE) {
         return;
       }
       $dom = Html::load($html);
-      foreach ($dom->getElementsByTagName('a') as $element) {
+      $xpath = new \DOMXPath($dom);
+      // DOMXPath doesn't support matches(), so we need to use contains().
+      foreach ($xpath->query('//a[starts-with(@href, "///")]') as $element) {
         $url = $element->getAttribute('href');
-        if (!preg_match('#/+[A-Z]:/.*#', $url)) {
-          continue;
-        }
         $firstChild = $element->hasChildNodes() ? $element->childNodes[0] : NULL;
         $link = $element->ownerDocument->saveHTML($firstChild ?? $element);
         $this->getContext()

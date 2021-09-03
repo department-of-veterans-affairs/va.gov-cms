@@ -21,6 +21,6 @@ class PreventLocalFileLinks extends Constraint {
    * @var string
    * @see \Drupal\va_gov_backend\Plugin\Validation\ConstraintPreventLocalFileLinksValidator
    */
-  public $message = 'The link ":link" contains a local file URL ( :url ).';
+  public $message = 'The link ":link" appears to contain a local file URL ( :url ). Please ensure that you are linking to a publicly accessible URL.';
 
 }
