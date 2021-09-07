@@ -88,28 +88,6 @@
     margin: 1rem 0 0;
   }
 
-  ol.process-steps {
-    counter-reset: process-counter;
-    list-style: none;
-
-    li {
-      counter-increment: process-counter;
-
-      &::before {
-        border: 1px solid #999;
-        border-radius: 50%;
-        content: counter(process-counter);
-        float: left;
-        margin-right: 1rem;
-        padding: 0.1rem 0.5rem;
-      }
-
-      .process-item {
-        margin-left: 3rem;
-      }
-    }
-  }
-
   .paragraph--type--list-of-link-teasers .field--name-field-title {
     font-family: Bitter, Georgia, Cambria, Times New Roman, Times, serif;
     font-size: 20px;
