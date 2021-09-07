@@ -1551,6 +1551,7 @@ function va_gov_backend_entity_bundle_field_info_alter(&$fields, EntityTypeInter
     }
     elseif ($field->getType() === 'text_long') {
       $field->addConstraint('PreventAbsoluteCmsLinks');
+      $field->addConstraint('PreventAdjacentLinks');
       $field->addConstraint('PreventLocalFileLinks');
     }
   }
