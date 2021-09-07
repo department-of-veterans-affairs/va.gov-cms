@@ -6,30 +6,58 @@ dependencies:
     - block_content.type.alert
     - block_content.type.promo
     - node.type.banner
+    - node.type.basic_landing_page
     - node.type.campaign_landing_page
+    - node.type.centralized_content
     - node.type.checklist
+    - node.type.documentation_page
     - node.type.event
+    - node.type.event_listing
     - node.type.faq_multiple_q_a
+    - node.type.health_care_local_facility
     - node.type.health_care_local_health_service
     - node.type.health_care_region_detail_page
+    - node.type.health_care_region_page
+    - node.type.health_services_listing
+    - node.type.landing_page
+    - node.type.leadership_listing
+    - node.type.locations_listing
     - node.type.media_list_images
     - node.type.media_list_videos
+    - node.type.nca_facility
     - node.type.news_story
+    - node.type.office
     - node.type.outreach_asset
+    - node.type.page
     - node.type.person_profile
     - node.type.press_release
+    - node.type.press_releases_listing
+    - node.type.publication_listing
     - node.type.q_a
     - node.type.regional_health_care_service_des
     - node.type.step_by_step
+    - node.type.story_listing
     - node.type.support_resources_detail_page
+    - node.type.support_service
+    - node.type.va_form
+    - node.type.vamc_operating_status_and_alerts
+    - node.type.vamc_system_billing_insurance
+    - node.type.vamc_system_medical_records_offi
+    - node.type.vamc_system_policies_page
+    - node.type.vamc_system_register_for_care
+    - node.type.vba_facility
+    - node.type.vet_center
     - node.type.vet_center_cap
     - node.type.vet_center_facility_health_servi
+    - node.type.vet_center_locations_list
+    - node.type.vet_center_mobile_vet_center
+    - node.type.vet_center_outstation
   module:
     - content_moderation
 _core:
   default_config_hash: 8FLw3dX-3yJxrgAtaiNul_N8e8yc70gQD4u9UehUHhs
 id: editorial
-label: 'Content publisher can archive'
+label: 'Editorial workflow'
 type: content_moderation
 type_settings:
   states:
@@ -111,22 +139,50 @@ type_settings:
       - promo
     node:
       - banner
+      - basic_landing_page
       - campaign_landing_page
+      - centralized_content
       - checklist
+      - documentation_page
       - event
+      - event_listing
       - faq_multiple_q_a
+      - health_care_local_facility
       - health_care_local_health_service
       - health_care_region_detail_page
+      - health_care_region_page
+      - health_services_listing
+      - landing_page
+      - leadership_listing
+      - locations_listing
       - media_list_images
       - media_list_videos
+      - nca_facility
       - news_story
+      - office
       - outreach_asset
+      - page
       - person_profile
       - press_release
+      - press_releases_listing
+      - publication_listing
       - q_a
       - regional_health_care_service_des
       - step_by_step
+      - story_listing
       - support_resources_detail_page
+      - support_service
+      - va_form
+      - vamc_operating_status_and_alerts
+      - vamc_system_billing_insurance
+      - vamc_system_medical_records_offi
+      - vamc_system_policies_page
+      - vamc_system_register_for_care
+      - vba_facility
+      - vet_center
       - vet_center_cap
       - vet_center_facility_health_servi
+      - vet_center_locations_list
+      - vet_center_mobile_vet_center
+      - vet_center_outstation
   default_moderation_state: draft
