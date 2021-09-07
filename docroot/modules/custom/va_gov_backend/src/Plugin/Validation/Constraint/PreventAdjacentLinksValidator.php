@@ -21,7 +21,7 @@ class PreventAdjacentLinksValidator extends ConstraintValidator {
     foreach ($items as $delta => $item) {
       /** @var \Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventAdjacentLinks $constraint */
       $html = $item->getValue()['value'];
-      if (strpos($html, '</a><a ') === FALSE) {
+      if (stripos($html, '</a><a ') === FALSE) {
         return;
       }
       $dom = Html::load($html);
