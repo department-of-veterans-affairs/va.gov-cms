@@ -91,6 +91,10 @@ The goal for this week is to get you set up with the tools you need to be succes
  - [ ] [Review the helpdesk Google Drive](https://drive.google.com/drive/folders/1opC6DgZyBQ6uEVzIz3FWmISMLt-Y91ts).
  - [ ] [Jira Service Desk](https://va-gov.atlassian.net/jira/servicedesk/projects/VAHELP)
  - [ ] Discuss Drupal CMS account administration process with instructional designer, delivery manager or product manager
+ - [ ] Get access to training, staging, and prod environments with instructional designer
+ - [ ] Discuss broken links process with instructional designer
+ - [ ] Discuss Jira reporting with instructional designer
+ - [ ] Discuss Knowledge Base with instructional designer
  - The following trainings and additional videos can be found on the Knowledge Base on the Drupal CMS prod and lesser environments that require VA network or SOCKS proxy access. They can be watched without VA network or SOCKS access at the links below.
    - [ ] [Watch the Drupal CMS editorial experience video for all users](https://youtu.be/ju7EH0F5S4I).
    - [ ] [Watch the training video that VA Medical Center (VAMC) editors have to complete](https://youtu.be/Sowgt1rOmlE).
