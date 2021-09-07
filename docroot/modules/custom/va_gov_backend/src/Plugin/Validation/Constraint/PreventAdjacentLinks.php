@@ -21,6 +21,6 @@ class PreventAdjacentLinks extends Constraint {
    * @var string
    * @see \Drupal\va_gov_backend\Plugin\Validation\ConstraintPreventAdjacentLinksValidator
    */
-  public $message = 'The link ":link" is too close to the following link, ":link2".  Please ensure that links are distinct.';
+  public $message = 'The link ":link" is too close to the following link, ":link2".  Please ensure that links are separated by whitespace.';
 
 }
