@@ -56,10 +56,18 @@ The goals of this week are: 1) get background paperwork completed as quickly as 
 
 ## Week two
 The goal for this week is to get you set up with the tools you need to be successful. We will pair you up with a buddy on the project that is in your same discipline to help inform which ones are relevant and which aren't. The most important thing is to get set up is SOCKS as it will give you access to our systems so try to prioritize that.
+### When?
+- [ ] Check your calendar for invitations to team ceremonies.
+  - [ ] Scrums
+  - [ ] Planning sessions
+  - [ ] Refinement sessions
+  - [ ] Demos
+  - [ ] Retros
+- [ ] Update your time away on the [team calendar on Confluence](https://va-gov.atlassian.net/wiki/spaces/VAGOV/calendars)
 ### What products do we support?
 - [ ] [Review the editor onboarding slides](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/https___prod.cms.va.gov_sites_default_files_2021-07_Welcome%2520to%2520the%2520new%2520VA.gov%2520CMS.pdf).
 - [ ] Read the [product sheets](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/VA-CMS-Product-Sheets.pdf).
-#### All team member need should review the following:
+#### All team members need to review the following:
  - [ ] [SOCKS proxy request](https://depo-platform-documentation.scrollhelp.site/getting-started/Internal-tools-access-via-SOCKS-proxy.1821081710.html) to access VA network tools until you get a PIV card. This is the first priority for week two.
    - [ ] Optional [Core Tunnel set up for SOCKS proxy on all browsers on Mac](https://www.youtube.com/watch?v=fSuN9LhkB5o)
  - [ ] [VA.gov tools overview](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html)
@@ -78,7 +86,7 @@ The goal for this week is to get you set up with the tools you need to be succes
     - [ ] [Tugboat for non-engineers](https://prod.cms.va.gov/help/demo-environments-tugboat-guides) SOCKS required
  - [ ] What do I need to know about my discipline on this team (DevOps, Engineering, Helpdesk, ID, UX)? Discuss with your discipline lead.
  - [ ] What applications or discipline-specific tools are needed? Discuss with your discipline lead.
-#### Onboarding for DevOps
+#### Onboarding for DevOps members
  - [ ] [Request access to Github Codespaces](https://github.com/department-of-veterans-affairs/github-user-requests/issues/new?assignees=&labels=general+issue%2C+user-created&template=general-help-request.md&title=Add%20user%20to%20Codespaces)
  - [ ] [IAM/SSO lower environment access](https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/blob/master/platform/cms/cms-sso-saml-iam-login-braindump.md#testing-login)
  - [ ] [Jenkins](http://jenkins.vfs.va.gov/) (SOCKS required)
@@ -86,7 +94,7 @@ The goal for this week is to get you set up with the tools you need to be succes
  - [ ] [Sentry](http://sentry.vfs.va.gov.) (SOCKS required)
  - [ ] [AWS](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html#Requestaccesstotools-Requestaccess) (SOCKS required)
  - [ ] sshuttle
-#### Onboarding for Helpdesk
+#### Onboarding for Helpdesk members
  - [ ] [Review the helpdesk Github repo](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/platform/cms/helpdesk).
  - [ ] [Review the helpdesk Google Drive](https://drive.google.com/drive/folders/1opC6DgZyBQ6uEVzIz3FWmISMLt-Y91ts).
  - [ ] [Jira Service Desk](https://va-gov.atlassian.net/jira/servicedesk/projects/VAHELP)
@@ -99,7 +107,7 @@ The goal for this week is to get you set up with the tools you need to be succes
    - [ ] [Watch the Drupal CMS editorial experience video for all users](https://youtu.be/ju7EH0F5S4I).
    - [ ] [Watch the training video that VA Medical Center (VAMC) editors have to complete](https://youtu.be/Sowgt1rOmlE).
    - [ ] [Watch the training video that Vet Center editors have to complete](https://youtu.be/scuC5lSHZuw).
-#### Onboarding for Instructional Design
+#### Onboarding for Instructional Design members
  - [ ] Audio/video recording tools
  - [ ] [YouTube channel for training videos](https://www.youtube.com/channel/UC5Y2p4ASQ5HdRR-pQ8RVQKQ) 
  - [ ] Discuss Drupal CMS account administration process with instructional designer, delivery manager or product manager
@@ -107,9 +115,9 @@ The goal for this week is to get you set up with the tools you need to be succes
    - [ ] [Watch the Drupal CMS editorial experience video for all users](https://youtu.be/ju7EH0F5S4I).
    - [ ] [Watch the training video that VA Medical Center (VAMC) editors have to complete](https://youtu.be/Sowgt1rOmlE).
    - [ ] [Watch the training video that Vet Center editors have to complete](https://youtu.be/scuC5lSHZuw).
-#### Onboarding for Product Management
+#### Onboarding for Product Management members
   - Review [onboarding docs](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/PM/)
-#### Onboarding for UX
+#### Onboarding for UX members
 - [ ] Attend design onboarding call 1: You are here
    - The CMS and the products we support
    - Who are our users?
@@ -129,14 +137,6 @@ The goal for this week is to get you set up with the tools you need to be succes
    - Complete a CMS simulation (you’ll need SOCKS proxy access first)
 - [ ] Attend 1:1 w/ Kauff (maybe Clarence and Kev too)
    - Let’s talk about your skillsets and interests and which project initiatives you might want to take over.
-### When?
-- [ ] Check your calendar for invitations to team ceremonies.
-  - [ ] Scrums
-  - [ ] Planning sessions
-  - [ ] Refinement sessions
-  - [ ] Demos
-  - [ ] Retros
-- [ ] Update your time away on the [team calendar on Confluence](https://va-gov.atlassian.net/wiki/spaces/VAGOV/calendars)
 
 ## Month one
 By this point you should have enough context and access to be able to start contributing. Work with your team to identify specific issues to focus on.
