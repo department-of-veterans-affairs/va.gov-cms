@@ -8,35 +8,57 @@ Feature: Workflow
      Scenario: Workflow
        Then exactly the following workflows should exist
        | Label | Machine name | Type |
-| Editorial workflow | editorial | Content moderation |
+       | Content publisher can archive  | editorial     | Content moderation |
+       | Only Content Admin can archive | content_admin | Content moderation |
 
   @dst @workflow_states
      Scenario: Workflow states
        Then exactly the following workflow states should exist
        | Workflow | Label | Machine name |
-| Editorial workflow | Draft | draft |
-| Editorial workflow | In review | review |
-| Editorial workflow | Approved | approved |
-| Editorial workflow | Published | published |
-| Editorial workflow | Archived | archived |
+       | Content publisher can archive  | Approved  | approved  |
+       | Content publisher can archive  | Archived  | archived  |
+       | Content publisher can archive  | Draft     | draft     |
+       | Content publisher can archive  | In review | review    |
+       | Content publisher can archive  | Published | published |
+       | Only Content Admin can archive | Approved  | approved  |
+       | Only Content Admin can archive | Archived  | archived  |
+       | Only Content Admin can archive | Draft     | draft     |
+       | Only Content Admin can archive | In review | review    |
+       | Only Content Admin can archive | Published | published |
 
   @dst @workflow_transitions
      Scenario: Workflow transitions
        Then exactly the following workflow transitions should exist
        | Workflow | Label | Machine name | From state | To state |
-| Editorial workflow | Edit | create_new_draft | Draft | Draft |
-| Editorial workflow | Edit | create_new_draft | In review | Draft |
-| Editorial workflow | Edit | create_new_draft | Published | Draft |
-| Editorial workflow | Edit | create_new_draft | Archived | Draft |
-| Editorial workflow | Review | review | Draft | In review |
-| Editorial workflow | Review | review | In review | In review |
-| Editorial workflow | Approve | approve | In review | Approved |
-| Editorial workflow | Publish | publish | Draft | Published |
-| Editorial workflow | Publish | publish | In review | Published |
-| Editorial workflow | Publish | publish | Approved | Published |
-| Editorial workflow | Publish | publish | Published | Published |
-| Editorial workflow | Archive | archive | Approved | Archived |
-| Editorial workflow | Archive | archive | Draft | Archived |
-| Editorial workflow | Archive | archive | In review | Archived |
-| Editorial workflow | Archive | archive | Published | Archived |
-| Editorial workflow | Restore from archive | archived_published | Archived | Published |
+       | Content publisher can archive  | Approve              | approve            | In review | Approved  |
+       | Content publisher can archive  | Archive              | archive            | Approved  | Archived  |
+       | Content publisher can archive  | Archive              | archive            | Draft     | Archived  |
+       | Content publisher can archive  | Archive              | archive            | In review | Archived  |
+       | Content publisher can archive  | Archive              | archive            | Published | Archived  |
+       | Content publisher can archive  | Edit                 | create_new_draft   | Archived  | Draft     |
+       | Content publisher can archive  | Edit                 | create_new_draft   | Draft     | Draft     |
+       | Content publisher can archive  | Edit                 | create_new_draft   | In review | Draft     |
+       | Content publisher can archive  | Edit                 | create_new_draft   | Published | Draft     |
+       | Content publisher can archive  | Publish              | publish            | Approved  | Published |
+       | Content publisher can archive  | Publish              | publish            | Draft     | Published |
+       | Content publisher can archive  | Publish              | publish            | In review | Published |
+       | Content publisher can archive  | Publish              | publish            | Published | Published |
+       | Content publisher can archive  | Restore from archive | archived_published | Archived  | Published |
+       | Content publisher can archive  | Review               | review             | Draft     | In review |
+       | Content publisher can archive  | Review               | review             | In review | In review |
+       | Only Content Admin can archive | Approve              | approve            | In review | Approved  |
+       | Only Content Admin can archive | Archive              | archive            | Approved  | Archived  |
+       | Only Content Admin can archive | Archive              | archive            | Draft     | Archived  |
+       | Only Content Admin can archive | Archive              | archive            | In review | Archived  |
+       | Only Content Admin can archive | Archive              | archive            | Published | Archived  |
+       | Only Content Admin can archive | Edit                 | create_new_draft   | Archived  | Draft     |
+       | Only Content Admin can archive | Edit                 | create_new_draft   | Draft     | Draft     |
+       | Only Content Admin can archive | Edit                 | create_new_draft   | In review | Draft     |
+       | Only Content Admin can archive | Edit                 | create_new_draft   | Published | Draft     |
+       | Only Content Admin can archive | Publish              | publish            | Approved  | Published |
+       | Only Content Admin can archive | Publish              | publish            | Draft     | Published |
+       | Only Content Admin can archive | Publish              | publish            | In review | Published |
+       | Only Content Admin can archive | Publish              | publish            | Published | Published |
+       | Only Content Admin can archive | Restore from archive | archived_published | Archived  | Published |
+       | Only Content Admin can archive | Review               | review             | Draft     | In review |
+       | Only Content Admin can archive | Review               | review             | In review | In review |
