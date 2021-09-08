@@ -126,7 +126,10 @@ class BuildFrontend implements BuildFrontendInterface {
     if ($this->isFacility($node) && $node->hasField($status_field)) {
       // This is a node that should be checked for status change.
       $has_status_related_change = $this->changedValue($status_field, $node) || $this->changedValue($status_info_field, $node);
-      if ($this->isTriggerableState($node) && $has_status_related_change) {
+      // If the old state was draft, we can not detect a previous status change,
+      // so we will have release because we can not be sure.
+      $oldstate_was_draft = ($this->getOriginalFieldValue('moderation_state', $node) === 'draft') ? TRUE : FALSE;
+      if ($this->isTriggerableState($node) && ($has_status_related_change || $oldstate_was_draft)) {
         // The status related info changed, so release.
         return TRUE;
       }
