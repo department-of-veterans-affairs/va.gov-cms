@@ -80,7 +80,7 @@ class PreventAdjacentLinksValidatorTest extends UnitTestCase {
         'Hey, this is mine! How\'d this thing get here? I <a href="/biswangers"><em>wheel</em></a> <a href="/party"><em>my kids</em></a> around in it. See that? That\'s where Ellen put her foot through and I mended it with plywood. This is my wagon, man!',
       ],
       [
-        FALSE,
+        TRUE,
         'You must be crazy. Everybody\'s gone crazy today. <a href="/biswangers"><em>I\'ve just come from the Biswangers.</em></a><a href="/biswangers"><b>They snubbed me.<b></a><a href="/biswangers"><h3>Everyone at their party snubbed me -- they\'ve even got my hot dog wagon and they won\'t give it back!</h3></a>',
       ],
     ];
