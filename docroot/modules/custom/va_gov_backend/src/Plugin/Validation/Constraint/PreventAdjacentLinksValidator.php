@@ -28,8 +28,11 @@ class PreventAdjacentLinksValidator extends ConstraintValidator {
       $xpath = new \DOMXPath($dom);
       // Retrieve <a> tags whose preceding sibling is also an <a> tag.
       foreach ($xpath->query('//a/preceding-sibling::node()[1][name()="a"]') as $element) {
-        $ownerDocument = $element->ownerDocument;
         $nextSibling = $element->nextSibling;
+        if ($element->getAttribute('href') === $nextSibling->getAttribute('href')) {
+          continue;
+        }
+        $ownerDocument = $element->ownerDocument;
         $link = $ownerDocument->saveHTML($element->hasChildNodes() ? $element->childNodes[0] : NULL);
         $link2 = $ownerDocument->saveHTML($nextSibling->hasChildNodes() ? $nextSibling->childNodes[0] : NULL);
         $this->getContext()
