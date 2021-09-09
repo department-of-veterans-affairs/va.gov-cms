@@ -424,16 +424,3 @@ function va_gov_backend_update_8010() {
   }
   return "content_moderation_state_field_data and content_moderation_state_field_revision updated to workflow editor.";
 }
-
-/**
- * Strip trailing slashes from redirects.
- */
-function va_gov_backend_update_8011() {
-  $connection = \Drupal::database();
-  $connection->update('redirect')
-    ->fields([
-      'redirect_source__path' => 'TRIM(TRAILING \'/\' FROM redirect_source__path)',
-    ])
-    ->condition('redirect_source__path', '%/', 'LIKE')
-    ->execute();
-}
