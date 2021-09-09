@@ -26,7 +26,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    * Constructs the EventSubscriber object.
    *
    * @param \Drupal\va_gov_build_trigger\Service\BuildFrontend $build_frontend_service
-   *   The user perms service.
+   *   The build front end service.
    */
   public function __construct(
     BuildFrontend $build_frontend_service
