@@ -21,3 +21,6 @@ lando start
 # Import the database.
 ./scripts/sync-db.sh
 ./scripts/sync-files.sh
+
+echo
+echo "All done! Welcome to the VA.gov CMS :-)"
