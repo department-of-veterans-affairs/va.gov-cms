@@ -10,7 +10,6 @@ Feature: Content model: Vocabulary fields
        | Type | Bundle | Field label | Machine name | Field type | Required | Cardinality | Form widget | Translatable |
 | Vocabulary | Audience - Beneficiaries | Promoted to Resources and Support Homepage | field_audience_rs_homepage | Boolean |  | 1 | Single on/off checkbox |  |
 | Vocabulary | Audience - Non-beneficiaries | Promoted to Resources and Support Homepage | field_audience_rs_homepage | Boolean |  | 1 | Single on/off checkbox | Translatable |
-| Vocabulary | Products | Knowledge base landing page | field_kb_landing_page | Entity reference |  | 1 | Autocomplete |  |
 | Vocabulary | Sections | Description | field_description | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | Sections | Link text | field_email_updates_link_text | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | Sections | Link | field_link | Link |  | 1 | Linkit |  |
@@ -27,4 +26,5 @@ Feature: Content model: Vocabulary fields
 | Vocabulary | VHA health service taxonomy | Patient friendly name | field_vet_center_friendly_name | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | VHA health service taxonomy | Service description | field_vet_center_service_descrip | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
 | Vocabulary | VHA health service taxonomy | Type of Care | field_vet_center_type_of_care | List (text) |  | 1 | Select list |  |
+| Vocabulary | Products | Knowledge base landing page | field_kb_landing_page | Entity reference |  | 1 | Autocomplete |  |
 

@@ -9,6 +9,7 @@ parameters:
   level: 2
   ignoreErrors:
     - '#Unsafe usage of new static\(\)#'
+    - '#Access to an undefined property Drupal\\Core\\Field\\FieldItemListInterface::\$value.#'
   reportUnmatchedIgnoredErrors: false
   bootstrapFiles:
     - phpstan_bootstrap.php
