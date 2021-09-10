@@ -128,8 +128,10 @@ class BuildFrontend implements BuildFrontendInterface {
       $has_status_related_change = $this->changedValue($status_field, $node) || $this->changedValue($status_info_field, $node);
       // If the old state was draft, we can not detect a previous status change,
       // so we will have release because we can not be sure.
-      $oldstate_was_draft = ($this->getOriginalFieldValue('moderation_state', $node) === 'draft') ? TRUE : FALSE;
-      if ($this->isTriggerableState($node) && ($has_status_related_change || $oldstate_was_draft)) {
+      $oldstate_was_draft = $this->getOriginalFieldValue('moderation_state', $node) === 'draft';
+      $oldstate_was_archived = $this->getOriginalFieldValue('moderation_state', $node) === 'archived';
+      $archived_from_published = ($this->getOriginalFieldValue('moderation_state', $node) === 'published' && $node->get('moderation_state')->value === 'archived');
+      if ($this->isTriggerableState($node) && ($has_status_related_change || $oldstate_was_draft || $oldstate_was_archived || $archived_from_published)) {
         // The status related info changed, so release.
         return TRUE;
       }
@@ -268,7 +270,7 @@ class BuildFrontend implements BuildFrontendInterface {
   protected function changedValue($field_name, NodeInterface $node): bool {
     $value = $node->get($field_name)->value;
     $original_value = $this->getOriginalFieldValue($field_name, $node);
-    return ($value !== $original_value) ? TRUE : FALSE;
+    return $value !== $original_value;
   }
 
 }
