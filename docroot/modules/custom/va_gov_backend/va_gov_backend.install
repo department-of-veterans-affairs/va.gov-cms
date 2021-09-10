@@ -398,3 +398,29 @@ function va_gov_backend_update_8009() {
     }
   }
 }
+
+/**
+ * Remove content_admin workflow content_moderation.
+ */
+function va_gov_backend_update_8010() {
+  $connection = \Drupal::database();
+  $tables = [
+    'content_moderation_state_field_data',
+    'content_moderation_state_field_revision',
+  ];
+  foreach ($tables as $table) {
+    $count = $connection->update($table)
+      ->fields([
+        'workflow' => 'editorial',
+      ])
+      ->condition('workflow', 'content_admin')
+      ->execute();
+
+    $vars = [
+      '%count' => $count,
+      '%table' => $table,
+    ];
+    Drupal::logger('va_gov_backend')->log('info', "The table '%table' had %count workflow values changed from 'content_admin' to 'editorial'", $vars);
+  }
+  return "content_moderation_state_field_data and content_moderation_state_field_revision updated to workflow editor.";
+}
