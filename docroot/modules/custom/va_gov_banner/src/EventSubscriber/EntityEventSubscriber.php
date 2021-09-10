@@ -38,7 +38,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public function alterBannerNodeForm(FormIdAlterEvent $event): void {
     $form = &$event->getForm();
     if (!$this->userPermsService->hasAdminRole()) {
-      $form['field_target_paths']['#disabled'] = TRUE;
+      $form['field_target_paths']['#access'] = FALSE;
     }
   }
 
