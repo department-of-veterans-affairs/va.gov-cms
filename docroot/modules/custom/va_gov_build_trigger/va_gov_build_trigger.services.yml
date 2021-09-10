@@ -5,6 +5,11 @@ services:
   va_gov_build_trigger.aws_ssm_client:
     class: Aws\Ssm\SsmClient
     arguments: [ { 'version': 'latest', 'region': 'us-gov-west-1' } ]
+  va_gov_build_trigger.entity_event_subscriber:
+    class: Drupal\va_gov_build_trigger\EventSubscriber\EntityEventSubscriber
+    arguments: ['@va_gov_build_trigger.build_frontend']
+    tags:
+      - { name: event_subscriber }
   va_gov_build_trigger.jenkins_http_client:
     class: GuzzleHttp\Client
     arguments: [ { 'handler': '@va_gov_build_trigger.http_client_handler_stack' } ]
@@ -18,7 +23,7 @@ services:
     arguments: ['@logger.channel.va_gov_build_trigger']
   va_gov_build_trigger.build_frontend:
     class: Drupal\va_gov_build_trigger\Service\BuildFrontend
-    arguments: ['@messenger', '@logger.factory', '@va_gov.build_trigger.web_build_status', '@va_gov.build_trigger.environment_discovery']
+    arguments: ['@messenger', '@logger.factory', '@va_gov.build_trigger.web_build_status', '@va_gov.build_trigger.environment_discovery', '@current_user']
   va_gov_build_trigger.build_time_recorder:
     class: Drupal\va_gov_build_trigger\Service\BuildTimeRecorder
     arguments: ['@date.formatter', '@database']

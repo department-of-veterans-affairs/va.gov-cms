@@ -5,6 +5,8 @@ namespace Drupal\va_gov_build_trigger\Service;
 use Drupal\Component\Plugin\Exception\PluginException;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\node\NodeInterface;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery;
 use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
@@ -13,6 +15,16 @@ use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
  * Class for processing facility status to GovDelivery Bulletin.
  */
 class BuildFrontend implements BuildFrontendInterface {
+
+  use StringTranslationTrait;
+
+  /**
+   * The active user.
+   *
+   * @var \Drupal\Core\Session\AccountInterface
+   *  The user object.
+   */
+  protected $currentUser;
 
   /**
    * The logger service.
@@ -53,17 +65,22 @@ class BuildFrontend implements BuildFrontendInterface {
    *   The Web Build Status.
    * @param \Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery $environment_discovery
    *   The Environment Discovery Service.
+   * @param \Drupal\Core\Session\AccountInterface $current_user
+   *   The current user.
    */
   public function __construct(
     MessengerInterface $messenger,
     LoggerChannelFactoryInterface $logger_factory,
     WebBuildStatusInterface $web_build_status,
-    EnvironmentDiscovery $environment_discovery
+    EnvironmentDiscovery $environment_discovery,
+    AccountInterface $current_user
   ) {
     $this->messenger = $messenger;
     $this->logger = $logger_factory->get('va_gov_build_trigger');
     $this->webStatus = $web_build_status;
     $this->environmentDiscovery = $environment_discovery;
+    $this->currentUser = $current_user;
+
   }
 
   /**
@@ -75,7 +92,7 @@ class BuildFrontend implements BuildFrontendInterface {
     }
     catch (PluginException $e) {
       // In an unaccounted for environment without a plugin.
-      $message = t('You cannot trigger a build in this environment. Only the tugboat, lando, DEV, STAGING and PROD environments support triggering builds.');
+      $message = $this->t('You cannot trigger a build in this environment. Only the tugboat, lando, DEV, STAGING and PROD environments support triggering builds.');
       $this->messenger->addWarning($message);
       $this->logger->warning($message);
       $this->setPendingState(FALSE);
@@ -103,31 +120,19 @@ class BuildFrontend implements BuildFrontendInterface {
    * @return bool
    *   TRUE if there was a status related change, FALSE if there was not.
    */
-  private function changedStatus(NodeInterface $node) {
-    // Check for change of workflow to published.
-    $mod_state = $node->get('moderation_state')->value;
-    $mod_state_original = $this->getOriginalFieldValue($node, 'moderation_state');
-    if (($mod_state === 'published') && ($mod_state !== $mod_state_original)) {
-      // The status is published and was not before.
-      return TRUE;
-    }
-
-    // Check for change of operating status.
+  protected function facilityChangedStatus(NodeInterface $node) {
     $status_field = 'field_operating_status_facility';
-    if ($node->hasField($status_field)) {
-      $operating_status = $node->get($status_field)->value;
-      $original_operating_status = $this->getOriginalFieldValue($node, $status_field);
-      if ($operating_status !== $original_operating_status) {
-        return TRUE;
-      }
-    }
-
-    // Check for change of operating status more info.
     $status_info_field = 'field_operating_status_more_info';
-    if ($node->hasField($status_info_field)) {
-      $additional_info = $node->get($status_info_field)->value;
-      $original_additional_info = $this->getOriginalFieldValue($node, $status_info_field);
-      if ($additional_info !== $original_additional_info) {
+    if ($this->isFacility($node) && $node->hasField($status_field)) {
+      // This is a node that should be checked for status change.
+      $has_status_related_change = $this->changedValue($status_field, $node) || $this->changedValue($status_info_field, $node);
+      // If the old state was draft, we can not detect a previous status change,
+      // so we will have release because we can not be sure.
+      $oldstate_was_draft = $this->getOriginalFieldValue('moderation_state', $node) === 'draft';
+      $oldstate_was_archived = $this->getOriginalFieldValue('moderation_state', $node) === 'archived';
+      $archived_from_published = ($this->getOriginalFieldValue('moderation_state', $node) === 'published' && $node->get('moderation_state')->value === 'archived');
+      if ($this->isTriggerableState($node) && ($has_status_related_change || $oldstate_was_draft || $oldstate_was_archived || $archived_from_published)) {
+        // The status related info changed, so release.
         return TRUE;
       }
     }
@@ -138,19 +143,19 @@ class BuildFrontend implements BuildFrontendInterface {
   /**
    * Gets the previously saved value of a field.
    *
+   * @param string $field_name
+   *   The machine name of the field to get.
    * @param \Drupal\node\NodeInterface $node
    *   The node object of a node just updated or saved.
-   * @param string $fieldname
-   *   The machine name of the field to get.
    *
    * @return string
    *   The value of the field, or '' if not found.
    */
-  private function getOriginalFieldValue(NodeInterface $node, $fieldname) {
+  protected function getOriginalFieldValue($field_name, NodeInterface $node) {
     $value = '';
     if (isset($node->original) && ($node->original instanceof NodeInterface)) {
       // There was a previous save.
-      $value = $node->original->get($fieldname)->value;
+      $value = $node->original->get($field_name)->value;
     }
 
     return $value;
@@ -160,27 +165,112 @@ class BuildFrontend implements BuildFrontendInterface {
    * {@inheritdoc}
    */
   public function triggerFrontendBuildFromContentSave(NodeInterface $node) {
-    if (!$this->environmentDiscovery->shouldTriggerFrontendBuild()) {
-      return;
-    }
-
-    $allowed_content_types = [
-      'full_width_banner_alert',
-      'health_care_local_facility',
-    ];
-
-    $is_allowed_type = in_array($node->getType(), $allowed_content_types);
-    $is_published = $node->isPublished();
-    $is_facility = $node->getType() === 'health_care_local_facility';
-    $is_status_changed = $this->changedStatus($node);
-
-    if (
-      $is_allowed_type
-      && $is_published
-      && (($is_facility && $is_status_changed) || !$is_facility)
-      ) {
+    if ($this->isTriggerableState($node) && ($this->isTriggerableType($node) || $this->facilityChangedStatus($node))) {
+      $msg_vars = [
+        '%link_to_node' => $node->toLink(NULL, 'canonical', ['absolute' => TRUE])->toString(),
+        '%nid' => $node->id(),
+        '%type' => $node->getType(),
+        '%user' => $this->currentUser->getAccountName(),
+      ];
+      if (!$this->environmentDiscovery->shouldTriggerFrontendBuild()) {
+        $message = $this->t('A content release would have been triggered by a change to %type: %link_to_node , but this environment has it disabled.', $msg_vars);
+        $this->messenger->addStatus($message);
+        return;
+      }
       $this->triggerFrontendBuild();
+      $log_message = $this->t('A content release was triggered by a change to %type: %link_to_node (node%nid) by user %user.', $msg_vars);
+      $this->logger->info($log_message);
+      $message = $this->t('A content release has been triggered by the change you made to the %type: %link_to_node.', $msg_vars);
+      $this->messenger->addStatus($message);
     }
+  }
+
+  /**
+   * Checks if a node is content type that can trigger a content release.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The node being altered.
+   *
+   * @return bool
+   *   TRUE if it is a content type that can trigger a build.  FALSE otherwise.
+   */
+  protected function isTriggerableType(NodeInterface $node): bool {
+    $triggerable_content_types = [
+      'banner',
+      'full_width_banner_alert',
+    ];
+    return in_array($node->getType(), $triggerable_content_types);
+  }
+
+  /**
+   * Checks if a node is content type that is a facility.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The node being altered.
+   *
+   * @return bool
+   *   TRUE if it is a content type is a facility.  FALSE otherwise.
+   */
+  protected function isFacility(NodeInterface $node): bool {
+    $facility_content_types = [
+      'health_care_local_facility',
+      // 'nca_facility',  // Not rendered on the FE yet.  Add it when it is.
+      // 'vba_facility',  // Not rendered on the FE yet.  Add it when it is.
+      'vet_center_cap',
+      'vet_center_outstation',
+      'vet_center',
+    ];
+    return in_array($node->getType(), $facility_content_types);
+  }
+
+  /**
+   * Checks if a node has gone through a state change that warrants a release.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The node being altered.
+   *
+   * @return bool
+   *   TRUE if state change needs a release.  FALSE otherwise.
+   */
+  protected function isTriggerableState(NodeInterface $node): bool {
+    $moderation_state_new = $node->get('moderation_state')->value;
+    $is_published = $node->isPublished();
+    // If the current state is archived, isPublished lies to us because the save
+    // just happened, so we have to look back in time.
+    $was_published = (isset($node->original) && ($node->original instanceof NodeInterface)) ? $node->original->isPublished() : FALSE;
+    $has_been_published = $is_published || $was_published;
+
+    switch (TRUE) {
+      case ($moderation_state_new === 'published'):
+        // Normal publish of revision.
+      case ($has_been_published && ($moderation_state_new === 'archived')):
+        // Archive of published node.
+      case ($is_published && ($moderation_state_new === NULL)):
+        // Covers publishing of entity not governed by workbench moderation.
+      case ($was_published && !$is_published && ($moderation_state_new === NULL)):
+        // Covers unpublishing of entity not governed by workbench moderation.
+        return TRUE;
+
+      default:
+        return FALSE;
+    }
+  }
+
+  /**
+   * Checks if the value of the field on the node changed.
+   *
+   * @param string $field_name
+   *   The machine name of the field to check on.
+   * @param \Drupal\node\NodeInterface $node
+   *   The node being altered.
+   *
+   * @return bool
+   *   TRUE if the value changed.  FALSE otherwise.
+   */
+  protected function changedValue($field_name, NodeInterface $node): bool {
+    $value = $node->get($field_name)->value;
+    $original_value = $this->getOriginalFieldValue($field_name, $node);
+    return $value !== $original_value;
   }
 
 }
