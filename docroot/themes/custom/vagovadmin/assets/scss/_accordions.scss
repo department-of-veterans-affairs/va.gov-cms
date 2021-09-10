@@ -1,0 +1,100 @@
+#block-vagovadmin-content {
+  .paragraph {
+    &.paragraph--type--q-a.paragraph--view-mode--default,
+    &.paragraph--type--collapsible-panel-item.paragraph--view-mode--default {
+      /* stylelint-disable */
+      border: none;
+      /* stylelint-enable */
+      margin-bottom: 0;
+      padding: 0;
+
+      .paragraph {
+        /* stylelint-disable */
+        border: none;
+        /* stylelint-enable */
+      }
+
+      .paragraph--metadata {
+        /* stylelint-disable */
+        display: none;
+        /* stylelint-enable */
+      }
+
+      details {
+        border: 3px solid #f1f1f1;
+        /* stylelint-disable */
+        border-top: none;
+        /* stylelint-enable */
+        display: block;
+        margin: 0 0 -10px;
+        position: relative;
+        width: auto;
+
+        .field__item {
+          font-size: inherit;
+          line-height: 1.5;
+          margin-bottom: 0;
+
+          &.field--name-field-title {
+            background-color: transparent;
+            padding: 0;
+          }
+        }
+
+        /* stylelint-disable -- Need this naked [open] selector. */
+        &[open] {
+          summary::after {
+            content: '-';
+            float: right;
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-right: 10px;
+            margin-top: 3px;
+          }
+        }
+        /* stylelint-enable */
+
+        .details-body {
+          padding-left: 20px;
+        }
+
+        summary {
+          background: #f1f1f1;
+          cursor: pointer;
+          font-family: Source Sans Pro, Helvetica Neue, Helvetica, Roboto, Arial, sans-serif;
+          font-weight: bold;
+          padding: 10px 10px 10px 20px;
+          text-decoration: none !important;
+
+          h3 {
+            display: inline-block;
+            font-family: Source Sans Pro, Helvetica Neue, Helvetica, Roboto, Arial, sans-serif;
+            font-size: 1em;
+            font-weight: bold;
+            margin: 0;
+            max-width: 95%;
+            padding: 0;
+            text-transform: capitalize;
+          }
+
+          &::after {
+            content: '+';
+            float: right;
+            font-size: 2em;
+            font-weight: bold;
+            margin-right: 10px;
+            margin-top: 3px;
+          }
+
+          &::-webkit-details-marker {
+            display: none;
+          }
+        }
+      }
+    }
+
+    &.paragraph--type--q-a.paragraph--view-mode--default details summary h3 {
+      max-width: 100%;
+    }
+  }
+}
