@@ -2,14 +2,10 @@
 
 namespace tests\phpunit\Content;
 
-use Drupal\Core\Field\FieldDefinitionInterface;
-use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Tests\UnitTestCase;
 use Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventAbsoluteCmsLinks;
 use Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventAbsoluteCmsLinksValidator;
-use Prophecy\Argument;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
+use Traits\ValidatorTestTrait;
 
 /**
  * A test to confirm the proper functioning of this validator.
@@ -22,83 +18,7 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
  */
 class PreventAbsoluteCmsLinksValidatorTest extends UnitTestCase {
 
-  /**
-   * Get a validator object.
-   *
-   * @param bool $willValidate
-   *   TRUE if the test string should validate, otherwise FALSE.
-   *
-   * @return \Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventAbsoluteCmsLinksValidator
-   *   A testable validator object.
-   */
-  public function getValidator(bool $willValidate) {
-    $result = new PreventAbsoluteCmsLinksValidator();
-    $constraintViolationBuilderProphecy = $this->prophesize(ConstraintViolationBuilderInterface::class);
-    $addViolationMock = $constraintViolationBuilderProphecy->addViolation();
-    if ($willValidate) {
-      $addViolationMock->shouldNotBeCalled();
-    }
-    else {
-      $addViolationMock->shouldBeCalled();
-    }
-    $constraintViolationBuilderProphecy->atPath(Argument::type('string'))->will(function ($string) use ($constraintViolationBuilderProphecy) {
-      return $constraintViolationBuilderProphecy->reveal();
-    });
-    $executionContextProphecy = $this->prophesize(ExecutionContextInterface::class);
-    $executionContextProphecy->buildViolation(Argument::type('string'), Argument::type('array'))->will(function ($string, $array) use ($constraintViolationBuilderProphecy) {
-      return $constraintViolationBuilderProphecy->reveal();
-    });
-    $executionContext = $executionContextProphecy->reveal();
-    $result->setContext($executionContext);
-    return $result;
-  }
-
-  /**
-   * Get a field item list.
-   *
-   * This should normally be an instance of FieldItemListInterface,
-   * but the validator's code doesn't care so long as it's iterable.
-   *
-   * @param \Drupal\Core\Field\FieldItemInterface[] $items
-   *   Field items to tuck inside the list.
-   *
-   * @return array
-   *   A list of field items.
-   */
-  public function getFieldItemList(array $items) {
-    return $items;
-  }
-
-  /**
-   * Get a field item.
-   *
-   * Because Drupal, this $value will actually look something like:
-   *
-   *   [
-   *      'value' => 'Drupal developers have mixed feelings about _Inception_',
-   *      'format' => 'rich_text',
-   *   ]
-   *
-   * rather than being the actual string value.
-   *
-   * @param array $value
-   *   A field value.
-   * @param string $type
-   *   The field type.
-   *
-   * @return \Drupal\Core\Field\FieldItemListInterface
-   *   A list of field items.
-   */
-  public function getFieldItem(array $value, string $type) {
-    $fieldDefinitionProphecy = $this->prophesize(FieldDefinitionInterface::class);
-    $fieldDefinitionProphecy->getType()->willReturn($type);
-    $fieldDefinition = $fieldDefinitionProphecy->reveal();
-    $resultProphecy = $this->prophesize(FieldItemInterface::class);
-    $resultProphecy->getFieldDefinition()->willReturn($fieldDefinition);
-    $resultProphecy->getValue()->willReturn($value);
-    $result = $resultProphecy->reveal();
-    return $result;
-  }
+  use ValidatorTestTrait;
 
   /**
    * Test ::addViolation().
@@ -106,7 +26,8 @@ class PreventAbsoluteCmsLinksValidatorTest extends UnitTestCase {
    * @covers ::addViolation
    */
   public function testAddViolation() {
-    $validator = $this->getValidator(FALSE);
+    $validator = new PreventAbsoluteCmsLinksValidator();
+    $this->prepareValidator($validator, FALSE);
     $validator->addViolation(3, '99 :things on the wall, 99 :things, take one down, pass it around, 103 :things on the wall', [
       ':things' => 'violations of section 508',
     ]);
@@ -139,7 +60,8 @@ class PreventAbsoluteCmsLinksValidatorTest extends UnitTestCase {
     $items = $this->getFieldItemList([
       $this->getFieldItem($value, $fieldType),
     ]);
-    $validator = $this->getValidator($willValidate);
+    $validator = new PreventAbsoluteCmsLinksValidator();
+    $this->prepareValidator($validator, $willValidate);
     $validator->validate($items, new PreventAbsoluteCmsLinks());
   }
 
