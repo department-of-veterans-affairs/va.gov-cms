@@ -5,12 +5,8 @@ dependencies:
   config:
     - block_content.type.alert
     - field.field.block_content.alert.field_alert_content
-    - field.field.block_content.alert.field_alert_dismissable
-    - field.field.block_content.alert.field_alert_frequency
     - field.field.block_content.alert.field_alert_title
     - field.field.block_content.alert.field_alert_type
-    - field.field.block_content.alert.field_is_this_a_header_alert_
-    - field.field.block_content.alert.field_node_reference
     - field.field.block_content.alert.field_owner
     - field.field.block_content.alert.field_reusability
     - workflows.workflow.editorial
@@ -50,36 +46,6 @@ third_party_settings:
         required_fields: false
       label: 'Section settings'
       region: content
-    group_behaviour_and_placement:
-      children:
-        - field_is_this_a_header_alert_
-        - group_if_this_is_a_full_width_al
-      parent_name: ''
-      weight: 3
-      format_type: fieldset
-      format_settings:
-        id: ''
-        classes: ''
-        description: ''
-        open: false
-        required_fields: true
-      label: 'Behaviour and placement'
-      region: content
-    group_if_this_is_a_full_width_al:
-      children:
-        - field_alert_dismissable
-        - field_alert_frequency
-        - field_node_reference
-      parent_name: group_behaviour_and_placement
-      weight: 6
-      format_type: fieldset
-      format_settings:
-        description: ''
-        required_fields: true
-        id: ''
-        classes: ''
-      label: 'If this is a banner alert'
-      region: content
 id: block_content.alert.default
 targetEntityType: block_content
 bundle: alert
@@ -97,19 +63,6 @@ content:
       default_paragraph_type: _none
     third_party_settings: {  }
     region: content
-  field_alert_dismissable:
-    weight: 9
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
-  field_alert_frequency:
-    weight: 10
-    settings: {  }
-    third_party_settings: {  }
-    type: options_select
-    region: content
   field_alert_title:
     weight: 7
     settings:
@@ -124,22 +77,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_is_this_a_header_alert_:
-    weight: 5
-    settings: {  }
-    third_party_settings: {  }
-    type: options_select
-    region: content
-  field_node_reference:
-    weight: 11
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-      match_limit: 10
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
   field_owner:
     weight: 6
     settings: {  }
