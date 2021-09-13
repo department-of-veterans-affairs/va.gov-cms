@@ -12,7 +12,7 @@ We're thrilled to have you join us on this journey! 🎆🎉🙌
 
 Our vision is to build and maintain a best-in-class Content Management System that meets the needs of editors, application development teams, and consuming applications in order to empower our users to help Veterans.
 
-The onboarding materials below are organized by 1) chronological time to complete (day one, week one, week two, month one); and main category (why, how, who, what). There's a lot to digest but don't worry, your delivery manager will guide you and we'll also pair you up with someone from your workstream to help with specific things related to your discipline (UX, DevOps, Drupal Engineering, etc). In addition, you'll have the support of the entire team, who have all gone through this process before and are eager to answer any questions that arise. Come back to this ticket any time to refresh your knowledge on a specific topic covered below.
+The onboarding materials below are organized by 1) chronological time to complete (day one, week one, week two, month one); and main category (why, how, who, what). There's a lot to digest but don't worry, your delivery manager will guide you, you'll have an onboarding buddy to provide support, and we'll also introduce you to your workstream's lead to help with specific things related to your discipline (UX, DevOps, Drupal Engineering, etc). In addition, you'll have the support of the entire team, who have all gone through this process before and are eager to answer any questions that arise. Come back to this ticket any time to refresh your knowledge on a specific topic covered below.
 
 Have fun and we look forward to getting to know you! 😊
 
@@ -26,7 +26,7 @@ Onboarding buddy (short check-in meetings the first week): <insert_here>
 ### Who?
 - [ ] Who is on the VFS-CMS team? Read your [team members' user manuals and copy the template to add your own](https://drive.google.com/drive/u/0/folders/195otsT1IUxi_k8oEU21TUkvEG-6p5YQj?ths). Discuss with your delivery manager. 
 ### What?
-- [ ] [Onboarding questionnaire](https://docs.google.com/document/d/17fWcL-5p4T3H7dT2bbw02u_CHEZ0tDlszcoMVLfRqP4/edit) (what do you already know in regards to tooling, context, history, etc)
+- [ ] [Onboarding questionnaire](https://drive.google.com/drive/u/0/folders/1fYwNBBbceqRM3qXfes_KEg1QeO-Nkq0q?ths=true) (what do you already know in regards to tooling, context, history, etc)
 - [ ] Contract - Discuss with your delivery manager.
 - [ ] Read the [VA.gov platform mission and goals](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/VA.gov%20Platform%20Overview%202021.pdf).
 

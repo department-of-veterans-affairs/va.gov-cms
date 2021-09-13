@@ -51,6 +51,7 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'access prometheus metrics',
           'access site-wide contact form',
           'view media',
+          'view style guides',
         ],
       ],
       [
@@ -84,6 +85,7 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'override press_release authored on option',
           'use workbench access',
           'view media',
+          'view style guides',
         ],
       ],
       [
