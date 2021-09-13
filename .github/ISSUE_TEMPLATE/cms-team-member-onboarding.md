@@ -26,7 +26,7 @@ Onboarding buddy (short check-in meetings the first week): <insert_here>
 ### Who?
 - [ ] Who is on the VFS-CMS team? Read your [team members' user manuals and copy the template to add your own](https://drive.google.com/drive/u/0/folders/195otsT1IUxi_k8oEU21TUkvEG-6p5YQj?ths). Discuss with your delivery manager. 
 ### What?
-- [ ] [Onboarding questionnaire](https://docs.google.com/document/d/17fWcL-5p4T3H7dT2bbw02u_CHEZ0tDlszcoMVLfRqP4/edit) (what do you already know in regards to tooling, context, history, etc)
+- [ ] [Onboarding questionnaire](https://drive.google.com/drive/u/0/folders/1fYwNBBbceqRM3qXfes_KEg1QeO-Nkq0q?ths=true) (what do you already know in regards to tooling, context, history, etc)
 - [ ] Contract - Discuss with your delivery manager.
 - [ ] Read the [VA.gov platform mission and goals](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/VA.gov%20Platform%20Overview%202021.pdf).
 
