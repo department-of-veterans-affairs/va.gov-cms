@@ -12,7 +12,7 @@ We're thrilled to have you join us on this journey! 🎆🎉🙌
 
 Our vision is to build and maintain a best-in-class Content Management System that meets the needs of editors, application development teams, and consuming applications in order to empower our users to help Veterans.
 
-The onboarding materials below are organized by 1) chronological time to complete (day one, week one, week two, month one); and main category (why, how, who, what). There's a lot to digest but don't worry, your delivery manager will guide you and we'll also pair you up with someone from your workstream to help with specific things related to your discipline (UX, DevOps, Drupal Engineering, etc). In addition, you'll have the support of the entire team, who have all gone through this process before and are eager to answer any questions that arise. Come back to this ticket any time to refresh your knowledge on a specific topic covered below.
+The onboarding materials below are organized by 1) chronological time to complete (day one, week one, week two, month one); and main category (why, how, who, what). There's a lot to digest but don't worry, your delivery manager will guide you, you'll have an onboarding buddy to provide support, and we'll also introduce you to your workstream's lead to help with specific things related to your discipline (UX, DevOps, Drupal Engineering, etc). In addition, you'll have the support of the entire team, who have all gone through this process before and are eager to answer any questions that arise. Come back to this ticket any time to refresh your knowledge on a specific topic covered below.
 
 Have fun and we look forward to getting to know you! 😊
 
