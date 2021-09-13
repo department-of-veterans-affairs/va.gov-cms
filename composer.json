@@ -78,6 +78,8 @@
         "drupal/ief_table_view_mode": "^2.1",
         "drupal/image_style_warmer": "^1.0",
         "drupal/image_widget_crop": "^2.2",
+        "drupal/jsonapi_extras": "^3.19",
+        "drupal/jsonapi_resources": "^1.0@beta",
         "drupal/libraries": "^3.0@alpha",
         "drupal/limited_field_widgets": "^2.0",
         "drupal/linkit": "^6.0.0-beta2",
@@ -100,6 +102,8 @@
         "drupal/node_revision_delete": "^1.0",
         "drupal/node_title_help_text": "^1.0",
         "drupal/office_hours": "^1.3",
+        "drupal/openapi": "^2.0@RC",
+        "drupal/openapi_jsonapi": "^3.0",
         "drupal/override_node_options": "^2.4",
         "drupal/paragraphs": "^1.5",
         "drupal/paragraphs_browser": "^1.0@alpha",
@@ -116,6 +120,7 @@
         "drupal/redirect_options": "^2.0.2",
         "drupal/restui": "^1.16",
         "drupal/role_delegation": "1.1",
+        "drupal/schemata": "^1.0@beta",
         "drupal/search_api": "1.20.0",
         "drupal/seckit": "^2.0",
         "drupal/simplesamlphp_auth": "^3.2",
@@ -405,6 +410,11 @@
             "drupal/office_hours": {
                 "3227169 - Form fields in table cell missing labels causes accessibility warnings": "https://www.drupal.org/files/issues/2021-08-09/labels-for-accessibility-3227169-3.patch"
             },
+            "drupal/openapi_jsonapi": {
+                "3110109 - Support renamed resource types": "https://git.drupalcode.org/project/openapi_jsonapi/-/merge_requests/4.diff",
+                "3185778 - Fix TypeError: Cannot read property 'anyOf' of undefined": "https://www.drupal.org/files/issues/2020-12-21/add_required_keyword_8.x_2.x-3185778-5.patch",
+                "3219424 - Wrong parameter's type 'uuid'": "https://git.drupalcode.org/project/openapi_jsonapi/-/merge_requests/1.diff"
+            },
             "drupal/paragraphs": {
                 "Content & Behavior tabs use fixed IDs": "https://www.drupal.org/files/issues/2020-10-14/paragraphs-fix_duplicate_content_behavior_tab_ids-3176946-3.patch",
                 "Fix broken fieldsets on forms": "https://www.drupal.org/files/issues/2020-06-03/3138609-24.patch",
@@ -422,8 +432,8 @@
                 "Fix whitescreen when editing your own user. https://www.drupal.org/project/hide_revision_field/issues/3018160": "https://www.drupal.org/files/issues/2019-05-15/hide-revision-field-3018160-5-8.x-2.1.patch"
             },
             "drupal/schemata": {
-                "PHP 7.2 notice - \"Undefined offset: 1\" in JsonSchemaEncoder": "https://www.drupal.org/files/issues/2019-07-08/3063027-5-undefined-offset.patch",
-                "Possibly unnecessary logging in SchemaFactory::create(). https://www.drupal.org/project/schemata/issues/3190131": "https://www.drupal.org/files/issues/2020-12-28/schemata-remove-logging-statement-3190131-2.patch"
+                "3198409 - Plugin definitions are not cached": "https://www.drupal.org/files/issues/2021-02-14/3198409_2.patch",
+                "3190131 - Possibly unnecessary logging in SchemaFactory::create(). https://www.drupal.org/project/schemata/issues/3190131": "https://www.drupal.org/files/issues/2020-12-28/schemata-remove-logging-statement-3190131-2.patch"
             },
             "drupal/simplesamlphp_auth": {
                 "Don't attempt username sync when user was already matched by username": "https://www.drupal.org/files/issues/2020-07-31/reroll-existing-test-and-logging-fix-2748731-29.patch",
