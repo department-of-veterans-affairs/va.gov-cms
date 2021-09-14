@@ -10,7 +10,7 @@ use PNX\Prometheus\Gauge;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Collects metrics for the total node count.
+ * Collects metrics for the active user count.
  *
  * The granularity of the active user count is limited to the session write
  * interval.
