@@ -33,11 +33,11 @@ class ActiveUserCount extends BaseMetricsCollector implements ContainerFactoryPl
   protected $userStorage;
 
   /**
-   * The user type storage.
+   * The settings service.
    *
    * @var \Drupal\Core\Site\Settings
    */
-  protected $settings;
+  protected $settingsService;
 
   /**
    * UserCount constructor.
@@ -56,7 +56,7 @@ class ActiveUserCount extends BaseMetricsCollector implements ContainerFactoryPl
   public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityStorageInterface $user_storage, Settings $settings) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->userStorage = $user_storage;
-    $this->settings = $settings;
+    $this->settingsService = $settings;
   }
 
   /**
@@ -80,7 +80,7 @@ class ActiveUserCount extends BaseMetricsCollector implements ContainerFactoryPl
    */
   protected function getCount() {
     $query = $this->userStorage->getQuery();
-    $sessionWriteInterval = $this->settings->get('session_write_interval', 180);
+    $sessionWriteInterval = $this->settingsService->get('session_write_interval', 180);
     $sinceTime = time() - $sessionWriteInterval;
     $query
       ->accessCheck(TRUE)
