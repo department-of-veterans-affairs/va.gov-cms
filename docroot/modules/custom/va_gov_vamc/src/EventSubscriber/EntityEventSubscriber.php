@@ -93,6 +93,17 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Add js script for menu title copying from page title.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function alterVamcDetailNodeForm(FormIdAlterEvent $event): void {
+    $form = &$event->getForm();
+    $form['#attached']['library'][] = 'va_gov_vamc/set_menu_title_from_title';
+  }
+
+  /**
    * Add js script and disallowed nids to Full Width Banner node form.
    *
    * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
@@ -131,6 +142,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       'hook_event_dispatcher.form_node_vamc_system_billing_insurance_edit_form.alter' => 'alterTopTaskNodeForm',
       'hook_event_dispatcher.form_node_vamc_system_policies_page_form.alter' => 'alterTopTaskNodeForm',
       'hook_event_dispatcher.form_node_vamc_system_policies_page_edit_form.alter' => 'alterTopTaskNodeForm',
+      'hook_event_dispatcher.form_node_health_care_region_detail_page_form.alter' => 'alterVamcDetailNodeForm',
+      'hook_event_dispatcher.form_node_health_care_region_detail_page_edit_form.alter' => 'alterVamcDetailNodeForm',
     ];
   }
 
