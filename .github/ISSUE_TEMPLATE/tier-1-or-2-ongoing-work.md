@@ -26,5 +26,4 @@ Tier 2 expectations here: https://docs.google.com/document/d/15oe0wtGI_MdaScYpjJ
 Please leave only the team that will do this work selected. If you're not sure, it's fine to leave both selected.
 
 - [x] `Platform Team`
-- [x] `Product Support Team`
 - [x] `Sitewide CMS Team`
