@@ -38,5 +38,6 @@ Which [CMS design principle](https://github.com/department-of-veterans-affairs/v
 
 Please leave only the team that will do this work selected. If you're not sure, it's fine to leave both selected.
 
-- [x] `Core Application Team`
+- [x] `Platform Team`
 - [x] `Product Support Team`
+- [x] `Sitewide CMS Team`

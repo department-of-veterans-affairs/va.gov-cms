@@ -43,5 +43,6 @@ E.g. *As a user who may be making changes to content, I'd like a message that wa
 
 Please leave only the team that will do this work selected. If you're not sure, it's fine to leave both selected.
 
-- [x] `Core Application Team`
+- [x] `Platform Team`
 - [x] `Product Support Team`
+- [x] `Sitewide CMS Team`
