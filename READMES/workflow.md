@@ -25,22 +25,23 @@ To avoid cluttering up the main repo with lots of branches, fork the repo and pu
 ### Example Git workflow:
 
 1. `git fetch --all`
-1. `git checkout --branch <VAGOV-000-name> origin/master`
+1. `git checkout --branch <VACMS-000-name> origin/master`
 1. `lando composer install`
+1. `lando start`  or `lando restart` 
 1. `./scripts/sync-db.sh`
 1. `./scripts/sync-files.sh` # (optional)
 1. Running `lando test` will build the frontend web and run all tests (PHPUnit, Behat, accessibility, FE web) See [testing](testing.md) for additional details.
 1. If possible, write your test, before you write code.  The test should fail initially and not pass until you succeed.
-1. Fix code formatting issues with CodeSniffer, Drupal 8 standard.
-1. Commit your changes. Each commit should be logically atomic (e.g. module adds in one commit, config in another, custom code in additional logical commits), and your commit messages should follow the pattern: "VAGOV-123: A grammatically correct sentence starting with an action verb and ending with punctuation."
-_Example: VAGOV-1234 Add configuration for menu reduction._
+1. Fix code formatting issues with CodeSniffer, Drupal 8 standard. (linters should run automatically upon trying to commit.
+1. Commit your changes. Each commit should be logically atomic (e.g. module adds in one commit, config in another, custom code in additional logical commits), and your commit messages should follow the pattern: "VACMS-123: A grammatically correct sentence starting with an action verb and ending with punctuation."
+_Example: VACMS-1234 Add configuration for menu reduction._
 1. Push work to your fork of the repository so a Pull Request may be created
 `git push --set-upstream <fork name> HEAD`
 1. Once your PR is merged it will be automatically deployed to dev.cms.va.gov and staging.cms.va.gov. If it is merged before 2:30pm ET it will be in the daily, scheduled deploy to prod.cms.va.gov at 3:30pm ET.
 
 ### Pull Request Norms
 * Pull requests should be made against the `master` branch.
-* Pull Request title should be in the format: "VAGOV-123: Jira ticket title, starting with an action verb and ending with punctuation."
+* Pull Request title should be in the format: "VACMS-123: Jira ticket title, starting with an action verb and ending with punctuation."
 * If your PR is a work in progress or should not be merged, prefix the pull request title with "WIP: " and use the Draft feature.
 * Put a link to the ticket at the top of the PR description.
 * Add required notes in the PR description:
@@ -57,12 +58,12 @@ Developers are responsible for fixing merge conflicts on their own PRs. Follow t
 1.  Fetch upstream history: git fetch upstream
 Check out the branch against which you opened your PR (e.g., develop): git checkout develop
 1.  Make sure it matches upstream: git reset --hard upstream/develop
-1.  Check out your feature branch: git checkout feature/VAGOV-123-short-desc-mi
+1.  Check out your feature branch: git checkout feature/VACMS-123-short-desc-mi
 1.  Merge develop: `git rebase develop`
 At this point, Git will complain about a merge conflict. Run git status to find the conflicting file(s).
 1.  Edit the files to fix the conflict. The resources at the end of this section provide more information on this process.
 1.  Use git add to add all of the files you fixed. (Do not commit them)
-Finally, run `git rebase --continue` to finish the merge, and `git push origin VAGOV-123-short-desc-mi -f` to update the PR.
+Finally, run `git rebase --continue` to finish the merge, and `git push origin VACMS-123-short-desc-mi -f` to update the PR.
 Additional resources:
 
 https://confluence.atlassian.com/bitbucket/resolve-merge-conflicts-704414003.html
