@@ -6,7 +6,7 @@ dependencies:
     - field.field.node.documentation_page.field_administration
     - field.field.node.documentation_page.field_content_block
     - field.field.node.documentation_page.field_intro_text
-    - field.field.node.documentation_page.field_product
+    - field.field.node.documentation_page.field_products
     - field.field.node.documentation_page.field_related_user_guides
     - field.field.node.documentation_page.field_table_of_contents_boolean
     - field.field.node.documentation_page.layout_builder__layout
@@ -24,7 +24,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 5
+      weight: 6
       format_type: fieldset
       format_settings:
         id: ''
@@ -37,7 +37,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 4
+      weight: 0
       format_type: details_sidebar
       format_settings:
         description: ''
@@ -60,7 +60,7 @@ content:
     type: options_select
     region: content
   field_content_block:
-    weight: 2
+    weight: 4
     settings:
       title: 'Content block'
       title_plural: 'Content blocks'
@@ -81,21 +81,21 @@ content:
     type: paragraphs_browser
     region: content
   field_intro_text:
-    weight: 2
+    weight: 3
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: string_textarea
     region: content
-  field_product:
-    weight: 1
+  field_products:
+    weight: 2
     settings: {  }
     third_party_settings: {  }
-    type: options_select
+    type: options_buttons
     region: content
   field_related_user_guides:
-    weight: 4
+    weight: 5
     settings:
       match_operator: CONTAINS
       match_limit: 10
@@ -112,13 +112,13 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 6
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: 0
+    weight: 1
     region: content
     settings:
       size: 60

@@ -82,5 +82,5 @@ Examples:
 
 Please leave only the team that will do this work selected. If you're not sure, it's fine to leave both selected.
 
-- [x] `Core Application Team`
-- [x] `Product Support Team`
+- [x] `Platform Team`
+- [x] `Sitewide CMS Team`

@@ -1544,14 +1544,14 @@ function va_gov_backend_entity_bundle_field_info_alter(&$fields, EntityTypeInter
   if ($entity_type->id() === 'node' && $bundle === 'campaign_landing_page' && isset($fields['field_benefit_categories'])) {
     $fields['field_benefit_categories']->addConstraint('BenefitsSelectionLimit');
   }
-  // Prevent absolute CMS links in any text or rich text field.
-  $validate_types = [
-    'string_long',
-    'text_long',
-  ];
+  // Validation constraints for long plain and rich text fields.
   foreach ($fields as $field_name => $field) {
-    if (in_array($field->getType(), $validate_types)) {
+    if ($field->getType() === 'string_long') {
       $field->addConstraint('PreventAbsoluteCmsLinks');
+    }
+    elseif ($field->getType() === 'text_long') {
+      $field->addConstraint('PreventAbsoluteCmsLinks');
+      $field->addConstraint('PreventLocalFileLinks');
     }
   }
   // Add paragraph checks on clp panels.

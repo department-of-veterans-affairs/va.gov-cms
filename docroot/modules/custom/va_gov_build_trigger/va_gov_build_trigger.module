@@ -5,29 +5,7 @@
  * Contains va_gov_build_trigger.module.
  */
 
-use Drupal\node\NodeInterface;
 use Drupal\va_gov_build_trigger\GraphQLEntityQuery;
-
-/**
- * Trigger a web rebuild whenever a node is updated.
- *
- * @param \Drupal\node\NodeInterface $node
- *   The node being updated.
- */
-function va_gov_build_trigger_node_update(NodeInterface $node) {
-  // Trigger a frontend build for certain content types.
-  $frontend_service = \Drupal::service('va_gov_build_trigger.build_frontend');
-  $frontend_service->triggerFrontendBuildFromContentSave($node);
-}
-
-/**
- * Implements hook_ENTITY_TYPE_insert().
- */
-function va_gov_build_trigger_node_insert(NodeInterface $node) {
-  // Trigger a frontend build for certain content types.
-  $frontend_service = \Drupal::service('va_gov_build_trigger.build_frontend');
-  $frontend_service->triggerFrontendBuildFromContentSave($node);
-}
 
 /**
  * Implements hook_graphql_fields_alter().
