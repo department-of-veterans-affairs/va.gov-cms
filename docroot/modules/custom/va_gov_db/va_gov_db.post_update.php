@@ -84,6 +84,17 @@ function va_gov_db_post_update_resave_facility_nodes(&$sandbox) {
 }
 
 /**
+ * Strip trailing slashes from redirects.
+ */
+function va_gov_db_post_update_strip_trailing_redirect_slashes() {
+  $connection = \Drupal::database();
+  $connection->update('redirect')
+    ->condition('redirect_source__path', '%/', 'LIKE')
+    ->expression('redirect_source__path', 'TRIM(TRAILING \'/\' FROM redirect_source__path)')
+    ->execute();
+}
+
+/**
  * Callback function to concat node ids with string.
  *
  * @param int $nid

@@ -2,8 +2,6 @@
 
 namespace CustomDrupal;
 
-use Behat\Behat\Exception\BehaviorException;
-use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\TableNode;
 use Drupal\DrupalExtension\Context\RawDrupalContext;
 use TravisCarden\BehatTableComparison\TableEqualityAssertion;
@@ -11,7 +9,7 @@ use TravisCarden\BehatTableComparison\TableEqualityAssertion;
 /**
  * Provides content model step definitions for Behat.
  */
-class ContentModelContext extends RawDrupalContext implements SnippetAcceptingContext {
+class ContentModelContext extends RawDrupalContext {
 
   /**
    * Test automatic table labels.
@@ -71,13 +69,13 @@ class ContentModelContext extends RawDrupalContext implements SnippetAcceptingCo
    *
    * @Then /^I select the "([^"]*)" radio button$/
    *
-   * @throws Behat\Behat\Exception\BehaviorException
+   * @throws \Exception
    */
   public function iSelectTheRadioButton($radioLabel) {
     $radioButton = $this->getSession()->getPage()->findField($radioLabel);
 
     if (NULL === $radioButton) {
-      throw new BehaviorException("Element not found");
+      throw new \Exception("Element not found");
     }
 
     $this->getSession()->getDriver()->selectOption($radioButton->getXPath(), $radioButton->getAttribute('value'));

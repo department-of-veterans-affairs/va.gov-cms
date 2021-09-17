@@ -66,7 +66,7 @@
         "drupal/field_group": "^3.1",
         "drupal/fieldhelptext": "^1.0@beta",
         "drupal/flag": "^4.0@beta",
-        "drupal/flood_control": "^2.1",
+        "drupal/flood_control": "^2.2.2",
         "drupal/govdelivery_bulletins": "^1.2",
         "drupal/graphql": "^3.0",
         "drupal/graphql_core": "^3.1.0",
@@ -78,6 +78,8 @@
         "drupal/ief_table_view_mode": "^2.1",
         "drupal/image_style_warmer": "^1.0",
         "drupal/image_widget_crop": "^2.2",
+        "drupal/jsonapi_extras": "^3.19",
+        "drupal/jsonapi_resources": "^1.0@beta",
         "drupal/libraries": "^3.0@alpha",
         "drupal/limited_field_widgets": "^2.0",
         "drupal/linkit": "^6.0.0-beta2",
@@ -100,6 +102,8 @@
         "drupal/node_revision_delete": "^1.0",
         "drupal/node_title_help_text": "^1.0",
         "drupal/office_hours": "^1.3",
+        "drupal/openapi": "^2.0@RC",
+        "drupal/openapi_jsonapi": "^3.0",
         "drupal/override_node_options": "^2.4",
         "drupal/paragraphs": "^1.5",
         "drupal/paragraphs_browser": "^1.0@alpha",
@@ -116,14 +120,16 @@
         "drupal/redirect_options": "^2.0.2",
         "drupal/restui": "^1.16",
         "drupal/role_delegation": "1.1",
+        "drupal/schemata": "^1.0@beta",
         "drupal/search_api": "1.20.0",
         "drupal/seckit": "^2.0",
         "drupal/simplesamlphp_auth": "^3.2",
         "drupal/site_alert": "1.2",
         "drupal/slack": "^1.2",
-        "drupal/smart_date": "3.3.0",
+        "drupal/smart_date": "3.4.2",
         "drupal/social_media_links": "^2.6",
         "drupal/string_field_formatter": "^2.0",
+        "drupal/styleguide": "^2.0@beta",
         "drupal/tablefield": "^2.1",
         "drupal/taxonomy_entity_index": "^1.1",
         "drupal/taxonomy_menu": "3.x-dev#e89d1e8",
@@ -134,7 +140,7 @@
         "drupal/views_bulk_edit": "^2.3",
         "drupal/views_bulk_operations": "^3.11",
         "drupal/views_data_export": "^1.0@beta",
-        "drupal/webform": "^6",
+        "drupal/webform": "^6.0",
         "drupal/workbench_access": "^1.0-beta4",
         "drupal/workbench_menu_access": "^1.0",
         "drupal/workflow_assignments": "1.x-dev",
@@ -164,7 +170,7 @@
         "symfony/process": "^4.0",
         "symfony/routing": "^4.0",
         "traviscarden/behat-table-comparison": "~0.2",
-        "va-gov/content-build": "^0.0.856",
+        "va-gov/content-build": "^0.0.1189",
         "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
@@ -234,6 +240,24 @@
         "ewa": {
             "type": "git",
             "url": "https://github.com/agilesix/workflow_assignments.git"
+        },
+        "tippyjs/6.x": {
+            "type": "package",
+            "package": {
+                "name": "tippyjs/6.x",
+                "version": "6.2.6",
+                "type": "drupal-library",
+                "extra": {
+                    "installer-name": "tippyjs/6.x"
+                },
+                "dist": {
+                    "url": "https://unpkg.com/tippy.js@6.2.6/dist/tippy-bundle.umd.min.js",
+                    "type": "file"
+                },
+                "require": {
+                    "composer/installers": "~1.0"
+                }
+            }
         }
     },
     "config": {
@@ -329,7 +353,9 @@
                 "2911932 - Correct vertical tab does not focus on form validation": "https://www.drupal.org/files/issues/2020-12-12/vertical-tabs--focus-on-onvalid-7b.patch",
                 "2893933 - claimItem in the database and memory queues does not use expire correctly": "https://www.drupal.org/files/issues/2021-01-14/2893933-40.patch",
                 "3198608 - Migrate does not set set track_lst_updated from config": "https://www.drupal.org/files/issues/2021-07-27/track-last-updated-tests-3198608-14.patch",
-                "3205691 - Disallow aria-required on fieldsets": "https://www.drupal.org/files/issues/2021-03-25/disallow-aria-required-fieldsets.patch"
+                "3025164 - Make moderation_state available to field queries":"https://www.drupal.org/files/issues/2020-09-25/3025164-28.patch",
+                "3205691 - Disallow aria-required on fieldsets": "https://www.drupal.org/files/issues/2021-03-25/disallow-aria-required-fieldsets.patch",
+                "3229493 - TextareaWidget::errorElement() does not consult violation property path.": "https://www.drupal.org/files/issues/2021-08-23/test_module-3229493-2.patch"
             },
             "drupal/entity_browser": {
                 "Entity display plugin Rendered Entity is missing cache tags/keys": "https://www.drupal.org/files/issues/2020-03-31/rendered-entity-cache-keys-tags-3123876-2.patch",
@@ -351,10 +377,6 @@
             },
             "drupal/feature_toggle": {
                 "3147452 - Make compatible with d9": "https://www.drupal.org/files/issues/2020-06-06/feature_toggle.1.x-dev.rector.patch"
-            },
-            "drupal/flood_control": {
-                "3191346 - Custom events not listed in getEvents() of floodUnblockManager caused undefined index error": "https://www.drupal.org/files/issues/2021-02-16/flood_control-prevent_notices_for_custom_events-3191346-9.patch",
-                "3192020 - Flood control admin form adds contact.settings when Contact module is not enabled": "https://www.drupal.org/files/issues/2021-01-10/3192020-2.patch"
             },
             "drupal/field_group": {
                 "2787179 Visibility of invalid fields": "https://www.drupal.org/files/issues/2021-01-05/2787179-highlight-html5-validation-59.patch",
@@ -388,6 +410,11 @@
             "drupal/office_hours": {
                 "3227169 - Form fields in table cell missing labels causes accessibility warnings": "https://www.drupal.org/files/issues/2021-08-09/labels-for-accessibility-3227169-3.patch"
             },
+            "drupal/openapi_jsonapi": {
+                "3110109 - Support renamed resource types": "https://git.drupalcode.org/project/openapi_jsonapi/-/merge_requests/4.diff",
+                "3185778 - Fix TypeError: Cannot read property 'anyOf' of undefined": "https://www.drupal.org/files/issues/2020-12-21/add_required_keyword_8.x_2.x-3185778-5.patch",
+                "3219424 - Wrong parameter's type 'uuid'": "https://git.drupalcode.org/project/openapi_jsonapi/-/merge_requests/1.diff"
+            },
             "drupal/paragraphs": {
                 "Content & Behavior tabs use fixed IDs": "https://www.drupal.org/files/issues/2020-10-14/paragraphs-fix_duplicate_content_behavior_tab_ids-3176946-3.patch",
                 "Fix broken fieldsets on forms": "https://www.drupal.org/files/issues/2020-06-03/3138609-24.patch",
@@ -405,11 +432,12 @@
                 "Fix whitescreen when editing your own user. https://www.drupal.org/project/hide_revision_field/issues/3018160": "https://www.drupal.org/files/issues/2019-05-15/hide-revision-field-3018160-5-8.x-2.1.patch"
             },
             "drupal/schemata": {
-                "PHP 7.2 notice - \"Undefined offset: 1\" in JsonSchemaEncoder": "https://www.drupal.org/files/issues/2019-07-08/3063027-5-undefined-offset.patch",
-                "Possibly unnecessary logging in SchemaFactory::create(). https://www.drupal.org/project/schemata/issues/3190131": "https://www.drupal.org/files/issues/2020-12-28/schemata-remove-logging-statement-3190131-2.patch"
+                "3198409 - Plugin definitions are not cached": "https://www.drupal.org/files/issues/2021-02-14/3198409_2.patch",
+                "3190131 - Possibly unnecessary logging in SchemaFactory::create(). https://www.drupal.org/project/schemata/issues/3190131": "https://www.drupal.org/files/issues/2020-12-28/schemata-remove-logging-statement-3190131-2.patch"
             },
             "drupal/simplesamlphp_auth": {
-                "Don't attempt username sync when user was already matched by username": "https://www.drupal.org/files/issues/2020-07-31/reroll-existing-test-and-logging-fix-2748731-29.patch"
+                "Don't attempt username sync when user was already matched by username": "https://www.drupal.org/files/issues/2020-07-31/reroll-existing-test-and-logging-fix-2748731-29.patch",
+                "3213001 - Update library version to 1.19": "https://www.drupal.org/files/issues/2021-05-15/simplesamlphp-1-9-3213001-12.patch"
             },
             "drupal/site_alert": {
                 "3118800 - Add drush commands to add and remove alerts by label": "https://www.drupal.org/files/issues/2020-10-26/3118800-45.patch"

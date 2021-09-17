@@ -12,7 +12,7 @@ Feature: Content model: Custom Block fields
 | Custom block type | Alert | Alert dismissable? | field_alert_dismissable | Boolean |  | 1 | Single on/off checkbox |  |
 | Custom block type | Alert | Alert title | field_alert_title | Text (plain) | Required | 1 | Textfield |  |
 | Custom block type | Alert | Alert Type | field_alert_type | List (text) | Required | 1 | Select list |  |
-| Custom block type | Alert | Banner or in-page alert? | field_is_this_a_header_alert_ | List (text) |  | 1 | Select list |  |
+| Custom block type | Alert | Banner or in-page alert? | field_is_this_a_header_alert_ | List (text) | Required | 1 | Select list |  |
 | Custom block type | Alert | Section | field_owner | Entity reference | Required | 1 | Select list |  |
 | Custom block type | Alert | Persistence (for dismissable alerts only) | field_alert_frequency | List (text) | Required | 1 | Select list |  |
 | Custom block type | Alert | Reusability | field_reusability | List (text) | Required | 1 | -- Disabled -- |  |

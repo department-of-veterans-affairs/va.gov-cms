@@ -2,7 +2,9 @@ services:
   # What to call the service hosting the site.
   php:
     # Use PHP 7.x with Apache; this syntax pulls in the latest version of PHP 7
-    image: tugboatqa/php:7.3-apache
+    # Pinning to 7.3.28 until we update from Docker 19 to Docker 20
+    # See https://github.com/department-of-veterans-affairs/va.gov-cms/issues/6216
+    image: tugboatqa/php:7.3.28-apache
 
     aliases:
       - cms

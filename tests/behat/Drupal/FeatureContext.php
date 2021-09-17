@@ -2,7 +2,6 @@
 
 namespace CustomDrupal;
 
-use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Testwork\Tester\Result\TestResult;
 use Drupal\DrupalExtension\Context\DrushContext;
@@ -12,7 +11,7 @@ use Drupal\user\Entity\User;
 /**
  * FeatureContext class defines custom step definitions for Behat.
  */
-class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext {
+class FeatureContext extends RawDrupalContext {
 
   use \Traits\FieldTrait;
   use \Traits\UserEntityTrait;
@@ -101,32 +100,6 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     }
     else {
       throw new \Exception("Cannot locate a valid term with the title '$title'");
-    }
-  }
-
-  /**
-   * Check that the title exists in the main menu.
-   *
-   * @param string $item
-   *   The menu item title.
-   * @param string $menuname
-   *   The menu name.
-   *
-   * @Then the following items should exist :item in :menuname menu
-   */
-  public function theFollowingItemsShouldExist($item, $menuname) {
-    $links = [];
-    $storage = \Drupal::entityManager()->getStorage('menu_link_content');
-    $menu_links = $storage->loadByProperties(['menu_name' => $menuname]);
-    if (empty($menu_links)) {
-      throw new \Exception('Menu is empty');
-    }
-    foreach ($menu_links as $mlid => $menu_link) {
-      $links['menu_name'][] = $menu_link->title->value;
-    }
-
-    if (!in_array($item, $links['menu_name'])) {
-      throw new \Exception('Menu link "' . $item . '" does not exist');
     }
   }
 
@@ -313,26 +286,28 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    * @param string $title
    *   The node title.
    *
+   * @throws \InvalidArgumentException
+   *
    * @Given I set the node with title :title to :status
    */
   public function setTheNodeWithTitle($status, $title) {
-    if ($status === 'published') {
-      $status = ['pub' => TRUE, 'mod' => 'published'];
-    }
-    else {
-      $status = ['pub' => FALSE, 'mod' => 'archived'];
-    }
-
+    /** @var array{id: int, node: \Drupal\node\NodeInterface} $nodes */
     $nodes = \Drupal::entityTypeManager()
       ->getStorage('node')
       ->loadByProperties(['title' => $title]);
-
-    if (empty($nodes) || empty(reset($nodes))) {
+    if (empty($nodes)) {
       throw new \InvalidArgumentException(sprintf('Node with title "%s" does not exist', $title));
     }
+    /** @var \Drupal\node\NodeInterface $node */
     $node = reset($nodes);
-    $node->setPublished($status['pub']);
-    $node->set('moderation_state', $status['mod']);
+    if ($status === 'published') {
+      $node->setPublished();
+      $node->set('moderation_state', 'published');
+    }
+    else {
+      $node->setUnpublished();
+      $node->set('moderation_state', 'archived');
+    }
     $node->save();
   }
 
@@ -401,7 +376,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    * @param string $value
    *   The text for the field.
    *
-   * @throws ElementNotFoundException
+   * @throws \InvalidArgumentException
    *
    * @When I fill in :locator with the text :value
    */
@@ -424,7 +399,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    * @param string $select
    *   Input id, name or label.
    *
-   * @throws Exception
+   * @throws \Exception
    *
    * @Then the :option option from :select should be selected
    */
@@ -452,7 +427,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    * @param string $item
    *   The needle.
    *
-   * @throws Exception
+   * @throws \Exception
    *
    * @Then :selector should contain :item
    */
@@ -460,7 +435,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     $session = $this->getSession();
     $select_item = $session->getPage()->find('css', $selector);
     if (empty($select_item)) {
-      throw new \Exception('The selector ' . $select_item . ' does not exist.');
+      throw new \Exception('The selector ' . $selector . ' does not exist.');
     }
     $vals = $select_item->getText();
     $match = preg_match("/{$item}/i", $vals);
@@ -478,7 +453,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    * @param string $item
    *   The needle.
    *
-   * @throws Exception
+   * @throws \Exception
    *
    * @Then :selector should not contain :item
    */
@@ -486,7 +461,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     $session = $this->getSession();
     $select_item = $session->getPage()->find('css', $selector);
     if (empty($select_item)) {
-      throw new \Exception('The selector ' . $select_item . ' does not exist.');
+      throw new \Exception('The selector ' . $selector . ' does not exist.');
     }
     $vals = $select_item->getText();
     $match = preg_match("/{$item}/i", $vals);
@@ -542,7 +517,9 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    * @BeforeScenario
    */
   public function gatherContexts(BeforeScenarioScope $scope) {
-    $this->drushContext = $scope->getEnvironment()->getContext(DrushContext::CLASS);
+    /** @var \Behat\Behat\Context\Environment\InitializedContextEnvironment $environment */
+    $environment = $scope->getEnvironment();
+    $this->drushContext = $environment->getContext(DrushContext::CLASS);
   }
 
   /**
