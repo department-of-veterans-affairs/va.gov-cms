@@ -42,6 +42,12 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     if (!$this->userPermsService->hasAdminRole()) {
       $form['field_target_paths']['#access'] = FALSE;
     }
+    // Fixes href on missing path constraint jump link.
+    $form['#attached']['library'][] = 'va_gov_banner/fix_constraint_jump_link';
+    // Ensures users add revision message on edit.
+    if ($form['#form_id'] === 'node_banner_edit_form') {
+      $this->requireRevisionMessage($event);
+    }
   }
 
   /**
@@ -57,6 +63,20 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     if ($type->get('id') === 'node' && $bundle === 'banner' && isset($fields['field_target_paths'])) {
       $fields['field_target_paths']->addConstraint('RequireScope');
     }
+  }
+
+  /**
+   * Require revision message on banner edit form.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function requireRevisionMessage(FormIdAlterEvent $event) {
+    $form = &$event->getForm();
+    $form['revision_log']['#required'] = TRUE;
+    $form['revision_log']['widget']['#required'] = TRUE;
+    $form['revision_log']['widget'][0]['#required'] = TRUE;
+    $form['revision_log']['widget'][0]['value']['#required'] = TRUE;
   }
 
   /**
