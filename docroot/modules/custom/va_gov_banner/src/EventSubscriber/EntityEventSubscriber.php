@@ -40,7 +40,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public function alterBannerNodeForm(FormIdAlterEvent $event): void {
     $form = &$event->getForm();
     if (!$this->userPermsService->hasAdminRole()) {
-      $form['field_target_paths']['#access'] = FALSE;
+      $form['field_target_paths']['#disabled'] = TRUE;
     }
     // Fixes href on missing path constraint jump link.
     $form['#attached']['library'][] = 'va_gov_banner/fix_constraint_jump_link';
