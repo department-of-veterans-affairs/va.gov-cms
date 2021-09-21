@@ -72,7 +72,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       $bundle = $node->bundle();
       $is_admin = $this->userPermsService->hasAdminRole();
       $is_archiveable = $this->workflowContentControl->isBundleArchiveableByNonAdmins($bundle);
-      if (!$is_admin && !$is_archiveable && !$is_archived) {
+      if (!$is_admin && !$is_archiveable) {
         unset($form['moderation_state']['widget'][0]['state']['#options']['archived']);
       }
     }
