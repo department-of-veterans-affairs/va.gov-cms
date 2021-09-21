@@ -428,7 +428,7 @@ function va_gov_backend_update_8010() {
 /**
  * Re-save all nodes to correct leading and trailing whitespace issues.
  */
-function va_gov_backend_update_8013(&$sandbox) {
+function va_gov_backend_update_8011(&$sandbox) {
   $node_storage = \Drupal::entityTypeManager()->getStorage('node');
 
   // Get the node count.
