@@ -2,7 +2,7 @@
 name: VAMC launch support
 about: Support VAMC upgrade team with a VAMC launch
 title: VAMC launch support
-labels: vsa-vamc-upgrade
+labels: ''
 assignees: ''
 
 ---

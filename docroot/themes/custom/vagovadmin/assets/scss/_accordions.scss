@@ -1,7 +1,8 @@
-#block-vagovadmin-content {
+.documentation-page {
   .paragraph {
-    &.paragraph--type--q-a.paragraph--view-mode--default,
-    &.paragraph--type--collapsible-panel-item.paragraph--view-mode--default {
+    &.paragraph--type--q-a,
+    &.paragraph--type--collapsible-panel-item {
+
       /* stylelint-disable */
       border: none;
       /* stylelint-enable */
@@ -20,13 +21,14 @@
         /* stylelint-enable */
       }
 
+
       details {
         border: 3px solid #f1f1f1;
         /* stylelint-disable */
         border-top: none;
         /* stylelint-enable */
         display: block;
-        margin: 0 0 -10px;
+        margin: -10px 0 0;
         position: relative;
         width: auto;
 
@@ -63,6 +65,7 @@
           cursor: pointer;
           font-family: Source Sans Pro, Helvetica Neue, Helvetica, Roboto, Arial, sans-serif;
           font-weight: bold;
+          list-style: none;
           padding: 10px 10px 10px 20px;
           text-decoration: none !important;
 
@@ -74,7 +77,7 @@
             margin: 0;
             max-width: 95%;
             padding: 0;
-            text-transform: capitalize;
+            text-transform: none;
           }
 
           &::after {
@@ -84,6 +87,10 @@
             font-weight: bold;
             margin-right: 10px;
             margin-top: 3px;
+          }
+
+          ::marker {
+            display: none;
           }
 
           &::-webkit-details-marker {
