@@ -40,7 +40,6 @@ class WorkflowContentControl {
       'centralized_content',
       'documentation_page',
       'event_listing',
-      'full_width_banner_alert',
       'health_care_local_facility',
       'health_care_region_page',
       'health_services_listing',
