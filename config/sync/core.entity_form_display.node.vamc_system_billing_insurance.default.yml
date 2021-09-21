@@ -4,6 +4,9 @@ status: true
 dependencies:
   config:
     - field.field.node.vamc_system_billing_insurance.field_administration
+    - field.field.node.vamc_system_billing_insurance.field_cc_bottom_of_page_content
+    - field.field.node.vamc_system_billing_insurance.field_cc_related_links
+    - field.field.node.vamc_system_billing_insurance.field_cc_top_of_page_content
     - field.field.node.vamc_system_billing_insurance.field_enforce_unique_combo
     - field.field.node.vamc_system_billing_insurance.field_enforce_unique_combo_offic
     - field.field.node.vamc_system_billing_insurance.field_office
@@ -12,6 +15,7 @@ dependencies:
   module:
     - allow_only_one
     - content_moderation
+    - entity_field_fetch
     - field_group
 third_party_settings:
   field_group:
@@ -20,7 +24,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 3
+      weight: 5
       format_type: fieldset
       region: content
       format_settings:
@@ -32,9 +36,10 @@ third_party_settings:
       label: 'Editorial workflow'
     group_section_settings:
       children:
+        - field_enforce_unique_combo
         - field_administration
       parent_name: ''
-      weight: -10
+      weight: 0
       format_type: details_sidebar
       region: content
       format_settings:
@@ -46,33 +51,82 @@ third_party_settings:
         required_fields: true
         weight: 0
       label: 'Section settings'
+    group_national_content:
+      children:
+        - field_cc_bottom_of_page_content
+        - field_cc_top_of_page_content
+        - field_cc_related_links
+      parent_name: ''
+      weight: 4
+      format_type: tooltip
+      region: content
+      format_settings:
+        show_empty_fields: 0
+        id: ''
+        classes: centralized
+        element: div
+        show_label: '0'
+        label_element: h3
+        required_fields: 1
+        attributes: ''
+        description: ''
+        tooltip_description: 'This part of the page describes billing an insurance across all VA medical centers. Edits can only be made by the Veterans Health Administration (VHA). '
+        open: false
+      label: 'National content'
 id: node.vamc_system_billing_insurance.default
 targetEntityType: node
 bundle: vamc_system_billing_insurance
 mode: default
 content:
   field_administration:
-    weight: 12
+    weight: 4
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
+  field_cc_bottom_of_page_content:
+    type: entity_field_fetch_widget
+    weight: 13
+    region: content
+    settings:
+      show_field_label: true
+      show_link_to_source: false
+      show_source_updated_date: false
+    third_party_settings: {  }
+  field_cc_related_links:
+    type: entity_field_fetch_widget
+    weight: 15
+    region: content
+    settings:
+      show_field_label: true
+      show_link_to_source: false
+      show_source_updated_date: false
+    third_party_settings: {  }
+  field_cc_top_of_page_content:
+    type: entity_field_fetch_widget
+    weight: 14
+    region: content
+    settings:
+      show_field_label: true
+      show_link_to_source: false
+      show_source_updated_date: false
+    third_party_settings: {  }
   field_enforce_unique_combo:
-    weight: 2
+    weight: 3
     settings:
       size: 1
     third_party_settings: {  }
     type: allow_only_one_widget
     region: content
   field_enforce_unique_combo_offic:
-    weight: 26
+    weight: 2
     settings:
       size: 1
     third_party_settings: {  }
     type: allow_only_one_widget
     region: content
   field_office:
-    weight: 1
+    weight: 3
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -85,7 +139,7 @@ content:
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: 0
+    weight: 1
     region: content
     settings:
       size: 60
