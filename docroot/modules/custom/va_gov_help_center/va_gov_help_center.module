@@ -6,10 +6,28 @@
  */
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
+use Drupal\node\NodeInterface;
 
 // The NID of the CMS Knowledge Base homepage.
 const CMS_HELP_CENTER_HOMEPAGE_NID = 26856;
+
+/**
+ * Implements hook_help().
+ */
+function va_gov_help_center_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the va_gov_user_guide module.
+    case 'help.page.va_gov_help_center':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Supports VA.gov Knowledge Base and editor help center content.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
 
 /**
  * Implements hook_toolbar().
@@ -112,4 +130,29 @@ function _va_gov_help_center_should_attach_widget(string $route_name, array $rou
     }
   }
   return FALSE;
+}
+
+/**
+ * Implements hook_preprocess_breadcrumb().
+ */
+function va_gov_help_center_preprocess_breadcrumb(&$breadcrumb) {
+  _va_gov_help_center_remove_home_breadcrumb($breadcrumb);
+}
+
+/**
+ * Used to remove home breadcrumb from declared content types.
+ */
+function _va_gov_help_center_remove_home_breadcrumb(&$breadcrumb) {
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if ($node instanceof NodeInterface) {
+    $types_for_home_removal = [
+      'documentation_page',
+    ];
+    // Home crumb is always the first, and types that don't have a home crumb
+    // won't be added to array, so safe and less expensive than a loop
+    // to just pluck out the first item.
+    if (in_array($node->bundle(), $types_for_home_removal)) {
+      unset($breadcrumb['breadcrumb'][0]);
+    }
+  }
 }

@@ -25,6 +25,7 @@ Feature: Content model: Vet Center Content Type fields
 | Content type | Vet Center | Nationally featured Vet Center content | field_cc_vet_center_featured_con | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
 | Content type | Vet Center | Services  | field_health_services | Entity reference |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
 | Content type | Vet Center | Table of contents | field_table_of_contents | Markup |  | 1 | Markup |  |
+| Content type | Vet Center | Official name | field_official_name | Text (plain) |  | 1 | -- Disabled -- |  |
 | Content type | Vet Center - Community Access Point | Address | field_address | Address | Required | 1 | Address | Translatable |
 | Content type | Vet Center - Community Access Point | Operating status - more info | field_operating_status_more_info | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | Vet Center - Community Access Point | Facility Locator API ID | field_facility_locator_api_id | Text (plain) |  | 1 | -- Disabled -- | Translatable |

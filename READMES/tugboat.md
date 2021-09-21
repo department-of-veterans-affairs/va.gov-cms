@@ -112,6 +112,6 @@ For example, when creating the 'Wilmington health care' demo environment, these 
 
 ## Known issues
 1. The generated URLs have only been observed to change when the file .tugboat/config.yml is modified by changing the name of a defined service, or changes the default service.
-1. You cannot search logs with a browser right now, it is a known issue. The alternative is to use the `tugboat` CLI tool to view logs.
-1. You cannot scroll the logs while they are outputting, you can only scroll once they are done. If you want to see previous output then use the Tugboat CLI tool with `tugboat log <service id>` and scroll that way.
+1. You cannot search logs with a browser right now, it is a known issue. The alternative is to use the `tugboat` CLI tool to view logs. e.g. `tugboat log 6148dc56690c680da87db5f2 | grep -i 'error'`. You can get the service ID from the URL bar in the UI. 
+1. You cannot scroll the logs while they are outputting, you can only scroll once they are done. If you want to see previous output then use the Tugboat CLI tool with `tugboat log <service id>` and scroll that way. You can get the service ID from the URL bar in the UI. 
 1. Email cannot be sent to existing users, as their email addresses are blanked during the database sanitization process (see [#6100](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/6100)).  Email to new users, or users whose email addresses have been updated, can be sent and will be captured in the Tugboat interface.
