@@ -34,6 +34,7 @@
   {%
     set additional_body_classes = [
       logged_in ? 'user-logged-in',
+      node_type ? node_type|clean_class,
     ]
   %}
   <body{{ attributes.addClass(additional_body_classes) }}>
