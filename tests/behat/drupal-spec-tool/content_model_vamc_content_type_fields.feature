@@ -198,9 +198,9 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System Policies Page | Visitation policy | field_vamc_visitation_policy  | Text (formatted, long) | Required | 1 | Text area (multiple rows) |  |
 | Content type | VAMC System Billing and Insurance | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC System Billing and Insurance | VAMC System | field_office | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | VAMC System Billing and Insurance | National bottom of page content | field_cc_bottom_of_page_content | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
+| Content type | VAMC System Billing and Insurance | National bottom of page content | field_cc_bottom_of_page_content | Entity Field Fetch field |  | 1 | Entity Field Fetch widget | Translatable |
 | Content type | VAMC System Billing and Insurance | Related links | field_cc_related_links | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
-| Content type | VAMC System Billing and Insurance | National top of page content | field_cc_top_of_page_content | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
+| Content type | VAMC System Billing and Insurance | National top of page content | field_cc_top_of_page_content | Entity Field Fetch field |  | 1 | Entity Field Fetch widget | Translatable |
 | Content type | VAMC System Billing and Insurance | Enforce unique combo section  | field_enforce_unique_combo | Allow Only One |  | 1 | Allow Only One widget | Translatable |
 | Content type | VAMC System Billing and Insurance | Enforce unique combo office | field_enforce_unique_combo_offic | Allow Only One |  | 1 | Allow Only One widget |  |
 | Content type | VAMC System Medical Records Office | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
@@ -209,15 +209,15 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System Medical Records Office | Get your records by mail or fax | field_cc_get_records_mail_or_fax | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
 | Content type | VAMC System Medical Records Office | How we share your records with providers outside VA | field_cc_how_we_share_records | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
 | Content type | VAMC System Medical Records Office | React widget | field_cc_react_widget | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
-| Content type | VAMC System Medical Records Office | Related links | field_cc_related_links | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
-| Content type | VAMC System Medical Records Office | National top of page content | field_cc_top_of_page_content | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
+| Content type | VAMC System Medical Records Office | Related links | field_cc_related_links | Entity Field Fetch field |  | 1 | Entity Field Fetch widget | Translatable |
+| Content type | VAMC System Medical Records Office | National top of page content | field_cc_top_of_page_content | Entity Field Fetch field |  | 1 | Entity Field Fetch widget | Translatable |
 | Content type | VAMC System Medical Records Office | Enforce unique combo office | field_enforce_unique_combo_offic | Allow Only One |  | 1 | Allow Only One widget | Translatable |
 | Content type | VAMC System Medical Records Office | Enforce unique combo section  | field_enforce_unique_combo | Allow Only One |  | 1 | Allow Only One widget | Translatable |
 | Content type | VAMC System Medical Records Office | VAMC System | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC System Register for Care | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | VAMC System Register for Care | National bottom of page content | field_cc_bottom_of_page_content | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
-| Content type | VAMC System Register for Care | National top of page content | field_cc_top_of_page_content | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
-| Content type | VAMC System Register for Care | Related links | field_cc_related_links | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
+| Content type | VAMC System Register for Care | National bottom of page content | field_cc_bottom_of_page_content | Entity Field Fetch field |  | 1 | Entity Field Fetch widget | Translatable |
+| Content type | VAMC System Register for Care | National top of page content | field_cc_top_of_page_content | Entity Field Fetch field |  | 1 | Entity Field Fetch widget | Translatable |
+| Content type | VAMC System Register for Care | Related links | field_cc_related_links | Entity Field Fetch field |  | 1 | Entity Field Fetch widget | Translatable |
 | Content type | VAMC System Register for Care | Enforce unique combo office | field_enforce_unique_combo_offic | Allow Only One |  | 1 | Allow Only One widget | Translatable |
 | Content type | VAMC System Register for Care | Enforce unique combo section  | field_enforce_unique_combo | Allow Only One |  | 1 | Allow Only One widget | Translatable |
 | Content type | VAMC System Register for Care | VAMC System | field_office | Entity reference | Required | 1 | Select list | Translatable |
