@@ -85,6 +85,7 @@ The goal for this week is to get you set up with the tools you need to be succes
     - [ ] [Zenhub extension instructions](https://www.zenhub.com/extension)
  - [ ] [Citrix Access Gateway instructions](https://www.oit.va.gov/resources/remote-access/index.cfm?) for after you get your PIV card
  - [ ] [Confluence](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/179765342/2020-2021?NO_SSR=1) for team resources and calendar
+   - [ ] Add your planned time off to the [team calendar](https://va-gov.atlassian.net/wiki/spaces/VAGOV/calendars)
  - [ ] [Google Drive](https://drive.google.com/drive/u/0/folders/0ADx85_gnl3Y4Uk9PVA?ths=true) for team documents. Generally, VA doesn't use Google products. Use Github or downloadable files when sharing with VA.
  - [ ] [Trello](https://trello.com/vacmsteam)
  -  [ ] Tugboat demo environments
