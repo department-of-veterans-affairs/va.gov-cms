@@ -8,6 +8,7 @@
 use Drupal\field\Entity\FieldConfig;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
 use Drupal\pathauto\PathautoState;
 use Psr\Log\LogLevel;
 
@@ -430,6 +431,7 @@ function va_gov_backend_update_8010() {
  */
 function va_gov_backend_update_8011(&$sandbox) {
   $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+  $nids = [];
 
   // Get the node count.
   // This runs only once.
@@ -457,23 +459,26 @@ function va_gov_backend_update_8011(&$sandbox) {
   $nodes = $node_storage->loadMultiple($node_ids);
 
   foreach ($nodes as $node) {
-    // Save some time by only saving nodes that need adjustments.
-    if (
+    if ($node instanceof NodeInterface) {
+      // Save some time by only saving nodes that need adjustments.
+      if (
         preg_match('/\s+$/', $node->getTitle())
         ||
         preg_match('/^\s+/', $node->getTitle())
         ) {
-      // Make this change a new revision.
-      $node->setNewRevision(TRUE);
+        // Make this change a new revision.
+        $node->setNewRevision(TRUE);
 
-      // Set revision author to uid 1317 (CMS Migrator user).
-      $node->setRevisionUserId(1317);
-      $node->setChangedTime(time());
-      $node->setRevisionCreationTime(time());
+        // Set revision author to uid 1317 (CMS Migrator user).
+        $node->setRevisionUserId(1317);
+        $node->setChangedTime(time());
+        $node->setRevisionCreationTime(time());
 
-      // Set revision log message.
-      $node->setRevisionLogMessage('Resaved node to update title.');
-      $node->save();
+        // Set revision log message.
+        $node->setRevisionLogMessage('Resaved node to update title.');
+        $node->save();
+      }
+
     }
 
     unset($sandbox['nids_to_update']["node_{$node->id()}"]);
