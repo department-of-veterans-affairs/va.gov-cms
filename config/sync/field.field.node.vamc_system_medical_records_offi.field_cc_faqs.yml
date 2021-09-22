@@ -1,0 +1,27 @@
+uuid: cf525c68-28d2-4a3a-abc2-f457be377bf3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cc_faqs
+    - node.type.vamc_system_medical_records_offi
+  module:
+    - entity_field_fetch
+id: node.vamc_system_medical_records_offi.field_cc_faqs
+field_name: field_cc_faqs
+entity_type: node
+bundle: vamc_system_medical_records_offi
+label: FAQs
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  target_entity_type: node
+  target_entity_id: '33340'
+  field_to_fetch: field_content_block
+  target_paragraph_uuid: '82653'
+field_type: entity_field_fetch

@@ -1,0 +1,27 @@
+uuid: c052d897-0193-43bf-a2f5-0c1195c4e99f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cc_related_links
+    - node.type.vamc_system_billing_insurance
+  module:
+    - entity_field_fetch
+id: node.vamc_system_billing_insurance.field_cc_related_links
+field_name: field_cc_related_links
+entity_type: node
+bundle: vamc_system_billing_insurance
+label: 'Related links'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  target_entity_type: node
+  target_entity_id: '33341'
+  field_to_fetch: field_content_block
+  target_paragraph_uuid: '82301'
+field_type: entity_field_fetch
