@@ -13,7 +13,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class EntityEventSubscriber implements EventSubscriberInterface {
 
   /**
-   * Entity create Event call.
+   * Entity presave Event call.
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
    *   The event.
