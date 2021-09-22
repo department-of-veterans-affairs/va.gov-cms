@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.person_profile.field_administration
     - field.field.node.person_profile.field_body
     - field.field.node.person_profile.field_complete_biography
+    - field.field.node.person_profile.field_complete_biography_create
     - field.field.node.person_profile.field_description
     - field.field.node.person_profile.field_email_address
     - field.field.node.person_profile.field_intro_text
@@ -58,6 +59,16 @@ content:
       use_description_as_link_text: true
     third_party_settings: {  }
     type: file_default
+    region: content
+  field_complete_biography_create:
+    weight: 18
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
     region: content
   field_description:
     type: string
