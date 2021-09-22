@@ -1,0 +1,27 @@
+uuid: 5ff4283c-3cea-4c1c-8f14-a21bb9cc9aff
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cc_bottom_of_page_content
+    - node.type.vamc_system_register_for_care
+  module:
+    - entity_field_fetch
+id: node.vamc_system_register_for_care.field_cc_bottom_of_page_content
+field_name: field_cc_bottom_of_page_content
+entity_type: node
+bundle: vamc_system_register_for_care
+label: 'National bottom of page content'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  target_entity_type: node
+  target_entity_id: '33339'
+  field_to_fetch: field_content_block
+  target_paragraph_uuid: '82283'
+field_type: entity_field_fetch

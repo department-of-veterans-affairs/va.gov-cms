@@ -4,18 +4,109 @@ status: true
 dependencies:
   config:
     - field.field.node.vamc_system_medical_records_offi.field_administration
+    - field.field.node.vamc_system_medical_records_offi.field_cc_faqs
+    - field.field.node.vamc_system_medical_records_offi.field_cc_get_records_in_person
+    - field.field.node.vamc_system_medical_records_offi.field_cc_get_records_mail_or_fax
+    - field.field.node.vamc_system_medical_records_offi.field_cc_how_we_share_records
+    - field.field.node.vamc_system_medical_records_offi.field_cc_react_widget
+    - field.field.node.vamc_system_medical_records_offi.field_cc_related_links
+    - field.field.node.vamc_system_medical_records_offi.field_cc_top_of_page_content
     - field.field.node.vamc_system_medical_records_offi.field_enforce_unique_combo
     - field.field.node.vamc_system_medical_records_offi.field_enforce_unique_combo_offic
     - field.field.node.vamc_system_medical_records_offi.field_office
     - node.type.vamc_system_medical_records_offi
   module:
     - allow_only_one
+    - entity_field_fetch
+    - field_group
     - user
+third_party_settings:
+  field_group:
+    group_national_content:
+      children:
+        - field_cc_top_of_page_content
+        - field_cc_react_widget
+        - field_cc_get_records_mail_or_fax
+        - field_cc_get_records_in_person
+        - field_cc_how_we_share_records
+        - field_cc_faqs
+        - field_cc_related_links
+      parent_name: ''
+      weight: 3
+      format_type: tooltip
+      region: content
+      format_settings:
+        show_label: '0'
+        tooltip_description: 'This part of the page describes how to manage medical records across all of VA medical centers. Edits can only be made by the Veterans Health Administration (VHA). '
+        description: ''
+        id: ''
+        classes: centralized
+        show_empty_fields: 0
+        element: div
+        label_element: h3
+        attributes: ''
+      label: 'National content'
 id: node.vamc_system_medical_records_offi.default
 targetEntityType: node
 bundle: vamc_system_medical_records_offi
 mode: default
 content:
+  field_cc_faqs:
+    type: entity_field_fetch
+    weight: 7
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  field_cc_get_records_in_person:
+    type: entity_field_fetch
+    weight: 5
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  field_cc_get_records_mail_or_fax:
+    type: entity_field_fetch
+    weight: 4
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  field_cc_how_we_share_records:
+    type: entity_field_fetch
+    weight: 6
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  field_cc_react_widget:
+    type: entity_field_fetch
+    weight: 3
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  field_cc_related_links:
+    type: entity_field_fetch
+    weight: 8
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  field_cc_top_of_page_content:
+    type: entity_field_fetch
+    weight: 2
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  field_enforce_unique_combo:
+    type: allow_only_one
+    weight: 10
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
   field_enforce_unique_combo_offic:
     weight: 1
     label: above
@@ -31,6 +122,5 @@ content:
 hidden:
   content_moderation_control: true
   field_administration: true
-  field_enforce_unique_combo: true
   field_office: true
   search_api_excerpt: true
