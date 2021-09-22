@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "10ba52ca8b9a4f67b65e426b9243cfbb",
+    "content-hash": "ccdf079310800d82b36aba45ceb72a9f",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -3164,17 +3164,17 @@
         },
         {
             "name": "drupal/better_field_descriptions",
-            "version": "1.5.0",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/better_field_descriptions.git",
-                "reference": "8.x-1.5"
+                "reference": "8.x-1.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/better_field_descriptions-8.x-1.5.zip",
-                "reference": "8.x-1.5",
-                "shasum": "805fb14f07e2e7104ec53cef538a917a2a994a61"
+                "url": "https://ftp.drupal.org/files/projects/better_field_descriptions-8.x-1.6.zip",
+                "reference": "8.x-1.6",
+                "shasum": "46261c498ffd30be9e339d70dee5b463999cb6cb"
             },
             "require": {
                 "drupal/core": "^8 || ^9"
@@ -3182,8 +3182,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.5",
-                    "datestamp": "1575119887",
+                    "version": "8.x-1.6",
+                    "datestamp": "1631817593",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -5354,17 +5354,17 @@
         },
         {
             "name": "drupal/entity_field_fetch",
-            "version": "1.0.0-beta10",
+            "version": "1.0.0-beta11",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/entity_field_fetch.git",
-                "reference": "1.0.0-beta10"
+                "reference": "1.0.0-beta11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/entity_field_fetch-1.0.0-beta10.zip",
-                "reference": "1.0.0-beta10",
-                "shasum": "8cb2acdaa0074d9e29b0b8fed8902fe3d452f0a8"
+                "url": "https://ftp.drupal.org/files/projects/entity_field_fetch-1.0.0-beta11.zip",
+                "reference": "1.0.0-beta11",
+                "shasum": "7cf9a8628d1aa1a00c09e5949215c245290910ab"
             },
             "require": {
                 "drupal/core": "^8 || ^9"
@@ -5372,8 +5372,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "1.0.0-beta10",
-                    "datestamp": "1628307186",
+                    "version": "1.0.0-beta11",
+                    "datestamp": "1632157936",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
@@ -10545,117 +10545,6 @@
             }
         },
         {
-            "name": "drupal/webform",
-            "version": "6.0.5",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/webform.git",
-                "reference": "6.0.5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/webform-6.0.5.zip",
-                "reference": "6.0.5",
-                "shasum": "a925d604e3b4a29f5a688a8e84fdb3a93490f641"
-            },
-            "require": {
-                "drupal/core": "^8.8 || ^9"
-            },
-            "require-dev": {
-                "drupal/address": "~1.0",
-                "drupal/bootstrap": "~3.0",
-                "drupal/captcha": "~1.0",
-                "drupal/chosen": "~3.0",
-                "drupal/clientside_validation": "~3.0",
-                "drupal/clientside_validation_jquery": "*",
-                "drupal/devel": "~3.0",
-                "drupal/entity": "~1.0",
-                "drupal/entity_print": "~2.0",
-                "drupal/gnode": "*",
-                "drupal/group": "1.0",
-                "drupal/jquery_ui": "~1.0",
-                "drupal/jquery_ui_checkboxradio": "~1.0",
-                "drupal/jquery_ui_datepicker": "~1.0",
-                "drupal/lingotek": "~3.0",
-                "drupal/mailsystem": "~4.0",
-                "drupal/paragraphs": "~1.0",
-                "drupal/select2": "~1.0",
-                "drupal/smtp": "~1.0",
-                "drupal/styleguide": "~1.0",
-                "drupal/telephone_validation": "~2.0",
-                "drupal/token": "~1.0",
-                "drupal/variationcache": "~1.0",
-                "drupal/webform_access": "*",
-                "drupal/webform_attachment": "*",
-                "drupal/webform_clientside_validation": "*",
-                "drupal/webform_devel": "*",
-                "drupal/webform_entity_print": "*",
-                "drupal/webform_group": "*",
-                "drupal/webform_node": "*",
-                "drupal/webform_options_limit": "*",
-                "drupal/webform_scheduled_email": "*",
-                "drupal/webform_share": "*",
-                "drupal/webform_ui": "*"
-            },
-            "suggest": {
-                "drupal/jquery_ui_checkboxradio": "Provides jQuery UI Checkboxradio library. Required by the Webform jQueryUI Buttons module. The Webform jQueryUI Buttons module is deprecated because jQueryUI is no longer maintained.",
-                "drupal/jquery_ui_datepicker": "Provides jQuery UI Datepicker library. Required to support datepickers. The Webform jQueryUI Datepicker module is deprecated because jQueryUI is no longer maintained."
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "6.0.5",
-                    "datestamp": "1629909787",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                },
-                "drush": {
-                    "services": {
-                        "drush.services.yml": "^9 || ^10"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Jacob Rockowitz (jrockowitz)",
-                    "homepage": "https://www.drupal.org/u/jrockowitz",
-                    "role": "Maintainer"
-                },
-                {
-                    "name": "Alexander Trotsenko (bucefal91)",
-                    "homepage": "https://www.drupal.org/u/bucefal91",
-                    "role": "Co-maintainer"
-                },
-                {
-                    "name": "Contributors",
-                    "homepage": "https://www.drupal.org/node/7404/committers",
-                    "role": "Contributor"
-                },
-                {
-                    "name": "quicksketch",
-                    "homepage": "https://www.drupal.org/user/35821"
-                },
-                {
-                    "name": "torotil",
-                    "homepage": "https://www.drupal.org/user/865256"
-                }
-            ],
-            "description": "Enables the creation of webforms and questionnaires.",
-            "homepage": "https://drupal.org/project/webform",
-            "support": {
-                "source": "https://git.drupalcode.org/project/webform",
-                "issues": "https://www.drupal.org/project/issues/webform?version=8.x",
-                "docs": "https://www.drupal.org/docs/8/modules/webform",
-                "forum": "https://drupal.stackexchange.com/questions/tagged/webform"
-            }
-        },
-        {
             "name": "drupal/workbench_access",
             "version": "1.0.0-beta4",
             "source": {
@@ -14643,16 +14532,16 @@
         },
         {
             "name": "phpdocumentor/type-resolver",
-            "version": "1.4.0",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/TypeResolver.git",
-                "reference": "6a467b8989322d92aa1c8bf2bebcc6e5c2ba55c0"
+                "reference": "30f38bffc6f24293dadd1823936372dfa9e86e2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/6a467b8989322d92aa1c8bf2bebcc6e5c2ba55c0",
-                "reference": "6a467b8989322d92aa1c8bf2bebcc6e5c2ba55c0",
+                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/30f38bffc6f24293dadd1823936372dfa9e86e2f",
+                "reference": "30f38bffc6f24293dadd1823936372dfa9e86e2f",
                 "shasum": ""
             },
             "require": {
@@ -14660,7 +14549,8 @@
                 "phpdocumentor/reflection-common": "^2.0"
             },
             "require-dev": {
-                "ext-tokenizer": "*"
+                "ext-tokenizer": "*",
+                "psalm/phar": "^4.8"
             },
             "type": "library",
             "extra": {
@@ -14686,9 +14576,9 @@
             "description": "A PSR-5 based resolver of Class names, Types and Structural Element Names",
             "support": {
                 "issues": "https://github.com/phpDocumentor/TypeResolver/issues",
-                "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.4.0"
+                "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.5.0"
             },
-            "time": "2020-09-17T18:55:26+00:00"
+            "time": "2021-09-17T15:28:14+00:00"
         },
         {
             "name": "phpfastcache/riak-client",
@@ -22697,16 +22587,16 @@
         },
         {
             "name": "va-gov/content-build",
-            "version": "v0.0.1216",
+            "version": "v0.0.1232",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/content-build.git",
-                "reference": "a42814f6a8867cf6bd6631cbd52f992a24203ec3"
+                "reference": "32969b73aaa69f5e43d219a73d30c2eebb6f9d5f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/a42814f6a8867cf6bd6631cbd52f992a24203ec3",
-                "reference": "a42814f6a8867cf6bd6631cbd52f992a24203ec3",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/32969b73aaa69f5e43d219a73d30c2eebb6f9d5f",
+                "reference": "32969b73aaa69f5e43d219a73d30c2eebb6f9d5f",
                 "shasum": ""
             },
             "type": "node-project",
@@ -22733,9 +22623,9 @@
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/web, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
             "support": {
                 "issues": "https://github.com/department-of-veterans-affairs/content-build/issues",
-                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.1216"
+                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.1232"
             },
-            "time": "2021-09-17T17:55:26+00:00"
+            "time": "2021-09-20T16:02:14+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -24642,5 +24532,5 @@
     "platform-overrides": {
         "php": "7.3"
     },
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.0.0"
 }
