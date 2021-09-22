@@ -4,18 +4,68 @@ status: true
 dependencies:
   config:
     - field.field.node.vamc_system_billing_insurance.field_administration
+    - field.field.node.vamc_system_billing_insurance.field_cc_bottom_of_page_content
+    - field.field.node.vamc_system_billing_insurance.field_cc_related_links
+    - field.field.node.vamc_system_billing_insurance.field_cc_top_of_page_content
     - field.field.node.vamc_system_billing_insurance.field_enforce_unique_combo
     - field.field.node.vamc_system_billing_insurance.field_enforce_unique_combo_offic
     - field.field.node.vamc_system_billing_insurance.field_office
     - node.type.vamc_system_billing_insurance
   module:
     - allow_only_one
+    - entity_field_fetch
+    - field_group
     - user
+third_party_settings:
+  field_group:
+    group_national_content:
+      children:
+        - field_cc_top_of_page_content
+        - field_cc_related_links
+        - field_cc_bottom_of_page_content
+      parent_name: ''
+      weight: 2
+      format_type: tooltip
+      region: content
+      format_settings:
+        show_empty_fields: 0
+        id: ''
+        classes: centralized
+        element: div
+        show_label: '0'
+        label_element: h3
+        attributes: ''
+        description: ''
+        tooltip_description: 'This part of the page describes billing and insurance across all VA medical centers. Edits can only be made by the Veterans Health Administration (VHA). '
+        open: false
+        required_fields: false
+      label: 'National content'
 id: node.vamc_system_billing_insurance.default
 targetEntityType: node
 bundle: vamc_system_billing_insurance
 mode: default
 content:
+  field_cc_bottom_of_page_content:
+    type: entity_field_fetch
+    weight: 8
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  field_cc_related_links:
+    type: entity_field_fetch
+    weight: 7
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  field_cc_top_of_page_content:
+    type: entity_field_fetch
+    weight: 6
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
   field_enforce_unique_combo_offic:
     weight: 1
     label: above
