@@ -7,6 +7,11 @@ All computers in VA already have this setup, if you are using a non-VA laptop fo
 * http://crl.pki.va.gov/PKI/AIA/VA/VA-Internal-S2-RCA1-v1.cer
 * http://crl.pki.va.gov/PKI/AIA/VA/VA-Internal-S2-ICA1-v1.cer
 
+If you see a message from your browser like the following:
+<img width="359" alt="can't be downloaded securely" src="https://user-images.githubusercontent.com/1318579/134514803-40cb27af-f9aa-41d7-9510-cd4169396c69.png">
+
+Click the "^" button and select "Keep."
+
 ### OSX
 1. Open Keychain Access
 1. Go to Certificates (under Category in left sidebar)
