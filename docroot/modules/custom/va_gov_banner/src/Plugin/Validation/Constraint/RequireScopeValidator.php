@@ -46,7 +46,8 @@ class RequireScopeValidator extends ConstraintValidator implements ContainerInje
     if ($item->getEntity()->get('moderation_state')->getString() !== 'published') {
       return;
     }
-    if (empty($item->getEntity()->get('field_target_paths')->getString())) {
+    $path = trim($item->getEntity()->get('field_target_paths')->getString());
+    if (empty($path)) {
       $this->userPermsService->hasAdminRole()
       ? $this->context->addViolation($constraint->noPathsAdmin)
       : $this->context->addViolation($constraint->noPathsNonAdmin);
