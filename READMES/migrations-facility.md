@@ -12,23 +12,50 @@
 ![Facilities updates and actions](images/VA-facilities.png)
 
 ## Facility Migrations
-Facility migrations occur nightly and the four types of facilities are updated
+Facility migrations occur nightly and the six types of facilities are updated
 with any data from the [Facility API](interfaces.md#facilities-api) including
-the creation of new facilities, updating titles, addresses, etc.   The facility
+the creation of new facilities, updating titles, addresses, etc.  The facility
 is connected to the facility API by its unique "Facility Locator API ID"
-(field_facility_locator_api_id).  These migrations do not handle removing or
-deleting any facilities. A facility that needs to be removed, must be deleted by
-hand.  The nightly migrations are handled as part of our tasks-periodic.yml and
+
+### CrUD Operations
+#### Create
+When a new facility appears in the Facility API, it is created in the CMS in draft state.  It will need the following operations performed.
+
+   * Assigning the facility to the appropriate VAMC system or Vet Center district.
+   * New menu item created in the appropriate VAMCS system menu.
+   * Facility services added as needed.
+   * Publishing when ready.
+
+#### Update
+
+Updates to facility address or hours are updated and maintain the current moderation state of the facility node.  If the node is published, the new changes will become published.  These changes are routine and need no intervention.
+If a title changes, the title of the facility updates but the name change does NOT:
+   * populate down to the facility services,
+   * change the title on the menu link for the facility,
+   * change the path alias for the facility or its sub-pages (they are based on the menu title),
+
+#### Delete
+  When a facility is removed from the Facility API, nothing happens in the CMS.  The CMS is not aware that it is gone.
+  The following will need to be done by hand:
+   * Archiving the facility in the CMS.
+   * Archiving its services and sub-pages.
+   * Disabling the facility's menu item.
+   * Removing the facility from the system's operating status page.
+
+  The nightly migrations are handled as part of our tasks-periodic.yml and
 are triggered by Jenkins.  Revisions for any saves are created and attributed
 to the user "CMS Migrator"
 
   1. NCA (National Cemetery Administration) Facilities - va_node_facility_nca
-  1. VAMC (VA Medical Center) Facilities - va_node_health_care_local_facility
-  1. VBA (Veterans Benefits Administraion) Facilities - va_node_facility_vba
-  1. Vet Centers - va_node_facility_vet_centers
+  2. VAMC (VA Medical Center) Facilities - va_node_health_care_local_facility
+  3. VBA (Veterans Benefits Administraion) Facilities - va_node_facility_vba
+  4. Vet Centers - va_node_facility_vet_centers
+     1. Mobile Vet Centers - vet_center_mobile_vet_center
+     2. Outstations - vet_center_outstation
+     3. Vet Center Community Access Points - vet_center_cap The CMS is the source of truth for these and will be pushing data to the facility API not migrating from it.
 
 ### VAMC Status Migration
-VAMC Statuses are updated by a separate migration `va_node_health_care_local_facility_status` that runs every hour. It grabs [multiple CSV sources](../docroot/modules/custom/va_gov_migrate/config/install/migrate_plus.migration.va_node_health_care_local_facility_status.yml) (one per system) which are scraped from TeamSite (hosted by [EWIS](https://github.com/department-of-veterans-affairs/devops/blob/master/docs/External%20Service%20Integrations/EWIS.md)) and updates the fields:
+VAMC Statuses are updated by a separate migration `va_node_health_care_local_facility_status` that runs every 15 min. It grabs [multiple CSV sources](../docroot/modules/custom/va_gov_migrate/config/install/migrate_plus.migration.va_node_health_care_local_facility_status.yml) (one per system) which are scraped from TeamSite (hosted by [EWIS](https://github.com/department-of-veterans-affairs/devops/blob/master/docs/External%20Service%20Integrations/EWIS.md)) and updates the fields:
 - "Operating status" (`field_operating_status_facility`)
 - "Operating status - more info" (`field_operating_status_more_info`)
 
