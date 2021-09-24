@@ -39,17 +39,18 @@ The goals of this week are: 1) get background paperwork completed as quickly as 
 ### How?
 - [ ] [How does the VFS-CMS team work in an agile environment?](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/sprint-best-practices.md)
 - [ ] How do Agile 6 and Civic Actions work together on this project? Discuss with your delivery manager or product manager.
-- [ ] How do you get secure access to the VA systems you need?](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/491554/Security+onboarding+process) Complete the following paperwork and submit them to the security officer.
-  - [ ] Moderate Risk Position Questionnare- AQFPT
-  - [ ] Background Investigation Request (BI_REQ)
-  - [ ] Contractor Rules of Behavior
-  - [ ] Declaration of Federal Employement (306)
-  - [ ] NDA Non-Disclosure Agreement
-  - [ ] PIV Fingerprint Request Form
-  - [ ] Request for New Special Agreement Check (SAC request)
-  - [ ] Self-Certification of Continous Service (SIC Self Verif)
+- [ ] How do you get secure access to the VA systems you need?](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/491554/Security+onboarding+process) PTEMS paperwork is through Liberty and VFS-CMS paperwork through A6.
+- [ ] For VFS-CMS paperwork through A6, complete the following paperwork and submit them to the security officer. PTEMS paperwork will have a different checklist.
+   - [ ] Moderate Risk Position Questionnare- AQFPT
+   - [ ] Background Investigation Request (BI_REQ)
+   - [ ] Contractor Rules of Behavior
+   - [ ] Declaration of Federal Employement (306)
+   - [ ] NDA Non-Disclosure Agreement
+   - [ ] PIV Fingerprint Request Form
+   - [ ] Request for New Special Agreement Check (SAC request)
+   - [ ] Self-Certification of Continous Service (SIC Self Verif)
   - [ ] 0710_Release of Information Form
- - [ ] A6: How do you charge time or costs to the project? Discuss with your delivery manager or Finance AVP.
+  - [ ] A6: How do you charge time or costs to the project? Discuss with your delivery manager or Finance AVP.
 ### Who?
 - [ ] Ensure that your info on the [official team roster](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/185270337/Team+Roster+2021) is correct.
 - [ ] Familiarize yourself with our team's [shared calendar](https://va-gov.atlassian.net/wiki/spaces/VAGOV/calendars) and add in any known dates. This is where we coordinate upcoming out of office (OOO). Choose "Calendar" = OOO and "Event type" = whatever is relevant.
