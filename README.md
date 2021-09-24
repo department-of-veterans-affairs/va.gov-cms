@@ -67,14 +67,14 @@ This repository contains the source code for the _Content Management System_ (**
 
 Access to the production CMS is restricted with CAG. See [Getting Access](READMES/access.md).
 
-The **CMS** is built on [Drupal 8](https://www.drupal.org), using the [Composer](https://getcomposer.org) package management system. See [Getting Started](READMES/getting-started.md).
+The **CMS** is built on [Drupal 9](https://www.drupal.org), using the [Composer](https://getcomposer.org) package management system. See [Getting Started](READMES/getting-started.md).
 
 ### Contributing
 
 All of the source code used for generating VA.gov is open source, listed under the [department-of-veterans-affairs](https://github.com/department-of-veterans-affairs)
 organization on GitHub:
 
-- **CMS**: [github.com/department-of-veterans-affairs/va.gov-cms](https://github.com/department-of-veterans-affairs/va.gov-cms) - Drupal 8, Lightning Distribution
+- **CMS**: [github.com/department-of-veterans-affairs/va.gov-cms](https://github.com/department-of-veterans-affairs/va.gov-cms) - Drupal 9, Lightning Distribution
 - **WEB**: [github.com/department-of-veterans-affairs/vets-website](https://github.com/department-of-veterans-affairs/vets-website) - Metalsmith
 - **VETS-API**: [github.com/department-of-veterans-affairs/vets-api](https://github.com/department-of-veterans-affairs/vets-api) - Ruby
 - **VETS-CONTENT**: [github.com/department-of-veterans-affairs/vagov-content](https://github.com/department-of-veterans-affairs/vagov-content) - Markdown
@@ -95,7 +95,7 @@ at [github.com/department-of-veterans-affairs/vets-website](https://github.com/d
 #### Decoupled Drupal
 
 The codebase in [this repository (va.gov-cms)](https://github.com/department-of-veterans-affairs/va.gov-cms) is for the
-**CMS**, which is built on Drupal 8. The **CMS** is not publicly available. It
+**CMS**, which is built on Drupal 9. The **CMS** is not publicly available. It
 acts as a _Content API_ for the **WEB** application, and a _Content Management System_ for VA.gov Content Team.
 
 The **CMS** codebase now includes the **WEB** codebase as a dependency: the version is set in `composer.json`. It is

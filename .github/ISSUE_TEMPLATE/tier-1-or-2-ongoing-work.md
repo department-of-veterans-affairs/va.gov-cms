@@ -3,7 +3,7 @@ name: Tier 1 or 2 ongoing work
 about: Use this template to produce a recurring tier <1 or 2> support placeholder
   for every sprint.
 title: Sprint <insert sprint number> tier <1 or 2> helpdesk support
-labels: Helpdesk & support, Ongoing work
+labels: Helpdesk & support
 assignees: ''
 
 ---

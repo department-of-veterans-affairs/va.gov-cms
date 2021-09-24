@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains va_gov_workflow.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function va_gov_workflow_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the va_gov_workflow module.
+    case 'help.page.va_gov_workflow':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Provides customizations for publishing workflow.') . '</p>';
+      return $output;
+
+    default:
+  }
+}

@@ -8,6 +8,18 @@
 use Drupal\paragraphs\Entity\Paragraph;
 
 /**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function vagovadmin_theme_suggestions_paragraph_alter(&$suggestions, $variables) {
+  $paragraph = $variables['elements']['#paragraph'];
+  if ($paragraph->bundle() === 'collapsible_panel_item' || $paragraph->bundle() === 'q_a') {
+    if ($node = \Drupal::routeMatch()->getParameter('node')) {
+      $suggestions[] = 'paragraph__' . $node->bundle() . '__' . $paragraph->bundle();
+    }
+  }
+}
+
+/**
  * Implements hook_preprocess_HOOK().
  */
 function vagovadmin_preprocess_paragraph(&$variables) {
