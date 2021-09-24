@@ -8,6 +8,9 @@ use Drupal\content_moderation\ModerationInformationInterface;
 use Drupal\content_lock\ContentLock\ContentLock;
 use Psr\Log\LoggerInterface;
 
+/**
+ * Provides a mechanism to fix node titles with leading/trailing whitespace.
+ */
 class NodeTitleWhitespaceTrimmer {
   /**
    * This user id is used for locking and node saving.
@@ -32,38 +35,42 @@ class NodeTitleWhitespaceTrimmer {
   /**
    * Node storage service.
    *
-   * @var \Drupal\node\NodeStorageInterface;
+   * @var \Drupal\node\NodeStorageInterface
    */
   private $nodeStorage;
 
   /**
    * Moderation information service.
    *
-   * @var \Drupal\content_moderation\ModerationInformationInterface;
+   * @var \Drupal\content_moderation\ModerationInformationInterface
    */
   private $moderationInformation;
 
   /**
    * Content lock service.
    *
-   * @var \Drupal\content_lock\ContentLock\ContentLock;
+   * @var \Drupal\content_lock\ContentLock\ContentLock
    */
   private $lockService;
 
   /**
    * Logger.
    *
-   * @var \Psr\Log\LoggerInterface;
+   * @var \Psr\Log\LoggerInterface
    */
   private $logger;
 
   /**
    * Construct the trimmer for use.
    *
-   * @param NodeStorageInterface $nodeStorage
-   * @param ModerationInformationInterface $moderationInformation
-   * @param ContentLock $lockService
-   * @param LoggerInterface $logger
+   * @param \Drupal\node\NodeStorageInterface $nodeStorage
+   *   The NodeStorage service.
+   * @param \Drupal\content_moderation\ModerationInformationInterface $moderationInformation
+   *   The ModerationInformation service.
+   * @param \Drupal\content_lock\ContentLock\ContentLock $lockService
+   *   The ContentLock service.
+   * @param \Psr\Log\LoggerInterface $logger
+   *   The logger.
    */
   public function __construct(NodeStorageInterface $nodeStorage, ModerationInformationInterface $moderationInformation, ContentLock $lockService, LoggerInterface $logger) {
     $this->nodeStorage = $nodeStorage;
@@ -74,8 +81,6 @@ class NodeTitleWhitespaceTrimmer {
 
   /**
    * Runs the node update process.
-   *
-   * @return void
    */
   public function run() {
     $nids_to_process = $this->retrieveNodesToUpdate();
@@ -85,7 +90,7 @@ class NodeTitleWhitespaceTrimmer {
 
     $this->logMessage('Found %total_nodes nodes to process.', ['%total_nodes' => $nids_to_process_count]);
 
-    while(count($nids_to_process)) {
+    while (count($nids_to_process)) {
       $this->logMessage('%remaining_count nodes left to process.', ['%remaining_count' => count($nids_to_process)]);
       // Load entities.
       $modified_nids = [];
@@ -104,7 +109,7 @@ class NodeTitleWhitespaceTrimmer {
             &&
             !$this->moderationInformation->hasPendingRevision($node)
             &&
-            $this->lock_node($node->id())
+            $this->lockNode($node->id())
           ) {
             // Make this change a new revision.
             $node->setNewRevision(TRUE);
@@ -124,7 +129,7 @@ class NodeTitleWhitespaceTrimmer {
             // Set revision log message.
             $node->setRevisionLogMessage($revision_message);
             $node->save();
-            $this->unlock_node($node->id());
+            $this->unlockNode($node->id());
             $modified_nids[] = $node->id();
             $nids_modified_count += 1;
           }
@@ -135,8 +140,8 @@ class NodeTitleWhitespaceTrimmer {
       // Log the processed nodes.
       if (count($modified_nids)) {
         $this->logMessage('Nodes updated this pass: %nids', [
-            '%nids' => implode(', ', $modified_nids),
-          ]);
+          '%nids' => implode(', ', $modified_nids),
+        ]);
       }
 
     }
@@ -151,6 +156,7 @@ class NodeTitleWhitespaceTrimmer {
    * Returns the set of nodes to examine and correct.
    *
    * @return array
+   *   An array of nids to update.
    */
   private function retrieveNodesToUpdate() {
     $query = $this->nodeStorage->getQuery();
@@ -166,22 +172,25 @@ class NodeTitleWhitespaceTrimmer {
    * Combination logging and printing of log messages.
    *
    * @param string $message
+   *   The message to print and log.
    * @param array $context
+   *   Any contextual information to pass to the message, i.e. values.
    * @param string $logLevel
-   * @return void
+   *   The LogLevel constant for desired log level.
    */
-  private function logMessage($message, $context = [], $logLevel = LogLevel::INFO) {
+  private function logMessage($message, array $context = [], $logLevel = LogLevel::INFO) {
     $context = array_merge(['uid' => $this::CMS_MIGRATOR_ID], $context);
     $this->logger->log($logLevel, $message, $context);
     print strtr($message, $context) . PHP_EOL;
   }
-    /**
+
+  /**
    * Lock the specified node.
    *
    * @param int $nid
    *   The node ID.
    */
-  private function lock_node(int $nid) {
+  private function lockNode(int $nid) {
     if (!$this->lockService->locking($nid, LanguageInterface::LANGCODE_NOT_SPECIFIED, '*', $this::CMS_MIGRATOR_ID)) {
       return FALSE;
     }
@@ -190,13 +199,13 @@ class NodeTitleWhitespaceTrimmer {
 
   /**
    * Unlock a specified node.
-
+   *
    * @param int $nid
    *   The node ID.
    */
-  private function unlock_node(int $nid) {
+  private function unlockNode(int $nid) {
     $this->lockService->release($nid, LanguageInterface::LANGCODE_NOT_SPECIFIED, '*', $this::CMS_MIGRATOR_ID);
-    if ($this->node_is_locked($nid)) {
+    if ($this->nodeIsLocked($nid)) {
       throw new \Exception("Could not unlock node {$nid}.");
     }
   }
@@ -210,7 +219,7 @@ class NodeTitleWhitespaceTrimmer {
    * @return bool
    *   TRUE if the node is locked, otherwise FALSE.
    */
-  private function node_is_locked(int $nid): bool {
+  private function nodeIsLocked(int $nid): bool {
     return $this->lockService->isLockedBy($nid, LanguageInterface::LANGCODE_NOT_SPECIFIED, '*', $this::CMS_MIGRATOR_ID);
   }
 
