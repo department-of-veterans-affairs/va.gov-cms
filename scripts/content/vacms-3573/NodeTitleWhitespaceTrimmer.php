@@ -119,10 +119,12 @@ class NodeTitleWhitespaceTrimmer {
             $node->setChangedTime(time());
             $node->setRevisionCreationTime(time());
             $title_field_label = $node->getFieldDefinition('title')->getLabel();
+            $new_title = preg_replace('/^\s+/', '', $node->getTitle());
+            $new_title = preg_replace('/\s+$/', '', $new_title);
             $substitutions = [
               '%title_field_label' => $title_field_label,
               '%original_title' => $node->getTitle(),
-              '%new_title' => trim($node->getTitle()),
+              '%new_title' => $new_title,
             ];
             $revision_message_template = 'The %title_field_label field was updated from "%original_title" to "%new_title" to remove extra spaces. No other changes were made and this change does not affect how the title appears to veterans.';
             $revision_message = strtr($revision_message_template, $substitutions);
