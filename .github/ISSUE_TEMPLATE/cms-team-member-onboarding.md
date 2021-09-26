@@ -74,7 +74,7 @@ The goal for this week is to get you set up with the tools you need to be succes
     - [ ] You should be in the following slack channels:
       - [ ] A6 workspace = `#proj-vagov-team`
       - [ ] DSVA workspace = `#cms-team`
-      - [ ] [This is a description of other channels](https://docs.google.com/spreadsheets/d/1_lZzectbSzs8zt4dvTFJTiPURxa0Kfp3xinYEuZdqq4/edit#gid=0) that should be on your radar. Note that many are going to be dependent on which workstream you're in (DevOps, Helpdesk, UX, etc.). Feel free to join whichever you think will aid you and your work.
+      - [ ] [This is a description of other channels](https://docs.google.com/spreadsheets/d/1_lZzectbSzs8zt4dvTFJTiPURxa0Kfp3xinYEuZdqq4/edit#gid=0) that ought to be on your radar. Note that many are going to be dependent on which workstream you're in (DevOps, Helpdesk, UX, etc.). Feel free to join whichever you think will aid you and your work.
  -  [ ] Github for issue tracking and document sharing
     - [ ] [VA.gov request instructions](https://github.com/department-of-veterans-affairs/github-user-requests/issues/new?labels=add-user-to-org%2C+new-user%2C+user-created&template=add-user-to-the-va-organization.md&title=ADD+USER+TO+ORG+-+%5BUSERNAME%5D)
     - [ ] [CMS team list](https://github.com/orgs/department-of-veterans-affairs/teams/vfs-cms-team/members) - get added
