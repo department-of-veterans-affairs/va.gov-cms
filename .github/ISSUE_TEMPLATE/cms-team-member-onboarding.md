@@ -73,15 +73,19 @@ The goal for this week is to get you set up with the tools you need to be succes
  - [ ] [SOCKS proxy request](https://depo-platform-documentation.scrollhelp.site/getting-started/Internal-tools-access-via-SOCKS-proxy.1821081710.html) to access VA network tools until you get a PIV card. This is the first priority for week two.
    - [ ] Optional [Core Tunnel set up for SOCKS proxy on all browsers on Mac](https://www.youtube.com/watch?v=fSuN9LhkB5o)
  - [ ] [VA.gov tools overview](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html)
- - [ ] [Slack](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/orientation/slack-requests.md) for instant messaging. Your delivery manager should request this for you, but if not, [view the SOCKS request instructions](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/orientation/slack-requests.md).
+ - [ ] [Slack](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/orientation/slack-requests.md) for instant messaging. Your delivery manager should have already requested this for you, but if not, view the request instructions in the link above.
     - [ ] [Review Slack etiquette](https://slack.com/blog/collaboration/etiquette-tips-in-slack).
-    - [ ] Update your profiles in Slack, add a calendar link
-    - [ ] DM to add to appropriate Slack alias groups
+    - [ ] Update your profiles in Slack (in the A6 and DSVA workspaces), add a calendar link
+    - [ ] DM to add to appropriate Slack alias groups for the DSVA workspace
       - [ ] @cms-engineers-group
-      - [ ] @cms-help-desk
-      - [ ] @cms-core-application-team
-      - [ ] @cms-product support team
-      - [ ] @cms-devops-engineers)
+      - [ ] @cms-helpdesk
+      - [ ] @platform-cms-team
+      - [ ] @sitewide-cms-team
+      - [ ] @cms-devops-engineers
+    - [ ] You should be in the following slack channels:
+      - [ ] A6 workspace = #proj-vagov-team
+      - [ ] DSVA workspace = #cms-team
+      - [ ] [This is a description of other channels](https://docs.google.com/spreadsheets/d/1_lZzectbSzs8zt4dvTFJTiPURxa0Kfp3xinYEuZdqq4/edit#gid=0) that should be on your radar. Note that many are going to be dependent on which workstream you're in (DevOps, Helpdesk, UX, etc.). Feel free to join whichever you think will aid you and your work.
  -  [ ] Github for issue tracking and document sharing
     - [ ] [VA.gov request instructions](https://github.com/department-of-veterans-affairs/github-user-requests/issues/new?labels=add-user-to-org%2C+new-user%2C+user-created&template=add-user-to-the-va-organization.md&title=ADD+USER+TO+ORG+-+%5BUSERNAME%5D)
     - [ ] [CMS team list](https://github.com/orgs/department-of-veterans-affairs/teams/vfs-cms-team/members) - get added
