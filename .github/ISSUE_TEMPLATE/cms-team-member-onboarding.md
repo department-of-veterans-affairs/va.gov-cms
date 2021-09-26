@@ -46,7 +46,7 @@ The goals of this week are: 1) get background paperwork completed as quickly as 
 - [ ] Let's start introducing you to the team and key stakeholders. If you're on a meeting where you don't know someone, feel free to kickstart an introduction. Everyone in the ecosystem is friendly and interested in connecting.
 
 ## Week two
-The goal for this week is to get you set up with the tools you need to be successful. We will pair you up with a buddy on the project that is in your same discipline to help inform which ones are relevant and which aren't. The most important thing is to get set up is SOCKS as it will give you access to our systems so try to prioritize that.
+The goal for this week is to get you set up with the tools you need to be successful. We will pair you up with a buddy on the project that is in your same discipline to help inform which ones are relevant and which aren't. **The most important thing is to get set up is SOCKS** as it will give you access to our systems so try to prioritize that.
 ### When?
 - [ ] Check your calendar for invitations to team ceremonies.
   - [ ] Scrums
@@ -54,11 +54,11 @@ The goal for this week is to get you set up with the tools you need to be succes
   - [ ] Refinement sessions
   - [ ] Demos
   - [ ] Retros
-- [ ] Update your time away on the [team calendar on Confluence](https://va-gov.atlassian.net/wiki/spaces/VAGOV/calendars)
+- [ ] Update your time away on the [team calendar on Confluence](https://va-gov.atlassian.net/wiki/spaces/VAGOV/calendars).
 ### What products do we support?
 - [ ] [Review the editor onboarding slides](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/https___prod.cms.va.gov_sites_default_files_2021-07_Welcome%2520to%2520the%2520new%2520VA.gov%2520CMS.pdf).
 - [ ] Read the [product sheets](https://github.com/department-of-veterans-affairs/va.gov-team/raw/master/platform/cms/VA-CMS-Product-Sheets.pdf) (PDF download).
-#### All team members need to review the following:
+#### All team members need to review the following (note that with the exception of SOCKS, most of the tools will have been setup for you or requested by your delivery manager. This list is for you to verify along the way):
  - [ ] [SOCKS proxy request](https://depo-platform-documentation.scrollhelp.site/getting-started/Internal-tools-access-via-SOCKS-proxy.1821081710.html) to access VA network tools until you get a PIV card. This is the first priority for week two.
    - [ ] Optional [Core Tunnel set up for SOCKS proxy on all browsers on Mac](https://www.youtube.com/watch?v=fSuN9LhkB5o)
  - [ ] [VA.gov tools overview](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html)
@@ -66,14 +66,14 @@ The goal for this week is to get you set up with the tools you need to be succes
     - [ ] [Review Slack etiquette](https://slack.com/blog/collaboration/etiquette-tips-in-slack).
     - [ ] Update your profiles in Slack (in the A6 and DSVA workspaces), add a calendar link
     - [ ] DM to add to appropriate Slack alias groups for the DSVA workspace
-      - [ ] @cms-engineers-group
-      - [ ] @cms-helpdesk
-      - [ ] @platform-cms-team
-      - [ ] @sitewide-cms-team
-      - [ ] @cms-devops-engineers
+      - [ ] `@cms-engineers-group`
+      - [ ] `@cms-helpdesk`
+      - [ ] `@platform-cms-team`
+      - [ ] `@sitewide-cms-team`
+      - [ ] `@cms-devops-engineers`
     - [ ] You should be in the following slack channels:
-      - [ ] A6 workspace = #proj-vagov-team
-      - [ ] DSVA workspace = #cms-team
+      - [ ] A6 workspace = `#proj-vagov-team`
+      - [ ] DSVA workspace = `#cms-team`
       - [ ] [This is a description of other channels](https://docs.google.com/spreadsheets/d/1_lZzectbSzs8zt4dvTFJTiPURxa0Kfp3xinYEuZdqq4/edit#gid=0) that should be on your radar. Note that many are going to be dependent on which workstream you're in (DevOps, Helpdesk, UX, etc.). Feel free to join whichever you think will aid you and your work.
  -  [ ] Github for issue tracking and document sharing
     - [ ] [VA.gov request instructions](https://github.com/department-of-veterans-affairs/github-user-requests/issues/new?labels=add-user-to-org%2C+new-user%2C+user-created&template=add-user-to-the-va-organization.md&title=ADD+USER+TO+ORG+-+%5BUSERNAME%5D)
