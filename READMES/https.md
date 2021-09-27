@@ -16,11 +16,12 @@ Click the "^" button and select "Keep."
 ### OSX
 1. Open Keychain Access
 1. Go to Certificates (under Category in left sidebar)
-1. Select "Import Items..." from File menu. (Shift-Command-I)
-1. Select the two .cer files above.
-1. They should now appear in your list of certificates
-1. For each certificate: 1) File > Get info  2) Under Trust > When using this certificate, select "Always Trust". 3) Close the Get info window, which will prompt a password save. 
-1. You may need to restart your browser.
+2. Select "System" under Keychains (in sidebar)  
+3. Select "Import Items..." from File menu. (Shift-Command-I)
+4. Select the two .cer files above.
+5. They should now appear in your list of certificates
+6. For each certificate: 1) File > Get info  2) Under Trust > When using this certificate, select "Always Trust". 3) Close the Get info window, which will prompt a password save. 
+7. You may need to restart your browser.
 
 ### Linux
 
