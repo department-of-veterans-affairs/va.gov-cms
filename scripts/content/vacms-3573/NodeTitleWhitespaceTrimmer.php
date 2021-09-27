@@ -1,7 +1,6 @@
 <?php
 
 use Drupal\node\NodeStorageInterface;
-use Drupal\node\NodeInterface;
 use Drush\Log\LogLevel;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\content_moderation\ModerationInformationInterface;
@@ -96,45 +95,44 @@ class NodeTitleWhitespaceTrimmer {
       $modified_nids = [];
       $node_ids = array_slice($nids_to_process, 0, $query_limit, TRUE);
       $nodes = $this->nodeStorage->loadMultiple($node_ids);
+      /** @var \Drupal\node\NodeInterface[] $nodes */
       foreach ($nodes as $node) {
-        if ($node instanceof NodeInterface) {
-          // Save some time by only saving nodes that need adjustments.
-          // Skip nodes with pending revisions. Lock the node or else pass over.
-          if (
-            (
-              preg_match('/\s+$/', $node->getTitle())
-              ||
-              preg_match('/^\s+/', $node->getTitle())
-            )
-            &&
-            !$this->moderationInformation->hasPendingRevision($node)
-            &&
-            $this->lockNode($node->id())
-          ) {
-            // Make this change a new revision.
-            $node->setNewRevision(TRUE);
+        // Save some time by only saving nodes that need adjustments.
+        // Skip nodes with pending revisions. Lock the node or else pass over.
+        if (
+          (
+            preg_match('/\s+$/', $node->getTitle())
+            ||
+            preg_match('/^\s+/', $node->getTitle())
+          )
+          &&
+          !$this->moderationInformation->hasPendingRevision($node)
+          &&
+          $this->lockNode($node->id())
+        ) {
+          // Make this change a new revision.
+          $node->setNewRevision(TRUE);
 
-            // Set revision author to uid 1317 (CMS Migrator user).
-            $node->setRevisionUserId(static::CMS_MIGRATOR_ID);
-            $node->setChangedTime(time());
-            $node->setRevisionCreationTime(time());
-            $title_field_label = $node->getFieldDefinition('title')->getLabel();
-            $new_title = preg_replace('/^\s+/', '', $node->getTitle());
-            $new_title = preg_replace('/\s+$/', '', $new_title);
-            $substitutions = [
-              '%title_field_label' => $title_field_label,
-              '%original_title' => $node->getTitle(),
-              '%new_title' => $new_title,
-            ];
-            $revision_message_template = 'The %title_field_label field was updated from "%original_title" to "%new_title" to remove extra spaces. No other changes were made and this change does not affect how the title appears to veterans.';
-            $revision_message = strtr($revision_message_template, $substitutions);
-            // Set revision log message.
-            $node->setRevisionLogMessage($revision_message);
-            $node->save();
-            $this->unlockNode($node->id());
-            $modified_nids[] = $node->id();
-            $nids_modified_count += 1;
-          }
+          // Set revision author to uid 1317 (CMS Migrator user).
+          $node->setRevisionUserId(static::CMS_MIGRATOR_ID);
+          $node->setChangedTime(time());
+          $node->setRevisionCreationTime(time());
+          $title_field_label = $node->getFieldDefinition('title')->getLabel();
+          $new_title = preg_replace('/^\s+/', '', $node->getTitle());
+          $new_title = preg_replace('/\s+$/', '', $new_title);
+          $substitutions = [
+            '%title_field_label' => $title_field_label,
+            '%original_title' => $node->getTitle(),
+            '%new_title' => $new_title,
+          ];
+          $revision_message_template = 'The %title_field_label field was updated from "%original_title" to "%new_title" to remove extra spaces. No other changes were made and this change does not affect how the title appears to veterans.';
+          $revision_message = strtr($revision_message_template, $substitutions);
+          // Set revision log message.
+          $node->setRevisionLogMessage($revision_message);
+          $node->save();
+          $this->unlockNode($node->id());
+          $modified_nids[] = $node->id();
+          $nids_modified_count += 1;
         }
         unset($nids_to_process["node_{$node->id()}"]);
       }
