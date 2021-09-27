@@ -24,7 +24,7 @@ Onboarding buddy (short check-in meetings the first week): <insert_here>
 ### How?
 - [ ] Read through our [team norms](https://docs.google.com/document/d/1cs5FePhtR0LIJi63b9ZtqT7T6dphgB584UpfEbejSOc/edit#), which will also give an overview of how we apply the [USDS playbook](https://playbook.cio.gov/) and VA.gov platform [code of conduct](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/policies-work-norms/code-of-conduct.md).
 ### Who?
-- [ ] Who is on the VFS-CMS team? Read your [team members' user manuals and copy the template to add your own](https://drive.google.com/drive/u/0/folders/195otsT1IUxi_k8oEU21TUkvEG-6p5YQj?ths). Discuss with your delivery manager. 
+- [ ] Who is on the VFS-CMS team? Read your [team members' user manuals and copy the template to add your own](https://drive.google.com/drive/u/0/folders/195otsT1IUxi_k8oEU21TUkvEG-6p5YQj?ths).
 ### What?
 - [ ] [Onboarding questionnaire](https://drive.google.com/drive/u/0/folders/1fYwNBBbceqRM3qXfes_KEg1QeO-Nkq0q?ths=true) (what do you already know in regards to tooling, context, history, etc)
 - [ ] Contract - Discuss with your delivery manager.
@@ -38,26 +38,15 @@ The goals of this week are: 1) get background paperwork completed as quickly as 
 - [ ] Why are VA Medical Centers changing their websites? Watch the [2-minute YouTube video](https://youtu.be/Xrv5wCv6cKY).
 ### How?
 - [ ] [How does the VFS-CMS team work in an agile environment?](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/sprint-best-practices.md)
-- [ ] How do Agile 6 and Civic Actions work together on this project? Discuss with your delivery manager or product manager.
-- [ ] How do you get secure access to the VA systems you need?](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/491554/Security+onboarding+process) PTEMS paperwork is through Liberty and VFS-CMS paperwork through A6.
-- [ ] For VFS-CMS paperwork through A6, complete the following paperwork and submit them to the security officer. PTEMS paperwork will have a different checklist.
-   - [ ] Moderate Risk Position Questionnare- AQFPT
-   - [ ] Background Investigation Request (BI_REQ)
-   - [ ] Contractor Rules of Behavior
-   - [ ] Declaration of Federal Employement (306)
-   - [ ] NDA Non-Disclosure Agreement
-   - [ ] PIV Fingerprint Request Form
-   - [ ] Request for New Special Agreement Check (SAC request)
-   - [ ] Self-Certification of Continous Service (SIC Self Verif)
-  - [ ] 0710_Release of Information Form
-  - [ ] A6: How do you charge time or costs to the project? Discuss with your delivery manager or Finance AVP.
+- [ ] How do Agile 6, CivicActions, and Friends From The City work together on this project? Discuss with your delivery manager or product manager.
+- [ ] How do you get secure access to the VA systems you need? **PTEMS** paperwork is through Liberty and **VFS-CMS** paperwork through A6. If you're not sure which you should fill out, ask your delivery manager.
 ### Who?
 - [ ] Ensure that your info on the [official team roster](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/185270337/Team+Roster+2021) is correct.
 - [ ] Familiarize yourself with our team's [shared calendar](https://va-gov.atlassian.net/wiki/spaces/VAGOV/calendars) and add in any known dates. This is where we coordinate upcoming out of office (OOO). Choose "Calendar" = OOO and "Event type" = whatever is relevant.
 - [ ] Let's start introducing you to the team and key stakeholders. If you're on a meeting where you don't know someone, feel free to kickstart an introduction. Everyone in the ecosystem is friendly and interested in connecting.
 
 ## Week two
-The goal for this week is to get you set up with the tools you need to be successful. We will pair you up with a buddy on the project that is in your same discipline to help inform which ones are relevant and which aren't. The most important thing is to get set up is SOCKS as it will give you access to our systems so try to prioritize that.
+The goal for this week is to get you set up with the tools you need to be successful. We will pair you up with a buddy on the project that is in your same discipline to help inform which ones are relevant and which aren't. **The most important thing is to get set up is SOCKS** as it will give you access to our systems so try to prioritize that.
 ### When?
 - [ ] Check your calendar for invitations to team ceremonies.
   - [ ] Scrums
@@ -65,23 +54,27 @@ The goal for this week is to get you set up with the tools you need to be succes
   - [ ] Refinement sessions
   - [ ] Demos
   - [ ] Retros
-- [ ] Update your time away on the [team calendar on Confluence](https://va-gov.atlassian.net/wiki/spaces/VAGOV/calendars)
+- [ ] Update your time away on the [team calendar on Confluence](https://va-gov.atlassian.net/wiki/spaces/VAGOV/calendars).
 ### What products do we support?
 - [ ] [Review the editor onboarding slides](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/https___prod.cms.va.gov_sites_default_files_2021-07_Welcome%2520to%2520the%2520new%2520VA.gov%2520CMS.pdf).
 - [ ] Read the [product sheets](https://github.com/department-of-veterans-affairs/va.gov-team/raw/master/platform/cms/VA-CMS-Product-Sheets.pdf) (PDF download).
-#### All team members need to review the following:
+#### All team members need to review the following (note that with the exception of SOCKS, most of the tools will have been setup for you or requested by your delivery manager. This list is for you to verify along the way):
  - [ ] [SOCKS proxy request](https://depo-platform-documentation.scrollhelp.site/getting-started/Internal-tools-access-via-SOCKS-proxy.1821081710.html) to access VA network tools until you get a PIV card. This is the first priority for week two.
    - [ ] Optional [Core Tunnel set up for SOCKS proxy on all browsers on Mac](https://www.youtube.com/watch?v=fSuN9LhkB5o)
  - [ ] [VA.gov tools overview](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html)
- - [ ] [Slack](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/orientation/slack-requests.md) for instant messaging. Your delivery manager should request this for you, but if not, [view the SOCKS request instructions](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/orientation/slack-requests.md).
+ - [ ] [Slack](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/orientation/slack-requests.md) for instant messaging. Your delivery manager should have already requested this for you, but if not, view the request instructions in the link above.
     - [ ] [Review Slack etiquette](https://slack.com/blog/collaboration/etiquette-tips-in-slack).
-    - [ ] Update your profiles in Slack, add a calendar link
-    - [ ] DM to add to appropriate Slack alias groups
-      - [ ] @cms-engineers-group
-      - [ ] @cms-help-desk
-      - [ ] @cms-core-application-team
-      - [ ] @cms-product support team
-      - [ ] @cms-devops-engineers)
+    - [ ] Update your profiles in Slack (in the A6 and DSVA workspaces), add a calendar link
+    - [ ] DM to add to appropriate Slack alias groups for the DSVA workspace
+      - [ ] `@cms-engineers-group`
+      - [ ] `@cms-helpdesk`
+      - [ ] `@platform-cms-team`
+      - [ ] `@sitewide-cms-team`
+      - [ ] `@cms-devops-engineers`
+    - [ ] You should be in the following slack channels:
+      - [ ] A6 workspace = `#proj-vagov-team`
+      - [ ] DSVA workspace = `#cms-team`
+      - [ ] [This is a description of other channels](https://docs.google.com/spreadsheets/d/1_lZzectbSzs8zt4dvTFJTiPURxa0Kfp3xinYEuZdqq4/edit#gid=0) that ought to be on your radar. Note that many are going to be dependent on which workstream you're in (DevOps, Helpdesk, UX, etc.). Feel free to join whichever you think will aid you and your work.
  -  [ ] Github for issue tracking and document sharing
     - [ ] [VA.gov request instructions](https://github.com/department-of-veterans-affairs/github-user-requests/issues/new?labels=add-user-to-org%2C+new-user%2C+user-created&template=add-user-to-the-va-organization.md&title=ADD+USER+TO+ORG+-+%5BUSERNAME%5D)
     - [ ] [CMS team list](https://github.com/orgs/department-of-veterans-affairs/teams/vfs-cms-team/members) - get added
