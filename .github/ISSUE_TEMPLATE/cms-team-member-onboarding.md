@@ -39,7 +39,7 @@ The goals of this week are: 1) get background paperwork completed as quickly as 
 ### How?
 - [ ] [How does the VFS-CMS team work in an agile environment?](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/sprint-best-practices.md)
 - [ ] How do Agile 6, CivicActions, and Friends From The City work together on this project? Discuss with your delivery manager or product manager.
-- [ ] [How do you get secure access to the VA systems you need?](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/491554/Security+onboarding+process) **PTEMS** paperwork is through Liberty and **VFS-CMS** paperwork through A6. If you're not sure which you should fill out, ask your delivery manager.
+- [ ] How do you get secure access to the VA systems you need? **PTEMS** paperwork is through Liberty and **VFS-CMS** paperwork through A6. If you're not sure which you should fill out, ask your delivery manager.
 ### Who?
 - [ ] Ensure that your info on the [official team roster](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/185270337/Team+Roster+2021) is correct.
 - [ ] Familiarize yourself with our team's [shared calendar](https://va-gov.atlassian.net/wiki/spaces/VAGOV/calendars) and add in any known dates. This is where we coordinate upcoming out of office (OOO). Choose "Calendar" = OOO and "Event type" = whatever is relevant.
