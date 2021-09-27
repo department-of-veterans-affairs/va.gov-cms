@@ -2,7 +2,7 @@
 
 namespace Drupal\va_gov_backend\EventSubscriber;
 
-use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -20,7 +20,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function entityPresave(EntityPresaveEvent $event): void {
     $entity = $event->getEntity();
-    if ($entity->getEntityTypeId() === 'node') {
+    if ($entity instanceof NodeInterface) {
       $this->trimNodeTitleWhitespace($entity);
     }
   }
@@ -28,10 +28,10 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   /**
    * Trim any preceding and trailing whitespace on node titles.
    *
-   * @param \Drupal\node\Entity\Node $node
+   * @param \Drupal\node\NodeInterface $node
    *   The node to be modified.
    */
-  private function trimNodeTitleWhitespace(Node $node) {
+  private function trimNodeTitleWhitespace(NodeInterface $node) {
     $title = $node->getTitle();
     // Trim leading and then trailing separately to avoid a convoluted regex.
     $title = preg_replace('/^\s+/', '', $title);

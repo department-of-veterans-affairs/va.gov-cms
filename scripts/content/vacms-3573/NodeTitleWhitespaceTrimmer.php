@@ -115,7 +115,7 @@ class NodeTitleWhitespaceTrimmer {
             $node->setNewRevision(TRUE);
 
             // Set revision author to uid 1317 (CMS Migrator user).
-            $node->setRevisionUserId($this::CMS_MIGRATOR_ID);
+            $node->setRevisionUserId(static::CMS_MIGRATOR_ID);
             $node->setChangedTime(time());
             $node->setRevisionCreationTime(time());
             $title_field_label = $node->getFieldDefinition('title')->getLabel();
@@ -160,10 +160,10 @@ class NodeTitleWhitespaceTrimmer {
    * @return array
    *   An array of nids to update.
    */
-  private function retrieveNodesToUpdate() {
+  private function retrieveNodesToUpdate(): array {
     $query = $this->nodeStorage->getQuery();
     $nids_to_update = $query
-      ->condition('type', $this::NODE_TYPE_EXCEPTIONS, 'NOT IN')
+      ->condition('type', static::NODE_TYPE_EXCEPTIONS, 'NOT IN')
       ->execute();
     return array_combine(
       array_map([$this, 'stringifynid'], array_values($nids_to_update)),
@@ -181,7 +181,7 @@ class NodeTitleWhitespaceTrimmer {
    *   The LogLevel constant for desired log level.
    */
   private function logMessage($message, array $context = [], $logLevel = LogLevel::INFO) {
-    $context = array_merge(['uid' => $this::CMS_MIGRATOR_ID], $context);
+    $context = array_merge(['uid' => static::CMS_MIGRATOR_ID], $context);
     $this->logger->log($logLevel, $message, $context);
     print strtr($message, $context) . PHP_EOL;
   }
@@ -192,8 +192,8 @@ class NodeTitleWhitespaceTrimmer {
    * @param int $nid
    *   The node ID.
    */
-  private function lockNode(int $nid) {
-    if (!$this->lockService->locking($nid, LanguageInterface::LANGCODE_NOT_SPECIFIED, '*', $this::CMS_MIGRATOR_ID)) {
+  private function lockNode(int $nid): bool {
+    if (!$this->lockService->locking($nid, LanguageInterface::LANGCODE_NOT_SPECIFIED, '*', static::CMS_MIGRATOR_ID)) {
       return FALSE;
     }
     return TRUE;
@@ -206,7 +206,7 @@ class NodeTitleWhitespaceTrimmer {
    *   The node ID.
    */
   private function unlockNode(int $nid) {
-    $this->lockService->release($nid, LanguageInterface::LANGCODE_NOT_SPECIFIED, '*', $this::CMS_MIGRATOR_ID);
+    $this->lockService->release($nid, LanguageInterface::LANGCODE_NOT_SPECIFIED, '*', static::CMS_MIGRATOR_ID);
     if ($this->nodeIsLocked($nid)) {
       throw new \Exception("Could not unlock node {$nid}.");
     }
@@ -222,7 +222,7 @@ class NodeTitleWhitespaceTrimmer {
    *   TRUE if the node is locked, otherwise FALSE.
    */
   private function nodeIsLocked(int $nid): bool {
-    return $this->lockService->isLockedBy($nid, LanguageInterface::LANGCODE_NOT_SPECIFIED, '*', $this::CMS_MIGRATOR_ID);
+    return $this->lockService->isLockedBy($nid, LanguageInterface::LANGCODE_NOT_SPECIFIED, '*', static::CMS_MIGRATOR_ID);
   }
 
   /**
@@ -234,7 +234,7 @@ class NodeTitleWhitespaceTrimmer {
    * @return string
    *   The node id concatenated to the end o node_
    */
-  private function stringifynid($nid) {
+  private function stringifynid($nid): string {
     return "node_$nid";
   }
 
