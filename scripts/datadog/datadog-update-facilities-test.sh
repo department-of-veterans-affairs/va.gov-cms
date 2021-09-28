@@ -5,66 +5,80 @@ set -e
 # This script updates the Facilities endpoint monitoring test with the current list of facilities.
 # When making changes to this script, copy the test in the UI and change TEST_ID and test there first.
 #
-# Usage: Export below variables then ./datadog-update-facilities-test.sh
+# USAGE:
+#     Export below variables locally, then run: `./datadog-update-facilities-test.sh`.    Uncomment `nuke_tests` and comment out `create_tests` at the end of the script to make changes.
 #
 # Retrieve from https://app.datadoghq.com/account/settings#api
-# export DD_API_KEY="XXXXXXXXXXXX"
+# `export DD_API_KEY="XXXXXXXXXXXX"`
 #
 # Retrieve from https://app.datadoghq.com/access/application-keys
-# export DD_APP_KEY="XXXXXXXXXXXX"
+# `export DD_APP_KEY="XXXXXXXXXXXX"`
+#
+#
+# Testing notes: If you need to export a new test, just curl it and get the JSON structure that way.
 
-# https://app.datadoghq.com/synthetics/details/d2r-qjm-n4z (a 'test' test for now)
-TEST_ID="d2r-qjm-n4z"
+TAG_FILTER="test_cms_facilities_test"
 
-# GET current location endpoints from master branch on GitHub
-# https://raw.githubusercontent.com/department-of-veterans-affairs/va.gov-cms/master/config/sync/migrate_plus.migration.va_node_health_care_local_facility_status.yml
-LOCATION_URLS=$( \
-  curl \
-    --silent \
-    --request GET https://raw.githubusercontent.com/department-of-veterans-affairs/va.gov-cms/master/config/sync/migrate_plus.migration.va_node_health_care_local_facility_status.yml | \
-  grep "\- '.*'"  | \
-  tr --delete '-' | \
-  tr --delete "'"
-)
 
-# GET current test configuration so we can add the endpoints to it
-# https://docs.datadoghq.com/api/latest/synthetics/#get-an-api-test
-TEST_CONFIG=$( \
-  curl \
-    --request GET "https://api.datadoghq.com/api/v1/synthetics/tests/api/${TEST_ID}" \
-    --header "Content-Type: application/json" \
-    --header "DD-API-KEY: ${DD_API_KEY}" \
-    --header "DD-APPLICATION-KEY: ${DD_APP_KEY}"
-)
+nuke_tests() {
+  get_existing_tests
 
-# Clear out the existing test steps
-TEST_CONFIG=$( \
-  echo "$TEST_CONFIG" | \
-  jq 'del(.config.steps)' | \
-  jq '.config += {"steps": []}'
-)
-
-## Loop through and add a new step for each location.
-STEPS_FILE=$( mktemp )
-for URL in $LOCATION_URLS; do
-  jq --arg URL ${URL} --null-input --from-file step-template.jq >> ${STEPS_FILE}
-done
-TEST_CONFIG=$(
-  echo ${TEST_CONFIG} | \
-  jq --slurpfile steps ${STEPS_FILE} '.config.steps += $steps' \
-)
-
-# DEBUG
-# echo $TEST_CONFIG | jq
-
-## PUT the updated test
-# https://docs.datadoghq.com/api/latest/synthetics/#edit-an-api-test
-curl -v \
-  --silent \
-  --request PUT "https://api.datadoghq.com/api/v1/synthetics/tests/api/${TEST_ID}" \
-  --header "Content-Type: application/json" \
-  --header "DD-API-KEY: ${DD_API_KEY}" \
-  --header "DD-APPLICATION-KEY: ${DD_APP_KEY}" \
-  --data @- << EOF
-    $TEST_CONFIG
+  # TODO IF NOT EMPTY
+  # Nuke them all. Should really only be run manually for testing.
+  curl -X POST "https://api.datadoghq.com/api/v1/synthetics/tests/delete" \
+  -H "Content-Type: application/json" \
+  -H "DD-API-KEY: $DD_API_KEY" \
+  -H "DD-APPLICATION-KEY: $DD_APP_KEY" \
+  -d @- <<EOF
+    $EXISTING_TEST_IDS
 EOF
+
+  # TODO Improve - prefix with newline
+  echo "Deleted $EXISTING_TEST_IDS"
+}
+
+get_existing_tests() {
+  EXISTING_TESTS=$(curl \
+    --silent \
+    --request GET "https://api.datadoghq.com/api/v1/synthetics/tests" \
+    --header "Content-Type: application/json" \
+    --header "DD-API-KEY: $DD_API_KEY" \
+    --header "DD-APPLICATION-KEY: $DD_APP_KEY"
+  )
+
+  EXISTING_TEST_IDS=$(echo "$EXISTING_TESTS" | jq "public_ids: [.tests[] | select(.tags[] | test('${TAG_FILTER}')).public_id]}")
+}
+
+# GET current facility status endpoints URLs from:
+# https://raw.githubusercontent.com/department-of-veterans-affairs/va.gov-cms/master/config/sync/migrate_plus.migration.va_node_health_care_local_facility_status.yml
+get_facility_status_urls() {
+  FACILITY_STATUS_URLS=$( \
+    curl \
+      --silent \
+      --request GET https://raw.githubusercontent.com/department-of-veterans-affairs/va.gov-cms/master/config/sync/migrate_plus.migration.va_node_health_care_local_facility_status.yml | \
+    grep "\- '.*'"  | \
+    tr --delete '-' | \
+    tr --delete "'"
+  )
+}
+
+create_tests() {
+  get_facility_status_urls
+  for URL in $FACILITY_STATUS_URLS; do
+    POST_BODY=$(jq --arg TEST_NAME "[CMS] Facility Status: $URL" --arg FACILITY_STATUS_URL "$URL" --arg TAG_NAME ${TAG_FILTER} --null-input --from-file test-template.jq)
+#    echo $POST_BODY
+#    echo $URL
+    curl \
+      --silent \
+      --request POST "https://api.datadoghq.com/api/v1/synthetics/tests/api" \
+      --header "Content-Type: application/json" \
+      --header "DD-API-KEY: $DD_API_KEY" \
+      --header "DD-APPLICATION-KEY: $DD_APP_KEY" \
+      --data @- <<EOF
+        $POST_BODY
+EOF
+  done
+}
+
+#create_tests
+nuke_tests
