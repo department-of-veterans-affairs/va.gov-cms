@@ -4,7 +4,7 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_administration
-    - field.storage.node.field_product
+    - field.storage.node.field_products
     - node.type.documentation_page
     - system.menu.admin
     - taxonomy.vocabulary.products
@@ -407,6 +407,69 @@ display:
           entity_type: node
           entity_field: changed
           plugin_id: field
+        field_products:
+          id: field_products
+          table: node__field_products
+          field: field_products
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Products
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: true
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
         revision_uid:
           id: revision_uid
           table: node_revision
@@ -471,69 +534,6 @@ display:
           field_api_classes: false
           entity_type: node
           entity_field: revision_uid
-          plugin_id: field
-        field_product:
-          id: field_product
-          table: node__field_product
-          field: field_product
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Product
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
-          settings:
-            link: true
-          group_column: target_id
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
           plugin_id: field
         field_administration:
           id: field_administration
@@ -837,10 +837,10 @@ display:
             group_items: {  }
           entity_type: node
           plugin_id: moderation_state_filter
-        field_product_target_id:
-          id: field_product_target_id
-          table: node__field_product
-          field: field_product_target_id
+        field_products_target_id:
+          id: field_products_target_id
+          table: node__field_products
+          field: field_products_target_id
           relationship: none
           group_type: group
           admin_label: ''
@@ -849,14 +849,14 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_product_target_id_op
-            label: Product
+            operator_id: field_products_target_id_op
+            label: Products
             description: ''
             use_operator: false
-            operator: field_product_target_id_op
+            operator: field_products_target_id_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: field_product_target_id
+            identifier: products
             required: false
             remember: false
             multiple: false
@@ -930,7 +930,7 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.node.field_administration'
-        - 'config:field.storage.node.field_product'
+        - 'config:field.storage.node.field_products'
         - 'config:workflow_list'
   knowledge_base_admin:
     display_plugin: page
@@ -961,5 +961,5 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.node.field_administration'
-        - 'config:field.storage.node.field_product'
+        - 'config:field.storage.node.field_products'
         - 'config:workflow_list'

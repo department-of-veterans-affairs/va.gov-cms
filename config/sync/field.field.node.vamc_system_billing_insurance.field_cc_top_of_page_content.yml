@@ -1,0 +1,27 @@
+uuid: d9a8895c-c8f5-4fca-b15e-1e41f568e242
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cc_top_of_page_content
+    - node.type.vamc_system_billing_insurance
+  module:
+    - entity_field_fetch
+id: node.vamc_system_billing_insurance.field_cc_top_of_page_content
+field_name: field_cc_top_of_page_content
+entity_type: node
+bundle: vamc_system_billing_insurance
+label: 'National top of page content'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  target_entity_type: node
+  target_entity_id: '33341'
+  field_to_fetch: field_content_block
+  target_paragraph_uuid: '82293'
+field_type: entity_field_fetch

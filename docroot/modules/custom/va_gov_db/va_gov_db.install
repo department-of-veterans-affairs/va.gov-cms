@@ -637,3 +637,12 @@ function va_gov_db_update_8031(&$sandbox) {
     ]);
   }
 }
+
+/**
+ * Uninstall va_gov_user_guide module.
+ */
+function va_gov_db_update_8032(&$sandbox) {
+  $messages = _va_gov_db_uninstall_modules(['va_gov_user_guide']);
+
+  return $messages;
+}

@@ -7,6 +7,10 @@ For regular development, the DSVA team uses [Lando](https://docs.devwithlando.io
 For testing and simple development, you can use the special Composer commands and Drupal Console to launch on any system
 with PHP-CLI and SQLite.
 
+## Quickstart with Codespaces
+
+See [the codespaces README](./codespaces.md) to get a fully functional cloud-based development environment.
+
 ## Step 1: Get Source Code.
 
 - Fork the repo by pressing the "Fork" button: [github.com/department-of-veterans-affairs/va.gov-cms](https://github.com/department-of-veterans-affairs/va.gov-cms)

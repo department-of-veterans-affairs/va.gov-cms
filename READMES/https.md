@@ -7,14 +7,21 @@ All computers in VA already have this setup, if you are using a non-VA laptop fo
 * http://crl.pki.va.gov/PKI/AIA/VA/VA-Internal-S2-RCA1-v1.cer
 * http://crl.pki.va.gov/PKI/AIA/VA/VA-Internal-S2-ICA1-v1.cer
 
+If you see a message from your browser like the following:
+
+<img width="359" alt="can't be downloaded securely" src="https://user-images.githubusercontent.com/1318579/134514803-40cb27af-f9aa-41d7-9510-cd4169396c69.png">
+
+Click the "^" button and select "Keep."
+
 ### OSX
 1. Open Keychain Access
 1. Go to Certificates (under Category in left sidebar)
-1. Select "Import Items..." from File menu. (Shift-Command-I)
-1. Select the two .cer files above.
-1. They should now appear in your list of certificates
-1. For each certificate: 1) File > Get info  2) Under Trust > When using this certificate, select "Always Trust". 3) Close the Get info window, which will prompt a password save. 
-1. You may need to restart your browser.
+2. Select "System" under Keychains (in sidebar)  
+3. Select "Import Items..." from File menu. (Shift-Command-I)
+4. Select the two .cer files above.
+5. They should now appear in your list of certificates
+6. For each certificate: 1) File > Get info  2) Under Trust > When using this certificate, select "Always Trust". 3) Close the Get info window, which will prompt a password save. 
+7. You may need to restart your browser.
 
 ### Linux
 

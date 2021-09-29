@@ -13,5 +13,5 @@ assignees: ''
 
 ### CMS Team
 
-- [x] `Core Application Team`
-- [ ] `Product Support Team`
+- [x] `Platform Team`
+- [ ] `Sitewide CMS Team`

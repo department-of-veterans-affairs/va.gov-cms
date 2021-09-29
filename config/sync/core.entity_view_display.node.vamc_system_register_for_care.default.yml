@@ -4,25 +4,67 @@ status: true
 dependencies:
   config:
     - field.field.node.vamc_system_register_for_care.field_administration
+    - field.field.node.vamc_system_register_for_care.field_cc_bottom_of_page_content
+    - field.field.node.vamc_system_register_for_care.field_cc_related_links
+    - field.field.node.vamc_system_register_for_care.field_cc_top_of_page_content
     - field.field.node.vamc_system_register_for_care.field_enforce_unique_combo
     - field.field.node.vamc_system_register_for_care.field_enforce_unique_combo_offic
     - field.field.node.vamc_system_register_for_care.field_office
     - node.type.vamc_system_register_for_care
   module:
-    - allow_only_one
+    - entity_field_fetch
+    - field_group
     - user
+third_party_settings:
+  field_group:
+    group_national_content:
+      children:
+        - field_cc_top_of_page_content
+        - field_cc_related_links
+        - field_cc_bottom_of_page_content
+      parent_name: ''
+      weight: 1
+      format_type: tooltip
+      region: content
+      format_settings:
+        show_empty_fields: 0
+        id: ''
+        classes: centralized
+        element: div
+        show_label: '0'
+        label_element: h3
+        attributes: ''
+        description: ''
+        tooltip_description: 'This part of the page describes register for care content across all VA medical centers. Edits can only be made by the Veterans Health Administration (VHA). '
+        open: false
+        required_fields: false
+      label: 'National content'
 id: node.vamc_system_register_for_care.default
 targetEntityType: node
 bundle: vamc_system_register_for_care
 mode: default
 content:
-  field_enforce_unique_combo_offic:
-    weight: 1
+  field_cc_bottom_of_page_content:
+    type: entity_field_fetch
+    weight: 7
+    region: content
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: allow_only_one
+  field_cc_related_links:
+    type: entity_field_fetch
+    weight: 6
     region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  field_cc_top_of_page_content:
+    type: entity_field_fetch
+    weight: 5
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
   links:
     weight: 0
     region: content
@@ -32,5 +74,6 @@ hidden:
   content_moderation_control: true
   field_administration: true
   field_enforce_unique_combo: true
+  field_enforce_unique_combo_offic: true
   field_office: true
   search_api_excerpt: true

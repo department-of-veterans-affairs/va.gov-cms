@@ -9,8 +9,6 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 (function ($, Drupal) {
   Drupal.behaviors.vaGovSetServiceSelects = {
     attach: function attach(context) {
-      var adminRoles = ["content_admin", "administrator"];
-
       $(context).ajaxComplete(function () {
         var vcSection = context.getElementById("edit-field-administration");
 
@@ -24,9 +22,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
         var allOffices = context.querySelectorAll(".field--type-entity-reference.field--name-field-health-services .field--type-entity-reference.field--name-field-office");
         var allAdmins = context.querySelectorAll(".field--type-entity-reference.field--name-field-health-services .field--type-entity-reference.field--name-field-administration");
 
-        if (adminRoles.some(function (item) {
-          return drupalSettings.gtm_data.userRoles.includes(item);
-        }) && allOffices && allAdmins) {
+        if (allOffices && allAdmins) {
           allOffices.forEach(function (office) {
             office.style.display = "none";
           });

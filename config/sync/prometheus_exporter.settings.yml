@@ -3,10 +3,11 @@ collectors:
     id: node_count
     provider: prometheus_exporter
     enabled: true
-    weight: 0
+    weight: -50
     settings:
       status: 1
       bundles:
+        banner: 0
         basic_landing_page: 0
         campaign_landing_page: 0
         centralized_content: 0
@@ -42,7 +43,10 @@ collectors:
         support_resources_detail_page: 0
         support_service: 0
         vamc_operating_status_and_alerts: 0
+        vamc_system_billing_insurance: 0
+        vamc_system_medical_records_offi: 0
         vamc_system_policies_page: 0
+        vamc_system_register_for_care: 0
         va_form: 0
         vba_facility: 0
         vet_center: 0
@@ -55,28 +59,35 @@ collectors:
     id: user_count
     provider: prometheus_exporter
     enabled: true
-    weight: 0
+    weight: -49
+    settings: {  }
+  va_gov_active_user_count:
+    id: va_gov_active_user_count
+    provider: va_gov_backend
+    enabled: true
+    weight: -48
     settings: {  }
   phpinfo:
     id: phpinfo
     provider: prometheus_exporter
     enabled: false
-    weight: 0
+    weight: -47
     settings: {  }
   queue_size:
     id: queue_size
     provider: prometheus_exporter
     enabled: false
-    weight: 0
+    weight: -46
     settings: {  }
   revision_count:
     id: revision_count
     provider: prometheus_exporter
     enabled: false
-    weight: 0
+    weight: -45
     settings:
       status: 0
       bundles:
+        banner: 0
         basic_landing_page: 0
         campaign_landing_page: 0
         centralized_content: 0
@@ -112,7 +123,10 @@ collectors:
         support_resources_detail_page: 0
         support_service: 0
         vamc_operating_status_and_alerts: 0
+        vamc_system_billing_insurance: 0
+        vamc_system_medical_records_offi: 0
         vamc_system_policies_page: 0
+        vamc_system_register_for_care: 0
         va_form: 0
         vba_facility: 0
         vet_center: 0

@@ -1,0 +1,27 @@
+uuid: 924c87bb-896a-4600-ac08-72ab8f881fc3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cc_react_widget
+    - node.type.vamc_system_medical_records_offi
+  module:
+    - entity_field_fetch
+id: node.vamc_system_medical_records_offi.field_cc_react_widget
+field_name: field_cc_react_widget
+entity_type: node
+bundle: vamc_system_medical_records_offi
+label: 'React widget'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  target_entity_type: node
+  target_entity_id: '33340'
+  field_to_fetch: field_content_block
+  target_paragraph_uuid: '82635'
+field_type: entity_field_fetch

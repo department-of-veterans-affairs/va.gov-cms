@@ -3,34 +3,16 @@
 namespace Drupal\va_gov_backend\Plugin\Validation\Constraint;
 
 use Drupal\Component\Utility\Html;
+use Drupal\va_gov_backend\Plugin\Validation\Constraint\Traits\ValidatorContextAccessTrait;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Validates the PreventAbsoluteCmsLinks constraint.
  */
 class PreventAbsoluteCmsLinksValidator extends ConstraintValidator {
 
-  /**
-   * Set the execution context directly.
-   *
-   * @param \Symfony\Component\Validator\Context\ExecutionContextInterface $context
-   *   An execution context.
-   */
-  public function setContext(ExecutionContextInterface $context): void {
-    $this->context = $context;
-  }
-
-  /**
-   * Retrieve the execution context.
-   *
-   * @return \Symfony\Component\Validator\Context\ExecutionContextInterface
-   *   The validator's execution context.
-   */
-  public function getContext(): ExecutionContextInterface {
-    return $this->context;
-  }
+  use ValidatorContextAccessTrait;
 
   /**
    * Add a violation message.
