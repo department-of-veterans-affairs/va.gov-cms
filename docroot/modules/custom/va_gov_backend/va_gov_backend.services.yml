@@ -1,4 +1,8 @@
 services:
+  va_gov_backend.entity_event_subscriber:
+    class: Drupal\va_gov_backend\EventSubscriber\EntityEventSubscriber
+    tags:
+      - {name: event_subscriber }
   va_gov_backend.exclusion_types:
     class: Drupal\va_gov_backend\Service\ExclusionTypes
     arguments: ['@config.factory']
