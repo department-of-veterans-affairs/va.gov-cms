@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "154bbbe56bcbbb2343befb536db65207",
+    "content-hash": "1d31baa2f0b462c3184c78a577bb4f3d",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -6164,6 +6164,56 @@
             "homepage": "https://www.drupal.org/project/graphql",
             "support": {
                 "source": "https://git.drupalcode.org/project/graphql"
+            }
+        },
+        {
+            "name": "drupal/graphql_menu",
+            "version": "1.0.0-alpha2",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/graphql_menu.git",
+                "reference": "8.x-1.0-alpha2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/graphql_menu-8.x-1.0-alpha2.zip",
+                "reference": "8.x-1.0-alpha2",
+                "shasum": "e7cd2f19f0d3c5d363e83763e040d26bdb33013f"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9",
+                "drupal/graphql": "^3.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.0-alpha2",
+                    "datestamp": "1593795090",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "colorfield",
+                    "homepage": "https://www.drupal.org/user/2295486"
+                }
+            ],
+            "description": "GraphQL Menu helpers.",
+            "homepage": "https://www.drupal.org/project/graphql_menu",
+            "keywords": [
+                "Drupal",
+                "GraphQL"
+            ],
+            "support": {
+                "source": "https://git.drupalcode.org/project/graphql_menu",
+                "issues": "https://www.drupal.org/project/issues/graphql_menu"
             }
         },
         {
@@ -24507,6 +24557,7 @@
         "drupal/fast_404": 20,
         "drupal/fieldhelptext": 10,
         "drupal/flag": 10,
+        "drupal/graphql_menu": 15,
         "drupal/jsonapi_resources": 10,
         "drupal/libraries": 15,
         "drupal/markup": 10,
