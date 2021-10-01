@@ -1,0 +1,27 @@
+uuid: 304bfd42-dd9c-47ee-b8a8-556ac87fc8b6
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_vamc_ehr_system
+field_name: field_vamc_ehr_system
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: vista
+      label: VistA
+    -
+      value: cerner
+      label: Cerner
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
