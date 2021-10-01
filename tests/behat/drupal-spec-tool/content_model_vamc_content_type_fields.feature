@@ -161,6 +161,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System | Regional Health Service Offerings. | field_clinical_health_services | Entity reference |  | Unlimited | -- Disabled -- |  |
 | Content type | VAMC System | Twitter | field_twitter | Link |  | 1 | Linkit | Translatable |
 | Content type | VAMC System | VAMC system official name | field_vamc_system_official_name | Text (plain) |  | 1 | Textfield |  |
+| Content type | VAMC System | Electronic Health Records system | field_vamc_ehr_system | List (text) |  | 1 | -- Disabled -- |  |
 | Content type | VAMC System Banner Alert with Situation Updates | Alert body | field_body | Text (formatted, long) | Required | 1 | Text area (multiple rows) | Translatable |
 | Content type | VAMC System Banner Alert with Situation Updates | Alert dismissable? | field_alert_dismissable | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC System Banner Alert with Situation Updates | Alert type | field_alert_type | List (text) | Required | 1 | Select list |  |
