@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.person_profile.field_administration
     - field.field.node.person_profile.field_body
     - field.field.node.person_profile.field_complete_biography
+    - field.field.node.person_profile.field_complete_biography_create
     - field.field.node.person_profile.field_description
     - field.field.node.person_profile.field_email_address
     - field.field.node.person_profile.field_intro_text
@@ -105,6 +106,7 @@ third_party_settings:
       region: content
     group_bio:
       children:
+        - field_complete_biography_create
         - field_intro_text
         - field_body
         - field_complete_biography
@@ -112,10 +114,11 @@ third_party_settings:
       weight: 5
       format_type: fieldset
       format_settings:
+        description: ''
         id: ''
         classes: ''
-        description: ''
-        required_fields: true
+        show_empty_fields: false
+        required_fields: false
       label: Bio
       region: content
     group_meta_tags:
@@ -142,7 +145,7 @@ content:
     type: options_select
     region: content
   field_body:
-    weight: 2
+    weight: 28
     settings:
       rows: 5
       placeholder: ''
@@ -150,11 +153,18 @@ content:
     type: text_textarea
     region: content
   field_complete_biography:
-    weight: 3
+    weight: 29
     settings:
       progress_indicator: throbber
     third_party_settings: {  }
     type: file_generic
+    region: content
+  field_complete_biography_create:
+    weight: 26
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
     region: content
   field_description:
     type: string_textfield
@@ -173,7 +183,7 @@ content:
     type: email_default
     region: content
   field_intro_text:
-    weight: 1
+    weight: 27
     settings:
       rows: 5
       placeholder: ''
