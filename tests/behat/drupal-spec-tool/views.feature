@@ -224,7 +224,6 @@ Feature: Views
 | Vet Center facility listing | Block | vc_facility_listing | Block |
 | Vet Center facility listing | Master | default | Default |
 | Vet Center facility listing | VC listing for node form | vc_listing_for_node_form | Block |
-| Vet centers | Entity browser | vet_center_entity_browser | Entity browser |
 | Vet centers | Master | default | Default |
 | Vet centers | Mobile Vet Centers Entity Browser | mvc_entity_browser | Entity browser |
 | Users in section | Master | default | Default |
