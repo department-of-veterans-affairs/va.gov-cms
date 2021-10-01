@@ -19,6 +19,7 @@ dependencies:
     - field.field.node.health_care_region_page.field_other_va_locations
     - field.field.node.health_care_region_page.field_related_links
     - field.field.node.health_care_region_page.field_twitter
+    - field.field.node.health_care_region_page.field_vamc_ehr_system
     - field.field.node.health_care_region_page.field_vamc_system_official_name
     - node.type.health_care_region_page
     - workflows.workflow.editorial
@@ -36,7 +37,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 12
+      weight: 9
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -51,7 +52,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 13
+      weight: 10
       format_type: fieldset
       format_settings:
         id: ''
@@ -79,7 +80,7 @@ third_party_settings:
         - group_online_appointments
         - field_related_links
       parent_name: ''
-      weight: 11
+      weight: 8
       format_type: details
       format_settings:
         id: ''
@@ -364,6 +365,7 @@ hidden:
   field_links: true
   field_meta_tags: true
   field_sign_up_for_emergency_emai: true
+  field_vamc_ehr_system: true
   promote: true
   sticky: true
   uid: true
