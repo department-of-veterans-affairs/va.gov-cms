@@ -1,0 +1,23 @@
+uuid: 8da601a8-a02b-4d8f-b92b-84d805f39615
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_complete_biography_create
+    - node.type.person_profile
+id: node.person_profile.field_complete_biography_create
+field_name: field_complete_biography_create
+entity_type: node
+bundle: person_profile
+label: 'Create profile page with biography'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
