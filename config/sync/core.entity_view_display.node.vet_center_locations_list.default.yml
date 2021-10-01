@@ -7,7 +7,6 @@ dependencies:
     - field.field.node.vet_center_locations_list.field_enforce_unique_combo
     - field.field.node.vet_center_locations_list.field_intro_text
     - field.field.node.vet_center_locations_list.field_nearby_mobile_vet_centers
-    - field.field.node.vet_center_locations_list.field_nearby_vet_centers
     - field.field.node.vet_center_locations_list.field_office
     - node.type.vet_center_locations_list
   module:
@@ -34,14 +33,6 @@ content:
     region: content
   field_nearby_mobile_vet_centers:
     weight: 3
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
-  field_nearby_vet_centers:
-    weight: 4
     label: above
     settings:
       link: true
