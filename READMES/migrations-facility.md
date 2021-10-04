@@ -76,7 +76,7 @@ There are dependencies in the migration that will cause a migrated item to be sk
 A migration should not be considered complete if there are ANY migrate messages logged.
 
 
-#### Migration Commands
+### Migration Commands
 * lando drush migrate:status {migration_id}  - gives the status of the migration. Number of items total, number unprocessed.
 * lando drush migrate:reset-status {migration_id}  - Resets a migration that may have not completed due to a fatal error.
 * lando drush migrate:rollback {migration_id}  - Rolls back all items tracked by the migration.
@@ -84,6 +84,31 @@ A migration should not be considered complete if there are ANY migrate messages 
 *  Useful options
    *  --id-list={ID}  - Limits the command to just a specific row/item in the migration.   Useful for rolling back and re-migrating a specific troublesome item. The ID is the row ID based on what unique ID is defined in the migration.
    *  --limit={quantity}  - limits the action to a specific number of items.
+
+#### Migration Settings (settings.local.php)
+For these migrations to function, you'll need to obtain a Facility API Key from a member of the development team and place the key, along with the following code, into your settings.local.php file. This file should be located in `docroot/sites/default/settings/settings.local.php`. 
+
+```
+<?php
+$settings['post_api_endpoint_host'] = 'https://sandbox-api.va.gov';
+$settings['post_api_apikey'] = 'PASTE_KEY_HERE';
+
+$facility_api_urls = ['https://sandbox-api.va.gov/services/va_facilities/v0/facilities/all'];
+$facility_api_key = $settings['post_api_apikey'];
+$facility_migrations = [
+  'va_node_health_care_local_facility',
+  'va_node_facility_vba',
+  'va_node_facility_nca',
+  'va_node_facility_vet_centers',
+  'va_node_facility_vet_centers_mvc',
+  'va_node_facility_vet_centers_os',
+];
+
+foreach ($facility_migrations as $facility_migration) {
+  $config["migrate_plus.migration.{$facility_migration}"]['source']['urls'] = $facility_api_urls;
+  $config["migrate_plus.migration.{$facility_migration}"]['source']['headers']['apikey'] = $facility_api_key;
+}
+```
 
 ###  Workflow
   1. Edit or create a new migration configuration in docroot/modules/custom/va_gov_migrate/config/install
