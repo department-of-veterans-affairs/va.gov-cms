@@ -105,11 +105,16 @@ process:
       - mvc
       - os
       - cap
-  title:
+  field_official_name:
     plugin: skip_on_empty
     method: row
     source: name
     message: 'Skipped: Source title/name is empty, can not have a node without title.'
+  title:
+    plugin: skip_on_empty
+    method: row
+    source:
+      - '@field_official_name'
   field_facility_locator_api_id:
     plugin: skip_on_empty
     method: row
@@ -241,6 +246,7 @@ destination:
     - 'field_address/postal_code'
     - field_administration
     - field_office_hours
+    - field_official_name
     - field_phone_number
     - new_revision
     - revision_default

@@ -200,7 +200,7 @@ tasks:
           output="\$(mktemp -d)/output"
           mkfifo \$output
           (cat \$output&)
-          lines=\$(drush $DRUSH_ALIAS core-requirements --format=list --severity=2 2>&1 | tee \$output)
+          lines=\$(drush $DRUSH_ALIAS core-requirements --format=list --ignore='update_core,update_contrib,"update status"' --severity=2 2>&1 | tee \$output)
           line_count=\$(grep -c "\S" <<< \$lines)
           if [ "$SKIP_REPORTING" -ne 1 ]; then
             if [ "\$line_count" -eq 0 ]; then
