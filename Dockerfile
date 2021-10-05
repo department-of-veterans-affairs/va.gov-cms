@@ -3,6 +3,7 @@ FROM php:7.3-apache AS cms_build
 ENV CMS_REPO_ROOT="/var/www/cms"
 ENV CMS_DOCROOT="$CMS_REPO_ROOT/docroot"
 ENV PHP_VERSION="7.3"
+ENV CMS_ENVIRONMENT_TYPE="eks"
 
 # Copy Composer into container rather than installing it.
 COPY --from=composer:2.1.8 /usr/bin/composer /usr/local/bin/composer
@@ -18,7 +19,7 @@ RUN update-ca-certificates
 # Use default production values.
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
-# Inject PHP conf overrides (currently just `apc.enable=1`, need to ensure this is enabled on CLI too)
+# Inject PHP conf overrides.
 COPY .lando/zzz-lando-my-custom.ini $PHP_INI_DIR/conf.d/my-php.ini
 
 # Change docroot.
@@ -36,17 +37,34 @@ RUN apt-get update \
   && apt-get install -y \
     # Git (for Composer/etc modules)
     git \
+    mariadb-client \
     # unzip (for unzipping Composer zip files)
     unzip
 
 # Install PHP extensions.
 RUN install-php-extensions \
   apcu \
+  bcmath \
+  bz2 \
+  calendar \
+  exif \
   gd \
+  gettext \
+  imagick \
+  imap \
+  intl \
+  ldap \
+  mbstring \
+  memcached \
+  oauth \
+  pcntl \
   memcache \
   opcache \
   pdo_mysql \
-  xdebug \
+  redis \
+  soap \
+  # NO STOP DIE DIE DIE
+  # xdebug \
   # Drush 10 requirement
   zip
 
@@ -57,8 +75,6 @@ RUN chown -R www-data:www-data $CMS_REPO_ROOT/..
 USER www-data
 
 WORKDIR $CMS_REPO_ROOT
-
-RUN composer install --no-scripts
 
 USER root
 
