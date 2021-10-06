@@ -2,8 +2,8 @@
 
 namespace Drupal\va_gov_vet_center\EventSubscriber;
 
-use Drupal\Core\Form\FormInterface;
 use Drupal\Component\Render\FormattableMarkup;
+use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
@@ -43,9 +43,9 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function buildNearbyVcAndOutStationFieldsetContent(FormIdAlterEvent $event): void {
     $form = &$event->getForm();
-    $form_state = $event->getFormState();
-    if ($form_state->getFormObject() instanceof FormInterface) {
-      $nid = $form_state->getformObject()->getEntity()->id() ?? NULL;
+    $form_object = $event->getFormState()->getFormObject();
+    if ($form_object instanceof EntityFormInterface) {
+      $nid = $form_object->getEntity()->id() ?? NULL;
       $formatted_markup = new FormattableMarkup(
       '<p class="vc-help-text"><strong>Review nearby locations</strong>
       <br />Nearby locations provide alternative
@@ -56,7 +56,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
 
         <p class="vc-help-text"><strong>Doesn\'t look right?</strong>
         <br />If you believe the selected nearby locations aren\'t appropriate to Veterans
-        in your area, <a href="@help_link">contact the CMS Helpdesk.</a></p>',
+        in your area, <a target="_blank" href="@help_link">contact the CMS Helpdesk.</a></p>',
       [
         '@preview_link' => $_SERVER['REQUEST_SCHEME'] . '://preview-' . $_SERVER['HTTP_HOST'] . '/preview?nodeId=' . $nid,
         '@help_link' => 'https://va-gov.atlassian.net/servicedesk/customer/portal/3/group/8/create/26',
