@@ -2,11 +2,13 @@
 
 namespace Drupal\va_gov_vet_center\EventSubscriber;
 
+use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -23,6 +25,50 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function __construct(TranslationInterface $string_translation) {
     $this->stringTranslation = $string_translation;
+  }
+
+  /**
+   * Alteration to entity view pages.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
+   *   The entity view alter service.
+   */
+  public function entityViewAlter(EntityViewAlterEvent $event):void {
+    $this->appendHealthServiceTermDescription($event);
+  }
+
+  /**
+   * Appends health service entity description to title on entity view page.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
+   *   The entity view alter service.
+   */
+  public function appendHealthServiceTermDescription(EntityViewAlterEvent $event):void {
+    if ($event->getDisplay()->getTargetBundle() === 'vet_center') {
+      $build = &$event->getBuild();
+      $services = $build['field_health_services'];
+      foreach ($services as $key => $service) {
+        if (is_numeric($key)) {
+          $service_node = $service['#options']['entity'];
+          // Magic method is more reliable in this instance.
+          // When doing $service_node->get('field_body')->first()->get('value')->getString(),
+          // Null errors can be thrown if body is empty when using first().
+          // Also check that content isn't just tags and linebreaks.
+          // Allow a tolerance of 15 characters.
+          $description = strlen(str_replace("\r\n", "", trim(strip_tags($service_node->get('field_body')->value)))) > 15
+          ? '<br />' . trim($service_node->get('field_body')->value)
+          // Magic method necessary here.
+          // Trying to set var Drupal\taxonomy\Entity\Terminterface
+          // In this context isn't working as expected, making
+          // $service_node->get('field_service_name_and_descripti')->getEntity()->getDescription()->getString()
+          // fail.
+          : '<br />' . trim($service_node->get('field_service_name_and_descripti')->entity->description->value);
+          $formatted_markup = new FormattableMarkup($description, []);
+          $build['field_health_services'][$key]['#suffix'] = $formatted_markup;
+        }
+      }
+
+    }
   }
 
   /**
@@ -80,6 +126,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     return [
       // React on Vet center locations list edit form.
       'hook_event_dispatcher.form_node_vet_center_locations_list_edit_form.alter' => 'alterVetCenterLocationsListNodeEditForm',
+      // React on Vet center node view.
+      HookEventDispatcherInterface::ENTITY_VIEW_ALTER => 'entityViewAlter',
     ];
   }
 
