@@ -2077,8 +2077,7 @@ function va_gov_backend_raven_options_alter(array &$options) {
     $options['release'] = !empty($repository->getLastCommit()) ? $repository->getLastCommit()->getHash() : NULL;
   }
   catch (RuntimeExceptionAlias $e) {
-    # error_log($e->getMessage());
-    # watchdog_exception('git', $e, 'Error getting HEAD commit');
+    watchdog_exception('git', $e, 'Error getting HEAD commit');
   }
 
 }
