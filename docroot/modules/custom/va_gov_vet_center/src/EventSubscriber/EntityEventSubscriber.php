@@ -56,7 +56,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
 
         <p class="vc-help-text"><strong>Doesn\'t look right?</strong>
         <br />If you believe the selected nearby locations aren\'t appropriate to Veterans
-        in your area, <a target="_blank" href="@help_link">contact the CMS Helpdesk.</a></p>',
+        in your area, <a target="_blank" href="@help_link">contact the CMS Helpdesk (opens in a new tab)</a></p>',
       [
         '@preview_link' => $_SERVER['REQUEST_SCHEME'] . '://preview-' . $_SERVER['HTTP_HOST'] . '/preview?nodeId=' . $nid,
         '@help_link' => 'https://va-gov.atlassian.net/servicedesk/customer/portal/3/group/8/create/26',
