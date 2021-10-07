@@ -1,0 +1,83 @@
+openapi: '3.0.2'
+info:
+  title: VA.gov Resources
+  version: '1.0'
+servers:
+  - url: https://cms-tjbeixkzi81nzxfummlz5euagx3aazdk.ci.cms.va.gov/
+paths:
+  /resources:
+    get:
+      operationId: getResources
+      responses:
+        '200':
+          description: OK
+  /resources/qa:
+    get:
+      operationId: getQandA
+      parameters:
+        - name: path
+          in: query
+          description: URL for the Q&A page
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Get a signle Q&A Page
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QA'
+
+components:
+  schemas:
+    QA:
+      type: object
+      required:
+      - nid
+      - uuid
+      - langcode
+      - status
+      - title
+      - moderation_state
+      - path
+      - section
+      - answers
+      properties:
+        nid:
+          type: integer
+          format: int64
+          description: Internal Drupal Node ID
+        uuid:
+          type: string
+          description: Universal Unique Identifier.
+        langcode:
+          type: string
+          description: Language Code of content
+        status:
+          type: boolean
+          description: Is the node Published
+        title:
+          type: string
+        moderation_state:
+          type: string
+          enum:
+            - draft
+            - review
+            - approved
+            - published
+            - archived
+        path:
+          type: string
+          description: The path to the content
+        section:
+          type: string
+          description: The Section from the Section Vocabulary
+        answer:
+          type: string
+          description: The output from the WYSIWGY field
+
+
+
+
+
