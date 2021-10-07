@@ -5,6 +5,7 @@ namespace Drupal\va_gov_vet_center\EventSubscriber;
 use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Entity\EntityFormInterface;
+use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
@@ -18,13 +19,24 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   use StringTranslationTrait;
 
   /**
+   * The entity manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManager
+   *  The entity manager.
+   */
+  private $entityTypeManager;
+
+  /**
    * Constructs a EntityEventSubscriber object.
    *
    * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
    *   The string translation service.
+   * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
+   *   The string translation service.
    */
-  public function __construct(TranslationInterface $string_translation) {
+  public function __construct(TranslationInterface $string_translation, EntityTypeManager $entity_type_manager) {
     $this->stringTranslation = $string_translation;
+    $this->entityTypeManager = $entity_type_manager;
   }
 
   /**
@@ -35,6 +47,46 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function entityViewAlter(EntityViewAlterEvent $event):void {
     $this->appendHealthServiceTermDescription($event);
+  }
+
+  /**
+   * Alterations to Vet center node forms.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function alterVetCenterNodeForm(FormIdAlterEvent $event): void {
+    $this->buildHealthServicesDescriptionArrayAddToSettings($event);
+  }
+
+  /**
+   * Builds an array of descriptions from health services available on form.
+   *
+   * Adds the descriptions array built by this method to drupalSettings.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function buildHealthServicesDescriptionArrayAddToSettings(FormIdAlterEvent $event): void {
+    $form = &$event->getForm();
+    $service_terms = $this->entityTypeManager
+      ->getListBuilder('taxonomy_term')
+      ->getStorage()
+      ->loadByProperties([
+        'vid' => 'health_care_service_taxonomy',
+      ]);
+    $descriptions = [];
+    foreach ($service_terms as $service_term) {
+      /** @var \Drupal\taxonomy\Entity\Term $service_term */
+      $descriptions[$service_term->id()] = [
+        'type' => $service_term->get('field_vet_center_type_of_care')->getSetting('allowed_values')[$service_term->get('field_vet_center_type_of_care')->getString()] ?? NULL,
+        'name' => $service_term->get('field_vet_center_friendly_name')->getString(),
+        'conditions' => $service_term->get('field_vet_center_com_conditions')->getString(),
+        'description' => trim(strip_tags($service_term->get('field_vet_center_service_descrip')->value)),
+      ];
+    }
+    $form['#attached']['drupalSettings']['availableHealthServices'] = $descriptions;
+    $form['#attached']['library'][] = 'va_gov_vet_center/display_service_descriptions';
   }
 
   /**
@@ -62,7 +114,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
           // In this context isn't working as expected, making
           // $service_node->get('field_service_name_and_descripti')->getEntity()->getDescription()->getString()
           // fail.
-          : '<br />' . trim($service_node->get('field_service_name_and_descripti')->entity->description->value);
+          : '<br />' . trim($service_node->get('field_service_name_and_descripti')->entity->get('field_vet_center_service_descrip')->value);
           $formatted_markup = new FormattableMarkup($description, []);
           $build['field_health_services'][$key]['#suffix'] = $formatted_markup;
         }
@@ -124,6 +176,9 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents(): array {
     return [
+      // React on Vet center node forms.
+      'hook_event_dispatcher.form_node_vet_center_form.alter' => 'alterVetCenterNodeForm',
+      'hook_event_dispatcher.form_node_vet_center_edit_form.alter' => 'alterVetCenterNodeForm',
       // React on Vet center locations list edit form.
       'hook_event_dispatcher.form_node_vet_center_locations_list_edit_form.alter' => 'alterVetCenterLocationsListNodeEditForm',
       // React on Vet center node view.
