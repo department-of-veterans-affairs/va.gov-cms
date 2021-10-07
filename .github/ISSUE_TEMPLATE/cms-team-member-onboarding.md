@@ -90,12 +90,12 @@ The goal for this week is to get you set up with the tools you need to be succes
  - [ ] What do I need to know about my discipline on this team (DevOps, Engineering, Helpdesk, ID, UX)? Discuss with your discipline lead.
  - [ ] What applications or discipline-specific tools are needed? Discuss with your discipline lead.
 #### Onboarding for DevOps members
- - [ ] [Request access to Github Codespaces](https://github.com/department-of-veterans-affairs/github-user-requests/issues/new?assignees=&labels=general+issue%2C+user-created&template=general-help-request.md&title=Add%20user%20to%20Codespaces)
  - [ ] [IAM/SSO lower environment access](https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/blob/master/platform/cms/cms-sso-saml-iam-login-braindump.md#testing-login)
  - [ ] [Jenkins](http://jenkins.vfs.va.gov/) (SOCKS required)
  - [ ] [Grafana](http://grafana.vfs.va.gov/login) (SOCKS required)
  - [ ] [Sentry](http://sentry.vfs.va.gov.) (SOCKS required)
  - [ ] [AWS](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html#Requestaccesstotools-Requestaccess) (SOCKS required)
+   - [ ] And request to be added to the `adhoc-vetsgov-devops` group.
  - [ ] sshuttle
 #### Onboarding for Helpdesk members
  - [ ] [Review the helpdesk Github repo](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/platform/cms/helpdesk).
