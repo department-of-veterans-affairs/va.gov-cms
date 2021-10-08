@@ -44,7 +44,7 @@ function va_gov_post_api_update_8002(&$sandbox) {
   $nodes = Node::loadMultiple($nids);
   foreach ($nodes as $node) {
 
-    _post_api_add_facility_to_queue($node);
+    _post_api_add_facility_status_to_queue($node);
     $sandbox['current']++;
   }
   // Tell drupal we processed some nodes.

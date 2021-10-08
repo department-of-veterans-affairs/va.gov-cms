@@ -83,9 +83,7 @@ class PostFacilityService extends PostFacilityBase {
         // If its empty, it means that there is no new information to send to
         // endpoint.
         if (!empty($data['payload']) && !empty($facilityApiId)) {
-          // If bypass_data_check setting is enabled, do not dedupe, just force.
-          $dedupe = !$this->shouldBypass();
-          $this->postQueue->addToQueue($data, $dedupe);
+          $this->postQueue->addToQueue($data, $this->shouldDedupe());
           // @todo When this is expanded to more than just COVID we may want
           // to remove the messenger as it will be too noisy.
           $message = t('The facility service data for %service_name is being sent to the Facility Locator.', ['%service_name' => $this->facilityService->getTitle()]);

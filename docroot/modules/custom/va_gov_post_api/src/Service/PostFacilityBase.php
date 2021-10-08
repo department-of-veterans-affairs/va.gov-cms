@@ -79,8 +79,19 @@ abstract class PostFacilityBase {
    * @return bool
    *   TRUE if bypass, FALSE if no bypass.
    */
-  protected function shouldBypass() {
+  protected function shouldBypass() : bool {
     return !empty($this->configFactory->get('va_gov_post_api.settings')->get('bypass_data_check'));
+  }
+
+  /**
+   * Checks to see if the post queueing should dedupe.
+   *
+   * @return bool
+   *   TRUE if deduping, FALSE otherwise.
+   */
+  protected function shouldDedupe() : bool {
+    // If bypass_data_check setting is enabled, do not dedupe..
+    return !$this->shouldBypass();
   }
 
 }
