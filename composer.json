@@ -108,6 +108,7 @@
         "drupal/override_node_options": "^2.4",
         "drupal/paragraphs": "^1.5",
         "drupal/paragraphs_browser": "^1.0@alpha",
+        "drupal/paragraphs_report": "^1.0",
         "drupal/password_policy": "3.0.0",
         "drupal/password_strength": "2.0-beta1",
         "drupal/path_redirect_import": "^1.0@beta",
@@ -371,7 +372,8 @@
                 "Cloning child references to nodes has potential to cause memory resource issues": "https://www.drupal.org/files/issues/2020-02-10/entity_clone-child-node-system-drain-3112577-1.patch"
             },
             "drupal/entity_reference_revisions": {
-                "2984027 Incorrect manipulation of default revision flag": "https://www.drupal.org/files/issues/2020-09-03/entity_reference_revisions-default_revision-2984027-10.patch"
+                "2984027 Incorrect manipulation of default revision flag": "https://www.drupal.org/files/issues/2020-09-03/entity_reference_revisions-default_revision-2984027-10.patch",
+                "2799479 Views doesn't recognize relationship to host": "https://www.drupal.org/files/issues/2021-04-16/entity_reference_2799479-158-no-tests.patch"
             },
             "drupal/flag": {
                 "2957019 Failed to start the session because headers have already been sent": "https://www.drupal.org/files/issues/2020-01-20/2957019-51.patch"
@@ -421,6 +423,9 @@
                 "Fix broken fieldsets on forms": "https://www.drupal.org/files/issues/2020-06-03/3138609-24.patch",
                 "Remove button should not be shown on required field": "https://www.drupal.org/files/issues/2020-05-13/hide_field_required_paragraphs_remove_button_1.patch",
                 "2901390 - Integrity constraint violation: 1048 Column 'langcode' cannot be null": "https://www.drupal.org/files/issues/2021-03-01/2901390-76-integrity-constraint-violation-paragraph.patch"
+            },
+            "drupal/paragraphs_report": {
+                "32275750 - The service \"paragraphs_report.report\" has a dependency on a non-existent service \"path.alias_manager\".": "https://www.drupal.org/files/issues/2021-09-27/paragraphs_report-service-dependency-3227570-11.patch"
             },
             "drupal/pathauto": {
                 "3204586 - Update URL Alias action is only available for nodes + users and does not work with views_bulk_operations": "https://www.drupal.org/files/issues/2021-03-22/pathauto-add_deriver_for_alias_update_action-3204586-19.patch",
