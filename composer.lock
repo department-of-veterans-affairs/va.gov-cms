@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0bf3c2629c11e1b827b7d6e69baec11e",
+    "content-hash": "1d88680f3bf1d6d873705ce0a306dae5",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -3212,26 +3212,29 @@
         },
         {
             "name": "drupal/blazy",
-            "version": "2.4.0",
+            "version": "2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/blazy.git",
-                "reference": "8.x-2.4"
+                "reference": "8.x-2.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/blazy-8.x-2.4.zip",
-                "reference": "8.x-2.4",
-                "shasum": "6915ae64881510c253c72ae3d01f0a66472d4462"
+                "url": "https://ftp.drupal.org/files/projects/blazy-8.x-2.5.zip",
+                "reference": "8.x-2.5",
+                "shasum": "3680004a49099dcef1440d327e5f316f8309a7e6"
             },
             "require": {
                 "drupal/core": "^8.8 || ^9"
             },
+            "conflict": {
+                "drupal/csp": "<1.12"
+            },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-2.4",
-                    "datestamp": "1624001330",
+                    "version": "8.x-2.5",
+                    "datestamp": "1633496312",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -3340,8 +3343,8 @@
                     "dev-4.x": "4.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-4.0-alpha2+9-dev",
-                    "datestamp": "1620240013",
+                    "version": "8.x-4.0-alpha3+1-dev",
+                    "datestamp": "1632417597",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
@@ -4193,6 +4196,10 @@
                 "GPL-2.0-or-later"
             ],
             "authors": [
+                {
+                    "name": "el7cosmos",
+                    "homepage": "https://www.drupal.org/user/251087"
+                },
                 {
                     "name": "pdenooijer",
                     "homepage": "https://www.drupal.org/user/3175437"
@@ -6447,6 +6454,10 @@
                 "GPL-2.0-or-later"
             ],
             "authors": [
+                {
+                    "name": "el7cosmos",
+                    "homepage": "https://www.drupal.org/user/251087"
+                },
                 {
                     "name": "pdenooijer",
                     "homepage": "https://www.drupal.org/user/3175437"
@@ -10041,8 +10052,8 @@
                     "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-3.4+21-dev",
-                    "datestamp": "1596791490",
+                    "version": "8.x-3.4+24-dev",
+                    "datestamp": "1631709187",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -10054,6 +10065,10 @@
                 "GPL-2.0+"
             ],
             "authors": [
+                {
+                    "name": "DamienMcKenna",
+                    "homepage": "https://www.drupal.org/user/108450"
+                },
                 {
                     "name": "NickDickinsonWilde",
                     "homepage": "https://www.drupal.org/user/3094661"
@@ -14582,16 +14597,16 @@
         },
         {
             "name": "phpdocumentor/type-resolver",
-            "version": "1.5.0",
+            "version": "1.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/TypeResolver.git",
-                "reference": "30f38bffc6f24293dadd1823936372dfa9e86e2f"
+                "reference": "a12f7e301eb7258bb68acd89d4aefa05c2906cae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/30f38bffc6f24293dadd1823936372dfa9e86e2f",
-                "reference": "30f38bffc6f24293dadd1823936372dfa9e86e2f",
+                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/a12f7e301eb7258bb68acd89d4aefa05c2906cae",
+                "reference": "a12f7e301eb7258bb68acd89d4aefa05c2906cae",
                 "shasum": ""
             },
             "require": {
@@ -14626,9 +14641,9 @@
             "description": "A PSR-5 based resolver of Class names, Types and Structural Element Names",
             "support": {
                 "issues": "https://github.com/phpDocumentor/TypeResolver/issues",
-                "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.5.0"
+                "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.5.1"
             },
-            "time": "2021-09-17T15:28:14+00:00"
+            "time": "2021-10-02T14:08:47+00:00"
         },
         {
             "name": "phpfastcache/riak-client",
@@ -17206,6 +17221,7 @@
                 "issues": "https://github.com/simplesamlphp/simplesamlphp-module-authfacebook/issues",
                 "source": "https://github.com/simplesamlphp/simplesamlphp-module-authfacebook"
             },
+            "abandoned": true,
             "time": "2020-03-13T11:29:21+00:00"
         },
         {
@@ -17364,6 +17380,7 @@
                 "issues": "https://github.com/tvdijen/simplesamlphp-module-authwindowslive/issues",
                 "source": "https://github.com/tvdijen/simplesamlphp-module-authwindowslive"
             },
+            "abandoned": true,
             "time": "2019-12-03T09:01:13+00:00"
         },
         {
@@ -18144,6 +18161,7 @@
                 "issues": "https://github.com/simplesamlphp/simplesamlphp-module-oauth/issues",
                 "source": "https://github.com/simplesamlphp/simplesamlphp-module-oauth/"
             },
+            "abandoned": true,
             "time": "2020-04-29T19:37:43+00:00"
         },
         {
@@ -22637,16 +22655,16 @@
         },
         {
             "name": "va-gov/content-build",
-            "version": "v0.0.1430",
+            "version": "v0.0.1482",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/content-build.git",
-                "reference": "457e5849a48460e70098e6deaa589c64cf3199d6"
+                "reference": "64b343fbe51e98b4a5d8a8d3d0f67e6b45bcd03c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/457e5849a48460e70098e6deaa589c64cf3199d6",
-                "reference": "457e5849a48460e70098e6deaa589c64cf3199d6",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/64b343fbe51e98b4a5d8a8d3d0f67e6b45bcd03c",
+                "reference": "64b343fbe51e98b4a5d8a8d3d0f67e6b45bcd03c",
                 "shasum": ""
             },
             "type": "node-project",
@@ -22673,9 +22691,9 @@
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/web, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
             "support": {
                 "issues": "https://github.com/department-of-veterans-affairs/content-build/issues",
-                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.1430"
+                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.1482"
             },
-            "time": "2021-10-05T13:17:31+00:00"
+            "time": "2021-10-11T16:42:46+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -24084,7 +24102,7 @@
             "extra": {
                 "drupal": {
                     "version": "4.1.1",
-                    "datestamp": "1609419527",
+                    "datestamp": "1631968537",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -24583,5 +24601,5 @@
     "platform-overrides": {
         "php": "7.3"
     },
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.0.0"
 }
