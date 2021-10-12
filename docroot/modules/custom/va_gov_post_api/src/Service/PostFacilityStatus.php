@@ -30,7 +30,7 @@ class PostFacilityStatus extends PostFacilityBase {
   /**
    * The facility service node.
    *
-   * @var \Drupal\Core\Entity\EntityInterface
+   * @var \Drupal\node\NodeInterface
    */
   protected $facilityNode;
 
@@ -78,7 +78,7 @@ class PostFacilityStatus extends PostFacilityBase {
 
     if ($entity instanceof NodeInterface && $this->isFacilityWithStatus($entity)) {
       $this->facilityNode = $entity;
-      $facility_id = $entity->hasField('field_facility_locator_api_id') ? $entity->field_facility_locator_api_id->value : NULL;
+      $facility_id = $entity->hasField('field_facility_locator_api_id') ? $entity->get('field_facility_locator_api_id')->value : NULL;
       $data['nid'] = $entity->id();
       // Queue item's Unique ID.
       $data['uid'] = $facility_id ? "facility_status_{$facility_id}" : NULL;
@@ -99,21 +99,31 @@ class PostFacilityStatus extends PostFacilityBase {
       if (!empty($data['payload']) && $facility_id) {
         $this->postQueue->addToQueue($data, $this->shouldDedupe());
         $queued_count = 1;
-        $vars = [
-          '%content_type' => $entity->type->entity->label(),
-          '%facility_name' => $this->facilityNode->getTitle(),
-        ];
-        $message = $this->t('The facility status info for %content_type: %facility_name is being sent to the Facility Locator.', $vars);
+        $message = $this->t('The facility status info for %content_type: %facility_name is being sent to the Facility Locator.', $this->getMessageVars());
         $this->messenger->addStatus($message);
       }
       elseif (empty($facility_id)) {
         // Log error on empty Facility Locator API ID.
-        $message = sprintf('Post API: attempted to add an item with NID %d to queue, but it had no Facility API ID.', $entity->id());
+        $message = $this->t('Post API: attempted to add an item with NID %nid to queue, but it had no Facility API ID.', $this->getMessageVars());
         $this->logger('va_gov_post_api')->error($message);
       }
     }
     $this->nuke();
     return $queued_count;
+  }
+
+  /**
+   * Get the message variables and values.
+   *
+   * @return array
+   *   An array of message values keyed by repacement token.
+   */
+  protected function getMessageVars(): array {
+    return [
+      '%content_type' => $this->facilityNode->get('type')->entity->label(),
+      '%facility_name' => $this->facilityNode->getTitle(),
+      '%nid' => $this->facilityNode->id(),
+    ];
   }
 
   /**
@@ -127,8 +137,8 @@ class PostFacilityStatus extends PostFacilityBase {
     $payload = [];
 
     // Current field values.
-    $this->statusToPush = $this->facilityNode->field_operating_status_facility->value;
-    $this->additionalInfoToPush = $this->facilityNode->field_operating_status_more_info->value;
+    $this->statusToPush = $this->facilityNode->get('field_operating_status_facility')->value;
+    $this->additionalInfoToPush = $this->facilityNode->get('field_operating_status_more_info')->value;
 
     if (empty($this->statusToPush)) {
       // We can not send this without a status, so bail out.
@@ -172,7 +182,7 @@ class PostFacilityStatus extends PostFacilityBase {
    */
   protected function shouldPush() {
     // Moderation state of what is being saved.
-    $moderationState = $this->facilityNode->moderation_state->value;
+    $moderationState = $this->facilityNode->get('moderation_state')->value;
     $isArchived = ($moderationState === 'archived') ? TRUE : FALSE;
     $thisRevisionIsPublished = $this->facilityNode->isPublished();
     $this->setDefaultRevision();
@@ -188,7 +198,7 @@ class PostFacilityStatus extends PostFacilityBase {
         // A new node, should be pushed to initiate the value.
       case $thisRevisionIsPublished && $somethingChanged:
         // This revision is published and had a change, should be pushed.
-      case $isArchived:
+      case $isArchived && $somethingChanged:
         // This node has been archived, got to push to remove it.
       case (!$defaultRevisionIsPublished && !$thisRevisionIsPublished && $somethingChanged):
         // Draft on an unpublished node, should be pushed.
@@ -226,7 +236,7 @@ class PostFacilityStatus extends PostFacilityBase {
       // the current node as the default.
       $this->defaultRevision = $this->facilityNode;
     }
-    elseif (($this->facilityNode->moderation_state->value === 'published' || !$this->facilityNode->isPublished()) && $hasOriginal) {
+    elseif (($this->facilityNode->get('moderation_state')->value === 'published' || !$this->facilityNode->isPublished()) && $hasOriginal) {
       // If it has never been published we just want the last save.
       // If the node is published, loading the default is an exact copy,
       // because the save already happened. Switch to using original.
