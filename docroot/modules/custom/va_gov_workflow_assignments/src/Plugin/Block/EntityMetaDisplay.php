@@ -147,7 +147,7 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
       if ($this->vaGovUrl->vaGovFrontEndUrlForEntityIsLive($node)) {
         $link = Link::fromTextAndUrl($va_gov_url, Url::fromUri($va_gov_url))->toRenderable();
         $link['#attributes'] = ['class' => 'va-gov-url'];
-        $block_items['VA.gov URL'] = render($link);
+        $block_items['VA.gov URL'] = $this->renderer->render($link);
       }
       else {
         $block_items['VA.gov URL'] = new FormattableMarkup('<span class="va-gov-url-pending">' . $va_gov_url . '</span> (pending)', []);
