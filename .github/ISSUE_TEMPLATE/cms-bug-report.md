@@ -37,7 +37,7 @@ Add any other context about the problem here. Reach out to the Product Managers 
 - [x] Issue type (red) (defaults to "Defect")
 - [ ] CMS subsystem (green)
 - [ ] CMS practice area (blue)
-- [x] CMS objective (orange) (not needed for bug tickets)
+- [x] CMS workstream (orange) (not needed for bug tickets)
 - [ ] CMS-supported product (black)
 
 ### CMS Team

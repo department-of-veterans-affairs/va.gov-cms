@@ -60,30 +60,15 @@ Editor-centered
 
 
 ## Runbook
-This is particularly relevant for feature launches, or for making changes to the content model that require front end changes as well.
-1. Step_to_get_to_production_X
-1. Step_to_get_to_production_Y
-1. Step_to_get_to_production_Z
+<optional>
 
-## Possible tickets to create for this epic
-
-- [ ] Spike task, with some of the following attributes:
-* Identify the baseline against which we will measure improvements
-* Ideation (sketching, cross-displinary meeting of minds around how the problem may be solved)
-* Analysis of the drupal landscape
-* Possible implementation(s)
-* Proof of concept or prototype
-* UX writing discovery
-
-- [ ] User research
-- [ ] Design
-- [ ] UX writing
-- [ ] Usability testing (eg with a prototype or other design stimula)
-- [ ] Implementation
-- [ ] Documentation (What needs changing or adding to the documentation?
-- [ ] Product release notes (How will we describe this feature to CMS users?)
-- [ ] Training (Will any users require additional training?)
-- [ ] Metrics (How will we measure any improvements)
+## Labels
+(You can delete this section once it's complete)
+- [x] Issue type (red) (defaults to "Epic")
+- [ ] CMS subsystem (green)
+- [ ] CMS practice area (blue)
+- [x] CMS workstream (orange)
+- [ ] CMS-supported product (black)
 
 ### CMS Team
 
