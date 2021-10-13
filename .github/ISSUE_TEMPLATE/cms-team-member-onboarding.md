@@ -92,6 +92,7 @@ The goal for this week is to get you set up with the tools you need to be succes
 #### Onboarding for Developers
  - [ ] PIV login on production
  - [ ] Access to test PIV login on dev & staging
+ - [ ] [Datadog](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html#Requestaccesstotools-Requestaccess)
 #### Onboarding for DevOps members
  - [ ] [IAM/SSO lower environment access](https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/blob/master/platform/cms/cms-sso-saml-iam-login-braindump.md#testing-login)
  - [ ] [Jenkins](http://jenkins.vfs.va.gov/) (SOCKS required)
