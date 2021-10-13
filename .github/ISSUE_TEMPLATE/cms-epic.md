@@ -25,35 +25,39 @@ _or_
 
 <link to any existing research or data supporting this>
 
-
 ### Hypothesis
 
 _A hypothesis may depend on a spike ticket to be completed._
 
 We believe that _this_solution_ will achieve _this_outcome_. We'll know that to be true when _this measurable outcome occurs._
 
-
-## Design principles
-
-Which [CMS design principle](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/cms-product-design-principles.md) is at play?
-- [ ] Purpose-driven: Creates an opportunity to involve the editor community in VA’s mission and content strategy goals.
-- [ ] Efficient: Removes distractions and create clear, straightforward paths to get the job done.
-- [ ] Approachable: Offers friendly guidance over authoritative instruction.
-- [ ] Consistent: Reduce user’s mental load by allowing them to fall back on pattern recognition to complete tasks.
-- [ ] Empowering: Provide clear information to help editors make decisions about their work.
-
-### Assumptions
+## Assumptions
 * Tk
 * Tk
 
 (How will these assumptions be validated?)
 
 ## Acceptance Criteria
-- [ ] 👀 Needs design review because the work involves changes to labels or other design elements
-- [ ] 🙈 Can be implemented without consulting design team members
 - [ ] Testable_Outcome_X
 - [ ] Testable_Outcome_Y
 - [ ] Testable_Outcome_Z
+- [ ] Requires KB article update
+
+## Design principles
+
+Veteran-centered
+- [ ] `Single source of truth`: Increase reliability and consistency of content on VA.gov by providing a single source of truth.
+- [ ] `Accessible, plain language`: Provide guardrails and guidelines to ensure content quality.
+- [ ] `Purposely structured content`: Ensure Content API can deliver content whose meaning matches its structure.
+- [ ] `Content lifecycle governance`: Produce tools, processes and policies to maintain content quality throughout its lifecycle.
+
+Editor-centered
+- [ ] `Purpose-driven`: Create an opportunity to involve the editor community in VA’s mission and content strategy goals.
+- [ ] `Efficient`: Remove distractions and create clear, straightforward paths to get the job done.
+- [ ] `Approachable`: Offer friendly guidance over authoritative instruction.
+- [ ] `Consistent`: Reduce user’s mental load by allowing them to fall back on pattern recognition to complete tasks.
+- [ ] `Empowering`: Provide clear information to help editors make decisions about their work.
+
 
 ## Runbook
 This is particularly relevant for feature launches, or for making changes to the content model that require front end changes as well.
