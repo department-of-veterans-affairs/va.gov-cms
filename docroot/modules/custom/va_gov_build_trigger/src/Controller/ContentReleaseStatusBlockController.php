@@ -19,11 +19,19 @@ class ContentReleaseStatusBlockController extends ControllerBase {
   protected $pluginManagerBlock;
 
   /**
+   * The renderer.
+   *
+   * @var \Drupal\Core\Render\RendererInterface
+   */
+  protected $renderer;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
     $instance = parent::create($container);
     $instance->pluginManagerBlock = $container->get('plugin.manager.block');
+    $instance->renderer = $container->get('renderer');
     return $instance;
   }
 
@@ -37,7 +45,7 @@ class ContentReleaseStatusBlockController extends ControllerBase {
     $block = $this->pluginManagerBlock
       ->createInstance('content_release_status_block')
       ->build();
-    $output = render($block);
+    $output = $this->renderer->render($block);
     return Response::create($output);
   }
 

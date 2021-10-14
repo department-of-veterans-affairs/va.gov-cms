@@ -11,11 +11,6 @@ parameters:
 			path: docroot/modules/custom/va_gov_backend/src/Plugin/Validation/Constraint/PdfCheckValidator.php
 
 		-
-			message: "#^Access to an undefined property Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\:\\:\\$value\\.$#"
-			count: 2
-			path: docroot/modules/custom/va_gov_backend/src/Plugin/Validation/Constraint/UniqueTitleValidator.php
-
-		-
 			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
 			count: 1
 			path: docroot/modules/custom/va_gov_backend/src/Plugin/Validation/Constraint/UniqueTitleValidator.php
@@ -121,11 +116,6 @@ parameters:
 			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
 
 		-
-			message: "#^Access to an undefined property Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\:\\:\\$value\\.$#"
-			count: 2
-			path: docroot/modules/custom/va_gov_backend/va_gov_backend.module
-
-		-
 			message: "#^Call to an undefined method Psr\\\\Log\\\\LoggerInterface\\:\\:success\\(\\)\\.$#"
 			count: 2
 			path: docroot/modules/custom/va_gov_build_trigger/src/Commands/SiteStatusCommands.php
@@ -144,11 +134,6 @@ parameters:
 			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
 			count: 3
 			path: docroot/modules/custom/va_gov_build_trigger/src/Form/PreviewForm.php
-
-		-
-			message: "#^Access to an undefined property Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\:\\:\\$value\\.$#"
-			count: 4
-			path: docroot/modules/custom/va_gov_build_trigger/src/Service/BuildFrontend.php
 
 		-
 			message: "#^Method Symfony\\\\Contracts\\\\EventDispatcher\\\\EventDispatcherInterface\\:\\:dispatch\\(\\) invoked with 2 parameters, 1 required\\.$#"
@@ -229,11 +214,6 @@ parameters:
 			message: "#^Variable \\$nids might not be defined\\.$#"
 			count: 1
 			path: docroot/modules/custom/va_gov_db/va_gov_db.post_update.php
-
-		-
-			message: "#^Access to an undefined property Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\:\\:\\$value\\.$#"
-			count: 4
-			path: docroot/modules/custom/va_gov_govdelivery/src/Service/ProcessStatusBulletin.php
 
 		-
 			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\ContentEntityInterface\\:\\:isPublished\\(\\)\\.$#"
@@ -329,11 +309,6 @@ parameters:
 			message: "#^Call to an undefined method Psr\\\\Log\\\\LoggerInterface\\:\\:success\\(\\)\\.$#"
 			count: 1
 			path: docroot/modules/custom/va_gov_migrate/src/Commands/Commands.php
-
-		-
-			message: "#^Access to an undefined property Drupal\\\\Core\\\\Field\\\\FieldItemListInterface\\:\\:\\$value\\.$#"
-			count: 1
-			path: docroot/modules/custom/va_gov_migrate/src/EventSubscriber/PostRowSave.php
 
 		-
 			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"

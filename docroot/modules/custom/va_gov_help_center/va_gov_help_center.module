@@ -104,7 +104,7 @@ function _va_gov_help_center_build_get_help_button() {
       ],
     ],
   ];
-  return render($link);
+  return \Drupal::service('renderer')->render($link);
 }
 
 /**
