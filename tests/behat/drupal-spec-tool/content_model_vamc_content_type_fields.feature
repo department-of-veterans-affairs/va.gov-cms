@@ -81,6 +81,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | News Releases List | Enforce unique combo | field_enforce_unique_combo | Allow Only One |  | 1 | Allow Only One widget | Translatable |
 | Content type | Staff Profile | Body text | field_body | Text (formatted, long) | Required | 1 | Text area (multiple rows) | Translatable |
 | Content type | Staff Profile | Complete Biography | field_complete_biography | File |  | 1 | File |  |
+| Content type | Staff Profile | Create profile page with biography | field_complete_biography_create | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Staff Profile | Email address | field_email_address | Email |  | 1 | Email |  |
 | Content type | Staff Profile | First name | field_name_first | Text (plain) |  | 1 | Textfield |  |
 | Content type | Staff Profile | High-resolution photo should be available for download by site visitors | field_photo_allow_hires_download | Boolean |  | 1 | Single on/off checkbox |  |
@@ -93,7 +94,6 @@ Feature: Content model: VAMC Content Type fields
 | Content type | Staff Profile | Photo | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Content type | Staff Profile | Related office or health care region | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Staff Profile | Suffix | field_suffix | Text (plain) |  | 1 | Textfield |  |
-| Content type | Staff Profile | Create profile page with biography | field_complete_biography_create | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Story | Author | field_author | Entity reference |  | 1 | Autocomplete |  |
 | Content type | Story | Featured | field_featured | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Story | Body text | field_full_story | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
