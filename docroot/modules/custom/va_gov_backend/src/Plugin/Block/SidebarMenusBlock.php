@@ -8,6 +8,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Menu\MenuLinkManager;
 use Drupal\Core\Menu\MenuLinkTree;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\node\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -59,6 +60,13 @@ class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInter
   protected $menuLinkManager;
 
   /**
+   * The renderer.
+   *
+   * @var \Drupal\Core\Render\RendererInterface
+   */
+  protected $renderer;
+
+  /**
    * Constructor.
    *
    * @param array $configuration
@@ -77,22 +85,27 @@ class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInter
    *   The http request.
    * @param \Drupal\Core\Menu\MenuLinkManager $menu_link_manager
    *   The menu link manager.
+   * @param \Drupal\Core\Render\RendererInterface $renderer
+   *   The renderer.
    */
   public function __construct(
-  array $configuration,
-  $plugin_id,
-  $plugin_definition,
-  RouteMatchInterface $route_match,
-  EntityTypeManagerInterface $entity_type_manager,
-  MenuLinkTree $menu_link_tree,
-  RequestStack $request_stack,
-  MenuLinkManager $menu_link_manager) {
+    array $configuration,
+    $plugin_id,
+    $plugin_definition,
+    RouteMatchInterface $route_match,
+    EntityTypeManagerInterface $entity_type_manager,
+    MenuLinkTree $menu_link_tree,
+    RequestStack $request_stack,
+    MenuLinkManager $menu_link_manager,
+    RendererInterface $renderer
+  ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->routeMatch = $route_match;
     $this->entityTypeManager = $entity_type_manager;
     $this->menuLinkTree = $menu_link_tree;
     $this->requestStack = $request_stack;
     $this->menuLinkManager = $menu_link_manager;
+    $this->renderer = $renderer;
   }
 
   /**
@@ -107,7 +120,8 @@ class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInter
       $container->get('entity_type.manager'),
       $container->get('menu.link_tree'),
       $container->get('request_stack'),
-      $container->get('plugin.manager.menu.link')
+      $container->get('plugin.manager.menu.link'),
+      $container->get('renderer')
     );
   }
 
@@ -129,7 +143,7 @@ class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInter
       $build = $this->getMenuBuild($menu_links);
     }
     return [
-      '#markup' => render($build),
+      '#markup' => $this->renderer->render($build),
     ];
 
   }
