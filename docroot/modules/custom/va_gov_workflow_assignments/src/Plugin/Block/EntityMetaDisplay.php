@@ -7,6 +7,7 @@ use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
@@ -74,6 +75,13 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
   protected $editorialWorkflowContentRepository;
 
   /**
+   * The renderer.
+   *
+   * @var \Drupal\Core\Render\RendererInterface
+   */
+  protected $renderer;
+
+  /**
    * {@inheritDoc}
    */
   public function __construct(
@@ -84,7 +92,8 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
     EntityTypeManagerInterface $entity_type_manager,
     ExclusionTypesInterface $exclusionTypes,
     VaGovUrlInterface $vaGovUrl,
-    EditorialWorkflowContentRepository $editorialWorkflowContentRepository
+    EditorialWorkflowContentRepository $editorialWorkflowContentRepository,
+    RendererInterface $renderer
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->routeMatch = $route_match;
@@ -92,6 +101,7 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
     $this->exclusionTypes = $exclusionTypes;
     $this->vaGovUrl = $vaGovUrl;
     $this->editorialWorkflowContentRepository = $editorialWorkflowContentRepository;
+    $this->renderer = $renderer;
   }
 
   /**
@@ -106,7 +116,8 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
       $container->get('entity_type.manager'),
       $container->get('va_gov_backend.exclusion_types'),
       $container->get('va_gov_backend.va_gov_url'),
-      $container->get('va_gov_workflow_assignments.editorial_workflow')
+      $container->get('va_gov_workflow_assignments.editorial_workflow'),
+      $container->get('renderer')
     );
   }
 
@@ -136,7 +147,7 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
       if ($this->vaGovUrl->vaGovFrontEndUrlForEntityIsLive($node)) {
         $link = Link::fromTextAndUrl($va_gov_url, Url::fromUri($va_gov_url))->toRenderable();
         $link['#attributes'] = ['class' => 'va-gov-url'];
-        $block_items['VA.gov URL'] = render($link);
+        $block_items['VA.gov URL'] = $this->renderer->render($link);
       }
       else {
         $block_items['VA.gov URL'] = new FormattableMarkup('<span class="va-gov-url-pending">' . $va_gov_url . '</span> (pending)', []);

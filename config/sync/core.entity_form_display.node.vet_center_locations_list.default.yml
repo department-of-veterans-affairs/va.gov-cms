@@ -3,12 +3,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - entity_browser.browser.vet_centers
+    - entity_browser.browser.mobile_vet_centers
     - field.field.node.vet_center_locations_list.field_administration
     - field.field.node.vet_center_locations_list.field_enforce_unique_combo
     - field.field.node.vet_center_locations_list.field_intro_text
     - field.field.node.vet_center_locations_list.field_nearby_mobile_vet_centers
-    - field.field.node.vet_center_locations_list.field_nearby_vet_centers
     - field.field.node.vet_center_locations_list.field_office
     - node.type.vet_center_locations_list
     - workflows.workflow.editorial
@@ -61,14 +60,14 @@ content:
     type: options_select
     region: content
   field_enforce_unique_combo:
-    weight: 1
+    weight: 2
     settings:
       size: 1
     third_party_settings: {  }
     type: allow_only_one_widget
     region: content
   field_intro_text:
-    weight: 3
+    weight: 4
     settings:
       rows: 5
       placeholder: ''
@@ -91,24 +90,8 @@ content:
         limit_values: '0'
     type: entity_reference_browser_table_widget
     region: content
-  field_nearby_vet_centers:
-    weight: 6
-    settings:
-      entity_browser: vet_centers
-      field_widget_display: label
-      field_widget_remove: true
-      open: true
-      selection_mode: selection_append
-      field_widget_edit: false
-      field_widget_replace: false
-      field_widget_display_settings: {  }
-    third_party_settings:
-      limited_field_widgets:
-        limit_values: '0'
-    type: entity_reference_browser_table_widget
-    region: content
   field_office:
-    weight: 2
+    weight: 3
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -121,7 +104,7 @@ content:
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: 0
+    weight: 1
     region: content
     settings:
       size: 60

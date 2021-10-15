@@ -32,22 +32,6 @@ content:
     third_party_settings: {  }
     type: basic_string
     region: content
-  field_nearby_mobile_vet_centers:
-    weight: 3
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
-  field_nearby_vet_centers:
-    weight: 4
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
   field_office:
     weight: 1
     label: above
@@ -64,4 +48,5 @@ content:
 hidden:
   content_moderation_control: true
   field_administration: true
+  field_nearby_mobile_vet_centers: true
   search_api_excerpt: true
