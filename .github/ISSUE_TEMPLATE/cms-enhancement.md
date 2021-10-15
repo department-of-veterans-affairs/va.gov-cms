@@ -21,18 +21,25 @@ Problem description. How might we _____________ ?
 - [ ] Testable_Outcome_Y
 - [ ] Testable_Outcome_Z
 - [ ] Requires design review
+- [ ] Requires KB article update
 
 ## Implementation steps
 <optional>
 
 ## Design principles
 
-Which [CMS design principle](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/cms-product-design-principles.md) is at play?
-- [ ] Purpose-driven: Creates an opportunity to involve the editor community in VA’s mission and content strategy goals.
-- [ ] Efficient: Removes distractions and create clear, straightforward paths to get the job done.
-- [ ] Approachable: Offers friendly guidance over authoritative instruction.
-- [ ] Consistent: Reduce user’s mental load by allowing them to fall back on pattern recognition to complete tasks.
-- [ ] Empowering: Provide clear information to help editors make decisions about their work.
+Veteran-centered
+- [ ] `Single source of truth`: Increase reliability and consistency of content on VA.gov by providing a single source of truth.
+- [ ] `Accessible, plain language`: Provide guardrails and guidelines to ensure content quality.
+- [ ] `Purposely structured content`: Ensure Content API can deliver content whose meaning matches its structure.
+- [ ] `Content lifecycle governance`: Produce tools, processes and policies to maintain content quality throughout its lifecycle.
+
+Editor-centered
+- [ ] `Purpose-driven`: Create an opportunity to involve the editor community in VA’s mission and content strategy goals.
+- [ ] `Efficient`: Remove distractions and create clear, straightforward paths to get the job done.
+- [ ] `Approachable`: Offer friendly guidance over authoritative instruction.
+- [ ] `Consistent`: Reduce user’s mental load by allowing them to fall back on pattern recognition to complete tasks.
+- [ ] `Empowering`: Provide clear information to help editors make decisions about their work.
 
 ### CMS Team
 
