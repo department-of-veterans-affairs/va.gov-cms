@@ -1,0 +1,6 @@
+services:
+  va_gov_vet_center.entity_event_subscriber:
+    class: Drupal\va_gov_vet_center\EventSubscriber\EntityEventSubscriber
+    arguments: ['@string_translation', '@url_generator']
+    tags:
+      - { name: event_subscriber }

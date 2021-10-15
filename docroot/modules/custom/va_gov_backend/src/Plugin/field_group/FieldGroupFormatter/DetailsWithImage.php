@@ -4,6 +4,7 @@ namespace Drupal\va_gov_backend\Plugin\field_group\FieldGroupFormatter;
 
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Render\RendererInterface;
 use Drupal\field_group\Plugin\field_group\FieldGroupFormatter\Details;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -30,6 +31,13 @@ class DetailsWithImage extends Details implements ContainerFactoryPluginInterfac
   protected $moduleHandler;
 
   /**
+   * The renderer.
+   *
+   * @var \Drupal\Core\Render\RendererInterface
+   */
+  protected $renderer;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
@@ -39,7 +47,8 @@ class DetailsWithImage extends Details implements ContainerFactoryPluginInterfac
       $configuration['group'],
       $configuration['settings'],
       $configuration['label'],
-      $container->get('module_handler')
+      $container->get('module_handler'),
+      $container->get('renderer')
     );
   }
 
@@ -58,10 +67,21 @@ class DetailsWithImage extends Details implements ContainerFactoryPluginInterfac
    *   The formatter label.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
    *   The module handler service.
+   * @param \Drupal\Core\Render\RendererInterface $renderer
+   *   The renderer.
    */
-  public function __construct($plugin_id, $plugin_definition, object $group, array $settings, $label, ModuleHandlerInterface $moduleHandler) {
+  public function __construct(
+    $plugin_id,
+    $plugin_definition,
+    object $group,
+    array $settings,
+    $label,
+    ModuleHandlerInterface $moduleHandler,
+    RendererInterface $renderer
+  ) {
     parent::__construct($plugin_id, $plugin_definition, $group, $settings, $label);
     $this->moduleHandler = $moduleHandler;
+    $this->renderer = $renderer;
   }
 
   /**
@@ -84,7 +104,7 @@ class DetailsWithImage extends Details implements ContainerFactoryPluginInterfac
         ];
 
         $element += [
-          '#markup' => render($svg_render),
+          '#markup' => $this->renderer->render($svg_render),
         ];
 
       }

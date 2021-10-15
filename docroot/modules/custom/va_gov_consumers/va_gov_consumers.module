@@ -234,7 +234,7 @@ function _va_gov_consumers_disable_external_content_editing(array &$form, FormSt
     $readonly_content = $viewBuilder->view($node, 'external_content');
 
     $form['external_content'] = [
-      '#markup' => render($readonly_content),
+      '#markup' => \Drupal::service('renderer')->render($readonly_content),
       '#weight' => 1,
     ];
 
@@ -282,6 +282,6 @@ function va_gov_consumers_preprocess_node(&$variables) {
   elseif ($variables['view_mode'] === 'full' && $node->getType() === "va_form") {
     $viewBuilder = \Drupal::entityTypeManager()->getViewBuilder('node');
     $readonly_content = $viewBuilder->view($variables['node'], 'external_content');
-    $variables['external_content'] = render($readonly_content);
+    $variables['external_content'] = \Drupal::service('renderer')->render($readonly_content);
   }
 }
