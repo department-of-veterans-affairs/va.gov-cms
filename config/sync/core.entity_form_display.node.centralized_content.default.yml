@@ -5,7 +5,9 @@ dependencies:
   config:
     - field.field.node.centralized_content.body
     - field.field.node.centralized_content.field_administration
+    - field.field.node.centralized_content.field_applied_to
     - field.field.node.centralized_content.field_content_block
+    - field.field.node.centralized_content.field_product
     - node.type.centralized_content
     - workflows.workflow.editorial
   module:
@@ -15,14 +17,14 @@ dependencies:
     - limited_field_widgets
     - paragraphs_browser
     - path
-    - text
+    - textfield_counter
 third_party_settings:
   field_group:
     group_governance:
       children:
         - field_administration
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: details_sidebar
       region: content
       format_settings:
@@ -39,7 +41,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 7
+      weight: 8
       format_type: fieldset
       region: content
       format_settings:
@@ -54,21 +56,28 @@ bundle: centralized_content
 mode: default
 content:
   body:
-    type: text_textarea_with_summary
-    weight: 1
+    type: text_textarea_with_summary_and_counter
+    weight: 3
     region: content
     settings:
+      counter_position: after
+      textcount_status_message: 'Maxlength: <span class="maxlength_count">@maxlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>'
+      summary_rows: 3
+      summary_maxlength: 0
       rows: 9
       placeholder: ''
-      summary_rows: 3
+      maxlength: 200
+      js_prevent_submit: true
+      count_html_characters: true
       show_summary: false
+      enable_summary: false
     third_party_settings:
       allowed_formats:
         hide_help: '0'
         hide_guidelines: '0'
   created:
     type: datetime_timestamp
-    weight: 3
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -78,29 +87,42 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
-  field_content_block:
+  field_applied_to:
     weight: 2
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_content_block:
+    weight: 4
     settings:
       title: 'Content block'
       title_plural: 'Content blocks'
       edit_mode: open
-      closed_mode: summary
-      autocollapse: none
-      closed_mode_threshold: '0'
       add_mode: paragraphs_browser
       form_display_mode: default
       default_paragraph_type: _none
-      features:
-        duplicate: duplicate
-        collapse_edit_all: collapse_edit_all
-        add_above: add_above
       paragraphs_browser: content
       modal_width: 80%
       modal_height: auto
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      features:
+        duplicate: duplicate
+        collapse_edit_all: collapse_edit_all
     third_party_settings:
       limited_field_widgets:
         limit_values: '0'
     type: paragraphs_browser
+    region: content
+  field_product:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
     region: content
   moderation_state:
     type: moderation_state_default
@@ -110,7 +132,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 5
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }

@@ -8,6 +8,19 @@
 use Drupal\paragraphs\Entity\Paragraph;
 
 /**
+ * Implements hook_preprocess_html().
+ */
+function vagovadmin_preprocess_html(&$variables) {
+  $account = \Drupal::currentUser();
+  $roles = $account->getRoles();
+  $admin = 'not-admin';
+  if (in_array('administrator', $roles)) {
+    $admin = 'admin';
+  }
+  $variables['attributes']['class'][] = 'role-' . $admin;
+}
+
+/**
  * Implements hook_theme_suggestions_HOOK_alter().
  */
 function vagovadmin_theme_suggestions_paragraph_alter(&$suggestions, $variables) {
