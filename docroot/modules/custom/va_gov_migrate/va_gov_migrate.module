@@ -41,7 +41,7 @@ function _va_gov_migrate_process_va_form(EntityInterface &$entity) {
   if (!empty($deleted) && ($modstate !== "archived")) {
     // This should be set to unpublished because the migration is intentionally,
     // not overriding status.
-    $entity->setPublished(FALSE);
+    $entity->setUnpublished();
     $entity->set('moderation_state', 'archived');
     $entity->set('revision_log', 'Archived because it was marked as deleted in the Forms DB.');
   }
