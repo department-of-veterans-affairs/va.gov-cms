@@ -93,7 +93,6 @@ The goal for this week is to get you set up with the tools you need to be succes
 #### Onboarding for Developers
  - [ ] PIV login on production (SOCKS or VA access required)
  - [ ] [PIV login on dev & staging for testing](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/5838) (SOCKS or VA access required)
- - [ ] Access to test PIV login on dev & staging
  - [ ] [Datadog](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html#Requestaccesstotools-Requestaccess)
 #### Onboarding for DevOps members
  - [ ] [IAM/SSO lower environment access](https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/blob/master/platform/cms/cms-sso-saml-iam-login-braindump.md#testing-login)
@@ -103,7 +102,7 @@ The goal for this week is to get you set up with the tools you need to be succes
  - [ ] [AWS](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html#Requestaccesstotools-Requestaccess) (SOCKS required)
    - [ ] And request to be added to the `adhoc-vetsgov-devops` group.
  - [ ] sshuttle
- - [ ] Access to test PIV login on dev & staging
+ - [ ] [PIV login on dev & staging for testing](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/5838) (SOCKS or VA access required)
 #### Onboarding for Helpdesk members
  - [ ] [Review the helpdesk Github repo](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/platform/cms/helpdesk).
  - [ ] [Review the helpdesk Google Drive](https://drive.google.com/drive/folders/1opC6DgZyBQ6uEVzIz3FWmISMLt-Y91ts).
@@ -157,6 +156,7 @@ By this point you should have enough context and access to be able to start cont
 - [ ] [What is Drupal?](https://docs.google.com/spreadsheets/d/11ppWiIggKJh-YAWia28utZXW48tJZGCEg-sFJ6eIl9c)
 - [ ] [Google Analytics](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=joanneesteban%2C+bsmartin-ep%2C+jonwehausen&labels=analytics-insights%2C+analytics-request&template=analytics-request-google-analytics-access.md&title=Request+access+to+Google+Analytics)
  - [ ] [Opt out](https://www.va.gov/analytics-opt-out.html) of Google Analytics collection on VA.gov.
+ - [ ] [Opt out](https://depo-platform-documentation.scrollhelp.site/?internal-user-opt-out=true) of analytics for Platform's website. You will not get a confirmation message and will have to do this for every browser and every time you clear cookies.
  - [ ] [Browse the VA Drupal CMS Knowlege Base articles](https://prod.cms.va.gov/help/).
 
 ## Month two
