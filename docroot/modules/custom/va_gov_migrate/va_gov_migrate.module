@@ -13,7 +13,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
  */
 function va_gov_migrate_entity_presave(EntityInterface $entity) {
   _va_gov_migrate_process_va_form($entity);
-  _va_gov_migrate_process_vet_center($entity);
+  _va_gov_migrate_set_default_vet_center_title($entity);
 }
 
 /**
@@ -52,19 +52,20 @@ function _va_gov_migrate_process_va_form(EntityInterface &$entity) {
 }
 
 /**
- * Process Vet Center.
+ * Set default Vet Center title.
  *
  * @param \Drupal\Core\Entity\EntityInterface $entity
  *   Entity.
  */
-function _va_gov_migrate_process_vet_center(EntityInterface &$entity) {
+function _va_gov_migrate_set_default_vet_center_title(EntityInterface &$entity) {
   if ($entity->bundle() !== 'vet_center') {
     return;
   }
 
   // If a Vet Center title is empty copy the value from field_official_name.
   if (empty($entity->getTitle())) {
-    $entity->setTitle($entity->get('field_official_name')->value);
+    $default_title = $entity->get('field_official_name')->value ?: '- none -';
+    $entity->setTitle($default_title);
   }
 }
 
