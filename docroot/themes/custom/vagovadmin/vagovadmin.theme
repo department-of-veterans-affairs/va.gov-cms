@@ -11,13 +11,8 @@ use Drupal\paragraphs\Entity\Paragraph;
  * Implements hook_preprocess_html().
  */
 function vagovadmin_preprocess_html(&$variables) {
-  $account = \Drupal::currentUser();
-  $roles = $account->getRoles();
-  $admin = 'not-admin';
-  if (in_array('administrator', $roles)) {
-    $admin = 'admin';
-  }
-  $variables['attributes']['class'][] = 'role-' . $admin;
+  $is_admin = \Drupal::service('va_gov_user.user_perms')->hasAdminRole(TRUE) ? 'admin' : 'not-admin';
+  $variables['attributes']['class'][] = 'role-' . $is_admin;
 }
 
 /**

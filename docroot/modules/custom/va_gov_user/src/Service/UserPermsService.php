@@ -182,10 +182,9 @@ class UserPermsService {
   public function hasAdminRole(bool $administrator_only = FALSE) : bool {
     $current_user_roles = $this->currentUser->getRoles();
     // Roles to consider as admin.
-    $admin_roles = [
-      'administrator',
-      !$administrator_only ? 'content_admin' : NULL,
-    ];
+    $admin_roles = $administrator_only
+    ? ['administrator']
+    : ['administrator', 'content_admin'];
     $admin_role_count = count(array_intersect($admin_roles, $current_user_roles));
 
     return ($admin_role_count > 0) ? TRUE : FALSE;

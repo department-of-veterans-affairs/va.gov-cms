@@ -15,7 +15,9 @@
     })) {
       var ccParagraphs = dom.querySelectorAll("div.cc-special-treatment-paragraph.centralized_content_descriptor");
 
-      var wysiParagraphs = dom.querySelectorAll("div.field--name-field-wysiwyg");
+      var wysiParagraphs = dom.querySelectorAll(".draggable.paragraph-type--wysiwyg");
+
+      var wysiParagraphsText = dom.querySelectorAll("div.field--name-field-wysiwyg");
 
       ccParagraphs.forEach(function (item) {
         if (item && item.parentElement) {
@@ -27,6 +29,12 @@
       });
 
       wysiParagraphs.forEach(function (item) {
+        if (item && item.previousElementSibling.classList.contains("paragraph-type--centralized-content-descriptor")) {
+          item.classList.add("cc-national-wysi-padding");
+        }
+      });
+
+      wysiParagraphsText.forEach(function (item) {
         if (item && item.parentElement.parentElement.parentElement.parentElement.previousElementSibling) {
           item.parentElement.parentElement.parentElement.parentElement.previousElementSibling.classList.add("cc-paragraph-toggle-remove");
         }

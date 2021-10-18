@@ -4,7 +4,13 @@
   }
 
   &.role-not-admin {
-    [data-drupal-selector='edit-field-content-block'] > table > thead > tr > th > .paragraphs-actions {
+    [data-drupal-selector='edit-field-content-block'] > table > thead > tr > th > .paragraphs-actions,
+    [data-drupal-selector='edit-field-content-block'] > table > tbody > tr.draggable > td.field-multiple-drag {
+      display: none;
+    }
+
+    #edit-field-content-block-add-more-browse,
+    #edit-field-content-block--description {
       display: none;
     }
 
@@ -41,10 +47,6 @@
           display: block;
           width: 100%;
         }
-      }
-
-      .form-type-textarea {
-        padding: 0 25px;
       }
 
       .cc-wysi-wrap {
@@ -88,6 +90,15 @@
             margin: 5px 0 10px;
             padding: 0;
           }
+        }
+      }
+
+      .cc-suffix-text {
+        line-height: 20px;
+        margin: 50px 0;
+
+        strong {
+          font-size: 16px;
         }
       }
     }

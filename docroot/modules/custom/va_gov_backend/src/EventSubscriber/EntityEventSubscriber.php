@@ -126,65 +126,22 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The event.
    */
   public function alterCentralizedContentNodeForm(FormIdAlterEvent $event): void {
-    $this->changeFieldTreatments($event);
+    $form = &$event->getForm();
+    $this->lockCentralizedContentFields($form);
+    $this->lockCcDocumentorParagraphs($form);
   }
 
   /**
-   * Modify centralized content form fields according to user role type.
+   * Locks down form paragraphs for non-admins.
    *
-   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
-   *   The event.
+   * @param array $form
+   *   The form.
    */
-  public function changeFieldTreatments(FormIdAlterEvent $event): void {
-    $form = &$event->getForm();
-    // All users should see this intro.
-    $form['title']['#prefix'] = '<h2>' . $this->t('About') . '</h2><p>' . $this->t("Centralized content ensures that Veterans receive the same information about certain topics no matter where they're presented on VA.gov. Here you'll mangage content components that contain pieces of standardized information. Review the about info below to understand where this content will be applied.") . '</p>';
-    $form['title']['#attributes'] = [
-      'class' => ['cc-special-treatment-field'],
-    ];
+  public function lockCcDocumentorParagraphs(array &$form) {
     if (!$this->userPermsService->hasAdminRole(TRUE)) {
-      $form['#attached']['library'][] = 'va_gov_backend/centralized_content_alterations';
-
-      // For non-admin replace field with static content.
-      unset($form['field_content_block']['widget']['#title']);
-      $form['field_content_block']['widget']['#title'] = '<h2>' . $this->t('Content') . '</h2>';
-
-      // For non-admin replace body field with static content
-      // generated from field value.
-      if (!empty($form['body']['widget'][0]['#default_value'])) {
-        $form['body'] = [
-          '#markup' => '<h3>' . $this->t('Purpose') . '</h3><div class="cc-wysi-wrap">' . $form['body']['widget'][0]['#default_value'] . '</div>',
-        ];
-      }
-
-      // For non-admin replace product field with static content
-      // generated from field value.
-      if (!empty($form['field_product']['widget']['#default_value'][0])) {
-        $form['field_product'] = [
-          '#prefix' => '<h3>' . $this->t(':title', [':title' => $form['field_product']['widget']['#title']]) . '</h3><p class="cc-p">' . $this->t(':description', [':description' => $form['field_product']['widget']['#options'][$form['field_product']['widget']['#default_value'][0]]]) . '</p>',
-          '#attributes' => [
-            'class' => ['cc-special-treatment-field'],
-          ],
-        ];
-      }
-
-      // For non-admin replace applied to field with static content
-      // generated from field value.
-      if (!empty($form['field_applied_to']['widget'][0]['value']['#default_value'])) {
-        $form['field_applied_to'] = [
-          '#prefix' => '<h3>' . $this->t(':title', [':title' => $form['field_applied_to']['widget'][0]['#title']]) . '</h3><p class="cc-p">' . $this->t(':description', [':description' => $form['field_applied_to']['widget'][0]['value']['#default_value']]) . '</p>',
-          '#attributes' => [
-            'class' => ['cc-special-treatment-field'],
-          ],
-        ];
-      }
-
       // Loop through our descriptor & wysiwyg paragraphs, and add special
       // treatment class and header tags, and disable wysiwygs.
       foreach ($form['field_content_block']['widget'] as $key => $cc_paragraph) {
-        if (is_numeric($key) && $cc_paragraph['#paragraph_type'] === 'wysiwyg') {
-          $form['field_content_block']['widget'][$key]['subform']['#disabled'] = TRUE;
-        }
         if (is_numeric($key) && $cc_paragraph['#paragraph_type'] === 'centralized_content_descriptor') {
           $form['field_content_block']['widget'][$key]['_weight']['#attributes']['disabled'] = TRUE;
           $form['field_content_block']['widget'][$key]['#attributes']['class'] = [
@@ -200,15 +157,75 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Locks down form fields for non-admins.
+   *
+   * @param array $form
+   *   The form.
+   */
+  public function lockCentralizedContentFields(array &$form) {
+    // All users should see this intro.
+    $form['title']['#prefix'] = '<h2>' . $this->t('About') . '</h2><p>' . $this->t("Centralized content ensures that Veterans receive the same information about certain topics no matter where they're presented on VA.gov. Here you'll mangage content components that contain pieces of standardized information. Review the about info below to understand where this content will be applied.") . '</p>';
+    $form['title']['#attributes'] = [
+      'class' => ['cc-special-treatment-field'],
+    ];
+    $form['field_content_block']['#suffix'] = '<div class="cc-suffix-text"><strong>' . $this->t('Need to add a new centralized content component not listed here?') . '</strong><br />' . $this->t('Contact the product owner associated with this content.') . '</div>';
+
+    if (!$this->userPermsService->hasAdminRole(TRUE)) {
+      $form['#attached']['library'][] = 'va_gov_backend/centralized_content_alterations';
+
+      // For non-admin replace field with static content.
+      unset($form['field_content_block']['widget']['#title']);
+      $form['field_content_block']['widget']['#title'] = '<h2>' . $this->t('Content') . '</h2>';
+
+      // For non-admin replace body field with static content
+      // generated from field value.
+      if (!empty($form['body']['widget'][0]['#default_value'])) {
+        $form['body'] = [
+          '#markup' => '<h3>' . $this->t('Purpose') . '</h3><div class="cc-wysi-wrap">' . $form['body']['widget'][0]['#default_value'] . '</div>',
+        ];
+      }
+      else {
+        unset($form['body']);
+      }
+
+      // For non-admin replace product field with static content
+      // generated from field value and disable editing.
+      if (!empty($form['field_product']['widget']['#default_value'][0])) {
+        $form['field_product'] = [
+          '#prefix' => '<h3>' . $this->t(':title', [':title' => $form['field_product']['widget']['#title']]) . '</h3><p class="cc-p">' . $this->t(':description', [':description' => $form['field_product']['widget']['#options'][$form['field_product']['widget']['#default_value'][0]]]) . '</p>',
+          '#attributes' => [
+            'class' => ['cc-special-treatment-field'],
+          ],
+        ];
+      }
+      else {
+        unset($form['field_product']);
+      }
+
+      // For non-admin replace applied to field with static content
+      // generated from field value and disable editing.
+      if (!empty($form['field_applied_to']['widget'][0]['value']['#default_value'])) {
+        $form['field_applied_to'] = [
+          '#prefix' => '<h3>' . $this->t(':title', [':title' => $form['field_applied_to']['widget'][0]['#title']]) . '</h3><p class="cc-p">' . $this->t(':description', [':description' => $form['field_applied_to']['widget'][0]['value']['#default_value']]) . '</p>',
+          '#attributes' => [
+            'class' => ['cc-special-treatment-field'],
+          ],
+        ];
+      }
+      else {
+        unset($form['field_applied_to']);
+      }
+    }
+  }
+
+  /**
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
     return [
       HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'entityPresave',
-      // React on staff profile forms.
       'hook_event_dispatcher.form_node_person_profile_form.alter' => 'alterStaffProfileNodeForm',
       'hook_event_dispatcher.form_node_person_profile_edit_form.alter' => 'alterStaffProfileNodeForm',
-      // React on centralized content edit form.
       'hook_event_dispatcher.form_node_centralized_content_edit_form.alter' => 'alterCentralizedContentNodeForm',
     ];
   }

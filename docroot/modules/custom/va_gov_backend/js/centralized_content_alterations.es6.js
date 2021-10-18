@@ -19,6 +19,10 @@
       );
       // Grab our National wysiwyg paragraphs.
       const wysiParagraphs = dom.querySelectorAll(
+        ".draggable.paragraph-type--wysiwyg"
+      );
+      // Grab our National wysiwyg textareas.
+      const wysiParagraphsText = dom.querySelectorAll(
         "div.field--name-field-wysiwyg"
       );
 
@@ -34,8 +38,20 @@
         }
       });
 
-      // Pull out the toggle drag handles on the wysiwyg paragraphs.
+      // Add special class to national content wysi paragraphs.
       wysiParagraphs.forEach((item) => {
+        if (
+          item &&
+          item.previousElementSibling.classList.contains(
+            "paragraph-type--centralized-content-descriptor"
+          )
+        ) {
+          item.classList.add("cc-national-wysi-padding");
+        }
+      });
+
+      // Pull out the toggle drag handles on the wysiwyg paragraphs.
+      wysiParagraphsText.forEach((item) => {
         if (
           item &&
           item.parentElement.parentElement.parentElement.parentElement
