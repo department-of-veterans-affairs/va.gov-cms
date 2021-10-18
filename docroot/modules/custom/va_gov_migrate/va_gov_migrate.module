@@ -12,15 +12,8 @@ use Drupal\Core\Routing\RouteMatchInterface;
  * Implements hook_entity_presave().
  */
 function va_gov_migrate_entity_presave(EntityInterface $entity) {
-  if ($entity->bundle() == 'va_form') {
-    _va_gov_migrate_process_va_form($entity);
-  }
-  elseif ($entity->bundle() == 'vet_center') {
-    _va_gov_migrate_process_vet_center($entity);
-  }
-  else {
-    return;
-  }
+  _va_gov_migrate_process_va_form($entity);
+  _va_gov_migrate_process_vet_center($entity);
 }
 
 /**
@@ -30,6 +23,10 @@ function va_gov_migrate_entity_presave(EntityInterface $entity) {
  *   Entity.
  */
 function _va_gov_migrate_process_va_form(EntityInterface &$entity) {
+  if ($entity->bundle() !== 'va_form') {
+    return;
+  }
+
   // Bail if this is not being run by "cms migrator" (1317).
   if ($entity->getRevisionUserId() !== 1317) {
     return;
@@ -61,6 +58,10 @@ function _va_gov_migrate_process_va_form(EntityInterface &$entity) {
  *   Entity.
  */
 function _va_gov_migrate_process_vet_center(EntityInterface &$entity) {
+  if ($entity->bundle() !== 'vet_center') {
+    return;
+  }
+
   // If a Vet Center title is empty copy the value from field_official_name.
   if (empty($entity->getTitle())) {
     $entity->setTitle($entity->get('field_official_name')->value);
