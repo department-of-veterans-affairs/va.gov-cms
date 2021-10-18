@@ -91,7 +91,7 @@ The goal for this week is to get you set up with the tools you need to be succes
  - [ ] What do I need to know about my discipline on this team (DevOps, Engineering, Helpdesk, ID, UX)? Discuss with your discipline lead.
  - [ ] What applications or discipline-specific tools are needed? Discuss with your discipline lead.
 #### Onboarding for Developers
- - [ ] PIV login on production
+ - [ ] PIV login on production (SOCKS or VA access required)
  - [ ] Access to test PIV login on dev & staging
  - [ ] [Datadog](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html#Requestaccesstotools-Requestaccess)
 #### Onboarding for DevOps members
