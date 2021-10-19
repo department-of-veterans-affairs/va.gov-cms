@@ -17,6 +17,10 @@ class PostFacilityStatus extends PostFacilityBase {
    */
   protected $errors = [];
 
+  const STATE_ARCHIVED = 'archived';
+  const STATE_DRAFT = 'draft';
+  const STATE_PUBLISHED = 'published';
+
   /**
    * The facility service node's default revision.
    *
@@ -77,6 +81,7 @@ class PostFacilityStatus extends PostFacilityBase {
     $queued_count = 0;
 
     if ($entity instanceof NodeInterface && $this->isFacilityWithStatus($entity)) {
+      /** @var \Drupal\node\NodeInterface $entity*/
       $this->facilityNode = $entity;
       $facility_id = $entity->hasField('field_facility_locator_api_id') ? $entity->get('field_facility_locator_api_id')->value : NULL;
       $data['nid'] = $entity->id();
@@ -85,13 +90,13 @@ class PostFacilityStatus extends PostFacilityBase {
 
       // Set a key based on which the endpoint will be
       // defined during queue execution.
-      $data['endpoint_path'] = ($facility_id) ? "/services/va_facilities/v0/facilities/{$facility_id} /cms-overlay" : NULL;
+      $data['endpoint_path'] = ($facility_id) ? "/services/va_facilities/v0/facilities/{$facility_id}/cms-overlay" : NULL;
 
       // Set payload. Default payload provided by this module is empty.
       // See README.md
       // Entity fields (updated and original) can be compared and processed in
       // order to structure the payload array.
-      $data['payload'] = $this->getPayload($entity);
+      $data['payload'] = $this->getPayload();
 
       // Only add to queue if payload is not empty.
       // If its empty, it means that there is no new information to send to
@@ -105,7 +110,7 @@ class PostFacilityStatus extends PostFacilityBase {
       elseif (empty($facility_id)) {
         // Log error on empty Facility Locator API ID.
         $message = $this->t('Post API: attempted to add an item with NID %nid to queue, but it had no Facility API ID.', $this->getMessageVars());
-        $this->logger('va_gov_post_api')->error($message);
+        $this->loggerChannelFactory->get('va_gov_post_api')->error($message);
       }
     }
     $this->nuke();
@@ -183,7 +188,7 @@ class PostFacilityStatus extends PostFacilityBase {
   protected function shouldPush() {
     // Moderation state of what is being saved.
     $moderationState = $this->facilityNode->get('moderation_state')->value;
-    $isArchived = ($moderationState === 'archived') ? TRUE : FALSE;
+    $isArchived = ($moderationState === self::STATE_ARCHIVED) ? TRUE : FALSE;
     $thisRevisionIsPublished = $this->facilityNode->isPublished();
     $this->setDefaultRevision();
     $isNew = $this->facilityNode->isNew();
@@ -196,7 +201,7 @@ class PostFacilityStatus extends PostFacilityBase {
     switch (TRUE) {
       case $isNew:
         // A new node, should be pushed to initiate the value.
-      case $thisRevisionIsPublished && $somethingChanged:
+      case $thisRevisionIsPublished && $somethingChanged && $moderationState === self::STATE_PUBLISHED:
         // This revision is published and had a change, should be pushed.
       case $isArchived && $somethingChanged:
         // This node has been archived, got to push to remove it.
@@ -205,7 +210,7 @@ class PostFacilityStatus extends PostFacilityBase {
         $push = TRUE;
         break;
 
-      case ($defaultRevisionIsPublished && !$thisRevisionIsPublished):
+      case ($defaultRevisionIsPublished && !$thisRevisionIsPublished && $moderationState === self::STATE_DRAFT):
         // Draft revision on published node, should not push, even w/bypass.
         $push = FALSE;
         break;
@@ -236,7 +241,7 @@ class PostFacilityStatus extends PostFacilityBase {
       // the current node as the default.
       $this->defaultRevision = $this->facilityNode;
     }
-    elseif (($this->facilityNode->get('moderation_state')->value === 'published' || !$this->facilityNode->isPublished()) && $hasOriginal) {
+    elseif (($this->facilityNode->get('moderation_state')->value === self::STATE_PUBLISHED || !$this->facilityNode->isPublished()) && $hasOriginal) {
       // If it has never been published we just want the last save.
       // If the node is published, loading the default is an exact copy,
       // because the save already happened. Switch to using original.

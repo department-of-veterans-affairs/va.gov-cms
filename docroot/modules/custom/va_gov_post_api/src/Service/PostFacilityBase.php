@@ -35,7 +35,7 @@ abstract class PostFacilityBase {
    *
    * @var \Drupal\Core\Logger\LoggerChannelFactoryInterface
    */
-  protected $logger;
+  protected $loggerChannelFactory;
 
   /**
    * The Messenger service.
@@ -58,17 +58,17 @@ abstract class PostFacilityBase {
    *   The config factory service.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager service.
-   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger
+   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_channel_factory
    *   The logger factory service.
    * @param \Drupal\Core\Messenger\MessengerInterface $messenger
    *   The messenger interface.
    * @param \Drupal\post_api\Service\AddToQueue $post_queue
    *   The PostAPI service.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger, MessengerInterface $messenger, AddToQueue $post_queue) {
+  public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_channel_factory, MessengerInterface $messenger, AddToQueue $post_queue) {
     $this->configFactory = $config_factory;
     $this->entityTypeManager = $entity_type_manager;
-    $this->logger = $logger;
+    $this->loggerChannelFactory = $logger_channel_factory;
     $this->messenger = $messenger;
     $this->postQueue = $post_queue;
   }

@@ -128,13 +128,18 @@ class FacilityStatusQueue extends ExistingSiteBase {
         $nodeOriginalProphecy->hasField(self::STATUS_FIELD_NAME)->willReturn(FALSE);
         $nodeOriginalProphecy->hasField(self::STATUS_FIELD_MORE_INFO_NAME)->willReturn(FALSE);
       }
-
+      $nodeDefaultProphecy = clone $nodeOriginalProphecy;
       $node->original = $nodeOriginalProphecy->reveal();
-      // There is some risk in treating the node original as the same as the
-      // default revision because it does not allow for drift, creating unique
-      // variations for default revision, previous revision (node original), and
-      // current revision would be problematic.
-      $entityStorageProphecy->load(5)->willReturn($node->original);
+      if ($isPublished) {
+        // Set some values for the default revision.
+        $nodeDefaultProphecy->isPublished()->willReturn(TRUE);
+        $nodeDefaultProphecy->get('moderation_state')->willReturn((object) ['value' => self::STATE_PUBLISHED]);
+      }
+      else {
+        $nodeDefaultProphecy->isPublished()->willReturn(FALSE);
+        $nodeDefaultProphecy->get('moderation_state')->willReturn((object) ['value' => self::STATE_DRAFT]);
+      }
+      $entityStorageProphecy->load(5)->willReturn($nodeDefaultProphecy->reveal());
       $entityStorage = $entityStorageProphecy->reveal();
       $entityTypeManagerProphecy->getStorage('node')->willReturn($entityStorage);
     }
@@ -248,6 +253,8 @@ class FacilityStatusQueue extends ExistingSiteBase {
           // All non-published facilities with status changes are pushed.
         case (($permutation['original_moderation_state'] === self::STATE_PUBLISHED) && ($permutation['moderation_state'] === self::STATE_ARCHIVED)):
           // Archive of published node.
+        case $permutation['moderation_state'] === self::STATE_ARCHIVED && $status_info_changed:
+          // Any archive with a status change.
         case $default_rev_is_published && $is_a_publish && $status_info_changed:
           // Facility revision published and has a status change.
         case $permutation['bypass_data_check']:

@@ -95,7 +95,7 @@ class PostFacilityService extends PostFacilityBase {
         // We were supposed to push it, but there was a problem.
         $errors = implode(' ', $this->errors);
         $message = sprintf('Post API: attempted to add a system  NID %d to queue, but ran into errors: %s', $this->facilityService->id(), $errors);
-        $this->logger->get('va_gov_post_api')->error($message);
+        $this->loggerChannelFactory->get('va_gov_post_api')->error($message);
 
         return 0;
       }
