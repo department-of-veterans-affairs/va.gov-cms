@@ -9,6 +9,7 @@ dependencies:
     - field.field.paragraph.service_location.field_hours
     - field.field.paragraph.service_location.field_phone
     - field.field.paragraph.service_location.field_service_location_address
+    - field.field.paragraph.service_location.field_service_location_facility
     - field.field.paragraph.service_location.field_use_main_facility_phone
     - paragraphs.paragraphs_type.service_location
   module:
@@ -37,6 +38,7 @@ third_party_settings:
       region: content
     group_address:
       children:
+        - field_service_location_facility
         - field_service_location_address
       parent_name: ''
       weight: 0
@@ -121,6 +123,7 @@ content:
       collapsed: false
       allow_existing: false
       allow_duplicate: false
+      allow_system_delete: false
     third_party_settings:
       entity_browser_entity_form:
         entity_browser_id: _none
@@ -154,12 +157,13 @@ content:
       collapsed: false
       allow_existing: false
       allow_duplicate: false
+      allow_system_delete: false
     third_party_settings:
       entity_browser_entity_form:
         entity_browser_id: _none
   field_service_location_address:
     type: paragraphs
-    weight: 0
+    weight: 25
     region: content
     settings:
       title: Address
@@ -176,6 +180,12 @@ content:
         collapse_edit_all: '0'
         duplicate: '0'
     third_party_settings: {  }
+  field_service_location_facility:
+    weight: 24
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
   field_use_main_facility_phone:
     type: boolean_checkbox
     weight: 21

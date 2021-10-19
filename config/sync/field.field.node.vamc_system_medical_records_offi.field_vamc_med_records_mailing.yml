@@ -1,0 +1,52 @@
+uuid: 27339cf9-a770-4508-b249-64feb23310a6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_vamc_med_records_mailing
+    - node.type.vamc_system_medical_records_offi
+  module:
+    - address
+id: node.vamc_system_medical_records_offi.field_vamc_med_records_mailing
+field_name: field_vamc_med_records_mailing
+entity_type: node
+bundle: vamc_system_medical_records_offi
+label: 'Mailing address'
+description: 'Veterans opting to mail forms will be provided with  this address.'
+required: false
+translatable: false
+default_value:
+  -
+    country_code: US
+    langcode: ''
+    given_name: ''
+    family_name: ''
+    organization: ''
+    address_line1: ''
+    address_line2: ''
+    locality: ''
+    administrative_area: ''
+    postal_code: ''
+    additional_name: null
+    sorting_code: null
+    dependent_locality: null
+default_value_callback: ''
+settings:
+  available_countries:
+    US: US
+  langcode_override: ''
+  field_overrides:
+    givenName:
+      override: hidden
+    additionalName:
+      override: hidden
+    familyName:
+      override: hidden
+    organization:
+      override: hidden
+    sortingCode:
+      override: hidden
+    dependentLocality:
+      override: hidden
+  fields: {  }
+field_type: address

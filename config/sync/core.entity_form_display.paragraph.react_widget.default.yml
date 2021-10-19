@@ -13,14 +13,14 @@ dependencies:
     - paragraphs.paragraphs_type.react_widget
   module:
     - field_group
-    - linkit
+    - link
     - text
 third_party_settings:
   field_group:
     group_default_content:
       children:
-        - field_default_link
         - field_button_format
+        - field_default_link
       parent_name: ''
       weight: 5
       format_type: fieldset
@@ -37,12 +37,12 @@ bundle: react_widget
 mode: default
 content:
   field_button_format:
-    weight: 7
+    type: boolean_checkbox
+    weight: 0
+    region: content
     settings:
       display_label: true
     third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
   field_cta_widget:
     weight: 0
     settings:
@@ -51,37 +51,36 @@ content:
     type: boolean_checkbox
     region: content
   field_default_link:
-    weight: 6
+    type: link_default
+    weight: 0
+    region: content
     settings:
       placeholder_url: ''
       placeholder_title: ''
-      linkit_profile: default
     third_party_settings: {  }
-    type: linkit
-    region: content
   field_error_message:
-    weight: 4
-    settings:
-      size: 120
-      placeholder: ''
-    third_party_settings: {  }
     type: text_textfield
+    weight: 4
     region: content
-  field_loading_message:
-    weight: 2
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_loading_message:
     type: string_textfield
+    weight: 2
     region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_timeout:
+    type: number
     weight: 3
+    region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
-    type: number
-    region: content
   field_widget_type:
     weight: 1
     settings:
