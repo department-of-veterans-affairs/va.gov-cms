@@ -27,7 +27,7 @@ class PostFacilityStatus extends PostFacilityBase {
    * This is either the last published revision, or the last revision before
    * the current save.
    *
-   * @var \Drupal\Core\Entity\EntityInterface
+   * @var \Drupal\node\NodeInterface
    */
   protected $defaultRevision;
 
