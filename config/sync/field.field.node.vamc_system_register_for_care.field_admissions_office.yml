@@ -1,0 +1,23 @@
+uuid: e767d010-8662-4329-a255-07d5e5a58ca8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_admissions_office
+    - node.type.vamc_system_register_for_care
+  module:
+    - entity_reference_revisions
+id: node.vamc_system_register_for_care.field_admissions_office
+field_name: field_admissions_office
+entity_type: node
+bundle: vamc_system_register_for_care
+label: 'Admissions office'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings: {  }
+field_type: entity_reference_revisions

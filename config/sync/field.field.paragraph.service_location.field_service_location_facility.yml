@@ -1,0 +1,33 @@
+uuid: b3236a88-1886-43e3-a76f-9201c4b597f6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_service_location_facility
+    - paragraphs.paragraphs_type.service_location
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: false
+id: paragraph.service_location.field_service_location_facility
+field_name: field_service_location_facility
+entity_type: paragraph
+bundle: service_location
+label: Facility
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: local_facilities_entity_reference_view
+      display_name: entity_reference_1
+      arguments:
+        - all
+field_type: entity_reference
