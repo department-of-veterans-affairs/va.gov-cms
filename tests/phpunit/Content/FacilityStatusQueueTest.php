@@ -22,7 +22,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  *
  * @coversDefaultClass \Drupal\va_gov_post_api\Service\PostFacilityStatus
  */
-class FacilityStatusQueue extends ExistingSiteBase {
+class FacilityStatusQueueTest extends ExistingSiteBase {
 
   use GeneratePermutationsTrait;
 
