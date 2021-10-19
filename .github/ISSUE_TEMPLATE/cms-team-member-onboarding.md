@@ -93,7 +93,8 @@ The goal for this week is to get you set up with the tools you need to be succes
 #### Onboarding for Developers
  - [ ] PIV login on production (SOCKS or VA access required)
  - [ ] [PIV login on dev & staging for testing](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/5838) (SOCKS or VA access required)
- - [ ] [Datadog](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html#Requestaccesstotools-Requestaccess)
+ - [ ] [Datadog](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html#Requestaccesstotools-Requestaccess) to access monitoring metrics
+ - [ ] Review the [VA.gov Design System](https://design.va.gov/) which includes [how to provide feedback](https://design.va.gov/documentation/feedback)
 #### Onboarding for DevOps members
  - [ ] [IAM/SSO lower environment access](https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/blob/master/platform/cms/cms-sso-saml-iam-login-braindump.md#testing-login)
  - [ ] [Jenkins](http://jenkins.vfs.va.gov/) (SOCKS required)
