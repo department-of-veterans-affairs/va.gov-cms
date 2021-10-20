@@ -10,6 +10,7 @@ dependencies:
     - field.field.taxonomy_term.health_care_service_taxonomy.field_service_type_of_care
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vet_center_com_conditions
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vet_center_friendly_name
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_vet_center_required_servic
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vet_center_service_descrip
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vet_center_type_of_care
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vha_healthservice_stopcode
@@ -83,6 +84,16 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
+  field_vet_center_required_servic:
+    weight: 10
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
     region: content
   field_vet_center_service_descrip:
     weight: 9

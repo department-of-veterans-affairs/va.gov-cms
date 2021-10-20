@@ -1,0 +1,23 @@
+uuid: 74957a0f-ff47-4dfe-99c7-f15319a762b1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_vet_center_required_servic
+    - taxonomy.vocabulary.health_care_service_taxonomy
+id: taxonomy_term.health_care_service_taxonomy.field_vet_center_required_servic
+field_name: field_vet_center_required_servic
+entity_type: taxonomy_term
+bundle: health_care_service_taxonomy
+label: 'This is a required Vet Center service'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean
