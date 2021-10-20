@@ -10,6 +10,7 @@ dependencies:
     - field.field.taxonomy_term.health_care_service_taxonomy.field_service_type_of_care
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vet_center_com_conditions
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vet_center_friendly_name
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_vet_center_required_servic
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vet_center_service_descrip
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vet_center_type_of_care
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vha_healthservice_stopcode
@@ -24,7 +25,7 @@ third_party_settings:
       children:
         - field_owner
       parent_name: ''
-      weight: 11
+      weight: 8
       format_type: details_sidebar
       format_settings:
         weight: 0
@@ -41,7 +42,7 @@ third_party_settings:
         - field_vet_center_com_conditions
         - field_vet_center_service_descrip
       parent_name: ''
-      weight: 8
+      weight: 5
       format_type: details
       region: content
       format_settings:
@@ -59,7 +60,7 @@ third_party_settings:
         - field_commonly_treated_condition
         - description
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: details
       region: content
       format_settings:
@@ -129,6 +130,13 @@ content:
     third_party_settings: {  }
     type: string_textfield
     region: content
+  field_vet_center_required_servic:
+    weight: 3
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
   field_vet_center_service_descrip:
     weight: 11
     settings:
@@ -160,7 +168,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 9
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
