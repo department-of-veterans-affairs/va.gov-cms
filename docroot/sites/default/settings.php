@@ -239,4 +239,5 @@ if (extension_loaded('memcache') && !empty($settings['memcache']['servers'])) {
     'default' => 'default',
   ];
   $settings['container_yamls'][] = $app_root . '/' . $site_path . '/../default/services/services.memcache.yml';
+  $settings['memcache']['persistent'] = 'drupal';
 }
