@@ -15,7 +15,8 @@ class HealthCheck implements DeployPluginInterface {
    *
    * Two different downtime user agents are required since we want uptime graphs
    * to work correctly in both Grafana and Datadog. The addition of a Datadog
-   * deploy user-agent is to quell alerts during deploys. Prometheus no longer alerts.
+   * deploy user-agent is to quell alerts during deploys. 
+   * Prometheus no longer alerts.
    */
   public const VAGOV_DOWNTIME_DETECT_USER_AGENT_PROMETHEUS = 'curl-prometheus-check';
   public const VAGOV_DOWNTIME_DETECT_USER_AGENT_DATADOG = 'Datadog/Synthetics';
