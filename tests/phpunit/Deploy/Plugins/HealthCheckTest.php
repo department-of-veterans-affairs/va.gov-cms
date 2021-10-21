@@ -46,7 +46,7 @@ class HealthCheckTest extends UnitTestCase {
    */
   public function testUserAgent() {
     $request = Request::create('/any-path');
-    $request->headers->set('User-Agent', HealthCheck::VAGOV_DOWNTIME_DETECT_USER_AGENT);
+    $request->headers->set('User-Agent', HealthCheck::VAGOV_DOWNTIME_DETECT_USER_AGENT_PROMETHEUS);
 
     $bad_request = Request::createFromGlobals();
 
