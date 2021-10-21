@@ -4,7 +4,7 @@ Feature: Views
   As a site owner
   I want to have views for various contexts and applications.
 
-  @dst @views                                                                                                                                                                             
+  @dst @views
      Scenario: Views
        Then exactly the following views should exist
        | Name | Machine name | Base table | Status | Description |
@@ -68,7 +68,7 @@ Feature: Views
 | CMS Knowledge Base search results | knowledge_base_search_results | Index Knowledge base search | Enabled |  |
 | Knowledge Base Article administration | knowledge_base_article_administration | Content | Enabled | Audits and tools for managing Knowledge Base Articles |
 
-  @dst @views_displays                                                                                                                                                                   
+  @dst @views_displays
      Scenario: Views displays
        Then exactly the following views displays should exist
        | View | Title | Machine name | Display plugin |
@@ -98,13 +98,13 @@ Feature: Views
 | Content | Bulk edit events | events_page | Page |
 | Content | Resources and support | resources_support_dashboard | Page |
 | Content | Resources and support landing page | resources_and_support_landing_page_block | Block |
-| Content | Care audit | care_audit_page | Page |
-| Content | Care audit export | care_audit_export | Data export |
 | Content | Content audit CSV export | content_audit_csv_export | Data export |
 | Content | Content audit tools | content_audit_page | Page |
 | Content | Facilities | content_audit_facilities | Page |
 | Content | Facilities export | content_audit_facilities_export | Data export |
 | Content | VAMC EHR | vamc_ehr | Page |
+| Content | VAMC System Service Audit | vamc_system_service_audit_page | Page |
+| Content | VAMC System Service Audit Export | vamc_system_service_audit_export | Data export |
 | Content entity browsers | Master | default | Default |
 | Content entity browsers | Event entity browser | event_entity_browser | Entity browser |
 | Content entity browsers | Q&A entity browser | entity_browser_1 | Entity browser |
