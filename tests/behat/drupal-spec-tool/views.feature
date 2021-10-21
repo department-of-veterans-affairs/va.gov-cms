@@ -72,6 +72,7 @@ Feature: Views
 | Non-clinical services | non_clinical_services | Content | Enabled | Views of non-clinical services content placed within several "Top tasks" VAMC node forms. |
 | Metatag Audit | metatag_audit | Content | Enabled |  |
 | Flagged Content | flagged_content | Content | Enabled |  |
+| List page | list_page | Content | Enabled |  |
 
   @dst @views_displays
      Scenario: Views displays
@@ -261,3 +262,9 @@ Feature: Views
 | Metatag Audit | Metatag Audit | metatag_audit | Page |
 | Flagged Content | Default | default | Default |
 | Flagged Content | Flagged Content | flagged_content | Page |
+| List page | Default | default | Default |
+| List page | Events | events | Block |
+| List page | Featured events | featured_events | Attachment |
+| List page | Featured stories | featured_stories | Attachment |
+| List page | Past events | attachment_1 | Attachment |
+| List page | Stories | stories | Block |

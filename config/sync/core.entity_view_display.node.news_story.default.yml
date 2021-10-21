@@ -5,7 +5,6 @@ dependencies:
   config:
     - field.field.node.news_story.field_administration
     - field.field.node.news_story.field_author
-    - field.field.node.news_story.field_featured
     - field.field.node.news_story.field_full_story
     - field.field.node.news_story.field_image_caption
     - field.field.node.news_story.field_intro_text
@@ -50,16 +49,6 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
-    region: content
-  field_featured:
-    weight: 0
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    type: boolean
     region: content
   field_full_story:
     weight: 8

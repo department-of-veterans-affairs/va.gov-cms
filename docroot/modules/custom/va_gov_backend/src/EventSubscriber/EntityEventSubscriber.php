@@ -292,6 +292,27 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Form alterations for story and event content types.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function alterEventAndStoryNodeForm(FormIdAlterEvent $event): void {
+    $this->changeOrderSelectNoneOptionLabel($event);
+  }
+
+  /**
+   * Changes the "None" option to read as "Not featured".
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function changeOrderSelectNoneOptionLabel(FormIdAlterEvent $event): void {
+    $form = &$event->getForm();
+    $form['field_order']['widget']['#options']['_none'] = 'Not featured';
+  }
+
+  /**
    * Add states management to bio fields to determine visibility based on bool.
    *
    * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
@@ -485,6 +506,10 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       'hook_event_dispatcher.form_node_vet_center_edit_form.alter' => 'alterVetCenterNodeForm',
       'hook_event_dispatcher.form_node_regional_health_care_service_des_form.alter' => 'alterRegionalHealthServiceNodeForm',
       'hook_event_dispatcher.form_node_regional_health_care_service_des_edit_form.alter' => 'alterRegionalHealthServiceNodeForm',
+      'hook_event_dispatcher.form_node_news_story_form.alter' => 'alterEventAndStoryNodeForm',
+      'hook_event_dispatcher.form_node_news_story_edit_form.alter' => 'alterEventAndStoryNodeForm',
+      'hook_event_dispatcher.form_node_event_form.alter' => 'alterEventAndStoryNodeForm',
+      'hook_event_dispatcher.form_node_event_edit_form.alter' => 'alterEventAndStoryNodeForm',
     ];
   }
 

@@ -10,10 +10,14 @@ dependencies:
     - field.field.node.story_listing.field_meta_tags
     - field.field.node.story_listing.field_office
     - node.type.story_listing
+    - views.view.list_page
   module:
     - allow_only_one
     - field_group
+    - layout_builder
+    - layout_discovery
     - user
+    - views
 third_party_settings:
   field_group:
     group_content:
@@ -44,7 +48,6 @@ third_party_settings:
     group_meta:
       children:
         - field_description
-        - field_meta_title
       parent_name: ''
       weight: 0
       format_type: fieldset
@@ -54,6 +57,59 @@ third_party_settings:
         description: ''
       label: Meta
       region: content
+  layout_builder:
+    allow_custom: false
+    enabled: true
+    sections:
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: ''
+        components:
+          120c6020-2f9e-4e01-9b11-f3f4137864cf:
+            uuid: 120c6020-2f9e-4e01-9b11-f3f4137864cf
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:node:story_listing:field_intro_text'
+              formatter:
+                label: above
+                settings: {  }
+                third_party_settings: {  }
+                type: basic_string
+            additional: {  }
+            weight: 1
+          1568f320-aaba-417b-b9a8-eb0568e3dd81:
+            uuid: 1568f320-aaba-417b-b9a8-eb0568e3dd81
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:node:story_listing:field_enforce_unique_combo'
+              formatter:
+                label: above
+                settings: {  }
+                third_party_settings: {  }
+                type: allow_only_one
+            additional: {  }
+            weight: 4
+          d95e43f1-3899-49fa-9847-4b6c778d6e23:
+            uuid: d95e43f1-3899-49fa-9847-4b6c778d6e23
+            region: content
+            configuration:
+              id: 'views_block:list_page-stories'
+              label: ''
+              provider: views
+              label_display: '0'
+              views_label: ''
+              items_per_page: none
+              context_mapping: {  }
+            additional: {  }
+            weight: 3
+        third_party_settings: {  }
 id: node.story_listing.default
 targetEntityType: node
 bundle: story_listing

@@ -10,10 +10,14 @@ dependencies:
     - field.field.node.event_listing.field_meta_tags
     - field.field.node.event_listing.field_office
     - node.type.event_listing
+    - views.view.list_page
   module:
     - allow_only_one
     - field_group
+    - layout_builder
+    - layout_discovery
     - user
+    - views
 third_party_settings:
   field_group:
     group_content:
@@ -44,7 +48,6 @@ third_party_settings:
     group_meta:
       children:
         - field_description
-        - field_meta_title
       parent_name: ''
       weight: 0
       format_type: fieldset
@@ -54,6 +57,59 @@ third_party_settings:
         description: ''
       label: Meta
       region: content
+  layout_builder:
+    allow_custom: false
+    enabled: true
+    sections:
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: ''
+        components:
+          146e2a49-e294-42dd-ab30-221a726d85cb:
+            uuid: 146e2a49-e294-42dd-ab30-221a726d85cb
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:node:event_listing:field_intro_text'
+              formatter:
+                label: above
+                settings: {  }
+                third_party_settings: {  }
+                type: basic_string
+            additional: {  }
+            weight: 1
+          390886f0-a9e4-4bf6-84e5-70b002a3528c:
+            uuid: 390886f0-a9e4-4bf6-84e5-70b002a3528c
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:node:event_listing:field_enforce_unique_combo'
+              formatter:
+                label: above
+                settings: {  }
+                third_party_settings: {  }
+                type: allow_only_one
+            additional: {  }
+            weight: 3
+          80475b8b-9db5-48d1-ad2c-85be63b20900:
+            uuid: 80475b8b-9db5-48d1-ad2c-85be63b20900
+            region: content
+            configuration:
+              id: 'views_block:list_page-events'
+              label: ''
+              provider: views
+              label_display: '0'
+              views_label: ''
+              items_per_page: none
+              context_mapping: {  }
+            additional: {  }
+            weight: 2
+        third_party_settings: {  }
 id: node.event_listing.default
 targetEntityType: node
 bundle: event_listing
