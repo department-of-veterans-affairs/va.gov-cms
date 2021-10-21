@@ -149,8 +149,10 @@ class EntityEventSubscriber implements EventSubscriberInterface {
             $form['field_content_block']['widget'][$key]['#paragraph_type'],
           ];
           $title = $form['field_content_block']['widget'][$key]['subform']['field_cc_documentor_title']['widget'][0]['value']['#default_value'];
+          $title = $this->t(':title', [':title' => $title]);
           $description = $form['field_content_block']['widget'][$key]['subform']['field_cc_documentor_description']['widget'][0]['#default_value'];
-          $form['field_content_block']['widget'][$key]['#prefix'] = '<h3>' . $this->t(':title', [':title' => $title]) . '</h3><p>' . $this->t(':description', [':description' => $description]) . '</p>';
+          $description = $this->t(':description', [':description' => $description]);
+          $form['field_content_block']['widget'][$key]['#prefix'] = "<h3>{$title}</h3><p>{$description}</p>";
         }
       }
     }
@@ -164,11 +166,15 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function lockCentralizedContentFields(array &$form) {
     // All users should see this intro.
-    $form['title']['#prefix'] = '<h2>' . $this->t('About') . '</h2><p>' . $this->t("Centralized content ensures that Veterans receive the same information about certain topics no matter where they're presented on VA.gov. Here you'll mangage content components that contain pieces of standardized information. Review the about info below to understand where this content will be applied.") . '</p>';
+    $about = $this->t('About');
+    $description = $this->t("Centralized content ensures that Veterans receive the same information about certain topics no matter where they're presented on VA.gov. Here you'll mangage content components that contain pieces of standardized information. Review the about info below to understand where this content will be applied.");
+    $form['title']['#prefix'] = "<h2>{$about}</h2><p>{$description}</p>";
     $form['title']['#attributes'] = [
       'class' => ['cc-special-treatment-field'],
     ];
-    $form['field_content_block']['#suffix'] = '<div class="cc-suffix-text"><strong>' . $this->t('Need to add a new centralized content component not listed here?') . '</strong><br />' . $this->t('Contact the product owner associated with this content.') . '</div>';
+    $question = $this->t('Need to add a new centralized content component not listed here?');
+    $contact = $this->t('Contact the product owner associated with this content.');
+    $form['field_content_block']['#suffix'] = "<div class=\"cc-suffix-text\"><strong>{$question}</strong><br />{$contact}</div>";
 
     if (!$this->userPermsService->hasAdminRole(TRUE)) {
       $form['#attached']['library'][] = 'va_gov_backend/centralized_content_alterations';
@@ -181,7 +187,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       // generated from field value.
       if (!empty($form['body']['widget'][0]['#default_value'])) {
         $form['body'] = [
-          '#markup' => '<h3>' . $this->t('Purpose') . '</h3><div class="cc-wysi-wrap">' . $form['body']['widget'][0]['#default_value'] . '</div>',
+          '#markup' => "<h3>{$this->t('Purpose')}</h3><div class=\"cc-wysi-wrap\">{$form['body']['widget'][0]['#default_value']}</div>",
         ];
       }
       else {
@@ -191,8 +197,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       // For non-admin replace product field with static content
       // generated from field value and disable editing.
       if (!empty($form['field_product']['widget']['#default_value'][0])) {
-       $title = $this->t(':title', [':title' => $form['field_product']['widget']['#title']]); 
-       $description = $this->t(':description', [':description' => $form['field_product']['widget']['#options'][$form['field_product']['widget']['#default_value'][0]]]);
+        $title = $this->t(':title', [':title' => $form['field_product']['widget']['#title']]);
+        $description = $this->t(':description', [':description' => $form['field_product']['widget']['#options'][$form['field_product']['widget']['#default_value'][0]]]);
         $form['field_product'] = [
           '#prefix' => "<h3>{$title}</h3><p class=\"cc-p\">{$description}</p>",
           '#attributes' => [
@@ -210,7 +216,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
         $title = $this->t(':title', [':title' => $form['field_applied_to']['widget'][0]['#title']]);
         $description = $this->t(':description', [':description' => $form['field_applied_to']['widget'][0]['value']['#default_value']]);
         $form['field_applied_to'] = [
-          '#prefix' => "<h3>{$title"</h3><p class=\"cc-p\">{$description}</p>",
+          '#prefix' => "<h3>{$title}</h3><p class=\"cc-p\">{$description}</p>",
           '#attributes' => [
             'class' => ['cc-special-treatment-field'],
           ],
