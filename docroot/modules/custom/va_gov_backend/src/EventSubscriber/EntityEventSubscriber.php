@@ -191,8 +191,10 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       // For non-admin replace product field with static content
       // generated from field value and disable editing.
       if (!empty($form['field_product']['widget']['#default_value'][0])) {
+       $title = $this->t(':title', [':title' => $form['field_product']['widget']['#title']]); 
+       $description = $this->t(':description', [':description' => $form['field_product']['widget']['#options'][$form['field_product']['widget']['#default_value'][0]]]);
         $form['field_product'] = [
-          '#prefix' => '<h3>' . $this->t(':title', [':title' => $form['field_product']['widget']['#title']]) . '</h3><p class="cc-p">' . $this->t(':description', [':description' => $form['field_product']['widget']['#options'][$form['field_product']['widget']['#default_value'][0]]]) . '</p>',
+          '#prefix' => "<h3>{$title}</h3><p class=\"cc-p\">{$description}</p>",
           '#attributes' => [
             'class' => ['cc-special-treatment-field'],
           ],
