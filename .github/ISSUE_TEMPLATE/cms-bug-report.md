@@ -7,30 +7,30 @@ assignees: ''
 
 ---
 
-**Describe the defect**
+## Describe the defect
 A clear and concise description of what the bug is.
 
-**To Reproduce**
+## To Reproduce
 Steps to reproduce the behavior:
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
 4. See error
 
-**Expected behavior**
+## Expected behavior
 A clear and concise description of what you expected to happen.
 
-**Screenshots**
+## Screenshots 
 If applicable, add screenshots to help explain your problem.
 
-**Desktop (please complete the following information if relevant, or delete):**
+ ## Additional context
+Add any other context about the problem here. Reach out to the Product Managers to determine if it should be escalated as critical (prevents users from accomplishing their work with no known workaround and needs to be addressed within 2 business days).
+
+ 
+## Desktop (please complete the following information if relevant, or delete)
  - OS: [e.g. iOS]
  - Browser [e.g. chrome, safari]
  - Version [e.g. 22]
-
-**Additional context**
-Add any other context about the problem here. Reach out to the Product Managers to determine if it should be escalated as critical (prevents users from accomplishing their work with no known workaround and needs to be addressed within 2 business days).
-
 
 ## Labels
 (You can delete this section once it's complete)
