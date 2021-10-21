@@ -33,6 +33,7 @@ third_party_settings:
   field_group:
     group_meta:
       children:
+        - field_meta_title
         - field_description
       parent_name: ''
       weight: 1
@@ -61,6 +62,9 @@ third_party_settings:
       label: Content
       region: content
     group_blurbs_for_subpages:
+      children:
+        - field_featured_content_healthser
+        - field_press_release_blurb
       children: {  }
       parent_name: ''
       weight: 3
@@ -246,6 +250,7 @@ content:
     region: content
 hidden:
   content_moderation_control: true
+  field_administration: true
   field_meta_tags: true
   field_vamc_ehr_system: true
   links: true
