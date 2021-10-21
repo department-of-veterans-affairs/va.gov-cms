@@ -21,17 +21,18 @@ dependencies:
     - field.field.node.health_care_region_page.field_twitter
     - field.field.node.health_care_region_page.field_vamc_ehr_system
     - field.field.node.health_care_region_page.field_vamc_system_official_name
+    - image.style.large
     - node.type.health_care_region_page
   module:
     - entity_reference_revisions
     - field_group
     - link
+    - media
     - user
 third_party_settings:
   field_group:
     group_meta:
       children:
-        - field_meta_title
         - field_description
       parent_name: ''
       weight: 1
@@ -60,9 +61,7 @@ third_party_settings:
       label: Content
       region: content
     group_blurbs_for_subpages:
-      children:
-        - field_featured_content_healthser
-        - field_press_release_blurb
+      children: {  }
       parent_name: ''
       weight: 3
       format_type: fieldset
@@ -191,9 +190,10 @@ content:
     weight: 5
     label: above
     settings:
-      link: true
+      image_style: large
+      image_link: ''
     third_party_settings: {  }
-    type: entity_reference_label
+    type: media_thumbnail
     region: content
   field_operating_status:
     weight: 11
@@ -246,7 +246,6 @@ content:
     region: content
 hidden:
   content_moderation_control: true
-  field_administration: true
   field_meta_tags: true
   field_vamc_ehr_system: true
   links: true
