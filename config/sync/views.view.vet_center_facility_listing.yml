@@ -358,7 +358,6 @@ display:
           admin_label: ''
           operator: in
           value:
-            vet_center: vet_center
             vet_center_cap: vet_center_cap
             vet_center_mobile_vet_center: vet_center_mobile_vet_center
             vet_center_outstation: vet_center_outstation
@@ -425,7 +424,20 @@ display:
             format: rich_text
           plugin_id: text
       footer: {  }
-      empty: {  }
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: true
+          tokenize: false
+          content:
+            value: "<p>There are no satellite locations associated with this Vet Center.</p>\r\n<p><a class=\"usa-button button button-action button--primary block-vet-center-facility-button\" href=\"/node/add/vet_center_cap?destination=/taxonomy/term/{{ raw_arguments.field_administration_target_id }}\">Create new community access point</a></p>"
+            format: rich_text
+          plugin_id: text
       relationships: {  }
       arguments:
         field_administration_target_id:
@@ -732,15 +744,15 @@ display:
         css_class: false
         arguments: false
       header:
-        area:
-          id: area
+        area_1:
+          id: area_1
           table: views
           field: area
           relationship: none
           group_type: group
           admin_label: ''
           empty: false
-          tokenize: true
+          tokenize: false
           content:
             value: "<p>Update the operating status and facility photo for Community Access Points (CAPs), Outstations and Mobile Vet Centers.</p>\r\n<p><a class=\"usa-button button button-action button--primary block-vet-center-facility-button\" href=\"/node/add/vet_center_cap?destination=/taxonomy/term/{{ raw_arguments.field_administration_target_id }}\">Create new community access point</a></p>"
             format: rich_text
@@ -936,6 +948,9 @@ display:
         css_class: false
         arguments: false
         sorts: false
+        empty: false
+        filters: false
+        filter_groups: false
       header: {  }
       css_class: ''
       arguments:
@@ -1008,6 +1023,57 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: standard
+      empty: {  }
+      filters:
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: in
+          value:
+            vet_center: vet_center
+            vet_center_cap: vet_center_cap
+            vet_center_mobile_vet_center: vet_center_mobile_vet_center
+            vet_center_outstation: vet_center_outstation
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
     cache_metadata:
       max-age: -1
       contexts:

@@ -103,6 +103,8 @@ Feature: Views
 | Content | Facilities | content_audit_facilities | Page |
 | Content | Facilities export | content_audit_facilities_export | Data export |
 | Content | VAMC EHR | vamc_ehr | Page |
+| Content | VAMC System Service Audit | vamc_system_service_audit_page | Page |
+| Content | VAMC System Service Audit Export | vamc_system_service_audit_export | Data export |
 | Content entity browsers | Master | default | Default |
 | Content entity browsers | Event entity browser | event_entity_browser | Entity browser |
 | Content entity browsers | Q&A entity browser | entity_browser_1 | Entity browser |
