@@ -573,7 +573,7 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
 
   // Add to node forms in workflow.
   if (in_array('node_form', (array) $form['#theme'])) {
-    $form['actions']['preview'] = [
+    $form['actions']['save_continue'] = [
       '#ief_submit_trigger' => TRUE,
       '#ief_submit_trigger_all' => TRUE,
       '#type' => 'submit',
@@ -588,6 +588,7 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     $workflow = \Drupal::entityTypeManager()->getStorage('workflow')->load('editorial');
     $types_in_workflow = $workflow->get('type_settings')['entity_types']['node'];
     if (!in_array($node_type, $types_in_workflow)) {
+      unset($form['actions']['save_continue']);
       unset($form['actions']['preview']);
     }
 
