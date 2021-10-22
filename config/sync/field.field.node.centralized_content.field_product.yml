@@ -1,0 +1,36 @@
+uuid: 935a5ea5-04df-4cf1-b0fb-7611ced00852
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_product
+    - node.type.centralized_content
+    - taxonomy.vocabulary.products
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: false
+id: node.centralized_content.field_product
+field_name: field_product
+entity_type: node
+bundle: centralized_content
+label: Product
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      products: products
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
