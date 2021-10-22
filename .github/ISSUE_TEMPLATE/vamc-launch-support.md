@@ -16,7 +16,5 @@ assignees: ''
 
 ### CMS Team
 
-Please leave only the team that will do this work selected. If you're not sure, it's fine to leave both selected.
-
-- [x] `Platform CMS Team`
+- [ ] `Platform CMS Team`
 - [x] `Sitewide CMS Team`

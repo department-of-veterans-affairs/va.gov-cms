@@ -25,61 +25,50 @@ _or_
 
 <link to any existing research or data supporting this>
 
-
 ### Hypothesis
 
 _A hypothesis may depend on a spike ticket to be completed._
 
 We believe that _this_solution_ will achieve _this_outcome_. We'll know that to be true when _this measurable outcome occurs._
 
-
-## Design principles
-
-Which [CMS design principle](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/cms-product-design-principles.md) is at play?
-- [ ] Purpose-driven: Creates an opportunity to involve the editor community in VA’s mission and content strategy goals.
-- [ ] Efficient: Removes distractions and create clear, straightforward paths to get the job done.
-- [ ] Approachable: Offers friendly guidance over authoritative instruction.
-- [ ] Consistent: Reduce user’s mental load by allowing them to fall back on pattern recognition to complete tasks.
-- [ ] Empowering: Provide clear information to help editors make decisions about their work.
-
-### Assumptions
+## Assumptions
 * Tk
 * Tk
 
 (How will these assumptions be validated?)
 
 ## Acceptance Criteria
-- [ ] 👀 Needs design review because the work involves changes to labels or other design elements
-- [ ] 🙈 Can be implemented without consulting design team members
 - [ ] Testable_Outcome_X
 - [ ] Testable_Outcome_Y
 - [ ] Testable_Outcome_Z
+- [ ] Requires KB article update
+
+## Design principles
+
+Veteran-centered
+- [ ] `Single source of truth`: Increase reliability and consistency of content on VA.gov by providing a single source of truth.
+- [ ] `Accessible, plain language`: Provide guardrails and guidelines to ensure content quality.
+- [ ] `Purposely structured content`: Ensure Content API can deliver content whose meaning matches its structure.
+- [ ] `Content lifecycle governance`: Produce tools, processes and policies to maintain content quality throughout its lifecycle.
+
+Editor-centered
+- [ ] `Purpose-driven`: Create an opportunity to involve the editor community in VA’s mission and content strategy goals.
+- [ ] `Efficient`: Remove distractions and create clear, straightforward paths to get the job done.
+- [ ] `Approachable`: Offer friendly guidance over authoritative instruction.
+- [ ] `Consistent`: Reduce user’s mental load by allowing them to fall back on pattern recognition to complete tasks.
+- [ ] `Empowering`: Provide clear information to help editors make decisions about their work.
+
 
 ## Runbook
-This is particularly relevant for feature launches, or for making changes to the content model that require front end changes as well.
-1. Step_to_get_to_production_X
-1. Step_to_get_to_production_Y
-1. Step_to_get_to_production_Z
+<optional>
 
-## Possible tickets to create for this epic
-
-- [ ] Spike task, with some of the following attributes:
-* Identify the baseline against which we will measure improvements
-* Ideation (sketching, cross-displinary meeting of minds around how the problem may be solved)
-* Analysis of the drupal landscape
-* Possible implementation(s)
-* Proof of concept or prototype
-* UX writing discovery
-
-- [ ] User research
-- [ ] Design
-- [ ] UX writing
-- [ ] Usability testing (eg with a prototype or other design stimula)
-- [ ] Implementation
-- [ ] Documentation (What needs changing or adding to the documentation?
-- [ ] Product release notes (How will we describe this feature to CMS users?)
-- [ ] Training (Will any users require additional training?)
-- [ ] Metrics (How will we measure any improvements)
+## Labels
+(You can delete this section once it's complete)
+- [x] Issue type (red) (defaults to "Epic")
+- [ ] CMS subsystem (green)
+- [ ] CMS practice area (blue)
+- [x] CMS workstream (orange)
+- [ ] CMS-supported product (black)
 
 ### CMS Team
 
