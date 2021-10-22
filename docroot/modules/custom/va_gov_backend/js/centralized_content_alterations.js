@@ -13,6 +13,8 @@
     if (drupalSettings.gtm_data.contentType === "centralized_content" && !adminRoles.some(function (item) {
       return drupalSettings.gtm_data.userRoles.includes(item);
     })) {
+      Drupal.tableDrag.prototype.hideColumns(1);
+
       var ccParagraphs = dom.querySelectorAll("div.cc-special-treatment-paragraph.centralized_content_descriptor");
 
       var wysiParagraphs = dom.querySelectorAll(".draggable.paragraph-type--wysiwyg");
@@ -29,7 +31,7 @@
       });
 
       wysiParagraphs.forEach(function (item) {
-        if (item && item.previousElementSibling.classList.contains("paragraph-type--centralized-content-descriptor")) {
+        if (item && item.previousElementSibling && item.previousElementSibling.classList.contains("paragraph-type--centralized-content-descriptor")) {
           item.classList.add("cc-national-wysi-padding");
         }
       });
