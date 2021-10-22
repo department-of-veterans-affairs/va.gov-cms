@@ -12,7 +12,7 @@ use Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery;
 use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
 
 /**
- * Class for processing facility status to GovDelivery Bulletin.
+ * Class for Triggering a frontend build.
  */
 class BuildFrontend implements BuildFrontendInterface {
 

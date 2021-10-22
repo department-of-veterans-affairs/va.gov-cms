@@ -146,7 +146,7 @@ class VaGovFacilityForceQueueForm extends FormBase {
               $queued_count += _post_api_add_facility_service_to_queue($node);
             }
             else {
-              $queued_count += _post_api_add_facility_to_queue($node);
+              $queued_count += _post_api_add_facility_status_to_queue($node);
             }
           }
 

@@ -13,6 +13,9 @@
         drupalSettings.gtm_data.userRoles.includes(item)
       )
     ) {
+      // Make sure weights aren't toggled on.
+      Drupal.tableDrag.prototype.hideColumns(1);
+
       // Grab our National descriptor paragraphs.
       const ccParagraphs = dom.querySelectorAll(
         "div.cc-special-treatment-paragraph.centralized_content_descriptor"
@@ -42,6 +45,7 @@
       wysiParagraphs.forEach((item) => {
         if (
           item &&
+          item.previousElementSibling &&
           item.previousElementSibling.classList.contains(
             "paragraph-type--centralized-content-descriptor"
           )
