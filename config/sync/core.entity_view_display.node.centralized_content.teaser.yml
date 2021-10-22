@@ -6,7 +6,9 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.centralized_content.body
     - field.field.node.centralized_content.field_administration
+    - field.field.node.centralized_content.field_applied_to
     - field.field.node.centralized_content.field_content_block
+    - field.field.node.centralized_content.field_product
     - node.type.centralized_content
   module:
     - entity_reference_revisions
@@ -38,4 +40,6 @@ content:
 hidden:
   body: true
   field_administration: true
+  field_applied_to: true
+  field_product: true
   search_api_excerpt: true

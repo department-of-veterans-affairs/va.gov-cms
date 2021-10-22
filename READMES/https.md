@@ -46,6 +46,7 @@ Click the "^" button and select "Keep."
 1. Scroll down and click on "Manage certificates" under the Advanced section
 1. Under the "Intermediate Certificate Authorities", click "Import" and select VA-Internal-S2-ICA1-v1.cer downloaded above
 1. Under the "Root Certificate Authorities", click "Import" and select VA-Internal-S2-RCA1-v1.cer downloaded above
+1. You may need to restart your browser (all windows) or your machine in order to for these certs to become active.
 
 ## HTTPS testing (locally/Lando)
 

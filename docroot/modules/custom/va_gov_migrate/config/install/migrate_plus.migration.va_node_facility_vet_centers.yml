@@ -110,11 +110,6 @@ process:
     method: row
     source: name
     message: 'Skipped: Source title/name is empty, can not have a node without title.'
-  title:
-    plugin: skip_on_empty
-    method: row
-    source:
-      - '@field_official_name'
   field_facility_locator_api_id:
     plugin: skip_on_empty
     method: row
@@ -253,7 +248,6 @@ destination:
     - revision_log
     - revision_timestamp
     - revision_uid
-    - title
     - uid
 # Dependency on other migrations.
 migration_dependencies:
