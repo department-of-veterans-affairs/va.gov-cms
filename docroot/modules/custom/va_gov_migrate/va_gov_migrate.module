@@ -7,12 +7,14 @@
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\node\NodeInterface;
 
 /**
  * Implements hook_entity_presave().
  */
 function va_gov_migrate_entity_presave(EntityInterface $entity) {
   _va_gov_migrate_process_va_form($entity);
+  _va_gov_migrate_set_default_vet_center_title($entity);
 }
 
 /**
@@ -22,7 +24,7 @@ function va_gov_migrate_entity_presave(EntityInterface $entity) {
  *   Entity.
  */
 function _va_gov_migrate_process_va_form(EntityInterface &$entity) {
-  if ($entity->bundle() !== 'va_form') {
+  if ($entity->bundle() !== 'va_form' || (!$entity instanceof NodeInterface)) {
     return;
   }
 
@@ -31,6 +33,7 @@ function _va_gov_migrate_process_va_form(EntityInterface &$entity) {
     return;
   }
 
+  /** @var \Drupal\node\NodeInterface $entity */
   // Grab any values set in the migration.
   $deleted = $entity->get('field_va_form_deleted')->value;
   $was_deleted = (!empty($entity->original) && $entity->original->get('field_va_form_deleted')->value) ? TRUE : FALSE;
@@ -38,7 +41,7 @@ function _va_gov_migrate_process_va_form(EntityInterface &$entity) {
   if (!empty($deleted) && ($modstate !== "archived")) {
     // This should be set to unpublished because the migration is intentionally,
     // not overriding status.
-    $entity->setPublished(FALSE);
+    $entity->setUnpublished();
     $entity->set('moderation_state', 'archived');
     $entity->set('revision_log', 'Archived because it was marked as deleted in the Forms DB.');
   }
@@ -47,6 +50,25 @@ function _va_gov_migrate_process_va_form(EntityInterface &$entity) {
     // to draft, because we can't know what state it was in when it was flagged.
     $entity->set('moderation_state', 'draft');
     $entity->set('revision_log', 'Changed to Draft because deleted flag was removed in the Forms DB.');
+  }
+}
+
+/**
+ * Set default Vet Center title.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   Entity.
+ */
+function _va_gov_migrate_set_default_vet_center_title(EntityInterface &$entity) {
+  if ($entity->bundle() !== 'vet_center' || (!$entity instanceof NodeInterface)) {
+    return;
+  }
+
+  /** @var \Drupal\node\NodeInterface $entity */
+  // If a Vet Center title is empty copy the value from field_official_name.
+  if (empty($entity->getTitle())) {
+    $default_title = $entity->get('field_official_name')->value ?: '- none -';
+    $entity->setTitle($default_title);
   }
 }
 
