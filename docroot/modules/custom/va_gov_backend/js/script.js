@@ -61,7 +61,7 @@
           label.innerHTML = "Name of facility";
 
           var fieldItem = context.createElement("div");
-          var description = context.querySelector("#locations-and-contact-information .description");
+          var description = context.querySelector("#locations-and-contact-information .tooltip-layout .description");
           fieldItem.classList.add("field__item");
           fieldItem.innerHTML = facilityName;
 

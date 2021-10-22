@@ -109,7 +109,7 @@
           // Facility name element.
           const fieldItem = context.createElement("div");
           const description = context.querySelector(
-            "#locations-and-contact-information .description"
+            "#locations-and-contact-information .tooltip-layout .description"
           );
           fieldItem.classList.add("field__item");
           fieldItem.innerHTML = facilityName;
