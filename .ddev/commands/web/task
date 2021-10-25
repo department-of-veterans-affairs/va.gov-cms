@@ -1,0 +1,8 @@
+#!/bin/bash
+
+## Description: Run taskfile target
+## Usage: task foo
+
+set -e
+cd $DDEV_APPROOT
+./bin/task $@

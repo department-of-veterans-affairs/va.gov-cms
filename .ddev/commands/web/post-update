@@ -1,0 +1,10 @@
+#!/bin/bash
+
+## Description: Run updates after pulling new code
+## Usage: post-update
+
+set -e
+cd $DDEV_APPROOT
+composer install
+drush updatedb --cache-clear=0 -y
+drush cache:rebuild -y

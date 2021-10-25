@@ -1,0 +1,8 @@
+#!/bin/bash
+
+## Description: Run npm commands
+## Usage: npm install
+
+set -e
+cd $DDEV_APPROOT
+npm $@
