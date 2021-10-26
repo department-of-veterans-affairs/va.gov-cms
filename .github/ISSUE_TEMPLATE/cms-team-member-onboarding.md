@@ -148,6 +148,10 @@ The goal for this week is to get you set up with the tools you need to be succes
    - [ ] Figma
    - [ ] Airtable
    - Review existing design assets to get a feel for where things are at
+   - Make sure you have the following font families on your machine:
+      - Lucida Grande [download from fontsgeek.com](https://fontsgeek.com/fonts/Lucida-Grande-Regular)
+      - Source Sans Pro [download from Google Fonts](https://fonts.google.com/specimen/Source+Sans+Pro)
+      - Bitter [download from Google Fonts](https://fonts.google.com/specimen/Bitter)
 - [ ] Build empathy with our users
    - Complete a CMS simulation (you’ll need SOCKS proxy access first)
 - [ ] Attend 1:1 w/ Kauff (maybe Clarence and Kev too)
