@@ -3,7 +3,10 @@
 namespace Drupal\va_gov_vamc\EventSubscriber;
 
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
+use Drupal\Core\Entity\FieldableEntityInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\va_gov_user\Service\UserPermsService;
@@ -70,6 +73,42 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Entity view alter Event call.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
+   *   The event.
+   */
+  public function alterEntityView(EntityViewAlterEvent $event): void {
+    $entity = $event->getEntity();
+    $build = &$event->getBuild();
+    $this->unsetFacilityServiceFields($build, $entity);
+  }
+
+  /**
+   * Unsets the fields that need to be unset.
+   *
+   * @param array $build
+   *   The assembled entity array.
+   * @param \Drupal\Core\Entity\FieldableEntityInterface $entity
+   *   The entity.
+   */
+  public function unsetFacilityServiceFields(array &$build, FieldableEntityInterface $entity) {
+    if ($entity instanceof FieldableEntityInterface && $entity->getEntityTypeId() === 'node' && $entity->bundle() === 'health_care_local_health_service') {
+      $appt_intro_select = $entity->get('field_hservice_appt_intro_select')->value;
+      if ($appt_intro_select === 'default_intro_text') {
+        unset($build['field_hservice_appt_leadin']);
+      }
+      elseif ($appt_intro_select === 'custom_intro_text') {
+        unset($build['field_hservices_lead_in_default']);
+      }
+      else {
+        unset($build['field_hservice_appt_leadin']);
+        unset($build['field_hservices_lead_in_default']);
+      }
+    }
+  }
+
+  /**
    * Add js script to VAMC Op status node form.
    *
    * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
@@ -78,6 +117,20 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public function alterOpStatusNodeForm(FormIdAlterEvent $event): void {
     $form = &$event->getForm();
     $form['#attached']['library'][] = 'va_gov_vamc/set_ief_administration_select';
+  }
+
+  /**
+   * Add js script to VAMC Op status node form.
+   *
+   * Hide field_office for existing operating statuses.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function alterOpStatusNodeEditForm(FormIdAlterEvent $event): void {
+    $form = &$event->getForm();
+    $form['#attached']['library'][] = 'va_gov_vamc/set_ief_administration_select';
+    $form['field_office']['#attributes']['class'] = 'hidden';
   }
 
   /**
@@ -111,18 +164,98 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Alters Health care region page node form.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function alterHealthCareRegionPageNodeForm(FormIdAlterEvent $event): void {
+    $form = &$event->getForm();
+    $this->restrictTitleAccess($form);
+  }
+
+  /**
+   * Determines whether or not user can edit title.
+   *
+   * @param array $form
+   *   The node form array.
+   */
+  public function restrictTitleAccess(array &$form) {
+    if (!$this->userPermsService->hasAdminRole()) {
+      $form['title']['#disabled'] = 'disabled';
+    }
+  }
+
+  /**
+   * Alters Health care local service node form.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function alterHealthCareLocalServiceNodeForm(FormIdAlterEvent $event): void {
+    $form = &$event->getForm();
+    $form_state = $event->getFormState();
+    // Attach the service options limiter.
+    $form['#attached']['library'][] = 'va_gov_vamc/limit_services_to_user_sections';
+    $this->modifyApptIntroTextStates($form, $form_state);
+  }
+
+  /**
+   * Visibility of Appointment Lead-in Text field.
+   *
+   * @param array $form
+   *   The node form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   Instance of FormStateInterface.
+   */
+  public function modifyApptIntroTextStates(array &$form, FormStateInterface $form_state) {
+    $form['field_hservice_appt_leadin']['widget'][0]['value']['#title_display'] = 'invisible';
+    if (isset($form['field_hservice_appt_intro_select'])) {
+      $form['field_hservice_appt_leadin']['#states'] = [
+        'visible' => [
+          ':input[name="field_hservice_appt_intro_select"]' => ['value' => 'custom_intro_text'],
+        ],
+      ];
+      $form['field_hservices_lead_in_default']['#states'] = [
+        'visible' => [
+          ':input[name="field_hservice_appt_intro_select"]' => ['value' => 'default_intro_text'],
+        ],
+      ];
+    }
+    $form['#validate'][] = $this->apptIntroTextValidation($form, $form_state);
+  }
+
+  /**
+   * Adds Validation to check for an empty Appointment lead-in field.
+   *
+   * @param array $form
+   *   The exposed widget form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   */
+  public function apptIntroTextValidation(array $form, FormStateInterface $form_state) {
+    if (!empty($form_state->getValue('field_hservice_appt_leadin')) && !empty($form_state->getValue('field_hservice_appt_intro_select'))) {
+      $intro_type = $form_state->getValue('field_hservice_appt_intro_select');
+      $intro_text_value = $form_state->getValue('field_hservice_appt_leadin');
+      if ($intro_type[0]['value'] === 'custom_intro_text') {
+        if (($intro_text_value[0]['value'] === "")) {
+          $form_state->setErrorByName("field_hservice_appt_leadin", t('Appointment lead-in text required'));
+        }
+      }
+    }
+  }
+
+  /**
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
     return [
-      // React on Op status forms.
-      'hook_event_dispatcher.form_node_vamc_operating_status_and_alerts_form.alter' => 'alterOpStatusNodeForm',
-      'hook_event_dispatcher.form_node_vamc_operating_status_and_alerts_edit_form.alter' => 'alterOpStatusNodeForm',
       HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'entityPresave',
-      // React on full width banner forms.
+      HookEventDispatcherInterface::ENTITY_VIEW_ALTER => 'alterEntityView',
+      'hook_event_dispatcher.form_node_vamc_operating_status_and_alerts_form.alter' => 'alterOpStatusNodeForm',
+      'hook_event_dispatcher.form_node_vamc_operating_status_and_alerts_edit_form.alter' => 'alterOpStatusNodeEditForm',
       'hook_event_dispatcher.form_node_full_width_banner_alert_form.alter' => 'alterFullWidthBannerNodeForm',
       'hook_event_dispatcher.form_node_full_width_banner_alert_edit_form.alter' => 'alterFullWidthBannerNodeForm',
-      // React on top task forms.
       'hook_event_dispatcher.form_node_vamc_system_register_for_care_form.alter' => 'alterTopTaskNodeForm',
       'hook_event_dispatcher.form_node_vamc_system_register_for_care_edit_form.alter' => 'alterTopTaskNodeForm',
       'hook_event_dispatcher.form_node_vamc_system_medical_records_offi_form.alter' => 'alterTopTaskNodeForm',
@@ -131,6 +264,9 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       'hook_event_dispatcher.form_node_vamc_system_billing_insurance_edit_form.alter' => 'alterTopTaskNodeForm',
       'hook_event_dispatcher.form_node_vamc_system_policies_page_form.alter' => 'alterTopTaskNodeForm',
       'hook_event_dispatcher.form_node_vamc_system_policies_page_edit_form.alter' => 'alterTopTaskNodeForm',
+      'hook_event_dispatcher.form_health_care_region_page_edit_form.alter' => 'alterHealthCareRegionPageNodeForm',
+      'hook_event_dispatcher.form_health_care_local_health_service_form.alter' => 'alterHealthCareLocalServiceNodeForm',
+      'hook_event_dispatcher.form_health_care_local_health_service_edit_form.alter' => 'alterHealthCareLocalServiceNodeForm',
     ];
   }
 
