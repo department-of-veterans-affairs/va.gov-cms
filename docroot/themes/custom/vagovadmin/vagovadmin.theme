@@ -8,6 +8,14 @@
 use Drupal\paragraphs\Entity\Paragraph;
 
 /**
+ * Implements hook_preprocess_html().
+ */
+function vagovadmin_preprocess_html(&$variables) {
+  $is_admin = \Drupal::service('va_gov_user.user_perms')->hasAdminRole(TRUE) ? 'admin' : 'not-admin';
+  $variables['attributes']['class'][] = 'role-' . $is_admin;
+}
+
+/**
  * Implements hook_theme_suggestions_HOOK_alter().
  */
 function vagovadmin_theme_suggestions_paragraph_alter(&$suggestions, $variables) {

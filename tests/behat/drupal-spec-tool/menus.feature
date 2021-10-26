@@ -143,7 +143,7 @@ Feature: Menus
 | VA Loma Linda health care | va-loma-linda-health-care | VISN 22 \| va.gov/loma-linda-health-care |
 | VA Long Beach health care | va-long-beach-health-care | VISN 22 \| va.gov/long-beach-health-care |
 | VA Louisville health care | va-louisville-health-care | VISN 9 \| va.gov/louisville-health-care |
-| VA Lovell Federal health care | va-lovell-federal-health-care | VISN 12 \| va.gov/lovell-fhcc-health-care |
+| VA Lovell Federal health care | va-lovell-federal-health-care | VISN 12 \| va.gov/lovell-federal-health-care |
 | VA Madison health care | va-madison-health-care | VISN 12 \| va.gov/madison-health-care |
 | VA Marion health care | va-marion-health-care | VISN 15 \| va.gov/marion-health-care |
 | VA Memphis health care | va-memphis-health-care | VISN 9 \| va.gov/memphis-health-care |

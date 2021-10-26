@@ -9,9 +9,10 @@ parameters:
   level: 2
   ignoreErrors:
     - '#Unsafe usage of new static\(\)#'
+    - '#Access to an undefined property Drupal\\Core\\Field\\FieldItemListInterface::\$entity\.#'
+    - '#Access to an undefined property Drupal\\Core\\Field\\FieldItemListInterface::\$target_id\.#'
     - '#Access to an undefined property Drupal\\Core\\Field\\FieldItemListInterface::\$value\.#'
     - '#Call to an undefined method Drupal\\Core\\Field\\FieldDefinitionInterface::get\(\)\.#'
-    - '#Access to an undefined property Drupal\\Core\\Field\\FieldItemListInterface::\$target_id\.#'
   reportUnmatchedIgnoredErrors: false
   bootstrapFiles:
     - phpstan_bootstrap.php
