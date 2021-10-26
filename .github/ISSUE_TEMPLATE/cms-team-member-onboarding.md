@@ -82,9 +82,10 @@ The goal for this week is to get you set up with the tools you need to be succes
       - [ ] A6 workspace = `#proj-vagov-team`
       - [ ] DSVA workspace = `#cms-team`
       - [ ] [This is a description of other channels](https://docs.google.com/spreadsheets/d/1_lZzectbSzs8zt4dvTFJTiPURxa0Kfp3xinYEuZdqq4/edit#gid=0) that ought to be on your radar. Note that many are going to be dependent on which workstream you're in (DevOps, Helpdesk, UX, etc.). Feel free to join whichever you think will aid you and your work.
-  - [ ] [Citrix Access Gateway instructions](https://www.oit.va.gov/resources/remote-access/index.cfm?) for after you get your PIV card
+  - [ ] [Citrix Access Gateway (CAG) instructions](https://www.oit.va.gov/resources/remote-access/index.cfm?) for after you get your PIV card
  - [ ] Drupal production environment access (SOCKS or VA network required) - ask your delivery manager, product manager, or CMS Team helpdesk to set up an administrator account foryou
    - [ ] If you are using a non-VA laptop for development you will need [follow the instructions on Github](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/https.md) to trust the VA Root Certificate Authority (CA) in your browser(s)
+   - [ ] Mac users should [follow these CAG download instructions](https://docs.google.com/document/d/1_3HKMk4AXyqAoQcfF4CthEQ7uU_d1h9Tt7CPHGJ-FaM)
    - [ ] [Learn about the different Drupal environments](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/f4341c29ad8e998de1dac2fca0b749cdef15c923/READMES/environments.md)
  - [ ] [Confluence](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/179765342/2020-2021?NO_SSR=1) for team resources and calendar
  - [ ] [Google Drive](https://drive.google.com/drive/u/0/folders/0ADx85_gnl3Y4Uk9PVA?ths=true) for team documents. Generally, VA doesn't use Google products. Use Github or downloadable files when sharing with VA.
