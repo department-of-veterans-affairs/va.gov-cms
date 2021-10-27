@@ -68,6 +68,8 @@ Feature: Views
 | CMS Knowledge Base search results | knowledge_base_search_results | Index Knowledge base search | Enabled |  |
 | Knowledge Base Article administration | knowledge_base_article_administration | Content | Enabled | Audits and tools for managing Knowledge Base Articles |
 | Non-clinical services | non_clinical_services | Content | Enabled | Views of non-clinical services content placed within several "Top tasks" VAMC node forms. |
+| List page | list_page | Content | Enabled |  |
+| Rich Text Field Audit | rich_text_field_audit | Content | Enabled | Audits rich text fields on content types |
 
   @dst @views_displays
      Scenario: Views displays
@@ -241,3 +243,12 @@ Feature: Views
 | Non-clinical services | Billing and insurance offices | billing_and_insurance | Block |
 | Non-clinical services | Default | default | Default |
 | Non-clinical services | Medical records offices | medical_records_offices | Block |
+| Content | Rich Text Field Audit | rich_text_field_audit | Page |
+| List page | Default | default | Default |
+| List page | Events | events | Block |
+| List page | Featured events | featured_events | Attachment |
+| List page | Featured stories | featured_stories | Attachment |
+| List page | Past events | attachment_1 | Attachment |
+| List page | Stories | stories | Block |
+| Rich Text Field Audit | Default | default | Default |
+| Rich Text Field Audit | Page | page_1 | Page |
