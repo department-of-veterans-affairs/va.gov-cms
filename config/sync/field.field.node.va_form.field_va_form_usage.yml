@@ -6,7 +6,13 @@ dependencies:
     - field.storage.node.field_va_form_usage
     - node.type.va_form
   module:
+    - allowed_formats
     - text
+third_party_settings:
+  allowed_formats:
+    rich_text: rich_text
+    rich_text_limited: '0'
+    plain_text: '0'
 id: node.va_form.field_va_form_usage
 field_name: field_va_form_usage
 entity_type: node
