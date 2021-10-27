@@ -18,11 +18,11 @@ Have fun and we look forward to getting to know you! 😊
 
 Projected start date: <insert_here>
 
-Onboarding buddy (short check-in meetings the first week): <insert_here>
-Team name: <insert_here>
-Delivery manager name: <insert_here>
-Product manager name: <insert_here>
-Discipline lead name: <insert_here>
+- Onboarding buddy (short check-in meetings the first week): <insert_here>
+- Team name: <insert_here>
+- Delivery manager name: <insert_here>
+- Product manager name: <insert_here>
+- Discipline lead name: <insert_here>
 
 ## Day one
 ### How?
