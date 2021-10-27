@@ -55,7 +55,7 @@ class GithubAdapter implements GithubInterface {
 
     try {
       // @todo add per_page (count) parameter when/if KnpLabs/php-github-api supports it.
-      $results = $this->githubClient->api('search')->issues("is:pr is:open repo:{$repo} {$string}");
+      $results = $this->githubClient->search()->issues("is:pr is:open repo:{$repo} {$string}");
     }
     catch (\Exception $e) {
       $variables = Error::decodeException($e);
