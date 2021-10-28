@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Listen for XDebug",
+      "name": "Listen for XDebug (Lando)",
       "type": "php",
       "request": "launch",
       "port": 9003,
@@ -10,6 +10,16 @@
       "pathMappings": {
         "/app/": "${workspaceFolder}",
         "/opt/drush/8/drush/drush": "${env:HOME}/.config/composer/vendor/drush/drush",
+      }
+    },
+    {
+      "name": "Listen for XDebug (ddev)",
+      "type": "php",
+      "request": "launch",
+      "port": 9000,
+      "log": false,
+      "pathMappings": {
+        "/var/www/html/": "${workspaceFolder}"
       }
     }
   ]
