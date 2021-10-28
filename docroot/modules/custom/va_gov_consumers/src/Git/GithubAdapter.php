@@ -66,6 +66,27 @@ class GithubAdapter implements GithubInterface {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function triggerWorkflow(string $action_name, string $ref, array $params = []): void {
+    list($user, $repo) = explode('/', $this->repositoryPath);
+
+    try {
+      $this->githubClient->repositories()->workflows()->dispatches(
+          $user,
+          $repo,
+          $action_name,
+          $ref,
+          $params
+        );
+    }
+    catch (\Exception $e) {
+      $variables = Error::decodeException($e);
+      $this->logger->error('%type: @message in %function (line %line of %file).', $variables);
+    }
+  }
+
+  /**
    * Get the repository path.
    *
    * @return string
