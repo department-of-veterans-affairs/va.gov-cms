@@ -4,6 +4,6 @@
 ## Usage: migrate-sync
 
 set -e
-cp -r $DDEV_APPROOT/docroot/modules/custom/va_gov_migrate/config/install/. $DDEV_APPROOT/config/sync
-$DDEV_APPROOT/bin/drush config-import -y
-$DDEV_APPROOT/bin/drush config-export -y
+cp -r ./docroot/modules/custom/va_gov_migrate/config/install/. ./config/sync
+./bin/drush config-import -y
+./bin/drush config-export -y

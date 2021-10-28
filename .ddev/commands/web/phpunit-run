@@ -4,4 +4,4 @@
 ## Usage: phpunit-run path/to/test --filter testname
 
 set -e
-$DDEV_APPROOT/bin/phpunit --debug --exclude-group disabled --verbose --colors=always $@
+./bin/phpunit --debug --exclude-group disabled --verbose --colors=always $@
