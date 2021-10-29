@@ -1,0 +1,9 @@
+#!/bin/bash
+
+## Description: Copy migration ymls from va_gov_migrate to config/sync and run config import. Always edit in va_gov_migrate.
+## Usage: migrate-sync
+
+set -e
+cp -r ./docroot/modules/custom/va_gov_migrate/config/install/. ./config/sync
+./bin/drush config-import -y
+./bin/drush config-export -y

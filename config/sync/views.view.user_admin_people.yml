@@ -1497,8 +1497,8 @@ display:
           label: 'Last access'
           exclude: false
           alter:
-            alter_text: false
-            text: ''
+            alter_text: true
+            text: "{% if access == \"January 1, 1970, 12:00am\" %}Never\r\n{% else %} {{access}}\r\n{% endif %}"
             make_link: false
             path: ''
             absolute: false
@@ -1540,7 +1540,7 @@ display:
           settings:
             date_format: custom
             custom_date_format: 'F j, Y, g:ia'
-            timezone: ''
+            timezone: UTC
           group_column: value
           group_columns: {  }
           group_rows: true

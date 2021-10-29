@@ -1,0 +1,7 @@
+#!/bin/bash
+
+## Description: Run specific PHPUnit tests
+## Usage: phpunit-run path/to/test --filter testname
+
+set -e
+./bin/phpunit --debug --exclude-group disabled --verbose --colors=always $@
