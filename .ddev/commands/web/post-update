@@ -1,0 +1,9 @@
+#!/bin/bash
+
+## Description: Run updates after pulling new code
+## Usage: post-update
+
+set -e
+composer install
+drush updatedb --cache-clear=0 -y
+drush cache:rebuild -y
