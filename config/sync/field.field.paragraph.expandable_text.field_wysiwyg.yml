@@ -6,7 +6,13 @@ dependencies:
     - field.storage.paragraph.field_wysiwyg
     - paragraphs.paragraphs_type.expandable_text
   module:
+    - allowed_formats
     - text
+third_party_settings:
+  allowed_formats:
+    rich_text: rich_text
+    rich_text_limited: '0'
+    plain_text: '0'
 id: paragraph.expandable_text.field_wysiwyg
 field_name: field_wysiwyg
 entity_type: paragraph

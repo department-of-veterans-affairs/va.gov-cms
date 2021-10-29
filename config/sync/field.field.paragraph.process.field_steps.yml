@@ -6,7 +6,13 @@ dependencies:
     - field.storage.paragraph.field_steps
     - paragraphs.paragraphs_type.process
   module:
+    - allowed_formats
     - text
+third_party_settings:
+  allowed_formats:
+    rich_text: rich_text
+    rich_text_limited: '0'
+    plain_text: '0'
 id: paragraph.process.field_steps
 field_name: field_steps
 entity_type: paragraph
