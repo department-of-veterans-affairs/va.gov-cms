@@ -6,6 +6,7 @@ use Drupal\node\NodeInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
+use Drupal\field_event_dispatcher\Event\Field\WidgetFormAlterEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -229,11 +230,35 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Widget form alter Event call.
+   *
+   * @param \Drupal\field_event_dispatcher\Event\Field\WidgetFormAlterEvent $event
+   *   The event.
+   */
+  public function paragraphsExperimentalWidgetAlter(WidgetFormAlterEvent $event): void {
+    $form = &$event->getElement();
+    $this->removeCollapseButton($form);
+  }
+
+  /**
+   * Remove collapse button on button paragraphs widget forms.
+   *
+   * @param array $form
+   *   The form.
+   */
+  public function removeCollapseButton(array &$form) {
+    if (!empty($form['#paragraph_type']) && $form['#paragraph_type'] === 'button') {
+      unset($form['top']['actions']['actions']['collapse_button']);
+    }
+  }
+
+  /**
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
     return [
       HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'entityPresave',
+      HookEventDispatcherInterface::WIDGET_FORM_ALTER => 'paragraphsExperimentalWidgetAlter',
       'hook_event_dispatcher.form_node_person_profile_form.alter' => 'alterStaffProfileNodeForm',
       'hook_event_dispatcher.form_node_person_profile_edit_form.alter' => 'alterStaffProfileNodeForm',
       'hook_event_dispatcher.form_node_centralized_content_edit_form.alter' => 'alterCentralizedContentNodeForm',

@@ -229,7 +229,7 @@ Feature: CMS Users may effectively create & edit content
     And I am at "node/add/campaign_landing_page"
     And I fill in "Page title" with "BeHat Required Field"
     And I press "Add Call to action"
-    And I fill in "Button Link" with "/node/2418"
+    And I fill in "Link" with "/node/2418"
     And I check "Enable this page segment"
     And I press "Save"
     Then I should see "Introduction field is required."
