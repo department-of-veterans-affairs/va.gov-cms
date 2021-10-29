@@ -100,7 +100,7 @@ The goal for this week is to get you set up with the tools you need to be succes
  - [ ] What do I need to know about my discipline on this team (DevOps, Engineering, Helpdesk, ID, UX)? Discuss with your discipline lead.
  - [ ] What applications or discipline-specific tools are needed? Discuss with your discipline lead.
 
-Keep only the discipline that applies to you, delete the other disciplines.
+<Keep only the discipline that applies to you below, delete the other disciplines.>
 
 #### Onboarding for Developers
  - [ ] PIV login on production (SOCKS or VA access required)
