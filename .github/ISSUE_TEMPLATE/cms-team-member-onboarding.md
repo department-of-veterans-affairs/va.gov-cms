@@ -36,6 +36,8 @@ Projected start date: <insert_here>
 
 ## Week one
 The goals of this week are: 1) get background paperwork completed as quickly as possible and 2) start gaining context for what we're doing and why
+- [ ] Requesting secure access to the VA systems you need: **PTEMS** paperwork is through Liberty and **VFS-CMS** paperwork through A6. If you're not sure which you should fill out, ask your delivery manager. Federal contractors are required to complete many of the same forms as federal employees.
+- e-QIP, the online version of the federal standard investigation form, SF 86, will require a lot of background information. [Review page 7 of the SF 86 guide](https://www.dcsa.mil/Portals/91/Documents/pv/mbi/standard-form-sf-86-guide-for-applicants.pdf) for the list of information you'll need to collect to complete e-QIP
 ### Why?
 - [ ] Why is VA.gov using Drupal CMS and how is our success measured? Read the [objectives and key results](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/96698383/Product+CMS).
 - [ ] Why are Vet Centers important to Veterans? Watch the [2-minute YouTube video](https://www.youtube.com/watch?v=VMzkZNbKk1I).
@@ -43,7 +45,7 @@ The goals of this week are: 1) get background paperwork completed as quickly as 
 ### How?
 - [ ] [How does the VFS-CMS team work in an agile environment?](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/sprint-best-practices.md)
 - [ ] How do Agile 6, CivicActions, and Friends From The City work together on this project? Discuss with your delivery manager or product manager.
-- [ ] How do you get secure access to the VA systems you need? **PTEMS** paperwork is through Liberty and **VFS-CMS** paperwork through A6. If you're not sure which you should fill out, ask your delivery manager.
+
 ### Who?
 - [ ] Ensure that your info on the [official team roster](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/185270337/Team+Roster+2021) is correct.
 - [ ] Let's start introducing you to the team and key stakeholders. If you're on a meeting where you don't know someone, feel free to kickstart an introduction. Everyone in the ecosystem is friendly and interested in connecting.
