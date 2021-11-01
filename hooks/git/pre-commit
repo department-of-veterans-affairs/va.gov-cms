@@ -12,8 +12,10 @@ if [ $no_match_vagov == 1 ] && [ $no_match_vacms == 1 ]; then
 fi
 
 # Run lints as pre-commit check if lando is available.
-if [ -x "$(command -v lando)" ]; then
+if [ -x "$(command -v lando)" ] && docker ps | grep lando > /dev/null; then
   lando pre-commit
+elif [ -x "$(command -v ddev)" ] && docker ps | grep ddev > /dev/null; then
+  ddev pre-commit
 else
   # Run PHP Codesniffer as pre-commit check.
   composer va:test:cs
