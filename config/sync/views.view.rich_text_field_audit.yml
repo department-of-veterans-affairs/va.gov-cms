@@ -29,6 +29,8 @@ dependencies:
     - node.type.support_resources_detail_page
     - node.type.vamc_operating_status_and_alerts
     - taxonomy.vocabulary.administration
+    - user.role.administrator
+    - user.role.content_admin
   module:
     - content_moderation
     - csv_serialization
@@ -54,9 +56,11 @@ display:
     position: 0
     display_options:
       access:
-        type: perm
+        type: role
         options:
-          perm: 'access content'
+          role:
+            content_admin: content_admin
+            administrator: administrator
       cache:
         type: tag
         options: {  }
@@ -1252,7 +1256,7 @@ display:
         - url.query_args
         - user
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags:
         - 'config:field.storage.node.body'
         - 'config:field.storage.node.field_additional_information_abo'
@@ -1265,11 +1269,12 @@ display:
   content_audit_rich_text:
     display_plugin: page
     id: content_audit_rich_text
-    display_title: Page
+    display_title: 'Content Audit - Rich Text Fields'
     position: 1
     display_options:
       display_extenders: {  }
       path: admin/content/audit/rich-text-field-audit
+      display_description: ''
     cache_metadata:
       max-age: -1
       contexts:
@@ -1279,7 +1284,7 @@ display:
         - url.query_args
         - user
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags:
         - 'config:field.storage.node.body'
         - 'config:field.storage.node.field_additional_information_abo'
@@ -1289,15 +1294,15 @@ display:
         - 'config:field.storage.node.field_press_release_blurb'
         - 'config:field.storage.node.field_press_release_fulltext'
         - 'config:workflow_list'
-  data_export_1:
+  rich_text_audit_data_export:
     display_plugin: data_export
-    id: data_export_1
+    id: rich_text_audit_data_export
     display_title: 'Data export'
     position: 3
     display_options:
       display_extenders: {  }
       path: admin/content/audit/rich-text-field-audit.csv
-      filename: rich-text-field-audit
+      filename: rich-text-field-audit.csv
       automatic_download: false
       store_in_public_file_directory: null
       redirect_to_display: none
@@ -1678,7 +1683,7 @@ display:
           group_type: group
           admin_label: ''
           label: 'Additional registration  information'
-          exclude: true
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -1740,7 +1745,7 @@ display:
           group_type: group
           admin_label: ''
           label: 'Full text of the Press Release'
-          exclude: true
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -1802,7 +1807,7 @@ display:
           group_type: group
           admin_label: ''
           label: 'Press Release Blurb'
-          exclude: true
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -1864,7 +1869,7 @@ display:
           group_type: group
           admin_label: ''
           label: 'Body text'
-          exclude: true
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -1926,7 +1931,7 @@ display:
           group_type: group
           admin_label: ''
           label: 'Any information that is additional to any time-sensitive situation updates'
-          exclude: true
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -1991,11 +1996,59 @@ display:
             delimiter: ','
             enclosure: '"'
             escape_char: \
-            strip_tags: true
+            strip_tags: false
             trim: true
             encoding: utf8
             utf8_bom: '0'
             use_serializer_encode_only: false
+      displays:
+        content_audit_rich_text: content_audit_rich_text
+        default: '0'
+      export_limit: 0
+      pager:
+        type: some
+        options:
+          items_per_page: 0
+          offset: 0
+      row:
+        type: data_field
+        options:
+          field_options:
+            nid:
+              alias: ''
+              raw_output: false
+            moderation_state:
+              alias: ''
+              raw_output: false
+            title:
+              alias: ''
+              raw_output: false
+            type:
+              alias: ''
+              raw_output: false
+            field_administration:
+              alias: ''
+              raw_output: false
+            body:
+              alias: ''
+              raw_output: true
+            field_additional_information_abo:
+              alias: ''
+              raw_output: true
+            field_press_release_fulltext:
+              alias: ''
+              raw_output: true
+            field_press_release_blurb:
+              alias: ''
+              raw_output: true
+            field_full_story:
+              alias: ''
+              raw_output: true
+            field_banner_alert_situationinfo:
+              alias: ''
+              raw_output: true
+      export_method: batch
+      export_batch_size: 1000
     cache_metadata:
       max-age: -1
       contexts:
@@ -2005,7 +2058,7 @@ display:
         - url
         - user
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags:
         - 'config:field.storage.node.body'
         - 'config:field.storage.node.field_additional_information_abo'
