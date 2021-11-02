@@ -1,0 +1,102 @@
+version: '2.3'
+
+x-volumes:
+  &default-volumes
+    volumes:
+      - .:/app:delegated
+      - files:/app/web/sites/default/files
+
+x-environment:
+  &default-environment
+    LAGOON_ROUTE: &default-url http://${COMPOSE_PROJECT_NAME:-va-gov-cms}.docker.amazee.io
+
+x-user:
+  &default-user
+    user: '1000'
+
+volumes:
+  files:
+    {}
+
+services:
+
+  cli:
+    build:
+      context: .
+      dockerfile: lagoon/cli.dockerfile
+    image: &cli-image ${COMPOSE_PROJECT_NAME:-va-gov-cms}-cli
+    labels:
+      lagoon.type: cli-persistent
+      lagoon.persistent.name: nginx
+      lagoon.persistent: /app/web/sites/default/files/
+      lando.type: php-cli-drupal
+    << : *default-volumes
+    user: root
+    volumes_from:
+      - container:amazeeio-ssh-agent
+    environment:
+      << : *default-environment
+
+  nginx:
+    build:
+      context: .
+      dockerfile:
+      args:
+        CLI_IMAGE: *cli-image
+    labels:
+      lagoon.type: nginx-php-persistent
+      lagoon.persistent: /app/web/sites/default/files/
+      lando.type: nginx-drupal
+    << : *default-volumes
+    << : *default-user
+    depends_on:
+      - cli
+    environment:
+      << : *default-environment
+      LAGOON_LOCALDEV_URL: *default-url
+    networks:
+      - amazeeio-network
+      - default
+
+  php:
+    build:
+      context: .
+      dockerfile: lagoon/php.dockerfile
+      args:
+        CLI_IMAGE: *cli-image
+    labels:
+      lagoon.type: nginx-php-persistent
+      lagoon.name: nginx
+      lagoon.persistent: /app/web/sites/default/files/
+      lando.type: php-fpm
+    << : *default-volumes
+    << : *default-user
+    depends_on:
+      - cli
+    environment:
+      << : *default-environment
+
+  mariadb:
+    image: uselagoon/mariadb-10.5-drupal:latest
+    labels:
+      lagoon.type: mariadb
+      lando.type: mariadb-drupal
+    ports:
+      - "3306"
+    << : *default-user
+    environment:
+      << : *default-environment
+
+  solr:
+    image: uselagoon/solr-7.7-drupal:latest
+    labels:
+      lagoon.type: solr
+      lando.type: solr-drupal
+    ports:
+      - "8983"
+    environment:
+      << : *default-environment
+
+networks:
+  amazeeio-network:
+    external: true

@@ -1,0 +1,90 @@
+docker-compose-yaml: docker-compose.yaml
+
+environment_variables:
+  git_sha: 'true'
+
+tasks:
+  pre-rollout:
+    - run:
+        name: drush sql-dump
+        command: |
+          mkdir -p /app/web/sites/default/files/private/
+          drush sql-dump --ordered-dump --gzip --result-file=/app/web/sites/default/files/private/pre-deploy-dump.sql.gz
+        service: cli
+  post-rollout:
+    - run:
+        name: Different tasks based on Branch Name
+        command: |
+          if [[ "${LAGOON_GIT_BRANCH}" != 'master' ]]; then
+            :
+          else
+            if tables=$(drush sqlq 'show tables;') && [ -z "$tables" ]; then
+                drush sql-sync @lagoon.master @self
+                drush rsync @lagoon.master:%files @self:%files -- --omit-dir-times --no-perms --no-group --no-owner --chmod=ugo=rwX
+            fi
+          fi
+        service: cli
+    - run:
+        name: drush deploy
+        command: drush deploy
+        service: cli
+        shell: bash
+
+routes:
+  autogenerate:
+    allowPullrequests: true
+    enabled: true
+    insecure: Allow
+  prefixes:
+    - www
+
+environments:
+  main:
+    monitoring_urls:
+      - "https://prod.cms.va.gov"
+      - "https://prod.cms.va.gov/user/login"
+    routes:
+      - nginx:
+        - 'prod.cms.va.gov':
+            tls-acme: 'true'
+            insecure: Redirect
+            hsts: max-age=31536000
+    types:
+      mariadb: mariadb
+    templates:
+      mariadb: mariadb.main.deployment.yml
+    rollouts:
+      mariadb: statefulset
+    cronjobs:
+     - name: drush cron
+       schedule: "M/15 * * * *" # This will run the cron once per hour.
+       command: drush cron
+       service: cli
+  staging:
+    routes:
+      - nginx:
+        - 'dev.cms.va.gov':
+            tls-acme: 'true'
+            insecure: Redirect
+            hsts: max-age=31536000
+        - 'staging.cms.va.gov':
+            tls-acme: 'true'
+            insecure: Redirect
+            hsts: max-age=31536000
+    cronjobs:
+     - name: drush cron
+       schedule: "M * * * *" # This will run the cron once per hour.
+       command: drush cron
+       service: cli
+  dev:
+    routes:
+      - nginx:
+        - 'dev.cms.va.gov':
+            tls-acme: 'true'
+            insecure: Redirect
+            hsts: max-age=31536000
+    cronjobs:
+     - name: drush cron
+       schedule: "M * * * *" # This will run the cron once per hour.
+       command: drush cron
+       service: cli
