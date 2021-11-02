@@ -4,7 +4,7 @@ x-volumes:
   &default-volumes
     volumes:
       - .:/app:delegated
-      - files:/app/web/sites/default/files
+      - files:/app/docroot/sites/default/files
 
 x-environment:
   &default-environment
@@ -28,7 +28,7 @@ services:
     labels:
       lagoon.type: cli-persistent
       lagoon.persistent.name: nginx
-      lagoon.persistent: /app/web/sites/default/files/
+      lagoon.persistent: /app/docroot/sites/default/files/
       lando.type: php-cli-drupal
     << : *default-volumes
     user: root
@@ -45,7 +45,7 @@ services:
         CLI_IMAGE: *cli-image
     labels:
       lagoon.type: nginx-php-persistent
-      lagoon.persistent: /app/web/sites/default/files/
+      lagoon.persistent: /app/docroot/sites/default/files/
       lando.type: nginx-drupal
     << : *default-volumes
     << : *default-user
@@ -67,7 +67,7 @@ services:
     labels:
       lagoon.type: nginx-php-persistent
       lagoon.name: nginx
-      lagoon.persistent: /app/web/sites/default/files/
+      lagoon.persistent: /app/docroot/sites/default/files/
       lando.type: php-fpm
     << : *default-volumes
     << : *default-user
