@@ -67,6 +67,7 @@ Feature: Views
 | Users in section | users_in_section | Section association | Enabled | Views of users associated to a section |
 | CMS Knowledge Base search results | knowledge_base_search_results | Index Knowledge base search | Enabled |  |
 | Knowledge Base Article administration | knowledge_base_article_administration | Content | Enabled | Audits and tools for managing Knowledge Base Articles |
+| Non-clinical services | non_clinical_services | Content | Enabled | Views of non-clinical services content placed within several "Top tasks" VAMC node forms. |
 
   @dst @views_displays
      Scenario: Views displays
@@ -143,6 +144,7 @@ Feature: Views
 | Health care service names and descriptions | Master | default | Default |
 | Health care service names and descriptions | VAMC health service and type of care - entity reference | entity_reference_vamc_services | Entity Reference |
 | Health care service names and descriptions | Vet Center health service and type of care - entity reference | entity_reference_vet_center_services | Entity Reference |
+| Health care service names and descriptions | Non clinical service | entity_reference_non_clinical_services | Entity Reference |
 | Image Style Warmer Warmup Files | Files overview  | page_1 | Page |
 | Image Style Warmer Warmup Files | Master | default | Default |
 | Local facilities entity reference view | Master | default | Default |
@@ -235,3 +237,7 @@ Feature: Views
 | CMS Knowledge Base search results | Page | knowledge_base_search_page | Page |
 | Knowledge Base Article administration | Master | default | Default |
 | Knowledge Base Article administration | Page | knowledge_base_admin | Page |
+| Non-clinical services | Admissions offices | admissions_offices | Block |
+| Non-clinical services | Billing and insurance offices | billing_and_insurance | Block |
+| Non-clinical services | Default | default | Default |
+| Non-clinical services | Medical records offices | medical_records_offices | Block |
