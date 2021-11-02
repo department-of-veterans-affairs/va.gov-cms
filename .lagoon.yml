@@ -63,10 +63,6 @@ environments:
   staging:
     routes:
       - nginx:
-        - 'dev.cms.va.gov':
-            tls-acme: 'true'
-            insecure: Redirect
-            hsts: max-age=31536000
         - 'staging.cms.va.gov':
             tls-acme: 'true'
             insecure: Redirect
