@@ -4,18 +4,16 @@ status: true
 dependencies:
   config:
     - field.field.node.vamc_system_register_for_care.field_administration
-    - field.field.node.vamc_system_register_for_care.field_admissions_office
     - field.field.node.vamc_system_register_for_care.field_cc_bottom_of_page_content
     - field.field.node.vamc_system_register_for_care.field_cc_related_links
     - field.field.node.vamc_system_register_for_care.field_cc_top_of_page_content
     - field.field.node.vamc_system_register_for_care.field_enforce_unique_combo
     - field.field.node.vamc_system_register_for_care.field_enforce_unique_combo_offic
     - field.field.node.vamc_system_register_for_care.field_office
-    - field.field.node.vamc_system_register_for_care.field_vamc_admin_servicelocation
+    - field.field.node.vamc_system_register_for_care.field_service_name_and_descripti
     - node.type.vamc_system_register_for_care
   module:
     - entity_field_fetch
-    - entity_reference_revisions
     - field_group
     - user
 third_party_settings:
@@ -47,15 +45,6 @@ targetEntityType: node
 bundle: vamc_system_register_for_care
 mode: default
 content:
-  field_admissions_office:
-    type: entity_reference_revisions_entity_view
-    weight: 8
-    label: above
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    region: content
   field_cc_bottom_of_page_content:
     type: entity_field_fetch
     weight: 7
@@ -77,14 +66,13 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-  field_vamc_admin_servicelocation:
-    weight: 9
+  field_service_name_and_descripti:
+    weight: 8
     label: above
     settings:
-      view_mode: default
-      link: ''
+      link: true
     third_party_settings: {  }
-    type: entity_reference_revisions_entity_view
+    type: entity_reference_label
     region: content
   links:
     weight: 0

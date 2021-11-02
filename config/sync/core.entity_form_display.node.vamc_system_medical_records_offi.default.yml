@@ -14,9 +14,8 @@ dependencies:
     - field.field.node.vamc_system_medical_records_offi.field_enforce_unique_combo
     - field.field.node.vamc_system_medical_records_offi.field_enforce_unique_combo_offic
     - field.field.node.vamc_system_medical_records_offi.field_fax_number
-    - field.field.node.vamc_system_medical_records_offi.field_medical_records_locations
     - field.field.node.vamc_system_medical_records_offi.field_office
-    - field.field.node.vamc_system_medical_records_offi.field_regional_health_service
+    - field.field.node.vamc_system_medical_records_offi.field_service_name_and_descripti
     - field.field.node.vamc_system_medical_records_offi.field_vamc_med_records_mailing
     - node.type.vamc_system_medical_records_offi
     - workflows.workflow.editorial
@@ -26,8 +25,6 @@ dependencies:
     - content_moderation
     - entity_field_fetch
     - field_group
-    - limited_field_widgets
-    - paragraphs
     - telephone
 third_party_settings:
   field_group:
@@ -35,7 +32,7 @@ third_party_settings:
       children:
         - moderation_state
       parent_name: ''
-      weight: 13
+      weight: 10
       format_type: fieldset
       region: content
       format_settings:
@@ -49,7 +46,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 12
+      weight: 9
       format_type: details_sidebar
       region: content
       format_settings:
@@ -67,7 +64,7 @@ third_party_settings:
         - field_cc_how_we_share_records
         - field_cc_related_links
       parent_name: ''
-      weight: 11
+      weight: 8
       format_type: tooltip
       region: content
       format_settings:
@@ -86,7 +83,7 @@ third_party_settings:
       children:
         - field_cc_get_records_mail_or_fax
       parent_name: ''
-      weight: 7
+      weight: 6
       format_type: tooltip
       region: content
       format_settings:
@@ -145,7 +142,7 @@ third_party_settings:
         - field_vamc_med_records_mailing
         - field_fax_number
       parent_name: ''
-      weight: 8
+      weight: 7
       format_type: fieldset
       region: content
       format_settings:
@@ -250,27 +247,6 @@ content:
     third_party_settings: {  }
     type: telephone_default
     region: content
-  field_medical_records_locations:
-    type: paragraphs
-    weight: 6
-    settings:
-      title: 'Release of information office location'
-      title_plural: 'Release of information office locations'
-      edit_mode: open
-      closed_mode: summary
-      autocollapse: none
-      closed_mode_threshold: 0
-      add_mode: button
-      form_display_mode: default
-      default_paragraph_type: service_location
-      features:
-        add_above: '0'
-        collapse_edit_all: '0'
-        duplicate: '0'
-    third_party_settings:
-      limited_field_widgets:
-        limit_values: '0'
-    region: content
   field_office:
     weight: 3
     settings: {  }
@@ -299,7 +275,7 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
-  field_regional_health_service: true
+  field_service_name_and_descripti: true
   path: true
   promote: true
   status: true

@@ -1,21 +1,21 @@
-uuid: f36d05f7-259b-4a33-943f-ad59c4dbcd60
+uuid: 47d00b2d-1a5e-403c-b6b3-a40461f933c7
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_vamc_admin_servicelocation
-    - node.type.vamc_system_billing_insurance
+    - field.storage.node.field_service_location
+    - node.type.vha_facility_nonclinical_service
     - paragraphs.paragraphs_type.service_location
   module:
     - entity_reference_revisions
-id: node.vamc_system_billing_insurance.field_vamc_admin_servicelocation
-field_name: field_vamc_admin_servicelocation
+id: node.vha_facility_nonclinical_service.field_service_location
+field_name: field_service_location
 entity_type: node
-bundle: vamc_system_billing_insurance
-label: 'Cashier''s office'
+bundle: vha_facility_nonclinical_service
+label: 'Service locations'
 description: ''
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:

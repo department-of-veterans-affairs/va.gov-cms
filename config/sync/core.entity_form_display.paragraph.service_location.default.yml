@@ -9,7 +9,6 @@ dependencies:
     - field.field.paragraph.service_location.field_hours
     - field.field.paragraph.service_location.field_phone
     - field.field.paragraph.service_location.field_service_location_address
-    - field.field.paragraph.service_location.field_service_location_facility
     - field.field.paragraph.service_location.field_use_main_facility_phone
     - paragraphs.paragraphs_type.service_location
   module:
@@ -180,12 +179,6 @@ content:
         collapse_edit_all: '0'
         duplicate: '0'
     third_party_settings: {  }
-  field_service_location_facility:
-    weight: 24
-    settings: {  }
-    third_party_settings: {  }
-    type: options_select
-    region: content
   field_use_main_facility_phone:
     type: boolean_checkbox
     weight: 21

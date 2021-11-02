@@ -12,12 +12,11 @@ dependencies:
     - field.field.node.vamc_system_billing_insurance.field_hours_for_copay_inquiries_
     - field.field.node.vamc_system_billing_insurance.field_office
     - field.field.node.vamc_system_billing_insurance.field_phone_number
-    - field.field.node.vamc_system_billing_insurance.field_vamc_admin_servicelocation
+    - field.field.node.vamc_system_billing_insurance.field_service_name_and_descripti
     - node.type.vamc_system_billing_insurance
   module:
     - allow_only_one
     - entity_field_fetch
-    - entity_reference_revisions
     - field_group
     - office_hours
     - user
@@ -112,14 +111,13 @@ content:
     third_party_settings: {  }
     type: basic_string
     region: content
-  field_vamc_admin_servicelocation:
-    type: entity_reference_revisions_entity_view
-    weight: 9
+  field_service_name_and_descripti:
+    weight: 12
     label: above
     settings:
-      view_mode: default
-      link: ''
+      link: true
     third_party_settings: {  }
+    type: entity_reference_label
     region: content
   links:
     weight: 0

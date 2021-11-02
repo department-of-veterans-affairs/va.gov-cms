@@ -1,6 +1,6 @@
 uuid: f19af67f-726c-4fd8-9e47-f71a6630d30c
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
@@ -15,9 +15,8 @@ dependencies:
     - field.field.node.vamc_system_medical_records_offi.field_enforce_unique_combo
     - field.field.node.vamc_system_medical_records_offi.field_enforce_unique_combo_offic
     - field.field.node.vamc_system_medical_records_offi.field_fax_number
-    - field.field.node.vamc_system_medical_records_offi.field_medical_records_locations
     - field.field.node.vamc_system_medical_records_offi.field_office
-    - field.field.node.vamc_system_medical_records_offi.field_regional_health_service
+    - field.field.node.vamc_system_medical_records_offi.field_service_name_and_descripti
     - field.field.node.vamc_system_medical_records_offi.field_vamc_med_records_mailing
     - node.type.vamc_system_medical_records_offi
   module:
@@ -49,8 +48,7 @@ hidden:
   field_enforce_unique_combo: true
   field_enforce_unique_combo_offic: true
   field_fax_number: true
-  field_medical_records_locations: true
   field_office: true
-  field_regional_health_service: true
+  field_service_name_and_descripti: true
   field_vamc_med_records_mailing: true
   search_api_excerpt: true
