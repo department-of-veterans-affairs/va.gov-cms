@@ -116,7 +116,7 @@ The goal for this week is to get you set up with the tools you need to be succes
 
 #### Onboarding for Developers
  - [ ] Contact CMS helpdesk on cms-team Slack for an administrator account on the [Drupal production environment](https://prod.cms.va.gov/) (SOCKS or VA access with PIV card required)
- - [ ] [Access to dev & staging for testing](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/5838) (SOCKS or VA access with PIV card required)
+ - [ ] [Access to dev & staging to be able to replicate the SSO piece of the login experience](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/5838) (SOCKS or VA access with PIV card required)
  - [ ] [Datadog](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html#Requestaccesstotools-Requestaccess) to access monitoring metrics
  - [ ] Review the [VA.gov Design System](https://design.va.gov/) which includes [how to provide feedback](https://design.va.gov/documentation/feedback)
 
@@ -129,7 +129,7 @@ The goal for this week is to get you set up with the tools you need to be succes
    - [ ] And request to be added to the `adhoc-vetsgov-devops` group.
  - [ ] sshuttle
 - [ ] Contact CMS helpdesk on cms-team Slack for an administrator account on the [Drupal production environment](https://prod.cms.va.gov/) (SOCKS or VA access with PIV card required)
-- [ ] [Access to dev & staging for testing](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/5838) (SOCKS or VA access required)
+- [ ] [Access to dev & staging to be able to replicate the SSO piece of the login experience](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/5838) (SOCKS or VA access required)
 
 #### Onboarding for Helpdesk members
  - [ ] [Review the helpdesk Github repo](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/platform/cms/helpdesk).
