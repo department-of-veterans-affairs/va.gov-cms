@@ -115,8 +115,8 @@ The goal for this week is to get you set up with the tools you need to be succes
 <Keep only the discipline that applies to you below, delete the other disciplines.>
 
 #### Onboarding for Developers
- - [ ] PIV login on production (SOCKS or VA access required)
- - [ ] [PIV login on dev & staging for testing](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/5838) (SOCKS or VA access required)
+ - [ ] Contact CMS helpdesk on cms-team Slack for an administrator account on the [Drupal production environment](https://prod.cms.va.gov/) (SOCKS or VA access with PIV card required)
+ - [ ] [Access to dev & staging for testing](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/5838) (SOCKS or VA access with PIV card required)
  - [ ] [Datadog](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html#Requestaccesstotools-Requestaccess) to access monitoring metrics
  - [ ] Review the [VA.gov Design System](https://design.va.gov/) which includes [how to provide feedback](https://design.va.gov/documentation/feedback)
 
@@ -128,7 +128,8 @@ The goal for this week is to get you set up with the tools you need to be succes
  - [ ] [AWS](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html#Requestaccesstotools-Requestaccess) (SOCKS required)
    - [ ] And request to be added to the `adhoc-vetsgov-devops` group.
  - [ ] sshuttle
- - [ ] [PIV login on dev & staging for testing](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/5838) (SOCKS or VA access required)
+- [ ] Contact CMS helpdesk on cms-team Slack for an administrator account on the [Drupal production environment](https://prod.cms.va.gov/) (SOCKS or VA access with PIV card required)
+- [ ] [Access to dev & staging for testing](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/5838) (SOCKS or VA access required)
 
 #### Onboarding for Helpdesk members
  - [ ] [Review the helpdesk Github repo](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/platform/cms/helpdesk).
