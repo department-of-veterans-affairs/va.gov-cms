@@ -13,19 +13,17 @@ dependencies:
     - paragraphs.paragraphs_type.react_widget
   module:
     - field_group
-    - link
-    - text
 third_party_settings:
   field_group:
     group_optional_sett:
       children:
-        - field_default_link
         - field_button_format
+        - field_default_link
         - field_error_message
         - field_loading_message
         - field_timeout
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: details
       format_settings:
         description: ''
@@ -33,75 +31,25 @@ third_party_settings:
         id: ''
         classes: ''
       label: 'Optional settings'
-      region: content
+      region: hidden
 id: paragraph.react_widget.default
 targetEntityType: paragraph
 bundle: react_widget
 mode: default
 content:
-  field_button_format:
-    type: boolean
-    weight: 4
-    region: content
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-  field_cta_widget:
-    type: boolean
-    weight: 0
-    region: content
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-  field_default_link:
-    type: link
-    weight: 3
-    region: content
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-  field_error_message:
-    type: text_default
-    weight: 5
-    region: content
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-  field_loading_message:
-    type: string
-    weight: 6
-    region: content
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-  field_timeout:
-    type: number_integer
-    weight: 7
-    region: content
-    label: above
-    settings:
-      thousand_separator: ''
-      prefix_suffix: true
-    third_party_settings: {  }
   field_widget_type:
-    weight: 1
-    label: above
+    weight: 0
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
     region: content
 hidden:
+  field_button_format: true
+  field_cta_widget: true
+  field_default_link: true
+  field_error_message: true
+  field_loading_message: true
+  field_timeout: true
   search_api_excerpt: true

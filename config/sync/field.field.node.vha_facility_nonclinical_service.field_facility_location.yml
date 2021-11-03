@@ -1,0 +1,33 @@
+uuid: 17d61adb-8923-4cdd-aa10-0acac3d35d88
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_facility_location
+    - node.type.vha_facility_nonclinical_service
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: false
+id: node.vha_facility_nonclinical_service.field_facility_location
+field_name: field_facility_location
+entity_type: node
+bundle: vha_facility_nonclinical_service
+label: Facility
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: local_facilities_entity_reference_view
+      display_name: entity_reference_1
+      arguments:
+        - all
+field_type: entity_reference

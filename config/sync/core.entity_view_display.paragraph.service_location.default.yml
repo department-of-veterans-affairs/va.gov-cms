@@ -50,6 +50,7 @@ third_party_settings:
       region: content
     group_address:
       children:
+        - field_service_location_facility
         - field_service_location_address
       parent_name: group_service_location
       weight: 1
@@ -124,7 +125,7 @@ content:
     region: content
   field_service_location_address:
     type: entity_reference_revisions_entity_view
-    weight: 1
+    weight: 7
     label: visually_hidden
     settings:
       view_mode: default

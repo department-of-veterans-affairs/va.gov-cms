@@ -25,7 +25,6 @@ Feature: Content model: VAMC Content Type fields
 | Content type | Event | Date and time | field_datetime_range_timezone | Smart date range |  | 1 | Date and time range with timezone |  |
 | Content type | Event | Where should the event be listed? | field_listing | Entity reference | Required | 1 | Select list |  |
 | Content type | Event | Facility location | field_facility_location | Entity reference |  | 1 | Select list |  |
-| Content type | Event | Featured | field_featured | Boolean |  | 1 | Single on/off checkbox | Translatable |
 | Content type | Event | Full event description | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
 | Content type | Event | Event image | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Content type | Event | Location type | field_location_type | List (text) |  | 1 | Select list |  |
@@ -37,6 +36,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | Event | Label | field_event_cta | List (text) |  | 1 | Select list |  |
 | Content type | Event | URL | field_link | Link |  | 1 | Linkit | Translatable |
 | Content type | Event | Online event link | field_url_of_an_online_event | Link |  | 1 | Linkit |  |
+| Content type | Event | Featured | field_featured | Boolean |  | 1 | Single on/off checkbox | Translatable |
 | Content type | Events List | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Events List | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | Events List | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
@@ -95,7 +95,6 @@ Feature: Content model: VAMC Content Type fields
 | Content type | Staff Profile | Related office or health care region | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Staff Profile | Suffix | field_suffix | Text (plain) |  | 1 | Textfield |  |
 | Content type | Story | Author | field_author | Entity reference |  | 1 | Autocomplete |  |
-| Content type | Story | Featured | field_featured | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Story | Body text | field_full_story | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
 | Content type | Story | Image | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Content type | Story | Caption | field_image_caption | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |
@@ -104,6 +103,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | Story | Order | field_order | List (integer) |  | 1 | Select list | Translatable |
 | Content type | Story | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Story | Where should the story be listed? | field_listing | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Story | Featured | field_featured | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Stories List | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | Stories List | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Stories List | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
@@ -205,6 +205,12 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System Billing and Insurance | National top of page content | field_cc_top_of_page_content | Entity Field Fetch field |  | 1 | Entity Field Fetch widget | Translatable |
 | Content type | VAMC System Billing and Insurance | Enforce unique combo section  | field_enforce_unique_combo | Allow Only One |  | 1 | Allow Only One widget | Translatable |
 | Content type | VAMC System Billing and Insurance | Enforce unique combo office | field_enforce_unique_combo_offic | Allow Only One |  | 1 | Allow Only One widget |  |
+| Content type | VAMC System Billing and Insurance | Hours | field_hours_for_copay_inquiries_ | Office hours |  | Unlimited | Office hours (week) |  |
+| Content type | VAMC System Billing and Insurance | Phone number | field_phone_number | Telephone number |  | 1 | Telephone number | Translatable |
+| Content type | VAMC System Billing and Insurance | Service | field_service_name_and_descripti | Entity reference |  | 1 | Select list | Translatable |
+| Content type | VAMC System Medical Records Office | Fax number | field_fax_number | Telephone number |  | 1 | Telephone number |  |
+| Content type | VAMC System Medical Records Office | Mailing address | field_vamc_med_records_mailing | Address |  | 1 | Address |  |
+| Content type | VAMC System Medical Records Office | Service | field_service_name_and_descripti | Entity reference |  | 1 | -- Disabled -- | Translatable |
 | Content type | VAMC System Medical Records Office | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC System Medical Records Office | FAQs | field_cc_faqs | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
 | Content type | VAMC System Medical Records Office | Get your records in person | field_cc_get_records_in_person | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
@@ -223,3 +229,4 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System Register for Care | Enforce unique combo office | field_enforce_unique_combo_offic | Allow Only One |  | 1 | Allow Only One widget | Translatable |
 | Content type | VAMC System Register for Care | Enforce unique combo section  | field_enforce_unique_combo | Allow Only One |  | 1 | Allow Only One widget | Translatable |
 | Content type | VAMC System Register for Care | VAMC System | field_office | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | VAMC System Register for Care | Service | field_service_name_and_descripti | Entity reference |  | 1 | Select list | Translatable |

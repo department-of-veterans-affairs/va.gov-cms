@@ -57,6 +57,7 @@ third_party_settings:
     group_vamc:
       children:
         - field_service_type_of_care
+        - field_non_clinical_service
         - field_also_known_as
         - field_commonly_treated_condition
         - description
@@ -79,14 +80,14 @@ mode: default
 content:
   description:
     type: text_textarea
-    weight: 10
+    weight: 11
     region: content
     settings:
       placeholder: ''
       rows: 5
     third_party_settings: {  }
   field_also_known_as:
-    weight: 8
+    weight: 9
     settings:
       size: 60
       placeholder: ''
@@ -94,7 +95,7 @@ content:
     type: string_textfield
     region: content
   field_commonly_treated_condition:
-    weight: 9
+    weight: 10
     settings:
       size: 60
       placeholder: ''

@@ -1,0 +1,22 @@
+uuid: 087a7d4f-9a34-4998-9fc6-60a058e1d8e4
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vha_facility_nonclinical_service
+id: node.vha_facility_nonclinical_service.promote
+field_name: promote
+entity_type: node
+bundle: vha_facility_nonclinical_service
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

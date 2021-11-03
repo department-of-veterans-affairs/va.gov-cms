@@ -1,0 +1,33 @@
+uuid: 44e700e6-cf1e-4f89-ba75-d4cf98c1669e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.vha_facility_nonclinical_service.field_administration
+    - field.field.node.vha_facility_nonclinical_service.field_facility_location
+    - field.field.node.vha_facility_nonclinical_service.field_service_location
+    - field.field.node.vha_facility_nonclinical_service.field_service_name_and_descripti
+    - node.type.vha_facility_nonclinical_service
+  module:
+    - entity_reference_revisions
+    - user
+id: node.vha_facility_nonclinical_service.default
+targetEntityType: node
+bundle: vha_facility_nonclinical_service
+mode: default
+content:
+  field_service_location:
+    weight: 0
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
+hidden:
+  field_administration: true
+  field_facility_location: true
+  field_service_name_and_descripti: true
+  links: true
+  search_api_excerpt: true

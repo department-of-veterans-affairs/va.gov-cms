@@ -1,0 +1,40 @@
+uuid: 71cbecfc-d698-4ec6-a8ca-cce9b5062efd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_service_name_and_descripti
+    - node.type.vamc_system_medical_records_offi
+    - taxonomy.vocabulary.health_care_service_taxonomy
+  content:
+    - 'taxonomy_term:health_care_service_taxonomy:8e336e3c-0b74-45a0-b1e8-4971a543bf58'
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: false
+id: node.vamc_system_medical_records_offi.field_service_name_and_descripti
+field_name: field_service_name_and_descripti
+entity_type: node
+bundle: vamc_system_medical_records_offi
+label: Service
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    target_uuid: 8e336e3c-0b74-45a0-b1e8-4971a543bf58
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      health_care_service_taxonomy: health_care_service_taxonomy
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

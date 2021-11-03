@@ -15,15 +15,12 @@ Feature: Content model bundles
 | Centralized Content | centralized_content | Content type | Common content for reuse on other content types. |
 | Checklist | checklist | Content type |  |
 | CMS Knowledge Base Article | documentation_page | Content type | Articles about how to use the VA.gov Drupal Content Management System (CMS). |
-| VAMC Detail Page | health_care_region_detail_page | Content type | For static pages where there's not another content type already available.  |
 | Event | event | Content type | For online or in-person events like support groups, outreach events, public lectures, and more. |
 | Events List | event_listing | Content type | A listing of events. |
 | FAQ - multiple Q&As | faq_multiple_q_a | Content type | Curated collection of Q&As. |
 | Health Services List | health_services_listing | Content type | A listing of health services. |
 | Landing Page | basic_landing_page | Content type | Basic Landing Page can be used to build one-off pages for various products. E.g. a homepage for a specific product. |
 | Leadership List | leadership_listing | Content type | A listing of staff profiles. |
-| Resources and support Detail Page | support_resources_detail_page | Content type |  |
-| VAMC System Locations List | locations_listing | Content type | A listing of VA facilities. |
 | Media list - Images | media_list_images | Content type |  |
 | Media list - Videos | media_list_videos | Content type |  |
 | NCA Facility | nca_facility | Content type | A facility within National Cemetery Administration system. |
@@ -33,33 +30,39 @@ Feature: Content model bundles
 | Publication | outreach_asset | Content type | Contains a document, image, or video, for publication within a Publication library. |
 | Publication Listing Page | publication_listing | Content type | This allows the listing of publication materials such as documents, videos, and images all in one place. |
 | Q&A | q_a | Content type | Single Question and Answer. |
+| Resources and support Detail Page | support_resources_detail_page | Content type |  |
 | Staff Profile | person_profile | Content type | Profiles of staff members for display in various places around the site. |
 | Step-by-Step | step_by_step | Content type | An ordered list (1, 2, 3, 4, N) of steps with Call to Action buttons. |
 | Stories List | story_listing | Content type | A listing of stories. |
 | Story | news_story | Content type | Community stories highlight the role of a VA facility, program, or healthcare system in a Veteran's journey. They may be a case study of a specific patient, a description of a new or successful program, or a community-interest story. |
 | Support Service | support_service | Content type | Help desks, hotlines, etc, to be contextually placed alongside relevant content. |
 | VA Form | va_form | Content type | VA forms available for download. Used to populate search results and also generate form landing pages |
+| VAMC Detail Page | health_care_region_detail_page | Content type | For static pages where there's not another content type already available.  |
 | VAMC Facility | health_care_local_facility | Content type | A clinic or hospital within a VAMC system. |
 | VAMC Facility Health Service | health_care_local_health_service | Content type | A facility specific description of a health care service, always embedded within a VAMC system description. |
 | VAMC System | health_care_region_page | Content type | A VAMC system contains multiple VHA health facilities, including usually at least one VAMC, sometimes more. |
 | VAMC System Banner Alert with Situation Updates | full_width_banner_alert | Content type | A full-width alert that will be added to a VAMC system, or multiple VAMC systems. |
+| VAMC System Billing and Insurance | vamc_system_billing_insurance | Content type |  |
 | VAMC System Health Service | regional_health_care_service_des | Content type | A description of a health service specific to a VAMC system, which appears on a VAMC's health services page and on facility pages, within accordions. |
+| VAMC System Locations List | locations_listing | Content type | A listing of VA facilities. |
+| VAMC System Medical Records Office | vamc_system_medical_records_offi | Content type |  |
 | VAMC System Operating Status | vamc_operating_status_and_alerts | Content type | Create one of these pages for each VAMC system. Then you can add banner alerts and update facilities' operating status, all from one place. |
 | VAMC System Policies Page | vamc_system_policies_page | Content type | Add policies specific to this VA medical center to appear on the Policies page. Local policies will appear alongside national policies that apply to all VAMCs. |
 | VAMC System Register for Care | vamc_system_register_for_care | Content type |  |
-| VAMC System Medical Records Office | vamc_system_medical_records_offi | Content type |  |
-| VAMC System Billing and Insurance | vamc_system_billing_insurance | Content type |  |
 | VBA Facility | vba_facility | Content type | A facility within Veterans Benefits Administration system. |
 | Vet Center | vet_center | Content type | Location and page content for community-based counseling centers. |
 | Vet Center - Community Access Point | vet_center_cap | Content type | Location information for Vet Center services situated in another organization. |
 | Vet Center - Facility Service | vet_center_facility_health_servi | Content type | Facility-specific description of a health service available at a Vet Center. |
 | Vet Center - Locations List | vet_center_locations_list | Content type | Page content that lists all facilities associated with a Vet Center, including nearby locations. |
+| Vet Center - Mobile Vet Center | vet_center_mobile_vet_center | Content type | Location information for Vet Center services provided out of an RV. |
+| Vet Center - Outstation | vet_center_outstation | Content type | Location information for remote facilities related to a main Vet Center. |
 | Alert | alert | Custom block type | An alert box that can be added to individual pages. |
 | Promo | promo | Custom block type | Promote a link with an image, title, and description. |
 | Document | document | Media type | A locally hosted document, such as a PDF. |
 | Document - External | document_external | Media type |  |
 | Image | image | Media type | Locally hosted images. |
 | Video | video | Media type | A video hosted by YouTube, Vimeo, or some other provider. |
+| Accordion | basic_accordion | Paragraph type |  |
 | Accordion group | collapsible_panel | Paragraph type | A group of accordions. |
 | Accordion Item | collapsible_panel_item | Paragraph type | An individual accordion. |
 | Additional information | spanish_translation_summary | Paragraph type | Text that expands to display additional information upon click. |
@@ -67,7 +70,6 @@ Feature: Content model bundles
 | Alert | alert | Paragraph type | A reusable or non-reusable alert, either "information status" or "warning status". |
 | Alert (single) | alert_single | Paragraph type |  |
 | Audience & Topics | audience_topics | Paragraph type | Audience & Topic selection for "Resources and Support" articles. |
-| Accordion | basic_accordion | Paragraph type |  |
 | Call to action | button | Paragraph type | Button with a label and link field. |
 | Centralized content descriptor | centralized_content_descriptor | Paragraph type | This should only be used on Centralized content nodes to provide a field level name and description for Centralized Content paragraphs. |
 | Checklist | checklist | Paragraph type |  |
@@ -103,15 +105,14 @@ Feature: Content model bundles
 | Step | step | Paragraph type | Single step. |
 | Step by step | step_by_step | Paragraph type | An ordered list (1, 2, 3, 4, N) of steps. |
 | Table | table | Paragraph type | Add an HTML table with rows and columns. |
+| VAMC Facility Non-clinical Service | vha_facility_nonclinical_service | Content type |  |
 | VAMC facility service (non-healthcare service) | health_care_local_facility_servi | Paragraph type | A service available at a specific health care facility, like Parking, or Chaplaincy. |
 | Audience - Beneficiaries | audience_beneficiaries | Vocabulary |  |
 | Audience - Non-beneficiaries | audience_non_beneficiaries | Vocabulary |  |
-| Resources and support Categories | lc_categories | Vocabulary |  |
 | Products | products | Vocabulary |  |
+| Resources and support Categories | lc_categories | Vocabulary |  |
 | Sections | administration | Vocabulary | Represents a hierarchy of the VA, partly for governance purposes. |
 | Topics | topics | Vocabulary |  |
 | Type of Redirect | type_of_redirect | Vocabulary |  |
 | VHA health service taxonomy | health_care_service_taxonomy | Vocabulary | Single source of truth for health service names, descriptions, patient-friendly names, and common conditions. |
-| Vet Center - Mobile Vet Center | vet_center_mobile_vet_center | Content type | Location information for Vet Center services provided out of an RV. |
-| Vet Center - Outstation | vet_center_outstation | Content type | Location information for remote facilities related to a main Vet Center. |
 
