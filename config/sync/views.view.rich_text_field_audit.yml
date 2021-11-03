@@ -113,6 +113,11 @@ display:
           description: ''
           columns:
             title: title
+            nid: nid
+            type: type
+            changed: changed
+            moderation_state: moderation_state
+            field_administration: field_administration
             body: body
             field_additional_information_abo: field_additional_information_abo
             field_press_release_fulltext: field_press_release_fulltext
@@ -120,9 +125,45 @@ display:
             field_full_story: field_full_story
             field_banner_alert_situationinfo: field_banner_alert_situationinfo
             nothing: nothing
+            edit_node: edit_node
           info:
             title:
-              sortable: false
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            nid:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            type:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            changed:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            moderation_state:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_administration:
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
@@ -171,6 +212,13 @@ display:
               empty_column: true
               responsive: ''
             nothing:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            edit_node:
+              sortable: false
+              default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
@@ -293,6 +341,59 @@ display:
           entity_type: node
           entity_field: nid
           plugin_id: field
+        edit_node_1:
+          id: edit_node_1
+          table: node_field_revision
+          field: edit_node
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: ''
+          exclude: false
+          alter:
+            alter_text: true
+            text: '<a href="/node/{{ nid }}/edit" class="button">Edit</a>'
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: '<a href="/node/{{ nid }}/edit" class="button">Edit</a>'
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          text: edit
+          output_url_as_text: false
+          absolute: false
+          entity_type: node
+          plugin_id: entity_link_edit
         type:
           id: type
           table: node_field_data
@@ -409,7 +510,7 @@ display:
           click_sort_column: value
           type: timestamp
           settings:
-            date_format: medium
+            date_format: short
             custom_date_format: ''
             timezone: ''
           group_column: value
@@ -972,115 +1073,7 @@ display:
           empty_zero: false
           hide_alter_empty: false
           plugin_id: custom
-        edit_node:
-          id: edit_node
-          table: node
-          field: edit_node
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: 'Link to edit Content'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          text: edit
-          output_url_as_text: false
-          absolute: false
-          entity_type: node
-          plugin_id: entity_link_edit
       filters:
-        moderation_state:
-          id: moderation_state
-          table: node_field_data
-          field: moderation_state
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: in
-          value:
-            all: all
-          group: 1
-          exposed: true
-          expose:
-            operator_id: moderation_state_op
-            label: 'Moderation state'
-            description: ''
-            use_operator: false
-            operator: moderation_state_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: moderation_state
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_api_consumer: '0'
-              content_creator_benefits_hubs: '0'
-              content_creator_resources_and_support: '0'
-              office_content_creator: '0'
-              vamc_content_creator: '0'
-              content_creator_vet_center: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              content_admin: '0'
-              redirect_administrator: '0'
-              admnistrator_users: '0'
-              administrator: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          entity_type: node
-          plugin_id: moderation_state_filter
         type:
           id: type
           table: node_field_data
@@ -1154,6 +1147,61 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: bundle
+        moderation_state:
+          id: moderation_state
+          table: node_field_data
+          field: moderation_state
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: in
+          value:
+            all: all
+          group: 1
+          exposed: true
+          expose:
+            operator_id: moderation_state_op
+            label: 'Moderation state'
+            description: ''
+            use_operator: false
+            operator: moderation_state_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: moderation_state
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: node
+          plugin_id: moderation_state_filter
         field_administration_target_id:
           id: field_administration_target_id
           table: node__field_administration
@@ -1277,21 +1325,21 @@ display:
             field_banner_alert_situationinfo: field_banner_alert_situationinfo
           plugin_id: combine
       sorts:
-        created:
-          id: created
+        changed:
+          id: changed
           table: node_field_data
-          field: created
-          order: DESC
-          entity_type: node
-          entity_field: created
-          plugin_id: date
+          field: changed
           relationship: none
           group_type: group
           admin_label: ''
+          order: DESC
           exposed: false
           expose:
             label: ''
           granularity: second
+          entity_type: node
+          entity_field: changed
+          plugin_id: date
       title: 'Content Audit - Rich Text Fields'
       header:
         area_text_custom:
