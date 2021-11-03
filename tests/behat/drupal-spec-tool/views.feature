@@ -67,6 +67,7 @@ Feature: Views
 | Users in section | users_in_section | Section association | Enabled | Views of users associated to a section |
 | CMS Knowledge Base search results | knowledge_base_search_results | Index Knowledge base search | Enabled |  |
 | Knowledge Base Article administration | knowledge_base_article_administration | Content | Enabled | Audits and tools for managing Knowledge Base Articles |
+| Rich Text Field Audit | rich_text_field_audit | Content | Enabled |  |
 | Non-clinical services | non_clinical_services | Content | Enabled | Views of non-clinical services content placed within several "Top tasks" VAMC node forms. |
 
   @dst @views_displays
@@ -237,6 +238,9 @@ Feature: Views
 | CMS Knowledge Base search results | Page | knowledge_base_search_page | Page |
 | Knowledge Base Article administration | Master | default | Default |
 | Knowledge Base Article administration | Page | knowledge_base_admin | Page |
+| Rich Text Field Audit | Default | default | Default |
+| Rich Text Field Audit | Content Audit - Rich Text Fields | content_audit_rich_text | Page |
+| Rich Text Field Audit | Data export | rich_text_audit_data_export | Data export |
 | Non-clinical services | Admissions offices | admissions_offices | Block |
 | Non-clinical services | Billing and insurance offices | billing_and_insurance | Block |
 | Non-clinical services | Default | default | Default |
