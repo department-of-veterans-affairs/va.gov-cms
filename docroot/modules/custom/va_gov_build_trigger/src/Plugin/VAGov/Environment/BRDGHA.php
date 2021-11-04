@@ -97,8 +97,8 @@ class BRDGHA extends EnvironmentPluginBase {
     $front_end_git_ref = $front_end_git_ref ?? "master";
 
     try {
-      $this->githubAdapter->triggerWorkflow('content-release', $front_end_git_ref, [
-        'release_wait' => 0,
+      $this->githubAdapter->triggerWorkflow('content-release.yml', $front_end_git_ref, [
+        'release_wait' => "0",
         'deploy_environment' => $this->settings->get('github_actions_deploy_env'),
       ]);
       $this->buildTimeRecorder->recordBuildTime();
@@ -109,7 +109,7 @@ class BRDGHA extends EnvironmentPluginBase {
       $this->messenger()->addStatus($message);
       $this->logger->info($message);
     }
-    catch (\Exception $exception) {
+    catch (\Throwable $exception) {
       $message = $this->t('Site rebuild request has failed with an Exception. Check the logs for the job at <a href="@job_link">@job_link</a> for more information. If this is the PROD environment please notify in #cms-support Slack and please email support@va-gov.atlassian.net immediately with the error message you see here.', [
         '@job_link' => 'https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml',
       ]);

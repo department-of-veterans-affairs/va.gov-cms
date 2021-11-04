@@ -71,19 +71,15 @@ class GithubAdapter implements GithubInterface {
   public function triggerWorkflow(string $action_name, string $ref, array $params = []): void {
     list($user, $repo) = explode('/', $this->repositoryPath);
 
-    try {
-      $this->githubClient->repositories()->workflows()->dispatches(
-          $user,
-          $repo,
-          $action_name,
-          $ref,
-          $params
-        );
-    }
-    catch (\Exception $e) {
-      $variables = Error::decodeException($e);
-      $this->logger->error('%type: @message in %function (line %line of %file).', $variables);
-    }
+    // Exceptions are intentionally *not* caught here - the caller should be
+    // able to catch them.
+    $this->githubClient->repositories()->workflows()->dispatches(
+        $user,
+        $repo,
+        $action_name,
+        $ref,
+        $params
+      );
   }
 
   /**
