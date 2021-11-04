@@ -7,6 +7,8 @@ assignees: ''
 
 ---
 
+<details><summary>Welcome!</summary>
+
 # Welcome to the VFS-CMS Team! 👋
 We're thrilled to have you join us on this journey! 🎆🎉🙌
 
@@ -24,6 +26,10 @@ Projected start date: <insert_here>
 - Product manager name: <insert_here>
 - Discipline lead name: <insert_here>
 
+</details>
+
+<details><summary>Day one</summary>
+
 ## Day one
 ### How?
 - [ ] Read through our [team norms](https://docs.google.com/document/d/1cs5FePhtR0LIJi63b9ZtqT7T6dphgB584UpfEbejSOc/edit#), which will also give an overview of how we apply the [USDS playbook](https://playbook.cio.gov/) and VA.gov platform [code of conduct](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/policies-work-norms/code-of-conduct.md).
@@ -33,6 +39,10 @@ Projected start date: <insert_here>
 - [ ] [Onboarding questionnaire](https://drive.google.com/drive/u/0/folders/1fYwNBBbceqRM3qXfes_KEg1QeO-Nkq0q?ths=true) (what do you already know in regards to tooling, context, history, etc)
 - [ ] Contract - Discuss with your delivery manager.
 - [ ] Read the [VA.gov platform mission and goals](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/VA.gov%20Platform%20Overview%202021.pdf).
+
+</details>
+
+<details><summary>Week one</summary>
 
 ## Week one
 The goals of this week are: 1) get background paperwork completed as quickly as possible and 2) start gaining context for what we're doing and why
@@ -51,6 +61,10 @@ The goals of this week are: 1) get background paperwork completed as quickly as 
 - [ ] Let's start introducing you to the team and key stakeholders. If you're on a meeting where you don't know someone, feel free to kickstart an introduction. Everyone in the ecosystem is friendly and interested in connecting.
 ### When?
 - [ ] Familiarize yourself with our team's [shared calendar](https://va-gov.atlassian.net/wiki/spaces/VAGOV/calendars) and add in any known dates. This is where we coordinate upcoming out of office (OOO). Choose "Calendar" = OOO and "Event type" = whatever is relevant.
+
+</details>
+
+<details><summary>Week two</summary>
 
 ## Week two
 The goal for this week is to get you set up with the tools you need to be successful. We will pair you up with a buddy on the project that is in your same discipline to help inform which ones are relevant and which aren't. **The most important thing is to get set up is SOCKS** as it will give you access to our systems so try to prioritize that.
@@ -97,7 +111,7 @@ The goal for this week is to get you set up with the tools you need to be succes
    
 - [ ] [Learn about the different Drupal environments](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/f4341c29ad8e998de1dac2fca0b749cdef15c923/READMES/environments.md)
   - [ ] If you are using a non-VA laptop for development you will need [follow the instructions on Github](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/https.md) to trust the VA Root Certificate Authority (CA) in your browser(s)
-  - [ ] Drupal production environment access (SOCKS or VA network required) - ask your delivery manager, product manager, or CMS Team helpdesk to set up an administrator account for you, access at prod.cms.va.gov
+  - [ ] Drupal production environment access (SOCKS or VA network required) - ask your delivery manager, product manager, or CMS Team helpdesk to set up an administrator account for you for [prod.cms.va.gov](prod.cms.va.gov)
 
 - [ ] [Confluence](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/179765342/2020-2021?NO_SSR=1) for team resources and calendar
 
@@ -112,10 +126,13 @@ The goal for this week is to get you set up with the tools you need to be succes
 - [ ] What do I need to know about my discipline on this team (DevOps, Engineering, Helpdesk, ID, UX)? Discuss with your discipline lead.
 - [ ] What applications or discipline-specific tools are needed? Discuss with your discipline lead.
 
+</details>
+
+<details><summary>Discipline specific onboarding (UX, developers, helpdesk, etc..)</summary>
+
 <Keep only the discipline that applies to you below, delete the other disciplines.>
 
 #### Onboarding for Developers
- - [ ] Contact CMS helpdesk on cms-team Slack for an administrator account on the [Drupal production environment](https://prod.cms.va.gov/) (SOCKS or VA access with PIV card required)
  - [ ] [Access to dev & staging to be able to replicate the SSO piece of the login experience](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/5838) (SOCKS or VA access with PIV card required)
  - [ ] [Datadog](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html#Requestaccesstotools-Requestaccess) to access monitoring metrics
  - [ ] Review the [VA.gov Design System](https://design.va.gov/) which includes [how to provide feedback](https://design.va.gov/documentation/feedback)
@@ -182,6 +199,10 @@ The goal for this week is to get you set up with the tools you need to be succes
 - [ ] Attend 1:1 w/ Kauff (maybe Clarence and Kev too)
    - Let’s talk about your skillsets and interests and which project initiatives you might want to take over.
 
+</details>
+
+<details><summary>Month one</summary>
+
 ## Month one
 By this point you should have enough context and access to be able to start contributing. Work with your team to identify specific issues to focus on.
 ### Who?
@@ -194,6 +215,12 @@ By this point you should have enough context and access to be able to start cont
  - [ ] [Opt out](https://depo-platform-documentation.scrollhelp.site/?internal-user-opt-out=true) of analytics for Platform's website. You will not get a confirmation message and will have to do this for every browser and every time you clear cookies.
  - [ ] [Browse the VA Drupal CMS Knowlege Base articles](https://prod.cms.va.gov/help/).
 
+</details>
+
+<details><summary>Month two</summary>
+
 ## Month two
 ### What additional tools do you need access to?
 - [ ] Mainly for helpdesk folks: [CMS Support distro group](https://mim.va.gov/IdentityManagement/default.aspx)
+
+</details>
