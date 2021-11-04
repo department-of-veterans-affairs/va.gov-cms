@@ -3,8 +3,14 @@
 namespace Drupal\va_gov_backend\EventSubscriber;
 
 use Drupal\node\NodeInterface;
+use Drupal\Component\Render\FormattableMarkup;
+use Drupal\Core\Entity\EntityFormInterface;
+use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\va_gov_user\Service\UserPermsService;
@@ -25,15 +31,31 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   protected $userPermsService;
 
   /**
+   * The entity manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManager
+   *  The entity manager.
+   */
+  private $entityTypeManager;
+
+  /**
    * Constructs the EventSubscriber object.
    *
+   * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
+   *   The string translation service.
    * @param \Drupal\va_gov_user\Service\UserPermsService $user_perms_service
    *   The current user perms service.
+   * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
+   *   The string translation service.
    */
   public function __construct(
-    UserPermsService $user_perms_service
+    TranslationInterface $string_translation,
+    UserPermsService $user_perms_service,
+    EntityTypeManager $entity_type_manager
   ) {
+    $this->stringTranslation = $string_translation;
     $this->userPermsService = $user_perms_service;
+    $this->entityTypeManager = $entity_type_manager;
   }
 
   /**
@@ -46,6 +68,143 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $entity = $event->getEntity();
     if ($entity instanceof NodeInterface) {
       $this->trimNodeTitleWhitespace($entity);
+    }
+  }
+
+  /**
+   * Alteration to entity view pages.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
+   *   The entity view alter service.
+   */
+  public function entityViewAlter(EntityViewAlterEvent $event):void {
+    $this->appendHealthServiceTermDescriptionToVetCenter($event);
+  }
+
+  /**
+   * Alterations to Vet center node forms.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function alterVetCenterNodeForm(FormIdAlterEvent $event): void {
+    $this->buildHealthServicesDescriptionArrayAddToSettings($event);
+  }
+
+  /**
+   * Alterations to VAMC regional health service node forms.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function alterRegionalHealthServiceNodeForm(FormIdAlterEvent $event): void {
+    $this->buildRegionalHealthServiceFormIntro($event);
+    $this->buildHealthServicesDescriptionArrayAddToSettings($event);
+  }
+
+  /**
+   * Builds h2 of VAMC System Health Service page type name and adds help text.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function buildRegionalHealthServiceFormIntro(FormIdAlterEvent $event): void {
+    $form = &$event->getForm();
+    $formatted_markup = new FormattableMarkup('<div class="services-intro-wrap"><h2>VAMC System Health Service</h2>
+    <p>Add services that Veterans can receive at one or more facilities in your health system.
+    Some content won’t be editable because it comes from other sources. For full guidance,
+    see <a target="_blank" href="@help_link">How to edit a VAMC System Health Service.</a></p></div>', [
+      '@help_link' => 'https://prod.cms.va.gov/help/vamc/how-to-add-a-vamc-system-health-service',
+    ]);
+    $form['field_service_name_and_descripti']['#prefix'] = $this->t('@markup', ['@markup' => $formatted_markup]);
+  }
+
+  /**
+   * Builds an array of descriptions from health services available on form.
+   *
+   * Adds the descriptions array built by this method to drupalSettings.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function buildHealthServicesDescriptionArrayAddToSettings(FormIdAlterEvent $event): void {
+    $form = &$event->getForm();
+    $form_state = $event->getFormState();
+    $fields = $this->getProductTypeTermFields($form, $form_state);
+    $service_terms = $this->entityTypeManager
+      ->getListBuilder('taxonomy_term')
+      ->getStorage()
+      ->loadByProperties([
+        'vid' => 'health_care_service_taxonomy',
+      ]);
+    $descriptions = [];
+    foreach ($service_terms as $service_term) {
+      /** @var \Drupal\taxonomy\Entity\Term $service_term */
+      $descriptions[$service_term->id()] = [
+        'type' => $service_term->get($fields['type'])->getSetting('allowed_values')[$service_term->get($fields['type'])->getString()] ?? NULL,
+        'name' => $service_term->get($fields['name'])->getString(),
+        'conditions' => $service_term->get($fields['conditions'])->getString(),
+        'description' => trim(strip_tags($service_term->get($fields['description'])->value)),
+      ];
+    }
+    $form['#attached']['drupalSettings']['availableHealthServices'] = $descriptions;
+    $form['#attached']['library'][] = 'va_gov_backend/display_service_descriptions';
+  }
+
+  /**
+   * Builds an array of term fields predicated by product type.
+   *
+   * @param array $form
+   *   The form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   *
+   * @return array
+   *   The taxonomy fields.
+   */
+  public function getProductTypeTermFields(array &$form, FormStateInterface $form_state) {
+    $fields = [];
+    if ($form_state->getFormObject() instanceof EntityFormInterface) {
+      $bundle = $form_state->getFormObject()->getEntity()->bundle();
+      // Make the bundle available to displayServiceDescriptions.js.
+      $form['#attached']['drupalSettings']['currentNodeBundle'] = $bundle;
+      $fields = [
+        'type' => $bundle === 'vet_center' ? 'field_vet_center_type_of_care' : 'field_service_type_of_care',
+        'name' => $bundle === 'vet_center' ? 'field_vet_center_friendly_name' : 'field_also_known_as',
+        'conditions' => $bundle === 'vet_center' ? 'field_vet_center_com_conditions' : 'field_commonly_treated_condition',
+        'description' => $bundle === 'vet_center' ? 'field_vet_center_service_descrip' : 'description',
+      ];
+    }
+    return $fields;
+  }
+
+  /**
+   * Appends health service entity description to title on entity view page.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
+   *   The entity view alter service.
+   */
+  public function appendHealthServiceTermDescriptionToVetCenter(EntityViewAlterEvent $event):void {
+    if ($event->getDisplay()->getTargetBundle() === 'vet_center') {
+      $build = &$event->getBuild();
+      $services = isset($build['field_health_services']) ? $build['field_health_services'] : [];
+      foreach ($services as $key => $service) {
+        if (is_numeric($key) && !empty($service['#options'])) {
+          $service_node = $service['#options']['entity'];
+
+          // Look for real content in field_body. If just line breaks
+          // and empty tags use field_service_name_and_descripti.
+          $body_tags_removed = trim(strip_tags($service_node->get('field_body')->value));
+          $body_tags_and_ws_removed = str_replace("\r\n", "", $body_tags_removed);
+          $description = strlen($body_tags_and_ws_removed) > 15
+          ? '<br />' . trim($service_node->get('field_body')->value)
+          : '<br />' . trim($service_node->get('field_service_name_and_descripti')->entity->get('field_vet_center_service_descrip')->value);
+
+          $formatted_markup = new FormattableMarkup($description, []);
+          $build['field_health_services'][$key]['#suffix'] = $formatted_markup;
+        }
+      }
+
     }
   }
 
@@ -234,9 +393,14 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public static function getSubscribedEvents(): array {
     return [
       HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'entityPresave',
+      HookEventDispatcherInterface::ENTITY_VIEW_ALTER => 'entityViewAlter',
       'hook_event_dispatcher.form_node_person_profile_form.alter' => 'alterStaffProfileNodeForm',
       'hook_event_dispatcher.form_node_person_profile_edit_form.alter' => 'alterStaffProfileNodeForm',
       'hook_event_dispatcher.form_node_centralized_content_edit_form.alter' => 'alterCentralizedContentNodeForm',
+      'hook_event_dispatcher.form_node_vet_center_form.alter' => 'alterVetCenterNodeForm',
+      'hook_event_dispatcher.form_node_vet_center_edit_form.alter' => 'alterVetCenterNodeForm',
+      'hook_event_dispatcher.form_node_regional_health_care_service_des_form.alter' => 'alterRegionalHealthServiceNodeForm',
+      'hook_event_dispatcher.form_node_regional_health_care_service_des_edit_form.alter' => 'alterRegionalHealthServiceNodeForm',
     ];
   }
 
