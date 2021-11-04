@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   module:
+    - menu_force
     - menu_ui
     - node_revision_delete
     - node_title_help_text
@@ -16,10 +17,13 @@ third_party_settings:
     minimum_revisions_to_keep: 50
     minimum_age_to_delete: 0
     when_to_delete: 0
+  menu_force:
+    menu_force: 0
+    menu_force_parent: 0
 name: 'VAMC System Health Service'
 type: regional_health_care_service_des
 description: 'A description of a health service specific to a VAMC system, which appears on a VAMC''s health services page and on facility pages, within accordions.'
-help: 'This content appears on a VAMC''s health services page and on facility pages, within accordions.'
+help: ''
 new_revision: true
 preview_mode: 0
 display_submitted: false

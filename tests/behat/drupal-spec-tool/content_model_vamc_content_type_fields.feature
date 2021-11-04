@@ -177,8 +177,8 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System Health Service | Facility services | field_local_health_care_service_ | Entity reference |  | Unlimited | -- Disabled -- |  |
 | Content type | VAMC System Health Service | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC System Health Service | VAMC system | field_region_page | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | VAMC System Health Service | VAMC system description of service | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
-| Content type | VAMC System Health Service | Service | field_service_name_and_descripti | Entity reference | Required | 1 | Select list |  |
+| Content type | VAMC System Health Service | VAMC system service description | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
+| Content type | VAMC System Health Service | Service name | field_service_name_and_descripti | Entity reference | Required | 1 | Select list |  |
 | Content type | VAMC System Health Service | Enforce unique combo | field_enforce_unique_combo | Allow Only One |  | 1 | Allow Only One widget | Translatable |
 | Content type | VAMC System Operating Status | System-wide alerts | field_banner_alert | Entity reference |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
 | Content type | VAMC System Operating Status | Patient resources | field_operating_status_emerg_inf | Text (formatted, long) | Required | 1 | Text area (multiple rows) |  |
