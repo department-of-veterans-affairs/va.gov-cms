@@ -41,6 +41,7 @@ dependencies:
     - field.field.node.campaign_landing_page.field_hero_image
     - field.field.node.campaign_landing_page.field_media
     - field.field.node.campaign_landing_page.field_primary_call_to_action
+    - field.field.node.campaign_landing_page.field_related_office
     - field.field.node.campaign_landing_page.field_secondary_call_to_action
     - node.type.campaign_landing_page
     - workflows.workflow.editorial
@@ -76,7 +77,6 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
-        - revision_log
       parent_name: ''
       weight: 13
       format_type: fieldset
@@ -275,6 +275,7 @@ third_party_settings:
       label: FAQs
     group_connect_with_us:
       children:
+        - field_related_office
         - field_clp_connect_with_us
       parent_name: ''
       weight: 9
@@ -331,7 +332,7 @@ content:
     type: entity_browser_entity_reference
     region: content
   field_clp_connect_with_us:
-    weight: 39
+    weight: 44
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -434,6 +435,7 @@ content:
       collapsible: false
       collapsed: false
       allow_duplicate: false
+      allow_system_delete: false
     third_party_settings:
       entity_browser_entity_form:
         entity_browser_id: downloadable_resources
@@ -699,6 +701,7 @@ content:
       collapsible: false
       collapsed: false
       allow_duplicate: false
+      allow_system_delete: false
     third_party_settings:
       entity_browser_entity_form:
         entity_browser_id: promo_blocks_browser
@@ -763,6 +766,16 @@ content:
         collapse_edit_all: collapse_edit_all
         duplicate: duplicate
     third_party_settings: {  }
+    region: content
+  field_related_office:
+    weight: 43
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
     region: content
   field_secondary_call_to_action:
     type: paragraphs

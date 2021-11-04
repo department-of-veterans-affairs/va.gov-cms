@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.landing_page.field_plainlanguage_date
     - field.field.node.landing_page.field_promo
     - field.field.node.landing_page.field_related_links
+    - field.field.node.landing_page.field_related_office
     - field.field.node.landing_page.field_spokes
     - field.field.node.landing_page.field_support_services
     - field.field.node.landing_page.field_teaser_text
@@ -173,6 +174,14 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
+    region: content
+  field_related_office:
+    weight: 16
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
     region: content
   field_spokes:
     weight: 6
