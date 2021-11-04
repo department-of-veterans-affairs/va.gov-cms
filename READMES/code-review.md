@@ -2,7 +2,7 @@
 
 ## Guiding principles
 
-* Main/Master branch must always deployable
+* Main branch must always deployable
 * Tests must pass 
 * The cycle time from Pull Request open to Pull Request merged should be minimized
 * PR Owners must be empowered and trusted to merge code
