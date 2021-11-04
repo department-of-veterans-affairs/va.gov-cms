@@ -32,7 +32,7 @@ class GithubFactory implements ContainerAwareInterface {
 
     try {
       if ($token) {
-        $github->authenticate($token, NULL, Client::AUTH_HTTP_TOKEN);
+        $github->authenticate($token, NULL, Client::AUTH_ACCESS_TOKEN);
       }
     }
     catch (InvalidArgumentException $e) {

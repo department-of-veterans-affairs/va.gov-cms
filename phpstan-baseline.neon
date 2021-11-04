@@ -141,11 +141,6 @@ parameters:
 			path: docroot/modules/custom/va_gov_clone/src/CloneManager.php
 
 		-
-			message: "#^Call to an undefined method Github\\\\Api\\\\ApiInterface\\:\\:issues\\(\\)\\.$#"
-			count: 1
-			path: docroot/modules/custom/va_gov_consumers/src/Git/GithubAdapter.php
-
-		-
 			message: "#^Access to an undefined property Drupal\\\\va_gov_consumers\\\\Git\\\\GithubFactory\\:\\:\\$logger\\.$#"
 			count: 1
 			path: docroot/modules/custom/va_gov_consumers/src/Git/GithubFactory.php
@@ -214,6 +209,11 @@ parameters:
 			message: "#^Variable \\$nids might not be defined\\.$#"
 			count: 1
 			path: docroot/modules/custom/va_gov_db/va_gov_db.post_update.php
+
+		-
+			message: "#^Call to an undefined method Github\\\\Api\\\\AbstractApi\\:\\:issues\\(\\).$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_consumers/src/Git/GithubAdapter.php
 
 		-
 			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\ContentEntityInterface\\:\\:isPublished\\(\\)\\.$#"
@@ -652,4 +652,3 @@ parameters:
 			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
 			count: 3
 			path: tests/behat/Drupal/FeatureContext.php
-
