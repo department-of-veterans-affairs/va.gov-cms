@@ -1,6 +1,6 @@
 @api
 Feature: Content model: User guides Content Type fields
-  In order to enter structured content into my site
+  In order to enter structured content into my site 
   As a content editor
   I want to have content type fields that reflect my content model.
 
