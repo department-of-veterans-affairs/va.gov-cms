@@ -61,7 +61,7 @@ function va_gov_remove_health_service_node_headings(array &$sandbox) {
   foreach ($nodes as $node) {
     // Remove leading <h3> tag.
     $field_body = $node->get('field_body')->value;
-    $new_body = preg_replace('/<[hH]3>[cC]are [wW]e [pP]rovide at .+ [hH]ealth [cC]are<\/[hH]3>/', '', $field_body, 1);
+    $new_body = preg_replace('/<H3>Care We Provide at .+ Health Care<\/H3>/i', '', $field_body, 1);
 
     // Compare old and new node body and make sure its updated before saving.
     if ($field_body !== $new_body) {
@@ -80,11 +80,7 @@ function va_gov_remove_health_service_node_headings(array &$sandbox) {
       $node->setRevisionUserId(1317);
       $node->setChangedTime(time());
       $node->setRevisionCreationTime(time());
-
-      // Set revision log message.
-      $node->setRevisionLogMessage('Resaved node with leading h3 removed.');
-
-      // Save the changes.
+      $node->setRevisionLogMessage('Resaved node with leading h3 "Care we provide at ..." removed.');
       $node->save();
     }
 
@@ -110,7 +106,7 @@ function va_gov_remove_health_service_node_headings(array &$sandbox) {
     return "VAMC System Health Service node updates complete. {$sandbox['current']} / {$sandbox['total']}\n";
   }
 
-  return "Processing VAMC System Health Service nodes... {$sandbox['current']} / {$sandbox['total']}.\n";
+  return "Processed VAMC System Health Service nodes... {$sandbox['current']} / {$sandbox['total']}.\n";
 }
 
 /**
