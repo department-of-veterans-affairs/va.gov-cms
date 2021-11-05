@@ -565,7 +565,9 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     // Remove the default preview button from types not in workflow.
     /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
     $form_object = $form_state->getFormObject();
-    $node_type = $form_object->getEntity()->getEntityType();
+    /** @var \Drupal\node\NodeInterface $node */
+    $node = $form_object->getEntity();
+    $node_type = $node->getType();
 
     /** @var \Drupal\workflows\WorkflowInterface $workflow */
     $workflow = \Drupal::entityTypeManager()->getStorage('workflow')->load('editorial');
