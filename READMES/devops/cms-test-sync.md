@@ -4,11 +4,11 @@
 1. Enable, then run the sanitize DB job here > http://jenkins.vfs.va.gov/job/cms-test/job/cms-test-db-sanitize/, then disable it again. This will sanitize the newly synced PROD DB in CMS-TEST (not CMS) and make available for downstream CMS-TEST environments. 
 1. Enable the http://jenkins.vfs.va.gov/job/testing/job/cms-test/ job so that webhooks trigger the build and deploy to DEV and STAGING.
 1. (BE VERY CAREFUL HERE)   
-`git pull --rebase upstream master` then  `git push --force upstream-test master` (need to have these remotes setup, yours may be named differently).
+`git pull --rebase upstream main` then  `git push --force upstream-test main` (need to have these remotes setup, yours may be named differently).
 This will trigger a webhook to run this job, http://jenkins.vfs.va.gov/job/testing/job/cms-test/ and will automatically trigger a build and then deploy it to DEV and STAGING with the appropriate database state to allow tests to pass. If the job was disabled or the webhook never made it Jenkins (the firewall/TIC) blocks it sometimes), you need to trigger the [build](http://jenkins.vfs.va.gov/job/builds/job/cms-test/) and deploy jobs yourself. Remember that only the STAGING deploy runs tests that send commit status to GitHub. We need a passing commit status for the auto-deploy job to run, if you are testing that job for instance. Once the build is done, you can manually trigger the PROD deploy job here as well http://jenkins.vfs.va.gov/job/deploys/job/cms-test-vagov-prod/. 
 
 ## To quickly restore an older version of the database to cms-test
-1. Pull latest master from va.gov-cms and push to va.gov-cms-test # `git push --force upstream-test` if needed, be careful
+1. Pull latest main from va.gov-cms and push to va.gov-cms-test # `git push --force upstream-test` if needed, be careful
 1. Get commit from that was deployed at time of backup https://github.com/department-of-veterans-affairs/va.gov-cms-test/commits
 1. Copy S3 URL from https://console.amazonaws-us-gov.com/s3/object/dsva-vagov-prod-cms-backup
 1. SSM into server with `ssm-session vagov-prod cms-test auto`

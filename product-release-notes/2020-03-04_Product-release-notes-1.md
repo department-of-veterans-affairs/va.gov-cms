@@ -15,7 +15,7 @@
 
 ## 🔗 New: Content automatically tested to find broken links
 
-![link reports](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/product-release-notes/screenshots/1-node-link-reports-2.png)
+![link reports](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/product-release-notes/screenshots/1-node-link-reports-2.png)
 
 Broken links break builds, bringing big bummers! To avoid link-related problems, we’ve added a feature that will automatically test links and let you know what needs to be fixed.
 
@@ -28,12 +28,12 @@ Broken links break builds, bringing big bummers! To avoid link-related problems,
 
 ## 🔄 New: Form for rebuilding content demo environments
 
-![content demo environment](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/product-release-notes/screenshots/1-rebuild-form.png "content demo environment")
+![content demo environment](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/product-release-notes/screenshots/1-rebuild-form.png "content demo environment")
 
 We extended our testing infrastructure to be useful for other teams who want to demo their unpublished content. Teams can now use a self-service form to rebuild their own content demo environments. 
 
 * Training required: contact VACMSSupport@va.gov to get training before using this form
-* Check out [the latest documentation](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/environments.md#step-by-step-instructions-1) for step by step guidance
+* Check out [the latest documentation](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/environments.md#step-by-step-instructions-1) for step by step guidance
 
 ---
 

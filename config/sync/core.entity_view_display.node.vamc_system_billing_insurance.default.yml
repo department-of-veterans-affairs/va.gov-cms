@@ -9,12 +9,16 @@ dependencies:
     - field.field.node.vamc_system_billing_insurance.field_cc_top_of_page_content
     - field.field.node.vamc_system_billing_insurance.field_enforce_unique_combo
     - field.field.node.vamc_system_billing_insurance.field_enforce_unique_combo_offic
+    - field.field.node.vamc_system_billing_insurance.field_hours_for_copay_inquiries_
     - field.field.node.vamc_system_billing_insurance.field_office
+    - field.field.node.vamc_system_billing_insurance.field_phone_number
+    - field.field.node.vamc_system_billing_insurance.field_service_name_and_descripti
     - node.type.vamc_system_billing_insurance
   module:
     - allow_only_one
     - entity_field_fetch
     - field_group
+    - office_hours
     - user
 third_party_settings:
   field_group:
@@ -72,6 +76,48 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: allow_only_one
+    region: content
+  field_hours_for_copay_inquiries_:
+    weight: 11
+    label: above
+    settings:
+      day_format: long
+      time_format: G
+      compress: false
+      grouped: false
+      show_closed: all
+      closed_format: Closed
+      separator:
+        days: '<br />'
+        grouped_days: ' - '
+        day_hours: ': '
+        hours_hours: '-'
+        more_hours: ', '
+      current_status:
+        position: ''
+        open_text: 'Currently open!'
+        closed_text: 'Currently closed'
+      schema:
+        enabled: false
+      timezone_field: ''
+      office_hours_first_day: ''
+    third_party_settings: {  }
+    type: office_hours
+    region: content
+  field_phone_number:
+    weight: 10
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_service_name_and_descripti:
+    weight: 12
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
     region: content
   links:
     weight: 0

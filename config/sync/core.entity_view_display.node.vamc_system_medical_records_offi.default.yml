@@ -13,12 +13,17 @@ dependencies:
     - field.field.node.vamc_system_medical_records_offi.field_cc_top_of_page_content
     - field.field.node.vamc_system_medical_records_offi.field_enforce_unique_combo
     - field.field.node.vamc_system_medical_records_offi.field_enforce_unique_combo_offic
+    - field.field.node.vamc_system_medical_records_offi.field_fax_number
     - field.field.node.vamc_system_medical_records_offi.field_office
+    - field.field.node.vamc_system_medical_records_offi.field_service_name_and_descripti
+    - field.field.node.vamc_system_medical_records_offi.field_vamc_med_records_mailing
     - node.type.vamc_system_medical_records_offi
   module:
+    - address
     - allow_only_one
     - entity_field_fetch
     - field_group
+    - telephone
     - user
 third_party_settings:
   field_group:
@@ -32,7 +37,7 @@ third_party_settings:
         - field_cc_faqs
         - field_cc_related_links
       parent_name: ''
-      weight: 3
+      weight: 2
       format_type: tooltip
       region: content
       format_settings:
@@ -69,7 +74,7 @@ content:
     type: entity_field_fetch
     weight: 4
     region: content
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
   field_cc_how_we_share_records:
@@ -83,7 +88,7 @@ content:
     type: entity_field_fetch
     weight: 3
     region: content
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
   field_cc_related_links:
@@ -97,12 +102,12 @@ content:
     type: entity_field_fetch
     weight: 2
     region: content
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
   field_enforce_unique_combo:
     type: allow_only_one
-    weight: 10
+    weight: 3
     region: content
     label: above
     settings: {  }
@@ -114,6 +119,21 @@ content:
     third_party_settings: {  }
     type: allow_only_one
     region: content
+  field_fax_number:
+    weight: 5
+    label: above
+    settings:
+      title: ''
+    third_party_settings: {  }
+    type: telephone_link
+    region: content
+  field_vamc_med_records_mailing:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: address_default
+    region: content
   links:
     weight: 0
     region: content
@@ -123,4 +143,5 @@ hidden:
   content_moderation_control: true
   field_administration: true
   field_office: true
+  field_service_name_and_descripti: true
   search_api_excerpt: true

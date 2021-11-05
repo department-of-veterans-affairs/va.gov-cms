@@ -37,6 +37,7 @@ third_party_settings:
       region: content
     group_address:
       children:
+        - field_service_location_facility
         - field_service_location_address
       parent_name: ''
       weight: 0
@@ -121,6 +122,7 @@ content:
       collapsed: false
       allow_existing: false
       allow_duplicate: false
+      allow_system_delete: false
     third_party_settings:
       entity_browser_entity_form:
         entity_browser_id: _none
@@ -154,12 +156,13 @@ content:
       collapsed: false
       allow_existing: false
       allow_duplicate: false
+      allow_system_delete: false
     third_party_settings:
       entity_browser_entity_form:
         entity_browser_id: _none
   field_service_location_address:
     type: paragraphs
-    weight: 0
+    weight: 25
     region: content
     settings:
       title: Address
