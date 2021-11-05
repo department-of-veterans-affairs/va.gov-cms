@@ -55,19 +55,20 @@ Merge conflicts result when multiple developers submit PRs modifying the same co
 
 Developers are responsible for fixing merge conflicts on their own PRs. Follow this process to resolve a merge conflict:
 
-1.  Fetch upstream history: `git fetch upstream`
-Check out the branch against which you opened your PR (e.g., main): `git checkout main`
-1.  Make sure it matches upstream: `git reset --hard upstream/main`
-1.  Check out your feature branch: `git checkout feature/VACMS-123-short-desc-mi`
-1.  Merge develop: `git rebase main`
-At this point, Git will complain about a merge conflict. Run git status to find the conflicting file(s).
-1.  Edit the files to fix the conflict. The resources at the end of this section provide more information on this process.
-1.  Use git add to add all of the files you fixed. (Do not commit them)
-Finally, run `git rebase --continue` to finish the merge, and `git push origin VACMS-123-short-desc-mi -f` to update the PR.
-Additional resources:
+1. Fetch upstream history: `git fetch upstream`
+1. Check out the branch against which you opened your PR (e.g., main): `git checkout main`
+1. Make sure it matches upstream: `git reset --hard upstream/main`
+1. Check out your feature branch: `git checkout feature/VACMS-123-short-desc-mi`
+1. Merge `main` branch: `git rebase main`
+1. At this point, Git will complain about a merge conflict. Run `git status` to find the conflicting file(s).
+1. Edit the files to fix the conflict. The resources at the end of this section provide more information on this process.
+1. Use git add to add all of the files you fixed. (Do not commit them)
+1. Finally, run `git rebase --continue` to finish the merge, then `git push origin VACMS-123-short-desc-mi -f` to update the PR.
 
-https://confluence.atlassian.com/bitbucket/resolve-merge-conflicts-704414003.html
-https://githowto.com/resolving_conflicts
+
+Additional resources:
+* https://confluence.atlassian.com/bitbucket/resolve-merge-conflicts-704414003.html
+* https://githowto.com/resolving_conflicts
 
 
 ## Merge conflict with composer.lock
@@ -77,10 +78,10 @@ If your composer.lock ends up with a conflict due to incoming changes, these ste
   1. Checkout the incoming changes to composer.
   `git checkout upstream/main -- composer.lock composer.json`
   1. Replay your package addition(s).
-  `composer require {new/package} --update-with-dependencies`
+  `lando composer require {new/package} --update-with-dependencies`
   1. Run the new updates to make sure you have them locally.
-      1. `composer update {incoming/package}`  - repeat for each incoming package addition
-      1. `composer update {your/package}`  - repeat for each package you were adding
+      1. `lando composer update {incoming/package}`  - repeat for each incoming package addition
+      1. `lando composer update {your/package}`  - repeat for each package you were adding
   1. Your environment can now be tested with the new code.
   1. Commit the changes to composer.json and composer.lock.
 
@@ -110,14 +111,13 @@ We follow the [Drupal core javascript workflow](https://www.drupal.org/node/2815
 * When you are finished, commit the changes to both files
 
 ## Patching
+We use the Composer plugin Composer Patches (https://github.com/cweagans/composer-patches) to apply patches that haven't been merged upstream yet. Patches should always be temporarily applied with an upstream issue being opened and/or tracked and the intention for the patch to be removed as soon as it is merged upstream and a new release created and included with Composer. 
 
-Apply patches:
 * Get the patch file:
-  * example" https://patch-diff.githubusercontent.com/raw/drupal-graphql/graphql/pull/726.patch
-  * for Github, you can usually type in `.patch` at the end of the PR url to get the patch file
-  * some people use github, some use drupal.org. drupal is moving to gitlab
-* In the "`patches`" property of `composer.json`, make an entry for the package you are patching, if not already there, write an explanation lando sync-dbas to what the patch does, and then put the url to the patch
-  * ex:
+  * e.g. https://patch-diff.githubusercontent.com/raw/drupal-graphql/graphql/pull/726.patch
+  * For GitHub, you can usually type in `.patch` at the end of the PR URL to get the patch file
+  * Some people use GitHub, some use drupal.org. Drupal moved to GitLab recently.
+* In the `patches` section of `composer.json`, make an entry for the package you are patching, if not already there, write an explanation to what the patch does, and then include the URL to the patch, e.g.:
   * ```
     "patches": {
                    "drupal/migration_tools": {
@@ -125,22 +125,22 @@ Apply patches:
     ```
 
 ## Updates
-### Updating Core
+### Updating Drupal Core (dependabot usually does this so you shouldn't need to do this, but if you do...)
 
-1. ```lando composer update drupal/core --with-dependencies --dry-run```
+1. `lando composer update drupal/core --with-dependencies --dry-run`
 This will show you what is to change, without actually changing anything.
-2. ```lando composer update drupal/core --with-dependencies```
-3. ```lando composer update --lock```
-4. ```lando drush updatedb --yes```
-5. ```lando drush cache:rebuild```
-6. ```lando test```
-7. Commit and review your changes.
+2. `lando composer update drupal/core --with-dependencies`
+3. `lando composer update --lock`
+4. `lando drush updatedb --yes`
+5. `lando drush cache:rebuild`
+6. `lando test`
+7. Review your changes then commit, e.g. `git commit --message "lando composer update drupal/core --with-dependencies"`
 
 ### Updating Contrib Modules
-1. ```lando composer update drupal/MODULE_NAME --with-dependencies```  That will update the composer.lock
-2. ```lando drush updatedb --yes```
-3. ```lando drush cache:rebuild```
-4.  ```lando test``` to make sure nothing broke.
-5. Commit your work.
+1. `lando composer update drupal/MODULE_NAME --with-dependencies` # This updates the composer.lock file
+2. `lando drush updatedb --yes`
+3. `lando drush cache:rebuild`
+4. `lando test` to make sure nothing broke.
+5. Commit your work, e.g. `git commit --message "lando composer update drupal/MODULE_NAME --with-dependencies"`
 
 [Table of Contents](../README.md)
