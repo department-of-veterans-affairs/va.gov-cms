@@ -56,10 +56,10 @@ Merge conflicts result when multiple developers submit PRs modifying the same co
 Developers are responsible for fixing merge conflicts on their own PRs. Follow this process to resolve a merge conflict:
 
 1.  Fetch upstream history: `git fetch upstream`
-Check out the branch against which you opened your PR (e.g., develop): `git checkout develop`
-1.  Make sure it matches upstream: `git reset --hard upstream/develop`
+Check out the branch against which you opened your PR (e.g., main): `git checkout main`
+1.  Make sure it matches upstream: `git reset --hard upstream/main`
 1.  Check out your feature branch: `git checkout feature/VACMS-123-short-desc-mi`
-1.  Merge develop: `git rebase develop`
+1.  Merge develop: `git rebase main`
 At this point, Git will complain about a merge conflict. Run git status to find the conflicting file(s).
 1.  Edit the files to fix the conflict. The resources at the end of this section provide more information on this process.
 1.  Use git add to add all of the files you fixed. (Do not commit them)
