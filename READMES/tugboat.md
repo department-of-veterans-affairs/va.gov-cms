@@ -30,10 +30,10 @@
 1. Locate "Base Previews" section
    1. Scroll down to locate **Base Previews** section.
 1. Clone base preview to create a new Demo Preview Environment.
-   1. Locate **master** base preview.
+   1. Locate **main** base preview.
    1. Click on **Actions > Clone**. You have created a clone of base preview environment.
 1. Rename the newly created clone.
-   1. Locate "master" environment in "Preview" section at the top of the page.
+   1. Locate "main" environment in "Preview" section at the top of the page.
    1. Click "Settings".
    1. Enter new environment name .
    1. Do not change any other settings.
@@ -68,7 +68,7 @@ For example, when creating the 'Wilmington health care' demo environment, these 
     1. Reset: Resets your database and code to the state it was when the Preview environment was created. <1 minute 
 1. Clone: Clones the Preview Environment of the database and codebase/filesystem state at the time it was created, and not the current state. <1 minute
 1. Environments are deleted on a PR merge/close by default. "Lock" the environment to prevent deletion.
-1. There should only be one "Base Preview" built on master
+1. There should only be one "Base Preview" built on main
     1. The base preview rebuilds daily at 4pm ET, just after our prod.cms.va.gov daily deployment
 1. You can change the prefix on any environment, all that matters is the token in the URL, e.g. https://pr165-z82nl225gxrzbpcmfxt34th673gtwpmu.tugboat.vfs.va.gov/ will go to the same place as https://rainboxes-z82nl225gxrzbpcmfxt34th673gtwpmu.tugboat.vfs.va.gov/, they are the same. The exception is that if any URL starts with `web-*` then it will be routed to the /docroot/static folder to serve out the static website (vets-website), see .htaccess).
 
@@ -77,7 +77,7 @@ For example, when creating the 'Wilmington health care' demo environment, these 
 | I want to... | Then you should... |
 | :--- | :--- |
 | Re-run tests on my pull request | Run the "Rebuild" action, this will run the "BUILD" stage and then run the "ONLINE" stage, which will run the tests. |
-| Update the base preview image with latest Production DB snapshot | Go to dashboard and "rebuild" the base preview (master). Normally this happens every day automatically and you shouldn't need to do this, but if you do, that is how. |
+| Update the base preview image with latest Production DB snapshot | Go to dashboard and "rebuild" the base preview (main). Normally this happens every day automatically and you shouldn't need to do this, but if you do, that is how. |
 | Get the latest database on my pull request environment | Run the "Refresh" command to run the "Update" stage of the "mysql" service which pulls in the latest database and files snapshots (within 15 minutes of freshness) |
 | See why my deploy failed | Go to the dashboard, find your PR and click the 'php' service title, then click "build logs" |
 | Lock my environment from getting deleted, like after my PR is closed. | Use the "LOCK" action |

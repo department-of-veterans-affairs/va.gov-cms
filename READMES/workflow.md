@@ -20,12 +20,12 @@ Write a manual test in the Jira ticket to test ticket completion.
 To avoid cluttering up the main repo with lots of branches, fork the repo and push your branches to your fork and make your pull request from your fork to the upstream repo. You can use [`hub`](https://github.com/github/hub) to do this from the command line. Or after you push you will see a link in the output to ctrl + click and create a new PR from the branch you just pushed.
 
 ### Branches
- We are currently working off a single `master` branch system. `master` is protected and requires both approval from code review and passing tests to be merged. Commits within pull requests are squashed and merged when they are accepted so that the only relate to one git commit, even if they originally contained multiple commits, the commit messages are added as a bulleted list so they are retained in the merge commit.
+ We are currently working off a single `main` branch system. `main` is protected and requires both approval from code review and passing tests to be merged. Commits within pull requests are squashed and merged when they are accepted so that the only relate to one git commit, even if they originally contained multiple commits, the commit messages are added as a bulleted list so they are retained in the merge commit.
 
 ### Example Git workflow:
 
 1. `git fetch --all`
-1. `git checkout --branch <VACMS-000-name> origin/master`
+1. `git checkout --branch <VACMS-000-name> origin/main`
 1. `lando composer install`
 1. `lando start`  or `lando restart` 
 1. `./scripts/sync-db.sh`
@@ -40,7 +40,7 @@ _Example: VACMS-1234 Add configuration for menu reduction._
 1. Once your PR is merged it will be automatically deployed to dev.cms.va.gov and staging.cms.va.gov. If it is merged before 2:30pm ET it will be in the daily, scheduled deploy to prod.cms.va.gov at 3:30pm ET.
 
 ### Pull Request Norms
-* Pull requests should be made against the `master` branch.
+* Pull requests should be made against the `main` branch.
 * Pull Request title should be in the format: "VACMS-123: Jira ticket title, starting with an action verb and ending with punctuation."
 * If your PR is a work in progress or should not be merged, prefix the pull request title with "WIP: " and use the Draft feature.
 * Put a link to the ticket at the top of the PR description.
@@ -72,10 +72,10 @@ https://githowto.com/resolving_conflicts
 
 ## Merge Conflict on Composer
 If your composer.lock ends up with a conflict due to incoming changes, these steps should safely resolve the conflict.
-  1.  Make note of what new packages are coming in from master.
+  1.  Make note of what new packages are coming in from main.
   1.  Make note of what package(s) you were adding.
   1.  Checkout the the incoming changes to composer.
-  `git checkout upstream/master -- composer.lock composer.json`
+  `git checkout upstream/main -- composer.lock composer.json`
   1.  Replay your package addition(s).
   `composer require {new/package} --update-with-dependencies`
   1.  Run the new updates to make sure you have them locally.

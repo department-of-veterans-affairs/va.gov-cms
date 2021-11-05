@@ -80,7 +80,7 @@ in PR description and provide any specific instructions for your peer to review
 reviewed and merged, the composer.json/.lock files in va.gov-cms repo should be
 updated to use latest version of `workflow_assignments` module.
    * `lando composer update drupal/workflow_assignments`
-   * commit and merge to va.gov-cms `master` branch
+   * commit and merge to va.gov-cms `main` branch
 
 NOTE: reach out to Oksana Cyrwus or Neil Hastings with any questions regarding
 the outlined process.

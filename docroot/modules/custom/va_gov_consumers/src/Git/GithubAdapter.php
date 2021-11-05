@@ -55,7 +55,7 @@ class GithubAdapter implements GithubInterface {
 
     try {
       // @todo add per_page (count) parameter when/if KnpLabs/php-github-api supports it.
-      $results = $this->githubClient->api('search')->issues("is:pr is:open repo:{$repo} {$string}");
+      $results = $this->githubClient->search()->issues("is:pr is:open repo:{$repo} {$string}");
     }
     catch (\Exception $e) {
       $variables = Error::decodeException($e);
@@ -63,6 +63,23 @@ class GithubAdapter implements GithubInterface {
     }
 
     return $results;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function triggerWorkflow(string $action_name, string $ref, array $params = []): void {
+    list($user, $repo) = explode('/', $this->repositoryPath);
+
+    // Exceptions are intentionally *not* caught here - the caller should be
+    // able to catch them.
+    $this->githubClient->repositories()->workflows()->dispatches(
+        $user,
+        $repo,
+        $action_name,
+        $ref,
+        $params
+      );
   }
 
   /**
