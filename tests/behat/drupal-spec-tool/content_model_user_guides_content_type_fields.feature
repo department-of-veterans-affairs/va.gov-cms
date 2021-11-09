@@ -4,7 +4,7 @@ Feature: Content model: User guides Content Type fields
   As a content editor
   I want to have content type fields that reflect my content model.
 
-  @dst @field_type @content_type_fields @dstfields
+  @dst @field_type @content_type_fields @dstfields                                                                                                                                                               
      Scenario: Fields
        Then exactly the following fields should exist for bundles "documentation_page" of entity type node
        | Type | Bundle | Field label | Machine name | Field type | Required | Cardinality | Form widget | Translatable |
@@ -14,4 +14,4 @@ Feature: Content model: User guides Content Type fields
 | Content type | CMS Knowledge Base Article | Main content | field_content_block | Entity reference revisions |  | Unlimited | Paragraphs Browser EXPERIMENTAL | Translatable |
 | Content type | CMS Knowledge Base Article | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | CMS Knowledge Base Article | Layout | layout_builder__layout | Layout Section |  | Unlimited | -- Disabled -- |  |
-| Content type | CMS Knowledge Base Article | Products | field_products | Entity reference |  | Unlimited | Check boxes/radio buttons |  |
+| Content type | CMS Knowledge Base Article | Products | field_products | Entity reference | Required | Unlimited | Check boxes/radio buttons |  |
