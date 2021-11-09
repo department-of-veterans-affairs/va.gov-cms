@@ -1,0 +1,22 @@
+uuid: 89629ecf-47ad-4b89-8ffe-d3c522dc97a4
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vha_facility_nonclinical_service
+id: node.vha_facility_nonclinical_service.status
+field_name: status
+entity_type: node
+bundle: vha_facility_nonclinical_service
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

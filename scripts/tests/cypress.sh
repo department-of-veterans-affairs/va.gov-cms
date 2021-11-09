@@ -18,4 +18,5 @@ if [ -n "$CMS_IS_BRD" ]; then
 fi
 
 npm install
+./node_modules/.bin/cypress install
 npm run test:${1} "${@:2}"

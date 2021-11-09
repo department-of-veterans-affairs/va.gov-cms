@@ -1,0 +1,21 @@
+uuid: 3bc876e2-205c-4bce-aa78-7fd815900665
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_fax_number
+    - node.type.vamc_system_medical_records_offi
+  module:
+    - telephone
+id: node.vamc_system_medical_records_offi.field_fax_number
+field_name: field_fax_number
+entity_type: node
+bundle: vamc_system_medical_records_offi
+label: 'Fax number'
+description: 'The number to which Veterans can fax signed VA Form 10-5345a.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

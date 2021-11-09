@@ -1,0 +1,6 @@
+status: 1
+pattern: '[node:field_service_name_and_descripti:entity:name] - [node:field_facility_location:entity:title]'
+escape: false
+dependencies:
+  config:
+    - node.type.vha_facility_nonclinical_service
