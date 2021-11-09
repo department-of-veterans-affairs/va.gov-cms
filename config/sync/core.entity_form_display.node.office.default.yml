@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.office.field_body
     - field.field.node.office.field_description
     - field.field.node.office.field_email_updates_link
+    - field.field.node.office.field_external_link
     - field.field.node.office.field_meta_tags
     - field.field.node.office.field_meta_title
     - field.field.node.office.field_social_media_links
@@ -100,6 +101,7 @@ third_party_settings:
       label: Content
     group_connect_with_us:
       children:
+        - field_external_link
         - field_email_updates_link
         - field_social_media_links
       parent_name: group_tabs
@@ -142,7 +144,15 @@ content:
     type: string_textfield
     region: content
   field_email_updates_link:
-    weight: 3
+    weight: 27
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_external_link:
+    weight: 26
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -164,7 +174,7 @@ content:
     type: string_textfield_with_counter
     region: content
   field_social_media_links:
-    weight: 4
+    weight: 28
     settings: {  }
     third_party_settings: {  }
     type: social_media_links_field_default
