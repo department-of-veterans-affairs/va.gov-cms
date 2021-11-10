@@ -77,7 +77,7 @@
         });
 
         const adminRoles = ["content_admin", "administrator"];
-        const targetTypes = ["health_care_local_facility", "vet_center"];
+        const targetTypes = ["health_care_local_facility"];
         // If we are on a target type and user isn't admin, add a title,
         // and label to fieldgroup.
         if (
