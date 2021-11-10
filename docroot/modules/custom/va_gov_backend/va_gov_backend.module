@@ -422,26 +422,6 @@ function _va_gov_backend_allowed_formats_remove_textarea_help(array $form_elemen
  * Implements hook_form_alter().
  */
 function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  // List of forms to modify media library widget help text.
-  $media_widget_content_form_ids = [
-    'node_vet_center_cap_form',
-    'node_vet_center_cap_edit_form',
-    'node_vet_center_edit_form',
-    'node_vet_center_form',
-    'node_vet_center_mobile_vet_center_form',
-    'node_vet_center_mobile_vet_center_edit_form',
-    'node_vet_center_outstation_form',
-    'node_vet_center_outstation_edit_form',
-  ];
-
-  // We want to modify media library widget help text.
-  if (in_array($form_id, $media_widget_content_form_ids)) {
-    $form['field_media']['widget']['#field_prefix']['empty_selection'] = [
-      '#markup' => t('Add a photo of the facility'),
-    ];
-  }
-  // Require message on revision.
-  _va_gov_vet_center_require_revision_message($form, $form_state, $form_id);
   // Don't allow wysiwyg on core taxonomy description field.
   if ($form_id === 'taxonomy_term_health_care_service_taxonomy_form') {
     // We need to manipulate the html prior to after_build.
@@ -583,7 +563,12 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     ];
 
     // Remove the default preview button from types not in workflow.
-    $node_type = $form_state->getFormObject()->getEntity()->getType();
+    /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
+    $form_object = $form_state->getFormObject();
+    /** @var \Drupal\node\NodeInterface $node */
+    $node = $form_object->getEntity();
+    $node_type = $node->getType();
+
     /** @var \Drupal\workflows\WorkflowInterface $workflow */
     $workflow = \Drupal::entityTypeManager()->getStorage('workflow')->load('editorial');
     $types_in_workflow = $workflow->get('type_settings')['entity_types']['node'];
@@ -599,48 +584,6 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     $form['field_address']['widget']['#after_build'][] = 'va_gov_backend_press_release_address_after_build';
   }
 
-}
-
-/**
- * Adds Validation to check revision log message is added.
- *
- * @param array $form
- *   The exposed widget form array.
- * @param \Drupal\Core\Form\FormStateInterface $form_state
- *   The form state.
- * @param string $form_id
- *   The form id.
- */
-function _va_gov_vet_center_require_revision_message(array &$form, FormStateInterface &$form_state, $form_id) {
-  $vc_types = [
-    'node_vet_center_edit_form',
-    'node_vet_center_cap_edit_form',
-    'node_vet_center_facility_health_servi_edit_form',
-    'node_vet_center_locations_list_edit_form',
-    'node_vet_center_mobile_vet_center_edit_form',
-    'node_vet_center_outstation_edit_form',
-  ];
-  // Vet centers need to have revision log messages on edit.
-  if (in_array($form_id, $vc_types)) {
-    $widget_fields = [
-      'field_nearby_vet_centers',
-      'field_nearby_mobile_vet_centers',
-    ];
-    foreach ($widget_fields as $widget_field) {
-      // We don't want the node form validation to fire on the removal buttons.
-      $current_widgets = $form[$widget_field]['widget']['current'] ?? [];
-      foreach ($current_widgets as $key => $button) {
-        if (is_numeric($key)) {
-          $form[$widget_field]['widget']['current'][$key]['actions']['remove_button']['#limit_validation_errors'] = [['field_nearby_vet_centers']];
-        }
-      }
-    }
-    $form['revision_log']['#required'] = TRUE;
-    $form['revision_log']['widget']['#required'] = TRUE;
-    $form['revision_log']['widget'][0]['#required'] = TRUE;
-    $form['revision_log']['widget'][0]['value']['#required'] = TRUE;
-    $form['#validate'][] = '_va_gov_backend_validate_required_revision_message';
-  }
 }
 
 /**
@@ -1097,10 +1040,6 @@ function va_gov_backend_preprocess_page(&$variables) {
       'regional_health_care_service_des',
       'support_service',
       'story_listing',
-      'vet_center_cap',
-      'vet_center_facility_health_servi',
-      'vet_center_mobile_vet_center',
-      'vet_center_outstation',
     ];
     // Make sure we aren't on the node form or an excluded type.
     $route_name = \Drupal::routeMatch()->getRouteName();
