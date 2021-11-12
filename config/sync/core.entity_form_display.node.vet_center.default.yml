@@ -58,7 +58,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: details_sidebar
       format_settings:
         id: ''
@@ -74,7 +74,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 10
+      weight: 11
       format_type: fieldset
       format_settings:
         id: ''
@@ -97,6 +97,7 @@ third_party_settings:
       label: 'Direct line'
     group_top_of_page_information:
       children:
+        - field_official_name
         - group_page_title_tooltip
         - field_intro_text
       parent_name: ''
@@ -113,7 +114,7 @@ third_party_settings:
     group_page_title_tooltip:
       children: {  }
       parent_name: group_top_of_page_information
-      weight: 20
+      weight: 7
       format_type: tooltip
       region: content
       format_settings:
@@ -195,7 +196,7 @@ third_party_settings:
       children:
         - field_cc_vet_center_faqs
       parent_name: ''
-      weight: 8
+      weight: 9
       format_type: tooltip
       region: content
       format_settings:
@@ -257,7 +258,7 @@ bundle: vet_center
 mode: default
 content:
   field_address:
-    weight: 5
+    weight: 8
     settings: {  }
     third_party_settings: {  }
     type: address_default
@@ -305,7 +306,7 @@ content:
     type: entity_field_fetch_widget
     region: content
   field_facility_locator_api_id:
-    weight: 4
+    weight: 7
     settings:
       size: 60
       placeholder: ''
@@ -335,7 +336,7 @@ content:
     type: inline_entity_form_complex_table_view_mode
     region: content
   field_intro_text:
-    weight: 21
+    weight: 8
     settings:
       rows: 5
       placeholder: ''
@@ -350,13 +351,21 @@ content:
     type: media_library_widget
     region: content
   field_office_hours:
-    weight: 7
+    weight: 10
     settings: {  }
     third_party_settings:
       limited_field_widgets:
         limit_values: '0'
     type: office_hours_default
     region: content
+  field_official_name:
+    type: string_textfield
+    weight: 6
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_operating_status_facility:
     weight: 9
     settings: {  }
@@ -377,7 +386,7 @@ content:
     type: string_textarea_with_counter
     region: content
   field_phone_number:
-    weight: 6
+    weight: 9
     settings:
       placeholder: ''
     third_party_settings: {  }
@@ -437,7 +446,6 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
-  field_official_name: true
   path: true
   promote: true
   status: true

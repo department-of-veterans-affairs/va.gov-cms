@@ -65,8 +65,10 @@ function _va_gov_migrate_set_default_vet_center_title(EntityInterface &$entity) 
   }
 
   /** @var \Drupal\node\NodeInterface $entity */
-  // If a Vet Center title is empty copy the value from field_official_name.
-  if (empty($entity->getTitle())) {
+  // If a Vet Center official name is empty and user is not admin
+  // copy the value from field_official_name. This will not interfere with
+  // migrations because cms migrator does not have admin level perms.
+  if (empty($entity->getTitle()) && !Drupal::service('va_gov_user.user_perms')->hasAdminRole()) {
     $default_title = $entity->get('field_official_name')->value ?: '- none -';
     $entity->setTitle($default_title);
   }
