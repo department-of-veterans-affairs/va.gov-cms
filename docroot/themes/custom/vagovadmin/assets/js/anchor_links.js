@@ -18,6 +18,7 @@
         event.preventDefault();
 
         var target = $(event.target).attr("href");
+        const targetOffset = $(target).offset();
         if (targetOffset) {
           const scrollToPosition = targetOffset.top - (Drupal.getAdminToolbarHeight() + 10);
 
