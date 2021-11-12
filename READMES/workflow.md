@@ -14,13 +14,13 @@
 ## Project
 1. Pull a ticket, move to 'In Development'
 1. Review the ticket's story, Acceptance Criteria, and Implementation Notes. Raise any questions/concerns/risks in the ticket comments and mention the relevant/appropriate people.
-Write a manual test in the Jira ticket to test ticket completion.
+1. Write a manual to test ticket completion.
 
 ## Git
-To avoid cluttering up the main repo with lots of branches, fork the repo and push your branches to your fork and make your pull request from your fork to the upstream repo. You can use [`hub`](https://github.com/github/hub) to do this from the command line. Or after you push you will see a link in the output to ctrl + click and create a new PR from the branch you just pushed.
+To avoid cluttering up the repo with lots of branches, fork the repo and push your branches to your fork and make your pull request from your fork to the upstream repo. You can use the GitHub CLI, [`gh`](https://cli.github.com/), to make PRs from the command line much faster. Or after you push you will see a link in the output to ctrl + click and create a new PR from the branch you just pushed.
 
 ### Branches
- We are currently working off a single `main` branch system. `main` is protected and requires both approval from code review and passing tests to be merged. Commits within pull requests are squashed and merged when they are accepted so that the only relate to one git commit, even if they originally contained multiple commits, the commit messages are added as a bulleted list so they are retained in the merge commit.
+We are currently working off a single `main` branch. `main` is protected and requires both approval from code review and passing tests to be merged. Commits within pull requests are squashed and merged when they are accepted so that the only relate to one git commit, even if they originally contained multiple commits, the commit messages are added as a bulleted list so they are retained in the merge commit.
 
 ### Example Git workflow:
 
@@ -41,13 +41,13 @@ _Example: VACMS-1234 Add configuration for menu reduction._
 
 ### Pull Request Norms
 * Pull requests should be made against the `main` branch.
-* Pull Request title should be in the format: "VACMS-123: Jira ticket title, starting with an action verb and ending with punctuation."
+* Pull Request title should be in the format: "VACMS-123: ticket title, starting with an action verb and ending with punctuation."
 * If your PR is a work in progress or should not be merged, prefix the pull request title with "WIP: " and use the Draft feature.
 * Put a link to the ticket at the top of the PR description.
 * Add required notes in the PR description:
   1. If the PR requires manual deployment steps (this should never happen).
   1. If the timing of the merging of the PR affects or has dependencies on additional PRs in this or other repositories.
-  1. f the PR removes existing functionality that may impact other developers.
+  1. If the PR removes existing functionality that may impact other developers.
 
 
 ### Resolving merge conflicts
@@ -55,34 +55,35 @@ Merge conflicts result when multiple developers submit PRs modifying the same co
 
 Developers are responsible for fixing merge conflicts on their own PRs. Follow this process to resolve a merge conflict:
 
-1.  Fetch upstream history: git fetch upstream
-Check out the branch against which you opened your PR (e.g., develop): git checkout develop
-1.  Make sure it matches upstream: git reset --hard upstream/develop
-1.  Check out your feature branch: git checkout feature/VACMS-123-short-desc-mi
-1.  Merge develop: `git rebase develop`
-At this point, Git will complain about a merge conflict. Run git status to find the conflicting file(s).
-1.  Edit the files to fix the conflict. The resources at the end of this section provide more information on this process.
-1.  Use git add to add all of the files you fixed. (Do not commit them)
-Finally, run `git rebase --continue` to finish the merge, and `git push origin VACMS-123-short-desc-mi -f` to update the PR.
+1. Fetch upstream history: `git fetch upstream`
+1. Check out the branch against which you opened your PR (e.g., main): `git checkout main`
+1. Make sure it matches upstream: `git reset --hard upstream/main`
+1. Check out your feature branch: `git checkout feature/VACMS-123-short-desc-mi`
+1. Merge `main` branch: `git rebase main`
+1. At this point, Git will complain about a merge conflict. Run `git status` to find the conflicting file(s).
+1. Edit the files to fix the conflict. The resources at the end of this section provide more information on this process.
+1. Use git add to add all of the files you fixed. (Do not commit them)
+1. Finally, run `git rebase --continue` to finish the merge, then `git push origin VACMS-123-short-desc-mi -f` to update the PR.
+
+
 Additional resources:
+* https://confluence.atlassian.com/bitbucket/resolve-merge-conflicts-704414003.html
+* https://githowto.com/resolving_conflicts
 
-https://confluence.atlassian.com/bitbucket/resolve-merge-conflicts-704414003.html
-https://githowto.com/resolving_conflicts
 
-
-## Merge Conflict on Composer
+## Merge conflict with composer.lock
 If your composer.lock ends up with a conflict due to incoming changes, these steps should safely resolve the conflict.
-  1.  Make note of what new packages are coming in from main.
-  1.  Make note of what package(s) you were adding.
-  1.  Checkout the the incoming changes to composer.
+  1. Make note of what new packages are coming in from main.
+  1. Make note of what package(s) you were adding.
+  1. Checkout the incoming changes to composer.
   `git checkout upstream/main -- composer.lock composer.json`
-  1.  Replay your package addition(s).
-  `composer require {new/package} --update-with-dependencies`
-  1.  Run the new updates to make sure you have them locally.
-  `composer update {incoming/package}`  - repeat for each incoming package addition
-  `composer update {your/package}`  - repeat for each package you were adding
-  Your environment can now be tested with the new code.
-  Commit the changes to composer.json and composer.lock.
+  1. Replay your package addition(s).
+  `lando composer require {new/package} --update-with-dependencies`
+  1. Run the new updates to make sure you have them locally.
+      1. `lando composer update {incoming/package}`  - repeat for each incoming package addition
+      1. `lando composer update {your/package}`  - repeat for each package you were adding
+  1. Your environment can now be tested with the new code.
+  1. Commit the changes to composer.json and composer.lock.
 
 
 ## Drupal SpecTool
@@ -110,14 +111,13 @@ We follow the [Drupal core javascript workflow](https://www.drupal.org/node/2815
 * When you are finished, commit the changes to both files
 
 ## Patching
+We use the Composer plugin Composer Patches (https://github.com/cweagans/composer-patches) to apply patches that haven't been merged upstream yet. Patches should always be temporarily applied with an upstream issue being opened and/or tracked and the intention for the patch to be removed as soon as it is merged upstream and a new release created and included with Composer. 
 
-Apply patches:
 * Get the patch file:
-  * example" https://patch-diff.githubusercontent.com/raw/drupal-graphql/graphql/pull/726.patch
-  * for Github, you can usually type in `.patch` at the end of the PR url to get the patch file
-  * some people use github, some use drupal.org. drupal is moving to gitlab
-* In the "`patches`" property of `composer.json`, make an entry for the package you are patching, if not already there, write an explanation lando sync-dbas to what the patch does, and then put the url to the patch
-  * ex:
+  * e.g. https://patch-diff.githubusercontent.com/raw/drupal-graphql/graphql/pull/726.patch
+  * For GitHub, you can usually type in `.patch` at the end of the PR URL to get the patch file
+  * Some people use GitHub, some use drupal.org. Drupal moved to GitLab recently.
+* In the `patches` section of `composer.json`, make an entry for the package you are patching, if not already there, write an explanation to what the patch does, and then include the URL to the patch, e.g.:
   * ```
     "patches": {
                    "drupal/migration_tools": {
@@ -125,22 +125,22 @@ Apply patches:
     ```
 
 ## Updates
-### Updating Core
+### Updating Drupal Core (dependabot usually does this so you shouldn't need to do this, but if you do...)
 
-1. ```lando composer update drupal/core --with-dependencies --dry-run```
+1. `lando composer update drupal/core --with-dependencies --dry-run`
 This will show you what is to change, without actually changing anything.
-2. ```lando composer update drupal/core --with-dependencies```
-3. ```lando composer update --lock```
-4. ```lando drush updatedb --yes```
-5. ```lando drush cache:rebuild```
-6. ```lando test```
-7. Commit and review your changes.
+2. `lando composer update drupal/core --with-dependencies`
+3. `lando composer update --lock`
+4. `lando drush updatedb --yes`
+5. `lando drush cache:rebuild`
+6. `lando test`
+7. Review your changes then commit, e.g. `git commit --message "lando composer update drupal/core --with-dependencies"`
 
 ### Updating Contrib Modules
-1. ```lando composer update drupal/MODULE_NAME --with-dependencies```  That will update the composer.lock
-2. ```lando drush updatedb --yes```
-3. ```lando drush cache:rebuild```
-4.  ```lando test``` to make sure nothing broke.
-5. Commit your work.
+1. `lando composer update drupal/MODULE_NAME --with-dependencies` # This updates the composer.lock file
+2. `lando drush updatedb --yes`
+3. `lando drush cache:rebuild`
+4. `lando test` to make sure nothing broke.
+5. Commit your work, e.g. `git commit --message "lando composer update drupal/MODULE_NAME --with-dependencies"`
 
 [Table of Contents](../README.md)

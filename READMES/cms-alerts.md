@@ -4,7 +4,7 @@
 |--------|------------------------------------------------|
 | Urgent | PagerDuty Critical >> Slack #cms-notifications |
 | High   | `@here` in Slack                               |
-| Medium | Slack                                          |
+| Medium | Slack #cms-notifications @cms-alerts-medium    |
 | Low    | None                                           |
 
 ## Drupal Log Level to Alert Level
