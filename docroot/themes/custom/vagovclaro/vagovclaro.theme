@@ -79,7 +79,7 @@ function _vagovclaro_get_node_parent(Paragraph $paragraph) {
   /** @var Drupal\paragraphs\Entity\Paragraph $parent */
   $parent = $paragraph->getParentEntity();
   if ($parent !== NULL && $parent->getEntityType()->id() === 'paragraph') {
-    $parent_node = _vagovadmin_get_node_parent($parent);
+    $parent_node = _vagovclaro_get_node_parent($parent);
   }
   elseif ($parent !== NULL && $parent->getEntityType()->id() === 'node') {
     $parent_node = $parent;
