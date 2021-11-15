@@ -58,7 +58,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public function unsetNameFieldForNonAdmins(FormIdAlterEvent $event): void {
     if (!$this->userPermsService->hasAdminRole()) {
       $form = &$event->getForm();
-      unset($form['field_official_name']);
+      $form['field_official_name']['#disabled'] = TRUE;
     }
   }
 

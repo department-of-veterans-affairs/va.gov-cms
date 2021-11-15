@@ -84,8 +84,9 @@ function _vagov_consumers_disable_non_vha_facilities_api_form_fields(array &$for
       // Prepoulate the title to warn it will be overwritten by api data.
       $form['title']['widget'][0]['value']['#default_value'] = t('May be overwritten by Facility API Data');
     }
-    else {
-      // Disable the title, it has content already.
+    elseif (!Drupal::service('va_gov_user.user_perms')->hasAdminRole()) {
+      // Disable the title, it has content already, but allow
+      // admins discretion to change if necessary.
       $form['title']['widget'][0]['value']['#attributes']['disabled'] = TRUE;
     }
     // Disable the facility locator API field if it is populated because it
