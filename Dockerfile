@@ -11,7 +11,7 @@ COPY --from=composer:2.1.8 /usr/bin/composer /usr/local/bin/composer
 # php-extension-installer makes working with PHP modules a lot easier
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
 
-# Install VA internal certificate.
+# Install VA internal self-signed certificate authority.
 ADD http://crl.pki.va.gov/PKI/AIA/VA/VA-Internal-S2-RCA1-v1.cer /usr/local/share/ca-certificates/
 RUN openssl x509 -inform DER -in /usr/local/share/ca-certificates/VA-Internal-S2-RCA1-v1.cer -out /usr/local/share/ca-certificates/VA-Internal-S2-RCA1-v1.crt
 RUN update-ca-certificates

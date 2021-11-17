@@ -26,7 +26,7 @@ attributed to the user "CMS Migrator".
 The Forms DB is the source of the form data migration.  Each night at 11:30PM ET
 the Forms DB runs an export on cron to create a CSV file located
 http://vaww.webdevi.va.gov/vaforms/VAForms_DataExtract/VAForms_FormsData.txt
-Our [task-periodic job](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/tasks-periodic.yml#L52) copies that file and places it here
+Our [task-periodic job](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/tasks-periodic.yml#L52) copies that file and places it here
 https://prod.cms.va.gov/sites/default/files/migrate_source/va_forms_data.csv
 so that it can be available to all our network environments (CI & BRD).
 To run it in sandboxes it will need to be pulled down with our file sync command.
@@ -40,7 +40,7 @@ controlled by the data in the source are not available to be edited. In the
 event of bad data from the source (a bad file name or title) a site administrator
 can edit the fields.  These edits would of course be overwritten the next time
 the migration runs at midnight.  This logic is handled in
-[_vagov_consumers_modify_va_form_fields()](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/docroot/modules/custom/va_gov_consumers/va_gov_consumers.module#L109).
+[_vagov_consumers_modify_va_form_fields()](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/docroot/modules/custom/va_gov_consumers/va_gov_consumers.module#L109).
 
 
 ## CMS forms data to Lighthouse
