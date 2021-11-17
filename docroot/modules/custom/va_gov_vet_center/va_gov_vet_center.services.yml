@@ -6,5 +6,4 @@ services:
       - { name: event_subscriber }
   va_gov_vet_center.required_services:
     class: Drupal\va_gov_vet_center\Service\RequiredServices
-    arguments: ['@entity_type.manager']
-    #arguments: ['@entity_type.manager', '@entity.query']
+    arguments: ['@entity_type.manager', '@queue']

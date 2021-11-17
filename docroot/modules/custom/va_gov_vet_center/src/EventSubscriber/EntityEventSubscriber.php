@@ -115,7 +115,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $entity = $event->getEntity();
     if ($entity->getEntityTypeId() == 'node'
       && $entity->bundle() == 'vet_center'
-      && $entity->isNew()) {
+      && is_null($entity->original)) {
       // Add all required services for this newly created facility.
       $this->requiredServices->addServicesByFacility($entity);
     }

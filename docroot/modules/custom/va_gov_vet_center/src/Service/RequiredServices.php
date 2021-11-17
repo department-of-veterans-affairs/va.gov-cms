@@ -4,6 +4,7 @@ namespace Drupal\va_gov_vet_center\Service;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Queue\QueueFactory;
 
 /**
  * Class RequiredServices enforces required services for Vet Centers.
@@ -17,20 +18,26 @@ class RequiredServices {
   protected $entityTypeManager;
 
   /**
-   * The query factory used to construct all queries in the test.
+   * Queue factory.
    *
-   * @var \Drupal\Core\Config\Entity\Query\QueryFactory
+   * @var \Drupal\Core\Queue\QueueFactory
    */
-  protected $queryFactory;
+  protected $queueFactory;
 
   /**
    * Constructs a new RequiredServices object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager service.
+   * @param \Drupal\Core\Queue\QueueFactory $queue
+   *   Queue factory.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(
+    EntityTypeManagerInterface $entity_type_manager,
+    QueueFactory $queue
+  ) {
     $this->entityTypeManager = $entity_type_manager;
+    $this->queueFactory = $queue;
   }
 
   /**
@@ -43,13 +50,12 @@ class RequiredServices {
    */
   public function addService(EntityInterface $service_term, EntityInterface $facility_node) {
     // Add a queue item to be processed on next cron run.
-    $queue_factory = \Drupal::service('queue');
-    $queue = $queue_factory->get('cron_required_service');
+    $service_queue = $this->queueFactory->get('cron_required_service');
 
     $item = new \stdClass();
     $item->facility_id = $facility_node->id();
     $item->term_id = $service_term->id();
-    $queue->createItem($item);
+    $service_queue->createItem($item);
   }
 
   /**
@@ -74,22 +80,24 @@ class RequiredServices {
    *   The taxonomy term for the new service items.
    */
   public function addServicesByTerm(EntityInterface $service_term) {
-    $term_id = $service_term->id();
+    $node_storage = $this->entityTypeManager->getStorage('node');
 
     // Get all the vet center node ids.
-    $vet_center_nids = \Drupal::entityQuery('node')
+    $vet_center_query = $node_storage->getQuery();
+    $vet_center_nids = $vet_center_query
       ->condition('type', 'vet_center')
       ->execute();
 
     // Get all the facility health service node ids using this term.
-    $facility_service_nids = \Drupal::entityQuery('node')
+    $term_id = $service_term->id();
+    $service_query = $node_storage->getQuery();
+    $facility_service_nids = $service_query
       ->condition('type', 'vet_center_facility_health_servi')
       ->condition('field_service_name_and_descripti.target_id', $term_id)
       ->execute();
 
     // Load all the facility health service nodes.
-    $storage_handler = $this->entityTypeManager->getStorage('node');
-    $facility_services = $storage_handler->loadMultiple($facility_service_nids);
+    $facility_services = $node_storage->loadMultiple($facility_service_nids);
     $serviced_nids = [];
 
     // Get the id for the vet center referenced in each facility service.
@@ -104,7 +112,7 @@ class RequiredServices {
 
     // Add each item to the queue for creation.
     foreach ($missing_nids as $missing_nid) {
-      $vet_center = $storage_handler->load($missing_nid);
+      $vet_center = $node_storage->load($missing_nid);
       $this->addService($service_term, $vet_center);
     }
   }
@@ -116,12 +124,14 @@ class RequiredServices {
    *   An array of required taxonomy term (service) entities.
    */
   public function getRequiredServices() {
+    $term_storage = $this->entityTypeManager->getStorage('taxonomy_term');
+    $term_query = $term_storage->getQuery();
+
     // Return a list of required services.
-    $term_ids = \Drupal::entityQuery('taxonomy_term')
+    $term_ids = $term_query
       ->condition('vid', 'health_care_service_taxonomy')
       ->execute();
-    $storage_handler = $this->entityTypeManager->getStorage('taxonomy_term');
-    $service_terms = $storage_handler->loadMultiple($term_ids);
+    $service_terms = $term_storage->loadMultiple($term_ids);
     $required_services = [];
 
     // Unset any items in the array that aren't required.
@@ -162,10 +172,13 @@ class RequiredServices {
    *   Does the provided service exist for the provided facility.
    */
   protected function hasService(EntityInterface $service_term, EntityInterface $facility_node) {
+    $node_storage = $this->entityTypeManager->getStorage('node');
+    $node_query = $node_storage->getQuery();
+
     // Check to see if a given facility has a given service.
     $term_id = $service_term->id();
     $facility_id = $facility_node->id();
-    $facility_service_nids = \Drupal::entityQuery('node')
+    $facility_service_nids = $node_query
       ->condition('type', 'vet_center_facility_health_servi')
       ->condition('field_office.target_id', $facility_id)
       ->condition('field_service_name_and_descripti.target_id', $term_id)
