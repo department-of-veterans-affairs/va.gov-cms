@@ -84,11 +84,18 @@ function _vagov_consumers_disable_non_vha_facilities_api_form_fields(array &$for
       // Prepoulate the title to warn it will be overwritten by api data.
       $form['title']['widget'][0]['value']['#default_value'] = t('May be overwritten by Facility API Data');
     }
-    elseif (!Drupal::service('va_gov_user.user_perms')->hasAdminRole()) {
-      // Disable the title, it has content already, but allow
-      // admins discretion to change if necessary.
+    // Only allow admins to alter vc titles.
+    elseif (Drupal::service('va_gov_user.user_perms')->hasAdminRole() && in_array($form_id, [
+      'node_vet_center_edit_form',
+      'node_vet_center_form',
+    ])) {
+      $form['title']['widget'][0]['value']['#attributes']['disabled'] = FALSE;
+    }
+    // Lockdown titles for all roles for all other types.
+    else {
       $form['title']['widget'][0]['value']['#attributes']['disabled'] = TRUE;
     }
+
     // Disable the facility locator API field if it is populated because it
     // should not be altered, or it will deviate from the API.
     if (!empty($form['field_facility_locator_api_id']['widget'][0]['value']['#default_value'])) {
