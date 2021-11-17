@@ -3,14 +3,17 @@
 namespace Drupal\va_gov_vet_center\EventSubscriber;
 
 use Drupal\Component\Render\FormattableMarkup;
-use Drupal\Core\Entity\EntityFormInterface;
+use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
+use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\va_gov_user\Service\UserPermsService;
+use Drupal\va_gov_vet_center\Service\RequiredServices;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -27,16 +30,31 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   protected $userPermsService;
 
   /**
+   * Vet center required service service.
+   *
+   * @var \Drupal\va_gov_vet_center\Service\RequiredServices
+   *  The required services service.
+   */
+  protected $requiredServices;
+
+  /**
    * Constructs a EntityEventSubscriber object.
    *
    * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
    *   The string translation service.
    * @param \Drupal\va_gov_user\Service\UserPermsService $user_perms_service
    *   The string translation service.
+   * @param \Drupal\va_gov_vet_center\Service\RequiredServices $required_services
+   *   The required services service.
    */
-  public function __construct(TranslationInterface $string_translation, UserPermsService $user_perms_service) {
+  public function __construct(
+    TranslationInterface $string_translation,
+    UserPermsService $user_perms_service,
+    RequiredServices $required_services
+    ) {
     $this->stringTranslation = $string_translation;
     $this->userPermsService = $user_perms_service;
+    $this->requiredServices = $required_services;
   }
 
   /**
@@ -84,6 +102,42 @@ class EntityEventSubscriber implements EventSubscriberInterface {
         '#description' => $this->t('@markup', ['@markup' => $formatted_markup]),
         '#open' => TRUE,
       ];
+    }
+  }
+
+  /**
+   * Entity insert.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent $event
+   *   The event.
+   */
+  public function entityInsert(EntityInsertEvent $event): void {
+    $entity = $event->getEntity();
+    if ($entity->getEntityTypeId() == 'node'
+      && $entity->bundle() == 'vet_center'
+      && $entity->isNew()) {
+      // Add all required services for this newly created facility.
+      $this->requiredServices->addServicesByFacility($entity);
+    }
+  }
+
+  /**
+   * Entity update.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent $event
+   *   The event.
+   */
+  public function entityUpdate(EntityUpdateEvent $event): void {
+    $entity = $event->getEntity();
+    if ($entity->getEntityTypeId() == 'taxonomy_term'
+      && $entity->bundle() == 'health_care_service_taxonomy'
+      && $entity->hasField('field_vet_center_required_servic')
+      && !$entity->isNew()) {
+      if (!$entity->original->get('field_vet_center_required_servic')->value
+        && $entity->get('field_vet_center_required_servic')->value) {
+        // Add any missing services for this newly required term.
+        $this->requiredServices->addServicesByTerm($entity);
+      }
     }
   }
 
@@ -251,6 +305,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents(): array {
     return [
+      HookEventDispatcherInterface::ENTITY_INSERT => 'entityInsert',
+      HookEventDispatcherInterface::ENTITY_UPDATE => 'entityUpdate',
       HookEventDispatcherInterface::FORM_ALTER => 'formAlter',
       'hook_event_dispatcher.form_node_vet_center_locations_list_edit_form.alter' => 'alterVetCenterLocationsListNodeEditForm',
       'hook_event_dispatcher.form_node_vet_center_edit_form.alter' => 'vetcenterFormAlter',
