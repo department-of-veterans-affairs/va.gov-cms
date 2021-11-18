@@ -54,6 +54,7 @@ dependencies:
     - linkit
     - media_library
     - paragraphs
+    - paragraphs_features
     - path
     - textfield_counter
 third_party_settings:
@@ -434,6 +435,7 @@ content:
       collapsible: false
       collapsed: false
       allow_duplicate: false
+      allow_system_delete: false
     third_party_settings:
       entity_browser_entity_form:
         entity_browser_id: downloadable_resources
@@ -699,6 +701,7 @@ content:
       collapsible: false
       collapsed: false
       allow_duplicate: false
+      allow_system_delete: false
     third_party_settings:
       entity_browser_entity_form:
         entity_browser_id: promo_blocks_browser
@@ -757,12 +760,17 @@ content:
       closed_mode_threshold: 0
       add_mode: button
       form_display_mode: default
-      default_paragraph_type: _none
+      default_paragraph_type: button
       features:
         add_above: '0'
-        collapse_edit_all: collapse_edit_all
-        duplicate: duplicate
-    third_party_settings: {  }
+        collapse_edit_all: '0'
+        duplicate: '0'
+    third_party_settings:
+      paragraphs_features:
+        delete_confirmation: false
+        add_in_between: false
+        split_text: false
+        show_drag_and_drop: false
     region: content
   field_secondary_call_to_action:
     type: paragraphs
@@ -779,9 +787,14 @@ content:
       default_paragraph_type: _none
       features:
         add_above: '0'
-        collapse_edit_all: collapse_edit_all
-        duplicate: duplicate
-    third_party_settings: {  }
+        collapse_edit_all: '0'
+        duplicate: '0'
+    third_party_settings:
+      paragraphs_features:
+        delete_confirmation: false
+        add_in_between: false
+        split_text: false
+        show_drag_and_drop: false
     region: content
   moderation_state:
     type: moderation_state_default
