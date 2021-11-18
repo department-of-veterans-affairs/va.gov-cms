@@ -116,7 +116,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $formatted_markup = new FormattableMarkup('<div class="services-intro-wrap"><h2>VAMC System Health Service</h2>
     <p>Add services that Veterans can receive at one or more facilities in your health system.
     Some content won’t be editable because it comes from other sources. For full guidance,
-    see <a target="_blank" href="@help_link">How to edit a VAMC System Health Service.</a></p></div>', [
+    see <a target="_blank" href="@help_link">How to edit a VAMC System Health Service (opens in a new tab)</a>.</p></div>', [
       '@help_link' => 'https://prod.cms.va.gov/help/vamc/how-to-add-a-vamc-system-health-service',
     ]);
     $form['field_service_name_and_descripti']['#prefix'] = $this->t('@markup', ['@markup' => $formatted_markup]);

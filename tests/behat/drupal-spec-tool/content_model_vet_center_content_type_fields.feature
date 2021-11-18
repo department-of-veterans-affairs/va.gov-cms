@@ -37,7 +37,7 @@ Feature: Content model: Vet Center Content Type fields
 | Content type | Vet Center - Community Access Point | How should CAP hours be communicated? | field_vetcenter_cap_hours_opt_in | Boolean | Required | 1 | Check boxes/radio buttons |  |
 | Content type | Vet Center - Community Access Point | Main Vet Center location | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center - Community Access Point | Table of contents | field_table_of_contents | Markup |  | 1 | Markup | Translatable |
-| Content type | Vet Center - Facility Service | Vet center service description | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
+| Content type | Vet Center - Facility Service | Vet Center service description | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | Vet Center - Facility Service | Enforce unique combo | field_enforce_unique_combo | Allow Only One |  | 1 | Allow Only One widget | Translatable |
 | Content type | Vet Center - Facility Service | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center - Facility Service | Service name | field_service_name_and_descripti | Entity reference | Required | 1 | Select list | Translatable |
