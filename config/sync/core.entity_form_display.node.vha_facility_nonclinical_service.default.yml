@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.vha_facility_nonclinical_service.field_service_location
     - field.field.node.vha_facility_nonclinical_service.field_service_name_and_descripti
     - node.type.vha_facility_nonclinical_service
+    - workflows.workflow.editorial
   module:
     - content_moderation
     - field_group
@@ -20,7 +21,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: details_sidebar
       region: content
       format_settings:
@@ -32,6 +33,21 @@ third_party_settings:
         classes: ''
         show_empty_fields: false
       label: Section
+    group_editorial_workflow:
+      children:
+        - moderation_state
+        - revision_log
+      parent_name: ''
+      weight: 4
+      format_type: fieldset
+      region: content
+      format_settings:
+        show_empty_fields: false
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Editorial workflow'
 id: node.vha_facility_nonclinical_service.default
 targetEntityType: node
 bundle: vha_facility_nonclinical_service
@@ -78,13 +94,13 @@ content:
     region: content
   moderation_state:
     type: moderation_state_default
-    weight: 4
+    weight: 5
     settings: {  }
     region: content
     third_party_settings: {  }
   path:
     type: path
-    weight: 5
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
