@@ -4,7 +4,7 @@ Feature: Content model: Outreach hub Content Type fields
   As a content editor
   I want to have content type fields that reflect my content model.
 
-  @dst @field_type @content_type_fields @dstfields                                                                                                                                                               
+  @dst @field_type @content_type_fields @dstfields
      Scenario: Fields
        Then exactly the following fields should exist for bundles "office,outreach_asset,publication_listing" of entity type node
        | Type | Bundle | Field label | Machine name | Field type | Required | Cardinality | Form widget | Translatable |
