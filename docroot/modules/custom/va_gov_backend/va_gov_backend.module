@@ -451,39 +451,6 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     }
   }
 
-  // Add states + custom validation if the Standalone Page field is present.
-  if (isset($form['field_standalone_page'])) {
-    $form['field_primary_category']['widget']['#states']['required']['input[id="edit-field-standalone-page-value"]'] = ['checked' => TRUE];
-    $form['field_tags']['widget'][0]['subform']['field_topics']['#states']['required']['input[id="edit-field-standalone-page-value"]'] = ['checked' => TRUE];
-    $form['field_related_information']['widget'][0]['subform']['field_link']['widget'][0]['uri']['#states']['required']['input[id="edit-field-standalone-page-value"]'] = ['checked' => TRUE];
-    $form['field_related_information']['widget'][0]['subform']['field_link']['widget'][0]['title']['#states']['required']['input[id="edit-field-standalone-page-value"]'] = ['checked' => TRUE];
-
-    // Change field uri and title widget to optional.
-    $form['field_related_information']['widget'][0]['subform']['field_link']['widget'][0]['uri']['#required'] = FALSE;
-    $form['field_related_information']['widget'][0]['subform']['field_link']['widget'][0]['title']['#required'] = FALSE;
-
-    foreach ($form['field_buttons']['widget'] as $idx => $val) {
-      if (is_numeric($idx)) {
-        $form['field_buttons']['widget'][$idx]['subform']['field_button_label']['widget'][0]['value']['#states']['required']['input[id="edit-field-standalone-page-value"]'] = ['checked' => TRUE];
-        $form['field_buttons']['widget'][$idx]['subform']['field_button_link']['widget'][0]['uri']['#states']['required']['input[id="edit-field-standalone-page-value"]'] = ['checked' => TRUE];
-      }
-    }
-
-    // Add custom validation.
-    array_unshift($form['#validate'], '_va_gov_backend_standalone_page_validation');
-  }
-  else {
-    // Mark CTA button fields as required.
-    if (!empty($form['field_buttons'])) {
-      foreach ($form['field_buttons']['widget'] as $idx => $val) {
-        if (is_numeric($idx)) {
-          $form['field_buttons']['widget'][$idx]['subform']['field_button_label']['widget'][0]['value']['#required'] = TRUE;
-          $form['field_buttons']['widget'][$idx]['subform']['field_button_link']['widget'][0]['uri']['#required'] = TRUE;
-        }
-      }
-    }
-  }
-
   // If Contact Information paragraph component.
   if (isset($form['field_contact_information'])) {
     $form['#validate'][] = '_va_gov_backend_contact_information_validation';
@@ -881,29 +848,6 @@ function _va_gov_backend_audience_topics_validation(array $form, FormStateInterf
     }
     elseif ($tag_count > 4) {
       $form_state->setErrorByName('field_tags][0][subform][field_topics', t('No more than 4 Topic/Audience tags may be selected.'));
-    }
-  }
-}
-
-/**
- * Custom validation callback for the primary category and related info fields.
- *
- * @param array $form
- *   The exposed widget form array.
- * @param \Drupal\Core\Form\FormStateInterface $form_state
- *   The form state.
- */
-function _va_gov_backend_standalone_page_validation(array &$form, FormStateInterface &$form_state) {
-  if ($form_state->getValue('field_standalone_page')['value'] === 0) {
-    // If we don't unset this field, validation prevents the form from
-    // submitting. This is undesirable when the standalone option is not
-    // toggled on.
-    $form_state->unsetValue('field_related_information');
-  }
-  if (!empty($form_state->getValue('field_standalone_page')['value'])) {
-    if (empty($form_state->getValue('field_primary_category'))) {
-      $form['field_primary_category']['#required'] = TRUE;
-      $form_state->setErrorByName('field_primary_category', t('Primary category field is required.'));
     }
   }
 }
