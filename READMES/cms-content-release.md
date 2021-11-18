@@ -1,16 +1,16 @@
 # CMS Content Release
 
 Content releases are initiated in one of two ways:
-- Automatically, via [this Jenkins job](http://jenkins.vfs.va.gov/job/deploys/job/vets-website-content-autodeploy/)
+- Automatically, via [this Github Action Workflow](https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml)
 - Manually, via the ["Release content"](https://prod.cms.va.gov/admin/content/deploy) page in the CMS.
 
 ## Automatic
 
 ### Timed
 
-The [Content-Only Autodeploy job](http://jenkins.vfs.va.gov/job/deploys/job/vets-gov-autodeploy-content-build/) handles automatic content deploys.
+The [Content-Only Autodeploy Github Action Workflow](https://github.com/department-of-veterans-affairs/content-build/blob/master/.github/workflows/content-release.ymll) handles automatic content deploys.
 
-It is currently [set](https://github.com/department-of-veterans-affairs/devops/blob/676833d3d85abad9071e1df71a9c73b9f027bd41/ansible/deployment/config/jenkins-vetsgov/seed_job.groovy#L310) to execute weekdays at 9AM, 10AM, 11AM, 12PM, 1:45PM, 4PM, amd 5PM.
+It is currently [set](https://github.com/department-of-veterans-affairs/content-build/blob/master/.github/workflows/content-release.yml#L16) to execute weekdays at 9AM, 10AM, 11AM, 12PM, 1:45PM, 4PM, amd 5PM.
 
 ### Triggered
 
@@ -24,21 +24,19 @@ This page is constructed by the [`va_gov_build_trigger`](https://github.com/depa
 
 ### Build-Release-Deploy (Production and Staging)
 
-The "Release content" page on BRD environments invokes the [same Jenkins job](http://jenkins.vfs.va.gov/job/deploys/job/vets-gov-autodeploy-content-build/) as the automatic deploys. Accordingly the content build output should be identical.
+The "Release content" page on BRD environments invokes the [same Github Action Workflow]https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml) as the automatic deploys. Accordingly the content build output should be identical.
 
-The Jenkins job configuration is stored in Drupal `settings.php`. Here are the settings for [production](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/docroot/sites/default/settings/settings.prod.php#L7-L9). Settings for other environments can be found in the `*.settings.php` [files](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/docroot/sites/default/settings). The setting keys are:
+The Jenkins job configuration is stored in Drupal `settings.php`. Here are the settings for [production](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/docroot/sites/default/settings/settings.prod.php#L46). Settings for other environments can be found in the `*.settings.php` [files](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/docroot/sites/default/settings). The setting keys are:
 ```php
-$settings['jenkins_build_job_host']
-$settings['jenkins_build_job_path']
-$settings['jenkins_build_job_params']
-$settings['jenkins_build_job_url']
+$settings['va_gov_frontend_build_type'] = 'brdgha';
+$settings['github_actions_deploy_env'] = 'prod';
 ```
 
 **To manually run the Jenkins job:**
-1. Go to http://jenkins.vfs.va.gov/job/deploys/job/vets-gov-autodeploy-content-build/.
-2. Click "Build with parameters" setting the `release_wait` to 0 and make sure `use_latest_release` is selected.
+1. Go to https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml.
+2. Click "Run Workflow" setting the `release_wait` to 0 and make sure `The environment to deploy content to` is set to `prod`.
 
-![image](https://user-images.githubusercontent.com/121603/129736319-9cea3bb3-8b8c-445e-8366-54e004b68e2c.png)
+![image](https://user-images.githubusercontent.com/121603/141811069-c7bf44ab-d8d9-4da3-96d0-860f234eaa5b.png)
 
 [_**More documentation for the content build can be found here**_](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/platform/cms/accelerated_publishing/content-build).
 
