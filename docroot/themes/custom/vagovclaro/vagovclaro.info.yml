@@ -1,0 +1,24 @@
+name: "VA.gov Admin Theme (Claro edition)"
+type: theme
+description: 'Overrides for the Claro theme.'
+core_version_requirement: ^8 || ^9
+dependencies:
+  - va_gov_backend
+base theme: claro
+ckeditor_stylesheets:
+  - assets/css/wysiwyg.css
+screenshot: logo.svg
+libraries:
+  - vagovclaro/global-scripts
+  - vagovclaro/styles
+regions:
+  header: 'Header'
+  pre_content: 'Pre-content'
+  breadcrumb: Breadcrumb
+  highlighted: Highlighted
+  help: Help
+  content: Content
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+  sidebar_first: 'First sidebar'
+  sidebar_second: 'Second sidebar'

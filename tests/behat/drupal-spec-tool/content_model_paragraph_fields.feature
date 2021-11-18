@@ -33,8 +33,8 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Audience & Topics | Topics | field_topics | Entity reference |  | 4 | Check boxes/radio buttons |  |
 | Paragraph type | Accordion | Header | field_header | Text (plain) | Required | 1 | Textfield |  |
 | Paragraph type | Accordion | Rich text | field_rich_wysiwyg | Text (formatted, long) | Required | 1 | Text area (multiple rows) |  |
-| Paragraph type | Call to action | Button Label | field_button_label | Text (plain) |  | 1 | Textfield with counter |  |
-| Paragraph type | Call to action | Button Link | field_button_link | Link |  | 1 | Linkit |  |
+| Paragraph type | Call to action | Link text  | field_button_label | Text (plain) | Required | 1 | Textfield with counter |  |
+| Paragraph type | Call to action | Link | field_button_link | Link | Required | 1 | Linkit |  |
 | Paragraph type | Centralized content descriptor | Description | field_cc_documentor_description | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
 | Paragraph type | Centralized content descriptor | Title | field_cc_documentor_title | Text (plain) |  | 1 | Textfield |  |
 | Paragraph type | Checklist | Checklist sections | field_checklist_sections | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |

@@ -23,4 +23,6 @@ This document lists known services which depend on the CMS.
      * Forms API = form data (manually edited auxiliary fields) from “VA Form” nodes ([README](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/migrations-forms.md#cms-forms-data-to-lighthouse))
          * Frequency
              * Nightly (0100 ET)
+     * ChatBot
+         * Currently pulls from tugboat: https://main-0jm2a1h08xb0nzpger8iko49kskarwcm.ci.cms.va.gov/graphql  
 
