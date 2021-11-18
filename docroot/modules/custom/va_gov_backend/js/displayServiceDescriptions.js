@@ -8,14 +8,13 @@
 (function ($, Drupal) {
   Drupal.behaviors.vaGovDisplayServiceDescriptions = {
     attach: function attach(context) {
-      var removeItems = function removeItems() {
-        return context.querySelectorAll(".health_service_text_container, .services-general-description").forEach(function (item) {
-          item.remove();
-        });
-      };
-
       var loadItems = function loadItems(service) {
-        removeItems();
+        if (context.getElementById(service.id + "-health_service_text_container")) {
+          context.getElementById(service.id + "-health_service_text_container").remove();
+        }
+        if (context.getElementById(service.id + "-services-general-description")) {
+          context.getElementById(service.id + "-services-general-description").remove();
+        }
 
         var serviceSelector = context.querySelector(".field--name-field-service-name-and-descripti select");
         var wysiwyg = context.getElementById("edit-field-body-wrapper");
@@ -43,7 +42,8 @@
         button.setAttribute("data-tippy-animate", "fade");
         button.setAttribute("data-tippy-size", "large");
         button.id = "service-tooltip css-tooltip";
-        div.className = "health_service_text_container field-group-tooltip tooltip-layout centralized css-tooltip " + serviceSelectorSelectionClass;
+        div.id = service.id + "-health_service_text_container";
+        div.className = "no-content health_service_text_container field-group-tooltip tooltip-layout centralized css-tooltip " + serviceSelectorSelectionClass;
 
         div.appendChild(button);
 
@@ -53,6 +53,7 @@
           var typeString = drupalSettings.availableHealthServices[service.value].type;
           p1.textContent = typeString;
           s1.textContent = "Type of care: ";
+          div.classList.remove("no-content");
           div.appendChild(p1);
           p1.prepend(s1);
         }
@@ -61,6 +62,7 @@
           var s2 = context.createElement("strong");
           p2.textContent = drupalSettings.availableHealthServices[service.value].name;
           s2.textContent = "Patient friendly name: ";
+          div.classList.remove("no-content");
           div.appendChild(p2);
           p2.prepend(s2);
         }
@@ -69,6 +71,7 @@
           var s3 = context.createElement("strong");
           p3.textContent = drupalSettings.availableHealthServices[service.value].conditions.replace(/&nbsp;/g, " ");
           s3.textContent = "Common conditions: ";
+          div.classList.remove("no-content");
           div.appendChild(p3);
           p3.prepend(s3);
         }
@@ -77,6 +80,7 @@
           var s4 = context.createElement("strong");
           p4.textContent = drupalSettings.availableHealthServices[service.value].description.replace(/&nbsp;/g, " ");
           s4.textContent = "Service description: ";
+          div.classList.remove("no-content");
           div.appendChild(p4);
           p4.prepend(s4);
         }
@@ -85,6 +89,7 @@
 
         if (div.textContent.length > 0) {
           var p = context.createElement("p");
+          p.id = service.id + "-services-general-description";
           p.className = "services-general-description";
           p.textContent = "General service description";
           service.after(p);
@@ -94,9 +99,7 @@
       var descriptionFill = function descriptionFill(ss) {
         if (ss && ss.length > 0) {
           ss.forEach(function (service) {
-            if (drupalSettings.currentNodeBundle === "regional_health_care_service_des") {
-              loadItems(service);
-            }
+            loadItems(service);
             service.addEventListener("change", function () {
               loadItems(service);
             });

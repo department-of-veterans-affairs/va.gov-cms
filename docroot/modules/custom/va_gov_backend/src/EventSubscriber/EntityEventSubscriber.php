@@ -6,12 +6,15 @@ use Drupal\node\NodeInterface;
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
+use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
+use Drupal\field_event_dispatcher\Event\Field\WidgetFormAlterEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -113,7 +116,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $formatted_markup = new FormattableMarkup('<div class="services-intro-wrap"><h2>VAMC System Health Service</h2>
     <p>Add services that Veterans can receive at one or more facilities in your health system.
     Some content won’t be editable because it comes from other sources. For full guidance,
-    see <a target="_blank" href="@help_link">How to edit a VAMC System Health Service.</a></p></div>', [
+    see <a target="_blank" href="@help_link">How to edit a VAMC System Health Service (opens in a new tab)</a>.</p></div>', [
       '@help_link' => 'https://prod.cms.va.gov/help/vamc/how-to-add-a-vamc-system-health-service',
     ]);
     $form['field_service_name_and_descripti']['#prefix'] = $this->t('@markup', ['@markup' => $formatted_markup]);
@@ -152,15 +155,24 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Form alter Event call.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormAlterEvent $event
+   *   The event.
+   */
+  public function formAlter(FormAlterEvent $event): void {
+    $form = &$event->getForm();
+    $form_state = $event->getFormState();
+    $this->lockTitleEditing($form, $form_state);
+  }
+
+  /**
    * Builds an array of term fields predicated by product type.
    *
    * @param array $form
-   *   The form.
+   *   The form array.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form state.
-   *
-   * @return array
-   *   The taxonomy fields.
    */
   public function getProductTypeTermFields(array &$form, FormStateInterface $form_state) {
     $fields = [];
@@ -204,7 +216,35 @@ class EntityEventSubscriber implements EventSubscriberInterface {
           $build['field_health_services'][$key]['#suffix'] = $formatted_markup;
         }
       }
+    }
+  }
 
+  /**
+   * Locks down standardized form titles for non-admins.
+   *
+   * @param array $form
+   *   The form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   */
+  public function lockTitleEditing(array &$form, FormStateInterface $form_state) {
+    $form_object = $form_state->getFormObject();
+    $bundle = NULL;
+    if ($form_object instanceof ContentEntityForm) {
+      $bundle = $form_object->getEntity()->bundle();
+    }
+    $bundles_with_standardized_titles = [
+      'event_listing',
+      'health_services_listing',
+      'leadership_listing',
+      'locations_listing',
+      'office',
+      'press_releases_listing',
+      'publication_listing',
+      'story_listing',
+    ];
+    if (!$this->userPermsService->hasAdminRole() && in_array($bundle, $bundles_with_standardized_titles)) {
+      $form['title']['#disabled'] = TRUE;
     }
   }
 
@@ -388,12 +428,37 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Widget form alter Event call.
+   *
+   * @param \Drupal\field_event_dispatcher\Event\Field\WidgetFormAlterEvent $event
+   *   The event.
+   */
+  public function paragraphsExperimentalWidgetAlter(WidgetFormAlterEvent $event): void {
+    $form = &$event->getElement();
+    $this->removeCollapseButton($form);
+  }
+
+  /**
+   * Remove collapse button on button paragraphs widget forms.
+   *
+   * @param array $form
+   *   The form.
+   */
+  public function removeCollapseButton(array &$form) {
+    if (!empty($form['#paragraph_type']) && $form['#paragraph_type'] === 'button') {
+      unset($form['top']['actions']['actions']['collapse_button']);
+    }
+  }
+
+  /**
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
     return [
       HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'entityPresave',
+      HookEventDispatcherInterface::WIDGET_FORM_ALTER => 'paragraphsExperimentalWidgetAlter',
       HookEventDispatcherInterface::ENTITY_VIEW_ALTER => 'entityViewAlter',
+      HookEventDispatcherInterface::FORM_ALTER => 'formAlter',
       'hook_event_dispatcher.form_node_person_profile_form.alter' => 'alterStaffProfileNodeForm',
       'hook_event_dispatcher.form_node_person_profile_edit_form.alter' => 'alterStaffProfileNodeForm',
       'hook_event_dispatcher.form_node_centralized_content_edit_form.alter' => 'alterCentralizedContentNodeForm',

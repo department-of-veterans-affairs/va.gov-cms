@@ -12,9 +12,9 @@ id: node.media_list_videos.field_buttons
 field_name: field_buttons
 entity_type: node
 bundle: media_list_videos
-label: 'CTA buttons'
+label: 'Calls to action'
 description: 'Add a Call to Action button. At least 1 required. Up to 2 max.'
-required: true
+required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
@@ -34,9 +34,18 @@ settings:
       alert_single:
         weight: 38
         enabled: false
+      audience_topics:
+        weight: 48
+        enabled: false
+      basic_accordion:
+        weight: 49
+        enabled: false
       button:
         enabled: true
         weight: 39
+      centralized_content_descriptor:
+        weight: 51
+        enabled: false
       checklist:
         weight: 40
         enabled: false
@@ -49,17 +58,29 @@ settings:
       collapsible_panel_item:
         weight: 43
         enabled: false
+      contact_information:
+        weight: 56
+        enabled: false
       downloadable_file:
         weight: 44
         enabled: false
+      email_contact:
+        weight: 58
+        enabled: false
       expandable_text:
         weight: 45
+        enabled: false
+      featured_content:
+        weight: 60
         enabled: false
       health_care_local_facility_servi:
         weight: 46
         enabled: false
       link_teaser:
         weight: 47
+        enabled: false
+      link_teaser_with_image:
+        weight: 63
         enabled: false
       list_of_link_teasers:
         weight: 48
@@ -72,6 +93,9 @@ settings:
         enabled: false
       media:
         weight: 51
+        enabled: false
+      media_list_images:
+        weight: 68
         enabled: false
       media_list_videos:
         weight: 52
@@ -99,6 +123,9 @@ settings:
         enabled: false
       react_widget:
         weight: 60
+        enabled: false
+      rich_text_char_limit_1000:
+        weight: 78
         enabled: false
       service_location:
         weight: 61

@@ -188,12 +188,17 @@ content:
       closed_mode_threshold: 0
       add_mode: dropdown
       form_display_mode: default
-      default_paragraph_type: button
+      default_paragraph_type: _none
       features:
         add_above: '0'
-        collapse_edit_all: collapse_edit_all
-        duplicate: duplicate
-    third_party_settings: {  }
+        collapse_edit_all: '0'
+        duplicate: '0'
+    third_party_settings:
+      paragraphs_features:
+        delete_confirmation: false
+        add_in_between: false
+        split_text: false
+        show_drag_and_drop: false
     type: paragraphs
     region: content
   field_buttons_repeat:

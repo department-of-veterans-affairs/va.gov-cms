@@ -3,7 +3,7 @@ services:
     class: Drupal\va_gov_backend\EventSubscriber\EntityEventSubscriber
     arguments: ['@string_translation', '@va_gov_user.user_perms', '@entity_type.manager']
     tags:
-      - {name: event_subscriber }
+      - { name: event_subscriber }
   va_gov_backend.exclusion_types:
     class: Drupal\va_gov_backend\Service\ExclusionTypes
     arguments: ['@config.factory']
