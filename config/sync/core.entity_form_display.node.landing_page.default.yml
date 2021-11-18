@@ -126,7 +126,6 @@ third_party_settings:
     group_related_links:
       children:
         - field_related_links
-        - field_related_office
       parent_name: ''
       weight: 5
       format_type: fieldset
@@ -269,16 +268,6 @@ content:
     third_party_settings: {  }
     type: entity_reference_paragraphs
     region: content
-  field_related_office:
-    weight: 5
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
   field_spokes:
     weight: 4
     settings:
@@ -360,6 +349,7 @@ hidden:
   created: true
   field_meta_tags: true
   field_plainlanguage_date: true
+  field_related_office: true
   promote: true
   status: true
   sticky: true

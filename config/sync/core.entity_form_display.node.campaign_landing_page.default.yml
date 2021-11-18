@@ -276,7 +276,6 @@ third_party_settings:
       label: FAQs
     group_connect_with_us:
       children:
-        - field_related_office
         - field_clp_connect_with_us
       parent_name: ''
       weight: 9
@@ -768,16 +767,6 @@ content:
         duplicate: duplicate
     third_party_settings: {  }
     region: content
-  field_related_office:
-    weight: 43
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
   field_secondary_call_to_action:
     type: paragraphs
     weight: 4
@@ -832,6 +821,8 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_related_office: true
+  path: true
   promote: true
   sticky: true
   uid: true
