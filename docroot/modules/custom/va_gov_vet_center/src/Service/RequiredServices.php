@@ -25,6 +25,13 @@ class RequiredServices {
   protected $queueFactory;
 
   /**
+   * An array of required service taxonomy term objects.
+   *
+   * @var array
+   */
+  protected $requiredServices;
+
+  /**
    * Constructs a new RequiredServices object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
@@ -139,21 +146,25 @@ class RequiredServices {
    *   An array of required taxonomy term (service) entities.
    */
   public function getRequiredServices() {
-    $term_storage = $this->entityTypeManager->getStorage('taxonomy_term');
-    $term_query = $term_storage->getQuery();
+    if (empty($this->requiredServices)) {
+      $term_storage = $this->entityTypeManager->getStorage('taxonomy_term');
+      $term_query = $term_storage->getQuery();
 
-    // Return a list of required services.
-    $term_ids = $term_query
-      ->condition('vid', 'health_care_service_taxonomy')
-      ->execute();
-    $service_terms = $term_storage->loadMultiple($term_ids);
-    $required_services = [];
+      // Return a list of required services.
+      $term_ids = $term_query
+        ->condition('vid', 'health_care_service_taxonomy')
+        ->execute();
+      $service_terms = $term_storage->loadMultiple($term_ids);
+      $required_services = [];
 
-    // Unset any items in the array that aren't required.
-    foreach ($service_terms as $service_term) {
-      if ($this->isRequiredService($service_term)) {
-        $required_services[] = $service_term;
+      // Unset any items in the array that aren't required.
+      foreach ($service_terms as $service_term) {
+        if ($this->isRequiredService($service_term)) {
+          $required_services[] = $service_term;
+        }
       }
+
+      $this->requiredServices = $required_services;
     }
 
     return $required_services;
