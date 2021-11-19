@@ -167,7 +167,7 @@ class RequiredServices {
       $this->requiredServices = $required_services;
     }
 
-    return $required_services;
+    return $this->requiredServices;
   }
 
   /**
