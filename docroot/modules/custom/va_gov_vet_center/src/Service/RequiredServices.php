@@ -114,6 +114,7 @@ class RequiredServices {
 
         // Get the id for the vet center referenced in each facility service.
         foreach ($facility_services as $facility_service) {
+          /** @var \Drupal\node\NodeInterface $facility_service */
           if ($facility_service->hasField('field_office')) {
             $serviced_nids[] = $facility_service->get('field_office')->entity->id();
           }
