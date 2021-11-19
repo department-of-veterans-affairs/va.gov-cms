@@ -65,11 +65,16 @@ class RequiredServices {
    *   The vet center (facility) node for the new service items.
    */
   public function addServicesByFacility(EntityInterface $facility_node) {
-    // Be sure a given facility has all required services.
-    $required_services = $this->getRequiredServices();
+    /** @var \Drupal\node\NodeInterface $facility_node */
+    if ($facility_node->getEntityTypeId() == 'node'
+      && $facility_node->bundle() == 'vet_center'
+      && is_null($facility_node->original)) {
+      // Be sure a given facility has all required services.
+      $required_services = $this->getRequiredServices();
 
-    foreach ($required_services as $required_service) {
-      $this->addService($required_service, $facility_node);
+      foreach ($required_services as $required_service) {
+        $this->addService($required_service, $facility_node);
+      }
     }
   }
 
@@ -80,40 +85,49 @@ class RequiredServices {
    *   The taxonomy term for the new service items.
    */
   public function addServicesByTerm(EntityInterface $service_term) {
-    $node_storage = $this->entityTypeManager->getStorage('node');
+    /** @var \Drupal\taxonomy\TermInterface $service_term */
+    if ($service_term->getEntityTypeId() == 'taxonomy_term'
+      && $service_term->bundle() == 'health_care_service_taxonomy'
+      && $service_term->hasField('field_vet_center_required_servic')
+      && !$service_term->isNew()) {
+      if (!$service_term->original->get('field_vet_center_required_servic')->value
+        && $service_term->get('field_vet_center_required_servic')->value) {
+        $node_storage = $this->entityTypeManager->getStorage('node');
 
-    // Get all the vet center node ids.
-    $vet_center_query = $node_storage->getQuery();
-    $vet_center_nids = $vet_center_query
-      ->condition('type', 'vet_center')
-      ->execute();
+        // Get all the vet center node ids.
+        $vet_center_query = $node_storage->getQuery();
+        $vet_center_nids = $vet_center_query
+          ->condition('type', 'vet_center')
+          ->execute();
 
-    // Get all the facility health service node ids using this term.
-    $term_id = $service_term->id();
-    $service_query = $node_storage->getQuery();
-    $facility_service_nids = $service_query
-      ->condition('type', 'vet_center_facility_health_servi')
-      ->condition('field_service_name_and_descripti.target_id', $term_id)
-      ->execute();
+        // Get all the facility health service node ids using this term.
+        $term_id = $service_term->id();
+        $service_query = $node_storage->getQuery();
+        $facility_service_nids = $service_query
+          ->condition('type', 'vet_center_facility_health_servi')
+          ->condition('field_service_name_and_descripti.target_id', $term_id)
+          ->execute();
 
-    // Load all the facility health service nodes.
-    $facility_services = $node_storage->loadMultiple($facility_service_nids);
-    $serviced_nids = [];
+        // Load all the facility health service nodes.
+        $facility_services = $node_storage->loadMultiple($facility_service_nids);
+        $serviced_nids = [];
 
-    // Get the id for the vet center referenced in each facility service.
-    foreach ($facility_services as $facility_service) {
-      if ($facility_service->hasField('field_office')) {
-        $serviced_nids[] = $facility_service->get('field_office')->entity->id();
+        // Get the id for the vet center referenced in each facility service.
+        foreach ($facility_services as $facility_service) {
+          if ($facility_service->hasField('field_office')) {
+            $serviced_nids[] = $facility_service->get('field_office')->entity->id();
+          }
+        }
+
+        // Remove the vet centers where this service is already present.
+        $missing_nids = array_diff($vet_center_nids, $serviced_nids);
+
+        // Add each item to the queue for creation.
+        foreach ($missing_nids as $missing_nid) {
+          $vet_center = $node_storage->load($missing_nid);
+          $this->addService($service_term, $vet_center);
+        }
       }
-    }
-
-    // Remove the vet centers where this service is already present.
-    $missing_nids = array_diff($vet_center_nids, $serviced_nids);
-
-    // Add each item to the queue for creation.
-    foreach ($missing_nids as $missing_nid) {
-      $vet_center = $node_storage->load($missing_nid);
-      $this->addService($service_term, $vet_center);
     }
   }
 
@@ -154,6 +168,7 @@ class RequiredServices {
    *   Is this term is required or not.
    */
   public function isRequiredService(EntityInterface $service_term) {
+    /** @var \Drupal\taxonomy\TermInterface $service_term */
     // Check a service to see if it is required.
     $required = $service_term->get('field_vet_center_required_servic')->value;
 

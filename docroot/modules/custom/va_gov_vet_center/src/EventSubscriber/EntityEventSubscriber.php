@@ -31,6 +31,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
 
   /**
    * Vet center required service service.
+   * The required services service.
    *
    * @var \Drupal\va_gov_vet_center\Service\RequiredServices
    *  The required services service.
@@ -113,12 +114,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function entityInsert(EntityInsertEvent $event): void {
     $entity = $event->getEntity();
-    if ($entity->getEntityTypeId() == 'node'
-      && $entity->bundle() == 'vet_center'
-      && is_null($entity->original)) {
-      // Add all required services for this newly created facility.
-      $this->requiredServices->addServicesByFacility($entity);
-    }
+    // Add all required services for this newly created facility.
+    $this->requiredServices->addServicesByFacility($entity);
   }
 
   /**
@@ -129,16 +126,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function entityUpdate(EntityUpdateEvent $event): void {
     $entity = $event->getEntity();
-    if ($entity->getEntityTypeId() == 'taxonomy_term'
-      && $entity->bundle() == 'health_care_service_taxonomy'
-      && $entity->hasField('field_vet_center_required_servic')
-      && !$entity->isNew()) {
-      if (!$entity->original->get('field_vet_center_required_servic')->value
-        && $entity->get('field_vet_center_required_servic')->value) {
-        // Add any missing services for this newly required term.
-        $this->requiredServices->addServicesByTerm($entity);
-      }
-    }
+    // Add any missing services for this newly required term.
+    $this->requiredServices->addServicesByTerm($entity);
   }
 
   /**

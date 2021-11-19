@@ -55,12 +55,13 @@ abstract class RequiredServiceBase extends QueueWorkerBase implements ContainerF
     // Use the "cms migrator" user account (1317).
     $author_uid = 1317;
     $vet_center = $this->nodeStorage->load($data->facility_id);
+    /** @var \Drupal\node\NodeInterface $vet_center */
     $published = $vet_center->isPublished();
     $section_id = $vet_center->field_administration->target_id;
-    $moderation_state = ($published ? 'published' : 'draft');
+    $moderation_state = $vet_center->get('moderation_state')->value;
 
     // Create the new node.
-    $node = Node::create([
+    $vet_center_facility_health_service_node = Node::create([
       'type' => 'vet_center_facility_health_servi',
       'status' => $published,
       'moderation_state' => $moderation_state,
@@ -76,7 +77,7 @@ abstract class RequiredServiceBase extends QueueWorkerBase implements ContainerF
       ],
     ]);
 
-    $node->save();
+    $vet_center_facility_health_service_node->save();
 
   }
 
