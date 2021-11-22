@@ -41,6 +41,7 @@ dependencies:
     - field.field.node.campaign_landing_page.field_hero_image
     - field.field.node.campaign_landing_page.field_media
     - field.field.node.campaign_landing_page.field_primary_call_to_action
+    - field.field.node.campaign_landing_page.field_related_office
     - field.field.node.campaign_landing_page.field_secondary_call_to_action
     - node.type.campaign_landing_page
     - workflows.workflow.editorial
@@ -332,7 +333,7 @@ content:
     type: entity_browser_entity_reference
     region: content
   field_clp_connect_with_us:
-    weight: 39
+    weight: 44
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -831,6 +832,8 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_related_office: true
+  path: true
   promote: true
   sticky: true
   uid: true
