@@ -284,4 +284,21 @@
       }
     },
   };
+
+  Drupal.behaviors.vaGovWysiwygDescriptionPlacement = {
+    attach() {
+      // Get our wysiwyg help text.
+      const textareaDescriptions = document.querySelectorAll(
+        ".textarea-text-format-wrapper"
+      );
+      if (textareaDescriptions.length > 0) {
+        textareaDescriptions.forEach((item) => {
+          // If we have a label, move the help text below.
+          if (item.nextElementSibling.firstElementChild.nodeName === "LABEL") {
+            item.nextElementSibling.firstElementChild.after(item);
+          }
+        });
+      }
+    },
+  };
 })(jQuery, window.Drupal);

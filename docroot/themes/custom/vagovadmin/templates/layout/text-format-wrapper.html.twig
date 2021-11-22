@@ -14,18 +14,16 @@
  */
 #}
 <div class="js-text-format-wrapper text-format-wrapper js-form-item form-item">
-  {% if description %}
-    {%
+	{% if description %}
+		{%
       set classes = [
         aria_description ? 'description',
+        'textarea-text-format-wrapper',
       ]
     %}
-    <div{{ attributes.addClass(classes) }}>{{ description }}</div>
-  {% endif %}
-  <div class="children">
-    <div>title:{{children.title}}</div>
-    <div>label:{{children.label}}</div>
-    {{children}}
-  </div>
-  {{dd(children)}}
+	{% endif %}
+	<div class="children">
+		<div{{attributes.addClass(classes)}}>{{ description }}</div>
+		{{children}}
+	</div>
 </div>

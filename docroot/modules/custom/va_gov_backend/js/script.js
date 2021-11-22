@@ -40,7 +40,7 @@
         });
 
         var adminRoles = ["content_admin", "administrator"];
-        var targetTypes = ["health_care_local_facility", "vet_center"];
+        var targetTypes = ["health_care_local_facility"];
 
         if (drupalSettings.gtm_data.contentType && targetTypes.some(function (item) {
           return drupalSettings.gtm_data.contentType.includes(item);
@@ -170,6 +170,19 @@
       var linkCount = document.querySelectorAll(".paragraph-type--link-teaser").length;
       if (addMoreLinks && linkCount < 1) {
         addMoreLinks.dispatchEvent(new MouseEvent("click"));
+      }
+    }
+  };
+
+  Drupal.behaviors.vaGovWysiwygDescriptionPlacement = {
+    attach: function attach() {
+      var textareaDescriptions = document.querySelectorAll(".textarea-text-format-wrapper");
+      if (textareaDescriptions.length > 0) {
+        textareaDescriptions.forEach(function (item) {
+          if (item.nextElementSibling.firstElementChild.nodeName === "LABEL") {
+            item.nextElementSibling.firstElementChild.after(item);
+          }
+        });
       }
     }
   };
