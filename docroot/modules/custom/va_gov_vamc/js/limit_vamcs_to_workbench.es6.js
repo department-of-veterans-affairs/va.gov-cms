@@ -10,22 +10,34 @@
     "#edit-field-banner-alert-vamcs-wrapper div.form-type-checkbox"
   );
 
+  const selectListSystems = document.querySelectorAll(
+    "#edit-field-region-page option"
+  );
+
   const winnower = () => {
     // Get our list of nids user can't access.
     const disallowedValues = drupalSettings.va_gov_vamc.disallowed_vamc_options;
-
     // Disable our disallowed options.
-    checkBoxDivs.forEach((i) => {
-      const currentOptionValue = parseInt(i.querySelector("input").value, 10);
-      if (disallowedValues.includes(currentOptionValue)) {
-        if (i.querySelector("input").checked) {
-          i.querySelector("input").style.opacity = ".6";
-          i.querySelector("input").style.pointerEvents = "none";
-        } else {
-          i.querySelector("input").setAttribute("disabled", "disabled");
+    if (checkBoxDivs.length > 0) {
+      checkBoxDivs.forEach((i) => {
+        const currentOptionValue = parseInt(i.querySelector("input").value, 10);
+        if (disallowedValues.includes(currentOptionValue)) {
+          if (i.querySelector("input").checked) {
+            i.querySelector("input").style.opacity = ".6";
+            i.querySelector("input").style.pointerEvents = "none";
+          } else {
+            i.querySelector("input").setAttribute("disabled", "disabled");
+          }
         }
-      }
-    });
+      });
+    } else {
+      selectListSystems.forEach((i) => {
+        const currentOptionValue = parseInt(i.value, 10);
+        if (disallowedValues.includes(currentOptionValue)) {
+          i.setAttribute("hidden", "");
+        }
+      });
+    }
   };
 
   Drupal.behaviors.vaGovLimitServiceOptions = {

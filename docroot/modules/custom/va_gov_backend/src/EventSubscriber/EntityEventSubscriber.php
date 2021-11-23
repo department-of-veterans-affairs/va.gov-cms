@@ -14,6 +14,7 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
+use Drupal\field_event_dispatcher\Event\Field\WidgetFormAlterEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -115,7 +116,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $formatted_markup = new FormattableMarkup('<div class="services-intro-wrap"><h2>VAMC System Health Service</h2>
     <p>Add services that Veterans can receive at one or more facilities in your health system.
     Some content won’t be editable because it comes from other sources. For full guidance,
-    see <a target="_blank" href="@help_link">How to edit a VAMC System Health Service.</a></p></div>', [
+    see <a target="_blank" href="@help_link">How to edit a VAMC System Health Service (opens in a new tab)</a>.</p></div>', [
       '@help_link' => 'https://prod.cms.va.gov/help/vamc/how-to-add-a-vamc-system-health-service',
     ]);
     $form['field_service_name_and_descripti']['#prefix'] = $this->t('@markup', ['@markup' => $formatted_markup]);
@@ -427,11 +428,35 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Widget form alter Event call.
+   *
+   * @param \Drupal\field_event_dispatcher\Event\Field\WidgetFormAlterEvent $event
+   *   The event.
+   */
+  public function paragraphsExperimentalWidgetAlter(WidgetFormAlterEvent $event): void {
+    $form = &$event->getElement();
+    $this->removeCollapseButton($form);
+  }
+
+  /**
+   * Remove collapse button on button paragraphs widget forms.
+   *
+   * @param array $form
+   *   The form.
+   */
+  public function removeCollapseButton(array &$form) {
+    if (!empty($form['#paragraph_type']) && $form['#paragraph_type'] === 'button') {
+      unset($form['top']['actions']['actions']['collapse_button']);
+    }
+  }
+
+  /**
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
     return [
       HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'entityPresave',
+      HookEventDispatcherInterface::WIDGET_FORM_ALTER => 'paragraphsExperimentalWidgetAlter',
       HookEventDispatcherInterface::ENTITY_VIEW_ALTER => 'entityViewAlter',
       HookEventDispatcherInterface::FORM_ALTER => 'formAlter',
       'hook_event_dispatcher.form_node_person_profile_form.alter' => 'alterStaffProfileNodeForm',
