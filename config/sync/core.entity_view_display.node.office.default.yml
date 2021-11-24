@@ -6,12 +6,17 @@ dependencies:
     - field.field.node.office.field_administration
     - field.field.node.office.field_body
     - field.field.node.office.field_description
+    - field.field.node.office.field_email_updates_link
+    - field.field.node.office.field_external_link
     - field.field.node.office.field_meta_tags
     - field.field.node.office.field_meta_title
+    - field.field.node.office.field_social_media_links
     - node.type.office
   module:
     - field_group
+    - link
     - metatag
+    - social_media_links_field
     - user
 third_party_settings:
   field_group:
@@ -41,6 +46,30 @@ content:
     third_party_settings: {  }
     type: string
     region: content
+  field_email_updates_link:
+    weight: 8
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_external_link:
+    weight: 9
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
   field_meta_tags:
     weight: 5
     label: above
@@ -55,6 +84,15 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
+  field_social_media_links:
+    weight: 6
+    label: above
+    settings:
+      appearance: {  }
+      link_attributes: {  }
+    third_party_settings: {  }
+    type: social_media_links_field_default
     region: content
 hidden:
   content_moderation_control: true

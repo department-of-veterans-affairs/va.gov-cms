@@ -18,12 +18,15 @@
         event.preventDefault();
 
         var target = $(event.target).attr("href");
-        var scrollToPosition = $(target).offset().top - (Drupal.getAdminToolbarHeight() + 10);
+        const targetOffset = $(target).offset();
+        if (targetOffset) {
+          const scrollToPosition = targetOffset.top - (Drupal.getAdminToolbarHeight() + 10);
 
-        $("html").animate({ scrollTop: scrollToPosition }, 500, function () {
-          window.location.hash = "" + target;
-          $("html").animate({ scrollTop: scrollToPosition }, 0);
-        });
+          $("html").animate({ scrollTop: scrollToPosition }, 500, () => {
+            window.location.hash = `${target}`;
+            $("html").animate({ scrollTop: scrollToPosition }, 0);
+          });
+        }
       });
     }
   };

@@ -35,6 +35,7 @@ Feature: Google Tag Manager dataLayer values are correct
     And I create a "office" node
     And I click the edit tab
     And I fill in "Name" with "[Test Data] My Test Office"
+    And I click the "Meta Tags" vertical tab
     And I fill in "Meta title tag" with "[Test Data] My Meta title tag"
     And I select option "--Outreach Hub" from dropdown "Section"
     And I save the node
