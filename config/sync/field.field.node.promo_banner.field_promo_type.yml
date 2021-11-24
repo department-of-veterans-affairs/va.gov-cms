@@ -1,0 +1,23 @@
+uuid: 484f9676-d546-4d4d-90ca-08b67ece40ee
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_promo_type
+    - node.type.promo_banner
+  module:
+    - options
+id: node.promo_banner.field_promo_type
+field_name: field_promo_type
+entity_type: node
+bundle: promo_banner
+label: 'Promo Type'
+description: "<p>Currently, the CMS supports three types of promos:</p>\r\n\r\n<ol>\r\n\t<li><strong>Benefit announcements</strong>, which relate to content focused on benefits: a new tool, a new online benefit application, etc.</li>\r\n\t<li><strong>Email Signups</strong>, which relate to email signups for various VA updates / alerts / communications.</li>\r\n\t<li><strong>News Stories</strong>, which relate to newly received or noteworthy information about the VA.</li>\r\n</ol>\r\n\r\n<p>You can read more about these alert types in the <a href=\"https://design.va.gov/components/promo-banners\" target=\"_blank\">VA Design System</a>.</p>"
+required: false
+translatable: false
+default_value:
+  -
+    value: announcements
+default_value_callback: ''
+settings: {  }
+field_type: list_string
