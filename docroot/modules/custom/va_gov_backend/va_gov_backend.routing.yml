@@ -15,3 +15,14 @@ va_gov_backend.content_release_status:
     _title: 'Last Content Release'
   requirements:
     _permission: 'access content'
+
+va_gov_backend.error_test:
+  path: '/admin/config/development/logging/test/{errorType}'
+  defaults:
+    _controller: '\Drupal\va_gov_backend\Controller\ErrorTestController::errorTestPage'
+    _title: 'Sentry Testing'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: true
+
