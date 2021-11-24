@@ -78,7 +78,6 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
-        - revision_log
       parent_name: ''
       weight: 13
       format_type: fieldset
@@ -277,6 +276,7 @@ third_party_settings:
       label: FAQs
     group_connect_with_us:
       children:
+        - field_related_office
         - field_clp_connect_with_us
       parent_name: ''
       weight: 9
@@ -333,7 +333,7 @@ content:
     type: entity_browser_entity_reference
     region: content
   field_clp_connect_with_us:
-    weight: 44
+    weight: 1
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -773,6 +773,16 @@ content:
         split_text: false
         show_drag_and_drop: false
     region: content
+  field_related_office:
+    type: entity_reference_autocomplete
+    weight: 0
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_secondary_call_to_action:
     type: paragraphs
     weight: 4
@@ -832,8 +842,6 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
-  field_related_office: true
-  path: true
   promote: true
   sticky: true
   uid: true
