@@ -16,13 +16,13 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC Detail Page | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | VAMC Detail Page | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC Detail Page | Page introduction | field_intro_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
-| Content type | VAMC Detail Page | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL | Translatable |
+| Content type | VAMC Detail Page | Related Links | field_related_links | Entity reference revisions |  | 8 | Paragraphs EXPERIMENTAL | Translatable |
 | Content type | VAMC Detail Page | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Event | Building, floor, or room | field_location_humanreadable | Text (plain) |  | 1 | Textfield |  |
 | Content type | Event | Additional registration  information | field_additional_information_abo | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
 | Content type | Event | Address | field_address | Address |  | 1 | Address |  |
 | Content type | Event | Cost | field_event_cost | Text (plain) |  | 1 | Textfield with counter |  |
-| Content type | Event | Date and time | field_datetime_range_timezone | Smart date range |  | 1 | Date and time range with timezone |  |
+| Content type | Event | Date and time | field_datetime_range_timezone | Smart date range | Required | 1 | Date and time range with timezone |  |
 | Content type | Event | Where should the event be listed? | field_listing | Entity reference | Required | 1 | Select list |  |
 | Content type | Event | Facility location | field_facility_location | Entity reference |  | 1 | Select list |  |
 | Content type | Event | Full event description | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
@@ -146,7 +146,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC Facility Health Service | Enforce unique combo | field_enforce_unique_combo | Allow Only One |  | 1 | Allow Only One widget |  |
 | Content type | VAMC System | Appointments can be scheduled and viewed online | field_appointments_online | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC System | Banner image | field_media | Entity reference | Required | 1 | Media library | Translatable |
-| Content type | VAMC System | Common Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL | Translatable |
+| Content type | VAMC System | Common Links | field_related_links | Entity reference revisions |  | 8 | Paragraphs EXPERIMENTAL | Translatable |
 | Content type | VAMC System | Facebook | field_facebook | Link |  | 1 | Linkit | Translatable |
 | Content type | VAMC System | Flickr | field_flickr | Link |  | 1 | Linkit | Translatable |
 | Content type | VAMC System | GovDelivery ID for Emergency updates email | field_govdelivery_id_emerg | Text (plain) | Required | 1 | Textfield |  |

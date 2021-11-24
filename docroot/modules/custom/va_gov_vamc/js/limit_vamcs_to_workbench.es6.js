@@ -25,8 +25,9 @@
           if (i.querySelector("input").checked) {
             i.querySelector("input").style.opacity = ".6";
             i.querySelector("input").style.pointerEvents = "none";
+            i.querySelector("input").parentElement.style.pointerEvents = "none";
           } else {
-            i.querySelector("input").setAttribute("disabled", "disabled");
+            i.style.display = "none";
           }
         }
       });

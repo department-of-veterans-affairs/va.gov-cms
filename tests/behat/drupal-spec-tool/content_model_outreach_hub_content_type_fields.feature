@@ -13,6 +13,9 @@ Feature: Content model: Outreach hub Content Type fields
 | Content type | Office | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | Office | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Office | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Office | Email updates link | field_email_updates_link | Link |  | 1 | Link |  |
+| Content type | Office | Social media links | field_social_media_links | Social Media Links Field  |  | 1 | List with all available platforms |  |
+| Content type | Office | External link | field_external_link | Link |  | 1 | Link |  |
 | Content type | Publication | File or video | field_media | Entity reference |  | 1 | Media library |  |
 | Content type | Publication | Format | field_format | List (text) | Required | 1 | Select list |  |
 | Content type | Publication | Meta description | field_description | Text (plain) |  | 1 | Textfield | Translatable |
