@@ -8,6 +8,7 @@
 use Drupal\Component\Utility\Crypt;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Asset\AttachedAssetsInterface;
+use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityPublishedInterface;
@@ -973,9 +974,15 @@ function _va_gov_backend_dropdown_field_access(array &$form, array $targets) {
 function va_gov_backend_form_node_form_alter(array &$form, FormStateInterface &$form_state) {
   _va_gov_backend_set_owner_section_default($form, $form_state);
 
-  // Only attach the service options limiter to facility health service bundle.
-  if ($form_state->getformObject()->getEntity()->bundle() === 'health_care_local_health_service') {
-    $form['#attached']['library'][] = 'va_gov_backend/limit_services_to_user_sections';
+  // Only attach the service options limiter to facility health service and
+  // vha_facility_nonclinical_service bundles.
+  /** @var \Drupal\Core\Entity\EntityForm $form_object */
+  $form_object = $form_state->getFormObject();
+  if ($form_object instanceof EntityForm) {
+    $node = $form_object->getEntity();
+    if ($node->bundle() === 'health_care_local_health_service' || $node->bundle() === 'vha_facility_nonclinical_service') {
+      $form['#attached']['library'][] = 'va_gov_backend/limit_services_to_user_sections';
+    }
   }
 }
 
