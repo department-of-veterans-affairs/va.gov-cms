@@ -9,6 +9,7 @@ use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Element;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
@@ -20,6 +21,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  * VA.gov VAMC Entity Event Subscriber.
  */
 class EntityEventSubscriber implements EventSubscriberInterface {
+
   use StringTranslationTrait;
 
   /**
@@ -36,6 +38,14 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *  The required services service.
    */
   protected $requiredServices;
+
+  /**
+   * The entity manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManager
+   *  The entity manager.
+   */
+  private $entityTypeManager;
 
   /**
    * Constructs a EntityEventSubscriber object.
@@ -294,6 +304,85 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Alterations specific to Vet center content type forms.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function alterVetCenterNodeForm(FormIdAlterEvent $event): void {
+    $form = &$event->getForm();
+    $form_state = $event->getFormState();
+    $this->modifyIefServicesFormDisplay($form, $form_state);
+  }
+
+  /**
+   * Add column to services table.
+   *
+   * Sort alphanumerically.
+   *
+   * Remove delete options for required items.
+   *
+   * Remove drag and drop.
+   *
+   * @param array $form
+   *   The node form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   */
+  public function modifyIefServicesFormDisplay(array &$form, FormStateInterface $form_state) {
+    $form_object = $form_state->getFormObject();
+    if ($form_object instanceof EntityFormInterface) {
+      /** @var \Drupal\node\NodeInterface $node */
+      $node = $form_object->getEntity();
+      $node_title = $node->getTitle();
+      $form['field_health_services']['widget']['entities']['#table_fields']['label']['label'] = $this->t('Services offered at :title', [':title' => $node_title]);
+      $cols = &$form['field_health_services']['widget']['entities']['#table_fields'];
+      $cols['req_optional'] = [
+        'type' => 'markup',
+        'label' => $this->t('Required/optional'),
+        'weight' => 3,
+      ];
+      unset($form['field_health_services']['widget']['entities']['#table_fields'][0]);
+      $keys = Element::children($form['field_health_services']['widget']['entities']);
+      if (!empty($keys)) {
+        foreach ($keys as $key) {
+          $entity = &$form['field_health_services']['widget']['entities'][$key];
+          $entity['#markup'] = $this->t('Optional');
+          if ($this->checkIfServiceRequired($entity['#label'])) {
+            unset($entity['actions']['ief_entity_remove']);
+            $entity['#markup'] = $this->t('Required');
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * Checks if service is required.
+   *
+   * @param string $service
+   *   The service name.
+   *
+   * @return bool
+   *   True is service is required.
+   */
+  public function checkIfServiceRequired($service) {
+    $term_storage = $this->entityTypeManager->getStorage('taxonomy_term');
+    $term_tids = $term_storage->getQuery()
+      ->condition('vid', 'health_care_service_taxonomy')
+      ->condition('field_vet_center_required_servic', 1, '=')
+      ->execute();
+    $terms = $term_storage->loadMultiple($term_tids);
+    $required_services = [];
+    foreach ($terms as $term) {
+      /** @var \Drupal\taxonomy\Entity\Term $term */
+      $required_services[] = $term->getName();
+    }
+    $service_cleaned = explode(' - ', $service)[1];
+    return in_array($service_cleaned, $required_services);
+  }
+
+  /**
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
@@ -304,6 +393,9 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       'hook_event_dispatcher.form_node_vet_center_locations_list_edit_form.alter' => 'alterVetCenterLocationsListNodeEditForm',
       'hook_event_dispatcher.form_node_vet_center_edit_form.alter' => 'vetcenterFormAlter',
       'hook_event_dispatcher.form_node_vet_center_form.alter' => 'vetcenterFormAlter',
+      'hook_event_dispatcher.form_node_vet_center_form.alter' => 'alterVetCenterNodeForm',
+      'hook_event_dispatcher.form_node_vet_center_edit_form.alter' => 'alterVetCenterNodeForm',
+
     ];
   }
 
