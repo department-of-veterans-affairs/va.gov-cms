@@ -284,4 +284,85 @@
       }
     },
   };
+
+  Drupal.behaviors.vaGovtextContentDescriptionPlacement = {
+    attach(context) {
+      // Get help text.
+      const textareaDescriptions = context.querySelectorAll(".description");
+      if (textareaDescriptions.length > 0) {
+        textareaDescriptions.forEach((item) => {
+          // Moves help text from below field / widget to below label.
+          // This approach relies on html structure patterns to broadly
+          // target fields and widgets. It is field name / type agnostic.
+          // The patterns below have comments that indicate their general scope.
+
+          // Date fields.
+          if (
+            item.previousElementSibling !== null &&
+            item.previousElementSibling.previousElementSibling !== null &&
+            item.previousElementSibling.previousElementSibling.nodeName === "H4"
+          ) {
+            item.previousElementSibling.previousElementSibling.after(item);
+            item.style.margin = "10px 0px";
+          }
+          // Text fields.
+          if (
+            item.previousElementSibling !== null &&
+            item.previousElementSibling.previousElementSibling !== null &&
+            item.previousElementSibling.previousElementSibling.nodeName ===
+              "LABEL"
+          ) {
+            item.previousElementSibling.previousElementSibling.after(item);
+            item.style.margin = "10px 0px";
+          }
+          // Long text fields (No Wysiwyg).
+          if (
+            item.previousElementSibling !== null &&
+            item.previousElementSibling.previousElementSibling !== null &&
+            item.previousElementSibling.previousElementSibling
+              .previousElementSibling !== null &&
+            item.previousElementSibling.previousElementSibling
+              .previousElementSibling.nodeName === "LABEL"
+          ) {
+            item.previousElementSibling.previousElementSibling.previousElementSibling.after(
+              item
+            );
+            item.style.margin = "10px 0px";
+          }
+          // Long text field full_html (Wysiwyg).
+          if (
+            item.previousElementSibling !== null &&
+            item.previousElementSibling.previousElementSibling !== null &&
+            item.previousElementSibling.previousElementSibling
+              .firstElementChild !== null &&
+            item.previousElementSibling.previousElementSibling.firstElementChild
+              .nodeName === "LABEL"
+          ) {
+            item.previousElementSibling.previousElementSibling.firstElementChild.after(
+              item
+            );
+            item.style.margin = "10px 0px";
+          }
+          // Paragraphs experimental widget.
+          if (
+            item.previousElementSibling !== null &&
+            item.previousElementSibling.firstElementChild !== null &&
+            item.previousElementSibling.firstElementChild.firstElementChild !==
+              null &&
+            item.previousElementSibling.firstElementChild.firstElementChild
+              .firstElementChild.firstElementChild !== null &&
+            item.previousElementSibling.firstElementChild.firstElementChild
+              .firstElementChild.firstElementChild.nodeName === "H4"
+          ) {
+            item.style.fontWeight = "400";
+            item.style.textTransform = "none";
+            item.style.margin = "10px 0px";
+            item.previousElementSibling.firstElementChild.firstElementChild.firstElementChild.firstElementChild.after(
+              item
+            );
+          }
+        });
+      }
+    },
+  };
 })(jQuery, window.Drupal);

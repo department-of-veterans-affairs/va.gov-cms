@@ -40,7 +40,7 @@
         });
 
         var adminRoles = ["content_admin", "administrator"];
-        var targetTypes = ["health_care_local_facility", "vet_center"];
+        var targetTypes = ["health_care_local_facility"];
 
         if (drupalSettings.gtm_data.contentType && targetTypes.some(function (item) {
           return drupalSettings.gtm_data.contentType.includes(item);
@@ -170,6 +170,42 @@
       var linkCount = document.querySelectorAll(".paragraph-type--link-teaser").length;
       if (addMoreLinks && linkCount < 1) {
         addMoreLinks.dispatchEvent(new MouseEvent("click"));
+      }
+    }
+  };
+
+  Drupal.behaviors.vaGovtextContentDescriptionPlacement = {
+    attach: function attach(context) {
+      var textareaDescriptions = context.querySelectorAll(".description");
+      if (textareaDescriptions.length > 0) {
+        textareaDescriptions.forEach(function (item) {
+          if (item.previousElementSibling !== null && item.previousElementSibling.previousElementSibling !== null && item.previousElementSibling.previousElementSibling.nodeName === "H4") {
+            item.previousElementSibling.previousElementSibling.after(item);
+            item.style.margin = "10px 0px";
+          }
+
+          if (item.previousElementSibling !== null && item.previousElementSibling.previousElementSibling !== null && item.previousElementSibling.previousElementSibling.nodeName === "LABEL") {
+            item.previousElementSibling.previousElementSibling.after(item);
+            item.style.margin = "10px 0px";
+          }
+
+          if (item.previousElementSibling !== null && item.previousElementSibling.previousElementSibling !== null && item.previousElementSibling.previousElementSibling.previousElementSibling !== null && item.previousElementSibling.previousElementSibling.previousElementSibling.nodeName === "LABEL") {
+            item.previousElementSibling.previousElementSibling.previousElementSibling.after(item);
+            item.style.margin = "10px 0px";
+          }
+
+          if (item.previousElementSibling !== null && item.previousElementSibling.previousElementSibling !== null && item.previousElementSibling.previousElementSibling.firstElementChild !== null && item.previousElementSibling.previousElementSibling.firstElementChild.nodeName === "LABEL") {
+            item.previousElementSibling.previousElementSibling.firstElementChild.after(item);
+            item.style.margin = "10px 0px";
+          }
+
+          if (item.previousElementSibling !== null && item.previousElementSibling.firstElementChild !== null && item.previousElementSibling.firstElementChild.firstElementChild !== null && item.previousElementSibling.firstElementChild.firstElementChild.firstElementChild.firstElementChild !== null && item.previousElementSibling.firstElementChild.firstElementChild.firstElementChild.firstElementChild.nodeName === "H4") {
+            item.style.fontWeight = "400";
+            item.style.textTransform = "none";
+            item.style.margin = "10px 0px";
+            item.previousElementSibling.firstElementChild.firstElementChild.firstElementChild.firstElementChild.after(item);
+          }
+        });
       }
     }
   };
