@@ -17,18 +17,18 @@
       "#inline-entity-form-field_health_services-form .field--name-field-service-name-and-descripti select option"
     );
     // Plug the table values into a set for easy manipulation.
-    const selectedValuesCleaned = new Set();
+    const selectedValuesText = new Set();
     if (newServiceValueSelector) {
       selectedValues.forEach((i) => {
-        // Shave off the vc name prefix for comparison.
-        selectedValuesCleaned.add(i.textContent.split(" - ")[1]);
+        // Grab the vc name for comparison.
+        selectedValuesText.add(i.textContent);
       });
 
       newServiceValueSelector.forEach((i) => {
         // Sanity reset.
         i.classList.remove("hidden-option");
-        // Shave off the suffix to see if the service is in the set.
-        if (selectedValuesCleaned.has(i.text.split(" - ")[0])) {
+        // Check if the service is in the set.
+        if (selectedValuesText.has(i.text)) {
           // Hide it so it can't be selected again.
           i.classList.add("hidden-option");
         }

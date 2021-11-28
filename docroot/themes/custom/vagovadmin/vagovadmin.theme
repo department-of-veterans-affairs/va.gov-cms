@@ -157,7 +157,7 @@ function vagovadmin_preprocess_inline_entity_form_entity_table(array &$variables
           }
           $data = call_user_func_array($field['callback'], $arguments);
           if (!is_array($data)) {
-            $data = ['#markup' => $data];
+            $data = ['#markup' => explode(' - ', $data)[1]];
           }
         }
         else {
@@ -200,6 +200,7 @@ function vagovadmin_preprocess_inline_entity_form_entity_table(array &$variables
     }
     // Sort the fields by title.
     if (!empty($rows)) {
+      $rows_required = [];
       usort($rows, function ($a, $b) {
         if ($a['label']['#markup'] === $b['label']['#markup']) {
           return 0;
@@ -211,6 +212,12 @@ function vagovadmin_preprocess_inline_entity_form_entity_table(array &$variables
           return -1;
         }
       });
+      foreach ($rows as $key => $row) {
+        if ($row['req_optional']['#markup']->render() === 'Optional') {
+          $rows_required[$key] = $row;
+          unset($rows[$key]);
+        }
+      }
       $variables['table'] = [
         '#type' => 'table',
         '#header' => $header,
@@ -218,7 +225,7 @@ function vagovadmin_preprocess_inline_entity_form_entity_table(array &$variables
           'id' => 'ief-entity-table-' . $form['#id'],
           'class' => ['ief-entity-table'],
         ],
-      ] + $rows;
+      ] + $rows + $rows_required;
     }
   }
 }
