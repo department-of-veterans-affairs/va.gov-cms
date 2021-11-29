@@ -19,7 +19,7 @@ Feature: Content model: Benefits hubs Content Type fields
 | Content type | Benefits Detail Page | Page introduction | field_intro_text_limited_html | Text (formatted, long) | Required | 1 | Text area (multiple rows) |  |
 | Content type | Benefits Detail Page | Page last built | field_page_last_built | Date |  | 1 | -- Disabled -- |  |
 | Content type | Benefits Detail Page | Plain Language Certification Date | field_plainlanguage_date | Date |  | 1 | -- Disabled -- |  |
-| Content type | Benefits Detail Page | Related Links | field_related_links | Entity reference revisions |  | 8 | Paragraphs EXPERIMENTAL |  |
+| Content type | Benefits Detail Page | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL |  |
 | Content type | Benefits Hub Landing Page | Alert | field_alert | Entity reference |  | 1 | Entity browser | Translatable |
 | Content type | Benefits Hub Landing Page | Hub Icon | field_title_icon | List (text) |  | 1 | Select list |  |
 | Content type | Benefits Hub Landing Page | Hub label | field_home_page_hub_label | Text (plain) |  | 1 | Textfield |  |
@@ -33,7 +33,7 @@ Feature: Content model: Benefits hubs Content Type fields
 | Content type | Benefits Hub Landing Page | Page last built | field_page_last_built | Date |  | 1 | Date and time | Translatable |
 | Content type | Benefits Hub Landing Page | Plain language Certified Date | field_plainlanguage_date | Date |  | 1 | -- Disabled -- | Translatable |
 | Content type | Benefits Hub Landing Page | Promo | field_promo | Entity reference |  | 1 | Select list |  |
-| Content type | Benefits Hub Landing Page | Related Links | field_related_links | Entity reference revisions |  | 8 | Paragraphs Classic | Translatable |
+| Content type | Benefits Hub Landing Page | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Benefits Hub Landing Page | Spokes | field_spokes | Entity reference revisions | Required | 4 | Paragraphs EXPERIMENTAL |  |
 | Content type | Benefits Hub Landing Page | Support Services | field_support_services | Entity reference |  | Unlimited | Inline entity form - Complex |  |
 | Content type | Benefits Hub Landing Page | Related office | field_related_office | Entity reference |  | 1 | -- Disabled -- |  |
