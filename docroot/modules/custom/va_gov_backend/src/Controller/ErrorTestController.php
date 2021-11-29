@@ -3,27 +3,21 @@
 namespace Drupal\va_gov_backend\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 
+/**
+ * Controller class for testing errors.
+ */
 class ErrorTestController extends ControllerBase {
 
   /**
-   * The logger service.
-   *
-   * @var \Drupal\Core\Logger\LoggerChannelInterface
+   * {@inheritdoc}
    */
-  protected $logger;
-
-  public function __construct(LoggerChannelFactoryInterface $logger_factory) {
-    $this->logger = $logger_factory->get('va_sentry_test');
-  }
-
   public function errorTestPage($errorType) : array {
 
     switch ($errorType) {
+
       case 'uncaught':
         throw new \Exception('Uncaught Exception');
-        break;
 
       case 'error':
         trigger_error('Trigger an E_ERROR manually', E_USER_ERROR);
@@ -32,15 +26,17 @@ class ErrorTestController extends ControllerBase {
       case 'caught-nothing':
         try {
           throw new \Exception('Caught but not logged');
-        } catch (\Exception $e) {
-          // do nothing
+        }
+        catch (\Exception $e) {
+          // Do nothing.
         }
         break;
 
       case 'caught-watchdog-exception':
         try {
           throw new \Exception('Caught and sent to watchdog exception');
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e) {
           watchdog_exception('va_sentry_test', $e);
         }
         break;
@@ -48,9 +44,11 @@ class ErrorTestController extends ControllerBase {
       case 'caught-and-logged':
         try {
           throw new \Exception('Caught and sent to logger');
-        } catch (\Exception $e) {
-          $this->logger->error('Caught and sent to logger class');
         }
+        catch (\Exception $e) {
+          $this->getLogger('va_sentry_test')->error('Caught and sent to logger class');
+        }
+
     }
 
     return ['#markup' => 'Look in Sentry'];
