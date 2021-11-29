@@ -14,7 +14,6 @@ Feature: Content model: Alerts Content Type fields
 | Content type | Full Width Alert | Paths | field_target_paths | Text (plain) |  | Unlimited | Textfield |  |
 | Content type | Full Width Alert | Persistence | field_dismissible_option | List (text) | Required | 1 | Check boxes/radio buttons |  |
 | Content type | Promo Banner | Promo Type | field_promo_type | List (text) |  | 1 | Select list | Translatable |
-| Content type | Promo Banner | Promo Text | field_promo_text | Text (plain) | Required | 1 | Textfield | Translatable |
 | Content type | Promo Banner | URL | field_link | Link | Required | 1 | Link |  |
 | Content type | Promo Banner | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Promo Banner | Paths | field_target_paths | Text (plain) |  | Unlimited | Textfield |  |
