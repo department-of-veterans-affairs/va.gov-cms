@@ -1,18 +1,17 @@
-uuid: 492554dd-ec45-47f2-87f7-168e6b1e27d8
+uuid: 07be989c-19c4-445b-9770-7baf8245b717
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_promo_text
     - node.type.promo_banner
-id: node.promo_banner.field_promo_text
-field_name: field_promo_text
+id: node.promo_banner.title
+field_name: title
 entity_type: node
 bundle: promo_banner
-label: 'Promo Text'
+label: 'Name of promo banner'
 description: ''
 required: true
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings: {  }
