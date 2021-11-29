@@ -25,7 +25,7 @@ Example: http://sentry.vfs.va.gov/organizations/vsp/issues/44491/?project=14&que
 `because it returned status 301 : Moved Permanently`
 Possible issue:
 * Facility is fully managed in Drupal and the URL shoudl be removed.  Contact the `@cms-product-support-team` in Slack for verification and next steps.
-* If the facilty is still managed in Team Sites then there might be a misconfiguration. See [this sheet](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/upstream-dependencies.md) for contact information.
+* If the facilty is still managed in Team Sites then there might be a misconfiguration. See [this sheet](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/upstream-dependencies.md) for contact information.
 
 ### `Exception va_node_health_care_local_facility_status migration failed.`
 

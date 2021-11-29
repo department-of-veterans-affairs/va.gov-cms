@@ -16,11 +16,11 @@ Click the "^" button and select "Keep."
 ### OSX
 1. Open Keychain Access
 1. Go to Certificates (under Category in left sidebar)
-2. Select "System" under Keychains (in sidebar)  
+2. Select "System" under Keychains (in sidebar)
 3. Select "Import Items..." from File menu. (Shift-Command-I)
 4. Select the two .cer files above.
 5. They should now appear in your list of certificates
-6. For each certificate: 1) File > Get info  2) Under Trust > When using this certificate, select "Always Trust". 3) Close the Get info window, which will prompt a password save. 
+6. For each certificate: 1) File > Get info  2) Under Trust > When using this certificate, select "Always Trust". 3) Close the Get info window, which will prompt a password save.
 7. You may need to restart your browser.
 
 ### Linux
@@ -60,3 +60,5 @@ Note: I had to still import that same CA into Chrome.
 Go to chrome://settings/certificates?search=https
 Click "Authorities"
 Import `.lando\certs\lndo.site.pem`
+
+If you're using `ddev`, run `mkcert -install` and restart your browser.

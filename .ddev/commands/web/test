@@ -1,0 +1,8 @@
+#!/bin/bash
+
+## Description: Run all VA.gov tests, as defined in tests.yml. Add arguments to run subsets of test. For example, "ddev test web" will run all of the "va/web/*" tests.
+## Usage: test
+
+set -e
+export SKIP_REPORTING=1
+./bin/task --taskfile=tests.yml $@

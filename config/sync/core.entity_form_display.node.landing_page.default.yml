@@ -17,6 +17,7 @@ dependencies:
     - field.field.node.landing_page.field_plainlanguage_date
     - field.field.node.landing_page.field_promo
     - field.field.node.landing_page.field_related_links
+    - field.field.node.landing_page.field_related_office
     - field.field.node.landing_page.field_spokes
     - field.field.node.landing_page.field_support_services
     - field.field.node.landing_page.field_teaser_text
@@ -300,6 +301,7 @@ content:
       collapsible: false
       allow_duplicate: false
       revision: false
+      allow_system_delete: false
     third_party_settings: {  }
     type: inline_entity_form_complex
     region: content
@@ -347,6 +349,7 @@ hidden:
   created: true
   field_meta_tags: true
   field_plainlanguage_date: true
+  field_related_office: true
   promote: true
   status: true
   sticky: true

@@ -40,14 +40,14 @@ third_party_settings:
       parent_name: ''
       weight: 4
       format_type: fieldset
+      region: content
       format_settings:
+        show_empty_fields: false
         id: ''
         classes: ''
-        open: false
-        required_fields: true
         description: ''
+        required_fields: true
       label: 'Editorial workflow'
-      region: content
 id: node.regional_health_care_service_des.default
 targetEntityType: node
 bundle: regional_health_care_service_des
@@ -88,7 +88,7 @@ content:
     region: content
   moderation_state:
     type: moderation_state_default
-    weight: 0
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }

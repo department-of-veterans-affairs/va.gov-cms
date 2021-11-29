@@ -1,0 +1,36 @@
+uuid: 8391b87b-9cd5-4d37-a3ec-556f33a98b1f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_related_office
+    - node.type.landing_page
+    - node.type.office
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: false
+id: node.landing_page.field_related_office
+field_name: field_related_office
+entity_type: node
+bundle: landing_page
+label: 'Related office'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      office: office
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

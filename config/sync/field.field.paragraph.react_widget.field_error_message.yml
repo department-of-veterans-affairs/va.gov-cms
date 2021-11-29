@@ -6,7 +6,13 @@ dependencies:
     - field.storage.paragraph.field_error_message
     - paragraphs.paragraphs_type.react_widget
   module:
+    - allowed_formats
     - text
+third_party_settings:
+  allowed_formats:
+    rich_text: rich_text
+    rich_text_limited: '0'
+    plain_text: '0'
 id: paragraph.react_widget.field_error_message
 field_name: field_error_message
 entity_type: paragraph

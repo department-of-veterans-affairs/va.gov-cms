@@ -33,8 +33,8 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Audience & Topics | Topics | field_topics | Entity reference |  | 4 | Check boxes/radio buttons |  |
 | Paragraph type | Accordion | Header | field_header | Text (plain) | Required | 1 | Textfield |  |
 | Paragraph type | Accordion | Rich text | field_rich_wysiwyg | Text (formatted, long) | Required | 1 | Text area (multiple rows) |  |
-| Paragraph type | Call to action | Button Label | field_button_label | Text (plain) |  | 1 | Textfield with counter |  |
-| Paragraph type | Call to action | Button Link | field_button_link | Link |  | 1 | Linkit |  |
+| Paragraph type | Call to action | Link text  | field_button_label | Text (plain) | Required | 1 | Textfield with counter |  |
+| Paragraph type | Call to action | Link | field_button_link | Link | Required | 1 | Linkit |  |
 | Paragraph type | Centralized content descriptor | Description | field_cc_documentor_description | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
 | Paragraph type | Centralized content descriptor | Title | field_cc_documentor_title | Text (plain) |  | 1 | Textfield |  |
 | Paragraph type | Checklist | Checklist sections | field_checklist_sections | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL |  |
@@ -92,7 +92,7 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Q&A Section | Section Intro | field_section_intro | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
 | Paragraph type | Q&A Section | Section Header | field_section_header | Text (plain) |  | 1 | Textfield |  |
 | Paragraph type | React Widget | Call To Action Widget | field_cta_widget | Boolean |  | 1 | Single on/off checkbox |  |
-| Paragraph type | React Widget | Default Link | field_default_link | Link |  | 1 | Linkit |  |
+| Paragraph type | React Widget | Default Link | field_default_link | Link |  | 1 | Link |  |
 | Paragraph type | React Widget | Display default link as button | field_button_format | Boolean |  | 1 | Single on/off checkbox |  |
 | Paragraph type | React Widget | Error Message | field_error_message | Text (formatted) |  | 1 | Text field |  |
 | Paragraph type | React Widget | Loading Message | field_loading_message | Text (plain) |  | 1 | Textfield |  |
@@ -106,7 +106,7 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Service location | Use the general facility phone number | field_use_main_facility_phone | Boolean |  | 1 | Single on/off checkbox |  |
 | Paragraph type | Service location address | Address | field_address | Address |  | 1 | Address | Translatable |
 | Paragraph type | Service location address | Building name/number | field_building_name_number | Text (plain) |  | 1 | Textfield with counter |  |
-| Paragraph type | Service location address | Clinic name | field_clinic_name | Text (plain) |  | 1 | Textfield with counter |  |
+| Paragraph type | Service location address | Name of office or location | field_clinic_name | Text (plain) |  | 1 | Textfield with counter |  |
 | Paragraph type | Service location address | Use the facility's street address? | field_use_facility_address | Boolean |  | 1 | Single on/off checkbox |  |
 | Paragraph type | Service location address | Wing, Floor, or Room Number | field_wing_floor_or_room_number | Text (plain) |  | 1 | Textfield with counter |  |
 | Paragraph type | Situation update | Date and time | field_datetime_range_timezone | Smart date range | Required | 1 | Date and time range with timezone |  |

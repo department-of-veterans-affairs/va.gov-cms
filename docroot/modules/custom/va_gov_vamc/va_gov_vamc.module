@@ -5,6 +5,7 @@
  * Contains va_gov_vamc.module.
  */
 
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
@@ -20,5 +21,169 @@ function va_gov_vamc_help($route_name, RouteMatchInterface $route_match) {
       return $output;
 
     default:
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function va_gov_vamc_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Prevent system title from being edited on the edit form by non admins.
+  if ($form_id === 'node_health_care_region_page_edit_form') {
+    _va_gov_vamc_vamc_title_access($form);
+  }
+  if ($form_id === 'node_vamc_operating_status_and_alerts_edit_form') {
+    // Hide field_office for existing operating statuses: they won't be moved.
+    // @todo Consider disabling it instead of hiding it.
+    $form['field_office']['#attributes']['class'] = 'hidden';
+  }
+  if ($form_id === 'views_bulk_operations_configure_action') {
+    $build_info = $form_state->getBuildInfo();
+    // We need to target only the VBO "Modify field values" form from
+    // Facility Status tool.
+    if ($build_info['args'][0] === 'facility_governance' && $build_info['args'][1] === 'page_1') {
+      _va_gov_vamc_vbo_facility_status_form_ui($form, $form_state);
+    }
+  }
+}
+
+/**
+ * Modifies UI of the Facility Status VBO Modify Field Values form.
+ *
+ * The form that allows the user to modify field values contains too many
+ * options that are irrelevant to the primary purpose of the tool. This
+ * function modifies the form to eliminate UI noise.
+ *
+ * @param array $form
+ *   Form object.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   Form state.
+ */
+function _va_gov_vamc_vbo_facility_status_form_ui(array &$form, FormStateInterface $form_state) {
+  // This if Facility Status form.
+  // Clean up the UI.
+  $bundle_fields = [];
+  $entity_data = (isset($form['node']) && is_array($form['node'])) ? $form['node'] : NULL;
+
+  if (!empty($entity_data)) {
+    foreach ($entity_data as $bundle => $data) {
+      if (is_array($data)) {
+        $bundle_fields[$bundle] = $data;
+      }
+    }
+  }
+
+  foreach ($bundle_fields as $bundle => $fields) {
+    if (is_array($fields)) {
+      foreach ($fields as $field_name => $field_meta) {
+        $form['node'][$bundle]['#open'] = TRUE;
+        if (!in_array(
+            $field_name,
+            [
+              'field_operating_status_facility',
+              'field_operating_status_more_info',
+            ]
+          )
+          && strpos($field_name, '#', 0) === FALSE) {
+
+          // Remove all facility content type fields that are not related
+          // to Operating status and Op info from field_selection form.
+          unset($form['node'][$bundle]['_field_selector'][$field_name]);
+
+          if (strpos($field_name, '_field_selector', 0) === FALSE) {
+            // Remove all facility content type fields that are not related
+            // to Operating status and Op info from vbo content type form.
+            unset($form['node'][$bundle][$field_name]);
+          }
+        }
+      }
+    }
+  }
+
+  // Remove multi-value field options, since none of the fields we're editing
+  // are multi-value.
+  unset($form['options']);
+}
+
+/**
+ * Determines whether or not user can edit vamc title.
+ *
+ * @param array $form
+ *   The node form array.
+ */
+function _va_gov_vamc_vamc_title_access(array &$form) {
+  $allowed_roles = [
+    'administrator',
+    'content_admin',
+  ];
+  $current_user_roles = \Drupal::currentUser()->getRoles();
+  $admin_role_count = count(array_intersect($allowed_roles, $current_user_roles));
+  if ($admin_role_count < 1) {
+    $form['title']['#disabled'] = 'disabled';
+  }
+}
+
+/**
+ * Implements hook_form_FORMID_alter().
+ */
+function va_gov_vamc_form_views_exposed_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  if ($form['#id'] === 'views-exposed-form-health-service-offerings-service-offerings-dash') {
+    // Change our textfield to a dropdown displaying all VAMC systems.
+    _va_gov_vamc_add_vamc_regions_select($form);
+  }
+}
+
+/**
+ * A Change text input to select list of VAMC systems.
+ *
+ * @param array $form
+ *   The exposed widget form array.
+ */
+function _va_gov_vamc_add_vamc_regions_select(array &$form) {
+  // Query nodes.
+  $storage = Drupal::getContainer()->get('entity_type.manager')->getStorage('node');
+  $nids = $storage->getQuery();
+
+  // Gather vamc nodes and sort by title.
+  $nids = $nids->condition('type', 'health_care_region_page')
+    ->sort('title')
+    ->execute();
+
+  // If there are no nodes, move on.
+  if (!$nids) {
+    return FALSE;
+  }
+
+  // Start building out the options for our select list.
+  $options = [];
+  /** @var array{id: int, node: \Drupal\node\NodeInterface} $nodes */
+  $nodes = $storage->loadMultiple($nids);
+
+  // Push titles into select list.
+  foreach ($nodes as $node) {
+    $options[$node->getTitle()] = $node->getTitle();
+  }
+
+  // Start building out our replacement form element.
+  $form['title']['#type'] = 'select';
+  $form['title']['#multiple'] = FALSE;
+
+  // Specify the empty option for our select list.
+  $form['title']['#empty_option'] = t('VAMC');
+
+  // Add the $options from above to our select list.
+  $form['title']['#options'] = $options;
+  unset($form['title']['#size']);
+}
+
+/**
+ * Implements hook_inline_entity_form_alter().
+ */
+function va_gov_vamc_inline_entity_form_entity_form_alter(&$entity_form, FormStateInterface $form_state) {
+  // Show the facility name so that the editor knows what they're editing,
+  // but don't let the editor change it. It's driven by Facility API.
+  if ($entity_form['#bundle'] === 'health_care_local_facility') {
+    $entity_form['title']['widget'][0]['value']['#attributes']['disabled'] = 'disabled';
   }
 }

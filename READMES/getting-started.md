@@ -27,10 +27,10 @@ See [the codespaces README](./codespaces.md) to get a fully functional cloud-bas
   $ git remote add upstream git@github.com:department-of-veterans-affairs/va.gov-cms.git
   ```
 
-  You should periodically update your branch from `upstream:master` branch:
+  You should periodically update your branch from `upstream:main` branch:
 
   ```sh
-   $ git pull upstream master
+   $ git pull upstream main
   ```
 
   Make changes to simplesaml storage not be tracked locally.

@@ -1,0 +1,23 @@
+uuid: 361f5e78-e037-4d76-a417-8ee386b302bc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_external_link
+    - node.type.office
+  module:
+    - link
+id: node.office.field_external_link
+field_name: field_external_link
+entity_type: node
+bundle: office
+label: 'External link'
+description: 'Enter a link to the office homepage on legacy va.gov or another external site.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 2
+field_type: link

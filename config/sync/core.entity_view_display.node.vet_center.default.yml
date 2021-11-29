@@ -21,12 +21,14 @@ dependencies:
     - field.field.node.vet_center.field_prepare_for_visit
     - field.field.node.vet_center.field_table_of_contents
     - field.field.node.vet_center.field_vet_center_feature_content
+    - image.style.large
     - node.type.vet_center
   module:
     - address
     - entity_field_fetch
     - entity_reference_revisions
     - field_group
+    - media
     - office_hours
     - options
     - telephone
@@ -256,9 +258,10 @@ content:
     weight: 11
     label: above
     settings:
-      link: true
+      image_style: large
+      image_link: ''
     third_party_settings: {  }
-    type: entity_reference_label
+    type: media_thumbnail
     region: content
   field_office_hours:
     type: office_hours
