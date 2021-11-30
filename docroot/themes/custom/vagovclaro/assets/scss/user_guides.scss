@@ -1,0 +1,300 @@
+@import 'mixins';
+
+// User guide pages should be narrow for readability.
+.layout-container {
+  max-width: 1280px;
+  @media (min-width: 1320px) {
+    margin: 0 auto;
+  }
+}
+
+// Main column should be 4/5 of width on user guide pages instead of default 3/4.
+@media (min-width: 800px) {
+  .node-columns main {
+    flex: 4 0;
+  }
+}
+
+.field--name-field-intro-text {
+  &.field__item {
+    @include intro-text;
+    max-width: 100%;
+  }
+}
+
+// Define a grid for lists of teasers and link teasers.
+@mixin user-guide-grid {
+  display: grid;
+  grid-gap: 1rem 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+.paragraph--type--list-of-link-teasers {
+  .field__items {
+    @include user-guide-grid;
+  }
+
+  .field--name-field-link {
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+}
+
+.paragraph--type--lists-of-links {
+  > .field__items {
+    @include user-guide-grid;
+  }
+
+  .field--name-field-links {
+    .field__item {
+      margin: 1em 0;
+    }
+  }
+
+  .field--name-field-link {
+    font-weight: bold;
+  }
+}
+
+h2.section-header {
+  margin-top: 2rem;
+}
+
+.field--name-field-related-user-guides {
+  background: #f1f1f1;
+  margin-top: 2rem;
+  padding: 1em 2em;
+
+  h2.field__label {
+    border-bottom: 1px solid #aeb0b5;
+    margin: 0.5rem 0 1rem;
+    padding: 0 0 0.4rem;
+    text-transform: none !important;
+  }
+}
+
+#block-vagovcmsdocumentation {
+  * {
+    box-shadow: border-box;
+  }
+
+  background: rgb(217, 238, 251); // Light blue.
+  padding: 1rem;
+
+  li {
+    list-style: none;
+    margin: 1rem 0;
+  }
+
+  a,
+  a.is-active {
+    color: #0a0a0a;
+    font-size: 1rem;
+    font-weight: bold;
+    padding-left: 2.75em;
+
+    &:hover,
+    &:active {
+      color: #2a2a2a;
+    }
+
+    &::before {
+      //background-size: 100% auto;
+      //left: 0.6667em;
+      //width: 30px;
+    }
+
+    &.icon {
+      position: relative;
+
+      &::before {
+        background-attachment: scroll;
+        background-color: transparent;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: 100% auto;
+        content: '';
+        display: block;
+        height: 30px;
+        position: absolute;
+        top: -9px;
+        width: 30px;
+      }
+
+      &.cms-help-center::before {
+        background-image: url('/core/misc/icons/000000/questionmark-disc.svg');
+      }
+
+      &.helpdesk::before {
+        background-image: url('../../images/icons/headset-000000.svg');
+      }
+
+      &.bug::before {
+        background-image: url('../../images/icons/bug-000000.svg');
+      }
+
+      &.training::before {
+        background-image: url('../../images/icons/video-000000.svg');
+      }
+
+      &.megaphone::before {
+        background-image: url('../../images/icons/megaphone-000000.svg');
+      }
+    }
+  }
+}
+
+#block-vagovadmin-content {
+  .paragraph--type--media-list-videos {
+    &.paragraph--view-mode--user-guides {
+      article {
+        margin-bottom: 2rem;
+
+        .field__item {
+          margin-bottom: 0.25em;
+        }
+
+        .field--name-name {
+          font-weight: bold;
+        }
+
+        .field--name-field-duration {
+          .field__label {
+            font-size: 16px;
+            font-weight: normal;
+            text-transform: capitalize;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Knowledge base menu, but we could apply this elsewhere.
+
+#block-cmsuserguides {
+  ul {
+    border-bottom: 0;
+    font-family: Source Sans Pro, Helvetica Neue, Roboto, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.3;
+    list-style-type: none;
+    margin-left: -0.5em; // First menu should align with parent div.
+    padding-left: 0;
+
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  // Outdent the first set of <nolink> menu items.
+  > ul > li.menu-item > .knowledge_base__menu__section_label {
+    padding-left: 0 !important;
+  }
+
+  li.menu-item {
+    border-top: 1px solid #e6e6e6;
+    list-style: none;
+    margin-bottom: 0;
+    max-width: unset;
+    padding: 0;
+
+    > * {
+      display: block;
+      padding: 0.5rem 1rem;
+    }
+
+    // Hide all 2nd level menus until we build them out.
+    > ul {
+      display: none;
+    }
+
+    a {
+      background-color: transparent;
+      border: 1px solid transparent;
+      color: #5c5c5c;
+
+      &:hover {
+        background-color: #eee;
+        color: #005ea2;
+        text-decoration: none;
+      }
+    }
+
+    &.menu-item--active-trail {
+      border-left: 3px;
+      font-weight: bold;
+
+
+      > ul {
+        padding: 0;
+
+        > li {
+          max-width: unset;
+
+          > * {
+            padding-left: 2rem; // Both links and section labels.
+          }
+        }
+
+        .knowledge_base__menu__section_label {
+          padding-left: 2rem;
+        }
+
+
+        a {
+          //padding-left: 2rem;
+          color: #005ea2;
+          font-weight: normal;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  .knowledge_base__menu__section_label {
+    color: #0a0a0a;
+    display: block;
+    font-weight: bold;
+    margin-top: 1em;
+
+    &:hover {
+      background: none;
+      color: #0a0a0a;
+    }
+  }
+}
+
+// Last updated
+
+.last_updated {
+  @include va-body-font;
+  border-top: 2px solid #aeb0b5;
+  margin-top: 1.5rem;
+  padding-top: 1em;
+  width: 100%;
+}
+
+
+// Search
+
+.kb__search-result {
+
+  border-bottom: 1px solid #eee;
+  padding: 1em 0;
+
+  &__title {
+    display: block;
+  }
+
+  &__intro {
+    @include intro-text;
+  }
+
+  &__excerpt {
+    font-style: italic;
+    padding: 1em 0;
+  }
+}
+
