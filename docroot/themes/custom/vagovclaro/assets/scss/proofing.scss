@@ -1,5 +1,4 @@
 @import 'undo_field_styling';
-@import 'paragraphs';
 @import 'tooltip';
 @import 'mixins';
 
@@ -109,6 +108,150 @@
 
   table {
     caption {
+      font-family: Bitter, Georgia, Cambria, Times New Roman, Times, serif;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 0.5em;
+    }
+  }
+}
+
+/* Paragraphs css for the proofing experience. */
+
+#block-vagovadmin-content {
+  .paragraph {
+    border: #e0eaef solid 1px;
+    margin-bottom: 1rem;
+    padding: 0.4rem 0.6rem 0.2rem;
+    position: relative;
+
+    .field--label-above {
+      .field__label {
+        font-size: 0.8rem;
+        padding: 0;
+      }
+    }
+
+    .paragraph--metadata {
+      align-items: center;
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 0.5rem;
+
+      + * {
+        margin-top: 0;
+      }
+
+      > .contextual {
+        display: block;
+        margin-left: 0.5rem;
+        position: static;
+
+        button.trigger {
+          display: none;
+        }
+
+        .contextual-links {
+          background-color: inherit;
+          border: hidden;
+          display: block;
+          position: static;
+
+          li.paragraphsedit-paragraph {
+            background-color: inherit;
+          }
+
+          li.paragraphsedit-paragraph a {
+            -webkit-appearance: none; /* 3 */
+            -moz-appearance: none; /* 3 */
+            background-color: #f2f1eb;
+            background-image: linear-gradient(to bottom, #f6f6f3, #e7e7df);
+            border: 1px solid #a6a6a6;
+            border-radius: 0.8rem;
+            box-sizing: border-box;
+            color: #333;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 0.75rem; /* 5 */
+            -webkit-font-smoothing: antialiased; /* 6 */
+            font-weight: 600;
+            padding: 0.5rem;
+            position: relative; /* 1 */
+            text-align: center;
+            text-decoration: none;
+            text-shadow: 0 1px hsla(0, 0%, 100%, 0.6);
+            -webkit-transition: all 0.1s;
+            transition: all 0.1s;
+          }
+        }
+      }
+
+      .proof-label {
+        color: #6b6b6b;
+        display: block;
+        font-weight: 700;
+        line-height: 1;
+      }
+
+      + .contextual {
+        margin-top: 2px;
+      }
+    }
+  }
+
+  .field--name-field-accordion-display.field__item {
+    color: #555;
+    font-size: 0.9rem;
+    font-style: italic;
+    margin: 1rem 0 0;
+  }
+
+  .paragraph--type--list-of-link-teasers .field--name-field-title {
+    font-family: Bitter, Georgia, Cambria, Times New Roman, Times, serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 0.5em;
+  }
+
+  .usa-accordion-button .field__item,
+  .paragraph--type--collapsible-panel-item .field--name-field-title {
+    background-color: #ddd;
+    font-weight: 700;
+    padding: 0.8rem;
+  }
+
+  .additional-info-title {
+    border-bottom: 2px dotted #0071bb;
+    color: #323a45;
+  }
+
+  .paragraph.paragraph--type--spanish-translation-summary {
+    border-left: 7px solid #9bdaf1;
+    padding-left: calc(2rem - 7px);
+  }
+
+  .custom-alert,
+  .field--name-field-alert > .field__item,
+  .field--name-field-alert-block-reference > .field__item {
+    background-color: #f1f1f1f1;
+    padding: 1rem;
+
+    .field--name-field-alert-title > .field__item {
+      font-family: Bitter, Georgia, Cambria, Times New Roman, Times, serif;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 0.5em;
+    }
+  }
+
+  .paragraph--type--number-callout {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 1em;
+
+    .field--name-field-short-phrase-with-a-number > .field__item {
       font-family: Bitter, Georgia, Cambria, Times New Roman, Times, serif;
       font-size: 24px;
       font-weight: 700;
