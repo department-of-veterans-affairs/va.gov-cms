@@ -194,7 +194,7 @@ $breakpoints: (
 
 @mixin breakpoint($breakpoint) {
   @if map-has-key($breakpoints, $breakpoint) {
-    @media (min-width: map-get($breakpoints, $breakpoint)) {
+    @media screen and (min-width: map-get($breakpoints, $breakpoint)) {
       @content;
     }
   }
