@@ -53,13 +53,13 @@ webimage_extra_packages:
   - libxtst6
   - xauth
   - xvfb
-# hooks:
-#   post-import-db:
-#     - exec: "cd $DDEV_APPROOT && drush deploy"
-#   post-start:
-#     - exec: "cd $DDEV_APPROOT && ./scripts/install_task_runner.sh"
-#     - exec: "cd $DDEV_APPROOT && composer install"
-#     - exec: "cd $DDEV_APPROOT && composer va:web:install"
+hooks:
+  post-import-db:
+    - exec: drush deploy
+  post-start:
+    - exec: ./scripts/install_task_runner.sh
+    - composer: install
+    - composer: va:web:install
 
 # Key features of ddev's config.yaml:
 
