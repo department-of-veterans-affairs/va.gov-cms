@@ -31,12 +31,6 @@ assignees: ''
 - [ ] CMS engineer bulk publishes nodes.
 - [ ] HD notifies editor and any other stakeholders.
 </details>
-  
-  CMS Team
-Please leave only the team that will do this work selected. If you're not sure, it's fine to leave both selected.
-
- - [X] Platform CMS Team
- - [X] Sitewide CMS Team
  
 <details><summary>VAMCs - facility closure</summary>
   
@@ -105,3 +99,9 @@ Please leave only the team that will do this work selected. If you're not sure, 
   - [ ] If no, HD notifies Michelle Middaugh to bulk publish.
   - [ ] HD notifies editor and any other stakeholders.
   </details>
+
+    CMS Team
+Please leave only the team that will do this work selected. If you're not sure, it's fine to leave both selected.
+
+ - [X] Platform CMS Team
+ - [X] Sitewide CMS Team
