@@ -100,8 +100,7 @@ assignees: ''
   - [ ] HD notifies editor and any other stakeholders.
   </details>
 
-    CMS Team
+CMS Team
 Please leave only the team that will do this work selected. If you're not sure, it's fine to leave both selected.
-
- - [X] Platform CMS Team
- - [X] Sitewide CMS Team
+- [X] Platform CMS Team
+- [X] Sitewide CMS Team
