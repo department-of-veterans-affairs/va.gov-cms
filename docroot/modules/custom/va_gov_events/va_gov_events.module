@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * @file
+ * Contains va_gov_events.module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function va_gov_events_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the va_gov_events module.
+    case 'help.page.va_gov_events':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Custom code for VA.gov events') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function va_gov_events_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Add conditional fields to events form.
+  if ($form_id === 'node_event_form' || $form_id === 'node_event_edit_form') {
+    $form['field_facility_location']['widget']['#states'] = [
+      'visible' => [
+        ['select[name="field_location_type"]' => ['value' => 'facility']],
+      ],
+    ];
+  }
+}
