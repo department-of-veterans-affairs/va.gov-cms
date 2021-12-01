@@ -184,3 +184,22 @@
   line-height: 2rem;
   margin: 0;
 }
+
+// placeholder map until design tokens are defined... breakpoint values likely to change
+$breakpoints: (
+  'sm': 767px,
+  'md': 992px,
+  'lg': 1200px
+);
+
+@mixin breakpoint($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media screen and (min-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  }
+  @else {
+    @warn 'No breakpoint with name `#{$breakpoint}`. '
+      + 'Available breakpoints are: #{map-keys($breakpoints)}.';
+  }
+}
