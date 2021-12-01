@@ -179,7 +179,8 @@ parameters:
    # for more information about the topic in general.
    # Note: By default the configuration is disabled.
   cors.config:
-    enabled: false
+    # THIS CHANGE IS NOT PRODUCTION SAFE AND SHOULD NOT BE MERGED.
+    enabled: true
     # Specify allowed headers, like 'x-allowed-header'.
     allowedHeaders: []
     # Specify allowed request methods, specify ['*'] to allow all possible ones.
