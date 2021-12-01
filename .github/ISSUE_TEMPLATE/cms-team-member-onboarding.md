@@ -105,10 +105,6 @@ The goal for this week is to get you set up with the tools you need to be succes
       - [ ] A6 workspace = `#proj-vagov-team`
       - [ ] DSVA workspace = `#cms-team`
       - [ ] [This is a description of other channels](https://docs.google.com/spreadsheets/d/1_lZzectbSzs8zt4dvTFJTiPURxa0Kfp3xinYEuZdqq4/edit#gid=0) that ought to be on your radar. Note that many are going to be dependent on which workstream you're in (DevOps, Helpdesk, UX, etc.). Feel free to join whichever you think will aid you and your work.
-  
-- [ ] [VA network remote access options](https://www.oit.va.gov/resources/remote-access/index.cfm?) for after you get your PIV card
-  - [ ] [Azure virtual desktop is recommended for Windows](https://www.oit.va.gov/resources/remote-access/azure-virtual-desktop/)
-  - [ ] Mac users should [follow these Citrix Access Gateway (CAG) download instructions](https://docs.google.com/document/d/1_3HKMk4AXyqAoQcfF4CthEQ7uU_d1h9Tt7CPHGJ-FaM)
    
 - [ ] [Learn about the different Drupal environments](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/f4341c29ad8e998de1dac2fca0b749cdef15c923/READMES/environments.md)
   - [ ] If you are using a non-VA laptop for development you will need [follow the instructions on Github](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/https.md) to trust the VA Root Certificate Authority (CA) in your browser(s)
@@ -210,11 +206,14 @@ By this point you should have enough context and access to be able to start cont
 - [ ] Who are our VA points of contact? Discuss with your delivery manager or product manager.
 - [ ] Who should we know on the platform teams? Discuss with your delivery manager or product manager.
 ### What?
+- [ ] [VA network remote access options](https://www.oit.va.gov/resources/remote-access/index.cfm?) for after you get your PIV card
+  - [ ] [Azure virtual desktop is recommended for Windows](https://www.oit.va.gov/resources/remote-access/azure-virtual-desktop/)
+  - [ ] Mac users should [follow these Citrix Access Gateway (CAG) download instructions](https://docs.google.com/document/d/1_3HKMk4AXyqAoQcfF4CthEQ7uU_d1h9Tt7CPHGJ-FaM)
 - [ ] [What is Drupal?](https://docs.google.com/spreadsheets/d/11ppWiIggKJh-YAWia28utZXW48tJZGCEg-sFJ6eIl9c)
 - [ ] [Google Analytics](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=joanneesteban%2C+bsmartin-ep%2C+jonwehausen&labels=analytics-insights%2C+analytics-request&template=analytics-request-google-analytics-access.md&title=Request+access+to+Google+Analytics)
- - [ ] [Opt out](https://www.va.gov/analytics-opt-out.html) of Google Analytics collection on VA.gov.
- - [ ] [Opt out](https://depo-platform-documentation.scrollhelp.site/?internal-user-opt-out=true) of analytics for Platform's website. You will not get a confirmation message and will have to do this for every browser and every time you clear cookies.
- - [ ] [Browse the VA Drupal CMS Knowlege Base articles](https://prod.cms.va.gov/help/).
+  - [ ] [Opt out](https://www.va.gov/analytics-opt-out.html) of Google Analytics collection on VA.gov.
+  - [ ] [Opt out](https://depo-platform-documentation.scrollhelp.site/?internal-user-opt-out=true) of analytics for Platform's website. You will not get a confirmation message and will have to do this for every browser and every time you clear cookies.
+- [ ] [Browse the VA Drupal CMS Knowlege Base articles](https://prod.cms.va.gov/help/).
 
 </details>
 
