@@ -30,9 +30,20 @@ function va_gov_events_help($route_name, RouteMatchInterface $route_match) {
 function va_gov_events_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   // Add conditional fields to events form.
   if ($form_id === 'node_event_form' || $form_id === 'node_event_edit_form') {
+    $form['field_location_type']['widget']['#states'] = [
+      '#type' => 'select',
+      '#states' => [
+        'visible' => [
+          [':input[name="field_location_type"]' => ['value' => 'facility']],
+        ],
+      ],
+    ];
     $form['field_facility_location']['widget']['#states'] = [
-      'visible' => [
-        ['select[name="field_location_type"]' => ['value' => 'facility']],
+      '#type' => 'select',
+      '#states' => [
+        'hidden' => [
+          [':input[name="field_facility_location"]' => ['value' => '_none']],
+        ],
       ],
     ];
   }
