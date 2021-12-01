@@ -4,6 +4,7 @@ namespace Drupal\va_gov_api\Resource;
 
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Drupal\Core\Path\PathMatcher;
 use Drupal\jsonapi\JsonApiResource\LinkCollection;
 use Drupal\jsonapi\JsonApiResource\ResourceObject;
 use Drupal\jsonapi\JsonApiResource\ResourceObjectData;
@@ -30,9 +31,12 @@ class Banner extends EntityResourceBase implements ContainerInjectionInterface {
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   Tne entity type manager.
+   * @param \Drupal\Core\Path\PathMatcher $path_matcher
+   *   Drupal's internal path matching service.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, PathMatcher $path_matcher) {
     $this->entityTypeManager = $entity_type_manager;
+    $this->pathMatcher = $path_matcher;
   }
 
   /**
@@ -40,7 +44,8 @@ class Banner extends EntityResourceBase implements ContainerInjectionInterface {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('path.matcher'),
     );
   }
 
@@ -69,28 +74,44 @@ class Banner extends EntityResourceBase implements ContainerInjectionInterface {
     $query = $node_storage->getQuery();
     $query->condition('type', 'banner')->condition('status', TRUE);
     $banner_nids = $query->execute();
+    /** @var \Drupal\node\NodeInterface[] $banners */
     $banners = [];
+    /** @var \Drupal\node\NodeInterface[] $matchedBanners */
     $matchedBanners = [];
     $primary_data = [];
     if (count($banner_nids)) {
       $banners = $node_storage->loadMultiple(array_values($banner_nids));
     }
-    foreach ($banners as $idx => $banner) {
+    foreach ($banners as $banner) {
+      $patterns = '';
       $pathChecks = $banner->field_target_paths->getValue();
+      // Convert values to a string that PathMatcher expects.
       foreach ($pathChecks as $pathCheck) {
-        $pathCheck = $pathCheck['value'];
-        // @todo Fix following line.
-        if (preg_match($pathCheck, $path)) {
-          $matchedBanners[] = $banner;
-        }
+        $patterns = $patterns . $pathCheck['value'] . "\n";
+      }
+      if ($this->pathMatcher->matchPath($path, $patterns)) {
+        $matchedBanners[] = $banner;
       }
     }
-
+    $resource_type = reset($resource_types);
+    $cache_metadata = [];
     foreach ($matchedBanners as $entity) {
-      $cache_metadata = CacheableMetadata::createFromObject($entity);
-
+      $cache_metadata[] = CacheableMetadata::createFromObject($entity);
+      // Currently assumes Banner ctype.
+      /** @var \Drupal\taxonomy\TermInterface $section_term */
+      $section_term = $entity->field_administration->entity;
       $data = [
-        'title' => $entity->getTitle(),
+        'nid' => $entity->id(),
+        'uuid' => $entity->uuid(),
+        'langcode' => $entity->language()->getId(),
+        'status' => $entity->isPublished(),
+        'bundle' => $entity->getType(),
+        'heading' => $entity->label(),
+        'moderation_state' => $entity->get('moderation_state')->getString(),
+        'alert_type' => $entity->field_alert_type->value,
+        'text' => $entity->body->processed,
+        'dismissible' => $entity->field_dismissible_option->value,
+        'section_name' => $section_term->label(),
       ];
 
       $primary_data[] = new ResourceObject(
@@ -103,11 +124,17 @@ class Banner extends EntityResourceBase implements ContainerInjectionInterface {
       );
     }
 
-    $top_level_data = new ResourceObjectData($primary_data, 1);
+    $top_level_data = new ResourceObjectData($primary_data);
     /** @var \Drupal\jsonapi\ResourceResponse $response */
     $response = $this->createJsonapiResponse($top_level_data, $request);
 
-    $response->addCacheableDependency($cache_metadata);
+    // Unsure of how we're meant to handle this, but: each returned item should
+    // be able to invalidate cache.
+    // Question: How do we invalidate cache in the case where a new banner is
+    // published?
+    /* foreach ($cache_metadata as $datum) { */
+    $response->addCacheableDependency($datum);
+    /* } */
 
     return $response;
   }
