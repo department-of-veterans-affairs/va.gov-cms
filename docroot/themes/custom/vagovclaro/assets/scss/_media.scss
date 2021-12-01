@@ -1,0 +1,18 @@
+.media-library-item--grid .field--name-field-description {
+  margin-left: 0.5rem;
+  padding: 0.3125rem;
+}
+
+/* Overriding from docroot/core/themes/claro/css/theme/media-library.css for media widget display with more
+ specificity to beat claro default. Keeping it wider allows lengthy strings to fit neatly in the card. */
+@media screen and (min-width: 77em) {
+  .media-library-widget-modal .media-library-item.media-library-item--grid,
+  .media-library-selection .media-library-item.media-library-item--grid {
+    width: 33.3%;
+  }
+}
+
+// targeting lengthy PDF filenames with underscores
+.file--application-pdf {
+  word-break: break-word;
+}

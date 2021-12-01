@@ -1,0 +1,19 @@
+diff --git a/src/GoutteTrait.php b/src/GoutteTrait.php
+index be28dd9..64c9e14 100644
+--- a/src/GoutteTrait.php
++++ b/src/GoutteTrait.php
+@@ -70,7 +70,13 @@ trait GoutteTrait
+             // Turn off curl timeout. Having a timeout is not a problem in a normal
+             // test running, but it is a problem when debugging. Also, disable SSL
+             // peer verification so that testing under HTTPS always works.
+-            $client = new Client(['timeout' => null, 'verify' => false]);
++            $client = new Client([
++              'timeout' => null,
++              'verify' => false,
++              'headers' => ['Connection' => 'close'],
++              CURLOPT_FORBID_REUSE => true,
++              CURLOPT_FRESH_CONNECT => true,
++            ]);
+             $handler_stack = $client->getConfig('handler');
+             $handler_stack->push($this->getResponseLogHandler());
+             $driver->getClient()->setClient($client);
