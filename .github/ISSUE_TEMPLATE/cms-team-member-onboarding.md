@@ -206,9 +206,11 @@ By this point you should have enough context and access to be able to start cont
 - [ ] Who are our VA points of contact? Discuss with your delivery manager or product manager.
 - [ ] Who should we know on the platform teams? Discuss with your delivery manager or product manager.
 ### What?
-- [ ] [VA network remote access options](https://www.oit.va.gov/resources/remote-access/index.cfm?) for after you get your PIV card
-  - [ ] [Azure virtual desktop is recommended for Windows](https://www.oit.va.gov/resources/remote-access/azure-virtual-desktop/)
-  - [ ] Mac users should [follow these Citrix Access Gateway (CAG) download instructions](https://docs.google.com/document/d/1_3HKMk4AXyqAoQcfF4CthEQ7uU_d1h9Tt7CPHGJ-FaM)
+- [ ] After your background check is complete, you will get an email to get your Personal Identify Verification (PIV) card. Contact your local VA office (where you got your fingerprints taken) for information about getting your [PIV card](https://www.oit.va.gov/programs/piv/how-to.cfm?). 
+  - [ ] Review a [video about the benefits of the PIV card and VA network access](https://youtu.be/6rI-i8zmOzE).
+  - [ ] PIV card will help you get remote VA network access. See [VA network remote access options](https://www.oit.va.gov/resources/remote-access/index.cfm?) 
+    - [ ] [Azure virtual desktop is recommended for Windows](https://www.oit.va.gov/resources/remote-access/azure-virtual-desktop/)
+    - [ ] Mac users should [follow these Citrix Access Gateway (CAG) download instructions](https://docs.google.com/document/d/1_3HKMk4AXyqAoQcfF4CthEQ7uU_d1h9Tt7CPHGJ-FaM)
 - [ ] [What is Drupal?](https://docs.google.com/spreadsheets/d/11ppWiIggKJh-YAWia28utZXW48tJZGCEg-sFJ6eIl9c)
 - [ ] [Google Analytics](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=joanneesteban%2C+bsmartin-ep%2C+jonwehausen&labels=analytics-insights%2C+analytics-request&template=analytics-request-google-analytics-access.md&title=Request+access+to+Google+Analytics)
   - [ ] [Opt out](https://www.va.gov/analytics-opt-out.html) of Google Analytics collection on VA.gov.
