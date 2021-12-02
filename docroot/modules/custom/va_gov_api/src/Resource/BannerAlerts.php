@@ -102,10 +102,6 @@ class BannerAlerts extends EntityResourceBase implements ContainerInjectionInter
       /** @var \Drupal\taxonomy\TermInterface $section_term */
       $section_term = $entity->field_administration->entity;
       // We need to transform multivalue field output because Drupal.
-      $paths = [];
-      foreach ($entity->field_target_paths->getValue() as $path_value) {
-        $paths[] = $path_value['value'];
-      }
       $data = [
         'nid' => $entity->id(),
         'uuid' => $entity->uuid(),
@@ -118,7 +114,7 @@ class BannerAlerts extends EntityResourceBase implements ContainerInjectionInter
         'text' => $entity->body->processed,
         'dismissible' => $entity->field_dismissible_option->value,
         'section_name' => $section_term->label(),
-        'paths' => $paths,
+        'paths' => array_column($entity->field_target_paths->getValue(), 'value'),
       ];
 
       $primary_data[] = new ResourceObject(
