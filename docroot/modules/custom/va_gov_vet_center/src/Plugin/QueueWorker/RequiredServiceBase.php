@@ -54,20 +54,16 @@ abstract class RequiredServiceBase extends QueueWorkerBase implements ContainerF
   public function processItem($data) {
     // Use the "cms migrator" user account (1317).
     $author_uid = 1317;
-    $vet_center = $this->nodeStorage->load($data->facility_id);
-    /** @var \Drupal\node\NodeInterface $vet_center */
-    $published = $vet_center->isPublished();
-    $section_id = $vet_center->field_administration->target_id;
-    $moderation_state = $vet_center->get('moderation_state')->value;
 
     // Create the new node.
     $vet_center_facility_health_service_node = Node::create([
       'type' => 'vet_center_facility_health_servi',
-      'status' => $published,
-      'moderation_state' => $moderation_state,
+      'status' => $data->published,
+      'moderation_state' => $data->moderation_state,
+      'revision_log' => $data->log_message,
       'uid' => $author_uid,
       'field_administration' => [
-        ['target_id' => $section_id],
+        ['target_id' => $data->section_id],
       ],
       'field_office' => [
         ['target_id' => $data->facility_id],

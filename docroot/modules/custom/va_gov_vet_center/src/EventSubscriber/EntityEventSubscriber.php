@@ -114,8 +114,12 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function entityInsert(EntityInsertEvent $event): void {
     $entity = $event->getEntity();
-    // Add all required services for this newly created facility.
-    $this->requiredServices->addServicesByFacility($entity);
+    if ($entity->getEntityTypeId() == 'node') {
+      $this->requiredServices->addRequiredServicesByFacility($entity);
+    }
+    if ($entity->getEntityTypeId() === 'taxonomy_term') {
+      $this->requiredServices->addRequiredServicesByTerm($entity);
+    }
   }
 
   /**
@@ -126,8 +130,9 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function entityUpdate(EntityUpdateEvent $event): void {
     $entity = $event->getEntity();
-    // Add any missing services for this newly required term.
-    $this->requiredServices->addServicesByTerm($entity);
+    if ($entity->getEntityTypeId() === 'taxonomy_term') {
+      $this->requiredServices->addRequiredServicesByTerm($entity);
+    }
   }
 
   /**

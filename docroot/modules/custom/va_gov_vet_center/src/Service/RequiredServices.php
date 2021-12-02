@@ -54,14 +54,21 @@ class RequiredServices {
    *   The taxonomy term for the new service item.
    * @param \Drupal\Core\Entity\EntityInterface $facility_node
    *   The vet center (facility) node for the new service item.
+   * @param string $log_message
+   *   Text to use as the revision log message for the new service item.
    */
-  public function addService(EntityInterface $service_term, EntityInterface $facility_node) {
+  public function addService(EntityInterface $service_term, EntityInterface $facility_node, string $log_message = '') {
     // Add a queue item to be processed on next cron run.
     $service_queue = $this->queueFactory->get('cron_required_service');
 
     $item = new \stdClass();
     $item->facility_id = $facility_node->id();
+    /** @var \Drupal\node\NodeInterface $facility_node */
+    $item->published = $facility_node->isPublished();
+    $item->section_id = $facility_node->field_administration->target_id;
+    $item->moderation_state = $facility_node->get('moderation_state')->value;
     $item->term_id = $service_term->id();
+    $item->log_message = $log_message;
     $service_queue->createItem($item);
   }
 
@@ -71,16 +78,15 @@ class RequiredServices {
    * @param \Drupal\Core\Entity\EntityInterface $facility_node
    *   The vet center (facility) node for the new service items.
    */
-  public function addServicesByFacility(EntityInterface $facility_node) {
+  public function addRequiredServicesByFacility(EntityInterface $facility_node) {
     /** @var \Drupal\node\NodeInterface $facility_node */
-    if ($facility_node->getEntityTypeId() == 'node'
-      && $facility_node->bundle() == 'vet_center'
-      && is_null($facility_node->original)) {
+    if ($facility_node->bundle() == 'vet_center' && is_null($facility_node->original)) {
       // Be sure a given facility has all required services.
       $required_services = $this->getRequiredServices();
+      $log_message = 'Created from new parent facility.';
 
       foreach ($required_services as $required_service) {
-        $this->addService($required_service, $facility_node);
+        $this->addService($required_service, $facility_node, $log_message);
       }
     }
   }
@@ -91,14 +97,12 @@ class RequiredServices {
    * @param \Drupal\Core\Entity\EntityInterface $service_term
    *   The taxonomy term for the new service items.
    */
-  public function addServicesByTerm(EntityInterface $service_term) {
+  public function addRequiredServicesByTerm(EntityInterface $service_term) {
     /** @var \Drupal\taxonomy\TermInterface $service_term */
-    if ($service_term->getEntityTypeId() == 'taxonomy_term'
-      && $service_term->bundle() == 'health_care_service_taxonomy'
-      && $service_term->hasField('field_vet_center_required_servic')
-      && !$service_term->isNew()) {
-      if (!$service_term->original->get('field_vet_center_required_servic')->value
-        && $service_term->get('field_vet_center_required_servic')->value) {
+    if ($service_term->bundle() === 'health_care_service_taxonomy'
+      && $service_term->hasField('field_vet_center_required_servic')) {
+      $previously_required = isset($service_term->original) ? $service_term->original->get('field_vet_center_required_servic')->value : 0;
+      if ($service_term->get('field_vet_center_required_servic')->value && !$previously_required) {
         $node_storage = $this->entityTypeManager->getStorage('node');
 
         // Get all the vet center node ids.
@@ -122,18 +126,19 @@ class RequiredServices {
         // Get the id for the vet center referenced in each facility service.
         foreach ($facility_services as $facility_service) {
           /** @var \Drupal\node\NodeInterface $facility_service */
-          if ($facility_service->hasField('field_office')) {
+          if ($facility_service->hasField('field_office') && isset($facility_service->get('field_office')->entity)) {
             $serviced_nids[] = $facility_service->get('field_office')->entity->id();
           }
         }
 
         // Remove the vet centers where this service is already present.
         $missing_nids = array_diff($vet_center_nids, $serviced_nids);
+        $log_message = 'Created from required VHA health service term.';
 
         // Add each item to the queue for creation.
-        foreach ($missing_nids as $missing_nid) {
-          $vet_center = $node_storage->load($missing_nid);
-          $this->addService($service_term, $vet_center);
+        $vet_centers = $node_storage->loadMultiple($missing_nids);
+        foreach ($vet_centers as $vet_center) {
+          $this->addService($service_term, $vet_center, $log_message);
         }
       }
     }
@@ -150,14 +155,14 @@ class RequiredServices {
       $term_storage = $this->entityTypeManager->getStorage('taxonomy_term');
       $term_query = $term_storage->getQuery();
 
-      // Return a list of required services.
+      // Return an array of all VHA health service terms.
       $term_ids = $term_query
         ->condition('vid', 'health_care_service_taxonomy')
         ->execute();
       $service_terms = $term_storage->loadMultiple($term_ids);
       $required_services = [];
 
-      // Unset any items in the array that aren't required.
+      // Create a filtered array containing only required services.
       foreach ($service_terms as $service_term) {
         if ($this->isRequiredService($service_term)) {
           $required_services[] = $service_term;
@@ -177,7 +182,7 @@ class RequiredServices {
    *   The taxonomy term to be evaluated.
    *
    * @return bool
-   *   Is this term is required or not.
+   *   TRUE if required. FALSE otherwise.
    */
   public function isRequiredService(EntityInterface $service_term) {
     /** @var \Drupal\taxonomy\TermInterface $service_term */
@@ -196,9 +201,9 @@ class RequiredServices {
    *   The vet center (facility) node to be evaluated.
    *
    * @return bool
-   *   Does the provided service exist for the provided facility.
+   *   TRUE if provided service exists for provided facility. FALSE otherwise.
    */
-  protected function hasService(EntityInterface $service_term, EntityInterface $facility_node) {
+  public function hasService(EntityInterface $service_term, EntityInterface $facility_node) {
     $node_storage = $this->entityTypeManager->getStorage('node');
     $node_query = $node_storage->getQuery();
 
