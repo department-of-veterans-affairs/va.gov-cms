@@ -66,15 +66,10 @@
   Drupal.behaviors.vaGovtextContentDescriptionPlacement = {
     attach: function attach(context) {
       var textareaDescriptions = context.querySelectorAll(".description");
-
       alterHelpTextLocationOnDateField(textareaDescriptions);
-
       alterHelpTextLocationOnTextField(textareaDescriptions);
-
       alterHelpTextLocationOnLongTextPlainField(textareaDescriptions);
-
       alterHelpTextLocationOnLongTextFullHtmlField(textareaDescriptions);
-
       alterHelpTextLocationOnParagraphsExperimentalWidget(textareaDescriptions);
     }
   };

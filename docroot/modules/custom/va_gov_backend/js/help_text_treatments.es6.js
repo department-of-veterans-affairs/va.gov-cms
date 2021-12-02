@@ -108,15 +108,10 @@
     attach(context) {
       // Get help texts.
       const textareaDescriptions = context.querySelectorAll(".description");
-      // Date fields.
       alterHelpTextLocationOnDateField(textareaDescriptions);
-      // Text fields.
       alterHelpTextLocationOnTextField(textareaDescriptions);
-      // Long text fields (No Wysiwyg).
       alterHelpTextLocationOnLongTextPlainField(textareaDescriptions);
-      // Long text field full_html (Wysiwyg).
       alterHelpTextLocationOnLongTextFullHtmlField(textareaDescriptions);
-      // Paragraphs experimental widget.
       alterHelpTextLocationOnParagraphsExperimentalWidget(textareaDescriptions);
     },
   };
