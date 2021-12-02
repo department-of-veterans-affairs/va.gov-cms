@@ -98,6 +98,17 @@ function _vagovadmin_get_node_parent(Paragraph $paragraph) {
  *   - form: A render element representing the form.
  */
 function vagovadmin_preprocess_inline_entity_form_entity_table(array &$variables) {
+  vagovadmin_sort_and_alter_vetcenter_services($variables);
+}
+
+/**
+ * Alter required vetcenter services IEF and sort.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - form: A render element representing the form.
+ */
+function vagovadmin_sort_and_alter_vetcenter_services(array &$variables) {
   $form = $variables['form'];
   if (strpos($form['#id'], 'edit-field-health-services-entities') === 0) {
     $entity_type = $form['#entity_type'];
