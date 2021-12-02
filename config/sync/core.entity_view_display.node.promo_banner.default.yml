@@ -1,0 +1,55 @@
+uuid: 638fcd0c-658a-4b06-9f4e-06337b444b15
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.promo_banner.field_administration
+    - field.field.node.promo_banner.field_link
+    - field.field.node.promo_banner.field_promo_type
+    - field.field.node.promo_banner.field_target_paths
+    - node.type.promo_banner
+  module:
+    - link
+    - options
+    - user
+id: node.promo_banner.default
+targetEntityType: node
+bundle: promo_banner
+mode: default
+content:
+  field_link:
+    weight: 3
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_promo_type:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_target_paths:
+    weight: 4
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  links:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  content_moderation_control: true
+  field_administration: true
+  search_api_excerpt: true
