@@ -97,7 +97,9 @@ class BannerAlerts extends EntityResourceBase implements ContainerInjectionInter
     $cache_metadata = [];
     $datum = NULL;
     foreach ($matchedBanners as $entity) {
-      $cache_metadata[] = CacheableMetadata::createFromObject($entity);
+      // Following line commented; need to figure out cache_metadata for > 1.
+      // $cache_metadata[] = CacheableMetadata::createFromObject($entity);
+      $datum = CacheableMetadata::createFromObject($entity);
       // Currently assumes Banner ctype.
       /** @var \Drupal\taxonomy\TermInterface $section_term */
       $section_term = $entity->field_administration->entity;
@@ -136,7 +138,7 @@ class BannerAlerts extends EntityResourceBase implements ContainerInjectionInter
     // Question: How do we invalidate cache in the case where a new banner is
     // published?
     /* foreach ($cache_metadata as $datum) { */
-    if ($datum) {
+    if (isset($datum)) {
       $response->addCacheableDependency($datum);
     }
     /* } */
