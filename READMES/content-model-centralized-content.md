@@ -1,5 +1,12 @@
 # Content Model: Centralized Content
 
+## Guiding Principles
+
+  - Editors should be able to see nationally controlled content alongside their content so they do not repeat or contradict the national content.
+  - On page view they should be able to see nationally controlled content to simulate how it appears on the frontend.
+  - National content editors should have a good editorial experience, complete with moderation, revisions and other governance features built into sections and menu access.
+  - The frontend should get all the content they need to render a page in one query.
+
 Centralized content uses the contrib module [Entity Field Fetch](https://www.drupal.org/project/entity_field_fetch) to have a field on one content type, grab content dynamically from a paragraph on a Centralized Content node. As a human enforced standard, Entity Field Fetch fields will be prefixed with `field_cc_` so that they can be recognized as a centralized content field.
 
 When loading a node that use centralized content, it will provide a reference to the paragraph that looks like this
