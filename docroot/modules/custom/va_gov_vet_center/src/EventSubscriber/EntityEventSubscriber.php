@@ -50,29 +50,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Alterations to Vet center forms.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
-   *   The event.
-   */
-  public function vetCenterFormAlter(FormIdAlterEvent $event): void {
-    $form = &$event->getForm();
-    $this->disableNameFieldForNonAdmins($form);
-  }
-
-  /**
-   * Disabled official name field on vc forms when user is non admin.
-   *
-   * @param array $form
-   *   The node form.
-   */
-  public function disableNameFieldForNonAdmins(array &$form): void {
-    if (!$this->userPermsService->hasAdminRole()) {
-      $form['field_official_name']['#disabled'] = TRUE;
-    }
-  }
-
-  /**
    * Build the VC & Outstation fieldset and populate with help text.
    *
    * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
@@ -107,6 +84,29 @@ class EntityEventSubscriber implements EventSubscriberInterface {
         '#description' => $this->t('@markup', ['@markup' => $formatted_markup]),
         '#open' => TRUE,
       ];
+    }
+  }
+
+  /**
+   * Alterations to Vet center forms.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function vetCenterFormAlter(FormIdAlterEvent $event): void {
+    $form = &$event->getForm();
+    $this->disableNameFieldForNonAdmins($form);
+  }
+
+  /**
+   * Disabled official name field on vc forms when user is non admin.
+   *
+   * @param array $form
+   *   The node form.
+   */
+  public function disableNameFieldForNonAdmins(array &$form): void {
+    if (!$this->userPermsService->hasAdminRole()) {
+      $form['field_official_name']['#disabled'] = TRUE;
     }
   }
 

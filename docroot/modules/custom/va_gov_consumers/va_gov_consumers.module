@@ -58,6 +58,19 @@ function _vagov_consumers_disable_vha_api_form_fields(array &$form, $form_id) {
 }
 
 /**
+ * Returns the names of the add and edit Vet center forms.
+ *
+ * @return array
+ *   The Vet center form names.
+ */
+function _va_gov_consumers_return_vet_center_form_names() {
+  return [
+    'node_vet_center_edit_form',
+    'node_vet_center_form',
+  ];
+}
+
+/**
  * Disable api sourced fields on non vha facilities to prevent human editing.
  *
  * @param array $form
@@ -85,10 +98,7 @@ function _vagov_consumers_disable_non_vha_facilities_api_form_fields(array &$for
       $form['title']['widget'][0]['value']['#default_value'] = t('May be overwritten by Facility API Data');
     }
     // Only allow admins to alter vc titles.
-    elseif (Drupal::service('va_gov_user.user_perms')->hasAdminRole() && in_array($form_id, [
-      'node_vet_center_edit_form',
-      'node_vet_center_form',
-    ])) {
+    elseif (Drupal::service('va_gov_user.user_perms')->hasAdminRole() && in_array($form_id, _va_gov_consumers_return_vet_center_form_names())) {
       $form['title']['widget'][0]['value']['#attributes']['disabled'] = FALSE;
     }
     // Lockdown titles for all roles for all other types.
@@ -170,12 +180,6 @@ function _vagov_consumers_modify_vet_center_fields(array &$form, $form_id, FormS
     'node_vet_center_outstation_edit_form',
   ];
 
-  // Special treatment for vet center forms title and common name handling.
-  $vc_forms = [
-    'node_vet_center_edit_form',
-    'node_vet_center_form',
-  ];
-
   // We want to confirm we are on a specific form.
   if (in_array($form_id, $external_content_form_ids)) {
     $node = $form_state->getformObject()->getEntity();
@@ -204,7 +208,7 @@ function _vagov_consumers_modify_vet_center_fields(array &$form, $form_id, FormS
     _va_gov_consumers_disable_external_content_editing($form, $form_state, 'field_facility_locator_api_id');
   }
 
-  if (in_array($form_id, $vc_forms)) {
+  if (in_array($form_id, _va_gov_consumers_return_vet_center_form_names())) {
     $form['#attached']['library'][] = 'va_gov_consumers/text_field_tooltips';
     $form['field_official_name']['#disabled'] = TRUE;
     // If common name and title are the same, don't show both unless admin.

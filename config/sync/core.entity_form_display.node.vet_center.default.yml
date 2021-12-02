@@ -38,6 +38,7 @@ dependencies:
     - paragraphs
     - telephone
     - textfield_counter
+    - va_gov_backend
 third_party_settings:
   field_group:
     group_operating_status:
@@ -233,6 +234,7 @@ third_party_settings:
         element: div
         label_element: h3
         attributes: ''
+        open: false
       label: 'National featured content'
 id: node.vet_center.default
 targetEntityType: node
@@ -246,7 +248,7 @@ content:
     type: address_default
     region: content
   field_administration:
-    weight: 12
+    weight: 4
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -261,7 +263,7 @@ content:
     type: entity_field_fetch_widget
     region: content
   field_cc_vet_center_call_center:
-    weight: 13
+    weight: 14
     settings:
       show_field_label: '1'
       show_link_to_source: '1'
@@ -279,7 +281,7 @@ content:
     type: entity_field_fetch_widget
     region: content
   field_cc_vet_center_featured_con:
-    weight: 21
+    weight: 4
     settings:
       show_link_to_source: '1'
       show_source_updated_date: '1'
@@ -341,12 +343,13 @@ content:
     type: office_hours_default
     region: content
   field_official_name:
-    type: string_textfield
-    weight: 10
+    type: tooltip_textfield
+    weight: 9
     region: content
     settings:
-      size: 60
+      size: '60'
       placeholder: ''
+      tooltip_text: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
     third_party_settings: {  }
   field_operating_status_facility:
     weight: 9
@@ -427,12 +430,13 @@ content:
     region: content
     third_party_settings: {  }
   title:
-    type: string_textfield
+    type: tooltip_textfield
     weight: 11
     region: content
     settings:
-      size: 60
+      size: '60'
       placeholder: ''
+      tooltip_text: "Why can’t I edit this?\r\nThe common name is set up to keep a consistent format with other Vet Centers across all of VA.gov."
     third_party_settings: {  }
 hidden:
   created: true
