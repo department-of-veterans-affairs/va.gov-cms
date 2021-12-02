@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Get a response for Banner resource.
  */
-class Banner extends EntityResourceBase implements ContainerInjectionInterface {
+class BannerAlerts extends EntityResourceBase implements ContainerInjectionInterface {
 
   /**
    * The entity type manager.
@@ -95,11 +95,17 @@ class Banner extends EntityResourceBase implements ContainerInjectionInterface {
     }
     $resource_type = reset($resource_types);
     $cache_metadata = [];
+    $datum = NULL;
     foreach ($matchedBanners as $entity) {
       $cache_metadata[] = CacheableMetadata::createFromObject($entity);
       // Currently assumes Banner ctype.
       /** @var \Drupal\taxonomy\TermInterface $section_term */
       $section_term = $entity->field_administration->entity;
+      // We need to transform multivalue field output because Drupal.
+      $paths = [];
+      foreach ($entity->field_target_paths->getValue() as $path_value) {
+        $paths[] = $path_value['value'];
+      }
       $data = [
         'nid' => $entity->id(),
         'uuid' => $entity->uuid(),
@@ -112,6 +118,7 @@ class Banner extends EntityResourceBase implements ContainerInjectionInterface {
         'text' => $entity->body->processed,
         'dismissible' => $entity->field_dismissible_option->value,
         'section_name' => $section_term->label(),
+        'paths' => $paths,
       ];
 
       $primary_data[] = new ResourceObject(
@@ -133,7 +140,9 @@ class Banner extends EntityResourceBase implements ContainerInjectionInterface {
     // Question: How do we invalidate cache in the case where a new banner is
     // published?
     /* foreach ($cache_metadata as $datum) { */
-    $response->addCacheableDependency($datum);
+    if ($datum) {
+      $response->addCacheableDependency($datum);
+    }
     /* } */
 
     return $response;

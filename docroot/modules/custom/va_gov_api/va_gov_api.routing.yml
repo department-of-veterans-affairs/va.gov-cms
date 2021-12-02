@@ -8,11 +8,11 @@ va_gov_api.qa.entity:
     _permission: 'access content'
     _content_type_format: api_json
     _format: api_json
-va_gov_api.banner.entity:
+va_gov_api.banner_alerts.resource:
   path: '/%jsonapi%/resource/banner-alerts'
   methods: ['GET']
   defaults:
-    _jsonapi_resource: Drupal\va_gov_api\Resource\Banner
+    _jsonapi_resource: Drupal\va_gov_api\Resource\BannerAlerts
     _jsonapi_resource_types: ['node--banner']
   requirements:
     _permission: 'access content'
