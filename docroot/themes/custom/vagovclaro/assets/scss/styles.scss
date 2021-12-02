@@ -1,8 +1,12 @@
+// import mixins first to ensure they are available to the rest
+@import 'mixins';
 // @import 'accordions';
 @import 'alerts';
 // @import 'centralized_content';
-@import 'mixins';
 @import 'login-page';
+@import 'buttons';
+@import 'media';
+@import 'paragraphs';
 // @import 'process_list';
 // @import 'services';
 // @import 'external_content';
@@ -87,25 +91,6 @@
   display: block;
   padding: 1em 1.333em;
 }
-
-//#block-vagovadmin-content {
-//  .layout-region-node-main,
-//  .layout-region-node-footer {
-//    display: grid;
-//    overflow: auto;
-//  }
-//}
-//
-//.page-content {
-//  h1 {
-//    font-family: Bitter, Georgia, Cambria, Times New Roman, Times, serif;
-//    font-size: 2.5rem;
-//    font-weight: 700;
-//    line-height: 1.3;
-//    margin: 0;
-//    margin-bottom: 0.5em;
-//  }
-//}
 
 .views-field-rendered-entity h2 {
   font-size: 20px;
