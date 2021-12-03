@@ -1,0 +1,34 @@
+uuid: 203434e2-dcfc-44f5-b40e-8bcdf6af5217
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.promo_banner.field_administration
+    - field.field.node.promo_banner.field_link
+    - field.field.node.promo_banner.field_promo_type
+    - field.field.node.promo_banner.field_target_paths
+    - node.type.promo_banner
+  module:
+    - user
+id: node.promo_banner.teaser
+targetEntityType: node
+bundle: promo_banner
+mode: teaser
+content:
+  content_moderation_control:
+    weight: -20
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_administration: true
+  field_link: true
+  field_promo_type: true
+  field_target_paths: true
+  search_api_excerpt: true
