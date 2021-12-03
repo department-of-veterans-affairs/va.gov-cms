@@ -224,7 +224,7 @@ function vagovadmin_sort_and_alter_vetcenter_services(array &$variables) {
         }
       });
       foreach ($rows as $key => $row) {
-        if ($row['req_optional']['#markup']->render() === 'Optional') {
+        if ($row['req_optional']['#markup'] !== NULL && $row['req_optional']['#markup']->render() === 'Optional') {
           $rows_required[$key] = $row;
           unset($rows[$key]);
         }
