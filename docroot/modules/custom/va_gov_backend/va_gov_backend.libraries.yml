@@ -1,3 +1,8 @@
+admin_styles:
+  version: 1.x
+  css:
+    component:
+      css/admin_style.css: {}
 alert_form:
   version: 1.x
   js:
@@ -10,11 +15,6 @@ audience_topics:
     js/audience_topics.js: {}
   dependencies:
     - core/jquery
-admin_styles:
-  version: 1.x
-  css:
-    component:
-      css/admin_style.css: {}
 centralized_content_alterations:
   version: 1.x
   js:
@@ -30,14 +30,15 @@ display_service_descriptions:
     component:
       css/css_tooltip.css: {}
       css/health_service.css: {}
-service_location_address:
+field_group_tooltip:
   version: 1.x
   js:
-    js/service_location_address.js: {}
-service_location_hours:
-  version: 1.x
-  js:
-    js/service_location_hours.js: {}
+    js/field_group_tooltip.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupalSettings
+    - va_gov_backend/tippyjs
 gtm_tag_push:
   version: 1.x
   js:
@@ -50,10 +51,31 @@ gtm_tag_trackers:
     - core/drupal
     - core/jquery
     - core/jquery.once
+help_text_treatments:
+  js:
+    js/help_text_treatments.js: { header: 1, weight: -10 }
+limit_services_to_user_sections:
+  version: 1.x
+  css:
+    theme:
+      css/limit_services_to_user_sections.css: {}
+  js:
+    js/limit_services_to_user_sections.js: {}
 media_library_add_form_upload:
   version: 1.x
   js:
     js/media_library_add_form_upload.js: {}
+service_location_address:
+  version: 1.x
+  js:
+    js/service_location_address.js: {}
+service_location_hours:
+  version: 1.x
+  js:
+    js/service_location_hours.js: {}
+set_body_to_required:
+  js:
+    js/set_body_to_required.js: {}
 smart_date_interactions:
   version: 1.x
   js:
@@ -63,37 +85,6 @@ system_styles:
   css:
     component:
       css/system_style.css: {}
-toolbar:
-  version: 1.x
-  css:
-    theme:
-      css/toolbar.css: {}
-  js:
-    js/toolbar.js: {}
-  dependencies:
-    - core/jquery
-    - core/jquery.once
-    - core/drupalSettings
-    - va_gov_backend/tippyjs
-field_group_tooltip:
-  version: 1.x
-  js:
-    js/field_group_tooltip.js: {}
-  dependencies:
-    - core/jquery
-    - core/jquery.once
-    - core/drupalSettings
-    - va_gov_backend/tippyjs
-limit_services_to_user_sections:
-  version: 1.x
-  css:
-    theme:
-      css/limit_services_to_user_sections.css: {}
-  js:
-    js/limit_services_to_user_sections.js: {}
-set_body_to_required:
-  js:
-    js/set_body_to_required.js: {}
 tippyjs:
   remote: https://github.com/atomiks/tippyjs
   version: '6.2.6'
@@ -111,3 +102,15 @@ tippy_popover_theme:
   css:
     theme:
       css/tippy_popover_theme.css: {}
+toolbar:
+  version: 1.x
+  css:
+    theme:
+      css/toolbar.css: {}
+  js:
+    js/toolbar.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupalSettings
+    - va_gov_backend/tippyjs

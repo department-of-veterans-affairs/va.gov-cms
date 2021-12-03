@@ -59,8 +59,9 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public function alterPathFieldInfo(EntityBundleFieldInfoAlterEvent $event): void {
     $type = $event->getEntityType();
     $bundle = $event->getBundle();
+    $target_bundles = ['banner', 'promo_banner'];
     $fields = $event->getFields();
-    if ($type->get('id') === 'node' && $bundle === 'banner' && isset($fields['field_target_paths'])) {
+    if ($type->get('id') === 'node' && in_array($bundle, $target_bundles) && isset($fields['field_target_paths'])) {
       $fields['field_target_paths']->addConstraint('RequireScope');
     }
   }
