@@ -14,7 +14,7 @@ Feature: Content model: Vocabulary fields
 | Vocabulary | Sections | Link text | field_email_updates_link_text | Text (plain) |  | 1 | -- Disabled -- |  |
 | Vocabulary | Sections | Link | field_link | Link |  | 1 | -- Disabled -- |  |
 | Vocabulary | Sections | Social media links | field_social_media_links | Social Media Links Field  |  | 1 | -- Disabled -- |  |
-| Vocabulary | Sections | Product | field_product | Entity reference |  | 1 | -- Disabled -- |  |
+| Vocabulary | Sections | Product | field_product | Entity reference |  | 1 | Select list |  |
 | Vocabulary | Sections | URL | field_email_updates_url | Text (plain) |  | 1 | -- Disabled -- |  |
 | Vocabulary | VHA health service taxonomy | Common conditions | field_commonly_treated_condition | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | VHA health service taxonomy | Health Service API ID | field_health_service_api_id | Text (plain) |  | 1 | Textfield |  |
