@@ -1,6 +1,9 @@
 services:
   va_gov_vet_center.entity_event_subscriber:
     class: Drupal\va_gov_vet_center\EventSubscriber\EntityEventSubscriber
-    arguments: ['@string_translation', '@va_gov_user.user_perms']
+    arguments: ['@string_translation', '@va_gov_user.user_perms', '@va_gov_vet_center.required_services']
     tags:
       - { name: event_subscriber }
+  va_gov_vet_center.required_services:
+    class: Drupal\va_gov_vet_center\Service\RequiredServices
+    arguments: ['@entity_type.manager', '@logger.factory', '@messenger', '@queue']
