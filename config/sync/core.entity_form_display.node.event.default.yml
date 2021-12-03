@@ -33,7 +33,6 @@ dependencies:
     - path
     - smart_date
     - text
-    - textfield_counter
 third_party_settings:
   field_group:
     group_governance:
@@ -70,13 +69,13 @@ third_party_settings:
     group_link:
       children:
         - field_event_registrationrequired
-        - field_event_cost
         - group_registration_link
         - field_additional_information_abo
       parent_name: ''
       weight: 6
       format_type: details
       format_settings:
+        description: 'All events on VA.gov are free.'
         open: true
         id: ''
         classes: ''
@@ -209,6 +208,7 @@ content:
         120|2 hours
         custom
       show_extra: true
+      add_abbreviations: ''
     third_party_settings: {  }
   field_description:
     weight: 3
@@ -217,20 +217,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
-    region: content
-  field_event_cost:
-    weight: 32
-    settings:
-      size: 60
-      placeholder: ''
-      maxlength: 60
-      counter_position: after
-      js_prevent_submit: true
-      count_html_characters: true
-      textcount_status_message: 'Characters Used: <span class="current_count">@current_length</span><br />Characters Remaining: <span class="remaining_count">@remaining_count</span>'
-      use_field_maxlength: false
-    third_party_settings: {  }
-    type: string_textfield_with_counter
     region: content
   field_event_cta:
     weight: 26
@@ -263,6 +249,8 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
+      linkit_profile: default
+      linkit_auto_link_text: false
     third_party_settings: {  }
     type: linkit
     region: content
@@ -304,6 +292,8 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
+      linkit_profile: default
+      linkit_auto_link_text: false
     third_party_settings: {  }
     type: linkit
     region: content
@@ -343,6 +333,7 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_event_cost: true
   field_meta_tags: true
   promote: true
   status: true

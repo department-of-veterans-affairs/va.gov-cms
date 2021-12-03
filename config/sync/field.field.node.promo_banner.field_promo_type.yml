@@ -1,0 +1,23 @@
+uuid: 484f9676-d546-4d4d-90ca-08b67ece40ee
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_promo_type
+    - node.type.promo_banner
+  module:
+    - options
+id: node.promo_banner.field_promo_type
+field_name: field_promo_type
+entity_type: node
+bundle: promo_banner
+label: 'Promo type'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: announcements
+default_value_callback: ''
+settings: {  }
+field_type: list_string

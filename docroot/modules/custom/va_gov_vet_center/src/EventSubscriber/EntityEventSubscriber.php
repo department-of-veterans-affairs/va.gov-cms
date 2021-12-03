@@ -3,13 +3,17 @@
 namespace Drupal\va_gov_vet_center\EventSubscriber;
 
 use Drupal\Component\Render\FormattableMarkup;
-use Drupal\Core\Entity\EntityFormInterface;
+use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
+use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
+use Drupal\va_gov_user\Service\UserPermsService;
+use Drupal\va_gov_vet_center\Service\RequiredServices;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -19,13 +23,38 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   use StringTranslationTrait;
 
   /**
+   * UserPerms Service.
+   *
+   * @var \Drupal\va_gov_user\Service\UserPermsService
+   */
+  protected $userPermsService;
+
+  /**
+   * Vet center required service service.
+   *
+   * @var \Drupal\va_gov_vet_center\Service\RequiredServices
+   *  The required services service.
+   */
+  protected $requiredServices;
+
+  /**
    * Constructs a EntityEventSubscriber object.
    *
    * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
    *   The string translation service.
+   * @param \Drupal\va_gov_user\Service\UserPermsService $user_perms_service
+   *   The string translation service.
+   * @param \Drupal\va_gov_vet_center\Service\RequiredServices $required_services
+   *   The required services service.
    */
-  public function __construct(TranslationInterface $string_translation) {
+  public function __construct(
+    TranslationInterface $string_translation,
+    UserPermsService $user_perms_service,
+    RequiredServices $required_services
+    ) {
     $this->stringTranslation = $string_translation;
+    $this->userPermsService = $user_perms_service;
+    $this->requiredServices = $required_services;
   }
 
   /**
@@ -73,6 +102,58 @@ class EntityEventSubscriber implements EventSubscriberInterface {
         '#description' => $this->t('@markup', ['@markup' => $formatted_markup]),
         '#open' => TRUE,
       ];
+    }
+  }
+
+  /**
+   * Entity insert.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent $event
+   *   The event.
+   */
+  public function entityInsert(EntityInsertEvent $event): void {
+    $entity = $event->getEntity();
+    if ($entity->getEntityTypeId() == 'node') {
+      $this->requiredServices->addRequiredServicesByFacility($entity);
+    }
+    if ($entity->getEntityTypeId() === 'taxonomy_term') {
+      $this->requiredServices->addRequiredServicesByTerm($entity);
+    }
+  }
+
+  /**
+   * Entity update.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent $event
+   *   The event.
+   */
+  public function entityUpdate(EntityUpdateEvent $event): void {
+    $entity = $event->getEntity();
+    if ($entity->getEntityTypeId() === 'taxonomy_term') {
+      $this->requiredServices->addRequiredServicesByTerm($entity);
+    }
+  }
+
+  /**
+   * Alterations to Vet center forms.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function vetCenterFormAlter(FormIdAlterEvent $event): void {
+    $form = &$event->getForm();
+    $this->disableNameFieldForNonAdmins($form);
+  }
+
+  /**
+   * Disabled official name field on vc forms when user is non admin.
+   *
+   * @param array $form
+   *   The node form.
+   */
+  public function disableNameFieldForNonAdmins(array &$form): void {
+    if (!$this->userPermsService->hasAdminRole()) {
+      $form['field_official_name']['#disabled'] = TRUE;
     }
   }
 
@@ -217,9 +298,12 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents(): array {
     return [
+      HookEventDispatcherInterface::ENTITY_INSERT => 'entityInsert',
+      HookEventDispatcherInterface::ENTITY_UPDATE => 'entityUpdate',
       HookEventDispatcherInterface::FORM_ALTER => 'formAlter',
-      // React on Vet center locations list edit form.
       'hook_event_dispatcher.form_node_vet_center_locations_list_edit_form.alter' => 'alterVetCenterLocationsListNodeEditForm',
+      'hook_event_dispatcher.form_node_vet_center_edit_form.alter' => 'vetcenterFormAlter',
+      'hook_event_dispatcher.form_node_vet_center_form.alter' => 'vetcenterFormAlter',
     ];
   }
 
