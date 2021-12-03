@@ -1,5 +1,12 @@
 # Content Model: Centralized Content
 
+## Guiding Principles
+
+  - Editors should be able to see nationally controlled content alongside their content so they do not repeat or contradict the national content.
+  - On page view they should be able to see nationally controlled content to simulate how it appears on the frontend.
+  - National content editors should have a good editorial experience, complete with moderation, revisions and other governance features built into sections and menu access.
+  - The frontend should get all the content they need to render a page in one query.
+
 Centralized content uses the contrib module [Entity Field Fetch](https://www.drupal.org/project/entity_field_fetch) to have a field on one content type, grab content dynamically from a paragraph on a Centralized Content node. As a human enforced standard, Entity Field Fetch fields will be prefixed with `field_cc_` so that they can be recognized as a centralized content field.
 
 When loading a node that use centralized content, it will provide a reference to the paragraph that looks like this
@@ -39,6 +46,12 @@ The target_type and the target_uuid provide the details about where the content 
 6. Add a "Tooltip" field group widget on both the "Manage form display" and "Manage display" tab for the entity.  Then move your field_cc_ field(s) into the field group.
 ![Example Tooltip and entity field fetch arrangement](images/fetch-field.png)
 7. Save and export your entity configuration as you would for adding any field.
+
+## Why didn't we use ___ ?
+  1. **Content Blocks placed with layout builder**:  Bad workflow, bad governance, bad editorial experience, GraphQL knows nothing of layout builder.
+  2. **Paragraphs library**: Not supported cleanly by workbench moderation and workbench menu access (bad workflow and governance).  
+  3. **Markdown field**:  Not supported cleanly by workbench moderation and workbench menu access (bad workflow and governance). Not revisionable.
+  4. **Text field with default content**: Hard to update values everywhere in one shot. (bad workflow and governance bad editoral experience)  Not revisionable.
 
 
 [Table of Contents](../README.md)
