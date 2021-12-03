@@ -75,8 +75,7 @@ class BRD extends EnvironmentPluginBase {
       $container->get('va_gov.build_trigger.web_build_status'),
       $container->get('va_gov.build_trigger.web_build_command_builder'),
       $container->get('settings'),
-      $container->get('va_gov_build_trigger.jenkins_client'),
-      $container->get('va_gov_build_trigger.build_time_recorder')
+      $container->get('va_gov_build_trigger.jenkins_client')
     );
   }
 
