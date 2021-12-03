@@ -224,14 +224,13 @@ class RequiredServices {
   /**
    * Determine whether a provided service term is required or not.
    *
-   * @param \Drupal\Core\Entity\EntityInterface $service_term
+   * @param \Drupal\taxonomy\TermInterface $service_term
    *   The taxonomy term to be evaluated.
    *
    * @return bool
    *   TRUE if required. FALSE otherwise.
    */
-  public function isRequiredService(EntityInterface $service_term) {
-    /** @var \Drupal\taxonomy\TermInterface $service_term */
+  public function isRequiredService(TermInterface $service_term) {
     // Check a service to see if it is required.
     $required = $service_term->get('field_vet_center_required_servic')->value;
 

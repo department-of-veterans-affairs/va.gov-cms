@@ -31,7 +31,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
 
   /**
    * Vet center required service service.
-   * The required services service.
    *
    * @var \Drupal\va_gov_vet_center\Service\RequiredServices
    *  The required services service.
