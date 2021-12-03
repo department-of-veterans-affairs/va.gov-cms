@@ -7,6 +7,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Queue\QueueFactory;
+use Drupal\Core\Queue\QueueInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
@@ -89,6 +90,8 @@ class RequiredServices {
     $service_queue = $this->queueFactory->get('cron_required_service');
 
     $item = new \stdClass();
+    // Unique queue id to use for deduping.
+    $item->quid = "{$service_term->id()}-{$facility_node->id()}";
     $item->facility_id = $facility_node->id();
     /** @var \Drupal\node\NodeInterface $facility_node */
     $item->published = $facility_node->isPublished();
@@ -96,6 +99,7 @@ class RequiredServices {
     $item->moderation_state = $facility_node->get('moderation_state')->value;
     $item->term_id = $service_term->id();
     $item->log_message = $log_message;
+    $this->dedupeQueue($service_queue, $item->quid);
     $service_queue->createItem($item);
   }
 
@@ -117,7 +121,7 @@ class RequiredServices {
       }
       $vars = [
         '%count' => count($required_services),
-        '%title' => $facility_node->title,
+        '%title' => $facility_node->getTitle(),
       ];
       // This will be done during migration so log it.
       $message = $this->t('%count services were queued to be added to %title', $vars);
@@ -261,6 +265,52 @@ class RequiredServices {
     $has_service = (count($facility_service_nids) > 0 ? TRUE : FALSE);
 
     return $has_service;
+  }
+
+  /**
+   * Remove any queued items with the same $quid as this one.
+   *
+   * @param \Drupal\Core\Queue\QueueInterface $queue
+   *   A queue object.
+   * @param string $quid
+   *   Unique id of "tid-nid" to dedupe against.
+   */
+  private function dedupeQueue(QueueInterface $queue, $quid) {
+    $item_count = $queue->numberOfItems();
+    $removed_count = 0;
+    // The queue will keep grabbing the same item after it is released, so
+    // we need to grab them all and mass release them.
+    $queued_items_to_release = [];
+    for ($i = 0; $i < $item_count; $i++) {
+      // Claim queued item.
+      $queued_item = $queue->claimItem();
+      if ($queued_item && $quid) {
+        try {
+          // Check if it has the same unique id as the
+          // one we will be adding.
+          if ($quid === $queued_item->data->quid) {
+            // Item uid matches the new one - delete it.
+            $queue->deleteItem($queued_item);
+            $removed_count++;
+          }
+          else {
+            // It is not a duplicate - release it back to the queue.
+            $queued_items_to_release[$queued_item->item_id] = $queued_item;
+          }
+        }
+        catch (SuspendQueueException $e) {
+          // In case of Exception - release the item that the worker could
+          // not process. It will be processed in the next batch.
+          $queued_items_to_release[$queued_item->item_id] = $queued_item;
+          continue;
+        }
+      }
+    }
+
+    // Release the non-duplicates.
+    foreach ($queued_items_to_release as $queued_items_to_release) {
+      $queue->releaseItem($queued_items_to_release);
+    }
   }
 
 }
