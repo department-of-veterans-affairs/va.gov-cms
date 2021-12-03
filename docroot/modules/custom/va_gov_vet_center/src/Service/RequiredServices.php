@@ -4,18 +4,37 @@ namespace Drupal\va_gov_vet_center\Service;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Queue\QueueFactory;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * Class RequiredServices enforces required services for Vet Centers.
  */
 class RequiredServices {
+  use StringTranslationTrait;
+
   /**
    * The entity type manager.
    *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entityTypeManager;
+
+  /**
+   * Logger.
+   *
+   * @var \Drupal\Core\Logger\LoggerChannelFactoryInterface
+   */
+  protected $loggerChannelFactory;
+
+  /**
+   * The Messenger service.
+   *
+   * @var \Drupal\Core\Messenger\MessengerInterface
+   */
+  protected $messenger;
 
   /**
    * Queue factory.
@@ -36,14 +55,22 @@ class RequiredServices {
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager service.
+   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_channel_factory
+   *   The logger factory service.
+   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
+   *   The messenger interface.
    * @param \Drupal\Core\Queue\QueueFactory $queue
    *   Queue factory.
    */
   public function __construct(
     EntityTypeManagerInterface $entity_type_manager,
+    LoggerChannelFactoryInterface $logger_channel_factory,
+    MessengerInterface $messenger,
     QueueFactory $queue
   ) {
     $this->entityTypeManager = $entity_type_manager;
+    $this->loggerChannelFactory = $logger_channel_factory;
+    $this->messenger = $messenger;
     $this->queueFactory = $queue;
   }
 
@@ -88,6 +115,13 @@ class RequiredServices {
       foreach ($required_services as $required_service) {
         $this->addService($required_service, $facility_node, $log_message);
       }
+      $vars = [
+        '%count' => count($required_services),
+        '%title' => $facility_node->title,
+      ];
+      // This will be done during migration so log it.
+      $message = $this->t('%count services were queued to be added to %title', $vars);
+      $this->loggerChannelFactory->get('va_gov_vet_center')->info($message);
     }
   }
 
@@ -140,6 +174,14 @@ class RequiredServices {
         foreach ($vet_centers as $vet_center) {
           $this->addService($service_term, $vet_center, $log_message);
         }
+
+        $vars = [
+          '%count' => count($vet_centers),
+          '%name' => $service_term->get('name')->value,
+        ];
+        $message = $this->t('%count %name services were queued to be added to Vet Centers.', $vars);
+        $this->loggerChannelFactory->get('va_gov_vet_center')->info($message);
+        $this->messenger->addStatus($message);
       }
     }
   }
