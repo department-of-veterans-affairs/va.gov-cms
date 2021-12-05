@@ -87,10 +87,10 @@ class TooltipTextFieldFormatter extends WidgetBase {
       tooltip-container-div
       name-button-container-div">
       <button
-      aria-label="tooltip"
       type="button"
       class="css-tooltip-toggle"
-      role="presentation"
+      role="tooltip"
+      data-toggle="tooltip"
       data-tippy-animate="fade"
       data-tippy-size="large"
       data-tippy-pos="right"
