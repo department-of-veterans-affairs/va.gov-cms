@@ -193,50 +193,39 @@ function vagovadmin_sort_and_alter_vetcenter_services(array &$variables) {
       $rows[] = $cells + ['#attributes' => ['class' => $row_classes]];
       // If current entity array specifies a form, output it in the next row.
       if (!empty($form[$key]['form'])) {
+        // Turn our required and name values into a string that can be used for
+        // sorting.
+        $required_value = (string) $rows[$key]['req_optional']['#markup'] === 'Optional' ? 'z' : 'Required';
+        $format_required_value = strtolower(str_replace(' ', '-', $required_value));
+        $format_name_value = strtolower(str_replace(' ', '-', $cells['label']['#markup']));
+
         $row = [];
         $row[] = $form[$key]['form'] + [
           '#wrapper_attributes' => [
             'colspan' => count($fields) + 1,
           ],
         ];
+
         $rows[] = $row + [
           '#attributes' => [
             'class' => [
               'ief-row-form',
+            ],
+            'aria-vc-name' => [
+              $format_required_value . '-' . $format_name_value,
             ],
             'no_striping' => TRUE,
           ],
         ];
       }
     }
-    // Sort the fields by title.
-    if (!empty($rows)) {
-      $rows_required = [];
-      usort($rows, function ($a, $b) {
-        if ($a['label']['#markup'] === $b['label']['#markup']) {
-          return 0;
-        }
-        if ($a['label']['#markup'] > $b['label']['#markup']) {
-          return 1;
-        }
-        if ($a['label']['#markup'] < $b['label']['#markup']) {
-          return -1;
-        }
-      });
-      foreach ($rows as $key => $row) {
-        if ($row['req_optional']['#markup'] !== NULL && $row['req_optional']['#markup']->render() === 'Optional') {
-          $rows_required[$key] = $row;
-          unset($rows[$key]);
-        }
-      }
-      $variables['table'] = [
-        '#type' => 'table',
-        '#header' => $header,
-        '#attributes' => [
-          'id' => 'ief-entity-table-' . $form['#id'],
-          'class' => ['ief-entity-table'],
-        ],
-      ] + $rows + $rows_required;
-    }
+    $variables['table'] = [
+      '#type' => 'table',
+      '#header' => $header,
+      '#attributes' => [
+        'id' => 'ief-entity-table-' . $form['#id'],
+        'class' => ['ief-entity-table'],
+      ],
+    ] + $rows;
   }
 }

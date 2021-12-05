@@ -8,6 +8,7 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\Core\Entity\EntityFormInterface;
+use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
@@ -56,15 +57,19 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The string translation service.
    * @param \Drupal\va_gov_vet_center\Service\RequiredServices $required_services
    *   The required services service.
+   * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
+   *   The string translation service.
    */
   public function __construct(
     TranslationInterface $string_translation,
     UserPermsService $user_perms_service,
-    RequiredServices $required_services
+    RequiredServices $required_services,
+    EntityTypeManager $entity_type_manager
     ) {
     $this->stringTranslation = $string_translation;
     $this->userPermsService = $user_perms_service;
     $this->requiredServices = $required_services;
+    $this->entityTypeManager = $entity_type_manager;
   }
 
   /**
@@ -142,17 +147,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     if ($entity->getEntityTypeId() === 'taxonomy_term') {
       $this->requiredServices->addRequiredServicesByTerm($entity);
     }
-  }
-
-  /**
-   * Alterations to Vet center forms.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
-   *   The event.
-   */
-  public function vetCenterFormAlter(FormIdAlterEvent $event): void {
-    $form = &$event->getForm();
-    $this->disableNameFieldForNonAdmins($form);
   }
 
   /**
@@ -313,6 +307,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $form = &$event->getForm();
     $form_state = $event->getFormState();
     $this->modifyIefServicesFormDisplay($form, $form_state);
+    $this->disableNameFieldForNonAdmins($form);
   }
 
   /**
@@ -391,8 +386,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       HookEventDispatcherInterface::ENTITY_UPDATE => 'entityUpdate',
       HookEventDispatcherInterface::FORM_ALTER => 'formAlter',
       'hook_event_dispatcher.form_node_vet_center_locations_list_edit_form.alter' => 'alterVetCenterLocationsListNodeEditForm',
-      'hook_event_dispatcher.form_node_vet_center_edit_form.alter' => 'vetcenterFormAlter',
-      'hook_event_dispatcher.form_node_vet_center_form.alter' => 'vetcenterFormAlter',
       'hook_event_dispatcher.form_node_vet_center_form.alter' => 'alterVetCenterNodeForm',
       'hook_event_dispatcher.form_node_vet_center_edit_form.alter' => 'alterVetCenterNodeForm',
 

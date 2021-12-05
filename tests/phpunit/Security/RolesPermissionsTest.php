@@ -210,6 +210,7 @@ class RolesPermissionsTest extends ExistingSiteBase {
         [
           'create vet_center_cap content',
           'create vet_center_facility_health_servi content',
+          'delete any vet_center_facility_health_servi content',
           'view node link report',
         ],
       ],
@@ -233,7 +234,6 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'create media',
           'create promo block content',
           'create video media',
-          'delete any vet_center_facility_health_servi content',
           'edit any banner content',
           'edit any basic_landing_page content',
           'edit any campaign_landing_page content',
