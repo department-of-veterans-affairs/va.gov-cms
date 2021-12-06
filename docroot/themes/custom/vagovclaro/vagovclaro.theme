@@ -22,3 +22,13 @@ function vagovclaro_preprocess_form_element(&$variables) {
     $variables['description_display'] = 'before';
   }
 }
+
+/**
+ * Implements hook_preprocess_container().
+ */
+function vagovclaro_preprocess_container(&$variables) {
+  // Adds help text style to descriptions in nested paragraph field.
+  if (!empty($variables['attributes']['id']) && $variables['attributes']['id'] === 'edit-field-related-links-description') {
+    $variables['attributes']['class'][] = 'form-item__description';
+  }
+}
