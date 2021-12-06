@@ -88,75 +88,6 @@ function _va_gov_vet_center_create_cap_id(EntityInterface $entity) {
 }
 
 /**
- * Implements hook_form_alter().
- */
-function va_gov_vet_center_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-
-  if ($form_id === 'node_vet_center_cap_form' || $form_id === 'node_vet_center_cap_edit_form') {
-    // Add after_build callbacks for VC CAP node forms.
-    $form['field_address']['widget']['#after_build'][] = 'va_gov_vet_center_vc_cap_address_alter_label_after_build';
-    $form['field_facility_hours']['widget']['#after_build'][] = 'va_gov_vet_center_vc_cap_hours_hide_caption_after_build';
-  }
-
-  if ($form_id === 'node_vet_center_locations_list_form' || $form_id === 'node_vet_center_locations_list_edit_form') {
-    _va_gov_vet_center_add_facilities_listing_block_to_form($form);
-  }
-
-  _va_gov_vet_center_cap_hours_opt_in($form, $form_state, $form_id);
-
-}
-
-/**
- * Output facility listing view on vc locations node forms.
- *
- * @param array $form
- *   The form array.
- */
-function _va_gov_vet_center_add_facilities_listing_block_to_form(array &$form) {
-  $form['group_my_locations'] = [
-    '#type' => 'details',
-    '#title' => t('Main and satellite locations'),
-    '#open' => TRUE,
-    '#weight' => 3,
-  ];
-  $form['group_my_locations']['vc_facility_listing_view'] = [
-    '#type' => 'view',
-    '#name' => 'vet_center_facility_listing',
-    '#display_id' => 'vc_listing_for_node_form',
-    '#embed' => TRUE,
-  ];
-}
-
-/**
- * Determine whether or not user can edit community access point office hours.
- *
- * @param array $form
- *   The form array.
- * @param \Drupal\Core\Form\FormStateInterface $form_state
- *   The form state.
- * @param string $form_id
- *   The form id.
- */
-function _va_gov_vet_center_cap_hours_opt_in(array &$form, FormStateInterface $form_state, $form_id) {
-
-  if (($form_id === 'node_vet_center_cap_edit_form') || ($form_id === 'node_vet_center_cap_form')) {
-
-    $node = $form_state->getformObject()->getEntity();
-
-    // We want to implement the states logic only if the field_office_hours
-    // and the field_vetcenter_cap_hours_opt_in are available.
-    if (($node->hasField('field_office_hours')) && ($node->hasField('field_vetcenter_cap_hours_opt_in'))) {
-      $form['field_office_hours']['#states'] = [
-        'visible' => [
-          ':input[name="field_vetcenter_cap_hours_opt_in"]' => ['value' => '1'],
-        ],
-      ];
-    }
-
-  }
-}
-
-/**
  * Implements hook_entity_view_alter().
  */
 function va_gov_vet_center_entity_view_alter(array &$build, EntityInterface $entity) {
@@ -261,6 +192,7 @@ function va_gov_vet_center_form_node_form_alter(array &$form, FormStateInterface
  * Implements hook_page_attachments().
  */
 function va_gov_vet_center_page_attachments(array &$attachments) {
-  // PRevent duplicate services in select.
+  $attachments['#attached']['library'][] = 'va_gov_vet_center/alert_form';
+  // Prevent duplicate services in select.
   $attachments['#attached']['library'][] = 'va_gov_vet_center/prevent_select_duplicates';
 }

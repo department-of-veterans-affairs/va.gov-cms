@@ -1,0 +1,29 @@
+uuid: 9a2a113f-2979-4ceb-9bbb-8bc7a41e74dd
+langcode: en
+status: false
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.vha_facility_nonclinical_service.field_administration
+    - field.field.node.vha_facility_nonclinical_service.field_facility_location
+    - field.field.node.vha_facility_nonclinical_service.field_service_location
+    - field.field.node.vha_facility_nonclinical_service.field_service_name_and_descripti
+    - node.type.vha_facility_nonclinical_service
+  module:
+    - user
+id: node.vha_facility_nonclinical_service.teaser
+targetEntityType: node
+bundle: vha_facility_nonclinical_service
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_administration: true
+  field_facility_location: true
+  field_service_location: true
+  field_service_name_and_descripti: true
+  search_api_excerpt: true

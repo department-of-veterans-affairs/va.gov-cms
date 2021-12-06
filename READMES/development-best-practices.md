@@ -4,7 +4,7 @@ This document is designed to provide guidelines for the development and architec
 
 ## Intgrations
 
-* All upstream integrations should be [documented](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/upstream-dependencies.md) and monitored.
+* All upstream integrations should be [documented](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/upstream-dependencies.md) and monitored.
 * All downstream integrations should be documented.
 * Integrations with external systems should not occur in the direct flow of an editor.
 

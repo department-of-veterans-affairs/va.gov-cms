@@ -1,0 +1,54 @@
+{#
+/**
+ * @file
+ * Theme override for text expander field to add class for styling.
+ *
+ * @link themeable Theme hook suggestions. @endlink For example,
+ * here are some theme hook suggestions that can be used for a field_text_expander field
+ * on an article node type:
+ * - field--node--field-text-expander--article.html.twig
+ * - field--node--field-text-expander.html.twig
+ * - field--node--article.html.twig
+ * - field--field-text-expander.html.twig
+ * - field.html.twig
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the containing element.
+ * - label_hidden: Whether to show the field label or not.
+ * - title_attributes: HTML attributes for the title.
+ * - label: The label for the field.
+ * - multiple: TRUE if a field can contain multiple items.
+ * - items: List of all the field items. Each item contains:
+ *   - attributes: List of HTML attributes for each item.
+ *   - content: The field item's content.
+ * - entity_type: The entity type to which the field belongs.
+ * - field_name: The name of the field.
+ * - field_type: The type of the field.
+ * - label_display: The display settings for the label.
+ *
+ *
+ * @see template_preprocess_field()
+ */
+#}
+{%
+  set classes = [
+    'field',
+    'field--name-' ~ field_name|clean_class,
+    'field--type-' ~ field_type|clean_class,
+    'field--label-' ~ label_display,
+  ]
+%}
+<div{{ attributes.addClass(classes) }}>
+  <div{{ title_attributes.addClass('field__label') }}>{{ label }}</div>
+  {% if multiple %}
+    <div{{ attributes.addClass(classes, 'field__items') }}>
+  {% endif %}
+      {% for item in items %}
+        <div{{ item.attributes.addClass('field__item') }}>
+          <span class="additional-info-title">{{ item.content }}</span>
+        </div>
+      {% endfor %}
+  {% if multiple %}
+    </div>
+  {% endif %}
+  </div>

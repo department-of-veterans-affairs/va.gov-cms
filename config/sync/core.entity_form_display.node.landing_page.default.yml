@@ -17,6 +17,7 @@ dependencies:
     - field.field.node.landing_page.field_plainlanguage_date
     - field.field.node.landing_page.field_promo
     - field.field.node.landing_page.field_related_links
+    - field.field.node.landing_page.field_related_office
     - field.field.node.landing_page.field_spokes
     - field.field.node.landing_page.field_support_services
     - field.field.node.landing_page.field_teaser_text
@@ -54,6 +55,7 @@ third_party_settings:
         - field_promo
         - field_links
         - field_support_services
+        - field_related_office
       parent_name: ''
       weight: 6
       format_type: details_sidebar
@@ -267,6 +269,12 @@ content:
     third_party_settings: {  }
     type: entity_reference_paragraphs
     region: content
+  field_related_office:
+    type: options_select
+    weight: 21
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_spokes:
     weight: 4
     settings:
@@ -300,6 +308,7 @@ content:
       collapsible: false
       allow_duplicate: false
       revision: false
+      allow_system_delete: false
     third_party_settings: {  }
     type: inline_entity_form_complex
     region: content

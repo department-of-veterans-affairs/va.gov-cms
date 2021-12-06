@@ -1,0 +1,17 @@
+// adjusting placement of claro list item bullet inside of nested paragraph fields
+.paragraph-bullet::after {
+  font-size: 0.5em;
+  line-height: 6em;
+}
+
+@include breakpoint('sm') {
+  .paragraph-bullet::after {
+    font-size: 0.5em;
+    line-height: 4.5em;
+  }
+}
+
+// fixes display of tags title inside paragraphs on FAQ content type
+.js .paragraph-type-top .paragraph-type-title {
+  flex-basis: 25%;
+}

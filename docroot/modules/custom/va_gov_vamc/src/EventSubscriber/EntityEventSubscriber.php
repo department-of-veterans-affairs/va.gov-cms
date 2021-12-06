@@ -111,6 +111,24 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Add js script and disallowed nids to VAMC System Health Service node form.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function alterRegionalHealthCareServiceDesNodeForm(FormIdAlterEvent $event): void {
+    $form = &$event->getForm();
+    $vamc_field_options = $form['field_region_page']['widget']['#options'];
+    foreach ($vamc_field_options as $nid => $node_option_string) {
+      $perms = $this->userPermsService->userAccess($nid, 'node', $this->currentUser, 'field_office');
+      if (!$perms) {
+        $form['#attached']['drupalSettings']['va_gov_vamc']['disallowed_vamc_options'][] = $nid;
+      }
+    }
+    $form['#attached']['library'][] = 'va_gov_vamc/limit_vamcs_to_workbench';
+  }
+
+  /**
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
@@ -119,10 +137,10 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       'hook_event_dispatcher.form_node_vamc_operating_status_and_alerts_form.alter' => 'alterOpStatusNodeForm',
       'hook_event_dispatcher.form_node_vamc_operating_status_and_alerts_edit_form.alter' => 'alterOpStatusNodeForm',
       HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'entityPresave',
-      // React on full width banner forms.
       'hook_event_dispatcher.form_node_full_width_banner_alert_form.alter' => 'alterFullWidthBannerNodeForm',
       'hook_event_dispatcher.form_node_full_width_banner_alert_edit_form.alter' => 'alterFullWidthBannerNodeForm',
-      // React on top task forms.
+      'hook_event_dispatcher.form_node_regional_health_care_service_des_form.alter' => 'alterRegionalHealthCareServiceDesNodeForm',
+      'hook_event_dispatcher.form_node_regional_health_care_service_des_edit_form.alter' => 'alterRegionalHealthCareServiceDesNodeForm',
       'hook_event_dispatcher.form_node_vamc_system_register_for_care_form.alter' => 'alterTopTaskNodeForm',
       'hook_event_dispatcher.form_node_vamc_system_register_for_care_edit_form.alter' => 'alterTopTaskNodeForm',
       'hook_event_dispatcher.form_node_vamc_system_medical_records_offi_form.alter' => 'alterTopTaskNodeForm',

@@ -1,0 +1,32 @@
+uuid: 5606e10d-4c57-4ae3-9cbc-4da76bde0e5d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_service_name_and_descripti
+    - node.type.vha_facility_nonclinical_service
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: false
+id: node.vha_facility_nonclinical_service.field_service_name_and_descripti
+field_name: field_service_name_and_descripti
+entity_type: node
+bundle: vha_facility_nonclinical_service
+label: Service
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: health_care_service_names_and_descriptions
+      display_name: entity_reference_non_clinical_services
+      arguments: {  }
+field_type: entity_reference

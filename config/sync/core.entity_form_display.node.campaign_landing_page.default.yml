@@ -41,6 +41,7 @@ dependencies:
     - field.field.node.campaign_landing_page.field_hero_image
     - field.field.node.campaign_landing_page.field_media
     - field.field.node.campaign_landing_page.field_primary_call_to_action
+    - field.field.node.campaign_landing_page.field_related_office
     - field.field.node.campaign_landing_page.field_secondary_call_to_action
     - node.type.campaign_landing_page
     - workflows.workflow.editorial
@@ -54,6 +55,7 @@ dependencies:
     - linkit
     - media_library
     - paragraphs
+    - paragraphs_features
     - path
     - textfield_counter
 third_party_settings:
@@ -62,7 +64,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 12
+      weight: 11
       format_type: details_sidebar
       region: content
       format_settings:
@@ -78,7 +80,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 13
+      weight: 12
       format_type: fieldset
       format_settings:
         id: ''
@@ -243,7 +245,7 @@ third_party_settings:
         - field_clp_events_header
         - field_clp_events_references
       parent_name: ''
-      weight: 8
+      weight: 7
       label: Events
       region: content
       format_type: detailswithimage
@@ -275,7 +277,7 @@ third_party_settings:
       label: FAQs
     group_connect_with_us:
       children:
-        - field_clp_connect_with_us
+        - field_related_office
       parent_name: ''
       weight: 9
       format_type: detailswithimage
@@ -329,12 +331,6 @@ content:
       field_widget_display_settings: {  }
     third_party_settings: {  }
     type: entity_browser_entity_reference
-    region: content
-  field_clp_connect_with_us:
-    weight: 39
-    settings: {  }
-    third_party_settings: {  }
-    type: options_select
     region: content
   field_clp_events_header:
     weight: 27
@@ -434,6 +430,7 @@ content:
       collapsible: false
       collapsed: false
       allow_duplicate: false
+      allow_system_delete: false
     third_party_settings:
       entity_browser_entity_form:
         entity_browser_id: downloadable_resources
@@ -699,6 +696,7 @@ content:
       collapsible: false
       collapsed: false
       allow_duplicate: false
+      allow_system_delete: false
     third_party_settings:
       entity_browser_entity_form:
         entity_browser_id: promo_blocks_browser
@@ -757,13 +755,24 @@ content:
       closed_mode_threshold: 0
       add_mode: button
       form_display_mode: default
-      default_paragraph_type: _none
+      default_paragraph_type: button
       features:
         add_above: '0'
-        collapse_edit_all: collapse_edit_all
-        duplicate: duplicate
-    third_party_settings: {  }
+        collapse_edit_all: '0'
+        duplicate: '0'
+    third_party_settings:
+      paragraphs_features:
+        delete_confirmation: false
+        add_in_between: false
+        split_text: false
+        show_drag_and_drop: false
     region: content
+  field_related_office:
+    type: options_select
+    weight: 45
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_secondary_call_to_action:
     type: paragraphs
     weight: 4
@@ -779,9 +788,14 @@ content:
       default_paragraph_type: _none
       features:
         add_above: '0'
-        collapse_edit_all: collapse_edit_all
-        duplicate: duplicate
-    third_party_settings: {  }
+        collapse_edit_all: '0'
+        duplicate: '0'
+    third_party_settings:
+      paragraphs_features:
+        delete_confirmation: false
+        add_in_between: false
+        split_text: false
+        show_drag_and_drop: false
     region: content
   moderation_state:
     type: moderation_state_default
@@ -791,7 +805,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 15
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -799,7 +813,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 14
+    weight: 13
     region: content
     third_party_settings: {  }
   title:
@@ -818,6 +832,7 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_clp_connect_with_us: true
   promote: true
   sticky: true
   uid: true

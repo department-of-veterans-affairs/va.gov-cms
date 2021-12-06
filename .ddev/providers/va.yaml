@@ -1,0 +1,9 @@
+db_pull_command:
+  command: |
+    set -eu -o pipefail
+    curl https://dsva-vagov-prod-cms-backup-sanitized.s3-us-gov-west-1.amazonaws.com/database/cms-prod-db-sanitized-latest.sql.gz > /var/www/html/.ddev/.downloads/db.sql.gz
+
+files_pull_command:
+  command: |
+    set -eu -o pipefail
+    curl https://dsva-vagov-prod-cms-backup-sanitized.s3-us-gov-west-1.amazonaws.com/files/cms-prod-files-latest.tgz | tar --extract --gunzip --directory /var/www/html/.ddev/.downloads/files

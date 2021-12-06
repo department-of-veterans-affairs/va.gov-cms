@@ -11,4 +11,4 @@ jobs:
         with:
           reporter: github-pr-review
           eslint_flags: '--max-warnings 0 -c .eslintrc.json --no-eslintrc docroot/modules/custom/**/*.es6.js docroot/themes/custom/**/*.es6.js'
-
+          fail_on_error: true

@@ -5,9 +5,13 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.vamc_system_register_for_care.field_administration
+    - field.field.node.vamc_system_register_for_care.field_cc_bottom_of_page_content
+    - field.field.node.vamc_system_register_for_care.field_cc_related_links
+    - field.field.node.vamc_system_register_for_care.field_cc_top_of_page_content
     - field.field.node.vamc_system_register_for_care.field_enforce_unique_combo
     - field.field.node.vamc_system_register_for_care.field_enforce_unique_combo_offic
     - field.field.node.vamc_system_register_for_care.field_office
+    - field.field.node.vamc_system_register_for_care.field_service_name_and_descripti
     - node.type.vamc_system_register_for_care
   module:
     - user
@@ -28,7 +32,11 @@ content:
     region: content
 hidden:
   field_administration: true
+  field_cc_bottom_of_page_content: true
+  field_cc_related_links: true
+  field_cc_top_of_page_content: true
   field_enforce_unique_combo: true
   field_enforce_unique_combo_offic: true
   field_office: true
+  field_service_name_and_descripti: true
   search_api_excerpt: true

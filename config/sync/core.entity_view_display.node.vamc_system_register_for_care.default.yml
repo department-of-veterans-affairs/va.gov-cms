@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.vamc_system_register_for_care.field_enforce_unique_combo
     - field.field.node.vamc_system_register_for_care.field_enforce_unique_combo_offic
     - field.field.node.vamc_system_register_for_care.field_office
+    - field.field.node.vamc_system_register_for_care.field_service_name_and_descripti
     - node.type.vamc_system_register_for_care
   module:
     - entity_field_fetch
@@ -65,6 +66,14 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
+  field_service_name_and_descripti:
+    weight: 8
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
   links:
     weight: 0
     region: content

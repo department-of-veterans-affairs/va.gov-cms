@@ -1,0 +1,17 @@
+version: '3.6'
+
+services:
+  memcached:
+    container_name: ddev-${DDEV_SITENAME}-memcached
+    image: memcached:1.5
+    restart: "no"
+    expose:
+      - 11211
+    labels:
+      com.ddev.site-name: ${DDEV_SITENAME}
+    command: ["-m", "1024"]
+    volumes:
+      - ".:/mnt/ddev_config"
+  web:
+    links:
+      - memcached:memcached

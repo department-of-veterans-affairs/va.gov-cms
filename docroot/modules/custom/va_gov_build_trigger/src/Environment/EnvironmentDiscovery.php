@@ -50,6 +50,22 @@ class EnvironmentDiscovery {
   }
 
   /**
+   * Is this on the BRD/GHA system?
+   *
+   * @return bool
+   *   Is this on the BRD/GHA system?
+   *
+   * @codingStandardsIgnoreStart
+   */
+  public function isBRDGHA() : bool {
+    // @codingStandardsIgnoreEnd
+    $gha_deploy_environment = Settings::get('github_actions_deploy_env');
+    return !empty($gha_deploy_environment) &&
+      $this->getBuildTypeKey() === 'brdgha' &&
+      !$this->isCli();
+  }
+
+  /**
    * Is this on Tugboat?
    *
    * @return bool
