@@ -5,18 +5,12 @@ dependencies:
   config:
     - core.entity_view_mode.taxonomy_term.vet_center_dashboard
     - field.field.taxonomy_term.administration.field_description
-    - field.field.taxonomy_term.administration.field_email_updates_link_text
-    - field.field.taxonomy_term.administration.field_email_updates_url
-    - field.field.taxonomy_term.administration.field_link
     - field.field.taxonomy_term.administration.field_product
-    - field.field.taxonomy_term.administration.field_social_media_links
     - taxonomy.vocabulary.administration
     - views.view.vet_center_facility_listing
   module:
     - layout_builder
     - layout_discovery
-    - link
-    - social_media_links_field
     - text
     - va_gov_dashboards
     - views
@@ -136,43 +130,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_email_updates_link_text:
-    weight: 6
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  field_email_updates_url:
-    weight: 5
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  field_link:
-    weight: 3
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    type: link
-    region: content
-  field_social_media_links:
-    weight: 4
-    label: above
-    settings:
-      appearance: {  }
-      link_attributes: {  }
-    third_party_settings: {  }
-    type: social_media_links_field_default
-    region: content
 hidden:
   field_description: true
   field_product: true
