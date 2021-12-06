@@ -22,7 +22,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
         var allOffices = context.querySelectorAll(".field--type-entity-reference.field--name-field-health-services .field--type-entity-reference.field--name-field-office");
         var allAdmins = context.querySelectorAll(".field--type-entity-reference.field--name-field-health-services .field--type-entity-reference.field--name-field-administration");
 
-        if (allOffices && allAdmins) {
+        if (allAdmins) {
           allOffices.forEach(function (office) {
             office.style.display = "none";
           });
