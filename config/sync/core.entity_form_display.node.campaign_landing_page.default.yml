@@ -64,7 +64,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 12
+      weight: 11
       format_type: details_sidebar
       region: content
       format_settings:
@@ -80,7 +80,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 13
+      weight: 12
       format_type: fieldset
       format_settings:
         id: ''
@@ -245,7 +245,7 @@ third_party_settings:
         - field_clp_events_header
         - field_clp_events_references
       parent_name: ''
-      weight: 8
+      weight: 7
       label: Events
       region: content
       format_type: detailswithimage
@@ -277,7 +277,7 @@ third_party_settings:
       label: FAQs
     group_connect_with_us:
       children:
-        - field_clp_connect_with_us
+        - field_related_office
       parent_name: ''
       weight: 9
       format_type: detailswithimage
@@ -331,12 +331,6 @@ content:
       field_widget_display_settings: {  }
     third_party_settings: {  }
     type: entity_browser_entity_reference
-    region: content
-  field_clp_connect_with_us:
-    weight: 44
-    settings: {  }
-    third_party_settings: {  }
-    type: options_select
     region: content
   field_clp_events_header:
     weight: 27
@@ -773,6 +767,12 @@ content:
         split_text: false
         show_drag_and_drop: false
     region: content
+  field_related_office:
+    type: options_select
+    weight: 45
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_secondary_call_to_action:
     type: paragraphs
     weight: 4
@@ -805,7 +805,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 15
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -813,7 +813,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 14
+    weight: 13
     region: content
     third_party_settings: {  }
   title:
@@ -832,8 +832,7 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
-  field_related_office: true
-  path: true
+  field_clp_connect_with_us: true
   promote: true
   sticky: true
   uid: true
