@@ -5,6 +5,7 @@
  * Vagovadmin.theme.
  */
 
+use Drupal\Core\Render\Element;
 use Drupal\paragraphs\Entity\Paragraph;
 
 /**
@@ -85,4 +86,146 @@ function _vagovadmin_get_node_parent(Paragraph $paragraph) {
     $parent_node = $parent;
   }
   return $parent_node;
+}
+
+/**
+ * Prepares variables for inline_entity_form_entity_table form templates.
+ *
+ * Default template: inline-entity-form-entity-table.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - form: A render element representing the form.
+ */
+function vagovadmin_preprocess_inline_entity_form_entity_table(array &$variables) {
+  vagovadmin_sort_and_alter_vetcenter_services($variables);
+}
+
+/**
+ * Alter required vetcenter services IEF and sort.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - form: A render element representing the form.
+ */
+function vagovadmin_sort_and_alter_vetcenter_services(array &$variables) {
+  $form = $variables['form'];
+  if (strpos($form['#id'], 'edit-field-health-services-entities') === 0) {
+    $entity_type = $form['#entity_type'];
+    $fields = $form['#table_fields'];
+
+    $header = [];
+
+    // Add header columns for each field.
+    $first = TRUE;
+    foreach ($fields as $field_name => $field) {
+      $column = [
+        'data' => $field['label'],
+        'class' => [
+          'inline-entity-form-' . $entity_type . '-' . $field_name,
+        ],
+      ];
+      // The first column gets a special class.
+      if ($first) {
+        $column['class'][] = 'ief-first-column-header';
+        $first = FALSE;
+      }
+      $header[] = $column;
+    }
+    $header[] = t('Operations');
+
+    // Build an array of entity rows for the table.
+    $rows = [];
+    foreach (Element::children($form) as $key) {
+      /** @var \Drupal\Core\Entity\FieldableEntityInterface $entity */
+      $entity = $form[$key]['#entity'];
+      $row_classes = ['ief-row-entity'];
+      $cells = [];
+      // Add a special class to rows that have a form underneath, to allow
+      // for additional styling.
+      if (!empty($form[$key]['form'])) {
+        $row_classes[] = 'ief-row-entity-form';
+      }
+
+      foreach ($fields as $field_name => $field) {
+        if ($field['type'] == 'label') {
+          $data = ['#markup' => $variables['form'][$key]['#label']];
+        }
+        elseif ($field['type'] == 'field' && $entity->hasField($field_name)) {
+          $display_options = ['label' => 'hidden'];
+          if (isset($field['display_options'])) {
+            $display_options += $field['display_options'];
+          }
+          $data = $entity->get($field_name)->view($display_options);
+        }
+        elseif ($field['type'] == 'callback') {
+          $arguments = [
+            'entity' => $entity,
+            'variables' => $variables,
+          ];
+          if (isset($field['callback_arguments'])) {
+            $arguments = array_merge($arguments, $field['callback_arguments']);
+          }
+          $data = call_user_func_array($field['callback'], $arguments);
+          if (!is_array($data)) {
+            $data = ['#markup' => explode(' - ', $data)[1]];
+          }
+        }
+        else {
+          $data = ['#markup' => $variables['form'][$key]['#markup']];
+        }
+
+        $cells[$field_name] = array_merge($data, [
+          '#wrapper_attributes' => [
+            'class' => [
+              'inline-entity-form-' . $entity_type . '-' . $field_name,
+            ],
+          ],
+        ]);
+      }
+
+      // Add the buttons belonging to the "Operations" column,
+      // when entity is not being displayed as a form.
+      if (empty($form[$key]['form'])) {
+        $cells['actions'] = $form[$key]['actions'];
+      }
+      // Create the row.
+      $rows[] = $cells + ['#attributes' => ['class' => $row_classes]];
+      // If current entity array specifies a form, output it in the next row.
+      if (!empty($form[$key]['form'])) {
+        // Turn our required and name values into a string that can be used for
+        // sorting.
+        $required_value = (string) $rows[$key]['req_optional']['#markup'] === 'Optional' ? 'z' : 'Required';
+        $format_required_value = strtolower(str_replace(' ', '-', $required_value));
+        $format_name_value = strtolower(str_replace(' ', '-', $cells['label']['#markup']));
+
+        $row = [];
+        $row[] = $form[$key]['form'] + [
+          '#wrapper_attributes' => [
+            'colspan' => count($fields) + 1,
+          ],
+        ];
+
+        $rows[] = $row + [
+          '#attributes' => [
+            'class' => [
+              'ief-row-form',
+            ],
+            'aria-vc-name' => [
+              $format_required_value . '-' . $format_name_value,
+            ],
+            'no_striping' => TRUE,
+          ],
+        ];
+      }
+    }
+    $variables['table'] = [
+      '#type' => 'table',
+      '#header' => $header,
+      '#attributes' => [
+        'id' => 'ief-entity-table-' . $form['#id'],
+        'class' => ['ief-entity-table'],
+      ],
+    ] + $rows;
+  }
 }
