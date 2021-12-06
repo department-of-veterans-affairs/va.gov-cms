@@ -36,7 +36,7 @@ Feature: Content model: Benefits hubs Content Type fields
 | Content type | Benefits Hub Landing Page | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs Classic | Translatable |
 | Content type | Benefits Hub Landing Page | Spokes | field_spokes | Entity reference revisions | Required | 4 | Paragraphs EXPERIMENTAL |  |
 | Content type | Benefits Hub Landing Page | Support Services | field_support_services | Entity reference |  | Unlimited | Inline entity form - Complex |  |
-| Content type | Benefits Hub Landing Page | Related office | field_related_office | Entity reference |  | 1 | -- Disabled -- |  |
+| Content type | Benefits Hub Landing Page | Related office | field_related_office | Entity reference |  | 1 | Select list |  |
 | Content type | Landing Page | Generate a table of contents from major headings | field_table_of_contents_boolean | Boolean |  | 1 | Single on/off checkbox | Translatable |
 | Content type | Landing Page | Main content | field_content_block | Entity reference revisions | Required | Unlimited | Paragraphs Browser EXPERIMENTAL | Translatable |
 | Content type | Landing Page | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
