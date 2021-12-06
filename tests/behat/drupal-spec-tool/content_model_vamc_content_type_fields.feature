@@ -21,7 +21,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | Event | Building, floor, or room | field_location_humanreadable | Text (plain) |  | 1 | Textfield |  |
 | Content type | Event | Additional registration  information | field_additional_information_abo | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
 | Content type | Event | Address | field_address | Address |  | 1 | Address |  |
-| Content type | Event | Cost | field_event_cost | Text (plain) |  | 1 | Textfield with counter |  |
+| Content type | Event | Cost | field_event_cost | Text (plain) |  | 1 | -- Disabled -- |  |
 | Content type | Event | Date and time | field_datetime_range_timezone | Smart date range | Required | 1 | Date and time range with timezone |  |
 | Content type | Event | Where should the event be listed? | field_listing | Entity reference | Required | 1 | Select list |  |
 | Content type | Event | Facility location | field_facility_location | Entity reference |  | 1 | Select list |  |

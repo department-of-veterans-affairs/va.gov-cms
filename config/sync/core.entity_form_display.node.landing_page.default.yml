@@ -55,6 +55,7 @@ third_party_settings:
         - field_promo
         - field_links
         - field_support_services
+        - field_related_office
       parent_name: ''
       weight: 6
       format_type: details_sidebar
@@ -268,6 +269,12 @@ content:
     third_party_settings: {  }
     type: entity_reference_paragraphs
     region: content
+  field_related_office:
+    type: options_select
+    weight: 21
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_spokes:
     weight: 4
     settings:
@@ -349,7 +356,6 @@ hidden:
   created: true
   field_meta_tags: true
   field_plainlanguage_date: true
-  field_related_office: true
   promote: true
   status: true
   sticky: true

@@ -156,7 +156,14 @@
   th:last-child {
     font-size: 0;
   }
+
+  &#ief-entity-table-edit-field-health-services-entities {
+    th:last-child {
+      font-size: inherit;
+    }
+  }
 }
+
 
 .field--type-smartdate {
   .smartdate--widget {
@@ -269,6 +276,7 @@
 }
 
 .tooltip-toggle {
+  background-color: transparent;
   background-image: url('../../images/icons/questionmark-disc-000000.svg');
   background-size: cover;
   border: 0;

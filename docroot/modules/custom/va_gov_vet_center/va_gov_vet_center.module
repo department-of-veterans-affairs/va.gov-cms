@@ -193,6 +193,6 @@ function va_gov_vet_center_form_node_form_alter(array &$form, FormStateInterface
  */
 function va_gov_vet_center_page_attachments(array &$attachments) {
   $attachments['#attached']['library'][] = 'va_gov_vet_center/alert_form';
-  // PRevent duplicate services in select.
+  // Prevent duplicate services in select.
   $attachments['#attached']['library'][] = 'va_gov_vet_center/prevent_select_duplicates';
 }
