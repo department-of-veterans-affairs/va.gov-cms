@@ -5,17 +5,12 @@ dependencies:
   config:
     - core.entity_view_mode.taxonomy_term.full
     - field.field.taxonomy_term.administration.field_description
-    - field.field.taxonomy_term.administration.field_email_updates_link_text
-    - field.field.taxonomy_term.administration.field_email_updates_url
-    - field.field.taxonomy_term.administration.field_link
     - field.field.taxonomy_term.administration.field_product
-    - field.field.taxonomy_term.administration.field_social_media_links
     - taxonomy.vocabulary.administration
     - views.view.taxonomy_term
   module:
     - layout_builder
     - layout_discovery
-    - link
     - text
     - views
 third_party_settings:
@@ -67,22 +62,7 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_link:
-    weight: 3
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    type: link
-    region: content
 hidden:
   field_description: true
-  field_email_updates_link_text: true
-  field_email_updates_url: true
   field_product: true
-  field_social_media_links: true
   search_api_excerpt: true

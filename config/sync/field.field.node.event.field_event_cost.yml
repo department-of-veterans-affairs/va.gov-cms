@@ -10,10 +10,12 @@ field_name: field_event_cost
 entity_type: node
 bundle: event
 label: Cost
-description: 'If the event is free, you can leave this blank or add a message to indicate that there is no cost.'
+description: 'All events on VA.gov are free.'
 required: false
 translatable: false
-default_value: {  }
+default_value:
+  -
+    value: Free
 default_value_callback: ''
 settings: {  }
 field_type: string
