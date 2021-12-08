@@ -6,7 +6,6 @@ use Aws\MockHandler;
 use Aws\Result;
 use Aws\Ssm\SsmClient;
 use Drupal\Core\Site\Settings;
-use Drupal\va_gov_build_trigger\Service\BuildTimeRecorderInterface;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Response;
 use Prophecy\Argument;
@@ -79,7 +78,6 @@ class BrdEnvironmentTest extends ExistingSiteBase {
     $this->originalSsmClient = $this->container->get('va_gov_build_trigger.aws_ssm_client');
     $this->container->set('va_gov_build_trigger.aws_ssm_client', $ssmClient);
     $this->originalJenkinsHttpClient = $this->container->get('va_gov_build_trigger.jenkins_http_client');
-    $this->originalBuildTimeRecorder = $this->container->get('va_gov_build_trigger.build_time_recorder');
   }
 
   /**
@@ -89,7 +87,6 @@ class BrdEnvironmentTest extends ExistingSiteBase {
     $this->container->set('settings', $this->originalSettings);
     $this->container->set('va_gov_build_trigger.aws_ssm_client', $this->originalSsmClient);
     $this->container->set('va_gov_build_trigger.jenkins_http_client', $this->originalJenkinsHttpClient);
-    $this->container->set('va_gov_build_trigger.build_time_recorder', $this->originalBuildTimeRecorder);
     parent::tearDown();
   }
 
@@ -107,11 +104,6 @@ class BrdEnvironmentTest extends ExistingSiteBase {
     $httpClient = $httpClientProphecy->reveal();
     $this->container->set('va_gov_build_trigger.jenkins_http_client', $httpClient);
 
-    $buildTimeRecorderProphecy = $this->prophesize(BuildTimeRecorderInterface::class);
-    $buildTimeRecorderProphecy
-      ->recordBuildTime()
-      ->shouldBeCalled();
-    $this->container->set('va_gov_build_trigger.build_time_recorder', $buildTimeRecorderProphecy->reveal());
     $plugin = $this->container->get('plugin.manager.va_gov.environment')->createInstance('brd');
     $plugin->triggerFrontendBuild();
   }

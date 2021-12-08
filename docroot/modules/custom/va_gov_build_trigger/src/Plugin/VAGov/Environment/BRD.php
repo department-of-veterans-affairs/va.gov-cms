@@ -6,7 +6,6 @@ use Drupal\Core\Site\Settings;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentPluginBase;
 use Drupal\va_gov_build_trigger\Form\BrdBuildTriggerForm;
-use Drupal\va_gov_build_trigger\Service\BuildTimeRecorderInterface;
 use Drupal\va_gov_build_trigger\Service\JenkinsClientInterface;
 use Drupal\va_gov_build_trigger\WebBuildCommandBuilder;
 use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
@@ -40,13 +39,6 @@ class BRD extends EnvironmentPluginBase {
   protected $jenkinsClient;
 
   /**
-   * Build Time Recorder.
-   *
-   * @var \Drupal\va_gov_build_trigger\Service\BuildTimeRecorderInterface
-   */
-  protected $buildTimeRecorder;
-
-  /**
    * {@inheritDoc}
    */
   public function __construct(
@@ -57,8 +49,7 @@ class BRD extends EnvironmentPluginBase {
     WebBuildStatusInterface $webBuildStatus,
     WebBuildCommandBuilder $webBuildCommandBuilder,
     Settings $settings,
-    JenkinsClientInterface $jenkinsClient,
-    BuildTimeRecorderInterface $buildTimeRecorder
+    JenkinsClientInterface $jenkinsClient
   ) {
     parent::__construct(
       $configuration,
@@ -70,7 +61,6 @@ class BRD extends EnvironmentPluginBase {
     );
     $this->settings = $settings;
     $this->jenkinsClient = $jenkinsClient;
-    $this->buildTimeRecorder = $buildTimeRecorder;
   }
 
   /**
@@ -85,8 +75,7 @@ class BRD extends EnvironmentPluginBase {
       $container->get('va_gov.build_trigger.web_build_status'),
       $container->get('va_gov.build_trigger.web_build_command_builder'),
       $container->get('settings'),
-      $container->get('va_gov_build_trigger.jenkins_client'),
-      $container->get('va_gov_build_trigger.build_time_recorder')
+      $container->get('va_gov_build_trigger.jenkins_client')
     );
   }
 
@@ -96,7 +85,6 @@ class BRD extends EnvironmentPluginBase {
   public function triggerFrontendBuild(string $front_end_git_ref = NULL, bool $full_rebuild = FALSE): void {
     try {
       $this->jenkinsClient->requestFrontendBuild($front_end_git_ref, $full_rebuild);
-      $this->buildTimeRecorder->recordBuildTime();
       $jenkinsJobUrl = $this->settings->get('jenkins_build_job_url');
       $jenkinsJobHost = $this->settings->get('jenkins_build_job_host');
       $jenkinsJobPath = $this->settings->get('jenkins_build_job_path');
