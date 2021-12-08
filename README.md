@@ -52,6 +52,7 @@ The VA.gov CMS Team
    1. [Security](READMES/security.md)
 1. **CMS Users**
    1. [Login / SSOi](READMES/cms-login.md)
+   2. [CMS User Notification Systems](READMES/cms-editor-notifications.md)
 1. **CMS Content**
    1. [Workflow](READMES/cms-content-workflow.md)
       1. [Broken Links](READMES/broken-links.md)

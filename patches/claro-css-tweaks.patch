@@ -1,0 +1,830 @@
+diff --git a/postcss.config.js b/postcss.config.js
+index 1c61d3b312..8a59bded25 100644
+--- a/postcss.config.js
++++ b/postcss.config.js
+@@ -2,7 +2,7 @@ module.exports = ctx => ({
+   map: !ctx.env || ctx.env !== 'production' ? { inline: false } : false,
+   plugins: [
+     require('postcss-custom-properties')({
+-      preserve: false,
++      preserve: true,
+       // Breaks style lint and unnecessary if preserve set to false.
+       // exportTo: 'dist-css/variables.css',
+       importFrom: [
+diff --git a/scripts/css/compile.js b/scripts/css/compile.js
+index 810e3ea38b..83822e95c3 100644
+--- a/scripts/css/compile.js
++++ b/scripts/css/compile.js
+@@ -42,6 +42,7 @@ module.exports = (filePath, callback) => {
+         features: {
+           'blank-pseudo-class': false,
+           'focus-visible-pseudo-class': false,
++          'custom-properties': false,
+           'focus-within-pseudo-class': false,
+           'has-pseudo-class': false,
+           'image-set-function': false,
+diff --git a/themes/claro/css/base/off-canvas.theme.pcss.css b/themes/claro/css/base/off-canvas.theme.pcss.css
+index cafe85fd06..676da867c2 100644
+--- a/themes/claro/css/base/off-canvas.theme.pcss.css
++++ b/themes/claro/css/base/off-canvas.theme.pcss.css
+@@ -5,8 +5,6 @@
+  * Contains overrides for jQuery UI dialog.
+  */
+ 
+-@import "./variables.pcss.css";
+-
+ /* Style the dialog-off-canvas container. */
+ .ui-dialog.ui-dialog-off-canvas {
+   /* Layer the dialog just under the toolbar. */
+diff --git a/themes/claro/css/components/accordion.pcss.css b/themes/claro/css/components/accordion.pcss.css
+index 4195c1cbe9..000bceefcf 100644
+--- a/themes/claro/css/components/accordion.pcss.css
++++ b/themes/claro/css/components/accordion.pcss.css
+@@ -3,8 +3,6 @@
+  * Accordion styles.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ .accordion {
+   color: var(--color-text);
+   border: var(--details-border-size) solid var(--details-border-color);
+diff --git a/themes/claro/css/components/action-link.pcss.css b/themes/claro/css/components/action-link.pcss.css
+index 4fd41de111..0b496a4092 100644
+--- a/themes/claro/css/components/action-link.pcss.css
++++ b/themes/claro/css/components/action-link.pcss.css
+@@ -5,8 +5,6 @@
+  * Contains Action link component and the action-links layout styles.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ /**
+  * Action links layout.
+  */
+diff --git a/themes/claro/css/components/ajax-progress.module.pcss.css b/themes/claro/css/components/ajax-progress.module.pcss.css
+index 5047f3f220..f0617924b9 100644
+--- a/themes/claro/css/components/ajax-progress.module.pcss.css
++++ b/themes/claro/css/components/ajax-progress.module.pcss.css
+@@ -3,8 +3,6 @@
+  * Throbber.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ .ajax-progress {
+   display: inline-block;
+ }
+diff --git a/themes/claro/css/components/autocomplete-loading.module.pcss.css b/themes/claro/css/components/autocomplete-loading.module.pcss.css
+index 2d8d8ca5e6..64852712ab 100644
+--- a/themes/claro/css/components/autocomplete-loading.module.pcss.css
++++ b/themes/claro/css/components/autocomplete-loading.module.pcss.css
+@@ -5,8 +5,6 @@
+  * @see autocomplete.js
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ /**
+  * Since the autocomplete library is attached conditionally and not globally,
+  * we can be 99% sure that the default icon will be used.
+diff --git a/themes/claro/css/components/breadcrumb.pcss.css b/themes/claro/css/components/breadcrumb.pcss.css
+index 0cd8813501..227f755143 100644
+--- a/themes/claro/css/components/breadcrumb.pcss.css
++++ b/themes/claro/css/components/breadcrumb.pcss.css
+@@ -3,8 +3,6 @@
+  * Breadcrumbs.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ .breadcrumb {
+   padding: 0;
+   color: var(--color-text);
+diff --git a/themes/claro/css/components/button.pcss.css b/themes/claro/css/components/button.pcss.css
+index f1f95222bd..af4084370e 100644
+--- a/themes/claro/css/components/button.pcss.css
++++ b/themes/claro/css/components/button.pcss.css
+@@ -5,8 +5,6 @@
+  * Apply these classes to button elements (<button>, <input type="button" />).
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ /**
+  * Buttons.
+  *
+diff --git a/themes/claro/css/components/card.pcss.css b/themes/claro/css/components/card.pcss.css
+index 6a3b286dac..6dd8e40426 100644
+--- a/themes/claro/css/components/card.pcss.css
++++ b/themes/claro/css/components/card.pcss.css
+@@ -3,8 +3,6 @@
+  * Card.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ :root {
+   --card-bg-color: var(--color-white);
+   --card-border-size: 1px;
+diff --git a/themes/claro/css/components/content-header.pcss.css b/themes/claro/css/components/content-header.pcss.css
+index f774132e99..882c42d8dc 100644
+--- a/themes/claro/css/components/content-header.pcss.css
++++ b/themes/claro/css/components/content-header.pcss.css
+@@ -2,8 +2,6 @@
+  * Content header.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ .content-header {
+   overflow: hidden;
+   margin-bottom: var(--space-s);
+diff --git a/themes/claro/css/components/details.pcss.css b/themes/claro/css/components/details.pcss.css
+index 38fea6f4da..99591af3dd 100644
+--- a/themes/claro/css/components/details.pcss.css
++++ b/themes/claro/css/components/details.pcss.css
+@@ -5,8 +5,6 @@
+  * @see collapse.js
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ /**
+  * Available modifiers are:
+  *  - .claro-details--accordion
+diff --git a/themes/claro/css/components/dialog.pcss.css b/themes/claro/css/components/dialog.pcss.css
+index 2eac598098..654f3db72d 100644
+--- a/themes/claro/css/components/dialog.pcss.css
++++ b/themes/claro/css/components/dialog.pcss.css
+@@ -3,8 +3,6 @@
+  * Presentational styles for Drupal dialogs.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ .ui-dialog {
+   padding: 0;
+   border: 0;
+diff --git a/themes/claro/css/components/divider.pcss.css b/themes/claro/css/components/divider.pcss.css
+index 0959b71937..7f9949ba80 100644
+--- a/themes/claro/css/components/divider.pcss.css
++++ b/themes/claro/css/components/divider.pcss.css
+@@ -2,8 +2,6 @@
+  * Divider.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ .divider {
+   height: 1px;
+   background-color: var(--color-divider);
+diff --git a/themes/claro/css/components/dropbutton.pcss.css b/themes/claro/css/components/dropbutton.pcss.css
+index 2da904bd59..c664d89145 100644
+--- a/themes/claro/css/components/dropbutton.pcss.css
++++ b/themes/claro/css/components/dropbutton.pcss.css
+@@ -7,8 +7,6 @@
+  *    contrast mode Firefox.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ :root {
+   /**
+   * Dropbutton
+diff --git a/themes/claro/css/components/entity-meta.pcss.css b/themes/claro/css/components/entity-meta.pcss.css
+index 9615fbc1bf..877bfc9783 100644
+--- a/themes/claro/css/components/entity-meta.pcss.css
++++ b/themes/claro/css/components/entity-meta.pcss.css
+@@ -3,8 +3,6 @@
+  * Entity meta.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ :root {
+   --size-entity-meta-spacing: var(--space-xs);
+ }
+diff --git a/themes/claro/css/components/fieldset.pcss.css b/themes/claro/css/components/fieldset.pcss.css
+index ed46ca4719..b1ea24c442 100644
+--- a/themes/claro/css/components/fieldset.pcss.css
++++ b/themes/claro/css/components/fieldset.pcss.css
+@@ -3,8 +3,6 @@
+  * Fieldset styles.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ .fieldset {
+   min-width: 0;
+   margin: var(--space-m) 0;
+diff --git a/themes/claro/css/components/file.pcss.css b/themes/claro/css/components/file.pcss.css
+index 5d713f1139..a380ed03e9 100644
+--- a/themes/claro/css/components/file.pcss.css
++++ b/themes/claro/css/components/file.pcss.css
+@@ -3,8 +3,6 @@
+  * Extends styles of the file link.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ .file {
+   min-height: calc(var(--space-m) + 0.0625rem);
+   padding-left: var(--space-l); /* LTR */
+diff --git a/themes/claro/css/components/form--checkbox-radio--ie.pcss.css b/themes/claro/css/components/form--checkbox-radio--ie.pcss.css
+index 250deb0d5f..0fa2b0c310 100644
+--- a/themes/claro/css/components/form--checkbox-radio--ie.pcss.css
++++ b/themes/claro/css/components/form--checkbox-radio--ie.pcss.css
+@@ -3,8 +3,6 @@
+  * Checkbox and radio input elements styles for IE11 and below.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ .form-boolean::-ms-check {
+   display: inline-block;
+   box-sizing: border-box;
+diff --git a/themes/claro/css/components/form--checkbox-radio.pcss.css b/themes/claro/css/components/form--checkbox-radio.pcss.css
+index 55a879a084..a1fdbaa736 100644
+--- a/themes/claro/css/components/form--checkbox-radio.pcss.css
++++ b/themes/claro/css/components/form--checkbox-radio.pcss.css
+@@ -3,8 +3,6 @@
+  * Checkbox and radio input elements.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ /**
+  * Form item modifiers.
+  */
+diff --git a/themes/claro/css/components/form--field-multiple.pcss.css b/themes/claro/css/components/form--field-multiple.pcss.css
+index d7ed84cf8f..bfdc44dd58 100644
+--- a/themes/claro/css/components/form--field-multiple.pcss.css
++++ b/themes/claro/css/components/form--field-multiple.pcss.css
+@@ -3,8 +3,6 @@
+  * Styles for multiple field tables.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ .field-multiple-table {
+   margin-top: var(--space-m);
+   margin-bottom: var(--space-m);
+diff --git a/themes/claro/css/components/form--managed-file.pcss.css b/themes/claro/css/components/form--managed-file.pcss.css
+index 793813cc15..76efb20ea3 100644
+--- a/themes/claro/css/components/form--managed-file.pcss.css
++++ b/themes/claro/css/components/form--managed-file.pcss.css
+@@ -5,8 +5,6 @@
+  * This includes the styles for the file widgets and the image widgets.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ :root {
+   --file-widget-form-item-min-width: 16rem;
+   --file-widget-form-item-max-width: 32rem;
+diff --git a/themes/claro/css/components/form--password-confirm.pcss.css b/themes/claro/css/components/form--password-confirm.pcss.css
+index cf2cac451b..9a36d0f19b 100644
+--- a/themes/claro/css/components/form--password-confirm.pcss.css
++++ b/themes/claro/css/components/form--password-confirm.pcss.css
+@@ -3,8 +3,6 @@
+  * Visual styles for the Password widgets.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ :root {
+   /* Weak */
+   --password-strength-bar--weak-bg-color: var(--color-maximumred);
+diff --git a/themes/claro/css/components/form--select.pcss.css b/themes/claro/css/components/form--select.pcss.css
+index 70433a81dd..682c2639f5 100644
+--- a/themes/claro/css/components/form--select.pcss.css
++++ b/themes/claro/css/components/form--select.pcss.css
+@@ -3,8 +3,6 @@
+  * Select input elements.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ .form-element--type-select {
+   padding-right: calc(2rem - var(--input-border-size));
+   background-image: url(../../images/icons/545560/chevron-down.svg);
+diff --git a/themes/claro/css/components/form--text.pcss.css b/themes/claro/css/components/form--text.pcss.css
+index d6d09b6f88..e025048a76 100644
+--- a/themes/claro/css/components/form--text.pcss.css
++++ b/themes/claro/css/components/form--text.pcss.css
+@@ -3,8 +3,6 @@
+  * Text and textarea input elements.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ .form-element {
+   box-sizing: border-box;
+   max-width: 100%;
+diff --git a/themes/claro/css/components/form.pcss.css b/themes/claro/css/components/form.pcss.css
+index 75f49c9437..a8cf852c62 100644
+--- a/themes/claro/css/components/form.pcss.css
++++ b/themes/claro/css/components/form.pcss.css
+@@ -3,8 +3,6 @@
+  * Main form and form item styles.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ ::placeholder {
+   color: var(--input-fg-color--placeholder);
+ }
+diff --git a/themes/claro/css/components/icon-link.pcss.css b/themes/claro/css/components/icon-link.pcss.css
+index cdbfc8e685..658a03ad4f 100644
+--- a/themes/claro/css/components/icon-link.pcss.css
++++ b/themes/claro/css/components/icon-link.pcss.css
+@@ -3,8 +3,6 @@
+  * Icon link component.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ :root {
+   /* default */
+   --icon-link-bg-color: var(--color-white);
+diff --git a/themes/claro/css/components/image-preview.pcss.css b/themes/claro/css/components/image-preview.pcss.css
+index 7ddbe1e8a2..239917c855 100644
+--- a/themes/claro/css/components/image-preview.pcss.css
++++ b/themes/claro/css/components/image-preview.pcss.css
+@@ -3,8 +3,6 @@
+  * Image preview component.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ :root {
+   --color-pattern: var(--color-lightgray);
+   --size-pattern-square: calc(7rem / 16);
+diff --git a/themes/claro/css/components/jquery.ui/theme.pcss.css b/themes/claro/css/components/jquery.ui/theme.pcss.css
+index 9d0f877635..c9d5d5089c 100644
+--- a/themes/claro/css/components/jquery.ui/theme.pcss.css
++++ b/themes/claro/css/components/jquery.ui/theme.pcss.css
+@@ -4,8 +4,6 @@
+  * Overrides /core/assets/vendor/jquery.ui/themes/base/theme.css.
+  */
+ 
+-@import "../../base/variables.pcss.css";
+-
+ /**
+  * Component containers
+  */
+diff --git a/themes/claro/css/components/media-library.ui.pcss.css b/themes/claro/css/components/media-library.ui.pcss.css
+index b072d5765e..bdf0f82eef 100644
+--- a/themes/claro/css/components/media-library.ui.pcss.css
++++ b/themes/claro/css/components/media-library.ui.pcss.css
+@@ -3,8 +3,6 @@
+  * Styles for the Media Library UI.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ .media-library-selected-count {
+   margin: 0 var(--space-l);
+ }
+diff --git a/themes/claro/css/components/messages.pcss.css b/themes/claro/css/components/messages.pcss.css
+index e03745f171..ce1057efc4 100644
+--- a/themes/claro/css/components/messages.pcss.css
++++ b/themes/claro/css/components/messages.pcss.css
+@@ -5,8 +5,6 @@
+  *   has been resolved.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ :root {
+   --messages-bg-color: #353641;
+   --messages-fg-color: var(--color-white);
+diff --git a/themes/claro/css/components/page-title.pcss.css b/themes/claro/css/components/page-title.pcss.css
+index 563450a8c2..d5728d5c88 100644
+--- a/themes/claro/css/components/page-title.pcss.css
++++ b/themes/claro/css/components/page-title.pcss.css
+@@ -3,8 +3,6 @@
+  * Page title.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ .block-page-title-block {
+   margin-bottom: var(--space-s);
+ }
+diff --git a/themes/claro/css/components/pager.pcss.css b/themes/claro/css/components/pager.pcss.css
+index 2a3190e5b0..32eb4ffcc8 100644
+--- a/themes/claro/css/components/pager.pcss.css
++++ b/themes/claro/css/components/pager.pcss.css
+@@ -3,8 +3,6 @@
+  * Styles for Claro's Pagination.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ :root {
+   /**
+   * Pager.
+diff --git a/themes/claro/css/components/progress.pcss.css b/themes/claro/css/components/progress.pcss.css
+index 609e5c4389..7c01a3439f 100644
+--- a/themes/claro/css/components/progress.pcss.css
++++ b/themes/claro/css/components/progress.pcss.css
+@@ -5,8 +5,6 @@
+  * @see progress.js
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ :root {
+   --progress-bar-bg-color: var(--color-absolutezero);
+   --progress-bar-border-color: var(--color-absolutezero);
+diff --git a/themes/claro/css/components/shortcut.pcss.css b/themes/claro/css/components/shortcut.pcss.css
+index 431d8b6ea5..0f20225ac7 100644
+--- a/themes/claro/css/components/shortcut.pcss.css
++++ b/themes/claro/css/components/shortcut.pcss.css
+@@ -4,8 +4,6 @@
+  * Styling for the shortcut module.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ :root {
+   /**
+   * Shortcut action.
+diff --git a/themes/claro/css/components/system-admin--admin-list.pcss.css b/themes/claro/css/components/system-admin--admin-list.pcss.css
+index 42f1d5c772..b4dcd80037 100644
+--- a/themes/claro/css/components/system-admin--admin-list.pcss.css
++++ b/themes/claro/css/components/system-admin--admin-list.pcss.css
+@@ -3,8 +3,6 @@
+  * Admin list and admin item modules.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ /**
+  * Admin list (wrapper of admin items).
+  */
+diff --git a/themes/claro/css/components/system-admin--modules.pcss.css b/themes/claro/css/components/system-admin--modules.pcss.css
+index e1f8aff08e..8f1c8dad65 100644
+--- a/themes/claro/css/components/system-admin--modules.pcss.css
++++ b/themes/claro/css/components/system-admin--modules.pcss.css
+@@ -3,8 +3,6 @@
+  * System admin module: modules page.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ :root {
+   --module-table-cell-padding-vertical: var(--space-m);
+   --module-table-cell-padding-horizontal: calc(var(--space-m) - (var(--input-border-size) * 2));
+diff --git a/themes/claro/css/components/system-admin--panel.pcss.css b/themes/claro/css/components/system-admin--panel.pcss.css
+index 79035daca2..b3b235f317 100644
+--- a/themes/claro/css/components/system-admin--panel.pcss.css
++++ b/themes/claro/css/components/system-admin--panel.pcss.css
+@@ -3,8 +3,6 @@
+  * System admin module: Panel styling.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ .panel {
+   margin-top: 1em;
+   margin-bottom: 3em;
+diff --git a/themes/claro/css/components/system-admin--status-report.pcss.css b/themes/claro/css/components/system-admin--status-report.pcss.css
+index 5285aaa502..b0fe5e2d4d 100644
+--- a/themes/claro/css/components/system-admin--status-report.pcss.css
++++ b/themes/claro/css/components/system-admin--status-report.pcss.css
+@@ -10,8 +10,6 @@
+  *  - system-status-report-counters.css
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ .system-status-report {
+   position: relative;
+   padding-top: var(--space-m);
+diff --git a/themes/claro/css/components/system-status-counter.pcss.css b/themes/claro/css/components/system-status-counter.pcss.css
+index b779e72bfe..f613508141 100644
+--- a/themes/claro/css/components/system-status-counter.pcss.css
++++ b/themes/claro/css/components/system-status-counter.pcss.css
+@@ -3,8 +3,6 @@
+  * Styles for the system status counter component.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ .system-status-counter {
+   display: inline-block;
+   overflow-y: hidden;
+diff --git a/themes/claro/css/components/system-status-report-general-info.pcss.css b/themes/claro/css/components/system-status-report-general-info.pcss.css
+index 55c55358b2..eff22898e5 100644
+--- a/themes/claro/css/components/system-status-report-general-info.pcss.css
++++ b/themes/claro/css/components/system-status-report-general-info.pcss.css
+@@ -3,8 +3,6 @@
+  * Claro styles for the System Status general info.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ .system-status-general-info {
+   padding-top: var(--space-m);
+ }
+diff --git a/themes/claro/css/components/system-status-report.pcss.css b/themes/claro/css/components/system-status-report.pcss.css
+index 46172528fe..5583a390bf 100644
+--- a/themes/claro/css/components/system-status-report.pcss.css
++++ b/themes/claro/css/components/system-status-report.pcss.css
+@@ -3,8 +3,6 @@
+  * Claro styles for the System Status Report.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ .system-status-report__requirements-group {
+   padding-top: 20px;
+ }
+diff --git a/themes/claro/css/components/table--file-multiple-widget.pcss.css b/themes/claro/css/components/table--file-multiple-widget.pcss.css
+index f6819bcd1b..e9b56a44c1 100644
+--- a/themes/claro/css/components/table--file-multiple-widget.pcss.css
++++ b/themes/claro/css/components/table--file-multiple-widget.pcss.css
+@@ -3,8 +3,6 @@
+  * Styles for multiple file widget table.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ .table-file-multiple-widget tbody {
+   vertical-align: top;
+ }
+diff --git a/themes/claro/css/components/tabledrag.pcss.css b/themes/claro/css/components/tabledrag.pcss.css
+index 5522612d8d..ad175a6909 100644
+--- a/themes/claro/css/components/tabledrag.pcss.css
++++ b/themes/claro/css/components/tabledrag.pcss.css
+@@ -7,8 +7,6 @@
+  * @see tabledrag.js
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ :root {
+   --table-row--dragging-bg-color: #fe7;
+   --table-row--last-dragged-bg-color: #ffb;
+diff --git a/themes/claro/css/components/tables.pcss.css b/themes/claro/css/components/tables.pcss.css
+index 67af38b702..4a112b0f6f 100644
+--- a/themes/claro/css/components/tables.pcss.css
++++ b/themes/claro/css/components/tables.pcss.css
+@@ -3,8 +3,6 @@
+  * Claro styles for Tables.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ table {
+   width: 100%;
+   margin-top: var(--space-l);
+diff --git a/themes/claro/css/components/tableselect.pcss.css b/themes/claro/css/components/tableselect.pcss.css
+index efb4ea1392..1f6a644764 100644
+--- a/themes/claro/css/components/tableselect.pcss.css
++++ b/themes/claro/css/components/tableselect.pcss.css
+@@ -5,8 +5,6 @@
+  * @see tableselect.js
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ td.checkbox,
+ th.checkbox {
+   text-align: center;
+diff --git a/themes/claro/css/components/tabs.pcss.css b/themes/claro/css/components/tabs.pcss.css
+index cb814e8338..0a370a0ced 100644
+--- a/themes/claro/css/components/tabs.pcss.css
++++ b/themes/claro/css/components/tabs.pcss.css
+@@ -2,8 +2,6 @@
+  * Tabs.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ :root {
+   /**
+   * Tabs.
+diff --git a/themes/claro/css/components/vertical-tabs.pcss.css b/themes/claro/css/components/vertical-tabs.pcss.css
+index 74d95f5c0e..e4452323d4 100644
+--- a/themes/claro/css/components/vertical-tabs.pcss.css
++++ b/themes/claro/css/components/vertical-tabs.pcss.css
+@@ -5,8 +5,6 @@
+  * Replaces /core/misc/vertical-tabs.css.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ /**
+  * Main wrapper of vertical tabs.
+  * This wrapper div is added by JavaScript.
+diff --git a/themes/claro/css/components/views-exposed-form.pcss.css b/themes/claro/css/components/views-exposed-form.pcss.css
+index 796f53d08f..5a1b1dc18d 100644
+--- a/themes/claro/css/components/views-exposed-form.pcss.css
++++ b/themes/claro/css/components/views-exposed-form.pcss.css
+@@ -3,8 +3,6 @@
+  * Visual styles for views exposed form.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ /**
+  * Use flexbox and some margin resets to make the fields + actions go inline.
+  *
+diff --git a/themes/claro/css/components/views-ui.pcss.css b/themes/claro/css/components/views-ui.pcss.css
+index 84709902fe..12734bf4b4 100644
+--- a/themes/claro/css/components/views-ui.pcss.css
++++ b/themes/claro/css/components/views-ui.pcss.css
+@@ -2,8 +2,6 @@
+  * Views styling
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ /* @group Forms */
+ 
+ /**
+diff --git a/themes/claro/css/layout/breadcrumb.pcss.css b/themes/claro/css/layout/breadcrumb.pcss.css
+index f587326346..41d3079e6e 100644
+--- a/themes/claro/css/layout/breadcrumb.pcss.css
++++ b/themes/claro/css/layout/breadcrumb.pcss.css
+@@ -3,8 +3,6 @@
+  * Breadcrumb region.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ .region-breadcrumb {
+   min-height: var(--breadcrumb-height);
+ }
+diff --git a/themes/claro/css/layout/card-list.pcss.css b/themes/claro/css/layout/card-list.pcss.css
+index 040e09cd05..e76106263a 100644
+--- a/themes/claro/css/layout/card-list.pcss.css
++++ b/themes/claro/css/layout/card-list.pcss.css
+@@ -3,8 +3,6 @@
+  * Cards list.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ :root {
+   --card-list-spacing: var(--space-m);
+   /* Using 100% as base causes issues in IE11. */
+diff --git a/themes/claro/css/layout/local-actions.pcss.css b/themes/claro/css/layout/local-actions.pcss.css
+index fed50edc80..4b136f7cd1 100644
+--- a/themes/claro/css/layout/local-actions.pcss.css
++++ b/themes/claro/css/layout/local-actions.pcss.css
+@@ -3,8 +3,6 @@
+  * Layout styles for local actions.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ /**
+  * Action link layout styles.
+  */
+diff --git a/themes/claro/css/layout/node-add.pcss.css b/themes/claro/css/layout/node-add.pcss.css
+index d18672a221..2f1353f0af 100644
+--- a/themes/claro/css/layout/node-add.pcss.css
++++ b/themes/claro/css/layout/node-add.pcss.css
+@@ -2,8 +2,6 @@
+  * Layout overrides for node add/edit form.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ :root {
+   --node-meta-width: 22.5rem;
+ }
+diff --git a/themes/claro/css/theme/ckeditor-dialog.pcss.css b/themes/claro/css/theme/ckeditor-dialog.pcss.css
+index 3b3f951df4..266a69b067 100644
+--- a/themes/claro/css/theme/ckeditor-dialog.pcss.css
++++ b/themes/claro/css/theme/ckeditor-dialog.pcss.css
+@@ -3,8 +3,6 @@
+  * CKEditor-native dialogs theming.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ .cke_dialog_background_cover {
+   display: none;
+ }
+diff --git a/themes/claro/css/theme/ckeditor-editor.pcss.css b/themes/claro/css/theme/ckeditor-editor.pcss.css
+index 0ed93d4c70..5726ea03f4 100644
+--- a/themes/claro/css/theme/ckeditor-editor.pcss.css
++++ b/themes/claro/css/theme/ckeditor-editor.pcss.css
+@@ -2,7 +2,6 @@
+  * @file
+  * CKEditor appearance overrides.
+  */
+-@import "../base/variables.pcss.css";
+ 
+ :root {
+   --ckeditor-chrome-border-size: var(--input-border-size); /* 1px */
+diff --git a/themes/claro/css/theme/ckeditor-frame.pcss.css b/themes/claro/css/theme/ckeditor-frame.pcss.css
+index 9d97cdc8fa..1e7f1d7343 100644
+--- a/themes/claro/css/theme/ckeditor-frame.pcss.css
++++ b/themes/claro/css/theme/ckeditor-frame.pcss.css
+@@ -3,8 +3,6 @@
+  * CKEditor frame styles.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ .cke_editable:not(.cke_editable_inline) {
+   margin: 1em calc(1em - var(--input-border-size) - var(--input-border-size));
+ }
+diff --git a/themes/claro/css/theme/ckeditor.admin.pcss.css b/themes/claro/css/theme/ckeditor.admin.pcss.css
+index 78440d6891..ab1cb1c137 100644
+--- a/themes/claro/css/theme/ckeditor.admin.pcss.css
++++ b/themes/claro/css/theme/ckeditor.admin.pcss.css
+@@ -3,8 +3,6 @@
+  * Claro specific styling for CKEditor admin.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ /*
+  * This rule is needed to provide Claro's green focus outline. There is a style
+  * in the CKEditor module CSS that adds a box-shadow at a higher specificity
+diff --git a/themes/claro/css/theme/field-ui.admin.pcss.css b/themes/claro/css/theme/field-ui.admin.pcss.css
+index b989d27cc1..f63649cb1c 100644
+--- a/themes/claro/css/theme/field-ui.admin.pcss.css
++++ b/themes/claro/css/theme/field-ui.admin.pcss.css
+@@ -3,8 +3,6 @@
+  * Replacement styles for Field UI admin.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ /* 'Manage fields' and 'Manage display' overviews */
+ .field-ui-overview .region-title td {
+   font-weight: bold;
+diff --git a/themes/claro/css/theme/filter.theme.pcss.css b/themes/claro/css/theme/filter.theme.pcss.css
+index 460cb7b2e8..9b36c76a97 100644
+--- a/themes/claro/css/theme/filter.theme.pcss.css
++++ b/themes/claro/css/theme/filter.theme.pcss.css
+@@ -3,8 +3,6 @@
+  * Styling for the Filter module.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ /**
+  * Filter information under field.
+  */
+diff --git a/themes/claro/css/theme/maintenance-page.pcss.css b/themes/claro/css/theme/maintenance-page.pcss.css
+index 1d7c97bb82..ea8b8b70b4 100644
+--- a/themes/claro/css/theme/maintenance-page.pcss.css
++++ b/themes/claro/css/theme/maintenance-page.pcss.css
+@@ -3,8 +3,6 @@
+  * Maintenance theming.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ .maintenance-page {
+   min-height: 100%;
+   background-color: var(--color-lightdiamond);
+diff --git a/themes/claro/css/theme/media-library.pcss.css b/themes/claro/css/theme/media-library.pcss.css
+index 8a88faf08a..3381faa49f 100644
+--- a/themes/claro/css/theme/media-library.pcss.css
++++ b/themes/claro/css/theme/media-library.pcss.css
+@@ -4,8 +4,6 @@
+  * Styling for Media Library.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ /**
+  * Negative margins compensate for modal dialog padding and compensate for
+  * positioning that would otherwise hide the active tab indicator on the left.
+diff --git a/themes/claro/css/theme/tour.theme.pcss.css b/themes/claro/css/theme/tour.theme.pcss.css
+index 4be6746694..177c12b16e 100644
+--- a/themes/claro/css/theme/tour.theme.pcss.css
++++ b/themes/claro/css/theme/tour.theme.pcss.css
+@@ -3,8 +3,6 @@
+  * Styles for Tour theme.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ /* Default styles for the container */
+ .shepherd-element {
+   color: #fff;
+diff --git a/themes/claro/css/theme/views_ui.admin.theme.pcss.css b/themes/claro/css/theme/views_ui.admin.theme.pcss.css
+index 3b25581b81..d861766778 100644
+--- a/themes/claro/css/theme/views_ui.admin.theme.pcss.css
++++ b/themes/claro/css/theme/views_ui.admin.theme.pcss.css
+@@ -5,8 +5,6 @@
+  * Replaces the styles provided by the views_ui module.
+  */
+ 
+-@import "../base/variables.pcss.css";
+-
+ .views-admin .links {
+   margin: 0;
+   list-style: none outside none;
