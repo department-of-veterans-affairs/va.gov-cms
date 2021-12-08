@@ -359,7 +359,8 @@
                 "3027240 - Undefined index: #parents FormState.php": "https://www.drupal.org/files/issues/2019-01-21/form_system-undefined_index-3027240-2.patch",
                 "3096790 - Remove aria-required attribute": "https://www.drupal.org/files/issues/2021-09-28/drupal-remove-aria-require-3096790-7.patch",
                 "3219165 - Seven inactive vertical tabs do not meet contrast requirements": "https://www.drupal.org/files/issues/2021-06-16/3219165-3.patch",
-                "2421145 - Text format wrapper does not take description_display into account": "https://www.drupal.org/files/issues/2021-12-03/2421445-18_0.patch"
+                "2421145 - Text format wrapper does not take description_display into account": "https://www.drupal.org/files/issues/2021-12-03/2421445-18_0.patch",
+                "Internal Claro tweaks": "patches/claro-css-tweaks.patch"
             },
             "drupal/entity_browser": {
                 "Entity display plugin Rendered Entity is missing cache tags/keys": "https://www.drupal.org/files/issues/2020-03-31/rendered-entity-cache-keys-tags-3123876-2.patch",
@@ -582,7 +583,9 @@
             "yarn -v",
             "./scripts/composer/check_yarn_version.sh",
             "cd web && yarn run install-repos",
-            "export NODE_EXTRA_CA_CERTS=/etc/pki/tls/certs/ca-bundle.crt PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=TRUE; cd web && yarn install"
+            "export NODE_EXTRA_CA_CERTS=/etc/pki/tls/certs/ca-bundle.crt PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=TRUE; cd web && yarn install",
+            "export NODE_EXTRA_CA_CERTS=/etc/pki/tls/certs/ca-bundle.crt PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=TRUE; cd docroot/core && yarn install",
+            "cd docroot/core && yarn build:css"
         ],
         "va:web:server": [
             "cd web && yarn build"
