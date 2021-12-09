@@ -93,11 +93,12 @@
           p.id = service.id + "-services-general-description";
           p.className = "services-general-description";
           p.textContent = "General service description";
-          service.after(p);
-
-          d.id = service.id + "-services-general-description-help";
           d.className = "description";
-          d.textContent = "This standardized text will appear on your page automatically";
+          d.id = service.id + "-services-general-description-help";
+
+          d.textContent = "This standardized text will appear on your page automatically.";
+          d.after(p);
+          service.after(p);
           p.after(d);
         }
       };
