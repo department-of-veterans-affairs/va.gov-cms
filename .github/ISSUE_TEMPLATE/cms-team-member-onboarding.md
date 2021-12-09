@@ -212,7 +212,7 @@ By this point you should have enough context and access to be able to start cont
     - [ ] [Azure virtual desktop is recommended for Windows](https://www.oit.va.gov/resources/remote-access/azure-virtual-desktop/)
     - [ ] Mac users should [follow these Citrix Access Gateway (CAG) download instructions](https://docs.google.com/document/d/1_3HKMk4AXyqAoQcfF4CthEQ7uU_d1h9Tt7CPHGJ-FaM)
 - [ ] [What is Drupal?](https://docs.google.com/spreadsheets/d/11ppWiIggKJh-YAWia28utZXW48tJZGCEg-sFJ6eIl9c)
-- [ ] [Google Analytics](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=joanneesteban%2C+bsmartin-ep%2C+jonwehausen&labels=analytics-insights%2C+analytics-request&template=analytics-request-google-analytics-access.md&title=Request+access+to+Google+Analytics)
+- [ ] [Google Analytics](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=bsmartin-ep%2C+laurensimpson14%2C+jennaouellet&labels=analytics-insights%2C+analytics-request%2C+access-request&template=analytics-request-google-analytics-domo-access.md&title=Request+access+to+Google+Analytics+and%2For+Domo)
   - [ ] [Opt out](https://www.va.gov/analytics-opt-out.html) of Google Analytics collection on VA.gov.
   - [ ] [Opt out](https://depo-platform-documentation.scrollhelp.site/?internal-user-opt-out=true) of analytics for Platform's website. You will not get a confirmation message and will have to do this for every browser and every time you clear cookies.
 - [ ] [Browse the VA Drupal CMS Knowlege Base articles](https://prod.cms.va.gov/help/).

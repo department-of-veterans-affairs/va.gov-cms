@@ -2,7 +2,7 @@
 name: Facility data change request
 about: changing facility information in the CMS for VHA facilities
 title: 'Facility change: <insert_name>'
-labels: Facility
+labels: ''
 assignees: ''
 
 ---
