@@ -23,7 +23,7 @@ index 4e630c59904..5acc09be899 100644
 +      'administer menu',
 +    ]);
    }
-
+ 
    /**
 @@ -67,7 +70,7 @@ protected function createEntity() {
        'id' => 'llama',
@@ -46,7 +46,7 @@ index 4e630c59904..5acc09be899 100644
 @@ -231,4 +234,13 @@ public function testLinkOptionsSerialization() {
      $this->assertResourceResponse(200, Json::decode($response_body), $response);
    }
-
+ 
 +  /**
 +   * {@inheritdoc}
 +   */
@@ -89,18 +89,7 @@ index 0a7c8cc5a7b..ba1f425a9e2 100644
 +            ->cachePerPermissions()
 +            ->addCacheableDependency($entity);
 +        }
-
-+       $allowed_paths = [
-+         '/find-locations',
-+         '/health-care/apply/application'
-+       ];
-+
-+       if (in_array($url_object->toString(), $allowed_paths)) {
-+         return AccessResult::allowed()
-+           ->cachePerPermissions()
-+           ->addCacheableDependency($entity);
-+       }
-
+ 
        case 'update':
          if (!$account->hasPermission('administer menu')) {
 diff --git a/core/modules/menu_link_content/tests/src/Functional/Rest/MenuLinkContentResourceTestBase.php b/core/modules/menu_link_content/tests/src/Functional/Rest/MenuLinkContentResourceTestBase.php
@@ -133,7 +122,7 @@ index 448dfd2394f..0b0e435d348 100644
            'title' => NULL,
            'options' => [
              'fragment' => 'a-fragment',
---
+-- 
 GitLab
 
 
@@ -165,6 +154,6 @@ index ba1f425a9e2..496d87fe1b2 100644
            if ($link_access->isAllowed()) {
              return AccessResult::allowed()
                ->cachePerPermissions()
---
+-- 
 GitLab
 
