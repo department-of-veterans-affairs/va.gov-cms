@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.vamc_system_billing_insurance.field_enforce_unique_combo
     - field.field.node.vamc_system_billing_insurance.field_enforce_unique_combo_offic
     - field.field.node.vamc_system_billing_insurance.field_hours_for_copay_inquiries_
+    - field.field.node.vamc_system_billing_insurance.field_non_clinical_services
     - field.field.node.vamc_system_billing_insurance.field_office
     - field.field.node.vamc_system_billing_insurance.field_phone_number
     - field.field.node.vamc_system_billing_insurance.field_service_name_and_descripti
@@ -22,14 +23,14 @@ dependencies:
     - field_group
     - office_hours
     - telephone
+    - viewfield
 third_party_settings:
   field_group:
     group_edit:
       children:
         - moderation_state
-        - revision_log
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: fieldset
       region: content
       format_settings:
@@ -183,6 +184,12 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: office_hours_default
+    region: content
+  field_non_clinical_services:
+    weight: 9
+    settings: {  }
+    third_party_settings: {  }
+    type: viewfield_select
     region: content
   field_office:
     weight: 4
