@@ -118,7 +118,10 @@
           p4.textContent = drupalSettings.availableHealthServices[
             service.value
           ].description.replace(/&nbsp;/g, " ");
-          s4.textContent = "Service description: ";
+          s4.textContent = `${
+            drupalSettings.availableHealthServices[service.value]
+              .vc_vocabulary_service_description_label
+          }: `;
           div.classList.remove("no-content");
           div.appendChild(p4);
           p4.prepend(s4);
@@ -136,7 +139,9 @@
           d.id = `${service.id}-services-general-description-help`;
           // Adding in help text for general description
           d.textContent =
-            "This standardized text will appear on your page automatically.";
+            drupalSettings.availableHealthServices[
+              service.value
+            ].vc_vocabulary_description_help_text;
           d.after(p);
           service.after(p);
           p.after(d);
