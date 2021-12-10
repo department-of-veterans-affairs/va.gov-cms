@@ -1,0 +1,22 @@
+.content-header {
+  background-color: var(--color-blue-darkest);
+  color: var(--color-white);
+
+  .breadcrumb,
+  .breadcrumb__item,
+  .breadcrumb__link {
+    color: var(--color-gray-lighter);
+  }
+
+  .tabs__link {
+    color: var(--color-gray-lighter);
+  }
+
+  .tabs__link.is-active {
+    color: var(--color-status);
+  }
+
+  .tabs__link.is-active::before {
+    border-bottom: var(--tabs--active-height) solid var(--color-status);
+  }
+}
