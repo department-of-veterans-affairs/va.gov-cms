@@ -93,13 +93,11 @@
           p.id = service.id + "-services-general-description";
           p.className = "services-general-description";
           p.textContent = "General service description";
-          d.className = "description";
-          d.id = service.id + "-services-general-description-help";
+          d.className = "description ief-service-type";
 
           d.textContent = drupalSettings.availableHealthServices[service.value].vc_vocabulary_description_help_text;
-          d.after(p);
+          p.appendChild(d);
           service.after(p);
-          p.after(d);
         }
       };
 
