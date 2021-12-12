@@ -14,6 +14,7 @@ dependencies:
     - field.field.node.event.field_event_registrationrequired
     - field.field.node.event.field_facility_location
     - field.field.node.event.field_featured
+    - field.field.node.event.field_include_registration_info
     - field.field.node.event.field_link
     - field.field.node.event.field_listing
     - field.field.node.event.field_location_humanreadable
@@ -144,7 +145,7 @@ content:
       force_chronological: false
       format_type: medium
       timezone_override: ''
-      add_classes: 0
+      add_classes: false
     third_party_settings: {  }
   field_description:
     weight: 15
@@ -189,6 +190,16 @@ content:
     region: content
   field_featured:
     weight: 30
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_include_registration_info:
+    weight: 32
     label: above
     settings:
       format: default
