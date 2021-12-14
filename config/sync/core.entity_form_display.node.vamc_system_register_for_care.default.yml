@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.vamc_system_register_for_care.field_cc_top_of_page_content
     - field.field.node.vamc_system_register_for_care.field_enforce_unique_combo
     - field.field.node.vamc_system_register_for_care.field_enforce_unique_combo_offic
+    - field.field.node.vamc_system_register_for_care.field_non_clinical_services
     - field.field.node.vamc_system_register_for_care.field_office
     - field.field.node.vamc_system_register_for_care.field_service_name_and_descripti
     - node.type.vamc_system_register_for_care
@@ -18,6 +19,7 @@ dependencies:
     - content_moderation
     - entity_field_fetch
     - field_group
+    - viewfield
 third_party_settings:
   field_group:
     group_edit:
@@ -40,7 +42,7 @@ third_party_settings:
         - field_enforce_unique_combo
         - field_administration
       parent_name: ''
-      weight: 1
+      weight: 0
       format_type: details_sidebar
       region: content
       format_settings:
@@ -54,11 +56,10 @@ third_party_settings:
       label: 'Section settings'
     group_national_content:
       children:
-        - field_service_name_and_descripti
         - field_cc_bottom_of_page_content
         - field_cc_related_links
       parent_name: ''
-      weight: 6
+      weight: 5
       format_type: tooltip
       region: content
       format_settings:
@@ -78,7 +79,7 @@ third_party_settings:
       children:
         - field_cc_top_of_page_content
       parent_name: ''
-      weight: 5
+      weight: 4
       format_type: tooltip
       region: content
       format_settings:
@@ -139,24 +140,24 @@ content:
     type: allow_only_one_widget
     region: content
   field_enforce_unique_combo_offic:
-    weight: 4
+    weight: 3
     settings:
       size: 1
     third_party_settings: {  }
     type: allow_only_one_widget
     region: content
+  field_non_clinical_services:
+    weight: 6
+    settings: {  }
+    third_party_settings: {  }
+    type: viewfield_select
+    region: content
   field_office:
-    weight: 3
+    weight: 2
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
-  field_service_name_and_descripti:
-    type: options_select
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
     weight: 7
@@ -165,7 +166,7 @@ content:
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: 2
+    weight: 1
     region: content
     settings:
       size: 60
@@ -173,6 +174,7 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_service_name_and_descripti: true
   path: true
   promote: true
   status: true
