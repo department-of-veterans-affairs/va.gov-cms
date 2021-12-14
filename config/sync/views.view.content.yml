@@ -55,6 +55,7 @@ dependencies:
     - user
     - views_bulk_operations
     - views_data_export
+    - workbench_access
 _core:
   default_config_hash: tS8PbpJX90aRFC3-UTgXzdqkq7_2frk2pz4TMijEebM
 id: content
@@ -1502,29 +1503,29 @@ display:
             group_items: {  }
           entity_type: node
           plugin_id: moderation_state_filter
-        field_administration_target_id:
-          id: field_administration_target_id
-          table: node__field_administration
-          field: field_administration_target_id
+        workbench_access_section__section:
+          id: workbench_access_section__section
+          table: node
+          field: workbench_access_section__section
           relationship: none
           group_type: group
           admin_label: ''
-          operator: or
+          operator: in
           value: {  }
           group: 1
           exposed: true
           expose:
-            operator_id: owner
+            operator_id: workbench_access_section__section_op
             label: Section
             description: ''
-            use_operator: true
-            operator: field_administration_target_id_op
+            use_operator: false
+            operator: workbench_access_section__section_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: owner
+            identifier: section
             required: false
             remember: false
-            multiple: true
+            multiple: false
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
@@ -1541,7 +1542,7 @@ display:
               redirect_administrator: '0'
               admnistrator_users: '0'
               administrator: '0'
-            reduce: false
+            reduce: 0
           is_grouped: false
           group_info:
             label: ''
@@ -1554,16 +1555,11 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          reduce_duplicates: false
-          type: select
-          limit: true
-          vid: administration
-          hierarchy: true
-          error_message: true
-          parent: 0
-          level_labels: ''
-          force_deepest: false
-          plugin_id: taxonomy_index_tid
+          reduce_duplicates: 0
+          section_filter:
+            show_hierarchy: 1
+          entity_type: node
+          plugin_id: workbench_access_section
       filter_groups:
         operator: AND
         groups:
@@ -1573,6 +1569,7 @@ display:
         options:
           role:
             content_admin: content_admin
+            redirect_administrator: redirect_administrator
             administrator: administrator
       title: 'Content audit tools'
       relationships: {  }
@@ -1612,7 +1609,6 @@ display:
         - 'languages:language_interface'
         - request_format
         - url
-        - user
         - 'user.node_grants:view'
         - user.roles
       max-age: -1
@@ -3760,26 +3756,26 @@ display:
             group_items: {  }
           entity_type: node
           plugin_id: moderation_state_filter
-        field_administration_target_id:
-          id: field_administration_target_id
-          table: node__field_administration
-          field: field_administration_target_id
+        workbench_access_section__section:
+          id: workbench_access_section__section
+          table: node
+          field: workbench_access_section__section
           relationship: none
           group_type: group
           admin_label: ''
-          operator: or
+          operator: in
           value: {  }
           group: 1
           exposed: true
           expose:
-            operator_id: section
+            operator_id: workbench_access_section__section_op
             label: Section
             description: ''
             use_operator: false
-            operator: field_administration_target_id_op
+            operator: workbench_access_section__section_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: owner
+            identifier: section
             required: false
             remember: false
             multiple: false
@@ -3799,7 +3795,7 @@ display:
               redirect_administrator: '0'
               admnistrator_users: '0'
               administrator: '0'
-            reduce: false
+            reduce: 0
           is_grouped: false
           group_info:
             label: ''
@@ -3812,16 +3808,11 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          reduce_duplicates: false
-          type: select
-          limit: true
-          vid: administration
-          hierarchy: true
-          error_message: true
-          parent: 0
-          level_labels: ''
-          force_deepest: false
-          plugin_id: taxonomy_index_tid
+          reduce_duplicates: 0
+          section_filter:
+            show_hierarchy: 1
+          entity_type: node
+          plugin_id: workbench_access_section
       filter_groups:
         operator: AND
         groups:
@@ -3849,7 +3840,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user
         - 'user.node_grants:view'
         - user.roles
       max-age: -1
