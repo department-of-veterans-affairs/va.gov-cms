@@ -56,7 +56,6 @@ third_party_settings:
       label: 'Section settings'
     group_national_content:
       children:
-        - field_service_name_and_descripti
         - field_cc_bottom_of_page_content
         - field_cc_related_links
       parent_name: ''
@@ -159,12 +158,6 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
-  field_service_name_and_descripti:
-    type: options_select
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
     weight: 7
@@ -181,6 +174,7 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_service_name_and_descripti: true
   path: true
   promote: true
   status: true

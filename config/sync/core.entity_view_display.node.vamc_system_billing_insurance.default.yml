@@ -108,7 +108,7 @@ content:
     type: office_hours
     region: content
   field_non_clinical_services:
-    weight: 6
+    weight: 5
     label: hidden
     settings:
       view_title: above
@@ -125,14 +125,6 @@ content:
     third_party_settings: {  }
     type: telephone_link
     region: content
-  field_service_name_and_descripti:
-    weight: 5
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
   links:
     weight: 0
     region: content
@@ -143,4 +135,5 @@ hidden:
   field_administration: true
   field_enforce_unique_combo: true
   field_office: true
+  field_service_name_and_descripti: true
   search_api_excerpt: true
