@@ -1,4 +1,4 @@
-@api @jaytest
+@api
 Feature: Content model: VAMC Content Type fields
   In order to enter structured content into my site
   As a content editor
