@@ -46,17 +46,17 @@ assignees: ''
   <details><summary>VAMC – name change</summary>
     
 - [ ] The H1 title change comes from Lighthouse to Drupal.
+- [ ] Coordinate with Facilities team to have FE redirects set up.
 - [ ] CMS engineer makes bulk alias changes to facility service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
 - [ ] CMS engineer bulk saves fixed titles to facility service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
 - [ ] CMS engineer updates menu title.
-- [ ] Front-end (FE) redirects are set up.
 - [ ] HD notifies editor and any other stakeholders.
 </details>
  
 <details><summary>VAMC – system name change</summary>
   
 - [ ] CMS team becomes aware of the new system name.
-- [ ] FE redirects are set up.
+- [ ] Coordinate with Facilities team to have FE redirects set up.
 - [ ] CMS engineer updates the Section.
 - [ ] CMS engineer bulk alias changes all nodes within the system. (https://prod.cms.va.gov/admin/content/bulk)
 - [ ] CMS engineer bulk saves to fix titles for all nodes within system. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
@@ -76,8 +76,8 @@ assignees: ''
 <details><summary>Vet Center – facility closure</summary>
   
 - [ ] CMS team becomes aware that the facility is no longer on the Facility API.
+- [ ] Coordinate with Facilities team to have FE redirects set up.
 - [ ] CMS engineer bulk unpublishes the nodes.
-- [ ] FE redirects are set up.
 - [ ] CMS engineer removes the Section.
 </details>
 
@@ -91,7 +91,7 @@ assignees: ''
   - If yes, go to next step. 
   - [ ] If no, update URLs for all content in that section by bulk operations.
 - [ ] CMS engineer bulk updates node titles for services.
-- [ ] CMS engineer updaes URLs.
+- [ ] CMS engineer updates URLs.
 - Was a Section created?
   - If no, skip to the next step.
   - [ ] If yes, it may need to be updated (pending some migration script updating).
