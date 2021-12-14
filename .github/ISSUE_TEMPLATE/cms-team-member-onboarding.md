@@ -47,7 +47,7 @@ Projected start date: <insert_here>
 ## Week one
 The goals of this week are: 1) get background paperwork completed as quickly as possible and 2) start gaining context for what we're doing and why
 - [ ] Requesting secure access to the VA systems you need: **PTEMS** paperwork is through Liberty and **VFS-CMS** paperwork through A6. If you're not sure which you should fill out, ask your delivery manager. Federal contractors are required to complete many of the same forms as federal employees.
-- e-QIP, the online version of the federal standard investigation form, SF 86, will require a lot of background information. [Review page 7 of the SF 86 guide](https://www.dcsa.mil/Portals/91/Documents/pv/mbi/standard-form-sf-86-guide-for-applicants.pdf) for the list of information you'll need to collect to complete e-QIP
+- [ ] e-QIP, the online version of the federal standard investigation form, SF 86, will require a lot of background information. [Review page 7 of the SF 86 guide](https://www.dcsa.mil/Portals/91/Documents/pv/mbi/standard-form-sf-86-guide-for-applicants.pdf) for the list of information you'll need to collect to complete e-QIP
 ### Why?
 - [ ] Why is VA.gov using Drupal CMS and how is our success measured? Read the [objectives and key results](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/96698383/Product+CMS).
 - [ ] Why are Vet Centers important to Veterans? Watch the [2-minute YouTube video](https://www.youtube.com/watch?v=VMzkZNbKk1I).
@@ -212,7 +212,7 @@ By this point you should have enough context and access to be able to start cont
     - [ ] [Azure virtual desktop is recommended for Windows](https://www.oit.va.gov/resources/remote-access/azure-virtual-desktop/)
     - [ ] Mac users should [follow these Citrix Access Gateway (CAG) download instructions](https://docs.google.com/document/d/1_3HKMk4AXyqAoQcfF4CthEQ7uU_d1h9Tt7CPHGJ-FaM)
 - [ ] [What is Drupal?](https://docs.google.com/spreadsheets/d/11ppWiIggKJh-YAWia28utZXW48tJZGCEg-sFJ6eIl9c)
-- [ ] [Google Analytics](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=joanneesteban%2C+bsmartin-ep%2C+jonwehausen&labels=analytics-insights%2C+analytics-request&template=analytics-request-google-analytics-access.md&title=Request+access+to+Google+Analytics)
+- [ ] Google Analytics: [Request access to Google Analytics](https://depo-platform-documentation.scrollhelp.site/analytics-monitoring/New-Users-to-Google-Analytics.1877704964.html)
   - [ ] [Opt out](https://www.va.gov/analytics-opt-out.html) of Google Analytics collection on VA.gov.
   - [ ] [Opt out](https://depo-platform-documentation.scrollhelp.site/?internal-user-opt-out=true) of analytics for Platform's website. You will not get a confirmation message and will have to do this for every browser and every time you clear cookies.
 - [ ] [Browse the VA Drupal CMS Knowlege Base articles](https://prod.cms.va.gov/help/).

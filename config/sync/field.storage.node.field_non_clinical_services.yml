@@ -1,17 +1,18 @@
-uuid: c40735e9-fdd2-4250-aab6-9c010c2b4917
+uuid: 442ce05a-3895-45fe-ad71-8539cf3bf93d
 langcode: en
 status: true
 dependencies:
   module:
-    - datetime
     - node
-id: node.field_page_last_built
-field_name: field_page_last_built
+    - viewfield
+    - views
+id: node.field_non_clinical_services
+field_name: field_non_clinical_services
 entity_type: node
-type: datetime
+type: viewfield
 settings:
-  datetime_type: datetime
-module: datetime
+  target_type: view
+module: viewfield
 locked: false
 cardinality: 1
 translatable: true

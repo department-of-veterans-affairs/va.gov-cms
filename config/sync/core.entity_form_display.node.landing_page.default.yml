@@ -13,7 +13,6 @@ dependencies:
     - field.field.node.landing_page.field_links
     - field.field.node.landing_page.field_meta_tags
     - field.field.node.landing_page.field_meta_title
-    - field.field.node.landing_page.field_page_last_built
     - field.field.node.landing_page.field_plainlanguage_date
     - field.field.node.landing_page.field_promo
     - field.field.node.landing_page.field_related_links
@@ -26,7 +25,6 @@ dependencies:
     - workflows.workflow.editorial
   module:
     - content_moderation
-    - datetime
     - entity_browser
     - field_group
     - inline_entity_form
@@ -245,12 +243,6 @@ content:
     third_party_settings: {  }
     type: string_textfield_with_counter
     region: content
-  field_page_last_built:
-    type: datetime_default
-    weight: 18
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_promo:
     weight: 18
     settings: {  }

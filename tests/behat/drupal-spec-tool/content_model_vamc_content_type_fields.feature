@@ -207,7 +207,8 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System Billing and Insurance | Enforce unique combo office | field_enforce_unique_combo_offic | Allow Only One |  | 1 | Allow Only One widget |  |
 | Content type | VAMC System Billing and Insurance | Hours | field_hours_for_copay_inquiries_ | Office hours |  | Unlimited | Office hours (week) |  |
 | Content type | VAMC System Billing and Insurance | Phone number | field_phone_number | Telephone number |  | 1 | Telephone number | Translatable |
-| Content type | VAMC System Billing and Insurance | Service | field_service_name_and_descripti | Entity reference |  | 1 | Select list | Translatable |
+| Content type | VAMC System Billing and Insurance | Service | field_service_name_and_descripti | Entity reference |  | 1 | -- Disabled -- | Translatable |
+| Content type | VAMC System Billing and Insurance | Non-clinical Services | field_non_clinical_services | Viewfield |  | 1 | Viewfield | Translatable |
 | Content type | VAMC System Medical Records Office | Fax number | field_fax_number | Telephone number |  | 1 | Telephone number |  |
 | Content type | VAMC System Medical Records Office | Mailing address | field_vamc_med_records_mailing | Address |  | 1 | Address |  |
 | Content type | VAMC System Medical Records Office | Service | field_service_name_and_descripti | Entity reference |  | 1 | -- Disabled -- | Translatable |
@@ -222,6 +223,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System Medical Records Office | Enforce unique combo office | field_enforce_unique_combo_offic | Allow Only One |  | 1 | Allow Only One widget | Translatable |
 | Content type | VAMC System Medical Records Office | Enforce unique combo section  | field_enforce_unique_combo | Allow Only One |  | 1 | Allow Only One widget | Translatable |
 | Content type | VAMC System Medical Records Office | VAMC System | field_office | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | VAMC System Medical Records Office | Non-clinical Services | field_non_clinical_services | Viewfield |  | 1 | Viewfield | Translatable |
 | Content type | VAMC System Register for Care | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC System Register for Care | National bottom of page content | field_cc_bottom_of_page_content | Entity Field Fetch field |  | 1 | Entity Field Fetch widget | Translatable |
 | Content type | VAMC System Register for Care | National top of page content | field_cc_top_of_page_content | Entity Field Fetch field |  | 1 | Entity Field Fetch widget | Translatable |
@@ -229,4 +231,5 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System Register for Care | Enforce unique combo office | field_enforce_unique_combo_offic | Allow Only One |  | 1 | Allow Only One widget | Translatable |
 | Content type | VAMC System Register for Care | Enforce unique combo section  | field_enforce_unique_combo | Allow Only One |  | 1 | Allow Only One widget | Translatable |
 | Content type | VAMC System Register for Care | VAMC System | field_office | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | VAMC System Register for Care | Service | field_service_name_and_descripti | Entity reference |  | 1 | Select list | Translatable |
+| Content type | VAMC System Register for Care | Service | field_service_name_and_descripti | Entity reference |  | 1 | -- Disabled -- | Translatable |
+| Content type | VAMC System Register for Care | Non-clinical Services | field_non_clinical_services | Viewfield |  | 1 | Viewfield |  |
