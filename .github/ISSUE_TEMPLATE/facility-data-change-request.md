@@ -90,6 +90,7 @@ assignees: ''
 - Is the facility published? 
   - If yes, go to next step. 
   - [ ] If no, update URLs for all content in that section by bulk operations.
+- [ ] Coordinate with Facilities team to have FE redirects set up.
 - [ ] CMS engineer bulk updates node titles for services.
 - [ ] CMS engineer updates URLs.
 - Was a Section created?
