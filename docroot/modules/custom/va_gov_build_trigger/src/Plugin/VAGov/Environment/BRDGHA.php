@@ -6,7 +6,6 @@ use Drupal\Core\Site\Settings;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentPluginBase;
 use Drupal\va_gov_build_trigger\Form\BrdBuildTriggerForm;
-use Drupal\va_gov_build_trigger\Service\BuildTimeRecorderInterface;
 use Drupal\va_gov_build_trigger\WebBuildCommandBuilder;
 use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
 use Drupal\va_gov_consumers\Git\GithubAdapter;
@@ -33,13 +32,6 @@ class BRDGHA extends EnvironmentPluginBase {
   protected $settings;
 
   /**
-   * Build Time Recorder.
-   *
-   * @var \Drupal\va_gov_build_trigger\Service\BuildTimeRecorderInterface
-   */
-  protected $buildTimeRecorder;
-
-  /**
    * Github API adapter.
    *
    * @var \Drupal\va_gov_consumers\Git\GithubAdapter
@@ -57,7 +49,6 @@ class BRDGHA extends EnvironmentPluginBase {
     WebBuildStatusInterface $webBuildStatus,
     WebBuildCommandBuilder $webBuildCommandBuilder,
     Settings $settings,
-    BuildTimeRecorderInterface $buildTimeRecorder,
     GithubAdapter $githubAdapter
   ) {
     parent::__construct(
@@ -69,7 +60,6 @@ class BRDGHA extends EnvironmentPluginBase {
       $webBuildCommandBuilder
     );
     $this->settings = $settings;
-    $this->buildTimeRecorder = $buildTimeRecorder;
     $this->githubAdapter = $githubAdapter;
   }
 
@@ -85,7 +75,6 @@ class BRDGHA extends EnvironmentPluginBase {
       $container->get('va_gov.build_trigger.web_build_status'),
       $container->get('va_gov.build_trigger.web_build_command_builder'),
       $container->get('settings'),
-      $container->get('va_gov_build_trigger.build_time_recorder'),
       $container->get('va_gov.consumers.github.content_build')
     );
   }
@@ -101,7 +90,6 @@ class BRDGHA extends EnvironmentPluginBase {
         'release_wait' => "0",
         'deploy_environment' => $this->settings->get('github_actions_deploy_env'),
       ]);
-      $this->buildTimeRecorder->recordBuildTime();
       $vars = [
         '@job_link' => 'https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml',
       ];

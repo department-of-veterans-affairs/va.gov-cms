@@ -12,3 +12,23 @@ function vagovclaro_preprocess_html(&$variables) {
   $is_admin = \Drupal::service('va_gov_user.user_perms')->hasAdminRole(TRUE) ? 'admin' : 'not-admin';
   $variables['attributes']['class'][] = 'role-' . $is_admin;
 }
+
+/**
+ * Implements hook_preprocess_form_element().
+ */
+function vagovclaro_preprocess_form_element(&$variables) {
+  // Moves help text above inputs after labels for form elements.
+  if (isset($variables['description_display']) && $variables['description_display'] !== 'invisible') {
+    $variables['description_display'] = 'before';
+  }
+}
+
+/**
+ * Implements hook_preprocess_container().
+ */
+function vagovclaro_preprocess_container(&$variables) {
+  // Adds help text style to descriptions in nested paragraph field.
+  if (!empty($variables['attributes']['id']) && $variables['attributes']['id'] === 'edit-field-related-links-description') {
+    $variables['attributes']['class'][] = 'form-item__description';
+  }
+}

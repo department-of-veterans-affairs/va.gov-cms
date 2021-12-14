@@ -210,6 +210,7 @@ class RolesPermissionsTest extends ExistingSiteBase {
         [
           'create vet_center_cap content',
           'create vet_center_facility_health_servi content',
+          'delete any vet_center_facility_health_servi content',
           'view node link report',
         ],
       ],

@@ -2,7 +2,7 @@
 
 namespace Drupal\va_gov_consumers\Git;
 
-use Github\Client;
+use Github\AuthMethod;
 use Github\Exception\InvalidArgumentException;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
@@ -32,7 +32,7 @@ class GithubFactory implements ContainerAwareInterface {
 
     try {
       if ($token) {
-        $github->authenticate($token, NULL, Client::AUTH_ACCESS_TOKEN);
+        $github->authenticate($token, NULL, AuthMethod::ACCESS_TOKEN);
       }
     }
     catch (InvalidArgumentException $e) {

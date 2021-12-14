@@ -31,7 +31,7 @@
           ".field--type-entity-reference.field--name-field-health-services .field--type-entity-reference.field--name-field-administration"
         );
         // Hide the selects.
-        if (allOffices && allAdmins) {
+        if (allAdmins) {
           allOffices.forEach((office) => {
             office.style.display = "none";
           });

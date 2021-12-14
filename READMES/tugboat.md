@@ -82,6 +82,7 @@ For example, when creating the 'Wilmington health care' demo environment, these 
 | See why my deploy failed | Go to the dashboard, find your PR and click the 'php' service title, then click "build logs" |
 | Lock my environment from getting deleted, like after my PR is closed. | Use the "LOCK" action |
 | Manually create an environment from a branch, tag, or pull request | First push to upstream, then go to branches and click "Build Preview" |
+| Test a different `content_build` branch | Go to the Release Content page and select your branch in the autocomplete.  See https://prod.cms.va.gov/help/how-to-release-content-in-the-demo-environment |
 
 ## Less common Tugboat operations
 

@@ -139,6 +139,7 @@
         "drupal/toolbar_menu": "^2.1",
         "drupal/user_history": "^1.0@alpha",
         "drupal/video_embed_media": "^2.2",
+        "drupal/viewfield": "^3.0@beta",
         "drupal/views_bulk_edit": "^2.3",
         "drupal/views_bulk_operations": "^3.11",
         "drupal/views_data_export": "^1.0@beta",
@@ -171,7 +172,7 @@
         "symfony/process": "^4.0",
         "symfony/routing": "^4.0",
         "traviscarden/behat-table-comparison": "~0.2",
-        "va-gov/content-build": "^0.0.1878",
+        "va-gov/content-build": "^0.0.1957",
         "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
@@ -358,7 +359,9 @@
                 "3229493 - TextareaWidget::errorElement() does not consult violation property path.": "https://www.drupal.org/files/issues/2021-08-23/test_module-3229493-2.patch",
                 "3027240 - Undefined index: #parents FormState.php": "https://www.drupal.org/files/issues/2019-01-21/form_system-undefined_index-3027240-2.patch",
                 "3096790 - Remove aria-required attribute": "https://www.drupal.org/files/issues/2021-09-28/drupal-remove-aria-require-3096790-7.patch",
-                "3219165 - Seven inactive vertical tabs do not meet contrast requirements": "https://www.drupal.org/files/issues/2021-06-16/3219165-3.patch"
+                "3219165 - Seven inactive vertical tabs do not meet contrast requirements": "https://www.drupal.org/files/issues/2021-06-16/3219165-3.patch",
+                "2421145 - Text format wrapper does not take description_display into account": "https://www.drupal.org/files/issues/2021-12-03/2421445-18_0.patch",
+                "Internal Claro tweaks": "patches/claro-css-tweaks.patch"
             },
             "drupal/entity_browser": {
                 "Entity display plugin Rendered Entity is missing cache tags/keys": "https://www.drupal.org/files/issues/2020-03-31/rendered-entity-cache-keys-tags-3123876-2.patch",
@@ -456,6 +459,9 @@
             },
             "drupal/textfield_counter": {
                 "Prevent form submission when character limit exceeded option does not work": "https://www.drupal.org/files/issues/2018-10-04/textfield_counter-prevent_form_submission_does_not_work-3004457-2.patch"
+            },
+            "drupal/viewfield": {
+              "Add option to display default view on node edit when always use default value selected": "https://www.drupal.org/files/issues/2021-12-09/viewfield-option-display-default-view-on-node-edit-3252356-2.patch"
             },
             "drupal/workbench_access": {
                 "3118596 - Cache isn't invalidated after user is removed from section/added to section.": "https://www.drupal.org/files/issues/2020-06-30/3118596_workbench_access-user-cache-18.patch"
@@ -581,7 +587,9 @@
             "yarn -v",
             "./scripts/composer/check_yarn_version.sh",
             "cd web && yarn run install-repos",
-            "export NODE_EXTRA_CA_CERTS=/etc/pki/tls/certs/ca-bundle.crt PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=TRUE; cd web && yarn install"
+            "export NODE_EXTRA_CA_CERTS=/etc/pki/tls/certs/ca-bundle.crt PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=TRUE; cd web && yarn install",
+            "export NODE_EXTRA_CA_CERTS=/etc/pki/tls/certs/ca-bundle.crt PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=TRUE; cd docroot/core && yarn install",
+            "cd docroot/core && yarn build:css"
         ],
         "va:web:server": [
             "cd web && yarn build"
