@@ -14,6 +14,7 @@ dependencies:
     - field.field.node.vamc_system_medical_records_offi.field_enforce_unique_combo
     - field.field.node.vamc_system_medical_records_offi.field_enforce_unique_combo_offic
     - field.field.node.vamc_system_medical_records_offi.field_fax_number
+    - field.field.node.vamc_system_medical_records_offi.field_non_clinical_services
     - field.field.node.vamc_system_medical_records_offi.field_office
     - field.field.node.vamc_system_medical_records_offi.field_service_name_and_descripti
     - field.field.node.vamc_system_medical_records_offi.field_vamc_med_records_mailing
@@ -26,6 +27,7 @@ dependencies:
     - entity_field_fetch
     - field_group
     - telephone
+    - viewfield
 third_party_settings:
   field_group:
     group_edit:
@@ -33,7 +35,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 10
+      weight: 11
       format_type: fieldset
       region: content
       format_settings:
@@ -247,6 +249,12 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
+    region: content
+  field_non_clinical_services:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    type: viewfield_select
     region: content
   field_office:
     weight: 3

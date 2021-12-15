@@ -1,0 +1,96 @@
+uuid: 2235f6cd-e13b-4c44-9ada-e0c7d2a92633
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_non_clinical_services
+    - node.type.vamc_system_billing_insurance
+    - views.view.non_clinical_services
+  module:
+    - viewfield
+id: node.vamc_system_billing_insurance.field_non_clinical_services
+field_name: field_non_clinical_services
+entity_type: node
+bundle: vamc_system_billing_insurance
+label: 'Non-clinical Services'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    token_help: ''
+    display_id: billing_and_insurance
+    arguments: '[node:field_office:target_id]'
+    items_to_display: ''
+    target_uuid: a9e07b4c-6178-43d4-a7e3-57d67e85dbd6
+default_value_callback: ''
+settings:
+  force_default: true
+  display_on_edit: true
+  allowed_views:
+    administration_section: '0'
+    advancedqueue_jobs: '0'
+    benefit_hub_contact_information: '0'
+    benefits_hub_categories: '0'
+    benefits_hub_list: '0'
+    va_blocks_admin: '0'
+    build_info: '0'
+    child_terms: '0'
+    knowledge_base_search_results: '0'
+    content: '0'
+    content_entity_browsers: '0'
+    content_entity_reference_source: '0'
+    content_release_logs: '0'
+    content_served_from_drupal: '0'
+    custom_block_entity_browsers: '0'
+    block_content: '0'
+    detail_page_url_audit_and_bulk_udpate: '0'
+    facility_governance: '0'
+    file_browsers: '0'
+    files: '0'
+    frontpage: '0'
+    health_care_service_names_and_descriptions: '0'
+    image_style_warmer_warmup_files: '0'
+    knowledge_base_article_administration: '0'
+    local_facilities_entity_reference_view: '0'
+    locked_content: '0'
+    media: '0'
+    media_library: '0'
+    moderated_content: '0'
+    moderation_history: '0'
+    non_clinical_services: '0'
+    user_admin_people: '0'
+    redirect: '0'
+    rich_text_field_audit: '0'
+    right_sidebar_latest_revision: '0'
+    section_export: '0'
+    services: '0'
+    taxonomy_entity_browsers: '0'
+    taxonomy_term: '0'
+    user_creation_editing_activity: '0'
+    user_email_csv: '0'
+    user_history: '0'
+    user_history_list: '0'
+    users_in_section: '0'
+    va_forms: '0'
+    vamc_alerts_and_operating_statuses: '0'
+    vamc_operating_statuses: '0'
+    vamcs: '0'
+    vamc_top_task_page_revisions: '0'
+    vet_center_facility_listing: '0'
+    vet_centers: '0'
+    vha_health_service_taxonomy: '0'
+    watchdog: '0'
+  allowed_display_types:
+    block: block
+    attachment: '0'
+    data_export: '0'
+    default: '0'
+    entity_browser: '0'
+    entity_reference: '0'
+    feed: '0'
+    page: '0'
+    rest_export: '0'
+  handler: 'default:view'
+  handler_settings: {  }
+field_type: viewfield
