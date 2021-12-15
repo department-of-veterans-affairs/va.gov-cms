@@ -74,4 +74,27 @@ function vagovclaro_form_user_login_form_alter(&$form, FormStateInterface $form_
       'class' => ['simplesamlphp-auth-login-link'],
     ],
   ];
+
+  // Put the get help button inline with login form actions.
+  // Similar render array found in va_gov_help_center.module.
+  $form['actions']['get_help'] = [
+    '#type' => 'link',
+    '#url' => Url::fromRoute('entity.node.canonical', ['node' => 26856]),
+    '#title' => t('Get help'),
+    '#attributes' => [
+      'class' => [
+        'button',
+        'button--primary',
+      ],
+      'id' => [
+        'get-help-button2',
+      ],
+      'hreflang' => [
+        'en',
+      ],
+      'lang' => [
+        'en',
+      ],
+    ],
+  ];
 }
