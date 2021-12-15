@@ -1,0 +1,59 @@
+:root {
+  /*
+   * Our vagovclaro variables.
+   */
+  --color-white: #fff;
+  --color-gray-lightest: #f1f1f1;
+  --color-gray-lighter: #d6d7d9;
+  --color-gray-light: #aeb0b5;
+  --color-gray-dark: #757575;
+  --color-gray-darker: #212121;
+  --color-gray-darkest: #323a45;
+  --color-black: #000;
+
+  --color-blue-lightest: #e1f3f8;
+  --color-blue: #3e94cf;
+  --color-blue-dark: #0071bb;
+  --color-blue-darker: #003e73;
+  --color-blue-darkest: #112e51;
+
+  --color-warning: #fdb81e;
+  --color-error: #e31c3d;
+  --color-success: #2e8540;
+  --color-status: #02bfe7;
+
+  // fonts loaded in <head> in html.html.twig
+  --font-family-sans: 'Source Sans Pro', sans-serif;
+  --font-family-serif: 'Bitter', serif;
+
+  // Based on :root font-size of 16px, 1rem = 16px
+  --spacing-xxs: 0.25rem; // 4px
+  --spacing-xs: 0.5rem; // 8px
+  --spacing-s: 0.75rem; // 12px
+  --spacing-m: 1rem; // 16px
+  --spacing-l: 1.5rem; // 24px
+  --spacing-xl: 3rem; // 48px
+
+  /*
+   * Variables originally defined in core/themes/claro, overridden here.
+   */
+  --color-absolutezero: var(--color-blue-dark);
+  --color-absolutezero-hover: var(--color-blue-darker);
+  --color-absolutezero-active: var(--color-blue-darker);
+  --color-sunglow: var(--color-warning);
+  --color-maximumred: var(--color-error);
+  --color-lightninggreen: var(--color-success);
+  --color-lightgray: var(--color-gray-lighter);
+  --color-whitesmoke: var(--color-gray-lightest);
+  --color-text: var(--color-gray-darker);
+  --color-grayblue: var(--color-gray-light);
+  --color-davysgray: var(--color-gray-dark);
+  --color-bgblue-hover: var(--color-blue-lightest);
+  --color-bgblue-active: var(--color-blue-lightest);
+
+  --font-family: var(--font-family-sans);
+
+  --color-divider: var(--color-gray-dark);
+  --input--hover-border-color: var(--color-gray-dark);
+  --tabs-hover-bg-color: var(--color-blue-lightest);
+}

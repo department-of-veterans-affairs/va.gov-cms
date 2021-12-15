@@ -30,6 +30,10 @@
     <title>{{ head_title|safe_join(' | ') }}</title>
     <css-placeholder token="{{ placeholder_token|raw }}">
     <js-placeholder token="{{ placeholder_token|raw }}">
+    {# took these font links from the frontend of va.gov but CORS doesn't like them... #}
+    <link rel="preload" href="https://prod-va-gov-assets.s3-us-gov-west-1.amazonaws.com/generated/sourcesanspro-bold-webfont.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="https://prod-va-gov-assets.s3-us-gov-west-1.amazonaws.com/generated/bitter-bold.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="https://prod-va-gov-assets.s3-us-gov-west-1.amazonaws.com/generated/sourcesanspro-regular-webfont.woff2" as="font" type="font/woff2" crossorigin="">
   </head>
   {%
     set additional_body_classes = [
