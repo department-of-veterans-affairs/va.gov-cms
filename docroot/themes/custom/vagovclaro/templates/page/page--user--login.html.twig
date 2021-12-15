@@ -42,12 +42,11 @@
 <header class="va-login-header content-header clearfix">
   <div class="layout-container">
     <img class="va-header-logo" src="{{ directory }}/images/header-logo.png"/>
-    {{ page.breadcrumb }}
-    {{ page.header }}
+    <h1 class="visually-hidden">{{ page['#title'] }}</h1>
   </div>
 </header>
 
-<div class="layout-container">
+<div class="layout-container layout-container--login">
   {{ page.pre_content }}
   <main class="page-content clearfix" role="main">
     <div class="visually-hidden"><a id="main-content" tabindex="-1"></a></div>
@@ -59,5 +58,4 @@
     {% endif %}
     {{ page.content }}
   </main>
-
 </div>
