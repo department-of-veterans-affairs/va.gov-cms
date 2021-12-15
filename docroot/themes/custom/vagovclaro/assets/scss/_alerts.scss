@@ -1,42 +1,45 @@
+//drupal alert styles
 .va-alert {
-  background-color: #f1f1f1;
+  background-color: var(--color-gray-lightest);
   border-left-style: solid;
   border-left-width: 10px;
   box-sizing: border-box;
-  color: #323a45;
+  color: var(--color-gray-darkest);
   padding: 3.2rem 6.4rem 3.2rem 2.4rem;
   vertical-align: middle;
   width: 100%;
 }
 
 .va-alert.messages--warning {
-  border-color: #fdb81e;
+  border-color: var(--color-warning);
 }
 
 .va-alert.messages--warning a {
-  color: #fdb81e;
+  color: var(--color-warning);
 }
 
 .va-alert.messages--success {
-  border-color: #2e8540;
+  border-color: var(--color-success);
 }
 
 .va-alert.messages--success a {
-  color: #2e8540;
+  color: var(--color-success);
 }
 
 .va-alert.messages--error {
-  border-color: #cd2026;
+  border-color: var(--color-error);
 }
 
 .va-alert.messages--error a {
-  color: #cd2026;
+  color: var(--color-error);
 }
 
 .va-alert.messages--status {
-  border-color: #00a6d2;
+  border-color: var(--color-status);
 }
 
 .va-alert.messages--status a {
-  color: #00a6d2;
+  color: var(--color-status);
 }
+
+// site alert styles
