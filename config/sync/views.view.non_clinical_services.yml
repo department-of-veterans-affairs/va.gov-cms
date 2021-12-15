@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.node.field_administration
     - node.type.vha_facility_nonclinical_service
     - taxonomy.vocabulary.health_care_service_taxonomy
   content:
@@ -513,7 +514,7 @@ display:
   admissions_offices:
     display_plugin: block
     id: admissions_offices
-    display_title: 'Admissions offices'
+    display_title: 'Admissions Offices'
     position: 2
     display_options:
       display_extenders: {  }
@@ -527,9 +528,9 @@ display:
           group_type: group
           admin_label: ''
           empty: true
-          tokenize: false
+          tokenize: true
           content:
-            value: '<p><a href="/node/add/vha_facility_nonclinical_service?edit[field_office][widget][0][target_id]=123&edit[field_service_name_and_descripti][widget][0][target_id]=1025">Add an admissions office</a> (opens in a new window).</p>'
+            value: '<p><a href="/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1025&field_administration={{ field_administration }}" target="_blank">Add an admissions office</a> (opens in a new window).</p>'
             format: rich_text
           plugin_id: text
       defaults:
@@ -537,7 +538,7 @@ display:
         title: false
         arguments: false
         fields: false
-      title: 'Admissions offices'
+      title: 'Admissions Offices'
       arguments:
         nid:
           id: nid
@@ -888,6 +889,68 @@ display:
           entity_type: node
           entity_field: changed
           plugin_id: field
+        field_administration:
+          id: field_administration
+          table: node__field_administration
+          field: field_administration
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Section
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_entity_id
+          settings: {  }
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
     cache_metadata:
       max-age: -1
       contexts:
@@ -897,11 +960,12 @@ display:
         - url.query_args
         - user
         - 'user.node_grants:view'
-      tags: {  }
+      tags:
+        - 'config:field.storage.node.field_administration'
   billing_and_insurance:
     display_plugin: block
     id: billing_and_insurance
-    display_title: 'Billing and insurance offices'
+    display_title: 'Billing and Insurance Offices'
     position: 3
     display_options:
       display_extenders: {  }
@@ -915,9 +979,9 @@ display:
           group_type: group
           admin_label: ''
           empty: true
-          tokenize: false
+          tokenize: true
           content:
-            value: '<p><a href="/node/add/vha_facility_nonclinical_service?edit[field_office][widget][0][target_id]=123&edit[field_service_name_and_descripti][widget][0][target_id]=1027" target="_blank">Add a billing and insurance office</a> (opens in a new window).</p>'
+            value: '<p><a href="/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1027&field_administration={{ field_administration }}" target="_blank">Add a billing and insurance office</a> (opens in a new window).</p>'
             format: rich_text
           plugin_id: text
       defaults:
@@ -990,7 +1054,7 @@ display:
         operator: AND
         groups:
           1: AND
-      title: 'Billing and insurance offices'
+      title: 'Billing and Insurance Offices'
       arguments:
         nid:
           id: nid
@@ -1341,6 +1405,68 @@ display:
           entity_type: node
           entity_field: changed
           plugin_id: field
+        field_administration:
+          id: field_administration
+          table: node__field_administration
+          field: field_administration
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Section
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_entity_id
+          settings: {  }
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
     cache_metadata:
       max-age: -1
       contexts:
@@ -1350,11 +1476,12 @@ display:
         - url.query_args
         - user
         - 'user.node_grants:view'
-      tags: {  }
+      tags:
+        - 'config:field.storage.node.field_administration'
   medical_records_offices:
     display_plugin: block
     id: medical_records_offices
-    display_title: 'Medical records offices'
+    display_title: 'Medical Records Offices'
     position: 1
     display_options:
       display_extenders: {  }
@@ -1368,9 +1495,9 @@ display:
           group_type: group
           admin_label: ''
           empty: true
-          tokenize: false
+          tokenize: true
           content:
-            value: '<p><a href="/node/add/vha_facility_nonclinical_service?edit[field_office][widget][0][target_id]=123&edit[field_service_name_and_descripti][widget][0][target_id]=1026">Add a medical records office</a> (opens in a new window).</p>'
+            value: '<p><a href="/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1026&field_administration={{ field_administration }}" target="_blank">Add a medical records office</a> (opens in a new window).</p>'
             format: rich_text
           plugin_id: text
       defaults:
@@ -1379,6 +1506,7 @@ display:
         filter_groups: false
         arguments: false
         fields: false
+        title: false
       filters:
         type:
           id: type
@@ -1792,6 +1920,69 @@ display:
           entity_type: node
           entity_field: changed
           plugin_id: field
+        field_administration:
+          id: field_administration
+          table: node__field_administration
+          field: field_administration
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Section
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_entity_id
+          settings: {  }
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+      title: 'Medical Records Offices'
     cache_metadata:
       max-age: -1
       contexts:
@@ -1801,4 +1992,5 @@ display:
         - url.query_args
         - user
         - 'user.node_grants:view'
-      tags: {  }
+      tags:
+        - 'config:field.storage.node.field_administration'
