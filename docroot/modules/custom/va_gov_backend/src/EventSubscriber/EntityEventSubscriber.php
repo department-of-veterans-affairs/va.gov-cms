@@ -6,6 +6,7 @@ use Drupal\node\NodeInterface;
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\Core\Entity\EntityFieldManager;
 use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
@@ -42,6 +43,14 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   private $entityTypeManager;
 
   /**
+   * The entity field manager.
+   *
+   * @var \Drupal\Core\Entity\EntityFieldManager
+   *  The entity field manager.
+   */
+  private $entityFieldManager;
+
+  /**
    * Constructs the EventSubscriber object.
    *
    * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
@@ -49,16 +58,20 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    * @param \Drupal\va_gov_user\Service\UserPermsService $user_perms_service
    *   The current user perms service.
    * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
-   *   The string translation service.
+   *   The string entity type service.
+   * @param \Drupal\Core\Entity\EntityFieldManager $entity_field_manager
+   *   The entity field service.
    */
   public function __construct(
     TranslationInterface $string_translation,
     UserPermsService $user_perms_service,
-    EntityTypeManager $entity_type_manager
+    EntityTypeManager $entity_type_manager,
+    EntityFieldManager $entity_field_manager
   ) {
     $this->stringTranslation = $string_translation;
     $this->userPermsService = $user_perms_service;
     $this->entityTypeManager = $entity_type_manager;
+    $this->entityFieldManager = $entity_field_manager;
   }
 
   /**
@@ -133,13 +146,17 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public function buildHealthServicesDescriptionArrayAddToSettings(FormIdAlterEvent $event): void {
     $form = &$event->getForm();
     $form_state = $event->getFormState();
+    $entity_type = 'taxonomy_term';
+    $bundle = 'health_care_service_taxonomy';
     $fields = $this->getProductTypeTermFields($form, $form_state);
     $service_terms = $this->entityTypeManager
-      ->getListBuilder('taxonomy_term')
+      ->getListBuilder($entity_type)
       ->getStorage()
       ->loadByProperties([
-        'vid' => 'health_care_service_taxonomy',
+        'vid' => $bundle,
       ]);
+    // Use this to grab values in the term parent vocab.
+    $vocabulary_definition = $this->entityFieldManager->getFieldDefinitions($entity_type, $bundle);
     $descriptions = [];
     foreach ($service_terms as $service_term) {
       /** @var \Drupal\taxonomy\Entity\Term $service_term */
@@ -148,6 +165,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
         'name' => $service_term->get($fields['name'])->getString(),
         'conditions' => $service_term->get($fields['conditions'])->getString(),
         'description' => trim(strip_tags($service_term->get($fields['description'])->value)),
+        'vc_vocabulary_service_description_label' => $vocabulary_definition['field_vet_center_service_descrip']->getLabel(),
+        'vc_vocabulary_description_help_text' => $vocabulary_definition['field_vet_center_service_descrip']->getDescription(),
       ];
     }
     $form['#attached']['drupalSettings']['availableHealthServices'] = $descriptions;
