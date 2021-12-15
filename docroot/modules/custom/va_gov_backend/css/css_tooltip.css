@@ -50,7 +50,9 @@
 }
 
 [data-tippy]:hover::before,
-[data-tippy]:hover::after {
+[data-tippy]:hover::after ,
+[data-tippy]:focus::before,
+[data-tippy]:focus::after {
   transform: translate(-50%, 0);
 }
 
@@ -163,7 +165,9 @@
 /* hover */
 
 [data-tippy]:hover::before,
-[data-tippy]:hover::after {
+[data-tippy]:hover::after,
+[data-tippy]:focus::before,
+[data-tippy]:focus::after {
   opacity: 1;
 }
 
