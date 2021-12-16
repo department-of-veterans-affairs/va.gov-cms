@@ -70,12 +70,35 @@ display:
           description: ''
           columns:
             title: title
-            changed: changed
-            edit_node: edit_node
+            title_1: title_1
             moderation_state: moderation_state
+            edit_node: edit_node
+            changed: changed
+            field_administration: field_administration
           info:
             title:
               sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            title_1:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            moderation_state:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            edit_node:
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
@@ -88,15 +111,8 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            edit_node:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            moderation_state:
-              sortable: true
+            field_administration:
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
