@@ -1,0 +1,31 @@
+uuid: e717c611-3d87-439e-9600-834b0c894582
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_clp_connect_with_us
+    - node.type.campaign_landing_page
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    duplicate_reference: false
+id: node.campaign_landing_page.field_clp_connect_with_us
+field_name: field_clp_connect_with_us
+entity_type: node
+bundle: campaign_landing_page
+label: 'Add a "Connect with us" panel'
+description: 'Choose an administration from this list to display a set of social media and links to email lists.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: administration_section
+      display_name: clp_entity_reference
+      arguments: {  }
+field_type: entity_reference
