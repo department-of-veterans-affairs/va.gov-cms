@@ -2,7 +2,7 @@
 name: Facility data change request
 about: changing facility information in the CMS for VHA facilities
 title: 'Facility change: <insert_name>'
-labels: ''
+labels: 'Sitewide CMS, Change request'
 assignees: ''
 
 ---
@@ -56,7 +56,8 @@ assignees: ''
 <details><summary>VAMC – system name change</summary>
   
 - [ ] CMS team becomes aware of the new system name.
-- [ ] Coordinate with Facilities team to have FE redirects set up.
+- [ ] CMS team submits [Redirect request](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=mnorthuis&labels=ia&template=redirect-request.md&title=Redirect+Request), cc'ing Facilities team
+- [ ] Once timing of Redirect going live is known, alert CMS engineers to carry out the other steps
 - [ ] CMS engineer updates the Section.
 - [ ] CMS engineer bulk alias changes all nodes within the system. (https://prod.cms.va.gov/admin/content/bulk)
 - [ ] CMS engineer bulk saves to fix titles for all nodes within system. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
@@ -76,7 +77,8 @@ assignees: ''
 <details><summary>Vet Center – facility closure</summary>
   
 - [ ] CMS team becomes aware that the facility is no longer on the Facility API.
-- [ ] Coordinate with Facilities team to have FE redirects set up.
+- [ ] CMS team submits [Redirect request](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=mnorthuis&labels=ia&template=redirect-request.md&title=Redirect+Request), cc'ing Facilities team
+- [ ] Once timing of Redirect going live is known, alert CMS engineers to carry out the other steps
 - [ ] CMS engineer bulk unpublishes the nodes.
 - [ ] CMS engineer removes the Section.
 </details>
@@ -90,7 +92,8 @@ assignees: ''
 - Is the facility published? 
   - If yes, go to next step. 
   - [ ] If no, update URLs for all content in that section by bulk operations.
-- [ ] Coordinate with Facilities team to have FE redirects set up.
+- [ ] CMS team submits [Redirect request](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=mnorthuis&labels=ia&template=redirect-request.md&title=Redirect+Request), cc'ing Facilities team
+- [ ] Once timing of Redirect going live is known, alert CMS engineers to carry out the other steps
 - [ ] CMS engineer bulk updates node titles for services.
 - [ ] CMS engineer updates URLs.
 - Was a Section created?
@@ -103,5 +106,5 @@ assignees: ''
 
 CMS Team
 Please leave only the team that will do this work selected. If you're not sure, it's fine to leave both selected.
-- [X] Platform CMS Team
+- [ ] Platform CMS Team
 - [X] Sitewide CMS Team
