@@ -7,7 +7,12 @@ dependencies:
     - node.type.vamc_system_register_for_care
     - views.view.non_clinical_services
   module:
+    - epp
     - viewfield
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 1
 id: node.vamc_system_register_for_care.field_non_clinical_services
 field_name: field_non_clinical_services
 entity_type: node
@@ -20,7 +25,7 @@ default_value:
   -
     token_help: ''
     display_id: admissions_offices
-    arguments: '[node:field_office:target_id]'
+    arguments: '[node:field_office:target_id]/[node:field_administration:target_id]'
     items_to_display: ''
     target_uuid: a9e07b4c-6178-43d4-a7e3-57d67e85dbd6
 default_value_callback: ''

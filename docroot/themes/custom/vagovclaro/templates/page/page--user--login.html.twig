@@ -42,12 +42,16 @@
 <header class="va-login-header content-header clearfix">
   <div class="layout-container">
     <img class="va-header-logo" src="{{ directory }}/images/header-logo.png"/>
-    {{ page.breadcrumb }}
-    {{ page.header }}
+    <h1 class="visually-hidden">{{ page['#title'] }}</h1>
   </div>
 </header>
 
-<div class="layout-container">
+{# Only print sitealert block out of the header. Otherwise we get the reset your password tab #}
+{% if page.header.vagovclaro_sitealert %}
+  {{ page.header.vagovclaro_sitealert }}
+{% endif %}
+
+<div class="layout-container layout-container--login">
   {{ page.pre_content }}
   <main class="page-content clearfix" role="main">
     <div class="visually-hidden"><a id="main-content" tabindex="-1"></a></div>
@@ -57,7 +61,9 @@
         {{ page.help }}
       </div>
     {% endif %}
+
+    <p>A mission statement for the CMS editors could go in this space.</p>
+
     {{ page.content }}
   </main>
-
 </div>
