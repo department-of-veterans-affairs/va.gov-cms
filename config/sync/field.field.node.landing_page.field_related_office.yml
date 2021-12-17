@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.storage.node.field_related_office
     - node.type.landing_page
+    - node.type.office
   module:
     - entity_reference_validators
 third_party_settings:
@@ -16,17 +17,20 @@ id: node.landing_page.field_related_office
 field_name: field_related_office
 entity_type: node
 bundle: landing_page
-label: 'Add Connect with us block'
+label: 'Related office'
 description: ''
 required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: views
+  handler: 'default:node'
   handler_settings:
-    view:
-      view_name: content_entity_reference_source
-      display_name: entity_reference_7
-      arguments: {  }
+    target_bundles:
+      office: office
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
 field_type: entity_reference

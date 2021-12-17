@@ -1,0 +1,121 @@
+uuid: 19f66914-06e8-4f95-95da-4d9b0aaddc25
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_social_media_links
+    - taxonomy.vocabulary.administration
+  module:
+    - social_media_links_field
+id: taxonomy_term.administration.field_social_media_links
+field_name: field_social_media_links
+entity_type: taxonomy_term
+bundle: administration
+label: 'Social media links'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    platform: null
+    value: null
+    platform_values:
+      email:
+        value: ''
+      facebook:
+        value: ''
+      instagram:
+        value: ''
+      linkedin:
+        value: ''
+      twitter:
+        value: ''
+      youtube:
+        value: ''
+      youtube_channel:
+        value: ''
+default_value_callback: ''
+settings:
+  iconset: 'fontawesome:2x'
+  platforms:
+    behance:
+      description: ''
+      weight: '-10'
+      enabled: 0
+    bitbucket:
+      description: ''
+      weight: '-9'
+      enabled: 0
+    contact:
+      description: ''
+      weight: '-8'
+      enabled: 0
+    drupal:
+      description: ''
+      weight: '-7'
+      enabled: 0
+    email:
+      description: ''
+      weight: '-6'
+      enabled: 0
+    facebook:
+      enabled: '1'
+      description: ''
+      weight: '-5'
+    flickr:
+      description: ''
+      weight: '-4'
+      enabled: 0
+    github:
+      description: ''
+      weight: '-3'
+      enabled: 0
+    googleplus:
+      description: ''
+      weight: '-2'
+      enabled: 0
+    instagram:
+      enabled: '1'
+      description: ''
+      weight: '-1'
+    linkedin:
+      enabled: '1'
+      description: ''
+      weight: '0'
+    pinterest:
+      description: ''
+      weight: '1'
+      enabled: 0
+    rss:
+      description: ''
+      weight: '2'
+      enabled: 0
+    slideshare:
+      description: ''
+      weight: '3'
+      enabled: 0
+    tumblr:
+      description: ''
+      weight: '4'
+      enabled: 0
+    twitter:
+      enabled: '1'
+      description: ''
+      weight: '5'
+    vimeo:
+      description: ''
+      weight: '6'
+      enabled: 0
+    vkontakte:
+      description: ''
+      weight: '7'
+      enabled: 0
+    youtube:
+      enabled: '1'
+      description: ''
+      weight: '8'
+    youtube_channel:
+      enabled: '1'
+      description: ''
+      weight: '9'
+field_type: social_media_links_field

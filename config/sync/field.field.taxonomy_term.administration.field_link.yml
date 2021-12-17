@@ -1,0 +1,23 @@
+uuid: e26a9333-b299-4d93-8b74-620dc40a9472
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_link
+    - taxonomy.vocabulary.administration
+  module:
+    - link
+id: taxonomy_term.administration.field_link
+field_name: field_link
+entity_type: taxonomy_term
+bundle: administration
+label: Link
+description: 'The URL for the legacy landing page for this office, if it''s not the page you''re currently creating/editing.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 0
+field_type: link
