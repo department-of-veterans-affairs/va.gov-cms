@@ -10,6 +10,7 @@
 @import 'components/buttons';
 @import 'components/media';
 @import 'components/paragraphs';
+@import 'components/tooltip';
 @import 'pages/login-page';
 @import 'pages/kb-pages';
 @import 'pages/node-view';
@@ -177,32 +178,6 @@
 .field--name-field-facility-service-hours {
   .tablefield-addrow.button,
   .seven-details {
-    display: none;
-  }
-}
-
-.tooltip-layout {
-  border: 1px solid #c0c0c0;
-  border-radius: 2px;
-  margin: 1em 0;
-  min-width: 0;
-  padding: 30px 18px 18px;
-  position: relative;
-}
-
-.tooltip-toggle {
-  background-image: url('../../images/icons/questionmark-disc-000000.svg');
-  background-size: cover;
-  border: 0;
-  height: 25px;
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  width: 25px;
-}
-
-.tooltip-layout {
-  [id^='add-tooltip-'] {
     display: none;
   }
 }
