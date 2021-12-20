@@ -1,3 +1,20 @@
+.centralized {
+  background-color: #edede8 !important;
+
+  .data-updated a {
+    float: right;
+  }
+
+  .data-updated::after {
+    clear: both;
+    content: ' ';
+    display: block;
+    font-size: 0;
+    height: 0;
+    visibility: hidden;
+  }
+}
+
 .centralized-content {
   tr {
     border-bottom: transparent;
@@ -14,7 +31,7 @@
       display: none;
     }
 
-    #block-vagovadmin-content .layout-region-node-main {
+    #block-vagovclaro-content .layout-region-node-main {
       display: block;
 
       .js-form-type-textarea .js-form-required.form-required,

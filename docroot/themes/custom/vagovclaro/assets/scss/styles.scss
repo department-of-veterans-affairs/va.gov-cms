@@ -10,11 +10,11 @@
 @import 'components/buttons';
 @import 'components/media';
 @import 'components/paragraphs';
+//@import 'components/centralized_content';
 @import 'components/tooltip';
 @import 'pages/login-page';
 @import 'pages/kb-pages';
 @import 'pages/node-view';
-// @import 'centralized_content';
 // @import 'process_list';
 // @import 'services';
 // @import 'external_content';
@@ -186,24 +186,6 @@
   background-color: #edede8 !important;
 }
 
-
-.centralized {
-  background-color: #edede8 !important;
-
-  .data-updated a {
-    float: right;
-  }
-
-  .data-updated::after {
-    clear: both;
-    content: ' ';
-    display: block;
-    font-size: 0;
-    height: 0;
-    visibility: hidden;
-  }
-}
-
 .claro-spinner {
   background-image: url('../../../../../core/themes/claro/images/spinner-ltr.gif');
 }
@@ -214,25 +196,6 @@
       pointer-events: none;
     }
   }
-}
-
-#get-help-button {
-  background-color: #1179bf;
-  border-radius: 999px;
-  bottom: 150px;
-  color: #fff;
-  cursor: pointer;
-  font-size: 18px;
-  font-weight: 700;
-  height: 50px;
-  line-height: 50px;
-  outline: none;
-  padding: 0 20px;
-  position: fixed;
-  right: 20px;
-  text-align: center;
-  text-decoration: none;
-  white-space: nowrap;
 }
 
 .field--name-field-facility-hours table tr td p {
