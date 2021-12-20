@@ -11,13 +11,12 @@ with PHP-CLI and SQLite.
 
 See [the codespaces README](./codespaces.md) to get a fully functional cloud-based development environment.
 
-## Step 1: Get Source Code.
+## Step 1: Get Source Code / Git Setup
 
 - Fork the repo by pressing the "Fork" button: [github.com/department-of-veterans-affairs/va.gov-cms](https://github.com/department-of-veterans-affairs/va.gov-cms)
-- Clone your fork:
-
+- Clone your fork.
   ```sh
-   $ git clone git@github.com:YOUR-GITHUB-USERNAME/va.gov-cms
+   $ git clone git@github.com:YOUR-GITHUB-USERNAME/va.gov-cms.git
    $ cd va.gov-cms
   ```
 
@@ -26,18 +25,55 @@ See [the codespaces README](./codespaces.md) to get a fully functional cloud-bas
   ```sh
   $ git remote add upstream git@github.com:department-of-veterans-affairs/va.gov-cms.git
   ```
+* Optionally rename your fork so its name is more meaningful and ensures your upstream and origin are not misnamed.
+  ```sh
+  $ git remote rename origin myfork
+  ```
+* Verify your remotes, it should list upstream and myfork/origin as remotes.
+  ```sh
+  $ git remote -v
 
-  You should periodically update your branch from `upstream:main` branch:
+  myfork  git@github.com:YOUR_GIT_USERNAME/va.gov-cms.git (fetch)
+  myfork  git@github.com:YOUR_GIT_USERNAME/va.gov-cms.git (push)
+  upstream        git@github.com:department-of-veterans-affairs/va.gov-cms.git (fetch)
+  upstream        git@github.com:department-of-veterans-affairs/va.gov-cms.git (push)
+  ```
+* Make sure your local repo is aware of what's on the remotes.
+  ```sh
+  $ git fetch --all
+  ```
+
+* Make sure git is not tracking perms
+  ```sh
+  $ git config core.fileMode false
+  $ git config --global core.fileMode false
+  ```
+
+* Make sure rebase is your default
+  ```sh
+  $ git config --global branch.autosetuprebase always
+  $ git config --global branch.main.rebase true
+  ```
+
+* Make branch main always pulls from the remote: upstream.
+  ```sh
+  $ git checkout main
+  $ git branch --set-upstream-to upstream/main
+  ```
+
+*  Make changes to simplesaml storage not be tracked locally.
+
+  ```sh
+   git update-index --skip-worktree samlsessiondb.sq3
+  ```
+
+  You should periodically update your branch from `upstream main` branch:
 
   ```sh
    $ git pull upstream main
   ```
 
-  Make changes to simplesaml storage not be tracked locally.
 
-  ```sh
-   git update-index --skip-worktree samlsessiondb.sq3
-  ```
 
 ## Step 2: Launch development environment
 
