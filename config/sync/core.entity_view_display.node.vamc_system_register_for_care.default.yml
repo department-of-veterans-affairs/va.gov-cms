@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.vamc_system_register_for_care.field_cc_top_of_page_content
     - field.field.node.vamc_system_register_for_care.field_enforce_unique_combo
     - field.field.node.vamc_system_register_for_care.field_enforce_unique_combo_offic
+    - field.field.node.vamc_system_register_for_care.field_non_clinical_services
     - field.field.node.vamc_system_register_for_care.field_office
     - field.field.node.vamc_system_register_for_care.field_service_name_and_descripti
     - node.type.vamc_system_register_for_care
@@ -16,6 +17,7 @@ dependencies:
     - entity_field_fetch
     - field_group
     - user
+    - viewfield
 third_party_settings:
   field_group:
     group_national_content:
@@ -47,14 +49,14 @@ mode: default
 content:
   field_cc_bottom_of_page_content:
     type: entity_field_fetch
-    weight: 7
+    weight: 8
     region: content
     label: above
     settings: {  }
     third_party_settings: {  }
   field_cc_related_links:
     type: entity_field_fetch
-    weight: 6
+    weight: 7
     region: content
     label: above
     settings: {  }
@@ -66,13 +68,15 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-  field_service_name_and_descripti:
-    weight: 8
-    label: above
+  field_non_clinical_services:
+    weight: 2
+    label: hidden
     settings:
-      link: true
+      view_title: above
+      always_build_output: true
+      empty_view_title: above
     third_party_settings: {  }
-    type: entity_reference_label
+    type: viewfield_default
     region: content
   links:
     weight: 0
@@ -85,4 +89,5 @@ hidden:
   field_enforce_unique_combo: true
   field_enforce_unique_combo_offic: true
   field_office: true
+  field_service_name_and_descripti: true
   search_api_excerpt: true
