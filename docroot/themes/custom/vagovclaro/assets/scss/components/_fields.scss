@@ -1,0 +1,123 @@
+.field--name-field-phone-number {
+  .form-type-textfield {
+    float: left;
+  }
+}
+
+.field--name-field-phone-extension {
+  .form-type-textfield {
+    float: left;
+    margin-left: 20px;
+  }
+}
+
+.field--name-field-phone-label {
+  clear: both;
+}
+
+.paragraph-type--service-location-address {
+  .field--type-address {
+    display: none;
+  }
+}
+
+.field--type-smartdate {
+  .smartdate--widget {
+    .allday-label {
+      clear: both;
+      display: block;
+      float: none;
+
+      input.allday {
+        margin: 0.65em 0.5em 0 6em;
+      }
+    }
+  }
+}
+
+.downloadable-file-link {
+  padding-left: 20px;
+  position: relative;
+
+  &::before {
+    background-repeat: no-repeat;
+    background-size: contain;
+    content: '';
+    display: block;
+    height: 16px;
+    position: absolute;
+    top: 2px;
+    width: 16px;
+  }
+}
+
+.downloadable-file-link--document::before {
+  background-image: url('../../images/icons/download-000000.svg');
+}
+
+.downloadable-file-link--video::before {
+  background-image: url('../../images/icons/play-000000.svg');
+}
+
+.downloadable-file-link--image::before {
+  background-image: url('../../images/icons/download-000000.svg');
+}
+
+.item-list {
+  .qa-list {
+    margin-left: 0;
+
+    li {
+      list-style: none;
+      margin-left: 0;
+      padding: 10px 0 0;
+    }
+  }
+}
+
+#field-clp-spotlight-cta-add-more-wrapper,
+#field-clp-spotlight-cta-add-more-wrapper,
+.field--name-field-primary-call-to-action,
+.field--name-field-clp-faq-paragraphs {
+  .clearfix::after {
+    clear: none;
+  }
+
+  [id^='edit-field-tags-0-subform-field-non-beneficiares-wrapper'] {
+    display: none;
+  }
+}
+
+.visual-layout-svg {
+  padding-bottom: 55px;
+  padding-left: 0;
+  padding-right: 30px;
+  padding-top: 30px;
+}
+
+.field--name-field-service-location .paragraph-type-title {
+  display: none;
+}
+
+.field--name-field-facility-service-hours {
+  .tablefield-addrow.button,
+  .seven-details {
+    display: none;
+  }
+}
+
+.claro-spinner {
+  background-image: url('../../../../../core/themes/claro/images/spinner-ltr.gif');
+}
+
+#edit-group-facility-api {
+  .field--name-field-facility-hours {
+    input {
+      pointer-events: none;
+    }
+  }
+}
+
+.field--name-field-facility-hours table tr td p {
+  margin: 0;
+}
