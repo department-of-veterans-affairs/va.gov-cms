@@ -21,7 +21,7 @@
 }
 
 #block-entitymetadisplay {
-  border: 1px solid #c0c0c0;
+  border: 1px solid var(--color-gray-light);
   border-radius: 2px;
   margin: 1em 0;
   padding: 10px 18px;
@@ -45,6 +45,25 @@ p.vc-help-text {
 
     &:hover {
       opacity: 0.8;
+    }
+  }
+}
+
+.visual-layout-svg {
+  padding-bottom: 55px;
+  padding-left: 0;
+  padding-right: 30px;
+  padding-top: 30px;
+}
+
+.item-list {
+  .qa-list {
+    margin-left: 0;
+
+    li {
+      list-style: none;
+      margin-left: 0;
+      padding: 10px 0 0;
     }
   }
 }
