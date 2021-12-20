@@ -16,10 +16,10 @@
       "name": "Listen for XDebug (ddev)",
       "type": "php",
       "request": "launch",
+      "hostname": "0.0.0.0",
       "port": 9000,
-      "log": false,
       "pathMappings": {
-        "/var/www/html/": "${workspaceFolder}"
+        "/var/www/html": "${workspaceRoot}"
       }
     }
   ]

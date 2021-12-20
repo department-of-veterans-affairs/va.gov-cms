@@ -11,6 +11,9 @@ services:
     class: Drupal\va_gov_backend\Routing\RouteSubscriber
     tags:
       - { name: event_subscriber }
+  va_gov_backend.va_gov_tooltip_textfield:
+    class: Drupal\va_gov_backend\Plugin\Field\FieldWidget\TooltipTextFieldFormatter.php
+    arguments: ['@string_translation']
   va_gov_backend.va_gov_url:
     class: Drupal\va_gov_backend\Service\VaGovUrl
     arguments: ['@http_client', '@settings', '@va_gov.build_trigger.environment_discovery']

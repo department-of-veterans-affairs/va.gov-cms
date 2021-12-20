@@ -8,7 +8,6 @@ Feature: Content model bundles
      Scenario: Bundles
        Then exactly the following content entity type bundles should exist
        | Name | Machine name | Type | Description |
-| Banner | banner | Content type | A full width dismissible banner |
 | Benefits Detail Page | page | Content type | These pages hold all of the benefits overview content, such the detail pages linked to from va.gov/disability, va.gov/health-care, and va.gov/education. |
 | Benefits Hub Landing Page | landing_page | Content type | A special page for top-level Benefits content with its own one-off layout and content. |
 | Campaign Landing Page | campaign_landing_page | Content type |  |
@@ -18,6 +17,7 @@ Feature: Content model bundles
 | Event | event | Content type | For online or in-person events like support groups, outreach events, public lectures, and more. |
 | Events List | event_listing | Content type | A listing of events. |
 | FAQ - multiple Q&As | faq_multiple_q_a | Content type | Curated collection of Q&As. |
+| Full Width Alert | banner | Content type | A full width dismissible banner |
 | Health Services List | health_services_listing | Content type | A listing of health services. |
 | Landing Page | basic_landing_page | Content type | Basic Landing Page can be used to build one-off pages for various products. E.g. a homepage for a specific product. |
 | Leadership List | leadership_listing | Content type | A listing of staff profiles. |
@@ -27,6 +27,7 @@ Feature: Content model bundles
 | News Release | press_release | Content type | Announcements directed at members of the media for the purpose of publicizing newsworthy events/happenings/programs at specific facilities or healthcare systems. |
 | News Releases List | press_releases_listing | Content type | A listing of news releases. |
 | Office | office | Content type | An office at the VA, which may have contact info, events, news, and a leadership page in some cases. |
+| Promo Banner | promo_banner | Content type | Promo banners are fixed content used for dismissible announcements such as new tools, news, etc. |
 | Publication | outreach_asset | Content type | Contains a document, image, or video, for publication within a Publication library. |
 | Publication Listing Page | publication_listing | Content type | This allows the listing of publication materials such as documents, videos, and images all in one place. |
 | Q&A | q_a | Content type | Single Question and Answer. |
@@ -115,4 +116,3 @@ Feature: Content model bundles
 | Topics | topics | Vocabulary |  |
 | Type of Redirect | type_of_redirect | Vocabulary |  |
 | VHA health service taxonomy | health_care_service_taxonomy | Vocabulary | Single source of truth for health service names, descriptions, patient-friendly names, and common conditions. |
-

@@ -45,7 +45,7 @@
       {% set file_extension = media_object.link_url | split('.') | last | upper %}
       <a {{ media_object.attributes }} target="_blank" href="{{ media_object.link_url }}" download="{{ media_object.link_url }}" aria-label="{{ 'Download' | trans }}">{{ media_object.link_title }} ({{ file_extension }})</a>
     {% elseif media_object.bundle is same as("video") %}
-      <a {{ media_object.attributes }} target="_blank" href="{{ media_object.link_url }}">{{ 'Go to video' | trans }}</a>
+      <a {{ media_object.attributes }} target="_blank" href="{{ media_object.link_url }}">{{ media_object.link_title }}</a>
     {% endif %}
   {% endfor %}
 {% endblock %}

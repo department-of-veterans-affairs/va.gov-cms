@@ -1,0 +1,116 @@
+uuid: d011944f-f7cd-451b-aa95-712bf9db1f7a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.promo_banner.field_administration
+    - field.field.node.promo_banner.field_link
+    - field.field.node.promo_banner.field_promo_type
+    - field.field.node.promo_banner.field_target_paths
+    - node.type.promo_banner
+    - workflows.workflow.editorial
+  module:
+    - content_moderation
+    - field_group
+    - linkit
+    - textfield_counter
+third_party_settings:
+  field_group:
+    group_section_settings:
+      children:
+        - field_administration
+      parent_name: ''
+      weight: 5
+      format_type: details_sidebar
+      region: content
+      format_settings:
+        description: ''
+        open: true
+        weight: 0
+        required_fields: true
+        id: ''
+        classes: ''
+        show_empty_fields: false
+      label: 'Section Settings'
+    group_editorial_workflow:
+      children:
+        - moderation_state
+        - revision_log
+      parent_name: ''
+      weight: 7
+      format_type: fieldset
+      region: content
+      format_settings:
+        show_empty_fields: false
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Editorial Workflow'
+id: node.promo_banner.default
+targetEntityType: node
+bundle: promo_banner
+mode: default
+content:
+  field_administration:
+    weight: 6
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_link:
+    weight: 3
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+      linkit_profile: default
+      linkit_auto_link_text: false
+    third_party_settings: {  }
+    type: linkit
+    region: content
+  field_promo_type:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_target_paths:
+    weight: 4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  moderation_state:
+    type: moderation_state_default
+    weight: 13
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  title:
+    type: string_textfield_with_counter
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+      maxlength: 55
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+      use_field_maxlength: false
+    third_party_settings: {  }
+  url_redirects:
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  path: true
+  promote: true
+  status: true
+  sticky: true
+  uid: true

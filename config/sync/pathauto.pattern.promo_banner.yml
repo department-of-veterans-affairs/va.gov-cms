@@ -1,0 +1,22 @@
+uuid: 294783d1-f554-4ab7-a0f1-be9c3649bb08
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: promo_banner
+label: 'Promo Banner'
+type: 'canonical_entities:node'
+pattern: '/promo-banner/[node:title]'
+selection_criteria:
+  cd4eea4c-c9e7-4980-b58e-fb7725dac6b7:
+    id: node_type
+    bundles:
+      promo_banner: promo_banner
+    negate: false
+    context_mapping:
+      node: node
+    uuid: cd4eea4c-c9e7-4980-b58e-fb7725dac6b7
+selection_logic: and
+weight: -5
+relationships: {  }
