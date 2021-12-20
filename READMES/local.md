@@ -97,6 +97,10 @@ This occurs because Drupal checks and hardens file permissions under the setting
 
 ```$settings['skip_permissions_hardening'] = TRUE;```
 
+#### Memory issues (MySQL Server has gone away)
+Sometimes your local env may run out of memory when clicking around the Drupal environment. `lando restart` will fix
+this in the short term. If the problem persists, bumping up the docker ram to 4GB or higher should fix the issue.
+
 ## IDE plugins
 There are plugins available to provide in-line style checking according to project standards.
 

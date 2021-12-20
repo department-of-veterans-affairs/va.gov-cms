@@ -5,3 +5,8 @@
 .claro-details__summary {
   color: var(--color-text);
 }
+
+// hides duplicate character counter that isn't connected to the field
+.form-item + .textfield_counter_counter {
+  display: none;
+}
