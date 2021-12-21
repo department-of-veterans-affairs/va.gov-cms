@@ -26,6 +26,13 @@ class BannerAlerts extends EntityResourceBase implements ContainerInjectionInter
   protected $entityTypeManager;
 
   /**
+   * PatchMatcher utility.
+   *
+   * @var \Drupal\Core\Path\PathMatcher
+   */
+  protected $pathMatcher;
+
+  /**
    * Constructs a new EntityResourceBase object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
@@ -81,6 +88,7 @@ class BannerAlerts extends EntityResourceBase implements ContainerInjectionInter
     if (count($banner_nids)) {
       $banners = $node_storage->loadMultiple(array_values($banner_nids));
     }
+    /** @var \Drupal\node\NodeInterface[] $banners */
     foreach ($banners as $banner) {
       $patterns = '';
       $pathChecks = $banner->field_target_paths->getValue();
@@ -112,6 +120,7 @@ class BannerAlerts extends EntityResourceBase implements ContainerInjectionInter
         'heading' => $entity->label(),
         'moderation_state' => $entity->get('moderation_state')->getString(),
         'alert_type' => $entity->field_alert_type->value,
+        // @phpstan-ignore-next-line
         'text' => $entity->body->processed,
         'dismissible' => $entity->field_dismissible_option->value,
         'section_name' => $section_term->label(),
@@ -137,6 +146,7 @@ class BannerAlerts extends EntityResourceBase implements ContainerInjectionInter
     // Question: How do we invalidate cache in the case where a new banner is
     // published?
     /* foreach ($cache_metadata as $datum) { */
+    // @phpstan-ignore-next-line
     $response->addCacheableDependency($datum);
     /* } */
 

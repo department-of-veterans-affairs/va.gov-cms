@@ -92,12 +92,16 @@ class QandA extends EntityResourceBase implements ContainerInjectionInterface {
       /** @var \Drupal\paragraphs\Entity\Paragraph $button_paragraph */
       $button_paragraph = $button_field->entity;
 
-      $button_url = $button_paragraph->field_button_link->first()->getUrl();
+      /** @var \Drupal\link\LinkItemInterface */
+      $button_paragraph_link = $button_paragraph->field_button_link->first();
+      $button_url = $button_paragraph_link->getUrl();
       if (!$button_url->isRouted()) {
         $url_string = $button_url->toString();
       }
       else {
+        /** @var \Drupal\node\NodeInterface */
         $related_node = $this->entityTypeManager->getStorage('node')->load($button_url->getRouteParameters()['node']);
+        // @phpstan-ignore-next-line
         $url_string = $related_node->path->alias;
       }
 
@@ -118,6 +122,7 @@ class QandA extends EntityResourceBase implements ContainerInjectionInterface {
       'moderation_state' => $entity->get('moderation_state')->getString(),
       'path' => $entity->get('path'),
       'section_name' => $section_term->label(),
+      // @phpstan-ignore-next-line
       'answer_text' => $answer_entity->field_wysiwyg->processed,
       'alert_text' => $alert_field,
       'links' => $links,
@@ -133,8 +138,8 @@ class QandA extends EntityResourceBase implements ContainerInjectionInterface {
     );
 
     $top_level_data = new ResourceObjectData([$primary_data], 1);
+    /** @var \Drupal\Core\Cache\CacheableResponseInterface */
     $response = $this->createJsonapiResponse($top_level_data, $request);
-
     $response->addCacheableDependency($cache_metadata);
 
     return $response;
