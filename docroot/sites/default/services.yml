@@ -179,16 +179,17 @@ parameters:
    # for more information about the topic in general.
    # Note: By default the configuration is disabled.
   cors.config:
-    enabled: false
+    # THIS CHANGE IS NOT PRODUCTION SAFE AND SHOULD NOT BE MERGED.
+    enabled: true
     # Specify allowed headers, like 'x-allowed-header'.
-    allowedHeaders: []
+    allowedHeaders: ['x-csrf-token','authorization','content-type','accept','origin','x-requested-with', 'x-key-inflection', 'source-app-name']
     # Specify allowed request methods, specify ['*'] to allow all possible ones.
-    allowedMethods: []
+    allowedMethods: ['*']
     # Configure requests allowed from specific origins.
-    allowedOrigins: ['*']
+    allowedOrigins: ['http://localhost:3002']
     # Sets the Access-Control-Expose-Headers header.
     exposedHeaders: false
     # Sets the Access-Control-Max-Age header.
     maxAge: false
     # Sets the Access-Control-Allow-Credentials header.
-    supportsCredentials: false
+    supportsCredentials: true
