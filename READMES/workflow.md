@@ -27,7 +27,7 @@ We are currently working off a single `main` branch. `main` is protected and req
 1. `git fetch --all`
 1. `git checkout --branch <VACMS-000-name> origin/main`
 1. `lando composer install`
-1. `lando start`  or `lando restart` 
+1. `lando start`  or `lando restart`
 1. `./scripts/sync-db.sh`
 1. `./scripts/sync-files.sh` # (optional)
 1. Running `lando test` will build the frontend web and run all tests (PHPUnit, Behat, accessibility, FE web) See [testing](testing.md) for additional details.
@@ -38,6 +38,12 @@ _Example: VACMS-1234 Add configuration for menu reduction._
 1. Push work to your fork of the repository so a Pull Request may be created
 `git push --set-upstream <fork name> HEAD`
 1. Once your PR is merged it will be automatically deployed to dev.cms.va.gov and staging.cms.va.gov. If it is merged before 2:30pm ET it will be in the daily, scheduled deploy to prod.cms.va.gov at 3:30pm ET.
+
+  While working on your own branch, you may have to rebase it on main which will make it out of sync with your remote branch and will require you to force push to your branch.
+
+### When is it ok to do a force push (-f)?
+
+  On the upstream, never.  On your own fork, it is perfectly acceptable to do force pushes.  If you have recently rebased your branch on main, you may have to do a force push to your fork.  When in doubt, ask in Slack.
 
 ### Pull Request Norms
 * Pull requests should be made against the `main` branch.
@@ -90,8 +96,8 @@ If your composer.lock ends up with a conflict due to incoming changes, these ste
 
 * We use the [Drupal SpecTool](https://github.com/acquia/drupal-spec-tool) to keep track of config changes, and generate tests related to roles, content types, fields, menus views.
 * If you are modifying configuration of roles, content types, fields, menus views, Go update the appropritate tab(s) in our version of the [SpecTool](https://docs.google.com/spreadsheets/d/1vL8rqLqcEVfESnJJK_GWQ7nf3BPe4SSevYYblisBTOI/edit?usp=sharing).
-* Keep the Bundles and Fields tab sorted with the following columns: 
-  1. Entity label (eg first "Content type", then "Custom block type", etc.). 
+* Keep the Bundles and Fields tab sorted with the following columns:
+  1. Entity label (eg first "Content type", then "Custom block type", etc.).
   2. Bundle label (eg first "Benefits detail page", then "Benefits hub landing page", etc.).
   3. Field label (for the Fields tab, eg first "Alert", then "Featured content", then "Main content").
 * Once all the modifications are made to the appropriate tab(s) and cell(s) go to the [Behat](https://docs.google.com/spreadsheets/d/1vL8rqLqcEVfESnJJK_GWQ7nf3BPe4SSevYYblisBTOI/edit#gid=624373408) tab and copy the cell with the tests that would have changed based on what you changed.
@@ -111,7 +117,7 @@ We follow the [Drupal core javascript workflow](https://www.drupal.org/node/2815
 * When you are finished, commit the changes to both files
 
 ## Patching
-We use the Composer plugin Composer Patches (https://github.com/cweagans/composer-patches) to apply patches that haven't been merged upstream yet. Patches should always be temporarily applied with an upstream issue being opened and/or tracked and the intention for the patch to be removed as soon as it is merged upstream and a new release created and included with Composer. 
+We use the Composer plugin Composer Patches (https://github.com/cweagans/composer-patches) to apply patches that haven't been merged upstream yet. Patches should always be temporarily applied with an upstream issue being opened and/or tracked and the intention for the patch to be removed as soon as it is merged upstream and a new release created and included with Composer.
 
 * Get the patch file:
   * e.g. https://patch-diff.githubusercontent.com/raw/drupal-graphql/graphql/pull/726.patch

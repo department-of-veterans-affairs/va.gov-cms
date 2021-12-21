@@ -5,12 +5,19 @@
  * Vagovclaro.theme.
  */
 
+use Drupal\Core\Url;
+use Drupal\Core\Form\FormStateInterface;
+
 /**
  * Implements hook_preprocess_html().
  */
 function vagovclaro_preprocess_html(&$variables) {
   $is_admin = \Drupal::service('va_gov_user.user_perms')->hasAdminRole(TRUE) ? 'admin' : 'not-admin';
   $variables['attributes']['class'][] = 'role-' . $is_admin;
+
+  // For css that is different per environment (admin toolbar color, etc.)
+  $environment_name = getenv('CMS_ENVIRONMENT_TYPE');
+  $variables['attributes']['class'][] = 'cms-' . $environment_name;
 }
 
 /**
@@ -31,4 +38,63 @@ function vagovclaro_preprocess_container(&$variables) {
   if (!empty($variables['attributes']['id']) && $variables['attributes']['id'] === 'edit-field-related-links-description') {
     $variables['attributes']['class'][] = 'form-item__description';
   }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function vagovclaro_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // This chunk of code can probably move to va_gov_help_center.
+  $config = \Drupal::config('simplesamlphp_auth.settings');
+  \Drupal::service('renderer')->addCacheableDependency($form, $config);
+  if (!$config->get('activate') || !$config->get('login_link_show')) {
+    return;
+  }
+
+  $label = $config->get('login_link_display_name');
+
+  $form['simplesamlphp_auth_login_link'] = [
+    '#type' => 'fieldset',
+    '#title' => 'PIV Login',
+    '#weight' => -1,
+    '#description' => 'Click the icon to login with VA PIV card. Rare cases may require CMS account credentials.
+      Use PIV login whenever possible. Having trouble with your login? Try the <a href="/help">help desk</a>.',
+  ];
+  $form['simplesamlphp_auth_login_link']['link'] = [
+    // Nested render array for the image inside of the <a> tag.
+    '#title' => [
+      '#theme' => 'image',
+      '#uri' => 'themes/custom/vagovclaro/images/sc.jpg',
+      '#alt' => $label,
+    ],
+    '#type' => 'link',
+    '#url' => Url::fromRoute('simplesamlphp_auth.saml_login'),
+    '#attributes' => [
+      'title' => $label,
+      'class' => ['simplesamlphp-auth-login-link'],
+    ],
+  ];
+
+  // Put the get help button inline with login form actions.
+  // Similar render array found in va_gov_help_center.module.
+  $form['actions']['get_help'] = [
+    '#type' => 'link',
+    '#url' => Url::fromRoute('entity.node.canonical', ['node' => 26856]),
+    '#title' => t('Get help'),
+    '#attributes' => [
+      'class' => [
+        'button',
+        'button--primary',
+      ],
+      'id' => [
+        'get-help-button2',
+      ],
+      'hreflang' => [
+        'en',
+      ],
+      'lang' => [
+        'en',
+      ],
+    ],
+  ];
 }
