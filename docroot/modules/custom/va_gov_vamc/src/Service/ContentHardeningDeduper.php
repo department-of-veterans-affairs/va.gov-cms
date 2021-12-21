@@ -47,21 +47,19 @@ class ContentHardeningDeduper {
   protected $contentTypeReplacements = [
     // Key: content_type => [related data].
     // This deduper needs to act on these content types as soon as they have a
-    // Front End presence. Commented out ones need to be un-commented as they
-    // come online.
-    // 'vamc_system_billing_insurance' => [
-    // 'title' => 'Billing and insurance',
-    // ],
-    // 'vamc_system_medical_records_offi' => [
-    // 'title' => 'Medical records office',
-    // ],
-    // Uncomment these as the content types have a Front End presence.
+    // Front End presence.
+    'vamc_system_billing_insurance' => [
+      'title' => 'Billing and insurance',
+    ],
+    'vamc_system_medical_records_offi' => [
+      'title' => 'Medical records office',
+    ],
     'vamc_system_policies_page' => [
       'title' => 'Policies',
     ],
-    // 'vamc_system_register_for_care' => [
-    // 'title' => 'Register for care',
-    // ],
+    'vamc_system_register_for_care' => [
+      'title' => 'Register for care',
+    ],
   ];
 
   /**
@@ -97,7 +95,7 @@ class ContentHardeningDeduper {
    *   The entity being created.
    */
   public function removeDuplicate(EntityInterface $entity): void {
-    if ($this->isHardendType($entity)) {
+    if ($this->isHardendType($entity) && $this->isBeingPublished($entity)) {
       /** @var \Drupal\node\NodeInterface $entity */
       $existing_moderation_state = '';
       $duplicate_alias = '';
@@ -161,6 +159,28 @@ class ContentHardeningDeduper {
     if ($entity instanceof NodeInterface) {
       $bundle = $entity->bundle();
       if (!empty($this->contentTypeReplacements[$bundle])) {
+        return TRUE;
+      }
+    }
+    return FALSE;
+  }
+
+  /**
+   * Checks to see if this is node is transitioning to published state.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The entity being checked.
+   *
+   * @return bool
+   *   TRUE if this entity is being published. FALSE otherwise.
+   */
+  protected function isBeingPublished(EntityInterface $entity): bool {
+    if ($entity instanceof NodeInterface) {
+      /** @var \Drupal\node\NodeInterface $entity */
+      $ispublished = $entity->isPublished();
+      $waspublished = !empty($entity->original) ? $entity->original->isPublished() : FALSE;
+      if (!$waspublished && $ispublished) {
+        // This is either a new publish, or a publish following an archive.
         return TRUE;
       }
     }
