@@ -47,21 +47,19 @@ class ContentHardeningDeduper {
   protected $contentTypeReplacements = [
     // Key: content_type => [related data].
     // This deduper needs to act on these content types as soon as they have a
-    // Front End presence. Commented out ones need to be un-commented as they
-    // come online.
-    // 'vamc_system_billing_insurance' => [
-    // 'title' => 'Billing and insurance',
-    // ],
-    // 'vamc_system_medical_records_offi' => [
-    // 'title' => 'Medical records office',
-    // ],
-    // Uncomment these as the content types have a Front End presence.
+    // Front End presence.
+    'vamc_system_billing_insurance' => [
+      'title' => 'Billing and insurance',
+    ],
+    'vamc_system_medical_records_offi' => [
+      'title' => 'Medical records office',
+    ],
     'vamc_system_policies_page' => [
       'title' => 'Policies',
     ],
-    // 'vamc_system_register_for_care' => [
-    // 'title' => 'Register for care',
-    // ],
+    'vamc_system_register_for_care' => [
+      'title' => 'Register for care',
+    ],
   ];
 
   /**
@@ -97,9 +95,8 @@ class ContentHardeningDeduper {
    *   The entity being created.
    */
   public function removeDuplicate(EntityInterface $entity): void {
-    if ($this->isHardendType($entity)) {
+    if ($this->isHardendType($entity) && $this->isBeingPublished($entity)) {
       /** @var \Drupal\node\NodeInterface $entity */
-      $existing_moderation_state = '';
       $duplicate_alias = '';
       $title = $this->contentTypeReplacements[$entity->bundle()]['title'];
       // @phpstan-ignore-next-line
@@ -110,16 +107,10 @@ class ContentHardeningDeduper {
         /** @var \Drupal\node\NodeInterface $duplicate_entity */
         // @phpstan-ignore-next-line
         $duplicate_alias = $duplicate_entity->path->alias;
-        // Risk: only the last duplicate determines the moderation state.
-        // Risk is small since there should only be one. If there more than one,
-        // there is no reliable way to determine which is proper.
-        // @phpstan-ignore-next-line
-        $existing_moderation_state = $duplicate_entity->moderation_state->value;
         $this->retireDuplicateEntity($duplicate_entity, $entity, $title);
         $this->logAndMessage($duplicate_entity, $title);
       }
 
-      $this->updateNewModerationState($entity, $existing_moderation_state);
       $this->updateNewAlias($entity, $duplicate_alias);
     }
   }
@@ -161,6 +152,29 @@ class ContentHardeningDeduper {
     if ($entity instanceof NodeInterface) {
       $bundle = $entity->bundle();
       if (!empty($this->contentTypeReplacements[$bundle])) {
+        return TRUE;
+      }
+    }
+    return FALSE;
+  }
+
+  /**
+   * Checks to see if this is node is transitioning to published state.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The entity being checked.
+   *
+   * @return bool
+   *   TRUE if this entity is being published. FALSE otherwise.
+   */
+  protected function isBeingPublished(EntityInterface $entity): bool {
+    if ($entity instanceof NodeInterface) {
+      /** @var \Drupal\node\NodeInterface $entity */
+      $ispublished = $entity->isPublished();
+      // @phpstan-ignore-next-line
+      $waspublished = !empty($entity->original) ? $entity->original->isPublished() : FALSE;
+      if (!$waspublished && $ispublished) {
+        // This is either a new publish, or a publish following an archive.
         return TRUE;
       }
     }
@@ -221,24 +235,6 @@ class ContentHardeningDeduper {
       // This entity is not new and likely has a bad alias, so set it right.
       // @phpstan-ignore-next-line
       $entity->path->alias = $duplicate_alias;
-    }
-  }
-
-  /**
-   * Updates the moderation state of the new hardened node.
-   *
-   * @param \Drupal\node\NodeInterface $entity
-   *   The node being saved.
-   * @param string $existing_moderation_state
-   *   The moderation state of the unhardened node being replaced.
-   */
-  protected function updateNewModerationState(NodeInterface $entity, $existing_moderation_state) : void {
-    // If we have a moderation_state on the existing, only carry it forward if
-    // it has not already been archived.
-    // If the current state is already set to published, do not override.
-    // @phpstan-ignore-next-line
-    if ($existing_moderation_state !== 'archived' && $entity->moderation_state->value !== 'published') {
-      $entity->set('moderation_state', $existing_moderation_state);
     }
   }
 
