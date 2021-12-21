@@ -51,14 +51,14 @@ class SectionAccessTest extends ExistingSiteBase {
   public function sectionDataProvider() : \Generator {
     yield 'Content editors may edit nodes in their sections' => [
       'content_editor',
-      ['Veterans Health Administration'],
-      ['Veterans Health Administration'],
+      ['VHA'],
+      ['VHA'],
       TRUE,
     ];
     yield 'Content editors may not edit nodes in other sections' => [
       'content_editor',
-      ['Veterans Health Administration'],
-      ['National Cemetery Administration'],
+      ['VHA'],
+      ['NCA'],
       FALSE,
     ];
   }
