@@ -247,5 +247,5 @@ Feature: Views
 | Non-clinical services | Billing and insurance offices | billing_and_insurance | Block |
 | Non-clinical services | Default | default | Default |
 | Non-clinical services | Medical records offices | medical_records_offices | Block |
-| Metatag Audit | Default | default | Default |
+| Metatag Audit | Metatag Audit | metatag_audit | Default |
 | Metatag Audit | Metatag Audit | metatag_audit | Page |
