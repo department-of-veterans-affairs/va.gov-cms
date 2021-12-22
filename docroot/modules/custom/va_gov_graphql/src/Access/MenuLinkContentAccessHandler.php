@@ -33,6 +33,7 @@ class MenuLinkContentAccessHandler extends MenuLinkContentAccessControlHandler {
       return parent::checkAccess($entity, $operation, $account);
     }
 
+    /** @var \Drupal\menu_link_content\MenuLinkContentInterface $entity */
     if ($operation === 'view' &&
       in_array($entity->getUrlObject()->toString(), $this->getAllowedPaths())) {
 
