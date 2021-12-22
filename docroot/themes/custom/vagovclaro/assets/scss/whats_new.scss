@@ -1,6 +1,8 @@
+/**
+ * These styles (will be) used by the library called in va_gov_help_center/src/Plugin/Block/WhatsNew.php
+ */
 #block-whatsnewinthecms {
-
-  background: rgb(217, 238, 251); // Light blue.
+  background: var(--color-blue-lightest); // Light blue.
   font-size: 16px;
   min-width: 308px;
   padding: 24px;
@@ -15,7 +17,7 @@
     margin-top: 0;
 
     &::before {
-      background-image: url('../../../vagovadmin/images/icons/bullhorn-000000.svg');
+      background-image: url('../../images/icons/bullhorn-000000.svg');
       background-repeat: no-repeat;
       background-size: contain;
       content: '';
