@@ -44,6 +44,10 @@ services:
         # Setup web-*. vhost to serve static website.
         - cp "${TUGBOAT_ROOT}"/.tugboat/web-vhost.conf /etc/apache2/sites-enabled/
 
+        # Configure KeepAliveTimeout in apache2.conf. This is set 5 seconds longer than the internal tools ALB.
+        # The internal tools ALB idle timeout is set to longer than a typical GQL query takes.
+        - sed -e 's/KeepAliveTimeout 5/KeepAliveTimeout 185/' -i /etc/apache2/apache2.conf
+
         # BRD Environments are set to 1G, Tugboat and Lando are -1 (unlimited).
         - echo "memory_limit = 4G" >> /usr/local/etc/php/conf.d/my-php.ini
         # Set unlimited memory limit for PHP CLI to allow Composer to run.
