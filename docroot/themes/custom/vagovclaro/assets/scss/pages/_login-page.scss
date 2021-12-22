@@ -13,15 +13,20 @@
   width: 100%;
 }
 
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .layout-container--login {
-  max-width: 700px;
+  flex: 1;
 }
 
 // overriding get help button styles for homepage only
 .layout-container--login #get-help-button {
   display: none;
 }
-
 
 // Hide non-PIV login elements by default
 .piv-login {
