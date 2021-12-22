@@ -474,6 +474,14 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
       unset($form['actions']['preview']);
     }
 
+    /*
+     * @todo Remove this after root issue causing
+     * https://github.com/department-of-veterans-affairs/va.gov-cms/issues/7373
+     * is resolved.
+     */
+    if ($node_type === 'vet_center') {
+      unset($form['actions']['save_continue']);
+    }
   }
 
   // Add after_build callback for Press Release node forms.
