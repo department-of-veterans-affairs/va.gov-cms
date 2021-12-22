@@ -42,6 +42,10 @@
 }
 
 .va-footer-logo {
+  margin-top: 2rem;
   max-width: 250px;
-}
 
+  @include breakpoint('md') {
+    margin-top: 0;
+  }
+}
