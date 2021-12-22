@@ -52,28 +52,32 @@ function vagovclaro_form_user_login_form_alter(&$form, FormStateInterface $form_
   }
 
   $label = $config->get('login_link_display_name');
-
   $form['simplesamlphp_auth_login_link'] = [
-    '#type' => 'fieldset',
-    '#title' => 'PIV Login',
-    '#weight' => -1,
-    '#description' => 'Click the icon to login with VA PIV card. Rare cases may require CMS account credentials.
-      Use PIV login whenever possible. Having trouble with your login? Try the <a href="/help">help desk</a>.',
-  ];
-  $form['simplesamlphp_auth_login_link']['link'] = [
-    // Nested render array for the image inside of the <a> tag.
-    '#title' => [
-      '#theme' => 'image',
-      '#uri' => 'themes/custom/vagovclaro/images/sc.jpg',
-      '#alt' => $label,
-    ],
+    '#title' => $label,
     '#type' => 'link',
     '#url' => Url::fromRoute('simplesamlphp_auth.saml_login'),
     '#attributes' => [
       'title' => $label,
-      'class' => ['simplesamlphp-auth-login-link'],
+      'class' => ['simplesamlphp-auth-login-link', 'button', 'button--primary'],
     ],
+    '#suffix' => '<a href="/help">Get help logging in</a>',
   ];
+
+  $form['actions']['toggle'] = [
+    '#type' => 'button',
+    '#button_type' => 'foo',
+    '#attributes' => [
+      'class' => [
+        'link',
+        'va-login-toggle',
+        'js-va-login-toggle',
+      ],
+    ],
+    '#value' => 'Login with password',
+  ];
+
+  // Attach JS library for toggle button.
+  $form['#attached']['library'][] = 'vagovclaro/login-toggle';
 
   // Put the get help button inline with login form actions.
   // Similar render array found in va_gov_help_center.module.
