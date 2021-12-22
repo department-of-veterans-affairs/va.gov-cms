@@ -13,30 +13,22 @@ use Drupal\menu_link_content\MenuLinkContentAccessControlHandler;
 class MenuLinkContentAccessHandler extends MenuLinkContentAccessControlHandler {
 
   /**
-   * Paths which are allowed to have view access.
-   *
-   * @return string[]
-   *   Paths we want to allow access for.
-   */
-  protected function getAllowedPaths() : array {
-    return [
-      '/find-locations',
-      '/health-care/apply/application',
-    ];
-  }
-
-  /**
    * {@inheritDoc}
    */
   protected function checkAccess(EntityInterface $entity, $operation, AccountInterface $account) {
     if ($operation !== 'view') {
       return parent::checkAccess($entity, $operation, $account);
     }
-
+    // Allow read access for MLC entities that are internal but unrouted.
     /** @var \Drupal\menu_link_content\MenuLinkContentInterface $entity */
-    if ($operation === 'view' &&
-      in_array($entity->getUrlObject()->toString(), $this->getAllowedPaths())) {
-
+    $urlObject = $entity->getUrlObject();
+    if (
+      $account->hasPermission('va gov graphql read menu content') &&
+      $operation === 'view' &&
+      !$urlObject->isExternal() &&
+      !$urlObject->isRouted() &&
+      $entity->isEnabled()
+    ) {
       return AccessResult::allowed()
         ->cachePerPermissions()
         ->addCacheableDependency($entity);

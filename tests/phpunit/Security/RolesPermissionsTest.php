@@ -171,12 +171,13 @@ class RolesPermissionsTest extends ExistingSiteBase {
         [
           'access bulletin queue trigger api',
           'access openapi api docs',
-          'administer menu',
           'bypass graphql field security',
           'use graphql explorer',
           'use graphql voyager',
           'view any unpublished content',
           'view own unpublished content',
+          'link to any page',
+          'va gov graphql read menu content',
         ],
       ],
       [
