@@ -16,3 +16,31 @@
 .file--application-pdf {
   word-break: break-word;
 }
+
+.downloadable-file-link {
+  padding-left: 20px;
+  position: relative;
+
+  &::before {
+    background-repeat: no-repeat;
+    background-size: contain;
+    content: '';
+    display: block;
+    height: 16px;
+    position: absolute;
+    top: 2px;
+    width: 16px;
+  }
+}
+
+.downloadable-file-link--document::before {
+  background-image: url('../../images/icons/download-000000.svg');
+}
+
+.downloadable-file-link--video::before {
+  background-image: url('../../images/icons/play-000000.svg');
+}
+
+.downloadable-file-link--image::before {
+  background-image: url('../../images/icons/download-000000.svg');
+}
