@@ -1,0 +1,22 @@
+uuid: 8dfa5381-1c8c-469c-bdfc-73d8b3b9278c
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: vamc_facility_non_clinical_service
+label: 'VAMC Facility Non-clinical Service'
+type: 'canonical_entities:node'
+pattern: '[node:field_facility_location:entity:url:path]/[node:field_service_name_and_descripti:entity:name]'
+selection_criteria:
+  373748c5-9cc1-4586-afaa-252ca366317a:
+    id: node_type
+    bundles:
+      vha_facility_nonclinical_service: vha_facility_nonclinical_service
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 373748c5-9cc1-4586-afaa-252ca366317a
+selection_logic: and
+weight: -5
+relationships: {  }
