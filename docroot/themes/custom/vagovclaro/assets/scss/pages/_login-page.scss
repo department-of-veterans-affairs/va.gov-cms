@@ -5,10 +5,10 @@
 }
 
 .va-login-header h1 {
-  font-weight: 300;
+  font-weight: 200;
 
   span {
-    font-weight: bold;
+    font-weight: 700;
   }
 }
 
@@ -23,10 +23,12 @@
   align-items: center;
   display: grid;
   flex: 1;
-  // sm bp = ~767px - 6em of margin space on both sides of container
-  // 680px to work with, 2 columns, 340px minimum to ensure clean transition
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   position: relative;
+
+  @include breakpoint('sm') {
+    gap: 2rem;
+  }
 
   // throws off grid alignment
   &::after {
@@ -35,10 +37,23 @@
 }
 
 .login-background {
+  background-color: var(--color-gray-lightest);
+  clip-path: polygon(51% 0, 100% 32%, 100% 100%, 0% 100%, 0 32%);
+  display: flex;
   grid-row-start: 2;
+  height: 100%;
+  justify-content: center;
+  margin: 0 -3rem; //offsets parent container so bg goes to edge
 
   @include breakpoint('sm') {
+    clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 0 50%, 0% 0%);
     grid-row-start: 1;
+    margin: 0 0 0 -3rem; // only need the left margin on larger screen
+  }
+
+  img {
+    align-self: center;
+    max-height: 150px;
   }
 }
 
@@ -53,8 +68,10 @@
   border: 0 solid transparent !important;
   box-shadow: none !important;
   color: var(--color-link);
+  line-height: 2rem;
   position: absolute;
   right: 0;
+  text-decoration: none;
   top: 0;
 }
 
