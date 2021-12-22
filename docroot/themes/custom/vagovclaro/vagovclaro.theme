@@ -53,6 +53,13 @@ function vagovclaro_form_user_login_form_alter(&$form, FormStateInterface $form_
 
   $label = $config->get('login_link_display_name');
   $form['simplesamlphp_auth_login_link'] = [
+    '#type' => 'fieldset',
+    '#weight' => -1,
+    '#attributes' => [
+      'class' => ['piv-container', 'js-piv-container'],
+    ],
+  ];
+  $form['simplesamlphp_auth_login_link']['link'] = [
     '#title' => $label,
     '#type' => 'link',
     '#url' => Url::fromRoute('simplesamlphp_auth.saml_login'),
@@ -63,6 +70,13 @@ function vagovclaro_form_user_login_form_alter(&$form, FormStateInterface $form_
     '#suffix' => '<a href="/help">Get help logging in</a>',
   ];
 
+  // Add classes to elements for JS toggle.
+  $form['#attributes']['class'][] = 'piv-login';
+  $form['name']['#wrapper_attributes']['class'][] = 'js-login-username';
+  $form['pass']['#wrapper_attributes']['class'][] = 'js-login-password';
+  $form['actions']['submit']['#attributes']['class'][] = 'js-login-submit';
+
+  // Build toggle button to switch between PIV & User/Pass.
   $form['actions']['toggle'] = [
     '#type' => 'button',
     '#button_type' => 'foo',
@@ -78,27 +92,4 @@ function vagovclaro_form_user_login_form_alter(&$form, FormStateInterface $form_
 
   // Attach JS library for toggle button.
   $form['#attached']['library'][] = 'vagovclaro/login-toggle';
-
-  // Put the get help button inline with login form actions.
-  // Similar render array found in va_gov_help_center.module.
-  $form['actions']['get_help'] = [
-    '#type' => 'link',
-    '#url' => Url::fromRoute('entity.node.canonical', ['node' => 26856]),
-    '#title' => t('Get help'),
-    '#attributes' => [
-      'class' => [
-        'button',
-        'button--primary',
-      ],
-      'id' => [
-        'get-help-button2',
-      ],
-      'hreflang' => [
-        'en',
-      ],
-      'lang' => [
-        'en',
-      ],
-    ],
-  ];
 }

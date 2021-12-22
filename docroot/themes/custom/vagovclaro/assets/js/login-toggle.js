@@ -13,19 +13,15 @@
     attach() {
       $('.js-va-login-toggle').click((event) => {
         event.preventDefault();
-        console.log('i\'m attached');
 
-        const PIV = $('#edit-simplesamlphp-auth-login-link');
-        // const userPass = $('');
+        // Toggle class on form to control which inputs are shown.
+        const loginForm = $('#user-login-form');
+        loginForm.toggleClass('piv-login form-login');
 
-        // const target = $(event.target).attr("href");
-        // const scrollToPosition =
-        //   $(target).offset().top - (Drupal.getAdminToolbarHeight() + 10);
-        //
-        // $("html").animate({ scrollTop: scrollToPosition }, 500, () => {
-        //   window.location.hash = `${target}`;
-        //   $("html").animate({ scrollTop: scrollToPosition }, 0);
-        // });
+        // Change text of toggle button based on which is shown.
+        const loginToggle = $('#edit-toggle');
+        console.log(loginToggle);
+        loginToggle.prop('value', loginToggle.val() === "Login with password" ? "Login with PIV" : "Login with password");
       });
     },
   };

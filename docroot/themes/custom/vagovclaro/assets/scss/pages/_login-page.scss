@@ -21,3 +21,20 @@
 .layout-container--login #get-help-button {
   display: none;
 }
+
+
+// Hide non-PIV login elements by default
+.piv-login {
+  .js-login-username,
+  .js-login-password,
+  .js-login-submit {
+    display: none;
+  }
+}
+
+// Hide PIV login elements when default is shown.
+.form-login {
+  .js-piv-container {
+    display: none;
+  }
+}
