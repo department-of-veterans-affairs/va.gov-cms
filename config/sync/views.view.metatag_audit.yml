@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_administration
     - field.storage.node.field_description
     - field.storage.node.field_hero_image
     - field.storage.node.field_intro_text
@@ -37,6 +36,7 @@ dependencies:
     - node.type.vet_center_outstation
     - node.type.vha_facility_nonclinical_service
     - taxonomy.vocabulary.administration
+    - workbench_access.access_scheme.section
   module:
     - content_moderation
     - media
@@ -44,6 +44,7 @@ dependencies:
     - node
     - taxonomy
     - user
+    - workbench_access
 id: metatag_audit
 label: 'Metatag Audit'
 module: views
@@ -76,8 +77,8 @@ display:
       exposed_form:
         type: basic
         options:
-          submit_button: Apply
-          reset_button: false
+          submit_button: Filter
+          reset_button: true
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
           expose_sort_order: true
@@ -369,7 +370,7 @@ display:
           alter:
             alter_text: false
             text: ''
-            make_link: false
+            make_link: true
             path: ''
             absolute: false
             external: false
@@ -378,7 +379,7 @@ display:
             trim_whitespace: false
             alt: ''
             rel: ''
-            link_class: ''
+            link_class: button
             prefix: ''
             suffix: ''
             target: ''
@@ -400,7 +401,7 @@ display:
           element_label_colon: true
           element_wrapper_type: ''
           element_wrapper_class: ''
-          element_default_classes: true
+          element_default_classes: false
           empty: ''
           hide_empty: false
           empty_zero: false
@@ -526,7 +527,7 @@ display:
           click_sort_column: value
           type: timestamp
           settings:
-            date_format: medium
+            date_format: short
             custom_date_format: ''
             timezone: ''
           group_column: value
@@ -605,10 +606,10 @@ display:
           field_api_classes: false
           entity_type: node
           plugin_id: moderation_state_field
-        field_administration:
-          id: field_administration
-          table: node__field_administration
-          field: field_administration
+        workbench_access_section__section:
+          id: workbench_access_section__section
+          table: node
+          field: workbench_access_section__section
           relationship: none
           group_type: group
           admin_label: ''
@@ -653,21 +654,11 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
-          settings:
-            link: true
-          group_column: target_id
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
+          type: separator
           separator: ', '
-          field_api_classes: false
-          plugin_id: field
+          make_link: 0
+          entity_type: node
+          plugin_id: workbench_access_section
         field_meta_title:
           id: field_meta_title
           table: node__field_meta_title
@@ -1434,7 +1425,6 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
-        - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_description'
         - 'config:field.storage.node.field_hero_image'
         - 'config:field.storage.node.field_intro_text'
@@ -1449,7 +1439,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: admin/content-tools/metatag-audit
+      path: admin/content/audit/metatag
       display_description: ''
     cache_metadata:
       max-age: -1
@@ -1462,7 +1452,6 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
-        - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_description'
         - 'config:field.storage.node.field_hero_image'
         - 'config:field.storage.node.field_intro_text'
