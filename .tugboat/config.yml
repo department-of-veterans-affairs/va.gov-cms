@@ -94,7 +94,7 @@ services:
         - docker-php-ext-enable memcache
 
         # Ensure that we're using version 2 of composer.
-        - composer self-update --2
+        - composer self-update 2.1.8
 
         # Install the Task task runner/build tool.
         - ./scripts/install_task_runner.sh
