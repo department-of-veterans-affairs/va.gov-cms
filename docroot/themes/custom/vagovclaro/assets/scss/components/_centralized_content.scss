@@ -1,3 +1,25 @@
+.not-editable {
+  background-color: var(--color-gray-lightest) !important;
+}
+
+.centralized {
+  background-color: var(--color-gray-lightest) !important;
+
+  .data-updated a {
+    float: right;
+  }
+
+  .data-updated::after {
+    clear: both;
+    content: ' ';
+    display: block;
+    font-size: 0;
+    height: 0;
+    visibility: hidden;
+  }
+}
+
+// non-admin users shouldn't be able to edit centralized content, lots of minor tweaks for them
 .centralized-content {
   tr {
     border-bottom: transparent;
@@ -14,7 +36,7 @@
       display: none;
     }
 
-    #block-vagovadmin-content .layout-region-node-main {
+    #block-vagovclaro-content .layout-region-node-main {
       display: block;
 
       .js-form-type-textarea .js-form-required.form-required,
@@ -63,8 +85,8 @@
       }
 
       .cc-paragraph-header {
-        background: #757575;
-        color: #fff;
+        background: var(--color-gray-dark);
+        color: var(--color-white);
 
         td {
           padding: 15px;
