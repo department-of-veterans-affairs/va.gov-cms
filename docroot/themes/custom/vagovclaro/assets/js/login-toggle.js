@@ -20,8 +20,14 @@
 
         // Change text of toggle button based on which is shown.
         const loginToggle = $('#edit-toggle');
-        console.log(loginToggle);
         loginToggle.prop('value', loginToggle.val() === "Login with password" ? "Login with PIV" : "Login with password");
+
+        // Move focus back to top of form when toggled.
+        if ($('#user-login-form').hasClass('piv-login')) {
+          $('a.simplesamlphp-auth-login-link').focus();
+        } else {
+          $('.js-login-username input').focus();
+        }
       });
     },
   };
