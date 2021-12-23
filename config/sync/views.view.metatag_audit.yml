@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.node.field_administration
     - field.storage.node.field_description
     - field.storage.node.field_hero_image
     - field.storage.node.field_intro_text
@@ -35,14 +36,11 @@ dependencies:
     - node.type.vet_center_mobile_vet_center
     - node.type.vet_center_outstation
     - node.type.vha_facility_nonclinical_service
-    - taxonomy.vocabulary.administration
-    - workbench_access.access_scheme.section
   module:
     - content_moderation
     - media
     - metatag
     - node
-    - taxonomy
     - user
     - workbench_access
 id: metatag_audit
@@ -606,10 +604,10 @@ display:
           field_api_classes: false
           entity_type: node
           plugin_id: moderation_state_field
-        workbench_access_section__section:
-          id: workbench_access_section__section
-          table: node
-          field: workbench_access_section__section
+        field_administration:
+          id: field_administration
+          table: node__field_administration
+          field: field_administration
           relationship: none
           group_type: group
           admin_label: ''
@@ -654,11 +652,21 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          type: separator
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: false
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
           separator: ', '
-          make_link: 0
-          entity_type: node
-          plugin_id: workbench_access_section
+          field_api_classes: false
+          plugin_id: field
         field_meta_title:
           id: field_meta_title
           table: node__field_meta_title
@@ -1332,26 +1340,26 @@ display:
             group_items: {  }
           entity_type: node
           plugin_id: moderation_state_filter
-        field_administration_target_id:
-          id: field_administration_target_id
-          table: node__field_administration
-          field: field_administration_target_id
+        workbench_access_section__section:
+          id: workbench_access_section__section
+          table: node
+          field: workbench_access_section__section
           relationship: none
           group_type: group
           admin_label: ''
-          operator: or
+          operator: in
           value: {  }
           group: 1
           exposed: true
           expose:
-            operator_id: field_administration_target_id_op
+            operator_id: workbench_access_section__section_op
             label: Section
             description: ''
             use_operator: false
-            operator: field_administration_target_id_op
+            operator: workbench_access_section__section_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: field_administration_target_id
+            identifier: section
             required: false
             remember: false
             multiple: false
@@ -1371,7 +1379,7 @@ display:
               redirect_administrator: '0'
               admnistrator_users: '0'
               administrator: '0'
-            reduce: false
+            reduce: 1
           is_grouped: false
           group_info:
             label: ''
@@ -1384,13 +1392,11 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          reduce_duplicates: false
-          type: select
-          limit: true
-          vid: administration
-          hierarchy: false
-          error_message: true
-          plugin_id: taxonomy_index_tid
+          reduce_duplicates: 0
+          section_filter:
+            show_hierarchy: 1
+          entity_type: node
+          plugin_id: workbench_access_section
       sorts:
         created:
           id: created
@@ -1414,6 +1420,10 @@ display:
       relationships: {  }
       arguments: {  }
       display_extenders: {  }
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
     cache_metadata:
       max-age: -1
       contexts:
@@ -1421,10 +1431,10 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user
         - 'user.node_grants:view'
         - user.permissions
       tags:
+        - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_description'
         - 'config:field.storage.node.field_hero_image'
         - 'config:field.storage.node.field_intro_text'
@@ -1448,10 +1458,10 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user
         - 'user.node_grants:view'
         - user.permissions
       tags:
+        - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_description'
         - 'config:field.storage.node.field_hero_image'
         - 'config:field.storage.node.field_intro_text'
