@@ -69,6 +69,7 @@ Feature: Views
 | Knowledge Base Article administration | knowledge_base_article_administration | Content | Enabled | Audits and tools for managing Knowledge Base Articles |
 | Rich Text Field Audit | rich_text_field_audit | Content | Enabled |  |
 | Non-clinical services | non_clinical_services | Content | Enabled | Views of non-clinical services content placed within several "Top tasks" VAMC node forms. |
+| Metatag Audit | metatag_audit | Content | Enabled |  |
 
   @dst @views_displays
      Scenario: Views displays
@@ -246,3 +247,5 @@ Feature: Views
 | Non-clinical services | Billing and insurance offices | billing_and_insurance | Block |
 | Non-clinical services | Default | default | Default |
 | Non-clinical services | Medical records offices | medical_records_offices | Block |
+| Metatag Audit | Default | default | Default |
+| Metatag Audit | Metatag Audit | metatag_audit | Page |
