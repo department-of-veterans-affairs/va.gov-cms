@@ -4,18 +4,12 @@ status: true
 dependencies:
   config:
     - field.field.taxonomy_term.administration.field_description
-    - field.field.taxonomy_term.administration.field_email_updates_link_text
-    - field.field.taxonomy_term.administration.field_email_updates_url
-    - field.field.taxonomy_term.administration.field_link
     - field.field.taxonomy_term.administration.field_product
-    - field.field.taxonomy_term.administration.field_social_media_links
     - taxonomy.vocabulary.administration
     - views.view.taxonomy_term
   module:
     - layout_builder
     - layout_discovery
-    - link
-    - social_media_links_field
     - text
     - views
 third_party_settings:
@@ -56,75 +50,6 @@ third_party_settings:
                 third_party_settings: {  }
             additional: {  }
             weight: 1
-          d2cd3f4e-6b93-453e-996b-4509c9cf48cb:
-            uuid: d2cd3f4e-6b93-453e-996b-4509c9cf48cb
-            region: content
-            configuration:
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              id: 'field_block:taxonomy_term:administration:field_link'
-              formatter:
-                label: above
-                settings:
-                  trim_length: 80
-                  url_only: false
-                  url_plain: false
-                  rel: ''
-                  target: ''
-                third_party_settings: {  }
-                type: link
-            additional: {  }
-            weight: 2
-          eae4be8c-d96b-4ffa-8a2b-3dc8a3b81dd4:
-            uuid: eae4be8c-d96b-4ffa-8a2b-3dc8a3b81dd4
-            region: content
-            configuration:
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              id: 'field_block:taxonomy_term:administration:field_social_media_links'
-              formatter:
-                label: above
-                settings:
-                  appearance: {  }
-                  link_attributes: {  }
-                third_party_settings: {  }
-                type: social_media_links_field_default
-            additional: {  }
-            weight: 3
-          99126dc5-2a0c-45f4-90b3-26e8106be6ab:
-            uuid: 99126dc5-2a0c-45f4-90b3-26e8106be6ab
-            region: content
-            configuration:
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              id: 'field_block:taxonomy_term:administration:field_email_updates_url'
-              formatter:
-                label: above
-                settings:
-                  link_to_entity: false
-                third_party_settings: {  }
-                type: string
-            additional: {  }
-            weight: 4
-          96c47649-a6c4-426b-a880-9a5605d8ccbf:
-            uuid: 96c47649-a6c4-426b-a880-9a5605d8ccbf
-            region: content
-            configuration:
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              id: 'field_block:taxonomy_term:administration:field_email_updates_link_text'
-              formatter:
-                label: above
-                settings:
-                  link_to_entity: false
-                third_party_settings: {  }
-                type: string
-            additional: {  }
-            weight: 5
           55f8e77e-3ee6-450e-b0e0-d57391c85b9a:
             uuid: 55f8e77e-3ee6-450e-b0e0-d57391c85b9a
             region: content
@@ -156,75 +81,6 @@ third_party_settings:
                 third_party_settings: {  }
             additional: {  }
             weight: 7
-          048daeb5-7e0c-4207-a0ae-e1bed06ee6ff:
-            uuid: 048daeb5-7e0c-4207-a0ae-e1bed06ee6ff
-            region: content
-            configuration:
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              id: 'field_block:taxonomy_term:administration:field_link'
-              formatter:
-                label: above
-                settings:
-                  trim_length: 80
-                  url_only: false
-                  url_plain: false
-                  rel: ''
-                  target: ''
-                third_party_settings: {  }
-                type: link
-            additional: {  }
-            weight: 8
-          8a73a6b1-7938-4bd7-a6d5-0eb1e636a53d:
-            uuid: 8a73a6b1-7938-4bd7-a6d5-0eb1e636a53d
-            region: content
-            configuration:
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              id: 'field_block:taxonomy_term:administration:field_social_media_links'
-              formatter:
-                label: above
-                settings:
-                  appearance: {  }
-                  link_attributes: {  }
-                third_party_settings: {  }
-                type: social_media_links_field_default
-            additional: {  }
-            weight: 9
-          fa1ac729-dd70-437e-a6ff-3b42e3ebb33f:
-            uuid: fa1ac729-dd70-437e-a6ff-3b42e3ebb33f
-            region: content
-            configuration:
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              id: 'field_block:taxonomy_term:administration:field_email_updates_url'
-              formatter:
-                label: above
-                settings:
-                  link_to_entity: false
-                third_party_settings: {  }
-                type: string
-            additional: {  }
-            weight: 10
-          b5443c8e-f7ef-422f-99a0-cb6075def8ae:
-            uuid: b5443c8e-f7ef-422f-99a0-cb6075def8ae
-            region: content
-            configuration:
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              id: 'field_block:taxonomy_term:administration:field_email_updates_link_text'
-              formatter:
-                label: above
-                settings:
-                  link_to_entity: false
-                third_party_settings: {  }
-                type: string
-            additional: {  }
-            weight: 11
           284a3408-5888-4a67-bc1e-f9f05d32301a:
             uuid: 284a3408-5888-4a67-bc1e-f9f05d32301a
             region: content
@@ -256,75 +112,6 @@ third_party_settings:
                 third_party_settings: {  }
             additional: {  }
             weight: 13
-          191a1b9d-463b-413e-bf12-f247c6f32ae2:
-            uuid: 191a1b9d-463b-413e-bf12-f247c6f32ae2
-            region: content
-            configuration:
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              id: 'field_block:taxonomy_term:administration:field_link'
-              formatter:
-                label: above
-                settings:
-                  trim_length: 80
-                  url_only: false
-                  url_plain: false
-                  rel: ''
-                  target: ''
-                third_party_settings: {  }
-                type: link
-            additional: {  }
-            weight: 14
-          dea6f32f-9c96-4922-bc01-f6929bc30b0a:
-            uuid: dea6f32f-9c96-4922-bc01-f6929bc30b0a
-            region: content
-            configuration:
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              id: 'field_block:taxonomy_term:administration:field_social_media_links'
-              formatter:
-                label: above
-                settings:
-                  appearance: {  }
-                  link_attributes: {  }
-                third_party_settings: {  }
-                type: social_media_links_field_default
-            additional: {  }
-            weight: 15
-          d0edd423-20c5-404e-826b-8f11844bb76d:
-            uuid: d0edd423-20c5-404e-826b-8f11844bb76d
-            region: content
-            configuration:
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              id: 'field_block:taxonomy_term:administration:field_email_updates_url'
-              formatter:
-                label: above
-                settings:
-                  link_to_entity: false
-                third_party_settings: {  }
-                type: string
-            additional: {  }
-            weight: 16
-          bb2bba36-a12f-42fc-89ae-33d0ea735574:
-            uuid: bb2bba36-a12f-42fc-89ae-33d0ea735574
-            region: content
-            configuration:
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              id: 'field_block:taxonomy_term:administration:field_email_updates_link_text'
-              formatter:
-                label: above
-                settings:
-                  link_to_entity: false
-                third_party_settings: {  }
-                type: string
-            additional: {  }
-            weight: 17
           170c4eeb-345e-4313-ad67-396c3c86cade:
             uuid: 170c4eeb-345e-4313-ad67-396c3c86cade
             region: content
@@ -354,34 +141,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_email_updates_link_text:
-    weight: 6
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  field_email_updates_url:
-    weight: 5
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  field_link:
-    weight: 3
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    type: link
-    region: content
   field_product:
     weight: 8
     label: above
@@ -389,15 +148,6 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
-    region: content
-  field_social_media_links:
-    weight: 4
-    label: above
-    settings:
-      appearance: {  }
-      link_attributes: {  }
-    third_party_settings: {  }
-    type: social_media_links_field_default
     region: content
 hidden:
   field_description: true

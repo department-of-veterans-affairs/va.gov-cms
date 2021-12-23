@@ -118,6 +118,7 @@ Feature: Views
 | Content Entity Reference Source | Entity Reference: News Release Listing | entity_reference_4 | Entity Reference |
 | Content Entity Reference Source | Entity Reference: Staff profiles | entity_reference_5 | Entity Reference |
 | Content Entity Reference Source | Entity Reference: Systems | entity_reference_6 | Entity Reference |
+| Content Entity Reference Source | Entity Reference: Main Offices | entity_reference_7 | Entity Reference |
 | Content release logs | Master | default | Default |
 | Content release logs | Page | page_1 | Page |
 | Content served from Drupal | Page | page_1 | Page |
