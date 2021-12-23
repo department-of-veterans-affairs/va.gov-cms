@@ -40,12 +40,26 @@
 
   h2 {
     margin: var(--space-xl) 0 var(--space-s);
-    text-align: center;
 
     @include breakpoint('sm') {
-      margin: var(--space-m) 0 var(--space-s);
-      text-align: left;
+      margin: var(--space-l) 0 var(--space-s);
     }
+
+    @include breakpoint('lg') {
+      margin: var(--space-m) 0 var(--space-s);
+    }
+  }
+}
+
+.layout-container--login .page-content {
+  @include breakpoint('sm') {
+    max-width: 100%;
+  }
+  @include breakpoint('md') {
+    max-width: 80%;
+  }
+  @include breakpoint('lg') {
+    max-width: 60%;
   }
 }
 
@@ -72,16 +86,8 @@
   }
 }
 
-// overriding some global form styles for the login PIV container only
+// overriding some global form styles for the login page only
 .layout-container--login {
-  .piv-login {
-    text-align: center;
-
-    @include breakpoint('sm') {
-      text-align: left;
-    }
-  }
-
   .fieldset {
     border: 0 solid transparent;
     box-shadow: none;
@@ -95,18 +101,17 @@
     a + a {
       border-top: 1px solid var(--color-gray-light);
       display: block;
-      margin: 1rem auto 0;
       max-width: 50%;
       padding-top: 1rem;
 
       @include breakpoint('sm') {
-        margin-left: 0;
         max-width: 40%;
       }
     }
   }
 
-  .form-actions {
+  .form-actions,
+  .form-actions .button {
     margin: 0;
   }
 }
@@ -123,14 +128,21 @@
   box-shadow: none !important;
   color: var(--color-link);
   line-height: 2rem;
+  padding: calc(var(--space-m) - 1px) calc(var(--space-l) - 1px);
   position: absolute;
   right: 0;
   text-decoration: none;
   top: 0;
+
+  &:hover {
+    background-color: var(--color-blue-lightest);
+    color: var(--color-link);
+  }
 }
 
 // Hide non-PIV login elements by default.
 .piv-login {
+  .password-prefix,
   .js-login-username,
   .js-login-password,
   .js-login-submit {

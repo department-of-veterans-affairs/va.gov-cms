@@ -44,7 +44,7 @@ function vagovclaro_preprocess_container(&$variables) {
  * Implements hook_form_FORM_ID_alter().
  */
 function vagovclaro_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  // This chunk of code can probably move to va_gov_help_center.
+  // This chunk of code can probably move to va_gov_login.
   $config = \Drupal::config('simplesamlphp_auth.settings');
   \Drupal::service('renderer')->addCacheableDependency($form, $config);
   if (!$config->get('activate') || !$config->get('login_link_show')) {
@@ -70,16 +70,20 @@ function vagovclaro_form_user_login_form_alter(&$form, FormStateInterface $form_
     '#suffix' => '<a href="/help">Get help logging in</a>',
   ];
 
-  // Add classes to elements for JS toggle.
+  // Modify existing text and add classes for JS toggle & styles.
   $form['#attributes']['class'][] = 'piv-login';
+  $form['name']['#description'] = 'Your VA email address';
+  $form['name']['#prefix'] = '<div class="password-prefix form-item__description">Use this back up login method when PIV isn’t working. Learn more: <a href="">Logging in to the CMS.</a></div>';
   $form['name']['#wrapper_attributes']['class'][] = 'js-login-username';
+  $form['pass']['#description'] = 'The password assigned to you by the CMS Help Desk.';
   $form['pass']['#wrapper_attributes']['class'][] = 'js-login-password';
   $form['actions']['submit']['#attributes']['class'][] = 'js-login-submit';
+  $form['actions']['submit']['#attributes']['class'][] = 'button--primary';
 
   // Build toggle button to switch between PIV & User/Pass.
   $form['actions']['toggle'] = [
     '#type' => 'button',
-    '#button_type' => 'foo',
+    '#button_type' => 'toggle',
     '#attributes' => [
       'class' => [
         'link',
