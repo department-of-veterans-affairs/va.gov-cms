@@ -51,20 +51,21 @@ function vagovclaro_form_user_login_form_alter(&$form, FormStateInterface $form_
     return;
   }
 
-  $label = $config->get('login_link_display_name');
   $form['simplesamlphp_auth_login_link'] = [
     '#type' => 'fieldset',
+    '#title' => 'PIV login',
+    '#title_display' => 'invisible',
     '#weight' => -1,
     '#attributes' => [
       'class' => ['piv-container', 'js-piv-container'],
     ],
   ];
   $form['simplesamlphp_auth_login_link']['link'] = [
-    '#title' => $label,
+    '#title' => 'Login with PIV.',
     '#type' => 'link',
     '#url' => Url::fromRoute('simplesamlphp_auth.saml_login'),
     '#attributes' => [
-      'title' => $label,
+      'title' => 'Follow this link to login using your PIV or other smartcard.',
       'class' => ['simplesamlphp-auth-login-link', 'button', 'button--primary'],
     ],
     '#suffix' => '<a href="/help">Get help logging in</a>',
