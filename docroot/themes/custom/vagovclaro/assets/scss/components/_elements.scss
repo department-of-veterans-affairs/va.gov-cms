@@ -5,3 +5,65 @@
 .claro-details__summary {
   color: var(--color-text);
 }
+
+// hides duplicate character counter that isn't connected to the field
+.form-item + .textfield_counter_counter {
+  display: none;
+}
+
+.table--widget-entity_reference_browser_table_widget {
+  margin-top: 25px;
+
+  .moderation-status {
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+}
+
+#block-entitymetadisplay {
+  border: 1px solid var(--color-gray-light);
+  border-radius: 2px;
+  margin: 1em 0;
+  padding: 10px 18px;
+
+  div {
+    padding: 2px 0;
+  }
+}
+
+.ief-entity-table {
+  th:last-child {
+    font-size: 0;
+  }
+}
+
+p.vc-help-text {
+  line-height: 1.5;
+
+  a {
+    text-decoration: underline;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
+
+.visual-layout-svg {
+  padding-bottom: 55px;
+  padding-left: 0;
+  padding-right: 30px;
+  padding-top: 30px;
+}
+
+.item-list {
+  .qa-list {
+    margin-left: 0;
+
+    li {
+      list-style: none;
+      margin-left: 0;
+      padding: 10px 0 0;
+    }
+  }
+}

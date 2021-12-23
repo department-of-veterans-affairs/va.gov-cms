@@ -5,7 +5,7 @@
   border-left-width: 10px;
   box-sizing: border-box;
   color: var(--color-gray-darkest);
-  padding: 3.2rem 6.4rem 3.2rem 2.4rem;
+  padding: var(--space-xl) var(--space-xl) var(--space-xl) var(--space-s);
   vertical-align: middle;
   width: 100%;
 }
@@ -40,6 +40,13 @@
 
 .va-alert.messages--status a {
   color: var(--color-status);
+}
+
+// node link report tweaks
+.block-node-link-report-block h3 {
+  display: inline-block;
+  margin-left: var(--space-s);
+  width: 90%;
 }
 
 // site alert styles
