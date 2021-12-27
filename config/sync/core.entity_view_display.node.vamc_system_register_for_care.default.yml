@@ -69,22 +69,14 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_non_clinical_services:
-    weight: 3
+    weight: 2
     label: hidden
     settings:
       view_title: above
-      empty_view_title: hidden
-      always_build_output: false
+      always_build_output: true
+      empty_view_title: above
     third_party_settings: {  }
     type: viewfield_default
-    region: content
-  field_service_name_and_descripti:
-    weight: 2
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
     region: content
   links:
     weight: 0
@@ -97,4 +89,5 @@ hidden:
   field_enforce_unique_combo: true
   field_enforce_unique_combo_offic: true
   field_office: true
+  field_service_name_and_descripti: true
   search_api_excerpt: true

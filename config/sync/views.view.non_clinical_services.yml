@@ -69,12 +69,35 @@ display:
           description: ''
           columns:
             title: title
-            changed: changed
-            edit_node: edit_node
+            title_1: title_1
             moderation_state: moderation_state
+            edit_node: edit_node
+            changed: changed
+            field_administration: field_administration
           info:
             title:
               sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            title_1:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            moderation_state:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            edit_node:
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
@@ -87,15 +110,8 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            edit_node:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            moderation_state:
-              sortable: true
+            field_administration:
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
@@ -439,7 +455,7 @@ display:
           empty: true
           tokenize: false
           content:
-            value: 'You have not yet added a facility service yet. '
+            value: 'You have not added a facility service yet. '
             format: rich_text
           plugin_id: text
       relationships:
@@ -527,9 +543,9 @@ display:
           group_type: group
           admin_label: ''
           empty: true
-          tokenize: false
+          tokenize: true
           content:
-            value: '<p><a href="/node/add/vha_facility_nonclinical_service?edit[field_office][widget][0][target_id]=123&edit[field_service_name_and_descripti][widget][0][target_id]=1025">Add an admissions office</a> (opens in a new window).</p>'
+            value: '<p><a href="/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1025&field_administration={{ arguments.field_administration_target_id }}" target="_blank">Add an admissions office</a> (opens in a new window).</p>'
             format: rich_text
           plugin_id: text
       defaults:
@@ -546,7 +562,7 @@ display:
           relationship: field_region_page
           group_type: group
           admin_label: ''
-          default_action: default
+          default_action: empty
           exception:
             value: all
             title_enable: false
@@ -576,6 +592,41 @@ display:
           entity_type: node
           entity_field: nid
           plugin_id: node_nid
+        field_administration_target_id:
+          id: field_administration_target_id
+          table: node__field_administration
+          field: field_administration_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          default_action: empty
+          exception:
+            value: all
+            title_enable: false
+            title: All
+          title_enable: false
+          title: ''
+          default_argument_type: fixed
+          default_argument_options:
+            argument: ''
+          default_argument_skip_url: false
+          summary_options:
+            base_path: ''
+            count: true
+            items_per_page: 25
+            override: false
+          summary:
+            sort_order: asc
+            number_of_records: 0
+            format: default_summary
+          specify_validation: false
+          validate:
+            type: none
+            fail: 'not found'
+          validate_options: {  }
+          break_phrase: false
+          not: false
+          plugin_id: numeric
       fields:
         title:
           id: title
@@ -915,9 +966,9 @@ display:
           group_type: group
           admin_label: ''
           empty: true
-          tokenize: false
+          tokenize: true
           content:
-            value: '<p><a href="/node/add/vha_facility_nonclinical_service?edit[field_office][widget][0][target_id]=123&edit[field_service_name_and_descripti][widget][0][target_id]=1027" target="_blank">Add a billing and insurance office</a> (opens in a new window).</p>'
+            value: '<p><a href="/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1027&field_administration={{ arguments.field_administration_target_id }}" target="_blank">Add a billing and insurance office</a> (opens in a new window).</p>'
             format: rich_text
           plugin_id: text
       defaults:
@@ -999,7 +1050,7 @@ display:
           relationship: field_region_page
           group_type: group
           admin_label: ''
-          default_action: default
+          default_action: empty
           exception:
             value: all
             title_enable: false
@@ -1029,6 +1080,41 @@ display:
           entity_type: node
           entity_field: nid
           plugin_id: node_nid
+        field_administration_target_id:
+          id: field_administration_target_id
+          table: node__field_administration
+          field: field_administration_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          default_action: empty
+          exception:
+            value: all
+            title_enable: false
+            title: All
+          title_enable: false
+          title: ''
+          default_argument_type: fixed
+          default_argument_options:
+            argument: ''
+          default_argument_skip_url: false
+          summary_options:
+            base_path: ''
+            count: true
+            items_per_page: 25
+            override: false
+          summary:
+            sort_order: asc
+            number_of_records: 0
+            format: default_summary
+          specify_validation: false
+          validate:
+            type: none
+            fail: 'not found'
+          validate_options: {  }
+          break_phrase: false
+          not: false
+          plugin_id: numeric
       fields:
         title:
           id: title
@@ -1368,9 +1454,9 @@ display:
           group_type: group
           admin_label: ''
           empty: true
-          tokenize: false
+          tokenize: true
           content:
-            value: '<p><a href="/node/add/vha_facility_nonclinical_service?edit[field_office][widget][0][target_id]=123&edit[field_service_name_and_descripti][widget][0][target_id]=1026">Add a medical records office</a> (opens in a new window).</p>'
+            value: '<p><a href="/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1026&field_administration={{ arguments.field_administration_target_id }}" target="_blank">Add a medical records office</a> (opens in a new window).</p>'
             format: rich_text
           plugin_id: text
       defaults:
@@ -1379,6 +1465,7 @@ display:
         filter_groups: false
         arguments: false
         fields: false
+        title: false
       filters:
         type:
           id: type
@@ -1450,7 +1537,7 @@ display:
           relationship: field_region_page
           group_type: group
           admin_label: ''
-          default_action: default
+          default_action: empty
           exception:
             value: all
             title_enable: false
@@ -1480,6 +1567,41 @@ display:
           entity_type: node
           entity_field: nid
           plugin_id: node_nid
+        field_administration_target_id:
+          id: field_administration_target_id
+          table: node__field_administration
+          field: field_administration_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          default_action: empty
+          exception:
+            value: all
+            title_enable: false
+            title: All
+          title_enable: false
+          title: ''
+          default_argument_type: fixed
+          default_argument_options:
+            argument: ''
+          default_argument_skip_url: false
+          summary_options:
+            base_path: ''
+            count: true
+            items_per_page: 25
+            override: false
+          summary:
+            sort_order: asc
+            number_of_records: 0
+            format: default_summary
+          specify_validation: false
+          validate:
+            type: none
+            fail: 'not found'
+          validate_options: {  }
+          break_phrase: false
+          not: false
+          plugin_id: numeric
       fields:
         title:
           id: title
@@ -1792,6 +1914,7 @@ display:
           entity_type: node
           entity_field: changed
           plugin_id: field
+      title: 'Medical records offices'
     cache_metadata:
       max-age: -1
       contexts:

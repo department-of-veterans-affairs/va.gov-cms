@@ -1,0 +1,72 @@
+.field--name-field-phone-number {
+  .form-type-textfield {
+    float: left;
+  }
+}
+
+.field--name-field-phone-extension {
+  .form-type-textfield {
+    float: left;
+    margin-left: 20px;
+  }
+}
+
+.field--name-field-phone-label {
+  clear: both;
+}
+
+.paragraph-type--service-location-address {
+  .field--type-address {
+    display: none;
+  }
+}
+
+.field--type-smartdate {
+  .smartdate--widget {
+    .allday-label {
+      clear: both;
+      display: block;
+      float: none;
+
+      input.allday {
+        margin: 0.65em 0.5em 0 6em;
+      }
+    }
+  }
+}
+
+#field-clp-spotlight-cta-add-more-wrapper,
+#field-clp-spotlight-cta-add-more-wrapper,
+.field--name-field-primary-call-to-action,
+.field--name-field-clp-faq-paragraphs {
+  .clearfix::after {
+    clear: none;
+  }
+
+  [id^='edit-field-tags-0-subform-field-non-beneficiares-wrapper'] {
+    display: none;
+  }
+}
+
+.field--name-field-service-location .paragraph-type-title {
+  display: none;
+}
+
+.field--name-field-facility-service-hours {
+  .tablefield-addrow.button,
+  .seven-details {
+    display: none;
+  }
+}
+
+#edit-group-facility-api {
+  .field--name-field-facility-hours {
+    input {
+      pointer-events: none;
+    }
+  }
+}
+
+.field--name-field-facility-hours table tr td p {
+  margin: 0;
+}

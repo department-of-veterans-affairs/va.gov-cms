@@ -2,7 +2,6 @@
   .paragraph {
     &.paragraph--type--q-a,
     &.paragraph--type--collapsible-panel-item {
-
       /* stylelint-disable */
       border: none;
       /* stylelint-enable */
@@ -16,14 +15,12 @@
       }
 
       .paragraph--metadata {
-        /* stylelint-disable */
         display: none;
-        /* stylelint-enable */
       }
 
 
       details {
-        border: 3px solid #f1f1f1;
+        border: 3px solid var(--color-gray-lightest);
         /* stylelint-disable */
         border-top: none;
         /* stylelint-enable */
@@ -61,7 +58,7 @@
         }
 
         summary {
-          background: #f1f1f1;
+          background: var(--color-gray-lightest);
           cursor: pointer;
           font-family: Source Sans Pro, Helvetica Neue, Helvetica, Roboto, Arial, sans-serif;
           font-weight: bold;

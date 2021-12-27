@@ -8,11 +8,15 @@ dependencies:
     - taxonomy.vocabulary.administration
   module:
     - entity_reference_validators
+    - epp
 third_party_settings:
   entity_reference_validators:
     circular_reference: false
     circular_reference_deep: false
     duplicate_reference: false
+  epp:
+    value: '[current-page:query:field_administration]'
+    on_update: 0
 id: node.vha_facility_nonclinical_service.field_administration
 field_name: field_administration
 entity_type: node

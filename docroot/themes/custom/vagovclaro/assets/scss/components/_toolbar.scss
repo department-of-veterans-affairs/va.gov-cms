@@ -79,5 +79,17 @@ body.toolbar-fixed {
       }
     }
   }
+}
 
+.toolbar-tray .button--primary {
+  color: var(--color-white);
+  margin: 5px 10px;
+}
+
+/* Admin menus with route:<nolink> links should look OK */
+.toolbar-tray span.toolbar-icon {
+  color: var(--color-gray-dark);
+  cursor: pointer;
+  display: block;
+  padding: 1em 1.333em;
 }
