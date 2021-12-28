@@ -1,0 +1,72 @@
+/**
+ * This file contains styles for the 'view' tab of node forms.
+ */
+
+//
+.node__content {
+  @include va-basic-styling;
+}
+
+/* Node view from page--node.html.twig */
+.node-columns {
+  display: flex;
+  flex-flow: row wrap;
+
+  /* Single column */
+  > * {
+    flex: 1 100%;
+  }
+
+  /* Asides form two columns on small tablets. */
+  @media all and (min-width: 600px) {
+    aside {
+      flex: 1 0 0;
+    }
+  }
+
+  /* Three column layout on larger devices. */
+  @media all and (min-width: 800px) {
+    main {
+      flex: 3 0;
+    }
+
+    .layout-sidebar-first {
+      order: 1;
+      padding-right: 2em;
+    }
+
+    main {
+      order: 2;
+      padding-right: 1em;
+    }
+
+    .layout-sidebar-second {
+      order: 3;
+      padding-left: 1em;
+    }
+  }
+}
+
+/* Node view content, aimed primarily at page Detail pages, for now. */
+#block-vagovclaro-content {
+  .field__label {
+    text-transform: uppercase;
+  }
+
+  .field--name-field-related-links {
+    > .field__item,
+    > .field__items {
+      padding: 1em;
+    }
+  }
+}
+
+/* Right sidebar on node view pages. */
+.view-id-right_sidebar_latest_revision .views-row {
+  margin-bottom: 1em;
+}
+
+/* no bottom border for node view if table only has one row */
+tr:only-child {
+  border-bottom: 0;
+}

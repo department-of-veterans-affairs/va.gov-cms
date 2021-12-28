@@ -33,7 +33,8 @@
   {{ title_prefix }}
   {% if name and not page %}
     {% if view_mode == 'vet_center_dashboard' %}
-      <strong><h2>{{ name }}</h2></strong>
+      {# hide title on vc dashboard pages... title already printed higher up as h1 #}
+      {#<strong><h2>{{ name }}</h2></strong>#}
     {% else %}
       <strong><a href="{{ url }}">{{ name }}</a></strong>
     {% endif %}
