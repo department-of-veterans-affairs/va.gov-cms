@@ -22,7 +22,7 @@
 
 // fixes dropbutton spacing causing hover to auto-close
 table.responsive-enabled.draggable-table {
-  td:last-child {
+  td:last-child:not(:only-child) {
     text-align: right;
     white-space: nowrap;
   }
