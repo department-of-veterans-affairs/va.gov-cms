@@ -14,6 +14,19 @@ body.toolbar-fixed {
   top: 0;
 }
 
+// replace druplicon with VA icon in the toolbar
+.toolbar-icon-9 .toolbar-icon-admin-toolbar-tools-help::before {
+  background-image: url('../../images/logo.png');
+}
+
+.toolbar-tray-horizontal .menu-item--expanded {
+  background-color: var(--color-white);
+}
+
+.toolbar-tray-horizontal .menu-item:hover {
+  background-color: var(--color-gray-lightest);
+}
+
 .toolbar-bar {
   .toolbar-icon {
     // Help center icon.
