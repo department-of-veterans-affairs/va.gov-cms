@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b6cc6da3da59b4fb212f9c75723993ea",
+    "content-hash": "06f8a7d57dbea16fb25659db252568d4",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -918,21 +918,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/fengyuanchen/cropper/zipball/617d9bdb8688cc4edb3b03bc49a04b83c7facbe7",
                 "reference": "617d9bdb8688cc4edb3b03bc49a04b83c7facbe7"
-            },
-            "type": "bower-asset"
-        },
-        {
-            "name": "bower-asset/swagger-ui",
-            "version": "v3.52.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/swagger-api/swagger-ui.git",
-                "reference": "f1ad60dc92e7edb0898583e16c3e66fe3e9eada2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/swagger-api/swagger-ui/zipball/f1ad60dc92e7edb0898583e16c3e66fe3e9eada2",
-                "reference": "f1ad60dc92e7edb0898583e16c3e66fe3e9eada2"
             },
             "type": "bower-asset"
         },
@@ -6775,17 +6760,17 @@
         },
         {
             "name": "drupal/jsonapi_extras",
-            "version": "3.19.0",
+            "version": "3.20.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/jsonapi_extras.git",
-                "reference": "8.x-3.19"
+                "reference": "8.x-3.20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/jsonapi_extras-8.x-3.19.zip",
-                "reference": "8.x-3.19",
-                "shasum": "c608c004427136f33777d0e7e4485c1a91fcd563"
+                "url": "https://ftp.drupal.org/files/projects/jsonapi_extras-8.x-3.20.zip",
+                "reference": "8.x-3.20",
+                "shasum": "54bec6ae2b9261a53645182121ae16d3183e43ec"
             },
             "require": {
                 "drupal/core": "^8 || ^9",
@@ -6798,8 +6783,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-3.19",
-                    "datestamp": "1625144988",
+                    "version": "8.x-3.20",
+                    "datestamp": "1639580049",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -7597,21 +7582,22 @@
         },
         {
             "name": "drupal/metatag",
-            "version": "1.16.0",
+            "version": "1.18.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/metatag.git",
-                "reference": "8.x-1.16"
+                "reference": "8.x-1.18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/metatag-8.x-1.16.zip",
-                "reference": "8.x-1.16",
-                "shasum": "1c0028f4ff4583dc6601035657dd631c351b290c"
+                "url": "https://ftp.drupal.org/files/projects/metatag-8.x-1.18.zip",
+                "reference": "8.x-1.18",
+                "shasum": "b35683715780a45f0809af5a612f28bc4fbb777e"
             },
             "require": {
-                "drupal/core": "^8 || ^9",
-                "drupal/token": "^1.0"
+                "drupal/core": "^9",
+                "drupal/token": "^1.0",
+                "php": ">=7.0"
             },
             "require-dev": {
                 "drupal/devel": "^4.0",
@@ -7619,13 +7605,14 @@
                 "drupal/metatag_open_graph": "*",
                 "drupal/page_manager": "4.x-dev",
                 "drupal/panelizer": "4.x-dev",
-                "drupal/redirect": "1.x-dev"
+                "drupal/redirect": "1.x-dev",
+                "mpyw/phpunit-patch-serializable-comparison": "*"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.16",
-                    "datestamp": "1615820867",
+                    "version": "8.x-1.18",
+                    "datestamp": "1640098931",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -8311,100 +8298,6 @@
             "homepage": "https://www.drupal.org/project/openapi_jsonapi",
             "support": {
                 "source": "https://git.drupalcode.org/project/openapi_jsonapi"
-            }
-        },
-        {
-            "name": "drupal/openapi_ui",
-            "version": "1.0.0-rc3",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/openapi_ui.git",
-                "reference": "8.x-1.0-rc3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/openapi_ui-8.x-1.0-rc3.zip",
-                "reference": "8.x-1.0-rc3",
-                "shasum": "31f0dee0242b29aa90310b486c3d5fb441ceb44d"
-            },
-            "require": {
-                "drupal/core": "^8 || ^9"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "8.x-1.0-rc3",
-                    "datestamp": "1598462015",
-                    "security-coverage": {
-                        "status": "not-covered",
-                        "message": "RC releases are not covered by Drupal security advisories."
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "richgerdes",
-                    "homepage": "https://www.drupal.org/user/3437973"
-                }
-            ],
-            "description": "Provides plugin system for OpenAPI/Swagger Interface libraries.",
-            "homepage": "https://www.drupal.org/project/openapi_ui",
-            "support": {
-                "source": "https://git.drupalcode.org/project/openapi_ui"
-            }
-        },
-        {
-            "name": "drupal/openapi_ui_swagger",
-            "version": "1.0.0-rc4",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/openapi_ui_swagger.git",
-                "reference": "8.x-1.0-rc4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/openapi_ui_swagger-8.x-1.0-rc4.zip",
-                "reference": "8.x-1.0-rc4",
-                "shasum": "baf07ef43d1f2ffb5f5e991d45fe7a89e5e8511c"
-            },
-            "require": {
-                "drupal/core": "^8 || ^9",
-                "drupal/openapi_ui": "^1.0",
-                "swagger-api/swagger-ui": "^3.0.17"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "8.x-1.0-rc4",
-                    "datestamp": "1598462031",
-                    "security-coverage": {
-                        "status": "not-covered",
-                        "message": "RC releases are not covered by Drupal security advisories."
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "richgerdes",
-                    "homepage": "https://www.drupal.org/user/3437973"
-                }
-            ],
-            "description": "Creates OpenAPI specification for Drupal REST resources.",
-            "homepage": "https://www.drupal.org/project/openapi_ui_swagger",
-            "keywords": [
-                "Drupal"
-            ],
-            "support": {
-                "source": "http://cgit.drupalcode.org/openapi_ui_swagger",
-                "issues": "http://drupal.org/project/issues/openapi_ui_swagger"
             }
         },
         {
@@ -10360,17 +10253,17 @@
         },
         {
             "name": "drupal/token",
-            "version": "1.9.0",
+            "version": "1.10.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/token.git",
-                "reference": "8.x-1.9"
+                "reference": "8.x-1.10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/token-8.x-1.9.zip",
-                "reference": "8.x-1.9",
-                "shasum": "a5d234382a1a0e4ba61d4c7a2fa10671ca656be4"
+                "url": "https://ftp.drupal.org/files/projects/token-8.x-1.10.zip",
+                "reference": "8.x-1.10",
+                "shasum": "8b81224ab0420221b292e8d3b66d0da726317400"
             },
             "require": {
                 "drupal/core": "^8.8 || ^9"
@@ -10378,8 +10271,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.9",
-                    "datestamp": "1608284866",
+                    "version": "8.x-1.10",
+                    "datestamp": "1638619775",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -10977,28 +10870,6 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/workbench_menu_access"
             }
-        },
-        {
-            "name": "drupal/workflow_assignments",
-            "version": "1.x-dev",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/agilesix/workflow_assignments.git",
-                "reference": "c9e4ff60d9b0db3e8df444cf649349e2eaaee253"
-            },
-            "default-branch": true,
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "1.x": "1.x-dev"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "description": "TBD",
-            "homepage": "https://drupal.org/project/workflow_assignments",
-            "time": "2020-07-17T11:02:09+00:00"
         },
         {
             "name": "drush-ops/behat-drush-endpoint",
@@ -13824,21 +13695,21 @@
         },
         {
             "name": "oomphinc/composer-installers-extender",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/oomphinc/composer-installers-extender.git",
-                "reference": "8d3fe38a1723e0e91076920c8bb946b1696e28ca"
+                "reference": "cbf4b6f9a24153b785d09eee755b995ba87bd5f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oomphinc/composer-installers-extender/zipball/8d3fe38a1723e0e91076920c8bb946b1696e28ca",
-                "reference": "8d3fe38a1723e0e91076920c8bb946b1696e28ca",
+                "url": "https://api.github.com/repos/oomphinc/composer-installers-extender/zipball/cbf4b6f9a24153b785d09eee755b995ba87bd5f9",
+                "reference": "cbf4b6f9a24153b785d09eee755b995ba87bd5f9",
                 "shasum": ""
             },
             "require": {
                 "composer-plugin-api": "^1.1 || ^2.0",
-                "composer/installers": "^1.0",
+                "composer/installers": "^1.0 || ^2.0",
                 "php": ">=7.1"
             },
             "require-dev": {
@@ -13875,9 +13746,9 @@
             "homepage": "http://www.oomphinc.com/",
             "support": {
                 "issues": "https://github.com/oomphinc/composer-installers-extender/issues",
-                "source": "https://github.com/oomphinc/composer-installers-extender/tree/2.0.0"
+                "source": "https://github.com/oomphinc/composer-installers-extender/tree/2.0.1"
             },
-            "time": "2020-08-11T21:06:11+00:00"
+            "time": "2021-12-15T12:32:42+00:00"
         },
         {
             "name": "pear/archive_tar",
@@ -19165,67 +19036,6 @@
             "time": "2020-01-30T12:17:27+00:00"
         },
         {
-            "name": "swagger-api/swagger-ui",
-            "version": "v3.52.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/swagger-api/swagger-ui.git",
-                "reference": "f1ad60dc92e7edb0898583e16c3e66fe3e9eada2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/swagger-api/swagger-ui/zipball/f1ad60dc92e7edb0898583e16c3e66fe3e9eada2",
-                "reference": "f1ad60dc92e7edb0898583e16c3e66fe3e9eada2",
-                "shasum": ""
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Anna Bodnia",
-                    "email": "anna.bodnia@gmail.com"
-                },
-                {
-                    "name": "Buu Nguyen",
-                    "email": "buunguyen@gmail.com"
-                },
-                {
-                    "name": "Josh Ponelat",
-                    "email": "jponelat@gmail.com"
-                },
-                {
-                    "name": "Kyle Shockey",
-                    "email": "kyleshockey1@gmail.com"
-                },
-                {
-                    "name": "Robert Barnwell",
-                    "email": "robert@robertismy.name"
-                },
-                {
-                    "name": "Sahar Jafari",
-                    "email": "shr.jafari@gmail.com"
-                }
-            ],
-            "description": " Swagger UI is a collection of HTML, Javascript, and CSS assets that dynamically generate beautiful documentation from a Swagger-compliant API.",
-            "homepage": "http://swagger.io",
-            "keywords": [
-                "api",
-                "documentation",
-                "openapi",
-                "specification",
-                "swagger",
-                "ui"
-            ],
-            "support": {
-                "issues": "https://github.com/swagger-api/swagger-ui/issues",
-                "source": "https://github.com/swagger-api/swagger-ui/tree/v3.52.5"
-            },
-            "time": "2021-10-14T14:25:14+00:00"
-        },
-        {
             "name": "symfony-cmf/routing",
             "version": "2.3.3",
             "source": {
@@ -23095,16 +22905,16 @@
         },
         {
             "name": "va-gov/content-build",
-            "version": "v0.0.2013",
+            "version": "v0.0.2086",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/content-build.git",
-                "reference": "ff47ada19fc4e7507eadbd960edf0c5859b9cc74"
+                "reference": "3e294085dbcec32baf43cb2b3758af7d39d4f560"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/ff47ada19fc4e7507eadbd960edf0c5859b9cc74",
-                "reference": "ff47ada19fc4e7507eadbd960edf0c5859b9cc74",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/3e294085dbcec32baf43cb2b3758af7d39d4f560",
+                "reference": "3e294085dbcec32baf43cb2b3758af7d39d4f560",
                 "shasum": ""
             },
             "type": "node-project",
@@ -23131,9 +22941,9 @@
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/content-build, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
             "support": {
                 "issues": "https://github.com/department-of-veterans-affairs/content-build/issues",
-                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.2013"
+                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.2086"
             },
-            "time": "2021-12-17T19:44:42+00:00"
+            "time": "2021-12-21T21:36:08+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -25023,7 +24833,6 @@
         "drupal/migrate_source_ui": 5,
         "drupal/migrate_tools": 20,
         "drupal/openapi": 5,
-        "drupal/openapi_ui_swagger": 5,
         "drupal/paragraphs_browser": 15,
         "drupal/path_redirect_import": 10,
         "drupal/pathologic": 15,
@@ -25034,7 +24843,6 @@
         "drupal/user_history": 15,
         "drupal/viewfield": 10,
         "drupal/views_data_export": 10,
-        "drupal/workflow_assignments": 20,
         "weitzman/drupal-test-traits": 20
     },
     "prefer-stable": true,

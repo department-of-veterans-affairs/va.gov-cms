@@ -85,7 +85,7 @@ The goal for this week is to get you set up with the tools you need to be succes
     - [ ] [VA.gov request instructions](https://github.com/department-of-veterans-affairs/github-user-requests/issues/new?labels=add-user-to-org%2C+new-user%2C+user-created&template=add-user-to-the-va-organization.md&title=ADD+USER+TO+ORG+-+%5BUSERNAME%5D) - Your delivery manager should have already requested this for you so double check with them before submitting a new request.
     - [ ] [Intro to CMS Team Github](https://github.com/department-of-veterans-affairs/va.gov-cms#readme)
     - [ ] [CMS team list](https://github.com/orgs/department-of-veterans-affairs/teams/vfs-cms-team/members) - Same as above.
-    - [ ] New to Github and markdown? [Learn about writing on Github](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github)
+    - [ ] New to Github and markdown? [Learn about writing on Github](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github) or [watch a tutorial video](https://youtu.be/TBbtbKplUoc)
     - [ ] [Zenhub extension instructions](https://www.zenhub.com/extension) - You'll need to install this on your preferred browser.
   
 - [ ] [SOCKS proxy request](https://depo-platform-documentation.scrollhelp.site/getting-started/Internal-tools-access-via-SOCKS-proxy.1821081710.html) to access some VA network tools. The VA network is required for Drupal CMS and other VA tools and usually requires a VA ID card (PIV or Smartcard). Until you get your paperwork approved and ID card, SOCKS proxy is a back door to some of these tools. This is the first priority for week two. For the request, select the label for our team, currently "cms"

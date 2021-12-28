@@ -1,3 +1,6 @@
+/**
+ * Styles in this file are compiled separately for knowledge base pages.
+ */
 @import 'tokens/mixins';
 
 // User guide pages should be narrow for readability.
@@ -60,17 +63,11 @@ h2.section-header {
   margin-top: 2rem;
 }
 
-.field--name-field-related-user-guides {
-  background: #f1f1f1;
-  margin-top: 2rem;
-  padding: 1em 2em;
-
-  h2.field__label {
-    border-bottom: 1px solid #aeb0b5;
-    margin: 0.5rem 0 1rem;
-    padding: 0 0 0.4rem;
-    text-transform: none !important;
-  }
+.field--name-field-related-user-guides h2.field__label {
+  border-bottom: 1px solid var(--color-gray-light);
+  margin: 0.5rem 0 1rem;
+  padding: 0 0 0.4rem;
+  text-transform: none !important;
 }
 
 #block-vagovcmsdocumentation {
@@ -78,7 +75,7 @@ h2.section-header {
     box-shadow: border-box;
   }
 
-  background: rgb(217, 238, 251); // Light blue.
+  background: var(--color-blue-lightest); // Light blue.
   padding: 1rem;
 
   li {
@@ -88,20 +85,14 @@ h2.section-header {
 
   a,
   a.is-active {
-    color: #0a0a0a;
+    color: var(--color-black);
     font-size: 1rem;
     font-weight: bold;
     padding-left: 2.75em;
 
     &:hover,
     &:active {
-      color: #2a2a2a;
-    }
-
-    &::before {
-      //background-size: 100% auto;
-      //left: 0.6667em;
-      //width: 30px;
+      color: var(--color-gray-darkest);
     }
 
     &.icon {
@@ -194,7 +185,7 @@ h2.section-header {
   }
 
   li.menu-item {
-    border-top: 1px solid #e6e6e6;
+    border-top: 1px solid var(--color-gray-lighter);
     list-style: none;
     margin-bottom: 0;
     max-width: unset;
@@ -213,11 +204,11 @@ h2.section-header {
     a {
       background-color: transparent;
       border: 1px solid transparent;
-      color: #5c5c5c;
+      color: var(--color-gray-dark);
 
       &:hover {
-        background-color: #eee;
-        color: #005ea2;
+        background-color: var(--color-gray-light);
+        color: var(--color-blue-dark);
         text-decoration: none;
       }
     }
@@ -245,7 +236,7 @@ h2.section-header {
 
         a {
           //padding-left: 2rem;
-          color: #005ea2;
+          color: var(--color-blue-dark);
           font-weight: normal;
           text-decoration: none;
         }
@@ -254,14 +245,14 @@ h2.section-header {
   }
 
   .knowledge_base__menu__section_label {
-    color: #0a0a0a;
+    color: var(--color-black);
     display: block;
     font-weight: bold;
     margin-top: 1em;
 
     &:hover {
       background: none;
-      color: #0a0a0a;
+      color: var(--color-black);
     }
   }
 }
@@ -270,7 +261,7 @@ h2.section-header {
 
 .last_updated {
   @include va-body-font;
-  border-top: 2px solid #aeb0b5;
+  border-top: 2px solid var(--color-gray-light);
   margin-top: 1.5rem;
   padding-top: 1em;
   width: 100%;
@@ -281,7 +272,7 @@ h2.section-header {
 
 .kb__search-result {
 
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--color-gray-light);
   padding: 1em 0;
 
   &__title {
