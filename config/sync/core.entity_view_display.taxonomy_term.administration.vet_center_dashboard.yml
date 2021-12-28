@@ -20,65 +20,14 @@ third_party_settings:
     enabled: true
     sections:
       -
-        layout_id: layout_threecol_section
+        layout_id: layout_onecol
         layout_settings:
-          label: ''
-          column_widths: 33-34-33
+          label: 'Dashboard blocks'
+          context_mapping: {  }
         components:
-          ee54441e-284f-4376-8f5b-f3934a28fb4c:
-            uuid: ee54441e-284f-4376-8f5b-f3934a28fb4c
-            region: first
-            configuration:
-              id: 'va_gov_dashboards:visitor_information'
-              label: 'Visitor information'
-              provider: va_gov_dashboards
-              label_display: '0'
-              context_mapping: {  }
-            additional: {  }
-            weight: 1
-          081a459c-e2e4-4763-8582-4b7a141db012:
-            uuid: 081a459c-e2e4-4763-8582-4b7a141db012
-            region: second
-            configuration:
-              id: 'va_gov_dashboards:services'
-              label: Services
-              provider: va_gov_dashboards
-              label_display: '0'
-              context_mapping: {  }
-            additional: {  }
-            weight: 0
-          5d14b623-8e97-4764-9e71-3ff0f15a697d:
-            uuid: 5d14b623-8e97-4764-9e71-3ff0f15a697d
-            region: third
-            configuration:
-              id: 'va_gov_dashboards:featured_content'
-              label: 'Featured content'
-              provider: va_gov_dashboards
-              label_display: '0'
-              context_mapping: {  }
-            additional: {  }
-            weight: 0
-        third_party_settings: {  }
-      -
-        layout_id: layout_threecol_section
-        layout_settings:
-          label: ''
-          column_widths: 33-34-33
-        components:
-          37125dc1-84d5-4780-992a-c5f9891ff37d:
-            uuid: 37125dc1-84d5-4780-992a-c5f9891ff37d
-            region: first
-            configuration:
-              id: 'va_gov_dashboards:operating_status'
-              label: 'Operating status'
-              provider: va_gov_dashboards
-              label_display: '0'
-              context_mapping: {  }
-            additional: {  }
-            weight: 0
           809749de-35f8-40dc-8e84-a699d006bb1d:
             uuid: 809749de-35f8-40dc-8e84-a699d006bb1d
-            region: second
+            region: content
             configuration:
               id: 'va_gov_dashboards:vet_center_page'
               label: 'Main Vet Center page'
@@ -86,10 +35,54 @@ third_party_settings:
               label_display: '0'
               context_mapping: {  }
             additional: {  }
-            weight: 0
+            weight: 6
+          ee54441e-284f-4376-8f5b-f3934a28fb4c:
+            uuid: ee54441e-284f-4376-8f5b-f3934a28fb4c
+            region: content
+            configuration:
+              id: 'va_gov_dashboards:visitor_information'
+              label: 'Visitor information'
+              provider: va_gov_dashboards
+              label_display: '0'
+              context_mapping: {  }
+            additional: {  }
+            weight: 2
+          081a459c-e2e4-4763-8582-4b7a141db012:
+            uuid: 081a459c-e2e4-4763-8582-4b7a141db012
+            region: content
+            configuration:
+              id: 'va_gov_dashboards:services'
+              label: Services
+              provider: va_gov_dashboards
+              label_display: '0'
+              context_mapping: {  }
+            additional: {  }
+            weight: 3
+          5d14b623-8e97-4764-9e71-3ff0f15a697d:
+            uuid: 5d14b623-8e97-4764-9e71-3ff0f15a697d
+            region: content
+            configuration:
+              id: 'va_gov_dashboards:featured_content'
+              label: 'Featured content'
+              provider: va_gov_dashboards
+              label_display: '0'
+              context_mapping: {  }
+            additional: {  }
+            weight: 4
+          37125dc1-84d5-4780-992a-c5f9891ff37d:
+            uuid: 37125dc1-84d5-4780-992a-c5f9891ff37d
+            region: content
+            configuration:
+              id: 'va_gov_dashboards:operating_status'
+              label: 'Operating status'
+              provider: va_gov_dashboards
+              label_display: '0'
+              context_mapping: {  }
+            additional: {  }
+            weight: 5
           2b86b67f-fe60-488a-82a0-adee1158f88c:
             uuid: 2b86b67f-fe60-488a-82a0-adee1158f88c
-            region: third
+            region: content
             configuration:
               id: 'va_gov_dashboards:locations'
               label: 'Locations page'
@@ -97,7 +90,7 @@ third_party_settings:
               label_display: '0'
               context_mapping: {  }
             additional: {  }
-            weight: 0
+            weight: 7
         third_party_settings: {  }
       -
         layout_id: layout_onecol
