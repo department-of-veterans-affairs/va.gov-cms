@@ -20,6 +20,18 @@
   }
 }
 
+// fixes dropbutton spacing causing hover to auto-close
+table.responsive-enabled.draggable-table {
+  td:last-child {
+    text-align: right;
+    white-space: nowrap;
+  }
+}
+
+.taxonomy-term-preview {
+  background-color: unset;
+}
+
 #block-entitymetadisplay {
   border: 1px solid var(--color-gray-light);
   border-radius: 2px;
