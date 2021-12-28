@@ -4,11 +4,13 @@ status: true
 dependencies:
   config:
     - field.field.node.vha_facility_nonclinical_service.field_administration
+    - field.field.node.vha_facility_nonclinical_service.field_enforce_unique_combo_offic
     - field.field.node.vha_facility_nonclinical_service.field_facility_location
     - field.field.node.vha_facility_nonclinical_service.field_service_location
     - field.field.node.vha_facility_nonclinical_service.field_service_name_and_descripti
     - node.type.vha_facility_nonclinical_service
   module:
+    - allow_only_one
     - entity_reference_revisions
     - user
 id: node.vha_facility_nonclinical_service.default
@@ -16,6 +18,18 @@ targetEntityType: node
 bundle: vha_facility_nonclinical_service
 mode: default
 content:
+  content_moderation_control:
+    weight: -20
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_enforce_unique_combo_offic:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: allow_only_one
+    region: content
   field_service_location:
     weight: 0
     label: above
