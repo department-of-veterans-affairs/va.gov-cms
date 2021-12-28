@@ -174,10 +174,9 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'bypass graphql field security',
           'use graphql explorer',
           'use graphql voyager',
+          'va gov graphql read menu content',
           'view any unpublished content',
           'view own unpublished content',
-          'link to any page',
-          'va gov graphql read menu content',
         ],
       ],
       [
