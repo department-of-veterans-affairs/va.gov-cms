@@ -67,3 +67,17 @@ p.vc-help-text {
     }
   }
 }
+
+.eyebrow {
+  position: relative;
+
+  &::after {
+    background-color: var(--color-warning);
+    bottom: -0.25rem;
+    content: ' ';
+    height: 4px;
+    left: 0;
+    position: absolute;
+    width: 40px;
+  }
+}

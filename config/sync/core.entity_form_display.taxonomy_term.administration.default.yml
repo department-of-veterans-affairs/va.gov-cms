@@ -4,11 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.taxonomy_term.administration.field_description
-    - field.field.taxonomy_term.administration.field_email_updates_link_text
-    - field.field.taxonomy_term.administration.field_email_updates_url
-    - field.field.taxonomy_term.administration.field_link
     - field.field.taxonomy_term.administration.field_product
-    - field.field.taxonomy_term.administration.field_social_media_links
     - taxonomy.vocabulary.administration
   module:
     - field_group
@@ -70,10 +66,6 @@ content:
     third_party_settings: {  }
 hidden:
   description: true
-  field_email_updates_link_text: true
-  field_email_updates_url: true
-  field_link: true
-  field_social_media_links: true
   layout_builder__layout: true
   path: true
   status: true

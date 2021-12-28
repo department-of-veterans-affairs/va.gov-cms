@@ -1,0 +1,43 @@
+{#
+/**
+ * @file
+ * Theme override to display a vet center dashboard block.
+ *
+ * These blocks are built in va_gov_dashboards.module, this template overrides
+ * the template provided by that module.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the wrapper.
+ * - id:
+ * - image: top block icon
+ * - title: block title
+ * - description: descriptive text for the block
+ * - action: for view/edit buttons
+ * - nid: for links related to nodes surfaced by a dashboard block
+ * - anchor: for jump links
+ *
+ * @see va_gov_dashboards_theme()
+ */
+#}
+<div class="dashboard-block-img-wrap">
+  <img alt="" src="/{{ directory }}/dashboard-images/vc/{{image}}"/>
+</div>
+<h2 class="heading-c eyebrow">{{ title }}</h2>
+<p class="form-item__description">{{ description }}</p>
+<div>
+  {% if id == "dash_vc_vet_center_page" or id == "dash_vc_locations" %}
+			<a class="dashboard-block-link dashboard-block-link-left button button--small"
+         href="{{ path('entity.node.canonical', {'node': nid}) }}">
+        View ›
+      </a>
+			<a class="dashboard-block-link dashboard-block-link-right button button--small"
+         href="/node/{{nid}}/edit?destination={{ path('<current>') }}">
+        Edit ›
+      </a>
+  {% else %}
+			<a class="dashboard-block-link dashboard-block-link-right button button--small"
+         href="/node/{{nid}}/edit?destination={{ path('<current>') }}{{ anchor }}">
+        {{ action }} ›
+      </a>
+  {% endif %}
+</div>
