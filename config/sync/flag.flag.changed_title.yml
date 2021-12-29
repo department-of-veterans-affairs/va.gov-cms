@@ -25,10 +25,11 @@ unflag_long: 'This will remove the changed title flag'
 unflag_message: ''
 unflag_denied_text: ''
 flag_type: 'entity:node'
-link_type: ajax_link
+link_type: reload
 flagTypeConfig:
-  show_in_links: {  }
-  show_as_field: false
+  show_in_links:
+    diff: diff
+  show_as_field: true
   show_on_form: true
   show_contextual_link: false
   extra_permissions:
