@@ -1,21 +1,26 @@
-uuid: c2764d22-17ff-46fe-acf8-0245f1b78dc3
+uuid: 59b761a4-2995-4803-9bf8-b2a1bb4756d6
 langcode: en
 status: true
 dependencies:
   module:
     - node
-id: deleted
-label: Deleted
+id: new
+label: New
 bundles:
-  - va_form
+  - health_care_local_facility
+  - nca_facility
+  - vba_facility
+  - vet_center
+  - vet_center_mobile_vet_center
+  - vet_center_outstation
 entity_type: node
 global: true
 weight: 0
-flag_short: Deleted
+flag_short: New
 flag_long: ''
-flag_message: 'This item was deleted'
-unflag_short: 'Not deleted'
-unflag_long: 'This will remove the deleted flag'
+flag_message: 'This item is new'
+unflag_short: 'Not new'
+unflag_long: 'This will remove the new flag'
 unflag_message: ''
 unflag_denied_text: ''
 flag_type: 'entity:node'
