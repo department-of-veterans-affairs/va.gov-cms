@@ -1,0 +1,36 @@
+uuid: b5765259-4163-48a2-8962-bf9a890c93d3
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: changed_title
+label: 'Changed title'
+bundles:
+  - health_care_local_facility
+  - nca_facility
+  - va_form
+  - vba_facility
+  - vet_center
+  - vet_center_mobile_vet_center
+  - vet_center_outstation
+entity_type: node
+global: true
+weight: 0
+flag_short: 'Changed title'
+flag_long: ''
+flag_message: 'The Title was changed'
+unflag_short: 'Title change resolved'
+unflag_long: 'This will remove the title change flag'
+unflag_message: ''
+unflag_denied_text: ''
+flag_type: 'entity:node'
+link_type: ajax_link
+flagTypeConfig:
+  show_in_links: {  }
+  show_as_field: false
+  show_on_form: true
+  show_contextual_link: false
+  extra_permissions:
+    owner: '0'
+linkTypeConfig: {  }

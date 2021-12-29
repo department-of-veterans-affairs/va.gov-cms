@@ -1,0 +1,15 @@
+uuid: 1a21cd0e-8d80-4ae2-b1e2-c00804fe52f9
+langcode: en
+status: true
+dependencies:
+  config:
+    - flag.flag.changed_title
+  module:
+    - flag
+id: flag_action.changed_title_unflag
+label: 'Title change resolved'
+type: node
+plugin: 'flag_action:changed_title_unflag'
+configuration:
+  flag_id: changed_title
+  flag_action: unflag
