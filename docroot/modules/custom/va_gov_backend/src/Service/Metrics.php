@@ -55,17 +55,47 @@ class Metrics {
    * Collect, format, and send metrics to Datadog.
    */
   public function updateDatadog(): void {
+    if (!$this->shouldSendMetrics()) {
+      return;
+    }
+
     $metrics = $this->metricsCollectorManager->collectMetrics();
     $formatted_metrics = $this->buildMetricsObject($metrics);
     $this->sendMetricsToDatadog($formatted_metrics);
   }
 
   /**
+   * Don't send metrics to datadog if we're not on a monitored environment.
+   *
+   * Since metrics will occasionally need to be worked on locally or on other
+   * environments, this method also allows developers to override the behavior
+   * in settings.php.
+   *
+   * @return bool
+   *   Whether or not metrics should be sent to datadog.
+   */
+  protected function shouldSendMetrics() : bool {
+    $env_is_brd = $this->settings->get('va_gov_frontend_build_type') == "brdgha";
+    $override_present = $this->settings->get('va_gov_force_sending_metrics', FALSE);
+
+    return $env_is_brd || $override_present;
+  }
+
+  /**
    * Build a prefix for the metrics that are pushed to Datadog.
    */
-  protected function getMetricPrefix() {
+  protected function getMetricPrefix() : string {
     // @todo This should probably use a different setting.
-    return "dsva_vagov.cms." . $this->settings->get('github_actions_deploy_env') . ".";
+    switch ($this->settings->get('va_gov_frontend_build_type')) {
+      case "brdgha":
+        return "dsva_vagov.cms." . $this->settings->get('github_actions_deploy_env') . ".";
+
+      case "lando":
+        return "dsva_vagov.cms.local.";
+
+      default:
+        return FALSE;
+    }
   }
 
   /**
@@ -151,7 +181,7 @@ class Metrics {
     $this->http->post(self::METRICS_INGEST_URL, [
       'headers' => [
         'Content-Type' => 'text/json',
-        'DD-API-KEY' => '',
+        'DD-API-KEY' => $this->settings->get('cms_datadog_api_key'),
       ],
       'body' => json_encode($metrics),
     ]);
