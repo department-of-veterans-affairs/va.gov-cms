@@ -213,5 +213,8 @@ Go to chrome://settings/certificates?search=https
 Click "Authorities"
 Import `.lando\certs\lndo.site.pem`
 
+## Memory limit issues (e.g. MySQL Server has gone away)
+Sometimes your local env may run out of memory when clicking around the Drupal environment. `lando restart` will fix
+this in the short term. If the problem persists, bumping up your docker ram to 4GB or higher should fix the issue.
 
 [Table of Contents](../README.md)

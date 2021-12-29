@@ -1,30 +1,27 @@
-/**
- * @file
- * Element help styles.
- */
 
-.proofing-element-help {
-  background-color: #0074bd;
+.tooltip-layout {
+  border: 1px solid var(--color-gray-light);
+  border-radius: 2px;
+  margin: 1em 0;
+  min-width: 0;
+  padding: 30px 18px 18px;
+  position: relative;
+}
+
+.tooltip-toggle {
+  // image doesn't resolve here but does in compiled css?
+  background-image: url('../../images/icons/questionmark-disc-000000.svg');
+  background-size: cover;
   border: 0;
-  border-radius: 50%;
-  box-sizing: content-box;
-  color: #fff;
-  display: inline-block;
-  font-family: 'Bitter', 'Georgia', 'Cambria', 'Times New Roman', 'Times', serif;
-  font-size: 12px;
-  font-weight: bold;
-  height: 16px;
-  line-height: 16px;
-  margin-left: 4px;
-  padding: 0;
+  height: 25px;
   position: absolute;
-  text-align: center;
-  top: 0;
-  width: 16px;
+  right: 10px;
+  top: 10px;
+  width: 25px;
+}
 
-  &:focus,
-  &:hover,
-  &:active {
-    cursor: pointer;
+.tooltip-layout {
+  [id^='add-tooltip-'] {
+    display: none;
   }
 }

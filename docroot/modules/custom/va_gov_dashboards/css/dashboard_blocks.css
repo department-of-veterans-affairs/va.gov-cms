@@ -1,32 +1,27 @@
-.layout__region.layout__region--first,
-.layout__region.layout__region--second,
-.layout__region.layout__region--third {
-  display: flex;
-  flex-wrap: wrap;
+/* layout builder builds the whole term page, we only want to target
+   the dashboard block container */
+.layout.layout--onecol:first-child {
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.layout.layout--onecol:first-child .layout__region--content {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
 }
 
 @media screen and (min-width: 40em) {
-  .vocabulary-administration .layout--threecol-section {
-    justify-content: center;
-  }
-
-  .vocabulary-administration .layout--threecol-section--33-34-33 > .layout__region--first,
-  .vocabulary-administration .layout--threecol-section--33-34-33 > .layout__region--second,
-  .vocabulary-administration .layout--threecol-section--33-34-33 > .layout__region--third {
-    flex: 0 1 auto;
-    margin-left: 10px;
-    margin-right: 10px;
+  .layout.layout--onecol:first-child .layout__region--content {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
-@media screen and (max-width: 70em) {
-  .vocabulary-administration .layout--threecol-section--33-34-33 > .layout__region--first,
-  .vocabulary-administration .layout--threecol-section--33-34-33 > .layout__region--second,
-  .vocabulary-administration .layout--threecol-section--33-34-33 > .layout__region--third {
-    flex: 0 1 100%;
+@media screen and (min-width: 70em) {
+  .layout.layout--onecol:first-child .layout__region--content {
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }
-
 
 .block-va-gov-dashboards {
   background-color: #f5f5f2;
@@ -36,10 +31,6 @@
   margin: 10px auto;
   padding: 16px;
   width: 284px;
-  /* stylelint-disable */
-  /* width: -webkit-fill-available; */
-  /* width: -moz-available; */
-  /* stylelint-enable */
 }
 
 .dashboard-block-img-wrap {

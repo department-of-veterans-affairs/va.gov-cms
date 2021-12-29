@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ea17cf07b147cd504077f7d3f7a92315",
+    "content-hash": "df43cb365abb37d87963d4b48c435450",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -6760,17 +6760,17 @@
         },
         {
             "name": "drupal/jsonapi_extras",
-            "version": "3.19.0",
+            "version": "3.20.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/jsonapi_extras.git",
-                "reference": "8.x-3.19"
+                "reference": "8.x-3.20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/jsonapi_extras-8.x-3.19.zip",
-                "reference": "8.x-3.19",
-                "shasum": "c608c004427136f33777d0e7e4485c1a91fcd563"
+                "url": "https://ftp.drupal.org/files/projects/jsonapi_extras-8.x-3.20.zip",
+                "reference": "8.x-3.20",
+                "shasum": "54bec6ae2b9261a53645182121ae16d3183e43ec"
             },
             "require": {
                 "drupal/core": "^8 || ^9",
@@ -6783,8 +6783,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-3.19",
-                    "datestamp": "1625144988",
+                    "version": "8.x-3.20",
+                    "datestamp": "1639580049",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -7582,21 +7582,22 @@
         },
         {
             "name": "drupal/metatag",
-            "version": "1.16.0",
+            "version": "1.18.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/metatag.git",
-                "reference": "8.x-1.16"
+                "reference": "8.x-1.18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/metatag-8.x-1.16.zip",
-                "reference": "8.x-1.16",
-                "shasum": "1c0028f4ff4583dc6601035657dd631c351b290c"
+                "url": "https://ftp.drupal.org/files/projects/metatag-8.x-1.18.zip",
+                "reference": "8.x-1.18",
+                "shasum": "b35683715780a45f0809af5a612f28bc4fbb777e"
             },
             "require": {
-                "drupal/core": "^8 || ^9",
-                "drupal/token": "^1.0"
+                "drupal/core": "^9",
+                "drupal/token": "^1.0",
+                "php": ">=7.0"
             },
             "require-dev": {
                 "drupal/devel": "^4.0",
@@ -7604,13 +7605,14 @@
                 "drupal/metatag_open_graph": "*",
                 "drupal/page_manager": "4.x-dev",
                 "drupal/panelizer": "4.x-dev",
-                "drupal/redirect": "1.x-dev"
+                "drupal/redirect": "1.x-dev",
+                "mpyw/phpunit-patch-serializable-comparison": "*"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.16",
-                    "datestamp": "1615820867",
+                    "version": "8.x-1.18",
+                    "datestamp": "1640098931",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -10251,17 +10253,17 @@
         },
         {
             "name": "drupal/token",
-            "version": "1.9.0",
+            "version": "1.10.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/token.git",
-                "reference": "8.x-1.9"
+                "reference": "8.x-1.10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/token-8.x-1.9.zip",
-                "reference": "8.x-1.9",
-                "shasum": "a5d234382a1a0e4ba61d4c7a2fa10671ca656be4"
+                "url": "https://ftp.drupal.org/files/projects/token-8.x-1.10.zip",
+                "reference": "8.x-1.10",
+                "shasum": "8b81224ab0420221b292e8d3b66d0da726317400"
             },
             "require": {
                 "drupal/core": "^8.8 || ^9"
@@ -10269,8 +10271,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.9",
-                    "datestamp": "1608284866",
+                    "version": "8.x-1.10",
+                    "datestamp": "1638619775",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -10868,28 +10870,6 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/workbench_menu_access"
             }
-        },
-        {
-            "name": "drupal/workflow_assignments",
-            "version": "1.x-dev",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/agilesix/workflow_assignments.git",
-                "reference": "c9e4ff60d9b0db3e8df444cf649349e2eaaee253"
-            },
-            "default-branch": true,
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "1.x": "1.x-dev"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "description": "TBD",
-            "homepage": "https://drupal.org/project/workflow_assignments",
-            "time": "2020-07-17T11:02:09+00:00"
         },
         {
             "name": "drush-ops/behat-drush-endpoint",
@@ -13715,21 +13695,21 @@
         },
         {
             "name": "oomphinc/composer-installers-extender",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/oomphinc/composer-installers-extender.git",
-                "reference": "8d3fe38a1723e0e91076920c8bb946b1696e28ca"
+                "reference": "cbf4b6f9a24153b785d09eee755b995ba87bd5f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oomphinc/composer-installers-extender/zipball/8d3fe38a1723e0e91076920c8bb946b1696e28ca",
-                "reference": "8d3fe38a1723e0e91076920c8bb946b1696e28ca",
+                "url": "https://api.github.com/repos/oomphinc/composer-installers-extender/zipball/cbf4b6f9a24153b785d09eee755b995ba87bd5f9",
+                "reference": "cbf4b6f9a24153b785d09eee755b995ba87bd5f9",
                 "shasum": ""
             },
             "require": {
                 "composer-plugin-api": "^1.1 || ^2.0",
-                "composer/installers": "^1.0",
+                "composer/installers": "^1.0 || ^2.0",
                 "php": ">=7.1"
             },
             "require-dev": {
@@ -13766,9 +13746,9 @@
             "homepage": "http://www.oomphinc.com/",
             "support": {
                 "issues": "https://github.com/oomphinc/composer-installers-extender/issues",
-                "source": "https://github.com/oomphinc/composer-installers-extender/tree/2.0.0"
+                "source": "https://github.com/oomphinc/composer-installers-extender/tree/2.0.1"
             },
-            "time": "2020-08-11T21:06:11+00:00"
+            "time": "2021-12-15T12:32:42+00:00"
         },
         {
             "name": "pear/archive_tar",
@@ -22925,16 +22905,16 @@
         },
         {
             "name": "va-gov/content-build",
-            "version": "v0.0.2024",
+            "version": "v0.0.2104",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/content-build.git",
-                "reference": "a658ec8c84eeadc17de4f8e68f1341dfbca5d0b9"
+                "reference": "3e294085dbcec32baf43cb2b3758af7d39d4f560"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/a658ec8c84eeadc17de4f8e68f1341dfbca5d0b9",
-                "reference": "a658ec8c84eeadc17de4f8e68f1341dfbca5d0b9",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/3e294085dbcec32baf43cb2b3758af7d39d4f560",
+                "reference": "3e294085dbcec32baf43cb2b3758af7d39d4f560",
                 "shasum": ""
             },
             "type": "node-project",
@@ -22961,9 +22941,9 @@
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/content-build, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
             "support": {
                 "issues": "https://github.com/department-of-veterans-affairs/content-build/issues",
-                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.2024"
+                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.2104"
             },
-            "time": "2021-12-20T17:08:32+00:00"
+            "time": "2021-12-21T21:36:08+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -24863,7 +24843,6 @@
         "drupal/user_history": 15,
         "drupal/viewfield": 10,
         "drupal/views_data_export": 10,
-        "drupal/workflow_assignments": 20,
         "weitzman/drupal-test-traits": 20
     },
     "prefer-stable": true,

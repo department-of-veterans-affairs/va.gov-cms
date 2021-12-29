@@ -41,8 +41,7 @@
 #}
 <header class="va-login-header content-header clearfix">
   <div class="layout-container">
-    <img class="va-header-logo" src="{{ directory }}/images/header-logo.png"/>
-    <h1 class="visually-hidden">{{ page['#title'] }}</h1>
+    <h1><span>VA.gov |</span> Content Management System</h1>
   </div>
 </header>
 
@@ -53,6 +52,11 @@
 
 <div class="layout-container layout-container--login">
   {{ page.pre_content }}
+
+  <div class="login-background">
+    <img src="{{ directory }}/images/icons/cms-pencil.svg" alt=""/>
+  </div>
+
   <main class="page-content clearfix" role="main">
     <div class="visually-hidden"><a id="main-content" tabindex="-1"></a></div>
     {{ page.highlighted }}
@@ -62,8 +66,10 @@
       </div>
     {% endif %}
 
-    <p>A mission statement for the CMS editors could go in this space.</p>
+    <h2>Create and publish Veteran-centered content</h2>
 
     {{ page.content }}
   </main>
 </div>
+
+{% include '@vagovclaro/layout/footer.html.twig' %}
