@@ -1,0 +1,51 @@
+.va-footer {
+  background-color: var(--color-blue-darkest);
+  padding: 1rem 0;
+}
+
+.va-footer .layout-container {
+  @include breakpoint('md') {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  // hiding drupal layout clearfix for footer positioning
+  &::after {
+    display: none;
+  }
+}
+
+.va-footer-links {
+  list-style-type: none;
+  margin-left: 0;
+
+  @include breakpoint('md') {
+    display: flex;
+    flex-direction: row;
+
+    li::after {
+      color: var(--color-white);
+      content: ' | ';
+      padding-right: 1rem;
+    }
+
+    li:last-child::after {
+      content: '';
+    }
+  }
+
+  a {
+    color: var(--color-white);
+    margin-right: 1rem;
+  }
+}
+
+.va-footer-logo {
+  margin-top: 2rem;
+  max-width: 250px;
+
+  @include breakpoint('md') {
+    margin-top: 0;
+  }
+}
