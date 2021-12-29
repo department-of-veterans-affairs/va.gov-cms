@@ -1,23 +1,166 @@
 .va-login-header {
   background-color: var(--color-blue-darkest);
   margin-bottom: 0;
+  padding: var(--space-m) 0;
 }
 
-.va-header-logo {
-  background-color: transparent;
-  border-bottom: 0;
-  display: block;
-  height: auto;
-  margin-bottom: 1.5rem;
-  max-width: 264px;
-  width: 100%;
+.va-login-header h1 {
+  font-weight: 200;
+
+  span {
+    font-weight: 700;
+  }
+}
+
+// styles for sticky footer
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .layout-container--login {
-  max-width: 700px;
+  align-items: center;
+  display: grid;
+  flex: 1; // needed for footer. forces content to take full width available
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  position: relative;
+
+  @include breakpoint('sm') {
+    gap: 2rem;
+  }
+  @include breakpoint('lg') {
+    gap: 5rem;
+  }
+
+  // throws off grid alignment
+  &::after {
+    display: none;
+  }
+
+  h2 {
+    margin: var(--space-xl) 0 var(--space-s);
+
+    @include breakpoint('sm') {
+      margin: var(--space-l) 0 var(--space-s);
+    }
+
+    @include breakpoint('lg') {
+      margin: var(--space-m) 0 var(--space-s);
+    }
+  }
+}
+
+.layout-container--login .page-content {
+  @include breakpoint('sm') {
+    max-width: 100%;
+  }
+  @include breakpoint('md') {
+    max-width: 80%;
+  }
+  @include breakpoint('lg') {
+    max-width: 60%;
+  }
+}
+
+// grey field with pencil icon
+.login-background {
+  background-color: var(--color-gray-lightest);
+  clip-path: polygon(51% 0, 100% 32%, 100% 100%, 0% 100%, 0 32%);
+  display: flex;
+  grid-row-start: 2;
+  height: 100%;
+  justify-content: center;
+  margin: 0 -3rem; //offsets parent container so bg goes to edge
+  min-height: 335px;
+
+  @include breakpoint('sm') {
+    clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 0 50%, 0% 0%);
+    grid-row-start: 1;
+    margin: 0 0 0 -3rem; // only need the left margin on larger screen
+  }
+
+  img {
+    align-self: center;
+    max-height: 150px;
+  }
+}
+
+// overriding some global form styles for the login page only
+.layout-container--login {
+  .fieldset {
+    border: 0 solid transparent;
+    box-shadow: none;
+
+    .fieldset__wrapper {
+      margin: 0;
+    }
+
+    // get help link renders inline after the button in the form suffix,
+    // this moves it below.
+    a + a {
+      border-top: 1px solid var(--color-gray-light);
+      display: block;
+      max-width: 50%;
+      padding-top: 1rem;
+
+      @include breakpoint('sm') {
+        max-width: 40%;
+      }
+    }
+  }
+
+  .form-actions,
+  .form-actions .button {
+    margin: 0;
+  }
+
+  .simplesamlphp-auth-login-link {
+    margin-bottom: 2rem;
+  }
 }
 
 // overriding get help button styles for homepage only
 .layout-container--login #get-help-button {
   display: none;
+}
+
+// move toggle button to the top right
+// !importants to beat styles from various button states
+.va-login-toggle {
+  border: 0 solid transparent !important;
+  box-shadow: none !important;
+  color: var(--color-link);
+  line-height: 2rem;
+  padding: calc(var(--space-m) - 1px) calc(var(--space-l) - 1px);
+  position: absolute;
+  right: 0;
+  text-decoration: none;
+  top: 0;
+
+  &:hover {
+    background-color: var(--color-blue-lightest);
+    color: var(--color-link);
+  }
+
+  &:focus {
+    box-shadow: var(--focus-box-shadow) !important;
+  }
+}
+
+// Hide non-PIV login elements by default.
+.piv-login {
+  .password-prefix,
+  .js-login-username,
+  .js-login-password,
+  .js-login-submit {
+    display: none;
+  }
+}
+
+// Hide PIV login elements when default is shown.
+.form-login {
+  .js-piv-container {
+    display: none;
+  }
 }
