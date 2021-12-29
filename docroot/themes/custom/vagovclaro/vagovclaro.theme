@@ -44,57 +44,57 @@ function vagovclaro_preprocess_container(&$variables) {
  * Implements hook_form_FORM_ID_alter().
  */
 function vagovclaro_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  // This chunk of code can probably move to va_gov_help_center.
+  // This chunk of code can probably move to va_gov_login.
   $config = \Drupal::config('simplesamlphp_auth.settings');
   \Drupal::service('renderer')->addCacheableDependency($form, $config);
   if (!$config->get('activate') || !$config->get('login_link_show')) {
     return;
   }
 
-  $label = $config->get('login_link_display_name');
-
   $form['simplesamlphp_auth_login_link'] = [
     '#type' => 'fieldset',
-    '#title' => 'PIV Login',
+    '#title' => 'PIV login',
+    '#title_display' => 'invisible',
     '#weight' => -1,
-    '#description' => 'Click the icon to login with VA PIV card. Rare cases may require CMS account credentials.
-      Use PIV login whenever possible. Having trouble with your login? Try the <a href="/help">help desk</a>.',
+    '#attributes' => [
+      'class' => ['piv-container', 'js-piv-container'],
+    ],
   ];
   $form['simplesamlphp_auth_login_link']['link'] = [
-    // Nested render array for the image inside of the <a> tag.
-    '#title' => [
-      '#theme' => 'image',
-      '#uri' => 'themes/custom/vagovclaro/images/sc.jpg',
-      '#alt' => $label,
-    ],
+    '#title' => 'Login with PIV.',
     '#type' => 'link',
     '#url' => Url::fromRoute('simplesamlphp_auth.saml_login'),
     '#attributes' => [
-      'title' => $label,
-      'class' => ['simplesamlphp-auth-login-link'],
+      'title' => 'Follow this link to login using your PIV or other smartcard.',
+      'class' => ['simplesamlphp-auth-login-link', 'button', 'button--primary'],
     ],
+    '#suffix' => '<a href="/help">Get help logging in</a>',
   ];
 
-  // Put the get help button inline with login form actions.
-  // Similar render array found in va_gov_help_center.module.
-  $form['actions']['get_help'] = [
-    '#type' => 'link',
-    '#url' => Url::fromRoute('entity.node.canonical', ['node' => 26856]),
-    '#title' => t('Get help'),
+  // Modify existing text and add classes for JS toggle & styles.
+  $form['#attributes']['class'][] = 'piv-login';
+  $form['name']['#description'] = 'Your VA email address';
+  $form['name']['#prefix'] = '<div class="password-prefix form-item__description">Use this back up login method when PIV isn’t working. Learn more: <a href="">Logging in to the CMS.</a></div>';
+  $form['name']['#wrapper_attributes']['class'][] = 'js-login-username';
+  $form['pass']['#description'] = 'The password assigned to you by the CMS Help Desk.';
+  $form['pass']['#wrapper_attributes']['class'][] = 'js-login-password';
+  $form['actions']['submit']['#attributes']['class'][] = 'js-login-submit';
+  $form['actions']['submit']['#attributes']['class'][] = 'button--primary';
+
+  // Build toggle button to switch between PIV & User/Pass.
+  $form['actions']['toggle'] = [
+    '#type' => 'button',
+    '#button_type' => 'toggle',
     '#attributes' => [
       'class' => [
-        'button',
-        'button--primary',
-      ],
-      'id' => [
-        'get-help-button2',
-      ],
-      'hreflang' => [
-        'en',
-      ],
-      'lang' => [
-        'en',
+        'link',
+        'va-login-toggle',
+        'js-va-login-toggle',
       ],
     ],
+    '#value' => 'Login with password',
   ];
+
+  // Attach JS library for toggle button.
+  $form['#attached']['library'][] = 'vagovclaro/login-toggle';
 }
