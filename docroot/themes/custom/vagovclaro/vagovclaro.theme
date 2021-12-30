@@ -21,6 +21,16 @@ function vagovclaro_preprocess_html(&$variables) {
 }
 
 /**
+ * Implements hook_theme_suggestions_page_alter().
+ */
+function vagovclaro_theme_suggestions_page_alter(&$suggestions, $variables) {
+  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+    $content_type = $node->bundle();
+    $suggestions[] = 'page__' . $content_type;
+  }
+}
+
+/**
  * Implements hook_preprocess_form_element().
  */
 function vagovclaro_preprocess_form_element(&$variables) {
@@ -97,6 +107,27 @@ function vagovclaro_form_user_login_form_alter(&$form, FormStateInterface $form_
 
   // Attach JS library for toggle button.
   $form['#attached']['library'][] = 'vagovclaro/login-toggle';
+}
+
+/**
+ * Implements hook_preprocess_page__node_type().
+ */
+function vagovclaro_preprocess_page__documentation_page(&$variables) {
+  $route_match = \Drupal::routeMatch();
+  $current_route = $route_match->getRouteName();
+
+  switch ($current_route) {
+    case 'entity.node.canonical':
+      $variables['show_header_search'] = TRUE;
+      break;
+
+    case 'entity.node.edit_form':
+    default:
+      $variables['show_header_search'] = FALSE;
+      break;
+  }
+
+  $variables['test'] = 'I am making a test variable here';
 }
 
 /**

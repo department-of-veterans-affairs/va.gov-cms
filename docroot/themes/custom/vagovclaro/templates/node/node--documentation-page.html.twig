@@ -80,8 +80,9 @@
   view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
 ]
 %}
-{{ attach_library('classy/node') }}
 {{ attach_library('vagovclaro/userguides') }}
+
+{#{{ devel_breakpoint() }}#}
 
 <article{{ attributes.addClass(classes) }}>
 
