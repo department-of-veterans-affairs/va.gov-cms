@@ -19,7 +19,10 @@
 .va-footer nav ul {
   list-style-type: none;
   margin-left: 0;
-
+  .menu-dropdown {
+    display: none;
+  }
+  
   @include breakpoint('md') {
     display: flex;
     flex-direction: row;
