@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "db02329b7173d4f06976cf46135b1f76",
+    "content-hash": "9dbdc81681e19ff9e0aa50497f0601ef",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -7648,25 +7648,25 @@
         },
         {
             "name": "drupal/migrate_plus",
-            "version": "5.1.0",
+            "version": "5.2.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/migrate_plus.git",
-                "reference": "8.x-5.1"
+                "reference": "8.x-5.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/migrate_plus-8.x-5.1.zip",
-                "reference": "8.x-5.1",
-                "shasum": "1257427ab0c64459c3c1e42bb2a98d3114b77163"
+                "url": "https://ftp.drupal.org/files/projects/migrate_plus-8.x-5.2.zip",
+                "reference": "8.x-5.2",
+                "shasum": "03ae34c362ccfacc4ae95b58469b25522e0ffb68"
             },
             "require": {
-                "drupal/core": "^8.8 || ^9",
-                "php": ">=7.1"
+                "drupal/core": "^9.1"
             },
             "require-dev": {
                 "drupal/migrate_example_advanced_setup": "*",
-                "drupal/migrate_example_setup": "*"
+                "drupal/migrate_example_setup": "*",
+                "drush/drush": "^10"
             },
             "suggest": {
                 "ext-soap": "*",
@@ -7675,11 +7675,16 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-5.1",
-                    "datestamp": "1588261060",
+                    "version": "8.x-5.2",
+                    "datestamp": "1640379296",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
+                    }
+                },
+                "drush": {
+                    "services": {
+                        "drush.services.yml": "^9 || ^10"
                     }
                 }
             },
