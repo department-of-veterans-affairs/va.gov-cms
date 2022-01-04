@@ -1,0 +1,30 @@
+uuid: b08884df-d982-4c06-9493-5f697c133805
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.careers-employment-benefits
+  module:
+    - system
+  theme:
+    - vagovclaro
+id: vagovclaro_careersemploymentbenefitshub
+theme: vagovclaro
+region: sidebar_first
+weight: -10
+provider: null
+plugin: 'system_menu_block:careers-employment-benefits'
+settings:
+  id: 'system_menu_block:careers-employment-benefits'
+  label: 'Careers & employment benefits hub'
+  provider: system
+  label_display: visible
+  level: 2
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    pages: '/careers*'
+    negate: false
+    context_mapping: {  }
