@@ -161,8 +161,30 @@ function vagovclaro_preprocess_node__documentation_page(&$variables) {
 }
 
 /**
- * Implements hook_form_FORM_ID_alter().
+ * Implements hook_form_alter().
  */
-function vagovclaro_form_views_exposed_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  $form['#attributes']['class'][] = 'header-search-form';
+function vagovclaro_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Views exposed forms have a weird render chain, need this form alter.
+  if ($form['#id'] == 'views-exposed-form-knowledge-base-search-results-knowledge-base-search-page') {
+    $route_match = \Drupal::routeMatch();
+    $current_route = $route_match->getRouteName();
+    $node = $route_match->getParameter('node');
+    $nid = 0;
+    if ($node) {
+      $nid = $node->id();
+    }
+
+    // Skip theme on /help or /help/search because not printed in the header.
+    if ($current_route == 'view.knowledge_base_search_result.knowledge_base_search_page' || $nid == CMS_HELP_CENTER_HOMEPAGE_NID) {
+      return;
+    }
+
+    // Views exposed form prints this on the containing block, not the form.
+    $form['#attributes']['class'][] = 'header-search-form';
+    $form['keyword']['#title_display'] = 'invisible';
+    $form['keyword']['#attributes']['placeholder'] = t('Search the knowledge base...');
+    $form['keyword']['#attributes']['class'][] = 'form-element--extrasmall';
+    $form['actions']['submit']['#attributes']['class'][] = 'button--primary';
+    $form['actions']['submit']['#attributes']['class'][] = 'button--small';
+  }
 }

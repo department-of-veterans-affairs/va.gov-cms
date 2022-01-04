@@ -109,7 +109,7 @@ h2.section-header {
     font-size: 15px;
     line-height: 1.3;
     list-style-type: none;
-    margin-left: -0.5em; // First menu should align with parent div.
+    margin-left: 0; // First menu should align with parent div.
     padding-left: 0;
 
     ul {
@@ -147,7 +147,7 @@ h2.section-header {
 
       &:hover {
         background-color: var(--color-gray-lighter);
-        color: var(--color-blue-dark);
+        color: var(--color-blue);
         text-decoration: none;
       }
     }
@@ -174,7 +174,7 @@ h2.section-header {
 
 
         a {
-          color: var(--color-blue-dark);
+          color: var(--color-blue);
           font-weight: normal;
           text-decoration: none;
         }
@@ -224,3 +224,8 @@ h2.section-header {
   }
 }
 
+// Hide sidebar search form now that it's in the header.
+// TODO post-claro-turn-on: remove the block from the list so it doesn't print on the page at all. Duplicate ID problem
+.layout-sidebar-first #block-vagovclaro-knowledge-base-search-form {
+  display: none;
+}
