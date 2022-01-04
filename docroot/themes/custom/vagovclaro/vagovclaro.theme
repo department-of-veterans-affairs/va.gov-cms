@@ -71,8 +71,16 @@ function vagovclaro_form_user_login_form_alter(&$form, FormStateInterface $form_
     '#suffix' => '<a href="/help">Get help logging in</a>',
   ];
 
+  // Check user input to determine if form is being rebuilt with error.
+  $user_input = $form_state->getUserInput();
+  if (isset($user_input['name']) || isset($user_input['pass'])) {
+    $form['#attributes']['class'][] = 'form-login';
+  }
+  else {
+    $form['#attributes']['class'][] = 'piv-login';
+  }
+
   // Modify existing text and add classes for JS toggle & styles.
-  $form['#attributes']['class'][] = 'piv-login';
   $form['name']['#description'] = 'Your VA email address';
   $form['name']['#prefix'] = '<div class="password-prefix form-item__description">Use this back up login method when PIV isn’t working. Learn more: <a href="">Logging in to the CMS.</a></div>';
   $form['name']['#wrapper_attributes']['class'][] = 'js-login-username';
