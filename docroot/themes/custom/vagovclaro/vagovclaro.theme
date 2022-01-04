@@ -175,7 +175,7 @@ function vagovclaro_form_alter(&$form, FormStateInterface $form_state, $form_id)
     }
 
     // Skip theme on /help or /help/search because not printed in the header.
-    if ($current_route == 'view.knowledge_base_search_result.knowledge_base_search_page' || $nid == CMS_HELP_CENTER_HOMEPAGE_NID) {
+    if ($current_route == 'view.knowledge_base_search_results.knowledge_base_search_page' || $nid == CMS_HELP_CENTER_HOMEPAGE_NID) {
       return;
     }
 
