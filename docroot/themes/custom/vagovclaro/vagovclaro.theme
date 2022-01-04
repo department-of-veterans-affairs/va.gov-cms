@@ -61,7 +61,7 @@ function vagovclaro_form_user_login_form_alter(&$form, FormStateInterface $form_
     ],
   ];
   $form['simplesamlphp_auth_login_link']['link'] = [
-    '#title' => 'Login with PIV.',
+    '#title' => 'Login with PIV',
     '#type' => 'link',
     '#url' => Url::fromRoute('simplesamlphp_auth.saml_login'),
     '#attributes' => [
