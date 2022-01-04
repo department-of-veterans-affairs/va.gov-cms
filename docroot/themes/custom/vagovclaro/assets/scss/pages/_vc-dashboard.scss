@@ -1,0 +1,30 @@
+.block-va-gov-dashboards {
+  background-color: var(--color-gray-lightest);
+  box-shadow: none;
+  display: inline-grid;
+  gap: 1rem;
+  margin: 1rem 0 0;
+  padding: 1rem;
+
+  .heading-c {
+    --font-family: var(--font-family-serif);
+    font-family: var(--font-family);
+    line-height: var(--font-size-h3); // keeps spacing consistent to font size
+    margin: 0; // let grid handle spacing
+  }
+
+  .form-item__description {
+    min-height: 34px; // keeps spacing consistent for all cards.
+  }
+
+  .button {
+    margin: 0;
+  }
+}
+
+.dashboard-block-img-wrap {
+  display: flex;
+  justify-self: center;
+  max-height: 75px;
+  min-height: 75px;
+}
