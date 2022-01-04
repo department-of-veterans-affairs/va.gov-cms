@@ -1,13 +1,14 @@
-name: "VA.gov Admin Theme (Claro edition)"
+name: "VA.gov Claro Admin Theme"
 type: theme
-description: 'Contains overrides for the Claro admin theme. Also provides styles for the CMS login & editor knowledge base experiences.'
+description: 'Contains VA.gov overrides for the Claro admin theme. Also provides styles for the CMS login & knowledge base experiences.'
+screenshot: screenshot.png
+alt text: 'Screenshot of VA.gov Claro, Drupal administration theme.'
 core_version_requirement: ^8 || ^9
 dependencies:
   - va_gov_backend
 base theme: claro
 ckeditor_stylesheets:
   - assets/css/wysiwyg.css
-screenshot: logo.svg
 
 # Claro's libraries need to be included here due to how Drupal handles admin sub-themes.
 # See https://www.drupal.org/project/claro/issues/3085894 for more context.
