@@ -1,0 +1,26 @@
+uuid: 921346d1-f890-44ba-abf6-1d1ab3839a68
+langcode: en
+status: true
+dependencies:
+  module:
+    - node_link_report
+    - system
+  theme:
+    - vagovclaro
+id: vagovclaro_node_link_report
+theme: vagovclaro
+region: content
+weight: -17
+provider: null
+plugin: node_link_report_block
+settings:
+  id: null
+  label: 'Node Link Report'
+  provider: node_link_report
+  label_display: '0'
+visibility:
+  request_path:
+    id: request_path
+    pages: "/help\r\n/help/*"
+    negate: true
+    context_mapping: {  }

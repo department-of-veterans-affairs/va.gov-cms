@@ -1,0 +1,39 @@
+uuid: 700010b9-9190-4b4d-944e-faf202ee6387
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.services
+  module:
+    - ctools
+    - system
+    - views
+  theme:
+    - vagovclaro
+id: vagovclaro_views_block__services_block_1
+theme: vagovclaro
+region: content
+weight: -12
+provider: null
+plugin: 'views_block:services-block_1'
+settings:
+  id: 'views_block:services-block_1'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+  context_mapping: {  }
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    bundles:
+      health_care_local_facility: health_care_local_facility
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+  request_path:
+    id: request_path
+    pages: '/node/*/*'
+    negate: true
+    context_mapping: {  }
