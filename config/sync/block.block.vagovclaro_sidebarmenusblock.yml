@@ -1,0 +1,26 @@
+uuid: 1536a9a4-22d8-436e-afae-bbbfaa46f90c
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+    - va_gov_backend
+  theme:
+    - vagovclaro
+id: vagovclaro_sidebarmenusblock
+theme: vagovclaro
+region: sidebar_first
+weight: -13
+provider: null
+plugin: sidebar_menu_block
+settings:
+  id: sidebar_menu_block
+  label: 'Sidebar Menus block'
+  provider: va_gov_backend
+  label_display: '0'
+visibility:
+  request_path:
+    id: request_path
+    pages: "/admin/*\r\n/node/add/*\r\n/node/*/edit\r\n/node/*/delete\r\n/node/*/revisions\r\n/user\r\n/user/*"
+    negate: true
+    context_mapping: {  }

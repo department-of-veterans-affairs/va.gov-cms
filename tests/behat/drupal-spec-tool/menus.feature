@@ -15,7 +15,7 @@ Feature: Menus
 | Decision reviews | decision-reviews-benefits-h |  |
 | Disability benefits hub | disability-benefits-hub | For pages in the /disability benefits hub |
 | Education benefits hub | education-benefits-hub | For pages in the /education benefits hub |
-| Footer | footer | Site information links |
+| Footer | footer | Site information links displayed in global footer |
 | Footer Bottom Rail | footer-bottom-rail | Horizontal list of links at the bottom of the page |
 | Header megamenu | header-megamenu | Links and promos for the site's header menu. |
 | Health Care benefits hub | health-care-benefits-hub | va.gov/health-care |
