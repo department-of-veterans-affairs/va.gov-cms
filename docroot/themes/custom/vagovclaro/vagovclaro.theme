@@ -150,7 +150,7 @@ function vagovclaro_preprocess_node__documentation_page(&$variables) {
   // Creates about link. This function can probably move to va_gov_help_center.
   $variables['about'] = [
     '#type' => 'link',
-    '#url' => Url::fromRoute('entity.node.canonical', ['node' => 28393]),
+    '#url' => Url::fromRoute('entity.node.canonical', ['node' => CMS_HELP_CENTER_ABOUT_NID]),
     '#title' => t('About'),
     '#attributes' => [
       'class' => ['link'],
@@ -164,22 +164,36 @@ function vagovclaro_preprocess_node__documentation_page(&$variables) {
  * Implements hook_form_alter().
  */
 function vagovclaro_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  _vagovclaro_exposed_kb_search_block_form_alter($form);
+}
+
+/**
+ * Alter hook for views exposed form knowledge base search block.
+ *
+ * Updates the form for searching knowledge base content to appear in the
+ * header on most KB pages. Does not affect CMS homepage or search page
+ * pending designs.
+ *
+ * @param array $form
+ *   The exposed widget form array.
+ */
+function _vagovclaro_exposed_kb_search_block_form_alter(array &$form) {
   // Views exposed forms have a weird render chain, need this form alter.
-  if ($form['#id'] == 'views-exposed-form-knowledge-base-search-results-knowledge-base-search-page') {
+  if ($form['#id'] === 'views-exposed-form-knowledge-base-search-results-knowledge-base-search-page') {
     $route_match = \Drupal::routeMatch();
     $current_route = $route_match->getRouteName();
     $node = $route_match->getParameter('node');
-    $nid = 0;
-    if ($node) {
-      $nid = $node->id();
-    }
+    $nid = ($node) ? $node->id() : 0;
 
-    // Skip theme on /help or /help/search because not printed in the header.
-    if ($current_route == 'view.knowledge_base_search_results.knowledge_base_search_page' || $nid == CMS_HELP_CENTER_HOMEPAGE_NID) {
+    // Skip on /help or /help/search because block not shown in the header.
+    // Loose check on the nid, comes back as a string compared to int.
+    // CMS_HELP_CENTER_HOMEPAGE_NID set in va_gov_help_center.module.
+    if ($current_route === 'view.knowledge_base_search_results.knowledge_base_search_page'
+      || $nid == CMS_HELP_CENTER_HOMEPAGE_NID) {
       return;
     }
 
-    // Views exposed form prints this on the containing block, not the form.
+    // Class prints on the containing block not the form for views reasons.
     $form['#attributes']['class'][] = 'header-search-form';
     $form['keyword']['#title_display'] = 'invisible';
     $form['keyword']['#attributes']['placeholder'] = t('Search the knowledge base...');
