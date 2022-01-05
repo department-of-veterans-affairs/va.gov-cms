@@ -5,9 +5,11 @@
  * Install file for Va Gov DB.
  */
 
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Utility\UpdateException;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\node\Entity\Node;
+use Drupal\redirect\Entity\Redirect;
 use Psr\Log\LogLevel;
 
 /**
@@ -87,6 +89,79 @@ function _va_gov_db_change_text_field_max_length($field_name, $new_length) {
     );
   }
   return "Updated field $field_name to the new size of $new_length Be sure to update vagov/config/sync/field.storage.node.{$field_name}.yml to match.";
+}
+
+/**
+ * Renames a taxonomy term.
+ *
+ * @param string $oldname
+ *   The original name of the taxonomy term.
+ * @param string $newname
+ *   The new name of the taxonomy term.
+ * @param string|null $vocabulary_name
+ *   The machine name of the vocabulary to search.  NULL results in all vocab.
+ *
+ * @return string
+ *   A string of messages of what happened, separated with carriage returns.
+ */
+function _va_gov_rename_vocab_term($oldname, $newname, $vocabulary_name = NULL) {
+  $messages = '';
+  $vars = [
+    ':oldname' => $oldname,
+    ':newname' => $newname,
+  ];
+  $terms = taxonomy_term_load_multiple_by_name($oldname, $vocabulary_name);
+  if (empty($terms)) {
+    $vars[':vocabulary'] = $vocabulary_name;
+    $message = t("Found no term ':oldname' in vocabulary ':vocabulary'.", $vars);
+    // This is not serious enough to throw an exception, because it may already
+    // have been renamed by hand.  Just warn and move on.
+    \Drupal::logger('va_gov_db')->warning($message);
+    $messages .= $message . PHP_EOL;
+  }
+  else {
+    foreach ($terms as $term) {
+      /** @var Drupal\taxonomy\TermInterface $term */
+      $term->setName($newname);
+      $term->save();
+      $vars[':tid'] = $term->id();
+      $vars[':vocabulary'] = $term->bundle();
+      $message = t("Vocabulary::vocabulary Term::tid was renamed from ':oldname' to ':newname'.", $vars);
+      \Drupal::logger('va_gov_db')->info($message);
+      $messages .= $message . PHP_EOL;
+    }
+  }
+
+  return $messages;
+}
+
+/**
+ * Creates a redirect and logs it.
+ *
+ * @param string $old_path
+ *   The original path (source) of the redirect.
+ * @param Drupal\Core\Entity\EntityInterface $entity
+ *   The entity to redirect to.
+ *
+ * @return string
+ *   A message to be returned.
+ */
+function _va_gov_db_create_redirect($old_path, EntityInterface $entity) {
+  $old_path = trim($old_path, '/');
+  $message = '';
+  Redirect::create([
+    'redirect_source' => $old_path,
+    'redirect_redirect' => "internal:/{$entity->toUrl()->getInternalPath()}",
+    'language' => 'en',
+    'status_code' => '301',
+  ])->save();
+  $message = t("Redirect created from :old to :new.", [
+    ':old' => "/{$old_path}",
+    ':new' => "/{$entity->toUrl()->getInternalPath()}}",
+  ]);
+  \Drupal::logger('va_gov_db')->info($message);
+
+  return $message . PHP_EOL;
 }
 
 /**
@@ -643,6 +718,24 @@ function va_gov_db_update_8031(&$sandbox) {
  */
 function va_gov_db_update_8032(&$sandbox) {
   $messages = _va_gov_db_uninstall_modules(['va_gov_user_guide']);
+
+  return $messages;
+}
+
+/**
+ * Rename four key section names.
+ */
+function va_gov_db_update_8033(&$sandbox) {
+  $messages = '';
+  $section_terms = [
+    'National Cemetery Administration' => 'NCA',
+    'Veterans Affairs' => 'VACO',
+    'Veterans Benefits Administration' => 'VBA',
+    'Veterans Health Administration' => 'VHA',
+  ];
+  foreach ($section_terms as $oldname => $newname) {
+    $messages .= _va_gov_rename_vocab_term($oldname, $newname, 'administration');
+  }
 
   return $messages;
 }
