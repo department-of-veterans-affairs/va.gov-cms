@@ -4,12 +4,14 @@ status: true
 dependencies:
   config:
     - field.field.node.vha_facility_nonclinical_service.field_administration
+    - field.field.node.vha_facility_nonclinical_service.field_enforce_unique_combo_offic
     - field.field.node.vha_facility_nonclinical_service.field_facility_location
     - field.field.node.vha_facility_nonclinical_service.field_service_location
     - field.field.node.vha_facility_nonclinical_service.field_service_name_and_descripti
     - node.type.vha_facility_nonclinical_service
     - workflows.workflow.editorial
   module:
+    - allow_only_one
     - content_moderation
     - field_group
     - limited_field_widgets
@@ -38,7 +40,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 4
+      weight: 5
       format_type: fieldset
       region: content
       format_settings:
@@ -59,14 +61,21 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
+  field_enforce_unique_combo_offic:
+    weight: 1
+    settings:
+      size: 1
+    third_party_settings: {  }
+    type: allow_only_one_widget
+    region: content
   field_facility_location:
-    weight: 2
+    weight: 3
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
   field_service_location:
-    weight: 3
+    weight: 4
     settings:
       title: 'Service location'
       title_plural: 'Service Locations'
@@ -87,7 +96,7 @@ content:
     type: paragraphs
     region: content
   field_service_name_and_descripti:
-    weight: 1
+    weight: 2
     settings: {  }
     third_party_settings: {  }
     type: options_select
