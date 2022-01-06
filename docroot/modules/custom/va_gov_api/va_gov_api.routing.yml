@@ -1,20 +1,41 @@
-va_gov_api.qa.entity:
-  path: '/%jsonapi%/resource/qa'
+# va_gov_api.resources:
+#   path: '/%jsonapi%/resources'
+#   methods: ['GET']
+#   defaults:
+#     _jsonapi_resource: Drupal\va_gov_api\Resources
+#     _jsonapi_resource_types: ['node--banner', 'node--full_width_banner_alert']
+#   requirements:
+#     _permission: 'access content'
+#     _content_type_format: api_json
+#     _format: api_json
+# va_gov_api.resources.tag:
+#   path: '/%jsonapi%/resources/tag/{tag}'
+#   methods: ['GET']
+#   defaults:
+#     _jsonapi_resource: Drupal\va_gov_api\Resources\Tag
+#     _jsonapi_resource_types: ['node--banner', 'node--full_width_banner_alert']
+#   requirements:
+#     _permission: 'access content'
+#     _content_type_format: api_json
+#     _format: api_json
+va_gov_api.resources.qa:
+  path: '/%jsonapi%/resources/qa'
   methods: ['GET']
   defaults:
     _jsonapi_resource: Drupal\va_gov_api\Resource\QandA
-    _jsonapi_resource_types: ['node--q-a']
+    _jsonapi_resource_types: ['node--q_a']
   requirements:
     _permission: 'access content'
     _content_type_format: api_json
     _format: api_json
-va_gov_api.banner_alerts.resource:
-  path: '/%jsonapi%/resource/banner-alerts'
+va_gov_api.banner_alerts:
+  path: '/%jsonapi%/banner-alerts'
   methods: ['GET']
   defaults:
     _jsonapi_resource: Drupal\va_gov_api\Resource\BannerAlerts
-    _jsonapi_resource_types: ['node--banner']
+    _jsonapi_resource_types: ['node--banner', 'node--full_width_banner_alert']
   requirements:
     _permission: 'access content'
     _content_type_format: api_json
     _format: api_json
+
