@@ -75,7 +75,7 @@ assignees: cmaeng, kevwalsh
 
 ### CMS Team
 
-Please leave only the team that will do this work selected. If you're not sure, it's fine to leave both selected.
+Please leave only the team that will do this work selected. 
 
 - [x] `Platform CMS Team`
 - [x] `Sitewide CMS Team`
