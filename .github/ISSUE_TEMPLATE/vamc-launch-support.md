@@ -18,3 +18,7 @@ assignees: ''
 
 - [ ] `Platform CMS Team`
 - [x] `Sitewide CMS Team`
+  - [ ] `⭐️ Content ops`
+  - [ ] `⭐️ CMS Experience`
+  - [ ] `⭐️ Offices`
+  - [ ] `⭐️ Product Support`

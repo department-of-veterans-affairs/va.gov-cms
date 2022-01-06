@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.vha_facility_nonclinical_service.field_administration
+    - field.field.node.vha_facility_nonclinical_service.field_enforce_unique_combo_offic
     - field.field.node.vha_facility_nonclinical_service.field_facility_location
     - field.field.node.vha_facility_nonclinical_service.field_service_location
     - field.field.node.vha_facility_nonclinical_service.field_service_name_and_descripti
@@ -16,6 +17,11 @@ targetEntityType: node
 bundle: vha_facility_nonclinical_service
 mode: teaser
 content:
+  content_moderation_control:
+    weight: -20
+    settings: {  }
+    third_party_settings: {  }
+    region: content
   links:
     weight: 100
     settings: {  }
@@ -23,6 +29,7 @@ content:
     region: content
 hidden:
   field_administration: true
+  field_enforce_unique_combo_offic: true
   field_facility_location: true
   field_service_location: true
   field_service_name_and_descripti: true
