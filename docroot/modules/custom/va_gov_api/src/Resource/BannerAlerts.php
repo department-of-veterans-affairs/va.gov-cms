@@ -10,7 +10,7 @@ use Drupal\node\NodeInterface;
 use Drupal\Core\Cache\CacheableMetadata;
 
 /**
- * Get a response for Banner resource.
+ * Resource for collecting banner data by path.
  */
 class BannerAlerts extends VaGovApiEntityResourceBase {
 
@@ -68,6 +68,8 @@ class BannerAlerts extends VaGovApiEntityResourceBase {
       $banners = $node_storage->loadMultiple(array_values($banner_nids));
     }
 
+    // @todo should this be injected?
+    $path_matcher = \Drupal::service('path.matcher');
     // Check each banner to see if it should display, using Drupal's built-in
     // PathMatcher class.
     /** @var \Drupal\node\NodeInterface[] $banners */
@@ -80,7 +82,7 @@ class BannerAlerts extends VaGovApiEntityResourceBase {
       foreach ($pathChecks as $pathCheck) {
         $patterns = $patterns . $pathCheck['value'] . "\n";
       }
-      if (!$this->pathMatcher->matchPath($path, $patterns)) {
+      if (!$path_matcher->matchPath($path, $patterns)) {
         unset($banners[$idx]);
       }
     }

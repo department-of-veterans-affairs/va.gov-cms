@@ -4,7 +4,6 @@ namespace Drupal\va_gov_api\Resource;
 
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\Core\Path\PathMatcher;
 use Drupal\jsonapi\JsonApiResource\ResourceObject;
 use Drupal\jsonapi\JsonApiResource\ResourceObjectData;
 use Drupal\jsonapi_resources\Resource\EntityResourceBase;
@@ -18,7 +17,7 @@ use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 /**
  * Get a response for Banner resource.
  */
-abstract class VaGovApiEntityResourceBase extends EntityResourceBase implements ContainerInjectionInterface {
+class VaGovApiEntityResourceBase extends EntityResourceBase implements ContainerInjectionInterface {
 
   /**
    * The entity type manager.
@@ -27,12 +26,6 @@ abstract class VaGovApiEntityResourceBase extends EntityResourceBase implements 
    */
   protected $entityTypeManager;
 
-  /**
-   * PatchMatcher utility.
-   *
-   * @var \Drupal\Core\Path\PathMatcher
-   */
-  protected $pathMatcher;
 
   /**
    * Logger Channel.
@@ -60,18 +53,14 @@ abstract class VaGovApiEntityResourceBase extends EntityResourceBase implements 
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   Tne entity type manager.
-   * @param \Drupal\Core\Path\PathMatcher $path_matcher
-   *   Drupal's internal path matching service.
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger
    *   The logger factory.
    */
   public function __construct(
     EntityTypeManagerInterface $entity_type_manager,
-    PathMatcher $path_matcher,
     LoggerChannelFactoryInterface $logger
   ) {
     $this->entityTypeManager = $entity_type_manager;
-    $this->pathMatcher = $path_matcher;
     $this->logger = $logger->get('va_gov_api');
   }
 
@@ -81,7 +70,6 @@ abstract class VaGovApiEntityResourceBase extends EntityResourceBase implements 
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('entity_type.manager'),
-      $container->get('path.matcher'),
       $container->get('logger.factory'),
     );
   }
