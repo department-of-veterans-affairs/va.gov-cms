@@ -2,8 +2,6 @@
 
 namespace Drupal\va_gov_api\Resource;
 
-use Drupal\Core\Cache\CacheableMetadata;
-use Drupal\Core\Url;
 use Drupal\jsonapi\JsonApiResource\LinkCollection;
 use Drupal\jsonapi\JsonApiResource\ResourceObject;
 use Drupal\jsonapi\ResourceType\ResourceType;
@@ -11,9 +9,11 @@ use Drupal\node\NodeInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Resource for collecting qa data by path.
+ * Resource for returning a collection of 'resource' product nodes.
+ *
+ * Apologies for the naming collision. Currently limited to q_a nodes.
  */
-class QandA extends VaGovApiEntityResourceBase {
+class Resources extends VaGovApiEntityResourceBase {
 
   /**
    * {@inheritDoc}
@@ -26,11 +26,6 @@ class QandA extends VaGovApiEntityResourceBase {
         $this->collectQaData($request, $resource_type);
         break;
     }
-
-    // The endpoint must vary on the item-path; therefore, it must be added as
-    // a cache context.
-    $item_path_context = (new CacheableMetadata())->addCacheContexts(['url.query_args:item-path']);
-    $this->addCacheableDependency($item_path_context);
   }
 
   /**
@@ -45,27 +40,18 @@ class QandA extends VaGovApiEntityResourceBase {
    *   The ResourceType we want to collect data for.
    */
   private function collectQaData(Request $request, ResourceType $resource_type) {
-    $path = $request->get('item-path');
-    if (is_null($path)) {
-      return;
+    // Load and return all QA nodes.
+    $node_storage = $this->entityTypeManager->getStorage('node');
+    $query = $node_storage->getQuery();
+    // The machine name for this entity is `banner`.
+    $query->condition('type', 'q_a')->condition('status', TRUE);
+    $qa_nids = $query->execute();
+    /** @var \Drupal\node\NodeInterface[] $qas */
+    $qas = [];
+    if (count($qa_nids)) {
+      $qas = $node_storage->loadMultiple(array_values($qa_nids));
     }
-
-    $route = Url::fromUserInput($path);
-    if (!$route->isRouted()) {
-      // This is an error so error out.
-      // @todo return actual error responses rather than null.
-      return;
-    }
-    if (!$route->access()) {
-      // @todo return actual error responses rather than null.
-      return;
-    }
-    $params = $route->getRouteParameters();
-    // Assumes a `entity key` -> 'entity id' value.
-    $entity_type = key($params);
-    /** @var \Drupal\node\Entity\Node $entity */
-    $entity = $this->entityTypeManager->getStorage($entity_type)->load($params[$entity_type]);
-    if ($entity->bundle() === 'q_a') {
+    foreach ($qas as $entity) {
       $resource_object = $this->createQaResourceObject($entity, $resource_type);
       $this->addResourceObject($resource_object);
       $this->addCacheableDependency($entity);

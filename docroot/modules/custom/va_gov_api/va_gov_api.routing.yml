@@ -1,13 +1,13 @@
-# va_gov_api.resources:
-#   path: '/%jsonapi%/resources'
-#   methods: ['GET']
-#   defaults:
-#     _jsonapi_resource: Drupal\va_gov_api\Resources
-#     _jsonapi_resource_types: ['node--banner', 'node--full_width_banner_alert']
-#   requirements:
-#     _permission: 'access content'
-#     _content_type_format: api_json
-#     _format: api_json
+va_gov_api.resources:
+  path: '/%jsonapi%/resources'
+  methods: ['GET']
+  defaults:
+    _jsonapi_resource: Drupal\va_gov_api\Resource\Resources
+    _jsonapi_resource_types: ['node--q_a']
+  requirements:
+     _permission: 'access content'
+     _content_type_format: api_json
+     _format: api_json
 # va_gov_api.resources.tag:
 #   path: '/%jsonapi%/resources/tag/{tag}'
 #   methods: ['GET']
