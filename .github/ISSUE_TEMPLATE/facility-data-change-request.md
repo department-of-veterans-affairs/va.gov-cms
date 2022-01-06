@@ -105,6 +105,10 @@ assignees: ''
   </details>
 
 CMS Team
-Please leave only the team that will do this work selected. If you're not sure, it's fine to leave both selected.
+Please leave only the team that will do this work selected. 
 - [ ] Platform CMS Team
-- [X] Sitewide CMS Team
+- [x] `Sitewide CMS Team`
+  - [ ] `⭐️ Content ops`
+  - [ ] `⭐️ CMS Experience`
+  - [ ] `⭐️ Offices`
+  - [ ] `⭐️ Product Support`
