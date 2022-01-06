@@ -3,83 +3,87 @@
 namespace Drupal\va_gov_api\Resource;
 
 use Drupal\Core\Cache\CacheableMetadata;
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Url;
 use Drupal\jsonapi\JsonApiResource\LinkCollection;
 use Drupal\jsonapi\JsonApiResource\ResourceObject;
-use Drupal\jsonapi\JsonApiResource\ResourceObjectData;
-use Drupal\jsonapi_resources\Resource\EntityResourceBase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\jsonapi\ResourceResponse;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\jsonapi\ResourceType\ResourceType;
+use Drupal\node\NodeInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Get a response for Q and A resource.
+ * Resource for collecting qa data by path.
  */
-class QandA extends EntityResourceBase implements ContainerInjectionInterface {
+class QandA extends VaGovApiEntityResourceBase {
 
   /**
-   * The entity type manager.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   * {@inheritDoc}
    */
-  protected $entityTypeManager;
+  protected function collectResourceData(Request $request, ResourceType $resource_type) {
+    // Doing this as a case/switch for now. There are almost certainly better
+    // ways to do this.
+    switch ($resource_type->getTypeName()) {
+      case 'node--q_a':
+        $this->collectQaData($request, $resource_type);
+        break;
+    }
 
-  /**
-   * Constructs a new EntityResourceBase object.
-   *
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   Tne entity type manager.
-   */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
-    $this->entityTypeManager = $entity_type_manager;
+    // The endpoint must vary on the item-path; therefore, it must be added as
+    // a cache context.
+    $item_path_context = (new CacheableMetadata())->addCacheContexts(['url.query_args:item-path']);
+    $this->addCacheableDependency($item_path_context);
   }
 
   /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('entity_type.manager')
-    );
-  }
-
-  /**
-   * Process the resource request.
+   * Collect `qa` entities to be returned in the response.
    *
-   * THIS IS POC CODE AND IS NOT PRODUCTION READY.
+   * Given a path, retrieves the `qa` node that should show there, constructs a
+   * ResponseObject for it, and adds it to cacheableDependencies.
    *
    * @param \Symfony\Component\HttpFoundation\Request $request
    *   The request.
-   * @param \Drupal\jsonapi\ResourceType\ResourceType[] $resource_types
-   *   The route resource types.
-   *
-   * @return \Drupal\jsonapi\ResourceResponse
-   *   The response.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @param \Drupal\jsonapi\ResourceType\ResourceType $resource_type
+   *   The ResourceType we want to collect data for.
    */
-  public function process(Request $request, array $resource_types) : ResourceResponse {
+  private function collectQaData(Request $request, ResourceType $resource_type) {
     $path = $request->get('item-path');
+    if (is_null($path)) {
+      return;
+    }
 
     $route = Url::fromUserInput($path);
     if (!$route->isRouted()) {
       // This is an error so error out.
+      // @todo return actual error responses rather than null.
+      return;
     }
-
-    if ($route->access()) {
-      // Access error.
+    if (!$route->access()) {
+      // @todo return actual error responses rather than null.
+      return;
     }
-
     $params = $route->getRouteParameters();
     // Assumes a `entity key` -> 'entity id' value.
     $entity_type = key($params);
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $this->entityTypeManager->getStorage($entity_type)->load($params[$entity_type]);
-    $cache_metadata = CacheableMetadata::createFromObject($entity);
+    if ($entity->bundle() === 'q_a') {
+      $resource_object = $this->createQaResourceObject($entity, $resource_type);
+      $this->addResourceObject($resource_object);
+      $this->addCacheableDependency($entity);
+    }
+  }
 
+  /**
+   * Create a ResourceObject from a `banner` entity.
+   *
+   * @param \Drupal\node\NodeInterface $entity
+   *   The `banner` entity.
+   * @param \Drupal\jsonapi\ResourceType\ResourceType $resource_type
+   *   The ResourceType for `banner` entities.
+   *
+   * @return \Drupal\jsonapi\JsonApiResource\ResourceObject
+   *   A ResourceObject constructed from a `banner` entity.
+   */
+  private function createQaResourceObject(NodeInterface $entity, ResourceType $resource_type) {
     /** @var \Drupal\taxonomy\TermInterface $section_term */
     $section_term = $entity->field_administration->entity;
     /** @var \Drupal\paragraphs\Entity\Paragraph $answer_entity */
@@ -111,8 +115,6 @@ class QandA extends EntityResourceBase implements ContainerInjectionInterface {
       ];
     }
 
-    $resource_type = reset($resource_types);
-
     $data = [
       'nid' => $entity->id(),
       'uuid' => $entity->uuid(),
@@ -128,7 +130,7 @@ class QandA extends EntityResourceBase implements ContainerInjectionInterface {
       'links' => $links,
     ];
 
-    $primary_data = new ResourceObject(
+    return new ResourceObject(
       $entity,
       $resource_type,
       $entity->uuid(),
@@ -136,13 +138,6 @@ class QandA extends EntityResourceBase implements ContainerInjectionInterface {
       $data,
       new LinkCollection([])
     );
-
-    $top_level_data = new ResourceObjectData([$primary_data], 1);
-    /** @var \Drupal\Core\Cache\CacheableResponseInterface */
-    $response = $this->createJsonapiResponse($top_level_data, $request);
-    $response->addCacheableDependency($cache_metadata);
-
-    return $response;
   }
 
 }
