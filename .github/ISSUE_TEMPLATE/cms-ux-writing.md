@@ -45,7 +45,7 @@ Please leave only the team that will do this work selected.
 
 - [x] `Platform CMS Team`
 - [x] `Sitewide CMS Team`
-- [x] `Content ops`
-- [x] `CMS Experience`
-- [x] `Offices`
-- [x] `Product Support`
+  - [x] `⭐️ Content ops`
+  - [x] `⭐️ CMS Experience`
+  - [x] `⭐️ Offices`
+  - [x] `⭐️ Product Support`
