@@ -2,12 +2,12 @@
 
 namespace Drupal\va_gov_api\Resource;
 
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\jsonapi\JsonApiResource\LinkCollection;
 use Drupal\jsonapi\JsonApiResource\ResourceObject;
-use Symfony\Component\HttpFoundation\Request;
 use Drupal\jsonapi\ResourceType\ResourceType;
 use Drupal\node\NodeInterface;
-use Drupal\Core\Cache\CacheableMetadata;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Resource for collecting banner data by path.
@@ -68,7 +68,8 @@ class BannerAlerts extends VaGovApiEntityResourceBase {
       $banners = $node_storage->loadMultiple(array_values($banner_nids));
     }
 
-    // @todo should this be injected?
+    // @todo should this be injected? phpstan thinks so.
+    // @phpstan-ignore-next-line
     $path_matcher = \Drupal::service('path.matcher');
     // Check each banner to see if it should display, using Drupal's built-in
     // PathMatcher class.

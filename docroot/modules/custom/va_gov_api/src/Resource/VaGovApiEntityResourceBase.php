@@ -4,15 +4,15 @@ namespace Drupal\va_gov_api\Resource;
 
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\jsonapi\JsonApiResource\ResourceObject;
 use Drupal\jsonapi\JsonApiResource\ResourceObjectData;
+use Drupal\jsonapi\ResourceResponse;
+use Drupal\jsonapi\ResourceType\ResourceType;
 use Drupal\jsonapi_resources\Resource\EntityResourceBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\jsonapi\ResourceResponse;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Drupal\jsonapi\ResourceType\ResourceType;
-use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 
 /**
  * Get a response for Banner resource.
@@ -113,6 +113,7 @@ class VaGovApiEntityResourceBase extends EntityResourceBase implements Container
 
     // Add any entities to the response cacheable dependencies.
     foreach ($this->cacheableDependencies as $cacheable_dependency) {
+      // @phpstan-ignore-next-line
       $response->addCacheableDependency($cacheable_dependency);
     }
     return $response;
