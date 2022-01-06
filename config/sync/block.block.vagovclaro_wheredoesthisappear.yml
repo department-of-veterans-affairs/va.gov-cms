@@ -1,0 +1,28 @@
+uuid: 067f3b36-a9b6-4d41-b05c-0bd44e0d41ce
+langcode: en
+status: true
+dependencies:
+  module:
+    - ctools
+    - va_gov_resources_and_support
+  theme:
+    - vagovclaro
+id: vagovclaro_wheredoesthisappear
+theme: vagovclaro
+region: content
+weight: -16
+provider: null
+plugin: where_does_this_appear
+settings:
+  id: where_does_this_appear
+  label: 'Where does this Q&A appear on VA.gov?'
+  provider: va_gov_resources_and_support
+  label_display: '0'
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    bundles:
+      q_a: q_a
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'

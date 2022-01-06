@@ -1,0 +1,22 @@
+uuid: 1215f14f-b5f2-4ea4-8448-838c8ab77fe6
+langcode: en
+status: true
+dependencies:
+  theme:
+    - vagovclaro
+_core:
+  default_config_hash: DIhfo3vqMBmJ5dgZj7bocULh6Kv2WB5yKrtfzB2EFEM
+id: vagovclaro_secondary_local_tasks
+theme: vagovclaro
+region: pre_content
+weight: 0
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: 'Secondary tabs'
+  provider: core
+  label_display: '0'
+  primary: false
+  secondary: true
+visibility: {  }
