@@ -16,22 +16,30 @@
   }
 }
 
-.va-footer-links {
+.va-footer nav ul {
   list-style-type: none;
   margin-left: 0;
-
+  
+  .menu-dropdown {
+    display: none;
+  }
+  
   @include breakpoint('md') {
     display: flex;
     flex-direction: row;
 
-    li::after {
-      color: var(--color-white);
-      content: ' | ';
-      padding-right: 1rem;
-    }
-
-    li:last-child::after {
-      content: '';
+    li {
+      list-style-type: none;
+      
+      &::after {        
+        color: var(--color-white);
+        content: ' | ';
+        padding-right: 1rem;
+      }
+        
+      &:last-child::after {
+        content: '';
+      }
     }
   }
 

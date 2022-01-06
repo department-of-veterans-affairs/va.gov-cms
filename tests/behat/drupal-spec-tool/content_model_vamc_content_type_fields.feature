@@ -6,7 +6,7 @@ Feature: Content model: VAMC Content Type fields
 
   @dst @field_type @content_type_fields @dstfields @vamc
      Scenario: Fields
-       Then exactly the following fields should exist for bundles "event,event_listing,health_services_listing,leadership_listing,press_release,press_releases_listing,person_profile,story_listing,news_story,health_care_region_detail_page,health_care_local_facility,health_care_local_health_service,health_care_region_page,full_width_banner_alert,vamc_system_billing_insurance,regional_health_care_service_des,locations_listing,vamc_system_medical_records_offi,vamc_operating_status_and_alerts,vamc_system_policies_page,vamc_system_register_for_care" of entity type node
+       Then exactly the following fields should exist for bundles "event,event_listing,health_services_listing,leadership_listing,press_release,press_releases_listing,person_profile,story_listing,news_story,health_care_region_detail_page,health_care_local_facility,health_care_local_health_service,vha_facility_nonclinical_service,health_care_region_page,full_width_banner_alert,vamc_system_billing_insurance,regional_health_care_service_des,locations_listing,vamc_system_medical_records_offi,vamc_operating_status_and_alerts,vamc_system_policies_page,vamc_system_register_for_care" of entity type node
        | Type | Bundle | Field label | Machine name | Field type | Required | Cardinality | Form widget | Translatable |
 | Content type | VAMC Detail Page | Alert | field_alert | Entity reference |  | 1 | Select list | Translatable |
 | Content type | VAMC Detail Page | Featured content | field_featured_content | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL | Translatable |
@@ -144,6 +144,11 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC Facility Health Service | Appointments help text | field_appointments_help_text | Markup |  | 1 | Markup |  |
 | Content type | VAMC Facility Health Service | Service locations help text | field_facility_service_loc_help | Markup |  | 1 | Markup |  |
 | Content type | VAMC Facility Health Service | Enforce unique combo | field_enforce_unique_combo | Allow Only One |  | 1 | Allow Only One widget |  |
+| Content type | VAMC Facility Non-clinical Service | Facility | field_facility_location | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | VAMC Facility Non-clinical Service | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | VAMC Facility Non-clinical Service | Service | field_service_name_and_descripti | Entity reference |  | 1 | Select list | Translatable |
+| Content type | VAMC Facility Non-clinical Service | Service locations | field_service_location | Entity reference revisions |  | Unlimited | Paragraphs EXPERIMENTAL | Translatable |
+| Content type | VAMC Facility Non-clinical Service | Enforce unique combo office | field_enforce_unique_combo_offic | Allow Only One |  | 1 | Allow Only One widget | Translatable |
 | Content type | VAMC System | Appointments can be scheduled and viewed online | field_appointments_online | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC System | Banner image | field_media | Entity reference | Required | 1 | Media library | Translatable |
 | Content type | VAMC System | Common Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs EXPERIMENTAL | Translatable |
