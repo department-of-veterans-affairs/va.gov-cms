@@ -41,6 +41,7 @@ Feature: Content model bundles
 | VAMC Detail Page | health_care_region_detail_page | Content type | For static pages where there's not another content type already available.  |
 | VAMC Facility | health_care_local_facility | Content type | A clinic or hospital within a VAMC system. |
 | VAMC Facility Health Service | health_care_local_health_service | Content type | A facility specific description of a health care service, always embedded within a VAMC system description. |
+| VAMC Facility Non-clinical Service | vha_facility_nonclinical_service | Content type |  |
 | VAMC System | health_care_region_page | Content type | A VAMC system contains multiple VHA health facilities, including usually at least one VAMC, sometimes more. |
 | VAMC System Banner Alert with Situation Updates | full_width_banner_alert | Content type | A full-width alert that will be added to a VAMC system, or multiple VAMC systems. |
 | VAMC System Billing and Insurance | vamc_system_billing_insurance | Content type |  |
@@ -106,7 +107,6 @@ Feature: Content model bundles
 | Step | step | Paragraph type | Single step. |
 | Step by step | step_by_step | Paragraph type | An ordered list (1, 2, 3, 4, N) of steps. |
 | Table | table | Paragraph type | Add an HTML table with rows and columns. |
-| VAMC Facility Non-clinical Service | vha_facility_nonclinical_service | Content type |  |
 | VAMC facility service (non-healthcare service) | health_care_local_facility_servi | Paragraph type | A service available at a specific health care facility, like Parking, or Chaplaincy. |
 | Audience - Beneficiaries | audience_beneficiaries | Vocabulary |  |
 | Audience - Non-beneficiaries | audience_non_beneficiaries | Vocabulary |  |

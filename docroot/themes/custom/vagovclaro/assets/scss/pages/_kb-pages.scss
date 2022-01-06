@@ -101,4 +101,40 @@
       max-width: 100%;
     }
   }
+
+  // prevents some long KB page titles overlapping with the header form
+  .page-title {
+    max-width: 70%;
+  }
+}
+
+.kb-search-block-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: var(--space-s);
+  margin-top: -2.5rem;
+}
+
+.header-search-form form {
+  display: flex;
+
+  .form-item {
+    margin: 0;
+  }
+
+  .form-element {
+    background: var(--color-blue-darker);
+    border-color: var(--color-gray-light);
+    color: var(--color-white);
+    min-height: 32px;
+  }
+
+  .form-actions {
+    align-items: flex-end;
+    margin: 0 0 0 var(--space-m);
+  }
+
+  .form-actions .button {
+    margin: 0;
+  }
 }
