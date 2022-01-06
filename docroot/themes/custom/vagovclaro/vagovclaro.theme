@@ -72,7 +72,7 @@ function vagovclaro_form_user_login_form_alter(&$form, FormStateInterface $form_
     ],
   ];
   $form['simplesamlphp_auth_login_link']['link'] = [
-    '#title' => 'Login with PIV.',
+    '#title' => 'Login with PIV',
     '#type' => 'link',
     '#url' => Url::fromRoute('simplesamlphp_auth.saml_login'),
     '#attributes' => [
@@ -83,7 +83,6 @@ function vagovclaro_form_user_login_form_alter(&$form, FormStateInterface $form_
   ];
 
   // Modify existing text and add classes for JS toggle & styles.
-  $form['#attributes']['class'][] = 'piv-login';
   $form['name']['#description'] = 'Your VA email address';
   $form['name']['#prefix'] = '<div class="password-prefix form-item__description">Use this back up login method when PIV isn’t working. Learn more: <a href="">Logging in to the CMS.</a></div>';
   $form['name']['#wrapper_attributes']['class'][] = 'js-login-username';
@@ -105,6 +104,16 @@ function vagovclaro_form_user_login_form_alter(&$form, FormStateInterface $form_
     ],
     '#value' => 'Login with password',
   ];
+
+  // Check user input to determine if form is being rebuilt with error.
+  $user_input = $form_state->getUserInput();
+  if (isset($user_input['name']) || isset($user_input['pass'])) {
+    $form['#attributes']['class'][] = 'form-login';
+    $form['actions']['toggle']['#value'] = 'Login with PIV';
+  }
+  else {
+    $form['#attributes']['class'][] = 'piv-login';
+  }
 
   // Attach JS library for toggle button.
   $form['#attached']['library'][] = 'vagovclaro/login-toggle';
