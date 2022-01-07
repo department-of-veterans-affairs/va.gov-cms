@@ -1,0 +1,27 @@
+//Styling for Flags
+//Variables
+$color-gray-light: #aeb0b5;
+$color-warning: #fdb81e;
+$color-error: #e31c3d;
+$color-success: #2e8540;
+$color-status: #02bfe7;
+
+.flag {
+  border-radius: 3px;
+  background: $color-gray-light;
+  padding: 5px 15px;
+  &.new {
+    background: $color-status;
+  }
+  &.changed-filename, &.changed-title {
+    background: $color-warning;
+  }
+  &.deleted, &.removed-from-source {
+    background: $color-error;
+    color: #fff;
+  }
+  &.removal-complete {
+    background: $color-success;
+    color: #fff;
+  }
+}
