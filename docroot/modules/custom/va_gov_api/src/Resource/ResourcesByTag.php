@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * Apologies for the naming collision. Currently limited to q_a nodes.
  */
-class Resources extends VaGovApiEntityResourceBase {
+class ResourcesByTag extends VaGovApiEntityResourceBase {
 
   /**
    * {@inheritDoc}
@@ -75,7 +75,7 @@ class Resources extends VaGovApiEntityResourceBase {
     /** @var \Drupal\paragraphs\Entity\Paragraph $answer_entity */
     $answer_entity = $entity->field_answer->entity;
 
-    $alert_field = $answer_entity->field_alert_single->entity->field_alert_non_reusable_ref->entity->field_va_paragraphs->entity->field_wysiwyg->processed;
+    $alert_field = $entity->field_alert_single->entity->field_alert_non_reusable_ref->entity->field_va_paragraphs->entity->field_wysiwyg->processed;
 
     $links = [];
     foreach ($entity->get('field_buttons') as $button_field) {

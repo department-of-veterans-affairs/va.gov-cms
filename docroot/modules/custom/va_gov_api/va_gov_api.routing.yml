@@ -8,16 +8,20 @@ va_gov_api.resources:
      _permission: 'access content'
      _content_type_format: api_json
      _format: api_json
-# va_gov_api.resources.tag:
-#   path: '/%jsonapi%/resources/tag/{tag}'
-#   methods: ['GET']
-#   defaults:
-#     _jsonapi_resource: Drupal\va_gov_api\Resources\Tag
-#     _jsonapi_resource_types: ['node--banner', 'node--full_width_banner_alert']
-#   requirements:
-#     _permission: 'access content'
-#     _content_type_format: api_json
-#     _format: api_json
+va_gov_api.resources.tag:
+  path: '/%jsonapi%/resources/tag/{tag}'
+  methods: ['GET']
+  defaults:
+    _jsonapi_resource: Drupal\va_gov_api\Resource\ResourcesByTag
+    _jsonapi_resource_types: ['node--q_a']
+  requirements:
+    _permission: 'access content'
+    _content_type_format: api_json
+    _format: api_json
+  options:
+    parameters:
+      tag:
+        type: tagAudienceAndTopics
 va_gov_api.resources.qa:
   path: '/%jsonapi%/resources/qa'
   methods: ['GET']

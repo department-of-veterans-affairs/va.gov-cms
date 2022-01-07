@@ -49,6 +49,13 @@ class VaGovApiEntityResourceBase extends EntityResourceBase implements Container
   private $cacheableDependencies = [];
 
   /**
+   * An array of args passed in via the request.
+   *
+   * @var mixed[]
+   */
+  private $requestArgs = [];
+
+  /**
    * Constructs a new EntityResourceBase object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
@@ -98,6 +105,16 @@ class VaGovApiEntityResourceBase extends EntityResourceBase implements Container
   }
 
   /**
+   * Add any args passed in with the request.
+   *
+   * @param mixed $request_arg
+   *   The dependency object to add to our response.
+   */
+  protected function addRequestArg($request_arg) {
+    $this->requestArgs[] = $request_arg;
+  }
+
+  /**
    * Construct the ResourceResponse.
    *
    * @param \Symfony\Component\HttpFoundation\Request $request
@@ -126,6 +143,8 @@ class VaGovApiEntityResourceBase extends EntityResourceBase implements Container
    *   The request.
    * @param \Drupal\jsonapi\ResourceType\ResourceType[] $resource_types
    *   The route resource types.
+   * @param mixed[] $args
+   *   Any args that might be passed via the request.
    *
    * @return \Drupal\jsonapi\ResourceResponse
    *   The response.
@@ -133,7 +152,11 @@ class VaGovApiEntityResourceBase extends EntityResourceBase implements Container
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function process(Request $request, array $resource_types) : ResourceResponse {
+  public function process(Request $request, array $resource_types, array $args = []) : ResourceResponse {
+    // Make the arguments available to other methods.
+    foreach ($args as $arg) {
+      $this->addRequestArg($arg);
+    }
     foreach ($resource_types as $resource_type) {
       $this->collectResourceData($request, $resource_type);
     }
