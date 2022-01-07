@@ -1,0 +1,8 @@
+{#
+/**
+ * CMS sets the front page to /user/login by default, as well as 403 redirects, say when someone tries to
+ * access an admin route without being logged in. This makes sure that
+ * the correct template is shown regardless of circumstance.
+ */
+#}
+{% include('@vagovclaro/page/page--user--login.html.twig') %}

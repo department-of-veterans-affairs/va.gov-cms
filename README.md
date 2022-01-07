@@ -55,7 +55,9 @@ The VA.gov CMS Team
    2. [CMS User Notification Systems](READMES/cms-editor-notifications.md)
 1. **CMS Content**
    1. [Workflow](READMES/cms-content-workflow.md)
+      1. [Alias Lockdown](READMES/cms-content-workflow.md#alias-lockdown)
       1. [Broken Links](READMES/broken-links.md)
+      1. [Content Preview](READMES/cms-content-workflow.md#content-preview)
    1. [Content Release](READMES/cms-content-release.md)
    1. [Section Dashboards](docroot/modules/custom/va_gov_dashboards/README.md)
 

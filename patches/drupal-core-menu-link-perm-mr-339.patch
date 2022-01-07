@@ -1,0 +1,159 @@
+From 8749207a25c5a5aaf4a2554672d865da363b708b Mon Sep 17 00:00:00 2001
+From: voleger <dev.vegera@gmail.com>
+Date: Tue, 23 Feb 2021 00:10:08 +0200
+Subject: [PATCH 1/2] Reroll patch [#2915792-47]
+
+---
+ .../src/Functional/MenuLinkContentTest.php    | 18 +++++++++++---
+ .../MenuLinkContentAccessControlHandler.php   | 24 ++++++++++++++++---
+ .../Rest/MenuLinkContentResourceTestBase.php  |  5 ++--
+ 3 files changed, 39 insertions(+), 8 deletions(-)
+
+diff --git a/core/modules/jsonapi/tests/src/Functional/MenuLinkContentTest.php b/core/modules/jsonapi/tests/src/Functional/MenuLinkContentTest.php
+index 4e630c59904..5acc09be899 100644
+--- a/core/modules/jsonapi/tests/src/Functional/MenuLinkContentTest.php
++++ b/core/modules/jsonapi/tests/src/Functional/MenuLinkContentTest.php
+@@ -56,7 +56,10 @@ class MenuLinkContentTest extends ResourceTestBase {
+    * {@inheritdoc}
+    */
+   protected function setUpAuthorization($method) {
+-    $this->grantPermissionsToTestedRole(['administer menu']);
++    $this->grantPermissionsToTestedRole([
++      'access user profiles',
++      'administer menu',
++    ]);
+   }
+ 
+   /**
+@@ -67,7 +70,7 @@ protected function createEntity() {
+       'id' => 'llama',
+       'title' => 'Llama Gabilondo',
+       'description' => 'Llama Gabilondo',
+-      'link' => 'https://nl.wikipedia.org/wiki/Llama',
++      'link' => 'entity:user/1',
+       'weight' => 0,
+       'menu_name' => 'main',
+     ]);
+@@ -102,7 +105,7 @@ protected function getExpectedDocument() {
+         'attributes' => [
+           'bundle' => 'menu_link_content',
+           'link' => [
+-            'uri' => 'https://nl.wikipedia.org/wiki/Llama',
++            'uri' => 'entity:user/1',
+             'title' => NULL,
+             'options' => [],
+           ],
+@@ -231,4 +234,13 @@ public function testLinkOptionsSerialization() {
+     $this->assertResourceResponse(200, Json::decode($response_body), $response);
+   }
+ 
++  /**
++   * {@inheritdoc}
++   */
++  public function testRelationships() {
++    // @see \Drupal\Tests\jsonapi\Functional\ResourceTestBase::doTestRelationshipMutation()
++    $this->grantPermissionsToTestedRole(['access user profiles']);
++    parent::testRelationships();
++  }
++
+ }
+diff --git a/core/modules/menu_link_content/src/MenuLinkContentAccessControlHandler.php b/core/modules/menu_link_content/src/MenuLinkContentAccessControlHandler.php
+index 0a7c8cc5a7b..ba1f425a9e2 100644
+--- a/core/modules/menu_link_content/src/MenuLinkContentAccessControlHandler.php
++++ b/core/modules/menu_link_content/src/MenuLinkContentAccessControlHandler.php
+@@ -50,9 +50,27 @@ public static function createInstance(ContainerInterface $container, EntityTypeI
+   protected function checkAccess(EntityInterface $entity, $operation, AccountInterface $account) {
+     switch ($operation) {
+       case 'view':
+-        // There is no direct viewing of a menu link, but still for purposes of
+-        // content_translation we need a generic way to check access.
+-        return AccessResult::allowedIfHasPermission($account, 'administer menu');
++        if ($account->hasPermission('administer menu')) {
++          return AccessResult::allowed()
++            ->cachePerPermissions()
++            ->addCacheableDependency($entity);
++        }
++        // If menu link is internal, and user has access, grant view access to
++        // the menu link.
++        if (($url_object = $entity->getUrlObject()) && ($url_object->isRouted())) {
++          $link_access = $this->accessManager->checkNamedRoute($url_object->getRouteName(), $url_object->getRouteParameters(), $account, TRUE);
++          if ($link_access->isAllowed()) {
++            return AccessResult::allowed()
++              ->cachePerPermissions()
++              ->addCacheableDependency($entity);
++          }
++        }
++        // Grant view access to external links.
++        elseif ($url_object->isExternal()) {
++          return AccessResult::allowed()
++            ->cachePerPermissions()
++            ->addCacheableDependency($entity);
++        }
+ 
+       case 'update':
+         if (!$account->hasPermission('administer menu')) {
+diff --git a/core/modules/menu_link_content/tests/src/Functional/Rest/MenuLinkContentResourceTestBase.php b/core/modules/menu_link_content/tests/src/Functional/Rest/MenuLinkContentResourceTestBase.php
+index 448dfd2394f..0b0e435d348 100644
+--- a/core/modules/menu_link_content/tests/src/Functional/Rest/MenuLinkContentResourceTestBase.php
++++ b/core/modules/menu_link_content/tests/src/Functional/Rest/MenuLinkContentResourceTestBase.php
+@@ -38,6 +38,7 @@ abstract class MenuLinkContentResourceTestBase extends EntityResourceTestBase {
+    * {@inheritdoc}
+    */
+   protected function setUpAuthorization($method) {
++    $this->grantPermissionsToTestedRole(['access user profiles']);
+     switch ($method) {
+       case 'GET':
+       case 'POST':
+@@ -57,7 +58,7 @@ protected function createEntity() {
+       'title' => 'Llama Gabilondo',
+       'description' => 'Llama Gabilondo',
+       'link' => [
+-        'uri' => 'https://nl.wikipedia.org/wiki/Llama',
++        'uri' => 'entity:user/1',
+         'options' => [
+           'fragment' => 'a-fragment',
+           'attributes' => [
+@@ -129,7 +130,7 @@ protected function getExpectedNormalizedEntity() {
+       ],
+       'link' => [
+         [
+-          'uri' => 'https://nl.wikipedia.org/wiki/Llama',
++          'uri' => 'entity:user/1',
+           'title' => NULL,
+           'options' => [
+             'fragment' => 'a-fragment',
+-- 
+GitLab
+
+
+From b3e8aa19a1ec0823f6a03dad88bd342186fd20ea Mon Sep 17 00:00:00 2001
+From: voleger <voleger@3260314.no-reply.drupal.org>
+Date: Tue, 23 Feb 2021 07:03:07 +0000
+Subject: [PATCH 2/2] Address #52
+
+---
+ .../src/MenuLinkContentAccessControlHandler.php           | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/core/modules/menu_link_content/src/MenuLinkContentAccessControlHandler.php b/core/modules/menu_link_content/src/MenuLinkContentAccessControlHandler.php
+index ba1f425a9e2..496d87fe1b2 100644
+--- a/core/modules/menu_link_content/src/MenuLinkContentAccessControlHandler.php
++++ b/core/modules/menu_link_content/src/MenuLinkContentAccessControlHandler.php
+@@ -58,7 +58,13 @@ protected function checkAccess(EntityInterface $entity, $operation, AccountInter
+         // If menu link is internal, and user has access, grant view access to
+         // the menu link.
+         if (($url_object = $entity->getUrlObject()) && ($url_object->isRouted())) {
+-          $link_access = $this->accessManager->checkNamedRoute($url_object->getRouteName(), $url_object->getRouteParameters(), $account, TRUE);
++          $link_access = $this->accessManager
++            ->checkNamedRoute(
++              $url_object->getRouteName(),
++              $url_object->getRouteParameters(),
++              $account,
++              TRUE
++            );
+           if ($link_access->isAllowed()) {
+             return AccessResult::allowed()
+               ->cachePerPermissions()
+-- 
+GitLab
+

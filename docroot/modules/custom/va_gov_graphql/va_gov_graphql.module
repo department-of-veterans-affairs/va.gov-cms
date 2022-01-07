@@ -4,3 +4,13 @@
  * @file
  * Contains va_gov_graphql.module.
  */
+
+use Drupal\va_gov_graphql\Access\MenuLinkContentAccessHandler;
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function va_gov_graphql_entity_type_alter(array &$entity_types) {
+  /** @var \Drupal\Core\Entity\EntityTypeInterface[] $entity_types */
+  $entity_types['menu_link_content']->setAccessClass(MenuLinkContentAccessHandler::class);
+}
