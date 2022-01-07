@@ -20,6 +20,7 @@ dependencies:
     - node.type.step_by_step
     - workflows.workflow.editorial
   module:
+    - allowed_formats
     - content_moderation
     - entity_browser_table
     - field_group
@@ -229,9 +230,12 @@ content:
       maxlength: 1000
       counter_position: after
       js_prevent_submit: true
-      count_html_characters: true
       textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
-    third_party_settings: {  }
+      count_html_characters: false
+    third_party_settings:
+      allowed_formats:
+        hide_help: '0'
+        hide_guidelines: '0'
     type: text_textarea_with_counter
     region: content
   field_other_categories:
@@ -332,9 +336,9 @@ content:
       maxlength: 70
       counter_position: after
       js_prevent_submit: true
-      count_html_characters: true
       textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
       use_field_maxlength: false
+      count_html_characters: false
     third_party_settings: {  }
   url_redirects:
     weight: 15
