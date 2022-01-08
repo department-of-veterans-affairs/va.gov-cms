@@ -1,11 +1,11 @@
-uuid: 75653ca8-2850-4375-9036-14111af6d94a
+uuid: 35ce4f4a-456c-4297-b6ad-d8fd68643840
 langcode: en
 status: true
 dependencies:
   module:
     - node
-id: removal_complete
-label: 'Removal complete'
+id: changed_name
+label: 'Changed name'
 bundles:
   - health_care_local_facility
   - nca_facility
@@ -15,12 +15,12 @@ bundles:
   - vet_center_outstation
 entity_type: node
 global: true
-weight: -7
-flag_short: 'Removal complete'
+weight: -9
+flag_short: 'Changed name'
 flag_long: ''
-flag_message: 'Removal was completed'
-unflag_short: 'Removal incomplete'
-unflag_long: 'This will remove the removal complete flag'
+flag_message: 'The Name was changed'
+unflag_short: 'Name change resolved'
+unflag_long: 'This will remove the changed name flag'
 unflag_message: ''
 unflag_denied_text: ''
 flag_type: 'entity:node'
