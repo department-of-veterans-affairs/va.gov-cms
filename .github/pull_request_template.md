@@ -12,8 +12,8 @@ Relates to #_issueid_.
 
 As user _uid_ with _user_role_
 1. Do this
-1. Then that
-1. Then validate Acceptance Criteria from issue
+2. Then that
+3. Then validate Acceptance Criteria from issue
 - [ ] This
 - [ ] That
 - [ ] The other thing
@@ -31,6 +31,11 @@ As user _uid_ with _user_role_
 
 - [ ] `Platform CMS team`
 - [ ] `Sitewide CMS Team`
+  - [ ] `⭐️ Content ops`
+  - [ ] `⭐️ CMS Experience`
+  - [ ] `⭐️ Offices`
+  - [ ] `⭐️ Product Support`
+
 
 ### Is this PR blocked by another PR?
 
