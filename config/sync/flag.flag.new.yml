@@ -5,7 +5,7 @@ dependencies:
   module:
     - node
 id: new
-label: New
+label: 'New facility'
 bundles:
   - health_care_local_facility
   - nca_facility
@@ -15,12 +15,12 @@ bundles:
   - vet_center_outstation
 entity_type: node
 global: true
-weight: 0
-flag_short: New
+weight: -10
+flag_short: 'New facility'
 flag_long: ''
-flag_message: 'This item is new'
+flag_message: 'This facility is new'
 unflag_short: 'Not new'
-unflag_long: 'This will remove the new flag'
+unflag_long: 'This will remove the new facility flag'
 unflag_message: ''
 unflag_denied_text: ''
 flag_type: 'entity:node'
