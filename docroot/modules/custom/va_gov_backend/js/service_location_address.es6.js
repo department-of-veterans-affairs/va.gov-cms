@@ -12,6 +12,12 @@
       checkboxes.forEach((check) => {
         // Grab our closest address.
         const address = check.parentElement.parentElement.nextElementSibling;
+        // Set initial visibility for the address based on the checkbox value.
+        if (check.checked) {
+          address.style.display = "none";
+        } else {
+          address.style.display = "block";
+        }
         check.addEventListener("click", () => {
           // Detemine whether or not to display after checkbox interaction.
           if (check.checked) {
