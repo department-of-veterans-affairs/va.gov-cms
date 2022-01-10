@@ -194,7 +194,7 @@ class VAOpenApiGenerator extends JsonApiGenerator {
                   isset($relationship['properties']['data']['properties']['type']['enum'])
                 ) ? $relationship['properties']['data']['properties']['type']['enum'] : [];
                 foreach ($keys as $key) {
-                  list($entity_type, $bundle_name) = explode("--", $key);
+                  [$entity_type, $bundle_name] = explode("--", $key);
                   if (strpos($entity_type, 'menu') !== FALSE) {
                     $foo = 'bar';
                   }
