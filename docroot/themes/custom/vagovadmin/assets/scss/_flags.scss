@@ -1,15 +1,15 @@
 //Styling for Flags
 //Variables
 $color-gray-light: #aeb0b5;
-$color-warning: #fdb81e;
-$color-error: #e31c3d;
-$color-success: #2e8540;
-$color-status: #02bfe7;
+$color-warning: #fff1d2;
+$color-error: #f9f2f8;
+$color-success: #d5e7d9;
+$color-status: #ccf2fa;
 
 .flag {
   background: $color-gray-light;
-  border-radius: 3px;
-  padding: 5px 15px;
+  border-radius: 30px;
+  padding: 4px 16px;
   
   &.new {
     background: $color-status;
@@ -23,12 +23,10 @@ $color-status: #02bfe7;
   &.deleted,
   &.removed-from-source {
     background: $color-error;
-    color: #fff;
   }
   
   &.removal-complete {
     background: $color-success;
-    color: #fff;
   }
   
 }
