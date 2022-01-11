@@ -1,0 +1,6 @@
+services:
+  va_gov_api.resource_tag_param_converter:
+    class: Drupal\va_gov_api\ParamConverter\ResourceTagParamConverter
+    arguments: ['@entity_type.manager', '@pathauto.alias_cleaner']
+    tags:
+      - { name: paramconverter }

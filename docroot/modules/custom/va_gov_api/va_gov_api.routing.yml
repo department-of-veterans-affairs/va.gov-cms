@@ -9,7 +9,7 @@ va_gov_api.resources:
      _content_type_format: api_json
      _format: api_json
 va_gov_api.resources.tag:
-  path: '/%jsonapi%/resources/tag/{tag}'
+  path: '/%jsonapi%/resources/tag/{resource_tag}'
   methods: ['GET']
   defaults:
     _jsonapi_resource: Drupal\va_gov_api\Resource\ResourcesByTag
@@ -20,8 +20,8 @@ va_gov_api.resources.tag:
     _format: api_json
   options:
     parameters:
-      tag:
-        type: tagAudienceAndTopics
+      resource_tag:
+        type: resource_tag
 va_gov_api.resources.qa:
   path: '/%jsonapi%/resources/qa'
   methods: ['GET']

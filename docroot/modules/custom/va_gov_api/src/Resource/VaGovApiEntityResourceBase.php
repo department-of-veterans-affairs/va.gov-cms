@@ -49,11 +49,11 @@ class VaGovApiEntityResourceBase extends EntityResourceBase implements Container
   private $cacheableDependencies = [];
 
   /**
-   * An array of args passed in via the request.
+   * Any route parameters passed in the request.
    *
    * @var mixed[]
    */
-  private $requestArgs = [];
+  private $routeParameters = [];
 
   /**
    * Constructs a new EntityResourceBase object.
@@ -105,13 +105,31 @@ class VaGovApiEntityResourceBase extends EntityResourceBase implements Container
   }
 
   /**
-   * Add any args passed in with the request.
+   * Add any route parameters passed in with the request.
    *
-   * @param mixed $request_arg
-   *   The dependency object to add to our response.
+   * @param string $route_parameter_key
+   *   The key of the route parameter.
+   * @param mixed $route_parameter_value
+   *   The resolved route parameter value.
    */
-  protected function addRequestArg($request_arg) {
-    $this->requestArgs[] = $request_arg;
+  protected function addRouteParameter($route_parameter_key, $route_parameter_value) {
+    $this->routeParameters[$route_parameter_key] = $route_parameter_value;
+  }
+
+  /**
+   * Get a named route parameter.
+   *
+   * @param string $route_parameter_key
+   *   The key of the route parameter.
+   *
+   * @return mixed
+   *   The route parameter value if it exists.
+   */
+  protected function getRouteParameter($route_parameter_key) {
+    if (!empty($this->routeParameters[$route_parameter_key])) {
+      return $this->routeParameters[$route_parameter_key];
+    }
+    return NULL;
   }
 
   /**
@@ -143,8 +161,8 @@ class VaGovApiEntityResourceBase extends EntityResourceBase implements Container
    *   The request.
    * @param \Drupal\jsonapi\ResourceType\ResourceType[] $resource_types
    *   The route resource types.
-   * @param mixed[] $args
-   *   Any args that might be passed via the request.
+   * @param mixed $resource_tag
+   *   An arg that is passed.
    *
    * @return \Drupal\jsonapi\ResourceResponse
    *   The response.
@@ -152,10 +170,13 @@ class VaGovApiEntityResourceBase extends EntityResourceBase implements Container
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function process(Request $request, array $resource_types, array $args = []) : ResourceResponse {
-    // Make the arguments available to other methods.
-    foreach ($args as $arg) {
-      $this->addRequestArg($arg);
+  public function process(Request $request, array $resource_types, $resource_tag = NULL) : ResourceResponse {
+    // This use of resources_tag needs to be rethought. I would like a way to
+    // pass in a variadic argument (...$args) which encompasses an arbitrary
+    // number of route parameters.
+    // Make the resource parameter available to other methods.
+    if ($resource_tag) {
+      $this->addRouteParameter('resource_tag', $resource_tag);
     }
     foreach ($resource_types as $resource_type) {
       $this->collectResourceData($request, $resource_type);
