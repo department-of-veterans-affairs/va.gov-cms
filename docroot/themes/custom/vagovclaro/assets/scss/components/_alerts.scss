@@ -1,52 +1,66 @@
 //drupal alert styles
 .va-alert {
-  background-color: var(--color-gray-lightest);
   border-left-style: solid;
   border-left-width: 10px;
   box-sizing: border-box;
-  color: var(--color-gray-darkest);
-  padding: var(--space-xl) var(--space-xl) var(--space-xl) var(--space-s);
+  color: var(--color-text);
+  padding: var(--space-l) var(--space-l) var(--space-l) var(--space-s);
   vertical-align: middle;
   width: 100%;
 }
 
 .va-alert.messages--warning {
+  background-color: var(--color-warning-bg);
   border-color: var(--color-warning);
 }
 
 .va-alert.messages--warning a {
+  background-color: var(--color-warning-bg);
   color: var(--color-warning);
 }
 
 .va-alert.messages--success {
+  background-color: var(--color-success-bg);
   border-color: var(--color-success);
 }
 
 .va-alert.messages--success a {
+  background-color: var(--color-success-bg);
   color: var(--color-success);
 }
 
 .va-alert.messages--error {
+  background-color: var(--color-error-bg);
   border-color: var(--color-error);
 }
 
 .va-alert.messages--error a {
+  background-color: var(--color-error-bg);
   color: var(--color-error);
 }
 
 .va-alert.messages--status {
+  background-color: var(--color-status-bg);
   border-color: var(--color-status);
 }
 
 .va-alert.messages--status a {
+  background-color: var(--color-status-bg);
   color: var(--color-status);
 }
 
+.messages-list {
+  margin-bottom: var(--space-m);
+  margin-top: var(--space-m);
+}
+
 // node link report tweaks
-.block-node-link-report-block h3 {
+.block-node-link-report-block h2 {
   display: inline-block;
   margin-left: var(--space-s);
   width: 90%;
 }
 
-// site alert styles
+.node-link-report-list .messages__header {
+  margin-bottom: 0;
+}

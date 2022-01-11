@@ -22,18 +22,20 @@
  */
 #}
 
-<div class="messages-list">
+<div class="messages-list node-link-report-list">
   {% if bad_links is not empty %}
     <div class="bad_links va-alert messages messages--error">
       <details class="js-form-wrapper">
         {% set count = bad_links|length %}
-        <summary class="messages__header"><h2>
+        <summary class="messages__header">
+          <h2 class="messages__title">
           {% trans %}
             {{ count }} broken link found
           {% plural count %}
             {{ count }} broken links found
           {% endtrans %}
-        </h2></summary>
+          </h2>
+        </summary>
 
         <div class="messages__content">
           <p>{{ 'Repair the following broken links to avoid errors:' |t }}</p>
@@ -54,13 +56,15 @@
     <div class="inaccessible_links va-alert messages messages--error">
       <details class="js-form-wrapper">
         {% set count = inaccessible_links|length %}
-        <summary class="messages__header"><h2>
+        <summary class="messages__header">
+          <h2 class="messages__title">
           {% trans %}
             {{ count }} accessibility issue found
           {% plural count %}
             {{ count }} accessibility issues found
           {% endtrans %}
-        </h2></summary>
+          </h2>
+        </summary>
 
         <div class="messages__content">
           <p>{{ 'Revise the following links to make them accessible to people using assistive technology.' |t }}</p>
@@ -92,13 +96,15 @@
     <div class="unpublished-links va-alert messages messages--warning">
       <details class="js-form-wrapper">
         {% set count = unpublished_links|length %}
-        <summary class="messages__header"><h2>
+        <summary class="messages__header">
+          <h2 class="messages__title">
           {% trans %}
             {{ count }} link to unpublished page found
           {% plural count %}
             {{ count }} links to unpublished pages found
           {% endtrans %}
-        </h2></summary>
+          </h2>
+        </summary>
 
         <div class="messages__content">
           <p>{{ 'Linking to unpublished pages will result in broken links once this content is published. Prevent errors by omitting the following links, or updating their status to published.' |t }}</p>
@@ -120,13 +126,15 @@
     <div class="redirected-links va-alert messages messages--warning">
       <details class="js-form-wrapper">
         {% set count = redirected_links|length %}
-        <summary class="messages__header"><h2>
+        <summary class="messages__header">
+          <h2 class="messages__title">
           {% trans %}
             {{ count }} redirected link found
           {% plural count %}
             {{ count }} redirected links found
           {% endtrans %}
-        </h2></summary>
+          </h2>
+        </summary>
 
         <div class="messages__content">
           <p>{{ 'Please update the following URLs to prevent the possibility of broken links in the future.' |t }}</p>
@@ -149,13 +157,15 @@
     <div class="skipped-links va-alert messages messages--warning">
       <details class="js-form-wrapper">
         {% set count = skipped_links|length %}
-        <summary class="messages__header"><h2>
+        <summary class="messages__header">
+          <h2 class="messages__title">
           {% trans %}
             {{ count }} link not tested
           {% plural count %}
             {{ count }} links not tested
           {% endtrans %}
-        </h2></summary>
+          </h2>
+        </summary>
 
         <div class="messages__content">
           <p>{{ "The system skipped testing the following links to avoid the possibility of false errors. To check that they work, you'll need to test them yourself." |t }} </p>
@@ -177,13 +187,15 @@
     <div class="good-links va-alert messages messages--status">
       <details class="js-form-wrapper">
         {% set count = good_links|length %}
-        <summary class="messages__header"><h2>
+        <summary class="messages__header">
+          <h2 class="messages__title">
           {% trans %}
             {{ count }} working link
           {% plural count %}
             {{ count }} working links
           {% endtrans %}
-        </h2></summary>
+          </h2>
+        </summary>
 
         <div class="messages__content">
           <p>{{ 'These links have been tested and are working normally.' |t }}</p>
