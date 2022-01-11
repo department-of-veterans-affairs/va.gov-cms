@@ -3,10 +3,9 @@
 namespace Drupal\va_gov_api\Resource;
 
 use Drupal\Core\Cache\CacheableMetadata;
-use Drupal\jsonapi\JsonApiResource\LinkCollection;
-use Drupal\jsonapi\JsonApiResource\ResourceObject;
 use Drupal\jsonapi\ResourceType\ResourceType;
-use Drupal\node\NodeInterface;
+use Drupal\va_gov_api\ResourceObjectBuilders\NodeBanner;
+use Drupal\va_gov_api\ResourceObjectBuilders\NodeFullWidthBannerAlert;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -91,50 +90,10 @@ class BannerAlerts extends VaGovApiEntityResourceBase {
     // Construct and add a ResourceObject for each matching entity found, and
     // add the entity as a cacheableDependency.
     foreach ($banners as $entity) {
-      $resource_object = $this->createBannerResourceObject($entity, $resource_type);
+      $resource_object = NodeBanner::buildResourceObject($entity, $resource_type);
       $this->addResourceObject($resource_object);
       $this->addCacheableDependency($entity);
     }
-  }
-
-  /**
-   * Create a ResourceObject from a `banner` entity.
-   *
-   * @param \Drupal\node\NodeInterface $entity
-   *   The `banner` entity.
-   * @param \Drupal\jsonapi\ResourceType\ResourceType $resource_type
-   *   The ResourceType for `banner` entities.
-   *
-   * @return \Drupal\jsonapi\JsonApiResource\ResourceObject
-   *   A ResourceObject constructed from a `banner` entity.
-   */
-  private function createBannerResourceObject(NodeInterface $entity, ResourceType $resource_type): ResourceObject {
-    /** @var \Drupal\taxonomy\TermInterface $section_term */
-    $section_term = $entity->field_administration->entity;
-    $data = [
-      'nid' => $entity->id(),
-      'uuid' => $entity->uuid(),
-      'langcode' => $entity->language()->getId(),
-      'status' => $entity->isPublished(),
-      'bundle' => $entity->getType(),
-      'heading' => $entity->label(),
-      'moderation_state' => $entity->get('moderation_state')->getString(),
-      'alert_type' => $entity->field_alert_type->value,
-      // @phpstan-ignore-next-line
-      'text' => $entity->body->processed,
-      'dismissible' => $entity->field_dismissible_option->value,
-      'section_name' => $section_term->label(),
-      'paths' => array_column($entity->field_target_paths->getValue(), 'value'),
-    ];
-
-    return new ResourceObject(
-      $entity,
-      $resource_type,
-      $entity->uuid(),
-      NULL,
-      $data,
-      new LinkCollection([])
-    );
   }
 
   /**
@@ -200,7 +159,7 @@ class BannerAlerts extends VaGovApiEntityResourceBase {
         // Construct and add a ResourceObject for each matching entity found,
         // and add the entity as a cacheableDependency.
         foreach ($facility_banners as $entity) {
-          $resource_object = $this->createFullWidthBannerAlertResourceObject($entity, $resource_type);
+          $resource_object = NodeFullWidthBannerAlert::buildResourceObject($entity, $resource_type);
           $this->addResourceObject($resource_object);
           $this->addCacheableDependency($entity);
         }
@@ -209,54 +168,6 @@ class BannerAlerts extends VaGovApiEntityResourceBase {
         break;
       }
     }
-  }
-
-  /**
-   * Create a ResourceObject from a `full_width_banner_alert` entity.
-   *
-   * @param \Drupal\node\NodeInterface $entity
-   *   The `full_width_banner_alert` entity.
-   * @param \Drupal\jsonapi\ResourceType\ResourceType $resource_type
-   *   The ResourceType for `full_width_banner_alert` entities.
-   *
-   * @return \Drupal\jsonapi\JsonApiResource\ResourceObject
-   *   A ResourceObject constructed from a `full_width_banner_alert` entity.
-   */
-  private function createFullWidthBannerAlertResourceObject(NodeInterface $entity, ResourceType $resource_type): ResourceObject {
-    /** @var \Drupal\taxonomy\TermInterface $section_term */
-    $section_term = $entity->field_administration->entity;
-    $data = [
-      'nid' => $entity->id(),
-      'uuid' => $entity->uuid(),
-      'langcode' => $entity->language()->getId(),
-      'status' => $entity->isPublished(),
-      'bundle' => $entity->getType(),
-      'heading' => $entity->label(),
-      'moderation_state' => $entity->get('moderation_state')->getString(),
-      // @phpstan-ignore-next-line
-      'text' => $entity->field_body->processed,
-      'alert_type' => $entity->field_alert_type->value,
-      'dismissable' => $entity->field_alert_dismissable->value,
-      'section_name' => $section_term->label(),
-      // Paths is not relevant to the facility banner, but it's in spec.
-      'paths' => '',
-      // @phpstan-ignore-next-line
-      'situational_info' => $entity->field_banner_alert_situationinfo->processed,
-      'show_find_facilities_cta' => $entity->field_alert_find_facilities_cta->value,
-      'show_operating_status_cta' => $entity->field_alert_operating_status_cta->value,
-      'show_email_update_button' => $entity->field_alert_email_updates_button->value,
-      'limit_subpages' => $entity->field_alert_inheritance_subpages->value,
-      'send_email_updates' => $entity->field_operating_status_sendemail->value,
-      'situation_updates' => 'String for POC; this should point at a schema rather than being a string.',
-    ];
-    return new ResourceObject(
-      $entity,
-      $resource_type,
-      $entity->uuid(),
-      NULL,
-      $data,
-      new LinkCollection([])
-    );
   }
 
 }
