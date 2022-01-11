@@ -108,6 +108,10 @@ class Datadog {
           // tags. This is not a perfect mapping between prometheus and datadog,
           // but it will work well enough.
           foreach ($labeled_value->getLabels() as $k => $v) {
+            // Phpstan thinks that either $k or $v is an array. They are not.
+            // LabelledValue ensures that they are both strings that match a
+            // particular regex.
+            // @phpstan-ignore-next-line
             $m->tags[] = $k . ":" . $v;
           }
         }
