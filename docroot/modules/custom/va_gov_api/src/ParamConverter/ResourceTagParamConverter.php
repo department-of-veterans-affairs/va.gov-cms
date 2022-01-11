@@ -5,6 +5,7 @@ namespace Drupal\va_gov_api\ParamConverter;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\ParamConverter\ParamConverterInterface;
 use Drupal\pathauto\AliasCleaner;
+use Drupal\taxonomy\TermInterface;
 use Symfony\Component\Routing\Route;
 
 /**
@@ -44,7 +45,7 @@ class ResourceTagParamConverter implements ParamConverterInterface {
   /**
    * {@inheritdoc}
    */
-  public function convert($value, $definition, $name, array $defaults) {
+  public function convert($value, $definition, $name, array $defaults): ?TermInterface {
     if ($value) {
       // Resource tag audience can be from one of three vocabularies.
       $taxonomy_term_storage = $this->entityTypeManager->getStorage('taxonomy_term');
@@ -71,7 +72,7 @@ class ResourceTagParamConverter implements ParamConverterInterface {
   /**
    * {@inheritdoc}
    */
-  public function applies($definition, $name, Route $route) {
+  public function applies($definition, $name, Route $route): bool {
     return (!empty($definition['type']) && $definition['type'] === 'resource_tag');
   }
 

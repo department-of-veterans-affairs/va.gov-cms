@@ -43,7 +43,7 @@ class Resources extends VaGovApiEntityResourceBase {
     // Load and return all QA nodes.
     $node_storage = $this->entityTypeManager->getStorage('node');
     $query = $node_storage->getQuery();
-    // The machine name for this entity is `banner`.
+    // The machine name for this entity is `q_a`.
     $query->condition('type', 'q_a')->condition('status', TRUE);
     $qa_nids = $query->execute();
     /** @var \Drupal\node\NodeInterface[] $qas */
@@ -59,17 +59,17 @@ class Resources extends VaGovApiEntityResourceBase {
   }
 
   /**
-   * Create a ResourceObject from a `banner` entity.
+   * Create a ResourceObject from a `q_a` entity.
    *
    * @param \Drupal\node\NodeInterface $entity
-   *   The `banner` entity.
+   *   The `q_a` entity.
    * @param \Drupal\jsonapi\ResourceType\ResourceType $resource_type
-   *   The ResourceType for `banner` entities.
+   *   The ResourceType for `q_a` entities.
    *
    * @return \Drupal\jsonapi\JsonApiResource\ResourceObject
-   *   A ResourceObject constructed from a `banner` entity.
+   *   A ResourceObject constructed from a `q_a` entity.
    */
-  private function createQaResourceObject(NodeInterface $entity, ResourceType $resource_type) {
+  private function createQaResourceObject(NodeInterface $entity, ResourceType $resource_type): ResourceObject {
     /** @var \Drupal\taxonomy\TermInterface $section_term */
     $section_term = $entity->field_administration->entity;
     /** @var \Drupal\paragraphs\Entity\Paragraph $answer_entity */

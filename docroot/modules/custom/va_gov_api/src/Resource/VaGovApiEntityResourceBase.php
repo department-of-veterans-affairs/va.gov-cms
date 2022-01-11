@@ -125,7 +125,7 @@ class VaGovApiEntityResourceBase extends EntityResourceBase implements Container
    * @return mixed
    *   The route parameter value if it exists.
    */
-  protected function getRouteParameter($route_parameter_key) {
+  protected function getRouteParameter($route_parameter_key): mixed {
     if (!empty($this->routeParameters[$route_parameter_key])) {
       return $this->routeParameters[$route_parameter_key];
     }
@@ -141,7 +141,7 @@ class VaGovApiEntityResourceBase extends EntityResourceBase implements Container
    * @return \Drupal\jsonapi\ResourceResponse
    *   The response.
    */
-  protected function constructJsonapiResponse(Request $request) {
+  protected function constructJsonapiResponse(Request $request): ResourceResponse {
     $resource_object_data = new ResourceObjectData($this->resourceObjects);
     /** @var \Drupal\jsonapi\ResourceResponse $response */
     $response = $this->createJsonapiResponse($resource_object_data, $request);
@@ -170,7 +170,7 @@ class VaGovApiEntityResourceBase extends EntityResourceBase implements Container
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function process(Request $request, array $resource_types, $resource_tag = NULL) : ResourceResponse {
+  public function process(Request $request, array $resource_types, $resource_tag = NULL): ResourceResponse {
     // This use of resources_tag needs to be rethought. I would like a way to
     // pass in a variadic argument (...$args) which encompasses an arbitrary
     // number of route parameters.

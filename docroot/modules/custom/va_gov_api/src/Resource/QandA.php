@@ -83,7 +83,7 @@ class QandA extends VaGovApiEntityResourceBase {
    * @return \Drupal\jsonapi\JsonApiResource\ResourceObject
    *   A ResourceObject constructed from a `banner` entity.
    */
-  private function createQaResourceObject(NodeInterface $entity, ResourceType $resource_type) {
+  private function createQaResourceObject(NodeInterface $entity, ResourceType $resource_type): ResourceObject {
     /** @var \Drupal\taxonomy\TermInterface $section_term */
     $section_term = $entity->field_administration->entity;
     /** @var \Drupal\paragraphs\Entity\Paragraph $answer_entity */

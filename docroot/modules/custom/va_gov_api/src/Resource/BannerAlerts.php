@@ -50,7 +50,7 @@ class BannerAlerts extends VaGovApiEntityResourceBase {
   private function collectBannerData(Request $request, ResourceType $resource_type) {
     $path = $request->get('item-path');
     if (is_null($path)) {
-      return;
+      return NULL;
     }
 
     // The business logic for displaying a full width alert is: each full width
@@ -108,7 +108,7 @@ class BannerAlerts extends VaGovApiEntityResourceBase {
    * @return \Drupal\jsonapi\JsonApiResource\ResourceObject
    *   A ResourceObject constructed from a `banner` entity.
    */
-  private function createBannerResourceObject(NodeInterface $entity, ResourceType $resource_type) {
+  private function createBannerResourceObject(NodeInterface $entity, ResourceType $resource_type): ResourceObject {
     /** @var \Drupal\taxonomy\TermInterface $section_term */
     $section_term = $entity->field_administration->entity;
     $data = [
@@ -222,7 +222,7 @@ class BannerAlerts extends VaGovApiEntityResourceBase {
    * @return \Drupal\jsonapi\JsonApiResource\ResourceObject
    *   A ResourceObject constructed from a `full_width_banner_alert` entity.
    */
-  private function createFullWidthBannerAlertResourceObject(NodeInterface $entity, ResourceType $resource_type) {
+  private function createFullWidthBannerAlertResourceObject(NodeInterface $entity, ResourceType $resource_type): ResourceObject {
     /** @var \Drupal\taxonomy\TermInterface $section_term */
     $section_term = $entity->field_administration->entity;
     $data = [
