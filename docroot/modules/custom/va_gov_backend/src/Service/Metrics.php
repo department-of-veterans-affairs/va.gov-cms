@@ -82,7 +82,7 @@ class Metrics {
     // @todo This should probably use a different setting.
     switch ($this->settings->get('va_gov_frontend_build_type')) {
       case "brdgha":
-        return $this->settings->get('github_actions_deploy_env');
+        return $this->settings->get('github_actions_deploy_env', 'unknown');
 
       case "lando":
         return "local";

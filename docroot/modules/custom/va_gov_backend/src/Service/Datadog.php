@@ -44,7 +44,8 @@ class Datadog {
    * @param \PNX\Prometheus\Metric[] $metrics
    *   The metrics to be included in the metrics object.
    * @param string $environment
-   *   The name of the environment that the metrics belong to (one of local, dev, staging, prod).
+   *   The name of the environment that the metrics belong to (one of local,
+   *   dev, staging, prod).
    */
   public function send(array $metrics, $environment) {
     $this->sendMetricsToDatadog($this->buildMetricsObject($metrics, $environment));
@@ -54,7 +55,8 @@ class Datadog {
    * Get a metrics prefix from the provided environment name.
    *
    * @param string $environment
-   *   The name of the environment that the metrics belong to (one of local, dev, staging, prod).
+   *   The name of the environment that the metrics belong to (one of local,
+   *   dev, staging, prod).
    *
    * @return string
    *   The prefix to apply to the metrics name.
@@ -69,7 +71,8 @@ class Datadog {
    * @param \PNX\Prometheus\Metric[] $metricsList
    *   The metrics to be included in the metrics object.
    * @param string $environment
-   *   The name of the environment that the metrics belong to (one of local, dev, staging, prod).
+   *   The name of the environment that the metrics belong to (one of local,
+   *   dev, staging, prod).
    *
    * @return object
    *   An object following the Datadog API spec for the metrics API.
@@ -96,7 +99,7 @@ class Datadog {
         $m->type = "gauge";
         $m->timestamp = $timestamp;
         $m->tags = [];
-        $m->metric = $labeled_value->getName();
+        $m->metric = $this->getMetricPrefix($environment) . $labeled_value->getName();
 
         $labels = $labeled_value->getLabels();
 
@@ -123,15 +126,18 @@ class Datadog {
         $m->tags[] = "env:" . $environment;
 
         $m->points = [
-          $timestamp,
-          $labeled_value->getValue(),
+          [
+            $timestamp,
+            $labeled_value->getValue(),
+          ],
         ];
 
         $metrics->series[] = $m;
       }
 
-      return $metrics;
     }
+
+    return $metrics;
   }
 
   /**
