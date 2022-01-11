@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_workflow\Service;
 
+use Drupal\Component\Render\FormattableMarkup;
 use Drupal\flag\FlagService;
 use Drupal\node\NodeInterface;
 
@@ -63,12 +64,8 @@ class Flagger {
   public function appendLog(NodeInterface $node, $log_message, array $vars = []) {
     if (!empty($log_message)) {
       $revision_log = $node->get('revision_log')->value;
-      if (empty($revision_log)) {
-        $revision_log .= t($log_message, $vars);
-      }
-      else {
-        $revision_log .= PHP_EOL . t($log_message, $vars);
-      }
+      $log_entry = new FormattableMarkup($log_message, $vars);
+      $revision_log .= (empty($revision_log)) ? $log_entry : PHP_EOL . $log_entry;
       $node->set('revision_log', $revision_log);
     }
   }
