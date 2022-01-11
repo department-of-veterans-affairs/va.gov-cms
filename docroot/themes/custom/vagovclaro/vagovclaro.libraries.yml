@@ -11,9 +11,11 @@ proofing:
 global-scripts:
   js:
     assets/js/anchor_links.js: {}
+    assets/js/tabledrag.js: {}
   dependencies:
     - core/drupal
     - core/jquery
+    - core/drupal.tabledrag
 userguides:
   css:
     theme:
@@ -27,9 +29,3 @@ login-toggle:
     assets/js/login-toggle.js: {}
     dependencies:
       - core/jquery
-tabledrag:
-  js:
-    assets/js/tabledrag.js: {}
-    dependencies:
-      - core/jquery
-      - core/drupal
