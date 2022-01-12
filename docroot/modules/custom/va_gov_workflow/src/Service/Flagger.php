@@ -3,6 +3,8 @@
 namespace Drupal\va_gov_workflow\Service;
 
 use Drupal\Component\Render\FormattableMarkup;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\flag\Entity\Flagging;
 use Drupal\flag\FlagService;
 use Drupal\node\NodeInterface;
 
@@ -10,6 +12,14 @@ use Drupal\node\NodeInterface;
  * Service used for controlling flags on content.
  */
 class Flagger {
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
   /**
    * The flag module flag service.
    *
@@ -20,11 +30,15 @@ class Flagger {
   /**
    * Constructs the flagger object.
    *
-   * @param Drupal\flag\FlagService $flag_service
+   * @param \Drupal\flag\FlagService $flag_service
    *   The flag service.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   Entity type manager service.
    */
-  public function __construct(FlagService $flag_service) {
+  public function __construct(FlagService $flag_service, EntityTypeManagerInterface $entity_type_manager) {
     $this->flagService = $flag_service;
+    $this->entityTypeManager = $entity_type_manager;
+
   }
 
   /**
@@ -40,12 +54,18 @@ class Flagger {
    *   Message vars.
    */
   public function setFlag($flag_id, NodeInterface $node, $log_message = '', array $vars = []) {
-    // Defend against presave of new resulting in no nid.
+    // Defend against presave of new node resulting in no nid.
+    // A flag save can not happen if there is no nid, so don't operate
+    // on a new node.
     if (!$node->isNew()) {
-      // A flag save can not happen if there is no nid, so can't operate
-      // on a new node.
       $flag = $this->flagService->getFlagById($flag_id);
       $this->flagService->flag($flag, $node);
+      // NOTE:  This setting of the flag only works in non-form based node saves
+      // like through migration.  On form-based node save, this flag save will
+      // happen, but it immediately gets undone when the flag form saves because
+      // the flag is not set there at that time (race condition).
+      $flag_message_header = "Flagged: {$flag->get(c)}";
+      $log_message = "{$flag_message_header} - {$log_message}";
     }
 
     $this->appendLog($node, $log_message, $vars);
@@ -84,7 +104,10 @@ class Flagger {
     $first_save = (empty($node->original)) ? TRUE : FALSE;
     if ($node->isNew()) {
       // Can't actually set the flag, because no node id yet.
-      // Just set the message.
+      // Just set the message. The flag will be set in entityCreate event.
+      $flag = $this->flagService->getFlagById($flag_id);
+      $flag_message_header = "Flagged: {$flag->get('flag_short')}";
+      $log_message = "{$flag_message_header} - {$log_message}";
       $this->appendLog($node, $log_message);
     }
     elseif ($first_save) {
@@ -124,16 +147,36 @@ class Flagger {
   }
 
   /**
-   * Examines all the flags for node to determine if any changed.
+   * Examines aflag on deletion and updated the node revision log.
    *
-   * @param \Drupal\node\NodeInterface $node
+   * @param \Drupal\flag\Entity\Flagging $flagging
    *   The drupal node to examine.
    */
-  public function logFlagChanges(NodeInterface $node) {
-    // Figure out how to get all flags from original??
-    // ->getAllFlags('node', 'article');
-    // then ->getEntityFlaggings(FlagInterface $flag, EntityInterface $entity)
-    // or -> getAllEntityFlaggings(EntityInterface $entity)
+  public function logFlagDeletion(Flagging $flagging) {
+
+    $type = $flagging->get('entity_type')->value;
+    // Only supporting this for nodes.
+    if ($type === 'node') {
+      $flag = $flagging->getFlag();
+      $flagname = $flag->get('flag_short');
+      $nid = $flagging->get('entity_id')->value;
+      $vid = $this->entityTypeManager
+        ->getStorage('node')
+        ->getLatestRevisionId($nid);
+      // The latest revision of the flagged node.
+      $revision = $this->entityTypeManager
+        ->getStorage('node')
+        ->loadRevision($vid);
+
+      $log_message = $revision->get('revision_log')->value;
+      $flag_message = "Flag removed: {$flagname}" . PHP_EOL;
+      $revision->set('revision_log', "{$flag_message} {$log_message}");
+      // Avoid creating a new revision.  Just update the existing message.
+      $revision->setNewRevision(FALSE);
+      $revision->enforceIsNew(FALSE);
+      $revision->setSyncing(TRUE);
+      $revision->save();
+    }
   }
 
 }

@@ -6,7 +6,7 @@ services:
       - { name: event_subscriber }
   va_gov_workflow.flagger:
     class: Drupal\va_gov_workflow\Service\Flagger
-    arguments: ['@flag']
+    arguments: ['@flag', '@entity_type.manager']
   va_gov_workflow.workflow_content_control:
     class: Drupal\va_gov_workflow\Service\WorkflowContentControl
     arguments: ['@va_gov_user.user_perms']

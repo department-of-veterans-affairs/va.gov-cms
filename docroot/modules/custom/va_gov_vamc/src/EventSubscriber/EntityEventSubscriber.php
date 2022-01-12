@@ -4,6 +4,7 @@ namespace Drupal\va_gov_vamc\EventSubscriber;
 
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Session\AccountInterface;
@@ -29,6 +30,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       'hook_event_dispatcher.form_node_vamc_operating_status_and_alerts_edit_form.alter' => 'alterOpStatusNodeForm',
       HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'entityPresave',
       HookEventDispatcherInterface::ENTITY_INSERT => 'entityInsert',
+      HookEventDispatcherInterface::ENTITY_DELETE => 'entityDelete',
       'hook_event_dispatcher.form_node_full_width_banner_alert_form.alter' => 'alterFullWidthBannerNodeForm',
       'hook_event_dispatcher.form_node_full_width_banner_alert_edit_form.alter' => 'alterFullWidthBannerNodeForm',
       'hook_event_dispatcher.form_node_regional_health_care_service_des_form.alter' => 'alterRegionalHealthCareServiceDesNodeForm',
@@ -112,8 +114,13 @@ class EntityEventSubscriber implements EventSubscriberInterface {
 
     if ($this->isFlaggableFacility($entity)) {
       // $this->flagger->logFlagChanges($entity);
-      $this->flagger->flagNew('new', $entity, 'This facility is new and needs fleshing out.');
-      $this->flagger->flagFieldChanged('title', 'changed_name', $entity, "The title of this facility changed from '@old' to '@new'.");
+      if ($entity->bundle() === 'vet_center') {
+        $this->flagger->flagFieldChanged('field_official_name', 'changed_name', $entity, "The Official name of this facility changed from '@old' to '@new'.");
+      }
+      else {
+        $this->flagger->flagFieldChanged('title', 'changed_name', $entity, "The title of this facility changed from '@old' to '@new'.");
+      }
+      $this->flagger->flagNew('new', $entity, "This facility is new and needs the 'new facility' runbook.");
     }
   }
 
@@ -128,9 +135,25 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $entity = $event->getEntity();
 
     if ($this->isFlaggableFacility($entity)) {
-      // This is repeated from presave because it has to set the flag after
-      // save, since there is no nid during presave.
+      // This is repeated from presave because it has to set the flag AFTER
+      // save, since there is no nid during presave. The revision_log was set.
       $this->flagger->flagNew('new', $entity);
+    }
+  }
+
+  /**
+   * Entity Delete Event call.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent $event
+   *   The event.
+   */
+  public function entityDelete(EntityDeleteEvent $event): void {
+    // Do some fancy stuff with new entity.
+    $entity = $event->getEntity();
+
+    if ($entity->getEntityTypeId() === 'flagging') {
+      // A flag is being deleted.
+      $this->flagger->logFlagDeletion($entity);
     }
   }
 
