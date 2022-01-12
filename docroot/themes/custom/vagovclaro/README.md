@@ -27,6 +27,8 @@ part of the normal CI build process.
 
 `npm run build:watch` to watch & recompile during local development. remember to clear your caches
 
+When including images in css rules, routes should be relative from the compiled css destination (vagovclaro/dist/)
+
 ### Javascript
 the lando js workflow (`lando npm run build:js` or `lando npm run watch:js`, commands found in the repo's top-level package.json)
 will build and transpile js to drupal specs but does not touch css styles at all. If you add JS to the theme files,
