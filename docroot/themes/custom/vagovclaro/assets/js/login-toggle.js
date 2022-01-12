@@ -8,19 +8,19 @@
 (function ($, Drupal) {
   Drupal.behaviors.loginFormToggle = {
     attach: function attach() {
-      $('.js-va-login-toggle').click(function (event) {
+      $(".js-va-login-toggle").click(function (event) {
         event.preventDefault();
 
-        var loginForm = $('#user-login-form');
-        loginForm.toggleClass('piv-login form-login');
+        var loginForm = $("#user-login-form");
+        loginForm.toggleClass("piv-login form-login");
 
-        var loginToggle = $('#edit-toggle');
-        loginToggle.prop('value', loginToggle.val() === "Login with password" ? "Login with PIV" : "Login with password");
+        var loginToggle = $("#edit-toggle");
+        loginToggle.prop("value", loginToggle.val() === "Login with password" ? "Login with PIV" : "Login with password");
 
-        if ($('#user-login-form').hasClass('piv-login')) {
-          $('a.simplesamlphp-auth-login-link').focus();
+        if ($("#user-login-form").hasClass("piv-login")) {
+          $("a.simplesamlphp-auth-login-link").focus();
         } else {
-          $('.js-login-username input').focus();
+          $(".js-login-username input").focus();
         }
       });
     }
