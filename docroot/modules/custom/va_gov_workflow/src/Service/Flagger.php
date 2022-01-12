@@ -157,6 +157,7 @@ class Flagger {
     $type = $flagging->get('entity_type')->value;
     // Only supporting this for nodes.
     if ($type === 'node') {
+      /** @var \Drupal\flag\Entity\Flag $flag */
       $flag = $flagging->getFlag();
       $flagname = $flag->get('flag_short');
       $nid = $flagging->get('entity_id')->value;
@@ -164,6 +165,7 @@ class Flagger {
         ->getStorage('node')
         ->getLatestRevisionId($nid);
       // The latest revision of the flagged node.
+      /** @var \Drupal\node\NodeInterface $revision */
       $revision = $this->entityTypeManager
         ->getStorage('node')
         ->loadRevision($vid);
