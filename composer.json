@@ -601,7 +601,9 @@
             "cd web && yarn run install-repos",
             "export NODE_EXTRA_CA_CERTS=/etc/pki/tls/certs/ca-bundle.crt PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=TRUE; cd web && yarn install",
             "export NODE_EXTRA_CA_CERTS=/etc/pki/tls/certs/ca-bundle.crt PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=TRUE; cd docroot/core && yarn install",
-            "cd docroot/core && yarn build:css"
+            "cd docroot/core && yarn build:css",
+            "cd docroot/themes/custom/vagovadmin && yarn install && yarn build",
+            "cd docroot/themes/custom/vagovclaro && yarn install && yarn build"
         ],
         "va:web:server": [
             "cd web && yarn build"
