@@ -1,14 +1,16 @@
 # Main vagovclaro library, includes global js & stylesheet
 core:
-  js:
-    assets/js/anchor_links.js: {}
-  dependencies:
-    - core/drupal
-    - core/jquery
   css:
     theme:
       dist/styles.css:
         minified: true
+  js:
+    assets/js/anchor_links.js: {}
+    assets/js/tabledrag.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/drupal.tabledrag
 
 # Extra styles used on knowledge base pages only
 userguides:
@@ -31,6 +33,7 @@ proofing:
         minified: true
   js:
     assets/js/vagovclaro.theme.help.js: {}
+
 whatsnew:
   css:
     component:
