@@ -25,6 +25,7 @@ dependencies:
     - office_hours
     - options
     - paragraphs
+    - string_field_formatter
     - tablefield
     - taxonomy
     - views_conditional
@@ -1553,8 +1554,10 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: string
-          settings: {  }
+          type: plain_string_formatter
+          settings:
+            wrap_tag: span
+            wrap_class: building-name
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -1615,8 +1618,10 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: string
-          settings: {  }
+          type: plain_string_formatter
+          settings:
+            wrap_tag: span
+            wrap_class: wing-floor-room
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -1628,63 +1633,6 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        views_conditional_field_3:
-          id: views_conditional_field_3
-          table: views_conditional
-          field: views_conditional_field
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: 'Wing Floor Room Number'
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          if: field_building_name_number
-          condition: nem
-          equalto: ''
-          then: ', {{ field_wing_floor_or_room_number }}'
-          then_translate: 1
-          or: '{{ field_wing_floor_or_room_number }}'
-          or_translate: 1
-          strip_tags: 0
-          plugin_id: views_conditional_field
         field_address:
           id: field_address
           table: node__field_address
@@ -1860,9 +1808,9 @@ display:
           if: field_clinic_name
           condition: nem
           equalto: ''
-          then: "<h3>{{ field_clinic_name }}</h3>\r\n<div class=\"location-details\"><span class=\"building-name\">{{ field_building_name_number }}</span><span class=\"wing-floor-room\">{{ field_wing_floor_or_room_number }}</span></div>\r\n<div>{{ title_1 }}</div>"
+          then: "<h3>{{ field_clinic_name }}</h3>\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n<div>{{ title_1 }}</div>"
           then_translate: 1
-          or: "<h3>{{ title_1 }}</h3>\r\n<div class=\"location-details\"><span class=\"building-name\">{{ field_building_name_number }}</span><span class=\"wing-floor-room\">{{ field_wing_floor_or_room_number }}</span></div>"
+          or: "<h3>{{ title_1 }}</h3>\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>"
           or_translate: 1
           strip_tags: 0
           plugin_id: views_conditional_field
@@ -1919,7 +1867,7 @@ display:
           equalto: 'On'
           then: "{{ views_conditional_field_2 }}\r\n{{ field_address }}"
           then_translate: 1
-          or: "<h3>{{ field_clinic_name }}</h3>\r\n<div class=\"location-details\"><span class=\"building-name\">{{ field_building_name_number }}</span><span class=\"wing-floor-room\">{{ field_wing_floor_or_room_number }}</span></div>\r\n{{ field_address_1 }}"
+          or: "<h3>{{ field_clinic_name }}</h3>\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address_1 }}"
           or_translate: 1
           strip_tags: 0
           plugin_id: views_conditional_field
@@ -2420,7 +2368,7 @@ display:
           empty: true
           tokenize: true
           content:
-            value: '<p><a href="/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1027&field_administration={{ arguments.field_administration_target_id }}" target="_blank">Add a billing and insurance office</a> (opens in a new window).</p>'
+            value: '<p><a href="/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1027&field_administration={{ arguments.field_administration_target_id }}" target="_blank">Add location (opens in a new window)</a></p>'
             format: rich_text
           plugin_id: text
       defaults:
@@ -2495,7 +2443,7 @@ display:
         operator: AND
         groups:
           1: AND
-      title: 'Billing and insurance offices'
+      title: 'Billing and insurance locations'
       arguments:
         nid:
           id: nid
@@ -2570,18 +2518,18 @@ display:
           not: false
           plugin_id: numeric
       fields:
-        field_clinic_name:
-          id: field_clinic_name
-          table: paragraph__field_clinic_name
-          field: field_clinic_name
+        field_use_facility_address:
+          id: field_use_facility_address
+          table: paragraph__field_use_facility_address
+          field: field_use_facility_address
           relationship: field_service_location_address
           group_type: group
           admin_label: ''
           label: ''
-          exclude: false
+          exclude: true
           alter:
-            alter_text: true
-            text: '<h3>{{ field_clinic_name }}</h3>'
+            alter_text: false
+            text: ''
             make_link: false
             path: ''
             absolute: false
@@ -2619,8 +2567,11 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: string
-          settings: {  }
+          type: boolean
+          settings:
+            format: default
+            format_custom_true: ''
+            format_custom_false: ''
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -2683,7 +2634,7 @@ display:
           click_sort_column: value
           type: string
           settings:
-            link_to_entity: true
+            link_to_entity: false
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -2697,6 +2648,434 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: field
+        field_clinic_name:
+          id: field_clinic_name
+          table: paragraph__field_clinic_name
+          field: field_clinic_name
+          relationship: field_service_location_address
+          group_type: group
+          admin_label: ''
+          label: ''
+          exclude: true
+          alter:
+            alter_text: true
+            text: '<h3>{{ field_clinic_name }}</h3>'
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        field_building_name_number:
+          id: field_building_name_number
+          table: paragraph__field_building_name_number
+          field: field_building_name_number
+          relationship: field_service_location_address
+          group_type: group
+          admin_label: ''
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: true
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: plain_string_formatter
+          settings:
+            wrap_tag: span
+            wrap_class: building-name
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        field_wing_floor_or_room_number:
+          id: field_wing_floor_or_room_number
+          table: paragraph__field_wing_floor_or_room_number
+          field: field_wing_floor_or_room_number
+          relationship: field_service_location_address
+          group_type: group
+          admin_label: ''
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: true
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: plain_string_formatter
+          settings:
+            wrap_tag: span
+            wrap_class: wing-floor-room
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        field_address:
+          id: field_address
+          table: node__field_address
+          field: field_address
+          relationship: field_facility_location
+          group_type: group
+          admin_label: ''
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: langcode
+          type: address_default
+          settings: {  }
+          group_column: ''
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        field_address_1:
+          id: field_address_1
+          table: paragraph__field_address
+          field: field_address
+          relationship: field_service_location_address
+          group_type: group
+          admin_label: ''
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: langcode
+          type: address_default
+          settings: {  }
+          group_column: ''
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        views_conditional_field_2:
+          id: views_conditional_field_2
+          table: views_conditional
+          field: views_conditional_field
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'Conditional Location'
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          if: field_clinic_name
+          condition: nem
+          equalto: ''
+          then: "<h3>{{ field_clinic_name }}</h3>\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n<div>{{ title_1 }}</div>"
+          then_translate: 1
+          or: "<h3>{{ title_1 }}</h3>\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>"
+          or_translate: 1
+          strip_tags: 0
+          plugin_id: views_conditional_field
+        views_conditional_field_1:
+          id: views_conditional_field_1
+          table: views_conditional
+          field: views_conditional_field
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: ''
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          if: field_use_facility_address
+          condition: eq
+          equalto: 'On'
+          then: "{{ views_conditional_field_2 }}\r\n{{ field_address }}"
+          then_translate: 1
+          or: "<h3>{{ field_clinic_name }}</h3>\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address_1 }}"
+          or_translate: 1
+          strip_tags: 0
+          plugin_id: views_conditional_field
         field_office_hours:
           id: field_office_hours
           table: node__field_office_hours
@@ -2944,7 +3323,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: false
+          element_label_colon: true
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -2958,376 +3337,6 @@ display:
           then: '{{ field_office_hours }}'
           then_translate: 1
           or: '{{ field_facility_service_hours }}'
-          or_translate: 1
-          strip_tags: 0
-          plugin_id: views_conditional_field
-        field_address:
-          id: field_address
-          table: node__field_address
-          field: field_address
-          relationship: field_facility_location
-          group_type: group
-          admin_label: ''
-          label: ''
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: langcode
-          type: address_default
-          settings: {  }
-          group_column: ''
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
-        field_address_1:
-          id: field_address_1
-          table: paragraph__field_address
-          field: field_address
-          relationship: field_service_location_address
-          group_type: group
-          admin_label: ''
-          label: ''
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: langcode
-          type: address_default
-          settings: {  }
-          group_column: ''
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
-        field_building_name_number:
-          id: field_building_name_number
-          table: paragraph__field_building_name_number
-          field: field_building_name_number
-          relationship: field_service_location_address
-          group_type: group
-          admin_label: ''
-          label: ''
-          exclude: true
-          alter:
-            alter_text: true
-            text: '{{ field_building_name_number }}<br>'
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: true
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings: {  }
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
-        field_wing_floor_or_room_number:
-          id: field_wing_floor_or_room_number
-          table: paragraph__field_wing_floor_or_room_number
-          field: field_wing_floor_or_room_number
-          relationship: field_service_location_address
-          group_type: group
-          admin_label: ''
-          label: ''
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: true
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings: {  }
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
-        field_use_facility_address:
-          id: field_use_facility_address
-          table: paragraph__field_use_facility_address
-          field: field_use_facility_address
-          relationship: field_service_location_address
-          group_type: group
-          admin_label: ''
-          label: ''
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: boolean
-          settings:
-            format: default
-            format_custom_true: ''
-            format_custom_false: ''
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
-        views_conditional_field_1:
-          id: views_conditional_field_1
-          table: views_conditional
-          field: views_conditional_field
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: ''
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          if: field_use_facility_address
-          condition: eq
-          equalto: 'On'
-          then: "{{ field_address }}\r\n{{ field_building_name_number }}\r\n{{ field_wing_floor_or_room_number }}"
-          then_translate: 1
-          or: "{{ field_address_1 }}\r\n{{ field_building_name_number }}\r\n{{ field_wing_floor_or_room_number }}"
           or_translate: 1
           strip_tags: 0
           plugin_id: views_conditional_field
@@ -3509,7 +3518,7 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          text: edit
+          text: 'Edit location (opens in a new window)'
           output_url_as_text: false
           absolute: false
           entity_type: node
@@ -3522,7 +3531,11 @@ display:
           default_row_class: true
       row:
         type: fields
-        options: {  }
+        options:
+          default_field_elements: true
+          inline: {  }
+          separator: ''
+          hide_empty: false
     cache_metadata:
       max-age: -1
       contexts:
