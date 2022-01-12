@@ -17,14 +17,20 @@ MVP TO TURN ON FOR EDITORS:
 - some level of VA branding. logo on login, color scheme, etc.
 - feature parity with existing theme in terms of form functionality.
 
-## local development
-`npm install` in this directory, the lando js workflow (`lando npm run build:js` or `lando npm run watch:js`) will build
-and transpile js to drupal specs but does not touch css styles at all. this directory contains a gulp workflow, similar to
+## Local Development
+### Sass
+`npm install` in this directory which contains a gulp workflow for sass, similar to
 the existing vagovadmin theme. you need to run gulp separately in order to keep styles updated.
 
-`npm run build` to build the compiled css for higher environments (this needs to be committed)
+`npm run build` to build the compiled css for higher environments. These files are .gitignored, and get compiled as
+part of the normal CI build process.
 
-`npm run build:watch` to watch & recompile during local development
+`npm run build:watch` to watch & recompile during local development. remember to clear your caches
+
+### Javascript
+the lando js workflow (`lando npm run build:js` or `lando npm run watch:js`, commands found in the repo's top-level package.json)
+will build and transpile js to drupal specs but does not touch css styles at all. If you add JS to the theme files,
+you need to run this workflow in order to correctly transpile.
 
 ## sass structure
 files beginning with an _ should be included into the larger `styles.scss` file to ensure styles are compiled

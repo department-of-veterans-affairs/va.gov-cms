@@ -1,29 +1,37 @@
-styles:
-  css:
-    theme:
-      assets/css/styles.css: {}
-proofing:
-  css:
-    theme:
-      assets/css/proofing.css: {}
-  js:
-    assets/js/vagovclaro.theme.help.js: {}
-global-scripts:
+# Main vagovclaro library, includes global js & stylesheet
+core:
   js:
     assets/js/anchor_links.js: {}
   dependencies:
     - core/drupal
     - core/jquery
+  css:
+    theme:
+      dist/styles.css:
+        minified: true
+
+# Extra styles used on knowledge base pages only
 userguides:
   css:
     theme:
-      assets/css/user_guides.css: {}
-whatsnew:
-  css:
-    component:
-      assets/css/whats_new.css: { }
+      dist/user_guides.css:
+        minified: true
+
+# Toggle behavior for the login page
 login-toggle:
   js:
     assets/js/login-toggle.js: {}
     dependencies:
       - core/jquery
+
+proofing:
+  css:
+    theme:
+      dist/proofing.css:
+        minified: true
+  js:
+    assets/js/vagovclaro.theme.help.js: {}
+whatsnew:
+  css:
+    component:
+      dist/whats_new.css: { }
