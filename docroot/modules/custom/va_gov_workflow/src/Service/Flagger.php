@@ -64,7 +64,7 @@ class Flagger {
       // like through migration.  On form-based node save, this flag save will
       // happen, but it immediately gets undone when the flag form saves because
       // the flag is not set there at that time (race condition).
-      $flag_message_header = "Flagged: {$flag->get(c)}";
+      $flag_message_header = "Flagged: {$flag->get('flag_short')}";
       $log_message = "{$flag_message_header} - {$log_message}";
     }
 
