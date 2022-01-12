@@ -21,164 +21,194 @@
  *   ['http://www.someurl.com' => 'Link Title']
  */
 #}
-{% if bad_links is not empty %}
-  <div class="bad_links va-alert messages messages--error">
-    <details class="js-form-wrapper">
-      {% set count = bad_links|length %}
-      <summary><h3>
+
+<div class="messages-list node-link-report-list">
+  {% if bad_links is not empty %}
+    <div class="bad_links va-alert messages messages--error">
+      <details class="js-form-wrapper">
+        {% set count = bad_links|length %}
+        <summary class="messages__header">
+          <h2 class="messages__title">
           {% trans %}
             {{ count }} broken link found
           {% plural count %}
             {{ count }} broken links found
           {% endtrans %}
-        </h3></summary>
+          </h2>
+        </summary>
 
-      <p>{{ 'Repair the following broken links to avoid errors:' |t }}</p>
-      <ol class="messages_items">
-        {% for url , link_text in bad_links %}
-          <li class="messages_item">
-            {{link_text}} <a href="{{ url }}" target="_blank">{{ url }}</a>
-          </li>
-        {% endfor %}
-      </ol>
-      <div class="node-link-report-node-id"> {{'Node' |t }}: {{ node_id }}</div>
-    </details>
-  </div>
-{% endif %}
+        <div class="messages__content">
+          <p>{{ 'Repair the following broken links to avoid errors:' |t }}</p>
+          <ol class="messages__list">
+            {% for url , link_text in bad_links %}
+              <li class="messages__item">
+                {{link_text}} <a href="{{ url }}" target="_blank">{{ url }}</a>
+              </li>
+            {% endfor %}
+          </ol>
+          <div class="node-link-report-node-id"> {{'Node' |t }}: {{ node_id }}</div>
+        </div>
+      </details>
+    </div>
+  {% endif %}
 
-{% if ((inaccessible_links is not empty)) and (display_inaccessible_links == 1) %}
-  <div class="inaccessible_links va-alert messages messages--error">
-    <details class="js-form-wrapper">
-      {% set count = inaccessible_links|length %}
-      <summary><h3>
+  {% if ((inaccessible_links is not empty)) and (display_inaccessible_links == 1) %}
+    <div class="inaccessible_links va-alert messages messages--error">
+      <details class="js-form-wrapper">
+        {% set count = inaccessible_links|length %}
+        <summary class="messages__header">
+          <h2 class="messages__title">
           {% trans %}
             {{ count }} accessibility issue found
           {% plural count %}
             {{ count }} accessibility issues found
           {% endtrans %}
-        </h3></summary>
+          </h2>
+        </summary>
 
-      <p>{{ 'Revise the following links to make them accessible to people using assistive technology.' |t }}</p>
-      <ol class="messages_items">
-        {% for link in inaccessible_links %}
-          <li class="messages_item">
-            {% if link.linked_item_type == "image" %}
-              <strong>{{ 'Link Image' |t }}:</strong> {{link.linked_item}} </br>
-            {% else %}
-              <strong>{{ 'Link Text' |t }}:</strong> {{link.linked_item}} </br>
-            {% endif %}
-            <strong>{{ 'Destination' |t }}:</strong> {{link.destination}} </br>
-            <strong>{{ 'Issue' |t }}:</strong> {{link.issue}} </br>
-            <strong>{{ 'How to fix it' |t }}:</strong> {{link.how_to_fix}} </br>
-          </li>
-        {% endfor %}
-      </ol>
+        <div class="messages__content">
+          <p>{{ 'Revise the following links to make them accessible to people using assistive technology.' |t }}</p>
+          <ol class="messages__list">
+            {% for link in inaccessible_links %}
+              <li class="messages__item">
+                {% if link.linked_item_type == "image" %}
+                  <strong>{{ 'Link Image' |t }}:</strong> {{link.linked_item}} </br>
+                {% else %}
+                  <strong>{{ 'Link Text' |t }}:</strong> {{link.linked_item}} </br>
+                {% endif %}
+                <strong>{{ 'Destination' |t }}:</strong> {{link.destination}} </br>
+                <strong>{{ 'Issue' |t }}:</strong> {{link.issue}} </br>
+                <strong>{{ 'How to fix it' |t }}:</strong> {{link.how_to_fix}} </br>
+              </li>
+            {% endfor %}
+          </ol>
 
-      {% if ((accessibility_guidance_url is not empty)) and (accessibility_guidance_link is not empty) %}
-        <div class="node-link-report-508-guidance"><strong>{{'Learn more' |t }}:</strong> <a href="{{accessibility_guidance_url}}">{{accessibility_guidance_link}}</a></div>
-      {% endif %}
-      <div class="node-link-report-node-id"> {{'Node' |t }}: {{ node_id }}</div>
-    </details>
-  </div>
-{% endif %}
+          {% if ((accessibility_guidance_url is not empty)) and (accessibility_guidance_link is not empty) %}
+            <div class="node-link-report-508-guidance"><strong>{{'Learn more' |t }}:</strong> <a href="{{accessibility_guidance_url}}">{{accessibility_guidance_link}}</a></div>
+          {% endif %}
+          <div class="node-link-report-node-id"> {{'Node' |t }}: {{ node_id }}</div>
+        </div>
+      </details>
+    </div>
+  {% endif %}
 
-{% if unpublished_links is not empty %}
-  <div class="unpublished-links va-alert messages messages--warning">
-    <details class="js-form-wrapper">
-      {% set count = unpublished_links|length %}
-      <summary><h3>
+  {% if unpublished_links is not empty %}
+    <div class="unpublished-links va-alert messages messages--warning">
+      <details class="js-form-wrapper">
+        {% set count = unpublished_links|length %}
+        <summary class="messages__header">
+          <h2 class="messages__title">
           {% trans %}
             {{ count }} link to unpublished page found
           {% plural count %}
             {{ count }} links to unpublished pages found
           {% endtrans %}
-        </h3></summary>
-      <p>{{ 'Linking to unpublished pages will result in broken links once this content is published. Prevent errors by omitting the following links, or updating their status to published.' |t }}</p>
+          </h2>
+        </summary>
 
-      <ol class="messages_items">
-        {% for url , link_text in unpublished_links %}
-          <li class="messages_item">
-            {{link_text}} <a href="{{ url }}" target="_blank">{{ url }}</a>
-          </li>
-        {% endfor %}
-      </ol>
-      <div class="node-link-report-node-id"> {{'Node' |t }}: {{ node_id }}</div>
-    </details>
-  </div>
-{% endif %}
+        <div class="messages__content">
+          <p>{{ 'Linking to unpublished pages will result in broken links once this content is published. Prevent errors by omitting the following links, or updating their status to published.' |t }}</p>
 
-{% if redirected_links is not empty %}
-  <div class="redirected-links va-alert messages messages--warning">
-    <details class="js-form-wrapper">
-      {% set count = redirected_links|length %}
-      <summary><h3>
+          <ol class="messages__list">
+            {% for url , link_text in unpublished_links %}
+              <li class="messages__item">
+                {{link_text}} <a href="{{ url }}" target="_blank">{{ url }}</a>
+              </li>
+            {% endfor %}
+          </ol>
+          <div class="node-link-report-node-id"> {{'Node' |t }}: {{ node_id }}</div>
+        </div>
+      </details>
+    </div>
+  {% endif %}
+
+  {% if redirected_links is not empty %}
+    <div class="redirected-links va-alert messages messages--warning">
+      <details class="js-form-wrapper">
+        {% set count = redirected_links|length %}
+        <summary class="messages__header">
+          <h2 class="messages__title">
           {% trans %}
             {{ count }} redirected link found
           {% plural count %}
             {{ count }} redirected links found
           {% endtrans %}
-        </h3></summary>
+          </h2>
+        </summary>
 
-      <p>{{ 'Please update the following URLs to prevent the possibility of broken links in the future.' |t }}</p>
+        <div class="messages__content">
+          <p>{{ 'Please update the following URLs to prevent the possibility of broken links in the future.' |t }}</p>
 
-      <ol class="messages_items">
-        {% for url , item in redirected_links %}
-          <li class="messages_item">
-            {{'Update' |t }} {{ item.text }}
-            <a href="{{ url }}" target="_blank">{{ url }}</a> to its new location <a href="{{ item.destination }}" target="_blank">{{ item.destination }}</a>
-          </li>
-        {% endfor %}
-      </ol>
-      <div class="node-link-report-node-id"> {{'Node' |t }}: {{ node_id }}</div>
-    </details>
-  </div>
-{% endif %}
+          <ol class="messages__list">
+            {% for url , item in redirected_links %}
+              <li class="messages__item">
+                {{'Update' |t }} {{ item.text }}
+                <a href="{{ url }}" target="_blank">{{ url }}</a> to its new location <a href="{{ item.destination }}" target="_blank">{{ item.destination }}</a>
+              </li>
+            {% endfor %}
+          </ol>
+          <div class="node-link-report-node-id"> {{'Node' |t }}: {{ node_id }}</div>
+        </div>
+      </details>
+    </div>
+  {% endif %}
 
-{% if ((skipped_links is not empty)) and (display_skipped_links == 1) %}
-  <div class="skipped-links va-alert messages messages--warning">
-    <details class="js-form-wrapper">
-      {% set count = skipped_links|length %}
-      <summary><h3>
+  {% if ((skipped_links is not empty)) and (display_skipped_links == 1) %}
+    <div class="skipped-links va-alert messages messages--warning">
+      <details class="js-form-wrapper">
+        {% set count = skipped_links|length %}
+        <summary class="messages__header">
+          <h2 class="messages__title">
           {% trans %}
             {{ count }} link not tested
           {% plural count %}
             {{ count }} links not tested
           {% endtrans %}
-        </h3></summary>
-      <p>{{ "The system skipped testing the following links to avoid the possibility of false errors. To check that they work, you'll need to test them yourself." |t }} </p>
+          </h2>
+        </summary>
 
-      <ol class="messages_items">
-        {% for url , link_text in skipped_links %}
-          <li class="messages_item">
-            {{link_text}} <a href="{{ url }}" target="_blank">{{ url }}</a>
-          </li>
-        {% endfor %}
-      </ol>
-      <div class="node-link-report-node-id"> {{'Node' |t }}: {{ node_id }}</div>
-    </details>
-  </div>
-{% endif %}
+        <div class="messages__content">
+          <p>{{ "The system skipped testing the following links to avoid the possibility of false errors. To check that they work, you'll need to test them yourself." |t }} </p>
 
-{% if (good_links is not empty) and (display_good_links == 1) %}
-  <div class="good-links va-alert messages messages--status">
-    <details class="js-form-wrapper">
-      {% set count = good_links|length %}
-      <summary><h3>
+          <ol class="messages__list">
+            {% for url , link_text in skipped_links %}
+              <li class="messages__item">
+                {{link_text}} <a href="{{ url }}" target="_blank">{{ url }}</a>
+              </li>
+            {% endfor %}
+          </ol>
+          <div class="node-link-report-node-id"> {{'Node' |t }}: {{ node_id }}</div>
+        </div>
+      </details>
+    </div>
+  {% endif %}
+
+  {% if (good_links is not empty) and (display_good_links == 1) %}
+    <div class="good-links va-alert messages messages--status">
+      <details class="js-form-wrapper">
+        {% set count = good_links|length %}
+        <summary class="messages__header">
+          <h2 class="messages__title">
           {% trans %}
             {{ count }} working link
           {% plural count %}
             {{ count }} working links
           {% endtrans %}
-        </h3></summary>
-      <p>{{ 'These links have been tested and are working normally.' |t }}</p>
-      <ol class="messages_items">
-        {% for url , link_text in good_links %}
-          <li class="messages_item">
-            {{link_text}} <a href="{{ url }}" target="_blank">{{ url }}</a>
-          </li>
-        {% endfor %}
-      </ol>
-      <div class="node-link-report-node-id"> {{'Node' |t }}: {{ node_id }}</div>
-    </details>
-  </div>
-{% endif %}
+          </h2>
+        </summary>
+
+        <div class="messages__content">
+          <p>{{ 'These links have been tested and are working normally.' |t }}</p>
+          <ol class="messages__list">
+            {% for url , link_text in good_links %}
+              <li class="messages__item">
+                {{link_text}} <a href="{{ url }}" target="_blank">{{ url }}</a>
+              </li>
+            {% endfor %}
+          </ol>
+          <div class="node-link-report-node-id"> {{'Node' |t }}: {{ node_id }}</div>
+        </div>
+      </details>
+    </div>
+  {% endif %}
+</div>
