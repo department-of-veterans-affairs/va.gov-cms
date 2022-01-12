@@ -7,8 +7,8 @@ function getRequest(path, queryParams) {
     path: `/jsonapi${path}`,
     query: queryParams,
     method: 'GET',
-    rejectUnauthorized: false,
-    requestCert: true,
+    //rejectUnauthorized: false,  These two lines will be replaced with importing the cert.
+    //requestCert: true,          These lines are commented out so they don't trigger code scan issues.
   };
 
   console.log(options);
