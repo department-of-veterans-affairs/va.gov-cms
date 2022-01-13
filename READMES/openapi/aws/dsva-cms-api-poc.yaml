@@ -1,0 +1,21 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: An AWS Serverless Specification template describing your function.
+Resources:
+  dsvacmsapipoc:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: index.handler
+      Runtime: nodejs14.x
+      CodeUri: .
+      Description: ''
+      MemorySize: 256
+      Timeout: 30
+      Role: >-
+        arn:aws-us-gov:iam::008577686731:role/service-role/dsva-cms-api-poc-role-owwfunnu
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-0682692817e8a5f56
+        SubnetIds:
+          - subnet-5ffb6d28
+          - subnet-a495fac1
