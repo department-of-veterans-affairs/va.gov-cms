@@ -19,6 +19,7 @@ function vagovclaro_preprocess_html(&$variables) {
   // For css that is different per environment (admin toolbar color, etc.)
   $environment_name = getenv('CMS_ENVIRONMENT_TYPE');
   $variables['attributes']['class'][] = 'cms-' . $environment_name;
+  $variables['attributes']['class'][] = 'vagovclaro';
 }
 
 /**
