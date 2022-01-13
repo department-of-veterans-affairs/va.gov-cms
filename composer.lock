@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0e70533fc83738dffa3b0c13a7a57322",
+    "content-hash": "cd29603321960b9fa2484c8efa903768",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -6889,6 +6889,70 @@
             ],
             "support": {
                 "source": "https://git.drupalcode.org/project/jsonapi_resources"
+            }
+        },
+        {
+            "name": "drupal/jsonapi_schema",
+            "version": "1.0.0-beta1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/jsonapi_schema.git",
+                "reference": "8.x-1.0-beta1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/jsonapi_schema-8.x-1.0-beta1.zip",
+                "reference": "8.x-1.0-beta1",
+                "shasum": "31fd6599e9c844edfc599e67c3501669ac4716e2"
+            },
+            "require": {
+                "drupal/core": "^8.8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.0-beta1",
+                    "datestamp": "1597997774",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Gabe Sullice (gabesullice)",
+                    "homepage": "https://www.drupal.org/u/gabesullice",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Mateu Aguiló Bosch (e0ipso)",
+                    "homepage": "https://www.drupal.org/u/e0ipso",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "e0ipso",
+                    "homepage": "https://www.drupal.org/user/550110"
+                },
+                {
+                    "name": "gabesullice",
+                    "homepage": "https://www.drupal.org/user/2287430"
+                }
+            ],
+            "description": "Provides schema for all JSON:API routes.",
+            "homepage": "http://drupal.org/project/jsonapi_schema",
+            "keywords": [
+                "Drupal",
+                "JSON Schema",
+                "JSON:API"
+            ],
+            "support": {
+                "source": "https://git.drupalcode.org/project/jsonapi_schema",
+                "issues": "https://www.drupal.org/project/issues/jsonapi_schema"
             }
         },
         {
@@ -25003,11 +25067,13 @@
         "drupal/flag": 10,
         "drupal/graphql_menu": 15,
         "drupal/jsonapi_resources": 10,
+        "drupal/jsonapi_schema": 10,
         "drupal/libraries": 15,
         "drupal/markup": 10,
         "drupal/migrate_source_ui": 5,
         "drupal/migrate_tools": 20,
         "drupal/openapi": 5,
+        "drupal/openapi_ui": 5,
         "drupal/openapi_ui_swagger": 5,
         "drupal/paragraphs_browser": 15,
         "drupal/path_redirect_import": 10,
