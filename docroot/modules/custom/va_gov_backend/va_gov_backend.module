@@ -51,14 +51,6 @@ function va_gov_backend_help($route_name, RouteMatchInterface $route_match) {
 }
 
 /**
- * Implements hook_cron().
- */
-function va_gov_backend_cron() {
-  // Send prometheus exporter metrics to Datadog.
-  \Drupal::service('va_gov_backend.metrics')->updateDatadog();
-}
-
-/**
  * Implements hook_form_FORM_ID_alter().
  *
  * Get our role descriptions.

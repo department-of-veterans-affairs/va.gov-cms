@@ -3,12 +3,14 @@
 namespace Drupal\va_gov_backend\Service;
 
 use Drupal\Core\Site\Settings;
+use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\prometheus_exporter\MetricsCollectorManager;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Sends prometheus metrics to Datadog.
  */
-class Metrics {
+class Metrics implements EventSubscriberInterface {
   /**
    * The metrics collector manager.
    *
@@ -44,6 +46,15 @@ class Metrics {
     $this->metricsCollectorManager = $metricsCollectorManager;
     $this->settings = $settings;
     $this->datadog = $datadog;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function getSubscribedEvents(): array {
+    return [
+      HookEventDispatcherInterface::CRON => 'updateDatadog',
+    ];
   }
 
   /**
