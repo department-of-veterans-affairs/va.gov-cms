@@ -111,7 +111,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $this->contentHardeningDeduper->removeDuplicate($entity);
 
     if ($this->isFlaggableFacility($entity)) {
-      // $this->flagger->logFlagChanges($entity);
       if ($entity->bundle() === 'vet_center') {
         $this->flagger->flagFieldChanged('field_official_name', 'changed_name', $entity, "The Official name of this facility changed from '@old' to '@new'.");
       }
