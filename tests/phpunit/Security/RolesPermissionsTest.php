@@ -48,6 +48,7 @@ class RolesPermissionsTest extends ExistingSiteBase {
         'anonymous',
         [
           'access content',
+          'access openapi api docs',
           'access prometheus metrics',
           'access site-wide contact form',
           'view media',
