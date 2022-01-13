@@ -41,3 +41,8 @@
 .form-item--multiple .field-add-more-submit {
   margin-bottom: var(--space-m);
 }
+
+// adjust focus state for items in paragraph dropdown. !important to beat core/themes/claro/css/components/button.css
+.paragraphs-dropdown-action.button:focus {
+  border: 2px solid var(--color-focus) !important;
+}
