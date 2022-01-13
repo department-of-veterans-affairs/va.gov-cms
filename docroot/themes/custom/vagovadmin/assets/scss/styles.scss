@@ -109,6 +109,35 @@
   font-size: 20px;
 }
 
+/* Non-clinical services view - block displays */
+.view-non-clinical-services {
+  .views-row {
+    border: 1px solid #bfbfbf;
+    margin: 1em 0;
+    padding: 1em 1.5em;
+
+    .location-details span:not(:first-child)::before {
+      content: ', ';
+    }
+
+    .address {
+      margin-top: 0;
+
+      br,
+      span {
+        &:last-child {
+          display: none;
+        }
+      }
+    }
+
+    .views-field-edit-node {
+      margin-top: 1em;
+      text-align: right;
+    }
+  }
+}
+
 .field--name-field-phone-number {
   .form-type-textfield {
     float: left;
