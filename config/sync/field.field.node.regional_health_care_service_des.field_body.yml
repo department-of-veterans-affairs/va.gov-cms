@@ -7,19 +7,23 @@ dependencies:
     - node.type.regional_health_care_service_des
   module:
     - allowed_formats
+    - epp
     - text
 third_party_settings:
   allowed_formats:
     rich_text: '0'
     rich_text_limited: '0'
     plain_text: '0'
+  epp:
+    value: ''
+    on_update: 1
 id: node.regional_health_care_service_des.field_body
 field_name: field_body
 entity_type: node
 bundle: regional_health_care_service_des
 label: 'VAMC system service description'
 description: 'Add or edit a short paragraph and up to six bullet points detailing the types of care provided at your health care system.'
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
