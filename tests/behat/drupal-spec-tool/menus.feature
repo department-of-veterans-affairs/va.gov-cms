@@ -85,7 +85,7 @@ Feature: Menus
 | VA Nebraska-Western Iowa health care | va-nebraska-western-iowa-health- | VISN 23 \| va.gov/nebraska-western-iowa-health-care |
 | VA New Jersey health care | va-new-jersey-health-care | VISN 2 \| va.gov/new-jersey-health-care |
 | VA New York Harbor health care | va-new-york-harbor-health-care | VISN 2 \| va.gov/new-york-harbor-health-care |
-| VA North Florida health care | va-north-florida-health-care | VISN 8 \| va.gov/north-florida-health-care |
+| VA North Florida/South Georgia health care | va-north-florida-health-care | VISN 8 \| va.gov/north-florida-health-care |
 | VA Northeast Ohio health care | va-northeast-ohio-health-care | VISN 10 \| va.gov/va-northeast-ohio-health-care |
 | VA Northern California health care | va-northern-california-health-ca | VISN 21 \| va.gov/northern-california-health-care |
 | VA Northern Indiana health care | va-northern-indiana-health-care | VISN 10 \| va.gov/va-northern-indiana-health-care |
