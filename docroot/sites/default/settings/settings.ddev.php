@@ -42,3 +42,8 @@ $settings['va_gov_web_root'] = getenv('DDEV_APPROOT') . '/web';
 $settings['memcache']['servers'] = [
   'memcache:11211' => 'default',
 ];
+
+$settings['cms_datadog_api_key'] = getenv('CMS_DATADOG_API_KEY');
+
+// Uncomment this line to temporarily enable sending metrics to datadog on cron.
+//$settings['va_gov_force_sending_metrics'] = true;
