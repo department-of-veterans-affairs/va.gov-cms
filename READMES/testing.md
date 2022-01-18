@@ -71,6 +71,7 @@ There are 4 main types of tests:
     1. [`PHPCS`](../.github/workflows/phpcs.yml) - PHP Linting
     1. [`StyleLint (modules)`](../.github/workflows/stylelint-modules.yml) - Javascript style checks for custom module code
     1. [`StyleLint (themes)`](../.github/workflows/stylelint-themes.yml) - Javascript style checks for custom theme code
+    1. [`PHPStan`](../.github/workflows/phpstan.yml) - Static analysis
 
 1.  **WEB Integration Tests**
 
