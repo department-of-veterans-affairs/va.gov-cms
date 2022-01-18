@@ -187,6 +187,7 @@ helper commands that map to shell commands.
 | lando test va/deploy | ./bin/task --taskfile=tests.yml va/deploy                |
 | lando web-build      | composer va:web:build                                    |
 | lando phpunit        | ./bin/task --taskfile=tests.yml va/tests/phpunit         |
+| lando phpstan        | bin/phpstan analyze                                      |
 | lando web-build      | composer va:web:build                                    |
 | lando behat          | cd /app/tests/behat && /app/bin/behat                    |
 
@@ -315,5 +316,37 @@ Vender libraries are third party open source packages included by Drupal core an
 
 Whether these third party libraries are secure involves multiple factors (and has no definitive answer) project lifetime, maintenance status, frequency/size of major changes, number of maintainers, skills of maintainers in security topics, security of the projects own dependencies, security surface area (does the project deal with user actions, data, sessions, external systems etc), security architecture and threat model, code quality, documentation etc.
 
+## PHPStan
+
+PHPStan performs static analysis on the codebase and reports issues such as references to unknown/undeclared properties, incorrect argument types in function calls, functions that are too long or too complex, etc.
+
+### Magic Properties and Other Annoyances
+Developing with Drupal idiomatically tends to conflict with PHPStan.  
+
+For instance, you might type code like `$node->field_address->zip_code`.  If `$node` is declared as or implied to be a `\Drupal\node\Entity\Node` object, then PHPStan will look for a property named `$field_address` on `\Drupal\node\Entity\Node`.  `$node` might also be interpreted as `\Drupal\node\NodeInterface`, or `\Drupal\Core\Entity\EntityInterface`, or any of several other interfaces.  But functionality for accessing fields via constructs like `$node->field_address` is implemented via "magic properties," to which PHPStan does not and cannot have access.  As a consequence, PHPStan will view the use of these magic properties as errors.
+
+To permit both idiomatic Drupaling and good static analysis, we simply whitelist errors that arise from this sort of use.  
+
+This can be done by adding new expressions to the `parameters.ignoreErrors` array in [phpstan.neon](../phpstan.neon).
+
+```yaml
+parameters:
+  ...
+  ignoreErrors:
+    - '#Access to an undefined property Drupal\\node\\NodeInterface::\$field_address\.#'
+```
+
+This is hardly ideal, but we are optimistic that [entity bundle classes](https://www.drupal.org/node/3191609) will permit us to remove this sort of hack.
+
+### Baseline
+It sometimes happens that a developer will duplicate or repeat some code within our codebase and then find, much to their surprise, that PHPStan throws an error for the new code while seeming to ignore the old code.  This has historic reasons.
+
+PHPStan was integrated into the codebase after a substantial amount of development had already occurred.  Ordinarily, a PHPStan error would prevent code from being approved and merged.  But running PHPStan initially revealed a couple of hundred issues, almost all having to do with magic properties and other Drupal idioms.  Rather than break the build for days or weeks to eliminate these issues, we opted instead to generate a _baseline_ and fail only builds that introduced new code issues.
+
+A PHPStan baseline is simply a list of existing errors.  We maintain the baseline in our codebase (see [phpstan-baseline.neon](../phpstan-baseline.neon) to prevent these historical errors from interfering with our CI/CD processes.
+
+This does have drawbacks, though; it can be confusing to have the same code in two places and see one instance trigger a PHPStan error and the other seem to slip through.  (And depending on where the addition is made, the error message may be misleading and point to old code and not the new code!)  And, if the issue is corrected (or the code removed) in the future, the baseline must be altered to match the new error set, so removing technical debt is slightly penalized by a maintenance burden.
+
+But, all things considered, this seems to be the least painful way of managing static analysis.
 
 [Table of Contents](../README.md)
