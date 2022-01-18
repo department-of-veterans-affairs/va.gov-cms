@@ -2,12 +2,16 @@
 
 namespace Drupal\va_gov_vamc\EventSubscriber;
 
+use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
+use Drupal\node\NodeInterface;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Drupal\va_gov_vamc\Service\ContentHardeningDeduper;
+use Drupal\va_gov_workflow\Service\Flagger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -24,6 +28,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       'hook_event_dispatcher.form_node_vamc_operating_status_and_alerts_form.alter' => 'alterOpStatusNodeForm',
       'hook_event_dispatcher.form_node_vamc_operating_status_and_alerts_edit_form.alter' => 'alterOpStatusNodeForm',
       HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'entityPresave',
+      HookEventDispatcherInterface::ENTITY_INSERT => 'entityInsert',
       'hook_event_dispatcher.form_node_full_width_banner_alert_form.alter' => 'alterFullWidthBannerNodeForm',
       'hook_event_dispatcher.form_node_full_width_banner_alert_edit_form.alter' => 'alterFullWidthBannerNodeForm',
       'hook_event_dispatcher.form_node_regional_health_care_service_des_form.alter' => 'alterRegionalHealthCareServiceDesNodeForm',
@@ -53,7 +58,15 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    * @var \Drupal\Core\Session\AccountInterface
    *  The user object.
    */
-  private $currentUser;
+  protected $currentUser;
+
+
+  /**
+   * The vagov workflow flagger service.
+   *
+   * @var \Drupal\va_gov_workflow\Service\Flagger
+   */
+  protected $flagger;
 
   /**
    * The User Perms Service.
@@ -67,6 +80,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\Core\Session\AccountInterface $currentUser
    *   The current user.
+   * @param \Drupal\va_gov_workflow\Service\Flagger $flagger
+   *   The vagov workflow flagger service.
    * @param \Drupal\va_gov_user\Service\UserPermsService $user_perms_service
    *   The user perms service.
    * @param \Drupal\va_gov_vamc\Service\ContentHardeningDeduper $content_hardening_deduper
@@ -74,16 +89,18 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function __construct(
     AccountInterface $currentUser,
+    Flagger $flagger,
     UserPermsService $user_perms_service,
     ContentHardeningDeduper $content_hardening_deduper
   ) {
     $this->currentUser = $currentUser;
+    $this->flagger = $flagger;
     $this->userPermsService = $user_perms_service;
     $this->contentHardeningDeduper = $content_hardening_deduper;
   }
 
   /**
-   * Entity create Event call.
+   * Entity presave Event call.
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
    *   The event.
@@ -92,6 +109,57 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     // Do some fancy stuff with new entity.
     $entity = $event->getEntity();
     $this->contentHardeningDeduper->removeDuplicate($entity);
+
+    if ($this->isFlaggableFacility($entity)) {
+      if ($entity->bundle() === 'vet_center') {
+        $this->flagger->flagFieldChanged('field_official_name', 'changed_name', $entity, "The Official name of this facility changed from '@old' to '@new'.");
+      }
+      else {
+        $this->flagger->flagFieldChanged('title', 'changed_name', $entity, "The title of this facility changed from '@old' to '@new'.");
+      }
+      $this->flagger->flagNew('new', $entity, "This facility is new and needs the 'new facility' runbook.");
+    }
+  }
+
+  /**
+   * Entity insert Event call.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent $event
+   *   The event.
+   */
+  public function entityInsert(EntityInsertEvent $event): void {
+    // Do some fancy stuff with new entity.
+    $entity = $event->getEntity();
+
+    if ($this->isFlaggableFacility($entity)) {
+      // This is repeated from presave because it has to set the flag AFTER
+      // save, since there is no nid during presave. The revision_log was set.
+      $this->flagger->flagNew('new', $entity);
+    }
+  }
+
+  /**
+   * Tests to see if an object is a flaggable facility.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   One of many possible types of entity.
+   *
+   * @return bool
+   *   TRUE if it is a flaggable facility. FALSE otherwise.
+   */
+  protected function isFlaggableFacility(EntityInterface $entity): bool {
+    $flaggable_facilities = [
+      'nca_facility',
+      'vba_facility',
+      'health_care_local_facility',
+      'vet_center',
+      'vet_center_mobile_vet_center',
+      'vet_center_outstation',
+    ];
+    if ($entity instanceof NodeInterface && in_array($entity->bundle(), $flaggable_facilities)) {
+      return TRUE;
+    }
+    return FALSE;
   }
 
   /**
