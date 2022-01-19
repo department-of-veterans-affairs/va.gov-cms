@@ -1,0 +1,31 @@
+uuid: 7b4bae12-bd68-4b78-b6bb-1bf28de9ad38
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: changed_filename
+label: 'Changed filename'
+bundles:
+  - va_form
+entity_type: node
+global: true
+weight: -4
+flag_short: 'Changed filename'
+flag_long: ''
+flag_message: 'The Filename was changed'
+unflag_short: 'Filename change resolved'
+unflag_long: 'This will remove the changed filename flag'
+unflag_message: ''
+unflag_denied_text: ''
+flag_type: 'entity:node'
+link_type: reload
+flagTypeConfig:
+  show_in_links:
+    diff: diff
+  show_as_field: true
+  show_on_form: true
+  show_contextual_link: false
+  extra_permissions:
+    owner: '0'
+linkTypeConfig: {  }

@@ -1,0 +1,15 @@
+uuid: 2d6db9ce-9144-4de7-a24c-941eff4e9f6e
+langcode: en
+status: true
+dependencies:
+  config:
+    - flag.flag.deleted
+  module:
+    - flag
+id: flag_action.deleted_flag
+label: Deleted
+type: node
+plugin: 'flag_action:deleted_flag'
+configuration:
+  flag_id: deleted
+  flag_action: flag

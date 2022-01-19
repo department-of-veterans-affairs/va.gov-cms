@@ -1,0 +1,15 @@
+uuid: 2b7a874e-c8f0-452d-b9e6-4ecd4442355f
+langcode: en
+status: true
+dependencies:
+  config:
+    - flag.flag.changed_name
+  module:
+    - flag
+id: flag_action.changed_name_flag
+label: 'Changed title'
+type: node
+plugin: 'flag_action:changed_name_flag'
+configuration:
+  flag_id: changed_name
+  flag_action: flag

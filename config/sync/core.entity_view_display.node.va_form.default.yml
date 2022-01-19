@@ -68,14 +68,14 @@ third_party_settings:
         - field_va_form_deleted
         - field_va_form_deleted_date
         - field_va_form_issue_date
-        - field_va_form_num_pages
         - field_va_form_number
+        - field_va_form_num_pages
         - field_va_form_revision_date
         - field_va_form_row_id
         - field_va_form_title
         - field_va_form_url
       parent_name: ''
-      weight: 13
+      weight: 17
       format_type: fieldset
       format_settings:
         description: 'This content is maintained in the VA Forms DB and updated nightly.'
@@ -195,4 +195,9 @@ hidden:
   field_va_form_row_id: true
   field_va_form_title: true
   field_va_form_url: true
+  flag_changed_filename: true
+  flag_changed_title: true
+  flag_deleted: true
+  flag_new_form: true
+  flag_removal_complete: true
   search_api_excerpt: true
