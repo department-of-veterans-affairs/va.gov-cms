@@ -269,6 +269,25 @@ function _vagovclaro_sort_and_alter_vetcenter_services(array &$variables) {
 }
 
 /**
+ * Implements hook_preprocess_HOOK() for field_multiple_value_form.
+ */
+function vagovclaro_preprocess_field_multiple_value_form(&$variables) {
+  if (!empty($variables['table']['#header']) && isset($variables['description']['content'])) {
+    // Find description (help text) and move to header.
+    // @see template_preprocess_field_multiple_value_form()
+    $variables['table']['#header'][0]['data']['description'] = [
+      '#type' => 'html_tag',
+      '#tag' => 'p',
+      '#value' => $variables['description']['content'],
+      '#attributes' => [
+        'class' => ['form-item__description'],
+      ],
+    ];
+    unset($variables['description']);
+  }
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  */
 function vagovclaro_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
