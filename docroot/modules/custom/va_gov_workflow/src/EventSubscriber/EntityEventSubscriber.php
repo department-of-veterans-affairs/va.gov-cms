@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_workflow\EventSubscriber;
 
 use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityCreateEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormBaseAlterEvent;
 use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
@@ -45,6 +46,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public static function getSubscribedEvents(): array {
     return [
       'hook_event_dispatcher.form_base_node_form.alter' => 'alterNodeForm',
+      HookEventDispatcherInterface::ENTITY_CREATE => 'entityCreate',
       HookEventDispatcherInterface::ENTITY_DELETE => 'entityDelete',
     ];
   }
@@ -104,6 +106,21 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Entity Create Event call.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityCreateEvent $event
+   *   The event.
+   */
+  public function entityCreate(EntityCreateEvent $event): void {
+    $entity = $event->getEntity();
+
+    if ($entity->getEntityTypeId() === 'flagging') {
+      // A flag is being added.
+      $this->flagger->logFlagOperation($entity, 'create');
+    }
+  }
+
+  /**
    * Entity Delete Event call.
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent $event
@@ -114,7 +131,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
 
     if ($entity->getEntityTypeId() === 'flagging') {
       // A flag is being deleted.
-      $this->flagger->logFlagDeletion($entity);
+      $this->flagger->logFlagOperation($entity, 'delete');
     }
   }
 

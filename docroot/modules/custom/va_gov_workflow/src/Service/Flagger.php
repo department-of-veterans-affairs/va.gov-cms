@@ -60,13 +60,11 @@ class Flagger {
     if (!$node->isNew()) {
       $flag = $this->flagService->getFlagById($flag_id);
       if ($flag && !$this->isTestData()) {
-        $this->flagService->flag($flag, $node);
         // NOTE:  This setting of the flag only works in non-form based node
         // saves like through migration.  On form-based node save, this flag
         // save will happen, but immediately gets undone when the flag form
         // saves because the flag is not set at that time (race condition).
-        $flag_message_header = "Flagged: {$flag->get('flag_short')}";
-        $log_message = "{$flag_message_header} - {$log_message}";
+        $this->flagService->flag($flag, $node);
       }
     }
 
@@ -124,8 +122,6 @@ class Flagger {
       // Can't actually set the flag, because no node id yet.
       // Just set the message. The flag will be set in entityCreate event.
       $flag = $this->flagService->getFlagById($flag_id);
-      $flag_message_header = "Flagged: {$flag->get('flag_short')}";
-      $log_message = "{$flag_message_header} - {$log_message}";
       $this->appendLog($node, $log_message);
     }
     elseif ($first_save) {
@@ -165,37 +161,46 @@ class Flagger {
   }
 
   /**
-   * Examines a flag on deletion and updated the node revision log.
+   * Logs a flag operation on the the node revision log.
    *
    * @param \Drupal\flag\Entity\Flagging $flagging
    *   The drupal node to examine.
+   * @param string $operation
+   *   The operation being performed on the flag (create, delete).
    */
-  public function logFlagDeletion(Flagging $flagging) {
-
+  public function logFlagOperation(Flagging $flagging, $operation) {
     $type = $flagging->get('entity_type')->value;
     // Only supporting this for nodes.
     if ($type === 'node' && !$this->isTestData()) {
       /** @var \Drupal\flag\Entity\Flag $flag */
       $flag = $flagging->getFlag();
       $flagname = $flag->get('flag_short');
-      $nid = $flagging->get('entity_id')->value;
-      $vid = $this->entityTypeManager
-        ->getStorage('node')
-        ->getLatestRevisionId($nid);
-      // The latest revision of the flagged node.
-      /** @var \Drupal\node\NodeInterface $revision */
-      $revision = $this->entityTypeManager
-        ->getStorage('node')
-        ->loadRevision($vid);
 
-      $log_message = $revision->get('revision_log')->value;
-      $flag_message = "Flag removed: {$flagname}" . PHP_EOL;
-      $revision->set('revision_log', "{$flag_message} {$log_message}");
-      // Avoid creating a new revision.  Just update the existing message.
-      $revision->setNewRevision(FALSE);
-      $revision->enforceIsNew(FALSE);
-      $revision->setSyncing(TRUE);
-      $revision->save();
+      if ($operation === 'create') {
+        $flag_message = "Flagged: {$flagname}" . PHP_EOL;
+      }
+      elseif ($operation === 'delete') {
+        $flag_message = "Flag removed: {$flagname}" . PHP_EOL;
+      }
+
+      if ($flag_message) {
+        $nid = $flagging->get('entity_id')->value;
+        $vid = $this->entityTypeManager
+          ->getStorage('node')
+          ->getLatestRevisionId($nid);
+        // The latest revision of the flagged node.
+        /** @var \Drupal\node\NodeInterface $revision */
+        $revision = $this->entityTypeManager
+          ->getStorage('node')
+          ->loadRevision($vid);
+        $log_message = $revision->get('revision_log')->value;
+        $revision->set('revision_log', "{$flag_message} {$log_message}");
+        // Avoid creating a new revision.  Just update the existing message.
+        $revision->setNewRevision(FALSE);
+        $revision->enforceIsNew(FALSE);
+        $revision->setSyncing(TRUE);
+        $revision->save();
+      }
     }
   }
 
