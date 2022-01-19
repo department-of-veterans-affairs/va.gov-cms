@@ -63,6 +63,7 @@ third_party_settings:
       children:
         - moderation_state
         - revision_log
+        - flag
       parent_name: ''
       weight: 3
       format_type: fieldset
@@ -106,11 +107,16 @@ content:
       maxlength: 300
       counter_position: after
       js_prevent_submit: true
-      count_html_characters: true
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+      count_html_characters: true
     third_party_settings: {  }
     type: string_textarea_with_counter
     region: content
+  flag:
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
     weight: 5
@@ -129,7 +135,7 @@ content:
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
       use_field_maxlength: false
       js_prevent_submit: false
-      count_html_characters: false
+      count_html_characters: true
     third_party_settings: {  }
 hidden:
   created: true

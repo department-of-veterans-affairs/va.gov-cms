@@ -1,0 +1,31 @@
+uuid: d238e138-a87e-433f-8559-d3fb33758f12
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: new_form
+label: 'New form'
+bundles:
+  - va_form
+entity_type: node
+global: true
+weight: -6
+flag_short: 'New form'
+flag_long: ''
+flag_message: 'This form is new'
+unflag_short: 'Not new'
+unflag_long: 'This will remove the new form flag'
+unflag_message: ''
+unflag_denied_text: ''
+flag_type: 'entity:node'
+link_type: reload
+flagTypeConfig:
+  show_in_links:
+    diff: diff
+  show_as_field: true
+  show_on_form: true
+  show_contextual_link: false
+  extra_permissions:
+    owner: '0'
+linkTypeConfig: {  }

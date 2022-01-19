@@ -11,6 +11,12 @@
       var checkboxes = document.querySelectorAll(".paragraph-type--service-location-address .form-checkbox");
       checkboxes.forEach(function (check) {
         var address = check.parentElement.parentElement.nextElementSibling;
+
+        if (check.checked) {
+          address.style.display = "none";
+        } else {
+          address.style.display = "block";
+        }
         check.addEventListener("click", function () {
           if (check.checked) {
             address.style.display = "none";

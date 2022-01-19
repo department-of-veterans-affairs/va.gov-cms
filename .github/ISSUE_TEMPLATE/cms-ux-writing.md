@@ -41,7 +41,12 @@ E.g. *As a user who may be making changes to content, I'd like a message that wa
 
 ### CMS Team
 
-Please leave only the team that will do this work selected. If you're not sure, it's fine to leave both selected.
+Please leave only the team that will do this work selected.
 
 - [x] `Platform CMS Team`
 - [x] `Sitewide CMS Team`
+  - [ ] `⭐️ Content ops`
+  - [ ] `⭐️ CMS experience`
+  - [ ] `⭐️ Offices`
+  - [ ] `⭐️ Product support`
+  - [ ] `⭐️ User support`

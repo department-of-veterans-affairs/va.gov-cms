@@ -15,7 +15,7 @@ Feature: Menus
 | Decision reviews | decision-reviews-benefits-h |  |
 | Disability benefits hub | disability-benefits-hub | For pages in the /disability benefits hub |
 | Education benefits hub | education-benefits-hub | For pages in the /education benefits hub |
-| Footer | footer | Site information links |
+| Footer | footer | Site information links displayed in global footer |
 | Footer Bottom Rail | footer-bottom-rail | Horizontal list of links at the bottom of the page |
 | Header megamenu | header-megamenu | Links and promos for the site's header menu. |
 | Health Care benefits hub | health-care-benefits-hub | va.gov/health-care |
@@ -85,7 +85,7 @@ Feature: Menus
 | VA Nebraska-Western Iowa health care | va-nebraska-western-iowa-health- | VISN 23 \| va.gov/nebraska-western-iowa-health-care |
 | VA New Jersey health care | va-new-jersey-health-care | VISN 2 \| va.gov/new-jersey-health-care |
 | VA New York Harbor health care | va-new-york-harbor-health-care | VISN 2 \| va.gov/new-york-harbor-health-care |
-| VA North Florida health care | va-north-florida-health-care | VISN 8 \| va.gov/north-florida-health-care |
+| VA North Florida/South Georgia health care | va-north-florida-health-care | VISN 8 \| va.gov/north-florida-health-care |
 | VA Northeast Ohio health care | va-northeast-ohio-health-care | VISN 10 \| va.gov/va-northeast-ohio-health-care |
 | VA Northern California health care | va-northern-california-health-ca | VISN 21 \| va.gov/northern-california-health-care |
 | VA Northern Indiana health care | va-northern-indiana-health-care | VISN 10 \| va.gov/va-northern-indiana-health-care |

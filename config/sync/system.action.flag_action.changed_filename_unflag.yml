@@ -1,0 +1,15 @@
+uuid: 1f5be41f-9cc1-4782-afc3-432a90de9b2c
+langcode: en
+status: true
+dependencies:
+  config:
+    - flag.flag.changed_filename
+  module:
+    - flag
+id: flag_action.changed_filename_unflag
+label: 'Filename change resolved'
+type: node
+plugin: 'flag_action:changed_filename_unflag'
+configuration:
+  flag_id: changed_filename
+  flag_action: unflag

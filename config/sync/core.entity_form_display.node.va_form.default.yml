@@ -86,6 +86,7 @@ third_party_settings:
       children:
         - moderation_state
         - revision_log
+        - flag
       parent_name: ''
       weight: 10
       format_type: fieldset
@@ -281,6 +282,8 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
+      linkit_profile: default
+      linkit_auto_link_text: false
     third_party_settings: {  }
     type: linkit
     region: content
@@ -297,6 +300,8 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
+      linkit_profile: default
+      linkit_auto_link_text: false
     third_party_settings: {  }
   field_va_form_usage:
     weight: 5
@@ -306,6 +311,11 @@ content:
     third_party_settings: {  }
     type: text_textarea
     region: content
+  flag:
+    weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
     weight: 6

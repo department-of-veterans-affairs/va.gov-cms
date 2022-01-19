@@ -14,3 +14,5 @@ if (!empty($memcache_nodes)) {
   }
   $settings['cache']['default'] = 'cache.backend.memcache';
 }
+
+$settings['cms_datadog_api_key'] = getenv('CMS_DATADOG_API_KEY');

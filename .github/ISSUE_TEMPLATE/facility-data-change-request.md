@@ -2,7 +2,7 @@
 name: Facility data change request
 about: changing facility information in the CMS for VHA facilities
 title: 'Facility change: <insert_name>'
-labels: 'Sitewide CMS, Change request'
+labels: Change request
 assignees: ''
 
 ---
@@ -105,6 +105,11 @@ assignees: ''
   </details>
 
 CMS Team
-Please leave only the team that will do this work selected. If you're not sure, it's fine to leave both selected.
+Please leave only the team that will do this work selected. 
 - [ ] Platform CMS Team
-- [X] Sitewide CMS Team
+- [x] `Sitewide CMS Team`
+  - [ ] `⭐️ Content ops`
+  - [ ] `⭐️ CMS experience`
+  - [ ] `⭐️ Offices`
+  - [ ] `⭐️ Product support`
+  - [ ] `⭐️ User support`

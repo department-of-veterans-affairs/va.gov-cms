@@ -15,8 +15,8 @@ drush_error_handler: true
 stack: true
 timeout: !!float 2
 message_limit: 2048
-trace: true
-javascript_error_handler: false
+trace: false
+javascript_error_handler: true
 public_dsn: ''
 ssl: verify_ssl
 ca_cert: ''
@@ -33,5 +33,3 @@ database_tracing: true
 twig_tracing: true
 auto_session_tracking: false
 max_request_body_size: always
-_core:
-  default_config_hash: 0cSFmtaooEoYv15Hw6hl0XsvZE6k1DKbqjukwUjZi6Y

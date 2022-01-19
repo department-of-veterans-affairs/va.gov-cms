@@ -1,0 +1,15 @@
+uuid: ed942d6b-5d27-467e-a0a2-535522839bce
+langcode: en
+status: true
+dependencies:
+  config:
+    - flag.flag.new_form
+  module:
+    - flag
+id: flag_action.new_form_unflag
+label: 'Not new'
+type: node
+plugin: 'flag_action:new_form_unflag'
+configuration:
+  flag_id: new_form
+  flag_action: unflag
