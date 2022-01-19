@@ -7,7 +7,7 @@
 # Allow script to be run anywhere in git repo
 cd "$(git rev-parse --show-toplevel)"
 
-YARN_VERSION_INSTALLED="$( yarn --version )"
+YARN_VERSION_INSTALLED="$( bin/yarn --version )"
 REQUIRED_YARN_VERSION=$( node --print --eval="require('./web/package.json').engines.yarn" | sed 's/[<>=~]*//' )
 if [ "${REQUIRED_YARN_VERSION}" != "${YARN_VERSION_INSTALLED}" ]; then
   echo "Installed yarn version '${YARN_VERSION_INSTALLED}' does not match the required version: '${REQUIRED_YARN_VERSION}'!"
