@@ -2,10 +2,13 @@
 
 namespace Drupal\va_gov_workflow\EventSubscriber;
 
-use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityCreateEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormBaseAlterEvent;
 use Drupal\Core\Entity\EntityFormInterface;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\node\NodeForm;
 use Drupal\va_gov_user\Service\UserPermsService;
@@ -48,6 +51,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       'hook_event_dispatcher.form_base_node_form.alter' => 'alterNodeForm',
       HookEventDispatcherInterface::ENTITY_CREATE => 'entityCreate',
       HookEventDispatcherInterface::ENTITY_DELETE => 'entityDelete',
+      HookEventDispatcherInterface::ENTITY_INSERT => 'entityInsert',
+      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'entityPresave',
     ];
   }
 
@@ -69,6 +74,33 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $this->userPermsService = $user_perms_service;
     $this->workflowContentControl = $workflow_content_control;
     $this->flagger = $flagger;
+  }
+
+  /**
+   * Entity insert Event call.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent $event
+   *   The event.
+   */
+  public function entityInsert(EntityInsertEvent $event): void {
+    $entity = $event->getEntity();
+
+    if ($entity->bundle() === 'va_form') {
+      // This is repeated from presave because it has to set the flag AFTER
+      // save, since there is no nid during presave. The revision_log was set.
+      $this->flagger->flagNew('new_form', $entity);
+    }
+  }
+
+  /**
+   * Entity presave Event call.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
+   *   The event.
+   */
+  public function entityPresave(EntityPresaveEvent $event): void {
+    $entity = $event->getEntity();
+    $this->flagVaFormChanges($entity);
   }
 
   /**
@@ -102,6 +134,21 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       if (!$is_admin && !$is_archiveable) {
         unset($form['moderation_state']['widget'][0]['state']['#options']['archived']);
       }
+    }
+  }
+
+  /**
+   * Flag VA Forms if certain changes are made.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   An entity of unknown type.
+   */
+  protected function flagVaFormChanges(EntityInterface $entity) {
+    if ($entity->bundle() === 'va_form') {
+      $this->flagger->flagNew('new_form', $entity, "This VA Form was added to the Forms DB.");
+      $this->flagger->flagFieldChanged('field_va_form_title', 'changed_title', $entity, "The form title of this form changed from '@old' to '@new' in the Forms DB.");
+      $this->flagger->flagFieldChanged('field_va_form_url', 'changed_filename', $entity, "The file name (URL) of this form changed from '@old' to '@new' in the Forms DB.");
+      $this->flagger->flagFieldChanged('field_va_form_deleted', 'deleted', $entity, "The form was marked as deleted in the Forms DB.");
     }
   }
 

@@ -150,7 +150,8 @@ class Flagger {
     }
     $new_value = $node->get($fieldname)->value;
     $old_value = $original->get($fieldname)->value;
-    if ($new_value !== $old_value) {
+    // Loose comparison needed because sometimes new is 0 and old is '0'.
+    if ($new_value != $old_value) {
       // The field changed.  Set the flag.
       $vars = [
         '@old' => $old_value,
