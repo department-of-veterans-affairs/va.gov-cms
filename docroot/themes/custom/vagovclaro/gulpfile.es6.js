@@ -42,10 +42,11 @@ gulp.task("clearcache").description = "clear all Drupal caches";
 
 /**
  * @task watch
- * Watch scss, JS, and twig files for changes & recompile
- * Reload browser with browsersync to show changes
+ * Watch scss files for changes & recompile, clear drupal caches.
+ * Refresh browser to show changes (no hot reload)
  */
 gulp.task("watch", () => {
+  // usePolling necessary for file changes mounted through docker
   const options = {
     ignoreInitial: false,
     usePolling: true,

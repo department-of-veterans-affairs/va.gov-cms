@@ -3,31 +3,19 @@
 **!! this updated admin theme is currently a work in progress. things subject to change with little notice !!**
 **this is fine because it is not enabled by default, no editors are aware this theme exists. this is a safe space to move fast**
 
-## context
-
-- we are building on Drupal's Claro theme, pulling in & updating existing templates from vagovadmin.
-- initial buildout will be mostly a 1:1 copy with necessary updates
-- update to new tokens etc. when they are defined by design
-- pattern lab?
-
-
-MVP TO TURN ON FOR EDITORS:
-- login page with SSO
-- knowledge base
-- some level of VA branding. logo on login, color scheme, etc.
-- feature parity with existing theme in terms of form functionality.
-
 ## Local Development
 ### Sass
-`npm install` in this directory which contains a gulp workflow for sass, similar to
-the existing vagovadmin theme. you need to run gulp separately in order to keep styles updated.
+Composer commands have been added to the root composer.json for compiling and watching theme assets:
+- `lando composer va:theme:compile` will compile all theme assets. For core & all custom themes.
+- `lando composer va:theme:watch` will run `yarn watch` to watch vagovclaro styles. Changing any scss file will trigger
+a recompile & a clear of drupal caches. Reload your browser to see your changes.
 
-`npm run build` to build the compiled css for higher environments. These files are .gitignored, and get compiled as
-part of the normal CI build process.
+Local commands:
+- `yarn install` in this directory which contains a gulp workflow for sass, similar to the existing vagovadmin theme.
+- `yarn build` to build the compiled css for higher environments. These files are .gitignored, and get compiled as part of the normal CI build process.
+- `yarn watch` to watch & recompile during local development. drupal caches are cleared as part of this.
 
-`npm run build:watch` to watch & recompile during local development. remember to clear your caches
-
-When including images in css rules, routes should be relative from the compiled css destination (vagovclaro/dist/)
+When including images in css rules, routes should be relative from the compiled css destination (`vagovclaro/dist/`)
 
 ### Javascript
 the lando js workflow (`lando npm run build:js` or `lando npm run watch:js`, commands found in the repo's top-level package.json)
