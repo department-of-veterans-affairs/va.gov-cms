@@ -32,7 +32,7 @@ gulp.task("sass").description =
  * Clear all drupal caches
  */
 gulp.task("clearcache", (done) => {
-  const child = spawn("lando drush cache:rebuild", {
+  const child = spawn("lando drush cache-rebuild", {
     stdio: "inherit",
     shell: "true",
   });
@@ -46,7 +46,16 @@ gulp.task("clearcache").description = "clear all Drupal caches";
  * Reload browser with browsersync to show changes
  */
 gulp.task("watch", () => {
-  gulp.watch(["scss/**/*.scss"], gulp.series("sass"));
+  const options = {
+    ignoreInitial: false,
+    usePolling: true,
+  };
+
+  gulp.watch(
+    ["assets/scss/**/*.scss"],
+    options,
+    gulp.series("sass", "clearcache")
+  );
 });
 gulp.task("watch").description = "watch SCSS";
 
