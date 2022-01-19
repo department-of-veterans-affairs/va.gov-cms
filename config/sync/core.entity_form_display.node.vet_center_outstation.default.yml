@@ -29,6 +29,7 @@ third_party_settings:
       children:
         - moderation_state
         - revision_log
+        - flag
       parent_name: ''
       weight: 7
       format_type: fieldset
@@ -209,6 +210,11 @@ content:
     third_party_settings: {  }
     type: markup
     region: content
+  flag:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
     weight: 9

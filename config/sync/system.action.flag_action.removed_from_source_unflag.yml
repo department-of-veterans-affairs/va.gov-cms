@@ -1,0 +1,15 @@
+uuid: 33198a48-333f-4598-8e95-a820d605716a
+langcode: en
+status: true
+dependencies:
+  config:
+    - flag.flag.removed_from_source
+  module:
+    - flag
+id: flag_action.removed_from_source_unflag
+label: 'Not removed from source'
+type: node
+plugin: 'flag_action:removed_from_source_unflag'
+configuration:
+  flag_id: removed_from_source
+  flag_action: unflag
