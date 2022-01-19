@@ -94,8 +94,15 @@ function vagovclaro_preprocess_paragraph(&$variables) {
  */
 function vagovclaro_theme_suggestions_input_alter(&$suggestions, $variables) {
   $element = $variables['element'];
+  // Add theme suggestions to make various buttons found in forms smaller.
   if (isset($element['#ief_row_form'])) {
     $suggestions[] = 'input__submit__ief';
+  }
+  if (isset($element['#ief_form']) && $element['#ief_form'] === 'add') {
+    $suggestions[] = 'input__submit__ief';
+  }
+  if (isset($element['#parents'][0]) && $element['#parents'][0] === 'field_alert') {
+    $suggestions[] = 'input__submit__alert';
   }
 }
 
@@ -284,10 +291,11 @@ function _vagovclaro_sort_and_alter_vetcenter_services(array &$variables) {
 function vagovclaro_preprocess_field_multiple_value_form(&$variables) {
   if (!empty($variables['table']['#header']) && isset($variables['description']['content'])) {
     // Find description (help text) and move to header.
-    // @see template_preprocess_field_multiple_value_form()
+    // Div because some help text prints as multiple <p> tags.
+    // @see paragraphs_preprocess_field_multiple_value_form()
     $variables['table']['#header'][0]['data']['description'] = [
       '#type' => 'html_tag',
-      '#tag' => 'p',
+      '#tag' => 'div',
       '#value' => $variables['description']['content'],
       '#attributes' => [
         'class' => ['form-item__description'],
