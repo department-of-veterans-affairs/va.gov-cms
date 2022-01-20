@@ -64,7 +64,11 @@ class Flagger {
         // saves like through migration.  On form-based node save, this flag
         // save will happen, but immediately gets undone when the flag form
         // saves because the flag is not set at that time (race condition).
-        $this->flagService->flag($flag, $node);
+        if (!$flag->isFlagged($node)) {
+          // Has not already been flagged, proceed to flag it.
+          $this->flagService->flag($flag, $node);
+        }
+
       }
     }
 
