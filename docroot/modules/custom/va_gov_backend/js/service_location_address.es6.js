@@ -2,58 +2,53 @@
  * @file
  */
 
-(($, Drupal) => {
+((Drupal) => {
   Drupal.behaviors.vaGovServiceLocationAddress = {
     attach(context) {
       // Add or remove the classes and attributes needed to make the address required.
       function addressRequired(address, action) {
-        address
-          .find(".form-item label")
-          .not(".visually-hidden")
-          .each(function cycleAddress() {
+        const labels = address.querySelectorAll(".form-item label");
+        labels.forEach((label) => {
+          if (!label.classList.contains("visually-hidden")) {
             if (action === "yes") {
-              $(this).addClass("js-form-required form-required");
-              $(this)
-                .next("input, select")
-                .addClass("required")
-                .attr("required", "required");
+              label.classList.add("js-form-required", "form-required");
+              label.nextElementSibling.classList.add("required");
+              label.nextElementSibling.setAttribute("required", "required");
             } else {
-              $(this).removeClass("js-form-required form-required");
-              $(this)
-                .next("input, select")
-                .removeClass("required")
-                .removeAttr("required");
+              label.classList.remove("js-form-required", "form-required");
+              label.nextElementSibling.classList.remove("required");
+              label.nextElementSibling.removeAttribute("required");
             }
-          });
+          }
+        });
       }
 
-      $(".paragraph-type--service-location-address .form-checkbox").each(
-        function cycleCheckbox() {
-          // Grab our closest address.
-          const $address = $(this)
-            .parent()
-            .parent()
-            .next(".field--type-address");
-          // Set initial visibility for the address based on the checkbox value.
-          if ($(this).prop("checked")) {
-            $address.css("display", "none");
-            addressRequired($address, "no");
-          } else {
-            $address.css("display", "block");
-            addressRequired($address, "yes");
-          }
-          // Determine whether or not to display after checkbox interaction.
-          $(this).on("change", function onChange() {
-            if ($(this).prop("checked")) {
-              $address.css("display", "none");
-              addressRequired($address, "no");
-            } else {
-              $address.css("display", "block");
-              addressRequired($address, "yes");
-            }
-          });
-        }
+      // Grab our address toggles.
+      const checkboxes = document.querySelectorAll(
+        ".paragraph-type--service-location-address .form-checkbox"
       );
+      checkboxes.forEach((check) => {
+        // Grab our closest address.
+        const address = check.parentElement.parentElement.nextElementSibling;
+        // Set initial visibility for the address based on the checkbox value.
+        if (check.checked) {
+          address.style.display = "none";
+          addressRequired(address, "no");
+        } else {
+          address.style.display = "block";
+          addressRequired(address, "yes");
+        }
+        check.addEventListener("click", () => {
+          // Detemine whether or not to display after checkbox interaction.
+          if (check.checked) {
+            address.style.display = "none";
+            addressRequired(address, "no");
+          } else {
+            address.style.display = "block";
+            addressRequired(address, "yes");
+          }
+        });
+      });
 
       const serviceLocations = context.querySelectorAll(
         ".paragraph-type--service-location"
@@ -69,4 +64,4 @@
       }
     },
   };
-})(jQuery, Drupal);
+})(Drupal);

@@ -5,39 +5,44 @@
 * @preserve
 **/
 
-(function ($, Drupal) {
+(function (Drupal) {
   Drupal.behaviors.vaGovServiceLocationAddress = {
     attach: function attach(context) {
       function addressRequired(address, action) {
-        address.find(".form-item label").not(".visually-hidden").each(function cycleAddress() {
-          if (action === "yes") {
-            $(this).addClass("js-form-required form-required");
-            $(this).next("input, select").addClass("required").attr("required", "required");
-          } else {
-            $(this).removeClass("js-form-required form-required");
-            $(this).next("input, select").removeClass("required").removeAttr("required");
+        var labels = address.querySelectorAll(".form-item label");
+        labels.forEach(function (label) {
+          if (!label.classList.contains("visually-hidden")) {
+            if (action === "yes") {
+              label.classList.add("js-form-required", "form-required");
+              label.nextElementSibling.classList.add("required");
+              label.nextElementSibling.setAttribute("required", "required");
+            } else {
+              label.classList.remove("js-form-required", "form-required");
+              label.nextElementSibling.classList.remove("required");
+              label.nextElementSibling.removeAttribute("required");
+            }
           }
         });
       }
 
-      $(".paragraph-type--service-location-address .form-checkbox").each(function cycleCheckbox() {
-        var $address = $(this).parent().parent().next(".field--type-address");
+      var checkboxes = document.querySelectorAll(".paragraph-type--service-location-address .form-checkbox");
+      checkboxes.forEach(function (check) {
+        var address = check.parentElement.parentElement.nextElementSibling;
 
-        if ($(this).prop("checked")) {
-          $address.css("display", "none");
-          addressRequired($address, "no");
+        if (check.checked) {
+          address.style.display = "none";
+          addressRequired(address, "no");
         } else {
-          $address.css("display", "block");
-          addressRequired($address, "yes");
+          address.style.display = "block";
+          addressRequired(address, "yes");
         }
-
-        $(this).on("change", function onChange() {
-          if ($(this).prop("checked")) {
-            $address.css("display", "none");
-            addressRequired($address, "no");
+        check.addEventListener("click", function () {
+          if (check.checked) {
+            address.style.display = "none";
+            addressRequired(address, "no");
           } else {
-            $address.css("display", "block");
-            addressRequired($address, "yes");
+            address.style.display = "block";
+            addressRequired(address, "yes");
           }
         });
       });
@@ -52,4 +57,4 @@
       }
     }
   };
-})(jQuery, Drupal);
+})(Drupal);
