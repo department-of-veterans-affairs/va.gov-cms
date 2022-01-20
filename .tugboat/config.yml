@@ -4,7 +4,7 @@ services:
     # Use PHP 7.x with Apache; this syntax pulls in the latest version of PHP 7
     # Pinning to 7.3.28 until we update from Docker 19 to Docker 20
     # See https://github.com/department-of-veterans-affairs/va.gov-cms/issues/6216
-    image: tugboatqa/php:7.4.27-apache
+    image: tugboatqa/php:7.4-apache-buster
 
     aliases:
       - cms
@@ -31,7 +31,7 @@ services:
         - apt-get install python
 
         # cypress-axe dependencies - https://docs.cypress.io/guides/getting-started/installing-cypress.html#System-requirements
-        # - apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+        - apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
 
         # Install php ZIP extension (drush 10 requires it).
         - apt-get install libzip-dev zip
