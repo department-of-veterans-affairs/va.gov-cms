@@ -2,12 +2,11 @@ parameters:
   phpVersion: 70400
   paths:
     - docroot/modules/custom
-    - docroot/modules/contrib
     - docroot/themes/custom
     - tests
   excludePaths:
-  #   - *Test.php
-  #   - *TestBase.php
+    - *Test.php
+    - *TestBase.php
   level: 2
   ignoreErrors:
     - '#Unsafe usage of new static\(\)#'
@@ -15,10 +14,6 @@ parameters:
     - '#Access to an undefined property Drupal\\Core\\Field\\FieldItemListInterface::\$target_id\.#'
     - '#Access to an undefined property Drupal\\Core\\Field\\FieldItemListInterface::\$value\.#'
     - '#Call to an undefined method Drupal\\Core\\Field\\FieldDefinitionInterface::get\(\)\.#'
-    - '#Access to an undefined property .*#'
-    - '#Call to an undefined method .*#'
-    - '#.*and is removed from drupal\:10\.0\.0\.#'
-    - '#.*extends deprecated class.*since Symfony 4.3, use.*#'
   reportUnmatchedIgnoredErrors: false
   bootstrapFiles:
     - phpstan_bootstrap.php
