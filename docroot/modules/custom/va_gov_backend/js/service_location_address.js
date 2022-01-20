@@ -5,23 +5,39 @@
 * @preserve
 **/
 
-(function (Drupal) {
+(function ($, Drupal) {
   Drupal.behaviors.vaGovServiceLocationAddress = {
     attach: function attach(context) {
-      var checkboxes = document.querySelectorAll(".paragraph-type--service-location-address .form-checkbox");
-      checkboxes.forEach(function (check) {
-        var address = check.parentElement.parentElement.nextElementSibling;
-
-        if (check.checked) {
-          address.style.display = "none";
-        } else {
-          address.style.display = "block";
-        }
-        check.addEventListener("click", function () {
-          if (check.checked) {
-            address.style.display = "none";
+      function addressRequired(address, action) {
+        address.find(".form-item label").not(".visually-hidden").each(function cycleAddress() {
+          if (action === "yes") {
+            $(this).addClass("js-form-required form-required");
+            $(this).next("input, select").addClass("required").attr("required", "required");
           } else {
-            address.style.display = "block";
+            $(this).removeClass("js-form-required form-required");
+            $(this).next("input, select").removeClass("required").removeAttr("required");
+          }
+        });
+      }
+
+      $(".paragraph-type--service-location-address .form-checkbox").each(function cycleCheckbox() {
+        var $address = $(this).parent().parent().next(".field--type-address");
+
+        if ($(this).prop("checked")) {
+          $address.css("display", "none");
+          addressRequired($address, "no");
+        } else {
+          $address.css("display", "block");
+          addressRequired($address, "yes");
+        }
+
+        $(this).on("change", function onChange() {
+          if ($(this).prop("checked")) {
+            $address.css("display", "none");
+            addressRequired($address, "no");
+          } else {
+            $address.css("display", "block");
+            addressRequired($address, "yes");
           }
         });
       });
@@ -36,4 +52,4 @@
       }
     }
   };
-})(Drupal);
+})(jQuery, Drupal);
