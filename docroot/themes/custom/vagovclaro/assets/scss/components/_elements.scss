@@ -101,3 +101,20 @@ p.vc-help-text {
     width: 40px;
   }
 }
+
+.ui-widget {
+  font-family: var(--font-family-sans);
+}
+
+// linkit results should be scrollable
+.ui-autocomplete {
+  overflow: auto;
+}
+
+.linkit-result-line--title {
+  color: var(--color-text);
+}
+
+.linkit-result-line:hover .linkit-result-line--title {
+  color: var(--color-white);
+}
