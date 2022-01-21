@@ -90,6 +90,26 @@ function vagovclaro_preprocess_paragraph(&$variables) {
 }
 
 /**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function vagovclaro_theme_suggestions_input_alter(&$suggestions, $variables) {
+  $element = $variables['element'];
+  // Add theme suggestions to make various buttons found in forms smaller.
+  if (isset($element['#ief_row_form'])) {
+    $suggestions[] = 'input__submit__ief';
+  }
+  if (isset($element['#ief_form']) && $element['#ief_form'] === 'add') {
+    $suggestions[] = 'input__submit__ief';
+  }
+  if (isset($element['#parents'][0]) && $element['#parents'][0] === 'field_alert') {
+    $suggestions[] = 'input__submit__alert';
+  }
+  if (isset($element['#id']) && $element['#id'] === "edit-field-content-block-add-more-browse") {
+    $suggestions[] = 'input__submit__paragraph_action';
+  }
+}
+
+/**
  * Implements hook_preprocess_HOOK().
  */
 function vagovclaro_preprocess_field(&$variables) {
@@ -265,6 +285,26 @@ function _vagovclaro_sort_and_alter_vetcenter_services(array &$variables) {
         'class' => ['ief-entity-table'],
       ],
     ] + $rows;
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for field_multiple_value_form.
+ */
+function vagovclaro_preprocess_field_multiple_value_form(&$variables) {
+  if (!empty($variables['table']['#header']) && isset($variables['description']['content'])) {
+    // Find description (help text) and move to header.
+    // Div because some help text prints as multiple <p> tags.
+    // @see paragraphs_preprocess_field_multiple_value_form()
+    $variables['table']['#header'][0]['data']['description'] = [
+      '#type' => 'html_tag',
+      '#tag' => 'div',
+      '#value' => $variables['description']['content'],
+      '#attributes' => [
+        'class' => ['form-item__description'],
+      ],
+    ];
+    unset($variables['description']);
   }
 }
 
