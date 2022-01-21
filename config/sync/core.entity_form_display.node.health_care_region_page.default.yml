@@ -19,6 +19,7 @@ dependencies:
     - field.field.node.health_care_region_page.field_other_va_locations
     - field.field.node.health_care_region_page.field_related_links
     - field.field.node.health_care_region_page.field_twitter
+    - field.field.node.health_care_region_page.field_va_health_connect_phone
     - field.field.node.health_care_region_page.field_vamc_ehr_system
     - field.field.node.health_care_region_page.field_vamc_system_official_name
     - node.type.health_care_region_page
@@ -166,7 +167,6 @@ third_party_settings:
       region: content
     group_meta_tags:
       children:
-        - field_meta_title
         - field_description
       parent_name: ''
       weight: 1
@@ -215,6 +215,8 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
+      linkit_profile: default
+      linkit_auto_link_text: false
     third_party_settings: {  }
     type: linkit
     region: content
@@ -223,6 +225,8 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
+      linkit_profile: default
+      linkit_auto_link_text: false
     third_party_settings: {  }
     type: linkit
     region: content
@@ -247,6 +251,8 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
+      linkit_profile: default
+      linkit_auto_link_text: false
     third_party_settings: {  }
     type: linkit
     region: content
@@ -312,6 +318,8 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
+      linkit_profile: default
+      linkit_auto_link_text: false
     third_party_settings: {  }
     type: linkit
     region: content
@@ -365,6 +373,7 @@ hidden:
   field_links: true
   field_meta_tags: true
   field_sign_up_for_emergency_emai: true
+  field_va_health_connect_phone: true
   field_vamc_ehr_system: true
   promote: true
   sticky: true
