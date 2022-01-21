@@ -8,20 +8,41 @@
 (function (Drupal) {
   Drupal.behaviors.vaGovServiceLocationAddress = {
     attach: function attach(context) {
+      function addressRequired(address, action) {
+        var labels = address.querySelectorAll(".form-item label");
+        labels.forEach(function (label) {
+          if (!label.classList.contains("visually-hidden")) {
+            if (action === "yes") {
+              label.classList.add("js-form-required", "form-required");
+              label.nextElementSibling.classList.add("required");
+              label.nextElementSibling.setAttribute("required", "required");
+            } else {
+              label.classList.remove("js-form-required", "form-required");
+              label.nextElementSibling.classList.remove("required");
+              label.nextElementSibling.removeAttribute("required");
+            }
+          }
+        });
+      }
+
       var checkboxes = document.querySelectorAll(".paragraph-type--service-location-address .form-checkbox");
       checkboxes.forEach(function (check) {
         var address = check.parentElement.parentElement.nextElementSibling;
 
         if (check.checked) {
           address.style.display = "none";
+          addressRequired(address, "no");
         } else {
           address.style.display = "block";
+          addressRequired(address, "yes");
         }
         check.addEventListener("click", function () {
           if (check.checked) {
             address.style.display = "none";
+            addressRequired(address, "no");
           } else {
             address.style.display = "block";
+            addressRequired(address, "yes");
           }
         });
       });
