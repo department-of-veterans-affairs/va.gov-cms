@@ -2,8 +2,6 @@
 core:
   css:
     theme:
-      dist/styles.css:
-        minified: true
   js:
     assets/js/anchor_links.js: {}
     assets/js/tabledrag.js: {}
@@ -33,6 +31,10 @@ proofing:
         minified: true
   js:
     assets/js/vagovclaro.theme.help.js: {}
+  dependencies:
+    - core/drupal
+    - va_gov_backend/tippy_popover_theme
+    - va_gov_backend/tippyjs
 
 whatsnew:
   css:
