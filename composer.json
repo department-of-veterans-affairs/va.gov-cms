@@ -173,7 +173,7 @@
         "symfony/process": "^4.0",
         "symfony/routing": "^4.0",
         "traviscarden/behat-table-comparison": "~0.2",
-        "va-gov/content-build": "^0.0.2333",
+        "va-gov/content-build": "^0.0.2360",
         "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
@@ -374,7 +374,8 @@
                 "2915792 - MenuLinkContentAccessControlHandler does not allow \"view\" access without admin permission": "patches/drupal-core-menu-link-perm-mr-339.patch",
                 "2421145 - Text format wrapper does not take description_display into account": "https://www.drupal.org/files/issues/2021-12-03/2421445-18_0.patch",
                 "Internal Claro tweaks": "patches/claro-css-tweaks.patch",
-                "3176625 - Install from existing config with a theme that declares module dependencies fails": "https://www.drupal.org/files/issues/2021-05-18/fix_ConfigImportSubscriber_validateThemes-3176625-29.patch"
+                "3176625 - Install from existing config with a theme that declares module dependencies fails": "https://www.drupal.org/files/issues/2021-05-18/fix_ConfigImportSubscriber_validateThemes-3176625-29.patch",
+                "3099026 - Claro's preprocessing of field multiple value form's table header cell removes potential changes by others": "https://www.drupal.org/files/issues/2020-02-20/3099026-9.patch"
             },
             "drupal/entity_browser": {
                 "Entity display plugin Rendered Entity is missing cache tags/keys": "https://www.drupal.org/files/issues/2020-03-31/rendered-entity-cache-keys-tags-3123876-2.patch",
@@ -471,7 +472,8 @@
                 "Copying caption to value breaks some data exports https://www.drupal.org/project/tablefield/issues/3195203": "https://www.drupal.org/files/issues/2021-01-28/tablefield-caption-copied-to-value-3195203-2.patch"
             },
             "drupal/textfield_counter": {
-                "Prevent form submission when character limit exceeded option does not work": "https://www.drupal.org/files/issues/2018-10-04/textfield_counter-prevent_form_submission_does_not_work-3004457-2.patch"
+                "Prevent form submission when character limit exceeded option does not work": "https://www.drupal.org/files/issues/2018-10-04/textfield_counter-prevent_form_submission_does_not_work-3004457-2.patch",
+                "Incompatibilities with Claro and Claro-based (e.g. Gin) themes\n": "https://git.drupalcode.org/project/textfield_counter/-/merge_requests/1.patch"
             },
             "drupal/viewfield": {
               "Add option to display default view on node edit when always use default value selected": "https://www.drupal.org/files/issues/2021-12-15/viewfield-option-display-default-view-on-node-edit-3252356-4.patch"

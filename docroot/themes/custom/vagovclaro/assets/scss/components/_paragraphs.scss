@@ -20,6 +20,10 @@
   grid-template-columns: auto auto 1fr auto;
 }
 
+.js .field--widget-paragraphs .draggable .tabledrag-handle {
+  vertical-align: text-top;
+}
+
 // Form filters inside paragraph browser modal
 .paragraphs-browser-wrapper .form-item {
   display: inline-block;
@@ -36,4 +40,9 @@
 
 .form-item--multiple .field-add-more-submit {
   margin-bottom: var(--space-m);
+}
+
+// adjust focus state for items in paragraph dropdown. !important to beat core/themes/claro/css/components/button.css
+.paragraphs-dropdown-action.button:focus {
+  border: 2px solid var(--color-focus) !important;
 }
