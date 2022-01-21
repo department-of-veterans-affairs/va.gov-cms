@@ -118,3 +118,19 @@ p.vc-help-text {
 .linkit-result-line:hover .linkit-result-line--title {
   color: var(--color-white);
 }
+
+.filter-help {
+  margin-right: var(--space-l);
+  position: relative;
+}
+
+.filter-help a::after {
+  background: transparent url('../../../../../core/misc/help.png');
+  content: '';
+  display: block;
+  height: 16px;
+  position: absolute;
+  right: -20px;
+  top: 4px;
+  width: 16px;
+}
