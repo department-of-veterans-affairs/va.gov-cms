@@ -70,6 +70,7 @@ Feature: Views
 | Rich Text Field Audit | rich_text_field_audit | Content | Enabled |  |
 | Non-clinical services | non_clinical_services | Content | Enabled | Views of non-clinical services content placed within several "Top tasks" VAMC node forms. |
 | Metatag Audit | metatag_audit | Content | Enabled |  |
+| Flagged Content | flagged_content | Content | Enabled |  |
 
   @dst @views_displays
      Scenario: Views displays
@@ -250,3 +251,5 @@ Feature: Views
 | Non-clinical services | Medical records offices | medical_records_offices | Block |
 | Metatag Audit | Default | default | Default |
 | Metatag Audit | Metatag Audit | metatag_audit | Page |
+| Flagged Content | Default | default | Default |
+| Flagged Content | Flagged Content | flagged_content | Page |

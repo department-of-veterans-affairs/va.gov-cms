@@ -1,0 +1,31 @@
+uuid: b5765259-4163-48a2-8962-bf9a890c93d3
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: changed_title
+label: 'Changed title'
+bundles:
+  - va_form
+entity_type: node
+global: true
+weight: -5
+flag_short: 'Changed title'
+flag_long: ''
+flag_message: 'The Title was changed'
+unflag_short: 'Title change resolved'
+unflag_long: 'This will remove the changed title flag'
+unflag_message: ''
+unflag_denied_text: ''
+flag_type: 'entity:node'
+link_type: reload
+flagTypeConfig:
+  show_in_links:
+    diff: diff
+  show_as_field: true
+  show_on_form: true
+  show_contextual_link: false
+  extra_permissions:
+    owner: '0'
+linkTypeConfig: {  }

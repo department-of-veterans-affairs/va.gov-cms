@@ -1,0 +1,31 @@
+uuid: c2764d22-17ff-46fe-acf8-0245f1b78dc3
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: deleted
+label: Deleted
+bundles:
+  - va_form
+entity_type: node
+global: true
+weight: -3
+flag_short: Deleted
+flag_long: ''
+flag_message: 'This item was deleted'
+unflag_short: 'Not deleted'
+unflag_long: 'This will remove the deleted flag'
+unflag_message: ''
+unflag_denied_text: ''
+flag_type: 'entity:node'
+link_type: reload
+flagTypeConfig:
+  show_in_links:
+    diff: diff
+  show_as_field: true
+  show_on_form: true
+  show_contextual_link: false
+  extra_permissions:
+    owner: '0'
+linkTypeConfig: {  }

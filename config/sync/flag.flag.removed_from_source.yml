@@ -1,0 +1,36 @@
+uuid: 7256ef18-89cb-4105-8db1-2734cfad511c
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: removed_from_source
+label: 'Removed from source'
+bundles:
+  - health_care_local_facility
+  - nca_facility
+  - vba_facility
+  - vet_center
+  - vet_center_mobile_vet_center
+  - vet_center_outstation
+entity_type: node
+global: true
+weight: -8
+flag_short: 'Removed from source'
+flag_long: ''
+flag_message: 'This item was removed from source'
+unflag_short: 'Not removed from source'
+unflag_long: 'This will remove the removed from source flag'
+unflag_message: ''
+unflag_denied_text: ''
+flag_type: 'entity:node'
+link_type: reload
+flagTypeConfig:
+  show_in_links:
+    diff: diff
+  show_as_field: true
+  show_on_form: true
+  show_contextual_link: false
+  extra_permissions:
+    owner: '0'
+linkTypeConfig: {  }
