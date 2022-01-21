@@ -1,0 +1,26 @@
+uuid: e5ff4c9e-4f4b-4b43-8f4b-3030ae53b566
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_va_health_connect_phone
+    - node.type.health_care_region_page
+  module:
+    - epp
+    - telephone
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 1
+id: node.health_care_region_page.field_va_health_connect_phone
+field_name: field_va_health_connect_phone
+entity_type: node
+bundle: health_care_region_page
+label: 'VA health connect phone number'
+description: 'To request changes, <a href="mailto:support@va-gov.atlassian.net?subject=Inaccurate map thumbnail&amp;body=My VA health connect phone number is incorrect.">Email the CMS Support Team</a>.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone
