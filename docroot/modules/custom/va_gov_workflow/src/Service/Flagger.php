@@ -137,8 +137,9 @@ class Flagger {
   /**
    * Flag if a specific field changed.
    *
-   * @param string $fieldname
-   *   The machine name of field to check for changes.
+   * @param string|array $fieldname
+   *   The machine name of field to check for changes. or an array of field name
+   *   followed by field property.
    * @param string $flag_id
    *   The machine name of the flag to set.
    * @param \Drupal\node\NodeInterface $node
@@ -147,13 +148,13 @@ class Flagger {
    *   The message to append to the revision log.
    */
   public function flagFieldChanged($fieldname, $flag_id, NodeInterface $node, $log_message) {
-    $original = $node->original ?? NULL;
+    $original = $this->getPreviousRevision($node);
     if (!$original) {
       // There is nothing to compare, so bail out.
       return;
     }
-    $new_value = $node->get($fieldname)->value;
-    $old_value = $original->get($fieldname)->value;
+    $new_value = (is_array($fieldname)) ? $node->get($fieldname[0])->{$fieldname[1]} : $node->get($fieldname)->value;
+    $old_value = (is_array($fieldname)) ? $original->get($fieldname[0])->{$fieldname[1]} : $original->get($fieldname)->value;
     // Loose comparison needed because sometimes new is 0 and old is '0'.
     if ($new_value != $old_value) {
       // The field changed.  Set the flag.
@@ -190,14 +191,7 @@ class Flagger {
 
       if ($flag_message) {
         $nid = $flagging->get('entity_id')->value;
-        $vid = $this->entityTypeManager
-          ->getStorage('node')
-          ->getLatestRevisionId($nid);
-        // The latest revision of the flagged node.
-        /** @var \Drupal\node\NodeInterface $revision */
-        $revision = $this->entityTypeManager
-          ->getStorage('node')
-          ->loadRevision($vid);
+        $revision = $this->getLatestRevision($nid);
         $log_message = $revision->get('revision_log')->value;
         $revision->set('revision_log', "{$flag_message} {$log_message}");
         // Avoid creating a new revision.  Just update the existing message.
@@ -207,6 +201,52 @@ class Flagger {
         $revision->save();
       }
     }
+  }
+
+  /**
+   * Get the lastest revision of the node.
+   *
+   * @param int $nid
+   *   The node id for the revision to get.
+   *
+   * @return \Drupal\node\NodeInterface
+   *   The latest revision.
+   */
+  protected function getLatestRevision(int $nid) {
+    $vid = $this->entityTypeManager
+      ->getStorage('node')
+      ->getLatestRevisionId($nid);
+    // The latest revision of the flagged node.
+    /** @var \Drupal\node\NodeInterface $revision */
+    $revision = $this->entityTypeManager
+      ->getStorage('node')
+      ->loadRevision($vid);
+
+    return $revision;
+  }
+
+  /**
+   * Gets the previous revision.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The current node being operated on.
+   *
+   * @return \Drupal\node\NodeInterface
+   *   Either the true Original (default Revision) or the latest revision.
+   */
+  protected function getPreviousRevision(NodeInterface $node) {
+    $original = $node->original ?? NULL;
+    // PROBLEM: original is the default revision, so it may look like a
+    // continual change if previous save was draft on a published revision.
+    $was_published = ($original instanceof NodeInterface) ? $original->isPublished() : FALSE;
+    if ($was_published) {
+      // Then original might not be the most recent draft revision.
+      // Get the latest revision to be sure.
+      $nid = $node->id();
+      $original = $this->getLatestRevision($nid);
+    }
+
+    return $original;
   }
 
 }

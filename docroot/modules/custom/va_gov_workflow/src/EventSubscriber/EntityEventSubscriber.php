@@ -147,7 +147,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     if ($entity->bundle() === 'va_form') {
       $this->flagger->flagNew('new_form', $entity, "This VA Form was added to the Forms DB.");
       $this->flagger->flagFieldChanged('field_va_form_title', 'changed_title', $entity, "The form title of this form changed from '@old' to '@new' in the Forms DB.");
-      $this->flagger->flagFieldChanged('field_va_form_url', 'changed_filename', $entity, "The file name (URL) of this form changed from '@old' to '@new' in the Forms DB.");
+      $this->flagger->flagFieldChanged(['field_va_form_url', 'uri'], 'changed_filename', $entity, "The file name (URL) of this form changed from '@old' to '@new' in the Forms DB.");
       $this->flagger->flagFieldChanged('field_va_form_deleted', 'deleted', $entity, "The form was marked as deleted in the Forms DB.");
     }
   }
