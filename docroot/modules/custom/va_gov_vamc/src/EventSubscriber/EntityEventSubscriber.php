@@ -2,7 +2,7 @@
 
 namespace Drupal\va_gov_vamc\EventSubscriber;
 
-use Drupal\core_event_dispatcher\Event\Entity\EntityCreateEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
@@ -28,7 +28,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       // React on Op status forms.
       'hook_event_dispatcher.form_node_vamc_operating_status_and_alerts_form.alter' => 'alterOpStatusNodeForm',
       'hook_event_dispatcher.form_node_vamc_operating_status_and_alerts_edit_form.alter' => 'alterOpStatusNodeForm',
-      HookEventDispatcherInterface::ENTITY_CREATE => 'entityCreate',
+      HookEventDispatcherInterface::ENTITY_INSERT => 'entityInsert',
       HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'entityPresave',
       HookEventDispatcherInterface::ENTITY_UPDATE => 'entityUpdate',
       'hook_event_dispatcher.form_node_full_width_banner_alert_form.alter' => 'alterFullWidthBannerNodeForm',
@@ -108,7 +108,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The event.
    */
   public function entityPresave(EntityPresaveEvent $event): void {
-    // Do some fancy stuff with new entity.
     $entity = $event->getEntity();
     $this->contentHardeningDeduper->removeDuplicate($entity);
   }
@@ -135,10 +134,10 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   /**
    * Entity create Event call.
    *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityCreateEvent $event
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent $event
    *   The event.
    */
-  public function entityCreate(EntityCreateEvent $event): void {
+  public function entityInsert(EntityInsertEvent $event): void {
     $entity = $event->getEntity();
 
     if ($this->isFlaggableFacility($entity)) {

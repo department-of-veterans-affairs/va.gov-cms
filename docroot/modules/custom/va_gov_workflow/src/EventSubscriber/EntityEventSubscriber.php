@@ -2,7 +2,7 @@
 
 namespace Drupal\va_gov_workflow\EventSubscriber;
 
-use Drupal\core_event_dispatcher\Event\Entity\EntityCreateEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormBaseAlterEvent;
@@ -48,7 +48,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public static function getSubscribedEvents(): array {
     return [
       'hook_event_dispatcher.form_base_node_form.alter' => 'alterNodeForm',
-      HookEventDispatcherInterface::ENTITY_CREATE => 'entityCreate',
+      HookEventDispatcherInterface::ENTITY_INSERT => 'entityInsert',
       HookEventDispatcherInterface::ENTITY_DELETE => 'entityDelete',
       HookEventDispatcherInterface::ENTITY_UPDATE => 'entityUpdate',
     ];
@@ -134,12 +134,12 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Entity Create Event call.
+   * Entity Insert Event call.
    *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityCreateEvent $event
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent $event
    *   The event.
    */
-  public function entityCreate(EntityCreateEvent $event): void {
+  public function entityInsert(EntityInsertEvent $event): void {
     $entity = $event->getEntity();
 
     if ($entity->getEntityTypeId() === 'flagging') {

@@ -88,16 +88,23 @@ class Flagger {
   public function updateRevisonLog(int $nid, $message, array $msg_vars = [], $prepend = FALSE) {
     if (!empty($message) && !$this->isTestData()) {
       $revision = $this->getLatestRevision($nid);
-      $existing_message = $revision->get('revision_log')->value;
-      $log_update = new FormattableMarkup($message, $msg_vars);
-      $newline = (empty($existing_message)) ? '' : PHP_EOL;
-      $existing_message = ($prepend) ? "{$log_update}{$newline} {$existing_message}" : "{$existing_message} {$newline}{$log_update}";
-      $revision->set('revision_log', $existing_message);
-      // Avoid creating a new revision.  Just update the existing message.
-      $revision->setNewRevision(FALSE);
-      $revision->enforceIsNew(FALSE);
-      $revision->setSyncing(TRUE);
-      $revision->save();
+      if ($revision) {
+        $existing_message = $revision->getRevisionLogMessage();
+        $log_update = new FormattableMarkup($message, $msg_vars);
+        $log_update = $log_update->__toString();
+        // Prevent recursive messaging.
+        if (strpos($existing_message, $log_update) === FALSE) {
+          // The message does not exist previously, so add it.
+          $newline = (empty($existing_message)) ? '' : PHP_EOL;
+          $existing_message = ($prepend) ? "{$log_update}{$newline} {$existing_message}" : "{$existing_message} {$newline}{$log_update}";
+          $revision->setRevisionLogMessage($existing_message);
+          // Avoid creating a new revision.  Just update the existing message.
+          $revision->setNewRevision(FALSE);
+          $revision->enforceIsNew(FALSE);
+          $revision->setSyncing(TRUE);
+          $revision->save();
+        }
+      }
     }
   }
 
@@ -129,15 +136,11 @@ class Flagger {
    */
   public function flagNew($flag_id, NodeInterface $node, $log_message = '') {
     $first_save = (empty($node->original)) ? TRUE : FALSE;
-    if ($node->isNew()) {
+    if ($node->isNew() || $first_save) {
       // Can't actually set the flag, because no node id yet.
       // Just set the message. The flag will be set in entityCreate event.
-      $flag = $this->flagService->getFlagById($flag_id);
-      $this->appendLog($node, $log_message);
-    }
-    elseif ($first_save) {
-      // The message was set in presave, now we are in insert, so set flag.
       $this->setFlag($flag_id, $node);
+      $this->updateRevisonLog($node->id(), $log_message);
     }
   }
 
