@@ -11,6 +11,7 @@
   margin: var(--space-s) var(--space-xs) var(--space-s) 0;
 }
 
+// help text on a non-white background needs more contrast
 .claro-details__wrapper--accordion-item .form-item__description {
   color: var(--input-fg-color-description--alt);
 }
@@ -119,6 +120,7 @@ p.vc-help-text {
   color: var(--color-white);
 }
 
+// question mark icon for text formats
 .filter-help {
   margin-right: var(--space-l);
   position: relative;
@@ -141,4 +143,13 @@ p.vc-help-text {
 
 .form-item--error-message {
   color: var(--color-error);
+}
+
+// focus states
+.form-element:focus {
+  box-shadow: 0 0 0 3px var(--color-focus);
+}
+
+.form-element:hover:focus {
+  box-shadow: 0 0 0 3px var(--color-focus), inset 0 0 0 var(--input-border-size) var(--input--hover-border-color);
 }
