@@ -2,8 +2,9 @@
 
 namespace Drupal\va_gov_vamc\EventSubscriber;
 
-use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityCreateEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Session\AccountInterface;
@@ -27,8 +28,9 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       // React on Op status forms.
       'hook_event_dispatcher.form_node_vamc_operating_status_and_alerts_form.alter' => 'alterOpStatusNodeForm',
       'hook_event_dispatcher.form_node_vamc_operating_status_and_alerts_edit_form.alter' => 'alterOpStatusNodeForm',
+      HookEventDispatcherInterface::ENTITY_CREATE => 'entityCreate',
       HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'entityPresave',
-      HookEventDispatcherInterface::ENTITY_INSERT => 'entityInsert',
+      HookEventDispatcherInterface::ENTITY_UPDATE => 'entityUpdate',
       'hook_event_dispatcher.form_node_full_width_banner_alert_form.alter' => 'alterFullWidthBannerNodeForm',
       'hook_event_dispatcher.form_node_full_width_banner_alert_edit_form.alter' => 'alterFullWidthBannerNodeForm',
       'hook_event_dispatcher.form_node_regional_health_care_service_des_form.alter' => 'alterRegionalHealthCareServiceDesNodeForm',
@@ -109,6 +111,16 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     // Do some fancy stuff with new entity.
     $entity = $event->getEntity();
     $this->contentHardeningDeduper->removeDuplicate($entity);
+  }
+
+  /**
+   * Entity update Event call.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent $event
+   *   The event.
+   */
+  public function entityUpdate(EntityUpdateEvent $event): void {
+    $entity = $event->getEntity();
 
     if ($this->isFlaggableFacility($entity)) {
       if ($entity->bundle() === 'vet_center') {
@@ -117,24 +129,20 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       else {
         $this->flagger->flagFieldChanged('title', 'changed_name', $entity, "The title of this facility changed from '@old' to '@new'.");
       }
-      $this->flagger->flagNew('new', $entity, "This facility is new and needs the 'new facility' runbook.");
     }
   }
 
   /**
-   * Entity insert Event call.
+   * Entity create Event call.
    *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent $event
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityCreateEvent $event
    *   The event.
    */
-  public function entityInsert(EntityInsertEvent $event): void {
-    // Do some fancy stuff with new entity.
+  public function entityCreate(EntityCreateEvent $event): void {
     $entity = $event->getEntity();
 
     if ($this->isFlaggableFacility($entity)) {
-      // This is repeated from presave because it has to set the flag AFTER
-      // save, since there is no nid during presave. The revision_log was set.
-      $this->flagger->flagNew('new', $entity);
+      $this->flagger->flagNew('new', $entity, "This facility is new and needs the 'new facility' runbook.");
     }
   }
 

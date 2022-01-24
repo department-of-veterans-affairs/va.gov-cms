@@ -54,10 +54,9 @@ class Flagger {
    *   Message vars.
    */
   public function setFlag($flag_id, NodeInterface $node, $log_message = '', array $vars = []) {
-    // Defend against presave of new node resulting in no nid.
-    // A flag save can not happen if there is no nid, so don't operate
-    // on a new node.
-    if (!$node->isNew()) {
+    // Don't set flags on a syncing operation, like updating a revision log
+    // after the fact, or we end up with recursion.
+    if (!$node->isSyncing()) {
       $flag = $this->flagService->getFlagById($flag_id);
       if ($flag && !$this->isTestData()) {
         // NOTE:  This setting of the flag only works in non-form based node
@@ -67,30 +66,38 @@ class Flagger {
         if (!$flag->isFlagged($node)) {
           // Has not already been flagged, proceed to flag it.
           $this->flagService->flag($flag, $node);
+          $this->updateRevisonLog($node->id(), $log_message, $vars);
         }
 
       }
     }
-
-    $this->appendLog($node, $log_message, $vars);
   }
 
   /**
-   * Appends a message to the revision log of the node.
+   * Updates a message to the revision log of the latest node revision.
    *
-   * @param \Drupal\node\NodeInterface $node
+   * @param int $nid
    *   The node that needs the revision log appended.
-   * @param string $log_message
+   * @param string $message
    *   The log message to append. (placeholders allowed)
-   * @param array $vars
+   * @param array $msg_vars
    *   Array of vars to put in message.
+   * @param bool $prepend
+   *   TRUE prepends the message to the revision log, FALSE appends msg.
    */
-  public function appendLog(NodeInterface $node, $log_message, array $vars = []) {
-    if (!empty($log_message) && !$this->isTestData()) {
-      $revision_log = $node->get('revision_log')->value;
-      $log_entry = new FormattableMarkup($log_message, $vars);
-      $revision_log .= (empty($revision_log)) ? $log_entry : PHP_EOL . $log_entry;
-      $node->set('revision_log', $revision_log);
+  public function updateRevisonLog(int $nid, $message, array $msg_vars = [], $prepend = FALSE) {
+    if (!empty($message) && !$this->isTestData()) {
+      $revision = $this->getLatestRevision($nid);
+      $existing_message = $revision->get('revision_log')->value;
+      $log_update = new FormattableMarkup($message, $msg_vars);
+      $newline = (empty($existing_message)) ? '' : PHP_EOL;
+      $existing_message = ($prepend) ? "{$log_update}{$newline} {$existing_message}" : "{$existing_message} {$newline}{$log_update}";
+      $revision->set('revision_log', $existing_message);
+      // Avoid creating a new revision.  Just update the existing message.
+      $revision->setNewRevision(FALSE);
+      $revision->enforceIsNew(FALSE);
+      $revision->setSyncing(TRUE);
+      $revision->save();
     }
   }
 
@@ -149,7 +156,7 @@ class Flagger {
    */
   public function flagFieldChanged($fieldname, $flag_id, NodeInterface $node, $log_message) {
     $original = $this->getPreviousRevision($node);
-    if (!$original) {
+    if (!$original || $node->isSyncing) {
       // There is nothing to compare, so bail out.
       return;
     }
@@ -183,44 +190,47 @@ class Flagger {
       $flagname = $flag->get('flag_short');
 
       if ($operation === 'create') {
-        $flag_message = "Flagged: {$flagname}" . PHP_EOL;
+        $flag_message = "Flagged: {$flagname}";
       }
       elseif ($operation === 'delete') {
-        $flag_message = "Flag removed: {$flagname}" . PHP_EOL;
+        $flag_message = "Flag removed: {$flagname}";
       }
 
       if ($flag_message) {
         $nid = $flagging->get('entity_id')->value;
-        $revision = $this->getLatestRevision($nid);
-        $log_message = $revision->get('revision_log')->value;
-        $revision->set('revision_log', "{$flag_message} {$log_message}");
-        // Avoid creating a new revision.  Just update the existing message.
-        $revision->setNewRevision(FALSE);
-        $revision->enforceIsNew(FALSE);
-        $revision->setSyncing(TRUE);
-        $revision->save();
+        $this->updateRevisonLog($nid, $flag_message, [], TRUE);
       }
     }
   }
 
   /**
-   * Get the lastest revision of the node.
+   * Get the latest revision of the node.
    *
    * @param int $nid
    *   The node id for the revision to get.
+   * @param \Drupal\node\NodeInterface|null $node
+   *   Optional, if $node is provided it is an indication that we have the
+   *   current revision, so we have to go get the previous revision.
    *
    * @return \Drupal\node\NodeInterface
    *   The latest revision.
    */
-  protected function getLatestRevision(int $nid) {
-    $vid = $this->entityTypeManager
-      ->getStorage('node')
-      ->getLatestRevisionId($nid);
+  protected function getLatestRevision(int $nid, $node = NULL) {
+    $storage = $this->entityTypeManager
+      ->getStorage('node');
+    if ($node) {
+      $vids = $storage->revisionIds($node);
+      $previous_vid = $vids[count($vids) - 2];
+    }
+    else {
+      $previous_vid = $storage->getLatestRevisionId($nid);
+    }
+
     // The latest revision of the flagged node.
     /** @var \Drupal\node\NodeInterface $revision */
     $revision = $this->entityTypeManager
       ->getStorage('node')
-      ->loadRevision($vid);
+      ->loadRevision($previous_vid);
 
     return $revision;
   }
@@ -243,7 +253,7 @@ class Flagger {
       // Then original might not be the most recent draft revision.
       // Get the latest revision to be sure.
       $nid = $node->id();
-      $original = $this->getLatestRevision($nid);
+      $original = $this->getLatestRevision($nid, $node);
     }
 
     return $original;
