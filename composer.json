@@ -546,6 +546,7 @@
             "@va:start"
         ],
         "va:theme:compile": [
+            "cd bin && ln -sf ../docroot/libraries/yarn/bin/yarn yarn",
             "export NODE_EXTRA_CA_CERTS=/etc/pki/tls/certs/ca-bundle.crt PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=TRUE; cd docroot/core && yarn install",
             "cd docroot/core && yarn build:css",
             "cd docroot/themes/custom/vagovadmin && yarn install && yarn build",
