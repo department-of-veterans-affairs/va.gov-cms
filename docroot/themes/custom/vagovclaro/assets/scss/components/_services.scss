@@ -51,4 +51,30 @@
       border-bottom: hidden;
     }
   }
+
+  // explicit width prevents fields from overlapping right rail
+  .text-full {
+    width: 100%;
+  }
+
+  // Spacing updates for this nested form
+  tr .form-item,
+  .claro-details__wrapper {
+    margin-top: 0;
+  }
+}
+
+#field-service-location-address-values,
+.js .field--widget-paragraphs .field-multiple-table {
+  margin: 0;
+}
+
+#field-service-location-values {
+  .js .paragraphs-subform {
+    margin-top: 0;
+  }
+
+  .js .field--widget-paragraphs td {
+    padding: 0 !important;
+  }
 }
