@@ -32,21 +32,42 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Disable fields on Banner node form.
+   * Alter Banner node form.
    *
    * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
    *   The event.
    */
   public function alterBannerNodeForm(FormIdAlterEvent $event): void {
     $form = &$event->getForm();
-    if (!$this->userPermsService->hasAdminRole()) {
-      $form['field_target_paths']['#disabled'] = TRUE;
-    }
+    $this->disablePathsField($form);
     // Fixes href on missing path constraint jump link.
     $form['#attached']['library'][] = 'va_gov_banner/fix_constraint_jump_link';
     // Ensures users add revision message on edit.
     if ($form['#form_id'] === 'node_banner_edit_form') {
       $this->requireRevisionMessage($event);
+    }
+  }
+
+  /**
+   * Alter Promo banner node form.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function alterPromoBlockForm(FormIdAlterEvent $event): void {
+    $form = &$event->getForm();
+    $this->disablePathsField($form);
+  }
+
+  /**
+   * Disable the url paths field on entity forms.
+   *
+   * @param array $form
+   *   The entity form.
+   */
+  public function disablePathsField(array &$form): void {
+    if (!$this->userPermsService->hasAdminRole()) {
+      $form['field_target_paths']['#disabled'] = TRUE;
     }
   }
 
@@ -57,11 +78,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The event.
    */
   public function alterPathFieldInfo(EntityBundleFieldInfoAlterEvent $event): void {
-    $type = $event->getEntityType();
-    $bundle = $event->getBundle();
-    $target_bundles = ['banner', 'promo_banner'];
     $fields = $event->getFields();
-    if ($type->get('id') === 'node' && in_array($bundle, $target_bundles) && isset($fields['field_target_paths'])) {
+    if (isset($fields['field_target_paths'])) {
       $fields['field_target_paths']->addConstraint('RequireScope');
     }
   }
@@ -88,6 +106,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       // React on banner forms.
       'hook_event_dispatcher.form_node_banner_form.alter' => 'alterBannerNodeForm',
       'hook_event_dispatcher.form_node_banner_edit_form.alter' => 'alterBannerNodeForm',
+      'hook_event_dispatcher.form_node_promo_banner_form.alter' => 'alterPromoBlockForm',
+      'hook_event_dispatcher.form_node_promo_banner_edit_form.alter' => 'alterPromoBlockForm',
       HookEventDispatcherInterface::ENTITY_BUNDLE_FIELD_INFO_ALTER => 'alterPathFieldInfo',
     ];
   }
