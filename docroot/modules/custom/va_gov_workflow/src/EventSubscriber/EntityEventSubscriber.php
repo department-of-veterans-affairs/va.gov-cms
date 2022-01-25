@@ -48,8 +48,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public static function getSubscribedEvents(): array {
     return [
       'hook_event_dispatcher.form_base_node_form.alter' => 'alterNodeForm',
-      HookEventDispatcherInterface::ENTITY_INSERT => 'entityInsert',
       HookEventDispatcherInterface::ENTITY_DELETE => 'entityDelete',
+      HookEventDispatcherInterface::ENTITY_INSERT => 'entityInsert',
       HookEventDispatcherInterface::ENTITY_UPDATE => 'entityUpdate',
     ];
   }
@@ -75,7 +75,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Entity presave Event call.
+   * Entity update Event call.
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent $event
    *   The event.

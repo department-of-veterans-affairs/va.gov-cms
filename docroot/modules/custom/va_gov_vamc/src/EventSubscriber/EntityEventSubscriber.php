@@ -132,7 +132,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Entity create Event call.
+   * Entity insert Event call.
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent $event
    *   The event.

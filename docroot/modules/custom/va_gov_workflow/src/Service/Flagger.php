@@ -177,7 +177,7 @@ class Flagger {
   }
 
   /**
-   * Logs a flag operation on the the node revision log.
+   * Logs a flag operation on the node revision log.
    *
    * @param \Drupal\flag\Entity\Flagging $flagging
    *   The drupal node to examine.
@@ -199,7 +199,7 @@ class Flagger {
         $flag_message = "Flag removed: {$flagname}";
       }
 
-      if ($flag_message) {
+      if (!empty($flag_message)) {
         $nid = $flagging->get('entity_id')->value;
         $this->updateRevisonLog($nid, $flag_message, [], TRUE);
       }
