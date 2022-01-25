@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_graphql\Access;
 
 use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Access\AccessResultInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\menu_link_content\MenuLinkContentAccessControlHandler;
@@ -35,6 +36,23 @@ class MenuLinkContentAccessHandler extends MenuLinkContentAccessControlHandler {
     }
 
     return parent::checkAccess($entity, $operation, $account);
+  }
+
+  /**
+   * Handle workbench_menu_access's incorrect call to access check.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The menu link.
+   * @param string $operation
+   *   The operation being performed.
+   * @param \Drupal\Core\Session\AccountInterface $account
+   *   The user account for which access is being checked.
+   *
+   * @return \Drupal\Core\Access\AccessResultInterface
+   *   The access result.
+   */
+  public function accessCheck(EntityInterface $entity, $operation, AccountInterface $account) : AccessResultInterface {
+    return $this->checkAccess($entity, $operation, $account);
   }
 
 }
