@@ -19,6 +19,15 @@
   }
 }
 
+// Colors scope sections on node view page
+.paragraph--type--centralized-content-descriptor fieldset {
+  background-color: var(--color-gray-lightest);
+
+  legend {
+    text-transform: uppercase;
+  }
+}
+
 // non-admin users shouldn't be able to edit centralized content, lots of minor tweaks for them
 .centralized-content {
   tr {
@@ -36,7 +45,7 @@
       display: none;
     }
 
-    #block-vagovclaro-content .layout-region-node-main {
+    #block-vagovclaro-content .layout-region--node-main {
       display: block;
 
       .js-form-type-textarea .js-form-required.form-required,
@@ -62,13 +71,6 @@
       .cc-special-treatment-paragraph {
         height: 0;
         visibility: hidden;
-      }
-
-      .paragraph-type--wysiwyg {
-        td:nth-child(2) {
-          display: block;
-          width: 100%;
-        }
       }
 
       .cc-wysi-wrap {
