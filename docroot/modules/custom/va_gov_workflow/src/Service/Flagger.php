@@ -187,7 +187,7 @@ class Flagger {
   public function logFlagOperation(Flagging $flagging, $operation) {
     $type = $flagging->get('entity_type')->value;
     // Only supporting this for nodes.
-    if ($type === 'node' && !$this->isTestData()) {
+    if ($type === 'node' && $this->isLoggableFlag($flagging)) {
       /** @var \Drupal\flag\Entity\Flag $flag */
       $flag = $flagging->getFlag();
       $flagname = $flag->get('flag_short');
@@ -204,6 +204,29 @@ class Flagger {
         $this->updateRevisonLog($nid, $flag_message, [], TRUE);
       }
     }
+  }
+
+  /**
+   * Checks to see if this flag is loggable.
+   *
+   * @param \Drupal\flag\Entity\Flagging $flagging
+   *   The drupal node to examine.
+   *
+   * @return bool
+   *   TRUE if loggable. FALSE otherwise.
+   */
+  protected function isLoggableFlag(Flagging $flagging) : bool {
+    /** @var \Drupal\flag\Entity\Flag $flag */
+    $flag = $flagging->getFlag();
+    if ($this->isTestData() || !$flag->isGlobal()) {
+      // Don't log test datat changes or personal flags.
+      return FALSE;
+    }
+    $non_loggable_flags = ['edited'];
+
+    $flagname = $flag->get('flag_short');
+
+    return (in_array($flagname, $non_loggable_flags)) ? FALSE : TRUE;
   }
 
   /**
