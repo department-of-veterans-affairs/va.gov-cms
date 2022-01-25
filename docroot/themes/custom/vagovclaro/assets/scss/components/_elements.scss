@@ -18,6 +18,15 @@
   line-height: 1.0625rem;
 }
 
+.fieldset__description {
+  margin-bottom: var(--space-m);
+  margin-top: 0;
+}
+
+.form-item {
+  margin-top: 0;
+}
+
 .entities-list .item-container > input {
   display: inline-block;
   margin: var(--space-s) var(--space-xs) var(--space-s) 0;
@@ -41,8 +50,6 @@ th {
 }
 
 .table--widget-entity_reference_browser_table_widget {
-  margin-top: 25px;
-
   .moderation-status {
     font-weight: 400;
     text-transform: uppercase;
@@ -116,6 +123,10 @@ p.vc-help-text {
 
 .linkit-result-line:hover .linkit-result-line--title {
   color: var(--color-white);
+}
+
+.filter-wrapper {
+  margin: 0;
 }
 
 // question mark icon for text formats
