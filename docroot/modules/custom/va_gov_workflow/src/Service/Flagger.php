@@ -7,6 +7,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\flag\Entity\Flagging;
 use Drupal\flag\FlagService;
 use Drupal\node\NodeInterface;
+use Drupal\user\Entity\User;
 
 /**
  * Service used for controlling flags on content.
@@ -65,7 +66,7 @@ class Flagger {
         // saves because the flag is not set at that time (race condition).
         if (!$flag->isFlagged($node)) {
           // Has not already been flagged, proceed to flag it.
-          $this->flagService->flag($flag, $node);
+          $this->flagService->flag($flag, $node, $this->getAccount());
           $this->updateRevisonLog($node->id(), $log_message, $vars);
         }
 
@@ -283,6 +284,18 @@ class Flagger {
     }
 
     return $original;
+  }
+
+  /**
+   * Gets a default account for Drush based changes.
+   *
+   * @return mixed
+   *   NULL normally, but the CMS migrator account if run by CLI.
+   */
+  protected function getAccount() {
+    // In the case of CLI (a drush command), we need to provide
+    // the CMS migrator user.
+    return (PHP_SAPI === 'cli') ? User::load(1317) : NULL;
   }
 
 }
