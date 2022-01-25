@@ -40,7 +40,13 @@ function vagovclaro_theme_suggestions_page_alter(&$suggestions, $variables) {
 function vagovclaro_preprocess_form_element(&$variables) {
   // Moves help text above inputs after labels for form elements.
   if (isset($variables['description_display']) && $variables['description_display'] !== 'invisible') {
-    $variables['description_display'] = 'before';
+    // Checkboxes should keep the help text underneath. It looks better.
+    if (isset($variables['type']) && $variables['type'] === 'checkbox') {
+      $variables['description_display'] = 'after';
+    }
+    else {
+      $variables['description_display'] = 'before';
+    }
   }
 }
 
