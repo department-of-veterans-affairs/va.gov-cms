@@ -35,18 +35,6 @@ class Explorer extends Component {
           explorerIsOpen={this.state.explorerIsOpen}
           onEdit={this._handleEditQuery}
           onToggleExplorer={this._handleToggleExplorer}
-          styles={{
-            explorerActionsStyle: {
-              margin: '4px -8px -8px',
-              paddingLeft: '8px',
-              bottom: '0px',
-              width: '100%',
-              textAlign: 'center',
-              background: 'none',
-              borderTop: 'none',
-              borderBottom: 'none',
-            },
-          }}
         />
         <GraphiQL
           ref={ref => (this._graphiql = ref)}
