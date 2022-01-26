@@ -1,8 +1,9 @@
-styles:
+# Main vagovclaro library, includes global js & stylesheet
+core:
   css:
     theme:
-      assets/css/styles.css: {}
-global-scripts:
+      dist/styles.css:
+        minified: true
   js:
     assets/js/anchor_links.js: {}
     assets/js/tabledrag.js: {}
@@ -13,16 +14,23 @@ global-scripts:
     - core/drupal.tabledrag
     - va_gov_backend/tippy_popover_theme
     - va_gov_backend/tippyjs
+
+
+# Extra styles used on knowledge base pages only
 userguides:
   css:
     theme:
-      assets/css/user_guides.css: {}
-whatsnew:
-  css:
-    component:
-      assets/css/whats_new.css: { }
+      dist/user_guides.css:
+        minified: true
+
+# Toggle behavior for the login page
 login-toggle:
   js:
     assets/js/login-toggle.js: {}
     dependencies:
       - core/jquery
+
+whatsnew:
+  css:
+    component:
+      dist/whats_new.css: { }

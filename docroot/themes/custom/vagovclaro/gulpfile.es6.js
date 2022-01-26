@@ -22,7 +22,7 @@ gulp.task("sass", () => {
     .pipe(sass({ outputStyle: "compressed" }).on("error", sass.logError))
     .pipe(autoprefixer("last 2 version"))
     .pipe(sourcemaps.write("./"))
-    .pipe(gulp.dest("assets/css/"));
+    .pipe(gulp.dest("dist/"));
 });
 gulp.task("sass").description =
   "process SCSS files: compile to compressed css, add browser prefixes, create a source map, and save in assets folder";
@@ -32,7 +32,7 @@ gulp.task("sass").description =
  * Clear all drupal caches
  */
 gulp.task("clearcache", (done) => {
-  const child = spawn("lando drush cache:rebuild", {
+  const child = spawn("lando drush cache-rebuild", {
     stdio: "inherit",
     shell: "true",
   });
@@ -42,11 +42,21 @@ gulp.task("clearcache").description = "clear all Drupal caches";
 
 /**
  * @task watch
- * Watch scss, JS, and twig files for changes & recompile
- * Reload browser with browsersync to show changes
+ * Watch scss files for changes & recompile, clear drupal caches.
+ * Refresh browser to show changes (no hot reload)
  */
 gulp.task("watch", () => {
-  gulp.watch(["scss/**/*.scss"], gulp.series("sass"));
+  // usePolling necessary for file changes mounted through docker
+  const options = {
+    ignoreInitial: false,
+    usePolling: true,
+  };
+
+  gulp.watch(
+    ["assets/scss/**/*.scss"],
+    options,
+    gulp.series("sass", "clearcache")
+  );
 });
 gulp.task("watch").description = "watch SCSS";
 
