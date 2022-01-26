@@ -8,13 +8,12 @@ dependencies:
   - va_gov_backend
 base theme: claro
 ckeditor_stylesheets:
-  - assets/css/wysiwyg.css
+  - dist/wysiwyg.css
 
 # Claro's libraries need to be included here due to how Drupal handles admin sub-themes.
 # See https://www.drupal.org/project/claro/issues/3085894 for more context.
 libraries:
-  - vagovclaro/global-scripts
-  - vagovclaro/styles
+  - vagovclaro/core
   - claro/global-styling
 libraries-override:
   system/base:

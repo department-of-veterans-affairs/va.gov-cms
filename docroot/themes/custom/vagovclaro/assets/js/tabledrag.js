@@ -8,7 +8,7 @@
 (function ($, Drupal) {
   $.extend(Drupal.theme, {
     tableDragChangedWarning: function tableDragChangedWarning() {
-      return '<div class="tabledrag-changed-warning va-alert messages messages--warning" role="alert">' + Drupal.theme('tableDragChangedMarker') + ' ' + Drupal.t('You have unsaved changes.') + '</div>';
+      return "<div class=\"tabledrag-changed-warning va-alert messages messages--warning\" role=\"alert\">" + Drupal.theme("tableDragChangedMarker") + " " + Drupal.t("You have unsaved changes.") + "</div>";
     }
   });
 })(jQuery, Drupal);
