@@ -11,6 +11,11 @@
   margin: var(--space-s) var(--space-xs) var(--space-s) 0;
 }
 
+// help text on a non-white background needs more contrast
+.claro-details__wrapper--accordion-item .form-item__description {
+  color: var(--input-fg-color-description--alt);
+}
+
 th {
   .label {
     margin-bottom: 0;
@@ -84,16 +89,69 @@ p.vc-help-text {
   }
 }
 
-.eyebrow {
-  position: relative;
+.ui-widget {
+  font-family: var(--font-family-sans);
+}
 
-  &::after {
-    background-color: var(--color-warning);
-    bottom: -0.25rem;
-    content: ' ';
-    height: 4px;
-    left: 0;
-    position: absolute;
-    width: 40px;
-  }
+// linkit results should be scrollable
+.ui-autocomplete {
+  overflow: auto;
+}
+
+.linkit-result-line--title {
+  color: var(--color-text);
+}
+
+.linkit-result-line:hover .linkit-result-line--title {
+  color: var(--color-white);
+}
+
+// question mark icon for text formats
+.filter-help {
+  margin-right: var(--space-l);
+  position: relative;
+}
+
+.filter-help a::after {
+  background: transparent url('../../../../../core/misc/help.png');
+  content: '';
+  display: block;
+  height: 16px;
+  position: absolute;
+  right: -20px;
+  top: 4px;
+  width: 16px;
+}
+
+.breadcrumb__link:hover {
+  color: var(--color-blue-dark);
+}
+
+.form-item--error-message {
+  color: var(--color-error);
+}
+
+// focus states for general form inputs. fixes spacing with character counter
+.form-element:focus {
+  box-shadow: 0 0 0 3px var(--color-focus);
+}
+
+.form-element:hover:focus {
+  box-shadow: 0 0 0 3px var(--color-focus), inset 0 0 0 var(--input-border-size) var(--input--hover-border-color);
+}
+
+// Update to checkbox colors
+.form-boolean:active,
+.form-boolean:hover {
+  box-shadow: inset 0 0 0 1px var(--color-blue-darker);
+}
+
+.form-boolean:focus:active,
+.form-boolean:focus:hover {
+  box-shadow: 0 0 0 2px var(--color-white), 0 0 0 5px var(--color-focus), inset 0 0 0 1px var(--color-blue-darker);
+}
+
+.form-boolean--type-checkbox:checked:active,
+.form-boolean--type-checkbox:checked:hover {
+  background-color: var(--color-blue-darker);
 }
