@@ -75,7 +75,15 @@ display:
       style:
         type: default
         options:
-          grouping: {  }
+          grouping:
+            -
+              field: edit_node
+              rendered: true
+              rendered_strip: false
+            -
+              field: title_1
+              rendered: true
+              rendered_strip: false
           row_class: ''
           default_row_class: true
       row:
@@ -1112,7 +1120,7 @@ display:
           empty: true
           tokenize: false
           content:
-            value: 'You have not added a facility service yet. '
+            value: 'You have not added a register for care location yet. '
             format: rich_text
           plugin_id: text
       relationships:
@@ -1228,7 +1236,7 @@ display:
           empty: true
           tokenize: true
           content:
-            value: '<p><a href="/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1025&field_administration={{ arguments.field_administration_target_id }}" target="_blank">Add location (opens in a new window)</a></p>'
+            value: 'Add or edit locations where Veterans can register for care. Each location is associated with a VAMC Facility.'
             format: rich_text
           plugin_id: text
       defaults:
@@ -1238,6 +1246,8 @@ display:
         fields: false
         style: false
         row: false
+        footer: false
+        empty: false
       title: 'Register for care locations'
       arguments:
         nid:
@@ -1454,7 +1464,7 @@ display:
           exclude: true
           alter:
             alter_text: true
-            text: '{{ field_clinic_name }}'
+            text: '<strong>{{ field_clinic_name }}</strong>'
             make_link: false
             path: ''
             absolute: false
@@ -1757,63 +1767,6 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        views_conditional_field_2:
-          id: views_conditional_field_2
-          table: views_conditional
-          field: views_conditional_field
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: 'Conditional Location'
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          if: field_clinic_name
-          condition: nem
-          equalto: ''
-          then: "<h3>{{ field_clinic_name }}</h3>\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n<div>{{ title_1 }}</div>"
-          then_translate: 1
-          or: "<h3>{{ title_1 }}</h3>\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>"
-          or_translate: 1
-          strip_tags: 0
-          plugin_id: views_conditional_field
         views_conditional_field_1:
           id: views_conditional_field_1
           table: views_conditional
@@ -1865,9 +1818,9 @@ display:
           if: field_use_facility_address
           condition: eq
           equalto: 'On'
-          then: "{{ views_conditional_field_2 }}\r\n{{ field_address }}"
+          then: "{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address }}"
           then_translate: 1
-          or: "<h3>{{ field_clinic_name }}</h3>\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address_1 }}"
+          or: "{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address_1 }}"
           or_translate: 1
           strip_tags: 0
           plugin_id: views_conditional_field
@@ -2330,7 +2283,7 @@ display:
           group_type: group
           admin_label: ''
           label: ''
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -2370,7 +2323,7 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          text: 'Edit location (opens in a new window)'
+          text: 'Edit locations at this facility (opens in a new window)'
           output_url_as_text: false
           absolute: false
           entity_type: node
@@ -2378,7 +2331,15 @@ display:
       style:
         type: default
         options:
-          grouping: {  }
+          grouping:
+            -
+              field: edit_node
+              rendered: true
+              rendered_strip: false
+            -
+              field: title_1
+              rendered: true
+              rendered_strip: false
           row_class: ''
           default_row_class: true
       row:
@@ -2388,6 +2349,34 @@ display:
           inline: {  }
           separator: ''
           hide_empty: false
+      footer:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          tokenize: true
+          content:
+            value: '<p><a href="/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1025&field_administration={{ arguments.field_administration_target_id }}" target="_blank">Add facility (opens in a new window)</a></p>'
+            format: rich_text
+          plugin_id: text
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: true
+          tokenize: true
+          content:
+            value: "<p>You have not added a register for care location yet.</p>\r\n<p><a href=\"/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1025&field_administration={{ arguments.field_administration_target_id }}\" target=\"_blank\">Add location (opens in a new window)</a></p>"
+            format: rich_text
+          plugin_id: text
     cache_metadata:
       max-age: -1
       contexts:
@@ -2425,7 +2414,7 @@ display:
           empty: true
           tokenize: true
           content:
-            value: '<p><a href="/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1027&field_administration={{ arguments.field_administration_target_id }}" target="_blank">Add location (opens in a new window)</a></p>'
+            value: 'Add or edit locations where Veterans can pay their bills. Each location is associated with a VAMC Facility.'
             format: rich_text
           plugin_id: text
       defaults:
@@ -2437,6 +2426,8 @@ display:
         fields: false
         style: false
         row: false
+        footer: false
+        empty: false
       filters:
         type:
           id: type
@@ -2716,7 +2707,7 @@ display:
           exclude: true
           alter:
             alter_text: true
-            text: '<h3>{{ field_clinic_name }}</h3>'
+            text: '<strong>{{ field_clinic_name }}</strong>'
             make_link: false
             path: ''
             absolute: false
@@ -3019,63 +3010,6 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        views_conditional_field_2:
-          id: views_conditional_field_2
-          table: views_conditional
-          field: views_conditional_field
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: 'Conditional Location'
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          if: field_clinic_name
-          condition: nem
-          equalto: ''
-          then: "<h3>{{ field_clinic_name }}</h3>\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n<div>{{ title_1 }}</div>"
-          then_translate: 1
-          or: "<h3>{{ title_1 }}</h3>\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>"
-          or_translate: 1
-          strip_tags: 0
-          plugin_id: views_conditional_field
         views_conditional_field_1:
           id: views_conditional_field_1
           table: views_conditional
@@ -3127,9 +3061,9 @@ display:
           if: field_use_facility_address
           condition: eq
           equalto: 'On'
-          then: "{{ views_conditional_field_2 }}\r\n{{ field_address }}"
+          then: "{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address }}"
           then_translate: 1
-          or: "<h3>{{ field_clinic_name }}</h3>\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address_1 }}"
+          or: "{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address_1 }}"
           or_translate: 1
           strip_tags: 0
           plugin_id: views_conditional_field
@@ -3592,7 +3526,7 @@ display:
           group_type: group
           admin_label: ''
           label: ''
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -3632,7 +3566,7 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          text: 'Edit location (opens in a new window)'
+          text: 'Edit locations at this facility (opens in a new window)'
           output_url_as_text: false
           absolute: false
           entity_type: node
@@ -3640,7 +3574,15 @@ display:
       style:
         type: default
         options:
-          grouping: {  }
+          grouping:
+            -
+              field: edit_node
+              rendered: true
+              rendered_strip: false
+            -
+              field: title_1
+              rendered: true
+              rendered_strip: false
           row_class: ''
           default_row_class: true
       row:
@@ -3650,6 +3592,34 @@ display:
           inline: {  }
           separator: ''
           hide_empty: false
+      footer:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          tokenize: true
+          content:
+            value: '<p><a href="/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1027&field_administration={{ arguments.field_administration_target_id }}" target="_blank">Add facility (opens in a new window)</a></p>'
+            format: rich_text
+          plugin_id: text
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: true
+          tokenize: true
+          content:
+            value: "<p>You have not added a billing and insurance location yet.</p>\r\n<p><a href=\"/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1027&field_administration={{ arguments.field_administration_target_id }}\" target=\"_blank\">Add facility (opens in a new window)</a></p>"
+            format: rich_text
+          plugin_id: text
     cache_metadata:
       max-age: -1
       contexts:
@@ -3687,7 +3657,7 @@ display:
           empty: true
           tokenize: true
           content:
-            value: '<p><a href="/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1026&field_administration={{ arguments.field_administration_target_id }}" target="_blank">Add location (opens in a new window)</a> </p>'
+            value: 'Add or edit locations where Veterans can request medical records in person. Each location is associated with a VAMC Facility.'
             format: rich_text
           plugin_id: text
       defaults:
@@ -3697,6 +3667,8 @@ display:
         arguments: false
         fields: false
         title: false
+        footer: false
+        empty: false
       filters:
         type:
           id: type
@@ -3976,7 +3948,7 @@ display:
           exclude: true
           alter:
             alter_text: true
-            text: '<h3>{{ field_clinic_name }}</h3>'
+            text: '<strong>{{ field_clinic_name }}</strong>'
             make_link: false
             path: ''
             absolute: false
@@ -4279,63 +4251,6 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        views_conditional_field_2:
-          id: views_conditional_field_2
-          table: views_conditional
-          field: views_conditional_field
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: 'Conditional Location'
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          if: field_clinic_name
-          condition: nem
-          equalto: ''
-          then: "<h3>{{ field_clinic_name }}</h3>\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n<div>{{ title_1 }}</div>"
-          then_translate: 1
-          or: "<h3>{{ title_1 }}</h3>\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>"
-          or_translate: 1
-          strip_tags: 0
-          plugin_id: views_conditional_field
         views_conditional_field_1:
           id: views_conditional_field_1
           table: views_conditional
@@ -4387,9 +4302,9 @@ display:
           if: field_use_facility_address
           condition: eq
           equalto: 'On'
-          then: "{{ views_conditional_field_2 }}\r\n{{ field_address }}"
+          then: "{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address }}"
           then_translate: 1
-          or: "<h3>{{ field_clinic_name }}</h3>\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address_1 }}"
+          or: "{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address_1 }}"
           or_translate: 1
           strip_tags: 0
           plugin_id: views_conditional_field
@@ -4852,7 +4767,7 @@ display:
           group_type: group
           admin_label: ''
           label: ''
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -4892,11 +4807,39 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          text: 'Edit location (opens in a new window)'
+          text: 'Edit locations at this facility (opens in a new window)'
           output_url_as_text: false
           absolute: false
           entity_type: node
           plugin_id: entity_link_edit
+      footer:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          tokenize: true
+          content:
+            value: '<p><a href="/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1026&field_administration={{ arguments.field_administration_target_id }}" target="_blank">Add facility (opens in a new window)</a> </p>'
+            format: rich_text
+          plugin_id: text
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: true
+          tokenize: true
+          content:
+            value: "<p>You have not added a medical records office location yet.</p>\r\n<p><a href=\"/node/add/vha_facility_nonclinical_service?field_service_name_and_descripti=1026&field_administration={{ arguments.field_administration_target_id }}\" target=\"_blank\">Add location (opens in a new window)</a></p>"
+            format: rich_text
+          plugin_id: text
     cache_metadata:
       max-age: -1
       contexts:
