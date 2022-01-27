@@ -7,10 +7,14 @@ core:
   js:
     assets/js/anchor_links.js: {}
     assets/js/tabledrag.js: {}
+    assets/js/vagovclaro.theme.help.js: {}
   dependencies:
     - core/drupal
     - core/jquery
     - core/drupal.tabledrag
+    - va_gov_backend/tippy_popover_theme
+    - va_gov_backend/tippyjs
+
 
 # Extra styles used on knowledge base pages only
 userguides:
@@ -25,18 +29,6 @@ login-toggle:
     assets/js/login-toggle.js: {}
     dependencies:
       - core/jquery
-
-proofing:
-  css:
-    theme:
-      dist/proofing.css:
-        minified: true
-  js:
-    assets/js/vagovclaro.theme.help.js: {}
-  dependencies:
-    - core/drupal
-    - va_gov_backend/tippy_popover_theme
-    - va_gov_backend/tippyjs
 
 whatsnew:
   css:

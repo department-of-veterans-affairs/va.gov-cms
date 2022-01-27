@@ -77,3 +77,21 @@
 .field--name-field-facility-hours table tr td p {
   margin: 0;
 }
+
+// Right rail field fixes
+#edit-field-links-wrapper {
+  .claro-autocomplete input {
+    width: 100%;
+  }
+}
+
+#edit-field-support-services {
+  .ief-entity-table {
+    margin-left: calc(var(--space-l) * -1);
+    margin-right: calc(var(--space-l) * -1);
+  }
+
+  .ief-row-entity td:last-child {
+    padding-right: 0;
+  }
+}
