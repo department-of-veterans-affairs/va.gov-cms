@@ -342,7 +342,7 @@ function vagovclaro_form_user_login_form_alter(&$form, FormStateInterface $form_
       'title' => 'Follow this link to login using your PIV or other smartcard.',
       'class' => ['simplesamlphp-auth-login-link', 'button', 'button--primary'],
     ],
-    '#suffix' => '<div><a href="/help">Log in help</a><a href="#">Contact CMS help desk</a></div>',
+    '#suffix' => '<div class="suffix-links"><a href="/help">Log in help</a><a href="#">Contact CMS help desk</a></div>',
   ];
 
   // Modify existing text and add classes for JS toggle & styles.
