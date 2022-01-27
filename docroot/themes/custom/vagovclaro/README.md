@@ -3,28 +3,24 @@
 **!! this updated admin theme is currently a work in progress. things subject to change with little notice !!**
 **this is fine because it is not enabled by default, no editors are aware this theme exists. this is a safe space to move fast**
 
-## context
+## Local Development
+### Sass
+Composer commands have been added to the root composer.json for compiling and watching theme assets:
+- `lando composer va:theme:compile` will compile all theme assets. For core & all custom themes.
+- `lando composer va:theme:watch` will run `yarn watch` to watch vagovclaro styles. Changing any scss file will trigger
+a recompile & a clear of drupal caches. Reload your browser to see your changes.
 
-- we are building on Drupal's Claro theme, pulling in & updating existing templates from vagovadmin.
-- initial buildout will be mostly a 1:1 copy with necessary updates
-- update to new tokens etc. when they are defined by design
-- pattern lab?
+Local commands:
+- `yarn install` in this directory which contains a gulp workflow for sass, similar to the existing vagovadmin theme.
+- `yarn build` to build the compiled css for higher environments. These files are .gitignored, and get compiled as part of the normal CI build process.
+- `yarn watch` to watch & recompile during local development. drupal caches are cleared as part of this.
 
+When including images in css rules, routes should be relative from the compiled css destination (`vagovclaro/dist/`)
 
-MVP TO TURN ON FOR EDITORS:
-- login page with SSO
-- knowledge base
-- some level of VA branding. logo on login, color scheme, etc.
-- feature parity with existing theme in terms of form functionality.
-
-## local development
-`npm install` in this directory, the lando js workflow (`lando npm run build:js` or `lando npm run watch:js`) will build
-and transpile js to drupal specs but does not touch css styles at all. this directory contains a gulp workflow, similar to
-the existing vagovadmin theme. you need to run gulp separately in order to keep styles updated.
-
-`npm run build` to build the compiled css for higher environments (this needs to be committed)
-
-`npm run build:watch` to watch & recompile during local development
+### Javascript
+the lando js workflow (`lando npm run build:js` or `lando npm run watch:js`, commands found in the repo's top-level package.json)
+will build and transpile js to drupal specs but does not touch css styles at all. If you add JS to the theme files,
+you need to run this workflow in order to correctly transpile.
 
 ## sass structure
 files beginning with an _ should be included into the larger `styles.scss` file to ensure styles are compiled

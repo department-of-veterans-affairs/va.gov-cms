@@ -9,6 +9,16 @@
   width: 100%;
 }
 
+.va-alert.messages--status {
+  background-color: var(--color-status-bg);
+  border-color: var(--color-status);
+}
+
+.va-alert.messages--status a {
+  background-color: var(--color-status-bg);
+  color: var(--color-status);
+}
+
 .va-alert.messages--warning {
   background-color: var(--color-warning-bg);
   border-color: var(--color-warning);
@@ -37,16 +47,6 @@
 .va-alert.messages--error a {
   background-color: var(--color-error-bg);
   color: var(--color-error);
-}
-
-.va-alert.messages--status {
-  background-color: var(--color-status-bg);
-  border-color: var(--color-status);
-}
-
-.va-alert.messages--status a {
-  background-color: var(--color-status-bg);
-  color: var(--color-status);
 }
 
 .messages-list {
