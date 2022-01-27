@@ -1,5 +1,6 @@
 import path from 'path';
 import CopyPlugin from "copy-webpack-plugin";
+import { Buffer } from 'buffer';
 
 module.exports = {
   context: path.resolve(__dirname, 'src'),
@@ -27,8 +28,19 @@ module.exports = {
   plugins: [
     new CopyPlugin({
       patterns: [
-        { from: path.resolve(__dirname, 'node_modules/graphiql/graphiql.css') },
         { from: path.resolve(__dirname, 'src/container.css') },
+        {
+          from: path.resolve(__dirname, 'node_modules/graphiql/graphiql.css'),
+          transform: {
+            transformer(content, absoluteFrom) {
+              // Add no style checking to the top
+              return Buffer.concat([
+                Buffer.from('/* stylelint-disable */ \n'),
+                content
+              ]);
+            }
+          }
+        },
       ]
     })
   ],
