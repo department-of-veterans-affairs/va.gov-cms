@@ -1,0 +1,35 @@
+//drupal CMS annountment styles
+.block-cms-announcement {
+  border-radius: 3px;
+  box-sizing: border-box;
+  color: var(--color-text);
+  font-size: 18px;
+  line-height: 27px;
+  margin: var(--space-l) 0; /*36px 0*/
+  padding: var(--space-m); /*16px*/
+  vertical-align: middle;
+  width: 100%;
+  
+  &.information {
+    background: var(--color-info-bg);
+  }
+  
+  &.warning {
+    background: var(--color-warning-bg);
+  }
+  
+  .title {
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+  
+  .text {
+    p {
+      margin: 0;
+      
+      a {
+        color: var(--color-blue-darker);
+      }
+    }
+  }
+}

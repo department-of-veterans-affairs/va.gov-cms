@@ -17,6 +17,7 @@ events:
     - appserver: cd /app && ./scripts/install_task_runner.sh
     # Composer options are in composer.json, 'config' key.
     - appserver: cd $LANDO_MOUNT && composer install
+    - appserver: cd $LANDO_MOUNT && composer va:theme:compile
     - appserver: cd $LANDO_MOUNT && composer va:web:install
     # Pulled from https://github.com/AaronFeledy/lando-examples/tree/master/landofile-changed-alert.
     # Alert user if landofile and current environment are out of sync.
