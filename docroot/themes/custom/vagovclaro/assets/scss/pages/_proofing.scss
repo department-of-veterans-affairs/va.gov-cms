@@ -1,12 +1,5 @@
-/**
- * These styles are used for the proofing page experience. Library added in templates/node/node--page.html.twig.
- */
-@import 'tokens/mixins';
-@import 'components/undo_field_styling';
-
-.node--unpublished {
-  background-color: var(--color-white);
-}
+@import '../tokens/mixins';
+@import '../components/undo_field_styling';
 
 #block-vagovclaro-content {
   font-size: 1rem;
@@ -47,11 +40,6 @@
         content: '';
       }
     }
-  }
-
-  details.form-wrapper > summary {
-    font-size: 0.8em;
-    text-transform: none;
   }
 
   .field__item {

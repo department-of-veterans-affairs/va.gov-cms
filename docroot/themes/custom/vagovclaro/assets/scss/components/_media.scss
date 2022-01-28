@@ -44,3 +44,11 @@
 .downloadable-file-link--image::before {
   background-image: url('../images/icons/download-000000.svg');
 }
+
+// Fix image hover state
+.media-library-item__preview-wrapper {
+  .media-library-item__attributes {
+    bottom: 8px;
+    max-width: calc(100% - 1.7rem);
+  }
+}
