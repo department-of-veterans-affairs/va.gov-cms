@@ -27,10 +27,7 @@
   position: relative;
 
   @include breakpoint('sm') {
-    gap: 2rem;
-  }
-  @include breakpoint('lg') {
-    gap: 5rem;
+    gap: 90px;
   }
 
   // throws off grid alignment
@@ -39,15 +36,7 @@
   }
 
   h2 {
-    margin: var(--space-xl) 0 var(--space-s);
-
-    @include breakpoint('sm') {
-      margin: var(--space-l) 0 var(--space-s);
-    }
-
-    @include breakpoint('lg') {
-      margin: var(--space-m) 0 var(--space-s);
-    }
+    margin: 0;
   }
 
   // error message for form
@@ -57,15 +46,21 @@
 }
 
 .layout-container--login .page-content {
-  margin: 0;
+  margin: var(--space-xl) 0 0 0;
+  padding: var(--space-xl) 0 0 0;
   @include breakpoint('sm') {
+    margin: 0;
     max-width: 100%;
+    padding: 0;
   }
   @include breakpoint('md') {
     max-width: 80%;
   }
   @include breakpoint('lg') {
     max-width: 60%;
+  }
+  @include breakpoint('xl') {
+    max-width: 50%;
   }
 }
 
@@ -101,6 +96,7 @@
   .fieldset {
     border: 0 solid transparent;
     box-shadow: none;
+    margin: 0;
 
     .fieldset__wrapper {
       margin: 0;
@@ -108,14 +104,17 @@
 
     // get help link renders inline after the button in the form suffix,
     // this moves it below.
-    a + a {
+    .suffix-links {
       border-top: 1px solid var(--color-gray-light);
-      display: block;
-      max-width: 50%;
-      padding-top: 1rem;
+      max-width: 30%;
 
       @include breakpoint('sm') {
-        max-width: 40%;
+        max-width: 100%;
+      }
+
+      a {
+        display: block;
+        margin-top: var(--space-xs);
       }
     }
   }
@@ -126,7 +125,8 @@
   }
 
   .simplesamlphp-auth-login-link {
-    margin-bottom: 2rem;
+    margin-bottom: var(--spacing-xl);
+    margin-top: var(--spacing-ll);
   }
 }
 
