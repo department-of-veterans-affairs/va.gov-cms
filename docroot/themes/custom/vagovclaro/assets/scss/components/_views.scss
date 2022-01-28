@@ -46,3 +46,39 @@
     align-self: flex-end;
   }
 }
+
+.views-exposed-form__item.views-exposed-form__item.views-exposed-form__item--actions {
+  // force buttons to new line
+  flex-basis: 100%;
+  margin-top: 0;
+}
+
+// fixes fieldset display inside views exposed forms
+.views-exposed-form {
+  fieldset.form-wrapper {
+    border: unset;
+    box-shadow: none;
+    margin-right: var(--space-xs);
+  }
+
+  .fieldset__legend {
+    display: block;
+    margin: 0;
+  }
+
+  .fieldset__label {
+    line-height: var(--line-height-form-label);
+    margin-bottom: calc(var(--space-xs)/2);
+    margin-top: calc(var(--space-xs)/2);
+    padding: 0;
+  }
+
+  .fieldset__wrapper {
+    margin: 0;
+  }
+
+  .form-item {
+    margin-bottom: var(--space-xs);
+    margin-top: 0;
+  }
+}

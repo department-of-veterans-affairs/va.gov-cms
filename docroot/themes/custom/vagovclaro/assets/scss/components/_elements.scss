@@ -6,6 +6,39 @@
   color: var(--color-text);
 }
 
+// classes for consistent styles on various help-texts around the cms
+.form-item__description,
+.fieldset__description,
+.claro-details__description,
+.field--widget-markup,
+.textfield_counter_counter,
+.description {
+  color: var(--input-fg-color--description);
+  font-size: var(--font-size-s);
+  line-height: 1.0625rem;
+}
+
+.field--widget-markup {
+  h2,
+  h3,
+  h4 {
+    color: var(--color-text);
+  }
+}
+
+.fieldset__description {
+  margin-bottom: var(--space-m);
+  margin-top: 0;
+}
+
+.form-item {
+  margin-top: 0;
+}
+
+.cc-suffix-text {
+  margin-bottom: var(--space-l);
+}
+
 .entities-list .item-container > input {
   display: inline-block;
   margin: var(--space-s) var(--space-xs) var(--space-s) 0;
@@ -29,8 +62,6 @@ th {
 }
 
 .table--widget-entity_reference_browser_table_widget {
-  margin-top: 25px;
-
   .moderation-status {
     font-weight: 400;
     text-transform: uppercase;
@@ -104,6 +135,10 @@ p.vc-help-text {
 
 .linkit-result-line:hover .linkit-result-line--title {
   color: var(--color-white);
+}
+
+.filter-wrapper {
+  margin: 0;
 }
 
 // question mark icon for text formats

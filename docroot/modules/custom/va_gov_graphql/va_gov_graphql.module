@@ -14,3 +14,15 @@ function va_gov_graphql_entity_type_alter(array &$entity_types) {
   /** @var \Drupal\Core\Entity\EntityTypeInterface[] $entity_types */
   $entity_types['menu_link_content']->setAccessClass(MenuLinkContentAccessHandler::class);
 }
+
+/**
+ * Implements hook_theme().
+ */
+function va_gov_graphql_theme($existing, $type, $theme, $path) {
+  return [
+    'page__va_gov_graphql_explorer' => [
+      'render element' => 'elements',
+      'base hook' => 'block',
+    ],
+  ];
+}
