@@ -3,3 +3,9 @@ services:
     class: Drupal\va_gov_graphql\Routing\RouteSubscriber
     tags:
       - { name: event_subscriber }
+  va_gov_graphql.explorer_routes:
+    decorates: graphql.graphiql.explorer_routes
+    class: Drupal\va_gov_graphql\Routing\ExplorerRoutes
+    arguments: [ '@plugin.manager.graphql.schema' ]
+    tags:
+      - { name: 'event_subscriber' }
