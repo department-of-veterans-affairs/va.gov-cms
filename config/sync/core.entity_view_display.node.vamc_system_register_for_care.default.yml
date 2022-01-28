@@ -22,11 +22,10 @@ third_party_settings:
   field_group:
     group_national_content:
       children:
-        - field_cc_top_of_page_content
-        - field_cc_related_links
         - field_cc_bottom_of_page_content
+        - field_cc_related_links
       parent_name: ''
-      weight: 1
+      weight: 3
       format_type: tooltip
       region: content
       format_settings:
@@ -42,6 +41,26 @@ third_party_settings:
         open: false
         required_fields: false
       label: 'National content'
+    group_national_top_of_page_conte:
+      children:
+        - field_cc_top_of_page_content
+      parent_name: ''
+      weight: 1
+      format_type: tooltip
+      region: content
+      format_settings:
+        show_empty_fields: 0
+        id: ''
+        classes: centralized
+        element: div
+        show_label: '0'
+        label_element: h3
+        attributes: ''
+        description: ''
+        tooltip_description: 'This part of the page describes patient registration (admissions) across all VA medical centers. Edits can only be made by the Veterans Health Administration (VHA).'
+        open: false
+        required_fields: false
+      label: 'National top of page content'
 id: node.vamc_system_register_for_care.default
 targetEntityType: node
 bundle: vamc_system_register_for_care
@@ -51,21 +70,21 @@ content:
     type: entity_field_fetch
     weight: 8
     region: content
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
   field_cc_related_links:
     type: entity_field_fetch
-    weight: 7
+    weight: 9
     region: content
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
   field_cc_top_of_page_content:
     type: entity_field_fetch
     weight: 5
     region: content
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
   field_non_clinical_services:
