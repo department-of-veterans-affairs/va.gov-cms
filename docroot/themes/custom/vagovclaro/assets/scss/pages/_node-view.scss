@@ -2,7 +2,6 @@
  * This file contains styles for the 'view' tab of nodes.
  */
 
-//
 .node__content {
   @include va-basic-styling;
 }
@@ -69,4 +68,11 @@
 /* no bottom border for node view if table only has one row */
 tr:only-child {
   border-bottom: 0;
+}
+
+// adjust spacing on unpublished nodes
+.node--unpublished {
+  background-color: var(--color-error-bg);
+  margin: -1rem;
+  padding: 1rem;
 }
