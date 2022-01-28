@@ -335,19 +335,19 @@ function vagovclaro_form_user_login_form_alter(&$form, FormStateInterface $form_
     ],
   ];
   $form['simplesamlphp_auth_login_link']['link'] = [
-    '#title' => 'Login with PIV',
+    '#title' => 'Log in with PIV',
     '#type' => 'link',
     '#url' => Url::fromRoute('simplesamlphp_auth.saml_login'),
     '#attributes' => [
       'title' => 'Follow this link to login using your PIV or other smartcard.',
       'class' => ['simplesamlphp-auth-login-link', 'button', 'button--primary'],
     ],
-    '#suffix' => '<a href="/help">Get help logging in</a>',
+    '#suffix' => '<div class="suffix-links"><a href="/help/cms-basics/how-to-log-inout">Log in help</a><a href="https://va-gov.atlassian.net/servicedesk/customer/portal/3/group/8/create/26">Contact CMS help desk</a></div>',
   ];
 
   // Modify existing text and add classes for JS toggle & styles.
   $form['name']['#description'] = 'Your VA email address';
-  $form['name']['#prefix'] = '<div class="password-prefix form-item__description">Use this back up login method when PIV isn’t working. Learn more: <a href="">Logging in to the CMS.</a></div>';
+  $form['name']['#prefix'] = '<div class="password-prefix form-item__description">Only use this method if you\'ve already been approved to use password log in. If you\'re not sure, try <a href="/user/login">logging in with PIV first</a> or <a href="https://va-gov.atlassian.net/servicedesk/customer/portal/3/group/8/create/26">contact the CMS help desk.</a></div>';
   $form['name']['#wrapper_attributes']['class'][] = 'js-login-username';
   $form['pass']['#description'] = 'The password assigned to you by the CMS Help Desk.';
   $form['pass']['#wrapper_attributes']['class'][] = 'js-login-password';
@@ -365,14 +365,14 @@ function vagovclaro_form_user_login_form_alter(&$form, FormStateInterface $form_
         'js-va-login-toggle',
       ],
     ],
-    '#value' => 'Login with password',
+    '#value' => 'Developer log in',
   ];
 
   // Check user input to determine if form is being rebuilt with error.
   $user_input = $form_state->getUserInput();
   if (isset($user_input['name']) || isset($user_input['pass'])) {
     $form['#attributes']['class'][] = 'form-login';
-    $form['actions']['toggle']['#value'] = 'Login with PIV';
+    $form['actions']['toggle']['#value'] = 'Log in with PIV';
   }
   else {
     $form['#attributes']['class'][] = 'piv-login';
