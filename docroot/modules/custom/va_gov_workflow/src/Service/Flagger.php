@@ -220,7 +220,7 @@ class Flagger {
     /** @var \Drupal\flag\Entity\Flag $flag */
     $flag = $flagging->getFlag();
     if ($this->isTestData() || !$flag->isGlobal()) {
-      // Don't log test datat changes or personal flags.
+      // Don't log test data changes or personal flags.
       return FALSE;
     }
     $non_loggable_flags = ['edited'];
