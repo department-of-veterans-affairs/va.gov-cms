@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cd697892c8a875dcae47721449f08b50",
+    "content-hash": "accd8888c682bc99993f9e37f3f6780d",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -5245,6 +5245,51 @@
             "homepage": "https://www.drupal.org/project/entity_clone",
             "support": {
                 "source": "https://git.drupalcode.org/project/entity_clone"
+            }
+        },
+        {
+            "name": "drupal/entity_diff_ui",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/entity_diff_ui.git",
+                "reference": "1.0.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/entity_diff_ui-1.0.1.zip",
+                "reference": "1.0.1",
+                "shasum": "a204401ccc3e9136087cb038f743134b3a03f664"
+            },
+            "require": {
+                "drupal/core": "^8.7.7 || ^9",
+                "drupal/diff": "^1.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.1",
+                    "datestamp": "1617756156",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Mingsong",
+                    "homepage": "https://www.drupal.org/user/2986445"
+                }
+            ],
+            "description": "Provide UI plugins of diff for entities.",
+            "homepage": "https://www.drupal.org/project/entity_diff_ui",
+            "support": {
+                "source": "https://git.drupalcode.org/project/entity_diff_ui"
             }
         },
         {
@@ -24922,5 +24967,5 @@
     "platform-overrides": {
         "php": "7.3"
     },
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.0.0"
 }
