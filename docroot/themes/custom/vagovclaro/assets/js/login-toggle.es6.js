@@ -22,9 +22,9 @@
         const loginToggle = $("#edit-toggle");
         loginToggle.prop(
           "value",
-          loginToggle.val() === "Login with password"
-            ? "Login with PIV"
-            : "Login with password"
+          loginToggle.val() === "Developer log in"
+            ? "Log in with PIV"
+            : "Developer log in"
         );
 
         // Move focus back to top of form when toggled.
