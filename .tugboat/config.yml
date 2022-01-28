@@ -1,10 +1,10 @@
 services:
   # What to call the service hosting the site.
   php:
-    # Use PHP 7.x with Apache; this syntax pulls in the latest version of PHP 7
-    # Pinning to 7.3.28 until we update from Docker 19 to Docker 20
-    # See https://github.com/department-of-veterans-affairs/va.gov-cms/issues/6216
-    image: tugboatqa/php:7.3.28-apache
+    # Use PHP 7.4 with Apache; this syntax pulls in the latest version of PHP 7.4
+    # Currently using Buster because of an issue with Bullseye and PHP 7.4 on Tugboat.
+    # See https://github.com/department-of-veterans-affairs/va.gov-cms/issues/7667
+    image: tugboatqa/php:7.4-apache-buster
 
     aliases:
       - cms
@@ -113,6 +113,7 @@ services:
         # Install/update packages managed by composer, including drush.
         # Composer options are in composer.json, 'config' key.
         - composer install
+        - composer va:theme:compile
         - composer va:web:install
 
         - curl --remote-name https://dsva-vagov-prod-cms-backup-sanitized.s3-us-gov-west-1.amazonaws.com/files/cms-prod-files-latest.tgz
@@ -141,6 +142,7 @@ services:
         # This command is shared by the clone and build stages, make sure to update both stages.
         - j2 "${TUGBOAT_ROOT}/.web/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.web/403-error-document.html"
         - composer install
+        - composer va:theme:compile
         - composer va:web:install
         - drush deploy
 

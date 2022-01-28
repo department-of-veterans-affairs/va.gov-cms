@@ -22,7 +22,7 @@ gulp.task("sass", () => {
     .pipe(sass({ outputStyle: "compressed" }).on("error", sass.logError))
     .pipe(autoprefixer("last 2 version"))
     .pipe(sourcemaps.write("./"))
-    .pipe(gulp.dest("assets/css/"));
+    .pipe(gulp.dest("dist/"));
 });
 gulp.task("sass").description =
   "process SCSS files: compile to compressed css, add browser prefixes, create a source map, and save in assets folder";

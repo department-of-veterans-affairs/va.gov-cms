@@ -1,0 +1,30 @@
+uuid: 4380f192-9890-4d8f-b3de-97e90356d95d
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:alert:5ca2fad7-e93a-477c-975b-7a47074f1208'
+  module:
+    - block_content
+    - system
+  theme:
+    - vagovclaro
+id: cmsannouncementblock
+theme: vagovclaro
+region: content
+weight: -15
+provider: null
+plugin: 'block_content:5ca2fad7-e93a-477c-975b-7a47074f1208'
+settings:
+  id: 'block_content:5ca2fad7-e93a-477c-975b-7a47074f1208'
+  label: 'CMS Announcement Block'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: '<front>'
+    negate: false

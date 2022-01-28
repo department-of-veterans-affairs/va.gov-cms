@@ -129,7 +129,7 @@ the `/sites/default/files/*` from PROD down to your local environment
 
 There are a number of helpful composer "scripts" available, located in the [composer.json](composer.json) file, in the `scripts` section. These scripts get loaded in as composer commands.
 
-Change to the CMS repositiory directory and run `composer` to list all commands, both built in and ones from this repo.
+Change to the CMS repository directory and run `composer` to list all commands, both built in and ones from this repo.
 
 The VA.gov project has the following custom commands.
 
