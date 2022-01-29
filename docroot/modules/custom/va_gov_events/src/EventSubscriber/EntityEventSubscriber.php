@@ -4,7 +4,10 @@ namespace Drupal\va_gov_events\EventSubscriber;
 
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
+use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
+use Drupal\node\NodeInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -29,9 +32,37 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents(): array {
     return [
+      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'entityPresave',
       'hook_event_dispatcher.form_node_event_form.alter' => 'alterEventNodeForm',
       'hook_event_dispatcher.form_node_event_edit_form.alter' => 'alterEventNodeForm',
     ];
+  }
+
+  /**
+   * Entity presave Event call.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
+   *   The event.
+   */
+  public function entityPresave(EntityPresaveEvent $event): void {
+    $entity = $event->getEntity();
+    if ($entity instanceof NodeInterface) {
+      $this->trimNodeTitleWhitespace($entity);
+    }
+  }
+
+  /**
+   * Trim any preceding and trailing whitespace on node titles.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The node to be modified.
+   */
+  private function trimNodeTitleWhitespace(NodeInterface $node) {
+    $title = $node->getTitle();
+    // Trim leading and then trailing separately to avoid a convoluted regex.
+    $title = preg_replace('/^\s+/', '', $title);
+    $title = preg_replace('/\s+$/', '', $title);
+    $node->setTitle($title);
   }
 
   /**

@@ -13,7 +13,7 @@
 
   const toggleRegistrationElements = () => {
     const targetRegistrationElements = document.querySelectorAll(
-      ".centralized.reduced-padding, #edit-field-event-registrationrequired-wrapper, #edit-field-event-cta-wrapper, #edit-field-link-wrapper, #edit-group-registration-link, #group-registration-link, #edit-field-additional-information-abo-wrapper"
+      ".centralized.reduced-padding, #edit-field-event-registrationrequired-wrapper, #edit-field-event-cta-wrapper, #edit-group-registration-link, #group-registration-link, #edit-field-additional-information-abo-wrapper"
     );
     const toggleVal = !!includeRegistrationsBool.checked;
     targetRegistrationElements.forEach((element) => {
@@ -121,6 +121,7 @@
   };
 
   const operate = () => {
+    requireCTA();
     includeRegistrationsBool.addEventListener("click", () => {
       toggleRegistrationElements();
     });
@@ -130,12 +131,11 @@
       toggleLocationElements();
     });
     toggleLocationElements();
-    requireCTA();
   };
 
   Drupal.behaviors.vaGovEventFormHelpers = {
     attach() {
-      window.addEventListener("DOMContentLoaded", operate(document));
+      document.addEventListener("DOMContentLoaded", operate());
     },
   };
 })(Drupal);

@@ -11,7 +11,7 @@
   var includeLocationItemsRadios = document.getElementById("edit-field-location-type");
 
   var toggleRegistrationElements = function toggleRegistrationElements() {
-    var targetRegistrationElements = document.querySelectorAll(".centralized.reduced-padding, #edit-field-event-registrationrequired-wrapper, #edit-field-event-cta-wrapper, #edit-field-link-wrapper, #edit-group-registration-link, #group-registration-link, #edit-field-additional-information-abo-wrapper");
+    var targetRegistrationElements = document.querySelectorAll(".centralized.reduced-padding, #edit-field-event-registrationrequired-wrapper, #edit-field-event-cta-wrapper, #edit-group-registration-link, #group-registration-link, #edit-field-additional-information-abo-wrapper");
     var toggleVal = !!includeRegistrationsBool.checked;
     targetRegistrationElements.forEach(function (element) {
       if (toggleVal) {
@@ -80,6 +80,7 @@
   };
 
   var operate = function operate() {
+    requireCTA();
     includeRegistrationsBool.addEventListener("click", function () {
       toggleRegistrationElements();
     });
@@ -89,12 +90,11 @@
       toggleLocationElements();
     });
     toggleLocationElements();
-    requireCTA();
   };
 
   Drupal.behaviors.vaGovEventFormHelpers = {
     attach: function attach() {
-      window.addEventListener("DOMContentLoaded", operate(document));
+      document.addEventListener("DOMContentLoaded", operate());
     }
   };
 })(Drupal);

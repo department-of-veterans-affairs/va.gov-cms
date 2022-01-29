@@ -2,7 +2,6 @@
 
 namespace Drupal\va_gov_backend\EventSubscriber;
 
-use Drupal\node\NodeInterface;
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityTypeManager;
@@ -11,7 +10,6 @@ use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
-use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
@@ -72,19 +70,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $this->userPermsService = $user_perms_service;
     $this->entityTypeManager = $entity_type_manager;
     $this->entityFieldManager = $entity_field_manager;
-  }
-
-  /**
-   * Entity presave Event call.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
-   *   The event.
-   */
-  public function entityPresave(EntityPresaveEvent $event): void {
-    $entity = $event->getEntity();
-    if ($entity instanceof NodeInterface) {
-      $this->trimNodeTitleWhitespace($entity);
-    }
   }
 
   /**
@@ -268,30 +253,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Trim any preceding and trailing whitespace on node titles.
-   *
-   * @param \Drupal\node\NodeInterface $node
-   *   The node to be modified.
-   */
-  private function trimNodeTitleWhitespace(NodeInterface $node) {
-    $title = $node->getTitle();
-    // Trim leading and then trailing separately to avoid a convoluted regex.
-    $title = preg_replace('/^\s+/', '', $title);
-    $title = preg_replace('/\s+$/', '', $title);
-    $node->setTitle($title);
-  }
-
-  /**
-   * Form alterations for eventcontent type.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
-   *   The event.
-   */
-  public function alterEventNodeForm(FormIdAlterEvent $event): void {
-    $this->adddisplayManagementToEventFields($event);
-  }
-
-  /**
    * Form alterations for staff profile content type.
    *
    * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
@@ -330,17 +291,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
           [$selector => ['checked' => TRUE]],
       ],
     ];
-  }
-
-  /**
-   * Show fields depending on value of checkbox.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
-   *   The event.
-   */
-  public function adddisplayManagementToEventFields(FormIdAlterEvent $event) {
-    $form = &$event->getForm();
-    $form['#attached']['library'][] = 'va_gov_backend/event_form_states_helpers';
   }
 
   /**
@@ -495,12 +445,9 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents(): array {
     return [
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'entityPresave',
       HookEventDispatcherInterface::WIDGET_FORM_ALTER => 'paragraphsExperimentalWidgetAlter',
       HookEventDispatcherInterface::ENTITY_VIEW_ALTER => 'entityViewAlter',
       HookEventDispatcherInterface::FORM_ALTER => 'formAlter',
-      'hook_event_dispatcher.form_node_event_form.alter' => 'alterEventNodeForm',
-      'hook_event_dispatcher.form_node_event_edit_form.alter' => 'alterEventNodeForm',
       'hook_event_dispatcher.form_node_person_profile_form.alter' => 'alterStaffProfileNodeForm',
       'hook_event_dispatcher.form_node_person_profile_edit_form.alter' => 'alterStaffProfileNodeForm',
       'hook_event_dispatcher.form_node_centralized_content_edit_form.alter' => 'alterCentralizedContentNodeForm',
