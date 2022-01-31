@@ -1,6 +1,6 @@
 // TODO: remove these in favor of AWS s3 fonts... need to fix CORS
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Bitter:400,700&display=swap&subset=latin-ext');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Bitter:400,600&display=swap&subset=latin-ext');
 
 :root {
   /*
@@ -31,11 +31,11 @@
   --color-status-bg: #ccf2fa;
   --color-info-bg: #cde2f1;
 
-  // fonts loaded in <head> in html.html.twig
+  // fonts imported above, should be S3
   --font-family-sans: 'Source Sans Pro', sans-serif;
   --font-family-serif: 'Bitter', serif;
 
-  // Based on :root font-size of 16px, 1rem = 16px
+  // rem size based on :root font-size of 16px, so 1rem = 16px
   --spacing-xxs: 0.25rem; // 4px
   --spacing-xs: 0.5rem; // 8px
   --spacing-s: 0.75rem; // 12px
