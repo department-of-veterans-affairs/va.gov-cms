@@ -16,24 +16,22 @@
 .field--widget-markup,
 .textfield_counter_counter,
 .description,
+#block-vagovclaro-help,
 #top-get-help-email {
   @include va-helptext;
-  color: var(--input-fg-color--description);
+  color: var(--color-gray-dark);
 }
 
-.field--widget-markup {
-  h2,
-  h3,
-  h4 {
-    color: var(--color-text);
-  }
-}
-
+#appointments h2,
+#service-locations h2,
+#block-vagovclaro-help h2,
 .field--widget-markup h3 {
   @include va-section-heading;
+  color: var(--color-text);
   margin: 0 0 var(--spacing-xs) 0;
 }
 
+// this is printed on vet center forms...
 #top-get-help-email + p {
   @include va-subsection-heading;
   margin: var(--spacing-m) 0;
@@ -52,12 +50,19 @@ h4.form-item__label {
   margin: var(--spacing-xs) 0;
 }
 
-.fieldset__description {
-  margin-bottom: var(--space-m);
+.claro-details__wrapper,
+.form-item {
   margin-top: 0;
 }
 
-.form-item {
+.form-item__label,
+.form-item__description {
+  margin-bottom: var(--spacing-xxs);
+  margin-top: 0;
+}
+
+.fieldset__description {
+  margin-bottom: var(--space-m);
   margin-top: 0;
 }
 
@@ -171,7 +176,7 @@ p.vc-help-text {
 }
 
 .filter-wrapper {
-  margin: 0;
+  margin: var(--spacing-xxs) 0 0 0;
 }
 
 // question mark icon for text formats
