@@ -12,6 +12,7 @@
 .form-item__description,
 .fieldset__description,
 .claro-details__description,
+.claro-details__summary-summary,
 .field--widget-markup,
 .textfield_counter_counter,
 .description,
@@ -30,7 +31,7 @@
 
 .field--widget-markup h3 {
   @include va-section-heading;
-  margin-bottom: var(--spacing-xs);
+  margin: 0 0 var(--spacing-xs) 0;
 }
 
 #top-get-help-email + p {
@@ -38,9 +39,17 @@
   margin: var(--spacing-m) 0;
 }
 
+.label,
 .form-item__label {
   @include va-label;
   margin-bottom: var(--spacing-xs);
+}
+
+// multi-paragraphs fields with table headers
+h4.label,
+h4.form-item__label {
+  @include va-subsection-label;
+  margin: var(--spacing-xs) 0;
 }
 
 .fieldset__description {
@@ -77,6 +86,10 @@ th {
 
   .form-item__description {
     color: var(--color-text);
+    margin: 0 var(--spacing-xxs) 0 0;
+  }
+
+  .paragraphs-actions .button--extrasmall {
     margin-top: 0;
   }
 }
