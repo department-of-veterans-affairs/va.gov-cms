@@ -1,8 +1,10 @@
 .fieldset__legend {
+  @include va-subsection-label;
   color: var(--color-text);
 }
 
 .claro-details__summary {
+  @include va-subsection-label;
   color: var(--color-text);
 }
 
@@ -12,10 +14,10 @@
 .claro-details__description,
 .field--widget-markup,
 .textfield_counter_counter,
-.description {
+.description,
+#top-get-help-email {
+  @include va-helptext;
   color: var(--input-fg-color--description);
-  font-size: var(--font-size-s);
-  line-height: 1.0625rem;
 }
 
 .field--widget-markup {
@@ -26,6 +28,21 @@
   }
 }
 
+.field--widget-markup h3 {
+  @include va-section-heading;
+  margin-bottom: var(--spacing-xs);
+}
+
+#top-get-help-email + p {
+  @include va-subsection-heading;
+  margin: var(--spacing-m) 0;
+}
+
+.form-item__label {
+  @include va-label;
+  margin-bottom: var(--spacing-xs);
+}
+
 .fieldset__description {
   margin-bottom: var(--space-m);
   margin-top: 0;
@@ -33,6 +50,10 @@
 
 .form-item {
   margin-top: 0;
+}
+
+p {
+  margin: 0 0 var(--spacing-s) 0;
 }
 
 .cc-suffix-text {
@@ -56,7 +77,6 @@ th {
 
   .form-item__description {
     color: var(--color-text);
-    font-weight: normal;
     margin-top: 0;
   }
 }
