@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the va_gov_vamc module.
+ */
+
+use Psr\Log\LogLevel;
+
+/**
+ * Delete VA Lovell Federal health care menu.
+ */
+function va_gov_vamc_update_9001() {
+  // Delete all menu items of given menu.
+  $storage_handler = \Drupal::entityTypeManager()->getStorage('menu');
+  $items = $storage_handler->loadByProperties(['type' => 'system.menu.va-lovell-federal-health-care']);
+  $storage_handler->delete($items);
+
+  // Delete menu.
+  $menu = \Drupal::configFactory()->getEditable('system.menu.va-lovell-federal-health-care');
+  $menu->delete();
+
+  Drupal::logger('va_gov_vamc')->log(LogLevel::INFO, 'VA Lovell Federal health care menu: Successfully removed VA Lovell Federal health care menu.');
+}
