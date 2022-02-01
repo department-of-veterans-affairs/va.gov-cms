@@ -35,7 +35,7 @@ third_party_settings:
         - moderation_state
         - revision_log
       parent_name: ''
-      weight: 11
+      weight: 12
       format_type: fieldset
       region: content
       format_settings:
@@ -49,7 +49,7 @@ third_party_settings:
       children:
         - field_administration
       parent_name: ''
-      weight: 10
+      weight: 11
       format_type: details_sidebar
       region: content
       format_settings:
@@ -67,7 +67,7 @@ third_party_settings:
         - field_cc_how_we_share_records
         - field_cc_related_links
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: tooltip
       region: content
       format_settings:
@@ -140,20 +140,20 @@ third_party_settings:
         label_element: h3
         attributes: ''
       label: 'Get your records online'
-    group_roi_service_locatoins:
+    group_roi_service_location:
       children:
         - field_vamc_med_records_mailing
         - field_fax_number
       parent_name: ''
-      weight: 7
+      weight: 8
       format_type: fieldset
       region: content
       format_settings:
-        description: ''
-        required_fields: true
+        show_empty_fields: false
         id: ''
         classes: ''
-        show_empty_fields: false
+        description: ''
+        required_fields: true
       label: 'Local mailing address and fax numbers for medical records'
 id: node.vamc_system_medical_records_offi.default
 targetEntityType: node
@@ -251,7 +251,7 @@ content:
     type: telephone_default
     region: content
   field_non_clinical_services:
-    weight: 8
+    weight: 9
     settings: {  }
     third_party_settings: {  }
     type: viewfield_select

@@ -27,11 +27,10 @@ third_party_settings:
   field_group:
     group_national_content:
       children:
-        - field_cc_top_of_page_content
-        - field_cc_related_links
         - field_cc_bottom_of_page_content
+        - field_cc_related_links
       parent_name: ''
-      weight: 2
+      weight: 6
       format_type: tooltip
       region: content
       format_settings:
@@ -47,6 +46,40 @@ third_party_settings:
         open: false
         required_fields: false
       label: 'National content'
+    group_national_top_of_page_conte:
+      children:
+        - field_cc_top_of_page_content
+      parent_name: ''
+      weight: 2
+      format_type: tooltip
+      region: content
+      format_settings:
+        show_label: '0'
+        tooltip_description: 'This part of the page describes billing an insurance across all VA medical centers. Edits can only be made by the Veterans Health Administration (VHA). '
+        description: ''
+        id: ''
+        classes: centralized
+        show_empty_fields: 0
+        element: div
+        label_element: h3
+        attributes: ''
+      label: 'National top of page content'
+    group_inquiries_about_copay:
+      children:
+        - field_phone_number
+        - field_hours_for_copay_inquiries_
+      parent_name: ''
+      weight: 4
+      format_type: details
+      region: content
+      format_settings:
+        show_empty_fields: false
+        id: ''
+        classes: ''
+        description: ''
+        open: true
+        required_fields: false
+      label: 'For inquiries by phone about copay balance'
 id: node.vamc_system_billing_insurance.default
 targetEntityType: node
 bundle: vamc_system_billing_insurance
@@ -61,7 +94,7 @@ content:
     third_party_settings: {  }
   field_cc_related_links:
     type: entity_field_fetch
-    weight: 8
+    weight: 10
     region: content
     label: above
     settings: {  }
@@ -81,7 +114,7 @@ content:
     type: allow_only_one
     region: content
   field_hours_for_copay_inquiries_:
-    weight: 4
+    weight: 7
     label: above
     settings:
       day_format: long
@@ -118,7 +151,7 @@ content:
     type: viewfield_default
     region: content
   field_phone_number:
-    weight: 3
+    weight: 6
     label: above
     settings:
       title: ''
