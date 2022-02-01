@@ -176,7 +176,16 @@
             break;
         }
       };
+
+      // Prevent user from selecting default to ensure timezone db save.
+      // Default will always be first, so safer to pick by key than value.
+      const dontAllowDefaultTimezoneSelection = () => {
+        document.getElementById(
+          "edit-field-datetime-range-timezone-0-timezone"
+        ).options[0].disabled = true;
+      };
       const recurringWatchers = () => {
+        dontAllowDefaultTimezoneSelection();
         checkInstanceBox();
         hideNoneOption();
         dateFieldHandler();

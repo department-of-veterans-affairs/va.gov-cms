@@ -117,7 +117,12 @@
             break;
         }
       };
+
+      var dontAllowDefaultTimezoneSelection = function dontAllowDefaultTimezoneSelection() {
+        document.getElementById("edit-field-datetime-range-timezone-0-timezone").options[0].disabled = true;
+      };
       var recurringWatchers = function recurringWatchers() {
+        dontAllowDefaultTimezoneSelection();
         checkInstanceBox();
         hideNoneOption();
         dateFieldHandler();
