@@ -85,7 +85,7 @@ Feature: Menus
 | VA Nebraska-Western Iowa health care | va-nebraska-western-iowa-health- | VISN 23 \| va.gov/nebraska-western-iowa-health-care |
 | VA New Jersey health care | va-new-jersey-health-care | VISN 2 \| va.gov/new-jersey-health-care |
 | VA New York Harbor health care | va-new-york-harbor-health-care | VISN 2 \| va.gov/new-york-harbor-health-care |
-| VA North Florida/South Georgia health care | va-north-florida-health-care | VISN 8 \| va.gov/north-florida-health-care |
+| VA North Florida health care | va-north-florida-health-care | VISN 8 \| va.gov/north-florida-health-care |
 | VA Northeast Ohio health care | va-northeast-ohio-health-care | VISN 10 \| va.gov/va-northeast-ohio-health-care |
 | VA Northern California health care | va-northern-california-health-ca | VISN 21 \| va.gov/northern-california-health-care |
 | VA Northern Indiana health care | va-northern-indiana-health-care | VISN 10 \| va.gov/va-northern-indiana-health-care |
@@ -143,7 +143,6 @@ Feature: Menus
 | VA Loma Linda health care | va-loma-linda-health-care | VISN 22 \| va.gov/loma-linda-health-care |
 | VA Long Beach health care | va-long-beach-health-care | VISN 22 \| va.gov/long-beach-health-care |
 | VA Louisville health care | va-louisville-health-care | VISN 9 \| va.gov/louisville-health-care |
-| VA Lovell Federal health care | va-lovell-federal-health-care | VISN 12 \| va.gov/lovell-federal-health-care |
 | VA Madison health care | va-madison-health-care | VISN 12 \| va.gov/madison-health-care |
 | VA Marion health care | va-marion-health-care | VISN 15 \| va.gov/marion-health-care |
 | VA Memphis health care | va-memphis-health-care | VISN 9 \| va.gov/memphis-health-care |
