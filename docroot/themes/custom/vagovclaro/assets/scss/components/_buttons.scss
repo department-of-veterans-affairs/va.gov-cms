@@ -30,3 +30,9 @@
     margin-top: 0;
   }
 }
+
+// no fuzzy buttons in tables
+table .button,
+table .button:not(:focus) {
+  box-shadow: none;
+}
