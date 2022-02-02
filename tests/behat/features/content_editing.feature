@@ -23,43 +23,6 @@ Feature: CMS Users may effectively create & edit content
     And the "#edit-field-steps-add-more-add-more-button-step-by-step" element should exist
 
   @content_editing
-  Scenario: Log in and confirm that "Checklist" node edit has the correct field settings
-    When I am logged in as a user with the "content_admin" role
-
-    Given "topics" terms:
-      | name            | parent | description | format     | language |
-      | BeHat - Topic 1 |        |             | plain_text | UND      |
-      | BeHat - Topic 2 |        |             | plain_text | UND      |
-      | BeHat - Topic 3 |        |             | plain_text | UND      |
-      | BeHat - Topic 4 |        |             | plain_text | UND      |
-
-    # Create beneficiaries term.
-    Given "audience_beneficiaries" terms:
-      | name                     | parent | description | format     | language |
-      | BeHat - Awesome Veterans |        |             | plain_text | UND      |
-
-    # Create our initial draft
-    Then I am at "node/add/checklist"
-    And I fill in "Page title" with "Behat save and continue new test"
-    And I fill in "#edit-field-primary-category" with the text "282"
-    And I fill in "#edit-field-checklist-0-subform-field-checklist-sections-0-subform-field-section-header-0-value" with the text "Behat save and continue new test section header 2"
-    And I fill in "#edit-field-checklist-0-subform-field-checklist-sections-0-subform-field-checklist-items-0-value" with the text "Behat save and continue new test checklist item 1"
-    And I fill in "#edit-field-administration" with the text "5"
-
-    # Select four topics.
-    And I check "BeHat - Topic 1"
-    And I check "BeHat - Topic 2"
-    And I check "BeHat - Topic 3"
-    And I check "BeHat - Topic 4"
-
-    # Also select an audience.
-    And I select the "BeHat - Awesome Veterans" radio button
-    And I press "Save draft and continue editing"
-
-    # Confirm that our custom validation for Audiences & Topics is working.
-    Then I should see "No more than 4 Topic/Audience tags may be selected"
-
-  @content_editing
   Scenario: Confirm that the EWA block URL is shown correctly.
     Given I am logged in as a user with the "administrator" role
     And I am at "node/add/office"
@@ -119,23 +82,6 @@ Feature: CMS Users may effectively create & edit content
     And I should see "State" in the "#edit-field-address-0" element
 
   @content_editing
-  Scenario: Log in and confirm that System-wide alerts can be created and edited
-    When I am logged in as a user with the "content_admin" role
-
-    # Create our initial draft
-    # We need to target an existing node
-    # ("Operating status - VA Pittsburgh health care")
-    # to prevent unique validation failure.
-    Then I am at "node/1010/edit"
-    And I press "Add new banner alert"
-    And I select "Information" from "Alert type"
-    And I fill in "Title" with "BeHat Alert title"
-    And I fill in "Alert body" with "BeHat Alert body"
-    And I press "Save draft and continue editing"
-    Then I should see "Pages for the following VAMC systems"
-    And I should see "BeHat Alert Body"
-
-  @content_editing
   Scenario Outline: Confirm that content cannot be published directly from the node view but can from the node edit form.
     Given I am logged in as a user with the "content_admin" role
     And I am viewing an <type> with the title <title>
@@ -181,36 +127,6 @@ Feature: CMS Users may effectively create & edit content
     Given I am logged in as a user with the "content_admin" role
     And I am at "node/add/event"
     Then I should see "New York" in the "#edit-field-datetime-range-timezone-0-timezone" element
-
-  @content_editing
-  Scenario: Confirm Generate automatic URL alias is unchecked after node publish.
-    When I am logged in as a user with the "administrator" role
-    And I am at "node/add/basic_landing_page"
-    Then the "path[0][pathauto]" checkbox should be checked
-
-    # Create our initial draft and confirm URL alias is created and Generate automatic URL alias is checked
-    And I fill in "Page title" with "BeHat URL Alias Title"
-    And I fill in "Page introduction" with "BeHat URL Alias introduction"
-    And I fill in "Meta title tag" with "BeHat URL Alias Meta title tag"
-    And I fill in "Meta description" with "BeHat URL Alias Meta description"
-    And I press "op"
-    And I press "Add"
-    And I fill in "Text" with "BeHat URL Alias Rich text content"
-    And I select "Benefits Hubs" from "edit-field-product"
-    And I select "VACO" from "edit-field-administration"
-    And I press "Save draft and continue editing"
-    Then I should see "Edit Landing Page BeHat URL Alias Title"
-    And the "path[0][pathauto]" checkbox should be checked
-
-    # Publish our initial draft and confirm URL alias is created and Generate automatic URL alias is not checked
-    And I fill in "Page title" with "BeHat URL Alias Title Published"
-    And I select "Published" from "edit-moderation-state-0-state"
-    And I fill in "Revision log message" with "BeHat URL Alias Title Published"
-    And I press "Save"
-    Then I should see "BeHat URL Alias Title Published"
-    And the url should match "/behat-url-alias-title-published"
-    Then I visit the "edit" page for a node with the title "BeHat URL Alias Title Published"
-    And the "path[0][pathauto]" checkbox should not be checked
 
   @content_editing
   Scenario: Confirm Generate automatic URL alias is unchecked after taxonomy term publish.

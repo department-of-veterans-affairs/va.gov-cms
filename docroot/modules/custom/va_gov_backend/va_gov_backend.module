@@ -448,42 +448,6 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     $form['actions']['submit']['#submit'][] = 'va_gov_backend_form_alter_redirect_submit';
   }
 
-  // Add to node forms in workflow.
-  if (in_array('node_form', (array) $form['#theme'])) {
-    $form['actions']['save_continue'] = [
-      '#ief_submit_trigger' => TRUE,
-      '#ief_submit_trigger_all' => TRUE,
-      '#type' => 'submit',
-      '#weight' => 10,
-      '#value' => 'Save draft and continue editing',
-      '#submit' => ['::submitForm', 'va_gov_backend_form_alter_submit'],
-    ];
-
-    // Remove the default preview button from types not in workflow.
-    /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
-    $form_object = $form_state->getFormObject();
-    /** @var \Drupal\node\NodeInterface $node */
-    $node = $form_object->getEntity();
-    $node_type = $node->getType();
-
-    /** @var \Drupal\workflows\WorkflowInterface $workflow */
-    $workflow = \Drupal::entityTypeManager()->getStorage('workflow')->load('editorial');
-    $types_in_workflow = $workflow->get('type_settings')['entity_types']['node'];
-    if (!in_array($node_type, $types_in_workflow)) {
-      unset($form['actions']['save_continue']);
-      unset($form['actions']['preview']);
-    }
-
-    /*
-     * @todo Remove this after root issue causing
-     * https://github.com/department-of-veterans-affairs/va.gov-cms/issues/7373
-     * is resolved.
-     */
-    if ($node_type === 'vet_center') {
-      unset($form['actions']['save_continue']);
-    }
-  }
-
   // Add after_build callback for Press Release node forms.
   if ($form_id === 'node_press_release_form' || $form_id === 'node_press_release_edit_form') {
     $form['field_address']['widget']['#after_build'][] = 'va_gov_backend_press_release_address_after_build';
