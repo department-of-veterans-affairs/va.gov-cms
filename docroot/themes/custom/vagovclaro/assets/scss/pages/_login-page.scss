@@ -1,5 +1,5 @@
 .va-login-header {
-  background-color: var(--color-blue-darkest);
+  background-color: var(--va-blue-darkest);
   margin-bottom: 0;
   padding: var(--space-m) 0;
 }
@@ -66,7 +66,7 @@
 
 // grey field with pencil icon
 .login-background {
-  background-color: var(--color-gray-lightest);
+  background-color: var(--va-gray-lightest);
   clip-path: polygon(51% 0, 100% 32%, 100% 100%, 0% 100%, 0 32%);
   display: flex;
   grid-row-start: 2;
@@ -105,7 +105,7 @@
     // get help link renders inline after the button in the form suffix,
     // this moves it below.
     .suffix-links {
-      border-top: 1px solid var(--color-gray-light);
+      border-top: 1px solid var(--va-gray-cool-med);
       max-width: 30%;
 
       @include breakpoint('sm') {
@@ -149,7 +149,7 @@
   top: 0;
 
   &:hover {
-    background-color: var(--color-blue-lightest);
+    background-color: var(--va-blue-lightest);
     color: var(--color-link);
   }
 

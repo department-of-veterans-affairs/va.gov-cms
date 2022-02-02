@@ -5,7 +5,7 @@ body.toolbar-fixed {
 }
 
 #toolbar-bar {
-  /* Set toolbar background color to avoid flicker on prod. */
+  /* Set toolbar background color to avoid flicker on prod. See settings.prod.php */
   background-color: #082142;
   left: 0;
   /* Set fixed position on toolbar avoid flicker. */
@@ -95,7 +95,7 @@ body.toolbar-fixed {
 
 /* Admin menus with route:<nolink> links should look OK */
 .toolbar-tray span.toolbar-icon {
-  color: var(--color-gray-dark);
+  color: var(--va-gray-med);
   cursor: pointer;
   display: block;
   padding: 1em 1.333em;

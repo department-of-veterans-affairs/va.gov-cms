@@ -4,13 +4,13 @@
   appearance: none;
   border: 0;
   border-radius: 5px;
-  color: #fff;
+  color: var(--color-white);
   display: inline-block;
   font-family: var(--font-family-sans);
   font-size: 1em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1;
   margin-bottom: 0.5em;
   margin-right: 0.5em;
@@ -50,7 +50,7 @@
   h5,
   h6 {
     font-family: var(--font-family-serif);
-    font-weight: 700;
+    font-weight: 600;
     line-height: 1.3;
     margin-bottom: 0.5em;
   }
@@ -93,7 +93,7 @@
 
   a,
   a:hover {
-    color: #004795;
+    color: var(--va-blue-dark);
     text-decoration: underline;
     transition-duration: 0.3s;
     transition-property: color,background-color,border-color;
@@ -114,7 +114,7 @@
   /* Block styles */
 
   .va-address-block {
-    border-left: 3px solid #0071bb;
+    border-left: 3px solid var(--va-blue-med);
     margin-left: 5rem;
     padding-left: 1rem;
   }
@@ -128,7 +128,7 @@
     @include va-buttons;
 
     &:hover {
-      color: #fff;
+      color: var(--color-white);
       text-decoration: none;
     }
   }
@@ -138,10 +138,10 @@
   .usa-button,
   .usa-button-primary {
     @include va-buttons;
-    background-color: #0071bb;
+    background-color: var(--va-blue-med);
 
     &:hover {
-      background-color: #003e73;
+      background-color: var(--va-blue-darker);
     }
   }
 
@@ -149,10 +149,10 @@
   /* Primary button (green) */
   .va-button-primary {
     @include va-buttons;
-    background: #2e8540;
+    background: var(--va-green);
 
     &:hover {
-      background: #195c27;
+      background: var(--va-green-dark);
     }
   }
 
@@ -161,13 +161,13 @@
   a.usa-button-secondary {
     @include va-buttons;
     background: transparent;
-    box-shadow: inset 0 0 0 2px #0071bb;
-    color: #0071bb;
+    box-shadow: inset 0 0 0 2px var(--va-blue-med);
+    color: var(--va-blue-med);
 
     &:hover {
       background: transparent;
-      box-shadow: inset 0 0 0 2px #003e73;
-      color: #003e73;
+      box-shadow: inset 0 0 0 2px var(--va-blue-darker);
+      color: var(--va-blue-darker)3;
     }
   }
 }
