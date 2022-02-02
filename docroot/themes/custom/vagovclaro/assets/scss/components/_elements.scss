@@ -6,7 +6,21 @@
 .claro-details__summary {
   @include va-subsection-label;
   color: var(--color-text);
+
+  &::before {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3e%3cpath d='M5.21 1.314L3.79 2.723l5.302 5.353-5.303 5.354 1.422 1.408 6.697-6.762z' fill='%23212121'/%3e%3c/svg%3e");
+  }
 }
+
+.claro-details__summary:hover::before,
+.claro-details__summary:hover:focus::before,
+.claro-details[open] > .claro-details__summary:focus::before,
+.claro-details[open] > .claro-details__summary--accordion::before,
+.claro-details[open] > .claro-details__summary--accordion-item::before,
+.claro-details[open] > .claro-details__summary--vertical-tabs-item::before {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3e%3cpath d='M5.21 1.314L3.79 2.723l5.302 5.353-5.303 5.354 1.422 1.408 6.697-6.762z' fill='%230071bb'/%3e%3c/svg%3e");
+}
+
 
 // classes for consistent styles on various help-texts around the cms
 .form-item__description,
