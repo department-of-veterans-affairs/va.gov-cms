@@ -437,6 +437,7 @@ function vagovclaro_preprocess_node__documentation_page(&$variables) {
  */
 function vagovclaro_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   _vagovclaro_exposed_kb_search_block_form_alter($form);
+  _vagovclaro_form_action_outline_buttons($form);
 }
 
 /**
@@ -472,5 +473,20 @@ function _vagovclaro_exposed_kb_search_block_form_alter(array &$form) {
     $form['keyword']['#attributes']['class'][] = 'form-element--extrasmall';
     $form['actions']['submit']['#attributes']['class'][] = 'button--primary';
     $form['actions']['submit']['#attributes']['class'][] = 'button--small';
+  }
+}
+
+/**
+ * Alter hook for changing form action button styles.
+ *
+ * Only save is the primary action, rest get alternate button styles.
+ *
+ * @param array $form
+ *   The exposed widget form array.
+ */
+function _vagovclaro_form_action_outline_buttons(array &$form) {
+  if ($form['#theme'][0] === 'node_edit_form') {
+    $form['actions']['delete']['#options']['attributes']['class'][] = 'button--outline';
+    $form['actions']['save_continue']['#attributes']['class'][] = 'button--outline';
   }
 }
