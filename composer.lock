@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f00f3c6c31854349f4ef46b384b67413",
+    "content-hash": "1c84f89dd730381ce99906477f23e30b",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -2781,6 +2781,10 @@
             ],
             "authors": [
                 {
+                    "name": "Centarro",
+                    "homepage": "https://www.drupal.org/user/3661446"
+                },
+                {
                     "name": "bojanz",
                     "homepage": "https://www.drupal.org/user/86106"
                 },
@@ -4027,10 +4031,13 @@
                 }
             },
             "autoload": {
+                "files": [
+                    "includes/bootstrap.inc"
+                ],
                 "psr-4": {
                     "Drupal\\Core\\": "lib/Drupal/Core",
-                    "Drupal\\Component\\": "lib/Drupal/Component",
-                    "Drupal\\Driver\\": "../drivers/lib/Drupal/Driver"
+                    "Drupal\\Driver\\": "../drivers/lib/Drupal/Driver",
+                    "Drupal\\Component\\": "lib/Drupal/Component"
                 },
                 "classmap": [
                     "lib/Drupal.php",
@@ -4059,9 +4066,6 @@
                     "lib/Drupal/Core/Http/InputBag.php",
                     "lib/Drupal/Core/Installer/InstallerRedirectTrait.php",
                     "lib/Drupal/Core/Site/Settings.php"
-                ],
-                "files": [
-                    "includes/bootstrap.inc"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -4750,7 +4754,7 @@
                 "drupal/core": "^8.8 || ^9"
             },
             "require-dev": {
-                "drupal/entity_browser": "^2.5"
+                "drupal/entity_browser": "*"
             },
             "suggest": {
                 "enyo/dropzone": "Required to use drupal/dropzonejs. DropzoneJS is an open source library that provides drag’n’drop file uploads with image previews."
@@ -5110,16 +5114,16 @@
                     "homepage": "https://www.drupal.org/user/841054"
                 },
                 {
-                    "name": "arshadcn",
-                    "homepage": "https://www.drupal.org/user/571032"
-                },
-                {
                     "name": "floretan",
                     "homepage": "https://www.drupal.org/user/66163"
                 },
                 {
                     "name": "rrrob",
                     "homepage": "https://www.drupal.org/user/273533"
+                },
+                {
+                    "name": "shadcn",
+                    "homepage": "https://www.drupal.org/user/571032"
                 }
             ],
             "description": "Let site administrators place content entities as blocks.",
@@ -7819,6 +7823,10 @@
                     "name": "Lucas Hedding",
                     "homepage": "https://www.drupal.org/u/heddn",
                     "role": "Maintainer"
+                },
+                {
+                    "name": "mikeryan",
+                    "homepage": "https://www.drupal.org/user/4420"
                 }
             ],
             "description": "Enhancements to core migration support.",
@@ -13604,6 +13612,9 @@
             },
             "require": {
                 "php": "^7.1 || ^8.0"
+            },
+            "replace": {
+                "myclabs/deep-copy": "self.version"
             },
             "require-dev": {
                 "doctrine/collections": "^1.0",
@@ -23593,7 +23604,8 @@
             ],
             "description": "Traits for testing Drupal sites that have user content (versus unpopulated sites).",
             "support": {
-                "issues": "https://gitlab.com/api/v4/projects/6878188/issues"
+                "issues": "https://gitlab.com/weitzman/drupal-test-traits/-/issues",
+                "source": "https://gitlab.com/weitzman/drupal-test-traits/-/tree/master"
             },
             "time": "2021-04-16T01:33:10+00:00"
         },
@@ -25149,5 +25161,5 @@
     "platform-overrides": {
         "php": "7.3"
     },
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.0.0"
 }
