@@ -41,16 +41,16 @@ Feature: Content model bundles
 | VAMC Detail Page | health_care_region_detail_page | Content type | For static pages where there's not another content type already available.  |
 | VAMC Facility | health_care_local_facility | Content type | A clinic or hospital within a VAMC system. |
 | VAMC Facility Health Service | health_care_local_health_service | Content type | A facility specific description of a health care service, always embedded within a VAMC system description. |
-| VAMC Facility Non-clinical Service | vha_facility_nonclinical_service | Content type |  |
+| VAMC Facility Non-clinical Service | vha_facility_nonclinical_service | Content type | Address and contact info for offices and other non-clinical service locations. This content is always embedded within a VAMC system non-clinical service page. |
 | VAMC System | health_care_region_page | Content type | A VAMC system contains multiple VHA health facilities, including usually at least one VAMC, sometimes more. |
 | VAMC System Banner Alert with Situation Updates | full_width_banner_alert | Content type | A full-width alert that will be added to a VAMC system, or multiple VAMC systems. |
-| VAMC System Billing and Insurance | vamc_system_billing_insurance | Content type |  |
+| VAMC System Billing and Insurance | vamc_system_billing_insurance | Content type | A page about how Veterans can pay a bill within a VAMC system. |
 | VAMC System Health Service | regional_health_care_service_des | Content type | A description of a health service specific to a VAMC system, which appears on a VAMC's health services page and on facility pages, within accordions. |
 | VAMC System Locations List | locations_listing | Content type | A listing of VA facilities. |
-| VAMC System Medical Records Office | vamc_system_medical_records_offi | Content type |  |
+| VAMC System Medical Records Office | vamc_system_medical_records_offi | Content type | A page about how Veterans can access their medical records within a VAMC system. |
 | VAMC System Operating Status | vamc_operating_status_and_alerts | Content type | Create one of these pages for each VAMC system. Then you can add banner alerts and update facilities' operating status, all from one place. |
 | VAMC System Policies Page | vamc_system_policies_page | Content type | Add policies specific to this VA medical center to appear on the Policies page. Local policies will appear alongside national policies that apply to all VAMCs. |
-| VAMC System Register for Care | vamc_system_register_for_care | Content type |  |
+| VAMC System Register for Care | vamc_system_register_for_care | Content type | A page about how Veterans can register for care at a specific VAMC system. |
 | VBA Facility | vba_facility | Content type | A facility within Veterans Benefits Administration system. |
 | Vet Center | vet_center | Content type | Location and page content for community-based counseling centers. |
 | Vet Center - Community Access Point | vet_center_cap | Content type | Location information for Vet Center services situated in another organization. |
