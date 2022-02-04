@@ -5,28 +5,28 @@
 /* Non-clinical services view - block displays */
 .view-non-clinical-services {
   .view-empty {
-    border: 1px solid #bfbfbf;
+    border: 1px solid var(--va-gray-cool-med);
     border-radius: 2px;
     margin: 1em 0;
     padding: 1em 1.5em;
   }
 
   .view-grouping-content {
-    border: 1px solid #bfbfbf;
+    border: 1px solid var(--va-gray-cool-med);
     border-radius: 2px;
     margin: 1em 0;
     padding: 1em 1.5em;
 
     .views-row {
       margin: 2em 0;
-  
+
       .location-details span:not(:first-child)::before {
         content: ', ';
       }
-  
+
       .address {
         margin-top: 0;
-  
+
         br,
         span {
           &:last-child {
