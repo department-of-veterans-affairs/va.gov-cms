@@ -1,8 +1,6 @@
 // For service locations, such as Facility health services.
 #edit-field-service-location-wrapper {
   border-bottom: 2 px solid var(--color-gray-light);
-  margin-bottom: 15px;
-  padding-bottom: 15px;
 
   // Hide Collapse, label, and info buttons.
   .paragraphs-icon-button-collapse,
@@ -62,6 +60,11 @@
   .claro-details__wrapper {
     margin-top: 0;
   }
+
+  .field-multiple-table {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
 }
 
 #field-service-location-address-values {
@@ -77,5 +80,17 @@
 
   .js .field--widget-paragraphs td {
     padding: 0 !important;
+  }
+}
+
+// VAMC System Health Service
+.services-intro-wrap {
+  h2 {
+    @include va-section-heading;
+  }
+
+  h2 + p {
+    @include va-helptext;
+    color: var(--color-gray-dark);
   }
 }

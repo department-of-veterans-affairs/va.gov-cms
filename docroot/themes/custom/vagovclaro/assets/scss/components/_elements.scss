@@ -1,8 +1,10 @@
 .fieldset__legend {
+  @include va-subsection-label;
   color: var(--color-text);
 }
 
 .claro-details__summary {
+  @include va-subsection-label;
   color: var(--color-text);
 }
 
@@ -10,20 +12,53 @@
 .form-item__description,
 .fieldset__description,
 .claro-details__description,
+.claro-details__summary-summary,
 .field--widget-markup,
 .textfield_counter_counter,
-.description {
-  color: var(--input-fg-color--description);
-  font-size: var(--font-size-s);
-  line-height: 1.0625rem;
+.description,
+#block-vagovclaro-help,
+#top-get-help-email {
+  @include va-helptext;
+  color: var(--color-gray-dark);
 }
 
-.field--widget-markup {
-  h2,
-  h3,
-  h4 {
-    color: var(--color-text);
-  }
+#appointments h2,
+#service-locations h2,
+#block-vagovclaro-help h2,
+.field--widget-markup h3 {
+  @include va-section-heading;
+  color: var(--color-text);
+  margin: 0 0 var(--spacing-xs) 0;
+}
+
+// this is printed on vet center forms...
+#top-get-help-email + p {
+  @include va-subsection-heading;
+  margin: var(--spacing-m) 0;
+}
+
+.label,
+.form-item__label {
+  @include va-label;
+  margin-bottom: var(--spacing-xs);
+}
+
+// multi-paragraphs fields with table headers
+h4.label,
+h4.form-item__label {
+  @include va-subsection-label;
+  margin: var(--spacing-xs) 0;
+}
+
+.claro-details__wrapper,
+.form-item {
+  margin-top: 0;
+}
+
+.form-item__label,
+.form-item__description {
+  margin-bottom: var(--spacing-xxs);
+  margin-top: 0;
 }
 
 .fieldset__description {
@@ -31,8 +66,8 @@
   margin-top: 0;
 }
 
-.form-item {
-  margin-top: 0;
+p {
+  margin: 0 0 var(--spacing-s) 0;
 }
 
 .cc-suffix-text {
@@ -56,7 +91,10 @@ th {
 
   .form-item__description {
     color: var(--color-text);
-    font-weight: normal;
+    margin: 0 var(--spacing-xxs) 0 0;
+  }
+
+  .paragraphs-actions .button--extrasmall {
     margin-top: 0;
   }
 }
@@ -138,7 +176,7 @@ p.vc-help-text {
 }
 
 .filter-wrapper {
-  margin: 0;
+  margin: var(--spacing-xxs) 0 0 0;
 }
 
 // question mark icon for text formats
