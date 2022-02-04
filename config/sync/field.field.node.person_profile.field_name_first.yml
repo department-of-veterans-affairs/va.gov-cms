@@ -5,13 +5,19 @@ dependencies:
   config:
     - field.storage.node.field_name_first
     - node.type.person_profile
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 1
 id: node.person_profile.field_name_first
 field_name: field_name_first
 entity_type: node
 bundle: person_profile
 label: 'First name'
 description: ''
-required: false
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''
