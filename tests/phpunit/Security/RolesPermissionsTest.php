@@ -71,6 +71,7 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'access promo_blocks_browser entity browser pages',
           'access q_a_browser entity browser pages',
           'access site-wide contact form',
+          'access toolbar',
           'access vet_centers entity browser pages',
           'add user_history entities',
           'create terms in audience_tags',
@@ -213,6 +214,7 @@ class RolesPermissionsTest extends ExistingSiteBase {
         'content_creator_benefits_hubs',
         [
           'access files overview',
+          'access toolbar',
           'create landing_page content',
           'create page content',
           'create promo block content',
@@ -224,6 +226,7 @@ class RolesPermissionsTest extends ExistingSiteBase {
         'content_creator_resources_and_support',
         [
           'access files overview',
+          'access toolbar',
           'create checklist content',
           'create faq_multiple_q_a content',
           'create media_list_images content',
@@ -238,6 +241,7 @@ class RolesPermissionsTest extends ExistingSiteBase {
       [
         'content_creator_vet_center',
         [
+          'access toolbar',
           'create vet_center_cap content',
           'create vet_center_facility_health_servi content',
           'delete any vet_center_facility_health_servi content',
@@ -784,6 +788,7 @@ class RolesPermissionsTest extends ExistingSiteBase {
         'office_content_creator',
         [
           'access files overview',
+          'access toolbar',
           'create event content',
           'create outreach_asset content',
           'create promo block content',
@@ -794,6 +799,7 @@ class RolesPermissionsTest extends ExistingSiteBase {
         'vamc_content_creator',
         [
           'access files overview',
+          'access toolbar',
           'create event content',
           'create full_width_banner_alert content',
           'create health_care_local_health_service content',
