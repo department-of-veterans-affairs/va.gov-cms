@@ -27,7 +27,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | Event | Facility location | field_facility_location | Entity reference |  | 1 | Select list |  |
 | Content type | Event | Full event description | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
 | Content type | Event | Event image | field_media | Entity reference |  | 1 | Media library | Translatable |
-| Content type | Event | Location type | field_location_type | List (text) |  | 1 | Select list |  |
+| Content type | Event | Location type | field_location_type | List (text) | | 1 | Select list |  |
 | Content type | Event | Teaser description | field_description | Text (plain) |  | 1 | Textfield | Translatable |
 | Content type | Event | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | Event | Order | field_order | List (integer) |  | 1 | Select list |  |

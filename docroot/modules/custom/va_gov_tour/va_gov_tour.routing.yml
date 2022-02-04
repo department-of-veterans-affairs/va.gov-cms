@@ -1,0 +1,7 @@
+va_gov_tour.tour_form:
+  path: '/admin/structure/types/manage/{node_type}/tour'
+  defaults:
+    _form: '\Drupal\va_gov_tour\Form\ContentTypeTourForm'
+    _title: 'Tour Form'
+  requirements:
+    _permission: 'administer tour'

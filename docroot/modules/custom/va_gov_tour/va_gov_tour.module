@@ -1,0 +1,91 @@
+<?php
+
+/**
+ * @file
+ * Contains va_gov_tour.module.
+ */
+
+use Drupal\va_gov_tour\Form\ContentTypeTourForm;
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\node\Entity\NodeType;
+use Drupal\tour\Entity\Tour;
+
+/**
+ * Implements hook_help().
+ */
+function va_gov_tour_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the va_gov_tour module.
+    case 'help.page.va_gov_tour':
+      $text = file_get_contents(__DIR__ . '/README.md');
+      return '<pre>' . Html::escape($text) . '</pre>';
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_page_bottom().
+ */
+function va_gov_tour_page_bottom(array &$page_bottom) {
+  $request = \Drupal::service('request_stack')->getCurrentRequest()->get('_route_params');
+  $route_name = \Drupal::routeMatch()->getRouteName();
+
+  // Must be on /node/add/{nodetype} page.
+  if ($route_name !== 'node.add') {
+    return;
+  }
+
+  $ct_machine_name = $request['node_type']->get('type');
+  $node_type = NodeType::load($ct_machine_name);
+
+  // "Enable tour" checkbox must be checked.
+  if ($node_type == NULL || $node_type->getThirdPartySetting('va_gov_tour', $ct_machine_name) == 0) {
+    return;
+  }
+
+  if (isset($ct_machine_name)) {
+    $tour_id = ContentTypeTourForm::TOUR_ID_PREFIX . str_replace('_', '-', $ct_machine_name);
+    $results = \Drupal::entityQuery('tour')
+      ->condition('id', $tour_id)
+      ->execute();
+
+    if (!empty($results) && $tours = Tour::loadMultiple(array_keys($results))) {
+      if (!empty($tours)) {
+        $view_builder = \Drupal::entityTypeManager()->getViewBuilder('tour');
+        $page_bottom['tour'] = $view_builder->viewMultiple($tours, 'full');
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function va_gov_tour_form_tour_form_alter(&$form, FormStateInterface $form_state) {
+  /** @var \Drupal\tour_ui\Form\TourForm $form_object */
+  $form_object = $form_state->getFormObject();
+  /** @var \Drupal\tour\Entity\Tour $entity */
+  $entity = $form_object->getEntity();
+  if ($entity->getModule() === 'va_gov_tour') {
+    $form['module']['#disabled'] = 'disabled';
+    $form['routes']['#disabled'] = 'disabled';
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_delete() for tour entities.
+ */
+function va_gov_tour_tour_delete($entity) {
+  if ($entity->getModule() == 'va_gov_tour' && $entity->getEntityTypeId() === 'tour') {
+    $ct_machine_name = str_replace([ContentTypeTourForm::TOUR_ID_PREFIX, '-'],
+    ['', '_'], $entity->id());
+    $node_type = NodeType::load($ct_machine_name);
+
+    if ($node_type !== NULL && $node_type->getThirdPartySetting('va_gov_tour', $ct_machine_name)) {
+      $node_type->setThirdPartySetting('va_gov_tour', $ct_machine_name, 0)->save();
+    }
+  }
+}
