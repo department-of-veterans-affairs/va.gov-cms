@@ -62,6 +62,6 @@ Feature: Content model: Vet Center Content Type fields
 | Content type | Vet Center - Outstation | Location address | field_address | Address |  | 1 | Address | Translatable |
 | Content type | Vet Center - Outstation | Main Vet Center location | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center - Outstation | Operating status | field_operating_status_facility | List (text) |  | 1 | Select list | Translatable |
-| Content type | Vet Center - Outstation | Operating status more info | field_operating_status_more_info | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
+| Content type | Vet Center - Outstation | Operating status more info | field_operating_status_more_info | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | Vet Center - Outstation | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center - Outstation | Table of contents | field_table_of_contents | Markup |  | 1 | Markup | Translatable |

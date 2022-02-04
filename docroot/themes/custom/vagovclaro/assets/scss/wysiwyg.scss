@@ -4,9 +4,9 @@
 @import 'tokens/mixins';
 
 .cke_editable {
-  background: #fff;
-  color: #323a45;
-  font-family: 'Source Sans Pro', Sans-Serif;
+  background: var(--color-white, #fff);
+  color: var(--va-gray-cool-darker, #323a45);
+  font-family: var(--font-family-sans, 'Source Sans Pro', Sans-Serif);
   font-size: 15px;
   margin: 0.5em; /* to provide padding within ckeditor */
   max-width: 700px;
