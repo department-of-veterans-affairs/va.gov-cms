@@ -20,7 +20,7 @@
 
 
       details {
-        border: 3px solid var(--color-gray-lightest);
+        border: 3px solid var(--va-gray-lightest);
         /* stylelint-disable */
         border-top: none;
         /* stylelint-enable */
@@ -58,19 +58,19 @@
         }
 
         summary {
-          background: var(--color-gray-lightest);
+          background: var(--va-gray-lightest);
           cursor: pointer;
-          font-family: Source Sans Pro, Helvetica Neue, Helvetica, Roboto, Arial, sans-serif;
-          font-weight: bold;
+          font-family: var(--font-family-sans);
+          font-weight: 600;
           list-style: none;
           padding: 10px 10px 10px 20px;
           text-decoration: none !important;
 
           h3 {
             display: inline-block;
-            font-family: Source Sans Pro, Helvetica Neue, Helvetica, Roboto, Arial, sans-serif;
+            font-family: var(--font-family-sans);
             font-size: 1em;
-            font-weight: bold;
+            font-weight: 600;
             margin: 0;
             max-width: 95%;
             padding: 0;
@@ -123,8 +123,8 @@
   }
 
   .form-element {
-    background: var(--color-blue-darker);
-    border-color: var(--color-gray-light);
+    background: var(--va-blue-darker);
+    border-color: var(--va-gray-cool-med);
     color: var(--color-white);
     min-height: 32px;
   }
