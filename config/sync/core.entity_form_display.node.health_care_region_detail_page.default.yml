@@ -74,9 +74,10 @@ third_party_settings:
       weight: 3
       format_type: fieldset
       format_settings:
-        description: 'Alerts draw attention to information that may be critical to a veteran, family member, or caregiver. You can <a href="/block/add/alert?destination=/admin/content/alerts">create a new alert</a>, or reuse an existing one.'
+        description: 'Alerts draw attention to information that may be critical to a veteran, family member, or caregiver.'
         id: ''
         classes: ''
+        show_empty_fields: false
         required_fields: false
       label: 'Include alert'
       region: content
@@ -96,7 +97,6 @@ third_party_settings:
       region: content
     group_meta_tags:
       children:
-        - field_meta_title
         - field_description
       parent_name: ''
       weight: 1
