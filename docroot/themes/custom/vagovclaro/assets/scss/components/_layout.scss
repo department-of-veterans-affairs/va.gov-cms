@@ -1,39 +1,39 @@
 .content-header {
-  background-color: var(--color-blue-darkest);
+  background-color: var(--va-blue-darkest);
   color: var(--color-white);
 
   .breadcrumb,
   .breadcrumb__item,
   .breadcrumb__link {
-    color: var(--color-gray-lighter);
+    color: var(--va-gray-lighter);
   }
 
   .breadcrumb__link:hover {
-    color: var(--color-sunglow);
+    color: var(--va-gold-med);
   }
 
   // claro inlines svgs & currentColor in url() doesn't work with css variables. need to inline here.
   .breadcrumb__item + .breadcrumb__item::before {
-    content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' height='8' width='5'%3e%3cpath fill='%23d6d7d9' d='M1.207.647L.5 1.354 3.146 4 .5 6.647l.707.707L4.561 4z'/%3e%3c/svg%3e");
+    content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' height='8' width='5'%3e%3cpath fill='%23e4e2e0' d='M1.207.647L.5 1.354 3.146 4 .5 6.647l.707.707L4.561 4z'/%3e%3c/svg%3e");
   }
 
   // only re-color primary tab links when not in menu layout.
   @include breakpoint('tabs') {
     .is-horizontal .tabs {
       .tabs__link {
-        color: var(--color-gray-lighter);
+        color: var(--va-gray-lighter);
       }
 
       .tabs__link:hover {
-        color: var(--color-absolutezero);
+        color: var(--va-blue-med);
       }
 
       .tabs__link.is-active {
-        color: var(--color-warning);
+        color: var(--va-gold-med);
       }
 
       .tabs__link.is-active::before {
-        border-bottom: var(--tabs--active-height) solid var(--color-warning);
+        border-bottom: var(--tabs--active-height) solid var(--va-gold-med);
       }
 
       .tabs__link.is-active:hover {
@@ -45,4 +45,26 @@
 
 .layout-region--node-secondary {
   margin-top: 0;
+}
+
+// editorial fields above form footer
+#edit-group-e,
+#edit-group-editorial-workflow {
+  margin-bottom: 0;
+
+  .form-item {
+    margin-bottom: var(--spacing-xs);
+  }
+}
+
+// Adjust layout for very wide screens.
+// MQ matches docroot/core/themes/claro/css/layout/node-add.css
+// 120 x 16 = 1920px min width
+@media screen and (min-width: 120rem) {
+  .layout-region--node-main .layout-region__content,
+  .layout-region--node-footer .layout-region__content {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 54rem;
+  }
 }
