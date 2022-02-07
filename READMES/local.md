@@ -1,5 +1,7 @@
 # [Environments](environments): Local
 
+For DDEV docs, please see the CMS Platform's [Confluence guide](https://vfs.atlassian.net/wiki/spaces/PCMS/pages/1956937732/ddev). 
+
 ## Lando:
   The local development environment uses Lando to create and manage the Drupal CMS.
   * [Lando Docs](https://docs.lando.dev/)
