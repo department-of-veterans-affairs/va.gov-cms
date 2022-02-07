@@ -3,6 +3,7 @@ version: '3.6'
 services:
   memcached:
     container_name: ddev-${DDEV_SITENAME}-memcached
+    networks: [default, ddev_default]
     image: memcached:1.5
     restart: "no"
     expose:
