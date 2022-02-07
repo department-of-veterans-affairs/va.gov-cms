@@ -29,7 +29,7 @@ As user _uid_ with _user_role_
 
 ### Select Team for PR review
 
-- [ ] `Platform CMS team`
+- [ ] `Platform CMS Team`
 - [ ] `Sitewide CMS Team`
   - [ ] `⭐️ Content ops`
   - [ ] `⭐️ CMS Experience`
