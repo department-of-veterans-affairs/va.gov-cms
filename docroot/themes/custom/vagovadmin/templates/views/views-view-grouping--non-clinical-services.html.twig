@@ -14,9 +14,16 @@
  * @see template_preprocess_views_view_grouping()
  */
 #}
+{% if grouping_level == 0 %}
+<div class="view-grouping {{ content|first['#title']|render|striptags|trim|lower }}">
+{% else %}
 <div class="view-grouping">
+{% endif %}
+
   <div class="view-grouping-content">
     {{ content }}
+    {% if grouping_level != 1 %}
     <div class="view-grouping-header">{{ title }}</div>
+    {% endif %}
   </div>
 </div>
