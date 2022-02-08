@@ -214,6 +214,7 @@ class MessageLogger implements EventSubscriberInterface {
       return;
     }
 
+    // @phpstan-ignore-next-line
     $file_url = \Drupal::service('file_url_generator')->generateAbsoluteString("public://migration_reports");
     $rpt_path = parse_url($file_url, PHP_URL_PATH);
 
