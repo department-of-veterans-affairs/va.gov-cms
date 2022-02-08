@@ -1,0 +1,31 @@
+uuid: 260a2ae0-6d34-477b-b05d-9b671c55a51c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_pending_expire_sent
+  enforced:
+    module:
+      - password_policy
+  module:
+    - user
+_core:
+  default_config_hash: oYe3JWMO6vLsJ9iypb1Bg9YQcT3TGqGtKwzHc3jcTXg
+id: user.user.field_pending_expire_sent
+field_name: field_pending_expire_sent
+entity_type: user
+bundle: user
+label: 'Pending Expiration Mail Count'
+description: 'Whether an email notifying of a pending password expiration has been sent'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer
