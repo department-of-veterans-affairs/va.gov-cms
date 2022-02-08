@@ -1,4 +1,7 @@
 services:
+  logger.channel.va_gov_migrate:
+    parent: logger.channel_base
+    arguments: ['va_gov_migrate']
   va_gov_migrate.post_row_save:
     class: Drupal\va_gov_migrate\EventSubscriber\PostRowSave
     tags:
