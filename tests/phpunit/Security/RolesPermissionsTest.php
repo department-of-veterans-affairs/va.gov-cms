@@ -140,7 +140,6 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'execute publish_latest_revision_action node',
           'execute views_bulk_edit all',
           'export tablefield',
-          'flag removal_complete',
           'import tablefield',
           'link to any page',
           'manipulate all entityqueues',
