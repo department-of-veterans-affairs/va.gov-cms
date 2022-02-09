@@ -41,7 +41,7 @@ assignees: ''
 - [ ] CMS engineer finds the menu for the system https://prod.cms.va.gov/admin/structure/menu and deletes the menu item for the closed facility.
 - [ ] CMS engineer filters content by the health care system and scans for any events that might be taking place at that facility. Archive if any are found.
 - [ ] CMS engineer removes the Section.
-- [ ] CMS engineer edit facility node and remove  flag `Removed from source` add flag `Removal complete` and save node.
+- [ ] CMS engineer edit facility node and remove  flag `Removed from source` and save node.
 - [ ] HD notifies editor and any other stakeholders.
 </details>
 
@@ -87,7 +87,7 @@ assignees: ''
 - [ ] Once timing of Redirect going live is known, alert CMS engineers to carry out the other steps
 - [ ] CMS engineer bulk unpublishes the nodes.
 - [ ] CMS engineer removes the Section.
-- [ ] CMS engineer edit facility node and remove flag `Removed from source`, add flag `Removal complete`, then save node.
+- [ ] CMS engineer edit facility node and remove flag `Removed from source`, then save node.
 </details>
 
 <details><summary>Vet Center – facility name change</summary>
