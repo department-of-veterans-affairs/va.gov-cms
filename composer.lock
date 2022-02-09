@@ -11002,16 +11002,16 @@
         },
         {
             "name": "drush-ops/behat-drush-endpoint",
-            "version": "9.4.0",
+            "version": "9.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drush-ops/behat-drush-endpoint.git",
-                "reference": "7a19d5fd6d91890b1e67c0290bd33f0184b5cadb"
+                "reference": "319ad4034174f93d82373a2c83b02faa20d85226"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drush-ops/behat-drush-endpoint/zipball/7a19d5fd6d91890b1e67c0290bd33f0184b5cadb",
-                "reference": "7a19d5fd6d91890b1e67c0290bd33f0184b5cadb",
+                "url": "https://api.github.com/repos/drush-ops/behat-drush-endpoint/zipball/319ad4034174f93d82373a2c83b02faa20d85226",
+                "reference": "319ad4034174f93d82373a2c83b02faa20d85226",
                 "shasum": ""
             },
             "require": {
@@ -11019,13 +11019,14 @@
                 "php": ">=5.3.0"
             },
             "conflict": {
-                "drush/drush": "<8.2 || >=9.0 <9.6.0 || >=11.0"
+                "drush/drush": "<8.2 || >=9.0 <9.6.0"
             },
             "require-dev": {
                 "composer/installers": "^1.2",
                 "drupal/core": "^8.8",
                 "drupal/core-composer-scaffold": "^8.8.1",
                 "drush/drush": "^8.3.3 || ^10.2.2",
+                "g1a/composer-test-scenarios": "^3.0.2",
                 "pantheon-systems/drupal-integrations": "^8",
                 "phpunit/phpunit": "^6.5",
                 "symfony/filesystem": "^3.4.28",
@@ -11076,6 +11077,19 @@
                                 "php": "7.0.8"
                             }
                         }
+                    },
+                    "drupal9": {
+                        "require-dev": {
+                            "drupal/core-recommended": "^9@rc",
+                            "drupal/core": "^9@rc",
+                            "drupal/core-composer-scaffold": "^9@rc",
+                            "pantheon-systems/drupal-integrations": "^9"
+                        },
+                        "config": {
+                            "platform": {
+                                "php": "7.3"
+                            }
+                        }
                     }
                 }
             },
@@ -11092,9 +11106,9 @@
             ],
             "support": {
                 "issues": "https://github.com/drush-ops/behat-drush-endpoint/issues",
-                "source": "https://github.com/drush-ops/behat-drush-endpoint/tree/9.x"
+                "source": "https://github.com/drush-ops/behat-drush-endpoint/tree/9.4.1"
             },
-            "time": "2020-05-28T16:32:01+00:00"
+            "time": "2022-02-05T15:16:40+00:00"
         },
         {
             "name": "drush/drush",
