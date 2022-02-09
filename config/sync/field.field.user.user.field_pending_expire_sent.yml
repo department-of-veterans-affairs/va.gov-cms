@@ -8,7 +8,12 @@ dependencies:
     module:
       - password_policy
   module:
+    - epp
     - user
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 1
 _core:
   default_config_hash: oYe3JWMO6vLsJ9iypb1Bg9YQcT3TGqGtKwzHc3jcTXg
 id: user.user.field_pending_expire_sent
