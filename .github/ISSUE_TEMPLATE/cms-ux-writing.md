@@ -40,11 +40,11 @@ E.g. *As a user who may be making changes to content, I'd like a message that wa
 - [ ] Document strategy behind language choices that are relevant to [the back end style guide](https://docs.google.com/document/d/1o3euR0eMoXRyp8G6sx1OCpmRtBShYGAm-Rb8MSXXir0/edit#)
 
 ### CMS Team
+Please check the team(s) that will do this work. 
 
-Please leave only the team that will do this work selected.
-
-- [x] `Platform CMS Team`
-- [x] `Sitewide CMS Team`
+- [ ] 'CMS Program'
+- [ ] `Platform CMS Team`
+- [ ] `Sitewide CMS Team` (leave Sitewide unchecked and check the specific team instead)
   - [ ] `⭐️ Content ops`
   - [ ] `⭐️ CMS experience`
   - [ ] `⭐️ Offices`
