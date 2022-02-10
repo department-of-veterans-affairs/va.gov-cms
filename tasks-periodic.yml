@@ -20,6 +20,7 @@ tasks:
             va/background/daily/migrate/vet_centers_facility
             va/background/daily/migrate/vba_facility
             va/background/daily/migrate/nca_facility
+            va/background/daily/migrate/flag_removed_facilities
             va/background/daily/update/taxonomy_entity_index
           )
           trap '{ (( exit_code |=\$? )); }' ERR
@@ -89,6 +90,11 @@ tasks:
     cmds:
       - drush $DRUSH_ALIAS migrate:reset-status va_node_facility_nca
       - drush $DRUSH_ALIAS migrate:import va_node_facility_nca
+
+  va/background/daily/migrate/flag_removed_facilities:
+    desc: These flagging process is to run once nightly.
+    cmds:
+      - drush $DRUSH_ALIAS drush va_gov_migrate:flag-missing-facilities
 
   va/background/daily/update/taxonomy_entity_index:
     desc: Update the taxonomy_entity_index nightly.
