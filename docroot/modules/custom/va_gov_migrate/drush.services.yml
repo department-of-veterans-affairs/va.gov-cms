@@ -1,6 +1,11 @@
 services:
   va_gov_migrate.commands:
     class: \Drupal\va_gov_migrate\Commands\Commands
-    arguments: [ '@database', '@entity_type.manager' ]
+    arguments:
+      - '@database'
+      - '@entity_type.manager'
+      - '@va_gov_workflow.flagger'
+      - '@plugin.manager.migrate_plus.data_fetcher'
+      - '@logger.channel.va_gov_migrate'
     tags:
       - { name: drush.command }
