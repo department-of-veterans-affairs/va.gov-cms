@@ -981,7 +981,7 @@ function va_gov_backend_preprocess_page(&$variables) {
       'vet_center_outstation',
     ];
     // Exclude staff pages without bios.
-    if ($node->bundle === 'person_profile' && $node->field_complete_biography_create->value === '0') {
+    if ($node->bundle() === 'person_profile' && $node->field_complete_biography_create->value === '0') {
       $exclusion_types[] = 'person_profile';
     }
     // Make sure we aren't on the node form or an excluded type.
