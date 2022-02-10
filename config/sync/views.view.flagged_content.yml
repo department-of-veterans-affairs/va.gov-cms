@@ -10,7 +10,6 @@ dependencies:
     - flag.flag.deleted
     - flag.flag.new
     - flag.flag.new_form
-    - flag.flag.removal_complete
     - flag.flag.removed_from_source
     - node.type.health_care_local_facility
     - node.type.nca_facility
@@ -108,7 +107,6 @@ display:
             flagged_5: nothing
             flagged_6: nothing
             flagged_7: nothing
-            flagged_4: nothing
             nothing: nothing
             type: type
             revision_uid: revision_uid
@@ -184,13 +182,6 @@ display:
               empty_column: false
               responsive: ''
             flagged_7:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            flagged_4:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -828,60 +819,6 @@ display:
           hide_alter_empty: true
           type: custom
           type_custom_true: Deleted
-          type_custom_false: ''
-          not: 0
-          entity_type: flagging
-          plugin_id: flag_flagged
-        flagged_4:
-          id: flagged_4
-          table: flagging
-          field: flagged
-          relationship: flag_relationship_4
-          group_type: group
-          admin_label: ''
-          label: Flagged
-          exclude: false
-          alter:
-            alter_text: true
-            text: '<span class="flag removal-complete">{{ flagged_4 }}</span> '
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: true
-          empty_zero: true
-          hide_alter_empty: true
-          type: custom
-          type_custom_true: 'Removal complete'
           type_custom_false: ''
           not: 0
           entity_type: flagging
@@ -1684,59 +1621,6 @@ display:
             show_hierarchy: 1
           entity_type: node
           plugin_id: workbench_access_section
-        flagged_4:
-          id: flagged_4
-          table: flagging
-          field: flagged
-          relationship: flag_relationship_4
-          group_type: group
-          admin_label: 'Removal Complete'
-          operator: '='
-          value: '0'
-          group: 1
-          exposed: true
-          expose:
-            operator_id: ''
-            label: 'Show "Removal complete"'
-            description: ''
-            use_operator: false
-            operator: flagged_4_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: removal_complete
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_api_consumer: '0'
-              content_creator_benefits_hubs: '0'
-              content_creator_resources_and_support: '0'
-              office_content_creator: '0'
-              vamc_content_creator: '0'
-              content_creator_vet_center: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              content_admin: '0'
-              redirect_administrator: '0'
-              admnistrator_users: '0'
-              administrator: '0'
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          entity_type: flagging
-          plugin_id: flag_filter
         flagged_7:
           id: flagged_7
           table: flagging
@@ -2123,18 +2007,6 @@ display:
           admin_label: 'Flag New form'
           required: false
           flag: new_form
-          user_scope: any
-          entity_type: node
-          plugin_id: flag_relationship
-        flag_relationship_4:
-          id: flag_relationship_4
-          table: node_field_data
-          field: flag_relationship
-          relationship: none
-          group_type: group
-          admin_label: 'Flag Removal Complete'
-          required: false
-          flag: removal_complete
           user_scope: any
           entity_type: node
           plugin_id: flag_relationship
