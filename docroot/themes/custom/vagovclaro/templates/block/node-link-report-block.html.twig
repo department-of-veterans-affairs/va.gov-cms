@@ -21,8 +21,15 @@
  *   ['http://www.someurl.com' => 'Link Title']
  */
 #}
-
+{% if (bad_links is not empty) or
+  (((inaccessible_links is not empty)) and (display_inaccessible_links == 1)) or
+  (unpublished_links is not empty) or
+  (redirected_links is not empty) or
+  (((skipped_links is not empty)) and (display_skipped_links == 1)) or
+  ((good_links is not empty) and (display_good_links == 1))
+%}
 <div class="messages-list node-link-report-list">
+{% endif %}
   {% if bad_links is not empty %}
     <div class="bad_links va-alert messages messages--error">
       <details class="js-form-wrapper">
@@ -211,4 +218,12 @@
       </details>
     </div>
   {% endif %}
+{% if (bad_links is not empty) or
+  (((inaccessible_links is not empty)) and (display_inaccessible_links == 1)) or
+  (unpublished_links is not empty) or
+  (redirected_links is not empty) or
+  (((skipped_links is not empty)) and (display_skipped_links == 1)) or
+  ((good_links is not empty) and (display_good_links == 1))
+%}
 </div>
+{% endif %}

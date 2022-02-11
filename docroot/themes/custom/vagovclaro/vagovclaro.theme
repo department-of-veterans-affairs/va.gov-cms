@@ -10,6 +10,7 @@ use Drupal\Core\Url;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
 use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\node\Entity\Node;
 
 /**
  * Implements hook_preprocess_html().
@@ -29,6 +30,10 @@ function vagovclaro_preprocess_html(&$variables) {
  */
 function vagovclaro_theme_suggestions_page_alter(&$suggestions, $variables) {
   if ($node = \Drupal::routeMatch()->getParameter('node')) {
+    // Revisions pages load $node as a nid string instead of a node entity.
+    if (!is_object($node)) {
+      $node = Node::load($node);
+    }
     $content_type = $node->bundle();
     $suggestions[] = 'page__' . $content_type;
   }
