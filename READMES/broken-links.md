@@ -24,7 +24,7 @@ There are 3 concurrent strategies to prevent broken links.
 
 ## Front End Link Checking
 
-The link checking on the front end happens during the content-build in [Content-Build repo](https://github.com/department-of-veterans-affairs/content-build/tree/master/src/site/stages/build/plugins/modify-dom/check-broken-links).  Only internal links are checked. If more than 10 broken links are found, the content release is considered a failure and does not occur.  CMS team is to respond and remedy if this happens.  The broken links are reported to both the #vfs-platform-builds and #content-broken-links channels in Slack.
+The link checking on the front end happens during the content-build in [Content-Build repo](https://github.com/department-of-veterans-affairs/content-build/tree/master/src/site/stages/build/plugins/modify-dom/check-broken-links).  Only internal links are checked. If more than 10 broken links are found, the content release is considered a failure and does not occur.  CMS team is to respond and remedy if this happens.  The broken links are reported to both the [#vfs-platform-builds](https://dsva.slack.com/archives/C0MQ281DJ) and [#content-broken-links](https://dsva.slack.com/archives/C030F5WV2TF) channels in Slack.
 
 **Notes:**
 
