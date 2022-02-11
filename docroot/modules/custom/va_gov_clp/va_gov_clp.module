@@ -1,0 +1,51 @@
+<?php
+
+/**
+ * @file
+ * Contains va_gov_clp.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function va_gov_clp_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the va_gov_clp module.
+    case 'help.page.va_gov_clp':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('VA.gov CLP') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Prevent outputting empty fieldgroups on clp.
+ *
+ * @param array $variables
+ *   The entity renderable items array.
+ */
+function va_gov_clp_field_group_build_pre_render_alter(array &$variables) {
+  if (empty($variables['field_clip_spotlight_panel'])) {
+    $variables['group_spotlight']['#access'] = FALSE;
+  }
+  if (empty($variables['field_clip_events_panel'])) {
+    $variables['group_events']['#access'] = FALSE;
+  }
+  if (empty($variables['field_clip_faq_panel'])) {
+    $variables['group_faq']['#access'] = FALSE;
+  }
+  if (empty($variables['field_clip_stories_panel'])) {
+    $variables['group_stories']['#access'] = FALSE;
+  }
+  if (empty($variables['field_clip_video_panel'])) {
+    $variables['group_video']['#access'] = FALSE;
+  }
+  if (empty($variables['field_clip_resources_panel'])) {
+    $variables['group_resources']['#access'] = FALSE;
+  }
+}

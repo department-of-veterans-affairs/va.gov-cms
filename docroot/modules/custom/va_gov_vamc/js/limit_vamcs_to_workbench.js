@@ -8,7 +8,7 @@
 (function (Drupal) {
   var adminField = document.getElementById("edit-field-administration");
 
-  var checkBoxDivs = document.querySelectorAll("#edit-field-banner-alert-vamcs-wrapper div.form-type-checkbox");
+  var checkBoxDivs = document.querySelectorAll("#edit-field-banner-alert-vamcs div.js-form-type-checkbox");
 
   var selectListSystems = document.querySelectorAll("#edit-field-region-page option");
 
