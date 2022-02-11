@@ -218,7 +218,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public function appendHealthServiceTermDescriptionToVetCenter(EntityViewAlterEvent $event):void {
     if ($event->getDisplay()->getTargetBundle() === 'vet_center') {
       $build = &$event->getBuild();
-      $services = isset($build['field_health_services']) ? $build['field_health_services'] : [];
+      $services = isset($build['field_health_services']) ?? [];
       foreach ($services as $key => $service) {
         if (is_numeric($key) && !empty($service['#options'])) {
           $service_node = $service['#options']['entity'];
