@@ -46,7 +46,7 @@ gulp.task("clearcache").description = "clear all Drupal caches";
  * Reload browser with browsersync to show changes
  */
 gulp.task("watch", () => {
-  gulp.watch(["scss/**/*.scss"], gulp.series("sass"));
+  gulp.watch(["assets/scss/**/*.scss"], gulp.series("sass"));
 });
 gulp.task("watch").description = "watch SCSS";
 
