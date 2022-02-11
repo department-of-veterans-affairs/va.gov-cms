@@ -11,7 +11,7 @@
       if (context.querySelectorAll(".admin-help-email-tpl").length) {
         var emailLinks = context.querySelectorAll(".admin-help-email-tpl");
 
-        var facilityID = context.querySelector(".field--name-field-facility-locator-api-id .field__item") ? context.querySelector(".field--name-field-facility-locator-api-id .field__item").textContent : context.querySelector(".form-item-field-facility-locator-api-id-0-value input").value;
+        var facilityID = context.querySelector(".field--name-field-facility-locator-api-id .field__item") ? context.querySelector(".field--name-field-facility-locator-api-id .field__item").textContent : context.querySelector("#edit-field-facility-locator-api-id-0-value").value;
 
         var facilityName = context.querySelector(".breadcrumb li:last-child") !== null ? context.querySelector(".breadcrumb li:last-child").textContent.trim() : "";
 

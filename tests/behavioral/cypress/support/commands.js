@@ -32,6 +32,14 @@ const compareSnapshotCommand = require('cypress-visual-regression/dist/command')
 
 Cypress.Commands.add('drupalLogin', (username, password) => {
   cy.visit('/user/login');
+
+  cy.get('#user-login-form').then(($form) => {
+    // PIV login by default in claro theme, so cypress checks for the toggle to click it.
+    if ($form.hasClass('piv-login')) {
+      cy.get('.js-va-login-toggle').click();
+    }
+  });
+
   cy.get('#edit-name').type(username);
   cy.get('#edit-pass').type(password);
   cy.get('#edit-submit').click();

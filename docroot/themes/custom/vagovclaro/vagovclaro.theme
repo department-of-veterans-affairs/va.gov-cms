@@ -40,6 +40,20 @@ function vagovclaro_theme_suggestions_page_alter(&$suggestions, $variables) {
 }
 
 /**
+ * Implements hook_preprocess_block().
+ */
+function vagovclaro_preprocess_block(&$variables) {
+  $block = $variables['elements'];
+  $theme_prefix = 'vagovclaro-';
+
+  // Some blocks gained a theme prefix when switching themes.
+  // IDs need adjusted in order to pass tests in both themes.
+  if (isset($block['#id']) && $block['#id'] === 'vagovclaro_entitymetadisplay') {
+    $variables['attributes']['id'] = str_replace($theme_prefix, '', $variables['attributes']['id']);
+  }
+}
+
+/**
  * Implements hook_preprocess_form_element().
  */
 function vagovclaro_preprocess_form_element(&$variables) {
