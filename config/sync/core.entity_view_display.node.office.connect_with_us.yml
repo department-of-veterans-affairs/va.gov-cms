@@ -1,0 +1,90 @@
+uuid: f3b691b1-f070-4bcb-b076-b9b05d6eacd2
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.connect_with_us
+    - field.field.node.office.field_administration
+    - field.field.node.office.field_body
+    - field.field.node.office.field_description
+    - field.field.node.office.field_email_updates_link
+    - field.field.node.office.field_external_link
+    - field.field.node.office.field_meta_tags
+    - field.field.node.office.field_meta_title
+    - field.field.node.office.field_social_media_links
+    - node.type.office
+  module:
+    - field_group
+    - layout_builder
+    - link
+    - social_media_links_field
+    - user
+third_party_settings:
+  field_group:
+    group_meta:
+      children:
+        - field_meta_tags
+        - field_meta_title
+      parent_name: ''
+      weight: 4
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: 'Meta tags'
+      region: hidden
+  layout_builder:
+    allow_custom: false
+    enabled: false
+id: node.office.connect_with_us
+targetEntityType: node
+bundle: office
+mode: connect_with_us
+content:
+  field_email_updates_link:
+    weight: 1
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_external_link:
+    weight: 0
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_social_media_links:
+    weight: 2
+    label: hidden
+    settings:
+      appearance:
+        orientation: v
+        show_name: '1'
+      link_attributes:
+        target: '<none>'
+        rel: '<none>'
+    third_party_settings: {  }
+    type: social_media_links_field_default
+    region: content
+hidden:
+  content_moderation_control: true
+  field_administration: true
+  field_body: true
+  field_description: true
+  field_meta_tags: true
+  field_meta_title: true
+  links: true
+  search_api_excerpt: true
