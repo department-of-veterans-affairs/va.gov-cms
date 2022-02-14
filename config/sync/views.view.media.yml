@@ -6,7 +6,6 @@ dependencies:
     - core.entity_view_mode.media.media_library
     - field.storage.media.field_media_in_library
     - field.storage.media.field_owner
-    - field.storage.media.image
     - image.style.medium
     - image.style.thumbnail
     - media.type.document
@@ -329,70 +328,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        image:
-          id: image
-          table: media__image
-          field: image
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: 'Alt Text'
-          exclude: false
-          alter:
-            alter_text: true
-            text: '{{ image__alt }}'
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: true
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: image
-          settings:
-            image_style: ''
-            image_link: ''
-          group_column: ''
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          plugin_id: field
         edit_media:
           id: edit_media
           table: media
@@ -1027,69 +962,6 @@ display:
                 operator: '='
                 value: '0'
           plugin_id: boolean
-        image_alt:
-          id: image_alt
-          table: media__image
-          field: image_alt
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: 'not empty'
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: image_alt_op
-            label: 'Alt text'
-            description: ''
-            use_operator: true
-            operator: image_alt_op
-            operator_limit_selection: true
-            operator_list:
-              empty: empty
-              'not empty': 'not empty'
-            identifier: image_alt
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_api_consumer: '0'
-              content_creator_benefits_hubs: '0'
-              content_creator_resources_and_support: '0'
-              office_content_creator: '0'
-              vamc_content_creator: '0'
-              content_creator_vet_center: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              content_admin: '0'
-              redirect_administrator: '0'
-              admnistrator_users: '0'
-              administrator: '0'
-            placeholder: ''
-          is_grouped: true
-          group_info:
-            label: 'Alt text'
-            description: ''
-            identifier: image_alt
-            optional: true
-            widget: radios
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items:
-              1:
-                title: Missing
-                operator: empty
-                value: ''
-              2:
-                title: Present
-                operator: 'not empty'
-                value: ''
-          plugin_id: string
       sorts:
         created:
           id: created
@@ -1127,6 +999,10 @@ display:
       use_more: true
       use_more_always: false
       use_more_text: more
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
     cache_metadata:
       max-age: -1
       contexts:
@@ -1139,7 +1015,6 @@ display:
       tags:
         - 'config:field.storage.media.field_media_in_library'
         - 'config:field.storage.media.field_owner'
-        - 'config:field.storage.media.image'
   entity_browser_1:
     display_plugin: entity_browser
     id: entity_browser_1
@@ -2512,7 +2387,6 @@ display:
       tags:
         - 'config:field.storage.media.field_media_in_library'
         - 'config:field.storage.media.field_owner'
-        - 'config:field.storage.media.image'
   page_1:
     display_plugin: page
     id: page_1
