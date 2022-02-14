@@ -14,21 +14,19 @@
 
   Drupal.behaviors.vagovadminAnchorLinks = {
     attach: function attach() {
-      var tabs = document.querySelectorAll("a.vertical-tabs__menu-link");
-      tabs.forEach(function (tab) {
-        $(tab).on("click", function (event) {
-          event.preventDefault();
+      $('a[href^="#"]:not([href^="#edit-group"])').click(function (event) {
+        event.preventDefault();
 
-          var target = event.target;
-
-          var targetHref = target.getAttribute("href");
-          var scrollToPosition = $(target).offset().top - (Drupal.getAdminToolbarHeight() + 10);
+        var target = $(event.target).attr("href");
+        var targetOffset = $(target).offset();
+        if (targetOffset) {
+          var scrollToPosition = targetOffset.top - (Drupal.getAdminToolbarHeight() + 10);
 
           $("html").animate({ scrollTop: scrollToPosition }, 500, function () {
-            window.location.hash = "" + targetHref;
+            window.location.hash = "" + target;
             $("html").animate({ scrollTop: scrollToPosition }, 0);
           });
-        });
+        }
       });
     }
   };
