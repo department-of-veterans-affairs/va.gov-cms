@@ -1,23 +1,127 @@
 .fieldset__legend {
+  @include va-subsection-label;
   color: var(--color-text);
 }
 
 .claro-details__summary {
+  @include va-subsection-label;
   color: var(--color-text);
+
+  &::before {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3e%3cpath d='M5.21 1.314L3.79 2.723l5.302 5.353-5.303 5.354 1.422 1.408 6.697-6.762z' fill='%23212121'/%3e%3c/svg%3e");
+  }
 }
 
-// hides duplicate character counter that isn't connected to the field
-.form-item + .textfield_counter_counter {
-  display: none;
+.claro-details__summary:hover::before,
+.claro-details__summary:hover:focus::before,
+.claro-details[open] > .claro-details__summary:focus::before,
+.claro-details[open] > .claro-details__summary--accordion::before,
+.claro-details[open] > .claro-details__summary--accordion-item::before,
+.claro-details[open] > .claro-details__summary--vertical-tabs-item::before {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3e%3cpath d='M5.21 1.314L3.79 2.723l5.302 5.353-5.303 5.354 1.422 1.408 6.697-6.762z' fill='%230071bb'/%3e%3c/svg%3e");
+}
+
+
+// classes for consistent styles on various help-texts around the cms
+.form-item__description,
+.fieldset__description,
+.claro-details__description,
+.claro-details__summary-summary,
+.field--widget-markup,
+.textfield_counter_counter,
+.description,
+#block-vagovclaro-help,
+#top-get-help-email {
+  @include va-helptext;
+  color: var(--va-gray-med);
+}
+
+#appointments h2,
+#service-locations h2,
+#block-vagovclaro-help h2,
+.field--widget-markup h3 {
+  @include va-section-heading;
+  color: var(--color-text);
+  margin: 0 0 var(--spacing-xs) 0;
+}
+
+// this is printed on vet center forms...
+#top-get-help-email + p {
+  @include va-subsection-heading;
+  margin: var(--spacing-m) 0;
+}
+
+.label,
+.form-item__label {
+  @include va-label;
+  margin-bottom: var(--spacing-xs);
+}
+
+// multi-paragraphs fields with table headers
+h4.label,
+h4.form-item__label {
+  @include va-subsection-label;
+  margin: var(--spacing-xs) 0;
+}
+
+.claro-details__wrapper,
+.form-item {
+  margin-top: 0;
+}
+
+.form-item__label,
+.form-item__description {
+  margin-bottom: var(--spacing-xxs);
+  margin-top: 0;
+}
+
+.fieldset__description {
+  margin-bottom: var(--space-m);
+  margin-top: 0;
+}
+
+p {
+  margin: 0 0 var(--spacing-s) 0;
+}
+
+.cc-suffix-text {
+  margin-bottom: var(--space-l);
+}
+
+.entities-list .item-container > input {
+  display: inline-block;
+  margin: var(--space-s) var(--space-xs) var(--space-s) 0;
+}
+
+// help text on a non-white background needs more contrast
+.claro-details__wrapper--accordion-item .form-item__description {
+  color: var(--input-fg-color-description--alt);
+}
+
+th {
+  .label {
+    margin-bottom: 0;
+  }
+
+  .form-item__description {
+    color: var(--color-text);
+    margin: 0 var(--spacing-xxs) 0 0;
+  }
+
+  .paragraphs-actions .button--extrasmall {
+    margin-top: 0;
+  }
 }
 
 .table--widget-entity_reference_browser_table_widget {
-  margin-top: 25px;
-
   .moderation-status {
     font-weight: 400;
     text-transform: uppercase;
   }
+}
+
+.draggable-table th {
+  border-bottom: 1px solid var(--va-gray-cool-med);
 }
 
 .taxonomy-term-preview {
@@ -25,14 +129,10 @@
 }
 
 #block-entitymetadisplay {
-  border: 1px solid var(--color-gray-light);
+  border: 1px solid var(--va-gray-cool-med);
   border-radius: 2px;
-  margin: 1em 0;
-  padding: 10px 18px;
-
-  div {
-    padding: 2px 0;
-  }
+  margin-bottom: var(--spacing-m);
+  padding: var(--spacing-s);
 }
 
 .ief-entity-table {
@@ -72,16 +172,77 @@ p.vc-help-text {
   }
 }
 
-.eyebrow {
-  position: relative;
+.ui-widget {
+  font-family: var(--font-family-sans);
+}
 
-  &::after {
-    background-color: var(--color-warning);
-    bottom: -0.25rem;
-    content: ' ';
-    height: 4px;
-    left: 0;
-    position: absolute;
-    width: 40px;
-  }
+// linkit results should be scrollable
+.ui-autocomplete {
+  overflow: auto;
+}
+
+.linkit-result-line--title {
+  color: var(--color-text);
+}
+
+.linkit-result-line:hover .linkit-result-line--title {
+  color: var(--color-white);
+}
+
+.filter-wrapper {
+  margin: var(--spacing-xxs) 0 0 0;
+}
+
+// question mark icon for text formats
+.filter-help {
+  margin-right: var(--space-l);
+  position: relative;
+}
+
+.filter-help a::after {
+  background: transparent url('../../../../../core/misc/help.png');
+  content: '';
+  display: block;
+  height: 16px;
+  position: absolute;
+  right: -20px;
+  top: 4px;
+  width: 16px;
+}
+
+.breadcrumb__link:hover {
+  color: var(--va-blue-med);
+}
+
+.form-item--error-message {
+  color: var(--va-red-bright);
+}
+
+// focus states for general form inputs. fixes spacing with character counter
+.form-element:focus {
+  box-shadow: 0 0 0 3px var(--color-focus);
+}
+
+.form-element:hover:focus {
+  box-shadow: 0 0 0 3px var(--color-focus), inset 0 0 0 var(--input-border-size) var(--input--hover-border-color);
+}
+
+// Update to checkbox colors
+.form-boolean:active,
+.form-boolean:hover {
+  box-shadow: inset 0 0 0 1px var(--va-blue-darker);
+}
+
+.form-boolean:focus:active,
+.form-boolean:focus:hover {
+  box-shadow: 0 0 0 2px var(--color-white), 0 0 0 5px var(--color-focus), inset 0 0 0 1px var(--va-blue-darker);
+}
+
+.form-boolean--type-checkbox:checked:active,
+.form-boolean--type-checkbox:checked:hover {
+  background-color: var(--va-blue-darker);
+}
+
+.no-wrap {
+  white-space: nowrap;
 }

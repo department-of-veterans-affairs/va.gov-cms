@@ -140,7 +140,6 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
     else {
       $block_items['Owner'] = $this->getSectionHierarchyBreadcrumbLinks($node);
     }
-
     if ($this->vaGovUrlShouldBeDisplayed($node)) {
       $va_gov_url = $this->vaGovUrl->getVaGovFrontEndUrlForEntity($node);
 
@@ -281,6 +280,11 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
    *   Boolean value.
    */
   private function vaGovUrlShouldBeDisplayed(NodeInterface $node) : bool {
+    // Make sure this isn't a staff page without bio.
+    if (!empty($node->field_complete_biography_create) && $node->field_complete_biography_create->value === '0') {
+      return FALSE;
+    }
+
     if ($this->exclusionTypes->typeIsExcluded($node->bundle())) {
       return FALSE;
     }

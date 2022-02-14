@@ -74,11 +74,11 @@ assignees: cmaeng, kevwalsh
 **Propose some general time windows for the initial CMS discovery meeting.**
 
 ### CMS Team
+Please check the team(s) that will do this work. 
 
-Please leave only the team that will do this work selected. 
-
-- [x] `Platform CMS Team`
-- [x] `Sitewide CMS Team`
+- [ ] `CMS Program`
+- [ ] `Platform CMS Team`
+- [ ] `Sitewide CMS Team ` (leave Sitewide unchecked and check the specific team instead)
   - [ ] `⭐️ Content ops`
   - [ ] `⭐️ CMS experience`
   - [ ] `⭐️ Offices`

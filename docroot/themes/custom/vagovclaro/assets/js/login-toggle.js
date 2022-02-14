@@ -15,7 +15,7 @@
         loginForm.toggleClass("piv-login form-login");
 
         var loginToggle = $("#edit-toggle");
-        loginToggle.prop("value", loginToggle.val() === "Login with password" ? "Login with PIV" : "Login with password");
+        loginToggle.prop("value", loginToggle.val() === "Developer log in" ? "Log in with PIV" : "Developer log in");
 
         if ($("#user-login-form").hasClass("piv-login")) {
           $("a.simplesamlphp-auth-login-link").focus();

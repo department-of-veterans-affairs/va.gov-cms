@@ -16,12 +16,16 @@
   'va-alert'
 ]
 %}
-{%
-  set is_message_with_title = status_headings[type]
-%}
-{%
-  set is_message_with_icon = type in ['error', 'status', 'warning']
-%}
+{% if type == 'status' %}
+  {% set is_message_with_title = false %}
+{% else %}
+  {%
+    set is_message_with_title = status_headings[type]
+  %}
+  {%
+    set is_message_with_icon = type in ['error', 'status', 'warning']
+  %}
+{% endif %}
 
 <div role="contentinfo" aria-labelledby="{{ title_ids[type] }}"{{ attributes.addClass(classes)|without('role', 'aria-label') }}>
   {% if type == 'error' %}

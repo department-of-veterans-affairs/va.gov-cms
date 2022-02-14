@@ -83,10 +83,10 @@ Feature: Content model: VAMC Content Type fields
 | Content type | Staff Profile | Complete Biography | field_complete_biography | File |  | 1 | File |  |
 | Content type | Staff Profile | Create profile page with biography | field_complete_biography_create | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Staff Profile | Email address | field_email_address | Email |  | 1 | Email |  |
-| Content type | Staff Profile | First name | field_name_first | Text (plain) |  | 1 | Textfield |  |
+| Content type | Staff Profile | First name | field_name_first | Text (plain) | Required | 1 | Textfield |  |
 | Content type | Staff Profile | High-resolution photo should be available for download by site visitors | field_photo_allow_hires_download | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Staff Profile | First sentence | field_intro_text | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
-| Content type | Staff Profile | Last name | field_last_name | Text (plain) |  | 1 | Textfield |  |
+| Content type | Staff Profile | Last name | field_last_name | Text (plain) | Required | 1 | Textfield |  |
 | Content type | Staff Profile | Job title | field_description | Text (plain) |  | 1 | Textfield | Translatable |
 | Content type | Staff Profile | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | Staff Profile | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
@@ -167,6 +167,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System | Twitter | field_twitter | Link |  | 1 | Linkit | Translatable |
 | Content type | VAMC System | VAMC system official name | field_vamc_system_official_name | Text (plain) |  | 1 | Textfield |  |
 | Content type | VAMC System | Electronic Health Records system | field_vamc_ehr_system | List (text) |  | 1 | -- Disabled -- |  |
+| Content type | VAMC System | VA health connect phone number | field_va_health_connect_phone | Telephone number |  | 1 | -- Disabled -- |  |
 | Content type | VAMC System Banner Alert with Situation Updates | Alert body | field_body | Text (formatted, long) | Required | 1 | Text area (multiple rows) | Translatable |
 | Content type | VAMC System Banner Alert with Situation Updates | Alert dismissable? | field_alert_dismissable | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC System Banner Alert with Situation Updates | Alert type | field_alert_type | List (text) | Required | 1 | Select list |  |

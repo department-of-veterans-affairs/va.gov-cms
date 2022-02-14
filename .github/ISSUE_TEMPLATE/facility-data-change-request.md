@@ -29,6 +29,7 @@ assignees: ''
 - [ ] CMS engineer updates the Section.
 - [ ] CMS engineer updates the facility service nodes.
 - [ ] CMS engineer bulk publishes nodes.
+- [ ] CMS engineer edit facility node and remove `New facility` flag and save node.
 - [ ] HD notifies editor and any other stakeholders.
 </details>
  
@@ -36,10 +37,10 @@ assignees: ''
   
 - [ ] CMS team becomes aware that the facility is no longer on the Facility API.
 - [ ] CMS engineer bulk archives the facility service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
-- [ ] CMS engineer edits the facility node, add a revision log to cover who requested the change and change moderation state to archive.
 - [ ] CMS engineer finds the menu for the system https://prod.cms.va.gov/admin/structure/menu and deletes the menu item for the closed facility.
 - [ ] CMS engineer filters content by the health care system and scans for any events that might be taking place at that facility. Archive if any are found.
 - [ ] CMS engineer removes the Section.
+ - [ ] CMS engineer edits the facility node, removes  flag `Removed from source`, add a revision log to cover who requested the change and change moderation state to archive.
 - [ ] HD notifies editor and any other stakeholders.
 </details>
 
@@ -49,7 +50,10 @@ assignees: ''
 - [ ] Coordinate with Facilities team to have FE redirects set up.
 - [ ] CMS engineer makes bulk alias changes to facility service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
 - [ ] CMS engineer bulk saves fixed titles to facility service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
-- [ ] CMS engineer updates menu title.
+- [ ] CMS engineer updates menu title
+- [ ] CMS engineer updates Alt text for facility image, if relevant.
+- [ ] CMS engineer updates Meta description (TBD: some backwards compatibility for SEM, by including something like ", formerly known as [previous name]".
+- [ ] CMS engineer edit facility node and remove  flag `Changed name` then save node.
 - [ ] HD notifies editor and any other stakeholders.
 </details>
  
@@ -58,7 +62,7 @@ assignees: ''
 - [ ] CMS team becomes aware of the new system name.
 - [ ] CMS team submits [Redirect request](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=mnorthuis&labels=ia&template=redirect-request.md&title=Redirect+Request), cc'ing Facilities team
 - [ ] Once timing of Redirect going live is known, alert CMS engineers to carry out the other steps
-- [ ] CMS engineer updates the Section.
+- [ ] CMS engineer updates the Section name.
 - [ ] CMS engineer bulk alias changes all nodes within the system. (https://prod.cms.va.gov/admin/content/bulk)
 - [ ] CMS engineer bulk saves to fix titles for all nodes within system. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
 - [ ] CMS engineer renames the menu for the system accordingly.  (in the future, may need to rebuild the menu so that name and machine name match)
@@ -71,6 +75,7 @@ assignees: ''
 - [ ] CMS engineer creates the Section.
 - [ ] CMS engineer creates the nodes.
 - [ ] CMS engineer bulk publishes the nodes.
+- [ ] CMS engineer edit facility node and remove `New facility` flag and save node.
 - [ ] HD notifies editor and any other stakeholders.
 </details>
 
@@ -81,6 +86,7 @@ assignees: ''
 - [ ] Once timing of Redirect going live is known, alert CMS engineers to carry out the other steps
 - [ ] CMS engineer bulk unpublishes the nodes.
 - [ ] CMS engineer removes the Section.
+- [ ] CMS engineer edit facility node and remove flag `Removed from source`, sets moderation state to archived, then save node.
 </details>
 
 <details><summary>Vet Center – facility name change</summary>
@@ -102,12 +108,15 @@ assignees: ''
 - Is the Vet Center published? 
   - [ ] If no, HD notifies Michelle Middaugh to bulk publish.
   - [ ] HD notifies editor and any other stakeholders.
+- [ ] CMS engineer edit facility node and remove  flag `Changed name` then save node.
   </details>
 
-CMS Team
-Please leave only the team that will do this work selected. 
-- [ ] Platform CMS Team
-- [x] `Sitewide CMS Team`
+## CMS Team
+Please check the team(s) that will do this work. 
+
+- [ ] `CMS Program`
+- [ ] `Platform CMS Team`
+- [ ] `Sitewide CMS Team ` (leave Sitewide unchecked and check the specific team instead)
   - [ ] `⭐️ Content ops`
   - [ ] `⭐️ CMS experience`
   - [ ] `⭐️ Offices`

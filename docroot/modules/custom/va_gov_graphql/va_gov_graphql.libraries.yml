@@ -1,0 +1,13 @@
+explorer:
+  version: VERSION
+  js:
+    assets/explorer/dist/bundle.min.js: {preprocess: false}
+  css:
+    component:
+      assets/explorer/dist/graphiql.css: {preprocess: false}
+      assets/explorer/dist/container.css: {preprocess: false}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/jquery.once
+

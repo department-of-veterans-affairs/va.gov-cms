@@ -1,9 +1,9 @@
 .not-editable {
-  background-color: var(--color-gray-lightest) !important;
+  background-color: var(--va-gray-lightest) !important;
 }
 
 .centralized {
-  background-color: var(--color-gray-lightest) !important;
+  background-color: var(--va-gray-lightest) !important;
 
   .data-updated a {
     float: right;
@@ -19,16 +19,25 @@
   }
 }
 
+// Colors scope sections on node view page
+.paragraph--type--centralized-content-descriptor fieldset {
+  background-color: var(--va-gray-lightest);
+
+  legend {
+    text-transform: uppercase;
+  }
+}
+
 // non-admin users shouldn't be able to edit centralized content, lots of minor tweaks for them
 .centralized-content {
-  tr {
-    border-bottom: transparent;
-  }
-
   &.role-not-admin {
     [data-drupal-selector='edit-field-content-block'] > table > thead > tr > th > .paragraphs-actions,
     [data-drupal-selector='edit-field-content-block'] > table > tbody > tr.draggable > td.field-multiple-drag {
       display: none;
+    }
+
+    tr {
+      border-bottom: transparent;
     }
 
     #edit-field-content-block-add-more-browse,
@@ -36,7 +45,7 @@
       display: none;
     }
 
-    #block-vagovclaro-content .layout-region-node-main {
+    #block-vagovclaro-content .layout-region--node-main {
       display: block;
 
       .js-form-type-textarea .js-form-required.form-required,
@@ -64,13 +73,6 @@
         visibility: hidden;
       }
 
-      .paragraph-type--wysiwyg {
-        td:nth-child(2) {
-          display: block;
-          width: 100%;
-        }
-      }
-
       .cc-wysi-wrap {
         p {
           margin: 0;
@@ -84,8 +86,13 @@
         padding: 0;
       }
 
+      .field--name-field-questions thead th {
+        display: flex;
+        justify-content: space-between;
+      }
+
       .cc-paragraph-header {
-        background: var(--color-gray-dark);
+        background: var(--va-gray-med);
         color: var(--color-white);
 
         td {
@@ -105,6 +112,7 @@
 
         .cc-paragraph-header {
           display: block;
+          height: auto;
           padding: 15px 0 0 15px;
           width: 100%;
 
