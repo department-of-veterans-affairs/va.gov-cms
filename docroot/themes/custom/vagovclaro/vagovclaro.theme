@@ -132,6 +132,9 @@ function vagovclaro_theme_suggestions_input_alter(&$suggestions, $variables) {
   if (isset($element['#id']) && $element['#id'] === "edit-field-content-block-add-more-browse") {
     $suggestions[] = 'input__submit__paragraph_action';
   }
+  if (isset($element['#attributes']) && $element['#attributes']['data-drupal-selector'] === 'edit-field-content-block-add-more-browse') {
+    $suggestions[] = 'input__submit__paragraph_action';
+  }
 }
 
 /**
