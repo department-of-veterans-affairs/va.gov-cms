@@ -6,6 +6,7 @@ dependencies:
     - field.storage.media.field_owner
     - media.type.document
   module:
+    - csv_serialization
     - file
     - media
     - rest
@@ -769,8 +770,8 @@ display:
     position: 2
     display_options:
       display_extenders: {  }
-      path: admin/content/pdf-audit/export.csv
-      filename: ''
+      path: admin/content/pdf-audit-export.csv
+      filename: pdf-audit-export.csv
       automatic_download: false
       store_in_public_file_directory: null
       redirect_to_display: none
@@ -781,6 +782,23 @@ display:
       title: 'PDF Audit Export'
       defaults:
         title: false
+      displays:
+        pdf_audit: pdf_audit
+        default: '0'
+      style:
+        type: data_export
+        options:
+          formats:
+            csv: csv
+          csv_settings:
+            delimiter: ','
+            enclosure: '"'
+            escape_char: \
+            strip_tags: true
+            trim: true
+            encoding: utf8
+            utf8_bom: '0'
+            use_serializer_encode_only: false
     cache_metadata:
       max-age: -1
       contexts:
