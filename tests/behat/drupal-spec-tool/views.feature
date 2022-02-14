@@ -264,5 +264,6 @@ Feature: Views
 | Metatag Audit | Metatag Audit | metatag_audit | Page |
 | Flagged Content | Default | default | Default |
 | Flagged Content | Flagged Content | flagged_content | Page |
+| PDF Audit | Default | default | Default |
 | PDF Audit | PDF Audit | pdf_audit | Page |
-| PDF Audit | PDF Audit Export | pdf_audit_export | Data export |
+| PDF Audit | Data export | pdf_audit_export | Data export |
