@@ -514,4 +514,7 @@ function _vagovclaro_form_action_outline_buttons(array &$form) {
     $form['actions']['delete']['#options']['attributes']['class'][] = 'button--outline';
     $form['actions']['save_continue']['#attributes']['class'][] = 'button--outline';
   }
+  if ($form['#theme'] === 'confirm_form') {
+    $form['actions']['cancel']['#attributes']['class'][] = 'button--outline';
+  }
 }
