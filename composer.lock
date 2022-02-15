@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d4a71b767da9422e497fe88868b9673a",
+    "content-hash": "515216ff14240d02dd8ddbb857a3a3b3",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -5492,6 +5492,54 @@
             }
         },
         {
+            "name": "drupal/entity_media_usage",
+            "version": "1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/entity_media_usage.git",
+                "reference": "1.0.5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/entity_media_usage-1.0.5.zip",
+                "reference": "1.0.5",
+                "shasum": "0dfc61942fc52253ffdbfb7573d1c1103ef4f7c3"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "suggest": {
+                "drupal/entity_usage": "Recommended for an advanced tracking of entity references throughout your site."
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.5",
+                    "datestamp": "1618213372",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Matthieu SCARSET",
+                    "homepage": "https://matthieuscarset.com",
+                    "email": "m@matthieuscarset.com"
+                }
+            ],
+            "description": "Display list of medias attached to an entity.",
+            "homepage": "https://www.drupal.org/project/entity_media_usage",
+            "support": {
+                "source": "https://git.drupalcode.org/project/entity_media_usage"
+            }
+        },
+        {
             "name": "drupal/entity_reference_revisions",
             "version": "1.9.0",
             "source": {
@@ -5640,74 +5688,6 @@
             "homepage": "https://www.drupal.org/project/entity_reference_validators",
             "support": {
                 "source": "https://git.drupalcode.org/project/entity_reference_validators"
-            }
-        },
-        {
-            "name": "drupal/entity_usage",
-            "version": "2.0.0-beta6",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/entity_usage.git",
-                "reference": "8.x-2.0-beta6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/entity_usage-8.x-2.0-beta6.zip",
-                "reference": "8.x-2.0-beta6",
-                "shasum": "b641f9549fc3edaa81f0548f0fc209ece3ed369c"
-            },
-            "require": {
-                "drupal/core": "^8.8 || ^9"
-            },
-            "require-dev": {
-                "drupal/block_field": "~1.0",
-                "drupal/dynamic_entity_reference": "~1.0",
-                "drupal/entity_browser": "~2.0",
-                "drupal/entity_browser_block": "~1.0",
-                "drupal/entity_embed": "~1.0",
-                "drupal/entity_reference_revisions": "~1.0",
-                "drupal/inline_entity_form": "^1.0@RC",
-                "drupal/paragraphs": "~1.0",
-                "drupal/webform": "^6.0.0-alpha4"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "8.x-2.0-beta6",
-                    "datestamp": "1633676588",
-                    "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
-                    }
-                },
-                "drush": {
-                    "services": {
-                        "drush.services.yml": "^9"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "marcoscano",
-                    "homepage": "https://www.drupal.org/user/1288796"
-                },
-                {
-                    "name": "seanB",
-                    "homepage": "https://www.drupal.org/user/545912"
-                }
-            ],
-            "description": "Track usage of entities referenced by other entities",
-            "homepage": "https://www.drupal.org/project/entity_usage",
-            "keywords": [
-                "Drupal"
-            ],
-            "support": {
-                "source": "http://cgit.drupalcode.org/entity_usage",
-                "issues": "http://drupal.org/project/issues/entity_usage"
             }
         },
         {
@@ -25151,7 +25131,6 @@
         "drupal/entity_clone": 10,
         "drupal/entity_field_fetch": 10,
         "drupal/entity_reference_validators": 15,
-        "drupal/entity_usage": 10,
         "drupal/entityqueue": 10,
         "drupal/fast_404": 20,
         "drupal/fieldhelptext": 10,
