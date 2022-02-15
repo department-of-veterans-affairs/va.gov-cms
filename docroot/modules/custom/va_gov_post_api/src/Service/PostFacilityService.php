@@ -194,7 +194,7 @@ class PostFacilityService extends PostFacilityBase {
       $service->active = ($this->facilityService->isPublished()) ? TRUE : FALSE;
       $service->description_national = $this->serviceTerm->getDescription();
       $service->description_system = $this->systemService->get('field_body')->value;
-      $service->health_service_api_id = $this->serviceTerm->get('field_health_service_api_id')->value;
+      $service->service_api_id = $this->serviceTerm->get('field_health_service_api_id')->value;
       $service->appointment_leadin = $this->getAppointmentLeadin();
       $service->appointment_phones = $this->getPhones();
       $service->referral_required = $this->getReferralRequired();
