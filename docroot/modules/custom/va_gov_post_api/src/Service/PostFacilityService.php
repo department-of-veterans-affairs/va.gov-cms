@@ -86,10 +86,6 @@ class PostFacilityService extends PostFacilityBase {
         // endpoint.
         if (!empty($data['payload']) && !empty($facilityApiId)) {
           $this->postQueue->addToQueue($data, $this->shouldDedupe());
-          // @todo When this is expanded to more than just COVID we may want
-          // to remove the messenger as it will be too noisy.
-          $message = $this->t('The facility service data for %service_name is being sent to the Facility Locator.', ['%service_name' => $this->facilityService->getTitle()]);
-          $this->messenger->addStatus($message);
           return 1;
         }
       }
