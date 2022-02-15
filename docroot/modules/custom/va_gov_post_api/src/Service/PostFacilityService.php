@@ -50,19 +50,6 @@ class PostFacilityService extends PostFacilityBase {
   protected $serviceTerm;
 
   /**
-   * The services that should be pushed to Lighthouse.
-   *
-   * For now we are only pushing covid 19 services. The key is only for
-   * making sense of code, the TID is what is used for comparison.
-   *
-   * @var array
-   */
-  protected $servicesToPush = [
-    // Key: service name (not used) => Value: TID.
-    'COVID-19 vaccines' => 321,
-  ];
-
-  /**
    * Adds facility service data to Post API queue.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
@@ -557,7 +544,7 @@ class PostFacilityService extends PostFacilityBase {
    * Checks to see if this service is slated for pushing.
    */
   private function isPushable() {
-    return (!empty($this->serviceTerm) && in_array($this->serviceTerm->id(), $this->servicesToPush));
+    return (!empty($this->serviceTerm));
   }
 
   /**
