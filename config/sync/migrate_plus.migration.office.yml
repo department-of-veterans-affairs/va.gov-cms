@@ -1,0 +1,54 @@
+uuid: a2a9db75-73ad-44ff-85fc-fe7284ec91d7
+langcode: en
+status: true
+dependencies: {  }
+id: office
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags: null
+migration_group: office
+label: 'Node - Office'
+source:
+  plugin: csv
+  path: modules/custom/va_gov_migrate/data/office-salesforce.csv
+  delimiter: ','
+  enclosure: '"'
+  header_offset: 0
+  ids:
+    - field_office_id
+  fields:
+    -
+      name: title
+      label: 'Account Name'
+    -
+      name: field_office_id
+      label: 'Account ID'
+    -
+      name: parent_office_name
+      label: 'Parent Account'
+    -
+      name: parent_office_id
+      label: 'Parent Account ID'
+process:
+  type:
+    plugin: default_value
+    default_value: office
+  title: title
+  field_office_id: field_office_id
+  field_parent_office:
+    -
+      plugin: entity_lookup
+      source: parent_office_id
+      entity_type: node
+      value_key: field_office_id
+      bundle: office
+      bundley_key: type
+destination:
+  plugin: 'entity:node'
+  default_bundle: office
+  overwrite_properties:
+    - title
+    - field_office_id
+    - field_parent_office
+migration_dependencies: null
