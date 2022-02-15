@@ -7,6 +7,7 @@ dependencies:
     - media.type.document
   module:
     - csv_serialization
+    - entity_usage
     - file
     - media
     - rest
@@ -248,8 +249,8 @@ display:
             alter_text: true
             text: '{{uri}}'
             make_link: false
-            path: '{{ uri__value }}'
-            absolute: true
+            path: ''
+            absolute: false
             external: false
             replace_spaces: false
             path_case: none
@@ -677,6 +678,63 @@ display:
           entity_type: media
           entity_field: changed
           plugin_id: field
+        count:
+          id: count
+          table: entity_usage
+          field: count
+          relationship: media_to_usage_entity
+          group_type: group
+          admin_label: ''
+          label: 'Usage count'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          set_precision: false
+          precision: 0
+          decimal: .
+          separator: ','
+          format_plural: false
+          format_plural_string: !!binary MQNAY291bnQ=
+          prefix: ''
+          suffix: ''
+          plugin_id: numeric
       filters:
         status:
           value: '1'
@@ -703,6 +761,7 @@ display:
           expose:
             operator_limit_selection: false
             operator_list: {  }
+          group: 1
         name:
           id: name
           table: media_field_data
@@ -815,47 +874,6 @@ display:
             show_hierarchy: 1
           entity_type: media
           plugin_id: workbench_access_section
-        combine:
-          id: combine
-          table: views
-          field: combine
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: contains
-          value: .pdf
-          group: 1
-          exposed: false
-          expose:
-            operator_id: ''
-            label: ''
-            description: ''
-            use_operator: false
-            operator: ''
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: ''
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            placeholder: ''
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          fields:
-            uri: uri
-          plugin_id: combine
       sorts: {  }
       title: 'PDF Audit'
       header: {  }
@@ -871,9 +889,23 @@ display:
           admin_label: 'file from field_document'
           required: false
           plugin_id: standard
+        media_to_usage_entity:
+          id: media_to_usage_entity
+          table: media
+          field: media_to_usage_entity
+          relationship: none
+          group_type: group
+          admin_label: 'Usage information (Media)'
+          required: false
+          entity_type: media
+          plugin_id: standard
       arguments: {  }
       display_extenders: {  }
       group_by: true
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
     cache_metadata:
       max-age: -1
       contexts:
@@ -1014,13 +1046,13 @@ display:
           group_type: group
           admin_label: ''
           label: 'Media URI'
-          exclude: true
+          exclude: false
           alter:
             alter_text: true
             text: '{{uri}}'
             make_link: false
-            path: '{{ uri__value }}'
-            absolute: true
+            path: ''
+            absolute: false
             external: false
             replace_spaces: false
             path_case: none
@@ -1499,12 +1531,12 @@ display:
           plugin_id: field
         count:
           id: count
-          table: file_usage
+          table: entity_usage
           field: count
-          relationship: field_document_target_id
+          relationship: media_to_usage_entity
           group_type: group
           admin_label: ''
-          label: 'Use count'
+          label: 'Usage count'
           exclude: false
           alter:
             alter_text: false
