@@ -7,6 +7,7 @@ dependencies:
     - media.type.document
   module:
     - csv_serialization
+    - entity_usage
     - file
     - media
     - rest
@@ -87,16 +88,31 @@ display:
           description: ''
           columns:
             name: name
+            uri: uri
+            nothing: nothing
             field_owner: field_owner
             uid: uid
             created: created
             uid_1: uid_1
             changed: changed
             count: count
+            count_1: count_1
           info:
             name:
               sortable: true
               default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            uri:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            nothing:
               align: ''
               separator: ''
               empty_column: false
@@ -137,6 +153,13 @@ display:
               empty_column: false
               responsive: ''
             count:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            count_1:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -712,6 +735,63 @@ display:
           prefix: ''
           suffix: ''
           plugin_id: numeric
+        count_1:
+          id: count_1
+          table: entity_usage
+          field: count
+          relationship: file_to_usage_entity
+          group_type: sum
+          admin_label: ''
+          label: 'Usage count'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          set_precision: false
+          precision: 0
+          decimal: .
+          separator: ','
+          format_plural: false
+          format_plural_string: !!binary MQNAY291bnQ=
+          prefix: ''
+          suffix: ''
+          plugin_id: numeric
       filters:
         status:
           value: '1'
@@ -906,8 +986,19 @@ display:
           admin_label: 'file from field_document'
           required: false
           plugin_id: standard
+        file_to_usage_entity:
+          id: file_to_usage_entity
+          table: file_managed
+          field: file_to_usage_entity
+          relationship: field_document_target_id
+          group_type: group
+          admin_label: 'Usage information (File)'
+          required: false
+          entity_type: file
+          plugin_id: standard
       arguments: {  }
       display_extenders: {  }
+      group_by: true
     cache_metadata:
       max-age: -1
       contexts:
