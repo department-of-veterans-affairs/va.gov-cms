@@ -15,6 +15,8 @@ source:
   delimiter: ','
   enclosure: '"'
   header_offset: 0
+  track_changes: true
+  cache_counts: true
   ids:
     - field_office_id
   fields:
@@ -43,7 +45,44 @@ process:
       entity_type: node
       value_key: field_office_id
       bundle: office
-      bundley_key: type
+      bundle_key: type
+  status:
+    plugin: default_value
+    default_value: 0 # Bring these in as unpublished.
+  sticky:
+    plugin: default_value
+    default_value: 0
+  path/pathauto:
+    plugin: default_value
+    default_value: 1
+  moderation_state:
+    plugin: default_value
+    default_value: draft
+  changed:
+    plugin: callback
+    callable: va_gov_migrate_time
+  langcode:
+    plugin: default_value
+    default_value: en
+  new_revision:
+    plugin: default_value
+    default_value: true
+  revision_default:
+    plugin: default_value
+    default_value: true
+  revision_log:
+    plugin: default_value
+    default_value: "Update of data by migration."
+  revision_timestamp:
+    plugin: callback
+    callable: va_gov_migrate_time
+  revision_uid:
+    plugin: default_value
+    default_value: 1317 # CMS Migrator user
+  uid:
+    plugin: default_value
+    default_value: 1317
+
 destination:
   plugin: 'entity:node'
   default_bundle: office
@@ -51,4 +90,11 @@ destination:
     - title
     - field_office_id
     - field_parent_office
+    - changed
+    - new_revision
+    - revision_default
+    - revision_log
+    - revision_timestamp
+    - revision_uid
+    - uid
 migration_dependencies: null
