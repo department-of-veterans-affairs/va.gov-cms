@@ -48,12 +48,15 @@ assignees: ''
     
 - [ ] The H1 title change comes from Lighthouse to Drupal.
 - [ ] Coordinate with Facilities team to have FE redirects set up.
+- [ ] CMS engineer locates the newly renamed VAMC Facility (https://prod.cms.va.gov/admin/content/bulk) Search by new name
+- [ ] CMS engineer updates URL alias for this facility
+- [ ] CMS engineer resaves this facility
 - [ ] CMS engineer makes bulk alias changes to facility service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
 - [ ] CMS engineer bulk saves fixed titles to facility service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
-- [ ] CMS engineer updates menu title
+- [ ] CMS engineer updates menu title for facility
 - [ ] CMS engineer updates Alt text for facility image, if relevant.
 - [ ] CMS engineer updates Meta description (TBD: some backwards compatibility for SEM, by including something like ", formerly known as [previous name]".
-- [ ] CMS engineer edit facility node and remove  flag `Changed name` then save node.
+- [ ] CMS engineer edit facility node and remove flag `Changed name` then save node.
 - [ ] HD notifies editor and any other stakeholders.
 </details>
  
