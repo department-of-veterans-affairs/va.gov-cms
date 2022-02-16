@@ -312,7 +312,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "{% set public= 'public://' %}\r\n{% set prod= 'https://www.va.gov/files/' %} \r\n{% set local= '/' %} \r\n\r\nLocal: <a href=\"{{ uri|replace({ (public): local}) }}\">{{ uri|replace({ (public): local}) }}</a><br>\r\nProd: <a href=\"{{ uri|replace({ (public): prod}) }}\">{{ uri|replace({ (public): prod}) }}</a>"
+            text: "{% set public= 'public://' %}\r\n{% set prod= 'https://www.va.gov/files/' %} \r\n{% set local= '/' %} \r\n\r\nCMS: <a href=\"{{ uri|replace({ (public): local}) }}\">{{ uri|replace({ (public): local}) }}</a><br>\r\nWeb: <a href=\"{{ uri|replace({ (public): prod}) }}\">{{ uri|replace({ (public): prod}) }}</a>"
             make_link: false
             path: ''
             absolute: false
@@ -858,7 +858,12 @@ display:
           plugin_id: combine
       sorts: {  }
       title: 'PDF Audit'
-      header: {  }
+      header:
+        result:
+          id: result
+          table: views
+          field: result
+          plugin_id: result
       footer: {  }
       empty: {  }
       relationships:
@@ -893,6 +898,19 @@ display:
       display_extenders: {  }
       path: admin/content/media/audit/pdfs
       display_description: ''
+      header:
+        result:
+          id: result
+          table: views
+          field: result
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          content: '<p>Displaying @start - @end of @total</p>'
+          plugin_id: result
+      defaults:
+        header: false
     cache_metadata:
       max-age: -1
       contexts:
@@ -1079,7 +1097,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'File Link'
+          label: 'CMS File Link'
           exclude: false
           alter:
             alter_text: true
@@ -1128,7 +1146,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Prod Link'
+          label: 'Web File Link'
           exclude: false
           alter:
             alter_text: true
