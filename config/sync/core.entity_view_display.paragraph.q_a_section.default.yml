@@ -17,27 +17,27 @@ mode: default
 content:
   field_questions:
     type: entity_reference_revisions_entity_view
-    weight: 2
     label: visually_hidden
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    weight: 2
     region: content
   field_section_header:
-    weight: 0
+    type: string
     label: visually_hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 0
     region: content
   field_section_intro:
-    weight: 1
+    type: basic_string
     label: visually_hidden
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    weight: 1
     region: content
 hidden:
   field_accordion_display: true

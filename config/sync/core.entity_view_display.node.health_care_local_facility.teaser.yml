@@ -31,10 +31,25 @@ targetEntityType: node
 bundle: health_care_local_facility
 mode: teaser
 content:
-  links:
-    weight: 100
+  flag_changed_name:
     settings: {  }
     third_party_settings: {  }
+    weight: 10
+    region: content
+  flag_new:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  flag_removed_from_source:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
     region: content
 hidden:
   content_moderation_control: true

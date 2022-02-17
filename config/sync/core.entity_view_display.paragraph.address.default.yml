@@ -13,10 +13,11 @@ bundle: address
 mode: default
 content:
   field_address:
-    weight: 0
+    type: address_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: address_default
+    weight: 0
     region: content
-hidden: {  }
+hidden:
+  search_api_excerpt: true

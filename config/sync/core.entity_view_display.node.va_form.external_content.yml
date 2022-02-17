@@ -38,28 +38,28 @@ third_party_settings:
       children:
         - field_benefit_categories
         - field_va_form_type
+      label: 'Related to'
       parent_name: ''
+      region: hidden
       weight: 25
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-      label: 'Related to'
-      region: hidden
     group_online_tool:
       children:
         - field_va_form_tool_intro
         - field_va_form_tool_url
+      label: 'Online tool'
       parent_name: ''
+      region: hidden
       weight: 26
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-      label: 'Online tool'
-      region: hidden
 id: node.va_form.external_content
 targetEntityType: node
 bundle: va_form
@@ -67,87 +67,85 @@ mode: external_content
 content:
   field_va_form_administration:
     type: entity_reference_label
-    weight: 6
-    region: content
     label: above
     settings:
       link: true
     third_party_settings: {  }
+    weight: 6
+    region: content
   field_va_form_deleted:
     type: boolean
-    weight: 8
-    region: content
     label: above
     settings:
       format: true-false
-      format_custom_true: ''
       format_custom_false: ''
+      format_custom_true: ''
     third_party_settings: {  }
+    weight: 8
+    region: content
   field_va_form_deleted_date:
     type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: short_date_no_time
+    third_party_settings: {  }
     weight: 9
     region: content
-    label: above
-    settings:
-      timezone_override: ''
-      format_type: short_date_no_time
-    third_party_settings: {  }
   field_va_form_issue_date:
     type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: short_date_no_time
+    third_party_settings: {  }
     weight: 4
     region: content
-    label: above
-    settings:
-      timezone_override: ''
-      format_type: short_date_no_time
-    third_party_settings: {  }
   field_va_form_num_pages:
     type: number_integer
-    weight: 7
-    region: content
     label: above
     settings:
       thousand_separator: ''
       prefix_suffix: true
     third_party_settings: {  }
+    weight: 7
+    region: content
   field_va_form_number:
     type: string
-    weight: 1
-    region: content
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 1
+    region: content
   field_va_form_revision_date:
     type: datetime_default
-    weight: 5
-    region: content
     label: above
     settings:
       timezone_override: ''
       format_type: short_date_no_time
     third_party_settings: {  }
+    weight: 5
+    region: content
   field_va_form_row_id:
     type: number_integer
-    weight: 2
-    region: content
     label: above
     settings:
       thousand_separator: ''
       prefix_suffix: true
     third_party_settings: {  }
+    weight: 2
+    region: content
   field_va_form_title:
     type: string
-    weight: 3
-    region: content
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 3
+    region: content
   field_va_form_url:
     type: link
-    weight: 0
-    region: content
     label: above
     settings:
       trim_length: 80
@@ -156,6 +154,8 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
+    weight: 0
+    region: content
 hidden:
   content_moderation_control: true
   field_administration: true

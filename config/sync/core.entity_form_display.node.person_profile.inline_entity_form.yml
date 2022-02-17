@@ -30,31 +30,31 @@ third_party_settings:
     group_governance:
       children:
         - field_administration
+      label: 'Section settings'
+      region: content
       parent_name: ''
       weight: 5
       format_type: details_sidebar
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         open: true
         required_fields: true
         weight: -10
-      label: 'Section settings'
-      region: content
     group_e:
       children:
         - moderation_state
         - revision_log
+      label: 'Editorial workflow'
+      region: content
       parent_name: ''
       weight: 6
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: true
-      label: 'Editorial workflow'
-      region: content
     group_name:
       children:
         - title
@@ -62,61 +62,61 @@ third_party_settings:
         - field_last_name
         - field_suffix
         - field_description
+      label: Name
+      region: content
       parent_name: ''
       weight: 1
       format_type: details
       format_settings:
-        id: ''
         classes: ''
+        id: ''
+        open: false
         description: ''
         required_fields: true
-        open: false
-      label: Name
-      region: content
     group_contact_info:
       children:
         - field_email_address
         - field_phone_number
+      label: 'Contact info'
+      region: content
       parent_name: ''
       weight: 4
       format_type: details
       format_settings:
-        id: ''
         classes: ''
+        id: ''
+        open: false
         description: ''
         required_fields: true
-        open: false
-      label: 'Contact info'
-      region: content
     group_photo:
       children:
         - field_media
         - field_photo_allow_hires_download
+      label: Photo
+      region: content
       parent_name: ''
       weight: 2
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
-        open: false
-        required_fields: true
+        id: ''
         description: ''
-      label: Photo
-      region: content
+        required_fields: true
+        open: false
     group_bio:
       children:
         - field_intro_text
         - field_body
+      label: Bio
+      region: content
       parent_name: ''
       weight: 3
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: true
-      label: Bio
-      region: content
 id: node.person_profile.inline_entity_form
 targetEntityType: node
 bundle: person_profile
@@ -128,9 +128,9 @@ content:
     region: content
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
     third_party_settings: {  }
   field_body:
     type: text_textarea
@@ -141,21 +141,21 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_description:
-    weight: 6
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
     type: string_textfield
-    region: content
-  field_email_address:
     weight: 6
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_email_address:
     type: email_default
+    weight: 6
     region: content
+    settings:
+      placeholder: ''
+      size: 60
+    third_party_settings: {  }
   field_intro_text:
     type: string_textarea
     weight: 7
@@ -165,44 +165,44 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_last_name:
+    type: string_textfield
     weight: 4
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_media:
     type: media_library_widget
     weight: 4
-    settings: {  }
     region: content
+    settings: {  }
     third_party_settings: {  }
   field_name_first:
+    type: string_textfield
     weight: 3
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_office:
     type: entity_reference_autocomplete
     weight: 0
     region: content
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
     third_party_settings: {  }
   field_phone_number:
+    type: telephone_default
     weight: 7
+    region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
-    type: telephone_default
-    region: content
   field_photo_allow_hires_download:
     type: boolean_checkbox
     weight: 5
@@ -211,13 +211,13 @@ content:
       display_label: true
     third_party_settings: {  }
   field_suffix:
+    type: string_textfield
     weight: 5
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   moderation_state:
     type: string_textfield
     weight: 0

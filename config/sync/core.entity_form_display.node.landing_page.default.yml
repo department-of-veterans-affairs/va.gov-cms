@@ -37,188 +37,188 @@ third_party_settings:
     group_governance:
       children:
         - field_administration
+      label: 'Section settings'
+      region: content
       parent_name: ''
       weight: 8
       format_type: details_sidebar
       format_settings:
-        open: true
-        weight: -10
-        required_fields: true
-        id: ''
         classes: ''
-      label: 'Section settings'
-      region: content
+        id: ''
+        open: true
+        required_fields: true
+        weight: -10
     group_right_rail:
       children:
         - field_promo
         - field_links
         - field_support_services
         - field_related_office
+      label: 'Right Rail'
+      region: content
       parent_name: ''
       weight: 6
       format_type: details_sidebar
       format_settings:
-        id: ''
         classes: ''
+        id: ''
+        open: false
         description: ''
         required_fields: true
-        open: false
         weight: 0
-      label: 'Right Rail'
-      region: content
     group_editorial_workflow:
       children:
         - moderation_state
         - revision_log
+      label: 'Editorial Workflow'
+      region: content
       parent_name: ''
       weight: 10
       format_type: details
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         open: true
         required_fields: true
-      label: 'Editorial Workflow'
-      region: content
     group_page_last_built:
       children:
         - field_page_last_built
+      label: 'Page last built'
+      region: content
       parent_name: ''
       weight: 9
       format_type: details_sidebar
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         open: false
         required_fields: false
         weight: 0
-      label: 'Page last built'
-      region: content
     group_title_and_summary:
       children:
         - field_title_icon
         - title
         - field_intro_text
+      label: 'Title and summary'
+      region: content
       parent_name: ''
       weight: 0
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: true
-      label: 'Title and summary'
-      region: content
     group_include_alert:
       children:
         - field_alert
+      label: 'Include alert'
+      region: content
       parent_name: ''
       weight: 3
       format_type: fieldset
       format_settings:
+        classes: ''
+        id: ''
         description: 'Crisis alerts draw attention to information that will be useful to veterans experiencing an active crisis. You can <a href="/block/add/alert?destination=/admin/content/alerts">create a new crisis alert</a>, or reuse an existing one.'
         required_fields: true
-        id: ''
-        classes: ''
-      label: 'Include alert'
-      region: content
     group_related_links:
       children:
         - field_related_links
+      label: 'Related content'
+      region: content
       parent_name: ''
       weight: 5
       format_type: fieldset
       format_settings:
+        classes: ''
+        id: ''
         description: ''
         required_fields: true
-        id: ''
-        classes: ''
-      label: 'Related content'
-      region: content
     group_meta_tags:
       children:
         - field_meta_title
         - field_description
+      label: 'Meta Tags'
+      region: content
       parent_name: ''
       weight: 2
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: true
-      label: 'Meta Tags'
-      region: content
     group_home_page_hub_labels:
       children:
         - field_home_page_hub_label
         - field_teaser_text
+      label: 'Home page listing'
+      region: content
       parent_name: ''
       weight: 1
       format_type: fieldset
       format_settings:
+        classes: ''
+        id: ''
         description: 'Add information for the benefit hub''s listing on the VA.gov home page.'
         required_fields: true
-        id: ''
-        classes: ''
-      label: 'Home page listing'
-      region: content
 id: node.landing_page.default
 targetEntityType: node
 bundle: landing_page
 mode: default
 content:
   field_administration:
+    type: options_select
     weight: 1
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   field_alert:
+    type: entity_browser_entity_reference
     weight: 2
+    region: content
     settings:
       entity_browser: alert_blocks
       field_widget_display: rendered_entity
-      field_widget_display_settings:
-        view_mode: default
       field_widget_edit: true
       field_widget_remove: true
-      open: true
-      selection_mode: selection_append
       field_widget_replace: false
+      open: true
+      field_widget_display_settings:
+        view_mode: default
+      selection_mode: selection_append
     third_party_settings: {  }
-    type: entity_browser_entity_reference
-    region: content
   field_description:
+    type: string_textfield_with_counter
     weight: 6
+    region: content
     settings:
       size: 300
       placeholder: ''
+      use_field_maxlength: false
       maxlength: 300
       counter_position: after
-      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
-      use_field_maxlength: false
       js_prevent_submit: false
       count_html_characters: false
+      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
-    type: string_textfield_with_counter
-    region: content
   field_home_page_hub_label:
+    type: string_textfield
     weight: 4
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_intro_text:
+    type: string_textarea
     weight: 8
+    region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-    type: string_textarea
-    region: content
   field_links:
     type: linkit
     weight: 19
@@ -230,7 +230,9 @@ content:
       linkit_auto_link_text: true
     third_party_settings: {  }
   field_meta_title:
+    type: string_textfield_with_counter
     weight: 5
+    region: content
     settings:
       size: 70
       placeholder: ''
@@ -238,19 +240,19 @@ content:
       maxlength: 0
       counter_position: after
       js_prevent_submit: true
-      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
       count_html_characters: false
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
-    type: string_textfield_with_counter
-    region: content
   field_promo:
+    type: options_select
     weight: 18
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   field_related_links:
+    type: entity_reference_paragraphs
     weight: 4
+    region: content
     settings:
       title: 'Related links'
       title_plural: 'Related links'
@@ -259,8 +261,6 @@ content:
       form_display_mode: default
       default_paragraph_type: _none
     third_party_settings: {  }
-    type: entity_reference_paragraphs
-    region: content
   field_related_office:
     type: options_select
     weight: 21
@@ -268,7 +268,9 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_spokes:
+    type: paragraphs
     weight: 4
+    region: content
     settings:
       title: Spoke
       title_plural: Spokes
@@ -284,51 +286,49 @@ content:
         collapse_edit_all: '0'
         duplicate: '0'
     third_party_settings: {  }
-    type: paragraphs
-    region: content
   field_support_services:
+    type: inline_entity_form_complex
     weight: 20
+    region: content
     settings:
       form_mode: inline_entity_form
+      override_labels: false
       label_singular: ''
       label_plural: ''
-      collapsed: true
       allow_new: true
       allow_existing: true
       match_operator: CONTAINS
-      override_labels: false
-      collapsible: false
       allow_duplicate: false
+      collapsible: false
+      collapsed: true
       revision: false
       allow_system_delete: false
     third_party_settings: {  }
-    type: inline_entity_form_complex
-    region: content
   field_teaser_text:
+    type: string_textfield_with_counter
     weight: 5
+    region: content
     settings:
       size: 200
       placeholder: ''
+      use_field_maxlength: false
       maxlength: 200
       counter_position: after
-      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
-      use_field_maxlength: false
       js_prevent_submit: false
       count_html_characters: false
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
-    type: string_textfield_with_counter
-    region: content
   field_title_icon:
+    type: options_select
     weight: 2
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   moderation_state:
     type: moderation_state_default
     weight: 20
-    settings: {  }
     region: content
+    settings: {  }
     third_party_settings: {  }
   path:
     type: path

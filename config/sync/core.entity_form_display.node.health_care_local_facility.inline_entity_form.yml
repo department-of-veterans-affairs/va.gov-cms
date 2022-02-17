@@ -32,74 +32,74 @@ third_party_settings:
     group_governance:
       children:
         - field_administration
+      label: 'Section settings'
+      region: hidden
       parent_name: ''
       weight: 25
       format_type: details_sidebar
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         open: true
         required_fields: true
         weight: -10
-      label: 'Section settings'
-      region: hidden
     group_editorial_workflow:
       children:
         - revision_log
         - moderation_state
         - flag
+      label: 'Editorial Workflow'
+      region: hidden
       parent_name: ''
       weight: 27
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: true
-      label: 'Editorial Workflow'
-      region: hidden
     group_facility_locator:
       children:
         - field_facility_locator_api_id
+      label: 'Facility Locator'
+      region: hidden
       parent_name: ''
       weight: 23
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
-        open: true
-        required_fields: false
+        id: ''
         description: ''
-      label: 'Facility Locator'
-      region: hidden
+        required_fields: false
+        open: true
     group_location_services:
       children:
         - field_location_services
+      label: 'Location services'
+      region: hidden
       parent_name: ''
       weight: 24
       format_type: details
       format_settings:
-        id: ''
         classes: ''
+        id: ''
+        open: false
         description: ''
         required_fields: false
-        open: false
-      label: 'Location services'
-      region: hidden
     group_region:
       children:
         - field_main_location
         - field_region_page
+      label: Region
+      region: hidden
       parent_name: ''
       weight: 22
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: false
-      label: Region
-      region: hidden
 id: node.health_care_local_facility.inline_entity_form
 targetEntityType: node
 bundle: health_care_local_facility

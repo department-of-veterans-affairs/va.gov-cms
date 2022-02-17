@@ -28,10 +28,11 @@ third_party_settings:
         - field_address
         - field_vetcenter_cap_hours_opt_in
         - field_office_hours
+      label: 'Location Information'
       parent_name: ''
+      region: content
       weight: 0
       format_type: tooltip
-      region: content
       format_settings:
         show_empty_fields: 0
         id: ''
@@ -44,27 +45,27 @@ third_party_settings:
         tooltip_description: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
         open: false
         required_fields: false
-      label: 'Location Information'
 id: node.vet_center_cap.external_content
 targetEntityType: node
 bundle: vet_center_cap
 mode: external_content
 content:
   field_address:
-    weight: 1
+    type: address_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: address_default
+    weight: 1
     region: content
   field_office_hours:
-    weight: 3
+    type: office_hours
     label: above
     settings:
-      show_closed: all
-      office_hours_first_day: ''
       day_format: short
       time_format: g
+      compress: false
+      grouped: false
+      show_closed: all
       closed_format: ''
       separator:
         days: '<br />'
@@ -76,24 +77,23 @@ content:
         position: ''
         open_text: 'Currently open!'
         closed_text: 'Currently closed'
-      compress: false
-      grouped: false
+      timezone_field: ''
+      office_hours_first_day: ''
       schema:
         enabled: false
-      timezone_field: ''
     third_party_settings: {  }
-    type: office_hours
+    weight: 3
     region: content
   field_vetcenter_cap_hours_opt_in:
     type: boolean
-    weight: 2
-    region: content
     label: above
     settings:
       format: default
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
+    weight: 2
+    region: content
 hidden:
   content_moderation_control: true
   field_administration: true

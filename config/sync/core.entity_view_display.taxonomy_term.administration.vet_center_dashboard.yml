@@ -16,8 +16,8 @@ dependencies:
     - views
 third_party_settings:
   layout_builder:
-    allow_custom: false
     enabled: true
+    allow_custom: false
     sections:
       -
         layout_id: layout_onecol
@@ -31,66 +31,66 @@ third_party_settings:
             configuration:
               id: 'va_gov_dashboards:vet_center_page'
               label: 'Main Vet Center page'
-              provider: va_gov_dashboards
               label_display: '0'
+              provider: va_gov_dashboards
               context_mapping: {  }
-            additional: {  }
             weight: 6
+            additional: {  }
           ee54441e-284f-4376-8f5b-f3934a28fb4c:
             uuid: ee54441e-284f-4376-8f5b-f3934a28fb4c
             region: content
             configuration:
               id: 'va_gov_dashboards:visitor_information'
               label: 'Visitor information'
-              provider: va_gov_dashboards
               label_display: '0'
+              provider: va_gov_dashboards
               context_mapping: {  }
-            additional: {  }
             weight: 2
+            additional: {  }
           081a459c-e2e4-4763-8582-4b7a141db012:
             uuid: 081a459c-e2e4-4763-8582-4b7a141db012
             region: content
             configuration:
               id: 'va_gov_dashboards:services'
               label: Services
-              provider: va_gov_dashboards
               label_display: '0'
+              provider: va_gov_dashboards
               context_mapping: {  }
-            additional: {  }
             weight: 3
+            additional: {  }
           5d14b623-8e97-4764-9e71-3ff0f15a697d:
             uuid: 5d14b623-8e97-4764-9e71-3ff0f15a697d
             region: content
             configuration:
               id: 'va_gov_dashboards:featured_content'
               label: 'Featured content'
-              provider: va_gov_dashboards
               label_display: '0'
+              provider: va_gov_dashboards
               context_mapping: {  }
-            additional: {  }
             weight: 4
+            additional: {  }
           37125dc1-84d5-4780-992a-c5f9891ff37d:
             uuid: 37125dc1-84d5-4780-992a-c5f9891ff37d
             region: content
             configuration:
               id: 'va_gov_dashboards:operating_status'
               label: 'Operating status'
-              provider: va_gov_dashboards
               label_display: '0'
+              provider: va_gov_dashboards
               context_mapping: {  }
-            additional: {  }
             weight: 5
+            additional: {  }
           2b86b67f-fe60-488a-82a0-adee1158f88c:
             uuid: 2b86b67f-fe60-488a-82a0-adee1158f88c
             region: content
             configuration:
               id: 'va_gov_dashboards:locations'
               label: 'Locations page'
-              provider: va_gov_dashboards
               label_display: '0'
+              provider: va_gov_dashboards
               context_mapping: {  }
-            additional: {  }
             weight: 7
+            additional: {  }
         third_party_settings: {  }
       -
         layout_id: layout_onecol
@@ -103,13 +103,13 @@ third_party_settings:
             configuration:
               id: 'views_block:vet_center_facility_listing-vc_facility_listing'
               label: ''
-              provider: views
               label_display: visible
+              provider: views
+              context_mapping: {  }
               views_label: ''
               items_per_page: none
-              context_mapping: {  }
-            additional: {  }
             weight: 2
+            additional: {  }
         third_party_settings: {  }
 id: taxonomy_term.administration.vet_center_dashboard
 targetEntityType: taxonomy_term
@@ -117,12 +117,12 @@ bundle: administration
 mode: vet_center_dashboard
 content:
   description:
-    label: above
     type: text_default
-    weight: 0
-    region: content
+    label: above
     settings: {  }
     third_party_settings: {  }
+    weight: 0
+    region: content
 hidden:
   field_description: true
   field_product: true

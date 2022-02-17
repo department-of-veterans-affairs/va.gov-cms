@@ -2,11 +2,11 @@ uuid: 2594858c-a5ac-40a7-8c28-d12509ce31d5
 langcode: en
 status: true
 dependencies:
+  config:
+    - search_api.server.database
   module:
     - node
     - search_api
-  config:
-    - search_api.server.database
 _core:
   default_config_hash: qEX0c8Yf878jYMC-3TrFlGSSNQeGbl3u0Hs6GJfxA38
 id: content
@@ -102,6 +102,10 @@ processor_settings:
     weights:
       preprocess_query: -10
   html_filter:
+    weights:
+      preprocess_index: -10
+      preprocess_query: -9
+    all_fields: false
     fields:
       - label
       - rendered
@@ -113,21 +117,21 @@ processor_settings:
       h2: 3
       h3: 2
       strong: 2
-    weights:
-      preprocess_index: -10
-      preprocess_query: -9
-    all_fields: false
   ignorecase:
-    fields:
-      - label
-      - rendered
     weights:
       preprocess_index: -9
       preprocess_query: -8
     all_fields: false
+    fields:
+      - label
+      - rendered
   language_with_fallback: {  }
   rendered_item: {  }
   stopwords:
+    weights:
+      preprocess_index: -5
+      preprocess_query: -4
+    all_fields: false
     fields:
       - label
       - rendered
@@ -167,33 +171,29 @@ processor_settings:
       - was
       - will
       - with
-    weights:
-      preprocess_index: -5
-      preprocess_query: -4
-    all_fields: false
   tokenizer:
+    weights:
+      preprocess_index: -6
+      preprocess_query: -5
+    all_fields: false
     fields:
       - label
       - rendered
     spaces: ''
     overlap_cjk: 1
     minimum_word_size: '3'
-    weights:
-      preprocess_index: -6
-      preprocess_query: -5
-    all_fields: false
   transliteration:
-    fields:
-      - label
-      - rendered
     weights:
       preprocess_index: -4
       preprocess_query: -3
     all_fields: false
+    fields:
+      - label
+      - rendered
 tracker_settings:
   default:
     indexing_order: fifo
 options:
-  index_directly: true
   cron_limit: 50
+  index_directly: true
 server: database

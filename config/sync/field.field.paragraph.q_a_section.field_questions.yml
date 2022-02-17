@@ -22,10 +22,10 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
-    negate: 0
     target_bundles:
       q_a: q_a
       react_widget: react_widget
+    negate: 0
     target_bundles_drag_drop:
       address:
         weight: 14
@@ -42,32 +42,14 @@ settings:
       expandable_text:
         weight: 18
         enabled: false
+      health_care_local_facility_servi:
+        weight: 25
+        enabled: false
       link_teaser:
         weight: 19
         enabled: false
       list_of_link_teasers:
         weight: 20
-        enabled: false
-      process:
-        weight: 21
-        enabled: false
-      q_a:
-        enabled: true
-        weight: 22
-      q_a_section:
-        weight: 23
-        enabled: false
-      react_widget:
-        enabled: true
-        weight: 24
-      health_care_local_facility_servi:
-        weight: 25
-        enabled: false
-      starred_horizontal_rule:
-        weight: 25
-        enabled: false
-      wysiwyg:
-        weight: 26
         enabled: false
       media:
         weight: 28
@@ -81,7 +63,25 @@ settings:
       number_callout:
         weight: 31
         enabled: false
+      process:
+        weight: 21
+        enabled: false
+      q_a:
+        weight: 22
+        enabled: true
+      q_a_section:
+        weight: 23
+        enabled: false
+      react_widget:
+        weight: 24
+        enabled: true
       spanish_translation_summary:
         weight: 36
+        enabled: false
+      starred_horizontal_rule:
+        weight: 25
+        enabled: false
+      wysiwyg:
+        weight: 26
         enabled: false
 field_type: entity_reference_revisions

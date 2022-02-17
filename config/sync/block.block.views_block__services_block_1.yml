@@ -19,21 +19,21 @@ plugin: 'views_block:services-block_1'
 settings:
   id: 'views_block:services-block_1'
   label: ''
-  provider: views
   label_display: visible
+  provider: views
+  context_mapping: {  }
   views_label: ''
   items_per_page: none
-  context_mapping: {  }
 visibility:
   'entity_bundle:node':
     id: 'entity_bundle:node'
-    bundles:
-      health_care_local_facility: health_care_local_facility
     negate: false
     context_mapping:
       node: '@node.node_route_context:node'
+    bundles:
+      health_care_local_facility: health_care_local_facility
   request_path:
     id: request_path
-    pages: '/node/*/*'
     negate: true
     context_mapping: {  }
+    pages: '/node/*/*'

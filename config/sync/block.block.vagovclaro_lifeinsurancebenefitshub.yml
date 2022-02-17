@@ -17,14 +17,14 @@ plugin: 'system_menu_block:life-insurance-benefits-hub'
 settings:
   id: 'system_menu_block:life-insurance-benefits-hub'
   label: 'Life insurance benefits hub'
-  provider: system
   label_display: visible
+  provider: system
   level: 2
   depth: 0
   expand_all_items: false
 visibility:
   request_path:
     id: request_path
-    pages: '/life-insu*'
     negate: false
     context_mapping: {  }
+    pages: '/life-insu*'
