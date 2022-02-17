@@ -180,6 +180,25 @@
   margin: 0;
 }
 
+// consistent styles for icons in alerts
+@mixin alert-icon($url) {
+  position: relative;
+
+  &::before {
+    background-image: url($url);
+    background-size: contain;
+    content: '';
+    display: inline-block;
+    height: var(--space-m);
+    left: var(--space-l);
+    margin-top: calc(var(--space-m)/-2);
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    width: var(--space-m);
+  }
+}
+
 // placeholder map until design tokens are defined... breakpoint values likely to change
 $breakpoints: (
   'sm': 767px,
