@@ -95,3 +95,63 @@
     padding-right: 0;
   }
 }
+
+// Adjusting wrapper around office hours fields
+#locations-and-contact-information {
+  .fieldset__wrapper {
+    margin: var(--space-xs);
+  }
+}
+
+// Adjusting spacing on office hours fields
+#edit-field-office-hours {
+  margin-bottom: 0;
+
+  td {
+    padding: 0;
+  }
+
+  table,
+  .claro-details__wrapper {
+    margin: 0;
+  }
+
+  .form-item__label {
+    margin-left: var(--space-s);
+    margin-right: var(--space-s);
+  }
+
+  .form-type--textfield {
+    margin-right: var(--space-s);
+  }
+
+  .form-element {
+    font-size: var(--va-subsection-xs);
+    height: calc(var(--spacing-xs)*2 + var(--input-border-size)*2 + var(--va-subsection-xs));
+    line-height: var(--va-subsection-xs);
+    min-height: calc(var(--spacing-xs)*2 + var(--input-border-size)*2 + var(--va-subsection-xs));
+    padding: var(--spacing-xs);
+  }
+
+  .form-element--type-select {
+    background-position: 124% 50%;
+    padding-right: calc(2rem - var(--spacing-xxs));
+  }
+
+  .form-items-inline {
+    display: flex;
+    flex-direction: column;
+
+    @include breakpoint('lg') {
+      flex-direction: row;
+    }
+  }
+
+  .form-items-inline > .form-item {
+    margin: 0 0 var(--space-xs);
+
+    @include breakpoint('lg') {
+      margin: 0 var(--space-xs) 0 0;
+    }
+  }
+}

@@ -66,5 +66,7 @@
 // no fuzzy buttons in tables
 table .button,
 table .button:not(:focus) {
+  // fixes contrast issue when row is hovered but button isn't. !important bc core
+  border: 1px solid var(--color-white) !important;
   box-shadow: none;
 }
