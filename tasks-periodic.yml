@@ -94,7 +94,7 @@ tasks:
   va/background/daily/migrate/flag_removed_facilities:
     desc: These flagging process is to run once nightly.
     cmds:
-      - drush $DRUSH_ALIAS drush va_gov_migrate:flag-missing-facilities
+      - drush $DRUSH_ALIAS va_gov_migrate:flag-missing-facilities
 
   va/background/daily/update/taxonomy_entity_index:
     desc: Update the taxonomy_entity_index nightly.

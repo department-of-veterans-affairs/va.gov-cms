@@ -37,11 +37,10 @@ assignees: ''
   
 - [ ] CMS team becomes aware that the facility is no longer on the Facility API.
 - [ ] CMS engineer bulk archives the facility service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
-- [ ] CMS engineer edits the facility node, add a revision log to cover who requested the change and change moderation state to archive.
 - [ ] CMS engineer finds the menu for the system https://prod.cms.va.gov/admin/structure/menu and deletes the menu item for the closed facility.
 - [ ] CMS engineer filters content by the health care system and scans for any events that might be taking place at that facility. Archive if any are found.
 - [ ] CMS engineer removes the Section.
-- [ ] CMS engineer edit facility node and remove  flag `Removed from source` and save node.
+ - [ ] CMS engineer edits the facility node, removes  flag `Removed from source`, add a revision log to cover who requested the change and change moderation state to archive.
 - [ ] HD notifies editor and any other stakeholders.
 </details>
 
@@ -49,12 +48,15 @@ assignees: ''
     
 - [ ] The H1 title change comes from Lighthouse to Drupal.
 - [ ] Coordinate with Facilities team to have FE redirects set up.
+- [ ] CMS engineer locates the newly renamed VAMC Facility (https://prod.cms.va.gov/admin/content/bulk) Search by new name
+- [ ] CMS engineer updates URL alias for this facility
+- [ ] CMS engineer resaves this facility
 - [ ] CMS engineer makes bulk alias changes to facility service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
 - [ ] CMS engineer bulk saves fixed titles to facility service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
-- [ ] CMS engineer updates menu title
+- [ ] CMS engineer updates menu title for facility
 - [ ] CMS engineer updates Alt text for facility image, if relevant.
 - [ ] CMS engineer updates Meta description (TBD: some backwards compatibility for SEM, by including something like ", formerly known as [previous name]".
-- [ ] CMS engineer edit facility node and remove  flag `Changed name` then save node.
+- [ ] CMS engineer edit facility node and remove flag `Changed name` then save node.
 - [ ] HD notifies editor and any other stakeholders.
 </details>
  
@@ -87,7 +89,7 @@ assignees: ''
 - [ ] Once timing of Redirect going live is known, alert CMS engineers to carry out the other steps
 - [ ] CMS engineer bulk unpublishes the nodes.
 - [ ] CMS engineer removes the Section.
-- [ ] CMS engineer edit facility node and remove flag `Removed from source`, then save node.
+- [ ] CMS engineer edit facility node and remove flag `Removed from source`, sets moderation state to archived, then save node.
 </details>
 
 <details><summary>Vet Center – facility name change</summary>

@@ -30,18 +30,19 @@
   },
   "homepage": "https://github.com/department-of-veterans-affairs/va.gov-cms#readme",
   "dependencies": {
-    "@axe-core/webdriverjs": "^4.0.0",
-    "@testing-library/cypress": "^7.0.3",
-    "axe-core": "^4.0.2",
+    "@axe-core/webdriverjs": "^4.3.2",
+    "@testing-library/cypress": "^8.0.2",
+    "axe-core": "^4.4.1",
     "axe-reports": "^1.1.11",
-    "cypress": "^6.5.0",
-    "cypress-axe": "^0.12.0",
-    "cypress-cucumber-preprocessor": "^4.2.0",
-    "cypress-real-events": "^1.5.1",
+    "cypress": "^8.5.0",
+    "cypress-axe": "^0.14.0",
+    "cypress-cucumber-preprocessor": "^4.3.1",
+    "cypress-real-events": "^1.6.0",
     "debug": "^2.6.9",
     "faker": "^5.3.1",
     "pixelmatch": "^5.2.1",
-    "pngjs": "^6.0.0"
+    "pngjs": "^6.0.0",
+    "selenium-webdriver": "^4.1.1"
   },
   "directories": {
     "test": "tests"
@@ -59,8 +60,8 @@
     "babel-preset-env": "^1.4.0",
     "chokidar": "^3.5.2",
     "cross-env": "^5.1.3",
-    "cypress-file-upload": "^5.0.2",
-    "cypress-visual-regression": "^1.5.7",
+    "cypress-file-upload": "^5.0.8",
+    "cypress-visual-regression": "^1.6.3",
     "eslint": "^7.15.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^7.0.0",
@@ -75,6 +76,9 @@
     "stylelint": "^13.8.0",
     "stylelint-config-sass-guidelines": "^7.1.0",
     "stylelint-order": "^4.1.0"
+  },
+  "peerDependencies": {
+    "selenium-webdriver": "^4.0.0"
   },
   "babel": {
     "env": {
