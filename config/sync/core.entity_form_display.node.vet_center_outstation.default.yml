@@ -31,52 +31,53 @@ third_party_settings:
         - moderation_state
         - revision_log
         - flag
+      label: 'Editorial workflow'
+      region: content
       parent_name: ''
       weight: 7
       format_type: fieldset
-      region: content
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: true
-      label: 'Editorial workflow'
     group_governance:
       children:
         - field_administration
+      label: 'Section settings'
+      region: content
       parent_name: ''
       weight: 6
       format_type: details_sidebar
-      region: content
       format_settings:
-        id: ''
         classes: ''
-        description: ''
+        id: ''
         open: true
+        description: ''
         required_fields: true
         weight: 0
-      label: 'Section settings'
     group_facility_name:
       children:
         - group_page_title_tooltip
         - field_office
+      label: 'Facility name'
+      region: content
       parent_name: ''
       weight: 1
       format_type: fieldset
-      region: content
       format_settings:
-        description: ''
-        required_fields: true
-        id: facility-name
         classes: ''
         show_empty_fields: false
-      label: 'Facility name'
+        id: facility-name
+        description: ''
+        required_fields: true
     group_page_title_tooltip:
       children: {  }
+      label: 'Page title'
+      region: content
       parent_name: group_facility_name
       weight: 20
       format_type: tooltip
-      region: content
       format_settings:
         show_empty_fields: '1'
         show_label: '0'
@@ -88,46 +89,46 @@ third_party_settings:
         element: div
         label_element: h3
         attributes: ''
-      label: 'Page title'
     group_locations_and_contact_info:
       children:
         - group_vet_center_data
+      label: 'Location and contact information'
+      region: content
       parent_name: ''
       weight: 3
       format_type: fieldset
-      region: content
       format_settings:
-        description: '<a class="admin-help-email-tpl" href="/help/vet-centers/how-do-i-update-my-facilitys-basic-location-data">Learn how to correct or update centrally-managed data</a>.'
-        required_fields: true
-        id: locations-and-contact-information
         classes: ''
         show_empty_fields: false
-      label: 'Location and contact information'
+        id: locations-and-contact-information
+        description: '<a class="admin-help-email-tpl" href="/help/vet-centers/how-do-i-update-my-facilitys-basic-location-data">Learn how to correct or update centrally-managed data</a>.'
+        required_fields: true
     group_operating_status:
       children:
         - field_operating_status_facility
         - field_operating_status_more_info
+      label: 'Operating status'
+      region: content
       parent_name: ''
       weight: 2
       format_type: fieldset
-      region: content
       format_settings:
-        description: ''
-        required_fields: true
-        id: operating-status
         classes: ''
         show_empty_fields: false
-      label: 'Operating status'
+        id: operating-status
+        description: ''
+        required_fields: true
     group_vet_center_data:
       children:
         - field_facility_locator_api_id
         - field_address
         - field_phone_number
         - field_office_hours
+      label: 'Facility data'
+      region: content
       parent_name: group_locations_and_contact_info
       weight: 20
       format_type: tooltip
-      region: content
       format_settings:
         show_label: '1'
         tooltip_description: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
@@ -139,59 +140,60 @@ third_party_settings:
         element: div
         label_element: h3
         attributes: ''
-      label: 'Facility data'
 id: node.vet_center_outstation.default
 targetEntityType: node
 bundle: vet_center_outstation
 mode: default
 content:
   field_address:
-    weight: 22
-    settings: {  }
-    third_party_settings: {  }
     type: address_default
+    weight: 22
     region: content
-  field_administration:
-    weight: 10
     settings: {  }
     third_party_settings: {  }
+  field_administration:
     type: options_select
+    weight: 10
     region: content
+    settings: {  }
+    third_party_settings: {  }
   field_facility_locator_api_id:
+    type: string_textfield
     weight: 21
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_media:
+    type: media_library_widget
     weight: 5
+    region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
-    type: media_library_widget
-    region: content
   field_office:
+    type: options_select
     weight: 21
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   field_office_hours:
-    weight: 24
-    settings: {  }
-    third_party_settings: {  }
     type: office_hours_default
+    weight: 24
     region: content
-  field_operating_status_facility:
-    weight: 7
     settings: {  }
     third_party_settings: {  }
+  field_operating_status_facility:
     type: options_select
+    weight: 7
     region: content
+    settings: {  }
+    third_party_settings: {  }
   field_operating_status_more_info:
+    type: string_textarea_with_counter
     weight: 8
+    region: content
     settings:
       rows: 5
       placeholder: ''
@@ -201,21 +203,19 @@ content:
       count_html_characters: true
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
-    type: string_textarea_with_counter
-    region: content
   field_phone_number:
+    type: telephone_default
     weight: 23
+    region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
-    type: telephone_default
-    region: content
   field_table_of_contents:
+    type: markup
     weight: 0
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: markup
-    region: content
   flag:
     weight: 10
     region: content
@@ -224,8 +224,8 @@ content:
   moderation_state:
     type: moderation_state_default
     weight: 9
-    settings: {  }
     region: content
+    settings: {  }
     third_party_settings: {  }
 hidden:
   created: true

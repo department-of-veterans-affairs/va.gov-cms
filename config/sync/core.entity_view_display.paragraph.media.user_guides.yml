@@ -12,8 +12,8 @@ dependencies:
     - layout_builder
 third_party_settings:
   layout_builder:
-    allow_custom: false
     enabled: false
+    allow_custom: false
 id: paragraph.media.user_guides
 targetEntityType: paragraph
 bundle: media
@@ -21,12 +21,12 @@ mode: user_guides
 content:
   field_media:
     type: entity_reference_entity_view
-    weight: 0
     label: hidden
     settings:
       view_mode: embedded
       link: false
     third_party_settings: {  }
+    weight: 0
     region: content
 hidden:
   field_allow_clicks_on_this_image: true

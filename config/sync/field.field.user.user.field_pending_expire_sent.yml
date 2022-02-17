@@ -4,11 +4,11 @@ status: true
 dependencies:
   config:
     - field.storage.user.field_pending_expire_sent
+  module:
+    - user
   enforced:
     module:
       - password_policy
-  module:
-    - user
 _core:
   default_config_hash: oYe3JWMO6vLsJ9iypb1Bg9YQcT3TGqGtKwzHc3jcTXg
 id: user.user.field_pending_expire_sent

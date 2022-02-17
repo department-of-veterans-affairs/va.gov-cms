@@ -23,33 +23,33 @@ third_party_settings:
     group_governance:
       children:
         - field_administration
+      label: 'Section settings'
+      region: content
       parent_name: ''
       weight: 7
       format_type: details_sidebar
-      region: content
       format_settings:
-        id: ''
         classes: ''
-        description: ''
+        id: ''
         open: true
+        description: ''
         required_fields: true
         weight: 10
-      label: 'Section settings'
     group_editorial_workflow:
       children:
         - status
         - moderation_state
         - revision_log
+      label: 'Editorial workflow'
+      region: content
       parent_name: ''
       weight: 8
       format_type: fieldset
-      region: content
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: true
-      label: 'Editorial workflow'
 id: node.centralized_content.default
 targetEntityType: node
 bundle: centralized_content
@@ -60,17 +60,17 @@ content:
     weight: 3
     region: content
     settings:
-      counter_position: after
-      textcount_status_message: 'Maxlength: <span class="maxlength_count">@maxlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>'
-      summary_rows: 3
-      summary_maxlength: 0
       rows: 9
+      enable_summary: false
+      summary_rows: 3
+      show_summary: false
+      summary_maxlength: 0
       placeholder: ''
       maxlength: 200
+      counter_position: after
       js_prevent_submit: true
-      show_summary: false
-      enable_summary: false
       count_html_characters: false
+      textcount_status_message: 'Maxlength: <span class="maxlength_count">@maxlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings:
       allowed_formats:
         hide_help: '0'
@@ -82,21 +82,23 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_administration:
+    type: options_select
     weight: 11
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   field_applied_to:
+    type: string_textfield
     weight: 2
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_content_block:
+    type: paragraphs_browser
     weight: 4
+    region: content
     settings:
       title: 'Content block'
       title_plural: 'Content blocks'
@@ -116,19 +118,17 @@ content:
     third_party_settings:
       limited_field_widgets:
         limit_values: '0'
-    type: paragraphs_browser
-    region: content
   field_product:
+    type: options_select
     weight: 1
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   moderation_state:
     type: moderation_state_default
     weight: 7
-    settings: {  }
     region: content
+    settings: {  }
     third_party_settings: {  }
   path:
     type: path
@@ -138,10 +138,10 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 4
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   title:
     type: string_textfield

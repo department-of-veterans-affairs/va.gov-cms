@@ -14,21 +14,21 @@ bundle: step_by_step
 mode: default
 content:
   field_section_header:
-    weight: 0
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 0
     region: content
   field_step:
-    weight: 1
+    type: entity_reference_revisions_entity_view
     label: above
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    type: entity_reference_revisions_entity_view
+    weight: 1
     region: content
 hidden:
   search_api_excerpt: true

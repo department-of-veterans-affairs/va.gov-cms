@@ -40,28 +40,28 @@ third_party_settings:
       children:
         - field_va_form_type
         - field_benefit_categories
+      label: 'Related to'
       parent_name: ''
+      region: content
       weight: 5
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-      label: 'Related to'
-      region: content
     group_online_tool:
       children:
         - field_va_form_tool_intro
         - field_va_form_tool_url
+      label: 'Online tool'
       parent_name: ''
+      region: content
       weight: 7
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-      label: 'Online tool'
-      region: content
     group_from_forms_db:
       children:
         - field_va_form_administration
@@ -74,85 +74,85 @@ third_party_settings:
         - field_va_form_row_id
         - field_va_form_title
         - field_va_form_url
+      label: 'External content'
       parent_name: ''
+      region: hidden
       weight: 17
       format_type: fieldset
       format_settings:
-        description: 'This content is maintained in the VA Forms DB and updated nightly.'
-        id: ''
         classes: ''
-      label: 'External content'
-      region: hidden
+        id: ''
+        description: 'This content is maintained in the VA Forms DB and updated nightly.'
 id: node.va_form.default
 targetEntityType: node
 bundle: va_form
 mode: default
 content:
   field_alert:
-    weight: 4
+    type: entity_reference_entity_view
     label: above
     settings:
       view_mode: default
       link: false
     third_party_settings: {  }
-    type: entity_reference_entity_view
+    weight: 4
     region: content
   field_benefit_categories:
-    weight: 18
+    type: entity_reference_label
     label: hidden
     settings:
       link: false
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 18
     region: content
   field_meta_tags:
-    weight: 1
+    type: metatag_empty_formatter
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: metatag_empty_formatter
+    weight: 1
     region: content
   field_va_form_language:
-    weight: 3
+    type: list_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: list_default
+    weight: 3
     region: content
   field_va_form_link_teasers:
     type: entity_reference_revisions_entity_view
-    weight: 9
     label: above
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    weight: 9
     region: content
   field_va_form_name:
-    weight: 2
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 2
     region: content
   field_va_form_related_forms:
-    weight: 8
+    type: entity_reference_label
     label: above
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 8
     region: content
   field_va_form_tool_intro:
-    weight: 12
+    type: basic_string
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    weight: 12
     region: content
   field_va_form_tool_url:
-    weight: 13
+    type: link
     label: hidden
     settings:
       trim_length: 80
@@ -161,27 +161,27 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    type: link
+    weight: 13
     region: content
   field_va_form_type:
-    weight: 17
+    type: list_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: list_default
+    weight: 17
     region: content
   field_va_form_usage:
-    weight: 6
+    type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 6
     region: content
   links:
-    weight: 0
-    region: content
     settings: {  }
     third_party_settings: {  }
+    weight: 0
+    region: content
 hidden:
   content_moderation_control: true
   field_administration: true

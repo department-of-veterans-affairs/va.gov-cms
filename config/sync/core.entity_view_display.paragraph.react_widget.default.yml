@@ -22,28 +22,28 @@ third_party_settings:
         - field_error_message
         - field_loading_message
         - field_timeout
+      label: 'Optional settings'
       parent_name: ''
+      region: hidden
       weight: 3
       format_type: details
       format_settings:
-        description: ''
-        open: true
-        id: ''
         classes: ''
-      label: 'Optional settings'
-      region: hidden
+        id: ''
+        open: true
+        description: ''
 id: paragraph.react_widget.default
 targetEntityType: paragraph
 bundle: react_widget
 mode: default
 content:
   field_widget_type:
-    weight: 0
+    type: string
     label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 0
     region: content
 hidden:
   field_button_format: true

@@ -29,39 +29,40 @@ third_party_settings:
       children:
         - field_operating_status_facility
         - field_operating_status_more_info
+      label: 'Operating status'
       parent_name: ''
+      region: content
       weight: 1
       format_type: fieldset
-      region: content
       format_settings:
+        classes: ''
         show_empty_fields: false
         id: operating-status
-        classes: ''
         description: ''
-      label: 'Operating status'
     group_locations_and_contact_info:
       children:
         - group_facility_data_from_vast
+      label: 'Location and contact information'
       parent_name: ''
+      region: content
       weight: 2
       format_type: fieldset
-      region: content
       format_settings:
-        description: ''
-        id: locations-and-contact-information
         classes: ''
         show_empty_fields: false
-      label: 'Location and contact information'
+        id: locations-and-contact-information
+        description: ''
     group_facility_data_from_vast:
       children:
         - field_facility_locator_api_id
         - field_address
         - field_phone_number
         - field_office_hours
+      label: 'Facility data'
       parent_name: group_locations_and_contact_info
+      region: content
       weight: 13
       format_type: tooltip
-      region: content
       format_settings:
         show_label: '0'
         tooltip_description: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
@@ -72,64 +73,64 @@ third_party_settings:
         element: div
         label_element: h3
         attributes: ''
-      label: 'Facility data'
     group_ex:
       children: {  }
+      label: 'External content'
       parent_name: ''
+      region: hidden
       weight: 13
       format_type: fieldset
-      region: hidden
       format_settings:
+        classes: ''
         show_empty_fields: false
         id: ''
-        classes: ''
         description: 'Data maintained by VAST.'
-      label: 'External content'
 id: node.vet_center_outstation.default
 targetEntityType: node
 bundle: vet_center_outstation
 mode: default
 content:
   field_address:
-    weight: 4
+    type: address_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: address_default
+    weight: 4
     region: content
   field_facility_locator_api_id:
-    weight: 3
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 3
     region: content
   field_media:
     type: media_thumbnail
-    weight: 3
-    region: content
     label: above
     settings:
-      image_style: 3_2_medium_thumbnail
       image_link: ''
+      image_style: 3_2_medium_thumbnail
     third_party_settings: {  }
+    weight: 3
+    region: content
   field_office:
     type: entity_reference_label
-    weight: 0
-    region: content
     label: above
     settings:
       link: true
     third_party_settings: {  }
+    weight: 0
+    region: content
   field_office_hours:
-    weight: 6
+    type: office_hours
     label: above
     settings:
-      show_closed: all
-      office_hours_first_day: ''
       day_format: short
       time_format: g
+      compress: false
+      grouped: false
+      show_closed: all
       closed_format: ''
       separator:
         days: '<br />'
@@ -141,35 +142,34 @@ content:
         position: ''
         open_text: 'Currently open!'
         closed_text: 'Currently closed'
-      compress: false
-      grouped: false
+      timezone_field: ''
+      office_hours_first_day: ''
       schema:
         enabled: false
-      timezone_field: ''
     third_party_settings: {  }
-    type: office_hours
+    weight: 6
     region: content
   field_operating_status_facility:
     type: list_default
-    weight: 8
-    region: content
     label: visually_hidden
     settings: {  }
     third_party_settings: {  }
+    weight: 8
+    region: content
   field_operating_status_more_info:
     type: basic_string
-    weight: 9
-    region: content
     label: above
     settings: {  }
     third_party_settings: {  }
+    weight: 9
+    region: content
   field_phone_number:
-    weight: 5
+    type: telephone_link
     label: above
     settings:
       title: ''
     third_party_settings: {  }
-    type: telephone_link
+    weight: 5
     region: content
 hidden:
   content_moderation_control: true

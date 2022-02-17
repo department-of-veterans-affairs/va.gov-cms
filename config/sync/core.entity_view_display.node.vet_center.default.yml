@@ -37,67 +37,68 @@ third_party_settings:
   field_group:
     group_external_content:
       children: {  }
+      label: 'External content'
       parent_name: ''
+      region: hidden
       weight: 17
       format_type: fieldset
-      region: hidden
       format_settings:
-        description: 'Data maintained by VAST.'
-        id: ''
         classes: ''
-      label: 'External content'
+        id: ''
+        description: 'Data maintained by VAST.'
     group_operating_status:
       children:
         - field_operating_status_facility
         - field_operating_status_more_info
+      label: 'Operating status'
       parent_name: ''
+      region: content
       weight: 1
       format_type: fieldset
-      region: content
       format_settings:
+        classes: ''
         show_empty_fields: false
         id: operating-status
-        classes: ''
         description: ''
-      label: 'Operating status'
     group_top_of_page_information:
       children:
         - field_intro_text
+      label: 'Top of page information'
       parent_name: ''
+      region: content
       weight: 2
       format_type: fieldset
-      region: content
       format_settings:
-        description: ''
-        id: top-of-page-information
         classes: ''
         show_empty_fields: false
-      label: 'Top of page information'
+        id: top-of-page-information
+        description: ''
     group_locations_and_contact_info:
       children:
         - group_vet_center_data
         - group_hours_details
         - field_media
+      label: 'Locations and contact information'
       parent_name: ''
+      region: content
       weight: 3
       format_type: fieldset
-      region: content
       format_settings:
+        classes: ''
         show_empty_fields: false
         id: locations-and-contact-information
-        classes: ''
         description: ''
-      label: 'Locations and contact information'
     group_vet_center_data:
       children:
         - field_facility_locator_api_id
         - field_address
         - field_phone_number
         - field_office_hours
+      label: 'Facility data'
       parent_name: group_locations_and_contact_info
+      region: content
       weight: 8
       format_type: tooltip
-      region: content
       format_settings:
         show_label: '0'
         tooltip_description: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
@@ -108,15 +109,15 @@ third_party_settings:
         element: div
         label_element: h3
         attributes: ''
-      label: 'Facility data'
     group_hours_details:
       children:
         - field_cc_non_traditional_hours
         - field_cc_vet_center_call_center
+      label: 'Hours details and call center information'
       parent_name: group_locations_and_contact_info
+      region: content
       weight: 9
       format_type: tooltip
-      region: content
       format_settings:
         show_label: '0'
         tooltip_description: "Why can’t I edit this?\r\nVHA keeps this content standardized to provide consistent messaging for Vet Center sites nationwide."
@@ -127,27 +128,27 @@ third_party_settings:
         element: div
         label_element: h3
         attributes: ''
-      label: 'Hours details and call center information'
     group_prepare_for_your_visit:
       children:
         - field_prepare_for_visit
+      label: 'Prepare for your visit'
       parent_name: ''
+      region: content
       weight: 5
       format_type: fieldset
-      region: content
       format_settings:
+        classes: ''
         show_empty_fields: false
         id: prepare-for-your-visit
-        classes: ''
         description: 'Add or edit a visitor information topic, such as parking, transportation, etc.'
-      label: 'Prepare for your visit'
     group_how_we_re_different_than_a:
       children:
         - field_cc_vet_center_faqs
+      label: 'How we''re different than a clinic (FAQs)'
       parent_name: ''
+      region: content
       weight: 7
       format_type: tooltip
-      region: content
       format_settings:
         show_label: '1'
         tooltip_description: "Why can’t I edit this?\r\nVHA keeps this content standardized to provide consistent messaging for Vet Center sites nationwide."
@@ -158,28 +159,28 @@ third_party_settings:
         element: div
         label_element: h3
         attributes: ''
-      label: 'How we''re different than a clinic (FAQs)'
     group_featured_content:
       children:
         - group_national_featured_content
         - field_vet_center_feature_content
+      label: 'Featured content'
       parent_name: ''
+      region: content
       weight: 4
       format_type: fieldset
-      region: content
       format_settings:
+        classes: ''
         show_empty_fields: false
         id: featured-content
-        classes: ''
         description: 'Highlight up to two Vet Center activities, such as events or programs.'
-      label: 'Featured content'
     group_national_featured_content:
       children:
         - field_cc_vet_center_featured_con
+      label: 'National featured content'
       parent_name: group_featured_content
+      region: content
       weight: 7
       format_type: tooltip
-      region: content
       format_settings:
         show_label: '0'
         tooltip_description: "Why can’t I edit this?\r\nThis national feature managed by VHA will display alongside locally-relevant content."
@@ -190,7 +191,6 @@ third_party_settings:
         element: div
         label_element: h3
         attributes: ''
-      label: 'National featured content'
 id: node.vet_center.default
 targetEntityType: node
 bundle: vet_center
@@ -198,81 +198,80 @@ mode: default
 content:
   field_address:
     type: address_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
     weight: 1
     region: content
-    label: above
-    settings: {  }
-    third_party_settings: {  }
   field_cc_non_traditional_hours:
-    weight: 6
+    type: entity_field_fetch
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: entity_field_fetch
+    weight: 6
     region: content
   field_cc_vet_center_call_center:
-    weight: 7
+    type: entity_field_fetch
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: entity_field_fetch
+    weight: 7
     region: content
   field_cc_vet_center_faqs:
-    weight: 8
+    type: entity_field_fetch
     label: visually_hidden
     settings: {  }
     third_party_settings: {  }
-    type: entity_field_fetch
+    weight: 8
     region: content
   field_cc_vet_center_featured_con:
-    weight: 8
+    type: entity_field_fetch
     label: visually_hidden
     settings: {  }
     third_party_settings: {  }
-    type: entity_field_fetch
+    weight: 8
     region: content
   field_facility_locator_api_id:
     type: string
-    weight: 0
-    region: content
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 0
+    region: content
   field_health_services:
-    weight: 6
+    type: entity_reference_label
     label: above
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 6
     region: content
   field_intro_text:
-    weight: 4
+    type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    weight: 4
     region: content
   field_media:
-    weight: 11
+    type: media_thumbnail
     label: above
     settings:
-      image_style: large
       image_link: ''
+      image_style: large
     third_party_settings: {  }
-    type: media_thumbnail
+    weight: 11
     region: content
   field_office_hours:
     type: office_hours
-    weight: 4
-    region: content
     label: above
     settings:
-      show_closed: all
-      office_hours_first_day: ''
       day_format: short
       time_format: g
+      compress: false
+      grouped: false
+      show_closed: all
       closed_format: ''
       separator:
         days: '<br />'
@@ -284,59 +283,60 @@ content:
         position: ''
         open_text: 'Currently open!'
         closed_text: 'Currently closed'
-      compress: false
-      grouped: false
+      timezone_field: ''
+      office_hours_first_day: ''
       schema:
         enabled: false
-      timezone_field: ''
     third_party_settings: {  }
+    weight: 4
+    region: content
   field_official_name:
-    weight: 0
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 0
     region: content
   field_operating_status_facility:
-    weight: 3
+    type: list_default
     label: visually_hidden
     settings: {  }
     third_party_settings: {  }
-    type: list_default
+    weight: 3
     region: content
   field_operating_status_more_info:
-    weight: 4
+    type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    weight: 4
     region: content
   field_phone_number:
     type: telephone_link
-    weight: 2
-    region: content
     label: above
     settings:
       title: ''
     third_party_settings: {  }
+    weight: 2
+    region: content
   field_prepare_for_visit:
     type: entity_reference_revisions_entity_view
-    weight: 7
     label: above
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    weight: 7
     region: content
   field_vet_center_feature_content:
     type: entity_reference_revisions_entity_view
-    weight: 8
     label: above
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    weight: 8
     region: content
 hidden:
   content_moderation_control: true

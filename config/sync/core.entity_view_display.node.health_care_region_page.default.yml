@@ -35,15 +35,15 @@ third_party_settings:
     group_meta:
       children:
         - field_description
+      label: Meta
       parent_name: ''
+      region: content
       weight: 1
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-      label: Meta
-      region: content
     group_content:
       children:
         - field_intro_text
@@ -52,26 +52,26 @@ third_party_settings:
         - field_other_va_locations
         - field_appointments_online
         - field_clinical_health_services
+      label: Content
       parent_name: ''
+      region: content
       weight: 2
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-      label: Content
-      region: content
     group_blurbs_for_subpages:
       children: {  }
+      label: 'Blurbs for subpages'
       parent_name: ''
+      region: content
       weight: 3
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-      label: 'Blurbs for subpages'
-      region: content
     group_social_media_and_links:
       children:
         - field_operating_status
@@ -80,56 +80,56 @@ third_party_settings:
         - field_instagram
         - field_twitter
         - field_related_links
+      label: 'Social media and links'
       parent_name: ''
+      region: content
       weight: 4
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-      label: 'Social media and links'
-      region: content
 id: node.health_care_region_page.default
 targetEntityType: node
 bundle: health_care_region_page
 mode: default
 content:
   field_administration:
-    weight: 0
+    type: entity_reference_label
     label: above
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 0
     region: content
   field_appointments_online:
-    weight: 10
+    type: boolean
     label: above
     settings:
       format: default
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    type: boolean
+    weight: 10
     region: content
   field_clinical_health_services:
-    weight: 11
+    type: entity_reference_label
     label: above
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 11
     region: content
   field_description:
-    weight: 25
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 25
     region: content
   field_facebook:
-    weight: 12
+    type: link
     label: above
     settings:
       trim_length: 80
@@ -138,10 +138,10 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    type: link
+    weight: 12
     region: content
   field_flickr:
-    weight: 13
+    type: link
     label: above
     settings:
       trim_length: 80
@@ -150,26 +150,26 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    type: link
+    weight: 13
     region: content
   field_govdelivery_id_emerg:
-    weight: 5
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 5
     region: content
   field_govdelivery_id_news:
-    weight: 6
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 6
     region: content
   field_instagram:
-    weight: 14
+    type: link
     label: above
     settings:
       trim_length: 80
@@ -178,26 +178,26 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    type: link
+    weight: 14
     region: content
   field_intro_text:
-    weight: 4
+    type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    weight: 4
     region: content
   field_media:
-    weight: 5
+    type: media_thumbnail
     label: above
     settings:
-      image_style: large
       image_link: ''
+      image_style: large
     third_party_settings: {  }
-    type: media_thumbnail
+    weight: 5
     region: content
   field_operating_status:
-    weight: 11
+    type: link
     label: above
     settings:
       trim_length: 80
@@ -206,27 +206,27 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    type: link
+    weight: 11
     region: content
   field_other_va_locations:
-    weight: 8
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 8
     region: content
   field_related_links:
-    weight: 16
+    type: entity_reference_revisions_entity_view
     label: above
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    type: entity_reference_revisions_entity_view
+    weight: 16
     region: content
   field_twitter:
-    weight: 15
+    type: link
     label: above
     settings:
       trim_length: 80
@@ -235,15 +235,15 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    type: link
+    weight: 15
     region: content
   field_vamc_system_official_name:
-    weight: 6
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 6
     region: content
 hidden:
   content_moderation_control: true

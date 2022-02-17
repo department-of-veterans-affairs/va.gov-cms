@@ -18,20 +18,20 @@ bundle: document_external
 mode: default
 content:
   content_moderation_control:
-    weight: 0
-    region: content
     settings: {  }
     third_party_settings: {  }
+    weight: 0
+    region: content
   field_description:
-    weight: 1
+    type: basic_string
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    weight: 1
     region: content
   field_media_external_file:
+    type: link
     label: visually_hidden
-    weight: 2
     settings:
       trim_length: 80
       url_only: false
@@ -39,18 +39,18 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    type: link
+    weight: 2
     region: content
   name:
     type: plain_string_formatter
-    weight: 0
-    region: content
     label: hidden
     settings:
+      link_to_entity: false
       wrap_tag: strong
       wrap_class: ''
-      link_to_entity: false
     third_party_settings: {  }
+    weight: 0
+    region: content
 hidden:
   created: true
   field_media_in_library: true
