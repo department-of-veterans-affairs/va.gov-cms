@@ -6,7 +6,6 @@ dependencies:
     - field.storage.node.field_intro_text
     - field.storage.node.field_products
     - search_api.server.database
-    - core.entity_view_mode.node.full
   module:
     - node
     - search_api
@@ -20,6 +19,7 @@ field_settings:
     datasource_id: 'entity:node'
     property_path: field_intro_text
     type: text
+    boost: 0.6
     dependencies:
       config:
         - field.storage.node.field_intro_text
@@ -27,7 +27,7 @@ field_settings:
     label: Products
     datasource_id: 'entity:node'
     property_path: field_products
-    type: text
+    type: string
     boost: !!float 13
     dependencies:
       config:
@@ -39,16 +39,6 @@ field_settings:
     indexed_locked: true
     type_locked: true
     hidden: true
-  rendered_item:
-    label: 'Rendered HTML output'
-    property_path: rendered_item
-    type: text
-    configuration:
-      roles:
-        anonymous: anonymous
-      view_mode:
-        'entity:node':
-          documentation_page: full
   status:
     label: status
     datasource_id: 'entity:node'
@@ -63,8 +53,8 @@ field_settings:
     label: Title
     datasource_id: 'entity:node'
     property_path: title
-    type: string
-    boost: !!float 21
+    type: text
+    boost: !!float 0
     dependencies:
       module:
         - node
@@ -99,19 +89,18 @@ processor_settings:
     highlight: always
     highlight_partial: true
     excerpt: true
+    excerpt_always: false
     excerpt_length: 256
     exclude_fields: {  }
     prefix: '<strong>'
     suffix: '</strong>'
     weights:
       postprocess_query: 0
-    excerpt_always: false
   html_filter:
     all_fields: true
     fields:
       - field_intro_text
       - field_products
-      - rendered_item
       - title
     title: true
     alt: true
@@ -129,7 +118,6 @@ processor_settings:
     fields:
       - field_intro_text
       - field_products
-      - rendered_item
       - title
     weights:
       preprocess_index: -20
@@ -140,14 +128,23 @@ processor_settings:
     all_fields: true
     fields:
       - field_intro_text
-      - field_products
-      - rendered_item
+      - title
     exceptions:
       mexican: mexic
       texan: texa
     weights:
       preprocess_index: 0
       preprocess_query: 0
+  tokenizer:
+    all_fields: false
+    fields: {  }
+    ignored: ._-
+    spaces: ''
+    overlap_cjk: 1
+    minimum_word_size: '3'
+    weights:
+      preprocess_index: -6
+      preprocess_query: -6
 tracker_settings:
   default:
     indexing_order: fifo
