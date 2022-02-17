@@ -102,6 +102,7 @@ Cypress.Commands.add('iframe', { prevSubject: 'element' }, ($iframe, callback = 
 });
 
 Cypress.Commands.add("type_ckeditor", (element, content) => {
+  cy.wait(5000);
   cy.window().then((win) => {
     const elements = Object.keys(win.CKEDITOR.instances);
     if (elements.indexOf(element) === -1) {
