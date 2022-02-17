@@ -10,7 +10,7 @@
 1. [Updates](#updates)
     1. [Updating Drupal/Lightning](#updating-lightning)
     1. [Updating Contrib Modules](#updating-contrib-modules)
-1.  [Module Uninstal / Removal](#module-removal-uninstall)
+1.  [Module Uninstal / Removal](#module-removal--uninstall)
 
 ## Project
 1. Pull a ticket, move to 'In Development'
