@@ -98,9 +98,9 @@ class BRDGHA extends EnvironmentPluginBase {
         $vars = [
           '@job_link' => 'https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml',
         ];
-        // This message is sly. We are reporting that the request has been
-        // processed, which is true.
-        $message = $this->t('A site rebuild request has been processed. Please visit <a href="@job_link">@job_link</a> to see status.', $vars);
+        // This message is intentional. We are reporting that the request has
+        // been processed, which is true.
+        $message = $this->t('Site rebuild request has been processed. Please visit <a href="@job_link">@job_link</a> to see status.', $vars);
       }
       else {
         $this->githubAdapter->triggerWorkflow('content-release.yml', $front_end_git_ref, [
