@@ -2,9 +2,15 @@
 
 namespace Drupal\va_gov_post_api\Service;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Render\Renderer;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\post_api\Service\AddToQueue;
 use Drupal\va_gov_lovell\LovellOps;
 
 /**
@@ -36,6 +42,13 @@ class PostFacilityService extends PostFacilityBase {
   protected $facilityService;
 
   /**
+   * Core renderer.
+   *
+   * @var \Drupal\Core\Render\Renderer
+   */
+  protected $renderer;
+
+  /**
    * The related system service node.
    *
    * @var \Drupal\Core\Entity\EntityInterface
@@ -48,6 +61,27 @@ class PostFacilityService extends PostFacilityBase {
    * @var \Drupal\Core\Entity\EntityInterface
    */
   protected $serviceTerm;
+
+  /**
+   * Constructs a new PostFacilityBase object.
+   *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The config factory service.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager service.
+   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_channel_factory
+   *   The logger factory service.
+   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
+   *   The messenger interface.
+   * @param \Drupal\post_api\Service\AddToQueue $post_queue
+   *   The PostAPI service.
+   * @param \Drupal\Core\Render\Renderer $renderer
+   *   Core renderer.
+   */
+  public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_channel_factory, MessengerInterface $messenger, AddToQueue $post_queue, Renderer $renderer) {
+    parent::__construct($config_factory, $entity_type_manager, $logger_channel_factory, $messenger, $post_queue);
+    $this->renderer = $renderer;
+  }
 
   /**
    * Adds facility service data to Post API queue.
@@ -203,7 +237,7 @@ class PostFacilityService extends PostFacilityBase {
       $service->name = $this->serviceTerm->getName();
       $service->active = ($this->facilityService->isPublished()) ? TRUE : FALSE;
       $service->description_national = $this->serviceTerm->getDescription();
-      $service->description_system = $this->systemService->get('field_body')->value;
+      $service->description_system = $this->getProcessedHtmlFromField('field_body');
       $service->service_api_id = $this->serviceTerm->get('field_health_service_api_id')->value;
       $service->appointment_leadin = $this->getAppointmentLeadin();
       $field_phone_numbers_paragraphs = $this->facilityService->get('field_phone_numbers_paragraph')->referencedEntities();
@@ -419,6 +453,49 @@ class PostFacilityService extends PostFacilityBase {
     $address->country_code = $use_address['country_code'];
 
     return $address;
+  }
+
+  /**
+   * Render html from field and make relative links va.gov specific.
+   *
+   * @param string $fieldname
+   *   The name of the field to retrieve.
+   *
+   * @return string
+   *   Whatever html was found.
+   */
+  protected function getProcessedHtmlFromField($fieldname) {
+    $html = '';
+    if (!empty($this->systemService->$fieldname)) {
+      $render_array = $this->systemService->$fieldname->view();
+      $html = (string) $this->renderer->renderPlain($render_array);
+      $html = $this->makeLinksVaGov($html);
+    }
+
+    return $html;
+  }
+
+  /**
+   * Swaps the href for relative links to be https://www.va.gov specific.
+   *
+   * @param string $html
+   *   The html that was passed in, with links' hrefs altered.
+   *
+   * @return string
+   *   Html with no relative links.
+   */
+  protected function makeLinksVaGov($html) {
+    $search_and_replace = [
+      // Accounts for pdf files but not images. Images can not be resolved.
+      '/sites/default/files/' => '/files/',
+      // Accounts for domain addition.
+      ' href="/' => ' href="https://www.va.gov/',
+    ];
+    $search = array_keys($search_and_replace);
+    $replace = array_values($search_and_replace);
+    $html_with_vagov_links = str_replace($search, $replace, $html);
+
+    return $html_with_vagov_links;
   }
 
   /**
