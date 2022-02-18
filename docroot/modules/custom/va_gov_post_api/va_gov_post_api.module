@@ -54,6 +54,9 @@ function _post_api_add_facility_service_to_queue(EntityInterface $entity) {
   if ($entity->bundle() === 'health_care_local_health_service') {
     return Drupal::service('va_gov_post_api.queue_service_updates')->queueFacilityService($entity);
   }
-
+  // @todo Need a looper to process all facility services under a system, if the
+  // system service is edited.
+  // @todo Need a looper to process all facility services of that type, if the
+  // taxonomy term for that service is edited.
   return 0;
 }
