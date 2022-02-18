@@ -215,16 +215,31 @@ display:
           summary: ''
           description: ''
           columns:
-            nid: nid
             title: title
+            nid: nid
+            type: type
+            field_facility_location: field_facility_location
+            name_1: name_1
             field_administration: field_administration
-            field_service_name_and_descripti: field_service_name_and_descripti
-            field_body: field_body
-            moderation_state: moderation_state
-            changed: changed
+            id: id
+            field_referral_required: field_referral_required
+            field_walk_ins_accepted: field_walk_ins_accepted
+            field_online_scheduling_availabl: field_online_scheduling_availabl
             revision_uid: revision_uid
+            changed: changed
+            name: name
+            timestamp: timestamp
+            break: break
+            is_locked: is_locked
             edit_node: edit_node
           info:
+            title:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
             nid:
               sortable: true
               default_sort_order: asc
@@ -232,7 +247,21 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            title:
+            type:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_facility_location:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            name_1:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -246,21 +275,35 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_service_name_and_descripti:
+            id:
               sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            field_body:
-              sortable: false
+            field_referral_required:
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            moderation_state:
+            field_walk_ins_accepted:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_online_scheduling_availabl:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            revision_uid:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -274,7 +317,28 @@ display:
               separator: by
               empty_column: false
               responsive: priority-low
-            revision_uid:
+            name:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            timestamp:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            break:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            is_locked:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -3565,7 +3629,7 @@ display:
           group_type: group
           admin_label: ''
           label: 'Content type'
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -5179,7 +5243,7 @@ display:
           group_type: group
           admin_label: ''
           label: 'Content type'
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -6140,7 +6204,7 @@ display:
           exposed: true
           expose:
             operator_id: title_1_op
-            label: Facility
+            label: 'Facility name contains'
             description: ''
             use_operator: false
             operator: title_1_op
@@ -6756,7 +6820,7 @@ display:
           group_type: group
           admin_label: ''
           label: 'Content type'
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -7908,7 +7972,7 @@ display:
           group_type: group
           admin_label: ''
           label: 'Content type'
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -8683,7 +8747,7 @@ display:
           exposed: true
           expose:
             operator_id: title_op
-            label: Facility
+            label: 'Facility name contains'
             description: ''
             use_operator: false
             operator: title_op
@@ -11509,7 +11573,7 @@ display:
           group_type: group
           admin_label: ''
           label: 'Content type'
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -12542,7 +12606,7 @@ display:
           group_type: group
           admin_label: ''
           label: 'Content type'
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
