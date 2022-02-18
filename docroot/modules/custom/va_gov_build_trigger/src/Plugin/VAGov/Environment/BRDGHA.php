@@ -86,14 +86,32 @@ class BRDGHA extends EnvironmentPluginBase {
     $front_end_git_ref = $front_end_git_ref ?? "master";
 
     try {
-      $this->githubAdapter->triggerWorkflow('content-release.yml', $front_end_git_ref, [
-        'release_wait' => "0",
-        'deploy_environment' => $this->settings->get('github_actions_deploy_env'),
-      ]);
-      $vars = [
-        '@job_link' => 'https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml',
+      // Check first for a pending content-release workflow. If there is one
+      // pending, there's no need to trigger another job. We limit our check to
+      // today, as some jobs long past report as being pending.
+      $workflow_run_params = [
+        'status' => 'pending',
+        'created' => '>=' . date('Y-m-d'),
       ];
-      $message = $this->t('Site rebuild request has been triggered. Please visit <a href="@job_link">@job_link</a> to see status.', $vars);
+      $workflow_runs = $this->githubAdapter->getWorkflowRuns('content-release.yml', $workflow_run_params);
+      if (!empty($workflow_runs['total_count']) && $workflow_runs['total_count'] > 0) {
+        $vars = [
+          '@job_link' => 'https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml',
+        ];
+        // This message is sly. We are reporting that the request has been
+        // processed, which is true.
+        $message = $this->t('A site rebuild request has been processed. Please visit <a href="@job_link">@job_link</a> to see status.', $vars);
+      }
+      else {
+        $this->githubAdapter->triggerWorkflow('content-release.yml', $front_end_git_ref, [
+          'release_wait' => "0",
+          'deploy_environment' => $this->settings->get('github_actions_deploy_env'),
+        ]);
+        $vars = [
+          '@job_link' => 'https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml',
+        ];
+        $message = $this->t('Site rebuild request has been triggered. Please visit <a href="@job_link">@job_link</a> to see status.', $vars);
+      }
       $this->messenger()->addStatus($message);
       $this->logger->info($message);
     }
@@ -119,7 +137,7 @@ class BRDGHA extends EnvironmentPluginBase {
   /**
    * {@inheritDoc}
    */
-  public function getBuildTriggerFormClass() : string {
+  public function getBuildTriggerFormClass(): string {
     return BrdBuildTriggerForm::class;
   }
 
