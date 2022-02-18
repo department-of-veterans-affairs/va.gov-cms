@@ -11,12 +11,12 @@ pattern: '[node:field_office:entity:url:path]/news-releases'
 selection_criteria:
   cc33cd1c-dff3-4667-84f2-31562ab365f3:
     id: node_type
-    negate: false
-    uuid: cc33cd1c-dff3-4667-84f2-31562ab365f3
-    context_mapping:
-      node: node
     bundles:
       press_releases_listing: press_releases_listing
+    negate: false
+    context_mapping:
+      node: node
+    uuid: cc33cd1c-dff3-4667-84f2-31562ab365f3
 selection_logic: and
 weight: -5
 relationships: {  }

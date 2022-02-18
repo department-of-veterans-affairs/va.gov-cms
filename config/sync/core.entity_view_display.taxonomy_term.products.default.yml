@@ -12,20 +12,19 @@ dependencies:
     - views
 third_party_settings:
   layout_builder:
-    enabled: false
     allow_custom: false
+    enabled: false
 id: taxonomy_term.products.default
 targetEntityType: taxonomy_term
 bundle: products
 mode: default
 content:
   description:
-    type: text_default
     label: hidden
-    settings: {  }
-    third_party_settings: {  }
+    type: text_default
     weight: 0
     region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
-  field_kb_landing_page: true
   search_api_excerpt: true

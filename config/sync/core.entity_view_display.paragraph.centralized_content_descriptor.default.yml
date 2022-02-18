@@ -15,34 +15,34 @@ third_party_settings:
       children:
         - field_cc_documentor_title
         - field_cc_documentor_description
-      label: Scope
       parent_name: ''
-      region: content
       weight: 0
       format_type: fieldset
+      region: content
       format_settings:
-        classes: ''
         id: ''
+        classes: ''
         description: ''
+      label: Scope
 id: paragraph.centralized_content_descriptor.default
 targetEntityType: paragraph
 bundle: centralized_content_descriptor
 mode: default
 content:
   field_cc_documentor_description:
-    type: text_default
+    weight: 2
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    type: text_default
     region: content
   field_cc_documentor_title:
-    type: string
+    weight: 1
     label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 1
+    type: string
     region: content
 hidden:
   search_api_excerpt: true

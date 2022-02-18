@@ -16,37 +16,37 @@ third_party_settings:
       children:
         - field_email_address
         - field_email_label
-      label: 'Email contact'
       parent_name: ''
-      region: content
       weight: 0
       format_type: fieldset
       format_settings:
-        classes: ''
         id: ''
+        classes: ''
         description: ''
+      label: 'Email contact'
+      region: content
   layout_builder:
-    enabled: false
     allow_custom: false
+    enabled: false
 id: paragraph.email_contact.user_guides
 targetEntityType: paragraph
 bundle: email_contact
 mode: user_guides
 content:
   field_email_address:
-    type: basic_string
+    weight: 1
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    type: basic_string
     region: content
   field_email_label:
-    type: string
+    weight: 2
     label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 2
+    type: string
     region: content
 hidden:
   search_api_excerpt: true

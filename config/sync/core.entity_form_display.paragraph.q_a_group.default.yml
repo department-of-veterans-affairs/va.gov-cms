@@ -17,16 +17,14 @@ bundle: q_a_group
 mode: default
 content:
   field_accordion_display:
-    type: boolean_checkbox
     weight: 1
-    region: content
     settings:
       display_label: true
     third_party_settings: {  }
-  field_q_as:
-    type: entity_reference_browser_table_widget
-    weight: 2
+    type: boolean_checkbox
     region: content
+  field_q_as:
+    weight: 2
     settings:
       entity_browser: q_a_browser
       field_widget_display: label
@@ -37,20 +35,22 @@ content:
       open: 0
       field_widget_display_settings: {  }
     third_party_settings: {  }
-  field_section_header:
-    type: string_textfield_with_counter
-    weight: 0
+    type: entity_reference_browser_table_widget
     region: content
+  field_section_header:
+    weight: 0
     settings:
       size: 70
       placeholder: ''
-      use_field_maxlength: false
       maxlength: 70
       counter_position: after
       js_prevent_submit: true
-      count_html_characters: false
       textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
+      use_field_maxlength: false
+      count_html_characters: false
     third_party_settings: {  }
+    type: string_textfield_with_counter
+    region: content
 hidden:
   created: true
   status: true

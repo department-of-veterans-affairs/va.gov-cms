@@ -142,452 +142,22 @@ base_table: node_field_data
 base_field: nid
 display:
   default:
-    id: default
-    display_title: Master
-    display_plugin: default
-    position: 0
     display_options:
-      title: Content
-      fields:
-        views_bulk_operations_bulk_form_1:
-          id: views_bulk_operations_bulk_form_1
-          table: views
-          field: views_bulk_operations_bulk_form
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: views_bulk_operations_bulk_form
-          label: Action
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          batch: true
-          batch_size: 25
-          form_step: true
-          buttons: false
-          action_title: Action
-          selected_actions:
-            -
-              action_id: node_save_action
-              preconfiguration:
-                add_confirmation: 0
-            -
-              action_id: node_assign_owner_action
-              preconfiguration:
-                add_confirmation: 0
-            -
-              action_id: publish_latest_revision_action
-            -
-              action_id: archive_node_action
-            -
-              action_id: views_bulk_edit
-              preconfiguration:
-                add_confirmation: 0
-                get_bundles_from_results: 1
-            -
-              action_id: views_bulk_operations_delete_entity
-            -
-              action_id: 'entity:pathauto_update_alias:node'
-              preconfiguration:
-                add_confirmation: 0
-          clear_on_exposed: true
-          force_selection_info: 0
-        title:
-          id: title
-          table: node_field_data
-          field: title
-          entity_type: node
-          entity_field: title
-          plugin_id: field
-          label: Title
-          exclude: false
-          alter:
-            alter_text: false
-          element_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          type: string
-          settings:
-            link_to_entity: true
-        operations:
-          id: operations
-          table: node
-          field: operations
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: entity_operations
-          label: Operations
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          destination: false
-        type:
-          id: type
-          table: node_field_data
-          field: type
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          entity_field: type
-          plugin_id: field
-          label: 'Content type'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
-          settings:
-            link: false
-          group_column: target_id
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        changed:
-          id: changed
-          table: node_field_data
-          field: changed
-          entity_type: node
-          entity_field: changed
-          plugin_id: field
-          label: Updated
-          exclude: false
-          alter:
-            alter_text: false
-          element_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          type: timestamp
-          settings:
-            date_format: short
-            custom_date_format: ''
-            timezone: ''
-        moderation_state:
-          id: moderation_state
-          table: content_moderation_state_field_data
-          field: moderation_state
-          relationship: none
-          group_type: group
-          admin_label: 'Moderation state'
-          entity_type: content_moderation_state
-          entity_field: moderation_state
-          plugin_id: field
-          label: 'Moderation state'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: N/A
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: false
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_administration:
-          id: field_administration
-          table: node__field_administration
-          field: field_administration
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: Section
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
-          settings:
-            link: false
-          group_column: target_id
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        revision_uid:
-          id: revision_uid
-          table: node_revision
-          field: revision_uid
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          entity_field: revision_uid
-          plugin_id: field
-          label: ''
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
-          settings:
-            link: true
-          group_column: target_id
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-      pager:
-        type: full
+      access:
+        type: role
         options:
-          items_per_page: 50
-          tags:
-            next: 'Next ›'
-            previous: '‹ Previous'
-            first: '« First'
-            last: 'Last »'
+          role:
+            authenticated: authenticated
+      cache:
+        type: tag
+      query:
+        type: views_query
+        options:
+          disable_sql_rewrite: false
+          distinct: false
+          replica: false
+          query_comment: ''
+          query_tags: {  }
       exposed_form:
         type: basic
         options:
@@ -598,237 +168,26 @@ display:
           expose_sort_order: true
           sort_asc_label: Asc
           sort_desc_label: Desc
-      access:
-        type: role
+      pager:
+        type: full
         options:
-          role:
-            authenticated: authenticated
-      cache:
-        type: tag
-      empty:
-        area_text_custom:
-          id: area_text_custom
-          table: views
-          field: area_text_custom
-          plugin_id: text_custom
-          empty: true
-          content: 'No content available.'
-      sorts: {  }
-      arguments: {  }
-      filters:
-        title:
-          id: title
-          table: node_field_data
-          field: title
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          entity_field: title
-          plugin_id: string
-          operator: contains
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: title_op
-            label: Title
-            description: ''
-            use_operator: false
-            operator: title_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: title
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-        type:
-          id: type
-          table: node_field_data
-          field: type
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
-          operator: in
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: type_op
-            label: 'Content type'
-            description: ''
-            use_operator: false
-            operator: type_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: type
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_api_consumer: '0'
-              content_creator_benefits_hubs: '0'
-              vamc_content_creator: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              content_admin: '0'
-              redirect_administrator: '0'
-              admnistrator_users: '0'
-              administrator: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-        moderation_state:
-          id: moderation_state
-          table: node_field_data
-          field: moderation_state
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          plugin_id: moderation_state_filter
-          operator: in
-          value:
-            all: all
-            editorial-draft: editorial-draft
-            editorial-review: editorial-review
-            editorial-published: editorial-published
-            editorial-archived: editorial-archived
-          group: 1
-          exposed: true
-          expose:
-            operator_id: moderation_state_op
-            label: 'Moderation state'
-            description: ''
-            use_operator: false
-            operator: moderation_state_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: moderation_state
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              page_creator: '0'
-              layout_manager: '0'
-              page_reviewer: '0'
-              landing_page_creator: '0'
-              landing_page_reviewer: '0'
-              media_creator: '0'
-              media_manager: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-        taxonomy_entity_index_tid_depth:
-          id: taxonomy_entity_index_tid_depth
-          table: node
-          field: taxonomy_entity_index_tid_depth
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          plugin_id: taxonomy_entity_index_tid_depth
-          operator: or
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: taxonomy_entity_index_tid_depth_op
-            label: Section
-            description: ''
-            use_operator: false
-            operator: taxonomy_entity_index_tid_depth_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: taxonomy_entity_index_tid_depth
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_api_consumer: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              admnistrator_users: '0'
-              administrator: '0'
-              redirect_administrator: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          vid: administration
-          type: select
-          hierarchy: true
-          limit: true
-          error_message: true
-          depth: 6
-      filter_groups:
-        operator: AND
-        groups:
-          1: AND
+          items_per_page: 50
+          tags:
+            previous: '‹ Previous'
+            next: 'Next ›'
+            first: '« First'
+            last: 'Last »'
       style:
         type: table
         options:
           grouping: {  }
           row_class: ''
           default_row_class: true
+          override: true
+          sticky: true
+          caption: ''
+          summary: ''
+          description: ''
           columns:
             nid: nid
             title: title
@@ -839,7 +198,6 @@ display:
             changed: changed
             revision_uid: revision_uid
             edit_node: edit_node
-          default: changed
           info:
             nid:
               sortable: true
@@ -904,30 +262,664 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-          override: true
-          sticky: true
-          summary: ''
+          default: changed
           empty_table: true
-          caption: ''
-          description: ''
       row:
         type: fields
-      query:
-        type: views_query
-        options:
-          query_comment: ''
-          disable_sql_rewrite: false
-          distinct: false
-          replica: false
-          query_tags: {  }
+      fields:
+        views_bulk_operations_bulk_form_1:
+          id: views_bulk_operations_bulk_form_1
+          table: views
+          field: views_bulk_operations_bulk_form
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Action
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          batch: true
+          batch_size: 25
+          form_step: true
+          buttons: false
+          clear_on_exposed: true
+          action_title: Action
+          selected_actions:
+            -
+              action_id: node_save_action
+              preconfiguration:
+                add_confirmation: 0
+            -
+              action_id: node_assign_owner_action
+              preconfiguration:
+                add_confirmation: 0
+            -
+              action_id: publish_latest_revision_action
+            -
+              action_id: archive_node_action
+            -
+              action_id: views_bulk_edit
+              preconfiguration:
+                add_confirmation: 0
+                get_bundles_from_results: 1
+            -
+              action_id: views_bulk_operations_delete_entity
+            -
+              action_id: 'entity:pathauto_update_alias:node'
+              preconfiguration:
+                add_confirmation: 0
+          force_selection_info: 0
+          plugin_id: views_bulk_operations_bulk_form
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          label: Title
+          exclude: false
+          alter:
+            alter_text: false
+          element_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          entity_type: node
+          entity_field: title
+          type: string
+          settings:
+            link_to_entity: true
+          plugin_id: field
+        operations:
+          id: operations
+          table: node
+          field: operations
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Operations
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          destination: false
+          plugin_id: entity_operations
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'Content type'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: false
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          entity_type: node
+          entity_field: type
+          plugin_id: field
+        changed:
+          id: changed
+          table: node_field_data
+          field: changed
+          label: Updated
+          exclude: false
+          alter:
+            alter_text: false
+          element_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          type: timestamp
+          settings:
+            date_format: short
+            custom_date_format: ''
+            timezone: ''
+          plugin_id: field
+          entity_type: node
+          entity_field: changed
+        moderation_state:
+          id: moderation_state
+          table: content_moderation_state_field_data
+          field: moderation_state
+          relationship: none
+          group_type: group
+          admin_label: 'Moderation state'
+          label: 'Moderation state'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: N/A
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          entity_type: content_moderation_state
+          entity_field: moderation_state
+          plugin_id: field
+        field_administration:
+          id: field_administration
+          table: node__field_administration
+          field: field_administration
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Section
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: false
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        revision_uid:
+          id: revision_uid
+          table: node_revision
+          field: revision_uid
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: ''
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: true
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          entity_type: node
+          entity_field: revision_uid
+          plugin_id: field
+      filters:
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: title_op
+            label: Title
+            description: ''
+            use_operator: false
+            operator: title_op
+            identifier: title
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+            operator_limit_selection: false
+            operator_list: {  }
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: string
+          entity_type: node
+          entity_field: title
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: in
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: type_op
+            label: 'Content type'
+            description: ''
+            use_operator: false
+            operator: type_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: type
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              vamc_content_creator: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: bundle
+          entity_type: node
+          entity_field: type
+        moderation_state:
+          id: moderation_state
+          table: node_field_data
+          field: moderation_state
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: in
+          value:
+            all: all
+            editorial-draft: editorial-draft
+            editorial-review: editorial-review
+            editorial-published: editorial-published
+            editorial-archived: editorial-archived
+          group: 1
+          exposed: true
+          expose:
+            operator_id: moderation_state_op
+            label: 'Moderation state'
+            description: ''
+            use_operator: false
+            operator: moderation_state_op
+            identifier: moderation_state
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              page_creator: '0'
+              layout_manager: '0'
+              page_reviewer: '0'
+              landing_page_creator: '0'
+              landing_page_reviewer: '0'
+              media_creator: '0'
+              media_manager: '0'
+            reduce: false
+            operator_limit_selection: false
+            operator_list: {  }
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: node
+          plugin_id: moderation_state_filter
+        taxonomy_entity_index_tid_depth:
+          id: taxonomy_entity_index_tid_depth
+          table: node
+          field: taxonomy_entity_index_tid_depth
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: taxonomy_entity_index_tid_depth_op
+            label: Section
+            description: ''
+            use_operator: false
+            operator: taxonomy_entity_index_tid_depth_op
+            identifier: taxonomy_entity_index_tid_depth
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+              redirect_administrator: '0'
+            reduce: false
+            operator_limit_selection: false
+            operator_list: {  }
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          type: select
+          limit: true
+          vid: administration
+          hierarchy: true
+          error_message: true
+          depth: 6
+          entity_type: node
+          plugin_id: taxonomy_entity_index_tid_depth
+      sorts: {  }
+      title: Content
+      empty:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          empty: true
+          content: 'No content available.'
+          plugin_id: text_custom
+      arguments: {  }
       relationships:
         uid:
           id: uid
           table: node_field_data
           field: uid
           admin_label: author
-          plugin_id: standard
           required: true
+          plugin_id: standard
         uid_1:
           id: uid_1
           table: content_lock
@@ -935,9 +927,14 @@ display:
           relationship: none
           group_type: group
           admin_label: 'Lock owner'
-          plugin_id: standard
           required: false
+          plugin_id: standard
       show_admin_links: true
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      display_extenders: {  }
       header:
         area:
           id: area
@@ -946,12 +943,12 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: text
           empty: false
+          tokenize: false
           content:
             value: '<p><a href="/node/add" class="button button-action button--primary button--small">Add content</a></p>'
             format: rich_text
-          tokenize: false
+          plugin_id: text
         result:
           id: result
           table: views
@@ -959,12 +956,14 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: result
           empty: false
           content: 'Displaying @start - @end of @total'
-      display_extenders: {  }
+          plugin_id: result
+    display_plugin: default
+    display_title: Master
+    id: default
+    position: 0
     cache_metadata:
-      max-age: 0
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
@@ -973,24 +972,44 @@ display:
         - user
         - 'user.node_grants:view'
         - user.roles
+      max-age: 0
       tags:
         - 'config:field.storage.node.field_administration'
         - 'config:workflow_list'
   vamc_facility_health_services_export:
+    display_plugin: data_export
     id: vamc_facility_health_services_export
     display_title: 'VAMC facility health services export'
-    display_plugin: data_export
     position: 2
     display_options:
-      title: 'VAMC facility health services'
+      display_extenders: {  }
+      path: admin/content/facilities/vamc-facility-health-services/vamc-facility-health-services.csv
+      display_description: ''
+      header:
+        result:
+          id: result
+          table: views
+          field: result
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          content: 'Displaying @start - @end of @total'
+          plugin_id: result
+      defaults:
+        header: false
+        fields: false
+        filters: false
+        filter_groups: false
+        access: true
+        title: false
+        relationships: false
+        group_by: false
       fields:
         title:
           id: title
           table: node_field_data
           field: title
-          entity_type: node
-          entity_field: title
-          plugin_id: field
           label: Title
           exclude: false
           alter:
@@ -1001,9 +1020,12 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
+          entity_type: node
+          entity_field: title
           type: string
           settings:
             link_to_entity: true
+          plugin_id: field
         nid:
           id: nid
           table: node_field_data
@@ -1011,9 +1033,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: nid
-          plugin_id: field
           label: ID
           exclude: true
           alter:
@@ -1070,6 +1089,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: node
+          entity_field: nid
+          plugin_id: field
         type:
           id: type
           table: node_field_data
@@ -1077,9 +1099,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: type
-          plugin_id: field
           label: 'Content type'
           exclude: false
           alter:
@@ -1135,6 +1154,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: node
+          entity_field: type
+          plugin_id: field
         field_facility_location:
           id: field_facility_location
           table: node__field_facility_location
@@ -1142,7 +1164,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: field
           label: Facility
           exclude: false
           alter:
@@ -1198,6 +1219,7 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          plugin_id: field
         name_1:
           id: name_1
           table: taxonomy_term_field_data
@@ -1205,9 +1227,6 @@ display:
           relationship: field_service_name_and_descripti
           group_type: group
           admin_label: ''
-          entity_type: taxonomy_term
-          entity_field: name
-          plugin_id: term_name
           label: 'Service name'
           exclude: false
           alter:
@@ -1264,6 +1283,9 @@ display:
           separator: ', '
           field_api_classes: false
           convert_spaces: false
+          entity_type: taxonomy_term
+          entity_field: name
+          plugin_id: term_name
         field_administration:
           id: field_administration
           table: node__field_administration
@@ -1271,7 +1293,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: field
           label: Section
           exclude: false
           alter:
@@ -1327,6 +1348,7 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          plugin_id: field
         id:
           id: id
           table: paragraphs_item_field_data
@@ -1334,9 +1356,6 @@ display:
           relationship: field_service_location
           group_type: count
           admin_label: ''
-          entity_type: paragraph
-          entity_field: id
-          plugin_id: field
           label: 'Service locations'
           exclude: false
           alter:
@@ -1393,6 +1412,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: paragraph
+          entity_field: id
+          plugin_id: field
         field_referral_required:
           id: field_referral_required
           table: node__field_referral_required
@@ -1400,7 +1422,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: field
           label: 'Referral required'
           exclude: false
           alter:
@@ -1455,6 +1476,7 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          plugin_id: field
         field_walk_ins_accepted:
           id: field_walk_ins_accepted
           table: node__field_walk_ins_accepted
@@ -1462,7 +1484,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: field
           label: 'Walkins accepted'
           exclude: false
           alter:
@@ -1517,6 +1538,7 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          plugin_id: field
         field_online_scheduling_availabl:
           id: field_online_scheduling_availabl
           table: node__field_online_scheduling_availabl
@@ -1524,7 +1546,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: field
           label: 'Online scheduling'
           exclude: false
           alter:
@@ -1579,6 +1600,7 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          plugin_id: field
         revision_uid:
           id: revision_uid
           table: node_revision
@@ -1586,9 +1608,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: revision_uid
-          plugin_id: field
           label: ''
           exclude: true
           alter:
@@ -1644,6 +1663,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: node
+          entity_field: revision_uid
+          plugin_id: field
         changed:
           id: changed
           table: node_field_data
@@ -1651,9 +1673,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: changed
-          plugin_id: field
           label: Updated
           exclude: false
           alter:
@@ -1711,6 +1730,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          plugin_id: field
+          entity_type: node
+          entity_field: changed
         name:
           id: name
           table: users_field_data
@@ -1718,9 +1740,6 @@ display:
           relationship: uid_1
           group_type: group
           admin_label: ''
-          entity_type: user
-          entity_field: name
-          plugin_id: field
           label: ''
           exclude: true
           alter:
@@ -1776,6 +1795,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: user
+          entity_field: name
+          plugin_id: field
         timestamp:
           id: timestamp
           table: content_lock
@@ -1783,7 +1805,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: date
           label: ''
           exclude: true
           alter:
@@ -1828,6 +1849,7 @@ display:
           date_format: 'raw time ago'
           custom_date_format: '1'
           timezone: ''
+          plugin_id: date
         break:
           id: break
           table: content_lock
@@ -1835,7 +1857,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: content_lock_break_link
           label: ''
           exclude: true
           alter:
@@ -1877,6 +1898,7 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
+          plugin_id: content_lock_break_link
         is_locked:
           id: is_locked
           table: content_lock
@@ -1884,7 +1906,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: boolean
           label: 'Is Locked'
           exclude: true
           alter:
@@ -1930,6 +1951,7 @@ display:
           type_custom_true: ''
           type_custom_false: ''
           not: false
+          plugin_id: boolean
         edit_node:
           id: edit_node
           table: node_field_revision
@@ -1937,8 +1959,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          plugin_id: entity_link_edit
           label: ''
           exclude: false
           alter:
@@ -1983,11 +2003,8 @@ display:
           text: ''
           output_url_as_text: false
           absolute: false
-      pager:
-        type: some
-        options:
-          offset: 0
-          items_per_page: 0
+          entity_type: node
+          plugin_id: entity_link_edit
       filters:
         type:
           id: type
@@ -1996,9 +2013,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
           operator: in
           value:
             health_care_local_health_service: health_care_local_health_service
@@ -2031,6 +2045,9 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+          plugin_id: bundle
+          entity_type: node
+          entity_field: type
         title_1:
           id: title_1
           table: node_field_data
@@ -2038,9 +2055,6 @@ display:
           relationship: field_facility_location
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: title
-          plugin_id: string
           operator: contains
           value: ''
           group: 1
@@ -2086,6 +2100,9 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+          entity_type: node
+          entity_field: title
+          plugin_id: string
         field_service_name_and_descripti_target_id:
           id: field_service_name_and_descripti_target_id
           table: node__field_service_name_and_descripti
@@ -2093,7 +2110,6 @@ display:
           relationship: field_regional_health_service
           group_type: group
           admin_label: ''
-          plugin_id: taxonomy_index_tid
           operator: or
           value:
             112: 112
@@ -2233,11 +2249,12 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
-          vid: health_care_service_taxonomy
           type: select
-          hierarchy: true
           limit: true
+          vid: health_care_service_taxonomy
+          hierarchy: true
           error_message: true
+          plugin_id: taxonomy_index_tid
         field_administration_target_id:
           id: field_administration_target_id
           table: node__field_administration
@@ -2245,7 +2262,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: taxonomy_index_tid
           operator: or
           value: {  }
           group: 1
@@ -2256,8 +2272,6 @@ display:
             description: ''
             use_operator: false
             operator: field_administration_target_id_op
-            operator_limit_selection: false
-            operator_list: {  }
             identifier: owner
             required: false
             remember: false
@@ -2273,6 +2287,8 @@ display:
               administrator: '0'
               redirect_administrator: '0'
             reduce: false
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -2286,14 +2302,15 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
-          vid: administration
           type: select
-          hierarchy: true
           limit: true
+          vid: administration
+          hierarchy: true
           error_message: true
           parent: 0
           level_labels: ''
           force_deepest: false
+          plugin_id: taxonomy_index_tid
         field_referral_required_value:
           id: field_referral_required_value
           table: node__field_referral_required
@@ -2301,7 +2318,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: list_field
           operator: or
           value: {  }
           group: 1
@@ -2348,6 +2364,7 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
+          plugin_id: list_field
         field_walk_ins_accepted_value:
           id: field_walk_ins_accepted_value
           table: node__field_walk_ins_accepted
@@ -2355,7 +2372,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: list_field
           operator: or
           value: {  }
           group: 1
@@ -2402,6 +2418,7 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
+          plugin_id: list_field
         field_online_scheduling_availabl_value:
           id: field_online_scheduling_availabl_value
           table: node__field_online_scheduling_availabl
@@ -2409,7 +2426,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: list_field
           operator: or
           value: {  }
           group: 1
@@ -2456,10 +2472,83 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
+          plugin_id: list_field
       filter_groups:
         operator: AND
         groups:
           1: AND
+      title: 'VAMC facility health services'
+      relationships:
+        uid:
+          id: uid
+          table: node_field_data
+          field: uid
+          admin_label: author
+          required: true
+          plugin_id: standard
+        uid_1:
+          id: uid_1
+          table: content_lock
+          field: uid
+          relationship: none
+          group_type: group
+          admin_label: 'Lock owner'
+          required: false
+          plugin_id: standard
+        field_regional_health_service:
+          id: field_regional_health_service
+          table: node__field_regional_health_service
+          field: field_regional_health_service
+          relationship: none
+          group_type: group
+          admin_label: 'VAMC system health service'
+          required: true
+          plugin_id: standard
+        field_service_name_and_descripti:
+          id: field_service_name_and_descripti
+          table: node__field_service_name_and_descripti
+          field: field_service_name_and_descripti
+          relationship: field_regional_health_service
+          group_type: group
+          admin_label: 'Service name'
+          required: true
+          plugin_id: standard
+        field_facility_location:
+          id: field_facility_location
+          table: node__field_facility_location
+          field: field_facility_location
+          relationship: none
+          group_type: group
+          admin_label: Facility
+          required: true
+          plugin_id: standard
+        field_service_location:
+          id: field_service_location
+          table: node__field_service_location
+          field: field_service_location
+          relationship: none
+          group_type: group
+          admin_label: 'Service locations'
+          required: false
+          plugin_id: standard
+      group_by: true
+      export_limit: 0
+      pager:
+        type: some
+        options:
+          items_per_page: 0
+          offset: 0
+      displays:
+        vamc_facility_health_services_page: vamc_facility_health_services_page
+        default: '0'
+        vamc_facility_non_clinical_services_page: '0'
+        vet_center_services_page: '0'
+      filename: ''
+      automatic_download: false
+      store_in_public_file_directory: null
+      redirect_to_display: none
+      custom_redirect_path: false
+      include_query_params: false
       style:
         type: data_export
         options:
@@ -2474,97 +2563,7 @@ display:
             encoding: utf8
             utf8_bom: '0'
             use_serializer_encode_only: false
-      defaults:
-        access: true
-        title: false
-        group_by: false
-        relationships: false
-        fields: false
-        filters: false
-        filter_groups: false
-        header: false
-      relationships:
-        uid:
-          id: uid
-          table: node_field_data
-          field: uid
-          admin_label: author
-          plugin_id: standard
-          required: true
-        uid_1:
-          id: uid_1
-          table: content_lock
-          field: uid
-          relationship: none
-          group_type: group
-          admin_label: 'Lock owner'
-          plugin_id: standard
-          required: false
-        field_regional_health_service:
-          id: field_regional_health_service
-          table: node__field_regional_health_service
-          field: field_regional_health_service
-          relationship: none
-          group_type: group
-          admin_label: 'VAMC system health service'
-          plugin_id: standard
-          required: true
-        field_service_name_and_descripti:
-          id: field_service_name_and_descripti
-          table: node__field_service_name_and_descripti
-          field: field_service_name_and_descripti
-          relationship: field_regional_health_service
-          group_type: group
-          admin_label: 'Service name'
-          plugin_id: standard
-          required: true
-        field_facility_location:
-          id: field_facility_location
-          table: node__field_facility_location
-          field: field_facility_location
-          relationship: none
-          group_type: group
-          admin_label: Facility
-          plugin_id: standard
-          required: true
-        field_service_location:
-          id: field_service_location
-          table: node__field_service_location
-          field: field_service_location
-          relationship: none
-          group_type: group
-          admin_label: 'Service locations'
-          plugin_id: standard
-          required: false
-      group_by: true
-      display_description: ''
-      header:
-        result:
-          id: result
-          table: views
-          field: result
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: result
-          empty: false
-          content: 'Displaying @start - @end of @total'
-      display_extenders: {  }
-      path: admin/content/facilities/vamc-facility-health-services/vamc-facility-health-services.csv
-      displays:
-        vamc_facility_health_services_page: vamc_facility_health_services_page
-        default: '0'
-        vamc_facility_non_clinical_services_page: '0'
-        vet_center_services_page: '0'
-      filename: ''
-      automatic_download: false
-      export_limit: 0
-      store_in_public_file_directory: null
-      custom_redirect_path: false
-      redirect_to_display: none
-      include_query_params: false
     cache_metadata:
-      max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
@@ -2573,6 +2572,7 @@ display:
         - user
         - 'user.node_grants:view'
         - user.roles
+      max-age: -1
       tags:
         - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_facility_location'
@@ -2581,20 +2581,49 @@ display:
         - 'config:field.storage.node.field_walk_ins_accepted'
     deleted: false
   vamc_facility_health_services_page:
-    id: vamc_facility_health_services_page
-    display_title: 'VAMC facility health services'
-    display_plugin: page
-    position: 1
     display_options:
-      title: 'VAMC facility health services'
+      path: admin/content/facilities/vamc-facility-health-services
+      menu:
+        type: tab
+        title: 'VAMC facility health services'
+        description: ''
+        expanded: false
+        parent: system.admin_content
+        weight: 0
+        context: '0'
+        menu_name: admin
+      tab_options:
+        type: none
+        title: Content
+        description: 'Find and manage content'
+        weight: -10
+      display_extenders: {  }
+      display_description: ''
+      header:
+        result:
+          id: result
+          table: views
+          field: result
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          content: 'Displaying @start - @end of @total'
+          plugin_id: result
+      defaults:
+        header: false
+        fields: false
+        filters: false
+        filter_groups: false
+        access: true
+        title: false
+        relationships: false
+        group_by: false
       fields:
         title:
           id: title
           table: node_field_data
           field: title
-          entity_type: node
-          entity_field: title
-          plugin_id: field
           label: Title
           exclude: false
           alter:
@@ -2605,9 +2634,12 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
+          entity_type: node
+          entity_field: title
           type: string
           settings:
             link_to_entity: true
+          plugin_id: field
         nid:
           id: nid
           table: node_field_data
@@ -2615,9 +2647,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: nid
-          plugin_id: field
           label: ID
           exclude: true
           alter:
@@ -2674,6 +2703,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: node
+          entity_field: nid
+          plugin_id: field
         type:
           id: type
           table: node_field_data
@@ -2681,9 +2713,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: type
-          plugin_id: field
           label: 'Content type'
           exclude: false
           alter:
@@ -2739,6 +2768,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: node
+          entity_field: type
+          plugin_id: field
         field_facility_location:
           id: field_facility_location
           table: node__field_facility_location
@@ -2746,7 +2778,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: field
           label: Facility
           exclude: false
           alter:
@@ -2802,6 +2833,7 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          plugin_id: field
         name_1:
           id: name_1
           table: taxonomy_term_field_data
@@ -2809,9 +2841,6 @@ display:
           relationship: field_service_name_and_descripti
           group_type: group
           admin_label: ''
-          entity_type: taxonomy_term
-          entity_field: name
-          plugin_id: term_name
           label: 'Service name'
           exclude: false
           alter:
@@ -2868,6 +2897,9 @@ display:
           separator: ', '
           field_api_classes: false
           convert_spaces: false
+          entity_type: taxonomy_term
+          entity_field: name
+          plugin_id: term_name
         field_administration:
           id: field_administration
           table: node__field_administration
@@ -2875,7 +2907,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: field
           label: Section
           exclude: false
           alter:
@@ -2931,6 +2962,7 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          plugin_id: field
         id:
           id: id
           table: paragraphs_item_field_data
@@ -2938,9 +2970,6 @@ display:
           relationship: field_service_location
           group_type: count
           admin_label: ''
-          entity_type: paragraph
-          entity_field: id
-          plugin_id: field
           label: 'Service locations'
           exclude: false
           alter:
@@ -2997,6 +3026,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: paragraph
+          entity_field: id
+          plugin_id: field
         field_referral_required:
           id: field_referral_required
           table: node__field_referral_required
@@ -3004,7 +3036,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: field
           label: 'Referral required'
           exclude: false
           alter:
@@ -3059,6 +3090,7 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          plugin_id: field
         field_walk_ins_accepted:
           id: field_walk_ins_accepted
           table: node__field_walk_ins_accepted
@@ -3066,7 +3098,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: field
           label: 'Walkins accepted'
           exclude: false
           alter:
@@ -3121,6 +3152,7 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          plugin_id: field
         field_online_scheduling_availabl:
           id: field_online_scheduling_availabl
           table: node__field_online_scheduling_availabl
@@ -3128,7 +3160,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: field
           label: 'Online scheduling'
           exclude: false
           alter:
@@ -3183,6 +3214,7 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          plugin_id: field
         revision_uid:
           id: revision_uid
           table: node_revision
@@ -3190,9 +3222,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: revision_uid
-          plugin_id: field
           label: ''
           exclude: true
           alter:
@@ -3248,6 +3277,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: node
+          entity_field: revision_uid
+          plugin_id: field
         changed:
           id: changed
           table: node_field_data
@@ -3255,9 +3287,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: changed
-          plugin_id: field
           label: Updated
           exclude: false
           alter:
@@ -3315,6 +3344,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          plugin_id: field
+          entity_type: node
+          entity_field: changed
         name:
           id: name
           table: users_field_data
@@ -3322,9 +3354,6 @@ display:
           relationship: uid_1
           group_type: group
           admin_label: ''
-          entity_type: user
-          entity_field: name
-          plugin_id: field
           label: ''
           exclude: true
           alter:
@@ -3380,6 +3409,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: user
+          entity_field: name
+          plugin_id: field
         timestamp:
           id: timestamp
           table: content_lock
@@ -3387,7 +3419,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: date
           label: ''
           exclude: true
           alter:
@@ -3432,6 +3463,7 @@ display:
           date_format: 'raw time ago'
           custom_date_format: '1'
           timezone: ''
+          plugin_id: date
         break:
           id: break
           table: content_lock
@@ -3439,7 +3471,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: content_lock_break_link
           label: ''
           exclude: true
           alter:
@@ -3481,6 +3512,7 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
+          plugin_id: content_lock_break_link
         is_locked:
           id: is_locked
           table: content_lock
@@ -3488,7 +3520,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: boolean
           label: 'Is Locked'
           exclude: true
           alter:
@@ -3534,6 +3565,7 @@ display:
           type_custom_true: ''
           type_custom_false: ''
           not: false
+          plugin_id: boolean
         edit_node:
           id: edit_node
           table: node_field_revision
@@ -3541,8 +3573,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          plugin_id: entity_link_edit
           label: ''
           exclude: false
           alter:
@@ -3587,6 +3617,8 @@ display:
           text: ''
           output_url_as_text: false
           absolute: false
+          entity_type: node
+          plugin_id: entity_link_edit
       filters:
         type:
           id: type
@@ -3595,9 +3627,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
           operator: in
           value:
             health_care_local_health_service: health_care_local_health_service
@@ -3630,6 +3659,9 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+          plugin_id: bundle
+          entity_type: node
+          entity_field: type
         title_1:
           id: title_1
           table: node_field_data
@@ -3637,9 +3669,6 @@ display:
           relationship: field_facility_location
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: title
-          plugin_id: string
           operator: contains
           value: ''
           group: 1
@@ -3685,6 +3714,9 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+          entity_type: node
+          entity_field: title
+          plugin_id: string
         field_service_name_and_descripti_target_id:
           id: field_service_name_and_descripti_target_id
           table: node__field_service_name_and_descripti
@@ -3692,7 +3724,6 @@ display:
           relationship: field_regional_health_service
           group_type: group
           admin_label: ''
-          plugin_id: taxonomy_index_tid
           operator: or
           value:
             112: 112
@@ -3832,11 +3863,12 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
-          vid: health_care_service_taxonomy
           type: select
-          hierarchy: true
           limit: true
+          vid: health_care_service_taxonomy
+          hierarchy: true
           error_message: true
+          plugin_id: taxonomy_index_tid
         field_administration_target_id:
           id: field_administration_target_id
           table: node__field_administration
@@ -3844,7 +3876,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: taxonomy_index_tid
           operator: or
           value: {  }
           group: 1
@@ -3855,8 +3886,6 @@ display:
             description: ''
             use_operator: false
             operator: field_administration_target_id_op
-            operator_limit_selection: false
-            operator_list: {  }
             identifier: owner
             required: false
             remember: false
@@ -3872,6 +3901,8 @@ display:
               administrator: '0'
               redirect_administrator: '0'
             reduce: false
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -3885,14 +3916,15 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
-          vid: administration
           type: select
-          hierarchy: true
           limit: true
+          vid: administration
+          hierarchy: true
           error_message: true
           parent: 0
           level_labels: ''
           force_deepest: false
+          plugin_id: taxonomy_index_tid
         field_referral_required_value:
           id: field_referral_required_value
           table: node__field_referral_required
@@ -3900,7 +3932,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: list_field
           operator: or
           value: {  }
           group: 1
@@ -3947,6 +3978,7 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
+          plugin_id: list_field
         field_walk_ins_accepted_value:
           id: field_walk_ins_accepted_value
           table: node__field_walk_ins_accepted
@@ -3954,7 +3986,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: list_field
           operator: or
           value: {  }
           group: 1
@@ -4001,6 +4032,7 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
+          plugin_id: list_field
         field_online_scheduling_availabl_value:
           id: field_online_scheduling_availabl_value
           table: node__field_online_scheduling_availabl
@@ -4008,7 +4040,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: list_field
           operator: or
           value: {  }
           group: 1
@@ -4055,27 +4086,20 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
+          plugin_id: list_field
       filter_groups:
         operator: AND
         groups:
           1: AND
-      defaults:
-        access: true
-        title: false
-        group_by: false
-        relationships: false
-        fields: false
-        filters: false
-        filter_groups: false
-        header: false
+      title: 'VAMC facility health services'
       relationships:
         uid:
           id: uid
           table: node_field_data
           field: uid
           admin_label: author
-          plugin_id: standard
           required: true
+          plugin_id: standard
         uid_1:
           id: uid_1
           table: content_lock
@@ -4083,8 +4107,8 @@ display:
           relationship: none
           group_type: group
           admin_label: 'Lock owner'
-          plugin_id: standard
           required: false
+          plugin_id: standard
         field_regional_health_service:
           id: field_regional_health_service
           table: node__field_regional_health_service
@@ -4092,8 +4116,8 @@ display:
           relationship: none
           group_type: group
           admin_label: 'VAMC system health service'
-          plugin_id: standard
           required: true
+          plugin_id: standard
         field_service_name_and_descripti:
           id: field_service_name_and_descripti
           table: node__field_service_name_and_descripti
@@ -4101,8 +4125,8 @@ display:
           relationship: field_regional_health_service
           group_type: group
           admin_label: 'Service name'
-          plugin_id: standard
           required: true
+          plugin_id: standard
         field_facility_location:
           id: field_facility_location
           table: node__field_facility_location
@@ -4110,8 +4134,8 @@ display:
           relationship: none
           group_type: group
           admin_label: Facility
-          plugin_id: standard
           required: true
+          plugin_id: standard
         field_service_location:
           id: field_service_location
           table: node__field_service_location
@@ -4119,39 +4143,14 @@ display:
           relationship: none
           group_type: group
           admin_label: 'Service locations'
-          plugin_id: standard
           required: false
+          plugin_id: standard
       group_by: true
-      display_description: ''
-      header:
-        result:
-          id: result
-          table: views
-          field: result
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: result
-          empty: false
-          content: 'Displaying @start - @end of @total'
-      display_extenders: {  }
-      path: admin/content/facilities/vamc-facility-health-services
-      menu:
-        type: tab
-        title: 'VAMC facility health services'
-        description: ''
-        weight: 0
-        expanded: false
-        menu_name: admin
-        parent: system.admin_content
-        context: '0'
-      tab_options:
-        type: none
-        title: Content
-        description: 'Find and manage content'
-        weight: -10
+    display_plugin: page
+    display_title: 'VAMC facility health services'
+    id: vamc_facility_health_services_page
+    position: 1
     cache_metadata:
-      max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
@@ -4160,6 +4159,7 @@ display:
         - user
         - 'user.node_grants:view'
         - user.roles
+      max-age: -1
       tags:
         - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_facility_location'
@@ -4168,20 +4168,39 @@ display:
         - 'config:field.storage.node.field_walk_ins_accepted'
     deleted: false
   vamc_facility_non_clinical_services_export:
+    display_plugin: data_export
     id: vamc_facility_non_clinical_services_export
     display_title: 'VAMC facility non-clinical services export'
-    display_plugin: data_export
     position: 4
     display_options:
-      title: 'VAMC facility non-clinical services'
+      display_extenders: {  }
+      path: admin/content/facilities/vamc-facility-non-clinical-services
+      display_description: ''
+      header:
+        result:
+          id: result
+          table: views
+          field: result
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          content: 'Displaying @start - @end of @total'
+          plugin_id: result
+      defaults:
+        header: false
+        fields: false
+        filters: false
+        filter_groups: false
+        access: true
+        title: false
+        relationships: false
+        group_by: false
       fields:
         title:
           id: title
           table: node_field_data
           field: title
-          entity_type: node
-          entity_field: title
-          plugin_id: field
           label: Title
           exclude: false
           alter:
@@ -4192,9 +4211,12 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
+          entity_type: node
+          entity_field: title
           type: string
           settings:
             link_to_entity: true
+          plugin_id: field
         nid:
           id: nid
           table: node_field_data
@@ -4202,9 +4224,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: nid
-          plugin_id: field
           label: ID
           exclude: true
           alter:
@@ -4261,6 +4280,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: node
+          entity_field: nid
+          plugin_id: field
         type:
           id: type
           table: node_field_data
@@ -4268,9 +4290,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: type
-          plugin_id: field
           label: 'Content type'
           exclude: false
           alter:
@@ -4326,6 +4345,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: node
+          entity_field: type
+          plugin_id: field
         field_facility_location:
           id: field_facility_location
           table: node__field_facility_location
@@ -4333,7 +4355,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: field
           label: Facility
           exclude: false
           alter:
@@ -4389,6 +4410,7 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          plugin_id: field
         name_1:
           id: name_1
           table: taxonomy_term_field_data
@@ -4396,9 +4418,6 @@ display:
           relationship: field_service_name_and_descripti
           group_type: group
           admin_label: ''
-          entity_type: taxonomy_term
-          entity_field: name
-          plugin_id: term_name
           label: 'Service name'
           exclude: false
           alter:
@@ -4455,6 +4474,9 @@ display:
           separator: ', '
           field_api_classes: false
           convert_spaces: false
+          entity_type: taxonomy_term
+          entity_field: name
+          plugin_id: term_name
         field_administration:
           id: field_administration
           table: node__field_administration
@@ -4462,7 +4484,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: field
           label: Section
           exclude: false
           alter:
@@ -4518,6 +4539,7 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          plugin_id: field
         id:
           id: id
           table: paragraphs_item_field_data
@@ -4525,9 +4547,6 @@ display:
           relationship: field_service_location
           group_type: count
           admin_label: ''
-          entity_type: paragraph
-          entity_field: id
-          plugin_id: field
           label: 'Service locations'
           exclude: false
           alter:
@@ -4584,6 +4603,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: paragraph
+          entity_field: id
+          plugin_id: field
         revision_uid:
           id: revision_uid
           table: node_revision
@@ -4591,9 +4613,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: revision_uid
-          plugin_id: field
           label: ''
           exclude: true
           alter:
@@ -4649,6 +4668,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: node
+          entity_field: revision_uid
+          plugin_id: field
         changed:
           id: changed
           table: node_field_data
@@ -4656,9 +4678,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: changed
-          plugin_id: field
           label: Updated
           exclude: false
           alter:
@@ -4716,6 +4735,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          plugin_id: field
+          entity_type: node
+          entity_field: changed
         name:
           id: name
           table: users_field_data
@@ -4723,9 +4745,6 @@ display:
           relationship: uid_1
           group_type: group
           admin_label: ''
-          entity_type: user
-          entity_field: name
-          plugin_id: field
           label: ''
           exclude: true
           alter:
@@ -4781,6 +4800,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: user
+          entity_field: name
+          plugin_id: field
         timestamp:
           id: timestamp
           table: content_lock
@@ -4788,7 +4810,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: date
           label: ''
           exclude: true
           alter:
@@ -4833,6 +4854,7 @@ display:
           date_format: 'raw time ago'
           custom_date_format: '1'
           timezone: ''
+          plugin_id: date
         break:
           id: break
           table: content_lock
@@ -4840,7 +4862,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: content_lock_break_link
           label: ''
           exclude: true
           alter:
@@ -4882,6 +4903,7 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
+          plugin_id: content_lock_break_link
         is_locked:
           id: is_locked
           table: content_lock
@@ -4889,7 +4911,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: boolean
           label: 'Is Locked'
           exclude: true
           alter:
@@ -4935,6 +4956,7 @@ display:
           type_custom_true: ''
           type_custom_false: ''
           not: false
+          plugin_id: boolean
         edit_node:
           id: edit_node
           table: node_field_revision
@@ -4942,8 +4964,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          plugin_id: entity_link_edit
           label: ''
           exclude: false
           alter:
@@ -4988,6 +5008,8 @@ display:
           text: ''
           output_url_as_text: false
           absolute: false
+          entity_type: node
+          plugin_id: entity_link_edit
       filters:
         type:
           id: type
@@ -4996,9 +5018,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
           operator: in
           value:
             vha_facility_nonclinical_service: vha_facility_nonclinical_service
@@ -5031,6 +5050,9 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+          plugin_id: bundle
+          entity_type: node
+          entity_field: type
         title:
           id: title
           table: node_field_data
@@ -5038,9 +5060,6 @@ display:
           relationship: field_facility_location
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: title
-          plugin_id: string
           operator: contains
           value: ''
           group: 1
@@ -5086,6 +5105,9 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+          plugin_id: string
+          entity_type: node
+          entity_field: title
         field_service_name_and_descripti_target_id:
           id: field_service_name_and_descripti_target_id
           table: node__field_service_name_and_descripti
@@ -5093,7 +5115,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: taxonomy_index_tid
           operator: or
           value:
             1027: 1027
@@ -5143,11 +5164,12 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
-          vid: health_care_service_taxonomy
           type: select
-          hierarchy: true
           limit: true
+          vid: health_care_service_taxonomy
+          hierarchy: true
           error_message: true
+          plugin_id: taxonomy_index_tid
         field_administration_target_id:
           id: field_administration_target_id
           table: node__field_administration
@@ -5155,7 +5177,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: taxonomy_index_tid
           operator: or
           value: {  }
           group: 1
@@ -5166,8 +5187,6 @@ display:
             description: ''
             use_operator: false
             operator: field_administration_target_id_op
-            operator_limit_selection: false
-            operator_list: {  }
             identifier: owner
             required: false
             remember: false
@@ -5183,6 +5202,8 @@ display:
               administrator: '0'
               redirect_administrator: '0'
             reduce: false
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -5196,18 +5217,70 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
-          vid: administration
           type: select
-          hierarchy: true
           limit: true
+          vid: administration
+          hierarchy: true
           error_message: true
           parent: 0
           level_labels: ''
           force_deepest: false
+          plugin_id: taxonomy_index_tid
       filter_groups:
         operator: AND
         groups:
           1: AND
+      title: 'VAMC facility non-clinical services'
+      relationships:
+        uid:
+          id: uid
+          table: node_field_data
+          field: uid
+          admin_label: author
+          required: true
+          plugin_id: standard
+        uid_1:
+          id: uid_1
+          table: content_lock
+          field: uid
+          relationship: none
+          group_type: group
+          admin_label: 'Lock owner'
+          required: false
+          plugin_id: standard
+        field_service_name_and_descripti:
+          id: field_service_name_and_descripti
+          table: node__field_service_name_and_descripti
+          field: field_service_name_and_descripti
+          relationship: none
+          group_type: group
+          admin_label: 'Service name'
+          required: true
+          plugin_id: standard
+        field_facility_location:
+          id: field_facility_location
+          table: node__field_facility_location
+          field: field_facility_location
+          relationship: none
+          group_type: group
+          admin_label: Facility
+          required: true
+          plugin_id: standard
+        field_service_location:
+          id: field_service_location
+          table: node__field_service_location
+          field: field_service_location
+          relationship: none
+          group_type: group
+          admin_label: 'Service locations'
+          required: false
+          plugin_id: standard
+      group_by: true
+      displays:
+        vamc_facility_non_clinical_services_page: vamc_facility_non_clinical_services_page
+        default: '0'
+        vamc_facility_health_services_page: '0'
+        vet_center_services_page: '0'
       style:
         type: data_export
         options:
@@ -5222,60 +5295,38 @@ display:
             encoding: utf8
             utf8_bom: '0'
             use_serializer_encode_only: false
-      defaults:
-        access: true
-        title: false
-        group_by: false
-        relationships: false
-        fields: false
-        filters: false
-        filter_groups: false
-        header: false
-      relationships:
-        uid:
-          id: uid
-          table: node_field_data
-          field: uid
-          admin_label: author
-          plugin_id: standard
-          required: true
-        uid_1:
-          id: uid_1
-          table: content_lock
-          field: uid
-          relationship: none
-          group_type: group
-          admin_label: 'Lock owner'
-          plugin_id: standard
-          required: false
-        field_service_name_and_descripti:
-          id: field_service_name_and_descripti
-          table: node__field_service_name_and_descripti
-          field: field_service_name_and_descripti
-          relationship: none
-          group_type: group
-          admin_label: 'Service name'
-          plugin_id: standard
-          required: true
-        field_facility_location:
-          id: field_facility_location
-          table: node__field_facility_location
-          field: field_facility_location
-          relationship: none
-          group_type: group
-          admin_label: Facility
-          plugin_id: standard
-          required: true
-        field_service_location:
-          id: field_service_location
-          table: node__field_service_location
-          field: field_service_location
-          relationship: none
-          group_type: group
-          admin_label: 'Service locations'
-          plugin_id: standard
-          required: false
-      group_by: true
+    cache_metadata:
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - request_format
+        - url
+        - user
+        - 'user.node_grants:view'
+        - user.roles
+      max-age: -1
+      tags:
+        - 'config:field.storage.node.field_administration'
+        - 'config:field.storage.node.field_facility_location'
+    deleted: false
+  vamc_facility_non_clinical_services_page:
+    display_options:
+      path: admin/content/facilities/vamc-facility-non-clinical-services
+      menu:
+        type: tab
+        title: 'VAMC facility non-clinical services'
+        description: ''
+        expanded: false
+        parent: system.admin_content
+        weight: 1
+        context: '0'
+        menu_name: admin
+      tab_options:
+        type: normal
+        title: Content
+        description: 'Find and manage content'
+        weight: -10
+      display_extenders: {  }
       display_description: ''
       header:
         result:
@@ -5285,45 +5336,23 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: result
           empty: false
           content: 'Displaying @start - @end of @total'
-      display_extenders: {  }
-      path: admin/content/facilities/vamc-facility-non-clinical-services
-      displays:
-        vamc_facility_non_clinical_services_page: vamc_facility_non_clinical_services_page
-        default: '0'
-        vamc_facility_health_services_page: '0'
-        vet_center_services_page: '0'
-    cache_metadata:
-      max-age: -1
-      contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - request_format
-        - url
-        - user
-        - 'user.node_grants:view'
-        - user.roles
-      tags:
-        - 'config:field.storage.node.field_administration'
-        - 'config:field.storage.node.field_facility_location'
-    deleted: false
-  vamc_facility_non_clinical_services_page:
-    id: vamc_facility_non_clinical_services_page
-    display_title: 'VAMC facility non-clinical services'
-    display_plugin: page
-    position: 3
-    display_options:
-      title: 'VAMC facility non-clinical services'
+          plugin_id: result
+      defaults:
+        header: false
+        fields: false
+        filters: false
+        filter_groups: false
+        access: true
+        title: false
+        relationships: false
+        group_by: false
       fields:
         title:
           id: title
           table: node_field_data
           field: title
-          entity_type: node
-          entity_field: title
-          plugin_id: field
           label: Title
           exclude: false
           alter:
@@ -5334,9 +5363,12 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
+          entity_type: node
+          entity_field: title
           type: string
           settings:
             link_to_entity: true
+          plugin_id: field
         nid:
           id: nid
           table: node_field_data
@@ -5344,9 +5376,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: nid
-          plugin_id: field
           label: ID
           exclude: true
           alter:
@@ -5403,6 +5432,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: node
+          entity_field: nid
+          plugin_id: field
         type:
           id: type
           table: node_field_data
@@ -5410,9 +5442,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: type
-          plugin_id: field
           label: 'Content type'
           exclude: false
           alter:
@@ -5468,6 +5497,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: node
+          entity_field: type
+          plugin_id: field
         field_facility_location:
           id: field_facility_location
           table: node__field_facility_location
@@ -5475,7 +5507,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: field
           label: Facility
           exclude: false
           alter:
@@ -5531,6 +5562,7 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          plugin_id: field
         name_1:
           id: name_1
           table: taxonomy_term_field_data
@@ -5538,9 +5570,6 @@ display:
           relationship: field_service_name_and_descripti
           group_type: group
           admin_label: ''
-          entity_type: taxonomy_term
-          entity_field: name
-          plugin_id: term_name
           label: 'Service name'
           exclude: false
           alter:
@@ -5597,6 +5626,9 @@ display:
           separator: ', '
           field_api_classes: false
           convert_spaces: false
+          entity_type: taxonomy_term
+          entity_field: name
+          plugin_id: term_name
         field_administration:
           id: field_administration
           table: node__field_administration
@@ -5604,7 +5636,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: field
           label: Section
           exclude: false
           alter:
@@ -5660,6 +5691,7 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          plugin_id: field
         id:
           id: id
           table: paragraphs_item_field_data
@@ -5667,9 +5699,6 @@ display:
           relationship: field_service_location
           group_type: count
           admin_label: ''
-          entity_type: paragraph
-          entity_field: id
-          plugin_id: field
           label: 'Service locations'
           exclude: false
           alter:
@@ -5726,6 +5755,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: paragraph
+          entity_field: id
+          plugin_id: field
         revision_uid:
           id: revision_uid
           table: node_revision
@@ -5733,9 +5765,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: revision_uid
-          plugin_id: field
           label: ''
           exclude: true
           alter:
@@ -5791,6 +5820,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: node
+          entity_field: revision_uid
+          plugin_id: field
         changed:
           id: changed
           table: node_field_data
@@ -5798,9 +5830,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: changed
-          plugin_id: field
           label: Updated
           exclude: false
           alter:
@@ -5858,6 +5887,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          plugin_id: field
+          entity_type: node
+          entity_field: changed
         name:
           id: name
           table: users_field_data
@@ -5865,9 +5897,6 @@ display:
           relationship: uid_1
           group_type: group
           admin_label: ''
-          entity_type: user
-          entity_field: name
-          plugin_id: field
           label: ''
           exclude: true
           alter:
@@ -5923,6 +5952,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: user
+          entity_field: name
+          plugin_id: field
         timestamp:
           id: timestamp
           table: content_lock
@@ -5930,7 +5962,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: date
           label: ''
           exclude: true
           alter:
@@ -5975,6 +6006,7 @@ display:
           date_format: 'raw time ago'
           custom_date_format: '1'
           timezone: ''
+          plugin_id: date
         break:
           id: break
           table: content_lock
@@ -5982,7 +6014,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: content_lock_break_link
           label: ''
           exclude: true
           alter:
@@ -6024,6 +6055,7 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
+          plugin_id: content_lock_break_link
         is_locked:
           id: is_locked
           table: content_lock
@@ -6031,7 +6063,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: boolean
           label: 'Is Locked'
           exclude: true
           alter:
@@ -6077,6 +6108,7 @@ display:
           type_custom_true: ''
           type_custom_false: ''
           not: false
+          plugin_id: boolean
         edit_node:
           id: edit_node
           table: node_field_revision
@@ -6084,8 +6116,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          plugin_id: entity_link_edit
           label: ''
           exclude: false
           alter:
@@ -6130,6 +6160,8 @@ display:
           text: ''
           output_url_as_text: false
           absolute: false
+          entity_type: node
+          plugin_id: entity_link_edit
       filters:
         type:
           id: type
@@ -6138,9 +6170,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
           operator: in
           value:
             vha_facility_nonclinical_service: vha_facility_nonclinical_service
@@ -6173,6 +6202,9 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+          plugin_id: bundle
+          entity_type: node
+          entity_field: type
         title:
           id: title
           table: node_field_data
@@ -6180,9 +6212,6 @@ display:
           relationship: field_facility_location
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: title
-          plugin_id: string
           operator: contains
           value: ''
           group: 1
@@ -6228,6 +6257,9 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+          plugin_id: string
+          entity_type: node
+          entity_field: title
         field_service_name_and_descripti_target_id:
           id: field_service_name_and_descripti_target_id
           table: node__field_service_name_and_descripti
@@ -6235,7 +6267,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: taxonomy_index_tid
           operator: or
           value:
             1027: 1027
@@ -6285,11 +6316,12 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
-          vid: health_care_service_taxonomy
           type: select
-          hierarchy: true
           limit: true
+          vid: health_care_service_taxonomy
+          hierarchy: true
           error_message: true
+          plugin_id: taxonomy_index_tid
         field_administration_target_id:
           id: field_administration_target_id
           table: node__field_administration
@@ -6297,7 +6329,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: taxonomy_index_tid
           operator: or
           value: {  }
           group: 1
@@ -6308,8 +6339,6 @@ display:
             description: ''
             use_operator: false
             operator: field_administration_target_id_op
-            operator_limit_selection: false
-            operator_list: {  }
             identifier: owner
             required: false
             remember: false
@@ -6325,6 +6354,8 @@ display:
               administrator: '0'
               redirect_administrator: '0'
             reduce: false
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -6338,35 +6369,28 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
-          vid: administration
           type: select
-          hierarchy: true
           limit: true
+          vid: administration
+          hierarchy: true
           error_message: true
           parent: 0
           level_labels: ''
           force_deepest: false
+          plugin_id: taxonomy_index_tid
       filter_groups:
         operator: AND
         groups:
           1: AND
-      defaults:
-        access: true
-        title: false
-        group_by: false
-        relationships: false
-        fields: false
-        filters: false
-        filter_groups: false
-        header: false
+      title: 'VAMC facility non-clinical services'
       relationships:
         uid:
           id: uid
           table: node_field_data
           field: uid
           admin_label: author
-          plugin_id: standard
           required: true
+          plugin_id: standard
         uid_1:
           id: uid_1
           table: content_lock
@@ -6374,8 +6398,8 @@ display:
           relationship: none
           group_type: group
           admin_label: 'Lock owner'
-          plugin_id: standard
           required: false
+          plugin_id: standard
         field_service_name_and_descripti:
           id: field_service_name_and_descripti
           table: node__field_service_name_and_descripti
@@ -6383,8 +6407,8 @@ display:
           relationship: none
           group_type: group
           admin_label: 'Service name'
-          plugin_id: standard
           required: true
+          plugin_id: standard
         field_facility_location:
           id: field_facility_location
           table: node__field_facility_location
@@ -6392,8 +6416,8 @@ display:
           relationship: none
           group_type: group
           admin_label: Facility
-          plugin_id: standard
           required: true
+          plugin_id: standard
         field_service_location:
           id: field_service_location
           table: node__field_service_location
@@ -6401,9 +6425,35 @@ display:
           relationship: none
           group_type: group
           admin_label: 'Service locations'
-          plugin_id: standard
           required: false
+          plugin_id: standard
       group_by: true
+    display_plugin: page
+    display_title: 'VAMC facility non-clinical services'
+    id: vamc_facility_non_clinical_services_page
+    position: 3
+    cache_metadata:
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - user
+        - 'user.node_grants:view'
+        - user.roles
+      max-age: -1
+      tags:
+        - 'config:field.storage.node.field_administration'
+        - 'config:field.storage.node.field_facility_location'
+    deleted: false
+  vet_center_services_export:
+    display_plugin: data_export
+    id: vet_center_services_export
+    display_title: 'Vet Center services export'
+    position: 6
+    display_options:
+      display_extenders: {  }
+      path: admin/content/facilities/vet-center-services
       display_description: ''
       header:
         result:
@@ -6413,54 +6463,22 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: result
           empty: false
           content: 'Displaying @start - @end of @total'
-      display_extenders: {  }
-      path: admin/content/facilities/vamc-facility-non-clinical-services
-      menu:
-        type: tab
-        title: 'VAMC facility non-clinical services'
-        description: ''
-        weight: 1
-        expanded: false
-        menu_name: admin
-        parent: system.admin_content
-        context: '0'
-      tab_options:
-        type: normal
-        title: Content
-        description: 'Find and manage content'
-        weight: -10
-    cache_metadata:
-      max-age: -1
-      contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - url
-        - url.query_args
-        - user
-        - 'user.node_grants:view'
-        - user.roles
-      tags:
-        - 'config:field.storage.node.field_administration'
-        - 'config:field.storage.node.field_facility_location'
-    deleted: false
-  vet_center_services_export:
-    id: vet_center_services_export
-    display_title: 'Vet Center services export'
-    display_plugin: data_export
-    position: 6
-    display_options:
-      title: 'Vet Center services'
+          plugin_id: result
+      defaults:
+        header: false
+        fields: false
+        filters: false
+        filter_groups: false
+        access: true
+        title: false
+        relationships: false
       fields:
         title:
           id: title
           table: node_field_data
           field: title
-          entity_type: node
-          entity_field: title
-          plugin_id: field
           label: Title
           exclude: false
           alter:
@@ -6471,9 +6489,12 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
+          entity_type: node
+          entity_field: title
           type: string
           settings:
             link_to_entity: true
+          plugin_id: field
         nid:
           id: nid
           table: node_field_data
@@ -6481,9 +6502,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: nid
-          plugin_id: field
           label: ID
           exclude: true
           alter:
@@ -6540,6 +6558,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: node
+          entity_field: nid
+          plugin_id: field
         type:
           id: type
           table: node_field_data
@@ -6547,9 +6568,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: type
-          plugin_id: field
           label: 'Content type'
           exclude: false
           alter:
@@ -6605,6 +6623,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: node
+          entity_field: type
+          plugin_id: field
         revision_uid:
           id: revision_uid
           table: node_revision
@@ -6612,9 +6633,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: revision_uid
-          plugin_id: field
           label: ''
           exclude: true
           alter:
@@ -6670,6 +6688,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: node
+          entity_field: revision_uid
+          plugin_id: field
         field_body:
           id: field_body
           table: node__field_body
@@ -6677,7 +6698,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: field
           label: 'Service Description'
           exclude: false
           alter:
@@ -6732,6 +6752,7 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          plugin_id: field
         name_1:
           id: name_1
           table: taxonomy_term_field_data
@@ -6739,9 +6760,6 @@ display:
           relationship: field_service_name_and_descripti
           group_type: group
           admin_label: ''
-          entity_type: taxonomy_term
-          entity_field: name
-          plugin_id: term_name
           label: 'Service name'
           exclude: false
           alter:
@@ -6798,6 +6816,9 @@ display:
           separator: ', '
           field_api_classes: false
           convert_spaces: false
+          entity_type: taxonomy_term
+          entity_field: name
+          plugin_id: term_name
         field_administration:
           id: field_administration
           table: node__field_administration
@@ -6805,7 +6826,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: field
           label: Section
           exclude: false
           alter:
@@ -6861,6 +6881,7 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          plugin_id: field
         changed:
           id: changed
           table: node_field_data
@@ -6868,9 +6889,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: changed
-          plugin_id: field
           label: Updated
           exclude: false
           alter:
@@ -6928,6 +6946,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          plugin_id: field
+          entity_type: node
+          entity_field: changed
         name:
           id: name
           table: users_field_data
@@ -6935,9 +6956,6 @@ display:
           relationship: uid_1
           group_type: group
           admin_label: ''
-          entity_type: user
-          entity_field: name
-          plugin_id: field
           label: ''
           exclude: true
           alter:
@@ -6993,6 +7011,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: user
+          entity_field: name
+          plugin_id: field
         timestamp:
           id: timestamp
           table: content_lock
@@ -7000,7 +7021,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: date
           label: ''
           exclude: true
           alter:
@@ -7045,6 +7065,7 @@ display:
           date_format: 'raw time ago'
           custom_date_format: '1'
           timezone: ''
+          plugin_id: date
         break:
           id: break
           table: content_lock
@@ -7052,7 +7073,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: content_lock_break_link
           label: ''
           exclude: true
           alter:
@@ -7094,6 +7114,7 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
+          plugin_id: content_lock_break_link
         is_locked:
           id: is_locked
           table: content_lock
@@ -7101,7 +7122,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: boolean
           label: 'Is Locked'
           exclude: true
           alter:
@@ -7147,6 +7167,7 @@ display:
           type_custom_true: ''
           type_custom_false: ''
           not: false
+          plugin_id: boolean
         edit_node:
           id: edit_node
           table: node_field_revision
@@ -7154,8 +7175,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          plugin_id: entity_link_edit
           label: ''
           exclude: false
           alter:
@@ -7200,11 +7219,8 @@ display:
           text: ''
           output_url_as_text: false
           absolute: false
-      pager:
-        type: some
-        options:
-          offset: 0
-          items_per_page: 0
+          entity_type: node
+          plugin_id: entity_link_edit
       filters:
         type:
           id: type
@@ -7213,9 +7229,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
           operator: in
           value:
             vet_center_facility_health_servi: vet_center_facility_health_servi
@@ -7248,6 +7261,9 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+          plugin_id: bundle
+          entity_type: node
+          entity_field: type
         field_service_name_and_descripti_target_id:
           id: field_service_name_and_descripti_target_id
           table: node__field_service_name_and_descripti
@@ -7255,7 +7271,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: taxonomy_index_tid
           operator: or
           value:
             47: 47
@@ -7322,11 +7337,12 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
-          vid: health_care_service_taxonomy
           type: select
-          hierarchy: true
           limit: true
+          vid: health_care_service_taxonomy
+          hierarchy: true
           error_message: true
+          plugin_id: taxonomy_index_tid
         field_administration_target_id:
           id: field_administration_target_id
           table: node__field_administration
@@ -7334,7 +7350,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: taxonomy_index_tid
           operator: or
           value: {  }
           group: 1
@@ -7345,8 +7360,6 @@ display:
             description: ''
             use_operator: false
             operator: field_administration_target_id_op
-            operator_limit_selection: false
-            operator_list: {  }
             identifier: owner
             required: false
             remember: false
@@ -7362,6 +7375,8 @@ display:
               administrator: '0'
               redirect_administrator: '0'
             reduce: false
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -7375,48 +7390,28 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
-          vid: administration
           type: select
-          hierarchy: true
           limit: true
+          vid: administration
+          hierarchy: true
           error_message: true
           parent: 0
           level_labels: ''
           force_deepest: false
+          plugin_id: taxonomy_index_tid
       filter_groups:
         operator: AND
         groups:
           1: AND
-      style:
-        type: data_export
-        options:
-          formats:
-            csv: csv
-          csv_settings:
-            delimiter: ','
-            enclosure: '"'
-            escape_char: \
-            strip_tags: false
-            trim: true
-            encoding: utf8
-            utf8_bom: '0'
-            use_serializer_encode_only: false
-      defaults:
-        access: true
-        title: false
-        relationships: false
-        fields: false
-        filters: false
-        filter_groups: false
-        header: false
+      title: 'Vet Center services'
       relationships:
         uid:
           id: uid
           table: node_field_data
           field: uid
           admin_label: author
-          plugin_id: standard
           required: true
+          plugin_id: standard
         uid_1:
           id: uid_1
           table: content_lock
@@ -7424,8 +7419,8 @@ display:
           relationship: none
           group_type: group
           admin_label: 'Lock owner'
-          plugin_id: standard
           required: false
+          plugin_id: standard
         field_service_name_and_descripti:
           id: field_service_name_and_descripti
           table: node__field_service_name_and_descripti
@@ -7433,30 +7428,34 @@ display:
           relationship: none
           group_type: group
           admin_label: 'Service name'
-          plugin_id: standard
           required: true
-      display_description: ''
-      header:
-        result:
-          id: result
-          table: views
-          field: result
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: result
-          empty: false
-          content: 'Displaying @start - @end of @total'
-      display_extenders: {  }
-      path: admin/content/facilities/vet-center-services
+          plugin_id: standard
       displays:
         vet_center_services_page: vet_center_services_page
         default: '0'
         vamc_facility_health_services_page: '0'
         vamc_facility_non_clinical_services_page: '0'
       export_limit: 0
+      pager:
+        type: some
+        options:
+          items_per_page: 0
+          offset: 0
+      style:
+        type: data_export
+        options:
+          formats:
+            csv: csv
+          csv_settings:
+            delimiter: ','
+            enclosure: '"'
+            escape_char: \
+            strip_tags: false
+            trim: true
+            encoding: utf8
+            utf8_bom: '0'
+            use_serializer_encode_only: false
     cache_metadata:
-      max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
@@ -7465,25 +7464,54 @@ display:
         - user
         - 'user.node_grants:view'
         - user.roles
+      max-age: -1
       tags:
         - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_body'
     deleted: false
   vet_center_services_page:
-    id: vet_center_services_page
-    display_title: 'Vet Center services'
-    display_plugin: page
-    position: 5
     display_options:
-      title: 'Vet Center services'
+      path: admin/content/facilities/vet-center-services
+      menu:
+        type: tab
+        title: 'Vet Center services'
+        description: ''
+        expanded: false
+        parent: system.admin_content
+        weight: 2
+        context: '0'
+        menu_name: admin
+      tab_options:
+        type: normal
+        title: Content
+        description: 'Find and manage content'
+        weight: -10
+      display_extenders: {  }
+      display_description: ''
+      header:
+        result:
+          id: result
+          table: views
+          field: result
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          content: 'Displaying @start - @end of @total'
+          plugin_id: result
+      defaults:
+        header: false
+        fields: false
+        filters: false
+        filter_groups: false
+        access: true
+        title: false
+        relationships: false
       fields:
         title:
           id: title
           table: node_field_data
           field: title
-          entity_type: node
-          entity_field: title
-          plugin_id: field
           label: Title
           exclude: false
           alter:
@@ -7494,9 +7522,12 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
+          entity_type: node
+          entity_field: title
           type: string
           settings:
             link_to_entity: true
+          plugin_id: field
         nid:
           id: nid
           table: node_field_data
@@ -7504,9 +7535,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: nid
-          plugin_id: field
           label: ID
           exclude: true
           alter:
@@ -7563,6 +7591,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: node
+          entity_field: nid
+          plugin_id: field
         type:
           id: type
           table: node_field_data
@@ -7570,9 +7601,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: type
-          plugin_id: field
           label: 'Content type'
           exclude: false
           alter:
@@ -7628,6 +7656,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: node
+          entity_field: type
+          plugin_id: field
         revision_uid:
           id: revision_uid
           table: node_revision
@@ -7635,9 +7666,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: revision_uid
-          plugin_id: field
           label: ''
           exclude: true
           alter:
@@ -7693,6 +7721,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: node
+          entity_field: revision_uid
+          plugin_id: field
         field_body:
           id: field_body
           table: node__field_body
@@ -7700,7 +7731,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: field
           label: 'Service Description'
           exclude: false
           alter:
@@ -7755,6 +7785,7 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          plugin_id: field
         name_1:
           id: name_1
           table: taxonomy_term_field_data
@@ -7762,9 +7793,6 @@ display:
           relationship: field_service_name_and_descripti
           group_type: group
           admin_label: ''
-          entity_type: taxonomy_term
-          entity_field: name
-          plugin_id: term_name
           label: 'Service name'
           exclude: false
           alter:
@@ -7821,6 +7849,9 @@ display:
           separator: ', '
           field_api_classes: false
           convert_spaces: false
+          entity_type: taxonomy_term
+          entity_field: name
+          plugin_id: term_name
         field_administration:
           id: field_administration
           table: node__field_administration
@@ -7828,7 +7859,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: field
           label: Section
           exclude: false
           alter:
@@ -7884,6 +7914,7 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          plugin_id: field
         changed:
           id: changed
           table: node_field_data
@@ -7891,9 +7922,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: changed
-          plugin_id: field
           label: Updated
           exclude: false
           alter:
@@ -7951,6 +7979,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          plugin_id: field
+          entity_type: node
+          entity_field: changed
         name:
           id: name
           table: users_field_data
@@ -7958,9 +7989,6 @@ display:
           relationship: uid_1
           group_type: group
           admin_label: ''
-          entity_type: user
-          entity_field: name
-          plugin_id: field
           label: ''
           exclude: true
           alter:
@@ -8016,6 +8044,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: user
+          entity_field: name
+          plugin_id: field
         timestamp:
           id: timestamp
           table: content_lock
@@ -8023,7 +8054,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: date
           label: ''
           exclude: true
           alter:
@@ -8068,6 +8098,7 @@ display:
           date_format: 'raw time ago'
           custom_date_format: '1'
           timezone: ''
+          plugin_id: date
         break:
           id: break
           table: content_lock
@@ -8075,7 +8106,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: content_lock_break_link
           label: ''
           exclude: true
           alter:
@@ -8117,6 +8147,7 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
+          plugin_id: content_lock_break_link
         is_locked:
           id: is_locked
           table: content_lock
@@ -8124,7 +8155,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: boolean
           label: 'Is Locked'
           exclude: true
           alter:
@@ -8170,6 +8200,7 @@ display:
           type_custom_true: ''
           type_custom_false: ''
           not: false
+          plugin_id: boolean
         edit_node:
           id: edit_node
           table: node_field_revision
@@ -8177,8 +8208,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          plugin_id: entity_link_edit
           label: ''
           exclude: false
           alter:
@@ -8223,6 +8252,8 @@ display:
           text: ''
           output_url_as_text: false
           absolute: false
+          entity_type: node
+          plugin_id: entity_link_edit
       filters:
         type:
           id: type
@@ -8231,9 +8262,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
           operator: in
           value:
             vet_center_facility_health_servi: vet_center_facility_health_servi
@@ -8266,6 +8294,9 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+          plugin_id: bundle
+          entity_type: node
+          entity_field: type
         field_service_name_and_descripti_target_id:
           id: field_service_name_and_descripti_target_id
           table: node__field_service_name_and_descripti
@@ -8273,7 +8304,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: taxonomy_index_tid
           operator: or
           value:
             47: 47
@@ -8340,11 +8370,12 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
-          vid: health_care_service_taxonomy
           type: select
-          hierarchy: true
           limit: true
+          vid: health_care_service_taxonomy
+          hierarchy: true
           error_message: true
+          plugin_id: taxonomy_index_tid
         field_administration_target_id:
           id: field_administration_target_id
           table: node__field_administration
@@ -8352,7 +8383,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: taxonomy_index_tid
           operator: or
           value: {  }
           group: 1
@@ -8363,8 +8393,6 @@ display:
             description: ''
             use_operator: false
             operator: field_administration_target_id_op
-            operator_limit_selection: false
-            operator_list: {  }
             identifier: owner
             required: false
             remember: false
@@ -8380,6 +8408,8 @@ display:
               administrator: '0'
               redirect_administrator: '0'
             reduce: false
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -8393,34 +8423,28 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
-          vid: administration
           type: select
-          hierarchy: true
           limit: true
+          vid: administration
+          hierarchy: true
           error_message: true
           parent: 0
           level_labels: ''
           force_deepest: false
+          plugin_id: taxonomy_index_tid
       filter_groups:
         operator: AND
         groups:
           1: AND
-      defaults:
-        access: true
-        title: false
-        relationships: false
-        fields: false
-        filters: false
-        filter_groups: false
-        header: false
+      title: 'Vet Center services'
       relationships:
         uid:
           id: uid
           table: node_field_data
           field: uid
           admin_label: author
-          plugin_id: standard
           required: true
+          plugin_id: standard
         uid_1:
           id: uid_1
           table: content_lock
@@ -8428,8 +8452,8 @@ display:
           relationship: none
           group_type: group
           admin_label: 'Lock owner'
-          plugin_id: standard
           required: false
+          plugin_id: standard
         field_service_name_and_descripti:
           id: field_service_name_and_descripti
           table: node__field_service_name_and_descripti
@@ -8437,38 +8461,13 @@ display:
           relationship: none
           group_type: group
           admin_label: 'Service name'
-          plugin_id: standard
           required: true
-      display_description: ''
-      header:
-        result:
-          id: result
-          table: views
-          field: result
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: result
-          empty: false
-          content: 'Displaying @start - @end of @total'
-      display_extenders: {  }
-      path: admin/content/facilities/vet-center-services
-      menu:
-        type: tab
-        title: 'Vet Center services'
-        description: ''
-        weight: 2
-        expanded: false
-        menu_name: admin
-        parent: system.admin_content
-        context: '0'
-      tab_options:
-        type: normal
-        title: Content
-        description: 'Find and manage content'
-        weight: -10
+          plugin_id: standard
+    display_plugin: page
+    display_title: 'Vet Center services'
+    id: vet_center_services_page
+    position: 5
     cache_metadata:
-      max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
@@ -8477,6 +8476,7 @@ display:
         - user
         - 'user.node_grants:view'
         - user.roles
+      max-age: -1
       tags:
         - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_body'

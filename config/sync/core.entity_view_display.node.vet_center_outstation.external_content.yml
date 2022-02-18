@@ -29,11 +29,10 @@ third_party_settings:
         - field_address
         - field_phone_number
         - field_office_hours
-      label: 'Location Information'
       parent_name: ''
-      region: content
       weight: 0
       format_type: tooltip
+      region: content
       format_settings:
         show_label: '0'
         tooltip_description: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
@@ -44,35 +43,35 @@ third_party_settings:
         element: div
         label_element: h3
         attributes: ''
+      label: 'Location Information'
 id: node.vet_center_outstation.external_content
 targetEntityType: node
 bundle: vet_center_outstation
 mode: external_content
 content:
   field_address:
-    type: address_default
+    weight: 4
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    type: address_default
     region: content
   field_facility_locator_api_id:
-    type: string
+    weight: 3
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 3
+    type: string
     region: content
   field_office_hours:
-    type: office_hours
+    weight: 6
     label: above
     settings:
+      show_closed: all
+      office_hours_first_day: ''
       day_format: short
       time_format: g
-      compress: false
-      grouped: false
-      show_closed: all
       closed_format: ''
       separator:
         days: '<br />'
@@ -84,20 +83,21 @@ content:
         position: ''
         open_text: 'Currently open!'
         closed_text: 'Currently closed'
-      timezone_field: ''
-      office_hours_first_day: ''
+      compress: false
+      grouped: false
       schema:
         enabled: false
+      timezone_field: ''
     third_party_settings: {  }
-    weight: 6
+    type: office_hours
     region: content
   field_phone_number:
-    type: telephone_link
+    weight: 5
     label: above
     settings:
       title: ''
     third_party_settings: {  }
-    weight: 5
+    type: telephone_link
     region: content
 hidden:
   content_moderation_control: true

@@ -38,67 +38,67 @@ third_party_settings:
     group_meta:
       children:
         - field_description
-      label: Meta
       parent_name: ''
-      region: content
       weight: 2
       format_type: fieldset
       format_settings:
-        classes: ''
         id: ''
+        classes: ''
         description: ''
+      label: Meta
+      region: content
     group_operating_status:
       children:
         - field_operating_status_facility
         - field_operating_status_more_info
-      label: 'Operating status'
       parent_name: ''
-      region: content
       weight: 3
       format_type: fieldset
       format_settings:
-        classes: ''
         id: ''
+        classes: ''
         description: ''
+      label: 'Operating status'
+      region: content
     group_social_media:
       children: {  }
-      label: 'Social media'
       parent_name: ''
-      region: content
       weight: 6
       format_type: details
       format_settings:
-        classes: ''
         id: ''
-        open: false
+        classes: ''
         description: ''
+        open: false
         required_fields: false
+      label: 'Social media'
+      region: content
     group_location_services:
       children:
         - field_location_services
-      label: 'Prepare for your visit'
       parent_name: ''
-      region: content
       weight: 5
       format_type: details
       format_settings:
-        classes: ''
-        id: ''
-        open: true
         description: ''
+        open: true
+        id: ''
+        classes: ''
+      label: 'Prepare for your visit'
+      region: content
     group_locations_and_contact_info:
       children:
         - group_facility_data_from_vast
-      label: 'Locations and contact information'
       parent_name: ''
-      region: content
       weight: 4
       format_type: fieldset
+      region: content
       format_settings:
-        classes: ''
         show_empty_fields: false
         id: locations-and-contact-information
+        classes: ''
         description: ''
+      label: 'Locations and contact information'
     group_facility_data_from_vast:
       children:
         - field_facility_locator_api_id
@@ -107,11 +107,10 @@ third_party_settings:
         - field_mobile
         - field_mental_health_phone
         - field_office_hours
-      label: 'Facility data'
       parent_name: group_locations_and_contact_info
-      region: content
       weight: 19
       format_type: tooltip
+      region: content
       format_settings:
         show_empty_fields: 0
         id: external-content
@@ -124,79 +123,82 @@ third_party_settings:
         tooltip_description: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
         open: false
         required_fields: false
+      label: 'Facility data'
 id: node.health_care_local_facility.default
 targetEntityType: node
 bundle: health_care_local_facility
 mode: default
 content:
   field_address:
-    type: address_default
+    weight: 16
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 16
+    type: address_default
     region: content
   field_description:
     type: string
+    weight: 1
+    region: content
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 1
-    region: content
   field_facility_locator_api_id:
-    type: string
+    weight: 15
     label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 15
+    type: string
     region: content
   field_intro_text:
-    type: basic_string
+    weight: 1
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    type: basic_string
     region: content
   field_location_services:
     type: entity_reference_revisions_entity_view
+    weight: 8
     label: hidden
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 8
     region: content
   field_media:
-    type: media_thumbnail
+    weight: 0
     label: hidden
     settings:
-      image_link: ''
       image_style: crop_3_2
+      image_link: ''
     third_party_settings: {  }
-    weight: 0
+    type: media_thumbnail
     region: content
   field_mental_health_phone:
-    type: telephone_link
+    weight: 19
     label: inline
     settings:
       title: ''
     third_party_settings: {  }
-    weight: 19
+    type: telephone_link
     region: content
   field_mobile:
-    type: boolean
+    weight: 18
     label: inline
     settings:
       format: default
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 18
+    type: boolean
     region: content
   field_office_hours:
     type: office_hours
+    weight: 20
+    region: content
     label: above
     settings:
       day_format: long
@@ -215,34 +217,32 @@ content:
         position: ''
         open_text: 'Currently open!'
         closed_text: 'Currently closed'
-      timezone_field: ''
-      office_hours_first_day: ''
       schema:
         enabled: false
+      timezone_field: ''
+      office_hours_first_day: ''
     third_party_settings: {  }
-    weight: 20
-    region: content
   field_operating_status_facility:
-    type: list_default
+    weight: 4
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    type: list_default
     region: content
   field_operating_status_more_info:
-    type: basic_string
+    weight: 5
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    type: basic_string
     region: content
   field_phone_number:
-    type: telephone_link
+    weight: 17
     label: inline
     settings:
       title: ''
     third_party_settings: {  }
-    weight: 17
+    type: telephone_link
     region: content
 hidden:
   content_moderation_control: true

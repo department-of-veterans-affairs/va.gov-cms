@@ -25,60 +25,60 @@ bundle: press_release
 mode: default
 content:
   field_address:
-    type: address_default
+    weight: 3
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    type: address_default
     region: content
   field_intro_text:
-    type: basic_string
+    weight: 4
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    type: basic_string
     region: content
   field_pdf_version:
     type: entity_reference_entity_view
+    weight: 5
     label: above
     settings:
       view_mode: default
       link: false
     third_party_settings: {  }
-    weight: 5
     region: content
   field_press_release_contact:
-    type: entity_reference_label
+    weight: 1
     label: above
     settings:
       link: true
     third_party_settings: {  }
-    weight: 1
+    type: entity_reference_label
     region: content
   field_press_release_downloads:
     type: entity_reference_entity_view
+    weight: 2
     label: above
     settings:
       view_mode: default
       link: false
     third_party_settings: {  }
-    weight: 2
     region: content
   field_press_release_fulltext:
-    type: text_default
+    weight: 6
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    type: text_default
     region: content
   field_release_date:
-    type: datetime_default
+    weight: 0
     label: above
     settings:
-      timezone_override: ''
       format_type: medium
+      timezone_override: ''
     third_party_settings: {  }
-    weight: 0
+    type: datetime_default
     region: content
 hidden:
   content_moderation_control: true

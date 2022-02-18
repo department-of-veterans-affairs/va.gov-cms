@@ -16,8 +16,8 @@ dependencies:
     - views
 third_party_settings:
   layout_builder:
-    enabled: true
     allow_custom: false
+    enabled: true
     sections:
       -
         layout_id: layout_onecol
@@ -31,66 +31,66 @@ third_party_settings:
             configuration:
               id: 'va_gov_dashboards:vet_center_page'
               label: 'Main Vet Center page'
-              label_display: '0'
               provider: va_gov_dashboards
+              label_display: '0'
               context_mapping: {  }
-            weight: 6
             additional: {  }
+            weight: 6
           ee54441e-284f-4376-8f5b-f3934a28fb4c:
             uuid: ee54441e-284f-4376-8f5b-f3934a28fb4c
             region: content
             configuration:
               id: 'va_gov_dashboards:visitor_information'
               label: 'Visitor information'
-              label_display: '0'
               provider: va_gov_dashboards
+              label_display: '0'
               context_mapping: {  }
-            weight: 2
             additional: {  }
+            weight: 2
           081a459c-e2e4-4763-8582-4b7a141db012:
             uuid: 081a459c-e2e4-4763-8582-4b7a141db012
             region: content
             configuration:
               id: 'va_gov_dashboards:services'
               label: Services
-              label_display: '0'
               provider: va_gov_dashboards
+              label_display: '0'
               context_mapping: {  }
-            weight: 3
             additional: {  }
+            weight: 3
           5d14b623-8e97-4764-9e71-3ff0f15a697d:
             uuid: 5d14b623-8e97-4764-9e71-3ff0f15a697d
             region: content
             configuration:
               id: 'va_gov_dashboards:featured_content'
               label: 'Featured content'
-              label_display: '0'
               provider: va_gov_dashboards
+              label_display: '0'
               context_mapping: {  }
-            weight: 4
             additional: {  }
+            weight: 4
           37125dc1-84d5-4780-992a-c5f9891ff37d:
             uuid: 37125dc1-84d5-4780-992a-c5f9891ff37d
             region: content
             configuration:
               id: 'va_gov_dashboards:operating_status'
               label: 'Operating status'
-              label_display: '0'
               provider: va_gov_dashboards
+              label_display: '0'
               context_mapping: {  }
-            weight: 5
             additional: {  }
+            weight: 5
           2b86b67f-fe60-488a-82a0-adee1158f88c:
             uuid: 2b86b67f-fe60-488a-82a0-adee1158f88c
             region: content
             configuration:
               id: 'va_gov_dashboards:locations'
               label: 'Locations page'
-              label_display: '0'
               provider: va_gov_dashboards
+              label_display: '0'
               context_mapping: {  }
-            weight: 7
             additional: {  }
+            weight: 7
         third_party_settings: {  }
       -
         layout_id: layout_onecol
@@ -103,13 +103,13 @@ third_party_settings:
             configuration:
               id: 'views_block:vet_center_facility_listing-vc_facility_listing'
               label: ''
-              label_display: visible
               provider: views
-              context_mapping: {  }
+              label_display: visible
               views_label: ''
               items_per_page: none
-            weight: 2
+              context_mapping: {  }
             additional: {  }
+            weight: 2
         third_party_settings: {  }
 id: taxonomy_term.administration.vet_center_dashboard
 targetEntityType: taxonomy_term
@@ -117,12 +117,12 @@ bundle: administration
 mode: vet_center_dashboard
 content:
   description:
-    type: text_default
     label: above
-    settings: {  }
-    third_party_settings: {  }
+    type: text_default
     weight: 0
     region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   field_description: true
   field_product: true

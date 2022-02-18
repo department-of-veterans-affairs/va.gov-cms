@@ -1,18 +1,14 @@
 activate: false
 auth_source: default-sp
 login_link_display_name: 'Login with PIV or other Smartcard.'
-login_link_show: true
-user_name: adUPN
-unique_id: VAUID
-mail_attr: adUPN
-header_no_cache: false
-role:
-  population: ''
-  eval_every_time: false
+debug: true
+secure: true
+httponly: false
 register_users: true
+header_no_cache: false
 allow:
-  set_drupal_pwd: true
   default_login: true
+  set_drupal_pwd: true
   default_login_roles:
     authenticated: authenticated
     content_api_consumer: content_api_consumer
@@ -26,10 +22,14 @@ allow:
     administrator: administrator
   default_login_users: '1,16'
 logout_goto_url: ''
+unique_id: VAUID
+user_name: adUPN
 sync:
-  mail: true
   user_name: true
+  mail: true
+mail_attr: adUPN
+role:
+  population: ''
+  eval_every_time: false
 autoenablesaml: true
-debug: true
-secure: true
-httponly: false
+login_link_show: true

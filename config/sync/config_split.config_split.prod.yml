@@ -5,7 +5,6 @@ dependencies: {  }
 id: prod
 label: Prod
 description: 'Configuration for Production environment.'
-weight: 0
 folder: ../config/prod
 module:
   fast404: 0
@@ -20,3 +19,4 @@ graylist:
   - raven.settings.yml
 graylist_dependents: true
 graylist_skip_equal: true
+weight: 0

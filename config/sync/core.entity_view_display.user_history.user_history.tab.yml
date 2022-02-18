@@ -14,98 +14,98 @@ bundle: user_history
 mode: tab
 content:
   action:
-    type: string
     label: inline
+    type: string
+    weight: 3
+    region: content
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 3
-    region: content
   created:
-    type: timestamp
     label: inline
+    type: timestamp
+    weight: 1
+    region: content
     settings:
       date_format: medium
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }
-    weight: 1
-    region: content
   difference:
-    type: string
     label: inline
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
+    type: string
     weight: 20
     region: content
-  label:
-    type: string
-    label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
+  label:
+    label: inline
+    type: string
     weight: 0
     region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
   modified_by:
-    type: entity_reference_label
     label: inline
+    type: entity_reference_label
+    weight: 2
+    region: content
     settings:
       link: true
     third_party_settings: {  }
-    weight: 2
-    region: content
   user_login:
     type: timestamp
+    weight: 9
+    region: content
     label: inline
     settings:
       date_format: medium
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }
-    weight: 9
-    region: content
   user_mail:
-    type: basic_string
     label: inline
-    settings: {  }
-    third_party_settings: {  }
+    type: basic_string
     weight: 5
     region: content
-  user_name:
-    type: string
-    label: inline
-    settings:
-      link_to_entity: false
+    settings: {  }
     third_party_settings: {  }
+  user_name:
+    label: inline
+    type: string
     weight: 4
     region: content
-  user_roles:
-    type: string
-    label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
+  user_roles:
+    label: inline
+    type: string
     weight: 8
     region: content
-  user_status:
-    type: boolean
-    label: inline
-    settings:
-      format: custom
-      format_custom_false: Blocked
-      format_custom_true: Active
-    third_party_settings: {  }
-    weight: 7
-    region: content
-  user_timezone:
-    type: string
-    label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
+  user_status:
+    label: inline
+    type: boolean
+    settings:
+      format: custom
+      format_custom_true: Active
+      format_custom_false: Blocked
+    weight: 7
+    region: content
+    third_party_settings: {  }
+  user_timezone:
+    label: inline
+    type: string
     weight: 6
     region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
 hidden:
   search_api_excerpt: true
   user_access: true

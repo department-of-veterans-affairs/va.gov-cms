@@ -21,99 +21,99 @@ dependencies:
     - text
 third_party_settings:
   layout_builder:
-    enabled: false
     allow_custom: false
+    enabled: false
 id: taxonomy_term.health_care_service_taxonomy.default
 targetEntityType: taxonomy_term
 bundle: health_care_service_taxonomy
 mode: default
 content:
   description:
-    type: text_default
     label: above
-    settings: {  }
-    third_party_settings: {  }
+    type: text_default
     weight: 2
     region: content
+    settings: {  }
+    third_party_settings: {  }
   field_also_known_as:
-    type: string
+    weight: 0
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 0
+    type: string
     region: content
   field_commonly_treated_condition:
-    type: string
+    weight: 1
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 1
+    type: string
     region: content
   field_health_service_api_id:
-    type: string
+    weight: 4
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 4
+    type: string
     region: content
   field_service_type_of_care:
-    type: list_default
+    weight: 3
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    type: list_default
     region: content
   field_vet_center_com_conditions:
-    type: string
+    weight: 8
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 8
+    type: string
     region: content
   field_vet_center_friendly_name:
-    type: string
+    weight: 7
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 7
+    type: string
     region: content
   field_vet_center_required_servic:
-    type: boolean
+    weight: 10
     label: above
     settings:
       format: default
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 10
+    type: boolean
     region: content
   field_vet_center_service_descrip:
-    type: basic_string
+    weight: 9
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 9
+    type: basic_string
     region: content
   field_vet_center_type_of_care:
-    type: list_default
+    weight: 6
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    type: list_default
     region: content
   field_vha_healthservice_stopcode:
-    type: number_integer
+    weight: 5
     label: above
     settings:
       thousand_separator: ''
       prefix_suffix: true
     third_party_settings: {  }
-    weight: 5
+    type: number_integer
     region: content
 hidden:
   field_owner: true

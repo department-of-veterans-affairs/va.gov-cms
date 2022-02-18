@@ -15,23 +15,21 @@ bundle: step_by_step
 mode: default
 content:
   field_section_header:
-    type: string_textfield_with_counter
     weight: 0
-    region: content
     settings:
       size: 70
       placeholder: ''
-      use_field_maxlength: false
       maxlength: 70
       counter_position: after
       js_prevent_submit: true
       count_html_characters: true
       textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
+      use_field_maxlength: false
     third_party_settings: {  }
-  field_step:
-    type: entity_reference_paragraphs
-    weight: 1
+    type: string_textfield_with_counter
     region: content
+  field_step:
+    weight: 1
     settings:
       title: Step
       title_plural: Steps
@@ -40,6 +38,8 @@ content:
       form_display_mode: default
       default_paragraph_type: step
     third_party_settings: {  }
+    type: entity_reference_paragraphs
+    region: content
 hidden:
   created: true
   status: true

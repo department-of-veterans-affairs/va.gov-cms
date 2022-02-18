@@ -6,13 +6,14 @@ dependencies:
     - node
 _core:
   default_config_hash: Tt8DtxZ3Nooo0PoWPpJvszA3R_5d8MmpUW7LM_R-BzY
-label: Default
 id: default
+label: Default
 description: 'A default Linkit profile'
 matchers:
   556010a3-e317-48b3-b4ed-854c10f4b950:
-    id: 'entity:node'
     uuid: 556010a3-e317-48b3-b4ed-854c10f4b950
+    id: 'entity:node'
+    weight: 0
     settings:
       metadata: '[node:field_administration] | Created by [node:author] on [node:created:html_date]'
       bundles:
@@ -51,7 +52,6 @@ matchers:
         vba_facility: vba_facility
         vet_center: vet_center
       group_by_bundle: true
+      include_unpublished: true
       substitution_type: canonical
       limit: 100
-      include_unpublished: true
-    weight: 0

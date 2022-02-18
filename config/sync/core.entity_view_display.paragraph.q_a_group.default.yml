@@ -13,30 +13,30 @@ bundle: q_a_group
 mode: default
 content:
   field_accordion_display:
-    type: boolean
+    weight: 1
     label: hidden
     settings:
       format: custom
-      format_custom_false: ''
       format_custom_true: 'Q&A''s in this section will display as accordions'
+      format_custom_false: ''
     third_party_settings: {  }
-    weight: 1
+    type: boolean
     region: content
   field_q_as:
-    type: entity_reference_label
+    weight: 2
     label: above
     settings:
       link: true
     third_party_settings: {  }
-    weight: 2
+    type: entity_reference_label
     region: content
   field_section_header:
-    type: string
+    weight: 0
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 0
+    type: string
     region: content
 hidden:
   search_api_excerpt: true

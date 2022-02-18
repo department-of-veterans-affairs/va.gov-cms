@@ -19,20 +19,20 @@ bundle: vha_facility_nonclinical_service
 mode: default
 content:
   field_enforce_unique_combo_offic:
-    type: allow_only_one
+    weight: 1
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    type: allow_only_one
     region: content
   field_service_location:
-    type: entity_reference_revisions_entity_view
+    weight: 0
     label: above
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 0
+    type: entity_reference_revisions_entity_view
     region: content
 hidden:
   content_moderation_control: true

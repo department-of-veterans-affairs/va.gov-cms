@@ -13,29 +13,29 @@ dependencies:
     - views
 third_party_settings:
   layout_builder:
-    enabled: false
     allow_custom: false
+    enabled: false
 id: taxonomy_term.audience_beneficiaries.default
 targetEntityType: taxonomy_term
 bundle: audience_beneficiaries
 mode: default
 content:
   description:
-    type: text_default
     label: hidden
-    settings: {  }
-    third_party_settings: {  }
+    type: text_default
     weight: 0
     region: content
+    settings: {  }
+    third_party_settings: {  }
   field_audience_rs_homepage:
-    type: boolean
+    weight: 1
     label: above
     settings:
       format: default
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 1
+    type: boolean
     region: content
 hidden:
   search_api_excerpt: true

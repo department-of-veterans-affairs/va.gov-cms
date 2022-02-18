@@ -16,28 +16,28 @@ bundle: non_reusable_alert
 mode: default
 content:
   field_alert_heading:
-    type: string
+    weight: 0
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 0
+    type: string
     region: content
   field_alert_type:
-    type: list_default
+    weight: 2
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    type: list_default
     region: content
   field_va_paragraphs:
-    type: entity_reference_revisions_entity_view
+    weight: 1
     label: above
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 1
+    type: entity_reference_revisions_entity_view
     region: content
 hidden:
   search_api_excerpt: true

@@ -22,11 +22,17 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
+    negate: 0
     target_bundles:
       wysiwyg: wysiwyg
       expandable_text: expandable_text
-    negate: 0
     target_bundles_drag_drop:
+      wysiwyg:
+        enabled: true
+        weight: -27
+      expandable_text:
+        enabled: true
+        weight: -26
       address:
         weight: -25
         enabled: false
@@ -39,32 +45,11 @@ settings:
       collapsible_panel_item:
         weight: -22
         enabled: false
-      downloadable_file:
-        weight: 27
-        enabled: false
-      expandable_text:
-        weight: -26
-        enabled: true
-      health_care_local_facility_servi:
-        weight: 29
-        enabled: false
       link_teaser:
         weight: -21
         enabled: false
       list_of_link_teasers:
         weight: -20
-        enabled: false
-      media:
-        weight: 32
-        enabled: false
-      megamenu_links_column:
-        weight: 33
-        enabled: false
-      megamenu_menu_item:
-        weight: 34
-        enabled: false
-      number_callout:
-        weight: 35
         enabled: false
       process:
         weight: -19
@@ -78,19 +63,34 @@ settings:
       react_widget:
         weight: -16
         enabled: false
+      starred_horizontal_rule:
+        weight: -15
+        enabled: false
+      downloadable_file:
+        weight: 27
+        enabled: false
+      health_care_local_facility_servi:
+        weight: 29
+        enabled: false
+      media:
+        weight: 32
+        enabled: false
+      megamenu_links_column:
+        weight: 33
+        enabled: false
+      megamenu_menu_item:
+        weight: 34
+        enabled: false
+      number_callout:
+        weight: 35
+        enabled: false
       spanish_translation_summary:
         weight: 40
         enabled: false
       staff_profile:
         weight: 41
         enabled: false
-      starred_horizontal_rule:
-        weight: -15
-        enabled: false
       table:
         weight: 43
         enabled: false
-      wysiwyg:
-        weight: -27
-        enabled: true
 field_type: entity_reference_revisions

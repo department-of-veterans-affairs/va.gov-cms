@@ -26,12 +26,103 @@ base_table: node_field_data
 base_field: nid
 display:
   default:
+    display_plugin: default
     id: default
     display_title: Master
-    display_plugin: default
     position: 0
     display_options:
-      title: 'Detail page URL audit and bulk udpate'
+      access:
+        type: role
+        options:
+          role:
+            content_admin: content_admin
+            administrator: administrator
+      cache:
+        type: tag
+        options: {  }
+      query:
+        type: views_query
+        options:
+          disable_sql_rewrite: false
+          distinct: false
+          replica: false
+          query_comment: ''
+          query_tags: {  }
+      exposed_form:
+        type: basic
+        options:
+          submit_button: Apply
+          reset_button: false
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      pager:
+        type: mini
+        options:
+          items_per_page: 50
+          offset: 0
+          id: 0
+          total_pages: null
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
+          tags:
+            previous: ‹‹
+            next: ››
+      style:
+        type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          override: true
+          sticky: true
+          caption: ''
+          summary: ''
+          description: ''
+          columns:
+            views_bulk_operations_bulk_form: views_bulk_operations_bulk_form
+            nid: nid
+            title: title
+            view_node: view_node
+          info:
+            views_bulk_operations_bulk_form:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            nid:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            title:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            view_node:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          default: nid
+          empty_table: false
+      row:
+        type: fields
       fields:
         views_bulk_operations_bulk_form:
           id: views_bulk_operations_bulk_form
@@ -40,7 +131,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: views_bulk_operations_bulk_form
           label: 'Views bulk operations'
           exclude: false
           alter:
@@ -86,14 +176,15 @@ display:
           batch_size: 10
           form_step: true
           buttons: false
+          clear_on_exposed: true
           action_title: Action
           selected_actions:
             16:
               action_id: 'entity:pathauto_update_alias:node'
               preconfiguration:
                 add_confirmation: 0
-          clear_on_exposed: true
           force_selection_info: 0
+          plugin_id: views_bulk_operations_bulk_form
         nid:
           id: nid
           table: node_field_data
@@ -101,9 +192,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: nid
-          plugin_id: field
           label: ID
           exclude: false
           alter:
@@ -160,27 +248,34 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: node
+          entity_field: nid
+          plugin_id: field
         title:
           id: title
           table: node_field_data
           field: title
-          relationship: none
-          group_type: group
-          admin_label: ''
           entity_type: node
           entity_field: title
-          plugin_id: field
-          label: Title
-          exclude: false
           alter:
             alter_text: false
             make_link: false
             absolute: false
+            trim: false
             word_boundary: false
             ellipsis: false
             strip_tags: false
-            trim: false
             html: false
+          hide_empty: false
+          empty_zero: false
+          settings:
+            link_to_entity: true
+          plugin_id: field
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Title
+          exclude: false
           element_type: ''
           element_class: ''
           element_label_type: ''
@@ -190,13 +285,9 @@ display:
           element_wrapper_class: ''
           element_default_classes: true
           empty: ''
-          hide_empty: false
-          empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
           type: string
-          settings:
-            link_to_entity: true
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -214,8 +305,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          plugin_id: entity_link
           label: URL
           exclude: false
           alter:
@@ -260,6 +349,8 @@ display:
           text: view
           output_url_as_text: true
           absolute: false
+          entity_type: node
+          plugin_id: entity_link
         uid:
           id: uid
           table: node_field_data
@@ -267,9 +358,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: uid
-          plugin_id: field
           label: 'Created by'
           exclude: false
           alter:
@@ -325,6 +413,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: node
+          entity_field: uid
+          plugin_id: field
         name:
           id: name
           table: users_field_data
@@ -332,9 +423,6 @@ display:
           relationship: revision_uid
           group_type: group
           admin_label: ''
-          entity_type: user
-          entity_field: name
-          plugin_id: field
           label: 'Last updated by'
           exclude: false
           alter:
@@ -390,6 +478,9 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: user
+          entity_field: name
+          plugin_id: field
         moderation_state:
           id: moderation_state
           table: node_field_data
@@ -397,8 +488,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          plugin_id: moderation_state_field
           label: 'Moderation state'
           exclude: false
           alter:
@@ -453,46 +542,8 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-      pager:
-        type: mini
-        options:
-          offset: 0
-          items_per_page: 50
-          total_pages: null
-          id: 0
-          tags:
-            next: ››
-            previous: ‹‹
-          expose:
-            items_per_page: false
-            items_per_page_label: 'Items per page'
-            items_per_page_options: '5, 10, 25, 50'
-            items_per_page_options_all: false
-            items_per_page_options_all_label: '- All -'
-            offset: false
-            offset_label: Offset
-      exposed_form:
-        type: basic
-        options:
-          submit_button: Apply
-          reset_button: false
-          reset_button_label: Reset
-          exposed_sorts_label: 'Sort by'
-          expose_sort_order: true
-          sort_asc_label: Asc
-          sort_desc_label: Desc
-      access:
-        type: role
-        options:
-          role:
-            content_admin: content_admin
-            administrator: administrator
-      cache:
-        type: tag
-        options: {  }
-      empty: {  }
-      sorts: {  }
-      arguments: {  }
+          entity_type: node
+          plugin_id: moderation_state_field
       filters:
         title:
           id: title
@@ -501,9 +552,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: title
-          plugin_id: string
           operator: contains
           value: ''
           group: 1
@@ -549,19 +597,22 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+          entity_type: node
+          entity_field: title
+          plugin_id: string
         type:
           id: type
           table: node_field_data
           field: type
+          value:
+            health_care_region_detail_page: health_care_region_detail_page
           entity_type: node
           entity_field: type
           plugin_id: bundle
-          value:
-            health_care_region_detail_page: health_care_region_detail_page
-          group: 1
           expose:
             operator_limit_selection: false
             operator_list: {  }
+          group: 1
         workbench_access_section__section:
           id: workbench_access_section__section
           table: node
@@ -569,8 +620,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          plugin_id: workbench_access_section
           operator: in
           value: {  }
           group: 1
@@ -619,6 +668,8 @@ display:
           reduce_duplicates: 0
           section_filter:
             show_hierarchy: 1
+          entity_type: node
+          plugin_id: workbench_access_section
         moderation_state:
           id: moderation_state
           table: node_field_data
@@ -626,8 +677,6 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          plugin_id: moderation_state_filter
           operator: in
           value: {  }
           group: 1
@@ -673,77 +722,10 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-      filter_groups:
-        operator: AND
-        groups:
-          1: AND
-      style:
-        type: table
-        options:
-          grouping: {  }
-          row_class: ''
-          default_row_class: true
-          columns:
-            views_bulk_operations_bulk_form: views_bulk_operations_bulk_form
-            nid: nid
-            title: title
-            view_node: view_node
-          default: nid
-          info:
-            views_bulk_operations_bulk_form:
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            nid:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            title:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            view_node:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-          override: true
-          sticky: true
-          summary: ''
-          empty_table: false
-          caption: ''
-          description: ''
-      row:
-        type: fields
-      query:
-        type: views_query
-        options:
-          query_comment: ''
-          disable_sql_rewrite: false
-          distinct: false
-          replica: false
-          query_tags: {  }
-      relationships:
-        revision_uid:
-          id: revision_uid
-          table: node_revision
-          field: revision_uid
-          relationship: none
-          group_type: group
-          admin_label: 'revision user'
           entity_type: node
-          entity_field: revision_uid
-          plugin_id: standard
-          required: false
+          plugin_id: moderation_state_filter
+      sorts: {  }
+      title: 'Detail page URL audit and bulk udpate'
       header:
         result:
           id: result
@@ -752,11 +734,29 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: result
           empty: false
           content: 'Displaying @start - @end of @total'
+          plugin_id: result
       footer: {  }
+      empty: {  }
+      relationships:
+        revision_uid:
+          id: revision_uid
+          table: node_revision
+          field: revision_uid
+          relationship: none
+          group_type: group
+          admin_label: 'revision user'
+          required: false
+          entity_type: node
+          entity_field: revision_uid
+          plugin_id: standard
+      arguments: {  }
       display_extenders: {  }
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
     cache_metadata:
       max-age: 0
       contexts:
@@ -769,9 +769,9 @@ display:
       tags:
         - 'config:workflow_list'
   audit_page:
+    display_plugin: page
     id: audit_page
     display_title: 'Audit page'
-    display_plugin: page
     position: 1
     display_options:
       display_extenders: {  }
@@ -792,11 +792,22 @@ display:
       tags:
         - 'config:workflow_list'
   data_export_1:
+    display_plugin: data_export
     id: data_export_1
     display_title: 'CSV export'
-    display_plugin: data_export
     position: 2
     display_options:
+      display_extenders: {  }
+      path: admin/content/audit/detail-pages-urls.csv
+      filename: ''
+      automatic_download: false
+      store_in_public_file_directory: null
+      redirect_to_display: none
+      custom_redirect_path: false
+      include_query_params: false
+      displays:
+        audit_page: audit_page
+        default: '0'
       style:
         type: data_export
         options:
@@ -811,17 +822,6 @@ display:
             encoding: utf8
             utf8_bom: '0'
             use_serializer_encode_only: false
-      display_extenders: {  }
-      path: admin/content/audit/detail-pages-urls.csv
-      displays:
-        audit_page: audit_page
-        default: '0'
-      filename: ''
-      automatic_download: false
-      store_in_public_file_directory: null
-      custom_redirect_path: false
-      redirect_to_display: none
-      include_query_params: false
     cache_metadata:
       max-age: 0
       contexts:

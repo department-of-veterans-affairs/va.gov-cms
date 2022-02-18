@@ -18,60 +18,60 @@ third_party_settings:
       children:
         - field_use_facility_address
         - field_address
-      label: 'Street address'
       parent_name: ''
-      region: content
       weight: 3
       format_type: fieldset
       format_settings:
-        classes: ''
         id: ''
+        classes: ''
         description: ''
+      label: 'Street address'
+      region: content
 id: paragraph.service_location_address.default
 targetEntityType: paragraph
 bundle: service_location_address
 mode: default
 content:
   field_address:
-    type: address_default
+    weight: 5
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    type: address_default
     region: content
   field_building_name_number:
-    type: string
+    weight: 1
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 1
+    type: string
     region: content
   field_clinic_name:
-    type: string
+    weight: 0
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 0
+    type: string
     region: content
   field_use_facility_address:
-    type: boolean
+    weight: 4
     label: above
     settings:
       format: default
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 4
+    type: boolean
     region: content
   field_wing_floor_or_room_number:
-    type: string
+    weight: 2
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 2
+    type: string
     region: content
 hidden:
   search_api_excerpt: true

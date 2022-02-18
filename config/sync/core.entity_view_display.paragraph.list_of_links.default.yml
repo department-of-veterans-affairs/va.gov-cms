@@ -15,7 +15,7 @@ bundle: list_of_links
 mode: default
 content:
   field_link:
-    type: link
+    weight: 3
     label: hidden
     settings:
       trim_length: 80
@@ -24,10 +24,10 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 3
+    type: link
     region: content
   field_links:
-    type: link
+    weight: 2
     label: hidden
     settings:
       trim_length: 80
@@ -36,15 +36,15 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 2
+    type: link
     region: content
   field_section_header:
-    type: string
+    weight: 0
     label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 0
+    type: string
     region: content
 hidden:
   search_api_excerpt: true

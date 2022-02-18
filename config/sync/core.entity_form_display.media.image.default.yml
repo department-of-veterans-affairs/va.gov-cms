@@ -20,16 +20,16 @@ third_party_settings:
     group_governance:
       children:
         - field_owner
-      label: 'Section settings'
-      region: content
       parent_name: ''
       weight: 4
       format_type: fieldset
       format_settings:
-        classes: ''
         id: ''
+        classes: ''
         description: ''
         required_fields: true
+      label: 'Section settings'
+      region: content
 _core:
   default_config_hash: kyoAHlZTGIuGTaQuBblGBk8EhfnVKOl19_0j5WbpQqM
 id: media.image.default
@@ -38,9 +38,7 @@ bundle: image
 mode: default
 content:
   field_description:
-    type: string_textarea_with_counter
     weight: 2
-    region: content
     settings:
       rows: 5
       placeholder: ''
@@ -50,40 +48,42 @@ content:
       count_html_characters: true
       textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
+    type: string_textarea_with_counter
+    region: content
   field_media_submission_guideline:
-    type: markup
     weight: 0
-    region: content
     settings: {  }
     third_party_settings: {  }
+    type: markup
+    region: content
   field_owner:
-    type: options_select
     weight: 3
-    region: content
     settings: {  }
     third_party_settings: {  }
+    type: options_select
+    region: content
   image:
     type: image_widget_crop
     weight: 3
-    region: content
     settings:
-      progress_indicator: throbber
+      show_crop_area: true
+      show_default_crop: true
       preview_image_style: 3_2_medium_thumbnail
       crop_preview_image_style: crop_thumbnail
+      progress_indicator: throbber
       crop_list: {  }
       crop_types_required: {  }
       warn_multiple_usages: false
-      show_crop_area: true
-      show_default_crop: true
     third_party_settings: {  }
+    region: content
   name:
     type: string_textfield
     weight: 1
-    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
 hidden:
   created: true
   field_media_in_library: true

@@ -14,19 +14,18 @@ bundle: expandable_text
 mode: default
 content:
   field_text_expander:
-    type: string
+    weight: 0
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 0
+    type: string
     region: content
   field_wysiwyg:
-    type: text_default
+    weight: 1
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    type: text_default
     region: content
-hidden:
-  search_api_excerpt: true
+hidden: {  }

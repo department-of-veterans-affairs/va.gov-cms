@@ -28,11 +28,10 @@ third_party_settings:
         - field_fieldset_markup
         - field_cc_intro_text
         - field_cc_top_of_page_content
-      label: 'National top of page content'
       parent_name: ''
-      region: content
       weight: 1
       format_type: tooltip
+      region: content
       format_settings:
         show_label: '0'
         tooltip_description: 'Why can’t I edit this? VHA keeps this content standardized so that all VA medical centers have consistent messaging.'
@@ -42,14 +41,14 @@ third_party_settings:
         element: div
         label_element: h3
         attributes: ''
+      label: 'National top of page content'
     group_national_visitation:
       children:
         - field_cc_gen_visitation_policy
-      label: 'National general visitation policy'
       parent_name: ''
-      region: content
       weight: 3
       format_type: tooltip
+      region: content
       format_settings:
         show_label: '0'
         tooltip_description: 'Why can’t I edit this? VHA keeps this content standardized so that all VA medical centers have consistent messaging.'
@@ -59,14 +58,14 @@ third_party_settings:
         element: div
         label_element: h3
         attributes: ''
+      label: 'National general visitation policy'
     group_national_bottom:
       children:
         - field_cc_bottom_of_page_content
-      label: 'National bottom of page content'
       parent_name: ''
-      region: content
       weight: 5
       format_type: tooltip
+      region: content
       format_settings:
         show_label: '0'
         tooltip_description: 'Why can’t I edit this? VHA keeps this content standardized so that all VA medical centers have consistent messaging.'
@@ -76,80 +75,81 @@ third_party_settings:
         element: div
         label_element: h3
         attributes: ''
+      label: 'National bottom of page content'
 id: node.vamc_system_policies_page.default
 targetEntityType: node
 bundle: vamc_system_policies_page
 mode: default
 content:
   field_cc_bottom_of_page_content:
-    type: entity_field_fetch
+    weight: 6
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    type: entity_field_fetch
     region: content
   field_cc_gen_visitation_policy:
-    type: entity_field_fetch
+    weight: 3
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    type: entity_field_fetch
     region: content
   field_cc_intro_text:
-    type: entity_field_fetch
+    weight: 9
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 9
+    type: entity_field_fetch
     region: content
   field_cc_top_of_page_content:
-    type: entity_field_fetch
+    weight: 10
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    type: entity_field_fetch
     region: content
   field_enforce_unique_combo:
-    type: allow_only_one
+    weight: 11
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 11
+    type: allow_only_one
     region: content
   field_fieldset_markup:
-    type: markup
+    weight: 8
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 8
+    type: markup
     region: content
   field_office:
-    type: entity_reference_label
+    weight: 0
     label: above
     settings:
       link: true
     third_party_settings: {  }
-    weight: 0
+    type: entity_reference_label
     region: content
   field_vamc_other_policies:
-    type: text_default
+    weight: 4
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    type: text_default
     region: content
   field_vamc_visitation_policy:
-    type: text_default
+    weight: 2
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    type: text_default
     region: content
   links:
-    settings: {  }
-    third_party_settings: {  }
     weight: 6
     region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   content_moderation_control: true
   field_administration: true

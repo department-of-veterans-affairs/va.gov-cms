@@ -21,9 +21,9 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
+    negate: 0
     target_bundles:
       list_of_link_teasers: list_of_link_teasers
-    negate: 0
     target_bundles_drag_drop:
       address:
         weight: 14
@@ -40,27 +40,12 @@ settings:
       expandable_text:
         weight: 18
         enabled: false
-      health_care_local_facility_servi:
-        weight: 26
-        enabled: false
       link_teaser:
         weight: 19
         enabled: false
       list_of_link_teasers:
-        weight: 20
         enabled: true
-      media:
-        weight: 29
-        enabled: false
-      megamenu_links_column:
-        weight: 30
-        enabled: false
-      megamenu_menu_item:
-        weight: 31
-        enabled: false
-      number_callout:
-        weight: 32
-        enabled: false
+        weight: 20
       process:
         weight: 21
         enabled: false
@@ -73,16 +58,31 @@ settings:
       react_widget:
         weight: 24
         enabled: false
-      spanish_translation_summary:
-        weight: 37
-        enabled: false
       starred_horizontal_rule:
         weight: 25
         enabled: false
-      table:
-        weight: 39
-        enabled: false
       wysiwyg:
         weight: 26
+        enabled: false
+      health_care_local_facility_servi:
+        weight: 26
+        enabled: false
+      media:
+        weight: 29
+        enabled: false
+      megamenu_links_column:
+        weight: 30
+        enabled: false
+      megamenu_menu_item:
+        weight: 31
+        enabled: false
+      number_callout:
+        weight: 32
+        enabled: false
+      spanish_translation_summary:
+        weight: 37
+        enabled: false
+      table:
+        weight: 39
         enabled: false
 field_type: entity_reference_revisions

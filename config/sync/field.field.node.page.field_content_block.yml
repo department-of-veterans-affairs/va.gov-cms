@@ -33,6 +33,7 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
+    negate: 0
     target_bundles:
       table: table
       react_widget: react_widget
@@ -47,14 +48,13 @@ settings:
       media: media
       downloadable_file: downloadable_file
       lists_of_links: lists_of_links
-    negate: 0
     target_bundles_drag_drop:
       address:
         weight: -22
         enabled: false
       alert:
-        weight: -30
         enabled: true
+        weight: -30
       button:
         weight: 35
         enabled: false
@@ -65,14 +65,14 @@ settings:
         weight: 37
         enabled: false
       collapsible_panel:
-        weight: -27
         enabled: true
+        weight: -27
       collapsible_panel_item:
         weight: -25
         enabled: false
       downloadable_file:
-        weight: 23
         enabled: true
+        weight: 23
       expandable_text:
         weight: -20
         enabled: false
@@ -83,26 +83,26 @@ settings:
         weight: -24
         enabled: false
       list_of_link_teasers:
-        weight: -31
         enabled: true
+        weight: -31
       list_of_links:
         weight: 45
         enabled: false
       lists_of_links:
+        enabled: true
         weight: 44
-        enabled: true
       media:
+        enabled: true
         weight: -24
-        enabled: true
       number_callout:
-        weight: -26
         enabled: true
+        weight: -26
       phone_number:
         weight: 49
         enabled: false
       process:
-        weight: -29
         enabled: true
+        weight: -29
       q_a:
         weight: -18
         enabled: false
@@ -110,11 +110,11 @@ settings:
         weight: 52
         enabled: false
       q_a_section:
+        enabled: true
         weight: -30
-        enabled: true
       react_widget:
-        weight: -32
         enabled: true
+        weight: -32
       service_location:
         weight: 55
         enabled: false
@@ -125,8 +125,8 @@ settings:
         weight: 57
         enabled: false
       spanish_translation_summary:
-        weight: -28
         enabled: true
+        weight: -28
       staff_profile:
         weight: 39
         enabled: false
@@ -140,9 +140,9 @@ settings:
         weight: 62
         enabled: false
       table:
+        enabled: true
         weight: -35
-        enabled: true
       wysiwyg:
-        weight: -31
         enabled: true
+        weight: -31
 field_type: entity_reference_revisions

@@ -29,91 +29,90 @@ third_party_settings:
       children:
         - field_office
         - field_geographical_identifier
-      label: 'Facility name'
       parent_name: ''
-      region: content
       weight: 1
       format_type: fieldset
+      region: content
       format_settings:
-        classes: ''
         show_empty_fields: false
         id: ''
+        classes: ''
         description: 'First, select the main location, then give the CAP a name that helps Veterans distinguish it from other locations.'
+      label: 'Facility name'
     group_locations_and_contact_info:
       children:
         - field_address
         - field_vetcenter_cap_hours_opt_in
         - field_office_hours
-      label: 'Locations and contact information'
       parent_name: ''
-      region: content
       weight: 2
       format_type: fieldset
+      region: content
       format_settings:
-        classes: ''
         show_empty_fields: false
         id: ''
+        classes: ''
         description: ''
+      label: 'Locations and contact information'
     group_operating_status:
       children:
         - field_operating_status_facility
         - field_operating_status_more_info
-      label: 'Operating status'
       parent_name: ''
-      region: content
       weight: 0
       format_type: fieldset
+      region: content
       format_settings:
-        classes: ''
         show_empty_fields: false
         id: operating-status
+        classes: ''
         description: ''
+      label: 'Operating status'
 id: node.vet_center_cap.default
 targetEntityType: node
 bundle: vet_center_cap
 mode: default
 content:
   field_address:
-    type: address_default
+    weight: 2
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    type: address_default
     region: content
   field_geographical_identifier:
-    type: string
+    weight: 2
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 2
+    type: string
     region: content
   field_media:
-    type: media_thumbnail
+    weight: 3
     label: hidden
     settings:
-      image_link: ''
       image_style: crop_3_2
+      image_link: ''
     third_party_settings: {  }
-    weight: 3
+    type: media_thumbnail
     region: content
   field_office:
-    type: entity_reference_label
+    weight: 1
     label: above
     settings:
       link: true
     third_party_settings: {  }
-    weight: 1
+    type: entity_reference_label
     region: content
   field_office_hours:
-    type: office_hours
+    weight: 4
     label: above
     settings:
+      show_closed: all
+      office_hours_first_day: ''
       day_format: short
       time_format: g
-      compress: false
-      grouped: false
-      show_closed: all
       closed_format: ''
       separator:
         days: '<br />'
@@ -125,36 +124,37 @@ content:
         position: ''
         open_text: 'Currently open!'
         closed_text: 'Currently closed'
-      timezone_field: ''
-      office_hours_first_day: ''
+      compress: false
+      grouped: false
       schema:
         enabled: false
+      timezone_field: ''
     third_party_settings: {  }
-    weight: 4
+    type: office_hours
     region: content
   field_operating_status_facility:
-    type: list_default
+    weight: 6
     label: visually_hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    type: list_default
     region: content
   field_operating_status_more_info:
-    type: basic_string
+    weight: 7
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 7
+    type: basic_string
     region: content
   field_vetcenter_cap_hours_opt_in:
-    type: boolean
+    weight: 3
     label: above
     settings:
       format: default
-      format_custom_false: ''
       format_custom_true: ''
+      format_custom_false: ''
     third_party_settings: {  }
-    weight: 3
+    type: boolean
     region: content
 hidden:
   content_moderation_control: true

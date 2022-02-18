@@ -17,35 +17,35 @@ bundle: phone_number
 mode: ief_table
 content:
   field_phone_extension:
-    type: string
+    weight: 2
     label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 2
+    type: string
     region: content
   field_phone_label:
-    type: string
+    weight: 3
     label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 3
+    type: string
     region: content
   field_phone_number:
-    type: string
+    weight: 1
     label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 1
+    type: string
     region: content
   field_phone_number_type:
-    type: list_default
+    weight: 0
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 0
+    type: list_default
     region: content
 hidden:
   label: true
