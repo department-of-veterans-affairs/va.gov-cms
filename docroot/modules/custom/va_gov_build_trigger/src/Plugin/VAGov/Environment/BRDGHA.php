@@ -82,7 +82,7 @@ class BRDGHA extends EnvironmentPluginBase {
   /**
    * {@inheritDoc}
    */
-  public function triggerFrontendBuild(string $front_end_git_ref = NULL, bool $full_rebuild = FALSE): void {
+  public function triggerFrontendBuild(string $front_end_git_ref = NULL, bool $full_rebuild = FALSE) : void {
     $front_end_git_ref = $front_end_git_ref ?? "master";
 
     try {
@@ -130,14 +130,14 @@ class BRDGHA extends EnvironmentPluginBase {
   /**
    * {@inheritDoc}
    */
-  public function shouldTriggerFrontendBuild(): bool {
+  public function shouldTriggerFrontendBuild() : bool {
     return TRUE;
   }
 
   /**
    * {@inheritDoc}
    */
-  public function getBuildTriggerFormClass(): string {
+  public function getBuildTriggerFormClass() : string {
     return BrdBuildTriggerForm::class;
   }
 
