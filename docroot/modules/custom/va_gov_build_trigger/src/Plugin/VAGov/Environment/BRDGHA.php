@@ -93,7 +93,7 @@ class BRDGHA extends EnvironmentPluginBase {
         'status' => 'pending',
         'created' => '>=' . date('Y-m-d'),
       ];
-      $workflow_runs = $this->githubAdapter->getWorkflowRuns('content-release.yml', $workflow_run_params);
+      $workflow_runs = $this->githubAdapter->listWorkflowRuns('content-release.yml', $workflow_run_params);
       if (!empty($workflow_runs['total_count']) && $workflow_runs['total_count'] > 0) {
         $vars = [
           '@job_link' => 'https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml',

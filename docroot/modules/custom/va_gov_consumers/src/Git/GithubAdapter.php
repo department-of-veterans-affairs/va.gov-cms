@@ -85,7 +85,7 @@ class GithubAdapter implements GithubInterface {
   /**
    * {@inheritdoc}
    */
-  public function getWorkflowRuns(string $action_name, array $params = []): array {
+  public function listWorkflowRuns(string $action_name, array $params = []): array {
     [$user, $repo] = explode('/', $this->repositoryPath);
 
     // Exceptions are intentionally *not* caught here - the caller should be

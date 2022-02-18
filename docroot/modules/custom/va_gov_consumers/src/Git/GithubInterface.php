@@ -34,7 +34,7 @@ interface GithubInterface {
   public function triggerWorkflow(string $action_name, string $ref, array $params = []) : void;
 
   /**
-   * Get workflow runs for an action.
+   * List workflow runs for an action.
    *
    * @param string $action_name
    *   The name of the action to trigger.
@@ -42,6 +42,6 @@ interface GithubInterface {
    *   A list of named params to pass to the action as arguments. Keys should
    *   match the action input names.
    */
-  public function getWorkflowRuns(string $action_name, array $params = []) : array;
+  public function listWorkflowRuns(string $action_name, array $params = []) : array;
 
 }
