@@ -6,6 +6,7 @@ use Drupal\migrate\Event\MigrateEvents;
 use Drupal\migrate\Event\MigrateImportEvent;
 use Drupal\migration_tools\Event\MessageEvent;
 use Drupal\migration_tools\Message;
+use Drupal\Core\File\FileUrlGeneratorInterface;
 use Drupal\Core\State\StateInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -52,6 +53,13 @@ class MessageLogger implements EventSubscriberInterface {
   protected static $anomaliesFile;
 
   /**
+   * The path to the test report files.
+   *
+   * @var string
+   */
+  protected $rptPath;
+
+  /**
    * The drupal state object.
    *
    * @var \Drupal\Core\State\StateInterface
@@ -61,8 +69,16 @@ class MessageLogger implements EventSubscriberInterface {
   /**
    * {@inheritdoc}
    */
-  public function __construct(StateInterface $state) {
+  public function __construct(StateInterface $state, FileUrlGeneratorInterface $fileUrlGenerator) {
     $this->state = $state;
+    $file_url = $fileUrlGenerator->generateAbsoluteString("public://migration_reports");
+    $rpt_path = parse_url($file_url, PHP_URL_PATH);
+    // Strip leading slash.
+    $rpt_path = substr($rpt_path, 1);
+    if (!is_dir($rpt_path)) {
+      mkdir($rpt_path);
+    }
+    $this->rptPath = $rpt_path;
   }
 
   /**
@@ -213,34 +229,27 @@ class MessageLogger implements EventSubscriberInterface {
     if (!$this->state->get('va_gov_migrate.create_csv_files')) {
       return;
     }
-
-    $rpt_path = parse_url(file_create_url("public://migration_reports"), PHP_URL_PATH);
-    // Strip leading slash.
-    $rpt_path = substr($rpt_path, 1);
-    if (!is_dir($rpt_path)) {
-      mkdir($rpt_path);
-    }
-    self::$rptFile = $rpt_path . "/migration_analysis_{$event->getMigration()->id()}.csv";
+    self::$rptFile = $this->rptPath . "/migration_analysis_{$event->getMigration()->id()}.csv";
     $handle = fopen(self::$rptFile, "w");
     fwrite($handle, "Title,Hub,Field,Url,Github Url,Percent similarity, Char difference score\n");
     fclose($handle);
 
-    self::$errFile = $rpt_path . "/migrate_errors_{$event->getMigration()->id()}.csv";
+    self::$errFile = $this->rptPath . "/migrate_errors_{$event->getMigration()->id()}.csv";
     $handle = fopen(self::$errFile, "w");
     fwrite($handle, "message,title,url,hub\n");
     fclose($handle);
 
-    self::$paragraphFile = $rpt_path . "/paragraphs_{$event->getMigration()->id()}.csv";
+    self::$paragraphFile = $this->rptPath . "/paragraphs_{$event->getMigration()->id()}.csv";
     $handle = fopen(self::$paragraphFile, "w");
     fwrite($handle, "title,field,paragraph,hub,url\n");
     fclose($handle);
 
-    self::$anomaliesFile = $rpt_path . "/anomalies_{$event->getMigration()->id()}.csv";
+    self::$anomaliesFile = $this->rptPath . "/anomalies_{$event->getMigration()->id()}.csv";
     $handle = fopen(self::$anomaliesFile, "w");
     fwrite($handle, "title,type,url,hub,additional_info\n");
     fclose($handle);
 
-    self::$anchorLinks = $rpt_path . "/anchor_links_{$event->getMigration()->id()}.csv";
+    self::$anchorLinks = $this->rptPath . "/anchor_links_{$event->getMigration()->id()}.csv";
     $handle = fopen(self::$anchorLinks, "w");
     fwrite($handle, "title,url,hub,link text,link\n");
     fclose($handle);
