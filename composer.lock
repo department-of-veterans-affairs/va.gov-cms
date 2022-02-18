@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8df4bb03641b904ab8c81e54c05404ac",
+    "content-hash": "3f93e37567cdb8da9fa2e57fd266402a",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -6156,6 +6156,62 @@
             "homepage": "https://www.drupal.org/project/flood_control",
             "support": {
                 "source": "https://git.drupalcode.org/project/flood_control"
+            }
+        },
+        {
+            "name": "drupal/fpa",
+            "version": "3.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/fpa.git",
+                "reference": "3.0.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/fpa-3.0.2.zip",
+                "reference": "3.0.2",
+                "shasum": "906e7bca20f423768759d6bf46b383647eb8cce5"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "3.0.2",
+                    "datestamp": "1631632749",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "HakS",
+                    "homepage": "https://www.drupal.org/user/1815198"
+                },
+                {
+                    "name": "VladimirAus",
+                    "homepage": "https://www.drupal.org/user/673120"
+                },
+                {
+                    "name": "azovsky",
+                    "homepage": "https://www.drupal.org/user/330533"
+                },
+                {
+                    "name": "corey.aufang",
+                    "homepage": "https://www.drupal.org/user/163737"
+                }
+            ],
+            "description": "Fast filtering on permissions administration form.",
+            "homepage": "https://www.drupal.org/project/fpa",
+            "support": {
+                "source": "https://git.drupalcode.org/project/fpa"
             }
         },
         {
@@ -25116,7 +25172,7 @@
     "platform": [],
     "platform-dev": [],
     "platform-overrides": {
-        "php": "7.3"
+        "php": "7.4"
     },
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.1.0"
 }
