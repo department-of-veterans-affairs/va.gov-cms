@@ -26,6 +26,7 @@
 
 // top rule is a hack for unlock button... form action is added way later in content_lock.module
 .content-lock-actions .button:last-child,
+a.button--outline,
 .button--outline {
   background-color: var(--color-white);
   border: 2px solid var(--va-blue-med) !important;
@@ -69,4 +70,9 @@ table .button:not(:focus) {
   // fixes contrast issue when row is hovered but button isn't. !important bc core
   border: 1px solid var(--color-white) !important;
   box-shadow: none;
+}
+
+// keeps dropbuttons text aligned with the toggle
+.js.no-touchevents .dropbutton--multiple.dropbutton--extrasmall .dropbutton__item:first-of-type {
+  white-space: nowrap;
 }
