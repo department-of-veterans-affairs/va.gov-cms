@@ -5,7 +5,7 @@
 ((Drupal) => {
   Drupal.behaviors.smartDateRecurringInteractions = {
     attach() {
-      // Restrict max date limit in inputs.
+      // Format dates for titles and restrict max date limits in inputs.
       const dateFieldHandler = () => {
         const dateFields = [
           document.getElementById(
@@ -18,6 +18,21 @@
             "edit-field-datetime-range-timezone-0-repeat-end-date"
           ),
         ];
+        const timeFields = [
+          document.getElementById(
+            "edit-field-datetime-range-timezone-0-time-wrapper-value-time"
+          ),
+          document.getElementById(
+            "edit-field-datetime-range-timezone-0-time-wrapper-end-value-time"
+          ),
+        ];
+        const today = new Date().toLocaleDateString();
+        dateFields.forEach((element) => {
+          element.title = `Date (e.g. ${today})`;
+        });
+        timeFields.forEach((element) => {
+          element.title = `Time (e.g. 10:00 AM)`;
+        });
 
         // We will use this for setting our date max values.
         const getYearMonthDay = (increment = "end") => {

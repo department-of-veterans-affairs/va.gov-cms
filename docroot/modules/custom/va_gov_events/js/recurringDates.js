@@ -10,6 +10,14 @@
     attach: function attach() {
       var dateFieldHandler = function dateFieldHandler() {
         var dateFields = [document.getElementById("edit-field-datetime-range-timezone-0-time-wrapper-value-date"), document.getElementById("edit-field-datetime-range-timezone-0-time-wrapper-end-value-date"), document.getElementById("edit-field-datetime-range-timezone-0-repeat-end-date")];
+        var timeFields = [document.getElementById("edit-field-datetime-range-timezone-0-time-wrapper-value-time"), document.getElementById("edit-field-datetime-range-timezone-0-time-wrapper-end-value-time")];
+        var today = new Date().toLocaleDateString();
+        dateFields.forEach(function (element) {
+          element.title = "Date (e.g. " + today + ")";
+        });
+        timeFields.forEach(function (element) {
+          element.title = "Time (e.g. 10:00 AM)";
+        });
 
         var getYearMonthDay = function getYearMonthDay() {
           var increment = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "end";
