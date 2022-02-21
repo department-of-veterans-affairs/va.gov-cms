@@ -1,5 +1,20 @@
-.smartdate--widget.fieldset {
-  position: relative;
+#field-datetime-range-timezone-values {
+  fieldset.smartdate--widget {
+    /* stylelint-disable */
+    border: 1px solid #dedfe4 !important;
+    border-top: 0 !important;
+    /* stylelint-enable */
+    margin: 0;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    position: relative;
+  }
+
+  tr.draggable {
+    &:hover {
+      background: none;
+    }
+  }
 }
 
 .smart-date-instance--cancelled {
@@ -239,11 +254,12 @@
 
   .field-multiple-table {
     td {
-      padding: 12px 0;
+      padding: 0;
     }
 
     .field-multiple-drag {
-      display: none;
+      display: block;
+      visibility: hidden;
     }
   }
 
@@ -278,7 +294,7 @@
 .ui-widget-content {
   .smart-date-recur-delete-override-ajaxform {
     /* stylelint-disable */
-    a[data-drupal-selector='edit-delete'] {
+    a[data-drupal-selector="edit-delete"] {
       color: #fff;
     }
     /* stylelint-enable */
