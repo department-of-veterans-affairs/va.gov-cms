@@ -100,8 +100,6 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'access taxonomy overview',
           'access user profiles',
           'access vamc_operating_statuses entity browser pages',
-          'administer cms custom menu access',
-          'administer media',
           'administer menu',
           'administer nodes',
           'administer taxonomy',
