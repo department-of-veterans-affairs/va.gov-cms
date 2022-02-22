@@ -90,7 +90,7 @@ class BRDGHA extends EnvironmentPluginBase {
         $vars = [
           '@job_link' => 'https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml',
         ];
-        $message = $this->t('An upcoming content release is already pending and will include these changes. Please visit <a href="@job_link">@job_link</a> to see content release status.', $vars);
+        $message = $this->t('Changes will be included in a content release to VA.gov that\'s already in progress. <a href="@job_link">Check status</a>.', $vars);
       }
       else {
         $this->githubAdapter->triggerWorkflow('content-release.yml', $front_end_git_ref, [
@@ -100,20 +100,13 @@ class BRDGHA extends EnvironmentPluginBase {
         $vars = [
           '@job_link' => 'https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml',
         ];
-        $message = $this->t('A content release request has been triggered. Please visit <a href="@job_link">@job_link</a> to see content release status.', $vars);
+        $message = $this->t('The system started the process of releasing this content to go live on VA.gov. <a href="@job_link">Check status</a>.', $vars);
       }
       $this->messenger()->addStatus($message);
       $this->logger->info($message);
     }
     catch (\Throwable $exception) {
-      $message = $this->t('A content release request has failed with an Exception. Please visit <a href="@job_link">@job_link</a> for more information on the issue. If this is the PROD environment please notify in #cms-support Slack and please email support@va-gov.atlassian.net immediately with the error message you see here.', [
-        '@job_link' => 'https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml',
-      ]);
-      $this->messenger()->addError($message);
-      $this->logger->error($message);
-
-      $this->webBuildStatus->disableWebBuildStatus();
-      watchdog_exception('va_gov_build_trigger', $exception);
+      $this->handleBrdghaException($exception);
     }
   }
 
@@ -135,16 +128,39 @@ class BRDGHA extends EnvironmentPluginBase {
    * Check for a pending content-release workflow run.
    */
   private function pendingWorkflowRunExists() : bool {
-    // We limit our check to today, as some jobs long past report as being
-    // pending.
-    $workflow_run_params = [
-      'status' => 'pending',
-      'created' => '>=' . date('Y-m-d'),
-    ];
-    $workflow_runs = $this->githubAdapter->listWorkflowRuns('content-release.yml', $workflow_run_params);
+    try {
+      // We limit our check to today, as some jobs long past report as being
+      // pending.
+      $workflow_run_params = [
+        'status' => 'pending',
+        'created' => '>=' . date('Y-m-d'),
+      ];
+      $workflow_runs = $this->githubAdapter->listWorkflowRuns('content-release.yml', $workflow_run_params);
 
-    // A well-formed response will have `total_count` set.
-    return !empty($workflow_runs['total_count']) && $workflow_runs['total_count'] > 0;
+      // A well-formed response will have `total_count` set.
+      return !empty($workflow_runs['total_count']) && $workflow_runs['total_count'] > 0;
+    }
+    catch (\Throwable $exception) {
+      $this->handleBrdghaException($exception);
+    }
+
+  }
+
+  /**
+   * Handle GHA API-related exceptions.
+   *
+   * @param \Throwable $exception
+   *   The exception that was caught.
+   */
+  private function handleBrdghaException(\Throwable $exception) : void {
+    $message = $this->t('A content release request has failed with an Exception. Please visit <a href="@job_link">@job_link</a> for more information on the issue. If this is the PROD environment please notify in #cms-support Slack and please email support@va-gov.atlassian.net immediately with the error message you see here.', [
+      '@job_link' => 'https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml',
+    ]);
+    $this->messenger()->addError($message);
+    $this->logger->error($message);
+
+    $this->webBuildStatus->disableWebBuildStatus();
+    watchdog_exception('va_gov_build_trigger', $exception);
   }
 
 }
