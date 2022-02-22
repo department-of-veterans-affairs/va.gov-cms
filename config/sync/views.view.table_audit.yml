@@ -949,7 +949,12 @@ display:
             label: ''
           granularity: second
       title: 'Table Audit'
-      header: {  }
+      header:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          plugin_id: text_custom
       footer: {  }
       empty: {  }
       relationships:
@@ -991,6 +996,20 @@ display:
       display_extenders: {  }
       path: admin/content-tools/audits/table-audit
       display_description: ''
+      header:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          tokenize: false
+          content: '<p><a href="admin/content/audit/tables-usage-audit.csv">Download CSV</a></p>'
+          plugin_id: text_custom
+      defaults:
+        header: false
     cache_metadata:
       max-age: -1
       contexts:
