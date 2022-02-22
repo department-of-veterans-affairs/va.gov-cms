@@ -1883,13 +1883,13 @@ display:
           entity_field: name
           plugin_id: term_name
       menu:
-        type: tab
+        type: none
         title: Facilities
         description: ''
-        expanded: false
-        parent: system.admin
+        expanded: true
+        parent: system.admin_content
         weight: 0
-        context: '0'
+        context: '1'
         menu_name: admin
       tab_options:
         type: tab
@@ -2496,13 +2496,13 @@ display:
         sorts: false
       path: admin/content/facilities/facility-status
       menu:
-        type: tab
+        type: none
         title: 'Facility Status'
         description: ''
         expanded: false
-        parent: system.admin
-        weight: 8
-        context: '0'
+        parent: ''
+        weight: 1
+        context: '1'
         menu_name: admin
       empty:
         area_text_custom:
@@ -5113,7 +5113,7 @@ display:
     display_options:
       path: admin/content/facilities/vamc-facility-health-services
       menu:
-        type: tab
+        type: none
         title: 'VAMC facility health services'
         description: ''
         expanded: false
@@ -7842,7 +7842,7 @@ display:
     display_options:
       path: admin/content/facilities/vamc-facility-non-clinical-services
       menu:
-        type: tab
+        type: none
         title: 'VAMC facility non-clinical services'
         description: ''
         expanded: false
@@ -10550,7 +10550,7 @@ display:
           content: "<p>This view is only available to admins.</p>\r\n\r\n\r\n<p>Displaying @start - @end of @total</p>"
           plugin_id: result
       menu:
-        type: tab
+        type: none
         title: 'VAMC System Service Audit'
         description: ''
         expanded: false
@@ -10591,7 +10591,7 @@ display:
         pager: false
       path: admin/content/facilities/vamc-systems
       menu:
-        type: tab
+        type: none
         title: 'VAMC systems'
         description: ''
         expanded: false
@@ -12477,7 +12477,7 @@ display:
     display_options:
       path: admin/content/facilities/vet-center-services
       menu:
-        type: tab
+        type: none
         title: 'Vet Center services'
         description: ''
         expanded: false
