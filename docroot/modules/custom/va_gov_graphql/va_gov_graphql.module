@@ -33,6 +33,10 @@ function va_gov_graphql_theme($existing, $type, $theme, $path) {
  *
  * This is a replacement for menu_ui_get_menus(), which was deprecated in
  * Drupal 9.3.0.
+ *
+ * @return array
+ *   An array with the machine-readable names as the keys, and human-readable
+ *   titles as the values.
  */
 function va_gov_graphql_get_menus() {
   // Load all the menus.
