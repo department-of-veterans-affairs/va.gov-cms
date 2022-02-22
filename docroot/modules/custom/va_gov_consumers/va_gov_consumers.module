@@ -13,6 +13,7 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
  */
 function va_gov_consumers_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   _vagov_consumers_modify_va_form_fields($form, $form_id, $form_state);
+  _vagov_consumers_modify_vamc_system_fields($form, $form_id, $form_state);
   _vagov_consumers_modify_vet_center_fields($form, $form_id, $form_state);
   _vagov_consumers_disable_vha_api_form_fields($form, $form_id);
   _vagov_consumers_disable_non_vha_facilities_api_form_fields($form, $form_id);
@@ -222,6 +223,31 @@ function _vagov_consumers_modify_vet_center_fields(array &$form, $form_id, FormS
 }
 
 /**
+ * Modify the display of the fields on vamc system form.
+ *
+ * @param array $form
+ *   A drupal form array by reference.
+ * @param string $form_id
+ *   The machine name for the form.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state by reference.
+ */
+function _vagov_consumers_modify_vamc_system_fields(array &$form, $form_id, FormStateInterface &$form_state) {
+
+  // We want to modify display of fields for specific form id's.
+  $external_content_form_ids = [
+    'node_health_care_region_page_form',
+    'node_health_care_region_page_edit_form',
+  ];
+
+  // We want to confirm we are on a specific form.
+  if (in_array($form_id, $external_content_form_ids)) {
+    _va_gov_consumers_disable_external_content_editing($form, $form_state, TRUE);
+  }
+
+}
+
+/**
  * Displays selected content as text, not form fields.
  *
  * Adds node rendered as 'external_content' to form and removes the first
@@ -231,14 +257,22 @@ function _vagov_consumers_modify_vet_center_fields(array &$form, $form_id, FormS
  *   The form content.
  * @param \Drupal\Core\Form\FormStateInterface $form_state
  *   The form state.
- * @param string $display_if_empty_field
- *   The field to check for empty.  If empty, external content fields appear.
+ * @param string|bool $display_if_empty_field
+ *   The field to check for empty. If empty, external content fields appear.
+ *   TRUE indicates absence of field and external content should appear.
  */
 function _va_gov_consumers_disable_external_content_editing(array &$form, FormStateInterface $form_state, $display_if_empty_field) {
   $node = $form_state->getformObject()->getEntity();
 
   $is_admin = in_array('administrator', \Drupal::currentUser()->getRoles());
-  $has_field_value = !empty($node->get($display_if_empty_field)->value);
+  // TRUE means to skip field value check.
+  if ($display_if_empty_field === TRUE) {
+    // TRUE indicates we need to use external content.
+    $has_field_value = TRUE;
+  }
+  else {
+    $has_field_value = !empty($node->get($display_if_empty_field)->value);
+  }
 
   // If the user is not admin or and there is migrated data, hide the fields.
   // We want admins to have access to fields in case they have to temporarily
@@ -263,7 +297,6 @@ function _va_gov_consumers_disable_external_content_editing(array &$form, FormSt
 
     $form['external_content'] = [
       '#markup' => \Drupal::service('renderer')->render($readonly_content),
-      '#weight' => 1,
     ];
 
     // We want to modify display of fields for specific node id's.
@@ -275,7 +308,15 @@ function _va_gov_consumers_disable_external_content_editing(array &$form, FormSt
     ];
 
     // We want the external content to appear in the fieldgroup
-    // group_locations_and_contact_info on specific node types.
+    // group_ehr_info on the bottom of system forms.
+    if ($node->getType() === 'health_care_region_page') {
+      $form['group_ehr_info']['#weight'] = 10;
+      $form['group_ehr_info']['external_content'] = $form['external_content'];
+      unset($form['external_content']);
+    }
+
+    // We want the external content to appear in the fieldgroup
+    // group_locations_and_contact_info on other node types.
     if (in_array($node->getType(), $external_content_node_ids)) {
       $form['group_locations_and_contact_info']['external_content'] = $form['external_content'];
       unset($form['external_content']);

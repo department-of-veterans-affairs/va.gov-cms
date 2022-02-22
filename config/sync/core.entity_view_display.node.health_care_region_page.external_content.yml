@@ -1,0 +1,168 @@
+uuid: 2e9b7b4d-143c-4039-8ef2-94a32fa2ceed
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.external_content
+    - field.field.node.health_care_region_page.field_administration
+    - field.field.node.health_care_region_page.field_appointments_online
+    - field.field.node.health_care_region_page.field_clinical_health_services
+    - field.field.node.health_care_region_page.field_description
+    - field.field.node.health_care_region_page.field_facebook
+    - field.field.node.health_care_region_page.field_flickr
+    - field.field.node.health_care_region_page.field_govdelivery_id_emerg
+    - field.field.node.health_care_region_page.field_govdelivery_id_news
+    - field.field.node.health_care_region_page.field_instagram
+    - field.field.node.health_care_region_page.field_intro_text
+    - field.field.node.health_care_region_page.field_media
+    - field.field.node.health_care_region_page.field_meta_tags
+    - field.field.node.health_care_region_page.field_operating_status
+    - field.field.node.health_care_region_page.field_other_va_locations
+    - field.field.node.health_care_region_page.field_related_links
+    - field.field.node.health_care_region_page.field_twitter
+    - field.field.node.health_care_region_page.field_va_health_connect_phone
+    - field.field.node.health_care_region_page.field_vamc_ehr_system
+    - field.field.node.health_care_region_page.field_vamc_system_official_name
+    - node.type.health_care_region_page
+  module:
+    - field_group
+    - layout_builder
+    - options
+    - telephone
+    - user
+third_party_settings:
+  field_group:
+    group_meta:
+      children:
+        - field_description
+      parent_name: ''
+      weight: 10
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: Meta
+      region: hidden
+    group_content:
+      children:
+        - field_appointments_online
+        - field_clinical_health_services
+        - field_intro_text
+        - field_media
+        - field_other_va_locations
+        - field_vamc_system_official_name
+      parent_name: ''
+      weight: 9
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: Content
+      region: hidden
+    group_blurbs_for_subpages:
+      children: {  }
+      parent_name: ''
+      weight: 8
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: 'Blurbs for subpages'
+      region: hidden
+    group_social_media_and_links:
+      children:
+        - field_facebook
+        - field_flickr
+        - field_instagram
+        - field_meta_tags
+        - field_operating_status
+        - field_related_links
+        - field_twitter
+      parent_name: ''
+      weight: 11
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+      label: 'Social media and links'
+      region: hidden
+    group_va_health_connect_and_heal:
+      children:
+        - field_va_health_connect_phone
+        - field_vamc_ehr_system
+      parent_name: group_va_health_connect
+      weight: 1
+      format_type: tooltip
+      region: content
+      format_settings:
+        show_empty_fields: '1'
+        show_label: '0'
+        tooltip_description: 'Why can''t I edit this? The VA Health Connect number comes from a centralized database. The health records system is managed by the Cerner transition team.  For questions, contact the CMS helpdesk. '
+        description: ''
+        id: ''
+        classes: 'not-editable '
+        element: div
+        label_element: h3
+        attributes: ''
+      label: tooltip
+    group_va_health_connect:
+      children:
+        - group_va_health_connect_and_heal
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      region: content
+      format_settings:
+        description: ''
+        show_empty_fields: true
+        id: ''
+        classes: ''
+      label: 'VA Health Connect and Health Records System'
+  layout_builder:
+    allow_custom: false
+    enabled: false
+id: node.health_care_region_page.external_content
+targetEntityType: node
+bundle: health_care_region_page
+mode: external_content
+content:
+  field_va_health_connect_phone:
+    type: telephone_link
+    weight: 21
+    region: content
+    label: above
+    settings:
+      title: ''
+    third_party_settings: {  }
+  field_vamc_ehr_system:
+    type: list_default
+    weight: 22
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  content_moderation_control: true
+  field_administration: true
+  field_appointments_online: true
+  field_clinical_health_services: true
+  field_description: true
+  field_facebook: true
+  field_flickr: true
+  field_govdelivery_id_emerg: true
+  field_govdelivery_id_news: true
+  field_instagram: true
+  field_intro_text: true
+  field_media: true
+  field_meta_tags: true
+  field_operating_status: true
+  field_other_va_locations: true
+  field_related_links: true
+  field_twitter: true
+  field_vamc_system_official_name: true
+  links: true
+  search_api_excerpt: true
