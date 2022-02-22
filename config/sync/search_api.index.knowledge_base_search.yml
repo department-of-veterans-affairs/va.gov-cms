@@ -21,7 +21,7 @@ field_settings:
     datasource_id: 'entity:node'
     property_path: field_content_block
     type: text
-    boost: 0.8
+    boost: !!float 0
     dependencies:
       config:
         - field.storage.node.field_content_block
@@ -30,6 +30,7 @@ field_settings:
     datasource_id: 'entity:node'
     property_path: field_intro_text
     type: text
+    boost: 0.2
     dependencies:
       config:
         - field.storage.node.field_intro_text
@@ -38,7 +39,7 @@ field_settings:
     datasource_id: 'entity:node'
     property_path: field_products
     type: text
-    boost: !!float 13
+    boost: 0.7
     dependencies:
       config:
         - field.storage.node.field_products
@@ -53,6 +54,7 @@ field_settings:
     label: 'Rendered HTML output'
     property_path: rendered_item
     type: text
+    boost: !!float 0
     configuration:
       roles:
         anonymous: anonymous
@@ -104,10 +106,12 @@ processor_settings:
     weights:
       preprocess_query: -30
   entity_status: {  }
+  entity_type: {  }
   highlight:
     highlight: always
     highlight_partial: true
     excerpt: true
+    excerpt_always: false
     excerpt_length: 256
     exclude_fields: {  }
     prefix: '<strong>'
@@ -115,13 +119,12 @@ processor_settings:
     weights:
       postprocess_query: 0
   html_filter:
-    all_fields: true
+    all_fields: false
     fields:
       - field_content_block
       - field_intro_text
       - field_products
       - rendered_item
-      - title
     title: true
     alt: true
     tags:
@@ -166,4 +169,5 @@ tracker_settings:
 options:
   index_directly: true
   cron_limit: 50
+  track_changes_in_references: true
 server: database

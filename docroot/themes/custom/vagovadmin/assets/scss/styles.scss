@@ -141,14 +141,14 @@
 
     .views-row {
       margin: 2em 0;
-  
+
       .location-details span:not(:first-child)::before {
         content: ', ';
       }
-  
+
       .address {
         margin-top: 0;
-  
+
         br,
         span {
           &:last-child {
@@ -420,6 +420,19 @@ p.vc-help-text {
 
     &:hover {
       opacity: 0.8;
+    }
+  }
+}
+
+#block-sitealert {
+  .site-alert {
+    a {
+      color: #004795;
+      text-decoration: underline;
+
+      &:hover {
+        color: #212121;
+      }
     }
   }
 }

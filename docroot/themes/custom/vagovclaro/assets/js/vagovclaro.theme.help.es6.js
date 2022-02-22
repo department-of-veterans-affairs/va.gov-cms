@@ -14,6 +14,7 @@
         content(reference) {
           return reference.getAttribute("data-proofing-help");
         },
+        allowHTML: true,
         theme: "tippy_popover",
       });
     },

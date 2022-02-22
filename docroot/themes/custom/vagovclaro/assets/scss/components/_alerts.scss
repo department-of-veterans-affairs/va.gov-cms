@@ -4,41 +4,41 @@
   border-left-width: 10px;
   box-sizing: border-box;
   color: var(--color-text);
-  padding: var(--space-l) var(--space-l) var(--space-l) var(--space-s);
+  padding: var(--space-l);
   vertical-align: middle;
   width: 100%;
 }
 
-.va-alert.messages--status {
-  background-color: var(--va-blue-light);
-  border-color: var(--va-blue-bright-med);
-}
-
-.va-alert.messages--status a {
-  background-color: var(--va-blue-light);
+.va-alert .messages__header {
+  display: none;
 }
 
 .va-alert.messages--warning {
   background-color: var(--va-gold-lightest);
   border-color: var(--va-gold-med);
+  @include alert-icon('../images/icons/warning-e29700.svg');
 }
 
 .va-alert.messages--warning a {
   background-color: var(--va-gold-lightest);
 }
 
-.va-alert.messages--success {
+.va-alert.messages--success,
+.va-alert.messages--status {
   background-color: var(--va-green-lightest);
   border-color: var(--va-green);
+  @include alert-icon('../images/icons/check-73b355.svg');
 }
 
-.va-alert.messages--success a {
+.va-alert.messages--success a,
+.va-alert.messages--status a {
   background-color: var(--va-green-lightest);
 }
 
 .va-alert.messages--error {
   background-color: var(--va-red-lightest);
   border-color: var(--va-red-bright);
+  @include alert-icon('../images/icons/error-e34f4f.svg');
 }
 
 .va-alert.messages--error a {
@@ -57,24 +57,24 @@
   width: 90%;
 }
 
+// hide default alert icons in favor of the toggle
+.node-link-report-list .va-alert::before {
+  display: none;
+}
+
+.node-link-report-list .va-alert .messages__header {
+  display: flex;
+}
+
 .node-link-report-list .messages__header {
   background: unset;
   margin-bottom: 0;
-  position: relative;
+
+  @include alert-icon("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3e%3cpath d='M5.21 1.314L3.79 2.723l5.302 5.353-5.303 5.354 1.422 1.408 6.697-6.762z' fill='%23212121'/%3e%3c/svg%3e");
 
   &::before {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3e%3cpath d='M5.21 1.314L3.79 2.723l5.302 5.353-5.303 5.354 1.422 1.408 6.697-6.762z' fill='%23212121'/%3e%3c/svg%3e");
-    background-size: contain;
-    content: '';
-    display: inline-block;
-    height: var(--space-m);
     left: 0;
-    margin-top: calc(var(--space-m)/-2);
-    position: absolute;
-    text-align: center;
-    top: 50%;
     transition: transform var(--details-transform-transition-duration) ease-in 0s;
-    width: var(--space-m);
   }
 }
 
