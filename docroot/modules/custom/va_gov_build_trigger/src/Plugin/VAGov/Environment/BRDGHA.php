@@ -86,21 +86,11 @@ class BRDGHA extends EnvironmentPluginBase {
     $front_end_git_ref = $front_end_git_ref ?? "master";
 
     try {
-      // Check first for a pending content-release workflow. If there is one
-      // pending, there's no need to trigger another job. We limit our check to
-      // today, as some jobs long past report as being pending.
-      $workflow_run_params = [
-        'status' => 'pending',
-        'created' => '>=' . date('Y-m-d'),
-      ];
-      $workflow_runs = $this->githubAdapter->listWorkflowRuns('content-release.yml', $workflow_run_params);
-      if (!empty($workflow_runs['total_count']) && $workflow_runs['total_count'] > 0) {
+      if ($this->pendingWorkflowRunExists()) {
         $vars = [
           '@job_link' => 'https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml',
         ];
-        // This message is intentional. We are reporting that the request has
-        // been processed, which is true.
-        $message = $this->t('Site rebuild request has been processed. Please visit <a href="@job_link">@job_link</a> to see status.', $vars);
+        $message = $this->t('An upcoming content release is already pending and will include these changes. Please visit <a href="@job_link">@job_link</a> to see content release status.', $vars);
       }
       else {
         $this->githubAdapter->triggerWorkflow('content-release.yml', $front_end_git_ref, [
@@ -110,13 +100,13 @@ class BRDGHA extends EnvironmentPluginBase {
         $vars = [
           '@job_link' => 'https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml',
         ];
-        $message = $this->t('Site rebuild request has been triggered. Please visit <a href="@job_link">@job_link</a> to see status.', $vars);
+        $message = $this->t('A content release request has been triggered. Please visit <a href="@job_link">@job_link</a> to see content release status.', $vars);
       }
       $this->messenger()->addStatus($message);
       $this->logger->info($message);
     }
     catch (\Throwable $exception) {
-      $message = $this->t('Site rebuild request has failed with an Exception. Check the logs for the job at <a href="@job_link">@job_link</a> for more information. If this is the PROD environment please notify in #cms-support Slack and please email support@va-gov.atlassian.net immediately with the error message you see here.', [
+      $message = $this->t('A content release request has failed with an Exception. Please visit <a href="@job_link">@job_link</a> for more information on the issue. If this is the PROD environment please notify in #cms-support Slack and please email support@va-gov.atlassian.net immediately with the error message you see here.', [
         '@job_link' => 'https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml',
       ]);
       $this->messenger()->addError($message);
@@ -139,6 +129,22 @@ class BRDGHA extends EnvironmentPluginBase {
    */
   public function getBuildTriggerFormClass() : string {
     return BrdBuildTriggerForm::class;
+  }
+
+  /**
+   * Check for a pending content-release workflow run.
+   */
+  private function pendingWorkflowRunExists() : bool {
+    // We limit our check to today, as some jobs long past report as being
+    // pending.
+    $workflow_run_params = [
+      'status' => 'pending',
+      'created' => '>=' . date('Y-m-d'),
+    ];
+    $workflow_runs = $this->githubAdapter->listWorkflowRuns('content-release.yml', $workflow_run_params);
+
+    // A well-formed response will have `total_count` set.
+    return !empty($workflow_runs['total_count']) && $workflow_runs['total_count'] > 0;
   }
 
 }
