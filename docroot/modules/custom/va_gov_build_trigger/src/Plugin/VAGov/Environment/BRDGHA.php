@@ -143,7 +143,7 @@ class BRDGHA extends EnvironmentPluginBase {
     catch (\Throwable $exception) {
       $this->handleBrdghaException($exception);
     }
-
+    return FALSE;
   }
 
   /**
