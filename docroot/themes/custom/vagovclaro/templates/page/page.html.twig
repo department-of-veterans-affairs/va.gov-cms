@@ -1,9 +1,12 @@
 {#
 /**
  * @file
- * Seven's theme implementation to display a single Drupal page.
+ * VAgovClaro's implementation of a single page.
  *
- * The doctype, html, head, and body tags are not in this template. Instead
+ * Nearly identical to claro's implementation, except the breadcrumbs have
+ * been moved to match the existing editor experience.
+ *
+ The doctype, html, head, and body tags are not in this template. Instead
  * they can be found in the html.html.twig template normally located in the
  * core/modules/system directory.
  *
@@ -39,39 +42,25 @@
  * @see html.html.twig
  */
 #}
-  <header class="content-header clearfix">
-    <div class="layout-container">
-      {{ page.header }}
-    </div>
-  </header>
-
+<header class="content-header clearfix">
   <div class="layout-container">
-    {{ page.pre_content }}
-    {{ page.breadcrumb }}
-
-    <div class="node-columns">
-      <main class="page-content clearfix" role="main">
-        <div class="visually-hidden"><a id="main-content" tabindex="-1"></a></div>
-        {{ page.highlighted }}
-
-        {% if page.help %}
-          {{ page.help }}
-        {% endif %}
-
-        {{ page.content }}
-      </main>
-
-      {% set has_sidebar_first = page.sidebar_first|render|striptags|trim is not empty %}
-      {% if has_sidebar_first %}
-        <aside class="layout-sidebar-first" role="complementary">
-          {{ page.sidebar_first }}
-        </aside>{# /.layout-sidebar-first #}
-      {% endif %}
-
-      {% if page.sidebar_second %}
-        <aside class="layout-sidebar-second" role="complementary">
-          {{ page.sidebar_second }}
-        </aside>{# /.layout-sidebar-second #}
-      {% endif %}
-    </div>
+    {{ page.header }}
   </div>
+</header>
+
+<div class="layout-container">
+  {{ page.breadcrumb }}
+  {{ page.pre_content }}
+
+  <main class="page-content clearfix" role="main">
+    <div class="visually-hidden"><a id="main-content" tabindex="-1"></a></div>
+    {{ page.highlighted }}
+    {% if page.help %}
+      <div class="help">
+        {{ page.help }}
+      </div>
+    {% endif %}
+    {{ page.content }}
+  </main>
+
+</div>

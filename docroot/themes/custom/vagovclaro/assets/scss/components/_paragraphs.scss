@@ -34,8 +34,9 @@
   margin-top: 0;
 }
 
+// align top-level paragraph field dropdown with individual paragraphs dropdowns
 .js .field--widget-paragraphs th .paragraphs-actions {
-  margin-right: 0;
+  margin-right: calc(var(--spacing-m) * -1);
 }
 
 .paragraphs-browser-paragraph-type {
@@ -68,6 +69,10 @@
 
   .js-filter-wrapper {
     margin-bottom: 0;
+  }
+
+  .button--small {
+    margin-top: 0;
   }
 
   .js-text-full,

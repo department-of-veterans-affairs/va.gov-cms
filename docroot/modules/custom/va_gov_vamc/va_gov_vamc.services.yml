@@ -7,3 +7,10 @@ services:
   va_gov_vamc.content_hardening_deduper:
     class: Drupal\va_gov_vamc\Service\ContentHardeningDeduper
     arguments: ['@current_user', '@entity_type.manager', '@logger.factory', '@messenger']
+  va_gov_vamc.route_subscriber:
+    class: Drupal\va_gov_vamc\Routing\AutocompleteRouteSubscriber
+    tags:
+      - { name: event_subscriber }
+  va_gov_vamc.autocomplete_matcher:
+    class: Drupal\va_gov_vamc\EntityAutocompleteMatcher
+    arguments: ['@entity.repository', '@entity_type.manager', '@plugin.manager.entity_reference_selection']
