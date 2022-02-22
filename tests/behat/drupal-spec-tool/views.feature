@@ -25,7 +25,6 @@ Feature: Views
 | Content release logs | content_release_logs | Log entries | Enabled | Shows content release job log entries |
 | Date fields | date_fields | Content | Disabled |  |
 | Detail page URL audit and bulk udpate | detail_page_url_audit_and_bulk_udpate | Content | Enabled | For bulk updating URL aliases for VAMC detail pages. |
-| Facility Governance | facility_governance | Content | Enabled | Provides facility management tools. |
 | Facility Services | facility_services | Content | Enabled |  |
 | Files | files | Files | Enabled | Find and manage files. |
 | File browsers | file_browsers | Media | Enabled |  |
@@ -105,11 +104,6 @@ Feature: Views
 | Content | Resources and support landing page | resources_and_support_landing_page_block | Block |
 | Content | Content audit CSV export | content_audit_csv_export | Data export |
 | Content | Content audit tools | content_audit_page | Page |
-| Content | Facilities | content_audit_facilities | Page |
-| Content | Facilities export | content_audit_facilities_export | Data export |
-| Content | VAMC EHR | vamc_ehr | Page |
-| Content | VAMC System Service Audit | vamc_system_service_audit_page | Page |
-| Content | VAMC System Service Audit Export | vamc_system_service_audit_export | Data export |
 | Content entity browsers | Master | default | Default |
 | Content entity browsers | Event entity browser | event_entity_browser | Entity browser |
 | Content entity browsers | Q&A entity browser | entity_browser_1 | Entity browser |
@@ -133,13 +127,17 @@ Feature: Views
 | Detail page URL audit and bulk udpate | CSV export | data_export_1 | Data export |
 | Detail page URL audit and bulk udpate | Master | default | Default |
 | Detail page URL audit and bulk udpate | Audit page | audit_page | Page |
-| Facility Governance | Master | default | Default |
-| Facility Governance | Page | page_1 | Page |
 | Facility Services | Master | default | Default |
+| Facility Services | Facilities | content_audit_facilities | Page |
+| Facility Services | Facilities export | content_audit_facilities_export | Data export |
+| Facility Services | Facility Status | facility_status_page | Page |
 | Facility Services | VAMC facility health services | vamc_facility_health_services_page | Page |
 | Facility Services | VAMC facility health services export | vamc_facility_health_services_export | Data export |
 | Facility Services | VAMC facility non-clinical services | vamc_facility_non_clinical_services_page | Page |
 | Facility Services | VAMC facility non-clinical services export | vamc_facility_non_clinical_services_export | Data export |
+| Facility Services | VAMC System Service Audit | vamc_system_service_audit_page | Page |
+| Facility Services | VAMC System Service Audit Export | vamc_system_service_audit_export | Data export |
+| Facility Services | VAMC systems | vamc_systems | Page |
 | Facility Services | Vet Center services | vet_center_services_page | Page |
 | Facility Services | Vet Center services export | vet_center_services_export | Data export |
 | Files | Master | default | Default |

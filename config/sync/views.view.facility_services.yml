@@ -1883,13 +1883,18 @@ display:
           entity_field: name
           plugin_id: term_name
       menu:
-        type: none
+        type: tab
         title: Facilities
         description: ''
         expanded: true
         parent: system.admin_content
         weight: 0
         context: '1'
+        as_local_task: false
+        local_task_link_title: Facilities
+        local_task_parent: 'views_view:view.facility_services.content_audit_facilities'
+        local_task_custom_parent_route: ''
+        local_task_weight: 0
         menu_name: admin
       tab_options:
         type: tab
@@ -2496,13 +2501,18 @@ display:
         sorts: false
       path: admin/content/facilities/facility-status
       menu:
-        type: none
+        type: tab
         title: 'Facility Status'
         description: ''
         expanded: false
-        parent: ''
-        weight: 1
-        context: '1'
+        parent: system.admin_content
+        weight: 0
+        context: '0'
+        as_local_task: true
+        local_task_link_title: 'Facility Status'
+        local_task_parent: 'views_view:view.facility_services.content_audit_facilities'
+        local_task_custom_parent_route: ''
+        local_task_weight: 1
         menu_name: admin
       empty:
         area_text_custom:
@@ -5113,13 +5123,18 @@ display:
     display_options:
       path: admin/content/facilities/vamc-facility-health-services
       menu:
-        type: none
+        type: tab
         title: 'VAMC facility health services'
         description: ''
         expanded: false
         parent: system.admin
-        weight: 9
+        weight: null
         context: '0'
+        as_local_task: true
+        local_task_link_title: 'VAMC facility health services'
+        local_task_parent: 'views_view:view.facility_services.content_audit_facilities'
+        local_task_custom_parent_route: ''
+        local_task_weight: 4
         menu_name: admin
       tab_options:
         type: none
@@ -7842,13 +7857,18 @@ display:
     display_options:
       path: admin/content/facilities/vamc-facility-non-clinical-services
       menu:
-        type: none
+        type: tab
         title: 'VAMC facility non-clinical services'
         description: ''
         expanded: false
         parent: system.admin
-        weight: 10
+        weight: 0
         context: '0'
+        as_local_task: true
+        local_task_link_title: 'VAMC facility non-clinical services'
+        local_task_parent: 'views_view:view.facility_services.content_audit_facilities'
+        local_task_custom_parent_route: ''
+        local_task_weight: 5
         menu_name: admin
       tab_options:
         type: normal
@@ -10550,13 +10570,18 @@ display:
           content: "<p>This view is only available to admins.</p>\r\n\r\n\r\n<p>Displaying @start - @end of @total</p>"
           plugin_id: result
       menu:
-        type: none
+        type: tab
         title: 'VAMC System Service Audit'
         description: ''
         expanded: false
         parent: ''
-        weight: 15
+        weight: null
         context: '0'
+        as_local_task: true
+        local_task_link_title: 'VAMC System Service Audit'
+        local_task_parent: 'views_view:view.facility_services.content_audit_facilities'
+        local_task_custom_parent_route: ''
+        local_task_weight: 3
         menu_name: admin
     cache_metadata:
       max-age: -1
@@ -10591,13 +10616,18 @@ display:
         pager: false
       path: admin/content/facilities/vamc-systems
       menu:
-        type: none
+        type: tab
         title: 'VAMC systems'
         description: ''
         expanded: false
         parent: ''
-        weight: 20
+        weight: null
         context: '0'
+        as_local_task: true
+        local_task_link_title: 'VAMC systems'
+        local_task_parent: 'views_view:view.facility_services.content_audit_facilities'
+        local_task_custom_parent_route: ''
+        local_task_weight: 2
         menu_name: admin
       relationships:
         uid:
@@ -12477,13 +12507,18 @@ display:
     display_options:
       path: admin/content/facilities/vet-center-services
       menu:
-        type: none
+        type: tab
         title: 'Vet Center services'
         description: ''
         expanded: false
         parent: system.admin
-        weight: 11
+        weight: 0
         context: '0'
+        as_local_task: true
+        local_task_link_title: 'Vet Center services'
+        local_task_parent: 'views_view:view.facility_services.content_audit_facilities'
+        local_task_custom_parent_route: ''
+        local_task_weight: 6
         menu_name: admin
       tab_options:
         type: normal
