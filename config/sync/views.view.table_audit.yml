@@ -8,11 +8,15 @@ dependencies:
     - taxonomy.vocabulary.administration
   module:
     - content_moderation
+    - csv_serialization
     - entity_reference_revisions
     - node
     - paragraphs
+    - rest
+    - serialization
     - taxonomy
     - user
+    - views_data_export
 id: table_audit
 label: 'Table Audit'
 module: views
@@ -994,6 +998,48 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_administration'
+        - 'config:field.storage.node.field_content_block'
+        - 'config:workflow_list'
+  tables_usage_export:
+    display_plugin: data_export
+    id: tables_usage_export
+    display_title: 'Data export'
+    position: 2
+    display_options:
+      display_extenders: {  }
+      path: admin/content/audit/tables-usage-audit.csv
+      filename: tables-usage-audit.csv
+      automatic_download: false
+      store_in_public_file_directory: null
+      redirect_to_display: none
+      custom_redirect_path: false
+      include_query_params: false
+      style:
+        type: data_export
+        options:
+          formats:
+            csv: csv
+          csv_settings:
+            delimiter: ','
+            enclosure: '"'
+            escape_char: \
+            strip_tags: true
+            trim: true
+            encoding: utf8
+            utf8_bom: '0'
+            use_serializer_encode_only: false
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - request_format
+        - url
         - user
         - 'user.node_grants:view'
         - user.permissions
