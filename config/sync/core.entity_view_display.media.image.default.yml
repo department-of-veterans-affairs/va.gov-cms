@@ -20,47 +20,47 @@ bundle: image
 mode: default
 content:
   field_description:
-    weight: 4
+    type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    weight: 4
     region: content
   field_media_in_library:
     type: boolean
-    weight: 2
-    region: content
     label: hidden
     settings:
       format: default
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
+    weight: 2
+    region: content
   field_owner:
-    weight: 3
+    type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 3
     region: content
   image:
     type: image
-    weight: 1
     label: hidden
     settings:
-      image_style: full_content_width
       image_link: content
+      image_style: full_content_width
     third_party_settings: {  }
+    weight: 1
     region: content
   name:
     type: string
-    weight: 0
-    region: content
     label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 0
+    region: content
 hidden:
   created: true
   field_media_submission_guideline: true

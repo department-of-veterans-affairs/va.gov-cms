@@ -24,17 +24,17 @@ third_party_settings:
     group_governance:
       children:
         - field_owner
+      label: 'Section settings'
+      region: hidden
       parent_name: ''
       weight: 8
       format_type: details_sidebar
       format_settings:
-        weight: 0
-        required_fields: true
-        id: ''
         classes: ''
+        id: ''
         open: false
-      label: 'Section settings'
-      region: hidden
+        required_fields: true
+        weight: 0
     group_vet_center:
       children:
         - field_vet_center_type_of_care
@@ -42,18 +42,18 @@ third_party_settings:
         - field_vet_center_com_conditions
         - field_vet_center_service_descrip
         - field_vet_center_required_servic
+      label: 'Vet Center'
+      region: content
       parent_name: ''
       weight: 5
       format_type: details
-      region: content
       format_settings:
-        description: 'Add content to these fields if you want to "override" how the service is described on Vet Center pages.'
-        open: true
-        required_fields: true
-        id: ''
         classes: ''
         show_empty_fields: false
-      label: 'Vet Center'
+        id: ''
+        open: true
+        description: 'Add content to these fields if you want to "override" how the service is described on Vet Center pages.'
+        required_fields: true
     group_vamc:
       children:
         - field_service_type_of_care
@@ -61,18 +61,18 @@ third_party_settings:
         - field_also_known_as
         - field_commonly_treated_condition
         - description
+      label: VAMC
+      region: content
       parent_name: ''
       weight: 4
       format_type: details
-      region: content
       format_settings:
-        description: 'These values act as the default values for VHA health services, but can be overridden for Vet Centers, below.'
-        open: true
-        required_fields: true
-        id: ''
         classes: ''
         show_empty_fields: false
-      label: VAMC
+        id: ''
+        open: true
+        description: 'These values act as the default values for VHA health services, but can be overridden for Vet Centers, below.'
+        required_fields: true
 id: taxonomy_term.health_care_service_taxonomy.default
 targetEntityType: taxonomy_term
 bundle: health_care_service_taxonomy
@@ -83,83 +83,83 @@ content:
     weight: 11
     region: content
     settings:
-      placeholder: ''
       rows: 5
+      placeholder: ''
     third_party_settings: {  }
   field_also_known_as:
+    type: string_textfield
     weight: 9
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_commonly_treated_condition:
+    type: string_textfield
     weight: 10
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_health_service_api_id:
+    type: string_textfield
     weight: 1
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_service_type_of_care:
+    type: options_select
     weight: 7
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   field_vet_center_com_conditions:
+    type: string_textfield
     weight: 10
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_vet_center_friendly_name:
+    type: string_textfield
     weight: 9
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_vet_center_required_servic:
+    type: boolean_checkbox
     weight: 12
+    region: content
     settings:
       display_label: true
     third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
   field_vet_center_service_descrip:
+    type: string_textarea
     weight: 11
+    region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-    type: string_textarea
-    region: content
   field_vet_center_type_of_care:
+    type: options_select
     weight: 8
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   field_vha_healthservice_stopcode:
+    type: number
     weight: 2
+    region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
-    type: number
-    region: content
   name:
     type: string_textfield
     weight: 0

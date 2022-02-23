@@ -17,27 +17,27 @@ mode: default
 content:
   account:
     weight: -10
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
   field_last_password_reset:
     type: datetime_default
     weight: 4
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
   field_password_expiration:
     type: boolean_checkbox
     weight: 3
+    region: content
     settings:
       display_label: true
     third_party_settings: {  }
-    region: content
   language:
     weight: 0
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
   path:
     type: path
     weight: 30
@@ -46,13 +46,13 @@ content:
     third_party_settings: {  }
   simplesamlphp_auth_user_enable:
     weight: 0
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
   timezone:
     weight: 6
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
 hidden:
   field_pending_expire_sent: true

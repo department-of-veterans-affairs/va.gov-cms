@@ -2,7 +2,12 @@ uuid: 5df937f8-ed94-4360-bde8-0b04825d3376
 langcode: en
 status: true
 dependencies:
+  config:
+    - node.type.vet_center_cap
+    - node.type.vet_center_facility_health_servi
   module:
+    - node
+    - node_link_report
     - va_gov_backend
 third_party_settings:
   va_gov_backend:

@@ -24,30 +24,30 @@ third_party_settings:
       children:
         - field_meta_title
         - field_meta_tags
+      label: 'Meta tags'
       parent_name: ''
+      region: content
       weight: 0
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-      label: 'Meta tags'
-      region: content
 id: node.office.default
 targetEntityType: node
 bundle: office
 mode: default
 content:
   field_description:
-    weight: 1
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 1
     region: content
   field_email_updates_link:
-    weight: 8
+    type: link
     label: above
     settings:
       trim_length: 80
@@ -56,10 +56,10 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    type: link
+    weight: 8
     region: content
   field_external_link:
-    weight: 9
+    type: link
     label: above
     settings:
       trim_length: 80
@@ -68,31 +68,31 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    type: link
+    weight: 9
     region: content
   field_meta_tags:
-    weight: 5
+    type: metatag_empty_formatter
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: metatag_empty_formatter
+    weight: 5
     region: content
   field_meta_title:
-    weight: 4
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 4
     region: content
   field_social_media_links:
-    weight: 6
+    type: social_media_links_field_default
     label: above
     settings:
       appearance: {  }
       link_attributes: {  }
     third_party_settings: {  }
-    type: social_media_links_field_default
+    weight: 6
     region: content
 hidden:
   content_moderation_control: true

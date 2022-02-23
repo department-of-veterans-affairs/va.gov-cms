@@ -13,21 +13,21 @@ bundle: media_list_videos
 mode: user_guides
 content:
   field_section_header:
-    weight: 0
+    type: string
     label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 0
     region: content
   field_videos:
     type: entity_reference_entity_view
-    weight: 3
     label: hidden
     settings:
       view_mode: user_guides
       link: false
     third_party_settings: {  }
+    weight: 3
     region: content
 hidden:
   search_api_excerpt: true

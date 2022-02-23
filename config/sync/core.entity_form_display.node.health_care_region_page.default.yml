@@ -37,265 +37,267 @@ third_party_settings:
     group_governance:
       children:
         - field_administration
+      label: 'Section settings'
+      region: content
       parent_name: ''
       weight: 9
       format_type: details_sidebar
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         open: true
         required_fields: true
         weight: -10
-      label: 'Section settings'
-      region: content
     group_editorial_workflow:
       children:
         - moderation_state
         - revision_log
+      label: 'Editorial Workflow'
+      region: content
       parent_name: ''
       weight: 10
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: false
-      label: 'Editorial Workflow'
-      region: content
     group_intro_text_for_secondary_p:
       children:
         - field_other_va_locations
+      label: 'Our Locations'
+      region: content
       parent_name: ''
       weight: 6
       format_type: details
       format_settings:
+        classes: ''
+        id: ''
+        open: false
         description: "<p>To add locations to the \"Our Locations\" page, <a href=\"/node/add/health_care_local_facility\">create a facility listing</a> for each one.This section also allows you to add other content to the \"Our Locations\" page.</p>\r\n\r\n\r\n"
         required_fields: true
-        id: ''
-        classes: ''
-        open: false
-      label: 'Our Locations'
-      region: content
     group_additional_details_about_t:
       children:
         - group_online_appointments
         - field_related_links
+      label: 'Additional details about the region'
+      region: content
       parent_name: ''
       weight: 8
       format_type: details
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         open: false
         required_fields: false
-      label: 'Additional details about the region'
-      region: content
     group_online_appointments:
       children:
         - field_appointments_online
+      label: 'Online appointments'
+      region: content
       parent_name: group_additional_details_about_t
       weight: 20
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: false
-      label: 'Online appointments'
-      region: content
     group_get_updates_from_us:
       children:
         - field_operating_status
         - group_govdelivery_email_lists
         - group_s
+      label: 'Email lists and social media'
+      region: content
       parent_name: ''
       weight: 7
       format_type: details
       format_settings:
+        classes: ''
+        id: ''
+        open: false
         description: 'This will populate the "Get updates" from us block on the health care system page and its facility pages. '
         required_fields: true
-        id: ''
-        classes: ''
-        open: false
-      label: 'Email lists and social media'
-      region: content
     group_s:
       children:
         - field_facebook
         - field_twitter
         - field_instagram
         - field_flickr
+      label: 'Social Media'
+      region: content
       parent_name: group_get_updates_from_us
       weight: 39
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
-        open: false
-        required_fields: true
+        id: ''
         description: ''
-      label: 'Social Media'
-      region: content
+        required_fields: true
+        open: false
     group_title_and_summary:
       children:
         - title
         - field_vamc_system_official_name
         - field_intro_text
+      label: 'Title and summary'
+      region: content
       parent_name: ''
       weight: 0
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: false
-      label: 'Title and summary'
-      region: content
     group_govdelivery_email_lists:
       children:
         - field_govdelivery_id_emerg
         - field_govdelivery_id_news
+      label: 'GovDelivery email lists'
+      region: content
       parent_name: group_get_updates_from_us
       weight: 38
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: 'For each of these fields, the topic_id that’s found at the end of the URL used to subscribe to GovDelivery emails. For example, if the URL is https://public.govdelivery.com/accounts/USVHA/subscriber/new?topic_id=1234, enter “1234”.'
         required_fields: true
-      label: 'GovDelivery email lists'
-      region: content
     group_meta_tags:
       children:
         - field_description
+      label: 'Meta tags'
+      region: content
       parent_name: ''
       weight: 1
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: true
-      label: 'Meta tags'
-      region: content
 id: node.health_care_region_page.default
 targetEntityType: node
 bundle: health_care_region_page
 mode: default
 content:
   field_administration:
+    type: options_select
     weight: 10
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   field_appointments_online:
+    type: boolean_checkbox
     weight: 21
+    region: content
     settings:
       display_label: true
     third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
   field_description:
+    type: string_textfield_with_counter
     weight: 5
+    region: content
     settings:
       size: 60
       placeholder: ''
+      use_field_maxlength: false
       maxlength: 300
       counter_position: after
-      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
-      use_field_maxlength: false
       js_prevent_submit: false
       count_html_characters: false
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
-    type: string_textfield_with_counter
-    region: content
   field_facebook:
+    type: linkit
     weight: 14
+    region: content
     settings:
       placeholder_url: ''
       placeholder_title: ''
       linkit_profile: default
       linkit_auto_link_text: false
     third_party_settings: {  }
-    type: linkit
-    region: content
   field_flickr:
+    type: linkit
     weight: 18
+    region: content
     settings:
       placeholder_url: ''
       placeholder_title: ''
       linkit_profile: default
       linkit_auto_link_text: false
     third_party_settings: {  }
-    type: linkit
-    region: content
   field_govdelivery_id_emerg:
+    type: string_textfield
     weight: 27
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_govdelivery_id_news:
+    type: string_textfield
     weight: 28
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_instagram:
+    type: linkit
     weight: 17
+    region: content
     settings:
       placeholder_url: ''
       placeholder_title: ''
       linkit_profile: default
       linkit_auto_link_text: false
     third_party_settings: {  }
-    type: linkit
-    region: content
   field_intro_text:
+    type: string_textarea_with_counter
     weight: 5
+    region: content
     settings:
       rows: 5
       placeholder: ''
       maxlength: 600
       counter_position: after
-      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
       js_prevent_submit: false
       count_html_characters: false
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
-    type: string_textarea_with_counter
-    region: content
   field_media:
     type: media_library_widget
     weight: 2
+    region: content
     settings:
       media_types: {  }
-    region: content
     third_party_settings: {  }
   field_operating_status:
+    type: linkit
     weight: 37
+    region: content
     settings:
       placeholder_url: ''
       placeholder_title: ''
       linkit_profile: default
       linkit_auto_link_text: true
     third_party_settings: {  }
-    type: linkit
-    region: content
   field_other_va_locations:
+    type: string_textfield
     weight: 11
+    region: content
     settings:
       size: 60
       placeholder: vha_
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_related_links:
+    type: paragraphs
     weight: 22
+    region: content
     settings:
       title: Link
       title_plural: Links
@@ -311,31 +313,29 @@ content:
         collapse_edit_all: collapse_edit_all
         duplicate: '0'
     third_party_settings: {  }
-    type: paragraphs
-    region: content
   field_twitter:
+    type: linkit
     weight: 16
+    region: content
     settings:
       placeholder_url: ''
       placeholder_title: ''
       linkit_profile: default
       linkit_auto_link_text: false
     third_party_settings: {  }
-    type: linkit
-    region: content
   field_vamc_system_official_name:
+    type: string_textfield
     weight: 2
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   moderation_state:
     type: moderation_state_default
     weight: 8
-    settings: {  }
     region: content
+    settings: {  }
     third_party_settings: {  }
   path:
     type: path
@@ -345,10 +345,10 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 5
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   title:
     type: string_textfield

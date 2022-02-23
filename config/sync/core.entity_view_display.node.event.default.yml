@@ -36,15 +36,15 @@ third_party_settings:
     group_meta:
       children:
         - field_description
+      label: Meta
       parent_name: ''
+      region: content
       weight: 0
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-      label: Meta
-      region: content
     group_c:
       children:
         - field_datetime_range_timezone
@@ -54,151 +54,151 @@ third_party_settings:
         - field_event_cta
         - group_location
         - group_registration_related
+      label: Content
       parent_name: ''
+      region: content
       weight: 1
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-      label: Content
-      region: content
     group_location:
       children:
         - field_location_humanreadable
         - field_address
         - field_location_type
         - field_facility_location
+      label: Location-related
       parent_name: group_c
+      region: content
       weight: 28
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-      label: Location-related
-      region: content
     group_registration_related:
       children:
         - field_link
         - field_event_registrationrequired
         - field_event_cost
         - field_additional_information_abo
+      label: 'Registration related'
       parent_name: group_c
+      region: content
       weight: 29
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-      label: 'Registration related'
-      region: content
     group_curation:
       children:
         - field_featured
         - field_order
+      label: Curation
       parent_name: ''
+      region: content
       weight: 2
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-        open: false
         required_fields: false
-      label: Curation
-      region: content
+        open: false
 id: node.event.default
 targetEntityType: node
 bundle: event
 mode: default
 content:
   field_additional_information_abo:
-    weight: 29
+    type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 29
     region: content
   field_address:
-    weight: 15
+    type: address_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: address_default
+    weight: 15
     region: content
   field_body:
-    weight: 25
+    type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 25
     region: content
   field_datetime_range_timezone:
     type: smartdate_default
-    weight: 23
-    region: content
     label: above
     settings:
+      timezone_override: ''
+      format_type: medium
       format: default
       force_chronological: false
-      format_type: medium
-      timezone_override: ''
-      add_classes: 0
+      add_classes: false
     third_party_settings: {  }
+    weight: 23
+    region: content
   field_description:
-    weight: 15
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 15
     region: content
   field_event_cost:
-    weight: 20
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 20
     region: content
   field_event_cta:
-    weight: 27
+    type: list_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: list_default
+    weight: 27
     region: content
   field_event_registrationrequired:
-    weight: 18
+    type: boolean
     label: above
     settings:
       format: default
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    type: boolean
+    weight: 18
     region: content
   field_facility_location:
-    weight: 17
+    type: entity_reference_label
     label: above
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 17
     region: content
   field_featured:
-    weight: 30
+    type: boolean
     label: above
     settings:
       format: default
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    type: boolean
+    weight: 30
     region: content
   field_link:
-    weight: 17
+    type: link
     label: above
     settings:
       trim_length: 80
@@ -207,41 +207,41 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    type: link
+    weight: 17
     region: content
   field_location_humanreadable:
-    weight: 14
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 14
     region: content
   field_location_type:
-    weight: 16
+    type: list_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: list_default
+    weight: 16
     region: content
   field_media:
-    weight: 24
+    type: entity_reference_entity_view
     label: above
     settings:
       view_mode: default
       link: false
     third_party_settings: {  }
-    type: entity_reference_entity_view
+    weight: 24
     region: content
   field_order:
-    weight: 31
+    type: list_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: list_default
+    weight: 31
     region: content
   field_url_of_an_online_event:
-    weight: 26
+    type: link
     label: above
     settings:
       trim_length: 80
@@ -250,7 +250,7 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    type: link
+    weight: 26
     region: content
 hidden:
   content_moderation_control: true
