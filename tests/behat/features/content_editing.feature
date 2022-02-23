@@ -74,7 +74,6 @@ Feature: CMS Users may effectively create & edit content
     # Confirm that the va.gov url is not shown for nodes without a published revision.
     Then I should see "Content Type: Office" in the "#block-entitymetadisplay" element
     And I should not see "VA.gov URL" in the "#block-entitymetadisplay" element
-    And I should not see "VA.gov URL" in the "#block-vagovclaro-entitymetadisplay" element
 
     # Publish the node.
     Then I visit the "edit" page for a node with the title "Test Office - BeHaT"
@@ -84,8 +83,8 @@ Feature: CMS Users may effectively create & edit content
 
     # Confirm that the va.gov url is shown for nodes with a published revision.
     Then I should see "Published" in the ".view-right-sidebar-latest-revision" element
-    And I should see "VA.gov URL" in the "#block-vagovclaro-entitymetadisplay" element
-    And I should not see "(pending)" in the "#block-vagovclaro-entitymetadisplay" element
+    And I should see "VA.gov URL" in the "#block-entitymetadisplay" element
+    And I should not see "(pending)" in the "#block-entitymetadisplay" element
 
     # Confirm that the va.gov url is not clickable when updating a node.
     Then I visit the "edit" page for a node with the title "Test Office - BeHaT"
@@ -93,7 +92,7 @@ Feature: CMS Users may effectively create & edit content
     And I select "Published" from "edit-moderation-state-0-state"
     And I fill in "Revision log message" with "Test publishing"
     And I press "Save"
-    And I should see "VA.gov URL" in the "#block-vagovclaro-entitymetadisplay" element
+    And I should see "VA.gov URL" in the "#block-entitymetadisplay" element
 
     # (Re-)Publish the node.
     Then I visit the "edit" page for a node with the title "Test Office - BeHaT 404"
@@ -108,8 +107,8 @@ Feature: CMS Users may effectively create & edit content
     And I fill in "Revision log message" with "Test archiving"
     And I press "Save"
     Then I should see "has been updated."
-    And I should see "Content Type: Office" in the "#block-vagovclaro-entitymetadisplay" element
-    And I should not see "VA.gov URL" in the "#block-vagovclaro-entitymetadisplay" element
+    And I should see "Content Type: Office" in the "#block-entitymetadisplay" element
+    And I should not see "VA.gov URL" in the "#block-entitymetadisplay" element
 
   @content_editing
   Scenario: Confirm that press release country fields are shown correctly
