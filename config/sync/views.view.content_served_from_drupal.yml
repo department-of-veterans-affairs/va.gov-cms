@@ -30,102 +30,12 @@ base_table: node_field_data
 base_field: nid
 display:
   default:
-    display_plugin: default
     id: default
     display_title: Master
+    display_plugin: default
     position: 0
     display_options:
-      access:
-        type: perm
-        options:
-          perm: 'access content'
-      cache:
-        type: tag
-        options: {  }
-      query:
-        type: views_query
-        options:
-          disable_sql_rewrite: false
-          distinct: false
-          replica: false
-          query_comment: ''
-          query_tags: {  }
-      exposed_form:
-        type: basic
-        options:
-          submit_button: Apply
-          reset_button: false
-          reset_button_label: Reset
-          exposed_sorts_label: 'Sort by'
-          expose_sort_order: true
-          sort_asc_label: Asc
-          sort_desc_label: Desc
-      pager:
-        type: mini
-        options:
-          items_per_page: 500
-          offset: 0
-          id: 0
-          total_pages: null
-          expose:
-            items_per_page: false
-            items_per_page_label: 'Items per page'
-            items_per_page_options: '5, 10, 25, 50'
-            items_per_page_options_all: false
-            items_per_page_options_all_label: '- All -'
-            offset: false
-            offset_label: Offset
-          tags:
-            previous: ‹‹
-            next: ››
-      style:
-        type: table
-        options:
-          grouping: {  }
-          row_class: ''
-          default_row_class: true
-          override: true
-          sticky: false
-          caption: ''
-          summary: ''
-          description: ''
-          columns:
-            view_node: view_node
-            title: title
-            field_administration: field_administration
-          info:
-            view_node:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            title:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_administration:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-          default: '-1'
-          empty_table: false
-      row:
-        type: fields
-        options:
-          default_field_elements: true
-          inline:
-            title: title
-            view_node: view_node
-          separator: ' | '
-          hide_empty: false
+      title: 'Content served from Drupal'
       fields:
         view_node:
           id: view_node
@@ -134,6 +44,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: node
+          plugin_id: entity_link
           label: URL
           exclude: false
           alter:
@@ -178,8 +90,6 @@ display:
           text: view
           output_url_as_text: true
           absolute: false
-          entity_type: node
-          plugin_id: entity_link
         title:
           id: title
           table: node_field_data
@@ -187,6 +97,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: node
+          entity_field: title
+          plugin_id: field
           label: Title
           exclude: false
           alter:
@@ -242,9 +155,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: node
-          entity_field: title
-          plugin_id: field
         field_administration:
           id: field_administration
           table: node__field_administration
@@ -252,6 +162,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: field
           label: Section
           exclude: false
           alter:
@@ -307,21 +218,86 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
+      pager:
+        type: mini
+        options:
+          offset: 0
+          items_per_page: 500
+          total_pages: null
+          id: 0
+          tags:
+            next: ››
+            previous: ‹‹
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
+      exposed_form:
+        type: basic
+        options:
+          submit_button: Apply
+          reset_button: false
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      access:
+        type: perm
+        options:
+          perm: 'access content'
+      cache:
+        type: tag
+        options: {  }
+      empty: {  }
+      sorts:
+        field_administration_target_id:
+          id: field_administration_target_id
+          table: node__field_administration
+          field: field_administration_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: standard
+          order: ASC
+          expose:
+            label: ''
+            field_identifier: field_administration_target_id
+          exposed: false
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: title
+          plugin_id: standard
+          order: ASC
+          expose:
+            label: ''
+            field_identifier: title
+          exposed: false
+      arguments: {  }
       filters:
         status:
-          value: '1'
+          id: status
           table: node_field_data
           field: status
-          plugin_id: boolean
           entity_type: node
           entity_field: status
-          id: status
+          plugin_id: boolean
+          value: '1'
+          group: 1
           expose:
             operator: ''
             operator_limit_selection: false
             operator_list: {  }
-          group: 1
         type:
           id: type
           table: node_field_data
@@ -329,6 +305,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
           operator: in
           value:
             page: page
@@ -347,6 +326,8 @@ display:
             description: ''
             use_operator: false
             operator: type_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: type
             required: true
             remember: false
@@ -365,8 +346,6 @@ display:
               administrator: '0'
             reduce: true
             argument: ''
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -379,9 +358,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
         title:
           id: title
           table: node_field_data
@@ -389,6 +365,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: node
+          entity_field: title
+          plugin_id: string
           operator: contains
           value: ''
           group: 1
@@ -399,6 +378,8 @@ display:
             description: ''
             use_operator: false
             operator: title_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: title
             required: false
             remember: false
@@ -416,8 +397,6 @@ display:
               admnistrator_users: '0'
               administrator: '0'
             placeholder: ''
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -430,9 +409,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: node
-          entity_field: title
-          plugin_id: string
         type_1:
           id: type_1
           table: node_field_data
@@ -440,6 +416,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
           operator: in
           value:
             page: page
@@ -458,6 +437,8 @@ display:
             description: ''
             use_operator: false
             operator: type_1_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: type_1
             required: false
             remember: false
@@ -476,8 +457,6 @@ display:
               administrator: '0'
             reduce: true
             argument: ''
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -490,9 +469,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
         field_administration_target_id:
           id: field_administration_target_id
           table: node__field_administration
@@ -500,6 +476,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: taxonomy_index_tid
           operator: or
           value: {  }
           group: 1
@@ -510,6 +487,8 @@ display:
             description: ''
             use_operator: false
             operator: field_administration_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: field_administration_target_id
             required: false
             remember: false
@@ -527,8 +506,6 @@ display:
               admnistrator_users: '0'
               administrator: '0'
             reduce: false
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -542,40 +519,72 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
-          type: select
-          limit: true
           vid: administration
+          type: select
           hierarchy: true
+          limit: true
           error_message: true
-          plugin_id: taxonomy_index_tid
-      sorts:
-        field_administration_target_id:
-          id: field_administration_target_id
-          table: node__field_administration
-          field: field_administration_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          order: ASC
-          exposed: false
-          expose:
-            label: ''
-          plugin_id: standard
-        title:
-          id: title
-          table: node_field_data
-          field: title
-          relationship: none
-          group_type: group
-          admin_label: ''
-          order: ASC
-          exposed: false
-          expose:
-            label: ''
-          entity_type: node
-          entity_field: title
-          plugin_id: standard
-      title: 'Content served from Drupal'
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      style:
+        type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          columns:
+            view_node: view_node
+            title: title
+            field_administration: field_administration
+          default: '-1'
+          info:
+            view_node:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            title:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_administration:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          override: true
+          sticky: false
+          summary: ''
+          empty_table: false
+          caption: ''
+          description: ''
+      row:
+        type: fields
+        options:
+          default_field_elements: true
+          inline:
+            title: title
+            view_node: view_node
+          separator: ' | '
+          hide_empty: false
+      query:
+        type: views_query
+        options:
+          query_comment: ''
+          disable_sql_rewrite: false
+          distinct: false
+          replica: false
+          query_tags: {  }
+      relationships: {  }
       header:
         area_text_custom:
           id: area_text_custom
@@ -584,19 +593,12 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          empty: false
-          tokenize: false
-          content: "<a href=\"/cms-content/export?page&_format=csv\" class=\"button\">Download as CSV</a>\r\n\r\n<p>This page shows all published content <em>that has a front end URL</em>, with a few exceptions. It does not show:</p>\r\n<ul>\r\n<li>Documentation pages</li>\r\n<li>Events</li>\r\n<li>News releases</li>\r\n<li>Publications</li>\r\n<li>Staff profiles</li>\r\n<li>Stories</li>\r\n</ul>\r\n<p>It also does not list content that is sub-page, such as: </p>\r\n<ul>\r\n<li>Alert blocks</li>\r\n<li>VAMC health services</li>\r\n<li>VAMC facility health services</li>\r\n<li>Support services</li>\r\n</ul>\r\n\r\n\r\n\r\n\r\nYou might also be interested in the <a href=\"/vha-health-services\">VHA Health service taxonomy</a>. "
           plugin_id: text_custom
+          empty: false
+          content: "<a href=\"/cms-content/export?page&_format=csv\" class=\"button\">Download as CSV</a>\r\n\r\n<p>This page shows all published content <em>that has a front end URL</em>, with a few exceptions. It does not show:</p>\r\n<ul>\r\n<li>Documentation pages</li>\r\n<li>Events</li>\r\n<li>News releases</li>\r\n<li>Publications</li>\r\n<li>Staff profiles</li>\r\n<li>Stories</li>\r\n</ul>\r\n<p>It also does not list content that is sub-page, such as: </p>\r\n<ul>\r\n<li>Alert blocks</li>\r\n<li>VAMC health services</li>\r\n<li>VAMC facility health services</li>\r\n<li>Support services</li>\r\n</ul>\r\n\r\n\r\n\r\n\r\nYou might also be interested in the <a href=\"/vha-health-services\">VHA Health service taxonomy</a>. "
+          tokenize: false
       footer: {  }
-      empty: {  }
-      relationships: {  }
-      arguments: {  }
       display_extenders: {  }
-      filter_groups:
-        operator: AND
-        groups:
-          1: AND
     cache_metadata:
       max-age: -1
       contexts:
@@ -610,14 +612,15 @@ display:
       tags:
         - 'config:field.storage.node.field_administration'
   data_export_1:
-    display_plugin: data_export
     id: data_export_1
     display_title: 'Data export'
+    display_plugin: data_export
     position: 2
     display_options:
-      display_extenders: {  }
-      path: cms-content/export
-      filename: va-drupal-content.csv
+      pager:
+        type: none
+        options:
+          offset: 0
       style:
         type: data_export
         options:
@@ -631,13 +634,12 @@ display:
             trim: true
             encoding: utf8
             utf8_bom: '0'
-      pager:
-        type: none
-        options:
-          offset: 0
+      display_extenders: {  }
+      path: cms-content/export
       displays:
         page_1: page_1
         default: '0'
+      filename: va-drupal-content.csv
     cache_metadata:
       max-age: -1
       contexts:
@@ -651,9 +653,9 @@ display:
       tags:
         - 'config:field.storage.node.field_administration'
   page_1:
-    display_plugin: page
     id: page_1
     display_title: Page
+    display_plugin: page
     position: 1
     display_options:
       display_extenders: {  }

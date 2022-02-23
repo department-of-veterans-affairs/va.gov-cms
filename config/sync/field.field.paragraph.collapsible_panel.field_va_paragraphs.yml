@@ -21,14 +21,14 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
-    negate: 0
     target_bundles:
       collapsible_panel_item: collapsible_panel_item
+    negate: 0
     target_bundles_drag_drop:
       collapsible_panel:
         weight: 7
         enabled: false
       collapsible_panel_item:
-        enabled: true
         weight: 8
+        enabled: true
 field_type: entity_reference_revisions

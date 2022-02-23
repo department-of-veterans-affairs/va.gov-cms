@@ -35,54 +35,54 @@ third_party_settings:
     group_meta:
       children:
         - field_description
+      label: Meta
       parent_name: ''
+      region: hidden
       weight: 13
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-      label: Meta
-      region: hidden
     group_operating_status:
       children:
         - field_operating_status_facility
         - field_operating_status_more_info
+      label: 'Operating status'
       parent_name: ''
+      region: hidden
       weight: 11
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-      label: 'Operating status'
-      region: hidden
     group_social_media:
       children: {  }
+      label: 'Social media'
       parent_name: ''
+      region: hidden
       weight: 17
       format_type: details
       format_settings:
-        id: ''
         classes: ''
-        description: ''
+        id: ''
         open: false
+        description: ''
         required_fields: false
-      label: 'Social media'
-      region: hidden
     group_location_services:
       children:
         - field_location_services
+      label: 'Prepare for your visit'
       parent_name: ''
+      region: hidden
       weight: 14
       format_type: details
       format_settings:
-        description: ''
-        open: true
-        id: ''
         classes: ''
-      label: 'Prepare for your visit'
-      region: hidden
+        id: ''
+        open: true
+        description: ''
     group_facility_data_from_vast:
       children:
         - field_facility_locator_api_id
@@ -91,10 +91,11 @@ third_party_settings:
         - field_phone_number
         - field_mental_health_phone
         - field_office_hours
+      label: 'Location Information'
       parent_name: ''
+      region: content
       weight: 0
       format_type: tooltip
-      region: content
       format_settings:
         show_label: '0'
         tooltip_description: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
@@ -105,110 +106,107 @@ third_party_settings:
         element: div
         label_element: h3
         attributes: ''
-      label: 'Location Information'
     group_vamc_system:
       children:
         - field_main_location
         - field_region_page
+      label: 'VAMC system'
       parent_name: group_title_and_summary
+      region: hidden
       weight: 1
       format_type: fieldset
-      region: hidden
       format_settings:
+        classes: ''
         show_empty_fields: false
         id: ''
-        classes: ''
         description: ''
-      label: 'VAMC system'
     group_title_and_summary:
       children:
         - field_intro_text
         - field_media
         - group_vamc_system
+      label: 'Title and summary'
       parent_name: ''
+      region: hidden
       weight: 12
       format_type: fieldset
-      region: hidden
       format_settings:
+        classes: ''
         show_empty_fields: false
         id: ''
-        classes: ''
         description: ''
-      label: 'Title and summary'
     group_section_settings:
       children:
         - field_administration
+      label: 'Section settings'
       parent_name: ''
+      region: hidden
       weight: 15
       format_type: details_sidebar
-      region: hidden
       format_settings:
+        classes: ''
         show_empty_fields: false
         id: ''
-        classes: ''
-        description: ''
         open: true
-        weight: 0
+        description: ''
         required_fields: false
-      label: 'Section settings'
+        weight: 0
     group_editorial_workflow:
       children:
         - content_moderation_control
+      label: 'Editorial workflow'
       parent_name: ''
+      region: hidden
       weight: 16
       format_type: fieldset
-      region: hidden
       format_settings:
+        classes: ''
         show_empty_fields: false
         id: ''
-        classes: ''
         description: ''
-      label: 'Editorial workflow'
   layout_builder:
-    allow_custom: false
     enabled: false
+    allow_custom: false
 id: node.health_care_local_facility.external_content
 targetEntityType: node
 bundle: health_care_local_facility
 mode: external_content
 content:
   field_address:
-    weight: 18
+    type: address_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: address_default
+    weight: 18
     region: content
   field_facility_locator_api_id:
-    weight: 17
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 17
     region: content
   field_mental_health_phone:
-    weight: 21
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 21
     region: content
   field_mobile:
-    weight: 19
+    type: boolean
     label: above
     settings:
       format: yes-no
-      format_custom_true: ''
       format_custom_false: ''
+      format_custom_true: ''
     third_party_settings: {  }
-    type: boolean
+    weight: 19
     region: content
   field_office_hours:
     type: office_hours
-    weight: 22
-    region: content
     label: above
     settings:
       day_format: long
@@ -227,18 +225,20 @@ content:
         position: ''
         open_text: 'Currently open!'
         closed_text: 'Currently closed'
-      schema:
-        enabled: false
       timezone_field: ''
       office_hours_first_day: ''
+      schema:
+        enabled: false
     third_party_settings: {  }
+    weight: 22
+    region: content
   field_phone_number:
-    weight: 20
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 20
     region: content
 hidden:
   content_moderation_control: true

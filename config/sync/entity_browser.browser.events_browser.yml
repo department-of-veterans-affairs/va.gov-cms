@@ -21,22 +21,22 @@ widget_selector: single
 widget_selector_configuration: {  }
 widgets:
   967e6599-ca8c-44da-8c45-1216b45b32bb:
+    id: view
+    uuid: 967e6599-ca8c-44da-8c45-1216b45b32bb
+    label: ''
+    weight: 1
     settings:
-      view: content_entity_browsers
-      view_display: event_entity_browser
       submit_text: 'Select events'
       auto_select: false
-    uuid: 967e6599-ca8c-44da-8c45-1216b45b32bb
-    weight: 1
-    label: ''
-    id: view
+      view: content_entity_browsers
+      view_display: event_entity_browser
   952c391b-79d0-4a5a-920e-294e21ed1192:
+    id: entity_form
+    uuid: 952c391b-79d0-4a5a-920e-294e21ed1192
+    label: entity_form
+    weight: 2
     settings:
+      submit_text: 'Select events'
       entity_type: node
       bundle: event
       form_mode: inline_entity_form
-      submit_text: 'Select events'
-    uuid: 952c391b-79d0-4a5a-920e-294e21ed1192
-    weight: 2
-    label: entity_form
-    id: entity_form

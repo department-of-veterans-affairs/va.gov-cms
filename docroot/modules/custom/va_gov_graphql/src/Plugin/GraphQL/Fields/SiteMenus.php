@@ -24,10 +24,10 @@ class SiteMenus extends FieldPluginBase {
    * {@inheritdoc}
    */
   public function resolveValues($value, array $args, ResolveContext $context, ResolveInfo $info) {
-    $menus_array = menu_ui_get_menus(TRUE);
+    $menus = va_gov_graphql_get_menus();
 
     // Returns an array of drupal menu machine names.
-    foreach ($menus_array as $key => $value) {
+    foreach ($menus as $key => $value) {
       if (strpos($key, 'bene') !== FALSE) {
         yield $key;
       }

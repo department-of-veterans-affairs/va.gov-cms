@@ -22,17 +22,11 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
-    negate: 0
     target_bundles:
       wysiwyg: wysiwyg
       q_a: q_a
+    negate: 0
     target_bundles_drag_drop:
-      wysiwyg:
-        enabled: true
-        weight: -27
-      q_a:
-        enabled: true
-        weight: -26
       address:
         weight: -25
         enabled: false
@@ -48,32 +42,14 @@ settings:
       expandable_text:
         weight: -21
         enabled: false
+      health_care_local_facility_servi:
+        weight: 26
+        enabled: false
       link_teaser:
         weight: -20
         enabled: false
       list_of_link_teasers:
         weight: -19
-        enabled: false
-      process:
-        weight: -18
-        enabled: false
-      q_a_section:
-        weight: -17
-        enabled: false
-      react_widget:
-        weight: -16
-        enabled: false
-      starred_horizontal_rule:
-        weight: -15
-        enabled: false
-      number_callout:
-        weight: 23
-        enabled: false
-      health_care_local_facility_servi:
-        weight: 26
-        enabled: false
-      spanish_translation_summary:
-        weight: 28
         enabled: false
       media:
         weight: 29
@@ -84,7 +60,31 @@ settings:
       megamenu_menu_item:
         weight: 31
         enabled: false
+      number_callout:
+        weight: 23
+        enabled: false
+      process:
+        weight: -18
+        enabled: false
+      q_a:
+        weight: -26
+        enabled: true
+      q_a_section:
+        weight: -17
+        enabled: false
+      react_widget:
+        weight: -16
+        enabled: false
+      spanish_translation_summary:
+        weight: 28
+        enabled: false
+      starred_horizontal_rule:
+        weight: -15
+        enabled: false
       table:
         weight: 39
         enabled: false
+      wysiwyg:
+        weight: -27
+        enabled: true
 field_type: entity_reference_revisions

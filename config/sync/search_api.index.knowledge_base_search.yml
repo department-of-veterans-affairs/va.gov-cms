@@ -108,18 +108,21 @@ processor_settings:
   entity_status: {  }
   entity_type: {  }
   highlight:
-    highlight: always
-    highlight_partial: true
+    weights:
+      postprocess_query: 0
+    prefix: '<strong>'
+    suffix: '</strong>'
     excerpt: true
     excerpt_always: false
     excerpt_length: 256
     exclude_fields: {  }
-    prefix: '<strong>'
-    suffix: '</strong>'
-    weights:
-      postprocess_query: 0
+    highlight: always
+    highlight_partial: true
   html_filter:
-    all_fields: false
+    weights:
+      preprocess_index: -15
+      preprocess_query: -15
+    all_fields: true
     fields:
       - field_content_block
       - field_intro_text
@@ -133,10 +136,10 @@ processor_settings:
       h2: 3
       h3: 2
       strong: 2
-    weights:
-      preprocess_index: -15
-      preprocess_query: -15
   ignorecase:
+    weights:
+      preprocess_index: -20
+      preprocess_query: -20
     all_fields: true
     fields:
       - field_content_block
@@ -144,12 +147,12 @@ processor_settings:
       - field_products
       - rendered_item
       - title
-    weights:
-      preprocess_index: -20
-      preprocess_query: -20
   language_with_fallback: {  }
   rendered_item: {  }
   stemmer:
+    weights:
+      preprocess_index: 0
+      preprocess_query: 0
     all_fields: true
     fields:
       - field_content_block
@@ -160,14 +163,11 @@ processor_settings:
     exceptions:
       mexican: mexic
       texan: texa
-    weights:
-      preprocess_index: 0
-      preprocess_query: 0
 tracker_settings:
   default:
     indexing_order: fifo
 options:
-  index_directly: true
   cron_limit: 50
+  index_directly: true
   track_changes_in_references: true
 server: database
