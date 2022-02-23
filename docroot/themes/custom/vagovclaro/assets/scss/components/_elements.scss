@@ -176,8 +176,17 @@ p.vc-help-text {
   }
 }
 
-.ui-widget {
+// modal updates
+.ui-widget,
+.ui-widget input,
+.ui-widget select,
+.ui-widget textarea,
+.ui-widget button {
   font-family: var(--font-family-sans);
+}
+
+.ui-widget button:hover {
+  font-weight: 700;
 }
 
 // linkit results should be scrollable
