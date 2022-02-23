@@ -14,34 +14,34 @@ third_party_settings:
       children:
         - field_email_address
         - field_email_label
+      label: 'Email contact'
       parent_name: ''
+      region: content
       weight: 0
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-      label: 'Email contact'
-      region: content
 id: paragraph.email_contact.default
 targetEntityType: paragraph
 bundle: email_contact
 mode: default
 content:
   field_email_address:
-    weight: 1
+    type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    weight: 1
     region: content
   field_email_label:
-    weight: 2
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 2
     region: content
 hidden:
   search_api_excerpt: true

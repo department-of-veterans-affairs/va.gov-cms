@@ -23,124 +23,124 @@ third_party_settings:
         - field_hours
         - field_facility_service_hours
         - field_additional_hours_info
+      label: Hours
       parent_name: group_service_location
+      region: content
       weight: 2
       format_type: fieldset
       format_settings:
+        classes: ''
+        id: ''
         description: ''
         open: true
-        id: ''
-        classes: ''
-      label: Hours
-      region: content
     group_contact_info:
       children:
         - field_use_main_facility_phone
         - field_phone
         - field_email_contacts
+      label: 'Contact info'
       parent_name: group_service_location
+      region: content
       weight: 3
       format_type: fieldset
       format_settings:
+        classes: ''
+        id: ''
         description: ''
         open: true
-        id: ''
-        classes: ''
-      label: 'Contact info'
-      region: content
     group_address:
       children:
         - field_service_location_facility
         - field_service_location_address
+      label: Address
       parent_name: group_service_location
+      region: content
       weight: 1
       format_type: fieldset
       format_settings:
+        classes: ''
+        id: ''
         description: ''
         open: true
-        id: ''
-        classes: ''
-      label: Address
-      region: content
     group_service_location:
       children:
         - group_address
         - group_hours
         - group_contact_info
+      label: 'Service location'
       parent_name: ''
+      region: content
       weight: 0
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-      label: 'Service location'
-      region: content
 id: paragraph.service_location.default
 targetEntityType: paragraph
 bundle: service_location
 mode: default
 content:
   field_additional_hours_info:
-    weight: 4
+    type: string
     label: visually_hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 4
     region: content
   field_email_contacts:
     type: entity_reference_revisions_entity_view
-    weight: 5
     label: visually_hidden
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    weight: 5
     region: content
   field_facility_service_hours:
-    weight: 3
+    type: tablefield
     label: visually_hidden
     settings:
       row_header: false
       column_header: false
     third_party_settings: {  }
-    type: tablefield
+    weight: 3
     region: content
   field_hours:
-    weight: 2
+    type: list_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: list_default
+    weight: 2
     region: content
   field_phone:
     type: entity_reference_revisions_entity_view
-    weight: 4
     label: visually_hidden
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    weight: 4
     region: content
   field_service_location_address:
     type: entity_reference_revisions_entity_view
-    weight: 7
     label: visually_hidden
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    weight: 7
     region: content
   field_use_main_facility_phone:
-    weight: 3
+    type: boolean
     label: above
     settings:
       format: custom
-      format_custom_true: 'Yes, display the general facility phone number'
       format_custom_false: 'No, do not display the general facility phone number'
+      format_custom_true: 'Yes, display the general facility phone number'
     third_party_settings: {  }
-    type: boolean
+    weight: 3
     region: content
 hidden:
   search_api_excerpt: true

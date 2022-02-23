@@ -19,22 +19,22 @@ third_party_settings:
       children:
         - field_use_facility_address
         - field_address
+      label: 'Street address'
+      region: content
       parent_name: ''
       weight: 3
       format_type: html_element
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         element: div
         show_label: true
         label_element: label
         label_element_classes: ''
-        required_fields: true
         attributes: ''
         effect: none
         speed: fast
-      label: 'Street address'
-      region: content
+        required_fields: true
 id: paragraph.service_location_address.default
 targetEntityType: paragraph
 bundle: service_location_address
@@ -47,7 +47,9 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_building_name_number:
+    type: string_textfield_with_counter
     weight: 1
+    region: content
     settings:
       size: 70
       placeholder: ''
@@ -58,10 +60,10 @@ content:
       count_html_characters: true
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
-    type: string_textfield_with_counter
-    region: content
   field_clinic_name:
+    type: string_textfield_with_counter
     weight: 0
+    region: content
     settings:
       size: 70
       placeholder: ''
@@ -72,17 +74,17 @@ content:
       count_html_characters: true
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
-    type: string_textfield_with_counter
-    region: content
   field_use_facility_address:
+    type: boolean_checkbox
     weight: 4
+    region: content
     settings:
       display_label: true
     third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
   field_wing_floor_or_room_number:
+    type: string_textfield_with_counter
     weight: 2
+    region: content
     settings:
       size: 70
       placeholder: ''
@@ -93,8 +95,6 @@ content:
       count_html_characters: true
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
-    type: string_textfield_with_counter
-    region: content
 hidden:
   created: true
   status: true

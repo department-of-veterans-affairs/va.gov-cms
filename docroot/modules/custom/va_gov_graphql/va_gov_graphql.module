@@ -5,6 +5,7 @@
  * Contains va_gov_graphql.module.
  */
 
+use Drupal\system\Entity\Menu;
 use Drupal\va_gov_graphql\Access\MenuLinkContentAccessHandler;
 
 /**
@@ -25,4 +26,40 @@ function va_gov_graphql_theme($existing, $type, $theme, $path) {
       'base hook' => 'block',
     ],
   ];
+}
+
+/**
+ * Get a list of menus excluding Drupal-defined menus.
+ *
+ * This is a replacement for menu_ui_get_menus(), which was deprecated in
+ * Drupal 9.3.0.
+ *
+ * @return array
+ *   An array with the machine-readable names as the keys, and human-readable
+ *   titles as the values.
+ */
+function va_gov_graphql_get_menus() {
+  // Load all the menus.
+  $menus = Menu::loadMultiple();
+
+  // This feels gross, but it's how core did it in menu_list_system_menus().
+  $system_menus = [
+    'tools' => 'Tools',
+    'admin' => 'Administration',
+    'account' => 'User account menu',
+    'main' => 'Main navigation',
+    'footer' => 'Footer menu',
+  ];
+
+  // Exclude the system menus.
+  $menus = array_diff_key($menus, $system_menus);
+
+  // Only return machine_name => label. We don't need the entire menu entity.
+  foreach ($menus as $menu_name => $menu) {
+    $menus[$menu_name] = $menu->label();
+  }
+
+  asort($menus);
+
+  return $menus;
 }

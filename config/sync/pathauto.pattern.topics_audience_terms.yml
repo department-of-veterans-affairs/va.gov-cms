@@ -12,14 +12,14 @@ pattern: 'resources/tag/[term:name]'
 selection_criteria:
   3222eafa-c1a5-4ffd-99d4-00430333ffa6:
     id: 'entity_bundle:taxonomy_term'
+    negate: false
+    uuid: 3222eafa-c1a5-4ffd-99d4-00430333ffa6
+    context_mapping:
+      taxonomy_term: taxonomy_term
     bundles:
       audience_beneficiaries: audience_beneficiaries
       audience_non_beneficiaries: audience_non_beneficiaries
       topics: topics
-    negate: false
-    context_mapping:
-      taxonomy_term: taxonomy_term
-    uuid: 3222eafa-c1a5-4ffd-99d4-00430333ffa6
 selection_logic: and
 weight: -5
 relationships: {  }

@@ -18,43 +18,45 @@ third_party_settings:
         - field_alert_heading
         - field_va_paragraphs
         - field_alert_type
+      label: 'Non-reusable Alert'
+      region: content
       parent_name: ''
       weight: 1
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: false
-      label: 'Non-reusable Alert'
-      region: content
 id: paragraph.non_reusable_alert.default
 targetEntityType: paragraph
 bundle: non_reusable_alert
 mode: default
 content:
   field_alert_heading:
+    type: string_textfield_with_counter
     weight: 1
+    region: content
     settings:
       size: 60
       placeholder: ''
+      use_field_maxlength: false
       maxlength: 0
       counter_position: after
       js_prevent_submit: true
       count_html_characters: true
       textcount_status_message: 'Maxlength: <span class="maxlength_count">@maxlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>'
-      use_field_maxlength: false
     third_party_settings: {  }
-    type: string_textfield_with_counter
-    region: content
   field_alert_type:
+    type: options_select
     weight: 3
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   field_va_paragraphs:
+    type: paragraphs
     weight: 2
+    region: content
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -70,8 +72,6 @@ content:
         collapse_edit_all: collapse_edit_all
         duplicate: duplicate
     third_party_settings: {  }
-    type: paragraphs
-    region: content
 hidden:
   created: true
   status: true

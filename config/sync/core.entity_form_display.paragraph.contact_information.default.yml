@@ -23,6 +23,7 @@ content:
   field_additional_contact:
     type: entity_reference_paragraphs
     weight: 5
+    region: content
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -31,9 +32,10 @@ content:
       form_display_mode: default
       default_paragraph_type: _none
     third_party_settings: {  }
-    region: content
   field_benefit_hub_contacts:
+    type: entity_reference_browser_table_widget
     weight: 4
+    region: content
     settings:
       entity_browser: benefit_hub_contact_information
       field_widget_display: label
@@ -44,35 +46,33 @@ content:
       field_widget_replace: 0
       field_widget_display_settings: {  }
     third_party_settings: {  }
-    type: entity_reference_browser_table_widget
-    region: content
   field_contact_default:
+    type: entity_browser_entity_reference
     weight: 2
+    region: content
     settings:
       entity_browser: benefit_hub_contact_information
       field_widget_display: rendered_entity
-      field_widget_display_settings:
-        view_mode: support_services_listing
-      open: true
-      selection_mode: selection_append
       field_widget_edit: false
       field_widget_remove: false
       field_widget_replace: false
+      open: true
+      field_widget_display_settings:
+        view_mode: support_services_listing
+      selection_mode: selection_append
     third_party_settings: {  }
-    type: entity_browser_entity_reference
-    region: content
   field_contact_info_switch:
-    weight: 1
-    settings: {  }
-    third_party_settings: {  }
     type: options_buttons
+    weight: 1
     region: content
-  field_markup:
-    weight: 0
     settings: {  }
     third_party_settings: {  }
+  field_markup:
     type: markup
+    weight: 0
     region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   created: true
   status: true

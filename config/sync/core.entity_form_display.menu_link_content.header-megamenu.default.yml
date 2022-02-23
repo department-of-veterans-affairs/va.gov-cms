@@ -14,15 +14,15 @@ bundle: header-megamenu
 mode: default
 content:
   field_promo_reference:
+    type: entity_reference_autocomplete
     weight: 21
+    region: content
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
     third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
   title:
     type: string_textfield
     weight: -5

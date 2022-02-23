@@ -33,154 +33,156 @@ third_party_settings:
       children:
         - title
         - field_intro_text_limited_html
+      label: 'Title and summary'
+      region: content
       parent_name: ''
       weight: 0
       format_type: fieldset
       format_settings:
+        classes: ''
+        id: ''
         description: ''
         required_fields: true
-        id: ''
-        classes: ''
-      label: 'Title and summary'
-      region: content
     group_editorial_workflow:
       children:
         - moderation_state
         - revision_log
+      label: 'Editorial Workflow'
+      region: content
       parent_name: ''
       weight: 12
       format_type: details
       format_settings:
-        id: ''
         classes: ''
-        description: ''
+        id: ''
         open: true
+        description: ''
         required_fields: true
-      label: 'Editorial Workflow'
-      region: content
     group_step_by_step:
       children:
         - field_steps
+      label: 'Step by step'
+      region: content
       parent_name: ''
       weight: 5
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: true
-      label: 'Step by step'
-      region: content
     group_governance:
       children:
         - field_administration
+      label: 'Section settings'
+      region: content
       parent_name: ''
       weight: 13
       format_type: details_sidebar
       format_settings:
-        description: ''
-        open: true
-        weight: -10
-        required_fields: true
-        id: ''
         classes: ''
-      label: 'Section settings'
-      region: content
+        id: ''
+        open: true
+        description: ''
+        required_fields: true
+        weight: -10
     group_inc:
       children:
         - field_alert_single
+      label: 'Include Alert'
+      region: content
       parent_name: ''
       weight: 1
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: 'Alerts draw attention to information that may be critical to a veteran, family member, or caregiver. You can <a href="/block/add/alert?destination=/admin/content/alerts">create a new alert</a>, or reuse an existing one.'
         required_fields: false
-      label: 'Include Alert'
-      region: content
     group_categories:
       children:
         - field_primary_category
         - group_other_categories
+      label: 'Article categories'
+      region: content
       parent_name: ''
       weight: 10
       format_type: details
       format_settings:
-        description: ''
-        open: true
-        required_fields: true
-        id: ''
         classes: ''
-      label: 'Article categories'
-      region: content
+        id: ''
+        open: true
+        description: ''
+        required_fields: true
     group_other_categories:
       children:
         - field_other_categories
+      label: 'Other categories where people may look for this article'
+      region: content
       parent_name: group_categories
       weight: 11
       format_type: details
       format_settings:
+        classes: ''
+        id: ''
+        open: false
         description: 'You can add up to 6 additional categories.'
         required_fields: true
-        id: ''
-        classes: ''
-        open: false
-      label: 'Other categories where people may look for this article'
-      region: content
     group_contact_information:
       children:
         - field_contact_information
+      label: 'Contact information'
+      region: content
       parent_name: ''
       weight: 9
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: false
-      label: 'Contact information'
-      region: content
     group_tags:
       children:
         - field_tags
+      label: Tags
+      region: content
       parent_name: ''
       weight: 11
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: true
-      label: Tags
-      region: content
     group_in:
       children:
         - field_table_of_contents_boolean
+      label: 'Include table of contents?'
+      region: content
       parent_name: ''
       weight: 3
       format_type: details
       format_settings:
-        id: ''
         classes: ''
-        description: ''
+        id: ''
         open: false
+        description: ''
         required_fields: true
-      label: 'Include table of contents?'
-      region: content
 id: node.step_by_step.default
 targetEntityType: node
 bundle: step_by_step
 mode: default
 content:
   field_administration:
+    type: options_select
     weight: 8
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   field_alert_single:
+    type: entity_reference_paragraphs
     weight: 9
+    region: content
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -189,11 +191,10 @@ content:
       form_display_mode: default
       default_paragraph_type: ''
     third_party_settings: {  }
-    type: entity_reference_paragraphs
-    region: content
   field_buttons:
     type: entity_reference_paragraphs
     weight: 4
+    region: content
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -202,16 +203,17 @@ content:
       form_display_mode: default
       default_paragraph_type: _none
     third_party_settings: {  }
-    region: content
   field_buttons_repeat:
+    type: boolean_checkbox
     weight: 6
+    region: content
     settings:
       display_label: true
     third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
   field_contact_information:
+    type: entity_reference_paragraphs
     weight: 12
+    region: content
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -220,38 +222,38 @@ content:
       form_display_mode: default
       default_paragraph_type: ''
     third_party_settings: {  }
-    type: entity_reference_paragraphs
-    region: content
   field_intro_text_limited_html:
+    type: text_textarea_with_counter
     weight: 2
+    region: content
     settings:
       rows: 5
       placeholder: ''
       maxlength: 1000
       counter_position: after
       js_prevent_submit: true
-      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
       count_html_characters: false
+      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings:
       allowed_formats:
         hide_help: '0'
         hide_guidelines: '0'
-    type: text_textarea_with_counter
-    region: content
   field_other_categories:
-    weight: 12
-    settings: {  }
-    third_party_settings: {  }
     type: options_buttons
+    weight: 12
     region: content
-  field_primary_category:
-    weight: 10
     settings: {  }
     third_party_settings: {  }
+  field_primary_category:
     type: options_select
+    weight: 10
     region: content
+    settings: {  }
+    third_party_settings: {  }
   field_related_benefit_hubs:
+    type: entity_reference_browser_table_widget
     weight: 7
+    region: content
     settings:
       entity_browser: lc_benefit_hubs
       field_widget_display: label
@@ -262,10 +264,10 @@ content:
       open: 0
       field_widget_display_settings: {  }
     third_party_settings: {  }
-    type: entity_reference_browser_table_widget
-    region: content
   field_related_information:
+    type: paragraphs
     weight: 8
+    region: content
     settings:
       title: 'Link teaser'
       title_plural: 'Link teaser'
@@ -281,11 +283,10 @@ content:
         collapse_edit_all: collapse_edit_all
         duplicate: '0'
     third_party_settings: {  }
-    type: paragraphs
-    region: content
   field_steps:
     type: entity_reference_paragraphs
     weight: 8
+    region: content
     settings:
       title: 'Step by step'
       title_plural: 'Step by step'
@@ -294,16 +295,17 @@ content:
       form_display_mode: default
       default_paragraph_type: step_by_step
     third_party_settings: {  }
-    region: content
   field_table_of_contents_boolean:
+    type: boolean_checkbox
     weight: 16
+    region: content
     settings:
       display_label: true
     third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
   field_tags:
+    type: entity_reference_paragraphs
     weight: 10
+    region: content
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -312,13 +314,11 @@ content:
       form_display_mode: default
       default_paragraph_type: audience_topics
     third_party_settings: {  }
-    type: entity_reference_paragraphs
-    region: content
   moderation_state:
     type: moderation_state_default
     weight: 3
-    settings: {  }
     region: content
+    settings: {  }
     third_party_settings: {  }
   path:
     type: path
@@ -333,12 +333,12 @@ content:
     settings:
       size: 70
       placeholder: ''
+      use_field_maxlength: false
       maxlength: 70
       counter_position: after
       js_prevent_submit: true
-      textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
-      use_field_maxlength: false
       count_html_characters: false
+      textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
   url_redirects:
     weight: 15

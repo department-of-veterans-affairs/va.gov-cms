@@ -23,44 +23,46 @@ third_party_settings:
       children:
         - moderation_state
         - revision_log
+      label: 'Editorial workflow'
+      region: content
       parent_name: ''
       weight: 6
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: true
-      label: 'Editorial workflow'
-      region: content
     group_governance:
       children:
         - field_administration
+      label: 'Section settings'
+      region: content
       parent_name: ''
       weight: 0
       format_type: details_sidebar
       format_settings:
-        description: ''
-        open: true
-        weight: 0
-        required_fields: true
-        id: ''
         classes: ''
-      label: 'Section settings'
-      region: content
+        id: ''
+        open: true
+        description: ''
+        required_fields: true
+        weight: 0
 id: node.documentation_page.default
 targetEntityType: node
 bundle: documentation_page
 mode: default
 content:
   field_administration:
+    type: options_select
     weight: 5
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   field_content_block:
+    type: paragraphs_browser
     weight: 4
+    region: content
     settings:
       title: 'Content block'
       title_plural: 'Content blocks'
@@ -78,37 +80,35 @@ content:
         duplicate: duplicate
         collapse_edit_all: collapse_edit_all
     third_party_settings: {  }
-    type: paragraphs_browser
-    region: content
   field_intro_text:
+    type: string_textarea
     weight: 3
+    region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-    type: string_textarea
-    region: content
   field_products:
+    type: options_buttons
     weight: 2
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_buttons
-    region: content
   field_related_user_guides:
+    type: entity_reference_autocomplete
     weight: 5
+    region: content
     settings:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
   moderation_state:
     type: moderation_state_default
     weight: 10
-    settings: {  }
     region: content
+    settings: {  }
     third_party_settings: {  }
   path:
     type: path

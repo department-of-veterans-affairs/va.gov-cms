@@ -34,10 +34,11 @@ third_party_settings:
         - field_cc_faqs
         - field_cc_how_we_share_records
         - field_cc_related_links
+      label: 'National content'
       parent_name: ''
+      region: content
       weight: 7
       format_type: tooltip
-      region: content
       format_settings:
         show_label: '0'
         tooltip_description: 'Why can’t I edit this? VHA keeps this content standardized so that all VA medical centers have consistent messaging.'
@@ -48,15 +49,15 @@ third_party_settings:
         element: div
         label_element: h3
         attributes: ''
-      label: 'National content'
     group_get_your_records_online:
       children:
         - field_cc_top_of_page_content
         - field_cc_react_widget
+      label: 'Get your records online'
       parent_name: ''
+      region: content
       weight: 2
       format_type: tooltip
-      region: content
       format_settings:
         show_empty_fields: 0
         id: ''
@@ -69,14 +70,14 @@ third_party_settings:
         tooltip_description: 'Why can’t I edit this? VHA keeps this content standardized so that all VA medical centers have consistent messaging.'
         open: false
         required_fields: false
-      label: 'Get your records online'
     group_get_your_records_in_person:
       children:
         - field_cc_get_records_in_person
+      label: 'Get your records in person'
       parent_name: ''
+      region: content
       weight: 3
       format_type: tooltip
-      region: content
       format_settings:
         show_empty_fields: 0
         id: ''
@@ -89,14 +90,14 @@ third_party_settings:
         tooltip_description: 'Why can’t I edit this? VHA keeps this content standardized so that all VA medical centers have consistent messaging.'
         open: false
         required_fields: false
-      label: 'Get your records in person'
     group_get_your_records_by_mail_o:
       children:
         - field_cc_get_records_mail_or_fax
+      label: 'Get your records by mail or fax'
       parent_name: ''
+      region: content
       weight: 4
       format_type: tooltip
-      region: content
       format_settings:
         show_label: '0'
         tooltip_description: 'Why can’t I edit this? VHA keeps this content standardized so that all VA medical centers have consistent messaging.'
@@ -107,21 +108,20 @@ third_party_settings:
         element: div
         label_element: h3
         attributes: ''
-      label: 'Get your records by mail or fax'
     group_roi_service_location:
       children:
         - field_vamc_med_records_mailing
         - field_fax_number
+      label: 'Local mailing address and fax numbers for medical records'
       parent_name: ''
+      region: content
       weight: 5
       format_type: fieldset
-      region: content
       format_settings:
+        classes: ''
         show_empty_fields: false
         id: ''
-        classes: ''
         description: ''
-      label: 'Local mailing address and fax numbers for medical records'
 id: node.vamc_system_medical_records_offi.default
 targetEntityType: node
 bundle: vamc_system_medical_records_offi
@@ -129,97 +129,97 @@ mode: default
 content:
   field_cc_faqs:
     type: entity_field_fetch
+    label: above
+    settings: {  }
+    third_party_settings: {  }
     weight: 7
     region: content
-    label: above
-    settings: {  }
-    third_party_settings: {  }
   field_cc_get_records_in_person:
     type: entity_field_fetch
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
     weight: 5
     region: content
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
   field_cc_get_records_mail_or_fax:
     type: entity_field_fetch
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
     weight: 4
     region: content
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
   field_cc_how_we_share_records:
     type: entity_field_fetch
-    weight: 8
-    region: content
     label: above
     settings: {  }
     third_party_settings: {  }
+    weight: 8
+    region: content
   field_cc_react_widget:
     type: entity_field_fetch
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
     weight: 3
     region: content
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
   field_cc_related_links:
     type: entity_field_fetch
-    weight: 9
-    region: content
     label: above
     settings: {  }
     third_party_settings: {  }
+    weight: 9
+    region: content
   field_cc_top_of_page_content:
     type: entity_field_fetch
-    weight: 2
-    region: content
     label: hidden
     settings: {  }
     third_party_settings: {  }
+    weight: 2
+    region: content
   field_enforce_unique_combo:
     type: allow_only_one
+    label: above
+    settings: {  }
+    third_party_settings: {  }
     weight: 8
     region: content
-    label: above
-    settings: {  }
-    third_party_settings: {  }
   field_enforce_unique_combo_offic:
-    weight: 1
+    type: allow_only_one
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: allow_only_one
+    weight: 1
     region: content
   field_fax_number:
-    weight: 9
+    type: telephone_link
     label: above
     settings:
       title: ''
     third_party_settings: {  }
-    type: telephone_link
+    weight: 9
     region: content
   field_non_clinical_services:
-    weight: 6
+    type: viewfield_default
     label: hidden
     settings:
       view_title: above
       always_build_output: true
       empty_view_title: above
     third_party_settings: {  }
-    type: viewfield_default
+    weight: 6
     region: content
   field_vamc_med_records_mailing:
-    weight: 8
+    type: address_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: address_default
+    weight: 8
     region: content
   links:
-    weight: 0
-    region: content
     settings: {  }
     third_party_settings: {  }
+    weight: 0
+    region: content
 hidden:
   content_moderation_control: true
   field_administration: true

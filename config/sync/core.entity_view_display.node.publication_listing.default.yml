@@ -19,40 +19,40 @@ third_party_settings:
       children:
         - field_description
         - field_meta_title
+      label: Meta
       parent_name: ''
+      region: content
       weight: 0
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-      label: Meta
-      region: content
     group_content:
       children:
         - field_intro_text
+      label: Content
       parent_name: ''
+      region: content
       weight: 1
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-      label: Content
-      region: content
     group_relationships:
       children:
         - field_administration
         - field_office
+      label: Relationships
       parent_name: ''
+      region: hidden
       weight: 6
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-      label: Relationships
-      region: hidden
 id: node.publication_listing.default
 targetEntityType: node
 bundle: publication_listing
@@ -60,27 +60,27 @@ mode: default
 content:
   field_description:
     type: string
-    weight: 0
-    region: content
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 0
+    region: content
   field_intro_text:
-    weight: 5
+    type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    weight: 5
     region: content
   field_meta_title:
     type: string
-    weight: 0
-    region: content
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 0
+    region: content
 hidden:
   content_moderation_control: true
   field_administration: true
