@@ -129,11 +129,12 @@ class BRDGHA extends EnvironmentPluginBase {
    */
   private function pendingWorkflowRunExists() : bool {
     try {
-      // We limit our check to today, as some jobs long past report as being
-      // pending.
+      // Check if there are any workflows pending that were created recently.
+      $check_interval = 2 * 60 * 60;
+      $check_time = time() - $check_interval;
       $workflow_run_params = [
         'status' => 'pending',
-        'created' => '>=' . date('Y-m-d'),
+        'created' => '>=' . date('c', $check_time),
       ];
       $workflow_runs = $this->githubAdapter->listWorkflowRuns('content-release.yml', $workflow_run_params);
 
