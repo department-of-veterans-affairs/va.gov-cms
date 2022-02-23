@@ -178,9 +178,7 @@ class BuildFrontend implements BuildFrontendInterface {
         return;
       }
       $this->triggerFrontendBuild();
-      // We previously also showed this message to the user, but the build
-      // trigger mechanism also needs to show a message, so this was redundant.
-      // We still send logs as they may be useful for diagnostics.
+      // Since a build requested message is already displayed, just log what triggered it.
       $log_message = $this->t('A content release was triggered by a change to %type: %link_to_node (node%nid) by user %user.', $msg_vars);
       $this->logger->info($log_message);
     }
