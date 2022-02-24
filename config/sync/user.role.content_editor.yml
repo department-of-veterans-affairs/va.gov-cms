@@ -2,8 +2,82 @@ uuid: dcc05526-22a7-4835-93ec-6d61a476f796
 langcode: en
 status: true
 dependencies:
+  config:
+    - filter.format.rich_text
+    - filter.format.rich_text_limited
+    - media.type.document
+    - media.type.document_external
+    - media.type.image
+    - media.type.video
+    - node.type.banner
+    - node.type.basic_landing_page
+    - node.type.campaign_landing_page
+    - node.type.centralized_content
+    - node.type.checklist
+    - node.type.documentation_page
+    - node.type.event
+    - node.type.event_listing
+    - node.type.faq_multiple_q_a
+    - node.type.full_width_banner_alert
+    - node.type.health_care_local_facility
+    - node.type.health_care_local_health_service
+    - node.type.health_care_region_detail_page
+    - node.type.health_care_region_page
+    - node.type.health_services_listing
+    - node.type.landing_page
+    - node.type.leadership_listing
+    - node.type.locations_listing
+    - node.type.media_list_images
+    - node.type.media_list_videos
+    - node.type.nca_facility
+    - node.type.news_story
+    - node.type.office
+    - node.type.outreach_asset
+    - node.type.page
+    - node.type.person_profile
+    - node.type.press_release
+    - node.type.press_releases_listing
+    - node.type.promo_banner
+    - node.type.publication_listing
+    - node.type.q_a
+    - node.type.regional_health_care_service_des
+    - node.type.step_by_step
+    - node.type.story_listing
+    - node.type.support_resources_detail_page
+    - node.type.support_service
+    - node.type.va_form
+    - node.type.vamc_operating_status_and_alerts
+    - node.type.vamc_system_billing_insurance
+    - node.type.vamc_system_medical_records_offi
+    - node.type.vamc_system_policies_page
+    - node.type.vamc_system_register_for_care
+    - node.type.vba_facility
+    - node.type.vet_center
+    - node.type.vet_center_cap
+    - node.type.vet_center_facility_health_servi
+    - node.type.vet_center_locations_list
+    - node.type.vet_center_mobile_vet_center
+    - node.type.vet_center_outstation
+    - workflows.workflow.editorial
   module:
+    - actions_permissions
+    - block_content_permissions
+    - block_diff_ui
+    - content_lock
+    - content_moderation
+    - file
+    - filter
+    - media
+    - media_diff_ui
+    - node
+    - node_link_report
+    - paragraphs
+    - pathauto
+    - system
+    - tablefield
+    - toolbar_menu
     - va_gov_backend
+    - workbench_access
 third_party_settings:
   va_gov_backend:
     vgb_description: 'Can create and edit content, but can''t review or publish it. '
@@ -15,12 +89,8 @@ permissions:
   - 'access administration pages'
   - 'access content overview'
   - 'access files overview'
-  - 'access image_browser entity browser pages'
   - 'access media overview'
-  - 'access media_browser entity browser pages'
-  - 'access shortcuts'
   - 'access user profiles'
-  - 'access vamc_operating_statuses entity browser pages'
   - 'administer menu'
   - 'break content lock'
   - 'create document media'
@@ -90,14 +160,12 @@ permissions:
   - 'revert image revisions'
   - 'revert promo revisions'
   - 'revert video revisions'
-  - 'schedule editorial transition create_new_draft'
   - 'update any alert block content'
   - 'update any media'
   - 'update any promo block content'
   - 'update media'
   - 'use editorial transition create_new_draft'
   - 'use editorial transition review'
-  - 'use moderation sidebar'
   - 'use text format rich_text'
   - 'use text format rich_text_limited'
   - 'use workbench access'
@@ -110,7 +178,6 @@ permissions:
   - 'view campaign_landing_page revisions'
   - 'view centralized_content revisions'
   - 'view checklist revisions'
-  - 'view cms_help_center in toolbar'
   - 'view document revisions'
   - 'view document_external revisions'
   - 'view event revisions'

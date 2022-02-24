@@ -1,7 +1,18 @@
 uuid: a7e128de-91f5-412e-ad2e-65ca0725d9fb
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - entity_browser
+    - environment_indicator
+    - graphql
+    - media
+    - override_node_options
+    - styleguide
+    - system
+    - toolbar
+    - user_history
+    - workbench_access
 _core:
   default_config_hash: dJ0L2DNSj5q6XVZAGsuVDpJTh5UeYkIPwKrUOOpr8YI
 id: authenticated
@@ -22,11 +33,8 @@ permissions:
   - 'access mobile_vet_centers entity browser pages'
   - 'access promo_blocks_browser entity browser pages'
   - 'access q_a_browser entity browser pages'
-  - 'access site-wide contact form'
   - 'access toolbar'
-  - 'access vet_centers entity browser pages'
   - 'add user_history entities'
-  - 'create terms in audience_tags'
   - 'enter all revision log entry'
   - 'execute graphql requests'
   - 'execute persisted graphql requests'

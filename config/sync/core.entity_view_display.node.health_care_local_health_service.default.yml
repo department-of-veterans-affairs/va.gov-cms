@@ -30,26 +30,26 @@ third_party_settings:
   field_group:
     group_vha_health_service_name_an:
       children: {  }
+      label: 'VHA and VAMC health service description'
       parent_name: ''
+      region: hidden
       weight: 12
       format_type: fieldset
       format_settings:
-        description: ''
-        id: ''
         classes: ''
-      label: 'VHA and VAMC health service description'
-      region: hidden
+        id: ''
+        description: ''
     group_facility_description_of_se:
       children: {  }
+      label: 'Facility description of service (this field will be no longer be used in 2021)'
       parent_name: ''
+      region: hidden
       weight: 3
       format_type: fieldset
       format_settings:
-        description: ''
-        id: ''
         classes: ''
-      label: 'Facility description of service (this field will be no longer be used in 2021)'
-      region: hidden
+        id: ''
+        description: ''
     group_appointments:
       children:
         - field_hservice_appt_intro_select
@@ -59,95 +59,95 @@ third_party_settings:
         - field_walk_ins_accepted
         - field_online_scheduling_availabl
         - field_phone_numbers_paragraph
+      label: Appointments
       parent_name: ''
+      region: content
       weight: 1
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-      label: Appointments
-      region: content
 id: node.health_care_local_health_service.default
 targetEntityType: node
 bundle: health_care_local_health_service
 mode: default
 content:
   field_enforce_unique_combo:
-    weight: 13
+    type: allow_only_one
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: allow_only_one
+    weight: 13
     region: content
   field_hservice_appt_intro_select:
-    weight: 4
+    type: list_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: list_default
+    weight: 4
     region: content
   field_hservice_appt_leadin:
-    weight: 5
+    type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    weight: 5
     region: content
   field_hservices_lead_in_default:
-    weight: 6
+    type: markup
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: markup
+    weight: 6
     region: content
   field_online_scheduling_availabl:
-    weight: 9
+    type: list_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: list_default
+    weight: 9
     region: content
   field_phone_numbers_paragraph:
     type: entity_reference_revisions_entity_view
-    weight: 10
     label: above
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    weight: 10
     region: content
   field_referral_required:
-    weight: 7
+    type: list_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: list_default
+    weight: 7
     region: content
   field_regional_health_service:
     type: entity_reference_entity_view
-    weight: 0
-    region: content
     label: hidden
     settings:
       view_mode: teaser
       link: false
     third_party_settings: {  }
+    weight: 0
+    region: content
   field_service_location:
     type: entity_reference_revisions_entity_view
-    weight: 2
     label: hidden
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    weight: 2
     region: content
   field_walk_ins_accepted:
-    weight: 8
+    type: list_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: list_default
+    weight: 8
     region: content
 hidden:
   content_moderation_control: true

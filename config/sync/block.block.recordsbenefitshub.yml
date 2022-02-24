@@ -17,14 +17,14 @@ plugin: 'system_menu_block:records-benefits-hub'
 settings:
   id: 'system_menu_block:records-benefits-hub'
   label: 'Records benefits hub'
-  provider: system
   label_display: visible
+  provider: system
   level: 2
   depth: 0
   expand_all_items: false
 visibility:
   request_path:
     id: request_path
-    pages: '/record*'
     negate: false
     context_mapping: {  }
+    pages: '/record*'

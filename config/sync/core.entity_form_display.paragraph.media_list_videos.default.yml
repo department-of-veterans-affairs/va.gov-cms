@@ -15,26 +15,26 @@ bundle: media_list_videos
 mode: default
 content:
   field_section_header:
+    type: string_textfield_with_counter
     weight: 0
+    region: content
     settings:
       size: 70
       placeholder: ''
+      use_field_maxlength: false
       maxlength: 70
       counter_position: after
       js_prevent_submit: true
       count_html_characters: true
       textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
-      use_field_maxlength: false
     third_party_settings: {  }
-    type: string_textfield_with_counter
-    region: content
   field_videos:
     type: media_library_widget
     weight: 3
+    region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
-    region: content
 hidden:
   created: true
   status: true

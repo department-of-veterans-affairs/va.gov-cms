@@ -2,8 +2,43 @@ uuid: bfc758cc-8eee-4aed-909c-a5ccbb83f318
 langcode: en
 status: true
 dependencies:
+  config:
+    - filter.format.rich_text
+    - filter.format.rich_text_limited
+    - node.type.banner
+    - node.type.promo_banner
+    - node.type.vamc_system_billing_insurance
+    - node.type.vamc_system_medical_records_offi
+    - node.type.vamc_system_register_for_care
+    - workflows.workflow.editorial
   module:
+    - actions_permissions
+    - block_content_permissions
+    - block_diff_ui
+    - content_lock
+    - content_moderation
+    - entity_clone
+    - entityqueue
+    - file
+    - filter
+    - flag
+    - media
+    - media_diff_ui
+    - node
+    - node_link_report
+    - override_node_options
+    - paragraphs
+    - path
+    - pathauto
+    - system
+    - tablefield
+    - taxonomy
+    - taxonomy_diff_ui
+    - toolbar_menu
     - va_gov_backend
+    - va_gov_build_trigger
+    - va_gov_menu_access
+    - workbench_access
 third_party_settings:
   va_gov_backend:
     vgb_description: 'For members of the Global UX team, and other content users who have permissions beyond those of Content Publisher. '
@@ -14,9 +49,7 @@ is_admin: null
 permissions:
   - 'access administration pages'
   - 'access files overview'
-  - 'access image_browser entity browser pages'
   - 'access media overview'
-  - 'access media_browser entity browser pages'
   - 'access taxonomy overview'
   - 'access user profiles'
   - 'access vamc_operating_statuses entity browser pages'
@@ -90,8 +123,6 @@ permissions:
   - 'use editorial transition create_new_draft'
   - 'use editorial transition publish'
   - 'use editorial transition review'
-  - 'use editorial transition stage_for_publishing'
-  - 'use moderation sidebar'
   - 'use text format rich_text'
   - 'use text format rich_text_limited'
   - 'use workbench access'
@@ -101,7 +132,6 @@ permissions:
   - 'view all media revisions'
   - 'view all taxonomy term revisions'
   - 'view any unpublished content'
-  - 'view cms_help_center in toolbar'
   - 'view document revisions'
   - 'view document_external revisions'
   - 'view image revisions'

@@ -24,76 +24,76 @@ third_party_settings:
         - field_hours
         - field_facility_service_hours
         - field_additional_hours_info
+      label: Hours
+      region: content
       parent_name: ''
       weight: 1
       format_type: details
       format_settings:
-        description: ''
-        id: ''
         classes: ''
+        id: ''
         open: false
+        description: ''
         required_fields: false
-      label: Hours
-      region: content
     group_address:
       children:
         - field_service_location_facility
         - field_service_location_address
+      label: Address
+      region: content
       parent_name: ''
       weight: 0
       format_type: details
       format_settings:
+        classes: ''
+        id: ''
+        open: false
         description: ''
         required_fields: true
-        id: ''
-        classes: ''
-        open: false
-      label: Address
-      region: content
     group_phone:
       children:
         - group_phone_numbers
         - group_email
+      label: 'Contact info'
+      region: content
       parent_name: ''
       weight: 2
       format_type: details
       format_settings:
+        classes: ''
+        id: ''
+        open: false
         description: ''
         required_fields: true
-        id: ''
-        classes: ''
-        open: false
-      label: 'Contact info'
-      region: content
     group_email:
       children:
         - field_email_contacts
+      label: Email
+      region: content
       parent_name: group_phone
       weight: 23
       format_type: details
       format_settings:
-        description: ''
-        open: true
-        id: ''
         classes: ''
+        id: ''
+        open: true
+        description: ''
         required_fields: false
-      label: Email
-      region: content
     group_phone_numbers:
       children:
         - field_use_main_facility_phone
         - field_phone
+      label: Phone
+      region: content
       parent_name: group_phone
       weight: 20
       format_type: details
       format_settings:
-        description: ''
-        open: true
-        id: ''
         classes: phone-numbers-wrapper
+        id: ''
+        open: true
+        description: ''
         required_fields: false
-      label: Phone
-      region: content
 id: paragraph.service_location.default
 targetEntityType: paragraph
 bundle: service_location
@@ -110,23 +110,23 @@ content:
   field_email_contacts:
     type: inline_entity_form_complex_table_view_mode
     weight: 3
+    region: content
     settings:
       form_mode: default
       override_labels: true
       label_singular: 'email address'
       label_plural: 'email addresses'
       allow_new: true
+      allow_existing: false
       match_operator: CONTAINS
-      revision: false
+      allow_duplicate: false
       collapsible: false
       collapsed: false
-      allow_existing: false
-      allow_duplicate: false
+      revision: false
       allow_system_delete: false
     third_party_settings:
       entity_browser_entity_form:
         entity_browser_id: _none
-    region: content
   field_facility_service_hours:
     type: tablefield
     weight: 1
@@ -150,12 +150,12 @@ content:
       label_singular: 'phone number'
       label_plural: 'phone numbers'
       allow_new: true
+      allow_existing: false
       match_operator: CONTAINS
-      revision: false
+      allow_duplicate: false
       collapsible: false
       collapsed: false
-      allow_existing: false
-      allow_duplicate: false
+      revision: false
       allow_system_delete: false
     third_party_settings:
       entity_browser_entity_form:

@@ -19,50 +19,50 @@ third_party_settings:
         - field_phone_number
         - field_phone_extension
         - field_phone_label
+      label: Phone
       parent_name: ''
+      region: content
       weight: 0
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-      label: Phone
-      region: content
 id: paragraph.phone_number.default
 targetEntityType: paragraph
 bundle: phone_number
 mode: default
 content:
   field_phone_extension:
-    weight: 2
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 2
     region: content
   field_phone_label:
-    weight: 3
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 3
     region: content
   field_phone_number:
-    weight: 1
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 1
     region: content
   field_phone_number_type:
-    weight: 0
+    type: list_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: list_default
+    weight: 0
     region: content
 hidden:
   search_api_excerpt: true

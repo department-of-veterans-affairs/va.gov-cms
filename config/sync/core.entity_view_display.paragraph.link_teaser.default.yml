@@ -14,7 +14,7 @@ bundle: link_teaser
 mode: default
 content:
   field_link:
-    weight: 0
+    type: link
     label: hidden
     settings:
       trim_length: null
@@ -23,15 +23,15 @@ content:
       rel: '0'
       target: '0'
     third_party_settings: {  }
-    type: link
+    weight: 0
     region: content
   field_link_summary:
-    weight: 1
+    type: string
     label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 1
     region: content
 hidden:
   search_api_excerpt: true

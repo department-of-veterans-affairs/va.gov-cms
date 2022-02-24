@@ -25,20 +25,20 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
-    negate: 0
     target_bundles:
       wysiwyg: wysiwyg
       lists_of_links: lists_of_links
       table: table
       react_widget: react_widget
       alert: alert
+    negate: 0
     target_bundles_drag_drop:
       address:
         weight: -70
         enabled: false
       alert:
-        enabled: true
         weight: -71
+        enabled: true
       alert_single:
         weight: -69
         enabled: false
@@ -79,8 +79,8 @@ settings:
         weight: -57
         enabled: false
       lists_of_links:
-        enabled: true
         weight: -74
+        enabled: true
       media:
         weight: -56
         enabled: false
@@ -112,8 +112,8 @@ settings:
         weight: -47
         enabled: false
       react_widget:
-        enabled: true
         weight: -72
+        enabled: true
       service_location:
         weight: -46
         enabled: false
@@ -139,9 +139,9 @@ settings:
         weight: -39
         enabled: false
       table:
-        enabled: true
         weight: -73
-      wysiwyg:
         enabled: true
+      wysiwyg:
         weight: -75
+        enabled: true
 field_type: entity_reference_revisions

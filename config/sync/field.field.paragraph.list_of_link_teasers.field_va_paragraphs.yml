@@ -21,36 +21,33 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
-    negate: 0
     target_bundles:
       link_teaser: link_teaser
+    negate: 0
     target_bundles_drag_drop:
-      collapsible_panel:
-        weight: 8
-        enabled: false
-      collapsible_panel_item:
-        weight: 9
-        enabled: false
-      link_teaser:
-        enabled: true
-        weight: 10
-      list_of_link_teasers:
-        weight: 11
-        enabled: false
-      wysiwyg:
-        weight: 14
-        enabled: false
       address:
         weight: 21
         enabled: false
       alert:
         weight: 22
         enabled: false
+      collapsible_panel:
+        weight: 8
+        enabled: false
+      collapsible_panel_item:
+        weight: 9
+        enabled: false
       expandable_text:
         weight: 25
         enabled: false
       health_care_local_facility_servi:
         weight: 26
+        enabled: false
+      link_teaser:
+        weight: 10
+        enabled: true
+      list_of_link_teasers:
+        weight: 11
         enabled: false
       media:
         weight: 29
@@ -84,5 +81,8 @@ settings:
         enabled: false
       table:
         weight: 39
+        enabled: false
+      wysiwyg:
+        weight: 14
         enabled: false
 field_type: entity_reference_revisions

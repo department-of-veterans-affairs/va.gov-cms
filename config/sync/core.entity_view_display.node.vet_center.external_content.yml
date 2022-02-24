@@ -36,10 +36,11 @@ third_party_settings:
         - field_address
         - field_phone_number
         - field_office_hours
+      label: 'Location Information'
       parent_name: ''
+      region: content
       weight: 0
       format_type: tooltip
-      region: content
       format_settings:
         show_label: '0'
         tooltip_description: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
@@ -50,7 +51,6 @@ third_party_settings:
         element: div
         label_element: h3
         attributes: ''
-      label: 'Location Information'
 id: node.vet_center.external_content
 targetEntityType: node
 bundle: vet_center
@@ -58,29 +58,28 @@ mode: external_content
 content:
   field_address:
     type: address_default
-    weight: 3
-    region: content
     label: above
     settings: {  }
     third_party_settings: {  }
+    weight: 3
+    region: content
   field_facility_locator_api_id:
     type: string
-    weight: 2
-    region: content
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 2
+    region: content
   field_office_hours:
     type: office_hours
-    weight: 6
-    region: content
     label: above
     settings:
-      show_closed: all
-      office_hours_first_day: ''
       day_format: short
       time_format: g
+      compress: false
+      grouped: false
+      show_closed: all
       closed_format: ''
       separator:
         days: '<br />'
@@ -92,20 +91,21 @@ content:
         position: ''
         open_text: 'Currently open!'
         closed_text: 'Currently closed'
-      compress: false
-      grouped: false
+      timezone_field: ''
+      office_hours_first_day: ''
       schema:
         enabled: false
-      timezone_field: ''
     third_party_settings: {  }
+    weight: 6
+    region: content
   field_phone_number:
     type: string
-    weight: 4
-    region: content
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 4
+    region: content
 hidden:
   content_moderation_control: true
   field_administration: true

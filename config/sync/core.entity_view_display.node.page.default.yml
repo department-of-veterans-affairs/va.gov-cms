@@ -26,15 +26,15 @@ third_party_settings:
       children:
         - field_meta_title
         - field_description
+      label: Metadata
       parent_name: ''
+      region: content
       weight: 0
       format_type: fieldset
       format_settings:
-        description: ''
-        id: ''
         classes: meta-content
-      label: Metadata
-      region: content
+        id: ''
+        description: ''
 _core:
   default_config_hash: Kfxnq5Imio9VFBoNa_PIkzXoTmjz_T-EY3mOrwDTddU
 id: node.page.default
@@ -43,82 +43,82 @@ bundle: page
 mode: default
 content:
   field_alert:
-    weight: 2
+    type: entity_reference_entity_view
     label: above
     settings:
       view_mode: default
       link: false
     third_party_settings: {  }
-    type: entity_reference_entity_view
+    weight: 2
     region: content
   field_content_block:
     type: entity_reference_revisions_entity_view
-    weight: 5
     label: above
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    weight: 5
     region: content
   field_description:
     type: string
-    weight: 2
-    region: content
     label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 2
+    region: content
   field_featured_content:
     type: entity_reference_revisions_entity_view
-    weight: 3
     label: above
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    weight: 3
     region: content
   field_intro_text_limited_html:
     type: text_default
-    weight: 1
-    region: content
     label: above
     settings: {  }
     third_party_settings: {  }
+    weight: 1
+    region: content
   field_last_update:
-    weight: 7
+    type: datetime_default
     label: above
     settings:
-      format_type: medium
       timezone_override: ''
+      format_type: medium
     third_party_settings: {  }
-    type: datetime_default
+    weight: 7
     region: content
   field_meta_title:
     type: string
-    weight: 1
-    region: content
     label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 1
+    region: content
   field_related_links:
     type: entity_reference_revisions_entity_view
-    weight: 6
     label: above
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    weight: 6
     region: content
   field_table_of_contents_boolean:
-    weight: 4
+    type: boolean
     label: above
     settings:
       format: default
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    type: boolean
+    weight: 4
     region: content
 hidden:
   content_moderation_control: true

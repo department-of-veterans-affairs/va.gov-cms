@@ -32,7 +32,6 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
-    negate: 0
     target_bundles:
       wysiwyg: wysiwyg
       q_a_section: q_a_section
@@ -46,13 +45,14 @@ settings:
       lists_of_links: lists_of_links
       table: table
       media_list_videos: media_list_videos
+    negate: 0
     target_bundles_drag_drop:
       address:
         weight: -32
         enabled: false
       alert:
-        enabled: true
         weight: -31
+        enabled: true
       alert_single:
         weight: 44
         enabled: false
@@ -69,8 +69,8 @@ settings:
         weight: 48
         enabled: false
       collapsible_panel:
-        enabled: true
         weight: -33
+        enabled: true
       collapsible_panel_item:
         weight: -30
         enabled: false
@@ -78,14 +78,14 @@ settings:
         weight: 51
         enabled: false
       downloadable_file:
-        enabled: true
         weight: 26
+        enabled: true
       email_contact:
         weight: 53
         enabled: false
       expandable_text:
-        enabled: true
         weight: -29
+        enabled: true
       health_care_local_facility_servi:
         weight: -28
         enabled: false
@@ -96,23 +96,23 @@ settings:
         weight: 57
         enabled: false
       list_of_link_teasers:
-        enabled: true
         weight: -26
+        enabled: true
       list_of_links:
         weight: 34
         enabled: false
       lists_of_links:
-        enabled: true
         weight: 34
-      media:
         enabled: true
+      media:
         weight: -35
+        enabled: true
       media_list_images:
         weight: 62
         enabled: false
       media_list_videos:
-        enabled: true
         weight: 63
+        enabled: true
       non_reusable_alert:
         weight: 64
         enabled: false
@@ -123,8 +123,8 @@ settings:
         weight: 34
         enabled: false
       process:
-        enabled: true
         weight: -34
+        enabled: true
       q_a:
         weight: -23
         enabled: false
@@ -132,8 +132,8 @@ settings:
         weight: 69
         enabled: false
       q_a_section:
-        enabled: true
         weight: -36
+        enabled: true
       react_widget:
         weight: -22
         enabled: false
@@ -165,9 +165,9 @@ settings:
         weight: 80
         enabled: false
       table:
-        enabled: true
         weight: 41
-      wysiwyg:
         enabled: true
+      wysiwyg:
         weight: -37
+        enabled: true
 field_type: entity_reference_revisions

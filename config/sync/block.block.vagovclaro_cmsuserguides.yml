@@ -18,21 +18,21 @@ plugin: 'system_menu_block:documentation'
 settings:
   id: 'system_menu_block:documentation'
   label: 'CMS Knowledge Base'
-  provider: system
   label_display: visible
+  provider: system
   level: 2
   depth: 0
   expand_all_items: false
 visibility:
   request_path:
     id: request_path
-    pages: "/help\r\n/help/search\r\n"
     negate: true
     context_mapping: {  }
+    pages: "/help\r\n/help/search\r\n"
   'entity_bundle:node':
     id: 'entity_bundle:node'
-    bundles:
-      documentation_page: documentation_page
     negate: false
     context_mapping:
       node: '@node.node_route_context:node'
+    bundles:
+      documentation_page: documentation_page

@@ -2,7 +2,20 @@ uuid: d61bb4b4-697c-470e-b9ea-47a72730064e
 langcode: en
 status: true
 dependencies:
+  config:
+    - node.type.event
+    - node.type.full_width_banner_alert
+    - node.type.health_care_local_health_service
+    - node.type.health_care_region_detail_page
+    - node.type.news_story
+    - node.type.person_profile
+    - node.type.press_release
+    - node.type.regional_health_care_service_des
   module:
+    - block_content_permissions
+    - file
+    - node
+    - node_link_report
     - va_gov_backend
 third_party_settings:
   va_gov_backend:

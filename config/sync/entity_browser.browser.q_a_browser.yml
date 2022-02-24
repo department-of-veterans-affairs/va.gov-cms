@@ -21,22 +21,22 @@ widget_selector: single
 widget_selector_configuration: {  }
 widgets:
   d97c6488-037b-41ec-ba4c-6c115507226e:
+    id: view
+    uuid: d97c6488-037b-41ec-ba4c-6c115507226e
+    label: ''
+    weight: 1
     settings:
-      view: content_entity_browsers
-      view_display: entity_browser_1
       submit_text: 'Select Q&As'
       auto_select: false
-    uuid: d97c6488-037b-41ec-ba4c-6c115507226e
-    weight: 1
-    label: ''
-    id: view
+      view: content_entity_browsers
+      view_display: entity_browser_1
   72d0ffb9-db92-4f24-ba64-ad72dd2b3bb1:
+    id: entity_form
+    uuid: 72d0ffb9-db92-4f24-ba64-ad72dd2b3bb1
+    label: entity_form
+    weight: 2
     settings:
+      submit_text: 'Select Q&As'
       entity_type: node
       bundle: q_a
       form_mode: inline_entity_form
-      submit_text: 'Select Q&As'
-    uuid: 72d0ffb9-db92-4f24-ba64-ad72dd2b3bb1
-    weight: 2
-    label: entity_form
-    id: entity_form
