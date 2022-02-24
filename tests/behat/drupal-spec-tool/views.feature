@@ -169,9 +169,9 @@ Feature: Views
 | Media | Media | media_page_list | Page |
 | Media | Downloadable document browser | entity_browser_3 | Entity browser |
 | Media | Media bulk edit | page_1 | Page |
-| Media - images | Default | default | Default |
-| Media - images | Media | media_images | Page |
-| Media - images export | Data export | images_export | Data export |
+| Media Images | Master | default | Default |
+| Media Images | Media | media_images | Page |
+| Media Images | Data export | images_export | Data export |
 | Media library | Master | default | Default |
 | Media library | Page | page | Page |
 | Media library | Widget | widget | Page |
