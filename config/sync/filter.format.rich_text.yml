@@ -40,19 +40,13 @@ filters:
     status: true
     weight: -47
     settings: {  }
-  entity_embed:
-    id: entity_embed
-    provider: entity_embed
-    status: true
-    weight: -42
-    settings: {  }
   filter_html:
     id: filter_html
     provider: filter
     status: true
     weight: -50
     settings:
-      allowed_html: '<em> <strong> <b> <cite> <blockquote cite> <ul type> <ol type start> <li> <h2 id> <h3 id> <h4 id> <h5 id> <h6 id> <hr> <br> <p id class="va-address-block block-va-gov-text"> <a href hreflang aria-label data-entity-substitution data-entity-type data-entity-uuid target title class="button button-action button--primary usa-button usa-button-primary usa-button-secondary va-button-primary login-required block-vet-center-facility-button"> <drupal-entity data-* title alt data-entity-type data-entity-uuid data-entity-embed-display data-entity-embed-display-settings data-align data-caption data-embed-button data-langcode>'
+      allowed_html: '<em> <strong> <b> <cite> <blockquote cite> <ul type> <ol type start> <li> <h2 id> <h3 id> <h4 id> <h5 id> <h6 id> <hr> <br> <p id class="va-address-block block-va-gov-text"> <a href hreflang aria-label data-entity-substitution data-entity-type data-entity-uuid target title class="button button-action button--primary usa-button usa-button-primary usa-button-secondary va-button-primary login-required block-vet-center-facility-button"> <drupal-entity data-* title alt data-entity-type data-entity-uuid data-align data-caption data-langcode>'
       filter_html_help: true
       filter_html_nofollow: false
   filter_autop:
@@ -113,6 +107,9 @@ filters:
     weight: -36
     settings:
       media_switch: ''
+      hybrid_style: ''
+      box_style: ''
+      box_caption: ''
       filter_tags:
         img: img
         iframe: iframe
@@ -131,3 +128,9 @@ filters:
     weight: -49
     settings:
       title: '1'
+  entity_embed:
+    id: entity_embed
+    provider: entity_embed
+    status: false
+    weight: -42
+    settings: {  }
