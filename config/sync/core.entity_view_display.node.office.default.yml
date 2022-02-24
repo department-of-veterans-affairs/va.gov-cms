@@ -10,6 +10,8 @@ dependencies:
     - field.field.node.office.field_external_link
     - field.field.node.office.field_meta_tags
     - field.field.node.office.field_meta_title
+    - field.field.node.office.field_office_id
+    - field.field.node.office.field_parent_office
     - field.field.node.office.field_social_media_links
     - node.type.office
   module:
@@ -84,6 +86,22 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 4
+    region: content
+  field_office_id:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  field_parent_office:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 11
     region: content
   field_social_media_links:
     type: social_media_links_field_default

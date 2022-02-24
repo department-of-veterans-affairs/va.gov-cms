@@ -10,6 +10,8 @@ dependencies:
     - field.field.node.office.field_external_link
     - field.field.node.office.field_meta_tags
     - field.field.node.office.field_meta_title
+    - field.field.node.office.field_office_id
+    - field.field.node.office.field_parent_office
     - field.field.node.office.field_social_media_links
     - node.type.office
     - workflows.workflow.editorial
@@ -172,6 +174,24 @@ content:
       js_prevent_submit: true
       count_html_characters: false
       textcount_status_message: 'Remaining: <span class="remaining_count">@remaining_count</span>'
+    third_party_settings: {  }
+  field_office_id:
+    type: string_textfield
+    weight: 29
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_parent_office:
+    type: entity_reference_autocomplete
+    weight: 30
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_social_media_links:
     type: social_media_links_field_default
