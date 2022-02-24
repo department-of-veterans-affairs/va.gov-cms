@@ -930,6 +930,59 @@ display:
                 title: 'Not reusable'
                 operator: '='
                 value: '0'
+        image_alt_1:
+          id: image_alt_1
+          table: media__image
+          field: image_alt
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: string
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: image_alt_1_op
+            label: 'Alt contains'
+            description: ''
+            use_operator: false
+            operator: image_alt_1_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: image_alt_1
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
         image_alt:
           id: image_alt
           table: media__image
@@ -993,6 +1046,10 @@ display:
                 title: Present
                 operator: 'not empty'
                 value: ''
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
       style:
         type: table
         options:
