@@ -21,41 +21,41 @@ third_party_settings:
     group_content:
       children:
         - field_intro_text
+      label: Content
       parent_name: ''
+      region: content
       weight: 1
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-      label: Content
-      region: content
     group_relationships:
       children:
         - field_administration
         - field_office
+      label: Relationships
       parent_name: ''
+      region: hidden
       weight: 7
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-      label: Relationships
-      region: hidden
     group_meta:
       children:
         - field_description
         - field_meta_title
+      label: Meta
       parent_name: ''
+      region: content
       weight: 0
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-      label: Meta
-      region: content
 id: node.health_services_listing.default
 targetEntityType: node
 bundle: health_services_listing
@@ -63,34 +63,34 @@ mode: default
 content:
   field_description:
     type: string
-    weight: 0
-    region: content
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 0
+    region: content
   field_enforce_unique_combo:
-    weight: 8
+    type: allow_only_one
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: allow_only_one
+    weight: 8
     region: content
   field_featured_content_healthser:
-    weight: 2
+    type: entity_reference_revisions_entity_view
     label: above
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    type: entity_reference_revisions_entity_view
+    weight: 2
     region: content
   field_intro_text:
-    weight: 7
+    type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    weight: 7
     region: content
 hidden:
   content_moderation_control: true

@@ -15,8 +15,8 @@ dependencies:
     - views
 third_party_settings:
   layout_builder:
-    allow_custom: false
     enabled: true
+    allow_custom: false
     sections:
       -
         layout_id: layout_onecol
@@ -29,26 +29,26 @@ third_party_settings:
             configuration:
               id: 'views_block:taxonomy_term-taxonomy_term_listing_block'
               label: ''
-              provider: views
               label_display: visible
+              provider: views
+              context_mapping: {  }
               views_label: ''
               items_per_page: none
-              context_mapping: {  }
-            additional: {  }
             weight: 0
+            additional: {  }
           2448f45e-d3ed-4735-9adc-eaa1b51a0511:
             uuid: 2448f45e-d3ed-4735-9adc-eaa1b51a0511
             region: content
             configuration:
               id: 'views_block:taxonomy_term-block_1'
               label: ''
-              provider: views
               label_display: visible
+              provider: views
+              context_mapping: {  }
               views_label: ''
               items_per_page: none
-              context_mapping: {  }
-            additional: {  }
             weight: 1
+            additional: {  }
         third_party_settings: {  }
 id: taxonomy_term.administration.full
 targetEntityType: taxonomy_term
@@ -56,12 +56,12 @@ bundle: administration
 mode: full
 content:
   description:
-    label: above
     type: text_default
-    weight: 0
-    region: content
+    label: above
     settings: {  }
     third_party_settings: {  }
+    weight: 0
+    region: content
 hidden:
   field_description: true
   field_product: true

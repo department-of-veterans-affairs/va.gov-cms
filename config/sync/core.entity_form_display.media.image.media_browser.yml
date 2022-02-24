@@ -23,25 +23,25 @@ content:
   image:
     type: image_widget_crop
     weight: 1
+    region: content
     settings:
-      show_crop_area: true
-      show_default_crop: true
+      progress_indicator: throbber
       preview_image_style: 2_1_medium_thumbnail
       crop_preview_image_style: crop_thumbnail
-      progress_indicator: throbber
       crop_list: {  }
       crop_types_required: {  }
       warn_multiple_usages: false
+      show_crop_area: true
+      show_default_crop: true
     third_party_settings: {  }
-    region: content
   name:
     type: string_textfield
     weight: 0
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    region: content
 hidden:
   created: true
   field_description: true

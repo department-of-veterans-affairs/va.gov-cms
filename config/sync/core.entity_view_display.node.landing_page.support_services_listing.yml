@@ -30,61 +30,61 @@ third_party_settings:
       children:
         - field_description
         - field_meta_title
+      label: Meta
       parent_name: ''
+      region: hidden
       weight: 4
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-        open: true
         required_fields: false
-      label: Meta
-      region: hidden
+        open: true
     group_body:
       children:
         - field_alert
         - field_intro_text
         - field_related_links
         - field_spokes
+      label: Body
       parent_name: ''
+      region: hidden
       weight: 2
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-      label: Body
-      region: hidden
     group_other:
       children:
         - field_home_page_hub_label
         - field_teaser_text
         - field_title_icon
+      label: Other
       parent_name: ''
+      region: hidden
       weight: 1
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-        open: false
         required_fields: false
-      label: Other
-      region: hidden
+        open: false
 id: node.landing_page.support_services_listing
 targetEntityType: node
 bundle: landing_page
 mode: support_services_listing
 content:
   field_support_services:
-    weight: 3
+    type: entity_reference_entity_view
     label: hidden
     settings:
       view_mode: support_services_listing
       link: false
     third_party_settings: {  }
-    type: entity_reference_entity_view
+    weight: 3
     region: content
 hidden:
   content_moderation_control: true

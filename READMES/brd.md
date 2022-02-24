@@ -13,7 +13,7 @@ For access, talk to your supervisor or see the [VA.gov-team git repository issue
 
 ## BRD OS
 
-The BRD system uses the same OS for all supported apps: Amazon Linux v1. 
+The BRD system uses the same OS for almost all supported apps: Amazon Linux v1.  The sole exception is the CMS, which uses Amazon Linux 2.
 
 This is roughly equivalent to CentOS 6. To get this working, numerous variable 
 overrides and tasks are needed. 

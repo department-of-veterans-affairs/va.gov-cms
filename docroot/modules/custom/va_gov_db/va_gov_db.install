@@ -110,7 +110,10 @@ function _va_gov_rename_vocab_term($oldname, $newname, $vocabulary_name = NULL) 
     ':oldname' => $oldname,
     ':newname' => $newname,
   ];
-  $terms = taxonomy_term_load_multiple_by_name($oldname, $vocabulary_name);
+  $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties([
+    'name' => $oldname,
+    'vid' => $vocabulary_name,
+  ]);
   if (empty($terms)) {
     $vars[':vocabulary'] = $vocabulary_name;
     $message = t("Found no term ':oldname' in vocabulary ':vocabulary'.", $vars);

@@ -23,45 +23,12 @@ base_table: node_field_data
 base_field: nid
 display:
   default:
-    display_plugin: default
     id: default
     display_title: Master
+    display_plugin: default
     position: 0
     display_options:
-      access:
-        type: perm
-        options:
-          perm: 'access content'
-      cache:
-        type: tag
-        options: {  }
-      query:
-        type: views_query
-        options:
-          disable_sql_rewrite: false
-          distinct: false
-          replica: false
-          query_comment: ''
-          query_tags: {  }
-      exposed_form:
-        type: basic
-        options:
-          submit_button: Apply
-          reset_button: false
-          reset_button_label: Reset
-          exposed_sorts_label: 'Sort by'
-          expose_sort_order: true
-          sort_asc_label: Asc
-          sort_desc_label: Desc
-      pager:
-        type: some
-        options:
-          items_per_page: 0
-          offset: 0
-      style:
-        type: default
-      row:
-        type: fields
+      title: 'Content Entity Reference Source'
       fields:
         title_1:
           id: title_1
@@ -70,6 +37,9 @@ display:
           relationship: field_office
           group_type: group
           admin_label: ''
+          entity_type: node
+          entity_field: title
+          plugin_id: field
           label: ''
           exclude: false
           alter:
@@ -125,9 +95,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: node
-          entity_field: title
-          plugin_id: field
         title:
           id: title
           table: node_field_data
@@ -135,6 +102,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: node
+          entity_field: title
+          plugin_id: field
           label: ''
           exclude: false
           alter:
@@ -190,10 +160,29 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: node
-          entity_field: title
-          plugin_id: field
-      filters: {  }
+      pager:
+        type: some
+        options:
+          offset: 0
+          items_per_page: 0
+      exposed_form:
+        type: basic
+        options:
+          submit_button: Apply
+          reset_button: false
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      access:
+        type: perm
+        options:
+          perm: 'access content'
+      cache:
+        type: tag
+        options: {  }
+      empty: {  }
       sorts:
         title:
           id: title
@@ -202,13 +191,14 @@ display:
           relationship: field_office
           group_type: group
           admin_label: ''
-          order: ASC
-          exposed: false
-          expose:
-            label: ''
           entity_type: node
           entity_field: title
           plugin_id: standard
+          order: ASC
+          expose:
+            label: ''
+            field_identifier: title
+          exposed: false
         title_1:
           id: title_1
           table: node_field_data
@@ -216,20 +206,8 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: standard
-      title: 'Content Entity Reference Source'
-      header: {  }
-      footer: {  }
-      empty: {  }
-      relationships:
-        field_office:
-          id: field_office
-          table: node__field_office
-          field: field_office
-          relationship: none
-          group_type: group
-          admin_label: 'field_office: Content'
-          required: true
-          plugin_id: standard
+          expose:
+            field_identifier: title_1
       arguments:
         nid:
           id: nid
@@ -238,6 +216,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: node
+          entity_field: nid
+          plugin_id: node_nid
           default_action: default
           exception:
             value: all
@@ -252,8 +233,8 @@ display:
           summary_options:
             base_path: ''
             count: true
-            items_per_page: 25
             override: false
+            items_per_page: 25
           summary:
             sort_order: asc
             number_of_records: 0
@@ -265,9 +246,31 @@ display:
           validate_options: {  }
           break_phrase: true
           not: false
-          entity_type: node
-          entity_field: nid
-          plugin_id: node_nid
+      filters: {  }
+      style:
+        type: default
+      row:
+        type: fields
+      query:
+        type: views_query
+        options:
+          query_comment: ''
+          disable_sql_rewrite: false
+          distinct: false
+          replica: false
+          query_tags: {  }
+      relationships:
+        field_office:
+          id: field_office
+          table: node__field_office
+          field: field_office
+          relationship: none
+          group_type: group
+          admin_label: 'field_office: Content'
+          plugin_id: standard
+          required: true
+      header: {  }
+      footer: {  }
       display_extenders: {  }
     cache_metadata:
       max-age: -1
@@ -279,12 +282,17 @@ display:
         - user.permissions
       tags: {  }
   entity_reference_1:
-    display_plugin: entity_reference
     id: entity_reference_1
     display_title: 'Entity Reference: Event Listing'
+    display_plugin: entity_reference
     position: 2
     display_options:
-      display_extenders: {  }
+      pager:
+        type: some
+        options:
+          offset: 0
+          items_per_page: 0
+      arguments: {  }
       filters:
         type:
           id: type
@@ -293,6 +301,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
           operator: in
           value:
             event_listing: event_listing
@@ -326,13 +337,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
-      defaults:
-        filters: false
-        filter_groups: false
-        arguments: false
       filter_groups:
         operator: AND
         groups:
@@ -343,11 +347,6 @@ display:
           search_fields:
             title: title
             title_1: title_1
-      pager:
-        type: some
-        options:
-          items_per_page: 0
-          offset: 0
       row:
         type: entity_reference
         options:
@@ -357,8 +356,12 @@ display:
             title: title
           separator: ': '
           hide_empty: false
+      defaults:
+        arguments: false
+        filters: false
+        filter_groups: false
       display_description: ''
-      arguments: {  }
+      display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
@@ -368,12 +371,17 @@ display:
         - user.permissions
       tags: {  }
   entity_reference_2:
-    display_plugin: entity_reference
     id: entity_reference_2
     display_title: 'Entity Reference: Publication Listing'
+    display_plugin: entity_reference
     position: 2
     display_options:
-      display_extenders: {  }
+      pager:
+        type: some
+        options:
+          offset: 0
+          items_per_page: 0
+      arguments: {  }
       filters:
         type:
           id: type
@@ -382,6 +390,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
           operator: in
           value:
             publication_listing: publication_listing
@@ -415,13 +426,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
-      defaults:
-        filters: false
-        filter_groups: false
-        arguments: false
       filter_groups:
         operator: AND
         groups:
@@ -432,11 +436,6 @@ display:
           search_fields:
             title: title
             title_1: title_1
-      pager:
-        type: some
-        options:
-          items_per_page: 0
-          offset: 0
       row:
         type: entity_reference
         options:
@@ -446,8 +445,12 @@ display:
             title: title
           separator: ': '
           hide_empty: false
+      defaults:
+        arguments: false
+        filters: false
+        filter_groups: false
       display_description: ''
-      arguments: {  }
+      display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
@@ -457,12 +460,17 @@ display:
         - user.permissions
       tags: {  }
   entity_reference_3:
-    display_plugin: entity_reference
     id: entity_reference_3
     display_title: 'Entity Reference: Story Listing'
+    display_plugin: entity_reference
     position: 2
     display_options:
-      display_extenders: {  }
+      pager:
+        type: some
+        options:
+          offset: 0
+          items_per_page: 0
+      arguments: {  }
       filters:
         type:
           id: type
@@ -471,6 +479,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
           operator: in
           value:
             story_listing: story_listing
@@ -504,13 +515,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
-      defaults:
-        filters: false
-        filter_groups: false
-        arguments: false
       filter_groups:
         operator: AND
         groups:
@@ -521,11 +525,6 @@ display:
           search_fields:
             title: title
             title_1: title_1
-      pager:
-        type: some
-        options:
-          items_per_page: 0
-          offset: 0
       row:
         type: entity_reference
         options:
@@ -535,8 +534,12 @@ display:
             title: title
           separator: ': '
           hide_empty: false
+      defaults:
+        arguments: false
+        filters: false
+        filter_groups: false
       display_description: ''
-      arguments: {  }
+      display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
@@ -546,12 +549,17 @@ display:
         - user.permissions
       tags: {  }
   entity_reference_4:
-    display_plugin: entity_reference
     id: entity_reference_4
     display_title: 'Entity Reference: News Release Listing'
+    display_plugin: entity_reference
     position: 2
     display_options:
-      display_extenders: {  }
+      pager:
+        type: some
+        options:
+          offset: 0
+          items_per_page: 0
+      arguments: {  }
       filters:
         type:
           id: type
@@ -560,6 +568,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
           operator: in
           value:
             press_releases_listing: press_releases_listing
@@ -593,13 +604,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
-      defaults:
-        filters: false
-        filter_groups: false
-        arguments: false
       filter_groups:
         operator: AND
         groups:
@@ -610,11 +614,6 @@ display:
           search_fields:
             title: title
             title_1: title_1
-      pager:
-        type: some
-        options:
-          items_per_page: 0
-          offset: 0
       row:
         type: entity_reference
         options:
@@ -624,8 +623,12 @@ display:
             title: title
           separator: ': '
           hide_empty: false
+      defaults:
+        arguments: false
+        filters: false
+        filter_groups: false
       display_description: ''
-      arguments: {  }
+      display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
@@ -635,88 +638,11 @@ display:
         - user.permissions
       tags: {  }
   entity_reference_5:
-    display_plugin: entity_reference
     id: entity_reference_5
     display_title: 'Entity Reference: Staff profiles'
+    display_plugin: entity_reference
     position: 2
     display_options:
-      display_extenders: {  }
-      filters:
-        type:
-          id: type
-          table: node_field_data
-          field: type
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: in
-          value:
-            person_profile: person_profile
-          group: 1
-          exposed: false
-          expose:
-            operator_id: ''
-            label: ''
-            description: ''
-            use_operator: false
-            operator: ''
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: ''
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            reduce: false
-            argument: null
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
-      defaults:
-        filters: false
-        filter_groups: false
-        fields: false
-        arguments: false
-        relationships: false
-        sorts: false
-      filter_groups:
-        operator: AND
-        groups:
-          1: AND
-      style:
-        type: entity_reference
-        options:
-          search_fields:
-            title: title
-            title_1: '0'
-      pager:
-        type: some
-        options:
-          items_per_page: 0
-          offset: 0
-      row:
-        type: entity_reference
-        options:
-          default_field_elements: true
-          inline:
-            title: title
-            title_1: title_1
-          separator: ' -  '
-          hide_empty: true
-      display_description: ''
       fields:
         title:
           id: title
@@ -725,6 +651,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: node
+          entity_field: title
+          plugin_id: field
           label: ''
           exclude: false
           alter:
@@ -780,9 +709,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: node
-          entity_field: title
-          plugin_id: field
         title_1:
           id: title_1
           table: node_field_data
@@ -790,6 +716,9 @@ display:
           relationship: field_office
           group_type: group
           admin_label: ''
+          entity_type: node
+          entity_field: title
+          plugin_id: field
           label: ''
           exclude: false
           alter:
@@ -845,20 +774,11 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: node
-          entity_field: title
-          plugin_id: field
-      arguments: {  }
-      relationships:
-        field_office:
-          id: field_office
-          table: node__field_office
-          field: field_office
-          relationship: none
-          group_type: group
-          admin_label: 'field_office: Content'
-          required: true
-          plugin_id: standard
+      pager:
+        type: some
+        options:
+          offset: 0
+          items_per_page: 0
       sorts:
         title_1:
           id: title_1
@@ -867,34 +787,15 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          order: ASC
-          exposed: false
-          expose:
-            label: ''
           entity_type: node
           entity_field: title
           plugin_id: standard
-    cache_metadata:
-      max-age: -1
-      contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - 'user.node_grants:view'
-        - user.permissions
-      tags: {  }
-  entity_reference_6:
-    display_plugin: entity_reference
-    id: entity_reference_6
-    display_title: 'Entity Reference: Systems'
-    position: 6
-    display_options:
-      display_extenders: {  }
-      display_description: ''
-      style:
-        type: entity_reference
-        options:
-          search_fields:
-            title: title
+          order: ASC
+          expose:
+            label: ''
+            field_identifier: title_1
+          exposed: false
+      arguments: {  }
       filters:
         type:
           id: type
@@ -903,9 +804,12 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
           operator: in
           value:
-            health_care_local_facility: health_care_local_facility
+            person_profile: person_profile
           group: 1
           exposed: false
           expose:
@@ -923,6 +827,7 @@ display:
             remember_roles:
               authenticated: authenticated
             reduce: false
+            argument: null
           is_grouped: false
           group_info:
             label: ''
@@ -935,20 +840,58 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
-      defaults:
-        filters: false
-        filter_groups: false
-        fields: false
-        relationships: false
-        sorts: false
-        arguments: false
       filter_groups:
         operator: AND
         groups:
           1: AND
+      style:
+        type: entity_reference
+        options:
+          search_fields:
+            title: title
+            title_1: '0'
+      row:
+        type: entity_reference
+        options:
+          default_field_elements: true
+          inline:
+            title: title
+            title_1: title_1
+          separator: ' -  '
+          hide_empty: true
+      defaults:
+        relationships: false
+        fields: false
+        sorts: false
+        arguments: false
+        filters: false
+        filter_groups: false
+      relationships:
+        field_office:
+          id: field_office
+          table: node__field_office
+          field: field_office
+          relationship: none
+          group_type: group
+          admin_label: 'field_office: Content'
+          plugin_id: standard
+          required: true
+      display_description: ''
+      display_extenders: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - 'user.node_grants:view'
+        - user.permissions
+      tags: {  }
+  entity_reference_6:
+    id: entity_reference_6
+    display_title: 'Entity Reference: Systems'
+    display_plugin: entity_reference
+    position: 6
+    display_options:
       fields:
         title:
           id: title
@@ -957,6 +900,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: node
+          entity_field: title
+          plugin_id: field
           label: ''
           exclude: true
           alter:
@@ -1012,9 +958,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: node
-          entity_field: title
-          plugin_id: field
         field_administration:
           id: field_administration
           table: node__field_administration
@@ -1022,6 +965,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: field
           label: ''
           exclude: false
           alter:
@@ -1077,22 +1021,11 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
-      row:
-        type: entity_reference
-        options:
-          default_field_elements: true
-          inline:
-            title_1: title_1
-            title: title
-          separator: '|'
-          hide_empty: false
       pager:
         type: some
         options:
-          items_per_page: 0
           offset: 0
-      relationships: {  }
+          items_per_page: 0
       sorts:
         title:
           id: title
@@ -1101,30 +1034,15 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          order: ASC
-          exposed: false
-          expose:
-            label: ''
           entity_type: node
           entity_field: title
           plugin_id: standard
+          order: ASC
+          expose:
+            label: ''
+            field_identifier: title
+          exposed: false
       arguments: {  }
-    cache_metadata:
-      max-age: -1
-      contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - 'user.node_grants:view'
-        - user.permissions
-      tags:
-        - 'config:field.storage.node.field_administration'
-  entity_reference_7:
-    display_plugin: entity_reference
-    id: entity_reference_7
-    display_title: 'Entity Reference: Main Offices'
-    position: 2
-    display_options:
-      display_extenders: {  }
       filters:
         type:
           id: type
@@ -1133,9 +1051,12 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
           operator: in
           value:
-            office: office
+            health_care_local_facility: health_care_local_facility
           group: 1
           exposed: false
           expose:
@@ -1153,7 +1074,6 @@ display:
             remember_roles:
               authenticated: authenticated
             reduce: false
-            argument: null
           is_grouped: false
           group_info:
             label: ''
@@ -1166,16 +1086,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
-      defaults:
-        filters: false
-        filter_groups: false
-        relationships: false
-        arguments: false
-        sorts: false
-        fields: false
       filter_groups:
         operator: AND
         groups:
@@ -1185,11 +1095,6 @@ display:
         options:
           search_fields:
             title: title
-      pager:
-        type: some
-        options:
-          items_per_page: 0
-          offset: 0
       row:
         type: entity_reference
         options:
@@ -1197,63 +1102,33 @@ display:
           inline:
             title_1: title_1
             title: title
-          separator: ': '
+          separator: '|'
           hide_empty: false
-      display_description: ''
+      defaults:
+        relationships: false
+        fields: false
+        sorts: false
+        arguments: false
+        filters: false
+        filter_groups: false
       relationships: {  }
-      arguments:
-        nid:
-          id: nid
-          table: node_field_data
-          field: nid
-          relationship: none
-          group_type: group
-          admin_label: ''
-          default_action: default
-          exception:
-            value: all
-            title_enable: false
-            title: All
-          title_enable: false
-          title: ''
-          default_argument_type: fixed
-          default_argument_options:
-            argument: 38442+38441+38440+38439
-          default_argument_skip_url: false
-          summary_options:
-            base_path: ''
-            count: true
-            items_per_page: 25
-            override: false
-          summary:
-            sort_order: asc
-            number_of_records: 0
-            format: default_summary
-          specify_validation: false
-          validate:
-            type: none
-            fail: 'not found'
-          validate_options: {  }
-          break_phrase: true
-          not: false
-          entity_type: node
-          entity_field: nid
-          plugin_id: node_nid
-      sorts:
-        title_1:
-          id: title_1
-          table: node_field_data
-          field: title
-          relationship: none
-          group_type: group
-          admin_label: ''
-          order: ASC
-          exposed: false
-          expose:
-            label: ''
-          entity_type: node
-          entity_field: title
-          plugin_id: standard
+      display_description: ''
+      display_extenders: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_administration'
+  entity_reference_7:
+    id: entity_reference_7
+    display_title: 'Entity Reference: Main Offices'
+    display_plugin: entity_reference
+    position: 2
+    display_options:
       fields:
         title:
           id: title
@@ -1262,6 +1137,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: node
+          entity_field: title
+          plugin_id: field
           label: ''
           exclude: false
           alter:
@@ -1317,9 +1195,137 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+      pager:
+        type: some
+        options:
+          offset: 0
+          items_per_page: 0
+      sorts:
+        title_1:
+          id: title_1
+          table: node_field_data
+          field: title
+          relationship: none
+          group_type: group
+          admin_label: ''
           entity_type: node
           entity_field: title
-          plugin_id: field
+          plugin_id: standard
+          order: ASC
+          expose:
+            label: ''
+            field_identifier: title_1
+          exposed: false
+      arguments:
+        nid:
+          id: nid
+          table: node_field_data
+          field: nid
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: nid
+          plugin_id: node_nid
+          default_action: default
+          exception:
+            value: all
+            title_enable: false
+            title: All
+          title_enable: false
+          title: ''
+          default_argument_type: fixed
+          default_argument_options:
+            argument: 38442+38441+38440+38439
+          default_argument_skip_url: false
+          summary_options:
+            base_path: ''
+            count: true
+            override: false
+            items_per_page: 25
+          summary:
+            sort_order: asc
+            number_of_records: 0
+            format: default_summary
+          specify_validation: false
+          validate:
+            type: none
+            fail: 'not found'
+          validate_options: {  }
+          break_phrase: true
+          not: false
+      filters:
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          operator: in
+          value:
+            office: office
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+            argument: null
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      style:
+        type: entity_reference
+        options:
+          search_fields:
+            title: title
+      row:
+        type: entity_reference
+        options:
+          default_field_elements: true
+          inline:
+            title_1: title_1
+            title: title
+          separator: ': '
+          hide_empty: false
+      defaults:
+        relationships: false
+        fields: false
+        sorts: false
+        arguments: false
+        filters: false
+        filter_groups: false
+      relationships: {  }
+      display_description: ''
+      display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:

@@ -38,17 +38,17 @@ third_party_settings:
     group_governance:
       children:
         - field_administration
+      label: 'Section settings'
+      region: content
       parent_name: ''
       weight: 8
       format_type: details_sidebar
       format_settings:
-        open: true
-        weight: -15
-        required_fields: true
-        id: ''
         classes: ''
-      label: 'Section settings'
-      region: content
+        id: ''
+        open: true
+        required_fields: true
+        weight: -15
     group_location:
       children:
         - field_location_type
@@ -56,91 +56,91 @@ third_party_settings:
         - field_url_of_an_online_event
         - field_location_humanreadable
         - field_address
+      label: Location
+      region: content
       parent_name: ''
       weight: 7
       format_type: details
       format_settings:
-        open: true
-        id: ''
         classes: ''
+        id: ''
+        open: true
         required_fields: false
-      label: Location
-      region: content
     group_link:
       children:
         - field_event_registrationrequired
         - group_registration_link
         - field_additional_information_abo
+      label: Registration
+      region: content
       parent_name: ''
       weight: 6
       format_type: details
       format_settings:
-        description: 'All events on VA.gov are free.'
-        open: true
-        id: ''
         classes: ''
+        id: ''
+        open: true
+        description: 'All events on VA.gov are free.'
         required_fields: false
-      label: Registration
-      region: content
     group_editorial_workflow:
       children:
         - moderation_state
         - revision_log
+      label: 'Editorial Workflow'
+      region: content
       parent_name: ''
       weight: 14
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
-        open: true
-        required_fields: true
+        id: ''
         description: ''
-      label: 'Editorial Workflow'
-      region: content
+        required_fields: true
+        open: true
     group_registration_link:
       children:
         - field_event_cta
         - field_link
+      label: Link
+      region: content
       parent_name: group_link
       weight: 34
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: true
         open: false
-      label: Link
-      region: content
     group_feature_this_content:
       children:
         - field_featured
         - field_order
+      label: 'Feature This Content'
+      region: content
       parent_name: ''
       weight: 9
       format_type: details_sidebar
       format_settings:
-        id: ''
         classes: ''
-        description: ''
+        id: ''
         open: false
+        description: ''
         required_fields: true
         weight: 0
-      label: 'Feature This Content'
-      region: content
     group_meta_tags:
       children:
         - field_description
+      label: 'Meta Tags'
+      region: content
       parent_name: ''
       weight: 5
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: true
-      label: 'Meta Tags'
-      region: content
 id: node.event.default
 targetEntityType: node
 bundle: event
@@ -153,38 +153,39 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_additional_information_abo:
+    type: text_textarea
     weight: 35
+    region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-    type: text_textarea
-    region: content
   field_address:
-    weight: 17
-    settings: {  }
-    third_party_settings: {  }
     type: address_default
+    weight: 17
     region: content
-  field_administration:
-    weight: 43
     settings: {  }
     third_party_settings: {  }
+  field_administration:
     type: options_select
+    weight: 43
     region: content
+    settings: {  }
+    third_party_settings: {  }
   field_body:
+    type: text_textarea
     weight: 4
+    region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-    type: text_textarea
-    region: content
   field_datetime_range_timezone:
     type: smartdate_timezone
     weight: 1
     region: content
     settings:
+      modal: false
       default_tz: custom
       custom_tz: America/New_York
       allowed_timezones:
@@ -198,8 +199,6 @@ content:
         - Pacific/Guam
         - Pacific/Honolulu
         - Pacific/Saipan
-      hide_date: false
-      modal: false
       default_duration: 60
       default_duration_increments: |-
         30
@@ -208,52 +207,53 @@ content:
         120|2 hours
         custom
       show_extra: true
+      hide_date: false
       add_abbreviations: ''
     third_party_settings: {  }
   field_description:
+    type: string_textfield
     weight: 3
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_event_cta:
+    type: options_select
     weight: 26
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   field_event_registrationrequired:
+    type: boolean_checkbox
     weight: 31
+    region: content
     settings:
       display_label: true
     third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
   field_facility_location:
+    type: options_select
     weight: 13
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   field_featured:
+    type: boolean_checkbox
     weight: 10
+    region: content
     settings:
       display_label: true
     third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
   field_link:
+    type: linkit
     weight: 27
+    region: content
     settings:
       placeholder_url: ''
       placeholder_title: ''
       linkit_profile: default
       linkit_auto_link_text: false
     third_party_settings: {  }
-    type: linkit
-    region: content
   field_listing:
     type: options_select
     weight: 2
@@ -261,47 +261,47 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_location_humanreadable:
+    type: string_textfield
     weight: 15
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_location_type:
+    type: options_select
     weight: 12
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   field_media:
     type: media_library_widget
     weight: 3
+    region: content
     settings:
       media_types: {  }
-    region: content
     third_party_settings: {  }
   field_order:
+    type: options_select
     weight: 11
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   field_url_of_an_online_event:
+    type: linkit
     weight: 14
+    region: content
     settings:
       placeholder_url: ''
       placeholder_title: ''
       linkit_profile: default
       linkit_auto_link_text: false
     third_party_settings: {  }
-    type: linkit
-    region: content
   moderation_state:
     type: moderation_state_default
     weight: 14
-    settings: {  }
     region: content
+    settings: {  }
     third_party_settings: {  }
   path:
     type: path
@@ -320,12 +320,12 @@ content:
   uid:
     type: entity_reference_autocomplete
     weight: 10
+    region: content
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
-    region: content
     third_party_settings: {  }
   url_redirects:
     weight: 13

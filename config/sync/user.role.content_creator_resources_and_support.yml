@@ -2,7 +2,19 @@ uuid: 011213c4-3954-48fa-af6a-b02cebaeae2c
 langcode: en
 status: true
 dependencies:
+  config:
+    - node.type.checklist
+    - node.type.faq_multiple_q_a
+    - node.type.media_list_images
+    - node.type.media_list_videos
+    - node.type.q_a
+    - node.type.step_by_step
+    - node.type.support_resources_detail_page
   module:
+    - block_content_permissions
+    - file
+    - node
+    - node_link_report
     - va_gov_backend
 third_party_settings:
   va_gov_backend:

@@ -16,13 +16,13 @@ plugin: where_does_this_appear
 settings:
   id: where_does_this_appear
   label: 'Where does this Q&A appear on VA.gov?'
-  provider: va_gov_resources_and_support
   label_display: '0'
+  provider: va_gov_resources_and_support
 visibility:
   'entity_bundle:node':
     id: 'entity_bundle:node'
-    bundles:
-      q_a: q_a
     negate: false
     context_mapping:
       node: '@node.node_route_context:node'
+    bundles:
+      q_a: q_a

@@ -126,10 +126,16 @@ function vagovclaro_theme_suggestions_input_alter(&$suggestions, $variables) {
   if (isset($element['#ief_form']) && $element['#ief_form'] === 'add') {
     $suggestions[] = 'input__submit__ief';
   }
+  if (isset($element['#ief_form']) && $element['#ief_form'] === 'ief_add_existing') {
+    $suggestions[] = 'input__submit__ief';
+  }
   if (isset($element['#parents'][0]) && $element['#parents'][0] === 'field_alert') {
     $suggestions[] = 'input__submit__alert';
   }
   if (isset($element['#id']) && $element['#id'] === "edit-field-content-block-add-more-browse") {
+    $suggestions[] = 'input__submit__paragraph_action';
+  }
+  if (isset($element['#attributes']['data-drupal-selector']) && $element['#attributes']['data-drupal-selector'] === 'edit-field-content-block-add-more-browse') {
     $suggestions[] = 'input__submit__paragraph_action';
   }
 }
@@ -507,5 +513,8 @@ function _vagovclaro_form_action_outline_buttons(array &$form) {
   if ($form['#theme'][0] === 'node_edit_form') {
     $form['actions']['delete']['#options']['attributes']['class'][] = 'button--outline';
     $form['actions']['save_continue']['#attributes']['class'][] = 'button--outline';
+  }
+  if ($form['#theme'] === 'confirm_form') {
+    $form['actions']['cancel']['#attributes']['class'][] = 'button--outline';
   }
 }

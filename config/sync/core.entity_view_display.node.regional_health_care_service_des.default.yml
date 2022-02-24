@@ -20,77 +20,77 @@ third_party_settings:
     group_vha_health_service_name_an:
       children:
         - field_service_name_and_descripti
+      label: 'VHA health service name and description'
       parent_name: ''
+      region: content
       weight: 0
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-        open: false
         required_fields: false
-      label: 'VHA health service name and description'
-      region: content
+        open: false
     group_facility_descriptions_of_s:
       children:
         - field_local_health_care_service_
+      label: 'Facility descriptions'
       parent_name: ''
+      region: content
       weight: 2
       format_type: fieldset
       format_settings:
-        description: ''
-        id: ''
         classes: ''
-      label: 'Facility descriptions'
-      region: content
+        id: ''
+        description: ''
     group_vamc_system_:
       children:
         - field_body
+      label: 'VAMC system description'
       parent_name: ''
+      region: content
       weight: 1
       format_type: fieldset
       format_settings:
-        description: ''
-        id: ''
         classes: ''
-      label: 'VAMC system description'
-      region: content
+        id: ''
+        description: ''
 id: node.regional_health_care_service_des.default
 targetEntityType: node
 bundle: regional_health_care_service_des
 mode: default
 content:
   field_body:
-    weight: 4
+    type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 4
     region: content
   field_enforce_unique_combo:
-    weight: 6
+    type: allow_only_one
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: allow_only_one
+    weight: 6
     region: content
   field_local_health_care_service_:
-    weight: 5
+    type: entity_reference_entity_view
     label: hidden
     settings:
       view_mode: default
       link: false
     third_party_settings: {  }
-    type: entity_reference_entity_view
+    weight: 5
     region: content
   field_service_name_and_descripti:
-    weight: 2
+    type: entity_reference_entity_view
     label: hidden
     settings:
       view_mode: default
       link: false
     third_party_settings: {  }
-    type: entity_reference_entity_view
+    weight: 2
     region: content
 hidden:
   content_moderation_control: true

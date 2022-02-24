@@ -26,6 +26,7 @@ Feature: Views
 | Date fields | date_fields | Content | Disabled |  |
 | Detail page URL audit and bulk udpate | detail_page_url_audit_and_bulk_udpate | Content | Enabled | For bulk updating URL aliases for VAMC detail pages. |
 | Facility Governance | facility_governance | Content | Enabled | Provides facility management tools. |
+| Facility Services | facility_services | Content | Enabled |  |
 | Files | files | Files | Enabled | Find and manage files. |
 | File browsers | file_browsers | Media | Enabled |  |
 | Frontpage | frontpage | Content | Enabled | All content promoted to frontpage |
@@ -134,6 +135,13 @@ Feature: Views
 | Detail page URL audit and bulk udpate | Audit page | audit_page | Page |
 | Facility Governance | Master | default | Default |
 | Facility Governance | Page | page_1 | Page |
+| Facility Services | Master | default | Default |
+| Facility Services | VAMC facility health services | vamc_facility_health_services_page | Page |
+| Facility Services | VAMC facility health services export | vamc_facility_health_services_export | Data export |
+| Facility Services | VAMC facility non-clinical services | vamc_facility_non_clinical_services_page | Page |
+| Facility Services | VAMC facility non-clinical services export | vamc_facility_non_clinical_services_export | Data export |
+| Facility Services | Vet Center services | vet_center_services_page | Page |
+| Facility Services | Vet Center services export | vet_center_services_export | Data export |
 | Files | Master | default | Default |
 | Files | Files overview | page_1 | Page |
 | Files | File usage | page_2 | Page |
