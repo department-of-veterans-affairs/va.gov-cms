@@ -59,13 +59,6 @@
   }
 }
 
-.field--name-field-office-hours #edit-field-office-hours-value tr {
-  th:last-child,
-  td:last-child {
-    display: none;
-  }
-}
-
 #edit-group-facility-api {
   .field--name-field-facility-hours {
     input {
@@ -110,8 +103,16 @@
 }
 
 // Adjusting spacing on office hours fields
-#edit-field-office-hours {
+#edit-field-office-hours,
+#edit-field-hours-for-copay-inquiries- {
   margin-bottom: 0;
+
+  tr {
+    th:last-child,
+    td:last-child {
+      display: none;
+    }
+  }
 
   td {
     padding: 0;

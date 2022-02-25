@@ -13,6 +13,11 @@
   display: none;
 }
 
+// Fixes super long links breaking layout in the node link report.
+.va-alert a {
+  word-break: break-all;
+}
+
 .va-alert.messages--warning {
   background-color: var(--va-gold-lightest);
   border-color: var(--va-gold-med);
@@ -43,6 +48,10 @@
 
 .va-alert.messages--error a {
   background-color: var(--va-red-lightest);
+}
+
+.messages {
+  margin-top: 0;
 }
 
 .messages-list {
