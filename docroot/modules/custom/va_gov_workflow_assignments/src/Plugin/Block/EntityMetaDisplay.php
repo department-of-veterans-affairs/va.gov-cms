@@ -28,12 +28,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *       "entity:node",
  *       label = @Translation("Node"),
  *       required = FALSE,
- *     ),
- *     "node_revision" = @ContextDefinition(
- *       "entity:node_revision",
- *       label = @Translation("Node Revision"),
- *       required = FALSE,
- *     ),
+ *     )
  *   }
  * )
  */

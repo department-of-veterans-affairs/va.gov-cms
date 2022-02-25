@@ -20,6 +20,7 @@ content:
     weight: 1
     region: content
     settings:
+      modal: false
       default_tz: user
       custom_tz: America/New_York
       allowed_timezones:
@@ -33,7 +34,6 @@ content:
         - Pacific/Guam
         - Pacific/Honolulu
         - Pacific/Saipan
-      modal: false
       default_duration: 60
       default_duration_increments: |-
         30
@@ -44,20 +44,20 @@ content:
       show_extra: true
     third_party_settings: {  }
   field_send_email_to_subscribers:
+    type: boolean_checkbox
     weight: 0
+    region: content
     settings:
       display_label: true
     third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
   field_wysiwyg:
+    type: text_textarea
     weight: 2
+    region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-    type: text_textarea
-    region: content
 hidden:
   created: true
   status: true

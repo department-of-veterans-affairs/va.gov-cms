@@ -26,88 +26,12 @@ base_table: node_field_data
 base_field: nid
 display:
   default:
-    display_plugin: default
     id: default
     display_title: Master
+    display_plugin: default
     position: 0
     display_options:
-      access:
-        type: none
-        options: {  }
-      cache:
-        type: tag
-        options: {  }
-      query:
-        type: views_query
-        options:
-          disable_sql_rewrite: false
-          distinct: false
-          replica: false
-          query_comment: ''
-          query_tags: {  }
-      exposed_form:
-        type: basic
-        options:
-          submit_button: Apply
-          reset_button: false
-          reset_button_label: Reset
-          exposed_sorts_label: 'Sort by'
-          expose_sort_order: true
-          sort_asc_label: Asc
-          sort_desc_label: Desc
-      pager:
-        type: none
-        options:
-          offset: 0
-      style:
-        type: table
-        options:
-          grouping: {  }
-          row_class: ''
-          default_row_class: true
-          override: true
-          sticky: false
-          caption: ''
-          summary: ''
-          description: ''
-          columns:
-            field_media: field_media
-            title: title
-            field_operating_status_facility: field_operating_status_facility
-            edit_node: edit_node
-          info:
-            field_media:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            title:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_operating_status_facility:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            edit_node:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-          default: '-1'
-          empty_table: false
-      row:
-        type: fields
+      title: 'Satellite locations'
       fields:
         field_media:
           id: field_media
@@ -116,6 +40,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: field
           label: ''
           exclude: false
           alter:
@@ -160,8 +85,8 @@ display:
           click_sort_column: target_id
           type: media_thumbnail
           settings:
-            image_style: thumbnail
             image_link: content
+            image_style: thumbnail
           group_column: target_id
           group_columns: {  }
           group_rows: true
@@ -172,7 +97,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
         title:
           id: title
           table: node_field_data
@@ -180,6 +104,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: field
           label: Title
           exclude: false
           alter:
@@ -235,7 +160,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
         field_operating_status_facility:
           id: field_operating_status_facility
           table: node__field_operating_status_facility
@@ -243,6 +167,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: field
           label: 'Operating Status'
           exclude: false
           alter:
@@ -297,7 +222,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
         operations:
           id: operations
           table: node
@@ -305,6 +229,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: node
+          plugin_id: entity_operations
           label: 'Operations links'
           exclude: false
           alter:
@@ -347,8 +273,96 @@ display:
           empty_zero: false
           hide_alter_empty: true
           destination: false
+      pager:
+        type: none
+        options:
+          offset: 0
+      exposed_form:
+        type: basic
+        options:
+          submit_button: Apply
+          reset_button: false
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      access:
+        type: none
+        options: {  }
+      cache:
+        type: tag
+        options: {  }
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: true
+          content:
+            value: "<p>There are no satellite locations associated with this Vet Center.</p>\r\n<p><a class=\"usa-button button button-action button--primary block-vet-center-facility-button\" href=\"/node/add/vet_center_cap?destination=/taxonomy/term/{{ raw_arguments.field_administration_target_id }}\">Create new community access point</a></p>"
+            format: rich_text
+          tokenize: false
+      sorts:
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          relationship: none
+          group_type: group
+          admin_label: ''
           entity_type: node
-          plugin_id: entity_operations
+          entity_field: title
+          plugin_id: standard
+          order: ASC
+          expose:
+            label: ''
+            field_identifier: title
+          exposed: false
+      arguments:
+        field_administration_target_id:
+          id: field_administration_target_id
+          table: node__field_administration
+          field: field_administration_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: numeric
+          default_action: default
+          exception:
+            value: all
+            title_enable: false
+            title: All
+          title_enable: false
+          title: ''
+          default_argument_type: taxonomy_tid
+          default_argument_options:
+            term_page: '1'
+            node: true
+            limit: false
+            vids: {  }
+            anyall: ','
+          default_argument_skip_url: false
+          summary_options:
+            base_path: ''
+            count: true
+            override: false
+            items_per_page: 25
+          summary:
+            sort_order: asc
+            number_of_records: 0
+            format: default_summary
+          specify_validation: false
+          validate:
+            type: none
+            fail: 'not found'
+          validate_options: {  }
+          break_phrase: false
+          not: false
       filters:
         type:
           id: type
@@ -357,6 +371,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
           operator: in
           value:
             vet_center_cap: vet_center_cap
@@ -391,25 +408,64 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
-      sorts:
-        title:
-          id: title
-          table: node_field_data
-          field: title
-          relationship: none
-          group_type: group
-          admin_label: ''
-          order: ASC
-          exposed: false
-          expose:
-            label: ''
-          entity_type: node
-          entity_field: title
-          plugin_id: standard
-      title: 'Satellite locations'
+      style:
+        type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          columns:
+            field_media: field_media
+            title: title
+            field_operating_status_facility: field_operating_status_facility
+            edit_node: edit_node
+          default: '-1'
+          info:
+            field_media:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            title:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_operating_status_facility:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            edit_node:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          override: true
+          sticky: false
+          summary: ''
+          empty_table: false
+          caption: ''
+          description: ''
+      row:
+        type: fields
+      query:
+        type: views_query
+        options:
+          query_comment: ''
+          disable_sql_rewrite: false
+          distinct: false
+          replica: false
+          query_tags: {  }
+      relationships: {  }
       header:
         area:
           id: area
@@ -418,68 +474,13 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: text
           empty: false
-          tokenize: true
           content:
             value: "<p>Update the operating status and facility photo for Community Access Points (CAPs), Outstations and Mobile Vet Centers.<p>\r\n<p><a class=\"usa-button button\" href=\"/node/add/vet_center_cap?destination=/taxonomy/term/{{ raw_arguments.field_administration_target_id }}\">Create new community access point</a></p>"
             format: rich_text
-          plugin_id: text
+          tokenize: true
       footer: {  }
-      empty:
-        area:
-          id: area
-          table: views
-          field: area
-          relationship: none
-          group_type: group
-          admin_label: ''
-          empty: true
-          tokenize: false
-          content:
-            value: "<p>There are no satellite locations associated with this Vet Center.</p>\r\n<p><a class=\"usa-button button button-action button--primary block-vet-center-facility-button\" href=\"/node/add/vet_center_cap?destination=/taxonomy/term/{{ raw_arguments.field_administration_target_id }}\">Create new community access point</a></p>"
-            format: rich_text
-          plugin_id: text
-      relationships: {  }
-      arguments:
-        field_administration_target_id:
-          id: field_administration_target_id
-          table: node__field_administration
-          field: field_administration_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          default_action: default
-          exception:
-            value: all
-            title_enable: false
-            title: All
-          title_enable: false
-          title: ''
-          default_argument_type: taxonomy_tid
-          default_argument_options:
-            term_page: '1'
-            node: true
-            anyall: ','
-            limit: false
-            vids: {  }
-          default_argument_skip_url: false
-          summary_options:
-            base_path: ''
-            count: true
-            items_per_page: 25
-            override: false
-          summary:
-            sort_order: asc
-            number_of_records: 0
-            format: default_summary
-          specify_validation: false
-          validate:
-            type: none
-            fail: 'not found'
-          validate_options: {  }
-          break_phrase: false
-          not: false
-          plugin_id: numeric
       display_extenders: {  }
     cache_metadata:
       max-age: -1
@@ -492,12 +493,11 @@ display:
         - 'config:field.storage.node.field_media'
         - 'config:field.storage.node.field_operating_status_facility'
   vc_facility_listing:
-    display_plugin: block
     id: vc_facility_listing
     display_title: Block
+    display_plugin: block
     position: 1
     display_options:
-      display_extenders: {  }
       fields:
         field_media:
           id: field_media
@@ -506,6 +506,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: field
           label: ''
           exclude: false
           alter:
@@ -550,8 +551,8 @@ display:
           click_sort_column: target_id
           type: media_thumbnail
           settings:
-            image_style: 3_2_medium_thumbnail
             image_link: content
+            image_style: 3_2_medium_thumbnail
           group_column: target_id
           group_columns: {  }
           group_rows: true
@@ -562,7 +563,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
         title:
           id: title
           table: node_field_data
@@ -570,6 +570,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: field
           label: Title
           exclude: false
           alter:
@@ -625,7 +626,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
         field_operating_status_facility:
           id: field_operating_status_facility
           table: node__field_operating_status_facility
@@ -633,6 +633,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: field
           label: 'Operating Status'
           exclude: false
           alter:
@@ -687,7 +688,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
         operations:
           id: operations
           table: node
@@ -695,6 +695,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: node
+          plugin_id: entity_operations
           label: ''
           exclude: false
           alter:
@@ -737,8 +739,6 @@ display:
           empty_zero: false
           hide_alter_empty: true
           destination: false
-          entity_type: node
-          plugin_id: entity_operations
         field_administration:
           id: field_administration
           table: node__field_administration
@@ -746,6 +746,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: field
           label: ''
           exclude: true
           alter:
@@ -801,28 +802,20 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
-      defaults:
-        fields: false
-        header: false
-        css_class: false
-        arguments: false
-        empty: false
-      header:
-        area_1:
-          id: area_1
+      empty:
+        area:
+          id: area
           table: views
           field: area
           relationship: none
           group_type: group
           admin_label: ''
-          empty: false
-          tokenize: true
-          content:
-            value: "<p>Update the operating status and facility photo for Community Access Points (CAPs), Outstations and Mobile Vet Centers.</p>\r\n<p><a class=\"usa-button button button-action button--primary block-vet-center-facility-button\" href=\"/node/add/vet_center_cap?destination=/taxonomy/term/{{ raw_arguments.field_administration_target_id }}\">Create new community access point</a></p>"
-            format: rich_text
           plugin_id: text
-      css_class: ''
+          empty: true
+          content:
+            value: "<p>There are no satellite locations associated with this Vet Center.</p>\r\n<p><a class=\"usa-button button button-action button--primary block-vet-center-facility-button\" href=\"/node/add/vet_center_cap?destination=/taxonomy/term/{{ raw_arguments.field_administration_target_id }}\">Create new community access point</a></p>"
+            format: rich_text
+          tokenize: true
       arguments:
         field_administration_target_id:
           id: field_administration_target_id
@@ -831,6 +824,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: numeric
           default_action: default
           exception:
             value: all
@@ -842,15 +836,15 @@ display:
           default_argument_options:
             term_page: '1'
             node: true
-            anyall: ','
             limit: false
             vids: {  }
+            anyall: ','
           default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true
-            items_per_page: 25
             override: false
+            items_per_page: 25
           summary:
             sort_order: asc
             number_of_records: 0
@@ -862,21 +856,28 @@ display:
           validate_options: {  }
           break_phrase: false
           not: false
-          plugin_id: numeric
-      empty:
-        area:
-          id: area
+      defaults:
+        empty: false
+        css_class: false
+        fields: false
+        arguments: false
+        header: false
+      css_class: ''
+      header:
+        area_1:
+          id: area_1
           table: views
           field: area
           relationship: none
           group_type: group
           admin_label: ''
-          empty: true
-          tokenize: true
-          content:
-            value: "<p>There are no satellite locations associated with this Vet Center.</p>\r\n<p><a class=\"usa-button button button-action button--primary block-vet-center-facility-button\" href=\"/node/add/vet_center_cap?destination=/taxonomy/term/{{ raw_arguments.field_administration_target_id }}\">Create new community access point</a></p>"
-            format: rich_text
           plugin_id: text
+          empty: false
+          content:
+            value: "<p>Update the operating status and facility photo for Community Access Points (CAPs), Outstations and Mobile Vet Centers.</p>\r\n<p><a class=\"usa-button button button-action button--primary block-vet-center-facility-button\" href=\"/node/add/vet_center_cap?destination=/taxonomy/term/{{ raw_arguments.field_administration_target_id }}\">Create new community access point</a></p>"
+            format: rich_text
+          tokenize: true
+      display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
@@ -889,12 +890,11 @@ display:
         - 'config:field.storage.node.field_media'
         - 'config:field.storage.node.field_operating_status_facility'
   vc_listing_for_node_form:
-    display_plugin: block
     id: vc_listing_for_node_form
     display_title: 'VC listing for node form'
+    display_plugin: block
     position: 1
     display_options:
-      display_extenders: {  }
       fields:
         title:
           id: title
@@ -903,6 +903,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: field
           label: Title
           exclude: false
           alter:
@@ -958,7 +959,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
         moderation_state:
           id: moderation_state
           table: node_field_data
@@ -966,6 +966,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: node
+          plugin_id: moderation_state_field
           label: Status
           exclude: false
           alter:
@@ -1020,19 +1022,38 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+      empty: {  }
+      sorts:
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
           entity_type: node
-          plugin_id: moderation_state_field
-      defaults:
-        fields: false
-        header: false
-        css_class: false
-        arguments: false
-        sorts: false
-        empty: false
-        filters: false
-        filter_groups: false
-      header: {  }
-      css_class: ''
+          entity_field: type
+          plugin_id: standard
+          order: ASC
+          expose:
+            label: ''
+            field_identifier: type
+          exposed: false
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: title
+          plugin_id: standard
+          order: ASC
+          expose:
+            label: ''
+            field_identifier: title
+          exposed: false
       arguments:
         field_administration_target_id:
           id: field_administration_target_id
@@ -1041,6 +1062,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: numeric
           default_action: default
           exception:
             value: all
@@ -1052,15 +1074,15 @@ display:
           default_argument_options:
             term_page: '1'
             node: true
-            anyall: ','
             limit: false
             vids: {  }
+            anyall: ','
           default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true
-            items_per_page: 25
             override: false
+            items_per_page: 25
           summary:
             sort_order: asc
             number_of_records: 0
@@ -1072,38 +1094,6 @@ display:
           validate_options: {  }
           break_phrase: false
           not: false
-          plugin_id: numeric
-      display_description: ''
-      sorts:
-        type:
-          id: type
-          table: node_field_data
-          field: type
-          relationship: none
-          group_type: group
-          admin_label: ''
-          order: ASC
-          exposed: false
-          expose:
-            label: ''
-          entity_type: node
-          entity_field: type
-          plugin_id: standard
-        title:
-          id: title
-          table: node_field_data
-          field: title
-          relationship: none
-          group_type: group
-          admin_label: ''
-          order: ASC
-          exposed: false
-          expose:
-            label: ''
-          entity_type: node
-          entity_field: title
-          plugin_id: standard
-      empty: {  }
       filters:
         type:
           id: type
@@ -1112,6 +1102,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
           operator: in
           value:
             vet_center: vet_center
@@ -1147,13 +1140,23 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
       filter_groups:
         operator: AND
         groups:
           1: AND
+      defaults:
+        empty: false
+        css_class: false
+        fields: false
+        sorts: false
+        arguments: false
+        filters: false
+        filter_groups: false
+        header: false
+      css_class: ''
+      display_description: ''
+      header: {  }
+      display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:

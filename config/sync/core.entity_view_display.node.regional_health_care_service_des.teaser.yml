@@ -20,27 +20,27 @@ third_party_settings:
     group_vha_health_service_name_an:
       children:
         - field_service_name_and_descripti
+      label: 'VHA health service name and description'
       parent_name: ''
+      region: content
       weight: 0
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-      label: 'VHA health service name and description'
-      region: content
     group_vamc_system_description_of:
       children:
         - field_body
+      label: 'VAMC system description of service'
       parent_name: ''
+      region: content
       weight: 1
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-      label: 'VAMC system description of service'
-      region: content
 id: node.regional_health_care_service_des.teaser
 targetEntityType: node
 bundle: regional_health_care_service_des
@@ -48,20 +48,20 @@ mode: teaser
 content:
   field_body:
     type: text_default
-    weight: 2
-    region: content
     label: hidden
     settings: {  }
     third_party_settings: {  }
+    weight: 2
+    region: content
   field_service_name_and_descripti:
     type: entity_reference_entity_view
-    weight: 1
-    region: content
     label: hidden
     settings:
-      link: true
       view_mode: default
+      link: true
     third_party_settings: {  }
+    weight: 1
+    region: content
 hidden:
   content_moderation_control: true
   field_administration: true

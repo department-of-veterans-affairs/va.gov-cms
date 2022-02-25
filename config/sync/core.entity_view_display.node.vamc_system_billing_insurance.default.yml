@@ -29,10 +29,11 @@ third_party_settings:
       children:
         - field_cc_bottom_of_page_content
         - field_cc_related_links
+      label: 'National content'
       parent_name: ''
+      region: content
       weight: 6
       format_type: tooltip
-      region: content
       format_settings:
         show_empty_fields: 0
         id: ''
@@ -45,14 +46,14 @@ third_party_settings:
         tooltip_description: 'Why can’t I edit this? VHA keeps this content standardized so that all VA medical centers have consistent messaging.'
         open: false
         required_fields: false
-      label: 'National content'
     group_national_top_of_page_conte:
       children:
         - field_cc_top_of_page_content
+      label: 'National top of page content'
       parent_name: ''
+      region: content
       weight: 2
       format_type: tooltip
-      region: content
       format_settings:
         show_label: '0'
         tooltip_description: 'Why can’t I edit this? VHA keeps this content standardized so that all VA medical centers have consistent messaging.'
@@ -63,23 +64,22 @@ third_party_settings:
         element: div
         label_element: h3
         attributes: ''
-      label: 'National top of page content'
     group_inquiries_about_copay:
       children:
         - field_phone_number
         - field_hours_for_copay_inquiries_
+      label: 'For inquiries by phone about copay balance'
       parent_name: ''
+      region: content
       weight: 4
       format_type: details
-      region: content
       format_settings:
+        classes: ''
         show_empty_fields: false
         id: ''
-        classes: ''
-        description: ''
         open: true
+        description: ''
         required_fields: false
-      label: 'For inquiries by phone about copay balance'
 id: node.vamc_system_billing_insurance.default
 targetEntityType: node
 bundle: vamc_system_billing_insurance
@@ -87,34 +87,34 @@ mode: default
 content:
   field_cc_bottom_of_page_content:
     type: entity_field_fetch
+    label: above
+    settings: {  }
+    third_party_settings: {  }
     weight: 9
     region: content
-    label: above
-    settings: {  }
-    third_party_settings: {  }
   field_cc_related_links:
     type: entity_field_fetch
+    label: above
+    settings: {  }
+    third_party_settings: {  }
     weight: 10
     region: content
-    label: above
-    settings: {  }
-    third_party_settings: {  }
   field_cc_top_of_page_content:
     type: entity_field_fetch
+    label: above
+    settings: {  }
+    third_party_settings: {  }
     weight: 6
     region: content
-    label: above
-    settings: {  }
-    third_party_settings: {  }
   field_enforce_unique_combo_offic:
-    weight: 1
+    type: allow_only_one
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: allow_only_one
+    weight: 1
     region: content
   field_hours_for_copay_inquiries_:
-    weight: 7
+    type: office_hours
     label: above
     settings:
       day_format: long
@@ -133,36 +133,36 @@ content:
         position: ''
         open_text: 'Currently open!'
         closed_text: 'Currently closed'
-      schema:
-        enabled: false
       timezone_field: ''
       office_hours_first_day: ''
+      schema:
+        enabled: false
     third_party_settings: {  }
-    type: office_hours
+    weight: 7
     region: content
   field_non_clinical_services:
-    weight: 5
+    type: viewfield_default
     label: hidden
     settings:
       view_title: above
       always_build_output: true
       empty_view_title: above
     third_party_settings: {  }
-    type: viewfield_default
+    weight: 5
     region: content
   field_phone_number:
-    weight: 6
+    type: telephone_link
     label: above
     settings:
       title: ''
     third_party_settings: {  }
-    type: telephone_link
+    weight: 6
     region: content
   links:
-    weight: 0
-    region: content
     settings: {  }
     third_party_settings: {  }
+    weight: 0
+    region: content
 hidden:
   content_moderation_control: true
   field_administration: true

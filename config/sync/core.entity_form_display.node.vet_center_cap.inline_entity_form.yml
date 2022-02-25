@@ -22,62 +22,62 @@ third_party_settings:
   field_group:
     group_governance:
       children: {  }
+      label: 'Section settings'
+      region: hidden
       parent_name: ''
       weight: 16
       format_type: details_sidebar
-      region: hidden
       format_settings:
-        id: ''
         classes: ''
-        description: ''
+        id: ''
         open: true
+        description: ''
         required_fields: true
         weight: 0
-      label: 'Section settings'
     group_health_service_and_facilit:
       children:
         - field_regional_health_service
+      label: 'Health service and facility basic info'
+      region: hidden
       parent_name: ''
       weight: 13
       format_type: details
-      region: hidden
       format_settings:
-        id: ''
         classes: ''
-        description: 'This should generally not be changed after the content is created.'
+        id: ''
         open: false
+        description: 'This should generally not be changed after the content is created.'
         required_fields: true
-      label: 'Health service and facility basic info'
     group_ed:
       children:
         - moderation_state
+      label: 'Editorial workflow'
+      region: hidden
       parent_name: ''
       weight: 15
       format_type: fieldset
-      region: hidden
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: true
-      label: 'Editorial workflow'
     group_basic_location_data:
       children:
         - field_address
         - field_facility_hours
         - field_media
         - field_vet_center_cap_locatation
+      label: 'Basic location data'
+      region: hidden
       parent_name: ''
       weight: 14
       format_type: details
-      region: hidden
       format_settings:
-        id: ''
         classes: ''
-        description: ''
+        id: ''
         open: false
+        description: ''
         required_fields: true
-      label: 'Basic location data'
 id: node.vet_center_cap.inline_entity_form
 targetEntityType: node
 bundle: vet_center_cap

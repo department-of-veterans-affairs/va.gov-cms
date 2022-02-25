@@ -18,11 +18,11 @@ plugin: user_login_block
 settings:
   id: user_login_block
   label: 'User login'
-  provider: user
   label_display: visible
+  provider: user
 visibility:
   request_path:
     id: request_path
-    pages: '/help*'
     negate: true
     context_mapping: {  }
+    pages: '/help*'
