@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - crop.type.3_2
+    - crop.type.2_3
   module:
     - crop
 name: 2_3_medium_thumbnail
@@ -14,7 +14,8 @@ effects:
     id: crop_crop
     weight: 1
     data:
-      crop_type: '3_2'
+      crop_type: '2_3'
+      automatic_crop_provider: null
   f1049729-ecfb-4b09-b056-28c4fde79bd3:
     uuid: f1049729-ecfb-4b09-b056-28c4fde79bd3
     id: image_scale_and_crop
