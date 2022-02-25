@@ -261,9 +261,9 @@ Feature: Views
 | Non-clinical services | Billing and insurance offices | billing_and_insurance | Block |
 | Non-clinical services | Default | default | Default |
 | Non-clinical services | Medical records offices | medical_records_offices | Block |
-| Table Audit | Table Audit | default | Default |
+| Table Audit | Default | default | Default |
 | Table Audit | Table Audit | table_audit | Page |
-| Table Audit | Table Audit | tables_usage_export | Data export |
+| Table Audit | Data export | tables_usage_export | Data export |
 | Metatag Audit | Default | default | Default |
 | Metatag Audit | Metatag Audit | metatag_audit | Page |
 | Flagged Content | Default | default | Default |
