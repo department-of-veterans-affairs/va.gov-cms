@@ -168,6 +168,36 @@ function _va_gov_db_create_redirect($old_path, EntityInterface $entity) {
 }
 
 /**
+ * Creates a redirect and logs it.
+ *
+ * @param string $old_path
+ *   The original path (source) of the redirect.
+ * @param string $new_path
+ *   The new path (target) of the redirect.
+ *
+ * @return string
+ *   A message to be returned.
+ */
+function _va_gov_db_create_redirect_by_path($old_path, $new_path) {
+  $old_path = trim($old_path, '/');
+  $new_path = trim($new_path, '/');
+  $message = '';
+  Redirect::create([
+    'redirect_source' => $old_path,
+    'redirect_redirect' => "internal:/{$new_path}",
+    'language' => 'en',
+    'status_code' => '301',
+  ])->save();
+  $message = t("Redirect created from :old to :new.", [
+    ':old' => "/{$old_path}",
+    ':new' => "/{$new_path}",
+  ]);
+  \Drupal::logger('va_gov_db')->info($message);
+
+  return $message . PHP_EOL;
+}
+
+/**
  * Modify field_facility_locator_api_id field to be longer.
  */
 function va_gov_db_update_8001(&$sandbox) {
@@ -738,6 +768,23 @@ function va_gov_db_update_8033(&$sandbox) {
   ];
   foreach ($section_terms as $oldname => $newname) {
     $messages .= _va_gov_rename_vocab_term($oldname, $newname, 'administration');
+  }
+
+  return $messages;
+}
+
+/**
+ * Add redirects for restructured facility views.
+ */
+function va_gov_db_update_8034(&$sandbox) {
+  $messages = '';
+  $redirects = [
+    'admin/content/facility-status' => 'admin/content/facilities/facility-status',
+    'admin/content/audit/vamc-system-service-audit' => 'admin/content/facilities/vamc-system-service-audit',
+    'admin/content/audit/vamc-ehr' => 'admin/content/facilities/vamc-systems',
+  ];
+  foreach ($redirects as $oldpath => $newpath) {
+    $messages .= _va_gov_db_create_redirect_by_path($oldpath, $newpath);
   }
 
   return $messages;
