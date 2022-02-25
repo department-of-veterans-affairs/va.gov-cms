@@ -920,6 +920,10 @@ display:
                 title: 'Not reusable'
                 operator: '='
                 value: '0'
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
       style:
         type: table
         options:
@@ -1494,22 +1498,22 @@ display:
         - url.query_args
         - user.permissions
       tags:
+        - 'config:core.entity_view_display.media.document.default'
         - 'config:core.entity_view_display.media.document.download_link'
         - 'config:core.entity_view_display.media.document.embedded'
-        - 'config:core.entity_view_display.media.document.thumbnail'
-        - 'config:core.entity_view_display.media.image.download_link'
-        - 'config:core.entity_view_display.media.image.embedded'
-        - 'config:core.entity_view_display.media.image.thumbnail'
-        - 'config:core.entity_view_display.media.video.embedded'
-        - 'config:core.entity_view_display.media.video.thumbnail'
-        - 'config:core.entity_view_display.media.video.user_guides'
-        - 'config:core.entity_view_display.media.document.default'
         - 'config:core.entity_view_display.media.document.media_library'
+        - 'config:core.entity_view_display.media.document.thumbnail'
         - 'config:core.entity_view_display.media.document_external.default'
         - 'config:core.entity_view_display.media.document_external.media_library'
         - 'config:core.entity_view_display.media.image.default'
+        - 'config:core.entity_view_display.media.image.download_link'
+        - 'config:core.entity_view_display.media.image.embedded'
         - 'config:core.entity_view_display.media.image.media_library'
+        - 'config:core.entity_view_display.media.image.thumbnail'
         - 'config:core.entity_view_display.media.video.default'
+        - 'config:core.entity_view_display.media.video.embedded'
+        - 'config:core.entity_view_display.media.video.thumbnail'
+        - 'config:core.entity_view_display.media.video.user_guides'
   entity_browser_2:
     id: entity_browser_2
     display_title: 'Image Browser'
