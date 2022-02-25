@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f1269a9e9079e2b58607ee94c18bf669",
+    "content-hash": "f08fc24894a09da9aba0bb09a7ceaec5",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -10892,6 +10892,50 @@
             "homepage": "https://www.drupal.org/project/views_data_export",
             "support": {
                 "source": "https://git.drupalcode.org/project/views_data_export"
+            }
+        },
+        {
+            "name": "drupal/views_local_tasks",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/views_local_tasks.git",
+                "reference": "1.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/views_local_tasks-1.0.0.zip",
+                "reference": "1.0.0",
+                "shasum": "a3c4846241354c025b01c23f3c4491fa5e0a1f05"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.0",
+                    "datestamp": "1619718643",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "kaszarobert",
+                    "homepage": "https://www.drupal.org/user/3578328"
+                }
+            ],
+            "description": "Create 2nd level menu tabs (local tasks) with views without writing YAML code.",
+            "homepage": "https://www.drupal.org/project/views_local_tasks",
+            "support": {
+                "source": "https://git.drupalcode.org/project/views_local_tasks"
             }
         },
         {
@@ -25121,6 +25165,7 @@
     "platform": [],
     "platform-dev": [],
     "platform-overrides": {
+        "php": "7.4"
     },
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.0.0"
 }
