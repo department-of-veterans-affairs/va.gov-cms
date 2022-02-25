@@ -22,16 +22,16 @@ third_party_settings:
       children:
         - field_owner
         - field_media_in_library
+      label: 'Section settings'
+      region: content
       parent_name: ''
       weight: 4
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: true
-      label: 'Section settings'
-      region: content
 _core:
   default_config_hash: kyoAHlZTGIuGTaQuBblGBk8EhfnVKOl19_0j5WbpQqM
 id: media.image.media_library
@@ -60,39 +60,39 @@ content:
       display_label: true
     third_party_settings: {  }
   field_media_submission_guideline:
-    weight: 0
-    settings: {  }
-    third_party_settings: {  }
     type: markup
+    weight: 0
     region: content
-  field_owner:
-    weight: 3
     settings: {  }
     third_party_settings: {  }
+  field_owner:
     type: options_select
+    weight: 3
     region: content
+    settings: {  }
+    third_party_settings: {  }
   image:
     type: image_widget_crop
     weight: 3
+    region: content
     settings:
-      show_crop_area: true
-      show_default_crop: true
+      progress_indicator: throbber
       preview_image_style: 3_2_medium_thumbnail
       crop_preview_image_style: crop_thumbnail
-      progress_indicator: throbber
       crop_list: {  }
       crop_types_required: {  }
       warn_multiple_usages: false
+      show_crop_area: true
+      show_default_crop: true
     third_party_settings: {  }
-    region: content
   name:
     type: string_textfield
     weight: 1
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    region: content
 hidden:
   created: true
   moderation_state: true

@@ -64,10 +64,10 @@ type: content_moderation
 type_settings:
   states:
     approved:
-      published: false
-      default_revision: false
       label: Approved
       weight: -1
+      published: false
+      default_revision: false
     archived:
       label: Archived
       weight: 1
@@ -75,14 +75,14 @@ type_settings:
       default_revision: true
     draft:
       label: Draft
+      weight: -3
       published: false
       default_revision: false
-      weight: -3
     published:
       label: Published
+      weight: 0
       published: true
       default_revision: true
-      weight: 0
     review:
       label: 'In review'
       weight: -2
@@ -112,29 +112,29 @@ type_settings:
       weight: 2
     create_new_draft:
       label: Edit
-      to: draft
-      weight: -3
       from:
         - archived
         - draft
         - published
         - review
+      to: draft
+      weight: -3
     publish:
       label: Publish
-      to: published
-      weight: 0
       from:
         - approved
         - draft
         - published
         - review
+      to: published
+      weight: 0
     review:
       label: Review
-      to: review
-      weight: -2
       from:
         - draft
         - review
+      to: review
+      weight: -2
   entity_types:
     block_content:
       - alert

@@ -25,24 +25,24 @@ content:
       media_types: {  }
     third_party_settings: {  }
   field_owner:
+    type: options_select
     weight: 4
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   field_promo_link:
     type: inline_entity_form_simple
     weight: 1
+    region: content
     settings:
       form_mode: default
+      override_labels: false
       label_singular: ''
       label_plural: ''
-      revision: false
-      override_labels: false
       collapsible: false
       collapsed: false
+      revision: false
     third_party_settings: {  }
-    region: content
   moderation_state:
     type: moderation_state_default
     weight: 3

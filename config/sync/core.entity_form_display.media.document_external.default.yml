@@ -17,37 +17,39 @@ third_party_settings:
   field_group:
     group_governance:
       children: {  }
+      label: 'Section settings'
+      region: content
       parent_name: ''
       weight: 3
       format_type: details
-      region: content
       format_settings:
-        description: ''
-        open: true
-        weight: 0
-        required_fields: true
-        id: ''
         classes: ''
-      label: 'Section settings'
+        id: ''
+        open: true
+        description: ''
+        required_fields: true
+        weight: 0
     group_edi:
       children: {  }
+      label: 'Editorial workflow'
+      region: hidden
       parent_name: ''
       weight: 11
       format_type: fieldset
-      region: hidden
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: true
-      label: 'Editorial workflow'
 id: media.document_external.default
 targetEntityType: media
 bundle: document_external
 mode: default
 content:
   field_description:
+    type: string_textarea_with_counter
     weight: 2
+    region: content
     settings:
       rows: 5
       placeholder: ''
@@ -57,27 +59,25 @@ content:
       count_html_characters: true
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
-    type: string_textarea_with_counter
-    region: content
   field_media_external_file:
+    type: link_default
     weight: 1
+    region: content
     settings:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
-    type: link_default
-    region: content
   field_owner:
+    type: options_select
     weight: 4
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   moderation_state:
     type: moderation_state_default
     weight: 6
-    settings: {  }
     region: content
+    settings: {  }
     third_party_settings: {  }
   name:
     type: string_textfield_with_counter
@@ -86,12 +86,12 @@ content:
     settings:
       size: 60
       placeholder: ''
+      use_field_maxlength: false
       maxlength: 70
       counter_position: after
       js_prevent_submit: true
       count_html_characters: true
       textcount_status_message: "<span class=\"remaining_count\">@remaining_count</span> characters remaining.\r\n"
-      use_field_maxlength: false
     third_party_settings: {  }
 hidden:
   created: true

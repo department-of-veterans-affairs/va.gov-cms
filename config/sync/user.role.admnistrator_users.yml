@@ -2,8 +2,21 @@ uuid: f238afd7-c738-4625-a432-2f9eaebf9283
 langcode: en
 status: true
 dependencies:
+  config:
+    - filter.format.rich_text
+    - filter.format.rich_text_limited
+    - taxonomy.vocabulary.administration
   module:
+    - actions_permissions
+    - filter
+    - node_link_report
+    - password_policy
+    - role_delegation
+    - system
+    - taxonomy
+    - toolbar_menu
     - va_gov_backend
+    - workbench_access
 third_party_settings:
   va_gov_backend:
     vgb_description: 'Can create and manage users, roles, and access to sections of content.'
@@ -12,7 +25,6 @@ label: 'CMS account admin'
 weight: 3
 is_admin: null
 permissions:
-  - 'access shortcuts'
   - 'administer users'
   - 'assign content_admin role'
   - 'assign content_api_consumer role'
@@ -26,7 +38,6 @@ permissions:
   - 'assign redirect_administrator role'
   - 'assign selected workbench access'
   - 'assign vamc_content_creator role'
-  - 'bypass password policies'
   - 'bypass workbench access'
   - 'create terms in administration'
   - 'delete terms in administration'
@@ -35,7 +46,6 @@ permissions:
   - 'manage password reset'
   - 'use text format rich_text'
   - 'use text format rich_text_limited'
-  - 'view cms_help_center in toolbar'
   - 'view node link report'
   - 'view sections in toolbar'
   - 'view the administration theme'

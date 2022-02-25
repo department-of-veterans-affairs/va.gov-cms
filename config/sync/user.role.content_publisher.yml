@@ -2,8 +2,80 @@ uuid: 2782bb1f-74f1-4ac9-b2f8-5dd3cc9bfec1
 langcode: en
 status: true
 dependencies:
+  config:
+    - filter.format.rich_text
+    - filter.format.rich_text_limited
+    - media.type.document
+    - media.type.document_external
+    - media.type.image
+    - media.type.video
+    - node.type.banner
+    - node.type.basic_landing_page
+    - node.type.campaign_landing_page
+    - node.type.centralized_content
+    - node.type.checklist
+    - node.type.documentation_page
+    - node.type.event
+    - node.type.event_listing
+    - node.type.faq_multiple_q_a
+    - node.type.full_width_banner_alert
+    - node.type.health_care_local_facility
+    - node.type.health_care_local_health_service
+    - node.type.health_care_region_detail_page
+    - node.type.health_care_region_page
+    - node.type.health_services_listing
+    - node.type.landing_page
+    - node.type.leadership_listing
+    - node.type.locations_listing
+    - node.type.media_list_images
+    - node.type.media_list_videos
+    - node.type.nca_facility
+    - node.type.news_story
+    - node.type.office
+    - node.type.outreach_asset
+    - node.type.page
+    - node.type.person_profile
+    - node.type.press_release
+    - node.type.press_releases_listing
+    - node.type.promo_banner
+    - node.type.publication_listing
+    - node.type.q_a
+    - node.type.regional_health_care_service_des
+    - node.type.step_by_step
+    - node.type.story_listing
+    - node.type.support_resources_detail_page
+    - node.type.support_service
+    - node.type.va_form
+    - node.type.vamc_operating_status_and_alerts
+    - node.type.vamc_system_policies_page
+    - node.type.vba_facility
+    - node.type.vet_center
+    - node.type.vet_center_cap
+    - node.type.vet_center_facility_health_servi
+    - node.type.vet_center_locations_list
+    - node.type.vet_center_mobile_vet_center
+    - node.type.vet_center_outstation
+    - workflows.workflow.editorial
   module:
+    - actions_permissions
+    - block_content_permissions
+    - block_diff_ui
+    - content_lock
+    - content_moderation
+    - file
+    - filter
+    - flag
+    - media
+    - media_diff_ui
+    - node
+    - node_link_report
+    - paragraphs
+    - pathauto
+    - system
+    - tablefield
+    - toolbar_menu
     - va_gov_backend
+    - workbench_access
 third_party_settings:
   va_gov_backend:
     vgb_description: 'Can publish content.'
@@ -15,12 +87,8 @@ permissions:
   - 'access administration pages'
   - 'access content overview'
   - 'access files overview'
-  - 'access image_browser entity browser pages'
   - 'access media overview'
-  - 'access media_browser entity browser pages'
-  - 'access shortcuts'
   - 'access user profiles'
-  - 'access vamc_operating_statuses entity browser pages'
   - 'administer menu'
   - 'break content lock'
   - 'create document media'
@@ -69,7 +137,10 @@ permissions:
   - 'edit any support_service content'
   - 'edit any va_form content'
   - 'edit any vamc_operating_status_and_alerts content'
+  - 'edit any vamc_system_billing_insurance content'
+  - 'edit any vamc_system_medical_records_offi content'
   - 'edit any vamc_system_policies_page content'
+  - 'edit any vamc_system_register_for_care content'
   - 'edit any vba_facility content'
   - 'edit any vet_center content'
   - 'edit any vet_center_cap content'
@@ -85,12 +156,14 @@ permissions:
   - 'revert all block content revisions'
   - 'revert all media revisions'
   - 'revert all revisions'
+  - 'revert banner revisions'
   - 'revert basic_landing_page revisions'
   - 'revert campaign_landing_page revisions'
   - 'revert centralized_content revisions'
   - 'revert checklist revisions'
   - 'revert document revisions'
   - 'revert document_external revisions'
+  - 'revert documentation_page revisions'
   - 'revert event revisions'
   - 'revert event_listing revisions'
   - 'revert faq_multiple_q_a revisions'
@@ -125,14 +198,19 @@ permissions:
   - 'revert support_service revisions'
   - 'revert va_form revisions'
   - 'revert vamc_operating_status_and_alerts revisions'
+  - 'revert vamc_system_billing_insurance revisions'
+  - 'revert vamc_system_medical_records_offi revisions'
   - 'revert vamc_system_policies_page revisions'
+  - 'revert vamc_system_register_for_care revisions'
   - 'revert vba_facility revisions'
   - 'revert vet_center revisions'
+  - 'revert vet_center_cap revisions'
+  - 'revert vet_center_facility_health_servi revisions'
+  - 'revert vet_center_locations_list revisions'
+  - 'revert vet_center_mobile_vet_center revisions'
+  - 'revert vet_center_outstation revisions'
+  - 'revert vha_facility_nonclinical_service revisions'
   - 'revert video revisions'
-  - 'schedule editorial transition archive'
-  - 'schedule editorial transition archived_published'
-  - 'schedule editorial transition create_new_draft'
-  - 'schedule editorial transition publish'
   - 'unflag changed_filename'
   - 'unflag changed_title'
   - 'unflag deleted'
@@ -147,8 +225,6 @@ permissions:
   - 'use editorial transition create_new_draft'
   - 'use editorial transition publish'
   - 'use editorial transition review'
-  - 'use editorial transition stage_for_publishing'
-  - 'use moderation sidebar'
   - 'use text format rich_text'
   - 'use text format rich_text_limited'
   - 'use workbench access'
@@ -161,7 +237,6 @@ permissions:
   - 'view campaign_landing_page revisions'
   - 'view centralized_content revisions'
   - 'view checklist revisions'
-  - 'view cms_help_center in toolbar'
   - 'view document revisions'
   - 'view document_external revisions'
   - 'view event revisions'
@@ -204,8 +279,17 @@ permissions:
   - 'view unpublished paragraphs'
   - 'view va_form revisions'
   - 'view vamc_operating_status_and_alerts revisions'
+  - 'view vamc_system_billing_insurance revisions'
+  - 'view vamc_system_medical_records_offi revisions'
   - 'view vamc_system_policies_page revisions'
+  - 'view vamc_system_register_for_care revisions'
   - 'view vba_facility revisions'
   - 'view vet_center revisions'
+  - 'view vet_center_cap revisions'
+  - 'view vet_center_facility_health_servi revisions'
+  - 'view vet_center_locations_list revisions'
+  - 'view vet_center_mobile_vet_center revisions'
+  - 'view vet_center_outstation revisions'
+  - 'view vha_facility_nonclinical_service revisions'
   - 'view video revisions'
   - 'view workbench access information'

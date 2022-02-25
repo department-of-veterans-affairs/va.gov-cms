@@ -14,15 +14,17 @@ bundle: lists_of_links
 mode: default
 content:
   field_section_header:
+    type: string_textfield
     weight: 0
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_va_paragraphs:
+    type: paragraphs
     weight: 1
+    region: content
     settings:
       title: 'List of links'
       title_plural: 'Lists of links'
@@ -38,8 +40,6 @@ content:
         collapse_edit_all: '0'
         duplicate: '0'
     third_party_settings: {  }
-    type: paragraphs
-    region: content
 hidden:
   created: true
   status: true

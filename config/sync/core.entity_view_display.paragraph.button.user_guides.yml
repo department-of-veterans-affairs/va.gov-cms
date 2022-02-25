@@ -12,23 +12,23 @@ dependencies:
     - link
 third_party_settings:
   layout_builder:
-    allow_custom: false
     enabled: false
+    allow_custom: false
 id: paragraph.button.user_guides
 targetEntityType: paragraph
 bundle: button
 mode: user_guides
 content:
   field_button_label:
-    weight: 0
+    type: string
     label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 0
     region: content
   field_button_link:
-    weight: 1
+    type: link
     label: hidden
     settings:
       trim_length: 80
@@ -37,7 +37,7 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    type: link
+    weight: 1
     region: content
 hidden:
   search_api_excerpt: true

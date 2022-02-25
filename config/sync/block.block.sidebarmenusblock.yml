@@ -16,11 +16,11 @@ plugin: sidebar_menu_block
 settings:
   id: sidebar_menu_block
   label: 'Sidebar Menus block'
-  provider: va_gov_backend
   label_display: '0'
+  provider: va_gov_backend
 visibility:
   request_path:
     id: request_path
-    pages: "/admin/*\r\n/node/add/*\r\n/node/*/edit\r\n/node/*/delete\r\n/node/*/revisions\r\n/user\r\n/user/*"
     negate: true
     context_mapping: {  }
+    pages: "/admin/*\r\n/node/add/*\r\n/node/*/edit\r\n/node/*/delete\r\n/node/*/revisions\r\n/user\r\n/user/*"

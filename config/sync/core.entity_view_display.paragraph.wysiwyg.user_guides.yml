@@ -11,19 +11,19 @@ dependencies:
     - text
 third_party_settings:
   layout_builder:
-    allow_custom: false
     enabled: false
+    allow_custom: false
 id: paragraph.wysiwyg.user_guides
 targetEntityType: paragraph
 bundle: wysiwyg
 mode: user_guides
 content:
   field_wysiwyg:
-    weight: 0
+    type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 0
     region: content
 hidden:
   search_api_excerpt: true

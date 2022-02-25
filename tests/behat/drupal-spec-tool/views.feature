@@ -25,7 +25,6 @@ Feature: Views
 | Content release logs | content_release_logs | Log entries | Enabled | Shows content release job log entries |
 | Date fields | date_fields | Content | Disabled |  |
 | Detail page URL audit and bulk udpate | detail_page_url_audit_and_bulk_udpate | Content | Enabled | For bulk updating URL aliases for VAMC detail pages. |
-| Facility Governance | facility_governance | Content | Enabled | Provides facility management tools. |
 | Facility Services | facility_services | Content | Enabled |  |
 | Files | files | Files | Enabled | Find and manage files. |
 | File browsers | file_browsers | Media | Enabled |  |
@@ -36,6 +35,7 @@ Feature: Views
 | Local facilities entity reference view | local_facilities_entity_reference_view | Content | Enabled | An entity reference view that determines options for the Local Health Service descriptions |
 | Locked content | locked_content | Content | Enabled |  |
 | Media | media | Media | Enabled |  |
+| Media Images | media_images | Media | Enabled |  |
 | Media library | media_library | Media | Enabled | Find and manage media. |
 | Moderated content | moderated_content | Content revisions | Enabled | Find and moderate content. |
 | Moderation history | moderation_history | Content revisions | Enabled |  |
@@ -73,6 +73,7 @@ Feature: Views
 | Table Audit | table_audit | Content | Enabled |  |
 | Metatag Audit | metatag_audit | Content | Enabled |  |
 | Flagged Content | flagged_content | Content | Enabled |  |
+| PDF Audit | pdf_audit | Media | Enabled |  |
 
   @dst @views_displays
      Scenario: Views displays
@@ -106,11 +107,6 @@ Feature: Views
 | Content | Resources and support landing page | resources_and_support_landing_page_block | Block |
 | Content | Content audit CSV export | content_audit_csv_export | Data export |
 | Content | Content audit tools | content_audit_page | Page |
-| Content | Facilities | content_audit_facilities | Page |
-| Content | Facilities export | content_audit_facilities_export | Data export |
-| Content | VAMC EHR | vamc_ehr | Page |
-| Content | VAMC System Service Audit | vamc_system_service_audit_page | Page |
-| Content | VAMC System Service Audit Export | vamc_system_service_audit_export | Data export |
 | Content entity browsers | Master | default | Default |
 | Content entity browsers | Event entity browser | event_entity_browser | Entity browser |
 | Content entity browsers | Q&A entity browser | entity_browser_1 | Entity browser |
@@ -134,13 +130,17 @@ Feature: Views
 | Detail page URL audit and bulk udpate | CSV export | data_export_1 | Data export |
 | Detail page URL audit and bulk udpate | Master | default | Default |
 | Detail page URL audit and bulk udpate | Audit page | audit_page | Page |
-| Facility Governance | Master | default | Default |
-| Facility Governance | Page | page_1 | Page |
 | Facility Services | Master | default | Default |
+| Facility Services | Facilities | content_audit_facilities | Page |
+| Facility Services | Facilities export | content_audit_facilities_export | Data export |
+| Facility Services | Facility Status | facility_status_page | Page |
 | Facility Services | VAMC facility health services | vamc_facility_health_services_page | Page |
 | Facility Services | VAMC facility health services export | vamc_facility_health_services_export | Data export |
 | Facility Services | VAMC facility non-clinical services | vamc_facility_non_clinical_services_page | Page |
 | Facility Services | VAMC facility non-clinical services export | vamc_facility_non_clinical_services_export | Data export |
+| Facility Services | VAMC System Service Audit | vamc_system_service_audit_page | Page |
+| Facility Services | VAMC System Service Audit Export | vamc_system_service_audit_export | Data export |
+| Facility Services | VAMC systems | vamc_systems | Page |
 | Facility Services | Vet Center services | vet_center_services_page | Page |
 | Facility Services | Vet Center services export | vet_center_services_export | Data export |
 | Files | Master | default | Default |
@@ -171,6 +171,9 @@ Feature: Views
 | Media | Media | media_page_list | Page |
 | Media | Downloadable document browser | entity_browser_3 | Entity browser |
 | Media | Media bulk edit | page_1 | Page |
+| Media Images | Master | default | Default |
+| Media Images | Media | media_images | Page |
+| Media Images | Data export | images_export | Data export |
 | Media library | Master | default | Default |
 | Media library | Page | page | Page |
 | Media library | Widget | widget | Page |
@@ -265,3 +268,6 @@ Feature: Views
 | Metatag Audit | Metatag Audit | metatag_audit | Page |
 | Flagged Content | Default | default | Default |
 | Flagged Content | Flagged Content | flagged_content | Page |
+| PDF Audit | Default | default | Default |
+| PDF Audit | PDF Audit | pdf_audit | Page |
+| PDF Audit | Data export | pdf_audit_export | Data export |

@@ -28,86 +28,86 @@ third_party_settings:
       children:
         - field_office
         - field_administration
+      label: 'Section settings'
+      region: content
       parent_name: ''
       weight: 12
       format_type: details_sidebar
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         open: true
         required_fields: true
         weight: -10
-      label: 'Section settings'
-      region: content
     group_editorial_workflow:
       children:
         - moderation_state
         - revision_log
+      label: 'Editorial workflow'
+      region: content
       parent_name: ''
       weight: 13
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: true
-      label: 'Editorial workflow'
-      region: content
     group_page_introduction:
       children:
         - title
         - field_intro_text
+      label: 'Title and introduction'
+      region: content
       parent_name: ''
       weight: 0
       format_type: fieldset
       format_settings:
-        description: ''
-        id: ''
         classes: ''
+        id: ''
+        description: ''
         required_fields: false
-      label: 'Title and introduction'
-      region: content
     group_include_alert:
       children:
         - field_alert
+      label: 'Include alert'
+      region: content
       parent_name: ''
       weight: 3
       format_type: fieldset
       format_settings:
-        description: 'Alerts draw attention to information that may be critical to a veteran, family member, or caregiver.'
-        id: ''
         classes: ''
         show_empty_fields: false
+        id: ''
+        description: 'Alerts draw attention to information that may be critical to a veteran, family member, or caregiver.'
         required_fields: false
-      label: 'Include alert'
-      region: content
     group_table_of_contents:
       children:
         - field_table_of_contents_boolean
+      label: 'Include table of contents?'
+      region: content
       parent_name: ''
       weight: 2
       format_type: details
       format_settings:
+        classes: ''
+        id: ''
+        open: false
         description: ''
         required_fields: true
-        id: ''
-        classes: ''
-        open: false
-      label: 'Include table of contents?'
-      region: content
     group_meta_tags:
       children:
         - field_description
+      label: 'Meta Tags'
+      region: content
       parent_name: ''
       weight: 1
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: true
-      label: 'Meta Tags'
-      region: content
 id: node.health_care_region_detail_page.default
 targetEntityType: node
 bundle: health_care_region_detail_page
@@ -120,19 +120,21 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_administration:
+    type: options_select
     weight: 5
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   field_alert:
+    type: options_select
     weight: 15
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   field_content_block:
+    type: paragraphs_browser
     weight: 5
+    region: content
     settings:
       title: 'Content block'
       title_plural: 'Content blocks'
@@ -151,24 +153,24 @@ content:
       modal_width: 80%
       modal_height: auto
     third_party_settings: {  }
-    type: paragraphs_browser
-    region: content
   field_description:
+    type: string_textfield_with_counter
     weight: 3
+    region: content
     settings:
       size: 60
       placeholder: ''
+      use_field_maxlength: false
       maxlength: 160
       counter_position: after
-      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
-      use_field_maxlength: false
       js_prevent_submit: false
       count_html_characters: false
+      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
-    type: string_textfield_with_counter
-    region: content
   field_featured_content:
+    type: paragraphs
     weight: 4
+    region: content
     settings:
       title: 'Content block'
       title_plural: 'Content blocks'
@@ -184,29 +186,29 @@ content:
         collapse_edit_all: '0'
         duplicate: '0'
     third_party_settings: {  }
-    type: paragraphs
-    region: content
   field_intro_text:
+    type: string_textarea_with_counter
     weight: 4
+    region: content
     settings:
       rows: 5
       placeholder: ''
       maxlength: 600
       counter_position: after
-      textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
       js_prevent_submit: false
       count_html_characters: false
+      textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
-    type: string_textarea_with_counter
-    region: content
   field_office:
+    type: options_select
     weight: 4
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   field_related_links:
+    type: paragraphs
     weight: 6
+    region: content
     settings:
       title: 'Related link'
       title_plural: 'Related links'
@@ -222,20 +224,18 @@ content:
         collapse_edit_all: '0'
         duplicate: '0'
     third_party_settings: {  }
-    type: paragraphs
-    region: content
   field_table_of_contents_boolean:
+    type: boolean_checkbox
     weight: 15
+    region: content
     settings:
       display_label: true
     third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
   moderation_state:
     type: moderation_state_default
     weight: 8
-    settings: {  }
     region: content
+    settings: {  }
     third_party_settings: {  }
   path:
     type: path
@@ -245,10 +245,10 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 11
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   title:
     type: string_textfield_with_counter
@@ -257,22 +257,22 @@ content:
     settings:
       size: 60
       placeholder: ''
+      use_field_maxlength: false
       maxlength: 150
       counter_position: after
-      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
-      use_field_maxlength: false
       js_prevent_submit: false
       count_html_characters: false
+      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
     weight: 7
+    region: content
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
-    region: content
     third_party_settings: {  }
   url_redirects:
     weight: 10

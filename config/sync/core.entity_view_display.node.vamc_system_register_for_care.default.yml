@@ -24,10 +24,11 @@ third_party_settings:
       children:
         - field_cc_bottom_of_page_content
         - field_cc_related_links
+      label: 'National content'
       parent_name: ''
+      region: content
       weight: 3
       format_type: tooltip
-      region: content
       format_settings:
         show_empty_fields: 0
         id: ''
@@ -40,14 +41,14 @@ third_party_settings:
         tooltip_description: 'Why can’t I edit this? VHA keeps this content standardized so that all VA medical centers have consistent messaging.'
         open: false
         required_fields: false
-      label: 'National content'
     group_national_top_of_page_conte:
       children:
         - field_cc_top_of_page_content
+      label: 'National top of page content'
       parent_name: ''
+      region: content
       weight: 1
       format_type: tooltip
-      region: content
       format_settings:
         show_empty_fields: 0
         id: ''
@@ -60,7 +61,6 @@ third_party_settings:
         tooltip_description: 'Why can’t I edit this? VHA keeps this content standardized so that all VA medical centers have consistent messaging.'
         open: false
         required_fields: false
-      label: 'National top of page content'
 id: node.vamc_system_register_for_care.default
 targetEntityType: node
 bundle: vamc_system_register_for_care
@@ -68,40 +68,40 @@ mode: default
 content:
   field_cc_bottom_of_page_content:
     type: entity_field_fetch
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
     weight: 8
     region: content
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
   field_cc_related_links:
     type: entity_field_fetch
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
     weight: 9
     region: content
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
   field_cc_top_of_page_content:
     type: entity_field_fetch
-    weight: 5
-    region: content
     label: hidden
     settings: {  }
     third_party_settings: {  }
+    weight: 5
+    region: content
   field_non_clinical_services:
-    weight: 2
+    type: viewfield_default
     label: hidden
     settings:
       view_title: above
       always_build_output: true
       empty_view_title: above
     third_party_settings: {  }
-    type: viewfield_default
+    weight: 2
     region: content
   links:
-    weight: 0
-    region: content
     settings: {  }
     third_party_settings: {  }
+    weight: 0
+    region: content
 hidden:
   content_moderation_control: true
   field_administration: true
