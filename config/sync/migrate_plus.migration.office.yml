@@ -19,6 +19,8 @@ source:
   cache_counts: true
   ids:
     - field_office_id
+  constants:
+    cmsmigrator_id: 1317
   fields:
     -
       name: title
@@ -78,13 +80,14 @@ process:
     callable: va_gov_migrate_time
   revision_uid:
     plugin: default_value
-    default_value: 1317
+    default_value: constants/cmsmigrator_id
   uid:
     plugin: default_value
-    default_value: 1317
+    default_value: constants/cmsmigrator_id
 destination:
   plugin: 'entity:node'
   default_bundle: office
+  validate: false
   overwrite_properties:
     - title
     - field_office_id

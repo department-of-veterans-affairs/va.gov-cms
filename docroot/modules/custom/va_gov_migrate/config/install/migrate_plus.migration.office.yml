@@ -1,4 +1,4 @@
-uuid: a2a9db75-73ad-44ff-85fc-fe7284ec91d7
+# Migration meta data.
 langcode: en
 status: true
 dependencies: {  }
@@ -9,6 +9,7 @@ cck_plugin_method: null
 migration_tags: null
 migration_group: office
 label: 'Node - Office'
+# Defines the source of the migration.
 source:
   plugin: csv
   path: modules/custom/va_gov_migrate/data/office-salesforce.csv
@@ -19,6 +20,8 @@ source:
   cache_counts: true
   ids:
     - field_office_id
+  constants:
+    cmsmigrator_id: 1317
   fields:
     -
       name: title
@@ -78,14 +81,17 @@ process:
     callable: va_gov_migrate_time
   revision_uid:
     plugin: default_value
-    default_value: 1317 # CMS Migrator user
+    default_value: 'constants/cmsmigrator_id'
   uid:
     plugin: default_value
-    default_value: 1317
+    default_value: 'constants/cmsmigrator_id'
 
 destination:
   plugin: 'entity:node'
   default_bundle: office
+  # We are not populating all required fields so do not validate.
+  validate: false
+  # Only these fields will be overwritten if the row content changes in the CSV.
   overwrite_properties:
     - title
     - field_office_id
