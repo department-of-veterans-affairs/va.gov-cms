@@ -20,6 +20,7 @@ Feature: Media
 | 2:1 large      | 2_1_large           |
 | 3:2 medium thumbnail  | 3_2_medium_thumbnail  |
 | 7:2 medium thumbnail   | 7_2_medium_thumbnail |
+| Cropped: 2:3     | crop_2_3   |
 | Cropped: 3:2     | crop_3_2   |
 | Cropped: 7:2   | crop_7_2   |
 | Cropped: Square    | crop_square  |
@@ -40,13 +41,14 @@ Feature: Media
 | 2:1 large      | Scale and crop | 1024×512 |
 | 2:1 medium thumbnail | Manual crop | uses 2:1 crop type  |
 | 2:1 medium thumbnail | Scale and crop | 480×240 |
-| 2:3 medium thumbnail  | Manual crop | uses 3:2 crop type |
+| 2:3 medium thumbnail  | Manual crop | uses 2:3 crop type |
 | 2:3 medium thumbnail  | Scale and crop | 320×480 |
 | 3:2 medium thumbnail  | Manual crop | uses 3:2 crop type  |
 | 3:2 medium thumbnail  | Scale and crop | 480×320      |
 | 7:2 medium thumbnail   | Manual crop | uses 7:2 crop type  |
 | 7:2 medium thumbnail   | Scale and crop | 1050×300   |
 | Cropped: 2:1 | Manual crop | uses 2:1 crop type |
+| Cropped: 2:3     | Manual crop | uses 2:3 crop type |
 | Cropped: 3:2     | Manual crop | uses 3:2 crop type |
 | Cropped: 7:2   | Manual crop | uses 7:2 crop type |
 | Cropped: Freeform | Manual crop | uses Freeform crop type |
