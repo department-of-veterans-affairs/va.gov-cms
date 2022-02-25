@@ -5,7 +5,6 @@ dependencies:
   module:
     - blazy
     - editor
-    - entity_embed
     - linkit
     - media
     - pathologic
@@ -39,12 +38,6 @@ filters:
     provider: editor
     status: false
     weight: -42
-    settings: {  }
-  entity_embed:
-    id: entity_embed
-    provider: entity_embed
-    status: false
-    weight: -41
     settings: {  }
   filter_html:
     id: filter_html
@@ -113,6 +106,8 @@ filters:
     weight: -36
     settings:
       media_switch: ''
+      hybrid_style: ''
+      box_style: ''
       filter_tags:
         img: img
         iframe: iframe
