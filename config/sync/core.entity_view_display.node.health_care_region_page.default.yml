@@ -25,10 +25,14 @@ dependencies:
     - image.style.large
     - node.type.health_care_region_page
   module:
-    - entity_reference_revisions
     - field_group
     - link
+    - linkit
     - media
+    - options
+    - paragraphs
+    - string_field_formatter
+    - telephone
     - user
 third_party_settings:
   field_group:
@@ -65,8 +69,8 @@ third_party_settings:
       children: {  }
       label: 'Blurbs for subpages'
       parent_name: ''
-      region: content
-      weight: 3
+      region: hidden
+      weight: 12
       format_type: fieldset
       format_settings:
         classes: ''
@@ -89,6 +93,40 @@ third_party_settings:
         classes: ''
         id: ''
         description: ''
+    group_va_health_connect_and_heal:
+      children:
+        - group_tooltip
+      label: 'VA Health Connect and Health Records System'
+      parent_name: ''
+      region: content
+      weight: 3
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        description: ''
+    group_tooltip:
+      children:
+        - field_va_health_connect_phone
+        - field_vamc_ehr_system
+      label: tooltip
+      parent_name: group_va_health_connect_and_heal
+      region: content
+      weight: 7
+      format_type: tooltip
+      format_settings:
+        show_empty_fields: 0
+        id: external-content
+        classes: 'not-editable '
+        element: div
+        show_label: '0'
+        label_element: h3
+        attributes: ''
+        description: ''
+        tooltip_description: 'Why can''t I edit this? The VA Health Connect number comes from a centralized database. The health records system is managed by the Cerner transition team.  For questions, contact the CMS helpdesk.'
+        open: false
+        required_fields: false
 id: node.health_care_region_page.default
 targetEntityType: node
 bundle: health_care_region_page
@@ -138,10 +176,10 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 12
+    weight: 9
     region: content
   field_flickr:
-    type: link
+    type: linkit
     label: above
     settings:
       trim_length: 80
@@ -149,27 +187,32 @@ content:
       url_plain: false
       rel: ''
       target: ''
+      linkit_profile: default
     third_party_settings: {  }
-    weight: 13
+    weight: 10
     region: content
   field_govdelivery_id_emerg:
-    type: string
+    type: plain_string_formatter
     label: above
     settings:
       link_to_entity: false
+      wrap_tag: _none
+      wrap_class: ''
     third_party_settings: {  }
     weight: 5
     region: content
   field_govdelivery_id_news:
-    type: string
+    type: plain_string_formatter
     label: above
     settings:
       link_to_entity: false
+      wrap_tag: _none
+      wrap_class: ''
     third_party_settings: {  }
     weight: 6
     region: content
   field_instagram:
-    type: link
+    type: linkit
     label: above
     settings:
       trim_length: 80
@@ -177,8 +220,9 @@ content:
       url_plain: false
       rel: ''
       target: ''
+      linkit_profile: default
     third_party_settings: {  }
-    weight: 14
+    weight: 11
     region: content
   field_intro_text:
     type: basic_string
@@ -206,7 +250,7 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 11
+    weight: 8
     region: content
   field_other_va_locations:
     type: string
@@ -217,16 +261,14 @@ content:
     weight: 8
     region: content
   field_related_links:
-    type: entity_reference_revisions_entity_view
+    type: paragraph_summary
     label: above
-    settings:
-      view_mode: default
-      link: ''
+    settings: {  }
     third_party_settings: {  }
-    weight: 16
+    weight: 13
     region: content
   field_twitter:
-    type: link
+    type: linkit
     label: above
     settings:
       trim_length: 80
@@ -234,8 +276,24 @@ content:
       url_plain: false
       rel: ''
       target: ''
+      linkit_profile: default
     third_party_settings: {  }
-    weight: 15
+    weight: 12
+    region: content
+  field_va_health_connect_phone:
+    type: telephone_link
+    label: above
+    settings:
+      title: ''
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_vamc_ehr_system:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 9
     region: content
   field_vamc_system_official_name:
     type: string
@@ -248,7 +306,5 @@ content:
 hidden:
   content_moderation_control: true
   field_meta_tags: true
-  field_va_health_connect_phone: true
-  field_vamc_ehr_system: true
   links: true
   search_api_excerpt: true
