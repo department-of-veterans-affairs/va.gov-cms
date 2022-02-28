@@ -21,45 +21,61 @@ body.toolbar-fixed {
   background-image: url('../images/toolbar-logo.png');
 }
 
-// Top-level drupal toolbar
+// Consistent states for top-level toolbar items
+@mixin top-toolbar-item($icon) {
+  &:hover:active,
+  &:hover {
+    color: var(--va-blue-dark) !important;
+  }
+
+  &:active {
+    color: var(--color-white) !important;
+  }
+
+  &::before {
+    background-image: url('../images/icons/bebebe/#{$icon}.svg');
+  }
+
+  &:hover::before,
+  &:hover:active::before,
+  &:hover:focus::before,
+  &.is-active:hover::before {
+    background-image: url('../images/icons/004795/#{$icon}.svg');
+  }
+
+  &:focus::before,
+  &:active::before,
+  &.is-active::before {
+    background-image: url('../images/icons/ffffff/#{$icon}.svg');
+  }
+}
+
 .toolbar-bar {
   .toolbar-icon {
-    // Manage Icon
+    // Manage
     &-menu {
-      &::before {
-        background-image: url('../images/icons/bebebe/hamburger.svg');
-      }
-
-      &:active::before,
-      &.is-active::before {
-        background-image: url('../images/icons/004795/hamburger.svg');
-      }
+      @include top-toolbar-item('hamburger');
     }
 
-    // Sections icon.
+    // Sections
     &-toolbar-menu-sections {
-      &::before {
-        background-image: url('../images/icons/sections-bebebe.svg');
-      }
-
-      &.is-active::before {
-        background-image: url('../images/icons/sections-ffffff.svg');
-      }
+      @include top-toolbar-item('sections');
     }
 
-    // Knowledge Base icon.
+    // Knowledge Base
     &-help {
-      &::before {
-        background-image: url('/core/misc/icons/bebebe/questionmark-disc.svg');
-      }
-
-      &.is-active::before {
-        background-image: url('/core/misc/icons/ffffff/questionmark-disc.svg');
-      }
+      @include top-toolbar-item('questionmark-disc');
     }
 
-    // User Icon
+    // User
+    &-user {
+      @include top-toolbar-item('person');
+    }
 
+    // Edit
+    &-edit {
+      @include top-toolbar-item('pencil');
+    }
   }
 
   // Special treatment for the tab showing the indicator.
@@ -82,12 +98,6 @@ body.toolbar-fixed {
 .toolbar-tray .button--primary {
   color: var(--color-white);
   margin: 5px 10px;
-}
-
-// !important because top-level toolbar items have styles inline on the element
-.toolbar .toolbar-bar .toolbar-tab > .toolbar-item:hover,
-.toolbar .toolbar-bar .toolbar-tab > .toolbar-item:focus {
-  color: var(--va-blue-dark) !important;
 }
 
 /* Admin menus with route:<nolink> links should look OK */
