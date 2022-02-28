@@ -93,6 +93,12 @@ body.toolbar-fixed {
   margin: 5px 10px;
 }
 
+// !important because top-level toolbar items have styles inline on the element
+.toolbar .toolbar-bar .toolbar-tab > .toolbar-item:hover,
+.toolbar .toolbar-bar .toolbar-tab > .toolbar-item:focus {
+  color: var(--va-blue-dark) !important;
+}
+
 /* Admin menus with route:<nolink> links should look OK */
 .toolbar-tray span.toolbar-icon {
   color: var(--va-gray-med);
