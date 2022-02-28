@@ -1059,19 +1059,18 @@ display:
         header: false
       display_description: ''
       header:
-        area_text_custom:
-          id: area_text_custom
+        result:
+          id: result
           table: views
-          field: area_text_custom
+          field: result
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: text_custom
+          plugin_id: result
           empty: false
-          content: "<p><a href=\"admin/content/audit/tables-usage-audit.csv\">Download CSV</a></p>\r\n\r\n<p>Displaying @start - @end of @total</p>"
-          tokenize: false
+          content: "<p><a href=\"admin/content/audit/tables-usage-audit.csv\" class=\"button\">Download CSV</a></p>\r\n\r\n<p>Displaying @start - @end of @total</p>"
       display_extenders: {  }
-      path: admin/content-tools/audits/table-audit
+      path: admin/content-tools/audit/table-audit
     cache_metadata:
       max-age: -1
       contexts:
