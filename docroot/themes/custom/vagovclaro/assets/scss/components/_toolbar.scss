@@ -21,16 +21,18 @@ body.toolbar-fixed {
   background-image: url('../images/toolbar-logo.png');
 }
 
+// Top-level drupal toolbar
 .toolbar-bar {
   .toolbar-icon {
-    // Help center icon.
-    &-toolbar-menu-cms_help_center {
+    // Manage Icon
+    &-menu {
       &::before {
-        background-image: url('/core/misc/icons/bebebe/questionmark-disc.svg');
+        background-image: url('../images/icons/bebebe/hamburger.svg');
       }
 
+      &:active::before,
       &.is-active::before {
-        background-image: url('/core/misc/icons/ffffff/questionmark-disc.svg');
+        background-image: url('../images/icons/004795/hamburger.svg');
       }
     }
 
@@ -44,6 +46,20 @@ body.toolbar-fixed {
         background-image: url('../images/icons/sections-ffffff.svg');
       }
     }
+
+    // Knowledge Base icon.
+    &-help {
+      &::before {
+        background-image: url('/core/misc/icons/bebebe/questionmark-disc.svg');
+      }
+
+      &.is-active::before {
+        background-image: url('/core/misc/icons/ffffff/questionmark-disc.svg');
+      }
+    }
+
+    // User Icon
+
   }
 
   // Special treatment for the tab showing the indicator.
