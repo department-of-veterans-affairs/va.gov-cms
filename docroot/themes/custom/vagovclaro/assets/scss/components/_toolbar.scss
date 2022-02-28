@@ -75,6 +75,11 @@ body.toolbar-fixed {
     // Edit
     &-edit {
       @include top-toolbar-item('pencil');
+
+      // this elememnt is a <button> instead of <a>, add bg color for consistency
+      &:hover {
+        background-color: var(--va-blue-lighter);
+      }
     }
   }
 
