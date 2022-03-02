@@ -71,6 +71,7 @@ $settings['cms_datadog_api_key'] = getenv('CMS_DATADOG_API_KEY');
 //$settings['va_gov_force_sending_metrics'] = true;
 
 // Disable SSO form (PIV login) for tugboat demo environments (not automated PR builds)
+$TUGBOAT_PREVIEW_TYPE = getenv('TUGBOAT_PREVIEW_TYPE');
 if (isset($TUGBOAT_PREVIEW_TYPE) && $TUGBOAT_PREVIEW_TYPE !== 'pullrequest') {
   // Disable sso form.
   $settings['simplesamlphp_auth']['activate'] = FALSE;
