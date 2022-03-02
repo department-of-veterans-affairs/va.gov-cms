@@ -23,7 +23,7 @@ Feature: User Login
     Then I should see "Developer log in"
     And I should see "Log in with PIV"
 
-  @no_piv
+  @piv_off
   Scenario: The homepage is the login form without PIV and the site title is as intended
     Given I am at "/"
     Then I should see "VA.gov | Content Management System"
