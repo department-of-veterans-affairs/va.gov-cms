@@ -74,5 +74,5 @@ $settings['cms_datadog_api_key'] = getenv('CMS_DATADOG_API_KEY');
 $TUGBOAT_PREVIEW_TYPE = getenv('TUGBOAT_PREVIEW_TYPE');
 if (isset($TUGBOAT_PREVIEW_TYPE) && $TUGBOAT_PREVIEW_TYPE !== 'pullrequest') {
   // Disable sso form.
-  $settings['simplesamlphp_auth']['activate'] = FALSE;
+  $config['simplesamlphp_auth.settings']['activate'] = FALSE;
 }
