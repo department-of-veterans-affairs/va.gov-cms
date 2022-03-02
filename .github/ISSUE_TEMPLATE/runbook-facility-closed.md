@@ -20,7 +20,6 @@ assignees: ''
 
 <insert_link>
 
-
 ## Acceptance criteria
 
 ### VAMC facility closure
@@ -36,6 +35,7 @@ assignees: ''
 - [ ] Create [redirect request](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=mnorthuis&labels=ia&template=redirect-request.md&title=Redirect+Request) to point to URL of new facility.
 - [ ] When redirect is ready to go out, plan to make these changes immediately after redirect is released. Practice first on staging or a demo environment. 
   - [ ] CMS engineer bulk moves any content to new facility.
+  - [ ] CMS engineer finds the menu for the system https://prod.cms.va.gov/admin/structure/menu and deletes the menu item for the merged facility.
 
 #### 2b. If not 
 - [ ] Determine where should redirect go? to the system? or to the nearest clinic?
@@ -50,7 +50,6 @@ assignees: ''
 #### 3. CMS Help desk
 - [ ] Notifies editor and any other stakeholders that this is complete. 
 
-
 ### Vet Center – facility closure [this needs work]
 - [ ] CMS team becomes aware that the facility is no longer on the Facility API.
 - [ ] CMS team submits [Redirect request](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=mnorthuis&labels=ia&template=redirect-request.md&title=Redirect+Request), cc'ing Facilities team, and referencing this issue.
@@ -58,9 +57,6 @@ assignees: ''
 - [ ] CMS engineer bulk unpublishes the nodes.
 - [ ] CMS engineer removes the Section.
 - [ ] CMS engineer edit facility node and remove flag `Removed from source`, sets moderation state to archived, then save node.
-
-
-
 
 ## CMS Team
 Please check the team(s) that will do this work.
