@@ -16,7 +16,6 @@ Feature: User Login
     Given I am at "/"
     Then I should see "VA.gov | Content Management System"
     And I should see "Create and publish Veteran-centered content"
-    And I should see "Veterans Affairs" in the "title" element
     And I should see "Log in with PIV" in the "#edit-link" element
     When I click on the text "Developer log in"
     Then I should see "Username"
