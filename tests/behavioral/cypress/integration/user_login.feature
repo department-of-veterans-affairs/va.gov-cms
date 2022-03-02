@@ -16,10 +16,13 @@ Feature: User Login
     Given I am at "/"
     Then I should see "VA.gov | Content Management System"
     And I should see "Create and publish Veteran-centered content"
-    And I should see "Log in with PIV" in the "#edit-link" element
+    And I should see "Log in with PIV"
+    And I should not see "Username"
     When I click on the text "Developer log in"
     Then I should see "Username"
-    Then I should not see "Log in with PIV"
+    When I click on the text "Log in with PIV"
+    Then I should see "Developer log in"
+    And I should see "Log in with PIV"
 
   @no_piv
   Scenario: The homepage is the login form without PIV and the site title is as intended
@@ -29,4 +32,3 @@ Feature: User Login
     And I should see "Username"
     And I should not see "Developer log in"
     And I should not see "Log in with PIV"
-    Then I should not see "Log in with PIV"
