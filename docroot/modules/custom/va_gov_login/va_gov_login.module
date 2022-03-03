@@ -11,7 +11,11 @@ use Drupal\Core\Form\FormStateInterface;
  * Implements hook_form_FORM_ID_alter().
  */
 function va_gov_login_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  // This chunk of code can probably move to va_gov_login.
+  // Always recolor submit button & hide pass helptext.
+  $form['actions']['submit']['#attributes']['class'][] = 'button--primary';
+  unset($form['pass']['#description']);
+
+  // Bail from any further login changes if PIV is disabled.
   $config = \Drupal::config('simplesamlphp_auth.settings');
   \Drupal::service('renderer')->addCacheableDependency($form, $config);
   if (!$config->get('activate') || (!$config->get('login_link_show'))) {
@@ -45,7 +49,6 @@ function va_gov_login_form_user_login_form_alter(&$form, FormStateInterface $for
   $form['pass']['#description'] = 'The password assigned to you by the CMS Help Desk.';
   $form['pass']['#wrapper_attributes']['class'][] = 'js-login-password';
   $form['actions']['submit']['#attributes']['class'][] = 'js-login-submit';
-  $form['actions']['submit']['#attributes']['class'][] = 'button--primary';
 
   // Build toggle button to switch between PIV & User/Pass.
   $form['actions']['toggle'] = [
