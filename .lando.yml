@@ -72,6 +72,9 @@ services:
         BLACKFIRE_CLIENT_TOKEN: ~
         BLACKFIRE_SERVER_ID: ~
         BLACKFIRE_SERVER_TOKEN: ~
+        # Don't test PIV login locally, where it is disabled
+        CYPRESS_TAGS: "not @ignore and not @piv"
+
   mailhog:
     type: mailhog
     portforward: true
