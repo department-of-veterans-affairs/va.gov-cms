@@ -31,6 +31,7 @@ web_environment:
   - CMS_MARIADB_USERNAME=db
   - CMS_MARIADB_PASSWORD=db
   - CMS_MARIADB_HOST=db
+  - CYPRESS_TAGS=\"not @ignore and not @piv\"
 webimage_extra_packages:
   - build-essential
   - chrpath

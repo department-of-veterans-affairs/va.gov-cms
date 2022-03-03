@@ -1,6 +1,6 @@
 # Behat Feature Organization
+New behat tests should be written for drupal-spec-tool.
+See the contents of the 'features/drupal-spec-tool' directory for example.
 
-Behat feature files that should run in all environments should go into the 'features-default' directory.
-
-Behat feature files that can only run in certain environments should be symlinked from the 'features' directory. 
-See the contents of the 'features/drupal-spec-tool' directory for example. menus.feature and views.feature files are configured to run in dev and local only.
+Otherwise, try writing a Cypress test for what you are doing before adding more behat tests.
+The gherkin test syntax (Given, Then, And, etc) is the same.
