@@ -17,9 +17,9 @@ Feature: User Login
     Then I should see "VA.gov | Content Management System"
     And I should see "Create and publish Veteran-centered content"
     And I should see "Log in with PIV"
-    When I click on the text "Developer log in"
+    When I click the "Developer log in" button
     Then I should see "Username"
-    When I click on the text "Log in with PIV"
+    When I click the "Log in with PIV" button
     Then I should see "Developer log in"
     And I should see "Log in with PIV"
 
