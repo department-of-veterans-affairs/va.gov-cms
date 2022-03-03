@@ -28,7 +28,7 @@
         );
 
         // Move focus back to top of form when toggled.
-        if ($("#user-login-form").hasClass("piv-login")) {
+        if (loginForm.hasClass("piv-login")) {
           $("a.simplesamlphp-auth-login-link").focus();
         } else {
           $(".js-login-username input").focus();
