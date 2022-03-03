@@ -38,7 +38,7 @@ describe('Component accessibility test', () => {
   routes.forEach((route) => {
 
     const testName = `${route} has no detectable accessibility violations on load.`;
-    it(testName, () => {
+    it(testName, { retries: { runMode: 2 } }, () => {
       cy.visit(route);
       cy.injectAxe();
 
