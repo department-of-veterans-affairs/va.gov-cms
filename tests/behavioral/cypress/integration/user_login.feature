@@ -20,8 +20,8 @@ Feature: User Login
     When I click the "Developer log in" button
     Then I should see "Username"
     When I click the "Log in with PIV" button
-    Then I should see "Developer log in"
-    And I should see "Log in with PIV"
+    Then I should see "Log in with PIV"
+    And I should see "Developer log in"
 
   @piv_off
   Scenario: The homepage is the login form without PIV and the site title is as intended
