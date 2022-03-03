@@ -147,15 +147,15 @@ third_party_settings:
       children:
         - field_benefit_categories
       label: 'VA Benefits'
-      parent_name: ''
+      parent_name: group_connect_with_us
       region: content
       weight: 10
-      format_type: details
+      format_type: fieldset
       format_settings:
         classes: ''
         id: ''
-        open: true
         description: ''
+        open: true
     group_resources:
       children:
         - field_clp_resources_header
@@ -202,7 +202,8 @@ third_party_settings:
         description: ''
     group_connect_with_us:
       children:
-        - field_clp_connect_with_us
+        - group_va_benefits
+        - field_related_office
       label: 'Connect with us'
       parent_name: ''
       region: content
@@ -219,10 +220,9 @@ bundle: campaign_landing_page
 mode: default
 content:
   field_benefit_categories:
-    type: entity_reference_entity_view
-    label: hidden
+    type: entity_reference_label
+    label: above
     settings:
-      view_mode: teaser
       link: false
     third_party_settings: {  }
     weight: 7
@@ -469,10 +469,11 @@ content:
     weight: 4
     region: content
   field_related_office:
-    type: entity_reference_label
-    label: above
+    type: entity_reference_entity_view
+    label: hidden
     settings:
-      link: true
+      view_mode: connect_with_us
+      link: false
     third_party_settings: {  }
     weight: 27
     region: content
