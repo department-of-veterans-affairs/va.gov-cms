@@ -346,7 +346,7 @@ function vagovclaro_form_user_login_form_alter(&$form, FormStateInterface $form_
   // This chunk of code can probably move to va_gov_login.
   $config = \Drupal::config('simplesamlphp_auth.settings');
   \Drupal::service('renderer')->addCacheableDependency($form, $config);
-  if (!$config->get('activate') || !$config->get('login_link_show')) {
+  if (!$config->get('activate') || (!$config->get('login_link_show'))) {
     return;
   }
 
