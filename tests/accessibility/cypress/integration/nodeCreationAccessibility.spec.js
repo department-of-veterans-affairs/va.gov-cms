@@ -51,6 +51,7 @@ describe('Component accessibility test', () => {
 
       cy.get('body').each((element, index) => {
         cy.checkA11y(null, axeRuntimeOptions, cy.terminalLog);
+        cy.task('log', 'Accessibility check completed successfully.');
       });
 
     });
