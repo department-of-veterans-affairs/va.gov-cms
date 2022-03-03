@@ -32,23 +32,22 @@ assignees: ''
 ## Vet Center – facility name change
 
 - [ ] The H1 title change comes from Lighthouse to Drupal.
-- Is the new official name plain language?
-  - If yes, go to next step.
-  - [ ] If no, update the common name (when #6955 Unlock title field on Vet Centers is handled).
-- Is the facility published?
-  - If yes, go to next step.
-  - [ ] If no, update URLs for all content in that section by bulk operations.
-- [ ] CMS team submits [Redirect request](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=mnorthuis&labels=ia&template=redirect-request.md&title=Redirect+Request), cc'ing Facilities team
-- [ ] Once timing of Redirect going live is known, alert CMS engineers to carry out the other steps
-- [ ] CMS engineer bulk updates node titles for services.
-- [ ] CMS engineer updates URLs.
-- Was a Section created?
-  - If no, skip to the next step.
-  - [ ] If yes, it may need to be updated (pending some migration script updating).
+- Is the new official name plain language (Does it match the pattern <city> Vet Center)?
+  - [ ] If yes, update the common name to match (when #6955 Unlock title field on Vet Centers is handled).
+- Is the Vet Center published?
+  - If yes:
+    - [ ] CMS team submits [Redirect request](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=mnorthuis&labels=ia&template=redirect-request.md&title=Redirect+Request), cc'ing Facilities team
+    - [ ] Once timing of Redirect going live is known, alert CMS engineers to carry out steps in **Update ready** section below
+  - If no: CMS engineers may continue with **Update ready** section below
+- Update ready
+    - [ ] CMS engineer: visit bulk operations page and filter by section = vet center name
+    - [ ] CMS engineer: update URLs for all content in that section by bulk operations.
+    - [ ] CMS engineer: **if a new section was created** - update field value for section by bulk operations.
+    - [ ] CMS engineer: resave all content in that section by bulk operations.
+    - [ ] CMS engineer edit Vet Center node and remove flag `Changed name` then save node.
 - Is the Vet Center published?
   - [ ] If no, HD notifies Michelle Middaugh to bulk publish.
   - [ ] HD notifies editor and any other stakeholders.
-- [ ] CMS engineer edit facility node and remove  flag `Changed name` then save node.
   </details>
 
 ## CMS Team
