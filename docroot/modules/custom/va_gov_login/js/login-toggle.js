@@ -5,24 +5,31 @@
 * @preserve
 **/
 
-(function ($, Drupal) {
+(function (Drupal) {
   Drupal.behaviors.loginFormToggle = {
     attach: function attach() {
-      $(".js-va-login-toggle").click(function (event) {
-        event.preventDefault();
+      document.querySelector(".js-va-login-toggle").addEventListener("click", function (e) {
+        e.preventDefault();
 
-        var loginForm = $("#user-login-form");
-        loginForm.toggleClass("piv-login form-login");
+        var loginForm = document.getElementById("user-login-form");
 
-        var loginToggle = $("#edit-toggle");
-        loginToggle.prop("value", loginToggle.val() === "Developer log in" ? "Log in with PIV" : "Developer log in");
+        loginForm.classList.toggle('piv-login');
+        loginForm.classList.toggle('form-login');
 
-        if ($("#user-login-form").hasClass("piv-login")) {
-          $("a.simplesamlphp-auth-login-link").focus();
+        var loginToggle = document.getElementById("edit-toggle");
+
+        if (loginToggle.value === 'Developer log in') {
+          loginToggle.value = "Log in with PIV";
         } else {
-          $(".js-login-username input").focus();
+          loginToggle.value = "Developer log in";
+        }
+
+        if (loginForm.classList.contains("piv-login")) {
+          document.querySelector("a.simplesamlphp-auth-login-link").focus();
+        } else {
+          document.querySelector(".js-login-username input").focus();
         }
       });
     }
   };
-})(jQuery, Drupal);
+})(Drupal);

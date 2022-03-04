@@ -3,7 +3,7 @@
  * Login form helpers.
  */
 
-(($, Drupal) => {
+((Drupal) => {
   /**
    * Handles switching between PIV card & CMS user/pass login flows.
    *
@@ -11,29 +11,33 @@
    */
   Drupal.behaviors.loginFormToggle = {
     attach() {
-      $(".js-va-login-toggle").click((event) => {
-        event.preventDefault();
+      document
+        .querySelector(".js-va-login-toggle")
+        .addEventListener("click", (e) => {
+          e.preventDefault();
 
-        // Toggle class on form to control which inputs are shown.
-        const loginForm = $("#user-login-form");
-        loginForm.toggleClass("piv-login form-login");
+          // Toggle class on form to control which inputs are shown.
+          const loginForm = document.getElementById("user-login-form");
+          // loginForm.toggleClass("piv-login form-login");
+          loginForm.classList.toggle("piv-login");
+          loginForm.classList.toggle("form-login");
 
-        // Change text of toggle button based on which is shown.
-        const loginToggle = $("#edit-toggle");
-        loginToggle.prop(
-          "value",
-          loginToggle.val() === "Developer log in"
-            ? "Log in with PIV"
-            : "Developer log in"
-        );
+          // Change text of toggle button based on which is shown.
+          const loginToggle = document.getElementById("edit-toggle");
 
-        // Move focus back to top of form when toggled.
-        if ($("#user-login-form").hasClass("piv-login")) {
-          $("a.simplesamlphp-auth-login-link").focus();
-        } else {
-          $(".js-login-username input").focus();
-        }
-      });
+          if (loginToggle.value === "Developer log in") {
+            loginToggle.value = "Log in with PIV";
+          } else {
+            loginToggle.value = "Developer log in";
+          }
+
+          // Move focus back to top of form when toggled.
+          if (loginForm.classList.contains("piv-login")) {
+            document.querySelector("a.simplesamlphp-auth-login-link").focus();
+          } else {
+            document.querySelector(".js-login-username input").focus();
+          }
+        });
     },
   };
-})(jQuery, Drupal);
+})(Drupal);

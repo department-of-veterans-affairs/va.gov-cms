@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 
 /**
  * Implements hook_form_FORM_ID_alter().
@@ -14,6 +15,7 @@ function va_gov_login_form_user_login_form_alter(&$form, FormStateInterface $for
   // Always recolor submit button & hide pass helptext.
   $form['actions']['submit']['#attributes']['class'][] = 'button--primary';
   unset($form['pass']['#description']);
+  unset($form['pass']['description']);
 
   // Bail from any further login changes if PIV is disabled.
   $config = \Drupal::config('simplesamlphp_auth.settings');
@@ -46,7 +48,6 @@ function va_gov_login_form_user_login_form_alter(&$form, FormStateInterface $for
   $form['name']['#description'] = 'Your VA email address';
   $form['name']['#prefix'] = '<div class="password-prefix form-item__description">Only use this method if you\'ve already been approved to use password log in. If you\'re not sure, try <a href="/user/login">logging in with PIV first</a> or <a href="https://va-gov.atlassian.net/servicedesk/customer/portal/3/group/8/create/26">contact the CMS help desk.</a></div>';
   $form['name']['#wrapper_attributes']['class'][] = 'js-login-username';
-  $form['pass']['#description'] = 'The password assigned to you by the CMS Help Desk.';
   $form['pass']['#wrapper_attributes']['class'][] = 'js-login-password';
   $form['actions']['submit']['#attributes']['class'][] = 'js-login-submit';
 
