@@ -5,19 +5,78 @@
  * Contains va_gov_login.module.
  */
 
-use Drupal\Core\Field\FieldFilteredMarkup;
-use Drupal\Component\Render\FormattableMarkup;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORM_ID_alter().
  */
-function va_gov_login_form_alter(&$form, &$form_state, $form_id) {
-  if ($form_id == "user_login_form") {
-    $form['pass']['#description'] = FieldFilteredMarkup::create(t('Enter the password that accompanies your username. If you have an issue with your password please contact @helpdesk.',
-      [
-        '@helpdesk' => new FormattableMarkup('<a href="https://va-gov.atlassian.net/servicedesk/customer/portal/3/group/8/create/26" target="_blank">help desk</a>', []),
-      ]));
+function va_gov_login_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Always recolor submit button & hide pass helptext.
+  $form['actions']['submit']['#attributes']['class'][] = 'button--primary';
+  unset($form['pass']['#description']);
+  unset($form['pass']['description']);
+
+  // Bail from any further login changes if PIV is disabled.
+  $config = \Drupal::config('simplesamlphp_auth.settings');
+  \Drupal::service('renderer')->addCacheableDependency($form, $config);
+  if (!$config->get('activate') || (!$config->get('login_link_show'))) {
+    return;
   }
+
+  $form['simplesamlphp_auth_login_link'] = [
+    '#type' => 'fieldset',
+    '#title' => 'PIV login',
+    '#title_display' => 'invisible',
+    '#weight' => -1,
+    '#attributes' => [
+      'class' => ['piv-container', 'js-piv-container'],
+    ],
+  ];
+  $form['simplesamlphp_auth_login_link']['link'] = [
+    '#title' => 'Log in with PIV',
+    '#type' => 'link',
+    '#url' => Url::fromRoute('simplesamlphp_auth.saml_login'),
+    '#attributes' => [
+      'title' => 'Follow this link to login using your PIV or other smartcard.',
+      'class' => ['simplesamlphp-auth-login-link', 'button', 'button--primary'],
+    ],
+    '#suffix' => '<div class="suffix-links"><a href="/help/cms-basics/how-to-log-inout">Log in help</a><a href="https://va-gov.atlassian.net/servicedesk/customer/portal/3/group/8/create/26">Contact CMS help desk</a></div>',
+  ];
+
+  // Modify existing text and add classes for JS toggle & styles.
+  $form['name']['#description'] = 'Your VA email address';
+  $form['name']['#prefix'] = '<div class="password-prefix form-item__description">Only use this method if you\'ve already been approved to use password log in. If you\'re not sure, try <a href="/user/login">logging in with PIV first</a> or <a href="https://va-gov.atlassian.net/servicedesk/customer/portal/3/group/8/create/26">contact the CMS help desk.</a></div>';
+  $form['name']['#wrapper_attributes']['class'][] = 'js-login-username';
+  $form['pass']['#wrapper_attributes']['class'][] = 'js-login-password';
+  $form['actions']['submit']['#attributes']['class'][] = 'js-login-submit';
+
+  // Build toggle button to switch between PIV & User/Pass.
+  $form['actions']['toggle'] = [
+    '#type' => 'button',
+    '#button_type' => 'toggle',
+    '#attributes' => [
+      'class' => [
+        'link',
+        'va-login-toggle',
+        'js-va-login-toggle',
+      ],
+    ],
+    '#value' => 'Developer log in',
+  ];
+
+  // Check user input to determine if form is being rebuilt with error.
+  $user_input = $form_state->getUserInput();
+  if (isset($user_input['name']) || isset($user_input['pass'])) {
+    $form['#attributes']['class'][] = 'form-login';
+    $form['actions']['toggle']['#value'] = 'Log in with PIV';
+  }
+  else {
+    $form['#attributes']['class'][] = 'piv-login';
+  }
+
+  // Attach JS library for toggle button.
+  $form['#attached']['library'][] = 'va_gov_login/login-toggle';
 }
 
 /**
