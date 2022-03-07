@@ -8,7 +8,7 @@ Feature: Content model: Campaign Landing Page Content Type fields
      Scenario: Fields
        Then exactly the following fields should exist for bundles "campaign_landing_page" of entity type node
        | Type | Bundle | Field label | Machine name | Field type | Required | Cardinality | Form widget | Translatable |
-| Content type | Campaign Landing Page | Add Connect with us block | field_related_office | Entity reference |  | 1 | Select list | Translatable |
+| Content type | Campaign Landing Page | Add a "Connect with us" panel | field_related_office | Entity reference |  | 1 | Select list | Translatable |
 | Content type | Campaign Landing Page | Add a link to an external blog or other list of stories | field_clp_stories_cta | Link |  | 1 | Linkit |  |
 | Content type | Campaign Landing Page | Add a link to more FAQs | field_clp_faq_cta | Entity reference revisions |  | 1 | Paragraphs (stable) |  |
 | Content type | Campaign Landing Page | Add a link to more videos | field_clp_video_panel_more_video | Entity reference revisions |  | 1 | Paragraphs (stable) |  |
@@ -22,7 +22,7 @@ Feature: Content model: Campaign Landing Page Content Type fields
 | Content type | Campaign Landing Page | Enable this page segment | field_clp_events_panel | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Campaign Landing Page | Enable this page segment | field_clp_faq_panel | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Campaign Landing Page | Events | field_clp_events_references | Entity reference |  | 2 | Entity Browser - Table |  |
-| Content type | Campaign Landing Page | Featured stories | field_clp_stories_teasers | Entity reference revisions |  | 2 | Paragraphs Classic |  |
+| Content type | Campaign Landing Page | Featured stories | field_clp_stories_teasers | Entity reference revisions |  | 2 | Paragraphs Legacy |  |
 | Content type | Campaign Landing Page | Heading | field_clp_resources_header | Text (plain) |  | 1 | Textfield with counter |  |
 | Content type | Campaign Landing Page | Heading | field_clp_events_header | Text (plain) |  | 1 | Textfield with counter |  |
 | Content type | Campaign Landing Page | Heading | field_clp_video_panel_header | Text (plain) |  | 1 | Textfield with counter |  |
