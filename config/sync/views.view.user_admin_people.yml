@@ -973,10 +973,9 @@ display:
           entity_type: user
           plugin_id: workbench_access_section
           operator: in
-          value:
-            - All
+          value: {  }
           group: 1
-          exposed: false
+          exposed: true
           expose:
             operator_id: workbench_access_section__section_op
             label: Section
@@ -1132,7 +1131,7 @@ display:
         type: views_query
         options:
           query_comment: ''
-          disable_sql_rewrite: true
+          disable_sql_rewrite: false
           distinct: false
           replica: false
           query_tags: {  }
@@ -2412,8 +2411,17 @@ display:
             encoding: utf8
             utf8_bom: '0'
             use_serializer_encode_only: false
+      query:
+        type: views_query
+        options:
+          query_comment: ''
+          disable_sql_rewrite: true
+          distinct: false
+          replica: false
+          query_tags: {  }
       defaults:
         access: false
+        query: false
         fields: false
         filters: false
         filter_groups: false
@@ -2421,8 +2429,8 @@ display:
       display_extenders: {  }
       path: admin/people/vacms-all-users-export.csv
       displays:
-        page_1: page_1
         default: '0'
+        page_1: '0'
       filename: ''
       automatic_download: false
       store_in_public_file_directory: null
@@ -3095,8 +3103,20 @@ display:
       defaults:
         show_admin_links: false
         fields: false
+        header: false
         footer: false
       show_admin_links: false
+      header:
+        result:
+          id: result
+          table: views
+          field: result
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: result
+          empty: false
+          content: "<div><a href=\"/admin/people/vacms-all-users-export.csv?page&amp;_format=csv\" class=\"button\">Download CSV of all users</a></div>\r\nDisplaying @start - @end of @total"
       footer: {  }
       display_extenders: {  }
       path: admin/people/list
