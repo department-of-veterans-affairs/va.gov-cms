@@ -22,21 +22,20 @@ Feature: Content model: VAMC Content Type fields
 | Content type | Event | Additional registration  information | field_additional_information_abo | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
 | Content type | Event | Address | field_address | Address |  | 1 | Address |  |
 | Content type | Event | Cost | field_event_cost | Text (plain) |  | 1 | -- Disabled -- |  |
-| Content type | Event | Date and time | field_datetime_range_timezone | Smart date range | Required | Unlimited | Date and time range with timezone |  |
+| Content type | Event | Date and time | field_datetime_range_timezone | Smart date range | Required | 1 | Date and time range with timezone |  |
 | Content type | Event | Where should the event be listed? | field_listing | Entity reference | Required | 1 | Select list |  |
-| Content type | Event | Facility location | field_facility_location | Entity reference |  | 1 | Autocomplete |  |
-| Content type | Event | Include registration information | field_include_registration_info | Boolean |  | 1 | Single on/off checkbox |  |
+| Content type | Event | Facility location | field_facility_location | Entity reference |  | 1 | Select list |  |
 | Content type | Event | Full event description | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
 | Content type | Event | Event image | field_media | Entity reference |  | 1 | Media library | Translatable |
-| Content type | Event | Location type | field_location_type | List (text) | Required | 1 | Check boxes/radio buttons |  |
+| Content type | Event | Location type | field_location_type | List (text) | Required | 1 | Select list |  |
 | Content type | Event | Teaser description | field_description | Text (plain) |  | 1 | Textfield | Translatable |
 | Content type | Event | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | Event | Order | field_order | List (integer) |  | 1 | Select list |  |
 | Content type | Event | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Event | Registration required | field_event_registrationrequired | Boolean |  | 1 | Single on/off checkbox |  |
-| Content type | Event | Call to action | field_event_cta | List (text) |  | 1 | Select list |  |
+| Content type | Event | Label | field_event_cta | List (text) |  | 1 | Select list |  |
 | Content type | Event | URL | field_link | Link |  | 1 | Linkit | Translatable |
-| Content type | Event | URL | field_url_of_an_online_event | Link |  | 1 | Linkit |  |
+| Content type | Event | Online event link | field_url_of_an_online_event | Link |  | 1 | Linkit |  |
 | Content type | Events List | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Events List | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | Events List | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
@@ -103,6 +102,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | Story | Order | field_order | List (integer) |  | 1 | Select list | Translatable |
 | Content type | Story | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Story | Where should the story be listed? | field_listing | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Story | Featured | field_featured | Boolean | Required | 1 | Single on/off checkbox |  |
 | Content type | Stories List | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | Stories List | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Stories List | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |

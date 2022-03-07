@@ -24,4 +24,3 @@ Feature: Content model: Vocabulary fields
 | Vocabulary | VHA health service taxonomy | Type of Care | field_vet_center_type_of_care | List (text) |  | 1 | Select list |  |
 | Vocabulary | VHA health service taxonomy | This is a required Vet Center service | field_vet_center_required_servic | Boolean |  | 1 | Single on/off checkbox |  |
 | Vocabulary | Products | Knowledge base landing page | field_kb_landing_page | Entity reference |  | 1 | Autocomplete |  |
-

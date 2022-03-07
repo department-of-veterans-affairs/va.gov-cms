@@ -68,10 +68,8 @@ Feature: Views
 | Users in section | users_in_section | Section association | Enabled | Views of users associated to a section |
 | CMS Knowledge Base search results | knowledge_base_search_results | Index Knowledge base search | Enabled |  |
 | Knowledge Base Article administration | knowledge_base_article_administration | Content | Enabled | Audits and tools for managing Knowledge Base Articles |
-| List page | list_page | Content | Enabled |  |
 | Rich Text Field Audit | rich_text_field_audit | Content | Enabled |  |
 | Non-clinical services | non_clinical_services | Content | Enabled | Views of non-clinical services content placed within several "Top tasks" VAMC node forms. |
-| Table Audit | table_audit | Content | Enabled |  |
 | Metatag Audit | metatag_audit | Content | Enabled |  |
 | Flagged Content | flagged_content | Content | Enabled |  |
 | PDF Audit | pdf_audit | Media | Enabled |  |
