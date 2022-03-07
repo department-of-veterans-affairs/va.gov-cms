@@ -68,8 +68,10 @@ Feature: Views
 | Users in section | users_in_section | Section association | Enabled | Views of users associated to a section |
 | CMS Knowledge Base search results | knowledge_base_search_results | Index Knowledge base search | Enabled |  |
 | Knowledge Base Article administration | knowledge_base_article_administration | Content | Enabled | Audits and tools for managing Knowledge Base Articles |
+| List page | list_page | Content | Enabled |  |
 | Rich Text Field Audit | rich_text_field_audit | Content | Enabled |  |
 | Non-clinical services | non_clinical_services | Content | Enabled | Views of non-clinical services content placed within several "Top tasks" VAMC node forms. |
+| Table Audit | table_audit | Content | Enabled |  |
 | Metatag Audit | metatag_audit | Content | Enabled |  |
 | Flagged Content | flagged_content | Content | Enabled |  |
 | PDF Audit | pdf_audit | Media | Enabled |  |
@@ -115,7 +117,6 @@ Feature: Views
 | Content Entity Reference Source | Entity Reference: Story Listing | entity_reference_3 | Entity Reference |
 | Content Entity Reference Source | Entity Reference: News Release Listing | entity_reference_4 | Entity Reference |
 | Content Entity Reference Source | Entity Reference: Staff profiles | entity_reference_5 | Entity Reference |
-| Content Entity Reference Source | Entity Reference: Systems | entity_reference_6 | Entity Reference |
 | Content Entity Reference Source | Entity Reference: Main Offices | entity_reference_7 | Entity Reference |
 | Content release logs | Master | default | Default |
 | Content release logs | Page | page_1 | Page |
@@ -182,6 +183,7 @@ Feature: Views
 | Moderation history | Master | default | Default |
 | Moderation history | Page | page | Page |
 | People | Data export | data_export_1 | Data export |
+| People | Data export: All users | data_export_2 | Data export |
 | People | Master | default | Default |
 | People | Page | page_1 | Page |
 | Redirect | Master | default | Default |
@@ -253,13 +255,22 @@ Feature: Views
 | CMS Knowledge Base search results | Page | knowledge_base_search_page | Page |
 | Knowledge Base Article administration | Master | default | Default |
 | Knowledge Base Article administration | Page | knowledge_base_admin | Page |
+| List page | Default | default | Default |
+| List page | Events | events | Block |
+| List page | Featured events | featured_events | Attachment |
+| List page | Featured stories | featured_stories | Attachment |
+| List page | Past events | attachment_1 | Attachment |
+| List page | Stories | stories | Block |
 | Rich Text Field Audit | Default | default | Default |
 | Rich Text Field Audit | Content Audit - Rich Text Fields | content_audit_rich_text | Page |
 | Rich Text Field Audit | Data export | rich_text_audit_data_export | Data export |
-| Non-clinical services | Admissions offices | admissions_offices | Block |
-| Non-clinical services | Billing and insurance offices | billing_and_insurance | Block |
+| Non-clinical services | Admissions Offices | admissions_offices | Block |
+| Non-clinical services | Billing and Insurance Offices | billing_and_insurance | Block |
 | Non-clinical services | Default | default | Default |
-| Non-clinical services | Medical records offices | medical_records_offices | Block |
+| Non-clinical services | Medical Records Offices | medical_records_offices | Block |
+| Table Audit | Default | default | Default |
+| Table Audit | Table Audit | table_audit | Page |
+| Table Audit | Data export | tables_usage_export | Data export |
 | Metatag Audit | Default | default | Default |
 | Metatag Audit | Metatag Audit | metatag_audit | Page |
 | Flagged Content | Default | default | Default |
