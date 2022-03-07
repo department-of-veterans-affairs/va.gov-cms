@@ -115,8 +115,8 @@ Feature: Views
 | Content Entity Reference Source | Entity Reference: Story Listing | entity_reference_3 | Entity Reference |
 | Content Entity Reference Source | Entity Reference: News Release Listing | entity_reference_4 | Entity Reference |
 | Content Entity Reference Source | Entity Reference: Staff profiles | entity_reference_5 | Entity Reference |
-| Content Entity Reference Source | Entity Reference: Systems | entity_reference_6 | Entity Reference |
 | Content Entity Reference Source | Entity Reference: Main Offices | entity_reference_7 | Entity Reference |
+| Content Entity Reference Source | Entity Reference: Systems | entity_reference_6 | Entity Reference |
 | Content release logs | Master | default | Default |
 | Content release logs | Page | page_1 | Page |
 | Content served from Drupal | Page | page_1 | Page |
@@ -181,6 +181,9 @@ Feature: Views
 | Moderated content | Moderated content | moderated_content | Page |
 | Moderation history | Master | default | Default |
 | Moderation history | Page | page | Page |
+| Non-clinical services | Admissions offices | admissions_offices | Block |
+| Non-clinical services | Billing and insurance offices | billing_and_insurance | Block |
+| Non-clinical services | Medical records offices | medical_records_offices | Block |
 | People | Data export | data_export_1 | Data export |
 | People | Master | default | Default |
 | People | Page | page_1 | Page |
@@ -256,10 +259,7 @@ Feature: Views
 | Rich Text Field Audit | Default | default | Default |
 | Rich Text Field Audit | Content Audit - Rich Text Fields | content_audit_rich_text | Page |
 | Rich Text Field Audit | Data export | rich_text_audit_data_export | Data export |
-| Non-clinical services | Admissions offices | admissions_offices | Block |
-| Non-clinical services | Billing and insurance offices | billing_and_insurance | Block |
 | Non-clinical services | Default | default | Default |
-| Non-clinical services | Medical records offices | medical_records_offices | Block |
 | Metatag Audit | Default | default | Default |
 | Metatag Audit | Metatag Audit | metatag_audit | Page |
 | Flagged Content | Default | default | Default |
