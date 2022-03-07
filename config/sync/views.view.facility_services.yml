@@ -35,8 +35,7 @@ dependencies:
     - node.type.vha_facility_nonclinical_service
     - taxonomy.vocabulary.administration
     - taxonomy.vocabulary.health_care_service_taxonomy
-    - user.role.administrator
-    - user.role.content_admin
+    - user.role.authenticated
     - workflows.workflow.editorial
   content:
     - 'taxonomy_term:administration:55a295b5-182a-4f4f-ba62-723bfe8df473'
@@ -623,8 +622,7 @@ display:
         type: role
         options:
           role:
-            content_admin: content_admin
-            administrator: administrator
+            authenticated: authenticated
       cache:
         type: tag
       empty:
@@ -1946,9 +1944,8 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: false
+          type: content_moderation_state
+          settings: {  }
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -2204,7 +2201,7 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: string
+          type: content_moderation_state
           settings: {  }
           group_column: value
           group_columns: {  }
@@ -3402,7 +3399,7 @@ display:
               redirect_administrator: '0'
               admnistrator_users: '0'
               administrator: '0'
-            reduce: true
+            reduce: false
           is_grouped: false
           group_info:
             label: ''
@@ -3510,7 +3507,7 @@ display:
               redirect_administrator: '0'
               admnistrator_users: '0'
               administrator: '0'
-            reduce: false
+            reduce: true
           is_grouped: false
           group_info:
             label: ''
@@ -5104,6 +5101,60 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        moderation_state:
+          id: moderation_state
+          table: node_field_data
+          field: moderation_state
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          plugin_id: moderation_state_filter
+          operator: in
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: moderation_state_op
+            label: 'Moderation state'
+            description: ''
+            use_operator: false
+            operator: moderation_state_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: moderation_state
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+            reduce: true
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
         taxonomy_entity_index_tid_depth:
           id: taxonomy_entity_index_tid_depth
           table: node
@@ -5149,7 +5200,7 @@ display:
               redirect_administrator: '0'
               admnistrator_users: '0'
               administrator: '0'
-            reduce: true
+            reduce: false
           is_grouped: false
           group_info:
             label: ''
@@ -5169,60 +5220,6 @@ display:
           limit: true
           error_message: true
           depth: 6
-        moderation_state:
-          id: moderation_state
-          table: node_field_data
-          field: moderation_state
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          plugin_id: moderation_state_filter
-          operator: in
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: moderation_state_op
-            label: 'Moderation state'
-            description: ''
-            use_operator: false
-            operator: moderation_state_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: moderation_state
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_api_consumer: '0'
-              content_creator_benefits_hubs: '0'
-              content_creator_resources_and_support: '0'
-              office_content_creator: '0'
-              vamc_content_creator: '0'
-              content_creator_vet_center: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              content_admin: '0'
-              redirect_administrator: '0'
-              admnistrator_users: '0'
-              administrator: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
       filter_groups:
         operator: AND
         groups:
@@ -6529,62 +6526,6 @@ display:
           hierarchy: true
           limit: true
           error_message: true
-        field_administration_target_id:
-          id: field_administration_target_id
-          table: node__field_administration
-          field: field_administration_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: taxonomy_index_tid
-          operator: or
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: owner
-            label: Section
-            description: ''
-            use_operator: false
-            operator: field_administration_target_id_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: owner
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_api_consumer: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              admnistrator_users: '0'
-              administrator: '0'
-              redirect_administrator: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          vid: administration
-          type: select
-          hierarchy: true
-          limit: true
-          error_message: true
-          parent: 0
-          level_labels: ''
-          force_deepest: false
         field_referral_required_value:
           id: field_referral_required_value
           table: node__field_referral_required
@@ -6747,6 +6688,62 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
+        field_administration_target_id:
+          id: field_administration_target_id
+          table: node__field_administration
+          field: field_administration_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: owner
+            label: Section
+            description: ''
+            use_operator: false
+            operator: field_administration_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: owner
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+              redirect_administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: administration
+          type: select
+          hierarchy: true
+          limit: true
+          error_message: true
+          parent: 0
+          level_labels: ''
+          force_deepest: false
       filter_groups:
         operator: AND
         groups:
@@ -9932,9 +9929,8 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: false
+          type: content_moderation_state
+          settings: {  }
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -11334,7 +11330,10 @@ display:
               anonymous: '0'
               content_api_consumer: '0'
               content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
               vamc_content_creator: '0'
+              content_creator_vet_center: '0'
               content_editor: '0'
               content_reviewer: '0'
               content_publisher: '0'
@@ -11450,7 +11449,7 @@ display:
               redirect_administrator: '0'
               admnistrator_users: '0'
               administrator: '0'
-            reduce: false
+            placeholder: ''
           is_grouped: false
           group_info:
             label: ''
@@ -11522,6 +11521,119 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        moderation_state:
+          id: moderation_state
+          table: node_field_data
+          field: moderation_state
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          plugin_id: moderation_state_filter
+          operator: in
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: moderation_state_op
+            label: 'Moderation state'
+            description: ''
+            use_operator: false
+            operator: moderation_state_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: moderation_state
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_administration_target_id:
+          id: field_administration_target_id
+          table: node__field_administration
+          field: field_administration_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_administration_target_id_op
+            label: Section
+            description: ''
+            use_operator: false
+            operator: field_administration_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_administration_target_id
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: administration
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
       filter_groups:
         operator: AND
         groups:
@@ -12350,6 +12462,7 @@ display:
         - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_body'
         - 'config:field.storage.node.field_service_name_and_descripti'
+        - 'config:workflow_list'
   vamc_systems:
     id: vamc_systems
     display_title: 'VAMC systems'
@@ -12937,6 +13050,58 @@ display:
         options:
           offset: 0
       filters:
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: title
+          plugin_id: string
+          operator: '='
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: title_op
+            label: Title
+            description: ''
+            use_operator: false
+            operator: title_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: title
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              vamc_content_creator: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
         type:
           id: type
           table: node_field_data
@@ -12977,60 +13142,6 @@ display:
               redirect_administrator: '0'
               admnistrator_users: '0'
               administrator: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-        moderation_state:
-          id: moderation_state
-          table: node_field_data
-          field: moderation_state
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          plugin_id: moderation_state_filter
-          operator: in
-          value:
-            all: all
-            editorial-draft: editorial-draft
-            editorial-review: editorial-review
-            editorial-published: editorial-published
-            editorial-archived: editorial-archived
-          group: 1
-          exposed: true
-          expose:
-            operator_id: moderation_state_op
-            label: 'Moderation state'
-            description: ''
-            use_operator: false
-            operator: moderation_state_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: moderation_state
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              page_creator: '0'
-              layout_manager: '0'
-              page_reviewer: '0'
-              landing_page_creator: '0'
-              landing_page_reviewer: '0'
-              media_creator: '0'
-              media_manager: '0'
             reduce: false
           is_grouped: false
           group_info:
@@ -13098,6 +13209,60 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
+        moderation_state:
+          id: moderation_state
+          table: node_field_data
+          field: moderation_state
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          plugin_id: moderation_state_filter
+          operator: in
+          value:
+            all: all
+            editorial-draft: editorial-draft
+            editorial-review: editorial-review
+            editorial-published: editorial-published
+            editorial-archived: editorial-archived
+          group: 1
+          exposed: true
+          expose:
+            operator_id: moderation_state_op
+            label: 'Moderation state'
+            description: ''
+            use_operator: false
+            operator: moderation_state_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: moderation_state
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              page_creator: '0'
+              layout_manager: '0'
+              page_reviewer: '0'
+              landing_page_creator: '0'
+              landing_page_reviewer: '0'
+              media_creator: '0'
+              media_manager: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
         field_administration_target_id:
           id: field_administration_target_id
           table: node__field_administration
