@@ -2,6 +2,8 @@ uuid: 0d09bfdf-aebf-453e-b2a8-7e5cc943ae8f
 langcode: en
 status: true
 dependencies:
+  config:
+    - system.menu.admin
   module:
     - file
     - user
@@ -755,12 +757,19 @@ display:
       display_extenders: {  }
       path: admin/content/files
       menu:
-        type: tab
+        type: normal
         title: Files
         description: ''
-        weight: 0
+        weight: 3
+        expanded: false
         menu_name: admin
-        context: ''
+        parent: 'admin_toolbar_tools.extra_links:media_page'
+        context: '0'
+        as_local_task: false
+        local_task_link_title: ''
+        local_task_parent: 'views_view:view.detail_page_url_audit_and_bulk_udpate.audit_page'
+        local_task_weight: 0
+        local_task_custom_parent_route: ''
     cache_metadata:
       max-age: -1
       contexts:
