@@ -2363,7 +2363,7 @@ display:
       display_extenders: {  }
       path: admin/content/media
       menu:
-        type: normal
+        type: none
         title: 'Media library'
         description: ''
         weight: 3
@@ -2371,6 +2371,11 @@ display:
         menu_name: admin
         parent: system.admin_content
         context: '0'
+        as_local_task: false
+        local_task_link_title: ''
+        local_task_parent: 'views_view:view.detail_page_url_audit_and_bulk_udpate.audit_page'
+        local_task_weight: 0
+        local_task_custom_parent_route: ''
       tab_options:
         type: none
         title: 'Media library'
@@ -3044,11 +3049,16 @@ display:
         type: normal
         title: 'Media bulk edit'
         description: ''
-        weight: 7
+        weight: 0
         expanded: false
         menu_name: admin
-        parent: 'views_view:views.media.media_page_list'
+        parent: 'admin_toolbar_tools.extra_links:media_page'
         context: '0'
+        as_local_task: false
+        local_task_link_title: ''
+        local_task_parent: 'views_view:view.detail_page_url_audit_and_bulk_udpate.audit_page'
+        local_task_weight: 0
+        local_task_custom_parent_route: ''
     cache_metadata:
       max-age: 0
       contexts:

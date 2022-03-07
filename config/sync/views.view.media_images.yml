@@ -1202,13 +1202,18 @@ display:
       path: admin/content/media/images
       menu:
         type: normal
-        title: 'Media library'
+        title: 'Media Images'
         description: ''
-        weight: 3
+        weight: 1
         expanded: false
         menu_name: admin
-        parent: system.admin_content
+        parent: 'admin_toolbar_tools.extra_links:media_page'
         context: '0'
+        as_local_task: false
+        local_task_link_title: ''
+        local_task_parent: 'views_view:view.detail_page_url_audit_and_bulk_udpate.audit_page'
+        local_task_weight: 0
+        local_task_custom_parent_route: ''
       tab_options:
         type: none
         title: 'Media library'
