@@ -36,7 +36,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | Event | Label | field_event_cta | List (text) |  | 1 | Select list |  |
 | Content type | Event | URL | field_link | Link |  | 1 | Linkit | Translatable |
 | Content type | Event | Online event link | field_url_of_an_online_event | Link |  | 1 | Linkit |  |
-| Content type | Event | Featured | field_featured | Boolean |  | 1 | Single on/off checkbox |  |
+| Content type | Event | Featured | field_featured | Boolean |  | 1 | Single on/off checkbox | Translatable |
 | Content type | Events List | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Events List | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | Events List | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
