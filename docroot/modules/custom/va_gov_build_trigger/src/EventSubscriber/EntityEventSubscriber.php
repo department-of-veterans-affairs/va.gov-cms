@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_build_trigger\EventSubscriber;
 
+use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
@@ -81,9 +82,9 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents(): array {
     return [
-      HookEventDispatcherInterface::ENTITY_DELETE => 'entityDelete',
-      HookEventDispatcherInterface::ENTITY_INSERT => 'entityInsert',
-      HookEventDispatcherInterface::ENTITY_UPDATE => 'entityUpdate',
+      EntityHookEvents::ENTITY_DELETE => 'entityDelete',
+      EntityHookEvents::ENTITY_INSERT => 'entityInsert',
+      EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
     ];
   }
 
