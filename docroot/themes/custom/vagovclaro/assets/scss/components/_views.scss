@@ -97,3 +97,15 @@
     margin-top: 0;
   }
 }
+
+// Flag in Views.
+// The "flag" CSS is incorrectly been applied to the Views tables (e.x.: relationships section) thus breaking the table.
+// Adding specificity to override default "flag" CSS in Views.
+.views-filterable-options {
+  .flag {
+    background: inherit;
+    border-radius: 0;
+    display: table-row;
+    padding: initial;
+  }
+}
