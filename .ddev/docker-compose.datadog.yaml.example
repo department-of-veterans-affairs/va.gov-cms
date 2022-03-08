@@ -8,10 +8,10 @@ services:
     labels:
       com.ddev.site-name: ${DDEV_SITENAME}
     environment:
-      - DD_ENV=local
+      - DD_ENV=local-ddev
       - DD_SERVICE=vagov-cms
-      - DD_API_KEY=6f768ca9a9b3b51e5ef6e23ecfaa3693
-      - DD_TAGS=user:olivereri
+      - DD_API_KEY=
+      - DD_TAGS=user:yourUserName
       - DD_LOGS_ENABLED=false
       - DD_AGENT_HOST=datadog
       - DD_TRACE_CLI_ENABLED=true
@@ -26,7 +26,7 @@ services:
       - memcached:memcached
   web:
     environment:
-      - DD_ENV=local
+      - DD_ENV=local-ddev
       - DD_SERVICE=vagov-cms
       - DD_SERVICE_MAPPING=pdo:vagov-cms-pdo
       - DD_PROFILING_ENABLED=true
