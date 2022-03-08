@@ -101,21 +101,21 @@
     .fieldset__wrapper {
       margin: 0;
     }
+  }
 
-    // get help link renders inline after the button in the form suffix,
-    // this moves it below.
-    .suffix-links {
-      border-top: 1px solid var(--va-gray-cool-med);
-      max-width: 30%;
+  // get help link renders inline after the button in the form suffix,
+  // this moves it below.
+  .suffix-links {
+    border-top: 1px solid var(--va-gray-cool-med);
+    max-width: 30%;
 
-      @include breakpoint('sm') {
-        max-width: 100%;
-      }
+    @include breakpoint('sm') {
+      max-width: 100%;
+    }
 
-      a {
-        display: block;
-        margin-top: var(--space-xs);
-      }
+    a {
+      display: block;
+      margin-top: var(--space-xs);
     }
   }
 
@@ -125,17 +125,18 @@
   }
 
   .simplesamlphp-auth-login-link {
-    margin-bottom: var(--spacing-xl);
-    margin-top: var(--spacing-ll);
+    margin-bottom: var(--spacing-l);
+    margin-top: var(--spacing-l);
+  }
+
+  // move toggle button to the top right on main login page
+  .va-login-toggle {
+    position: absolute;
+    right: 0;
+    top: 0;
   }
 }
 
-// overriding get help button styles for homepage only
-.layout-container--login #get-help-button {
-  display: none;
-}
-
-// move toggle button to the top right
 // !importants to beat styles from various button states
 .va-login-toggle {
   border: 0 solid transparent !important;
@@ -143,10 +144,7 @@
   color: var(--color-link);
   line-height: 2rem;
   padding: calc(var(--space-m) - 1px) calc(var(--space-l) - 1px);
-  position: absolute;
-  right: 0;
   text-decoration: none;
-  top: 0;
 
   &:hover {
     background-color: var(--va-blue-lightest);
