@@ -115,9 +115,8 @@ class PostFacilityService extends PostFacilityBase {
     $queued_count = 0;
     if (($entity->getEntityTypeId() === 'taxonomy_term') && ($entity->bundle() === 'health_care_service_taxonomy')) {
       // Find all VAMC System Health Services referencing this term.
-      $storage_handler = $this->entityTypeManager->getStorage("node");
-      $result = \Drupal::entityQuery('node')
-        ->condition('type', 'regional_health_care_service_des')
+      $query = $this->entityTypeManager->getStorage('node')->getQuery();
+      $result = $query->condition('type', 'regional_health_care_service_des')
         ->condition('field_service_name_and_descripti', $entity->id())
         ->execute();
 
@@ -130,7 +129,7 @@ class PostFacilityService extends PostFacilityBase {
             // Run through a batch of 50.
             $nids = array_slice($result, $current, 50, FALSE);
 
-            $nodes = $storage_handler->loadMultiple($nids);
+            $nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
             foreach ($nodes as $node) {
               // Process each VAMC System Health Service using this term.
               $queued_count += $this->queueSystemRelatedServices($node, TRUE);
@@ -168,13 +167,12 @@ class PostFacilityService extends PostFacilityBase {
     if (($entity->getEntityTypeId() === 'node') && ($entity->bundle() === 'regional_health_care_service_des')) {
       if ($this->shouldPush($entity, $force)) {
         // Find all VAMC Facility Health Services referencing this node.
-        $storage_handler = $this->entityTypeManager->getStorage("node");
-        $nids = \Drupal::entityQuery('node')
-          ->condition('type', 'health_care_local_health_service')
+        $query = $this->entityTypeManager->getStorage('node')->getQuery();
+        $nids = $query->condition('type', 'health_care_local_health_service')
           ->condition('field_regional_health_service', $entity->id())
           ->execute();
 
-        $nodes = $storage_handler->loadMultiple($nids);
+        $nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
         foreach ($nodes as $node) {
           // Process each VAMC Facility Health Service referencing this node.
           $queued_count += $this->queueFacilityService($node);
