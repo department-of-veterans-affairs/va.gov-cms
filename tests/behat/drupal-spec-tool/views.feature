@@ -169,7 +169,7 @@ Feature: Views
 | Media | Media | media_page_list | Page |
 | Media | Downloadable document browser | entity_browser_3 | Entity browser |
 | Media | Media bulk edit | page_1 | Page |
-| Media | Media | media_images | Page |
+| Media | Images | media_images | Page |
 | Media | Data export | images_export | Data export |
 | Media library | Master | default | Default |
 | Media library | Page | page | Page |
