@@ -24,13 +24,6 @@ class PostFacilityService extends PostFacilityBase {
   protected $facilityService;
 
   /**
-   * Processing forced by referenced system service.
-   *
-   * @var bool
-   */
-  protected $forcePush;
-
-  /**
    * The related system service node.
    *
    * @var \Drupal\Core\Entity\EntityInterface
@@ -88,7 +81,7 @@ class PostFacilityService extends PostFacilityBase {
         $data['uid'] = "facility_service_{$this->Facility->id()}_{$this->facilityService->id()}";
         $facilityApiId = $this->Facility->hasField('field_facility_locator_api_id') ? $this->Facility->get('field_facility_locator_api_id')->value : NULL;
         $data['endpoint_path'] = ($facilityApiId) ? "/services/va_facilities/v0/facilities/{$facilityApiId}/cms-overlay" : NULL;
-        $data['payload'] = $this->getPayload();
+        $data['payload'] = $this->getPayload($forcePush);
 
         // Only add to queue if payload is not empty.
         // If its empty, it means that there is no new information to send to
@@ -199,14 +192,17 @@ class PostFacilityService extends PostFacilityBase {
   /**
    * Compose and return payload array for facility service.
    *
+   * @param bool $forcePush
+   *   Processing forced by referenced system service.
+   *
    * @return array
    *   Payload array.
    */
-  protected function getPayload() {
+  protected function getPayload(bool $forcePush = FALSE) {
     // Default payload is an empty array.
     $payload = [];
 
-    if (empty($this->errors) && $this->shouldPush($this->facilityService, $this->forcePush)) {
+    if (empty($this->errors) && $this->shouldPush($this->facilityService, $forcePush)) {
       $service = new \stdClass();
       $service->name = $this->serviceTerm->getName();
       $service->active = ($this->facilityService->isPublished()) ? TRUE : FALSE;
