@@ -52,7 +52,7 @@ function va_gov_login_form_user_login_form_alter(&$form, FormStateInterface $for
   $form['actions']['submit']['#attributes']['class'][] = 'js-login-submit';
 
   // Create help link & form toggle.
-  $form['#suffix'] = '<div class="suffix-links"><a id="#get-help-button" href="/help/cms-basics/how-to-log-inout">Get help</a></div>';
+  $form['#suffix'] = '<div class="suffix-links"><a href="/help/cms-basics/how-to-log-inout">Get help</a></div>';
   $form['actions']['toggle'] = [
     '#type' => 'button',
     '#button_type' => 'toggle',
