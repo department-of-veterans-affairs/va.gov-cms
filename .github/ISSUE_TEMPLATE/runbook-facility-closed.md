@@ -26,15 +26,40 @@ assignees: ''
 
 #### 1. CMS Help desk
 - [ ] Becomes aware that the facility is no longer on the Facility API, via the "Facility closed" flag, and create github issue  (Future state: Flag autogenerates github issue)
-- [ ] If we don't already have context (say, via a HD ticket submitted by an editor), check with editor to find out more about the status of the facility [@todo: write sample email... has a new facility replaced it? has the facility switched to a new system and only appears like it was closed? has the facility status been updated with information about this closure?]
 - [ ] Fill out the stakeholders in github issue. 
+- [ ] If we don't already have context (say, via a HD ticket submitted by an editor), check with editor to find out more about the status of the facility 
+
+<details><summary>Email template </summary>
+
+SUBJECT: <facility name> removed from VAST
+BODY:
+
+Hi [VAMC editor who owns the node in CMS ]
+
+We see that [name of facility] has been removed from VAST. If this facility has been permanently closed or moved, you can now work with us to unpublish the facility from the CMS and remove it from VA.gov.
+
+Because some Veterans may have bookmarked this Facility, external sites may have linked to it, and because it can take a little time for search engines to catch up to web content, we want to help Veterans not get an error or bad web experience. 
+
+In order to do that we have some questions about the nature of this closure so that we can help redirect Veterans to the right place and understand this change.
+
+1. Was this facility replaced with another facility? 
+   If yes, which one?
+2. Is there a news release or story about this published on your VAMC website? 
+3. Anything else we should know about this facility closure? 
+
+If this facility has been removed from VAST in error, please notify our Support Desk as well as your VAST coordinator.
+
+[outro]
+[CMS helpdesk signature] 
+
+</details>
 
 #### 2a. If facility has moved to a new system or merged 
 - [ ] Can any of the associated content  (eg services, facility map?) be reused? If so
   - [ ] is there a new facility in VAST/Facility API that content should be moved to?
 - [ ] Create [redirect request](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=mnorthuis&labels=ia&template=redirect-request.md&title=Redirect+Request) to point to URL of new facility.
 - [ ] When redirect is ready to go out, plan to make these changes immediately after redirect is released. Practice first on staging or a demo environment. 
-  - [ ] CMS engineer bulk moves any content to new facility.
+  - [ ] In certain, rare situations: CMS engineer bulk moves any content to new facility.
   - [ ] CMS engineer finds the menu for the system https://prod.cms.va.gov/admin/structure/menu and deletes the menu item for the merged facility.
 
 #### 2b. If not 

@@ -3,6 +3,8 @@
 namespace Drupal\va_gov_vet_center\EventSubscriber;
 
 use Drupal\Component\Render\FormattableMarkup;
+use Drupal\core_event_dispatcher\EntityHookEvents;
+use Drupal\core_event_dispatcher\FormHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
@@ -77,9 +79,9 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents(): array {
     return [
-      HookEventDispatcherInterface::ENTITY_INSERT => 'entityInsert',
-      HookEventDispatcherInterface::ENTITY_UPDATE => 'entityUpdate',
-      HookEventDispatcherInterface::FORM_ALTER => 'formAlter',
+      EntityHookEvents::ENTITY_INSERT => 'entityInsert',
+      EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
+      FormHookEvents::FORM_ALTER => 'formAlter',
       'hook_event_dispatcher.form_node_vet_center_locations_list_form.alter' => 'alterVetCenterLocationsListNodeForm',
       'hook_event_dispatcher.form_node_vet_center_locations_list_edit_form.alter' => 'alterVetCenterLocationsListNodeForm',
       'hook_event_dispatcher.form_node_vet_center_mobile_vet_center_form.alter' => 'alterVetCenterMvcNodeForm',
