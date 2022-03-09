@@ -89,7 +89,7 @@ services:
         - ln -snf "${TUGBOAT_ROOT}/files-private" "${DOCROOT}/../files-private"
 
         # Install APCu and enable for CLI as well as HTTP.
-        d- pecl install apcu
+        - pecl install apcu
         - docker-php-ext-enable apcu
         - echo "apc.enable=1" >> /usr/local/etc/php/conf.d/my-php.ini
         - echo "apc.enable=1" >> /usr/local/etc/php/conf.d/php-cli.ini
