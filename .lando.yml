@@ -38,6 +38,7 @@ services:
       # cypress-axe dependencies - https://docs.cypress.io/guides/getting-started/installing-cypress.html#System-requirements
       - "apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb -y"
       - .lando/scripts/blackfire-init.sh
+      - dpkg -i $(curl -w "%{filename_effective}" -LO $(curl -s https://api.github.com/repos/DataDog/dd-trace-php/releases | grep browser_download_url | grep 'amd64[.]deb' | head -n 1 | cut -d '"' -f 4))
       - yes | pecl install memcache-4.0.5.2 && docker-php-ext-enable memcache
       - rm -f /usr/local/etc/php/conf.d/docker-php-ext-memcached.ini
       - /etc/init.d/apache2 reload
@@ -74,6 +75,8 @@ services:
         BLACKFIRE_SERVER_TOKEN: ~
         # Don't test PIV login locally, where it is disabled
         CYPRESS_TAGS: "not @ignore and not @piv"
+        DD_TRACE_CLI_ENABLED: 'true'
+        DD_AGENT_HOST: 'datadog'
 
   mailhog:
     type: mailhog
@@ -84,6 +87,22 @@ services:
   memcache:
     type: memcached:1
     mem: 1024
+
+  datadog:
+    type: compose
+    app_mount: delegated
+    services:
+      image: datadog/agent
+      restart: on-failure
+      command: /bin/entrypoint.sh
+    overrides:
+      environment:
+        DD_API_KEY: ~
+        DD_ENV: ~
+        DD_HOSTNAME: ~
+        DD_APM_ENABLED: 'true'
+        DD_APM_NON_LOCAL_TRAFFIC: 'true'
+        DD_TRACE_CLI_ENABLED: 'true'
 
   # Uncomment this to work on site build triggers, then export ENV vars below, then `lando rebuild`.
   # Must use lando 3.0.0-rc9+
