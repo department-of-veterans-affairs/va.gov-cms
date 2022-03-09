@@ -107,6 +107,7 @@
   // this moves it below.
   .suffix-links {
     border-top: 1px solid var(--va-gray-cool-med);
+    margin-top: var(--space-l);
     max-width: 30%;
 
     @include breakpoint('sm') {
@@ -120,13 +121,9 @@
   }
 
   .form-actions,
-  .form-actions .button {
-    margin: 0;
-  }
-
+  .form-actions .button,
   .simplesamlphp-auth-login-link {
-    margin-bottom: var(--spacing-l);
-    margin-top: var(--spacing-l);
+    margin: 0;
   }
 
   // move toggle button to the top right on main login page
@@ -170,5 +167,49 @@
 .form-login {
   .js-piv-container {
     display: none;
+  }
+}
+
+// Extra styles for user login block on KB pages.
+#block-userlogin {
+  margin-bottom: var(--spacing-m); // Space for the toggle button.
+  padding-bottom: var(--spacing-xl); // Space for the toggle button.
+  position: relative;
+
+  h2 {
+    font-family: var(--font-family-serif);
+    font-size: var(--font-size-h4);
+    margin-top: var(--spacing-l);
+  }
+
+  .fieldset {
+    border: 0 solid transparent;
+    box-shadow: none;
+    margin: 0;
+
+    .fieldset__wrapper {
+      margin: 0;
+    }
+  }
+
+  .simplesamlphp-auth-login-link,
+  .form-actions {
+    margin: 0;
+  }
+
+  .item-list {
+    display: none;
+  }
+
+  .suffix-links {
+    margin-top: var(--space-m);
+  }
+
+  .va-login-toggle {
+    bottom: 0;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    text-decoration: underline;
   }
 }
