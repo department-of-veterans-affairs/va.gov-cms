@@ -42,10 +42,10 @@ services:
         - a2enmod headers rewrite vhost_alias
 
         # Install datadog agent for application tracing and profiling.
-        - DD_AGENT_MAJOR_VERSION=7 DD_API_KEY=e21aa8d73b3a48a8f82494bb91a096e7 DD_SITE="datadoghq.com" bash -c "$(curl -L https://s3.amazonaws.com/dd-agent/scripts/install_script.sh)"
+        - DD_AGENT_MAJOR_VERSION=7 DD_API_KEY=" " DD_INSTALL_ONLY=true DD_SITE="datadoghq.com" bash -c "$(curl -L https://s3.amazonaws.com/dd-agent/scripts/install_script.sh)"
 
         # Install Datadog application traching PHP extension
-        - php $(curl -w "%{filename_effective}" -LO $(curl -s https://api.github.com/repos/DataDog/dd-trace-php/releases | grep browser_download_url | grep 'setup[.]php' | head -n 1 | cut -d '"' -f 4)) --enable-profiling --php-bin=php7.4
+        - php $(curl -w "%{filename_effective}" -LO $(curl -s https://api.github.com/repos/DataDog/dd-trace-php/releases | grep browser_download_url | grep 'setup[.]php' | head -n 1 | cut -d '"' -f 4)) --enable-profiling --php-bin=php
           
         # Setup web-*. vhost to serve static website.
         - cp "${TUGBOAT_ROOT}"/.tugboat/web-vhost.conf /etc/apache2/sites-enabled/
@@ -89,7 +89,7 @@ services:
         - ln -snf "${TUGBOAT_ROOT}/files-private" "${DOCROOT}/../files-private"
 
         # Install APCu and enable for CLI as well as HTTP.
-        - pecl install apcu
+        d- pecl install apcu
         - docker-php-ext-enable apcu
         - echo "apc.enable=1" >> /usr/local/etc/php/conf.d/my-php.ini
         - echo "apc.enable=1" >> /usr/local/etc/php/conf.d/php-cli.ini
@@ -176,6 +176,9 @@ services:
         - find "${DOCROOT}/vendor/va-gov/content-build" -type f -exec chmod 0664 {} \+
         - find -L "${DOCROOT}/vendor/va-gov/content-build/node_modules/.bin" -type f -exec chmod +x {} \+
         - find "${DOCROOT}/vendor/va-gov/content-build/script" -type f -exec chmod +x {} \+
+
+        # Set Datadog agent config defaults  
+        - j2 "${TUGBOAT_ROOT}/.tugboat/datadog.yaml.j2" -o "/etc/datadog-agent/datadog.yaml"
 
   memcache:
     image: tugboatqa/memcached:1.6
