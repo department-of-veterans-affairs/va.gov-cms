@@ -11,11 +11,14 @@ use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
+use Drupal\core_event_dispatcher\FormHookEvents;
 use Drupal\field_event_dispatcher\Event\Field\WidgetSingleElementFormAlterEvent;
+use Drupal\field_event_dispatcher\FieldHookEvents;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -474,10 +477,10 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents(): array {
     return [
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'entityPresave',
-      HookEventDispatcherInterface::WIDGET_SINGLE_ELEMENT_FORM_ALTER => 'paragraphsExperimentalWidgetAlter',
-      HookEventDispatcherInterface::ENTITY_VIEW_ALTER => 'entityViewAlter',
-      HookEventDispatcherInterface::FORM_ALTER => 'formAlter',
+      EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
+      FieldHookEvents::WIDGET_SINGLE_ELEMENT_FORM_ALTER => 'paragraphsExperimentalWidgetAlter',
+      EntityHookEvents::ENTITY_VIEW_ALTER => 'entityViewAlter',
+      FormHookEvents::FORM_ALTER => 'formAlter',
       'hook_event_dispatcher.form_node_person_profile_form.alter' => 'alterStaffProfileNodeForm',
       'hook_event_dispatcher.form_node_person_profile_edit_form.alter' => 'alterStaffProfileNodeForm',
       'hook_event_dispatcher.form_node_centralized_content_edit_form.alter' => 'alterCentralizedContentNodeForm',
