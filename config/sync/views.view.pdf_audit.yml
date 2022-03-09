@@ -5,7 +5,6 @@ dependencies:
   config:
     - field.storage.media.field_owner
     - media.type.document
-    - system.menu.admin
   module:
     - csv_serialization
     - file
@@ -911,9 +910,9 @@ display:
           empty: false
           content: '<p>Displaying @start - @end of @total</p>'
       display_extenders: {  }
-      path: admin/content/media/audit/pdfs
+      path: admin/content/media/pdfs
       menu:
-        type: normal
+        type: tab
         title: 'Media PDFs'
         description: ''
         weight: 2
@@ -921,11 +920,11 @@ display:
         menu_name: admin
         parent: 'admin_toolbar_tools.extra_links:media_page'
         context: '0'
-        as_local_task: false
-        local_task_link_title: ''
-        local_task_parent: 'views_view:view.detail_page_url_audit_and_bulk_udpate.audit_page'
-        local_task_weight: 0
-        local_task_custom_parent_route: ''
+        as_local_task: true
+        local_task_link_title: 'Media PDFs'
+        local_task_parent: _custom
+        local_task_weight: 2
+        local_task_custom_parent_route: entity.media.collection
     cache_metadata:
       max-age: -1
       contexts:
