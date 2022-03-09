@@ -390,7 +390,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
         foreach ($keys as $key) {
           $entity = &$form['field_health_services']['widget']['entities'][$key];
           $entity['#markup'] = $this->t('Optional');
-          if ($this->checkIfServiceRequired($entity['#label'])) {
+          if (array_key_exists('#label', $entity) && $this->checkIfServiceRequired($entity['#label'])) {
             unset($entity['actions']['ief_entity_remove']);
             $entity['#markup'] = $this->t('Required');
           }
