@@ -1,6 +1,6 @@
 ## Description
 
-Relates to #_issueid_.
+Relates to #_issueid_. (or closes?)
 
 ## Testing done
 
@@ -10,13 +10,19 @@ Relates to #_issueid_.
 
 ## QA steps
 
+What needs to be checked to prove this works?
+What needs to be checked to prove it didn't break any related things?
+What variations of circumstances (users, actions, values) need to be checked?
+
 As user _uid_ with _user_role_
 1. Do this
-2. Then that
+   - [ ] Validate that 
+2. Then 
+   - [ ] Validate that 
 3. Then validate Acceptance Criteria from issue
-- [ ] This
-- [ ] That
-- [ ] The other thing
+   - [ ] a 
+   - [ ] b
+   - [ ] c
 
 ### Definition of Done
 
