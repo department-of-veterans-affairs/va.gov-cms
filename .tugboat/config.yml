@@ -166,6 +166,8 @@ services:
 
         # Set Datadog agent config defaults  
         - j2 "${TUGBOAT_ROOT}/.tugboat/datadog.yaml.j2" -o "/etc/datadog-agent/datadog.yaml"
+        - export DD_TAGS=pr:$TUGBOAT_GITHUB_PR,branch:$TUGBOAT_GITHUB_HEAD
+          
 
       clone:
         # This j2 command is shared in both the build & clone stages. If modifying, change the other too.
