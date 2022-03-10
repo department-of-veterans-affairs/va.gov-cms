@@ -10,6 +10,9 @@ updates:
   allow:
   - dependency-type: direct
   ignore:
+  - dependency-name: aws/aws-sdk-php
+    update-types:
+    - version-update:semver-patch
   - dependency-name: acquia/drupal-spec-tool
     versions:
     - ">= 3.a"
