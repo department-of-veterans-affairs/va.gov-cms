@@ -133,7 +133,6 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC Facility Health Service | Appointment lead-in default | field_hservices_lead_in_default | Markup |  | 1 | Markup |  |
 | Content type | VAMC Facility Health Service | Appointment lead-in text | field_hservice_appt_leadin | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Content type | VAMC Facility Health Service | Facility | field_facility_location | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | VAMC Facility Health Service | Facility description of service | field_body | Text (formatted, long) |  | 1 | -- Disabled -- | Translatable |
 | Content type | VAMC Facility Health Service | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC Facility Health Service | Service locations | field_service_location | Entity reference revisions |  | Unlimited | Paragraphs (stable) |  |
 | Content type | VAMC Facility Health Service | VAMC system health service | field_regional_health_service | Entity reference | Required | 1 | Select list |  |
