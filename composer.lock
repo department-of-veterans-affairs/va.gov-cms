@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "44cff1586e4a2c9ae086369972c5e85b",
+    "content-hash": "fae17aca157d33b12418e52abb61fbef",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -3041,26 +3041,26 @@
         },
         {
             "name": "drupal/allowed_formats",
-            "version": "1.3.0",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/allowed_formats.git",
-                "reference": "8.x-1.3"
+                "reference": "8.x-1.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/allowed_formats-8.x-1.3.zip",
-                "reference": "8.x-1.3",
-                "shasum": "4c3c036d7b41428d6e22b61f1219de0ab012feec"
+                "url": "https://ftp.drupal.org/files/projects/allowed_formats-8.x-1.4.zip",
+                "reference": "8.x-1.4",
+                "shasum": "6c73fd69781e8a7c3ebc394ce74f981b6da50eae"
             },
             "require": {
-                "drupal/core": "^8.7.7 || ^9"
+                "drupal/core": "^8.8 || ^9"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.3",
-                    "datestamp": "1592909219",
+                    "version": "8.x-1.4",
+                    "datestamp": "1643490593",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -3073,18 +3073,31 @@
             ],
             "authors": [
                 {
-                    "name": "floretan",
-                    "homepage": "https://www.drupal.org/user/66163"
+                    "name": "Northern Commerce (formerly Digital Echidna)",
+                    "homepage": "https://www.drupal.org/northern-commerce-formerly-digital-echidna",
+                    "role": "Supporting organization"
                 },
                 {
-                    "name": "nord102",
-                    "homepage": "https://www.drupal.org/user/3471419"
+                    "name": "Jordan Thompson (nord102)",
+                    "homepage": "https://www.drupal.org/u/nord102",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Wunder",
+                    "homepage": "https://www.drupal.org/wunder",
+                    "role": "Supporting organization"
+                },
+                {
+                    "name": "Florian Loretan (floretan)",
+                    "homepage": "https://www.drupal.org/u/floretan",
+                    "role": "Maintainer"
                 }
             ],
             "description": "Limit which text formats are available for each field instance.",
             "homepage": "https://www.drupal.org/project/allowed_formats",
             "support": {
-                "source": "https://git.drupalcode.org/project/allowed_formats"
+                "source": "http://cgit.drupalcode.org/allowed_formats",
+                "issues": "https://www.drupal.org/project/issues/allowed_formats"
             }
         },
         {
@@ -23149,16 +23162,16 @@
         },
         {
             "name": "va-gov/content-build",
-            "version": "v0.0.2804",
+            "version": "v0.0.2826",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/content-build.git",
-                "reference": "b779a90be233339f29cee36c864ffd92863d9d3c"
+                "reference": "577627c1b3893afbc5cc64f7095a70d92c7d9578"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/b779a90be233339f29cee36c864ffd92863d9d3c",
-                "reference": "b779a90be233339f29cee36c864ffd92863d9d3c",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/577627c1b3893afbc5cc64f7095a70d92c7d9578",
+                "reference": "577627c1b3893afbc5cc64f7095a70d92c7d9578",
                 "shasum": ""
             },
             "type": "node-project",
@@ -23185,9 +23198,9 @@
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/content-build, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
             "support": {
                 "issues": "https://github.com/department-of-veterans-affairs/content-build/issues",
-                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.2804"
+                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.2826"
             },
-            "time": "2022-03-07T00:09:46+00:00"
+            "time": "2022-03-09T17:41:52+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -25080,10 +25093,12 @@
         "drupal/openapi": 5,
         "drupal/paragraphs_browser": 15,
         "drupal/path_redirect_import": 10,
+        "drupal/pathologic": 15,
         "drupal/prometheus_exporter": 10,
         "drupal/schemata": 10,
         "drupal/styleguide": 10,
         "drupal/taxonomy_menu": 20,
+        "drupal/user_history": 15,
         "drupal/viewfield": 10,
         "drupal/views_data_export": 10,
         "weitzman/drupal-test-traits": 20
