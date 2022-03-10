@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_banner\EventSubscriber;
 
+use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityBundleFieldInfoAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
@@ -108,7 +109,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       'hook_event_dispatcher.form_node_banner_edit_form.alter' => 'alterBannerNodeForm',
       'hook_event_dispatcher.form_node_promo_banner_form.alter' => 'alterPromoBlockForm',
       'hook_event_dispatcher.form_node_promo_banner_edit_form.alter' => 'alterPromoBlockForm',
-      HookEventDispatcherInterface::ENTITY_BUNDLE_FIELD_INFO_ALTER => 'alterPathFieldInfo',
+      EntityHookEvents::ENTITY_BUNDLE_FIELD_INFO_ALTER => 'alterPathFieldInfo',
     ];
   }
 
