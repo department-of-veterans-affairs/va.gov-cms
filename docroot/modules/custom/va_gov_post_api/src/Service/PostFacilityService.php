@@ -66,7 +66,6 @@ class PostFacilityService extends PostFacilityBase {
     if (($entity->getEntityTypeId() === 'node') && ($entity->bundle() === 'health_care_local_health_service')) {
       // This is an appropriate service so begin gathering data to process.
       $this->facilityService = $entity;
-      $this->forcePush = $forcePush;
 
       // Many service details do not reside with the facility service node.
       // They must be derived from the facility and system service nodes
