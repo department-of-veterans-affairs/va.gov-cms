@@ -31,14 +31,16 @@ assignees: ''
 
 <details><summary>Email template </summary>
 
+FROM: v
 SUBJECT: <facility name> removed from VAST
+CC: Jeff G, Steve T, JHL
 BODY:
 
 Hi [VAMC editor who owns the node in CMS ]
 
 We see that [name of facility] has been removed from VAST. If this facility has been permanently closed or moved, you can now work with us to unpublish the facility from the CMS and remove it from VA.gov.
 
-Because some Veterans may have bookmarked this Facility, external sites may have linked to it, and because it can take a little time for search engines to catch up to web content, we want to help Veterans not get an error or bad web experience. 
+Because some Veterans may have bookmarked this Facility, external sites may have linked to it, and because it can take a little time for search engines to catch up to web content, we want to ensure that Veterans have a good web experience. 
 
 In order to do that we have some questions about the nature of this closure so that we can help redirect Veterans to the right place and understand this change.
 
