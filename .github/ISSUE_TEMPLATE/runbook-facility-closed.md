@@ -31,7 +31,8 @@ assignees: ''
 
 <details><summary>Email template </summary>
 
-FROM: v
+```
+FROM: vacms email
 SUBJECT: <facility name> removed from VAST
 CC: Jeff G, Steve T, JHL
 BODY:
@@ -52,8 +53,11 @@ In order to do that we have some questions about the nature of this closure so t
 If this facility has been removed from VAST in error, please notify our Support Desk as well as your VAST coordinator.
 
 [outro]
-[CMS helpdesk signature] 
 
+[CMS helpdesk signature] 
+```
+   
+   
 </details>
 
 #### 2a. If facility has moved to a new system or merged 
