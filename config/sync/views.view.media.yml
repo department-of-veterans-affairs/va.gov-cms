@@ -4123,7 +4123,7 @@ display:
         parent: ''
         context: '0'
         as_local_task: true
-        local_task_link_title: 'Media Images'
+        local_task_link_title: Images
         local_task_parent: _custom
         local_task_weight: 2
         local_task_custom_parent_route: entity.media.collection
@@ -4175,7 +4175,7 @@ display:
         as_local_task: true
         local_task_link_title: Media
         local_task_parent: _custom
-        local_task_weight: 0
+        local_task_weight: -100
         local_task_custom_parent_route: entity.media.collection
       tab_options:
         type: none
@@ -4855,7 +4855,7 @@ display:
         menu_name: admin
         parent: 'admin_toolbar_tools.extra_links:media_page'
         context: '0'
-        as_local_task: false
+        as_local_task: true
         local_task_link_title: 'Bulk Edit'
         local_task_parent: _custom
         local_task_weight: 4
