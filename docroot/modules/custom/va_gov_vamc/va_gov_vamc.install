@@ -36,4 +36,5 @@ function va_gov_vamc_update_9003() {
 
     Drupal::logger('va_gov_vamc')->log(LogLevel::INFO, 'VAMC Facility Health Service: Successfully removed field_body field.');
   }
+  return "The field field_body have been removed from the VAMC Facility Health Service content type.";
 }
