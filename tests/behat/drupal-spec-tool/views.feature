@@ -103,7 +103,6 @@ Feature: Views
 | Content | Bulk edit content | page_2 | Page |
 | Content | Bulk edit events | events_page | Page |
 | Content | Resources and support | resources_support_dashboard | Page |
-| Content | Resources and support landing page | resources_and_support_landing_page_block | Block |
 | Content | Content audit CSV export | content_audit_csv_export | Data export |
 | Content | Content audit tools | content_audit_page | Page |
 | Content entity browsers | Master | default | Default |
