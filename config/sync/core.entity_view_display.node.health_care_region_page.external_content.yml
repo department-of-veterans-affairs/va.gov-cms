@@ -35,15 +35,15 @@ third_party_settings:
     group_meta:
       children:
         - field_description
+      label: Meta
       parent_name: ''
+      region: hidden
       weight: 10
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-      label: Meta
-      region: hidden
     group_content:
       children:
         - field_appointments_online
@@ -52,26 +52,26 @@ third_party_settings:
         - field_media
         - field_other_va_locations
         - field_vamc_system_official_name
+      label: Content
       parent_name: ''
+      region: hidden
       weight: 9
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-      label: Content
-      region: hidden
     group_blurbs_for_subpages:
       children: {  }
+      label: 'Blurbs for subpages'
       parent_name: ''
+      region: hidden
       weight: 8
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-      label: 'Blurbs for subpages'
-      region: hidden
     group_social_media_and_links:
       children:
         - field_facebook
@@ -81,23 +81,24 @@ third_party_settings:
         - field_operating_status
         - field_related_links
         - field_twitter
+      label: 'Social media and links'
       parent_name: ''
+      region: hidden
       weight: 11
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-      label: 'Social media and links'
-      region: hidden
     group_va_health_connect_and_heal:
       children:
         - field_va_health_connect_phone
         - field_vamc_ehr_system
+      label: tooltip
       parent_name: group_va_health_connect
+      region: content
       weight: 1
       format_type: tooltip
-      region: content
       format_settings:
         show_empty_fields: '1'
         show_label: '0'
@@ -108,23 +109,22 @@ third_party_settings:
         element: div
         label_element: h3
         attributes: ''
-      label: tooltip
     group_va_health_connect:
       children:
         - group_va_health_connect_and_heal
+      label: 'VA Health Connect and Health Records System'
       parent_name: ''
+      region: content
       weight: 0
       format_type: fieldset
-      region: content
       format_settings:
-        description: ''
+        classes: ''
         show_empty_fields: true
         id: ''
-        classes: ''
-      label: 'VA Health Connect and Health Records System'
+        description: ''
   layout_builder:
-    allow_custom: false
     enabled: false
+    allow_custom: false
 id: node.health_care_region_page.external_content
 targetEntityType: node
 bundle: health_care_region_page
@@ -132,19 +132,19 @@ mode: external_content
 content:
   field_va_health_connect_phone:
     type: telephone_link
-    weight: 21
-    region: content
     label: above
     settings:
       title: ''
     third_party_settings: {  }
+    weight: 21
+    region: content
   field_vamc_ehr_system:
     type: list_default
-    weight: 22
-    region: content
     label: above
     settings: {  }
     third_party_settings: {  }
+    weight: 22
+    region: content
 hidden:
   content_moderation_control: true
   field_administration: true
