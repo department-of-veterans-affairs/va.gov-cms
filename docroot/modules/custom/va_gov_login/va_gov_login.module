@@ -24,6 +24,7 @@ function va_gov_login_form_user_login_form_alter(&$form, FormStateInterface $for
     return;
   }
 
+  // Create PIV login & container.
   $form['simplesamlphp_auth_login_link'] = [
     '#type' => 'fieldset',
     '#title' => 'PIV login',
@@ -41,7 +42,6 @@ function va_gov_login_form_user_login_form_alter(&$form, FormStateInterface $for
       'title' => 'Follow this link to login using your PIV or other smartcard.',
       'class' => ['simplesamlphp-auth-login-link', 'button', 'button--primary'],
     ],
-    '#suffix' => '<div class="suffix-links"><a href="/help/cms-basics/how-to-log-inout">Log in help</a><a href="https://va-gov.atlassian.net/servicedesk/customer/portal/3/group/8/create/26">Contact CMS help desk</a></div>',
   ];
 
   // Modify existing text and add classes for JS toggle & styles.
@@ -51,7 +51,8 @@ function va_gov_login_form_user_login_form_alter(&$form, FormStateInterface $for
   $form['pass']['#wrapper_attributes']['class'][] = 'js-login-password';
   $form['actions']['submit']['#attributes']['class'][] = 'js-login-submit';
 
-  // Build toggle button to switch between PIV & User/Pass.
+  // Create help link & form toggle.
+  $form['#suffix'] = '<div class="suffix-links"><a href="/help/cms-basics/how-to-log-inout">Get help</a></div>';
   $form['actions']['toggle'] = [
     '#type' => 'button',
     '#button_type' => 'toggle',

@@ -19,7 +19,6 @@ use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\core_event_dispatcher\FormHookEvents;
 use Drupal\field_event_dispatcher\Event\Field\WidgetSingleElementFormAlterEvent;
 use Drupal\field_event_dispatcher\FieldHookEvents;
-use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -98,6 +97,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function entityViewAlter(EntityViewAlterEvent $event):void {
     $this->appendHealthServiceTermDescriptionToVetCenter($event);
+    $this->showUnspecifiedWhenSystemEhrNumberEmpty($event);
   }
 
   /**
@@ -186,6 +186,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $form = &$event->getForm();
     $form_state = $event->getFormState();
     $this->lockTitleEditing($form, $form_state);
+    $this->validatePhoneEntryFormat($form);
   }
 
   /**
@@ -221,7 +222,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public function appendHealthServiceTermDescriptionToVetCenter(EntityViewAlterEvent $event):void {
     if ($event->getDisplay()->getTargetBundle() === 'vet_center') {
       $build = &$event->getBuild();
-      $services = isset($build['field_health_services']) ? $build['field_health_services'] : [];
+      $services = $build['field_health_services'] ?? [];
       foreach ($services as $key => $service) {
         if (is_numeric($key) && !empty($service['#options'])) {
           $service_node = $service['#options']['entity'];
@@ -239,6 +240,29 @@ class EntityEventSubscriber implements EventSubscriberInterface {
         }
       }
     }
+  }
+
+  /**
+   * Shows the text "Unspecified" when phone number is blank.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
+   *   The entity view alter service.
+   */
+  public function showUnspecifiedWhenSystemEhrNumberEmpty(EntityViewAlterEvent $event):void {
+    if ($event->getDisplay()->getTargetBundle() === 'health_care_region_page') {
+      $build = &$event->getBuild();
+      if (empty($build['field_va_health_connect_phone']['#title'])) {
+        $undefined_number_text = '
+          <div class="field field--name-field-va-health-connect-phone field--type-list-string field--label-above">
+              <div class="field__label">VA Health Connect phone number</div>
+              <div class="field__item">Undefined</div>
+          </div>';
+
+        $formatted_markup = new FormattableMarkup($undefined_number_text, []);
+        $build['field_va_health_connect_phone']['#prefix'] = $formatted_markup;
+      }
+    }
+
   }
 
   /**
@@ -455,9 +479,10 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    * @param \Drupal\field_event_dispatcher\Event\Field\WidgetSingleElementFormAlterEvent $event
    *   The event.
    */
-  public function paragraphsExperimentalWidgetAlter(WidgetSingleElementFormAlterEvent $event): void {
+  public function formWidgetAlter(WidgetSingleElementFormAlterEvent $event): void {
     $form = &$event->getElement();
     $this->removeCollapseButton($form);
+    $this->validatePhoneEntryFormat($form);
   }
 
   /**
@@ -473,12 +498,24 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * HTML5 validation to ensure 123-456-7890 phone number format.
+   *
+   * @param array $form
+   *   The telephone widget form.
+   */
+  public function validatePhoneEntryFormat(array &$form) {
+    if (!empty($form['value']['#type']) && $form['value']['#type'] === 'tel') {
+      $form['value']['#attributes'] = ["pattern" => "[0-9]{3}-[0-9]{3}-[0-9]{4}"];
+    }
+  }
+
+  /**
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
     return [
       EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
-      FieldHookEvents::WIDGET_SINGLE_ELEMENT_FORM_ALTER => 'paragraphsExperimentalWidgetAlter',
+      FieldHookEvents::WIDGET_SINGLE_ELEMENT_FORM_ALTER => 'formWidgetAlter',
       EntityHookEvents::ENTITY_VIEW_ALTER => 'entityViewAlter',
       FormHookEvents::FORM_ALTER => 'formAlter',
       'hook_event_dispatcher.form_node_person_profile_form.alter' => 'alterStaffProfileNodeForm',

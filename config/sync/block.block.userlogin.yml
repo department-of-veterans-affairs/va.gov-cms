@@ -1,4 +1,4 @@
-uuid: 2f6fa543-f808-4a8c-b1a4-89d10a2f3c18
+uuid: d5702132-8565-4dee-bb03-3c8b130a2ade
 langcode: en
 status: true
 dependencies:
@@ -7,12 +7,10 @@ dependencies:
     - user
   theme:
     - vagovclaro
-_core:
-  default_config_hash: XdkKOI3-nvnGym135VOpwEwX13O8irqxZeikL5R5A24
-id: vagovclaro_login
+id: userlogin
 theme: vagovclaro
 region: sidebar_first
-weight: -13
+weight: -4
 provider: null
 plugin: user_login_block
 settings:
@@ -23,6 +21,12 @@ settings:
 visibility:
   request_path:
     id: request_path
-    negate: true
-    context_mapping: {  }
+    negate: false
     pages: '/help*'
+  user_role:
+    id: user_role
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    roles:
+      anonymous: anonymous
