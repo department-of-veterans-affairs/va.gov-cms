@@ -41,7 +41,7 @@ third_party_settings:
       label: 'Section settings'
       region: content
       parent_name: ''
-      weight: 10
+      weight: 11
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -56,7 +56,7 @@ third_party_settings:
       label: 'Editorial Workflow'
       region: content
       parent_name: ''
-      weight: 11
+      weight: 12
       format_type: fieldset
       format_settings:
         classes: ''
@@ -181,19 +181,38 @@ third_party_settings:
         required_fields: true
     group_va_health_connect_and_heal:
       children:
-        - field_va_health_connect_phone
-        - field_vamc_ehr_system
+        - group_tooltip
+      label: 'VA Health Connect and Health Records System'
+      region: content
       parent_name: ''
       weight: 9
       format_type: fieldset
-      region: content
       format_settings:
+        classes: admin-editable
+        show_empty_fields: false
+        id: ''
+        description: ''
+        required_fields: false
+    group_tooltip:
+      children:
+        - field_va_health_connect_phone
+        - field_vamc_ehr_system
+      label: tooltip
+      region: content
+      parent_name: group_va_health_connect_and_heal
+      weight: 10
+      format_type: tooltip
+      format_settings:
+        show_empty_fields: '1'
+        show_label: '0'
+        tooltip_description: 'Why can''t I edit this? The VA Health Connect number comes from a centralized database. The health records system is managed by the Cerner transition team.  For questions, contact the CMS helpdesk. '
         description: ''
         id: external-content
-        classes: ''
-        show_empty_fields: false
-        required_fields: false
-      label: 'VA Health Connect and Health Records System'
+        classes: 'not-editable tooltip-layout'
+        element: div
+        label_element: h3
+        required_fields: 0
+        attributes: ''
 id: node.health_care_region_page.default
 targetEntityType: node
 bundle: health_care_region_page
@@ -341,14 +360,14 @@ content:
     third_party_settings: {  }
   field_va_health_connect_phone:
     type: telephone_default
-    weight: 13
+    weight: 11
     region: content
     settings:
       placeholder: 123-456-7890
     third_party_settings: {  }
   field_vamc_ehr_system:
     type: options_select
-    weight: 14
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -363,8 +382,8 @@ content:
   moderation_state:
     type: moderation_state_default
     weight: 11
-    settings: {  }
     region: content
+    settings: {  }
     third_party_settings: {  }
   path:
     type: path
