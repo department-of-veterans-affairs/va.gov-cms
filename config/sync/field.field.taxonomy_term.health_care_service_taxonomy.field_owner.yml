@@ -7,7 +7,18 @@ dependencies:
     - taxonomy.vocabulary.administration
     - taxonomy.vocabulary.health_care_service_taxonomy
   content:
-    - 'taxonomy_term:administration:0e30e74c-76b9-4c25-aa12-745086f02e37'
+    - 'taxonomy_term:administration:867e4dcf-2f99-401a-977a-adb441d53350'
+  module:
+    - entity_reference_validators
+    - epp
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: false
+  epp:
+    value: ''
+    on_update: 1
 id: taxonomy_term.health_care_service_taxonomy.field_owner
 field_name: field_owner
 entity_type: taxonomy_term
@@ -18,7 +29,7 @@ required: true
 translatable: false
 default_value:
   -
-    target_uuid: 0e30e74c-76b9-4c25-aa12-745086f02e37
+    target_uuid: 867e4dcf-2f99-401a-977a-adb441d53350
 default_value_callback: ''
 settings:
   handler: 'default:taxonomy_term'
