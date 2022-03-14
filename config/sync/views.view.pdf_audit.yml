@@ -910,7 +910,21 @@ display:
           empty: false
           content: '<p>Displaying @start - @end of @total</p>'
       display_extenders: {  }
-      path: admin/content/media/audit/pdfs
+      path: admin/content/media/pdfs
+      menu:
+        type: tab
+        title: 'Media PDFs'
+        description: ''
+        weight: 2
+        expanded: false
+        menu_name: admin
+        parent: 'admin_toolbar_tools.extra_links:media_page'
+        context: '0'
+        as_local_task: true
+        local_task_link_title: PDFs
+        local_task_parent: _custom
+        local_task_weight: 3
+        local_task_custom_parent_route: entity.media.collection
     cache_metadata:
       max-age: -1
       contexts:

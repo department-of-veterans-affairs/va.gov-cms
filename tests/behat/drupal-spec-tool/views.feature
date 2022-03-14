@@ -35,7 +35,6 @@ Feature: Views
 | Local facilities entity reference view | local_facilities_entity_reference_view | Content | Enabled | An entity reference view that determines options for the Local Health Service descriptions |
 | Locked content | locked_content | Content | Enabled |  |
 | Media | media | Media | Enabled |  |
-| Media Images | media_images | Media | Enabled |  |
 | Media library | media_library | Media | Enabled | Find and manage media. |
 | Moderated content | moderated_content | Content revisions | Enabled | Find and moderate content. |
 | Moderation history | moderation_history | Content revisions | Enabled |  |
@@ -169,9 +168,8 @@ Feature: Views
 | Media | Media | media_page_list | Page |
 | Media | Downloadable document browser | entity_browser_3 | Entity browser |
 | Media | Media bulk edit | page_1 | Page |
-| Media Images | Master | default | Default |
-| Media Images | Media | media_images | Page |
-| Media Images | Data export | images_export | Data export |
+| Media | Images | media_images | Page |
+| Media | Data export | images_export | Data export |
 | Media library | Master | default | Default |
 | Media library | Page | page | Page |
 | Media library | Widget | widget | Page |
