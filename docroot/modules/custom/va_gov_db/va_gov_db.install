@@ -789,3 +789,12 @@ function va_gov_db_update_8034(&$sandbox) {
 
   return $messages;
 }
+
+/**
+ * Uninstall Entity Embed module.
+ */
+function va_gov_db_update_9002(&$sandbox) {
+  $messages = _va_gov_db_uninstall_modules(['entity_embed']);
+
+  return $messages;
+}
