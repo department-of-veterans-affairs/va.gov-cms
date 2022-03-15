@@ -1,0 +1,52 @@
+{
+  "name": "design-system",
+  "version": "1.0.0",
+  "description": "This directory contains components for the CMS design system. With a future in mind where this design system may be used by more than the va.gov backend, the design system tooling & component templates are located in this directory, separately from our custom Drupal themes. So Storybook and associated tooling lives here for now. These components are imported by the Drupal admin theme vagovclaro in that theme's templates. Relevant compiled js + stylesheets are imported in the theme's libraries.yml file.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "build-drupal": "echo \"add webpack or gulp to compile for drupal consumption\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.17.7",
+    "@babel/plugin-proposal-class-properties": "^7.16.7",
+    "@babel/plugin-proposal-decorators": "^7.17.2",
+    "@babel/plugin-proposal-export-default-from": "^7.16.7",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.16.7",
+    "@babel/plugin-proposal-object-rest-spread": "^7.17.3",
+    "@babel/plugin-proposal-optional-chaining": "^7.16.7",
+    "@babel/plugin-proposal-private-methods": "^7.16.11",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/plugin-transform-arrow-functions": "^7.16.7",
+    "@babel/plugin-transform-block-scoping": "^7.16.7",
+    "@babel/plugin-transform-classes": "^7.16.7",
+    "@babel/plugin-transform-destructuring": "^7.17.7",
+    "@babel/plugin-transform-for-of": "^7.16.7",
+    "@babel/plugin-transform-parameters": "^7.16.7",
+    "@babel/plugin-transform-shorthand-properties": "^7.16.7",
+    "@babel/plugin-transform-spread": "^7.16.7",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-typescript": "^7.16.7",
+    "@storybook/addon-actions": "^6.4.19",
+    "@storybook/addon-essentials": "^6.4.19",
+    "@storybook/addon-links": "^6.4.19",
+    "@storybook/html": "^6.4.19",
+    "babel-loader": "^8.2.3",
+    "babel-plugin-macros": "^3.1.0",
+    "babel-plugin-polyfill-corejs3": "^0.5.2",
+    "core-js": "^3.21.1",
+    "drupal-twig-extensions": "^1.0.0-beta.4",
+    "twing": "^5.1.0",
+    "twing-loader": "^4.0.0"
+  },
+  "resolutions": {
+    "glob-parent": "^6.0.1",
+    "trim": "^1.0.1",
+    "merge": "^2.1.1"
+  }
+}
