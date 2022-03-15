@@ -1,7 +1,7 @@
 {
   "name": "design-system",
   "version": "1.0.0",
-  "description": "This directory contains components for the CMS design system. With a future in mind where this design system may be used by more than the va.gov backend, the design system tooling & component templates are located in this directory, separately from our custom Drupal themes. So Storybook and associated tooling lives here for now. These components are imported by the Drupal admin theme vagovclaro in that theme's templates. Relevant compiled js + stylesheets are imported in the theme's libraries.yml file.",
+  "description": "This directory contains components for the CMS design system.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -40,6 +40,7 @@
     "babel-plugin-macros": "^3.1.0",
     "babel-plugin-polyfill-corejs3": "^0.5.2",
     "core-js": "^3.21.1",
+    "drupal-attribute": "^1.0.2",
     "drupal-twig-extensions": "^1.0.0-beta.4",
     "twing": "^5.1.0",
     "twing-loader": "^4.0.0"
@@ -48,5 +49,6 @@
     "glob-parent": "^6.0.1",
     "trim": "^1.0.1",
     "merge": "^2.1.1"
-  }
+  },
+  "dependencies": {}
 }

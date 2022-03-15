@@ -13,13 +13,8 @@ module.exports = {
   framework: "@storybook/html",
 
   webpackFinal: async config => {
-    config.experiments = {
-      ...(config.experiments ? config.experiments : {}),
-      topLevelAwait: true,
-    };
-
     // add twig support to storybook
-    config.modules.rules.push({
+    config.module.rules.push({
       test: /\.twig/,
       use: [
         {
@@ -29,7 +24,7 @@ module.exports = {
           },
         },
       ],
-      include: path.resolve(__dirname, '..', 'components')
+      include: path.resolve(__dirname, '..', 'components'),
     });
 
     return config;

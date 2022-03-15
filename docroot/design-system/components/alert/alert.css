@@ -1,0 +1,48 @@
+/*drupal alert styles */
+.va-alert {
+  border-left-style: solid;
+  border-left-width: 10px;
+  box-sizing: border-box;
+  color: var(--color-text);
+  padding: var(--space-l);
+  vertical-align: middle;
+  width: 100%;
+}
+
+.va-alert .messages__header {
+  display: none;
+}
+
+/* Fixes super long links breaking layout in the node link report. */
+.va-alert a {
+  word-break: break-all;
+}
+
+.va-alert.messages--warning {
+  background-color: var(--va-gold-lightest);
+  border-color: var(--va-gold-med);
+}
+
+.va-alert.messages--warning a {
+  background-color: var(--va-gold-lightest);
+}
+
+.va-alert.messages--success,
+.va-alert.messages--status {
+  background-color: var(--va-green-lightest);
+  border-color: var(--va-green);
+}
+
+.va-alert.messages--success a,
+.va-alert.messages--status a {
+  background-color: var(--va-green-lightest);
+}
+
+.va-alert.messages--error {
+  background-color: var(--va-red-lightest);
+  border-color: var(--va-red-bright);
+}
+
+.va-alert.messages--error a {
+  background-color: var(--va-red-lightest);
+}
