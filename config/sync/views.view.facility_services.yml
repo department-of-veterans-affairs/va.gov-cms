@@ -1048,6 +1048,7 @@ display:
     display_plugin: page
     position: 13
     display_options:
+      title: 'Accordion audit'
       fields:
         title:
           id: title
@@ -1721,6 +1722,7 @@ display:
         groups:
           1: AND
       defaults:
+        title: false
         fields: false
         filters: false
         filter_groups: false
@@ -1769,10 +1771,11 @@ display:
         - 'config:workflow_list'
   accordion_audit_export:
     id: accordion_audit_export
-    display_title: 'Data export'
+    display_title: 'Accordion audit export'
     display_plugin: data_export
     position: 13
     display_options:
+      title: 'Accordion audit export'
       fields:
         title:
           id: title
@@ -2460,6 +2463,7 @@ display:
             utf8_bom: '0'
             use_serializer_encode_only: false
       defaults:
+        title: false
         fields: false
         filters: false
         filter_groups: false
