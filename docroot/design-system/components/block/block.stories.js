@@ -3,7 +3,10 @@ import DrupalAttribute from '../../DrupalAttribute';
 import './block.css';
 import './block.js';
 
-export default { title: 'Blocks' };
+export default {
+  title: 'Components/Blocks',
+  componentPath: block,
+};
 
 export const Block = (_, { loaded: { component } }) => component;
 
