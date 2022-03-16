@@ -46,6 +46,10 @@ services:
         # Install Datadog application tracing PHP extension
         - php $(curl -w "%{filename_effective}" -LO $(curl -s https://api.github.com/repos/DataDog/dd-trace-php/releases | grep browser_download_url | grep 'setup[.]php' | head -n 1 | cut -d '"' -f 4)) --enable-profiling --php-bin=php
 
+        # Set Datadog agent config defaults  
+        - j2 "${TUGBOAT_ROOT}/.tugboat/datadog.yaml.j2" -o "/etc/datadog-agent/datadog.yaml"
+        - echo "export DD_TAGS=pr:$TUGBOAT_GITHUB_PR,branch:$TUGBOAT_GITHUB_HEAD" >> /etc/apache2/envvars
+
         # Setup web-*. vhost to serve static website.
         - cp "${TUGBOAT_ROOT}"/.tugboat/web-vhost.conf /etc/apache2/sites-enabled/
 
@@ -157,9 +161,6 @@ services:
         - mv "${TUGBOAT_ROOT}/scripts/queue_runner/queue_runner.sh" /etc/service/drupal_events/run
         - chmod +x /etc/service/drupal_events/run
 
-        # Set Datadog agent config defaults  
-        - j2 "${TUGBOAT_ROOT}/.tugboat/datadog.yaml.j2" -o "/etc/datadog-agent/datadog.yaml"
-        - echo "export DD_TAGS=pr:$TUGBOAT_GITHUB_PR,branch:$TUGBOAT_GITHUB_HEAD" >> /etc/apache2/envvars
 
       clone:
         # This j2 command is shared in both the build & clone stages. If modifying, change the other too.
