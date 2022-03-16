@@ -25,7 +25,7 @@ Block.args = {
 
 Block.render = async args => {
   return await block({
-    ...Block.args
+    ...Block.args, ...args
   })
 }
 
