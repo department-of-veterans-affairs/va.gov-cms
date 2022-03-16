@@ -1,0 +1,29 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Getting started" />
+
+<style>{`
+
+`}</style>
+
+# Getting Started
+
+
+
+## For Designers
+See this Figma: https://www.figma.com/file/ScABI31f3MRFEvQ8WitVPa/CMS-Design-System?node-id=806%3A15618
+
+`#cms-design` in Slack
+
+## For Devs
+In the va.gov-cms repo:
+```
+cd docroot/design-system/
+yarn install
+yarn run storybook
+```
+
+It has support for Twig and SCSS, including compatibility with Drupal-specific Twig filters and functions, like the `attributes` object or `|clean_id`.
+Note that not every function or filter will behave 100% the same as in Drupal, but it won't break your component for storybook.
+
+This is
