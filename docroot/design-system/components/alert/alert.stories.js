@@ -3,7 +3,7 @@ import './alert.css';
 import './alert.js';
 import DrupalAttribute from '../../DrupalAttribute';
 
-export default { title: 'Alerts' }
+export default { title: 'Components/Alerts' }
 
 export const Warning = (_, { loaded: { component } }) => component;
 
