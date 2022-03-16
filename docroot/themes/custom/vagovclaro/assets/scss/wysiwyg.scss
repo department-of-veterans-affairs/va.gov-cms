@@ -28,7 +28,7 @@
 
 @mixin wysiwyg-va-action-links {
   &::before {
-    content: '\F138';
+    //    content: '\F138'; hide until FA support added
     display: inline-block;
     font-family: 'Font Awesome 5 Free';
     font-size: 175%;
@@ -36,6 +36,8 @@
     height: 0;
     padding-right: 1rem;
     transform: translateY(5px);
+    vertical-align: -4px; //needed until FA support added
+    width: 30px; //needed until FA support added
   }
   
   font-weight: 700;
@@ -201,13 +203,15 @@
   
   a.vads-c-action-link--green {
     &::before {
-      color: #2e8540;
+      //      color: #2e8540; hide until FA support added
+      content: url('/themes/custom/vagovclaro/images/icons/2e8540/chevron-circle-right-solid.svg') //needed until FA support added
     }
   }
   
   a.vads-c-action-link--blue {
     &::before {
-      color: #004795;
+      //      color: #004795; hide until FA support added
+      content: url('/themes/custom/vagovclaro/images/icons/004795/chevron-circle-right-solid.svg') //needed until FA support added
     }
   }
   
