@@ -23,7 +23,7 @@
   %}
 {% endif %}
 
-<div role="contentinfo" aria-labelledby="{{ title_ids[type] }}"{{ attributes.addClass(classes)|without('role', 'aria-label') }}>
+<div role="contentinfo" {{ attributes.addClass(classes)|without('role', 'aria-label') }}>
   {% if type == 'error' %}
   <div role="alert">
     {% endif %}
