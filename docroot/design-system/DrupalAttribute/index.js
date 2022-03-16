@@ -1,5 +1,6 @@
 import _DrupalAttribute from 'drupal-attribute';
 
+// This file is not used by Drupal at all, only to provide equivalent functionality for templates in Storybook.
 class DrupalAttribute {
   constructor() {
     this.drupalAttribute = new _DrupalAttribute();
