@@ -9,7 +9,9 @@ import '../components/tokens/_variables.scss';
 export const loaders = [
   async ({ args, originalStoryFn }) => {
     if (originalStoryFn.render) {
+      console.log(args);
       const component = await originalStoryFn.render(args);
+      console.log(component);
       return { component };
     }
   }
@@ -23,4 +25,9 @@ export const parameters = {
       date: /Date$/,
     },
   },
+  options: {
+    storySort: {
+      order: ['Introduction', 'Getting started', 'Changelog', 'Tokens', 'Components', '*'],
+    }
+  }
 }
