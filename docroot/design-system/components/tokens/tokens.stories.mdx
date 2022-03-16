@@ -2,19 +2,13 @@ import { Meta, Story } from '@storybook/addon-docs';
 
 <Meta title="Tokens" />
 
-<style>{`
-  div.swatch {
-    padding: 2rem;
-    background-color: var(--va-blue);
-    color: var(--color-white);
-    min-height: 1rem;
-  }
-`}</style>
-
 <Story name="Colors">
 {`
  <div>
-  <div class="swatch">var(--va-blue): #3e94cf</div>
+  <div class="swatch" style="color: var(--color-white); background-color: var(--va-blue-med)">
+    var(--va-blue-med): #3e94cf
+  </div>
+  and many other colors here
  </div>
 `}
 </Story>
@@ -22,6 +16,7 @@ import { Meta, Story } from '@storybook/addon-docs';
 <Story name="Spacing">
 {`
  <div>
+  Spacing scales demonstrated here
  </div>
 `}
 </Story>
@@ -29,6 +24,7 @@ import { Meta, Story } from '@storybook/addon-docs';
 <Story name="Typography">
 {`
   <div>
+    Typography details & scale here
   </div>
 `}
 </Story>
