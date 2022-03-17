@@ -1,0 +1,45 @@
+# To enable application tracing with Datadog, copy this file and rename it to .lando.local.yml
+# retrieve the Datadog API key and set the DD_API_KEY environment variable. Then review
+# the remaining environment variables for the datadog and appserver services, especially DD_TAGS.
+
+services:
+  datadog:
+    type: compose
+    app_mount: delegated
+    services:
+      image: datadog/agent
+      restart: on-failure
+      command: /bin/entrypoint.sh
+    overrides:
+      environment:
+        # [Datadog] Your Datadog API key (required) should be enclosed in single quotes.
+        DD_API_KEY: 
+        # [Datadog] Other required agent configuration settings. Do not change.
+        DD_HOSTNAME: 'va-gov-cms.lndo.site'
+        DD_APM_ENABLED: 'true'
+        DD_LOGS_ENABLED: 'false'
+        DD_APM_NON_LOCAL_TRAFFIC: 'true'
+  appserver:
+    overrides:
+      environment:
+        # [DataDog] Sets the global env tag for all data emitted.
+        DD_ENV: 'local-lando'
+        # [DataDog] Sets the default app name.
+        DD_SERVICE: 'vagov-cms'
+        # [Datadog] Maps the database service name pdo to vagov-cms-pdo       
+        DD_SERVICE_MAPPING: 'pdo:vagov-cms-pdo'
+        # {Datadog] Enables Datadog app profiler.
+        DD_PROFILING_ENABLED: 'true'
+        # [Datadog] Enable tracing of PHP scripts from the CLI
+        DD_TRACE_CLI_ENABLED: 'true'
+        # [Datadog] Agent hostname. Do not change.
+        DD_AGENT_HOST: 'datadog'
+        # [DataDog] Sets tags to filter traces by.
+        # It might be nice to set this to something specific to you or your current work:
+        #   - firstname.lastname
+        #   - pr<PR number>
+        #   - something else meaningful to you
+        # format: <TagName1>:<TagValueue1>,<TagName2>:<TagValue2>,<TagNameN>:<TagValueN>
+        # Uncomment and personalize the below:
+        #DD_TAGS: 'user:myUserName,vacms:0000,branch:myBranchName'
+
