@@ -1,0 +1,12 @@
+init_config:
+
+instances:
+  - server: db
+    service: vagov-mariadb
+    user: root
+    pass: root
+    port: 3306
+    options:
+      extra_status_metrics: true
+      extra_performance_metrics: true
+      schema_size_metrics: true
