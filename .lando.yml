@@ -38,6 +38,7 @@ services:
       # cypress-axe dependencies - https://docs.cypress.io/guides/getting-started/installing-cypress.html#System-requirements
       - "apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb -y"
       - .lando/scripts/blackfire-init.sh
+      - php $(curl -w "%{filename_effective}" -LO $(curl -s https://api.github.com/repos/DataDog/dd-trace-php/releases | grep browser_download_url | grep 'setup[.]php' | head -n 1 | cut -d '"' -f 4)) --enable-profiling --php-bin=php
       - yes | pecl install memcache-4.0.5.2 && docker-php-ext-enable memcache
       - rm -f /usr/local/etc/php/conf.d/docker-php-ext-memcached.ini
       - /etc/init.d/apache2 reload
@@ -85,9 +86,9 @@ services:
     type: memcached:1
     mem: 1024
 
-  # Uncomment this to work on site build triggers, then export ENV vars below, then `lando rebuild`.
-  # Must use lando 3.0.0-rc9+
-  # @see /README.md Build Trigger section
+# Uncomment this to work on site build triggers, then export ENV vars below, then `lando rebuild`.
+# Must use lando 3.0.0-rc9+
+# @see /README.md Build Trigger section
 #  va-socks-proxy:
 #    type: compose
 #    services:
