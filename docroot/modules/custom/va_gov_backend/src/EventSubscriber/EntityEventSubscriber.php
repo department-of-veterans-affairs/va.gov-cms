@@ -186,7 +186,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $form = &$event->getForm();
     $form_state = $event->getFormState();
     $this->lockTitleEditing($form, $form_state);
-    $this->validatePhoneEntryFormat($form);
   }
 
   /**
@@ -482,7 +481,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public function formWidgetAlter(WidgetSingleElementFormAlterEvent $event): void {
     $form = &$event->getElement();
     $this->removeCollapseButton($form);
-    $this->validatePhoneEntryFormat($form);
   }
 
   /**
@@ -494,18 +492,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public function removeCollapseButton(array &$form) {
     if (!empty($form['#paragraph_type']) && $form['#paragraph_type'] === 'button') {
       unset($form['top']['actions']['actions']['collapse_button']);
-    }
-  }
-
-  /**
-   * HTML5 validation to ensure 123-456-7890 phone number format.
-   *
-   * @param array $form
-   *   The telephone widget form.
-   */
-  public function validatePhoneEntryFormat(array &$form) {
-    if (!empty($form['value']['#type']) && $form['value']['#type'] === 'tel') {
-      $form['value']['#attributes'] = ["pattern" => "[0-9]{3}-[0-9]{3}-[0-9]{4}"];
     }
   }
 
