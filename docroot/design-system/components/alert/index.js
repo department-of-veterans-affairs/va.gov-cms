@@ -1,5 +1,5 @@
 // Import module styles
-import './alert.css';
+import './alert.scss';
 
 // Import module template
 import './alert.twig';
@@ -8,8 +8,6 @@ export const name = 'alert';
 
 export function disable() {}
 
-export function enable() {
-  console.log('javascript works!')
-}
+export function enable() {}
 
 export default enable;

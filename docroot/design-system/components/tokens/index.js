@@ -5,8 +5,6 @@ export const name = 'tokens';
 
 export function disable() {}
 
-export function enable() {
-  console.log('javascript works!')
-}
+export function enable() {}
 
 export default enable;

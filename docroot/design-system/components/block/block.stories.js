@@ -1,6 +1,6 @@
 import block from './block.twig';
 import DrupalAttribute from '../../DrupalAttribute';
-import './block.css';
+import './block.scss';
 import './index.js';
 
 export default {
