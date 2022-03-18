@@ -3,29 +3,25 @@ import DrupalAttribute from '../../DrupalAttribute';
 import './block.scss';
 import './index.js';
 
-export default {
-  title: 'Components/Blocks',
-  componentPath: block,
+export default { component: block };
+export const Block = {
+  args: {
+    attributes: new DrupalAttribute(),
+    title_attributes: new DrupalAttribute(),
+    plugin_id: "Some plugin",
+    title_prefix: "",
+    title_suffix: "",
+    label: "I'm a block!",
+    content: "Lorem ipsum dolor sit amet.",
+    configuration: {
+      provider: "Some module"
+    }
+  },
+  parameters: {}
 };
 
-export const Block = (_, { loaded: { component } }) => component;
-
-Block.args = {
-  attributes: new DrupalAttribute(),
-  title_attributes: new DrupalAttribute(),
-  plugin_id: "Some plugin",
-  title_prefix: "",
-  title_suffix: "",
-  label: "I'm a block!",
-  content: "Lorem ipsum dolor sit amet.",
-  configuration: {
-    provider: "Some module"
-  }
-}
-
-Block.render = async args => {
+Block.parameters.render = async args => {
   return await block({
     ...Block.args, ...args
   })
 }
-
