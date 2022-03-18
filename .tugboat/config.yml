@@ -46,10 +46,6 @@ services:
         # Install Datadog application tracing PHP extension
         - php $(curl -w "%{filename_effective}" -LO $(curl -s https://api.github.com/repos/DataDog/dd-trace-php/releases | grep browser_download_url | grep 'setup[.]php' | head -n 1 | cut -d '"' -f 4)) --enable-profiling --php-bin=php
 
-        # Set Datadog agent config defaults  
-        - j2 "${TUGBOAT_ROOT}/.tugboat/datadog.yaml.j2" -o "/etc/datadog-agent/datadog.yaml"
-        - echo "export DD_TAGS=pr:$TUGBOAT_GITHUB_PR,branch:$TUGBOAT_GITHUB_HEAD" >> /etc/apache2/envvars
-
         # Setup web-*. vhost to serve static website.
         - cp "${TUGBOAT_ROOT}"/.tugboat/web-vhost.conf /etc/apache2/sites-enabled/
 
@@ -69,6 +65,10 @@ services:
         - python3 get-pip.py
         - echo "export PATH=/var/lib/tugboat/bin:~/.local/bin:$PATH" >> ~/.bashrc
         - pip3 install j2cli
+
+        # Set Datadog agent config defaults  
+        - j2 "${TUGBOAT_ROOT}/.tugboat/datadog.yaml.j2" -o "/etc/datadog-agent/datadog.yaml"
+        - echo "export DD_TAGS=pr:$TUGBOAT_GITHUB_PR,branch:$TUGBOAT_GITHUB_HEAD" >> /etc/apache2/envvars
 
         # Install VA Root CA
         - cp "${TUGBOAT_ROOT}"/.tugboat/VA-Internal-S2-RCA1-v1.crt /usr/local/share/ca-certificates
