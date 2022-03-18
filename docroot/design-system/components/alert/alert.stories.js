@@ -1,6 +1,6 @@
 import alert from './alert.twig';
 import './alert.css';
-import './alert.js';
+import './index.js';
 import DrupalAttribute from '../../DrupalAttribute';
 
 export default { title: 'Components/Alerts' }
