@@ -17,7 +17,20 @@ export const Block = {
       provider: "Some module"
     }
   },
-  parameters: {}
+  parameters: {},
+  // Don't show drupal attributes in storybook controls
+  argTypes: {
+    attributes: {
+      table: {
+        disable: true
+      },
+    },
+    title_attributes: {
+      table: {
+        disable: true
+      }
+    }
+  },
 };
 
 Block.parameters.render = async args => {
