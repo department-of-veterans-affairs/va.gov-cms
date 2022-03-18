@@ -1,5 +1,5 @@
 // Import module styles
-import './block.css';
+import './block.scss';
 
 // Import module template
 import './block.twig';
@@ -8,8 +8,6 @@ export const name = 'block';
 
 export function disable() {}
 
-export function enable() {
-  console.log('javascript works!')
-}
+export function enable() {}
 
 export default enable;

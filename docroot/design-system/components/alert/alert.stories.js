@@ -1,5 +1,5 @@
 import alert from './alert.twig';
-import './alert.css';
+import './alert.scss';
 import './index.js';
 import DrupalAttribute from '../../DrupalAttribute';
 
