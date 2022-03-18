@@ -1,7 +1,7 @@
 import block from './block.twig';
 import DrupalAttribute from '../../DrupalAttribute';
 import './block.css';
-import './block.js';
+import './index.js';
 
 export default {
   title: 'Components/Blocks',
