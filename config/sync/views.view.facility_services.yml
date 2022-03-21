@@ -36,10 +36,6 @@ dependencies:
     - user.role.authenticated
     - workflows.workflow.editorial
   content:
-    - 'taxonomy_term:administration:55a295b5-182a-4f4f-ba62-723bfe8df473'
-    - 'taxonomy_term:administration:a8b1bb11-67a8-4489-a648-6d35c04be9cb'
-    - 'taxonomy_term:administration:a9526e03-dda4-4dcc-b928-fcc5e56f4e5f'
-    - 'taxonomy_term:administration:d2ebe609-99ab-4f4c-b7bb-b5fa754ef4b6'
     - 'taxonomy_term:health_care_service_taxonomy:01495533-fca6-45a3-825b-26f7b7ede91c'
     - 'taxonomy_term:health_care_service_taxonomy:023f7f13-50bb-4eef-9570-78bdad529a3c'
     - 'taxonomy_term:health_care_service_taxonomy:02a0c9b1-2f2b-4f80-912a-3d98c532ba0a'
@@ -149,12 +145,12 @@ dependencies:
     - rest
     - serialization
     - taxonomy
-    - taxonomy_entity_index
     - telephone
     - text
     - user
     - views_bulk_operations
     - views_data_export
+    - workbench_access
 _core:
   default_config_hash: tS8PbpJX90aRFC3-UTgXzdqkq7_2frk2pz4TMijEebM
 id: facility_services
@@ -560,49 +556,6 @@ display:
       sorts: {  }
       arguments: {  }
       filters:
-        title:
-          id: title
-          table: node_field_data
-          field: title
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          entity_field: title
-          plugin_id: string
-          operator: contains
-          value: ''
-          group: 1
-          exposed: false
-          expose:
-            operator_id: title_op
-            label: Title
-            description: ''
-            use_operator: false
-            operator: title_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: title
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-            placeholder: ''
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
         type:
           id: type
           table: node_field_data
@@ -655,6 +608,64 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: title
+          plugin_id: string
+          operator: contains
+          value: ''
+          group: 1
+          exposed: false
+          expose:
+            operator_id: title_op
+            label: Title
+            description: ''
+            use_operator: false
+            operator: title_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: title
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_facility_locator_api_id_value:
+          group: 1
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
+        field_operating_status_facility_value:
+          group: 1
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
+        field_operating_status_more_info_value:
+          group: 1
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
         moderation_state:
           id: moderation_state
           table: node_field_data
@@ -709,28 +720,28 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        taxonomy_entity_index_tid_depth:
-          id: taxonomy_entity_index_tid_depth
+        workbench_access_section__section_1:
+          id: workbench_access_section__section_1
           table: node
-          field: taxonomy_entity_index_tid_depth
+          field: workbench_access_section__section
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: node
-          plugin_id: taxonomy_entity_index_tid_depth
-          operator: or
+          plugin_id: workbench_access_section
+          operator: in
           value: {  }
           group: 1
           exposed: true
           expose:
-            operator_id: taxonomy_entity_index_tid_depth_op
+            operator_id: workbench_access_section__section_1_op
             label: Section
             description: ''
             use_operator: false
-            operator: taxonomy_entity_index_tid_depth_op
+            operator: workbench_access_section__section_1_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: taxonomy_entity_index_tid_depth
+            identifier: workbench_access_section__section_1
             required: false
             remember: false
             multiple: false
@@ -738,13 +749,19 @@ display:
               authenticated: authenticated
               anonymous: '0'
               content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
               content_editor: '0'
               content_reviewer: '0'
               content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
               admnistrator_users: '0'
               administrator: '0'
-              redirect_administrator: '0'
-            reduce: false
+            reduce: 1
           is_grouped: false
           group_info:
             label: ''
@@ -757,13 +774,9 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          reduce_duplicates: false
-          vid: administration
-          type: select
-          hierarchy: true
-          limit: true
-          error_message: true
-          depth: 6
+          reduce_duplicates: 0
+          section_filter:
+            show_hierarchy: 1
       filter_groups:
         operator: AND
         groups:
@@ -940,7 +953,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user
         - 'user.node_grants:view'
         - user.roles
       tags:
@@ -1853,31 +1865,31 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        taxonomy_entity_index_tid_depth:
-          id: taxonomy_entity_index_tid_depth
+        workbench_access_section__section:
+          id: workbench_access_section__section
           table: node
-          field: taxonomy_entity_index_tid_depth
+          field: workbench_access_section__section
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: node
-          plugin_id: taxonomy_entity_index_tid_depth
-          operator: or
+          plugin_id: workbench_access_section
+          operator: in
           value: {  }
           group: 1
           exposed: true
           expose:
-            operator_id: taxonomy_entity_index_tid_depth_op
+            operator_id: workbench_access_section__section_op
             label: Section
             description: ''
             use_operator: false
-            operator: taxonomy_entity_index_tid_depth_op
+            operator: workbench_access_section__section_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: taxonomy_entity_index_tid_depth
+            identifier: workbench_access_section__section
             required: false
             remember: false
-            multiple: true
+            multiple: false
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
@@ -1894,7 +1906,7 @@ display:
               redirect_administrator: '0'
               admnistrator_users: '0'
               administrator: '0'
-            reduce: false
+            reduce: 1
           is_grouped: false
           group_info:
             label: ''
@@ -1907,13 +1919,9 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          reduce_duplicates: false
-          vid: administration
-          type: select
-          hierarchy: true
-          limit: true
-          error_message: true
-          depth: 6
+          reduce_duplicates: 0
+          section_filter:
+            show_hierarchy: 1
       filter_groups:
         operator: AND
         groups:
@@ -1974,7 +1982,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user
         - 'user.node_grants:view'
         - user.roles
       tags:
@@ -2273,230 +2280,6 @@ display:
       access:
         type: none
         options: {  }
-      filters:
-        title:
-          id: title
-          table: node_field_data
-          field: title
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          entity_field: title
-          plugin_id: string
-          operator: contains
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: title_op
-            label: Title
-            description: ''
-            use_operator: false
-            operator: title_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: title
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-        type:
-          id: type
-          table: node_field_data
-          field: type
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
-          operator: in
-          value:
-            nca_facility: nca_facility
-            health_care_local_facility: health_care_local_facility
-            vba_facility: vba_facility
-            vet_center: vet_center
-            vet_center_cap: vet_center_cap
-            vet_center_mobile_vet_center: vet_center_mobile_vet_center
-            vet_center_outstation: vet_center_outstation
-          group: 1
-          exposed: true
-          expose:
-            operator_id: type_op
-            label: 'Content type'
-            description: ''
-            use_operator: true
-            operator: type_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: type
-            required: true
-            remember: false
-            multiple: true
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_api_consumer: '0'
-              content_creator_benefits_hubs: '0'
-              content_creator_resources_and_support: '0'
-              office_content_creator: '0'
-              vamc_content_creator: '0'
-              content_creator_vet_center: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              content_admin: '0'
-              redirect_administrator: '0'
-              admnistrator_users: '0'
-              administrator: '0'
-            reduce: true
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-        moderation_state:
-          id: moderation_state
-          table: node_field_data
-          field: moderation_state
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          plugin_id: moderation_state_filter
-          operator: in
-          value:
-            all: all
-            editorial-draft: editorial-draft
-            editorial-review: editorial-review
-            editorial-published: editorial-published
-            editorial-archived: editorial-archived
-          group: 1
-          exposed: true
-          expose:
-            operator_id: moderation_state_op
-            label: 'Moderation state'
-            description: ''
-            use_operator: false
-            operator: moderation_state_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: moderation_state
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              page_creator: '0'
-              layout_manager: '0'
-              page_reviewer: '0'
-              landing_page_creator: '0'
-              landing_page_reviewer: '0'
-              media_creator: '0'
-              media_manager: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-        taxonomy_entity_index_tid_depth:
-          id: taxonomy_entity_index_tid_depth
-          table: node
-          field: taxonomy_entity_index_tid_depth
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          plugin_id: taxonomy_entity_index_tid_depth
-          operator: or
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: taxonomy_entity_index_tid_depth_op
-            label: Section
-            description: ''
-            use_operator: false
-            operator: taxonomy_entity_index_tid_depth_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: taxonomy_entity_index_tid_depth
-            required: false
-            remember: false
-            multiple: true
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_api_consumer: '0'
-              content_creator_benefits_hubs: '0'
-              content_creator_resources_and_support: '0'
-              office_content_creator: '0'
-              vamc_content_creator: '0'
-              content_creator_vet_center: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              content_admin: '0'
-              redirect_administrator: '0'
-              admnistrator_users: '0'
-              administrator: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          vid: administration
-          type: select
-          hierarchy: true
-          limit: true
-          error_message: true
-          depth: 6
-      filter_groups:
-        operator: AND
-        groups:
-          1: AND
       style:
         type: data_export
         options:
@@ -2516,8 +2299,8 @@ display:
         title: false
         relationships: false
         fields: false
-        filters: false
-        filter_groups: false
+        filters: true
+        filter_groups: true
       relationships: {  }
       display_description: ''
       display_extenders: {  }
@@ -2542,7 +2325,6 @@ display:
         - 'languages:language_interface'
         - request_format
         - url
-        - user
         - 'user.node_grants:view'
       tags:
         - 'config:field.storage.node.field_facility_locator_api_id'
@@ -3214,416 +2996,19 @@ display:
             field_identifier: changed
           exposed: false
           granularity: second
-      filters:
-        type:
-          id: type
-          table: node_field_data
-          field: type
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
-          operator: in
-          value:
-            nca_facility: nca_facility
-            health_care_local_facility: health_care_local_facility
-            vba_facility: vba_facility
-            vet_center: vet_center
-            vet_center_cap: vet_center_cap
-            vet_center_outstation: vet_center_outstation
-          group: 1
-          exposed: false
-          expose:
-            operator_id: type_op
-            label: 'Content type'
-            description: ''
-            use_operator: false
-            operator: type_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: type
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_api_consumer: '0'
-              content_creator_benefits_hubs: '0'
-              vamc_content_creator: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              content_admin: '0'
-              redirect_administrator: '0'
-              admnistrator_users: '0'
-              administrator: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-        title:
-          id: title
-          table: node_field_data
-          field: title
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          entity_field: title
-          plugin_id: string
-          operator: allwords
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: title_op
-            label: Title
-            description: ''
-            use_operator: false
-            operator: title_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: Title
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_api_consumer: '0'
-              content_creator_benefits_hubs: '0'
-              content_creator_resources_and_support: '0'
-              office_content_creator: '0'
-              vamc_content_creator: '0'
-              content_creator_vet_center: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              content_admin: '0'
-              redirect_administrator: '0'
-              admnistrator_users: '0'
-              administrator: '0'
-            placeholder: 'Enter keyword'
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-        field_facility_locator_api_id_value:
-          id: field_facility_locator_api_id_value
-          table: node__field_facility_locator_api_id
-          field: field_facility_locator_api_id_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: string
-          operator: contains
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_facility_locator_api_id_value_op
-            label: 'Locator ID'
-            description: ''
-            use_operator: false
-            operator: field_facility_locator_api_id_value_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_facility_locator_api_id_value
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_api_consumer: '0'
-              content_creator_benefits_hubs: '0'
-              content_creator_resources_and_support: '0'
-              office_content_creator: '0'
-              vamc_content_creator: '0'
-              content_creator_vet_center: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              content_admin: '0'
-              redirect_administrator: '0'
-              admnistrator_users: '0'
-              administrator: '0'
-            placeholder: ''
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-        field_operating_status_facility_value:
-          id: field_operating_status_facility_value
-          table: node__field_operating_status_facility
-          field: field_operating_status_facility_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: list_field
-          operator: or
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_operating_status_facility_value_op
-            label: 'Operating status'
-            description: ''
-            use_operator: false
-            operator: field_operating_status_facility_value_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_operating_status_facility_value
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_api_consumer: '0'
-              content_creator_benefits_hubs: '0'
-              content_creator_resources_and_support: '0'
-              office_content_creator: '0'
-              vamc_content_creator: '0'
-              content_creator_vet_center: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              content_admin: '0'
-              redirect_administrator: '0'
-              admnistrator_users: '0'
-              administrator: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-        field_operating_status_more_info_value:
-          id: field_operating_status_more_info_value
-          table: node__field_operating_status_more_info
-          field: field_operating_status_more_info_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: string
-          operator: allwords
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_operating_status_more_info_value_op
-            label: 'Operating status - more info'
-            description: ''
-            use_operator: false
-            operator: field_operating_status_more_info_value_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_operating_status_more_info_value
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_api_consumer: '0'
-              content_creator_benefits_hubs: '0'
-              content_creator_resources_and_support: '0'
-              office_content_creator: '0'
-              vamc_content_creator: '0'
-              content_creator_vet_center: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              content_admin: '0'
-              redirect_administrator: '0'
-              admnistrator_users: '0'
-              administrator: '0'
-            placeholder: 'Enter keyword'
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-        moderation_state:
-          id: moderation_state
-          table: node_field_data
-          field: moderation_state
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          plugin_id: moderation_state_filter
-          operator: in
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: moderation_state_op
-            label: 'Moderation state'
-            description: ''
-            use_operator: false
-            operator: moderation_state_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: moderation_state
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_api_consumer: '0'
-              content_creator_benefits_hubs: '0'
-              content_creator_resources_and_support: '0'
-              office_content_creator: '0'
-              vamc_content_creator: '0'
-              content_creator_vet_center: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              content_admin: '0'
-              redirect_administrator: '0'
-              admnistrator_users: '0'
-              administrator: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-        taxonomy_entity_index_tid_depth:
-          id: taxonomy_entity_index_tid_depth
-          table: node
-          field: taxonomy_entity_index_tid_depth
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          plugin_id: taxonomy_entity_index_tid_depth
-          operator: or
-          value:
-            192: 192
-            191: 191
-            8: 8
-            190: 190
-          group: 1
-          exposed: true
-          expose:
-            operator_id: taxonomy_entity_index_tid_depth_op
-            label: Section
-            description: ''
-            use_operator: false
-            operator: taxonomy_entity_index_tid_depth_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: taxonomy_entity_index_tid_depth
-            required: false
-            remember: false
-            multiple: true
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_api_consumer: '0'
-              content_creator_benefits_hubs: '0'
-              content_creator_resources_and_support: '0'
-              office_content_creator: '0'
-              vamc_content_creator: '0'
-              content_creator_vet_center: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              content_admin: '0'
-              redirect_administrator: '0'
-              admnistrator_users: '0'
-              administrator: '0'
-            reduce: true
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          vid: administration
-          type: select
-          hierarchy: true
-          limit: true
-          error_message: true
-          depth: 6
-      filter_groups:
-        operator: AND
-        groups:
-          1: AND
       defaults:
         empty: false
         title: false
         fields: false
         sorts: false
-        filters: false
-        filter_groups: false
+        filters: true
+        filter_groups: true
       display_description: ''
       display_extenders: {  }
       path: admin/content/facilities/facility-status
       menu:
         type: tab
-        title: 'Facility Status'
+        title: 'Facility status'
         description: ''
         weight: 0
         expanded: false
@@ -3631,7 +3016,7 @@ display:
         parent: system.admin_content
         context: '0'
         as_local_task: true
-        local_task_link_title: 'Facility Status'
+        local_task_link_title: 'Facility status'
         local_task_parent: 'views_view:view.facility_services.content_audit_facilities'
         local_task_weight: 1
         local_task_custom_parent_route: ''
@@ -3642,7 +3027,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user
         - 'user.node_grants:view'
         - user.roles
       tags:
@@ -4913,62 +4297,6 @@ display:
           hierarchy: true
           limit: true
           error_message: true
-        field_administration_target_id:
-          id: field_administration_target_id
-          table: node__field_administration
-          field: field_administration_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: taxonomy_index_tid
-          operator: or
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: owner
-            label: Section
-            description: ''
-            use_operator: false
-            operator: field_administration_target_id_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: owner
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_api_consumer: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              admnistrator_users: '0'
-              administrator: '0'
-              redirect_administrator: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          vid: administration
-          type: select
-          hierarchy: true
-          limit: true
-          error_message: true
-          parent: 0
-          level_labels: ''
-          force_deepest: false
         field_referral_required_value:
           id: field_referral_required_value
           table: node__field_referral_required
@@ -5131,6 +4459,63 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
+        workbench_access_section__section:
+          id: workbench_access_section__section
+          table: node
+          field: workbench_access_section__section
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          plugin_id: workbench_access_section
+          operator: in
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: workbench_access_section__section_op
+            label: Section
+            description: ''
+            use_operator: false
+            operator: workbench_access_section__section_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: workbench_access_section__section
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+            reduce: 1
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: 0
+          section_filter:
+            show_hierarchy: 1
       filter_groups:
         operator: AND
         groups:
@@ -6674,27 +6059,28 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
-        field_administration_target_id:
-          id: field_administration_target_id
-          table: node__field_administration
-          field: field_administration_target_id
+        workbench_access_section__section:
+          id: workbench_access_section__section
+          table: node
+          field: workbench_access_section__section
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: taxonomy_index_tid
-          operator: or
+          entity_type: node
+          plugin_id: workbench_access_section
+          operator: in
           value: {  }
           group: 1
           exposed: true
           expose:
-            operator_id: owner
+            operator_id: workbench_access_section__section_op
             label: Section
             description: ''
             use_operator: false
-            operator: field_administration_target_id_op
+            operator: workbench_access_section__section_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: owner
+            identifier: workbench_access_section__section
             required: false
             remember: false
             multiple: false
@@ -6702,13 +6088,19 @@ display:
               authenticated: authenticated
               anonymous: '0'
               content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
               content_editor: '0'
               content_reviewer: '0'
               content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
               admnistrator_users: '0'
               administrator: '0'
-              redirect_administrator: '0'
-            reduce: false
+            reduce: 1
           is_grouped: false
           group_info:
             label: ''
@@ -6721,15 +6113,9 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          reduce_duplicates: false
-          vid: administration
-          type: select
-          hierarchy: true
-          limit: true
-          error_message: true
-          parent: 0
-          level_labels: ''
-          force_deepest: false
+          reduce_duplicates: 0
+          section_filter:
+            show_hierarchy: 1
       filter_groups:
         operator: AND
         groups:
@@ -6815,7 +6201,7 @@ display:
         type: tab
         title: 'VAMC facility health services'
         description: ''
-        weight: null
+        weight: 0
         expanded: false
         menu_name: admin
         parent: system.admin
@@ -6823,7 +6209,7 @@ display:
         as_local_task: true
         local_task_link_title: 'VAMC facility health services'
         local_task_parent: 'views_view:view.facility_services.content_audit_facilities'
-        local_task_weight: 4
+        local_task_weight: 3
         local_task_custom_parent_route: ''
       tab_options:
         type: none
@@ -7828,27 +7214,28 @@ display:
           hierarchy: true
           limit: true
           error_message: true
-        field_administration_target_id:
-          id: field_administration_target_id
-          table: node__field_administration
-          field: field_administration_target_id
+        workbench_access_section__section:
+          id: workbench_access_section__section
+          table: node
+          field: workbench_access_section__section
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: taxonomy_index_tid
-          operator: or
+          entity_type: node
+          plugin_id: workbench_access_section
+          operator: in
           value: {  }
           group: 1
           exposed: true
           expose:
-            operator_id: owner
+            operator_id: workbench_access_section__section_op
             label: Section
             description: ''
             use_operator: false
-            operator: field_administration_target_id_op
+            operator: workbench_access_section__section_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: owner
+            identifier: workbench_access_section__section
             required: false
             remember: false
             multiple: false
@@ -7856,13 +7243,19 @@ display:
               authenticated: authenticated
               anonymous: '0'
               content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
               content_editor: '0'
               content_reviewer: '0'
               content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
               admnistrator_users: '0'
               administrator: '0'
-              redirect_administrator: '0'
-            reduce: false
+            reduce: 1
           is_grouped: false
           group_info:
             label: ''
@@ -7875,15 +7268,9 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          reduce_duplicates: false
-          vid: administration
-          type: select
-          hierarchy: true
-          limit: true
-          error_message: true
-          parent: 0
-          level_labels: ''
-          force_deepest: false
+          reduce_duplicates: 0
+          section_filter:
+            show_hierarchy: 1
       filter_groups:
         operator: AND
         groups:
@@ -8810,234 +8197,14 @@ display:
           type_custom_true: ''
           type_custom_false: ''
           not: false
-      filters:
-        type:
-          id: type
-          table: node_field_data
-          field: type
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
-          operator: in
-          value:
-            vha_facility_nonclinical_service: vha_facility_nonclinical_service
-          group: 1
-          exposed: false
-          expose:
-            operator_id: type_op
-            label: 'Content type'
-            description: null
-            use_operator: false
-            operator: type_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: type
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-        title:
-          id: title
-          table: node_field_data
-          field: title
-          relationship: field_facility_location
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          entity_field: title
-          plugin_id: string
-          operator: contains
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: title_op
-            label: 'Facility name contains'
-            description: ''
-            use_operator: false
-            operator: title_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: facility_title
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_api_consumer: '0'
-              content_creator_benefits_hubs: '0'
-              content_creator_resources_and_support: '0'
-              office_content_creator: '0'
-              vamc_content_creator: '0'
-              content_creator_vet_center: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              content_admin: '0'
-              redirect_administrator: '0'
-              admnistrator_users: '0'
-              administrator: '0'
-            placeholder: ''
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-        field_service_name_and_descripti_target_id:
-          id: field_service_name_and_descripti_target_id
-          table: node__field_service_name_and_descripti
-          field: field_service_name_and_descripti_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: taxonomy_index_tid
-          operator: or
-          value:
-            1027: 1027
-            1026: 1026
-            1025: 1025
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_service_name_and_descripti_target_id_op
-            label: 'Service name'
-            description: ''
-            use_operator: false
-            operator: field_service_name_and_descripti_target_id_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_service_name_and_descripti_target_id
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_api_consumer: '0'
-              content_creator_benefits_hubs: '0'
-              content_creator_resources_and_support: '0'
-              office_content_creator: '0'
-              vamc_content_creator: '0'
-              content_creator_vet_center: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              content_admin: '0'
-              redirect_administrator: '0'
-              admnistrator_users: '0'
-              administrator: '0'
-            reduce: true
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          vid: health_care_service_taxonomy
-          type: select
-          hierarchy: true
-          limit: true
-          error_message: true
-        field_administration_target_id:
-          id: field_administration_target_id
-          table: node__field_administration
-          field: field_administration_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: taxonomy_index_tid
-          operator: or
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: owner
-            label: Section
-            description: ''
-            use_operator: false
-            operator: field_administration_target_id_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: owner
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_api_consumer: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              admnistrator_users: '0'
-              administrator: '0'
-              redirect_administrator: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          vid: administration
-          type: select
-          hierarchy: true
-          limit: true
-          error_message: true
-          parent: 0
-          level_labels: ''
-          force_deepest: false
-      filter_groups:
-        operator: AND
-        groups:
-          1: AND
       defaults:
         access: true
         title: false
         group_by: false
         relationships: false
         fields: false
-        filters: false
-        filter_groups: false
+        filters: true
+        filter_groups: true
         header: false
       relationships:
         uid:
@@ -9110,7 +8277,7 @@ display:
         as_local_task: true
         local_task_link_title: 'VAMC facility non-clinical services'
         local_task_parent: 'views_view:view.facility_services.content_audit_facilities'
-        local_task_weight: 5
+        local_task_weight: 4
         local_task_custom_parent_route: ''
       tab_options:
         type: normal
@@ -9124,12 +8291,12 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user
         - 'user.node_grants:view'
         - user.roles
       tags:
         - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_facility_location'
+        - 'config:workflow_list'
     deleted: false
   vamc_system_service_audit_export:
     id: vamc_system_service_audit_export
@@ -9906,6 +9073,63 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        workbench_access_section__section:
+          id: workbench_access_section__section
+          table: node
+          field: workbench_access_section__section
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          plugin_id: workbench_access_section
+          operator: in
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: workbench_access_section__section_op
+            label: Section
+            description: ''
+            use_operator: false
+            operator: workbench_access_section__section_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: workbench_access_section__section
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+            reduce: 1
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: 0
+          section_filter:
+            show_hierarchy: 1
       filter_groups:
         operator: AND
         groups:
@@ -10735,27 +9959,28 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        field_administration_target_id:
-          id: field_administration_target_id
-          table: node__field_administration
-          field: field_administration_target_id
+        workbench_access_section__section:
+          id: workbench_access_section__section
+          table: node
+          field: workbench_access_section__section
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: taxonomy_index_tid
-          operator: or
+          entity_type: node
+          plugin_id: workbench_access_section
+          operator: in
           value: {  }
           group: 1
           exposed: true
           expose:
-            operator_id: field_administration_target_id_op
+            operator_id: workbench_access_section__section_op
             label: Section
             description: ''
             use_operator: false
-            operator: field_administration_target_id_op
+            operator: workbench_access_section__section_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: field_administration_target_id
+            identifier: workbench_access_section__section
             required: false
             remember: false
             multiple: false
@@ -10775,7 +10000,7 @@ display:
               redirect_administrator: '0'
               admnistrator_users: '0'
               administrator: '0'
-            reduce: false
+            reduce: 1
           is_grouped: false
           group_info:
             label: ''
@@ -10788,12 +10013,9 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          reduce_duplicates: false
-          vid: administration
-          type: select
-          hierarchy: false
-          limit: true
-          error_message: true
+          reduce_duplicates: 0
+          section_filter:
+            show_hierarchy: 1
       filter_groups:
         operator: AND
         groups:
@@ -10820,17 +10042,17 @@ display:
       path: admin/content/facilities/vamc-system-service-audit
       menu:
         type: tab
-        title: 'VAMC System Service Audit'
+        title: 'VAMC system services'
         description: ''
-        weight: null
+        weight: 0
         expanded: false
         menu_name: admin
         parent: ''
         context: '0'
         as_local_task: true
-        local_task_link_title: 'VAMC System Service Audit'
+        local_task_link_title: 'VAMC system services'
         local_task_parent: 'views_view:view.facility_services.content_audit_facilities'
-        local_task_weight: 3
+        local_task_weight: 6
         local_task_custom_parent_route: ''
     cache_metadata:
       max-age: -1
@@ -11650,27 +10872,28 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        field_administration_target_id:
-          id: field_administration_target_id
-          table: node__field_administration
-          field: field_administration_target_id
+        workbench_access_section__section:
+          id: workbench_access_section__section
+          table: node
+          field: workbench_access_section__section
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: taxonomy_index_tid
-          operator: or
+          entity_type: node
+          plugin_id: workbench_access_section
+          operator: in
           value: {  }
           group: 1
           exposed: true
           expose:
-            operator_id: field_administration_target_id_op
+            operator_id: workbench_access_section__section_op
             label: Section
             description: ''
             use_operator: false
-            operator: field_administration_target_id_op
+            operator: workbench_access_section__section_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: section
+            identifier: workbench_access_section__section
             required: false
             remember: false
             multiple: false
@@ -11690,7 +10913,7 @@ display:
               redirect_administrator: '0'
               admnistrator_users: '0'
               administrator: '0'
-            reduce: false
+            reduce: 1
           is_grouped: false
           group_info:
             label: ''
@@ -11703,12 +10926,9 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          reduce_duplicates: false
-          vid: administration
-          type: select
-          hierarchy: true
-          limit: true
-          error_message: true
+          reduce_duplicates: 0
+          section_filter:
+            show_hierarchy: 1
       filter_groups:
         operator: AND
         groups:
@@ -11782,7 +11002,7 @@ display:
         type: tab
         title: 'VAMC systems'
         description: ''
-        weight: null
+        weight: 0
         expanded: false
         menu_name: admin
         parent: ''
@@ -11790,7 +11010,7 @@ display:
         as_local_task: true
         local_task_link_title: 'VAMC systems'
         local_task_parent: 'views_view:view.facility_services.content_audit_facilities'
-        local_task_weight: 2
+        local_task_weight: 5
         local_task_custom_parent_route: ''
     cache_metadata:
       max-age: -1
@@ -11799,7 +11019,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user
         - 'user.node_grants:view'
         - user.roles
       tags:
@@ -13827,7 +13046,7 @@ display:
         as_local_task: true
         local_task_link_title: 'Vet Center services'
         local_task_parent: 'views_view:view.facility_services.content_audit_facilities'
-        local_task_weight: 6
+        local_task_weight: 7
         local_task_custom_parent_route: ''
       tab_options:
         type: normal
