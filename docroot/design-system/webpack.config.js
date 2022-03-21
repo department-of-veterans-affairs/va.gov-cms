@@ -2,7 +2,7 @@ const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const stylesHandler = MiniCssExtractPlugin.loader;
 
-const isProduction = process.env.NODE_ENV == "production";
+const isProduction = process.env.NODE_ENV === "production";
 
 const config = {
   entry: "./components/index.js",
@@ -31,6 +31,7 @@ const config = {
       {
         test: /\.twig/,
         use: [
+          // Output twig files to theme as well for easy namespacing. See vagovclaro.info.yml.
           {
             loader: 'file-loader',
             options: {
