@@ -1,5 +1,5 @@
 <div class="color-swatches">
-  {% for color in colors %}
-    <div>{{ color.name }} - {{ color.value }}</div>
+  {% for name, value in vars %}
+    <div>{{ name }} - {{ value }}</div>
   {% endfor %}
 </div>

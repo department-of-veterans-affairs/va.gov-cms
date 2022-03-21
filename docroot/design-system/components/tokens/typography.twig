@@ -1,1 +1,5 @@
-<p>hello world. typography vars go here</p>
+<div class="">
+  {% for name, value in vars %}
+    <div>{{ name|raw }} - {{ value|raw }}</div>
+  {% endfor %}
+</div>
