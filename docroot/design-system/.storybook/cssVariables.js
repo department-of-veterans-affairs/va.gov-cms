@@ -1,9 +1,9 @@
 /*
  * Helper script to parse out CSS Custom Properties from the :root object.
  *
- * This outputs
+ * This outputs a .json file in the design/system-dist/ folder. It is used by tokens.stories.js
+ * to display css variables in Storybook without redefining them in JS.
  */
-
 const postcss = require('postcss');
 const postcssCustomProperties = require('postcss-custom-properties');
 const fs = require('fs');
@@ -13,7 +13,7 @@ fs.readFile(path.resolve(__dirname,'../components/tokens/_variables.css'), (err,
   postcss({
     plugins: [
       postcssCustomProperties({
-        exportTo: path.resolve(__dirname, './cssVariables.json')
+        exportTo: path.resolve(__dirname, '../dist/cssVariables.json')
       })
     ]
   }).process(css, {
@@ -22,4 +22,4 @@ fs.readFile(path.resolve(__dirname,'../components/tokens/_variables.css'), (err,
   }).then(result => {
     console.log('Finished processing CSS variables from ' + result.opts.from + ' for Storybook!');
   })
-})
+});
