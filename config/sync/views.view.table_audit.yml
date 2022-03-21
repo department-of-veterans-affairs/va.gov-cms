@@ -1068,7 +1068,7 @@ display:
           admin_label: ''
           plugin_id: result
           empty: false
-          content: "<p><a href=\"admin/content/audit/tables-usage-audit.csv\" class=\"button\">Download CSV</a></p>\r\n\r\n<p>Displaying @start - @end of @total</p>"
+          content: '<p>Displaying @start - @end of @total</p>'
       display_extenders: {  }
       path: admin/content-tools/audit/table-audit
     cache_metadata:
@@ -1106,6 +1106,9 @@ display:
             use_serializer_encode_only: false
       display_extenders: {  }
       path: admin/content/audit/tables-usage-audit.csv
+      displays:
+        table_audit: table_audit
+        default: '0'
       filename: tables-usage-audit.csv
       automatic_download: false
       store_in_public_file_directory: null
