@@ -1,6 +1,3 @@
-// Add default claro variables into storybook so we can override properly
-import '../../core/themes/claro/css/base/elements.css';
-
 // Add token styles to make available for all pages
 import '../components/tokens/_variables.css';
 
