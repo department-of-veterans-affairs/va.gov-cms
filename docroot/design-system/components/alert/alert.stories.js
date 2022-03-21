@@ -3,7 +3,7 @@ import DrupalAttribute from '../../DrupalAttribute';
 import './alert.scss';
 import './index.js';
 
-export default { component: alert };
+export default { title: 'Components/Alert', component: alert };
 
 const shared = {
   parameters: {},
