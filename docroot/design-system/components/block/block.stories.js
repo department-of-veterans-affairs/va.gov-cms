@@ -3,7 +3,7 @@ import DrupalAttribute from '../../DrupalAttribute';
 import './block.scss';
 import './index.js';
 
-export default { component: block };
+export default { title: 'Components/Block', component: block };
 export const Block = {
   args: {
     attributes: new DrupalAttribute(),

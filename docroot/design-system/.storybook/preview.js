@@ -24,7 +24,6 @@ export const render = (_, { loaded: { renderedStory } }) => renderedStory;
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   controls: {
-    expanded: false,
     matchers: {
       color: /(background|color)$/i,
       date: /Date$/,
