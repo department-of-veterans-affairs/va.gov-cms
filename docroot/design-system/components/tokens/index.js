@@ -1,5 +1,5 @@
 // Import module styles
-import './_variables.scss';
+import './_variables.css';
 
 export const name = 'tokens';
 

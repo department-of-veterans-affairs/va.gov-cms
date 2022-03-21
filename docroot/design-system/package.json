@@ -5,8 +5,9 @@
   "main": "./components/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "storybook": "start-storybook -p 6006",
-    "build:storybook": "build-storybook",
+    "css": "node ./.storybook/cssVariables.js",
+    "storybook": "yarn css && start-storybook -p 6006",
+    "build:storybook": "yarn css && build-storybook",
     "build:drupal": "webpack --mode=production --node-env=production",
     "build:dev": "webpack --mode=development",
     "watch": "webpack --watch"
@@ -51,6 +52,9 @@
     "file-loader": "^6.2.0",
     "mini-css-extract-plugin": "^2.6.0",
     "node-polyfill-webpack-plugin": "^1.1.4",
+    "postcss": "^8.4.12",
+    "postcss-custom-properties": "^12.1.5",
+    "postcss-scss": "^4.0.3",
     "sass": "^1.49.9",
     "sass-loader": "^12.6.0",
     "style-loader": "2.0.0",
