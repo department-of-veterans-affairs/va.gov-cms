@@ -2,7 +2,7 @@
 import '../../core/themes/claro/css/base/elements.css';
 
 // Add token styles to make available for all pages
-import '../components/tokens/_variables.scss';
+import '../components/tokens/_variables.css';
 
 // Add storybook-specific styles we don't need to include in the drupal bundle
 import './storybook-styles.scss';
@@ -24,6 +24,7 @@ export const render = (_, { loaded: { renderedStory } }) => renderedStory;
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   controls: {
+    expanded: false,
     matchers: {
       color: /(background|color)$/i,
       date: /Date$/,
