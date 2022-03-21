@@ -562,9 +562,6 @@
         "va:theme:watch": [
             "cd docroot/themes/custom/vagovclaro && yarn watch"
         ],
-        "va:ds:watch": [
-            "cd docroot/design-system && yarn storybook"
-        ],
         "va:ds:build:storybook": [
             "cd docroot/design-system && yarn build:storybook"
         ],
@@ -617,10 +614,10 @@
             "find docroot/modules/custom docroot/themes -name '*.install' -print0 | xargs -0 -n1 php -l > /dev/null"
         ],
         "va:test:cs": [
-            "phpcs --ignore=*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,user_guides.css,whats_new.css,*/node_modules/*,*/simplesaml*/*,graphiql.css --extensions=php,module,inc,install,profile,engine,theme,css --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom tests --colors"
+            "phpcs --ignore=*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,user_guides.css,whats_new.css,claro.css,*/node_modules/*,*/simplesaml*/*,graphiql.css --extensions=php,module,inc,install,profile,engine,theme,css --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom tests --colors"
         ],
         "va:test:unit": "phpunit tests/phpunit --colors=always --exclude-group=disabled",
-        "va:cbf": "phpcbf --ignore=*.md,*.min.css,uswds.css,*/node_modules/*,*/simplesaml*/* --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom --colors",
+        "va:cbf": "phpcbf --ignore=*.md,*.min.css,uswds.css,claro.css,*/node_modules/*,*/simplesaml*/* --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom --colors",
         "va:web:install": [
             "# Preparing Front-end...",
             "cd bin && ln -sf ../docroot/libraries/yarn/bin/yarn yarn",
