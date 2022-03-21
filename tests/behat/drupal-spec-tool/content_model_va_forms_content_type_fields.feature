@@ -17,7 +17,7 @@ Feature: Content model: VA Forms Content Type fields
 | Content type | VA Form | Form name | field_va_form_name | Text (plain) |  | 1 | Textfield |  |
 | Content type | VA Form | Form number | field_va_form_number | Text (plain) |  | 1 | Textfield |  |
 | Content type | VA Form | Form title | field_va_form_title | Text (plain) |  | 1 | Textfield |  |
-| Content type | VA Form | Helpful links | field_va_form_link_teasers | Entity reference revisions |  | Unlimited | Paragraphs Classic |  |
+| Content type | VA Form | Helpful links | field_va_form_link_teasers | Entity reference revisions |  | Unlimited | Paragraphs Legacy |  |
 | Content type | VA Form | Issue date | field_va_form_issue_date | Date |  | 1 | Date and time |  |
 | Content type | VA Form | Form Language | field_va_form_language | List (text) | Required | 1 | Select list |  |
 | Content type | VA Form | Link to form | field_va_form_url | Link |  | 1 | Linkit |  |
