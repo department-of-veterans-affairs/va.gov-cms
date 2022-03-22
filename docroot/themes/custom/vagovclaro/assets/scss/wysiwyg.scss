@@ -26,6 +26,24 @@
   width: auto;
 }
 
+@mixin wysiwyg-va-action-links {
+  &::before {
+    //    content: '\F138'; hide until FA support added
+    display: inline-block;
+    font-family: 'Font Awesome 5 Free';
+    font-size: 175%;
+    font-weight: 900;
+    height: 0;
+    padding-right: 1rem;
+    transform: translateY(5px);
+    vertical-align: -4px; //needed until FA support added
+    width: 30px; //needed until FA support added
+  }
+  
+  font-weight: 700;
+  padding: 8px 0;  
+}
+
 @mixin wysiwyg-va-body-font {
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 16px;
@@ -173,6 +191,49 @@
       background: transparent;
       box-shadow: inset 0 0 0 2px #003e73;
       color: #003e73;
+    }
+  }
+  
+  /*Action links*/
+  a.vads-c-action-link--blue,
+  a.vads-c-action-link--green,
+  a.vads-c-action-link--white {
+    @include wysiwyg-va-action-links;
+  }
+  
+  a.vads-c-action-link--green {
+    &::before {
+      //      color: #2e8540; hide until FA support added
+      content: url('/themes/custom/vagovclaro/images/icons/2e8540/chevron-circle-right-solid.svg') //needed until FA support added
+    }
+  }
+  
+  a.vads-c-action-link--blue {
+    &::before {
+      //      color: #004795; hide until FA support added
+      content: url('/themes/custom/vagovclaro/images/icons/004795/chevron-circle-right-solid.svg') //needed until FA support added
+    }
+  }
+  
+  a.vads-c-action-link--white {
+    &::before {
+      color: #fff;
+      transition-duration: 0.3s;
+      transition-property: color,
+        background-color,
+        border-color;
+      transition-timing-function: ease-in-out;
+    }
+    
+    color: #fff;
+    
+    &:hover {
+      background-color: transparent;
+      color: #f9c642;
+      
+      &::before {
+        color: #f9c642;
+      }
     }
   }
 }
