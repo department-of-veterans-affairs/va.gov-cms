@@ -259,7 +259,6 @@ Feature: Views
 | Rich Text Field Audit | Content Audit - Rich Text Fields | content_audit_rich_text | Page |
 | Rich Text Field Audit | Data export | rich_text_audit_data_export | Data export |
 | Non-clinical services | Default | default | Default |
-| Non-clinical services | Medical records offices | medical_records_offices | Block |
 | Table Audit | Default | default | Default |
 | Table Audit | Table Audit | table_audit | Page |
 | Table Audit | Data export | tables_usage_export | Data export |
