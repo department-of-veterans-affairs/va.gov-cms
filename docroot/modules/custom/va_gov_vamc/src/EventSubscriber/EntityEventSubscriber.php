@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_vamc\EventSubscriber;
 
+use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
@@ -28,9 +29,9 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       // React on Op status forms.
       'hook_event_dispatcher.form_node_vamc_operating_status_and_alerts_form.alter' => 'alterOpStatusNodeForm',
       'hook_event_dispatcher.form_node_vamc_operating_status_and_alerts_edit_form.alter' => 'alterOpStatusNodeForm',
-      HookEventDispatcherInterface::ENTITY_INSERT => 'entityInsert',
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'entityPresave',
-      HookEventDispatcherInterface::ENTITY_UPDATE => 'entityUpdate',
+      EntityHookEvents::ENTITY_INSERT => 'entityInsert',
+      EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
+      EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
       'hook_event_dispatcher.form_node_full_width_banner_alert_form.alter' => 'alterFullWidthBannerNodeForm',
       'hook_event_dispatcher.form_node_full_width_banner_alert_edit_form.alter' => 'alterFullWidthBannerNodeForm',
       'hook_event_dispatcher.form_node_regional_health_care_service_des_form.alter' => 'alterRegionalHealthCareServiceDesNodeForm',

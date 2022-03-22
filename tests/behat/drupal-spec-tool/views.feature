@@ -35,7 +35,6 @@ Feature: Views
 | Local facilities entity reference view | local_facilities_entity_reference_view | Content | Enabled | An entity reference view that determines options for the Local Health Service descriptions |
 | Locked content | locked_content | Content | Enabled |  |
 | Media | media | Media | Enabled |  |
-| Media Images | media_images | Media | Enabled |  |
 | Media library | media_library | Media | Enabled | Find and manage media. |
 | Moderated content | moderated_content | Content revisions | Enabled | Find and moderate content. |
 | Moderation history | moderation_history | Content revisions | Enabled |  |
@@ -104,7 +103,6 @@ Feature: Views
 | Content | Bulk edit content | page_2 | Page |
 | Content | Bulk edit events | events_page | Page |
 | Content | Resources and support | resources_support_dashboard | Page |
-| Content | Resources and support landing page | resources_and_support_landing_page_block | Block |
 | Content | Content audit CSV export | content_audit_csv_export | Data export |
 | Content | Content audit tools | content_audit_page | Page |
 | Content entity browsers | Master | default | Default |
@@ -116,8 +114,8 @@ Feature: Views
 | Content Entity Reference Source | Entity Reference: Story Listing | entity_reference_3 | Entity Reference |
 | Content Entity Reference Source | Entity Reference: News Release Listing | entity_reference_4 | Entity Reference |
 | Content Entity Reference Source | Entity Reference: Staff profiles | entity_reference_5 | Entity Reference |
-| Content Entity Reference Source | Entity Reference: Systems | entity_reference_6 | Entity Reference |
 | Content Entity Reference Source | Entity Reference: Main Offices | entity_reference_7 | Entity Reference |
+| Content Entity Reference Source | Entity Reference: Systems | entity_reference_6 | Entity Reference |
 | Content release logs | Master | default | Default |
 | Content release logs | Page | page_1 | Page |
 | Content served from Drupal | Page | page_1 | Page |
@@ -171,9 +169,8 @@ Feature: Views
 | Media | Media | media_page_list | Page |
 | Media | Downloadable document browser | entity_browser_3 | Entity browser |
 | Media | Media bulk edit | page_1 | Page |
-| Media Images | Master | default | Default |
-| Media Images | Media | media_images | Page |
-| Media Images | Data export | images_export | Data export |
+| Media | Images | media_images | Page |
+| Media | Data export | images_export | Data export |
 | Media library | Master | default | Default |
 | Media library | Page | page | Page |
 | Media library | Widget | widget | Page |
@@ -182,7 +179,11 @@ Feature: Views
 | Moderated content | Moderated content | moderated_content | Page |
 | Moderation history | Master | default | Default |
 | Moderation history | Page | page | Page |
+| Non-clinical services | Admissions offices | admissions_offices | Block |
+| Non-clinical services | Billing and insurance offices | billing_and_insurance | Block |
+| Non-clinical services | Medical records offices | medical_records_offices | Block |
 | People | Data export | data_export_1 | Data export |
+| People | Data export: All users | data_export_2 | Data export |
 | People | Master | default | Default |
 | People | Page | page_1 | Page |
 | Redirect | Master | default | Default |
@@ -257,8 +258,6 @@ Feature: Views
 | Rich Text Field Audit | Default | default | Default |
 | Rich Text Field Audit | Content Audit - Rich Text Fields | content_audit_rich_text | Page |
 | Rich Text Field Audit | Data export | rich_text_audit_data_export | Data export |
-| Non-clinical services | Admissions offices | admissions_offices | Block |
-| Non-clinical services | Billing and insurance offices | billing_and_insurance | Block |
 | Non-clinical services | Default | default | Default |
 | Non-clinical services | Medical records offices | medical_records_offices | Block |
 | Table Audit | Default | default | Default |

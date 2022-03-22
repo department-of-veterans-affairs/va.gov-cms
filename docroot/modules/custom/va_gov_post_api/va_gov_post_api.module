@@ -48,11 +48,17 @@ function _post_api_add_facility_status_to_queue(EntityInterface $entity) {
  *   Entity.
  *
  * @return int
- *   The count of the number of items queued (1,0).
+ *   The count of the number of items queued.
  */
 function _post_api_add_facility_service_to_queue(EntityInterface $entity) {
   if ($entity->bundle() === 'health_care_local_health_service') {
     return Drupal::service('va_gov_post_api.queue_service_updates')->queueFacilityService($entity);
+  }
+  elseif ($entity->bundle() === 'health_care_service_taxonomy') {
+    return Drupal::service('va_gov_post_api.queue_service_updates')->queueServiceTermRelatedServices($entity);
+  }
+  elseif ($entity->bundle() === 'regional_health_care_service_des') {
+    return Drupal::service('va_gov_post_api.queue_service_updates')->queueSystemRelatedServices($entity);
   }
 
   return 0;
