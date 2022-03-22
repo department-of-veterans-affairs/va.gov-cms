@@ -480,7 +480,9 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function formWidgetAlter(WidgetSingleElementFormAlterEvent $event): void {
     $form = &$event->getElement();
+    $form_state = $event->getFormState();
     $this->removeCollapseButton($form);
+    $this->removeFieldOfficeHours($form, $form_state);
   }
 
   /**
@@ -492,6 +494,33 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public function removeCollapseButton(array &$form) {
     if (!empty($form['#paragraph_type']) && $form['#paragraph_type'] === 'button') {
       unset($form['top']['actions']['actions']['collapse_button']);
+    }
+  }
+
+  /**
+   * Remove field_office_hours on service_location paragraph widget forms.
+   *
+   * @param array $form
+   *   The form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   */
+  public function removeFieldOfficeHours(array &$form, FormStateInterface $form_state) {
+    /** @var \Drupal\node\NodeForm $form_object $form_object */
+    $form_object = $form_state->getFormObject();
+    /** @var \Drupal\node\Entity\Node $entity */
+    $entity = $form_object->getEntity();
+    if (!empty($form['#paragraph_type'])
+    && $form['#paragraph_type'] === 'service_location'
+    && !$this->userPermsService->hasAdminRole(TRUE)
+    && $entity->bundle() !== 'vha_facility_nonclinical_service') {
+      unset($form['subform']['field_office_hours']);
+    }
+    if (!empty($form['#paragraph_type'])
+    && $form['#paragraph_type'] === 'service_location'
+    && !$this->userPermsService->hasAdminRole(TRUE)
+    && $entity->bundle() === 'vha_facility_nonclinical_service') {
+      unset($form['subform']['field_facility_service_hours']);
     }
   }
 
