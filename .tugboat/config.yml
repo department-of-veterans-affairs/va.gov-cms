@@ -153,6 +153,7 @@ services:
         - j2 "${TUGBOAT_ROOT}/.web/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.web/403-error-document.html"
         - composer install
         - composer va:theme:compile
+        - composer va:ds:storybook
         - composer va:web:install
         - drush deploy
 
