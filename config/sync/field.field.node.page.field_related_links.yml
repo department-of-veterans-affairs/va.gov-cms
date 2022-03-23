@@ -21,21 +21,18 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
-    negate: 0
     target_bundles:
       list_of_link_teasers: list_of_link_teasers
+    negate: 0
     target_bundles_drag_drop:
-      list_of_link_teasers:
-        enabled: true
-        weight: -27
+      address:
+        weight: -24
+        enabled: false
       alert:
         weight: -26
         enabled: false
       collapsible_panel:
         weight: -25
-        enabled: false
-      address:
-        weight: -24
         enabled: false
       collapsible_panel_item:
         weight: -23
@@ -46,8 +43,11 @@ settings:
       link_teaser:
         weight: -21
         enabled: false
-      starred_horizontal_rule:
-        weight: -20
+      list_of_link_teasers:
+        weight: -27
+        enabled: true
+      number_callout:
+        weight: 23
         enabled: false
       process:
         weight: -19
@@ -55,19 +55,19 @@ settings:
       q_a:
         weight: -18
         enabled: false
-      wysiwyg:
-        weight: -17
-        enabled: false
       q_a_section:
         weight: -16
         enabled: false
       react_widget:
         weight: -15
         enabled: false
-      number_callout:
-        weight: 23
-        enabled: false
       spanish_translation_summary:
         weight: 28
+        enabled: false
+      starred_horizontal_rule:
+        weight: -20
+        enabled: false
+      wysiwyg:
+        weight: -17
         enabled: false
 field_type: entity_reference_revisions

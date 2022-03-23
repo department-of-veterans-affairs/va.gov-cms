@@ -5,7 +5,6 @@
  * Contains va_gov_help_center.module.
  */
 
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
@@ -63,49 +62,6 @@ function va_gov_help_center_page_attachments(array &$attachments) {
   if (_va_gov_help_center_should_attach_widget($route_name, $route_parameters)) {
     $attachments['#attached']['library'][] = 'va_gov_help_center/helpdesk-widget';
   }
-}
-
-/**
- * Implements hook_form_FORMID_alter().
- */
-function va_gov_help_center_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  $form['#suffix'] = _va_gov_help_center_build_get_help_button();
-}
-
-/**
- * Builds the get help button for user login form.
- *
- * @return null|string
- *   Either the html link to the Knowledge Base or null.
- */
-function _va_gov_help_center_build_get_help_button() {
-  // Login form is on all pages in sidebar for anon, so need to target route.
-  $route = \Drupal::service('current_route_match')->getRouteName();
-  if ($route !== 'user.login') {
-    return NULL;
-  }
-  $url_object = Url::fromRoute('entity.node.canonical', ['node' => CMS_HELP_CENTER_HOMEPAGE_NID]);
-  $link = [
-    '#type' => 'link',
-    '#url' => $url_object,
-    '#title' => t('Get help'),
-    '#attributes' => [
-      'class' => [
-        'button',
-        'button--primary',
-      ],
-      'id' => [
-        'get-help-button',
-      ],
-      'hreflang' => [
-        'en',
-      ],
-      'lang' => [
-        'en',
-      ],
-    ],
-  ];
-  return \Drupal::service('renderer')->render($link);
 }
 
 /**

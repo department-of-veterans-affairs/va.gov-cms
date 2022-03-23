@@ -2,7 +2,15 @@ uuid: bbd2be72-5d09-4e7d-94c8-ddecbcc1f481
 langcode: en
 status: true
 dependencies:
+  config:
+    - node.type.landing_page
+    - node.type.page
+    - node.type.support_service
   module:
+    - block_content_permissions
+    - file
+    - node
+    - node_link_report
     - va_gov_backend
 third_party_settings:
   va_gov_backend:

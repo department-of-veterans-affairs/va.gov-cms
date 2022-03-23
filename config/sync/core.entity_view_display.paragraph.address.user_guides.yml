@@ -11,19 +11,19 @@ dependencies:
     - layout_builder
 third_party_settings:
   layout_builder:
-    allow_custom: false
     enabled: false
+    allow_custom: false
 id: paragraph.address.user_guides
 targetEntityType: paragraph
 bundle: address
 mode: user_guides
 content:
   field_address:
-    weight: 0
+    type: address_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: address_default
+    weight: 0
     region: content
 hidden:
   search_api_excerpt: true

@@ -6,12 +6,17 @@ dependencies:
     - field.storage.node.field_vamc_ehr_system
     - node.type.health_care_region_page
   module:
+    - epp
     - options
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 1
 id: node.health_care_region_page.field_vamc_ehr_system
 field_name: field_vamc_ehr_system
 entity_type: node
 bundle: health_care_region_page
-label: 'Electronic Health Records system'
+label: 'Electronic health records system'
 description: ''
 required: false
 translatable: false

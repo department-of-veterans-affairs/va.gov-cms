@@ -28,10 +28,11 @@ third_party_settings:
         - field_fieldset_markup
         - field_cc_intro_text
         - field_cc_top_of_page_content
+      label: 'National top of page content'
       parent_name: ''
+      region: content
       weight: 1
       format_type: tooltip
-      region: content
       format_settings:
         show_label: '0'
         tooltip_description: 'Why can’t I edit this? VHA keeps this content standardized so that all VA medical centers have consistent messaging.'
@@ -41,14 +42,14 @@ third_party_settings:
         element: div
         label_element: h3
         attributes: ''
-      label: 'National top of page content'
     group_national_visitation:
       children:
         - field_cc_gen_visitation_policy
+      label: 'National general visitation policy'
       parent_name: ''
+      region: content
       weight: 3
       format_type: tooltip
-      region: content
       format_settings:
         show_label: '0'
         tooltip_description: 'Why can’t I edit this? VHA keeps this content standardized so that all VA medical centers have consistent messaging.'
@@ -58,14 +59,14 @@ third_party_settings:
         element: div
         label_element: h3
         attributes: ''
-      label: 'National general visitation policy'
     group_national_bottom:
       children:
         - field_cc_bottom_of_page_content
+      label: 'National bottom of page content'
       parent_name: ''
+      region: content
       weight: 5
       format_type: tooltip
-      region: content
       format_settings:
         show_label: '0'
         tooltip_description: 'Why can’t I edit this? VHA keeps this content standardized so that all VA medical centers have consistent messaging.'
@@ -75,81 +76,80 @@ third_party_settings:
         element: div
         label_element: h3
         attributes: ''
-      label: 'National bottom of page content'
 id: node.vamc_system_policies_page.default
 targetEntityType: node
 bundle: vamc_system_policies_page
 mode: default
 content:
   field_cc_bottom_of_page_content:
-    weight: 6
+    type: entity_field_fetch
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: entity_field_fetch
+    weight: 6
     region: content
   field_cc_gen_visitation_policy:
-    weight: 3
+    type: entity_field_fetch
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: entity_field_fetch
+    weight: 3
     region: content
   field_cc_intro_text:
-    weight: 9
+    type: entity_field_fetch
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: entity_field_fetch
+    weight: 9
     region: content
   field_cc_top_of_page_content:
-    weight: 10
+    type: entity_field_fetch
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: entity_field_fetch
+    weight: 10
     region: content
   field_enforce_unique_combo:
-    weight: 11
+    type: allow_only_one
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: allow_only_one
+    weight: 11
     region: content
   field_fieldset_markup:
-    weight: 8
+    type: markup
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: markup
+    weight: 8
     region: content
   field_office:
-    weight: 0
+    type: entity_reference_label
     label: above
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 0
     region: content
   field_vamc_other_policies:
-    weight: 4
+    type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 4
     region: content
   field_vamc_visitation_policy:
-    weight: 2
+    type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 2
     region: content
   links:
-    weight: 6
-    region: content
     settings: {  }
     third_party_settings: {  }
+    weight: 6
+    region: content
 hidden:
   content_moderation_control: true
   field_administration: true

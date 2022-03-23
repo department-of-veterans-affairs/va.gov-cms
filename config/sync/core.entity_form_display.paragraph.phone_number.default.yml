@@ -16,41 +16,41 @@ bundle: phone_number
 mode: default
 content:
   field_phone_extension:
+    type: string_textfield
     weight: 2
+    region: content
     settings:
       size: 10
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_phone_label:
+    type: string_textfield_with_counter
     weight: 3
+    region: content
     settings:
       size: 60
       placeholder: ''
+      use_field_maxlength: false
       maxlength: 100
       counter_position: after
       js_prevent_submit: true
       count_html_characters: true
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining.'
-      use_field_maxlength: false
     third_party_settings: {  }
-    type: string_textfield_with_counter
-    region: content
   field_phone_number:
+    type: string_textfield
     weight: 1
+    region: content
     settings:
       size: 25
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_phone_number_type:
+    type: options_select
     weight: 0
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
 hidden:
   created: true
   status: true

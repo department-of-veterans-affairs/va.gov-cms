@@ -24,10 +24,9 @@ class SideNavMenus extends FieldPluginBase {
    * {@inheritdoc}
    */
   public function resolveValues($value, array $args, ResolveContext $context, ResolveInfo $info) {
-    $menus_array = menu_ui_get_menus(FALSE);
-    $systems_menus = [];
+    $menus = va_gov_graphql_get_menus();
     // Returns an array of drupal menu machine names.
-    foreach ($menus_array as $key => $value) {
+    foreach ($menus as $key => $value) {
       // Pittsburgh health care was added before we had an established
       // "va-" prefixed menu name pattern, so it's an outlier.
       if (strpos($key, 'va') !== FALSE || strpos($key, 'pittsburgh-health-care') !== FALSE) {

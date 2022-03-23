@@ -17,31 +17,31 @@ mode: default
 content:
   field_datetime_range_timezone:
     type: smartdate_default
-    weight: 0
-    region: content
     label: inline
     settings:
+      timezone_override: ''
+      format_type: medium
       format: default
       force_chronological: false
-      format_type: medium
-      timezone_override: ''
     third_party_settings: {  }
+    weight: 0
+    region: content
   field_send_email_to_subscribers:
-    weight: 1
+    type: boolean
     label: inline
     settings:
       format: yes-no
-      format_custom_true: ''
       format_custom_false: ''
+      format_custom_true: ''
     third_party_settings: {  }
-    type: boolean
+    weight: 1
     region: content
   field_wysiwyg:
-    weight: 2
+    type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 2
     region: content
 hidden:
   search_api_excerpt: true

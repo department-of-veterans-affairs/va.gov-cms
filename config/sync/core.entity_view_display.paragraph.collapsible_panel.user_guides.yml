@@ -14,21 +14,21 @@ dependencies:
     - layout_builder
 third_party_settings:
   layout_builder:
-    allow_custom: false
     enabled: false
+    allow_custom: false
 id: paragraph.collapsible_panel.user_guides
 targetEntityType: paragraph
 bundle: collapsible_panel
 mode: user_guides
 content:
   field_va_paragraphs:
-    weight: 0
+    type: entity_reference_revisions_entity_view
     label: hidden
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    type: entity_reference_revisions_entity_view
+    weight: 0
     region: content
 hidden:
   field_collapsible_panel_bordered: true

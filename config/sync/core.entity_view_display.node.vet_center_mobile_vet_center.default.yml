@@ -25,26 +25,27 @@ third_party_settings:
     group_locations_and_contact_info:
       children:
         - group_facility_data_from_vast
+      label: 'Location and contact information'
       parent_name: ''
+      region: content
       weight: 1
       format_type: fieldset
-      region: content
       format_settings:
-        description: ''
-        id: ''
         classes: ''
         show_empty_fields: false
-      label: 'Location and contact information'
+        id: ''
+        description: ''
     group_facility_data_from_vast:
       children:
         - field_facility_locator_api_id
         - field_address
         - field_phone_number
         - field_office_hours
+      label: 'Facility data'
       parent_name: group_locations_and_contact_info
+      region: content
       weight: 12
       format_type: tooltip
-      region: content
       format_settings:
         show_empty_fields: 0
         id: external-content
@@ -57,52 +58,52 @@ third_party_settings:
         tooltip_description: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
         open: false
         required_fields: false
-      label: 'Facility data'
 id: node.vet_center_mobile_vet_center.default
 targetEntityType: node
 bundle: vet_center_mobile_vet_center
 mode: default
 content:
   field_address:
-    weight: 3
+    type: address_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: address_default
+    weight: 3
     region: content
   field_facility_locator_api_id:
-    weight: 2
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 2
     region: content
   field_media:
-    weight: 2
+    type: media_thumbnail
     label: above
     settings:
-      image_style: 3_2_medium_thumbnail
       image_link: ''
+      image_style: 3_2_medium_thumbnail
     third_party_settings: {  }
-    type: media_thumbnail
+    weight: 2
     region: content
   field_office:
-    weight: 0
+    type: entity_reference_label
     label: above
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 0
     region: content
   field_office_hours:
-    weight: 5
+    type: office_hours
     label: above
     settings:
-      show_closed: all
-      office_hours_first_day: ''
       day_format: short
       time_format: g
+      compress: false
+      grouped: false
+      show_closed: all
       closed_format: ''
       separator:
         days: '<br />'
@@ -114,21 +115,20 @@ content:
         position: ''
         open_text: 'Currently open!'
         closed_text: 'Currently closed'
-      compress: false
-      grouped: false
+      timezone_field: ''
+      office_hours_first_day: ''
       schema:
         enabled: false
-      timezone_field: ''
     third_party_settings: {  }
-    type: office_hours
+    weight: 5
     region: content
   field_phone_number:
-    weight: 4
+    type: telephone_link
     label: above
     settings:
       title: ''
     third_party_settings: {  }
-    type: telephone_link
+    weight: 4
     region: content
 hidden:
   content_moderation_control: true

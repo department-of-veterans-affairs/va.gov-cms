@@ -36,19 +36,19 @@ content:
       override_labels: true
       label_singular: 'Local clinic/hospital service availability and description'
       label_plural: 'Local clinic/hospital service availability and descriptions'
-      collapsible: true
       allow_new: true
+      allow_existing: false
       match_operator: CONTAINS
       allow_duplicate: true
+      collapsible: true
       collapsed: false
-      allow_existing: false
     third_party_settings: {  }
   field_service_name_and_descripti:
+    type: options_select
     weight: 0
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
 hidden:
   created: true
   field_administration: true

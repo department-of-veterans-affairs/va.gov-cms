@@ -16,7 +16,9 @@ bundle: collapsible_panel_item
 mode: default
 content:
   field_title:
+    type: string_textfield_with_counter
     weight: 1
+    region: content
     settings:
       size: 60
       placeholder: ''
@@ -27,28 +29,28 @@ content:
       count_html_characters: true
       textcount_status_message: 'Maxlength: <span class="maxlength_count">@maxlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
-    type: string_textfield_with_counter
-    region: content
   field_va_paragraphs:
+    type: paragraphs
     weight: 3
+    region: content
     settings:
       title: Block
       title_plural: Blocks
       edit_mode: closed
-      add_mode: button
-      form_display_mode: default
-      default_paragraph_type: _none
       closed_mode: summary
       autocollapse: none
       closed_mode_threshold: 0
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
       features:
         collapse_edit_all: collapse_edit_all
         duplicate: duplicate
     third_party_settings: {  }
-    type: paragraphs
-    region: content
   field_wysiwyg:
+    type: text_textarea_with_counter
     weight: 2
+    region: content
     settings:
       rows: 5
       placeholder: ''
@@ -58,8 +60,6 @@ content:
       count_html_characters: true
       textcount_status_message: 'Maxlength: <span class="maxlength_count">@maxlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
-    type: text_textarea_with_counter
-    region: content
 hidden:
   created: true
   status: true

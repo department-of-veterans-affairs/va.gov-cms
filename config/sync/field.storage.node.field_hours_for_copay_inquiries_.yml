@@ -10,16 +10,16 @@ field_name: field_hours_for_copay_inquiries_
 entity_type: node
 type: office_hours
 settings:
-  cardinality_per_day: 1
   time_format: G
   element_type: office_hours_datelist
   increment: 30
+  required_start: false
+  limit_start: ''
+  required_end: false
+  limit_end: ''
   comment: 0
   valhrs: false
-  required_start: false
-  required_end: false
-  limit_start: ''
-  limit_end: ''
+  cardinality_per_day: 1
 module: office_hours
 locked: false
 cardinality: -1

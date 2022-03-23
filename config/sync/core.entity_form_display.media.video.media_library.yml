@@ -23,16 +23,16 @@ third_party_settings:
       children:
         - field_owner
         - field_media_in_library
+      label: 'Section settings'
+      region: content
       parent_name: ''
       weight: 4
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: true
-      label: 'Section settings'
-      region: content
 _core:
   default_config_hash: OUea_b_jf81XjPvIY9J8KrRUckqz2APuLv4bkxYfdT4
 id: media.video.media_library
@@ -48,23 +48,23 @@ content:
       display_label: true
     third_party_settings: {  }
   field_media_submission_guideline:
+    type: markup
     weight: 0
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: markup
-    region: content
   field_media_video_embed_field:
     type: video_embed_field_textfield
     weight: 3
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
   field_owner:
+    type: options_select
     weight: 4
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   field_publication_date:
     type: datetime_default
     weight: 2
@@ -74,11 +74,11 @@ content:
   name:
     type: string_textfield
     weight: 1
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    region: content
 hidden:
   created: true
   field_description: true

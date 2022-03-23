@@ -21,16 +21,16 @@ third_party_settings:
       children:
         - field_button_format
         - field_default_link
+      label: 'Default Content'
+      region: content
       parent_name: ''
       weight: 5
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: false
-      label: 'Default Content'
-      region: content
 id: paragraph.react_widget.default
 targetEntityType: paragraph
 bundle: react_widget
@@ -44,12 +44,12 @@ content:
       display_label: true
     third_party_settings: {  }
   field_cta_widget:
+    type: boolean_checkbox
     weight: 0
+    region: content
     settings:
       display_label: true
     third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
   field_default_link:
     type: link_default
     weight: 0
@@ -82,13 +82,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_widget_type:
+    type: string_textfield
     weight: 1
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
 hidden:
   created: true
   status: true

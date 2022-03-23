@@ -29,43 +29,44 @@ third_party_settings:
         - field_enforce_unique_combo
         - field_office
         - field_administration
+      label: 'Section settings'
+      region: content
       parent_name: ''
       weight: 5
       format_type: details_sidebar
-      region: content
       format_settings:
-        description: ''
-        open: true
-        weight: 10
-        required_fields: true
-        id: ''
         classes: ''
-      label: 'Section settings'
+        id: ''
+        open: true
+        description: ''
+        required_fields: true
+        weight: 10
     group_editorial_workflow:
       children:
         - status
         - moderation_state
         - revision_log
+      label: 'Editorial workflow'
+      region: content
       parent_name: ''
       weight: 6
       format_type: fieldset
-      region: content
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: true
-      label: 'Editorial workflow'
     group_policies:
       children:
         - field_fieldset_markup
         - title
         - field_cc_intro_text
         - field_cc_top_of_page_content
+      label: 'National top of page content'
+      region: content
       parent_name: ''
       weight: 0
       format_type: tooltip
-      region: content
       format_settings:
         show_label: '0'
         tooltip_description: 'Why can’t I edit this? VHA keeps this content standardized so that all VA medical centers have consistent messaging.'
@@ -76,14 +77,14 @@ third_party_settings:
         label_element: h3
         required_fields: 0
         attributes: ''
-      label: 'National top of page content'
     group_visitation_policies:
       children:
         - field_cc_gen_visitation_policy
+      label: 'National general visitation policy'
+      region: content
       parent_name: ''
       weight: 2
       format_type: tooltip
-      region: content
       format_settings:
         show_label: '0'
         tooltip_description: 'Why can’t I edit this? VHA keeps this content standardized so that all VA medical centers have consistent messaging.'
@@ -94,14 +95,14 @@ third_party_settings:
         label_element: h3
         required_fields: 0
         attributes: ''
-      label: 'National general visitation policy'
     group_centralized_bottom:
       children:
         - field_cc_bottom_of_page_content
+      label: 'National bottom of page content'
+      region: content
       parent_name: ''
       weight: 4
       format_type: tooltip
-      region: content
       format_settings:
         show_label: '0'
         tooltip_description: 'Why can’t I edit this? VHA keeps this content standardized so that all VA medical centers have consistent messaging.'
@@ -112,94 +113,93 @@ third_party_settings:
         label_element: h3
         required_fields: 0
         attributes: ''
-      label: 'National bottom of page content'
 id: node.vamc_system_policies_page.default
 targetEntityType: node
 bundle: vamc_system_policies_page
 mode: default
 content:
   field_administration:
+    type: options_select
     weight: 32
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   field_cc_bottom_of_page_content:
+    type: entity_field_fetch_widget
     weight: 5
+    region: content
     settings:
       show_link_to_source: '1'
       show_source_updated_date: '1'
       show_field_label: 0
     third_party_settings: {  }
-    type: entity_field_fetch_widget
-    region: content
   field_cc_gen_visitation_policy:
+    type: entity_field_fetch_widget
     weight: 3
+    region: content
     settings:
       show_link_to_source: '1'
       show_source_updated_date: '1'
       show_field_label: 0
     third_party_settings: {  }
-    type: entity_field_fetch_widget
-    region: content
   field_cc_intro_text:
+    type: entity_field_fetch_widget
     weight: 28
+    region: content
     settings:
       show_field_label: 0
       show_link_to_source: 0
       show_source_updated_date: 0
     third_party_settings: {  }
-    type: entity_field_fetch_widget
-    region: content
   field_cc_top_of_page_content:
+    type: entity_field_fetch_widget
     weight: 29
+    region: content
     settings:
       show_link_to_source: '1'
       show_source_updated_date: '1'
       show_field_label: 0
     third_party_settings: {  }
-    type: entity_field_fetch_widget
-    region: content
   field_enforce_unique_combo:
+    type: allow_only_one_widget
     weight: 30
+    region: content
     settings:
       size: 1
     third_party_settings: {  }
-    type: allow_only_one_widget
-    region: content
   field_fieldset_markup:
-    weight: 26
-    settings: {  }
-    third_party_settings: {  }
     type: markup
+    weight: 26
     region: content
-  field_office:
-    weight: 31
     settings: {  }
     third_party_settings: {  }
+  field_office:
     type: options_select
+    weight: 31
     region: content
+    settings: {  }
+    third_party_settings: {  }
   field_vamc_other_policies:
+    type: text_textarea
     weight: 3
+    region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-    type: text_textarea
-    region: content
   field_vamc_visitation_policy:
+    type: text_textarea
     weight: 1
+    region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-    type: text_textarea
-    region: content
   moderation_state:
     type: moderation_state_default
     weight: 1
-    settings: {  }
     region: content
+    settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox

@@ -1,0 +1,102 @@
+uuid: a2a9db75-73ad-44ff-85fc-fe7284ec91d7
+langcode: en
+status: true
+dependencies: {  }
+id: office
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags: null
+migration_group: office
+label: 'Node - Office'
+source:
+  plugin: csv
+  path: modules/custom/va_gov_migrate/data/office-salesforce.csv
+  delimiter: ','
+  enclosure: '"'
+  header_offset: 0
+  track_changes: true
+  cache_counts: true
+  ids:
+    - field_office_id
+  constants:
+    cmsmigrator_id: 1317
+  fields:
+    -
+      name: title
+      label: 'Account Name'
+    -
+      name: field_office_id
+      label: 'Account ID'
+    -
+      name: parent_office_name
+      label: 'Parent Account'
+    -
+      name: parent_office_id
+      label: 'Parent Account ID'
+process:
+  type:
+    plugin: default_value
+    default_value: office
+  title: title
+  field_office_id: field_office_id
+  field_parent_office:
+    -
+      plugin: entity_lookup
+      source: parent_office_id
+      entity_type: node
+      value_key: field_office_id
+      bundle: office
+      bundle_key: type
+  status:
+    plugin: default_value
+    default_value: 0
+  sticky:
+    plugin: default_value
+    default_value: 0
+  path/pathauto:
+    plugin: default_value
+    default_value: 1
+  moderation_state:
+    plugin: default_value
+    default_value: draft
+  changed:
+    plugin: callback
+    callable: va_gov_migrate_time
+  langcode:
+    plugin: default_value
+    default_value: en
+  new_revision:
+    plugin: default_value
+    default_value: true
+  revision_default:
+    plugin: default_value
+    default_value: true
+  revision_log:
+    plugin: default_value
+    default_value: 'Update of data by migration.'
+  revision_timestamp:
+    plugin: callback
+    callable: va_gov_migrate_time
+  revision_uid:
+    plugin: default_value
+    default_value: constants/cmsmigrator_id
+  uid:
+    plugin: default_value
+    default_value: constants/cmsmigrator_id
+destination:
+  plugin: 'entity:node'
+  default_bundle: office
+  validate: false
+  overwrite_properties:
+    - title
+    - field_office_id
+    - field_parent_office
+    - changed
+    - new_revision
+    - revision_default
+    - revision_log
+    - revision_timestamp
+    - revision_uid
+    - uid
+migration_dependencies: null

@@ -16,8 +16,8 @@
     "stylelint-themes": "npx stylelint 'docroot/themes/custom/**/*.scss'",
     "stylelint": "npx stylelint",
     "test:accessibility": "cd tests/accessibility && cypress run",
-    "test:behavioral": "cd tests/behavioral && cypress run -e \"TAGS=not @ignore\"",
-    "test:interactive": "cd tests/behavioral && cypress open -e \"TAGS=not @ignore,VAGOV_INTERACTIVE=true\""
+    "test:behavioral": "cd tests/behavioral && cypress run -e \"TAGS=$CYPRESS_TAGS\"",
+    "test:interactive": "cd tests/behavioral && cypress open -e \"TAGS=$CYPRESS_TAGS,VAGOV_INTERACTIVE=true\""
   },
   "repository": {
     "type": "git",
@@ -34,7 +34,7 @@
     "@testing-library/cypress": "^8.0.2",
     "axe-core": "^4.4.1",
     "axe-reports": "^1.1.11",
-    "cypress": "^8.5.0",
+    "cypress": "~8.3.0",
     "cypress-axe": "^0.14.0",
     "cypress-cucumber-preprocessor": "^4.3.1",
     "cypress-real-events": "^1.6.0",
