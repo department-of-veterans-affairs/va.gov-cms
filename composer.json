@@ -626,8 +626,7 @@
             "yarn -v",
             "./scripts/composer/check_yarn_version.sh",
             "cd web && yarn run install-repos",
-            "export NODE_EXTRA_CA_CERTS=/etc/pki/tls/certs/ca-bundle.crt PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=TRUE; cd web && yarn install",
-            "@va:ds:storybook"
+            "export NODE_EXTRA_CA_CERTS=/etc/pki/tls/certs/ca-bundle.crt PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=TRUE; cd web && yarn install"
         ],
         "va:web:server": [
             "cd web && yarn build"
