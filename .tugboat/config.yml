@@ -47,7 +47,10 @@ services:
         - php $(curl -w "%{filename_effective}" -LO $(curl -s https://api.github.com/repos/DataDog/dd-trace-php/releases | grep browser_download_url | grep 'setup[.]php' | head -n 1 | cut -d '"' -f 4)) --enable-profiling --php-bin=php
 
         # Setup web-*. vhost to serve static website.
-        - cp "${TUGBOAT_ROOT}"/.tugboat/web-vhost.conf /etc/apache2/sites-enabled/
+        - cp "${TUGBOAT_ROOT}"/.tugboat/vhost-web.conf /etc/apache2/sites-enabled/
+
+        # Setup storybook-*. vhost to serve static website.
+        - cp "${TUGBOAT_ROOT}"/.tugboat/vhost-storybook.conf /etc/apache2/sites-enabled/
 
         # Configure KeepAliveTimeout in apache2.conf. This is set 5 seconds longer than the internal tools ALB.
         # The internal tools ALB idle timeout is set to longer than a typical GQL query takes.
