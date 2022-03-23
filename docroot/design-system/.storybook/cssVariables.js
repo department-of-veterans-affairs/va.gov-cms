@@ -13,7 +13,7 @@ fs.readFile(path.resolve(__dirname,'../components/tokens/_variables.css'), (err,
   postcss({
     plugins: [
       postcssCustomProperties({
-        exportTo: './dist/cssVariables.json'
+        exportTo: './.storybook/cssVariables.json'
       })
     ]
   }).process(css, {
