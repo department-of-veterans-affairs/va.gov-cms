@@ -559,10 +559,10 @@
             "cd docroot/themes/custom/vagovclaro && yarn watch"
         ],
         "va:ds:storybook": [
-            "cd docroot/design-system && yarn build:storybook"
+            "cd docroot/design-system && yarn install && yarn build:storybook"
         ],
         "va:ds:drupal": [
-            "cd docroot/design-system && yarn build:drupal"
+            "cd docroot/design-system && yarn install && yarn build:drupal"
         ],
         "va:config:export": [
             "drupal config:export --ansi"
