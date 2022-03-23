@@ -1,8 +1,5 @@
 <!-- This is a Jinja2 template without a *.j2 extension because it isn't testable in a browser with *.j2. -->
-<!-- TODO: This won't currently work in Lando, only Tugboat. Fix that. -->
-
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <title>Storybook not built yet</title>
@@ -44,11 +41,8 @@
   <img class="hero" src="/.web/artur-pokusin-unsplash.jpg">
   <h1>Storybook not built yet</h1>
   <div class="container-info">
-    <p>
-      <!--  e.g. https://cms-blvsbmka3vjaqawukqdm5c6cdcxborfp.ci.cms.va.gov/admin/content/deploy  -->
-      <a href="{{ TUGBOAT_DEFAULT_SERVICE_URL_PROTOCOL }}://cms-{{ TUGBOAT_TOKEN }}.{{ TUGBOAT_DEFAULT_SERVICE_CONFIG_DOMAIN }}/admin/content/deploy/">Check the status of your build</a> to learn more.
-    </p>
-    <p>Still having trouble? <a href="https://va-gov.atlassian.net/servicedesk/customer/portal/3/group/8/create/26">Contact the CMS Help Desk</a> for further assistance.</p>
+    <p>Storybook not built yet</p>
+    <p>Check the status of the <code>composer va:ds:storybook</code> command in the logs to learn more.</p>
   </div>
   <footer>Photo by <a href="https://unsplash.com/@arturpokusin?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Artur Pokusin</a> on <a href="https://unsplash.com/s/photos/void?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a>
   </footer>
