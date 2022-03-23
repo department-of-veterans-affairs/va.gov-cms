@@ -482,7 +482,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $form = &$event->getElement();
     $form_state = $event->getFormState();
     $this->removeCollapseButton($form);
-    $this->removeFieldOfficeHours($form, $form_state);
+    $this->toggleFieldOfficeHours($form, $form_state);
   }
 
   /**
@@ -498,29 +498,32 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Remove field_office_hours on service_location paragraph widget forms.
+   * SHow or hide field_office_hours on service_location paragraph widget forms.
    *
    * @param array $form
    *   The form.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form state.
    */
-  public function removeFieldOfficeHours(array &$form, FormStateInterface $form_state) {
+  public function toggleFieldOfficeHours(array &$form, FormStateInterface $form_state) {
     /** @var \Drupal\node\NodeForm $form_object $form_object */
     $form_object = $form_state->getFormObject();
     /** @var \Drupal\node\Entity\Node $entity */
     $entity = $form_object->getEntity();
+    // The new use of field_office_hours on service location paragraphs should
+    // be visible to admins only except on non-clinical service pages, where
+    // it should be the only hours field used.
     if (!empty($form['#paragraph_type'])
     && $form['#paragraph_type'] === 'service_location'
-    && !$this->userPermsService->hasAdminRole(TRUE)
-    && $entity->bundle() !== 'vha_facility_nonclinical_service') {
-      unset($form['subform']['field_office_hours']);
-    }
-    if (!empty($form['#paragraph_type'])
-    && $form['#paragraph_type'] === 'service_location'
-    && !$this->userPermsService->hasAdminRole(TRUE)
-    && $entity->bundle() === 'vha_facility_nonclinical_service') {
-      unset($form['subform']['field_facility_service_hours']);
+    && !$this->userPermsService->hasAdminRole(TRUE)) {
+      if ($entity->bundle() === 'vha_facility_nonclinical_service') {
+        // We are on the new version, remove the old version of the field.
+        unset($form['subform']['field_facility_service_hours']);
+      }
+      else {
+        // We are not using the new version yet, so remove it.
+        unset($form['subform']['field_office_hours']);
+      }
     }
   }
 
