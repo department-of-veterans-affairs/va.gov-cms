@@ -1048,28 +1048,135 @@ display:
     display_plugin: page
     position: 13
     display_options:
-      title: 'Accordion audit'
+      title: 'VAMC facility "Prepare for your visit"'
       fields:
-        title:
-          id: title
-          table: node_field_data
-          field: title
-          entity_type: node
-          entity_field: title
+        field_title:
+          id: field_title
+          table: paragraph__field_title
+          field: field_title
+          relationship: field_location_services
+          group_type: group
+          admin_label: ''
           plugin_id: field
-          label: Title
+          label: 'Accordion Header'
           exclude: false
           alter:
             alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
           element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
           element_default_classes: true
           empty: ''
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: title
+          plugin_id: field
+          label: 'Facility Title'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
           type: string
           settings:
             link_to_entity: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         operations:
           id: operations
           table: node
@@ -1380,68 +1487,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_title:
-          id: field_title
-          table: paragraph__field_title
-          field: field_title
-          relationship: field_location_services
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: 'Accordion Header'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings: {  }
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
       filters:
         type:
           id: type
@@ -1510,7 +1555,7 @@ display:
           exposed: true
           expose:
             operator_id: field_title_value_op
-            label: 'Accordion label contains'
+            label: 'Accordion header contains'
             description: ''
             use_operator: false
             operator: field_title_value_op
@@ -1740,10 +1785,10 @@ display:
           empty: false
           content: 'Displaying @start - @end of @total'
       display_extenders: {  }
-      path: admin/content/facilities/accordion-audit
+      path: admin/content/facilities/vamc-prepare-for-visit
       menu:
         type: tab
-        title: 'Accordion Audit'
+        title: 'VAMC facility "Prepare for your visit"'
         description: ''
         weight: 0
         expanded: false
@@ -1751,7 +1796,7 @@ display:
         parent: ''
         context: '0'
         as_local_task: true
-        local_task_link_title: 'Accordion Audit'
+        local_task_link_title: 'VAMC facility "Prepare for your visit"'
         local_task_parent: 'views_view:view.facility_services.content_audit_facilities'
         local_task_weight: 10
         local_task_custom_parent_route: ''
@@ -1775,7 +1820,7 @@ display:
     display_plugin: data_export
     position: 13
     display_options:
-      title: 'Accordion audit export'
+      title: 'VAMC facility "Prepare for your visit" export'
       fields:
         title:
           id: title
@@ -2481,7 +2526,7 @@ display:
           empty: false
           content: 'Displaying @start - @end of @total'
       display_extenders: {  }
-      path: admin/content/facilities/accordion-audit/export
+      path: admin/content/facilities/vamc-prepare-for-visit/export
       displays:
         accordion_audit: accordion_audit
         default: '0'
@@ -2492,7 +2537,7 @@ display:
         vamc_system_service_audit_page: '0'
         vamc_systems: '0'
         vet_center_services_page: '0'
-      filename: accordion-audit.csv
+      filename: vamc-prepare-for-visit-audit.csv
       automatic_download: false
       export_method: batch
       export_batch_size: 1000

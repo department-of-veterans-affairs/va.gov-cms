@@ -265,5 +265,5 @@ Feature: Views
 | PDF Audit | Default | default | Default |
 | PDF Audit | PDF Audit | pdf_audit | Page |
 | PDF Audit | Data export | pdf_audit_export | Data export |
-| Facility Services | Accordion audit | accordion_audit | Page |
-| Facility Services | Accordion audit export | accordion_audit_export | Data export |
+| Facility Services | VAMC facility "Prepare for your visit" | accordion_audit | Page |
+| Facility Services | VAMC facility "Prepare for your visit" export | accordion_audit_export | Data export |
