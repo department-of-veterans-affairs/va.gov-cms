@@ -97,3 +97,15 @@
     margin-top: 0;
   }
 }
+
+//fixes export button
+.csv-feed .feed-icon {
+  @include va-buttons;
+  background-color: var(--va-blue-med);
+  background-image: none;
+  text-indent: unset;
+  
+  &:hover {
+    background-color: var(--va-blue-darker);
+  }
+}
