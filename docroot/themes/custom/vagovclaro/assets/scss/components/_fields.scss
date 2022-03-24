@@ -102,9 +102,15 @@
   }
 }
 
+// Hide old office hours field on node view
+.vha-facility-nonclinical-service .field--name-field-facility-service-hours {
+  display: none;
+}
+
 // Adjusting spacing on office hours fields
 #edit-field-office-hours,
-#edit-field-hours-for-copay-inquiries- {
+#edit-field-hours-for-copay-inquiries-,
+#edit-field-service-location-0-subform-field-office-hours {
   margin-bottom: 0;
 
   tr {
@@ -116,6 +122,17 @@
 
   td {
     padding: 0;
+
+    &:nth-child(4) label {
+      border: 0;
+      clip: rect(1px, 1px, 1px, 1px);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
   }
 
   table,
