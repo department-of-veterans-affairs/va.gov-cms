@@ -215,31 +215,6 @@ tasks:
           fi
         EOF
 
-  va/web/build:
-    desc: Build VA.gov Front-end
-    cmds:
-      - |
-        cat <<EOF | bash
-          : "${SKIP_REPORTING:=0}"
-          : "${RETURN_EXIT_CODE:=0}"
-          set -o pipefail
-          output="\$(mktemp -d)/output"
-          mkfifo \$output
-          (cat \$output&)
-          result="\$(./tests/scripts/build-web.sh 2>&1 | tee \$output)"
-          exit_code=\$?
-          if [ "$SKIP_REPORTING" -ne 1 ]; then
-            if [ "\$exit_code" -eq 0 ]; then
-              github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
-            else
-              github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
-            fi
-          fi
-          if [ "$RETURN_EXIT_CODE" -ne 0 ]; then
-            exit "\$exit_code";
-          fi
-        EOF
-
   set-check-status:
     cmds:
       - |
@@ -303,7 +278,6 @@ tasks:
   default:
     cmds:
       - task: set-all-tests-pending
-      - task: va/web/build
       - task: va/tests
 
   va/tests:
@@ -317,4 +291,3 @@ tasks:
       - task: va/tests/phpunit
       - task: va/tests/revision-log
       - task: va/tests/status-error
-
