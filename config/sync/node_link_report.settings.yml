@@ -58,12 +58,13 @@ user_agent: 'VA.gov CMS link checker'
 path_patterns_to_skip: |-
   /admin/*
   /block/*
-  /node/add/*
+  /media/*
+  /media/*/edit
   /node/*/edit
+  /node/add/*
   /section/*
+  /static/*
   /user/*
-  media/*
-  media/*/edit
 decoupled_frontend: 'https://www.va.gov'
 enable_reporting_inaccessible_links: 1
 accessibility_guidance_url: 'https://design.va.gov/content-style-guide/links'
