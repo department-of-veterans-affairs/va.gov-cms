@@ -35,6 +35,7 @@
         "drupal/block_content_permissions": "^1.6",
         "drupal/cer": "4.x-dev#f2ff7d6bf2a3e41757b7621a8367ede974750a84",
         "drupal/coder": "^8.3",
+        "drupal/components": "^3.0@beta",
         "drupal/config_ignore": "^2.1",
         "drupal/config_override_warn": "^1.0",
         "drupal/config_split": "^1.4",
@@ -555,11 +556,17 @@
             "cd bin && ln -sf ../docroot/libraries/yarn/bin/yarn yarn",
             "export NODE_EXTRA_CA_CERTS=/etc/pki/tls/certs/ca-bundle.crt PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=TRUE; cd docroot/core && yarn install",
             "cd docroot/core && yarn build:css",
-            "cd docroot/themes/custom/vagovadmin && yarn install && yarn build",
+            "cd docroot/design-system && yarn install && yarn build:drupal",
             "cd docroot/themes/custom/vagovclaro && yarn install && yarn build"
         ],
         "va:theme:watch": [
             "cd docroot/themes/custom/vagovclaro && yarn watch"
+        ],
+        "va:ds:storybook": [
+            "cd docroot/design-system && yarn install && yarn build:storybook"
+        ],
+        "va:ds:drupal": [
+            "cd docroot/design-system && yarn install && yarn build:drupal"
         ],
         "va:config:export": [
             "drupal config:export --ansi"
@@ -607,10 +614,10 @@
             "find docroot/modules/custom docroot/themes -name '*.install' -print0 | xargs -0 -n1 php -l > /dev/null"
         ],
         "va:test:cs": [
-            "phpcs --ignore=*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,user_guides.css,whats_new.css,*/node_modules/*,*/simplesaml*/*,graphiql.css --extensions=php,module,inc,install,profile,engine,theme,css --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom tests --colors"
+            "phpcs --ignore=*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,user_guides.css,whats_new.css,claro.css,*/node_modules/*,*/simplesaml*/*,graphiql.css --extensions=php,module,inc,install,profile,engine,theme,css --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom tests --colors"
         ],
         "va:test:unit": "phpunit tests/phpunit --colors=always --exclude-group=disabled",
-        "va:cbf": "phpcbf --ignore=*.md,*.min.css,uswds.css,*/node_modules/*,*/simplesaml*/* --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom --colors",
+        "va:cbf": "phpcbf --ignore=*.md,*.min.css,uswds.css,claro.css,*/node_modules/*,*/simplesaml*/* --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom --colors",
         "va:web:install": [
             "# Preparing Front-end...",
             "cd bin && ln -sf ../docroot/libraries/yarn/bin/yarn yarn",
