@@ -186,6 +186,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $form = &$event->getForm();
     $form_state = $event->getFormState();
     $this->lockTitleEditing($form, $form_state);
+    $this->lockApiIdEditing($form, $form_state);
   }
 
   /**
@@ -290,6 +291,25 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     ];
     if (!$this->userPermsService->hasAdminRole() && in_array($bundle, $bundles_with_standardized_titles)) {
       $form['title']['#disabled'] = TRUE;
+    }
+  }
+
+  /**
+   * Locks down API Id for non-admins.
+   *
+   * @param array $form
+   *   The form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   */
+  public function lockApiIdEditing(array &$form, FormStateInterface $form_state) {
+    $form_object = $form_state->getFormObject();
+    $bundle = NULL;
+    if ($form_object instanceof ContentEntityForm) {
+      $bundle = $form_object->getEntity()->bundle();
+    }
+    if (!$this->userPermsService->hasAdminRole(TRUE) && $bundle === 'health_care_service_taxonomy') {
+      $form['field_health_service_api_id']['#disabled'] = TRUE;
     }
   }
 
