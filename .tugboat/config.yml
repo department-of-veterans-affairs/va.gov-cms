@@ -9,6 +9,7 @@ services:
     aliases:
       - cms
       - web
+      - storybook
 
     # Set this as the default service. This does a few things
     #   1. Clones the git repository into the service container
@@ -47,7 +48,10 @@ services:
         - php $(curl -w "%{filename_effective}" -LO $(curl -s https://api.github.com/repos/DataDog/dd-trace-php/releases | grep browser_download_url | grep 'setup[.]php' | head -n 1 | cut -d '"' -f 4)) --enable-profiling --php-bin=php
 
         # Setup web-*. vhost to serve static website.
-        - cp "${TUGBOAT_ROOT}"/.tugboat/web-vhost.conf /etc/apache2/sites-enabled/
+        - cp "${TUGBOAT_ROOT}"/.tugboat/vhost-web.conf /etc/apache2/sites-enabled/
+
+        # Setup storybook-*. vhost to serve static website.
+        - cp "${TUGBOAT_ROOT}"/.tugboat/vhost-storybook.conf /etc/apache2/sites-enabled/
 
         # Configure KeepAliveTimeout in apache2.conf. This is set 5 seconds longer than the internal tools ALB.
         # The internal tools ALB idle timeout is set to longer than a typical GQL query takes.
@@ -66,7 +70,7 @@ services:
         - echo "export PATH=/var/lib/tugboat/bin:~/.local/bin:$PATH" >> ~/.bashrc
         - pip3 install j2cli
 
-        # Set Datadog agent config defaults  
+        # Set Datadog agent config defaults
         - j2 "${TUGBOAT_ROOT}/.tugboat/datadog.yaml.j2" -o "/etc/datadog-agent/datadog.yaml"
         - echo "export DD_TAGS=pr:$TUGBOAT_GITHUB_PR,branch:$TUGBOAT_GITHUB_HEAD" >> /etc/apache2/envvars
 
@@ -141,9 +145,9 @@ services:
       # and update steps, because the results of those are inherited
       # from the base preview.
       build:
-        # Currently resetting to the remote branch/PR SHA since [Task](https://github.com/go-task/task) runs tests status against this commit.
-        # Tugboat currently merges the branch into master and we don't need that because we have a GitHub branch rule
-        # setup to ensure branch is up to date.
+        # Currently, resetting to the remote branch/PR SHA since [Task](https://github.com/go-task/task) runs tests status against this commit.
+        # Tugboat currently merges the branch into master, and we don't need that because we have a GitHub branch rule
+        # setup to ensure branch is up-to-date.
         - git reset --hard $TUGBOAT_PREVIEW_SHA
 
         # This j2 command is shared in both the build & clone stages. If modifying, change the other too.
@@ -161,7 +165,6 @@ services:
         - mv "${TUGBOAT_ROOT}/scripts/queue_runner/queue_runner.sh" /etc/service/drupal_events/run
         - chmod +x /etc/service/drupal_events/run
 
-
       clone:
         # This j2 command is shared in both the build & clone stages. If modifying, change the other too.
         - j2 "${TUGBOAT_ROOT}/.tugboat/.env.j2" -o "${TUGBOAT_ROOT}/.env"
@@ -170,6 +173,9 @@ services:
         - j2 "${TUGBOAT_ROOT}/.web/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.web/403-error-document.html"
 
       online:
+        # Build the static version of storybook for displaying CMS design system
+        - composer va:ds:storybook
+
         # We only want tests running on PRs, not branches like the base preview build of master.
         # This sets the commit status checks to pending all at once.
         - if [ "$TUGBOAT_PREVIEW_TYPE" = "pullrequest" ]; then bash -lc 'task --taskfile=tests.yml'; fi
