@@ -4,10 +4,20 @@ core:
     theme:
       dist/styles.css:
         minified: true
+
+      # Library compiled from design system in docroot/design-system
+      dist/ds-drupal.styles.css:
+        minified: true
   js:
     assets/js/anchor_links.js: {}
     assets/js/tabledrag.js: {}
     assets/js/vagovclaro.theme.help.js: {}
+
+    # Library compiled from design system in docroot/design-system
+    dist/ds-drupal.js: {
+       minified: true
+    }
+
   dependencies:
     - core/drupal
     - core/jquery
