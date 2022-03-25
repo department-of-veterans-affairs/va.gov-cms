@@ -308,7 +308,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     if ($form_object instanceof ContentEntityForm) {
       $bundle = $form_object->getEntity()->bundle();
     }
-    if (!$this->userPermsService->hasAdminRole() && $bundle === 'health_care_service_taxonomy') {
+    if (!$this->userPermsService->hasAdminRole(TRUE) && $bundle === 'health_care_service_taxonomy') {
       $form['field_health_service_api_id']['#disabled'] = TRUE;
     }
   }
