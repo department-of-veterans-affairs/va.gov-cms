@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fc562cfcb418e178e1882cdd1b0a1195",
+    "content-hash": "4602b7cd8852858f5d2b1b3e0d94563a",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -4755,23 +4755,23 @@
         },
         {
             "name": "drupal/dropzonejs",
-            "version": "2.5.0",
+            "version": "2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/dropzonejs.git",
-                "reference": "8.x-2.5"
+                "reference": "8.x-2.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/dropzonejs-8.x-2.5.zip",
-                "reference": "8.x-2.5",
-                "shasum": "9918bd8c3c62599ec701be3bbac986741e735859"
+                "url": "https://ftp.drupal.org/files/projects/dropzonejs-8.x-2.6.zip",
+                "reference": "8.x-2.6",
+                "shasum": "3a14b26ade989e00bbbc9f6bbfa364fb5acb9367"
             },
             "require": {
                 "drupal/core": "^8.8 || ^9"
             },
             "require-dev": {
-                "drupal/entity_browser": "*"
+                "drupal/entity_browser": "^2.5"
             },
             "suggest": {
                 "enyo/dropzone": "Required to use drupal/dropzonejs. DropzoneJS is an open source library that provides drag’n’drop file uploads with image previews."
@@ -4779,8 +4779,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-2.5",
-                    "datestamp": "1614606376",
+                    "version": "8.x-2.6",
+                    "datestamp": "1647857808",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -6496,6 +6496,50 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/hook_event_dispatcher",
                 "issues": "https://drupal.org/project/issues/hook_event_dispatcher"
+            }
+        },
+        {
+            "name": "drupal/html_tag_usage",
+            "version": "1.0.0-beta3",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/html_tag_usage.git",
+                "reference": "1.0.0-beta3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/html_tag_usage-1.0.0-beta3.zip",
+                "reference": "1.0.0-beta3",
+                "shasum": "aef25d36cdfab3d42bbf9c70d3c416df5b26d1d8"
+            },
+            "require": {
+                "drupal/core": "^8.9 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.0-beta3",
+                    "datestamp": "1647415876",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "FeyP",
+                    "homepage": "https://www.drupal.org/user/998680"
+                }
+            ],
+            "description": "Analyzes contents of formatted text fields for HTML tags and attributes in use.",
+            "homepage": "https://www.drupal.org/project/html_tag_usage",
+            "support": {
+                "source": "https://git.drupalcode.org/project/html_tag_usage"
             }
         },
         {
@@ -12523,16 +12567,16 @@
         },
         {
             "name": "knplabs/github-api",
-            "version": "v3.5.1",
+            "version": "v3.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/php-github-api.git",
-                "reference": "37b167998e8e1f318b3d99633675cfa007540565"
+                "reference": "7f283177b96eb626e5cf6038d8771859a0af4b02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/php-github-api/zipball/37b167998e8e1f318b3d99633675cfa007540565",
-                "reference": "37b167998e8e1f318b3d99633675cfa007540565",
+                "url": "https://api.github.com/repos/KnpLabs/php-github-api/zipball/7f283177b96eb626e5cf6038d8771859a0af4b02",
+                "reference": "7f283177b96eb626e5cf6038d8771859a0af4b02",
                 "shasum": ""
             },
             "require": {
@@ -12599,7 +12643,7 @@
             ],
             "support": {
                 "issues": "https://github.com/KnpLabs/php-github-api/issues",
-                "source": "https://github.com/KnpLabs/php-github-api/tree/v3.5.1"
+                "source": "https://github.com/KnpLabs/php-github-api/tree/v3.6.0"
             },
             "funding": [
                 {
@@ -12607,7 +12651,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-02-19T11:15:46+00:00"
+            "time": "2022-03-24T09:08:32+00:00"
         },
         {
             "name": "kub-at/php-simple-html-dom-parser",
@@ -23191,16 +23235,16 @@
         },
         {
             "name": "va-gov/content-build",
-            "version": "v0.0.2932",
+            "version": "v0.0.2953",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/content-build.git",
-                "reference": "014a40c3c30ba678603c6155ac206d3420fd683e"
+                "reference": "edcd5d32fe63d7aa9b71eae491efa8f4ad952eba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/014a40c3c30ba678603c6155ac206d3420fd683e",
-                "reference": "014a40c3c30ba678603c6155ac206d3420fd683e",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/edcd5d32fe63d7aa9b71eae491efa8f4ad952eba",
+                "reference": "edcd5d32fe63d7aa9b71eae491efa8f4ad952eba",
                 "shasum": ""
             },
             "type": "node-project",
@@ -23227,9 +23271,9 @@
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/content-build, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
             "support": {
                 "issues": "https://github.com/department-of-veterans-affairs/content-build/issues",
-                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.2932"
+                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.2953"
             },
-            "time": "2022-03-22T16:53:56+00:00"
+            "time": "2022-03-24T20:21:44+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -25162,6 +25206,7 @@
         "drupal/fieldhelptext": 10,
         "drupal/flag": 10,
         "drupal/graphql_menu": 15,
+        "drupal/html_tag_usage": 10,
         "drupal/jsonapi_resources": 10,
         "drupal/libraries": 15,
         "drupal/markup": 10,
