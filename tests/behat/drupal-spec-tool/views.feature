@@ -69,6 +69,7 @@ Feature: Views
 | Knowledge Base Article administration | knowledge_base_article_administration | Content | Enabled | Audits and tools for managing Knowledge Base Articles |
 | Rich Text Field Audit | rich_text_field_audit | Content | Enabled |  |
 | Non-clinical services | non_clinical_services | Content | Enabled | Views of non-clinical services content placed within several "Top tasks" VAMC node forms. |
+| Table Audit | table_audit | Content | Enabled |  |
 | Metatag Audit | metatag_audit | Content | Enabled |  |
 | Flagged Content | flagged_content | Content | Enabled |  |
 | PDF Audit | pdf_audit | Media | Enabled |  |
@@ -257,7 +258,12 @@ Feature: Views
 | Rich Text Field Audit | Default | default | Default |
 | Rich Text Field Audit | Content Audit - Rich Text Fields | content_audit_rich_text | Page |
 | Rich Text Field Audit | Data export | rich_text_audit_data_export | Data export |
+| Rich Text Field Audit | Content Audit - Buttons | content_audit_buttons | Page |
+| Rich Text Field Audit | Data export | buttons_export | Data export |
 | Non-clinical services | Default | default | Default |
+| Table Audit | Default | default | Default |
+| Table Audit | Table Audit | table_audit | Page |
+| Table Audit | Data export | tables_usage_export | Data export |
 | Metatag Audit | Default | default | Default |
 | Metatag Audit | Metatag Audit | metatag_audit | Page |
 | Flagged Content | Default | default | Default |

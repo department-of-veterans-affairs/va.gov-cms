@@ -13,7 +13,7 @@ Feature: Content model: Vocabulary fields
 | Vocabulary | Sections | Description | field_description | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | Sections | Product | field_product | Entity reference |  | 1 | Select list |  |
 | Vocabulary | VHA health service taxonomy | Common conditions | field_commonly_treated_condition | Text (plain) |  | 1 | Textfield |  |
-| Vocabulary | VHA health service taxonomy | Health Service API ID | field_health_service_api_id | Text (plain) |  | 1 | Textfield |  |
+| Vocabulary | VHA health service taxonomy | Health Service API ID | field_health_service_api_id | Text (plain) | Required | 1 | Textfield |  |
 | Vocabulary | VHA health service taxonomy | Section | field_owner | Entity reference | Required | 1 | -- Disabled -- |  |
 | Vocabulary | VHA health service taxonomy | Patient-friendly name | field_also_known_as | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | VHA health service taxonomy | Type of care | field_service_type_of_care | List (text) |  | 1 | Select list |  |
@@ -23,4 +23,6 @@ Feature: Content model: Vocabulary fields
 | Vocabulary | VHA health service taxonomy | Service description | field_vet_center_service_descrip | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
 | Vocabulary | VHA health service taxonomy | Type of Care | field_vet_center_type_of_care | List (text) |  | 1 | Select list |  |
 | Vocabulary | VHA health service taxonomy | This is a required Vet Center service | field_vet_center_required_servic | Boolean |  | 1 | Single on/off checkbox |  |
+| Vocabulary | VHA health service taxonomy | Enforce unique combo service | field_enforce_unique_combo_servi | Allow Only One |  | 1 | Allow Only One widget |  |
 | Vocabulary | Products | Knowledge base landing page | field_kb_landing_page | Entity reference |  | 1 | Autocomplete |  |
+

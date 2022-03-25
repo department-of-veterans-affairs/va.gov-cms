@@ -798,3 +798,30 @@ function va_gov_db_update_9002(&$sandbox) {
 
   return $messages;
 }
+
+/**
+ * Set field_error_message text_format value on paragraph 4102.
+ */
+function va_gov_db_update_9003() {
+
+  \Drupal::database()
+    ->update('paragraph__field_error_message')
+    ->condition('entity_id', 4102)
+    ->fields([
+      'field_error_message_format' => 'rich_text',
+    ])
+    ->execute();
+  \Drupal::logger('va_gov_db')->info('Update field_error_message to full_html');
+
+  \Drupal::database()
+    ->update('paragraph_revision__field_error_message')
+    ->condition('entity_id', 4102)
+    ->fields([
+      'field_error_message_format' => 'rich_text',
+    ])
+    ->execute();
+  \Drupal::logger('va_gov_db')->info('Update field_error_message revision to full_html');
+
+  return 'Set field_error_message text_format value on paragraph 4102.';
+
+}

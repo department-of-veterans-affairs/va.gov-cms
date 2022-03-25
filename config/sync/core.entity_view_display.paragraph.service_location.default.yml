@@ -7,6 +7,7 @@ dependencies:
     - field.field.paragraph.service_location.field_email_contacts
     - field.field.paragraph.service_location.field_facility_service_hours
     - field.field.paragraph.service_location.field_hours
+    - field.field.paragraph.service_location.field_office_hours
     - field.field.paragraph.service_location.field_phone
     - field.field.paragraph.service_location.field_service_location_address
     - field.field.paragraph.service_location.field_use_main_facility_phone
@@ -14,6 +15,7 @@ dependencies:
   module:
     - entity_reference_revisions
     - field_group
+    - office_hours
     - options
     - tablefield
 third_party_settings:
@@ -21,6 +23,7 @@ third_party_settings:
     group_hours:
       children:
         - field_hours
+        - field_office_hours
         - field_facility_service_hours
         - field_additional_hours_info
       label: Hours
@@ -50,7 +53,6 @@ third_party_settings:
         open: true
     group_address:
       children:
-        - field_service_location_facility
         - field_service_location_address
       label: Address
       parent_name: group_service_location
@@ -87,7 +89,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 4
+    weight: 5
     region: content
   field_email_contacts:
     type: entity_reference_revisions_entity_view
@@ -105,7 +107,7 @@ content:
       row_header: false
       column_header: false
     third_party_settings: {  }
-    weight: 3
+    weight: 4
     region: content
   field_hours:
     type: list_default
@@ -113,6 +115,33 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 2
+    region: content
+  field_office_hours:
+    type: office_hours_table
+    label: above
+    settings:
+      day_format: long
+      time_format: g
+      compress: false
+      grouped: false
+      show_closed: all
+      closed_format: ''
+      separator:
+        days: '<br />'
+        grouped_days: ' - '
+        day_hours: ': '
+        hours_hours: '-'
+        more_hours: ', '
+      current_status:
+        position: ''
+        open_text: 'Currently open!'
+        closed_text: 'Currently closed'
+      timezone_field: ''
+      office_hours_first_day: ''
+      schema:
+        enabled: false
+    third_party_settings: {  }
+    weight: 3
     region: content
   field_phone:
     type: entity_reference_revisions_entity_view

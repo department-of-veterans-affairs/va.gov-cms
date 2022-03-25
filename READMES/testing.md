@@ -55,7 +55,7 @@ There are 4 main types of tests:
 
     See the [hooks/pre-commit file](../hooks/pre-commit) for the exact
     command run before git commit.
-    
+
     Each static test should also be run by a corresponding [Github action](https://docs.github.com/en/actions) and block PR merges on failure. Github actions are added and edited in the [Github workflows directory](../.github/workflows). When adding a new Github action, our preferred process to minimize technical debt and maintenance is the following:
     1. When possible, use a well-supported action from the open-source community. The [reviewdog](https://github.com/reviewdog) organization on Github is often a good place to start looking.
     1. If the action cannot meet our requirements without modifications, resolve in this order:
@@ -75,10 +75,7 @@ There are 4 main types of tests:
 
 1.  **WEB Integration Tests**
 
-    1. `va/web/build` - Build the front-end from the current site. (Alias for
-       `composer va:web:build`).
-    1. `va/web/unit` - Run the front-end unit tests. (Not yet merged. See
-       [PR547](https://github.com/department-of-veterans-affairs/va.gov-cms/pull/547))
+    1. Behat Decoupled.feature runs a content build and test for content changes.
 
     The long term goal is to run _all_ of the **WEB** project's tests in our
     test
@@ -321,11 +318,11 @@ Whether these third party libraries are secure involves multiple factors (and ha
 PHPStan performs static analysis on the codebase and reports issues such as references to unknown/undeclared properties, incorrect argument types in function calls, functions that are too long or too complex, etc.
 
 ### Magic Properties and Other Annoyances
-Developing with Drupal idiomatically tends to conflict with PHPStan.  
+Developing with Drupal idiomatically tends to conflict with PHPStan.
 
 For instance, you might type code like `$node->field_address->zip_code`.  If `$node` is declared as or implied to be a `\Drupal\node\Entity\Node` object, then PHPStan will look for a property named `$field_address` on `\Drupal\node\Entity\Node`.  `$node` might also be interpreted as `\Drupal\node\NodeInterface`, or `\Drupal\Core\Entity\EntityInterface`, or any of several other interfaces.  But functionality for accessing fields via constructs like `$node->field_address` is implemented via "magic properties," to which PHPStan does not and cannot have access.  As a consequence, PHPStan will view the use of these magic properties as errors.
 
-To permit both idiomatic Drupaling and good static analysis, we simply whitelist errors that arise from this sort of use.  
+To permit both idiomatic Drupaling and good static analysis, we simply whitelist errors that arise from this sort of use.
 
 This can be done by adding new expressions to the `parameters.ignoreErrors` array in [phpstan.neon](../phpstan.neon).
 

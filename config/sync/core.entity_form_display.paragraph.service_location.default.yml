@@ -7,6 +7,7 @@ dependencies:
     - field.field.paragraph.service_location.field_email_contacts
     - field.field.paragraph.service_location.field_facility_service_hours
     - field.field.paragraph.service_location.field_hours
+    - field.field.paragraph.service_location.field_office_hours
     - field.field.paragraph.service_location.field_phone
     - field.field.paragraph.service_location.field_service_location_address
     - field.field.paragraph.service_location.field_use_main_facility_phone
@@ -15,6 +16,8 @@ dependencies:
     - entity_browser_entity_form
     - field_group
     - ief_table_view_mode
+    - limited_field_widgets
+    - office_hours
     - paragraphs
     - tablefield
 third_party_settings:
@@ -22,6 +25,7 @@ third_party_settings:
     group_service_hours:
       children:
         - field_hours
+        - field_office_hours
         - field_facility_service_hours
         - field_additional_hours_info
       label: Hours
@@ -37,7 +41,6 @@ third_party_settings:
         required_fields: false
     group_address:
       children:
-        - field_service_location_facility
         - field_service_location_address
       label: Address
       region: content
@@ -71,7 +74,7 @@ third_party_settings:
       label: Email
       region: content
       parent_name: group_phone
-      weight: 23
+      weight: 28
       format_type: details
       format_settings:
         classes: ''
@@ -86,7 +89,7 @@ third_party_settings:
       label: Phone
       region: content
       parent_name: group_phone
-      weight: 20
+      weight: 27
       format_type: details
       format_settings:
         classes: phone-numbers-wrapper
@@ -101,7 +104,7 @@ mode: default
 content:
   field_additional_hours_info:
     type: string_textfield
-    weight: 2
+    weight: 3
     region: content
     settings:
       size: 60
@@ -129,7 +132,7 @@ content:
         entity_browser_id: _none
   field_facility_service_hours:
     type: tablefield
-    weight: 1
+    weight: 2
     region: content
     settings:
       input_type: textfield
@@ -140,9 +143,17 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_office_hours:
+    type: office_hours_default
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings:
+      limited_field_widgets:
+        limit_values: '0'
   field_phone:
     type: inline_entity_form_complex_table_view_mode
-    weight: 22
+    weight: 5
     region: content
     settings:
       form_mode: default
@@ -181,7 +192,7 @@ content:
     third_party_settings: {  }
   field_use_main_facility_phone:
     type: boolean_checkbox
-    weight: 21
+    weight: 4
     region: content
     settings:
       display_label: true
