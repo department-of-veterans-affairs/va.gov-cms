@@ -269,3 +269,5 @@ Feature: Views
 | PDF Audit | Default | default | Default |
 | PDF Audit | PDF Audit | pdf_audit | Page |
 | PDF Audit | Data export | pdf_audit_export | Data export |
+| Rich Text Field Audit | Content Audit - Buttons | content_audit_buttons | Page |
+| Rich Text Field Audit | Data export | buttons_export | Data export |
