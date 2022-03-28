@@ -25,7 +25,7 @@ Feature: Views
 | Content release logs | content_release_logs | Log entries | Enabled | Shows content release job log entries |
 | Date fields | date_fields | Content | Disabled |  |
 | Detail page URL audit and bulk udpate | detail_page_url_audit_and_bulk_udpate | Content | Enabled | For bulk updating URL aliases for VAMC detail pages. |
-| Facility Governance | facility_governance | Content | Enabled | Provides facility management tools. |
+| Facility Services | facility_services | Content | Enabled |  |
 | Files | files | Files | Enabled | Find and manage files. |
 | File browsers | file_browsers | Media | Enabled |  |
 | Frontpage | frontpage | Content | Enabled | All content promoted to frontpage |
@@ -69,8 +69,10 @@ Feature: Views
 | Knowledge Base Article administration | knowledge_base_article_administration | Content | Enabled | Audits and tools for managing Knowledge Base Articles |
 | Rich Text Field Audit | rich_text_field_audit | Content | Enabled |  |
 | Non-clinical services | non_clinical_services | Content | Enabled | Views of non-clinical services content placed within several "Top tasks" VAMC node forms. |
+| Table Audit | table_audit | Content | Enabled |  |
 | Metatag Audit | metatag_audit | Content | Enabled |  |
 | Flagged Content | flagged_content | Content | Enabled |  |
+| PDF Audit | pdf_audit | Media | Enabled |  |
 
   @dst @views_displays
      Scenario: Views displays
@@ -101,14 +103,8 @@ Feature: Views
 | Content | Bulk edit content | page_2 | Page |
 | Content | Bulk edit events | events_page | Page |
 | Content | Resources and support | resources_support_dashboard | Page |
-| Content | Resources and support landing page | resources_and_support_landing_page_block | Block |
 | Content | Content audit CSV export | content_audit_csv_export | Data export |
 | Content | Content audit tools | content_audit_page | Page |
-| Content | Facilities | content_audit_facilities | Page |
-| Content | Facilities export | content_audit_facilities_export | Data export |
-| Content | VAMC EHR | vamc_ehr | Page |
-| Content | VAMC System Service Audit | vamc_system_service_audit_page | Page |
-| Content | VAMC System Service Audit Export | vamc_system_service_audit_export | Data export |
 | Content entity browsers | Master | default | Default |
 | Content entity browsers | Event entity browser | event_entity_browser | Entity browser |
 | Content entity browsers | Q&A entity browser | entity_browser_1 | Entity browser |
@@ -118,8 +114,8 @@ Feature: Views
 | Content Entity Reference Source | Entity Reference: Story Listing | entity_reference_3 | Entity Reference |
 | Content Entity Reference Source | Entity Reference: News Release Listing | entity_reference_4 | Entity Reference |
 | Content Entity Reference Source | Entity Reference: Staff profiles | entity_reference_5 | Entity Reference |
-| Content Entity Reference Source | Entity Reference: Systems | entity_reference_6 | Entity Reference |
 | Content Entity Reference Source | Entity Reference: Main Offices | entity_reference_7 | Entity Reference |
+| Content Entity Reference Source | Entity Reference: Systems | entity_reference_6 | Entity Reference |
 | Content release logs | Master | default | Default |
 | Content release logs | Page | page_1 | Page |
 | Content served from Drupal | Page | page_1 | Page |
@@ -132,8 +128,19 @@ Feature: Views
 | Detail page URL audit and bulk udpate | CSV export | data_export_1 | Data export |
 | Detail page URL audit and bulk udpate | Master | default | Default |
 | Detail page URL audit and bulk udpate | Audit page | audit_page | Page |
-| Facility Governance | Master | default | Default |
-| Facility Governance | Page | page_1 | Page |
+| Facility Services | Master | default | Default |
+| Facility Services | Facilities | content_audit_facilities | Page |
+| Facility Services | Facilities export | content_audit_facilities_export | Data export |
+| Facility Services | Facility Status | facility_status_page | Page |
+| Facility Services | VAMC facility health services | vamc_facility_health_services_page | Page |
+| Facility Services | VAMC facility health services export | vamc_facility_health_services_export | Data export |
+| Facility Services | VAMC facility non-clinical services | vamc_facility_non_clinical_services_page | Page |
+| Facility Services | VAMC facility non-clinical services export | vamc_facility_non_clinical_services_export | Data export |
+| Facility Services | VAMC System Service Audit | vamc_system_service_audit_page | Page |
+| Facility Services | VAMC System Service Audit Export | vamc_system_service_audit_export | Data export |
+| Facility Services | VAMC systems | vamc_systems | Page |
+| Facility Services | Vet Center services | vet_center_services_page | Page |
+| Facility Services | Vet Center services export | vet_center_services_export | Data export |
 | Files | Master | default | Default |
 | Files | Files overview | page_1 | Page |
 | Files | File usage | page_2 | Page |
@@ -162,6 +169,8 @@ Feature: Views
 | Media | Media | media_page_list | Page |
 | Media | Downloadable document browser | entity_browser_3 | Entity browser |
 | Media | Media bulk edit | page_1 | Page |
+| Media | Images | media_images | Page |
+| Media | Data export | images_export | Data export |
 | Media library | Master | default | Default |
 | Media library | Page | page | Page |
 | Media library | Widget | widget | Page |
@@ -170,7 +179,11 @@ Feature: Views
 | Moderated content | Moderated content | moderated_content | Page |
 | Moderation history | Master | default | Default |
 | Moderation history | Page | page | Page |
+| Non-clinical services | Admissions offices | admissions_offices | Block |
+| Non-clinical services | Billing and insurance offices | billing_and_insurance | Block |
+| Non-clinical services | Medical records offices | medical_records_offices | Block |
 | People | Data export | data_export_1 | Data export |
+| People | Data export: All users | data_export_2 | Data export |
 | People | Master | default | Default |
 | People | Page | page_1 | Page |
 | Redirect | Master | default | Default |
@@ -245,11 +258,18 @@ Feature: Views
 | Rich Text Field Audit | Default | default | Default |
 | Rich Text Field Audit | Content Audit - Rich Text Fields | content_audit_rich_text | Page |
 | Rich Text Field Audit | Data export | rich_text_audit_data_export | Data export |
-| Non-clinical services | Admissions offices | admissions_offices | Block |
-| Non-clinical services | Billing and insurance offices | billing_and_insurance | Block |
+| Rich Text Field Audit | Content Audit - Buttons | content_audit_buttons | Page |
+| Rich Text Field Audit | Data export | buttons_export | Data export |
 | Non-clinical services | Default | default | Default |
-| Non-clinical services | Medical records offices | medical_records_offices | Block |
+| Table Audit | Default | default | Default |
+| Table Audit | Table Audit | table_audit | Page |
+| Table Audit | Data export | tables_usage_export | Data export |
 | Metatag Audit | Default | default | Default |
 | Metatag Audit | Metatag Audit | metatag_audit | Page |
 | Flagged Content | Default | default | Default |
 | Flagged Content | Flagged Content | flagged_content | Page |
+| PDF Audit | Default | default | Default |
+| PDF Audit | PDF Audit | pdf_audit | Page |
+| PDF Audit | Data export | pdf_audit_export | Data export |
+| Facility Services | Accordion audit | accordion_audit | Page |
+| Facility Services | Accordion audit export | accordion_audit_export | Data export |

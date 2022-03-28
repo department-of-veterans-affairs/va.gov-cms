@@ -27,88 +27,88 @@ third_party_settings:
     group_governance:
       children:
         - field_administration
+      label: 'Section settings'
+      region: content
       parent_name: ''
       weight: 5
       format_type: details_sidebar
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         open: true
         required_fields: true
         weight: -10
-      label: 'Section settings'
-      region: content
     group_editor:
       children:
         - moderation_state
         - revision_log
+      label: 'Editorial workflow'
+      region: content
       parent_name: ''
       weight: 4
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: true
-      label: 'Editorial workflow'
-      region: content
     group_feature_this_story:
       children:
         - field_featured
         - field_order
+      label: 'Feature this story'
+      region: content
       parent_name: ''
       weight: 3
       format_type: fieldset
       format_settings:
+        classes: ''
+        id: ''
         description: ''
         required_fields: true
-        id: ''
-        classes: ''
-      label: 'Feature this story'
-      region: content
     group_image:
       children:
         - field_media
         - field_image_caption
+      label: Image
+      region: content
       parent_name: ''
       weight: 2
       format_type: details
       format_settings:
+        classes: ''
+        id: ''
         open: true
         required_fields: true
-        id: ''
-        classes: ''
-      label: Image
-      region: content
     group_text:
       children:
         - field_intro_text
         - field_full_story
+      label: 'Story text'
+      region: content
       parent_name: ''
       weight: 1
       format_type: fieldset
       format_settings:
+        classes: ''
+        id: ''
         description: ''
         required_fields: true
-        id: ''
-        classes: ''
-      label: 'Story text'
-      region: content
     group_basic_info:
       children:
         - title
         - field_author
         - field_listing
+      label: 'Basic info'
+      region: content
       parent_name: ''
       weight: 0
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: true
-      label: 'Basic info'
-      region: content
 id: node.news_story.default
 targetEntityType: node
 bundle: news_story
@@ -121,62 +121,62 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_administration:
+    type: options_select
     weight: 18
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   field_author:
+    type: entity_reference_autocomplete
     weight: 15
+    region: content
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
     third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
   field_featured:
+    type: boolean_checkbox
     weight: 21
+    region: content
     settings:
       display_label: true
     third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
   field_full_story:
+    type: text_textarea
     weight: 17
+    region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-    type: text_textarea
-    region: content
   field_image_caption:
+    type: string_textarea_with_counter
     weight: 16
+    region: content
     settings:
       rows: 5
       placeholder: ''
       maxlength: 600
       counter_position: after
-      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
       js_prevent_submit: false
       count_html_characters: false
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
-    type: string_textarea_with_counter
-    region: content
   field_intro_text:
+    type: string_textarea_with_counter
     weight: 16
+    region: content
     settings:
       rows: 5
       placeholder: ''
       maxlength: 300
       counter_position: after
-      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
       js_prevent_submit: false
       count_html_characters: false
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
-    type: string_textarea_with_counter
-    region: content
   field_listing:
     type: options_select
     weight: 16
@@ -186,21 +186,21 @@ content:
   field_media:
     type: media_library_widget
     weight: 14
+    region: content
     settings:
       media_types: {  }
-    region: content
     third_party_settings: {  }
   field_order:
+    type: options_select
     weight: 22
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   moderation_state:
     type: moderation_state_default
     weight: 22
-    settings: {  }
     region: content
+    settings: {  }
     third_party_settings: {  }
   path:
     type: path
@@ -215,22 +215,22 @@ content:
     settings:
       size: 60
       placeholder: ''
+      use_field_maxlength: false
       maxlength: 150
       counter_position: after
-      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
-      use_field_maxlength: false
       js_prevent_submit: false
       count_html_characters: false
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
     weight: 6
+    region: content
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
-    region: content
     third_party_settings: {  }
   url_redirects:
     weight: 9

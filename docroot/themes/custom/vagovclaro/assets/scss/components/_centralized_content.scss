@@ -1,9 +1,10 @@
 .not-editable {
-  background-color: var(--color-gray-lightest) !important;
+  background-color: var(--va-gray-lightest) !important;
 }
 
 .centralized {
-  background-color: var(--color-gray-lightest) !important;
+  background-color: var(--va-gray-lightest) !important;
+  margin-bottom: var(--spacing-l);
 
   .data-updated a {
     float: right;
@@ -21,7 +22,7 @@
 
 // Colors scope sections on node view page
 .paragraph--type--centralized-content-descriptor fieldset {
-  background-color: var(--color-gray-lightest);
+  background-color: var(--va-gray-lightest);
 
   legend {
     text-transform: uppercase;
@@ -86,8 +87,13 @@
         padding: 0;
       }
 
+      .field--name-field-questions thead th {
+        display: flex;
+        justify-content: space-between;
+      }
+
       .cc-paragraph-header {
-        background: var(--color-gray-dark);
+        background: var(--va-gray-med);
         color: var(--color-white);
 
         td {
@@ -107,6 +113,7 @@
 
         .cc-paragraph-header {
           display: block;
+          height: auto;
           padding: 15px 0 0 15px;
           width: 100%;
 
@@ -127,4 +134,11 @@
       }
     }
   }
+}
+
+// adjust view page proofing styles for centralized content
+#block-vagovclaro-content .centralized .paragraph,
+#block-vagovclaro-content .node--type-centralized-content .paragraph {
+  border: unset;
+  padding: 0;
 }

@@ -18,21 +18,21 @@ mode: default
 content:
   field_image:
     type: media_thumbnail
-    weight: 0
     label: hidden
     settings:
-      image_style: 3_2_medium_thumbnail
       image_link: ''
+      image_style: 3_2_medium_thumbnail
     third_party_settings: {  }
+    weight: 0
     region: content
   field_promo_link:
     type: entity_reference_revisions_entity_view
-    weight: 1
     label: hidden
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    weight: 1
     region: content
 hidden:
   content_moderation_control: true

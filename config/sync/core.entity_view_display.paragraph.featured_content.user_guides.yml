@@ -15,8 +15,8 @@ dependencies:
     - text
 third_party_settings:
   layout_builder:
-    allow_custom: false
     enabled: false
+    allow_custom: false
 id: paragraph.featured_content.user_guides
 targetEntityType: paragraph
 bundle: featured_content
@@ -24,29 +24,29 @@ mode: user_guides
 content:
   field_cta:
     type: entity_reference_revisions_entity_view
-    weight: 2
     label: hidden
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    weight: 2
     region: content
   field_description:
-    weight: 1
+    type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 1
     region: content
   field_section_header:
-    weight: 0
+    type: plain_string_formatter
     label: hidden
     settings:
+      link_to_entity: false
       wrap_tag: h3
       wrap_class: ''
-      link_to_entity: false
     third_party_settings: {  }
-    type: plain_string_formatter
+    weight: 0
     region: content
 hidden:
   search_api_excerpt: true

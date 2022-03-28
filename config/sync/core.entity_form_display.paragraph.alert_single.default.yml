@@ -19,23 +19,24 @@ bundle: alert_single
 mode: default
 content:
   field_alert_block_reference:
+    type: entity_browser_entity_reference
     weight: 2
+    region: content
     settings:
       entity_browser: alert_blocks
       field_widget_display: rendered_entity
-      field_widget_display_settings:
-        view_mode: default
       field_widget_edit: true
       field_widget_remove: true
-      open: true
-      selection_mode: selection_append
       field_widget_replace: false
+      open: true
+      field_widget_display_settings:
+        view_mode: default
+      selection_mode: selection_append
     third_party_settings: {  }
-    type: entity_browser_entity_reference
-    region: content
   field_alert_non_reusable_ref:
     type: entity_reference_paragraphs
     weight: 3
+    region: content
     settings:
       title: Alert
       title_plural: Alerts
@@ -44,19 +45,18 @@ content:
       form_display_mode: default
       default_paragraph_type: _none
     third_party_settings: {  }
-    region: content
   field_alert_selection:
-    weight: 1
-    settings: {  }
-    third_party_settings: {  }
     type: options_buttons
+    weight: 1
     region: content
-  field_markup:
-    weight: 0
     settings: {  }
     third_party_settings: {  }
+  field_markup:
     type: markup
+    weight: 0
     region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   created: true
   status: true

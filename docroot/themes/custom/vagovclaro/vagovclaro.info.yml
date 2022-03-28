@@ -173,3 +173,10 @@ regions:
   sidebar_first: 'First sidebar'
   sidebar_second: 'Second sidebar'
   footer: 'Footer'
+
+# Register custom twig namespace for using design system components
+# {% include "@cmsds/foo.twig" with { bar: 'baz' } %}
+# See templates/misc/status-messages.html.twig as an example.
+components:
+  namespaces:
+    cmsds: dist/components

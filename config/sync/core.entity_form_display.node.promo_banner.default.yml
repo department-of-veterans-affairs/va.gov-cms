@@ -19,74 +19,74 @@ third_party_settings:
     group_section_settings:
       children:
         - field_administration
+      label: 'Section Settings'
+      region: content
       parent_name: ''
       weight: 5
       format_type: details_sidebar
-      region: content
       format_settings:
-        description: ''
-        open: true
-        weight: 0
-        required_fields: true
-        id: ''
         classes: ''
         show_empty_fields: false
-      label: 'Section Settings'
+        id: ''
+        open: true
+        description: ''
+        required_fields: true
+        weight: 0
     group_editorial_workflow:
       children:
         - moderation_state
         - revision_log
+      label: 'Editorial Workflow'
+      region: content
       parent_name: ''
       weight: 7
       format_type: fieldset
-      region: content
       format_settings:
+        classes: ''
         show_empty_fields: false
         id: ''
-        classes: ''
         description: ''
         required_fields: true
-      label: 'Editorial Workflow'
 id: node.promo_banner.default
 targetEntityType: node
 bundle: promo_banner
 mode: default
 content:
   field_administration:
+    type: options_select
     weight: 6
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   field_link:
+    type: linkit
     weight: 3
+    region: content
     settings:
       placeholder_url: ''
       placeholder_title: ''
       linkit_profile: default
       linkit_auto_link_text: false
     third_party_settings: {  }
-    type: linkit
-    region: content
   field_promo_type:
+    type: options_select
     weight: 0
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   field_target_paths:
+    type: string_textfield
     weight: 4
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   moderation_state:
     type: moderation_state_default
     weight: 13
-    settings: {  }
     region: content
+    settings: {  }
     third_party_settings: {  }
   title:
     type: string_textfield_with_counter
@@ -95,12 +95,12 @@ content:
     settings:
       size: 60
       placeholder: ''
+      use_field_maxlength: false
       maxlength: 55
       counter_position: after
       js_prevent_submit: true
-      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
-      use_field_maxlength: false
       count_html_characters: false
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
   url_redirects:
     weight: 6

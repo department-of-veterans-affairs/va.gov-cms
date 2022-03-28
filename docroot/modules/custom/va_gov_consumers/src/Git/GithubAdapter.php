@@ -69,7 +69,7 @@ class GithubAdapter implements GithubInterface {
    * {@inheritdoc}
    */
   public function triggerWorkflow(string $action_name, string $ref, array $params = []): void {
-    list($user, $repo) = explode('/', $this->repositoryPath);
+    [$user, $repo] = explode('/', $this->repositoryPath);
 
     // Exceptions are intentionally *not* caught here - the caller should be
     // able to catch them.
@@ -80,6 +80,23 @@ class GithubAdapter implements GithubInterface {
         $ref,
         $params
       );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function listWorkflowRuns(string $action_name, array $params = []): array {
+    [$user, $repo] = explode('/', $this->repositoryPath);
+
+    // Exceptions are intentionally *not* caught here - the caller should be
+    // able to catch them.
+    return $this->githubClient->repositories()->workflowRuns()->listRuns(
+      $user,
+      $repo,
+      $action_name,
+      $params
+    );
+
   }
 
   /**

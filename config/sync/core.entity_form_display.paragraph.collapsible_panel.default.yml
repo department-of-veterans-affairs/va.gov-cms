@@ -16,7 +16,9 @@ bundle: collapsible_panel
 mode: default
 content:
   field_va_paragraphs:
+    type: entity_reference_paragraphs
     weight: 0
+    region: content
     settings:
       title: 'Accordion item'
       title_plural: Accordions
@@ -25,8 +27,6 @@ content:
       form_display_mode: default
       default_paragraph_type: collapsible_panel_item
     third_party_settings: {  }
-    type: entity_reference_paragraphs
-    region: content
 hidden:
   created: true
   field_collapsible_panel_bordered: true

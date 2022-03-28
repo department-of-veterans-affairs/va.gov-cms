@@ -37,6 +37,7 @@ const creators = {
     cy.visit('/node/add/step_by_step');
     cy.scrollTo('top');
     cy.findAllByLabelText('Page title').type('[Test Data] ' + faker.lorem.word(), { force: true });
+    cy.findAllByLabelText('Page introduction').type(faker.lorem.sentence(), { force: true });
 
     // Enter text into page intro ckeditor.
     cy.type_ckeditor("edit-field-intro-text-limited-html-0-value", faker.lorem.sentence());

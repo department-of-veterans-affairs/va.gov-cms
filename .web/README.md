@@ -1,1 +1,1 @@
-See /.tugboat/web-vhost.conf.
+See /.tugboat/vhost-web.conf.

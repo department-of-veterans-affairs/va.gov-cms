@@ -34,6 +34,11 @@
   margin-top: 0;
 }
 
+// align top-level paragraph field dropdown with individual paragraphs dropdowns
+.js .field--widget-paragraphs th .paragraphs-actions {
+  margin-right: calc(var(--spacing-m) * -1);
+}
+
 .paragraphs-browser-paragraph-type {
   margin-bottom: 3rem;
 }
@@ -66,9 +71,18 @@
     margin-bottom: 0;
   }
 
+  .button--small {
+    margin-top: 0;
+  }
+
   .js-text-full,
   .form-actions {
     margin-bottom: 0;
     margin-top: 0;
   }
+}
+
+// truncated paragraph descriptions use a shim to fade to white. our bg isn't white.
+.js .draggable:hover .paragraphs-collapsed-description::after {
+  background: linear-gradient(to right, rgba(247, 252, 255, 0) 0%, var(--va-blue-light) 100%);
 }

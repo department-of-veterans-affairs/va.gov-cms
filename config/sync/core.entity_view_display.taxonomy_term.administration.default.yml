@@ -14,8 +14,8 @@ dependencies:
     - views
 third_party_settings:
   layout_builder:
-    allow_custom: false
     enabled: true
+    allow_custom: false
     sections:
       -
         layout_id: layout_onecol
@@ -28,13 +28,13 @@ third_party_settings:
             configuration:
               id: 'views_block:taxonomy_term-taxonomy_term_listing_block'
               label: ''
-              provider: views
               label_display: '0'
+              provider: views
+              context_mapping: {  }
               views_label: ''
               items_per_page: none
-              context_mapping: {  }
-            additional: {  }
             weight: 0
+            additional: {  }
         third_party_settings: {  }
 id: taxonomy_term.administration.default
 targetEntityType: taxonomy_term
@@ -42,19 +42,19 @@ bundle: administration
 mode: default
 content:
   description:
-    label: above
     type: text_default
-    weight: 0
-    region: content
+    label: above
     settings: {  }
     third_party_settings: {  }
+    weight: 0
+    region: content
   field_product:
-    weight: 8
+    type: entity_reference_label
     label: above
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 8
     region: content
 hidden:
   field_description: true

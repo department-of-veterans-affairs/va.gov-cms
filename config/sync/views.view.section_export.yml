@@ -24,111 +24,12 @@ base_table: taxonomy_term_field_data
 base_field: tid
 display:
   default:
-    display_plugin: default
     id: default
     display_title: Master
+    display_plugin: default
     position: 0
     display_options:
-      access:
-        type: role
-        options:
-          role:
-            administrator: administrator
-      cache:
-        type: tag
-        options: {  }
-      query:
-        type: views_query
-        options:
-          disable_sql_rewrite: false
-          distinct: false
-          replica: false
-          query_comment: ''
-          query_tags: {  }
-      exposed_form:
-        type: basic
-        options:
-          submit_button: Apply
-          reset_button: false
-          reset_button_label: Reset
-          exposed_sorts_label: 'Sort by'
-          expose_sort_order: true
-          sort_asc_label: Asc
-          sort_desc_label: Desc
-      pager:
-        type: none
-        options:
-          items_per_page: 0
-          offset: 0
-      style:
-        type: table
-        options:
-          grouping: {  }
-          row_class: ''
-          default_row_class: true
-          override: true
-          sticky: false
-          caption: ''
-          summary: ''
-          description: ''
-          columns:
-            name_2: name_2
-            name_1: name_1
-            name: name
-            field_product: field_product
-            tid: tid
-            taxonomy_term_bulk_form: taxonomy_term_bulk_form
-            views_bulk_operations_bulk_form: views_bulk_operations_bulk_form
-          info:
-            name_2:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            name_1:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            name:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_product:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            tid:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            taxonomy_term_bulk_form:
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            views_bulk_operations_bulk_form:
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-          default: name_1
-          empty_table: false
-      row:
-        type: fields
+      title: 'Sections administration'
       fields:
         views_bulk_operations_bulk_form:
           id: views_bulk_operations_bulk_form
@@ -137,6 +38,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: views_bulk_operations_bulk_form
           label: ''
           exclude: false
           alter:
@@ -182,7 +84,6 @@ display:
           batch_size: 10
           form_step: true
           buttons: false
-          clear_on_exposed: true
           action_title: Action
           selected_actions:
             1:
@@ -190,8 +91,8 @@ display:
               preconfiguration:
                 add_confirmation: 0
                 get_bundles_from_results: 1
+          clear_on_exposed: true
           force_selection_info: 0
-          plugin_id: views_bulk_operations_bulk_form
         tid:
           id: tid
           table: taxonomy_term_field_revision
@@ -199,6 +100,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: taxonomy_term
+          entity_field: tid
+          plugin_id: field
           label: 'Term ID'
           exclude: false
           alter:
@@ -255,9 +159,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: taxonomy_term
-          entity_field: tid
-          plugin_id: field
         name:
           id: name
           table: taxonomy_term_field_data
@@ -265,6 +166,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: taxonomy_term
+          entity_field: name
+          plugin_id: term_name
           label: Section
           exclude: false
           alter:
@@ -321,9 +225,6 @@ display:
           separator: ', '
           field_api_classes: false
           convert_spaces: false
-          entity_type: taxonomy_term
-          entity_field: name
-          plugin_id: term_name
         field_product:
           id: field_product
           table: taxonomy_term__field_product
@@ -331,6 +232,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: field
           label: Product
           exclude: true
           alter:
@@ -386,7 +288,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
         name_1:
           id: name_1
           table: taxonomy_term_field_data
@@ -394,6 +295,9 @@ display:
           relationship: parent_target_id
           group_type: group
           admin_label: ''
+          entity_type: taxonomy_term
+          entity_field: name
+          plugin_id: term_name
           label: Parent
           exclude: true
           alter:
@@ -450,9 +354,6 @@ display:
           separator: ', '
           field_api_classes: false
           convert_spaces: false
-          entity_type: taxonomy_term
-          entity_field: name
-          plugin_id: term_name
         field_product_1:
           id: field_product_1
           table: taxonomy_term__field_product
@@ -460,6 +361,7 @@ display:
           relationship: parent_target_id
           group_type: group
           admin_label: ''
+          plugin_id: field
           label: 'Parent''s product'
           exclude: true
           alter:
@@ -515,7 +417,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
         name_2:
           id: name_2
           table: taxonomy_term_field_data
@@ -523,6 +424,9 @@ display:
           relationship: parent_target_id_1
           group_type: group
           admin_label: ''
+          entity_type: taxonomy_term
+          entity_field: name
+          plugin_id: term_name
           label: Grandparent
           exclude: true
           alter:
@@ -579,9 +483,6 @@ display:
           separator: ', '
           field_api_classes: false
           convert_spaces: false
-          entity_type: taxonomy_term
-          entity_field: name
-          plugin_id: term_name
         field_product_2:
           id: field_product_2
           table: taxonomy_term__field_product
@@ -589,6 +490,7 @@ display:
           relationship: parent_target_id_1
           group_type: group
           admin_label: ''
+          plugin_id: field
           label: 'Grandparent''s product'
           exclude: true
           alter:
@@ -644,7 +546,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
         nothing:
           id: nothing
           table: views
@@ -652,6 +553,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: custom
           label: ''
           exclude: false
           alter:
@@ -693,7 +595,6 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: false
-          plugin_id: custom
         operations:
           id: operations
           table: taxonomy_term_data
@@ -701,6 +602,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: taxonomy_term
+          plugin_id: entity_operations
           label: ''
           exclude: false
           alter:
@@ -743,22 +646,46 @@ display:
           empty_zero: false
           hide_alter_empty: true
           destination: false
-          entity_type: taxonomy_term
-          plugin_id: entity_operations
+      pager:
+        type: none
+        options:
+          offset: 0
+          items_per_page: 0
+      exposed_form:
+        type: basic
+        options:
+          submit_button: Apply
+          reset_button: false
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      access:
+        type: role
+        options:
+          role:
+            administrator: administrator
+      cache:
+        type: tag
+        options: {  }
+      empty: {  }
+      sorts: {  }
+      arguments: {  }
       filters:
         vid:
           id: vid
           table: taxonomy_term_field_data
           field: vid
-          value:
-            administration: administration
           entity_type: taxonomy_term
           entity_field: vid
           plugin_id: bundle
+          value:
+            administration: administration
+          group: 1
           expose:
             operator_limit_selection: false
             operator_list: {  }
-          group: 1
         name:
           id: name
           table: taxonomy_term_field_data
@@ -766,6 +693,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: taxonomy_term
+          entity_field: name
+          plugin_id: string
           operator: contains
           value: ''
           group: 1
@@ -811,9 +741,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: taxonomy_term
-          entity_field: name
-          plugin_id: string
         taxonomy_entity_index_tid_depth:
           id: taxonomy_entity_index_tid_depth
           table: taxonomy_term_data
@@ -821,6 +748,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: taxonomy_term
+          plugin_id: taxonomy_entity_index_tid_depth
           operator: or
           value: {  }
           group: 1
@@ -867,32 +796,93 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
-          type: select
-          limit: true
           vid: administration
+          type: select
           hierarchy: true
+          limit: true
           error_message: true
           depth: 0
-          entity_type: taxonomy_term
-          plugin_id: taxonomy_entity_index_tid_depth
-      sorts: {  }
-      title: 'Sections administration'
-      header:
-        area:
-          id: area
-          table: views
-          field: area
-          relationship: none
-          group_type: group
-          admin_label: ''
-          empty: true
-          tokenize: false
-          content:
-            value: "<p>This view is designed to help section admins see and make connections between sections and products, for dashboards or other purposes.</p>\r\n\r\n<p><a href=\"/admin/content/audit/sections-hierarchy/vagov-cms-sections\" class=\"button\">Download as CSV</a></p>"
-            format: rich_text
-          plugin_id: text
-      footer: {  }
-      empty: {  }
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      style:
+        type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          columns:
+            name_2: name_2
+            name_1: name_1
+            name: name
+            field_product: field_product
+            tid: tid
+            taxonomy_term_bulk_form: taxonomy_term_bulk_form
+            views_bulk_operations_bulk_form: views_bulk_operations_bulk_form
+          default: name_1
+          info:
+            name_2:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            name_1:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            name:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_product:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            tid:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            taxonomy_term_bulk_form:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            views_bulk_operations_bulk_form:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          override: true
+          sticky: false
+          summary: ''
+          empty_table: false
+          caption: ''
+          description: ''
+      row:
+        type: fields
+      query:
+        type: views_query
+        options:
+          query_comment: ''
+          disable_sql_rewrite: false
+          distinct: false
+          replica: false
+          query_tags: {  }
       relationships:
         parent_target_id:
           id: parent_target_id
@@ -901,10 +891,10 @@ display:
           relationship: none
           group_type: group
           admin_label: Parent
-          required: false
           entity_type: taxonomy_term
           entity_field: parent
           plugin_id: standard
+          required: false
         parent_target_id_1:
           id: parent_target_id_1
           table: taxonomy_term__parent
@@ -912,16 +902,26 @@ display:
           relationship: parent_target_id
           group_type: group
           admin_label: Grandparent
-          required: false
           entity_type: taxonomy_term
           entity_field: parent
           plugin_id: standard
-      arguments: {  }
+          required: false
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: true
+          content:
+            value: "<p>This view is designed to help section admins see and make connections between sections and products, for dashboards or other purposes.</p>\r\n\r\n<p><a href=\"/admin/content/audit/sections-hierarchy/vagov-cms-sections\" class=\"button\">Download as CSV</a></p>"
+            format: rich_text
+          tokenize: false
+      footer: {  }
       display_extenders: {  }
-      filter_groups:
-        operator: AND
-        groups:
-          1: AND
     cache_metadata:
       max-age: 0
       contexts:
@@ -934,33 +934,11 @@ display:
       tags:
         - 'config:field.storage.taxonomy_term.field_product'
   csv_export:
-    display_plugin: data_export
     id: csv_export
     display_title: 'Data export'
+    display_plugin: data_export
     position: 2
     display_options:
-      display_extenders: {  }
-      path: admin/content/audit/sections-hierarchy/vagov-cms-sections
-      filename: ''
-      automatic_download: false
-      store_in_public_file_directory: null
-      redirect_to_display: none
-      custom_redirect_path: false
-      include_query_params: false
-      style:
-        type: data_export
-        options:
-          formats:
-            csv: csv
-          csv_settings:
-            delimiter: ','
-            enclosure: '"'
-            escape_char: \
-            strip_tags: true
-            trim: true
-            encoding: utf8
-            utf8_bom: '0'
-            use_serializer_encode_only: false
       fields:
         name:
           id: name
@@ -969,6 +947,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: taxonomy_term
+          entity_field: name
+          plugin_id: term_name
           label: Section
           exclude: false
           alter:
@@ -1025,9 +1006,6 @@ display:
           separator: ', '
           field_api_classes: false
           convert_spaces: false
-          entity_type: taxonomy_term
-          entity_field: name
-          plugin_id: term_name
         tid:
           id: tid
           table: taxonomy_term_field_revision
@@ -1035,6 +1013,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: taxonomy_term
+          entity_field: tid
+          plugin_id: field
           label: 'Term ID'
           exclude: false
           alter:
@@ -1091,9 +1072,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: taxonomy_term
-          entity_field: tid
-          plugin_id: field
         field_product:
           id: field_product
           table: taxonomy_term__field_product
@@ -1101,6 +1079,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: field
           label: Product
           exclude: true
           alter:
@@ -1156,7 +1135,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
         name_1:
           id: name_1
           table: taxonomy_term_field_data
@@ -1164,6 +1142,9 @@ display:
           relationship: parent_target_id
           group_type: group
           admin_label: ''
+          entity_type: taxonomy_term
+          entity_field: name
+          plugin_id: term_name
           label: Parent
           exclude: false
           alter:
@@ -1220,9 +1201,6 @@ display:
           separator: ', '
           field_api_classes: false
           convert_spaces: false
-          entity_type: taxonomy_term
-          entity_field: name
-          plugin_id: term_name
         field_product_1:
           id: field_product_1
           table: taxonomy_term__field_product
@@ -1230,6 +1208,7 @@ display:
           relationship: parent_target_id
           group_type: group
           admin_label: ''
+          plugin_id: field
           label: 'Parent''s product'
           exclude: true
           alter:
@@ -1285,7 +1264,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
         name_2:
           id: name_2
           table: taxonomy_term_field_data
@@ -1293,6 +1271,9 @@ display:
           relationship: parent_target_id_1
           group_type: group
           admin_label: ''
+          entity_type: taxonomy_term
+          entity_field: name
+          plugin_id: term_name
           label: Grandparent
           exclude: true
           alter:
@@ -1349,9 +1330,6 @@ display:
           separator: ', '
           field_api_classes: false
           convert_spaces: false
-          entity_type: taxonomy_term
-          entity_field: name
-          plugin_id: term_name
         field_product_2:
           id: field_product_2
           table: taxonomy_term__field_product
@@ -1359,6 +1337,7 @@ display:
           relationship: parent_target_id_1
           group_type: group
           admin_label: ''
+          plugin_id: field
           label: 'Grandparent''s product'
           exclude: true
           alter:
@@ -1414,7 +1393,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
         nothing:
           id: nothing
           table: views
@@ -1422,6 +1400,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: custom
           label: Product
           exclude: false
           alter:
@@ -1463,9 +1442,30 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: false
-          plugin_id: custom
+      style:
+        type: data_export
+        options:
+          formats:
+            csv: csv
+          csv_settings:
+            delimiter: ','
+            enclosure: '"'
+            escape_char: \
+            strip_tags: true
+            trim: true
+            encoding: utf8
+            utf8_bom: '0'
+            use_serializer_encode_only: false
       defaults:
         fields: false
+      display_extenders: {  }
+      path: admin/content/audit/sections-hierarchy/vagov-cms-sections
+      filename: ''
+      automatic_download: false
+      store_in_public_file_directory: null
+      custom_redirect_path: false
+      redirect_to_display: none
+      include_query_params: false
     cache_metadata:
       max-age: -1
       contexts:
@@ -1478,9 +1478,9 @@ display:
       tags:
         - 'config:field.storage.taxonomy_term.field_product'
   page_1:
-    display_plugin: page
     id: page_1
     display_title: Page
+    display_plugin: page
     position: 1
     display_options:
       display_extenders: {  }

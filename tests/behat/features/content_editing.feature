@@ -218,6 +218,7 @@ Feature: CMS Users may effectively create & edit content
     And I am at "admin/structure/taxonomy/manage/health_care_service_taxonomy/add"
     And the "path[0][pathauto]" checkbox should be checked
     And I fill in "Name" with "BeHat URL Alias Term Title Published"
+    And I fill in "Health Service API ID" with "1234"
     And I press "Save"
     Then I should see "BeHat URL Alias Term Title Published"
     Then I visit the "edit" page for a term with the title "BeHat URL Alias Term Title Published"

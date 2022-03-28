@@ -19,9 +19,8 @@
           ? context.querySelector(
               ".field--name-field-facility-locator-api-id .field__item"
             ).textContent
-          : context.querySelector(
-              ".form-item-field-facility-locator-api-id-0-value input"
-            ).value;
+          : context.querySelector("#edit-field-facility-locator-api-id-0-value")
+              .value;
 
         // Last crumb will always be the title.
         const facilityName =

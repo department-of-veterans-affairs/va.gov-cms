@@ -123,5 +123,11 @@ xdebug.force_error_reporting=1
 xdebug.collect_params=4
 ```
 
+## xdebug in ddev
+Try running `ddev xdebug on`. If that doesn't work for you out of the box, copy your php.ini override from the lando
+steps above (`.zzzz-php-local.ini`) into the `.ddev/php` directory. Files in this directory are loaded during `ddev start`.
+
+`ddev xdebug on` / `ddev xdebug off` to easily toggle on and off during development. You can see the `xdebug_enabled` flag in
+`.ddev/config.yaml` is set to off by default. Happy debugging!
 
 [Table of Contents](../README.md)

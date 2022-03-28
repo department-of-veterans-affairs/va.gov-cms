@@ -34,6 +34,10 @@ node_modules/
 /config/sync/devel.toolbar.settings.yml
 /config/sync/system.menu.devel.yml
 
+# Prevent html_tag_usage from appearing anywhere
+/config/dev/html_tag_usage.configuration.yml
+/config/sync/html_tag_usage.configuration.yml
+
 # Ignore SQL dumps
 # Current
 /.dumps/cms-prod-files-latest.tgz
@@ -66,6 +70,10 @@ node_modules/
 # Ignore compiled Drupal theme files
 /docroot/themes/custom/*/dist/
 
+# Ignore compiled design system & Storybook files
+/docroot/design-system/storybook-static
+/docroot/design-system/dist/
+
 # Ignore accessibility test reports
 /tests/accessibility/axeReport/*.csv
 # Ignore accessibility test screenshots & videos
@@ -76,6 +84,7 @@ node_modules/
 .lando.local.yml
 .lando/zzz*local.ini
 .lando.compose.yml
+datadog-setup.php
 
 # Cache file used by PHPUnit
 # Can be introduced accidentally by local dev
@@ -84,3 +93,6 @@ node_modules/
 # Ignore WEB (vets-website)
 # web
 # @TODO: Installer paths is not working. Leaving symlink for now.
+
+# Temporary .deb packages
+*.deb

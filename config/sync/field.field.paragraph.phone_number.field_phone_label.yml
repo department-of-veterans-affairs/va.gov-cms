@@ -5,12 +5,18 @@ dependencies:
   config:
     - field.storage.paragraph.field_phone_label
     - paragraphs.paragraphs_type.phone_number
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 1
 id: paragraph.phone_number.field_phone_label
 field_name: field_phone_label
 entity_type: paragraph
 bundle: phone_number
 label: Label
-description: ''
+description: 'Use a label to indicate what office, department, or program can be reached here.'
 required: true
 translatable: true
 default_value: {  }

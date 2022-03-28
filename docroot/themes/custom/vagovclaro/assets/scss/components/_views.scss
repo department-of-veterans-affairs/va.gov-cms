@@ -3,30 +3,45 @@
 }
 
 /* Non-clinical services view - block displays */
+.field--name-field-non-clinical-services {
+  background-color: #fff;
+}
+
+.view-grouping.node--unpublished {
+  margin: 0;
+  padding: 0;
+}
+
 .view-non-clinical-services {
   .view-empty {
-    border: 1px solid #bfbfbf;
+    border: 1px solid var(--va-gray-cool-med);
     border-radius: 2px;
     margin: 1em 0;
     padding: 1em 1.5em;
   }
 
   .view-grouping-content {
-    border: 1px solid #bfbfbf;
+    border: 1px solid var(--va-gray-cool-med);
     border-radius: 2px;
     margin: 1em 0;
     padding: 1em 1.5em;
 
+    .view-grouping-content {
+      border: 0;
+      margin: 0;
+      padding: 0;
+    }
+
     .views-row {
       margin: 2em 0;
-  
+
       .location-details span:not(:first-child)::before {
         content: ', ';
       }
-  
+
       .address {
         margin-top: 0;
-  
+
         br,
         span {
           &:last-child {
@@ -80,5 +95,22 @@
   .form-item {
     margin-bottom: var(--space-xs);
     margin-top: 0;
+  }
+}
+
+//Adding button css to views
+.views-field {
+  @include va-basic-styling;
+}
+
+//fixes export button
+.csv-feed .feed-icon {
+  @include va-buttons;
+  background-color: var(--va-blue-med);
+  background-image: none;
+  text-indent: unset;
+  
+  &:hover {
+    background-color: var(--va-blue-darker);
   }
 }
