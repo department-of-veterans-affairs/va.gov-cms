@@ -105,12 +105,7 @@
 
 //fixes export button
 .csv-feed .feed-icon {
-  @include va-buttons;
-  background-color: var(--va-blue-med);
+  @include va-buttons();
   background-image: none;
-  text-indent: unset;
-  
-  &:hover {
-    background-color: var(--va-blue-darker);
-  }
+  text-indent: unset;  
 }

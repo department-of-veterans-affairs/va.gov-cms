@@ -3,19 +3,20 @@
  */
 
 // These mixins are copied wholecloth from vagovadmin with no updates to prevent regressions in wysiwyg.
-@mixin wysiwyg-va-buttons {
+@mixin va-buttons($background: var(--va-blue-med), $hover: var(--va-blue-darker), $ghost: false) {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  background-color: $background;
   border: 0;
   border-radius: 5px;
-  color: #fff;
+  color: var(--color-white);
   display: inline-block;
-  font-family: Source Sans Pro,Helvetica Neue,Helvetica,Roboto,Arial,sans-serif;
+  font-family: var(--font-family-sans);
   font-size: 1em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1;
   margin-bottom: 0.5em;
   margin-right: 0.5em;
@@ -24,11 +25,28 @@
   text-align: center;
   text-decoration: none;
   width: auto;
+  
+  &:hover {
+    background-color: $hover;
+  }
+  
+  @if $ghost {    
+    background: transparent;
+    box-shadow: inset 0 0 0 2px var(--va-blue-med);
+    color: var(--va-blue-med);
+
+    &:hover {
+      background: transparent;
+      box-shadow: inset 0 0 0 2px var(--va-blue-darker);
+      color: var(--va-blue-darker)3;
+    }
+  }
 }
 
-@mixin wysiwyg-va-action-links {
+@mixin wysiwyg-va-action-links($color:var(--va-green)) {
   &::before {
     //    content: '\F138'; hide until FA support added
+    color: $color;
     display: inline-block;
     font-family: 'Font Awesome 5 Free';
     font-size: 175%;
@@ -148,50 +166,30 @@
   a.usa-button-primary,
   a.va-button-primary,
   a.usa-secondary-button {
-    @include wysiwyg-va-buttons;
+    @include va-buttons;
 
     &:hover {
-      color: #fff;
+      color: var(--color-white);
       text-decoration: none;
     }
   }
 
-
   /* Default button (blue) */
   .usa-button,
   .usa-button-primary {
-    @include wysiwyg-va-buttons;
-    background-color: #0071bb;
-
-    &:hover {
-      background-color: #003e73;
-    }
+    @include va-buttons(var(--va-blue-med), var(--va-blue-darker));
   }
 
 
   /* Primary button (green) */
   .va-button-primary {
-    @include wysiwyg-va-buttons;
-    background: #2e8540;
-
-    &:hover {
-      background: #195c27;
-    }
+    @include va-buttons(var(--va-green), var(--va-green-dark));
   }
 
 
   /* Secondary button (blue 'ghost') */
   a.usa-button-secondary {
-    @include wysiwyg-va-buttons;
-    background: transparent;
-    box-shadow: inset 0 0 0 2px #0071bb;
-    color: #0071bb;
-
-    &:hover {
-      background: transparent;
-      box-shadow: inset 0 0 0 2px #003e73;
-      color: #003e73;
-    }
+    @include va-buttons($ghost: true);
   }
   
   /*Action links*/
@@ -202,22 +200,25 @@
   }
   
   a.vads-c-action-link--green {
+    @include wysiwyg-va-action-links(var(--va-green));
+    
     &::before {
-      //      color: #2e8540; hide until FA support added
       content: url('/themes/custom/vagovclaro/images/icons/2e8540/chevron-circle-right-solid.svg') //needed until FA support added
     }
   }
   
   a.vads-c-action-link--blue {
+    @include wysiwyg-va-action-links(var(--va-blue-dark));
+    
     &::before {
-      //      color: #004795; hide until FA support added
       content: url('/themes/custom/vagovclaro/images/icons/004795/chevron-circle-right-solid.svg') //needed until FA support added
     }
   }
   
-  a.vads-c-action-link--white {
+  a.vads-c-action-link--white {    
+    @include wysiwyg-va-action-links(#fff);
+    
     &::before {
-      color: #fff;
       transition-duration: 0.3s;
       transition-property: color,
         background-color,
