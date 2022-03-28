@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4602b7cd8852858f5d2b1b3e0d94563a",
+    "content-hash": "70752e5969c619914949046ab4fd59e1",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -3041,17 +3041,17 @@
         },
         {
             "name": "drupal/allowed_formats",
-            "version": "1.4.0",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/allowed_formats.git",
-                "reference": "8.x-1.4"
+                "reference": "8.x-1.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/allowed_formats-8.x-1.4.zip",
-                "reference": "8.x-1.4",
-                "shasum": "6c73fd69781e8a7c3ebc394ce74f981b6da50eae"
+                "url": "https://ftp.drupal.org/files/projects/allowed_formats-8.x-1.5.zip",
+                "reference": "8.x-1.5",
+                "shasum": "dbf61bee7aec87beaa2cf307c1d0d9d5b896328c"
             },
             "require": {
                 "drupal/core": "^8.8 || ^9"
@@ -3059,8 +3059,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.4",
-                    "datestamp": "1643490593",
+                    "version": "8.x-1.5",
+                    "datestamp": "1648060331",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -6545,50 +6545,6 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/hook_event_dispatcher",
                 "issues": "https://drupal.org/project/issues/hook_event_dispatcher"
-            }
-        },
-        {
-            "name": "drupal/html_tag_usage",
-            "version": "1.0.0-beta3",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/html_tag_usage.git",
-                "reference": "1.0.0-beta3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/html_tag_usage-1.0.0-beta3.zip",
-                "reference": "1.0.0-beta3",
-                "shasum": "aef25d36cdfab3d42bbf9c70d3c416df5b26d1d8"
-            },
-            "require": {
-                "drupal/core": "^8.9 || ^9"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "1.0.0-beta3",
-                    "datestamp": "1647415876",
-                    "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "FeyP",
-                    "homepage": "https://www.drupal.org/user/998680"
-                }
-            ],
-            "description": "Analyzes contents of formatted text fields for HTML tags and attributes in use.",
-            "homepage": "https://www.drupal.org/project/html_tag_usage",
-            "support": {
-                "source": "https://git.drupalcode.org/project/html_tag_usage"
             }
         },
         {
@@ -24816,6 +24772,50 @@
             }
         },
         {
+            "name": "drupal/html_tag_usage",
+            "version": "1.0.0-beta3",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/html_tag_usage.git",
+                "reference": "1.0.0-beta3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/html_tag_usage-1.0.0-beta3.zip",
+                "reference": "1.0.0-beta3",
+                "shasum": "aef25d36cdfab3d42bbf9c70d3c416df5b26d1d8"
+            },
+            "require": {
+                "drupal/core": "^8.9 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.0-beta3",
+                    "datestamp": "1647415876",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "FeyP",
+                    "homepage": "https://www.drupal.org/user/998680"
+                }
+            ],
+            "description": "Analyzes contents of formatted text fields for HTML tags and attributes in use.",
+            "homepage": "https://www.drupal.org/project/html_tag_usage",
+            "support": {
+                "source": "https://git.drupalcode.org/project/html_tag_usage"
+            }
+        },
+        {
             "name": "drupal/media_entity_generic",
             "version": "1.1.0",
             "source": {
@@ -25256,7 +25256,6 @@
         "drupal/fieldhelptext": 10,
         "drupal/flag": 10,
         "drupal/graphql_menu": 15,
-        "drupal/html_tag_usage": 10,
         "drupal/jsonapi_resources": 10,
         "drupal/libraries": 15,
         "drupal/markup": 10,
@@ -25273,7 +25272,8 @@
         "drupal/user_history": 15,
         "drupal/viewfield": 10,
         "drupal/views_data_export": 10,
-        "weitzman/drupal-test-traits": 20
+        "weitzman/drupal-test-traits": 20,
+        "drupal/html_tag_usage": 10
     },
     "prefer-stable": true,
     "prefer-lowest": false,
