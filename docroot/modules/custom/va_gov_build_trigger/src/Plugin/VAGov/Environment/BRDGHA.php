@@ -93,10 +93,7 @@ class BRDGHA extends EnvironmentPluginBase {
         $message = $this->t('Changes will be included in a content release to VA.gov that\'s already in progress. <a href="@job_link">Check status</a>.', $vars);
       }
       else {
-        $this->githubAdapter->triggerWorkflow('content-release.yml', $front_end_git_ref, [
-          'release_wait' => "0",
-          'deploy_environment' => $this->settings->get('github_actions_deploy_env'),
-        ]);
+        $this->githubAdapter->triggerWorkflow('content-release.yml', $front_end_git_ref);
         $vars = [
           '@job_link' => 'https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml',
         ];
