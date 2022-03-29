@@ -14,7 +14,7 @@ services:
     working_dir: /home/node/app
     volumes:
       - ../docroot/design-system:/home/node/app
-    command: "yarn storybook"
+    command: sh -c "yarn install && yarn storybook"
     environment:
       - VIRTUAL_HOST=va-gov-storybook.${DDEV_TLD}
       - HTTP_EXPOSE=80:6006

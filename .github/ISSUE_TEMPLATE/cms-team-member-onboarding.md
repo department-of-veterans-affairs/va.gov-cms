@@ -150,7 +150,7 @@ The goal for this week is to get you set up with the tools you need to be succes
 - [ ] Contact CMS helpdesk on cms-team Slack for an administrator account on the [Drupal production environment](https://prod.cms.va.gov/) (SOCKS or VA access with PIV card required)
 - [ ] [Access to dev & staging to be able to replicate the SSO piece of the login experience](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/5838) (SOCKS or VA access required)
 
-#### Onboarding for Helpdesk members
+#### Onboarding for User Support members
  - [ ] [Review the helpdesk Github repo](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/platform/cms/helpdesk).
  - [ ] [Review the helpdesk Google Drive](https://drive.google.com/drive/folders/1opC6DgZyBQ6uEVzIz3FWmISMLt-Y91ts).
  - [ ] [Jira Service Desk](https://va-gov.atlassian.net/jira/servicedesk/projects/VAHELP)
@@ -200,6 +200,7 @@ The goal for this week is to get you set up with the tools you need to be succes
    - Complete a CMS simulation (you’ll need SOCKS proxy access first)
 - [ ] Attend 1:1 w/ Kauff (maybe Clarence and Kev too)
    - Let’s talk about your skillsets and interests and which project initiatives you might want to take over.
+- [ ] Attend the Platform Crew's orientation to VA.gov research. Ask your DM for details or ping in #vfs-platform-support
 
 </details>
 
@@ -210,6 +211,7 @@ By this point you should have enough context and access to be able to start cont
 ### Who?
 - [ ] Who are our VA points of contact? Discuss with your delivery manager or product manager.
 - [ ] Who should we know on the platform teams? Discuss with your delivery manager or product manager.
+- [ ] Background [history of the ecosystem](https://app.mural.co/t/vagov6717/m/vagov6717/1646745279937/9a5570c420939d84e875e8334fd73073e3a3971b?sender=clarencemaeng1702)
 ### What?
 - [ ] After your background check is complete, you will get an email to get your Personal Identify Verification (PIV) card. Contact your local VA office (where you got your fingerprints taken) for information about getting your [PIV card](https://www.oit.va.gov/programs/piv/how-to.cfm?). 
   - [ ] Review a [video about the benefits of the PIV card and VA network access](https://youtu.be/6rI-i8zmOzE).
