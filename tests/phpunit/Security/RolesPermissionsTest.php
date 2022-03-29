@@ -71,6 +71,7 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'access q_a_browser entity browser pages',
           'access toolbar',
           'add user_history entities',
+          'dropzone upload files',
           'enter all revision log entry',
           'execute graphql requests',
           'execute persisted graphql requests',
