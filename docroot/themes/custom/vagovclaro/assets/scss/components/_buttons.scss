@@ -76,29 +76,3 @@ table .button:not(:focus) {
 .js.no-touchevents .dropbutton--multiple.dropbutton--extrasmall .dropbutton__item:first-of-type {
   white-space: nowrap;
 }
-
-
-//Claro buttons
-.button--primary {
-  @include button(var(--button-bg-color--primary), var(--button-fg-color--primary), var(--button--hover-bg-color--primary), var(--button--active-bg-color--primary));
-}
-
-.button--danger {
-  @include button(var(--button-bg-color--danger), var(--button-fg-color--danger), var(--button--hover-bg-color--danger), var(--button--active-bg-color--danger));
-}
-
-.button:disabled,
-.button.is-disabled {
-  @include button();
-  
-  background-color: var(--button--disabled-bg-color);
-  color: var(--button--disabled-fg-color);
-}
-
-.button--primary:disabled,
-.button--primary.is-disabled {
-  @include button();
-  
-  background-color: var(--button--disabled-bg-color--primary);
-  color: var(--button--disabled-fg-color--primary);
-}
