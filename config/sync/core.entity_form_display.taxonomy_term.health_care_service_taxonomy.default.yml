@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.taxonomy_term.health_care_service_taxonomy.field_also_known_as
     - field.field.taxonomy_term.health_care_service_taxonomy.field_commonly_treated_condition
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_enforce_unique_combo_servi
     - field.field.taxonomy_term.health_care_service_taxonomy.field_health_service_api_id
     - field.field.taxonomy_term.health_care_service_taxonomy.field_owner
     - field.field.taxonomy_term.health_care_service_taxonomy.field_service_type_of_care
@@ -16,6 +17,7 @@ dependencies:
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vha_healthservice_stopcode
     - taxonomy.vocabulary.health_care_service_taxonomy
   module:
+    - allow_only_one
     - field_group
     - path
     - text
@@ -57,7 +59,6 @@ third_party_settings:
     group_vamc:
       children:
         - field_service_type_of_care
-        - field_non_clinical_service
         - field_also_known_as
         - field_commonly_treated_condition
         - description
@@ -102,9 +103,16 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_enforce_unique_combo_servi:
+    type: allow_only_one_widget
+    weight: 1
+    region: content
+    settings:
+      size: 1
+    third_party_settings: {  }
   field_health_service_api_id:
     type: string_textfield
-    weight: 1
+    weight: 2
     region: content
     settings:
       size: 60
@@ -118,7 +126,7 @@ content:
     third_party_settings: {  }
   field_vet_center_com_conditions:
     type: string_textfield
-    weight: 10
+    weight: 11
     region: content
     settings:
       size: 60
@@ -134,14 +142,14 @@ content:
     third_party_settings: {  }
   field_vet_center_required_servic:
     type: boolean_checkbox
-    weight: 12
+    weight: 13
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_vet_center_service_descrip:
     type: string_textarea
-    weight: 11
+    weight: 12
     region: content
     settings:
       rows: 5
@@ -155,7 +163,7 @@ content:
     third_party_settings: {  }
   field_vha_healthservice_stopcode:
     type: number
-    weight: 2
+    weight: 3
     region: content
     settings:
       placeholder: ''

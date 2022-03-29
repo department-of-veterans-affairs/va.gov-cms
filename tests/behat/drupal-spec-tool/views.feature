@@ -35,7 +35,6 @@ Feature: Views
 | Local facilities entity reference view | local_facilities_entity_reference_view | Content | Enabled | An entity reference view that determines options for the Local Health Service descriptions |
 | Locked content | locked_content | Content | Enabled |  |
 | Media | media | Media | Enabled |  |
-| Media Images | media_images | Media | Enabled |  |
 | Media library | media_library | Media | Enabled | Find and manage media. |
 | Moderated content | moderated_content | Content revisions | Enabled | Find and moderate content. |
 | Moderation history | moderation_history | Content revisions | Enabled |  |
@@ -70,6 +69,7 @@ Feature: Views
 | Knowledge Base Article administration | knowledge_base_article_administration | Content | Enabled | Audits and tools for managing Knowledge Base Articles |
 | Rich Text Field Audit | rich_text_field_audit | Content | Enabled |  |
 | Non-clinical services | non_clinical_services | Content | Enabled | Views of non-clinical services content placed within several "Top tasks" VAMC node forms. |
+| Table Audit | table_audit | Content | Enabled |  |
 | Metatag Audit | metatag_audit | Content | Enabled |  |
 | Flagged Content | flagged_content | Content | Enabled |  |
 | PDF Audit | pdf_audit | Media | Enabled |  |
@@ -103,7 +103,6 @@ Feature: Views
 | Content | Bulk edit content | page_2 | Page |
 | Content | Bulk edit events | events_page | Page |
 | Content | Resources and support | resources_support_dashboard | Page |
-| Content | Resources and support landing page | resources_and_support_landing_page_block | Block |
 | Content | Content audit CSV export | content_audit_csv_export | Data export |
 | Content | Content audit tools | content_audit_page | Page |
 | Content entity browsers | Master | default | Default |
@@ -170,9 +169,8 @@ Feature: Views
 | Media | Media | media_page_list | Page |
 | Media | Downloadable document browser | entity_browser_3 | Entity browser |
 | Media | Media bulk edit | page_1 | Page |
-| Media Images | Master | default | Default |
-| Media Images | Media | media_images | Page |
-| Media Images | Data export | images_export | Data export |
+| Media | Images | media_images | Page |
+| Media | Data export | images_export | Data export |
 | Media library | Master | default | Default |
 | Media library | Page | page | Page |
 | Media library | Widget | widget | Page |
@@ -185,6 +183,7 @@ Feature: Views
 | Non-clinical services | Billing and insurance offices | billing_and_insurance | Block |
 | Non-clinical services | Medical records offices | medical_records_offices | Block |
 | People | Data export | data_export_1 | Data export |
+| People | Data export: All users | data_export_2 | Data export |
 | People | Master | default | Default |
 | People | Page | page_1 | Page |
 | Redirect | Master | default | Default |
@@ -259,7 +258,12 @@ Feature: Views
 | Rich Text Field Audit | Default | default | Default |
 | Rich Text Field Audit | Content Audit - Rich Text Fields | content_audit_rich_text | Page |
 | Rich Text Field Audit | Data export | rich_text_audit_data_export | Data export |
+| Rich Text Field Audit | Content Audit - Buttons | content_audit_buttons | Page |
+| Rich Text Field Audit | Data export | buttons_export | Data export |
 | Non-clinical services | Default | default | Default |
+| Table Audit | Default | default | Default |
+| Table Audit | Table Audit | table_audit | Page |
+| Table Audit | Data export | tables_usage_export | Data export |
 | Metatag Audit | Default | default | Default |
 | Metatag Audit | Metatag Audit | metatag_audit | Page |
 | Flagged Content | Default | default | Default |
@@ -267,3 +271,5 @@ Feature: Views
 | PDF Audit | Default | default | Default |
 | PDF Audit | PDF Audit | pdf_audit | Page |
 | PDF Audit | Data export | pdf_audit_export | Data export |
+| Facility Services | Accordion audit | accordion_audit | Page |
+| Facility Services | Accordion audit export | accordion_audit_export | Data export |

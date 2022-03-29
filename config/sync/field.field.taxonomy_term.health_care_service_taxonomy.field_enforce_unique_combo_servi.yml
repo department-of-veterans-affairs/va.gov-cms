@@ -1,0 +1,42 @@
+uuid: b9746a12-2907-48ad-b37f-29989c07bd25
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_enforce_unique_combo_servi
+    - taxonomy.vocabulary.health_care_service_taxonomy
+  module:
+    - allow_only_one
+    - epp
+third_party_settings:
+  allow_only_one:
+    field_also_known_as: 0
+    field_commonly_treated_condition: 0
+    field_health_service_api_id: 1
+    field_owner: 0
+    field_service_type_of_care: 0
+    field_vet_center_com_conditions: 0
+    field_vet_center_friendly_name: 0
+    field_vet_center_required_servic: 0
+    field_vet_center_service_descrip: 0
+    field_vet_center_type_of_care: 0
+    field_vha_healthservice_stopcode: 0
+    title: 0
+    case_sensitive: null
+  epp:
+    value: ''
+    on_update: 1
+id: taxonomy_term.health_care_service_taxonomy.field_enforce_unique_combo_servi
+field_name: field_enforce_unique_combo_servi
+entity_type: taxonomy_term
+bundle: health_care_service_taxonomy
+label: 'Enforce unique combo service'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings: {  }
+field_type: allow_only_one

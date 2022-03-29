@@ -104,6 +104,7 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Service location | Use the facility's hours | field_hours | List (text) | Required | 1 | Select list |  |
 | Paragraph type | Service location | Other phone numbers | field_phone | Entity reference revisions |  | 5 | Inline entity form - Complex - Table View Mode |  |
 | Paragraph type | Service location | Use the general facility phone number | field_use_main_facility_phone | Boolean |  | 1 | Single on/off checkbox |  |
+| Paragraph type | Service location | Hours | field_office_hours | Office hours |  | Unlimited | Office hours (week) |  |
 | Paragraph type | Service location address | Address | field_address | Address |  | 1 | Address | Translatable |
 | Paragraph type | Service location address | Building name/number | field_building_name_number | Text (plain) |  | 1 | Textfield with counter |  |
 | Paragraph type | Service location address | Name of office or location | field_clinic_name | Text (plain) |  | 1 | Textfield with counter |  |
@@ -126,3 +127,4 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Featured content | Call to Action | field_cta | Entity reference revisions |  | 1 | Paragraphs (stable) |  |
 | Paragraph type | Featured content | Description | field_description | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter |  |
 | Paragraph type | Featured content | Section Header | field_section_header | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+

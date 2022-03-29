@@ -22,10 +22,18 @@
  * @see claro_preprocess_status_messages().
  */
 #}
+
 <div data-drupal-messages class="messages-list">
+  {# Pass variables from Drupal through to our design system components #}
   {% for type, messages in message_list %}
-    {% include '@vagovclaro/components/_alert.html.twig' with {
-      type, messages, status_headings
+    {% include '@cmsds/alert.twig' with {
+      attributes, type, messages, status_headings, title_ids
     } %}
   {% endfor %}
+  {# Pass variables from Drupal through to our design system components #}
+{#  {% for type, messages in message_list %}#}
+{#    {% include '@cmsds/alert/alert.twig' with {#}
+{#      attributes, type, messages, status_headings, title_ids#}
+{#    } %}#}
+{#  {% endfor %}#}
 </div>

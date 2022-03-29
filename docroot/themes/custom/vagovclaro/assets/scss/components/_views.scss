@@ -97,3 +97,20 @@
     margin-top: 0;
   }
 }
+
+//Adding button css to views
+.views-field {
+  @include va-basic-styling;
+}
+
+//fixes export button
+.csv-feed .feed-icon {
+  @include va-buttons;
+  background-color: var(--va-blue-med);
+  background-image: none;
+  text-indent: unset;
+  
+  &:hover {
+    background-color: var(--va-blue-darker);
+  }
+}

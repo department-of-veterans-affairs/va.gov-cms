@@ -11,12 +11,14 @@ use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
+use Drupal\core_event_dispatcher\FormHookEvents;
 use Drupal\field_event_dispatcher\Event\Field\WidgetSingleElementFormAlterEvent;
-use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
+use Drupal\field_event_dispatcher\FieldHookEvents;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -95,6 +97,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function entityViewAlter(EntityViewAlterEvent $event):void {
     $this->appendHealthServiceTermDescriptionToVetCenter($event);
+    $this->showUnspecifiedWhenSystemEhrNumberEmpty($event);
   }
 
   /**
@@ -183,6 +186,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $form = &$event->getForm();
     $form_state = $event->getFormState();
     $this->lockTitleEditing($form, $form_state);
+    $this->lockApiIdEditing($form, $form_state);
   }
 
   /**
@@ -218,7 +222,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public function appendHealthServiceTermDescriptionToVetCenter(EntityViewAlterEvent $event):void {
     if ($event->getDisplay()->getTargetBundle() === 'vet_center') {
       $build = &$event->getBuild();
-      $services = isset($build['field_health_services']) ? $build['field_health_services'] : [];
+      $services = $build['field_health_services'] ?? [];
       foreach ($services as $key => $service) {
         if (is_numeric($key) && !empty($service['#options'])) {
           $service_node = $service['#options']['entity'];
@@ -236,6 +240,29 @@ class EntityEventSubscriber implements EventSubscriberInterface {
         }
       }
     }
+  }
+
+  /**
+   * Shows the text "Unspecified" when phone number is blank.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
+   *   The entity view alter service.
+   */
+  public function showUnspecifiedWhenSystemEhrNumberEmpty(EntityViewAlterEvent $event):void {
+    if ($event->getDisplay()->getTargetBundle() === 'health_care_region_page') {
+      $build = &$event->getBuild();
+      if (empty($build['field_va_health_connect_phone']['#title'])) {
+        $undefined_number_text = '
+          <div class="field field--name-field-va-health-connect-phone field--type-list-string field--label-above">
+              <div class="field__label">VA Health Connect phone number</div>
+              <div class="field__item">Undefined</div>
+          </div>';
+
+        $formatted_markup = new FormattableMarkup($undefined_number_text, []);
+        $build['field_va_health_connect_phone']['#prefix'] = $formatted_markup;
+      }
+    }
+
   }
 
   /**
@@ -264,6 +291,25 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     ];
     if (!$this->userPermsService->hasAdminRole() && in_array($bundle, $bundles_with_standardized_titles)) {
       $form['title']['#disabled'] = TRUE;
+    }
+  }
+
+  /**
+   * Locks down API Id for non-admins.
+   *
+   * @param array $form
+   *   The form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   */
+  public function lockApiIdEditing(array &$form, FormStateInterface $form_state) {
+    $form_object = $form_state->getFormObject();
+    $bundle = NULL;
+    if ($form_object instanceof ContentEntityForm) {
+      $bundle = $form_object->getEntity()->bundle();
+    }
+    if (!$this->userPermsService->hasAdminRole(TRUE) && $bundle === 'health_care_service_taxonomy') {
+      $form['field_health_service_api_id']['#disabled'] = TRUE;
     }
   }
 
@@ -452,9 +498,11 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    * @param \Drupal\field_event_dispatcher\Event\Field\WidgetSingleElementFormAlterEvent $event
    *   The event.
    */
-  public function paragraphsExperimentalWidgetAlter(WidgetSingleElementFormAlterEvent $event): void {
+  public function formWidgetAlter(WidgetSingleElementFormAlterEvent $event): void {
     $form = &$event->getElement();
+    $form_state = $event->getFormState();
     $this->removeCollapseButton($form);
+    $this->toggleFieldOfficeHours($form, $form_state);
   }
 
   /**
@@ -470,14 +518,44 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * SHow or hide field_office_hours on service_location paragraph widget forms.
+   *
+   * @param array $form
+   *   The form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   */
+  public function toggleFieldOfficeHours(array &$form, FormStateInterface $form_state) {
+    /** @var \Drupal\node\NodeForm $form_object $form_object */
+    $form_object = $form_state->getFormObject();
+    /** @var \Drupal\node\Entity\Node $entity */
+    $entity = $form_object->getEntity();
+    // The new use of field_office_hours on service location paragraphs should
+    // be visible to admins only except on non-clinical service pages, where
+    // it should be the only hours field used.
+    if (!empty($form['#paragraph_type'])
+    && $form['#paragraph_type'] === 'service_location'
+    && !$this->userPermsService->hasAdminRole(TRUE)) {
+      if ($entity->bundle() === 'vha_facility_nonclinical_service') {
+        // We are on the new version, remove the old version of the field.
+        unset($form['subform']['field_facility_service_hours']);
+      }
+      else {
+        // We are not using the new version yet, so remove it.
+        unset($form['subform']['field_office_hours']);
+      }
+    }
+  }
+
+  /**
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
     return [
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'entityPresave',
-      HookEventDispatcherInterface::WIDGET_SINGLE_ELEMENT_FORM_ALTER => 'paragraphsExperimentalWidgetAlter',
-      HookEventDispatcherInterface::ENTITY_VIEW_ALTER => 'entityViewAlter',
-      HookEventDispatcherInterface::FORM_ALTER => 'formAlter',
+      EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
+      FieldHookEvents::WIDGET_SINGLE_ELEMENT_FORM_ALTER => 'formWidgetAlter',
+      EntityHookEvents::ENTITY_VIEW_ALTER => 'entityViewAlter',
+      FormHookEvents::FORM_ALTER => 'formAlter',
       'hook_event_dispatcher.form_node_person_profile_form.alter' => 'alterStaffProfileNodeForm',
       'hook_event_dispatcher.form_node_person_profile_edit_form.alter' => 'alterStaffProfileNodeForm',
       'hook_event_dispatcher.form_node_centralized_content_edit_form.alter' => 'alterCentralizedContentNodeForm',

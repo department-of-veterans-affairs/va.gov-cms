@@ -1257,7 +1257,7 @@ display:
           entity_type: user
           entity_field: changed
           plugin_id: date
-          order: ASC
+          order: DESC
           expose:
             label: ''
             field_identifier: changed
@@ -1776,7 +1776,7 @@ display:
             timestamp: timestamp
             break: break
             is_locked: is_locked
-          default: '-1'
+          default: changed
           info:
             title:
               sortable: true
@@ -1869,7 +1869,7 @@ display:
               responsive: ''
             changed:
               sortable: true
-              default_sort_order: asc
+              default_sort_order: desc
               align: ''
               separator: ''
               empty_column: false
