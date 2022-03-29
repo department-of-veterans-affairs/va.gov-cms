@@ -105,12 +105,15 @@ function va_gov_switch_service_locations_office_hours(array &$sandbox, array &$a
 
     foreach ($days as $day) {
       $comment = '';
-      $review = '';
 
       // Three character abbreviation for day of week (Mon - Sun).
       $dayofweek = trim($day[0]);
       $low_day = $weekdaymap[$dayofweek];
       $raw_value = trim($day[1]);
+
+      // Store audit data for this day.
+      $hours_clean[$low_day]['id'] = $service_location->id();
+      $hours_clean[$low_day]['raw'] = $raw_value;
 
       // Normalize meridiem designations.
       $new_value = normalize_meridiem($raw_value);
@@ -189,8 +192,10 @@ function va_gov_switch_service_locations_office_hours(array &$sandbox, array &$a
           }
         }
       }
+    }
 
-      // Log outliers to a CSV for review.
+    if (!empty($hours_clean)) {
+      $week = [];
       $common_comments = [
         'ET',
         'CT',
@@ -199,21 +204,6 @@ function va_gov_switch_service_locations_office_hours(array &$sandbox, array &$a
         'Closed',
         '24/7',
       ];
-      if (!empty($comment)
-      && !in_array(trim($comment), $common_comments)
-      && ($comment != $raw_value || (empty($start_time) && empty($end_time)))) {
-        $audit_data[] = [
-          $service_location->id(),
-          $raw_value,
-          $start_time,
-          $end_time,
-          $comment,
-        ];
-      }
-    }
-
-    if (!empty($hours_clean)) {
-      $week = [];
       // Create the week from data.
       foreach ($daymap as $daylong => $dayshort) {
         $week[] = [
@@ -222,6 +212,19 @@ function va_gov_switch_service_locations_office_hours(array &$sandbox, array &$a
           'endhours' => $hours_clean[$daylong]['end_time'] ?? NULL,
           'comment' => $hours_clean[$daylong]['comment'] ?? '',
         ];
+
+        // Log outliers to CSV.
+        if (!empty($hours_clean[$daylong]['comment'])
+        && !in_array($hours_clean[$daylong]['comment'], $common_comments)
+        && ($hours_clean[$daylong]['comment'] != $hours_clean[$daylong]['raw'] || (empty($hours_clean[$daylong]['start_time']) && empty($hours_clean[$daylong]['end_time'])))) {
+          $audit_data[] = [
+            $hours_clean[$daylong]['id'],
+            $hours_clean[$daylong]['raw'],
+            $hours_clean[$daylong]['start_time'] ?? '',
+            $hours_clean[$daylong]['end_time'] ?? '',
+            $hours_clean[$daylong]['comment'] ?? '',
+          ];
+        }
       }
 
       // Use converted data from $week as new field_office_hours value.
