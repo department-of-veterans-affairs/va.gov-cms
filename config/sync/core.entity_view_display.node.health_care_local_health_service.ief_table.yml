@@ -6,7 +6,6 @@ dependencies:
     - core.entity_view_mode.node.ief_table
     - field.field.node.health_care_local_health_service.field_administration
     - field.field.node.health_care_local_health_service.field_appointments_help_text
-    - field.field.node.health_care_local_health_service.field_body
     - field.field.node.health_care_local_health_service.field_enforce_unique_combo
     - field.field.node.health_care_local_health_service.field_facility_location
     - field.field.node.health_care_local_health_service.field_facility_service_loc_help
@@ -21,20 +20,12 @@ dependencies:
     - field.field.node.health_care_local_health_service.field_walk_ins_accepted
     - node.type.health_care_local_health_service
   module:
-    - text
     - user
 id: node.health_care_local_health_service.ief_table
 targetEntityType: node
 bundle: health_care_local_health_service
 mode: ief_table
 content:
-  field_body:
-    type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 1
-    region: content
   field_facility_location:
     type: entity_reference_label
     label: hidden
