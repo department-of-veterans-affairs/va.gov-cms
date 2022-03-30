@@ -187,6 +187,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $form_state = $event->getFormState();
     $this->lockTitleEditing($form, $form_state);
     $this->lockApiIdEditing($form, $form_state);
+    $this->removeDeleteButton($form, $form_state);
   }
 
   /**
@@ -545,6 +546,30 @@ class EntityEventSubscriber implements EventSubscriberInterface {
             // We are not using the new version yet, so remove it.
             unset($form['subform']['field_office_hours']);
           }
+        }
+      }
+    }
+  }
+
+  /**
+   * Remove delete button on node forms.
+   *
+   * @param array $form
+   *   The form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+  */
+  public function removeDeleteButton(&$form, $form_state) {
+    /** @var \Drupal\node\NodeForm $form_object $form_object */
+    $form_object = $form_state->getFormObject();
+    if (method_exists($form_object, 'getEntity')) {
+      $entity = $form_object->getEntity();
+      if ($entity instanceof NodeInterface) {
+        // Users with the "Content admin" role shouldn't be able to delete anything,
+        // but should be able to do everything else with any content in VA.gov CMS.
+        if (!$this->userPermsService->hasAdminRole(TRUE)) {
+          // Remove the delete button.
+          $form['actions']['delete']['#access'] = FALSE;
         }
       }
     }
