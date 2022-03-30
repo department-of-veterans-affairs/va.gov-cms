@@ -11,6 +11,7 @@ use Psr\Log\LogLevel;
 
 // Begin paragraph processing.
 $sandbox = ['#finished' => 0];
+// Pre-populating data header.
 $audit_data[] = [
   'Paragraph ID',
   'Original Value',
@@ -43,6 +44,8 @@ return;
  *
  * @param array $sandbox
  *   Modeling the structure of hook_update_n sandbox.
+ * @param array $audit_data
+ *   Array for storing data outliers so we can report on them.
  *
  * @return string
  *   Status message.
@@ -116,10 +119,10 @@ function va_gov_switch_service_locations_office_hours(array &$sandbox, array &$a
       $hours_clean[$low_day]['raw'] = $raw_value;
 
       // Normalize meridiem designations.
-      $new_value = normalize_meridiem($raw_value);
+      $new_value = _normalize_meridiem($raw_value);
 
       // Normalize time separator designations.
-      $new_value = normalize_separator($new_value);
+      $new_value = _normalize_separator($new_value);
 
       // Gather some initial data about our new string.
       preg_match_all('/(a\.m\.|p\.m\.)/', $new_value, $meridiems);
@@ -129,15 +132,15 @@ function va_gov_switch_service_locations_office_hours(array &$sandbox, array &$a
 
       // If the string doesn't start with a number, treat as a comment.
       if (!ctype_digit(substr(trim($raw_value), 0, 1))) {
-        $hours_clean[$low_day]['comment'] = comment_cleaner($raw_value);
+        $hours_clean[$low_day]['comment'] = _clean_comment($raw_value);
       }
       elseif ($meridiem_count != 2) {
         // If the number of meridiems is not two, treat as a comment.
-        $hours_clean[$low_day]['comment'] = comment_cleaner($raw_value);
+        $hours_clean[$low_day]['comment'] = _clean_comment($raw_value);
       }
       elseif (!$separator_count || $separator_count > 2) {
         // If the separator count is neither 1 nor 2, treat as a comment.
-        $hours_clean[$low_day]['comment'] = comment_cleaner($raw_value);
+        $hours_clean[$low_day]['comment'] = _clean_comment($raw_value);
       }
       else {
         // Break up the normalized string by the separator.
@@ -147,26 +150,26 @@ function va_gov_switch_service_locations_office_hours(array &$sandbox, array &$a
         if ((preg_match('/(a\.m\.|p\.m\.)/', $pieces[0]) === 0)
         || (preg_match('/(a\.m\.|p\.m\.)/', $pieces[1]) === 0)) {
           // If no meridiems in first two pieces, treat as a comment.
-          $hours_clean[$low_day]['comment'] = comment_cleaner($raw_value);
+          $hours_clean[$low_day]['comment'] = _clean_comment($raw_value);
         }
         else {
           // Process the first piece as a time value.
-          $start_time = clean_time($pieces[0]);
+          $start_time = _clean_time($pieces[0]);
           $sub_pieces = [];
 
           // The second piece could still contain a comment.
           if (str_contains($pieces[1], 'a.m.')) {
             $sub_pieces = explode('a.m.', $pieces[1]);
-            $end_time = clean_time($sub_pieces[0] . 'a.m.');
+            $end_time = _clean_time($sub_pieces[0] . 'a.m.');
           }
           elseif (str_contains($pieces[1], 'p.m.')) {
             $sub_pieces = explode('p.m.', $pieces[1]);
-            $end_time = clean_time($sub_pieces[0] . 'p.m.');
+            $end_time = _clean_time($sub_pieces[0] . 'p.m.');
           }
 
           // If the start time is greater than the end time, treat as a comment.
           if ($start_time > $end_time) {
-            $hours_clean[$low_day]['comment'] = comment_cleaner($raw_value);
+            $hours_clean[$low_day]['comment'] = _clean_comment($raw_value);
           }
           else {
             // Set the time values.
@@ -175,12 +178,7 @@ function va_gov_switch_service_locations_office_hours(array &$sandbox, array &$a
 
             // Add any remaining sub_pieces to comment.
             array_shift($sub_pieces);
-            $comment = '';
-            if (count($sub_pieces)) {
-              foreach ($sub_pieces as $sub_piece) {
-                $comment .= $sub_piece;
-              }
-            }
+            $comment = implode(' ', $sub_pieces);
 
             // If a third piece remains treat as a comment.
             if (count($pieces) == 3) {
@@ -188,7 +186,7 @@ function va_gov_switch_service_locations_office_hours(array &$sandbox, array &$a
             }
 
             // A final clean for the comment to remove noise.
-            $hours_clean[$low_day]['comment'] = comment_cleaner($comment);
+            $hours_clean[$low_day]['comment'] = _clean_comment($comment);
           }
         }
       }
@@ -232,7 +230,7 @@ function va_gov_switch_service_locations_office_hours(array &$sandbox, array &$a
       $service_location->save();
     }
 
-    unset($sandbox['pids_to_update']["paragraph_{$service_location->id()}"]);
+    unset($sandbox['pids_to_update'][_va_gov_stringifypid($service_location->id())]);
     $pids[] = $service_location->id();
     $sandbox['current'] = $sandbox['total'] - count($sandbox['pids_to_update']);
   }
@@ -267,7 +265,7 @@ function va_gov_switch_service_locations_office_hours(array &$sandbox, array &$a
  * @return string
  *   A formatted string where AM and PM have been standardized.
  */
-function normalize_meridiem($value) {
+function _normalize_meridiem($value) {
   // Normalize ante meridiem.
   $new_value = preg_replace("/(am|a\.m |a\.m$)/i", "a.m.", $value);
 
@@ -292,7 +290,7 @@ function normalize_meridiem($value) {
  * @return string
  *   A formatted string where the separator has been standardized.
  */
-function normalize_separator($value) {
+function _normalize_separator($value) {
   // Normalize the time separator.
   $new_value = preg_replace("/(to|-|–)/i", "ZZZ", $value);
 
@@ -308,7 +306,7 @@ function normalize_separator($value) {
  * @return string
  *   A formatted string where the unwanted characters have been removed.
  */
-function comment_cleaner($value) {
+function _clean_comment($value) {
   // Remove certain "garbage" characters from the string.
   $new_value = trim($value, "/");
   $new_value = trim($new_value, "*");
@@ -338,7 +336,7 @@ function comment_cleaner($value) {
  * @return string
  *   A formatted date string.
  */
-function clean_time($times) {
+function _clean_time($times) {
   $time = preg_replace("/[^0-9]/", "", $times);
   if (strlen($time) < 3) {
     // An incomplete time value was supplied (hour without minutes).
