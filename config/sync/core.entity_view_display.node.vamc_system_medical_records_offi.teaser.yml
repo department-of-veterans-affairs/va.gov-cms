@@ -4,6 +4,7 @@ status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.vamc_system_medical_records_offi.field_action_link_used_on_cerner
     - field.field.node.vamc_system_medical_records_offi.field_administration
     - field.field.node.vamc_system_medical_records_offi.field_cc_faqs
     - field.field.node.vamc_system_medical_records_offi.field_cc_get_records_in_person
@@ -38,6 +39,7 @@ content:
     weight: 100
     region: content
 hidden:
+  field_action_link_used_on_cerner: true
   field_administration: true
   field_cc_faqs: true
   field_cc_get_records_in_person: true

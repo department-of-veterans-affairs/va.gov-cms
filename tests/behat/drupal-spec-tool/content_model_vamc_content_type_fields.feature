@@ -222,7 +222,8 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System Medical Records Office | Get your records in person | field_cc_get_records_in_person | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
 | Content type | VAMC System Medical Records Office | Get your records by mail or fax | field_cc_get_records_mail_or_fax | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
 | Content type | VAMC System Medical Records Office | How we share your records with providers outside VA | field_cc_how_we_share_records | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
-| Content type | VAMC System Medical Records Office | React widget | field_cc_react_widget | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
+| Content type | VAMC System Medical Records Office | Action link (used on Cerner VAMCs) | field_action_link_used_on_cerner | Entity Field Fetch field |  | 1 | Entity Field Fetch widget | |
+| Content type | VAMC System Medical Records Office | React widget (for non-Cerner VAMCs) | field_cc_react_widget | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
 | Content type | VAMC System Medical Records Office | Related links | field_cc_related_links | Entity Field Fetch field |  | 1 | Entity Field Fetch widget | Translatable |
 | Content type | VAMC System Medical Records Office | National top of page content | field_cc_top_of_page_content | Entity Field Fetch field |  | 1 | Entity Field Fetch widget | Translatable |
 | Content type | VAMC System Medical Records Office | Enforce unique combo office | field_enforce_unique_combo_offic | Allow Only One |  | 1 | Allow Only One widget | Translatable |
