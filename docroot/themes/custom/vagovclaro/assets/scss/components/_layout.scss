@@ -69,11 +69,18 @@
   margin-bottom: var(--spacing-m);
 }
 
+// !important here to beat some nonsense core is doing that we inherit as claro subtheme
 .vagovclaro .layout-container {
   margin-left: 2rem !important;
   margin-right: 2rem !important;
+
+  @include breakpoint('lg') {
+    margin-left: 3rem !important;
+    margin-right: 3rem !important;
+  }
 }
 
+// see node-edit-form.html.twig
 .layout--edit {
   display: grid;
   grid-auto-rows: minmax(min-content, max-content);
@@ -113,9 +120,13 @@
 
     .layout-region__content {
       position: sticky;
-      top: 90px; // height from top of viewport to start sticky
+      top: 50px; // height from top of viewport to start sticky
     }
   }
+}
+
+.toolbar-tray-open .layout--node-secondary .layout-region__content {
+  top: 90px; // slighter lower sticky position if toolbar open
 }
 
 .layout--node-footer {
