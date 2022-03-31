@@ -1559,6 +1559,13 @@ function va_gov_backend_menu_local_tasks_alter(&$local_tasks) {
   if (!empty($local_tasks['tabs'][0]['views_view:view.moderation_history.page'])) {
     unset($local_tasks['tabs'][0]['views_view:view.moderation_history.page']);
   }
+
+  // Remove the "Delete" tab for non administrator roles in node/*/edit form.
+  $current_user = \Drupal::currentUser();
+  $roles = $current_user->getRoles();
+  if (!in_array('administrator', $roles)) {
+    unset($local_tasks['tabs'][0]['entity.node.delete_form']);
+  }
 }
 
 /**
