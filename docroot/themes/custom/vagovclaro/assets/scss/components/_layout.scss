@@ -130,7 +130,12 @@
 }
 
 .layout--node-footer {
+  .layout-region__content {
+    margin: 0 auto;
+    max-width: 52rem;
+  }
+
   @include breakpoint('sm') {
-    grid-area: 2 / 1 / 2 / 3;
+    grid-area: 2 / 1 / 2 / 2;
   }
 }
