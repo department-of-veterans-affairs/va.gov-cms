@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.vamc_system_medical_records_offi.field_action_link_used_on_cerner
     - field.field.node.vamc_system_medical_records_offi.field_administration
     - field.field.node.vamc_system_medical_records_offi.field_cc_faqs
     - field.field.node.vamc_system_medical_records_offi.field_cc_get_records_in_person
@@ -127,6 +128,13 @@ targetEntityType: node
 bundle: vamc_system_medical_records_offi
 mode: default
 content:
+  field_action_link_used_on_cerner:
+    type: entity_field_fetch
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
   field_cc_faqs:
     type: entity_field_fetch
     label: above
