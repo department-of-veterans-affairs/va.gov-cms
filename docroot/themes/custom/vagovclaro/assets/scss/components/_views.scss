@@ -99,14 +99,15 @@
 }
 
 //Adding button css to views
-.views-field {
+.views-field-nothing,
+.views-field-field-content-block {
   @include va-basic-styling;
 }
 
 //fixes export button
 .csv-feed .feed-icon {
   @include button(var(--button-bg-color--primary), var(--button-fg-color--primary), var(--button--hover-bg-color--primary), var(--button--active-bg-color--primary));
-  
+
   background-image: none;
   text-indent: unset;
   width: auto;

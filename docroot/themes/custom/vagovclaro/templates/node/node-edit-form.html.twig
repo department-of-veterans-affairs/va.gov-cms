@@ -15,18 +15,19 @@
  * @see claro_form_node_form_alter()
  */
 #}
-<div class="layout-node-form clearfix">
-  <div class="layout-region layout-region--node-main">
+
+<div class="layout--edit">
+  <div class="layout-region layout--node-main">
     <div class="layout-region__content">
       {{ form|without('advanced', 'footer', 'actions') }}
     </div>
   </div>
-  <div class="layout-region layout-region--node-secondary">
+  <div class="layout-region layout--node-secondary">
     <div class="layout-region__content">
       {{ form.advanced }}
     </div>
   </div>
-  <div class="layout-region layout-region--node-footer">
+  <div class="layout-region layout--node-footer">
     <div class="layout-region__content">
       {{ form.footer }}
       {{ form.actions }}
