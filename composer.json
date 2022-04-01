@@ -519,6 +519,7 @@
         ],
         "post-install-cmd": [
             "mkdir --parents docroot/profiles",
+            "rm -r .git/hooks/post-merge 2> /dev/null",
             "cp -r 'hooks/git/.' '.git/hooks/'",
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
             "ln -snf 'docroot/vendor/simplesamlphp/simplesamlphp/' 'simplesamlphp'",
