@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   module:
+    - menu_force
     - menu_ui
     - node_revision_delete
     - node_title_help_text
@@ -16,9 +17,12 @@ third_party_settings:
     when_to_delete: 0
   node_title_help_text:
     title_help: 'Add a page title with sentence case capitalization. (<a href="https://design.va.gov/content-style-guide/capitalization" target="_blank">See further guidelines</a>) '
+  menu_force:
+    menu_force: 0
+    menu_force_parent: 0
 name: Step-by-Step
 type: step_by_step
-description: 'An ordered list (1, 2, 3, 4, N) of steps with Call to Action buttons.'
+description: 'A page that includes numbered steps a Veteran can take to complete an action. Use for instructions that must be completed in order.'
 help: ''
 new_revision: true
 preview_mode: 0

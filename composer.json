@@ -519,6 +519,8 @@
         ],
         "post-install-cmd": [
             "mkdir --parents docroot/profiles",
+            "# The rm post-merge command below can be removed after we think all engineers have run composer install.",
+            "rm -rf .git/hooks/post-merge",
             "cp -r 'hooks/git/.' '.git/hooks/'",
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
             "ln -snf 'docroot/vendor/simplesamlphp/simplesamlphp/' 'simplesamlphp'",

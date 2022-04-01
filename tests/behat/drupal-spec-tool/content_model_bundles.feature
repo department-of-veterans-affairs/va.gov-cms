@@ -12,17 +12,17 @@ Feature: Content model bundles
 | Benefits Hub Landing Page | landing_page | Content type | A special page for top-level Benefits content with its own one-off layout and content. |
 | Campaign Landing Page | campaign_landing_page | Content type |  |
 | Centralized Content | centralized_content | Content type | Common content for reuse on other content types. |
-| Checklist | checklist | Content type |  |
+| Checklist | checklist | Content type | A page that lists the items a Veteran or other beneficiary needs to complete a process. For example, a list of documents needed to apply for a benefit.   |
 | CMS Knowledge Base Article | documentation_page | Content type | Articles about how to use the VA.gov Drupal Content Management System (CMS). |
 | Event | event | Content type | For online or in-person events like support groups, outreach events, public lectures, and more. |
 | Events List | event_listing | Content type | A listing of events. |
-| FAQ - multiple Q&As | faq_multiple_q_a | Content type | Curated collection of Q&As. |
+| FAQ page | faq_multiple_q_a | Content type | A collection of several Q&As related to one topic. |
 | Full Width Alert | banner | Content type | A full width dismissible banner |
 | Health Services List | health_services_listing | Content type | A listing of health services. |
 | Landing Page | basic_landing_page | Content type | Basic Landing Page can be used to build one-off pages for various products. E.g. a homepage for a specific product. |
 | Leadership List | leadership_listing | Content type | A listing of staff profiles. |
-| Media list - Images | media_list_images | Content type |  |
-| Media list - Videos | media_list_videos | Content type |  |
+| Image list | media_list_images | Content type | A page that displays a series of related images. |
+| Video list | media_list_videos | Content type | A page that displays a series of related videos. |
 | NCA Facility | nca_facility | Content type | A facility within National Cemetery Administration system. |
 | News Release | press_release | Content type | Announcements directed at members of the media for the purpose of publicizing newsworthy events/happenings/programs at specific facilities or healthcare systems. |
 | News Releases List | press_releases_listing | Content type | A listing of news releases. |
@@ -30,10 +30,10 @@ Feature: Content model bundles
 | Promo Banner | promo_banner | Content type | Promo banners are fixed content used for dismissible announcements such as new tools, news, etc. |
 | Publication | outreach_asset | Content type | Contains a document, image, or video, for publication within a Publication library. |
 | Publication Listing Page | publication_listing | Content type | This allows the listing of publication materials such as documents, videos, and images all in one place. |
-| Q&A | q_a | Content type | Single Question and Answer. |
-| Resources and support Detail Page | support_resources_detail_page | Content type |  |
+| Q&A - single | q_a | Content type | Reusable content that answers a single question from Veterans or other beneficiaries. A Q&A may appear on its own or as part of an FAQ page. |
+| Resources and support Detail Page | support_resources_detail_page | Content type | A page that contains in-depth information about a single resource available to Veterans or other beneficiaries. |
 | Staff Profile | person_profile | Content type | Profiles of staff members for display in various places around the site. |
-| Step-by-Step | step_by_step | Content type | An ordered list (1, 2, 3, 4, N) of steps with Call to Action buttons. |
+| Step-by-Step | step_by_step | Content type | A page that includes numbered steps a Veteran can take to complete an action. Use for instructions that must be completed in order. |
 | Stories List | story_listing | Content type | A listing of stories. |
 | Story | news_story | Content type | Community stories highlight the role of a VA facility, program, or healthcare system in a Veteran's journey. They may be a case study of a specific patient, a description of a new or successful program, or a community-interest story. |
 | Support Service | support_service | Content type | Help desks, hotlines, etc, to be contextually placed alongside relevant content. |
