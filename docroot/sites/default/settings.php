@@ -190,6 +190,13 @@ if (file_exists($app_root . '/' . $site_path . '/settings/settings.deploy.active
 }
 
 /**
+ * Preserve control characters (e.g. newlines) in text passed to syslog.
+ * @see https://bugs.php.net/bug.php?id=77913
+ * TL;DR: Ensure each watchdog entry becomes only a single line in syslog.
+ */
+ini_set('syslog.filter', 'raw');
+
+/**
  * Load local development override configuration, if available.
  *
  * Use settings.local.php to override variables on secondary (staging,
