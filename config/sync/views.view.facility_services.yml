@@ -6342,7 +6342,7 @@ display:
         filter_groups: false
       display_description: ''
       display_extenders: {  }
-      path: admin/content/facilities/facility-status
+      path: admin/content/facilities/facility-status/export
       displays:
         facility_status_page: facility_status_page
         default: '0'
@@ -6353,8 +6353,14 @@ display:
         vamc_system_service_audit_page: '0'
         vamc_systems: '0'
         vet_center_services_page: '0'
+      filename: facility-status-export.csv
+      automatic_download: false
       export_method: batch
       export_batch_size: 1000
+      store_in_public_file_directory: null
+      custom_redirect_path: false
+      redirect_to_display: none
+      include_query_params: false
     cache_metadata:
       max-age: 0
       contexts:
