@@ -187,7 +187,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $form_state = $event->getFormState();
     $this->lockTitleEditing($form, $form_state);
     $this->lockApiIdEditing($form, $form_state);
-    $this->removeDeleteButton($form, $form_state);
+    $this->removeDeleteButton($form);
   }
 
   /**
