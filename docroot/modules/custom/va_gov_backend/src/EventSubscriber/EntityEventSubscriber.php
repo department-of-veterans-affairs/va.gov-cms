@@ -556,11 +556,12 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function removeDeleteButton(array &$form) {
     // Users with any role, other than administrator role,
-    // shouldn't be able to delete anything, but should be
-    // able to do everything else with content in VA.gov CMS.
+    // shouldn't be able to delete anything.
     if (!$this->userPermsService->hasAdminRole(TRUE)) {
       // Remove the delete button.
-      $form['actions']['delete']['#access'] = FALSE;
+      if (isset($form['actions']['delete'])) {
+        $form['actions']['delete']['#access'] = FALSE;
+      }
     }
   }
 
