@@ -1560,10 +1560,9 @@ function va_gov_backend_menu_local_tasks_alter(&$local_tasks) {
     unset($local_tasks['tabs'][0]['views_view:view.moderation_history.page']);
   }
 
-  // Remove the "Delete" tab for non administrator roles in node/*/edit form.
-  $current_user = \Drupal::currentUser();
-  $roles = $current_user->getRoles();
-  if (!in_array('administrator', $roles)) {
+  // Remove the "Delete" tab for non administrator roles in */*/edit form.
+  $perms_service = \Drupal::service('va_gov_user.user_perms');
+  if (!$perms_service->hasAdminRole(TRUE)) {
     unset($local_tasks['tabs'][0]['entity.node.delete_form']);
   }
 }

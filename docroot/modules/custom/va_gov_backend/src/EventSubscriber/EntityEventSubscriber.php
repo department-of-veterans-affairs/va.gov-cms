@@ -552,27 +552,15 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Remove delete button on node forms.
-   *
-   * @param array $form
-   *   The form.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The form state.
+   * Remove delete button from edit forms.
    */
-  public function removeDeleteButton(array &$form, FormStateInterface $form_state) {
-    /** @var \Drupal\node\NodeForm $form_object $form_object */
-    $form_object = $form_state->getFormObject();
-    if (method_exists($form_object, 'getEntity')) {
-      $entity = $form_object->getEntity();
-      if ($entity instanceof NodeInterface) {
-        // Users with the "Content admin" role shouldn't
-        // be able to delete anything, but should be able to
-        // do everything else with any content in VA.gov CMS.
-        if (!$this->userPermsService->hasAdminRole(TRUE)) {
-          // Remove the delete button.
-          $form['actions']['delete']['#access'] = FALSE;
-        }
-      }
+  public function removeDeleteButton() {
+    // Users with any role, other than administrator role,
+    // shouldn't be able to delete anything, but should be
+    // able to do everything else with content in VA.gov CMS.
+    if (!$this->userPermsService->hasAdminRole(TRUE)) {
+      // Remove the delete button.
+      $form['actions']['delete']['#access'] = FALSE;
     }
   }
 
