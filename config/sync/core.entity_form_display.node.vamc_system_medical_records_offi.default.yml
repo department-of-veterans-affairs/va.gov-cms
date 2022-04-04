@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.vamc_system_medical_records_offi.field_action_link_used_on_cerner
     - field.field.node.vamc_system_medical_records_offi.field_administration
     - field.field.node.vamc_system_medical_records_offi.field_cc_faqs
     - field.field.node.vamc_system_medical_records_offi.field_cc_get_records_in_person
@@ -88,7 +89,7 @@ third_party_settings:
       label: 'Get your records by mail or fax'
       region: content
       parent_name: ''
-      weight: 6
+      weight: 8
       format_type: tooltip
       format_settings:
         show_label: '0'
@@ -124,6 +125,7 @@ third_party_settings:
       children:
         - field_cc_top_of_page_content
         - field_cc_react_widget
+        - field_action_link_used_on_cerner
       label: 'Get your records online'
       region: content
       parent_name: ''
@@ -147,7 +149,7 @@ third_party_settings:
       label: 'Local mailing address and fax numbers for medical records'
       region: content
       parent_name: ''
-      weight: 8
+      weight: 9
       format_type: fieldset
       format_settings:
         classes: ''
@@ -160,6 +162,15 @@ targetEntityType: node
 bundle: vamc_system_medical_records_offi
 mode: default
 content:
+  field_action_link_used_on_cerner:
+    type: entity_field_fetch_widget
+    weight: 9
+    region: content
+    settings:
+      show_field_label: true
+      show_link_to_source: false
+      show_source_updated_date: false
+    third_party_settings: {  }
   field_administration:
     type: options_select
     weight: 12
@@ -252,7 +263,7 @@ content:
     third_party_settings: {  }
   field_non_clinical_services:
     type: viewfield_select
-    weight: 9
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }

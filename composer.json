@@ -132,7 +132,7 @@
         "drupal/site_alert": "1.2",
         "drupal/slack": "^1.2",
         "drupal/smart_date": "3.4.3",
-        "drupal/social_media_links": "^2.6",
+        "drupal/social_media_links": "^2.8",
         "drupal/string_field_formatter": "^2.0",
         "drupal/styleguide": "^2.0@beta",
         "drupal/tablefield": "^2.1",
@@ -176,7 +176,7 @@
         "symfony/process": "^4.0",
         "symfony/routing": "^4.0",
         "traviscarden/behat-table-comparison": "~0.2",
-        "va-gov/content-build": "^0.0.2953",
+        "va-gov/content-build": "^0.0.2978",
         "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
@@ -438,8 +438,11 @@
             "drupal/migrate_plus": {
                 "3113461 - Allow properties in str_replace process plugin.": "https://www.drupal.org/files/issues/2020-03-16/migrate_plus-properties_str_replace-2.patch"
             },
+            "drupal/node_revision_delete": {
+                "3249493 - Not able to delete a revision via the interface": "https://www.drupal.org/files/issues/2022-02-21/3249493-9.patch"
+            },
             "drupal/office_hours": {
-                "3227169 - Form fields in table cell missing labels causes accessibility warnings": "https://www.drupal.org/files/issues/2021-08-09/labels-for-accessibility-3227169-3.patch"
+                "3227169 - Form fields in table cell missing labels causes accessibility warnings": "https://www.drupal.org/files/issues/2022-03-28/labels-for-accessibility-3227169-11.patch"
             },
             "drupal/openapi_jsonapi": {
                 "3110109 - Support renamed resource types Part 1": "https://git.drupalcode.org/project/openapi_jsonapi/-/commit/17070f1ef70ff89f732619a11c29730107a2083e.patch",
@@ -472,6 +475,9 @@
             "drupal/site_alert": {
                 "3118800 - Add drush commands to add and remove alerts by label": "https://www.drupal.org/files/issues/2020-10-26/3118800-45.patch"
             },
+            "drupal/social_media_links": {
+                "3044002 - Platform Name and Aria Label issue": "https://www.drupal.org/files/issues/2022-03-21/3044002-17.patch"
+            },
             "drupal/tablefield": {
                 "0 string value in cell throws empty error": "https://www.drupal.org/files/issues/2019-12-10/0-value-throwing-empty-error.patch",
                 "Fix Undefined index: caption notice": "https://www.drupal.org/files/issues/2020-08-10/tablefield-empty-caption-notice-2.patch",
@@ -496,6 +502,9 @@
             },
             "weitzman/drupal-test-traits": {
                 "Forbid connection reuse in PHPUnit tests": "patches/weitzman-drupal-test-traits-forbid-connection-reuse.patch"
+            },
+            "drupal/dropzonejs": {
+                "Select files button and Add media window text should respect field cardinality": "https://www.drupal.org/files/issues/2022-03-29/3174484-add-media-window-and-select-button-text-should-respect-field-cardinality-4.patch"
             }
         }
     },
@@ -510,6 +519,8 @@
         ],
         "post-install-cmd": [
             "mkdir --parents docroot/profiles",
+            "# The rm post-merge command below can be removed after we think all engineers have run composer install.",
+            "rm -rf .git/hooks/post-merge",
             "cp -r 'hooks/git/.' '.git/hooks/'",
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
             "ln -snf 'docroot/vendor/simplesamlphp/simplesamlphp/' 'simplesamlphp'",

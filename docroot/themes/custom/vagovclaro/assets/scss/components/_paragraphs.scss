@@ -86,3 +86,34 @@
 .js .draggable:hover .paragraphs-collapsed-description::after {
   background: linear-gradient(to right, rgba(247, 252, 255, 0) 0%, var(--va-blue-light) 100%);
 }
+
+// fix spacing for link teaser paragraphs on all screen sizes
+.paragraph-type--link-teaser {
+  fieldset {
+    border: unset;
+    box-shadow: unset;
+    margin: 0;
+  }
+
+  .fieldset__label {
+    padding: 0;
+  }
+
+  .fieldset__wrapper {
+    margin: 0;
+  }
+
+  .form-element--type-text {
+    width: 100%;
+  }
+
+  .paragraphs-subform {
+    margin-right: var(--space-l);
+  }
+
+  &:hover {
+    fieldset {
+      background-color: var(--color-bgblue-hover);
+    }
+  }
+}

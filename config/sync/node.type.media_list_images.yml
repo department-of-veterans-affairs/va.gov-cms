@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   module:
+    - menu_force
     - menu_ui
     - node_revision_delete
     - node_title_help_text
@@ -16,9 +17,12 @@ third_party_settings:
     when_to_delete: 0
   node_title_help_text:
     title_help: 'Add a page title with sentence case capitalization. (<a href="https://design.va.gov/content-style-guide/capitalization" target="_blank">See further guidelines</a>) '
-name: 'Media list - Images'
+  menu_force:
+    menu_force: 0
+    menu_force_parent: 0
+name: 'Image list'
 type: media_list_images
-description: ''
+description: 'A page that displays a series of related images.'
 help: ''
 new_revision: true
 preview_mode: 0
