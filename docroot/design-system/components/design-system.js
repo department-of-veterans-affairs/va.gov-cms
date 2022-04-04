@@ -10,11 +10,13 @@ import * as tokens from './tokens';
 // components
 import * as alert from './alert';
 import * as block from './block';
+import * as icon from './icon';
 
 const components = {
   tokens,
   alert,
   block,
+  icon
 };
 
 /**
@@ -30,7 +32,7 @@ export const componentNames = () =>
   Object.values(components).map(({ name }) => name);
 
 /**
- * Enable all components against a piece of DOM with some settings
+ * Enable all components against a piece of DOM with some settings. e.g. Drupal's $context var
  */
 export const enableAllComponents = ($dom, settings) =>
   Object.values(components).forEach(({ enable }) => enable($dom, settings));

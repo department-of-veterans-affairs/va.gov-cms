@@ -4,6 +4,12 @@ import '../components/tokens/_variables.css';
 // Add storybook-specific styles we don't need to include in the drupal bundle
 import './storybook-styles.scss';
 
+// Enable design system components in storybook
+import { enableAllComponents } from '../components/design-system';
+
+const sbRoot = document.getElementById('root');
+enableAllComponents(sbRoot, {});
+
 // Adds support for twing and storybook... issue with promises in Storybook HTML
 // see: https://github.com/NightlyCommit/twing-loader/issues/33#issuecomment-889409418
 export const loaders = [
