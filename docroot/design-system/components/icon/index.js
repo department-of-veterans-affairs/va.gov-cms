@@ -9,8 +9,14 @@ import './icon.scss';
 // Import module template
 import './icon.twig';
 
-library.add(faChevronDown, faMagnifyingGlass, faTriangleExclamation);
+// Add icons to our library.
+library.add(
+  faChevronDown,
+  faMagnifyingGlass,
+  faTriangleExclamation
+);
 
+// Automatically replace <i> elements with <svg>.
 dom.watch();
 
 export const name = 'icon';

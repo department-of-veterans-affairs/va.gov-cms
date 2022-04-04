@@ -18,3 +18,9 @@ Ignore the output about localhost, that's inside the container. Visit https://va
 Those commands are available in the container as well, through scripts in composer.json. They are named `composer va:ds:Storybook` and `composer va:ds:drupal` respectively.
 
 - `yarn run css` is a helper command that extracts CSS Custom Properties into a .json file, for easy manipulation to display "tokens" in Storybook.
+
+
+## Icons
+
+This design system supports the free icons from [fontawesome](https://fontawesome.com/) using their [SVG Core](https://fontawesome.com/docs/apis/javascript/import-icons) package.
+Look at `components/icon/index.js` for an example.
