@@ -14,7 +14,9 @@
 %}
 {% if type == 'status' %}
   {% set is_message_with_title = false %}
+  {% set alert_icon = 'check' %}
 {% else %}
+  {% set alert_icon = 'warning' %}
   {%
     set is_message_with_title = status_headings[type]
   %}
@@ -23,8 +25,10 @@
   %}
 {% endif %}
 
+
 <div role="contentinfo" {{ attributes.addClass(classes)|without('role', 'aria-label') }}>
   {% if type == 'error' %}
+  {% set alert_icon = 'ban' %}
   <div role="alert">
   {% endif %}
     {% if is_message_with_title or is_message_with_icon %}
@@ -37,6 +41,7 @@
       </div>
     {% endif %}
     <div class="messages__content">
+      <i class="fas fa-{{ alert_icon }} fa-lg"></i>
       {% if messages|length > 1 %}
         <ul class="messages__list">
           {% for message in messages %}
