@@ -1335,18 +1335,7 @@ display:
           plugin_id: entity_reverse
           required: false
       group_by: true
-      header:
-        area_text_custom:
-          id: area_text_custom
-          table: views
-          field: area_text_custom
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: text_custom
-          empty: false
-          content: '<p><a class="button" href="/vha-healthcare-services/export?_format=csv">Download as a CSV</a></p>'
-          tokenize: false
+      header: {  }
       footer: {  }
       display_extenders: {  }
     cache_metadata:
