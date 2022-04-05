@@ -7,6 +7,10 @@
   padding: var(--space-l);
   vertical-align: middle;
   width: 100%;
+
+  svg {
+    margin-right: var(--space-m);
+  }
 }
 
 .va-alert .messages__header {
@@ -21,6 +25,10 @@
 .va-alert.messages--warning {
   background-color: var(--va-gold-lightest);
   border-color: var(--va-gold-med);
+
+  svg {
+    color: var(--va-gold-med);
+  }
 }
 
 .va-alert.messages--warning a {
@@ -31,6 +39,10 @@
 .va-alert.messages--status {
   background-color: var(--va-green-lightest);
   border-color: var(--va-green);
+
+  svg {
+    color: var(--va-green);
+  }
 }
 
 .va-alert.messages--success a,
@@ -41,6 +53,10 @@
 .va-alert.messages--error {
   background-color: var(--va-red-lightest);
   border-color: var(--va-red-bright);
+
+  svg {
+    color: var(--va-red-bright);
+  }
 }
 
 .va-alert.messages--error a {
