@@ -1,7 +1,20 @@
 // fontawesome api methods
 import { library, dom } from '@fortawesome/fontawesome-svg-core';
-// import specific icons as needed to keep bundle small
-import { faChevronDown, faMagnifyingGlass, faTriangleExclamation} from '@fortawesome/free-solid-svg-icons';
+// import specific icons as needed to keep final bundle small. fa icon name in comment.
+import {
+  faBan, // ban
+  faBullhorn, // bullhorn
+  faCheck, // check
+  faChevronDown, // chevron-down
+  faCircleInfo, // circle-info
+  faClone, // clone
+  faEllipsisVertical, // ellipsis-vertical
+  faMagnifyingGlass, // magnifying-glass
+  faPencil, // pencil
+  faPlus, // plus
+  faTrash, // trash
+  faTriangleExclamation // warning
+} from '@fortawesome/free-solid-svg-icons';
 
 // Import module styles
 import './icon.scss';
@@ -11,8 +24,17 @@ import './icon.twig';
 
 // Add icons to our library.
 library.add(
+  faBan,
+  faBullhorn,
+  faCheck,
   faChevronDown,
+  faCircleInfo,
+  faClone,
+  faEllipsisVertical,
   faMagnifyingGlass,
+  faPencil,
+  faPlus,
+  faTrash,
   faTriangleExclamation
 );
 

@@ -4,7 +4,7 @@ import '../components/tokens/_variables.css';
 // Add storybook-specific styles we don't need to include in the drupal bundle
 import './storybook-styles.scss';
 
-// Enable design system components in storybook
+// Enable design system components in storybook (particularly for icons)
 import { enableAllComponents } from '../components/design-system';
 
 const sbRoot = document.getElementById('root');
@@ -34,7 +34,18 @@ export const parameters = {
   },
   options: {
     storySort: {
-      order: ['Introduction', 'Getting started', 'Changelog', 'Tokens', 'Components', '*'],
+      method: 'alphabetical',
+      order: [
+        'Introduction',
+        'Getting started',
+        'Changelog',
+        'Design System Tokens',
+        ['Colors', 'Spacing', 'Typography', 'Icons'], // nested under DST
+        'Components',
+        '*',
+        'Experimental',
+        'Deprecated'
+      ],
     }
   }
 }
