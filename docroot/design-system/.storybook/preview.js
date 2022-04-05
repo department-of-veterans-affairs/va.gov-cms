@@ -1,5 +1,5 @@
 // Add token styles to make available for all pages
-import '../components/tokens/_variables.css';
+import '../components/tokens/_variables.scss';
 
 // Add storybook-specific styles we don't need to include in the drupal bundle
 import './storybook-styles.scss';

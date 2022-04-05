@@ -1,78 +1,6 @@
-// TODO: remove these in favor of AWS s3 fonts... need to fix CORS
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Bitter:400,600&display=swap&subset=latin-ext');
-
 :root {
   /*
-   * Our unique vagovclaro variables.
-   */
-  --va-gray-lightest: #f1f1f1; // --color-gray-lightest
-  --va-gray-lighter: #e4e2e0; // --color-gray-lighter
-  --va-gray-light: #d3d3d3;
-  --va-gray-med: #757576; // --color-gray-dark
-  --va-gray-dark: #595959;
-  --va-gray-darker: #494440;
-  --va-gray-darkest: #212121; // --color-gray-darker
-
-  --va-gray-cool-lightest: #f1f4f9;
-  --va-gray-cool-lighter: #e7ecf4;
-  --va-gray-cool-light: #dce4ef;
-  --va-gray-cool: #d1d9e3;
-  --va-gray-cool-med: #aeb0b5; // --color-gray-light
-  --va-gray-cool-dark: #5b616b;
-  --va-gray-cool-darker: #323a45; // --color-gray-darkest
-
-  --va-blue-lightest: #f0f6fb; // --color-blue-lightest
-  --va-blue-lighter: #e4eff9;
-  --va-blue-light: #d9e8f6; // --color-status-bg, --color-info-bg
-  --va-blue: #3e94cf; // --color-blue
-  --va-blue-med: #0071bb; // --color-blue-dark
-  --va-blue-dark: #004795;
-  --va-blue-darker: #003e73; // --color-blue-darker
-  --va-blue-darkest: #112e51; // --color-blue-darkest
-
-  --va-blue-bright: #9bdaf1;
-  --va-blue-bright-med: #02bfe7; // --color-status
-  --va-blue-bright-med-dark: #00a6d2;
-  --va-blue-bright-dark: #046b99;
-
-  --va-gold-lightest: #fff1d2; // --color-warning-bg
-  --va-gold-lighter: #fad980;
-  --va-gold: #f9c642;
-  --va-gold-med: #fdb81e; // --color-warning
-
-  --va-green-lightest: #d5e7d9; // --color-success-bg
-  --va-green-light: #4aa564;
-  --va-green: #2e8540; // --color-success
-  --va-green-dark: #195c27;
-  --va-green-alt: #0fa56f;
-  --va-green-alt-bright: #1bc47d;
-
-  --va-red-lightest: #f9dede; // --color-error-bg
-  --va-red: #f24f44;
-  --va-red-alt-dark: #d04037;
-  --va-red-bright: #e31c3d; // --color-error
-  --va-red-dark: #cd2026;
-  --va-red-darker: #981b1e;
-
-  --color-white: #fff;
-  --color-black: #000;
-
-  // fonts imported above, should be S3
-  --font-family-sans: 'Source Sans Pro', sans-serif;
-  --font-family-serif: 'Bitter', serif;
-
-  // rem size based on :root font-size of 16px, so 1rem = 16px
-  --spacing-xxs: 0.25rem; // 4px
-  --spacing-xs: 0.5rem; // 8px
-  --spacing-s: 0.75rem; // 12px
-  --spacing-m: 1rem; // 16px
-  --spacing-l: 1.5rem; // 24px
-  --spacing-ll: 2rem; // 32px
-  --spacing-xl: 3rem; // 48px
-
-  /*
-   * Variables originally defined in core/themes/claro (or other modules), overridden here.
+   * Variables originally defined in core/themes/claro (or other modules), overridden here with design system variables.
    */
   --color-absolutezero: var(--va-blue-med);
   --color-absolutezero-hover: var(--va-blue-dark);
@@ -99,6 +27,7 @@
 
   --messages__link-color: var(--va-blue-med);
   --messages__link--hover-color: var(--va-blue-dark);
+  --messages__text-margin: 0;
 
   --table-row--dragging-bg-color: var(--va-gold-lighter);
   --table-row--last-dragged-bg-color: var(--va-gold-lightest);

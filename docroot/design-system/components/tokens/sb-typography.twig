@@ -2,7 +2,7 @@
   <h2>Typography</h2>
   <hr>
   {% set fontWeight = 400 %}
-  {% for name, value in vars|without('--font-family') %}
+  {% for name, value in vars %}
     {% if name == '--font-family-serif' %}
       {% set fontWeight = 700 %}
     {% endif %}
