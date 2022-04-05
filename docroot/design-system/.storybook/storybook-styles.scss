@@ -1,6 +1,6 @@
 /**
- * This file is particularly for displaying tokens in storybook.
- * The tokens themselves are consumed by other styles in Drupal and should not be included in that bundle.
+ * This file is solely for extra styles needed by various sb-*.twig files.
+ * It is not included in the output bundle for Drupal.
  */
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Bitter:400,600&display=swap&subset=latin-ext');
@@ -21,4 +21,8 @@
   p {
     margin: var(--spacing-xxs);
   }
+}
+
+th {
+  padding-right: 1rem;
 }
