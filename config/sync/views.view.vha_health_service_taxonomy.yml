@@ -1185,9 +1185,10 @@ display:
             field_vet_center_type_of_care: field_vet_center_type_of_care
             nothing_1: nothing_1
             nothing: nothing
+            nothing_2: nothing_2
+            nothing_3: nothing_3
             field_vet_center_required_servic: field_vet_center_required_servic
             nid_1: nid_1
-            nothing_2: nothing_2
           default: name
           info:
             name:
@@ -1198,7 +1199,7 @@ display:
               empty_column: false
               responsive: ''
             edit_taxonomy_term:
-              sortable: true
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
@@ -1282,6 +1283,16 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
+            nothing_2:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            nothing_3:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
             field_vet_center_required_servic:
               sortable: true
               default_sort_order: asc
@@ -1292,11 +1303,6 @@ display:
             nid_1:
               sortable: true
               default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            nothing_2:
               align: ''
               separator: ''
               empty_column: false
@@ -1329,18 +1335,7 @@ display:
           plugin_id: entity_reverse
           required: false
       group_by: true
-      header:
-        area_text_custom:
-          id: area_text_custom
-          table: views
-          field: area_text_custom
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: text_custom
-          empty: false
-          content: '<p><a class="button" href="/vha-healthcare-services/export?_format=csv">Download as a CSV</a></p>'
-          tokenize: false
+      header: {  }
       footer: {  }
       display_extenders: {  }
     cache_metadata:
@@ -2359,16 +2354,16 @@ display:
           alter:
             alter_text: false
             text: ''
-            make_link: false
+            make_link: true
             path: ''
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
+            alt: Edit
             rel: ''
-            link_class: ''
+            link_class: button
             prefix: ''
             suffix: ''
             target: ''
