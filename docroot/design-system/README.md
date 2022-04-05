@@ -19,8 +19,8 @@ Those commands are available in the container as well, through scripts in compos
 
 - `yarn run css` is a helper command that extracts CSS Custom Properties into a .json file, for easy manipulation to display "tokens" in Storybook.
 
+- TODO: add generator command for component boilerplate `yarn run new`
 
 ## Icons
-
 This design system supports the free icons from [fontawesome](https://fontawesome.com/) using their [SVG Core](https://fontawesome.com/docs/apis/javascript/import-icons) package.
 Look at `components/icon/index.js` for an example.

@@ -5,8 +5,19 @@
 
 @import './claro.css';
 
-// colors
-div.swatch {
+.swatches {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+.swatch-color {
   padding: 2rem;
-  width: 33%;
+}
+
+.spacer {
+  background-color: var(--va-blue-light);
+
+  p {
+    margin: var(--spacing-xxs);
+  }
 }
