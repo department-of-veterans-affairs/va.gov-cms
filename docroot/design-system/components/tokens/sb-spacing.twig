@@ -15,8 +15,9 @@
       <h3>Values</h3>
       {% for name, value in vars %}
         <div class="spacer" style="padding: {{ value }}; margin-bottom: {{ value }}">
-          <p>{{ value }}</p>
           <p>{{ name }}</p>
+          <p>{{ value }}</p>
+          <p>padding + margin</p>
         </div>
       {% endfor %}
     </div>
@@ -24,14 +25,15 @@
     <div>
       <h3>Margin</h3>
       {% for name, value in vars %}
-        <div class="spacer" style="padding: 1rem; margin-bottom: {{ value }};"></div>
+        <div class="spacer" style="padding: 1rem; margin-bottom: {{ value }};">margin-bottom: {{ value }}</div>
       {% endfor %}
+        <div class="spacer" style="padding: 1rem;"></div>
     </div>
 
     <div>
       <h3>Padding</h3>
       {% for name, value in vars %}
-        <div class="spacer" style="margin-bottom: 1rem; padding-bottom: {{ value }}"></div>
+        <div class="spacer" style="margin-bottom: 1rem; padding-bottom: {{ value }}">padding-bottom: {{ value }}</div>
       {% endfor %}
     </div>
   </div>
