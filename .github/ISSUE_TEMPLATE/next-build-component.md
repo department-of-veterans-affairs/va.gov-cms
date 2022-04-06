@@ -8,7 +8,7 @@ assignees: ''
 ---
 
 ## Description
-A component is needed in the next-build system to render <the component>. This component should be able to be used standalone or to render field data for other nodes and paragraphs. 
+A component is needed in the next-build system to render <the component>. This component should be able to be used standalone or to render field data for other nodes and paragraphs.
 
 ## Acceptance Criteria
 - [ ] A component exists that can render a `<component>` data structure
@@ -35,7 +35,7 @@ A component is needed in the next-build system to render <the component>. This c
     const phone = await getResourceCollectionFromContext(
         'paragraph--table',
         context,
-        {} // params 
+        {} // params
     );
 ```
 
@@ -47,13 +47,13 @@ enter complete data structure for one item
 Further info: <reference to collecting info in content-api-react-poc>
 
 ### CMS Team
-Please check the team(s) that will do this work. 
+Please check the team(s) that will do this work.
 
-- [ ] `CMS Program`
+- [ ] `Sitewide program`
 - [x] `Platform CMS Team`
-- [ ] `Sitewide CMS Team ` (leave Sitewide unchecked and check the specific team instead)
+- [ ] `Sitewide crew ` (leave Sitewide unchecked and check the specific team instead)
   - [ ] `⭐️ Content ops`
   - [ ] `⭐️ CMS experience`
-  - [ ] `⭐️ Offices`
-  - [ ] `⭐️ Product support`
+  - [ ] `⭐️ Public websites`
+  - [ ] `⭐️ Facilities`
   - [ ] `⭐️ User support`

@@ -11,7 +11,7 @@ _Use this form to request change to the Sections hierarchy. You can expect a res
 
 ## Proposed change
 
-**What change to the Sections hierarchy do you want?** 
+**What change to the Sections hierarchy do you want?**
 
 _For example: Move a branch of RS to VBA section hierarchy, so VBA, VHA, and NCA business line stakeholders can create and publish non-Veteran-facing RS articles._
 
@@ -27,7 +27,7 @@ _Example:_
 Current R&S section hierarchy:  
 
 ```
-None. All content is currently assigned to "Public Websites". 
+None. All content is currently assigned to "Public websites".
 ```
 
 New R&S section hierarchy
@@ -39,14 +39,14 @@ VHA
 - VHA Resources and support
 NCA
 - NCA Resources and support
-OCTO 
-- Public Websites
+OCTO
+- Public websites
   - Resources and support
 ```
 
 
 
-## Impact on existing users 
+## Impact on existing users
 
 **Will anyone _lose_ access to editing content?**
 
@@ -57,7 +57,7 @@ OCTO
 [Example: Existing CMS users at VBA, NCA and VHA will be able to create (and then edit) content in a Resources and support section in their respective sections.]
 
 
-# For CMS team to complete 
+# For CMS team to complete
 
 ## Products affected
 
@@ -70,7 +70,7 @@ OCTO
 
 ## Acceptance Criteria
 
-Examples: 
+Examples:
 - [ ] New "Resources and support" sections are added under each of the three main Administrations (NCA, VHA, VBA)
 - [ ] All existing Resources and support content is moved to ...
 - [ ] Update X, Y, and Z editors about a change in content access
@@ -79,13 +79,13 @@ Examples:
 
 
 ### CMS Team
-Please check the team(s) that will do this work. 
+Please check the team(s) that will do this work.
 
-- [ ] `CMS Program`
+- [ ] `Sitewide program`
 - [ ] `Platform CMS Team`
-- [ ] `Sitewide CMS Team ` (leave Sitewide unchecked and check the specific team instead)
+- [ ] `Sitewide crew ` (leave Sitewide unchecked and check the specific team instead)
   - [ ] `⭐️ Content ops`
   - [ ] `⭐️ CMS experience`
-  - [ ] `⭐️ Offices`
-  - [ ] `⭐️ Product support`
+  - [ ] `⭐️ Public websites`
+  - [ ] `⭐️ Facilities`
   - [ ] `⭐️ User support`

@@ -12,8 +12,8 @@ assignees: ''
 **Who are the stakeholders for this?**
 
 - Editor(s):
-- VISN web manager (optional): 
-- Product team member: 
+- VISN web manager (optional):
+- Product team member:
 - CMS Help desk
 
 **Associated HD issue, if any**
@@ -26,8 +26,8 @@ assignees: ''
 
 #### 1. CMS Help desk
 - [ ] Becomes aware that the facility is no longer on the Facility API, via the "Facility closed" flag, and create github issue  (Future state: Flag autogenerates github issue)
-- [ ] Fill out the stakeholders in github issue. 
-- [ ] If we don't already have context (say, via a HD ticket submitted by an editor), check with editor to find out more about the status of the facility 
+- [ ] Fill out the stakeholders in github issue.
+- [ ] If we don't already have context (say, via a HD ticket submitted by an editor), check with editor to find out more about the status of the facility
 
 <details><summary>Email template </summary>
 
@@ -45,42 +45,42 @@ Because some Veterans may have bookmarked this facility, external sites may have
 
    In order to do that we have some questions about the nature of this closure so that we can help redirect Veterans to the right place and understand this change.
 
-1. Was this facility replaced with another facility? 
+1. Was this facility replaced with another facility?
    If yes, which one?
-2. Is there a news release or story about this published on your VAMC website? 
-3. Anything else we should know about this facility closure? 
+2. Is there a news release or story about this published on your VAMC website?
+3. Anything else we should know about this facility closure?
 
 If this facility has been removed from VAST in error, please notify our Support Desk as well as your VAST coordinator.
 
 [outro]
 
-[CMS helpdesk signature] 
+[CMS helpdesk signature]
 ```
-   
-   
+
+
 </details>
 
-#### 2a. If facility has moved to a new system or merged 
+#### 2a. If facility has moved to a new system or merged
 - [ ] Can any of the associated content  (eg services, facility map?) be reused? If so
   - [ ] is there a new facility in VAST/Facility API that content should be moved to?
 - [ ] Create [redirect request](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=mnorthuis&labels=ia&template=redirect-request.md&title=Redirect+Request) to point to URL of new facility.
-- [ ] When redirect is ready to go out, plan to make these changes immediately after redirect is released. Practice first on staging or a demo environment. 
+- [ ] When redirect is ready to go out, plan to make these changes immediately after redirect is released. Practice first on staging or a demo environment.
   - [ ] In certain, rare situations: CMS engineer bulk moves any content to new facility.
   - [ ] CMS engineer finds the menu for the system https://prod.cms.va.gov/admin/structure/menu and deletes the menu item for the merged facility.
 
-#### 2b. If not 
+#### 2b. If not
 - [ ] Determine where should redirect go? to the system? or to the nearest clinic?
-- [ ] Create [redirect request](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=mnorthuis&labels=ia&template=redirect-request.md&title=Redirect+Request) accordingly. 
-- [ ] When redirect is ready to go out, plan to make these changes immediately after redirect is released. Practice first on staging or a demo environment. 
+- [ ] Create [redirect request](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=mnorthuis&labels=ia&template=redirect-request.md&title=Redirect+Request) accordingly.
+- [ ] When redirect is ready to go out, plan to make these changes immediately after redirect is released. Practice first on staging or a demo environment.
   - [ ] CMS engineer bulk archives the facility service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service).
   - [ ] CMS engineer bulk archives the facility non-clinical service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=vha_facility_nonclinical_service).
   - [ ] CMS engineer finds the menu for the system https://prod.cms.va.gov/admin/structure/menu and deletes the menu item for the closed facility.
   - [ ] CMS engineer filters content by the health care system and scans for any events that might be taking place at that facility. Archive if any are found.
   - [ ] CMS engineer edits the facility node, removes  flag `Removed from source`, add a revision log that explains the change, with a link to github issue, and change moderation state to archive.
-- [ ] Let HD know this is complete. 
+- [ ] Let HD know this is complete.
 
 #### 3. CMS Help desk
-- [ ] Notifies editor and any other stakeholders that this is complete. 
+- [ ] Notifies editor and any other stakeholders that this is complete.
 
 ### Vet Center – facility closure [this needs work]
 - [ ] CMS team becomes aware that the facility is no longer on the Facility API.
@@ -93,11 +93,11 @@ If this facility has been removed from VAST in error, please notify our Support 
 ## CMS Team
 Please check the team(s) that will do this work.
 
-- [ ] `CMS Program`
+- [ ] `Sitewide program`
 - [ ] `Platform CMS Team`
-- [ ] `Sitewide CMS Team ` (leave Sitewide unchecked and check the specific team instead)
+- [ ] `Sitewide crew ` (leave Sitewide unchecked and check the specific team instead)
   - [ ] `⭐️ Content ops`
   - [ ] `⭐️ CMS experience`
-  - [ ] `⭐️ Offices`
-  - [x] `⭐️ Product support`
+  - [ ] `⭐️ Public websites`
+  - [x] `⭐️ Facilities`
   - [x] `⭐️ User support`
