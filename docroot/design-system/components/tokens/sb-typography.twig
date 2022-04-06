@@ -1,0 +1,22 @@
+<div style="margin: 0 auto;">
+  <h2>Typography</h2>
+  <hr>
+  {% set fontWeight = 400 %}
+  {% for name, value in vars %}
+    {% if name == '--font-family-serif' %}
+      {% set fontWeight = 700 %}
+    {% endif %}
+    <div>
+      <div style="font-family: var({{ name }}); margin-bottom: 3rem;">
+        <h3 style="font-weight: {{ fontWeight }}">{{ value }}</h3>
+        <code>font-family: var({{ name }});</code>
+
+        {% for size, value in sizes %}
+          <div style="font-size: {{ value }}; font-weight: {{ fontWeight }}">
+            {{ value }}: var({{ size }});
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endfor %}
+</div>

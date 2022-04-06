@@ -9,7 +9,7 @@ const postcssCustomProperties = require('postcss-custom-properties');
 const fs = require('fs');
 const path = require('path');
 
-fs.readFile(path.resolve(__dirname,'../components/tokens/_variables.css'), (err, css) => {
+fs.readFile(path.resolve(__dirname,'../components/tokens/_variables.scss'), (err, css) => {
   postcss({
     plugins: [
       postcssCustomProperties({
@@ -17,7 +17,7 @@ fs.readFile(path.resolve(__dirname,'../components/tokens/_variables.css'), (err,
       })
     ]
   }).process(css, {
-    from: path.resolve(__dirname, '../components/tokens/_variables.css'),
+    from: path.resolve(__dirname, '../components/tokens/_variables.scss'),
     to: '' // don't need a css file here, just want the .json output frm above
   }).then(result => {
     console.log('Finished processing CSS variables from ' + result.opts.from + ' for Storybook!');

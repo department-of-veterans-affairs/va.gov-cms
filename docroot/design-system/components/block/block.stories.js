@@ -1,5 +1,5 @@
 import block from './block.twig';
-import DrupalAttribute from '../../DrupalAttribute';
+import DrupalAttribute from '../../.storybook/DrupalAttribute';
 import './block.scss';
 import './index.js';
 
