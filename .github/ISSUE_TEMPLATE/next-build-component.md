@@ -16,7 +16,7 @@ A component is needed in the next-build system to render <the component>. This c
 - [ ] That component's output is consistent with the existing output of content-build (visually, markup structure)
 
 ## Supporting detail
-**Paragraph/Node**: `specific paragraph/content type
+**Paragraph/Node**: `specific paragraph/content type`
 
 **CMS structure**: <Replace> https://prod.cms.va.gov/admin/structure/paragraphs_type/table/fields
 
@@ -29,11 +29,10 @@ A component is needed in the next-build system to render <the component>. This c
 **Logic notes**:
 * <enter any specific details>
 
-**Example to render collection of <component> objects**: <replace> https://github.com/department-of-veterans-affairs/content-build/blob/master/src/site/stages/build/drupal/graphql/paragraph-fragments/table.paragraph.graphql.js
-
+**Example to render collection of <component> objects**:
 ```javascript
     const phone = await getResourceCollectionFromContext(
-        'paragraph--table',
+        '<replace>',
         context,
         {} // params
     );
