@@ -1,6 +1,6 @@
 
 ## Logging into Running BRD Instances
-_If you need to log in to production or staging, for instance to run a script to repair or update data after deployment._
+_If you need to log in to production or staging, for instance to run a script to repair or update data after deployment.  Generally speaking, this should only be performed by DevOps personnel, but this document is provided as a general reference and for onboarding DevOps personnel._
 
 DevOps has kindly provided the [`ssm-session`](https://github.com/department-of-veterans-affairs/devops/tree/master/utilities/ssm-session) command line tool, which uses your existing AWS credentials to authenticate and access the running instance.
 
