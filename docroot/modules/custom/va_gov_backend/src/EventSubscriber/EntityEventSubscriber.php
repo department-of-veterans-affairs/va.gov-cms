@@ -553,15 +553,16 @@ class EntityEventSubscriber implements EventSubscriberInterface {
 
   /**
    * Remove delete button from edit forms.
+   *
+   * @param array $form
+   *   The form.
    */
   public function removeDeleteButton(array &$form) {
     // Users with any role, other than administrator role,
     // shouldn't be able to delete anything.
-    if (!$this->userPermsService->hasAdminRole(TRUE)) {
+    if (!$this->userPermsService->hasAdminRole(TRUE) && isset($form['actions']['delete'])) {
       // Remove the delete button.
-      if (isset($form['actions']['delete'])) {
-        $form['actions']['delete']['#access'] = FALSE;
-      }
+      $form['actions']['delete']['#access'] = FALSE;
     }
   }
 
