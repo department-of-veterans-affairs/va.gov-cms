@@ -16,11 +16,11 @@ What variations of circumstances (users, actions, values) need to be checked?
 
 As user _uid_ with _user_role_
 1. Do this
-   - [ ] Validate that 
-2. Then 
-   - [ ] Validate that 
+   - [ ] Validate that
+2. Then
+   - [ ] Validate that
 3. Then validate Acceptance Criteria from issue
-   - [ ] a 
+   - [ ] a
    - [ ] b
    - [ ] c
 
@@ -35,12 +35,14 @@ As user _uid_ with _user_role_
 
 ### Select Team for PR review
 
+- [ ] `Sitewide program`
 - [ ] `Platform CMS Team`
-- [ ] `Sitewide CMS Team`
+- [ ] `Sitewide crew ` (leave Sitewide unchecked and check the specific team instead)
   - [ ] `⭐️ Content ops`
-  - [ ] `⭐️ CMS Experience`
-  - [ ] `⭐️ Offices`
-  - [ ] `⭐️ Product Support`
+  - [ ] `⭐️ CMS experience`
+  - [ ] `⭐️ Public websites`
+  - [ ] `⭐️ Facilities`
+  - [ ] `⭐️ User support`
 
 
 ### Is this PR blocked by another PR?

@@ -22,13 +22,13 @@ Tier 2 expectations here: https://docs.google.com/document/d/15oe0wtGI_MdaScYpjJ
 | -- | -- | -- | -- |
 
 ### CMS Team
-Please check the team(s) that will do this work. 
+Please check the team(s) that will do this work.
 
-- [ ] `CMS Program`
+- [ ] `Sitewide program`
 - [ ] `Platform CMS Team`
-- [ ] `Sitewide CMS Team ` (leave Sitewide unchecked and check the specific team instead)
+- [ ] `Sitewide crew ` (leave Sitewide unchecked and check the specific team instead)
   - [ ] `⭐️ Content ops`
   - [ ] `⭐️ CMS experience`
-  - [ ] `⭐️ Offices`
-  - [ ] `⭐️ Product support`
-  - [ ] `⭐️ User support`
+  - [ ] `⭐️ Public websites`
+  - [x] `⭐️ Facilities`
+  - [x] `⭐️ User support`
