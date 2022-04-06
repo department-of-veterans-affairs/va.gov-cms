@@ -1559,6 +1559,23 @@ function va_gov_backend_menu_local_tasks_alter(&$local_tasks) {
   if (!empty($local_tasks['tabs'][0]['views_view:view.moderation_history.page'])) {
     unset($local_tasks['tabs'][0]['views_view:view.moderation_history.page']);
   }
+
+  // Remove the "Delete" tab for non administrator roles.
+  $perms_service = \Drupal::service('va_gov_user.user_perms');
+  if (!$perms_service->hasAdminRole(TRUE)) {
+    // Remove node delete tab.
+    unset($local_tasks['tabs'][0]['entity.node.delete_form']);
+    // Remove media delete tab.
+    unset($local_tasks['tabs'][0]['entity.media.delete_form']);
+    // Remove block delete tab.
+    unset($local_tasks['tabs'][0]['entity.block.delete_form']);
+    // Remove content block delete tab.
+    unset($local_tasks['tabs'][0]['entity.block_content.delete_form']);
+    // Remove taxonomy vocabulary delete tab.
+    unset($local_tasks['tabs'][0]['entity.taxonomy_vocabulary.delete_form']);
+    // Remove taxonomy term delete tab.
+    unset($local_tasks['tabs'][0]['entity.taxonomy_term.delete_form']);
+  }
 }
 
 /**
