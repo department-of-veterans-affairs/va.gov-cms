@@ -36,11 +36,11 @@ Timing around these is critical and we may need more detail here.
 ## CMS Team
 Please check the team(s) that will do this work.
 
-- [ ] `CMS Program`
+- [ ] `Sitewide program`
 - [ ] `Platform CMS Team`
-- [ ] `Sitewide CMS Team ` (leave Sitewide unchecked and check the specific team instead)
+- [ ] `Sitewide crew ` (leave Sitewide unchecked and check the specific team instead)
   - [ ] `⭐️ Content ops`
   - [ ] `⭐️ CMS experience`
-  - [ ] `⭐️ Offices`
-  - [x] `⭐️ Product support`
-  - [ ] `⭐️ User support`
+  - [ ] `⭐️ Public websites`
+  - [x] `⭐️ Facilities`
+  - [x] `⭐️ User support`
