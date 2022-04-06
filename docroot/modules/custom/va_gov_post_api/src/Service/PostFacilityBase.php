@@ -29,7 +29,6 @@ abstract class PostFacilityBase {
    */
   protected $entityTypeManager;
 
-
   /**
    * Logger.
    *
