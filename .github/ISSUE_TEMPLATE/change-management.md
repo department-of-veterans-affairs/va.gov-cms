@@ -12,7 +12,7 @@ The change represented by the [epic #] will [copy selection from epic].
  
 Describe the change from the perspective of VA employees, in plain language. What is the employee going to experience with this change?
 
-Example: Editors visiting prod.cms.va.gov will see a new screen directing them to log in with PIV. Once logged in they will experience a new look and feel to the CMS interface.
+> Example: Editors visiting prod.cms.va.gov will see a new screen directing them to log in with PIV. Once logged in they will experience a new look and feel to the CMS interface.
 
 
 Explain why the change is necessary from a CMS/platform and project goal perspective. Link to screenshots if that helps tell the story.
