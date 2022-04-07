@@ -195,6 +195,7 @@ class PostFacilityStatus extends PostFacilityBase {
           'name' => $systemNode->get('title')->value,
           'url' => 'https://www.va.gov' . $systemUrl,
           'covid_url' => 'https://www.va.gov' . $systemUrl . '/programs/covid-19-vaccines',
+          'va_health_connect_phone' => $systemNode->get('field_va_health_connect_phone')->value,
         ];
       }
     }
@@ -290,11 +291,13 @@ class PostFacilityStatus extends PostFacilityBase {
     $thisRevisionIsPublished = $entity->isPublished();
     $defaultRevision = $this->getDefaultRevision($entity);
     $nameChanged = $this->changedValue($entity, $defaultRevision, 'title');
+    $phoneChanged = $this->changedValue($entity, $defaultRevision, 'field_va_health_connect_phone');
+    $somethingChanged = $nameChanged || $phoneChanged;
     $push = FALSE;
-    if ($thisRevisionIsPublished && $nameChanged && $moderationState === self::STATE_PUBLISHED) {
+    if ($thisRevisionIsPublished && $somethingChanged && $moderationState === self::STATE_PUBLISHED) {
       $push = TRUE;
     }
-    return $nameChanged;
+    return $push;
   }
 
   /**
