@@ -25,6 +25,19 @@ _or_
 
 <link to any existing research or data supporting this>
 
+###Change management triage###
+
+The change represented by this user story will:
+- [ ] Be a site-wide change to appearance or key functionality (such as log-in process)
+- [ ] Be a specific change that requires more than 30 minutes of work by a user to meet a publishing requirement
+- [ ] Remove a piece of functionality (such as restricting editing functions, or “hardening”)
+- [ ] Require action by some or all users by a specific deadline
+- [ ] Change the front end and be highly visible to the public
+
+If you selected an item above, open a new issue using the change management template.
+
+If you did not select an item above, update issues/PRs in GitHub but don’t plan for change management.
+
 ### Hypothesis
 
 _A hypothesis may depend on a spike ticket to be completed._
