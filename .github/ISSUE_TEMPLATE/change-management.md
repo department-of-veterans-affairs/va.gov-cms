@@ -1,6 +1,6 @@
 ---
 name: Change management
-about: Use this template for planning, coordinating and monitoring activities related to VFS-CMS updates that have a medium to high impact on VA employees. After creating this issue, schedule a 30-minute meeting with the CMS team change management specialist to complete the assessment of the change impact.
+about: Use this template for planning, coordinating and monitoring activities related to VFS-CMS updates that have a medium to high impact on VA employees. 
 title: Change management for <insert issue name>
 labels: Needs refining, change management
 assignees: ContentBrewmaster
@@ -51,3 +51,5 @@ Will the change be tested with users before release?
 
 Are there any known dependencies?
 
+
+ After creating this issue, schedule a 30-minute meeting with the CMS team change management specialist assigned to this template to complete the assessment of the change impact.
