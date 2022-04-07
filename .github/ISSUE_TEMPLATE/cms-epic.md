@@ -25,7 +25,7 @@ _or_
 
 <link to any existing research or data supporting this>
 
-###Change management triage###
+### Change management triage
 
 The change represented by this user story will:
 - [ ] Be a site-wide change to appearance or key functionality (such as log-in process)
