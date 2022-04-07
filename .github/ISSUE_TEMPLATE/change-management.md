@@ -49,11 +49,11 @@ If existing videos, list URLs:
 
 - [ ] CMS UI support
 
-Will the change be tested with users before release?
+7. Will the change be tested with users before release?
 - [ ] Yes
 - [ ] No
 
-7. Are there any known dependencies?
+8. Are there any known dependencies?
 
 
 
