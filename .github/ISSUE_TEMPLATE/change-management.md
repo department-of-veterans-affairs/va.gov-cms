@@ -22,7 +22,6 @@ The change represented by the [epic #] will [copy selection from epic].
 - [ ] All CMS editors
 - [ ] Vet Center editor
 - [ ] VA Medical Center editor
-- [ ] VA Medical center VISN webmaster or Public Affairs Officer with VISN
 - [ ] VA Outreach Hub editor
 - [ ] VA Benefits Hub editor
 - [ ] Campaign landing page editor
