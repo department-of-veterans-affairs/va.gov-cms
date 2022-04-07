@@ -34,7 +34,7 @@ The change represented by this user story will:
 - [ ] Require action by some or all users by a specific deadline
 - [ ] Change the front end and be highly visible to the public
 
-If you selected an item above, open a new issue using the change management template.
+If you selected an item above, open a new issue using the [change management template](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/.github/ISSUE_TEMPLATE/change-management.md).
 
 If you did not select an item above, update issues/PRs in GitHub but don’t plan for change management.
 
