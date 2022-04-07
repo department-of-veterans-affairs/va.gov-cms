@@ -20,7 +20,7 @@ The change represented by the [epic #] will [copy selection from epic].
 
 
 3. Select the roles impacted by the change.
-- [ ] All CMS users
+ - [ ] All CMS users
 - [ ] All CMS editors
 - [ ] Vet Center editor
 - [ ] VA Medical Center editor
