@@ -17,9 +17,7 @@ The change represented by the [epic #] will [copy selection from epic].
 
 2. Explain why the change is necessary from a CMS/platform and project goal perspective. Link to screenshots if that helps tell the story.
 
-
-
-3. Select the roles impacted by the change.
+3. Select the role(s) impacted by the change.
 - [ ] All CMS users
 - [ ] All CMS editors
 - [ ] Vet Center editor
@@ -34,11 +32,7 @@ The change represented by the [epic #] will [copy selection from epic].
 
 4. How will success be defined for this change?
 
-
-
 5. How will success be measured for this change (audit, survey, other types of research, etc.)?
-
-
 
 6. Does the change require new or updated:
 - [ ] Knowledge Base article(s)
