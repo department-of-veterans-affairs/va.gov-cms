@@ -182,7 +182,7 @@ class PostFacilityStatus extends PostFacilityBase {
         'facility_url' => 'https://www.va.gov' . $this->facilityNode->toUrl()->toString(),
         'operating_status' => [
           'code' => strtoupper($this->statusToPush),
-          'additional_info' => $this->additionalInfoToPush,
+          'additional_info' => (strtoupper($this->statusToPush) != 'NORMAL') ? $this->additionalInfoToPush : NULL,
         ],
       ];
 

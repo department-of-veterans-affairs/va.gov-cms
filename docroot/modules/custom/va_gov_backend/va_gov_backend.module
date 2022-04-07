@@ -1063,14 +1063,32 @@ function _va_gov_backend_dropdown_field_access(array &$form, array $targets) {
 function va_gov_backend_form_node_form_alter(array &$form, FormStateInterface &$form_state) {
   _va_gov_backend_set_owner_section_default($form, $form_state);
 
-  // Only attach the service options limiter to facility health service and
-  // vha_facility_nonclinical_service bundles.
   /** @var \Drupal\Core\Entity\EntityForm $form_object */
   $form_object = $form_state->getFormObject();
   if ($form_object instanceof EntityForm) {
     $node = $form_object->getEntity();
     if ($node->bundle() === 'health_care_local_health_service' || $node->bundle() === 'vha_facility_nonclinical_service') {
+      // Only attach the service options limiter to facility health service and
+      // vha_facility_nonclinical_service bundles.
       $form['#attached']['library'][] = 'va_gov_backend/limit_services_to_user_sections';
+    }
+
+    $facilitiesWithServices = [
+      'health_care_local_facility',
+      'nca_facility',
+      'vba_facility',
+      'vet_center',
+      'vet_center_outstation',
+    ];
+    if (in_array($node->bundle(), $facilitiesWithServices)
+    && ($node->hasField('field_operating_status_facility'))
+    && ($node->hasField('field_operating_status_more_info'))) {
+      // Hide status details field if status is set to normal.
+      $form['field_operating_status_more_info']['#states'] = [
+        'visible' => [
+          ':input[name="field_operating_status_facility"]' => ['!value' => 'normal'],
+        ],
+      ];
     }
   }
 }
