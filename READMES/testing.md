@@ -140,7 +140,7 @@ There are 4 main types of tests:
           the Drupal site by generating Gherkin Feature files. See
           [tests/behat/drupal-spec-tool](../tests/behat/drupal-spec-tool/) folder
           for all of the tests and more information on managing the Drupal Spec
-          Tool and [VA's Spec tool doc here](https://docs.google.com/spreadsheets/d/1vL8rqLqcEVfESnJJK_GWQ7nf3BPe4SSevYYblisBTOI/edit#gid=624373408).
+          Tool and [VA's Spec tool doc here](https://airtable.com/invite/l?inviteId=invOjKEIyZCQY5YRy&inviteToken=eea85291ef1cd72ce9560c5a833a18673ef10a92050f9210e878702e81ec49b3&utm_source=email).
 
        Run a specific behat test with the `--name` or `--tags` options:
 
