@@ -96,12 +96,9 @@ If your composer.lock ends up with a conflict due to incoming changes, these ste
 ## Drupal SpecTool
 
 * We use the [Drupal SpecTool](https://github.com/acquia/drupal-spec-tool) to keep track of config changes, and generate tests related to roles, content types, fields, menus views.
-* If you are modifying configuration of roles, content types, fields, menus views, Go update the appropritate tab(s) in our version of the [SpecTool](https://docs.google.com/spreadsheets/d/1vL8rqLqcEVfESnJJK_GWQ7nf3BPe4SSevYYblisBTOI/edit?usp=sharing).
-* Keep the Bundles and Fields tab sorted with the following columns:
-  1. Entity label (eg first "Content type", then "Custom block type", etc.).
-  2. Bundle label (eg first "Benefits detail page", then "Benefits hub landing page", etc.).
-  3. Field label (for the Fields tab, eg first "Alert", then "Featured content", then "Main content").
-* Once all the modifications are made to the appropriate tab(s) and cell(s) go to the [Behat](https://docs.google.com/spreadsheets/d/1vL8rqLqcEVfESnJJK_GWQ7nf3BPe4SSevYYblisBTOI/edit#gid=624373408) tab and copy the cell with the tests that would have changed based on what you changed.
+* If you are modifying configuration of roles, content types, fields, menus views, Go update the appropritate tab(s) in our version of the [SpecTool](https://airtable.com/invite/l?inviteId=invOjKEIyZCQY5YRy&inviteToken=eea85291ef1cd72ce9560c5a833a18673ef10a92050f9210e878702e81ec49b3&utm_source=email).
+* Edit the 'Data used in Behat test' view for the appropriate tables
+* Once all the modifications are made to the appropriate table(s), click on the "Apps" link in the top right corner and choose 'Behat Tests' from the dashbaord selector. Click the 'run' button and follow the prompts to generate the test you need, then copy the output to your clipboard.
 * Open the related file in [/tests/behat/drupal/drupal-spec-tool/](../tests/behat/drupal/drupal-spec-too/)
 * Delete all the existing text in the file and paste in what you copied from the SpecTool.  (Do not format the output in any way. Disable any Behat beautifier plugins.)
 * After updating config, run `lando behat --tags=spec` to run just the spec tool tests. Discrepancies between code and config will be reflected in test output
