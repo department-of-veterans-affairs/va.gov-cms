@@ -73,7 +73,7 @@ $config = [
      * also as the technical contact in generated metadata.
      */
     'technicalcontact_name' => 'VA.gov Administrator',
-    'technicalcontact_email' => 'vacmssupport@va.gov',
+    'technicalcontact_email' => 'support@va-gov.atlassian.net',
 
     /*
      * (Optional) The method by which email is delivered.  Defaults to mail which utilizes the
