@@ -88,7 +88,7 @@ class PostFacilityStatus extends PostFacilityBase {
       // See README.md
       // Entity fields (updated and original) can be compared and processed in
       // order to structure the payload array.
-      $data['payload'] = $this->getPayload($forcePush);
+      $data['payload'] = $this->getPayload($facility_id, $forcePush);
 
       // Only add to queue if payload is not empty.
       // If its empty, it means that there is no new information to send to
@@ -157,13 +157,15 @@ class PostFacilityStatus extends PostFacilityBase {
   /**
    * Compose and return payload array for facility status.
    *
+   * @param string $facility_id
+   *   The Facility Locator ID for this payload.
    * @param bool $forcePush
    *   Processing forced by referenced VAMC system.
    *
    * @return array
    *   Payload array.
    */
-  protected function getPayload(bool $forcePush = FALSE): array {
+  protected function getPayload(string $facility_id, bool $forcePush = FALSE): array {
     // Default payload is an empty array.
     $payload = [];
 
@@ -197,6 +199,24 @@ class PostFacilityStatus extends PostFacilityBase {
           'covid_url' => 'https://www.va.gov' . $systemUrl . '/programs/covid-19-vaccines',
           'va_health_connect_phone' => $systemNode->get('field_va_health_connect_phone')->value,
         ];
+
+        // System and facility url overrides: Lovell VAMC System - 15007.
+        if ($systemId === '15007') {
+          $payload['system']['url'] = 'https://www.lovell.fhcc.va.gov';
+          $payload['facility_url'] = 'https://www.lovell.fhcc.va.gov';
+          // Evanston VA clinic - vha_556GA.
+          if ($facility_id === 'vha_556GA') {
+            $payload['facility_url'] = 'https://www.lovell.fhcc.va.gov/locations/Evanston_Community_Based_Outpatient_Clinic.asp';
+          }
+          // Kenosha VA Clinic - vha_556GD.
+          if ($facility_id === 'vha_556GD') {
+            $payload['facility_url'] = 'https://www.lovell.fhcc.va.gov/locations/Kenosha_Community_Based_Outpatient_Clinic.asp';
+          }
+          // McHenry VA Clinic - vha_556GC.
+          if ($facility_id === 'vha_556GC') {
+            $payload['facility_url'] = 'https://www.lovell.fhcc.va.gov/locations/McHenry_Community_Based_Outpatient_Clinic.asp';
+          }
+        }
       }
     }
 
