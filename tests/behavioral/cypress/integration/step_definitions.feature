@@ -30,6 +30,7 @@ Feature: Step definitions function as expected
     Then I should see xpath "//body"
     Then I should not see xpath "//something-that-doesnt-exist"
 
+  @ignore
   Scenario: The element should have attribute
     Given I am logged in as a user with the "administrator" role
     And I am at "/"
@@ -38,3 +39,8 @@ Feature: Step definitions function as expected
     Then the element "body" should have attribute "data-once" with value "contextualToolbar-init"
     Then the element "body" should have attribute "data-once" containing value "init"
     Then the element "body" should have attribute "data-once" matching expression "con([ext]+)...Toolbar-[a-z]{4}"
+
+  Scenario: I visit the node
+    Given I am logged in as a user with the "administrator" role
+    And I create a "step_by_step" node
+    And I set the status of the node to "Published"
