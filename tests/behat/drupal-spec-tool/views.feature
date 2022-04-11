@@ -54,7 +54,6 @@ Feature: Views
 | Search | search | Index Content | Disabled |  |
 | Section administration and export | section_export | Taxonomy terms | Enabled | Enables easier adminstration of Sections/Product relationship, and export tools for analysis outside Drupal |
 | Services | services | Content | Enabled | Lists of services for facility pages, health services lists, etc |
-| Table Audit | table_audit | Content | Enabled |  |
 | Taxonomy entity browsers | taxonomy_entity_browsers | Taxonomy terms | Enabled |  |
 | Taxonomy term | taxonomy_term | Content | Enabled | Content belonging to a certain taxonomy term. |
 | User creation & editing activity | user_creation_editing_activity | Users | Enabled |  |
@@ -69,18 +68,19 @@ Feature: Views
 | VAMCs | vamcs | Content | Enabled |  |
 | Vet Center facility listing | vet_center_facility_listing | Content | Enabled |  |
 | Vet centers | vet_centers | Content | Enabled |  |
-| VHA Health service taxonomy | vha_health_service_taxonomy | Taxonomy terms | Enabled |  |
+| VA services | vha_health_service_taxonomy | Taxonomy terms | Enabled |  |
 | Watchdog | watchdog | Log entries | Enabled | Recent log messages |
 | Who's new | who_s_new | Users | Disabled | Shows a list of the newest user accounts on the site. |
 | Who's online block | who_s_online | Users | Disabled | Shows the user names of the most recently active users, and the total number of active users. |
 | Centralized content paragraphs | centralized_content_paragraphs | Content | Enabled |  |
+| Table Audit | table_audit | Content | Enabled |  |
 
   @dst @views_displays
      Scenario: Views displays
        Then exactly the following views displays should exist
        | View | Title | Machine name | Display plugin |
-| Administration section | Entity Reference | entity_reference_1 | Entity Reference |
 | Administration section | CLP Entity Reference | clp_entity_reference | Entity Reference |
+| Administration section | Entity Reference | entity_reference_1 | Entity Reference |
 | Administration section | Master | default | Default |
 | Advanced Queue jobs | Master | default | Default |
 | Advanced Queue jobs | Page | page_1 | Page |
@@ -93,55 +93,56 @@ Feature: Views
 | Benefit Hubs Categories | Master | default | Default |
 | Benefits hub list | Entity Reference | entity_reference_1 | Entity Reference |
 | Benefits hub list | Master | default | Default |
+| Blocks listing | Alert Blocks | page_2 | Page |
 | Blocks listing | Master | default | Default |
 | Blocks listing | Promo blocks | page_1 | Page |
-| Blocks listing | Alert Blocks | page_2 | Page |
 | Build info | Master | default | Default |
 | Build info | REST export | rest_export_1 | REST export |
-| Centralized content paragraphs | Centralized Content paragraphs | centralized_content_paragraphs | Page |
-| Centralized content paragraphs | Default | default | Default |
 | Child terms | Block | block_1 | Block |
 | Child terms | Master | default | Default |
 | CMS Knowledge Base search results | Master | default | Default |
 | CMS Knowledge Base search results | Page | knowledge_base_search_page | Page |
-| Content | Master | default | Default |
 | Content | All content | page_1 | Page |
 | Content | Bulk edit content | page_2 | Page |
 | Content | Bulk edit events | events_page | Page |
-| Content | Resources and support | resources_support_dashboard | Page |
 | Content | Content audit CSV export | content_audit_csv_export | Data export |
 | Content | Content audit tools | content_audit_page | Page |
-| Content entity browsers | Master | default | Default |
+| Content | Master | default | Default |
+| Content | Resources and support | resources_support_dashboard | Page |
+| Content | Resources and support landing page | resources_and_support_landing_page_block | Block |
 | Content entity browsers | Event entity browser | event_entity_browser | Entity browser |
+| Content entity browsers | Master | default | Default |
 | Content entity browsers | Q&A entity browser | entity_browser_1 | Entity browser |
-| Content Entity Reference Source | Master | default | Default |
 | Content Entity Reference Source | Entity Reference: Event Listing | entity_reference_1 | Entity Reference |
-| Content Entity Reference Source | Entity Reference: Publication Listing | entity_reference_2 | Entity Reference |
-| Content Entity Reference Source | Entity Reference: Story Listing | entity_reference_3 | Entity Reference |
-| Content Entity Reference Source | Entity Reference: News Release Listing | entity_reference_4 | Entity Reference |
-| Content Entity Reference Source | Entity Reference: Staff profiles | entity_reference_5 | Entity Reference |
 | Content Entity Reference Source | Entity Reference: Main Offices | entity_reference_7 | Entity Reference |
+| Content Entity Reference Source | Entity Reference: News Release Listing | entity_reference_4 | Entity Reference |
+| Content Entity Reference Source | Entity Reference: Publication Listing | entity_reference_2 | Entity Reference |
+| Content Entity Reference Source | Entity Reference: Staff profiles | entity_reference_5 | Entity Reference |
+| Content Entity Reference Source | Entity Reference: Story Listing | entity_reference_3 | Entity Reference |
 | Content Entity Reference Source | Entity Reference: Systems | entity_reference_6 | Entity Reference |
+| Content Entity Reference Source | Master | default | Default |
 | Content release logs | Master | default | Default |
 | Content release logs | Page | page_1 | Page |
-| Content served from Drupal | Page | page_1 | Page |
 | Content served from Drupal | Data export | data_export_1 | Data export |
 | Content served from Drupal | Master | default | Default |
+| Content served from Drupal | Page | page_1 | Page |
 | Custom block entity browsers | Alert block entity browsers | entity_browser_1 | Entity browser |
-| Custom block entity browsers | Promo block entity browsers | entity_browser_2 | Entity browser |
 | Custom block entity browsers | Master | default | Default |
+| Custom block entity browsers | Promo block entity browsers | entity_browser_2 | Entity browser |
 | Custom block library | Master | default | Default |
 | Custom block library | Page | page_1 | Page |
 | Date fields | Master | default | Default |
 | Date fields | Page | page_1 | Page |
+| Detail page URL audit and bulk udpate | Audit page | audit_page | Page |
 | Detail page URL audit and bulk udpate | CSV export | data_export_1 | Data export |
 | Detail page URL audit and bulk udpate | Master | default | Default |
-| Detail page URL audit and bulk udpate | Audit page | audit_page | Page |
-| Facility Services | Master | default | Default |
+| Facility Services | Accordion audit | accordion_audit | Page |
+| Facility Services | Accordion audit export | accordion_audit_export | Data export |
 | Facility Services | Facilities | content_audit_facilities | Page |
 | Facility Services | Facilities export | content_audit_facilities_export | Data export |
 | Facility Services | Facility status | facility_status_page | Page |
 | Facility Services | Facility status export | facility_status_export | Data export |
+| Facility Services | Master | default | Default |
 | Facility Services | VAMC facility health services | vamc_facility_health_services_page | Page |
 | Facility Services | VAMC facility health services export | vamc_facility_health_services_export | Data export |
 | Facility Services | VAMC facility non-clinical services | vamc_facility_non_clinical_services_page | Page |
@@ -151,129 +152,129 @@ Feature: Views
 | Facility Services | VAMC systems | vamc_systems | Page |
 | Facility Services | Vet Center services | vet_center_services_page | Page |
 | Facility Services | Vet Center services export | vet_center_services_export | Data export |
-| Facility Services | Accordion audit | accordion_audit | Page |
-| Facility Services | Accordion audit export | accordion_audit_export | Data export |
-| File browsers | Block | file_browser_block | Block |
-| File browsers | Entity browser | file_entity_browser | Entity browser |
-| File browsers | Master | default | Default |
-| Files | Master | default | Default |
-| Files | Files overview | page_1 | Page |
+| File browsers | Block | file_browser_block | Default |
+| File browsers | Entity browser | file_entity_browser | Block |
+| File browsers | Master | default | Entity browser |
 | Files | File usage | page_2 | Page |
+| Files | Files overview | page_1 | Default |
+| Files | Master | default | Page |
 | Flagged Content | Default | default | Default |
 | Flagged Content | Flagged Content | flagged_content | Page |
-| Frontpage | Master | default | Default |
-| Frontpage | Feed | feed_1 | Feed |
-| Frontpage | Page | page_1 | Page |
-| Glossary | Attachment | attachment_1 | Attachment |
-| Glossary | Master | default | Default |
-| Glossary | Page | page_1 | Page |
-| Health care service names and descriptions | Master | default | Default |
-| Health care service names and descriptions | VAMC health service and type of care - entity reference | entity_reference_vamc_services | Entity Reference |
-| Health care service names and descriptions | Vet Center health service and type of care - entity reference | entity_reference_vet_center_services | Entity Reference |
+| Frontpage | Feed | feed_1 | Default |
+| Frontpage | Master | default | Page |
+| Frontpage | Page | page_1 | Feed |
+| Glossary | Attachment | attachment_1 | Page |
+| Glossary | Master | default | Attachment |
+| Glossary | Page | page_1 | Default |
+| Health care service names and descriptions | Master | default | Entity Reference |
 | Health care service names and descriptions | Non clinical service | entity_reference_non_clinical_services | Entity Reference |
-| Image Style Warmer Warmup Files | Files overview  | page_1 | Page |
-| Image Style Warmer Warmup Files | Master | default | Default |
-| Knowledge Base Article administration | Master | default | Default |
-| Knowledge Base Article administration | Page | knowledge_base_admin | Page |
-| Listing page dashboard | Master | default | Default |
-| Listing page dashboard | Past events | block_2 | Block |
+| Health care service names and descriptions | VAMC health service and type of care - entity reference | entity_reference_vamc_services | Default |
+| Health care service names and descriptions | Vet Center health service and type of care - entity reference | entity_reference_vet_center_services | Entity Reference |
+| Image Style Warmer Warmup Files | Files overview  | page_1 | Default |
+| Image Style Warmer Warmup Files | Master | default | Page |
+| Knowledge Base Article administration | Master | default | Page |
+| Knowledge Base Article administration | Page | knowledge_base_admin | Default |
+| Listing page dashboard | Master | default | Block |
+| Listing page dashboard | Past events | block_2 | Default |
 | Listing page dashboard | Upcoming events | block_1 | Block |
-| Local facilities entity reference view | Master | default | Default |
-| Local facilities entity reference view | Entity Reference | entity_reference_1 | Entity Reference |
-| Locked content | Master | default | Default |
-| Locked content | Page | page_1 | Page |
-| Media | Master | default | Default |
-| Media | Browser | entity_browser_1 | Entity browser |
+| Local facilities entity reference view | Entity Reference | entity_reference_1 | Default |
+| Local facilities entity reference view | Master | default | Entity Reference |
+| Locked content | Master | default | Page |
+| Locked content | Page | page_1 | Default |
+| Media | Browser | entity_browser_1 | Default |
+| Media | Data export | images_export | Entity browser |
+| Media | Downloadable document browser | entity_browser_3 | Page |
 | Media | Image Browser | entity_browser_2 | Entity browser |
+| Media | Images | media_images | Data export |
+| Media | Master | default | Entity browser |
 | Media | Media | media_page_list | Page |
-| Media | Downloadable document browser | entity_browser_3 | Entity browser |
 | Media | Media bulk edit | page_1 | Page |
-| Media | Images | media_images | Page |
-| Media | Data export | images_export | Data export |
 | Media library | Master | default | Default |
 | Media library | Page | page | Page |
 | Media library | Widget | widget | Page |
 | Media library | Widget (table) | widget_table | Page |
-| Metatag Audit | Default | default | Default |
-| Metatag Audit | Metatag Audit | metatag_audit | Page |
+| Metatag Audit | Default | default | Page |
+| Metatag Audit | Metatag Audit | metatag_audit | Default |
 | Moderated content | Master | default | Default |
 | Moderated content | Moderated content | moderated_content | Page |
-| Moderation history | Master | default | Default |
-| Moderation history | Page | page | Page |
+| Moderation history | Master | default | Page |
+| Moderation history | Page | page | Default |
 | Non-clinical services | Admissions offices | admissions_offices | Block |
 | Non-clinical services | Billing and insurance offices | billing_and_insurance | Block |
-| Non-clinical services | Medical records offices | medical_records_offices | Block |
-| Non-clinical services | Default | default | Default |
-| PDF Audit | Default | default | Default |
-| PDF Audit | PDF Audit | pdf_audit | Page |
-| PDF Audit | Data export | pdf_audit_export | Data export |
-| People | Data export | data_export_1 | Data export |
-| People | Master | default | Default |
-| People | Page | page_1 | Page |
-| People | Data export: All users | data_export_2 | Data export |
-| Recent content | Master | default | Default |
-| Recent content | Block | block_1 | Block |
-| Redirect | Master | default | Default |
+| Non-clinical services | Default | default | Block |
+| Non-clinical services | Medical records offices | medical_records_offices | Default |
+| PDF Audit | Data export | pdf_audit_export | Default |
+| PDF Audit | Default | default | Page |
+| PDF Audit | PDF Audit | pdf_audit | Data export |
+| People | Data export | data_export_1 | Default |
+| People | Master | default | Page |
+| People | Page | page_1 | Data export |
+| Recent content | Block | block_1 | Default |
+| Recent content | Master | default | Block |
+| Redirect | Master | default | Page |
+| Redirect | Non admin Page | page_2 | Default |
 | Redirect | Page | page_1 | Page |
-| Redirect | Non admin Page | page_2 | Page |
-| Rich Text Field Audit | Default | default | Default |
 | Rich Text Field Audit | Content Audit - Rich Text Fields | content_audit_rich_text | Page |
 | Rich Text Field Audit | Data export | rich_text_audit_data_export | Data export |
-| Rich Text Field Audit | Content Audit - Buttons | content_audit_buttons | Page |
-| Rich Text Field Audit | Data export | buttons_export | Data export |
-| Right sidebar latest revision | All revisions | block_1 | Block |
-| Right sidebar latest revision | Latest revision | attachment_1 | Attachment |
-| Right sidebar latest revision | Master | default | Default |
-| Search | Master | default | Default |
-| Search | Page | page | Page |
-| Section administration and export | Data export | csv_export | Data export |
-| Section administration and export | Master | default | Default |
-| Section administration and export | Page | page_1 | Page |
+| Rich Text Field Audit | Default | default | Default |
+| Right sidebar latest revision | All revisions | block_1 | Default |
+| Right sidebar latest revision | Latest revision | attachment_1 | Block |
+| Right sidebar latest revision | Master | default | Attachment |
+| Search | Master | default | Page |
+| Search | Page | page | Default |
+| Section administration and export | Data export | csv_export | Page |
+| Section administration and export | Master | default | Data export |
+| Section administration and export | Page | page_1 | Default |
 | Services | Facility health services | block_1 | Block |
-| Services | VAMC system health services | block_2 | Block |
 | Services | Master | default | Default |
+| Services | VAMC system health services | block_2 | Block |
+| Taxonomy entity browsers | Audiences vocabularies | audiences_vocabularies | Default |
+| Taxonomy entity browsers | Block | block_1 | Entity browser |
+| Taxonomy entity browsers | Master | default | Entity browser |
+| Taxonomy entity browsers | Resources and support vocabulary | entity_browser_1 | Block |
+| Taxonomy term | Attachment | attachment_1 | Page |
+| Taxonomy term | Block | taxonomy_term_listing_block | Default |
+| Taxonomy term | Master | default | Attachment |
+| Taxonomy term | Page | page_1 | Block |
+| User creation & editing activity | Master | default | Page |
+| User creation & editing activity | Page | page_1 | Default |
+| User email csv | Data export | data_export_1 | Page |
+| User email csv | Master | default | Data export |
+| User email csv | Page | page_1 | Default |
+| User history | Master | default | Page |
+| User history | Page | page_1 | Default |
+| User history list | Master | default | Page |
+| User history list | Page | page_1 | Default |
+| Users in section | Master | default | Page |
+| Users in section | Page | section_member_page | Default |
+| VA Forms | Master | default | Page |
+| VA Forms | Page | page_1 | Default |
+| VAMC alerts and operating statuses | Master | default | Default |
+| VAMC alerts and operating statuses | Page | page_1 | Page |
+| VAMC operating statuses | Entity Reference | entity_reference_1 | Default |
+| VAMC operating statuses | Master | default | Entity Reference |
+| VAMC top task page revision histories | Master | default | Page |
+| VAMC top task page revision histories | Page | page_1 | Default |
+| VAMCs | Master | default | Default |
+| Vet Center facility listing | Block | vc_facility_listing | Default |
+| Vet Center facility listing | Master | default | Block |
+| Vet Center facility listing | VC listing for node form | vc_listing_for_node_form | Block |
+| Vet centers | Master | default | Entity browser |
+| Vet centers | Mobile Vet Centers Entity Browser | mvc_entity_browser | Default |
+| VA services | Data export | data_export_1 | Page |
+| VA services | Master | default | Data export |
+| VA services | Page | page_1 | Default |
+| Watchdog | Master | default | Page |
+| Watchdog | Page | page | Default |
+| Who's new | Master | default | Block |
+| Who's new | Who's new | block_1 | Default |
+| Who's online block | Master | default | Default |
+| Who's online block | Who's online | who_s_online_block | Block |
+| Centralized content paragraphs | Centralized Content paragraphs | centralized_content_paragraphs | Page |
+| Centralized content paragraphs | Default | default | Default |
 | Table Audit | Data export | tables_usage_export | Data export |
 | Table Audit | Default | default | Default |
 | Table Audit | Table Audit | table_audit | Page |
-| Taxonomy entity browsers | Audiences vocabularies | audiences_vocabularies | Entity browser |
-| Taxonomy entity browsers | Block | block_1 | Block |
-| Taxonomy entity browsers | Resources and support vocabulary | entity_browser_1 | Entity browser |
-| Taxonomy entity browsers | Master | default | Default |
-| Taxonomy term | Master | default | Default |
-| Taxonomy term | Block | taxonomy_term_listing_block | Block |
-| Taxonomy term | Page | page_1 | Page |
-| Taxonomy term | Attachment | attachment_1 | Attachment |
-| User creation & editing activity | Master | default | Default |
-| User creation & editing activity | Page | page_1 | Page |
-| User email csv | Data export | data_export_1 | Data export |
-| User email csv | Master | default | Default |
-| User email csv | Page | page_1 | Page |
-| User history | Master | default | Default |
-| User history | Page | page_1 | Page |
-| User history list | Master | default | Default |
-| User history list | Page | page_1 | Page |
-| Users in section | Master | default | Default |
-| Users in section | Page | section_member_page | Page |
-| VA Forms | Master | default | Default |
-| VA Forms | Page | page_1 | Page |
-| VAMC alerts and operating statuses | Master | default | Default |
-| VAMC alerts and operating statuses | Page | page_1 | Page |
-| VAMC operating statuses | Master | default | Default |
-| VAMC operating statuses | Entity Reference | entity_reference_1 | Entity Reference |
-| VAMC top task page revision histories | Page | page_1 | Page |
-| VAMC top task page revision histories | Master | default | Default |
-| VAMCs | Master | default | Default |
-| Vet Center facility listing | Block | vc_facility_listing | Block |
-| Vet Center facility listing | Master | default | Default |
-| Vet Center facility listing | VC listing for node form | vc_listing_for_node_form | Block |
-| Vet centers | Master | default | Default |
-| Vet centers | Mobile Vet Centers Entity Browser | mvc_entity_browser | Entity browser |
-| VHA Health service taxonomy | Page | page_1 | Page |
-| VHA Health service taxonomy | Data export | data_export_1 | Data export |
-| VHA Health service taxonomy | Master | default | Default |
-| Watchdog | Master | default | Default |
-| Watchdog | Page | page | Page |
-| Who's new | Who's new | block_1 | Block |
-| Who's new | Master | default | Default |
-| Who's online block | Master | default | Default |
-| Who's online block | Who's online | who_s_online_block | Block |
+| Rich Text Field Audit | Content Audit - Buttons | content_audit_buttons | Page |
+| Rich Text Field Audit | Data export | buttons_export | Data export |
+| People | Data export: All users | data_export_2 | Data export |
