@@ -10,6 +10,7 @@ dependencies:
     - field.storage.paragraph.field_clinic_name
     - field.storage.paragraph.field_facility_service_hours
     - field.storage.paragraph.field_hours
+    - field.storage.paragraph.field_office_hours
     - field.storage.paragraph.field_use_facility_address
     - field.storage.paragraph.field_wing_floor_or_room_number
     - node.type.vha_facility_nonclinical_service
@@ -1811,15 +1812,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_facility_service_hours:
-          id: field_facility_service_hours
-          table: paragraph__field_facility_service_hours
-          field: field_facility_service_hours
+        field_office_hours_1:
+          id: field_office_hours_1
+          table: paragraph__field_office_hours
+          field: field_office_hours
           relationship: field_service_location
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: ''
+          label: 'Service Location Hours'
           exclude: true
           alter:
             alter_text: false
@@ -1852,7 +1853,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: false
+          element_label_colon: true
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -1860,12 +1861,29 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: value
-          type: tablefield
+          click_sort_column: day
+          type: office_hours
           settings:
-            row_header: false
-            column_header: true
-          group_column: value
+            day_format: long
+            time_format: g
+            compress: true
+            grouped: true
+            show_closed: all
+            closed_format: Closed
+            separator:
+              days: '<br />'
+              grouped_days: ' - '
+              day_hours: ': '
+              hours_hours: '-'
+              more_hours: ', '
+            current_status:
+              position: ''
+              open_text: 'Currently open!'
+              closed_text: 'Currently closed'
+            office_hours_first_day: ''
+            schema:
+              enabled: false
+          group_column: ''
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -1989,7 +2007,7 @@ display:
           if: field_hours
           condition: eq
           equalto: 'Provide specific hours for this service'
-          then: '{{ field_facility_service_hours }}'
+          then: '{{ field_office_hours_1 }}'
           then_translate: 1
           or: ''
           or_translate: 1
@@ -2002,8 +2020,8 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: views_conditional_field
-          label: Hours
-          exclude: true
+          label: ''
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -2035,7 +2053,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -2466,8 +2484,8 @@ display:
         - 'config:field.storage.paragraph.field_address'
         - 'config:field.storage.paragraph.field_building_name_number'
         - 'config:field.storage.paragraph.field_clinic_name'
-        - 'config:field.storage.paragraph.field_facility_service_hours'
         - 'config:field.storage.paragraph.field_hours'
+        - 'config:field.storage.paragraph.field_office_hours'
         - 'config:field.storage.paragraph.field_use_facility_address'
         - 'config:field.storage.paragraph.field_wing_floor_or_room_number'
   billing_and_insurance:
@@ -3060,15 +3078,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_facility_service_hours:
-          id: field_facility_service_hours
-          table: paragraph__field_facility_service_hours
-          field: field_facility_service_hours
+        field_office_hours_1:
+          id: field_office_hours_1
+          table: paragraph__field_office_hours
+          field: field_office_hours
           relationship: field_service_location
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: ''
+          label: 'Service Location Hours'
           exclude: true
           alter:
             alter_text: false
@@ -3101,7 +3119,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: false
+          element_label_colon: true
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -3109,12 +3127,29 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: value
-          type: tablefield
+          click_sort_column: day
+          type: office_hours
           settings:
-            row_header: false
-            column_header: true
-          group_column: value
+            day_format: long
+            time_format: g
+            compress: true
+            grouped: true
+            show_closed: all
+            closed_format: Closed
+            separator:
+              days: '<br />'
+              grouped_days: ' - '
+              day_hours: ': '
+              hours_hours: '-'
+              more_hours: ', '
+            current_status:
+              position: ''
+              open_text: 'Currently open!'
+              closed_text: 'Currently closed'
+            office_hours_first_day: ''
+            schema:
+              enabled: false
+          group_column: ''
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -3238,7 +3273,7 @@ display:
           if: field_hours
           condition: eq
           equalto: 'Provide specific hours for this service'
-          then: '{{ field_facility_service_hours }}'
+          then: '{{ field_office_hours_1 }}'
           then_translate: 1
           or: ''
           or_translate: 1
@@ -3251,8 +3286,8 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: views_conditional_field
-          label: Hours
-          exclude: true
+          label: ''
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -3284,7 +3319,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -3780,8 +3815,8 @@ display:
         - 'config:field.storage.paragraph.field_address'
         - 'config:field.storage.paragraph.field_building_name_number'
         - 'config:field.storage.paragraph.field_clinic_name'
-        - 'config:field.storage.paragraph.field_facility_service_hours'
         - 'config:field.storage.paragraph.field_hours'
+        - 'config:field.storage.paragraph.field_office_hours'
         - 'config:field.storage.paragraph.field_use_facility_address'
         - 'config:field.storage.paragraph.field_wing_floor_or_room_number'
   medical_records_offices:
@@ -4374,15 +4409,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_facility_service_hours:
-          id: field_facility_service_hours
-          table: paragraph__field_facility_service_hours
-          field: field_facility_service_hours
+        field_office_hours_1:
+          id: field_office_hours_1
+          table: paragraph__field_office_hours
+          field: field_office_hours
           relationship: field_service_location
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: ''
+          label: 'Service Location Hours'
           exclude: true
           alter:
             alter_text: false
@@ -4415,7 +4450,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: false
+          element_label_colon: true
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -4423,12 +4458,29 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: value
-          type: tablefield
+          click_sort_column: day
+          type: office_hours
           settings:
-            row_header: false
-            column_header: true
-          group_column: value
+            day_format: long
+            time_format: g
+            compress: true
+            grouped: true
+            show_closed: all
+            closed_format: Closed
+            separator:
+              days: '<br />'
+              grouped_days: ' - '
+              day_hours: ': '
+              hours_hours: '-'
+              more_hours: ', '
+            current_status:
+              position: ''
+              open_text: 'Currently open!'
+              closed_text: 'Currently closed'
+            office_hours_first_day: ''
+            schema:
+              enabled: false
+          group_column: ''
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -4552,7 +4604,7 @@ display:
           if: field_hours
           condition: eq
           equalto: 'Provide specific hours for this service'
-          then: '{{ field_facility_service_hours }}'
+          then: '{{ field_office_hours_1 }}'
           then_translate: 1
           or: ''
           or_translate: 1
@@ -4565,8 +4617,8 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: views_conditional_field
-          label: Hours
-          exclude: true
+          label: ''
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -4598,7 +4650,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -5067,7 +5119,7 @@ display:
         - 'config:field.storage.paragraph.field_address'
         - 'config:field.storage.paragraph.field_building_name_number'
         - 'config:field.storage.paragraph.field_clinic_name'
-        - 'config:field.storage.paragraph.field_facility_service_hours'
         - 'config:field.storage.paragraph.field_hours'
+        - 'config:field.storage.paragraph.field_office_hours'
         - 'config:field.storage.paragraph.field_use_facility_address'
         - 'config:field.storage.paragraph.field_wing_floor_or_room_number'
