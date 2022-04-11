@@ -66,3 +66,4 @@ Feature: Content model: Vet Center Content Type fields
 | Content type | Vet Center - Outstation | Operating status more info | field_operating_status_more_info | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | Vet Center - Outstation | Direct line | field_phone_number | Telephone number |  | 1 | Telephone number | Translatable |
 | Content type | Vet Center - Outstation | Table of contents | field_table_of_contents | Markup |  | 1 | Markup | Translatable |
+| Content type | Vet Center - Community Access Point | Geolocation | field_geolocation | Geofield |  | 1 | Geofield Map |  |
