@@ -1,7 +1,7 @@
 @step_definitions
 Feature: Step definitions function as expected
   In order to ensure reliable behavioral tests
-  As a strong beautiful engineer
+  As a strong beautiful software quality engineer
   I need my step definitions validated
 
   Scenario: I select the radio button
