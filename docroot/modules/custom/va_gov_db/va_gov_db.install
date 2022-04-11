@@ -791,6 +791,21 @@ function va_gov_db_update_8034(&$sandbox) {
 }
 
 /**
+ * Add redirects for restructured facility views.
+ */
+function va_gov_db_update_8684(&$sandbox) {
+  $messages = '';
+  $redirects = [
+    '/vha-health-services' => '/va-services',
+  ];
+  foreach ($redirects as $oldpath => $newpath) {
+    $messages .= _va_gov_db_create_redirect_by_path($oldpath, $newpath);
+  }
+
+  return $messages;
+}
+
+/**
  * Uninstall Entity Embed module.
  */
 function va_gov_db_update_9002(&$sandbox) {
