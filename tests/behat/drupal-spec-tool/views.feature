@@ -227,7 +227,7 @@ Feature: Views
 | Services | Facility health services | block_1 | Block |
 | Services | Master | default | Default |
 | Services | VAMC system health services | block_2 | Block |
-| Taxonomy entity browsers | Audiences vocabularies | audiences_vocabularies | Page |
+| Taxonomy entity browsers | Audiences vocabularies | audiences_vocabularies | Entity browser |
 | Taxonomy entity browsers | Block | block_1 | Block |
 | Taxonomy entity browsers | Master | default | Default |
 | Taxonomy entity browsers | Resources and support vocabulary | entity_browser_1 | Entity browser |
@@ -237,7 +237,7 @@ Feature: Views
 | Taxonomy term | Page | page_1 | Page |
 | User creation & editing activity | Master | default | Default |
 | User creation & editing activity | Page | page_1 | Page |
-| User email csv | Data export | data_export_1 | Default |
+| User email csv | Data export | data_export_1 | Data export |
 | User email csv | Master | default | Default |
 | User email csv | Page | page_1 | Page |
 | User history | Master | default | Default |
@@ -257,7 +257,7 @@ Feature: Views
 | VAMCs | Master | default | Default |
 | Vet Center facility listing | Block | vc_facility_listing | Block |
 | Vet Center facility listing | Master | default | Default |
-| Vet Center facility listing | VC listing for node form | vc_listing_for_node_form | Page |
+| Vet Center facility listing | VC listing for node form | vc_listing_for_node_form | Block |
 | Vet centers | Master | default | Default |
 | Vet centers | Mobile Vet Centers Entity Browser | mvc_entity_browser | Entity browser |
 | VA Services | Data export | data_export_1 | Data export |
