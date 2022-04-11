@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.vet_center_cap.field_administration
     - field.field.node.vet_center_cap.field_facility_locator_api_id
     - field.field.node.vet_center_cap.field_geographical_identifier
+    - field.field.node.vet_center_cap.field_geolocation
     - field.field.node.vet_center_cap.field_media
     - field.field.node.vet_center_cap.field_office
     - field.field.node.vet_center_cap.field_office_hours
@@ -19,6 +20,7 @@ dependencies:
   module:
     - address
     - field_group
+    - geofield
     - media
     - office_hours
     - options
@@ -42,6 +44,7 @@ third_party_settings:
     group_locations_and_contact_info:
       children:
         - field_address
+        - field_geolocation
         - field_vetcenter_cap_hours_opt_in
         - field_office_hours
       label: 'Locations and contact information'
@@ -88,6 +91,14 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
+  field_geolocation:
+    type: geofield_latlon
+    label: above
+    settings:
+      output_format: decimal
+    third_party_settings: {  }
+    weight: 3
+    region: content
   field_media:
     type: media_thumbnail
     label: hidden
@@ -130,7 +141,7 @@ content:
       schema:
         enabled: false
     third_party_settings: {  }
-    weight: 4
+    weight: 5
     region: content
   field_operating_status_facility:
     type: list_default
@@ -154,7 +165,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 3
+    weight: 4
     region: content
 hidden:
   content_moderation_control: true
