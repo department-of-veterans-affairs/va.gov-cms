@@ -13,7 +13,7 @@ Feature: Content model: Vocabulary fields
 | Vocabulary | Sections | Description | field_description | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | Sections | Product | field_product | Entity reference |  | 1 | Select list |  |
 | Vocabulary | VA Services | Common conditions | field_commonly_treated_condition | Text (plain) |  | 1 | Textfield |  |
-| Vocabulary | VA Services | Health Service API ID | field_health_service_api_id | Text (plain) |  | 1 | Textfield |  |
+| Vocabulary | VA Services | Health Service API ID | field_health_service_api_id | Text (plain) | Required | 1 | Textfield |  |
 | Vocabulary | VA Services | Section | field_owner | Entity reference | Required | 1 | -- Disabled -- |  |
 | Vocabulary | VA Services | Patient-friendly name | field_also_known_as | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | VA Services | Type of care | field_service_type_of_care | List (text) |  | 1 | Select list |  |
