@@ -49,7 +49,6 @@ Feature: Content model bundles
 | NCA Facility | nca_facility | Content type | A facility within National Cemetery Administration system. |
 | VAMC Facility Health Service | health_care_local_health_service | Content type | A facility specific description of a health care service, always embedded within a VAMC system description. |
 | VAMC Facility Non-clinical Service | vha_facility_nonclinical_service | Content type | Address and contact info for offices and other non-clinical service locations. This content is always embedded within a VAMC system non-clinical service page. |
-| VBA services | vba_service_taxonomy | Vocabulary | Single source of truth for VBA service names and descriptions. |
 | Media list - Videos | media_list_videos | Paragraph type |  |
 | Accordion group | collapsible_panel | Paragraph type | A group of accordions. |
 | Vet Center - Locations List | vet_center_locations_list | Content type | Page content that lists all facilities associated with a Vet Center, including nearby locations. |
@@ -64,7 +63,7 @@ Feature: Content model bundles
 | VAMC System Health Service | regional_health_care_service_des | Content type | A description of a health service specific to a VAMC system, which appears on a VAMC's health services page and on facility pages, within accordions. |
 | Link to file or video | downloadable_file | Paragraph type | A download link for an image or document, or a link to a YouTube video. |
 | Landing Page | basic_landing_page | Content type | Basic Landing Page can be used to build one-off pages for various products. E.g. a homepage for a specific product. |
-| VA services | health_care_service_taxonomy | Vocabulary | Single source of truth for health service names, descriptions, patient-friendly names, and common conditions. |
+| VA Services | health_care_service_taxonomy | Vocabulary | Single source of truth for health service names, descriptions, patient-friendly names, and common conditions. |
 | Accordion | basic_accordion | Paragraph type |  |
 | Starred Horizontal Rule | starred_horizontal_rule | Paragraph type | Current an inactive paragraph type, not enabled within any fields. |
 | Service location | service_location | Paragraph type |  |

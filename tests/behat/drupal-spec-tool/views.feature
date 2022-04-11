@@ -68,7 +68,7 @@ Feature: Views
 | VAMCs | vamcs | Content | Enabled |  |
 | Vet Center facility listing | vet_center_facility_listing | Content | Enabled |  |
 | Vet centers | vet_centers | Content | Enabled |  |
-| VA services | vha_health_service_taxonomy | Taxonomy terms | Enabled |  |
+| VA Services | vha_health_service_taxonomy | Taxonomy terms | Enabled |  |
 | Watchdog | watchdog | Log entries | Enabled | Recent log messages |
 | Who's new | who_s_new | Users | Disabled | Shows a list of the newest user accounts on the site. |
 | Who's online block | who_s_online | Users | Disabled | Shows the user names of the most recently active users, and the total number of active users. |
@@ -261,9 +261,9 @@ Feature: Views
 | Vet Center facility listing | VC listing for node form | vc_listing_for_node_form | Block |
 | Vet centers | Master | default | Entity browser |
 | Vet centers | Mobile Vet Centers Entity Browser | mvc_entity_browser | Default |
-| VA services | Data export | data_export_1 | Page |
-| VA services | Master | default | Data export |
-| VA services | Page | page_1 | Default |
+| VA Services | Data export | data_export_1 | Page |
+| VA Services | Master | default | Data export |
+| VA Services | Page | page_1 | Default |
 | Watchdog | Master | default | Page |
 | Watchdog | Page | page | Default |
 | Who's new | Master | default | Block |
