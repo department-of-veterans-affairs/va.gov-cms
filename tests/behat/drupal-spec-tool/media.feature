@@ -62,4 +62,4 @@ Feature: Media
 | Original | Manual crop | uses Original crop type |
 | Thumbnail (100×100) | Scale | 100×100 |
 | Viewport width | Scale | width 2500 |
-| GeofieldMap Default Icon Style (34x34) | Resize | 34x34 |
+| GeofieldMap Default Icon Style (34x34) | Resize | 34×34 |
