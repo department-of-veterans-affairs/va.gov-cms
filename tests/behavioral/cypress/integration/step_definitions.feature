@@ -8,6 +8,7 @@ Feature: Step definitions function as expected
   Scenario: I trigger a content release
     Given I trigger a content release
 
+  @ignore
   Scenario: I select the radio button
     Given I am logged in as a user with the "administrator" role
     And I am at "/admin/content-models/users"
@@ -16,17 +17,20 @@ Feature: Step definitions function as expected
     When I select the "Administrators only" radio button
     Then the "Administrators only" radio button should be selected
 
+  @ignore
   Scenario: I create a taxonomy term
     Given I am logged in as a user with the "administrator" role
     And I create a "products" taxonomy term
     Then I should see "Created new term"
 
+  @ignore
   Scenario: I should see xpath
     Given I am logged in as a user with the "administrator" role
     And I am at "/"
     Then I should see xpath "//body"
     Then I should not see xpath "//something-that-doesnt-exist"
 
+  @ignore
   Scenario: The element should have attribute
     Given I am logged in as a user with the "administrator" role
     And I am at "/"
@@ -36,13 +40,28 @@ Feature: Step definitions function as expected
     Then the element "body" should have attribute "data-once" containing value "init"
     Then the element "body" should have attribute "data-once" matching expression "con([ext]+)...Toolbar-[a-z]{4}"
 
+  @ignore
   Scenario: I visit the node
     Given I am logged in as a user with the "administrator" role
     And I create a "step_by_step" node
     And I set the status of the node to "Published"
 
+  @ignore
   Scenario: I fill in field with selector with value
     Given I am logged in as a user with the "administrator" role
     And I create a "step_by_step" node
     And I edit the node
     And I fill in field with selector "#edit-title-0-value" with value "Field retrieved via selector"
+
+  Scenario: The option from dropdown should be selected
+    Given I am logged in as a user with the "administrator" role
+    And I am at "/admin/config/people/accounts/form-display"
+    And I select option "Select list" from dropdown with selector "#edit-fields-field-last-password-reset-type"
+    Then the option "Select list" from dropdown with selector "#edit-fields-field-last-password-reset-type" should be selected
+    And I select option "Date and time" from dropdown with selector "#edit-fields-field-last-password-reset-type"
+    Then the option "Date and time" from dropdown with selector "#edit-fields-field-last-password-reset-type" should be selected
+
+  Scenario: Selector should contain string
+    Given I am logged in as a user with the "administrator" role
+    And I am at "/admin/reports/dblog"
+    Then selector "h1.page-title" should contain "Recent log messages"
