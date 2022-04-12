@@ -30,6 +30,7 @@ Feature: Media
 | Original | original |
 | Thumbnail (100×100) | thumbnail |
 | Viewport width | viewport_width |
+| GeofieldMap Default Icon Style (34x34) | geofield_map_default_icon_style |
 
 @dst @image_effects
      Scenario: Image effects
@@ -63,3 +64,4 @@ Feature: Media
 | Original | Manual crop | uses Original crop type |
 | Thumbnail (100×100) | Scale | 100×100 |
 | Viewport width | Scale | width 2500 |
+| GeofieldMap Default Icon Style (34x34) | Resize | 34x34 |
