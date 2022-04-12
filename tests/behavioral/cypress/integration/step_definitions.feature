@@ -53,6 +53,7 @@ Feature: Step definitions function as expected
     And I edit the node
     And I fill in field with selector "#edit-title-0-value" with value "Field retrieved via selector"
 
+  @ignore
   Scenario: The option from dropdown should be selected
     Given I am logged in as a user with the "administrator" role
     And I am at "/admin/config/people/accounts/form-display"
@@ -61,6 +62,7 @@ Feature: Step definitions function as expected
     And I select option "Date and time" from dropdown with selector "#edit-fields-field-last-password-reset-type"
     Then the option "Date and time" from dropdown with selector "#edit-fields-field-last-password-reset-type" should be selected
 
+  @ignore
   Scenario: Selector should contain string
     Given I am logged in as a user with the "administrator" role
     And I am at "/admin/reports/dblog"
