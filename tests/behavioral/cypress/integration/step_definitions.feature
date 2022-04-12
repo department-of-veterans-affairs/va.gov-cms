@@ -5,6 +5,9 @@ Feature: Step definitions function as expected
   I need my step definitions validated
 
   @ignore
+  Scenario: I trigger a content release
+    Given I trigger a content release
+
   Scenario: I select the radio button
     Given I am logged in as a user with the "administrator" role
     And I am at "/admin/content-models/users"
@@ -13,24 +16,17 @@ Feature: Step definitions function as expected
     When I select the "Administrators only" radio button
     Then the "Administrators only" radio button should be selected
 
-  @ignore
-  Scenario: I trigger a content release
-    Given I trigger a content release
-
-  @ignore
   Scenario: I create a taxonomy term
     Given I am logged in as a user with the "administrator" role
     And I create a "products" taxonomy term
     Then I should see "Created new term"
 
-  @ignore
   Scenario: I should see xpath
     Given I am logged in as a user with the "administrator" role
     And I am at "/"
     Then I should see xpath "//body"
     Then I should not see xpath "//something-that-doesnt-exist"
 
-  @ignore
   Scenario: The element should have attribute
     Given I am logged in as a user with the "administrator" role
     And I am at "/"
@@ -44,3 +40,9 @@ Feature: Step definitions function as expected
     Given I am logged in as a user with the "administrator" role
     And I create a "step_by_step" node
     And I set the status of the node to "Published"
+
+  Scenario: I fill in field with selector with value
+    Given I am logged in as a user with the "administrator" role
+    And I create a "step_by_step" node
+    And I edit the node
+    And I fill in field with selector "#edit-title-0-value" with value "Field retrieved via selector"
