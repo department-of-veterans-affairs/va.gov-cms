@@ -47,9 +47,6 @@ class EditNodeTest extends ExistingSiteBase {
     // Test assertion.
     $secs = number_format($microsecs, 3);
     $this->assertLessThan($benchmark, $secs, __METHOD__ . "\nOperation took " . $secs . " seconds which is longer than the benchmark of " . $benchmark . " seconds for type " . $type . ".\n");
-
-    $message = __METHOD__ . "\nOperation took " . $secs . " seconds compared to the benchmark of " . $benchmark . " seconds for type " . $type . ".\n";
-    fwrite(STDERR, print_r($message, TRUE));
   }
 
   /**
