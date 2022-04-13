@@ -12,8 +12,6 @@ Feature: CMS Users may effectively create & edit content
     # ("Operating status - VA Pittsburgh health care")
     # to prevent unique validation failure.
     Then I am at "node/1010/edit"
-    And I click the "Break lock" link
-    And I click the "Confirm break lock" link
     And I click the "Add new banner alert" button
     And I select option "Information" from dropdown "Alert type"
     And I fill in "Title" with "[Test Data] Alert Title"
