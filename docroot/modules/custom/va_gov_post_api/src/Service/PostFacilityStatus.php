@@ -64,7 +64,7 @@ class PostFacilityStatus extends PostFacilityBase {
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   Entity.
    * @param bool $forcePush
-   *   Processing forced by referenced VAMC system.
+   *   Force processing of facility status if true.
    *
    * @return int
    *   The count of the number of items queued (1,0).
@@ -120,20 +120,20 @@ class PostFacilityStatus extends PostFacilityBase {
    */
   public function queueSystemRelatedStatuses(EntityInterface $entity) {
     $queued_count = 0;
-    if (($entity->getEntityTypeId() === 'node') && ($entity->bundle() === 'health_care_region_page')) {
-      if ($this->shouldPushSystem($entity)) {
-        // Find all VAMC Facilities referencing this VAMC system node.
-        $query = $this->entityTypeManager->getStorage('node')->getQuery();
-        $nids = $query->condition('type', 'health_care_local_facility')
-          ->condition('field_region_page', $entity->id())
-          ->condition('status', 1)
-          ->execute();
+    if (($entity->getEntityTypeId() === 'node')
+    && ($entity->bundle() === 'health_care_region_page')
+    && ($this->shouldPushSystem($entity))) {
+      // Find all VAMC Facilities referencing this VAMC system node.
+      $query = $this->entityTypeManager->getStorage('node')->getQuery();
+      $nids = $query->condition('type', 'health_care_local_facility')
+        ->condition('field_region_page', $entity->id())
+        ->condition('status', 1)
+        ->execute();
 
-        $vamc_facility_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
-        foreach ($vamc_facility_nodes as $node) {
-          // Process each VAMC Facility referencing this node.
-          $queued_count += $this->queueFacilityStatus($node, TRUE);
-        }
+      $vamc_facility_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
+      foreach ($vamc_facility_nodes as $node) {
+        // Process each VAMC Facility referencing this node.
+        $queued_count += $this->queueFacilityStatus($node, TRUE);
       }
     }
 
@@ -158,7 +158,7 @@ class PostFacilityStatus extends PostFacilityBase {
    * Compose and return payload array for facility status.
    *
    * @param bool $forcePush
-   *   Processing forced by referenced VAMC system.
+   *   Force processing of facility status if true.
    *
    * @return array
    *   Payload array.
@@ -186,36 +186,73 @@ class PostFacilityStatus extends PostFacilityBase {
         ],
       ];
 
-      // If this facility references a system, include system information.
-      if ($this->facilityNode->hasField('field_region_page')) {
-        $systemId = $this->facilityNode->get('field_region_page')->target_id;
-        /** @var \Drupal\node\NodeInterface $systemNode */
-        $systemNode = $this->entityTypeManager->getStorage('node')->load($systemId);
-        $systemUrl = $systemNode->toUrl()->toString();
-        $payload['system'] = [
-          'name' => $systemNode->get('title')->value,
-          'url' => 'https://www.va.gov' . $systemUrl,
-          'covid_url' => 'https://www.va.gov' . $systemUrl . '/programs/covid-19-vaccines',
-          'va_health_connect_phone' => $systemNode->get('field_va_health_connect_phone')->value,
-        ];
+      // Add related VAMC system information to payload.
+      $payload = $this->getRelatedSystemInfo($payload);
+    }
 
-        // System and facility url overrides: Lovell VAMC System - 15007.
-        if ($systemId === '15007') {
-          $payload['system']['url'] = 'https://www.lovell.fhcc.va.gov';
-          $payload['facility_url'] = 'https://www.lovell.fhcc.va.gov';
-          $facility_id = $this->facilityNode->hasField('field_facility_locator_api_id') ? $this->facilityNode->get('field_facility_locator_api_id')->value : NULL;
-          // Evanston VA clinic - vha_556GA.
-          if ($facility_id === 'vha_556GA') {
-            $payload['facility_url'] = 'https://www.lovell.fhcc.va.gov/locations/Evanston_Community_Based_Outpatient_Clinic.asp';
-          }
-          // Kenosha VA Clinic - vha_556GD.
-          if ($facility_id === 'vha_556GD') {
-            $payload['facility_url'] = 'https://www.lovell.fhcc.va.gov/locations/Kenosha_Community_Based_Outpatient_Clinic.asp';
-          }
-          // McHenry VA Clinic - vha_556GC.
-          if ($facility_id === 'vha_556GC') {
-            $payload['facility_url'] = 'https://www.lovell.fhcc.va.gov/locations/McHenry_Community_Based_Outpatient_Clinic.asp';
-          }
+    return $payload;
+  }
+
+  /**
+   * Update payload array with related system information.
+   *
+   * @param array $payload
+   *   Payload array.
+   *
+   * @return array
+   *   Payload array updated with system information.
+   */
+  protected function getRelatedSystemInfo(array $payload): array {
+    // If this facility references a system, include system information.
+    if ($this->facilityNode->hasField('field_region_page')) {
+      $systemId = $this->facilityNode->get('field_region_page')->target_id;
+      /** @var \Drupal\node\NodeInterface $systemNode */
+      $systemNode = $this->entityTypeManager->getStorage('node')->load($systemId);
+      $systemUrl = $systemNode->toUrl()->toString();
+      $payload['system'] = [
+        'name' => $systemNode->get('title')->value,
+        'url' => 'https://www.va.gov' . $systemUrl,
+        'covid_url' => 'https://www.va.gov' . $systemUrl . '/programs/covid-19-vaccines',
+        'va_health_connect_phone' => $systemNode->get('field_va_health_connect_phone')->value,
+      ];
+
+      // Apply facility and system information overrides.
+      $payload = $this->getSystemOverrides($payload);
+    }
+
+    return $payload;
+  }
+
+  /**
+   * Update payload array with overrides for specific systems.
+   *
+   * @param array $payload
+   *   Payload array.
+   *
+   * @return array
+   *   Payload array updated with system overrides.
+   */
+  protected function getSystemOverrides(array $payload): array {
+    // If this facility references a system, include system information.
+    if ($this->facilityNode->hasField('field_region_page')) {
+      $systemId = $this->facilityNode->get('field_region_page')->target_id;
+      // System and facility url overrides: Lovell VAMC System - 15007.
+      if ($systemId === '15007') {
+        $payload['system']['url'] = 'https://www.lovell.fhcc.va.gov';
+        $payload['system']['covid_url'] = NULL;
+        $payload['facility_url'] = 'https://www.lovell.fhcc.va.gov';
+        $facility_id = $this->facilityNode->hasField('field_facility_locator_api_id') ? $this->facilityNode->get('field_facility_locator_api_id')->value : NULL;
+        // Evanston VA clinic - vha_556GA.
+        if ($facility_id === 'vha_556GA') {
+          $payload['facility_url'] = 'https://www.lovell.fhcc.va.gov/locations/Evanston_Community_Based_Outpatient_Clinic.asp';
+        }
+        // Kenosha VA Clinic - vha_556GD.
+        if ($facility_id === 'vha_556GD') {
+          $payload['facility_url'] = 'https://www.lovell.fhcc.va.gov/locations/Kenosha_Community_Based_Outpatient_Clinic.asp';
+        }
+        // McHenry VA Clinic - vha_556GC.
+        if ($facility_id === 'vha_556GC') {
+          $payload['facility_url'] = 'https://www.lovell.fhcc.va.gov/locations/McHenry_Community_Based_Outpatient_Clinic.asp';
         }
       }
     }
@@ -243,7 +280,7 @@ class PostFacilityStatus extends PostFacilityBase {
    * beyond its concern but can not be separated cleanly.
    *
    * @param bool $forcePush
-   *   Processing forced by referenced VAMC system.
+   *   Force processing of facility status if true.
    *
    * @return bool
    *   TRUE if should be pushed, FALSE otherwise.

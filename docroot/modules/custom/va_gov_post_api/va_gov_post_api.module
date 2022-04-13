@@ -38,14 +38,14 @@ function post_api_entity_update(EntityInterface $entity) {
  *   The count of the number of items queued.
  */
 function _post_api_add_facility_status_to_queue(EntityInterface $entity) {
-  $facilitiesWithServices = [
+  $facilitiesWithStatus = [
     'health_care_local_facility',
     'nca_facility',
     'vba_facility',
     'vet_center',
     'vet_center_outstation',
   ];
-  if (in_array($entity->bundle(), $facilitiesWithServices)) {
+  if (in_array($entity->bundle(), $facilitiesWithStatus)) {
     return Drupal::service('va_gov_post_api.queue_facility_status_updates')->queueFacilityStatus($entity);
   }
   elseif ($entity->bundle() === 'health_care_region_page') {

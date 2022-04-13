@@ -1,0 +1,43 @@
+<?php
+
+/**
+ * @file
+ * Contains va_gov_facilities.module.
+ */
+
+use Drupal\Core\Entity\EntityForm;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\NodeInterface;
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function va_gov_facilities_form_node_form_alter(array &$form, FormStateInterface &$form_state) {
+  /** @var \Drupal\Core\Entity\EntityForm $form_object */
+  $form_object = $form_state->getFormObject();
+  if ($form_object instanceof EntityForm) {
+    $entity = $form_object->getEntity();
+    if (!$entity instanceof NodeInterface) {
+      return;
+    }
+
+    /** @var \Drupal\node\NodeInterface $entity */
+    $facilitiesWithStatus = [
+      'health_care_local_facility',
+      'nca_facility',
+      'vba_facility',
+      'vet_center',
+      'vet_center_outstation',
+    ];
+    if (in_array($entity->bundle(), $facilitiesWithStatus)
+    && ($entity->hasField('field_operating_status_facility'))
+    && ($entity->hasField('field_operating_status_more_info'))) {
+      // Hide status details field if status is set to normal.
+      $form['field_operating_status_more_info']['#states'] = [
+        'visible' => [
+          ':input[name="field_operating_status_facility"]' => ['!value' => 'normal'],
+        ],
+      ];
+    }
+  }
+}
