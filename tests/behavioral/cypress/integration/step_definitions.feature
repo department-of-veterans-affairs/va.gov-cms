@@ -47,6 +47,7 @@ Feature: Step definitions function as expected
     And I edit the node
     And I fill in field with selector "#edit-title-0-value" with value "Field retrieved via selector"
 
+  @ignore
   Scenario: The option from dropdown should be selected
     Given I am logged in as a user with the "administrator" role
     And I am at "/admin/config/people/accounts/form-display"
