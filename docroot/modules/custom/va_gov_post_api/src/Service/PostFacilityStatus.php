@@ -239,7 +239,7 @@ class PostFacilityStatus extends PostFacilityBase {
       // System and facility url overrides: Lovell VAMC System - 15007.
       if ($systemId === '15007') {
         $payload['system']['url'] = 'https://www.lovell.fhcc.va.gov';
-        $payload['system']['covid_url'] = NULL;
+        $payload['system']['covid_url'] = 'https://www.lovell.fhcc.va.gov/services/covid-19-vaccines.asp';
         $payload['facility_url'] = 'https://www.lovell.fhcc.va.gov';
         $facility_id = $this->facilityNode->hasField('field_facility_locator_api_id') ? $this->facilityNode->get('field_facility_locator_api_id')->value : NULL;
         // Evanston VA clinic - vha_556GA.
