@@ -6,6 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+      - name: Add safe directory (see CVE-2022-24765)
+        run: |
+          sudo chown -R root:root $GITHUB_WORKSPACE
       - name: stylelint
         uses: reviewdog/action-stylelint@v1
         with:

@@ -6,6 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Add safe directory (see CVE-2022-24765)
+        run: |
+          sudo chown -R root:root $GITHUB_WORKSPACE
       - uses: acrollet/action-phpcs-drupal@v1
         with:
           fail_on_error: true
