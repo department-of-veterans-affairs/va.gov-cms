@@ -24,8 +24,10 @@ Given('I create a {string} taxonomy term', (vocabulary) => {
   assert.isNotNull(creator, `I do not know how to create ${vocabulary} taxonomy terms yet.  Please add a definition in ${__filename}.`);
   creator().then(() => {
     cy.getDrupalSettings().then((drupalSettings) => {
-      const currentPath = drupalSettings.path.currentPath;
-      cy.wrap(currentPath.split('/').pop()).as('termId');
+      cy.getLastCreatedTaxonomyTerm().then((tidCommand) => {
+        cy.log(tidCommand);
+        cy.wrap(tidCommand.stdout).as('termId');
+      });
       cy.window().then((window) => {
         const pagePath = window.location.pathname;
         cy.wrap(pagePath).as('pagePath');

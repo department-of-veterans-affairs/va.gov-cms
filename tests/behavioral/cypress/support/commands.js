@@ -143,6 +143,21 @@ Cypress.Commands.add('getDrupalSettings', () => {
   return cy.window().then((window) => window.drupalSettings);
 });
 
+Cypress.Commands.add('getLastCreatedTaxonomyTerm', () => {
+  return cy.get('@uid')
+    .then((uid) => {
+      const command = `
+        $query = \\Drupal::entityQuery('taxonomy_term');
+        $result = $query
+          ->condition('revision_user', ${uid})
+          ->sort('revision_created' , 'DESC')
+          ->execute();
+        echo reset($result);
+      `;
+      return cy.drupalDrushEval(command);
+    });
+});
+
 Cypress.Commands.add('unsetWorkbenchAccessSections', () => {
   return cy.get('@uid')
     .then((uid) => {
