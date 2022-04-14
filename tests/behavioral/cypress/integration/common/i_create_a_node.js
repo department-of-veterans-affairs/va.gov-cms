@@ -22,6 +22,23 @@ const creators = {
     cy.findAllByLabelText('Meta description').type(faker.lorem.sentence(), { force: true });
     return cy.get('form.node-form').find('input#edit-submit').click();
   },
+  landing_page: () => {
+    cy.visit('/node/add/landing_page');
+    cy.scrollTo('top');
+    cy.findAllByLabelText('Page title').type('[Test Data] ' + faker.lorem.sentence(), { force: true });
+    cy.findAllByLabelText('Page introduction').type(faker.lorem.sentence(), { force: true });
+    cy.findAllByLabelText('Section').select('VACO', { force: true });
+    cy.findAllByLabelText('Meta title tag').type('[Test Data] ' + faker.lorem.sentence(), { force: true });
+    cy.findAllByLabelText('Meta description').type(faker.lorem.sentence(), { force: true });
+    cy.findAllByLabelText('Provide a menu link').check({ force: true });
+    cy.findAllByLabelText('Menu link title').type('[Test Data] ' + faker.lorem.sentence(), { force: true });
+    cy.findAllByLabelText('Parent link').select('---- Disability', { force: true });
+    cy.contains('Add List of link teasers').click({ force: true });
+    cy.get('input[id^=edit-field-spokes-0-subform-field-va-paragraphs-0-subform-field-link-0-uri').type(faker.internet.url(), { force: true });
+    cy.get('input[id^=edit-field-spokes-0-subform-field-va-paragraphs-0-subform-field-link-0-title').type(faker.company.companyName(), { force: true });
+    cy.contains('Add Link teaser').click({ force: true });
+    return cy.get('form.node-form').find('input#edit-submit').click();
+  },
   office: () => {
     cy.visit('/node/add/office');
     cy.scrollTo('top');

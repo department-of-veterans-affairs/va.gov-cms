@@ -21,3 +21,11 @@ Feature: CMS Users may effectively create & edit content
     And I click the "Save draft and continue editing" button
     Then I should see "Pages for the following VAMC systems"
     And I should see "[Test Data] Alert Title"
+
+  @content_editing
+  Scenario: Confirm that content cannot be published directly from the node view but can from the node edit form.
+    Given I am logged in as a user with the "content_admin" role
+    And I create a "landing_page" node
+    Then I should not see an element with the selector "#edit-new-state"
+    And I edit the node
+    Then the element with selector "#edit-moderation-state-0-state" should contain "Draft"
