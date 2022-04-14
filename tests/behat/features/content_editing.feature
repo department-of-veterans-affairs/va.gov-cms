@@ -125,36 +125,6 @@ Feature: CMS Users may effectively create & edit content
     Then I should see "New York" in the "#edit-field-datetime-range-timezone-0-timezone" element
 
   @content_editing
-  Scenario: Confirm Generate automatic URL alias is unchecked after node publish.
-    When I am logged in as a user with the "administrator" role
-    And I am at "node/add/basic_landing_page"
-    Then the "path[0][pathauto]" checkbox should be checked
-
-    # Create our initial draft and confirm URL alias is created and Generate automatic URL alias is checked
-    And I fill in "Page title" with "BeHat URL Alias Title"
-    And I fill in "Page introduction" with "BeHat URL Alias introduction"
-    And I fill in "Meta title tag" with "BeHat URL Alias Meta title tag"
-    And I fill in "Meta description" with "BeHat URL Alias Meta description"
-    And I press "op"
-    And I press "Add"
-    And I fill in "Text" with "BeHat URL Alias Rich text content"
-    And I select "Benefits Hubs" from "edit-field-product"
-    And I select "VACO" from "edit-field-administration"
-    And I press "Save draft and continue editing"
-    Then I should see "Edit Landing Page BeHat URL Alias Title"
-    And the "path[0][pathauto]" checkbox should be checked
-
-    # Publish our initial draft and confirm URL alias is created and Generate automatic URL alias is not checked
-    And I fill in "Page title" with "BeHat URL Alias Title Published"
-    And I select "Published" from "edit-moderation-state-0-state"
-    And I fill in "Revision log message" with "BeHat URL Alias Title Published"
-    And I press "Save"
-    Then I should see "BeHat URL Alias Title Published"
-    And the url should match "/behat-url-alias-title-published"
-    Then I visit the "edit" page for a node with the title "BeHat URL Alias Title Published"
-    And the "path[0][pathauto]" checkbox should not be checked
-
-  @content_editing
   Scenario: Confirm Generate automatic URL alias is unchecked after taxonomy term publish.
     Given I am logged in as a user with the "administrator" role
     And I am at "admin/structure/taxonomy/manage/health_care_service_taxonomy/add"
