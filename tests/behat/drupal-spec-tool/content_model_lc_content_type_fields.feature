@@ -81,7 +81,7 @@ Feature: Content model: LC Content Type fields
 | Content type | Step-by-Step | Primary category | field_primary_category | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Step-by-Step | VA Benefit Hubs | field_related_benefit_hubs | Entity reference | Required | 3 | Entity Browser - Table | Translatable |
 | Content type | Step-by-Step | Related Information | field_related_information | Entity reference revisions |  | 5 | Paragraphs (stable) | Translatable |
-| Content type | Step-by-Step | Step-by-Step | field_steps | Entity reference revisions | Required | Unlimited | Paragraphs Legacy |  |
+| Content type | Step-by-Step | Step-by-step | field_steps | Entity reference revisions | Required | Unlimited | Paragraphs Legacy |  |
 | Content type | Step-by-Step | Generate a table of contents from major headings | field_table_of_contents_boolean | Boolean |  | 1 | Single on/off checkbox | Translatable |
 | Content type | Step-by-Step | Tags | field_tags | Entity reference revisions |  | 1 | Paragraphs Legacy |  |
 | Content type | Video list | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
