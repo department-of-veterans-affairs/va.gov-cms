@@ -96,6 +96,10 @@ The goal for this week is to get you set up with the tools you need to be succes
    - [ ] Optional [Core Tunnel set up for SOCKS proxy on all browsers on Mac](https://www.youtube.com/watch?v=fSuN9LhkB5o)
    - [ ] When you have SOCKS proxy set up, contact the instructional designer for a Drupal and demo environments overview.
   
+  - [ ] [Learn about the different Drupal environments](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/f4341c29ad8e998de1dac2fca0b749cdef15c923/READMES/environments.md)
+  - [ ] If you are using a non-VA laptop for development you will need [follow the instructions on Github](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/https.md) to trust the VA Root Certificate Authority (CA) in your browser(s)
+  - [ ] Drupal production environment access (SOCKS or VA network required) - ask your delivery manager, product manager, or CMS Team helpdesk to set up an administrator account for you for [prod.cms.va.gov](prod.cms.va.gov)
+  
 -  [ ] Tugboat demo environments
     - [ ] [Tugboat for engineers](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/f4341c29ad8e998de1dac2fca0b749cdef15c923/READMES/tugboat.md)
     - [ ] [Tugboat for non-engineers](https://prod.cms.va.gov/help/demo-environments-tugboat-guides) SOCKS required
@@ -104,20 +108,12 @@ The goal for this week is to get you set up with the tools you need to be succes
  - [ ] [Slack](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/orientation/slack-requests.md) for instant messaging. Your delivery manager should have already requested this for you, but if not, view the request instructions in the link above.
     - [ ] [Review Slack etiquette](https://slack.com/blog/collaboration/etiquette-tips-in-slack).
     - [ ] Update your profiles in Slack (in the A6 and DSVA workspaces), add a calendar link
-    - [ ] DM to add to appropriate Slack alias groups for the DSVA workspace
-      - [ ] `@cms-engineers-group`
-      - [ ] `@cms-helpdesk`
-      - [ ] `@platform-cms-team`
-      - [ ] `@sitewide-cms-team`
-      - [ ] `@cms-devops-engineers`
+    - [ ] Your delivery manager should add you to appropriate Slack alias groups for the DSVA workspace
     - [ ] You should be in the following slack channels:
       - [ ] A6 workspace = `#proj-vagov-team`
       - [ ] DSVA workspace = `#cms-team`
-      - [ ] [This is a description of other channels](https://docs.google.com/spreadsheets/d/1_lZzectbSzs8zt4dvTFJTiPURxa0Kfp3xinYEuZdqq4/edit#gid=0) that ought to be on your radar. Note that many are going to be dependent on which workstream you're in (DevOps, Helpdesk, UX, etc.). Feel free to join whichever you think will aid you and your work.
-   
-- [ ] [Learn about the different Drupal environments](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/f4341c29ad8e998de1dac2fca0b749cdef15c923/READMES/environments.md)
-  - [ ] If you are using a non-VA laptop for development you will need [follow the instructions on Github](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/https.md) to trust the VA Root Certificate Authority (CA) in your browser(s)
-  - [ ] Drupal production environment access (SOCKS or VA network required) - ask your delivery manager, product manager, or CMS Team helpdesk to set up an administrator account for you for [prod.cms.va.gov](prod.cms.va.gov)
+      - [ ] [This is a description of other channels](https://docs.google.com/spreadsheets/d/1_lZzectbSzs8zt4dvTFJTiPURxa0Kfp3xinYEuZdqq4/edit#gid=0) that ought to be on your radar. Note that many are going to be dependent on which workstream you're in (DevOps, Helpdesk, UX, etc.). Feel free to join whichever you think will aid you and your work. Some channels have changed recently.
+  
 
 - [ ] [Confluence](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/179765342/2020-2021?NO_SSR=1) for team resources and calendar
 
