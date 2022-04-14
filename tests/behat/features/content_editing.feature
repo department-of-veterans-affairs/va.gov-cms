@@ -125,18 +125,6 @@ Feature: CMS Users may effectively create & edit content
     Then I should see "New York" in the "#edit-field-datetime-range-timezone-0-timezone" element
 
   @content_editing
-  Scenario: Confirm Generate automatic URL alias is unchecked after taxonomy term publish.
-    Given I am logged in as a user with the "administrator" role
-    And I am at "admin/structure/taxonomy/manage/health_care_service_taxonomy/add"
-    And the "path[0][pathauto]" checkbox should be checked
-    And I fill in "Name" with "BeHat URL Alias Term Title Published"
-    And I fill in "Health Service API ID" with "1234"
-    And I press "Save"
-    Then I should see "BeHat URL Alias Term Title Published"
-    Then I visit the "edit" page for a term with the title "BeHat URL Alias Term Title Published"
-    And the "path[0][pathauto]" checkbox should not be checked
-
-  @content_editing
   Scenario: Confirm field group is opened and required field is presented to editor on CLP page.
     Given I am logged in as a user with the "content_admin" role
     And I am at "node/add/campaign_landing_page"
