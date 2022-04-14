@@ -53,9 +53,9 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Embedded image | Select an image | field_media | Entity reference | Required | 1 | Media library |  |
 | Paragraph type | Expandable Text | Text Expander | field_text_expander | Text (plain) | Required | 1 | Textfield with counter |  |
 | Paragraph type | Expandable Text | Full Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
-| Paragraph type | Featured content | Call to Action | field_cta | Entity reference revisions | Required | 1 | Paragraphs (stable) |  |
+| Paragraph type | Featured content | Call to Action | field_cta | Entity reference revisions |  | 1 | Paragraphs (stable) |  |
 | Paragraph type | Featured content | Description | field_description | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter |  |
-| Paragraph type | Featured content | Section Header | field_section_header | Text (plain) |  |  | Textfield with counter | Translatable |
+| Paragraph type | Featured content | Section Header | field_section_header | Text (plain) | Required |  | Textfield with counter | Translatable |
 | Paragraph type | Link teaser | Link | field_link | Link | Required | 1 | Linkit |  |
 | Paragraph type | Link teaser | Link summary | field_link_summary | Text (plain) |  | 1 | Textfield with counter |  |
 | Paragraph type | Link teaser with image | Link teaser | field_link_teaser | Entity reference revisions |  | 1 | Paragraphs Legacy |  |
@@ -102,11 +102,11 @@ Feature: Content model: Paragraph fields
 | Paragraph type | React Widget | Timeout | field_timeout | Number (integer) |  | 1 | Number field |  |
 | Paragraph type | React Widget | Widget Type | field_widget_type | Text (plain) | Required | 1 | Textfield |  |
 | Paragraph type | Rich text | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
-| Paragraph type | Rich text - char limit 1000 | Text | field_wysiwyg | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
+| Paragraph type | Rich text - char limit 1000 | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Paragraph type | Service location | Additional Hours options (e.g. On-Call, Appointments may be available outside these hours, please call.) | field_additional_hours_info | Text (plain) |  | 1 | Textfield |  |
 | Paragraph type | Service location | Email contacts | field_email_contacts | Entity reference revisions |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
 | Paragraph type | Service location | Use the facility's hours | field_hours | List (text) | Required | 1 | Select list |  |
-| Paragraph type | Service location | Hours | field_office_hours | Office hours |  | 1 | Office hours (week) |  |
+| Paragraph type | Service location | Hours | field_office_hours | Office hours |  | Unlimited | Office hours (week) |  |
 | Paragraph type | Service location | Other phone numbers | field_phone | Entity reference revisions |  | 5 | Inline entity form - Complex - Table View Mode |  |
 | Paragraph type | Service location | Address | field_service_location_address | Entity reference revisions |  | 1 | Paragraphs (stable) |  |
 | Paragraph type | Service location | Use the general facility phone number | field_use_main_facility_phone | Boolean |  | 1 | Single on/off checkbox |  |
@@ -114,16 +114,16 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Service location address | Building name/number | field_building_name_number | Text (plain) |  | 1 | Textfield with counter |  |
 | Paragraph type | Service location address | Name of office or location | field_clinic_name | Text (plain) |  | 1 | Textfield with counter |  |
 | Paragraph type | Service location address | Use the facility's street address? | field_use_facility_address | Boolean |  | 1 | Single on/off checkbox |  |
-| Paragraph type | Service location address | Wing, Floor, or Room Number | field_wing_floor_or_room_number | Text (plain) | Required | 1 | Textfield with counter |  |
-| Paragraph type | Situation update | Date and time | field_datetime_range_timezone | Smart Date Range |  | 1 | Date and time range with timezone |  |
-| Paragraph type | Situation update | Send email to subscribers via GovDelivery? | field_send_email_to_subscribers | Boolean | Required | 1 | Single on/off checkbox |  |
+| Paragraph type | Service location address | Wing, Floor, or Room Number | field_wing_floor_or_room_number | Text (plain) |  | 1 | Textfield with counter |  |
+| Paragraph type | Situation update | Date and time | field_datetime_range_timezone | Smart date range | Required | 1 | Date and time range with timezone |  |
+| Paragraph type | Situation update | Send email to subscribers via GovDelivery? | field_send_email_to_subscribers | Boolean |  | 1 | Single on/off checkbox |  |
 | Paragraph type | Situation update | Update | field_wysiwyg | Text (formatted, long) | Required | 1 | Text area (multiple rows) | Translatable |
-| Paragraph type | Staff profile | Staff profile | field_staff_profile | Entity reference |  | 1 | Autocomplete |  |
+| Paragraph type | Staff profile | Staff profile | field_staff_profile | Entity reference | Required | 1 | Autocomplete |  |
 | Paragraph type | Step | Alert | field_alert | Entity reference revisions |  | 1 | Paragraphs Legacy |  |
-| Paragraph type | Step | Select an image | field_media | Entity reference | Required | 1 | Media library | Translatable |
-| Paragraph type | Step | Text | field_wysiwyg | Text (formatted, long) |  | Unlimited | Text area (multiple rows) | Translatable |
-| Paragraph type | Step by step | Section Header | field_section_header | Text (plain) |  | 1 | Textfield with counter | Translatable |
-| Paragraph type | Step by step | Add Step | field_step | Entity reference revisions |  | 1 | Paragraphs Legacy | Translatable |
-| Paragraph type | Table | Table | field_table | Table Field | Required | 1 | Table Field |  |
+| Paragraph type | Step | Select an image | field_media | Entity reference |  | 1 | Media library | Translatable |
+| Paragraph type | Step | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Text area (multiple rows) | Translatable |
+| Paragraph type | Step by Step | Section Header | field_section_header | Text (plain) |  | 1 | Textfield with counter | Translatable |
+| Paragraph type | Step by Step | Add Step | field_step | Entity reference revisions |  | Unlimited | Paragraphs Legacy | Translatable |
+| Paragraph type | Table | Table | field_table | Table Field |  | 1 | Table Field |  |
 | Paragraph type | VAMC facility service (non-healthcare service) | Service name | field_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Paragraph type | VAMC facility service (non-healthcare service) | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |

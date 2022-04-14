@@ -8,7 +8,6 @@ Feature: Content model: Media fields
      Scenario: Fields
        Then exactly the following fields should exist for entity type media
        | Type | Bundle | Field label | Machine name | Field type | Required | Cardinality | Form widget | Translatable |
-| Media type | Document | Media name | - | Entity Label |  |  | Textfield | Translatable |
 | Media type | Document | Document | field_document | File | Required | 1 | File |  |
 | Media type | Document | Reusable | field_media_in_library | Boolean |  | 1 | -- Disabled -- | Translatable |
 | Media type | Document | Media submission guidelines | field_media_submission_guideline | Markup |  | 1 | Markup |  |
@@ -18,13 +17,11 @@ Feature: Content model: Media fields
 | Media type | Document - External | Reusable | field_media_in_library | Boolean |  | 1 | -- Disabled -- | Translatable |
 | Media type | Document - External | File type | field_mime_type | Text (plain) |  | 1 | -- Disabled -- |  |
 | Media type | Document - External | Section | field_owner | Entity reference | Required | 1 | Select list | Translatable |
-| Media type | Image | Media name | - | Entity Label |  |  | Textfield | Translatable |
 | Media type | Image | Description | field_description | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Media type | Image | Reusable | field_media_in_library | Boolean |  | 1 | -- Disabled -- |  |
 | Media type | Image | Media submission guidelines | field_media_submission_guideline | Markup |  | 1 | Markup | Translatable |
 | Media type | Image | Section | field_owner | Entity reference | Required | 1 | Select list | Translatable |
 | Media type | Image | Image | image | Image | Required | 1 | ImageWidget crop |  |
-| Media type | Video | Media name | - | Entity Label |  |  | Textfield | Translatable |
 | Media type | Video | Description | field_description | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Media type | Video | Duration | field_duration | Hours Minutes and Seconds |  | 1 | Hour Minutes and Seconds |  |
 | Media type | Video | Reusable | field_media_in_library | Boolean |  | 1 | -- Disabled -- | Translatable |

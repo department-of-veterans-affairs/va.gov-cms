@@ -12,13 +12,13 @@ Feature: Content model: VAMC Content Type fields
 | Content type | Event | Address | field_address | Address |  | 1 | Address |  |
 | Content type | Event | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Event | Full event description | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
-| Content type | Event | Date and time | field_datetime_range_timezone | Smart Date Range | Required | 1 | Date and time range with timezone |  |
+| Content type | Event | Date and time | field_datetime_range_timezone | Smart date range | Required | 1 | Date and time range with timezone |  |
 | Content type | Event | Teaser description | field_description | Text (plain) |  | 1 | Textfield | Translatable |
 | Content type | Event | Cost | field_event_cost | Text (plain) |  | 1 | -- Disabled -- |  |
 | Content type | Event | Label | field_event_cta | List (text) |  | 1 | Select list |  |
 | Content type | Event | Registration required | field_event_registrationrequired | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Event | Facility location | field_facility_location | Entity reference |  | 1 | Select list |  |
-| Content type | Event | Featured | field_featured | Boolean |  | 1 | Single on/off checkbox |  |
+| Content type | Event | Featured | field_featured | Boolean |  | 1 | Single on/off checkbox | Translatable |
 | Content type | Event | URL | field_link | Link |  | 1 | Linkit | Translatable |
 | Content type | Event | Where should the event be listed? | field_listing | Entity reference | Required | 1 | Select list |  |
 | Content type | Event | Building, floor, or room | field_location_humanreadable | Text (plain) |  | 1 | Textfield |  |
@@ -75,7 +75,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | Staff Profile | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | Staff Profile | First name | field_name_first | Text (plain) | Required | 1 | Textfield |  |
 | Content type | Staff Profile | Related office or health care region | field_office | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Staff Profile | Phone number | field_phone_number | Telephone number |  | 1 | Telephone number | Translatable |
+| Content type | Staff Profile | Phone Number | field_phone_number | Telephone number |  | 1 | Telephone number | Translatable |
 | Content type | Staff Profile | High-resolution photo should be available for download by site visitors | field_photo_allow_hires_download | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Staff Profile | Suffix | field_suffix | Text (plain) |  | 1 | Textfield |  |
 | Content type | Stories List | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
@@ -121,7 +121,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC Facility | Hours | field_office_hours | Office hours |  | Unlimited | Office hours (week) | Translatable |
 | Content type | VAMC Facility | Status | field_operating_status_facility | List (text) | Required | 1 | Select list |  |
 | Content type | VAMC Facility | Details | field_operating_status_more_info | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |
-| Content type | VAMC Facility | Phone number | field_phone_number  | Telephone number |  | 1 | Telephone number | Translatable |
+| Content type | VAMC Facility | Phone Number | field_phone_number  | Telephone number |  | 1 | Telephone number | Translatable |
 | Content type | VAMC Facility | What health care system does the facility belong to? | field_region_page | Entity reference | Required | 1 | Select list |  |
 | Content type | VAMC Facility Health Service | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC Facility Health Service | Appointments help text | field_appointments_help_text | Markup |  | 1 | Markup |  |
@@ -135,7 +135,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC Facility Health Service | Is online scheduling available for this service? | field_online_scheduling_availabl | List (text) | Required | 1 | Select list |  |
 | Content type | VAMC Facility Health Service | Phone number for appointments | field_phone_numbers_paragraph | Entity reference revisions |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
 | Content type | VAMC Facility Health Service | Is a referral required? | field_referral_required | List (text) | Required | 1 | Select list |  |
-| Content type | VAMC Facility Health Service | VAMC System Health Service | field_regional_health_service | Entity reference | Required | 1 | Select list |  |
+| Content type | VAMC Facility Health Service | VAMC system health service | field_regional_health_service | Entity reference | Required | 1 | Select list |  |
 | Content type | VAMC Facility Health Service | Service locations | field_service_location | Entity reference revisions |  | Unlimited | Paragraphs (stable) |  |
 | Content type | VAMC Facility Health Service | Are walkins accepted? | field_walk_ins_accepted | List (text) | Required | 1 | Select list |  |
 | Content type | VAMC Facility Non-clinical Service | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
@@ -164,10 +164,10 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System | VAMC system official name | field_vamc_system_official_name | Text (plain) |  | 1 | Textfield |  |
 | Content type | VAMC System Banner Alert with Situation Updates | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC System Banner Alert with Situation Updates | Alert dismissable? | field_alert_dismissable | Boolean |  | 1 | Single on/off checkbox |  |
-| Content type | VAMC System Banner Alert with Situation Updates | "Display ""Subscribe to email updates"" link?" | field_alert_email_updates_button | Boolean |  | 1 | Single on/off checkbox |  |
-| Content type | VAMC System Banner Alert with Situation Updates | "Display ""Find other VA facilities near you"" link?" | field_alert_find_facilities_cta | Boolean |  | 1 | Single on/off checkbox |  |
+| Content type | VAMC System Banner Alert with Situation Updates | Display "Subscribe to email updates" link? | field_alert_email_updates_button | Boolean |  | 1 | Single on/off checkbox |  |
+| Content type | VAMC System Banner Alert with Situation Updates | Display "Find other VA facilities near you" link? | field_alert_find_facilities_cta | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC System Banner Alert with Situation Updates | Limit banner display to the home and the Operating Status page(s) | field_alert_inheritance_subpages | Boolean |  | 1 | Single on/off checkbox |  |
-| Content type | VAMC System Banner Alert with Situation Updates | "Display ""Get updates on affected services and facilities"" link" | field_alert_operating_status_cta | Boolean |  | 1 | Single on/off checkbox |  |
+| Content type | VAMC System Banner Alert with Situation Updates | Display "Get updates on affected services and facilities" link | field_alert_operating_status_cta | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC System Banner Alert with Situation Updates | Alert type | field_alert_type | List (text) | Required | 1 | Select list |  |
 | Content type | VAMC System Banner Alert with Situation Updates | Any information that is additional to any time-sensitive situation updates | field_banner_alert_situationinfo | Text (formatted, long) |  | 1 | Text area (multiple rows) |  |
 | Content type | VAMC System Banner Alert with Situation Updates | Pages for the following VAMC systems | field_banner_alert_vamcs | Entity reference | Required | Unlimited | Check boxes/radio buttons |  |
@@ -189,7 +189,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System Health Service | VAMC system service description | field_body | Text (formatted, long) | Required | 1 | Text area (multiple rows) | Translatable |
 | Content type | VAMC System Health Service | Enforce unique combo | field_enforce_unique_combo | Allow Only One |  | 1 | Allow Only One widget | Translatable |
 | Content type | VAMC System Health Service | Facility services | field_local_health_care_service_ | Entity reference |  | Unlimited | -- Disabled -- |  |
-| Content type | VAMC System Health Service | VAMC System | field_region_page | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | VAMC System Health Service | VAMC system | field_region_page | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC System Health Service | Service name | field_service_name_and_descripti | Entity reference | Required | 1 | Select list |  |
 | Content type | VAMC System Locations List | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC System Locations List | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
@@ -202,7 +202,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System Medical Records Office | Get your records in person | field_cc_get_records_in_person | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
 | Content type | VAMC System Medical Records Office | Get your records by mail or fax | field_cc_get_records_mail_or_fax | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
 | Content type | VAMC System Medical Records Office | How we share your records with providers outside VA | field_cc_how_we_share_records | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
-| Content type | VAMC System Medical Records Office | React Widget | field_cc_react_widget | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
+| Content type | VAMC System Medical Records Office | React widget (for non-Cerner VAMCs) | field_cc_react_widget | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
 | Content type | VAMC System Medical Records Office | Related links | field_cc_related_links | Entity Field Fetch field |  | 1 | Entity Field Fetch widget | Translatable |
 | Content type | VAMC System Medical Records Office | National top of page content | field_cc_top_of_page_content | Entity Field Fetch field |  | 1 | Entity Field Fetch widget | Translatable |
 | Content type | VAMC System Medical Records Office | Enforce unique combo section | field_enforce_unique_combo | Allow Only One |  | 1 | Allow Only One widget | Translatable |
@@ -218,7 +218,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System Operating Status | Facility operating statuses | field_facility_operating_status | Entity reference |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
 | Content type | VAMC System Operating Status | Local emergency resources | field_links | Link |  | Unlimited | Linkit | Translatable |
 | Content type | VAMC System Operating Status | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
-| Content type | VAMC System Operating Status | VAMC System | field_office | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | VAMC System Operating Status | VAMC system | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC System Operating Status | Patient resources | field_operating_status_emerg_inf | Text (formatted, long) | Required | 1 | Text area (multiple rows) |  |
 | Content type | VAMC System Policies Page | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC System Policies Page | National bottom of page content | field_cc_bottom_of_page_content | Entity Field Fetch field |  | 1 | Entity Field Fetch widget |  |
@@ -239,3 +239,4 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System Register for Care | Non-clinical Services | field_non_clinical_services | Viewfield |  | 1 | Viewfield |  |
 | Content type | VAMC System Register for Care | VAMC System | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC System Register for Care | Service | field_service_name_and_descripti | Entity reference |  | 1 | -- Disabled -- | Translatable |
+

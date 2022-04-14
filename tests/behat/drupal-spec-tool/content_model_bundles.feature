@@ -116,4 +116,3 @@ Feature: Content model bundles
 | Products | products | Vocabulary |  |
 | Topics | topics | Vocabulary |  |
 | Type of Redirect | type_of_redirect | Vocabulary |  |
-| VBA services | vba_service_taxonomy | Vocabulary | Single source of truth for VBA service names and descriptions. |
