@@ -64,7 +64,7 @@ Feature: Views
 | User history list | user_history_list | User history | Enabled |  |
 | Users in section | users_in_section | Section association | Enabled | Views of users associated to a section |
 | VA Forms | va_forms | Content | Enabled | VA forms dashboard |
-| VA Services | vha_health_service_taxonomy | Taxonomy terms | Enabled |  |
+| VHA health service taxonomy | vha_health_service_taxonomy | Taxonomy terms | Enabled |  |
 | VAMC alerts and operating statuses | vamc_alerts_and_operating_statuses | Content | Enabled |  |
 | VAMC operating statuses | vamc_operating_statuses | Content | Enabled |  |
 | VAMC top task page revision histories | vamc_top_task_page_revisions | Content revisions | Enabled | An audit of VAMC top task pages for runbook planning |
@@ -257,9 +257,9 @@ Feature: Views
 | Users in section | Page | section_member_page | Page |
 | VA Forms | Master | default | Default |
 | VA Forms | Page | page_1 | Page |
-| VA Services | Data export | data_export_1 | Data export |
-| VA Services | Master | default | Default |
-| VA Services | Page | page_1 | Page |
+| VHA health service taxonomy | Data export | data_export_1 | Data export |
+| VHA health service taxonomy | Master | default | Default |
+| VHA health service taxonomy | Page | page_1 | Page |
 | VAMC alerts and operating statuses | Master | default | Default |
 | VAMC alerts and operating statuses | Page | page_1 | Page |
 | VAMC operating statuses | Entity Reference | entity_reference_1 | Entity Reference |
