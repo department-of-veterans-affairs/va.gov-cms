@@ -43,5 +43,5 @@ Feature: Content model: Campaign Landing Page Content Type fields
 | Content type | Campaign Landing Page | Hero Image | field_hero_image | Entity reference | Required | 1 | Media library |  |
 | Content type | Campaign Landing Page | Video | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Content type | Campaign Landing Page | Primary call to action | field_primary_call_to_action | Entity reference revisions | Required | 1 | Paragraphs (stable) |  |
-| Content type | Campaign Landing Page | "Add a ""Connect with us"" panel" | field_related_office | Entity reference |  | 1 | Select list | Translatable |
+| Content type | Campaign Landing Page | Add a "Connect with us" panel | field_related_office | Entity reference |  | 1 | Select list | Translatable |
 | Content type | Campaign Landing Page | Secondary call to action | field_secondary_call_to_action | Entity reference revisions |  | 1 | Paragraphs (stable) |  |

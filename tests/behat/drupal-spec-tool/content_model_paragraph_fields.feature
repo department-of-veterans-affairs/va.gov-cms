@@ -55,7 +55,7 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Expandable Text | Full Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Paragraph type | Featured content | Call to Action | field_cta | Entity reference revisions |  | 1 | Paragraphs (stable) |  |
 | Paragraph type | Featured content | Description | field_description | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter |  |
-| Paragraph type | Featured content | Section Header | field_section_header | Text (plain) | Required |  | Textfield with counter | Translatable |
+| Paragraph type | Featured content | Section Header | field_section_header | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Paragraph type | Link teaser | Link | field_link | Link | Required | 1 | Linkit |  |
 | Paragraph type | Link teaser | Link summary | field_link_summary | Text (plain) |  | 1 | Textfield with counter |  |
 | Paragraph type | Link teaser with image | Link teaser | field_link_teaser | Entity reference revisions |  | 1 | Paragraphs Legacy |  |
@@ -96,7 +96,6 @@ Feature: Content model: Paragraph fields
 | Paragraph type | React Widget | Display default link as button | field_button_format | Boolean |  | 1 | Single on/off checkbox |  |
 | Paragraph type | React Widget | Call To Action Widget | field_cta_widget | Boolean |  | 1 | Single on/off checkbox |  |
 | Paragraph type | React Widget | Default Link | field_default_link | Link |  | 1 | Link |  |
-
 | Paragraph type | React Widget | Error Message | field_error_message | Text (formatted) |  | 1 | Text field |  |
 | Paragraph type | React Widget | Loading Message | field_loading_message | Text (plain) |  | 1 | Textfield |  |
 | Paragraph type | React Widget | Timeout | field_timeout | Number (integer) |  | 1 | Number field |  |
@@ -122,8 +121,8 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Step | Alert | field_alert | Entity reference revisions |  | 1 | Paragraphs Legacy |  |
 | Paragraph type | Step | Select an image | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Paragraph type | Step | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Text area (multiple rows) | Translatable |
-| Paragraph type | Step by Step | Section Header | field_section_header | Text (plain) |  | 1 | Textfield with counter | Translatable |
-| Paragraph type | Step by Step | Add Step | field_step | Entity reference revisions |  | Unlimited | Paragraphs Legacy | Translatable |
+| Paragraph type | Step by step | Section Header | field_section_header | Text (plain) |  | 1 | Textfield with counter | Translatable |
+| Paragraph type | Step by step | Add Step | field_step | Entity reference revisions |  | Unlimited | Paragraphs Legacy | Translatable |
 | Paragraph type | Table | Table | field_table | Table Field |  | 1 | Table Field |  |
 | Paragraph type | VAMC facility service (non-healthcare service) | Service name | field_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Paragraph type | VAMC facility service (non-healthcare service) | Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
