@@ -39,3 +39,12 @@ Feature: CMS Users may effectively create & edit content
     And I publish the node
     And I edit the node
     Then the "Generate automatic URL alias" checkbox should not be checked
+
+  Scenario: Confirm Generate automatic URL alias is unchecked after taxonomy term publish.
+    Given I am logged in as a user with the "administrator" role
+    And I am at "admin/structure/taxonomy/manage/health_care_service_taxonomy/add"
+    Then the "Generate automatic URL alias" checkbox should be checked
+    And I create a "health_care_service_taxonomy" taxonomy term
+    And I edit the term
+    And the "Generate automatic URL alias" checkbox should not be checked
+

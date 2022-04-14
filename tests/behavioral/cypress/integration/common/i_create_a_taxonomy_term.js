@@ -9,6 +9,14 @@ const creators = {
     cy.findAllByLabelText('Description').type(faker.lorem.sentence(), { force: true });
     return cy.get('form.taxonomy-term-form').find('input#edit-submit').click();
   },
+  health_care_service_taxonomy: () => {
+    cy.visit('/admin/structure/taxonomy/manage/health_care_service_taxonomy/add');
+    cy.scrollTo('top');
+    cy.findAllByLabelText('Name').type('[Test Data] ' + faker.lorem.sentence(), { force: true });
+    cy.findAllByLabelText('Description').type(faker.lorem.sentence(), { force: true });
+    cy.findAllByLabelText('Health Service API ID').type(faker.datatype.number(), { force: true });
+    return cy.get('form.taxonomy-term-form').find('input#edit-submit').click();
+  },
 };
 
 Given('I create a {string} taxonomy term', (vocabulary) => {

@@ -82,7 +82,7 @@ Cypress.Commands.add('drupalDrushEval', (php) => {
 });
 
 Cypress.Commands.add('drupalDrushUserCreate', (username, password) => {
-  cy.drupalDrushCommand([
+  return cy.drupalDrushCommand([
     'user:create',
     username,
     `--password=${password}`,
@@ -91,7 +91,7 @@ Cypress.Commands.add('drupalDrushUserCreate', (username, password) => {
 });
 
 Cypress.Commands.add('drupalDrushUserRoleAdd', (username, role) => {
-  cy.drupalDrushCommand([
+  return cy.drupalDrushCommand([
     'user:role:add',
     role,
     username,
@@ -100,7 +100,7 @@ Cypress.Commands.add('drupalDrushUserRoleAdd', (username, role) => {
 
 Cypress.Commands.add('drupalAddUserWithRole', (role, username, password) => {
   cy.drupalDrushUserCreate(username, password);
-  cy.drupalDrushUserRoleAdd(username, role);
+  return cy.drupalDrushUserRoleAdd(username, role);
 });
 
 Cypress.Commands.add('iframe', { prevSubject: 'element' }, ($iframe, callback = () => { }) => {
@@ -125,14 +125,14 @@ Cypress.Commands.add("type_ckeditor", (element, content) => {
 });
 
 Cypress.Commands.add('scrollToSelector', (selector) => {
-  cy.document().then((document) => {
+  return cy.document().then((document) => {
     const htmlElement = document.querySelector('html');
     if (htmlElement) {
       htmlElement.style.scrollBehavior = 'inherit';
     }
+    cy.get(selector).scrollIntoView({ offset: {top: 0}});
+    return cy.get(selector);
   });
-  cy.get(selector).scrollIntoView({ offset: {top: 0}});
-  return cy.get(selector);
 });
 
 Cypress.Commands.add('getDataLayer', () => {
