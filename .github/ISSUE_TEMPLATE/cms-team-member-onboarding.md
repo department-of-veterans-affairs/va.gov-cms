@@ -96,7 +96,7 @@ The goal for this week is to get you set up with the tools you need to be succes
    - [ ] Optional [Core Tunnel set up for SOCKS proxy on all browsers on Mac](https://www.youtube.com/watch?v=fSuN9LhkB5o)
    - [ ] When you have SOCKS proxy set up, contact the instructional designer for a Drupal and demo environments overview.
   
-  - [ ] [Learn about the different Drupal environments](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/f4341c29ad8e998de1dac2fca0b749cdef15c923/READMES/environments.md)
+- [ ] [Learn about the different Drupal environments](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/f4341c29ad8e998de1dac2fca0b749cdef15c923/READMES/environments.md)
   - [ ] If you are using a non-VA laptop for development you will need [follow the instructions on Github](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/https.md) to trust the VA Root Certificate Authority (CA) in your browser(s)
   - [ ] Drupal production environment access (SOCKS or VA network required) - ask your delivery manager, product manager, or CMS Team helpdesk to set up an administrator account for you for [prod.cms.va.gov](prod.cms.va.gov)
   
@@ -104,7 +104,6 @@ The goal for this week is to get you set up with the tools you need to be succes
     - [ ] [Tugboat for engineers](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/f4341c29ad8e998de1dac2fca0b749cdef15c923/READMES/tugboat.md)
     - [ ] [Tugboat for non-engineers](https://prod.cms.va.gov/help/demo-environments-tugboat-guides) SOCKS required
 
- - [ ] [VA.gov tools overview](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html)
  - [ ] [Slack](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/orientation/slack-requests.md) for instant messaging. Your delivery manager should have already requested this for you, but if not, view the request instructions in the link above.
     - [ ] [Review Slack etiquette](https://slack.com/blog/collaboration/etiquette-tips-in-slack).
     - [ ] Update your profiles in Slack (in the A6 and DSVA workspaces), add a calendar link
@@ -131,12 +130,14 @@ The goal for this week is to get you set up with the tools you need to be succes
 <Keep only the discipline that applies to you below, delete the other disciplines.>
 
 #### Onboarding for Developers
- - [ ] [Access to dev & staging to be able to replicate the SSO piece of the login experience](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/5838) (SOCKS or VA access with PIV card required)
+ 
+ - [ ] [VA.gov tools overview](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html)- [ ] [Access to dev & staging to be able to replicate the SSO piece of the login experience](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/5838) (SOCKS or VA access with PIV card required)
  - [ ] [Datadog](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html#Requestaccesstotools-Requestaccess) to access monitoring metrics
  - [ ] Review the [VA.gov Design System](https://design.va.gov/) which includes [how to provide feedback](https://design.va.gov/documentation/feedback)
 
 #### Onboarding for DevOps members
- - [ ] [IAM/SSO lower environment access](https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/blob/master/platform/cms/cms-sso-saml-iam-login-braindump.md#testing-login)
+ 
+ - [ ] [VA.gov tools overview](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html)- [ ] [IAM/SSO lower environment access](https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/blob/master/platform/cms/cms-sso-saml-iam-login-braindump.md#testing-login)
  - [ ] [Jenkins](http://jenkins.vfs.va.gov/) (SOCKS required)
  - [ ] [Grafana](http://grafana.vfs.va.gov/login) (SOCKS required)
  - [ ] [Sentry](http://sentry.vfs.va.gov.) (SOCKS required)
