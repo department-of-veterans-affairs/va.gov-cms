@@ -27,7 +27,7 @@ dependencies:
     - text
     - views_data_export
 id: vha_health_service_taxonomy
-label: 'VHA Health service taxonomy'
+label: 'VA Services'
 module: views
 description: ''
 tag: ''
@@ -40,7 +40,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'VHA Health service taxonomy'
+      title: 'VA Services'
       fields:
         name:
           id: name
@@ -2257,11 +2257,11 @@ display:
         fields: false
       display_description: ''
       display_extenders: {  }
-      path: vha-healthcare-services/export
+      path: va-services/export
       displays:
         page_1: page_1
         default: '0'
-      filename: vha-health-services.csv
+      filename: va-services.csv
       automatic_download: false
       store_in_public_file_directory: null
       custom_redirect_path: false
@@ -3357,13 +3357,21 @@ display:
       defaults:
         fields: false
       display_extenders: {  }
-      path: vha-health-services
+      path: va-services
       menu:
         type: normal
-        title: 'VHA Health service taxonomy'
+        title: 'VA Services'
+        description: ''
         weight: 7
+        expanded: false
         menu_name: admin
         parent: system.admin_content
+        context: '0'
+        as_local_task: false
+        local_task_link_title: ''
+        local_task_parent: 'views_view:view.centralized_content_paragraphs.centralized_content_paragraphs'
+        local_task_weight: 0
+        local_task_custom_parent_route: ''
     cache_metadata:
       max-age: -1
       contexts:
