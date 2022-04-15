@@ -7,7 +7,18 @@ Feature: Permissions
     And I should receive status code 200 when I request "/flags_list"
     And I should receive status code 200 when I request "/api/govdelivery_bulletins/queue?EndTime=1"
 
-  @ignore
+  Scenario: Redirect administrator can add/edit, administer redirects
+    Given I am logged in as a user with the "redirect_administrator" role
+    And I should receive status code 200 when I request "/admin/config/search/redirect/edit/261"
+    And I should receive status code 200 when I request "/admin/config/search/redirect/add"
+    And I should receive status code 200 when I request "/admin/config/search/redirect/import"
+    And I should receive status code 200 when I request "/admin/config/search/redirect"
+
+  Scenario: Administer user role can add/edit users
+    Given I am logged in as a user with the "admnistrator_users" role
+    And I should receive status code 200 when I request "/admin/people"
+    And I should receive status code 200 when I request "/admin/people/create"
+
   Scenario: Content api consumer cannot alter existing menus
     Given I am logged in as a user with the "content_api_consumer" role
     And I should receive status code 403 when I request "/admin/structure/menu"
