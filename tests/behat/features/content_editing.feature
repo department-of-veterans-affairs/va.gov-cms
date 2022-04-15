@@ -108,30 +108,3 @@ Feature: CMS Users may effectively create & edit content
     Then I should see "Test Office - BeHaT 404\u003C\/a\u003E\u003C\/em\u003E has been updated."
     And I should see "Content Type: Office" in the "#block-entitymetadisplay" element
     And I should not see "VA.gov URL" in the "#block-entitymetadisplay" element
-
-  @content_editing
-  Scenario: Confirm that press release country fields are shown correctly
-    Given I am logged in as a user with the "content_admin" role
-    And I am at "node/add/press_release"
-    Then I should see "Create News Release"
-    And I should see "Country" in the "#edit-field-address-0" element
-    And I should see "City" in the "#edit-field-address-0" element
-    And I should see "State" in the "#edit-field-address-0" element
-
-  @content_editing
-  Scenario: Confirm that the default time zone when creating an event is set explicitly to Eastern.
-    Given I am logged in as a user with the "content_admin" role
-    And I am at "node/add/event"
-    Then I should see "New York" in the "#edit-field-datetime-range-timezone-0-timezone" element
-
-  @content_editing
-  Scenario: Confirm field group is opened and required field is presented to editor on CLP page.
-    Given I am logged in as a user with the "content_admin" role
-    And I am at "node/add/campaign_landing_page"
-    And I fill in "Page title" with "BeHat Required Field"
-    And I press "Add Call to action"
-    And I fill in "Link" with "/node/2418"
-    And I check "Enable this page segment"
-    And I press "Save"
-    Then I should see "Introduction field is required."
-    And I should see "0 Video entries created. Minimum of 1 required."
