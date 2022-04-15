@@ -2,14 +2,26 @@ import { Given } from "cypress-cucumber-preprocessor/steps";
 import faker from "faker";
 
 const creators = {
+  checklist: () => {
+    cy.visit('/node/add/checklist');
+    cy.scrollTo('top');
+    cy.findAllByLabelText('Page title').type('[Test Data] ' + faker.lorem.sentence(3), { force: true });
+    cy.findAllByLabelText('Page introduction').type(faker.lorem.sentence(), { force: true });
+    cy.findAllByLabelText('Section').select('VACO', { force: true });
+    cy.findAllByLabelText('Primary category').select('Burials and memorials', { force: true });
+    cy.get('#edit-field-related-information-0-subform-field-link-0-uri').type('http://www.example.com/', { force: true });
+    cy.get('#edit-field-related-information-0-subform-field-link-0-title').type('[Test Link Title]' + faker.lorem.sentence(), { force: true });
+    cy.get('#edit-field-checklist-0-subform-field-checklist-sections-0-subform-field-section-header-0-value').type('[Test Header Value]' + faker.lorem.sentence(3), { force: true });
+    cy.get('#edit-field-checklist-0-subform-field-checklist-sections-0-subform-field-checklist-items-0-value').type('[Test Items Value]' + faker.lorem.sentence(), { force: true });
+    return cy.contains('All Veterans').parent().find('input').check({ force: true });
+  },
   documentation_page: () => {
     cy.visit('/node/add/documentation_page');
     cy.scrollTo('top');
     cy.findAllByLabelText('Page title').type('[Test Data] ' + faker.lorem.sentence(), { force: true });
     cy.findAllByLabelText('Page introduction').type(faker.lorem.sentence(), { force: true });
     cy.findAllByLabelText('Section').select('VACO', { force: true });
-    cy.findAllByLabelText('Parent link').select('-- CMS Knowledge Base (disabled)', { force: true });
-    return cy.get('form.node-form').find('input#edit-submit').click();
+    return cy.findAllByLabelText('Parent link').select('-- CMS Knowledge Base (disabled)', { force: true });
   },
   health_care_region_detail_page: () => {
     cy.visit('/node/add/health_care_region_detail_page');
@@ -19,8 +31,7 @@ const creators = {
     cy.findAllByLabelText('Section').select('VACO', { force: true });
     cy.findAllByLabelText('Related office or health care system').select('VA Alaska health care', { force: true });
     cy.findAllByLabelText('Parent link').select('-------- Anchorage VA Medical Center', { force: true });
-    cy.findAllByLabelText('Meta description').type(faker.lorem.sentence(), { force: true });
-    return cy.get('form.node-form').find('input#edit-submit').click();
+    return cy.findAllByLabelText('Meta description').type(faker.lorem.sentence(), { force: true });
   },
   landing_page: () => {
     cy.visit('/node/add/landing_page');
@@ -36,8 +47,7 @@ const creators = {
     cy.contains('Add List of link teasers').click({ force: true });
     cy.get('input[id^=edit-field-spokes-0-subform-field-va-paragraphs-0-subform-field-link-0-uri').type(faker.internet.url(), { force: true });
     cy.get('input[id^=edit-field-spokes-0-subform-field-va-paragraphs-0-subform-field-link-0-title').type(faker.company.companyName(), { force: true });
-    cy.contains('Add Link teaser').click({ force: true });
-    return cy.get('form.node-form').find('input#edit-submit').click();
+    return cy.contains('Add Link teaser').click({ force: true });
   },
   office: () => {
     cy.visit('/node/add/office');
@@ -47,8 +57,7 @@ const creators = {
     cy.findAllByLabelText('Section').select('VACO', { force: true });
     cy.findAllByLabelText('Provide a menu link').check({ force: true });
     cy.findAllByLabelText('Menu link title').type('[Test Data] ' + faker.lorem.sentence(), { force: true });
-    cy.findAllByLabelText('Parent link').select('-- Outreach and events', { force: true });
-    return cy.get('form.node-form').find('input#edit-submit').click();
+    return cy.findAllByLabelText('Parent link').select('-- Outreach and events', { force: true });
   },
   step_by_step: () => {
     cy.visit('/node/add/step_by_step');
@@ -65,8 +74,7 @@ const creators = {
     cy.findAllByLabelText('Link text').type('va.gov', { force: true });
     cy.findAllByLabelText('Primary category').select('Records', { force: true });
     cy.findAllByLabelText('Claims and appeals status').check({ force: true });
-    cy.type_ckeditor("edit-field-steps-0-subform-field-step-0-subform-field-wysiwyg-0-value", faker.lorem.sentence());
-    return cy.get('form.node-form').find('input#edit-submit').click();
+    return cy.type_ckeditor("edit-field-steps-0-subform-field-step-0-subform-field-wysiwyg-0-value", faker.lorem.sentence());
   },
 };
 
@@ -74,9 +82,28 @@ Given('I create a {string} node', (contentType) => {
   let creator = creators[contentType];
   assert.isNotNull(creator, `I do not know how to create ${contentType} nodes yet.  Please add a definition in ${__filename}.`);
   creator().then(() => {
+    cy.get('form.node-form').find('input#edit-submit').click();
     cy.getDrupalSettings().then((drupalSettings) => {
       const currentPath = drupalSettings.path.currentPath;
       cy.wrap(currentPath.split('/').pop()).as('nodeId');
+      cy.window().then((window) => {
+        const pagePath = window.location.pathname;
+        cy.wrap(pagePath).as('pagePath');
+      });
+    });
+  });
+});
+
+Given('I create a {string} node and continue', (contentType) => {
+  let creator = creators[contentType];
+  assert.isNotNull(creator, `I do not know how to create ${contentType} nodes yet.  Please add a definition in ${__filename}.`);
+  creator().then(() => {
+    cy.get('form.node-form').find('input#edit-save-continue').click();
+    cy.getDrupalSettings().then((drupalSettings) => {
+      const currentPath = drupalSettings.path.currentPath;
+      const pathComponents = currentPath.split('/');
+      pathComponents.pop();
+      cy.wrap(pathComponents.pop()).as('nodeId');
       cy.window().then((window) => {
         const pagePath = window.location.pathname;
         cy.wrap(pagePath).as('pagePath');
