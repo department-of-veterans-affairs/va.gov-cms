@@ -1,6 +1,7 @@
 import '@testing-library/cypress/add-commands';
 import 'cypress-file-upload';
 import 'cypress-real-events/support';
+import 'cypress-xpath';
 
 const compareSnapshotCommand = require('cypress-visual-regression/dist/command');
 
@@ -55,7 +56,7 @@ Cypress.Commands.add('drupalLogout', () => {
 Cypress.Commands.add('drupalDrushCommand', (command) => {
   let cmd = 'drush %command';
   if (Cypress.env('VAGOV_INTERACTIVE')) {
-    cmd = 'lando drush %command';
+    cmd = 'ddev drush %command';
   }
   if (typeof command === 'string') {
     command = [
@@ -63,6 +64,14 @@ Cypress.Commands.add('drupalDrushCommand', (command) => {
     ];
   }
   return cy.exec(cmd.replace('%command', command.join(' ')));
+});
+
+Cypress.Commands.add('drupalContentRelease', (command) => {
+  let cmd = 'composer va:web:build';
+  if (Cypress.env('VAGOV_INTERACTIVE')) {
+    cmd = 'ddev composer va:web:build';
+  }
+  return cy.exec(cmd);
 });
 
 Cypress.Commands.add('drupalDrushEval', (php) => {
