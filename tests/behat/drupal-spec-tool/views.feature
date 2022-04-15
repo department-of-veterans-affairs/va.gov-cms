@@ -16,6 +16,7 @@ Feature: Views
 | Benefits hub list | benefits_hub_list | Content | Enabled |  |
 | Blocks listing | va_blocks_admin | Custom Block | Enabled | Shows existing blocks on the site. |
 | Build info | build_info | Content | Enabled |  |
+| Centralized content paragraphs | centralized_content_paragraphs | Content | Enabled |  |
 | Child terms | child_terms | Taxonomy terms | Enabled |  |
 | CMS Knowledge Base search results | knowledge_base_search_results | Index Knowledge base search | Enabled |  |
 | Content | content | Content | Enabled | Find and manage content. |
@@ -54,6 +55,7 @@ Feature: Views
 | Search | search | Index Content | Disabled |  |
 | Section administration and export | section_export | Taxonomy terms | Enabled | Enables easier adminstration of Sections/Product relationship, and export tools for analysis outside Drupal |
 | Services | services | Content | Enabled | Lists of services for facility pages, health services lists, etc |
+| Table Audit | table_audit | Content | Enabled |  |
 | Taxonomy entity browsers | taxonomy_entity_browsers | Taxonomy terms | Enabled |  |
 | Taxonomy term | taxonomy_term | Content | Enabled | Content belonging to a certain taxonomy term. |
 | User creation & editing activity | user_creation_editing_activity | Users | Enabled |  |
@@ -62,18 +64,16 @@ Feature: Views
 | User history list | user_history_list | User history | Enabled |  |
 | Users in section | users_in_section | Section association | Enabled | Views of users associated to a section |
 | VA Forms | va_forms | Content | Enabled | VA forms dashboard |
+| VA Services | vha_health_service_taxonomy | Taxonomy terms | Enabled |  |
 | VAMC alerts and operating statuses | vamc_alerts_and_operating_statuses | Content | Enabled |  |
 | VAMC operating statuses | vamc_operating_statuses | Content | Enabled |  |
 | VAMC top task page revision histories | vamc_top_task_page_revisions | Content revisions | Enabled | An audit of VAMC top task pages for runbook planning |
 | VAMCs | vamcs | Content | Enabled |  |
 | Vet Center facility listing | vet_center_facility_listing | Content | Enabled |  |
 | Vet centers | vet_centers | Content | Enabled |  |
-| VA Services | vha_health_service_taxonomy | Taxonomy terms | Enabled |  |
 | Watchdog | watchdog | Log entries | Enabled | Recent log messages |
 | Who's new | who_s_new | Users | Disabled | Shows a list of the newest user accounts on the site. |
 | Who's online block | who_s_online | Users | Disabled | Shows the user names of the most recently active users, and the total number of active users. |
-| Centralized content paragraphs | centralized_content_paragraphs | Content | Enabled |  |
-| Table Audit | table_audit | Content | Enabled |  |
 
   @dst @views_displays
      Scenario: Views displays
@@ -98,6 +98,8 @@ Feature: Views
 | Blocks listing | Promo blocks | page_1 | Page |
 | Build info | Master | default | Default |
 | Build info | REST export | rest_export_1 | REST export |
+| Centralized content paragraphs | Centralized Content paragraphs | centralized_content_paragraphs | Page |
+| Centralized content paragraphs | Default | default | Default |
 | Child terms | Block | block_1 | Block |
 | Child terms | Master | default | Default |
 | CMS Knowledge Base search results | Master | default | Default |
@@ -206,6 +208,7 @@ Feature: Views
 | PDF Audit | Default | default | Default |
 | PDF Audit | PDF Audit | pdf_audit | Page |
 | People | Data export | data_export_1 | Data export |
+| People | Data export: All users | data_export_2 | Data export |
 | People | Master | default | Default |
 | People | Page | page_1 | Page |
 | Recent content | Block | block_1 | Block |
@@ -213,8 +216,10 @@ Feature: Views
 | Redirect | Master | default | Default |
 | Redirect | Non admin Page | page_2 | Page |
 | Redirect | Page | page_1 | Page |
+| Rich Text Field Audit | Content Audit - Buttons | content_audit_buttons | Page |
 | Rich Text Field Audit | Content Audit - Rich Text Fields | content_audit_rich_text | Page |
 | Rich Text Field Audit | Data export | rich_text_audit_data_export | Data export |
+| Rich Text Field Audit | Data export | buttons_export | Data export |
 | Rich Text Field Audit | Default | default | Default |
 | Right sidebar latest revision | All revisions | block_1 | Block |
 | Right sidebar latest revision | Latest revision | attachment_1 | Attachment |
@@ -227,6 +232,9 @@ Feature: Views
 | Services | Facility health services | block_1 | Block |
 | Services | Master | default | Default |
 | Services | VAMC system health services | block_2 | Block |
+| Table Audit | Data export | tables_usage_export | Data export |
+| Table Audit | Default | default | Default |
+| Table Audit | Table Audit | table_audit | Page |
 | Taxonomy entity browsers | Audiences vocabularies | audiences_vocabularies | Entity browser |
 | Taxonomy entity browsers | Block | block_1 | Block |
 | Taxonomy entity browsers | Master | default | Default |
@@ -248,6 +256,9 @@ Feature: Views
 | Users in section | Page | section_member_page | Page |
 | VA Forms | Master | default | Default |
 | VA Forms | Page | page_1 | Page |
+| VA Services | Data export | data_export_1 | Data export |
+| VA Services | Master | default | Default |
+| VA Services | Page | page_1 | Page |
 | VAMC alerts and operating statuses | Master | default | Default |
 | VAMC alerts and operating statuses | Page | page_1 | Page |
 | VAMC operating statuses | Entity Reference | entity_reference_1 | Entity Reference |
@@ -260,20 +271,9 @@ Feature: Views
 | Vet Center facility listing | VC listing for node form | vc_listing_for_node_form | Block |
 | Vet centers | Master | default | Default |
 | Vet centers | Mobile Vet Centers Entity Browser | mvc_entity_browser | Entity browser |
-| VA Services | Data export | data_export_1 | Data export |
-| VA Services | Master | default | Default |
-| VA Services | Page | page_1 | Page |
 | Watchdog | Master | default | Default |
 | Watchdog | Page | page | Page |
 | Who's new | Master | default | Default |
 | Who's new | Who's new | block_1 | Block |
 | Who's online block | Master | default | Default |
 | Who's online block | Who's online | who_s_online_block | Block |
-| Centralized content paragraphs | Centralized Content paragraphs | centralized_content_paragraphs | Page |
-| Centralized content paragraphs | Default | default | Default |
-| Table Audit | Data export | tables_usage_export | Data export |
-| Table Audit | Default | default | Default |
-| Table Audit | Table Audit | table_audit | Page |
-| Rich Text Field Audit | Content Audit - Buttons | content_audit_buttons | Page |
-| Rich Text Field Audit | Data export | buttons_export | Data export |
-| People | Data export: All users | data_export_2 | Data export |
