@@ -14,6 +14,5 @@ Feature: Content model: Custom Block fields
 | Custom block type | Alert | Section | field_owner | Entity reference | Required | 1 | Select list |  |
 | Custom block type | Alert | Reusability | field_reusability | List (text) | Required | 1 | -- Disabled -- |  |
 | Custom block type | Promo | Image | field_image | Entity reference | Required | 1 | Media library |  |
-| Custom block type | Promo | Link | field_promo_link | Entity reference revisions |  | 1 | Inline entity form - Simple |  |
 | Custom block type | Promo | Section | field_owner | Entity reference | Required | 1 | Select list | Translatable |
-
+| Custom block type | Promo | Link | field_promo_link | Entity reference revisions |  | 1 | Inline entity form - Simple |  |
