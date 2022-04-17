@@ -7,6 +7,7 @@
 
 use Drupal\system\Entity\Menu;
 use Drupal\va_gov_graphql\Access\MenuLinkContentAccessHandler;
+use Drupal\va_gov_graphql\GraphQLEntityQuery;
 
 /**
  * Implements hook_entity_type_alter().
@@ -62,4 +63,11 @@ function va_gov_graphql_get_menus() {
   asort($menus);
 
   return $menus;
+}
+
+/**
+ * Implements hook_graphql_fields_alter().
+ */
+function va_gov_graphql_graphql_fields_alter(array &$config) {
+  $config['entity_query:node']['class'] = GraphQLEntityQuery::class;
 }
