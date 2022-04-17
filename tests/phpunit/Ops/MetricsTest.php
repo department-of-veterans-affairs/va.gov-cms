@@ -57,9 +57,9 @@ class MetricsTest extends ExistingSiteBase {
         [],
         "unknown",
       ],
-      'BRDGHA build type, but no deploy env' => [
+      'BRD build type, but no deploy env' => [
         [
-          "va_gov_frontend_build_type" => "brdgha",
+          "va_gov_frontend_build_type" => "brd",
         ],
         "unknown",
       ],
@@ -69,16 +69,16 @@ class MetricsTest extends ExistingSiteBase {
         ],
         "unknown",
       ],
-      'BRDGHA build type with deploy env' => [
+      'BRD build type with deploy env' => [
         [
-          "va_gov_frontend_build_type" => "brdgha",
+          "va_gov_frontend_build_type" => "brd",
           "github_actions_deploy_env" => "prod",
         ],
         "prod",
       ],
-      'BRDGHA build type with a different deploy env' => [
+      'BRD build type with a different deploy env' => [
         [
-          "va_gov_frontend_build_type" => "brdgha",
+          "va_gov_frontend_build_type" => "brd",
           "github_actions_deploy_env" => "whateverenv",
         ],
         "whateverenv",
@@ -101,9 +101,9 @@ class MetricsTest extends ExistingSiteBase {
         [],
         FALSE,
       ],
-      'BRDGHA environment' => [
+      'BRD environment' => [
         [
-          'va_gov_frontend_build_type' => 'brdgha',
+          'va_gov_frontend_build_type' => 'brd',
         ],
         TRUE,
       ],
@@ -119,9 +119,9 @@ class MetricsTest extends ExistingSiteBase {
         ],
         TRUE,
       ],
-      'BRDGHA environment and force sending metrics explicitly set to false' => [
+      'BRD environment and force sending metrics explicitly set to false' => [
         [
-          'va_gov_frontend_build_type' => 'brdgha',
+          'va_gov_frontend_build_type' => 'brd',
           'va_gov_force_sending_metrics' => FALSE,
         ],
         TRUE,
