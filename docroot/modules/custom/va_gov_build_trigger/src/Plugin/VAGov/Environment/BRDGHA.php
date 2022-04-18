@@ -83,6 +83,18 @@ class BRDGHA extends EnvironmentPluginBase {
    * {@inheritDoc}
    */
   public function triggerFrontendBuild(string $front_end_git_ref = NULL, bool $full_rebuild = FALSE) : void {
+    // We shouldn't request a GHA build on dev or staging because the GHA
+    // workflow only supports a production deployment.
+    // phpcs:ignore
+    // See issue https://github.com/department-of-veterans-affairs/va.gov-cms/issues/8797
+    $env = $this->settings->get('github_actions_deploy_env');
+    if ($env === 'dev' || $env === 'staging') {
+      $message = $this->t('Build not dispatched because the content release workflow only supports production deployment.');
+      $this->messenger()->addStatus($message);
+      $this->logger->info($message);
+      return;
+    }
+
     $front_end_git_ref = $front_end_git_ref ?? "master";
 
     try {
