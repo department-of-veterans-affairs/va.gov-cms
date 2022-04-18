@@ -1,5 +1,5 @@
 import { Then } from "cypress-cucumber-preprocessor/steps";
-import faker from "faker";
+import { faker } from '@faker-js/faker';
 
 Then(`I am logged in as a user with the {string} role`, (text) => {
   let username = 'test_' + faker.internet.userName();

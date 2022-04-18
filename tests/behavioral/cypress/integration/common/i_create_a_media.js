@@ -1,5 +1,5 @@
 import { Given } from "cypress-cucumber-preprocessor/steps";
-import faker from "faker";
+import { faker } from '@faker-js/faker';
 
 const creators = {
   image: () => {
