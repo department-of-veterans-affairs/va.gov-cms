@@ -72,7 +72,10 @@ Cypress.Commands.add('drupalContentRelease', (command) => {
   if (Cypress.env('VAGOV_INTERACTIVE')) {
     cmd = 'ddev composer va:web:build';
   }
-  return cy.exec(cmd);
+  // Timeout at 90 minutes.
+  return cy.exec(cmd, {
+    timeout: 90 * 60 * 1000,
+  });
 });
 
 Cypress.Commands.add('drupalDrushEval', (php) => {
