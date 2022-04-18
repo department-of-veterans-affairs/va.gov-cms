@@ -1,0 +1,62 @@
+uuid: 89afaca2-60a0-4939-a1ae-e61098baa692
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.media.inline_entity_form
+    - field.field.media.image.field_description
+    - field.field.media.image.field_media_in_library
+    - field.field.media.image.field_media_submission_guideline
+    - field.field.media.image.field_owner
+    - field.field.media.image.image
+    - image.style.3_2_medium_thumbnail
+    - media.type.image
+  module:
+    - field_group
+    - image
+third_party_settings:
+  field_group:
+    group_governance:
+      children:
+        - field_owner
+      label: 'Section settings'
+      region: content
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        id: ''
+        description: ''
+        required_fields: true
+_core:
+  default_config_hash: kyoAHlZTGIuGTaQuBblGBk8EhfnVKOl19_0j5WbpQqM
+id: media.image.inline_entity_form
+targetEntityType: media
+bundle: image
+mode: inline_entity_form
+content:
+  field_owner:
+    type: options_select
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  image:
+    type: image_image
+    weight: 0
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: 3_2_medium_thumbnail
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_description: true
+  field_media_in_library: true
+  field_media_submission_guideline: true
+  moderation_state: true
+  name: true
+  path: true
+  status: true
+  uid: true

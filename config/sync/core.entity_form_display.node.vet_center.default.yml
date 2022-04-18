@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_form_mode.media.inline_entity_form
     - core.entity_form_mode.node.inline_entity_form
     - field.field.node.vet_center.field_address
     - field.field.node.vet_center.field_administration
@@ -31,9 +32,9 @@ dependencies:
     - entity_field_fetch
     - field_group
     - ief_table_view_mode
+    - inline_entity_form
     - limited_field_widgets
     - markup
-    - media_library
     - office_hours
     - paragraphs
     - telephone
@@ -73,7 +74,6 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
-        - revision_log
         - flag
       label: 'Editorial Workflow'
       region: content
@@ -329,11 +329,17 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_media:
-    type: media_library_widget
+    type: inline_entity_form_simple
     weight: 7
     region: content
     settings:
-      media_types: {  }
+      form_mode: inline_entity_form
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      collapsible: false
+      collapsed: false
+      revision: false
     third_party_settings: {  }
   field_office_hours:
     type: office_hours_default
