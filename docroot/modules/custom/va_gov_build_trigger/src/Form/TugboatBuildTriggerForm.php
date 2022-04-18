@@ -113,6 +113,22 @@ class TugboatBuildTriggerForm extends BuildTriggerForm {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    if ($form_state->getValue('selection') === 'default') {
+      return;
+    }
+
+    $git_ref_value = $form_state->getValue('git_ref');
+    $git_ref = $this->getGitRef($git_ref_value);
+
+    if (is_null($git_ref)) {
+      $form_state->setErrorByName('git_ref', $this->t('Invalid selection.'));
+    }
+  }
+
+  /**
    * Submit the build trigger form.
    *
    * @param array $form
@@ -121,13 +137,19 @@ class TugboatBuildTriggerForm extends BuildTriggerForm {
    *   Object containing current form state.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $git_ref = NULL;
-    $git_ref_value = $form_state->getValue('git_ref');
-    if ($git_ref_value && preg_match("/.+\\s\\(([^\\)]+)\\)/", $git_ref_value, $matches)) {
-      $git_ref = $matches[1];
+    if ($form_state->getValue('selection') === 'default') {
+      // If they want the default version, reset to whatever is specified in
+      // composer.json.
+      $this->buildRequester->resetFrontendVersion();
+    }
+    else {
+      // If they selected a specific git ref, use that.
+      $git_ref_value = $form_state->getValue('git_ref');
+      $git_ref = $this->getGitRef($git_ref_value);
+      $this->buildRequester->switchFrontendVersion($git_ref);
     }
 
-    $this->buildFrontend->triggerFrontendBuild($git_ref);
+    parent::submitForm($form, $form_state);
   }
 
   /**
@@ -140,6 +162,24 @@ class TugboatBuildTriggerForm extends BuildTriggerForm {
     return $this->blockManager
       ->createInstance('content_release_status_block', [])
       ->build();
+  }
+
+  /**
+   * Parse a git ref out of the git_ref field value.
+   *
+   * @param string $git_ref_value
+   *   The contents of the git ref field.
+   *
+   * @return string
+   *   A standalone git ref.
+   */
+  protected function getGitRef($git_ref_value) : string {
+    $git_ref = NULL;
+    if ($git_ref_value && preg_match("/.+\\s\\(([^\\)]+)\\)/", $git_ref_value, $matches)) {
+      $git_ref = $matches[1];
+    }
+
+    return $git_ref;
   }
 
 }
