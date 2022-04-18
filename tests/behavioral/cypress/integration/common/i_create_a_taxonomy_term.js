@@ -5,21 +5,23 @@ const creators = {
   audience_beneficiaries: () => {
     cy.visit('/admin/structure/taxonomy/manage/audience_beneficiaries/add');
     cy.scrollTo('top');
-    return cy.findAllByLabelText('Name').type('[Test Data] ' + faker.lorem.sentence(), { force: true });
+    cy.findAllByLabelText('Name').type('[Test Data] ' + faker.lorem.sentence(), { force: true });
+    return cy.wait(1000);
   },
   products: () => {
     cy.visit('/admin/structure/taxonomy/manage/products/add');
     cy.scrollTo('top');
     cy.findAllByLabelText('Name').type('[Test Data] ' + faker.lorem.sentence(), { force: true });
     cy.findAllByLabelText('Description').type(faker.lorem.sentence(), { force: true });
-    return cy.get('form.taxonomy-term-form').find('input#edit-submit').click();
+    return cy.wait(1000);
   },
   health_care_service_taxonomy: () => {
     cy.visit('/admin/structure/taxonomy/manage/health_care_service_taxonomy/add');
     cy.scrollTo('top');
     cy.findAllByLabelText('Name').type('[Test Data] ' + faker.lorem.sentence(), { force: true });
     cy.findAllByLabelText('Description').type(faker.lorem.sentence(), { force: true });
-    return cy.findAllByLabelText('Health Service API ID').type(faker.datatype.number(), { force: true });
+    cy.findAllByLabelText('Health Service API ID').type(faker.datatype.number(), { force: true });
+    return cy.wait(1000);
   },
 };
 
