@@ -75,6 +75,13 @@ Cypress.Commands.add('drupalContentRelease', (command) => {
   // Timeout at 90 minutes.
   return cy.exec(cmd, {
     timeout: 90 * 60 * 1000,
+  }).then((result) => {
+    if (result.code) {
+      throw new Error(`Execution of "${command}" failed
+      Exit code: ${result.code}
+      Stdout:\n${result.stdout}
+      Stderr:\n${result.stderr}`);
+    }
   });
 });
 

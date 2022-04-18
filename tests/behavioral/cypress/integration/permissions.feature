@@ -1,6 +1,5 @@
 Feature: Permissions
 
-  @ignore
   Scenario: Content api consumer can access redirects and graphql api
     Given I am logged in as a user with the "content_api_consumer" role
     And I should receive status code 200 when I request "/graphql"
