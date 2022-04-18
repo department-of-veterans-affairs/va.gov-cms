@@ -215,6 +215,25 @@
           margin: 0;
         }
       }
+      
+      .image-preview__img-wrapper {
+        position: relative;
+
+        .actions {
+          position: absolute;
+          right: 0;
+          top: 0;
+        }
+
+        .remove-button {
+          background: var(--color-maximumred);
+          color: #fff;
+
+          &:hover {
+            background: var(--va-red-darker);
+          }
+        }
+      }
     }
   }
 }
