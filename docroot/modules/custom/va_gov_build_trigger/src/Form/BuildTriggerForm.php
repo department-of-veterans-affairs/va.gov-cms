@@ -6,7 +6,7 @@ use Drupal\Core\Block\BlockManager;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery;
-use Drupal\va_gov_build_trigger\Service\BuildFrontend;
+use Drupal\va_gov_build_trigger\Service\BuildRequesterInterface;
 use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -20,13 +20,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * the site will look like in production.
  */
 class BuildTriggerForm extends FormBase {
-
-  /**
-   * The front-end build service.
-   *
-   * @var \Drupal\va_gov_build_trigger\Service\BuildFrontend
-   */
-  protected $buildFrontend;
 
   /**
    * The state provider.
@@ -50,27 +43,34 @@ class BuildTriggerForm extends FormBase {
   protected $blockManager;
 
   /**
+   * Build Requester service.
+   *
+   * @var BuildRequesterInterface
+   */
+  protected $buildRequester;
+
+  /**
    * Class constructor.
    *
-   * @param \Drupal\va_gov_build_trigger\Service\BuildFrontend $buildFrontend
-   *   Build the front end service.
    * @param \Drupal\va_gov_build_trigger\WebBuildStatusInterface $webBuildStatus
    *   Webbuild status provider.
    * @param \Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery $environmentDiscovery
    *   EnvironmentDiscovery service.
    * @param \Drupal\Core\Block\BlockManager $blockManager
    *   Block Manager service.
+   * @param BuildRequesterInterface $buildRequester
+   *   Build requester service
    */
   public function __construct(
-    BuildFrontend $buildFrontend,
     WebBuildStatusInterface $webBuildStatus,
     EnvironmentDiscovery $environmentDiscovery,
-    BlockManager $blockManager) {
-
-    $this->buildFrontend = $buildFrontend;
+    BlockManager $blockManager,
+    BuildRequesterInterface $buildRequester
+  ) {
     $this->webBuildStatus = $webBuildStatus;
     $this->environmentDiscovery = $environmentDiscovery;
     $this->blockManager = $blockManager;
+    $this->buildRequester = $buildRequester;
   }
 
   /**
@@ -78,10 +78,10 @@ class BuildTriggerForm extends FormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('va_gov_build_trigger.build_frontend'),
       $container->get('va_gov.build_trigger.web_build_status'),
       $container->get('va_gov.build_trigger.environment_discovery'),
-      $container->get('plugin.manager.block')
+      $container->get('plugin.manager.block'),
+      $container->get('va_gov_build_trigger.build_requester')
     );
   }
 
@@ -122,7 +122,7 @@ class BuildTriggerForm extends FormBase {
    *   Object containing current form state.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->buildFrontend->triggerFrontendBuild();
+    $this->buildRequester->requestFrontendBuild('Manual build request');
   }
 
 }

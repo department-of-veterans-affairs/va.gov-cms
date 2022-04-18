@@ -2,7 +2,6 @@
 
 namespace Drupal\va_gov_build_trigger\Plugin\VAGov\Environment;
 
-use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentPluginBase;
 use Drupal\va_gov_build_trigger\WebBuildCommandBuilder;
 use Drupal\va_gov_build_trigger\WebBuildStatusInterface;

@@ -2,11 +2,10 @@
 
 namespace Drupal\va_gov_build_trigger\Environment;
 
+use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Plugin\PluginBase;
 use Drupal\Core\Site\Settings;
-use Drupal\va_gov_build_trigger\WebBuildCommandBuilderInterface;
-use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -22,18 +21,11 @@ abstract class EnvironmentPluginBase extends PluginBase implements EnvironmentIn
   protected $logger;
 
   /**
-   * The WebStatus service.
+   * The filesystem service.
    *
-   * @var \Drupal\va_gov_build_trigger\WebBuildStatusInterface
+   * @var FileSystemInterface
    */
-  protected $webBuildStatus;
-
-  /**
-   * Web build command builder.
-   *
-   * @var \Drupal\va_gov_build_trigger\WebBuildCommandBuilderInterface
-   */
-  protected $webBuildCommandBuilder;
+  protected $filesystem;
 
   /**
    * {@inheritDoc}
@@ -43,13 +35,11 @@ abstract class EnvironmentPluginBase extends PluginBase implements EnvironmentIn
     $plugin_id,
     $plugin_definition,
     LoggerInterface $logger,
-    WebBuildStatusInterface $webBuildStatus,
-    WebBuildCommandBuilderInterface $webBuildCommandBuilder
+    FileSystemInterface $filesystem
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->logger = $logger;
-    $this->webBuildStatus = $webBuildStatus;
-    $this->webBuildCommandBuilder = $webBuildCommandBuilder;
+    $this->filesystem = $filesystem;
   }
 
   /**
@@ -61,9 +51,23 @@ abstract class EnvironmentPluginBase extends PluginBase implements EnvironmentIn
       $plugin_id,
       $plugin_definition,
       $container->get('logger.factory')->get('va_gov_build_trigger'),
-      $container->get('va_gov.build_trigger.web_build_status'),
-      $container->get('va_gov.build_trigger.web_build_command_builder')
+      $container->get('file_system')
     );
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public function triggerFrontendBuild() : void {
+    $this->filesystem->saveData('build plz', 'public://.buildrequest', FileSystemInterface::EXISTS_REPLACE);
+    $this->messenger()->addStatus('A request to rebuild the front end has been submitted.');
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public function contentEditsShouldTriggerFrontendBuild() : bool {
+    return FALSE;
   }
 
   /**
@@ -71,13 +75,6 @@ abstract class EnvironmentPluginBase extends PluginBase implements EnvironmentIn
    */
   public function getWebUrl(): string {
     return Settings::get('va_gov_frontend_url') ?? 'https://www.va.gov';
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  protected function getWebBuildCommandBuilder(): WebBuildCommandBuilderInterface {
-    return $this->webBuildCommandBuilder;
   }
 
 }
