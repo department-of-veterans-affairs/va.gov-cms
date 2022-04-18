@@ -67,7 +67,8 @@ Cypress.Commands.add('drupalDrushCommand', (command) => {
 });
 
 Cypress.Commands.add('drupalContentRelease', (command) => {
-  let cmd = 'composer va:web:build';
+  // cy.exec() starts at ${REPO_ROOT}/tests/behavioral
+  let cmd = 'cd ../.. && composer va:web:build';
   if (Cypress.env('VAGOV_INTERACTIVE')) {
     cmd = 'ddev composer va:web:build';
   }
