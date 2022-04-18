@@ -32,6 +32,9 @@
   ]
 %}
 <div{{ attributes.addClass(classes).removeClass('clearfix') }}>
+  <div class="form-managed-file__main">
+    {{ main_items|without('filename')|without('remove_button') }}
+  </div>
 
   {% if has_meta or data.preview %}
   <div class="form-managed-file__meta-wrapper">
@@ -39,12 +42,11 @@
       {% if data.preview %}
         <div class="form-managed-file__image-preview image-preview">
           <div class="image-preview__img-wrapper">
-            <div class="actions">{{ main_items|without('filename') }}</div>
-            {{ data.preview }}            
-          </div>          
-          <div class="form-managed-file__main">
-            {{ main_items.filename }}
+            {{ data.preview }}
           </div>
+        </div>
+        <div class="form-managed-file__main">
+          {{ main_items.filename }}
         </div>
       {% endif %}
 
@@ -58,6 +60,9 @@
           {{ data.title }}
         </div>
       {% endif %}
+    </div>
+    <div class="actions">
+      {{ main_items.remove_button }}
     </div>
   </div>
   {% endif %}
