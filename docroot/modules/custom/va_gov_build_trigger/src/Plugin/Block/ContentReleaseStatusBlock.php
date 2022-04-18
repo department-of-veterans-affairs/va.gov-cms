@@ -8,6 +8,16 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+// @TODO redo this to use the release state stuff
+// @TODO make sure to link to the log file
+// @TODO make sure to link to the broken link report page
+// @TODO build the broken link report page
+// @TODO update the toolbar block to include some information too?
+// @TODO move the toolbar block to the build trigger module?
+// @TODO iframe build.txt - refresh the frame every 3 seconds and scroll to bottom to simulate live log streaming
+    // https://stackoverflow.com/questions/2064850/how-to-refresh-an-iframe-using-javascript
+    // https://stackoverflow.com/questions/1192228/scrolling-an-iframe-with-javascript
+
 /**
  * Provides a 'ContentReleaseStatusBlock' block.
  *
