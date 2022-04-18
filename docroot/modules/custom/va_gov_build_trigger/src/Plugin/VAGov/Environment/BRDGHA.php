@@ -82,7 +82,7 @@ class BRDGHA extends EnvironmentPluginBase {
   /**
    * {@inheritDoc}
    */
-  public function triggerFrontendBuild(string $front_end_git_ref = NULL, bool $full_rebuild = FALSE) : void {
+  public function triggerFrontendBuild(string $front_end_git_ref = NULL) : void {
     $front_end_git_ref = $front_end_git_ref ?? "master";
 
     try {

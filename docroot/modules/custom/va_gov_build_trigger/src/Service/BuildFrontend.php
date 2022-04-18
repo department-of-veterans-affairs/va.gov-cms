@@ -86,9 +86,9 @@ class BuildFrontend implements BuildFrontendInterface {
   /**
    * {@inheritdoc}
    */
-  public function triggerFrontendBuild(string $front_end_git_ref = NULL, bool $full_rebuild = FALSE) : void {
+  public function triggerFrontendBuild(string $front_end_git_ref = NULL) : void {
     try {
-      $this->environmentDiscovery->triggerFrontendBuild($front_end_git_ref, $full_rebuild);
+      $this->environmentDiscovery->triggerFrontendBuild($front_end_git_ref);
     }
     catch (PluginException $e) {
       // In an unaccounted for environment without a plugin.
