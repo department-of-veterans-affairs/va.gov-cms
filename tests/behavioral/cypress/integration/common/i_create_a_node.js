@@ -50,7 +50,6 @@ const creators = {
     cy.contains('Add List of link teasers').click({ force: true });
     cy.get('input[id^=edit-field-spokes-0-subform-field-va-paragraphs-0-subform-field-link-0-uri').type(faker.internet.url(), { force: true });
     cy.get('input[id^=edit-field-spokes-0-subform-field-va-paragraphs-0-subform-field-link-0-title').type(faker.company.companyName(), { force: true });
-    cy.contains('Add Link teaser').click({ force: true });
     return cy.wait(3000);
   },
   office: () => {
