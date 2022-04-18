@@ -65,6 +65,13 @@ class Lando extends EnvironmentPluginBase {
    * {@inheritDoc}
    */
   public function triggerFrontendBuild(string $front_end_git_ref = NULL, bool $full_rebuild = FALSE) : void {
+    // phpcs:ignore
+    // See issue https://github.com/department-of-veterans-affairs/va.gov-cms/issues/8796
+    $message = $this->t('Build not dispatched because the content build is not currently working on ddev.');
+    $this->messenger()->addStatus($message);
+    $this->logger->info($message);
+    return;
+
     /** @var \Drupal\advancedqueue\Entity\QueueInterface $queue */
     $queue = $this->queueLoader->load('command_runner');
 
