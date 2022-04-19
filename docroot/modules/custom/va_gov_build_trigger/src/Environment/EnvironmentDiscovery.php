@@ -136,15 +136,15 @@ class EnvironmentDiscovery {
   }
 
   /**
-   * Should the front end build be triggered?
+   * Should the front end build be triggered from a content edit?
    *
    * @return bool
    *   Whether the front end build should be triggered.
    *
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
-  public function shouldTriggerFrontendBuild() : bool {
-    return $this->getEnvironment()->shouldTriggerFrontendBuild();
+  public function contentEditsShouldTriggerFrontendBuild() : bool {
+    return $this->getEnvironment()->contentEditsShouldTriggerFrontendBuild();
   }
 
   /**

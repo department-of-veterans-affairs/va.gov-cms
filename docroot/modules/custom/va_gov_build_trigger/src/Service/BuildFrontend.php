@@ -172,7 +172,7 @@ class BuildFrontend implements BuildFrontendInterface {
         '%type' => $node->getType(),
         '%user' => $this->currentUser->getAccountName(),
       ];
-      if (!$this->environmentDiscovery->shouldTriggerFrontendBuild()) {
+      if (!$this->environmentDiscovery->contentEditsShouldTriggerFrontendBuild()) {
         $message = $this->t('A content release would have been triggered by a change to %type: %link_to_node , but this environment has it disabled.', $msg_vars);
         $this->messenger->addStatus($message);
         return;

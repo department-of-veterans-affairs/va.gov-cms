@@ -34,7 +34,7 @@ interface EnvironmentInterface extends PluginInspectionInterface {
    * @return bool
    *   Should we trigger a front end deploy
    */
-  public function shouldTriggerFrontendBuild() : bool;
+  public function contentEditsShouldTriggerFrontendBuild() : bool;
 
   /**
    * The Build Trigger Form Class.
