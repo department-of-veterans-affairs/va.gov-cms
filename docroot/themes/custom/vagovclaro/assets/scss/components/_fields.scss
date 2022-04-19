@@ -186,15 +186,15 @@
   }
 }
 //Media inline entity form updates
-#edit-field-media-wrapper.field--widget-inline-entity-form-simple {    
+#edit-field-media-wrapper.field--widget-inline-entity-form-simple {
   .fieldset__wrapper {
     margin: var(--space-xs) var(--space-l) var(--space-m);
-    
+
     @include breakpoint('lg') {
       display: grid;
       grid: auto / 60% 40%;
       grid-auto-flow: dense;
-      grid-gap: 20px;
+      grid-gap: 24px;
     }
 
     .fieldset__description {
@@ -206,25 +206,32 @@
         border: 0;
         box-shadow: none;
         margin: 0;
-        
+
         summary {
           display: none;
         }
-        
+
         .claro-details__wrapper {
           margin: 0;
         }
-        
+
         .image-widget {
           vertical-align: top;
-          
+
+          .form-managed-file__image-preview {
+            margin-bottom: var(--space-xxs);
+          }
+
           .form-managed-file__main {
-            margin-bottom: var(--space-xs);
             width: 100%;
           }
-          
+
+          .form-managed-file__meta-items {
+            margin: var(--space-l) 0;
+          }
+
           img {
-            margin-top: -15px;
+            margin-top: -10px;
           }
         }
       }
