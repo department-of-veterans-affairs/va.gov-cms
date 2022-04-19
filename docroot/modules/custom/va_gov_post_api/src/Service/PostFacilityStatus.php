@@ -211,16 +211,16 @@ class PostFacilityStatus extends PostFacilityBase {
         $systemNode = $this->entityTypeManager->getStorage('node')->load($systemId);
         $systemUrl = $systemNode->toUrl()->toString();
         $payload['system'] = [
-          'name' => $systemNode->get('title')->value,
+          /* 'name' => $systemNode->get('title')->value,
           'url' => 'https://www.va.gov' . $systemUrl,
-          'covid_url' => 'https://www.va.gov' . $systemUrl . '/programs/covid-19-vaccines',
+          'covid_url' => 'https://www.va.gov' . $systemUrl . '/programs/covid-19-vaccines', */
           'va_health_connect_phone' => $systemNode->get('field_va_health_connect_phone')->value,
         ];
       }
     }
 
     // Apply facility and system information overrides.
-    $payload = $this->getSystemOverrides($payload);
+    /* $payload = $this->getSystemOverrides($payload); */
 
     return $payload;
   }
