@@ -61,7 +61,7 @@ Feature: Content Release
     Then I should see "VA blind and low vision rehabilitation services - EDITED"
 
     # Test preview functionality.
-    And I click the "Preview" button
+    And I click the "Preview" link
     Then I should not see "Static content file does not yet exist"
     And I should see "VA blind and low vision rehabilitation services - EDITED"
     And I should not see an element with the selector ".view-right-sidebar-latest-revision"
