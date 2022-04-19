@@ -1732,6 +1732,13 @@ function va_gov_backend_entity_presave(EntityInterface $entity) {
 
     _va_gov_backend_apply_filter_to_tablefield_cells($entity);
   }
+
+  if ($entity instanceof Node) {
+    $media_entity = $entity->field_media->entity;
+    $media_entity->field_owner->target_id = 211;
+    $media_entity->save();
+  }
+
 }
 
 /**
