@@ -17,7 +17,7 @@ Feature: Content model: Vet Center Content Type fields
 | Content type | Vet Center | Facility ID | field_facility_locator_api_id | Text (plain) |  | 1 | Textfield | Translatable |
 | Content type | Vet Center | Services | field_health_services | Entity reference |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
 | Content type | Vet Center | Page introduction | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
-| Content type | Vet Center | Facility photo | field_media | Entity reference |  | 1 | Media library | Translatable |
+| Content type | Vet Center | Facility photo | field_media | Entity reference |  | 1 | Inline entity form - Simple | Translatable |
 | Content type | Vet Center | Hours | field_office_hours | Office hours |  | Unlimited | Office hours (week) |  |
 | Content type | Vet Center | Name of Vet Center | field_official_name | Text (plain) | Required | 1 | Tooltip textfield |  |
 | Content type | Vet Center | Operating status | field_operating_status_facility | List (text) | Required | 1 | Select list | Translatable |
