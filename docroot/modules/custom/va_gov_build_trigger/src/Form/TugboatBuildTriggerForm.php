@@ -121,14 +121,13 @@ class TugboatBuildTriggerForm extends BuildTriggerForm {
    *   Object containing current form state.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $full_rebuild = (bool) $form_state->getValue('full_rebuild');
     $git_ref = NULL;
     $git_ref_value = $form_state->getValue('git_ref');
     if ($git_ref_value && preg_match("/.+\\s\\(([^\\)]+)\\)/", $git_ref_value, $matches)) {
       $git_ref = $matches[1];
     }
 
-    $this->buildFrontend->triggerFrontendBuild($git_ref, $full_rebuild);
+    $this->buildFrontend->triggerFrontendBuild($git_ref);
   }
 
   /**

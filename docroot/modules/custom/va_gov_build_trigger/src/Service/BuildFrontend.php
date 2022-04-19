@@ -86,9 +86,9 @@ class BuildFrontend implements BuildFrontendInterface {
   /**
    * {@inheritdoc}
    */
-  public function triggerFrontendBuild(string $front_end_git_ref = NULL, bool $full_rebuild = FALSE) : void {
+  public function triggerFrontendBuild(string $front_end_git_ref = NULL) : void {
     try {
-      $this->environmentDiscovery->triggerFrontendBuild($front_end_git_ref, $full_rebuild);
+      $this->environmentDiscovery->triggerFrontendBuild($front_end_git_ref);
     }
     catch (PluginException $e) {
       // In an unaccounted for environment without a plugin.
@@ -172,7 +172,7 @@ class BuildFrontend implements BuildFrontendInterface {
         '%type' => $node->getType(),
         '%user' => $this->currentUser->getAccountName(),
       ];
-      if (!$this->environmentDiscovery->shouldTriggerFrontendBuild()) {
+      if (!$this->environmentDiscovery->contentEditsShouldTriggerFrontendBuild()) {
         $message = $this->t('A content release would have been triggered by a change to %type: %link_to_node , but this environment has it disabled.', $msg_vars);
         $this->messenger->addStatus($message);
         return;
