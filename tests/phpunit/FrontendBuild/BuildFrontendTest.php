@@ -174,7 +174,7 @@ class BuildFrontendTest extends ExistingSiteBase {
     $nodeProphecy = $this->prophesize(NodeInterface::class);
     $userProphecy = $this->prophesize(AccountInterface::class);
 
-    $environmentDiscoveryProphecy->shouldTriggerFrontendBuild()->willReturn(FALSE);
+    $environmentDiscoveryProphecy->contentEditsShouldTriggerFrontendBuild()->willReturn(FALSE);
     $environmentDiscoveryProphecy->triggerFrontendBuild()->shouldNotBeCalled();
 
     $nodeProphecy->isPublished()->willReturn(FALSE)->shouldBeCalled();
@@ -223,7 +223,7 @@ class BuildFrontendTest extends ExistingSiteBase {
     $userProphecy = $this->prophesize(AccountInterface::class);
     $linkProphecy = $this->prophesize(Link::class);
 
-    $environmentDiscoveryProphecy->shouldTriggerFrontendBuild()->willReturn(TRUE);
+    $environmentDiscoveryProphecy->contentEditsShouldTriggerFrontendBuild()->willReturn(TRUE);
     if ($expected) {
       $environmentDiscoveryProphecy->triggerFrontendBuild(Argument::exact(NULL), Argument::exact(FALSE))->shouldBeCalled();
     }

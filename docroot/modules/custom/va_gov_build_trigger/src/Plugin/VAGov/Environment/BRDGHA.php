@@ -122,7 +122,7 @@ class BRDGHA extends EnvironmentPluginBase {
   /**
    * {@inheritDoc}
    */
-  public function shouldTriggerFrontendBuild() : bool {
+  public function contentEditsShouldTriggerFrontendBuild() : bool {
     return TRUE;
   }
 
