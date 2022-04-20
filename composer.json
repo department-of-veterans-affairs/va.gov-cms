@@ -636,7 +636,7 @@
             "if [ -n \"$DRUPAL_ADDRESS\" ]; then echo DRUPAL_ADDRESS=${DRUPAL_ADDRESS} >> web/.env; fi",
             "if [ -n \"$DDEV_PRIMARY_URL\" ]; then echo DRUPAL_ADDRESS=${DDEV_PRIMARY_URL} >> web/.env; fi",
             "if ! cat web/.env | grep DRUPAL_ADDRESS > /dev/null; then echo DRUPAL_ADDRESS=https://dev-api.va.gov >> web/.env; fi",
-            "cd web; INSTALL_HOOKS=no yarn build --pull-drupal --no-drupal-proxy --gql-queries-only"
+            "cd web; INSTALL_HOOKS=no NODE_ENV=production yarn build --pull-drupal --no-drupal-proxy --gql-queries-only"
         ],
         "va:test:cs": [
             "phpcs --ignore=*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,user_guides.css,whats_new.css,claro.css,*/node_modules/*,*/simplesaml*/*,graphiql.css --extensions=php,module,inc,install,profile,engine,theme,css --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom tests --colors"
