@@ -70,7 +70,7 @@ Cypress.Commands.add('drupalContentRelease', (command) => {
   // cy.exec() starts at ${REPO_ROOT}/tests/behavioral
   let cmd = 'cd ../.. && composer va:web:build';
   if (Cypress.env('VAGOV_INTERACTIVE')) {
-    // Remove once ddev frontend build works again.
+    // Remove "echo" once ddev frontend build works again.
     cmd = 'echo ddev composer va:web:build';
   }
   // Timeout at 30 minutes.
