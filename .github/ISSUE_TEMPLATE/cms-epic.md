@@ -86,11 +86,9 @@ Editor-centered
 ### CMS Team
 Please check the team(s) that will do this work.
 
-- [ ] `Sitewide program`
 - [ ] `Platform CMS Team`
-- [ ] `Sitewide crew ` (leave Sitewide unchecked and check the specific team instead)
-  - [ ] `⭐️ Content ops`
-  - [ ] `⭐️ CMS experience`
-  - [ ] `⭐️ Public websites`
-  - [ ] `⭐️ Facilities`
-  - [ ] `⭐️ User support`
+- [ ] `Sitewide program`
+- [ ] `⭐️ Sitewide CMS`
+- [ ] `⭐️ Public websites`
+- [ ] `⭐️ Facilities`
+- [ ] `⭐️ User support`
