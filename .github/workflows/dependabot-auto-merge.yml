@@ -28,6 +28,7 @@ jobs:
         id: dependabot-allow-list
         run: |
           echo "::set-output name=dependabot-allow-list::$(yq eval '.dependabot.allow-list | join(", ")' .github/workflows/config/config.yml)"        
+
       # Get the initial AWS IAM User credentials. Only has basic permissions for sts:assumeRole
       - name: Configure AWS credentials (1)
         uses: aws-actions/configure-aws-credentials@v1
