@@ -37,7 +37,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 function va_gov_backend_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
     // Main module help for the va_gov_form_helper module.
-    case 'help.page.va_gov_form_helper':
+    case 'help.page.va_gov_form_helper2':
       $output = '';
       $output .= '<h3>' . t('About') . '</h3>';
       $output .= '<p>Tools to improve backend user experience for VA.gov</p>';
