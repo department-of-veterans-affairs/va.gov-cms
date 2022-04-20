@@ -64,7 +64,7 @@ class Tugboat extends EnvironmentPluginBase {
   /**
    * {@inheritDoc}
    */
-  public function triggerFrontendBuild(string $front_end_git_ref = NULL, bool $full_rebuild = FALSE) : void {
+  public function triggerFrontendBuild(string $front_end_git_ref = NULL) : void {
     /** @var \Drupal\advancedqueue\Entity\QueueInterface $queue */
     $queue = $this->queueLoader->load('command_runner');
 

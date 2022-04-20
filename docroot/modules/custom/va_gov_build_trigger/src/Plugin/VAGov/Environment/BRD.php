@@ -82,9 +82,9 @@ class BRD extends EnvironmentPluginBase {
   /**
    * {@inheritDoc}
    */
-  public function triggerFrontendBuild(string $front_end_git_ref = NULL, bool $full_rebuild = FALSE): void {
+  public function triggerFrontendBuild(string $front_end_git_ref = NULL): void {
     try {
-      $this->jenkinsClient->requestFrontendBuild($front_end_git_ref, $full_rebuild);
+      $this->jenkinsClient->requestFrontendBuild($front_end_git_ref);
       $jenkinsJobUrl = $this->settings->get('jenkins_build_job_url');
       $jenkinsJobHost = $this->settings->get('jenkins_build_job_host');
       $jenkinsJobPath = $this->settings->get('jenkins_build_job_path');

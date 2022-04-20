@@ -82,7 +82,7 @@ class BRDGHA extends EnvironmentPluginBase {
   /**
    * {@inheritDoc}
    */
-  public function triggerFrontendBuild(string $front_end_git_ref = NULL, bool $full_rebuild = FALSE) : void {
+  public function triggerFrontendBuild(string $front_end_git_ref = NULL) : void {
     // We shouldn't request a GHA build on dev or staging because the GHA
     // workflow only supports a production deployment.
     // phpcs:ignore
