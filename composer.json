@@ -177,7 +177,7 @@
         "symfony/process": "^4.0",
         "symfony/routing": "^4.0",
         "traviscarden/behat-table-comparison": "~0.2",
-        "va-gov/content-build": "^0.0.2991",
+        "va-gov/content-build": "^0.0.2992",
         "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
@@ -512,6 +512,9 @@
             },
             "drupal/dropzonejs": {
                 "Select files button and Add media window text should respect field cardinality": "https://www.drupal.org/files/issues/2022-03-29/3174484-add-media-window-and-select-button-text-should-respect-field-cardinality-4.patch"
+            },
+            "va-gov/content-build": {
+                "temporary hack to get gql flag": "https://patch-diff.githubusercontent.com/raw/department-of-veterans-affairs/content-build/pull/1087.patch"
             }
         }
     },
@@ -631,6 +634,18 @@
             "find docroot/modules/custom docroot/themes -name '*.module' -print0 | xargs -0 -n1 php -l > /dev/null",
             "find docroot/modules/custom docroot/themes -name '*.install' -print0 | xargs -0 -n1 php -l > /dev/null"
         ],
+        "va:test:content-build-gql": [
+            "@va:web:prepare-dotenv",
+            "mkdir -p web/build/vagovdev",
+            "cd web; INSTALL_HOOKS=no NODE_ENV=production yarn build --pull-drupal --gql-queries-only --nosymlink --no-drupal-proxy --api=https://dev-api.va.gov --buildtype=vagovdev"
+        ],
+        "va:web:prepare-dotenv": [
+            "if [ -f web/.env.example ]; then cat web/.env.example | grep -v DRUPAL_ADDRESS > web/.env; fi",
+            "if [ -n \"$TUGBOAT_DEFAULT_SERVICE_URL\" ]; then echo DRUPAL_ADDRESS=${TUGBOAT_DEFAULT_SERVICE_URL} >> web/.env; fi",
+            "if [ -n \"$DDEV_PRIMARY_URL\" ]; then echo DRUPAL_ADDRESS=${DDEV_PRIMARY_URL} >> web/.env; fi",
+            "if [ -n \"$DRUPAL_ADDRESS\" ]; then echo DRUPAL_ADDRESS=${DRUPAL_ADDRESS} >> web/.env; fi",
+            "if ! cat web/.env | grep DRUPAL_ADDRESS > /dev/null; then echo DRUPAL_ADDRESS=https://dev.cms.va.gov >> web/.env; fi"
+        ],
         "va:test:cs": [
             "phpcs --ignore=*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,user_guides.css,whats_new.css,claro.css,*/node_modules/*,*/simplesaml*/*,graphiql.css --extensions=php,module,inc,install,profile,engine,theme,css --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom tests --colors"
         ],
@@ -659,7 +674,8 @@
         "va:web:build": [
             "rm -rf docroot/vendor/va-gov/content-build/build/vagovdev",
             "cd docroot/vendor/va-gov/vets-website && echo \"Downloading assets for vets-website for vagovdev\" ",
-            "cd web; if [ -f .env.example ]; then cp .env.example .env; fi; INSTALL_HOOKS=no NODE_ENV=production yarn build --pull-drupal --no-drupal-proxy --buildtype=vagovdev --api=https://dev-api.va.gov",
+            "@va:web:prepare-dotenv",
+            "cd web; INSTALL_HOOKS=no NODE_ENV=production yarn build --pull-drupal --no-drupal-proxy --buildtype=vagovdev --api=https://dev-api.va.gov",
             "echo 'Replace s3 address with local in generated files'",
             "find ./docroot/vendor/va-gov/content-build/build/vagovdev/generated -type f -exec sed -i \"s#https://dev-va-gov-assets\\.s3-us-gov-west-1\\.amazonaws\\.com##g\" {} \\+"
         ],
