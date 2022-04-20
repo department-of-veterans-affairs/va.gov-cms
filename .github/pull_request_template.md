@@ -35,14 +35,12 @@ As user _uid_ with _user_role_
 
 ### Select Team for PR review
 
-- [ ] `Sitewide program`
 - [ ] `Platform CMS Team`
-- [ ] `Sitewide crew ` (leave Sitewide unchecked and check the specific team instead)
-  - [ ] `⭐️ Content ops`
-  - [ ] `⭐️ CMS experience`
-  - [ ] `⭐️ Public websites`
-  - [ ] `⭐️ Facilities`
-  - [ ] `⭐️ User support`
+- [ ] `Sitewide program`
+- [ ] `⭐️ Sitewide CMS`
+- [ ] `⭐️ Public websites`
+- [ ] `⭐️ Facilities`
+- [ ] `⭐️ User support`
 
 
 ### Is this PR blocked by another PR?
