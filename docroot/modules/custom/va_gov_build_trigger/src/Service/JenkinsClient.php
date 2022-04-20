@@ -116,7 +116,7 @@ class JenkinsClient implements JenkinsClientInterface {
   /**
    * {@inheritdoc}
    */
-  public function requestFrontendBuild(string $frontendGitRef = NULL, bool $fullRebuild = FALSE): void {
+  public function requestFrontendBuild(string $frontendGitRef = NULL): void {
     $jenkinsJobUrl = $this->settings->get('jenkins_build_job_url');
     $githubUsername = $this->settings->get('va_cms_bot_github_username');
     $jenkinsJobHost = $this->settings->get('jenkins_build_job_host');
