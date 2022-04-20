@@ -73,9 +73,9 @@ Cypress.Commands.add('drupalContentRelease', (command) => {
     // Remove once ddev frontend build works again.
     cmd = 'echo ddev composer va:web:build';
   }
-  // Timeout at 90 minutes.
+  // Timeout at 30 minutes.
   return cy.exec(cmd, {
-    timeout: 90 * 60 * 1000,
+    timeout: 30 * 60 * 1000,
     failOnNonZeroExit: false,
   }).then((result) => {
     if (result.code) {
