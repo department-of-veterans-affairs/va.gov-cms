@@ -25,6 +25,9 @@ updates:
     versions:
     - ">= 2.a"
     - "< 3"
+  # Ignore Drupal core updates;
+  # Dependabot can't perform all the necessary steps.
+  - dependency-name: drupal/core*
   - dependency-name: drupal/linkit
     versions:
     - ">= 6.a"
