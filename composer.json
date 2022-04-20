@@ -631,6 +631,13 @@
             "find docroot/modules/custom docroot/themes -name '*.module' -print0 | xargs -0 -n1 php -l > /dev/null",
             "find docroot/modules/custom docroot/themes -name '*.install' -print0 | xargs -0 -n1 php -l > /dev/null"
         ],
+        "va:test:content-build-gql": [
+            "if [ -f web/.env.example ]; then cat web/.env.example | grep -v DRUPAL_ADDRESS > web/.env; fi",
+            "if [ -n \"$DRUPAL_ADDRESS\" ]; then echo DRUPAL_ADDRESS=${DRUPAL_ADDRESS} >> web/.env; fi",
+            "if [ -n \"$DDEV_PRIMARY_URL\" ]; then echo DRUPAL_ADDRESS=${DDEV_PRIMARY_URL} >> web/.env; fi",
+            "if ! cat web/.env | grep DRUPAL_ADDRESS > /dev/null; then echo DRUPAL_ADDRESS=https://dev-api.va.gov >> web/.env; fi",
+            "cd web; INSTALL_HOOKS=no yarn build --pull-drupal --no-drupal-proxy --gql-queries-only"
+        ],
         "va:test:cs": [
             "phpcs --ignore=*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,user_guides.css,whats_new.css,claro.css,*/node_modules/*,*/simplesaml*/*,graphiql.css --extensions=php,module,inc,install,profile,engine,theme,css --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom tests --colors"
         ],

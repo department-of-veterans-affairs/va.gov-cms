@@ -214,6 +214,31 @@ tasks:
           fi
         EOF
 
+  va/tests/content-build-gql:
+    desc: Ensure that the content build graphql queries succeed
+    cmds:
+      - |
+        cat <<EOF | bash
+          : "${SKIP_REPORTING:=0}"
+          : "${RETURN_EXIT_CODE:=0}"
+          set -o pipefail
+          output="\$(mktemp -d)/output"
+          mkfifo \$output
+          (cat \$output&)
+          result="\$(composer va:test:content-build-gql 2>&1 | tee \$output)"
+          exit_code=\$?
+          if [ "$SKIP_REPORTING" -ne 1 ]; then
+            if [ "\$exit_code" -eq 0 ]; then
+              github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
+            else
+              github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
+            fi
+          fi
+          if [ "$RETURN_EXIT_CODE" -ne 0 ]; then
+            exit "\$exit_code";
+          fi
+        EOF
+
   set-check-status:
     cmds:
       - |
@@ -274,6 +299,12 @@ tasks:
           CONTEXT: va/tests/status-error
           DESCRIPTION: 'Check for Drupal status errors'
 
+      - task: set-check-status
+        vars:
+          STATUS: pending
+          CONTEXT: va/tests/content-build-gql
+          DESCRIPTION: 'Ensure that the content build graphql queries succeed'
+
   default:
     cmds:
       - task: set-all-tests-pending
@@ -290,3 +321,4 @@ tasks:
       - va/tests/phpunit
       - va/tests/revision-log
       - va/tests/status-error
+      - va/tests/content-build-gql
