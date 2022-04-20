@@ -14,10 +14,8 @@ interface BuildFrontendInterface {
    *
    * @param string $front_end_git_ref
    *   Front end git reference to build (branch name or PR number).
-   * @param bool $full_rebuild
-   *   Trigger a full front end rebuild.
    */
-  public function triggerFrontendBuild(string $front_end_git_ref = NULL, bool $full_rebuild = FALSE) : void;
+  public function triggerFrontendBuild(string $front_end_git_ref = NULL) : void;
 
   /**
    * Set the config state of build pending.

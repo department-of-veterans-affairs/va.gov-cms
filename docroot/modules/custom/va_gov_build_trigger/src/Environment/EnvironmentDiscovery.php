@@ -136,15 +136,15 @@ class EnvironmentDiscovery {
   }
 
   /**
-   * Should the front end build be triggered?
+   * Should the front end build be triggered from a content edit?
    *
    * @return bool
    *   Whether the front end build should be triggered.
    *
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
-  public function shouldTriggerFrontendBuild() : bool {
-    return $this->getEnvironment()->shouldTriggerFrontendBuild();
+  public function contentEditsShouldTriggerFrontendBuild() : bool {
+    return $this->getEnvironment()->contentEditsShouldTriggerFrontendBuild();
   }
 
   /**
@@ -152,13 +152,11 @@ class EnvironmentDiscovery {
    *
    * @param string $front_end_git_ref
    *   Front end git reference to build (branch name or PR number)
-   * @param bool $full_rebuild
-   *   Trigger a full rebuild of the content.
    *
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
-  public function triggerFrontendBuild(string $front_end_git_ref = NULL, bool $full_rebuild = FALSE) : void {
-    $this->getEnvironment()->triggerFrontendBuild($front_end_git_ref, $full_rebuild);
+  public function triggerFrontendBuild(string $front_end_git_ref = NULL) : void {
+    $this->getEnvironment()->triggerFrontendBuild($front_end_git_ref);
   }
 
   /**
