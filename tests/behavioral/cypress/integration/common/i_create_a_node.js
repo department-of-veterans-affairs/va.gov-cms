@@ -11,6 +11,34 @@ const creators = {
     cy.findAllByLabelText('Parent link').select('-- CMS Knowledge Base (disabled)', { force: true });
     return cy.get('form.node-form').find('input#edit-submit').click();
   },
+  event: () => {
+    cy.visit('/node/add/event');
+    cy.scrollTo('top');
+    cy.findAllByLabelText('Name').type('[Test Data] ' + faker.lorem.sentence(), { force: true });
+    cy.get('#edit-field-datetime-range-timezone-0-value-date').type('2023-12-05', { force: true });
+    cy.get('#edit-field-datetime-range-timezone-0-value-time').type('12:00', { force: true });
+    cy.findAllByLabelText('Where should the event be listed?').select('VA Alaska health care: Events', { force: true });
+    cy.findAllByLabelText('Street address').type(faker.address.streetAddress(), { force: true });
+    cy.findAllByLabelText('City').type(faker.address.city(), { force: true });
+    cy.findAllByLabelText('State').select('Alabama', { force: true });
+    cy.findAllByLabelText('Section').select('VACO', { force: true });
+    cy.scrollToSelector('#edit-field-media-open-button');
+    cy.get('#edit-field-media-open-button').click({ force: true });
+    cy.get('.dropzone', {
+      timeout: 10000,
+    });
+    cy.get('.dropzone').attachFile('images/polygon_image.png', {
+      subjectType: 'drag-n-drop',
+    });
+    cy.wait(1000);
+    cy.findAllByLabelText('Alternative text').type(faker.lorem.sentence(), { force: true });
+    cy.get('[data-drupal-selector="edit-media-0-fields-field-owner"]').select('VACO', { force: true });
+    cy.get('button').contains('Save and insert').click({ force: true });
+    cy.get('div.media-library-item[data-drupal-selector="edit-field-media-selection-0"]', {
+      timeout: 15000,
+    });
+    return cy.get('form.node-form').find('input#edit-submit').click();
+  },
   health_care_region_detail_page: () => {
     cy.visit('/node/add/health_care_region_detail_page');
     cy.scrollTo('top');
