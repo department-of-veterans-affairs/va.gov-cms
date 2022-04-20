@@ -126,6 +126,7 @@ services:
         # Install/update packages managed by composer, including drush.
         # Composer options are in composer.json, 'config' key.
         - composer install
+        - ./bin/npm install
         - composer va:theme:compile
         - composer va:web:install
 
@@ -156,6 +157,7 @@ services:
         - j2 "${TUGBOAT_ROOT}/.web/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.web/403-error-document.html"
         - j2 "${TUGBOAT_ROOT}/.storybook/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.storybook/403-error-document.html"
         - composer install
+        - ./bin/npm install
         - composer va:theme:compile
         - composer va:web:install
         - drush deploy

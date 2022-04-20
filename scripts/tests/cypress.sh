@@ -17,6 +17,6 @@ if [ -n "$CMS_IS_BRD" ]; then
   exit 0
 fi
 
-npm install
+[ -d node_modules ] || (echo "Please run 'npm install' before running cypress tests" && exit 1)
 ./node_modules/.bin/cypress install
 npm run test:${1} "${@:2}"
