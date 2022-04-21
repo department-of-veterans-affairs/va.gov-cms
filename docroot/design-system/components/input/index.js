@@ -1,7 +1,7 @@
 // Import module styles
-import './button.scss';
+import './input.scss';
 
-export const name = 'button';
+export const name = 'input';
 
 export function disable() {}
 

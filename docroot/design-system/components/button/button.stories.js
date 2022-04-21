@@ -2,7 +2,7 @@ import button from './sb-buttons.twig';
 import './button.scss';
 import './index.js';
 
-export default { title: 'Atoms/Button', component: button };
+export default { title: 'Atoms/Buttons', component: button };
 
 export const Buttons = {
   args: {},
