@@ -3,7 +3,7 @@ Feature: Content Release
   As anyone involved in the project
   I need the content release page to manage and reflect an orderly underlying release process
 
-  @ignore
+  @skip_on_brd
   Scenario: The content release page should normally display no in-process releases
     Given I am logged in as a user with the "content_admin" role
     And I clear the web build queue
@@ -11,7 +11,7 @@ Feature: Content Release
     Then I should see "No recent updates"
     Then I clear the web build queue
 
-  @ignore
+  @skip_on_brd
   Scenario: The content release page should show a pending default release initiated within the browser
     Given I am logged in as a user with the "content_admin" role
     And I clear the web build queue
@@ -19,7 +19,7 @@ Feature: Content Release
     Then I should see "Pending"
     Then I clear the web build queue
 
-  @ignore
+  @skip_on_brd
   Scenario: The content release page should show a pending chosen release initiated within the browser
     Given I am logged in as a user with the "content_admin" role
     And I clear the web build queue
@@ -27,7 +27,7 @@ Feature: Content Release
     And I should see "Pending"
     Then I clear the web build queue
 
-  @ignore
+  @skip_on_brd
   Scenario: The content release page should show a pending default release initiated from the command line
     Given I am logged in as a user with the "content_admin" role
     And I clear the web build queue
@@ -36,7 +36,7 @@ Feature: Content Release
     Then I should see "Pending"
     Then I clear the web build queue
 
-  @ignore
+  @skip_on_brd
   Scenario: The content release page should show a pending chosen release initiated from the command line
     Given I am logged in as a user with the "content_admin" role
     And I clear the web build queue
