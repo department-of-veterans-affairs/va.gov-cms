@@ -9,12 +9,16 @@ import * as tokens from './tokens';
 
 // components
 import * as alert from './alert';
+import * as button from './button';
 import * as icon from './icon';
+import * as input from './input';
 
 const components = {
   tokens,
   alert,
-  icon
+  button,
+  icon,
+  input
 };
 
 /**
