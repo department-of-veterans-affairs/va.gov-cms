@@ -148,7 +148,7 @@ There are 4 main types of tests:
        lando behat --tags=dst
        ```
 
-    1. `va/tests/cypress` - The [Cypress](https://github.com/cypress-io/cypress) test suite includes end-to-end tests.
+    1. `va/tests/cypress` - The [Cypress](https://github.com/cypress-io/cypress) test suite includes end-to-end behavioral and accessibility tests.
 
        To run and debug cypress tests in a web UI, run the following commands from the project root on your local machine (not within lando):
 
