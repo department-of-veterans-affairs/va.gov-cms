@@ -43,25 +43,9 @@ class EnvironmentDiscovery {
    */
   public function isBRD() : bool {
     // @codingStandardsIgnoreEnd
-    $jenkins_build_environment = Settings::get('jenkins_build_env');
-    return !empty($jenkins_build_environment) &&
-      $this->getBuildTypeKey() === 'brd' &&
-      !$this->isCli();
-  }
-
-  /**
-   * Is this on the BRD/GHA system?
-   *
-   * @return bool
-   *   Is this on the BRD/GHA system?
-   *
-   * @codingStandardsIgnoreStart
-   */
-  public function isBRDGHA() : bool {
-    // @codingStandardsIgnoreEnd
     $gha_deploy_environment = Settings::get('github_actions_deploy_env');
     return !empty($gha_deploy_environment) &&
-      $this->getBuildTypeKey() === 'brdgha' &&
+      $this->getBuildTypeKey() === 'brd' &&
       !$this->isCli();
   }
 
