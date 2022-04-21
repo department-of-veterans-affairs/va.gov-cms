@@ -9,7 +9,7 @@
 // https://on.cypress.io/plugins-guide
 // ***********************************************************
 
-const cucumber = require('cypress-cucumber-preprocessor').default
+const cucumber = require('cypress-cucumber-preprocessor').default;
 const getCompareSnapshotsPlugin = require('cypress-visual-regression/dist/plugin');
 
 // This function is called when a project is opened or re-opened (e.g. due to
@@ -21,4 +21,14 @@ const getCompareSnapshotsPlugin = require('cypress-visual-regression/dist/plugin
 module.exports = (on, config) => {
   on('file:preprocessor', cucumber());
   getCompareSnapshotsPlugin(on, config);
+  on('task', {
+    log(message) {
+      console.log(message);
+      return null;
+    },
+    table(message) {
+      console.table(message);
+      return null;
+    }
+  });
 }
