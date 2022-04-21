@@ -51,7 +51,7 @@ const creators = {
     cy.get('div.media-library-item[data-drupal-selector="edit-field-media-selection-0"]', {
       timeout: 15000,
     });
-    return cy.get('form.node-form').find('input#edit-submit').click();
+    return cy.wait(1000);
   },
   health_care_region_detail_page: () => {
     cy.visit('/node/add/health_care_region_detail_page');
