@@ -313,7 +313,6 @@ tasks:
   va/tests:
     desc:
     deps:
-      - va/tests/accessibility
       - va/tests/behat
       - va/tests/behavioral
       - va/tests/check-cer
@@ -322,3 +321,5 @@ tasks:
       - va/tests/revision-log
       - va/tests/status-error
       - va/tests/content-build-gql
+    cmds:
+      - task: va/tests/accessibility
