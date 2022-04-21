@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\va_gov_build_trigger;
+namespace Drupal\va_gov_graphql;
 
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\graphql\GraphQL\Execution\ResolveContext;

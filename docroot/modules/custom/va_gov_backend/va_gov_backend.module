@@ -1171,17 +1171,6 @@ function va_gov_backend_field_widget_paragraphs_form_alter(&$element, FormStateI
       ];
     }
   }
-
-  // If we have a field ref'ing service location paragraphs, fire function.
-  $vha_paragraphs = [
-    'field_service_location',
-    'field_service_location_address',
-    'field_phone_numbers_paragraph',
-    'field_phone',
-  ];
-  if (in_array($paragraph_entity_reference_field_name, $vha_paragraphs)) {
-    _va_gov_backend_modify_paragraph_interactions($element, $form_state, $context, $paragraph_entity_reference_field_name);
-  }
 }
 
 /**
@@ -1289,59 +1278,6 @@ function _va_gov_backend_modify_contact_information_states(array &$element, Form
       ];
     }
   }
-}
-
-/**
- * Toggles service_location fields depending on parent selector.
- *
- * Adds Validation constraint error id match to html.
- *
- * @param array $element
- *   The widget.
- * @param \Drupal\Core\Form\FormStateInterface $form_state
- *   The form state.
- * @param array $context
- *   The context.
- * @param string $paragraph_entity_reference_field_name
- *   The reference field name.
- */
-function _va_gov_backend_modify_paragraph_interactions(array &$element, FormStateInterface &$form_state, array &$context, $paragraph_entity_reference_field_name) {
-  $field_definition = $context['items']->getFieldDefinition();
-
-  /**
-   * @var \Drupal\field\Entity\FieldConfig $field_definition */
-  $paragraph_entity_reference_field_name = $field_definition->getName();
-  $widget_state = WidgetBase::getWidgetState($element['#field_parents'], $paragraph_entity_reference_field_name, $form_state);
-
-  $paragraph_instance = $widget_state['paragraphs'][$element['#delta']]['entity'];
-  $paragraph_type = $paragraph_instance->bundle();
-
-  // Toggle hours fields depending on "Use facility hours" select.
-  // field_service_location[0][subform][field_service_location_address][0][subform][field_use_facility_address][value].
-  if ($paragraph_type === 'service_location') {
-    // If use facility hours option is not selected, show address entry fields.
-    $toggle_fields = [
-      'field_facility_service_hours',
-    ];
-    $selector = sprintf(':input[name="field_service_location[%1$d][subform][field_hours]"]', $element['#delta']);
-    foreach ($toggle_fields as $field) {
-      $element['subform'][$field]['#states'] = [
-        'visible' => [
-          $selector => ['value' => "2"],
-        ],
-      ];
-    }
-    // Remove caption, rows, and import fields from address tablefield.
-    if (isset($element['subform']['field_facility_service_hours']['widget'][0]['caption'])) {
-      unset($element['subform']['field_facility_service_hours']['widget'][0]['#description']);
-      unset($element['subform']['field_facility_service_hours']['widget'][0]['caption']);
-    }
-    $element['subform']['field_facility_service_hours']['widget'][0]['prefix']['#markup'] = t('<div class="description">Format: "8:00 a.m. to 5:30 p.m. ET" or "24/7"</div>');
-    $element['subform']['field_facility_service_hours']['widget'][0]['#import'] = FALSE;
-    $element['subform']['field_facility_service_hours']['widget'][0]['#addrow'] = FALSE;
-    $element['subform']['field_facility_service_hours']['widget'][0]['#rebuild'] = FALSE;
-  }
-
 }
 
 /**

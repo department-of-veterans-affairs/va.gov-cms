@@ -40,5 +40,5 @@ $settings['trusted_host_patterns'] = [
 ];
 
 $settings['va_gov_frontend_url'] = 'https://dev.va.gov';
-$settings['va_gov_frontend_build_type'] = 'brdgha';
+$settings['va_gov_frontend_build_type'] = 'brd';
 $settings['github_actions_deploy_env'] = 'dev';

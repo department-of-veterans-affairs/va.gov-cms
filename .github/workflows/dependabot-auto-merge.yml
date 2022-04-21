@@ -1,0 +1,73 @@
+name: Dependabot Pull Request Approve and Merge
+on: 
+  - pull_request_target
+permissions:
+  pull-requests: write
+  contents: write
+jobs:
+  dependabot:
+    runs-on: ubuntu-latest
+    # Checking the actor will prevent your Action run failing on non-Dependabot
+    # PRs but also ensures that it only does work for Dependabot PRs.
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    steps:
+      # This first step will fail if there's no metadata and so the approval
+      # will not occur.
+      - name: Dependabot metadata
+        id: dependabot-metadata
+        uses: dependabot/fetch-metadata@v1.1.1
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"    
+    
+      # Checkout repo to make package allow list available
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      # Use a YAML formatted config file to list which dependencies can be auto-merged
+      - name: Read list of Allowed Auto-merge Dependencies
+        id: dependabot-allow-list
+        run: |
+          echo "::set-output name=dependabot-allow-list::$(yq eval '.dependabot.allow-list | join(", ")' .github/workflows/config/config.yml)"        
+
+      # Get the initial AWS IAM User credentials. Only has basic permissions for sts:assumeRole
+      - name: Configure AWS credentials (1)
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-gov-west-1
+
+      # Get credentials from our SSM role. Least privilege method for AWS IAM.
+      - name: Configure AWS Credentials (2)
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-gov-west-1
+          role-to-assume: ${{ secrets.AWS_VAGOV_CMS_PROD_READ_SSM_ROLE }}
+          role-duration-seconds: 900
+          role-session-name: vsp-vagov-cms-githubaction
+          
+      # Get VA_CMS_BOT Github token from SSM. this will be used to approve a matching PR.
+      - name: Get Parameter
+        uses: marvinpinto/action-inject-ssm-secrets@latest
+        with:
+          ssm_parameter: /cms/va-cms-bot/github_token
+          env_variable_name: VA_CMS_BOT_TOKEN
+
+      # Per Workflow secrets.GITHUB_TOKEN can't approve PRs
+      # Instead lookup and use VA CMS BOT Token to do so.    
+      - name: Approve a PR
+        if: ${{ contains(steps.dependabot-allow-list.outputs.dependabot-allow-list, steps.dependabot-metadata.outputs.dependency-names) }}
+        run: gh pr review --approve "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ env.VA_CMS_BOT_TOKEN }}
+          
+      # Finally, this sets the PR to allow auto-merging for only allowed dependencies
+      - name: Enable auto-merge for Dependabot PRs
+        if: ${{ contains(steps.dependabot-allow-list.outputs.dependabot-allow-list, steps.dependabot-metadata.outputs.dependency-names) }}
+        run: gh pr merge --auto --squash "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

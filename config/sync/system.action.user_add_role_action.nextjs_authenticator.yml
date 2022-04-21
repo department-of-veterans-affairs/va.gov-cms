@@ -1,0 +1,14 @@
+uuid: eeced472-23ba-405f-9df0-5f4633de0aea
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.nextjs_authenticator
+  module:
+    - user
+id: user_add_role_action.nextjs_authenticator
+label: 'Add the NextJS Authenticator role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: nextjs_authenticator

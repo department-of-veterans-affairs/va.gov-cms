@@ -6,9 +6,9 @@ use Drupal\Core\Site\Settings;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentPluginBase;
 use Drupal\va_gov_build_trigger\Form\BrdBuildTriggerForm;
-use Drupal\va_gov_build_trigger\Service\JenkinsClientInterface;
 use Drupal\va_gov_build_trigger\WebBuildCommandBuilder;
 use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
+use Drupal\va_gov_consumers\Git\GithubAdapter;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -32,11 +32,11 @@ class BRD extends EnvironmentPluginBase {
   protected $settings;
 
   /**
-   * Jenkins Client.
+   * Github API adapter.
    *
-   * @var \Drupal\va_gov_build_trigger\Service\JenkinsClientInterface
+   * @var \Drupal\va_gov_consumers\Git\GithubAdapter
    */
-  protected $jenkinsClient;
+  protected $githubAdapter;
 
   /**
    * {@inheritDoc}
@@ -49,7 +49,7 @@ class BRD extends EnvironmentPluginBase {
     WebBuildStatusInterface $webBuildStatus,
     WebBuildCommandBuilder $webBuildCommandBuilder,
     Settings $settings,
-    JenkinsClientInterface $jenkinsClient
+    GithubAdapter $githubAdapter
   ) {
     parent::__construct(
       $configuration,
@@ -60,7 +60,7 @@ class BRD extends EnvironmentPluginBase {
       $webBuildCommandBuilder
     );
     $this->settings = $settings;
-    $this->jenkinsClient = $jenkinsClient;
+    $this->githubAdapter = $githubAdapter;
   }
 
   /**
@@ -75,36 +75,35 @@ class BRD extends EnvironmentPluginBase {
       $container->get('va_gov.build_trigger.web_build_status'),
       $container->get('va_gov.build_trigger.web_build_command_builder'),
       $container->get('settings'),
-      $container->get('va_gov_build_trigger.jenkins_client')
+      $container->get('va_gov.consumers.github.content_build')
     );
   }
 
   /**
    * {@inheritDoc}
    */
-  public function triggerFrontendBuild(string $front_end_git_ref = NULL): void {
+  public function triggerFrontendBuild(string $front_end_git_ref = NULL, bool $full_rebuild = FALSE) : void {
+    $front_end_git_ref = $front_end_git_ref ?? "master";
+
     try {
-      $this->jenkinsClient->requestFrontendBuild($front_end_git_ref);
-      $jenkinsJobUrl = $this->settings->get('jenkins_build_job_url');
-      $jenkinsJobHost = $this->settings->get('jenkins_build_job_host');
-      $jenkinsJobPath = $this->settings->get('jenkins_build_job_path');
-      $vars = [
-        ':url' => $jenkinsJobUrl,
-        '@job_link' => $jenkinsJobHost . $jenkinsJobPath,
-      ];
-      $message = $this->t('Site rebuild request has been triggered with :url. Please visit <a href="@job_link">@job_link</a> to see status.', $vars);
+      if ($this->pendingWorkflowRunExists()) {
+        $vars = [
+          '@job_link' => 'https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml',
+        ];
+        $message = $this->t('Changes will be included in a content release to VA.gov that\'s already in progress. <a href="@job_link">Check status</a>.', $vars);
+      }
+      else {
+        $this->githubAdapter->triggerWorkflow('content-release.yml', $front_end_git_ref);
+        $vars = [
+          '@job_link' => 'https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml',
+        ];
+        $message = $this->t('The system started the process of releasing this content to go live on VA.gov. <a href="@job_link">Check status</a>.', $vars);
+      }
       $this->messenger()->addStatus($message);
       $this->logger->info($message);
     }
     catch (\Throwable $exception) {
-      $message = $this->t('Site rebuild request has failed for :url with an Exception, check log for more information. If this is the PROD environment please notify in #cms-support Slack and please email support@va-gov.atlassian.net immediately with the error message you see here.', [
-        ':url' => $this->settings->get('jenkins_build_job_url'),
-      ]);
-      $this->messenger()->addError($message);
-      $this->logger->error($message);
-
-      $this->webBuildStatus->disableWebBuildStatus();
-      watchdog_exception('va_gov_build_trigger', $exception);
+      $this->handleBrdException($exception);
     }
   }
 
@@ -120,6 +119,46 @@ class BRD extends EnvironmentPluginBase {
    */
   public function getBuildTriggerFormClass() : string {
     return BrdBuildTriggerForm::class;
+  }
+
+  /**
+   * Check for a pending content-release workflow run.
+   */
+  protected function pendingWorkflowRunExists() : bool {
+    try {
+      // Check if there are any workflows pending that were created recently.
+      $check_interval = 2 * 60 * 60;
+      $check_time = time() - $check_interval;
+      $workflow_run_params = [
+        'status' => 'pending',
+        'created' => '>=' . date('c', $check_time),
+      ];
+      $workflow_runs = $this->githubAdapter->listWorkflowRuns('content-release.yml', $workflow_run_params);
+
+      // A well-formed response will have `total_count` set.
+      return !empty($workflow_runs['total_count']) && $workflow_runs['total_count'] > 0;
+    }
+    catch (\Throwable $exception) {
+      $this->handleBrdException($exception);
+    }
+    return FALSE;
+  }
+
+  /**
+   * Handle GHA API-related exceptions.
+   *
+   * @param \Throwable $exception
+   *   The exception that was caught.
+   */
+  protected function handleBrdException(\Throwable $exception) : void {
+    $message = $this->t('A content release request has failed with an Exception. Please visit <a href="@job_link">@job_link</a> for more information on the issue. If this is the PROD environment please notify in #cms-support Slack and please email support@va-gov.atlassian.net immediately with the error message you see here.', [
+      '@job_link' => 'https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml',
+    ]);
+    $this->messenger()->addError($message);
+    $this->logger->error($message);
+
+    $this->webBuildStatus->disableWebBuildStatus();
+    watchdog_exception('va_gov_build_trigger', $exception);
   }
 
 }
