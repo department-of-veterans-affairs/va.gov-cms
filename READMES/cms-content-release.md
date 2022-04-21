@@ -28,7 +28,7 @@ The "Release content" page on the BRD production environment invokes the [same G
 
 The Jenkins job configuration is stored in Drupal `settings.php`. Here are the settings for [production](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/docroot/sites/default/settings/settings.prod.php#L46). Settings for other environments can be found in the `*.settings.php` [files](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/docroot/sites/default/settings). The setting keys are:
 ```php
-$settings['va_gov_frontend_build_type'] = 'brdgha';
+$settings['va_gov_frontend_build_type'] = 'brd';
 $settings['github_actions_deploy_env'] = 'prod';
 ```
 
