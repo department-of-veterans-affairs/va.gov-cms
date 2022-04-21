@@ -846,10 +846,12 @@ function va_gov_db_update_9004(&$sandbox) {
  */
 function va_gov_db_update_9005(&$sandbox) {
   $modules = [
-    'next',
+    'consumers',
     'decoupled_router',
     'next_jsonapi',
+    'next',
     'simple_oauth',
+    'subrequests',
   ];
 
   $messages = _va_gov_db_uninstall_modules($modules);
