@@ -9,13 +9,11 @@ import * as tokens from './tokens';
 
 // components
 import * as alert from './alert';
-import * as block from './block';
 import * as icon from './icon';
 
 const components = {
   tokens,
   alert,
-  block,
   icon
 };
 
