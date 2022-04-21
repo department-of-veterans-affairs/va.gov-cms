@@ -11,6 +11,6 @@ set -e
 # Allow script to be run anywhere in git repo
 cd "$(git rev-parse --show-toplevel)"
 
-npm install
+[ -d node_modules ] || (echo "Please run 'npm install' before running cypress tests" && exit 1)
 ./node_modules/.bin/cypress install
 npm run test:${1} "${@:2}"
