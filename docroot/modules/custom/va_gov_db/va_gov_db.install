@@ -840,3 +840,19 @@ function va_gov_db_update_9004(&$sandbox) {
 
   return $messages;
 }
+
+/**
+ * Uninstall next  and related modules.
+ */
+function va_gov_db_update_9005(&$sandbox) {
+  $modules = [
+    'next',
+    'decoupled_router',
+    'next_jsonapi',
+    'simple_oauth',
+  ];
+
+  $messages = _va_gov_db_uninstall_modules($modules);
+
+  return $messages;
+}
