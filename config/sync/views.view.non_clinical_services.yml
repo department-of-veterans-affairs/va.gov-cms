@@ -8,8 +8,8 @@ dependencies:
     - field.storage.paragraph.field_address
     - field.storage.paragraph.field_building_name_number
     - field.storage.paragraph.field_clinic_name
-    - field.storage.paragraph.field_facility_service_hours
     - field.storage.paragraph.field_hours
+    - field.storage.paragraph.field_office_hours
     - field.storage.paragraph.field_use_facility_address
     - field.storage.paragraph.field_wing_floor_or_room_number
     - node.type.vha_facility_nonclinical_service
@@ -26,7 +26,6 @@ dependencies:
     - options
     - paragraphs
     - string_field_formatter
-    - tablefield
     - taxonomy
     - views_conditional
 id: non_clinical_services
@@ -45,19 +44,19 @@ display:
     display_options:
       title: 'Medical records services'
       fields:
-        field_clinic_name:
-          id: field_clinic_name
-          table: paragraph__field_clinic_name
-          field: field_clinic_name
-          relationship: field_service_location_address
+        field_use_facility_address:
+          id: field_use_facility_address
+          table: paragraph__field_use_facility_address
+          field: field_use_facility_address
+          relationship: field_service_location
           group_type: group
           admin_label: ''
           plugin_id: field
           label: ''
-          exclude: false
+          exclude: true
           alter:
-            alter_text: true
-            text: '<strong>{{ field_clinic_name }}</strong>'
+            alter_text: false
+            text: ''
             make_link: false
             path: ''
             absolute: false
@@ -95,8 +94,11 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: string
-          settings: {  }
+          type: boolean
+          settings:
+            format: default
+            format_custom_false: ''
+            format_custom_true: ''
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -172,345 +174,19 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_office_hours:
-          id: field_office_hours
-          table: node__field_office_hours
-          field: field_office_hours
-          relationship: field_facility_location
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: ''
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: day
-          type: office_hours
-          settings:
-            day_format: long
-            time_format: g
-            compress: true
-            grouped: true
-            show_closed: open
-            closed_format: Closed
-            separator:
-              days: '<br />'
-              grouped_days: ' - '
-              day_hours: ': '
-              hours_hours: '-'
-              more_hours: ', '
-            current_status:
-              position: ''
-              open_text: 'Currently open!'
-              closed_text: 'Currently closed'
-            office_hours_first_day: ''
-            schema:
-              enabled: false
-          group_column: ''
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_facility_service_hours:
-          id: field_facility_service_hours
-          table: paragraph__field_facility_service_hours
-          field: field_facility_service_hours
-          relationship: field_service_location
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: ''
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: tablefield
-          settings:
-            row_header: false
-            column_header: true
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_hours:
-          id: field_hours
-          table: paragraph__field_hours
-          field: field_hours
-          relationship: field_service_location
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: ''
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: list_default
-          settings: {  }
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        views_conditional_field:
-          id: views_conditional_field
-          table: views_conditional
-          field: views_conditional_field
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: views_conditional_field
-          label: Hours
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          if: field_hours
-          condition: eq
-          equalto: 'Use the facility''s hours'
-          then: '{{ field_office_hours }}'
-          then_translate: 1
-          or: '{{ field_facility_service_hours }}'
-          or_translate: 1
-          strip_tags: 0
-        field_address:
-          id: field_address
-          table: node__field_address
-          field: field_address
-          relationship: field_facility_location
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: ''
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: langcode
-          type: address_default
-          settings: {  }
-          group_column: ''
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        field_address_1:
-          id: field_address_1
-          table: paragraph__field_address
-          field: field_address
+        field_clinic_name:
+          id: field_clinic_name
+          table: paragraph__field_clinic_name
+          field: field_clinic_name
           relationship: field_service_location_address
           group_type: group
           admin_label: ''
           plugin_id: field
           label: ''
-          exclude: true
+          exclude: false
           alter:
-            alter_text: false
-            text: ''
+            alter_text: true
+            text: '<strong>{{ field_clinic_name }}</strong>'
             make_link: false
             path: ''
             absolute: false
@@ -547,10 +223,10 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: langcode
-          type: address_default
+          click_sort_column: value
+          type: string
           settings: {  }
-          group_column: ''
+          group_column: value
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -684,11 +360,11 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_use_facility_address:
-          id: field_use_facility_address
-          table: paragraph__field_use_facility_address
-          field: field_use_facility_address
-          relationship: field_service_location
+        field_address:
+          id: field_address
+          table: node__field_address
+          field: field_address
+          relationship: field_facility_location
           group_type: group
           admin_label: ''
           plugin_id: field
@@ -733,13 +409,72 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: value
-          type: boolean
-          settings:
-            format: default
-            format_custom_false: ''
-            format_custom_true: ''
-          group_column: value
+          click_sort_column: langcode
+          type: address_default
+          settings: {  }
+          group_column: ''
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_address_1:
+          id: field_address_1
+          table: paragraph__field_address
+          field: field_address
+          relationship: field_service_location_address
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: langcode
+          type: address_default
+          settings: {  }
+          group_column: ''
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -801,9 +536,347 @@ display:
           if: field_use_facility_address
           condition: eq
           equalto: 'On'
-          then: "{{ field_address }}\r\n{{ field_building_name_number }}\r\n{{ field_wing_floor_or_room_number }}"
+          then: "{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address }}"
           then_translate: 1
-          or: "{{ field_address_1 }}\r\n{{ field_building_name_number }}\r\n{{ field_wing_floor_or_room_number }}"
+          or: "{{ field_clinic_name }}\r\n<div class=\"location-details\">{{ field_building_name_number }}{{ field_wing_floor_or_room_number }}</div>\r\n{{ field_address_1 }}"
+          or_translate: 1
+          strip_tags: 0
+        field_office_hours:
+          id: field_office_hours
+          table: node__field_office_hours
+          field: field_office_hours
+          relationship: field_facility_location
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: day
+          type: office_hours
+          settings:
+            day_format: long
+            time_format: g
+            compress: true
+            grouped: true
+            show_closed: open
+            closed_format: Closed
+            separator:
+              days: '<br />'
+              grouped_days: ' - '
+              day_hours: ': '
+              hours_hours: '-'
+              more_hours: ', '
+            current_status:
+              position: ''
+              open_text: 'Currently open!'
+              closed_text: 'Currently closed'
+            office_hours_first_day: ''
+            schema:
+              enabled: false
+          group_column: ''
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_office_hours_1:
+          id: field_office_hours_1
+          table: paragraph__field_office_hours
+          field: field_office_hours
+          relationship: field_service_location
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Service Location Hours'
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: day
+          type: office_hours
+          settings:
+            day_format: long
+            time_format: g
+            compress: true
+            grouped: true
+            show_closed: all
+            closed_format: Closed
+            separator:
+              days: '<br />'
+              grouped_days: ' - '
+              day_hours: ': '
+              hours_hours: '-'
+              more_hours: ', '
+            current_status:
+              position: ''
+              open_text: 'Currently open!'
+              closed_text: 'Currently closed'
+            office_hours_first_day: ''
+            schema:
+              enabled: false
+          group_column: ''
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_hours:
+          id: field_hours
+          table: paragraph__field_hours
+          field: field_hours
+          relationship: field_service_location
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: list_default
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        views_conditional_field:
+          id: views_conditional_field
+          table: views_conditional
+          field: views_conditional_field
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: views_conditional_field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          if: field_hours
+          condition: eq
+          equalto: 'Use the facility''s hours'
+          then: '{{ field_office_hours_1 }}'
+          then_translate: 1
+          or: ''
+          or_translate: 1
+          strip_tags: 0
+        views_conditional_field_2:
+          id: views_conditional_field_2
+          table: views_conditional
+          field: views_conditional_field
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: views_conditional_field
+          label: ''
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          if: field_hours
+          condition: eq
+          equalto: 'Use the facility''s hours'
+          then: '{{ field_office_hours }}'
+          then_translate: 1
+          or: '{{ views_conditional_field_3 }}'
           or_translate: 1
           strip_tags: 0
         moderation_state:
@@ -946,7 +1019,7 @@ display:
           entity_type: node
           plugin_id: entity_link_edit
           label: ''
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -1217,8 +1290,8 @@ display:
         - 'config:field.storage.paragraph.field_address'
         - 'config:field.storage.paragraph.field_building_name_number'
         - 'config:field.storage.paragraph.field_clinic_name'
-        - 'config:field.storage.paragraph.field_facility_service_hours'
         - 'config:field.storage.paragraph.field_hours'
+        - 'config:field.storage.paragraph.field_office_hours'
         - 'config:field.storage.paragraph.field_use_facility_address'
         - 'config:field.storage.paragraph.field_wing_floor_or_room_number'
   admissions_offices:
@@ -1811,15 +1884,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_facility_service_hours:
-          id: field_facility_service_hours
-          table: paragraph__field_facility_service_hours
-          field: field_facility_service_hours
+        field_office_hours_1:
+          id: field_office_hours_1
+          table: paragraph__field_office_hours
+          field: field_office_hours
           relationship: field_service_location
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: ''
+          label: 'Service Location Hours'
           exclude: true
           alter:
             alter_text: false
@@ -1852,7 +1925,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: false
+          element_label_colon: true
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -1860,12 +1933,29 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: value
-          type: tablefield
+          click_sort_column: day
+          type: office_hours
           settings:
-            row_header: false
-            column_header: true
-          group_column: value
+            day_format: long
+            time_format: g
+            compress: true
+            grouped: true
+            show_closed: all
+            closed_format: Closed
+            separator:
+              days: '<br />'
+              grouped_days: ' - '
+              day_hours: ': '
+              hours_hours: '-'
+              more_hours: ', '
+            current_status:
+              position: ''
+              open_text: 'Currently open!'
+              closed_text: 'Currently closed'
+            office_hours_first_day: ''
+            schema:
+              enabled: false
+          group_column: ''
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -1989,7 +2079,7 @@ display:
           if: field_hours
           condition: eq
           equalto: 'Provide specific hours for this service'
-          then: '{{ field_facility_service_hours }}'
+          then: '{{ field_office_hours_1 }}'
           then_translate: 1
           or: ''
           or_translate: 1
@@ -2002,8 +2092,8 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: views_conditional_field
-          label: Hours
-          exclude: true
+          label: ''
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -2035,7 +2125,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -2466,8 +2556,8 @@ display:
         - 'config:field.storage.paragraph.field_address'
         - 'config:field.storage.paragraph.field_building_name_number'
         - 'config:field.storage.paragraph.field_clinic_name'
-        - 'config:field.storage.paragraph.field_facility_service_hours'
         - 'config:field.storage.paragraph.field_hours'
+        - 'config:field.storage.paragraph.field_office_hours'
         - 'config:field.storage.paragraph.field_use_facility_address'
         - 'config:field.storage.paragraph.field_wing_floor_or_room_number'
   billing_and_insurance:
@@ -3060,15 +3150,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_facility_service_hours:
-          id: field_facility_service_hours
-          table: paragraph__field_facility_service_hours
-          field: field_facility_service_hours
+        field_office_hours_1:
+          id: field_office_hours_1
+          table: paragraph__field_office_hours
+          field: field_office_hours
           relationship: field_service_location
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: ''
+          label: 'Service Location Hours'
           exclude: true
           alter:
             alter_text: false
@@ -3101,7 +3191,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: false
+          element_label_colon: true
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -3109,12 +3199,29 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: value
-          type: tablefield
+          click_sort_column: day
+          type: office_hours
           settings:
-            row_header: false
-            column_header: true
-          group_column: value
+            day_format: long
+            time_format: g
+            compress: true
+            grouped: true
+            show_closed: all
+            closed_format: Closed
+            separator:
+              days: '<br />'
+              grouped_days: ' - '
+              day_hours: ': '
+              hours_hours: '-'
+              more_hours: ', '
+            current_status:
+              position: ''
+              open_text: 'Currently open!'
+              closed_text: 'Currently closed'
+            office_hours_first_day: ''
+            schema:
+              enabled: false
+          group_column: ''
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -3238,7 +3345,7 @@ display:
           if: field_hours
           condition: eq
           equalto: 'Provide specific hours for this service'
-          then: '{{ field_facility_service_hours }}'
+          then: '{{ field_office_hours_1 }}'
           then_translate: 1
           or: ''
           or_translate: 1
@@ -3251,8 +3358,8 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: views_conditional_field
-          label: Hours
-          exclude: true
+          label: ''
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -3284,7 +3391,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -3780,8 +3887,8 @@ display:
         - 'config:field.storage.paragraph.field_address'
         - 'config:field.storage.paragraph.field_building_name_number'
         - 'config:field.storage.paragraph.field_clinic_name'
-        - 'config:field.storage.paragraph.field_facility_service_hours'
         - 'config:field.storage.paragraph.field_hours'
+        - 'config:field.storage.paragraph.field_office_hours'
         - 'config:field.storage.paragraph.field_use_facility_address'
         - 'config:field.storage.paragraph.field_wing_floor_or_room_number'
   medical_records_offices:
@@ -4374,15 +4481,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_facility_service_hours:
-          id: field_facility_service_hours
-          table: paragraph__field_facility_service_hours
-          field: field_facility_service_hours
+        field_office_hours_1:
+          id: field_office_hours_1
+          table: paragraph__field_office_hours
+          field: field_office_hours
           relationship: field_service_location
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: ''
+          label: 'Service Location Hours'
           exclude: true
           alter:
             alter_text: false
@@ -4415,7 +4522,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: false
+          element_label_colon: true
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -4423,12 +4530,29 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: value
-          type: tablefield
+          click_sort_column: day
+          type: office_hours
           settings:
-            row_header: false
-            column_header: true
-          group_column: value
+            day_format: long
+            time_format: g
+            compress: true
+            grouped: true
+            show_closed: all
+            closed_format: Closed
+            separator:
+              days: '<br />'
+              grouped_days: ' - '
+              day_hours: ': '
+              hours_hours: '-'
+              more_hours: ', '
+            current_status:
+              position: ''
+              open_text: 'Currently open!'
+              closed_text: 'Currently closed'
+            office_hours_first_day: ''
+            schema:
+              enabled: false
+          group_column: ''
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -4552,7 +4676,7 @@ display:
           if: field_hours
           condition: eq
           equalto: 'Provide specific hours for this service'
-          then: '{{ field_facility_service_hours }}'
+          then: '{{ field_office_hours_1 }}'
           then_translate: 1
           or: ''
           or_translate: 1
@@ -4565,8 +4689,8 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: views_conditional_field
-          label: Hours
-          exclude: true
+          label: ''
+          exclude: false
           alter:
             alter_text: false
             text: ''
@@ -4598,7 +4722,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -5067,7 +5191,7 @@ display:
         - 'config:field.storage.paragraph.field_address'
         - 'config:field.storage.paragraph.field_building_name_number'
         - 'config:field.storage.paragraph.field_clinic_name'
-        - 'config:field.storage.paragraph.field_facility_service_hours'
         - 'config:field.storage.paragraph.field_hours'
+        - 'config:field.storage.paragraph.field_office_hours'
         - 'config:field.storage.paragraph.field_use_facility_address'
         - 'config:field.storage.paragraph.field_wing_floor_or_room_number'

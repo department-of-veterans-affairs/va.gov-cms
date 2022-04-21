@@ -17,14 +17,12 @@ dependencies:
     - field_group
     - office_hours
     - options
-    - tablefield
 third_party_settings:
   field_group:
     group_hours:
       children:
         - field_hours
         - field_office_hours
-        - field_facility_service_hours
         - field_additional_hours_info
       label: Hours
       parent_name: group_service_location
@@ -100,15 +98,6 @@ content:
     third_party_settings: {  }
     weight: 5
     region: content
-  field_facility_service_hours:
-    type: tablefield
-    label: visually_hidden
-    settings:
-      row_header: false
-      column_header: false
-    third_party_settings: {  }
-    weight: 4
-    region: content
   field_hours:
     type: list_default
     label: above
@@ -117,7 +106,7 @@ content:
     weight: 2
     region: content
   field_office_hours:
-    type: office_hours_table
+    type: office_hours
     label: above
     settings:
       day_format: long
@@ -125,7 +114,7 @@ content:
       compress: false
       grouped: false
       show_closed: all
-      closed_format: ''
+      closed_format: Closed
       separator:
         days: '<br />'
         grouped_days: ' - '
@@ -172,4 +161,5 @@ content:
     weight: 3
     region: content
 hidden:
+  field_facility_service_hours: true
   search_api_excerpt: true
