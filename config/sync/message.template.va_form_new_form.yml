@@ -1,0 +1,19 @@
+uuid: 104d90ab-62d1-4b16-88ef-ea5c48b9eb37
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.rich_text
+template: va_form_new_form
+label: 'VA Form new form'
+description: 'The template to alert people about the creation of a new form.'
+text:
+  -
+    value: "<p>A new VA Form detail page \"[node:field_va_form_title]\" has been created.&nbsp; To view the new form please&nbsp; click [node:url:absolute]</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>If you feel that you should no longer be receiving these notifications, please email CMS Support.</p>\r\n"
+    format: rich_text
+settings:
+  'token options':
+    clear: false
+    'token replace': true
+  purge_override: false
+  purge_methods: {  }

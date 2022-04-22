@@ -1,0 +1,23 @@
+uuid: 0ba6934b-612e-4049-977e-e98cf018479d
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.message.mail_body
+    - message.template.facility_api_data_change
+  module:
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: message.facility_api_data_change.mail_body
+targetEntityType: message
+bundle: facility_api_data_change
+mode: mail_body
+content:
+  partial_1:
+    weight: 0
+    region: content
+hidden:
+  partial_0: true

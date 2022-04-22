@@ -1,0 +1,19 @@
+uuid: 37ec87c3-53e7-4bd0-a577-1640028bafac
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.rich_text
+template: facility_api_data_change
+label: 'Facility API data change'
+description: 'Sent to any editor when a facility has a data change from the facility API'
+text:
+  -
+    value: "<p>A [content-type] facility [flag-action:entity-title] you manage has had a data change [flag-title] from the Facility API.&nbsp;&nbsp;</p>\r\n"
+    format: rich_text
+settings:
+  'token options':
+    clear: false
+    'token replace': true
+  purge_override: false
+  purge_methods: {  }

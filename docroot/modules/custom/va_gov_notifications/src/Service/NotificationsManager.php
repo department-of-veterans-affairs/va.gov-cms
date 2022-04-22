@@ -2,10 +2,7 @@
 
 namespace Drupal\va_gov_notifications\Service;
 
-use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\node\NodeInterface;
-use Drupal\user\Entity\User;
 use Drupal\message\Entity\Message;
 use Drupal\message_notify\MessageNotifier;
 
@@ -33,7 +30,7 @@ class NotificationsManager {
    * Constructs the NotificationManager object.
    *
    * @param \Drupal\message_notify\MessageNotifier $message_notifier
-   *   Mesage notifier sender.
+   *   Message notifier (sender).
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   Entity type manager service.
    */
