@@ -160,8 +160,12 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     }
     elseif ($entity->bundle() === 'va_form') {
       $this->flagger->flagNew('new_form', $entity, "This VA Form was added to the Forms DB.");
+      $message_fields = [
+        'field_target_node_title' => "New form: {$entity->getTitle()}",
+        'field_target_entity' => $entity->id(),
+      ];
       // Just hardcoding swirt's user id as the recipient of the email for now.
-      $this->notificationsManager->send('va_form_new_form', 1215);
+      $this->notificationsManager->send('va_form_new_form', 4000, $message_fields);
     }
   }
 
