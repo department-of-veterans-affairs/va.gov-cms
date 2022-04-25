@@ -19,14 +19,12 @@ dependencies:
     - limited_field_widgets
     - office_hours
     - paragraphs
-    - tablefield
 third_party_settings:
   field_group:
     group_service_hours:
       children:
         - field_hours
         - field_office_hours
-        - field_facility_service_hours
         - field_additional_hours_info
       label: Hours
       region: content
@@ -130,13 +128,6 @@ content:
     third_party_settings:
       entity_browser_entity_form:
         entity_browser_id: _none
-  field_facility_service_hours:
-    type: tablefield
-    weight: 2
-    region: content
-    settings:
-      input_type: textfield
-    third_party_settings: {  }
   field_hours:
     type: options_select
     weight: 0
@@ -199,4 +190,5 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_facility_service_hours: true
   status: true

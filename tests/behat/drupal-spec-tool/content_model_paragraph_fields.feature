@@ -106,7 +106,7 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Service location | Email contacts | field_email_contacts | Entity reference revisions |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
 | Paragraph type | Service location | Use the facility's hours | field_hours | List (text) | Required | 1 | Select list |  |
 | Paragraph type | Service location | Hours | field_office_hours | Office hours |  | Unlimited | Office hours (week) |  |
-| Paragraph type | Service location | Hours | field_facility_service_hours | Table Field |  | 1 | Table Field |  |
+| Paragraph type | Service location | Hours | field_facility_service_hours | Table Field |  | 1 | -- Disabled -- |  |
 | Paragraph type | Service location | Other phone numbers | field_phone | Entity reference revisions |  | 5 | Inline entity form - Complex - Table View Mode |  |
 | Paragraph type | Service location | Address | field_service_location_address | Entity reference revisions |  | 1 | Paragraphs (stable) |  |
 | Paragraph type | Service location | Use the general facility phone number | field_use_main_facility_phone | Boolean |  | 1 | Single on/off checkbox |  |

@@ -143,6 +143,7 @@ Feature: Views
 | Facility Services | Facilities export | content_audit_facilities_export | Data export |
 | Facility Services | Facility status | facility_status_page | Page |
 | Facility Services | Facility status export | facility_status_export | Data export |
+| Facility Services | Facility Urls | data_export_facility_urls | Data export |
 | Facility Services | Master | default | Default |
 | Facility Services | VAMC facility health services | vamc_facility_health_services_page | Page |
 | Facility Services | VAMC facility health services export | vamc_facility_health_services_export | Data export |

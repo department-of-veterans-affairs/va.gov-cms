@@ -1,42 +1,5 @@
 @api
 Feature: Permissions
-      """
-      Pattern for content type reuse.
-      | title                              |
-      | "page"                             |
-      | "landing_page"                     |
-      | "health_care_region_detail_page"   |
-      | "event"                            |
-      | "event_listing"                    |
-      | "health_care_local_facility"       |
-      | "health_care_region_page"          |
-      | "health_care_local_health_service" |
-      | "press_release"                    |
-      | "office"                           |
-      | "outreach_asset"                   |
-      | "publication_listing"              |
-      | "person_profile"                   |
-      | "news_story"                       |
-      """
-  @perms @content_api_consumer
-  Scenario Outline: Content api consumer can access redirects and graphql api
-      """
-      We may want to extend this test for other roles
-      """
-    Given I am logged in as a user with the <role> role
-    And I am on <page>
-    Then the response status code should be <code>
-    Examples:
-      | role                   | page                                         | code |
-      | "content_api_consumer" | "/graphql"                                   | 200  |
-      | "content_api_consumer" | "/flags_list"                                | 200  |
-      | "content_api_consumer" | "/api/govdelivery_bulletins/queue?EndTime=1" | 200  |
-
-  @perms @content_api_consumer @cac_menus
-  Scenario: Content api consumer cannot alter existing menus
-    Given I am logged in as a user with the "content_api_consumer" role
-    And I am on "admin/structure/menu"
-    Then I should not see "Edit menu"
 
   @perms @content_editor
   Scenario Outline: Content editor can edit - edit test indicates save perm is true.
@@ -169,34 +132,3 @@ Feature: Permissions
       | "office"                         | "office page3"                         |
       | "publication_listing"            | "publication_listing page3"            |
       | "news_story"                     | "news_story page3"                     |
-
-
-  @perms @redirects
-  Scenario Outline: Redirect administrator can add/edit, administer redirects
-    Given I am logged in as a user with the "redirect_administrator" role
-    And I am on <page>
-    Then the response status code should be <code>
-    Examples:
-      | page                                     | code |
-      | "/admin/config/search/redirect/edit/261" | 200  |
-      | "/admin/config/search/redirect/add"      | 200  |
-      | "/admin/config/search/redirect/import"   | 200  |
-      | "/admin/config/search/redirect"          | 200  |
-
-
-  @perms @administer_users
-  Scenario Outline: Adminiser user role can add/edit users
-    Given I am logged in as a user with the "admnistrator_users" role
-    And I am on <page>
-    Then the response status code should be <code>
-    Examples:
-      | page                   | code |
-      | "/admin/people"        | 200  |
-      | "/admin/people/create" | 200  |
-
-  @perms @content_admin
-  Scenario: Content Admins should be able to browse sections from their profile even if none have been specifically assigned to them
-    Given I am logged in as a user with the "content_admin" role
-    And I am on "/user"
-    Then I should see the text "You can edit content in the following VA.gov sections"
-    And I should not see the text "You don't have permission to access content in any VA.gov sections yet"
