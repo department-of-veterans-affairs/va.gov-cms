@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ca8d399e09dfc3abad7f1ca8516facea",
+    "content-hash": "61f3972ae2ce49addb5e1f62ae89a0e6",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -2882,6 +2882,58 @@
             }
         },
         {
+            "name": "drupal/admin_feedback",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/admin_feedback.git",
+                "reference": "8.x-2.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/admin_feedback-8.x-2.2.zip",
+                "reference": "8.x-2.2",
+                "shasum": "59360f32d999950516957aa5e629e8495d6dbab5"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-2.2",
+                    "datestamp": "1614363271",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "ainarend",
+                    "homepage": "https://www.drupal.org/user/3547591"
+                },
+                {
+                    "name": "anuar.alfetahe",
+                    "homepage": "https://www.drupal.org/user/3577723"
+                },
+                {
+                    "name": "bserem",
+                    "homepage": "https://www.drupal.org/user/388753"
+                }
+            ],
+            "description": "Admin Feedback makes it very easy to analyze, create statics and gather user information about the contents of the site.",
+            "homepage": "https://www.drupal.org/project/admin_feedback",
+            "support": {
+                "source": "https://git.drupalcode.org/project/admin_feedback"
+            }
+        },
+        {
             "name": "drupal/admin_toolbar",
             "version": "3.0.0",
             "source": {
@@ -4833,6 +4885,50 @@
             "homepage": "https://www.drupal.org/project/decoupled_router",
             "support": {
                 "source": "https://git.drupalcode.org/project/decoupled_router"
+            }
+        },
+        {
+            "name": "drupal/did_this_help",
+            "version": "2.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/did_this_help.git",
+                "reference": "2.0.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/did_this_help-2.0.3.zip",
+                "reference": "2.0.3",
+                "shasum": "b245c42c865d3ad0672fe245c48b70600d6288c6"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.3",
+                    "datestamp": "1615281905",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "levmyshkin",
+                    "homepage": "https://www.drupal.org/user/1079574"
+                }
+            ],
+            "description": "Displays block with \"Did this help\" (is useful) question and Yes/No options",
+            "homepage": "https://www.drupal.org/project/did_this_help",
+            "support": {
+                "source": "https://git.drupalcode.org/project/did_this_help"
             }
         },
         {
