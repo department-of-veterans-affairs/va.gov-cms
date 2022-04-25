@@ -1,5 +1,36 @@
 .block-admin-feedback {
-  .feedback-btn {
-    @include va-buttons($ghost: true);
+  .feedback-yes-button,
+  .feedback-no-button {
+    @include button-outline;
+    display: inline-block;
+    margin-right: var(--space-m);
+    padding: 0;
+
+    &::before {
+      display: inline-block;
+      margin-right: calc(-1 * var(--space-s));
+      padding-left: var(--space-s);
+    }
+
+    &:focus-within {
+      border-color: var(--color-lightninggreen) !important;
+    }
+  }
+
+  .feedback-yes-button {
+    &::before {
+      content: url('/themes/custom/vagovclaro/images/icons/004795/thumbs-up.svg');
+    }
+  }
+
+  .feedback-no-button {
+    &::before {
+      content: url('/themes/custom/vagovclaro/images/icons/004795/thumbs-down.svg');
+    }
+  }
+
+  input {
+    @include input-reset;
+    padding: calc(var(--space-m) - 2px) calc(var(--space-l) - 2px);
   }
 }
