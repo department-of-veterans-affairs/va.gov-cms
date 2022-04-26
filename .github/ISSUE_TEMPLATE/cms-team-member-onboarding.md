@@ -9,10 +9,10 @@ assignees: ''
 
 <details><summary>Welcome!</summary>
 
-# Welcome to the VFS-CMS Team! 👋
+# Welcome to the VA.gov Modernization Team! 👋
 We're thrilled to have you join us on this journey! 🎆🎉🙌
 
-Our vision is to build and maintain a best-in-class Content Management System that meets the needs of editors, application development teams, and consuming applications in order to empower our users to help Veterans.
+Our vision craft a seamless editorial experience that empowers editors to create Veteran-centered content. In April of 2022, we also assumed responsibility for a portfolio of front-end products and sites.
 
 The onboarding materials below are organized by 1) chronological time to complete (day one, week one, week two, month one); and main category (why, how, who, what). There's a lot to digest but don't worry, your delivery manager will guide you, you'll have an onboarding buddy to provide support, and we'll also introduce you to your workstream's lead to help with specific things related to your discipline (UX, DevOps, Drupal Engineering, etc). In addition, you'll have the support of the entire team, who have all gone through this process before and are eager to answer any questions that arise. Come back to this ticket any time to refresh your knowledge on a specific topic covered below.
 
@@ -34,7 +34,7 @@ Projected start date: <insert_here>
 ### How?
 - [ ] Read through our [team norms](https://docs.google.com/document/d/1cs5FePhtR0LIJi63b9ZtqT7T6dphgB584UpfEbejSOc/edit#), which will also give an overview of how we apply the [USDS playbook](https://playbook.cio.gov/) and VA.gov platform [code of conduct](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/policies-work-norms/code-of-conduct.md).
 ### Who?
-- [ ] Who is on the VFS-CMS team? Read your [team members' user manuals and copy the template to add your own](https://drive.google.com/drive/u/0/folders/195otsT1IUxi_k8oEU21TUkvEG-6p5YQj?ths).
+- [ ] Who is on the team? Read your [team members' user manuals and copy the template to add your own](https://drive.google.com/drive/u/0/folders/195otsT1IUxi_k8oEU21TUkvEG-6p5YQj?ths).
 ### What?
 - [ ] [Onboarding questionnaire](https://drive.google.com/drive/u/0/folders/1fYwNBBbceqRM3qXfes_KEg1QeO-Nkq0q?ths=true) (what do you already know in regards to tooling, context, history, etc)
 - [ ] Contract - Discuss with your delivery manager.
@@ -46,17 +46,17 @@ Projected start date: <insert_here>
 
 ## Week one
 The goals of this week are: 1) get background paperwork completed as quickly as possible and 2) start gaining context for what we're doing and why
-- [ ] Requesting secure access to the VA systems you need: **PTEMS** paperwork is through Liberty and **VFS-CMS** paperwork through A6. If you're not sure which you should fill out, ask your delivery manager. Federal contractors are required to complete many of the same forms as federal employees.
+- [ ] Requesting secure access to the VA systems you need: **PTEMS** paperwork is through Booz Allen Hamilton (BAH/Liberty) and **VFS-CMS** or **Sitewide Crew** paperwork through A6. If you're not sure which you should fill out, ask your delivery manager. Federal contractors are required to complete many of the same forms as federal employees.
 - [ ] e-QIP, the online version of the federal standard investigation form, SF 86, will require a lot of background information. [Review page 7 of the SF 86 guide](https://www.dcsa.mil/Portals/91/Documents/pv/mbi/standard-form-sf-86-guide-for-applicants.pdf) for the list of information you'll need to collect to complete e-QIP
 ### Why?
-- [ ] Why is VA.gov using Drupal CMS and how is our success measured? Read the [objectives and key results](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/96698383/Product+CMS).
+- [ ] Why is VA.gov using a Drupal CMS and how is our success measured? Read the [objectives and key results](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/96698383/Product+CMS).
 - [ ] [Watch the Drupal GovCon presentation about the project](https://www.youtube.com/watch?v=WN4bGjEuQdM).
 - [ ] Why are Vet Centers important to Veterans? Watch the [2-minute YouTube video](https://www.youtube.com/watch?v=VMzkZNbKk1I).
 - [ ] Why are VA Medical Centers changing their websites? Watch the [2-minute YouTube video](https://youtu.be/Xrv5wCv6cKY).
 ### How?
-- [ ] [How does the VFS-CMS team work in an agile environment?](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/sprint-best-practices.md)
-- [ ] How do Agile 6, CivicActions, and Friends From The City work together on this project? Discuss with your delivery manager or product manager.
-- [ ] How does the VFS-CMS team fit into the larger OCTO ecosystem? [View this Mural diagram](https://app.mural.co/t/vagov6717/m/vagov6717/1643724063628/1654203c1a0d6c763bbd5c969febf94ec476df79?sender=kevinwalsh8610)
+- [ ] [How does the team work in an agile environment?](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/sprint-best-practices.md)
+- [ ] How do Agile 6, CivicActions, Friends From The City, and Kind Systems work together on this project? Discuss with your delivery manager or product manager.
+- [ ] How does the team fit into the larger OCTO ecosystem? [View this Mural diagram](https://app.mural.co/t/vagov6717/m/vagov6717/1643724063628/1654203c1a0d6c763bbd5c969febf94ec476df79?sender=kevinwalsh8610)
 - [ ] How does OCTO fit into the VA universe? And how is VA structured? [View this Mural diagram](https://app.mural.co/t/vagov6717/m/vagov6717/1646447643431/1cbae3844c54a42877451e7a79706f0be048d740?sender=kevinwalsh8610)
   
   
@@ -122,6 +122,8 @@ The goal for this week is to get you set up with the tools you need to be succes
 
 - [ ] What do I need to know about my discipline on this team (DevOps, Engineering, Helpdesk, ID, UX)? Discuss with your discipline lead.
 - [ ] What applications or discipline-specific tools are needed? Discuss with your discipline lead.
+
+- [ ] Schedule a touchpoint with our Change Management specialist, Denise Eisner to learn how the practice plays out on our project.
 
 </details>
 
@@ -224,7 +226,7 @@ By this point you should have enough context and access to be able to start cont
   - [ ] [Opt out](https://www.va.gov/analytics-opt-out.html) of Google Analytics collection on VA.gov.
   - [ ] [Opt out](https://depo-platform-documentation.scrollhelp.site/?internal-user-opt-out=true) of analytics for Platform's website. You will not get a confirmation message and will have to do this for every browser and every time you clear cookies.
 - [ ] [View short presentations on specific topics](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/1714094110/CMS+Topic+Dives). Topics include site alerts, release and deploy, Facility API, etc.
-- [ ] [Browse the VA Drupal CMS Knowlege Base articles](https://prod.cms.va.gov/help/).
+- [ ] [Browse the VA Drupal CMS Knowledge Base articles](https://prod.cms.va.gov/help/).
 
 </details>
 
