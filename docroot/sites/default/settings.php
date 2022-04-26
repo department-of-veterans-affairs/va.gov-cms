@@ -239,6 +239,9 @@ if (!empty($webhost_on_cli)) {
   $settings['file_public_base_url'] = "{$webhost}/sites/default/files";
 }
 
+// Monolog
+$settings['container_yamls'][] = $app_root . '/' . $site_path . '/../default/services/services.monolog.yml';
+
 // Memcache-specific settings
 if (extension_loaded('memcache') && !empty($settings['memcache']['servers'])) {
   $settings['cache']['default'] = 'cache.backend.memcache';

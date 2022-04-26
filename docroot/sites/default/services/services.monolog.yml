@@ -1,0 +1,28 @@
+parameters:
+  monolog.channel_handlers:
+    default:
+      - 'drupal.dblog'
+      - 'drupal.raven'
+      - 'drupal.syslog'
+    php:
+      - 'drupal.dblog'
+      - 'drupal.raven'
+      - 'drupal.syslog'
+      - 'error_log'
+  monolog.processors:
+      - 'current_user'
+      - 'filter_backtrace'
+      - 'ip'
+      - 'message_placeholder'
+      - 'referer'
+      - 'request_uri'
+      - 'va_gov_datadog_apm'
+  # Logger levels.
+  monolog.level.emergency: 'emergency'
+  monolog.level.alert: 'alert'
+  monolog.level.critical: 'critical'
+  monolog.level.error: 'error'
+  monolog.level.warning: 'warning'
+  monolog.level.notice: 'notice'
+  monolog.level.info: 'info'
+  monolog.level.debug: 'debug'
