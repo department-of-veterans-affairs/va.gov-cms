@@ -12,7 +12,7 @@ assignees: ''
 # Welcome to the VA.gov Modernization Team! 👋
 We're thrilled to have you join us on this journey! 🎆🎉🙌
 
-Our vision craft a seamless editorial experience that empowers editors to create Veteran-centered content. In April of 2022, we also assumed responsibility for a portfolio of front-end products and sites.
+Our [vision](https://docs.google.com/presentation/d/14mK-4OMeEnR_-fgj62U4lUHBHg6htj4i4ucTA5DJFzg/edit#slide=id.g11ae1dc437e_0_1) craft a seamless editorial experience that empowers editors to create Veteran-centered content. In April of 2022, we also assumed responsibility for a portfolio of front-end products and sites.
 
 The onboarding materials below are organized by 1) chronological time to complete (day one, week one, week two, month one); and main category (why, how, who, what). There's a lot to digest but don't worry, your delivery manager will guide you, you'll have an onboarding buddy to provide support, and we'll also introduce you to your workstream's lead to help with specific things related to your discipline (UX, DevOps, Drupal Engineering, etc). In addition, you'll have the support of the entire team, who have all gone through this process before and are eager to answer any questions that arise. Come back to this ticket any time to refresh your knowledge on a specific topic covered below.
 
