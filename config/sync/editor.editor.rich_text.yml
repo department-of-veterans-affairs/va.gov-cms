@@ -1,54 +1,55 @@
-uuid: f95e6861-ad94-47ee-847c-2bfdf3f3d4e7
+uuid: bec2e819-0f79-49b2-9ce8-69b5c5dd21e0
 langcode: en
 status: true
 dependencies:
   config:
     - filter.format.rich_text
   module:
-    - ckeditor
-_core:
-  default_config_hash: 0bVELtfx9sXhjZ6s6W-dJo8SW-IR9jiEIEylzm-2Cro
+    - ckeditor5
 format: rich_text
-editor: ckeditor
+editor: ckeditor5
 settings:
   toolbar:
-    rows:
-      -
-        -
-          name: Formatting
-          items:
-            - Bold
-            - Italic
-            - '-'
-        -
-          name: Linking
-          items:
-            - DrupalLink
-            - DrupalUnlink
-        -
-          name: Lists
-          items:
-            - BulletedList
-            - NumberedList
-        -
-          name: Media
-          items:
-            - HorizontalRule
-            - Source
-        -
-          name: 'Block Formatting'
-          items:
-            - Blockquote
-            - Format
-            - Styles
+    items:
+      - heading
+      - bold
+      - italic
+      - '|'
+      - link
+      - '|'
+      - bulletedList
+      - numberedList
+      - '|'
+      - horizontalLine
+      - sourceEditing
+      - '|'
+      - blockQuote
+      - undo
+      - redo
+      - code
   plugins:
-    drupallink:
-      linkit_enabled: true
-      linkit_profile: default
-    stylescombo:
-      styles: "p.va-address-block|Address Block\r\na.usa-button|Default link button\r\na.usa-button-primary.va-button-primary|Primary link button\r\na.usa-button.usa-button-secondary|Secondary link button\r\na.vads-c-action-link--green|Primary action link\r\na.vads-c-action-link--blue|Secondary action link"
-    language:
-      language_list: un
+    ckeditor5_heading:
+      enabled_headings:
+        - heading2
+        - heading3
+        - heading4
+        - heading5
+        - heading6
+    ckeditor5_sourceEditing:
+      allowed_tags:
+        - '<b>'
+        - '<cite>'
+        - '<blockquote cite>'
+        - '<ul type>'
+        - '<ol type start>'
+        - '<h2 id>'
+        - '<h3 id>'
+        - '<h4 id>'
+        - '<h5 id>'
+        - '<h6 id>'
+        - '<p id class="va-address-block block-va-gov-text">'
+        - '<drupal-entity data-* title alt>'
+        - '<a hreflang aria-label data-entity-substitution data-entity-type data-entity-uuid target title class="button button-action button--primary usa-button usa-button-primary usa-button-secondary va-button-primary login-required block-vet-center-facility-button vads-c-action-link--green vads-c-action-link--blue">'
 image_upload:
   status: true
   scheme: public
