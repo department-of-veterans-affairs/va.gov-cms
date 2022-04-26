@@ -25,17 +25,17 @@
    */
   Drupal.behaviors.vagovadminAnchorLinks = {
     attach() {
-      $('a[href^="#"]:not([href^="#edit-group"])').click((event) => {
+      $('a[href^="#"][href!="#"]:not([href^="#edit-group"])').click((event) => {
         event.preventDefault();
 
-        const target = $(event.target).attr("href");
-        const targetOffset = $(target).offset();
+        const target = $(event.target);
+        const targetOffset = target.offset();
         if (targetOffset) {
           const scrollToPosition =
             targetOffset.top - (Drupal.getAdminToolbarHeight() + 10);
 
           $("html").animate({ scrollTop: scrollToPosition }, 500, () => {
-            window.location.hash = `${target}`;
+            window.location.hash = `${target.attr("href")}`;
             $("html").animate({ scrollTop: scrollToPosition }, 0);
           });
         }
