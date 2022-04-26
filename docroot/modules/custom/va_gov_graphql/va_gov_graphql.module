@@ -64,10 +64,3 @@ function va_gov_graphql_get_menus() {
 
   return $menus;
 }
-
-/**
- * Implements hook_graphql_fields_alter().
- */
-function va_gov_graphql_graphql_fields_alter(array &$config) {
-  $config['entity_query:node']['class'] = GraphQLEntityQuery::class;
-}
