@@ -13,6 +13,7 @@ class DatadogApmProcessor implements ProcessorInterface {
    * {@inheritdoc}
    */
   public function __invoke(array $record): array {
+    // @phpstan-ignore-next-line
     $context = \DDTrace\current_context();
     $traceId = $context['trace_id'];
     $spanId = $context['span_id'];
