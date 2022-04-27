@@ -1,12 +1,12 @@
 ---
 name: Change management
-about: Use this template for planning, coordinating and monitoring activities related to VFS-CMS updates that have a medium to high impact on VA employees. 
+about: Use this template for planning, coordinating and monitoring activities related
+  to VFS-CMS updates that have a medium to high impact on VA employees.
 title: Change management for <insert issue name>
-labels: Needs refining, change management
+labels: Needs refining
 assignees: ContentBrewmaster
 
 ---
-
 
 The change represented by the [epic #] will [copy selection from epic].
  

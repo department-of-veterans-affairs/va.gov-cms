@@ -1,7 +1,7 @@
 ---
 name: next-build Component
 about: Template for collecting info for a next-build component.
-title: "Component: <insert name of component>"
+title: 'Component: <insert name of component>'
 labels: Needs refining
 assignees: ''
 
