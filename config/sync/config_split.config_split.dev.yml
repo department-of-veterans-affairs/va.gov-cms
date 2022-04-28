@@ -10,6 +10,8 @@ folder: ../config/dev
 module:
   devel_generate: 0
   fast404: 0
+  raven: 0
+  syslog: 0
   views_ui: 0
 theme: {  }
 blacklist:
@@ -17,7 +19,7 @@ blacklist:
   - devel.toolbar.settings
   - system.menu.devel
 graylist:
-  - simplesamlphp_auth.settings
   - raven.settings
+  - simplesamlphp_auth.settings
 graylist_dependents: true
 graylist_skip_equal: true
