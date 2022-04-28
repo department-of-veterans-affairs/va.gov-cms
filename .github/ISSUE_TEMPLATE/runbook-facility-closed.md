@@ -74,9 +74,9 @@ If this facility has been removed from VAST in error, please notify our Support 
 - [ ] When redirect is ready to go out, plan to make these changes immediately after redirect is released. Practice first on staging or a demo environment.
   - [ ] CMS engineer bulk archives the facility service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service).
   - [ ] CMS engineer bulk archives the facility non-clinical service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=vha_facility_nonclinical_service).
-  - [ ] CMS engineer finds the menu for the system https://prod.cms.va.gov/admin/structure/menu and deletes the menu item for the closed facility.
   - [ ] CMS engineer filters content by the health care system and scans for any events that might be taking place at that facility. Archive if any are found.
   - [ ] CMS engineer edits the facility node, removes  flag `Removed from source`, add a revision log that explains the change, with a link to github issue, and change moderation state to archive.
+  - [ ] CMS engineer finds the menu for the system https://prod.cms.va.gov/admin/structure/menu and deletes the menu item for the closed facility.
 - [ ] Let HD know this is complete.
 
 #### 3. CMS Help desk
