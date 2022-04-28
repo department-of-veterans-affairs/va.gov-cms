@@ -17,16 +17,16 @@ third_party_settings:
     group_governance:
       children:
         - field_owner
+      label: 'Section settings'
+      region: content
       parent_name: ''
       weight: 3
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: true
-      label: 'Section settings'
-      region: content
 _core:
   default_config_hash: xFJUl0MccoGPEv1eb_I_XnxzjqvZ8M5HA1G3PBtv9IE
 id: media.document.default
@@ -35,32 +35,32 @@ bundle: document
 mode: default
 content:
   field_document:
+    type: file_generic
     weight: 2
+    region: content
     settings:
       progress_indicator: throbber
     third_party_settings: {  }
-    type: file_generic
-    region: content
   field_media_submission_guideline:
-    weight: 0
-    settings: {  }
-    third_party_settings: {  }
     type: markup
+    weight: 0
     region: content
-  field_owner:
-    weight: 3
     settings: {  }
     third_party_settings: {  }
+  field_owner:
     type: options_select
+    weight: 3
     region: content
+    settings: {  }
+    third_party_settings: {  }
   name:
     type: string_textfield
     weight: 1
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    region: content
 hidden:
   created: true
   field_media_in_library: true

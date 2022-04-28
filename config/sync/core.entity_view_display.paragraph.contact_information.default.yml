@@ -20,15 +20,15 @@ third_party_settings:
         - field_contact_default
         - field_benefit_hub_contacts
         - field_additional_contact
+      label: 'Contact information'
       parent_name: ''
+      region: content
       weight: 1
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-      label: 'Contact information'
-      region: content
 id: paragraph.contact_information.default
 targetEntityType: paragraph
 bundle: contact_information
@@ -36,37 +36,37 @@ mode: default
 content:
   field_additional_contact:
     type: entity_reference_revisions_entity_view
-    weight: 4
     label: above
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    weight: 4
     region: content
   field_benefit_hub_contacts:
-    weight: 3
+    type: entity_reference_entity_view
     label: hidden
     settings:
       view_mode: support_services_listing
       link: false
     third_party_settings: {  }
-    type: entity_reference_entity_view
+    weight: 3
     region: content
   field_contact_default:
-    weight: 2
+    type: entity_reference_entity_view
     label: hidden
     settings:
       view_mode: support_services_listing
       link: false
     third_party_settings: {  }
-    type: entity_reference_entity_view
+    weight: 2
     region: content
   field_contact_info_switch:
-    weight: 0
+    type: list_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: list_default
+    weight: 0
     region: content
 hidden:
   field_markup: true

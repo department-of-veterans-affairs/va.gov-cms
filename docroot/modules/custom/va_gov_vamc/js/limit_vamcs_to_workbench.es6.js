@@ -7,7 +7,7 @@
   const adminField = document.getElementById("edit-field-administration");
 
   const checkBoxDivs = document.querySelectorAll(
-    "#edit-field-banner-alert-vamcs-wrapper div.form-type-checkbox"
+    "#edit-field-banner-alert-vamcs div.js-form-type-checkbox"
   );
 
   const selectListSystems = document.querySelectorAll(

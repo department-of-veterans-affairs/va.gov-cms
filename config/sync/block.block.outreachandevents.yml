@@ -18,24 +18,24 @@ plugin: 'system_menu_block:outreach-and-events'
 settings:
   id: 'system_menu_block:outreach-and-events'
   label: 'Outreach and events'
-  provider: system
   label_display: visible
+  provider: system
   level: 2
   depth: 0
   expand_all_items: false
 visibility:
   'entity_bundle:node':
     id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
     bundles:
       event: event
       event_listing: event_listing
       office: office
       publication_listing: publication_listing
-    negate: false
-    context_mapping:
-      node: '@node.node_route_context:node'
   request_path:
     id: request_path
-    pages: '/outreac*'
     negate: false
     context_mapping: {  }
+    pages: '/outreac*'

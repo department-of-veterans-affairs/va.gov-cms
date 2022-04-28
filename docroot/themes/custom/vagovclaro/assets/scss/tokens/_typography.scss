@@ -1,0 +1,55 @@
+:root {
+  --va-display-xl: 48px;
+  --va-display-l: 40px;
+  --va-display-m: 32px;
+  --va-display-s: 24px;
+  --va-subsection-s: 18px;
+  --va-subsection-xs: 15px;
+  --va-text: 18px;
+  --va-helptext: 13px;
+
+  // claro override
+  --input-font-size: var(--va-text);
+}
+
+@mixin va-section-heading {
+  font-family: var(--font-family-sans);
+  font-size: var(--va-display-m);
+  font-weight: 600;
+  line-height: var(--line-height-heading);
+}
+
+@mixin va-subsection-heading {
+  font-family: var(--font-family-sans);
+  font-size: var(--va-display-s);
+  font-weight: 600;
+  line-height: var(--line-height-heading);
+}
+
+@mixin va-subsection-label {
+  font-family: var(--font-family-sans);
+  font-size: var(--va-subsection-s);
+  font-weight: 600;
+  line-height: var(--line-height-heading);
+}
+
+@mixin va-label {
+  font-family: var(--font-family-sans);
+  font-size: var(--va-subsection-xs);
+  font-weight: 600;
+  line-height: var(--line-height-form-label);
+}
+
+@mixin va-input-text {
+  font-family: var(--font-family-sans);
+  font-size: var(--va-text);
+  font-weight: 400;
+  line-height: var(--line-height);
+}
+
+@mixin va-helptext {
+  font-family: var(--font-family-sans);
+  font-size: var(--va-helptext);
+  font-weight: 400;
+  line-height: var(--line-height);
+}

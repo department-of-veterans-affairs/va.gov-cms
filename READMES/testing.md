@@ -55,7 +55,7 @@ There are 4 main types of tests:
 
     See the [hooks/pre-commit file](../hooks/pre-commit) for the exact
     command run before git commit.
-    
+
     Each static test should also be run by a corresponding [Github action](https://docs.github.com/en/actions) and block PR merges on failure. Github actions are added and edited in the [Github workflows directory](../.github/workflows). When adding a new Github action, our preferred process to minimize technical debt and maintenance is the following:
     1. When possible, use a well-supported action from the open-source community. The [reviewdog](https://github.com/reviewdog) organization on Github is often a good place to start looking.
     1. If the action cannot meet our requirements without modifications, resolve in this order:
@@ -75,10 +75,7 @@ There are 4 main types of tests:
 
 1.  **WEB Integration Tests**
 
-    1. `va/web/build` - Build the front-end from the current site. (Alias for
-       `composer va:web:build`).
-    1. `va/web/unit` - Run the front-end unit tests. (Not yet merged. See
-       [PR547](https://github.com/department-of-veterans-affairs/va.gov-cms/pull/547))
+    1. Behat Decoupled.feature runs a content build and test for content changes.
 
     The long term goal is to run _all_ of the **WEB** project's tests in our
     test
@@ -143,7 +140,7 @@ There are 4 main types of tests:
           the Drupal site by generating Gherkin Feature files. See
           [tests/behat/drupal-spec-tool](../tests/behat/drupal-spec-tool/) folder
           for all of the tests and more information on managing the Drupal Spec
-          Tool and [VA's Spec tool doc here](https://docs.google.com/spreadsheets/d/1vL8rqLqcEVfESnJJK_GWQ7nf3BPe4SSevYYblisBTOI/edit#gid=624373408).
+          Tool and [VA's Spec tool doc here](https://airtable.com/invite/l?inviteId=invOjKEIyZCQY5YRy&inviteToken=eea85291ef1cd72ce9560c5a833a18673ef10a92050f9210e878702e81ec49b3&utm_source=email).
 
        Run a specific behat test with the `--name` or `--tags` options:
 
@@ -151,12 +148,12 @@ There are 4 main types of tests:
        lando behat --tags=dst
        ```
 
-    1. `va/tests/behavioral` - The [Cypress](https://github.com/cypress-io/cypress) behavioral test suite includes end-to-end logged out tests.
+    1. `va/tests/cypress` - The [Cypress](https://github.com/cypress-io/cypress) test suite includes end-to-end behavioral and accessibility tests.
 
        To run and debug cypress tests in a web UI, run the following commands from the project root on your local machine (not within lando):
 
        ```
-       npm i && cd tests/behavioral && ../../node_modules/.bin/cypress open
+       npm run test:cypress:interactive
        ```
 
        You will see a window with a list of tests. Just click on the name of any test to run it within a browser.
@@ -321,11 +318,11 @@ Whether these third party libraries are secure involves multiple factors (and ha
 PHPStan performs static analysis on the codebase and reports issues such as references to unknown/undeclared properties, incorrect argument types in function calls, functions that are too long or too complex, etc.
 
 ### Magic Properties and Other Annoyances
-Developing with Drupal idiomatically tends to conflict with PHPStan.  
+Developing with Drupal idiomatically tends to conflict with PHPStan.
 
 For instance, you might type code like `$node->field_address->zip_code`.  If `$node` is declared as or implied to be a `\Drupal\node\Entity\Node` object, then PHPStan will look for a property named `$field_address` on `\Drupal\node\Entity\Node`.  `$node` might also be interpreted as `\Drupal\node\NodeInterface`, or `\Drupal\Core\Entity\EntityInterface`, or any of several other interfaces.  But functionality for accessing fields via constructs like `$node->field_address` is implemented via "magic properties," to which PHPStan does not and cannot have access.  As a consequence, PHPStan will view the use of these magic properties as errors.
 
-To permit both idiomatic Drupaling and good static analysis, we simply whitelist errors that arise from this sort of use.  
+To permit both idiomatic Drupaling and good static analysis, we simply whitelist errors that arise from this sort of use.
 
 This can be done by adding new expressions to the `parameters.ignoreErrors` array in [phpstan.neon](../phpstan.neon).
 

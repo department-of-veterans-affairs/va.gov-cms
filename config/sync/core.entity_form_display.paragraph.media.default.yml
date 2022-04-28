@@ -16,24 +16,24 @@ bundle: media
 mode: default
 content:
   field_allow_clicks_on_this_image:
+    type: boolean_checkbox
     weight: 2
+    region: content
     settings:
       display_label: true
     third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
   field_markup:
+    type: markup
     weight: 0
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: markup
-    region: content
   field_media:
     type: media_library_widget
     weight: 1
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
 hidden:
   created: true
   status: true

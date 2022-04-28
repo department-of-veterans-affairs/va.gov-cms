@@ -10,6 +10,7 @@
 1. [Updates](#updates)
     1. [Updating Drupal/Lightning](#updating-lightning)
     1. [Updating Contrib Modules](#updating-contrib-modules)
+1.  [Module Uninstal / Removal](#module-removal--uninstall)
 
 ## Project
 1. Pull a ticket, move to 'In Development'
@@ -95,12 +96,9 @@ If your composer.lock ends up with a conflict due to incoming changes, these ste
 ## Drupal SpecTool
 
 * We use the [Drupal SpecTool](https://github.com/acquia/drupal-spec-tool) to keep track of config changes, and generate tests related to roles, content types, fields, menus views.
-* If you are modifying configuration of roles, content types, fields, menus views, Go update the appropritate tab(s) in our version of the [SpecTool](https://docs.google.com/spreadsheets/d/1vL8rqLqcEVfESnJJK_GWQ7nf3BPe4SSevYYblisBTOI/edit?usp=sharing).
-* Keep the Bundles and Fields tab sorted with the following columns:
-  1. Entity label (eg first "Content type", then "Custom block type", etc.).
-  2. Bundle label (eg first "Benefits detail page", then "Benefits hub landing page", etc.).
-  3. Field label (for the Fields tab, eg first "Alert", then "Featured content", then "Main content").
-* Once all the modifications are made to the appropriate tab(s) and cell(s) go to the [Behat](https://docs.google.com/spreadsheets/d/1vL8rqLqcEVfESnJJK_GWQ7nf3BPe4SSevYYblisBTOI/edit#gid=624373408) tab and copy the cell with the tests that would have changed based on what you changed.
+* If you are modifying configuration of roles, content types, fields, menus views, Go update the appropritate tab(s) in our version of the [SpecTool](https://airtable.com/invite/l?inviteId=invOjKEIyZCQY5YRy&inviteToken=eea85291ef1cd72ce9560c5a833a18673ef10a92050f9210e878702e81ec49b3&utm_source=email).
+* Edit the 'Data used in Behat test' view for the appropriate tables
+* Once all the modifications are made to the appropriate table(s), click on the "Apps" link in the top right corner and choose 'Behat Tests' from the dashbaord selector. Click the 'run' button and follow the prompts to generate the test you need, then copy the output to your clipboard.
 * Open the related file in [/tests/behat/drupal/drupal-spec-tool/](../tests/behat/drupal/drupal-spec-too/)
 * Delete all the existing text in the file and paste in what you copied from the SpecTool.  (Do not format the output in any way. Disable any Behat beautifier plugins.)
 * After updating config, run `lando behat --tags=spec` to run just the spec tool tests. Discrepancies between code and config will be reflected in test output
@@ -148,5 +146,34 @@ This will show you what is to change, without actually changing anything.
 3. `lando drush cache:rebuild`
 4. `lando test` to make sure nothing broke.
 5. Commit your work, e.g. `git commit --message "lando composer update drupal/MODULE_NAME --with-dependencies"`
+
+## Module Removal / Uninstall
+
+```mermaid
+flowchart TD
+  A[Module removal] --> B{Is the module installed?}
+  B -- Yes --> D[Needs a full uninstall.];
+  B -- NO --> C[Create and merge PR that removes module from composer.];
+  D --> E[Create PR with hook_update_N in va_gov_db.install AND Drupal config removal. ];
+  E --> F[Wait until PR makes it to CMS Prod.];
+  F --> C;
+  C --> Z[Process complete];
+```
+In va_gov_db.install we use this pattern to uninstall a module.
+
+```php
+/**
+ * Uninstall moduile name module.
+ */
+function va_gov_db_update_9099(&$sandbox) {
+  $messages = _va_gov_db_uninstall_modules(['module_machine_name']);
+
+  return $messages;
+}
+```
+
+Since our deploy process runs update db before config import this allows for the
+module to be uninstalled and then config changes/removals flow as they should.
+
 
 [Table of Contents](../README.md)

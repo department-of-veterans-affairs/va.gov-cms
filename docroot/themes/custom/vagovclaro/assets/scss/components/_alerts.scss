@@ -1,57 +1,10 @@
-//drupal alert styles
-.va-alert {
-  border-left-style: solid;
-  border-left-width: 10px;
-  box-sizing: border-box;
-  color: var(--color-text);
-  padding: var(--space-l) var(--space-l) var(--space-l) var(--space-s);
-  vertical-align: middle;
-  width: 100%;
-}
-
-.va-alert.messages--warning {
-  background-color: var(--color-warning-bg);
-  border-color: var(--color-warning);
-}
-
-.va-alert.messages--warning a {
-  background-color: var(--color-warning-bg);
-  color: var(--color-warning);
-}
-
-.va-alert.messages--success {
-  background-color: var(--color-success-bg);
-  border-color: var(--color-success);
-}
-
-.va-alert.messages--success a {
-  background-color: var(--color-success-bg);
-  color: var(--color-success);
-}
-
-.va-alert.messages--error {
-  background-color: var(--color-error-bg);
-  border-color: var(--color-error);
-}
-
-.va-alert.messages--error a {
-  background-color: var(--color-error-bg);
-  color: var(--color-error);
-}
-
-.va-alert.messages--status {
-  background-color: var(--color-status-bg);
-  border-color: var(--color-status);
-}
-
-.va-alert.messages--status a {
-  background-color: var(--color-status-bg);
-  color: var(--color-status);
+.messages {
+  margin-top: 0;
 }
 
 .messages-list {
   margin-bottom: var(--space-m);
-  margin-top: var(--space-m);
+  margin-top: 0;
 }
 
 // node link report tweaks
@@ -61,6 +14,27 @@
   width: 90%;
 }
 
+// hide default alert icons in favor of the toggle
+.node-link-report-list .va-alert::before {
+  display: none;
+}
+
+.node-link-report-list .va-alert .messages__header {
+  display: flex;
+}
+
 .node-link-report-list .messages__header {
+  background: unset;
   margin-bottom: 0;
+
+  @include alert-icon("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3e%3cpath d='M5.21 1.314L3.79 2.723l5.302 5.353-5.303 5.354 1.422 1.408 6.697-6.762z' fill='%23212121'/%3e%3c/svg%3e");
+
+  &::before {
+    left: 0;
+    transition: transform var(--details-transform-transition-duration) ease-in 0s;
+  }
+}
+
+.node-link-report-list .js-form-wrapper[open] .messages__header::before {
+  transform: rotate(90deg);
 }

@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_backend\Service;
 
 use Drupal\Core\Site\Settings;
+use Drupal\core_event_dispatcher\CoreHookEvents;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\prometheus_exporter\MetricsCollectorManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -53,7 +54,7 @@ class Metrics implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents(): array {
     return [
-      HookEventDispatcherInterface::CRON => 'updateDatadog',
+      CoreHookEvents::CRON => 'updateDatadog',
     ];
   }
 
@@ -80,7 +81,7 @@ class Metrics implements EventSubscriberInterface {
    *   Whether or not metrics should be sent to datadog.
    */
   protected function shouldSendMetrics(): bool {
-    $env_is_brd = $this->settings->get('va_gov_frontend_build_type') == "brdgha";
+    $env_is_brd = $this->settings->get('va_gov_frontend_build_type') == "brd";
     $override_present = $this->settings->get('va_gov_force_sending_metrics', FALSE);
 
     return $env_is_brd || $override_present;
@@ -92,7 +93,7 @@ class Metrics implements EventSubscriberInterface {
   protected function getEnvironment(): string {
     // @todo This should probably use a different setting.
     switch ($this->settings->get('va_gov_frontend_build_type')) {
-      case "brdgha":
+      case "brd":
         return $this->settings->get('github_actions_deploy_env', 'unknown');
 
       case "lando":

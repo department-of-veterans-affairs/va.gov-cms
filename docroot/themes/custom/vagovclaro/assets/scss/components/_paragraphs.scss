@@ -30,6 +30,15 @@
   margin-right: 1rem;
 }
 
+.paragraph-type-top .paragraphs-dropbutton-wrapper input {
+  margin-top: 0;
+}
+
+// align top-level paragraph field dropdown with individual paragraphs dropdowns
+.js .field--widget-paragraphs th .paragraphs-actions {
+  margin-right: calc(var(--spacing-m) * -1);
+}
+
 .paragraphs-browser-paragraph-type {
   margin-bottom: 3rem;
 }
@@ -45,4 +54,66 @@
 // adjust focus state for items in paragraph dropdown. !important to beat core/themes/claro/css/components/button.css
 .paragraphs-dropdown-action.button:focus {
   border: 2px solid var(--color-focus) !important;
+}
+
+// Adjust spacing for paragraphs button containers.
+.js .field--widget-paragraphs {
+  .paragraphs-add-wrapper {
+    margin: 0;
+    padding: 0;
+
+    .form-type--select {
+      margin: 0;
+    }
+  }
+
+  .js-filter-wrapper {
+    margin-bottom: 0;
+  }
+
+  .button--small {
+    margin-top: 0;
+  }
+
+  .js-text-full,
+  .form-actions {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+}
+
+// truncated paragraph descriptions use a shim to fade to white. our bg isn't white.
+.js .draggable:hover .paragraphs-collapsed-description::after {
+  background: linear-gradient(to right, rgba(247, 252, 255, 0) 0%, var(--va-blue-light) 100%);
+}
+
+// fix spacing for link teaser paragraphs on all screen sizes
+.paragraph-type--link-teaser {
+  fieldset {
+    border: unset;
+    box-shadow: unset;
+    margin: 0;
+  }
+
+  .fieldset__label {
+    padding: 0;
+  }
+
+  .fieldset__wrapper {
+    margin: 0;
+  }
+
+  .form-element--type-text {
+    width: 100%;
+  }
+
+  .paragraphs-subform {
+    margin-right: var(--space-l);
+  }
+
+  &:hover {
+    fieldset {
+      background-color: var(--color-bgblue-hover);
+    }
+  }
 }

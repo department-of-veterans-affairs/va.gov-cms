@@ -15,40 +15,40 @@ bundle: checklist_item
 mode: default
 content:
   field_checklist_items:
+    type: string_textfield
     weight: 2
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_section_header:
+    type: string_textfield_with_counter
     weight: 0
+    region: content
     settings:
       size: 70
       placeholder: ''
+      use_field_maxlength: false
       maxlength: 70
       counter_position: after
       js_prevent_submit: true
       count_html_characters: true
       textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
-      use_field_maxlength: false
     third_party_settings: {  }
-    type: string_textfield_with_counter
-    region: content
   field_section_intro:
+    type: string_textarea_with_counter
     weight: 1
+    region: content
     settings:
       rows: 5
       placeholder: ''
       maxlength: 300
       counter_position: after
       js_prevent_submit: true
-      textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
       count_html_characters: false
+      textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
-    type: string_textarea_with_counter
-    region: content
 hidden:
   created: true
   status: true

@@ -1,12 +1,13 @@
 name: va-gov-cms
 type: drupal9
 docroot: docroot
-php_version: "7.3"
+php_version: "7.4"
 webserver_type: nginx-fpm
 router_http_port: "80"
 router_https_port: "443"
 xdebug_enabled: false
-additional_hostnames: []
+additional_hostnames:
+  - "va-gov-storybook"
 additional_fqdns: []
 mariadb_version: "10.3"
 mysql_version: ""
@@ -31,6 +32,7 @@ web_environment:
   - CMS_MARIADB_USERNAME=db
   - CMS_MARIADB_PASSWORD=db
   - CMS_MARIADB_HOST=db
+  - CYPRESS_TAGS=\"not @ignore and not @piv\"
 webimage_extra_packages:
   - build-essential
   - chrpath
@@ -58,4 +60,5 @@ hooks:
   post-start:
     - exec: ./scripts/install_task_runner.sh
     - composer: install
+    - composer: va:theme:compile
     - composer: va:web:install

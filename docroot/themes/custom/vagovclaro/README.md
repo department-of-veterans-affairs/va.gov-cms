@@ -1,52 +1,42 @@
-# vagovclaro (updated drupal admin theme)
+# VAgovClaro
 
-**!! this updated admin theme is currently a work in progress. things subject to change with little notice !!**
-**this is fine because it is not enabled by default, no editors are aware this theme exists. this is a safe space to move fast**
+This is the new CMS admin theme for editors entering content for VA.gov.
 
-## context
+It is based on Drupal Core's Claro theme.
 
-- we are building on Drupal's Claro theme, pulling in & updating existing templates from vagovadmin.
-- initial buildout will be mostly a 1:1 copy with necessary updates
-- update to new tokens etc. when they are defined by design
-- pattern lab?
+## Local Development
+### Sass
+Composer commands have been added to the root composer.json for compiling and watching theme assets. Run these prefixed
+with `ddev` or `lando` to run inside your local development container.
+- `composer va:theme:compile` will compile all theme assets. For core & all custom themes.
+- `composer va:theme:watch` will run `yarn watch` to watch vagovclaro styles. Changing any scss file will trigger
+a recompile & a clear of drupal caches. Reload your browser to see your changes.
 
+Local commands:
+- `yarn install` in this directory which contains a gulp workflow for sass, similar to the existing vagovadmin theme.
+- `yarn build` to build the compiled css for higher environments. These files are .gitignored, and get compiled as part of the normal CI build process.
+- `yarn watch` to watch & recompile during local development. drupal caches are cleared as part of this.
 
-MVP TO TURN ON FOR EDITORS:
-- login page with SSO
-- knowledge base
-- some level of VA branding. logo on login, color scheme, etc.
-- feature parity with existing theme in terms of form functionality.
+When including images in css rules, routes should be relative from the compiled css destination (`vagovclaro/dist/`)
 
-## local development
-`npm install` in this directory, the lando js workflow (`lando npm run build:js` or `lando npm run watch:js`) will build
-and transpile js to drupal specs but does not touch css styles at all. this directory contains a gulp workflow, similar to
-the existing vagovadmin theme. you need to run gulp separately in order to keep styles updated.
+### Javascript
+The javascript workflow is still controlled by npm commands found in the repo's top-level package.json.
+Running `npm run build:js` from that package.json will build and transpile javascript across the project. Both lando and
+ddev have mappings for the top-level package.json, so `ddev npm run build:js` will do what you need.
 
-`npm run build` to build the compiled css for higher environments (this needs to be committed)
-
-`npm run build:watch` to watch & recompile during local development
+If you add new javascript to an `*.es6.js` file in  `/assets/js`, you need to run the build command in order to
+correctly transpile for all browsers.
 
 ## sass structure
-files beginning with an _ should be included into the larger `styles.scss` file to ensure styles are compiled
-files without an _ are compiled as standalone files (for smaller stylesheets included as part of a drupal library or ckeditor)
+Files beginning with an _ should be included into the larger `styles.scss` file to ensure styles are compiled.
+Files without an _ are compiled as standalone files (for smaller stylesheets included as part of a separate Drupal library or ckeditor)
 
 ### CSS Properties
 Instead of using Sass variables (`$color-foo`) we are using CSS Properties (`var(--color-foo)`). This is because we are
-leveraging Claro's (`patches/claro-css-tweaks.patch`). Our theme loads its stylesheets after claro has loaded.
-this gives us the ability to override variables set by claro and filter down, without targeting hyperspecific selectors
+leveraging Claro's (`patches/claro-css-tweaks.patch`). Our theme loads its stylesheets after Claro has loaded.
+This gives us the ability to override variables set by Claro and filter down, without targeting hyperspecific selectors
 in order to override (may still be necessary in cases).
 
-**sass variables do not compile into css variables!**
-```scss
-$color-white: #fff;
---color-white: $color-white;
-
-body {
-  background-color: var(--color-white);
-}
-```
-that will not work! the browser has no idea what the sass variable is. skip the sass variable and use
-the ones provided by core & claro. create new ones as necessary.
-
 `:root {}` level variables should be set in `assets/scss/tokens/_variables.scss`. This will ensure they
-are available to all elements.
+are available to all elements. Variables can be still be overridden on a component basis, if necessary. This may
+become more common as we begin implementing the new design system beyond recoloring Claro.

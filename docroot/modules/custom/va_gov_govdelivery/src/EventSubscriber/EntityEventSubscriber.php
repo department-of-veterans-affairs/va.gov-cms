@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_govdelivery\EventSubscriber;
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\AbstractEntityEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\node\NodeInterface;
@@ -36,8 +37,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents() : array {
     return [
-      HookEventDispatcherInterface::ENTITY_INSERT => 'handleEntityUpsert',
-      HookEventDispatcherInterface::ENTITY_UPDATE => 'handleEntityUpsert',
+      EntityHookEvents::ENTITY_INSERT => 'handleEntityUpsert',
+      EntityHookEvents::ENTITY_UPDATE => 'handleEntityUpsert',
     ];
   }
 

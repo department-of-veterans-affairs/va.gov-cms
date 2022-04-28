@@ -1,0 +1,40 @@
+
+<div style="margin: 0 auto;">
+  <h2>Spacing</h2>
+  <p>These values can be used for margin, padding, or any other rule that accepts rem-based values.</p>
+  <code>
+    padding: var(--spacing-m);
+  </code>
+  <code style="display: block;">
+    margin: var(--spacing-l);
+  </code>
+  <hr>
+
+  <div class="swatches">
+    <div>
+      <h3>Values</h3>
+      {% for name, value in vars %}
+        <div class="spacer" style="padding: {{ value }}; margin-bottom: {{ value }}">
+          <p>{{ name }}</p>
+          <p>{{ value }}</p>
+          <p>padding + margin</p>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div>
+      <h3>Margin</h3>
+      {% for name, value in vars %}
+        <div class="spacer" style="padding: 1rem; margin-bottom: {{ value }};">margin-bottom: {{ value }}</div>
+      {% endfor %}
+        <div class="spacer" style="padding: 1rem;"></div>
+    </div>
+
+    <div>
+      <h3>Padding</h3>
+      {% for name, value in vars %}
+        <div class="spacer" style="margin-bottom: 1rem; padding-bottom: {{ value }}">padding-bottom: {{ value }}</div>
+      {% endfor %}
+    </div>
+  </div>
+</div>

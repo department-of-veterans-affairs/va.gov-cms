@@ -42,12 +42,11 @@ Editor-centered
 - [ ] `Empowering`: Provide clear information to help editors make decisions about their work.
 
 ### CMS Team
+Please check the team(s) that will do this work.
 
-Please leave only the team that will do this work selected.
-- [x] `Platform CMS Team`
-- [x] `Sitewide CMS Team`
-  - [ ] `⭐️ Content ops`
-  - [ ] `⭐️ CMS experience`
-  - [ ] `⭐️ Offices`
-  - [ ] `⭐️ Product support`
-  - [ ] `⭐️ User support`
+- [ ] `Platform CMS Team`
+- [ ] `Sitewide program`
+- [ ] `⭐️ Sitewide CMS`
+- [ ] `⭐️ Public websites`
+- [ ] `⭐️ Facilities`
+- [ ] `⭐️ User support`

@@ -3,6 +3,8 @@
 namespace Drupal\va_gov_vet_center\EventSubscriber;
 
 use Drupal\Component\Render\FormattableMarkup;
+use Drupal\core_event_dispatcher\EntityHookEvents;
+use Drupal\core_event_dispatcher\FormHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
@@ -73,12 +75,56 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Alterations to Vet center nearby locations edit form.
+   * {@inheritdoc}
+   */
+  public static function getSubscribedEvents(): array {
+    return [
+      EntityHookEvents::ENTITY_INSERT => 'entityInsert',
+      EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
+      FormHookEvents::FORM_ALTER => 'formAlter',
+      'hook_event_dispatcher.form_node_vet_center_locations_list_form.alter' => 'alterVetCenterLocationsListNodeForm',
+      'hook_event_dispatcher.form_node_vet_center_locations_list_edit_form.alter' => 'alterVetCenterLocationsListNodeForm',
+      'hook_event_dispatcher.form_node_vet_center_mobile_vet_center_form.alter' => 'alterVetCenterMvcNodeForm',
+      'hook_event_dispatcher.form_node_vet_center_mobile_vet_center_edit_form.alter' => 'alterVetCenterMvcNodeForm',
+      'hook_event_dispatcher.form_node_vet_center_outstation_form.alter' => 'alterVetCenterOutstationNodeForm',
+      'hook_event_dispatcher.form_node_vet_center_outstation_edit_form.alter' => 'alterVetCenterOutstationNodeForm',
+      'hook_event_dispatcher.form_node_vet_center_form.alter' => 'alterVetCenterNodeForm',
+      'hook_event_dispatcher.form_node_vet_center_edit_form.alter' => 'alterVetCenterNodeForm',
+
+    ];
+  }
+
+  /**
+   * Alterations to Vet center MVC node form.
    *
    * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
    *   The event.
    */
-  public function alterVetCenterLocationsListNodeEditForm(FormIdAlterEvent $event): void {
+  public function alterVetCenterMvcNodeForm(FormIdAlterEvent $event): void {
+    $form = &$event->getForm();
+    $form['#attached']['library'][] = 'va_gov_vet_center/limit_vet_service_selections';
+  }
+
+  /**
+   * Alterations to Vet center outstation node form.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function alterVetCenterOutstationNodeForm(FormIdAlterEvent $event): void {
+    $form = &$event->getForm();
+    $form['#attached']['library'][] = 'va_gov_vet_center/limit_vet_service_selections';
+  }
+
+  /**
+   * Alterations to Vet center nearby locations node form.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function alterVetCenterLocationsListNodeForm(FormIdAlterEvent $event): void {
+    $form = &$event->getForm();
+    $form['#attached']['library'][] = 'va_gov_vet_center/limit_vet_service_selections';
     $this->buildNearbyVCandOutStationFieldsetContent($event);
   }
 
@@ -306,6 +352,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public function alterVetCenterNodeForm(FormIdAlterEvent $event): void {
     $form = &$event->getForm();
     $form_state = $event->getFormState();
+    $form['#attached']['library'][] = 'va_gov_vet_center/set_ief_service_selects';
     $this->modifyIefServicesFormDisplay($form, $form_state);
     $this->disableNameFieldForNonAdmins($form);
   }
@@ -343,7 +390,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
         foreach ($keys as $key) {
           $entity = &$form['field_health_services']['widget']['entities'][$key];
           $entity['#markup'] = $this->t('Optional');
-          if ($this->checkIfServiceRequired($entity['#label'])) {
+          if (array_key_exists('#label', $entity) && $this->checkIfServiceRequired($entity['#label'])) {
             unset($entity['actions']['ief_entity_remove']);
             $entity['#markup'] = $this->t('Required');
           }
@@ -375,21 +422,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     }
     $service_cleaned = explode(' - ', $service)[1];
     return in_array($service_cleaned, $required_services);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getSubscribedEvents(): array {
-    return [
-      HookEventDispatcherInterface::ENTITY_INSERT => 'entityInsert',
-      HookEventDispatcherInterface::ENTITY_UPDATE => 'entityUpdate',
-      HookEventDispatcherInterface::FORM_ALTER => 'formAlter',
-      'hook_event_dispatcher.form_node_vet_center_locations_list_edit_form.alter' => 'alterVetCenterLocationsListNodeEditForm',
-      'hook_event_dispatcher.form_node_vet_center_form.alter' => 'alterVetCenterNodeForm',
-      'hook_event_dispatcher.form_node_vet_center_edit_form.alter' => 'alterVetCenterNodeForm',
-
-    ];
   }
 
 }

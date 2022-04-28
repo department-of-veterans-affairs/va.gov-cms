@@ -17,20 +17,20 @@ plugin: va_gov_workflow_assignments_meta
 settings:
   id: va_gov_workflow_assignments_meta
   label: 'Entity Meta Display'
-  provider: va_gov_workflow_assignments
   label_display: '0'
+  provider: va_gov_workflow_assignments
   context_mapping:
     node: '@node.node_route_context:node'
 visibility:
   request_path:
     id: request_path
-    pages: "/node/*/edit\r\n/node/*/delete\r\n/node/add/*\r\n/help\r\n/help*\r\n"
     negate: true
     context_mapping: {  }
+    pages: "/node/*/edit\r\n/node/*/delete\r\n/node/add/*\r\n/help\r\n/help*\r\n"
   user_role:
     id: user_role
-    roles:
-      authenticated: authenticated
     negate: false
     context_mapping:
       user: '@user.current_user_context:current_user'
+    roles:
+      authenticated: authenticated

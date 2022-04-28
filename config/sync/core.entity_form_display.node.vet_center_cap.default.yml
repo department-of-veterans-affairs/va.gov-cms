@@ -29,153 +29,153 @@ third_party_settings:
     group_governance:
       children:
         - field_administration
+      label: 'Section settings'
+      region: content
       parent_name: ''
       weight: 6
       format_type: details_sidebar
-      region: content
       format_settings:
-        id: ''
         classes: ''
-        description: ''
+        id: ''
         open: true
+        description: ''
         required_fields: true
         weight: 0
-      label: 'Section settings'
     group_editorial_workflow:
       children:
         - moderation_state
         - revision_log
+      label: 'Editorial workflow'
+      region: content
       parent_name: ''
       weight: 5
       format_type: fieldset
-      region: content
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: true
-      label: 'Editorial workflow'
     group_fac:
       children:
         - field_office
         - field_geographical_identifier
+      label: 'Facility name'
+      region: content
       parent_name: ''
       weight: 1
       format_type: fieldset
-      region: content
       format_settings:
-        description: 'First, select the main location, then give the CAP a name that helps Veterans distinguish it from other locations.'
-        required_fields: true
-        id: facility-name
         classes: ''
         show_empty_fields: false
-      label: 'Facility name'
+        id: facility-name
+        description: 'First, select the main location, then give the CAP a name that helps Veterans distinguish it from other locations.'
+        required_fields: true
     group_locations_and_contact_info:
       children:
         - field_address
         - field_vetcenter_cap_hours_opt_in
         - field_office_hours
+      label: 'Location and hours'
+      region: content
       parent_name: ''
       weight: 3
       format_type: fieldset
-      region: content
       format_settings:
-        description: ''
-        required_fields: true
-        id: locations-and-hours
         classes: ''
         show_empty_fields: false
-      label: 'Location and hours'
+        id: locations-and-hours
+        description: ''
+        required_fields: true
     group_operating_status:
       children:
         - field_operating_status_facility
         - field_operating_status_more_info
+      label: 'Operating status'
+      region: content
       parent_name: ''
       weight: 2
       format_type: fieldset
-      region: content
       format_settings:
-        description: ''
-        required_fields: true
-        id: operating-status
         classes: ''
         show_empty_fields: false
-      label: 'Operating status'
+        id: operating-status
+        description: ''
+        required_fields: true
 id: node.vet_center_cap.default
 targetEntityType: node
 bundle: vet_center_cap
 mode: default
 content:
   field_address:
-    weight: 3
-    settings: {  }
-    third_party_settings: {  }
     type: address_default
+    weight: 3
     region: content
-  field_administration:
-    weight: 2
     settings: {  }
     third_party_settings: {  }
+  field_administration:
     type: options_select
+    weight: 2
     region: content
+    settings: {  }
+    third_party_settings: {  }
   field_geographical_identifier:
+    type: string_textfield
     weight: 3
+    region: content
     settings:
       size: 70
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_media:
+    type: media_library_widget
     weight: 4
+    region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
-    type: media_library_widget
-    region: content
   field_office:
+    type: options_select
     weight: 2
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   field_office_hours:
-    weight: 5
-    settings: {  }
-    third_party_settings: {  }
     type: office_hours_default
+    weight: 5
     region: content
-  field_operating_status_facility:
-    weight: 7
     settings: {  }
     third_party_settings: {  }
+  field_operating_status_facility:
     type: options_select
+    weight: 7
     region: content
+    settings: {  }
+    third_party_settings: {  }
   field_operating_status_more_info:
+    type: string_textarea_with_counter
     weight: 8
+    region: content
     settings:
       rows: 5
       placeholder: ''
       maxlength: 300
       counter_position: after
       js_prevent_submit: true
-      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
       count_html_characters: true
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
-    type: string_textarea_with_counter
-    region: content
   field_table_of_contents:
-    weight: 0
-    settings: {  }
-    third_party_settings: {  }
     type: markup
+    weight: 0
     region: content
-  field_vetcenter_cap_hours_opt_in:
-    weight: 4
     settings: {  }
     third_party_settings: {  }
+  field_vetcenter_cap_hours_opt_in:
     type: options_buttons
+    weight: 4
     region: content
+    settings: {  }
+    third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
     weight: 0

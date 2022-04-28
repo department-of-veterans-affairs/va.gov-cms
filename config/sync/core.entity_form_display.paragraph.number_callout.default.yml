@@ -14,7 +14,9 @@ bundle: number_callout
 mode: default
 content:
   field_short_phrase_with_a_number:
+    type: string_textfield_with_counter
     weight: 0
+    region: content
     settings:
       size: 60
       placeholder: ''
@@ -25,10 +27,10 @@ content:
       count_html_characters: true
       textcount_status_message: 'Maxlength: <span class="maxlength_count">@maxlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
-    type: string_textfield_with_counter
-    region: content
   field_wysiwyg:
+    type: text_textarea_with_counter
     weight: 1
+    region: content
     settings:
       rows: 5
       placeholder: ''
@@ -38,8 +40,6 @@ content:
       count_html_characters: true
       textcount_status_message: 'Maxlength: <span class="maxlength_count">@maxlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
-    type: text_textarea_with_counter
-    region: content
 hidden:
   created: true
   status: true

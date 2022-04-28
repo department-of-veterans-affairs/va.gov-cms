@@ -55,15 +55,18 @@ class PostFacilityService extends PostFacilityBase {
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   Entity.
+   * @param bool $forcePush
+   *   Processing forced by referenced system service.
    *
    * @return int
    *   The count of the number of items queued (1,0).
    */
-  public function queueFacilityService(EntityInterface $entity) {
+  public function queueFacilityService(EntityInterface $entity, bool $forcePush = FALSE) {
     $this->errors = [];
     if (($entity->getEntityTypeId() === 'node') && ($entity->bundle() === 'health_care_local_health_service')) {
       // This is an appropriate service so begin gathering data to process.
       $this->facilityService = $entity;
+
       // Many service details do not reside with the facility service node.
       // They must be derived from the facility and system service nodes
       // and the health service taxonomy.
@@ -77,7 +80,7 @@ class PostFacilityService extends PostFacilityBase {
         $data['uid'] = "facility_service_{$this->Facility->id()}_{$this->facilityService->id()}";
         $facilityApiId = $this->Facility->hasField('field_facility_locator_api_id') ? $this->Facility->get('field_facility_locator_api_id')->value : NULL;
         $data['endpoint_path'] = ($facilityApiId) ? "/services/va_facilities/v0/facilities/{$facilityApiId}/cms-overlay" : NULL;
-        $data['payload'] = $this->getPayload();
+        $data['payload'] = $this->getPayload($forcePush);
 
         // Only add to queue if payload is not empty.
         // If its empty, it means that there is no new information to send to
@@ -103,16 +106,102 @@ class PostFacilityService extends PostFacilityBase {
   }
 
   /**
+   * Adds facility service data to Post API queue by term.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   Entity.
+   *
+   * @return int
+   *   The count of the number of items queued.
+   */
+  public function queueServiceTermRelatedServices(EntityInterface $entity) {
+    $queued_count = 0;
+    if (($entity->getEntityTypeId() === 'taxonomy_term') && ($entity->bundle() === 'health_care_service_taxonomy')) {
+      // Find all VAMC System Health Services referencing this term.
+      $query = $this->entityTypeManager->getStorage('node')->getQuery();
+      $result = $query->condition('type', 'regional_health_care_service_des')
+        ->condition('field_service_name_and_descripti', $entity->id())
+        ->condition('status', 1)
+        ->execute();
+
+      if (!empty($result)) {
+        try {
+          $total = count($result);
+          $current = 0;
+
+          while ($current < $total) {
+            // Run through a batch of 50.
+            $nids = array_slice($result, $current, 50, FALSE);
+
+            $system_service_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
+            foreach ($system_service_nodes as $node) {
+              // Process each VAMC System Health Service using this term.
+              $queued_count += $this->queueSystemRelatedServices($node, TRUE);
+              $current++;
+            }
+
+            $message = sprintf('VA.gov Post API: %s of %d regional_health_care_service_des nodes processed. Queued %s health_care_local_health_service nodes for sync to Lighthouse.', $current, $total, $queued_count);
+            $this->loggerChannelFactory->get('va_gov_post_api')->info($message);
+
+          }
+        }
+        catch (\Exception $e) {
+          $message = sprintf('VA.gov Post API: Failed queuing items of type regional_health_care_service_des. %e', $e->getMessage());
+          $this->loggerChannelFactory->get('va_gov_post_api')->error($message);
+        }
+      }
+    }
+
+    return $queued_count;
+  }
+
+  /**
+   * Adds facility service data to Post API queue by system health service.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   Entity.
+   * @param bool $forcePush
+   *   Processing forced by referenced term.
+   *
+   * @return int
+   *   The count of the number of items queued.
+   */
+  public function queueSystemRelatedServices(EntityInterface $entity, bool $forcePush = FALSE) {
+    $queued_count = 0;
+    if (($entity->getEntityTypeId() === 'node') && ($entity->bundle() === 'regional_health_care_service_des')) {
+      if ($this->shouldPush($entity, $forcePush)) {
+        // Find all VAMC Facility Health Services referencing this node.
+        $query = $this->entityTypeManager->getStorage('node')->getQuery();
+        $nids = $query->condition('type', 'health_care_local_health_service')
+          ->condition('field_regional_health_service', $entity->id())
+          ->condition('status', 1)
+          ->execute();
+
+        $facility_health_service_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
+        foreach ($facility_health_service_nodes as $node) {
+          // Process each VAMC Facility Health Service referencing this node.
+          $queued_count += $this->queueFacilityService($node, $forcePush);
+        }
+      }
+    }
+
+    return $queued_count;
+  }
+
+  /**
    * Compose and return payload array for facility service.
+   *
+   * @param bool $forcePush
+   *   Processing forced by referenced system service.
    *
    * @return array
    *   Payload array.
    */
-  protected function getPayload() {
+  protected function getPayload(bool $forcePush = FALSE) {
     // Default payload is an empty array.
     $payload = [];
 
-    if (empty($this->errors) && $this->shouldPush()) {
+    if (empty($this->errors) && $this->shouldPush($this->facilityService, $forcePush)) {
       $service = new \stdClass();
       $service->name = $this->serviceTerm->getName();
       $service->active = ($this->facilityService->isPublished()) ? TRUE : FALSE;
@@ -239,19 +328,26 @@ class PostFacilityService extends PostFacilityBase {
   /**
    * Determines if the data says a payload should be assembled and pushed.
    *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   Entity.
+   * @param bool $forcePush
+   *   Process due to referenced entity updates.
+   *
    * @return bool
    *   TRUE if should be pushed, FALSE otherwise.
    */
-  protected function shouldPush() {
+  protected function shouldPush(EntityInterface $entity, bool $forcePush = FALSE) {
     // Moderation state of what is being saved.
-    $moderationState = $this->facilityService->moderation_state->value;
+    $moderationState = $entity->moderation_state->value;
     $isArchived = ($moderationState === 'archived') ? TRUE : FALSE;
-    $thisRevisionIsPublished = $this->facilityService->isPublished();
-    $defaultRevisionIsPublished = (isset($this->facilityService->original) && ($this->facilityService->original instanceof EntityInterface)) ? (bool) $this->facilityService->original->status->value : (bool) $this->facilityService->status->value;
-    $isNew = $this->facilityService->isNew();
+    $thisRevisionIsPublished = $entity->isPublished();
+    $defaultRevisionIsPublished = (isset($entity->original) && ($entity->original instanceof EntityInterface)) ? (bool) $entity->original->status->value : (bool) $entity->status->value;
+    $isNew = $entity->isNew();
 
     // Case race. First to evaluate to TRUE wins.
     switch (TRUE) {
+      case $forcePush && $thisRevisionIsPublished:
+        // Forced push from updates to referenced entity.
       case $isNew:
         // A new node, should be pushed to initiate the value.
       case $thisRevisionIsPublished:

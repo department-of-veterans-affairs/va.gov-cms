@@ -1,0 +1,48 @@
+diff --git a/dropzonejs.module b/dropzonejs.module
+index 004a256..b6df253 100644
+--- a/dropzonejs.module
++++ b/dropzonejs.module
+@@ -44,6 +44,7 @@ function dropzonejs_theme() {
+  *   - element: A render element representing the file.
+  */
+ function template_preprocess_dropzonejs(array &$variables) {
++  $translation = \Drupal::translation();
+   $element = $variables['element'];
+ 
+   $variables['attributes'] = [];
+@@ -53,10 +54,14 @@ function template_preprocess_dropzonejs(array &$variables) {
+   if (!empty($element['#attributes']['class'])) {
+     $variables['attributes']['class'] = (array) $element['#attributes']['class'];
+   }
++  $cardinality = 0;
++  if (isset($element['#max_files'])) {
++    $cardinality = $element['#max_files'];
++  }
+ 
+   $variables['dropzone_description'] = $element['#dropzone_description'];
+   $variables['or_text'] = t('or');
+-  $variables['select_files_button_text'] = t('Select files');
++  $variables['select_files_button_text'] = $translation->formatPlural($cardinality, 'Select file', 'Select files');
+   $variables['uploaded_files'] = $element['uploaded_files'];
+ }
+ 
+diff --git a/src/Form/DropzoneJsUploadForm.php b/src/Form/DropzoneJsUploadForm.php
+index e485a9c..c3ed390 100644
+--- a/src/Form/DropzoneJsUploadForm.php
++++ b/src/Form/DropzoneJsUploadForm.php
+@@ -55,11 +55,14 @@ class DropzoneJsUploadForm extends FileUploadForm {
+     $process = (array) $this->elementInfo->getInfoProperty('dropzonejs', '#process', []);
+     $form['container']['upload']['#type'] = 'dropzonejs';
+     $form['container']['upload']['#process'] = array_merge(['::validateUploadElement'], $process);
++    $translation = \Drupal::translation();
++    $cardinality = $slots < 1 ? 0 : $slots;
++    $dropzone_description = $translation->formatPlural($cardinality, 'Drop file here to upload it', 'Drop files here to upload them');
+     $dropzone_specific_properties = [
+       '#max_files' => $slots < 1 ? 0 : $slots,
+       '#max_filesize' => $settings['max_filesize'],
+       '#extensions' => $settings['file_extensions'],
+-      '#dropzone_description' => $this->t('Drop files here to upload them'),
++      '#dropzone_description' => $dropzone_description,
+     ];
+     $form['container']['upload'] += $dropzone_specific_properties;
+ 

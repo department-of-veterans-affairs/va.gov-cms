@@ -6,8 +6,8 @@ When an alert is configured to 'warn' it is routed to a Non-Critical receiver th
 ## Where Are Alerts Configured
 Alerts for CMS are configured by `.rules` files stored under `devops/ansible/deployment/config/prometheus/rules/` in the below two files:
 
-cms.rules
-cms-utility.rules
+- `cms.rules`
+- `cms-utility.rules`
 
 How alerts are routed to which receivers (i.e Critical, Non-Critical) are configured by `alertmanager.yml.j2` found under `devops/ansible/deployment/config/prometheus/`
 

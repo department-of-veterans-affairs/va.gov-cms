@@ -3,30 +3,52 @@
 }
 
 /* Non-clinical services view - block displays */
+.field--name-field-non-clinical-services {
+  background-color: #fff;
+}
+
+.view-grouping.node--unpublished {
+  margin: 0;
+  padding: 0;
+}
+
 .view-non-clinical-services {
-  .views-row {
-    border: 1px solid #bfbfbf;
+  .view-empty {
+    border: 1px solid var(--va-gray-cool-med);
+    border-radius: 2px;
+    margin: 1em 0;
+    padding: 1em 1.5em;
+  }
+
+  .view-grouping-content {
+    border: 1px solid var(--va-gray-cool-med);
+    border-radius: 2px;
     margin: 1em 0;
     padding: 1em 1.5em;
 
-    .location-details span:not(:first-child)::before {
-      content: ', ';
+    .view-grouping-content {
+      border: 0;
+      margin: 0;
+      padding: 0;
     }
 
-    .address {
-      margin-top: 0;
+    .views-row {
+      margin: 2em 0;
 
-      br,
-      span {
-        &:last-child {
-          display: none;
+      .location-details span:not(:first-child)::before {
+        content: ', ';
+      }
+
+      .address {
+        margin-top: 0;
+
+        br,
+        span {
+          &:last-child {
+            display: none;
+          }
         }
       }
-    }
-
-    .views-field-edit-node {
-      margin-top: 1em;
-      text-align: right;
     }
   }
 }
@@ -38,4 +60,55 @@
   .form-actions {
     align-self: flex-end;
   }
+}
+
+.views-exposed-form__item.views-exposed-form__item.views-exposed-form__item--actions {
+  // force buttons to new line
+  flex-basis: 100%;
+  margin-top: 0;
+}
+
+// fixes fieldset display inside views exposed forms
+.views-exposed-form {
+  fieldset.form-wrapper {
+    border: unset;
+    box-shadow: none;
+    margin-right: var(--space-xs);
+  }
+
+  .fieldset__legend {
+    display: block;
+    margin: 0;
+  }
+
+  .fieldset__label {
+    line-height: var(--line-height-form-label);
+    margin-bottom: calc(var(--space-xs)/2);
+    margin-top: calc(var(--space-xs)/2);
+    padding: 0;
+  }
+
+  .fieldset__wrapper {
+    margin: 0;
+  }
+
+  .form-item {
+    margin-bottom: var(--space-xs);
+    margin-top: 0;
+  }
+}
+
+//Adding button css to views
+.views-field-nothing,
+.views-field-field-content-block {
+  @include va-basic-styling;
+}
+
+//fixes export button
+.csv-feed .feed-icon {
+  @include button(var(--button-bg-color--primary), var(--button-fg-color--primary), var(--button--hover-bg-color--primary), var(--button--active-bg-color--primary));
+
+  background-image: none;
+  text-indent: unset;
+  width: auto;
 }

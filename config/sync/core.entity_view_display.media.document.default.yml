@@ -22,70 +22,70 @@ bundle: document
 mode: default
 content:
   created:
-    label: above
     type: timestamp
-    weight: 4
+    label: above
     settings:
       date_format: medium
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }
+    weight: 4
     region: content
   field_document:
-    weight: 1
+    type: file_default
     label: above
     settings:
       use_description_as_link_text: true
     third_party_settings: {  }
-    type: file_default
+    weight: 1
     region: content
   field_media_in_library:
     type: boolean
-    weight: 5
-    region: content
     label: above
     settings:
       format: default
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
+    weight: 5
+    region: content
   field_media_submission_guideline:
-    weight: 7
+    type: markup
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: markup
+    weight: 7
     region: content
   field_owner:
-    weight: 6
+    type: entity_reference_label
     label: above
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 6
     region: content
   name:
-    label: above
     type: string
-    weight: 0
+    label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 0
     region: content
   thumbnail:
     type: image
-    weight: 2
     label: above
     settings:
-      image_style: thumbnail
       image_link: ''
+      image_style: thumbnail
     third_party_settings: {  }
+    weight: 2
     region: content
   uid:
-    label: above
     type: author
-    weight: 3
+    label: above
     settings: {  }
     third_party_settings: {  }
+    weight: 3
     region: content
 hidden: {  }

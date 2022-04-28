@@ -12,11 +12,11 @@ assignees: ''
 
 
 ### CMS Team
+Please check the team(s) that will do this work.
 
 - [x] `Platform CMS Team`
-- [ ] `Sitewide CMS Team`
-  - [ ] `⭐️ Content ops`
-  - [ ] `⭐️ CMS experience`
-  - [ ] `⭐️ Offices`
-  - [ ] `⭐️ Product support`
-  - [ ] `⭐️ User support`
+- [ ] `Sitewide program`
+- [ ] `⭐️ Sitewide CMS`
+- [ ] `⭐️ Public websites`
+- [ ] `⭐️ Facilities`
+- [ ] `⭐️ User support`

@@ -1,0 +1,266 @@
+@import '../tokens/mixins';
+@import '../components/undo_field_styling';
+
+#block-vagovclaro-content {
+  font-size: 1rem;
+
+  .node__content > .field {
+    margin-bottom: 1.5rem;
+  }
+
+  .meta-content-wrapper tr {
+    border: hidden;
+    display: block;
+
+    &:hover {
+      background-color: inherit;
+    }
+
+    td {
+      vertical-align: top;
+
+      @media all and (max-width: 48em) { /* 768px */
+        display: block;
+        width: 100%;
+      }
+
+      &:first-child {
+        padding-right: 1rem;
+      }
+
+      &.field__label div {
+        width: 100px;
+      }
+    }
+
+    &.field--label-inline .field__label {
+      float: none;
+
+      &::after {
+        content: '';
+      }
+    }
+  }
+
+  .field__item {
+    margin: 0 0 1rem;
+  }
+
+  .field--label-above {
+    .field__label {
+      color: var(--va-gray-med);
+      font-family: var(--font-family-sans);
+      font-size: 1rem;
+      font-weight: normal;
+      margin: 0;
+      padding: 0.2rem 0 0;
+      position: relative;
+    }
+  }
+
+  .field--name-field-table .field__label {
+    display: none;
+  }
+
+  .field--name-field-intro-text .field__item {
+    @include intro-text;
+
+    *:first-child {
+      margin-top: 0;
+    }
+
+    *:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .field--name-field-featured-content {
+    .field__items {
+      background-color: var(--va-blue-lightest);
+    }
+  }
+
+  .field--name-field-related-links .field__item {
+    background: var(--va-gray-lightest);
+  }
+
+  table {
+    caption {
+      font-family: var(--font-family-serif);
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 0.5em;
+    }
+  }
+
+  /* Paragraphs css for the proofing experience. */
+  .paragraph {
+    border: var(--va-blue-lighter) solid 1px;
+    margin-bottom: 1rem;
+    padding: 0.4rem 0.6rem 0.2rem;
+    position: relative;
+
+    .field--label-above {
+      .field__label {
+        font-size: 0.8rem;
+        padding: 0;
+      }
+    }
+
+    .paragraph--metadata {
+      align-items: center;
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 0.5rem;
+
+      + * {
+        margin-top: 0;
+      }
+
+      > .contextual {
+        display: block;
+        margin-left: 0.5rem;
+        position: static;
+
+        button.trigger {
+          display: none;
+        }
+
+        .contextual-links {
+          background-color: inherit;
+          border: hidden;
+          display: block;
+          position: static;
+
+          li.paragraphsedit-paragraph {
+            background-color: inherit;
+          }
+
+          li.paragraphsedit-paragraph a {
+            -webkit-appearance: none; /* 3 */
+            -moz-appearance: none; /* 3 */
+            background-color: var(--va-gray-lightest);
+            background-image: linear-gradient(to bottom, var(--va-gray-cool-med), var(--va-gray-lightest));
+            border: 1px solid var(--va-gray-cool-med);
+            border-radius: 0.8rem;
+            box-sizing: border-box;
+            color: var(--color-text);
+            cursor: pointer;
+            display: inline-block;
+            font-size: 0.75rem; /* 5 */
+            -webkit-font-smoothing: antialiased; /* 6 */
+            font-weight: 600;
+            padding: 0.5rem;
+            position: relative; /* 1 */
+            text-align: center;
+            text-decoration: none;
+            text-shadow: 0 1px hsla(0, 0%, 100%, 0.6);
+            -webkit-transition: all 0.1s;
+            transition: all 0.1s;
+          }
+        }
+      }
+
+      .proof-label {
+        color: var(--va-gray-med);
+        display: block;
+        font-weight: 700;
+        line-height: 1;
+      }
+
+      + .contextual {
+        margin-top: 2px;
+      }
+    }
+  }
+
+  .field--name-field-accordion-display.field__item {
+    color: var(--va-gray-med);
+    font-size: 0.9rem;
+    font-style: italic;
+    margin: 1rem 0 0;
+  }
+
+  .paragraph--type--list-of-link-teasers .field--name-field-title {
+    font-family: var(--font-family-serif);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 0.5em;
+  }
+
+  .usa-accordion-button .field__item,
+  .paragraph--type--collapsible-panel-item .field--name-field-title {
+    background-color: var(--va-gray-lightest);
+    font-weight: 700;
+    padding: 0.8rem;
+  }
+
+  .additional-info-title {
+    border-bottom: 2px dotted var(--va-blue-med);
+    color: var(--va-gray-cool-darker);
+  }
+
+  .paragraph.paragraph--type--spanish-translation-summary {
+    border-left: 7px solid var(--va-blue);
+    padding-left: calc(2rem - 7px);
+  }
+
+  .custom-alert,
+  .field--name-field-alert > .field__item,
+  .field--name-field-alert-block-reference > .field__item {
+    background-color: var(--va-gray-lightest);
+    padding: 1rem;
+
+    .field--name-field-alert-title > .field__item {
+      font-family: var(--font-family-serif);
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 0.5em;
+    }
+  }
+
+  .paragraph--type--number-callout {
+    background: var(--va-gray-lightest);
+    padding: 1em;
+
+    .field--name-field-short-phrase-with-a-number > .field__item {
+      font-family: var(--font-family-serif);
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 0.5em;
+    }
+  }
+}
+
+/**
+* Element help styles.
+*/
+.proofing-element-help {
+  background-color: var(--va-blue-med);
+  border: 0;
+  border-radius: 50%;
+  box-sizing: content-box;
+  color: var(--color-white);
+  display: inline-block;
+  font-family: var(--font-family-serif);
+  font-size: 12px;
+  font-weight: bold;
+  height: 16px;
+  line-height: 16px;
+  margin-left: 4px;
+  padding: 0;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  width: 16px;
+
+  &:focus,
+  &:hover,
+  &:active {
+    cursor: pointer;
+  }
+}

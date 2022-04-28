@@ -1,0 +1,29 @@
+// Styling for Flags
+.view-flagged-content {
+  .flag {
+    background: var(--va-gray-lighter);
+    border-radius: 30px;
+    display: inline-block;
+    padding: 4px 16px;
+    white-space: nowrap;
+
+    &.new {
+      background: var(--va-blue-light);
+    }
+
+    &.changed_filename,
+    &.changed_title,
+    &.changed {
+      background: var(--va-gold-lightest);
+    }
+
+    &.deleted,
+    &.removed-from-source {
+      background: var(--va-red-lightest);
+    }
+
+    &.removal-complete {
+      background: var(--va-green-lightest);
+    }
+  }
+}

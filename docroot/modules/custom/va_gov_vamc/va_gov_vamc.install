@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the va_gov_vamc module.
+ */
+
+use Drupal\field\Entity\FieldConfig;
+use Psr\Log\LogLevel;
+
+/**
+ * Delete VA Lovell Federal health care menu.
+ */
+function va_gov_vamc_update_9001() {
+  // Delete all menu items of given menu.
+  $storage_handler = \Drupal::entityTypeManager()->getStorage('menu');
+  $items = $storage_handler->loadByProperties(['type' => 'system.menu.va-lovell-federal-health-care']);
+  $storage_handler->delete($items);
+
+  // Delete menu.
+  $menu = \Drupal::configFactory()->getEditable('system.menu.va-lovell-federal-health-care');
+  $menu->delete();
+
+  Drupal::logger('va_gov_vamc')->log(LogLevel::INFO, 'VA Lovell Federal health care menu: Successfully removed VA Lovell Federal health care menu.');
+}
+
+/**
+ * Remove field_body from VAMC Facility Health Service content type.
+ */
+function va_gov_vamc_update_9003() {
+  $bundle = "health_care_local_health_service";
+  $field = FieldConfig::loadByName('node', $bundle, 'field_body');
+  if ($field) {
+    /** @var Drupal\field\FieldConfigInterface $field */
+    $field->delete();
+
+    Drupal::logger('va_gov_vamc')->log(LogLevel::INFO, 'VAMC Facility Health Service: Successfully removed field_body field.');
+  }
+  return "The field field_body have been removed from the VAMC Facility Health Service content type.";
+}
