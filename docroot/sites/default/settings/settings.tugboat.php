@@ -42,7 +42,8 @@ $config['environment_indicator.indicator']['name'] = 'Tugboat';
 
 $settings['trusted_host_patterns'] = [
   '^localhost$',
-  '^.*' . getenv('TUGBOAT_SERVICE_TOKEN') . '.' . getenv('TUGBOAT_SERVICE_CONFIG_DOMAIN') . '$'];
+  '^.*' . getenv('TUGBOAT_SERVICE_TOKEN') . '.' . getenv('TUGBOAT_SERVICE_CONFIG_DOMAIN') . '$',
+];
 
 // Github token for migrations
 $settings['va_cms_bot_github_auth_token'] = getenv('GITHUB_TOKEN') ?: FALSE;

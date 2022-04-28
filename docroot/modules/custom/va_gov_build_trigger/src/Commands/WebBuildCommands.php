@@ -93,8 +93,6 @@ class WebBuildCommands extends DrushCommands {
    *
    * @param string|null $reference
    *   A git reference, or null.
-   * @param string $fullRebuild
-   *   Will be coerced to a boolean.
    * @param array $options
    *   Command-line options.
    *
@@ -105,30 +103,27 @@ class WebBuildCommands extends DrushCommands {
    */
   public function buildFrontend(
     string $reference = NULL,
-    string $fullRebuild = 'FALSE',
     array $options = [
       'dry-run' => FALSE,
     ]
   ) {
     if (filter_var($reference, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) !== NULL) {
-      $fullRebuild = $reference;
       $reference = NULL;
     }
     if (empty($reference)) {
       $reference = NULL;
     }
-    $fullRebuild = filter_var($fullRebuild, FILTER_VALIDATE_BOOLEAN);
     if ($options['dry-run']) {
       $buildCommands = [];
 
-      $newCommands = $this->getWebBuildCommandBuilder()->buildCommands($reference, $fullRebuild);
+      $newCommands = $this->getWebBuildCommandBuilder()->buildCommands($reference);
       $buildCommands = array_merge($buildCommands, $newCommands);
       foreach ($buildCommands as $buildCommand) {
         echo $buildCommand . PHP_EOL;
       }
     }
     else {
-      $this->buildService->triggerFrontendBuild($reference, $fullRebuild);
+      $this->buildService->triggerFrontendBuild($reference);
     }
   }
 

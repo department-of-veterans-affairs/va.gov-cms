@@ -63,13 +63,13 @@ class BuildFrontendTest extends ExistingSiteBase {
     $webBuildStatusProphecy->enableWebBuildStatus()->shouldNotBeCalled();
     $userProphecy = $this->prophesize(AccountInterface::class);
     if ($permitted) {
-      $environmentDiscoveryProphecy->triggerFrontendBuild(Argument::any(), Argument::any())->shouldBeCalled();
+      $environmentDiscoveryProphecy->triggerFrontendBuild(Argument::any())->shouldBeCalled();
       $loggerProphecy->warning(Argument::any())->shouldNotBeCalled();
       $messengerProphecy->addWarning(Argument::any())->shouldNotBeCalled();
       $webBuildStatusProphecy->disableWebBuildStatus()->shouldNotBeCalled();
     }
     else {
-      $environmentDiscoveryProphecy->triggerFrontendBuild(Argument::any(), Argument::any())->willThrow(PluginException::class);
+      $environmentDiscoveryProphecy->triggerFrontendBuild(Argument::any())->willThrow(PluginException::class);
       $loggerProphecy->warning(Argument::type(TranslatableMarkup::class))->shouldBeCalled();
       $messengerProphecy->addWarning(Argument::type(TranslatableMarkup::class))->shouldBeCalled();
       $webBuildStatusProphecy->disableWebBuildStatus()->shouldBeCalled();
@@ -86,7 +86,7 @@ class BuildFrontendTest extends ExistingSiteBase {
     $environmentDiscovery = $environmentDiscoveryProphecy->reveal();
     $buildFrontend = new BuildFrontend($messenger, $loggerFactory, $webBuildStatus, $environmentDiscovery, $currentUser);
 
-    $buildFrontend->triggerFrontendBuild('no', FALSE);
+    $buildFrontend->triggerFrontendBuild('no');
   }
 
   /**
@@ -174,7 +174,7 @@ class BuildFrontendTest extends ExistingSiteBase {
     $nodeProphecy = $this->prophesize(NodeInterface::class);
     $userProphecy = $this->prophesize(AccountInterface::class);
 
-    $environmentDiscoveryProphecy->shouldTriggerFrontendBuild()->willReturn(FALSE);
+    $environmentDiscoveryProphecy->contentEditsShouldTriggerFrontendBuild()->willReturn(FALSE);
     $environmentDiscoveryProphecy->triggerFrontendBuild()->shouldNotBeCalled();
 
     $nodeProphecy->isPublished()->willReturn(FALSE)->shouldBeCalled();
@@ -223,12 +223,12 @@ class BuildFrontendTest extends ExistingSiteBase {
     $userProphecy = $this->prophesize(AccountInterface::class);
     $linkProphecy = $this->prophesize(Link::class);
 
-    $environmentDiscoveryProphecy->shouldTriggerFrontendBuild()->willReturn(TRUE);
+    $environmentDiscoveryProphecy->contentEditsShouldTriggerFrontendBuild()->willReturn(TRUE);
     if ($expected) {
-      $environmentDiscoveryProphecy->triggerFrontendBuild(Argument::exact(NULL), Argument::exact(FALSE))->shouldBeCalled();
+      $environmentDiscoveryProphecy->triggerFrontendBuild(Argument::exact(NULL))->shouldBeCalled();
     }
     else {
-      $environmentDiscoveryProphecy->triggerFrontendBuild(Argument::exact(NULL), Argument::exact(FALSE))->shouldNotBeCalled();
+      $environmentDiscoveryProphecy->triggerFrontendBuild(Argument::exact(NULL))->shouldNotBeCalled();
     }
 
     $nodeProphecy->isPublished()->willReturn($isPublished);
