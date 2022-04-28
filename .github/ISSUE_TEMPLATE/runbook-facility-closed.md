@@ -63,14 +63,14 @@ If this facility has been removed from VAST in error, please notify our Support 
 #### 2a. If facility has moved to a new system or merged
 - [ ] Can any of the associated content  (eg services, facility map?) be reused? If so
   - [ ] is there a new facility in VAST/Facility API that content should be moved to?
-- [ ] Create [redirect request](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=mnorthuis&labels=ia&template=redirect-request.md&title=Redirect+Request) to point to URL of new facility.
+- [ ] Create [redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E) to point to URL of new facility.
 - [ ] When redirect is ready to go out, plan to make these changes immediately after redirect is released. Practice first on staging or a demo environment.
   - [ ] In certain, rare situations: CMS engineer bulk moves any content to new facility.
   - [ ] CMS engineer finds the menu for the system https://prod.cms.va.gov/admin/structure/menu and deletes the menu item for the merged facility.
 
 #### 2b. If not
 - [ ] Determine where should redirect go? to the system? or to the nearest clinic?
-- [ ] Create [redirect request](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=mnorthuis&labels=ia&template=redirect-request.md&title=Redirect+Request) accordingly.
+- [ ] Create [redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E) accordingly.
 - [ ] When redirect is ready to go out, plan to make these changes immediately after redirect is released. Practice first on staging or a demo environment.
   - [ ] CMS engineer bulk archives the facility service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service).
   - [ ] CMS engineer bulk archives the facility non-clinical service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=vha_facility_nonclinical_service).
@@ -84,7 +84,7 @@ If this facility has been removed from VAST in error, please notify our Support 
 
 ### Vet Center – facility closure [this needs work]
 - [ ] CMS team becomes aware that the facility is no longer on the Facility API.
-- [ ] CMS team submits [Redirect request](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=mnorthuis&labels=ia&template=redirect-request.md&title=Redirect+Request), cc'ing Facilities team, and referencing this issue.
+- [ ] CMS team submits [Redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E), cc'ing Facilities team, and referencing this issue.
 - [ ] Once timing of Redirect going live is known, alert CMS engineers to carry out the other steps
 - [ ] CMS engineer bulk unpublishes the nodes.
 - [ ] CMS engineer removes the Section.
