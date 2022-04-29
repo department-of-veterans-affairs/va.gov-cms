@@ -5,12 +5,12 @@ namespace Drupal\va_gov_migrate\Commands;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Logger\LoggerChannel;
 use Drupal\migrate_plus\DataFetcherPluginManager;
 use Drupal\migrate_plus\Entity\Migration;
 use Drupal\node\NodeInterface;
 use Drupal\va_gov_workflow\Service\Flagger;
 use Drush\Commands\DrushCommands;
+use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 
 /**
@@ -32,7 +32,6 @@ class Commands extends DrushCommands {
    */
   protected $database;
 
-
   /**
    * Migrate plus datafetcher plugin manager.
    *
@@ -40,11 +39,10 @@ class Commands extends DrushCommands {
    */
   protected $dataFetcherPluginManager;
 
-
   /**
    * The logger channel for va_gov_migrate.
    *
-   * @var \Drupal\Core\Logger\LoggerChannel
+   * @var \Psr\Log\LoggerInterface
    */
   protected $migrateChannelLogger;
 
@@ -66,7 +64,7 @@ class Commands extends DrushCommands {
    *   Workflow flagger service.
    * @param \Drupal\migrate_plus\DataFetcherPluginManager $data_fetcher_plugin_manager
    *   DataFetcherPluginManager.
-   * @param \Drupal\Core\Logger\LoggerChannel $migrate_channel_logger
+   * @param \Psr\Log\LoggerInterface $migrate_channel_logger
    *   LoggerChannel for va_gov_migrate.
    */
   public function __construct(
@@ -74,7 +72,7 @@ class Commands extends DrushCommands {
     EntityTypeManagerInterface $entity_type_manager,
     Flagger $flaggerservice,
     DataFetcherPluginManager $data_fetcher_plugin_manager,
-    LoggerChannel $migrate_channel_logger
+    LoggerInterface $migrate_channel_logger
   ) {
     parent::__construct();
     $this->database = $data_base;
