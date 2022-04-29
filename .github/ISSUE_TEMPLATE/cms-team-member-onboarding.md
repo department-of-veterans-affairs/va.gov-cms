@@ -94,7 +94,6 @@ The goal for this week is to get you set up with the tools you need to be succes
 - [ ] [SOCKS proxy request](https://depo-platform-documentation.scrollhelp.site/getting-started/Internal-tools-access-via-SOCKS-proxy.1821081710.html) to access some VA network tools. The VA network is required for Drupal CMS and other VA tools and usually requires a VA ID card (PIV or Smartcard). Until you get your paperwork approved and ID card, SOCKS proxy is a back door to some of these tools. This is the first priority for week two. For the request, select the label for our team, currently "cms"
    - [ ] [Request a Github personal access token first](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token). You only need to do the "repo" panel in that form and leave the other panels as is. It may take a day or two for the SOCKS proxy request to be fulfilled before you can complete the rest of the SOCKS process. This can be a complex process. Post in CMS-Team Slack channel is you need help from a current member - we're happy to help.
    - [ ] Optional [Core Tunnel set up for SOCKS proxy on all browsers on Mac](https://www.youtube.com/watch?v=fSuN9LhkB5o)
-   - [ ] When you have SOCKS proxy set up, contact the instructional designer for a Drupal and demo environments overview.
   
 - [ ] [Learn about the different Drupal environments](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/f4341c29ad8e998de1dac2fca0b749cdef15c923/READMES/environments.md)
   - [ ] If you are using a non-VA laptop for development you will need [follow the instructions on Github](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/https.md) to trust the VA Root Certificate Authority (CA) in your browser(s)
@@ -168,9 +167,9 @@ The goal for this week is to get you set up with the tools you need to be succes
    - [ ] [Watch the training video that Vet Center editors have to complete](https://youtu.be/scuC5lSHZuw).
 
 #### Onboarding for Instructional Design members
-- [ ] Audio/video recording tools
+- [ ] Audio/video recording tools - discuss with A6 IT which tools you use (Adobe preferred)
 - [ ] [YouTube channel for training videos](https://www.youtube.com/channel/UC5Y2p4ASQ5HdRR-pQ8RVQKQ) 
-- [ ] Discuss Drupal CMS account administration process with instructional designer, delivery manager or product manager
+- [ ] Discuss Drupal CMS account administration process with delivery manager or product manager
 - [ ] The following trainings and additional videos can be found on the Knowledge Base on the Drupal CMS prod and lesser environments that require VA network or SOCKS proxy access. They can be watched without VA network or SOCKS access at the links below.
    - [ ] [Watch the Drupal CMS editorial experience video for all users](https://youtu.be/ju7EH0F5S4I).
    - [ ] [Watch the training video that VA Medical Center (VAMC) editors have to complete](https://youtu.be/Sowgt1rOmlE).
