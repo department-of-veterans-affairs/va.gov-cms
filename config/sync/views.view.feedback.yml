@@ -245,12 +245,12 @@ display:
             nid: nid
             id: id
             title: title
+            edit_node: edit_node
             total_score: total_score
             no_count: no_count
             yes_count: yes_count
             count: count
             langcode: langcode
-            edit_node: edit_node
           default: no_count
           info:
             nid:
@@ -268,6 +268,13 @@ display:
               empty_column: false
               responsive: ''
             title:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            edit_node:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -303,13 +310,6 @@ display:
               empty_column: false
               responsive: ''
             langcode:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            edit_node:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -582,7 +582,7 @@ display:
           alter:
             alter_text: false
             text: ''
-            make_link: false
+            make_link: true
             path: ''
             absolute: false
             external: false
@@ -591,7 +591,7 @@ display:
             trim_whitespace: false
             alt: ''
             rel: ''
-            link_class: ''
+            link_class: button
             prefix: ''
             suffix: ''
             target: ''
