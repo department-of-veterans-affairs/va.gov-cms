@@ -29,6 +29,7 @@ Feature: Views
 | Date fields | date_fields | Content | Disabled |  |
 | Detail page URL audit and bulk udpate | detail_page_url_audit_and_bulk_udpate | Content | Enabled | For bulk updating URL aliases for VAMC detail pages. |
 | Facility Services | facility_services | Content | Enabled |  |
+| Feedback | feedback | Admin feedback score | Enabled |  |
 | File browsers | file_browsers | Media | Enabled |  |
 | Files | files | Files | Enabled | Find and manage files. |
 | Flagged Content | flagged_content | Content | Enabled |  |
@@ -154,6 +155,9 @@ Feature: Views
 | Facility Services | VAMC systems | vamc_systems | Page |
 | Facility Services | Vet Center services | vet_center_services_page | Page |
 | Facility Services | Vet Center services export | vet_center_services_export | Data export |
+| Feedback | Master | default | Default |
+| Feedback | Nodes list | nodes_list | Page |
+| Feedback | Nodes score | nodes_score | Page |
 | File browsers | Block | file_browser_block | Block |
 | File browsers | Entity browser | file_entity_browser | Entity browser |
 | File browsers | Master | default | Default |

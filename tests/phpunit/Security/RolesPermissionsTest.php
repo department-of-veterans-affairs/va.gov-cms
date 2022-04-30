@@ -49,6 +49,7 @@ class RolesPermissionsTest extends ExistingSiteBase {
         [
           'access content',
           'access prometheus metrics',
+          'give feedback',
           'view media',
           'view style guides',
         ],
@@ -75,6 +76,7 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'enter all revision log entry',
           'execute graphql requests',
           'execute persisted graphql requests',
+          'give feedback',
           'override all revision option',
           'override event authored on option',
           'override full_width_banner_alert published option',

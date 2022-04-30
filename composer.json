@@ -25,6 +25,7 @@
         "cweagans/composer-patches": "^1.7",
         "datadog/dd-trace": "^0.73.0",
         "drupal/address": "^1.4",
+        "drupal/admin_feedback": "^2.2",
         "drupal/admin_toolbar": "^3.0",
         "drupal/advancedqueue": "^1.0@RC",
         "drupal/allow_only_one": "1.0.0-alpha1",
@@ -354,6 +355,9 @@
         "patches": {
             "devshop/yaml-tasks": {
                 "Used 'pending' instead of 'queued' for commit status": "patches/yaml-tasks-pending.patch"
+            },
+            "drupal/admin_feedback": {
+                "3254213 - Span and Label needed to support theming": "https://www.drupal.org/files/issues/2022-01-28/span-and-label-3254213-5.patch"
             },
             "drupal/cer": {
                 "3197953-5 - Make d9 compatible": "https://www.drupal.org/files/issues/2021-03-19/cer-3197953-5.patch",
