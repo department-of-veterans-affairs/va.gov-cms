@@ -82,6 +82,9 @@ echo "==> Build complete" >> ${logfile}
 drush va-gov:content-release:advance-state complete
 drush va-gov:content-release:advance-state ready
 
+echo "==> Broken link report" >> ${logfile}
+cat ./vendor/va-gov/content-build/logs/vagovdev-broken-links.json >> ${logfile}
+
 # Make sure other builds can start.
 rm ${reporoot}/.buildlock
 
