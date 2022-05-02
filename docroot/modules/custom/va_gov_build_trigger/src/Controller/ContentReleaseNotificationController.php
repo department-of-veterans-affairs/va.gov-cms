@@ -7,8 +7,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
-// @todo add a 'request' endpoint to this controller + routes (for requesting a build from outside of the CMS)
+use Drupal\va_gov_build_trigger\Service\ReleaseStateManagerInterface;
 
 /**
  * Handles content release notifications.
@@ -40,12 +39,22 @@ class ContentReleaseNotificationController extends ControllerBase {
   }
 
   /**
+   * Constructor for the content release notification controller.
+   *
+   * @param Drupal\va_gov_build_trigger\Service\ReleaseStateManagerInterface $releaseStateManager
+   *   The build requester service.
+   */
+  public function __construct(ReleaseStateManagerInterface $releaseStateManager) {
+    $this->releaseStateManager = $releaseStateManager;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    $instance = parent::create($container);
-    $instance->releaseStateManager = $container->get('va_gov_build_trigger.release_state_manager');
-    return $instance;
+    return new static(
+      $container->get('va_gov_build_trigger.release_state_manager')
+    );
   }
 
   /**
