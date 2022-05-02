@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_build_trigger;
 
 use Drupal\va_gov_build_trigger\Controller\ContentReleaseNotificationController;
+use Drupal\va_gov_build_trigger\Controller\ContentReleaseRequestController;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
@@ -10,9 +11,9 @@ use Symfony\Component\Routing\RouteCollection;
  * Define routes for content release notifications.
  *
  * I did it this way so that there weren't a zillion repeated blocks in the
- * routing.yml for this module.
+ * routing.yml for the notification routes.
  */
-class NotificationRouteProvider {
+class RouteProvider {
 
   /**
    * Builds the routes for each state that the content release can notify about.
@@ -20,7 +21,7 @@ class NotificationRouteProvider {
    * @return \Symfony\Component\Routing\RouteCollection
    *   The notification routes.
    */
-  public function routes() {
+  public function notificationRoutes() {
     $notification_states = ContentReleaseNotificationController::allowedNotifications();
 
     $routes = new RouteCollection();
@@ -46,6 +47,36 @@ class NotificationRouteProvider {
 
       $routes->add('va_gov_build_trigger.content_release_notification.' . $state, $route);
     }
+
+    return $routes;
+  }
+
+  /**
+   * Builds routes for external services to request a content release.
+   *
+   * @return \Symfony\Component\Routing\RouteCollection
+   *   The content release request routes.
+   */
+  public function buildRequestRoutes() {
+    $routes = new RouteCollection();
+
+    $route = new Route(
+      '/api/content_release/request_build',
+      // Defaults.
+      [
+        '_controller' => ContentReleaseRequestController::class . '::requestBuild',
+      ],
+      // Requirements.
+      [
+        '_permission' => 'handle content release notifications',
+      ],
+      // Options.
+      [
+        'no_cache' => TRUE,
+      ],
+    );
+
+    $routes->add('va_gov_build_trigger.content_release_request_build', $route);
 
     return $routes;
   }
