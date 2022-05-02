@@ -2,7 +2,9 @@
 
 namespace Drupal\va_gov_build_trigger\Controller;
 
+use Drupal\Core\Block\BlockManagerInterface;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Render\RendererInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -25,14 +27,19 @@ class ContentReleaseStatusBlockController extends ControllerBase {
    */
   protected $renderer;
 
+  public function __construct(BlockManagerInterface $blockManager, RendererInterface $renderer) {
+    $this->pluginManagerBlock = $blockManager;
+    $this->renderer = $renderer;
+  }
+
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    $instance = parent::create($container);
-    $instance->pluginManagerBlock = $container->get('plugin.manager.block');
-    $instance->renderer = $container->get('renderer');
-    return $instance;
+    return new static(
+      $container->get('plugin.manager.block'),
+      $container->get('renderer')
+    );
   }
 
   /**
