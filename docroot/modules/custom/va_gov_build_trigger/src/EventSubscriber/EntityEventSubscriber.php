@@ -5,9 +5,6 @@ namespace Drupal\va_gov_build_trigger\EventSubscriber;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\AbstractEntityEvent;
-use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
-use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
-use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\node\NodeInterface;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -38,6 +35,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\va_gov_build_trigger\Service\BuildRequesterInterface $buildRequester
    *   The build front end service.
+   * @param \Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery $environmentDiscovery
+   *   The environment discovery service.
    */
   public function __construct(
     BuildRequesterInterface $buildRequester,
@@ -61,7 +60,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   /**
    * Handle entity insert, update, and delete events.
    *
-   * @param AbstractEntityEvent $event
+   * @param \Drupal\core_event_dispatcher\Event\Entity\AbstractEntityEvent $event
    *   The event object passed by the event dispatcher.
    */
   public function handleEntityEvent(AbstractEntityEvent $event) : void {
@@ -74,7 +73,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   /**
    * Request a build if appropriate.
    *
-   * @param NodeInterface $node
+   * @param \Drupal\node\NodeInterface $node
    *   The affected node.
    */
   protected function maybeTriggerBuild(NodeInterface $node) : void {
@@ -95,7 +94,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   /**
    * Check if we should trigger on content changes.
    *
-   * @return boolean
+   * @return bool
+   *   Whether or not a frontend build should be triggered on content changes.
    */
   protected function shouldTrigger() : bool {
     return $this->environmentDiscovery->contentEditsShouldTriggerFrontendBuild();
@@ -150,7 +150,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
 
     return $value;
   }
-
 
   /**
    * Checks if a node is content type that can trigger a content release.

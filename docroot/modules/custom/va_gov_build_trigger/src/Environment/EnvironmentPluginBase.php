@@ -23,7 +23,7 @@ abstract class EnvironmentPluginBase extends PluginBase implements EnvironmentIn
   /**
    * The filesystem service.
    *
-   * @var FileSystemInterface
+   * @var \Drupal\Core\File\FileSystemInterface
    */
   protected $filesystem;
 

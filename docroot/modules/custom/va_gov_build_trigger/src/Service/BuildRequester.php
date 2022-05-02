@@ -2,13 +2,12 @@
 
 namespace Drupal\va_gov_build_trigger\Service;
 
-use Drupal\advancedqueue\Entity\QueueInterface;
 use Drupal\advancedqueue\Job;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\State\StateInterface;
 
 /**
- * BuildRequester service.
+ * The build requester service.
  */
 class BuildRequester implements BuildRequesterInterface {
 
@@ -17,23 +16,23 @@ class BuildRequester implements BuildRequesterInterface {
   /**
    * The content release queue entity.
    *
-   * @var QueueInterface
+   * @var \Drupal\advancedqueue\Entity\QueueInterface
    */
   protected $buildQueue;
 
   /**
    * The state management service.
    *
-   * @var StateInterface
+   * @var \Drupal\Core\State\StateInterface
    */
   protected $state;
 
   /**
    * Construct a new BuildRequester.
    *
-   * @param EntityTypeManagerInterface $entityTypeManager
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity_type.manager service.
-   * @param StateInterface $state
+   * @param \Drupal\Core\State\StateInterface $state
    *   The state service.
    */
   public function __construct(EntityTypeManagerInterface $entityTypeManager, StateInterface $state) {
@@ -64,4 +63,5 @@ class BuildRequester implements BuildRequesterInterface {
   public function resetFrontendVersion() : void {
     $this->state->delete(self::VA_GOV_FRONTEND_VERSION);
   }
+
 }
