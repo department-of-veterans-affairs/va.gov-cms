@@ -27,6 +27,14 @@ class ContentReleaseStatusBlockController extends ControllerBase {
    */
   protected $renderer;
 
+  /**
+   * Constructs a new ContentReleaseStatusBlockController.
+   *
+   * @param BlockManagerInterface $blockManager
+   *   The block manager service.
+   * @param RendererInterface $renderer
+   *   The renderer service.
+   */
   public function __construct(BlockManagerInterface $blockManager, RendererInterface $renderer) {
     $this->pluginManagerBlock = $blockManager;
     $this->renderer = $renderer;
