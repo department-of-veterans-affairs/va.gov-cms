@@ -22,9 +22,9 @@ A component is needed in the next-build system to render <the component>. This c
 
 **API query**: <Replace> https://prod.cms.va.gov/jsonapi/paragraph/table
 
-**Existing template(s)**: <Replace> https://github.com/department-of-veterans-affairs/content-build/blob/master/src/site/paragraphs/table.drupal.liquid
+**Existing template(s)**: <Replace> https://github.com/department-of-veterans-affairs/content-build/blob/main/src/site/paragraphs/table.drupal.liquid
 
-**Existing/example existing GraphQL**: <Replace> https://github.com/department-of-veterans-affairs/content-build/blob/master/src/site/stages/build/drupal/graphql/paragraph-fragments/table.paragraph.graphql.js
+**Existing/example existing GraphQL**: <Replace> https://github.com/department-of-veterans-affairs/content-build/blob/main/src/site/stages/build/drupal/graphql/paragraph-fragments/table.paragraph.graphql.js
 
 **Logic notes**:
 * <enter any specific details>
