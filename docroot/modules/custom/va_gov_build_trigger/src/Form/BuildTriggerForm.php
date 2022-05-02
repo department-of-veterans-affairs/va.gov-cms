@@ -45,7 +45,7 @@ class BuildTriggerForm extends FormBase {
   /**
    * Build Requester service.
    *
-   * @var BuildRequesterInterface
+   * @var \Drupal\va_gov_build_trigger\Service\BuildRequesterInterface
    */
   protected $buildRequester;
 
@@ -58,8 +58,8 @@ class BuildTriggerForm extends FormBase {
    *   EnvironmentDiscovery service.
    * @param \Drupal\Core\Block\BlockManager $blockManager
    *   Block Manager service.
-   * @param BuildRequesterInterface $buildRequester
-   *   Build requester service
+   * @param \Drupal\va_gov_build_trigger\Service\BuildRequesterInterface $buildRequester
+   *   Build requester service.
    */
   public function __construct(
     WebBuildStatusInterface $webBuildStatus,

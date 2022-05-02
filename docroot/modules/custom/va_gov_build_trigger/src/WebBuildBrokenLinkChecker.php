@@ -5,7 +5,7 @@ namespace Drupal\va_gov_build_trigger;
 use Drupal\blazy\Utility\BlazyMarkdown;
 use Drupal\Component\Serialization\Json;
 
-// @TODO adapt this for use with Tim's new broken link report format.
+// @todo adapt this for use with Tim's new broken link report format.
 
 /**
  * Handle the web Broken Link checker.

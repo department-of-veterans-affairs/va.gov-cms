@@ -24,7 +24,7 @@ class ContentReleaseCommands extends DrushCommands {
   /**
    * The state management service.
    *
-   * @var StateInterface
+   * @var \Drupal\Core\State\StateInterface
    */
   protected $state;
 
@@ -40,10 +40,10 @@ class ContentReleaseCommands extends DrushCommands {
    *
    * @param \Drupal\va_gov_build_trigger\Service\ReleaseStateManagerInterface $releaseStateManager
    *   The release state manager service.
-   * @param StateInterface $state
+   * @param \Drupal\Core\State\StateInterface $state
    *   The state service.
-   * @param \Psr\Log\LoggerChannelFactoryInterface $logger
-   *   A logger channel factory
+   * @param \Psr\Log\LoggerChannelFactoryInterface $loggerChannelFactory
+   *   A logger channel factory.
    */
   public function __construct(
     ReleaseStateManagerInterface $releaseStateManager,
@@ -82,9 +82,11 @@ class ContentReleaseCommands extends DrushCommands {
   /**
    * Advance the state like an external system would do through HTTP.
    *
+   * @param string $state
+   *   Required. Declare which state to advance to.
+   *
    * @command va-gov:content-release:advance-state
    * @aliases va-gov-content-release-advance-state
-   * @param $state Required. Declare which state to advance to.
    */
   public function advanceState($state) {
     $is_allowed_notification = in_array($state, ContentReleaseNotificationController::allowedNotifications());

@@ -4,7 +4,7 @@ namespace Drupal\va_gov_build_trigger;
 
 use Drupal\Core\State\StateInterface;
 
-// @TODO get rid of this.
+// @todo get rid of this.
 
 /**
  * Status of Web Build.
