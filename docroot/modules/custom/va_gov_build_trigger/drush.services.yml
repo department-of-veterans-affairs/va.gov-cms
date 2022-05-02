@@ -8,6 +8,7 @@ services:
     class: \Drupal\va_gov_build_trigger\Commands\ContentReleaseCommands
     arguments:
       - '@va_gov_build_trigger.release_state_manager'
+      - '@va_gov_build_trigger.build_requester'
       - '@state'
       - '@logger.factory'
     tags:

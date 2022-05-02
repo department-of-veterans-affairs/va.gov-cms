@@ -6,6 +6,7 @@ use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\State\StateInterface;
 use Drupal\va_gov_build_trigger\Controller\ContentReleaseNotificationController;
 use Drupal\va_gov_build_trigger\Service\BuildRequester;
+use Drupal\va_gov_build_trigger\Service\BuildRequesterInterface;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManagerInterface;
 use Drush\Commands\DrushCommands;
@@ -20,6 +21,13 @@ class ContentReleaseCommands extends DrushCommands {
    * @var \Drupal\va_gov_build_trigger\Service\ReleaseStateManagerInterface
    */
   protected $releaseStateManager;
+
+  /**
+   * The build requester service
+   *
+   * @var \Drupal\va_gov_build_trigger\Service\BuildRequester
+   */
+  protected $buildRequester;
 
   /**
    * The state management service.
@@ -47,10 +55,12 @@ class ContentReleaseCommands extends DrushCommands {
    */
   public function __construct(
     ReleaseStateManagerInterface $releaseStateManager,
+    BuildRequesterInterface $buildRequester,
     StateInterface $state,
     LoggerChannelFactoryInterface $loggerChannelFactory
   ) {
     $this->releaseStateManager = $releaseStateManager;
+    $this->buildRequester = $buildRequester;
     $this->state = $state;
     $this->logger = $loggerChannelFactory->get('va_gov_build_trigger');
   }
@@ -126,6 +136,18 @@ class ContentReleaseCommands extends DrushCommands {
   public function getReleaseState() {
     $state = $this->releaseStateManager->getState();
     $this->io()->write($state);
+  }
+
+  /**
+   * Request a frontend build.
+   *
+   * @command va-gov:content-release:request-frontend-build
+   * @aliases va-gov-content-release-request-frontend-build
+   */
+  public function requestFrontendBuild() {
+    $this->buildRequester->resetFrontendVersion();
+    $this->buildRequester->requestFrontendBuild('Manually requested build');
+    $this->io()->writeln('Frontend build has been requested');
   }
 
 }
