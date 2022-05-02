@@ -49,10 +49,10 @@ class BrdBuildTriggerForm extends BuildTriggerForm {
       ],
     ];
 
-    if ($this->webBuildStatus->getWebBuildStatus()) {
+    if ($this->releaseStateManager->releaseIsImminent()) {
       // A build is pending, so set a display.
       $form['tip']['#prefix'] = '<em>';
-      $form['tip']['#markup'] = $this->t('A content release has been queued.');
+      $form['tip']['#markup'] = $this->t('A content release will start soon.');
       $form['tip']['#suffix'] = '</em>';
       $form['tip']['#weight'] = 100;
     }
