@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-// @TODO add a 'request' endpoint to this controller + routes (for requesting a build from outside of the CMS)
+// @todo add a 'request' endpoint to this controller + routes (for requesting a build from outside of the CMS)
 
 /**
  * Handles content release notifications.
@@ -35,7 +35,7 @@ class ContentReleaseNotificationController extends ControllerBase {
       ReleaseStateManager::STATE_STARTING,
       ReleaseStateManager::STATE_INPROGRESS,
       ReleaseStateManager::STATE_COMPLETE,
-      ReleaseStateManager::STATE_READY
+      ReleaseStateManager::STATE_READY,
     ];
   }
 
@@ -51,7 +51,7 @@ class ContentReleaseNotificationController extends ControllerBase {
   /**
    * Handle a starting notification.
    *
-   * @return Response
+   * @return \Symfony\Component\HttpFoundation\Response
    *   An HTTP response
    */
   public function starting() {
@@ -61,7 +61,7 @@ class ContentReleaseNotificationController extends ControllerBase {
   /**
    * Handle an inprogress notification.
    *
-   * @return Response
+   * @return \Symfony\Component\HttpFoundation\Response
    *   An HTTP response
    */
   public function inprogress() {
@@ -71,7 +71,7 @@ class ContentReleaseNotificationController extends ControllerBase {
   /**
    * Handle a complete notification.
    *
-   * @return Response
+   * @return \Symfony\Component\HttpFoundation\Response
    *   An HTTP response
    */
   public function complete() {
@@ -81,7 +81,7 @@ class ContentReleaseNotificationController extends ControllerBase {
   /**
    * Handle a ready notification.
    *
-   * @return Response
+   * @return \Symfony\Component\HttpFoundation\Response
    *   An HTTP response
    */
   public function ready() {
@@ -93,7 +93,8 @@ class ContentReleaseNotificationController extends ControllerBase {
    *
    * @param string $state
    *   The state that we were notified about.
-   * @return Response
+   *
+   * @return \Symfony\Component\HttpFoundation\Response
    *   An HTTP response.
    */
   protected function handle($state) {
@@ -109,4 +110,5 @@ class ContentReleaseNotificationController extends ControllerBase {
 
     return new Response('Notification successful: ' . $state);
   }
+
 }

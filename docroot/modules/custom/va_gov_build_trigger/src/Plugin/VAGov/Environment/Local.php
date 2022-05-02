@@ -66,20 +66,12 @@ class Local extends EnvironmentPluginBase {
   public function triggerFrontendBuild(string $front_end_git_ref = NULL) : void {
     // phpcs:disable
     // See issue https://github.com/department-of-veterans-affairs/va.gov-cms/issues/8796
-    $message = $this->t('Build not dispatched because the content build is not currently working locally.');
-    $this->messenger()->addStatus($message);
-    $this->logger->info($message);
-    return;
-
-    /** @var \Drupal\advancedqueue\Entity\QueueInterface $queue */
-    $queue = $this->queueLoader->load('command_runner');
-
-    // A new command variable since the rebuild commands has been queued.
-    $commands = $this->webBuildCommandBuilder->buildCommands($front_end_git_ref);
-    $this->queueCommands($commands, $queue);
-
-    $this->messenger()->addStatus('A request to rebuild the front end has been submitted.');
+    // $message = $this->t('Build not dispatched because the content build is not currently working on ddev.');
+    // $this->messenger()->addStatus($message);
+    // $this->logger->info($message);
+    // return;
     // phpcs:enable
+    parent::triggerFrontendBuild();
   }
 
   /**

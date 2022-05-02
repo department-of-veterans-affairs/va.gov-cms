@@ -28,16 +28,16 @@ class NotificationRouteProvider {
     foreach ($notification_states as $state) {
       $route = new Route(
         '/api/content_release/' . $state,
-        // Defaults
+        // Defaults.
         [
           '_controller' => ContentReleaseNotificationController::class . '::' . $state,
         ],
-        // Requirements
+        // Requirements.
         [
           '_permission' => 'access bulletin queue trigger api',
           '_user_is_logged_in' => TRUE,
         ],
-        // Options
+        // Options.
         [
           'no_cache' => TRUE,
           '_auth' => ['basic_auth', 'cookie'],
@@ -49,4 +49,5 @@ class NotificationRouteProvider {
 
     return $routes;
   }
+
 }

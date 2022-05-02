@@ -2,6 +2,9 @@
 
 namespace Drupal\va_gov_build_trigger\Service;
 
+/**
+ * The interface for the build requester service.
+ */
 interface BuildRequesterInterface {
 
   /**
