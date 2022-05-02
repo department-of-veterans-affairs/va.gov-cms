@@ -10,9 +10,6 @@ services:
     arguments: ['@va_gov_build_trigger.build_requester', '@va_gov.build_trigger.environment_discovery']
     tags:
       - { name: event_subscriber }
-  va_gov.build_trigger.web_build_status:
-    class: Drupal\va_gov_build_trigger\WebBuildStatus
-    arguments: ['@state']
   va_gov.build_trigger.web_build_link_checker:
     class: Drupal\va_gov_build_trigger\WebBuildBrokenLinkChecker
   va_gov.build_trigger.environment_discovery:

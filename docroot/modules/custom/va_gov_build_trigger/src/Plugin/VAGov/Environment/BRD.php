@@ -10,6 +10,7 @@ use Drupal\va_gov_build_trigger\Form\BrdBuildTriggerForm;
 use Drupal\va_gov_consumers\Git\GithubAdapter;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\va_gov_build_trigger\Service\ReleaseStateManagerInterface;
 
 /**
  * BRD Plugin for Environment.
@@ -151,7 +152,6 @@ class BRD extends EnvironmentPluginBase {
     $this->messenger()->addError($message);
     $this->logger->error($message);
 
-    $this->webBuildStatus->disableWebBuildStatus();
     watchdog_exception('va_gov_build_trigger', $exception);
   }
 

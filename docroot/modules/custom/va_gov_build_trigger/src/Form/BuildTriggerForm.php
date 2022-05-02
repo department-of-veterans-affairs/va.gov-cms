@@ -7,7 +7,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery;
 use Drupal\va_gov_build_trigger\Service\BuildRequesterInterface;
-use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
+use Drupal\va_gov_build_trigger\Service\ReleaseStateManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -20,13 +20,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * the site will look like in production.
  */
 class BuildTriggerForm extends FormBase {
-
-  /**
-   * The state provider.
-   *
-   * @var \Drupal\va_gov_build_trigger\WebBuildStatusInterface
-   */
-  protected $webBuildStatus;
 
   /**
    * EnvironmentDiscovery Service.
@@ -50,27 +43,34 @@ class BuildTriggerForm extends FormBase {
   protected $buildRequester;
 
   /**
+   * Release state manager service.
+   *
+   * @var \Drupal\va_gov_build_trigger\Service\ReleaseStateManager
+   */
+  protected $releaseStateManager;
+
+  /**
    * Class constructor.
    *
-   * @param \Drupal\va_gov_build_trigger\WebBuildStatusInterface $webBuildStatus
-   *   Webbuild status provider.
    * @param \Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery $environmentDiscovery
    *   EnvironmentDiscovery service.
    * @param \Drupal\Core\Block\BlockManager $blockManager
    *   Block Manager service.
    * @param \Drupal\va_gov_build_trigger\Service\BuildRequesterInterface $buildRequester
    *   Build requester service.
+   * @param \Drupal\va_gov_build_trigger\Service\ReleaseStateManagerInterface $releaseStateManager
+   *   Release state manager service.
    */
   public function __construct(
-    WebBuildStatusInterface $webBuildStatus,
     EnvironmentDiscovery $environmentDiscovery,
     BlockManager $blockManager,
-    BuildRequesterInterface $buildRequester
+    BuildRequesterInterface $buildRequester,
+    ReleaseStateManagerInterface $releaseStateManager
   ) {
-    $this->webBuildStatus = $webBuildStatus;
     $this->environmentDiscovery = $environmentDiscovery;
     $this->blockManager = $blockManager;
     $this->buildRequester = $buildRequester;
+    $this->releaseStateManager = $releaseStateManager;
   }
 
   /**
@@ -78,10 +78,10 @@ class BuildTriggerForm extends FormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('va_gov.build_trigger.web_build_status'),
       $container->get('va_gov.build_trigger.environment_discovery'),
       $container->get('plugin.manager.block'),
-      $container->get('va_gov_build_trigger.build_requester')
+      $container->get('va_gov_build_trigger.build_requester'),
+      $container->get('va_gov_build_trigger.release_state_manager')
     );
   }
 
