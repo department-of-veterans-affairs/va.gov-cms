@@ -106,6 +106,19 @@ class ReleaseStateManager implements ReleaseStateManagerInterface {
   /**
    * {@inheritDoc}
    */
+  public function releaseIsImminent() : bool {
+    $state = $this->getState();
+    $release_imminent_states = [
+      self::STATE_REQUESTED,
+      self::STATE_DISPATCHED,
+      self::STATE_STARTING,
+    ];
+    return in_array($state, $release_imminent_states);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   public function canAdvanceStateTo(string $proposed_state) : string {
     $this->requireValidState($proposed_state);
 

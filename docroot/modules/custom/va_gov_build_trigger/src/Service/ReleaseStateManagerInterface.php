@@ -16,6 +16,14 @@ interface ReleaseStateManagerInterface {
   public function getState() : string;
 
   /**
+   * Determine if a release will be dispatched/run in the near future.
+   *
+   * @return bool
+   *   Whether or not a release is coming up.
+   */
+  public function releaseIsImminent() : bool;
+
+  /**
    * Update the release state to a new value.
    *
    * You should probably use advanceStateTo() instead. This method is used for
