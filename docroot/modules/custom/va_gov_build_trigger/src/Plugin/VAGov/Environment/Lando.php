@@ -38,4 +38,11 @@ class Lando extends EnvironmentPluginBase {
     return LandoBuildTriggerForm::class;
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  public function shouldDisplayBuildDetails() : bool {
+    return true;
+  }
+
 }
