@@ -101,13 +101,11 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
 
     $items['release_state'] = [
         'title' => $this->t('Release state'),
-        'description' => $this->t('What is content release doing right now?'),
         'value' => $this->getHumanReadableState($release_state),
     ];
 
     $items['last_release'] = [
         'title' => $this->t('Last release'),
-        'description' => $this->t('When did the last release complete?'),
         'value' => $this->formatTimestamp($last_release),
     ];
 
@@ -117,7 +115,6 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
 
       $items['front_end_version'] = [
         'title' => $this->t('Front end version'),
-        'description' => $this->t('Front end builds will use this version of content build.'),
         'value' => $current_frontend_version,
       ];
 
