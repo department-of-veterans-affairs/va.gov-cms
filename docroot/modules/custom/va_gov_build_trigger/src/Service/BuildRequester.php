@@ -30,38 +30,18 @@ class BuildRequester implements BuildRequesterInterface {
   protected $state;
 
   /**
-   * The time service
-   *
-   * @var \Drupal\Component\Datetime\TimeInterface
-   */
-  protected $time;
-
-  /**
-   * The date formatter service
-   *
-   * @var \Drupal\Core\Datetime\DateFormatterInterface
-   */
-  protected $dateFormatter;
-
-  /**
    * Construct a new BuildRequester.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity_type.manager service.
    * @param \Drupal\Core\State\StateInterface $state
    *   The state service.
-   * @param \Drupal\Component\Datetime\TimeInterface
-   *   The time service.
-   * @param \Drupal\Core\Datetime\DateFormatterInterface
-   *   The date formatter service.
    */
   public function __construct(EntityTypeManagerInterface $entityTypeManager, StateInterface $state, TimeInterface $time, DateFormatterInterface $dateFormatter) {
     $this->state = $state;
     $this->buildQueue = $entityTypeManager
       ->getStorage('advancedqueue_queue')
       ->load('content_release');
-    $this->time = $time;
-    $this->dateFormatter = $dateFormatter;
   }
 
   /**

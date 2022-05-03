@@ -2,10 +2,8 @@
 
 namespace Drupal\va_gov_build_trigger\Service;
 
-use Drupal\advancedqueue\Job;
 use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Datetime\DateFormatterInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\State\StateInterface;
 
 /**
@@ -30,14 +28,14 @@ class BuildScheduler implements BuildSchedulerInterface {
   protected $state;
 
   /**
-   * The time service
+   * The time service.
    *
    * @var \Drupal\Component\Datetime\TimeInterface
    */
   protected $time;
 
   /**
-   * The date formatter service
+   * The date formatter service.
    *
    * @var \Drupal\Core\Datetime\DateFormatterInterface
    */
@@ -50,9 +48,9 @@ class BuildScheduler implements BuildSchedulerInterface {
    *   The build requester service.
    * @param \Drupal\Core\State\StateInterface $state
    *   The state service.
-   * @param \Drupal\Component\Datetime\TimeInterface
+   * @param \Drupal\Component\Datetime\TimeInterface $time
    *   The time service.
-   * @param \Drupal\Core\Datetime\DateFormatterInterface
+   * @param \Drupal\Core\Datetime\DateFormatterInterface $dateFormatter
    *   The date formatter service.
    */
   public function __construct(BuildRequesterInterface $buildRequester, StateInterface $state, TimeInterface $time, DateFormatterInterface $dateFormatter) {
