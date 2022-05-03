@@ -3,8 +3,6 @@
 namespace Drupal\va_gov_build_trigger\Service;
 
 use Drupal\advancedqueue\Job;
-use Drupal\Component\Datetime\TimeInterface;
-use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\State\StateInterface;
 
@@ -37,7 +35,7 @@ class BuildRequester implements BuildRequesterInterface {
    * @param \Drupal\Core\State\StateInterface $state
    *   The state service.
    */
-  public function __construct(EntityTypeManagerInterface $entityTypeManager, StateInterface $state, TimeInterface $time, DateFormatterInterface $dateFormatter) {
+  public function __construct(EntityTypeManagerInterface $entityTypeManager, StateInterface $state) {
     $this->state = $state;
     $this->buildQueue = $entityTypeManager
       ->getStorage('advancedqueue_queue')
