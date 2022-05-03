@@ -9,6 +9,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Url;
 use Drupal\node\Entity\NodeType;
 use Drupal\node\NodeInterface;
 use Drupal\post_api\Service\AddToQueue;
@@ -45,6 +46,7 @@ class FacilityStatusQueueTest extends ExistingSiteBase {
   const STATUS_FIELD_NAME = 'field_operating_status_facility';
   const STATUS_FIELD_MORE_INFO_NAME = 'field_operating_status_more_info';
   const FACILITY_ID = 'field_facility_locator_api_id';
+  const SYSTEM = 'field_region_page';
   const STATE_ARCHIVED = 'archived';
   const STATE_DRAFT = 'draft';
   const STATE_PUBLISHED = 'published';
@@ -78,6 +80,7 @@ class FacilityStatusQueueTest extends ExistingSiteBase {
     $configFactoryProphecy = $this->prophesize(ConfigFactoryInterface::class);
     $entityStorageProphecy = $this->prophesize(EntityStorageInterface::class);
     $nodeTypeProphecy = $this->prophesize(NodeType::class);
+    $urlProphecy = $this->prophesize(Url::class);
 
     // Establish methods and return values.
     $nodeProphecy->isPublished()->willReturn($isPublished);
@@ -97,7 +100,11 @@ class FacilityStatusQueueTest extends ExistingSiteBase {
       $nodeProphecy->get(self::STATUS_FIELD_MORE_INFO_NAME)->willReturn((object) ['value' => 'a']);
       $nodeProphecy->hasField(self::FACILITY_ID)->willReturn(TRUE);
       $nodeProphecy->get(self::FACILITY_ID)->willReturn((object) ['value' => 'vha_000']);
+      $nodeProphecy->hasField(self::SYSTEM)->willReturn(NULL);
       $nodeProphecy->get('moderation_state')->willReturn((object) ['value' => $moderationState])->shouldBeCalled();
+      $urlProphecy->toString()->willReturn('/abc');
+      $url = $urlProphecy->reveal();
+      $nodeProphecy->toUrl()->willReturn($url);
     }
     else {
       $nodeProphecy->hasField(self::STATUS_FIELD_NAME)->willReturn(FALSE);
