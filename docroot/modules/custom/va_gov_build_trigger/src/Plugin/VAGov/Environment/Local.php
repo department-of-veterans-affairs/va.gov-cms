@@ -88,4 +88,11 @@ class Local extends EnvironmentPluginBase {
     return LocalBuildTriggerForm::class;
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  public function shouldDisplayBuildDetails() : bool {
+    return true;
+  }
+
 }

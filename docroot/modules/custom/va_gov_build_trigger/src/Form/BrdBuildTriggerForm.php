@@ -22,15 +22,15 @@ class BrdBuildTriggerForm extends BuildTriggerForm {
 
     $form['#attached']['library'][] = 'va_gov_build_trigger/build_trigger_form';
 
-    $form['help_1'] = [
+    $form['description'] = [
       '#prefix' => '<p>',
       '#markup' => $this->t('Any content you set to Published will automatically go live on VA.gov during the daily content release. However, if you need your content to go live sooner, you can perform a manual content release here.'),
       '#suffix' => '</p>',
       '#weight' => -10,
     ];
-    $form['help_2'] = [
+    $form['description_2'] = [
       '#prefix' => '<p>',
-      '#markup' => $this->t('Content release can take up to 15 minutes to finish.'),
+      '#markup' => $this->t('Content release can take up to 30 minutes to finish.'),
       '#suffix' => '</p>',
       '#weight' => -10,
     ];
