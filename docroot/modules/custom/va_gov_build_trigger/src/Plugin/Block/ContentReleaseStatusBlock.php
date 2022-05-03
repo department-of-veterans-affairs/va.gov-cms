@@ -3,8 +3,11 @@
 namespace Drupal\va_gov_build_trigger\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Link;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\State\StateInterface;
 use Drupal\Core\Url;
+use Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\va_gov_build_trigger\Service\BuildRequester;
 
@@ -26,12 +29,47 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
   protected $state;
 
   /**
+   * Environment discovery service
+   *
+   * @var \Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery
+   */
+  protected $environmentDiscovery;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    $instance = new static($configuration, $plugin_id, $plugin_definition);
-    $instance->state = $container->get('state');
-    return $instance;
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('state'),
+      $container->get('va_gov.build_trigger.environment_discovery'),
+    );
+  }
+
+  /**
+   * Constructs a \Drupal\Component\Plugin\PluginBase object.
+   *
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   */
+  public function __construct(
+    array $configuration,
+    $plugin_id,
+    $plugin_definition,
+    StateInterface $state,
+    EnvironmentDiscovery $environmentDiscovery
+  ) {
+    $this->configuration = $configuration;
+    $this->pluginId = $plugin_id;
+    $this->pluginDefinition = $plugin_definition;
+    $this->state = $state;
+    $this->environmentDiscovery = $environmentDiscovery;
   }
 
   /**
@@ -40,64 +78,73 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
   public function build() {
     $build = [];
 
-    $table = [
-      '#type' => 'table',
-      '#attributes' => ['class' => ['content-release-status-block']],
-      '#header' => [
-        $this->t('Data'),
-        $this->t('Value'),
-      ],
+    $release_state = $this->state->get('va_gov_build_trigger.release_state', 'ready');
+    $last_release = $this->state->get('va_gov_build_trigger.last_release_complete', 0);
+
+    $items = [];
+
+    // If the frontend has been built, display a link to the environment.
+    $front_end_link = $this->t('Front end has not been built yet.');
+    $front_end_description = $this->t('Once a release is completed successfully, this section will update with a link to the newly built VA.gov front end.');
+    if ($last_release !== 0) {
+      $target = $this->environmentDiscovery->getWebUrl();
+      $target_url = Url::fromUri($target, ['attributes' => ['target' => '_blank']]);
+      $front_end_link = Link::fromTextAndUrl($this->t('View front end'), $target_url);
+      $front_end_description = $this->t('See how your content will appear to site visitors on the front end.');
+    }
+
+    $items['frontend_link'] = [
+      'title' => $this->t('Front end link'),
+      'description' => $front_end_description,
+      'value' => $front_end_link,
     ];
 
-    // @todo present the data that we have available in a nice way
-    $table['#rows'] = [
-      [
-        'current release state',
-        $this->state->get('va_gov_build_trigger.release_state', 'ready'),
-      ],
-      [
-        'all valid release states (in order)',
-        'ready, requested, dispatched, starting, in progress, complete',
-      ],
-      [
-        'last release ready time',
-        $this->state->get('va_gov_build_trigger.last_release_ready', '0'),
-      ],
-      [
-        'last release request time',
-        $this->state->get('va_gov_build_trigger.last_release_request', '0'),
-      ],
-      [
-        'last release dispatch time',
-        $this->state->get('va_gov_build_trigger.last_release_dispatch', '0'),
-      ],
-      [
-        'last release starting time',
-        $this->state->get('va_gov_build_trigger.last_release_starting', '0'),
-      ],
-      [
-        'last release inprogress time',
-        $this->state->get('va_gov_build_trigger.last_release_inprogress', '0'),
-      ],
-      [
-        'last release complete time',
-        $this->state->get('va_gov_build_trigger.last_release_complete', '0'),
-      ],
-      [
-        'current frontend version selection',
-        $this->state->get(BuildRequester::VA_GOV_FRONTEND_VERSION, '[default]'),
-      ],
-      [
-        'last build log',
-        '/sites/default/files/build.txt',
-      ],
-      [
-        'current time',
-        \Drupal::service('date.formatter')->format(\Drupal::time()->getCurrentTime(), 'standard'),
-      ],
-      [
-        'unformatted time',
-        \Drupal::time()->getCurrentTime(),
+    $items['release_state'] = [
+        'title' => $this->t('Release state'),
+        'description' => $this->t('What is content release doing right now?'),
+        'value' => $this->getHumanReadableState($release_state),
+    ];
+
+    $items['last_release'] = [
+        'title' => $this->t('Last release'),
+        'description' => $this->t('When did the last release complete?'),
+        'value' => $this->formatTimestamp($last_release),
+    ];
+
+    if ($this->environmentDiscovery->shouldDisplayBuildDetails()) {
+      $current_frontend_version = $this->state->get(BuildRequester::VA_GOV_FRONTEND_VERSION, '[default]');
+      $build_log_link =
+
+      $items['front_end_version'] = [
+        'title' => $this->t('Front end version'),
+        'description' => $this->t('Front end builds will use this version of content build.'),
+        'value' => $current_frontend_version,
+      ];
+
+      // If the frontend has been built, display a link to the environment.
+      $build_log_link = $this->t('No build log available');
+      $build_log_description = $this->t('Once a release is completed successfully, this section will update with a link to the full log output of the content release (including a broken link report).');
+      if ($last_release !== 0) {
+        $target = $this->environmentDiscovery->getWebUrl();
+        $target_url = Url::fromUserInput('/sites/default/files/build.txt', ['attributes' => ['target' => '_blank']]);
+        $build_log_link = Link::fromTextAndUrl($this->t('Build log'), $target_url);
+        $build_log_description = $this->t('View the full output of the last completed build process (including a broken link report).');
+      }
+      $items['build_log'] = [
+        'title' => $this->t('Build log'),
+        'description' => $build_log_description,
+        'value' => $build_log_link,
+      ];
+    }
+
+    $status = [
+      '#theme' => 'status_report_grouped',
+      '#grouped_requirements' => [
+        [
+          'title' => $this->t('Content release status'),
+          'type' => 'content-release-status',
+          'items' => $items,
+        ],
       ],
     ];
 
@@ -108,9 +155,34 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
       )->toString(),
     ];
 
-    $build['content_release_status_block'] = $table;
+    $build['content_release_status_block'] = $status;
 
     return $build;
+  }
+
+  protected function getHumanReadableState(string $state) : string {
+    switch ($state) {
+      case 'ready':
+      case 'requested':
+        return $this->t('Ready');
+      case 'dispatched':
+      case 'starting':
+        return $this->t('Preparing');
+      case 'inprogress':
+        return $this->t('In Progress');
+      case 'complete':
+        return $this->t('Complete');
+    }
+
+    return 'unknown';
+  }
+
+  protected function formatTimestamp(int $timestamp) : string {
+    if ($timestamp === 0) {
+      return $this->t('Never');
+    }
+
+    return $this->dateFormatter->format($timestamp, 'standard');
   }
 
 }

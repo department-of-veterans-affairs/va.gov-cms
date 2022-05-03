@@ -22,4 +22,11 @@ class Tugboat extends EnvironmentPluginBase {
     return TugboatBuildTriggerForm::class;
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  public function shouldDisplayBuildDetails() : bool {
+    return true;
+  }
+
 }
