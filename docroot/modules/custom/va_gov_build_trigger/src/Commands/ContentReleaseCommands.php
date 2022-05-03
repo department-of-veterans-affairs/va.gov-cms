@@ -24,14 +24,14 @@ class ContentReleaseCommands extends DrushCommands {
   protected $releaseStateManager;
 
   /**
-   * The build requester service
+   * The build requester service.
    *
    * @var \Drupal\va_gov_build_trigger\Service\BuildRequesterInterface
    */
   protected $buildRequester;
 
   /**
-   * The build scheduler service
+   * The build scheduler service.
    *
    * @var \Drupal\va_gov_build_trigger\Service\BuildSchedulerInterface
    */
@@ -173,4 +173,5 @@ class ContentReleaseCommands extends DrushCommands {
   public function checkScheduledBuild() {
     $this->buildScheduler->checkScheduledBuild();
   }
+
 }

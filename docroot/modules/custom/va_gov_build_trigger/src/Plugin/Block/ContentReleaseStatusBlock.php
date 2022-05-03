@@ -19,7 +19,7 @@ use Drupal\va_gov_build_trigger\Service\BuildRequester;
 class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
-   * State service
+   * State service.
    *
    * @var \Drupal\Core\State\StateInterface
    */
