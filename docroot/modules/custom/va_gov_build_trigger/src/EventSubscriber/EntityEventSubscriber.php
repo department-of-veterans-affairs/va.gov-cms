@@ -78,6 +78,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   protected function maybeTriggerBuild(NodeInterface $node) : void {
     if (
+      $this->shouldTrigger() &&
       $this->isTriggerableState($node) &&
       ($this->isTriggerableType($node) || $this->facilityChangedStatus($node))
     ) {
