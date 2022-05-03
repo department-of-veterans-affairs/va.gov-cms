@@ -39,6 +39,6 @@ Please check the team(s) that will do this work.
 - [ ] `Platform CMS Team`
 - [ ] `Sitewide program`
 - [ ] `⭐️ Sitewide CMS`
-- [ ] `⭐️ Public websites`
+- [ ] `⭐️ Public Websites`
 - [x] `⭐️ Facilities`
 - [x] `⭐️ User support`
