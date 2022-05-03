@@ -62,7 +62,7 @@ class ContentReleaseCommands extends DrushCommands {
    *   The build requester service.
    * @param \Drupal\Core\State\StateInterface $state
    *   The state service.
-   * @param \Psr\Log\LoggerChannelFactoryInterface $loggerChannelFactory
+   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerChannelFactory
    *   A logger channel factory.
    */
   public function __construct(
