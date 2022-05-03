@@ -91,6 +91,14 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
         'last build log',
         '/sites/default/files/build.txt',
       ],
+      [
+        'current time',
+        \Drupal::service('date.formatter')->format(\Drupal::time()->getCurrentTime(), 'standard'),
+      ],
+      [
+        'unformatted time',
+        \Drupal::time()->getCurrentTime(),
+      ],
     ];
 
     $build['#attached']['library'][] = 'va_gov_build_trigger/content_release_status_block';

@@ -29,4 +29,4 @@ services:
     arguments: ['@state']
   va_gov_build_trigger.build_requester:
     class: Drupal\va_gov_build_trigger\Service\BuildRequester
-    arguments: ['@entity_type.manager', '@state']
+    arguments: ['@entity_type.manager', '@state', '@datetime.time', '@date.formatter']
