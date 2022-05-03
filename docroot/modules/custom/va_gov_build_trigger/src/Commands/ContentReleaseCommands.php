@@ -150,4 +150,13 @@ class ContentReleaseCommands extends DrushCommands {
     $this->io()->writeln('Frontend build has been requested');
   }
 
+  /**
+   * Make sure builds are going out at least hourly during business hours.
+   *
+   * @command va-gov:content-release:check-scheduled
+   * @aliases va-gov-content-release-check-scheduled
+   */
+  public function checkScheduledBuild() {
+    $this->buildRequester->checkScheduledBuild();
+  }
 }
