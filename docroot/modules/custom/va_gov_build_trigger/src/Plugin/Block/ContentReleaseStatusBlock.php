@@ -29,7 +29,7 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
   protected $state;
 
   /**
-   * Environment discovery service
+   * Environment discovery service.
    *
    * @var \Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery
    */
@@ -57,6 +57,10 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
    *   The plugin_id for the plugin instance.
    * @param mixed $plugin_definition
    *   The plugin implementation definition.
+   * @param \Drupal\Core\State\StateInterface $state
+   *   The state service.
+   * @param \Drupal\va_gov_build_trigger\Service\EnvironmentDiscovery $environmentDiscovery
+   *   The environment discovery service.
    */
   public function __construct(
     array $configuration,
@@ -100,13 +104,13 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
     ];
 
     $items['release_state'] = [
-        'title' => $this->t('Release state'),
-        'value' => $this->getHumanReadableState($release_state),
+      'title' => $this->t('Release state'),
+      'value' => $this->getHumanReadableState($release_state),
     ];
 
     $items['last_release'] = [
-        'title' => $this->t('Last release'),
-        'value' => $this->formatTimestamp($last_release),
+      'title' => $this->t('Last release'),
+      'value' => $this->formatTimestamp($last_release),
     ];
 
     if ($this->environmentDiscovery->shouldDisplayBuildDetails()) {
@@ -157,16 +161,28 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
     return $build;
   }
 
+  /**
+   * Formats our internal state names for end-user consumption.
+   *
+   * @param string $state
+   *   Internal content release state.
+   *
+   * @return string
+   *   User-facing content release state.
+   */
   protected function getHumanReadableState(string $state) : string {
     switch ($state) {
       case 'ready':
       case 'requested':
         return $this->t('Ready');
+
       case 'dispatched':
       case 'starting':
         return $this->t('Preparing');
+
       case 'inprogress':
         return $this->t('In Progress');
+
       case 'complete':
         return $this->t('Complete');
     }
@@ -174,6 +190,15 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
     return 'unknown';
   }
 
+  /**
+   * Format a timestamp using the site standard date format and timezone.
+   *
+   * @param int $timestamp
+   *   A unix timestamp.
+   *
+   * @return string
+   *   A formatted date/time.
+   */
   protected function formatTimestamp(int $timestamp) : string {
     if ($timestamp === 0) {
       return $this->t('Never');

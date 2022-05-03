@@ -92,7 +92,7 @@ class Local extends EnvironmentPluginBase {
    * {@inheritDoc}
    */
   public function shouldDisplayBuildDetails() : bool {
-    return true;
+    return TRUE;
   }
 
 }
