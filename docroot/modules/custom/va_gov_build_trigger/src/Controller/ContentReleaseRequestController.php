@@ -31,9 +31,9 @@ class ContentReleaseRequestController extends ControllerBase {
   /**
    * Constructor for the content release request controller.
    *
-   * @param Drupal\va_gov_build_trigger\Service\BuildRequesterInterface $buildRequester
+   * @param \Drupal\va_gov_build_trigger\Service\BuildRequesterInterface $buildRequester
    *   The build requester service.
-   * @param Symfony\Component\HttpFoundation\RequestStack $requestStack
+   * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
    *   The current request stack.
    */
   public function __construct(BuildRequesterInterface $buildRequester, RequestStack $requestStack) {

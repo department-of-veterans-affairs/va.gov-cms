@@ -41,7 +41,7 @@ class ContentReleaseNotificationController extends ControllerBase {
   /**
    * Constructor for the content release notification controller.
    *
-   * @param Drupal\va_gov_build_trigger\Service\ReleaseStateManagerInterface $releaseStateManager
+   * @param \Drupal\va_gov_build_trigger\Service\ReleaseStateManagerInterface $releaseStateManager
    *   The build requester service.
    */
   public function __construct(ReleaseStateManagerInterface $releaseStateManager) {
