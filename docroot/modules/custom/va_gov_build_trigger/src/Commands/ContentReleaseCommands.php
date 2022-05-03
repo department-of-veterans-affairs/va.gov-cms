@@ -7,6 +7,7 @@ use Drupal\Core\State\StateInterface;
 use Drupal\va_gov_build_trigger\Controller\ContentReleaseNotificationController;
 use Drupal\va_gov_build_trigger\Service\BuildRequester;
 use Drupal\va_gov_build_trigger\Service\BuildRequesterInterface;
+use Drupal\va_gov_build_trigger\Service\BuildSchedulerInterface;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManagerInterface;
 use Drush\Commands\DrushCommands;
@@ -25,9 +26,16 @@ class ContentReleaseCommands extends DrushCommands {
   /**
    * The build requester service
    *
-   * @var \Drupal\va_gov_build_trigger\Service\BuildRequester
+   * @var \Drupal\va_gov_build_trigger\Service\BuildRequesterInterface
    */
   protected $buildRequester;
+
+  /**
+   * The build scheduler service
+   *
+   * @var \Drupal\va_gov_build_trigger\Service\BuildSchedulerInterface
+   */
+  protected $buildScheduler;
 
   /**
    * The state management service.
@@ -48,6 +56,10 @@ class ContentReleaseCommands extends DrushCommands {
    *
    * @param \Drupal\va_gov_build_trigger\Service\ReleaseStateManagerInterface $releaseStateManager
    *   The release state manager service.
+   * @param \Drupal\va_gov_build_trigger\Service\BuildSchedulerInterface $buildScheduler
+   *   The build scheduler service.
+   * @param \Drupal\va_gov_build_trigger\Service\BuildRequesterInterface $buildRequester
+   *   The build requester service.
    * @param \Drupal\Core\State\StateInterface $state
    *   The state service.
    * @param \Psr\Log\LoggerChannelFactoryInterface $loggerChannelFactory
@@ -55,11 +67,13 @@ class ContentReleaseCommands extends DrushCommands {
    */
   public function __construct(
     ReleaseStateManagerInterface $releaseStateManager,
+    BuildSchedulerInterface $buildScheduler,
     BuildRequesterInterface $buildRequester,
     StateInterface $state,
     LoggerChannelFactoryInterface $loggerChannelFactory
   ) {
     $this->releaseStateManager = $releaseStateManager;
+    $this->buildScheduler = $buildScheduler;
     $this->buildRequester = $buildRequester;
     $this->state = $state;
     $this->logger = $loggerChannelFactory->get('va_gov_build_trigger');
@@ -157,6 +171,6 @@ class ContentReleaseCommands extends DrushCommands {
    * @aliases va-gov-content-release-check-scheduled
    */
   public function checkScheduledBuild() {
-    $this->buildRequester->checkScheduledBuild();
+    $this->buildScheduler->checkScheduledBuild();
   }
 }
