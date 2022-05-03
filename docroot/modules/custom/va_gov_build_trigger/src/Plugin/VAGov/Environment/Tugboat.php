@@ -26,7 +26,7 @@ class Tugboat extends EnvironmentPluginBase {
    * {@inheritDoc}
    */
   public function shouldDisplayBuildDetails() : bool {
-    return true;
+    return TRUE;
   }
 
 }

@@ -19,16 +19,13 @@ class Lando extends EnvironmentPluginBase {
    * {@inheritDoc}
    */
   public function triggerFrontendBuild() : void {
-    // phpcs:disable
-    // TODO uncomment the following lines before merge
     // phpcs:ignore
     // See issue https://github.com/department-of-veterans-affairs/va.gov-cms/issues/8796
-    // $message = $this->t('Build not dispatched because the content build is not currently working on ddev.');
-    // $this->messenger()->addStatus($message);
-    // $this->logger->info($message);
-    // return;
-    // phpcs:enable
-    parent::triggerFrontendBuild();
+    $message = $this->t('Build not dispatched because the content build is not currently working on ddev.');
+    $this->messenger()->addStatus($message);
+    $this->logger->info($message);
+    return;
+    // parent::triggerFrontendBuild();
   }
 
   /**
@@ -42,7 +39,7 @@ class Lando extends EnvironmentPluginBase {
    * {@inheritDoc}
    */
   public function shouldDisplayBuildDetails() : bool {
-    return true;
+    return TRUE;
   }
 
 }
