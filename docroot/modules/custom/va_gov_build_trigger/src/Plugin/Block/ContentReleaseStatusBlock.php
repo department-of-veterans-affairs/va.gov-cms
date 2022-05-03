@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_build_trigger\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\State\StateInterface;
@@ -36,6 +37,13 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
   protected $environmentDiscovery;
 
   /**
+   * The date formatter service.
+   *
+   * @var \Drupal\Core\Datetime\DateFormatterInterface
+   */
+  protected $dateFormatter;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
@@ -59,7 +67,9 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
    *   The plugin implementation definition.
    * @param \Drupal\Core\State\StateInterface $state
    *   The state service.
-   * @param \Drupal\va_gov_build_trigger\Service\EnvironmentDiscovery $environmentDiscovery
+   * @param \Drupal\Core\Datetime\DateFormatterInterface $dateFormatter
+   *   The date formatter service.
+   * @param \Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery $environmentDiscovery
    *   The environment discovery service.
    */
   public function __construct(
@@ -67,12 +77,14 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
     $plugin_id,
     $plugin_definition,
     StateInterface $state,
+    DateFormatterInterface $dateFormatter,
     EnvironmentDiscovery $environmentDiscovery
   ) {
     $this->configuration = $configuration;
     $this->pluginId = $plugin_id;
     $this->pluginDefinition = $plugin_definition;
     $this->state = $state;
+    $this->dateFormatter = $dateFormatter;
     $this->environmentDiscovery = $environmentDiscovery;
   }
 
