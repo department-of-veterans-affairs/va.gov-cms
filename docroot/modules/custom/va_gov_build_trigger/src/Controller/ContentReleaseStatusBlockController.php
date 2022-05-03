@@ -30,9 +30,9 @@ class ContentReleaseStatusBlockController extends ControllerBase {
   /**
    * Constructs a new ContentReleaseStatusBlockController.
    *
-   * @param BlockManagerInterface $blockManager
+   * @param \Drupal\Core\Block\BlockManagerInterface $blockManager
    *   The block manager service.
-   * @param RendererInterface $renderer
+   * @param \Drupal\Core\Render\RendererInterface $renderer
    *   The renderer service.
    */
   public function __construct(BlockManagerInterface $blockManager, RendererInterface $renderer) {
