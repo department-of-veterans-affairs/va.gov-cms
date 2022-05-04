@@ -14,8 +14,8 @@ class ReleaseStateManager implements ReleaseStateManagerInterface {
   // These are the state keys that this class owns.
   protected const STATE_KEY = 'va_gov_build_trigger.release_state';
   protected const LAST_RELEASE_READY_KEY = 'va_gov_build_trigger.last_release_ready';
-  protected const LAST_RELEASE_REQUEST_KEY = 'va_gov_build_trigger.last_release_request';
-  protected const LAST_RELEASE_DISPATCH_KEY = 'va_gov_build_trigger.last_release_dispatch';
+  protected const LAST_RELEASE_REQUEST_KEY = 'va_gov_build_trigger.last_release_requested';
+  protected const LAST_RELEASE_DISPATCH_KEY = 'va_gov_build_trigger.last_release_dispatched';
   protected const LAST_RELEASE_STARTING_KEY = 'va_gov_build_trigger.last_release_starting';
   protected const LAST_RELEASE_INPROGRESS_KEY = 'va_gov_build_trigger.last_release_inprogress';
   protected const LAST_RELEASE_COMPLETE_KEY = 'va_gov_build_trigger.last_release_complete';
@@ -240,7 +240,7 @@ class ReleaseStateManager implements ReleaseStateManagerInterface {
    */
   protected function notifyListeners($old_state, $new_state) : void {
     $event = new ReleaseStateTransitionEvent($old_state, $new_state);
-    $this->dispatcher->dispatch($event);
+    $this->dispatcher->dispatch($event, ReleaseStateTransitionEvent::NAME);
   }
 
   /**
