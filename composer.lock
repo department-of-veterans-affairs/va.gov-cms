@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "28a130f137ed1207cbb3bd657772e45c",
+    "content-hash": "4991aaa1306b1527fd4ff0d46c999e9d",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -2973,6 +2973,58 @@
             "homepage": "http://drupal.org/project/address",
             "support": {
                 "source": "https://git.drupalcode.org/project/address"
+            }
+        },
+        {
+            "name": "drupal/admin_feedback",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/admin_feedback.git",
+                "reference": "8.x-2.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/admin_feedback-8.x-2.2.zip",
+                "reference": "8.x-2.2",
+                "shasum": "59360f32d999950516957aa5e629e8495d6dbab5"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-2.2",
+                    "datestamp": "1614363271",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "ainarend",
+                    "homepage": "https://www.drupal.org/user/3547591"
+                },
+                {
+                    "name": "anuar.alfetahe",
+                    "homepage": "https://www.drupal.org/user/3577723"
+                },
+                {
+                    "name": "bserem",
+                    "homepage": "https://www.drupal.org/user/388753"
+                }
+            ],
+            "description": "Admin Feedback makes it very easy to analyze, create statics and gather user information about the contents of the site.",
+            "homepage": "https://www.drupal.org/project/admin_feedback",
+            "support": {
+                "source": "https://git.drupalcode.org/project/admin_feedback"
             }
         },
         {
@@ -24382,16 +24434,16 @@
         },
         {
             "name": "va-gov/content-build",
-            "version": "v0.0.2998",
+            "version": "v0.0.3001",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/content-build.git",
-                "reference": "b7ed467c8c6a24d5e7cab0c911a1428aa846800f"
+                "reference": "170b5ac34ea5c34b9f3d02e61859928a43b07dbe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/b7ed467c8c6a24d5e7cab0c911a1428aa846800f",
-                "reference": "b7ed467c8c6a24d5e7cab0c911a1428aa846800f",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/170b5ac34ea5c34b9f3d02e61859928a43b07dbe",
+                "reference": "170b5ac34ea5c34b9f3d02e61859928a43b07dbe",
                 "shasum": ""
             },
             "type": "node-project",
@@ -24418,9 +24470,9 @@
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/content-build, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
             "support": {
                 "issues": "https://github.com/department-of-veterans-affairs/content-build/issues",
-                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.2998"
+                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3001"
             },
-            "time": "2022-04-28T17:32:47+00:00"
+            "time": "2022-05-02T20:44:34+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

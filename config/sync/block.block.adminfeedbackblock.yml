@@ -1,0 +1,33 @@
+uuid: 896be1ff-a177-4434-96a2-c2db89d5eb61
+langcode: en
+status: true
+dependencies:
+  module:
+    - admin_feedback
+    - node
+    - system
+  theme:
+    - vagovclaro
+id: adminfeedbackblock
+theme: vagovclaro
+region: content
+weight: -8
+provider: null
+plugin: admin_feedback_block
+settings:
+  id: admin_feedback_block
+  label: 'Admin Feedback Block'
+  label_display: '0'
+  provider: admin_feedback
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      documentation_page: documentation_page
+  request_path:
+    id: request_path
+    negate: true
+    pages: /help

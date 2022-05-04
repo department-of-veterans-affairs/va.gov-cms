@@ -12,6 +12,8 @@ import {
   faMagnifyingGlass, // magnifying-glass
   faPencil, // pencil
   faPlus, // plus
+  faThumbsDown, // thumbs down
+  faThumbsUp, // trash
   faTrash, // trash
   faTriangleExclamation // warning
 } from '@fortawesome/free-solid-svg-icons';
@@ -34,6 +36,8 @@ library.add(
   faMagnifyingGlass,
   faPencil,
   faPlus,
+  faThumbsDown,
+  faThumbsUp,
   faTrash,
   faTriangleExclamation
 );
