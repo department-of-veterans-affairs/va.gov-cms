@@ -1,0 +1,38 @@
+diff --git a/node_modules/cypress-axe/dist/index.js b/node_modules/cypress-axe/dist/index.js
+index 6e39e23..35da635 100644
+--- a/node_modules/cypress-axe/dist/index.js
++++ b/node_modules/cypress-axe/dist/index.js
+@@ -36,7 +36,7 @@ function isEmptyObjectorNull(value) {
+ }
+ var checkA11y = function (context, options, violationCallback, skipFailures) {
+     if (skipFailures === void 0) { skipFailures = false; }
+-    cy.window({ log: false })
++    cy.window({ log: true })
+         .then(function (win) {
+         if (isEmptyObjectorNull(context)) {
+             context = undefined;
+@@ -48,15 +48,19 @@ var checkA11y = function (context, options, violationCallback, skipFailures) {
+             violationCallback = undefined;
+         }
+         var _a = options || {}, includedImpacts = _a.includedImpacts, axeOptions = __rest(_a, ["includedImpacts"]);
+-        return win.axe
+-            .run(context || win.document, axeOptions)
+-            .then(function (_a) {
+-            var violations = _a.violations;
+-            return includedImpacts &&
++        return new Cypress.Promise((resolve, reject) => {
++           win.axe.run(context || win.document, axeOptions, (error, results) => {
++            if (error) {
++              reject(error);
++            }
++            var violations = results.violations;
++            const result = includedImpacts &&
+                 Array.isArray(includedImpacts) &&
+                 Boolean(includedImpacts.length)
+                 ? violations.filter(function (v) { return v.impact && includedImpacts.includes(v.impact); })
+                 : violations;
++            resolve(violations);
++          });
+         });
+     })
+         .then(function (violations) {

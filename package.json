@@ -16,7 +16,8 @@
     "stylelint-themes": "npx stylelint 'docroot/themes/custom/**/*.scss'",
     "stylelint": "npx stylelint",
     "test:cypress": "cypress run -e \"TAGS=$CYPRESS_TAGS\"",
-    "test:cypress:interactive": "cypress open -e \"TAGS=not @ignore and not @piv,VAGOV_INTERACTIVE=true\""
+    "test:cypress:interactive": "cypress open -e \"TAGS=not @ignore and not @piv,VAGOV_INTERACTIVE=true\"",
+    "postinstall": "patch-package"
   },
   "repository": {
     "type": "git",
@@ -67,6 +68,7 @@
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
     "json-schema": ">=0.4.0",
+    "patch-package": "^6.4.7",
     "pixelmatch": "^5.2.1",
     "pngjs": "^6.0.0",
     "prettier": "^2.2.1",

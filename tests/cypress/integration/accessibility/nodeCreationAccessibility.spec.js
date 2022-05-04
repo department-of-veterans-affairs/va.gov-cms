@@ -1,6 +1,4 @@
 const routes = [
-  '/node/add/health_care_local_facility',
-  '/node/add/health_care_region_detail_page',
   '/node/add/page',
   '/node/add/landing_page',
   '/node/add/documentation_page',
