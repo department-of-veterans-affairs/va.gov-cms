@@ -1,0 +1,22 @@
+uuid: 67cdcc9f-ad58-4567-904d-6fbdf51ad0bf
+langcode: en
+status: true
+dependencies:
+  module:
+    - dynamic_entity_reference
+    - taxonomy
+id: taxonomy_term.field_administration
+field_name: field_administration
+entity_type: taxonomy_term
+type: dynamic_entity_reference
+settings:
+  exclude_entity_types: false
+  entity_type_ids:
+    taxonomy_term: taxonomy_term
+module: dynamic_entity_reference
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

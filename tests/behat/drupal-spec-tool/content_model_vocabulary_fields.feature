@@ -25,3 +25,6 @@ Feature: Content model: Vocabulary fields
 | Vocabulary | VA Services | Service description | field_vet_center_service_descrip | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
 | Vocabulary | VA Services | Type of Care | field_vet_center_type_of_care | List (text) |  | 1 | Select list |  |
 | Vocabulary | VA Services | VHA Stop code | field_vha_healthservice_stopcode | Number (integer) |  | 1 | Number field |  |
+| Vocabulary | Facility Supplemental Status | Identifier for this status that will never change. ie. covid_red | field_status_id | Text (plain) | | 1 | Textfield |  |
+| Vocabulary | Facility Supplemental Status | Section | field_administration | Dynamic entity reference | Required | 1 | Select list |  |
+| Vocabulary | Facility Supplemental Status | Editor facing guidance on when to use this status. | field_guidance | Text (formatted) |  | 1 | Text field |  |

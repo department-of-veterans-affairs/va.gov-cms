@@ -1,0 +1,49 @@
+uuid: d1b7413e-4887-4c2b-8199-b234518d07dc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.facility_supplemental_status.field_administration
+    - field.field.taxonomy_term.facility_supplemental_status.field_guidance
+    - field.field.taxonomy_term.facility_supplemental_status.field_status_id
+    - taxonomy.vocabulary.facility_supplemental_status
+  module:
+    - dynamic_entity_reference
+    - text
+id: taxonomy_term.facility_supplemental_status.default
+targetEntityType: taxonomy_term
+bundle: facility_supplemental_status
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_administration:
+    type: dynamic_entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_guidance:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_status_id:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  search_api_excerpt: true

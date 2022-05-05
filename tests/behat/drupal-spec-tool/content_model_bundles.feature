@@ -112,6 +112,7 @@ Feature: Content model bundles
 | Audience - Beneficiaries | audience_beneficiaries | Vocabulary |  |
 | Audience - Non-beneficiaries | audience_non_beneficiaries | Vocabulary |  |
 | VA Services | health_care_service_taxonomy | Vocabulary | Single source of truth for health service names, descriptions, patient-friendly names, and common conditions. |
+| Facility Supplemental Status | facility_supplemental_status | Vocabulary | Supplemental statuses to be used with facilities. |
 | Resources and support Categories | lc_categories | Vocabulary |  |
 | Products | products | Vocabulary |  |
 | Topics | topics | Vocabulary |  |
