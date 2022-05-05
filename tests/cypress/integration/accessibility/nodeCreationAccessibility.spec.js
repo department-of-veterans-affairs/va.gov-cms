@@ -20,6 +20,7 @@ const routes = [
 before(() => {
   // @TODO Use Cypress.env variables for user/pass.
   // @TODO Use a content admin role.
+  // Ensure there is no active user session.
   cy.drupalLogout();
   cy.drupalLogin('axcsd452ksey', 'drupal8');
 
