@@ -3,9 +3,9 @@ const routes = [
   '/node/add/landing_page',
   '/node/add/documentation_page',
   '/node/add/event',
-  // '/node/add/health_care_local_facility',
-  // '/node/add/health_care_region_detail_page',
-  // '/node/add/health_care_region_page',
+  '/node/add/health_care_local_facility',
+  '/node/add/health_care_region_detail_page',
+  '/node/add/health_care_region_page',
   '/node/add/office',
   '/node/add/outreach_asset',
   '/node/add/person_profile',
@@ -34,26 +34,23 @@ before(() => {
   })
 });
 
+const axeRuntimeOptions = {
+  runOnly: {
+    type: 'tag',
+    values: ['wcag2a', 'wcag2aa']
+  },
+  rules: {
+    'nested-interactive': { enabled: false },
+  },
+};
+
 describe('Component accessibility test', () => {
   routes.forEach((route) => {
-
     const testName = `${route} has no detectable accessibility violations on load.`;
-    it(testName, { retries: { runMode: 2 } }, () => {
+    it(testName, () => {
       cy.visit(route);
       cy.injectAxe();
-
-      const axeRuntimeOptions = {
-        runOnly: {
-          type: 'tag',
-          values: ['wcag2a', 'wcag2aa']
-        }
-      };
-
-      cy.get('body').each((element, index) => {
-        cy.checkA11y(null, axeRuntimeOptions, cy.terminalLog);
-        cy.task('log', 'Accessibility check completed successfully.');
-      });
-
+      cy.checkA11y('body', axeRuntimeOptions, cy.terminalLog);
     });
   });
 });
