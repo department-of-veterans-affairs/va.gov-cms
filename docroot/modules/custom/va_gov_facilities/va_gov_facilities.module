@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Contains va_gov_facilities.module.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+
+/**
+ * Implements hook_entity_bundle_field_info_alter().
+ */
+function va_gov_facilities_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $entity_type, $bundle) {
+  // Add office hours validation to service location office hours field.
+  if ($entity_type->id() === 'paragraph' && $bundle === 'service_location' && isset($fields['field_office_hours'])) {
+    $fields['field_office_hours']->addConstraint('DisallowTimezone');
+  }
+}
