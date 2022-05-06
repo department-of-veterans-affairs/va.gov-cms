@@ -52,3 +52,62 @@
     max-width: calc(100% - 1.7rem);
   }
 }
+
+//Media inline entity form updates
+#edit-field-media-wrapper.field--widget-inline-entity-form-simple {
+  .fieldset__wrapper {
+    margin: var(--space-xs) var(--space-l) var(--space-m);
+
+    @include breakpoint('lg') {
+      display: grid;
+      grid: auto / 60% 40%;
+      grid-auto-flow: dense;
+      grid-gap: var(--space-l);
+    }
+
+    .fieldset__description {
+      color: var(--va-gray-dark);
+      grid-column: 2;
+    }
+
+    .field--type-image {
+      .claro-details {
+        border: 0;
+        box-shadow: none;
+        margin: 0;
+
+        summary {
+          display: none;
+        }
+
+        .claro-details__wrapper {
+          margin: 0;
+        }
+
+        .image-widget {
+          vertical-align: top;
+
+          .form-managed-file__image-preview {
+            margin-bottom: var(--space-xxs);
+          }
+
+          .form-managed-file__main {
+            width: 100%;
+          }
+
+          .form-managed-file__meta-items {
+            margin: var(--space-l) 0;
+          }
+
+          img {
+            margin-top: -10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+#edit-field-media-widget-0-inline-entity-form-group-governance {
+  display: none;
+}
