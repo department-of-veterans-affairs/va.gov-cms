@@ -50,10 +50,15 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
+    // Since all of the subscribed events here use the same handler method, the
+    // test for this event subscriber only exercises ENTITY_INSERT. If any of
+    // these events need a different behavior in the future, be sure to update
+    // the corresponding test accordingly. Depending on what you change, the
+    // test may not fail, but you'll have code that isn't covered by tests.
     return [
-      EntityHookEvents::ENTITY_DELETE => 'handleEntityEvent',
       EntityHookEvents::ENTITY_INSERT => 'handleEntityEvent',
       EntityHookEvents::ENTITY_UPDATE => 'handleEntityEvent',
+      EntityHookEvents::ENTITY_DELETE => 'handleEntityEvent',
     ];
   }
 
@@ -88,7 +93,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
         '%type' => $node->getType(),
       ];
       $log_message = $this->t('A content release was triggered by a change to %type: %link_to_node (node%nid).', $msg_vars);
-      $this->buildRequester->requestFrontendBuild($log_message);
+      $this->buildRequester->requestFrontendBuild((string) $log_message);
     }
   }
 
