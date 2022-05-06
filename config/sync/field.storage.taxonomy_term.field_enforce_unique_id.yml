@@ -1,16 +1,16 @@
-uuid: a242f12f-09d0-4a95-9230-677e6cc55af9
+uuid: a9e5b47a-633b-459a-b73b-8c54377653cd
 langcode: en
 status: true
 dependencies:
   module:
+    - allow_only_one
     - taxonomy
-id: taxonomy_term.field_administration
-field_name: field_administration
+id: taxonomy_term.field_enforce_unique_id
+field_name: field_enforce_unique_id
 entity_type: taxonomy_term
-type: entity_reference
-settings:
-  target_type: taxonomy_term
-module: core
+type: allow_only_one
+settings: {  }
+module: allow_only_one
 locked: false
 cardinality: 1
 translatable: true

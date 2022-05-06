@@ -4,11 +4,11 @@ status: true
 dependencies:
   config:
     - field.field.taxonomy_term.facility_supplemental_status.field_administration
+    - field.field.taxonomy_term.facility_supplemental_status.field_enforce_unique_id
     - field.field.taxonomy_term.facility_supplemental_status.field_guidance
     - field.field.taxonomy_term.facility_supplemental_status.field_status_id
     - taxonomy.vocabulary.facility_supplemental_status
   module:
-    - dynamic_entity_reference
     - text
 id: taxonomy_term.facility_supplemental_status.default
 targetEntityType: taxonomy_term
@@ -21,14 +21,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 0
-    region: content
-  field_administration:
-    type: dynamic_entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 3
     region: content
   field_guidance:
     type: text_default
@@ -46,4 +38,6 @@ content:
     weight: 2
     region: content
 hidden:
+  field_administration: true
+  field_enforce_unique_id: true
   search_api_excerpt: true

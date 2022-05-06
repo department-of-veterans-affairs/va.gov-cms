@@ -1,4 +1,4 @@
-uuid: 71b18950-9a5f-46a0-b247-6b78e0bb1e8e
+uuid: 65f96e67-ef51-4a16-ac37-7425a43b9eea
 langcode: en
 status: true
 dependencies:
@@ -7,9 +7,13 @@ dependencies:
     - taxonomy.vocabulary.administration
     - taxonomy.vocabulary.facility_supplemental_status
   module:
-    - dynamic_entity_reference
+    - entity_reference_validators
     - epp
 third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: false
   epp:
     value: ''
     on_update: 0
@@ -24,224 +28,13 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  taxonomy_term:
-    handler: 'default:taxonomy_term'
-    handler_settings:
-      target_bundles:
-        administration: administration
-      sort:
-        field: name
-        direction: asc
-      auto_create: false
-      auto_create_bundle: ''
-  advancedqueue_queue:
-    handler: 'default:advancedqueue_queue'
-    handler_settings: {  }
-  block:
-    handler: 'default:block'
-    handler_settings: {  }
-  block_content:
-    handler: 'default:block_content'
-    handler_settings: {  }
-  block_content_type:
-    handler: 'default:block_content_type'
-    handler_settings: {  }
-  corresponding_reference:
-    handler: 'default:corresponding_reference'
-    handler_settings: {  }
-  config_split:
-    handler: 'default:config_split'
-    handler_settings: {  }
-  consumer:
-    handler: 'default:consumer'
-    handler_settings: {  }
-  content_moderation_state:
-    handler: 'default:content_moderation_state'
-    handler_settings: {  }
-  crop:
-    handler: 'default:crop'
-    handler_settings: {  }
-  crop_type:
-    handler: 'default:crop_type'
-    handler_settings: {  }
-  danse_notification_action:
-    handler: 'default:danse_notification_action'
-    handler_settings: {  }
-  danse_event:
-    handler: 'default:danse_event'
-    handler_settings: {  }
-  danse_notification:
-    handler: 'default:danse_notification'
-    handler_settings: {  }
-  editor:
-    handler: 'default:editor'
-    handler_settings: {  }
-  embed_button:
-    handler: 'default:embed_button'
-    handler_settings: {  }
-  entity_browser:
-    handler: 'default:entity_browser'
-    handler_settings: {  }
-  entity_subqueue:
-    handler: 'default:entity_subqueue'
-    handler_settings: {  }
-  entity_queue:
-    handler: 'default:entity_queue'
-    handler_settings: {  }
-  environment_indicator:
-    handler: 'default:environment_indicator'
-    handler_settings: {  }
-  field_config:
-    handler: 'default:field_config'
-    handler_settings: {  }
-  field_storage_config:
-    handler: 'default:field_storage_config'
-    handler_settings: {  }
-  file:
-    handler: 'default:file'
-    handler_settings: {  }
-  filter_format:
-    handler: 'default:filter_format'
-    handler_settings: {  }
-  flagging:
-    handler: 'default:flagging'
-    handler_settings: {  }
-  flag:
-    handler: 'default:flag'
-    handler_settings: {  }
-  graphql_query_map:
-    handler: 'default:graphql_query_map'
-    handler_settings: {  }
-  hm_display_profile:
-    handler: 'default:hm_display_profile'
-    handler_settings: {  }
-  image_style:
-    handler: 'default:image_style'
-    handler_settings: {  }
-  jsonapi_resource_config:
-    handler: 'default:jsonapi_resource_config'
-    handler_settings: {  }
-  linkit_profile:
-    handler: 'default:linkit_profile'
-    handler_settings: {  }
-  media_type:
-    handler: 'default:media_type'
-    handler_settings: {  }
-  media:
-    handler: 'default:media'
-    handler_settings: {  }
-  metatag_defaults:
-    handler: 'default:metatag_defaults'
-    handler_settings: {  }
-  migration:
-    handler: 'default:migration'
-    handler_settings: {  }
-  migration_group:
-    handler: 'default:migration_group'
-    handler_settings: {  }
-  node:
-    handler: 'default:node'
-    handler_settings: {  }
-  node_type:
-    handler: 'default:node_type'
-    handler_settings: {  }
-  paragraphs_browser_type:
-    handler: 'default:paragraphs_browser_type'
-    handler_settings: {  }
-  password_policy:
-    handler: 'default:password_policy'
-    handler_settings: {  }
-  path_alias:
-    handler: 'default:path_alias'
-    handler_settings: {  }
-  rdf_mapping:
-    handler: 'default:rdf_mapping'
-    handler_settings: {  }
-  redirect:
-    handler: 'default:redirect'
-    handler_settings: {  }
-  rest_resource_config:
-    handler: 'default:rest_resource_config'
-    handler_settings: {  }
-  search_api_task:
-    handler: 'default:search_api_task'
-    handler_settings: {  }
-  search_api_server:
-    handler: 'default:search_api_server'
-    handler_settings: {  }
-  search_api_index:
-    handler: 'default:search_api_index'
-    handler_settings: {  }
-  site_alert:
-    handler: 'default:site_alert'
-    handler_settings: {  }
-  smart_date_format:
-    handler: 'default:smart_date_format'
-    handler_settings: {  }
-  action:
-    handler: 'default:action'
-    handler_settings: {  }
-  menu:
-    handler: 'default:menu'
-    handler_settings: {  }
-  taxonomy_vocabulary:
-    handler: 'default:taxonomy_vocabulary'
-    handler_settings: {  }
-  taxonomy_menu:
-    handler: 'default:taxonomy_menu'
-    handler_settings: {  }
-  toolbar_menu_element:
-    handler: 'default:toolbar_menu_element'
-    handler_settings: {  }
-  user_role:
-    handler: 'default:user_role'
-    handler_settings: {  }
-  user:
-    handler: 'default:user'
-    handler_settings: {  }
-  user_history:
-    handler: 'default:user_history'
-    handler_settings: {  }
-  access_scheme:
-    handler: 'default:access_scheme'
-    handler_settings: {  }
-  section_association:
-    handler: 'default:section_association'
-    handler_settings: {  }
-  workflow:
-    handler: 'default:workflow'
-    handler_settings: {  }
-  menu_link_content:
-    handler: 'default:menu_link_content'
-    handler_settings: {  }
-  pathauto_pattern:
-    handler: 'default:pathauto_pattern'
-    handler_settings: {  }
-  view:
-    handler: 'default:view'
-    handler_settings: {  }
-  paragraphs_type:
-    handler: 'default:paragraphs_type'
-    handler_settings: {  }
-  paragraph:
-    handler: 'default:paragraph'
-    handler_settings: {  }
-  base_field_override:
-    handler: 'default:base_field_override'
-    handler_settings: {  }
-  date_format:
-    handler: 'default:date_format'
-    handler_settings: {  }
-  entity_form_mode:
-    handler: 'default:entity_form_mode'
-    handler_settings: {  }
-  entity_view_mode:
-    handler: 'default:entity_view_mode'
-    handler_settings: {  }
-  entity_form_display:
-    handler: 'default:entity_form_display'
-    handler_settings: {  }
-  entity_view_display:
-    handler: 'default:entity_view_display'
-    handler_settings: {  }
-field_type: dynamic_entity_reference
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      administration: administration
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
