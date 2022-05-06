@@ -1716,9 +1716,6 @@ function va_gov_backend_pathauto_alias_alter(&$alias, array &$context) {
  */
 function va_gov_backend_entity_presave(EntityInterface $entity) {
   $bundle_types = ['event', 'news_story', 'press_release', 'outreach_asset'];
-  $vet_centers = ['vet_center', 'vet_center_cap',
-    'vet_center_mobile_vet_center', 'vet_center_outstation',
-  ];
 
   if ($entity instanceof FieldableEntityInterface) {
     if ($entity->getEntityTypeId() === 'media' && $entity->bundle() === 'document_external') {
@@ -1727,13 +1724,6 @@ function va_gov_backend_entity_presave(EntityInterface $entity) {
 
     if ($entity->getEntityTypeId() === 'node' && in_array($entity->bundle(), $bundle_types)) {
       _va_gov_backend_feature_bump($entity);
-    }
-
-    if ($entity->getEntityTypeId() === 'node' && in_array($entity->bundle(), $vet_centers)) {
-      $section = $entity->field_administration->target_id;
-      $media_entity = $entity->field_media->entity;
-      $media_entity->field_owner->target_id = $section;
-      $media_entity->save();
     }
 
     if ($entity->getEntityTypeId() === 'node' && !in_array($entity->bundle(), _va_gov_backend_get_unlocked_alias_bundles())) {

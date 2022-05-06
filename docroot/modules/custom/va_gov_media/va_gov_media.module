@@ -49,6 +49,21 @@ function va_gov_media_entity_update(EntityInterface $entity) {
 }
 
 /**
+ * Implements hook_entity_presave().
+ */
+function va_gov_media_entity_presave(EntityInterface $entity) {
+  $bundle_types = ['vet_center', 'vet_center_cap',
+    'vet_center_mobile_vet_center', 'vet_center_outstation',
+  ];
+
+  if ($entity instanceof FieldableEntityInterface) {
+    if ($entity->getEntityTypeId() === 'node' && in_array($entity->bundle(), $bundle_types)) {
+      _va_gov_media_library_ux_helper($entity);
+    }
+  }
+}
+
+/**
  * Warm image styles during the request but after `image_widget_crop`.
  *
  * Should be removed as part of va.gov-cms#4425 .
@@ -71,4 +86,17 @@ function _va_gov_media_image_style_warmer_warm_up(EntityInterface $entity) {
       }
     }
   }
+}
+
+/**
+ * Autofill some media fields so that they can be hidden for editor UX.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   Entity.
+ */
+function _va_gov_media_library_ux_helper(EntityInterface $entity) {
+  $section = $entity->get('field_administration')->target_id;
+  $media_entity = $entity->get('field_media')->entity;
+  $media_entity->set('field_owner', ['target_id' => $section]);
+  $media_entity->save();
 }
