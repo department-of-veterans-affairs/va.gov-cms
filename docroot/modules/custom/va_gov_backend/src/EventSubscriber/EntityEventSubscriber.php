@@ -312,6 +312,9 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     if (!$this->userPermsService->hasAdminRole(TRUE) && $bundle === 'health_care_service_taxonomy') {
       $form['field_health_service_api_id']['#disabled'] = TRUE;
     }
+    if (!$this->userPermsService->hasAdminRole(TRUE) && $bundle === 'facility_supplemental_status') {
+      $form['field_status_id']['#disabled'] = TRUE;
+    }
   }
 
   /**
