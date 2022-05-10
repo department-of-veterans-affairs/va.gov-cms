@@ -359,8 +359,7 @@ function vagovclaro_preprocess_page__documentation_page(&$variables) {
   }
 
   // Don't show header search on KB homepage, which has form visible lower.
-  $node = $route_match->getParameter('node');
-  $nid = $node->id();
+  $nid = $route_match->getRawParameter('node');
   if ($nid == CMS_HELP_CENTER_HOMEPAGE_NID) {
     $variables['show_header_search'] = FALSE;
   }

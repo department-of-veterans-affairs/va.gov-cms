@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   module:
+    - admin_feedback
     - media
     - prometheus_exporter
     - styleguide
@@ -16,5 +17,6 @@ is_admin: false
 permissions:
   - 'access content'
   - 'access prometheus metrics'
+  - 'give feedback'
   - 'view media'
   - 'view style guides'

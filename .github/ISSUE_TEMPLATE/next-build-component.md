@@ -53,6 +53,6 @@ Please check the team(s) that will do this work.
 - [ ] `Sitewide crew ` (leave Sitewide unchecked and check the specific team instead)
   - [ ] `⭐️ Content ops`
   - [ ] `⭐️ CMS experience`
-  - [ ] `⭐️ Public websites`
+  - [ ] `⭐️ Public Websites`
   - [ ] `⭐️ Facilities`
   - [ ] `⭐️ User support`

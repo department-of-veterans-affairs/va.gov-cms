@@ -62,13 +62,13 @@ function va_gov_force_save_limited_html_on_service_descriptions(array &$sandbox)
     // Make this change a new revision.
     /** @var \Drupal\node\NodeInterface $node */
     $node->setNewRevision(TRUE);
+    $filtered = check_markup($node->get('field_body')->value, 'rich_text_limited', '');
 
     // Update field_body with the new value.
     $node->field_body->setValue(
         [
-          'value' => $node->get('field_body')->value,
+          'value' => $filtered,
           'format' => 'rich_text_limited',
-          'allowed_formats' => ['rich_text_limited'],
         ]
       );
 
@@ -77,6 +77,7 @@ function va_gov_force_save_limited_html_on_service_descriptions(array &$sandbox)
     $node->setChangedTime(time());
     $node->setRevisionCreationTime(time());
     $node->setRevisionLogMessage('Saved to set body description to limited rich text.');
+    $node->setSyncing(TRUE);
     $node->save();
 
     unset($sandbox['nids_to_update']["node_{$node->id()}"]);
