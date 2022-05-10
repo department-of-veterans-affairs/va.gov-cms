@@ -1,0 +1,26 @@
+# If any of these test names get updated they need to be updated here too
+# https://github.com/department-of-veterans-affairs/va.gov-cms/settings/branches
+
+version: '3'
+dotenv: ['.env']
+output: 'group'
+
+tasks:
+  build-storybook:
+    desc: Build storybook
+    cmds:
+      - composer va:ds:storybook
+
+  build-frontend:
+    desc: Build the frontend
+    cmds:
+      - composer va:web:build
+
+  build:
+    deps:
+      - build-storybook
+      - build-frontend
+
+  default:
+    cmds:
+      - task: build

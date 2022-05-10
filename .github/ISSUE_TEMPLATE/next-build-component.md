@@ -1,7 +1,7 @@
 ---
 name: next-build Component
 about: Template for collecting info for a next-build component.
-title: "Component: <insert name of component>"
+title: 'Component: <insert name of component>'
 labels: Needs refining
 assignees: ''
 
@@ -53,6 +53,6 @@ Please check the team(s) that will do this work.
 - [ ] `Sitewide crew ` (leave Sitewide unchecked and check the specific team instead)
   - [ ] `⭐️ Content ops`
   - [ ] `⭐️ CMS experience`
-  - [ ] `⭐️ Public websites`
+  - [ ] `⭐️ Public Websites`
   - [ ] `⭐️ Facilities`
   - [ ] `⭐️ User support`

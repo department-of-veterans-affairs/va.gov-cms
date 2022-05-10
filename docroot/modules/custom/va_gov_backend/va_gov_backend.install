@@ -424,3 +424,15 @@ function va_gov_backend_update_8010() {
   }
   return "content_moderation_state_field_data and content_moderation_state_field_revision updated to workflow editor.";
 }
+
+/**
+ * Remove field_facility_service_hours from service location paragraph.
+ */
+function va_gov_backend_update_8011() {
+  $field = FieldConfig::loadByName('paragraph', 'service_location', 'field_facility_service_hours');
+  if ($field) {
+    /** @var Drupal\field\FieldConfigInterface $field */
+    $field->delete();
+    Drupal::logger('va_gov_backend')->log(LogLevel::INFO, 'Deleted field_facility_service_hours from service_location.');
+  }
+}

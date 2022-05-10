@@ -10,6 +10,10 @@ Feature: Content model: Vocabulary fields
        | Type | Bundle | Field label | Machine name | Field type | Required | Cardinality | Form widget | Translatable |
 | Vocabulary | Audience - Beneficiaries | Promoted to Resources and Support Homepage | field_audience_rs_homepage | Boolean |  | 1 | Single on/off checkbox |  |
 | Vocabulary | Audience - Non-beneficiaries | Promoted to Resources and Support Homepage | field_audience_rs_homepage | Boolean |  | 1 | Single on/off checkbox | Translatable |
+| Vocabulary | Facility Supplemental Status | Section | field_administration | Entity reference | Required | 1 | Select list |  |
+| Vocabulary | Facility Supplemental Status | Enforce Unique Id | field_enforce_unique_id | Allow Only One |  | 1 | Allow Only One widget |  |
+| Vocabulary | Facility Supplemental Status | Guidance | field_guidance | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter |  |
+| Vocabulary | Facility Supplemental Status | Status ID | field_status_id | Text (plain) | Required | 1 | Textfield |  |
 | Vocabulary | Products | Knowledge base landing page | field_kb_landing_page | Entity reference |  | 1 | Autocomplete |  |
 | Vocabulary | Sections | Description | field_description | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | Sections | Product | field_product | Entity reference |  | 1 | Select list |  |

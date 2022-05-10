@@ -111,6 +111,7 @@ Feature: Content model bundles
 | Sections | administration | Vocabulary | Represents a hierarchy of the VA, partly for governance purposes. |
 | Audience - Beneficiaries | audience_beneficiaries | Vocabulary |  |
 | Audience - Non-beneficiaries | audience_non_beneficiaries | Vocabulary |  |
+| Facility Supplemental Status | facility_supplemental_status | Vocabulary | Supplemental statuses to be used with facilities. |
 | VA Services | health_care_service_taxonomy | Vocabulary | Single source of truth for health service names, descriptions, patient-friendly names, and common conditions. |
 | Resources and support Categories | lc_categories | Vocabulary |  |
 | Products | products | Vocabulary |  |
