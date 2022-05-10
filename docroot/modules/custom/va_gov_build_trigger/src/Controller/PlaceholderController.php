@@ -15,7 +15,7 @@ class PlaceholderController extends ControllerBase {
   /**
    * Return an HTTP 200.
    *
-   * @return Symfony\Component\HttpFoundation\Response
+   * @return \Symfony\Component\HttpFoundation\Response
    *   An HTTP response.
    */
   public function placeholder() {
