@@ -1086,6 +1086,22 @@ display:
         options:
           offset: 0
           items_per_page: 0
+      sorts:
+        weight:
+          id: weight
+          table: taxonomy_term_field_data
+          field: weight
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: taxonomy_term
+          entity_field: weight
+          plugin_id: standard
+          order: ASC
+          expose:
+            label: ''
+            field_identifier: ''
+          exposed: false
       filters:
         vid:
           id: vid
@@ -1150,6 +1166,7 @@ display:
         style: false
         row: false
         fields: false
+        sorts: false
         filters: false
         filter_groups: false
       display_description: ''
