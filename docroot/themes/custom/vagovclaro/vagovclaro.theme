@@ -54,6 +54,15 @@ function vagovclaro_preprocess_block(&$variables) {
 }
 
 /**
+ * Implements suggestions_block_alter().
+ */
+function vagovclaro_theme_suggestions_block_alter(array &$suggestions, array $vars) {
+  if (isset($vars['elements']['content']['#block_content'])) {
+    $suggestions[] = 'block__custom__' . $vars['elements']['content']['#block_content']->bundle();
+  }
+}
+
+/**
  * Implements hook_preprocess_form_element().
  */
 function vagovclaro_preprocess_form_element(&$variables) {

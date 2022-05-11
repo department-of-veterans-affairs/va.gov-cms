@@ -5,22 +5,65 @@
   color: var(--color-text);
   font-size: 18px;
   line-height: 27px;
-  margin: var(--space-l) 0; /*36px 0*/
-  padding: var(--space-m); /*16px*/
+  margin: var(--space-l) auto;
+  max-width: 80rem;
+  padding: var(--space-m);
   vertical-align: middle;
   width: 100%;
 
   &.information {
     background: var(--va-blue-light);
+
+    .title {
+      &::before {
+        background-image: url('/themes/custom/vagovclaro/images/icons/000000/information-circle.svg');
+      }
+    }
   }
 
   &.warning {
     background: var(--va-gold-lightest);
+
+    .title {
+      &::before {
+        background-image: url('/themes/custom/vagovclaro/images/icons/000000/exclamation-triangle.svg');
+      }
+    }
+  }
+
+  &.emergency {
+    background: var(--va-red-lightest);
+
+    .title {
+      &::before {
+        background-image: url('/themes/custom/vagovclaro/images/icons/000000/exclamation-triangle.svg');
+      }
+    }
+  }
+
+  &.new {
+    background: var(--va-green-lightest);
+
+    .title {
+      &::before {
+        background-image: url('/themes/custom/vagovclaro/images/icons/000000/bullhorn-outline.svg');
+      }
+    }
   }
 
   .title {
     font-weight: 700;
     margin-bottom: 5px;
+
+    &::before {
+      background-repeat: no-repeat;
+      background-size: contain;
+      content: '';
+      display: inline-block;
+      height: 23px;
+      vertical-align: -22%;
+      width: 27px;
+    }
   }
 
   .text {
