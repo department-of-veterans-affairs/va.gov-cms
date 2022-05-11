@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.storage.taxonomy_term.field_also_known_as
+    - field.storage.taxonomy_term.field_cms_option_label
     - field.storage.taxonomy_term.field_guidance
     - field.storage.taxonomy_term.field_service_type_of_care
     - field.storage.taxonomy_term.field_vet_center_type_of_care
@@ -922,7 +923,7 @@ display:
             more_link: false
             more_link_text: ''
             more_link_path: ''
-            strip_tags: true
+            strip_tags: false
             trim: false
             preserve_tags: ''
             html: false
@@ -951,6 +952,69 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        field_cms_option_label:
+          id: field_cms_option_label
+          table: taxonomy_term__field_cms_option_label
+          field: field_cms_option_label
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         name:
           id: name
           table: taxonomy_term_field_data
@@ -965,7 +1029,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: '{{ name }} - {{ field_guidance }}'
+            text: '{{ field_cms_option_label }}{% if field_guidance %} - {{ field_guidance }}{% endif %}'
             make_link: false
             path: ''
             absolute: false
@@ -1097,4 +1161,5 @@ display:
         - 'languages:language_interface'
         - user.permissions
       tags:
+        - 'config:field.storage.taxonomy_term.field_cms_option_label'
         - 'config:field.storage.taxonomy_term.field_guidance'
