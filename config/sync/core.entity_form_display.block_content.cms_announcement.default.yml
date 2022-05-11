@@ -8,23 +8,34 @@ dependencies:
     - field.field.block_content.cms_announcement.field_announcement_type
     - field.field.block_content.cms_announcement.field_title
   module:
+    - allowed_formats
     - content_moderation
-    - text
+    - textfield_counter
 id: block_content.cms_announcement.default
 targetEntityType: block_content
 bundle: cms_announcement
 mode: default
 content:
   body:
-    type: text_textarea_with_summary
+    type: text_textarea_with_summary_and_counter
     weight: 3
     region: content
     settings:
       rows: 9
+      enable_summary: false
       summary_rows: 3
-      placeholder: ''
       show_summary: false
-    third_party_settings: {  }
+      summary_maxlength: 0
+      placeholder: ''
+      maxlength: 0
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Maxlength: <span class="maxlength_count">@maxlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>'
+    third_party_settings:
+      allowed_formats:
+        hide_help: '0'
+        hide_guidelines: '0'
   field_announcement_type:
     type: options_select
     weight: 1
