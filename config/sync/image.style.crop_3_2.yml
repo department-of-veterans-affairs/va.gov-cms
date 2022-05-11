@@ -2,16 +2,16 @@ uuid: 63945872-9e4c-4bcd-931b-fda6e12e5f3a
 langcode: en
 status: true
 dependencies:
-  config:
-    - crop.type.3_2
   module:
-    - crop
+    - focal_point
 name: crop_3_2
 label: 'Cropped: 3:2'
 effects:
-  3cca7ad5-6991-4c03-b6da-9da83113fc89:
-    uuid: 3cca7ad5-6991-4c03-b6da-9da83113fc89
-    id: crop_crop
-    weight: null
+  1105c718-b4c1-48f9-bfc8-8ebdfd9c0532:
+    uuid: 1105c718-b4c1-48f9-bfc8-8ebdfd9c0532
+    id: focal_point_scale_and_crop
+    weight: 2
     data:
-      crop_type: '3_2'
+      width: 900
+      height: 600
+      crop_type: focal_point

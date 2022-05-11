@@ -28,8 +28,8 @@ dependencies:
     - address
     - content_moderation
     - field_group
+    - inline_entity_form
     - linkit
-    - media_library
     - path
     - smart_date
     - text
@@ -85,7 +85,6 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
-        - revision_log
       label: 'Editorial Workflow'
       region: content
       parent_name: ''
@@ -275,11 +274,17 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_media:
-    type: media_library_widget
+    type: inline_entity_form_simple
     weight: 3
     region: content
     settings:
-      media_types: {  }
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      collapsible: false
+      collapsed: false
+      revision: false
     third_party_settings: {  }
   field_order:
     type: options_select
