@@ -259,10 +259,11 @@ content:
     weight: 17
     region: content
   field_supplemental_status:
-    type: entity_reference_label
+    type: entity_reference_entity_view
     label: above
     settings:
-      link: true
+      view_mode: name_with_term
+      link: false
     third_party_settings: {  }
     weight: 18
     region: content
