@@ -1,0 +1,40 @@
+{#
+/**
+ * @file
+ * Common site alert component for sitewide messages.
+ *
+ * variables:
+ *  alert
+ *    - message: string
+ *    - id: int
+ *    - severity: (string, low medium high)
+ *    - label: string, alert label
+ *    - dismissible: boolean
+ */
+#}
+
+{% set site_alert_classes = [
+  'va-site-alert',
+  'js-site-alert',
+  ('va-site-alert--' ~ alert.severity)|clean_class,
+] %}
+
+{# added attributes are necessary for dismissible behavior provided by module to work #}
+<div{{ attributes.setAttribute('data-site-alert-id', alert.id)
+  .setAttribute('data-site-alert-dismissible', alert.dismissible ? 'true' : 'false')
+  .addClass(site_alert_classes)
+}}>
+  <div>
+    <i class="fas fa-warning"></i>
+  </div>
+  <div class="text">
+    {{ alert.message }}
+  </div>
+  {% if alert.dismissible %}
+  {# Need value attribute and js-site-alert-dismiss class for dismissible behavior provided by module to work #}
+    <button type="button" value="{{ alert.id }}" class="js-site-alert-dismiss va-site-alert__dismiss">
+      <span aria-hidden="true"><i class="fas fa fa-rotate-45"></i></span>
+      <span class="visually-hidden">{{ 'Dismiss @label alert'|t({ '@label': alert.label }) }}</span>
+    </button>
+  {% endif %}
+</div>

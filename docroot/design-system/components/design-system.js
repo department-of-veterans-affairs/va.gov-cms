@@ -11,12 +11,14 @@ import * as tokens from './tokens';
 import * as alert from './alert';
 import * as block from './block';
 import * as icon from './icon';
+import * as site_alert from './site_alert';
 
 const components = {
   tokens,
   alert,
   block,
-  icon
+  icon,
+  site_alert
 };
 
 /**
