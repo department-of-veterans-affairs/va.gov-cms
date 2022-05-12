@@ -14,7 +14,7 @@ We're thrilled to have you join us on this journey! 🎆🎉🙌
 
 Our [vision](https://docs.google.com/presentation/d/14mK-4OMeEnR_-fgj62U4lUHBHg6htj4i4ucTA5DJFzg/edit#slide=id.g11ae1dc437e_0_1) is to craft a seamless editorial experience that empowers editors to create Veteran-centered content. In April of 2022, we also assumed responsibility for a portfolio of front-end products and sites.
 
-The onboarding materials below are organized by 1) chronological time to complete (day one, week one, week two, month one); and main category (why, how, who, what). There's a lot to digest but don't worry, your delivery manager will guide you, you'll have an onboarding buddy to provide support, and we'll also introduce you to your workstream's lead to help with specific things related to your discipline (UX, DevOps, Drupal Engineering, etc). In addition, you'll have the support of the entire team, who have all gone through this process before and are eager to answer any questions that arise. Come back to this ticket any time to refresh your knowledge on a specific topic covered below.
+The onboarding materials below are organized by 1) chronological time to complete (day one, week one, week two, month one); and main category (why, how, who, what). There's a lot to digest but don't worry, your Delivery Manager will guide you, you'll have an onboarding buddy to provide support, and we'll also introduce you to your workstream's lead to help with specific things related to your discipline (UX, DevOps, Drupal Engineering, etc). In addition, you'll have the support of the entire team, who have all gone through this process before and are eager to answer any questions that arise. Come back to this ticket any time to refresh your knowledge on a specific topic covered below.
 
 Have fun and we look forward to getting to know you! 😊
 
@@ -22,22 +22,22 @@ Projected start date: <insert_here>
 
 - Onboarding buddy (short check-in meetings the first week): <insert_here>
 - Team name: <insert_here>
-- Delivery manager name: <insert_here>
-- Product manager name: <insert_here>
+- Delivery Manager name: <insert_here>
+- Product Manager name: <insert_here>
 - Discipline lead name: <insert_here>
 
 </details>
 
 <details><summary>Day one</summary>
 
-## Day one
+## Day one (ideally led by the Program Manager but Delivery Managers can step in)
 ### How?
 - [ ] Read through our [team norms](https://docs.google.com/document/d/1cs5FePhtR0LIJi63b9ZtqT7T6dphgB584UpfEbejSOc/edit#), which will also give an overview of how we apply the [USDS playbook](https://playbook.cio.gov/) and VA.gov platform [code of conduct](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/policies-work-norms/code-of-conduct.md).
 ### Who?
 - [ ] Who is on the team? Read your [team members' user manuals and copy the template to add your own](https://drive.google.com/drive/u/0/folders/195otsT1IUxi_k8oEU21TUkvEG-6p5YQj?ths).
 ### What?
 - [ ] [Onboarding questionnaire](https://drive.google.com/drive/u/0/folders/1fYwNBBbceqRM3qXfes_KEg1QeO-Nkq0q?ths=true) (what do you already know in regards to tooling, context, history, etc)
-- [ ] Contract - Discuss with your delivery manager.
+- [ ] Contract - Discuss with your delivery manager or Program Manager.
 - [ ] Read the [VA.gov platform mission and goals](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/VA.gov%20Platform%20Overview%202021.pdf).
 
 </details>
@@ -46,7 +46,7 @@ Projected start date: <insert_here>
 
 ## Week one
 The goals of this week are: 1) get background paperwork completed as quickly as possible and 2) start gaining context for what we're doing and why
-- [ ] Requesting secure access to the VA systems you need: **PTEMS** paperwork is through Booz Allen Hamilton (BAH/Liberty) and **VFS-CMS** or **Sitewide Crew** paperwork through A6. If you're not sure which you should fill out, ask your delivery manager. Federal contractors are required to complete many of the same forms as federal employees.
+- [ ] Requesting secure access to the VA systems you need: **PTEMS** paperwork is through Booz Allen Hamilton (BAH/Liberty) and **VFS-CMS** or **Sitewide Crew** paperwork through A6. If you're not sure which you should fill out, ask your Delivery Manager. Federal contractors are required to complete many of the same forms as federal employees.
 - [ ] e-QIP, the online version of the federal standard investigation form, SF 86, will require a lot of background information. [Review page 7 of the SF 86 guide](https://www.dcsa.mil/Portals/91/Documents/pv/mbi/standard-form-sf-86-guide-for-applicants.pdf) for the list of information you'll need to collect to complete e-QIP
 ### Why?
 - [ ] Why is VA.gov using a Drupal CMS and how is our success measured? Read the [objectives and key results](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/96698383/Product+CMS).
@@ -55,7 +55,7 @@ The goals of this week are: 1) get background paperwork completed as quickly as 
 - [ ] Why are VA Medical Centers changing their websites? Watch the [2-minute YouTube video](https://youtu.be/Xrv5wCv6cKY).
 ### How?
 - [ ] [How does the team work in an agile environment?](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/sprint-best-practices.md)
-- [ ] How do Agile 6, CivicActions, Friends From The City, and Kind Systems work together on this project? Discuss with your delivery manager or product manager.
+- [ ] How do Agile 6, CivicActions, Friends From The City, and Kind Systems work together on this project? Discuss with the Program Manager.
 - [ ] How does the team fit into the larger OCTO ecosystem? [View this Mural diagram](https://app.mural.co/t/vagov6717/m/vagov6717/1643724063628/1654203c1a0d6c763bbd5c969febf94ec476df79?sender=kevinwalsh8610)
 - [ ] How does OCTO fit into the VA universe? And how is VA structured? [View this Mural diagram](https://app.mural.co/t/vagov6717/m/vagov6717/1646447643431/1cbae3844c54a42877451e7a79706f0be048d740?sender=kevinwalsh8610)
   
@@ -83,9 +83,9 @@ The goal for this week is to get you set up with the tools you need to be succes
 - [ ] [Review the editor onboarding slides](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/https___prod.cms.va.gov_sites_default_files_2021-07_Welcome%2520to%2520the%2520new%2520VA.gov%2520CMS.pdf).
 - [ ] Read the [product sheets](https://github.com/department-of-veterans-affairs/va.gov-team/raw/master/platform/cms/VA-CMS-Product-Sheets.pdf) (PDF download).
 
-#### All team members need to review the following (note that with the exception of SOCKS, most of the tools will have been setup for you or requested by your delivery manager. This list is for you to verify along the way):
+#### All team members need to review the following (note that with the exception of SOCKS, most of the tools will have been setup for you or requested by your Delivery Manager. This list is for you to verify along the way):
 -  [ ] Github for issue tracking and document sharing
-    - [ ] [VA.gov request instructions](https://github.com/department-of-veterans-affairs/github-user-requests/issues/new?labels=add-user-to-org%2C+new-user%2C+user-created&template=add-user-to-the-va-organization.md&title=ADD+USER+TO+ORG+-+%5BUSERNAME%5D) - Your delivery manager should have already requested this for you so double check with them before submitting a new request.
+    - [ ] [VA.gov request instructions](https://github.com/department-of-veterans-affairs/github-user-requests/issues/new?labels=add-user-to-org%2C+new-user%2C+user-created&template=add-user-to-the-va-organization.md&title=ADD+USER+TO+ORG+-+%5BUSERNAME%5D) - Your Delivery Manager should have already requested this for you so double check with them before submitting a new request.
     - [ ] [Intro to CMS Team Github](https://github.com/department-of-veterans-affairs/va.gov-cms#readme)
     - [ ] [CMS team list](https://github.com/orgs/department-of-veterans-affairs/teams/vfs-cms-team/members) - Same as above.
     - [ ] New to Github and markdown? [Learn about writing on Github](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github) or [watch a tutorial video](https://youtu.be/TBbtbKplUoc)
@@ -99,16 +99,16 @@ The goal for this week is to get you set up with the tools you need to be succes
 
 - [ ] [Learn about the different Drupal environments](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/f4341c29ad8e998de1dac2fca0b749cdef15c923/READMES/environments.md)
   - [ ] If you are using a non-VA laptop for development you will need [follow the instructions on Github](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/https.md) to trust the VA Root Certificate Authority (CA) in your browser(s)
-  - [ ] Drupal production environment access (SOCKS or VA network required) - ask your delivery manager, product manager, or CMS Team helpdesk to set up an administrator account for you for [prod.cms.va.gov](prod.cms.va.gov)
+  - [ ] Drupal production environment access (SOCKS or VA network required) - ask your Delivery Manager, Product Manager, or CMS Team helpdesk to set up an for you for [prod.cms.va.gov](prod.cms.va.gov). Standard practice is to have minimal access in prod (content editor or even a blocked account) and full admin access in lower environments.
   
 -  [ ] Tugboat demo environments
     - [ ] [Tugboat for engineers](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/f4341c29ad8e998de1dac2fca0b749cdef15c923/READMES/tugboat.md)
     - [ ] [Tugboat for non-engineers](https://prod.cms.va.gov/help/demo-environments-tugboat-guides) SOCKS required
 
- - [ ] [Slack](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/orientation/slack-requests.md) for instant messaging. Your delivery manager should have already requested this for you, but if not, view the request instructions in the link above.
+ - [ ] [Slack](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/orientation/slack-requests.md) for instant messaging. Your Delivery Manager should have already requested this for you, but if not, view the request instructions in the link above.
     - [ ] [Review Slack etiquette](https://slack.com/blog/collaboration/etiquette-tips-in-slack).
     - [ ] Update your profiles in Slack (in the A6 and DSVA workspaces), add a calendar link
-    - [ ] Your delivery manager should add you to appropriate Slack alias groups for the DSVA workspace
+    - [ ] Your Delivery Manager should add you to appropriate Slack alias groups for the DSVA workspace
     - [ ] You should be in the following slack channels:
       - [ ] A6 workspace = `#proj-vagov-team`
       - [ ] DSVA workspace = `#cms-team`
@@ -158,7 +158,7 @@ The goal for this week is to get you set up with the tools you need to be succes
  - [ ] [Review the helpdesk Github repo](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/platform/cms/helpdesk).
  - [ ] [Review the helpdesk Google Drive](https://drive.google.com/drive/folders/1opC6DgZyBQ6uEVzIz3FWmISMLt-Y91ts).
  - [ ] [Jira Service Desk](https://va-gov.atlassian.net/jira/servicedesk/projects/VAHELP)
- - [ ] Discuss Drupal CMS account administration process with instructional designer, delivery manager or product manager
+ - [ ] Discuss Drupal CMS account administration process with helpdesk folks, Delivery Manager or Product Manager
  - [ ] Get access to training, staging, and prod environments with instructional designer
  - [ ] Discuss broken links process with instructional designer
  - [ ] Discuss Jira reporting with instructional designer
@@ -171,7 +171,7 @@ The goal for this week is to get you set up with the tools you need to be succes
 #### Onboarding for Instructional Design members
 - [ ] Audio/video recording tools - discuss with A6 IT which tools you use (Adobe preferred)
 - [ ] [YouTube channel for training videos](https://www.youtube.com/channel/UC5Y2p4ASQ5HdRR-pQ8RVQKQ) 
-- [ ] Discuss Drupal CMS account administration process with delivery manager or product manager
+- [ ] Discuss Drupal CMS account administration process with Delivery Manager or Product Manager
 - [ ] The following trainings and additional videos can be found on the Knowledge Base on the Drupal CMS prod and lesser environments that require VA network or SOCKS proxy access. They can be watched without VA network or SOCKS access at the links below.
    - [ ] [Watch the Drupal CMS editorial experience video for all users](https://youtu.be/ju7EH0F5S4I).
    - [ ] [Watch the training video that VA Medical Center (VAMC) editors have to complete](https://youtu.be/Sowgt1rOmlE).
@@ -213,8 +213,8 @@ The goal for this week is to get you set up with the tools you need to be succes
 ## Month one
 By this point you should have enough context and access to be able to start contributing. Work with your team to identify specific issues to focus on.
 ### Who?
-- [ ] Who are our VA points of contact? Discuss with your delivery manager or product manager.
-- [ ] Who should we know on the platform teams? Discuss with your delivery manager or product manager.
+- [ ] Who are our VA points of contact? Discuss with your Delivery Manager or Product Manager.
+- [ ] Who should we know on the platform teams? Discuss with your Delivery Manager or Product Manager.
 - [ ] Background [history of the ecosystem](https://app.mural.co/t/vagov6717/m/vagov6717/1646745279937/9a5570c420939d84e875e8334fd73073e3a3971b?sender=clarencemaeng1702)
 ### What?
 - [ ] After your background check is complete, you will get an email to get your Personal Identify Verification (PIV) card. Contact your local VA office (where you got your fingerprints taken) for information about getting your [PIV card](https://www.oit.va.gov/programs/piv/how-to.cfm?). 

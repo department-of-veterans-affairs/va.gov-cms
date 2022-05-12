@@ -11,6 +11,7 @@ Feature: Content model: Vocabulary fields
 | Vocabulary | Audience - Beneficiaries | Promoted to Resources and Support Homepage | field_audience_rs_homepage | Boolean |  | 1 | Single on/off checkbox |  |
 | Vocabulary | Audience - Non-beneficiaries | Promoted to Resources and Support Homepage | field_audience_rs_homepage | Boolean |  | 1 | Single on/off checkbox | Translatable |
 | Vocabulary | Facility Supplemental Status | Section | field_administration | Entity reference | Required | 1 | Select list |  |
+| Vocabulary | Facility Supplemental Status | CMS Option Label | field_cms_option_label | Text (plain) | Required | 1 | Textfield |  |
 | Vocabulary | Facility Supplemental Status | Enforce Unique Id | field_enforce_unique_id | Allow Only One |  | 1 | Allow Only One widget |  |
 | Vocabulary | Facility Supplemental Status | Guidance | field_guidance | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Vocabulary | Facility Supplemental Status | Status ID | field_status_id | Text (plain) | Required | 1 | Textfield |  |
