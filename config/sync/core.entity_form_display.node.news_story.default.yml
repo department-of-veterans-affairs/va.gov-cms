@@ -18,7 +18,7 @@ dependencies:
   module:
     - content_moderation
     - field_group
-    - media_library
+    - inline_entity_form
     - path
     - text
     - textfield_counter
@@ -41,7 +41,6 @@ third_party_settings:
     group_editor:
       children:
         - moderation_state
-        - revision_log
       label: 'Editorial workflow'
       region: content
       parent_name: ''
@@ -184,11 +183,17 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_media:
-    type: media_library_widget
+    type: inline_entity_form_simple
     weight: 14
     region: content
     settings:
-      media_types: {  }
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      collapsible: false
+      collapsed: false
+      revision: false
     third_party_settings: {  }
   field_order:
     type: options_select
