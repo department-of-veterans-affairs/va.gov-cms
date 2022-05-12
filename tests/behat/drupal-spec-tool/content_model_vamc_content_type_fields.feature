@@ -23,7 +23,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | Event | Where should the event be listed? | field_listing | Entity reference | Required | 1 | Select list |  |
 | Content type | Event | Building, floor, or room | field_location_humanreadable | Text (plain) |  | 1 | Textfield |  |
 | Content type | Event | Location type | field_location_type | List (text) |  | 1 | Select list |  |
-| Content type | Event | Event image | field_media | Entity reference |  | 1 | Media library | Translatable |
+| Content type | Event | Event image | field_media | Entity reference |  | 1 | Inline entity form - Simple | Translatable |
 | Content type | Event | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | Event | Order | field_order | List (integer) |  | 1 | Select list |  |
 | Content type | Event | Online event link | field_url_of_an_online_event | Link |  | 1 | Linkit |  |
@@ -71,7 +71,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | Staff Profile | Email address | field_email_address | Email |  | 1 | Email |  |
 | Content type | Staff Profile | First sentence | field_intro_text | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | Staff Profile | Last name | field_last_name | Text (plain) | Required | 1 | Textfield |  |
-| Content type | Staff Profile | Photo | field_media | Entity reference |  | 1 | Media library | Translatable |
+| Content type | Staff Profile | Photo | field_media | Entity reference |  | 1 | Inline entity form - Simple | Translatable |
 | Content type | Staff Profile | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | Staff Profile | First name | field_name_first | Text (plain) | Required | 1 | Textfield |  |
 | Content type | Staff Profile | Related office or health care region | field_office | Entity reference | Required | 1 | Select list | Translatable |
@@ -91,7 +91,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | Story | Caption | field_image_caption | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Content type | Story | First sentence (lede) | field_intro_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | Story | Where should the story be listed? | field_listing | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Story | Image | field_media | Entity reference |  | 1 | Media library | Translatable |
+| Content type | Story | Image | field_media | Entity reference |  | 1 | Inline entity form - Simple | Translatable |
 | Content type | Story | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | Story | Order | field_order | List (integer) |  | 1 | Select list | Translatable |
 | Content type | VAMC Detail Page | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
@@ -114,7 +114,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC Facility | Health services | field_local_health_care_service_ | Entity reference |  | Unlimited | -- Disabled -- | Translatable |
 | Content type | VAMC Facility | Location services | field_location_services | Entity reference revisions |  | Unlimited | Paragraphs Legacy |  |
 | Content type | VAMC Facility | Main location | field_main_location | Boolean |  | 1 | Single on/off checkbox |  |
-| Content type | VAMC Facility | Image | field_media | Entity reference |  | 1 | Media library | Translatable |
+| Content type | VAMC Facility | Image | field_media | Entity reference |  | 1 | Inline entity form - Simple | Translatable |
 | Content type | VAMC Facility | Mental Health Phone | field_mental_health_phone | Telephone number |  | 1 | Telephone number |  |
 | Content type | VAMC Facility | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | VAMC Facility | Mobile | field_mobile | Boolean |  | 1 | Single on/off checkbox |  |
@@ -152,7 +152,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System | GovDelivery ID for News and Announcements | field_govdelivery_id_news | Text (plain) | Required | 1 | Textfield |  |
 | Content type | VAMC System | Instagram | field_instagram | Link |  | 1 | Linkit | Translatable |
 | Content type | VAMC System | Page introduction | field_intro_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
-| Content type | VAMC System | Banner image | field_media | Entity reference | Required | 1 | Media library | Translatable |
+| Content type | VAMC System | Banner image | field_media | Entity reference | Required | 1 | Inline entity form - Simple | Translatable |
 | Content type | VAMC System | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | VAMC System | Operating status | field_operating_status | Link |  | 1 | Linkit |  |
 | Content type | VAMC System | Other VA Locations | field_other_va_locations | Text (plain) |  | Unlimited | Textfield |  |
@@ -239,4 +239,3 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System Register for Care | Non-clinical Services | field_non_clinical_services | Viewfield |  | 1 | Viewfield |  |
 | Content type | VAMC System Register for Care | VAMC System | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC System Register for Care | Service | field_service_name_and_descripti | Entity reference |  | 1 | -- Disabled -- | Translatable |
-
