@@ -23,7 +23,7 @@ Feature: Content model: Outreach hub Content Type fields
 | Content type | Publication | Meta description | field_description | Text (plain) |  | 1 | Textfield | Translatable |
 | Content type | Publication | Format | field_format | List (text) | Required | 1 | Select list |  |
 | Content type | Publication | Publication listing | field_listing | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Publication | File or video | field_media | Entity reference |  | 1 | Inline entity form - Simple |  |
+| Content type | Publication | File or video | field_media | Entity reference |  | 1 | Media library |  |
 | Content type | Publication | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | Publication Listing Page | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Publication Listing Page | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
