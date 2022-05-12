@@ -50,8 +50,8 @@ Feature: Media
 | Crop thumbnail | Scale | width 400 |
 | Cropped: 2:1 | Manual crop | uses 2:1 crop type |
 | Cropped: 2:3 | Manual crop | uses 2:3 crop type |
-| Cropped: 3:2 | Focal Point Scale and Crop | 900x600 |
-| Cropped: 7:2 | Focal Point Scale and Crop | 1400x400 |
+| Cropped: 3:2 | Focal Point Scale and Crop | 900×600 |
+| Cropped: 7:2 | Focal Point Scale and Crop | 1400×400 |
 | Cropped: Freeform | Manual crop | uses Freeform crop type |
 | Cropped: Square | Manual crop | uses Square crop type |
 | Full content width with no upscaling | Scale | width 1400 |
