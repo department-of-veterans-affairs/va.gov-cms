@@ -13,7 +13,7 @@ dependencies:
     - media.type.image
   module:
     - field_group
-    - image
+    - focal_point
 third_party_settings:
   field_group:
     group_governance:
@@ -43,12 +43,14 @@ content:
     settings: {  }
     third_party_settings: {  }
   image:
-    type: image_image
+    type: image_focal_point
     weight: 0
     region: content
     settings:
       progress_indicator: throbber
       preview_image_style: 3_2_medium_thumbnail
+      preview_link: true
+      offsets: '50,50'
     third_party_settings: {  }
 hidden:
   created: true
