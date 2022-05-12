@@ -2,6 +2,7 @@
 .va-site-alert {
   padding: 32px 50px;
   background-color: var(--va-gray-cool-lightest);
+  color: var(--color-black);
   border-top: 8px solid var(--va-gray-dark);
   display: grid;
   grid-auto-flow: column;
@@ -11,6 +12,14 @@
     margin-top: 0;
     font-size: var(--va-subsection-s);
   }
+}
+
+.va-site-alert__icon {
+  text-align: right;
+}
+
+.va-site-alert.hidden {
+  display: none;
 }
 
 .va-site-alert__dismiss {
@@ -45,9 +54,5 @@
 
   > * {
     align-self: center;
-  }
-
-  .va-site-alert__icon {
-    text-align: right;
   }
 }
