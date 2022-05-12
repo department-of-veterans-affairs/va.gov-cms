@@ -1,0 +1,60 @@
+uuid: 9c57bee4-f60d-43ac-bc3e-b0c6fce3b1fc
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.ief_table
+    - field.field.media.image.field_description
+    - field.field.media.image.field_media_in_library
+    - field.field.media.image.field_media_submission_guideline
+    - field.field.media.image.field_owner
+    - field.field.media.image.image
+    - image.style.full_content_width
+    - media.type.image
+  module:
+    - image
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+_core:
+  default_config_hash: VLDxfMVPTkd2xvOjFMCh3kWmaOYnd03zggFXuUXQVEY
+id: media.image.ief_table
+targetEntityType: media
+bundle: image
+mode: ief_table
+content:
+  field_description:
+    type: basic_string
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  image:
+    type: image
+    label: hidden
+    settings:
+      image_link: content
+      image_style: full_content_width
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  field_media_in_library: true
+  field_media_submission_guideline: true
+  field_owner: true
+  label: true
+  search_api_excerpt: true
+  thumbnail: true
+  uid: true

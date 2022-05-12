@@ -30,7 +30,7 @@ Feature: Content model: Vet Center Content Type fields
 | Content type | Vet Center - Community Access Point | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center - Community Access Point | Facility Locator API ID | field_facility_locator_api_id | Text (plain) |  | 1 | -- Disabled -- | Translatable |
 | Content type | Vet Center - Community Access Point | Access point name | field_geographical_identifier | Text (plain) | Required | 1 | Textfield |  |
-| Content type | Vet Center - Community Access Point | Facility photo | field_media | Entity reference |  | 1 | Media library | Translatable |
+| Content type | Vet Center - Community Access Point | Facility photo | field_media | Entity reference |  | 1 | Inline entity form - Simple | Translatable |
 | Content type | Vet Center - Community Access Point | Main Vet Center location | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center - Community Access Point | Hours | field_office_hours | Office hours |  | Unlimited | Office hours (week) | Translatable |
 | Content type | Vet Center - Community Access Point | Operating status | field_operating_status_facility | List (text) | Required | 1 | Select list | Translatable |
@@ -50,7 +50,7 @@ Feature: Content model: Vet Center Content Type fields
 | Content type | Vet Center - Mobile Vet Center | Location address | field_address | Address |  | 1 | Address | Translatable |
 | Content type | Vet Center - Mobile Vet Center | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center - Mobile Vet Center | Facility ID | field_facility_locator_api_id | Text (plain) |  | 1 | Textfield | Translatable |
-| Content type | Vet Center - Mobile Vet Center | Facility photo | field_media | Entity reference |  | 1 | Media library | Translatable |
+| Content type | Vet Center - Mobile Vet Center | Facility photo | field_media | Entity reference |  | 1 | Inline entity form - Simple | Translatable |
 | Content type | Vet Center - Mobile Vet Center | Main Vet Center location | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center - Mobile Vet Center | Hours | field_office_hours | Office hours |  | Unlimited | Office hours (week) | Translatable |
 | Content type | Vet Center - Mobile Vet Center | Direct line | field_phone_number | Telephone number |  | 1 | Telephone number | Translatable |
@@ -58,7 +58,7 @@ Feature: Content model: Vet Center Content Type fields
 | Content type | Vet Center - Outstation | Location address | field_address | Address |  | 1 | Address | Translatable |
 | Content type | Vet Center - Outstation | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center - Outstation | Facility ID | field_facility_locator_api_id | Text (plain) |  | 1 | Textfield | Translatable |
-| Content type | Vet Center - Outstation | Facility photo | field_media | Entity reference |  | 1 | Media library | Translatable |
+| Content type | Vet Center - Outstation | Facility photo | field_media | Entity reference |  | 1 | Inline entity form - Simple | Translatable |
 | Content type | Vet Center - Outstation | Main Vet Center location | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center - Outstation | Hours | field_office_hours | Office hours |  | Unlimited | Office hours (week) | Translatable |
 | Content type | Vet Center - Outstation | Operating status | field_operating_status_facility | List (text) |  | 1 | Select list | Translatable |

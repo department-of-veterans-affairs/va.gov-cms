@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_form_mode.media.inline_entity_form
     - field.field.node.person_profile.field_administration
     - field.field.node.person_profile.field_body
     - field.field.node.person_profile.field_complete_biography
@@ -208,7 +209,7 @@ content:
     weight: 5
     region: content
     settings:
-      form_mode: default
+      form_mode: inline_entity_form
       override_labels: false
       label_singular: ''
       label_plural: ''

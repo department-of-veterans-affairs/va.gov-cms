@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_form_mode.media.inline_entity_form
     - field.field.node.vet_center_mobile_vet_center.field_address
     - field.field.node.vet_center_mobile_vet_center.field_administration
     - field.field.node.vet_center_mobile_vet_center.field_facility_locator_api_id
@@ -17,8 +18,8 @@ dependencies:
     - address
     - content_moderation
     - field_group
+    - inline_entity_form
     - markup
-    - media_library
     - office_hours
     - telephone
 third_party_settings:
@@ -161,11 +162,17 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_media:
-    type: media_library_widget
+    type: inline_entity_form_simple
     weight: 4
     region: content
     settings:
-      media_types: {  }
+      form_mode: inline_entity_form
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      collapsible: false
+      collapsed: false
+      revision: false
     third_party_settings: {  }
   field_office:
     type: options_select

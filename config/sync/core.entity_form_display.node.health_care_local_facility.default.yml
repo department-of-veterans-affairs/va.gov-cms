@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_form_mode.media.inline_entity_form
     - field.field.node.health_care_local_facility.field_address
     - field.field.node.health_care_local_facility.field_administration
     - field.field.node.health_care_local_facility.field_description
@@ -268,7 +269,7 @@ content:
     weight: 8
     region: content
     settings:
-      form_mode: default
+      form_mode: inline_entity_form
       override_labels: false
       label_singular: ''
       label_plural: ''

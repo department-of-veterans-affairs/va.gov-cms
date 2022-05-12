@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_form_mode.media.inline_entity_form
     - field.field.node.news_story.field_administration
     - field.field.node.news_story.field_author
     - field.field.node.news_story.field_featured
@@ -188,7 +189,7 @@ content:
     weight: 14
     region: content
     settings:
-      form_mode: default
+      form_mode: inline_entity_form
       override_labels: false
       label_singular: ''
       label_plural: ''
