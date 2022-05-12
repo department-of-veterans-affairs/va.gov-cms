@@ -11,25 +11,53 @@ dependencies:
     - image.style.thumbnail
     - media.type.image
   module:
+    - field_group
     - focal_point
+    - markup
+third_party_settings:
+  field_group:
+    group_section_settings:
+      children:
+        - field_owner
+      label: 'Section settings'
+      region: content
+      parent_name: ''
+      weight: 4
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        description: ''
+        required_fields: true
 id: media.image.default
 targetEntityType: media
 bundle: image
 mode: default
 content:
-  field_owner:
-    type: entity_reference_autocomplete
+  field_description:
+    type: string_textarea
     weight: 2
     region: content
     settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
+      rows: 5
       placeholder: ''
+    third_party_settings: {  }
+  field_media_submission_guideline:
+    type: markup
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_owner:
+    type: options_select
+    weight: 5
+    region: content
+    settings: {  }
     third_party_settings: {  }
   image:
     type: image_focal_point
-    weight: 1
+    weight: 3
     region: content
     settings:
       progress_indicator: throbber
@@ -39,32 +67,15 @@ content:
     third_party_settings: {  }
   name:
     type: string_textfield
-    weight: 0
+    weight: 1
     region: content
     settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  status:
-    type: boolean_checkbox
-    weight: 4
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  uid:
-    type: entity_reference_autocomplete
-    weight: 3
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
       size: 60
       placeholder: ''
     third_party_settings: {  }
 hidden:
   created: true
-  field_description: true
   field_media_in_library: true
-  field_media_submission_guideline: true
   path: true
+  status: true
+  uid: true

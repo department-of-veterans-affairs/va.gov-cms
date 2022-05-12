@@ -52,12 +52,9 @@ function va_gov_media_entity_update(EntityInterface $entity) {
  * Implements hook_entity_presave().
  */
 function va_gov_media_entity_presave(EntityInterface $entity) {
-  $bundle_types = ['vet_center', 'vet_center_cap',
-    'vet_center_mobile_vet_center', 'vet_center_outstation',
-  ];
 
   if ($entity instanceof FieldableEntityInterface) {
-    if ($entity->getEntityTypeId() === 'node' && in_array($entity->bundle(), $bundle_types)) {
+    if ($entity->getEntityTypeId() === 'node') {
       _va_gov_media_library_ux_helper($entity);
     }
   }

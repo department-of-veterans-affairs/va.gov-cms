@@ -17,10 +17,10 @@ Feature: Content model: Media fields
 | Media type | Document - External | Reusable | field_media_in_library | Boolean |  | 1 | -- Disabled -- | Translatable |
 | Media type | Document - External | File type | field_mime_type | Text (plain) |  | 1 | -- Disabled -- |  |
 | Media type | Document - External | Section | field_owner | Entity reference | Required | 1 | Select list | Translatable |
-| Media type | Image | Description | field_description | Text (plain, long) |  | 1 | -- Disabled -- |  |
+| Media type | Image | Description | field_description | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Media type | Image | Reusable | field_media_in_library | Boolean |  | 1 | -- Disabled -- |  |
-| Media type | Image | Media submission guidelines | field_media_submission_guideline | Markup |  | 1 | -- Disabled -- | Translatable |
-| Media type | Image | Section | field_owner | Entity reference | Required | 1 | Autocomplete | Translatable |
+| Media type | Image | Media submission guidelines | field_media_submission_guideline | Markup |  | 1 | Markup | Translatable |
+| Media type | Image | Section | field_owner | Entity reference | Required | 1 | Select list | Translatable |
 | Media type | Image | Image | image | Image | Required | 1 | Image (Focal Point) |  |
 | Media type | Video | Description | field_description | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Media type | Video | Duration | field_duration | Hours Minutes and Seconds |  | 1 | Hour Minutes and Seconds |  |
