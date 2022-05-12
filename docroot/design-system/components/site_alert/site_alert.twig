@@ -24,16 +24,20 @@
   .setAttribute('data-site-alert-dismissible', alert.dismissible ? 'true' : 'false')
   .addClass(site_alert_classes)
 }}>
-  <div>
-    <i class="fas fa-warning"></i>
+  <div class="va-site-alert__icon">
+    <i class="fas fa-xl {% if alert.severity is same as('low') %}fa-circle-info{% else %}fa-warning{% endif %}"></i>
   </div>
+
   <div class="text">
+    <h2>{{ alert.label }}</h2>
+
     {{ alert.message }}
   </div>
+
   {% if alert.dismissible %}
   {# Need value attribute and js-site-alert-dismiss class for dismissible behavior provided by module to work #}
     <button type="button" value="{{ alert.id }}" class="js-site-alert-dismiss va-site-alert__dismiss">
-      <span aria-hidden="true"><i class="fas fa fa-rotate-45"></i></span>
+      <span aria-hidden="true"><i class="fas fa-xl fa-plus"></i></span>
       <span class="visually-hidden">{{ 'Dismiss @label alert'|t({ '@label': alert.label }) }}</span>
     </button>
   {% endif %}

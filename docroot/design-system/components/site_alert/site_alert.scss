@@ -1,5 +1,53 @@
+// todo: style this component properly when #8994 is merged. some styles provided by drupal, should import to sb like set up in that pr
 .va-site-alert {
   padding: 32px 50px;
-  background-color: var(--va-gray-lighter);
+  background-color: var(--va-gray-cool-lightest);
   border-top: 8px solid var(--va-gray-dark);
+  display: grid;
+  grid-auto-flow: column;
+  gap: var(--spacing-m);
+
+  h2 {
+    margin-top: 0;
+    font-size: var(--va-subsection-s);
+  }
+}
+
+.va-site-alert__dismiss {
+  .svg-inline--fa {
+    transform: rotate(45deg);
+  }
+}
+
+.va-site-alert--low {
+  border-top-color: var(--va-blue-bright-med);
+
+  .fa-circle-info {
+    color: var(--va-blue-bright-med-dark);
+  }
+}
+
+.va-site-alert--medium,
+.va-site-alert--high {
+  border-top-color: var(--va-gold-med);
+
+  .fa-triangle-exclamation {
+    color: var(--va-gold-med);
+  }
+}
+
+// full screen
+.va-site-alert--high {
+  height: 100vh;
+  width: 100%;
+  // va-gold-lightest 90%
+  background-color: rgba(255, 241, 210, 0.9);
+
+  > * {
+    align-self: center;
+  }
+
+  .va-site-alert__icon {
+    text-align: right;
+  }
 }

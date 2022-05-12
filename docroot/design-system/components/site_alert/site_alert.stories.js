@@ -23,8 +23,11 @@ export const Low = {
     alert: {
       id: 1,
       label: 'Upcoming system maintenance',
-      message: 'The regular daily maintenance window is coming up. The update will last about 15 minutes. During that time you won’t be able to use the CMS.',
-      dismissible: 'yes',
+      message: 'The regular daily maintenance window is coming up. The update will last about 15 minutes. During that time you won’t be able to use the CMS.' + '<br>' +
+        '<strong>Start:</strong> Today at about 3:30 p.m. ET\n' +
+        '<br>' +
+        '<strong>End:</strong> Around 15 minutes later',
+      dismissible: true,
       severity: 'low'
     }
   },
@@ -43,8 +46,11 @@ export const Medium = {
     alert: {
       id: 1,
       label: 'Upcoming system maintenance',
-      message: 'The regular daily maintenance window is coming up. The update will last about 15 minutes. During that time you won’t be able to use the CMS.',
-      dismissible: 'no',
+      message: 'The regular daily maintenance window is coming up. The update will last about 15 minutes. During that time you won’t be able to use the CMS.' + '<br>' +
+        '<strong>Start:</strong> Today at about 3:30 p.m. ET\n' +
+        '<br>' +
+        '<strong>End:</strong> Around 15 minutes later',
+      dismissible: false,
       severity: 'medium'
     }
   },
@@ -62,9 +68,9 @@ export const High = {
     attributes: new DrupalAttribute(),
     alert: {
       id: 1,
-      label: 'Upcoming system maintenance',
-      message: 'The regular daily maintenance window is coming up. The update will last about 15 minutes. During that time you won’t be able to use the CMS.',
-      dismissible: 'no',
+      label: 'System maintenance in progress',
+      message: 'The maintenance will last about 15 minutes. Stay on this page to avoid losing changes. This message will disappear when it’s safe to continue working.',
+      dismissible: false,
       severity: 'high'
     }
   },
