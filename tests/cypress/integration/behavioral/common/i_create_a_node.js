@@ -36,21 +36,11 @@ const creators = {
     cy.findAllByLabelText('City').type(faker.address.city(), { force: true });
     cy.findAllByLabelText('State').select('Alabama', { force: true });
     cy.findAllByLabelText('Section').eq(1).select('VACO', { force: true });
-    cy.scrollToSelector('#edit-field-media-open-button');
-    cy.get('#edit-field-media-open-button').click({ force: true });
-    cy.get('.dropzone', {
-      timeout: 10000,
-    });
-    cy.get('.dropzone').attachFile('images/polygon_image.png', {
-      subjectType: 'drag-n-drop',
-    });
+    cy.scrollToSelector('#edit-field-media-0-inline-entity-form-image-0-upload');
+    cy.get('#edit-field-media-0-inline-entity-form-image-0-upload').attachFile('images/polygon_image.png' );
     cy.wait(1000);
     cy.findAllByLabelText('Alternative text').type(faker.lorem.sentence(), { force: true });
     cy.get('[data-drupal-selector="edit-media-0-fields-field-owner"]').select('VACO', { force: true });
-    cy.get('button').contains('Save and insert').click({ force: true });
-    cy.get('div.media-library-item[data-drupal-selector="edit-field-media-selection-0"]', {
-      timeout: 15000,
-    });
     return cy.wait(1000);
   },
   health_care_region_detail_page: () => {
