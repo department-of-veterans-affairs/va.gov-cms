@@ -1,8 +1,9 @@
-uuid: 3ea69447-2606-462b-8916-a66c8ef99374
+uuid: 9f3d31b9-5e11-4db8-a14d-7052ad60afd3
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_form_mode.media.media_2_3
     - field.field.media.image.field_description
     - field.field.media.image.field_media_in_library
     - field.field.media.image.field_media_submission_guideline
@@ -13,8 +14,6 @@ dependencies:
   module:
     - field_group
     - focal_point
-    - markup
-    - textfield_counter
 third_party_settings:
   field_group:
     group_section_settings:
@@ -23,7 +22,7 @@ third_party_settings:
       label: 'Section settings'
       region: content
       parent_name: ''
-      weight: 4
+      weight: 1
       format_type: fieldset
       format_settings:
         classes: ''
@@ -31,30 +30,11 @@ third_party_settings:
         id: ''
         description: ''
         required_fields: true
-id: media.image.default
+id: media.image.media_2_3
 targetEntityType: media
 bundle: image
-mode: default
+mode: media_2_3
 content:
-  field_description:
-    type: string_textarea_with_counter
-    weight: 2
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-      maxlength: 0
-      counter_position: after
-      js_prevent_submit: true
-      count_html_characters: true
-      textcount_status_message: 'Maxlength: <span class="maxlength_count">@maxlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>'
-    third_party_settings: {  }
-  field_media_submission_guideline:
-    type: markup
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_owner:
     type: options_select
     weight: 5
@@ -63,26 +43,22 @@ content:
     third_party_settings: {  }
   image:
     type: image_focal_point
-    weight: 3
+    weight: 0
     region: content
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
       preview_link: true
       offsets: '50,50'
-      preview_styles: {  }
-    third_party_settings: {  }
-  name:
-    type: string_textfield
-    weight: 1
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
+      preview_styles:
+        crop_2_3: crop_2_3
     third_party_settings: {  }
 hidden:
   created: true
+  field_description: true
   field_media_in_library: true
+  field_media_submission_guideline: true
+  name: true
   path: true
   status: true
   uid: true
