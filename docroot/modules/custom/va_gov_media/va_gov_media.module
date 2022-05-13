@@ -97,8 +97,6 @@ function _va_gov_media_image_style_warmer_warm_up(EntityInterface $entity) {
 function _va_gov_media_library_ux_helper(FieldableEntityInterface $entity) {
   $section = $entity->get('field_administration')->target_id;
   $media_entity = $entity->get('field_media')->entity;
-  if (!is_null($media_entity)) {
-    $media_entity->set('field_owner', ['target_id' => $section]);
-    $media_entity->save();
-  }
+  $media_entity->set('field_owner', ['target_id' => $section]);
+  $media_entity->save();
 }
