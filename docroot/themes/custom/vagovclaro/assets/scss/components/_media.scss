@@ -116,6 +116,20 @@
   background: none;
   box-shadow: none;
 
+  .focal-point-indicator {
+    &::after {
+      background:rgba(0, 0, 0, 0.4);
+      border-radius: 100px;
+      content: url('/themes/custom/vagovclaro/images/icons/ffffff/bullseye-pointer.svg');
+      cursor: pointer;
+      height: 21px;
+      left: -17px;
+      padding: 5px;
+      top: -15px;
+      width: 21px;
+    }
+  }
+
   .focal-point-preview-link {
     line-height: 2em;
 
