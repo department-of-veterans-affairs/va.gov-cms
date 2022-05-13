@@ -40,7 +40,6 @@ const creators = {
     cy.get('#edit-field-media-0-inline-entity-form-image-0-upload').attachFile('images/polygon_image.png' );
     cy.wait(1000);
     cy.findAllByLabelText('Alternative text').type(faker.lorem.sentence(), { force: true });
-    cy.get('[data-drupal-selector="edit-media-0-fields-field-owner"]').select('VACO', { force: true });
     return cy.wait(1000);
   },
   health_care_region_detail_page: () => {
