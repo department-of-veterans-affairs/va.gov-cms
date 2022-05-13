@@ -16,7 +16,7 @@ export const Icons = {
       'ellipsis-vertical',
       'magnifying-glass',
       'pencil',
-      'plus',,
+      'plus',
       'thumbs-down',
       'thumbs-up',
       'trash',
