@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_notifications\Service;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Entity\FieldableEntityInterface;
 use Drupal\message\Entity\Message;
 use Drupal\message_notify\MessageNotifier;
 
@@ -61,6 +62,25 @@ class NotificationsManager {
     $message->save();
     // Send message to message user specified user.
     return $this->messageNotifier->send($message);
+  }
+
+  /**
+   * Create a standardized message vars.
+   *
+   * @param \Drupal\Core\Entity\FieldableEntityInterface $targetEntity
+   *   A target entity to be referenced by the message.
+   * @param string $msg_title_prefix
+   *   A string to prefix the message with ('New form:').
+   *
+   * @return array
+   *   Array of standarized vars to pass to all message templates.
+   */
+  public function buildMessageFields(FieldableEntityInterface $targetEntity, $msg_title_prefix = '') {
+    $message_fields = [
+      'field_target_node_title' => "{$msg_title_prefix} {$targetEntity->getTitle()}",
+      'field_target_entity' => $targetEntity->id(),
+    ];
+    return $message_fields;
   }
 
   /**
