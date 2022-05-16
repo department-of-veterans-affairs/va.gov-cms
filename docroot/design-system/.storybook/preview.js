@@ -1,8 +1,8 @@
-// Add token styles to make available for all pages
-import '../components/tokens/_variables.scss';
-
 // Add storybook-specific styles we don't need to include in the drupal bundle
 import './storybook-styles.scss';
+
+// Add token styles to make available for all pages. Import after to take precedence in the cascade.
+import '../components/tokens/_variables.scss';
 
 // Enable design system components in storybook (particularly for icons)
 import { enableAllComponents } from '../components/design-system';
@@ -41,6 +41,7 @@ export const parameters = {
         'Changelog',
         'Design System Tokens',
         ['Colors', 'Spacing', 'Typography', 'Icons'], // nested under DST
+        'Atoms',
         'Components',
         '*',
         'Experimental',
