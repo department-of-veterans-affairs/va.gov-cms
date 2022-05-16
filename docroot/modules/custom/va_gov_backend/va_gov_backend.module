@@ -1398,6 +1398,9 @@ function va_gov_backend_page_attachments(array &$attachments) {
   // Handle smart_date widget treatments.
   $attachments['#attached']['library'][] = 'va_gov_backend/smart_date_interactions';
 
+  // Copy section to media owner.
+  $attachments['#attached']['library'][] = 'va_gov_backend/media_library_set_media_owner';
+
   $is_admin = \Drupal::service('router.admin_context')->isAdminRoute();
   if ($is_admin) {
     // Add custom css for paragraph browser.
