@@ -180,7 +180,7 @@ class PostFacilityStatus extends PostFacilityBase {
     if ($this->facilityNode->hasField('field_supplemental_status')) {
       $termId = $this->facilityNode->get('field_supplemental_status')->target_id;
       if (!is_null($termId)) {
-        /** @var Drupal\taxonomy\TermInterface $Term */
+        /** @var \Drupal\taxonomy\Entity\Term $term */
         $term = $this->entityTypeManager->getStorage('taxonomy_term')->load($termId);
         $payload['operating_status']['supplemental_status'][] = [
           'id' => strtoupper($term->get('field_status_id')->value),
