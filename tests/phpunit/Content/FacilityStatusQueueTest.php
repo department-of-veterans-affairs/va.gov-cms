@@ -73,7 +73,7 @@ class FacilityStatusQueueTest extends ExistingSiteBase {
    * @param bool $bypassDataCheck
    *   Whether the system should bypass data checks on status fields.
    * @param bool|null $supplementalStatusChanged
-   *   COMMENT NEEDED
+   *   Whether this node has a change to supplemental status.
    * @param bool $expected
    *   Whether the frontend build should be triggered or not.
    *
