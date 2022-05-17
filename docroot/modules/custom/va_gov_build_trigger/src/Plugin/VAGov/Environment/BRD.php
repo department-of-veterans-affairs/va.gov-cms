@@ -83,7 +83,7 @@ class BRD extends EnvironmentPluginBase {
    * {@inheritDoc}
    */
   public function triggerFrontendBuild(string $front_end_git_ref = NULL, bool $full_rebuild = FALSE) : void {
-    $front_end_git_ref = $front_end_git_ref ?? "master";
+    $front_end_git_ref = $front_end_git_ref ?? "main";
 
     try {
       if ($this->pendingWorkflowRunExists()) {
