@@ -15,6 +15,7 @@ dependencies:
     - field.storage.node.field_referral_required
     - field.storage.node.field_region_page
     - field.storage.node.field_service_name_and_descripti
+    - field.storage.node.field_supplemental_status
     - field.storage.node.field_va_health_connect_phone
     - field.storage.node.field_vamc_ehr_system
     - field.storage.node.field_vamc_system_official_name
@@ -34,6 +35,7 @@ dependencies:
     - node.type.vet_center_outstation
     - node.type.vha_facility_nonclinical_service
     - taxonomy.vocabulary.administration
+    - taxonomy.vocabulary.facility_supplemental_status
     - taxonomy.vocabulary.health_care_service_taxonomy
     - user.role.administrator
     - user.role.content_admin
@@ -853,25 +855,24 @@ display:
           row_class: ''
           default_row_class: true
           columns:
+            views_bulk_operations_bulk_form_1: views_bulk_operations_bulk_form_1
             title: title
             nid: nid
-            type: type
-            field_facility_location: field_facility_location
-            name_1: name_1
-            field_administration: field_administration
-            id: id
-            field_referral_required: field_referral_required
-            field_walk_ins_accepted: field_walk_ins_accepted
-            field_online_scheduling_availabl: field_online_scheduling_availabl
-            revision_uid: revision_uid
-            changed: changed
-            name: name
-            timestamp: timestamp
-            break: break
-            is_locked: is_locked
             edit_node: edit_node
+            field_facility_locator_api_id: field_facility_locator_api_id
+            field_operating_status_facility: field_operating_status_facility
+            field_operating_status_more_info: field_operating_status_more_info
+            field_supplemental_status: field_supplemental_status
+            field_administration: field_administration
+            moderation_state: moderation_state
+            changed: changed
           default: changed
           info:
+            views_bulk_operations_bulk_form_1:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
             title:
               sortable: true
               default_sort_order: asc
@@ -886,21 +887,35 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            type:
+            edit_node:
               sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            field_facility_location:
-              sortable: true
+            field_facility_locator_api_id:
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            name_1:
+            field_operating_status_facility:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_operating_status_more_info:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_supplemental_status:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -914,35 +929,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            id:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_referral_required:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_walk_ins_accepted:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_online_scheduling_availabl:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            revision_uid:
+            moderation_state:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -956,41 +943,6 @@ display:
               separator: by
               empty_column: false
               responsive: priority-low
-            name:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            timestamp:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            break:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            is_locked:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            edit_node:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
           override: true
           sticky: true
           summary: ''
@@ -5982,6 +5934,69 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        field_supplemental_status:
+          id: field_supplemental_status
+          table: node__field_supplemental_status
+          field: field_supplemental_status
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Supplemental status'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: false
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         field_administration:
           id: field_administration
           table: node__field_administration
@@ -6206,8 +6221,8 @@ display:
           exposed: false
           granularity: second
       filters:
-        type:
-          id: type
+        type_1:
+          id: type_1
           table: node_field_data
           field: type
           relationship: none
@@ -6223,34 +6238,24 @@ display:
             vba_facility: vba_facility
             vet_center: vet_center
             vet_center_cap: vet_center_cap
+            vet_center_mobile_vet_center: vet_center_mobile_vet_center
             vet_center_outstation: vet_center_outstation
           group: 1
           exposed: false
           expose:
-            operator_id: type_op
-            label: 'Content type'
+            operator_id: ''
+            label: ''
             description: ''
             use_operator: false
-            operator: type_op
+            operator: ''
             operator_limit_selection: false
             operator_list: {  }
-            identifier: type
+            identifier: ''
             required: false
             remember: false
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              content_api_consumer: '0'
-              content_creator_benefits_hubs: '0'
-              vamc_content_creator: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              content_admin: '0'
-              redirect_administrator: '0'
-              admnistrator_users: '0'
-              administrator: '0'
             reduce: false
           is_grouped: false
           group_info:
@@ -6479,6 +6484,126 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        field_supplemental_status_target_id:
+          id: field_supplemental_status_target_id
+          table: node__field_supplemental_status
+          field: field_supplemental_status_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_supplemental_status_target_id_op
+            label: 'Supplemental status'
+            description: ''
+            use_operator: false
+            operator: field_supplemental_status_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_supplemental_status_target_id
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: facility_supplemental_status
+          type: textfield
+          hierarchy: false
+          limit: true
+          error_message: true
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          operator: in
+          value:
+            nca_facility: nca_facility
+            health_care_local_facility: health_care_local_facility
+            vba_facility: vba_facility
+            vet_center: vet_center
+            vet_center_cap: vet_center_cap
+            vet_center_outstation: vet_center_outstation
+          group: 1
+          exposed: true
+          expose:
+            operator_id: type_op
+            label: 'Facility type'
+            description: ''
+            use_operator: false
+            operator: type_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: type
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+            reduce: true
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
         moderation_state:
           id: moderation_state
           table: node_field_data
@@ -6597,10 +6722,12 @@ display:
       defaults:
         empty: false
         title: false
+        relationships: false
         fields: false
         sorts: false
         filters: false
         filter_groups: false
+      relationships: {  }
       display_description: ''
       display_extenders: {  }
       path: admin/content/facilities/facility-status
@@ -6625,6 +6752,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - 'user.node_grants:view'
         - user.roles
       tags:
@@ -6632,6 +6760,7 @@ display:
         - 'config:field.storage.node.field_facility_locator_api_id'
         - 'config:field.storage.node.field_operating_status_facility'
         - 'config:field.storage.node.field_operating_status_more_info'
+        - 'config:field.storage.node.field_supplemental_status'
         - 'config:workflow_list'
   vamc_facility_health_services_export:
     id: vamc_facility_health_services_export

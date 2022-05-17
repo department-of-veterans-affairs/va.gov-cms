@@ -158,9 +158,32 @@ class PostFacilityStatus extends PostFacilityBase {
           'additional_info' => $this->additionalInfoToPush,
         ],
       ];
+
+      $this->addSupplementalStatus($payload);
     }
 
     return $payload;
+  }
+
+  /**
+   * Update payload array with supplemental status.
+   *
+   * @param array $payload
+   *   Payload array.
+   */
+  protected function addSupplementalStatus(array &$payload) {
+    // If this facility includes a supplemental status.
+    if ($this->facilityNode->hasField('field_supplemental_status')) {
+      $termId = $this->facilityNode->get('field_supplemental_status')->target_id;
+      if (!is_null($termId)) {
+        /** @var \Drupal\taxonomy\Entity\Term $term */
+        $term = $this->entityTypeManager->getStorage('taxonomy_term')->load($termId);
+        $payload['operating_status']['supplemental_status'][] = [
+          'id' => strtoupper($term->get('field_status_id')->value),
+          'label' => $term->get('name')->value,
+        ];
+      }
+    }
   }
 
   /**
@@ -195,7 +218,8 @@ class PostFacilityStatus extends PostFacilityBase {
     $defaultRevisionIsPublished = $this->defaultRevision->isPublished();
     $statusChanged = $this->changedValue('field_operating_status_facility');
     $statusInfoChanged = $this->changedValue('field_operating_status_more_info');
-    $somethingChanged = $statusChanged || $statusInfoChanged;
+    $supStatusChanged = $this->changedTarget('field_supplemental_status');
+    $somethingChanged = $statusChanged || $statusInfoChanged || $supStatusChanged;
 
     // Case race. First to evaluate to TRUE wins.
     switch (TRUE) {
@@ -266,6 +290,25 @@ class PostFacilityStatus extends PostFacilityBase {
     $original_value = $this->defaultRevision->get($field_name)->value;
 
     return $value !== $original_value;
+  }
+
+  /**
+   * Checks if the target_id of the field on the node changed.
+   *
+   * @param string $field_name
+   *   The machine name of the field to check on.
+   *
+   * @return bool
+   *   TRUE if the value changed.  FALSE otherwise.
+   */
+  protected function changedTarget($field_name): bool {
+    if ($this->facilityNode->hasField($field_name)) {
+      $value = $this->facilityNode->get($field_name)->target_id;
+      $original_value = $this->defaultRevision->get($field_name)->target_id;
+
+      return $value !== $original_value;
+    }
+    return FALSE;
   }
 
   /**
