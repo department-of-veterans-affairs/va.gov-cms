@@ -20,19 +20,13 @@ class GitFactory implements ContainerAwareInterface {
    * @var string
    */
   protected $appRoot;
+
   /**
    * Path to Web root.
    *
    * @var string
    */
   protected $webRoot;
-
-  /**
-   * Broken Link Checker class.
-   *
-   * @var \Drupal\va_gov_build_trigger\WebBuildBrokenLinkChecker
-   */
-  protected $webBuildBrokenLinkChecker;
 
   /**
    * GitFactory constructor.
