@@ -3,9 +3,9 @@
 namespace Drupal\va_gov_notifications\Service;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Entity\FieldableEntityInterface;
-use Drupal\message\Entity\Message;
 use Drupal\message_notify\MessageNotifier;
+use Drupal\message\Entity\Message;
+use Drupal\node\NodeInterface;
 
 /**
  * Service used for VA notifications.
@@ -67,36 +67,20 @@ class NotificationsManager {
   /**
    * Create a standardized message vars.
    *
-   * @param \Drupal\Core\Entity\FieldableEntityInterface $targetEntity
+   * @param \Drupal\node\NodeInterface $targetEntity
    *   A target entity to be referenced by the message.
    * @param string $msg_title_prefix
    *   A string to prefix the message with ('New form:').
    *
    * @return array
-   *   Array of standarized vars to pass to all message templates.
+   *   Array of standardized vars to pass to all message templates.
    */
-  public function buildMessageFields(FieldableEntityInterface $targetEntity, $msg_title_prefix = '') {
+  public function buildMessageFields(NodeInterface $targetEntity, $msg_title_prefix = '') {
     $message_fields = [
       'field_target_node_title' => "{$msg_title_prefix} {$targetEntity->getTitle()}",
       'field_target_entity' => $targetEntity->id(),
     ];
     return $message_fields;
-  }
-
-  /**
-   * Determines if the node provided is test data.
-   *
-   * This is a hack to bypass flagging during phpunit tests.  The Flag interface
-   * is not mocked so the contrib module throws fatal errors when test data
-   * attempts to create a flag.  It is not ideal, but is a better alternative
-   * than removing the phpunit save  tests.
-   *
-   * @return bool
-   *   TRUE if test data detected, FALSE otherwise.
-   */
-  protected function isTestData() : bool {
-    // Detect if phpunit is running.
-    return (defined('PHPUNIT_COMPOSER_INSTALL')) ? TRUE : FALSE;
   }
 
 }
