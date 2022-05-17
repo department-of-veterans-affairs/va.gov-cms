@@ -12,6 +12,7 @@ use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\node\Entity\NodeType;
 use Drupal\node\NodeInterface;
 use Drupal\post_api\Service\AddToQueue;
+use Drupal\taxonomy\TermInterface;
 use Drupal\Tests\Traits\Core\GeneratePermutationsTrait;
 use Drupal\va_gov_post_api\Service\PostFacilityStatus;
 use Prophecy\Argument;
@@ -42,8 +43,15 @@ class FacilityStatusQueueTest extends ExistingSiteBase {
 
   const STATUS_CHANGED = 'status_changed';
   const STATUS_SAME = 'status_same';
+  const SUP_STATUS_ONE = 'sup_status_one';
+  const SUP_STATUS_TWO = 'sup_status_two';
   const STATUS_FIELD_NAME = 'field_operating_status_facility';
   const STATUS_FIELD_MORE_INFO_NAME = 'field_operating_status_more_info';
+  const SUPPLEMENTAL_STATUS_FIELD_NAME = 'field_supplemental_status';
+  const TERM_ID_ONE = '1';
+  const TERM_ID_TWO = '2';
+  const TERM_STATUS_ID = 'field_status_id';
+  const TERM_STATUS_NAME = 'name';
   const FACILITY_ID = 'field_facility_locator_api_id';
   const STATE_ARCHIVED = 'archived';
   const STATE_DRAFT = 'draft';
@@ -64,19 +72,23 @@ class FacilityStatusQueueTest extends ExistingSiteBase {
    *   Value for mock NodeInterface::get('moderation_state')->value.
    * @param bool $bypassDataCheck
    *   Whether the system should bypass data checks on status fields.
+   * @param bool|null $supplementalStatusChanged
+   *   Whether this node has a change to supplemental status.
    * @param bool $expected
    *   Whether the frontend build should be triggered or not.
    *
    * @dataProvider triggerFacilityStatusPushFromContentSaveDataProvider
    */
-  public function testFacilityStatusPushFromContentSave(string $contentType, $statusInfo, bool $isPublished, $originalModerationState, string $moderationState, bool $bypassDataCheck, bool $expected) {
+  public function testFacilityStatusPushFromContentSave(string $contentType, $statusInfo, bool $isPublished, $originalModerationState, string $moderationState, bool $bypassDataCheck, $supplementalStatusChanged, bool $expected) {
     $loggerProphecy = $this->prophesize(LoggerChannelInterface::class);
     $messengerProphecy = $this->prophesize(MessengerInterface::class);
     $nodeProphecy = $this->prophesize(NodeInterface::class);
+    $termProphecy = $this->prophesize(TermInterface::class);
     $entityTypeManagerProphecy = $this->prophesize(EntityTypeManagerInterface::class);
     $addToQueueProphecy = $this->prophesize(AddToQueue::class);
     $configFactoryProphecy = $this->prophesize(ConfigFactoryInterface::class);
     $entityStorageProphecy = $this->prophesize(EntityStorageInterface::class);
+    $termStorageProphecy = $this->prophesize(EntityStorageInterface::class);
     $nodeTypeProphecy = $this->prophesize(NodeType::class);
 
     // Establish methods and return values.
@@ -95,6 +107,18 @@ class FacilityStatusQueueTest extends ExistingSiteBase {
       $nodeProphecy->get(self::STATUS_FIELD_NAME)->willReturn((object) ['value' => 'a']);
       $nodeProphecy->hasField(self::STATUS_FIELD_MORE_INFO_NAME)->willReturn(TRUE);
       $nodeProphecy->get(self::STATUS_FIELD_MORE_INFO_NAME)->willReturn((object) ['value' => 'a']);
+      if (!is_null($supplementalStatusChanged) && $contentType === 'health_care_local_facility') {
+        $nodeProphecy->hasField(self::SUPPLEMENTAL_STATUS_FIELD_NAME)->willReturn(TRUE);
+        $nodeProphecy->get(self::SUPPLEMENTAL_STATUS_FIELD_NAME)->willReturn((object) ['target_id' => self::TERM_ID_ONE]);
+        $termProphecy->get(self::TERM_STATUS_ID)->willReturn((object) ['value' => self::SUP_STATUS_ONE]);
+        $termProphecy->get(self::TERM_STATUS_NAME)->willReturn((object) ['value' => 'status name']);
+        $termStorageProphecy->load(self::TERM_ID_ONE)->willReturn($termProphecy->reveal());
+        $termStorage = $termStorageProphecy->reveal();
+        $entityTypeManagerProphecy->getStorage('taxonomy_term')->willReturn($termStorage);
+      }
+      else {
+        $nodeProphecy->hasField(self::SUPPLEMENTAL_STATUS_FIELD_NAME)->willReturn(FALSE);
+      }
       $nodeProphecy->hasField(self::FACILITY_ID)->willReturn(TRUE);
       $nodeProphecy->get(self::FACILITY_ID)->willReturn((object) ['value' => 'vha_000']);
       $nodeProphecy->get('moderation_state')->willReturn((object) ['value' => $moderationState])->shouldBeCalled();
@@ -122,6 +146,20 @@ class FacilityStatusQueueTest extends ExistingSiteBase {
         elseif ($statusInfo === self::STATUS_CHANGED) {
           $nodeOriginalProphecy->get(self::STATUS_FIELD_NAME)->willReturn((object) ['value' => 'b']);
           $nodeOriginalProphecy->get(self::STATUS_FIELD_MORE_INFO_NAME)->willReturn((object) ['value' => 'b']);
+        }
+        if (!is_null($supplementalStatusChanged) && $contentType === 'health_care_local_facility') {
+          $nodeOriginalProphecy->hasField(self::SUPPLEMENTAL_STATUS_FIELD_NAME)->willReturn(TRUE);
+          $originalTermId = ($supplementalStatusChanged) ? self::TERM_ID_TWO : self::TERM_ID_ONE;
+          $nodeOriginalProphecy->get(self::SUPPLEMENTAL_STATUS_FIELD_NAME)->willReturn((object) ['target_id' => $originalTermId]);
+          $originalStatus = ($supplementalStatusChanged) ? self::SUP_STATUS_TWO : self::SUP_STATUS_ONE;
+          $termProphecy->get(self::TERM_STATUS_ID)->willReturn((object) ['value' => $originalStatus]);
+          $termProphecy->get(self::TERM_STATUS_NAME)->willReturn((object) ['value' => 'status name']);
+          $termStorageProphecy->load($originalTermId)->willReturn($termProphecy->reveal());
+          $termStorage = $termStorageProphecy->reveal();
+          $entityTypeManagerProphecy->getStorage('taxonomy_term')->willReturn($termStorage);
+        }
+        else {
+          $nodeOriginalProphecy->hasField(self::SUPPLEMENTAL_STATUS_FIELD_NAME)->willReturn(FALSE);
         }
       }
       else {
@@ -203,6 +241,11 @@ class FacilityStatusQueueTest extends ExistingSiteBase {
         self::STATE_ARCHIVED,
         NULL,
       ],
+      'supplemental_status_changed' => [
+        TRUE,
+        FALSE,
+        NULL,
+      ],
       'bypass_data_check' => [
         TRUE,
         FALSE,
@@ -214,7 +257,12 @@ class FacilityStatusQueueTest extends ExistingSiteBase {
       $isFacilityWithStatus = $this->isFacilityWithStatus($permutation['content_type']);
       $default_rev_is_published = $permutation['published'];
       $is_a_publish = $permutation['moderation_state'] === self::STATE_PUBLISHED;
-      $status_info_changed = $permutation['status_info'] === self::STATUS_CHANGED;
+      if ($permutation['content_type'] === 'health_care_local_facility') {
+        $status_info_changed = ($permutation['status_info'] === self::STATUS_CHANGED || $permutation['supplemental_status_changed'] === TRUE);
+      }
+      else {
+        $status_info_changed = $permutation['status_info'] === self::STATUS_CHANGED;
+      }
 
       switch (TRUE) {
         case empty($permutation['status_info']) && !empty($permutation['original_moderation_state']):
@@ -233,6 +281,7 @@ class FacilityStatusQueueTest extends ExistingSiteBase {
           // Impossible permutation:published and former state of archived.
         case $default_rev_is_published && $permutation['original_moderation_state'] === NULL:
           // Impossible permutation:Can't be published and no former state.
+        case ($permutation['content_type'] !== 'health_care_local_facility') && (!is_null($permutation['supplemental_status_changed'])):
           continue 2;
 
         case !$isFacilityWithStatus:
@@ -240,7 +289,7 @@ class FacilityStatusQueueTest extends ExistingSiteBase {
         case !$default_rev_is_published && $permutation['original_moderation_state'] === self::STATE_DRAFT && $is_a_publish && !$status_info_changed && !$permutation['bypass_data_check']:
           // Statuses are pushed for unpublished already, so no need to push
           // data that has not changed.
-        case ($permutation['status_info'] === self::STATUS_SAME) && !$permutation['bypass_data_check']:
+        case ($permutation['status_info'] === self::STATUS_SAME && $permutation['supplemental_status_changed'] !== TRUE) && !$permutation['bypass_data_check']:
           // Status info did not change and it is not a force.
           $permutation['expected'] = FALSE;
           break;
@@ -274,6 +323,7 @@ class FacilityStatusQueueTest extends ExistingSiteBase {
         $permutation['original_moderation_state'],
         $permutation['moderation_state'],
         $permutation['bypass_data_check'],
+        $permutation['supplemental_status_changed'],
         (bool) $permutation['expected'],
       ];
       $result[] = $arguments;

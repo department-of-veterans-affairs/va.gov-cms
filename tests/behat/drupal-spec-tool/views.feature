@@ -172,6 +172,7 @@ Feature: Views
 | Glossary | Attachment | attachment_1 | Attachment |
 | Glossary | Master | default | Default |
 | Glossary | Page | page_1 | Page |
+| Health care service names and descriptions | Facility Supplemental Status - entity reference | facility_supplemental_status | Entity Reference |
 | Health care service names and descriptions | Master | default | Default |
 | Health care service names and descriptions | Non clinical service | entity_reference_non_clinical_services | Entity Reference |
 | Health care service names and descriptions | VAMC health service and type of care - entity reference | entity_reference_vamc_services | Entity Reference |
