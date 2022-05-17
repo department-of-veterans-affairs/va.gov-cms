@@ -37,8 +37,9 @@ Projected start date: <insert_here>
 - [ ] Who is on the team? Read your [team members' user manuals and copy the template to add your own](https://drive.google.com/drive/u/0/folders/195otsT1IUxi_k8oEU21TUkvEG-6p5YQj?ths).
 ### What?
 - [ ] [Onboarding questionnaire](https://drive.google.com/drive/u/0/folders/1fYwNBBbceqRM3qXfes_KEg1QeO-Nkq0q?ths=true) (what do you already know in regards to tooling, context, history, etc)
-- [ ] Contract - Discuss with your delivery manager or Program Manager.
+- [ ] Contract - Discuss with your Delivery Manager or Program Manager.
 - [ ] Read the [VA.gov platform mission and goals](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/VA.gov%20Platform%20Overview%202021.pdf).
+- [ ] Open a VA.gov [Platform onboarding ticket](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=&labels=governance-team%2C+analytics-insights&template=orientation-epic.md&title=Platform+Orientation+Template+%5BYour+name+here%5D). This is important because it kicks off the general onboarding for the overall ecosystem and gets you added to the ecosystem's roster. This is a prerequisite for SOCKS access (described later). One of the main things to highlight in their onboarding is scheduling an initial orientation session.
 
 </details>
 
@@ -61,7 +62,7 @@ The goals of this week are: 1) get background paperwork completed as quickly as 
   
   
 ### Who?
-- [ ] Ensure that your info on the [official team roster](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/185270337/Team+Roster+2021) is correct.
+- [ ] Ensure that your info on the [official team roster](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/185270337/Team+Roster+2021) is correct. Note: this is separate from the Platform ecosystem's roster.
 - [ ] Let's start introducing you to the team and key stakeholders. If you're on a meeting where you don't know someone, feel free to kickstart an introduction. Everyone in the ecosystem is friendly and interested in connecting.
 ### When?
 - [ ] Familiarize yourself with our team's [shared calendar](https://va-gov.atlassian.net/wiki/spaces/VAGOV/calendars) and add in any known dates. This is where we coordinate upcoming out of office (OOO). Choose "Calendar" = OOO and "Event type" = whatever is relevant.
@@ -92,10 +93,9 @@ The goal for this week is to get you set up with the tools you need to be succes
     - [ ] [Zenhub extension instructions](https://www.zenhub.com/extension) - You'll need to install this on your preferred browser.
   
 - [ ] [SOCKS proxy request](https://depo-platform-documentation.scrollhelp.site/getting-started/Internal-tools-access-via-SOCKS-proxy.1821081710.html) to access some VA network tools. The VA network is required for Drupal CMS and other VA tools and usually requires a VA ID card (PIV or Smartcard). Until you get your paperwork approved and ID card, SOCKS proxy is a back door to some of these tools. This is the first priority for week two. For the request, select the label for our team, currently "cms"
+    - [ ] [Platform orientation](https://depo-platform-documentation.scrollhelp.site/getting-started/Calendly-Orientation-Sessions.2133393543.html#CalendlyOrientationSessions-GeneralOrientation). This should have been requested on day one as part of the Platform onboarding ticket but is here as a reminder that this is a blocker for SOCKS access as you'll need to get added to their ecosystem roster in order to proceed.
    - [ ] [Request a Github personal access token first](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token). You only need to do the "repo" panel in that form and leave the other panels as is. It may take a day or two for the SOCKS proxy request to be fulfilled before you can complete the rest of the SOCKS process. This can be a complex process. Post in CMS-Team Slack channel is you need help from a current member - we're happy to help.
    - [ ] Optional [Core Tunnel set up for SOCKS proxy on all browsers on Mac](https://www.youtube.com/watch?v=fSuN9LhkB5o)
-  
-- [ ] [Platform orientation](https://depo-platform-documentation.scrollhelp.site/getting-started/Calendly-Orientation-Sessions.2133393543.html#CalendlyOrientationSessions-GeneralOrientation)
 
 - [ ] [Learn about the different Drupal environments](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/f4341c29ad8e998de1dac2fca0b749cdef15c923/READMES/environments.md)
   - [ ] If you are using a non-VA laptop for development you will need [follow the instructions on Github](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/https.md) to trust the VA Root Certificate Authority (CA) in your browser(s)
