@@ -218,6 +218,35 @@ p.vc-help-text {
   color: var(--va-blue-med);
 }
 
+.form-item--error-message {
+  color: var(--va-red-bright);
+}
+
+// focus states for general form inputs. fixes spacing with character counter
+.form-element:focus {
+  box-shadow: 0 0 0 3px var(--color-focus);
+}
+
+.form-element:hover:focus {
+  box-shadow: 0 0 0 3px var(--color-focus), inset 0 0 0 var(--input-border-size) var(--input--hover-border-color);
+}
+
+// Update to checkbox colors
+.form-boolean:active,
+.form-boolean:hover {
+  box-shadow: inset 0 0 0 1px var(--va-blue-darker);
+}
+
+.form-boolean:focus:active,
+.form-boolean:focus:hover {
+  box-shadow: 0 0 0 2px var(--color-white), 0 0 0 5px var(--color-focus), inset 0 0 0 1px var(--va-blue-darker);
+}
+
+.form-boolean--type-checkbox:checked:active,
+.form-boolean--type-checkbox:checked:hover {
+  background-color: var(--va-blue-darker);
+}
+
 .no-wrap {
   white-space: nowrap;
 }

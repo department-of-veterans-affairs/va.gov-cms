@@ -1,20 +1,15 @@
 <div style="margin: 0 auto;">
   <h2>Colors</h2>
+  <hr>
 
-  <table style="text-align: left">
-    <tr>
-      <th>Swatch</th>
-      <th>Name</th>
-      <th>Value</th>
-      <th>Usage</th>
-    </tr>
+  <div class="swatches">
     {% for name, value in vars %}
-      <tr>
-        <td><div class="swatch-color" style="background-color: {{ value }};"></div></td>
-        <td>{{ name }}</td>
-        <td>{{ value }}</td>
-        <td>var({{ name }});</td>
-      </tr>
+      <div class="swatch">
+        <div class="swatch-color" style="background-color: {{ value }};"></div>
+        <p><b>Name:</b> {{ name }}</p>
+        <p><b>Value:</b> {{ value }}</p>
+        <p><b>Usage:</b> var({{ name }});</p>
+      </div>
     {% endfor %}
-  </table>
+  </div>
 </div>

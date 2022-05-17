@@ -1,7 +1,10 @@
 // Import module styles
-import './input.scss';
+import './block.scss';
 
-export const name = 'input';
+// Import module template
+import './block.twig';
+
+export const name = 'block';
 
 export function disable() {}
 
