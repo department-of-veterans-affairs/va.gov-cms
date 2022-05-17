@@ -7,58 +7,44 @@ router_http_port: "80"
 router_https_port: "443"
 xdebug_enabled: false
 additional_hostnames:
-  - "va-gov-storybook"
+- va-gov-storybook
 additional_fqdns: []
-mariadb_version: "10.3"
-mysql_version: ""
+database:
+  type: mariadb
+  version: "10.3"
 nfs_mount_enabled: false
 mutagen_enabled: false
-use_dns_when_possible: true
-disable_settings_management: true
-web_environment:
-  - PHP_IDE_CONFIG='serverName=appserver'
-  - TXT_RESET=tput sgr 0
-  - TXT_RED=tput setaf 1
-  - TXT_GREEN=tput setaf 2
-  - TXT_YELLOW=tput setaf 3
-  - TXT_CYAN=tput setaf 6
-  - TXT_ALERT=tput setab 1 && tput setaf 7
-  - BLACKFIRE_CLIENT_ID=~
-  - BLACKFIRE_CLIENT_TOKEN=~
-  - BLACKFIRE_SERVER_ID=~
-  - BLACKFIRE_SERVER_TOKEN=~
-  - CMS_ENVIRONMENT_TYPE=ddev
-  - CMS_MARIADB_DATABASE=db
-  - CMS_MARIADB_USERNAME=db
-  - CMS_MARIADB_PASSWORD=db
-  - CMS_MARIADB_HOST=db
-  - CYPRESS_TAGS=\"not @ignore and not @piv\"
-webimage_extra_packages:
-  - build-essential
-  - chrpath
-  - libssl-dev
-  - libxft-dev
-  - libfreetype6-dev
-  - libfreetype6
-  - libfontconfig1-dev
-  - libfontconfig1
-  - python
-  - libgtk2.0-0
-  - libgtk-3-0
-  - libgbm-dev
-  - libnotify-dev
-  - libgconf-2-4
-  - libnss3
-  - libxss1
-  - libasound2
-  - libxtst6
-  - xauth
-  - xvfb
 hooks:
   post-import-db:
-    - exec: drush deploy
+  - exec: drush deploy
   post-start:
-    - exec: ./scripts/install_task_runner.sh
-    - composer: install
-    - composer: va:theme:compile
-    - composer: va:web:install
+  - exec: ./scripts/install_task_runner.sh
+  - composer: install
+  - composer: va:theme:compile
+  - composer: va:web:install
+webimage_extra_packages: [build-essential, chrpath, libssl-dev, libxft-dev, libfreetype6-dev,
+  libfreetype6, libfontconfig1-dev, libfontconfig1, python, libgtk2.0-0, libgtk-3-0,
+  libgbm-dev, libnotify-dev, libgconf-2-4, libnss3, libxss1, libasound2, libxtst6,
+  xauth, xvfb]
+use_dns_when_possible: true
+composer_version: "2"
+disable_settings_management: true
+web_environment:
+- PHP_IDE_CONFIG='serverName=appserver'
+- TXT_RESET=tput sgr 0
+- TXT_RED=tput setaf 1
+- TXT_GREEN=tput setaf 2
+- TXT_YELLOW=tput setaf 3
+- TXT_CYAN=tput setaf 6
+- TXT_ALERT=tput setab 1 && tput setaf 7
+- BLACKFIRE_CLIENT_ID=~
+- BLACKFIRE_CLIENT_TOKEN=~
+- BLACKFIRE_SERVER_ID=~
+- BLACKFIRE_SERVER_TOKEN=~
+- CMS_ENVIRONMENT_TYPE=ddev
+- CMS_MARIADB_DATABASE=db
+- CMS_MARIADB_USERNAME=db
+- CMS_MARIADB_PASSWORD=db
+- CMS_MARIADB_HOST=db
+- CYPRESS_TAGS=\"not @ignore and not @piv\"
+nodejs_version: "16"

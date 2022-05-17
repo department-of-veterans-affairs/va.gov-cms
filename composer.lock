@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c7c7122ca2d724a9ef36d3f8b13aeb15",
+    "content-hash": "703cf2d91d5e5224ed46e53982959170",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -2200,16 +2200,16 @@
         },
         {
             "name": "datadog/dd-trace",
-            "version": "0.73.0",
+            "version": "0.74.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DataDog/dd-trace-php.git",
-                "reference": "af7719de400440a515aeb0f049b549b4126d246b"
+                "reference": "7e112e49def21fc1342fb6c04a1b685d4586863b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DataDog/dd-trace-php/zipball/af7719de400440a515aeb0f049b549b4126d246b",
-                "reference": "af7719de400440a515aeb0f049b549b4126d246b",
+                "url": "https://api.github.com/repos/DataDog/dd-trace-php/zipball/7e112e49def21fc1342fb6c04a1b685d4586863b",
+                "reference": "7e112e49def21fc1342fb6c04a1b685d4586863b",
                 "shasum": ""
             },
             "require": {
@@ -2288,9 +2288,9 @@
             ],
             "support": {
                 "issues": "https://github.com/DataDog/dd-trace-php/issues",
-                "source": "https://github.com/DataDog/dd-trace-php/tree/0.73.0"
+                "source": "https://github.com/DataDog/dd-trace-php/tree/0.74.0"
             },
-            "time": "2022-04-27T15:59:39+00:00"
+            "time": "2022-05-11T13:46:53+00:00"
         },
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
@@ -3988,6 +3988,53 @@
                 "source": "https://git.drupalcode.org/project/config_split",
                 "issues": "https://www.drupal.org/project/issues/config_split",
                 "slack": "https://drupal.slack.com/archives/C45342CDD"
+            }
+        },
+        {
+            "name": "drupal/consumer_image_styles",
+            "version": "4.0.7",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/consumer_image_styles.git",
+                "reference": "4.0.7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/consumer_image_styles-4.0.7.zip",
+                "reference": "4.0.7",
+                "shasum": "662458f51f558765d6a5bf98df670a7254dec310"
+            },
+            "require": {
+                "drupal/consumers": "^1.11",
+                "drupal/core": "^8 || ^9",
+                "drupal/jsonapi_extras": "^3.16"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "4.0.7",
+                    "datestamp": "1650559369",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Mateu Aguiló Bosch",
+                    "homepage": "https://www.drupal.org/user/550110",
+                    "email": "mateu.aguilo.bosch@gmail.com"
+                }
+            ],
+            "description": "Consumer Image Styles integrates with JSON API to provide image styles to your images in your decoupled project.",
+            "homepage": "https://www.drupal.org/project/consumer_image_styles",
+            "support": {
+                "source": "https://git.drupalcode.org/project/consumer_image_styles"
             }
         },
         {
@@ -7143,6 +7190,71 @@
             }
         },
         {
+            "name": "drupal/jsonapi_image_styles",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/jsonapi_image_styles.git",
+                "reference": "3.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/jsonapi_image_styles-3.0.0.zip",
+                "reference": "3.0.0",
+                "shasum": "9747a66d4da23d07e33768e77a07e86b1916f425"
+            },
+            "require": {
+                "drupal/core": "^9 || ^10"
+            },
+            "require-dev": {
+                "drupal/coder": "^8.3",
+                "phpcompatibility/php-compatibility": "10.x-dev"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "3.0.0",
+                    "datestamp": "1646861925",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Alona O'neill",
+                    "homepage": "https://www.drupal.org/u/alonaoneill"
+                },
+                {
+                    "name": "Timo Kirkkala",
+                    "homepage": "https://www.drupal.org/u/kirkkala"
+                },
+                {
+                    "name": "Jeffrey Bertoen",
+                    "homepage": "https://www.drupal.org/u/jefuri"
+                },
+                {
+                    "name": "Chrsitopher C. Wells (wells)",
+                    "homepage": "https://www.drupal.org/user/2452278",
+                    "email": "drupal.org@chris-wells.net"
+                }
+            ],
+            "description": "JSON:API Image Styles provides a means to expose image styles to JSON:API.",
+            "homepage": "https://www.drupal.org/project/jsonapi_image_styles",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "https://git.drupalcode.org/project/jsonapi_image_styles",
+                "issues": "https://www.drupal.org/project/issues/jsonapi_image_styles"
+            }
+        },
+        {
             "name": "drupal/jsonapi_resources",
             "version": "1.0.0-beta4",
             "source": {
@@ -9448,17 +9560,17 @@
         },
         {
             "name": "drupal/raven",
-            "version": "3.2.13",
+            "version": "3.2.14",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/raven.git",
-                "reference": "3.2.13"
+                "reference": "3.2.14"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/raven-3.2.13.zip",
-                "reference": "3.2.13",
-                "shasum": "b30e4967994631b90f4a26e388878f30de920048"
+                "url": "https://ftp.drupal.org/files/projects/raven-3.2.14.zip",
+                "reference": "3.2.14",
+                "shasum": "dd1d9009683937c614756d250f0e75b1000c9633"
             },
             "require": {
                 "drupal/core": "^8 || ^9 || ^10",
@@ -9470,8 +9582,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "3.2.13",
-                    "datestamp": "1649505167",
+                    "version": "3.2.14",
+                    "datestamp": "1652227042",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -24434,16 +24546,16 @@
         },
         {
             "name": "va-gov/content-build",
-            "version": "v0.0.3005",
+            "version": "v0.0.3010",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/content-build.git",
-                "reference": "cb7d39c2cfe17887c5a5480ff5c8ab12df945f09"
+                "reference": "48f24728385944ff5bf99542f229634aef58493e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/cb7d39c2cfe17887c5a5480ff5c8ab12df945f09",
-                "reference": "cb7d39c2cfe17887c5a5480ff5c8ab12df945f09",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/48f24728385944ff5bf99542f229634aef58493e",
+                "reference": "48f24728385944ff5bf99542f229634aef58493e",
                 "shasum": ""
             },
             "type": "node-project",
@@ -24470,9 +24582,9 @@
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/content-build, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
             "support": {
                 "issues": "https://github.com/department-of-veterans-affairs/content-build/issues",
-                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3005"
+                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3010"
             },
-            "time": "2022-05-05T22:01:04+00:00"
+            "time": "2022-05-13T11:53:50+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
