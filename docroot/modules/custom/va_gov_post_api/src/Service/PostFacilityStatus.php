@@ -159,8 +159,7 @@ class PostFacilityStatus extends PostFacilityBase {
         ],
       ];
 
-      // Add supplemental status to payload.
-      $payload = $this->getSupplementalStatus($payload);
+      $this->addSupplementalStatus($payload);
     }
 
     return $payload;
@@ -171,11 +170,8 @@ class PostFacilityStatus extends PostFacilityBase {
    *
    * @param array $payload
    *   Payload array.
-   *
-   * @return array
-   *   Payload array updated with system information.
    */
-  protected function getSupplementalStatus(array $payload): array {
+  protected function addSupplementalStatus(array &$payload) {
     // If this facility includes a supplemental status.
     if ($this->facilityNode->hasField('field_supplemental_status')) {
       $termId = $this->facilityNode->get('field_supplemental_status')->target_id;
@@ -188,8 +184,6 @@ class PostFacilityStatus extends PostFacilityBase {
         ];
       }
     }
-
-    return $payload;
   }
 
   /**
