@@ -155,7 +155,7 @@ class PostFacilityStatus extends PostFacilityBase {
       $payload = [
         'operating_status' => [
           'code' => strtoupper($this->statusToPush),
-          'additional_info' => $this->additionalInfoToPush,
+          'additional_info' => (strtoupper($this->statusToPush) != 'NORMAL') ? $this->additionalInfoToPush : NULL,
         ],
       ];
 
