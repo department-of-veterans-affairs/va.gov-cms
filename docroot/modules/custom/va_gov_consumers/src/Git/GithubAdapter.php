@@ -102,11 +102,11 @@ class GithubAdapter implements GithubInterface {
   /**
    * {@inheritDoc}
    */
-  public function repositoryDispatch(string $event_type, object $client_payload = null) : void {
+  public function repositoryDispatch(string $event_type, object $client_payload = NULL) : void {
     [$user, $repo] = explode('/', $this->repositoryPath);
 
     if (is_null($client_payload)) {
-      $client_payload = new \stdClass;
+      $client_payload = new \stdClass();
     }
 
     // Exceptions are intentionally *not* caught here - the caller should be
