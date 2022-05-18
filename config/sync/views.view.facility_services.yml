@@ -6492,7 +6492,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: taxonomy_index_tid
-          operator: 'not empty'
+          operator: or
           value: {  }
           group: 1
           exposed: true
@@ -6504,6 +6504,7 @@ display:
             operator: field_supplemental_status_target_id_op
             operator_limit_selection: true
             operator_list:
+              or: or
               empty: empty
               'not empty': 'not empty'
             identifier: field_supplemental_status_target_id
