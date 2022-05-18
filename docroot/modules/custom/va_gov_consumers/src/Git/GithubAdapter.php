@@ -102,8 +102,12 @@ class GithubAdapter implements GithubInterface {
   /**
    * {@inheritDoc}
    */
-  public function repositoryDispatch(string $event_type, array $client_payload = []) : void {
+  public function repositoryDispatch(string $event_type, object $client_payload = null) : void {
     [$user, $repo] = explode('/', $this->repositoryPath);
+
+    if (is_null($client_payload)) {
+      $client_payload = new \stdClass;
+    }
 
     // Exceptions are intentionally *not* caught here - the caller should be
     // able to catch them.

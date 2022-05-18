@@ -49,9 +49,9 @@ interface GithubInterface {
    *
    * @param string $event_type
    *   The type of dispatch to send.
-   * @param array $client_payload
+   * @param object $client_payload
    *   Optional extra data to send as the payload with the dispatch.
    */
-  public function repositoryDispatch(string $event_type, array $client_payload = []) : void;
+  public function repositoryDispatch(string $event_type, object $client_payload = null) : void;
 
 }
