@@ -1,0 +1,33 @@
+uuid: 360a1f68-d6c7-4cbe-b463-c289131714ab
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_content
+    - options
+id: block_content.field_announcement_type
+field_name: field_announcement_type
+entity_type: block_content
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: emergency
+      label: Emergency
+    -
+      value: warning
+      label: Warning
+    -
+      value: information
+      label: Informational
+    -
+      value: new
+      label: 'New Feature'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
