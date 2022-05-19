@@ -1,0 +1,28 @@
+uuid: dffe77ae-8621-4074-8152-690aaeca1e7b
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.cms_announcement
+    - field.storage.block_content.field_announcement_type
+  module:
+    - epp
+    - options
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: block_content.cms_announcement.field_announcement_type
+field_name: field_announcement_type
+entity_type: block_content
+bundle: cms_announcement
+label: 'Announcement Type'
+description: "Please choose an announcement type. Currently there are 4 types of announcements: \r\n<ul>\r\n<li>Informational, which is used to provide helpful information to a user or something that warrants attention. Not used for negative consequences.</li>\r\n<li>Warning, which is used to warn a user, such as when there are negative consequences, but necessary when something has gone wrong.</li>\r\n<li>Emergency, which is used to alert a user when something has gone wrong, such as failed content releases or problems with log in services.</li>\r\n<li>New Feature, which is used to highlight a new feature within the CMS.</li>\r\n</ul>\r\n<br>"
+required: true
+translatable: false
+default_value:
+  -
+    value: info
+default_value_callback: ''
+settings: {  }
+field_type: list_string

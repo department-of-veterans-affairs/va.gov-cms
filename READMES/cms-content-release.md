@@ -8,9 +8,9 @@ Content releases are initiated in one of two ways:
 
 ### Timed
 
-The [Content Release Github Action Workflow](https://github.com/department-of-veterans-affairs/content-build/blob/master/.github/workflows/content-release.yml) handles automatic content deploys.
+The [Content Release Github Action Workflow](https://github.com/department-of-veterans-affairs/content-build/blob/main/.github/workflows/content-release.yml) handles automatic content deploys.
 
-It is currently [set](https://github.com/department-of-veterans-affairs/content-build/blob/master/.github/workflows/content-release.yml#L16) to execute weekdays at 9AM, 10AM, 11AM, 12PM, 1PM, 2PM, 3PM, 4PM, and 5PM.
+It is currently [set](https://github.com/department-of-veterans-affairs/content-build/blob/main/.github/workflows/content-release.yml#L16) to execute weekdays at 9AM, 10AM, 11AM, 12PM, 1PM, 2PM, 3PM, 4PM, and 5PM.
 
 ### Triggered
 

@@ -1,0 +1,39 @@
+.block-admin-feedback {
+  .feedback-yes-button,
+  .feedback-no-button {
+    @include button-outline;
+    display: inline-block;
+    margin-right: var(--space-m);
+    padding: 0;
+
+    &::before {
+      display: inline-block;
+      margin-right: calc(-1 * var(--space-xl));
+      padding-left: var(--space-l);
+      vertical-align: middle;
+    }
+
+    &:focus-within {
+      border-color: var(--color-lightninggreen) !important;
+    }
+
+    input {
+      @include input-reset;
+      color: var(--va-blue-med);
+      font-size: 16px;
+      padding: calc(var(--space-m) - 2px) var(--space-l) calc(var(--space-m) - 2px) 50px;
+    }
+  }
+
+  .feedback-yes-button {
+    &::before {
+      content: url('/themes/custom/vagovclaro/images/icons/0071BB/thumbs-up.svg');
+    }
+  }
+
+  .feedback-no-button {
+    &::before {
+      content: url('/themes/custom/vagovclaro/images/icons/0071BB/thumbs-down.svg');
+    }
+  }
+}

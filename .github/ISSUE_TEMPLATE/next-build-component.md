@@ -1,7 +1,7 @@
 ---
 name: next-build Component
 about: Template for collecting info for a next-build component.
-title: "Component: <insert name of component>"
+title: 'Component: <insert name of component>'
 labels: Needs refining
 assignees: ''
 
@@ -22,9 +22,9 @@ A component is needed in the next-build system to render <the component>. This c
 
 **API query**: <Replace> https://prod.cms.va.gov/jsonapi/paragraph/table
 
-**Existing template(s)**: <Replace> https://github.com/department-of-veterans-affairs/content-build/blob/master/src/site/paragraphs/table.drupal.liquid
+**Existing template(s)**: <Replace> https://github.com/department-of-veterans-affairs/content-build/blob/main/src/site/paragraphs/table.drupal.liquid
 
-**Existing/example existing GraphQL**: <Replace> https://github.com/department-of-veterans-affairs/content-build/blob/master/src/site/stages/build/drupal/graphql/paragraph-fragments/table.paragraph.graphql.js
+**Existing/example existing GraphQL**: <Replace> https://github.com/department-of-veterans-affairs/content-build/blob/main/src/site/stages/build/drupal/graphql/paragraph-fragments/table.paragraph.graphql.js
 
 **Logic notes**:
 * <enter any specific details>
@@ -53,6 +53,6 @@ Please check the team(s) that will do this work.
 - [ ] `Sitewide crew ` (leave Sitewide unchecked and check the specific team instead)
   - [ ] `⭐️ Content ops`
   - [ ] `⭐️ CMS experience`
-  - [ ] `⭐️ Public websites`
+  - [ ] `⭐️ Public Websites`
   - [ ] `⭐️ Facilities`
   - [ ] `⭐️ User support`

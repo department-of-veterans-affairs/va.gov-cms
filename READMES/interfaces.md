@@ -59,7 +59,7 @@ and common calls look like:
 
 ### How data is mapped to metalsmith templates:
 
-* Since this is a React widget displaying dynamic data it’s not using Metalsmith templates. The .jsx component files to support rendering are located in https://github.com/department-of-veterans-affairs/vets-website/tree/master/src/applications/facility-locator/components
+* Since this is a React widget displaying dynamic data it’s not using Metalsmith templates. The .jsx component files to support rendering are located in https://github.com/department-of-veterans-affairs/vets-website/tree/main/src/applications/facility-locator/components
 
 ## Mirrors
 

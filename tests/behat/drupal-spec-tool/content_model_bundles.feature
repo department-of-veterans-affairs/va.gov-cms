@@ -59,6 +59,7 @@ Feature: Content model bundles
 | Vet Center - Outstation | vet_center_outstation | Content type | Location information for remote facilities related to a main Vet Center. |
 | VAMC Facility Non-clinical Service | vha_facility_nonclinical_service | Content type | Address and contact info for offices and other non-clinical service locations. This content is always embedded within a VAMC system non-clinical service page. |
 | Alert | alert | Custom block type | An alert box that can be added to individual pages. |
+| CMS Announcement | cms_announcement | Custom block type | Display an announcement to CMS users. |
 | Promo | promo | Custom block type | Promote a link with an image, title, and description. |
 | Document | document | Media type | A locally hosted document, such as a PDF. |
 | Document - External | document_external | Media type |  |
@@ -111,6 +112,7 @@ Feature: Content model bundles
 | Sections | administration | Vocabulary | Represents a hierarchy of the VA, partly for governance purposes. |
 | Audience - Beneficiaries | audience_beneficiaries | Vocabulary |  |
 | Audience - Non-beneficiaries | audience_non_beneficiaries | Vocabulary |  |
+| Facility Supplemental Status | facility_supplemental_status | Vocabulary | Supplemental statuses to be used with facilities. |
 | VA Services | health_care_service_taxonomy | Vocabulary | Single source of truth for health service names, descriptions, patient-friendly names, and common conditions. |
 | Resources and support Categories | lc_categories | Vocabulary |  |
 | Products | products | Vocabulary |  |

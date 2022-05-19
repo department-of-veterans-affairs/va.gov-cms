@@ -1,0 +1,25 @@
+uuid: b41d3974-e1d5-4cc6-a9d1-e7310820c988
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_cms_option_label
+    - taxonomy.vocabulary.facility_supplemental_status
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: taxonomy_term.facility_supplemental_status.field_cms_option_label
+field_name: field_cms_option_label
+entity_type: taxonomy_term
+bundle: facility_supplemental_status
+label: 'CMS Option Label'
+description: 'This is what shows up in status chooser.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

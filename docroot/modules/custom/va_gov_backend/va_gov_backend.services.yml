@@ -20,8 +20,13 @@ services:
   va_gov_backend.datadog:
     class: Drupal\va_gov_backend\Service\Datadog
     arguments: ['@http_client', '@settings']
+  va_gov_backend.datadog_context_provider:
+    class: Drupal\va_gov_backend\Service\DatadogContextProvider
   va_gov_backend.metrics:
     class: Drupal\va_gov_backend\Service\Metrics
     arguments: ['@prometheus_exporter.metrics_collector_manager', '@settings', '@va_gov_backend.datadog']
     tags:
       - { name: event_subscriber }
+  monolog.processor.va_gov_datadog_apm:
+    class: Drupal\va_gov_backend\Logger\Processor\DatadogApmProcessor
+    arguments: ['@va_gov_backend.datadog_context_provider']

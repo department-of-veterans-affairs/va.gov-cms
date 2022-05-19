@@ -54,6 +54,15 @@ function vagovclaro_preprocess_block(&$variables) {
 }
 
 /**
+ * Implements suggestions_block_alter().
+ */
+function vagovclaro_theme_suggestions_block_alter(array &$suggestions, array $vars) {
+  if (isset($vars['elements']['content']['#block_content'])) {
+    $suggestions[] = 'block__custom__' . $vars['elements']['content']['#block_content']->bundle();
+  }
+}
+
+/**
  * Implements hook_preprocess_form_element().
  */
 function vagovclaro_preprocess_form_element(&$variables) {
@@ -359,8 +368,7 @@ function vagovclaro_preprocess_page__documentation_page(&$variables) {
   }
 
   // Don't show header search on KB homepage, which has form visible lower.
-  $node = $route_match->getParameter('node');
-  $nid = $node->id();
+  $nid = $route_match->getRawParameter('node');
   if ($nid == CMS_HELP_CENTER_HOMEPAGE_NID) {
     $variables['show_header_search'] = FALSE;
   }

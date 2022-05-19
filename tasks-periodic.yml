@@ -50,6 +50,24 @@ tasks:
           exit \$exit_code;
         EOF
 
+  # Run with: ./bin/task --taskfile=tasks-periodic.yml every_minute
+  # http://jenkins.vfs.va.gov/job/cms/job/cms-every-minute
+  every_minute:
+    cmds:
+      - |
+        cat <<EOF | bash
+          exit_code=0
+          tasks=(
+            "va/noop"
+          )
+          trap '{ (( exit_code |=\$? )); }' ERR
+          for i in "\${tasks[@]}"; do
+            task --taskfile=./tasks-periodic.yml \$i
+          done
+          trap - ERR
+          exit \$exit_code;
+        EOF
+
   va/background/daily/migrate_copy/va_forms_csv_source:
     desc: This is because we cannot access the server on the SOCKS proxy right now.
     cmds:
@@ -111,3 +129,8 @@ tasks:
     desc: Run cron every 15 min as called by Jenkins.
     cmds:
       - drush $DRUSH_ALIAS core:cron
+
+  va/noop:
+    desc: Placeholder command
+    cmds:
+      - 'true'

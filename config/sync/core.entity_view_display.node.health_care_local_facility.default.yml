@@ -22,6 +22,7 @@ dependencies:
     - field.field.node.health_care_local_facility.field_operating_status_more_info
     - field.field.node.health_care_local_facility.field_phone_number
     - field.field.node.health_care_local_facility.field_region_page
+    - field.field.node.health_care_local_facility.field_supplemental_status
     - image.style.crop_3_2
     - node.type.health_care_local_facility
   module:
@@ -54,10 +55,11 @@ third_party_settings:
       label: 'Operating status'
       parent_name: ''
       region: content
-      weight: 3
+      weight: 4
       format_type: fieldset
       format_settings:
         classes: ''
+        show_empty_fields: false
         id: ''
         description: ''
     group_social_media:
@@ -65,7 +67,7 @@ third_party_settings:
       label: 'Social media'
       parent_name: ''
       region: content
-      weight: 6
+      weight: 7
       format_type: details
       format_settings:
         classes: ''
@@ -79,7 +81,7 @@ third_party_settings:
       label: 'Prepare for your visit'
       parent_name: ''
       region: content
-      weight: 5
+      weight: 6
       format_type: details
       format_settings:
         classes: ''
@@ -92,7 +94,7 @@ third_party_settings:
       label: 'Locations and contact information'
       parent_name: ''
       region: content
-      weight: 4
+      weight: 5
       format_type: fieldset
       format_settings:
         classes: ''
@@ -124,6 +126,19 @@ third_party_settings:
         tooltip_description: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
         open: false
         required_fields: false
+    group_covid_19_safety_guidelines:
+      children:
+        - field_supplemental_status
+      label: 'COVID-19 guidelines'
+      parent_name: ''
+      region: content
+      weight: 3
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        description: ''
 id: node.health_care_local_facility.default
 targetEntityType: node
 bundle: health_care_local_facility
@@ -166,7 +181,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 8
+    weight: 9
     region: content
   field_media:
     type: media_thumbnail
@@ -183,7 +198,7 @@ content:
     settings:
       title: ''
     third_party_settings: {  }
-    weight: 19
+    weight: 20
     region: content
   field_mobile:
     type: boolean
@@ -193,7 +208,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 18
+    weight: 19
     region: content
   field_office_hours:
     type: office_hours
@@ -220,21 +235,21 @@ content:
       schema:
         enabled: false
     third_party_settings: {  }
-    weight: 20
+    weight: 21
     region: content
   field_operating_status_facility:
     type: list_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 19
     region: content
   field_operating_status_more_info:
     type: basic_string
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 20
     region: content
   field_phone_number:
     type: telephone_link
@@ -243,6 +258,15 @@ content:
       title: ''
     third_party_settings: {  }
     weight: 17
+    region: content
+  field_supplemental_status:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: name_with_term
+      link: false
+    third_party_settings: {  }
+    weight: 18
     region: content
 hidden:
   content_moderation_control: true

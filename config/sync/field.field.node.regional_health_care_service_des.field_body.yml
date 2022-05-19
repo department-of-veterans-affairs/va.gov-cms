@@ -10,11 +10,13 @@ dependencies:
     - epp
     - text
 third_party_settings:
+  allowed_formats:
+    rich_text_limited: rich_text_limited
+    rich_text: '0'
+    plain_text: '0'
   epp:
     value: ''
     on_update: 1
-  allowed_formats:
-    allowed_formats: {  }
 id: node.regional_health_care_service_des.field_body
 field_name: field_body
 entity_type: node

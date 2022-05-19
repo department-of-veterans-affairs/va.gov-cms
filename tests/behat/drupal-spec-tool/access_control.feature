@@ -23,4 +23,3 @@ Feature: Access control
 | Content creator - Outreach Hub | office_content_creator |
 | Redirect admin | redirect_administrator |
 | Content creator - VAMC | vamc_content_creator |
-| NextJS Authenticator | nextjs_authenticator |

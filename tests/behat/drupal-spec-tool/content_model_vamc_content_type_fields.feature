@@ -119,10 +119,11 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC Facility | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | VAMC Facility | Mobile | field_mobile | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC Facility | Hours | field_office_hours | Office hours |  | Unlimited | Office hours (week) | Translatable |
-| Content type | VAMC Facility | Status | field_operating_status_facility | List (text) | Required | 1 | Select list |  |
+| Content type | VAMC Facility | Status | field_operating_status_facility | List (text) | Required | 1 | Check boxes/radio buttons |  |
 | Content type | VAMC Facility | Details | field_operating_status_more_info | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Content type | VAMC Facility | Phone Number | field_phone_number  | Telephone number |  | 1 | Telephone number | Translatable |
 | Content type | VAMC Facility | What health care system does the facility belong to? | field_region_page | Entity reference | Required | 1 | Select list |  |
+| Content type | VAMC Facility | COVID-19 status | field_supplemental_status | Entity reference | Required | 1 | Check boxes/radio buttons |  |
 | Content type | VAMC Facility Health Service | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC Facility Health Service | Appointments help text | field_appointments_help_text | Markup |  | 1 | Markup |  |
 | Content type | VAMC Facility Health Service | Enforce unique combo | field_enforce_unique_combo | Allow Only One |  | 1 | Allow Only One widget |  |
@@ -239,4 +240,3 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System Register for Care | Non-clinical Services | field_non_clinical_services | Viewfield |  | 1 | Viewfield |  |
 | Content type | VAMC System Register for Care | VAMC System | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC System Register for Care | Service | field_service_name_and_descripti | Entity reference |  | 1 | -- Disabled -- | Translatable |
-

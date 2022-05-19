@@ -23,7 +23,9 @@
         "consolidation/robo": "^1",
         "consolidation/site-process": "^4.1",
         "cweagans/composer-patches": "^1.7",
+        "datadog/dd-trace": "^0.74.0",
         "drupal/address": "^1.4",
+        "drupal/admin_feedback": "^2.2",
         "drupal/admin_toolbar": "^3.0",
         "drupal/advancedqueue": "^1.0@RC",
         "drupal/allow_only_one": "1.0.0-alpha1",
@@ -39,6 +41,7 @@
         "drupal/config_ignore": "^2.1",
         "drupal/config_override_warn": "^1.0",
         "drupal/config_split": "^1.4",
+        "drupal/consumer_image_styles": "^4.0",
         "drupal/consumers": "1.12.0",
         "drupal/content_lock": "^2.0@alpha",
         "drupal/core-composer-scaffold": "~9.3.0",
@@ -83,6 +86,7 @@
         "drupal/image_style_warmer": "^1.0",
         "drupal/image_widget_crop": "^2.2",
         "drupal/jsonapi_extras": "^3.19",
+        "drupal/jsonapi_image_styles": "^3.0",
         "drupal/jsonapi_resources": "^1.0@beta",
         "drupal/libraries": "^3.0@alpha",
         "drupal/limited_field_widgets": "^2.0",
@@ -102,6 +106,7 @@
         "drupal/migrate_source_ui": "^1.0@RC",
         "drupal/migrate_tools": "5.x-dev#7ae3747d1e30790d11c2eefcc56e0796bea25c76",
         "drupal/migration_tools": "^2.3",
+        "drupal/monolog": "^2.0",
         "drupal/next": "^1.1",
         "drupal/node_link_report": "^1.14",
         "drupal/node_revision_delete": "^1.0",
@@ -177,7 +182,7 @@
         "symfony/process": "^4.0",
         "symfony/routing": "^4.0",
         "traviscarden/behat-table-comparison": "~0.2",
-        "va-gov/content-build": "^0.0.2992",
+        "va-gov/content-build": "^0.0.3015",
         "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
@@ -353,6 +358,9 @@
             "devshop/yaml-tasks": {
                 "Used 'pending' instead of 'queued' for commit status": "patches/yaml-tasks-pending.patch"
             },
+            "drupal/admin_feedback": {
+                "3254213 - Span and Label needed to support theming": "https://www.drupal.org/files/issues/2022-01-28/span-and-label-3254213-5.patch"
+            },
             "drupal/cer": {
                 "3197953-5 - Make d9 compatible": "https://www.drupal.org/files/issues/2021-03-19/cer-3197953-5.patch",
                 "3200122 - Remove delete hook": "https://www.drupal.org/files/issues/2021-02-24/delete-hook-added-in-dev-causes-test-failures.patch"
@@ -380,7 +388,8 @@
                 "2421145 - Text format wrapper does not take description_display into account": "https://www.drupal.org/files/issues/2021-12-03/2421445-18_0.patch",
                 "Internal Claro tweaks": "patches/claro-css-tweaks.patch",
                 "3176625 - Install from existing config with a theme that declares module dependencies fails": "https://www.drupal.org/files/issues/2021-05-18/fix_ConfigImportSubscriber_validateThemes-3176625-29.patch",
-                "3099026 - Claro's preprocessing of field multiple value form's table header cell removes potential changes by others": "https://www.drupal.org/files/issues/2020-02-20/3099026-9.patch"
+                "3099026 - Claro's preprocessing of field multiple value form's table header cell removes potential changes by others": "https://www.drupal.org/files/issues/2020-02-20/3099026-9.patch",
+                "2767243 - Create a theme suggestion for taxonomy terms by view mode": "https://www.drupal.org/files/issues/core-theme-suggestion-for-taxonomy-view-modes-2767243-14.patch"
             },
             "drupal/decoupled_router": {
                 "Unable to resolve path on node in other language than default": "https://www.drupal.org/files/issues/2021-05-05/3111456-34.patch"
@@ -455,8 +464,7 @@
             },
             "drupal/paragraphs": {
                 "Fix broken fieldsets on forms": "https://www.drupal.org/files/issues/2020-06-03/3138609-24.patch",
-                "Remove button should not be shown on required field": "https://www.drupal.org/files/issues/2020-05-13/hide_field_required_paragraphs_remove_button_1.patch",
-                "2901390 - Integrity constraint violation: 1048 Column 'langcode' cannot be null": "https://www.drupal.org/files/issues/2021-03-01/2901390-76-integrity-constraint-violation-paragraph.patch"
+                "Remove button should not be shown on required field": "https://www.drupal.org/files/issues/2020-05-13/hide_field_required_paragraphs_remove_button_1.patch"
             },
             "drupal/pathauto": {
                 "3204586 - Update URL Alias action is only available for nodes + users and does not work with views_bulk_operations": "https://www.drupal.org/files/issues/2021-03-22/pathauto-add_deriver_for_alias_update_action-3204586-19.patch",
@@ -512,9 +520,6 @@
             },
             "drupal/dropzonejs": {
                 "Select files button and Add media window text should respect field cardinality": "https://www.drupal.org/files/issues/2022-03-29/3174484-add-media-window-and-select-button-text-should-respect-field-cardinality-4.patch"
-            },
-            "va-gov/content-build": {
-                "temporary hack to get gql flag": "https://patch-diff.githubusercontent.com/raw/department-of-veterans-affairs/content-build/pull/1087.patch"
             }
         }
     },
