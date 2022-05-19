@@ -1,0 +1,33 @@
+uuid: fbb6b721-d673-4b9b-88ad-cc7fefea9c97
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:cms_announcement:03be10fc-8d69-4dd8-a0aa-e4df46dd1697'
+  module:
+    - block_content
+    - node
+  theme:
+    - vagovclaro
+id: recurringevents
+theme: vagovclaro
+region: content
+weight: -15
+provider: null
+plugin: 'block_content:03be10fc-8d69-4dd8-a0aa-e4df46dd1697'
+settings:
+  id: 'block_content:03be10fc-8d69-4dd8-a0aa-e4df46dd1697'
+  label: 'Recurring Events'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      event: event

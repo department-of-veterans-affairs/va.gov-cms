@@ -6500,10 +6500,13 @@ display:
             operator_id: field_supplemental_status_target_id_op
             label: 'Supplemental status'
             description: ''
-            use_operator: false
+            use_operator: true
             operator: field_supplemental_status_target_id_op
-            operator_limit_selection: false
-            operator_list: {  }
+            operator_limit_selection: true
+            operator_list:
+              or: or
+              empty: empty
+              'not empty': 'not empty'
             identifier: field_supplemental_status_target_id
             required: false
             remember: false
@@ -6539,7 +6542,7 @@ display:
             group_items: {  }
           reduce_duplicates: false
           vid: facility_supplemental_status
-          type: textfield
+          type: select
           hierarchy: false
           limit: true
           error_message: true

@@ -1,26 +1,72 @@
 //drupal CMS annountment styles
 .block-cms-announcement {
-  border-radius: 3px;
   box-sizing: border-box;
   color: var(--color-text);
-  font-size: 18px;
-  line-height: 27px;
-  margin: var(--space-l) 0; /*36px 0*/
-  padding: var(--space-m); /*16px*/
+  font-size: 16px;
+  line-height: 24px;
+  margin: var(--space-l) auto;
+  max-width: 80rem;
+  padding: 32px 50px 32px 90px;
   vertical-align: middle;
   width: 100%;
 
   &.information {
-    background: var(--va-blue-light);
+    background: var(--color-sky);
+
+    .title {
+      &::before {
+        background-image: url('/themes/custom/vagovclaro/images/icons/03bfe7/information-circle-solid.svg');
+      }
+    }
   }
 
   &.warning {
-    background: var(--va-gold-lightest);
+    background: var(--color-sand);
+
+    .title {
+      &::before {
+        background-image: url('/themes/custom/vagovclaro/images/icons/9d6d02/exclamation-triangle-solid.svg');
+      }
+    }
+  }
+
+  &.emergency {
+    background: var(--color-blush);
+
+    .title {
+      &::before {
+        background-image: url('/themes/custom/vagovclaro/images/icons/d04037/not-allowed.svg');
+      }
+    }
+  }
+
+  &.new {
+    background: var(--color-mint);
+
+    .title {
+      &::before {
+        background-image: url('/themes/custom/vagovclaro/images/icons/1bc47d/checkmark.svg');
+      }
+    }
   }
 
   .title {
-    font-weight: 700;
+    font-size: 18px;
+    font-weight: 600;
     margin-bottom: 5px;
+    position: relative;
+
+    &::before {
+      background-repeat: no-repeat;
+      background-size: contain;
+      content: '';
+      display: inline-block;
+      height: 23px;
+      position: absolute;
+      right: calc(100% + 16px);
+      vertical-align: -22%;
+      width: 27px;
+    }
   }
 
   .text {
