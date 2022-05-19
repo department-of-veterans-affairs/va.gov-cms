@@ -216,7 +216,7 @@ class MessageLogger implements EventSubscriberInterface {
   public static function getGithubUrl($url) {
     $path = parse_url($url, PHP_URL_PATH);
     $path = trim($path, '/');
-    return 'https://github.com/department-of-veterans-affairs/vagov-content/tree/master/pages/' . $path . '.md';
+    return 'https://github.com/department-of-veterans-affairs/vagov-content/tree/main/pages/' . $path . '.md';
   }
 
   /**
