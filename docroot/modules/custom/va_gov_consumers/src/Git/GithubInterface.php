@@ -44,4 +44,14 @@ interface GithubInterface {
    */
   public function listWorkflowRuns(string $action_name, array $params = []) : array;
 
+  /**
+   * Send a repository dispatch event.
+   *
+   * @param string $event_type
+   *   The type of dispatch to send.
+   * @param object $client_payload
+   *   Optional extra data to send as the payload with the dispatch.
+   */
+  public function repositoryDispatch(string $event_type, object $client_payload = NULL) : void;
+
 }
