@@ -33,7 +33,7 @@ class DisallowTimezoneValidator extends ConstraintValidator {
    *   Returns TRUE if the comment contains a timezone.
    */
   public function commentHasTimezone($comment) {
-    if (preg_match("/^([ecmp]st|[ecmp]t)|[^a-z]([ecmp]st|[ecmp]t)/i", $comment)) {
+    if (preg_match("/^[ecmp]s?t$|[^a-z0-9][ecmp]s?t[^a-z0-9]/i", $comment)) {
       return TRUE;
     }
     return FALSE;
