@@ -26,7 +26,7 @@ third_party_settings:
       label: 'Section settings'
       region: content
       parent_name: ''
-      weight: 7
+      weight: 6
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -43,7 +43,7 @@ third_party_settings:
       label: 'Editorial workflow'
       region: content
       parent_name: ''
-      weight: 8
+      weight: 7
       format_type: fieldset
       format_settings:
         classes: ''
@@ -75,12 +75,6 @@ content:
       allowed_formats:
         hide_help: '0'
         hide_guidelines: '0'
-  created:
-    type: datetime_timestamp
-    weight: 5
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_administration:
     type: options_select
     weight: 11
@@ -132,7 +126,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 6
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -152,6 +146,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
 hidden:
+  created: true
   promote: true
   sticky: true
   uid: true

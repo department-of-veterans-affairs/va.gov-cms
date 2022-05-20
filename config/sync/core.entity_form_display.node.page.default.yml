@@ -119,12 +119,6 @@ targetEntityType: node
 bundle: page
 mode: default
 content:
-  created:
-    type: datetime_timestamp
-    weight: 10
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_administration:
     type: options_select
     weight: 21
@@ -255,7 +249,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 11
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -274,11 +268,12 @@ content:
       textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
   url_redirects:
-    weight: 12
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
+  created: true
   field_meta_tags: true
   field_plainlanguage_date: true
   panelizer: true
