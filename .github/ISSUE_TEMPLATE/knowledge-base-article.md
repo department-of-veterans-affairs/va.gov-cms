@@ -7,7 +7,7 @@ assignees: rachel-kauff
 
 ---
   
-  ## Background context
+## Background context
 **Topic**
 [Add details here. If possible, include an example of a use case or situation that illustrates the topic well.]
 
