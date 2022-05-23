@@ -1,7 +1,7 @@
 ---
 name: Knowledge Base article
 about: Use this template for new CMS Knowledge Base articles that need to be written and published. 
-title: New KB article: <insert topic here>
+title: "New KB article: <insert topic here>"
 labels: Needs refining
 assignees: rachel-kauff
 
