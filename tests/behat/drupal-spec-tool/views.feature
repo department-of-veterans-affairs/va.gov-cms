@@ -37,6 +37,7 @@ Feature: Views
 | Glossary | glossary | Content | Disabled | All content, by letter. |
 | Health care service names and descriptions | health_care_service_names_and_descriptions | Taxonomy terms | Enabled | A list of nationally-controlled health care service names and descriptions |
 | Image Style Warmer Warmup Files | image_style_warmer_warmup_files | Files | Enabled | VBO for processing existing files with Image Style Warmer. |
+| JSON data sources | json_data_sources | Taxonomy terms | Enabled | Do not alter - serves as api endpoint(s) |
 | Knowledge Base Article administration | knowledge_base_article_administration | Content | Enabled | Audits and tools for managing Knowledge Base Articles |
 | Listing page dashboard | listing_page_dashboard | Content | Disabled |  |
 | Local facilities entity reference view | local_facilities_entity_reference_view | Content | Enabled | An entity reference view that determines options for the Local Health Service descriptions |
@@ -179,6 +180,8 @@ Feature: Views
 | Health care service names and descriptions | Vet Center health service and type of care - entity reference | entity_reference_vet_center_services | Entity Reference |
 | Image Style Warmer Warmup Files | Files overview  | page_1 | Page |
 | Image Style Warmer Warmup Files | Master | default | Default |
+| JSON data sources | Default | default | Default |
+| JSON data sources | Facility supplemental status | facility_supplemental_status | REST export |
 | Knowledge Base Article administration | Master | default | Default |
 | Knowledge Base Article administration | Page | knowledge_base_admin | Page |
 | Listing page dashboard | Master | default | Default |
