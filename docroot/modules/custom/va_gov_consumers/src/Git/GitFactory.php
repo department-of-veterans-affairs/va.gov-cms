@@ -36,7 +36,7 @@ class GitFactory implements ContainerAwareInterface {
    */
   public function __construct(Settings $settings) {
     $this->appRoot = $settings->get('va_gov_app_root', '');
-    $this->pathToWebRoot = $settings->get('va_gov_web_root', '');
+    $this->webRoot = $settings->get('va_gov_web_root', '');
   }
 
   /**
@@ -50,7 +50,6 @@ class GitFactory implements ContainerAwareInterface {
    */
   public function get(string $repositoryRoot) : GitInterface {
     $repository = new Repository($repositoryRoot);
-
     return Git::get($repository);
   }
 

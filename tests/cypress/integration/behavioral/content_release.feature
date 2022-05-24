@@ -3,17 +3,17 @@ Feature: Content Release
   As anyone involved in the project
   I need the content release page to manage and reflect an orderly underlying release process
 
-  @skip_on_brd
+  @skip_on_brd @ignore
   Scenario: The content release page should normally display no in-process releases
     Given I am logged in as a user with the "content_admin" role
-    And I am at "/admin/content/deploy"
+    When I am at "/admin/content/deploy"
     Then I should see "Front end has not been built yet."
-    When I click the "Release content" button
 
-  @skip_on_brd @ignore
+  @skip_on_brd
   Scenario: The content release page should show a pending default release initiated within the browser
     Given I am logged in as a user with the "content_admin" role
-    And I initiate a content release
+    When I am at "/admin/content/deploy"
+    And I click the "Release content" button
     Then I should see "Pending"
 
   @skip_on_brd @ignore
