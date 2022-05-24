@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "263b33daddc84559f26b202c62bd6d4f",
+    "content-hash": "c83d00e8e472b9965b0fe606944f3dd3",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -9236,30 +9236,36 @@
         },
         {
             "name": "drupal/path_redirect_import",
-            "version": "1.0.0-beta5",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/path_redirect_import.git",
-                "reference": "8.x-1.0-beta5"
+                "reference": "2.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/path_redirect_import-8.x-1.0-beta5.zip",
-                "reference": "8.x-1.0-beta5",
-                "shasum": "84bf22f684e0d001a5038960589939434a93994a"
+                "url": "https://ftp.drupal.org/files/projects/path_redirect_import-2.0.1.zip",
+                "reference": "2.0.1",
+                "shasum": "2809767ba9f8fa8e3be18b4e3150f7e834ac8ae8"
             },
             "require": {
-                "drupal/core": "^8 || ^9",
-                "drupal/redirect": "*"
+                "drupal/core": ">=9.1",
+                "drupal/migrate_source_csv": "^3.5",
+                "drupal/migrate_tools": "^5.0 || ^6.0",
+                "drupal/redirect": "*",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "drupal/migrate_plus": ">=5.0"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0-beta5",
-                    "datestamp": "1635359017",
+                    "version": "2.0.1",
+                    "datestamp": "1651806037",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
@@ -9269,8 +9275,9 @@
             ],
             "authors": [
                 {
-                    "name": "gabrielu",
-                    "homepage": "https://www.drupal.org/user/279352"
+                    "name": "Pablo López",
+                    "homepage": "https://www.drupal.org/u/plopesc",
+                    "role": "Maintainer"
                 },
                 {
                     "name": "paulocs",
@@ -9281,10 +9288,11 @@
                     "homepage": "https://www.drupal.org/user/282415"
                 }
             ],
-            "description": "Provides the ability to import redirects for the Redirect module",
+            "description": "Migrate Drupal redirects from CSV.",
             "homepage": "https://www.drupal.org/project/path_redirect_import",
             "support": {
-                "source": "https://git.drupalcode.org/project/path_redirect_import"
+                "source": "https://cgit.drupalcode.org/path_redirect_import",
+                "issues": "https://www.drupal.org/project/issues/path_redirect_import"
             }
         },
         {
@@ -25236,16 +25244,16 @@
         },
         {
             "name": "doctrine/cache",
-            "version": "1.12.1",
+            "version": "1.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/cache.git",
-                "reference": "4cf401d14df219fa6f38b671f5493449151c9ad8"
+                "reference": "56cd022adb5514472cb144c087393c1821911d09"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/4cf401d14df219fa6f38b671f5493449151c9ad8",
-                "reference": "4cf401d14df219fa6f38b671f5493449151c9ad8",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/56cd022adb5514472cb144c087393c1821911d09",
+                "reference": "56cd022adb5514472cb144c087393c1821911d09",
                 "shasum": ""
             },
             "require": {
@@ -25257,13 +25265,13 @@
             "require-dev": {
                 "alcaeus/mongo-php-adapter": "^1.1",
                 "cache/integration-tests": "dev-master",
-                "doctrine/coding-standard": "^8.0",
+                "doctrine/coding-standard": "^9",
                 "mongodb/mongodb": "^1.1",
-                "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0",
+                "phpunit/phpunit": "^7.5 || ^8.5 || ^9.5",
                 "predis/predis": "~1.0",
                 "psr/cache": "^1.0 || ^2.0 || ^3.0",
-                "symfony/cache": "^4.4 || ^5.2 || ^6.0@dev",
-                "symfony/var-exporter": "^4.4 || ^5.2 || ^6.0@dev"
+                "symfony/cache": "^4.4 || ^5.4 || ^6",
+                "symfony/var-exporter": "^4.4 || ^5.4 || ^6"
             },
             "suggest": {
                 "alcaeus/mongo-php-adapter": "Required to use legacy MongoDB driver"
@@ -25315,7 +25323,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/cache/issues",
-                "source": "https://github.com/doctrine/cache/tree/1.12.1"
+                "source": "https://github.com/doctrine/cache/tree/1.13.0"
             },
             "funding": [
                 {
@@ -25331,7 +25339,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-07-17T14:39:21+00:00"
+            "time": "2022-05-20T20:06:54+00:00"
         },
         {
             "name": "doctrine/common",
@@ -26569,7 +26577,6 @@
         "drupal/migrate_tools": 20,
         "drupal/openapi": 5,
         "drupal/paragraphs_browser": 15,
-        "drupal/path_redirect_import": 10,
         "drupal/pathologic": 15,
         "drupal/prometheus_exporter": 10,
         "drupal/schemata": 10,
