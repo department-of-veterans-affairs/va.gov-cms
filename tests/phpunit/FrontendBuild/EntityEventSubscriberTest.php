@@ -510,6 +510,7 @@ class EntityEventSubscriberTest extends UnitTestCase {
    *
    * @dataProvider stopEarlyTestDataProvider
    * @dataProvider nonFacilityNodeTestDataProvider
+   * @dataProvider facilityNodeTestDataProvider
    */
   public function testAutomaticBuildTriggering(
     string $environmentDiscoveryMode,
