@@ -1,11 +1,8 @@
 # Testing
 
-The code for cms.va.gov undergoes numerous tests before merging, and tests
-are run before deployment and release.
+The code deployed to prod.cms.va.gov undergoes numerous tests before merging, and automated tests are run before deployment.
 
-The automated test suite for cms.va.gov is defined in the [tests.yml](../tests.yml)
-file and is run using the [Task](https://github.com/go-task/task) tool, allowing
-the same command to be used local development, in CMS-CI and for production releases.
+The automated test suite for cms.va.gov is defined in the [tests.yml](../tests.yml) file and is run using the [Task](https://github.com/go-task/task) tool, allowing the same command to be used for local development, CI (via Tugboat) and for DEV, STAGING and PROD environments.
 
 Task is installed by the `install_task.sh` script.
 
@@ -13,94 +10,71 @@ Task is installed by the `install_task.sh` script.
 
 To adopt a strong test driven culture, the testing tools must:
 
-1. Run the same tests in multiple environments with minimal configuration and
-   a single command.
-2. Allow developers to define tests to include in the suite and to write the
-   tests.
-3. Provide feedback to developers as quickly as possible and make test output as
-   readable and accessible as possible.
+1. Run the same tests in multiple environments with minimal configuration and a single command.
+2. Allow developers to define tests to include in the suite and to write the tests.
+3. Provide feedback to developers as quickly as possible and make test output as readable and accessible as possible. (e.g. GitHub issue comments with failure reasons)
 
 ## Scope
 
-To avoid entanglement of tests, tests should adhere, when possible, to their own
-area of concern. Practice separation of concerns as much as possible. There are
-three areas of concern.
+To avoid entanglement of tests, tests should adhere, when possible, to their own area of concern. Practice separation of concerns as much as possible. There are three areas of concern.
 
-1. **CMS** - This is the functioning of being able to login, edit and publish
-   content. It's boundary of concern ends at the GraphQL endpoints.
-2. **Front-end** - This is the Metalsmith build that creates the html front-end
-   from the content accessed at the GraphQL endpoints of the CMS.
-3. **Content** - This is the realm of making sure menu links and other links in
-   content work. 508 testing is also part of content testing.
+1. **CMS** - This is the functioning of being able to login, edit and publish content. It's boundary of concern ends at the GraphQL endpoints.
+2. **Front-end** - This is the Metalsmith build that creates the HTML front-end from the content accessed at the GraphQL endpoints of the CMS.
+3. **Content** - This is the realm of making sure menu links and other links in content work. 508 testing is also part of content testing.
 
-Entanglement should be avoided because it causes people from the non-relevant
-team to spend time solving issues that are not in their area of concern.
-Example: _Developers chasing down a mis-entered content link is not a good use
-of time._
-End to End tests should be achieved when possible, by each area of concern
-providing coverage for their particular area.
+Entanglement should be avoided because it causes people from the non-relevant team to spend time solving issues that are not in their area of concern.
+Example: _Developers chasing down a mis-entered content link is not a good use of time._
+End to End tests should be achieved when possible, by each area of concern providing coverage for their particular area.
 
 ## VA.gov CMS Test Suite
 
-Always refer to the file `tests.yml` for the canonical list of required tests
-that are included in the automated testing system, and are required to pass
-before merge or deployment,
+Always refer to the file `tests.yml` for the canonical list of required tests that are included in the automated testing system, and are required to pass before merge or deployment,
 
-There are 4 main types of tests:
+There are 3 main types of tests:
 
 1.  **Static Tests:**
     Static tests are run by [git pre-commit hooks](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks#_committing_workflow_hooks): Developers cannot commit code if
-    any of these tests fail. Static tests only require the source code. No site
-    is needed.
+    any of these tests fail. Static tests only require the source code. No active database is needed.
 
     See the [hooks/pre-commit file](../hooks/pre-commit) for the exact
     command run before git commit.
 
-    Each static test should also be run by a corresponding [Github action](https://docs.github.com/en/actions) and block PR merges on failure. Github actions are added and edited in the [Github workflows directory](../.github/workflows). When adding a new Github action, our preferred process to minimize technical debt and maintenance is the following:
-    1. When possible, use a well-supported action from the open-source community. The [reviewdog](https://github.com/reviewdog) organization on Github is often a good place to start looking.
-    1. If the action cannot meet our requirements without modifications, resolve in this order:
-      1. Modify the existing action for configurability and attempt to contribute the modification upstream
-      1. If the contribution is not accepted or greater modifications are needed, create a new action in a repo under the DSVA Github organization
-        1. If possible, try to contribute this new action upstream under the [reviewdog](https://github.com/reviewdog) space
+    Each static test should also be run by a corresponding [Github action](https://docs.github.com/en/actions) and block PR merges on failure. Github Actions are added and edited in the [Github workflows directory](../.github/workflows). When adding a new GitHub Action, our preferred process to minimize technical debt and maintenance is the following:
+    1. When possible, use a well-supported action from the open-source community. The [reviewdog](https://github.com/reviewdog) organization on GitHub is often a good place to start looking.
+    1. If the Action cannot meet our requirements without modifications, resolve in this order:
+      1. Modify the existing Action for configurability and attempt to contribute the modification upstream
+      1. If the contribution is not accepted or greater modifications are needed, create a new Action in a repo under the DSVA GitHub organization
+        1. If possible, try to contribute this new Action upstream under the [reviewdog](https://github.com/reviewdog) space
 
     Existing tests:
     1. `va/tests/phpcs` - "PHP CodeSniffer" tests ensure coding standards
        are met.
     1. [`CodeQL`](../.github/workflows/codeql.yml) - Automated vulnerability scanning
-    1. [`ESlint`](/.github/workflows/eslint.yml) - Javascript linting
-    1. [`PHPCS`](../.github/workflows/phpcs.yml) - PHP Linting
-    1. [`StyleLint (modules)`](../.github/workflows/stylelint-modules.yml) - Javascript style checks for custom module code
-    1. [`StyleLint (themes)`](../.github/workflows/stylelint-themes.yml) - Javascript style checks for custom theme code
-    1. [`PHPStan`](../.github/workflows/phpstan.yml) - Static analysis
+    1. [`ESlint`](/.github/workflows/eslint.yml) - JavaScript linting
+    1. [`PHPCS`](../.github/workflows/phpcs.yml) - PHP linting
+    1. [`StyleLint (modules)`](../.github/workflows/stylelint-modules.yml) - JavaScript style checks for custom Drupal module code
+    1. [`StyleLint (themes)`](../.github/workflows/stylelint-themes.yml) - JavaScript style checks for custom Drupal theme code
+    1. [`PHPStan`](../.github/workflows/phpstan.yml) - Static code analysis
 
-1.  **WEB Integration Tests**
+1.  **WEB Integration Tests** (e.g. WEB == FE decoupled [content-build](https://patch-diff.githubusercontent.com/raw/department-of-veterans-affairs/content-build/) repo)
 
-    1. Behat Decoupled.feature runs a content build and test for content changes.
+    1. Behat Decoupled.feature runs a content build and tests for content changes.
 
-    The long term goal is to run _all_ of the **WEB** project's tests in our
-    test
-    suite, but more work is needed in the **WEB** codebase to make that
-    possible.
+    The long term goal is to run _all_ of the **WEB** project's tests in our test suite, but more work is needed in the **WEB** codebase to make that possible.
 
 1.  **Functional Tests**
 
-    1. `va/tests/phpunit` - The CMS PHPUnit Tests include a number
-       of tests, including Creating Media, testing GraphQL, Performance tests
-       , Security, and more. See the [tests/phpunit folder](tests/phpunit) to
-       see all the PHPUnit tests.
+    1. `va/tests/phpunit` - The CMS PHPUnit Tests include a number of functional tests, including creating media, testing GraphQL, performance and security. See the [tests/phpunit folder](tests/phpunit) to see all the PHPUnit tests. 
+    
+        Utilizing the DrupalTestTraits library with PHPUnit gives developers the ability to bootstrap Drupal and write tests in PHP without an abstraction layer provided by Gherkin. PHPUnit is the preferred tool to write tests due to its speed of execution.
 
-    Utilizing the DrupalTestTraits library with PHPUnit gives developers the
-    ability to bootstrap Drupal and write tests in PHP without an abstraction
-    layer provided by Gherkin. PHPUnit is the preferred tool to write tests
-    due to its speed of execution.
+        Run all tests:
 
-    Run the tests specific to VA
+        ```
+        lando phpunit
+        ```
 
-    ```
-    lando phpunit
-    ```
-
-        Run a specific PHPUnit test with the "path" argument:
+        Run a specific test with the "path" argument:
         The path can be to a specific test file, or a directory with tests.
 
         ```
@@ -114,8 +88,8 @@ There are 4 main types of tests:
         ```
         lando phpunit-run {Path-to-test} --filter {test-function-name}
 
-    lando phpunit-run docroot/modules/contrib/config_split/tests/src/Kernel/ConfigSplitCliServiceTest.php --filter testGrayAndBlackListExport
-    ```
+        lando phpunit-run docroot/modules/contrib/config_split/tests/src/Kernel/ConfigSplitCliServiceTest.php --filter testGrayAndBlackListExport
+        ```
 
         Run a group of PHPUnit tests:
 
@@ -125,38 +99,33 @@ There are 4 main types of tests:
 
     1. `va/tests/behat` - The Behat test suite includes:
 
-       1. _Content-Edit-Web-Rebuild test:_
+        1. _Content-Edit-Web-Rebuild test:_
 
-          This test is critical: it ensures the CMS does not break the WEB
-          build.
+            This test is critical: it ensures the CMS does not break the WEB build.
 
-          See [tests/behat/features/content.feature](../tests/behat/features/content.feature)
+            See [tests/behat/features/content.feature](../tests/behat/features/content.feature)
 
-       1. _Permissons Test:_
+        1. _Permissons Test:_
 
-          See [tests/behat/features/perms.feature](../tests/behat/features/perms.feature)
+            See [tests/behat/features/perms.feature](../tests/behat/features/perms.feature)
 
-       1. _Drupal Spec Tests:_ The DST tool enforces the desired structure of
-          the Drupal site by generating Gherkin Feature files. See
-          [tests/behat/drupal-spec-tool](../tests/behat/drupal-spec-tool/) folder
-          for all of the tests and more information on managing the Drupal Spec
-          Tool and [VA's Spec tool doc here](https://airtable.com/invite/l?inviteId=invOjKEIyZCQY5YRy&inviteToken=eea85291ef1cd72ce9560c5a833a18673ef10a92050f9210e878702e81ec49b3&utm_source=email).
+        1. _Drupal Spec Tests:_ The DST tool enforces the desired structure of the Drupal site by generating Gherkin Feature files. See [tests/behat/drupal-spec-tool](../tests/behat/drupal-spec-tool/) folder for all of the tests and more information on managing the Drupal Spec Tool and [VA's Spec tool doc here](https://airtable.com/invite/l?inviteId=invOjKEIyZCQY5YRy&inviteToken=eea85291ef1cd72ce9560c5a833a18673ef10a92050f9210e878702e81ec49b3&utm_source=email).
 
-       Run a specific behat test with the `--name` or `--tags` options:
+        Run a specific behat test with the `--name` or `--tags` options:
 
-       ```
-       lando behat --tags=dst
-       ```
+        ```
+        lando behat --tags=dst
+        ```
 
     1. `va/tests/cypress` - The [Cypress](https://github.com/cypress-io/cypress) test suite includes end-to-end behavioral and accessibility tests.
 
-       To run and debug cypress tests in a web UI, run the following commands from the project root on your local machine (not within lando):
+          To run and debug cypress tests in a web UI, run the following commands from the project root on your local machine (not within lando):
 
-       ```
-       npm run test:cypress:interactive
-       ```
+          ```
+          npm run test:cypress:interactive
+          ```
 
-       You will see a window with a list of tests. Just click on the name of any test to run it within a browser.
+          You will see a window with a list of tests. Just click on the name of any test to run it within a browser.
 
 ## Running Tests
 
@@ -191,8 +160,8 @@ helper commands that map to shell commands.
 _NOTES:_
 
 - Any arguments passed to the `lando` command are passed through to the
-  composer command.
-- Any Composer command can be run inside a Lando container after you call
+  `composer` command.
+- Any `composer` command can be run inside a Lando container after you run
   `lando ssh`.
 
 ### Limit tests to run
@@ -322,7 +291,7 @@ Developing with Drupal idiomatically tends to conflict with PHPStan.
 
 For instance, you might type code like `$node->field_address->zip_code`.  If `$node` is declared as or implied to be a `\Drupal\node\Entity\Node` object, then PHPStan will look for a property named `$field_address` on `\Drupal\node\Entity\Node`.  `$node` might also be interpreted as `\Drupal\node\NodeInterface`, or `\Drupal\Core\Entity\EntityInterface`, or any of several other interfaces.  But functionality for accessing fields via constructs like `$node->field_address` is implemented via "magic properties," to which PHPStan does not and cannot have access.  As a consequence, PHPStan will view the use of these magic properties as errors.
 
-To permit both idiomatic Drupaling and good static analysis, we simply whitelist errors that arise from this sort of use.
+To permit both idiomatic Drupaling and good static analysis, we simply allowlist errors that arise from this sort of use.
 
 This can be done by adding new expressions to the `parameters.ignoreErrors` array in [phpstan.neon](../phpstan.neon).
 
