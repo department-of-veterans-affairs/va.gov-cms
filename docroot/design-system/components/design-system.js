@@ -13,7 +13,6 @@ import * as button from './button';
 import * as icon from './icon';
 import * as input from './input';
 import * as announcementBlock from './announcement-block';
-import * as input from './input';
 
 const components = {
   tokens,
