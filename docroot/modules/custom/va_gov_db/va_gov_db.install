@@ -40,6 +40,33 @@ function _va_gov_db_uninstall_modules(array $modules, $uninstall_dependents = TR
 }
 
 /**
+ * Installs requested modules.
+ *
+ * @param array $modules
+ *   An array of module machine names to install.
+ * @param bool $install_dependents
+ *   TRUE if dependent modules should also be installed, FALSE otherwise.
+ *
+ * @return string
+ *   A message about what requested modules were uninstalled.
+ *
+ * @throws Drupal\Core\Utility\UpdateException
+ */
+function _va_gov_db_install_modules(array $modules, $install_dependents = TRUE) {
+  $success = \Drupal::service('module_installer')->install($modules, $install_dependents);
+  $modules_list = implode(', ', $modules);
+  if ($success) {
+    return "Installed the following modules: $modules_list";
+  }
+  else {
+    // Something went wrong. Throw exception.
+    throw new UpdateException(
+      t("Failed to install the requested modules: @modules", ['@modules' => $modules_list])
+    );
+  }
+}
+
+/**
  * Utility to change the max length of a text field.
  *
  * @param string $field_name
