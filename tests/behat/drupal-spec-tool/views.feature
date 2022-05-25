@@ -44,6 +44,7 @@ Feature: Views
 | Locked content | locked_content | Content | Enabled |  |
 | Media | media | Media | Enabled |  |
 | Media library | media_library | Media | Enabled | Find and manage media. |
+| Message | message | Message | Enabled |  |
 | Metatag Audit | metatag_audit | Content | Enabled |  |
 | Moderated content | moderated_content | Content revisions | Enabled | Find and moderate content. |
 | Moderation history | moderation_history | Content revisions | Enabled |  |
@@ -57,6 +58,12 @@ Feature: Views
 | Search | search | Index Content | Disabled |  |
 | Section administration and export | section_export | Taxonomy terms | Enabled | Enables easier adminstration of Sections/Product relationship, and export tools for analysis outside Drupal |
 | Services | services | Content | Enabled | Lists of services for facility pages, health services lists, etc |
+| Subscribe node | subscribe_node | Content | Enabled |  |
+| Subscribe node email | subscribe_node_email | Content | Enabled |  |
+| Subscribe taxonomy term | subscribe_taxonomy_term | Taxonomy terms | Enabled |  |
+| Subscribe taxonomy term email | subscribe_taxonomy_term_email | Taxonomy terms | Enabled |  |
+| Subscribe user | subscribe_user | Users | Enabled |  |
+| Subscribe user email | subscribe_user_email | Users | Enabled |  |
 | Table Audit | table_audit | Content | Enabled |  |
 | Taxonomy entity browsers | taxonomy_entity_browsers | Taxonomy terms | Enabled |  |
 | Taxonomy term | taxonomy_term | Content | Enabled | Content belonging to a certain taxonomy term. |
@@ -203,6 +210,8 @@ Feature: Views
 | Media library | Page | page | Page |
 | Media library | Widget | widget | Page |
 | Media library | Widget (table) | widget_table | Page |
+| Message | Master | default | Default |
+| Message | Page | page_1 | Page |
 | Metatag Audit | Default | default | Default |
 | Metatag Audit | Metatag Audit | metatag_audit | Page |
 | Moderated content | Master | default | Default |
@@ -241,6 +250,12 @@ Feature: Views
 | Services | Facility health services | block_1 | Block |
 | Services | Master | default | Default |
 | Services | VAMC system health services | block_2 | Block |
+| Subscribe node | Master | default | Default |
+| Subscribe node email | Master | default | Default |
+| Subscribe taxonomy term | Master | default | Default |
+| Subscribe taxonomy term email | Master | default | Default |
+| Subscribe user | Master | default | Default |
+| Subscribe user email | Master | default | Default |
 | Table Audit | Data export | tables_usage_export | Data export |
 | Table Audit | Default | default | Default |
 | Table Audit | Table Audit | table_audit | Page |
