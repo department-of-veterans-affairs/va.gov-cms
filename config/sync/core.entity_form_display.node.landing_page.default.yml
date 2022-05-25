@@ -337,12 +337,18 @@ content:
     settings: {  }
     third_party_settings: {  }
   title:
-    type: string_textfield
+    type: string_textfield_with_counter
     weight: 3
     region: content
     settings:
       size: 60
       placeholder: ''
+      use_field_maxlength: false
+      maxlength: 69
+      counter_position: after
+      js_prevent_submit: false
+      count_html_characters: false
+      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
 hidden:
   created: true
