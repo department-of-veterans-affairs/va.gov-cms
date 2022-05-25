@@ -1,0 +1,33 @@
+uuid: 55e2571e-0c99-45f7-ac0f-86a3e0c5d46b
+langcode: en
+status: false
+dependencies:
+  module:
+    - user
+_core:
+  default_config_hash: KgBsK0lQXzytonrpBhccb6FiPhM1w_TMcU_HRq8cQUI
+id: email_user
+label: 'Email users'
+bundles: {  }
+entity_type: user
+global: false
+flag_short: 'Send email'
+flag_long: ''
+flag_message: ''
+unflag_short: 'Don''t send email'
+unflag_long: ''
+unflag_message: ''
+unflag_denied_text: ''
+weight: 0
+flag_type: 'entity:user'
+link_type: ajax_link
+flagTypeConfig:
+  show_in_links:
+    full: full
+  show_as_field: true
+  show_on_form: false
+  show_contextual_link: false
+  extra_permissions:
+    owner: '0'
+  show_on_profile: false
+linkTypeConfig: {  }

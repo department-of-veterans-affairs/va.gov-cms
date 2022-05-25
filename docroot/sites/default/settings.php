@@ -190,6 +190,13 @@ if (file_exists($app_root . '/' . $site_path . '/settings/settings.deploy.active
 }
 
 /**
+ * Preserve control characters (e.g. newlines) in text passed to syslog.
+ * @see https://bugs.php.net/bug.php?id=77913
+ * TL;DR: Ensure each watchdog entry becomes only a single line in syslog.
+ */
+ini_set('syslog.filter', 'raw');
+
+/**
  * Load local development override configuration, if available.
  *
  * Use settings.local.php to override variables on secondary (staging,
@@ -232,6 +239,9 @@ if (!empty($webhost_on_cli)) {
   $settings['file_public_base_url'] = "{$webhost}/sites/default/files";
 }
 
+// Monolog
+$settings['container_yamls'][] = $app_root . '/' . $site_path . '/../default/services/services.monolog.yml';
+
 // Memcache-specific settings
 if (extension_loaded('memcache') && !empty($settings['memcache']['servers'])) {
   $settings['cache']['default'] = 'cache.backend.memcache';
@@ -240,4 +250,10 @@ if (extension_loaded('memcache') && !empty($settings['memcache']['servers'])) {
   ];
   $settings['container_yamls'][] = $app_root . '/' . $site_path . '/../default/services/services.memcache.yml';
   $settings['memcache']['persistent'] = 'drupal';
+}
+
+// Environment specific services container.
+$env_services_path = "$app_root/$site_path/services/services.$env_type.yml";
+if (file_exists($env_services_path)) {
+  $settings['container_yamls'][] = $env_services_path;
 }

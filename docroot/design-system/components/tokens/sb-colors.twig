@@ -1,0 +1,15 @@
+<div style="margin: 0 auto;">
+  <h2>Colors</h2>
+  <hr>
+
+  <div class="swatches">
+    {% for name, value in vars %}
+      <div class="swatch">
+        <div class="swatch-color" style="background-color: {{ value }};"></div>
+        <p><b>Name:</b> {{ name }}</p>
+        <p><b>Value:</b> {{ value }}</p>
+        <p><b>Usage:</b> var({{ name }});</p>
+      </div>
+    {% endfor %}
+  </div>
+</div>

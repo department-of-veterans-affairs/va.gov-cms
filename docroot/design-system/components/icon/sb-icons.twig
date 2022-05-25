@@ -1,0 +1,29 @@
+{# Demo file for Storybook, not a real template for Drupal consumption #}
+<div class="icons" style="margin: 0 auto;">
+  <h2>Icons</h2>
+
+  <p>We are using <a href="https://fontawesome.com/">fontawesome icons</a> for our icon needs.</p>
+  <p>We import the specific icons instead of the full library in order to keep the final bundle small.</p>
+
+  <hr>
+
+  <table style="text-align: left">
+    <tr>
+      <th>Icon Name</th>
+      <th>Default</th>
+      <th>lg</th>
+      <th>xl</th>
+      <th>2xl</th>
+    </tr>
+    {% for icon in vars %}
+      <tr>
+        <td>{{ icon }}</td>
+        <td><i class="fas fa-{{ icon }}"></i></td>
+        <td><i class="fas fa-{{ icon }} fa-lg"></i></td>
+        <td><i class="fas fa-{{ icon }} fa-xl"></i></td>
+        <td><i class="fas fa-{{ icon }} fa-2xl"></i></td>
+      </tr>
+    {% endfor %}
+  </table>
+
+</div>

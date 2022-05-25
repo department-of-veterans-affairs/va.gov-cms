@@ -24,12 +24,12 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
-    negate: 0
     target_bundles:
       wysiwyg: wysiwyg
       table: table
       collapsible_panel: collapsible_panel
       react_widget: react_widget
+    negate: 0
     target_bundles_drag_drop:
       address:
         weight: -71
@@ -50,8 +50,8 @@ settings:
         weight: -66
         enabled: false
       collapsible_panel:
-        enabled: true
         weight: -73
+        enabled: true
       collapsible_panel_item:
         weight: -65
         enabled: false
@@ -110,8 +110,8 @@ settings:
         weight: -47
         enabled: false
       react_widget:
-        enabled: true
         weight: -72
+        enabled: true
       service_location:
         weight: -46
         enabled: false
@@ -137,9 +137,9 @@ settings:
         weight: -39
         enabled: false
       table:
-        enabled: true
         weight: -74
-      wysiwyg:
         enabled: true
+      wysiwyg:
         weight: -75
+        enabled: true
 field_type: entity_reference_revisions

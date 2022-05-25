@@ -19,64 +19,12 @@ base_table: search_api_index_knowledge_base_search
 base_field: search_api_id
 display:
   default:
-    display_plugin: default
     id: default
     display_title: Master
+    display_plugin: default
     position: 0
     display_options:
-      access:
-        type: none
-        options: {  }
-      cache:
-        type: tag
-        options: {  }
-      query:
-        type: views_query
-        options:
-          bypass_access: false
-          skip_access: false
-          preserve_facet_query_args: false
-      exposed_form:
-        type: input_required
-        options:
-          submit_button: Search
-          reset_button: true
-          reset_button_label: Reset
-          exposed_sorts_label: 'Sort by'
-          expose_sort_order: false
-          sort_asc_label: Asc
-          sort_desc_label: Desc
-          text_input_required: ''
-          text_input_required_format: rich_text
-      pager:
-        type: full
-        options:
-          items_per_page: 25
-          offset: 0
-          id: 0
-          total_pages: null
-          tags:
-            previous: ‹‹
-            next: ››
-            first: '« First'
-            last: 'Last »'
-          expose:
-            items_per_page: false
-            items_per_page_label: 'Items per page'
-            items_per_page_options: '5, 10, 25, 50'
-            items_per_page_options_all: false
-            items_per_page_options_all_label: '- All -'
-            offset: false
-            offset_label: Offset
-          quantity: 9
-      style:
-        type: default
-        options:
-          grouping: {  }
-          row_class: kb__search_result
-          default_row_class: true
-      row:
-        type: fields
+      title: 'Search CMS Knowledge Base'
       fields:
         title:
           id: title
@@ -85,6 +33,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: node
+          plugin_id: search_api_field
           label: ''
           exclude: false
           alter:
@@ -149,8 +99,6 @@ display:
             use_highlighting: false
             multi_type: separator
             multi_separator: ', '
-          entity_type: node
-          plugin_id: search_api_field
         field_intro_text:
           id: field_intro_text
           table: search_api_index_knowledge_base_search
@@ -158,6 +106,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: search_api_field
           label: ''
           exclude: false
           alter:
@@ -219,7 +168,6 @@ display:
             use_highlighting: false
             multi_type: separator
             multi_separator: ', '
-          plugin_id: search_api_field
         search_api_excerpt:
           id: search_api_excerpt
           table: search_api_index_knowledge_base_search
@@ -227,6 +175,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: search_api
           label: ''
           exclude: false
           alter:
@@ -272,7 +221,72 @@ display:
           use_highlighting: true
           multi_type: separator
           multi_separator: ', '
+      pager:
+        type: full
+        options:
+          offset: 0
+          items_per_page: 25
+          total_pages: null
+          id: 0
+          tags:
+            next: ››
+            previous: ‹‹
+            first: '« First'
+            last: 'Last »'
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
+          quantity: 9
+      exposed_form:
+        type: input_required
+        options:
+          submit_button: Search
+          reset_button: true
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: false
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+          text_input_required: ''
+          text_input_required_format: rich_text
+      access:
+        type: none
+        options: {  }
+      cache:
+        type: tag
+        options: {  }
+      empty:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text_custom
+          empty: true
+          content: 'No results found. Try another search, or <a href="https://va-gov.atlassian.net/servicedesk/customer/portal/3/group/8/create/26">contact the help desk</a>.'
+          tokenize: false
+      sorts:
+        search_api_relevance:
+          id: search_api_relevance
+          table: search_api_index_knowledge_base_search
+          field: search_api_relevance
+          relationship: none
+          group_type: group
+          admin_label: ''
           plugin_id: search_api
+          order: DESC
+          expose:
+            label: ''
+            field_identifier: search_api_relevance
+          exposed: false
+      arguments: {  }
       filters:
         search_api_fulltext:
           id: search_api_fulltext
@@ -281,6 +295,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: search_api_fulltext
           operator: or
           value: ''
           group: 1
@@ -329,21 +344,22 @@ display:
           parse_mode: terms
           min_length: null
           fields: {  }
-          plugin_id: search_api_fulltext
-      sorts:
-        search_api_relevance:
-          id: search_api_relevance
-          table: search_api_index_knowledge_base_search
-          field: search_api_relevance
-          relationship: none
-          group_type: group
-          admin_label: ''
-          order: DESC
-          exposed: false
-          expose:
-            label: ''
-          plugin_id: search_api
-      title: 'Search CMS Knowledge Base'
+      style:
+        type: default
+        options:
+          grouping: {  }
+          row_class: kb__search_result
+          default_row_class: true
+      row:
+        type: fields
+      query:
+        type: views_query
+        options:
+          bypass_access: false
+          skip_access: false
+          preserve_facet_query_args: false
+      relationships: {  }
+      css_class: kb__search_page
       header:
         entity_block:
           id: entity_block
@@ -352,12 +368,12 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: entity
           empty: true
-          tokenize: false
           target: knowledge_base_search_form
           view_mode: default
+          tokenize: false
           bypass_access: false
-          plugin_id: entity
         result:
           id: result
           table: views
@@ -365,26 +381,11 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: result
           empty: false
           content: 'Displaying @start - @end of @total'
-          plugin_id: result
       footer: {  }
-      empty:
-        area_text_custom:
-          id: area_text_custom
-          table: views
-          field: area_text_custom
-          relationship: none
-          group_type: group
-          admin_label: ''
-          empty: true
-          tokenize: false
-          content: 'No results found. Try another search, or <a href="https://va-gov.atlassian.net/servicedesk/customer/portal/3/group/8/create/26">contact the help desk</a>.'
-          plugin_id: text_custom
-      relationships: {  }
-      arguments: {  }
       display_extenders: {  }
-      css_class: kb__search_page
     cache_metadata:
       max-age: -1
       contexts:
@@ -397,24 +398,24 @@ display:
         - 'config:field.storage.node.field_intro_text'
         - 'config:search_api.index.knowledge_base_search'
   knowledge_base_search_page:
-    display_plugin: page
     id: knowledge_base_search_page
     display_title: Page
+    display_plugin: page
     position: 1
     display_options:
+      exposed_block: true
       display_extenders: {  }
       path: help/search
-      exposed_block: true
       menu:
         type: normal
         title: Search
         description: ''
-        expanded: false
-        parent: 'menu_link_content:34a97e62-ff2e-4595-979f-29667167a8a0'
         weight: -56
-        context: '0'
-        menu_name: documentation
         enabled: false
+        expanded: false
+        menu_name: documentation
+        parent: 'menu_link_content:34a97e62-ff2e-4595-979f-29667167a8a0'
+        context: '0'
     cache_metadata:
       max-age: -1
       contexts:

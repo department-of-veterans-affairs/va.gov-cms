@@ -19,24 +19,24 @@ bundle: centralized_content
 mode: teaser
 content:
   content_moderation_control:
-    weight: -20
     settings: {  }
     third_party_settings: {  }
+    weight: -20
     region: content
   field_content_block:
     type: entity_reference_revisions_entity_view
-    weight: 1
-    region: content
     label: above
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
-  links:
-    weight: 0
+    weight: 1
     region: content
+  links:
     settings: {  }
     third_party_settings: {  }
+    weight: 0
+    region: content
 hidden:
   body: true
   field_administration: true

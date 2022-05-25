@@ -1,7 +1,13 @@
 uuid: 66daae26-6025-4a38-bb73-05f4e34571bb
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - admin_feedback
+    - media
+    - prometheus_exporter
+    - styleguide
+    - system
 _core:
   default_config_hash: j5zLMOdJBqC0bMvSdth5UebkprJB8g_2FXHqhfpJzow
 id: anonymous
@@ -11,6 +17,6 @@ is_admin: false
 permissions:
   - 'access content'
   - 'access prometheus metrics'
-  - 'access site-wide contact form'
+  - 'give feedback'
   - 'view media'
   - 'view style guides'

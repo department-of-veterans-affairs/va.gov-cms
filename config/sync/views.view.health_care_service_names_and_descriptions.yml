@@ -4,13 +4,17 @@ status: true
 dependencies:
   config:
     - field.storage.taxonomy_term.field_also_known_as
+    - field.storage.taxonomy_term.field_cms_option_label
+    - field.storage.taxonomy_term.field_guidance
     - field.storage.taxonomy_term.field_service_type_of_care
     - field.storage.taxonomy_term.field_vet_center_type_of_care
+    - taxonomy.vocabulary.facility_supplemental_status
     - taxonomy.vocabulary.health_care_service_taxonomy
   module:
     - entity_reference_revisions
     - options
     - taxonomy
+    - text
     - user
 id: health_care_service_names_and_descriptions
 label: 'Health care service names and descriptions'
@@ -21,55 +25,11 @@ base_table: taxonomy_term_field_data
 base_field: tid
 display:
   default:
-    display_plugin: default
     id: default
     display_title: Master
+    display_plugin: default
     position: 0
     display_options:
-      access:
-        type: perm
-        options:
-          perm: 'access content'
-      cache:
-        type: tag
-        options: {  }
-      query:
-        type: views_query
-        options:
-          disable_sql_rewrite: false
-          distinct: false
-          replica: false
-          query_comment: ''
-          query_tags: {  }
-      exposed_form:
-        type: basic
-        options:
-          submit_button: Apply
-          reset_button: false
-          reset_button_label: Reset
-          exposed_sorts_label: 'Sort by'
-          expose_sort_order: true
-          sort_asc_label: Asc
-          sort_desc_label: Desc
-      pager:
-        type: none
-        options:
-          offset: 0
-      style:
-        type: entity_reference
-        options:
-          search_fields:
-            name: name
-            field_vet_center_type_of_care: '0'
-      row:
-        type: entity_reference_revisions
-        options:
-          default_field_elements: true
-          inline:
-            name: name
-            field_vet_center_type_of_care: field_vet_center_type_of_care
-          separator: ''
-          hide_empty: false
       fields:
         name:
           id: name
@@ -78,6 +38,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: taxonomy_term
+          entity_field: name
+          plugin_id: term_name
           label: ''
           exclude: false
           alter:
@@ -134,9 +97,6 @@ display:
           separator: ', '
           field_api_classes: false
           convert_spaces: false
-          entity_type: taxonomy_term
-          entity_field: name
-          plugin_id: term_name
         field_service_type_of_care:
           id: field_service_type_of_care
           table: taxonomy_term__field_service_type_of_care
@@ -144,6 +104,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: field
           label: ''
           exclude: false
           alter:
@@ -198,7 +159,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
         field_vet_center_type_of_care:
           id: field_vet_center_type_of_care
           table: taxonomy_term__field_vet_center_type_of_care
@@ -206,6 +166,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: field
           label: ''
           exclude: false
           alter:
@@ -260,33 +221,28 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
-      filters:
-        status:
-          value: '1'
-          table: taxonomy_term_field_data
-          field: status
-          plugin_id: boolean
-          entity_type: taxonomy_term
-          entity_field: status
-          id: status
-          expose:
-            operator: ''
-            operator_limit_selection: false
-            operator_list: {  }
-          group: 1
-        vid:
-          id: vid
-          table: taxonomy_term_field_data
-          field: vid
-          value:
-            health_care_service_taxonomy: health_care_service_taxonomy
-          entity_type: taxonomy_term
-          entity_field: vid
-          plugin_id: bundle
-          expose:
-            operator_limit_selection: false
-            operator_list: {  }
+      pager:
+        type: none
+        options:
+          offset: 0
+      exposed_form:
+        type: basic
+        options:
+          submit_button: Apply
+          reset_button: false
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      access:
+        type: perm
+        options:
+          perm: 'access content'
+      cache:
+        type: tag
+        options: {  }
+      empty: {  }
       sorts:
         name:
           id: name
@@ -295,18 +251,67 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          order: ASC
-          exposed: false
-          expose:
-            label: ''
           entity_type: taxonomy_term
           entity_field: name
           plugin_id: standard
+          order: ASC
+          expose:
+            label: ''
+            field_identifier: name
+          exposed: false
+      arguments: {  }
+      filters:
+        status:
+          id: status
+          table: taxonomy_term_field_data
+          field: status
+          entity_type: taxonomy_term
+          entity_field: status
+          plugin_id: boolean
+          value: '1'
+          group: 1
+          expose:
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+        vid:
+          id: vid
+          table: taxonomy_term_field_data
+          field: vid
+          entity_type: taxonomy_term
+          entity_field: vid
+          plugin_id: bundle
+          value:
+            health_care_service_taxonomy: health_care_service_taxonomy
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
+      style:
+        type: entity_reference
+        options:
+          search_fields:
+            name: name
+            field_vet_center_type_of_care: '0'
+      row:
+        type: entity_reference_revisions
+        options:
+          default_field_elements: true
+          inline:
+            name: name
+            field_vet_center_type_of_care: field_vet_center_type_of_care
+          separator: ''
+          hide_empty: false
+      query:
+        type: views_query
+        options:
+          query_comment: ''
+          disable_sql_rewrite: false
+          distinct: false
+          replica: false
+          query_tags: {  }
+      relationships: {  }
       header: {  }
       footer: {  }
-      empty: {  }
-      relationships: {  }
-      arguments: {  }
       display_extenders: {  }
     cache_metadata:
       max-age: -1
@@ -318,39 +323,11 @@ display:
         - 'config:field.storage.taxonomy_term.field_service_type_of_care'
         - 'config:field.storage.taxonomy_term.field_vet_center_type_of_care'
   entity_reference_non_clinical_services:
-    display_plugin: entity_reference
     id: entity_reference_non_clinical_services
     display_title: 'Non clinical service'
+    display_plugin: entity_reference
     position: 1
     display_options:
-      display_extenders: {  }
-      pager:
-        type: some
-        options:
-          items_per_page: 0
-          offset: 0
-      defaults:
-        style: false
-        row: false
-        fields: false
-        filters: false
-        filter_groups: false
-      display_description: ''
-      style:
-        type: entity_reference
-        options:
-          search_fields:
-            name: name
-            field_also_known_as: field_also_known_as
-      row:
-        type: entity_reference_revisions
-        options:
-          default_field_elements: true
-          inline:
-            name: name
-            field_also_known_as: field_also_known_as
-          separator: ' - '
-          hide_empty: false
       fields:
         name:
           id: name
@@ -359,6 +336,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: taxonomy_term
+          entity_field: name
+          plugin_id: term_name
           label: ''
           exclude: false
           alter:
@@ -415,9 +395,6 @@ display:
           separator: ', '
           field_api_classes: false
           convert_spaces: false
-          entity_type: taxonomy_term
-          entity_field: name
-          plugin_id: term_name
         field_also_known_as:
           id: field_also_known_as
           table: taxonomy_term__field_also_known_as
@@ -425,6 +402,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: field
           label: ''
           exclude: false
           alter:
@@ -480,30 +458,34 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          plugin_id: field
+      pager:
+        type: some
+        options:
+          offset: 0
+          items_per_page: 0
       filters:
         status:
-          value: '1'
+          id: status
           table: taxonomy_term_field_data
           field: status
-          plugin_id: boolean
           entity_type: taxonomy_term
           entity_field: status
-          id: status
+          plugin_id: boolean
+          value: '1'
+          group: 1
           expose:
             operator: ''
             operator_limit_selection: false
             operator_list: {  }
-          group: 1
         vid:
           id: vid
           table: taxonomy_term_field_data
           field: vid
-          value:
-            health_care_service_taxonomy: health_care_service_taxonomy
           entity_type: taxonomy_term
           entity_field: vid
           plugin_id: bundle
+          value:
+            health_care_service_taxonomy: health_care_service_taxonomy
           expose:
             operator_limit_selection: false
             operator_list: {  }
@@ -514,6 +496,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: list_field
           operator: or
           value:
             'Non-clinical services': 'Non-clinical services'
@@ -547,11 +530,33 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
-          plugin_id: list_field
       filter_groups:
         operator: AND
         groups:
           1: AND
+      style:
+        type: entity_reference
+        options:
+          search_fields:
+            name: name
+            field_also_known_as: field_also_known_as
+      row:
+        type: entity_reference_revisions
+        options:
+          default_field_elements: true
+          inline:
+            name: name
+            field_also_known_as: field_also_known_as
+          separator: ' - '
+          hide_empty: false
+      defaults:
+        style: false
+        row: false
+        fields: false
+        filters: false
+        filter_groups: false
+      display_description: ''
+      display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
@@ -561,37 +566,11 @@ display:
       tags:
         - 'config:field.storage.taxonomy_term.field_also_known_as'
   entity_reference_vamc_services:
-    display_plugin: entity_reference
     id: entity_reference_vamc_services
     display_title: 'VAMC health service and type of care - entity reference'
+    display_plugin: entity_reference
     position: 1
     display_options:
-      display_extenders: {  }
-      pager:
-        type: some
-        options:
-          items_per_page: 0
-          offset: 0
-      defaults:
-        style: false
-        row: false
-        fields: false
-        filters: false
-        filter_groups: false
-      display_description: ''
-      style:
-        type: entity_reference
-        options:
-          search_fields:
-            name: name
-      row:
-        type: entity_reference_revisions
-        options:
-          default_field_elements: true
-          inline:
-            name: name
-          separator: ''
-          hide_empty: false
       fields:
         name:
           id: name
@@ -600,6 +579,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: taxonomy_term
+          entity_field: name
+          plugin_id: term_name
           label: ''
           exclude: false
           alter:
@@ -656,19 +638,21 @@ display:
           separator: ', '
           field_api_classes: false
           convert_spaces: false
-          entity_type: taxonomy_term
-          entity_field: name
-          plugin_id: term_name
+      pager:
+        type: some
+        options:
+          offset: 0
+          items_per_page: 0
       filters:
         vid:
           id: vid
           table: taxonomy_term_field_data
           field: vid
-          value:
-            health_care_service_taxonomy: health_care_service_taxonomy
           entity_type: taxonomy_term
           entity_field: vid
           plugin_id: bundle
+          value:
+            health_care_service_taxonomy: health_care_service_taxonomy
           expose:
             operator_limit_selection: false
             operator_list: {  }
@@ -679,6 +663,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: list_field
           operator: or
           value:
             'Primary care': 'Primary care'
@@ -716,11 +701,31 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
-          plugin_id: list_field
       filter_groups:
         operator: AND
         groups:
           1: AND
+      style:
+        type: entity_reference
+        options:
+          search_fields:
+            name: name
+      row:
+        type: entity_reference_revisions
+        options:
+          default_field_elements: true
+          inline:
+            name: name
+          separator: ''
+          hide_empty: false
+      defaults:
+        style: false
+        row: false
+        fields: false
+        filters: false
+        filter_groups: false
+      display_description: ''
+      display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
@@ -729,24 +734,11 @@ display:
         - user.permissions
       tags: {  }
   entity_reference_vet_center_services:
-    display_plugin: entity_reference
     id: entity_reference_vet_center_services
     display_title: 'Vet Center health service and type of care - entity reference'
+    display_plugin: entity_reference
     position: 1
     display_options:
-      display_extenders: {  }
-      pager:
-        type: some
-        options:
-          items_per_page: 0
-          offset: 0
-      defaults:
-        style: true
-        row: true
-        fields: false
-        filters: false
-        filter_groups: false
-      display_description: ''
       fields:
         name:
           id: name
@@ -755,6 +747,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: taxonomy_term
+          entity_field: name
+          plugin_id: term_name
           label: ''
           exclude: false
           alter:
@@ -811,19 +806,21 @@ display:
           separator: ', '
           field_api_classes: false
           convert_spaces: false
-          entity_type: taxonomy_term
-          entity_field: name
-          plugin_id: term_name
+      pager:
+        type: some
+        options:
+          offset: 0
+          items_per_page: 0
       filters:
         vid:
           id: vid
           table: taxonomy_term_field_data
           field: vid
-          value:
-            health_care_service_taxonomy: health_care_service_taxonomy
           entity_type: taxonomy_term
           entity_field: vid
           plugin_id: bundle
+          value:
+            health_care_service_taxonomy: health_care_service_taxonomy
           expose:
             operator_limit_selection: false
             operator_list: {  }
@@ -834,6 +831,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: list_field
           operator: 'not empty'
           value: {  }
           group: 1
@@ -866,11 +864,18 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
-          plugin_id: list_field
       filter_groups:
         operator: AND
         groups:
           1: AND
+      defaults:
+        style: true
+        row: true
+        fields: false
+        filters: false
+        filter_groups: false
+      display_description: ''
+      display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
@@ -878,3 +883,300 @@ display:
         - 'languages:language_interface'
         - user.permissions
       tags: {  }
+  facility_supplemental_status:
+    id: facility_supplemental_status
+    display_title: 'Facility Supplemental Status - entity reference'
+    display_plugin: entity_reference
+    position: 1
+    display_options:
+      fields:
+        field_guidance:
+          id: field_guidance
+          table: taxonomy_term__field_guidance
+          field: field_guidance
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: text_default
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_cms_option_label:
+          id: field_cms_option_label
+          table: taxonomy_term__field_cms_option_label
+          field: field_cms_option_label
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        name:
+          id: name
+          table: taxonomy_term_field_data
+          field: name
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: taxonomy_term
+          entity_field: name
+          plugin_id: term_name
+          label: ''
+          exclude: false
+          alter:
+            alter_text: true
+            text: '{{ field_cms_option_label }}{% if field_guidance %} - {{ field_guidance }}{% endif %}'
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: false
+            ellipsis: false
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          convert_spaces: false
+      pager:
+        type: some
+        options:
+          offset: 0
+          items_per_page: 0
+      sorts:
+        weight:
+          id: weight
+          table: taxonomy_term_field_data
+          field: weight
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: taxonomy_term
+          entity_field: weight
+          plugin_id: standard
+          order: ASC
+          expose:
+            label: ''
+            field_identifier: ''
+          exposed: false
+      filters:
+        vid:
+          id: vid
+          table: taxonomy_term_field_data
+          field: vid
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: taxonomy_term
+          entity_field: vid
+          plugin_id: bundle
+          operator: in
+          value:
+            facility_supplemental_status: facility_supplemental_status
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      style:
+        type: entity_reference
+        options:
+          search_fields:
+            name: name
+      row:
+        type: entity_reference_revisions
+        options:
+          default_field_elements: true
+          inline:
+            name: name
+          separator: ''
+          hide_empty: false
+      defaults:
+        style: false
+        row: false
+        fields: false
+        sorts: false
+        filters: false
+        filter_groups: false
+      display_description: ''
+      display_extenders: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - user.permissions
+      tags:
+        - 'config:field.storage.taxonomy_term.field_cms_option_label'
+        - 'config:field.storage.taxonomy_term.field_guidance'

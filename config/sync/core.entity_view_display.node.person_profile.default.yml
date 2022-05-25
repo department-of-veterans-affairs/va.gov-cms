@@ -31,107 +31,107 @@ third_party_settings:
   field_group:
     group_meta:
       children: {  }
+      label: ''
       parent_name: ''
+      region: hidden
       weight: 17
       format_type: fieldset
       format_settings:
-        description: ''
-        id: ''
         classes: ''
-      label: ''
-      region: hidden
+        id: ''
+        description: ''
 id: node.person_profile.default
 targetEntityType: node
 bundle: person_profile
 mode: default
 content:
   field_body:
-    weight: 6
+    type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 6
     region: content
   field_complete_biography:
-    weight: 9
+    type: file_default
     label: above
     settings:
       use_description_as_link_text: true
     third_party_settings: {  }
-    type: file_default
+    weight: 9
     region: content
   field_complete_biography_create:
-    weight: 18
+    type: boolean
     label: above
     settings:
       format: default
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    type: boolean
+    weight: 18
     region: content
   field_description:
     type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
     weight: 4
     region: content
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
   field_email_address:
-    weight: 8
+    type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    weight: 8
     region: content
   field_intro_text:
-    weight: 5
+    type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    weight: 5
     region: content
   field_last_name:
-    weight: 2
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 2
     region: content
   field_media:
-    weight: 0
+    type: media_thumbnail
     label: above
     settings:
-      image_style: 2_3_medium_thumbnail
       image_link: ''
+      image_style: 2_3_medium_thumbnail
     third_party_settings: {  }
-    type: media_thumbnail
+    weight: 0
     region: content
   field_name_first:
-    weight: 1
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 1
     region: content
   field_phone_number:
-    weight: 7
+    type: telephone_link
     label: above
     settings:
       title: ''
     third_party_settings: {  }
-    type: telephone_link
+    weight: 7
     region: content
   field_suffix:
-    weight: 3
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 3
     region: content
 hidden:
   content_moderation_control: true

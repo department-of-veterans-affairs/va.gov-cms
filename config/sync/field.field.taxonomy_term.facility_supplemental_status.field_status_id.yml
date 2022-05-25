@@ -1,0 +1,25 @@
+uuid: db8b5b2b-2ece-479d-889c-e65d76429998
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_status_id
+    - taxonomy.vocabulary.facility_supplemental_status
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: taxonomy_term.facility_supplemental_status.field_status_id
+field_name: field_status_id
+entity_type: taxonomy_term
+bundle: facility_supplemental_status
+label: 'Status ID'
+description: 'Identifier for this status that will never change. ie. covid_red'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

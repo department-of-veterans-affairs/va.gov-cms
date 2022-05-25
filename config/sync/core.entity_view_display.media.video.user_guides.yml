@@ -24,15 +24,13 @@ mode: user_guides
 content:
   field_description:
     type: basic_string
-    weight: 3
-    region: content
     label: hidden
     settings: {  }
     third_party_settings: {  }
+    weight: 3
+    region: content
   field_duration:
     type: hms_natural_language_formatter
-    weight: 2
-    region: content
     label: inline
     settings:
       display_formats:
@@ -44,25 +42,27 @@ content:
       separator: ', '
       last_separator: ''
     third_party_settings: {  }
+    weight: 2
+    region: content
   field_media_video_embed_field:
     type: video_embed_field_video
-    weight: 0
-    region: content
     label: hidden
     settings:
+      autoplay: false
       responsive: true
       width: 854
       height: 480
-      autoplay: false
     third_party_settings: {  }
+    weight: 0
+    region: content
   name:
     type: string
-    weight: 1
-    region: content
     label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 1
+    region: content
 hidden:
   created: true
   field_media_in_library: true

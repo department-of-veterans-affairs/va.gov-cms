@@ -1,0 +1,38 @@
+uuid: 29935c46-b5a4-453f-b492-d8e205495648
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.taxonomy_term.name_with_term
+    - field.field.taxonomy_term.facility_supplemental_status.field_administration
+    - field.field.taxonomy_term.facility_supplemental_status.field_cms_option_label
+    - field.field.taxonomy_term.facility_supplemental_status.field_enforce_unique_id
+    - field.field.taxonomy_term.facility_supplemental_status.field_guidance
+    - field.field.taxonomy_term.facility_supplemental_status.field_status_id
+    - taxonomy.vocabulary.facility_supplemental_status
+  module:
+    - layout_builder
+    - text
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: taxonomy_term.facility_supplemental_status.name_with_term
+targetEntityType: taxonomy_term
+bundle: facility_supplemental_status
+mode: name_with_term
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_administration: true
+  field_cms_option_label: true
+  field_enforce_unique_id: true
+  field_guidance: true
+  field_status_id: true
+  search_api_excerpt: true

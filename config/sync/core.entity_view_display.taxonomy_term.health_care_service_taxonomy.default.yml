@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.taxonomy_term.health_care_service_taxonomy.field_also_known_as
     - field.field.taxonomy_term.health_care_service_taxonomy.field_commonly_treated_condition
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_enforce_unique_combo_servi
     - field.field.taxonomy_term.health_care_service_taxonomy.field_health_service_api_id
     - field.field.taxonomy_term.health_care_service_taxonomy.field_owner
     - field.field.taxonomy_term.health_care_service_taxonomy.field_service_type_of_care
@@ -16,104 +17,112 @@ dependencies:
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vha_healthservice_stopcode
     - taxonomy.vocabulary.health_care_service_taxonomy
   module:
+    - allow_only_one
     - layout_builder
     - options
     - text
 third_party_settings:
   layout_builder:
-    allow_custom: false
     enabled: false
+    allow_custom: false
 id: taxonomy_term.health_care_service_taxonomy.default
 targetEntityType: taxonomy_term
 bundle: health_care_service_taxonomy
 mode: default
 content:
   description:
-    label: above
     type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
     weight: 2
     region: content
-    settings: {  }
-    third_party_settings: {  }
   field_also_known_as:
-    weight: 0
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 0
     region: content
   field_commonly_treated_condition:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
     weight: 1
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
     region: content
-  field_health_service_api_id:
-    weight: 4
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  field_service_type_of_care:
-    weight: 3
+  field_enforce_unique_combo_servi:
+    type: allow_only_one
     label: above
     settings: {  }
     third_party_settings: {  }
+    weight: 11
+    region: content
+  field_health_service_api_id:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_service_type_of_care:
     type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
     region: content
   field_vet_center_com_conditions:
-    weight: 8
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 8
     region: content
   field_vet_center_friendly_name:
-    weight: 7
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 7
     region: content
   field_vet_center_required_servic:
-    weight: 10
+    type: boolean
     label: above
     settings:
       format: default
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    type: boolean
+    weight: 10
     region: content
   field_vet_center_service_descrip:
-    weight: 9
+    type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    weight: 9
     region: content
   field_vet_center_type_of_care:
-    weight: 6
+    type: list_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: list_default
+    weight: 6
     region: content
   field_vha_healthservice_stopcode:
-    weight: 5
+    type: number_integer
     label: above
     settings:
       thousand_separator: ''
       prefix_suffix: true
     third_party_settings: {  }
-    type: number_integer
+    weight: 5
     region: content
 hidden:
   field_owner: true

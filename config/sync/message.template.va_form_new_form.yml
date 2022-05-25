@@ -1,0 +1,19 @@
+uuid: 104d90ab-62d1-4b16-88ef-ea5c48b9eb37
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.rich_text
+template: va_form_new_form
+label: 'VA Form new form'
+description: 'The template to alert people about the creation of a new form.'
+text:
+  -
+    value: "<p>Hi&nbsp;[message:author:display-name],</p>\r\n\r\n<p>A new&nbsp; [message:field_target_entity:entity:content-type] &lt;a href=\\\"[message:field_target_entity:entity:url]\\\"&gt;[message:field_target_node_title]&lt;/a&gt; was added to&nbsp;[site:name]&nbsp;[message:field_target_entity:entity:created].</p>\r\n\r\n<p>Form name:&nbsp;[message:field_target_entity:entity:field_va_form_name]</p>\r\n\r\n<p>Form title:&nbsp;[message:field_target_entity:entity:field_va_form_title]&nbsp;&nbsp;</p>\r\n\r\n<p>Form ID:&nbsp;[message:field_target_entity:entity:field_va_form_number]</p>\r\n\r\n<p>If you feel that you should no longer be receiving these notifications, please &lt;a href=\"mailto:support@va-gov.atlassian.net?subject=Subscription%20removal\"&gt;email CMS Support&lt;/a&gt;.</p>\r\n"
+    format: rich_text
+settings:
+  'token options':
+    clear: false
+    'token replace': true
+  purge_override: false
+  purge_methods: {  }

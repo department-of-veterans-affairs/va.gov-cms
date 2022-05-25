@@ -2,14 +2,15 @@
 
 namespace Drupal\va_gov_vamc\EventSubscriber;
 
+use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Session\AccountInterface;
-use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\node\NodeInterface;
+use Drupal\va_gov_notifications\Service\NotificationsManager;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Drupal\va_gov_vamc\Service\ContentHardeningDeduper;
 use Drupal\va_gov_workflow\Service\Flagger;
@@ -28,9 +29,9 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       // React on Op status forms.
       'hook_event_dispatcher.form_node_vamc_operating_status_and_alerts_form.alter' => 'alterOpStatusNodeForm',
       'hook_event_dispatcher.form_node_vamc_operating_status_and_alerts_edit_form.alter' => 'alterOpStatusNodeForm',
-      HookEventDispatcherInterface::ENTITY_INSERT => 'entityInsert',
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'entityPresave',
-      HookEventDispatcherInterface::ENTITY_UPDATE => 'entityUpdate',
+      EntityHookEvents::ENTITY_INSERT => 'entityInsert',
+      EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
+      EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
       'hook_event_dispatcher.form_node_full_width_banner_alert_form.alter' => 'alterFullWidthBannerNodeForm',
       'hook_event_dispatcher.form_node_full_width_banner_alert_edit_form.alter' => 'alterFullWidthBannerNodeForm',
       'hook_event_dispatcher.form_node_regional_health_care_service_des_form.alter' => 'alterRegionalHealthCareServiceDesNodeForm',
@@ -71,6 +72,13 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   protected $flagger;
 
   /**
+   * The VA gov NotificationsManager.
+   *
+   * @var \Drupal\va_gov_notifications\Service\NotificationsManager
+   */
+  protected $notificationsManager;
+
+  /**
    * The User Perms Service.
    *
    * @var \Drupal\va_gov_user\Service\UserPermsService
@@ -88,17 +96,21 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The user perms service.
    * @param \Drupal\va_gov_vamc\Service\ContentHardeningDeduper $content_hardening_deduper
    *   The deduper service.
+   * @param \Drupal\va_gov_notifications\Service\NotificationsManager $notifications_manager
+   *   VA gov NotificationsManager service.
    */
   public function __construct(
     AccountInterface $currentUser,
     Flagger $flagger,
     UserPermsService $user_perms_service,
-    ContentHardeningDeduper $content_hardening_deduper
+    ContentHardeningDeduper $content_hardening_deduper,
+    NotificationsManager $notifications_manager
   ) {
     $this->currentUser = $currentUser;
     $this->flagger = $flagger;
     $this->userPermsService = $user_perms_service;
     $this->contentHardeningDeduper = $content_hardening_deduper;
+    $this->notificationsManager = $notifications_manager;
   }
 
   /**
@@ -142,6 +154,12 @@ class EntityEventSubscriber implements EventSubscriberInterface {
 
     if ($this->isFlaggableFacility($entity)) {
       $this->flagger->flagNew('new', $entity, "This facility is new and needs the 'new facility' runbook.");
+      // @codingStandardsIgnoreStart
+      // Sample code for building a message notification. Using swirt's user id
+      // for now.
+      // $message_fields = $this->notificationsManager->buildMessageFields($entity, 'New facility:');
+      // $this->notificationsManager->send('va_facility_new_facility', 1215, $message_fields);
+      // @codingStandardsIgnoreEnd
     }
   }
 

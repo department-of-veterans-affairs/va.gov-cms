@@ -5,23 +5,37 @@ display_on_node_edit: node_edit
 display_on_node_preview: node_preview
 additional_domains_as_internal: www.va.gov
 domains_to_skip: |-
+  9health365.org
+  agif-nvop.org
   charlesajudge.com
   dartfirststate.com
   databus.org
   deldot.gov
+  etssponsorship.com
   ez-rider.org
   federalregister.gov
   hamptoninn3.hilton.com
+  help.id.me
   hiltongardeninn3.hilton.com
   imablefoundation.org
   militaryonesource.mil
   music4veterans.org
   ridelats.com
   teampossabilities.org
+  loyola.donorscreen.org
+  militaryonesource.mil
+  milvets.nc.gov
+  music4veterans.org
+  patriots-path.org
+  provisions4patriots.com
+  ridelats.com
+  teampossabilities.org
+  tinyurl.com
   usajobs.gov
   uvbh.org
   vaww.va.gov
   veteranscornerok.org
+  veteransofchathamcountyga.org
   visitutah.com
   webex.com
   woundedwarriorsmammoth.org
@@ -38,8 +52,10 @@ domains_to_skip: |-
   www.linkedin.com
   www.marriott.com
   www.militaryonesource.mil
+  www.milvets.nc.gov
   www.music4veterans.org
   www.portauthority.org
+  www.provisions4patriots.com
   www.qualityinn.com
   www.redroof.com
   www.ridelats.com
@@ -54,12 +70,13 @@ user_agent: 'VA.gov CMS link checker'
 path_patterns_to_skip: |-
   /admin/*
   /block/*
-  /node/add/*
+  /media/*
+  /media/*/edit
   /node/*/edit
+  /node/add/*
   /section/*
+  /static/*
   /user/*
-  media/*
-  media/*/edit
 decoupled_frontend: 'https://www.va.gov'
 enable_reporting_inaccessible_links: 1
 accessibility_guidance_url: 'https://design.va.gov/content-style-guide/links'

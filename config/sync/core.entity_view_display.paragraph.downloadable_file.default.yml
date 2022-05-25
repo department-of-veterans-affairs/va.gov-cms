@@ -13,21 +13,21 @@ bundle: downloadable_file
 mode: default
 content:
   field_media:
-    weight: 1
+    type: entity_reference_entity_view
     label: above
     settings:
       view_mode: embedded
       link: false
     third_party_settings: {  }
-    type: entity_reference_entity_view
+    weight: 1
     region: content
   field_title:
-    weight: 0
+    type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 0
     region: content
 hidden:
   field_markup: true

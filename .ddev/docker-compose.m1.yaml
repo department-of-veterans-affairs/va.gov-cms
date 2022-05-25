@@ -1,0 +1,6 @@
+# For non-M1 users, the platform settings here are the default.
+# For M1 users, this will force the use of the amd64 containers instead of
+# the arm64 or aarch64 containers.
+services:
+  web:
+    platform: linux/amd64

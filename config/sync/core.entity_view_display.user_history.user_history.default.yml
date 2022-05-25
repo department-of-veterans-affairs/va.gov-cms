@@ -12,186 +12,186 @@ bundle: user_history
 mode: default
 content:
   action:
-    label: inline
     type: string
-    weight: 2
-    region: content
+    label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
-  created:
-    label: inline
-    type: timestamp
-    weight: 1
+    weight: 2
     region: content
+  created:
+    type: timestamp
+    label: inline
     settings:
       date_format: medium
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }
+    weight: 1
+    region: content
   difference:
-    label: inline
     type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
     weight: 20
     region: content
+  label:
+    type: string
+    label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
-  label:
-    label: inline
-    type: string
     weight: 0
     region: content
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
   modified_by:
-    label: inline
     type: entity_reference_label
-    weight: 3
-    region: content
+    label: inline
     settings:
       link: true
     third_party_settings: {  }
+    weight: 3
+    region: content
   user_access:
-    label: inline
     type: timestamp
+    label: inline
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
     weight: 14
     region: content
+  user_changed:
+    type: timestamp
+    label: inline
     settings:
       date_format: medium
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }
-  user_changed:
-    label: inline
-    type: timestamp
     weight: 13
     region: content
+  user_created:
+    type: timestamp
+    label: inline
     settings:
       date_format: medium
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }
-  user_created:
-    label: inline
-    type: timestamp
     weight: 12
     region: content
-    settings:
-      date_format: medium
-      custom_date_format: ''
-      timezone: ''
-    third_party_settings: {  }
   user_deleted:
-    label: inline
     type: boolean
+    label: inline
     settings:
       format: yes-no
       format_custom_false: ''
       format_custom_true: ''
+    third_party_settings: {  }
     weight: 4
     region: content
-    third_party_settings: {  }
   user_id:
-    label: inline
     type: entity_reference_entity_id
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
     weight: 5
     region: content
+  user_init:
+    type: basic_string
+    label: inline
     settings: {  }
     third_party_settings: {  }
-  user_init:
-    label: inline
-    type: basic_string
     weight: 16
     region: content
-    settings: {  }
-    third_party_settings: {  }
   user_langcode:
-    label: inline
     type: language
-    weight: 17
-    region: content
+    label: inline
     settings:
       link_to_entity: false
       native_language: false
     third_party_settings: {  }
-  user_login:
-    label: inline
-    type: timestamp
-    weight: 15
+    weight: 17
     region: content
+  user_login:
+    type: timestamp
+    label: inline
     settings:
       date_format: medium
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }
-  user_mail:
-    label: inline
-    type: basic_string
-    weight: 8
+    weight: 15
     region: content
+  user_mail:
+    type: basic_string
+    label: inline
     settings: {  }
     third_party_settings: {  }
+    weight: 8
+    region: content
   user_name:
-    label: inline
     type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
     weight: 6
     region: content
+  user_pass:
+    type: string
+    label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
-  user_pass:
-    label: inline
-    type: string
     weight: 7
     region: content
+  user_preferred_admin_langcode:
+    type: language
+    label: inline
     settings:
       link_to_entity: false
+      native_language: false
     third_party_settings: {  }
-  user_preferred_admin_langcode:
-    label: inline
-    type: language
     weight: 19
     region: content
+  user_preferred_langcode:
+    type: language
+    label: inline
     settings:
       link_to_entity: false
       native_language: false
     third_party_settings: {  }
-  user_preferred_langcode:
-    label: inline
-    type: language
     weight: 18
     region: content
+  user_roles:
+    type: string
+    label: inline
     settings:
       link_to_entity: false
-      native_language: false
     third_party_settings: {  }
-  user_roles:
-    label: inline
-    type: string
     weight: 11
     region: content
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
   user_status:
-    label: inline
     type: boolean
+    label: inline
     settings:
       format: custom
-      format_custom_true: Active
       format_custom_false: Blocked
+      format_custom_true: Active
+    third_party_settings: {  }
     weight: 10
     region: content
-    third_party_settings: {  }
   user_timezone:
-    label: inline
     type: string
-    weight: 9
-    region: content
+    label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 9
+    region: content
 hidden:
   search_api_excerpt: true

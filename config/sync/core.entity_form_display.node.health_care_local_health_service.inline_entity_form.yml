@@ -6,7 +6,6 @@ dependencies:
     - core.entity_form_mode.node.inline_entity_form
     - field.field.node.health_care_local_health_service.field_administration
     - field.field.node.health_care_local_health_service.field_appointments_help_text
-    - field.field.node.health_care_local_health_service.field_body
     - field.field.node.health_care_local_health_service.field_enforce_unique_combo
     - field.field.node.health_care_local_health_service.field_facility_location
     - field.field.node.health_care_local_health_service.field_facility_service_loc_help
@@ -22,23 +21,22 @@ dependencies:
     - node.type.health_care_local_health_service
   module:
     - field_group
-    - text
 third_party_settings:
   field_group:
     group_governance:
       children: {  }
+      label: 'Section settings'
+      region: hidden
       parent_name: ''
       weight: 4
       format_type: details_sidebar
       format_settings:
-        id: ''
         classes: ''
-        description: ''
+        id: ''
         open: true
+        description: ''
         required_fields: true
         weight: 0
-      label: 'Section settings'
-      region: hidden
 id: node.health_care_local_health_service.inline_entity_form
 targetEntityType: node
 bundle: health_care_local_health_service
@@ -50,20 +48,12 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_body:
-    weight: 2
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-    type: text_textarea
-    region: content
   field_facility_location:
+    type: options_select
     weight: 0
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
 hidden:
   created: true
   field_appointments_help_text: true

@@ -2,7 +2,16 @@ uuid: c342cb58-27f8-4a6a-b698-15b68416f3b7
 langcode: en
 status: true
 dependencies:
+  config:
+    - taxonomy.vocabulary.type_of_redirect
   module:
+    - actions_permissions
+    - path
+    - pathauto
+    - redirect
+    - system
+    - taxonomy
+    - toolbar_menu
     - va_gov_backend
 third_party_settings:
   va_gov_backend:
@@ -25,6 +34,5 @@ permissions:
   - 'execute update_alias_node node'
   - 'execute update_alias_taxonomy_term taxonomy_term'
   - 'notify of path changes'
-  - 'view cms_help_center in toolbar'
   - 'view sections in toolbar'
   - 'view the administration theme'
