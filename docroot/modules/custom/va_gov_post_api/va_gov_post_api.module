@@ -49,7 +49,7 @@ function _post_api_add_facility_status_to_queue(EntityInterface $entity) {
     return Drupal::service('va_gov_post_api.queue_facility_status_updates')->queueFacilityStatus($entity);
   }
   elseif ($entity->bundle() === 'health_care_region_page') {
-    return Drupal::service('va_gov_post_api.queue_facility_status_updates')->queueSystemRelatedStatuses($entity);
+    return Drupal::service('va_gov_post_api.queue_facility_status_updates')->queueSystemRelatedFacilities($entity);
   }
 
   return 0;

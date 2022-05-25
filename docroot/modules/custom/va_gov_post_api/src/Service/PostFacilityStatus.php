@@ -110,7 +110,7 @@ class PostFacilityStatus extends PostFacilityBase {
   }
 
   /**
-   * Adds facility service data to Post API queue by VAMC system.
+   * Add facility data to Post API queue by VAMC system.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   Entity.
@@ -118,7 +118,7 @@ class PostFacilityStatus extends PostFacilityBase {
    * @return int
    *   The count of the number of items queued.
    */
-  public function queueSystemRelatedStatuses(EntityInterface $entity) {
+  public function queueSystemRelatedFacilities(EntityInterface $entity) {
     $queued_count = 0;
     if (($entity->getEntityTypeId() === 'node')
     && ($entity->bundle() === 'health_care_region_page')
