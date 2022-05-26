@@ -1,12 +1,13 @@
 ---
 name: Knowledge Base article
-about: Use this template for new CMS Knowledge Base articles that need to be written and published. 
-title: "New KB article: <insert topic here>"
-labels: Needs refining, Knowledge Base
+about: Use this template for new CMS Knowledge Base articles that need to be written
+  and published.
+title: 'New KB article: <insert topic here>'
+labels: Knowledge Base, Needs refining
 assignees: rachel-kauff
 
 ---
-  
+
 ## Background context
 **Topic**
 [Add details here. If possible, include an example of a use case or situation that illustrates the topic well.]
@@ -68,5 +69,3 @@ assignees: rachel-kauff
 - [ ] Impacts on other KB articles have been considered and any necessary changes have been made
 - [ ] Help desk has been made aware of the new article
 - [ ] (If appropriate) once published, the person requesting the article has been notified
-
-

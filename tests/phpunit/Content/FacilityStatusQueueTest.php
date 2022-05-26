@@ -9,6 +9,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Url;
 use Drupal\node\Entity\NodeType;
 use Drupal\node\NodeInterface;
 use Drupal\post_api\Service\AddToQueue;
@@ -53,6 +54,7 @@ class FacilityStatusQueueTest extends ExistingSiteBase {
   const TERM_STATUS_ID = 'field_status_id';
   const TERM_STATUS_NAME = 'name';
   const FACILITY_ID = 'field_facility_locator_api_id';
+  const SYSTEM = 'field_region_page';
   const STATE_ARCHIVED = 'archived';
   const STATE_DRAFT = 'draft';
   const STATE_PUBLISHED = 'published';
@@ -90,6 +92,7 @@ class FacilityStatusQueueTest extends ExistingSiteBase {
     $entityStorageProphecy = $this->prophesize(EntityStorageInterface::class);
     $termStorageProphecy = $this->prophesize(EntityStorageInterface::class);
     $nodeTypeProphecy = $this->prophesize(NodeType::class);
+    $urlProphecy = $this->prophesize(Url::class);
 
     // Establish methods and return values.
     $nodeProphecy->isPublished()->willReturn($isPublished);
@@ -107,21 +110,31 @@ class FacilityStatusQueueTest extends ExistingSiteBase {
       $nodeProphecy->get(self::STATUS_FIELD_NAME)->willReturn((object) ['value' => 'a']);
       $nodeProphecy->hasField(self::STATUS_FIELD_MORE_INFO_NAME)->willReturn(TRUE);
       $nodeProphecy->get(self::STATUS_FIELD_MORE_INFO_NAME)->willReturn((object) ['value' => 'a']);
-      if (!is_null($supplementalStatusChanged) && $contentType === 'health_care_local_facility') {
-        $nodeProphecy->hasField(self::SUPPLEMENTAL_STATUS_FIELD_NAME)->willReturn(TRUE);
-        $nodeProphecy->get(self::SUPPLEMENTAL_STATUS_FIELD_NAME)->willReturn((object) ['target_id' => self::TERM_ID_ONE]);
-        $termProphecy->get(self::TERM_STATUS_ID)->willReturn((object) ['value' => self::SUP_STATUS_ONE]);
-        $termProphecy->get(self::TERM_STATUS_NAME)->willReturn((object) ['value' => 'status name']);
-        $termStorageProphecy->load(self::TERM_ID_ONE)->willReturn($termProphecy->reveal());
-        $termStorage = $termStorageProphecy->reveal();
-        $entityTypeManagerProphecy->getStorage('taxonomy_term')->willReturn($termStorage);
+      if ($contentType === 'health_care_local_facility') {
+        if (!is_null($supplementalStatusChanged)) {
+          $nodeProphecy->hasField(self::SUPPLEMENTAL_STATUS_FIELD_NAME)->willReturn(TRUE);
+          $nodeProphecy->get(self::SUPPLEMENTAL_STATUS_FIELD_NAME)->willReturn((object) ['target_id' => self::TERM_ID_ONE]);
+          $termProphecy->get(self::TERM_STATUS_ID)->willReturn((object) ['value' => self::SUP_STATUS_ONE]);
+          $termProphecy->get(self::TERM_STATUS_NAME)->willReturn((object) ['value' => 'status name']);
+          $termStorageProphecy->load(self::TERM_ID_ONE)->willReturn($termProphecy->reveal());
+          $termStorage = $termStorageProphecy->reveal();
+          $entityTypeManagerProphecy->getStorage('taxonomy_term')->willReturn($termStorage);
+        }
+        else {
+          $nodeProphecy->hasField(self::SUPPLEMENTAL_STATUS_FIELD_NAME)->willReturn(FALSE);
+        }
       }
       else {
         $nodeProphecy->hasField(self::SUPPLEMENTAL_STATUS_FIELD_NAME)->willReturn(FALSE);
       }
+
       $nodeProphecy->hasField(self::FACILITY_ID)->willReturn(TRUE);
+      $nodeProphecy->hasField(self::SYSTEM)->willReturn(NULL);
       $nodeProphecy->get(self::FACILITY_ID)->willReturn((object) ['value' => 'vha_000']);
       $nodeProphecy->get('moderation_state')->willReturn((object) ['value' => $moderationState])->shouldBeCalled();
+      $urlProphecy->toString()->willReturn('/abc');
+      $url = $urlProphecy->reveal();
+      $nodeProphecy->toUrl()->willReturn($url);
     }
     else {
       $nodeProphecy->hasField(self::STATUS_FIELD_NAME)->willReturn(FALSE);

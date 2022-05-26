@@ -1,6 +1,6 @@
 # [Environments](environments): Local
 
-For DDEV docs, please see the CMS Platform's [Confluence guide](https://vfs.atlassian.net/wiki/spaces/PCMS/pages/1956937732/ddev). 
+For DDEV docs, please see the CMS Platform's [Confluence guide](https://vfs.atlassian.net/wiki/spaces/PCMS/pages/1956937732/ddev).
 
 ## Lando:
   The local development environment uses Lando to create and manage the Drupal CMS.
@@ -24,10 +24,10 @@ For DDEV docs, please see the CMS Platform's [Confluence guide](https://vfs.atla
     1. captures outgoing email from the application
     2. provides a web UI for viewing outgoing emails
 
-    To access the UI, run `lando info` to see the mailhog URL and visit the service URL.
+    To access the UI, run `ddev describe` to see the mailhog URL and visit the service URL or use `ddev launch -m &` to have your terminal launch your browser.
 
     ### Troubleshooting:
-    * Sometimes after initial setup or `lando start`, Drush is not found. Running `lando rebuild -y` once or twice usually cures, if not, see: https://github.com/lando/lando/issues/580#issuecomment-354490298
+
     * Email addresses are blanked for existing users as part of normal database sanitization and attempts to send email to them can fail silently (see [#6100](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/6100)).  Email to new users, or users whose email addresses have been updated, can be sent and will be captured in Mailhog.
 
     ### EXPERIMENTAL: Mac OS performance improvements

@@ -6,6 +6,7 @@ dependencies:
     - field.field.user.user.field_last_password_reset
     - field.field.user.user.field_password_expiration
     - field.field.user.user.field_pending_expire_sent
+    - field.field.user.user.message_subscribe_email
   module:
     - datetime
     - path
@@ -37,6 +38,13 @@ content:
     weight: 0
     region: content
     settings: {  }
+    third_party_settings: {  }
+  message_subscribe_email:
+    type: boolean_checkbox
+    weight: 25
+    region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   path:
     type: path
