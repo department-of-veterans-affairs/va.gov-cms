@@ -236,12 +236,12 @@ content:
     settings:
       size: 70
       placeholder: ''
-      use_field_maxlength: true
-      maxlength: 0
+      use_field_maxlength: false
+      maxlength: 70
       counter_position: after
-      js_prevent_submit: true
+      js_prevent_submit: false
       count_html_characters: false
-      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
   field_promo:
     type: options_select
@@ -344,7 +344,7 @@ content:
       size: 60
       placeholder: ''
       use_field_maxlength: false
-      maxlength: 69
+      maxlength: 70
       counter_position: after
       js_prevent_submit: false
       count_html_characters: false
