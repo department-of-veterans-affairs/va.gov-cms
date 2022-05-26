@@ -169,13 +169,7 @@ The goal for this week is to get you set up with the tools you need to be succes
    - [ ] [Watch the training video that Vet Center editors have to complete](https://youtu.be/scuC5lSHZuw).
 
 #### Onboarding for Instructional Design members
-- [ ] Audio/video recording tools - discuss with A6 IT which tools you use (Adobe preferred)
-- [ ] [YouTube channel for training videos](https://www.youtube.com/channel/UC5Y2p4ASQ5HdRR-pQ8RVQKQ) 
-- [ ] Discuss Drupal CMS account administration process with Delivery Manager or Product Manager
-- [ ] The following trainings and additional videos can be found on the Knowledge Base on the Drupal CMS prod and lesser environments that require VA network or SOCKS proxy access. They can be watched without VA network or SOCKS access at the links below.
-   - [ ] [Watch the Drupal CMS editorial experience video for all users](https://youtu.be/ju7EH0F5S4I).
-   - [ ] [Watch the training video that VA Medical Center (VAMC) editors have to complete](https://youtu.be/Sowgt1rOmlE).
-   - [ ] [Watch the training video that Vet Center editors have to complete](https://youtu.be/scuC5lSHZuw).
+- [ ] Touch base with UX leads for next steps (Val Runde - FE UX; Suzanne Gray - Drupal UX)
 
 #### Onboarding for Product Management members
  - [ ] Review [onboarding docs](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/PM/)
