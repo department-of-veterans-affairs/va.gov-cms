@@ -12,7 +12,6 @@ dependencies:
     - field.field.node.landing_page.field_intro_text
     - field.field.node.landing_page.field_links
     - field.field.node.landing_page.field_meta_tags
-    - field.field.node.landing_page.field_meta_title
     - field.field.node.landing_page.field_plainlanguage_date
     - field.field.node.landing_page.field_promo
     - field.field.node.landing_page.field_related_links
@@ -229,20 +228,6 @@ content:
       linkit_profile: default
       linkit_auto_link_text: true
     third_party_settings: {  }
-  field_meta_title:
-    type: string_textfield_with_counter
-    weight: 5
-    region: content
-    settings:
-      size: 70
-      placeholder: ''
-      use_field_maxlength: false
-      maxlength: 70
-      counter_position: after
-      js_prevent_submit: false
-      count_html_characters: false
-      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
-    third_party_settings: {  }
   field_promo:
     type: options_select
     weight: 18
@@ -337,18 +322,12 @@ content:
     settings: {  }
     third_party_settings: {  }
   title:
-    type: string_textfield_with_counter
+    type: string_textfield
     weight: 3
     region: content
     settings:
       size: 60
       placeholder: ''
-      use_field_maxlength: false
-      maxlength: 70
-      counter_position: after
-      js_prevent_submit: false
-      count_html_characters: false
-      textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
 hidden:
   created: true
