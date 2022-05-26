@@ -191,6 +191,7 @@ third_party_settings:
     group_covid_19_safety_guidelines:
       children:
         - field_supplemental_status
+        - group_current_covid_19_safety_gu
       label: 'COVID-19 health protection guidelines'
       region: content
       parent_name: ''
@@ -202,6 +203,24 @@ third_party_settings:
         id: ''
         description: 'Use these levels to help Veterans understand the current COVID-19 health protection guidelines at your facility. The preset guidelines will appear on your facility’s location and operating status pages.'
         required_fields: false
+    group_current_covid_19_safety_gu:
+      children: {  }
+      label: 'Current Covid-19 safety guidelines'
+      region: content
+      parent_name: group_covid_19_safety_guidelines
+      weight: 22
+      format_type: tooltip
+      format_settings:
+        show_empty_fields: '1'
+        show_label: '0'
+        tooltip_description: "Why can't I edit this?\r\n\r\nVHA Digital Media manages messaging about COVID protocols to ensure a consistent experience for Veterans nationwide."
+        description: ''
+        required_fields: '1'
+        id: covid-safety-guidelines-status-text
+        classes: ''
+        element: div
+        label_element: h3
+        attributes: ''
 id: node.health_care_local_facility.default
 targetEntityType: node
 bundle: health_care_local_facility
@@ -215,7 +234,7 @@ content:
     third_party_settings: {  }
   field_administration:
     type: options_select
-    weight: 12
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -274,7 +293,7 @@ content:
     third_party_settings: {  }
   field_main_location:
     type: boolean_checkbox
-    weight: 22
+    weight: 21
     region: content
     settings:
       display_label: true
@@ -314,7 +333,7 @@ content:
     third_party_settings: {  }
   field_operating_status_more_info:
     type: string_textarea_with_counter
-    weight: 6
+    weight: 7
     region: content
     settings:
       rows: 5
