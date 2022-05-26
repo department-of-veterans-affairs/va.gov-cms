@@ -48,6 +48,5 @@ If existing videos, list URLs:
 
 8. Are there any known dependencies?
 
-
-
-After creating this issue, **schedule a 30-minute meeting** with the CMS team change management specialist assigned to this template to complete the assessment of the change impact.
+## Key Dates (pre-event communications, preview with User Support, launch date, post-event tasks)
+  

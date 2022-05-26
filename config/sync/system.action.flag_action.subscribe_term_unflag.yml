@@ -1,0 +1,15 @@
+uuid: ac227689-8b63-4d05-bb86-aedb6442a990
+langcode: en
+status: true
+dependencies:
+  config:
+    - flag.flag.subscribe_term
+  module:
+    - flag
+id: flag_action.subscribe_term_unflag
+label: Unsubscribe
+type: taxonomy_term
+plugin: 'flag_action:subscribe_term_unflag'
+configuration:
+  flag_id: subscribe_term
+  flag_action: unflag
