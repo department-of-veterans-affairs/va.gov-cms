@@ -1381,6 +1381,11 @@ function va_gov_backend_page_attachments(array &$attachments) {
 
   // Pass our relevant data to settings.
   $attachments['#attached']['drupalSettings']['gtm_data'] = _va_gov_backend_gtm_settings();
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if ($node instanceof NodeInterface) {
+    $attachments['#attached']['drupalSettings']['node'] = _va_gov_backend_node_data($node);
+  }
+
   $attachments['#cache']['tags'][] = 'config:workbench_access.access_scheme.section';
 
   // Move our help text from the wrapper to below the label.
@@ -1405,6 +1410,26 @@ function va_gov_backend_page_attachments(array &$attachments) {
 
     return;
   }
+}
+
+/**
+ * Builds some useful node data for development.
+ *
+ * @param \Drupal\node\NodeInterface $node
+ *   Some valid node.
+ *
+ * @return array
+ *   Keyed array of useful node info.
+ */
+function _va_gov_backend_node_data(NodeInterface $node) {
+  return [
+    'id' => $node->id(),
+    'uuid' => $node->uuid(),
+    'title' => $node->getTitle(),
+    'path' => $node->toUrl()->toString(),
+    'contentType' => $node->bundle(),
+    'jsonApiPath' => "/jsonapi/node/{$node->bundle()}/{$node->uuid()}",
+  ];
 }
 
 /**
