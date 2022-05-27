@@ -978,3 +978,11 @@ function va_gov_db_update_9007() {
 
   return 'Removed field_meta_title from Benefits hubs (detail and landing), Landing pages, Offices and Publication Listing nodes.';
 }
+
+/**
+ * Publish KB events article.
+ */
+function va_gov_db_update_9008(&$sandbox) {
+  $nids = [6483];
+  return _va_gov_db_publish_nodes($nids);
+}
