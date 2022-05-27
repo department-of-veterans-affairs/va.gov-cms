@@ -225,6 +225,49 @@ function _va_gov_db_create_redirect_by_path($old_path, $new_path) {
 }
 
 /**
+ * Publishes latest node revision.
+ *
+ * @param array $nids
+ *   An array of node ids to publish.
+ *
+ * @return string
+ *   A message of confirmation of node titles published.
+ *
+ * @throws Drupal\Core\Utility\UpdateException
+ */
+function _va_gov_db_publish_nodes(array $nids) {
+  $nodes_published = [];
+  foreach ($nids as $nid) {
+    // Get latest revision ID.
+    $node_storage = \Drupal::entityTypeManager()
+      ->getStorage('node');
+    $latest_vid = $node_storage->getLatestRevisionId($nid);
+    if (empty($latest_vid)) {
+      throw new UpdateException("Failed to find nid: {$nid}");
+    }
+    // Load latest revision.
+    /** @var \Drupal\node\Entity\Node $latest_vid_loaded */
+    $latest_vid_loaded = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->loadRevision($latest_vid);
+    // Create a new revision and publish.
+    $latest_vid_loaded->status = 1;
+    $latest_vid_loaded->revision_log = t("Automatically published by code update.");
+    $latest_vid_loaded->set('moderation_state', "published");
+    $latest_vid_loaded->setNewRevision();
+    $latest_vid_loaded->isDefaultRevision(TRUE);
+    $latest_vid_loaded->setRevisionUserId(1317);
+    $latest_vid_loaded->setOwnerId(1317);
+    $latest_vid_loaded->setRevisionCreationTime(time());
+    $latest_vid_loaded->save();
+    $nodes_published[] = "{$nid} - {$latest_vid_loaded->getTitle()}";
+
+  }
+  $nids_list = implode(', ', $nodes_published);
+  return "Published these nodes: {$nids_list}";
+}
+
+/**
  * Modify field_facility_locator_api_id field to be longer.
  */
 function va_gov_db_update_8001(&$sandbox) {
