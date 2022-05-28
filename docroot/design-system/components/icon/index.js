@@ -12,8 +12,8 @@ import {
   faMagnifyingGlass, // magnifying-glass
   faPencil, // pencil
   faPlus, // plus
-  faThumbsDown, // thumbs down
-  faThumbsUp, // trash
+  faThumbsDown, // thumbs-down
+  faThumbsUp, // thumbs-up
   faTrash, // trash
   faTriangleExclamation // warning
 } from '@fortawesome/free-solid-svg-icons';

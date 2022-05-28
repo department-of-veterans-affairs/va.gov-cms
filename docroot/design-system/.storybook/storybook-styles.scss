@@ -2,13 +2,8 @@
  * This file is solely for extra styles needed by various sb-*.twig files.
  * It is not included in the output bundle for Drupal.
  */
-@import './claro.css';
+@import './claro.scss';
 
-.swatches {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 1rem;
-}
 .swatch-color {
   padding: 2rem;
 }
@@ -21,22 +16,9 @@
   }
 }
 
-table {
-  border-collapse: collapse;
-}
-tr {
-  border-bottom: 1px solid var(--va-gray-cool-dark);
-}
-td {
-  padding: 1rem 2rem 1rem 0;
-}
-th {
-  padding: 1rem 2rem 1rem 0;
-}
-
 code {
   background-color: var(--va-gray-cool-light);
   font-size: var(--va-text);
   padding: var(--spacing-l);
-  display: block;
+  display: inline-block;
 }
