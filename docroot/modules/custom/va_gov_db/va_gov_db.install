@@ -7,6 +7,7 @@
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Utility\UpdateException;
+use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\node\Entity\Node;
 use Drupal\redirect\Entity\Redirect;
@@ -926,4 +927,17 @@ function va_gov_db_update_9005(&$sandbox) {
   $messages = _va_gov_db_uninstall_modules($modules);
 
   return $messages;
+}
+
+/**
+ * Remove field_facility_hours from facilities.
+ */
+function va_gov_db_update_9006() {
+  $field = FieldConfig::loadByName('node', 'health_care_local_facility', 'field_facility_hours');
+  if ($field) {
+    /** @var Drupal\field\FieldConfigInterface $field */
+    $field->delete();
+  }
+
+  return 'Removed field_facility_hours from facilities.';
 }
