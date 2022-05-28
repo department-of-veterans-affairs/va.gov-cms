@@ -222,9 +222,12 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       1035,
     ];
     $terms_text = [];
-    foreach ($covid_status as $status) {
-      $terms_text[$status]['name'] = $term_storage->load($status)->getName();
-      $terms_text[$status]['description'] = $term_storage->load($status)->getDescription();
+    foreach ($covid_status as $key) {
+      $loaded_term = $term_storage->load($key);
+      $terms_text[$key]['name'] = $loaded_term->getName();
+      $terms_text[$key]['description'] = $loaded_term->getDescription();
+      $terms_text[$key]['log'] = $loaded_term->label();
+      $terms_text['replace'][] = $loaded_term->label();
     }
     $form['#attached']['library'][] = 'va_gov_vamc/set_covid_term_text';
     $form['#attached']['drupalSettings']['vamcCovidStatusTermText'] = $terms_text;

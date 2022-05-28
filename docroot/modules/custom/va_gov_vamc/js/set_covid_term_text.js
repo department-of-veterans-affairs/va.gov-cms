@@ -7,12 +7,17 @@
 
 (function (Drupal) {
   var statusId = void 0;
-  var textSetter = function textSetter() {
+  var textSetter = function textSetter(e) {
     var fieldset = document.getElementById("covid-safety-guidelines-status-text");
+
+    var revisionLog = document.getElementById("edit-revision-log-0-value");
 
     if (document.getElementById("covid-safety-guidelines-status-text-target")) {
       document.getElementById("covid-safety-guidelines-status-text-target").remove();
       document.getElementById("covid-safety-guidelines-status-text-prefix").remove();
+      if (e.type === "click") {
+        revisionLog.value = "";
+      }
     }
 
     var covidStatusValue = document.querySelectorAll(".form-item--field-supplemental-status input");
@@ -37,6 +42,10 @@
       covidStatusTextDivPrefix.id = "covid-safety-guidelines-status-text-prefix";
       covidStatusTextDivPrefix.innerHTML = '<h5>Guidelines</h5><div class="fieldset__description">Site visitors will see the following message for the level you selected.</div>';
       fieldset.before(covidStatusTextDivPrefix);
+
+      if (e.type === "click") {
+        revisionLog.value += drupalSettings.vamcCovidStatusTermText[statusId].log;
+      }
     }
   };
 

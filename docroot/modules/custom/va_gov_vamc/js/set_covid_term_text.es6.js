@@ -4,11 +4,14 @@
 
 ((Drupal) => {
   let statusId;
-  const textSetter = () => {
+  const textSetter = (e) => {
     // The targeted tooltip fieldset.
     const fieldset = document.getElementById(
       "covid-safety-guidelines-status-text"
     );
+
+    // The revision log.
+    const revisionLog = document.getElementById("edit-revision-log-0-value");
 
     // Remove the previous setting = sanity reset.
     if (document.getElementById("covid-safety-guidelines-status-text-target")) {
@@ -18,6 +21,11 @@
       document
         .getElementById("covid-safety-guidelines-status-text-prefix")
         .remove();
+      if (e.type === "click") {
+        drupalSettings.vamcCovidStatusTermText.replace.forEach((element) => {
+          revisionLog.value = revisionLog.value.replace(element, "");
+        });
+      }
     }
 
     const covidStatusValue = document.querySelectorAll(
@@ -51,6 +59,12 @@
       covidStatusTextDivPrefix.innerHTML =
         '<h5>Guidelines</h5><div class="fieldset__description">Site visitors will see the following message for the level you selected.</div>';
       fieldset.before(covidStatusTextDivPrefix);
+
+      if (e.type === "click") {
+        // Revision log message.
+        revisionLog.value +=
+          drupalSettings.vamcCovidStatusTermText[statusId].log;
+      }
     }
   };
 
