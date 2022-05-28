@@ -31,7 +31,7 @@ third_party_settings:
       label: 'Section settings'
       region: content
       parent_name: ''
-      weight: 12
+      weight: 10
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -46,7 +46,7 @@ third_party_settings:
       label: 'Editorial workflow'
       region: content
       parent_name: ''
-      weight: 13
+      weight: 11
       format_type: fieldset
       format_settings:
         classes: ''
@@ -113,12 +113,6 @@ targetEntityType: node
 bundle: health_care_region_detail_page
 mode: default
 content:
-  created:
-    type: datetime_timestamp
-    weight: 8
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_administration:
     type: options_select
     weight: 5
@@ -239,13 +233,13 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 9
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 11
+    weight: 9
     region: content
     settings:
       display_label: true
@@ -264,22 +258,14 @@ content:
       count_html_characters: false
       textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
-  uid:
-    type: entity_reference_autocomplete
-    weight: 7
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
   url_redirects:
-    weight: 10
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
+  created: true
   field_meta_tags: true
   promote: true
   sticky: true
+  uid: true
