@@ -18,12 +18,10 @@ See this Figma: https://www.figma.com/file/ScABI31f3MRFEvQ8WitVPa/CMS-Design-Sys
 ## For Devs
 In the va.gov-cms repo:
 ```
-cd docroot/design-system/
-yarn install
-yarn run storybook
+ddev storybook
 ```
 
-It has support for Twig and SCSS, including compatibility with Drupal-specific Twig filters and functions, like the `attributes` object or `|clean_id`.
-Note that not every function or filter will behave 100% the same as in Drupal, but it won't break your component for storybook.
+This will run a webpack dev server with hot reloading for local development, reachable at https://va-gov-storybook.ddev.site/
 
-This is
+This Storybook has support for Twig and SCSS, including compatibility with Drupal-specific Twig filters and functions, like the `attributes` object or `|clean_id`.
+Note that not every function or filter will behave 100% the same as in Drupal (e.g. `|t` will not translate anything inside Storybook), but it won't break your component.

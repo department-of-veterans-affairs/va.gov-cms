@@ -108,7 +108,6 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC Facility | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC Facility | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | VAMC Facility | Classification | field_facility_classification | List (text) |  | 1 | Select list |  |
-| Content type | VAMC Facility | Hours | field_facility_hours  | Table Field |  | 1 | -- Disabled -- |  |
 | Content type | VAMC Facility | Facility Locator API ID | field_facility_locator_api_id | Text (plain) |  | 1 | Textfield |  |
 | Content type | VAMC Facility | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | VAMC Facility | Health services | field_local_health_care_service_ | Entity reference |  | Unlimited | -- Disabled -- | Translatable |
