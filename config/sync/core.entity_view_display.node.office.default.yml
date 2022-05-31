@@ -9,7 +9,6 @@ dependencies:
     - field.field.node.office.field_email_updates_link
     - field.field.node.office.field_external_link
     - field.field.node.office.field_meta_tags
-    - field.field.node.office.field_meta_title
     - field.field.node.office.field_office_id
     - field.field.node.office.field_parent_office
     - field.field.node.office.field_social_media_links
@@ -79,14 +78,6 @@ content:
     third_party_settings: {  }
     weight: 5
     region: content
-  field_meta_title:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 4
-    region: content
   field_office_id:
     type: string
     label: above
@@ -111,6 +102,16 @@ content:
       link_attributes: {  }
     third_party_settings: {  }
     weight: 6
+    region: content
+  flag_email_node:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  flag_subscribe_node:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
     region: content
 hidden:
   content_moderation_control: true

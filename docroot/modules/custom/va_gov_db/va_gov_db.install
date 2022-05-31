@@ -941,3 +941,40 @@ function va_gov_db_update_9006() {
 
   return 'Removed field_facility_hours from facilities.';
 }
+
+/**
+ * Remove field_meta_title.
+ */
+function va_gov_db_update_9007() {
+  $field = FieldConfig::loadByName('node', 'page', 'field_meta_title');
+  if ($field) {
+    /** @var Drupal\field\FieldConfigInterface $field */
+    $field->delete();
+  }
+
+  $field2 = FieldConfig::loadByName('node', 'landing_page', 'field_meta_title');
+  if ($field2) {
+    /** @var Drupal\field\FieldConfigInterface $field */
+    $field->delete();
+  }
+
+  $field3 = FieldConfig::loadByName('node', 'basic_landing_page', 'field_meta_title');
+  if ($field3) {
+    /** @var Drupal\field\FieldConfigInterface $field */
+    $field->delete();
+  }
+
+  $field4 = FieldConfig::loadByName('node', 'office', 'field_meta_title');
+  if ($field4) {
+    /** @var Drupal\field\FieldConfigInterface $field */
+    $field->delete();
+  }
+
+  $field5 = FieldConfig::loadByName('node', 'publication_listing', 'field_meta_title');
+  if ($field5) {
+    /** @var Drupal\field\FieldConfigInterface $field */
+    $field->delete();
+  }
+
+  return 'Removed field_meta_title from Benefits hubs (detail and landing), Landing pages, Offices and Publication Listing nodes.';
+}
