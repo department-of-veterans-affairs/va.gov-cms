@@ -7,7 +7,6 @@ dependencies:
     - field.field.node.basic_landing_page.field_content_block
     - field.field.node.basic_landing_page.field_description
     - field.field.node.basic_landing_page.field_intro_text_limited_html
-    - field.field.node.basic_landing_page.field_meta_title
     - field.field.node.basic_landing_page.field_product
     - field.field.node.basic_landing_page.field_table_of_contents_boolean
     - node.type.basic_landing_page
@@ -157,20 +156,6 @@ content:
       allowed_formats:
         hide_help: '0'
         hide_guidelines: '0'
-  field_meta_title:
-    type: string_textfield_with_counter
-    weight: 5
-    region: content
-    settings:
-      size: 70
-      placeholder: ''
-      use_field_maxlength: false
-      maxlength: 70
-      counter_position: after
-      js_prevent_submit: true
-      count_html_characters: false
-      textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
-    third_party_settings: {  }
   field_product:
     type: options_select
     weight: 26
