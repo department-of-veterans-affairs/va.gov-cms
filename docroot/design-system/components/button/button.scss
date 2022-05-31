@@ -1,0 +1,26 @@
+a.button--outline,
+.button--outline {
+  background-color: var(--color-white);
+  border: 2px solid var(--va-blue-med) !important;
+  box-shadow: none;
+  color: var(--va-blue-med);
+  padding: calc(var(--space-m) - 2px) calc(var(--space-l) - 2px); //2px offset for border
+
+  &:hover {
+    background-color: var(--va-blue-light);
+    border: 2px solid var(--va-blue-darker);
+    color: var(--va-blue-darker);
+  }
+}
+
+.button--small {
+  margin: var(--space-s) var(--space-xs) var(--space-s) 0;
+  padding: calc(var(--space-xs) - 1px) calc(var(--space-m) - 1px);
+  font-size: var(--font-size-xs);
+}
+
+.button--icon {
+  svg {
+    margin-right: var(--spacing-s);
+  }
+}

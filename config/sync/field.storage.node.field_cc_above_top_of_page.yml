@@ -1,16 +1,16 @@
-uuid: 1d418ce4-a06b-4502-b168-165e49fd287f
+uuid: 69ca9650-0e5a-468d-b547-53efde3010e7
 langcode: en
 status: true
 dependencies:
   module:
+    - entity_field_fetch
     - node
-    - tablefield
-id: node.field_facility_hours
-field_name: field_facility_hours
+id: node.field_cc_above_top_of_page
+field_name: field_cc_above_top_of_page
 entity_type: node
-type: tablefield
+type: entity_field_fetch
 settings: {  }
-module: tablefield
+module: entity_field_fetch
 locked: false
 cardinality: 1
 translatable: true
