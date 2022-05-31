@@ -83,7 +83,6 @@ const creators = {
     cy.visit('/node/add/office');
     cy.scrollTo('top');
     cy.findAllByLabelText('Name').type('[Test Data] ' + faker.lorem.sentence(), { force: true });
-    cy.findAllByLabelText('Meta title tag').type('[Test Data] ' + faker.lorem.sentence(), { force: true });
     cy.findAllByLabelText('Section').select('VACO', { force: true });
     cy.findAllByLabelText('Provide a menu link').check({ force: true });
     cy.findAllByLabelText('Menu link title').type('[Test Data] ' + faker.lorem.sentence(), { force: true });
