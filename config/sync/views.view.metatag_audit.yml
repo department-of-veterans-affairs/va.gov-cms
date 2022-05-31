@@ -1,6 +1,6 @@
 uuid: ccdb2475-4360-41aa-ace8-f6b5be8c71c5
 langcode: en
-status: false
+status: true
 dependencies:
   config:
     - field.storage.node.field_administration
@@ -747,7 +747,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "<p><strong>title:</strong> {{ title }}</p>\r\n<p><strong>field_meta_title :</strong> {{ field_meta_title }}</p>"
+            text: '<p><strong>title:</strong> {{ title }}</p>'
             make_link: false
             path: ''
             absolute: false
