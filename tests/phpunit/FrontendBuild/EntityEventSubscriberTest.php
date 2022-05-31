@@ -152,6 +152,8 @@ class EntityEventSubscriberTest extends UnitTestCase {
               ($triggerable_state['is_published'] === TRUE && $facility_moderation_status_change['new_state'] !== 'published') ||
               ($triggerable_state['was_published'] === TRUE && $facility_moderation_status_change['old_state'] !== 'published') ||
               ($triggerable_state['is_published'] === FALSE && $facility_moderation_status_change['new_state'] === 'published') ||
+              (($facility_moderation_status_change['old_state'] !== $facility_moderation_status_change['new_state']) !== $facility_status['facility_status_field_changed']) ||
+              ($facility_moderation_status_change['new_state'] !== $triggerable_state['new_moderation_state']) ||
               ($triggerable_state['was_published'] === FALSE && $facility_moderation_status_change['old_state'] === 'published')
             ) {
               continue;
@@ -262,6 +264,7 @@ class EntityEventSubscriberTest extends UnitTestCase {
             $oldstate_was_archived = $facility_moderation_status_change['old_state'] === 'archived';
             $oldstate_was_published = $facility_moderation_status_change['old_state'] === 'published';
             $newstate_is_archived = $facility_moderation_status_change['new_state'] === 'archived';
+            $newstate_is_published = $facility_moderation_status_change['new_state'] === 'published';
             $archived_from_published = ($oldstate_was_published && $newstate_is_archived);
 
             $facility_changed_status = (
@@ -400,6 +403,13 @@ class EntityEventSubscriberTest extends UnitTestCase {
           $has_been_published = $is_published || $was_published;
           $is_triggerable_state = FALSE;
 
+          if (
+            ($is_published && $new_moderation_state !== 'published') ||
+            (!$is_published && $new_moderation_state === 'published')
+            )
+           {
+            continue;
+          }
           if (
             ($new_moderation_state === 'published') ||
             ($has_been_published && ($new_moderation_state === 'archived')) ||
