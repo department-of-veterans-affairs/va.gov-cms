@@ -1,0 +1,15 @@
+uuid: f26e1899-7c56-4598-9438-317e7c40821f
+langcode: en
+status: true
+dependencies:
+  config:
+    - flag.flag.email_user
+  module:
+    - flag
+id: flag_action.email_user_flag
+label: 'Send email'
+type: user
+plugin: 'flag_action:email_user_flag'
+configuration:
+  flag_id: email_user
+  flag_action: flag

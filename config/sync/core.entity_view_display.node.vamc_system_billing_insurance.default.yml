@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.vamc_system_billing_insurance.field_administration
+    - field.field.node.vamc_system_billing_insurance.field_cc_above_top_of_page
     - field.field.node.vamc_system_billing_insurance.field_cc_bottom_of_page_content
     - field.field.node.vamc_system_billing_insurance.field_cc_related_links
     - field.field.node.vamc_system_billing_insurance.field_cc_top_of_page_content
@@ -32,7 +33,7 @@ third_party_settings:
       label: 'National content'
       parent_name: ''
       region: content
-      weight: 6
+      weight: 7
       format_type: tooltip
       format_settings:
         show_empty_fields: 0
@@ -52,7 +53,7 @@ third_party_settings:
       label: 'National top of page content'
       parent_name: ''
       region: content
-      weight: 2
+      weight: 4
       format_type: tooltip
       format_settings:
         show_label: '0'
@@ -71,7 +72,7 @@ third_party_settings:
       label: 'For inquiries by phone about copay balance'
       parent_name: ''
       region: content
-      weight: 4
+      weight: 5
       format_type: details
       format_settings:
         classes: ''
@@ -80,11 +81,36 @@ third_party_settings:
         open: true
         description: ''
         required_fields: false
+    group_national_above_top_of_page:
+      children:
+        - field_cc_above_top_of_page
+      label: 'National above top of page content'
+      parent_name: ''
+      region: content
+      weight: 2
+      format_type: tooltip
+      format_settings:
+        show_label: '0'
+        tooltip_description: 'Why can’t I edit this? VHA keeps this content standardized so that all VA medical centers have consistent messaging.'
+        description: ''
+        id: ''
+        classes: centralized
+        show_empty_fields: 0
+        element: div
+        label_element: h3
+        attributes: ''
 id: node.vamc_system_billing_insurance.default
 targetEntityType: node
 bundle: vamc_system_billing_insurance
 mode: default
 content:
+  field_cc_above_top_of_page:
+    type: entity_field_fetch
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
   field_cc_bottom_of_page_content:
     type: entity_field_fetch
     label: above
@@ -104,7 +130,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 8
     region: content
   field_enforce_unique_combo_offic:
     type: allow_only_one
@@ -138,7 +164,7 @@ content:
       schema:
         enabled: false
     third_party_settings: {  }
-    weight: 7
+    weight: 9
     region: content
   field_non_clinical_services:
     type: viewfield_default
@@ -148,7 +174,7 @@ content:
       always_build_output: true
       empty_view_title: above
     third_party_settings: {  }
-    weight: 5
+    weight: 6
     region: content
   field_phone_number:
     type: telephone_link
@@ -156,7 +182,17 @@ content:
     settings:
       title: ''
     third_party_settings: {  }
-    weight: 6
+    weight: 8
+    region: content
+  flag_email_node:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  flag_subscribe_node:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 9
     region: content
   links:
     settings: {  }

@@ -1,0 +1,37 @@
+uuid: b908f0a8-7180-4ae0-a28c-054963ff04e8
+langcode: en
+status: false
+dependencies:
+  module:
+    - message_subscribe_ui
+    - node
+third_party_settings:
+  message_subscribe_ui:
+    view_name: 'subscribe_node_email:default'
+_core:
+  default_config_hash: 2t9cwHg2SSy_5E2YoAgfYsnDvAytcY5q_ErdV_I4gYA
+id: subscribe_node
+label: Content
+bundles: {  }
+entity_type: node
+global: false
+flag_short: Subscribe
+flag_long: ''
+flag_message: 'You are now subscribed to this item.'
+unflag_short: Unsubscribe
+unflag_long: ''
+unflag_message: 'You are no longer subscribed to this item.'
+unflag_denied_text: ''
+weight: 0
+flag_type: 'entity:node'
+link_type: ajax_link
+flagTypeConfig:
+  show_in_links:
+    full: full
+    teaser: teaser
+  show_as_field: true
+  show_on_form: false
+  show_contextual_link: false
+  extra_permissions:
+    owner: '0'
+linkTypeConfig: {  }
