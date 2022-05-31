@@ -51,6 +51,7 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Embedded image | Allow clicks on this image to open it in new tab | field_allow_clicks_on_this_image | Boolean |  | 1 | Single on/off checkbox |  |
 | Paragraph type | Embedded image | Markup | field_markup | Markup |  | 1 | Markup |  |
 | Paragraph type | Embedded image | Select an image | field_media | Entity reference | Required | 1 | Media library |  |
+| Paragraph type | Embedded Video | Video | field_video | Entity reference | Required | 1 | Media library |  |
 | Paragraph type | Expandable Text | Text Expander | field_text_expander | Text (plain) | Required | 1 | Textfield with counter |  |
 | Paragraph type | Expandable Text | Full Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Paragraph type | Featured content | Call to Action | field_cta | Entity reference revisions |  | 1 | Paragraphs (stable) |  |
