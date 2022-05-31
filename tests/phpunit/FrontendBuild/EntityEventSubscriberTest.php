@@ -264,7 +264,6 @@ class EntityEventSubscriberTest extends UnitTestCase {
             $oldstate_was_archived = $facility_moderation_status_change['old_state'] === 'archived';
             $oldstate_was_published = $facility_moderation_status_change['old_state'] === 'published';
             $newstate_is_archived = $facility_moderation_status_change['new_state'] === 'archived';
-            $newstate_is_published = $facility_moderation_status_change['new_state'] === 'published';
             $archived_from_published = ($oldstate_was_published && $newstate_is_archived);
 
             $facility_changed_status = (
