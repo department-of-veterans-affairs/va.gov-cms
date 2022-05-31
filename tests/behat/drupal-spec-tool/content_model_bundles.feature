@@ -79,6 +79,7 @@ Feature: Content model bundles
 | Contact information | contact_information | Paragraph type |  |
 | Link to file or video | downloadable_file | Paragraph type | A download link for an image or document, or a link to a YouTube video. |
 | Email address | email_contact | Paragraph type |  |
+| Embedded Video | embedded_video | Paragraph type | A component to add embedded videos to articles |
 | Expandable Text | expandable_text | Paragraph type | Text that expands upon click. |
 | Featured content | featured_content | Paragraph type |  |
 | VAMC facility service (non-healthcare service) | health_care_local_facility_servi | Paragraph type | A service available at a specific health care facility, like Parking, or Chaplaincy. |
