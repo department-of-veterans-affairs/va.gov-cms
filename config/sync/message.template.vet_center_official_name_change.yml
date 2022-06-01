@@ -1,0 +1,19 @@
+uuid: 9de7821f-9911-4a71-a103-670cb89c61be
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.rich_text
+template: vet_center_official_name_change
+label: 'Vet Center - official name change'
+description: 'Template sent to CMS Help Desk for actions following an official name change.'
+text:
+  -
+    value: "<p>Hello CMS Help Desk!</p>\r\n\r\n<p>A [message:field_target_entity:entity:content-type] &lt;a href=\\\"[message:field_target_entity:entity:url]\\\"&gt;[message:field_target_node_title]&lt;/a&gt; recently changed it's Official Name on [site:name] at [message:field_target_entity:entity:changed].</p>\r\n"
+    format: rich_text
+settings:
+  'token options':
+    clear: false
+    'token replace': true
+  purge_override: false
+  purge_methods: {  }

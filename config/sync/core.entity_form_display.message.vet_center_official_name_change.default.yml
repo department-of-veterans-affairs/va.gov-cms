@@ -1,0 +1,49 @@
+uuid: c1eb83f6-e095-4da7-bc6f-161f899dc833
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.message.vet_center_official_name_change.field_target_entity
+    - field.field.message.vet_center_official_name_change.field_target_node_title
+    - message.template.vet_center_official_name_change
+id: message.vet_center_official_name_change.default
+targetEntityType: message
+bundle: vet_center_official_name_change
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_target_entity:
+    type: entity_reference_autocomplete
+    weight: 12
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_target_node_title:
+    type: string_textfield
+    weight: 13
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 5
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    '#group': advanced
+hidden: {  }

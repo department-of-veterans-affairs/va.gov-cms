@@ -1,0 +1,19 @@
+uuid: 0a2f10dd-3424-44e5-b70d-010ece314977
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.rich_text
+template: va_facility_title_change
+label: 'VA Facility title change'
+description: 'Message send to the CMS Help Desk when any Facility content type changes title'
+text:
+  -
+    value: "<p>Hello CMS Help Desk!</p>\r\n\r\n<p>A [message:field_target_entity:entity:content-type] &lt;a href=\\\"[message:field_target_entity:entity:url]\\\"&gt;[message:field_target_node_title]&lt;/a&gt; recently changed it's title on [site:name] at [message:field_target_entity:entity:changed].</p>\r\n"
+    format: rich_text
+settings:
+  'token options':
+    clear: false
+    'token replace': true
+  purge_override: false
+  purge_methods: {  }
