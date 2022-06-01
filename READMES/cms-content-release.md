@@ -1,55 +1,145 @@
 # CMS Content Release
 
-Content releases are initiated in one of two ways:
-- Automatically, via [this Github Action Workflow](https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml)
-- Manually, via the ["Release content"](https://prod.cms.va.gov/admin/content/deploy) page in the CMS.
+Content release is the process that extracts content from Drupal via an API, builds a static HTML version of the website, and deploys it to an S3 bucket for public consumption.
 
-## Automatic
 
-### Timed
+## Requesting a content release
 
-The [Content Release Github Action Workflow](https://github.com/department-of-veterans-affairs/content-build/blob/main/.github/workflows/content-release.yml) handles automatic content deploys.
+Content releases can be requested in one of four ways:
 
-It is currently [set](https://github.com/department-of-veterans-affairs/content-build/blob/main/.github/workflows/content-release.yml#L16) to execute weekdays at 9AM, 10AM, 11AM, 12PM, 1PM, 2PM, 3PM, 4PM, and 5PM.
+* Automatically via a self-managed schedule in the CMS
+* Automatically when some types of content are edited
+* Manually when an editor requests a content release
+* Manually when a member of the devops or release tools team requests a build
 
-### Triggered
 
-The content release is also triggered based upon content updates in Drupal.  The logic that controls when a build is triggered is at [`Drupal\va_gov_build_trigger\Service::triggerFrontendBuildFromContentSave()`](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/98f4666d7b6aabf984f679fdaec4088c35e08488/docroot/modules/custom/va_gov_build_trigger/src/Service/BuildFrontend.php#L162).
+### Scheduled
 
-## Manual
+Related code: `Drupal\va_gov_build_trigger\Service\BuildScheduler`
 
-Manual content releases are initiated from the "Release content" page in the CMS.
+Builds are automatically requested at the top of every hour 8am-5pm Eastern Time, Monday through Friday.
 
-This page is constructed by the [`va_gov_build_trigger`](https://github.com/department-of-veterans-affairs/va.gov-cms/tree/main/docroot/modules/custom/va_gov_build_trigger) module. The page will differ slightly in presentation and significantly in the details of its operation depending on which environment hosts it.
 
-### Build-Release-Deploy (Production)
+### Content-triggered
+
+Related code: `Drupal\va_gov_build_trigger\EventSubscriber\EntityEventSubscriber`
+
+When a node is edited that needs to be published ASAP, a content release is requested. There are several conditions that need to be met for this process to occur. Rather than duplicate the logic here, please see the `EntityEventSubscriber` class for details.
+
+
+### Manual request by editor
+
+Related code: `Drupal\va_gov_build_trigger\Form\BrdBuildTriggerForm`
+
+Some editors have the ability to manually request a content release. This happens through the form displayed at https://prod.cms.va.gov/admin/content/deploy. This form varies by environment. The form displayed on that URL is the only one that actually triggers a production content release.
+
+
+### Manual request by devops/release tools team member
+
+Related workflow: https://github.com/department-of-veterans-affairs/content-build/actions/workflows/request-content-release.yml
+
+Occasionally, a devops or release tools team member will need to request a content release from the CMS. The GHA workflow above is the mechanism used to do that. Note: that workflow is also triggered after the Daily Production Release in the content-build repository so that frontend changes are deployed to production as quickly as possible.
+
+
+## Build request handling
+
+Every minute, a cron job processes all outstanding build requests. If needed, a build is _dispatched_ via Github Actions. Further build requests are still accepted, but are not dispatched until the CMS has determined that it is appropriate to do so. The logic for determining if a build can be requested/dispatched can be found in `Drupal\va_gov_build_trigger\Service\ReleaseStateManager`. In particular, this is important so that we avoid situations where multiple content releases are running in parallel.
+
+
+
+
+
+## Content release process
+
+```mermaid
+sequenceDiagram
+    autonumber
+
+    participant Cron
+    participant CMS
+    participant GHA
+
+    Note over GHA,CMS: Build triggering conditions
+    alt scheduled build
+        CMS->>+CMS: queue build request
+    else release-triggering content is edited
+        CMS->>+CMS: queue build request
+    else editor requests build
+        CMS->>+CMS: queue build request
+    else devops requests build
+        GHA->>+CMS: queue build request
+    end
+
+    loop Every minute
+        Cron->>+CMS: Process content release queues
+    end
+
+    CMS->>GHA: Dispatch release request
+    rect rgb(20,20,20)
+    Note right of GHA: Content release workflow
+    GHA->>+CMS: Update staus to Starting
+    GHA->>+GHA: Set up runner
+    GHA->>+GHA: Wait for release ready
+    GHA->>+GHA: Install dependencies
+    GHA->>+CMS: Update status to In Progress
+    GHA->>+GHA: Build
+    GHA->>+GHA: Deploy
+    GHA->>+CMS: Update status to Complete
+    GHA->>+GHA: Collect metrics and emit notifications
+    GHA->>+CMS: Update status to Ready
+    end
+```
+
+## Content release state transitions
+
+```mermaid
+sequenceDiagram
+    autonumber
+    Ready->>+Requested: Content is edited
+    Ready->>+Requested: Content release is manually requested
+    Ready->>+Requested: Scheduled release is requested from GHA
+    Note over Requested: Requests are grouped into a single dispatch
+    Requested->>+Dispatched: Every minute job dispatches requests if needed (call GHA API)
+    Note over Starting: GHA workflow execution begins
+    Dispatched->>+Starting: Workflow starts running
+    Starting->>+In Progress: Build step in workflow starts
+    In Progress->>+Complete: Content release workflow build/deploy work is done
+    Note over Complete: GHA workflow execution complete
+    Complete->>+Ready: Content release workflow has completed
+```
+
+
+# Environment specific details
+
+## BRD Production
 
 The "Release content" page on the BRD production environment invokes the [same Github Action Workflow]https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml) as the automatic deploys. Accordingly the content build output should be identical.
 
-The Jenkins job configuration is stored in Drupal `settings.php`. Here are the settings for [production](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/docroot/sites/default/settings/settings.prod.php#L46). Settings for other environments can be found in the `*.settings.php` [files](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/docroot/sites/default/settings). The setting keys are:
+
+### Configuration
+
+The job configuration is stored in Drupal `settings.php`. Here are the settings for [production](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/docroot/sites/default/settings/settings.prod.php#L46). Settings for other environments can be found in the `*.settings.php` [files](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/docroot/sites/default/settings). The setting keys are:
+
 ```php
 $settings['va_gov_frontend_build_type'] = 'brd';
 $settings['github_actions_deploy_env'] = 'prod';
 ```
 
-### Build-Release-Deploy (Staging)
+## BRD Staging
 
-The "Release content" page on the BRD staging environment is currently disabled because the content release GHA workflow does not support any environment other than production.
-
-
-**To manually run the Content Release job:**
-1. Go to https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml.
-2. Click "Run Workflow"
-
-![image](https://user-images.githubusercontent.com/121603/141811069-c7bf44ab-d8d9-4da3-96d0-860f234eaa5b.png)
-
-[_**More documentation for the content build can be found here**_](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/platform/cms/accelerated_publishing/content-build).
+Currently, content releases cannot be requested nor dispatched from the staging environment because the Github Actions workflow for content release does not support any environment other than production.
 
 
-### Tugboat and Local Development
+## Tugboat and Local Development Environments
 
-The Tugboat and local development (Lando, etc) versions of the Release content page do not trigger a Github Actions workflow.  Instead, they check out the latest version (or a specified branch or release) of the [frontend](https://github.com/department-of-veterans-affairs/content-build/), build it, and then perform a content release.
+The Tugboat and local development versions of the release content page do not trigger a Github Actions workflow. Instead, they check out the latest version (or a specified branch or release) of the [frontend](https://github.com/department-of-veterans-affairs/content-build/), build it, and then perform a content release to the same environment that it was requested from (local environments will release content to the local environment, Tugboat environments will release content to that same Tugboat environment, etc).
 
 For more information on creating or releasing content from a preview environment, see [Environments](./environments.md).
+
+
+## Other resources:
+
+* https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/platform/cms/accelerated_publishing/content-build
+
 
 [Table of Contents](../README.md)
