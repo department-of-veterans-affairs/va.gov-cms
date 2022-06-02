@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Contains va_gov_facilities.module.
+ */
+
+/**
+ * Implements hook_page_attachments().
+ */
+function va_gov_facilities_page_attachments(array &$attachments) {
+  // Control visibility/required for facility status details.
+  $attachments['#attached']['library'][] = 'va_gov_facilities/facility_status_details';
+}
