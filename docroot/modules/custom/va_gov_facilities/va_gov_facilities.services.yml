@@ -1,0 +1,7 @@
+services:
+  va_gov_facilities.entity_event_subscriber:
+    class: Drupal\va_gov_facilities\EventSubscriber\FacilitiesSubscriber
+    arguments:
+      - '@entity_type.manager'
+    tags:
+      - { name: event_subscriber }
