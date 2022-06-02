@@ -15,6 +15,7 @@ Feature: Content model: Custom Block fields
 | Custom block type | Alert | Reusability | field_reusability | List (text) | Required | 1 | -- Disabled -- |  |
 | Custom block type | CMS Announcement | Announcement Type | field_announcement_type | List (text) | Required | 1 | Check boxes/radio buttons |  |
 | Custom block type | CMS Announcement | Body | field_body | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter |  |
+| Custom block type | CMS Announcement | Submission Guidelines | field_submission_guidelines | Markup |  | 1 | Markup |  |
 | Custom block type | CMS Announcement | Title | field_title | Text (plain) |  | 1 | Textfield |  |
 | Custom block type | Promo | Image | field_image | Entity reference | Required | 1 | Media library |  |
 | Custom block type | Promo | Section | field_owner | Entity reference | Required | 1 | Select list | Translatable |

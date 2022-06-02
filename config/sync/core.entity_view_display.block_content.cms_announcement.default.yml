@@ -6,8 +6,10 @@ dependencies:
     - block_content.type.cms_announcement
     - field.field.block_content.cms_announcement.field_announcement_type
     - field.field.block_content.cms_announcement.field_body
+    - field.field.block_content.cms_announcement.field_submission_guidelines
     - field.field.block_content.cms_announcement.field_title
   module:
+    - markup
     - options
     - text
 id: block_content.cms_announcement.default
@@ -28,6 +30,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 1
+    region: content
+  field_submission_guidelines:
+    type: markup
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
     region: content
   field_title:
     type: string
