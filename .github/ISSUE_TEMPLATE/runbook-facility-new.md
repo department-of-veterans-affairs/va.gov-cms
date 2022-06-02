@@ -12,6 +12,9 @@ assignees: ''
 *What triggered this runbook?*
 _eg Flag in CMS, Help desk ticket, Product team, VHA Digital Media_
 
+*Please attach Facility Locator link and https://prod.cms.va.gov/ link to this ticket*
+
+*Please also include link to Jira help desk ticket, if applicable*
 
 ## Acceptance criteria
 
@@ -20,7 +23,7 @@ Please refer to the Knowledge Base article titled "How do I add a facility to my
 
 #### CMS help desk steps
 - [ ] 1. Become aware that the new facility is now on the Facility API (typically, via a Flag, but this may come in as a helpdesk ticket).
-- [ ] 2. If the editor has followed the steps from the above Knowledge Base article and included which section and VAMC the facility belongs to (i.e. VA Pittsburgh), great! Proceed to step 3. If not, please check with the editor or VHA digital media regarding what section and VAMC it belongs to.
+- [ ] 2. If the editor has followed the steps from the above Knowledge Base article and included which section and VAMC the facility belongs to (i.e. VA Pittsburgh), great! **Proceed to step 3.** If not, please check with the editor or VHA digital media regarding what section and VAMC it belongs to.
 - [ ] 3. Updates the Section (default is "VAMC facilities", but it should be a VAMC system in a VISN) and VAMC system field accordingly.
 - [ ] 4. Communicate with editor (cc VHA Digital Media) to give them go-ahead to complete the content, with this [KB article](https://prod.cms.va.gov/help/vamc/about-locations-content-for-vamcs/how-do-i-add-a-facility-to-my-health-care-system).
 - [ ] 5. When editor has prepared content and let help desk know, reassign this issue to appropriate CMS engineer on Product Support team, for bulk publishing.
@@ -28,7 +31,9 @@ Please refer to the Knowledge Base article titled "How do I add a facility to my
     #### Sample notification email:
     Hello! You should now both be able to edit the currently un-published draft page for this facility, located at [LINK TO NEW FACILITY DRAFT PAGE ON PROD]
 
-    Important: Please make sure that all relevant steps listed within the “How do I add a facility to my health care system?” Knowledge Base article have been completed. Once finished, please save this page as a “Draft”, and do not save it as “Published”: https://prod.cms.va.gov/help/vamc/about-locations-content-for-vamcs/how-do-i-add-a-facility-to-my-health-care-system
+    Important: Please make sure that all relevant steps listed within the “How do I add a facility to my health care system?” Knowledge Base article have been completed: https://prod.cms.va.gov/help/vamc/about-locations-content-for-vamcs/how-do-i-add-a-facility-to-my-health-care-system
+    
+    Once finished, please save this page as a “Draft”, and do not save it as “Published.”
 
     Please let us know once your draft is complete, so that we can wrap up the technical process from our end and ensure that the new facility publishes to the live site as intended. Thanks!
 
