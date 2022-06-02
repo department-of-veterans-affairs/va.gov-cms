@@ -36,7 +36,7 @@ class RouteProvider {
         // Requirements.
         [
           '_permission' => 'access bulletin queue trigger api',
-          '_user_is_logged_in' => TRUE,
+          '_user_is_logged_in' => 'TRUE',
         ],
         // Options.
         [
