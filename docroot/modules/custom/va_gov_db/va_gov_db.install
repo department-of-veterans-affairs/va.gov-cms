@@ -978,3 +978,64 @@ function va_gov_db_update_9007() {
 
   return 'Removed field_meta_title from Benefits hubs (detail and landing), Landing pages, Offices and Publication Listing nodes.';
 }
+
+/**
+ * Resave billing pages to capture EFF paragraph text.
+ */
+function va_gov_db_update_9008(&$sandbox) {
+  // Grab our nodes and set the count.
+  if (empty($sandbox['total'])) {
+    $sandbox['nids_process'] = \Drupal::entityQuery('node')
+      ->condition('type', 'vamc_system_billing_insurance')
+      ->execute();
+    $sandbox['total'] = count($sandbox['nids_process']);
+    $sandbox['current'] = 0;
+  }
+
+  // Run through a batch of 25.
+  $i = 0;
+  $nids = '';
+  foreach ($sandbox['nids_process'] as $revision => $nid) {
+    if ($i == 25) {
+      break;
+    }
+    $node = Node::load($nid);
+    // Set the top of page eff value.
+    $node->field_cc_above_top_of_page->value = "0";
+    // Make this change a new revision.
+    $node->setNewRevision(TRUE);
+    // Set revision author to uid 1317.
+    $node->setRevisionUserId(1317);
+    $node->setChangedTime(time());
+    $node->isDefaultRevision(TRUE);
+    $node->setRevisionCreationTime(time());
+    $node->setOwnerId(1317);
+    // Set revision log message.
+    $node->setRevisionLogMessage('Add centralized copay content.');
+    $node->save();
+    unset($sandbox['nids_process'][$revision]);
+    $i++;
+
+    $nids .= $nid . ', ';
+    $sandbox['current']++;
+  }
+
+  // Tell drupal we processed some nodes.
+  Drupal::logger('va_gov_db')
+    ->log(LogLevel::INFO, 'Billing nodes %current nodes saved to update copay text. Nodes processed: %nids', [
+      '%current' => $sandbox['current'],
+      '%nids' => $nids,
+    ]);
+
+  // Determine when to stop batching.
+  $sandbox['#finished'] = ($sandbox['current'] / $sandbox['total']);
+  // Log the all finsished notice.
+  if ($sandbox['#finished'] == 1) {
+    Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'RE-saving all %count Billing nodes completed by va_gov_db_update_9007.', [
+      '%count' => $sandbox['total'],
+    ]);
+    return "Process complete.";
+  }
+
+  return "Processing billing nodes...";
+}
