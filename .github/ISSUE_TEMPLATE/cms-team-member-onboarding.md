@@ -63,6 +63,7 @@ The goals of this week are: 1) get background paperwork completed as quickly as 
   
 ### Who?
 - [ ] Ensure that your info on the [official team roster](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/185270337/Team+Roster+2021) is correct. Note: this is separate from the Platform ecosystem's roster.
+- [ ] Consider making your Google calendar publicly accessible. This will allow team members in other organizations to see your free/busy time and easily schedule with you. See [Mark your calendar as public](https://support.google.com/calendar/answer/37083?hl=en#zippy=%2Cmark-your-calendar-as-public).
 - [ ] Let's start introducing you to the team and key stakeholders. If you're on a meeting where you don't know someone, feel free to kickstart an introduction. Everyone in the ecosystem is friendly and interested in connecting.
 ### When?
 - [ ] Familiarize yourself with our team's [shared calendar](https://va-gov.atlassian.net/wiki/spaces/VAGOV/calendars) and add in any known dates. This is where we coordinate upcoming out of office (OOO). Choose "Calendar" = OOO and "Event type" = whatever is relevant.
