@@ -1,0 +1,13 @@
+[package]
+name = "loadtest"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+goose = "^0.16"
+tokio = "^1.12"
+goose-eggs = "0.4"
+rand = "0.8.5"
+reqwest = { version = "0.11.10", features = ["socks"]}
