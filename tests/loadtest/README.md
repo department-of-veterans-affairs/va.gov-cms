@@ -36,11 +36,10 @@ cargo build
 
 ```shell
 cd tests/loadtest
-```
-
-Use all local cores:
-```shell
-cargo run ... # This builds it too
+# Start SOCKS PROXY first
+export ADMIN_USERNAME="content_build_api"
+export ADMIN_PASSWORD="drupal8"
+cargo run --release -- --host https://staging.cms.va.gov --report-file report-file.html --running-metrics 1 --users 125 --hatch-rate 10 --run-time 3m --no-reset-metrics
 ```
 
 TODO: Add distributed example for multiple workers

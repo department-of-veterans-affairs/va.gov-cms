@@ -13,20 +13,9 @@ use crate::nodes::*;
 #[tokio::main]
 async fn main() -> Result<(), GooseError> {
     let _goose_metrics = GooseAttack::initialize()?
-        // .register_scenario(
-        //     scenario!("Anonymous English user")
-        //         .set_weight(40)?
-        //         // .set_wait_time(Duration::from_secs(0), Duration::from_secs(1))?
-        //         .register_transaction(
-        //             transaction!(benefits_detail_page)
-        //                 .set_name("anon /")
-        //                 .set_weight(2)?,
-        //         ),
-        // )
         .register_scenario(
             scenario!("Admin user")
                 .set_weight(1)?
-                // .set_wait_time(Duration::from_secs(0), Duration::from_secs(1))?
                 .register_transaction(
                     transaction!(log_in)
                         .set_on_start()
@@ -37,7 +26,7 @@ async fn main() -> Result<(), GooseError> {
                       .set_name("auth /disability/how-to-file-claim"),
                 ),
         )
-        .set_default(GooseDefault::Host, "https://drupal-9.ddev.site/")?
+        .set_default(GooseDefault::Host, "https://va-gov-cms.ddev.site/")?
         .execute()
         .await?;
 
