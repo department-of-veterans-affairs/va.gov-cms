@@ -14,7 +14,7 @@ We're thrilled to have you join us on this journey! 🎆🎉🙌
 
 Our [vision](https://docs.google.com/presentation/d/14mK-4OMeEnR_-fgj62U4lUHBHg6htj4i4ucTA5DJFzg/edit#slide=id.g11ae1dc437e_0_1) is to craft a seamless editorial experience that empowers editors to create Veteran-centered content. In April of 2022, we also assumed responsibility for a portfolio of front-end products and sites.
 
-The onboarding materials below are organized by 1) chronological time to complete (day one, week one, week two, month one); and main category (why, how, who, what). There's a lot to digest but don't worry, your Delivery Manager will guide you, you'll have an onboarding buddy to provide support, and we'll also introduce you to your workstream's lead to help with specific things related to your discipline (UX, DevOps, Drupal Engineering, etc). In addition, you'll have the support of the entire team, who have all gone through this process before and are eager to answer any questions that arise. Come back to this ticket any time to refresh your knowledge on a specific topic covered below.
+The onboarding materials below are organized by chronological time to complete (day one, week one, week two, month one); and main category (why, how, who, what). There's a lot to digest but don't worry, your Delivery Manager will guide you, you'll have an onboarding buddy to provide support, and we'll also introduce you to your workstream's lead to help with specific things related to your discipline (UX, DevOps, Drupal Engineering, etc). In addition, you'll have the support of the entire team, who have all gone through this process before and are eager to answer any questions that arise. Come back to this ticket any time to refresh your knowledge on a specific topic covered below.
 
 Have fun and we look forward to getting to know you! 😊
 
@@ -37,18 +37,25 @@ Projected start date: <insert_here>
 - [ ] Who is on the team? Read your [team members' user manuals and copy the template to add your own](https://drive.google.com/drive/u/0/folders/195otsT1IUxi_k8oEU21TUkvEG-6p5YQj?ths).
 ### What?
 - [ ] [Onboarding questionnaire](https://drive.google.com/drive/u/0/folders/1fYwNBBbceqRM3qXfes_KEg1QeO-Nkq0q?ths=true) (what do you already know in regards to tooling, context, history, etc)
-- [ ] Contract - Discuss with your Delivery Manager or Program Manager.
+- [ ] Contract - Discuss which contract you are on with your Delivery Manager or Program Manager. Your contract will determine your paperwork process.
 - [ ] Read the [VA.gov platform mission and goals](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/VA.gov%20Platform%20Overview%202021.pdf).
-- [ ] Open a VA.gov [Platform onboarding ticket](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=&labels=governance-team%2C+analytics-insights&template=orientation-epic.md&title=Platform+Orientation+Template+%5BYour+name+here%5D). This is important because it kicks off the general onboarding for the overall ecosystem and gets you added to the ecosystem's roster. This is a prerequisite for SOCKS access (described later). One of the main things to highlight in their onboarding is scheduling an initial orientation session.
+- [ ] Open a VA.gov [Platform onboarding ticket](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=&labels=governance-team%2C+analytics-insights&template=orientation-epic.md&title=Platform+Orientation+Template+%5BYour+name+here%5D). The VA.gov Platform team manages VA.gov tooling and network access. In order to receive access to the SOCKS network proxy (described later), you must complete this Github issue, and attend a Platform orientation. That will result in adding you to the [VFS Platform roster](https://docs.google.com/spreadsheets/d/11dpCJjhs007uC6CWJI6djy3OAvjB8rHB65m0Yj8HXIw/edit?folder=0ALlyxurHpUilUk9PVA#gid=2042046665). If a Platform orientation isn't available for several weeks, sign up for the next available slot, then mention your Delivery manager and/or Clarence on your Platform ticket to expedite SOCKS access.
 
 </details>
 
 <details><summary>Week one</summary>
 
 ## Week one
-The goals of this week are: 1) get background paperwork completed as quickly as possible and 2) start gaining context for what we're doing and why
-- [ ] Requesting secure access to the VA systems you need: **PTEMS** paperwork is through Booz Allen Hamilton (BAH/Liberty) and **VFS-CMS** or **Sitewide Crew** paperwork through A6. If you're not sure which you should fill out, ask your Delivery Manager. Federal contractors are required to complete many of the same forms as federal employees.
-- [ ] e-QIP, the online version of the federal standard investigation form, SF 86, will require a lot of background information. [Review page 7 of the SF 86 guide](https://www.dcsa.mil/Portals/91/Documents/pv/mbi/standard-form-sf-86-guide-for-applicants.pdf) for the list of information you'll need to collect to complete e-QIP
+The goals of this week are: 
+1) get background paperwork completed as quickly as possible and 
+2) start gaining context for what we're doing and why. 
+
+### Paperwork: 
+- [ ] Wait to receive an email directing you to the paperwork you should fill out for secure access to relevant VA systems. Federal contractors are required to complete many of the same forms as federal employees. If you're not sure which you contract you are on, ask your Delivery Manager.  
+- **PTEMS** contract paperwork information will be sent by Booz Allen Hamilton (BAH/Liberty). If you are PTEMS and use a Mac, you will need to install Microsoft Word in order to use the paperwork checklist provided by your BAH contact. Contact your company's IT for assistance, if needed.  
+- **VFS-CMS** or **Sitewide Crew** contract paperwork will come from A6. 
+- [ ] Complete & submit your initial paperwork per contract instructions, including setting up your fingerprinting appointment. If you are PTEMS in contact with Booz Allen Hamilton, be sure to name your files and zip/encrypt them per the checklist instructions.
+- [ ] When you are notified to complete your e-QIP (the online version of the federal standard investigation form, SF 86), it will require a lot of background information. [Review page 7 of the SF 86 guide](https://www.dcsa.mil/Portals/91/Documents/pv/mbi/standard-form-sf-86-guide-for-applicants.pdf) in advance for the list of information you'll need to collect to complete e-QIP
 ### Why?
 - [ ] Why is VA.gov using a Drupal CMS and how is our success measured? Read the [objectives and key results](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/96698383/Product+CMS).
 - [ ] [Watch the Drupal GovCon presentation about the project](https://www.youtube.com/watch?v=WN4bGjEuQdM).
@@ -57,13 +64,13 @@ The goals of this week are: 1) get background paperwork completed as quickly as 
 ### How?
 - [ ] [How does the team work in an agile environment?](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/sprint-best-practices.md)
 - [ ] How do Agile 6, CivicActions, Friends From The City, and Kind Systems work together on this project? Discuss with the Program Manager.
+- [ ] Who is our team? [View this Mural diagram](https://app.mural.co/t/vagov6717/m/vagov6717/1653588059793/7a260edabca9535d25d71fac1035c979261c223c?sender=u252e7152800e3981889d1910)
 - [ ] How does the team fit into the larger OCTO ecosystem? [View this Mural diagram](https://app.mural.co/t/vagov6717/m/vagov6717/1643724063628/1654203c1a0d6c763bbd5c969febf94ec476df79?sender=kevinwalsh8610)
 - [ ] How does OCTO fit into the VA universe? And how is VA structured? [View this Mural diagram](https://app.mural.co/t/vagov6717/m/vagov6717/1646447643431/1cbae3844c54a42877451e7a79706f0be048d740?sender=kevinwalsh8610)
   
-  
 ### Who?
-- [ ] Ensure that your info on the [official team roster](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/185270337/Team+Roster+2021) is correct. Note: this is separate from the Platform ecosystem's roster.
-- [ ] Consider making your Google calendar publicly accessible. This will allow team members in other organizations to see your free/busy time and easily schedule with you. See [Mark your calendar as public](https://support.google.com/calendar/answer/37083?hl=en#zippy=%2Cmark-your-calendar-as-public).
+- [ ] Complete your personal information in the [official team roster](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/185270337/Team+Roster+2022). Note: this is separate from the Platform ecosystem's roster.
+- [ ] Make your Google calendar publicly accessible, showing free/busy time. This will allow team members in other organizations to easily schedule with you. See [Mark your calendar as public](https://support.google.com/calendar/answer/37083?hl=en#zippy=%2Cmark-your-calendar-as-public).
 - [ ] Let's start introducing you to the team and key stakeholders. If you're on a meeting where you don't know someone, feel free to kickstart an introduction. Everyone in the ecosystem is friendly and interested in connecting.
 ### When?
 - [ ] Familiarize yourself with our team's [shared calendar](https://va-gov.atlassian.net/wiki/spaces/VAGOV/calendars) and add in any known dates. This is where we coordinate upcoming out of office (OOO). Choose "Calendar" = OOO and "Event type" = whatever is relevant.
@@ -109,10 +116,10 @@ The goal for this week is to get you set up with the tools you need to be succes
  - [ ] [Slack](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/orientation/slack-requests.md) for instant messaging. Your Delivery Manager should have already requested this for you, but if not, view the request instructions in the link above.
     - [ ] [Review Slack etiquette](https://slack.com/blog/collaboration/etiquette-tips-in-slack).
     - [ ] Update your profiles in Slack (in the A6 and DSVA workspaces), add a calendar link
-    - [ ] Your Delivery Manager should add you to appropriate Slack alias groups for the DSVA workspace
+    - [ ] Your Delivery Manager should add you to appropriate Slack user groups for the DSVA workspace (e.g. `@sitewide-cms-team`, `@platform-cms-team`, `@cms-helpdesk`, `@public-websites-team`, `@facilities-team`. Also `@cms-engineers-group` for eng.)
     - [ ] You should be in the following slack channels:
-      - [ ] A6 workspace = `#proj-vagov-team`
-      - [ ] DSVA workspace = `#cms-team`
+      - [ ] A6/agency workspace = `#proj-vagov-team`
+      - [ ] DSVA workspace = `#cms-team`, and your team channel e.g. `#cms-platform`, `#sitewide-public-websites`, `#sitewide-facilities`
       - [ ] [This is a description of other channels](https://docs.google.com/spreadsheets/d/1_lZzectbSzs8zt4dvTFJTiPURxa0Kfp3xinYEuZdqq4/edit#gid=0) that ought to be on your radar. Note that many are going to be dependent on which workstream you're in (DevOps, Helpdesk, UX, etc.). Feel free to join whichever you think will aid you and your work. Some channels have changed recently.
   
 
@@ -123,6 +130,7 @@ The goal for this week is to get you set up with the tools you need to be succes
 - [ ] [Trello](https://trello.com/vacmsteam) for project management
 
 - [ ] What do I need to know about my discipline on this team (DevOps, Engineering, Helpdesk, ID, UX)? Discuss with your discipline lead.
+
 - [ ] What applications or discipline-specific tools are needed? Discuss with your discipline lead.
 
 - [ ] Schedule a touchpoint with our Change Management specialist, Denise Eisner to learn how the practice plays out on our project.
@@ -212,11 +220,15 @@ By this point you should have enough context and access to be able to start cont
 - [ ] Who should we know on the platform teams? Discuss with your Delivery Manager or Product Manager.
 - [ ] Background [history of the ecosystem](https://app.mural.co/t/vagov6717/m/vagov6717/1646745279937/9a5570c420939d84e875e8334fd73073e3a3971b?sender=clarencemaeng1702)
 ### What?
+- [ ] Complete any VA-assigned trainings in the TMS system. If the TMS learning modules malfunction, assign yourself the print version of the module. (Ask in #proj-vagov-team if you need help.)
+- [ ] You'll receive an email confirming that you have been approved for remote access, using Citrix Access Gateway (CAG). You can contact Enterprise Service desk via provided instructions to set up your CAG access manually, if you need access prior to receiving your PIV card.
 - [ ] After your background check is complete, you will get an email to get your Personal Identify Verification (PIV) card. Contact your local VA office (where you got your fingerprints taken) for information about getting your [PIV card](https://www.oit.va.gov/programs/piv/how-to.cfm?). 
   - [ ] Review a [video about the benefits of the PIV card and VA network access](https://youtu.be/6rI-i8zmOzE).
   - [ ] PIV card will help you get remote VA network access. See [VA network remote access options](https://www.oit.va.gov/resources/remote-access/index.cfm?) 
     - [ ] [Azure virtual desktop is recommended for Windows](https://www.oit.va.gov/resources/remote-access/azure-virtual-desktop/)
-    - [ ] Mac users should [follow these Citrix Access Gateway (CAG) download instructions](https://docs.google.com/document/d/1_3HKMk4AXyqAoQcfF4CthEQ7uU_d1h9Tt7CPHGJ-FaM)
+    - [ ] Mac users should [follow these CAG download instructions](https://docs.google.com/document/d/1_3HKMk4AXyqAoQcfF4CthEQ7uU_d1h9Tt7CPHGJ-FaM)
+    - [ ] Purchase a card reader, if you don't have one. A6 IT recommends these options: [USB](https://www.amazon.com/gp/product/B002N3MM6W/ref=ppx_yo_dt_b_asin_title_o01_s00?ie=UTF8&th=1) or [USB-C](https://www.amazon.com/gp/product/B002N3MM6W/ref=ppx_yo_dt_b_asin_title_o01_s00?ie=UTF8&th=1)
+    - [ ] Use your PIV card to access CAG. You must access CAG every 60 days or your access will be expired.
 - [ ] [What is Drupal?](https://docs.google.com/spreadsheets/d/11ppWiIggKJh-YAWia28utZXW48tJZGCEg-sFJ6eIl9c)
 - [ ] Google Analytics: [Request access to Google Analytics](https://depo-platform-documentation.scrollhelp.site/analytics-monitoring/New-Users-to-Google-Analytics.1877704964.html)
   - [ ] [Opt out](https://www.va.gov/analytics-opt-out.html) of Google Analytics collection on VA.gov.
