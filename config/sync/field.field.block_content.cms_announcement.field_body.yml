@@ -1,0 +1,30 @@
+uuid: 6e078f93-7fef-4fbe-81b7-2d85a89601e3
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.cms_announcement
+    - field.storage.block_content.field_body
+  module:
+    - allowed_formats
+    - epp
+    - text
+third_party_settings:
+  allowed_formats:
+    allowed_formats:
+      - rich_text_limited
+  epp:
+    value: ''
+    on_update: 0
+id: block_content.cms_announcement.field_body
+field_name: field_body
+entity_type: block_content
+bundle: cms_announcement
+label: 'Alert body'
+description: 'Aim for 300 characters or less, and follow the <a href="https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/1773371393/Announcement+alert#UX-writing-&-user-communications" target="_blank">latest UX writing guidelines for announcement alerts</a>. '
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
