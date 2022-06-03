@@ -29,7 +29,7 @@ Please refer to the Knowledge Base article titled "How do I add a facility to my
 - [ ] 5. When editor has prepared content and let help desk know, reassign this issue to appropriate CMS engineer on Product Support team, for bulk publishing.
 
     #### Sample notification email:
-    Hello! You should now both be able to edit the currently un-published draft page for this facility, located at [LINK TO NEW FACILITY DRAFT PAGE ON PROD]
+    Hello! You should now be able to edit the currently un-published draft page for this facility, located at [LINK TO NEW FACILITY DRAFT PAGE ON PROD]
 
     Important: Please make sure that all relevant steps listed within the “How do I add a facility to my health care system?” Knowledge Base article have been completed: https://prod.cms.va.gov/help/vamc/about-locations-content-for-vamcs/how-do-i-add-a-facility-to-my-health-care-system
     
