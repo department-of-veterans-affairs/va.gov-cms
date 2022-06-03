@@ -105,7 +105,6 @@ Feature: Content model bundles
 | Situation update | situation_update | Paragraph type | A time-sensitive, added to a banner alert, and displayed on VAMC operating status pages. |
 | Additional information | spanish_translation_summary | Paragraph type | Text that expands to display additional information upon click. |
 | Staff profile | staff_profile | Paragraph type | Add a profile of a staff person. |
-| Starred Horizontal Rule | starred_horizontal_rule | Paragraph type | Current an inactive paragraph type, not enabled within any fields. |
 | Step | step | Paragraph type | Single step. |
 | Step by step | step_by_step | Paragraph type | An ordered list (1, 2, 3, 4, N) of steps. |
 | Table | table | Paragraph type | Add an HTML table with rows and columns. |
