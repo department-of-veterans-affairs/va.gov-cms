@@ -450,6 +450,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "goose-eggs"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "042d5069079d5cdaf99e9ba9bc326ba4912c00db90ea1a18368149886b812e70"
+dependencies = [
+ "goose",
+ "log",
+ "rand",
+ "regex",
+ "reqwest",
+ "tokio",
+]
+
+[[package]]
 name = "gumdrop"
 version = "0.8.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -669,6 +683,9 @@ name = "loadtest"
 version = "0.1.0"
 dependencies = [
  "goose",
+ "goose-eggs",
+ "openssl",
+ "rand",
  "tokio",
 ]
 
@@ -877,6 +894,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ff011a302c396a5197692431fc1948019154afc178baf7d8e37367442a4601cf"
 
 [[package]]
+name = "openssl-src"
+version = "111.20.0+1.1.1o"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "92892c4f87d56e376e469ace79f1128fdaded07646ddf73aa0be4706ff712dec"
+dependencies = [
+ "cc",
+]
+
+[[package]]
 name = "openssl-sys"
 version = "0.9.73"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -885,6 +911,7 @@ dependencies = [
  "autocfg",
  "cc",
  "libc",
+ "openssl-src",
  "pkg-config",
  "vcpkg",
 ]
