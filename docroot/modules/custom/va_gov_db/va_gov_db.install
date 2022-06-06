@@ -7,7 +7,6 @@
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Utility\UpdateException;
-use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\node\Entity\Node;
 use Drupal\redirect\Entity\Redirect;
@@ -223,49 +222,6 @@ function _va_gov_db_create_redirect_by_path($old_path, $new_path) {
   \Drupal::logger('va_gov_db')->info($message);
 
   return $message . PHP_EOL;
-}
-
-/**
- * Publishes latest node revision.
- *
- * @param array $nids
- *   An array of node ids to publish.
- *
- * @return string
- *   A message of confirmation of node titles published.
- *
- * @throws Drupal\Core\Utility\UpdateException
- */
-function _va_gov_db_publish_nodes(array $nids) {
-  $nodes_published = [];
-  foreach ($nids as $nid) {
-    // Get latest revision ID.
-    $node_storage = \Drupal::entityTypeManager()
-      ->getStorage('node');
-    $latest_vid = $node_storage->getLatestRevisionId($nid);
-    if (empty($latest_vid)) {
-      throw new UpdateException("Failed to find nid: {$nid}");
-    }
-    // Load latest revision.
-    /** @var \Drupal\node\Entity\Node $latest_vid_loaded */
-    $latest_vid_loaded = \Drupal::entityTypeManager()
-      ->getStorage('node')
-      ->loadRevision($latest_vid);
-    // Create a new revision and publish.
-    $latest_vid_loaded->status = 1;
-    $latest_vid_loaded->revision_log = t("Automatically published by code update.");
-    $latest_vid_loaded->set('moderation_state', "published");
-    $latest_vid_loaded->setNewRevision();
-    $latest_vid_loaded->isDefaultRevision(TRUE);
-    $latest_vid_loaded->setRevisionUserId(1317);
-    $latest_vid_loaded->setOwnerId(1317);
-    $latest_vid_loaded->setRevisionCreationTime(time());
-    $latest_vid_loaded->save();
-    $nodes_published[] = "{$nid} - {$latest_vid_loaded->getTitle()}";
-
-  }
-  $nids_list = implode(', ', $nodes_published);
-  return "Published these nodes: {$nids_list}";
 }
 
 /**
@@ -927,115 +883,4 @@ function va_gov_db_update_9005(&$sandbox) {
   $messages = _va_gov_db_uninstall_modules($modules);
 
   return $messages;
-}
-
-/**
- * Remove field_facility_hours from facilities.
- */
-function va_gov_db_update_9006() {
-  $field = FieldConfig::loadByName('node', 'health_care_local_facility', 'field_facility_hours');
-  if ($field) {
-    /** @var Drupal\field\FieldConfigInterface $field */
-    $field->delete();
-  }
-
-  return 'Removed field_facility_hours from facilities.';
-}
-
-/**
- * Remove field_meta_title.
- */
-function va_gov_db_update_9007() {
-  $field = FieldConfig::loadByName('node', 'page', 'field_meta_title');
-  if ($field) {
-    /** @var Drupal\field\FieldConfigInterface $field */
-    $field->delete();
-  }
-
-  $field2 = FieldConfig::loadByName('node', 'landing_page', 'field_meta_title');
-  if ($field2) {
-    /** @var Drupal\field\FieldConfigInterface $field */
-    $field->delete();
-  }
-
-  $field3 = FieldConfig::loadByName('node', 'basic_landing_page', 'field_meta_title');
-  if ($field3) {
-    /** @var Drupal\field\FieldConfigInterface $field */
-    $field->delete();
-  }
-
-  $field4 = FieldConfig::loadByName('node', 'office', 'field_meta_title');
-  if ($field4) {
-    /** @var Drupal\field\FieldConfigInterface $field */
-    $field->delete();
-  }
-
-  $field5 = FieldConfig::loadByName('node', 'publication_listing', 'field_meta_title');
-  if ($field5) {
-    /** @var Drupal\field\FieldConfigInterface $field */
-    $field->delete();
-  }
-
-  return 'Removed field_meta_title from Benefits hubs (detail and landing), Landing pages, Offices and Publication Listing nodes.';
-}
-
-/**
- * Resave billing pages to capture EFF paragraph text.
- */
-function va_gov_db_update_9008(&$sandbox) {
-  // Grab our nodes and set the count.
-  if (empty($sandbox['total'])) {
-    $sandbox['nids_process'] = \Drupal::entityQuery('node')
-      ->condition('type', 'vamc_system_billing_insurance')
-      ->execute();
-    $sandbox['total'] = count($sandbox['nids_process']);
-    $sandbox['current'] = 0;
-  }
-
-  // Run through a batch of 25.
-  $i = 0;
-  $nids = '';
-  foreach ($sandbox['nids_process'] as $revision => $nid) {
-    if ($i == 25) {
-      break;
-    }
-    $node = Node::load($nid);
-    // Set the top of page eff value.
-    $node->field_cc_above_top_of_page->value = "0";
-    // Make this change a new revision.
-    $node->setNewRevision(TRUE);
-    // Set revision author to uid 1317.
-    $node->setRevisionUserId(1317);
-    $node->setChangedTime(time());
-    $node->isDefaultRevision(TRUE);
-    $node->setRevisionCreationTime(time());
-    $node->setOwnerId(1317);
-    // Set revision log message.
-    $node->setRevisionLogMessage('Add centralized copay content.');
-    $node->save();
-    unset($sandbox['nids_process'][$revision]);
-    $i++;
-
-    $nids .= $nid . ', ';
-    $sandbox['current']++;
-  }
-
-  // Tell drupal we processed some nodes.
-  Drupal::logger('va_gov_db')
-    ->log(LogLevel::INFO, 'Billing nodes %current nodes saved to update copay text. Nodes processed: %nids', [
-      '%current' => $sandbox['current'],
-      '%nids' => $nids,
-    ]);
-
-  // Determine when to stop batching.
-  $sandbox['#finished'] = ($sandbox['current'] / $sandbox['total']);
-  // Log the all finsished notice.
-  if ($sandbox['#finished'] == 1) {
-    Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'RE-saving all %count Billing nodes completed by va_gov_db_update_9007.', [
-      '%count' => $sandbox['total'],
-    ]);
-    return "Process complete.";
-  }
-
-  return "Processing billing nodes...";
 }

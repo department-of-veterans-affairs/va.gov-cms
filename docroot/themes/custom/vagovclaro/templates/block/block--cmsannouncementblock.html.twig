@@ -1,8 +1,7 @@
 {#
 /**
  * @file
- * Theme override to display a block. This template was used for an older block on the login page created using an
- * Informational Alert before the CMS Announcement was added as a block type.
+ * Theme override to display a block.
  *
  * Available variables:
  * - plugin_id: The ID of the block implementation.
@@ -26,12 +25,25 @@
  * @see template_preprocess_block()
  */
 #}
-
-{% include '@cmsds/announcement-block.twig' with {
-  attributes,
-  title_prefix,
-  title_suffix,
-  type: content.field_alert_type['#items'].getString(),
-  title: content.field_alert_title.0,
-  body: content.field_alert_content.0
-} %}
+{% set type = content.field_alert_type['#items'].getString() %}
+{%
+  set classes = [
+    'block',
+    'block-' ~ configuration.provider|clean_class,
+    'block-' ~ plugin_id|clean_class,
+    'block-cms-announcement',
+    type,
+  ]
+%}
+<div{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  {{ title_suffix }}
+  {% block content %}
+    <div class="title">
+      {{ content.field_alert_title.0 }}
+    </div>
+    <div class="text">
+      {{ content.field_alert_content.0 }}
+    </div>
+  {% endblock %}
+</div>

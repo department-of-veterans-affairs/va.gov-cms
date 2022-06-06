@@ -93,9 +93,8 @@ If this facility has been removed from VAST in error, please notify our Support 
 ## CMS Team
 Please check the team(s) that will do this work.
 
-- [ ] `Program`
 - [ ] `Platform CMS Team`
-- [ ] `Sitewide Crew`
+- [ ] `Sitewide program`
 - [ ] `⭐️ Sitewide CMS`
 - [ ] `⭐️ Public Websites`
 - [x] `⭐️ Facilities`

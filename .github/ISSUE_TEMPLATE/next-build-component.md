@@ -48,10 +48,9 @@ Further info: <reference to collecting info in content-api-react-poc>
 ### CMS Team
 Please check the team(s) that will do this work.
 
-- [ ] `Program`
 - [ ] `Sitewide program`
 - [x] `Platform CMS Team`
-- [ ] `Sitewide Crew `
+- [ ] `Sitewide crew ` (leave Sitewide unchecked and check the specific team instead)
   - [ ] `⭐️ Content ops`
   - [ ] `⭐️ CMS experience`
   - [ ] `⭐️ Public Websites`

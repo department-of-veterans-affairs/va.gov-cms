@@ -11,6 +11,7 @@ Feature: Personal Content Flags indicate a user's relationship to content.
     Then I should see "Create Office"
 
     And I fill in "Name" with "Behat Edited Flag Test"
+    And I fill in "Meta title tag" with "Just a Test | Veterans Affairs"
     And I fill in "Section" with "7"
     And I press "Save"
     Then I should see "Behat Edited Flag Test"

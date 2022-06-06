@@ -14,16 +14,6 @@ const shared = {
         disable: true
       },
     },
-    title_ids: {
-      table: {
-        disable: true
-      },
-    },
-    status_headings: {
-      table: {
-        disable: true
-      },
-    },
   },
 }
 
@@ -33,7 +23,6 @@ export const Status = {
     type: 'status',
     title_ids: ['status', 'warning', 'error'],
     status_headings: ['status', 'warning', 'error'],
-    hide_bg: false,
     messages: ['this is an example alert message']
   },
   ...shared
@@ -51,7 +40,6 @@ export const Warning = {
     type: 'warning',
     title_ids: ['status', 'warning', 'error'],
     status_headings: ['status', 'warning', 'error'],
-    hide_bg: false,
     messages: ['this is an example alert message']  },
   ...shared
 };
@@ -68,7 +56,6 @@ export const Error = {
     type: 'error',
     title_ids: ['status', 'warning', 'error'],
     status_headings: ['status', 'warning', 'error'],
-    hide_bg: false,
     messages: ['this is an example alert message']
   },
   ...shared

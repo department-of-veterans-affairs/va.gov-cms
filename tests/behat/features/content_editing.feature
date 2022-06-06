@@ -67,6 +67,7 @@ Feature: CMS Users may effectively create & edit content
 
     # Create an office node.
     And I fill in "Name" with "Test Office - BeHaT"
+    And I fill in "Meta title tag" with "Test Office - BeHaT | Veterans Affairs"
     And I fill in "Section" with "5"
     And I press "Save"
 

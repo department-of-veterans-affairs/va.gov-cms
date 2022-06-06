@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.health_care_local_facility.field_administration
     - field.field.node.health_care_local_facility.field_description
     - field.field.node.health_care_local_facility.field_facility_classification
+    - field.field.node.health_care_local_facility.field_facility_hours
     - field.field.node.health_care_local_facility.field_facility_locator_api_id
     - field.field.node.health_care_local_facility.field_intro_text
     - field.field.node.health_care_local_facility.field_local_health_care_service_
@@ -36,22 +37,12 @@ content:
     third_party_settings: {  }
     weight: 10
     region: content
-  flag_email_node:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 10
-    region: content
   flag_new:
     settings: {  }
     third_party_settings: {  }
     weight: 10
     region: content
   flag_removed_from_source:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 10
-    region: content
-  flag_subscribe_node:
     settings: {  }
     third_party_settings: {  }
     weight: 10
@@ -67,6 +58,7 @@ hidden:
   field_administration: true
   field_description: true
   field_facility_classification: true
+  field_facility_hours: true
   field_facility_locator_api_id: true
   field_intro_text: true
   field_local_health_care_service_: true

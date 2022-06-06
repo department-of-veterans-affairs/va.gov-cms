@@ -1,0 +1,21 @@
+uuid: a54f097d-3e0e-4b4f-af53-0d5e6651e119
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_meta_title
+    - node.type.publication_listing
+id: node.publication_listing.field_meta_title
+field_name: field_meta_title
+entity_type: node
+bundle: publication_listing
+label: 'Meta title tag'
+description: '<a href="https://design.va.gov/content-style-guide/seo#meta-properties" target="_blank">Use title case</a>, and include the default " | Veterans Affairs" at the end. This title displays in search results, and as the browser title page (eg, in a browser tab). '
+required: true
+translatable: true
+default_value:
+  -
+    value: ' | Veterans Affairs'
+default_value_callback: ''
+settings: {  }
+field_type: string

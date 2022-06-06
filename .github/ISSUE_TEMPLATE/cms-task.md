@@ -19,9 +19,8 @@ assignees: ''
 ### CMS Team
 Please check the team(s) that will do this work.
 
-- [ ] `Program`
 - [ ] `Platform CMS Team`
-- [ ] `Sitewide Crew`
+- [ ] `Sitewide program`
 - [ ] `⭐️ Sitewide CMS`
 - [ ] `⭐️ Public Websites`
 - [ ] `⭐️ Facilities`

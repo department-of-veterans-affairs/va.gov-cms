@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Theme override to display a block. All "CMS Announcement" type blocks will use this template.
+ * Theme override to display a block.
  *
  * Available variables:
  * - plugin_id: The ID of the block implementation.
@@ -25,12 +25,26 @@
  * @see template_preprocess_block()
  */
 #}
-
-{% include '@cmsds/announcement-block.twig' with {
-  attributes,
-  title_prefix,
-  title_suffix,
-  type: content.field_announcement_type['#items'].getString(),
-  title: content.field_title.0,
-  body: content.field_body.0
-} %}
+{% set catch_cache = content|render %}
+{% set type = content.field_announcement_type['#items'].getString() %}
+{%
+  set classes = [
+    'block',
+    'block-' ~ configuration.provider|clean_class,
+    'block-' ~ plugin_id|clean_class,
+    'block-cms-announcement',
+    type,
+  ]
+%}
+<div{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  {{ title_suffix }}
+  {% block content %}
+    <div class="title">
+      {{ content.field_title.0 }}
+    </div>
+    <div class="text">
+      {{ content.body.0 }}
+    </div>
+  {% endblock %}
+</div>

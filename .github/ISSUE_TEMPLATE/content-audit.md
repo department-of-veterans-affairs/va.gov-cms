@@ -7,6 +7,7 @@ assignees: jilladams, wesrowe
 
 ---
 
+
 ## Describe the request
 Content audits are performed by searching the codebase and compiled site for specific terms. 
 Please provide any context for the audit, and any related terms / alternate spellings, that could return content you are interested in.
@@ -27,9 +28,8 @@ Please submit all engineering requests **at least 1 full sprint in advance** (so
 ## CMS Team
 Please check the team(s) that will do this work.
 
-- [ ] `Program`
 - [ ] `Platform CMS Team`
-- [ ] `Sitewide Crew`
+- [ ] `Sitewide program`
 - [ ] `⭐️ Sitewide CMS`
 - [x] `⭐️ Public Websites`
 - [ ] `⭐️ Facilities`
