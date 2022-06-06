@@ -88,17 +88,16 @@ Feature: CMS Users may effectively create & edit content
     # Confirm that the va.gov url is not clickable when updating a node.
     Then I visit the "edit" page for a node with the title "Test Office - BeHaT"
     And I fill in "Name" with "Test Office - BeHaT 404"
-    And I select "Published" from "edit-moderation-state-0-state"
-    And I fill in "Revision log message" with "Test publishing"
     And I press "Save"
-    And I should see "VA.gov URL" in the "#block-entitymetadisplay" element
+    Then I should see "VA.gov URL" in the "#block-entitymetadisplay" element
 
     # (Re-)Publish the node.
-    Then I visit the "edit" page for a node with the title "Test Office - BeHaT 404"
+    Then I visit the "edit" page for a node with the title "Test Office - BeHaT"
     And I select "Published" from "edit-moderation-state-0-state"
     And I fill in "Revision log message" with "Test publishing"
     And I fill in "URL alias" with "/test-office-behat-404"
     And I press "Save"
+    And I should see "(pending)" in the "#block-entitymetadisplay" element
 
     # Archive the node.
     Then I visit the "edit" page for a node with the title "Test Office - BeHaT 404"
