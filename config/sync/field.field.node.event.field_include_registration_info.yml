@@ -1,0 +1,23 @@
+uuid: 7bb41584-bdea-4f0b-a7b2-e1387d84aee5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_include_registration_info
+    - node.type.event
+id: node.event.field_include_registration_info
+field_name: field_include_registration_info
+entity_type: node
+bundle: event
+label: 'Include registration information'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
