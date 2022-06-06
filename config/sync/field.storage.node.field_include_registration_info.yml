@@ -1,18 +1,17 @@
-uuid: bc160d2d-572c-4f39-8a22-b837ac2d7535
+uuid: 4a3e09c2-5ada-4bcd-8738-a9762cc665d5
 langcode: en
 status: true
 dependencies:
   module:
     - node
-    - smart_date
-id: node.field_datetime_range_timezone
-field_name: field_datetime_range_timezone
+id: node.field_include_registration_info
+field_name: field_include_registration_info
 entity_type: node
-type: smartdate
+type: boolean
 settings: {  }
-module: smart_date
+module: core
 locked: false
-cardinality: -1
+cardinality: 1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false
