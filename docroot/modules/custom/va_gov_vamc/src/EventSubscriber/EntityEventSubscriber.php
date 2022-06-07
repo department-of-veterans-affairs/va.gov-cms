@@ -158,7 +158,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       }
       else {
         $this->flagger->flagFieldChanged('title', 'changed_name', $entity, "The title of this facility changed from '@old' to '@new'.");
-        $this->sendMessageOnFieldChange('title', $entity, 'Vet Center Official Name Change:', 'vet_center_official_name_change', USER_CMS_HELP_DESK_NOTIFICATIONS);
+        $this->sendMessageOnFieldChange('title', $entity, 'Facility title changed:', 'va_facility_title_change', USER_CMS_HELP_DESK_NOTIFICATIONS);
       }
     }
   }
