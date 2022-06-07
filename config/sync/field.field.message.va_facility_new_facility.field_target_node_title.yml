@@ -1,0 +1,25 @@
+uuid: 51a80aea-6a7f-4f8f-a47c-9a1418806adb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.message.field_target_node_title
+    - message.template.va_facility_new_facility
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: message.va_facility_new_facility.field_target_node_title
+field_name: field_target_node_title
+entity_type: message
+bundle: va_facility_new_facility
+label: 'Target Node Title'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
