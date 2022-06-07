@@ -6,13 +6,18 @@ dependencies:
     - field.storage.node.field_event_cta
     - node.type.event
   module:
+    - epp
     - options
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 1
 id: node.event.field_event_cta
 field_name: field_event_cta
 entity_type: node
 bundle: event
-label: Label
-description: 'Select a label that prompts people to take further action via the link.'
+label: 'Call to action'
+description: ''
 required: false
 translatable: false
 default_value: {  }
