@@ -1,0 +1,49 @@
+uuid: 754d6dc9-b555-4ce4-8eb0-c2d3505a51ad
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.message.va_facility_title_change.field_target_entity
+    - field.field.message.va_facility_title_change.field_target_node_title
+    - message.template.va_facility_title_change
+id: message.va_facility_title_change.default
+targetEntityType: message
+bundle: va_facility_title_change
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_target_entity:
+    type: entity_reference_autocomplete
+    weight: 12
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_target_node_title:
+    type: string_textfield
+    weight: 13
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 5
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    '#group': advanced
+hidden: {  }
