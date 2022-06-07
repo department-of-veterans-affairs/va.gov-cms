@@ -12,5 +12,5 @@ Given(`I initiate a content release with the branch {string}`, (branchName) => {
   cy.get('input#edit-git-ref')
     .type('{downarrow}', { force: true })
     .type('{enter}', { force: true });
-  cy.get('input#edit-submit').click({ force: true });
+  cy.get('input[type="submit"][value="Release content"]').click({ force: true });
 });
