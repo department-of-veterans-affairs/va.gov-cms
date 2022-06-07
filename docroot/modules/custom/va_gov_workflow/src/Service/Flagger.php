@@ -242,7 +242,7 @@ class Flagger {
    * @return \Drupal\node\NodeInterface
    *   The latest revision.
    */
-  protected function getLatestRevision(int $nid, $node = NULL) {
+  public function getLatestRevision(int $nid, $node = NULL) {
     $storage = $this->entityTypeManager
       ->getStorage('node');
     if ($node) {
@@ -271,7 +271,7 @@ class Flagger {
    * @return \Drupal\node\NodeInterface
    *   Either the true Original (default Revision) or the latest revision.
    */
-  protected function getPreviousRevision(NodeInterface $node) {
+  public function getPreviousRevision(NodeInterface $node) {
     $original = $node->original ?? NULL;
     // PROBLEM: original is the default revision, so it may look like a
     // continual change if previous save was draft on a published revision.
