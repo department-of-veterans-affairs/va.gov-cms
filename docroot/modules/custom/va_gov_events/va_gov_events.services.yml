@@ -1,0 +1,22 @@
+services:
+  va_gov_events.entity_event_subscriber:
+    class: Drupal\va_gov_events\EventSubscriber\EntityEventSubscriber
+    arguments: ['@string_translation']
+    tags:
+      - { name: event_subscriber }
+  va_gov_events.route_subscriber:
+    class: Drupal\va_gov_events\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }
+  va_gov_events.smart_date_override_form:
+    class: Drupal\va_gov_events\Form\SmartDateOverrideForm
+    arguments: ['@entity_type.manager', '@renderer', '@form_builder']
+  va_gov_events.smart_date_remove_instance_form:
+    class: Drupal\va_gov_events\Form\SmartDateRemoveInstanceForm
+    arguments: ['@entity_type.manager', '@form_builder']
+  va_gov_events.smart_date.instances:
+    class: Drupal\va_gov_events\Controller\Instances
+    arguments: ['@entity_type.manager', '@form_builder']
+
+
+
