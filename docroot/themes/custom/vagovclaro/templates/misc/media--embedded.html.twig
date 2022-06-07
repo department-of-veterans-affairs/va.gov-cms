@@ -23,10 +23,14 @@
 <article{{ attributes.addClass(classes) }}>
   {{ title_suffix.contextual_links }}
   {% if content %}
-    {{content.field_media_video_embed_field}}
-    <h3>{{content.name.0}}</h3>
-    {% if content.field_duration.0 %}
-      <p><strong>Duration:</strong> {{content.field_duration.0}}</p>
+    {% if content.field_media_video_embed_field %}
+      <h3>Video: {{content.name.0}}</h3>
+      {% if content.field_duration.0 %}
+        <p><strong>Duration:</strong> {{content.field_duration.0}}</p>
+      {% endif %}
+      {{content.field_media_video_embed_field}}
+    {% else %}
+      {{ content }}
     {% endif %}
   {% endif %}
 </article>
