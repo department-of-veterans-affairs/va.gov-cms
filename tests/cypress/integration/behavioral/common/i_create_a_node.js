@@ -29,8 +29,8 @@ const creators = {
     cy.visit('/node/add/event');
     cy.scrollTo('top');
     cy.findAllByLabelText('Name').type('[Test Data] ' + faker.lorem.sentence(), { force: true });
-    cy.get('#edit-field-datetime-range-timezone-0-value-date').type('2023-12-05', { force: true });
-    cy.get('#edit-field-datetime-range-timezone-0-value-time').type('12:00', { force: true });
+    cy.get('#edit-field-datetime-range-timezone-0-time-wrapper-value-date').type('2023-04-05', { force: true });
+    cy.get('#edit-field-datetime-range-timezone-0-time-wrapper-value-time').type('12:00', { force: true });
     cy.findAllByLabelText('Where should the event be listed?').select('VA Alaska health care: Events', { force: true });
     cy.findAllByLabelText('Street address').type(faker.address.streetAddress(), { force: true });
     cy.findAllByLabelText('City').type(faker.address.city(), { force: true });
