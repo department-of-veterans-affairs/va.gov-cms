@@ -18,8 +18,10 @@
   padding-top: var(--spacing-s);
 }
 
+// ensure drupal system messages dont overwrite our choices.
 .va-alert.no-background a {
   background-color: unset !important;
+  color: var(--color-link) !important;
 }
 
 .va-alert .messages__header {

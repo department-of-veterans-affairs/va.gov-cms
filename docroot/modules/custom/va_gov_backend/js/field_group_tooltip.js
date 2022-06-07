@@ -17,9 +17,9 @@
           },
 
           theme: "tippy_popover",
-          placement: "left",
+          placement: "right",
           arrow: true,
-          offset: [40, 0]
+          offset: [15, 0]
         });
       });
     }

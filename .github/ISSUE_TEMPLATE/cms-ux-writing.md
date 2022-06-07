@@ -42,8 +42,9 @@ E.g. *As a user who may be making changes to content, I'd like a message that wa
 ### CMS Team
 Please check the team(s) that will do this work.
 
+- [ ] `Program`
 - [ ] `Platform CMS Team`
-- [ ] `Sitewide program`
+- [ ] `Sitewide Crew`
 - [ ] `⭐️ Sitewide CMS`
 - [ ] `⭐️ Public Websites`
 - [ ] `⭐️ Facilities`
