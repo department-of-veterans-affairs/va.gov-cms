@@ -31,7 +31,7 @@
 <div class="messages-list node-link-report-list">
 {% endif %}
   {% if bad_links is not empty %}
-    <div class="bad_links va-alert messages messages--error">
+    <div class="bad_links va-alert no-background messages messages--error">
       <details class="js-form-wrapper">
         {% set count = bad_links|length %}
         <summary class="messages__header">
@@ -60,7 +60,7 @@
   {% endif %}
 
   {% if ((inaccessible_links is not empty)) and (display_inaccessible_links == 1) %}
-    <div class="inaccessible_links va-alert messages messages--error">
+    <div class="inaccessible_links va-alert no-background messages messages--error">
       <details class="js-form-wrapper">
         {% set count = inaccessible_links|length %}
         <summary class="messages__header">
@@ -100,7 +100,7 @@
   {% endif %}
 
   {% if unpublished_links is not empty %}
-    <div class="unpublished-links va-alert messages messages--warning">
+    <div class="unpublished-links va-alert no-background messages messages--warning">
       <details class="js-form-wrapper">
         {% set count = unpublished_links|length %}
         <summary class="messages__header">
@@ -130,7 +130,7 @@
   {% endif %}
 
   {% if redirected_links is not empty %}
-    <div class="redirected-links va-alert messages messages--warning">
+    <div class="redirected-links va-alert no-background messages messages--warning">
       <details class="js-form-wrapper">
         {% set count = redirected_links|length %}
         <summary class="messages__header">
@@ -161,7 +161,7 @@
   {% endif %}
 
   {% if ((skipped_links is not empty)) and (display_skipped_links == 1) %}
-    <div class="skipped-links va-alert messages messages--warning">
+    <div class="skipped-links va-alert no-background messages messages--warning">
       <details class="js-form-wrapper">
         {% set count = skipped_links|length %}
         <summary class="messages__header">
@@ -191,7 +191,7 @@
   {% endif %}
 
   {% if (good_links is not empty) and (display_good_links == 1) %}
-    <div class="good-links va-alert messages messages--status">
+    <div class="good-links va-alert no-background messages messages--status">
       <details class="js-form-wrapper">
         {% set count = good_links|length %}
         <summary class="messages__header">

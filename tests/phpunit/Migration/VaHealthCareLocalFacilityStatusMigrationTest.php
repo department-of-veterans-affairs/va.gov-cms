@@ -60,7 +60,7 @@ class VaHealthCareLocalFacilityStatusMigrationTest extends ExistingSiteBase {
   }
 
   /**
-   * Data provider for testVaFormMigration.
+   * Data provider for testVaLocalHealthCareFacilityStatusMigration.
    *
    * @return \Generator
    *   Test assertion data.
@@ -73,7 +73,6 @@ class VaHealthCareLocalFacilityStatusMigrationTest extends ExistingSiteBase {
       [
         'field_facility_locator_api_id' => 'vha_999999',
         'field_operating_status_facility' => 'normal',
-        'field_operating_status_more_info' => 'All Veteran patients are entering through the Atrium area and being screened prior to proceeding to their appointment. Strict visitor restrictions are in place.',
       ],
       1,
       FALSE,

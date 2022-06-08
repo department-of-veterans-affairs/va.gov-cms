@@ -10,7 +10,6 @@ dependencies:
     - field.field.node.page.field_featured_content
     - field.field.node.page.field_intro_text_limited_html
     - field.field.node.page.field_meta_tags
-    - field.field.node.page.field_meta_title
     - field.field.node.page.field_plainlanguage_date
     - field.field.node.page.field_related_links
     - field.field.node.page.field_table_of_contents_boolean
@@ -93,14 +92,6 @@ content:
     third_party_settings: {  }
     weight: 7
     region: content
-  field_meta_title:
-    type: string
-    label: inline
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 1
-    region: content
   field_related_links:
     type: entity_reference_revisions_entity_view
     label: above
@@ -119,6 +110,16 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     weight: 4
+    region: content
+  flag_email_node:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  flag_subscribe_node:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
     region: content
 hidden:
   content_moderation_control: true

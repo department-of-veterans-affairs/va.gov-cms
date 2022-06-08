@@ -29,8 +29,8 @@ const creators = {
     cy.visit('/node/add/event');
     cy.scrollTo('top');
     cy.findAllByLabelText('Name').type('[Test Data] ' + faker.lorem.sentence(), { force: true });
-    cy.get('#edit-field-datetime-range-timezone-0-value-date').type('2023-12-05', { force: true });
-    cy.get('#edit-field-datetime-range-timezone-0-value-time').type('12:00', { force: true });
+    cy.get('#edit-field-datetime-range-timezone-0-time-wrapper-value-date').type('2023-04-05', { force: true });
+    cy.get('#edit-field-datetime-range-timezone-0-time-wrapper-value-time').type('12:00', { force: true });
     cy.findAllByLabelText('Where should the event be listed?').select('VA Alaska health care: Events', { force: true });
     cy.findAllByLabelText('Street address').type(faker.address.streetAddress(), { force: true });
     cy.findAllByLabelText('City').type(faker.address.city(), { force: true });
@@ -70,7 +70,6 @@ const creators = {
     cy.findAllByLabelText('Page title').type('[Test Data] ' + faker.lorem.sentence(), { force: true });
     cy.findAllByLabelText('Page introduction').type(faker.lorem.sentence(), { force: true });
     cy.findAllByLabelText('Section').select('VACO', { force: true });
-    cy.findAllByLabelText('Meta title tag').type('[Test Data] ' + faker.lorem.sentence(), { force: true });
     cy.findAllByLabelText('Meta description').type(faker.lorem.sentence(), { force: true });
     cy.findAllByLabelText('Provide a menu link').check({ force: true });
     cy.findAllByLabelText('Menu link title').type('[Test Data] ' + faker.lorem.sentence(), { force: true });
@@ -84,7 +83,6 @@ const creators = {
     cy.visit('/node/add/office');
     cy.scrollTo('top');
     cy.findAllByLabelText('Name').type('[Test Data] ' + faker.lorem.sentence(), { force: true });
-    cy.findAllByLabelText('Meta title tag').type('[Test Data] ' + faker.lorem.sentence(), { force: true });
     cy.findAllByLabelText('Section').select('VACO', { force: true });
     cy.findAllByLabelText('Provide a menu link').check({ force: true });
     cy.findAllByLabelText('Menu link title').type('[Test Data] ' + faker.lorem.sentence(), { force: true });

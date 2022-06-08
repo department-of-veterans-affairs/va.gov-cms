@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.vamc_system_billing_insurance.field_hours_for_copay_inquiries_
     - field.field.node.vamc_system_billing_insurance.field_non_clinical_services
     - field.field.node.vamc_system_billing_insurance.field_office
+    - field.field.node.vamc_system_billing_insurance.field_office_hours
     - field.field.node.vamc_system_billing_insurance.field_phone_number
     - field.field.node.vamc_system_billing_insurance.field_service_name_and_descripti
     - node.type.vamc_system_billing_insurance
@@ -33,7 +34,7 @@ third_party_settings:
       label: 'National content'
       parent_name: ''
       region: content
-      weight: 7
+      weight: 6
       format_type: tooltip
       format_settings:
         show_empty_fields: 0
@@ -72,7 +73,7 @@ third_party_settings:
       label: 'For inquiries by phone about copay balance'
       parent_name: ''
       region: content
-      weight: 5
+      weight: 3
       format_type: details
       format_settings:
         classes: ''
@@ -174,7 +175,7 @@ content:
       always_build_output: true
       empty_view_title: above
     third_party_settings: {  }
-    weight: 6
+    weight: 5
     region: content
   field_phone_number:
     type: telephone_link
@@ -187,12 +188,12 @@ content:
   flag_email_node:
     settings: {  }
     third_party_settings: {  }
-    weight: 8
+    weight: 7
     region: content
   flag_subscribe_node:
     settings: {  }
     third_party_settings: {  }
-    weight: 9
+    weight: 8
     region: content
   links:
     settings: {  }
@@ -204,5 +205,6 @@ hidden:
   field_administration: true
   field_enforce_unique_combo: true
   field_office: true
+  field_office_hours: true
   field_service_name_and_descripti: true
   search_api_excerpt: true

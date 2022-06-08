@@ -14,7 +14,6 @@ Feature: Content model: Outreach hub Content Type fields
 | Content type | Office | Email updates link | field_email_updates_link | Link |  | 1 | Link |  |
 | Content type | Office | External link | field_external_link | Link |  | 1 | Link |  |
 | Content type | Office | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
-| Content type | Office | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Office | Office ID | field_office_id | Text (plain) |  | 1 | Textfield |  |
 | Content type | Office | Parent Office | field_parent_office | Entity reference |  | 1 | Autocomplete |  |
 | Content type | Office | Social media links | field_social_media_links | Social Media Links Field  |  | 1 | List with all available platforms |  |
@@ -29,5 +28,4 @@ Feature: Content model: Outreach hub Content Type fields
 | Content type | Publication Listing Page | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Publication Listing Page | Intro text | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | Publication Listing Page | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
-| Content type | Publication Listing Page | Meta title tag | field_meta_title | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Publication Listing Page | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |
