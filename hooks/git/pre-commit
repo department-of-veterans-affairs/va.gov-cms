@@ -17,6 +17,7 @@ if [ -x "$(command -v lando)" ] && docker ps | grep lando > /dev/null; then
 elif [ -x "$(command -v ddev)" ] && docker ps | grep ddev > /dev/null; then
   ddev pre-commit
 else
+  echo 'ddev is not running, falling back to local composer usage. Run `ddev start` to use ddev composer (recommended).'
   # Run PHP Codesniffer as pre-commit check.
   composer va:test:cs
 fi
