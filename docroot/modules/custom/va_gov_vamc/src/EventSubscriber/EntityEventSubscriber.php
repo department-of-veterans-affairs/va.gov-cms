@@ -17,9 +17,6 @@ use Drupal\va_gov_vamc\Service\ContentHardeningDeduper;
 use Drupal\va_gov_workflow\Service\Flagger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-// The UID of the CMS Help Desk account subscribing to facility messages.
-const USER_CMS_HELP_DESK_NOTIFICATIONS = 4050;
-
 /**
  * VA.gov VAMC Entity Event Subscriber.
  */
@@ -178,13 +175,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       // $message_fields = $this->notificationsManager->buildMessageFields($entity, 'New facility:');
       // $this->notificationsManager->send('va_facility_new_facility', 1215, $message_fields);
       // @codingStandardsIgnoreEnd
-
-      // Email the help desk when a new facility is created.
-      $first_save = (empty($entity->original)) ? TRUE : FALSE;
-      if ($entity->isNew() || $first_save) {
-        $message_fields = $this->notificationsManager->buildMessageFields($entity, 'New facility:');
-        $this->notificationsManager->send('va_facility_new_facility', USER_CMS_HELP_DESK_NOTIFICATIONS, $message_fields);
-      }
     }
   }
 
