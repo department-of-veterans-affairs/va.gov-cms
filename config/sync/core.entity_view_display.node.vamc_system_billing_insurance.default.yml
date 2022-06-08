@@ -69,7 +69,7 @@ third_party_settings:
     group_inquiries_about_copay:
       children:
         - field_phone_number
-        - field_hours_for_copay_inquiries_
+        - field_office_hours
       label: 'For inquiries by phone about copay balance'
       parent_name: ''
       region: content
@@ -140,7 +140,17 @@ content:
     third_party_settings: {  }
     weight: 1
     region: content
-  field_hours_for_copay_inquiries_:
+  field_non_clinical_services:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: above
+      always_build_output: true
+      empty_view_title: above
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_office_hours:
     type: office_hours
     label: above
     settings:
@@ -166,16 +176,6 @@ content:
         enabled: false
     third_party_settings: {  }
     weight: 9
-    region: content
-  field_non_clinical_services:
-    type: viewfield_default
-    label: hidden
-    settings:
-      view_title: above
-      always_build_output: true
-      empty_view_title: above
-    third_party_settings: {  }
-    weight: 5
     region: content
   field_phone_number:
     type: telephone_link
@@ -204,7 +204,7 @@ hidden:
   content_moderation_control: true
   field_administration: true
   field_enforce_unique_combo: true
+  field_hours_for_copay_inquiries_: true
   field_office: true
-  field_office_hours: true
   field_service_name_and_descripti: true
   search_api_excerpt: true
