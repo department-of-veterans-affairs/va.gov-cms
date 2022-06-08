@@ -17,9 +17,6 @@ use Drupal\va_gov_vamc\Service\ContentHardeningDeduper;
 use Drupal\va_gov_workflow\Service\Flagger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-// The UID of the CMS Help Desk account subscribing to facility messages.
-const USER_CMS_HELP_DESK_NOTIFICATIONS = 4050;
-
 /**
  * VA.gov VAMC Entity Event Subscriber.
  */
