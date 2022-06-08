@@ -1,22 +1,28 @@
-track_enabled_base_fields: false
-local_task_enabled_entity_types:
-  - media
-usage_controller_items_per_page: 25
 _core:
   default_config_hash: AXUBMTvVtpcNp0jKjDaWjSHqMy6HjuUf7j4yVbXgazI
+local_task_enabled_entity_types:
+  - media
+  - node
 track_enabled_source_entity_types:
   - node
-  - menu_link_content
-  - danse_event
+  - block_content
   - paragraph
-  - site_alert
 track_enabled_target_entity_types:
+  - node
+  - block_content
   - media
-edit_warning_message_entity_types: {  }
-delete_warning_message_entity_types: {  }
 track_enabled_plugins:
-  - linkit
-  - entity_reference
+  - entity_embed
   - html_link
   - media_embed
+  - entity_reference
+  - layout_builder
+  - link
+  - dynamic_entity_reference
+  - linkit
+  - block_field
+track_enabled_base_fields: false
 site_domains: {  }
+edit_warning_message_entity_types: {  }
+delete_warning_message_entity_types: {  }
+usage_controller_items_per_page: 25
