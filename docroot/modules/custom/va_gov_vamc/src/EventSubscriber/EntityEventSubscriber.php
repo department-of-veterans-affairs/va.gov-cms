@@ -180,6 +180,13 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       // $message_fields = $this->notificationsManager->buildMessageFields($entity, 'New facility:');
       // $this->notificationsManager->send('va_facility_new_facility', 1215, $message_fields);
       // @codingStandardsIgnoreEnd
+
+      // Email the help desk when a new facility is created.
+      $first_save = (empty($entity->original)) ? TRUE : FALSE;
+      if ($entity->isNew() || $first_save) {
+        $message_fields = $this->notificationsManager->buildMessageFields($entity, 'New facility:');
+        $this->notificationsManager->send('va_facility_new_facility', USER_CMS_HELP_DESK_NOTIFICATIONS, $message_fields);
+      }
     }
   }
 
