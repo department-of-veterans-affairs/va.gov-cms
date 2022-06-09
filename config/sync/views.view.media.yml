@@ -1013,7 +1013,16 @@ display:
           distinct: false
           replica: false
           query_tags: {  }
-      relationships: {  }
+      relationships:
+        image_target_id:
+          id: image_target_id
+          table: media__image
+          field: image_target_id
+          relationship: none
+          group_type: group
+          admin_label: 'image from image'
+          plugin_id: standard
+          required: false
       use_more: true
       use_more_always: false
       use_more_text: more
@@ -2546,20 +2555,19 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        edit_media:
-          id: edit_media
-          table: media
-          field: edit_media
+        image:
+          id: image
+          table: media__image
+          field: image
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: media
-          plugin_id: entity_link_edit
-          label: ''
+          plugin_id: field
+          label: 'Alt Text'
           exclude: false
           alter:
             alter_text: true
-            text: '<a href="/media/{{ mid }}/edit" class="button">Edit</a>'
+            text: '{{ image__alt }}'
             make_link: false
             path: ''
             absolute: false
@@ -2596,9 +2604,87 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          text: edit
-          output_url_as_text: false
-          absolute: false
+          click_sort_column: target_id
+          type: image
+          settings:
+            image_link: ''
+            image_style: ''
+          group_column: ''
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        uri:
+          id: uri
+          table: file_managed
+          field: uri
+          relationship: image_target_id
+          group_type: group
+          admin_label: ''
+          entity_type: file
+          entity_field: uri
+          plugin_id: field
+          label: 'Image Link'
+          exclude: false
+          alter:
+            alter_text: true
+            text: "{% set public= 'public://' %}\r\n{% set prod= 'https://prod.cms.va.gov/sites/default/files/' %} \r\n{{ uri__value |replace({ (public): prod}) }}"
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: file_uri
+          settings:
+            link_to_file: false
+            file_download_path: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         uid:
           id: uid
           table: media_field_data
@@ -2986,31 +3072,19 @@ display:
           exposed: false
           expose:
             operator_id: bundle_op
-            label: 'Media type'
+            label: Type
             description: ''
             use_operator: false
             operator: bundle_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: bundle
+            identifier: type
             required: false
             remember: false
             multiple: false
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
-              content_api_consumer: '0'
-              content_creator_benefits_hubs: '0'
-              content_creator_resources_and_support: '0'
-              office_content_creator: '0'
-              vamc_content_creator: '0'
-              content_creator_vet_center: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              content_admin: '0'
-              redirect_administrator: '0'
-              admnistrator_users: '0'
               administrator: '0'
             reduce: false
           is_grouped: false
@@ -3128,6 +3202,106 @@ display:
                 title: 'Not reusable'
                 operator: '='
                 value: '0'
+        image_alt:
+          id: image_alt
+          table: media__image
+          field: image_alt
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: string
+          operator: '='
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: image_alt_op
+            label: 'Alt contains'
+            description: ''
+            use_operator: false
+            operator: image_alt_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: image_alt
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        image_alt_1:
+          id: image_alt_1
+          table: media__image
+          field: image_alt
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: string
+          operator: '='
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: image_alt_1_op
+            label: 'Image (image:alt)'
+            description: null
+            use_operator: false
+            operator: image_alt_1_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: image_alt_1
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            placeholder: null
+          is_grouped: true
+          group_info:
+            label: 'Alt text'
+            description: ''
+            identifier: image_alt_1
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items:
+              1:
+                title: Missing
+                operator: empty
+                value: ''
+              2:
+                title: Present
+                operator: 'not empty'
+                value: ''
       filter_groups:
         operator: AND
         groups:
@@ -3150,8 +3324,28 @@ display:
         fields: false
         filters: false
         filter_groups: false
-      display_extenders: {  }
+        header: false
+      display_description: ''
+      header:
+        result:
+          id: result
+          table: views
+          field: result
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: result
+          empty: false
+          content: "<p>Displaying @start - @end of @total</p>\r\n<p><a href=\"/admin/content/media/images-export.csv\" class=\"button\">Export Image Audit</a></p>"
+      display_extenders:
+        jsonapi_views:
+          enabled: true
       path: admin/content/media/images-export.csv
+      displays:
+        media_images: media_images
+        default: '0'
+        media_page_list: '0'
+        page_1: '0'
       filename: images-export.csv
       automatic_download: false
       store_in_public_file_directory: null
@@ -3170,6 +3364,7 @@ display:
       tags:
         - 'config:field.storage.media.field_media_in_library'
         - 'config:field.storage.media.field_owner'
+        - 'config:field.storage.media.image'
   media_images:
     id: media_images
     display_title: Images
@@ -4110,7 +4305,7 @@ display:
           admin_label: ''
           plugin_id: result
           empty: false
-          content: "<p>Displaying @start - @end of @total</p>\r\n<p><a href=\"/admin/content/media/images-export.csv\" class=\"button\">Export Image Audit</a></p>"
+          content: '<p>Displaying @start - @end of @total</p>'
       display_extenders: {  }
       path: admin/content/media/images
       menu:
