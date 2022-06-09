@@ -7,7 +7,7 @@ use Drupal\Core\Form\FormStateInterface;
 /**
  * Implements build trigger form overrides for the Lando environment.
  */
-class LandoBuildTriggerForm extends TugboatBuildTriggerForm {
+class LocalBuildTriggerForm extends TugboatBuildTriggerForm {
 
   /**
    * Build the build trigger form.

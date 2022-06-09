@@ -556,7 +556,8 @@
             "echo 'Removing deleted .git/hooks/commit-msg file, no longer used.'",
             "rm -f .git/hooks/commit-msg",
             "git update-index --skip-worktree samlsessiondb.sq3",
-            "rm -r vendor"
+            "rm -r vendor",
+            "[ -f .env ] || cp .env.example .env"
         ],
         "pre-update-cmd": [
             "mkdir -p vendor"

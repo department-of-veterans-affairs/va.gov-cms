@@ -33,10 +33,10 @@ class BuildTriggerFormTest extends ExistingSiteBase {
   }
 
   /**
-   * Test that the correct form is shown on Lando.
+   * Test that the correct form is shown on local environments.
    */
-  public function testLandoBuildTriggerForm() {
-    $this->setupEnvironment('lando');
+  public function testLocalBuildTriggerForm() {
+    $this->setupEnvironment('local');
     $this->visit('/admin/content/deploy');
     $this->assertSession()->pageTextContains('Release content to update the front end of this local environment with the latest published content changes');
     $this->assertSession()->fieldExists('branch');
