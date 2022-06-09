@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Remove timezones in hours field comments.
+ * Save copay_inquiries hours to office_hours.
  *
  * VACMS-9361-sync-hours-fields.php.
  */
