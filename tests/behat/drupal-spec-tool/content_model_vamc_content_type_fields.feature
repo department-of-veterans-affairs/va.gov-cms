@@ -181,7 +181,6 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System Billing and Insurance | National top of page content | field_cc_top_of_page_content | Entity Field Fetch field |  | 1 | Entity Field Fetch widget | Translatable |
 | Content type | VAMC System Billing and Insurance | Enforce unique combo section | field_enforce_unique_combo | Allow Only One |  | 1 | Allow Only One widget | Translatable |
 | Content type | VAMC System Billing and Insurance | Enforce unique combo office | field_enforce_unique_combo_offic | Allow Only One |  | 1 | Allow Only One widget |  |
-| Content type | VAMC System Billing and Insurance | Hours | field_hours_for_copay_inquiries_ | Office hours |  | Unlimited | -- Disabled -- | |
 | Content type | VAMC System Billing and Insurance | Hours | field_office_hours | Office hours |  | Unlimited | Office hours (week) | Translatable |
 | Content type | VAMC System Billing and Insurance | Non-clinical Services | field_non_clinical_services | Viewfield |  | 1 | Viewfield | Translatable |
 | Content type | VAMC System Billing and Insurance | VAMC System | field_office | Entity reference | Required | 1 | Select list | Translatable |
