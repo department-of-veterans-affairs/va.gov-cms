@@ -93,7 +93,8 @@ xdebug.force_error_reporting=1
 xdebug.collect_params=4
 ```
 
-## xdebug in ddev
+## Xdebug in ddev
+Keep xdebug off when not in use, it has notable performance implications and can slow down response times by as much as 2-3x sometimes. 
 Try running `ddev xdebug on`. If that doesn't work for you out of the box, copy your php.ini override from the
 steps above (`.zzzz-php-local.ini`) into the `.ddev/php` directory. Files in this directory are loaded during `ddev start`.
 
