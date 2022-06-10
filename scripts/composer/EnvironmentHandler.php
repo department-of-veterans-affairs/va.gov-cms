@@ -19,13 +19,19 @@ class EnvironmentHandler {
     $env_file_dir = dirname(dirname(__DIR__));
     $env_file_name = '.env';
     $env_file = $env_file_dir . DIRECTORY_SEPARATOR . $env_file_name;
+    $backup_env_file = $env_file_dir . DIRECTORY_SEPARATOR . $env_file_name . '.example';
 
-    // Load the defaults. They're checked into Git, so they should always be
-    // present.
     try {
       // If the .env file doesn't exist, don't try to load it.
       if (!file_exists($env_file)) {
-        return;
+
+        // Check for the backup file -- this is checked into git, so it should
+        // always be present.
+        if (!file_exists($backup_env_file)) {
+          return;
+        }
+
+        $env_file = $backup_env_file;
       }
 
       // Load environment and set required params.
