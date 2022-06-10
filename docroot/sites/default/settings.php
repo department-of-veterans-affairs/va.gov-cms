@@ -18,7 +18,7 @@ $databases['default']['default'] = array(
   'username' => getenv('CMS_MARIADB_USERNAME') ?: 'drupal8',
   'password' => getenv('CMS_MARIADB_PASSWORD') ?: 'drupal8',
   'prefix' => '',
-  // 'db' is the default DB container for local.
+  // 'db' is the default DB container hostname for local.
   'host' => getenv('CMS_MARIADB_HOST') ?: 'db',
   'port' => 3306,
   'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
