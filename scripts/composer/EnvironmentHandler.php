@@ -37,8 +37,6 @@ class EnvironmentHandler {
       // Load environment and set required params.
       $dotenv = Dotenv::createUnsafeMutable($env_file, $env_file_name);
       $dotenv->safeLoad();
-      $dotenv->required('DRUPAL_ADDRESS')->notEmpty();
-      $dotenv->required('BEHAT_PARAMS')->notEmpty();
     }
     catch (\Exception $exception) {
       throw $exception;
