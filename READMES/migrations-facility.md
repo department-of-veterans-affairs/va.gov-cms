@@ -6,7 +6,7 @@
       - [VAMC Status](#vamc-status-migration)
       - [System and Facility Health Services](#system-and-facility-health-services)
    1. VBA (Veterans Benefits Administraion) Facilities
-   1. Vet Centers
+   1. Vet Centers, Mobile VCs, and Vet Center Outstions
 1. [Status Changes to Lighthouse](vamc-facilities.md#status-changes-to-lighthouse)
 
 ![Facilities updates and actions](images/VA-facilities.png)
@@ -19,33 +19,20 @@ is connected to the facility API by its unique "Facility Locator API ID"
 
 ### CrUD Operations
 #### Create
-When a new facility appears in the Facility API, it is created in the CMS in draft state.  It will need the following operations performed.
-
-   * Assigning the facility to the appropriate VAMC system or Vet Center district.
-   * New menu item created in the appropriate VAMCS system menu.
-   * Facility services added as needed.
-   * Publishing when ready.
+When a new facility appears in the Facility API, it is created in the CMS in draft state.  It will need the following operations performed.  It is flagged as "new" and appears on the [Flagged dashboard](https://prod.cms.va.gov/admin/content/flagged).  An email message is sent to CMS Support to kick off the [New Facility Runbook](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Change+request&template=runbook-facility-new.md&title=New+Facility%3A+%3Cinsert_name_of_facility%3E).
 
 #### Update
 
 Updates to facility address or hours are updated and maintain the current moderation state of the facility node.  If the node is published, the new changes will become published.  These changes are routine and need no intervention.
-If a title changes, the title of the facility updates but the name change does NOT:
-   * populate down to the facility services,
-   * change the title on the menu link for the facility,
-   * change the path alias for the facility or its sub-pages (they are based on the menu title),
+If a title changes, the title of the facility updates but the name change does NOT.  In the event of a title change, the facility is flagged and appears on the [Flagged dashboard](https://prod.cms.va.gov/admin/content/flagged) to kick off the [Facility Name Change Runbook](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Change+request&template=runbook-facility-name-change.md&title=Facility+name+change%3A+%3Cinsert_name%3E).
+
 
 #### Delete
-  When a facility is removed from the Facility API, a nightly scan (drush va_gov_migrate:flag-missing-facilities) reveals that it has been removed and flags it "Removed from source".  The flag makes it appear on the Flagged dashboard (/admin/content/flagged).
-  The following will need to be done by hand:
-   * Archiving the facility in the CMS.
-   * Archiving its services and sub-pages.
-   * Disabling the facility's menu item.
-   * Removing the facility from the system's operating status page.
-
+  When a facility is removed from the Facility API, a nightly scan (drush va_gov_migrate:flag-missing-facilities) reveals that it has been removed and flags it "Removed from source".  The flag makes it appear on the [Flagged dashboard](https://prod.cms.va.gov/admin/content/flagged) to kick off the [Facility Closed Runbook](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Change+request&template=runbook-facility-closed.md&title=Facility+closed%3A+%3Cinsert_name%3E).
 
 
   The nightly migrations are handled as part of our tasks-periodic.yml and
-are triggered by Jenkins.  Revisions for any saves are created and attributed
+are triggered by Jenkins at midnight.  Revisions for any saves are created and attributed
 to the user "CMS Migrator"
 
   1. NCA (National Cemetery Administration) Facilities - va_node_facility_nca

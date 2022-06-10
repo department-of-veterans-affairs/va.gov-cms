@@ -26,13 +26,12 @@ To see what is set on a give environment use
 [Ongoing facility migrations](../migrations-facility.md)
 
 The Facilities API provides data about VA facilities (hospitals, clinics, mobile clinics, vet centers, outstations, mobile vet centers, cemetaries, and Veterans Benefits Administraion offices).
-[Facilities API Documentation](https://developer.va.gov/explore/facilities/docs/facilities)
+[Facilities API Documentation](https://developer.va.gov/explore/facilities/docs/facilities) and the [code resides here](https://github.com/department-of-veterans-affairs/lighthouse-facilities).
 
 ### Facility API Locally
 To adjust your local build to use and display Facility API data:
-In this file
-`src/site/constants/environments-configs.js`
-The setting `API_URL` should be changed to `https://dev-api.va.gov`
+Use [this code](migrations-facility.md#migration-settings-settingslocalphp).
+
 
 ### How to call the API and parse the data:
 
