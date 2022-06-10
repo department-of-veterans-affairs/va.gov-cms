@@ -31,7 +31,7 @@ To test that Blackfire is configured correctly, you can execute the following co
 
 You should see a response similar to the following:
 ```
-nathan.douglas@Belmore va.gov-cms % ddev exec blackfire curl https://va-gov-cms.ddev.site/
+ddev exec blackfire curl https://va-gov-cms.ddev.site/
 Profiling: [########################################] 10/10
 Blackfire cURL completed
 Graph                 https://blackfire.io/profiles/45ef7f4f-8c79-4ca3-b88a-d3ff9cafd07f/graph
