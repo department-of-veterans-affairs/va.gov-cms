@@ -25,7 +25,8 @@ class BuildTriggerFormTest extends ExistingSiteBase {
     parent::setUp();
 
     // Store the default environment so that we may later revert to it.
-    $this->defaultEnvironment = $this->container->get('settings')->getAll()['va_gov_frontend_build_type'];
+    $settings = $this->container->get('settings')->getAll();
+    $this->defaultEnvironment = $settings['va_gov_frontend_build_type'] ?? 'local';
 
     $admin = User::load(1);
     $admin->passRaw = 'drupal8';
@@ -65,7 +66,7 @@ class BuildTriggerFormTest extends ExistingSiteBase {
   /**
    * Revert to the default environment when all test are complete.
    *
-   * @depends testLandoBuildTriggerForm
+   * @depends testLocalBuildTriggerForm
    * @depends testTugboatBuildTriggerForm
    * @depends testBrdBuildTriggerForm
    */
