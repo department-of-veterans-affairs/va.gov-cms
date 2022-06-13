@@ -1039,3 +1039,16 @@ function va_gov_db_update_9008(&$sandbox) {
 
   return "Processing billing nodes...";
 }
+
+/**
+ * Remove field_hours_for_copay_inquiries_ from billing.
+ */
+function va_gov_db_update_9009() {
+  $field = FieldConfig::loadByName('node', 'vamc_system_billing_insurance', 'field_hours_for_copay_inquiries_');
+  if ($field) {
+    /** @var Drupal\field\FieldConfigInterface $field */
+    $field->delete();
+  }
+
+  return 'Removed field_hours_for_copay_inquiries_ from billing.';
+}

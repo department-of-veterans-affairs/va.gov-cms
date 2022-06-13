@@ -10,9 +10,9 @@ dependencies:
     - field.field.node.vamc_system_billing_insurance.field_cc_top_of_page_content
     - field.field.node.vamc_system_billing_insurance.field_enforce_unique_combo
     - field.field.node.vamc_system_billing_insurance.field_enforce_unique_combo_offic
-    - field.field.node.vamc_system_billing_insurance.field_hours_for_copay_inquiries_
     - field.field.node.vamc_system_billing_insurance.field_non_clinical_services
     - field.field.node.vamc_system_billing_insurance.field_office
+    - field.field.node.vamc_system_billing_insurance.field_office_hours
     - field.field.node.vamc_system_billing_insurance.field_phone_number
     - field.field.node.vamc_system_billing_insurance.field_service_name_and_descripti
     - node.type.vamc_system_billing_insurance
@@ -68,7 +68,7 @@ third_party_settings:
     group_inquiries_about_copay:
       children:
         - field_phone_number
-        - field_hours_for_copay_inquiries_
+        - field_office_hours
       label: 'For inquiries by phone about copay balance'
       parent_name: ''
       region: content
@@ -139,7 +139,17 @@ content:
     third_party_settings: {  }
     weight: 1
     region: content
-  field_hours_for_copay_inquiries_:
+  field_non_clinical_services:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: above
+      always_build_output: true
+      empty_view_title: above
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_office_hours:
     type: office_hours
     label: above
     settings:
@@ -165,16 +175,6 @@ content:
         enabled: false
     third_party_settings: {  }
     weight: 9
-    region: content
-  field_non_clinical_services:
-    type: viewfield_default
-    label: hidden
-    settings:
-      view_title: above
-      always_build_output: true
-      empty_view_title: above
-    third_party_settings: {  }
-    weight: 5
     region: content
   field_phone_number:
     type: telephone_link
