@@ -16,7 +16,7 @@ ddev config global --instrumentation-opt-in=true
 ddev start
 
 # Import the database.
-ddev pull va
+ddev pull va --yes
 
 echo
 echo "All done! Welcome to the VA.gov CMS :-)"
