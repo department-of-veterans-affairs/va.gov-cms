@@ -102,7 +102,7 @@ class NotificationsManager {
    */
   public function sendMessageOnFieldChange($fieldname, NodeInterface $node, $msg_title_prefix, $template_name, $user_id) {
     $original = $this->getPreviousRevision($node);
-    if (!$original || $node->isSyncing) {
+    if (!$original || $node->isSyncing()) {
       // There is nothing to compare, so bail out.
       return;
     }
