@@ -154,11 +154,11 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     if ($this->isFlaggableFacility($entity)) {
       if ($entity->bundle() === 'vet_center') {
         $this->flagger->flagFieldChanged('field_official_name', 'changed_name', $entity, "The Official name of this facility changed from '@old' to '@new'.");
-        $this->sendMessageOnFieldChange('field_official_name', $entity, 'Vet Center Official Name Change:', 'vet_center_official_name_change', USER_CMS_HELP_DESK_NOTIFICATIONS);
+        $this->notificationsManager->sendMessageOnFieldChange('field_official_name', $entity, 'Vet Center Official Name Change:', 'vet_center_official_name_change', USER_CMS_HELP_DESK_NOTIFICATIONS);
       }
       else {
         $this->flagger->flagFieldChanged('title', 'changed_name', $entity, "The title of this facility changed from '@old' to '@new'.");
-        $this->sendMessageOnFieldChange('title', $entity, 'Facility title changed:', 'va_facility_title_change', USER_CMS_HELP_DESK_NOTIFICATIONS);
+        $this->notificationsManager->sendMessageOnFieldChange('title', $entity, 'Facility title changed:', 'va_facility_title_change', USER_CMS_HELP_DESK_NOTIFICATIONS);
       }
     }
   }
@@ -310,39 +310,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       }
     }
     $form['#attached']['library'][] = 'va_gov_vamc/limit_vamcs_to_workbench';
-  }
-
-  /**
-   * Send a message based on if a field value has changed or not.
-   *
-   * Based on va_gov_workflow\Service\Flagger->flagFieldChanged().
-   *
-   * @param string|array $fieldname
-   *   The machine name of field to check for changes. or an array of field name
-   *   followed by field property.
-   * @param \Drupal\node\NodeInterface $node
-   *   A target entity to be referenced by the message.
-   * @param string $msg_title_prefix
-   *   A string to prefix the message with ('New form:').
-   * @param string $template_name
-   *   The machine name of the message template to use.
-   * @param string $user_id
-   *   The user id to send the message to.
-   */
-  protected function sendMessageOnFieldChange($fieldname, NodeInterface $node, $msg_title_prefix, $template_name, $user_id) {
-    $original = $this->flagger->getPreviousRevision($node);
-    if (!$original || $node->isSyncing) {
-      // There is nothing to compare, so bail out.
-      return;
-    }
-    $new_value = (is_array($fieldname)) ? $node->get($fieldname[0])->{$fieldname[1]} : $node->get($fieldname)->value;
-    $old_value = (is_array($fieldname)) ? $original->get($fieldname[0])->{$fieldname[1]} : $original->get($fieldname)->value;
-    // Loose comparison needed because sometimes new is 0 and old is '0'.
-    if ($new_value != $old_value) {
-      // The field changed.  Send the message.
-      $message_fields = $this->notificationsManager->buildMessageFields($node, $msg_title_prefix);
-      $this->notificationsManager->send($template_name, $user_id, $message_fields);
-    }
   }
 
 }
