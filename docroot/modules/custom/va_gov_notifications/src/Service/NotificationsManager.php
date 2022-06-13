@@ -171,4 +171,5 @@ class NotificationsManager {
 
     return $original;
   }
+
 }
