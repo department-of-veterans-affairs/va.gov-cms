@@ -2,14 +2,12 @@
 
 namespace tests\phpunit\FrontendBuild;
 
-use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Http\RequestStack;
 use Drupal\Core\KeyValueStore\KeyValueMemoryFactory;
 use Drupal\Core\State\State;
 use Drupal\Tests\UnitTestCase;
 use Drupal\va_gov_build_trigger\Event\ReleaseStateTransitionEvent;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
-use InvalidArgumentException;
 use Tests\Support\Mock\SpecifiedTime;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
@@ -19,27 +17,38 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 class ReleaseStateManagerTest extends UnitTestCase {
 
   /**
+   * The event dispatcher service.
+   *
    * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
    */
   protected $eventDispatcher;
 
   /**
+   * The state service.
+   *
    * @var \Drupal\Core\State\StateInterface
    */
   protected $state;
 
   /**
+   * The time service.
+   *
    * @var \Drupal\Component\Datetime\TimeInterface
    */
   protected $time;
 
   /**
-   * January 1, 2022 00:00:00
+   * A date used for testing (January 1, 2022 00:00:00).
    *
    * @var int
    */
   protected const TIMESTAMP = 1641020400;
 
+  /**
+   * A list of valid release states.
+   *
+   * @var string[]
+   */
   protected $validReleaseStates = [
     ReleaseStateManager::STATE_READY,
     ReleaseStateManager::STATE_REQUESTED,
@@ -96,34 +105,33 @@ class ReleaseStateManagerTest extends UnitTestCase {
       }
     }
 
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $rsm->canAdvanceStateTo('notarealstate');
   }
 
   /**
    * Test that providing an invalid state to advanceStateTo throws an exception.
    *
-   * This is the only thing that needs tested separately in advanceStateTo(). The
-   * rest of the functionality is tested in canAdvanceStateTo and transitionState.
+   * This is the only thing that needs tested separately in advanceStateTo().
+   * The rest of the functionality is tested in canAdvanceStateTo and
+   * transitionState.
    */
   public function testAdvanceStateToInvalidState() {
     $rsm = new ReleaseStateManager($this->state, $this->eventDispatcher, $this->time);
 
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $rsm->advanceStateTo('notarealstate');
   }
 
   /**
    * Tests the transitionState method.
    *
-   * @return void
+   * For each state transition, test that the following conditions are true:
+   *   - Listeners are notified properly
+   *   - The release state is updated
+   *   - The appropriate timestamp is updated.
    */
   public function testTransitionState() {
-    // for each state transition, test that:
-      // a) listeners are notified properly
-      // b) the release state is updated
-      // c) the appropriate timestamp is updated
-
     $fromStates = $this->validReleaseStates;
     $toStates = $this->validReleaseStates;
 
@@ -132,7 +140,7 @@ class ReleaseStateManagerTest extends UnitTestCase {
         $this->state->set('va_gov_build_trigger.release_state', $fromState);
 
         // Set up an event listener to make sure that it was called properly.
-        $called = false;
+        $called = FALSE;
         $listener = $this->getEventListenerTestingCallback($fromState, $toState, $called);
         $this->eventDispatcher->addListener(
           ReleaseStateTransitionEvent::NAME,
@@ -151,7 +159,7 @@ class ReleaseStateManagerTest extends UnitTestCase {
       }
     }
 
-    $this->expectException(InvalidArgumentException::class);
+    $this->expectException(\InvalidArgumentException::class);
     $rsm->transitionstate('notarealstate');
   }
 
@@ -164,7 +172,7 @@ class ReleaseStateManagerTest extends UnitTestCase {
     foreach ($fromStates as $fromState) {
       $this->state->set('va_gov_build_trigger.release_state', $fromState);
       // Set up an event listener to make sure that it was called properly.
-      $called = false;
+      $called = FALSE;
       $listener = $this->getEventListenerTestingCallback($fromState, ReleaseStateManager::STATE_DEFAULT, $called);
       $this->eventDispatcher->addListener(
         ReleaseStateTransitionEvent::NAME,
@@ -183,9 +191,22 @@ class ReleaseStateManagerTest extends UnitTestCase {
 
   }
 
+  /**
+   * Get a observable callback for the event responder.
+   *
+   * @param string $from_state
+   *   The state that should be transitioned from.
+   * @param string $to_state
+   *   The state that should be transitioned to.
+   * @param bool $called
+   *   Used for observing whether or not the event was dispatched properly.
+   *
+   * @return \Closure
+   *   The function used for the test.
+   */
   protected function getEventListenerTestingCallback($from_state, $to_state, &$called) {
-    return function(ReleaseStateTransitionEvent $event) use($from_state, $to_state, &$called) {
-      $called = true;
+    return function (ReleaseStateTransitionEvent $event) use ($from_state, $to_state, &$called) {
+      $called = TRUE;
       $this->assertEquals($from_state, $event->getOldReleaseState());
       $this->assertEquals($to_state, $event->getNewReleaseState());
     };
