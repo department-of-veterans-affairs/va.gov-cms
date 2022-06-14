@@ -1,0 +1,25 @@
+uuid: 9cf21eaa-3976-43b3-a811-f5b4afa67fd6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.message.field_target_node_title
+    - message.template.va_facility_removed_from_source
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: message.va_facility_removed_from_source.field_target_node_title
+field_name: field_target_node_title
+entity_type: message
+bundle: va_facility_removed_from_source
+label: 'Target Node Title'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

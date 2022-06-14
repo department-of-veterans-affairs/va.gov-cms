@@ -403,6 +403,7 @@ function vagovclaro_preprocess_node__documentation_page(&$variables) {
 function vagovclaro_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   _vagovclaro_exposed_kb_search_block_form_alter($form);
   _vagovclaro_form_action_outline_buttons($form);
+  _vagovclaro_form_cms_announcement_block($form);
 }
 
 /**
@@ -456,5 +457,18 @@ function _vagovclaro_form_action_outline_buttons(array &$form) {
   }
   if ($form['#theme'] === 'confirm_form') {
     $form['actions']['cancel']['#attributes']['class'][] = 'button--outline';
+  }
+}
+
+/**
+ * Alter hook for changing the form in CMS announcement block.
+ *
+ * @param array $form
+ *   The exposed widget form array.
+ */
+function _vagovclaro_form_cms_announcement_block(array &$form) {
+  if ($form['#id'] === 'block-content-cms-announcement-form') {
+    $form['info']['widget'][0]['value']['#description'] = t('Used for configuration settings only.');
+    $form['info']['widget'][0]['value']['#title'] = t('Block name');
   }
 }

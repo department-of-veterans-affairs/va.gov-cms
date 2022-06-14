@@ -7,5 +7,6 @@ services:
       - '@va_gov_workflow.flagger'
       - '@plugin.manager.migrate_plus.data_fetcher'
       - '@logger.channel.va_gov_migrate'
+      - '@va_gov_notifications.notifications_manager'
     tags:
       - { name: drush.command }

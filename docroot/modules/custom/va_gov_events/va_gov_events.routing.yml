@@ -1,0 +1,84 @@
+va_gov_events.instances:
+  path: '/admin/content/smart_date_recur/{rrule}/instances/{modal}'
+  options:
+    parameters:
+      rrule:
+        type: entity:smart_date_rule
+  defaults:
+    _controller: '\Drupal\va_gov_events\Controller\Instances::listInstances'
+    _title: 'Manage Instances'
+    modal: FALSE
+  requirements:
+    _permission: 'reschedule smart date recur instances'
+
+va_gov_events.apply_changes:
+  path: '/admin/content/smart_date_recur/{rrule}/apply_changes'
+  options:
+    parameters:
+      rrule:
+        type: entity:smart_date_rule
+  defaults:
+    _controller: '\Drupal\va_gov_events\Controller\Instances::applyChanges'
+    _title: 'Apply Changes'
+  requirements:
+    _permission: 'reschedule smart date recur instances'
+
+va_gov_events.instance.reschedule:
+  path: '/admin/content/smart_date_recur/{rrule}/instance/reschedule/{index}'
+  options:
+    parameters:
+      rrule:
+        type: entity:smart_date_rule
+  defaults:
+    _form: '\Drupal\va_gov_events\Form\SmartDateOverrideForm'
+    _title: 'Override an Instance'
+  requirements:
+    _permission: 'reschedule smart date recur instances'
+
+va_gov_events.instance.reschedule.ajax:
+  path: '/admin/content/smart_date_recur/{rrule}/instance/reschedule/{index}/ajax'
+  options:
+    parameters:
+      rrule:
+        type: entity:smart_date_rule
+  defaults:
+    _controller: '\Drupal\va_gov_events\Controller\Instances::reschedule'
+    _title: 'Override an Instance'
+  requirements:
+    _permission: 'reschedule smart date recur instances'
+
+va_gov_events.instance.remove:
+  path: '/admin/content/smart_date_recur/{rrule}/instance/remove/{index}'
+  options:
+    parameters:
+      rrule:
+        type: entity:smart_date_rule
+  defaults:
+    _form: '\Drupal\va_gov_events\Form\SmartDateRemoveInstanceForm'
+    _title: 'Remove an Instance'
+  requirements:
+    _permission: 'cancel smart date recur instances'
+
+va_gov_events.instance.remove.ajax:
+  path: '/admin/content/smart_date_recur/{rrule}/instance/remove/{index}/ajax'
+  options:
+    parameters:
+      rrule:
+        type: entity:smart_date_rule
+  defaults:
+    _controller: '\Drupal\va_gov_events\Controller\Instances::removeAjax'
+    _title: 'Remove an Instance'
+  requirements:
+    _permission: 'cancel smart date recur instances'
+
+va_gov_events.instance.revert.ajax:
+  path: '/admin/content/smart_date_recur/{entity}/instance/revert/{confirm}/ajax'
+  options:
+    parameters:
+      entity:
+        type: entity:smart_date_override
+  defaults:
+    _controller: '\Drupal\va_gov_events\Controller\Instances::revertAjax'
+    _title: 'Revert an Instance'
+  requirements:
+    _permission: 'reschedule smart date recur instances'
