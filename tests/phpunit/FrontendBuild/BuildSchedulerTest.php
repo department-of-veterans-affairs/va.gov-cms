@@ -6,6 +6,7 @@ use Drupal\Core\Datetime\DateFormatter;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Http\RequestStack;
 use Drupal\Core\KeyValueStore\KeyValueMemoryFactory;
+use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\State\State;
 use Drupal\Tests\UnitTestCase;
@@ -164,7 +165,6 @@ class BuildSchedulerTest extends UnitTestCase {
         1651524900,
         FALSE,
       ],
-
       // Edge cases:
       // Ensure that business hours end at 5pm -- protect against inadvertently
       // including 5:59 since we're only checking the hour.
