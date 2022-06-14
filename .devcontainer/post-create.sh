@@ -9,6 +9,9 @@ git remote add upstream https://github.com/department-of-veterans-affairs/va.gov
 # Provide php symlink for vscode extensions.
 if command -v /opt/php/lts/bin/php; then sudo ln -s /opt/php/lts/bin/php /usr/bin; fi
 
+# Populate a .env file for ddev and friends
+cp .env.example .env
+
 # https://ddev.readthedocs.io/en/stable/users/cli-usage/#opt-in-usage-information
 ddev config global --instrumentation-opt-in=true
 
