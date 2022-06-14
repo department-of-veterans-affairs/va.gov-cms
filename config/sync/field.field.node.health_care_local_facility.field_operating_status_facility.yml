@@ -6,13 +6,18 @@ dependencies:
     - field.storage.node.field_operating_status_facility
     - node.type.health_care_local_facility
   module:
+    - epp
     - options
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
 id: node.health_care_local_facility.field_operating_status_facility
 field_name: field_operating_status_facility
 entity_type: node
 bundle: health_care_local_facility
 label: Status
-description: 'Use "Limited hours and services" if in-facility services are closed but Veterans can still get telehealth appointments, and make a note in the details.'
+description: 'Select the status that reflects your facility’s current operations.'
 required: true
 translatable: false
 default_value:

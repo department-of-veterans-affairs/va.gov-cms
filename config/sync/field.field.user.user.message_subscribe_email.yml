@@ -1,0 +1,26 @@
+uuid: be29e726-8c2e-4a25-a475-eb9829955560
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.message_subscribe_email
+  module:
+    - user
+_core:
+  default_config_hash: 9mz1pXkx60_nnk21n4E98JDCyfxz9bhjQlMwdZPUzpo
+id: user.user.message_subscribe_email
+field_name: message_subscribe_email
+entity_type: user
+bundle: user
+label: 'Email subscriptions'
+description: 'Email option will be checked automatically when subscribing to something.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: Email
+  off_label: 'Don''t email'
+field_type: boolean

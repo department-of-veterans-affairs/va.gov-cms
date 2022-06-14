@@ -102,6 +102,17 @@ Cypress.Commands.add('scrollToSelector', (selector) => {
   });
 });
 
+Cypress.Commands.add('scrollToXpath', (xpath) => {
+  return cy.document().then((document) => {
+    const htmlElement = document.querySelector('html');
+    if (htmlElement) {
+      htmlElement.style.scrollBehavior = 'inherit';
+    }
+    cy.xpath(xpath).scrollIntoView({ offset: {top: 0}});
+    return cy.xpath(xpath);
+  });
+});
+
 Cypress.Commands.add('getDataLayer', () => {
   return cy.window().then((window) => window.dataLayer.filter((object) => object.event === 'pageLoad').pop());
 });

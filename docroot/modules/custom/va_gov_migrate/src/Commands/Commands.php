@@ -5,13 +5,17 @@ namespace Drupal\va_gov_migrate\Commands;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Logger\LoggerChannel;
 use Drupal\migrate_plus\DataFetcherPluginManager;
 use Drupal\migrate_plus\Entity\Migration;
 use Drupal\node\NodeInterface;
+use Drupal\va_gov_notifications\Service\NotificationsManager;
 use Drupal\va_gov_workflow\Service\Flagger;
 use Drush\Commands\DrushCommands;
+use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
+
+// The UID of the CMS Help Desk account subscribing to facility messages.
+const USER_CMS_HELP_DESK_NOTIFICATIONS = 4050;
 
 /**
  * Drush commands related to migrations.
@@ -32,7 +36,6 @@ class Commands extends DrushCommands {
    */
   protected $database;
 
-
   /**
    * Migrate plus datafetcher plugin manager.
    *
@@ -40,11 +43,10 @@ class Commands extends DrushCommands {
    */
   protected $dataFetcherPluginManager;
 
-
   /**
    * The logger channel for va_gov_migrate.
    *
-   * @var \Drupal\Core\Logger\LoggerChannel
+   * @var \Psr\Log\LoggerInterface
    */
   protected $migrateChannelLogger;
 
@@ -54,6 +56,13 @@ class Commands extends DrushCommands {
    * @var \Drupal\va_gov_workflow\Service\Flagger
    */
   protected $flagger;
+
+  /**
+   * The VA gov NotificationsManager.
+   *
+   * @var \Drupal\va_gov_notifications\Service\NotificationsManager
+   */
+  protected $notificationsManager;
 
   /**
    * Constructor for this set of drush commands.
@@ -66,15 +75,18 @@ class Commands extends DrushCommands {
    *   Workflow flagger service.
    * @param \Drupal\migrate_plus\DataFetcherPluginManager $data_fetcher_plugin_manager
    *   DataFetcherPluginManager.
-   * @param \Drupal\Core\Logger\LoggerChannel $migrate_channel_logger
+   * @param \Psr\Log\LoggerInterface $migrate_channel_logger
    *   LoggerChannel for va_gov_migrate.
+   * @param \Drupal\va_gov_notifications\Service\NotificationsManager $notifications_manager
+   *   VA gov NotificationsManager service.
    */
   public function __construct(
     Connection $data_base,
     EntityTypeManagerInterface $entity_type_manager,
     Flagger $flaggerservice,
     DataFetcherPluginManager $data_fetcher_plugin_manager,
-    LoggerChannel $migrate_channel_logger
+    LoggerInterface $migrate_channel_logger,
+    NotificationsManager $notifications_manager
   ) {
     parent::__construct();
     $this->database = $data_base;
@@ -82,6 +94,7 @@ class Commands extends DrushCommands {
     $this->flagger = $flaggerservice;
     $this->dataFetcherPluginManager = $data_fetcher_plugin_manager;
     $this->migrateChannelLogger = $migrate_channel_logger;
+    $this->notificationsManager = $notifications_manager;
   }
 
   /**
@@ -149,6 +162,10 @@ class Commands extends DrushCommands {
       foreach ($facility_nodes_to_flag as $facility_node_to_flag) {
         $this->addNodeRevision($facility_node_to_flag);
         $this->flagger->setFlag('removed_from_source', $facility_node_to_flag);
+
+        // Send email to CMS Help Desk for follow-up steps.
+        $message_fields = $this->notificationsManager->buildMessageFields($facility_node_to_flag, 'Facility removed:');
+        $this->notificationsManager->send('va_facility_removed_from_source', USER_CMS_HELP_DESK_NOTIFICATIONS, $message_fields);
       }
 
       // Log amount to be processed.

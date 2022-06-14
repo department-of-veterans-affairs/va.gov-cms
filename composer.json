@@ -23,7 +23,9 @@
         "consolidation/robo": "^1",
         "consolidation/site-process": "^4.1",
         "cweagans/composer-patches": "^1.7",
+        "datadog/dd-trace": "^0.75.0",
         "drupal/address": "^1.4",
+        "drupal/admin_feedback": "^2.2",
         "drupal/admin_toolbar": "^3.0",
         "drupal/advancedqueue": "^1.0@RC",
         "drupal/allow_only_one": "1.0.0-alpha1",
@@ -39,6 +41,7 @@
         "drupal/config_ignore": "^2.1",
         "drupal/config_override_warn": "^1.0",
         "drupal/config_split": "^1.4",
+        "drupal/consumer_image_styles": "^4.0",
         "drupal/consumers": "1.12.0",
         "drupal/content_lock": "^2.0@alpha",
         "drupal/core-composer-scaffold": "~9.3.0",
@@ -86,7 +89,9 @@
         "drupal/image_style_warmer": "^1.0",
         "drupal/image_widget_crop": "^2.2",
         "drupal/jsonapi_extras": "^3.19",
+        "drupal/jsonapi_image_styles": "^3.0",
         "drupal/jsonapi_resources": "^1.0@beta",
+        "drupal/jsonapi_views": "^1.0",
         "drupal/libraries": "^3.0@alpha",
         "drupal/limited_field_widgets": "^2.0",
         "drupal/linkit": "^6.0.0-beta2",
@@ -99,12 +104,17 @@
         "drupal/menu_item_extras": "^2.7",
         "drupal/menu_link_attributes": "^1.2",
         "drupal/menu_normalizer": "^2.0",
+        "drupal/message": "^1.2",
+        "drupal/message_notify": "^1.2",
+        "drupal/message_subscribe": "^1.1",
+        "drupal/message_ui": "^1.0@beta",
         "drupal/metatag": "^1.13",
         "drupal/migrate_plus": "^5.1",
         "drupal/migrate_source_csv": "^3.4",
         "drupal/migrate_source_ui": "^1.0@RC",
         "drupal/migrate_tools": "5.x-dev#7ae3747d1e30790d11c2eefcc56e0796bea25c76",
         "drupal/migration_tools": "^2.3",
+        "drupal/monolog": "^2.0",
         "drupal/next": "^1.1",
         "drupal/node_link_report": "^1.14",
         "drupal/node_revision_delete": "^1.0",
@@ -135,7 +145,7 @@
         "drupal/simplesamlphp_auth": "^3.2",
         "drupal/site_alert": "1.2",
         "drupal/slack": "^1.2",
-        "drupal/smart_date": "3.4.3",
+        "drupal/smart_date": "^3.5",
         "drupal/social_media_links": "^2.8",
         "drupal/string_field_formatter": "^2.0",
         "drupal/styleguide": "^2.0@beta",
@@ -181,7 +191,7 @@
         "symfony/process": "^4.0",
         "symfony/routing": "^4.0",
         "traviscarden/behat-table-comparison": "~0.2",
-        "va-gov/content-build": "^0.0.2997",
+        "va-gov/content-build": "^0.0.3034",
         "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
@@ -357,6 +367,9 @@
             "devshop/yaml-tasks": {
                 "Used 'pending' instead of 'queued' for commit status": "patches/yaml-tasks-pending.patch"
             },
+            "drupal/admin_feedback": {
+                "3254213 - Span and Label needed to support theming": "https://www.drupal.org/files/issues/2022-01-28/span-and-label-3254213-5.patch"
+            },
             "drupal/cer": {
                 "3197953-5 - Make d9 compatible": "https://www.drupal.org/files/issues/2021-03-19/cer-3197953-5.patch",
                 "3200122 - Remove delete hook": "https://www.drupal.org/files/issues/2021-02-24/delete-hook-added-in-dev-causes-test-failures.patch"
@@ -384,7 +397,8 @@
                 "2421145 - Text format wrapper does not take description_display into account": "https://www.drupal.org/files/issues/2021-12-03/2421445-18_0.patch",
                 "Internal Claro tweaks": "patches/claro-css-tweaks.patch",
                 "3176625 - Install from existing config with a theme that declares module dependencies fails": "https://www.drupal.org/files/issues/2021-05-18/fix_ConfigImportSubscriber_validateThemes-3176625-29.patch",
-                "3099026 - Claro's preprocessing of field multiple value form's table header cell removes potential changes by others": "https://www.drupal.org/files/issues/2020-02-20/3099026-9.patch"
+                "3099026 - Claro's preprocessing of field multiple value form's table header cell removes potential changes by others": "https://www.drupal.org/files/issues/2020-02-20/3099026-9.patch",
+                "2767243 - Create a theme suggestion for taxonomy terms by view mode": "https://www.drupal.org/files/issues/core-theme-suggestion-for-taxonomy-view-modes-2767243-14.patch"
             },
             "drupal/decoupled_router": {
                 "Unable to resolve path on node in other language than default": "https://www.drupal.org/files/issues/2021-05-05/3111456-34.patch"
@@ -463,7 +477,7 @@
             },
             "drupal/pathauto": {
                 "3204586 - Update URL Alias action is only available for nodes + users and does not work with views_bulk_operations": "https://www.drupal.org/files/issues/2021-03-22/pathauto-add_deriver_for_alias_update_action-3204586-19.patch",
-                "3214658 - Omit nolink items from url path args and add token that uses parent url": "https://www.drupal.org/files/issues/2021-05-22/remove-nolink-args-use-parent-entity-url-3214658-2_0.patch"
+                "3214658 - Omit nolink items from url path args and add token that uses parent url": "https://www.drupal.org/files/issues/2022-05-08/remove-nolink-args-use-parent-entity-url-3214658-18.patch"
             },
             "drupal/prometheus_exporter": {
                 "3214628 - Add published/unpublished node statistics to NodeCount.": "https://www.drupal.org/files/issues/2021-06-29/prometheus_exporter-add_status_metrics_to_node_count-3214628-3.patch"
@@ -488,6 +502,10 @@
             "drupal/subrequests": {
                 "Get same results on different request": "https://www.drupal.org/files/issues/2019-07-18/change_request_type-63049395-09.patch"
             },
+            "drupal/smart_date": {
+                "3260965 - Undefined index: #value": "https://www.drupal.org/files/issues/2022-01-27/smart_date_undefined_value_in_validation.patch",
+                "3260987 - Cannot read text option of null": "https://www.drupal.org/files/issues/2022-01-27/cannot-read-text-option-of-null.patch"
+            },
             "drupal/tablefield": {
                 "0 string value in cell throws empty error": "https://www.drupal.org/files/issues/2019-12-10/0-value-throwing-empty-error.patch",
                 "Fix Undefined index: caption notice": "https://www.drupal.org/files/issues/2020-08-10/tablefield-empty-caption-notice-2.patch",
@@ -506,6 +524,9 @@
             },
             "drupal/workflow_participants": {
                 "Fix revision uncaught type error by extending class.": "https://www.drupal.org/files/issues/2019-08-16/workflow_participants-revision-error-3075426-1.patch"
+            },
+            "knplabs/github-api": {
+                "Fix typehint for repository dispatch method": "https://patch-diff.githubusercontent.com/raw/KnpLabs/php-github-api/pull/1066.diff"
             },
             "traviscarden/behat-table-comparison": {
                 "Throw meaningful message for duplicate entry. See https://github.com/TravisCarden/behat-table-comparison/pull/7": "patches/duplicate-row-message.patch"

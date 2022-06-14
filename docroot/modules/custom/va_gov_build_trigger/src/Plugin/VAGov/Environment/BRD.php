@@ -83,7 +83,7 @@ class BRD extends EnvironmentPluginBase {
    * {@inheritDoc}
    */
   public function triggerFrontendBuild(string $front_end_git_ref = NULL, bool $full_rebuild = FALSE) : void {
-    $front_end_git_ref = $front_end_git_ref ?? "master";
+    $front_end_git_ref = $front_end_git_ref ?? "main";
 
     try {
       if ($this->pendingWorkflowRunExists()) {
@@ -93,7 +93,7 @@ class BRD extends EnvironmentPluginBase {
         $message = $this->t('Changes will be included in a content release to VA.gov that\'s already in progress. <a href="@job_link">Check status</a>.', $vars);
       }
       else {
-        $this->githubAdapter->triggerWorkflow('content-release.yml', $front_end_git_ref);
+        $this->githubAdapter->repositoryDispatch('content-release');
         $vars = [
           '@job_link' => 'https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml',
         ];

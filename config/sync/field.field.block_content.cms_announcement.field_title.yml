@@ -1,0 +1,25 @@
+uuid: ab273638-e6ff-448d-b866-b334dd5e82b7
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.cms_announcement
+    - field.storage.block_content.field_title
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: block_content.cms_announcement.field_title
+field_name: field_title
+entity_type: block_content
+bundle: cms_announcement
+label: 'Alert heading'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

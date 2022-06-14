@@ -25,7 +25,7 @@ third_party_settings:
       label: 'Section settings'
       region: content
       parent_name: ''
-      weight: 14
+      weight: 12
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -40,7 +40,7 @@ third_party_settings:
       label: 'Editorial workflow'
       region: content
       parent_name: ''
-      weight: 13
+      weight: 11
       format_type: fieldset
       format_settings:
         classes: ''
@@ -53,7 +53,7 @@ third_party_settings:
       label: 'Meta Tags'
       region: content
       parent_name: ''
-      weight: 12
+      weight: 10
       format_type: fieldset
       format_settings:
         classes: ''
@@ -65,12 +65,6 @@ targetEntityType: node
 bundle: outreach_asset
 mode: default
 content:
-  created:
-    type: datetime_timestamp
-    weight: 3
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_administration:
     type: options_select
     weight: 14
@@ -79,7 +73,7 @@ content:
     third_party_settings: {  }
   field_benefits:
     type: options_select
-    weight: 11
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -93,19 +87,19 @@ content:
     third_party_settings: {  }
   field_format:
     type: options_select
-    weight: 9
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
   field_listing:
     type: options_select
-    weight: 2
+    weight: 1
     region: content
     settings: {  }
     third_party_settings: {  }
   field_media:
     type: media_library_widget
-    weight: 10
+    weight: 8
     region: content
     settings:
       media_types: {  }
@@ -118,27 +112,27 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 6
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 4
+    weight: 2
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 8
+    weight: 6
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 5
+    weight: 3
     region: content
     settings:
       display_label: true
@@ -151,20 +145,12 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  uid:
-    type: entity_reference_autocomplete
-    weight: 1
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
   url_redirects:
-    weight: 7
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
+  created: true
   field_meta_tags: true
+  uid: true

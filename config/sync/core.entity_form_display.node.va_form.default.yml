@@ -139,12 +139,6 @@ targetEntityType: node
 bundle: va_form
 mode: default
 content:
-  created:
-    type: datetime_timestamp
-    weight: 11
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_administration:
     type: options_select
     weight: 10
@@ -324,7 +318,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 12
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -337,11 +331,12 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 13
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
+  created: true
   field_meta_tags: true
   promote: true
   status: true

@@ -7,7 +7,6 @@ dependencies:
     - field.field.node.health_care_local_facility.field_administration
     - field.field.node.health_care_local_facility.field_description
     - field.field.node.health_care_local_facility.field_facility_classification
-    - field.field.node.health_care_local_facility.field_facility_hours
     - field.field.node.health_care_local_facility.field_facility_locator_api_id
     - field.field.node.health_care_local_facility.field_intro_text
     - field.field.node.health_care_local_facility.field_local_health_care_service_
@@ -22,6 +21,7 @@ dependencies:
     - field.field.node.health_care_local_facility.field_operating_status_more_info
     - field.field.node.health_care_local_facility.field_phone_number
     - field.field.node.health_care_local_facility.field_region_page
+    - field.field.node.health_care_local_facility.field_supplemental_status
     - node.type.health_care_local_facility
     - workflows.workflow.editorial
   module:
@@ -42,7 +42,7 @@ third_party_settings:
       label: 'Section settings'
       region: content
       parent_name: ''
-      weight: 8
+      weight: 10
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -58,7 +58,7 @@ third_party_settings:
       label: 'Editorial Workflow'
       region: content
       parent_name: ''
-      weight: 9
+      weight: 11
       format_type: fieldset
       format_settings:
         classes: ''
@@ -71,7 +71,7 @@ third_party_settings:
       label: '"Prepare for your visit"'
       region: content
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: details
       format_settings:
         classes: ''
@@ -86,7 +86,7 @@ third_party_settings:
       label: 'VAMC system'
       region: content
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: fieldset
       format_settings:
         classes: ''
@@ -100,7 +100,7 @@ third_party_settings:
       label: 'Title and summary'
       region: content
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: fieldset
       format_settings:
         classes: ''
@@ -112,7 +112,7 @@ third_party_settings:
       label: 'Social Media'
       region: content
       parent_name: ''
-      weight: 5
+      weight: 6
       format_type: fieldset
       format_settings:
         classes: ''
@@ -126,12 +126,13 @@ third_party_settings:
       label: 'Operating status'
       region: content
       parent_name: ''
-      weight: 1
+      weight: 2
       format_type: fieldset
       format_settings:
         classes: ''
+        show_empty_fields: false
         id: ''
-        description: 'Use this to communicate critical information about potential closures or other situations on the facility''s location page and on the operating status page.'
+        description: 'Use this status for weather or other events that impact your facility''s operations. Don''t duplicate information contained in your COVID-19 status. This status will display on the facility''s location page and operating status page.'
         required_fields: true
     group_meta_tags:
       children:
@@ -139,7 +140,7 @@ third_party_settings:
       label: 'Meta Tags'
       region: content
       parent_name: ''
-      weight: 4
+      weight: 5
       format_type: fieldset
       format_settings:
         classes: ''
@@ -186,6 +187,39 @@ third_party_settings:
         element: div
         label_element: h3
         attributes: ''
+    group_covid_19_safety_guidelines:
+      children:
+        - field_supplemental_status
+        - group_current_covid_19_safety_gu
+      label: 'COVID-19 health protection guidelines'
+      region: content
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        description: 'Use these levels to help Veterans understand the current COVID-19 health protection guidelines at your facility. The preset guidelines will appear on your facility’s location and operating status pages.'
+        required_fields: false
+    group_current_covid_19_safety_gu:
+      children: {  }
+      label: 'Current Covid-19 safety guidelines'
+      region: content
+      parent_name: group_covid_19_safety_guidelines
+      weight: 22
+      format_type: tooltip
+      format_settings:
+        show_empty_fields: '1'
+        show_label: '0'
+        tooltip_description: "Why can't I edit this?\r\n\r\nVHA Digital Media manages messaging about COVID protocols to ensure a consistent experience for Veterans nationwide."
+        description: ''
+        required_fields: '1'
+        id: covid-safety-guidelines-status-text
+        classes: ''
+        element: div
+        label_element: h3
+        attributes: ''
 id: node.health_care_local_facility.default
 targetEntityType: node
 bundle: health_care_local_facility
@@ -199,13 +233,13 @@ content:
     third_party_settings: {  }
   field_administration:
     type: options_select
-    weight: 12
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
   field_description:
     type: string_textfield_with_counter
-    weight: 3
+    weight: 10
     region: content
     settings:
       size: 120
@@ -258,7 +292,7 @@ content:
     third_party_settings: {  }
   field_main_location:
     type: boolean_checkbox
-    weight: 22
+    weight: 21
     region: content
     settings:
       display_label: true
@@ -291,14 +325,14 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_operating_status_facility:
-    type: options_select
+    type: options_buttons
     weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
   field_operating_status_more_info:
     type: string_textarea_with_counter
-    weight: 6
+    weight: 7
     region: content
     settings:
       rows: 5
@@ -322,6 +356,12 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_supplemental_status:
+    type: options_buttons
+    weight: 21
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   flag:
     weight: 12
     region: content
@@ -335,7 +375,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 7
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -355,7 +395,6 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
-  field_facility_hours: true
   field_local_health_care_service_: true
   field_meta_tags: true
   promote: true

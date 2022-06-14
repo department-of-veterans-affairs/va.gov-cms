@@ -11,7 +11,6 @@ dependencies:
     - field.field.node.landing_page.field_intro_text
     - field.field.node.landing_page.field_links
     - field.field.node.landing_page.field_meta_tags
-    - field.field.node.landing_page.field_meta_title
     - field.field.node.landing_page.field_plainlanguage_date
     - field.field.node.landing_page.field_promo
     - field.field.node.landing_page.field_related_links
@@ -86,6 +85,16 @@ content:
     third_party_settings: {  }
     weight: 3
     region: content
+  flag_email_node:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  flag_subscribe_node:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
 hidden:
   content_moderation_control: true
   field_administration: true
@@ -95,7 +104,6 @@ hidden:
   field_intro_text: true
   field_links: true
   field_meta_tags: true
-  field_meta_title: true
   field_plainlanguage_date: true
   field_promo: true
   field_related_links: true

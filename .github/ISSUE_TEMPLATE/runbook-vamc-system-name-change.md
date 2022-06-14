@@ -36,9 +36,10 @@ Timing around these is critical and we may need more detail here.
 ## CMS Team
 Please check the team(s) that will do this work.
 
+- [ ] `Program`
 - [ ] `Platform CMS Team`
-- [ ] `Sitewide program`
+- [ ] `Sitewide Crew`
 - [ ] `⭐️ Sitewide CMS`
-- [ ] `⭐️ Public websites`
+- [ ] `⭐️ Public Websites`
 - [x] `⭐️ Facilities`
 - [x] `⭐️ User support`

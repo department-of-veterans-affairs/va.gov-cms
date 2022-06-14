@@ -81,9 +81,10 @@ Examples:
 ### CMS Team
 Please check the team(s) that will do this work.
 
+- [ ] `Program`
 - [ ] `Platform CMS Team`
-- [ ] `Sitewide program`
+- [ ] `Sitewide Crew`
 - [ ] `⭐️ Sitewide CMS`
-- [ ] `⭐️ Public websites`
+- [ ] `⭐️ Public Websites`
 - [ ] `⭐️ Facilities`
 - [ ] `⭐️ User support`

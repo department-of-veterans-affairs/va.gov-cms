@@ -17,6 +17,8 @@ export const Icons = {
       'magnifying-glass',
       'pencil',
       'plus',
+      'thumbs-down',
+      'thumbs-up',
       'trash',
       'warning',
       // 'triangle-exclamation'

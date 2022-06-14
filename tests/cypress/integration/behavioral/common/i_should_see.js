@@ -15,7 +15,7 @@ Then('I should not see xpath {string}', (expression) => cy.xpath(expression).sho
 
 Then('I should see an image with the selector {string}', (selector) => {
   cy.get(selector)
-    .should('be.visible')
+    .should('exist')
     .and(($img) => {
       expect($img[0].naturalWidth).to.be.greaterThan(0);
       expect($img[0].naturalHeight).to.be.greaterThan(0);
