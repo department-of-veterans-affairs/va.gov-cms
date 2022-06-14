@@ -30,11 +30,10 @@
 1. Open VS Code, click the 'Remote Explorer' tab on the left, and click the 'Connect to codespace' button (it looks like an electric plug) to choose the codespace you just created:
    ![codespaces connection](https://user-images.githubusercontent.com/101649/111007602-75151080-834c-11eb-8c5d-9ef73ef03b30.png)
 1. After a few seconds, you will be connected to codespaces, and the IDE will function like it is running locally for all intents and purposes.
-1. The development environment will automatically configure, install and start [lando](lando.md) on creation, which takes ~10-15 minutes. To monitor the process, choose 'New Terminal' from the 'Terminal' menu, and run this command: `tail -f ~/post-create.log`. The environment configuration also suggests plugins for linting and code style checking, and sets up the upstream git remote for the main CMS repo.
+1. The development environment will automatically configure, install and start ddev on creation, which takes ~10-15 minutes because of DB and files importing. To monitor the process, choose 'New Terminal' from the 'Terminal' menu, and run this command: `tail -f ~/post-create.log`. The environment configuration also suggests plugins for linting and code style checking, and sets up the upstream git remote for the main CMS repo.
 1. When the setup process is complete, you will see a welcome message.
-1. You may want to change your git email address for commits with `git config --global user.email first.last@workemail.com`. You can see what is currently listed with `git config --global --list`. 
-1. Your development environment is ready to use! Create a new terminal and run the command `lando info`. Mouse over the link to localhost, and VS Code will provide instructions to open the site in your browser with automatic port forwarding:
-  ![starting lando](https://user-images.githubusercontent.com/101649/111008775-156c3480-834f-11eb-878d-10a665a777d4.png)
+1. You may want to change your git email address for commits with `git config --global user.email first.last@workemail.com`. You can see what is currently listed with `git config --global --list`.
+1. Your development environment is ready to use! Create a new terminal and run the command `ddev describe`. Mouse over the link to localhost, and VS Code will provide instructions to open the site in your browser with automatic port forwarding.
 
 ## Customization
 
@@ -46,15 +45,15 @@ To set up your preferred shell environment, you may create a public 'dotfiles' r
 
 ### Viewing the Drupal site
 
-1. In a terminal, run the command `lando info`
-2. In the `appserver` section of the output, hover over one of the localhost addresses, e.g. `http://localhost:49161`
+1. In a terminal, run the command `ddev describe`
+2. In the `web` section of the output, hover over one of the localhost addresses, e.g. `http://localhost:49161`
 3. Command-click to automatically forward the port and open in your local browser
 
 ### Debugging
 
 To debug with [Xdebug](https://xdebug.org), follow these steps:
 
-1. In a terminal, run the command `lando xdebug-on`
+1. In a terminal, run the command `ddev xdebug on`
 2. Click the debugging tab on the left, and then the green play button to the left of 'Listen for Xdebug':
   ![starting xdebug](https://user-images.githubusercontent.com/101649/111009307-8102d180-8350-11eb-8a59-70d7270d0ea6.png)
 3. Set a breakpoint and load a page in your browser. Go to town!

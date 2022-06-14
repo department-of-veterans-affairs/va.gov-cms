@@ -18,8 +18,8 @@ $databases['default']['default'] = array(
   'username' => getenv('CMS_MARIADB_USERNAME') ?: 'drupal8',
   'password' => getenv('CMS_MARIADB_PASSWORD') ?: 'drupal8',
   'prefix' => '',
-  // 'database' is the default DB container for Lando (local).
-  'host' => getenv('CMS_MARIADB_HOST') ?: 'database',
+  // 'db' is the default DB container hostname for local.
+  'host' => getenv('CMS_MARIADB_HOST') ?: 'db',
   'port' => 3306,
   'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
 );
@@ -113,7 +113,7 @@ $settings['va_cms_bot_github_auth_token'] = getenv('CMS_GITHUB_VA_CMS_BOT_TOKEN'
 // Environment settings
 $settings['va_gov_composer_home'] = getenv('COMPOSER_HOME');
 $settings['va_gov_path_to_composer'] = '/usr/local/bin/composer';
-// The default BRD locations. These settings are currently only used on tugboat/lando
+// The default BRD locations. These settings are currently only used on tugboat/local
 $settings['va_gov_web_root'] = '/var/www/cms/docroot/web';
 $settings['va_gov_app_root'] = '/var/www/cms';
 
@@ -174,19 +174,21 @@ $settings['post_api_apikey'] = getenv('CMS_VAGOV_API_KEY') ?: FALSE;
 $settings['slack_webhook_url'] = getenv('CMS_VAGOV_SLACK_WEBHOOK_URL') ?: FALSE;
 $config['slack.settings']['slack_webhook_url'] = $settings['slack_webhook_url'];
 
-// Environment specific settings
-if (file_exists($app_root . '/' . $site_path . '/settings/settings.' . $env_type . '.php')) {
-  include $app_root . '/' . $site_path . '/settings/settings.' . $env_type . '.php';
-}
+$settings_files = [
+  // Environment specific settings
+  __DIR__ . '/settings/settings.' . $env_type . '.php',
+  // Fast 404 settings
+  __DIR__ . '/settings/settings.fast_404.php',
+  // Ansible moves this file into place during deploy, so if it is present we are in deploy mode.
+  __DIR__ . '/settings/settings.deploy.active.php',
+  // Local overrides
+  __DIR__ . '/settings.local.php',
+];
 
-// Fast 404 settings
-if (file_exists($app_root . '/' . $site_path . '/settings/settings.fast_404.php')) {
-  include $app_root . '/' . $site_path . '/settings/settings.fast_404.php';
-}
-
-// Ansible moves this file into place during deploy, so if it is present we are in deploy mode.
-if (file_exists($app_root . '/' . $site_path . '/settings/settings.deploy.active.php')) {
-  include $app_root . '/' . $site_path . '/settings/settings.deploy.active.php';
+foreach ($settings_files as $file) {
+  if (file_exists($file)) {
+    include_once $file;
+  }
 }
 
 /**
@@ -195,21 +197,6 @@ if (file_exists($app_root . '/' . $site_path . '/settings/settings.deploy.active
  * TL;DR: Ensure each watchdog entry becomes only a single line in syslog.
  */
 ini_set('syslog.filter', 'raw');
-
-/**
- * Load local development override configuration, if available.
- *
- * Use settings.local.php to override variables on secondary (staging,
- * development, etc) installations of this site. Typically used to disable
- * caching, JavaScript/CSS compression, re-routing of outgoing emails, and
- * other things that should not happen on development and testing sites.
- *
- * Keep this code block at the end of this file to take full effect.
- */
-// Local settings, must stay at bottom of file, this file is ignored by git.
-if (file_exists($app_root . '/' . $site_path . '/settings/settings.local.php')) {
-  include $app_root . '/' . $site_path . '/settings/settings.local.php';
-}
 
 // The VA_GOV_IN_DEPLOY_MODE is set in settings.deploy.active.php.
 // The file is copied from settings.deploy.inactive.php by Ansible during deploys.
@@ -240,7 +227,7 @@ if (!empty($webhost_on_cli)) {
 }
 
 // Monolog
-$settings['container_yamls'][] = $app_root . '/' . $site_path . '/../default/services/services.monolog.yml';
+$settings['container_yamls'][] = __DIR__ . '/services/services.monolog.yml';
 
 // Memcache-specific settings
 if (extension_loaded('memcache') && !empty($settings['memcache']['servers'])) {
@@ -248,12 +235,12 @@ if (extension_loaded('memcache') && !empty($settings['memcache']['servers'])) {
   $settings['memcache']['bins'] = [
     'default' => 'default',
   ];
-  $settings['container_yamls'][] = $app_root . '/' . $site_path . '/../default/services/services.memcache.yml';
+  $settings['container_yamls'][] = __DIR__ . '/services/services.memcache.yml';
   $settings['memcache']['persistent'] = 'drupal';
 }
 
 // Environment specific services container.
-$env_services_path = "$app_root/$site_path/services/services.$env_type.yml";
+$env_services_path = __DIR__ . "/services/services.$env_type.yml";
 if (file_exists($env_services_path)) {
   $settings['container_yamls'][] = $env_services_path;
 }

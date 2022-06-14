@@ -24,8 +24,6 @@
 # Ignore NPM managed dependencies
 node_modules/
 
-# Ignore local dev files
-/docroot/sites/default/settings/settings.local.php
 # Prevent Devel from appearing anywhere.
 /config/dev/devel.settings.yml
 /config/dev/devel.toolbar.settings.yml
@@ -57,9 +55,9 @@ node_modules/
 /docroot/sites/*/files
 /docroot/sites/*/private
 /docroot/sites/*/drushrc.php
-/docroot/sites/*/aegir.services.yml
 /docroot/sites/*/settings.php
 /docroot/sites/*/local.settings.php
+/docroot/sites/*/settings.local.php
 /docroot/sites/all/drush/drushrc.php
 
 !/docroot/sites/default/settings.php
@@ -80,10 +78,7 @@ node_modules/
 /tests/*/cypress/screenshots
 /tests/*/cypress/videos
 
-# Ignore local lando config
-.lando.local.yml
-.lando/zzz*local.ini
-.lando.compose.yml
+# Ignore local config
 datadog-setup.php
 
 # Cache file used by PHPUnit
