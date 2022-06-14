@@ -7,7 +7,7 @@ It is based on Drupal Core's Claro theme.
 ## Local Development
 ### Sass
 Composer commands have been added to the root composer.json for compiling and watching theme assets. Run these prefixed
-with `ddev` to run inside your local development container.
+with `ddev` or `lando` to run inside your local development container.
 - `composer va:theme:compile` will compile all theme assets. For core & all custom themes.
 - `composer va:theme:watch` will run `yarn watch` to watch vagovclaro styles. Changing any scss file will trigger
 a recompile & a clear of drupal caches. Reload your browser to see your changes.
@@ -21,8 +21,8 @@ When including images in css rules, routes should be relative from the compiled 
 
 ### Javascript
 The javascript workflow is still controlled by npm commands found in the repo's top-level package.json.
-Running `npm run build:js` from that package.json will build and transpile javascript across the project. ddev has
-mappings for the top-level package.json, so `ddev npm run build:js` will do what you need.
+Running `npm run build:js` from that package.json will build and transpile javascript across the project. Both lando and
+ddev have mappings for the top-level package.json, so `ddev npm run build:js` will do what you need.
 
 If you add new javascript to an `*.es6.js` file in  `/assets/js`, you need to run the build command in order to
 correctly transpile for all browsers.

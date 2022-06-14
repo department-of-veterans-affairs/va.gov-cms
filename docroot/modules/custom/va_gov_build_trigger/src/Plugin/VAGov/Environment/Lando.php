@@ -4,22 +4,22 @@ namespace Drupal\va_gov_build_trigger\Plugin\VAGov\Environment;
 
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentPluginBase;
+use Drupal\va_gov_build_trigger\Form\LandoBuildTriggerForm;
 use Drupal\va_gov_build_trigger\WebBuildCommandBuilder;
 use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
 use Drupal\va_gov_build_trigger\Command\CommandRunner;
-use Drupal\va_gov_build_trigger\Form\LocalBuildTriggerForm;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Local Plugin for Environment.
+ * Lando Plugin for Environment.
  *
  * @Environment(
- *   id = "local",
- *   label = @Translation("Local")
+ *   id = "lando",
+ *   label = @Translation("Lando")
  * )
  */
-class Local extends EnvironmentPluginBase {
+class Lando extends EnvironmentPluginBase {
   use CommandRunner;
   use QueueHelper;
 
@@ -65,9 +65,9 @@ class Local extends EnvironmentPluginBase {
    * {@inheritDoc}
    */
   public function triggerFrontendBuild(string $front_end_git_ref = NULL) : void {
-    // phpcs:disable
+    // phpcs:ignore
     // See issue https://github.com/department-of-veterans-affairs/va.gov-cms/issues/8796
-    $message = $this->t('Build not dispatched because the content build is not currently working locally.');
+    $message = $this->t('Build not dispatched because the content build is not currently working on ddev.');
     $this->messenger()->addStatus($message);
     $this->logger->info($message);
     return;
@@ -80,7 +80,6 @@ class Local extends EnvironmentPluginBase {
     $this->queueCommands($commands, $queue);
 
     $this->messenger()->addStatus('A request to rebuild the front end has been submitted.');
-    // phpcs:enable
   }
 
   /**
@@ -94,7 +93,7 @@ class Local extends EnvironmentPluginBase {
    * {@inheritDoc}
    */
   public function getBuildTriggerFormClass() : string {
-    return LocalBuildTriggerForm::class;
+    return LandoBuildTriggerForm::class;
   }
 
 }

@@ -64,37 +64,37 @@ There are 3 main types of tests:
 
 1.  **Functional Tests**
 
-    1. `va/tests/phpunit` - The CMS PHPUnit Tests include a number of functional tests, including creating media, testing GraphQL, performance and security. See the [tests/phpunit folder](tests/phpunit) to see all the PHPUnit tests.
-
+    1. `va/tests/phpunit` - The CMS PHPUnit Tests include a number of functional tests, including creating media, testing GraphQL, performance and security. See the [tests/phpunit folder](tests/phpunit) to see all the PHPUnit tests. 
+    
         Utilizing the DrupalTestTraits library with PHPUnit gives developers the ability to bootstrap Drupal and write tests in PHP without an abstraction layer provided by Gherkin. PHPUnit is the preferred tool to write tests due to its speed of execution.
 
         Run all tests:
 
         ```
-        ddev phpunit
+        lando phpunit
         ```
 
         Run a specific test with the "path" argument:
         The path can be to a specific test file, or a directory with tests.
 
         ```
-        ddev phpunit-run {Path-to-test}
+        lando phpunit-run {Path-to-test}
 
-        ddev phpunit-run docroot/modules/contrib/config_split/tests/src/Kernel/ConfigSplitCliServiceTest.php
+        lando phpunit-run docroot/modules/contrib/config_split/tests/src/Kernel/ConfigSplitCliServiceTest.php
         ```
 
         Run a specific test:
 
         ```
-        ddev phpunit-run {Path-to-test} --filter {test-function-name}
+        lando phpunit-run {Path-to-test} --filter {test-function-name}
 
-        ddev phpunit-run docroot/modules/contrib/config_split/tests/src/Kernel/ConfigSplitCliServiceTest.php --filter testGrayAndBlackListExport
+        lando phpunit-run docroot/modules/contrib/config_split/tests/src/Kernel/ConfigSplitCliServiceTest.php --filter testGrayAndBlackListExport
         ```
 
         Run a group of PHPUnit tests:
 
         ```sh
-        ddev phpunit-run . --group security
+        lando phpunit-run . --group security
         ```
 
     1. `va/tests/behat` - The Behat test suite includes:
@@ -114,7 +114,7 @@ There are 3 main types of tests:
         Run a specific behat test with the `--name` or `--tags` options:
 
         ```sh
-        ddev behat --tags=dst
+        lando behat --tags=dst
         ```
 
     1. `va/tests/cypress` - The [Cypress](https://github.com/cypress-io/cypress) test suite includes end-to-end behavioral and accessibility tests.
@@ -126,14 +126,14 @@ There are 3 main types of tests:
           node_modules/.bin/cypress run --spec "tests/cypress/integration/behavioral/content_release.feature"
           ```
 
-          To run and debug cypress tests in a web UI, run the following commands from the project root on your local machine (not within ddev):
+          To run and debug cypress tests in a web UI, run the following commands from the project root on your local machine (not within lando):
 
           ```sh
           npm run test:cypress:interactive
           ```
 
           You will see a window with a list of tests. Just click on the name of any test to run it within a browser.
-
+          
 
 ## Running Tests
 
@@ -147,30 +147,30 @@ Composer commands, including Task itself._
 See [Composer Paths](#composer-configbinpath-and-path) for more information
 on Composer and $PATH.
 
-### Local Testing with ddev: `ddev test`
+### Local Testing with Lando: `lando test`
 
-This project is configured to work with ddev out of the box.
+This project is configured to work with Lando out of the box.
 
-ddev commands are listed in `ddev help. There are some helper commands that map
-to shell commands.
+Lando commands are listed in [`.lando.yml`](../.lando.yml). There are some
+helper commands that map to shell commands.
 
-| ddev Command         | Shell Command                                            |
+| Lando Command        | Shell Command                                            |
 | -------------------- | -------------------------------------------------------- |
-| ddev task           | ./bin/task                                               |
-| ddev test           | ./bin/task --taskfile=tests.yml                          |
-| ddev test va/deploy | ./bin/task --taskfile=tests.yml va/deploy                |
-| ddev web-build      | composer va:web:build                                    |
-| ddev phpunit        | ./bin/task --taskfile=tests.yml va/tests/phpunit         |
-| ddev phpstan        | bin/phpstan analyze                                      |
-| ddev web-build      | composer va:web:build                                    |
-| ddev behat          | cd /app/tests/behat && /app/bin/behat                    |
+| lando task           | ./bin/task                                               |
+| lando test           | ./bin/task --taskfile=tests.yml                          |
+| lando test va/deploy | ./bin/task --taskfile=tests.yml va/deploy                |
+| lando web-build      | composer va:web:build                                    |
+| lando phpunit        | ./bin/task --taskfile=tests.yml va/tests/phpunit         |
+| lando phpstan        | bin/phpstan analyze                                      |
+| lando web-build      | composer va:web:build                                    |
+| lando behat          | cd /app/tests/behat && /app/bin/behat                    |
 
 _NOTES:_
 
-- Any arguments passed to the `ddev` command are passed through to the
+- Any arguments passed to the `lando` command are passed through to the
   `composer` command.
-- Any `composer` command can be run inside a ddev container after you run
-  `ddev ssh`.
+- Any `composer` command can be run inside a Lando container after you run
+  `lando ssh`.
 
 ### Limit tests to run
 

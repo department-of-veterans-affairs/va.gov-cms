@@ -66,13 +66,13 @@ A migration should not be considered complete if there are ANY migrate messages 
 
 
 ### Migration Commands
-* `ddev drush migrate:status {migration_id}`  - gives the status of the migration. Number of items total, number unprocessed.
-* `ddev drush migrate:reset-status {migration_id}`  - Resets a migration that may have not completed due to a fatal error.
-* `ddev drush migrate:rollback {migration_id}`  - Rolls back all items tracked by the migration.
-* `ddev drush migrate:messages {migration_id}` - List any messages from the last run of the migration. Subsequent runs of the migration will remove ald messages.  When run in the UI, this list only includes any messages from the last batch (which my only be the last 25 things migrated).
+* lando drush migrate:status {migration_id}  - gives the status of the migration. Number of items total, number unprocessed.
+* lando drush migrate:reset-status {migration_id}  - Resets a migration that may have not completed due to a fatal error.
+* lando drush migrate:rollback {migration_id}  - Rolls back all items tracked by the migration.
+* lando drush migrate:messages {migration_id} - List any messages from the last run of the migration. Subsequent runs of the migration will remove ald messages.  When run in the UI, this list only includes any messages from the last batch (which my only be the last 25 things migrated).
 *  Useful options
-   *  `--id-list={ID}`  - Limits the command to just a specific row/item in the migration.   Useful for rolling back and re-migrating a specific troublesome item. The ID is the row ID based on what unique ID is defined in the migration.
-   *  `--limit={quantity}`  - limits the action to a specific number of items.
+   *  --id-list={ID}  - Limits the command to just a specific row/item in the migration.   Useful for rolling back and re-migrating a specific troublesome item. The ID is the row ID based on what unique ID is defined in the migration.
+   *  --limit={quantity}  - limits the action to a specific number of items.
 
 #### Migration Settings (settings.local.php)
 For these migrations to function, you'll need to obtain a Facility API Key from a member of the development team and place the key, along with the following code, into your settings.local.php file. This file should be located in `docroot/sites/default/settings/settings.local.php`.
@@ -101,7 +101,7 @@ foreach ($facility_migrations as $facility_migration) {
 
 ###  Workflow
   1. Edit or create a new migration configuration in docroot/modules/custom/va_gov_migrate/config/install
-  2. Use `ddev migrate-sync` to copy the config into config/sync imported it and export it again.  Always work in `va_gov_migrate/config/install` and then sync.  This preserves any comments in the migration yml.
+  2. Use `lando migrate-sync` to copy the config into config/sync imported it and export it again.  Always work in `va_gov_migrate/config/install` and then sync.  This preserves any comments in the migration yml.
   3. Preflight any new data from the VAMC upgrade team in libre office by importing the CSV with the import config set to separator: ; and encapsulation: '.  Look for jumped columns missing data or the appearance of wrapping quotes.
   4. Append the data to an existing CSV or add it as new (if you are dealing with thousands, add it as new.)  Name the file as a match to the id of the migration you are creating.
   5.  Run the System Health Service migration.  Look for presence of migrate messages.  The messages will indicate the problems with the data.  Fix, rollback, repeat until there are no messages created and the row count of the data, matches the created count.
