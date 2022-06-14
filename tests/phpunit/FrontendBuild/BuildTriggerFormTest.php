@@ -26,7 +26,7 @@ class BuildTriggerFormTest extends ExistingSiteBase {
 
     // Store the default environment so that we may later revert to it.
     $settings = $this->container->get('settings')->getAll();
-    $this->defaultEnvironment = $settings['va_gov_frontend_build_type'] ?? 'local';
+    $this->defaultEnvironment = $settings['va_gov_frontend_build_type'] ?? NULL;
 
     $admin = User::load(1);
     $admin->passRaw = 'drupal8';
