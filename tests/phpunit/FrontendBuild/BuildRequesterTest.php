@@ -16,6 +16,8 @@ use Drupal\va_gov_build_trigger\Service\BuildRequester;
  */
 class BuildRequesterTest extends UnitTestCase {
   /**
+   * The state service.
+   *
    * @var \Drupal\Core\State\StateInterface
    */
   protected $state;
@@ -41,7 +43,7 @@ class BuildRequesterTest extends UnitTestCase {
     $queue->expects($this->once())
       ->method('enqueueJob')
       ->with(
-        $this->callback(function(Job $job) {
+        $this->callback(function (Job $job) {
           $this->assertInstanceOf(Job::class, $job);
           $this->assertEquals('va_gov_content_release_request', $job->getType());
 
@@ -59,8 +61,8 @@ class BuildRequesterTest extends UnitTestCase {
 
     $entityTypeManager = $this->getEntityTypeManagerWithStorageAndQueue($queue);
 
-    // Finally, create a build requester and request a build (which should trigger
-    // the assertions above).
+    // Finally, create a build requester and request a build (which should
+    // trigger the assertions above).
     $buildRequester = new BuildRequester($entityTypeManager, $this->state);
     $buildRequester->requestFrontendBuild('TEST REASON');
   }
@@ -86,12 +88,13 @@ class BuildRequesterTest extends UnitTestCase {
   /**
    * Get an entity type manager that can eventually return a queue.
    *
-   * @param QueueInterface $queue
+   * @param \Drupal\advancedqueue\Entity\QueueInterface $queue
    *   A queue (or a mock).
    *
-   * @return EntityTypeManagerInterface
+   * @return \Drupal\Core\Entity\EntityStorageInterface
+   *   A mocked EntityStorageInterface.
    */
-  protected function getEntityTypeManagerWithStorageAndQueue($queue) {
+  protected function getEntityTypeManagerWithStorageAndQueue(QueueInterface $queue) {
     // Build an entity storage manager to return the queue.
     $entityStorageManager = $this->getMockBuilder(EntityStorageInterface::class)
       ->disableOriginalConstructor()
@@ -110,6 +113,5 @@ class BuildRequesterTest extends UnitTestCase {
 
     return $entityTypeManager;
   }
-
 
 }
