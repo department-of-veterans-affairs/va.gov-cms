@@ -1,5 +1,5 @@
-// This file is called from ansible/deployment/config/jenkins-vetsgov/seed_job.groovy
-// and is used in the http://jenkins.vfs.va.gov/job/testing/job/cms-test job that
+// This file is sourced from ansible/deployment/config/jenkins-vetsgov/seed_job.groovy
+// and is used in the http://jenkins.vfs.va.gov/job/testing/job/cms job that
 // auto-triggers deploys to DEV & STAGING on commit and which is triggered
 // by a webhook.
 
@@ -34,20 +34,20 @@ pipeline {
         build job: "builds/${params.app}", parameters: [
           booleanParam(name: 'release', value: false),
           booleanParam(name: 'notify_slack', value: true),
+          stringParam(name: 'slack_channel', value: "${params.slack_channel}"),
           stringParam(name: 'ref', value: commit),
           booleanParam(name: 'force_rebuild', value: false)
         ], wait: true
       }
     }
 
-    stage('Deploy to dev') {
+    stage('Deploy to DEV') {
       when {
         expression {
           !shouldBail()
         }
       }
       steps {
-        sh 'echo SUCCESS, we are in DEV step'
         build job: "deploys/${params.app}-vagov-dev", parameters: [
           stringParam(name: 'app', value: params.app),
           booleanParam(name: 'notify_slack', value: true),
@@ -57,7 +57,7 @@ pipeline {
       }
     }
 
-    stage('Deploy to staging') {
+    stage('Deploy to STAGING') {
       when {
         expression {
           !shouldBail()

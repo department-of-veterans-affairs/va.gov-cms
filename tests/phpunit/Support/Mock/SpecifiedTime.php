@@ -19,7 +19,7 @@ class SpecifiedTime extends Time {
   /**
    * Set the timestamp that getCurrentTime() should return.
    *
-   * @param integer $timestamp
+   * @param int $timestamp
    *   The timestamp to return.
    */
   public function setCurrentTime(int $timestamp) {
@@ -32,4 +32,5 @@ class SpecifiedTime extends Time {
   public function getCurrentTime() {
     return $this->timestamp;
   }
+ 
 }

@@ -240,6 +240,7 @@ class ReleaseStateManager implements ReleaseStateManagerInterface {
    */
   protected function notifyListeners($old_state, $new_state) : void {
     $event = new ReleaseStateTransitionEvent($old_state, $new_state);
+    // @phpstan-ignore-next-line
     $this->dispatcher->dispatch($event, ReleaseStateTransitionEvent::NAME);
   }
 

@@ -1,0 +1,37 @@
+uuid: 7736a381-afea-48ac-8a47-fe11f188acec
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.message.mail_subject
+    - field.field.message.va_facility_removed_from_source.field_target_entity
+    - field.field.message.va_facility_removed_from_source.field_target_node_title
+    - message.template.va_facility_removed_from_source
+  module:
+    - layout_builder
+    - string_field_formatter
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: message.va_facility_removed_from_source.mail_subject
+targetEntityType: message
+bundle: va_facility_removed_from_source
+mode: mail_subject
+content:
+  field_target_node_title:
+    type: plain_string_formatter
+    label: hidden
+    settings:
+      link_to_entity: false
+      wrap_tag: _none
+      wrap_class: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_target_entity: true
+  partial_0: true
+  partial_1: true
+  search_api_excerpt: true
