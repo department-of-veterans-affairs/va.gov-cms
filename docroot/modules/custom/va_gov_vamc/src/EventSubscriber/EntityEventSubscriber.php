@@ -172,7 +172,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
 
     if ($this->isFlaggableFacility($entity)) {
       $this->flagger->flagNew('new', $entity, "This facility is new and needs the 'new facility' runbook.");
-
       // Email the help desk when a new facility is created.
       $first_save = (empty($entity->original)) ? TRUE : FALSE;
       if ($entity->isNew() || $first_save) {
