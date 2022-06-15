@@ -28,4 +28,4 @@ jobs:
         with:
           context: ./scripts/prebuild_db
           push: true
-          tags: ${{ env.REGISTRY }}/${{ github.repository }}-db:latest
+          tags: ghcr.io/${{ github.repository }}-db:latest
