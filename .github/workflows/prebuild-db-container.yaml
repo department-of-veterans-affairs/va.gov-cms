@@ -1,0 +1,30 @@
+name: prebuild ddev db
+on:
+  workflow_dispatch: []
+  # schedule:
+  #   - cron: '17 0 * * *'
+jobs:
+  prebuild_db:
+    name: prebuild ddev db
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Login to container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v3
+        with:
+          context: ./scripts/prebuild_db
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
