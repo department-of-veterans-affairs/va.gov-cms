@@ -87,6 +87,7 @@ class EnvironmentDiscovery {
    *   The key defined in settings.php for the front end build.
    */
   public function getBuildTypeKey() : string {
+    \Drupal::logger('nug_doug')->error(Settings::get('va_gov_frontend_build_type', 'tugboat'));
     return Settings::get('va_gov_frontend_build_type', 'tugboat');
   }
 
