@@ -24,5 +24,8 @@ Most nodes in the CMS have a preview button.  The preview button should only app
   * **Sandboxes:** The preview button points to the internal build of "Web" (local va.gov) and it only shows the version of the page that was published at the time
   of the last content release that built Web. It is NOT a draft preview or a just published preview.  A content-release (rebuild of Web) is needed to see recently
   published changes. Web is NOT built automatically locally.  It gets built by running tests locally, or running the build command.
+  
+**More information:** [Preview button topic dive](https://www.youtube.com/watch?v=_PDtbqQQWyU&ab_channel=VACMSTraining 
+) (YouTube) 
 
 [Table of Contents](../README.md)
