@@ -92,7 +92,7 @@ class BuildFrontend implements BuildFrontendInterface {
     }
     catch (PluginException $e) {
       // In an unaccounted for environment without a plugin.
-      $message = $this->t('You cannot trigger a build in this environment. Only the tugboat, local, DEV, STAGING and PROD environments support triggering builds.');
+      $message = $this->t('You cannot trigger a build in this environment. Only the tugboat, lando, DEV, STAGING and PROD environments support triggering builds.');
       $this->messenger->addWarning($message);
       $this->logger->warning($message);
       $this->setPendingState(FALSE);

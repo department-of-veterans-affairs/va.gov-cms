@@ -1,6 +1,89 @@
 # [Environments](environments): Local
 
-For ddev docs, please see the CMS Platform's [Confluence guide](https://vfs.atlassian.net/wiki/spaces/PCMS/pages/1956937732/ddev).
+For DDEV docs, please see the CMS Platform's [Confluence guide](https://vfs.atlassian.net/wiki/spaces/PCMS/pages/1956937732/ddev).
+
+## Lando:
+  The local development environment uses Lando to create and manage the Drupal CMS.
+  * [Lando Docs](https://docs.lando.dev/)
+  * [Lando](https://github.com/lando/lando)
+
+
+    ### Lando Commands (commonly used ones.  See Lando docs for more.)
+    | Command | Description |
+    | --- | --- |
+    | `lando start -y` | Start the application |
+    | `lando rebuild -y` | Rebuild the application and re-run the setup commands |
+    | `lando composer nuke` | Destroy the vendor directory so it can be rebuilt properly. |
+    | `lando xdebug-on` / `lando xdebug-off` | Turns [xdebug](debugging.md) on or off. |
+    | `lando info` | View service URLs and ports |
+
+    ### Mailhog
+
+    [Mailhog](https://github.com/mailhog/MailHog) is an email testing tool that has two main functions:
+
+    1. captures outgoing email from the application
+    2. provides a web UI for viewing outgoing emails
+
+    To access the UI, run `ddev describe` to see the mailhog URL and visit the service URL or use `ddev launch -m &` to have your terminal launch your browser.
+
+    ### Troubleshooting:
+
+    * Email addresses are blanked for existing users as part of normal database sanitization and attempts to send email to them can fail silently (see [#6100](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/6100)).  Email to new users, or users whose email addresses have been updated, can be sent and will be captured in Mailhog.
+
+    ### EXPERIMENTAL: Mac OS performance improvements
+    * The osxfs file system server has known performance issues. ([ref](https://docs.docker.com/docker-for-mac/osxfs/#performance-issues-solutions-and-roadmap), [ref](https://www.jeffgeerling.com/blog/2020/revisiting-docker-macs-performance-nfs-volumes)) These issues are exacerbated by the very large number of files present in the application. One workaround is to use an [nfs](https://en.wikipedia.org/wiki/Network_File_System) mount instead. To use nfs in your local environment:
+      * First, obtain your user account's uid:
+
+        ```
+        id -u
+        ```
+
+      * Then, edit the ```/etc/exports``` file (requires root access) and add the following line, replacing '{uid}' with your numeric uid:
+
+        ```
+        /System/Volumes/Data -alldirs -mapall={uid}:20 localhost
+        ```
+
+      * Then, edit the ```/etc/nfs.conf``` file (requires root access) and add the following line:
+
+        ```
+        nfs.server.mount.require_resv_port = 0
+        ```
+
+      * Next, restart the nfs server:
+
+        ```
+        sudo nfsd restart
+        ```
+
+      * Now, you will need to update your lando configuration. Edit your ```.lando.local.yml``` file (create it if it doesn't exist) and add the following lines:
+
+        ```
+        services:
+          appserver:
+            overrides:
+              volumes:
+                - "${LANDO_VOLUME}:/app"
+
+        compose:
+          - .lando.compose.yml
+        ```
+
+      * Now, you will need to create your local docker compose file. Create the ```.lando.compose.yml``` file and add these lines:
+
+        ```
+        version: '3'
+        volumes:
+          nfsmount:
+            driver: local
+            driver_opts:
+              type: nfs
+              o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+              device: ":${PWD}"
+        ```
+
+      * Finally, rebuild the app: ```export LANDO_VOLUME='nfsmount' && lando rebuild``` (It's worth adding the variable export to your shell config so that you don't have to remember to use it in the future)
+      * If there are no errors, verify that your app is using nfs: run ```lando ssh``` and then ```df -h /app```. You should see something like ```:/Users/username/src/va.gov-cms``` in the Filesystem column instead of ```osxfs```.
 
 ## Git
 
@@ -98,13 +181,13 @@ The VA.gov project has the following custom commands.
 See https://getcomposer.org/doc/articles/scripts.md for more information on how to create and manage scripts.
 
 ### Drush
-  All Drush commands are run with a ddev prefix. (examples)
-  * `ddev drush uli`
-  * `ddev drush cr`
-  * `ddev drush sqlq "show tables"`
+  All Drush commands are run with a Lando prefix. (examples)
+  * `lando drush uli`
+  * `lando drush cr`
+  * `lando drush sqlq "show tables"`
 
 #### Custom Drush Commands
-  As noted above, these should normally be run with a `ddev` prefix.  Dashes may be substituted for colons.
+  As noted above, these should normally be run with a `lando` prefix.  Dashes may be substituted for colons.
   * `drush va-gov:get-deploy-mode` -- Indicates whether the CMS is currently in Deploy Mode, which is a precautionary measure used to prevent content changes while content is being deployed.
   * `drush va-gov:enable-deploy-mode` -- Sets the Deploy Mode flag to TRUE.  This is not normally necessary.
   * `drush va-gov:disable-deploy-mode` -- Sets the Deploy Mode flag to FALSE.  This is not normally necessary.
@@ -118,8 +201,22 @@ See https://getcomposer.org/doc/articles/scripts.md for more information on how 
 ### Testing
 See [testing](testing.md).
 
+## Lando Certificates
+
+## HTTPS testing (locally/Lando)
+You can't test with the VA cert locally using Lando but you can use Lando's self-signed cert. If you need to test the actual cert locally contact the DevOps team to help you setup the vagrant build system to get HTTPS working with VA CA.
+
+To test with Lando's self-signed cert you need to tell your system to trust the Lando Certificate Authority. Instructions are here > https://docs.devwithlando.io/config/security.html
+
+TODO, create upstream PR with `sudo trust anchor --store ~/.lando/certs/lndo.site.pem` for Arch Linux
+
+Note: I had to still import that same CA into Chrome.
+Go to chrome://settings/certificates?search=https
+Click "Authorities"
+Import `.lando\certs\lndo.site.pem`
+
 ## Memory limit issues (e.g. MySQL Server has gone away)
-Sometimes your local env may run out of memory when clicking around the Drupal environment. `ddev restart` will fix
+Sometimes your local env may run out of memory when clicking around the Drupal environment. `lando restart` will fix
 this in the short term. If the problem persists, bumping up your docker ram to 4GB or higher should fix the issue.
 
 [Table of Contents](../README.md)

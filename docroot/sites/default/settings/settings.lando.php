@@ -24,20 +24,24 @@ $config['views.settings']['ui']['show']['performance_statistics'] = TRUE;
 $config['system.logging']['error_level'] = 'all';
 $config['environment_indicator.indicator']['bg_color'] = '#0B5512'; // dark green.
 $config['environment_indicator.indicator']['fg_color'] = '#ffffff';
-$config['environment_indicator.indicator']['name'] = 'ddev';
+$config['environment_indicator.indicator']['name'] = 'Lando';
 
-$webhost_on_cli = 'https://va-gov-cms.ddev.site';
+$webhost_on_cli = 'http://va-gov-cms.lndo.site';
 
-// Link to this file locally since local can not access prod where the real
+// Link to this file locally since lando can not access prod where the real
 // file exists.  You will need to copy the file from the same path on prod.
-$config['migrate_plus.migration.va_node_form']['source']['urls'] = ['https://va-gov-cms.ddev.site/sites/default/files/migrate_source/va_forms_data.csv'];
+$config['migrate_plus.migration.va_node_form']['source']['urls'] = ['http://va-gov-cms.lndo.site/sites/default/files/migrate_source/va_forms_data.csv'];
 
-$settings['trusted_host_patterns'] = ['.*'];
+$settings['trusted_host_patterns'] = [
+    'localhost',
+    '127.0.0.1',
+    'va-gov-cms.lndo.site',
+];
 
-$settings['va_gov_frontend_build_type'] = 'local';
+$settings['va_gov_frontend_build_type'] = 'lando';
 $settings['va_gov_frontend_url'] = $webhost_on_cli . '/static';
-$settings['va_gov_app_root'] = getenv('DDEV_APPROOT');
-$settings['va_gov_web_root'] = getenv('DDEV_APPROOT') . '/web';
+$settings['va_gov_app_root'] = getenv('LANDO_MOUNT');
+$settings['va_gov_web_root'] = getenv('LANDO_MOUNT') . '/web';
 
 $settings['memcache']['servers'] = [
   'memcache:11211' => 'default',

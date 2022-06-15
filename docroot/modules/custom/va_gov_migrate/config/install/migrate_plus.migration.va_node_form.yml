@@ -18,7 +18,7 @@ source:
   data_parser_plugin: csv
   # Selector should not be needed for CSV but the DataParser requires it.
   item_selector: ''
-  # This URL is overridden locally.
+  # On lando this url is overridden by lando.settings.
   urls:
     - https://prod.cms.va.gov/sites/default/files/migrate_source/va_forms_data.csv
   delimiter: ","

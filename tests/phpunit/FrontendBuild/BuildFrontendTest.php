@@ -45,7 +45,7 @@ class BuildFrontendTest extends ExistingSiteBase {
    * Test triggerFrontendBuild()
    *
    * @param string $env
-   *   Environment name, like 'local', 'prod', etc.
+   *   Environment name, like 'lando', 'prod', etc.
    * @param bool $permitted
    *   Indicates whether the specified environment name is considered valid.
    *
@@ -95,7 +95,7 @@ class BuildFrontendTest extends ExistingSiteBase {
   public function triggerFrontendBuildDataProvider() {
     return [
       [
-        'local',
+        'lando',
         TRUE,
       ],
       [

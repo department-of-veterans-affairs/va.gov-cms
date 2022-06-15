@@ -25,8 +25,7 @@ class BuildTriggerFormTest extends ExistingSiteBase {
     parent::setUp();
 
     // Store the default environment so that we may later revert to it.
-    $settings = $this->container->get('settings')->getAll();
-    $this->defaultEnvironment = $settings['va_gov_frontend_build_type'] ?? 'local';
+    $this->defaultEnvironment = $this->container->get('settings')->getAll()['va_gov_frontend_build_type'];
 
     $admin = User::load(1);
     $admin->passRaw = 'drupal8';
@@ -34,10 +33,10 @@ class BuildTriggerFormTest extends ExistingSiteBase {
   }
 
   /**
-   * Test that the correct form is shown on local environments.
+   * Test that the correct form is shown on Lando.
    */
-  public function testLocalBuildTriggerForm() {
-    $this->setupEnvironment('local');
+  public function testLandoBuildTriggerForm() {
+    $this->setupEnvironment('lando');
     $this->visit('/admin/content/deploy');
     $this->assertSession()->pageTextContains('Release content to update the front end of this local environment with the latest published content changes');
     $this->assertSession()->fieldExists('branch');
@@ -66,7 +65,7 @@ class BuildTriggerFormTest extends ExistingSiteBase {
   /**
    * Revert to the default environment when all test are complete.
    *
-   * @depends testLocalBuildTriggerForm
+   * @depends testLandoBuildTriggerForm
    * @depends testTugboatBuildTriggerForm
    * @depends testBrdBuildTriggerForm
    */
