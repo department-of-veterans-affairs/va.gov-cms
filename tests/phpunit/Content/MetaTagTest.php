@@ -4,6 +4,8 @@ namespace tests\phpunit\Content;
 
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 
+define('IS_BEHAT', TRUE);
+
 /**
  * A test to confirm existence and correctness of metatags.
  */
