@@ -103,4 +103,93 @@ class NotificationsManager {
     return $message_fields;
   }
 
+  /**
+   * Send a message based on if a field value has changed or not.
+   *
+   * Based on va_gov_workflow\Service\Flagger->flagFieldChanged().
+   *
+   * @param string|array $fieldname
+   *   The machine name of field to check for changes. or an array of field name
+   *   followed by field property.
+   * @param \Drupal\node\NodeInterface $node
+   *   A target entity to be referenced by the message.
+   * @param string $msg_title_prefix
+   *   A string to prefix the message with ('New form:').
+   * @param string $template_name
+   *   The machine name of the message template to use.
+   * @param string $user_id
+   *   The user id to send the message to.
+   */
+  public function sendMessageOnFieldChange($fieldname, NodeInterface $node, $msg_title_prefix, $template_name, $user_id) {
+    $original = $this->getPreviousRevision($node);
+    if (!$original || $node->isSyncing()) {
+      // There is nothing to compare, so bail out.
+      return;
+    }
+    $new_value = (is_array($fieldname)) ? $node->get($fieldname[0])->{$fieldname[1]} : $node->get($fieldname)->value;
+    $old_value = (is_array($fieldname)) ? $original->get($fieldname[0])->{$fieldname[1]} : $original->get($fieldname)->value;
+    // Loose comparison needed because sometimes new is 0 and old is '0'.
+    if ($new_value != $old_value) {
+      // The field changed.  Send the message.
+      $message_fields = $this->buildMessageFields($node, $msg_title_prefix);
+      $this->send($template_name, $user_id, $message_fields);
+    }
+  }
+
+  /**
+   * Get the latest revision of the node.
+   *
+   * @param int $nid
+   *   The node id for the revision to get.
+   * @param \Drupal\node\NodeInterface|null $node
+   *   Optional, if $node is provided it is an indication that we have the
+   *   current revision, so we have to go get the previous revision.
+   *
+   * @return \Drupal\node\NodeInterface
+   *   The latest revision.
+   */
+  protected function getLatestRevision(int $nid, $node = NULL) {
+    $storage = $this->entityTypeManager
+      ->getStorage('node');
+    if ($node) {
+      $vids = $storage->revisionIds($node);
+      $previous_vid = $vids[count($vids) - 2];
+    }
+    else {
+      $previous_vid = $storage->getLatestRevisionId($nid);
+    }
+
+    // The latest revision of the flagged node.
+    /** @var \Drupal\node\NodeInterface $revision */
+    $revision = $this->entityTypeManager
+      ->getStorage('node')
+      ->loadRevision($previous_vid);
+
+    return $revision;
+  }
+
+  /**
+   * Gets the previous revision.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The current node being operated on.
+   *
+   * @return \Drupal\node\NodeInterface
+   *   Either the true Original (default Revision) or the latest revision.
+   */
+  protected function getPreviousRevision(NodeInterface $node) {
+    $original = $node->original ?? NULL;
+    // PROBLEM: original is the default revision, so it may look like a
+    // continual change if previous save was draft on a published revision.
+    $was_published = ($original instanceof NodeInterface) ? $original->isPublished() : FALSE;
+    if ($was_published) {
+      // Then original might not be the most recent draft revision.
+      // Get the latest revision to be sure.
+      $nid = $node->id();
+      $original = $this->getLatestRevision($nid, $node);
+    }
+
+    return $original;
+  }
+
 }

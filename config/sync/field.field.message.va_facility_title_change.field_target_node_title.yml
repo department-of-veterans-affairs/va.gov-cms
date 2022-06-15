@@ -1,0 +1,25 @@
+uuid: 3fbeafaf-743a-4836-a7d2-09f3346e0de5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.message.field_target_node_title
+    - message.template.va_facility_title_change
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: message.va_facility_title_change.field_target_node_title
+field_name: field_target_node_title
+entity_type: message
+bundle: va_facility_title_change
+label: 'Target Node Title'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
