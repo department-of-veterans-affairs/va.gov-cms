@@ -54,14 +54,34 @@ class NotificationsManager {
    *   Boolean value denoting success or failure of the notification.
    */
   public function send($template_name, $user_id, array $values = []) : bool {
-    $message = Message::create(['template' => $template_name, 'uid' => $user_id]);
-    foreach ($values as $field_name => $value) {
-      $message->set($field_name, $value);
+    // We bypass sending email if testing because test running in parallel
+    // cause a theme error that break tests unnecessarily.
+    if (!$this->isTest()) {
+      $message = Message::create([
+        'template' => $template_name,
+        'uid' => $user_id,
+      ]);
+      foreach ($values as $field_name => $value) {
+        $message->set($field_name, $value);
+      }
+
+      $message->save();
+      // Send message to message user specified user.
+      return $this->messageNotifier->send($message);
     }
-    // $message->set('field_published', $comment->isPublished());
-    $message->save();
-    // Send message to message user specified user.
-    return $this->messageNotifier->send($message);
+    return FALSE;
+  }
+
+  /**
+   * Checks if a testing flag is set.
+   *
+   * Use this sparingly, and only if there is no other way.
+   *
+   * @return bool
+   *   TRUE if testing flag is set, FALSE otherwise.
+   */
+  protected function isTest() {
+    return (defined('IS_BEHAT')) ? IS_BEHAT : FALSE;
   }
 
   /**

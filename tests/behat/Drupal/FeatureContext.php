@@ -48,6 +48,7 @@ class FeatureContext extends RawDrupalContext {
    */
   public function __construct() {
     $this->timestamp = time();
+    define('IS_BEHAT', TRUE);
   }
 
   /**
