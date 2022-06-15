@@ -24,7 +24,7 @@ class MetaTagTest extends ExistingSiteBase {
     $name = uniqid();
     $node = $this->createNode([
       'title' => "$name test",
-      'type' => 'health_care_local_facility',
+      'type' => 'health_care_region_page',
       'uid' => $author->id(),
     ]);
     $node->get('field_media')->generateSampleItems(1);
