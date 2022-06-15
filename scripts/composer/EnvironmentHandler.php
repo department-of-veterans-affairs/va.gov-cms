@@ -35,7 +35,7 @@ class EnvironmentHandler {
       }
 
       // Load environment and set required params.
-      $dotenv = Dotenv::createUnsafeMutable($env_file, $env_file_name);
+      $dotenv = Dotenv::createUnsafeMutable($env_file_dir, $env_file_name);      
       $dotenv->safeLoad();
     }
     catch (\Exception $exception) {
