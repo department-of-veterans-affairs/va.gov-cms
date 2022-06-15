@@ -1,6 +1,7 @@
 name: prebuild ddev db
 on:
   workflow_dispatch: []
+  pull_request: []
   # schedule:
   #   - cron: '17 0 * * *'
 jobs:
@@ -27,4 +28,4 @@ jobs:
         with:
           context: ./scripts/prebuild_db
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          tags: ${{ env.REGISTRY }}/${{ github.repository }}-db:latest
