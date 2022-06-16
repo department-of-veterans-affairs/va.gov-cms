@@ -45,8 +45,8 @@ class NotificationsManager {
    *
    * @param string $template_name
    *   The machine name of the template to use.
-   * @param int $user_id
-   *   The user id to send the notification to.
+   * @param int|string $recipient
+   *   The user id, or slack channel name to send the notification to.
    * @param array $values
    *   Array of key value pairs that will be passed to the template.
    * @param string $notifier_name
@@ -55,14 +55,23 @@ class NotificationsManager {
    * @return bool
    *   Boolean value denoting success or failure of the notification.
    */
-  public function send($template_name, $user_id, array $values = [], $notifier_name = 'email') : bool {
+  public function send($template_name, $recipient, array $values = [], $notifier_name = 'email') : bool {
     // We bypass sending email if testing because test running in parallel
     // cause a theme error that break tests unnecessarily.
     if (!$this->isTest()) {
-      $message = Message::create([
-        'template' => $template_name,
-        'uid' => $user_id,
-      ]);
+      $template_values = ['template' => $template_name];
+      switch ($notifier_name) {
+        case 'slack':
+          $template_values['channel'] = $recipient;
+          break;
+
+        case 'email':
+        default:
+          $template_values['uid'] = $recipient;
+          break;
+      }
+
+      $message = Message::create($template_values);
       foreach ($values as $field_name => $value) {
         $message->set($field_name, $value);
       }
