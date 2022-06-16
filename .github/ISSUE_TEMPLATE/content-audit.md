@@ -3,7 +3,7 @@ name: Content Audit
 about: Submit a request to perform a content audit across VA.gov.
 title: 'Content Audit: <description>'
 labels: Content audit
-assignees: msbtterswrth, EWashb, dawnpruitt 
+assignees: dawnpruitt, EWashb, msbtterswrth
 
 ---
 
