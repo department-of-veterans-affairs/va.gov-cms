@@ -177,6 +177,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       // Email the help desk when a new facility is created.
       $first_save = (empty($entity->original)) ? TRUE : FALSE;
       if (!(defined('IS_BEHAT') && IS_BEHAT) && ($entity->isNew() || $first_save)) {
+        \Drupal::logger('nug_doug')->error('made it here, probably should not');
         $message_fields = $this->notificationsManager->buildMessageFields($entity, 'New facility:');
         $this->notificationsManager->send('va_facility_new_facility', USER_CMS_HELP_DESK_NOTIFICATIONS, $message_fields);
       }
