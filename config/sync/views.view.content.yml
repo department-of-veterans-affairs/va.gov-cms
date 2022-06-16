@@ -3171,7 +3171,9 @@ display:
           plugin_id: result
           empty: false
           content: "<p>This view is only available to admins.</p>\r\n<hr />\r\nDisplaying @start - @end of @total"
-      display_extenders: {  }
+      display_extenders:
+        jsonapi_views:
+          enabled: true
       path: admin/content/events
       menu:
         type: tab
@@ -3182,6 +3184,11 @@ display:
         menu_name: admin
         parent: system.admin_content
         context: '0'
+        as_local_task: true
+        local_task_link_title: Events
+        local_task_parent: _custom
+        local_task_weight: 2
+        local_task_custom_parent_route: system.admin_content
       tab_options:
         type: normal
         title: Content
@@ -4646,7 +4653,9 @@ display:
           plugin_id: result
           empty: false
           content: "<p>This view is only available to content admins.</p>\r\n\r\n\r\n<p>Displaying @start - @end of @total</p>"
-      display_extenders: {  }
+      display_extenders:
+        jsonapi_views:
+          enabled: true
       path: admin/content/bulk
       menu:
         type: tab
@@ -4657,6 +4666,11 @@ display:
         menu_name: admin
         parent: system.admin_content
         context: '0'
+        as_local_task: true
+        local_task_link_title: 'Bulk Edit'
+        local_task_parent: 'views_view:view.content.content_audit_page'
+        local_task_weight: 0
+        local_task_custom_parent_route: ''
       tab_options:
         type: normal
         title: Content
@@ -5895,17 +5909,24 @@ display:
           content: "<br><h4><b>Resources and support content</b></h4>\r\nDisplaying @start - @end of @total"
       footer: {  }
       exposed_block: false
-      display_extenders: {  }
+      display_extenders:
+        jsonapi_views:
+          enabled: true
       path: admin/content/resources-and-support
       menu:
         type: tab
         title: 'Resources and support'
         description: ''
-        weight: 0
+        weight: 5
         expanded: false
         menu_name: admin
         parent: system.admin_content
         context: '0'
+        as_local_task: false
+        local_task_link_title: ''
+        local_task_parent: 'views_view:view.centralized_content_paragraphs.centralized_content_paragraphs'
+        local_task_weight: 5
+        local_task_custom_parent_route: ''
       tab_options:
         type: normal
         title: Content

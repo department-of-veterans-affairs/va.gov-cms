@@ -959,7 +959,9 @@ display:
             value: "There is one line <strong>per translation</strong> below and the overall score is for each translation!\r\nSo, a node's feedback can be different between every language."
             format: rich_text_limited
           tokenize: false
-      display_extenders: {  }
+      display_extenders:
+        jsonapi_views:
+          enabled: true
       path: admin/content/feedback
       menu:
         type: tab
@@ -970,6 +972,11 @@ display:
         menu_name: main
         parent: ''
         context: '0'
+        as_local_task: true
+        local_task_link_title: Feedback
+        local_task_parent: 'views_view:view.content.content_audit_page'
+        local_task_weight: 3
+        local_task_custom_parent_route: ''
     cache_metadata:
       max-age: -1
       contexts:

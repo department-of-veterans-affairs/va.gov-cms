@@ -3398,7 +3398,9 @@ display:
           plugin_id: result
           empty: false
           content: "<p>Displaying @start - @end of @total</p>\r\n<p>This audit searches through all field_wysiwyg to find instances of 'usa-button' within the content which is used to create buttons. </p>"
-      display_extenders: {  }
+      display_extenders:
+        jsonapi_views:
+          enabled: true
       path: admin/content/audit/buttons
       menu:
         type: tab
@@ -4655,7 +4657,9 @@ display:
         filters: false
         filter_groups: false
       display_description: ''
-      display_extenders: {  }
+      display_extenders:
+        jsonapi_views:
+          enabled: true
       path: admin/content/audit/rich-text-field-audit
       menu:
         type: tab
@@ -4669,7 +4673,7 @@ display:
         as_local_task: true
         local_task_link_title: 'Rich Text'
         local_task_parent: 'views_view:view.content.content_audit_page'
-        local_task_weight: 0
+        local_task_weight: 6
         local_task_custom_parent_route: ''
     cache_metadata:
       max-age: -1

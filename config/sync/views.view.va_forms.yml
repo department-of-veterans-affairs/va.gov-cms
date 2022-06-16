@@ -1270,17 +1270,24 @@ display:
     display_plugin: page
     position: 1
     display_options:
-      display_extenders: {  }
+      display_extenders:
+        jsonapi_views:
+          enabled: true
       path: admin/content/va-forms
       menu:
         type: tab
         title: 'VA Forms'
         description: ''
-        weight: 0
+        weight: 6
         expanded: false
         menu_name: admin
         parent: system.admin_content
         context: '0'
+        as_local_task: false
+        local_task_link_title: ''
+        local_task_parent: 'views_view:view.centralized_content_paragraphs.centralized_content_paragraphs'
+        local_task_weight: 0
+        local_task_custom_parent_route: ''
     cache_metadata:
       max-age: 0
       contexts:
