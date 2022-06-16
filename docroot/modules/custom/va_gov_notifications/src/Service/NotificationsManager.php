@@ -49,11 +49,13 @@ class NotificationsManager {
    *   The user id to send the notification to.
    * @param array $values
    *   Array of key value pairs that will be passed to the template.
+   * @param string $notifier_name
+   *   The machine name of the notifier method (email, slack).
    *
    * @return bool
    *   Boolean value denoting success or failure of the notification.
    */
-  public function send($template_name, $user_id, array $values = []) : bool {
+  public function send($template_name, $user_id, array $values = [], $notifier_name = 'email') : bool {
     // We bypass sending email if testing because test running in parallel
     // cause a theme error that break tests unnecessarily.
     if (!$this->isTest()) {
@@ -67,7 +69,7 @@ class NotificationsManager {
 
       $message->save();
       // Send message to message user specified user.
-      return $this->messageNotifier->send($message);
+      return $this->messageNotifier->send($message, [], $notifier_name);
     }
     return FALSE;
   }
