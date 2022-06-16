@@ -31,5 +31,6 @@
     "storage": "64gb"
   },
   "onCreateCommand": "/bin/bash ./.devcontainer/on-create.sh 2>&1 | tee ~/on-create.log",
+  "updateContentCommand": "/bin/bash ./.devcontainer/update-content.sh 2>&1 | tee ~/update-content.log",
   "postStartCommand": "/bin/bash ./.devcontainer/post-start.sh 2>&1 | tee ~/post-start.log"
 }
