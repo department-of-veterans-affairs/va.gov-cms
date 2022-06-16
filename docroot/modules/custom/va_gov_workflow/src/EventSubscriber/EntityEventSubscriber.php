@@ -160,12 +160,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     }
     elseif ($entity->bundle() === 'va_form') {
       $this->flagger->flagNew('new_form', $entity, "This VA Form was added to the Forms DB.");
-      // @codingStandardsIgnoreStart
-      // Sample code for building a message notification. Using swirt's user id
-      // for now.
-      // $message_fields = $this->notificationsManager->buildMessageFields($entity, 'New form:');
-      // $this->notificationsManager->send('va_form_new_form', 1215, $message_fields);
-      // @codingStandardsIgnoreEnd
+      $message_fields = $this->notificationsManager->buildMessageFields($entity, 'New form:');
+      $this->notificationsManager->send('va_form_new_form', 'va-forms', $message_fields, 'slack');
     }
   }
 
