@@ -30,6 +30,6 @@
     "memory": "8gb",
     "storage": "64gb" 
   },
-  "postCreateCommand": "/bin/bash ./.devcontainer/post-create.sh 2>&1 | tee ~/post-create.log",
+  "onCreateCommand": "/bin/bash ./.devcontainer/post-create.sh 2>&1 | tee ~/on-create.log",
   "postStartCommand": "/bin/bash ./.devcontainer/post-start.sh 2>&1 | tee ~/post-start.log"
 }
