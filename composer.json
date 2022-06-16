@@ -542,7 +542,8 @@
             "echo \"export PATH=${PATH}\""
         ],
         "pre-install-cmd": [
-            "mkdir -p vendor"
+            "mkdir -p vendor",
+            "[ -f .env ] || cp .env.example .env"
         ],
         "post-install-cmd": [
             "mkdir --parents docroot/profiles",
@@ -559,7 +560,8 @@
             "rm -r vendor"
         ],
         "pre-update-cmd": [
-            "mkdir -p vendor"
+            "mkdir -p vendor",
+            "[ -f .env ] || cp .env.example .env"
         ],
         "post-update-cmd": [
             "cp -r 'hooks/git/.' '.git/hooks/'",

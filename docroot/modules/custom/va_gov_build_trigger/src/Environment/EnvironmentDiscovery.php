@@ -67,7 +67,7 @@ class EnvironmentDiscovery {
    *   Is this on Local?
    */
   public function isLocal() : bool {
-    return $this->getBuildTypeKey() === 'lando';
+    return $this->getBuildTypeKey() === 'local';
   }
 
   /**
