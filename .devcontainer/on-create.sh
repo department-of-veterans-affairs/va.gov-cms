@@ -1,5 +1,7 @@
 #!/bin/bash
 
+## https://code.visualstudio.com/docs/remote/devcontainerjson-reference#_lifecycle-scripts
+
 # Install ddev.
 curl https://raw.githubusercontent.com/drud/ddev/master/scripts/install_ddev.sh | bash
 
@@ -17,3 +19,6 @@ ddev config global --instrumentation-opt-in=true
 
 # Start ddev.
 ddev start
+
+# Import the database.
+ddev pull va --skip-files -y
