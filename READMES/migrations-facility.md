@@ -9,7 +9,17 @@
    1. Vet Centers, Mobile VCs, and Vet Center Outstions
 1. [Status Changes to Lighthouse](vamc-facilities.md#status-changes-to-lighthouse)
 
-![Facilities updates and actions](images/VA-facilities.png)
+## Data Flow
+```mermaid
+graph TD;
+    fapi[(Facility API)]-->migrations[CMS migrations];
+    fapi-->fl[[Facility Locator App]];
+    teamsite[Teamsite Status Lovell only]-->migrations;
+    migrations-->nodes[Nodes: VAMC, Vet Centers, VBA, NCA];
+    nodes-->FE[[FE pages]];
+    nodes-->data
+    data[CMS supplemental data: status, health services] -->fapi;
+```
 
 ## Facility Migrations
 Facility migrations occur nightly and the six types of facilities are updated
