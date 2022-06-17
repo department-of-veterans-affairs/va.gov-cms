@@ -115,9 +115,9 @@ class DeployStatusMessagesSubscriber implements EventSubscriberInterface {
       $this->messenger->addWarning($message);
     }
 
-    if ($this->showDeployStatusMessages($event) && (getenv('CMS_ENVIRONMENT_TYPE') === 'lando')) {
+    if ($this->showDeployStatusMessages($event) && (getenv('CMS_ENVIRONMENT_TYPE') === 'local')) {
       $this->messenger->addWarning(
-        $this->t('You are using Lando. Run the command <code>lando composer va:web:build</code> to rebuild the front-end and unlock this form.')
+        $this->t('The CMS is running locally. Run the command <code>ddev composer va:web:build</code> to rebuild the front-end and unlock this form.')
       );
     }
   }

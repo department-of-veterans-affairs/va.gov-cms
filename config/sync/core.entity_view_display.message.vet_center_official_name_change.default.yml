@@ -1,0 +1,38 @@
+uuid: 37784780-e493-4632-9105-461cccc8f4e1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.message.vet_center_official_name_change.field_target_entity
+    - field.field.message.vet_center_official_name_change.field_target_node_title
+    - message.template.vet_center_official_name_change
+  module:
+    - user
+id: message.vet_center_official_name_change.default
+targetEntityType: message
+bundle: vet_center_official_name_change
+mode: default
+content:
+  field_target_entity:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_target_node_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  partial_0:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

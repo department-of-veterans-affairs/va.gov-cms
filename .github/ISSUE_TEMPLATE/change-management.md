@@ -41,6 +41,8 @@ If existing articles, list URLs:
 If existing videos, list URLs:
 
 - [ ] CMS UI support
+  
+- [ ] Announcement block
 
 7. Will the change be tested with users before release?
 - [ ] Yes

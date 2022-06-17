@@ -83,9 +83,9 @@ class MetricsTest extends ExistingSiteBase {
         ],
         "whateverenv",
       ],
-      'Lando build type' => [
+      'Local build type' => [
         [
-          "va_gov_frontend_build_type" => "lando",
+          "va_gov_frontend_build_type" => "local",
         ],
         "local",
       ],
@@ -107,9 +107,9 @@ class MetricsTest extends ExistingSiteBase {
         ],
         TRUE,
       ],
-      'Lando environment' => [
+      'Local environment' => [
         [
-          'va_gov_frontend_build_type' => 'lando',
+          'va_gov_frontend_build_type' => 'local',
         ],
         FALSE,
       ],
@@ -126,16 +126,16 @@ class MetricsTest extends ExistingSiteBase {
         ],
         TRUE,
       ],
-      'Lando environment + force sending metrics enabled' => [
+      'Local environment + force sending metrics enabled' => [
         [
-          'va_gov_frontend_build_type' => 'lando',
+          'va_gov_frontend_build_type' => 'local',
           'va_gov_force_sending_metrics' => TRUE,
         ],
         TRUE,
       ],
-      'Lando environment + force sending metrics explicitly set to false' => [
+      'Local environment + force sending metrics explicitly set to false' => [
         [
-          'va_gov_frontend_build_type' => 'lando',
+          'va_gov_frontend_build_type' => 'local',
           'va_gov_force_sending_metrics' => FALSE,
         ],
         FALSE,

@@ -4,10 +4,19 @@ namespace tests\phpunit\Content;
 
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 
+define('IS_BEHAT', TRUE);
+
 /**
  * A test to confirm existence and correctness of metatags.
  */
 class MetaTagTest extends ExistingSiteBase {
+
+  /**
+   * This comment intentionally left blank.
+   */
+  public function setUp() {
+    $this->markTestSkipped('this test is flaky and not working correctly. will be re-enabled in #9487.');
+  }
 
   /**
    * Tests the existence of the twitter:image:alt metatag.
