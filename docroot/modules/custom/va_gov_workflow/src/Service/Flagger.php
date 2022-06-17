@@ -160,7 +160,7 @@ class Flagger {
    */
   public function flagFieldChanged($fieldname, $flag_id, NodeInterface $node, $log_message) {
     $original = $this->getPreviousRevision($node);
-    if (!$original || $node->isSyncing) {
+    if (!$original || $node->isSyncing()) {
       // There is nothing to compare, so bail out.
       return;
     }
