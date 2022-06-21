@@ -130,6 +130,11 @@ tasks:
     cmds:
       - drush $DRUSH_ALIAS core:cron
 
+  va/background/periodic/content_release_queues:
+    desc: Process content release queues every minute.
+    cmds:
+      - drush $DRUSH_ALIAS advancedqueue:queue:process content_release
+
   va/noop:
     desc: Placeholder command
     cmds:
