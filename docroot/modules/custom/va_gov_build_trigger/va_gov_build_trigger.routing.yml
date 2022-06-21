@@ -21,43 +21,6 @@ va_gov_build_trigger.content_release_status_block_controller_get_block:
   requirements:
     _permission: "va gov deploy content build"
 
-# The following routes are temporary and will be replaced in #8934.
-va_gov_build_trigger.content_release_placeholder_starting:
-  path: '/api/content_release/starting'
-  defaults:
-    _controller: '\Drupal\va_gov_build_trigger\Controller\PlaceholderController::placeholder'
-  requirements:
-    _permission: 'access bulletin queue trigger api'
-    _user_is_logged_in: 'TRUE'
-  options:
-    _auth: ['basic_auth', 'cookie']
-
-va_gov_build_trigger.content_release_placeholder_inprogress:
-  path: '/api/content_release/inprogress'
-  defaults:
-    _controller: '\Drupal\va_gov_build_trigger\Controller\PlaceholderController::placeholder'
-  requirements:
-    _permission: 'access bulletin queue trigger api'
-    _user_is_logged_in: 'TRUE'
-  options:
-    _auth: ['basic_auth', 'cookie']
-
-va_gov_build_trigger.content_release_placeholder_complete:
-  path: '/api/content_release/complete'
-  defaults:
-    _controller: '\Drupal\va_gov_build_trigger\Controller\PlaceholderController::placeholder'
-  requirements:
-    _permission: 'access bulletin queue trigger api'
-    _user_is_logged_in: 'TRUE'
-  options:
-    _auth: ['basic_auth', 'cookie']
-
-va_gov_build_trigger.content_release_placeholder_ready:
-  path: '/api/content_release/ready'
-  defaults:
-    _controller: '\Drupal\va_gov_build_trigger\Controller\PlaceholderController::placeholder'
-  requirements:
-    _permission: 'access bulletin queue trigger api'
-    _user_is_logged_in: 'TRUE'
-  options:
-    _auth: ['basic_auth', 'cookie']
+route_callbacks:
+  - '\Drupal\va_gov_build_trigger\RouteProvider::buildRequestRoutes'
+  - '\Drupal\va_gov_build_trigger\RouteProvider::notificationRoutes'

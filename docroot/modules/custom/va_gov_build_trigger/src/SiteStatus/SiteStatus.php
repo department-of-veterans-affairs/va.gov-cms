@@ -5,7 +5,7 @@ namespace Drupal\va_gov_build_trigger\SiteStatus;
 use Drupal\Core\State\StateInterface;
 
 /**
- * SiteStatus Service.
+ * The site status service.
  */
 class SiteStatus implements SiteStatusInterface {
 
