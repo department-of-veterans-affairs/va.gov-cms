@@ -111,11 +111,9 @@ class ContentReleaseNotificationController extends ControllerBase {
     $can_transition = $this->releaseStateManager->canAdvanceStateTo($state);
     $can_transition = ($can_transition === ReleaseStateManager::STATE_TRANSITION_OK);
 
-    if (!$is_allowed_notification || !$can_transition) {
-      throw new NotFoundHttpException();
+    if ($is_allowed_notification && $can_transition) {
+      $this->releaseStateManager->advanceStateTo($state);
     }
-
-    $this->releaseStateManager->advanceStateTo($state);
 
     return new Response('Notification successful: ' . $state);
   }
