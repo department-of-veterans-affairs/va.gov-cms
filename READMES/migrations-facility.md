@@ -12,6 +12,7 @@
 ## Data Flow
 ```mermaid
 graph TD;
+    vast[VAST, Access To Care, etc]-->fapi;
     fapi[(Facility API)]-->migrations[CMS migrations];
     fapi-->fl[[Facility Locator App]];
     teamsite[Teamsite Status Lovell only]-->migrations;
