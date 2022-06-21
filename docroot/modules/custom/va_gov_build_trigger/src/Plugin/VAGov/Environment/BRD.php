@@ -2,12 +2,11 @@
 
 namespace Drupal\va_gov_build_trigger\Plugin\VAGov\Environment;
 
+use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentPluginBase;
 use Drupal\va_gov_build_trigger\Form\BrdBuildTriggerForm;
-use Drupal\va_gov_build_trigger\WebBuildCommandBuilder;
-use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
 use Drupal\va_gov_consumers\Git\GithubAdapter;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -46,8 +45,7 @@ class BRD extends EnvironmentPluginBase {
     $plugin_id,
     $plugin_definition,
     LoggerInterface $logger,
-    WebBuildStatusInterface $webBuildStatus,
-    WebBuildCommandBuilder $webBuildCommandBuilder,
+    FileSystemInterface $filesystem,
     Settings $settings,
     GithubAdapter $githubAdapter
   ) {
@@ -56,8 +54,7 @@ class BRD extends EnvironmentPluginBase {
       $plugin_id,
       $plugin_definition,
       $logger,
-      $webBuildStatus,
-      $webBuildCommandBuilder
+      $filesystem,
     );
     $this->settings = $settings;
     $this->githubAdapter = $githubAdapter;
@@ -72,8 +69,7 @@ class BRD extends EnvironmentPluginBase {
       $plugin_id,
       $plugin_definition,
       $container->get('logger.factory')->get('va_gov_build_trigger'),
-      $container->get('va_gov.build_trigger.web_build_status'),
-      $container->get('va_gov.build_trigger.web_build_command_builder'),
+      $container->get('file_system'),
       $container->get('settings'),
       $container->get('va_gov.consumers.github.content_build')
     );
@@ -82,9 +78,7 @@ class BRD extends EnvironmentPluginBase {
   /**
    * {@inheritDoc}
    */
-  public function triggerFrontendBuild(string $front_end_git_ref = NULL, bool $full_rebuild = FALSE) : void {
-    $front_end_git_ref = $front_end_git_ref ?? "main";
-
+  public function triggerFrontendBuild() : void {
     try {
       if ($this->pendingWorkflowRunExists()) {
         $vars = [
@@ -157,7 +151,6 @@ class BRD extends EnvironmentPluginBase {
     $this->messenger()->addError($message);
     $this->logger->error($message);
 
-    $this->webBuildStatus->disableWebBuildStatus();
     watchdog_exception('va_gov_build_trigger', $exception);
   }
 

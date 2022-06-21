@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\va_gov_build_trigger\Routing;
+namespace Drupal\va_gov_build_trigger\EventSubscriber;
 
 use Drupal\Core\Routing\RouteSubscriberBase;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery;

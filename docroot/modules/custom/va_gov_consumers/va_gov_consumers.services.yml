@@ -8,6 +8,7 @@ services:
       - [ setContainer, [ '@service_container' ] ]
   va_gov.consumers.git.repository.factory:
     class: Drupal\va_gov_consumers\Git\GitFactory
+    arguments: ['@settings']
     calls:
       - [ setContainer, [ '@service_container' ] ]
   va_gov.consumers.github.vets_website:
