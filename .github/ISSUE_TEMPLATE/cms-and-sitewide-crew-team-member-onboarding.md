@@ -185,29 +185,48 @@ The goal for this week is to get you set up with the tools you need to be succes
 
 #### Onboarding for UX members
 - [ ] Attend design onboarding call 1: You are here
-   - The CMS and the products we support
+   - Hosted by Suzanne
+   - Suzanne or Val will schedule
    - Who are our users?
-   - Research
-- [ ] Attend design onboarding call 2: Project history and opportunties
-- [ ] Attend design onboarding call 3: Design processes
-   - Wireframing elements
-   - Airtable database
-   - Required documentation for design at VA
-- [ ] Get oriented with the stuff of design
-   - Log in to make sure you have access to the design tools used on this project
+   - What is a decoupled CMS?
+   - Q&A about everything so far!
+- [ ] Reading
+   - [Collaboration Cycle](https://depo-platform-documentation.scrollhelp.site/collaboration-cycle/collaboration-cycle-kickoff)
+   - [Research Overview](https://depo-platform-documentation.scrollhelp.site/research-design/research-overview)
+   - [VA Design System](https://design.va.gov/)
+- [ ] Attend design onboarding call 2: Partners
+   - Hosted by Val
+   - Scheduled by either Suzanne or Val
+   - What is Platform Crew?
+   - What is Sitewide Content Team?
+   - How do we collaborate with these teams?
+- [ ] Attend design onboarding call 3: UX Processes
+   - Scheduled by either Suzanne or Val
+   - Design/dev workflow
+   - UX Team norms
+- [ ] Get tools
+   - [ ] Sketch
    - [ ] Mural
-   - [ ] Figma
    - [ ] Airtable
-   - Review existing design assets to get a feel for where things are at
-   - Make sure you have the following font families on your machine:
-      - Lucida Grande [download from fontsgeek.com](https://fontsgeek.com/fonts/Lucida-Grande-Regular)
-      - Source Sans Pro [download from Google Fonts](https://fonts.google.com/specimen/Source+Sans+Pro)
-      - Bitter [download from Google Fonts](https://fonts.google.com/specimen/Bitter)
-- [ ] Build empathy with our users
-   - Complete a CMS simulation (you’ll need SOCKS proxy access first)
-- [ ] Attend 1:1 w/ Kauff (maybe Clarence and Kev too)
-   - Let’s talk about your skillsets and interests and which project initiatives you might want to take over.
-- [ ] Attend the Platform Crew's orientation to VA.gov research. Ask your DM for details or ping in #vfs-platform-support
+- [ ] Helpful Slack channels to join
+   - #accessibility-ops
+   - #design
+   - #inclusive-design
+   - #platform-design-system
+   - #research-ops
+   - #sitewide-content-ia
+   - #vagov-accessibility
+- [ ] Fonts to download
+   - Lucida Grande [download from fontsgeek.com](https://fontsgeek.com/fonts/Lucida-Grande-Regular)
+   - Source Sans Pro [download from Google Fonts](https://fonts.google.com/specimen/Source+Sans+Pro)
+   - Bitter [download from Google Fonts](https://fonts.google.com/specimen/Bitter)
+- [ ] Attend "UX Ask-Me-Anything" call (Suzanne or Val)
+   - Suzanne or Val will schedule
+   - It's an opportunity to ask any lingering questions and clarify any information we've covered.
+- [ ] Attend "How to Use Github" with Lynn [optional]
+   - Ask Suzanne or Val to schedule if interested.
+   - New to Github? Cool. Me too. Lynn will walk you through the basics of Github.
+- [ ] Download a [markdown cheat sheet](https://cheatography.com/lucbpz/cheat-sheets/the-ultimate-markdown/pdf/) [optional]
 
 </details>
 
