@@ -11,15 +11,15 @@
 
 ## Data Flow
 ```mermaid
-graph TD;
-    vast[VAST, Access To Care, etc]-->fapi;
-    fapi[(Facility API)]-->migrations[CMS migrations];
+  graph TD;
+    vast[VAST, Access To Care, etc]-- 7:30AM -->fapi;
+    fapi[(Facility API)]-- midnight -->migrations[CMS migrations];
     fapi-->fl[[Facility Locator App]];
-    teamsite[Teamsite Status Lovell only]-->migrations;
+    teamsite[Teamsite Status Lovell only]-- every 15 min -->migrations;
     migrations-->nodes[Nodes: VAMC, Vet Centers, VBA, NCA];
     nodes-->FE[[FE pages]];
     nodes-->data
-    data[CMS supplemental data: status, health services] -->fapi;
+    data[CMS supplemental data: status, health services] -- On change in CMS -->fapi;
 ```
 
 ## Facility Migrations
