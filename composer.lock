@@ -6533,17 +6533,17 @@
         },
         {
             "name": "drupal/geocoder",
-            "version": "3.26.0",
+            "version": "3.29.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/geocoder.git",
-                "reference": "8.x-3.26"
+                "reference": "8.x-3.29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/geocoder-8.x-3.26.zip",
-                "reference": "8.x-3.26",
-                "shasum": "77aadfd0b8ec8601b681e70866545a7b3899756f"
+                "url": "https://ftp.drupal.org/files/projects/geocoder-8.x-3.29.zip",
+                "reference": "8.x-3.29",
+                "shasum": "472fdc6259c3c3c90b0e84f7c5301103fdba919f"
             },
             "require": {
                 "davedevelopment/stiphle": "^0.9.2",
@@ -6555,7 +6555,6 @@
             },
             "require-dev": {
                 "drupal/address": "*",
-                "drupal/coder": "^8.2",
                 "drupal/geocoder_field": "*",
                 "drupal/geofield": "*",
                 "geo6/geocoder-php-addok-provider": "^1.0",
@@ -6574,6 +6573,7 @@
                 "geocoder-php/ip-info-db-provider": "^4.0",
                 "geocoder-php/mapbox-provider": "^0.1",
                 "geocoder-php/mapquest-provider": "^4.0",
+                "geocoder-php/maptiler-provider": "^1.0",
                 "geocoder-php/maxmind-provider": "^4.1",
                 "geocoder-php/nominatim-provider": "^5.0",
                 "geocoder-php/open-cage-provider": "^4.0",
@@ -6581,17 +6581,13 @@
                 "geocoder-php/pelias-provider": "^1.1",
                 "geocoder-php/photon-provider": "^0.1.0",
                 "geocoder-php/tomtom-provider": "^4.0",
-                "geocoder-php/yandex-provider": "^4.0",
-                "phpro/grumphp": "^0.12.1",
-                "phpunit/phpunit": "^5.7|^6.5",
-                "sensiolabs/security-checker": "^4.1",
-                "squizlabs/php_codesniffer": "^2.7"
+                "geocoder-php/yandex-provider": "^4.0"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-3.26",
-                    "datestamp": "1649610015",
+                    "version": "8.x-3.29",
+                    "datestamp": "1655853021",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -6650,7 +6646,7 @@
                     "homepage": "https://www.drupal.org/user/585764"
                 }
             ],
-            "description": "A Drupal module and a services based API to perform Geocode & Reverse Geocode operations among GIS data and addresses types & formats.",
+            "description": "Module and services based API to perform Geocode & Reverse Geocode operations among GIS data and addresses types & formats.",
             "homepage": "https://drupal.org/project/geocoder",
             "support": {
                 "source": "https://git.drupalcode.org/project/geocoder",

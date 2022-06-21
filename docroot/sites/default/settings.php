@@ -141,6 +141,8 @@ $env_type = getenv('CMS_ENVIRONMENT_TYPE') ?: 'ci';
 $config['govdelivery_bulletins.settings']['govdelivery_endpoint'] = getenv('CMS_GOVDELIVERY_ENDPOINT') ?: FALSE;
 $config['govdelivery_bulletins.settings']['govdelivery_username'] = getenv('CMS_GOVDELIVERY_USERNAME') ?: FALSE;
 $config['govdelivery_bulletins.settings']['govdelivery_password'] = getenv('CMS_GOVDELIVERY_PASSWORD') ?: FALSE;
+// Configuration for Mapbox
+$config['geocoder.geocoder_provider.mapbox']['configuration']['accessToken'] = getenv('MAPBOX_TOKEN_CMS');
 
 // Set migration settings from environment variables.
 $facility_api_urls = [getenv('CMS_VAGOV_API_URL') . '/services/va_facilities/v0/facilities/all'];
