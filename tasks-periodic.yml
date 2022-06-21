@@ -58,7 +58,7 @@ tasks:
         cat <<EOF | bash
           exit_code=0
           tasks=(
-            "va/noop"
+            "va/background/periodic/content_release_queues"
           )
           trap '{ (( exit_code |=\$? )); }' ERR
           for i in "\${tasks[@]}"; do
@@ -129,6 +129,11 @@ tasks:
     desc: Run cron every 15 min as called by Jenkins.
     cmds:
       - drush $DRUSH_ALIAS core:cron
+
+  va/background/periodic/content_release_queues:
+    desc: Process content release queues every minute.
+    cmds:
+      - drush $DRUSH_ALIAS advancedqueue:queue:process content_release
 
   va/noop:
     desc: Placeholder command
