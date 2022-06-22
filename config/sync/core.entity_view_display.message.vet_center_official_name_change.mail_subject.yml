@@ -1,0 +1,37 @@
+uuid: a98fc2a9-30c7-412e-b208-dbaf64aeec41
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.message.mail_subject
+    - field.field.message.vet_center_official_name_change.field_target_entity
+    - field.field.message.vet_center_official_name_change.field_target_node_title
+    - message.template.vet_center_official_name_change
+  module:
+    - layout_builder
+    - string_field_formatter
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: message.vet_center_official_name_change.mail_subject
+targetEntityType: message
+bundle: vet_center_official_name_change
+mode: mail_subject
+content:
+  field_target_node_title:
+    type: plain_string_formatter
+    label: hidden
+    settings:
+      link_to_entity: false
+      wrap_tag: _none
+      wrap_class: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_target_entity: true
+  partial_0: true
+  partial_1: true
+  search_api_excerpt: true

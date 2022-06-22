@@ -11,7 +11,7 @@ preferred, the process of code reviews and feedback is still poorly supported.
 We will use a public GitHub repository for EWA development in order to
 streamline collaboration process.
 
-https://github.com/agilesix/workflow_assignments 
+https://github.com/agilesix/workflow_assignments
 
 EWA module machine name is `workflow_assignments` and it is currently included
 in the va.gov-cms codebase as `drupal/workflow_assignments` composer package.
@@ -37,10 +37,10 @@ updating composer version/config.
 contrib module directory
 
 * ensure the latest version of `workflow_assignments` is pulled on local
-development environment `lando composer install`
+development environment `ddev composer install`
 * `cd docroot/modules/contrib/workflow_assignments`
 * `git status` will show current branch name
-* `git remote -v` should show 
+* `git remote -v` should show
 `https://github.com/agilesix/workflow_assignments.git` as remote origin
 
 ### 2. PR collaboration process
@@ -48,16 +48,16 @@ development environment `lando composer install`
 #### Code contributor
 
 1. `cd docroot/modules/contrib/workflow_assignments`
-1. switch to a new branch within EWA module directory - 
+1. switch to a new branch within EWA module directory -
 `git checkout -b VACMS-1234-branch-name`
 1. add code changes and run `git status` in the same directory to verify your
 changes are detected
 1. run PHPCS check locally before committing
    * `cd ../../../../ `
-   * `lando composer va:test:cs`
+   * `ddev composer va:test:cs`
    * address errors in `workflow_assignments`, if any
 1. `cd docroot/modules/contrib/workflow_assignments`
-1. commit changes, push to `workflow_assignment` repo - 
+1. commit changes, push to `workflow_assignment` repo -
 `git push --set-upstream origin VACMS-1234-branch-name` and open a PR with QA
 instructions in `https://github.com/agilesix/workflow_assignments`
 
@@ -79,8 +79,5 @@ in PR description and provide any specific instructions for your peer to review
 1. **IMPORTANT**: once the work provided in `workflow_assignments` repo is
 reviewed and merged, the composer.json/.lock files in va.gov-cms repo should be
 updated to use latest version of `workflow_assignments` module.
-   * `lando composer update drupal/workflow_assignments`
+   * `ddev composer update drupal/workflow_assignments`
    * commit and merge to va.gov-cms `main` branch
-
-NOTE: reach out to Oksana Cyrwus or Neil Hastings with any questions regarding
-the outlined process.

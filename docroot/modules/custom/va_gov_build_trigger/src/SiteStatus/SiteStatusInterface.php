@@ -3,7 +3,7 @@
 namespace Drupal\va_gov_build_trigger\SiteStatus;
 
 /**
- * Interface SiteStatusInterface.
+ * The interface for the site status service.
  */
 interface SiteStatusInterface {
 

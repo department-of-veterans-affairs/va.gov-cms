@@ -1,0 +1,40 @@
+uuid: 2205032b-b572-41e5-a543-d53a5659b9b2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.message.field_target_entity
+    - message.template.vet_center_official_name_change
+    - node.type.vet_center
+  module:
+    - entity_reference_validators
+    - epp
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: false
+  epp:
+    value: ''
+    on_update: 0
+id: message.vet_center_official_name_change.field_target_entity
+field_name: field_target_entity
+entity_type: message
+bundle: vet_center_official_name_change
+label: target_entity
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      vet_center: vet_center
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

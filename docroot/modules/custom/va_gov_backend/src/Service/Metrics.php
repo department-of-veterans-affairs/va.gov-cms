@@ -4,7 +4,6 @@ namespace Drupal\va_gov_backend\Service;
 
 use Drupal\Core\Site\Settings;
 use Drupal\core_event_dispatcher\CoreHookEvents;
-use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\prometheus_exporter\MetricsCollectorManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -96,7 +95,7 @@ class Metrics implements EventSubscriberInterface {
       case "brd":
         return $this->settings->get('github_actions_deploy_env', 'unknown');
 
-      case "lando":
+      case "local":
         return "local";
 
       default:

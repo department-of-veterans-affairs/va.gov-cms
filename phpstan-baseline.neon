@@ -121,19 +121,19 @@ parameters:
 			path: docroot/modules/custom/va_gov_build_trigger/src/Commands/SiteStatusCommands.php
 
 		-
-			message: "#^Call to an undefined method Drupal\\\\advancedqueue\\\\Plugin\\\\AdvancedQueue\\\\Backend\\\\BackendInterface\\:\\:deleteJob\\(\\)\\.$#"
-			count: 1
-			path: docroot/modules/custom/va_gov_build_trigger/src/Commands/WebBuildCommands.php
-
-		-
-			message: "#^Call to an undefined method Drupal\\\\advancedqueue\\\\Plugin\\\\AdvancedQueue\\\\Backend\\\\BackendInterface\\:\\:releaseJob\\(\\)\\.$#"
-			count: 1
-			path: docroot/modules/custom/va_gov_build_trigger/src/Commands/WebBuildCommands.php
-
-		-
 			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
 			count: 3
 			path: docroot/modules/custom/va_gov_build_trigger/src/Form/PreviewForm.php
+
+		-
+			message: "#^Method Drupal\\\\va_gov_build_trigger\\\\Plugin\\\\AdvancedQueue\\\\JobType\\\\ReleaseDispatch\\:\\:\\process\\(\\) should return Drupal\\\\advancedqueue\\\\JobResult but return statement is missing\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_build_trigger/src/Plugin/AdvancedQueue/JobType/ReleaseDispatch.php
+
+		-
+			message: "#^Method Drupal\\\\va_gov_build_trigger\\\\Plugin\\\\AdvancedQueue\\\\JobType\\\\ReleaseRequest\\:\\:\\process\\(\\) should return Drupal\\\\advancedqueue\\\\JobResult but return statement is missing\\.$#"
+			count: 1
+			path: docroot/modules/custom/va_gov_build_trigger/src/Plugin/AdvancedQueue/JobType/ReleaseRequest.php
 
 		-
 			message: "#^Method Symfony\\\\Contracts\\\\EventDispatcher\\\\EventDispatcherInterface\\:\\:dispatch\\(\\) invoked with 2 parameters, 1 required\\.$#"

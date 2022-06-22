@@ -2,11 +2,15 @@
 
 namespace Drupal\va_gov_build_trigger\Plugin\Block;
 
-use Drupal\advancedqueue\Job;
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Datetime\DateFormatterInterface;
+use Drupal\Core\Link;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\State\StateInterface;
 use Drupal\Core\Url;
+use Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\va_gov_build_trigger\Service\BuildRequester;
 
 /**
  * Provides a 'ContentReleaseStatusBlock' block.
@@ -19,43 +23,70 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
-   * The current user service.
+   * State service.
    *
-   * @var \Drupal\Core\Session\AccountProxy
+   * @var \Drupal\Core\State\StateInterface
    */
-  protected $currentUser;
+  protected $state;
 
   /**
-   * The database service.
-   *
-   * @var \Drupal\Core\Database\Driver\mysql\Connection
-   */
-  protected $database;
-
-  /**
-   * The date formatter service.
-   *
-   * @var \Drupal\Core\Datetime\DateFormatter
-   */
-  protected $dateFormatter;
-
-  /**
-   * EnvironmentDiscovery Service.
+   * Environment discovery service.
    *
    * @var \Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery
    */
   protected $environmentDiscovery;
 
   /**
+   * The date formatter service.
+   *
+   * @var \Drupal\Core\Datetime\DateFormatterInterface
+   */
+  protected $dateFormatter;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    $instance = new static($configuration, $plugin_id, $plugin_definition);
-    $instance->currentUser = $container->get('current_user');
-    $instance->database = $container->get('database');
-    $instance->dateFormatter = $container->get('date.formatter');
-    $instance->environmentDiscovery = $container->get('va_gov.build_trigger.environment_discovery');
-    return $instance;
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('state'),
+      $container->get('date.formatter'),
+      $container->get('va_gov.build_trigger.environment_discovery'),
+    );
+  }
+
+  /**
+   * Constructs a \Drupal\Component\Plugin\PluginBase object.
+   *
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\Core\State\StateInterface $state
+   *   The state service.
+   * @param \Drupal\Core\Datetime\DateFormatterInterface $dateFormatter
+   *   The date formatter service.
+   * @param \Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery $environmentDiscovery
+   *   The environment discovery service.
+   */
+  public function __construct(
+    array $configuration,
+    $plugin_id,
+    $plugin_definition,
+    StateInterface $state,
+    DateFormatterInterface $dateFormatter,
+    EnvironmentDiscovery $environmentDiscovery
+  ) {
+    $this->configuration = $configuration;
+    $this->pluginId = $plugin_id;
+    $this->pluginDefinition = $plugin_definition;
+    $this->state = $state;
+    $this->dateFormatter = $dateFormatter;
+    $this->environmentDiscovery = $environmentDiscovery;
   }
 
   /**
@@ -64,32 +95,72 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
   public function build() {
     $build = [];
 
-    $table = [
-      '#type' => 'table',
-      '#attributes' => ['class' => ['content-release-status-block']],
-      '#header' => [
-        $this->t('Status'),
-        $this->t('Frontend Version'),
-        $this->t('Started'),
-        $this->t('Finished'),
-        $this->t('Logs'),
-      ],
+    $release_state = $this->state->get('va_gov_build_trigger.release_state', 'ready');
+    $last_release = $this->state->get('va_gov_build_trigger.last_release_complete', 0);
+
+    $items = [];
+
+    // If the frontend has been built, display a link to the environment.
+    $front_end_link = $this->t('Front end has not been built yet.');
+    $front_end_description = $this->t('Once a release is completed successfully, this section will update with a link to the newly built VA.gov front end.');
+    if ($last_release !== 0) {
+      $target = $this->environmentDiscovery->getWebUrl();
+      $target_url = Url::fromUri($target, ['attributes' => ['target' => '_blank']]);
+      $front_end_link = Link::fromTextAndUrl($this->t('View front end'), $target_url);
+      $front_end_description = $this->t('See how your content will appear to site visitors on the front end.');
+    }
+
+    $items['frontend_link'] = [
+      'title' => $this->t('Front end link'),
+      'description' => $front_end_description,
+      'value' => $front_end_link,
     ];
 
-    $jobs = $this->getCommandRunnerJobs();
+    $items['release_state'] = [
+      'title' => $this->t('Release state'),
+      'value' => $this->getHumanReadableState($release_state),
+    ];
 
-    if (count($jobs) === 0) {
-      $table['#rows'] = [
-        [['data' => $this->t('No recent updates'), 'colspan' => 5]],
+    $items['last_release'] = [
+      'title' => $this->t('Last release'),
+      'value' => $this->formatTimestamp($last_release),
+    ];
+
+    if ($this->environmentDiscovery->shouldDisplayBuildDetails()) {
+      $current_frontend_version = $this->state->get(BuildRequester::VA_GOV_FRONTEND_VERSION, '[default]');
+      $build_log_link =
+
+      $items['front_end_version'] = [
+        'title' => $this->t('Front end version'),
+        'value' => $current_frontend_version,
       ];
-      $build['content_release_status_block'] = $table;
 
-      return $build;
+      // If the frontend has been built, display a link to the environment.
+      $build_log_link = $this->t('No build log available');
+      $build_log_description = $this->t('Once a release is completed successfully, this section will update with a link to the full log output of the content release (including a broken link report).');
+      if ($last_release !== 0) {
+        $target = $this->environmentDiscovery->getWebUrl();
+        $target_url = Url::fromUserInput('/sites/default/files/build.txt', ['attributes' => ['target' => '_blank']]);
+        $build_log_link = Link::fromTextAndUrl($this->t('Build log'), $target_url);
+        $build_log_description = $this->t('View the full output of the last completed build process (including a broken link report).');
+      }
+      $items['build_log'] = [
+        'title' => $this->t('Build log'),
+        'description' => $build_log_description,
+        'value' => $build_log_link,
+      ];
     }
 
-    foreach ($jobs as $job) {
-      $table['#rows'][] = $this->buildTableRow($job);
-    }
+    $status = [
+      '#theme' => 'status_report_grouped',
+      '#grouped_requirements' => [
+        [
+          'title' => $this->t('Content release status'),
+          'type' => 'content-release-status',
+          'items' => $items,
+        ],
+      ],
+    ];
 
     $build['#attached']['library'][] = 'va_gov_build_trigger/content_release_status_block';
     $build['#attached']['drupalSettings']['contentReleaseStatusBlock'] = [
@@ -98,215 +169,55 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
       )->toString(),
     ];
 
-    $build['content_release_status_block'] = $table;
+    $build['content_release_status_block'] = $status;
 
     return $build;
   }
 
   /**
-   * Build a queue status table row array.
+   * Formats our internal state names for end-user consumption.
    *
-   * @param \Drupal\advancedqueue\Job $job
-   *   Advancedqueue Job.
-   *
-   * @return array
-   *   Drupal table row array.
-   */
-  protected function buildTableRow(Job $job) : array {
-    $row = [];
-
-    $row[] = $this->getStatusCell($job);
-    $row[] = $this->getFrontEndVersionCell($job);
-    $row[] = $job->getAvailableTime() ? $this->dateFormatter->format($job->getAvailableTime(), 'standard') : '';
-    $row[] = $job->getProcessedTime() ? $this->dateFormatter->format($job->getProcessedTime(), 'standard') : '';
-
-    // The log page will show an error if there are no log messages,
-    // so only show it once the job is being processed.
-    $row[] = $job->getState() !== Job::STATE_QUEUED ? $this->getLogLink() : '';
-
-    return $row;
-  }
-
-  /**
-   * Add log links to table.
-   *
-   * @return array
-   *   Link to dblog, filtered to web build messages.
-   */
-  protected function getLogLink() : array {
-    $log_url = Url::fromRoute(
-      "view.content_release_logs.page_1",
-      [],
-      [
-        'attributes' => [
-          'target' => '_blank',
-        ],
-      ]
-    );
-
-    return [
-      'data' => [
-        '#title' => $this->t('View logs'),
-        '#type' => 'link',
-        '#url' => $log_url,
-      ],
-    ];
-  }
-
-  /**
-   * Get the status cell for an advancedqueue job state.
-   *
-   * @param \Drupal\advancedqueue\Job $job
-   *   Advancedqueue Job.
-   *
-   * @return array
-   *   Table cell array.
-   */
-  protected function getStatusCell(Job $job) : array {
-    $icon = $this->getStatusIcon($job);
-    $icon_class = 'job-status-icon';
-    if ($job->getState() === Job::STATE_PROCESSING) {
-      $icon_class .= ' status-animated';
-    }
-    $icon_html = "<span class='{$icon_class}'>{$icon}</span>";
-
-    $status = $this->getHumanReadableStatus($job);
-
-    return ['data' => ['#markup' => "{$icon_html} {$status}"]];
-  }
-
-  /**
-   * Get the table cell for the front end version.
-   *
-   * @param \Drupal\advancedqueue\Job $job
-   *   Advancedqueue Job.
-   *
-   * @return array
-   *   Table cell array.
-   */
-  protected function getFrontEndVersionCell(Job $job) : array {
-    $payload = json_decode($job->getPayload());
-
-    if (preg_match('/rm -fr docroot/', $payload->commands[0], $matches)) {
-      return ['data' => ['#markup' => '[default]']];
-    }
-
-    if (preg_match('/origin\/([^\/ ]*)$/', $payload->commands[2], $matches)) {
-      $branch = $matches[1];
-      return ['data' => ['#markup' => "Branch: {$branch}"]];
-    }
-
-    if (preg_match('/git fetch origin pull\/([0-9]*)\/head/', $payload->commands[2], $matches)) {
-      $pr = $matches[1];
-      return ['data' => ['#markup' => "Pull request: #{$pr}"]];
-    }
-
-    return [];
-  }
-
-  /**
-   * Get the status icon for an advancedqueue job state.
-   *
-   * @param \Drupal\advancedqueue\Job $job
-   *   Advancedqueue Job.
+   * @param string $state
+   *   Internal content release state.
    *
    * @return string
-   *   Job status icon.
+   *   User-facing content release state.
    */
-  protected function getStatusIcon(Job $job) : string {
-    $icon = '';
-
-    switch ($job->getState()) {
-      case Job::STATE_QUEUED:
-        $icon = '🕐';
-        break;
-
-      case Job::STATE_PROCESSING:
-        $icon = '🔨';
-        break;
-
-      case Job::STATE_SUCCESS:
-        $icon = '✅';
-        break;
-
-      case Job::STATE_FAILURE:
-        $icon = '❌';
-        break;
-
-      default:
-        $icon = '❓';
-        break;
-    }
-
-    return $icon;
-  }
-
-  /**
-   * Get the human readable status for an advancedqueue job state.
-   *
-   * @param \Drupal\advancedqueue\Job $job
-   *   Advancedqueue Job.
-   *
-   * @return string
-   *   Human-readable job status.
-   */
-  protected function getHumanReadableStatus(Job $job) : string {
-    $status = '';
-    $state = $job->getState();
-
+  protected function getHumanReadableState(string $state) : string {
     switch ($state) {
-      case Job::STATE_QUEUED:
-        $status = $this->t('Pending');
-        break;
+      case 'ready':
+      case 'requested':
+        return $this->t('Ready');
 
-      case Job::STATE_PROCESSING:
-        $status = $this->t('In Progress');
-        break;
+      case 'dispatched':
+      case 'starting':
+        return $this->t('Preparing');
 
-      case Job::STATE_SUCCESS:
-        $status = $this->t('Success');
-        break;
+      case 'inprogress':
+        return $this->t('In Progress');
 
-      case Job::STATE_FAILURE:
-        $status = $this->t('Error');
-        break;
-
-      default:
-        $status = $this->t('Unknown');
-        break;
+      case 'complete':
+        return $this->t('Complete');
     }
 
-    return $status;
+    return 'unknown';
   }
 
   /**
-   * Get content release build jobs.
+   * Format a timestamp using the site standard date format and timezone.
    *
-   * @return array[\Drupal\advancedqueue\Job]
-   *   Array of Jobs.
+   * @param int $timestamp
+   *   A unix timestamp.
+   *
+   * @return string
+   *   A formatted date/time.
    */
-  protected function getCommandRunnerJobs() : array {
-    $jobs = [];
-
-    $result = $this->database->select('advancedqueue', 'aq')
-      ->condition('aq.queue_id', 'command_runner')
-      ->fields('aq')
-      ->range(0, 10)
-      ->orderBy('available', 'DESC')
-      ->execute();
-
-    while ($record = $result->fetchAssoc()) {
-      $jobs[] = new Job($record);
+  protected function formatTimestamp(int $timestamp) : string {
+    if ($timestamp === 0) {
+      return $this->t('Never');
     }
 
-    return $jobs;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getCacheMaxAge() {
-    return 0;
+    return $this->dateFormatter->format($timestamp, 'standard');
   }
 
 }

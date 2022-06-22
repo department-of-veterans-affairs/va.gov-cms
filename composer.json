@@ -187,7 +187,7 @@
         "symfony/process": "^4.0",
         "symfony/routing": "^4.0",
         "traviscarden/behat-table-comparison": "~0.2",
-        "va-gov/content-build": "^0.0.3034",
+        "va-gov/content-build": "^0.0.3039",
         "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
@@ -542,7 +542,8 @@
             "echo \"export PATH=${PATH}\""
         ],
         "pre-install-cmd": [
-            "mkdir -p vendor"
+            "mkdir -p vendor",
+            "[ -f .env ] || cp .env.example .env"
         ],
         "post-install-cmd": [
             "mkdir --parents docroot/profiles",
@@ -559,7 +560,8 @@
             "rm -r vendor"
         ],
         "pre-update-cmd": [
-            "mkdir -p vendor"
+            "mkdir -p vendor",
+            "[ -f .env ] || cp .env.example .env"
         ],
         "post-update-cmd": [
             "cp -r 'hooks/git/.' '.git/hooks/'",

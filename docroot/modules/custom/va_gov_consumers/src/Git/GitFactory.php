@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_consumers\Git;
 
+use Drupal\Core\Site\Settings;
 use Gitonomy\Git\Repository;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
@@ -14,6 +15,31 @@ class GitFactory implements ContainerAwareInterface {
   use ContainerAwareTrait;
 
   /**
+   * App Root.
+   *
+   * @var string
+   */
+  protected $appRoot;
+
+  /**
+   * Path to Web root.
+   *
+   * @var string
+   */
+  protected $webRoot;
+
+  /**
+   * GitFactory constructor.
+   *
+   * @param \Drupal\Core\Site\Settings $settings
+   *   Drupal settings.
+   */
+  public function __construct(Settings $settings) {
+    $this->appRoot = $settings->get('va_gov_app_root', '');
+    $this->webRoot = $settings->get('va_gov_web_root', '');
+  }
+
+  /**
    * Get a Repository Class.
    *
    * @param string $repositoryRoot
@@ -24,7 +50,6 @@ class GitFactory implements ContainerAwareInterface {
    */
   public function get(string $repositoryRoot) : GitInterface {
     $repository = new Repository($repositoryRoot);
-
     return Git::get($repository);
   }
 
@@ -35,9 +60,7 @@ class GitFactory implements ContainerAwareInterface {
    *   The Git object.
    */
   public function getWebRepository() : GitInterface {
-    return $this->get(
-      $this->container->get('va_gov.build_trigger.web_build_command_builder')->getPathToWebRoot()
-    );
+    return $this->get($this->webRoot);
   }
 
   /**
@@ -47,9 +70,7 @@ class GitFactory implements ContainerAwareInterface {
    *   The Git Object.
    */
   public function getAppRepository() : GitInterface {
-    return $this->get(
-      $this->container->get('va_gov.build_trigger.web_build_command_builder')->getAppRoot()
-    );
+    return $this->get($this->appRoot);
   }
 
 }

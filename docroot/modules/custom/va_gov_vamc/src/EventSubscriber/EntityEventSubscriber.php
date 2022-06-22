@@ -17,6 +17,9 @@ use Drupal\va_gov_vamc\Service\ContentHardeningDeduper;
 use Drupal\va_gov_workflow\Service\Flagger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
+// The UID of the CMS Help Desk account subscribing to facility messages.
+const USER_CMS_HELP_DESK_NOTIFICATIONS = 4050;
+
 /**
  * VA.gov VAMC Entity Event Subscriber.
  */
@@ -151,9 +154,11 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     if ($this->isFlaggableFacility($entity)) {
       if ($entity->bundle() === 'vet_center') {
         $this->flagger->flagFieldChanged('field_official_name', 'changed_name', $entity, "The Official name of this facility changed from '@old' to '@new'.");
+        $this->notificationsManager->sendMessageOnFieldChange('field_official_name', $entity, 'Vet Center Official Name Change:', 'vet_center_official_name_change', USER_CMS_HELP_DESK_NOTIFICATIONS);
       }
       else {
         $this->flagger->flagFieldChanged('title', 'changed_name', $entity, "The title of this facility changed from '@old' to '@new'.");
+        $this->notificationsManager->sendMessageOnFieldChange('title', $entity, 'Facility title changed:', 'va_facility_title_change', USER_CMS_HELP_DESK_NOTIFICATIONS);
       }
     }
   }
@@ -169,12 +174,12 @@ class EntityEventSubscriber implements EventSubscriberInterface {
 
     if ($this->isFlaggableFacility($entity)) {
       $this->flagger->flagNew('new', $entity, "This facility is new and needs the 'new facility' runbook.");
-      // @codingStandardsIgnoreStart
-      // Sample code for building a message notification. Using swirt's user id
-      // for now.
-      // $message_fields = $this->notificationsManager->buildMessageFields($entity, 'New facility:');
-      // $this->notificationsManager->send('va_facility_new_facility', 1215, $message_fields);
-      // @codingStandardsIgnoreEnd
+      // Email the help desk when a new facility is created.
+      $first_save = (empty($entity->original)) ? TRUE : FALSE;
+      if (!(defined('IS_BEHAT') && IS_BEHAT) && ($entity->isNew() || $first_save)) {
+        $message_fields = $this->notificationsManager->buildMessageFields($entity, 'New facility:');
+        $this->notificationsManager->send('va_facility_new_facility', USER_CMS_HELP_DESK_NOTIFICATIONS, $message_fields);
+      }
     }
   }
 

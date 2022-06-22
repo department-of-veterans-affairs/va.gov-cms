@@ -12,9 +12,9 @@ tasks:
       - composer va:ds:storybook
 
   build-frontend:
-    desc: Build the frontend
+    desc: Request a frontend build
     cmds:
-      - composer va:web:build
+      - drush va-gov:content-release:request-frontend-build
 
   build:
     deps:
