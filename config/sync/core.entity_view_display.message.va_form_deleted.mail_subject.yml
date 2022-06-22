@@ -1,12 +1,15 @@
 uuid: d9481e43-d220-4c8a-aca1-09d668bab3b0
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.message.mail_subject
+    - field.field.message.va_form_deleted.field_target_entity
+    - field.field.message.va_form_deleted.field_target_node_title
     - message.template.va_form_deleted
   module:
     - layout_builder
+    - user
 third_party_settings:
   layout_builder:
     enabled: false
@@ -20,4 +23,7 @@ content:
     weight: 0
     region: content
 hidden:
+  field_target_entity: true
+  field_target_node_title: true
   partial_1: true
+  search_api_excerpt: true

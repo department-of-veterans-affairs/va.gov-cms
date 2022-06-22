@@ -1,0 +1,40 @@
+uuid: b73310c2-dae5-4484-aff1-6ba096fcaecc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.message.field_target_entity
+    - message.template.va_form_changed_title
+    - node.type.va_form
+  module:
+    - entity_reference_validators
+    - epp
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: false
+  epp:
+    value: ''
+    on_update: 0
+id: message.va_form_changed_title.field_target_entity
+field_name: field_target_entity
+entity_type: message
+bundle: va_form_changed_title
+label: target_entity
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      va_form: va_form
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

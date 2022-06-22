@@ -1,29 +1,24 @@
-uuid: 664851ba-0968-4232-bec2-9d16acc9bf02
+uuid: fee6bc62-4d9f-412a-96f1-77611b0d75d1
 langcode: en
-status: false
+status: true
 dependencies:
   config:
-    - core.entity_view_mode.message.mail_body
     - field.field.message.va_form_changed_url.field_target_entity
     - field.field.message.va_form_changed_url.field_target_node_title
     - message.template.va_form_changed_url
   module:
-    - layout_builder
     - user
-third_party_settings:
-  layout_builder:
-    enabled: false
-    allow_custom: false
-id: message.va_form_changed_url.mail_body
+id: message.va_form_changed_url.default
 targetEntityType: message
 bundle: va_form_changed_url
-mode: mail_body
+mode: default
 content:
-  partial_1:
+  partial_0:
+    settings: {  }
+    third_party_settings: {  }
     weight: 0
     region: content
 hidden:
   field_target_entity: true
   field_target_node_title: true
-  partial_0: true
   search_api_excerpt: true
