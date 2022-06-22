@@ -8,10 +8,10 @@ use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
-use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Drupal\va_gov_build_trigger\Service\ReleaseStateManagerInterface;
 
 /**
  * Show deploy status messages to the user.
@@ -48,11 +48,11 @@ class DeployStatusMessagesSubscriber implements EventSubscriberInterface {
   protected $stringTranslation;
 
   /**
-   * The Web Status provider.
+   * Release state manager service.
    *
-   * @var \Drupal\va_gov_build_trigger\WebBuildStatusInterface
+   * @var \Drupal\va_gov_build_trigger\Service\ReleaseStateManager
    */
-  protected $webStatus;
+  protected $releaseStateManager;
 
   /**
    * DeployStatusMessagesSubscriber constructor.
@@ -65,21 +65,21 @@ class DeployStatusMessagesSubscriber implements EventSubscriberInterface {
    *   The messenger service.
    * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
    *   The string translation service.
-   * @param \Drupal\va_gov_build_trigger\WebBuildStatusInterface $web_build_status
-   *   The Web Build Status service.
+   * @param \Drupal\va_gov_build_trigger\Service\ReleaseStateManagerInterface $releaseStateManager
+   *   Release state manager service.
    */
   public function __construct(
     ConfigFactoryInterface $config_factory,
     AccountProxyInterface $current_user,
     MessengerInterface $messenger,
     TranslationInterface $string_translation,
-    WebBuildStatusInterface $web_build_status
+    ReleaseStateManagerInterface $releaseStateManager
   ) {
     $this->configFactory = $config_factory;
     $this->currentUser = $current_user;
     $this->messenger = $messenger;
     $this->stringTranslation = $string_translation;
-    $this->webStatus = $web_build_status;
+    $this->releaseStateManager = $releaseStateManager;
   }
 
   /**
@@ -92,7 +92,7 @@ class DeployStatusMessagesSubscriber implements EventSubscriberInterface {
    *   TRUE if we should show deploy status messages, FALSE if not.
    */
   protected function showDeployStatusMessages(GetResponseEvent $event) : bool {
-    return $this->webStatus->getWebBuildStatus() &&
+    return $this->releaseStateManager->releaseIsImminent() &&
       $this->currentUser->isAuthenticated() &&
       $this->currentUser->hasPermission('access content');
   }

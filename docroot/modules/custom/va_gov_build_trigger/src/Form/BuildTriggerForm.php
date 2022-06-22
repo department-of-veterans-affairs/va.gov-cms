@@ -6,8 +6,8 @@ use Drupal\Core\Block\BlockManager;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery;
-use Drupal\va_gov_build_trigger\Service\BuildFrontend;
-use Drupal\va_gov_build_trigger\WebBuildStatusInterface;
+use Drupal\va_gov_build_trigger\Service\BuildRequesterInterface;
+use Drupal\va_gov_build_trigger\Service\ReleaseStateManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -20,20 +20,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * the site will look like in production.
  */
 class BuildTriggerForm extends FormBase {
-
-  /**
-   * The front-end build service.
-   *
-   * @var \Drupal\va_gov_build_trigger\Service\BuildFrontend
-   */
-  protected $buildFrontend;
-
-  /**
-   * The state provider.
-   *
-   * @var \Drupal\va_gov_build_trigger\WebBuildStatusInterface
-   */
-  protected $webBuildStatus;
 
   /**
    * EnvironmentDiscovery Service.
@@ -50,27 +36,41 @@ class BuildTriggerForm extends FormBase {
   protected $blockManager;
 
   /**
+   * Build Requester service.
+   *
+   * @var \Drupal\va_gov_build_trigger\Service\BuildRequesterInterface
+   */
+  protected $buildRequester;
+
+  /**
+   * Release state manager service.
+   *
+   * @var \Drupal\va_gov_build_trigger\Service\ReleaseStateManager
+   */
+  protected $releaseStateManager;
+
+  /**
    * Class constructor.
    *
-   * @param \Drupal\va_gov_build_trigger\Service\BuildFrontend $buildFrontend
-   *   Build the front end service.
-   * @param \Drupal\va_gov_build_trigger\WebBuildStatusInterface $webBuildStatus
-   *   Webbuild status provider.
    * @param \Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery $environmentDiscovery
    *   EnvironmentDiscovery service.
    * @param \Drupal\Core\Block\BlockManager $blockManager
    *   Block Manager service.
+   * @param \Drupal\va_gov_build_trigger\Service\BuildRequesterInterface $buildRequester
+   *   Build requester service.
+   * @param \Drupal\va_gov_build_trigger\Service\ReleaseStateManagerInterface $releaseStateManager
+   *   Release state manager service.
    */
   public function __construct(
-    BuildFrontend $buildFrontend,
-    WebBuildStatusInterface $webBuildStatus,
     EnvironmentDiscovery $environmentDiscovery,
-    BlockManager $blockManager) {
-
-    $this->buildFrontend = $buildFrontend;
-    $this->webBuildStatus = $webBuildStatus;
+    BlockManager $blockManager,
+    BuildRequesterInterface $buildRequester,
+    ReleaseStateManagerInterface $releaseStateManager
+  ) {
     $this->environmentDiscovery = $environmentDiscovery;
     $this->blockManager = $blockManager;
+    $this->buildRequester = $buildRequester;
+    $this->releaseStateManager = $releaseStateManager;
   }
 
   /**
@@ -78,10 +78,10 @@ class BuildTriggerForm extends FormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('va_gov_build_trigger.build_frontend'),
-      $container->get('va_gov.build_trigger.web_build_status'),
       $container->get('va_gov.build_trigger.environment_discovery'),
-      $container->get('plugin.manager.block')
+      $container->get('plugin.manager.block'),
+      $container->get('va_gov_build_trigger.build_requester'),
+      $container->get('va_gov_build_trigger.release_state_manager')
     );
   }
 
@@ -122,7 +122,7 @@ class BuildTriggerForm extends FormBase {
    *   Object containing current form state.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->buildFrontend->triggerFrontendBuild();
+    $this->buildRequester->requestFrontendBuild('Manual build request');
   }
 
 }

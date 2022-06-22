@@ -5,13 +5,13 @@
 3. [Facility Service Updates to Lighthouse](#facility-service-changes-to-lighthouse)
 4. [System Banner Alerts and Situation Updates to GovDelivery](#system-banner-alerts-and-situation-updates-to-govdelivery)
 
-![Facilities updates and actions](images/VA-facilities.png)
+
 
 ## Status Changes to Lighthouse
 Whenever any NCA facility, VAMC facility, VBA faciltiy, Vet Center, or Vet
-Center Outstation has a change of "Operating status" or "Operating status -
-more info" saved in VACMS (whether by an editor, or migration), a change post is
-added to the "post API queue" by module:va_gov_post_api. When cron runs, any
+Center Outstation has a change of "Operating status", "Operating status -
+more info", or "Supplemental status" saved in VACMS (whether by an editor, or migration), a change 
+is added to the "post API queue" by module:va_gov_post_api. When cron runs, any
 items in the queue are posted to the Lighthouse API.
 
 ## Facility Service Changes to Lighthouse

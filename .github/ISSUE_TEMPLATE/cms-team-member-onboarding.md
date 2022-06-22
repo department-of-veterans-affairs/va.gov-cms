@@ -177,9 +177,6 @@ The goal for this week is to get you set up with the tools you need to be succes
    - [ ] [Watch the training video that VA Medical Center (VAMC) editors have to complete](https://youtu.be/Sowgt1rOmlE).
    - [ ] [Watch the training video that Vet Center editors have to complete](https://youtu.be/scuC5lSHZuw).
 
-#### Onboarding for Instructional Design members
-- [ ] Touch base with UX leads for next steps (Val Runde - FE UX; Suzanne Gray - Drupal UX)
-
 #### Onboarding for Product Management members
  - [ ] Review [onboarding docs](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/PM/)
 

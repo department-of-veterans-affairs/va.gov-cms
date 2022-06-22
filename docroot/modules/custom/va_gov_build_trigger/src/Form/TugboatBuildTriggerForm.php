@@ -22,20 +22,21 @@ class TugboatBuildTriggerForm extends BuildTriggerForm {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form = parent::buildForm($form, $form_state);
 
-    $form['help_1'] = [
+    $form['description'] = [
       '#prefix' => '<p>',
       '#markup' => $this->t('Release content to update the front end of this demo environment with the latest published content changes.'),
       '#suffix' => '</p>',
       '#weight' => -10,
     ];
 
-    $form['section_1']['title'] = [
+    $form['build_request']['title'] = [
       '#type' => 'item',
       '#prefix' => '<h2>',
-      '#markup' => $this->t('1. Release content'),
+      '#markup' => $this->t('Request a content release'),
       '#suffix' => '</h2>',
     ];
-    $form['section_1']['selection'] = [
+
+    $form['build_request']['selection'] = [
       '#title' => $this->t('Which version of the VA.gov front end would you like to use?'),
       '#type' => 'radios',
       '#options' => [
@@ -44,7 +45,8 @@ class TugboatBuildTriggerForm extends BuildTriggerForm {
       ],
       '#default_value' => 'default',
     ];
-    $form['section_1']['git_ref'] = [
+
+    $form['build_request']['git_ref'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Select branch/pull request'),
       '#description' => $this->t('Start typing to select a branch for the frontend version you want to use.'),
@@ -60,56 +62,47 @@ class TugboatBuildTriggerForm extends BuildTriggerForm {
       ],
     ];
 
-    $form['section_1']['actions']['#type'] = 'actions';
-    $form['section_1']['actions']['submit'] = [
+    $form['build_request']['actions']['#type'] = 'actions';
+    $form['build_request']['actions']['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Release content'),
       '#button_type' => 'primary',
     ];
 
-    $form['section_2']['title'] = [
-      '#type' => 'item',
-      '#prefix' => '<h2>',
-      '#markup' => $this->t('2. Wait for the release to complete'),
-      '#suffix' => '</h2>',
-    ];
+    $form['content_release_status_block'] = $this->getContentReleaseStatusBlock();
+
     $help_url = Url::fromUri(
       'https://va-gov.atlassian.net/servicedesk/customer/portal/3/group/8/create/26',
       ['attributes' => ['target' => '_blank']]
     );
     $help_link = Link::fromTextAndUrl($this->t('contact the CMS help desk'), $help_url);
     $description = $this->t(
-      'It may take up to one minute for the status of new content releases to appear here in the queue. Content releases will complete in the order released. If you encounter an error, please @help_link.',
+      'It may take up to one minute for the status of new content releases to be reflected here. If you encounter an error, please @help_link.',
       ['@help_link' => $help_link->toString()]
     );
-    $form['section_2']['help'] = [
+    $form['content_release_status_help'] = [
       '#type' => 'item',
-      '#title' => $this->t('Recent content releases'),
+      // '#title' => $this->t('Recent content releases'),
       '#description' => $description,
-    ];
-    $form['section_2']['content_release_status_block'] = $this->getContentReleaseStatusBlock();
-
-    $form['section_3']['title'] = [
-      '#type' => 'item',
-      '#prefix' => '<h2>',
-      '#markup' => $this->t('3. Access the frontend environment'),
-      '#suffix' => '</h2>',
-    ];
-    $description = $this->t('Once the release is completed successfully, see how your content will appear to site visitors on the front end.');
-    $form['section_3']['environment_target'] = [
-      '#type' => 'item',
-      '#markup' => $description,
-    ];
-    $target = $this->environmentDiscovery->getWebUrl();
-    $target_url = Url::fromUri($target, ['attributes' => ['target' => '_blank']]);
-    $target_link = Link::fromTextAndUrl($this->t('Go to front end'), $target_url);
-    $form['section_3']['cta'] = [
-      '#type' => 'item',
-      '#wrapper_attributes' => ['class' => ['button button--primary']],
-      '#markup' => $target_link->toString(),
     ];
 
     return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    if ($form_state->getValue('selection') === 'default') {
+      return;
+    }
+
+    $git_ref_value = $form_state->getValue('git_ref');
+    $git_ref = $this->getGitRef($git_ref_value);
+
+    if (empty($git_ref)) {
+      $form_state->setErrorByName('git_ref', $this->t('Invalid selection.'));
+    }
   }
 
   /**
@@ -121,13 +114,19 @@ class TugboatBuildTriggerForm extends BuildTriggerForm {
    *   Object containing current form state.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $git_ref = NULL;
-    $git_ref_value = $form_state->getValue('git_ref');
-    if ($git_ref_value && preg_match("/.+\\s\\(([^\\)]+)\\)/", $git_ref_value, $matches)) {
-      $git_ref = $matches[1];
+    if ($form_state->getValue('selection') === 'default') {
+      // If they want the default version, reset to whatever is specified in
+      // composer.json.
+      $this->buildRequester->resetFrontendVersion();
+    }
+    else {
+      // If they selected a specific git ref, use that.
+      $git_ref_value = $form_state->getValue('git_ref');
+      $git_ref = $this->getGitRef($git_ref_value);
+      $this->buildRequester->switchFrontendVersion($git_ref);
     }
 
-    $this->buildFrontend->triggerFrontendBuild($git_ref);
+    parent::submitForm($form, $form_state);
   }
 
   /**
@@ -140,6 +139,24 @@ class TugboatBuildTriggerForm extends BuildTriggerForm {
     return $this->blockManager
       ->createInstance('content_release_status_block', [])
       ->build();
+  }
+
+  /**
+   * Parse a git ref out of the git_ref field value.
+   *
+   * @param string $git_ref_value
+   *   The contents of the git ref field.
+   *
+   * @return string
+   *   A standalone git ref.
+   */
+  protected function getGitRef($git_ref_value) : string {
+    $git_ref = '';
+    if ($git_ref_value && preg_match("/.+\\s\\(([^\\)]+)\\)/", $git_ref_value, $matches)) {
+      $git_ref = $matches[1];
+    }
+
+    return $git_ref;
   }
 
 }

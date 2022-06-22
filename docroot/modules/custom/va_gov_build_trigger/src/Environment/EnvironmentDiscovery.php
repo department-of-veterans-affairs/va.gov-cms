@@ -134,13 +134,10 @@ class EnvironmentDiscovery {
   /**
    * Trigger a front end content build.
    *
-   * @param string $front_end_git_ref
-   *   Front end git reference to build (branch name or PR number)
-   *
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
-  public function triggerFrontendBuild(string $front_end_git_ref = NULL) : void {
-    $this->getEnvironment()->triggerFrontendBuild($front_end_git_ref);
+  public function triggerFrontendBuild() : void {
+    $this->getEnvironment()->triggerFrontendBuild();
   }
 
   /**
@@ -161,6 +158,18 @@ class EnvironmentDiscovery {
    */
   public function getBuildTriggerFormClass() : string {
     return $this->getEnvironment()->getBuildTriggerFormClass();
+  }
+
+  /**
+   * Determine whether or not build log and frontend version are displayed.
+   *
+   * This mainly affects the content release form at /admin/content/deploy.
+   *
+   * @return bool
+   *   TRUE if build details should be displayed.
+   */
+  public function shouldDisplayBuildDetails() : bool {
+    return $this->getEnvironment()->shouldDisplayBuildDetails();
   }
 
 }
