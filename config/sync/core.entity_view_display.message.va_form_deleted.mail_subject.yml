@@ -1,0 +1,23 @@
+uuid: d9481e43-d220-4c8a-aca1-09d668bab3b0
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.message.mail_subject
+    - message.template.va_form_deleted
+  module:
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: message.va_form_deleted.mail_subject
+targetEntityType: message
+bundle: va_form_deleted
+mode: mail_subject
+content:
+  partial_0:
+    weight: 0
+    region: content
+hidden:
+  partial_1: true
