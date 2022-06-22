@@ -98,10 +98,10 @@ If your composer.lock ends up with a conflict due to incoming changes, these ste
 * We use the [Drupal SpecTool](https://github.com/acquia/drupal-spec-tool) to keep track of config changes, and generate tests related to roles, content types, fields, menus views.
 * If you are modifying configuration of roles, content types, fields, menus views, Go update the appropritate tab(s) in our version of the [SpecTool](https://airtable.com/invite/l?inviteId=invOjKEIyZCQY5YRy&inviteToken=eea85291ef1cd72ce9560c5a833a18673ef10a92050f9210e878702e81ec49b3&utm_source=email).
 * Edit the 'Data used in Behat test' view for the appropriate tables
-* Once all the modifications are made to the appropriate table(s), click on the "Apps" link in the top right corner and choose 'Behat Tests' from the dashbaord selector. Click the 'run' button and follow the prompts to generate the test you need, then copy the output to your clipboard.
+* Once all the modifications are made to the appropriate table(s), click on the "Extensions" link in the top right corner and choose 'Behat Tests' from the dashbaord selector. Click the 'run' button and follow the prompts to generate the test you need, then copy the output to your clipboard.
 * Open the related file in [/tests/behat/drupal/drupal-spec-tool/](../tests/behat/drupal/drupal-spec-too/)
 * Delete all the existing text in the file and paste in what you copied from the SpecTool.  (Do not format the output in any way. Disable any Behat beautifier plugins.)
-* After updating config, run `ddev behat --tags=spec` to run just the spec tool tests. Discrepancies between code and config will be reflected in test output
+* After updating config, run `ddev behat --tags=dst` to run just the spec tool tests. Discrepancies between code and config will be reflected in test output
 * If needed, run tests again, correcting and updating the spreadsheet, and exporting accordingly until tests and spreadsheet are in sync.
 * Export config to code: `ddev drush config:export` then commit test and config changes and make your Pull Request.   Your newly updated Behat tests will run along with the other tests and passing or failure will be indicated on your PR.   Please make sure they are passing locally before sending the PR for code review.
 
