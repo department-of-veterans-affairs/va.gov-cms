@@ -139,9 +139,20 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   protected function flagVaFormChanges(EntityInterface $entity) {
     if ($entity->bundle() === 'va_form') {
-      $this->flagger->flagFieldChanged('field_va_form_title', 'changed_title', $entity, "The form title of this form changed from '@old' to '@new' in the Forms DB.");
-      $this->flagger->flagFieldChanged(['field_va_form_url', 'uri'], 'changed_filename', $entity, "The file name (URL) of this form changed from '@old' to '@new' in the Forms DB.");
-      $this->flagger->flagFieldChanged('field_va_form_deleted', 'deleted', $entity, "The form was marked as deleted in the Forms DB.");
+      if ($this->flagger->flagFieldChanged('field_va_form_title', 'changed_title', $entity, "The form title of this form changed from '@old' to '@new' in the Forms DB.")) {
+        $message_fields = $this->notificationsManager->buildMessageFields($entity);
+        $this->notificationsManager->send('va_form_changed_title', '#va-forms', $message_fields, 'slack');
+      }
+
+      if ($this->flagger->flagFieldChanged(['field_va_form_url', 'uri'], 'changed_filename', $entity, "The file name (URL) of this form changed from '@old' to '@new' in the Forms DB.")) {
+        $message_fields = $this->notificationsManager->buildMessageFields($entity);
+        $this->notificationsManager->send('va_form_changed_url', '#va-forms', $message_fields, 'slack');
+      }
+
+      if ($this->flagger->flagFieldChanged('field_va_form_deleted', 'deleted', $entity, "The form was marked as deleted in the Forms DB.")) {
+        $message_fields = $this->notificationsManager->buildMessageFields($entity);
+        $this->notificationsManager->send('va_form_deleted', '#va-forms', $message_fields, 'slack');
+      }
     }
   }
 
@@ -159,9 +170,11 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       $this->flagger->logFlagOperation($entity, 'create');
     }
     elseif ($entity->bundle() === 'va_form') {
-      $this->flagger->flagNew('new_form', $entity, "This VA Form was added to the Forms DB.");
-      $message_fields = $this->notificationsManager->buildMessageFields($entity, 'New form:');
-      $this->notificationsManager->send('va_form_new_form', 'va-forms', $message_fields, 'slack');
+      $flagged = $this->flagger->flagNew('new_form', $entity, "This VA Form was added to the Forms DB.");
+      if ($flagged) {
+        $message_fields = $this->notificationsManager->buildMessageFields($entity);
+        $this->notificationsManager->send('va_form_new_form', '#va-forms', $message_fields, 'slack');
+      }
     }
   }
 
