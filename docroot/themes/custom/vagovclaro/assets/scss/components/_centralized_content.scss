@@ -39,6 +39,16 @@
 
     tr {
       border-bottom: transparent;
+
+      &.draggable.paragraph-type--wysiwyg {
+        &:hover {
+          background: transparent !important;
+        }
+      }
+
+      &.draggable.paragraph-type--centralized-content-descriptor {
+        margin-top: 50px;
+      }
     }
 
     #edit-field-content-block-add-more-browse,
@@ -46,7 +56,7 @@
       display: none;
     }
 
-    #block-vagovclaro-content .layout-region--node-main {
+    #block-vagovclaro-content .layout-region.layout--node-main {
       display: block;
 
       .js-form-type-textarea .js-form-required.form-required,
@@ -72,6 +82,13 @@
       .cc-special-treatment-paragraph {
         height: 0;
         visibility: hidden;
+      }
+
+      .cc-national-wysi-padding td:nth-child(2) {
+        display: block;
+        height: auto;
+        opacity: 0.5;
+        pointer-events: none;
       }
 
       .cc-wysi-wrap {
