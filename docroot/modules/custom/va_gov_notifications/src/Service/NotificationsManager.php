@@ -46,7 +46,7 @@ class NotificationsManager {
    * @param string $template_name
    *   The machine name of the template to use.
    * @param int|string $recipient
-   *   The user id, or slack channel name to send the notification to.
+   *   The user id, Slack channel, or Slack user name to send the message to.
    * @param array $values
    *   Array of key value pairs that will be passed to the template.
    * @param string $notifier_name
@@ -62,7 +62,9 @@ class NotificationsManager {
       $template_values = ['template' => $template_name];
       switch ($notifier_name) {
         case 'slack':
-          $template_values['channel'] = $recipient;
+          $template_values['slack_channel'] = $recipient;
+          // Hardcoded as we only have one Slack app.
+          $template_values['slack_user'] = 'vagovcms';
           break;
 
         case 'email':
