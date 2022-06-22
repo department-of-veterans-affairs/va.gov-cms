@@ -33,7 +33,6 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
-    negate: 0
     target_bundles:
       wysiwyg: wysiwyg
       number_callout: number_callout
@@ -48,13 +47,14 @@ settings:
       table: table
       media: media
       downloadable_file: downloadable_file
+    negate: 0
     target_bundles_drag_drop:
       address:
         weight: -31
         enabled: false
       alert:
-        enabled: true
         weight: -35
+        enabled: true
       button:
         weight: 35
         enabled: false
@@ -65,14 +65,14 @@ settings:
         weight: 37
         enabled: false
       collapsible_panel:
-        enabled: true
         weight: -41
+        enabled: true
       collapsible_panel_item:
         weight: -30
         enabled: false
       downloadable_file:
-        enabled: true
         weight: 23
+        enabled: true
       expandable_text:
         weight: -32
         enabled: false
@@ -83,8 +83,8 @@ settings:
         weight: -28
         enabled: false
       list_of_link_teasers:
-        enabled: true
         weight: -37
+        enabled: true
       list_of_links:
         weight: 45
         enabled: false
@@ -92,17 +92,17 @@ settings:
         weight: 44
         enabled: false
       media:
-        enabled: true
         weight: -25
-      number_callout:
         enabled: true
+      number_callout:
         weight: -42
+        enabled: true
       phone_number:
         weight: 49
         enabled: false
       process:
-        enabled: true
         weight: -39
+        enabled: true
       q_a:
         weight: -27
         enabled: false
@@ -110,11 +110,11 @@ settings:
         weight: 52
         enabled: false
       q_a_section:
-        enabled: true
         weight: -40
-      react_widget:
         enabled: true
+      react_widget:
         weight: -38
+        enabled: true
       service_location:
         weight: 55
         enabled: false
@@ -125,11 +125,11 @@ settings:
         weight: 57
         enabled: false
       spanish_translation_summary:
-        enabled: true
         weight: -36
-      staff_profile:
         enabled: true
+      staff_profile:
         weight: -34
+        enabled: true
       starred_horizontal_rule:
         weight: -26
         enabled: false
@@ -140,9 +140,9 @@ settings:
         weight: 62
         enabled: false
       table:
-        enabled: true
         weight: -33
-      wysiwyg:
         enabled: true
+      wysiwyg:
         weight: -43
+        enabled: true
 field_type: entity_reference_revisions

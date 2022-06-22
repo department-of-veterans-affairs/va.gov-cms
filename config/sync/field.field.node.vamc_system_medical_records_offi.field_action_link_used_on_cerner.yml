@@ -1,0 +1,32 @@
+uuid: 3a6abf0c-3bf3-43e5-882e-da6bfc82fd0e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_action_link_used_on_cerner
+    - node.type.vamc_system_medical_records_offi
+  module:
+    - entity_field_fetch
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 1
+id: node.vamc_system_medical_records_offi.field_action_link_used_on_cerner
+field_name: field_action_link_used_on_cerner
+entity_type: node
+bundle: vamc_system_medical_records_offi
+label: 'Action link (used on Cerner VAMCs)'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: null
+default_value_callback: ''
+settings:
+  target_entity_type: node
+  target_entity_id: '33340'
+  field_to_fetch: field_content_block
+  target_paragraph_uuid: '100398'
+field_type: entity_field_fetch

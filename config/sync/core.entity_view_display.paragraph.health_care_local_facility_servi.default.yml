@@ -16,38 +16,38 @@ third_party_settings:
       children:
         - field_title
         - field_wysiwyg
+      label: ''
       parent_name: ''
+      region: content
       weight: 0
       format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
-        open: false
         required_fields: false
-      label: ''
-      region: content
+        open: false
 id: paragraph.health_care_local_facility_servi.default
 targetEntityType: paragraph
 bundle: health_care_local_facility_servi
 mode: default
 content:
   field_title:
-    weight: 1
+    type: plain_string_formatter
     label: hidden
     settings:
+      link_to_entity: false
       wrap_tag: h3
       wrap_class: ''
-      link_to_entity: false
     third_party_settings: {  }
-    type: plain_string_formatter
+    weight: 1
     region: content
   field_wysiwyg:
-    weight: 2
+    type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 2
     region: content
 hidden:
   search_api_excerpt: true

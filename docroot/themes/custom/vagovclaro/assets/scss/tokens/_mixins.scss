@@ -1,7 +1,48 @@
-@mixin va-buttons {
+//Claro buttons as mixins
+
+@mixin button($background: var(--button-bg-color), $color: var(--button-fg-color), $hover:var(--button--hover-bg-color), $active: var(--button--active-bg-color)) {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: $background;
+  border: 1px solid transparent !important;  /* 2 */
+  border-radius: var(--button-border-radius-size);
+  color: $color;
+  cursor: pointer;
+  display: inline-block;
+  font-size: var(--font-size-base);
+  -webkit-font-smoothing: antialiased;  /* 3 */
+  font-weight: 700;
+  line-height: 1rem;
+  margin: var(--space-m) var(--space-s) var(--space-m) 0; /* LTR */
+  padding: calc(var(--space-m) - 1px) calc(var(--space-l) - 1px); /* 1 */
+  text-align: center;
+  text-decoration: none;
+
+  &:not(:focus) {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  }
+
+  &:focus {
+    text-decoration: none;
+  }
+
+  &:hover {
+    background-color: $hover;
+    color: $color;
+    text-decoration: none;
+  }
+
+  &:active {
+    background-color: $active;
+    color: $color;
+  }
+}
+
+@mixin va-buttons($background: var(--va-blue-med), $hover: var(--va-blue-darker), $ghost: false) {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  background-color: $background;
   border: 0;
   border-radius: 5px;
   color: var(--color-white);
@@ -19,6 +60,64 @@
   text-align: center;
   text-decoration: none;
   width: auto;
+
+  &:hover {
+    background-color: $hover;
+    color: var(--color-white);
+    text-decoration: none;
+  }
+
+  @if $ghost {
+    background: transparent;
+    box-shadow: inset 0 0 0 2px var(--va-blue-med);
+    color: var(--va-blue-med);
+
+    &:hover {
+      background: transparent;
+      box-shadow: inset 0 0 0 2px var(--va-blue-darker);
+      color: var(--va-blue-darker)3;
+    }
+  }
+}
+
+@mixin button-outline {
+  background-color: var(--color-white);
+  border: 2px solid var(--va-blue-med) !important;
+  box-shadow: none;
+  color: var(--va-blue-med);
+  padding: calc(var(--space-m) - 2px) calc(var(--space-l) - 2px); //2px offset for border
+
+  &:hover {
+    background-color: var(--va-blue-light);
+    border: 2px solid var(--va-blue-darker);
+    color: var(--va-blue-darker);
+  }
+}
+
+@mixin wysiwyg-va-action-links($color:var(--va-green)) {
+  &::before {
+    //    content: '\F138'; hide until FA support added
+    color: $color;
+    display: inline-block;
+    font-family: 'Font Awesome 5 Free';
+    font-size: 175%;
+    font-weight: 900;
+    height: 0;
+    padding-right: 1rem;
+    transform: translateY(5px);
+    vertical-align: -4px; //needed until FA support added
+    width: 30px; //needed until FA support added
+  }
+
+  font-weight: 700;
+  padding: 8px 0;
+}
+
+@mixin wysiwyg-va-body-font {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 1em;
 }
 
 @mixin va-body-font {
@@ -26,6 +125,23 @@
   font-size: 16px;
   line-height: 1.5;
   margin-bottom: 1em;
+}
+
+
+@mixin input-reset { //reset input styles incase we need to style a parent div as a button
+  background: none;
+  border: 0;
+  box-shadow: none !important;
+  margin: 0;
+  padding: 0;
+
+  &:hover {
+    background: none;
+  }
+
+  &:focus {
+    outline: none;
+  }
 }
 
 /*
@@ -119,55 +235,58 @@
     padding-left: 1rem;
   }
 
-
-  /* Buttons */
-  a.usa-button,
-  a.usa-button-primary,
-  a.va-button-primary,
-  a.usa-secondary-button {
-    @include va-buttons;
-
-    &:hover {
-      color: var(--color-white);
-      text-decoration: none;
-    }
-  }
-
-
   /* Default button (blue) */
-  .usa-button,
-  .usa-button-primary {
-    @include va-buttons;
-    background-color: var(--va-blue-med);
-
-    &:hover {
-      background-color: var(--va-blue-darker);
-    }
+  .usa-button {
+    @include va-buttons(var(--va-blue-med), var(--va-blue-darker));
   }
-
 
   /* Primary button (green) */
+  .usa-button-primary,
   .va-button-primary {
-    @include va-buttons;
-    background: var(--va-green);
-
-    &:hover {
-      background: var(--va-green-dark);
-    }
+    @include va-buttons(var(--va-green), var(--va-green-dark));
   }
-
 
   /* Secondary button (blue 'ghost') */
   a.usa-button-secondary {
-    @include va-buttons;
-    background: transparent;
-    box-shadow: inset 0 0 0 2px var(--va-blue-med);
-    color: var(--va-blue-med);
+    @include va-buttons($ghost: true);
+  }
+
+  a.vads-c-action-link--green {
+    @include wysiwyg-va-action-links(var(--va-green));
+
+    &::before {
+      content: url('/themes/custom/vagovclaro/images/icons/2e8540/chevron-circle-right-solid.svg') //needed until FA support added
+    }
+  }
+
+  a.vads-c-action-link--blue {
+    @include wysiwyg-va-action-links(var(--va-blue-dark));
+
+    &::before {
+      content: url('/themes/custom/vagovclaro/images/icons/004795/chevron-circle-right-solid.svg') //needed until FA support added
+    }
+  }
+
+  a.vads-c-action-link--white {
+    @include wysiwyg-va-action-links(#fff);
+
+    color: #fff;
+
+    &::before {
+      transition-duration: 0.3s;
+      transition-property: color,
+        background-color,
+        border-color;
+      transition-timing-function: ease-in-out;
+    }
 
     &:hover {
-      background: transparent;
-      box-shadow: inset 0 0 0 2px var(--va-blue-darker);
-      color: var(--va-blue-darker)3;
+      background-color: transparent;
+      color: #f9c642;
+
+      &::before {
+        color: #f9c642;
+      }
     }
   }
 }
@@ -178,6 +297,25 @@
   font-weight: 400;
   line-height: 2rem;
   margin: 0;
+}
+
+// consistent styles for icons in alerts
+@mixin alert-icon($url) {
+  position: relative;
+
+  &::before {
+    background-image: url($url);
+    background-size: contain;
+    content: '';
+    display: inline-block;
+    height: var(--space-m);
+    left: var(--space-l);
+    margin-top: calc(var(--space-m)/-2);
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    width: var(--space-m);
+  }
 }
 
 // placeholder map until design tokens are defined... breakpoint values likely to change

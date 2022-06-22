@@ -57,9 +57,9 @@ class MetricsTest extends ExistingSiteBase {
         [],
         "unknown",
       ],
-      'BRDGHA build type, but no deploy env' => [
+      'BRD build type, but no deploy env' => [
         [
-          "va_gov_frontend_build_type" => "brdgha",
+          "va_gov_frontend_build_type" => "brd",
         ],
         "unknown",
       ],
@@ -69,23 +69,23 @@ class MetricsTest extends ExistingSiteBase {
         ],
         "unknown",
       ],
-      'BRDGHA build type with deploy env' => [
+      'BRD build type with deploy env' => [
         [
-          "va_gov_frontend_build_type" => "brdgha",
+          "va_gov_frontend_build_type" => "brd",
           "github_actions_deploy_env" => "prod",
         ],
         "prod",
       ],
-      'BRDGHA build type with a different deploy env' => [
+      'BRD build type with a different deploy env' => [
         [
-          "va_gov_frontend_build_type" => "brdgha",
+          "va_gov_frontend_build_type" => "brd",
           "github_actions_deploy_env" => "whateverenv",
         ],
         "whateverenv",
       ],
-      'Lando build type' => [
+      'Local build type' => [
         [
-          "va_gov_frontend_build_type" => "lando",
+          "va_gov_frontend_build_type" => "local",
         ],
         "local",
       ],
@@ -101,15 +101,15 @@ class MetricsTest extends ExistingSiteBase {
         [],
         FALSE,
       ],
-      'BRDGHA environment' => [
+      'BRD environment' => [
         [
-          'va_gov_frontend_build_type' => 'brdgha',
+          'va_gov_frontend_build_type' => 'brd',
         ],
         TRUE,
       ],
-      'Lando environment' => [
+      'Local environment' => [
         [
-          'va_gov_frontend_build_type' => 'lando',
+          'va_gov_frontend_build_type' => 'local',
         ],
         FALSE,
       ],
@@ -119,23 +119,23 @@ class MetricsTest extends ExistingSiteBase {
         ],
         TRUE,
       ],
-      'BRDGHA environment and force sending metrics explicitly set to false' => [
+      'BRD environment and force sending metrics explicitly set to false' => [
         [
-          'va_gov_frontend_build_type' => 'brdgha',
+          'va_gov_frontend_build_type' => 'brd',
           'va_gov_force_sending_metrics' => FALSE,
         ],
         TRUE,
       ],
-      'Lando environment + force sending metrics enabled' => [
+      'Local environment + force sending metrics enabled' => [
         [
-          'va_gov_frontend_build_type' => 'lando',
+          'va_gov_frontend_build_type' => 'local',
           'va_gov_force_sending_metrics' => TRUE,
         ],
         TRUE,
       ],
-      'Lando environment + force sending metrics explicitly set to false' => [
+      'Local environment + force sending metrics explicitly set to false' => [
         [
-          'va_gov_frontend_build_type' => 'lando',
+          'va_gov_frontend_build_type' => 'local',
           'va_gov_force_sending_metrics' => FALSE,
         ],
         FALSE,

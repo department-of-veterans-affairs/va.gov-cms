@@ -49,21 +49,17 @@
     {{ page.pre_content }}
     {{ page.breadcrumb }}
 
-
     <div class="node-columns">
-
       <main class="page-content clearfix" role="main">
         <div class="visually-hidden"><a id="main-content" tabindex="-1"></a></div>
         {{ page.highlighted }}
+
         {% if page.help %}
-          <div class="help">
-            {{ page.help }}
-          </div>
+          {{ page.help }}
         {% endif %}
 
         {{ page.content }}
       </main>
-
 
       {% set has_sidebar_first = page.sidebar_first|render|striptags|trim is not empty %}
       {% if has_sidebar_first %}

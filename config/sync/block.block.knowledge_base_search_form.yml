@@ -18,12 +18,12 @@ plugin: 'views_exposed_filter_block:knowledge_base_search_results-knowledge_base
 settings:
   id: 'views_exposed_filter_block:knowledge_base_search_results-knowledge_base_search_page'
   label: ''
-  provider: views
   label_display: '0'
+  provider: views
   views_label: ''
 visibility:
   request_path:
     id: request_path
-    pages: "/help/*\r\n"
     negate: false
     context_mapping: {  }
+    pages: "/help/*\r\n"

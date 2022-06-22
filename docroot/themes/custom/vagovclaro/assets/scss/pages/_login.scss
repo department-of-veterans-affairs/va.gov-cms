@@ -1,0 +1,215 @@
+.va-login-header {
+  background-color: var(--va-blue-darkest);
+  margin-bottom: 0;
+  padding: var(--space-m) 0;
+}
+
+.va-login-header h1 {
+  font-weight: 200;
+
+  span {
+    font-weight: 700;
+  }
+}
+
+// styles for sticky footer
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.layout-container--login {
+  align-items: center;
+  display: grid;
+  flex: 1; // needed for footer. forces content to take full width available
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  position: relative;
+
+  @include breakpoint('sm') {
+    gap: 90px;
+  }
+
+  // throws off grid alignment
+  &::after {
+    display: none;
+  }
+
+  h2 {
+    margin: 0 0 var(--spacing-ll);
+  }
+
+  // error message for form
+  h2.messages__title {
+    margin: 0 0 0 var(--messages__text-margin);
+  }
+}
+
+.layout-container--login .page-content {
+  margin: var(--space-xl) 0 0 0;
+  padding: var(--space-xl) 0 0 0;
+  @include breakpoint('sm') {
+    margin: 0;
+    max-width: 100%;
+    padding: 0;
+  }
+  @include breakpoint('md') {
+    max-width: 80%;
+  }
+  @include breakpoint('lg') {
+    max-width: 60%;
+  }
+  @include breakpoint('xl') {
+    max-width: 50%;
+  }
+}
+
+// grey field with pencil icon
+.login-background {
+  background-color: var(--va-gray-lightest);
+  clip-path: polygon(51% 0, 100% 32%, 100% 100%, 0% 100%, 0 32%);
+  display: flex;
+  grid-row-start: 2;
+  height: 100%;
+  justify-content: center;
+  margin: 0 -3rem; //offsets parent container so bg goes to edge
+  min-height: 335px;
+
+  @include breakpoint('sm') {
+    clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 0 50%, 0% 0%);
+    grid-row-start: 1;
+    margin: 0 0 0 -3rem; // only need the left margin on larger screen
+  }
+
+  img {
+    align-self: center;
+    max-height: 150px;
+
+    @include breakpoint('sm') {
+      margin-bottom: 100px;
+    }
+  }
+}
+
+// overriding some global form styles for the login page only
+.layout-container--login {
+  .fieldset {
+    border: 0 solid transparent;
+    box-shadow: none;
+    margin: 0;
+
+    .fieldset__wrapper {
+      margin: 0;
+    }
+  }
+
+  // get help link renders inline after the button in the form suffix,
+  // this moves it below.
+  .suffix-links {
+    border-top: 1px solid var(--va-gray-cool-med);
+    margin-top: var(--space-l);
+    max-width: 30%;
+
+    @include breakpoint('sm') {
+      max-width: 100%;
+    }
+
+    a {
+      display: block;
+      margin-top: var(--space-xs);
+    }
+  }
+
+  .form-actions,
+  .form-actions .button,
+  .simplesamlphp-auth-login-link {
+    margin: 0;
+  }
+
+  // move toggle button to the top right on main login page
+  .va-login-toggle {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+
+// !importants to beat styles from various button states
+.va-login-toggle {
+  border: 0 solid transparent !important;
+  box-shadow: none !important;
+  color: var(--color-link);
+  line-height: 2rem;
+  padding: calc(var(--space-m) - 1px) calc(var(--space-l) - 1px);
+  text-decoration: none;
+
+  &:hover {
+    background-color: var(--va-blue-lightest);
+    color: var(--color-link);
+  }
+
+  &:focus {
+    box-shadow: var(--focus-box-shadow) !important;
+  }
+}
+
+// Hide non-PIV login elements by default.
+.piv-login {
+  .password-prefix,
+  .js-login-username,
+  .js-login-password,
+  .js-login-submit {
+    display: none;
+  }
+}
+
+// Hide PIV login elements when default is shown.
+.form-login {
+  .js-piv-container {
+    display: none;
+  }
+}
+
+// Extra styles for user login block on KB pages.
+#block-userlogin {
+  margin-bottom: var(--spacing-m); // Space for the toggle button.
+  padding-bottom: var(--spacing-xl); // Space for the toggle button.
+  position: relative;
+
+  h2 {
+    font-family: var(--font-family-serif);
+    font-size: var(--font-size-h4);
+    margin-top: var(--spacing-l);
+  }
+
+  .fieldset {
+    border: 0 solid transparent;
+    box-shadow: none;
+    margin: 0;
+
+    .fieldset__wrapper {
+      margin: 0;
+    }
+  }
+
+  .simplesamlphp-auth-login-link,
+  .form-actions {
+    margin: 0;
+  }
+
+  .item-list {
+    display: none;
+  }
+
+  .suffix-links {
+    margin-top: var(--space-m);
+  }
+
+  .va-login-toggle {
+    bottom: 0;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    text-decoration: underline;
+  }
+}

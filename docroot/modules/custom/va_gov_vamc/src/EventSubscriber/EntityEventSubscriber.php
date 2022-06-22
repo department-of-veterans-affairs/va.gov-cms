@@ -2,18 +2,23 @@
 
 namespace Drupal\va_gov_vamc\EventSubscriber;
 
+use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Session\AccountInterface;
-use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\node\NodeInterface;
+use Drupal\va_gov_notifications\Service\NotificationsManager;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Drupal\va_gov_vamc\Service\ContentHardeningDeduper;
 use Drupal\va_gov_workflow\Service\Flagger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+
+// The UID of the CMS Help Desk account subscribing to facility messages.
+const USER_CMS_HELP_DESK_NOTIFICATIONS = 4050;
 
 /**
  * VA.gov VAMC Entity Event Subscriber.
@@ -28,9 +33,9 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       // React on Op status forms.
       'hook_event_dispatcher.form_node_vamc_operating_status_and_alerts_form.alter' => 'alterOpStatusNodeForm',
       'hook_event_dispatcher.form_node_vamc_operating_status_and_alerts_edit_form.alter' => 'alterOpStatusNodeForm',
-      HookEventDispatcherInterface::ENTITY_INSERT => 'entityInsert',
-      HookEventDispatcherInterface::ENTITY_PRE_SAVE => 'entityPresave',
-      HookEventDispatcherInterface::ENTITY_UPDATE => 'entityUpdate',
+      EntityHookEvents::ENTITY_INSERT => 'entityInsert',
+      EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
+      EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
       'hook_event_dispatcher.form_node_full_width_banner_alert_form.alter' => 'alterFullWidthBannerNodeForm',
       'hook_event_dispatcher.form_node_full_width_banner_alert_edit_form.alter' => 'alterFullWidthBannerNodeForm',
       'hook_event_dispatcher.form_node_regional_health_care_service_des_form.alter' => 'alterRegionalHealthCareServiceDesNodeForm',
@@ -43,8 +48,18 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       'hook_event_dispatcher.form_node_vamc_system_billing_insurance_edit_form.alter' => 'alterTopTaskNodeForm',
       'hook_event_dispatcher.form_node_vamc_system_policies_page_form.alter' => 'alterTopTaskNodeForm',
       'hook_event_dispatcher.form_node_vamc_system_policies_page_edit_form.alter' => 'alterTopTaskNodeForm',
+      'hook_event_dispatcher.form_node_health_care_local_facility_form.alter' => 'alterFacilityNodeForm',
+      'hook_event_dispatcher.form_node_health_care_local_facility_edit_form.alter' => 'alterFacilityNodeForm',
     ];
   }
+
+  /**
+   * The entity manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManager
+   *  The entity manager.
+   */
+  private $entityTypeManager;
 
   /**
    * The content hardening deduper.
@@ -71,6 +86,13 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   protected $flagger;
 
   /**
+   * The VA gov NotificationsManager.
+   *
+   * @var \Drupal\va_gov_notifications\Service\NotificationsManager
+   */
+  protected $notificationsManager;
+
+  /**
    * The User Perms Service.
    *
    * @var \Drupal\va_gov_user\Service\UserPermsService
@@ -80,6 +102,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   /**
    * Constructs the EventSubscriber object.
    *
+   * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
+   *   The string entity type service.
    * @param \Drupal\Core\Session\AccountInterface $currentUser
    *   The current user.
    * @param \Drupal\va_gov_workflow\Service\Flagger $flagger
@@ -88,17 +112,23 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The user perms service.
    * @param \Drupal\va_gov_vamc\Service\ContentHardeningDeduper $content_hardening_deduper
    *   The deduper service.
+   * @param \Drupal\va_gov_notifications\Service\NotificationsManager $notifications_manager
+   *   VA gov NotificationsManager service.
    */
   public function __construct(
+    EntityTypeManager $entity_type_manager,
     AccountInterface $currentUser,
     Flagger $flagger,
     UserPermsService $user_perms_service,
-    ContentHardeningDeduper $content_hardening_deduper
+    ContentHardeningDeduper $content_hardening_deduper,
+    NotificationsManager $notifications_manager
   ) {
+    $this->entityTypeManager = $entity_type_manager;
     $this->currentUser = $currentUser;
     $this->flagger = $flagger;
     $this->userPermsService = $user_perms_service;
     $this->contentHardeningDeduper = $content_hardening_deduper;
+    $this->notificationsManager = $notifications_manager;
   }
 
   /**
@@ -124,9 +154,11 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     if ($this->isFlaggableFacility($entity)) {
       if ($entity->bundle() === 'vet_center') {
         $this->flagger->flagFieldChanged('field_official_name', 'changed_name', $entity, "The Official name of this facility changed from '@old' to '@new'.");
+        $this->notificationsManager->sendMessageOnFieldChange('field_official_name', $entity, 'Vet Center Official Name Change:', 'vet_center_official_name_change', USER_CMS_HELP_DESK_NOTIFICATIONS);
       }
       else {
         $this->flagger->flagFieldChanged('title', 'changed_name', $entity, "The title of this facility changed from '@old' to '@new'.");
+        $this->notificationsManager->sendMessageOnFieldChange('title', $entity, 'Facility title changed:', 'va_facility_title_change', USER_CMS_HELP_DESK_NOTIFICATIONS);
       }
     }
   }
@@ -142,6 +174,12 @@ class EntityEventSubscriber implements EventSubscriberInterface {
 
     if ($this->isFlaggableFacility($entity)) {
       $this->flagger->flagNew('new', $entity, "This facility is new and needs the 'new facility' runbook.");
+      // Email the help desk when a new facility is created.
+      $first_save = (empty($entity->original)) ? TRUE : FALSE;
+      if (!(defined('IS_BEHAT') && IS_BEHAT) && ($entity->isNew() || $first_save)) {
+        $message_fields = $this->notificationsManager->buildMessageFields($entity, 'New facility:');
+        $this->notificationsManager->send('va_facility_new_facility', USER_CMS_HELP_DESK_NOTIFICATIONS, $message_fields);
+      }
     }
   }
 
@@ -167,6 +205,45 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       return TRUE;
     }
     return FALSE;
+  }
+
+  /**
+   * Add js library for supplemental status display.
+   *
+   * Add covid term text to settings.
+   *
+   * @param array $form
+   *   The form.
+   */
+  public function addCovidStatusTermTextToSettings(array &$form): void {
+    /** @var \Drupal\taxonomy\Entity\Term $term_storage */
+    $term_storage = $this->entityTypeManager->getStorage('taxonomy_term');
+    $covid_status = [
+      // Low.
+      1037,
+      // Medium.
+      1036,
+      // High.
+      1035,
+    ];
+    $terms_text = [];
+    foreach ($covid_status as $status) {
+      $terms_text[$status]['name'] = $term_storage->load($status)->getName();
+      $terms_text[$status]['description'] = $term_storage->load($status)->getDescription();
+    }
+    $form['#attached']['library'][] = 'va_gov_vamc/set_covid_term_text';
+    $form['#attached']['drupalSettings']['vamcCovidStatusTermText'] = $terms_text;
+  }
+
+  /**
+   * Alter VAMC Facility node form.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function alterFacilityNodeForm(FormIdAlterEvent $event): void {
+    $form = &$event->getForm();
+    $this->addCovidStatusTermTextToSettings($form);
   }
 
   /**

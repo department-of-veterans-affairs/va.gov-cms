@@ -24,8 +24,6 @@
 # Ignore NPM managed dependencies
 node_modules/
 
-# Ignore local dev files
-/docroot/sites/default/settings/settings.local.php
 # Prevent Devel from appearing anywhere.
 /config/dev/devel.settings.yml
 /config/dev/devel.toolbar.settings.yml
@@ -33,6 +31,10 @@ node_modules/
 /config/sync/devel.settings.yml
 /config/sync/devel.toolbar.settings.yml
 /config/sync/system.menu.devel.yml
+
+# Prevent html_tag_usage from appearing anywhere
+/config/dev/html_tag_usage.configuration.yml
+/config/sync/html_tag_usage.configuration.yml
 
 # Ignore SQL dumps
 # Current
@@ -53,9 +55,9 @@ node_modules/
 /docroot/sites/*/files
 /docroot/sites/*/private
 /docroot/sites/*/drushrc.php
-/docroot/sites/*/aegir.services.yml
 /docroot/sites/*/settings.php
 /docroot/sites/*/local.settings.php
+/docroot/sites/*/settings.local.php
 /docroot/sites/all/drush/drushrc.php
 
 !/docroot/sites/default/settings.php
@@ -66,16 +68,18 @@ node_modules/
 # Ignore compiled Drupal theme files
 /docroot/themes/custom/*/dist/
 
+# Ignore compiled design system & Storybook files
+/docroot/design-system/storybook-static
+/docroot/design-system/dist/
+
 # Ignore accessibility test reports
 /tests/accessibility/axeReport/*.csv
 # Ignore accessibility test screenshots & videos
 /tests/*/cypress/screenshots
 /tests/*/cypress/videos
 
-# Ignore local lando config
-.lando.local.yml
-.lando/zzz*local.ini
-.lando.compose.yml
+# Ignore local config
+datadog-setup.php
 
 # Cache file used by PHPUnit
 # Can be introduced accidentally by local dev
@@ -84,3 +88,6 @@ node_modules/
 # Ignore WEB (vets-website)
 # web
 # @TODO: Installer paths is not working. Leaving symlink for now.
+
+# Temporary .deb packages
+*.deb

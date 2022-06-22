@@ -25,6 +25,7 @@ _or_
 
 <link to any existing research or data supporting this>
 
+
 ### Hypothesis
 
 _A hypothesis may depend on a spike ticket to be completed._
@@ -43,6 +44,21 @@ We believe that _this_solution_ will achieve _this_outcome_. We'll know that to 
 - [ ] Testable_Outcome_Z
 - [ ] Requires KB article update
 
+### Change management triage
+
+The change represented by this user story will:
+- [ ] Be a site-wide change to appearance or key functionality (such as log-in process)
+- [ ] Be a specific change that requires more than 30 minutes of work by a user to meet a publishing requirement
+- [ ] Remove a piece of functionality (such as restricting editing functions, or “hardening”)
+- [ ] Require action by some or all users by a specific deadline
+- [ ] Change the front end and be highly visible to the public
+- [ ] Noticeable performance improvements (publishing speed, predictability)
+
+If you selected an item above, open a new issue using the [change management template](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/.github/ISSUE_TEMPLATE/change-management.md).
+
+If you did not select an item above, update issues/PRs in GitHub but don’t plan for change management.
+
+  
 ## Design principles
 
 Veteran-centered
@@ -71,13 +87,12 @@ Editor-centered
 - [ ] CMS-supported product (black)
 
 ### CMS Team
-Please check the team(s) that will do this work. 
+Please check the team(s) that will do this work.
 
-- [ ] `CMS Program`
+- [ ] `Program`
 - [ ] `Platform CMS Team`
-- [ ] `Sitewide CMS Team ` (leave Sitewide unchecked and check the specific team instead)
-  - [ ] `⭐️ Content ops`
-  - [ ] `⭐️ CMS experience`
-  - [ ] `⭐️ Offices`
-  - [ ] `⭐️ Product support`
-  - [ ] `⭐️ User support`
+- [ ] `Sitewide Crew`
+- [ ] `⭐️ Sitewide CMS`
+- [ ] `⭐️ Public Websites`
+- [ ] `⭐️ Facilities`
+- [ ] `⭐️ User support`

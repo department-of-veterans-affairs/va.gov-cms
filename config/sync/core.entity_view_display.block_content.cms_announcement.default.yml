@@ -1,0 +1,50 @@
+uuid: 98dfb1d0-5cfd-427e-9346-b1e72ebf7998
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.cms_announcement
+    - field.field.block_content.cms_announcement.field_announcement_type
+    - field.field.block_content.cms_announcement.field_body
+    - field.field.block_content.cms_announcement.field_submission_guidelines
+    - field.field.block_content.cms_announcement.field_title
+  module:
+    - markup
+    - options
+    - text
+id: block_content.cms_announcement.default
+targetEntityType: block_content
+bundle: cms_announcement
+mode: default
+content:
+  field_announcement_type:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_submission_guidelines:
+    type: markup
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  search_api_excerpt: true

@@ -9,6 +9,7 @@
         "drupal/console": "^1.9",
         "drupal/console-extend-plugin": "^0.9.5",
         "drupal/devel": "^4.1",
+        "drupal/html_tag_usage": "^1.0@beta",
         "drupal/media_entity_generic": "^1.0",
         "marcortola/behat-seo-contexts": "^3.1"
     },
@@ -22,25 +23,29 @@
         "consolidation/robo": "^1",
         "consolidation/site-process": "^4.1",
         "cweagans/composer-patches": "^1.7",
+        "datadog/dd-trace": "^0.75.0",
         "drupal/address": "^1.4",
+        "drupal/admin_feedback": "^2.2",
         "drupal/admin_toolbar": "^3.0",
         "drupal/advancedqueue": "^1.0@RC",
         "drupal/allow_only_one": "1.0.0-alpha1",
         "drupal/allowed_formats": "^1.3",
-        "drupal/animated_gif": "^1.6",
+        "drupal/animated_gif": "^2.0",
         "drupal/auto_entitylabel": "^3.0-beta3",
         "drupal/better_field_descriptions": "^1.4",
         "drupal/blazy": "^2.0@RC",
         "drupal/block_content_permissions": "^1.6",
         "drupal/cer": "4.x-dev#f2ff7d6bf2a3e41757b7621a8367ede974750a84",
         "drupal/coder": "^8.3",
+        "drupal/components": "^3.0@beta",
         "drupal/config_ignore": "^2.1",
         "drupal/config_override_warn": "^1.0",
         "drupal/config_split": "^1.4",
-        "drupal/consumers": "1.11.0",
+        "drupal/consumer_image_styles": "^4.0",
+        "drupal/consumers": "1.12.0",
         "drupal/content_lock": "^2.0@alpha",
-        "drupal/core-composer-scaffold": "~9.2.11",
-        "drupal/core-recommended": "~9.2.11",
+        "drupal/core-composer-scaffold": "~9.3.0",
+        "drupal/core-recommended": "~9.3.0",
         "drupal/crop": "^2.0",
         "drupal/csv_serialization": "^2.0",
         "drupal/ctools_block": "^3.2",
@@ -55,7 +60,6 @@
         "drupal/entity_browser_table": "^1.2",
         "drupal/entity_clone": "^1.0@beta",
         "drupal/entity_diff_ui": "^1.0",
-        "drupal/entity_embed": "^1.0",
         "drupal/entity_field_fetch": "^1.0@beta",
         "drupal/entity_reference_revisions": "^1.7",
         "drupal/entity_reference_unpublished": "^1.1",
@@ -82,7 +86,9 @@
         "drupal/image_style_warmer": "^1.0",
         "drupal/image_widget_crop": "^2.2",
         "drupal/jsonapi_extras": "^3.19",
+        "drupal/jsonapi_image_styles": "^3.0",
         "drupal/jsonapi_resources": "^1.0@beta",
+        "drupal/jsonapi_views": "^1.0",
         "drupal/libraries": "^3.0@alpha",
         "drupal/limited_field_widgets": "^2.0",
         "drupal/linkit": "^6.0.0-beta2",
@@ -95,12 +101,18 @@
         "drupal/menu_item_extras": "^2.7",
         "drupal/menu_link_attributes": "^1.2",
         "drupal/menu_normalizer": "^2.0",
+        "drupal/message": "^1.2",
+        "drupal/message_notify": "^1.2",
+        "drupal/message_subscribe": "^1.1",
+        "drupal/message_ui": "^1.0@beta",
         "drupal/metatag": "^1.13",
         "drupal/migrate_plus": "^5.1",
         "drupal/migrate_source_csv": "^3.4",
         "drupal/migrate_source_ui": "^1.0@RC",
         "drupal/migrate_tools": "5.x-dev#7ae3747d1e30790d11c2eefcc56e0796bea25c76",
         "drupal/migration_tools": "^2.3",
+        "drupal/monolog": "^2.0",
+        "drupal/next": "^1.1",
         "drupal/node_link_report": "^1.14",
         "drupal/node_revision_delete": "^1.0",
         "drupal/node_title_help_text": "^1.0",
@@ -130,8 +142,8 @@
         "drupal/simplesamlphp_auth": "^3.2",
         "drupal/site_alert": "1.2",
         "drupal/slack": "^1.2",
-        "drupal/smart_date": "3.4.3",
-        "drupal/social_media_links": "^2.6",
+        "drupal/smart_date": "^3.5",
+        "drupal/social_media_links": "^2.8",
         "drupal/string_field_formatter": "^2.0",
         "drupal/styleguide": "^2.0@beta",
         "drupal/tablefield": "^2.1",
@@ -146,6 +158,7 @@
         "drupal/views_bulk_operations": "^3.11",
         "drupal/views_conditional": "^1.4",
         "drupal/views_data_export": "^1.0@beta",
+        "drupal/views_local_tasks": "^1.0",
         "drupal/workbench_access": "^1.0-beta4",
         "drupal/workbench_menu_access": "^1.0",
         "drush-ops/behat-drush-endpoint": "^9.4.0",
@@ -174,7 +187,7 @@
         "symfony/process": "^4.0",
         "symfony/routing": "^4.0",
         "traviscarden/behat-table-comparison": "~0.2",
-        "va-gov/content-build": "^0.0.2594",
+        "va-gov/content-build": "^0.0.3039",
         "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
@@ -273,7 +286,7 @@
         "sort-packages": true,
         "optimize-autoloader": true,
         "platform": {
-            "php": "7.3"
+            "php": "7.4"
         },
         "preferred-install": {
             "drupal/core": "source",
@@ -350,6 +363,9 @@
             "devshop/yaml-tasks": {
                 "Used 'pending' instead of 'queued' for commit status": "patches/yaml-tasks-pending.patch"
             },
+            "drupal/admin_feedback": {
+                "3254213 - Span and Label needed to support theming": "https://www.drupal.org/files/issues/2022-01-28/span-and-label-3254213-5.patch"
+            },
             "drupal/cer": {
                 "3197953-5 - Make d9 compatible": "https://www.drupal.org/files/issues/2021-03-19/cer-3197953-5.patch",
                 "3200122 - Remove delete hook": "https://www.drupal.org/files/issues/2021-02-24/delete-hook-added-in-dev-causes-test-failures.patch"
@@ -366,7 +382,7 @@
                 "2930508 - Seven inactive tabs do not meet WCAG AA 1.4.3 for contrast": "https://www.drupal.org/files/issues/2020-10-15/drupal-seven_inactive_tabs_do_not_meet_wcag_aa-2930508-36.patch",
                 "2632750 - Interface previews/skeleton screens through optional preview or placeholder templates": "https://www.drupal.org/files/issues/2020-11-18/2632750-76-do-not-test_0.patch",
                 "2911932 - Correct vertical tab does not focus on form validation": "https://www.drupal.org/files/issues/2020-12-12/vertical-tabs--focus-on-onvalid-7b.patch",
-                "2893933 - claimItem in the database and memory queues does not use expire correctly": "https://www.drupal.org/files/issues/2021-01-14/2893933-40.patch",
+                "2893933 - claimItem in the database and memory queues does not use expire correctly": "https://www.drupal.org/files/issues/2021-12-31/2893933-47.patch",
                 "3198608 - Migrate does not set set track_lst_updated from config": "https://www.drupal.org/files/issues/2021-07-27/track-last-updated-tests-3198608-14.patch",
                 "3025164 - Make moderation_state available to field queries": "https://www.drupal.org/files/issues/2020-09-25/3025164-28.patch",
                 "3229493 - TextareaWidget::errorElement() does not consult violation property path.": "https://www.drupal.org/files/issues/2021-08-23/test_module-3229493-2.patch",
@@ -377,7 +393,11 @@
                 "2421145 - Text format wrapper does not take description_display into account": "https://www.drupal.org/files/issues/2021-12-03/2421445-18_0.patch",
                 "Internal Claro tweaks": "patches/claro-css-tweaks.patch",
                 "3176625 - Install from existing config with a theme that declares module dependencies fails": "https://www.drupal.org/files/issues/2021-05-18/fix_ConfigImportSubscriber_validateThemes-3176625-29.patch",
-                "3099026 - Claro's preprocessing of field multiple value form's table header cell removes potential changes by others": "https://www.drupal.org/files/issues/2020-02-20/3099026-9.patch"
+                "3099026 - Claro's preprocessing of field multiple value form's table header cell removes potential changes by others": "https://www.drupal.org/files/issues/2020-02-20/3099026-9.patch",
+                "2767243 - Create a theme suggestion for taxonomy terms by view mode": "https://www.drupal.org/files/issues/core-theme-suggestion-for-taxonomy-view-modes-2767243-14.patch"
+            },
+            "drupal/decoupled_router": {
+                "Unable to resolve path on node in other language than default": "https://www.drupal.org/files/issues/2021-05-05/3111456-34.patch"
             },
             "drupal/entity_browser": {
                 "Entity display plugin Rendered Entity is missing cache tags/keys": "https://www.drupal.org/files/issues/2020-03-31/rendered-entity-cache-keys-tags-3123876-2.patch",
@@ -394,9 +414,6 @@
             "drupal/entity_reference_revisions": {
                 "2984027 Incorrect manipulation of default revision flag": "https://www.drupal.org/files/issues/2020-09-03/entity_reference_revisions-default_revision-2984027-10.patch"
             },
-            "drupal/flag": {
-                "2957019 Failed to start the session because headers have already been sent": "https://www.drupal.org/files/issues/2020-01-20/2957019-51.patch"
-            },
             "drupal/feature_toggle": {
                 "3147452 - Make compatible with d9": "https://www.drupal.org/files/issues/2020-06-06/feature_toggle.1.x-dev.rector.patch"
             },
@@ -405,13 +422,17 @@
                 "1482958-47 Allow field_group with empty fields to be displayed via setting": "https://www.drupal.org/files/issues/2020-06-24/field_group-empty-config-1482958-47.patch"
             },
             "drupal/graphql": {
-                "Fix Explorer with Layout Builder enabled - https://github.com/drupal-graphql/graphql/pull/1144": "patches/graphql_8x3x_layout_builder_incompat.patch"
+                "Fix Explorer with Layout Builder enabled - https://github.com/drupal-graphql/graphql/pull/1144": "patches/graphql_8x3x_layout_builder_incompat.patch",
+                "Remove outdated RouteQueryEnhancer controller reference - https://github.com/drupal-graphql/graphql/pull/1230": "patches/graphql_8x3x_query_route_enhancer_update.patch"
             },
             "drupal/health_check_url": {
                 "3147740 - Make d9 compatible": "https://www.drupal.org/files/issues/2020-06-06/health_check_url.2.x-dev.rector.patch"
             },
             "drupal/hms_field": {
                 "3145496 - Make d9 compatible": "https://www.drupal.org/files/issues/2020-06-05/3145496-6.patch"
+            },
+            "drupal/html_tag_usage": {
+                "3270450 - Add csv generator and filters": "https://www.drupal.org/files/issues/2022-03-21/add-filters-and-csv-5.patch"
             },
             "drupal/ics_field": {
                 "Include end date / time in ICS file.": "https://www.drupal.org/files/issues/2018-10-06/ics_field-2852239-11.patch"
@@ -435,8 +456,11 @@
             "drupal/migrate_plus": {
                 "3113461 - Allow properties in str_replace process plugin.": "https://www.drupal.org/files/issues/2020-03-16/migrate_plus-properties_str_replace-2.patch"
             },
+            "drupal/node_revision_delete": {
+                "3249493 - Not able to delete a revision via the interface": "https://www.drupal.org/files/issues/2022-02-21/3249493-9.patch"
+            },
             "drupal/office_hours": {
-                "3227169 - Form fields in table cell missing labels causes accessibility warnings": "https://www.drupal.org/files/issues/2021-08-09/labels-for-accessibility-3227169-3.patch"
+                "3227169 - Form fields in table cell missing labels causes accessibility warnings": "https://www.drupal.org/files/issues/2022-03-28/labels-for-accessibility-3227169-11.patch"
             },
             "drupal/openapi_jsonapi": {
                 "3110109 - Support renamed resource types Part 1": "https://git.drupalcode.org/project/openapi_jsonapi/-/commit/17070f1ef70ff89f732619a11c29730107a2083e.patch",
@@ -444,14 +468,12 @@
                 "3185778 - Fix TypeError: Cannot read property 'anyOf' of undefined": "https://www.drupal.org/files/issues/2020-12-21/add_required_keyword_8.x_2.x-3185778-5.patch"
             },
             "drupal/paragraphs": {
-                "Content & Behavior tabs use fixed IDs": "https://www.drupal.org/files/issues/2020-10-14/paragraphs-fix_duplicate_content_behavior_tab_ids-3176946-3.patch",
                 "Fix broken fieldsets on forms": "https://www.drupal.org/files/issues/2020-06-03/3138609-24.patch",
-                "Remove button should not be shown on required field": "https://www.drupal.org/files/issues/2020-05-13/hide_field_required_paragraphs_remove_button_1.patch",
-                "2901390 - Integrity constraint violation: 1048 Column 'langcode' cannot be null": "https://www.drupal.org/files/issues/2021-03-01/2901390-76-integrity-constraint-violation-paragraph.patch"
+                "Remove button should not be shown on required field": "https://www.drupal.org/files/issues/2020-05-13/hide_field_required_paragraphs_remove_button_1.patch"
             },
             "drupal/pathauto": {
                 "3204586 - Update URL Alias action is only available for nodes + users and does not work with views_bulk_operations": "https://www.drupal.org/files/issues/2021-03-22/pathauto-add_deriver_for_alias_update_action-3204586-19.patch",
-                "3214658 - Omit nolink items from url path args and add token that uses parent url": "https://www.drupal.org/files/issues/2021-05-22/remove-nolink-args-use-parent-entity-url-3214658-2_0.patch"
+                "3214658 - Omit nolink items from url path args and add token that uses parent url": "https://www.drupal.org/files/issues/2022-05-08/remove-nolink-args-use-parent-entity-url-3214658-18.patch"
             },
             "drupal/prometheus_exporter": {
                 "3214628 - Add published/unpublished node statistics to NodeCount.": "https://www.drupal.org/files/issues/2021-06-29/prometheus_exporter-add_status_metrics_to_node_count-3214628-3.patch"
@@ -469,6 +491,16 @@
             },
             "drupal/site_alert": {
                 "3118800 - Add drush commands to add and remove alerts by label": "https://www.drupal.org/files/issues/2020-10-26/3118800-45.patch"
+            },
+            "drupal/social_media_links": {
+                "3044002 - Platform Name and Aria Label issue": "https://www.drupal.org/files/issues/2022-03-21/3044002-17.patch"
+            },
+            "drupal/subrequests": {
+                "Get same results on different request": "https://www.drupal.org/files/issues/2019-07-18/change_request_type-63049395-09.patch"
+            },
+            "drupal/smart_date": {
+                "3260965 - Undefined index: #value": "https://www.drupal.org/files/issues/2022-01-27/smart_date_undefined_value_in_validation.patch",
+                "3260987 - Cannot read text option of null": "https://www.drupal.org/files/issues/2022-01-27/cannot-read-text-option-of-null.patch"
             },
             "drupal/tablefield": {
                 "0 string value in cell throws empty error": "https://www.drupal.org/files/issues/2019-12-10/0-value-throwing-empty-error.patch",
@@ -489,11 +521,17 @@
             "drupal/workflow_participants": {
                 "Fix revision uncaught type error by extending class.": "https://www.drupal.org/files/issues/2019-08-16/workflow_participants-revision-error-3075426-1.patch"
             },
+            "knplabs/github-api": {
+                "Fix typehint for repository dispatch method": "https://patch-diff.githubusercontent.com/raw/KnpLabs/php-github-api/pull/1066.diff"
+            },
             "traviscarden/behat-table-comparison": {
                 "Throw meaningful message for duplicate entry. See https://github.com/TravisCarden/behat-table-comparison/pull/7": "patches/duplicate-row-message.patch"
             },
             "weitzman/drupal-test-traits": {
                 "Forbid connection reuse in PHPUnit tests": "patches/weitzman-drupal-test-traits-forbid-connection-reuse.patch"
+            },
+            "drupal/dropzonejs": {
+                "Select files button and Add media window text should respect field cardinality": "https://www.drupal.org/files/issues/2022-03-29/3174484-add-media-window-and-select-button-text-should-respect-field-cardinality-4.patch"
             }
         }
     },
@@ -504,10 +542,13 @@
             "echo \"export PATH=${PATH}\""
         ],
         "pre-install-cmd": [
-            "mkdir -p vendor"
+            "mkdir -p vendor",
+            "[ -f .env ] || cp .env.example .env"
         ],
         "post-install-cmd": [
             "mkdir --parents docroot/profiles",
+            "# The rm post-merge command below can be removed after we think all engineers have run composer install.",
+            "rm -rf .git/hooks/post-merge",
             "cp -r 'hooks/git/.' '.git/hooks/'",
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
             "ln -snf 'docroot/vendor/simplesamlphp/simplesamlphp/' 'simplesamlphp'",
@@ -519,7 +560,8 @@
             "rm -r vendor"
         ],
         "pre-update-cmd": [
-            "mkdir -p vendor"
+            "mkdir -p vendor",
+            "[ -f .env ] || cp .env.example .env"
         ],
         "post-update-cmd": [
             "cp -r 'hooks/git/.' '.git/hooks/'",
@@ -554,11 +596,17 @@
             "cd bin && ln -sf ../docroot/libraries/yarn/bin/yarn yarn",
             "export NODE_EXTRA_CA_CERTS=/etc/pki/tls/certs/ca-bundle.crt PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=TRUE; cd docroot/core && yarn install",
             "cd docroot/core && yarn build:css",
-            "cd docroot/themes/custom/vagovadmin && yarn install && yarn build",
+            "cd docroot/design-system && yarn install && yarn build:drupal",
             "cd docroot/themes/custom/vagovclaro && yarn install && yarn build"
         ],
         "va:theme:watch": [
             "cd docroot/themes/custom/vagovclaro && yarn watch"
+        ],
+        "va:ds:storybook": [
+            "cd docroot/design-system && yarn install && yarn build:storybook"
+        ],
+        "va:ds:drupal": [
+            "cd docroot/design-system && yarn install && yarn build:drupal"
         ],
         "va:config:export": [
             "drupal config:export --ansi"
@@ -594,22 +642,35 @@
             "npm install",
             "npm run stylelint-themes"
         ],
-        "va:test:accessibility": [
-            "./scripts/tests/cypress.sh accessibility"
-        ],
-        "va:test:behavioral": [
-            "./scripts/tests/cypress.sh behavioral"
+        "va:test:cypress": [
+            "cd \"$(git rev-parse --show-toplevel)\"",
+            "[ -d node_modules ] || npm install",
+            "./node_modules/.bin/cypress install",
+            "npm run test:cypress"
         ],
         "va:test:lint": [
             "find docroot/modules/custom docroot/themes -name '*.php' -print0 | xargs -0 -n1 php -l > /dev/null",
             "find docroot/modules/custom docroot/themes -name '*.module' -print0 | xargs -0 -n1 php -l > /dev/null",
             "find docroot/modules/custom docroot/themes -name '*.install' -print0 | xargs -0 -n1 php -l > /dev/null"
         ],
+        "va:test:content-build-gql": [
+            "@va:web:prepare-dotenv",
+            "mkdir -p web/build/vagovdev",
+            "echo {} > web/build/vagovdev/metalsmith-build-data.json",
+            "cd web; INSTALL_HOOKS=no NODE_ENV=production yarn build --pull-drupal --gql-queries-only --nosymlink --no-drupal-proxy --api=https://dev-api.va.gov --buildtype=vagovdev"
+        ],
+        "va:web:prepare-dotenv": [
+            "if [ -f web/.env.example ]; then cat web/.env.example | grep -v DRUPAL_ADDRESS > web/.env; fi",
+            "if [ -n \"$TUGBOAT_DEFAULT_SERVICE_URL\" ]; then echo DRUPAL_ADDRESS=${TUGBOAT_DEFAULT_SERVICE_URL} >> web/.env; fi",
+            "if [ -n \"$DDEV_PRIMARY_URL\" ]; then echo DRUPAL_ADDRESS=${DDEV_PRIMARY_URL} >> web/.env; fi",
+            "if [ -n \"$DRUPAL_ADDRESS\" ]; then echo DRUPAL_ADDRESS=${DRUPAL_ADDRESS} >> web/.env; fi",
+            "if ! cat web/.env | grep DRUPAL_ADDRESS > /dev/null; then echo DRUPAL_ADDRESS=https://dev.cms.va.gov >> web/.env; fi"
+        ],
         "va:test:cs": [
-            "phpcs --ignore=*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,user_guides.css,whats_new.css,*/node_modules/*,*/simplesaml*/*,graphiql.css --extensions=php,module,inc,install,profile,engine,theme,css --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom tests --colors"
+            "phpcs --ignore=*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,user_guides.css,whats_new.css,claro.css,*/node_modules/*,*/simplesaml*/*,graphiql.css --extensions=php,module,inc,install,profile,engine,theme,css --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom tests --colors"
         ],
         "va:test:unit": "phpunit tests/phpunit --colors=always --exclude-group=disabled",
-        "va:cbf": "phpcbf --ignore=*.md,*.min.css,uswds.css,*/node_modules/*,*/simplesaml*/* --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom --colors",
+        "va:cbf": "phpcbf --ignore=*.md,*.min.css,uswds.css,claro.css,*/node_modules/*,*/simplesaml*/* --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom --colors",
         "va:web:install": [
             "# Preparing Front-end...",
             "cd bin && ln -sf ../docroot/libraries/yarn/bin/yarn yarn",
@@ -633,7 +694,8 @@
         "va:web:build": [
             "rm -rf docroot/vendor/va-gov/content-build/build/vagovdev",
             "cd docroot/vendor/va-gov/vets-website && echo \"Downloading assets for vets-website for vagovdev\" ",
-            "cd web && INSTALL_HOOKS=no NODE_ENV=production yarn build --pull-drupal --no-drupal-proxy --buildtype=vagovdev --api=https://dev-api.va.gov",
+            "@va:web:prepare-dotenv",
+            "cd web; INSTALL_HOOKS=no NODE_ENV=production yarn build --pull-drupal --no-drupal-proxy --buildtype=vagovdev --api=https://dev-api.va.gov",
             "echo 'Replace s3 address with local in generated files'",
             "find ./docroot/vendor/va-gov/content-build/build/vagovdev/generated -type f -exec sed -i \"s#https://dev-va-gov-assets\\.s3-us-gov-west-1\\.amazonaws\\.com##g\" {} \\+"
         ],

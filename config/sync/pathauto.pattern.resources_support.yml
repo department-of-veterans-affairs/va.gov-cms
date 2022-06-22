@@ -11,6 +11,10 @@ pattern: 'resources/[node:title]'
 selection_criteria:
   9740c223-7b46-4b5f-af57-e43140e912ac:
     id: node_type
+    negate: false
+    uuid: 9740c223-7b46-4b5f-af57-e43140e912ac
+    context_mapping:
+      node: node
     bundles:
       checklist: checklist
       faq_multiple_q_a: faq_multiple_q_a
@@ -19,10 +23,6 @@ selection_criteria:
       q_a: q_a
       step_by_step: step_by_step
       support_resources_detail_page: support_resources_detail_page
-    negate: false
-    context_mapping:
-      node: node
-    uuid: 9740c223-7b46-4b5f-af57-e43140e912ac
 selection_logic: and
 weight: -5
 relationships: {  }

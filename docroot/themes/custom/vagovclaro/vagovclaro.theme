@@ -54,6 +54,15 @@ function vagovclaro_preprocess_block(&$variables) {
 }
 
 /**
+ * Implements suggestions_block_alter().
+ */
+function vagovclaro_theme_suggestions_block_alter(array &$suggestions, array $vars) {
+  if (isset($vars['elements']['content']['#block_content'])) {
+    $suggestions[] = 'block__custom__' . $vars['elements']['content']['#block_content']->bundle();
+  }
+}
+
+/**
  * Implements hook_preprocess_form_element().
  */
 function vagovclaro_preprocess_form_element(&$variables) {
@@ -126,10 +135,16 @@ function vagovclaro_theme_suggestions_input_alter(&$suggestions, $variables) {
   if (isset($element['#ief_form']) && $element['#ief_form'] === 'add') {
     $suggestions[] = 'input__submit__ief';
   }
+  if (isset($element['#ief_form']) && $element['#ief_form'] === 'ief_add_existing') {
+    $suggestions[] = 'input__submit__ief';
+  }
   if (isset($element['#parents'][0]) && $element['#parents'][0] === 'field_alert') {
     $suggestions[] = 'input__submit__alert';
   }
   if (isset($element['#id']) && $element['#id'] === "edit-field-content-block-add-more-browse") {
+    $suggestions[] = 'input__submit__paragraph_action';
+  }
+  if (isset($element['#attributes']['data-drupal-selector']) && $element['#attributes']['data-drupal-selector'] === 'edit-field-content-block-add-more-browse') {
     $suggestions[] = 'input__submit__paragraph_action';
   }
 }
@@ -334,74 +349,6 @@ function vagovclaro_preprocess_field_multiple_value_form(&$variables) {
 }
 
 /**
- * Implements hook_form_FORM_ID_alter().
- */
-function vagovclaro_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  // This chunk of code can probably move to va_gov_login.
-  $config = \Drupal::config('simplesamlphp_auth.settings');
-  \Drupal::service('renderer')->addCacheableDependency($form, $config);
-  if (!$config->get('activate') || !$config->get('login_link_show')) {
-    return;
-  }
-
-  $form['simplesamlphp_auth_login_link'] = [
-    '#type' => 'fieldset',
-    '#title' => 'PIV login',
-    '#title_display' => 'invisible',
-    '#weight' => -1,
-    '#attributes' => [
-      'class' => ['piv-container', 'js-piv-container'],
-    ],
-  ];
-  $form['simplesamlphp_auth_login_link']['link'] = [
-    '#title' => 'Log in with PIV',
-    '#type' => 'link',
-    '#url' => Url::fromRoute('simplesamlphp_auth.saml_login'),
-    '#attributes' => [
-      'title' => 'Follow this link to login using your PIV or other smartcard.',
-      'class' => ['simplesamlphp-auth-login-link', 'button', 'button--primary'],
-    ],
-    '#suffix' => '<div class="suffix-links"><a href="/help/cms-basics/how-to-log-inout">Log in help</a><a href="https://va-gov.atlassian.net/servicedesk/customer/portal/3/group/8/create/26">Contact CMS help desk</a></div>',
-  ];
-
-  // Modify existing text and add classes for JS toggle & styles.
-  $form['name']['#description'] = 'Your VA email address';
-  $form['name']['#prefix'] = '<div class="password-prefix form-item__description">Only use this method if you\'ve already been approved to use password log in. If you\'re not sure, try <a href="/user/login">logging in with PIV first</a> or <a href="https://va-gov.atlassian.net/servicedesk/customer/portal/3/group/8/create/26">contact the CMS help desk.</a></div>';
-  $form['name']['#wrapper_attributes']['class'][] = 'js-login-username';
-  $form['pass']['#description'] = 'The password assigned to you by the CMS Help Desk.';
-  $form['pass']['#wrapper_attributes']['class'][] = 'js-login-password';
-  $form['actions']['submit']['#attributes']['class'][] = 'js-login-submit';
-  $form['actions']['submit']['#attributes']['class'][] = 'button--primary';
-
-  // Build toggle button to switch between PIV & User/Pass.
-  $form['actions']['toggle'] = [
-    '#type' => 'button',
-    '#button_type' => 'toggle',
-    '#attributes' => [
-      'class' => [
-        'link',
-        'va-login-toggle',
-        'js-va-login-toggle',
-      ],
-    ],
-    '#value' => 'Developer log in',
-  ];
-
-  // Check user input to determine if form is being rebuilt with error.
-  $user_input = $form_state->getUserInput();
-  if (isset($user_input['name']) || isset($user_input['pass'])) {
-    $form['#attributes']['class'][] = 'form-login';
-    $form['actions']['toggle']['#value'] = 'Log in with PIV';
-  }
-  else {
-    $form['#attributes']['class'][] = 'piv-login';
-  }
-
-  // Attach JS library for toggle button.
-  $form['#attached']['library'][] = 'vagovclaro/login-toggle';
-}
-
-/**
  * Implements hook_preprocess_page__node_type().
  */
 function vagovclaro_preprocess_page__documentation_page(&$variables) {
@@ -421,8 +368,7 @@ function vagovclaro_preprocess_page__documentation_page(&$variables) {
   }
 
   // Don't show header search on KB homepage, which has form visible lower.
-  $node = $route_match->getParameter('node');
-  $nid = $node->id();
+  $nid = $route_match->getRawParameter('node');
   if ($nid == CMS_HELP_CENTER_HOMEPAGE_NID) {
     $variables['show_header_search'] = FALSE;
   }
@@ -457,6 +403,7 @@ function vagovclaro_preprocess_node__documentation_page(&$variables) {
 function vagovclaro_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   _vagovclaro_exposed_kb_search_block_form_alter($form);
   _vagovclaro_form_action_outline_buttons($form);
+  _vagovclaro_form_cms_announcement_block($form);
 }
 
 /**
@@ -507,5 +454,21 @@ function _vagovclaro_form_action_outline_buttons(array &$form) {
   if ($form['#theme'][0] === 'node_edit_form') {
     $form['actions']['delete']['#options']['attributes']['class'][] = 'button--outline';
     $form['actions']['save_continue']['#attributes']['class'][] = 'button--outline';
+  }
+  if ($form['#theme'] === 'confirm_form') {
+    $form['actions']['cancel']['#attributes']['class'][] = 'button--outline';
+  }
+}
+
+/**
+ * Alter hook for changing the form in CMS announcement block.
+ *
+ * @param array $form
+ *   The exposed widget form array.
+ */
+function _vagovclaro_form_cms_announcement_block(array &$form) {
+  if ($form['#id'] === 'block-content-cms-announcement-form') {
+    $form['info']['widget'][0]['value']['#description'] = t('Used for configuration settings only.');
+    $form['info']['widget'][0]['value']['#title'] = t('Block name');
   }
 }

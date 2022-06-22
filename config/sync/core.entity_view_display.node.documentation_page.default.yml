@@ -18,8 +18,8 @@ dependencies:
     - user
 third_party_settings:
   layout_builder:
-    allow_custom: true
     enabled: true
+    allow_custom: true
     sections:
       -
         layout_id: layout_onecol
@@ -30,50 +30,50 @@ third_party_settings:
             uuid: 5c48ac82-7a89-4a92-aede-6161738619eb
             region: content
             configuration:
+              id: 'field_block:node:documentation_page:field_content_block'
               label_display: '0'
               context_mapping:
                 entity: layout_builder.entity
-              id: 'field_block:node:documentation_page:field_content_block'
               formatter:
+                type: entity_reference_revisions_entity_view
                 label: hidden
                 settings:
                   view_mode: user_guides
                   link: ''
                 third_party_settings: {  }
-                type: entity_reference_revisions_entity_view
-            additional: {  }
             weight: 2
+            additional: {  }
           04b0f8c6-fec6-4096-aa43-407854124966:
             uuid: 04b0f8c6-fec6-4096-aa43-407854124966
             region: content
             configuration:
+              id: 'field_block:node:documentation_page:field_related_user_guides'
               label_display: '0'
               context_mapping:
                 entity: layout_builder.entity
-              id: 'field_block:node:documentation_page:field_related_user_guides'
               formatter:
+                type: entity_reference_label
                 label: above
                 settings:
                   link: true
                 third_party_settings: {  }
-                type: entity_reference_label
-            additional: {  }
             weight: 3
+            additional: {  }
           c1172e55-57fb-49cd-a5ff-77c1b965b945:
             uuid: c1172e55-57fb-49cd-a5ff-77c1b965b945
             region: content
             configuration:
+              id: 'field_block:node:documentation_page:field_intro_text'
               label_display: '0'
               context_mapping:
                 entity: layout_builder.entity
-              id: 'field_block:node:documentation_page:field_intro_text'
               formatter:
+                type: basic_string
                 label: hidden
                 settings: {  }
                 third_party_settings: {  }
-                type: basic_string
-            additional: {  }
             weight: 1
+            additional: {  }
         third_party_settings: {  }
 id: node.documentation_page.default
 targetEntityType: node
@@ -81,36 +81,36 @@ bundle: documentation_page
 mode: default
 content:
   field_content_block:
-    weight: 1
+    type: entity_reference_revisions_entity_view
     label: hidden
     settings:
       view_mode: user_guides
       link: ''
     third_party_settings: {  }
-    type: entity_reference_revisions_entity_view
+    weight: 1
     region: content
   field_intro_text:
-    weight: 0
+    type: basic_string
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: basic_string
+    weight: 0
     region: content
   field_products:
-    weight: 3
+    type: entity_reference_label
     label: above
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 3
     region: content
   field_related_user_guides:
-    weight: 2
+    type: entity_reference_label
     label: above
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 2
     region: content
 hidden:
   content_moderation_control: true

@@ -7,34 +7,9 @@ services:
     arguments: [ { 'version': 'latest', 'region': 'us-gov-west-1' } ]
   va_gov_build_trigger.entity_event_subscriber:
     class: Drupal\va_gov_build_trigger\EventSubscriber\EntityEventSubscriber
-    arguments: ['@va_gov_build_trigger.build_frontend']
+    arguments: ['@va_gov_build_trigger.build_requester', '@va_gov.build_trigger.environment_discovery']
     tags:
       - { name: event_subscriber }
-  va_gov_build_trigger.jenkins_http_client:
-    class: GuzzleHttp\Client
-    arguments: [ { 'handler': '@va_gov_build_trigger.http_client_handler_stack' } ]
-  va_gov_build_trigger.retry_middleware:
-    class: Closure
-    factory: ['Drupal\va_gov_build_trigger\Service\MiddlewareFactory', 'createRetryMiddleware']
-    arguments: ['@logger.channel.va_gov_build_trigger']
-  va_gov_build_trigger.http_client_handler_stack:
-    class: GuzzleHttp\HandlerStack
-    factory: ['Drupal\va_gov_build_trigger\Service\MiddlewareFactory', 'createHandlerStack']
-    arguments: ['@logger.channel.va_gov_build_trigger']
-  va_gov_build_trigger.build_frontend:
-    class: Drupal\va_gov_build_trigger\Service\BuildFrontend
-    arguments: ['@messenger', '@logger.factory', '@va_gov.build_trigger.web_build_status', '@va_gov.build_trigger.environment_discovery', '@current_user']
-  va_gov_build_trigger.jenkins_client:
-    class: Drupal\va_gov_build_trigger\Service\JenkinsClient
-    arguments: ['@settings', '@messenger', '@logger.factory', '@va_gov_build_trigger.systems_manager_client', '@va_gov_build_trigger.jenkins_http_client']
-  va_gov_build_trigger.systems_manager_client:
-    class: Drupal\va_gov_build_trigger\Service\SystemsManagerClient
-    arguments: ['@string_translation', '@va_gov_build_trigger.aws_ssm_client']
-  va_gov.build_trigger.web_build_status:
-    class: Drupal\va_gov_build_trigger\WebBuildStatus
-    arguments: ['@state']
-  va_gov.build_trigger.web_build_link_checker:
-    class: Drupal\va_gov_build_trigger\WebBuildBrokenLinkChecker
   va_gov.build_trigger.environment_discovery:
     class: Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery
     arguments: [ '@plugin.manager.va_gov.environment' ]
@@ -42,13 +17,19 @@ services:
     class: Drupal\va_gov_build_trigger\Environment\EnvironmentManager
     parent: default_plugin_manager
   va_gov_build_trigger.route_subscriber:
-    class: Drupal\va_gov_build_trigger\Routing\RouteSubscriber
+    class: Drupal\va_gov_build_trigger\EventSubscriber\RouteSubscriber
     arguments: ['@va_gov.build_trigger.environment_discovery']
     tags:
       - { name: event_subscriber }
-  va_gov.build_trigger.web_build_command_builder:
-    class: Drupal\va_gov_build_trigger\WebBuildCommandBuilder
-    arguments: ['@settings', '@va_gov.build_trigger.web_build_link_checker']
+  va_gov_build_trigger.release_state_manager:
+    class: Drupal\va_gov_build_trigger\Service\ReleaseStateManager
+    arguments: ['@state', '@event_dispatcher', '@datetime.time']
   va_gov.site_status:
     class: Drupal\va_gov_build_trigger\SiteStatus\SiteStatus
     arguments: ['@state']
+  va_gov_build_trigger.build_requester:
+    class: Drupal\va_gov_build_trigger\Service\BuildRequester
+    arguments: ['@entity_type.manager', '@state']
+  va_gov_build_trigger.build_scheduler:
+    class: Drupal\va_gov_build_trigger\Service\BuildScheduler
+    arguments: ['@va_gov_build_trigger.build_requester', '@state', '@datetime.time', '@date.formatter']

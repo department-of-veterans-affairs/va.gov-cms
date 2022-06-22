@@ -7,11 +7,16 @@ dependencies:
     - node.type.vamc_system_medical_records_offi
   module:
     - entity_field_fetch
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 1
 id: node.vamc_system_medical_records_offi.field_cc_react_widget
 field_name: field_cc_react_widget
 entity_type: node
 bundle: vamc_system_medical_records_offi
-label: 'React widget'
+label: 'React widget (for non-Cerner VAMCs)'
 description: ''
 required: false
 translatable: false

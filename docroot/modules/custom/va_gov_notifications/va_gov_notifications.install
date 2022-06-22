@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Install file for Va Gov Notifications.
+ */
+
+/**
+ * Ininstall messages stack.
+ */
+function va_gov_notifications_update_9001(&$sandbox) {
+  module_load_install('va_gov_db');
+  // These have to be installed programatically, because there is a service
+  // dependency that is not met when waiting on config import to install.
+  $modules = [
+    'message',
+    'message_notify',
+    'message_subscribe',
+  ];
+
+  $messages = _va_gov_db_install_modules($modules);
+
+  return $messages;
+}

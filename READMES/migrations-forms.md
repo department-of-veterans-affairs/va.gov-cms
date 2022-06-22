@@ -1,13 +1,22 @@
 # Migrations: Forms
 
-![Forms data flow](images/va-forms-data.png)
-
+1. [Data Flow](#data-flow)
 1. [Forms Migration](#forms-migration)
    1. CrUD
    1. [Source](#source-forms-db)
 1. [CMS Forms Data to Lighthouse](#cms-forms-data-to-lighthouse)
 1. [Points of Failure](#points-of-failure)
 
+## Data Flow
+```mermaid
+  graph TD;
+    fdb[(Forms DB)] -- "11PM (push)" --> csv1[CSV]
+    csv1 -. midnight .-> csv2[CSV copied to cms]
+    csv2 -- "midnight migration (pull)" --> cms[CMS]
+    cms-- "1AM (pull)" -->formapi[("VA Forms API (Lighthouse)")]
+    cms -- va.gov content release --->fe[[VA.gov Form Detail pages]]
+    formapi-->formsearch[[VA.gov Form Search]]
+```
 
 ## Forms Migration
 Forms migration (va_node_form) occurs nightly. The Form landing page nodes (va_form)

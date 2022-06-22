@@ -1,0 +1,24 @@
+/**
+ * This file is solely for extra styles needed by various sb-*.twig files.
+ * It is not included in the output bundle for Drupal.
+ */
+@import './claro.scss';
+
+.swatch-color {
+  padding: 2rem;
+}
+
+.spacer {
+  background-color: var(--va-blue-light);
+
+  p {
+    margin: var(--spacing-xxs);
+  }
+}
+
+code {
+  background-color: var(--va-gray-cool-light);
+  font-size: var(--va-text);
+  padding: var(--spacing-l);
+  display: inline-block;
+}

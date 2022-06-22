@@ -37,8 +37,9 @@ $settings['trusted_host_patterns'] = [
     'dev.cms.va.gov',
     'test.dev.cms.va.gov',
     '.*\.us-gov-west-1\.elb\.amazonaws\.com',
+    'va-gov-cms.ddev.site',
 ];
 
 $settings['va_gov_frontend_url'] = 'https://dev.va.gov';
-$settings['va_gov_frontend_build_type'] = 'brdgha';
+$settings['va_gov_frontend_build_type'] = 'brd';
 $settings['github_actions_deploy_env'] = 'dev';

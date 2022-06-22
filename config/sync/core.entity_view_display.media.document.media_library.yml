@@ -18,20 +18,20 @@ mode: media_library
 content:
   field_document:
     type: file_table
-    weight: 0
-    region: content
     label: hidden
     settings:
       use_description_as_link_text: true
     third_party_settings: {  }
+    weight: 0
+    region: content
   name:
     type: string
-    weight: 1
-    region: content
     label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 1
+    region: content
 hidden:
   created: true
   field_media_in_library: true

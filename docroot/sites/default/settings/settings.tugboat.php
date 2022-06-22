@@ -42,7 +42,8 @@ $config['environment_indicator.indicator']['name'] = 'Tugboat';
 
 $settings['trusted_host_patterns'] = [
   '^localhost$',
-  '^.*' . getenv('TUGBOAT_SERVICE_TOKEN') . '.' . getenv('TUGBOAT_SERVICE_CONFIG_DOMAIN') . '$'];
+  '^.*' . getenv('TUGBOAT_SERVICE_TOKEN') . '.' . getenv('TUGBOAT_SERVICE_CONFIG_DOMAIN') . '$',
+];
 
 // Github token for migrations
 $settings['va_cms_bot_github_auth_token'] = getenv('GITHUB_TOKEN') ?: FALSE;
@@ -69,3 +70,10 @@ $settings['cms_datadog_api_key'] = getenv('CMS_DATADOG_API_KEY');
 
 // Uncomment this line to temporarily enable sending metrics to datadog on cron.
 //$settings['va_gov_force_sending_metrics'] = true;
+
+// Disable SSO form (PIV login) for tugboat demo environments (not automated PR builds)
+$TUGBOAT_PREVIEW_TYPE = getenv('TUGBOAT_PREVIEW_TYPE');
+if (isset($TUGBOAT_PREVIEW_TYPE) && $TUGBOAT_PREVIEW_TYPE !== 'pullrequest') {
+  // Disable sso form.
+  $config['simplesamlphp_auth.settings']['activate'] = FALSE;
+}

@@ -20,34 +20,34 @@ third_party_settings:
     group_section_settings:
       children:
         - field_administration
+      label: 'Section settings'
+      region: content
       parent_name: ''
       weight: 6
       format_type: details_sidebar
-      region: content
       format_settings:
-        description: ''
-        open: true
-        weight: 0
-        required_fields: true
-        id: ''
         classes: ''
         show_empty_fields: false
-      label: 'Section settings'
+        id: ''
+        open: true
+        description: ''
+        required_fields: true
+        weight: 0
     group_editorial_workflow:
       children:
         - moderation_state
         - revision_log
+      label: 'Editorial workflow'
+      region: content
       parent_name: ''
       weight: 8
       format_type: fieldset
-      region: content
       format_settings:
+        classes: ''
         show_empty_fields: false
         id: ''
-        classes: ''
         description: ''
         required_fields: true
-      label: 'Editorial workflow'
 id: node.banner.default
 targetEntityType: node
 bundle: banner
@@ -56,54 +56,54 @@ content:
   body:
     type: text_textarea_with_summary_and_counter
     weight: 4
+    region: content
     settings:
-      counter_position: after
-      textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
-      summary_rows: 5
-      summary_maxlength: 1000
       rows: 5
+      enable_summary: false
+      summary_rows: 5
+      show_summary: false
+      summary_maxlength: 1000
       placeholder: ''
       maxlength: 1000
+      counter_position: after
       js_prevent_submit: true
-      show_summary: false
-      enable_summary: false
       count_html_characters: false
+      textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings:
       allowed_formats:
         hide_help: '0'
         hide_guidelines: '0'
-    region: content
   field_administration:
+    type: options_select
     weight: 2
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: options_select
-    region: content
   field_alert_type:
-    weight: 0
-    settings: {  }
-    third_party_settings: {  }
     type: options_select
+    weight: 0
     region: content
-  field_dismissible_option:
-    weight: 2
     settings: {  }
     third_party_settings: {  }
+  field_dismissible_option:
     type: options_buttons
+    weight: 2
     region: content
+    settings: {  }
+    third_party_settings: {  }
   field_target_paths:
+    type: string_textfield
     weight: 5
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   moderation_state:
     type: moderation_state_default
     weight: 9
-    settings: {  }
     region: content
+    settings: {  }
     third_party_settings: {  }
   title:
     type: string_textfield

@@ -1,0 +1,32 @@
+uuid: d5702132-8565-4dee-bb03-3c8b130a2ade
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+    - user
+  theme:
+    - vagovclaro
+id: userlogin
+theme: vagovclaro
+region: sidebar_first
+weight: -4
+provider: null
+plugin: user_login_block
+settings:
+  id: user_login_block
+  label: 'User login'
+  label_display: visible
+  provider: user
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '/help*'
+  user_role:
+    id: user_role
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    roles:
+      anonymous: anonymous

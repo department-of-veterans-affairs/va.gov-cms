@@ -4,6 +4,7 @@
 
 .centralized {
   background-color: var(--va-gray-lightest) !important;
+  margin-bottom: var(--spacing-l);
 
   .data-updated a {
     float: right;
@@ -133,4 +134,11 @@
       }
     }
   }
+}
+
+// adjust view page proofing styles for centralized content
+#block-vagovclaro-content .centralized .paragraph,
+#block-vagovclaro-content .node--type-centralized-content .paragraph {
+  border: unset;
+  padding: 0;
 }

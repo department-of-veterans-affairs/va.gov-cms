@@ -1,0 +1,28 @@
+uuid: dffe77ae-8621-4074-8152-690aaeca1e7b
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.cms_announcement
+    - field.storage.block_content.field_announcement_type
+  module:
+    - epp
+    - options
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: block_content.cms_announcement.field_announcement_type
+field_name: field_announcement_type
+entity_type: block_content
+bundle: cms_announcement
+label: Type
+description: 'Default to using information. Only use warning for situations where users must do something in order to prevent an impactful error.'
+required: true
+translatable: false
+default_value:
+  -
+    value: information
+default_value_callback: ''
+settings: {  }
+field_type: list_string

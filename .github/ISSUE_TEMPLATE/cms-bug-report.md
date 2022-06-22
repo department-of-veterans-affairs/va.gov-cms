@@ -17,16 +17,16 @@ Steps to reproduce the behavior:
 3. Scroll down to '....'
 4. See error
 
-## Expected behavior
+## AC / Expected behavior
 A clear and concise description of what you expected to happen.
 
-## Screenshots 
+## Screenshots
 If applicable, add screenshots to help explain your problem.
 
  ## Additional context
 Add any other context about the problem here. Reach out to the Product Managers to determine if it should be escalated as critical (prevents users from accomplishing their work with no known workaround and needs to be addressed within 2 business days).
 
- 
+
 ## Desktop (please complete the following information if relevant, or delete)
  - OS: [e.g. iOS]
  - Browser [e.g. chrome, safari]
@@ -41,13 +41,12 @@ Add any other context about the problem here. Reach out to the Product Managers 
 - [ ] CMS-supported product (black)
 
 ### CMS Team
-Please check the team(s) that will do this work. 
+Please check the team(s) that will do this work.
 
-- [ ] `CMS Program`
+- [ ] `Program`
 - [ ] `Platform CMS Team`
-- [ ] `Sitewide CMS Team ` (leave Sitewide unchecked and check the specific team instead)
-  - [ ] `⭐️ Content ops`
-  - [ ] `⭐️ CMS experience`
-  - [ ] `⭐️ Offices`
-  - [ ] `⭐️ Product support`
-  - [ ] `⭐️ User support`
+- [ ] `Sitewide Crew`
+- [ ] `⭐️ Sitewide CMS`
+- [ ] `⭐️ Public Websites`
+- [ ] `⭐️ Facilities`
+- [ ] `⭐️ User support`

@@ -20,3 +20,7 @@ va_gov_build_trigger.content_release_status_block_controller_get_block:
     _controller: '\Drupal\va_gov_build_trigger\Controller\ContentReleaseStatusBlockController::getBlock'
   requirements:
     _permission: "va gov deploy content build"
+
+route_callbacks:
+  - '\Drupal\va_gov_build_trigger\RouteProvider::buildRequestRoutes'
+  - '\Drupal\va_gov_build_trigger\RouteProvider::notificationRoutes'

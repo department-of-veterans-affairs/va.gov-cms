@@ -8,7 +8,6 @@ dependencies:
     - field.field.node.basic_landing_page.field_content_block
     - field.field.node.basic_landing_page.field_description
     - field.field.node.basic_landing_page.field_intro_text_limited_html
-    - field.field.node.basic_landing_page.field_meta_title
     - field.field.node.basic_landing_page.field_product
     - field.field.node.basic_landing_page.field_table_of_contents_boolean
     - node.type.basic_landing_page
@@ -20,21 +19,30 @@ bundle: basic_landing_page
 mode: teaser
 content:
   content_moderation_control:
-    weight: -20
     settings: {  }
     third_party_settings: {  }
+    weight: -20
+    region: content
+  flag_email_node:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  flag_subscribe_node:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
     region: content
   links:
-    weight: 100
     settings: {  }
     third_party_settings: {  }
+    weight: 100
     region: content
 hidden:
   field_administration: true
   field_content_block: true
   field_description: true
   field_intro_text_limited_html: true
-  field_meta_title: true
   field_product: true
   field_table_of_contents_boolean: true
   search_api_excerpt: true

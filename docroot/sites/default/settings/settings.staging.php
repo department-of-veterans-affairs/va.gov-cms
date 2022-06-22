@@ -34,7 +34,7 @@ $settings['trusted_host_patterns'] = [
     '10\.199.*',
     '10\.247.*',
     'localhost',
-    'va-gov-cms.lndo.site',
+    'va-gov-cms.ddev.site',
     'stg.cms.va.gov',
     'staging.cms.va.gov',
     'test.staging.cms.va.gov',
@@ -42,5 +42,5 @@ $settings['trusted_host_patterns'] = [
 ];
 
 $settings['va_gov_frontend_url'] = 'https://staging.va.gov';
-$settings['va_gov_frontend_build_type'] = 'brdgha';
+$settings['va_gov_frontend_build_type'] = 'brd';
 $settings['github_actions_deploy_env'] = 'staging';

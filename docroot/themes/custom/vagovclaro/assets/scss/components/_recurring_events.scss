@@ -1,0 +1,324 @@
+#field-datetime-range-timezone-values {
+  fieldset.smartdate--widget {
+    /* stylelint-disable */
+    border: 1px solid #dedfe4 !important;
+    border-top: 0 !important;
+    /* stylelint-enable */
+    margin: 0;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    position: relative;
+  }
+
+  tr.draggable {
+    &:hover {
+      background: none;
+    }
+  }
+}
+
+.smart-date-instance--cancelled {
+  color: #666;
+}
+
+.smartdate--widget {
+  [class$='-timezone'] {
+    float: right;
+  }
+
+  .form-item-field-datetime-range-timezone-0-repeat {
+    left: -40px;
+    position: relative;
+  }
+
+  .form-item--field-datetime-range-timezone-0-repeat-advanced-weekday {
+    left: -35px;
+    position: relative;
+  }
+
+  .duration-wrapper {
+    /* stylelint-disable */
+    display: none !important;
+    /* stylelint-enable */
+  }
+
+  .byday-checkboxes {
+    display: none;
+    left: 220px;
+    position: absolute;
+    top: 0;
+
+    input {
+      ~ {
+        label.option {
+          margin-left: 3px;
+        }
+      }
+      display: none;
+    }
+  }
+
+  .recurring-items-reveal-wrap {
+    background: #f9f9f9;
+    display: none;
+    position: relative;
+  }
+
+  .repeat-on-the-wrap {
+    left: 250px;
+    position: absolute;
+    top: -6px;
+  }
+
+  .display-top-no-pad-left {
+    margin-left: 0;
+  }
+
+  .fieldset__wrapper {
+    .form-item.form-type-checkbox {
+      display: inline-block;
+    }
+
+    .smartdate--time-inline {
+      display: inline-block;
+      width: 65%;
+
+      .form-datetime-wrapper {
+        .form-items-inline {
+          display: block;
+          flex-wrap: nowrap;
+          justify-content: center;
+        }
+      }
+
+      div.time-start {
+        display: block;
+        flex-wrap: nowrap;
+        justify-content: center;
+      }
+
+      div.time-end {
+        display: block;
+        flex-wrap: nowrap;
+        justify-content: center;
+      }
+
+      .smartdate--separator {
+        display: none;
+      }
+    }
+  }
+
+  .allday {
+    margin: 0 5px 0 0;
+  }
+
+  .allday-label {
+    clear: both;
+    display: block !important;
+    float: none;
+    font-weight: 400;
+    left: -1000px;
+    margin: 10px 0 0;
+    position: absolute;
+  }
+
+  .smartdate--time-inline {
+    .form-datetime-wrapper {
+      h4.form-item__label {
+        display: block;
+        text-align: left;
+        width: 4em;
+      }
+    }
+
+    h4.label {
+      display: block;
+      text-align: left;
+      width: 4em;
+    }
+  }
+
+  .button--small.manage-instances {
+    float: right;
+  }
+}
+
+.recurring-items-reveal-wrap {
+  .clearfix {
+    height: 0;
+  }
+}
+
+.field--type-smartdate {
+  .smartdate--widget {
+    .byday-checkboxes {
+      .fieldset__label {
+        display: block;
+        padding-left: 30px;
+        padding-top: 5px;
+      }
+
+      legend {
+        float: none;
+        margin: 0;
+      }
+    }
+
+    .form-item--field-datetime-range-timezone-0-repeat-advanced-which {
+      .form-item__label {
+        display: block;
+        width: 100%;
+      }
+    }
+
+    .form-item--field-datetime-range-timezone-0-timezone {
+      width: 35%;
+    }
+
+    #edit-field-datetime-range-timezone-0-repeat-advanced-byday {
+      .form-item {
+        display: block;
+        float: left;
+        margin-left: 0;
+        margin-right: 0;
+        margin-top: 0;
+        text-align: left;
+      }
+    }
+
+    .form-type-select {
+      label {
+        display: block;
+        float: left;
+        margin-left: 0;
+        margin-right: 0;
+        margin-top: 0;
+        padding-top: 0;
+        text-align: left;
+      }
+    }
+
+    .form-type--select {
+      label {
+        display: block;
+        float: left;
+        margin-left: 0;
+        margin-right: 0;
+        margin-top: 0;
+        text-align: left;
+      }
+    }
+
+    tr.odd {
+      .smartdate--widget {
+        .form-type-select {
+          label {
+            display: block;
+            padding-top: 0;
+            text-align: left;
+          }
+        }
+      }
+    }
+
+    .form-type-number {
+      + {
+        .form-type-date {
+          display: block;
+          display: block;
+        }
+      }
+    }
+
+    .form-type-select.form-item-field-datetime-range-timezone-0-repeat-end,
+    .form-type-select.form-item-field-datetime-range-timezone-1-repeat-end,
+    .form-type-select.form-item-field-datetime-range-timezone-2-repeat-end {
+      display: none;
+    }
+
+    .form-type--number {
+      + {
+        .form-type--date {
+          display: block;
+        }
+      }
+    }
+
+    .fieldset__wrapper {
+      .form-type--boolean {
+        margin-left: 1.6875rem;
+      }
+    }
+  }
+
+  .field-multiple-table {
+    td {
+      padding: 0;
+    }
+
+    .field-multiple-drag {
+      display: block;
+      visibility: hidden;
+    }
+  }
+
+  tr.odd {
+    .smartdate--widget {
+      .form-type-select {
+        label {
+          display: block;
+          padding-top: 0;
+          text-align: left;
+        }
+      }
+    }
+  }
+}
+
+#edit-field-datetime-range-timezone-0-weight {
+  display: none;
+}
+
+#manage-instances {
+  .smart-date-instance--cancelled {
+    color: #666;
+    text-decoration: none;
+  }
+
+  .smart-date-instance--rescheduled {
+    font-style: normal;
+  }
+}
+
+.ui-widget-content {
+  .smart-date-recur-delete-override-ajaxform {
+    /* stylelint-disable */
+    a[data-drupal-selector="edit-delete"] {
+      color: #fff;
+    }
+    /* stylelint-enable */
+  }
+}
+
+#edit-field-datetime-range-timezone-0-repeat {
+  option {
+    &:first-child {
+      display: none;
+    }
+  }
+}
+
+.form-item--field-datetime-range-timezone-0-repeat-end {
+  left: -1000px;
+  margin: 10px 0 0;
+  position: absolute;
+}
+
+#manage-instances-faux-button-span {
+  clear: both;
+  color: #6b6b6b;
+  display: block;
+  float: right;
+  font-size: 90%;
+}

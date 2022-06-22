@@ -19,24 +19,18 @@ interface EnvironmentInterface extends PluginInspectionInterface {
 
   /**
    * Trigger the frontend web build.
-   *
-   * @param string $front_end_git_ref
-   *   Front end git reference to build (branch name or PR number)
-   * @param bool $full_rebuild
-   *   Trigger a full rebuild of the content.
    */
-  public function triggerFrontendBuild(string $front_end_git_ref = NULL, bool $full_rebuild = FALSE) : void;
+  public function triggerFrontendBuild() : void;
 
   /**
    * Should this environment trigger a frontend content deploy?
    *
-   * This controls whether content updates should trigger the
-   * front end deploy.
+   * This controls whether content updates should trigger the front end deploy.
    *
    * @return bool
    *   Should we trigger a front end deploy
    */
-  public function shouldTriggerFrontendBuild() : bool;
+  public function contentEditsShouldTriggerFrontendBuild() : bool;
 
   /**
    * The Build Trigger Form Class.
@@ -45,5 +39,15 @@ interface EnvironmentInterface extends PluginInspectionInterface {
    *   The build trigger form class
    */
   public function getBuildTriggerFormClass() : string;
+
+  /**
+   * Determine whether or not build log and frontend version are displayed.
+   *
+   * This mainly affects the content release form at /admin/content/deploy.
+   *
+   * @return bool
+   *   TRUE if build details should be displayed.
+   */
+  public function shouldDisplayBuildDetails() : bool;
 
 }
