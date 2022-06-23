@@ -7,18 +7,35 @@ dependencies:
     - field.field.message.va_form_changed_title.field_target_node_title
     - message.template.va_form_changed_title
   module:
+    - string_field_formatter
     - user
 id: message.va_form_changed_title.default
 targetEntityType: message
 bundle: va_form_changed_title
 mode: default
 content:
-  partial_0:
-    settings: {  }
+  field_target_entity:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_target_node_title:
+    type: plain_string_formatter
+    label: above
+    settings:
+      link_to_entity: false
+      wrap_tag: _none
+      wrap_class: ''
     third_party_settings: {  }
     weight: 0
     region: content
+  partial_0:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
 hidden:
-  field_target_entity: true
-  field_target_node_title: true
   search_api_excerpt: true

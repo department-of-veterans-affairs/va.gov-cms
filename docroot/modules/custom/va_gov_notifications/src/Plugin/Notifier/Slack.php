@@ -20,7 +20,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   title = @Translation("Slack"),
  *   description = @Translation("Send messages via Slack"),
  *   viewModes = {
- *     "slack_body"
+ *     "slack"
  *   }
  * )
  */

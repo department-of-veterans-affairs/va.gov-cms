@@ -1,12 +1,12 @@
-uuid: 288094c0-8807-4b3c-9a85-6a658b0cbdb8
+uuid: f1d7d698-35d9-48b5-b96a-aabff6c3481c
 langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.message.mail_body
-    - field.field.message.va_form_new_form.field_target_entity
-    - field.field.message.va_form_new_form.field_target_node_title
-    - message.template.va_form_new_form
+    - core.entity_view_mode.message.slack
+    - field.field.message.va_form_changed_url.field_target_entity
+    - field.field.message.va_form_changed_url.field_target_node_title
+    - message.template.va_form_changed_url
   module:
     - layout_builder
     - user
@@ -14,17 +14,14 @@ third_party_settings:
   layout_builder:
     enabled: false
     allow_custom: false
-id: message.va_form_new_form.mail_body
+id: message.va_form_changed_url.slack
 targetEntityType: message
-bundle: va_form_new_form
-mode: mail_body
+bundle: va_form_changed_url
+mode: slack
 content:
   partial_0:
     settings: {  }
     third_party_settings: {  }
-    weight: 0
-    region: content
-  partial_1:
     weight: 0
     region: content
 hidden:
