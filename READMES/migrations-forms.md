@@ -10,7 +10,7 @@
 ## Data Flow
 ```mermaid
   graph TD;
-    fdb[(Forms DB)] -- "11PM (push)" --> csv1[CSV]
+    fdb[(Forms DB)] -- "11:30PM (push)" --> csv1[CSV]
     csv1 -. midnight .-> csv2[CSV copied to cms]
     csv2 -- "midnight migration (pull)" --> cms[CMS]
     cms-- "1AM (pull)" -->formapi[("VA Forms API (Lighthouse)")]
@@ -21,22 +21,19 @@
 ## Forms Migration
 Forms migration (va_node_form) occurs nightly. The Form landing page nodes (va_form)
 are connected to the Forms DB (source) by its unique "rowid". "rowid" is a field in the source db and is used as the unique identifier through the whole process.
-  * **Create:**  Any forms that appear new in the source are created in the CMS
-    as a "VA form" with a moderation state of "draft".
-  * **Update:**  Any form data that changes in the source is updated in the existing
-    "VA form" without a change to its current moderation state.
-  * **Delete:**  Any form in the source that is flagged with the "Deleted" field
-    will have its corresponding "VA form" node unpublished by having its
-    moderation state changed to "archived".
-    This logic is handled in _va_gov_migrate_process_va_form().
-The nightly migrations are handled as part of our tasks-periodic.yml and
-are triggered by Jenkins at midnight.  Revisions for any saves are created and
-attributed to the user "CMS Migrator".
+  * **Create:**  Any forms that appear new in the source are created in the CMS as a "VA form" with a moderation state of "draft".  A notification is sent to #va-forms channel in Slack.
+  * **Update:**  Any form data that changes in the source is updated in the existing "VA form" without a change to its current moderation state.
+    If either the form's title or url/filename change, a notification is sent to #va-forms channel in Slack.
+  * **Delete:**  Any form in the source that is flagged with the "Deleted" field will have its corresponding "VA form" node unpublished by having its moderation state changed to "archived".
+    This logic is handled in _va_gov_migrate_process_va_form().  A notification is sent to #va-forms channel in Slack.
+
+The nightly migrations are handled as part of our tasks-periodic.yml and are triggered by Jenkins at midnight.  Revisions for any saves are created and attributed to the user "CMS Migrator".
+
+Notifications are handled in va_gov_workflow/src/EventSubscriber/EntityEventSubscriber.php
 
 
 ### Source: Forms DB
-The Forms DB is the source of the form data migration.  Each night at 11:30PM ET
-the Forms DB runs an export on cron to create a CSV file located
+The Forms DB is the source of the form data migration. Each night at 11:30PM ET the Forms DB runs an export on cron to create a CSV file located at
 http://vaww.webdevi.va.gov/vaforms/VAForms_DataExtract/VAForms_FormsData.txt
 Our [task-periodic job](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/tasks-periodic.yml#L52) copies that file and places it here
 https://prod.cms.va.gov/sites/default/files/migrate_source/va_forms_data.csv
@@ -48,19 +45,13 @@ To run it in sandboxes it will need to be pulled down with our file sync command
   * If a row from the source disappears, the migration makes no change to existing nodes.
 
 ## Editorial
-There are fields on the "VA form" nodes that are not connected to the migration
-because they do not exist in the source.  These fields can be edited as needed
-without being altered by subsequent runs of the migration.  Fields that are
-controlled by the data in the source are not available to be edited. In the
-event of bad data from the source (a bad file name or title) a site administrator
-can edit the fields.  These edits will be overwritten the next time
-the migration runs if the source row has changed.  This logic is handled in
+There are fields on the "VA form" nodes that are not connected to the migration because they do not exist in the source.  These fields can be edited as needed without being altered by subsequent runs of the migration.  Fields that are controlled by the data in the source are not available to be edited. In the event of bad data from the source (a bad file name or title) a site administrator can edit the fields.  These edits will be overwritten the next time the migration runs if the source row has changed.  This logic is handled in
 [_vagov_consumers_modify_va_form_fields()](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/docroot/modules/custom/va_gov_consumers/va_gov_consumers.module#L109).
 
 [Forms management View](https://prod.cms.va.gov/admin/content/va-forms) can be used to see the status of forms.
 
 
-## CMS Forms Data to Lighthouse
+## CMS Forms Data to VA Forms API (Lighthouse)
 Lighthouse pulls data from the CMS nightly via GraphQL and makes it available to
 [form search "Find a VA form"](https://www.va.gov/find-forms/)Form search and other React widgets through the [VA Forms API](https://developer.va.gov/explore/vaForms/docs/vaForms?version=current)
 
