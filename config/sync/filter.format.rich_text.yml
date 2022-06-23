@@ -6,6 +6,7 @@ dependencies:
     - blazy
     - editor
     - linkit
+    - linky
     - media
     - pathologic
     - va_gov_backend
@@ -127,3 +128,9 @@ filters:
     weight: -49
     settings:
       title: '1'
+  linky_direct_link_filter:
+    id: linky_direct_link_filter
+    provider: linky
+    status: true
+    weight: 10
+    settings: {  }
