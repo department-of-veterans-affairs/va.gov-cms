@@ -1,6 +1,6 @@
-uuid: 6fc8aa0a-c6dc-4379-a8c3-110980a7b5d8
+uuid: 0544af2d-8fd9-4633-bdcd-c3dee4e18fde
 langcode: en
-status: false
+status: true
 dependencies:
   config:
     - core.entity_view_mode.message.mail_body
@@ -19,11 +19,15 @@ targetEntityType: message
 bundle: va_form_deleted
 mode: mail_body
 content:
+  partial_0:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
   partial_1:
     weight: 0
     region: content
 hidden:
   field_target_entity: true
   field_target_node_title: true
-  partial_0: true
   search_api_excerpt: true

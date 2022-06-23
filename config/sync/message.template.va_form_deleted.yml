@@ -1,4 +1,4 @@
-uuid: 917452b5-0266-4bb7-964b-691028f6a6b3
+uuid: c2de3799-a2c4-4738-a280-800d1167259a
 langcode: en
 status: true
 dependencies:
@@ -6,10 +6,10 @@ dependencies:
     - filter.format.rich_text
 template: va_form_deleted
 label: 'VA Form: deleted'
-description: 'The template to alert people about the creation of a new form.'
+description: 'This message template is used to notify of a deleted form.'
 text:
   -
-    value: "<p>:x: The [message:field_target_entity:entity:content-type] <a href=\"https://prod.cms.va.gov/node/[message:field_target_entity:entity:nid]\">[message:field_target_node_title]</a> has been flagged as deleted.<br />\r\n*Form name:* [message:field_target_entity:entity:field_va_form_name]<br />\r\n*Form title:* [message:field_target_entity:entity:field_va_form_title]<br />\r\n*Form ID:* [message:field_target_entity:entity:field_va_form_number]</p>\r\n"
+    value: "<p>:x: The [message:field_target_entity:entity:content-type] <a href=\"https://prod.cms.va.gov/node/[message:field_target_entity:entity:nid]\">[message:field_target_node_title]</a> has been flagged as deleted.<br />\r\n*Form name:* [message:field_target_entity:entity:field_va_form_name]<br />\r\n*Form title:* [message:field_target_entity:entity:field_va_form_title]<br />\r\n*Form ID:* [message:field_target_entity:entity:field_va_form_number]</p>"
     format: rich_text
 settings:
   'token options':
