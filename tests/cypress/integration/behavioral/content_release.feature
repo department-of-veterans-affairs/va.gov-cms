@@ -7,7 +7,7 @@ Feature: Content Release
   Scenario: The content release page should normally display no in-process releases
     Given I am logged in as a user with the "content_admin" role
     When I am at "/admin/content/deploy"
-    Then I should see "Front end has not been built yet."
+    Then I should see "Ready"
 
   @skip_on_brd
   Scenario: The content release page should show a pending default release initiated within the browser
