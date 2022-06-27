@@ -15,12 +15,16 @@
     const targetRegistrationElements = document.querySelectorAll(
       ".centralized.reduced-padding, #edit-field-event-registrationrequired-wrapper, #edit-field-event-cta-wrapper, #edit-group-registration-link, #group-registration-link, #edit-field-additional-information-abo-wrapper"
     );
+    const ctaUri = document.getElementById("edit-field-link-0-uri") || {};
+    const ctaSelect = document.getElementById("edit-field-event-cta") || {};
     const toggleVal = !!includeRegistrationsBool.checked;
     targetRegistrationElements.forEach((element) => {
       if (toggleVal) {
         element.style.display = "block";
       } else {
         element.style.display = "none";
+        ctaUri.value = "";
+        ctaSelect.value = "_none";
       }
     });
   };
@@ -57,6 +61,8 @@
           "form-required"
         );
         fieldLinkWrapper.style.display = "block";
+      } else {
+        fieldLinkInput.value = "";
       }
     });
   };

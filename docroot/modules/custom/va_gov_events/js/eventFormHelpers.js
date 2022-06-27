@@ -12,12 +12,16 @@
 
   var toggleRegistrationElements = function toggleRegistrationElements() {
     var targetRegistrationElements = document.querySelectorAll(".centralized.reduced-padding, #edit-field-event-registrationrequired-wrapper, #edit-field-event-cta-wrapper, #edit-group-registration-link, #group-registration-link, #edit-field-additional-information-abo-wrapper");
+    var ctaUri = document.getElementById("edit-field-link-0-uri") || {};
+    var ctaSelect = document.getElementById("edit-field-event-cta") || {};
     var toggleVal = !!includeRegistrationsBool.checked;
     targetRegistrationElements.forEach(function (element) {
       if (toggleVal) {
         element.style.display = "block";
       } else {
         element.style.display = "none";
+        ctaUri.value = "";
+        ctaSelect.value = "_none";
       }
     });
   };
@@ -44,6 +48,8 @@
         fieldLinkInput.attributes.required = "required";
         fieldLinkWrapperLabel.classList.add("js-form-required", "form-required");
         fieldLinkWrapper.style.display = "block";
+      } else {
+        fieldLinkInput.value = "";
       }
     });
   };
