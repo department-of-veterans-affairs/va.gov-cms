@@ -15,14 +15,14 @@
     var ctaUri = document.getElementById("edit-field-link-0-uri") || {};
     var ctaSelect = document.getElementById("edit-field-event-cta") || {};
     var toggleVal = !!includeRegistrationsBool.checked;
+    var elementDisplayStyle = 'block';
+    if (!toggleVal) {
+      ctaUri.value = "";
+      ctaSelect.value = "_none";
+      elementDisplayStyle = 'none';
+    }
     targetRegistrationElements.forEach(function (element) {
-      if (toggleVal) {
-        element.style.display = "block";
-      } else {
-        element.style.display = "none";
-        ctaUri.value = "";
-        ctaSelect.value = "_none";
-      }
+      element.style.display = elementDisplayStyle;
     });
   };
 

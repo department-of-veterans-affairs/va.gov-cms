@@ -18,14 +18,14 @@
     const ctaUri = document.getElementById("edit-field-link-0-uri") || {};
     const ctaSelect = document.getElementById("edit-field-event-cta") || {};
     const toggleVal = !!includeRegistrationsBool.checked;
+    let elementDisplayStyle = 'block';
+    if (!toggleVal) {
+      ctaUri.value = "";
+      ctaSelect.value = "_none";
+      elementDisplayStyle = 'none';
+    }
     targetRegistrationElements.forEach((element) => {
-      if (toggleVal) {
-        element.style.display = "block";
-      } else {
-        element.style.display = "none";
-        ctaUri.value = "";
-        ctaSelect.value = "_none";
-      }
+      element.style.display = elementDisplayStyle;
     });
   };
 
