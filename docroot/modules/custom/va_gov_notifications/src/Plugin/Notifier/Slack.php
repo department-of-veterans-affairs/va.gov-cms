@@ -110,13 +110,13 @@ class Slack extends MessageNotifierBase {
    */
   public function deliver(array $output = []) {
     $success = FALSE;
-    $channel = $this->message->values["slack_channel"] ?? NULL;
-    $slack_user = $this->message->values["slack_user"] ?? NULL;
-    $message = $output["slack_body"] ?? '';
+    $channel = $this->message->slack_channel ?? NULL;
+    $slack_user = $this->message->slack_user ?? NULL;
+    $msg = $output['slack'] ?? '';
 
     $slack_config = $this->configFactory->get('slack.settings');
     if ($slack_config->get('slack_webhook_url')) {
-      $result = $this->slackService->sendMessage($message, $channel, $slack_user);
+      $result = $this->slackService->sendMessage($msg, $channel, $slack_user);
       $success = $this->checkSuccess($result);
     }
     else {
