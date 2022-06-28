@@ -7,19 +7,30 @@
 
 (function (Drupal) {
   var includeRegistrationsBool = document.getElementById("edit-field-include-registration-info-value");
-
+  var ctaSelect = document.getElementById("edit-field-event-cta");
+  var fieldLinkWrapper = document.getElementById("edit-field-link-wrapper");
+  var fieldLinkInput = document.getElementById("edit-field-link-0-uri");
+  var fieldLinkWrapperLabel = document.querySelector("#edit-field-link-wrapper label");
   var includeLocationItemsRadios = document.getElementById("edit-field-location-type");
+
+  var toggleCtaLinkRequired = function toggleCtaLinkRequired() {
+    var required = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+
+    var addRemove = required ? "add" : "remove";
+    fieldLinkWrapper.style.display = required ? "block" : "none";
+    fieldLinkInput.required = required ? "required" : "";
+    fieldLinkWrapperLabel.classList[addRemove]("js-form-required", "form-required");
+  };
 
   var toggleRegistrationElements = function toggleRegistrationElements() {
     var targetRegistrationElements = document.querySelectorAll(".centralized.reduced-padding, #edit-field-event-registrationrequired-wrapper, #edit-field-event-cta-wrapper, #edit-group-registration-link, #group-registration-link, #edit-field-additional-information-abo-wrapper");
-    var ctaUri = document.getElementById("edit-field-link-0-uri") || {};
-    var ctaSelect = document.getElementById("edit-field-event-cta") || {};
     var toggleVal = !!includeRegistrationsBool.checked;
-    var elementDisplayStyle = 'block';
+    var elementDisplayStyle = "block";
     if (!toggleVal) {
-      ctaUri.value = "";
+      fieldLinkInput.value = "";
       ctaSelect.value = "_none";
-      elementDisplayStyle = 'none';
+      elementDisplayStyle = "none";
+      toggleCtaLinkRequired(false);
     }
     targetRegistrationElements.forEach(function (element) {
       element.style.display = elementDisplayStyle;
@@ -27,17 +38,10 @@
   };
 
   var requireCTA = function requireCTA() {
-    var ctaSelect = document.getElementById("edit-field-event-cta");
-    var fieldLinkWrapper = document.getElementById("edit-field-link-wrapper");
-    var fieldLinkInput = document.getElementById("edit-field-link-0-uri");
-    var fieldLinkWrapperLabel = document.querySelector("#edit-field-link-wrapper label");
-
     fieldLinkWrapper.style.display = "none";
 
     if (ctaSelect.value !== "_none") {
-      fieldLinkWrapper.style.display = "block";
-      fieldLinkInput.required = "required";
-      fieldLinkWrapperLabel.classList.add("js-form-required", "form-required");
+      toggleCtaLinkRequired();
     }
 
     ctaSelect.addEventListener("change", function (e) {
