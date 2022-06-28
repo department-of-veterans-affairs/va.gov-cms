@@ -72,10 +72,7 @@ If this facility has been removed from VAST in error, please notify our Support 
 - [ ] Determine where should redirect go? to the system? or to the nearest clinic?
 - [ ] Create [redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E) accordingly.
 - [ ] When redirect is ready to go out, plan to make these changes immediately after redirect is released. Practice first on staging or a demo environment.
-  - [ ] CMS engineer bulk archives the facility service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service).
-  - [ ] CMS engineer bulk archives the facility non-clinical service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=vha_facility_nonclinical_service).
-  - [ ] CMS engineer filters content by the health care system and scans for any events that might be taking place at that facility. Archive if any are found.
-  - [ ] CMS engineer edits the facility node, removes  flag `Removed from source`, add a revision log that explains the change, with a link to github issue, and change moderation state to archive.
+  - [ ] CMS engineer edits the facility node, removes  flag `Removed from source`, add a revision log that explains the change, with a link to github issue, and change moderation state to archive. (Note: any related health services, non-clinical services and events for the given facility will be archived automatically when these changes are saved.)
   - [ ] CMS engineer finds the menu for the system https://prod.cms.va.gov/admin/structure/menu and deletes the menu item for the closed facility.
 - [ ] Let HD know this is complete.
 
