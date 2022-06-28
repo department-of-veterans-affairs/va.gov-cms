@@ -45,20 +45,20 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
   /**
    * Constructs the EventSubscriber object.
    *
-   * @param \Drupal\Core\Session\AccountInterface $current_user
+   * @param \Drupal\Core\Session\AccountInterface $currentUser
    *   The current user.
-   * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
+   * @param \Drupal\Core\Entity\EntityTypeManager $entityTypeManager
    *   The string entity type service.
    * @param \Drupal\Core\Messenger\MessengerInterface $messenger
    *   The messenger service.
    */
   public function __construct(
-    AccountInterface $current_user,
-    EntityTypeManager $entity_type_manager,
+    AccountInterface $currentUser,
+    EntityTypeManager $entityTypeManager,
     MessengerInterface $messenger
   ) {
-    $this->currentUser = $current_user;
-    $this->entityTypeManager = $entity_type_manager;
+    $this->currentUser = $currentUser;
+    $this->entityTypeManager = $entityTypeManager;
     $this->messenger = $messenger;
   }
 
@@ -107,14 +107,15 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
         ];
 
         // Find all related published services and events.
-        $query = \Drupal::entityQuery('node');
+        $nodeStorage = $this->entityTypeManager->getStorage('node');
+        $query = $nodeStorage->getQuery();
         $query->condition('type', $relatedTypes, 'IN')
           ->condition('field_facility_location', $facilityID)
           ->condition('moderation_state', 'published');
         $nids = $query->execute();
 
         if (count($nids)) {
-          $nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
+          $nodes = $nodeStorage->loadMultiple($nids);
           $updated = [
             'event' => 0,
             'health_care_local_health_service' => 0,
@@ -136,7 +137,7 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
               $node->setRevisionLogMessage('Automatically archived when parent facility was archived.');
               $node->save();
               // Increment updated count.
-              $updated[$node->bundle()] += 1;
+              $updated[$node->bundle()]++;
             }
           }
 
