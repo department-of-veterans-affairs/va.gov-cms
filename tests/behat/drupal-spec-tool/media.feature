@@ -1,11 +1,10 @@
-
 @api
 Feature: Media
   In order to present media appropriately
   As a site owner
   I want to have image styles for various contexts.
 
-  @dst @image_styles                                                                                                                                                                      
+  @dst @image_styles
      Scenario: Image styles
        Then exactly the following image styles should exist
        | Style name | Machine name |
@@ -32,7 +31,7 @@ Feature: Media
 | Thumbnail (100×100) | thumbnail |
 | Viewport width | viewport_width |
 
-@dst @image_effects                                                                                                                                                                     
+@dst @image_effects
      Scenario: Image effects
        Then exactly the following image effects should exist
        | Image style | Effect | Summary |
@@ -51,9 +50,9 @@ Feature: Media
 | 7:2 medium thumbnail | Manual crop | uses 7:2 crop type |
 | Crop thumbnail | Scale | width 400 |
 | Cropped: 2:1 | Manual crop | uses 2:1 crop type |
-| Cropped: 2:3 | Focal Point Scale and Crop | 400×600 |
-| Cropped: 3:2 | Focal Point Scale and Crop | 900×600 |
-| Cropped: 7:2 | Focal Point Scale and Crop | 1400×400 |
+| Cropped: 2:3 | Manual crop | uses 2:3 crop type |
+| Cropped: 3:2 | Manual crop | uses 3:2 crop type |
+| Cropped: 7:2 | Manual crop | uses 7:2 crop type |
 | Cropped: Freeform | Manual crop | uses Freeform crop type |
 | Cropped: Square | Manual crop | uses Square crop type |
 | Full content width with no upscaling | Scale | width 1400 |
