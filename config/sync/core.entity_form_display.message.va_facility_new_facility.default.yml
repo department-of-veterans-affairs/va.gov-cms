@@ -1,14 +1,14 @@
-uuid: 0f4b3c3c-947e-4991-817e-a47cfa1b4ab5
+uuid: 371ca624-af29-4df7-b008-d70d49ffac17
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.message.va_form_new_form.field_target_entity
-    - field.field.message.va_form_new_form.field_target_node_title
-    - message.template.va_form_new_form
-id: message.va_form_new_form.default
+    - field.field.message.va_facility_new_facility.field_target_entity
+    - field.field.message.va_facility_new_facility.field_target_node_title
+    - message.template.va_facility_new_facility
+id: message.va_facility_new_facility.default
 targetEntityType: message
-bundle: va_form_new_form
+bundle: va_facility_new_facility
 mode: default
 content:
   created:
@@ -18,14 +18,10 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_target_entity:
-    type: entity_reference_autocomplete
+    type: options_select
     weight: 1
     region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
   field_target_node_title:
     type: string_textfield
