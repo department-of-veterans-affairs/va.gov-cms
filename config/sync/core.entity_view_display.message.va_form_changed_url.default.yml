@@ -1,17 +1,17 @@
-uuid: d6d44bbb-d98e-4f29-8d14-aa94c544df1f
+uuid: fee6bc62-4d9f-412a-96f1-77611b0d75d1
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.message.va_form_new_form.field_target_entity
-    - field.field.message.va_form_new_form.field_target_node_title
-    - message.template.va_form_new_form
+    - field.field.message.va_form_changed_url.field_target_entity
+    - field.field.message.va_form_changed_url.field_target_node_title
+    - message.template.va_form_changed_url
   module:
     - string_field_formatter
     - user
-id: message.va_form_new_form.default
+id: message.va_form_changed_url.default
 targetEntityType: message
-bundle: va_form_new_form
+bundle: va_form_changed_url
 mode: default
 content:
   field_target_entity:
