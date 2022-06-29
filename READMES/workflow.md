@@ -26,7 +26,7 @@ We are currently working off a single `main` branch. `main` is protected and req
 ### Example Git workflow:
 
 1. `git fetch --all`
-1. `git checkout --branch <VACMS-000-name> origin/main`
+1. `git checkout -b <VACMS-000-name> origin/main`
 1. `ddev composer install`
 1. `ddev start` or `ddev restart`
 1. `./scripts/sync-db.sh`
