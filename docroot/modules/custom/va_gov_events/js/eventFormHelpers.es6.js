@@ -3,6 +3,9 @@
  */
 
 ((Drupal) => {
+  const registrationRequiredBool = document.getElementById(
+    "edit-field-event-registrationrequired-value"
+  );
   const includeRegistrationsBool = document.getElementById(
     "edit-field-include-registration-info-value"
   );
@@ -36,6 +39,7 @@
       fieldLinkInput.value = "";
       ctaSelect.value = "_none";
       elementDisplayStyle = "none";
+      registrationRequiredBool.checked = false;
       toggleCtaLinkRequired(false);
     }
     targetRegistrationElements.forEach((element) => {
@@ -54,19 +58,9 @@
 
     // Check on change if cta value, and require input if so.
     ctaSelect.addEventListener("change", (e) => {
-      fieldLinkInput.required = "";
-      fieldLinkWrapper.style.display = "none";
-      fieldLinkWrapperLabel.classList.remove(
-        "js-form-required",
-        "form-required"
-      );
+      toggleCtaLinkRequired(false);
       if (e.target.value !== "_none") {
-        fieldLinkInput.attributes.required = "required";
-        fieldLinkWrapperLabel.classList.add(
-          "js-form-required",
-          "form-required"
-        );
-        fieldLinkWrapper.style.display = "block";
+        toggleCtaLinkRequired();
       } else {
         fieldLinkInput.value = "";
       }

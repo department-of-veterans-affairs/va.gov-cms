@@ -6,6 +6,7 @@
 **/
 
 (function (Drupal) {
+  var registrationRequiredBool = document.getElementById("edit-field-event-registrationrequired-value");
   var includeRegistrationsBool = document.getElementById("edit-field-include-registration-info-value");
   var ctaSelect = document.getElementById("edit-field-event-cta");
   var fieldLinkWrapper = document.getElementById("edit-field-link-wrapper");
@@ -30,6 +31,7 @@
       fieldLinkInput.value = "";
       ctaSelect.value = "_none";
       elementDisplayStyle = "none";
+      registrationRequiredBool.checked = false;
       toggleCtaLinkRequired(false);
     }
     targetRegistrationElements.forEach(function (element) {
@@ -45,13 +47,9 @@
     }
 
     ctaSelect.addEventListener("change", function (e) {
-      fieldLinkInput.required = "";
-      fieldLinkWrapper.style.display = "none";
-      fieldLinkWrapperLabel.classList.remove("js-form-required", "form-required");
+      toggleCtaLinkRequired(false);
       if (e.target.value !== "_none") {
-        fieldLinkInput.attributes.required = "required";
-        fieldLinkWrapperLabel.classList.add("js-form-required", "form-required");
-        fieldLinkWrapper.style.display = "block";
+        toggleCtaLinkRequired();
       } else {
         fieldLinkInput.value = "";
       }
