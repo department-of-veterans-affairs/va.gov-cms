@@ -18,7 +18,7 @@
 1. Write a manual to test ticket completion.
 
 ## Git
-To avoid cluttering up the repo with lots of branches, fork the repo and push your branches to your fork and make your pull request from your fork to the upstream repo. You can use the GitHub CLI, [`gh`](https://cli.github.com/), to make PRs from the command line much faster. Or after you push you will see a link in the output to ctrl + click and create a new PR from the branch you just pushed.
+To avoid cluttering up the repo with lots of branches, fork the repo and push your branches to your fork and make your pull request from your fork to the upstream repo. You can use the GitHub CLI, [`gh`](https://cli.github.com/), to make PRs from the command line much faster. Or after you push you will see a link in the output to ctrl + click and create a new PR from the branch you just pushed.  [Getting started](./getting-started.md).
 
 ### Branches
 We are currently working off a single `main` branch. `main` is protected and requires both approval from code review and passing tests to be merged. Commits within pull requests are squashed and merged when they are accepted so that the only relate to one git commit, even if they originally contained multiple commits, the commit messages are added as a bulleted list so they are retained in the merge commit.
@@ -26,25 +26,24 @@ We are currently working off a single `main` branch. `main` is protected and req
 ### Example Git workflow:
 
 1. `git fetch --all`
-1. `git checkout -b <VACMS-000-name> origin/main`
+1. `git checkout -b <VACMS-000-name> upstream/main`
 1. `ddev composer install`
 1. `ddev start` or `ddev restart`
-1. `./scripts/sync-db.sh`
-1. `./scripts/sync-files.sh` # (optional)
+1. `ddev pull va --skip-files`  or `ddev pull va` idf you need managed files (images and pdfs)
 1. Running `ddev test` will build the frontend web and run all tests (PHPUnit, Behat, accessibility, FE web) See [testing](testing.md) for additional details.
 1. If possible, write your test, before you write code.  The test should fail initially and not pass until you succeed.
-1. Fix code formatting issues with CodeSniffer, Drupal 8 standard. (linters should run automatically upon trying to commit.
+1. Fix code formatting issues with CodeSniffer, Drupal standard. (linters should run automatically upon trying to commit.
 1. Commit your changes. Each commit should be logically atomic (e.g. module adds in one commit, config in another, custom code in additional logical commits), and your commit messages should follow the pattern: "VACMS-123: A grammatically correct sentence starting with an action verb and ending with punctuation."
 _Example: VACMS-1234 Add configuration for menu reduction._
 1. Push work to your fork of the repository so a Pull Request may be created
-`git push --set-upstream <fork name> HEAD`
-1. Once your PR is merged it will be automatically deployed to dev.cms.va.gov and staging.cms.va.gov. If it is merged before 2:30pm ET it will be in the daily, scheduled deploy to prod.cms.va.gov at 3:30pm ET.
+`git push myfork <branchname>`
+1. Once your PR is merged it will be automatically deployed to dev.cms.va.gov and staging.cms.va.gov. If it is merged before 2:30pm ET and tests pass it will be in the daily, scheduled deploy to prod.cms.va.gov at 3:30pm ET.
 
   While working on your own branch, you may have to rebase it on main which will make it out of sync with your remote branch and will require you to force push to your branch.
 
 ### When is it ok to do a force push (-f)?
 
-  On the upstream, never.  On your own fork, it is perfectly acceptable to do force pushes.  If you have recently rebased your branch on main, you may have to do a force push to your fork.  When in doubt, ask in Slack.
+  On the upstream repo, never.  On your own fork, it is perfectly acceptable to do force pushes.  If you have recently rebased your branch on main, you may have to do a force push to your fork.  When in doubt, ask in Slack.
 
 ### Pull Request Norms
 * Pull requests should be made against the `main` branch.
