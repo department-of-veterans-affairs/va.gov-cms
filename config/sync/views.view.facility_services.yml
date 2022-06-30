@@ -3090,7 +3090,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Geolocation (lat, long)'
+          label: 'Latitude, Longitude'
           exclude: false
           alter:
             alter_text: false
@@ -3419,7 +3419,7 @@ display:
           exposed: true
           expose:
             operator_id: lat_op
-            label: Latitiude
+            label: Latitude
             description: ''
             use_operator: true
             operator: field_geolocation_lat_op
@@ -4344,7 +4344,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: subdivision
-          label: 'Address City'
+          label: City
           exclude: false
           alter:
             alter_text: false
@@ -4394,7 +4394,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: subdivision
-          label: 'Address Administrative Area'
+          label: State
           exclude: false
           alter:
             alter_text: false
@@ -4444,7 +4444,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: standard
-          label: 'Address Postal Code'
+          label: Zip
           exclude: false
           alter:
             alter_text: false
@@ -4493,7 +4493,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Geolocation (lat, long)'
+          label: 'Latitude, Longitude'
           exclude: false
           alter:
             alter_text: false
@@ -4821,14 +4821,17 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_geolocation_lat_op
+            operator_id: lat_op
             label: Latitiude
             description: ''
             use_operator: true
             operator: field_geolocation_lat_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_geolocation_lat
+            operator_limit_selection: true
+            operator_list:
+              '=': '='
+              empty: empty
+              'not empty': 'not empty'
+            identifier: lat
             required: false
             remember: false
             multiple: false
@@ -4879,14 +4882,17 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_geolocation_lon_op
+            operator_id: lon_op
             label: Longitude
             description: ''
             use_operator: true
             operator: field_geolocation_lon_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_geolocation_lon
+            operator_limit_selection: true
+            operator_list:
+              '=': '='
+              empty: empty
+              'not empty': 'not empty'
+            identifier: lon
             required: false
             remember: false
             multiple: false
@@ -4929,19 +4935,22 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: string
-          operator: '='
+          operator: contains
           value: ''
           group: 1
           exposed: true
           expose:
-            operator_id: field_address_address_line1_op
+            operator_id: a1_op
             label: 'Address Line 1'
             description: ''
             use_operator: true
             operator: field_address_address_line1_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_address_address_line1
+            operator_limit_selection: true
+            operator_list:
+              contains: contains
+              empty: empty
+              'not empty': 'not empty'
+            identifier: a1
             required: false
             remember: false
             multiple: false
@@ -4982,19 +4991,22 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: string
-          operator: '='
+          operator: contains
           value: ''
           group: 1
           exposed: true
           expose:
-            operator_id: field_address_address_line2_op
+            operator_id: a2_op
             label: 'Address Line 2'
             description: ''
             use_operator: true
             operator: field_address_address_line2_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_address_address_line2
+            operator_limit_selection: true
+            operator_list:
+              contains: contains
+              empty: empty
+              'not empty': 'not empty'
+            identifier: a2
             required: false
             remember: false
             multiple: false
@@ -5040,14 +5052,18 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_address_locality_op
+            operator_id: city_op
             label: City
             description: ''
             use_operator: true
             operator: field_address_locality_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_address_locality
+            operator_limit_selection: true
+            operator_list:
+              '=': '='
+              contains: contains
+              empty: empty
+              'not empty': 'not empty'
+            identifier: city
             required: false
             remember: false
             multiple: false
@@ -5093,14 +5109,17 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_address_administrative_area_op
+            operator_id: state_op
             label: State
             description: ''
             use_operator: true
             operator: field_address_administrative_area_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_address_administrative_area
+            operator_limit_selection: true
+            operator_list:
+              in: in
+              empty: empty
+              'not empty': 'not empty'
+            identifier: state
             required: false
             remember: false
             multiple: false
@@ -5147,19 +5166,22 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: string
-          operator: '='
+          operator: contains
           value: ''
           group: 1
           exposed: true
           expose:
-            operator_id: field_address_postal_code_op
+            operator_id: zip_op
             label: 'ZIP Code'
             description: ''
             use_operator: true
             operator: field_address_postal_code_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_address_postal_code
+            operator_limit_selection: true
+            operator_list:
+              contains: contains
+              empty: empty
+              'not empty': 'not empty'
+            identifier: zip
             required: false
             remember: false
             multiple: false
