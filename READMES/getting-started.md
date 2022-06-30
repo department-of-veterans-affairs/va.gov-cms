@@ -115,14 +115,12 @@ install the project using your native Terminal:
 
 You need a copy of the production database to get the full VA.gov CMS running.
 
-Use the provided scripts to download a database and files backup into the
+Use the provided ddev commands to download a database and files backup into the
 correct locations in your local development environment.
 
-- `./scripts/sync-db.sh`
-- `./scripts/sync-files.sh`
+- `ddev pull va `  or  `ddev pull va --skip-files`
 
-NOTE: These scripts download the SQL and files first, then attempts to use
-`ddev` commands to import them.
+NOTE: This command downloads and impoorts the db followed by any configuration import.
 
 If you are not using ddev, the scripts will
 fail, but the files will still be available. The `sync-db.sh` script downloads the
