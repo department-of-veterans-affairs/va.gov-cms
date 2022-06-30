@@ -176,17 +176,17 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Check to see if a supplied $entity is being archived.
+   * Check to see if a supplied node is being archived.
    *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   Entity.
+   * @param \Drupal\node\NodeInterface $node
+   *   Node.
    *
    * @return bool
-   *   Is this entity being archived?
+   *   Is this node being archived?
    */
-  protected function isBeingArchived(EntityInterface $entity): bool {
-    $currentState = $entity->get('moderation_state')->value;
-    $oldState = $entity->original->get('moderation_state')->value;
+  protected function isBeingArchived(NodeInterface $node): bool {
+    $currentState = $node->get('moderation_state')->value;
+    $oldState = $node->original->get('moderation_state')->value;
     if ($oldState === 'archived' || $currentState !== 'archived') {
       return FALSE;
     }
