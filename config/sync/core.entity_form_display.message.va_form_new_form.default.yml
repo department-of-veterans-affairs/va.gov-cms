@@ -13,13 +13,13 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 10
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
   field_target_entity:
     type: entity_reference_autocomplete
-    weight: 13
+    weight: 1
     region: content
     settings:
       match_operator: CONTAINS
@@ -29,7 +29,7 @@ content:
     third_party_settings: {  }
   field_target_node_title:
     type: string_textfield
-    weight: 12
+    weight: 0
     region: content
     settings:
       size: 60
@@ -37,7 +37,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 5
+    weight: 2
     region: content
     settings:
       match_operator: CONTAINS

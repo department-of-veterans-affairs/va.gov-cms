@@ -1,0 +1,30 @@
+uuid: f1d7d698-35d9-48b5-b96a-aabff6c3481c
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.message.slack
+    - field.field.message.va_form_changed_url.field_target_entity
+    - field.field.message.va_form_changed_url.field_target_node_title
+    - message.template.va_form_changed_url
+  module:
+    - layout_builder
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: message.va_form_changed_url.slack
+targetEntityType: message
+bundle: va_form_changed_url
+mode: slack
+content:
+  partial_0:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_target_entity: true
+  field_target_node_title: true
+  search_api_excerpt: true

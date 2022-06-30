@@ -1,0 +1,19 @@
+uuid: c2de3799-a2c4-4738-a280-800d1167259a
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.rich_text
+template: va_form_deleted
+label: 'VA Form: deleted'
+description: 'This message template is used to notify of a deleted form.'
+text:
+  -
+    value: "<p>:x: The [message:field_target_entity:entity:content-type] <a href=\"https://prod.cms.va.gov/node/[message:field_target_entity:entity:nid]\">[message:field_target_node_title]</a> has been flagged as deleted.<br />\r\n*Form name:* [message:field_target_entity:entity:field_va_form_name]<br />\r\n*Form title:* [message:field_target_entity:entity:field_va_form_title]<br />\r\n*Form ID:* [message:field_target_entity:entity:field_va_form_number]</p>"
+    format: rich_text
+settings:
+  'token options':
+    clear: false
+    'token replace': true
+  purge_override: false
+  purge_methods: {  }
