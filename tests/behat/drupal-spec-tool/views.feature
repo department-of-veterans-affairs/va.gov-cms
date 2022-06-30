@@ -148,6 +148,8 @@ Feature: Views
 | Detail page URL audit and bulk udpate | Master | default | Default |
 | Facility Services | Accordion audit | accordion_audit | Page |
 | Facility Services | Accordion audit export | accordion_audit_export | Data export |
+| Facility Services | Addresses | addresses | Page |
+| Facility Services | Addresses export | addresses_export | Data export |
 | Facility Services | Facilities | content_audit_facilities | Page |
 | Facility Services | Facilities export | content_audit_facilities_export | Data export |
 | Facility Services | Facility status | facility_status_page | Page |
