@@ -9,7 +9,7 @@ use GuzzleHttp\Client;
  * Builds and sends metrics to Datadog.
  */
 class Datadog {
-  const METRICS_INGEST_URL = "https://api.datadoghq.com/api/v1/series";
+  const METRICS_INGEST_URL = "https://api.ddog-gov.com/api/v1/series";
 
   /**
    * A Guzzle HTTP client.
