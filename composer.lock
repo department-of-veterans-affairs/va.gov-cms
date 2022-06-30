@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "37abcb5c96d14b20e1f0dc8a82d0f012",
+    "content-hash": "366eab04aabf80aec9403558df3bba30",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -238,16 +238,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.228.5",
+            "version": "3.229.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "8b6e626e02c42310c3ce8615acc7b2c992e48c97"
+                "reference": "5e01f0809682060dc5018bf5f267f40c32f4944d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/8b6e626e02c42310c3ce8615acc7b2c992e48c97",
-                "reference": "8b6e626e02c42310c3ce8615acc7b2c992e48c97",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/5e01f0809682060dc5018bf5f267f40c32f4944d",
+                "reference": "5e01f0809682060dc5018bf5f267f40c32f4944d",
                 "shasum": ""
             },
             "require": {
@@ -323,9 +323,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.228.5"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.229.0"
             },
-            "time": "2022-06-28T18:13:37+00:00"
+            "time": "2022-06-29T18:15:30+00:00"
         },
         {
             "name": "behat/behat",
@@ -3373,17 +3373,17 @@
         },
         {
             "name": "drupal/animated_gif",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/animated_gif.git",
-                "reference": "2.0.0"
+                "reference": "2.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/animated_gif-2.0.0.zip",
-                "reference": "2.0.0",
-                "shasum": "94043c07cdb31fb60e68d1c770182f215cb7bbc9"
+                "url": "https://ftp.drupal.org/files/projects/animated_gif-2.0.1.zip",
+                "reference": "2.0.1",
+                "shasum": "5eef1288db33e7cf1d081e9076aa19398feec689"
             },
             "require": {
                 "drupal/core": "^9.3 || ^10"
@@ -3391,8 +3391,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.0.0",
-                    "datestamp": "1642252482",
+                    "version": "2.0.1",
+                    "datestamp": "1656601927",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -6722,27 +6722,27 @@
         },
         {
             "name": "drupal/geofield_map",
-            "version": "2.75.0",
+            "version": "2.85.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/geofield_map.git",
-                "reference": "8.x-2.75"
+                "reference": "8.x-2.85"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/geofield_map-8.x-2.75.zip",
-                "reference": "8.x-2.75",
-                "shasum": "7bc92c60502b034063c08c66c20fbb877734a8cd"
+                "url": "https://ftp.drupal.org/files/projects/geofield_map-8.x-2.85.zip",
+                "reference": "8.x-2.85",
+                "shasum": "3e42c02d3c31e7e2d77ec12ec85a508340c64423"
             },
             "require": {
-                "drupal/core": "^8.8 || ^9",
+                "drupal/core": "^8.8 || ^9 || 10",
                 "drupal/geofield": "^1.31"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-2.75",
-                    "datestamp": "1649542782",
+                    "version": "8.x-2.85",
+                    "datestamp": "1656538556",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -10922,6 +10922,57 @@
             }
         },
         {
+            "name": "drupal/sitewide_alert",
+            "version": "2.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/sitewide_alert.git",
+                "reference": "2.0.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/sitewide_alert-2.0.2.zip",
+                "reference": "2.0.2",
+                "shasum": "3cf4c5f440660208155b6ea97b17993fe42aa8dc"
+            },
+            "require": {
+                "drupal/core": "^9.2 || ^10",
+                "php": ">=7.4"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.2",
+                    "datestamp": "1655433471",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Chris Snyder",
+                    "homepage": "https://www.drupal.org/user/1988434",
+                    "email": "chris@chrissnyder.org",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "Provides ability to display an alert message at the top of all pages.",
+            "homepage": "https://www.drupal.org/project/sitewide_alert",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "http://cgit.drupalcode.org/sitewide_alert",
+                "issues": "https://www.drupal.org/project/issues/sitewide_alert"
+            }
+        },
+        {
             "name": "drupal/slack",
             "version": "1.3.0",
             "source": {
@@ -12106,29 +12157,29 @@
         },
         {
             "name": "drupal/views_local_tasks",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/views_local_tasks.git",
-                "reference": "1.0.0"
+                "reference": "1.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/views_local_tasks-1.0.0.zip",
-                "reference": "1.0.0",
-                "shasum": "a3c4846241354c025b01c23f3c4491fa5e0a1f05"
+                "url": "https://ftp.drupal.org/files/projects/views_local_tasks-1.0.1.zip",
+                "reference": "1.0.1",
+                "shasum": "8f2c34e8131aa14e93a136a76759c96091bed179"
             },
             "require": {
-                "drupal/core": "^8 || ^9"
+                "drupal/core": "^8 || ^9 || ^10"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "1.0.0",
-                    "datestamp": "1619718643",
+                    "version": "1.0.1",
+                    "datestamp": "1656527511",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Project has not opted into security advisory coverage!"
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
