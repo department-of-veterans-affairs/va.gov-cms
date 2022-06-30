@@ -8,7 +8,7 @@ assignees: ContentBrewmaster
 
 ---
 
-The change represented by the [epic #] will [copy selection from epic].
+The change represented by the epic # will [copy selection from epic].
  
 1. Describe the change from the perspective of VA employees, in plain language. What is the employee going to experience with this change?
 
@@ -31,7 +31,9 @@ The change represented by the [epic #] will [copy selection from epic].
 
 4. How will success be defined for this change?
 
-5. How will success be measured for this change (audit, survey, other types of research, etc.)?
+5. How will success be measured for this change?
+- [ ] No help desk support is needed, as measured through help desk tickets
+- [ ] The content adheres to VA policies and standards for VA.gov, as measured through a dashboard tool and/or audit
 
 6. Does the change require new or updated:
 - [ ] Knowledge Base article(s)
