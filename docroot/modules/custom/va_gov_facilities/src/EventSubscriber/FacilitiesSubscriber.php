@@ -91,7 +91,7 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
    */
   public function entityUpdate(EntityUpdateEvent $event): void {
     $entity = $event->getEntity();
-    $this->archiveRelatedFacilityContent($entity);
+    $this->archiveRelatedHealthFacilityContent($entity);
   }
 
   /**
@@ -129,15 +129,10 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   Entity.
    */
-  protected function archiveRelatedFacilityContent(EntityInterface $entity): void {
+  protected function archiveRelatedHealthFacilityContent(EntityInterface $entity): void {
     if ($entity instanceof NodeInterface && $entity->bundle() === 'health_care_local_facility') {
       // When a facility is archived auto archive related services and events.
-      if (isset($entity->original) && ($entity->original instanceof NodeInterface)) {
-        $currentState = $entity->get('moderation_state')->value;
-        $oldState = $entity->original->get('moderation_state')->value;
-        if ($oldState === 'archived' || $currentState !== 'archived') {
-          return;
-        }
+      if (isset($entity->original) && ($entity->original instanceof NodeInterface) && $this->isBeingArchived($entity)) {
         $facilityID = $entity->id();
         $relatedTypes = [
           'event',
@@ -150,7 +145,7 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
         $query = $nodeStorage->getQuery();
         $query->condition('type', $relatedTypes, 'IN')
           ->condition('field_facility_location', $facilityID)
-          ->condition('moderation_state', 'published');
+          ->condition('moderation_state', 'archived', '!=');
         $nids = $query->execute();
 
         if (count($nids)) {
@@ -162,20 +157,7 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
           ];
           foreach ($nodes as $node) {
             if ($node instanceof NodeInterface) {
-              // Make this change a new revision.
-              $node->setNewRevision(TRUE);
-              // Set as archived and unpublished.
-              $node->set('moderation_state', 'archived');
-              $node->setUnpublished();
-              // Set revision author to current user.
-              $node->setRevisionUserId($this->currentUser->id());
-              $node->setChangedTime(time());
-              $node->isDefaultRevision(TRUE);
-              $node->setRevisionCreationTime(time());
-              // Set revision log message.
-              $node->setRevisionLogMessage('Automatically archived when parent facility was archived.');
-              $node->save();
-              // Increment updated count.
+              $this->archiveNode($node);
               $updated[$node->bundle()]++;
             }
           }
@@ -191,6 +173,42 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
 
       }
     }
+  }
+
+  /**
+   * Check to see if a supplied $entity is being archived.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   Entity.
+   *
+   * @return bool
+   *   Is this entity being archived?
+   */
+  protected function isBeingArchived(EntityInterface $entity): bool {
+    $currentState = $entity->get('moderation_state')->value;
+    $oldState = $entity->original->get('moderation_state')->value;
+    if ($oldState === 'archived' || $currentState !== 'archived') {
+      return FALSE;
+    }
+    return TRUE;
+  }
+
+  /**
+   * Archive a supplied node.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   Node.
+   */
+  protected function archiveNode(NodeInterface $node): void {
+    $node->setNewRevision(TRUE);
+    $node->set('moderation_state', 'archived');
+    $node->setUnpublished();
+    $node->setRevisionUserId($this->currentUser->id());
+    $node->setChangedTime(time());
+    $node->isDefaultRevision(TRUE);
+    $node->setRevisionCreationTime(time());
+    $node->setRevisionLogMessage('Automatically archived when parent facility was archived.');
+    $node->save();
   }
 
 }
