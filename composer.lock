@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "37abcb5c96d14b20e1f0dc8a82d0f012",
+    "content-hash": "366eab04aabf80aec9403558df3bba30",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -10919,6 +10919,57 @@
             "homepage": "https://www.drupal.org/project/site_alert",
             "support": {
                 "source": "https://git.drupalcode.org/project/site_alert"
+            }
+        },
+        {
+            "name": "drupal/sitewide_alert",
+            "version": "2.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/sitewide_alert.git",
+                "reference": "2.0.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/sitewide_alert-2.0.2.zip",
+                "reference": "2.0.2",
+                "shasum": "3cf4c5f440660208155b6ea97b17993fe42aa8dc"
+            },
+            "require": {
+                "drupal/core": "^9.2 || ^10",
+                "php": ">=7.4"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.2",
+                    "datestamp": "1655433471",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Chris Snyder",
+                    "homepage": "https://www.drupal.org/user/1988434",
+                    "email": "chris@chrissnyder.org",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "Provides ability to display an alert message at the top of all pages.",
+            "homepage": "https://www.drupal.org/project/sitewide_alert",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "http://cgit.drupalcode.org/sitewide_alert",
+                "issues": "https://www.drupal.org/project/issues/sitewide_alert"
             }
         },
         {

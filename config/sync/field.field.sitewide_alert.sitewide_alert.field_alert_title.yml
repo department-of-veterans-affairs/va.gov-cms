@@ -1,0 +1,25 @@
+uuid: d3ed5d80-bd3d-46ae-bfba-264f63eaa39f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.sitewide_alert.field_alert_title
+  module:
+    - epp
+    - sitewide_alert
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: sitewide_alert.sitewide_alert.field_alert_title
+field_name: field_alert_title
+entity_type: sitewide_alert
+bundle: sitewide_alert
+label: 'Alert Title'
+description: 'The visible title of the alert message.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
