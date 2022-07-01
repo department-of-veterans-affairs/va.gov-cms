@@ -28,6 +28,7 @@ assignees: ''
 - [ ] Becomes aware that the facility is no longer on the Facility API, via the "Facility closed" flag, and create github issue  (Future state: Flag autogenerates github issue)
 - [ ] Fill out the stakeholders in github issue.
 - [ ] If we don't already have context (say, via a HD ticket submitted by an editor), check with editor to find out more about the status of the facility
+- [ ] Find out if there are any services or events tied to the facility to be archived that should be moved to a new facility or otherwise preserved and updated
 
 <details><summary>Email template </summary>
 
@@ -61,21 +62,19 @@ If this facility has been removed from VAST in error, please notify our Support 
 </details>
 
 #### 2a. If facility has moved to a new system or merged
-- [ ] Can any of the associated content  (eg services, facility map?) be reused? If so
+- [ ] Can any of the associated content (eg services, facility map, future events?) be reused? If so
   - [ ] is there a new facility in VAST/Facility API that content should be moved to?
 - [ ] Create [redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E) to point to URL of new facility.
 - [ ] When redirect is ready to go out, plan to make these changes immediately after redirect is released. Practice first on staging or a demo environment.
   - [ ] In certain, rare situations: CMS engineer bulk moves any content to new facility.
   - [ ] CMS engineer finds the menu for the system https://prod.cms.va.gov/admin/structure/menu and deletes the menu item for the merged facility.
 
-#### 2b. If not
+#### 2b. If facility has NOT moved to a new system or merged
 - [ ] Determine where should redirect go? to the system? or to the nearest clinic?
 - [ ] Create [redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E) accordingly.
 - [ ] When redirect is ready to go out, plan to make these changes immediately after redirect is released. Practice first on staging or a demo environment.
-  - [ ] CMS engineer bulk archives the facility service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service).
-  - [ ] CMS engineer bulk archives the facility non-clinical service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=vha_facility_nonclinical_service).
-  - [ ] CMS engineer filters content by the health care system and scans for any events that might be taking place at that facility. Archive if any are found.
-  - [ ] CMS engineer edits the facility node, removes  flag `Removed from source`, add a revision log that explains the change, with a link to github issue, and change moderation state to archive.
+  - [ ] Are there any events tied to this facility that have yet to occur and if so should any of them be updated to a new location? If yes, update these events accordingly.
+  - [ ] CMS engineer edits the facility node, removes flag `Removed from source`, add a revision log that explains the change, with a link to github issue, and change moderation state to archive. (Note: any related health services, non-clinical services and events for the given facility will be archived automatically when these changes are saved.)
   - [ ] CMS engineer finds the menu for the system https://prod.cms.va.gov/admin/structure/menu and deletes the menu item for the closed facility.
 - [ ] Let HD know this is complete.
 
