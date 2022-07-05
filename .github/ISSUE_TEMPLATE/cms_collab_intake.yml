@@ -1,0 +1,83 @@
+name: Bug Report
+description: As a member of a VA team I can fill out a form to get information or begin a collaboration cycle with the CMS team.
+title: "[CMS COLLAB CYCLE INTAKE] (Team Name, Product Name, Feature Name)"
+labels: "⭐️ Sitewide CMS"
+assignees:
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please fill out the form below to submit a request for a CMS Collaboration Cycle kickoff.  
+  - type: checkboxes
+    id: type
+    attributes:
+      label: What type of request are you making?
+      options:
+        - label: Update to an existing CMS feature (including product iterations, updating DS components or page layouts and nav changes)
+        - label: New CMS feature (New content types, DS components, workflows or products)
+        - label: Content audit (either one time audits or resuable tools)
+        - label: Change Management review (for any visible changes to the CMS, workflow or content model)
+        - label: Other
+    validations:
+      required: true
+  - type: dropdown
+    id: team
+    attributes:
+      label: Please choose the team that is requesting the Collab Cycle kickoff.
+      multiple: false
+      options:
+        - CMS Program
+        - Platform CMS
+        - Facilities
+        - Public Websites
+        - Sitewide Content
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: start-date
+    attributes:
+      label: When did/will you start working on this product/feature? 
+    validations:
+      required: true
+  - type: input
+    id: end-date
+    attributes:
+      label: When will your feature need to launch? 
+    validations:
+      required: true
+  - type: dropdown
+    id: research
+    attributes:
+      label: Are you doing research with VA.gov users?
+      multiple: false
+      options:
+        - Yes
+        - No
+    validations:
+      required: true
+  - type: dropdown
+    id: research
+    attributes:
+      label:  Will your work involve changes to... ?
+      multiple: false
+      options:
+        - CMS design system
+        - CMS content model
+        - CMS features that span multiple products or work streams
+    validations:
+      required: true
+  - type: textarea
+    id: additional-information
+    attributes:
+      label: Additional Information
+      description: Please include any additional information or context that may be relevant to your request.
+  - type: checkboxes
+    id: terms
+    attributes:
+      label:  Notify the Sitewide CMS team of this ticket in the cms-support Slack channel. 
+      options:
+        - label: I acknowledge that I must notify `#cms-support` after submitting this issue.
+          required: true
+          
