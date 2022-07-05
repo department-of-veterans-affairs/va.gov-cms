@@ -52,7 +52,7 @@ body:
   - type: dropdown
     id: research
     attributes:
-      label: Are you doing research with VA.gov users?
+      label: Are you doing research with VA.gov users or editors?
       multiple: false
       options:
         - "Yes"
@@ -62,8 +62,8 @@ body:
   - type: dropdown
     id: cms-areas
     attributes:
-      label:  Will your work involve changes to... ?
-      multiple: false
+      label:  Will your work involve changes to...?
+      multiple: true
       options:
         - CMS design system
         - CMS content model
