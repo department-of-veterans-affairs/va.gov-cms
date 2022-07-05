@@ -1,0 +1,43 @@
+{#
+/**
+ * This template is used when viewing Sitewide Alert messages.
+ * Based on the template found in docroot/modules/contrib/sitewide_alert/templates/sitewide-alert.html.twig
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ * - attributes: HTML attributes for the container element. This should contain the `data-uuid` attribute needed for
+ *   the loading to work.
+ * - uuid: The UUID of the sitewide alert.
+ * - is_dismissible: True if this alert is dismissable, false otherwise.
+ * - style: The alert style.
+ * - style_class: A style class derived from the style.
+ * - sitewide_alert: The sitewide alert entity.
+ *
+ * @see template_preprocess_sitewide_alert()
+ *
+ * @ingroup themeable
+ */
+#}
+
+<div {{ attributes.addClass(classes) }}>
+  <div class="layout-container">
+      <span>
+        <i class="fas fa-warning"></i>
+      </span>
+    {% if title %}
+      <span>{{ title }}</span>
+    {% endif %}
+    {% if message %}
+      <span>{{ message }}</span>
+    {% endif %}
+    {% if content -%}
+      <span>{{- content -}}</span>
+    {%- endif %}
+    {% if is_dismissible -%}
+      {# The dismiss (close) button must have the class js-dismiss-button in order to work. #}
+      <button class="close js-dismiss-button" aria-label="{{ 'close'|t }}">
+        <span aria-hidden="true">×</span>
+      </button>
+    {%- endif %}
+  </div>
+</div>
