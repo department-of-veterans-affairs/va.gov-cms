@@ -19,24 +19,38 @@
  */
 #}
 
+{%
+  set classes = [
+    'va-site-alert',
+    'va-site-alert--' ~ style
+  ]
+%}
+
+{% set icon = 'warning' %}
+{% if style is same as('informational')  %}
+  {% set icon = 'circle-info' %}
+{% endif %}
+
 <div {{ attributes.addClass(classes) }}>
   <div class="layout-container">
-      <span>
-        <i class="fas fa-warning"></i>
+      <span class="va-site-alert__icon">
+        <i class="fas fa-lg fa-{{ icon }}"></i>
       </span>
-    {% if title %}
-      <span>{{ title }}</span>
-    {% endif %}
-    {% if message %}
-      <span>{{ message }}</span>
-    {% endif %}
-    {% if content -%}
-      <span>{{- content -}}</span>
-    {%- endif %}
+    <div class="va-site-alert__content">
+      {% if title %}
+        <h2>{{ title }}</h2>
+      {% endif %}
+      {% if message %}
+        <span>{{ message }}</span>
+      {% endif %}
+      {% if content -%}
+        <span>{{- content -}}</span>
+      {%- endif %}
+    </div>
     {% if is_dismissible -%}
       {# The dismiss (close) button must have the class js-dismiss-button in order to work. #}
-      <button class="close js-dismiss-button" aria-label="{{ 'close'|t }}">
-        <span aria-hidden="true">×</span>
+      <button class="va-site-alert__dismiss close js-dismiss-button" aria-label="{{ 'close'|t }}">
+        <span aria-hidden="true"><i class="fas fa-lg fa-plus"></i></span>
       </button>
     {%- endif %}
   </div>
