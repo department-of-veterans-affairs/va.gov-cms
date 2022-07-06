@@ -32,6 +32,7 @@ dependencies:
     - node.type.health_services_listing
     - node.type.landing_page
     - node.type.leadership_listing
+    - node.type.locations_listing
     - node.type.media_list_images
     - node.type.media_list_videos
     - node.type.nca_facility
@@ -42,6 +43,7 @@ dependencies:
     - node.type.person_profile
     - node.type.press_release
     - node.type.press_releases_listing
+    - node.type.promo_banner
     - node.type.publication_listing
     - node.type.q_a
     - node.type.regional_health_care_service_des
@@ -58,6 +60,7 @@ dependencies:
     - node.type.vba_facility
     - node.type.vet_center
     - node.type.vet_center_cap
+    - node.type.vet_center_facility_health_servi
     - node.type.vet_center_locations_list
     - node.type.vet_center_mobile_vet_center
     - node.type.vet_center_outstation
@@ -91,7 +94,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Content Audit - Rich Text Fields'
+      title: 'Content Audit - Phone Numbers'
       fields:
         title:
           id: title
@@ -4128,26 +4131,57 @@ display:
           plugin_id: bundle
           operator: in
           value:
+            all: all
             page: page
+            landing_page: landing_page
+            documentation_page: documentation_page
+            campaign_landing_page: campaign_landing_page
             centralized_content: centralized_content
+            checklist: checklist
             event: event
+            event_listing: event_listing
             faq_multiple_q_a: faq_multiple_q_a
             banner: banner
-            basic_landing_page: basic_landing_page
+            health_services_listing: health_services_listing
             media_list_images: media_list_images
-            media_list_videos: media_list_videos
+            basic_landing_page: basic_landing_page
+            leadership_listing: leadership_listing
+            nca_facility: nca_facility
             press_release: press_release
             press_releases_listing: press_releases_listing
+            office: office
+            promo_banner: promo_banner
+            outreach_asset: outreach_asset
+            publication_listing: publication_listing
+            q_a: q_a
             support_resources_detail_page: support_resources_detail_page
             person_profile: person_profile
             step_by_step: step_by_step
+            story_listing: story_listing
             news_story: news_story
+            support_service: support_service
+            va_form: va_form
             health_care_region_detail_page: health_care_region_detail_page
+            health_care_local_facility: health_care_local_facility
             health_care_local_health_service: health_care_local_health_service
+            vha_facility_nonclinical_service: vha_facility_nonclinical_service
             health_care_region_page: health_care_region_page
+            full_width_banner_alert: full_width_banner_alert
             vamc_system_billing_insurance: vamc_system_billing_insurance
             regional_health_care_service_des: regional_health_care_service_des
+            locations_listing: locations_listing
+            vamc_system_medical_records_offi: vamc_system_medical_records_offi
             vamc_operating_status_and_alerts: vamc_operating_status_and_alerts
+            vamc_system_policies_page: vamc_system_policies_page
+            vamc_system_register_for_care: vamc_system_register_for_care
+            vba_facility: vba_facility
+            vet_center: vet_center
+            vet_center_cap: vet_center_cap
+            vet_center_facility_health_servi: vet_center_facility_health_servi
+            vet_center_locations_list: vet_center_locations_list
+            vet_center_mobile_vet_center: vet_center_mobile_vet_center
+            vet_center_outstation: vet_center_outstation
+            media_list_videos: media_list_videos
           group: 1
           exposed: false
           expose:
@@ -4193,7 +4227,7 @@ display:
           exposed: true
           expose:
             operator_id: title_op
-            label: 'Facility title contains'
+            label: 'Title contains'
             description: ''
             use_operator: false
             operator: title_op
@@ -6831,6 +6865,20 @@ display:
         operator: AND
         groups:
           1: AND
+      style:
+        type: data_export
+        options:
+          formats:
+            csv: csv
+          csv_settings:
+            delimiter: ','
+            enclosure: '"'
+            escape_char: \
+            strip_tags: true
+            trim: true
+            encoding: utf8
+            utf8_bom: '0'
+            use_serializer_encode_only: false
       defaults:
         fields: false
         filters: false
