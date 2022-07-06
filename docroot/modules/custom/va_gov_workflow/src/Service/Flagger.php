@@ -134,6 +134,9 @@ class Flagger {
    *   The node being operated on.
    * @param string $log_message
    *   The message to append to the revision log.
+   *
+   * @return bool
+   *   TRUE if performed, FALSE otherwise.
    */
   public function flagNew($flag_id, NodeInterface $node, $log_message = '') {
     $first_save = (empty($node->original)) ? TRUE : FALSE;
@@ -142,7 +145,9 @@ class Flagger {
       // Just set the message. The flag will be set in entityCreate event.
       $this->setFlag($flag_id, $node);
       $this->updateRevisonLog($node->id(), $log_message);
+      return TRUE;
     }
+    return FALSE;
   }
 
   /**
@@ -157,12 +162,15 @@ class Flagger {
    *   The node being operated on.
    * @param string $log_message
    *   The message to append to the revision log.
+   *
+   * @return bool
+   *   TRUE if performed, FALSE otherwise.
    */
   public function flagFieldChanged($fieldname, $flag_id, NodeInterface $node, $log_message) {
     $original = $this->getPreviousRevision($node);
-    if (!$original || $node->isSyncing) {
+    if (!$original || $node->isSyncing()) {
       // There is nothing to compare, so bail out.
-      return;
+      return FALSE;
     }
     $new_value = (is_array($fieldname)) ? $node->get($fieldname[0])->{$fieldname[1]} : $node->get($fieldname)->value;
     $old_value = (is_array($fieldname)) ? $original->get($fieldname[0])->{$fieldname[1]} : $original->get($fieldname)->value;
@@ -174,7 +182,9 @@ class Flagger {
         '@new' => $new_value,
       ];
       $this->setFlag($flag_id, $node, $log_message, $vars);
+      return TRUE;
     }
+    return FALSE;
   }
 
   /**
