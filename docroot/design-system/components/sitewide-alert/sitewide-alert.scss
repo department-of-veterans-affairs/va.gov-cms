@@ -32,7 +32,7 @@
   transform: rotate(45deg);
 }
 
-.va-site-alert--informational {
+.va-site-alert--primary {
   border-top-color: var(--va-blue-bright-med);
 
   .fa-circle-info {
@@ -53,9 +53,14 @@
 .va-site-alert--shield {
   background-color: rgba(255, 241, 210, 0.9);   // va-gold-lightest 90%
   border-top-width: 16px;
-  height: 100vh;
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  z-index: 800;
 }

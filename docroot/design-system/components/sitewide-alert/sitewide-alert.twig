@@ -27,7 +27,7 @@
 %}
 
 {% set icon = 'warning' %}
-{% if style is same as('informational')  %}
+{% if style is same as('primary')  %}
   {% set icon = 'circle-info' %}
 {% endif %}
 
@@ -43,9 +43,9 @@
       {% if message %}
         <span>{{ message }}</span>
       {% endif %}
-      {% if content -%}
-        <span>{{- content -}}</span>
-      {%- endif %}
+{#      {% if content -%}#}
+{#        <span>{{- content -}}</span>#}
+{#      {%- endif %}#}
     </div>
     {% if is_dismissible -%}
       {# The dismiss (close) button must have the class js-dismiss-button in order to work. #}
