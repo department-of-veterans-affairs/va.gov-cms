@@ -68,7 +68,8 @@ class RouteProvider {
       ],
       // Requirements.
       [
-        '_permission' => 'handle content release notifications',
+        '_permission' => 'access bulletin queue trigger api',
+        '_user_is_logged_in' => 'TRUE',
       ],
       // Options.
       [
