@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.nca_facility.field_administration
     - field.field.node.nca_facility.field_facility_locator_api_id
+    - field.field.node.nca_facility.field_geolocation
     - field.field.node.nca_facility.field_operating_status_facility
     - field.field.node.nca_facility.field_operating_status_more_info
     - node.type.nca_facility
@@ -12,6 +13,7 @@ dependencies:
   module:
     - content_moderation
     - field_group
+    - geofield
     - textfield_counter
 third_party_settings:
   field_group:
@@ -19,6 +21,7 @@ third_party_settings:
       children:
         - title
         - field_facility_locator_api_id
+        - field_geolocation
       label: 'Facility API'
       region: content
       parent_name: ''
@@ -92,6 +95,13 @@ content:
     settings:
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  field_geolocation:
+    type: geofield_latlon
+    weight: 3
+    region: content
+    settings:
+      html5_geolocation: false
     third_party_settings: {  }
   field_operating_status_facility:
     type: options_select
