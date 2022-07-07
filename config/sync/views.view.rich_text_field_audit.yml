@@ -1443,18 +1443,15 @@ display:
           columns:
             title: title
             nid: nid
+            edit_node_1: edit_node_1
             type: type
             changed: changed
             moderation_state: moderation_state
             field_administration: field_administration
-            body: body
-            field_additional_information_abo: field_additional_information_abo
-            field_press_release_fulltext: field_press_release_fulltext
-            field_press_release_blurb: field_press_release_blurb
-            field_full_story: field_full_story
-            field_banner_alert_situationinfo: field_banner_alert_situationinfo
-            nothing: nothing
-            edit_node: edit_node
+            field_phone_number: field_phone_number
+            field_mental_health_phone: field_mental_health_phone
+            field_va_health_connect_phone: field_va_health_connect_phone
+            field_phone_numbers_paragraph: field_phone_numbers_paragraph
           default: '-1'
           info:
             title:
@@ -1466,6 +1463,13 @@ display:
               responsive: ''
             nid:
               sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            edit_node_1:
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
@@ -1499,56 +1503,28 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            body:
-              sortable: false
+            field_phone_number:
+              sortable: true
               default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: true
-              responsive: ''
-            field_additional_information_abo:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: true
-              responsive: ''
-            field_press_release_fulltext:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: true
-              responsive: ''
-            field_press_release_blurb:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: true
-              responsive: ''
-            field_full_story:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: true
-              responsive: ''
-            field_banner_alert_situationinfo:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: true
-              responsive: ''
-            nothing:
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            edit_node:
-              sortable: false
+            field_mental_health_phone:
+              sortable: true
               default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_va_health_connect_phone:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_phone_numbers_paragraph:
               align: ''
               separator: ''
               empty_column: false
@@ -3992,69 +3968,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_phone_numbers_paragraph:
-          id: field_phone_numbers_paragraph
-          table: node__field_phone_numbers_paragraph
-          field: field_phone_numbers_paragraph
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: 'Phone number for appointments'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_revisions_entity_view
-          settings:
-            view_mode: default
-          group_column: ''
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
         field_va_health_connect_phone:
           id: field_va_health_connect_phone
           table: node__field_va_health_connect_phone
@@ -4109,6 +4022,69 @@ display:
           settings:
             title: ''
           group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_phone_numbers_paragraph:
+          id: field_phone_numbers_paragraph
+          table: node__field_phone_numbers_paragraph
+          field: field_phone_numbers_paragraph
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Phone number for appointments'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_revisions_entity_view
+          settings:
+            view_mode: default
+          group_column: ''
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -4525,7 +4501,7 @@ display:
       path: admin/content/audit/phone-numbers
       menu:
         type: tab
-        title: 'Phone numbers'
+        title: 'Phone Numbers'
         description: ''
         weight: 0
         expanded: false
@@ -4533,7 +4509,7 @@ display:
         parent: ''
         context: '0'
         as_local_task: true
-        local_task_link_title: 'Phone numbers'
+        local_task_link_title: 'Phone Numbers'
         local_task_parent: 'views_view:view.content.content_audit_page'
         local_task_weight: 2
         local_task_custom_parent_route: ''
@@ -6893,8 +6869,14 @@ display:
         default: '0'
         content_audit_buttons: '0'
         content_audit_rich_text: '0'
+      filename: phone-numbers-export.csv
+      automatic_download: false
       export_method: batch
       export_batch_size: 1000
+      store_in_public_file_directory: null
+      custom_redirect_path: false
+      redirect_to_display: none
+      include_query_params: false
     cache_metadata:
       max-age: -1
       contexts:
