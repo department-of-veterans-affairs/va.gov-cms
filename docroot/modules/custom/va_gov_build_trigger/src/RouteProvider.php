@@ -74,7 +74,8 @@ class RouteProvider {
       // Options.
       [
         'no_cache' => TRUE,
-      ],
+        '_auth' => ['basic_auth', 'cookie'],
+      ]
     );
 
     $routes->add('va_gov_build_trigger.content_release_request_build', $route);
