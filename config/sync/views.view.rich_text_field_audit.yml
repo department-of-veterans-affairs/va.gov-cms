@@ -1579,9 +1579,9 @@ display:
         - 'config:workflow_list'
   buttons_export:
     id: buttons_export
-    display_title: 'Data export'
+    display_title: 'Data export - buttons'
     display_plugin: data_export
-    position: 1
+    position: 2
     display_options:
       title: 'Content Audit - Buttons'
       fields:
@@ -2441,7 +2441,9 @@ display:
           plugin_id: result
           empty: false
           content: "<p>Displaying @start - @end of @total</p>\r\n<p>This audit searches through all field_wysiwyg to find instances of 'usa-button' within the content which is used to create buttons. </p>"
-      display_extenders: {  }
+      display_extenders:
+        jsonapi_views:
+          enabled: true
       path: admin/content/audit/buttons/export
       displays:
         content_audit_buttons: content_audit_buttons
@@ -3414,7 +3416,7 @@ display:
     id: content_audit_phone_numbers
     display_title: 'Content Audit - Phone numbers'
     display_plugin: page
-    position: 5
+    position: 3
     display_options:
       fields:
         title:
@@ -4468,7 +4470,7 @@ display:
     id: content_audit_rich_text
     display_title: 'Content Audit - Rich Text Fields'
     display_plugin: page
-    position: 1
+    position: 5
     display_options:
       fields:
         title:
@@ -5730,9 +5732,9 @@ display:
         - 'config:workflow_list'
   phone_numbers_export:
     id: phone_numbers_export
-    display_title: 'Data export'
+    display_title: 'Data export - Phone numbers'
     display_plugin: data_export
-    position: 5
+    position: 4
     display_options:
       fields:
         title:
@@ -6797,10 +6799,11 @@ display:
         - 'config:workflow_list'
   rich_text_audit_data_export:
     id: rich_text_audit_data_export
-    display_title: 'Data export'
+    display_title: 'Data export - Rich Text'
     display_plugin: data_export
-    position: 3
+    position: 6
     display_options:
+      title: 'Content Audit - Rich Text'
       fields:
         title:
           id: title
@@ -7602,8 +7605,12 @@ display:
               alias: ''
               raw_output: true
       defaults:
+        title: false
         fields: false
-      display_extenders: {  }
+      display_description: ''
+      display_extenders:
+        jsonapi_views:
+          enabled: true
       path: admin/content/audit/rich-text-field-audit.csv
       displays:
         content_audit_rich_text: content_audit_rich_text
