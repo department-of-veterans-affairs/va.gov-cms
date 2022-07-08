@@ -241,7 +241,7 @@ Feature: Views
 | Rich Text Field Audit | Content Audit - Rich Text Fields | content_audit_rich_text | Page |
 | Rich Text Field Audit | Data export - buttons | buttons_export | Data export |
 | Rich Text Field Audit | Data export - Rich Text | rich_text_audit_data_export | Data export |
-| Rich Text Field Audit | Data export- Phone numbers | phone_numbers_export | Data export |
+| Rich Text Field Audit | Data export - Phone numbers | phone_numbers_export | Data export |
 | Rich Text Field Audit | Default | default | Default |
 | Right sidebar latest revision | All revisions | block_1 | Block |
 | Right sidebar latest revision | Latest revision | attachment_1 | Attachment |
