@@ -10,9 +10,9 @@
 use Psr\Log\LogLevel;
 
 $sandbox = ['#finished' => 0];
-// do {
+do {
   print(va_gov_change_crisis_hotline_to_988_nodes($sandbox));
-// } while ($sandbox['#finished'] < 1);
+} while ($sandbox['#finished'] < 1);
 // Node processing complete.  Call this done.
 return;
 
@@ -34,13 +34,12 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox) {
     // Hours field is attached to service_locations in all places,
     // save for facilities.
     // Facilities db search returned 0 results for timezones in comments.
+
     $paragraph_query = Drupal::database()->select('node__field_operating_status_emerg_inf', 'patient_resources');
-    // $paragraph_query->join('node__field_service_location', 'nfsl', 'pfoh.entity_id = nfsl.field_service_location_target_id');
+    $paragraph_query->join('node__field_facility_operating_status', 'nffos', 'patient_resources.entity_id = nffos.entity_id');
     $paragraph_query->fields('patient_resources', ['entity_id']);
     $paragraph_query->groupBy('entity_id');
     $paragraph_query->condition('patient_resources.field_operating_status_emerg_inf_value', '800\-273\-8255', 'REGEXP');
-
-    // $paragraph_query->condition('patient_resources.field_operating_status_emerg_inf_value', '^800\-273\-8255', 'REGEXP');
     $nids_to_update = $paragraph_query->execute()->fetchCol();
     $result_count = count($nids_to_update);
     print($result_count);
@@ -51,28 +50,33 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox) {
       array_map('_va_gov_stringifynid', array_values($nids_to_update)),
       array_values($nids_to_update));
   }
-}
+
 
 //   // Do not continue if no nodes are found.
-//   if (empty($sandbox['total'])) {
-//     $sandbox['#finished'] = 1;
-//     return "No nodes found for processing.\n";
-//   }
+  if (empty($sandbox['total'])) {
+    $sandbox['#finished'] = 1;
+    return "No nodes found for processing.\n";
+  }
 
-//   $limit = 25;
+  $limit = 25;
 
 //   // Load entities.
-//   $node_ids = array_slice($sandbox['nids_to_update'], 0, $limit, TRUE);
-//   $nodes = $node_storage->loadMultiple($node_ids);
-//   foreach ($nodes as $node) {
+  $node_ids = array_slice($sandbox['nids_to_update'], 0, $limit, TRUE);
+  $nodes = $node_storage->loadMultiple($node_ids);
+  foreach ($nodes as $node) {
 //     // Make this change a new revision.
 //     /** @var \Drupal\node\NodeInterface $node */
 //     $node->setNewRevision(TRUE);
 
 //     // Wipe out comments that have timezones.
-//     foreach ($node->field_service_location->entity->field_office_hours as $key => $comment_field) {
-//       $comment_field->comment = preg_replace("/^[ecmp]s?t$|[^a-z0-9][ecmp]s?t[^a-z0-9]/i", "", $comment_field->comment);
-//     }
+$tem = $node->field_operating_status_emerg_inf;
+$tem->field_operating_status_emerg_inf_value = preg_replace("/800\-273\-8255/i", "988", $tem->field_operating_status_emerg_inf_value);
+
+    // foreach ($node as $key => $resources) {
+    //   // print_r($resources);
+
+    //   $resources->field_operating_status_emerg_inf_value = preg_replace("/800\-273\-8255/i", "988", $resources->field_operating_status_emerg_inf_value);
+    // }
 
 //     // Set revision author to uid 1317 (CMS Migrator user).
 //     $node->setRevisionUserId(1317);
@@ -82,10 +86,10 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox) {
 //     $node->setSyncing(TRUE);
 //     $node->save();
 
-//     unset($sandbox['nids_to_update']["node_{$node->id()}"]);
-//     $nids[] = $node->id();
-//     $sandbox['current'] = $sandbox['total'] - count($sandbox['nids_to_update']);
-//   }
+    unset($sandbox['nids_to_update']["node_{$node->id()}"]);
+    $nids[] = $node->id();
+    $sandbox['current'] = $sandbox['total'] - count($sandbox['nids_to_update']);
+  }
 
 //   // Log the processed nodes.
 //   Drupal::logger('va_gov_db')
@@ -94,7 +98,7 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox) {
 //       '%nids' => implode(', ', $nids),
 //     ]);
 
-//   $sandbox['#finished'] = ($sandbox['current'] / $sandbox['total']);
+  $sandbox['#finished'] = ($sandbox['current'] / $sandbox['total']);
 
 //   // Log the all-finished notice.
 //   if ($sandbox['#finished'] == 1) {
@@ -105,7 +109,7 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox) {
 //   }
 
 //   return "Processed nodes... {$sandbox['current']} / {$sandbox['total']}.\n";
-// }
+  }
 
 /**
  * Callback function to concat node ids with string.
