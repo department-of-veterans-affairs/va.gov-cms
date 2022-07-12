@@ -27,7 +27,7 @@ export const Informational = {
       '<br>' +
       '<strong>End:</strong> Around 15 minutes later',
     is_dismissible: true,
-    style: 'primary'
+    style: 'info'
   },
   ...shared
 };
