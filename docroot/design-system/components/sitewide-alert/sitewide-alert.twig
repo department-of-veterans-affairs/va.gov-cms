@@ -33,9 +33,11 @@
 
 <div {{ attributes.addClass(classes) }}>
   <div class="layout-container">
-      <span class="va-site-alert__icon">
-        <i class="fas fa-xl fa-{{ icon }}"></i>
-      </span>
+
+    <span class="va-site-alert__icon">
+      <i class="fas fa-xl fa-{{ icon }}"></i>
+    </span>
+
     <div class="va-site-alert__content">
       {% if title %}
         <h2>{{ title }}</h2>
@@ -43,14 +45,12 @@
       {% if message %}
         <span>{{ message }}</span>
       {% endif %}
-{#      {% if content -%}#}
-{#        <span>{{- content -}}</span>#}
-{#      {%- endif %}#}
     </div>
+
     {% if is_dismissible -%}
       {# The dismiss (close) button must have the class js-dismiss-button in order to work. #}
       <button class="va-site-alert__dismiss close js-dismiss-button" aria-label="{{ 'close'|t }}">
-        <span aria-hidden="true"><i class="fas fa-lg fa-plus"></i></span>
+        <span aria-hidden="true"><i class="fas fa-plus"></i></span>
       </button>
     {%- endif %}
   </div>

@@ -1,5 +1,5 @@
 .va-site-alert {
-  padding: 32px 50px;
+  padding: 32px 0;
   background-color: var(--va-gray-cool-lightest);
   color: var(--color-black);
   border-top: 8px solid var(--va-gray-dark);
@@ -26,27 +26,25 @@
 
 .va-site-alert__dismiss {
   align-self: start;
-  border: 2px solid black;
+  border: 2px solid var(--color-text);
   border-radius: 50%;
-  padding: .25rem .35rem;
+  height: 24px;
+  width: 24px;
+  padding: 0;
   transform: rotate(45deg);
 }
 
 .va-site-alert--primary {
   border-top-color: var(--va-blue-bright-med);
-
-  .fa-circle-info {
-    color: var(--va-blue-bright-med-dark);
-  }
 }
 
 .va-site-alert--warning,
 .va-site-alert--shield {
   border-top-color: var(--va-gold-med);
+}
 
-  .fa-triangle-exclamation {
-    color: var(--va-gold-med);
-  }
+.va-site-alert .svg-inline--fa {
+  color: var(--color-text);
 }
 
 // full screen
