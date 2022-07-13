@@ -9,9 +9,14 @@
 
 use Psr\Log\LogLevel;
 
+$ops_status_total_pattern = "\<a.*\>800[\-\.]273[\-\.]8255\<\/a\>";
+$ops_status_pattern = "/\<a.*\>800[\-\.]273[\-\.]8255\<\/a\>/i";
+$replacement_string = '<a aria-label="9 8 8" href="tel:988">988</a>';
+
+
 $sandbox = ['#finished' => 0];
 do {
-  print(va_gov_change_crisis_hotline_to_988_nodes($sandbox));
+  print(va_gov_change_crisis_hotline_to_988_nodes($sandbox, $ops_status_total_pattern, $ops_status_pattern, $replacement_string));
 } while ($sandbox['#finished'] < 1);
 // Node processing complete.  Call this done.
 return;
@@ -25,7 +30,8 @@ return;
  * @return string
  *   Status message.
  */
-function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox) {
+function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox, $pattern_string, $pattern_regex, $replacement_string)
+{
   $node_storage = \Drupal::entityTypeManager()->getStorage('node');
 
   // Get the node count for nodes with timezones in hours comments.
@@ -39,7 +45,9 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox) {
     $paragraph_query->join('node__field_facility_operating_status', 'nffos', 'patient_resources.entity_id = nffos.entity_id');
     $paragraph_query->fields('patient_resources', ['entity_id']);
     $paragraph_query->groupBy('entity_id');
-    $paragraph_query->condition('patient_resources.field_operating_status_emerg_inf_value', '800\-273\-8255', 'REGEXP');
+    $paragraph_query->condition('patient_resources.field_operating_status_emerg_inf_value', $pattern_string, 'REGEXP');
+
+    // $paragraph_query->condition('patient_resources.field_operating_status_emerg_inf_value', "\<a.*\>800[\-\.]273[\-\.]8255\<\/a\>", 'REGEXP');
     $nids_to_update = $paragraph_query->execute()->fetchCol();
     $result_count = count($nids_to_update);
     print($result_count);
@@ -48,11 +56,12 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox) {
     // Create non-numeric keys to accurately remove each nid when processed.
     $sandbox['nids_to_update'] = array_combine(
       array_map('_va_gov_stringifynid', array_values($nids_to_update)),
-      array_values($nids_to_update));
+      array_values($nids_to_update)
+    );
   }
 
 
-//   // Do not continue if no nodes are found.
+  //   // Do not continue if no nodes are found.
   if (empty($sandbox['total'])) {
     $sandbox['#finished'] = 1;
     return "No nodes found for processing.\n";
@@ -60,56 +69,58 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox) {
 
   $limit = 25;
 
-//   // Load entities.
+  //   // Load entities.
   $node_ids = array_slice($sandbox['nids_to_update'], 0, $limit, TRUE);
   $nodes = $node_storage->loadMultiple($node_ids);
   foreach ($nodes as $node) {
-//     // Make this change a new revision.
-//     /** @var \Drupal\node\NodeInterface $node */
-//     $node->setNewRevision(TRUE);
+      // Make this change a new revision.
+      /** @var \Drupal\node\NodeInterface $node */
+      $node->setNewRevision(TRUE);
 
-//     // Wipe out comments that have timezones.
-$tem = $node->field_operating_status_emerg_inf;
-$tem->field_operating_status_emerg_inf_value = preg_replace("/800\-273\-8255/i", "988", $tem->field_operating_status_emerg_inf_value);
+      // Wipe out comments that have timezones.
+      $old_value = $node->get('field_operating_status_emerg_inf')->value;
+      // print_r($old_value);
+      $new_value = preg_replace($pattern_regex, $replacement_string, $old_value, 1);
+      // print_r($new_value);
+      $node->field_operating_status_emerg_inf->setValue(
+        [
+          'value' => $new_value
+        ]
+      );
 
-    // foreach ($node as $key => $resources) {
-    //   // print_r($resources);
+      //     // Set revision author to uid 1317 (CMS Migrator user).
+      $node->setRevisionUserId(1317);
+      $node->setChangedTime(time());
+      $node->setRevisionCreationTime(time());
+      $node->setRevisionLogMessage('Updated Crisis number from 800-237-8255 to 988');
+      $node->setSyncing(TRUE);
+      $node->save();
 
-    //   $resources->field_operating_status_emerg_inf_value = preg_replace("/800\-273\-8255/i", "988", $resources->field_operating_status_emerg_inf_value);
-    // }
+      unset($sandbox['nids_to_update']["node_{$node->id()}"]);
+      $nids[] = $node->id();
+      $sandbox['current'] = $sandbox['total'] - count($sandbox['nids_to_update']);
 
-//     // Set revision author to uid 1317 (CMS Migrator user).
-//     $node->setRevisionUserId(1317);
-//     $node->setChangedTime(time());
-//     $node->setRevisionCreationTime(time());
-//     $node->setRevisionLogMessage('Saved to remove timezone from hours comments.');
-//     $node->setSyncing(TRUE);
-//     $node->save();
-
-    unset($sandbox['nids_to_update']["node_{$node->id()}"]);
-    $nids[] = $node->id();
-    $sandbox['current'] = $sandbox['total'] - count($sandbox['nids_to_update']);
   }
 
-//   // Log the processed nodes.
-//   Drupal::logger('va_gov_db')
-//     ->log(LogLevel::INFO, 'Nodes: %current nodes hours comments updated. Nodes processed: %nids', [
-//       '%current' => $sandbox['current'],
-//       '%nids' => implode(', ', $nids),
-//     ]);
+  //   // Log the processed nodes.
+  Drupal::logger('va_gov_db')
+    ->log(LogLevel::INFO, 'Nodes: %current nodes phone numbers updated. Nodes processed: %nids', [
+      '%current' => $sandbox['current'],
+      '%nids' => implode(', ', $nids),
+    ]);
 
   $sandbox['#finished'] = ($sandbox['current'] / $sandbox['total']);
 
-//   // Log the all-finished notice.
-//   if ($sandbox['#finished'] == 1) {
-//     Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'RE-saving all %count nodes completed by va_gov_force_save_remove_timezones_in_comments', [
-//       '%count' => $sandbox['total'],
-//     ]);
-//     return "Node updates complete. {$sandbox['current']} / {$sandbox['total']}\n";
-//   }
-
-//   return "Processed nodes... {$sandbox['current']} / {$sandbox['total']}.\n";
+  //   // Log the all-finished notice.
+  if ($sandbox['#finished'] == 1) {
+    Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'RE-saving all %count nodes completed by change-crisis-to-988', [
+      '%count' => $sandbox['total'],
+    ]);
+    return "Node updates complete. {$sandbox['current']} / {$sandbox['total']}\n";
   }
+
+  return "Processed nodes... {$sandbox['current']} / {$sandbox['total']}.\n";
+}
 
 /**
  * Callback function to concat node ids with string.
@@ -120,6 +131,7 @@ $tem->field_operating_status_emerg_inf_value = preg_replace("/800\-273\-8255/i",
  * @return string
  *   The node id concatenated to the end of node_
  */
-function _va_gov_stringifynid($nid) {
+function _va_gov_stringifynid($nid)
+{
   return "node_$nid";
 }
