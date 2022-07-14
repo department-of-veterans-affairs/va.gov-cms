@@ -37,14 +37,14 @@ class BannerAlerts extends EntityResourceBase implements ContainerInjectionInter
   /**
    * The path matcher service.
    *
-   * @var Drupal\Core\Path\PathMatcherInterface
+   * @var \Drupal\Core\Path\PathMatcherInterface
    */
   protected $pathMatcher;
 
   /**
    * The path validator service.
    *
-   * @var Drupal\Core\Path\PathValidatorInterface
+   * @var \Drupal\Core\Path\PathValidatorInterface
    */
   protected $pathValidator;
 
@@ -90,6 +90,7 @@ class BannerAlerts extends EntityResourceBase implements ContainerInjectionInter
 
     // Make the resource parameter available to other methods.
     if (!is_null($resource_tag)) {
+      // @phpstan-ignore-next-line
       $this->addRouteParameter('resource_tag', $resource_tag);
     }
 
@@ -118,6 +119,7 @@ class BannerAlerts extends EntityResourceBase implements ContainerInjectionInter
    */
   protected function buildResponse($request) {
     $resource_object_data = new ResourceObjectData($this->resourceObjects);
+    /** @var \Drupal\Core\Cache\CacheableResponseInterface $response */
     $response = $this->createJsonapiResponse($resource_object_data, $request);
 
     foreach ($this->cacheableDependencies as $cacheable_dependency) {
@@ -146,6 +148,7 @@ class BannerAlerts extends EntityResourceBase implements ContainerInjectionInter
       ->condition('type', 'banner')
       ->condition('status', TRUE)
       ->execute();
+    /** @var \Drupal\node\NodeInterface[] $banners */
     $banners = $node_storage->loadMultiple(array_values($banner_nids) ?? []);
 
     // Filter the banner list to just the ones that should be displayed for the
