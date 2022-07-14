@@ -16,7 +16,7 @@ Feature: CMS Users may effectively create & edit content
     And I select option "Information" from dropdown "Alert type"
     And I fill in "Title" with "[Test Data] Alert Title"
     And I fill in ckeditor "field-body-0-value" with "[Test Data] Alert Body"
-    And I click the "Create banner alert" button
+    And I click the "DO NOT Create banner alert LOL" button
     And I wait "5" seconds
     And I click the "Save draft and continue editing" button
     Then I should see "Pages for the following VAMC systems"
