@@ -198,10 +198,11 @@ class BannerAlerts extends EntityResourceBase implements ContainerInjectionInter
     // Load the system that we found.
     $node_storage = $this->entityTypeManager->getStorage('node');
     $system_nid = $url->getRouteParameters()['node'];
+    /** @var \Drupal\node\NodeInterface $system_node */
     $system_node = $node_storage->load($system_nid);
 
     // If it's not a published VAMC system node, bail early.
-    if (is_null($system_node) || $system_node->type != 'health_care_region_page' || $system_node->status === FALSE) {
+    if (is_null($system_node) || $system_node->getType() != 'health_care_region_page' || $system_node->isPublished() === FALSE) {
       return;
     }
 
