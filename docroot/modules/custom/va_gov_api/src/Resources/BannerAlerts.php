@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\PageCache\ResponsePolicy\KillSwitch;
 use Drupal\Core\Path\PathMatcherInterface;
 use Drupal\Core\Path\PathValidatorInterface;
 use Drupal\jsonapi\JsonApiResource\ResourceObject;
@@ -49,16 +50,26 @@ class BannerAlerts extends EntityResourceBase implements ContainerInjectionInter
   protected $pathValidator;
 
   /**
+   * The page cache kill switch service.
+   *
+   * @var \Drupal\Core\PageCache\ResponsePolicy\KillSwitch
+   */
+  protected $pageCacheKillSwitch;
+
+  /**
    * The BannerAlerts resource constructor.
    *
    * @param \Drupal\Core\Path\PathMatcherInterface $path_matcher
    *   The path matcher service.
    * @param \Drupal\Core\Path\PathValidatorInterface $path_validator
    *   The path validator service.
+   * @param \Drupal\Core\PageCache\ResponsePolicy\KillSwitch $page_cache_kill_switch
+   *   The page cache kill switch.
    */
-  public function __construct(PathMatcherInterface $path_matcher, PathValidatorInterface $path_validator) {
+  public function __construct(PathMatcherInterface $path_matcher, PathValidatorInterface $path_validator, KillSwitch $page_cache_kill_switch) {
     $this->pathMatcher = $path_matcher;
     $this->pathValidator = $path_validator;
+    $this->pageCacheKillSwitch = $page_cache_kill_switch;
   }
 
   /**
@@ -68,6 +79,7 @@ class BannerAlerts extends EntityResourceBase implements ContainerInjectionInter
     return new static(
       $container->get('path.matcher'),
       $container->get('path.validator'),
+      $container->get('page_cache_kill_switch')
     );
   }
 
@@ -119,11 +131,20 @@ class BannerAlerts extends EntityResourceBase implements ContainerInjectionInter
    */
   protected function buildResponse($request) {
     $resource_object_data = new ResourceObjectData($this->resourceObjects);
+
     /** @var \Drupal\Core\Cache\CacheableResponseInterface $response */
     $response = $this->createJsonapiResponse($resource_object_data, $request);
 
     foreach ($this->cacheableDependencies as $cacheable_dependency) {
       $response->addCacheableDependency($cacheable_dependency);
+    }
+
+    // If it's an empty response, then we shouldn't cache it at all -- we don't
+    // have a good way of invalidating the cache of an empty result (since the
+    // cache invlidation is based on the nodes that are actually included in the
+    // response).
+    if (empty($this->resourceObjects) || empty($this->cacheableDependencies)) {
+      $this->pageCacheKillSwitch->trigger();
     }
 
     return $response;
