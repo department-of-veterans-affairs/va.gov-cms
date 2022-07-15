@@ -13,7 +13,7 @@ Feature: Text fields are validated
     And I fill in ckeditor "field-content-block-0" with '<a href="https://staging.cms.va.gov/">test</a>'
     And I save the node
     Then I should see "1 error has been found: Text"
-    And I should see '"test" uses a URL ( https://staging.cms.va.gov/ ) that's only available on the VA network. Update the link to a valid public-facing page.'
+    And I should see "\"test\" uses a URL ( https://staging.cms.va.gov/ ) that's only available on the VA network. Update the link to a valid public-facing page."
 
   Scenario: Long plain text fields are checked for any absolute links to the CMS.
     Given I am logged in as a user with the "content_admin" role
