@@ -162,6 +162,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System | VA Health Connect phone number | field_va_health_connect_phone | Telephone number |  | 1 | Telephone number |  |
 | Content type | VAMC System | Electronic health records system | field_vamc_ehr_system | List (text) |  | 1 | Select list |  |
 | Content type | VAMC System | VAMC system official name | field_vamc_system_official_name | Text (plain) |  | 1 | Textfield |  |
+| Content type | VAMC System | System Menu | field_system_menu | Entity reference |  | 1 | Select list |  | 
 | Content type | VAMC System Banner Alert with Situation Updates | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC System Banner Alert with Situation Updates | Alert dismissable? | field_alert_dismissable | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | VAMC System Banner Alert with Situation Updates | Display "Subscribe to email updates" link? | field_alert_email_updates_button | Boolean |  | 1 | Single on/off checkbox |  |
@@ -241,3 +242,4 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System Register for Care | Non-clinical Services | field_non_clinical_services | Viewfield |  | 1 | Viewfield |  |
 | Content type | VAMC System Register for Care | VAMC System | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC System Register for Care | Service | field_service_name_and_descripti | Entity reference |  | 1 | -- Disabled -- | Translatable |
+ 
