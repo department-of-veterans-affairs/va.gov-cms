@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Replace 800-273-8255 with 988
+ * Replace 800-273-8255 with 988 for VAMC detail
  *
  * VACMS-8935-scrub-tz-in-hours-field-comment.php.
  */
@@ -11,7 +11,7 @@ use Psr\Log\LogLevel;
 
 $ops_status_total_pattern = "(\<a.*\>)?(1[\-\.])?800[\-\.]273[\-\.]8255(\<\/a\>)?";
 $ops_status_pattern = "/(\<a.*\>)?(1[\-\.])?800[\-\.]273[\-\.]8255(\<\/a\>)?/i";
-$replacement_string = '<a aria-label="9 8 8" href="tel:988">988</a>';
+$replacement_string = '988';
 
 
 $sandbox = ['#finished' => 0];
@@ -41,28 +41,27 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox, $pattern_str
     // save for facilities.
     // Facilities db search returned 0 results for timezones in comments.
 
+    // TODO: Fix this query to get all the field descriptions with the old phone
     // $paragraph_query = Drupal::database()->select('node__field_content_block', 'nfcb');
     $paragraph_query = Drupal::database()->select('paragraph__field_wysiwyg', 'wysiwyg');
     $paragraph_query->join('node__field_content_block', 'nfcb', 'wysiwyg.entity_id = nfcb.field_content_block_target_id');
 
     // and node_field_data.nid = nfcb.entity_id and node_field_data.type like "%health_care_region_detail_page%"
-    $paragraph_query->fields('nfcb', ['entity_id','field_content_block_target_id']);
+    $paragraph_query->fields('nfcb', ['entity_id']);
     $paragraph_query->groupBy('entity_id');
-    // $paragraph_query->condition('where nfcb.bundle like "%health_care_region_detail_page%"');
-    // $paragraph_query->condition('field_wysiwyg_value REGEXP "(\<a .*\>)?(1[\-\.])?800[\-\.]273[\-\.]8255(\<\/a\>)?"');
-
     $paragraph_query->condition('wysiwyg.field_wysiwyg_value', $pattern_string, 'REGEXP');
 
-
-
     // $paragraph_query->condition('patient_resources.field_operating_status_emerg_inf_value', "\<a.*\>800[\-\.]273[\-\.]8255\<\/a\>", 'REGEXP');
-    $nids_to_update = $paragraph_query->execute()->fetchAllKeyed();
+    $nids_to_update = $paragraph_query->execute()->fetchCol();
     $result_count = count($nids_to_update);
     print($result_count);
     $sandbox['total'] = $result_count;
     $sandbox['current'] = 0;
     // Create non-numeric keys to accurately remove each nid when processed.
-    $sandbox['nids_to_update'] = $nids_to_update;
+    $sandbox['nids_to_update'] = array_combine(
+      array_map('_va_gov_stringifynid', array_values($nids_to_update)),
+      array_values($nids_to_update)
+    );
   }
 
 
@@ -75,56 +74,29 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox, $pattern_str
   $limit = 25;
 
   //   // Load entities.
-  $node_ids = array_keys($sandbox['nids_to_update']);
-
-
+  $node_ids = array_slice($sandbox['nids_to_update'], 0, $limit, TRUE);
   $nodes = $node_storage->loadMultiple($node_ids);
   foreach ($nodes as $node) {
-    $nid = $node->nid->getValue();
-    $target_id = $sandbox['nids_to_update'][$nid[0]['value']];
       // Make this change a new revision.
       /** @var \Drupal\node\NodeInterface $node */
       $node->setNewRevision(TRUE);
 
       // Wipe out comments that have timezones.
+      $old_value = $node->field_description->value;
+
       /*
-      $field_value = $node->get($field_name);
+$field_value = $node->get($field_name);
     $field_items = $field_value->getValue();
     $referenced_entities = $field_value->referencedEntities();
       */
-      $field_value = $node->get('field_content_block');
-      $field_items = $field_value->getValue();
-      $referenced_entities = $field_value->referencedEntities();
-      $database=\Drupal::database();
-      // foreach ($field_items as $key => $field_item) {
-        // if ($referenced_entities->getValue(id) === $field_item['target_id']) {           // &&  $field_item['target_id'] === $target_id
-        //     print("yes");
-        //   }
-
-      //  }
-      foreach ($referenced_entities as $ref) {
-        $refid = $ref->id->getValue()[0]['value'];
-        // print_r($ref->id->getValue()[0]['value']);
-        if ($ref->id->getValue()[0]['value'] == $target_id) {
-          print($target_id);
-          $old_value = $ref->field_wysiwyg->value;
-          $new_value = preg_replace($pattern_regex, $replacement_string, $old_value, 1);
-          $para_to_update = $referenced_entities['target_id'] =
-
       // print_r($old_value);
+      $new_value = preg_replace($pattern_regex, $replacement_string, $old_value, 1);
       // print_r($new_value);
-      $ref->field_wysiwyg->setValue(
+      $node->field_description->setValue(
         [
           'value' => $new_value,
-          'format' => 'rich_text',
         ]
-
-        );
-      }
-
-
-
-    }
+      );
 
       //     // Set revision author to uid 1317 (CMS Migrator user).
       $node->setRevisionUserId(1317);
@@ -134,7 +106,7 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox, $pattern_str
       $node->setSyncing(TRUE);
       $node->save();
 
-      unset($sandbox['nids_to_update']["{$node->id()}"]);
+      unset($sandbox['nids_to_update']["node_{$node->id()}"]);
       $nids[] = $node->id();
       $sandbox['current'] = $sandbox['total'] - count($sandbox['nids_to_update']);
 
