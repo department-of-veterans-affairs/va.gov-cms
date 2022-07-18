@@ -4,7 +4,7 @@
  * @file
  * Replace 800-273-8255 with 988 for VAMC detail
  *
- * VACMS-8935-scrub-tz-in-hours-field-comment.php.
+ * VACMS-9714 Script to replace instances of 800-273-8255
  */
 
 use Psr\Log\LogLevel;
@@ -34,22 +34,19 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox, $pattern_str
 {
   $node_storage = \Drupal::entityTypeManager()->getStorage('node');
 
-  // Get the node count for nodes with timezones in hours comments.
+  // Get the node count for nodes with 800-273-8255 in Metatag Description (field_metatage)
   // This runs only once.
   if (!isset($sandbox['total'])) {
-    // Hours field is attached to service_locations in all places,
-    // save for facilities.
-    // Facilities db search returned 0 results for timezones in comments.
 
     // TODO: Fix this query to get all the field descriptions with the old phone
     // $paragraph_query = Drupal::database()->select('node__field_content_block', 'nfcb');
-    $paragraph_query = Drupal::database()->select('paragraph__field_wysiwyg', 'wysiwyg');
-    $paragraph_query->join('node__field_content_block', 'nfcb', 'wysiwyg.entity_id = nfcb.field_content_block_target_id');
+    $paragraph_query = Drupal::database()->select('node_field_data', 'nfda');
+    $paragraph_query->join('node__field_description', 'nfde', 'nfde.entity_id = nfda.nid');
 
     // and node_field_data.nid = nfcb.entity_id and node_field_data.type like "%health_care_region_detail_page%"
-    $paragraph_query->fields('nfcb', ['entity_id']);
+    $paragraph_query->fields('nfde', ['entity_id']);
     $paragraph_query->groupBy('entity_id');
-    $paragraph_query->condition('wysiwyg.field_wysiwyg_value', $pattern_string, 'REGEXP');
+    $paragraph_query->condition('nfde.field_description_value', $pattern_string, 'REGEXP');
 
     // $paragraph_query->condition('patient_resources.field_operating_status_emerg_inf_value', "\<a.*\>800[\-\.]273[\-\.]8255\<\/a\>", 'REGEXP');
     $nids_to_update = $paragraph_query->execute()->fetchCol();
