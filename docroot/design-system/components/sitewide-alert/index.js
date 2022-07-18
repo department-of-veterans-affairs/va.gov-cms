@@ -1,10 +1,10 @@
 // Import module styles
-import './announcement.scss';
+import './sitewide-alert.scss';
 
 // Import module template
-import './announcement-block.twig';
+import './sitewide-alert.twig';
 
-export const name = 'announcement-block';
+export const name = 'sitewide-alert';
 
 export function disable() {}
 

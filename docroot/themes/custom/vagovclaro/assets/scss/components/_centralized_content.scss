@@ -46,7 +46,27 @@
       display: none;
     }
 
-    #block-vagovclaro-content .layout-region--node-main {
+    .paragraph--type--centralized-content-descriptor.paragraph--view-mode--default .js-form-item {
+      background-color: var(--va-gray-med);
+      color: var(--color-white);
+
+      legend {
+        display: none;
+      }
+
+      .fieldset__wrapper {
+        margin-bottom: 0;
+      }
+
+      .field--name-field-cc-documentor-title {
+        font-size: var(--font-size-h3);
+        font-weight: bold;
+        line-height: var(--line-height-heading);
+        padding-top: var(--space-m);
+      }
+    }
+
+    #block-vagovclaro-content .layout-region.layout--node-main {
       display: block;
 
       .js-form-type-textarea .js-form-required.form-required,
@@ -72,6 +92,11 @@
       .cc-special-treatment-paragraph {
         height: 0;
         visibility: hidden;
+      }
+
+      .cc-national-wysi-padding td:nth-child(2) {
+        display: block;
+        height: auto;
       }
 
       .cc-wysi-wrap {
