@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Replace 800-273-8255 with 988 for VAMC detail
+ * Replace 800-273-8255 with 988 for VAMC Detail Page
  *
  * VACMS-9714 Script to replace instances of 800-273-8255
  */
@@ -22,7 +22,7 @@ do {
 return;
 
 /**
- * Remove timezones from hours field comments.
+ * Replace 800-273-8255 with 988
  *
  * @param array $sandbox
  *   Modeling the structure of hook_update_n sandbox.

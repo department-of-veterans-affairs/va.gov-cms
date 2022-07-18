@@ -2,9 +2,9 @@
 
 /**
  * @file
- * Replace 800-273-8255 with 988
+ * Replace 800-273-8255 with 988 for VAMC System Operating Status
  *
- * VACMS-8935-scrub-tz-in-hours-field-comment.php.
+ * VACMS-9714 Script to replace instances of 800-273-8255
  */
 
 use Psr\Log\LogLevel;
@@ -22,7 +22,7 @@ do {
 return;
 
 /**
- * Remove timezones from hours field comments.
+ * Replace 800-273-8255 with 988
  *
  * @param array $sandbox
  *   Modeling the structure of hook_update_n sandbox.
@@ -34,25 +34,19 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox, $pattern_str
 {
   $node_storage = \Drupal::entityTypeManager()->getStorage('node');
 
-  // Get the node count for nodes with timezones in hours comments.
+  // Get the node count for nodes with 800-273-8255 in Patient Resources (field_operating_status_emerg_inf)
   // This runs only once.
   if (!isset($sandbox['total'])) {
-    // Hours field is attached to service_locations in all places,
-    // save for facilities.
-    // Facilities db search returned 0 results for timezones in comments.
-
     $paragraph_query = Drupal::database()->select('node__field_operating_status_emerg_inf', 'patient_resources');
-    $paragraph_query->join('node__field_facility_operating_status', 'nffos', 'patient_resources.entity_id = nffos.entity_id');
+    // $paragraph_query->join('node__field_facility_operating_status', 'nffos', 'patient_resources.entity_id = nffos.entity_id');
     $paragraph_query->fields('patient_resources', ['entity_id']);
     $paragraph_query->groupBy('entity_id');
     $paragraph_query->condition('patient_resources.field_operating_status_emerg_inf_value', $pattern_string, 'REGEXP');
-
-    // $paragraph_query->condition('patient_resources.field_operating_status_emerg_inf_value', "\<a.*\>800[\-\.]273[\-\.]8255\<\/a\>", 'REGEXP');
     $nids_to_update = $paragraph_query->execute()->fetchCol();
     $result_count = count($nids_to_update);
-    print($result_count);
     $sandbox['total'] = $result_count;
     $sandbox['current'] = 0;
+
     // Create non-numeric keys to accurately remove each nid when processed.
     $sandbox['nids_to_update'] = array_combine(
       array_map('_va_gov_stringifynid', array_values($nids_to_update)),
@@ -79,12 +73,11 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox, $pattern_str
 
       // Wipe out comments that have timezones.
       $old_value = $node->get('field_operating_status_emerg_inf')->value;
-      // print_r($old_value);
       $new_value = preg_replace($pattern_regex, $replacement_string, $old_value, 1);
-      // print_r($new_value);
       $node->field_operating_status_emerg_inf->setValue(
         [
-          'value' => $new_value
+          'value' => $new_value,
+          'format' => 'rich_text',
         ]
       );
 
@@ -95,14 +88,13 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox, $pattern_str
       $node->setRevisionLogMessage('Updated Crisis number from 800-237-8255 to 988');
       $node->setSyncing(TRUE);
       $node->save();
-
       unset($sandbox['nids_to_update']["node_{$node->id()}"]);
       $nids[] = $node->id();
       $sandbox['current'] = $sandbox['total'] - count($sandbox['nids_to_update']);
 
   }
 
-  //   // Log the processed nodes.
+  // Log the processed nodes.
   Drupal::logger('va_gov_db')
     ->log(LogLevel::INFO, 'Nodes: %current nodes phone numbers updated. Nodes processed: %nids', [
       '%current' => $sandbox['current'],
@@ -111,7 +103,7 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox, $pattern_str
 
   $sandbox['#finished'] = ($sandbox['current'] / $sandbox['total']);
 
-  //   // Log the all-finished notice.
+  //  Log the all-finished notice.
   if ($sandbox['#finished'] == 1) {
     Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'RE-saving all %count nodes completed by change-crisis-to-988', [
       '%count' => $sandbox['total'],
