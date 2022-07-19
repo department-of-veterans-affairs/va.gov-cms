@@ -45,14 +45,14 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox, $pattern_str
     $paragraph_query->groupBy('entity_id');
     $paragraph_query->condition('wysiwyg.field_wysiwyg_value', $pattern_string, 'REGEXP');
 
-    $nids_to_update = $paragraph_query->execute()->fetchCol();
+    $nids_to_update = $paragraph_query->execute()->fetchAllKeyed();
     $result_count = count($nids_to_update);
     $sandbox['total'] = $result_count;
     $sandbox['current'] = 0;
-    // $sandbox['nids_to_update'] = $nids_to_update;
-    $sandbox['nids_to_update'] = array_combine(
-      array_map('_va_gov_stringifynid', array_values($nids_to_update)),
-      array_values($nids_to_update));
+    $sandbox['nids_to_update'] = $nids_to_update;
+    // $sandbox['nids_to_update'] = array_combine(
+    //   array_map('_va_gov_stringifynid', array_values($nids_to_update)),
+    //   array_values($nids_to_update));
   }
 
 
@@ -65,7 +65,7 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox, $pattern_str
   $limit = 25;
   // Load entities.
   // $node_ids = array_keys($sandbox['nids_to_update']);
-  $node_ids = array_slice($sandbox['nids_to_update'], 0, $limit, TRUE);
+  $node_ids = array_keys($sandbox['nids_to_update']);
 
   $node_storage = \Drupal::entityTypeManager()->getStorage('node');
 
@@ -74,10 +74,12 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox, $pattern_str
     $target_id = $sandbox['nids_to_update'][$nid];
     foreach ($node->field_content_block as $block) {
       /** @var Entity (i.e. Node, Paragraph, Term) $referenced_product **/
-      $referenced_product = $block->entity;
+      $referenced_wysiwyg = $block->entity;
+      $referenced_wysiwyg_id = $referenced_wysiwyg->id->getValue()[0]['value'];
+
 
     // Use now the entity to get the values you need.
-    $field_value = $referenced_product->field_wysiwyg->value;
+    $field_value = $referenced_wysiwyg->field_wysiwyg->value;
     print_r($field_value);
   }
     }
