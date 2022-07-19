@@ -484,6 +484,21 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     }
   }
 
+  // Modifications for the VAMC "system menu" field.
+  if ($form_id === 'node_health_care_region_page_edit_form' && isset($form['field_system_menu'])) {
+    // Hide the system menu field if the user isn't a content admin.
+    $user = \Drupal::currentUser();
+    $user_roles = $user->getRoles() ?? ['anonymous'];
+    if (!in_array('administrator', $user_roles)) {
+      $form['field_system_menu']['#access'] = FALSE;
+    }
+    // Set a reasonable default value for the field.
+    if (isset($form['menu']['link']['menu_parent']['#default_value'])) {
+      [$machine_name] = explode(':', $form['menu']['link']['menu_parent']['#default_value']);
+      $form['field_system_menu']['widget']['#default_value'] = $machine_name;
+    }
+  }
+
   // Add after_build callback for Press Release node forms.
   if ($form_id === 'node_press_release_form' || $form_id === 'node_press_release_edit_form') {
     $form['field_address']['widget']['#after_build'][] = 'va_gov_backend_press_release_address_after_build';

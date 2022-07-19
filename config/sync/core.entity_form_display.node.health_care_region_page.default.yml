@@ -18,6 +18,7 @@ dependencies:
     - field.field.node.health_care_region_page.field_operating_status
     - field.field.node.health_care_region_page.field_other_va_locations
     - field.field.node.health_care_region_page.field_related_links
+    - field.field.node.health_care_region_page.field_system_menu
     - field.field.node.health_care_region_page.field_twitter
     - field.field.node.health_care_region_page.field_va_health_connect_phone
     - field.field.node.health_care_region_page.field_vamc_ehr_system
@@ -41,7 +42,7 @@ third_party_settings:
       label: 'Section settings'
       region: content
       parent_name: ''
-      weight: 11
+      weight: 10
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -56,7 +57,7 @@ third_party_settings:
       label: 'Editorial Workflow'
       region: content
       parent_name: ''
-      weight: 12
+      weight: 11
       format_type: fieldset
       format_settings:
         classes: ''
@@ -213,6 +214,22 @@ third_party_settings:
         label_element: h3
         required_fields: 0
         attributes: ''
+    group_system_menu:
+      children:
+        - field_system_menu
+      label: 'System Menu'
+      region: content
+      parent_name: ''
+      weight: 12
+      format_type: details_sidebar
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: true
+        weight: 0
 id: node.health_care_region_page.default
 targetEntityType: node
 bundle: health_care_region_page
@@ -347,6 +364,12 @@ content:
         add_above: '0'
         collapse_edit_all: collapse_edit_all
         duplicate: '0'
+    third_party_settings: {  }
+  field_system_menu:
+    type: options_select
+    weight: 13
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_twitter:
     type: linkit
