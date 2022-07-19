@@ -78,6 +78,11 @@ function va_gov_switch_service_locations_office_hours(array &$sandbox, $pattern_
           'format' => 'rich_text',
         ]
         );
+        // $service_location->setRevisionAuthorId(1317);
+        // $service_location->setChangedTime(time());
+        // $service_location->setRevisionCreationTime(time());
+        // $service_location->setRevisionLogMessage('Updated Crisis number from 800-237-8255 to 988');
+        // $service_location->setSyncing(TRUE);
     $service_location->save();
 
     unset($sandbox['pids_to_update'][_va_gov_stringifypid($service_location->id())]);
@@ -87,7 +92,7 @@ function va_gov_switch_service_locations_office_hours(array &$sandbox, $pattern_
 
   // Log the processed nodes.
   Drupal::logger('va_gov_db')
-    ->log(LogLevel::INFO, 'Service Location: %current paragraphs office hours converted. Paragraphs processed: %pids', [
+    ->log(LogLevel::INFO, 'VAMC Detail Page Wysiwyg: %current paragraphs phone numbers updated. Paragraphs processed: %pids', [
       '%current' => $sandbox['current'],
       '%pids' => implode(', ', $pids),
     ]);
@@ -96,7 +101,7 @@ function va_gov_switch_service_locations_office_hours(array &$sandbox, $pattern_
 
   // Log the all-finished notice.
   if ($sandbox['#finished'] == 1) {
-    Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'RE-saving all %count Service Location paragraphs completed by va_gov_switch_service_locations_office_hours.', [
+    Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'RE-saving all %count VAMC Detail Page Wysiwyg va_gov_switch_service_locations_office_hours-cb-rev.', [
       '%count' => $sandbox['total'],
     ]);
     return "Service Location paragraphs updates complete. {$sandbox['current']} / {$sandbox['total']}\n";

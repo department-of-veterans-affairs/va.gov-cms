@@ -41,18 +41,15 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox, $pattern_str
 
     $paragraph_query = Drupal::database()->select('paragraph__field_wysiwyg', 'wysiwyg');
     $paragraph_query->join('node__field_content_block', 'nfcb', 'wysiwyg.entity_id = nfcb.field_content_block_target_id');
-    $paragraph_query->fields('nfcb', ['entity_id']);
+    $paragraph_query->fields('nfcb', ['entity_id','field_content_block_target_id']);
     $paragraph_query->groupBy('entity_id');
     $paragraph_query->condition('wysiwyg.field_wysiwyg_value', $pattern_string, 'REGEXP');
 
-    $nids_to_update = $paragraph_query->execute()->fetchCol();
+    $nids_to_update = $paragraph_query->execute()->fetchAllKeyed();
     $result_count = count($nids_to_update);
     $sandbox['total'] = $result_count;
     $sandbox['current'] = 0;
-    // $sandbox['nids_to_update'] = $nids_to_update;
-    $sandbox['nids_to_update'] = array_combine(
-      array_map('_va_gov_stringifynid', array_values($nids_to_update)),
-      array_values($nids_to_update));
+    $sandbox['nids_to_update'] = $nids_to_update;
   }
 
 
@@ -64,28 +61,16 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox, $pattern_str
 
   $limit = 25;
   // Load entities.
-  // $node_ids = array_keys($sandbox['nids_to_update']);
-  $node_ids = array_slice($sandbox['nids_to_update'], 0, $limit, TRUE);
-
-  $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+  $node_ids = array_keys($sandbox['nids_to_update']);
+  $$paragraph_storage = \Drupal::entityTypeManager()->getStorage('paragraph');
 
   foreach ($node_ids as $nid) {
-    $node = $node_storage->loadRevision($node_storage->getLatestRevisionId($nid));
-    $target_id = $sandbox['nids_to_update'][$nid];
-    foreach ($node->field_content_block as $block) {
-      /** @var Entity (i.e. Node, Paragraph, Term) $referenced_product **/
-      $referenced_product = $block->entity;
-
-    // Use now the entity to get the values you need.
-    $field_value = $referenced_product->field_wysiwyg->value;
-    print_r($field_value);
-  }
-    }
+    $node = $$paragraph_storage->loadRevision($$paragraph_storage->getLatestRevisionId($nid));
+      $target_id = $sandbox['nids_to_update'][$nid];
 
       // Make this change a new revision.
         /** @var \Drupal\node\NodeInterface $node */
         $node->setNewRevision(TRUE);
-
 
         // Get the referenced entities
         $field_value = $node->get('field_content_block');
@@ -123,7 +108,7 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox, $pattern_str
               */
 
             }
-        }
+      }
 
         // Set revision author to uid 1317 (CMS Migrator user).
         $node->setRevisionUserId(1317);
@@ -158,18 +143,5 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox, $pattern_str
   }
 
   return "Processed nodes... {$sandbox['current']} / {$sandbox['total']}.\n";
-
-
-
-/**
- * Callback function to concat node ids with string.
- *
- * @param int $nid
- *   The node id.
- *
- * @return string
- *   The node id concatenated to the end of node_
- */
-function _va_gov_stringifynid($nid) {
-  return "node_$nid";
 }
+
