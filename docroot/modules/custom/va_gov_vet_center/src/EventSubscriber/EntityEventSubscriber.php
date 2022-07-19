@@ -15,7 +15,6 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
-use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Drupal\va_gov_vet_center\Service\RequiredServices;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -208,6 +207,18 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Hides geolocation field for non-admins.
+   *
+   * @param array $form
+   *   The node form.
+   */
+  public function hideGeolocationField(array &$form): void {
+    if (!$this->userPermsService->hasAdminRole()) {
+      $form['field_geolocation']['#access'] = FALSE;
+    }
+  }
+
+  /**
    * Alterations to Vet center forms.
    *
    * @param \Drupal\core_event_dispatcher\Event\Form\FormAlterEvent $event
@@ -229,6 +240,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     }
 
     $this->optInCapHours($form, $form_state, $form_id);
+    $this->hideGeolocationField($form);
 
     // List of forms to modify media library widget help text.
     $media_widget_content_form_ids = [

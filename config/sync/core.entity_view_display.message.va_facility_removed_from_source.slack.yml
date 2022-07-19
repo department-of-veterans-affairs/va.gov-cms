@@ -1,0 +1,30 @@
+uuid: 349e2eb6-d215-4653-9e15-ead1d0c5ced1
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.message.slack
+    - field.field.message.va_facility_removed_from_source.field_target_entity
+    - field.field.message.va_facility_removed_from_source.field_target_node_title
+    - message.template.va_facility_removed_from_source
+  module:
+    - layout_builder
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: message.va_facility_removed_from_source.slack
+targetEntityType: message
+bundle: va_facility_removed_from_source
+mode: slack
+content:
+  partial_0:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_target_entity: true
+  field_target_node_title: true
+  search_api_excerpt: true

@@ -122,6 +122,7 @@ class BuildTriggerForm extends FormBase {
    *   Object containing current form state.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    $this->messenger()->addStatus($this->t('Content release requested successfully.'));
     $this->buildRequester->requestFrontendBuild('Manual build request');
   }
 

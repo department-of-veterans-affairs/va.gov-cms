@@ -1,0 +1,33 @@
+uuid: 0544af2d-8fd9-4633-bdcd-c3dee4e18fde
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.message.mail_body
+    - field.field.message.va_form_deleted.field_target_entity
+    - field.field.message.va_form_deleted.field_target_node_title
+    - message.template.va_form_deleted
+  module:
+    - layout_builder
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: message.va_form_deleted.mail_body
+targetEntityType: message
+bundle: va_form_deleted
+mode: mail_body
+content:
+  partial_0:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  partial_1:
+    weight: 0
+    region: content
+hidden:
+  field_target_entity: true
+  field_target_node_title: true
+  search_api_excerpt: true
