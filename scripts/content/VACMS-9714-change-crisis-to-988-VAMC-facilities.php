@@ -60,13 +60,12 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox, $pattern_str
   }
 
   $limit = 25;
-
   // Load entities.
   $node_ids = array_keys($sandbox['nids_to_update']);
-  $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+  $$paragraph_storage = \Drupal::entityTypeManager()->getStorage('paragraph');
 
   foreach ($node_ids as $nid) {
-    $node = $node_storage->loadRevision($node_storage->getLatestRevisionId($nid));
+    $node = $$paragraph_storage->loadRevision($$paragraph_storage->getLatestRevisionId($nid));
       $target_id = $sandbox['nids_to_update'][$nid];
 
       // Make this change a new revision.
@@ -86,7 +85,7 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox, $pattern_str
           if ($refid == $target_id) {
             // print($target_id);
             $old_value = $ref->field_wysiwyg->value;
-            $new_value = preg_replace($pattern_regex, $replacement_string, $old_value, 1);
+            $new_value = preg_replace($pattern_regex, $replacement_string, $old_value);
             $ref->field_wysiwyg->setValue(
               [
                 'value' => $new_value,
