@@ -47,3 +47,12 @@ $settings['cms_datadog_api_key'] = getenv('CMS_DATADOG_API_KEY');
 
 // Uncomment this line to temporarily enable sending metrics to datadog on cron.
 //$settings['va_gov_force_sending_metrics'] = true;
+
+/**
+ * Enable local development services.
+ *
+ * Uncomment these lines to enable development-oriented settings like disabling
+ * backend cache or enabling twig debug.
+ */
+// $settings['container_yamls'][] = DRUPAL_ROOT . '/sites/development.services.yml';
+// $settings['container_yamls'][] = DRUPAL_ROOT . '/sites/vagov-dev.services.yml';
