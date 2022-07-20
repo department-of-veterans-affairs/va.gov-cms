@@ -23,7 +23,7 @@ The VA.gov CMS Team
    1. [Workflow](READMES/workflow.md)
    1. [Project Conventions](READMES/project-conventions.md)
    1. [Environments](READMES/environments.md)
-      1. [CI Environments](READMES/cms-ci.md)
+      1. [CI Environments](READMES/tugboat.md)
       1. [Local - Lando](READMES/local.md)
       1. [BRD Environments](READMES/brd.md)
       1. [HTTPS](READMES/https.md)
@@ -32,7 +32,7 @@ The VA.gov CMS Team
    1. [Testing](READMES/testing.md)
    1. [Debugging](READMES/debugging.md)
    1. [Code Review](READMES/code-review.md)
-   1. [Comparing GraphQL Output](READMES/graphql-output.md)
+   1. [Comparing GraphQL Output](READMES/graph_ql.md)
    1. [Logging into BRD (e.g. production, staging) instances](READMES/brd-login.md)
 1. **Release & Deployment**
    1. [The BRD System: Build, Release, Deploy](READMES/brd.md)
@@ -44,7 +44,7 @@ The VA.gov CMS Team
       1. [Memcache](READMES/drupal-memcache.md)
    1. Amazon Web Services
       1. [Elasticache for Memcache](READMES/elasticache.md)
-   1. [content models](READMES/content-models)
+   1. [content models](READMES/content-models.md)
    1. MetalSmith
    1. [Interfaces](READMES/interfaces.md) - APIs and Feature Flag
    1. Migrations (data imports)
