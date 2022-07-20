@@ -23,13 +23,8 @@ Feature: Content model: VAMC Content Type fields
 | Content type | Event | URL | field_link | Link |  | 1 | Linkit | Translatable |
 | Content type | Event | Where should the event be listed? | field_listing | Entity reference | Required | 1 | Select list |  |
 | Content type | Event | Building, floor, or room | field_location_humanreadable | Text (plain) |  | 1 | Textfield |  |
-<<<<<<< HEAD
-| Content type | Event | Location type | field_location_type | List (text) |  | 1 | Select list |  |
-| Content type | Event | Event image | field_media | Entity reference |  | 1 | Inline entity form - Simple | Translatable |
-=======
 | Content type | Event | Location type | field_location_type | List (text) | Required | 1 | Check boxes/radio buttons |  |
 | Content type | Event | Event image | field_media | Entity reference |  | 1 | Media library | Translatable |
->>>>>>> upstream/main
 | Content type | Event | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | Event | Order | field_order | List (integer) |  | 1 | Select list |  |
 | Content type | Event | URL | field_url_of_an_online_event | Link |  | 1 | Linkit |  |
