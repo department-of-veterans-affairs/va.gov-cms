@@ -1,0 +1,31 @@
+uuid: 7defbf8b-f879-48e0-a6aa-2c749cdbdf09
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.cms_announcement
+    - field.storage.block_content.field_submission_guidelines
+  module:
+    - epp
+    - markup
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: block_content.cms_announcement.field_submission_guidelines
+field_name: field_submission_guidelines
+entity_type: block_content
+bundle: cms_announcement
+label: 'Submission Guidelines'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    markup: null
+default_value_callback: ''
+settings:
+  markup:
+    value: "<p>&nbsp;</p>\r\n\r\n<p>Announcement alerts help inform users of changes to the interface or their workflow by providing information at the point of need. <a href=\"https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/1773371393/Announcement+alert\">Follow the latest guidelines on when and how to use this type of alert.</a></p>\r\n\r\n<p>&nbsp;</p>\r\n"
+    format: rich_text
+field_type: markup

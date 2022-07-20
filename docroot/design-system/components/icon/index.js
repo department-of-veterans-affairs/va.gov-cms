@@ -1,5 +1,5 @@
 // fontawesome api methods
-import { library, dom, config } from '@fortawesome/fontawesome-svg-core';
+import { library, dom } from '@fortawesome/fontawesome-svg-core';
 // import specific icons as needed to keep final bundle small. fa icon name in comment.
 import {
   faBan, // ban
@@ -12,8 +12,8 @@ import {
   faMagnifyingGlass, // magnifying-glass
   faPencil, // pencil
   faPlus, // plus
-  faThumbsDown, // thumbs down
-  faThumbsUp, // thumbs up
+  faThumbsDown, // thumbs-down
+  faThumbsUp, // thumbs-up
   faTrash, // trash
   faTriangleExclamation // warning
 } from '@fortawesome/free-solid-svg-icons';
@@ -23,9 +23,6 @@ import './icon.scss';
 
 // Import module template
 import './icon.twig';
-
-// Allow font awesome icons in pseudo elements.
-config.searchPseudoElements = true;
 
 // Add icons to our library.
 library.add(

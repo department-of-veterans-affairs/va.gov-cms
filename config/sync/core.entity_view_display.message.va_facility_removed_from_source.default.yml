@@ -1,0 +1,38 @@
+uuid: fe98d6fa-47a2-446f-93cc-f273ded4c78c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.message.va_facility_removed_from_source.field_target_entity
+    - field.field.message.va_facility_removed_from_source.field_target_node_title
+    - message.template.va_facility_removed_from_source
+  module:
+    - user
+id: message.va_facility_removed_from_source.default
+targetEntityType: message
+bundle: va_facility_removed_from_source
+mode: default
+content:
+  field_target_entity:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_target_node_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  partial_0:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  search_api_excerpt: true

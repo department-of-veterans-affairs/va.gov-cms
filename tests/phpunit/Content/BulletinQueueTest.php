@@ -30,7 +30,7 @@ class BulletinQueueTest extends ExistingSiteBase {
    */
   protected function setUp() {
     parent::setUp();
-
+    $this->markTestSkipped('this test is flaky and not working correctly. will be re-enabled in #9839.');
     $this->deleteQueue();
   }
 

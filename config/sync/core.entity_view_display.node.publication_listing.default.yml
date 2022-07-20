@@ -7,7 +7,6 @@ dependencies:
     - field.field.node.publication_listing.field_description
     - field.field.node.publication_listing.field_intro_text
     - field.field.node.publication_listing.field_meta_tags
-    - field.field.node.publication_listing.field_meta_title
     - field.field.node.publication_listing.field_office
     - node.type.publication_listing
   module:
@@ -73,13 +72,15 @@ content:
     third_party_settings: {  }
     weight: 5
     region: content
-  field_meta_title:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
+  flag_email_node:
+    settings: {  }
     third_party_settings: {  }
-    weight: 0
+    weight: 10
+    region: content
+  flag_subscribe_node:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
     region: content
 hidden:
   content_moderation_control: true

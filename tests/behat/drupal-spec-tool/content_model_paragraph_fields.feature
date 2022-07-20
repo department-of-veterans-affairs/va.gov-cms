@@ -28,7 +28,7 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Alert (single) | Non-reusable Alert | field_alert_non_reusable_ref | Entity reference revisions |  | 1 | Paragraphs Legacy |  |
 | Paragraph type | Alert (single) | Which Alert would you like to add? | field_alert_selection | List (text) | Required | 1 | Check boxes/radio buttons |  |
 | Paragraph type | Alert (single) | Markup | field_markup | Markup |  | 1 | Markup | Translatable |
-| Paragraph type | Audience & Topics | Beneficiares | field_audience_beneficiares | Entity reference |  | 1 | Check boxes/radio buttons |  |
+| Paragraph type | Audience & Topics | Beneficiaries | field_audience_beneficiares | Entity reference |  | 1 | Check boxes/radio buttons |  |
 | Paragraph type | Audience & Topics | Audience | field_audience_selection | List (text) |  | 1 | Select list |  |
 | Paragraph type | Audience & Topics | Markup | field_markup | Markup |  | 1 | Markup | Translatable |
 | Paragraph type | Audience & Topics | Non-Beneficiares | field_non_beneficiares | Entity reference |  | 1 | Check boxes/radio buttons |  |
@@ -51,6 +51,7 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Embedded image | Allow clicks on this image to open it in new tab | field_allow_clicks_on_this_image | Boolean |  | 1 | Single on/off checkbox |  |
 | Paragraph type | Embedded image | Markup | field_markup | Markup |  | 1 | Markup |  |
 | Paragraph type | Embedded image | Select an image | field_media | Entity reference | Required | 1 | Media library |  |
+| Paragraph type | Embedded Video | Video | field_video | Entity reference | Required | 1 | Media library |  |
 | Paragraph type | Expandable Text | Text Expander | field_text_expander | Text (plain) | Required | 1 | Textfield with counter |  |
 | Paragraph type | Expandable Text | Full Text | field_wysiwyg | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
 | Paragraph type | Featured content | Call to Action | field_cta | Entity reference revisions |  | 1 | Paragraphs (stable) |  |

@@ -22,15 +22,15 @@ class BrdBuildTriggerForm extends BuildTriggerForm {
 
     $form['#attached']['library'][] = 'va_gov_build_trigger/build_trigger_form';
 
-    $form['help_1'] = [
+    $form['description'] = [
       '#prefix' => '<p>',
       '#markup' => $this->t('Any content you set to Published will automatically go live on VA.gov during the daily content release. However, if you need your content to go live sooner, you can perform a manual content release here.'),
       '#suffix' => '</p>',
       '#weight' => -10,
     ];
-    $form['help_2'] = [
+    $form['description_2'] = [
       '#prefix' => '<p>',
-      '#markup' => $this->t('Content release can take up to 15 minutes to finish.'),
+      '#markup' => $this->t('Content release can take up to 30 minutes to finish.'),
       '#suffix' => '</p>',
       '#weight' => -10,
     ];
@@ -49,10 +49,10 @@ class BrdBuildTriggerForm extends BuildTriggerForm {
       ],
     ];
 
-    if ($this->webBuildStatus->getWebBuildStatus()) {
+    if ($this->releaseStateManager->releaseIsImminent()) {
       // A build is pending, so set a display.
       $form['tip']['#prefix'] = '<em>';
-      $form['tip']['#markup'] = $this->t('A content release has been queued.');
+      $form['tip']['#markup'] = $this->t('A content release will start soon.');
       $form['tip']['#suffix'] = '</em>';
       $form['tip']['#weight'] = 100;
     }

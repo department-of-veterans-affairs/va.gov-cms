@@ -1,0 +1,34 @@
+uuid: 49f06505-7848-40ab-a83d-697b70d84443
+langcode: en
+status: false
+dependencies:
+  module:
+    - message_subscribe_ui
+    - taxonomy
+third_party_settings:
+  message_subscribe_ui:
+    view_name: 'subscribe_taxonomy_term_email:default'
+_core:
+  default_config_hash: TuS5Yr0rC4k-KjN6ioKSFrZ_W1YSltE_dPSXInohEmk
+id: subscribe_term
+label: Terms
+bundles: {  }
+entity_type: taxonomy_term
+global: false
+flag_short: Subscribe
+flag_long: ''
+flag_message: 'You are now subscribed to this item.'
+unflag_short: Unsubscribe
+unflag_long: ''
+unflag_message: 'You are no longer subscribed to this item.'
+unflag_denied_text: ''
+weight: 0
+flag_type: 'entity:taxonomy_term'
+link_type: ajax_link
+flagTypeConfig:
+  show_in_links: {  }
+  show_as_field: false
+  show_on_form: false
+  show_contextual_link: false
+  extra_permissions: {  }
+linkTypeConfig: {  }

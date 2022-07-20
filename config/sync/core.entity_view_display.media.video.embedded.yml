@@ -13,6 +13,7 @@ dependencies:
     - field.field.media.video.field_publication_date
     - media.type.video
   module:
+    - hms_field
     - video_embed_field
 _core:
   default_config_hash: DSsWBWw_gj2xxlQ12665l-yIIfFWIt7DJX33DGgbEHY
@@ -21,6 +22,21 @@ targetEntityType: media
 bundle: video
 mode: embedded
 content:
+  field_duration:
+    type: hms_natural_language_formatter
+    label: inline
+    settings:
+      display_formats:
+        m: m
+        s: s
+        w: 0
+        d: 0
+        h: 0
+      separator: ', '
+      last_separator: ' and '
+    third_party_settings: {  }
+    weight: 2
+    region: content
   field_media_video_embed_field:
     type: video_embed_field_video
     label: hidden
@@ -30,17 +46,23 @@ content:
       width: 854
       height: 480
     third_party_settings: {  }
-    weight: 2
+    weight: 0
+    region: content
+  name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
     region: content
 hidden:
   created: true
   field_description: true
-  field_duration: true
   field_media_in_library: true
   field_media_submission_guideline: true
   field_owner: true
   field_publication_date: true
-  name: true
   search_api_excerpt: true
   thumbnail: true
   uid: true

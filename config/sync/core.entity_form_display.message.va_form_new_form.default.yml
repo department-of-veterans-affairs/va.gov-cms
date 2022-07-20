@@ -1,0 +1,49 @@
+uuid: 0f4b3c3c-947e-4991-817e-a47cfa1b4ab5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.message.va_form_new_form.field_target_entity
+    - field.field.message.va_form_new_form.field_target_node_title
+    - message.template.va_form_new_form
+id: message.va_form_new_form.default
+targetEntityType: message
+bundle: va_form_new_form
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_target_entity:
+    type: entity_reference_autocomplete
+    weight: 1
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_target_node_title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 2
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    '#group': advanced
+hidden: {  }

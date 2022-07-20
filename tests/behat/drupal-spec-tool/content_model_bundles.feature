@@ -59,6 +59,7 @@ Feature: Content model bundles
 | Vet Center - Outstation | vet_center_outstation | Content type | Location information for remote facilities related to a main Vet Center. |
 | VAMC Facility Non-clinical Service | vha_facility_nonclinical_service | Content type | Address and contact info for offices and other non-clinical service locations. This content is always embedded within a VAMC system non-clinical service page. |
 | Alert | alert | Custom block type | An alert box that can be added to individual pages. |
+| CMS Announcement | cms_announcement | Custom block type | Display an announcement to CMS users. |
 | Promo | promo | Custom block type | Promote a link with an image, title, and description. |
 | Document | document | Media type | A locally hosted document, such as a PDF. |
 | Document - External | document_external | Media type |  |
@@ -78,6 +79,7 @@ Feature: Content model bundles
 | Contact information | contact_information | Paragraph type |  |
 | Link to file or video | downloadable_file | Paragraph type | A download link for an image or document, or a link to a YouTube video. |
 | Email address | email_contact | Paragraph type |  |
+| Embedded Video | embedded_video | Paragraph type | A component to add embedded videos to articles |
 | Expandable Text | expandable_text | Paragraph type | Text that expands upon click. |
 | Featured content | featured_content | Paragraph type |  |
 | VAMC facility service (non-healthcare service) | health_care_local_facility_servi | Paragraph type | A service available at a specific health care facility, like Parking, or Chaplaincy. |
@@ -103,7 +105,6 @@ Feature: Content model bundles
 | Situation update | situation_update | Paragraph type | A time-sensitive, added to a banner alert, and displayed on VAMC operating status pages. |
 | Additional information | spanish_translation_summary | Paragraph type | Text that expands to display additional information upon click. |
 | Staff profile | staff_profile | Paragraph type | Add a profile of a staff person. |
-| Starred Horizontal Rule | starred_horizontal_rule | Paragraph type | Current an inactive paragraph type, not enabled within any fields. |
 | Step | step | Paragraph type | Single step. |
 | Step by step | step_by_step | Paragraph type | An ordered list (1, 2, 3, 4, N) of steps. |
 | Table | table | Paragraph type | Add an HTML table with rows and columns. |

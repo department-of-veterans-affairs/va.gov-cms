@@ -40,6 +40,7 @@ tasks:
           exit_code=0
           tasks=(
             "va/background/periodic/migrate/facility_status"
+            "va/background/periodic/check_scheduled_content_release"
             "va/background/periodic/cron"
           )
           trap '{ (( exit_code |=\$? )); }' ERR
@@ -58,7 +59,7 @@ tasks:
         cat <<EOF | bash
           exit_code=0
           tasks=(
-            "va/noop"
+            "va/background/periodic/content_release_queues"
           )
           trap '{ (( exit_code |=\$? )); }' ERR
           for i in "\${tasks[@]}"; do
@@ -129,6 +130,16 @@ tasks:
     desc: Run cron every 15 min as called by Jenkins.
     cmds:
       - drush $DRUSH_ALIAS core:cron
+
+  va/background/periodic/content_release_queues:
+    desc: Process content release queues every minute.
+    cmds:
+      - drush $DRUSH_ALIAS advancedqueue:queue:process content_release
+
+  va/background/periodic/check_scheduled_content_release:
+    desc: Ensure scheduled content releases are requested during business hours.
+    cmds:
+      - drush $DRUSH_ALIAS va-gov:content-release:check-scheduled
 
   va/noop:
     desc: Placeholder command

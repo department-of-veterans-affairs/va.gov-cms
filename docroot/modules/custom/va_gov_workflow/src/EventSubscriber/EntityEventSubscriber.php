@@ -3,14 +3,14 @@
 namespace Drupal\va_gov_workflow\EventSubscriber;
 
 use Drupal\core_event_dispatcher\EntityHookEvents;
-use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormBaseAlterEvent;
 use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\node\NodeForm;
+use Drupal\va_gov_notifications\Service\NotificationsManager;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Drupal\va_gov_workflow\Service\Flagger;
 use Drupal\va_gov_workflow\Service\WorkflowContentControl;
@@ -28,6 +28,13 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    * @var \Drupal\va_gov_workflow\Service\Flagger
    */
   protected $flagger;
+
+  /**
+   * The VA gov NotificationsManager.
+   *
+   * @var \Drupal\va_gov_notifications\Service\NotificationsManager
+   */
+  protected $notificationsManager;
 
   /**
    * The User Perms Service.
@@ -64,15 +71,19 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The workflow content control service.
    * @param \Drupal\va_gov_workflow\Service\Flagger $flagger
    *   The vagov workflow flagger service.
+   * @param \Drupal\va_gov_notifications\Service\NotificationsManager $notifications_manager
+   *   VA gov NotificationsManager service.
    */
   public function __construct(
     UserPermsService $user_perms_service,
     WorkflowContentControl $workflow_content_control,
-    Flagger $flagger
+    Flagger $flagger,
+    NotificationsManager $notifications_manager
   ) {
     $this->userPermsService = $user_perms_service;
     $this->workflowContentControl = $workflow_content_control;
     $this->flagger = $flagger;
+    $this->notificationsManager = $notifications_manager;
   }
 
   /**
@@ -128,9 +139,18 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   protected function flagVaFormChanges(EntityInterface $entity) {
     if ($entity->bundle() === 'va_form') {
-      $this->flagger->flagFieldChanged('field_va_form_title', 'changed_title', $entity, "The form title of this form changed from '@old' to '@new' in the Forms DB.");
-      $this->flagger->flagFieldChanged(['field_va_form_url', 'uri'], 'changed_filename', $entity, "The file name (URL) of this form changed from '@old' to '@new' in the Forms DB.");
-      $this->flagger->flagFieldChanged('field_va_form_deleted', 'deleted', $entity, "The form was marked as deleted in the Forms DB.");
+      $message_fields = $this->notificationsManager->buildMessageFields($entity);
+      if ($this->flagger->flagFieldChanged('field_va_form_title', 'changed_title', $entity, "The form title of this form changed from '@old' to '@new' in the Forms DB.")) {
+        $this->notificationsManager->send('va_form_changed_title', '#va-forms', $message_fields, 'slack');
+      }
+
+      if ($this->flagger->flagFieldChanged(['field_va_form_url', 'uri'], 'changed_filename', $entity, "The file name (URL) of this form changed from '@old' to '@new' in the Forms DB.")) {
+        $this->notificationsManager->send('va_form_changed_url', '#va-forms', $message_fields, 'slack');
+      }
+
+      if ($this->flagger->flagFieldChanged('field_va_form_deleted', 'deleted', $entity, "The form was marked as deleted in the Forms DB.")) {
+        $this->notificationsManager->send('va_form_deleted', '#va-forms', $message_fields, 'slack');
+      }
     }
   }
 
@@ -148,7 +168,11 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       $this->flagger->logFlagOperation($entity, 'create');
     }
     elseif ($entity->bundle() === 'va_form') {
-      $this->flagger->flagNew('new_form', $entity, "This VA Form was added to the Forms DB.");
+      $flagged = $this->flagger->flagNew('new_form', $entity, "This VA Form was added to the Forms DB.");
+      if ($flagged) {
+        $message_fields = $this->notificationsManager->buildMessageFields($entity);
+        $this->notificationsManager->send('va_form_new_form', '#va-forms', $message_fields, 'slack');
+      }
     }
   }
 

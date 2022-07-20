@@ -35,12 +35,9 @@ Feature: Google Tag Manager dataLayer values are correct
     And I create a "office" node
     And I click the edit tab
     And I fill in "Name" with "[Test Data] My Test Office"
-    And I click the "Meta Tags" vertical tab
-    And I fill in "Meta title tag" with "[Test Data] My Meta title tag"
     And I select option "--Outreach Hub" from dropdown "Section"
     And I save the node
     Then the GTM data layer value for "contentTitle" should be set to "[Test Data] My Test Office"
-    Then the GTM data layer value for "pageTitle" should be set to "[Test Data] My Test Office"
     Then the GTM data layer value for "contentType" should be set to "office"
     Then the GTM data layer value for "nodeID" should be set correctly
     Then the GTM data layer value for "contentOwner" should be set to "Outreach Hub"

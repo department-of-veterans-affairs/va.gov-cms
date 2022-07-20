@@ -484,6 +484,21 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     }
   }
 
+  // Modifications for the VAMC "system menu" field.
+  if ($form_id === 'node_health_care_region_page_edit_form' && isset($form['field_system_menu'])) {
+    // Hide the system menu field if the user isn't a content admin.
+    $user = \Drupal::currentUser();
+    $user_roles = $user->getRoles() ?? ['anonymous'];
+    if (!in_array('administrator', $user_roles)) {
+      $form['field_system_menu']['#access'] = FALSE;
+    }
+    // Set a reasonable default value for the field.
+    if (isset($form['menu']['link']['menu_parent']['#default_value'])) {
+      [$machine_name] = explode(':', $form['menu']['link']['menu_parent']['#default_value']);
+      $form['field_system_menu']['widget']['#default_value'] = $machine_name;
+    }
+  }
+
   // Add after_build callback for Press Release node forms.
   if ($form_id === 'node_press_release_form' || $form_id === 'node_press_release_edit_form') {
     $form['field_address']['widget']['#after_build'][] = 'va_gov_backend_press_release_address_after_build';
@@ -1381,6 +1396,11 @@ function va_gov_backend_page_attachments(array &$attachments) {
 
   // Pass our relevant data to settings.
   $attachments['#attached']['drupalSettings']['gtm_data'] = _va_gov_backend_gtm_settings();
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if ($node instanceof NodeInterface) {
+    $attachments['#attached']['drupalSettings']['node'] = _va_gov_backend_node_data($node);
+  }
+
   $attachments['#cache']['tags'][] = 'config:workbench_access.access_scheme.section';
 
   // Move our help text from the wrapper to below the label.
@@ -1408,6 +1428,26 @@ function va_gov_backend_page_attachments(array &$attachments) {
 
     return;
   }
+}
+
+/**
+ * Builds some useful node data for development.
+ *
+ * @param \Drupal\node\NodeInterface $node
+ *   Some valid node.
+ *
+ * @return array
+ *   Keyed array of useful node info.
+ */
+function _va_gov_backend_node_data(NodeInterface $node) {
+  return [
+    'id' => $node->id(),
+    'uuid' => $node->uuid(),
+    'title' => $node->getTitle(),
+    'path' => $node->toUrl()->toString(),
+    'contentType' => $node->bundle(),
+    'jsonApiPath' => "/jsonapi/node/{$node->bundle()}/{$node->uuid()}",
+  ];
 }
 
 /**
@@ -1868,7 +1908,7 @@ function va_gov_backend_raven_options_alter(array &$options) {
  */
 function va_gov_backend_theme_suggestions_form_element_alter(array &$suggestions, array $variables) {
 
-  if ($variables['element']['#type'] == 'textarea') {
+  if (isset($variables['element']['#type']) && $variables['element']['#type'] == 'textarea') {
     $suggestions[] = 'form_element__textarea';
   }
 }

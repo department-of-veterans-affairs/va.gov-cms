@@ -1,0 +1,36 @@
+uuid: cb71d978-267c-4482-9fd7-0b310160290b
+langcode: en
+status: false
+dependencies:
+  module:
+    - message_subscribe_ui
+    - user
+third_party_settings:
+  message_subscribe_ui:
+    view_name: 'subscribe_user_email:default'
+_core:
+  default_config_hash: fgTzgOQ3StY4hp8QakRFYq6nWXoYdc8ZsDgfBWz8itA
+id: subscribe_user
+label: Users
+bundles: {  }
+entity_type: user
+global: false
+flag_short: Subscribe
+flag_long: ''
+flag_message: 'You are now subscribed to this item.'
+unflag_short: Unsubscribe
+unflag_long: ''
+unflag_message: 'You are no longer subscribed to this item.'
+unflag_denied_text: ''
+weight: 0
+flag_type: 'entity:user'
+link_type: ajax_link
+flagTypeConfig:
+  show_in_links: {  }
+  show_as_field: false
+  show_on_form: false
+  show_contextual_link: false
+  extra_permissions:
+    owner: '0'
+  show_on_profile: false
+linkTypeConfig: {  }

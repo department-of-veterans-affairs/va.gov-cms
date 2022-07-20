@@ -1,0 +1,34 @@
+uuid: 097d1a43-0fe3-4240-80b5-423a9ceafef3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_system_menu
+    - node.type.health_care_region_page
+  module:
+    - entity_reference_validators
+    - epp
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: false
+  epp:
+    value: ''
+    on_update: 0
+id: node.health_care_region_page.field_system_menu
+field_name: field_system_menu
+entity_type: node
+bundle: health_care_region_page
+label: 'System Menu'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:menu'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+field_type: entity_reference

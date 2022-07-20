@@ -1,0 +1,47 @@
+<?php
+
+/**
+ * @file
+ * Contains va_gov_events.module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function va_gov_events_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the va_gov_events module.
+    case 'help.page.va_gov_events':
+      $output = '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Contains custom logic for event content type.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_field_widget_form_alter().
+ */
+function va_gov_events_field_widget_form_alter(&$element, FormStateInterface $form_state) {
+  if (!empty($element['#title']) && $element['#title'] === 'Address') {
+    $element['address']['#after_build'][] = '_va_gov_events_move_country_select_to_bottom';
+  }
+}
+
+/**
+ * Callback to move country select to bottom of address widget.
+ *
+ * @param array $form
+ *   The form.
+ *
+ * @return array
+ *   The form.
+ */
+function _va_gov_events_move_country_select_to_bottom(array $form) {
+  $form['country_code']['#weight'] = 100;
+  return $form;
+}

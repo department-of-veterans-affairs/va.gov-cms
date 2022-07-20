@@ -1,0 +1,67 @@
+uuid: 146a6244-66c9-4fe1-b18a-10d1c648722f
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.cms_announcement
+    - field.field.block_content.cms_announcement.field_announcement_type
+    - field.field.block_content.cms_announcement.field_body
+    - field.field.block_content.cms_announcement.field_submission_guidelines
+    - field.field.block_content.cms_announcement.field_title
+  module:
+    - content_moderation
+    - markup
+    - textfield_counter
+id: block_content.cms_announcement.default
+targetEntityType: block_content
+bundle: cms_announcement
+mode: default
+content:
+  field_announcement_type:
+    type: options_buttons
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_body:
+    type: text_textarea_with_counter
+    weight: 5
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+      maxlength: 0
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: 'Maxlength: <span class="maxlength_count">@maxlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>'
+    third_party_settings: {  }
+  field_submission_guidelines:
+    type: markup
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_title:
+    type: string_textfield
+    weight: 4
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  info:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

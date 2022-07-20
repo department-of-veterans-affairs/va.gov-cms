@@ -1,0 +1,41 @@
+uuid: c845944f-d495-4ae9-b276-0d7b7b751694
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.message.va_form_deleted.field_target_entity
+    - field.field.message.va_form_deleted.field_target_node_title
+    - message.template.va_form_deleted
+  module:
+    - string_field_formatter
+    - user
+id: message.va_form_deleted.default
+targetEntityType: message
+bundle: va_form_deleted
+mode: default
+content:
+  field_target_entity:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_target_node_title:
+    type: plain_string_formatter
+    label: above
+    settings:
+      link_to_entity: false
+      wrap_tag: _none
+      wrap_class: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  partial_0:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  search_api_excerpt: true

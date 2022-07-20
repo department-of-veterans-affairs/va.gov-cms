@@ -1,0 +1,41 @@
+uuid: d6d44bbb-d98e-4f29-8d14-aa94c544df1f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.message.va_form_new_form.field_target_entity
+    - field.field.message.va_form_new_form.field_target_node_title
+    - message.template.va_form_new_form
+  module:
+    - string_field_formatter
+    - user
+id: message.va_form_new_form.default
+targetEntityType: message
+bundle: va_form_new_form
+mode: default
+content:
+  field_target_entity:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_target_node_title:
+    type: plain_string_formatter
+    label: above
+    settings:
+      link_to_entity: false
+      wrap_tag: _none
+      wrap_class: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  partial_0:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  search_api_excerpt: true
