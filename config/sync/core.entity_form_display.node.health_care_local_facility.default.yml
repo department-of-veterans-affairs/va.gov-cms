@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.health_care_local_facility.field_description
     - field.field.node.health_care_local_facility.field_facility_classification
     - field.field.node.health_care_local_facility.field_facility_locator_api_id
+    - field.field.node.health_care_local_facility.field_geolocation
     - field.field.node.health_care_local_facility.field_intro_text
     - field.field.node.health_care_local_facility.field_local_health_care_service_
     - field.field.node.health_care_local_facility.field_location_services
@@ -28,6 +29,7 @@ dependencies:
     - address
     - content_moderation
     - field_group
+    - geofield
     - media_library
     - office_hours
     - paragraphs
@@ -71,7 +73,7 @@ third_party_settings:
       label: '"Prepare for your visit"'
       region: content
       parent_name: ''
-      weight: 7
+      weight: 8
       format_type: details
       format_settings:
         classes: ''
@@ -86,7 +88,7 @@ third_party_settings:
       label: 'VAMC system'
       region: content
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: fieldset
       format_settings:
         classes: ''
@@ -100,7 +102,7 @@ third_party_settings:
       label: 'Title and summary'
       region: content
       parent_name: ''
-      weight: 4
+      weight: 5
       format_type: fieldset
       format_settings:
         classes: ''
@@ -112,7 +114,7 @@ third_party_settings:
       label: 'Social Media'
       region: content
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: fieldset
       format_settings:
         classes: ''
@@ -126,7 +128,7 @@ third_party_settings:
       label: 'Operating status'
       region: content
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: fieldset
       format_settings:
         classes: ''
@@ -140,7 +142,7 @@ third_party_settings:
       label: 'Meta Tags'
       region: content
       parent_name: ''
-      weight: 5
+      weight: 6
       format_type: fieldset
       format_settings:
         classes: ''
@@ -167,6 +169,7 @@ third_party_settings:
         - field_facility_locator_api_id
         - field_facility_classification
         - field_address
+        - field_geolocation
         - field_mobile
         - field_phone_number
         - field_mental_health_phone
@@ -194,7 +197,7 @@ third_party_settings:
       label: 'COVID-19 health protection guidelines'
       region: content
       parent_name: ''
-      weight: 1
+      weight: 2
       format_type: fieldset
       format_settings:
         classes: ''
@@ -265,9 +268,16 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_geolocation:
+    type: geofield_latlon
+    weight: 25
+    region: content
+    settings:
+      html5_geolocation: false
+    third_party_settings: {  }
   field_intro_text:
     type: string_textarea_with_counter
-    weight: 6
+    weight: 9
     region: content
     settings:
       rows: 5
@@ -299,28 +309,28 @@ content:
     third_party_settings: {  }
   field_media:
     type: media_library_widget
-    weight: 8
+    weight: 10
     region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
   field_mental_health_phone:
     type: telephone_default
-    weight: 27
+    weight: 28
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   field_mobile:
     type: boolean_checkbox
-    weight: 25
+    weight: 26
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_office_hours:
     type: office_hours_default
-    weight: 28
+    weight: 29
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -345,7 +355,7 @@ content:
     third_party_settings: {  }
   field_phone_number:
     type: telephone_default
-    weight: 26
+    weight: 27
     region: content
     settings:
       placeholder: ''
@@ -375,7 +385,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 8
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
