@@ -41,7 +41,7 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox, $pattern_str
 
     $paragraph_query = Drupal::database()->select('paragraph__field_wysiwyg', 'wysiwyg');
     $paragraph_query->join('node__field_content_block', 'nfcb', 'wysiwyg.entity_id = nfcb.field_content_block_target_id');
-    $paragraph_query->fields('nfcb', ['entity_id']);
+    $paragraph_query->fields('nfcb', ['entity_id', 'field_content_block_target_id']);
     $paragraph_query->groupBy('entity_id');
     $paragraph_query->condition('wysiwyg.field_wysiwyg_value', $pattern_string, 'REGEXP');
 
@@ -50,9 +50,6 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox, $pattern_str
     $sandbox['total'] = $result_count;
     $sandbox['current'] = 0;
     $sandbox['nids_to_update'] = $nids_to_update;
-    // $sandbox['nids_to_update'] = array_combine(
-    //   array_map('_va_gov_stringifynid', array_values($nids_to_update)),
-    //   array_values($nids_to_update));
   }
 
 
@@ -73,95 +70,62 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox, $pattern_str
     $node = $node_storage->loadRevision($node_storage->getLatestRevisionId($nid));
     $target_id = $sandbox['nids_to_update'][$nid];
     foreach ($node->field_content_block as $block) {
+
       /** @var Entity (i.e. Node, Paragraph, Term) $referenced_product **/
       $referenced_wysiwyg = $block->entity;
       $referenced_wysiwyg_id = $referenced_wysiwyg->id->getValue()[0]['value'];
 
-
-    // Use now the entity to get the values you need.
-    $field_value = $referenced_wysiwyg->field_wysiwyg->value;
-    print_r($field_value);
-  }
-    }
+      // Use now the entity to get the values you need.
+      $field_value = $referenced_wysiwyg->field_wysiwyg->value;
 
       // Make this change a new revision.
-        /** @var \Drupal\node\NodeInterface $node */
-        $node->setNewRevision(TRUE);
+      /** @var \Drupal\node\NodeInterface $node */
+      if ($referenced_wysiwyg_id == $target_id) {
+        $new_value = preg_replace($pattern_regex, $replacement_string, $field_value);
+        $referenced_wysiwyg->field_wysiwyg->setValue(
+          [
+            'value' => $new_value,
+            'format' => 'rich_text',
+          ]
+          );
 
+          // Set revision author to uid 1317 (CMS Migrator user).
+          $node->setNewRevision(TRUE);
+          $node->setRevisionUserId(1317);
+          $node->setChangedTime(time());
+          $node->setRevisionCreationTime(time());
+          $node->setRevisionLogMessage('Updated Crisis number from 800-237-8255 to 988');
+          $node->setSyncing(TRUE);
+          $node->save();
 
-        // Get the referenced entities
-        $field_value = $node->get('field_content_block');
-        $field_items = $field_value->getValue();
-        $referenced_entities = $field_value->referencedEntities();
-        $database=\Drupal::database();
-
-
-        // replace the pattern-matching string in the appropriate entity
-        foreach ($referenced_entities as $ref) {
-          $refid = $ref->id->getValue()[0]['value'];
-          if ($refid == $target_id) {
-            // print($target_id);
-            $old_value = $ref->field_wysiwyg->value;
-            $new_value = preg_replace($pattern_regex, $replacement_string, $old_value);
-            $ref->field_wysiwyg->setValue(
-              [
-                'value' => $new_value,
-                'format' => 'rich_text',
-              ]
-              );
-              $revId = $ref->getRevisionId();
-              // print($revId);
-              // $node->createRevision($refid); // throws error
-
-              // TODO: Save paragraph entity with changes.
-
-              /* This didn't work
-              $ref->setRevisionUserId(1317);
-              $ref->setChangedTime(time());
-              $ref->setRevisionCreationTime(time());
-              $ref->setRevisionLogMessage('Updated Crisis number from 800-237-8255 to 988');
-              $ref->setSyncing(TRUE);
-              $ref->save();
-              */
-
-            }
         }
-
-        // Set revision author to uid 1317 (CMS Migrator user).
-        $node->setRevisionUserId(1317);
-        $node->setChangedTime(time());
-        $node->setRevisionCreationTime(time());
-        $node->setRevisionLogMessage('Updated Crisis number from 800-237-8255 to 988');
-        $node->setSyncing(TRUE);
-        $node->save();
-
-        // Add to array the most recently-processed node
-        unset($sandbox['nids_to_update']["{$node->id()}"]);
-        $nids[] = $node->id();
-        $sandbox['current'] = $sandbox['total'] - count($sandbox['nids_to_update']);
-
     }
+  }
+
+  // Add to array the most recently-processed node
+  unset($sandbox['nids_to_update']["{$node->id()}"]);
+  $nids[] = $node->id();
+  $sandbox['current'] = $sandbox['total'] - count($sandbox['nids_to_update']);
 
   // Log the processed nodes.
   Drupal::logger('va_gov_db')
-    ->log(LogLevel::INFO, 'Nodes: %current nodes phone numbers updated. Nodes processed: %nids', [
-      '%current' => $sandbox['current'],
-      '%nids' => implode(', ', $nids),
-    ]);
+  ->log(LogLevel::INFO, 'Nodes: %current nodes phone numbers updated. Nodes processed: %nids', [
+    '%current' => $sandbox['current'],
+    '%nids' => implode(', ', $nids),
+  ]);
 
   $sandbox['#finished'] = ($sandbox['current'] / $sandbox['total']);
 
   //   // Log the all-finished notice.
   if ($sandbox['#finished'] == 1) {
-    Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'RE-saving all %count nodes completed by change-crisis-to-988', [
-      '%count' => $sandbox['total'],
-    ]);
-    return "Node updates complete. {$sandbox['current']} / {$sandbox['total']}\n";
+  Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'RE-saving all %count nodes completed by change-crisis-to-988', [
+    '%count' => $sandbox['total'],
+  ]);
+  return "Node updates complete. {$sandbox['current']} / {$sandbox['total']}\n";
   }
 
   return "Processed nodes... {$sandbox['current']} / {$sandbox['total']}.\n";
-
-
+}
 
 /**
  * Callback function to concat node ids with string.
