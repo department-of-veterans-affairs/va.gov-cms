@@ -73,7 +73,7 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox, $pattern_str
 
       // Wipe out comments that have timezones.
       $old_value = $node->get('field_operating_status_emerg_inf')->value;
-      $new_value = preg_replace($pattern_regex, $replacement_string, $old_value, 1);
+      $new_value = preg_replace($pattern_regex, $replacement_string, $old_value);
       $node->field_operating_status_emerg_inf->setValue(
         [
           'value' => $new_value,
