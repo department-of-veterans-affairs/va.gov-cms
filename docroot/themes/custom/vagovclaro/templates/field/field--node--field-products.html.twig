@@ -44,13 +44,13 @@
     label_display == 'visually_hidden' ? 'visually-hidden',
   ]
 %}
-<p>This article is for:
+<div class="tags">This article is for:
   {% if multiple %}
     {% for item in items %}
       {% if loop.last %}
         {% set separator = '' %}
       {% else %}
-        {% set separator = ', ' %}
+        {% set separator = ", " %}
       {% endif %}
       {{ item }}{{ separator }}
     {% endfor %}
@@ -59,4 +59,4 @@
       {{item}}
     {% endfor %}
   {% endif %}
-</p>
+</div>
