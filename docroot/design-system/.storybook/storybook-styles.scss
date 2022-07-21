@@ -4,11 +4,6 @@
  */
 @import './claro.scss';
 
-.swatches {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 1rem;
-}
 .swatch-color {
   padding: 2rem;
 }
@@ -26,4 +21,13 @@ code {
   font-size: var(--va-text);
   padding: var(--spacing-l);
   display: inline-block;
+}
+
+// vagovclaro handles this normally
+.layout-container {
+  margin: 0 2rem;
+
+  @media screen and (min-width: 1200px) {
+    margin: 0 3rem;
+  }
 }

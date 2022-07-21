@@ -1,0 +1,19 @@
+uuid: d8673740-2510-4e2e-9aef-f166239d0246
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.rich_text
+template: va_facility_removed_from_source
+label: 'VA Facility: removed from source'
+description: 'Informs the CMS Help Desk when a facility has been removed upstream.'
+text:
+  -
+    value: "<p>Hello CMS Help Desk!</p>\r\n\r\n<p>An existing [message:field_target_entity:entity:content-type] named &lt;a href=\\\"[message:field_target_entity:entity:url]\\\"&gt;[message:field_target_entity:entity:title]&lt;/a&gt;&nbsp;was flagged as removed from the upstream Facility API on [message:field_target_entity:entity:changed].</p>\r\n\r\n<p>Please review the internal Github runbook for facility closure:&nbsp;<a href=\"https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&amp;labels=Change+request&amp;template=runbook-facility-closed.md&amp;title=Facility+closed%3A+%3Cinsert_name%3E\">https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&amp;labels=Change+request&amp;template=runbook-facility-closed.md&amp;title=Facility+closed%3A+%3Cinsert_name%3E</a><br />\r\n<br />\r\nThank you!</p>\r\n"
+    format: rich_text
+settings:
+  'token options':
+    clear: false
+    'token replace': true
+  purge_override: false
+  purge_methods: {  }

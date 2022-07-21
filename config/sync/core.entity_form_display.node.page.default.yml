@@ -11,7 +11,6 @@ dependencies:
     - field.field.node.page.field_featured_content
     - field.field.node.page.field_intro_text_limited_html
     - field.field.node.page.field_meta_tags
-    - field.field.node.page.field_meta_title
     - field.field.node.page.field_plainlanguage_date
     - field.field.node.page.field_related_links
     - field.field.node.page.field_table_of_contents_boolean
@@ -119,12 +118,6 @@ targetEntityType: node
 bundle: page
 mode: default
 content:
-  created:
-    type: datetime_timestamp
-    weight: 10
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_administration:
     type: options_select
     weight: 21
@@ -208,20 +201,6 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  field_meta_title:
-    type: string_textfield_with_counter
-    weight: 1
-    region: content
-    settings:
-      size: 70
-      placeholder: ''
-      use_field_maxlength: true
-      maxlength: 70
-      counter_position: after
-      js_prevent_submit: true
-      count_html_characters: false
-      textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
-    third_party_settings: {  }
   field_related_links:
     type: paragraphs
     weight: 6
@@ -255,7 +234,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 11
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -274,11 +253,12 @@ content:
       textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
   url_redirects:
-    weight: 12
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
+  created: true
   field_meta_tags: true
   field_plainlanguage_date: true
   panelizer: true

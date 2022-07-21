@@ -41,8 +41,8 @@ export const parameters = {
         'Changelog',
         'Design System Tokens',
         ['Colors', 'Spacing', 'Typography', 'Icons'], // nested under DST
-        'Atoms',
         'Components',
+        'Atoms',
         '*',
         'Experimental',
         'Deprecated'

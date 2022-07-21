@@ -1,0 +1,36 @@
+uuid: 8974f0fa-0818-4459-a769-8800e1b76aeb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_supplemental_status
+    - node.type.health_care_local_facility
+  module:
+    - entity_reference_validators
+    - epp
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: true
+  epp:
+    value: ''
+    on_update: 0
+id: node.health_care_local_facility.field_supplemental_status
+field_name: field_supplemental_status
+entity_type: node
+bundle: health_care_local_facility
+label: 'COVID-19 status'
+description: 'Select the level set by your facility’s leadership. Learn more about COVID-19 safety guidelines <a href="/help/vamc/about-locations-content-for-vamcs/about-alerts-and-operating-statuses/how-to-edit-a-vamc-facility-covid-status" target="_blank">Learn more about COVID-19 safety guidelines (opens in a new window)</a>.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: health_care_service_names_and_descriptions
+      display_name: facility_supplemental_status
+      arguments: {  }
+field_type: entity_reference

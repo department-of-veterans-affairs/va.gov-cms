@@ -17,7 +17,7 @@ Steps to reproduce the behavior:
 3. Scroll down to '....'
 4. See error
 
-## Expected behavior
+## AC / Expected behavior
 A clear and concise description of what you expected to happen.
 
 ## Screenshots
@@ -43,8 +43,9 @@ Add any other context about the problem here. Reach out to the Product Managers 
 ### CMS Team
 Please check the team(s) that will do this work.
 
+- [ ] `Program`
 - [ ] `Platform CMS Team`
-- [ ] `Sitewide program`
+- [ ] `Sitewide Crew`
 - [ ] `⭐️ Sitewide CMS`
 - [ ] `⭐️ Public Websites`
 - [ ] `⭐️ Facilities`

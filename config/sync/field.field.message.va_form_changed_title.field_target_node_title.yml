@@ -1,0 +1,25 @@
+uuid: b107812f-809c-463f-96d5-70b011bbb650
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.message.field_target_node_title
+    - message.template.va_form_changed_title
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: message.va_form_changed_title.field_target_node_title
+field_name: field_target_node_title
+entity_type: message
+bundle: va_form_changed_title
+label: 'Target Node Title'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

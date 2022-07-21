@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.vet_center.field_cc_vet_center_faqs
     - field.field.node.vet_center.field_cc_vet_center_featured_con
     - field.field.node.vet_center.field_facility_locator_api_id
+    - field.field.node.vet_center.field_geolocation
     - field.field.node.vet_center.field_health_services
     - field.field.node.vet_center.field_intro_text
     - field.field.node.vet_center.field_media
@@ -30,6 +31,7 @@ dependencies:
     - entity_browser_entity_form
     - entity_field_fetch
     - field_group
+    - geofield
     - ief_table_view_mode
     - limited_field_widgets
     - markup
@@ -61,7 +63,7 @@ third_party_settings:
       label: 'Section settings'
       region: content
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -78,7 +80,7 @@ third_party_settings:
       label: 'Editorial Workflow'
       region: content
       parent_name: ''
-      weight: 10
+      weight: 11
       format_type: fieldset
       format_settings:
         classes: ''
@@ -90,7 +92,7 @@ third_party_settings:
       label: 'Direct line'
       region: content
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: fieldset
       format_settings:
         classes: ''
@@ -155,7 +157,7 @@ third_party_settings:
       label: 'Prepare for your visit'
       region: content
       parent_name: ''
-      weight: 4
+      weight: 5
       format_type: fieldset
       format_settings:
         classes: ''
@@ -169,7 +171,7 @@ third_party_settings:
       label: 'Featured content'
       region: content
       parent_name: ''
-      weight: 5
+      weight: 6
       format_type: fieldset
       format_settings:
         classes: ''
@@ -182,7 +184,7 @@ third_party_settings:
       label: 'How we''re different than a clinic (FAQs)'
       region: content
       parent_name: ''
-      weight: 8
+      weight: 9
       format_type: tooltip
       format_settings:
         show_label: '0'
@@ -199,6 +201,7 @@ third_party_settings:
       children:
         - field_facility_locator_api_id
         - field_address
+        - field_geolocation
         - field_phone_number
         - field_office_hours
       label: 'Facility data'
@@ -298,9 +301,16 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_geolocation:
+    type: geofield_latlon
+    weight: 9
+    region: content
+    settings:
+      html5_geolocation: false
+    third_party_settings: {  }
   field_health_services:
     type: inline_entity_form_complex_table_view_mode
-    weight: 7
+    weight: 8
     region: content
     settings:
       form_mode: inline_entity_form
@@ -373,7 +383,7 @@ content:
     third_party_settings: {  }
   field_phone_number:
     type: telephone_default
-    weight: 9
+    weight: 10
     region: content
     settings:
       placeholder: ''

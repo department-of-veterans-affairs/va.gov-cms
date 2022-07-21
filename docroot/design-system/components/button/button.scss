@@ -23,17 +23,4 @@ a.button--outline,
   svg {
     margin-right: var(--spacing-s);
   }
-  &::before {
-    display: none;
-    font-family: 'Font Awesome 5 Solid';
-  }
-
-  // pseudoelement icons need added individually. Use the fa classes whenever possible instead.
-  &-trash::before {
-    content: "\f1f8"; // trash icon
-  }
-
-  &-chevron::before {
-    content: "\f078"; // chevron icon
-  }
 }

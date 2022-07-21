@@ -37,12 +37,14 @@ Feature: Views
 | Glossary | glossary | Content | Disabled | All content, by letter. |
 | Health care service names and descriptions | health_care_service_names_and_descriptions | Taxonomy terms | Enabled | A list of nationally-controlled health care service names and descriptions |
 | Image Style Warmer Warmup Files | image_style_warmer_warmup_files | Files | Enabled | VBO for processing existing files with Image Style Warmer. |
+| JSON data sources | json_data_sources | Taxonomy terms | Enabled | Do not alter - serves as api endpoint(s) |
 | Knowledge Base Article administration | knowledge_base_article_administration | Content | Enabled | Audits and tools for managing Knowledge Base Articles |
 | Listing page dashboard | listing_page_dashboard | Content | Disabled |  |
 | Local facilities entity reference view | local_facilities_entity_reference_view | Content | Enabled | An entity reference view that determines options for the Local Health Service descriptions |
 | Locked content | locked_content | Content | Enabled |  |
 | Media | media | Media | Enabled |  |
 | Media library | media_library | Media | Enabled | Find and manage media. |
+| Message | message | Message | Enabled |  |
 | Metatag Audit | metatag_audit | Content | Enabled |  |
 | Moderated content | moderated_content | Content revisions | Enabled | Find and moderate content. |
 | Moderation history | moderation_history | Content revisions | Enabled |  |
@@ -56,6 +58,12 @@ Feature: Views
 | Search | search | Index Content | Disabled |  |
 | Section administration and export | section_export | Taxonomy terms | Enabled | Enables easier adminstration of Sections/Product relationship, and export tools for analysis outside Drupal |
 | Services | services | Content | Enabled | Lists of services for facility pages, health services lists, etc |
+| Subscribe node | subscribe_node | Content | Enabled |  |
+| Subscribe node email | subscribe_node_email | Content | Enabled |  |
+| Subscribe taxonomy term | subscribe_taxonomy_term | Taxonomy terms | Enabled |  |
+| Subscribe taxonomy term email | subscribe_taxonomy_term_email | Taxonomy terms | Enabled |  |
+| Subscribe user | subscribe_user | Users | Enabled |  |
+| Subscribe user email | subscribe_user_email | Users | Enabled |  |
 | Table Audit | table_audit | Content | Enabled |  |
 | Taxonomy entity browsers | taxonomy_entity_browsers | Taxonomy terms | Enabled |  |
 | Taxonomy term | taxonomy_term | Content | Enabled | Content belonging to a certain taxonomy term. |
@@ -140,6 +148,8 @@ Feature: Views
 | Detail page URL audit and bulk udpate | Master | default | Default |
 | Facility Services | Accordion audit | accordion_audit | Page |
 | Facility Services | Accordion audit export | accordion_audit_export | Data export |
+| Facility Services | Addresses | addresses | Page |
+| Facility Services | Addresses export | addresses_export | Data export |
 | Facility Services | Facilities | content_audit_facilities | Page |
 | Facility Services | Facilities export | content_audit_facilities_export | Data export |
 | Facility Services | Facility status | facility_status_page | Page |
@@ -172,12 +182,15 @@ Feature: Views
 | Glossary | Attachment | attachment_1 | Attachment |
 | Glossary | Master | default | Default |
 | Glossary | Page | page_1 | Page |
+| Health care service names and descriptions | Facility Supplemental Status - entity reference | facility_supplemental_status | Entity Reference |
 | Health care service names and descriptions | Master | default | Default |
 | Health care service names and descriptions | Non clinical service | entity_reference_non_clinical_services | Entity Reference |
 | Health care service names and descriptions | VAMC health service and type of care - entity reference | entity_reference_vamc_services | Entity Reference |
 | Health care service names and descriptions | Vet Center health service and type of care - entity reference | entity_reference_vet_center_services | Entity Reference |
 | Image Style Warmer Warmup Files | Files overview  | page_1 | Page |
 | Image Style Warmer Warmup Files | Master | default | Default |
+| JSON data sources | Default | default | Default |
+| JSON data sources | Facility supplemental status | facility_supplemental_status | REST export |
 | Knowledge Base Article administration | Master | default | Default |
 | Knowledge Base Article administration | Page | knowledge_base_admin | Page |
 | Listing page dashboard | Master | default | Default |
@@ -199,6 +212,8 @@ Feature: Views
 | Media library | Page | page | Page |
 | Media library | Widget | widget | Page |
 | Media library | Widget (table) | widget_table | Page |
+| Message | Master | default | Default |
+| Message | Page | page_1 | Page |
 | Metatag Audit | Default | default | Default |
 | Metatag Audit | Metatag Audit | metatag_audit | Page |
 | Moderated content | Master | default | Default |
@@ -222,9 +237,11 @@ Feature: Views
 | Redirect | Non admin Page | page_2 | Page |
 | Redirect | Page | page_1 | Page |
 | Rich Text Field Audit | Content Audit - Buttons | content_audit_buttons | Page |
+| Rich Text Field Audit | Content Audit - Phone numbers | content_audit_phone_numbers | Page |
 | Rich Text Field Audit | Content Audit - Rich Text Fields | content_audit_rich_text | Page |
-| Rich Text Field Audit | Data export | rich_text_audit_data_export | Data export |
-| Rich Text Field Audit | Data export | buttons_export | Data export |
+| Rich Text Field Audit | Data export - buttons | buttons_export | Data export |
+| Rich Text Field Audit | Data export - Rich Text | rich_text_audit_data_export | Data export |
+| Rich Text Field Audit | Data export - Phone numbers | phone_numbers_export | Data export |
 | Rich Text Field Audit | Default | default | Default |
 | Right sidebar latest revision | All revisions | block_1 | Block |
 | Right sidebar latest revision | Latest revision | attachment_1 | Attachment |
@@ -237,6 +254,12 @@ Feature: Views
 | Services | Facility health services | block_1 | Block |
 | Services | Master | default | Default |
 | Services | VAMC system health services | block_2 | Block |
+| Subscribe node | Master | default | Default |
+| Subscribe node email | Master | default | Default |
+| Subscribe taxonomy term | Master | default | Default |
+| Subscribe taxonomy term email | Master | default | Default |
+| Subscribe user | Master | default | Default |
+| Subscribe user email | Master | default | Default |
 | Table Audit | Data export | tables_usage_export | Data export |
 | Table Audit | Default | default | Default |
 | Table Audit | Table Audit | table_audit | Page |

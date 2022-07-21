@@ -48,17 +48,8 @@ Click the "^" button and select "Keep."
 1. Under the "Root Certificate Authorities", click "Import" and select VA-Internal-S2-RCA1-v1.cer downloaded above
 1. You may need to restart your browser (all windows) or your machine in order to for these certs to become active.
 
-## HTTPS testing (locally/Lando)
+## HTTPS testing (locally)
 
-You can't test with the VA cert locally using Lando but you can use Lando's self-signed cert. If you need to test the actual cert locally contact the DevOps team to help you setup the vagrant build system to get HTTPS working with VA CA.
+You can't test with the VA cert locally but you can use ddev's self-signed cert. If you need to test the actual cert locally contact the DevOps team to help you setup the vagrant build system to get HTTPS working with VA CA.
 
-To test with Lando's self-signed cert you need to tell your system to trust the Lando Certificate Authority. Instructions are here > https://docs.devwithlando.io/config/security.html
-
-TODO, create upstream PR with `sudo trust anchor --store ~/.lando/certs/lndo.site.pem` for Arch Linux
-
-Note: I had to still import that same CA into Chrome.
-Go to chrome://settings/certificates?search=https
-Click "Authorities"
-Import `.lando\certs\lndo.site.pem`
-
-If you're using `ddev`, run `mkcert -install` and restart your browser.
+This should "just work" if you installed ddev using the documented [installation instructions](https://ddev.readthedocs.io/en/stable/#installation) (including the `mkcert` commands). After you've installed ddev and run the `mkcert` commands, you'll need to restart your browser(s).

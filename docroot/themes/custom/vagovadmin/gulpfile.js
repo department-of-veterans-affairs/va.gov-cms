@@ -19,7 +19,7 @@ gulp.task("sass", function () {
 gulp.task("sass").description = "process SCSS files: compile to compressed css, add browser prefixes, create a source map, and save in assets folder";
 
 gulp.task("clearcache", function (done) {
-  var child = spawn("lando drush cache:rebuild", {
+  var child = spawn("ddev drush cache:rebuild", {
     stdio: "inherit",
     shell: "true"
   });
@@ -28,7 +28,7 @@ gulp.task("clearcache", function (done) {
 gulp.task("clearcache").description = "clear all Drupal caches";
 
 gulp.task("watch", function () {
-  gulp.watch(["scss/**/*.scss"], gulp.series("sass"));
+  gulp.watch(["assets/scss/**/*.scss"], gulp.series("sass"));
 });
 gulp.task("watch").description = "watch SCSS";
 
