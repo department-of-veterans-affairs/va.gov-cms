@@ -185,8 +185,6 @@ $settings_files = [
   __DIR__ . '/settings/settings.deploy.active.php',
   // Local overrides
   __DIR__ . '/settings.local.php',
-  // Personal overrides for local development purposes.
-  __DIR__ . '/settings/settings.personal.php',
 ];
 
 foreach ($settings_files as $file) {
