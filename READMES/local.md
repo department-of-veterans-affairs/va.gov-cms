@@ -17,11 +17,11 @@ This occurs because Drupal checks and hardens file permissions under the setting
 ```$settings['skip_permissions_hardening'] = TRUE;```
 
 ## Local development settings
-Common development settings shared for all local development are at docroot/sites/default/settings/settings.local.php. This is committed to the repo and shared for all engineers.
+Common development settings shared for all local development are at `docroot/sites/default/settings/settings.local.php`. This is committed to the repo and shared for all engineers.
 
-Engineers can customize their local environment by creating a file at docroot/sites/default/settings/settings.personal.php. This file will be ignored by git. An example is provided at docroot/sites/default/settings/example.settings.personal.php. Drupal core also provides some common local development settings at docroot/sites/default/example.settings.local.php.
+Engineers can customize their local environment by creating a file at `docroot/sites/default/settings/settings.personal.php`. This file will be ignored by git. An example is provided at `docroot/sites/default/settings/example.settings.personal.php`. Drupal core also provides some common local development settings at `docroot/sites/default/example.settings.local.php`.
 
-Drupal core provides some optional development services at docroot/sites/default/development.services.yml. Custom services can be added at docroot/sites/default/vagov-dev.services.yml. This file will be ignored by git.
+Drupal core provides some optional development services at `docroot/sites/default/development.services.yml`. Custom services can be added at `docroot/sites/default/vagov-dev.services.yml`. This file will be ignored by git.
 ## IDE plugins
 There are plugins available to provide in-line style checking according to project standards.
 
