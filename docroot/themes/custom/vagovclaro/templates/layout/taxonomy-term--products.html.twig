@@ -33,12 +33,12 @@
   {{ title_prefix }}
   {{ title_suffix }}
   <div class="content">
-    {% if content.field_kb_landing_page.0 is not empty %}
+    {# {% if content.field_kb_landing_page.0 is not empty %} Commenting out linked terms for future implementation
       <a href="/node/{{content.field_kb_landing_page.0}}" >
         {{ term.label }}
       </a>
-    {% else %}
+    {% else %} #}
      <span>{{ term.label }}</span>
-    {% endif %}
+    {# {% endif %} #}
   </div>
 </div>
