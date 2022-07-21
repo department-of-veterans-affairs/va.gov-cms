@@ -46,11 +46,11 @@
 %}
 <p>This article is for:
   {% if multiple %}
-    {% for item in items if not loop.last %}
+    {% for item in items %}
       {% if loop.last %}
         {% set separator = '' %}
       {% else %}
-        {% set separator = ',' %}
+        {% set separator = ', ' %}
       {% endif %}
       {{ item }}{{ separator }}
     {% endfor %}
