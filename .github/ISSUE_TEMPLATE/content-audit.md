@@ -7,7 +7,7 @@ assignees: dawnpruitt, EWashb, msbtterswrth
 
 ---
 Content audits can be performed by searching the codebase and compiled site for specific terms ur using an audit tool within drupal. 
-Please provide any context for the audit, any related terms or alternate spellings, or and related components that could return content you are interested in. Please see the (collab cycle doccumentation)[https://va-gov.atlassian.net/l/cp/U0DfKLfs] for more information.
+Please provide any context for the audit, any related terms or alternate spellings, or and related components that could return content you are interested in. Please see the [collab cycle doccumentation](https://va-gov.atlassian.net/l/cp/U0DfKLfs) for more information.
 
 ## 1. Please provide any context around your audit
   
