@@ -6,23 +6,20 @@ labels: Content audit
 assignees: dawnpruitt, EWashb, msbtterswrth
 
 ---
-
-## Describe the request
 Content audits can be performed by searching the codebase and compiled site for specific terms ur using an audit tool within drupal. 
-Please provide any context for the audit, any related terms or alternate spellings, or and related components that could return content you are interested in.
+Please provide any context for the audit, any related terms or alternate spellings, or and related components that could return content you are interested in. Please see the (collab cycle doccumentation)[https://va-gov.atlassian.net/l/cp/U0DfKLfs] for more information.
 
-* Context: 
-* Terms of interest: 
-* Alternate spellings / terms: 
-* Related components or text formats (such as tables, buttons, italic or linked text): 
-* Any Content types to specifically include or exclude:
+## 1. Please provide any context around your audit
+  
+## 2. What are the terms you are searching for within the CMS? Are there alternate spellings?
 
+## 3. Are there components, elements or content types related to your search?
 
+## 4. Does a corresponding audit need to be run on the Veteran-facing website?  
+  - [ ] Yes 
+  - [ ] No
 
-### Implementation date
-When does this request need to be complete?: 
-
-Please submit all engineering requests **at least 1 full sprint in advance** (so we can work it into our next sprint).
+## 5. When do you need the audit to be completed
 
 
 ## CMS Team
