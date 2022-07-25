@@ -1,0 +1,26 @@
+uuid: aef60ac8-08a9-4dac-bcc2-fabde7ed42aa
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_geolocation
+    - node.type.vba_facility
+  module:
+    - epp
+    - geofield
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 1
+id: node.vba_facility.field_geolocation
+field_name: field_geolocation
+entity_type: node
+bundle: vba_facility
+label: Geolocation
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: geofield

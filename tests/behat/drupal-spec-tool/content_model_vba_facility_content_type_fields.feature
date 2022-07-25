@@ -10,5 +10,6 @@ Feature: Content model: VBA facility Content Type fields
        | Type | Bundle | Field label | Machine name | Field type | Required | Cardinality | Form widget | Translatable |
 | Content type | VBA Facility | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VBA Facility | Facility Locator API ID | field_facility_locator_api_id | Text (plain) |  | 1 | Textfield | Translatable |
+| Content type | VBA Facility | Geolocation | field_geolocation | Geofield |  | 1 | Latitude/Longitude | Translatable |
 | Content type | VBA Facility | Operating status | field_operating_status_facility | List (text) | Required | 1 | Select list | Translatable |
 | Content type | VBA Facility | Operating status - more info | field_operating_status_more_info | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |

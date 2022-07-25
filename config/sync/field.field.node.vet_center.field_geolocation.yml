@@ -1,0 +1,26 @@
+uuid: 71ba88d7-7bdf-4068-9149-501f2673d29c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_geolocation
+    - node.type.vet_center
+  module:
+    - epp
+    - geofield
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 1
+id: node.vet_center.field_geolocation
+field_name: field_geolocation
+entity_type: node
+bundle: vet_center
+label: Geolocation
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: geofield
