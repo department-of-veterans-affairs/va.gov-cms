@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.vet_center.field_cc_vet_center_faqs
     - field.field.node.vet_center.field_cc_vet_center_featured_con
     - field.field.node.vet_center.field_facility_locator_api_id
+    - field.field.node.vet_center.field_geolocation
     - field.field.node.vet_center.field_health_services
     - field.field.node.vet_center.field_intro_text
     - field.field.node.vet_center.field_media
@@ -31,6 +32,7 @@ dependencies:
     - entity_browser_entity_form
     - entity_field_fetch
     - field_group
+    - geofield
     - ief_table_view_mode
     - inline_entity_form
     - limited_field_widgets
@@ -199,6 +201,7 @@ third_party_settings:
       children:
         - field_facility_locator_api_id
         - field_address
+        - field_geolocation
         - field_phone_number
         - field_office_hours
       label: 'Facility data'
@@ -298,6 +301,13 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_geolocation:
+    type: geofield_latlon
+    weight: 9
+    region: content
+    settings:
+      html5_geolocation: false
+    third_party_settings: {  }
   field_health_services:
     type: inline_entity_form_complex_table_view_mode
     weight: 8
@@ -379,7 +389,7 @@ content:
     third_party_settings: {  }
   field_phone_number:
     type: telephone_default
-    weight: 9
+    weight: 10
     region: content
     settings:
       placeholder: ''
