@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.vet_center_outstation.field_address
     - field.field.node.vet_center_outstation.field_administration
     - field.field.node.vet_center_outstation.field_facility_locator_api_id
+    - field.field.node.vet_center_outstation.field_geolocation
     - field.field.node.vet_center_outstation.field_media
     - field.field.node.vet_center_outstation.field_office
     - field.field.node.vet_center_outstation.field_office_hours
@@ -27,6 +28,21 @@ content:
     third_party_settings: {  }
     weight: -20
     region: content
+  flag_changed_name:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  flag_new:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  flag_removed_from_source:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
   links:
     settings: {  }
     third_party_settings: {  }
@@ -36,6 +52,7 @@ hidden:
   field_address: true
   field_administration: true
   field_facility_locator_api_id: true
+  field_geolocation: true
   field_media: true
   field_office: true
   field_office_hours: true
