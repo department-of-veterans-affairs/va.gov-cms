@@ -701,6 +701,7 @@
             "@va:web:watch"
         ],
         "va:web:build": [
+            "Composer\\Config::disableProcessTimeout",
             "rm -rf docroot/vendor/va-gov/content-build/build/vagovdev",
             "cd docroot/vendor/va-gov/vets-website && echo \"Downloading assets for vets-website for vagovdev\" ",
             "@va:web:prepare-dotenv",
