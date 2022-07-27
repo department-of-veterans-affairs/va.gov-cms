@@ -51,6 +51,10 @@ source:
       label: city
       selector: properties/address/physical/city
     -
+      name: coordinates
+      label: coordinates
+      selector: geometry/coordinates
+    -
       name: state
       label: state
       selector: properties/address/physical/state
@@ -135,6 +139,21 @@ process:
   field_address/locality: city
   field_address/administrative_area: state
   field_address/postal_code: zip
+  latitude:
+    plugin: extract
+    source: coordinates
+    index:
+      - 1
+  longitude:
+    plugin: extract
+    source: coordinates
+    index:
+      - 0
+  field_geolocation:
+    plugin: geofield_latlon
+    source:
+      - '@latitude'
+      - '@longitude'
   field_phone_number:
     -
       plugin: str_replace
@@ -223,6 +242,7 @@ destination:
     - field_address/country_code
     - field_address/locality
     - field_address/postal_code
+    - field_geolocation
     - field_administration
     - field_office_hours
     - field_official_name
