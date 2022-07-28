@@ -11,6 +11,7 @@ assignees: ''
 - This issue will be used from initial request through implementation to ensure all individuals working on this are notified of status updates.  Please do not create multiple issues to track different steps.
 - It is your responsibility to notify VA stakeholders as appropriate.
 - Be sure to link the related facility closure / rename issue.
+- Front end redirects are tracked in the [devops](https://github.com/department-of-veterans-affairs/devops) repo in `ansible/deployment/config/revproxy-vagov/vars/redirects.yml`
 
 ### Implementation date
 When does this request need to be live:

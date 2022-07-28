@@ -47,6 +47,10 @@ source:
       name: name
       label: name
       selector: properties/name
+    -
+      name: coordinates
+      label: coordinates
+      selector: geometry/coordinates
 # The destination fields mapped and processed from source fields.
 process:
   # We have no destination of facility type, but we need to skip the migration
@@ -72,6 +76,21 @@ process:
     plugin: default_value
     # Set the value for "VBA Facilities" which is 191.
     default_value: 191
+  latitude:
+    plugin: extract
+    source: coordinates
+    index:
+      - 1
+  longitude:
+    plugin: extract
+    source: coordinates
+    index:
+      - 0
+  field_geolocation:
+    plugin: geofield_latlon
+    source:
+      - '@latitude'
+      - '@longitude'
   langcode:
     plugin: default_value
     default_value: en
@@ -125,6 +144,7 @@ destination:
   default_bundle: vba_facility
   # Only these fields will be overwritten if the content changes in the API.
   overwrite_properties:
+    - 'field_geolocation'
     - changed
     - new_revision
     - revision_default
