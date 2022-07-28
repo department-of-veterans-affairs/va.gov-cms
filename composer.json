@@ -191,7 +191,7 @@
         "symfony/process": "^4.0",
         "symfony/routing": "^4.0",
         "traviscarden/behat-table-comparison": "~0.2",
-        "va-gov/content-build": "^0.0.3062",
+        "va-gov/content-build": "^0.0.3063",
         "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
@@ -697,6 +697,7 @@
             "@va:web:watch"
         ],
         "va:web:build": [
+            "Composer\\Config::disableProcessTimeout",
             "rm -rf docroot/vendor/va-gov/content-build/build/vagovdev",
             "cd docroot/vendor/va-gov/vets-website && echo \"Downloading assets for vets-website for vagovdev\" ",
             "@va:web:prepare-dotenv",
