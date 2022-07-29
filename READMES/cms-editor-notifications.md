@@ -6,18 +6,16 @@
    3. CMS Notification System (non-existent at this time)
 
 
-## Site ALert
+## Sitewide Alert
 
-Site alerts appear onscreen for ALL CMS users in real time.  They do not require
-a page reload.  They run on a 15 second AJAX interval. This leverages the Drupal [Site Alert](https://www.drupal.org/project/site_alert) module.
-Site alerts are managed [/admin/config/system/site-alerts](https://prod.cms.va.gov/admin/config/system/site-alerts)
-The severity level determines their appearance
-   * **Low** appears at the bottom of the screen and is informational and non-warning.
-   * **Medium** appears at the bottom of the screen and is a warning.
-   * **High** Covers the entire screen and is meant to keep ALL users from performing
-      any actions.
+Sitewide Alerts (formerly Site Alerts) appear onscreen for ALL CMS users in real time.  They do not require
+a page reload.  They are refreshed on a 15 second AJAX interval. This leverages the Drupal [Sitewide Alert](https://www.drupal.org/project/sitewide_alert) module.
 
-  These can be added by humans but are also added and removed by our
-  [Build Release Deploy System](devops/deploy-process.md).
+Sitewide alerts are managed in two places:
+
+- [/admin/config/sitewide_alerts](https://prod.cms.va.gov/admin/config/sitewide_alerts) for global settings
+- [/admin/content/sitewide_alert](https://prod.cms.va.gov/admin/content/sitewide_alert) for individual alerts
+
+These can be added by humans but are also added and removed by our [Build-Release-Deploy System](devops/deploy-process.md).
 
 [Table of Contents](../README.md)
