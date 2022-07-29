@@ -1,0 +1,19 @@
+uuid: 9de7821f-9911-4a71-a103-670cb89c61be
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.rich_text
+template: vet_center_official_name_change
+label: 'VA Facility: Vet Center official name change'
+description: 'Template sent to CMS Help Desk for actions following an official name change.'
+text:
+  -
+    value: "<p>Hello CMS Help Desk!</p>\r\n\r\n<p>A [message:field_target_entity:entity:content-type]&nbsp;<a href=\"url]\">[message:field_target_node_title]</a> recently changed its Official Name on [site:name] at [message:field_target_entity:entity:changed].<br />\r\n<br />\r\nPlease see the <a href=\"//github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&amp;labels=Change+request&amp;template=runbook-facility-name-change.md&amp;title=Facility+name+change%3A+%3Cinsert_name%3E\">runbook</a> for facility name changes.</p>\r\n"
+    format: rich_text
+settings:
+  'token options':
+    clear: false
+    'token replace': true
+  purge_override: false
+  purge_methods: {  }

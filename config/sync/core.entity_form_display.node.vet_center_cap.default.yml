@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.vet_center_cap.field_administration
     - field.field.node.vet_center_cap.field_facility_locator_api_id
     - field.field.node.vet_center_cap.field_geographical_identifier
+    - field.field.node.vet_center_cap.field_geolocation
     - field.field.node.vet_center_cap.field_media
     - field.field.node.vet_center_cap.field_office
     - field.field.node.vet_center_cap.field_office_hours
@@ -20,6 +21,7 @@ dependencies:
     - address
     - content_moderation
     - field_group
+    - geofield_map
     - markup
     - media_library
     - office_hours
@@ -73,6 +75,7 @@ third_party_settings:
     group_locations_and_contact_info:
       children:
         - field_address
+        - field_geolocation
         - field_vetcenter_cap_hours_opt_in
         - field_office_hours
       label: 'Location and hours'
@@ -126,6 +129,50 @@ content:
       size: 70
       placeholder: ''
     third_party_settings: {  }
+  field_geolocation:
+    type: geofield_map
+    weight: 4
+    region: content
+    settings:
+      html5_geolocation: false
+      default_value:
+        lat: !!float 0
+        lon: !!float 0
+      map_library: leaflet
+      map_google_api_key: ''
+      map_google_places:
+        places_control: false
+        places_additional_options: ''
+      map_dimensions:
+        width: 100%
+        height: 450px
+      map_type_google: roadmap
+      map_type_leaflet: OpenStreetMap_Mapnik
+      map_type_selector: false
+      zoom_level: 5
+      zoom:
+        start: 6
+        focus: 16
+        min: 0
+        max: 22
+      click_to_find_marker: true
+      click_to_place_marker: false
+      hide_coordinates: false
+      geoaddress_field:
+        field: '0'
+        hidden: false
+        disabled: true
+      map_geocoder:
+        control: 0
+        settings:
+          providers:
+            mapbox:
+              weight: 0
+              checked: false
+          min_terms: 4
+          delay: 800
+          options: ''
+    third_party_settings: {  }
   field_media:
     type: media_library_widget
     weight: 4
@@ -141,7 +188,7 @@ content:
     third_party_settings: {  }
   field_office_hours:
     type: office_hours_default
-    weight: 5
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -172,7 +219,7 @@ content:
     third_party_settings: {  }
   field_vetcenter_cap_hours_opt_in:
     type: options_buttons
-    weight: 4
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }

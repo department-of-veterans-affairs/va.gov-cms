@@ -2,7 +2,7 @@
 
 Since this is a Drupal site, it can be launched with any Drupal development tool.
 
-For regular development, the DSVA team uses [Lando](https://docs.devwithlando.io/) for local container management.
+For regular development, the DSVA team uses [ddev](https://ddev.com/) for local container management.
 
 For testing and simple development, you can use the special Composer commands and Drupal Console to launch on any system
 with PHP-CLI and SQLite.
@@ -77,25 +77,25 @@ See [the codespaces README](./codespaces.md) to get a fully functional cloud-bas
 
 ## Step 2: Launch development environment
 
-It is possible to run this site with Lando or any other Drupal development tool,
+It is possible to run this site with ddev or any other Drupal development tool,
 including PHP's built-in web server.
 
 If you don't want to worry about your development machine's PHP version or
-libraries, use Lando.
+libraries, use ddev.
 
-### Option 1: Lando
+### Option 1: ddev
 
-1. [Get Lando](https://docs.lando.dev/basics/installation.html) version >=3.0.26
-2. Change into the project directory and run `lando start`:
+1. [Install ddev](https://ddev.readthedocs.io/en/stable/#installation)
+2. Change into the project directory and run `ddev start`:
 
    ```
    $ cd va.gov-cms
-   $ lando start
+   $ ddev start
    ```
 
-The `lando start` command will include the `composer install` command.
+The `ddev start` command will include the `composer install` command.
 
-See [Environments: Local](./local.md) for more information on Lando.
+See [Environments: Local](./local.md) for more information on ddev.
 
 ### Option 2: Local PHP
 
@@ -115,19 +115,17 @@ install the project using your native Terminal:
 
 You need a copy of the production database to get the full VA.gov CMS running.
 
-Use the provided scripts to download a database and files backup into the
+Use the provided ddev commands to download a database and files backup into the
 correct locations in your local development environment.
 
-- `./scripts/sync-db.sh`
-- `./scripts/sync-files.sh`
+- `ddev pull va `  or  `ddev pull va --skip-files`
 
-NOTE: These scripts download the SQL and files first, then attempts to use
-`lando` commands to import them.
+NOTE: This command downloads and impoorts the db followed by any configuration import.
 
-If you are not using lando, the scripts will
+If you are not using ddev, the scripts will
 fail, but the files will still be available. The `sync-db.sh` script downloads the
 SQL file to `./.dumps/cms-prod-db-sanitized-latest.sql`
 
-See [Environments: Local](./local.md) for more information on Lando.
+See [Environments: Local](./local.md) for more information on ddev.
 
 [Table of Contents](../README.md)

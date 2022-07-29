@@ -152,3 +152,27 @@
     margin: 0;
   }
 }
+
+.tags {
+  display: flex;
+
+  .taxonomy-term {
+    margin-left: 2px;
+
+    a {
+      background: var(--va-gray-lightest);
+      border-radius: 20px;
+      display: inline-block;
+      font-size: 14px !important;
+      font-weight: 700;
+      margin-right: var(--space-s) !important;
+      padding: var(--space-xs) var(--space-m);
+      text-decoration: none;
+    }
+
+    a:hover {
+      background: var(--va-blue-light);
+      text-decoration: none;
+    }
+  }
+}

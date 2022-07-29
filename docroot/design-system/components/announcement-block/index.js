@@ -4,7 +4,7 @@ import './announcement.scss';
 // Import module template
 import './announcement-block.twig';
 
-export const name = 'block';
+export const name = 'announcement-block';
 
 export function disable() {}
 

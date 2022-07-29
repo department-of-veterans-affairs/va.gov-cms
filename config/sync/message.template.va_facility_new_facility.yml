@@ -1,0 +1,19 @@
+uuid: 62c7d69d-aa48-4e1a-81dd-74eab6357095
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.rich_text
+template: va_facility_new_facility
+label: 'VA Facility: new facility'
+description: 'Message sent to the help desk when a new facility is created.'
+text:
+  -
+    value: "<p>Hello CMS Help Desk!</p>\r\n\r\n<p>A new [message:field_target_entity:entity:content-type] &lt;a href=\\\"[message:field_target_entity:entity:url]\\\"&gt;[message:field_target_node_title]&lt;/a&gt; was added to&nbsp;[site:name]&nbsp;[message:field_target_entity:entity:created].</p>\r\n\r\n<ul>\r\n\t<li>\r\n\t<p>Here is a link to the Knowledge Base article about the steps editors must take in order for a new VAMC facility to be added to&nbsp;<a href=\"http://va.gov/\" target=\"_blank\">VA.gov</a>:&nbsp;<a href=\"https://prod.cms.va.gov/help/vamc/about-locations-content-for-vamcs/how-do-i-add-a-facility-to-my-health-care-system\" target=\"_blank\">https://prod.cms.va.gov/help/vamc/about-locations-content-for-vamcs/how-do-i-add-a-facility-to-my-health-care-system</a></p>\r\n\t</li>\r\n</ul>\r\n\r\n<ul>\r\n\t<li>\r\n\t<p>Please also review the internal Github runbook for adding a new facility to the site:&nbsp;<a href=\"https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?labels=Change+request&amp;template=runbook-facility-new.md&amp;title=New+Facility+FACILITY+NAME\">https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?labels=Change+request&amp;template=runbook-facility-new.md&amp;title=New+Facility+FACILITY+NAME</a></p>\r\n\t</li>\r\n</ul>\r\n"
+    format: rich_text
+settings:
+  'token options':
+    clear: false
+    'token replace': true
+  purge_override: false
+  purge_methods: {  }

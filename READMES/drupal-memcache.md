@@ -1,6 +1,6 @@
 # Memcache(d)
 
-In Lando, Tugboat, and BRD environments, Drupal uses [Memcache](https://memcached.org/) and the [memcache](https://www.php.net/manual/en/book.memcache.php) PHP module to improve performance by relieving the load on the RDBMS.
+In local, Tugboat, and BRD environments, Drupal uses [Memcache](https://memcached.org/) and the [memcache](https://www.php.net/manual/en/book.memcache.php) PHP module to improve performance by relieving the load on the RDBMS.
 
 ## BRD (Staging and Production)
 BRD utilizes a Memcache cluster on [AWS ElastiCache](./elasticache.md).  The PECL memcache module is installed and configured [via Ansible](https://github.com/department-of-veterans-affairs/devops/pull/8943/files) and the Memcache nodes are listed explicitly in the `CMS_MEMCACHE_NODES` environment variable.
@@ -10,8 +10,8 @@ This environment variable is read, split, and mapped in [settings.brd_common.php
 ## Tugboat
 Tugboat creates a single-node Memcache cluster, available at the hostname `memcache` and the default port of 11211.
 
-## Lando
-Lando creates a single-node Memcache cluster, available at the hostname `memcache` and the default port of 11211.
+## Local
+ddev creates a single-node Memcache cluster, available at the hostname `memcache` and the default port of 11211.
 
 ## Troubleshooting
 
@@ -33,9 +33,9 @@ apt-get install telnet
 telnet memcache 11211
 ```
 
-On Lando:
+Locally:
 ```sh
-lando ssh -u root
+ddev ssh
 apt-get install telnet
 telnet memcache 11211
 ```
@@ -222,15 +222,6 @@ php -m                                                                # Should n
 ```
 
 The Memcache extension will be restored on the next deploy, or the file can simply be moved back into place and Apache reloaded again to re-enable it.
-
-#### Lando
-Lando has a dedicated command to disable Memcache:
-
-```sh
-lando memcache-off
-```
-
-This simply removes the memcache.ini file and restarts Apache.  A corresponding `memcache-on` command exists to enable Memcache again.
 
 
 [Table of Contents](../README.md)

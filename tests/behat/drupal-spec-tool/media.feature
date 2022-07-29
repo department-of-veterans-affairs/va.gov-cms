@@ -22,6 +22,7 @@ Feature: Media
 | Cropped: Square | crop_square |
 | Crop thumbnail | crop_thumbnail |
 | Full content width with no upscaling | full_content_width |
+| GeofieldMap Default Icon Style (34x34) | geofield_map_default_icon_style |
 | Large (480×480) | large |
 | Linkit result thumbnail | linkit_result_thumbnail |
 | media_library | media_library |
@@ -55,6 +56,7 @@ Feature: Media
 | Cropped: Freeform | Manual crop | uses Freeform crop type |
 | Cropped: Square | Manual crop | uses Square crop type |
 | Full content width with no upscaling | Scale | width 1400 |
+| GeofieldMap Default Icon Style (34x34) | Resize | 34×34 |
 | Large (480×480) | Scale | 480×480 |
 | Linkit result thumbnail | Scale and crop | 50×50 |
 | Medium (220×220) | Scale | 220×220 |

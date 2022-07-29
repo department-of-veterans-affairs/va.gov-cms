@@ -191,3 +191,26 @@
     display: none;
   }
 }
+//Geofield Map 'permissions' visibility
+.field--widget-geofield-map {
+  .geofield-map-message {
+    display: none;
+  }
+}
+
+body:not(.role-admin) {
+  .field--widget-geofield-map {
+    .geofield-map-widget,
+    .leaflet-marker-icon {
+      pointer-events: none;
+    }
+    
+    .js-form-type-textfield {
+      display: none;
+    }
+  }
+
+  .field--widget-geofield-latlon {
+    display: none;
+  }
+}

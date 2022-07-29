@@ -1,0 +1,42 @@
+uuid: 6c67efcc-5636-4676-9901-da9874e24b37
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_geolocation
+    - node.type.vet_center_cap
+  module:
+    - epp
+    - geocoder_field
+    - geofield
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 1
+  geocoder_field:
+    method: geocode
+    weight: 0
+    field: field_address
+    skip_not_empty_value: false
+    disabled: false
+    hidden: false
+    providers:
+      - mapbox
+    dumper: wkt
+    delta_handling: default
+    failure:
+      handling: preserve
+      status_message: true
+      log: true
+id: node.vet_center_cap.field_geolocation
+field_name: field_geolocation
+entity_type: node
+bundle: vet_center_cap
+label: Geolocation
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: geofield

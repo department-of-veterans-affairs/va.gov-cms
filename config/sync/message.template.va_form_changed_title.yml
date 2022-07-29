@@ -1,0 +1,19 @@
+uuid: 64b5b853-624a-4c56-8878-1a0aefdc4d4f
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.rich_text
+template: va_form_changed_title
+label: 'VA Form: changed title'
+description: 'The template to alert people about a change of title on a form.'
+text:
+  -
+    value: "<p>:delta:&nbsp;&nbsp;The title of [message:field_target_entity:entity:content-type] <a href=\"https://prod.cms.va.gov/node/[message:field_target_entity:entity:nid]\">[message:field_target_entity:entity:field_va_form_title]</a> was changed in the VA.gov-CMS.<br />\r\n*Form name:* [message:field_target_entity:entity:field_va_form_name]<br />\r\n*Form ID:* [message:field_target_entity:entity:field_va_form_number]</p>\r\n"
+    format: rich_text
+settings:
+  'token options':
+    clear: false
+    'token replace': true
+  purge_override: false
+  purge_methods: {  }
