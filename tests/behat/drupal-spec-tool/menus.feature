@@ -23,6 +23,7 @@ Feature: Menus
 | Housing Assistance benefits hub | housing-assistance-benefits | va.gov/housing-assistance |
 | Life insurance benefits hub | life-insurance-benefits-hub | va.gov/life-insurance |
 | Lovell Federal health care | lovell-federal-health-care | VISN 12 \| va.gov/lovell-federal-health-care |
+| Lovell Tricare health care | lovell-tricare-health-care | VISN 12 \| va.gov/lovell-tricare-health-care |
 | Main navigation | main | Site section links |
 | Outreach and events | outreach-and-events |  |
 | Pension benefits hub | pension-benefits-hub | va.gov/pension |
