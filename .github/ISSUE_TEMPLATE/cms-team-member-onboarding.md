@@ -38,7 +38,7 @@ Projected start date: <insert_here>
 ### What?
 - [ ] [Onboarding questionnaire](https://drive.google.com/drive/u/0/folders/1fYwNBBbceqRM3qXfes_KEg1QeO-Nkq0q?ths=true) (what do you already know in regards to tooling, context, history, etc)
 - [ ] Contract - Discuss which contract you are on with your Delivery Manager or Program Manager. Your contract will determine your paperwork process.
-- [ ] Read the [VA.gov platform mission and goals](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/VA.gov%20Platform%20Overview%202021.pdf).
+- [ ] Read the [VA.gov platform mission and goals](https://github.com/department-of-veterans-affairs/va.gov-team/blob/main/platform/cms/onboarding/library/VA.gov%20Platform%20Overview%202021.pdf).
 - [ ] Open a VA.gov [Platform onboarding ticket](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=&labels=governance-team%2C+analytics-insights&template=orientation-epic.md&title=Platform+Orientation+Template+%5BYour+name+here%5D). The VA.gov Platform team manages VA.gov tooling and network access. In order to receive access to the SOCKS network proxy (described later), you must complete this Github issue, and attend a Platform orientation. That will result in adding you to the [VFS Platform roster](https://docs.google.com/spreadsheets/d/11dpCJjhs007uC6CWJI6djy3OAvjB8rHB65m0Yj8HXIw/edit?folder=0ALlyxurHpUilUk9PVA#gid=2042046665). If a Platform orientation isn't available for several weeks, sign up for the next available slot, then mention your Delivery manager and/or Clarence on your Platform ticket to expedite SOCKS access.
 
 </details>
@@ -105,12 +105,12 @@ The goal for this week is to get you set up with the tools you need to be succes
    - [ ] [Request a Github personal access token first](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token). You only need to do the "repo" panel in that form and leave the other panels as is. It may take a day or two for the SOCKS proxy request to be fulfilled before you can complete the rest of the SOCKS process. This can be a complex process. Post in CMS-Team Slack channel is you need help from a current member - we're happy to help.
    - [ ] Optional [Core Tunnel set up for SOCKS proxy on all browsers on Mac](https://www.youtube.com/watch?v=fSuN9LhkB5o)
 
-- [ ] [Learn about the different Drupal environments](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/f4341c29ad8e998de1dac2fca0b749cdef15c923/READMES/environments.md)
-  - [ ] If you are using a non-VA laptop for development you will need [follow the instructions on Github](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/https.md) to trust the VA Root Certificate Authority (CA) in your browser(s)
+- [ ] [Learn about the different Drupal environments](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/environments.md)
+  - [ ] If you are using a non-VA laptop for development you will need [follow the instructions on Github](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/https.md) to trust the VA Root Certificate Authority (CA) in your browser(s)
   - [ ] Drupal production environment access (SOCKS or VA network required) - ask your Delivery Manager, Product Manager, or CMS Team helpdesk to set up an for you for [prod.cms.va.gov](prod.cms.va.gov). Standard practice is to have minimal access in prod (content editor or even a blocked account) and full admin access in lower environments.
   
 -  [ ] Tugboat demo environments
-    - [ ] [Tugboat for engineers](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/f4341c29ad8e998de1dac2fca0b749cdef15c923/READMES/tugboat.md)
+    - [ ] [Tugboat for engineers](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/tugboat.md)
     - [ ] [Tugboat for non-engineers](https://prod.cms.va.gov/help/demo-environments-tugboat-guides) SOCKS required
 
  - [ ] [Slack](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/orientation/slack-requests.md) for instant messaging. Your Delivery Manager should have already requested this for you, but if not, view the request instructions in the link above.
@@ -183,6 +183,8 @@ The goal for this week is to get you set up with the tools you need to be succes
 #### Onboarding for UX members
 - [ ] Attend design onboarding call 1: You are here
    - The CMS and the products we support
+   - Hosted by Suzanne
+   - Suzanne or Val will schedule
    - Who are our users?
    - Research
 - [ ] Attend design onboarding call 2: Project history and opportunties
@@ -192,6 +194,24 @@ The goal for this week is to get you set up with the tools you need to be succes
    - Required documentation for design at VA
 - [ ] Get oriented with the stuff of design
    - Log in to make sure you have access to the design tools used on this project
+   - What is a decoupled CMS?
+   - Q&A about everything so far!
+- [ ] Reading
+   - [Collaboration Cycle](https://depo-platform-documentation.scrollhelp.site/collaboration-cycle/collaboration-cycle-kickoff)
+   - [Research Overview](https://depo-platform-documentation.scrollhelp.site/research-design/research-overview)
+   - [VA Design System](https://design.va.gov/)
+- [ ] Attend design onboarding call 2: Partners
+   - Hosted by Val
+   - Scheduled by either Suzanne or Val
+   - What is Platform Crew?
+   - What is Sitewide Content Team?
+   - How do we collaborate with these teams?
+- [ ] Attend design onboarding call 3: UX Processes
+   - Scheduled by either Suzanne or Val
+   - Design/dev workflow
+   - UX Team norms
+- [ ] Get tools
+   - [ ] Sketch
    - [ ] Mural
    - [ ] Figma
    - [ ] Airtable
@@ -205,6 +225,25 @@ The goal for this week is to get you set up with the tools you need to be succes
 - [ ] Attend 1:1 w/ Kauff (maybe Clarence and Kev too)
    - Let’s talk about your skillsets and interests and which project initiatives you might want to take over.
 - [ ] Attend the Platform Crew's orientation to VA.gov research. Ask your DM for details or ping in #vfs-platform-support
+- [ ] Helpful Slack channels to join
+   - #accessibility-ops
+   - #design
+   - #inclusive-design
+   - #platform-design-system
+   - #research-ops
+   - #sitewide-content-ia
+   - #vagov-accessibility
+- [ ] Fonts to download
+   - Lucida Grande [download from fontsgeek.com](https://fontsgeek.com/fonts/Lucida-Grande-Regular)
+   - Source Sans Pro [download from Google Fonts](https://fonts.google.com/specimen/Source+Sans+Pro)
+   - Bitter [download from Google Fonts](https://fonts.google.com/specimen/Bitter)
+- [ ] Attend "UX Ask-Me-Anything" call (Suzanne or Val)
+   - Suzanne or Val will schedule
+   - It's an opportunity to ask any lingering questions and clarify any information we've covered.
+- [ ] Attend "How to Use Github" with Lynn [optional]
+   - Ask Suzanne or Val to schedule if interested.
+   - New to Github? Cool. Me too. Lynn will walk you through the basics of Github.
+- [ ] Download a [markdown cheat sheet](https://cheatography.com/lucbpz/cheat-sheets/the-ultimate-markdown/pdf/) [optional]
 
 </details>
 
