@@ -1,5 +1,5 @@
 ---
-name: CMS and Sitewide Crew team member onboarding
+name: CMS team and Sitewide Crew member onboarding
 about: Create an issue for each new team member
 title: 'Onboarding: <insert_name>'
 labels: Onboarding
@@ -177,17 +177,23 @@ The goal for this week is to get you set up with the tools you need to be succes
    - [ ] [Watch the training video that VA Medical Center (VAMC) editors have to complete](https://youtu.be/Sowgt1rOmlE).
    - [ ] [Watch the training video that Vet Center editors have to complete](https://youtu.be/scuC5lSHZuw).
 
-#### Onboarding for Instructional Design members
-- [ ] Touch base with UX leads for next steps (Val Runde - FE UX; Suzanne Gray - Drupal UX)
-
 #### Onboarding for Product Management members
  - [ ] Review [onboarding docs](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/PM/)
 
 #### Onboarding for UX members
 - [ ] Attend design onboarding call 1: You are here
+   - The CMS and the products we support
    - Hosted by Suzanne
    - Suzanne or Val will schedule
    - Who are our users?
+   - Research
+- [ ] Attend design onboarding call 2: Project history and opportunties
+- [ ] Attend design onboarding call 3: Design processes
+   - Wireframing elements
+   - Airtable database
+   - Required documentation for design at VA
+- [ ] Get oriented with the stuff of design
+   - Log in to make sure you have access to the design tools used on this project
    - What is a decoupled CMS?
    - Q&A about everything so far!
 - [ ] Reading
@@ -207,7 +213,18 @@ The goal for this week is to get you set up with the tools you need to be succes
 - [ ] Get tools
    - [ ] Sketch
    - [ ] Mural
+   - [ ] Figma
    - [ ] Airtable
+   - Review existing design assets to get a feel for where things are at
+   - Make sure you have the following font families on your machine:
+      - Lucida Grande [download from fontsgeek.com](https://fontsgeek.com/fonts/Lucida-Grande-Regular)
+      - Source Sans Pro [download from Google Fonts](https://fonts.google.com/specimen/Source+Sans+Pro)
+      - Bitter [download from Google Fonts](https://fonts.google.com/specimen/Bitter)
+- [ ] Build empathy with our users
+   - Complete a CMS simulation (you’ll need SOCKS proxy access first)
+- [ ] Attend 1:1 w/ Kauff (maybe Clarence and Kev too)
+   - Let’s talk about your skillsets and interests and which project initiatives you might want to take over.
+- [ ] Attend the Platform Crew's orientation to VA.gov research. Ask your DM for details or ping in #vfs-platform-support
 - [ ] Helpful Slack channels to join
    - #accessibility-ops
    - #design
