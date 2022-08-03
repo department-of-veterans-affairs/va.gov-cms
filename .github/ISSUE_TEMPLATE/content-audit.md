@@ -3,9 +3,10 @@ name: Content Audit
 about: Submit a request to perform a content audit across VA.gov.
 title: 'Content Audit: <description>'
 labels: Content audit
-assignees: dawnpruitt, EWashb, msbtterswrth
+assignees: dawnpruitt, EWashb
 
 ---
+
 Content audits can be performed by searching the codebase and compiled site for specific terms ur using an audit tool within drupal. 
 Please provide any context for the audit, any related terms or alternate spellings, or and related components that could return content you are interested in. Please see the [collab cycle doccumentation](https://va-gov.atlassian.net/l/cp/U0DfKLfs) for more information.
 
