@@ -18,11 +18,15 @@ Please be as detailed as possible knowing that any recommended path forward may 
 
 Please provide:
 
-## Description of the problem / issue / enhancement with relevant context outlined
+### Description of the problem / issue / enhancement
+* please include all relevant context known
 
 ## Description of known dependencies
+* particularly with outside teams
 
-## Rough estimate of urgency (need it today vs. this week vs. next sprint vs. this quarter vs. next quarter) and impact (# of people affected, their roles, and severity, i.e. they can't do their job) is added
+## Rough estimate of urgency and impact
+* urgency as it relates to timeframe needed and why
+* impact as it relates to # of people affected, their roles, and severity (i.e. can't perform their job duties)
 
 ## Acceptance Criteria
 - [ ] The Product Manager for the recommended intake team is pinged through Slack about the issue
