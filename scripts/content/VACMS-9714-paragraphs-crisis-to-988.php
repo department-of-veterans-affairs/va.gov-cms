@@ -115,6 +115,8 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox, $revision_me
  *
  * @param string $input
  *   The string to normalize.
+ * @param bool $plain
+ *   True if the result should be a plain string, false for html.
  *
  * @return string
  *   The value of $input with all crisis numbers updated.
