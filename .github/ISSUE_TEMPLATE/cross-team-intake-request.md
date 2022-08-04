@@ -1,6 +1,7 @@
 ---
 name: Cross team intake request
-about: Describe the issue here
+about: This template is for issues that are looking to be assigned across teams internally
+  (Platform CMS, Sitewide Crew)
 title: Cross team intake request
 labels: ''
 assignees: ''
@@ -17,11 +18,11 @@ Please be as detailed as possible knowing that any recommended path forward may 
 
 Please provide:
 
-### Description of the problem / issue / enhancement with relevant context outlined
+## Description of the problem / issue / enhancement with relevant context outlined
 
-### Description of known dependencies
+## Description of known dependencies
 
-### Rough estimate of urgency (need it today vs. this week vs. next sprint vs. this quarter vs. next quarter) and impact (# of people affected, their roles, and severity, i.e. they can't do their job) is added
+## Rough estimate of urgency (need it today vs. this week vs. next sprint vs. this quarter vs. next quarter) and impact (# of people affected, their roles, and severity, i.e. they can't do their job) is added
 
 ## Acceptance Criteria
 - [ ] The Product Manager for the recommended intake team is pinged through Slack about the issue
