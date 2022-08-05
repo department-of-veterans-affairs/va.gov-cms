@@ -66,9 +66,7 @@ class PostFacilityService extends PostFacilityBase {
    */
   public function queueFacilityService(EntityInterface $entity, bool $forcePush = FALSE) {
     $this->errors = [];
-    if (($entity->getEntityTypeId() === 'node')
-    && ($entity->bundle() === 'health_care_local_health_service')
-    && !$this->isLovellTricareSection($entity)) {
+    if (($entity->getEntityTypeId() === 'node') && ($entity->bundle() === 'health_care_local_health_service')) {
       // This is an appropriate service so begin gathering data to process.
       $this->facilityService = $entity;
 
@@ -366,9 +364,15 @@ class PostFacilityService extends PostFacilityBase {
     $thisRevisionIsPublished = $entity->isPublished();
     $defaultRevisionIsPublished = (isset($entity->original) && ($entity->original instanceof EntityInterface)) ? (bool) $entity->original->status->value : (bool) $entity->status->value;
     $isNew = $entity->isNew();
+    $isLovellTricare = $this->isLovellTricareSection($this->facilityService);
 
     // Case race. First to evaluate to TRUE wins.
     switch (TRUE) {
+      case $isLovellTricare:
+        // Node is part of the Lovell-Tricare section, do not push.
+        $push = FALSE;
+        break;
+
       case $forcePush && $thisRevisionIsPublished:
         // Forced push from updates to referenced entity.
       case $isNew:

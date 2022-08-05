@@ -73,7 +73,7 @@ class PostFacilityStatus extends PostFacilityBase {
   public function queueFacilityStatus(EntityInterface $entity, bool $forcePush = FALSE) {
     $queued_count = 0;
 
-    if ($entity instanceof NodeInterface && $this->isFacilityWithStatus($entity) && !$this->isLovellTricareSection($entity)) {
+    if ($entity instanceof NodeInterface && $this->isFacilityWithStatus($entity)) {
       /** @var \Drupal\node\NodeInterface $entity*/
       $this->facilityNode = $entity;
       $facility_id = $entity->hasField('field_facility_locator_api_id') ? $entity->get('field_facility_locator_api_id')->value : NULL;
@@ -123,7 +123,6 @@ class PostFacilityStatus extends PostFacilityBase {
     $queued_count = 0;
     if (($entity->getEntityTypeId() === 'node')
     && ($entity->bundle() === 'health_care_region_page')
-    && !$this->isLovellTricareSection($entity)
     && ($this->shouldPushSystem($entity))) {
       // Find all VAMC Facilities referencing this VAMC system node.
       $query = $this->entityTypeManager->getStorage('node')->getQuery();
@@ -294,9 +293,15 @@ class PostFacilityStatus extends PostFacilityBase {
     $statusInfoChanged = $this->changedValue($this->facilityNode, $defaultRevision, 'field_operating_status_more_info');
     $supStatusChanged = $this->changedTarget($this->facilityNode, $defaultRevision, 'field_supplemental_status');
     $somethingChanged = $statusChanged || $statusInfoChanged || $supStatusChanged;
+    $isLovellTricare = $this->isLovellTricareSection($this->facilityNode);
 
     // Case race. First to evaluate to TRUE wins.
     switch (TRUE) {
+      case $isLovellTricare:
+        // Node is part of the Lovell-Tricare section, do not push.
+        $push = FALSE;
+        break;
+
       case $forcePush && $thisRevisionIsPublished:
         // Forced push from updates to referenced entity.
       case $isNew:
