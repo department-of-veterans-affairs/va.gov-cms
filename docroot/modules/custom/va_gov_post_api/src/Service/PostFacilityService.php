@@ -364,11 +364,10 @@ class PostFacilityService extends PostFacilityBase {
     $thisRevisionIsPublished = $entity->isPublished();
     $defaultRevisionIsPublished = (isset($entity->original) && ($entity->original instanceof EntityInterface)) ? (bool) $entity->original->status->value : (bool) $entity->status->value;
     $isNew = $entity->isNew();
-    $isLovellTricare = $this->isLovellTricareSection($this->facilityService);
 
     // Case race. First to evaluate to TRUE wins.
     switch (TRUE) {
-      case $isLovellTricare:
+      case $this->isLovellTricareSection($this->facilityService):
         // Node is part of the Lovell-Tricare section, do not push.
         $push = FALSE;
         break;
