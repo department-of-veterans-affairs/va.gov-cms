@@ -20,6 +20,7 @@ class PostFacilityStatus extends PostFacilityBase {
   const STATE_ARCHIVED = 'archived';
   const STATE_DRAFT = 'draft';
   const STATE_PUBLISHED = 'published';
+  const LOVELL_TRICARE = 1039;
 
   /**
    * The facility service node.
@@ -72,7 +73,7 @@ class PostFacilityStatus extends PostFacilityBase {
   public function queueFacilityStatus(EntityInterface $entity, bool $forcePush = FALSE) {
     $queued_count = 0;
 
-    if ($entity instanceof NodeInterface && $this->isFacilityWithStatus($entity)) {
+    if ($entity instanceof NodeInterface && $this->isFacilityWithStatus($entity) && !$this->isLovellTricareSection($entity)) {
       /** @var \Drupal\node\NodeInterface $entity*/
       $this->facilityNode = $entity;
       $facility_id = $entity->hasField('field_facility_locator_api_id') ? $entity->get('field_facility_locator_api_id')->value : NULL;
@@ -122,6 +123,7 @@ class PostFacilityStatus extends PostFacilityBase {
     $queued_count = 0;
     if (($entity->getEntityTypeId() === 'node')
     && ($entity->bundle() === 'health_care_region_page')
+    && !$this->isLovellTricareSection($entity)
     && ($this->shouldPushSystem($entity))) {
       // Find all VAMC Facilities referencing this VAMC system node.
       $query = $this->entityTypeManager->getStorage('node')->getQuery();
@@ -248,6 +250,24 @@ class PostFacilityStatus extends PostFacilityBase {
    */
   protected function isFacilityWithStatus(NodeInterface $entity) : bool {
     return in_array($entity->bundle(), $this->facilitiesWithServices);
+  }
+
+  /**
+   * Checks if the entity is within the Lovell Tricare section.
+   *
+   * @param \Drupal\node\NodeInterface $entity
+   *   The node to evaluate.
+   *
+   * @return bool
+   *   TRUE if entity is within Lovell Tricare section. FALSE otherwise.
+   */
+  protected function isLovellTricareSection(NodeInterface $entity) : bool {
+    if ($entity->hasField('field_administration')) {
+      if ($entity->get('field_administration')->target_id == self::LOVELL_TRICARE) {
+        return TRUE;
+      }
+    }
+    return FALSE;
   }
 
   /**
