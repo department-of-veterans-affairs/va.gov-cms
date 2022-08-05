@@ -16,6 +16,8 @@ class PostFacilityService extends PostFacilityBase {
    */
   protected $errors = [];
 
+  const LOVELL_TRICARE = 1039;
+
   /**
    * The facility service node.
    *
@@ -63,7 +65,9 @@ class PostFacilityService extends PostFacilityBase {
    */
   public function queueFacilityService(EntityInterface $entity, bool $forcePush = FALSE) {
     $this->errors = [];
-    if (($entity->getEntityTypeId() === 'node') && ($entity->bundle() === 'health_care_local_health_service')) {
+    if (($entity->getEntityTypeId() === 'node')
+    && ($entity->bundle() === 'health_care_local_health_service')
+    && !$this->isLovellTricareSection($entity)) {
       // This is an appropriate service so begin gathering data to process.
       $this->facilityService = $entity;
 
@@ -323,6 +327,24 @@ class PostFacilityService extends PostFacilityBase {
     ];
 
     return $map[$raw] ?? NULL;
+  }
+
+  /**
+   * Checks if the entity is within the Lovell Tricare section.
+   *
+   * @param \Drupal\node\NodeInterface $entity
+   *   The node to evaluate.
+   *
+   * @return bool
+   *   TRUE if entity is within Lovell Tricare section. FALSE otherwise.
+   */
+  protected function isLovellTricareSection(NodeInterface $entity) : bool {
+    if ($entity->hasField('field_administration')) {
+      if ($entity->get('field_administration')->target_id == self::LOVELL_TRICARE) {
+        return TRUE;
+      }
+    }
+    return FALSE;
   }
 
   /**
