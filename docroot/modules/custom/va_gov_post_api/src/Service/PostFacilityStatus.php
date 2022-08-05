@@ -293,11 +293,10 @@ class PostFacilityStatus extends PostFacilityBase {
     $statusInfoChanged = $this->changedValue($this->facilityNode, $defaultRevision, 'field_operating_status_more_info');
     $supStatusChanged = $this->changedTarget($this->facilityNode, $defaultRevision, 'field_supplemental_status');
     $somethingChanged = $statusChanged || $statusInfoChanged || $supStatusChanged;
-    $isLovellTricare = $this->isLovellTricareSection($this->facilityNode);
 
     // Case race. First to evaluate to TRUE wins.
     switch (TRUE) {
-      case $isLovellTricare:
+      case $this->isLovellTricareSection($this->facilityNode):
         // Node is part of the Lovell-Tricare section, do not push.
         $push = FALSE;
         break;
