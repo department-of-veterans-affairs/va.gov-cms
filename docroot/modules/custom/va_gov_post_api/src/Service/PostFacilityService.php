@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_post_api\Service;
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\node\NodeInterface;
 
 /**
  * Class PostFacilityService posts specific service info to Lighthouse.
