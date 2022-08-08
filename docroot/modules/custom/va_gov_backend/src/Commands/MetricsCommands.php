@@ -2,15 +2,7 @@
 
 namespace Drupal\va_gov_backend\Commands;
 
-use Drupal\Core\Logger\LoggerChannelFactoryInterface;
-use Drupal\Core\State\StateInterface;
 use Drupal\va_gov_backend\Service\Metrics;
-use Drupal\va_gov_build_trigger\Controller\ContentReleaseNotificationController;
-use Drupal\va_gov_build_trigger\Service\BuildRequester;
-use Drupal\va_gov_build_trigger\Service\BuildRequesterInterface;
-use Drupal\va_gov_build_trigger\Service\BuildSchedulerInterface;
-use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
-use Drupal\va_gov_build_trigger\Service\ReleaseStateManagerInterface;
 use Drush\Commands\DrushCommands;
 
 /**

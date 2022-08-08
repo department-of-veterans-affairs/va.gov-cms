@@ -2,8 +2,6 @@
 
 namespace Drupal\va_gov_build_trigger\Plugin\MetricsCollector;
 
-use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
-
 /**
  * Expose a metric for a rolling average of five content release durations.
  *

@@ -15,6 +15,8 @@ abstract class BaseContentReleaseMetricsCollector extends BaseMetricsCollector i
 
   /**
    * The name of the metric that will be exposed.
+   *
+   * @var string
    */
   protected $name = 'duration';
 
@@ -71,6 +73,5 @@ abstract class BaseContentReleaseMetricsCollector extends BaseMetricsCollector i
    *   The number representing whatever metric the child class exposes.
    */
   abstract protected function calculate() : int;
-
 
 }

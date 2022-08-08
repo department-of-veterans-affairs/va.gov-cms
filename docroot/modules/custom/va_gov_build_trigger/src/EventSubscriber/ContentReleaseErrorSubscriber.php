@@ -2,11 +2,9 @@
 
 namespace Drupal\va_gov_build_trigger\EventSubscriber;
 
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\va_gov_build_trigger\Event\ReleaseStateTransitionEvent;
 use Drupal\va_gov_build_trigger\Service\BuildRequesterInterface;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -15,7 +13,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class ContentReleaseErrorSubscriber implements EventSubscriberInterface {
 
   /**
-   * The build requester service
+   * The build requester service.
    *
    * @var \Drupal\va_gov_build_trigger\Service\BuildRequesterInterface
    */

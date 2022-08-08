@@ -3,12 +3,10 @@
 namespace Drupal\va_gov_build_trigger\EventSubscriber;
 
 use Drupal\Component\Datetime\TimeInterface;
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\State\StateInterface;
 use Drupal\va_gov_build_trigger\Plugin\MetricsCollector\ContentReleaseInterval;
 use Drupal\va_gov_build_trigger\Event\ReleaseStateTransitionEvent;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -17,7 +15,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class ContentReleaseIntervalSubscriber implements EventSubscriberInterface {
 
   /**
-   * The state service
+   * The state service.
    *
    * @var \Drupal\Core\State\StateInterface
    */
@@ -31,7 +29,7 @@ class ContentReleaseIntervalSubscriber implements EventSubscriberInterface {
   protected $time;
 
   /**
-   * Undocumented function
+   * Constructs a new ContentReleaseIntervalSubscriber object.
    *
    * @param \Drupal\Core\State\StateInterface $state
    *   The state service.
