@@ -31,10 +31,11 @@ class ContentReleaseNotificationController extends ControllerBase {
    */
   public static function allowedNotifications() : array {
     return [
+      ReleaseStateManager::STATE_READY,
       ReleaseStateManager::STATE_STARTING,
       ReleaseStateManager::STATE_INPROGRESS,
       ReleaseStateManager::STATE_COMPLETE,
-      ReleaseStateManager::STATE_READY,
+      ReleaseStateManager::STATE_ERROR,
     ];
   }
 
@@ -55,6 +56,16 @@ class ContentReleaseNotificationController extends ControllerBase {
     return new static(
       $container->get('va_gov_build_trigger.release_state_manager')
     );
+  }
+
+  /**
+   * Handle a ready notification.
+   *
+   * @return \Symfony\Component\HttpFoundation\Response
+   *   An HTTP response
+   */
+  public function ready() {
+    return $this->handle(ReleaseStateManager::STATE_READY);
   }
 
   /**
@@ -88,13 +99,17 @@ class ContentReleaseNotificationController extends ControllerBase {
   }
 
   /**
-   * Handle a ready notification.
+   * Handle an error notification.
    *
    * @return \Symfony\Component\HttpFoundation\Response
    *   An HTTP response
    */
-  public function ready() {
-    return $this->handle(ReleaseStateManager::STATE_READY);
+  public function error() {
+    $this->releaseStateManager->recordStatusNotification();
+
+    $this->releaseStateManager->handleError();
+
+    return new Response('Error notificaiton successful.');
   }
 
   /**
@@ -107,6 +122,8 @@ class ContentReleaseNotificationController extends ControllerBase {
    *   An HTTP response.
    */
   protected function handle($state) {
+    $this->releaseStateManager->recordStatusNotification();
+
     $is_allowed_notification = in_array($state, self::allowedNotifications());
     $can_transition = $this->releaseStateManager->canAdvanceStateTo($state);
     $can_transition = ($can_transition === ReleaseStateManager::STATE_TRANSITION_OK);
