@@ -23,7 +23,7 @@ class PostFacilityStatus extends PostFacilityBase {
   const LOVELL_TRICARE = 1039;
 
   /**
-   * The facility service node.
+   * The facility node.
    *
    * @var \Drupal\node\NodeInterface
    */

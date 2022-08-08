@@ -3,7 +3,6 @@
 namespace Drupal\va_gov_post_api\Service;
 
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\node\NodeInterface;
 
 /**
  * Class PostFacilityService posts specific service info to Lighthouse.
@@ -331,14 +330,15 @@ class PostFacilityService extends PostFacilityBase {
   /**
    * Checks if the entity is within the Lovell Tricare section.
    *
-   * @param \Drupal\node\NodeInterface $entity
-   *   The node to evaluate.
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   Entity.
    *
    * @return bool
    *   TRUE if entity is within Lovell Tricare section. FALSE otherwise.
    */
-  protected function isLovellTricareSection(NodeInterface $entity) : bool {
-    if ($entity->hasField('field_administration')) {
+  protected function isLovellTricareSection(EntityInterface $entity) : bool {
+    if (($entity instanceof NodeInterface) && ($entity->hasField('field_administration'))) {
+      /** @var \Drupal\node\NodeInterface $entity*/
       if ($entity->get('field_administration')->target_id == self::LOVELL_TRICARE) {
         return TRUE;
       }
@@ -367,7 +367,7 @@ class PostFacilityService extends PostFacilityBase {
 
     // Case race. First to evaluate to TRUE wins.
     switch (TRUE) {
-      case $this->isLovellTricareSection($this->facilityService):
+      case $this->isLovellTricareSection($entity):
         // Node is part of the Lovell-Tricare section, do not push.
         $push = FALSE;
         break;

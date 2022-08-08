@@ -112,7 +112,7 @@ class FacilityStatusQueueTest extends ExistingSiteBase {
       $nodeProphecy->hasField(self::STATUS_FIELD_MORE_INFO_NAME)->willReturn(TRUE);
       $nodeProphecy->get(self::STATUS_FIELD_MORE_INFO_NAME)->willReturn((object) ['value' => 'a']);
       $nodeProphecy->hasField(self::SECTION_FIELD_NAME)->willReturn(TRUE);
-      $nodeProphecy->get(self::SECTION_FIELD_NAME)->willReturn((object) ['value' => 'a']);
+      $nodeProphecy->get(self::SECTION_FIELD_NAME)->willReturn((object) ['target_id' => '1']);
       if ($contentType === 'health_care_local_facility') {
         if (!is_null($supplementalStatusChanged)) {
           $nodeProphecy->hasField(self::SUPPLEMENTAL_STATUS_FIELD_NAME)->willReturn(TRUE);
