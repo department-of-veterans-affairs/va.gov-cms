@@ -7,8 +7,7 @@
 
 use Drupal\node\NodeInterface;
 
-// User ID for CMS Migrator.
-const USER_ID = 1317;
+const CMS_MIGRATOR_ID = 1317;
 
 /**
  * Load the latest revision of a node.
@@ -42,7 +41,7 @@ function save_node_revision(NodeInterface $node, $message): void {
   $moderation_state = $node->get('moderation_state')->value;
   $node->setNewRevision(TRUE);
   // If draft or review preserve the user from revision, otherwise CMS Migrator.
-  $uid = (in_array($moderation_state, $states)) ? $node->getRevisionUserId() : USER_ID;
+  $uid = (in_array($moderation_state, $states)) ? $node->getRevisionUserId() : CMS_MIGRATOR_ID;
   $node->setRevisionUserId($uid);
   $node->setChangedTime(time());
   $node->setRevisionCreationTime(time());
