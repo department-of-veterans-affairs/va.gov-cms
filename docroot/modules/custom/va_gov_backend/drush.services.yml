@@ -1,0 +1,6 @@
+services:
+  va_gov_backend.metrics_commands:
+    class: \Drupal\va_gov_backend\Commands\MetricsCommands
+    arguments: ['@va_gov_backend.metrics']
+    tags:
+      - { name: drush.command }
