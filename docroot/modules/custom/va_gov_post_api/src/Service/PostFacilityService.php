@@ -3,7 +3,6 @@
 namespace Drupal\va_gov_post_api\Service;
 
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\node\NodeInterface;
 
 /**
  * Class PostFacilityService posts specific service info to Lighthouse.
@@ -16,8 +15,6 @@ class PostFacilityService extends PostFacilityBase {
    * @var array
    */
   protected $errors = [];
-
-  const LOVELL_TRICARE = 1039;
 
   /**
    * The facility service node.
@@ -326,25 +323,6 @@ class PostFacilityService extends PostFacilityBase {
     ];
 
     return $map[$raw] ?? NULL;
-  }
-
-  /**
-   * Checks if the entity is within the Lovell Tricare section.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   Entity.
-   *
-   * @return bool
-   *   TRUE if entity is within Lovell Tricare section. FALSE otherwise.
-   */
-  protected function isLovellTricareSection(EntityInterface $entity) : bool {
-    if (($entity instanceof NodeInterface) && ($entity->hasField('field_administration'))) {
-      /** @var \Drupal\node\NodeInterface $entity*/
-      if ($entity->get('field_administration')->target_id == self::LOVELL_TRICARE) {
-        return TRUE;
-      }
-    }
-    return FALSE;
   }
 
   /**

@@ -20,7 +20,6 @@ class PostFacilityStatus extends PostFacilityBase {
   const STATE_ARCHIVED = 'archived';
   const STATE_DRAFT = 'draft';
   const STATE_PUBLISHED = 'published';
-  const LOVELL_TRICARE = 1039;
 
   /**
    * The facility node.
@@ -249,24 +248,6 @@ class PostFacilityStatus extends PostFacilityBase {
    */
   protected function isFacilityWithStatus(NodeInterface $entity) : bool {
     return in_array($entity->bundle(), $this->facilitiesWithServices);
-  }
-
-  /**
-   * Checks if the entity is within the Lovell Tricare section.
-   *
-   * @param \Drupal\node\NodeInterface $entity
-   *   The node to evaluate.
-   *
-   * @return bool
-   *   TRUE if entity is within Lovell Tricare section. FALSE otherwise.
-   */
-  protected function isLovellTricareSection(NodeInterface $entity) : bool {
-    if ($entity->hasField('field_administration')) {
-      if ($entity->get('field_administration')->target_id == self::LOVELL_TRICARE) {
-        return TRUE;
-      }
-    }
-    return FALSE;
   }
 
   /**
