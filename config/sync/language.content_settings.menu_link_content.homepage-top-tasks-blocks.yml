@@ -1,0 +1,18 @@
+uuid: 6d8925a4-b311-4a7e-bc08-a349afab03d8
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.homepage-top-tasks-blocks
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: menu_link_content.homepage-top-tasks-blocks
+target_entity_type_id: menu_link_content
+target_bundle: homepage-top-tasks-blocks
+default_langcode: site_default
+language_alterable: false

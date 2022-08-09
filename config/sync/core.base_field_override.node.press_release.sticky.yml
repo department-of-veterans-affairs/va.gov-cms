@@ -1,0 +1,22 @@
+uuid: a1cabdc0-f32f-4214-b9e5-974718b4d2b5
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.press_release
+id: node.press_release.sticky
+field_name: sticky
+entity_type: node
+bundle: press_release
+label: 'Sticky at top of lists'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

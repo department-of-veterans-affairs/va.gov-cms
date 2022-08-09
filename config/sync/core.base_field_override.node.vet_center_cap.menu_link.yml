@@ -1,0 +1,20 @@
+uuid: 72c15d15-3e14-49b0-b07c-6a3ee206025d
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vet_center_cap
+id: node.vet_center_cap.menu_link
+field_name: menu_link
+entity_type: node
+bundle: vet_center_cap
+label: 'Menu link'
+description: 'Computed menu link for the node (only available during node saving).'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

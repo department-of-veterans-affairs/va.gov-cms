@@ -1,0 +1,22 @@
+uuid: 18ffa213-ebae-42f5-aa1b-d0477ac8843b
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vet_center_outstation
+id: node.vet_center_outstation.promote
+field_name: promote
+entity_type: node
+bundle: vet_center_outstation
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

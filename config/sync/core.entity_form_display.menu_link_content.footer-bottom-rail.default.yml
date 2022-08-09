@@ -6,7 +6,7 @@ dependencies:
     - field.field.menu_link_content.footer-bottom-rail.field_open_link_in_new_tab
     - system.menu.footer-bottom-rail
   module:
-    - linkit
+    - link
     - menu_item_extras
 id: menu_link_content.footer-bottom-rail.default
 targetEntityType: menu_link_content
@@ -19,6 +19,13 @@ content:
     region: content
     settings:
       display_label: true
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
     third_party_settings: {  }
   title:
     type: string_textfield

@@ -1,0 +1,20 @@
+uuid: 019a48cb-bce6-43e7-ab26-73b008fd36d0
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vamc_system_billing_insurance
+id: node.vamc_system_billing_insurance.uid
+field_name: uid
+entity_type: node
+bundle: vamc_system_billing_insurance
+label: 'Authored by'
+description: 'The username of the content author.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: 'Drupal\node\Entity\Node::getDefaultEntityOwner'
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

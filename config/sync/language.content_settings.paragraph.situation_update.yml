@@ -1,0 +1,18 @@
+uuid: 51587686-4466-4332-bfed-56771b218d5a
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.situation_update
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: paragraph.situation_update
+target_entity_type_id: paragraph
+target_bundle: situation_update
+default_langcode: site_default
+language_alterable: false
