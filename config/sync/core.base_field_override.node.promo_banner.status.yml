@@ -1,0 +1,22 @@
+uuid: 5b565236-f9c9-4362-86a9-997d68202191
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.promo_banner
+id: node.promo_banner.status
+field_name: status
+entity_type: node
+bundle: promo_banner
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

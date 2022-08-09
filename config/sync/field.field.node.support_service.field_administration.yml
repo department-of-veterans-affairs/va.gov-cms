@@ -6,8 +6,6 @@ dependencies:
     - field.storage.node.field_administration
     - node.type.support_service
     - taxonomy.vocabulary.administration
-  content:
-    - 'taxonomy_term:administration:1d2fb45c-58b4-409b-9fef-24d15a56aba7'
 id: node.support_service.field_administration
 field_name: field_administration
 entity_type: node
@@ -15,7 +13,7 @@ bundle: support_service
 label: Section
 description: 'Select a section to determine who will manage this content.'
 required: true
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:

@@ -6,8 +6,6 @@ dependencies:
     - field.storage.node.field_administration
     - node.type.vamc_operating_status_and_alerts
     - taxonomy.vocabulary.administration
-  content:
-    - 'taxonomy_term:administration:87832236-1e54-4ce3-8141-8dec27c8a9a7'
 id: node.vamc_operating_status_and_alerts.field_administration
 field_name: field_administration
 entity_type: node
@@ -15,7 +13,7 @@ bundle: vamc_operating_status_and_alerts
 label: Section
 description: 'Select a section to determine who will manage this content.'
 required: true
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:

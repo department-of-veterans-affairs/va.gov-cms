@@ -1,0 +1,22 @@
+uuid: de9651cb-58a8-4aac-9bce-f2525e9ffca4
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vet_center_mobile_vet_center
+id: node.vet_center_mobile_vet_center.promote
+field_name: promote
+entity_type: node
+bundle: vet_center_mobile_vet_center
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

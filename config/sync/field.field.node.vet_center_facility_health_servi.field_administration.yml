@@ -6,8 +6,6 @@ dependencies:
     - field.storage.node.field_administration
     - node.type.vet_center_facility_health_servi
     - taxonomy.vocabulary.administration
-  content:
-    - 'taxonomy_term:administration:a8b1bb11-67a8-4489-a648-6d35c04be9cb'
   module:
     - entity_reference_validators
 third_party_settings:
@@ -22,7 +20,7 @@ bundle: vet_center_facility_health_servi
 label: Section
 description: 'Select a section to determine who will manage this content.'
 required: true
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:

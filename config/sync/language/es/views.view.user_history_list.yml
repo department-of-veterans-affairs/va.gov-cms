@@ -1,0 +1,57 @@
+display:
+  default:
+    display_title: Máster
+    display_options:
+      exposed_form:
+        options:
+          submit_button: Aplicar
+          reset_button_label: Restablecer
+          exposed_sorts_label: 'Ordenar por'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      pager:
+        options:
+          expose:
+            items_per_page_label: 'Elementos por página'
+            items_per_page_options_all_label: '- Todo -'
+            offset_label: Desplazamiento
+          tags:
+            previous: ‹‹
+            next: ››
+      fields:
+        label:
+          separator: ', '
+        modified_by:
+          separator: ', '
+        created:
+          separator: ', '
+        user_id:
+          separator: ', '
+        user_name:
+          label: 'Nombre de usuario'
+          separator: ', '
+        user_mail:
+          separator: ', '
+        user_roles:
+          label: 'Roles de usuario'
+          separator: ', '
+        user_status:
+          label: 'Estado del usuario'
+          settings:
+            format_custom_true: Activo
+            format_custom_false: Bloqueado
+          separator: ', '
+        user_deleted:
+          separator: ', '
+        user_login:
+          label: 'Ultima identificación'
+          separator: ', '
+      filters:
+        user_name:
+          expose:
+            label: 'Nombre de usuario'
+        user_roles:
+          expose:
+            label: 'Roles de usuario'
+  page_1:
+    display_title: Página

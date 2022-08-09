@@ -1,0 +1,20 @@
+uuid: ef1fe41c-7681-4aaa-a82b-bdd5d64caf86
+langcode: en
+status: true
+dependencies:
+  config:
+    - entityqueue.entity_queue.home_page_hub_list
+id: entity_subqueue.home_page_hub_list.uid
+field_name: uid
+entity_type: entity_subqueue
+bundle: home_page_hub_list
+label: 'User ID'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: 'Drupal\entityqueue\Entity\EntitySubqueue::getDefaultEntityOwner'
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

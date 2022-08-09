@@ -1,0 +1,18 @@
+uuid: 877dcceb-9ce3-4b5d-83d4-f01b1141fcf7
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.locations_listing
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+id: node.locations_listing
+target_entity_type_id: node
+target_bundle: locations_listing
+default_langcode: site_default
+language_alterable: false

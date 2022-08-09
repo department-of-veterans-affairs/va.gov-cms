@@ -1,0 +1,22 @@
+uuid: b9a12166-f77e-47ed-b077-fb98a6a60d85
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.rich_text_char_limit_1000
+id: paragraph.rich_text_char_limit_1000.status
+field_name: status
+entity_type: paragraph
+bundle: rich_text_char_limit_1000
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

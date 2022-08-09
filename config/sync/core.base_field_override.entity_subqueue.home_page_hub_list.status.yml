@@ -1,0 +1,22 @@
+uuid: 3fabccab-f977-4e8f-9a2c-b5bd6d603bd7
+langcode: en
+status: true
+dependencies:
+  config:
+    - entityqueue.entity_queue.home_page_hub_list
+id: entity_subqueue.home_page_hub_list.status
+field_name: status
+entity_type: entity_subqueue
+bundle: home_page_hub_list
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

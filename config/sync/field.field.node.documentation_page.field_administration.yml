@@ -6,8 +6,6 @@ dependencies:
     - field.storage.node.field_administration
     - node.type.documentation_page
     - taxonomy.vocabulary.administration
-  content:
-    - 'taxonomy_term:administration:d2799316-7164-43e4-9f2b-090fd62141c8'
 id: node.documentation_page.field_administration
 field_name: field_administration
 entity_type: node
@@ -15,7 +13,7 @@ bundle: documentation_page
 label: Section
 description: 'Select a section to determine who will manage this content.'
 required: true
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:

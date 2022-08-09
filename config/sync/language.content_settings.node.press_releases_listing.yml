@@ -1,0 +1,18 @@
+uuid: 0fa5dba4-08d7-449d-a8f8-689d8402edd8
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.press_releases_listing
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+id: node.press_releases_listing
+target_entity_type_id: node
+target_bundle: press_releases_listing
+default_langcode: site_default
+language_alterable: false

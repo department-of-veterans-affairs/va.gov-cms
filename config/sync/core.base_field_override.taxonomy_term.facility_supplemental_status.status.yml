@@ -1,0 +1,22 @@
+uuid: ddd04077-320c-4397-8c67-5f9053ce26e0
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.facility_supplemental_status
+id: taxonomy_term.facility_supplemental_status.status
+field_name: status
+entity_type: taxonomy_term
+bundle: facility_supplemental_status
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
