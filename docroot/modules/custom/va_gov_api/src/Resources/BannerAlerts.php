@@ -201,23 +201,23 @@ class BannerAlerts extends EntityResourceBase implements ContainerInjectionInter
    *  constructs a ResponseObject for it, and adds it to cacheableDependencies.
    *
    * @param string $path
-   *   The path to the item to find banners for.
+   *   The path to the item to find promo_banners for.
    * @param \Drupal\jsonapi\ResourceType\ResourceType $resource_type
    *   The ResourceType we want to collect data for.
    */
   protected function collectPromoBannerData(string $path, ResourceType $resource_type) {
     $node_storage = $this->entityTypeManager->getStorage('node');
 
-    // Get all published banner nodes.
+    // Get all published promo_banner nodes.
     $promo_banner_nids = $node_storage->getQuery()
       ->condition('type', 'promo_banner')
       ->condition('status', TRUE)
       ->execute();
-    /** @var \Drupal\node\NodeInterface[] $banners */
+    /** @var \Drupal\node\NodeInterface[] $promo_banners */
     $promo_banners = $node_storage->loadMultiple(array_values($promo_banner_nids) ?? []);
 
-    // Filter the banner list to just the ones that should be displayed for the
-    // provided item path.
+    // Filter the promo_banner list to just the ones that should be displayed
+    // for the provided item path.
     $promo_banners = array_filter($promo_banners, function ($item) use ($path) {
       // PathMatcher expects a newline delimited string for multiple paths.
       $patterns = '';
@@ -228,7 +228,7 @@ class BannerAlerts extends EntityResourceBase implements ContainerInjectionInter
       return $this->pathMatcher->matchPath($path, $patterns);
     });
 
-    // Add the banners to the response.
+    // Add the promo_banners to the response.
     foreach ($promo_banners as $entity) {
       $this->addEntityToResponse($resource_type, $entity);
     }
