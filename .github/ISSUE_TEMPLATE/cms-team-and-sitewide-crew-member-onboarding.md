@@ -38,7 +38,7 @@ Projected start date: <insert_here>
 ### What?
 - [ ] [Onboarding questionnaire](https://drive.google.com/drive/u/0/folders/1fYwNBBbceqRM3qXfes_KEg1QeO-Nkq0q?ths=true) (what do you already know in regards to tooling, context, history, etc)
 - [ ] Contract - Discuss which contract you are on with your Delivery Manager or Program Manager. Your contract will determine your paperwork process.
-- [ ] Read the [VA.gov platform mission and goals](https://github.com/department-of-veterans-affairs/va.gov-team/blob/main/platform/cms/onboarding/library/VA.gov%20Platform%20Overview%202021.pdf).
+- [ ] Read the [VA.gov platform mission and goals](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/VA.gov%20Platform%20Overview%202021.pdf).
 - [ ] Open a VA.gov [Platform onboarding ticket](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=&labels=governance-team%2C+analytics-insights&template=orientation-epic.md&title=Platform+Orientation+Template+%5BYour+name+here%5D). The VA.gov Platform team manages VA.gov tooling and network access. In order to receive access to the SOCKS network proxy (described later), you must complete this Github issue, and attend a Platform orientation. That will result in adding you to the [VFS Platform roster](https://docs.google.com/spreadsheets/d/11dpCJjhs007uC6CWJI6djy3OAvjB8rHB65m0Yj8HXIw/edit?folder=0ALlyxurHpUilUk9PVA#gid=2042046665). If a Platform orientation isn't available for several weeks, sign up for the next available slot, then mention your Delivery manager and/or Clarence on your Platform ticket to expedite SOCKS access.
 
 </details>
