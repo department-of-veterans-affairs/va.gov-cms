@@ -4,10 +4,12 @@ namespace tests\phpunit\FrontendBuild;
 
 use Drupal\Core\KeyValueStore\KeyValueMemoryFactory;
 use Drupal\Core\State\State;
+use Drupal\prometheus_exporter\MetricsCollectorManager;
 use Drupal\Tests\UnitTestCase;
 use Drupal\va_gov_build_trigger\Event\ReleaseStateTransitionEvent;
 use Drupal\va_gov_build_trigger\EventSubscriber\ContentReleaseErrorSubscriber;
 use Drupal\va_gov_build_trigger\EventSubscriber\ContentReleaseIntervalSubscriber;
+use Drupal\va_gov_build_trigger\EventSubscriber\ContentReleaseMetricsRecalculationSubscriber;
 use Drupal\va_gov_build_trigger\Plugin\MetricsCollector\ContentReleaseInterval;
 use Drupal\va_gov_build_trigger\Service\BuildRequester;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
@@ -69,6 +71,44 @@ class BuildStateEventSubscriberTest extends UnitTestCase {
     $subscriber = new ContentReleaseErrorSubscriber($buildRequester);
     $event = new ReleaseStateTransitionEvent('ready', 'error');
     $subscriber->handleError($event);
+  }
+
+  /**
+   * Tests the ContentReleaseMetricsRecalculationSubscriber class.
+   */
+  public function testContentReleaseMetricsRecalculationSubscriber() {
+    $collector = $this->getMockBuilder(MetricsCollectorManager::class)
+      ->disableOriginalConstructor()
+      ->getMock();
+
+    $collector->expects($this->never())
+      ->method('collectMetrics');
+
+    $no_states = [
+      'requested',
+      'dispatched',
+      'starting',
+      'inprogress',
+      'complete',
+      'error',
+    ];
+
+    foreach ($no_states as $state) {
+      $subscriber = new ContentReleaseMetricsRecalculationSubscriber($collector);
+      $event = new ReleaseStateTransitionEvent('ready', $state);
+      $subscriber->recalculateMetrics($event);
+    }
+
+    $collector = $this->getMockBuilder(MetricsCollectorManager::class)
+      ->disableOriginalConstructor()
+      ->getMock();
+
+    $collector->expects($this->exactly(2))
+      ->method('collectMetrics');
+
+    $subscriber = new ContentReleaseMetricsRecalculationSubscriber($collector);
+    $event = new ReleaseStateTransitionEvent('ready', 'ready');
+    $subscriber->recalculateMetrics($event);
   }
 
   /**

@@ -25,8 +25,18 @@ class ContentReleaseDurationRollingAverage extends BaseContentReleaseMetricsColl
    */
   protected function calculate() : int {
     $current_duration = $this->state->get(self::CONTENT_RELEASE_DURATION_STATE_KEY, 0);
-    $last_duration = $this->state->get(self::LAST_UPDATED_CONTENT_RELEASE_DURATION_STATE_KEY, $current_duration);
-    $rolling_average = $this->state->get(self::ROLLING_AVERAGE_STATE_KEY, $last_duration);
+
+    $last_duration = $this->state->get(self::LAST_UPDATED_CONTENT_RELEASE_DURATION_STATE_KEY);
+    if (is_null($last_duration)) {
+      $this->state->set(self::LAST_UPDATED_CONTENT_RELEASE_DURATION_STATE_KEY, $current_duration);
+      $last_duration = $current_duration;
+    }
+
+    $rolling_average = $this->state->get(self::ROLLING_AVERAGE_STATE_KEY);
+    if (is_null($rolling_average)) {
+      $this->state->set(self::ROLLING_AVERAGE_STATE_KEY, $last_duration);
+      $rolling_average = $last_duration;
+    }
 
     if ($current_duration !== $last_duration) {
       $this->state->set(self::LAST_UPDATED_CONTENT_RELEASE_DURATION_STATE_KEY, $current_duration);
