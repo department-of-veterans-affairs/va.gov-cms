@@ -15,7 +15,7 @@ class ContentReleaseMetricsRecalculationSubscriber implements EventSubscriberInt
   /**
    * The metrics collector.
    *
-   * @var Drupal\prometheus_exporter\MetricsCollectorManager
+   * @var \Drupal\prometheus_exporter\MetricsCollectorManager
    */
   protected $metricsCollector;
 
