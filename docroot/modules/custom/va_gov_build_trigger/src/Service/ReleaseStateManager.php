@@ -60,6 +60,7 @@ class ReleaseStateManager implements ReleaseStateManagerInterface {
       self::STATE_STARTING,
       self::STATE_INPROGRESS,
       self::STATE_COMPLETE,
+      self::STATE_ERROR,
     ];
 
     return in_array($release_state, $valid_states);

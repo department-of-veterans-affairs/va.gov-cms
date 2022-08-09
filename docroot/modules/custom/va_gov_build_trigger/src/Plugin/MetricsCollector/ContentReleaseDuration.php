@@ -36,7 +36,7 @@ class ContentReleaseDuration extends BaseContentReleaseMetricsCollector {
     }
 
     // Otherwise, return the last metric we calculated.
-    return $this->state->get(self::CONTENT_RELEASE_DURATION_STATE_KEY);
+    return $this->state->get(self::CONTENT_RELEASE_DURATION_STATE_KEY, 0);
   }
 
 }

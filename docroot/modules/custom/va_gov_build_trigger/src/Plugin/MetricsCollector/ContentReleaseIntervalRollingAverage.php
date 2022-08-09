@@ -3,12 +3,12 @@
 namespace Drupal\va_gov_build_trigger\Plugin\MetricsCollector;
 
 /**
- * Expose a metric for a rolling average of five content release durations.
+ * Expose a metric for a rolling average of five content release intervals.
  *
  * @MetricsCollector(
- *   id = "va_gov_content_release_rolling_average",
- *   title = @Translation("Rolling average of five content release durations"),
- *   description = @Translation("Rolling average of five content release durations")
+ *   id = "va_gov_content_release_interval_rolling_average",
+ *   title = @Translation("Rolling average of five content release intervals"),
+ *   description = @Translation("Rolling average of five content release intervals")
  * )
  */
 class ContentReleaseIntervalRollingAverage extends BaseContentReleaseMetricsCollector {
@@ -24,7 +24,7 @@ class ContentReleaseIntervalRollingAverage extends BaseContentReleaseMetricsColl
   protected function calculate() : int {
     $current_interval = $this->state->get(self::CONTENT_RELEASE_INTERVAL_STATE_KEY, 0);
     $last_interval = $this->state->get(self::LAST_UPDATED_CONTENT_RELEASE_INTERVAL_STATE_KEY, $current_interval);
-    $rolling_average = $this->state->get(self::ROLLING_AVERAGE_STATE_KEY, $current_interval);
+    $rolling_average = $this->state->get(self::ROLLING_AVERAGE_STATE_KEY, $last_interval);
 
     if ($current_interval !== $last_interval) {
       $this->state->set(self::LAST_UPDATED_CONTENT_RELEASE_INTERVAL_STATE_KEY, $current_interval);
