@@ -346,6 +346,11 @@ class PostFacilityService extends PostFacilityBase {
 
     // Case race. First to evaluate to TRUE wins.
     switch (TRUE) {
+      case $this->isLovellTricareSection($entity):
+        // Node is part of the Lovell-Tricare section, do not push.
+        $push = FALSE;
+        break;
+
       case $forcePush && $thisRevisionIsPublished:
         // Forced push from updates to referenced entity.
       case $isNew:

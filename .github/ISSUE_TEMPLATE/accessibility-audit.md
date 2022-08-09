@@ -2,11 +2,11 @@
 name: Accessibility Audit
 about: Submit a request to perform an accessibility audit for a VA.gov product.
 title: Accessibility Audit for <insert issue name>
-labels: 508 / Accessibility
+labels: ''
 assignees: laflannery
 
 ---
- 
+
 **1. What is this request for?**
 
 > Examples: A new product; an update to an existing product.
@@ -27,4 +27,4 @@ assignees: laflannery
   
 **6. When does the product need to launch?**
 
-> All requests should be submitted at least 1 sprint in advance so that it can be worked into the next sprint.  For requests needed sooner, please notify Laura Flannery in the cms-support channel. 
+> All requests should be submitted at least 1 sprint in advance so that it can be worked into the next sprint.  For requests needed sooner, please notify Laura Flannery in the cms-support channel.

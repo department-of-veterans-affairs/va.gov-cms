@@ -1,8 +1,8 @@
 ---
-name: (PW) Injected Header/Footer - prep for testing
+name: "(PW) Injected Header/Footer - prep for testing"
 about: Submit a request to add the injected header/footer an existing site.
 title: 'Injected header/footer: <domain(s)>'
-labels: ⭐️ Public Websites, VA.gov frontend, Injected header, Needs refining
+labels: Injected header, Needs refining, ⭐️ Public Websites, VA.gov frontend
 assignees: jilladams
 
 ---
