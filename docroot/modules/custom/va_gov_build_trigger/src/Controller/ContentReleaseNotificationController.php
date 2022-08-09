@@ -6,7 +6,6 @@ use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManagerInterface;
 
 /**
@@ -109,7 +108,7 @@ class ContentReleaseNotificationController extends ControllerBase {
 
     $this->releaseStateManager->handleError();
 
-    return new Response('Error notificaiton successful.');
+    return new Response('Error notification successful.');
   }
 
   /**
