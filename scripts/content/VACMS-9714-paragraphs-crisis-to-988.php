@@ -74,13 +74,15 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox, $revision_me
     $new_value = normalize_crisis_number($old_value);
 
     // If the value was altered then update the node.
-    if ($new_value !== $old_value) {
+    if ($new_value !== $old_value && !empty($new_value)) {
       $paragraph->field_wysiwyg->setValue(
         [
           'value' => $new_value,
           'format' => 'rich_text',
         ]
       );
+      $paragraph->setSyncing(TRUE);
+      $paragraph->setValidationRequired(FALSE);
       $paragraph->save();
       $sandbox['updated']++;
       $pids[] = $paragraph->id();
@@ -91,11 +93,13 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox, $revision_me
   }
 
   // Log the processed nodes.
-  Drupal::logger('va_gov_db')
-    ->log(LogLevel::INFO, '%current paragraphs progress. Paragraphs updated: %pids', [
-      '%current' => $sandbox['current'],
-      '%pids' => empty($pids) ? 'None' : implode(', ', $pids),
-    ]);
+  if (!empty($pids)) {
+    Drupal::logger('va_gov_db')
+      ->log(LogLevel::INFO, '%current paragraphs progress. Paragraphs updated: %pids', [
+        '%current' => $sandbox['current'],
+        '%pids' => empty($pids) ? 'None' : implode(', ', $pids),
+      ]);
+  }
 
   $sandbox['#finished'] = ($sandbox['current'] / $sandbox['total']);
 

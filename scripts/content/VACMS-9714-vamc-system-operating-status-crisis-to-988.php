@@ -71,7 +71,7 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox, $revision_me
     $new_value = normalize_crisis_number($old_value);
 
     // If the value was altered then update the node.
-    if ($new_value !== $old_value) {
+    if ($new_value !== $old_value && !empty($new_value)) {
       $node->field_operating_status_emerg_inf->setValue(
         [
           'value' => $new_value,
@@ -88,7 +88,7 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox, $revision_me
         $old_revision_value = $latest_revision->get('field_operating_status_emerg_inf')->value;
         $new_revision_value = normalize_crisis_number($old_revision_value);
 
-        if ($new_revision_value !== $old_revision_value) {
+        if ($new_revision_value !== $old_revision_value && !empty($new_revision_value)) {
           $latest_revision->field_operating_status_emerg_inf->setValue(
             [
               'value' => $new_revision_value,

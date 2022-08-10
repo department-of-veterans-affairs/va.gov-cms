@@ -22,6 +22,9 @@ const SITE_ALERT_MESSAGE = <<<EOF
   🚧 We are cleaning up some old data; while this alert is in place, some content may be locked and not editable. 🚧
 EOF;
 
+// User ID used to make these changes.
+const USER_ID = 1317;
+
 // Exception codes.
 const EXCEPTION_COULD_NOT_LOCK = 1;
 const EXCEPTION_UNEXPECTED_DIFFERENCES = 2;

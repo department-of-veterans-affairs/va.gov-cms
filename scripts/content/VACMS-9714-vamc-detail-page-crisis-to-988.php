@@ -71,7 +71,7 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox, $revision_me
     $new_value = normalize_crisis_number($old_value, TRUE);
 
     // If the value was altered then update the node.
-    if ($new_value !== $old_value) {
+    if ($new_value !== $old_value && !empty($new_value)) {
       $node->field_description->setValue($new_value);
 
       // Grab the latest revision before we save this one.
@@ -83,7 +83,7 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox, $revision_me
         $old_revision_value = $latest_revision->get('field_description')->value;
         $new_revision_value = normalize_crisis_number($old_revision_value, TRUE);
 
-        if ($new_revision_value !== $old_revision_value) {
+        if ($new_revision_value !== $old_revision_value && !empty($new_revision_value)) {
           $latest_revision->field_description->setValue($new_revision_value);
           save_node_revision($latest_revision, $revision_message);
           unset($latest_revision);
@@ -99,11 +99,13 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox, $revision_me
   }
 
   // Log the processed nodes.
-  Drupal::logger('va_gov_db')
-    ->log(LogLevel::INFO, 'VAMC Detail Page nodes: %current nodes phone numbers updated. Nodes updated: %nids', [
-      '%current' => $sandbox['current'],
-      '%nids' => empty($nids) ? 'None' : implode(', ', $nids),
-    ]);
+  if (!empty($nids)) {
+    Drupal::logger('va_gov_db')
+      ->log(LogLevel::INFO, 'VAMC Detail Page nodes: %current nodes phone numbers updated. Nodes updated: %nids', [
+        '%current' => $sandbox['current'],
+        '%nids' => empty($nids) ? 'None' : implode(', ', $nids),
+      ]);
+  }
 
   $sandbox['#finished'] = ($sandbox['current'] / $sandbox['total']);
 
