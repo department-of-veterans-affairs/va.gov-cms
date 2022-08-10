@@ -174,4 +174,17 @@ class ContentReleaseCommands extends DrushCommands {
     $this->buildScheduler->checkScheduledBuild();
   }
 
+  /**
+   * If the state is stale, reset the state.
+   *
+   * @command va-gov:content-release:check-stale
+   * @aliases va-gov-content-release-check-stale
+   */
+  public function checkStale() {
+    if ($this->releaseStateManager->releaseStateIsStale()) {
+      $this->resetState();
+      $this->requestFrontendBuild();
+    }
+  }
+
 }

@@ -38,7 +38,7 @@ Projected start date: <insert_here>
 ### What?
 - [ ] [Onboarding questionnaire](https://drive.google.com/drive/u/0/folders/1fYwNBBbceqRM3qXfes_KEg1QeO-Nkq0q?ths=true) (what do you already know in regards to tooling, context, history, etc)
 - [ ] Contract - Discuss which contract you are on with your Delivery Manager or Program Manager. Your contract will determine your paperwork process.
-- [ ] Read the [VA.gov platform mission and goals](https://github.com/department-of-veterans-affairs/va.gov-team/blob/main/platform/cms/onboarding/library/VA.gov%20Platform%20Overview%202021.pdf).
+- [ ] Read the [VA.gov platform mission and goals](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/VA.gov%20Platform%20Overview%202021.pdf).
 - [ ] Open a VA.gov [Platform onboarding ticket](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=&labels=governance-team%2C+analytics-insights&template=orientation-epic.md&title=Platform+Orientation+Template+%5BYour+name+here%5D). The VA.gov Platform team manages VA.gov tooling and network access. In order to receive access to the SOCKS network proxy (described later), you must complete this Github issue, and attend a Platform orientation. That will result in adding you to the [VFS Platform roster](https://docs.google.com/spreadsheets/d/11dpCJjhs007uC6CWJI6djy3OAvjB8rHB65m0Yj8HXIw/edit?folder=0ALlyxurHpUilUk9PVA#gid=2042046665). If a Platform orientation isn't available for several weeks, sign up for the next available slot, then mention your Delivery manager and/or Clarence on your Platform ticket to expedite SOCKS access.
 
 </details>
@@ -145,7 +145,7 @@ The goal for this week is to get you set up with the tools you need to be succes
  
  - [ ] [VA.gov tools overview](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html)
  - [ ] [Access to dev & staging to be able to replicate the SSO piece of the login experience](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/5838) (SOCKS or VA access with PIV card required)
- - [ ] [Datadog](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html#Requestaccesstotools-Requestaccess) to access monitoring metrics
+ - [ ] [Datadog](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html#Requestaccesstotools-Requestaccess) to access monitoring metrics (as of 8/5/22 this is TBD. reach out to your DM for details)
  - [ ] Review the [VA.gov Design System](https://design.va.gov/) which includes [how to provide feedback](https://design.va.gov/documentation/feedback)
  - [ ] Browse the [CMS topic dives videos](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/1714094110/CMS+Topic+Dives)
 

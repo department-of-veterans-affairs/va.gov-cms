@@ -29,13 +29,11 @@ The change represented by the epic # will [copy selection from epic].
 - [ ] Offices editor
 - [ ] Supporting roles such as CMS account admin, Facilities or Public websites team member
 
-**4. How will success be defined for this change?**
-
-**5. How will success be measured for this change?**
+**4. How will success be measured for this change?**
 - [ ] No help desk support is needed, as measured through help desk tickets
 - [ ] The content adheres to VA policies and standards for VA.gov, as measured through a dashboard tool and/or audit
 
-**6. Does the change require new or updated:**
+**5. Does the change require new or updated:**
 - [ ] Knowledge Base article(s)
 If existing articles, list URLs:
 - [ ] Training video(s)
@@ -43,10 +41,10 @@ If existing videos, list URLs:
 - [ ] CMS UI support
 - [ ] Announcement block
 
-**7. Will the change be tested with users before release?**
+**6. Will the change be tested with users before release?**
 - [ ] Yes
 - [ ] No
 
-**8. Are there any known dependencies?**
+**7. Are there any known dependencies?**
 
 ## Key Dates (pre-event communications, preview with User Support, launch date, post-event tasks)

@@ -46,7 +46,12 @@ Occasionally, a devops or release tools team member will need to request a conte
 Every minute, a cron job processes all outstanding build requests. If needed, a build is _dispatched_ via Github Actions. Further build requests are still accepted, but are not dispatched until the CMS has determined that it is appropriate to do so. The logic for determining if a build can be requested/dispatched can be found in `Drupal\va_gov_build_trigger\Service\ReleaseStateManager`. In particular, this is important so that we avoid situations where multiple content releases are running in parallel.
 
 
+## Error handling
 
+Two known error states exist and are handled:
+
+1. The CMS doesn't receive any status notifications from the GHA workflow. In this case, the state is considered stale after 40 minutes and will be reset so that another release can be kicked off.
+2. The CMS is notified by GHA that a release failed. In this case, the release state in the CMS is reset and a new release will be requested as a retry.
 
 
 ## Content release process

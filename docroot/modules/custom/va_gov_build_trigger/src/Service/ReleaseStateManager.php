@@ -12,13 +12,15 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
  */
 class ReleaseStateManager implements ReleaseStateManagerInterface {
   // These are the state keys that this class owns.
-  protected const STATE_KEY = 'va_gov_build_trigger.release_state';
-  protected const LAST_RELEASE_READY_KEY = 'va_gov_build_trigger.last_release_ready';
-  protected const LAST_RELEASE_REQUEST_KEY = 'va_gov_build_trigger.last_release_requested';
-  protected const LAST_RELEASE_DISPATCH_KEY = 'va_gov_build_trigger.last_release_dispatched';
-  protected const LAST_RELEASE_STARTING_KEY = 'va_gov_build_trigger.last_release_starting';
-  protected const LAST_RELEASE_INPROGRESS_KEY = 'va_gov_build_trigger.last_release_inprogress';
-  protected const LAST_RELEASE_COMPLETE_KEY = 'va_gov_build_trigger.last_release_complete';
+  public const STATE_KEY = 'va_gov_build_trigger.release_state';
+  public const LAST_RELEASE_READY_KEY = 'va_gov_build_trigger.last_release_ready';
+  public const LAST_RELEASE_REQUEST_KEY = 'va_gov_build_trigger.last_release_requested';
+  public const LAST_RELEASE_DISPATCH_KEY = 'va_gov_build_trigger.last_release_dispatched';
+  public const LAST_RELEASE_STARTING_KEY = 'va_gov_build_trigger.last_release_starting';
+  public const LAST_RELEASE_INPROGRESS_KEY = 'va_gov_build_trigger.last_release_inprogress';
+  public const LAST_RELEASE_COMPLETE_KEY = 'va_gov_build_trigger.last_release_complete';
+  public const LAST_RELEASE_ERROR_KEY = 'va_gov_build_trigger.last_release_error';
+  public const LAST_RELEASE_STATUS_NOTIFICATION = 'va_gov_build_trigger.last_release_status_notification';
 
   // State transition actions.
   public const STATE_TRANSITION_SKIP = 'skip';
@@ -34,6 +36,10 @@ class ReleaseStateManager implements ReleaseStateManagerInterface {
   public const STATE_INPROGRESS = 'inprogress';
   public const STATE_COMPLETE = 'complete';
   public const STATE_DEFAULT = self::STATE_READY;
+
+  // This isn't something that the state should ever be actually set to. It's
+  // sort of a "virtual" state.
+  public const STATE_ERROR = 'error';
 
   /**
    * Utility method to validate state transitions.
@@ -54,6 +60,7 @@ class ReleaseStateManager implements ReleaseStateManagerInterface {
       self::STATE_STARTING,
       self::STATE_INPROGRESS,
       self::STATE_COMPLETE,
+      self::STATE_ERROR,
     ];
 
     return in_array($release_state, $valid_states);
@@ -202,6 +209,43 @@ class ReleaseStateManager implements ReleaseStateManagerInterface {
    */
   public function resetState() : void {
     $this->transitionState(self::STATE_DEFAULT);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public function recordStatusNotification() : void {
+    $this->state->set(self::LAST_RELEASE_STATUS_NOTIFICATION, $this->time->getCurrentTime());
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public function releaseStateIsStale() : bool {
+    $state_is_ready = ($this->getState() === self::STATE_READY);
+
+    $now = $this->time->getCurrentTime();
+    $last_notification = $this->state->get(self::LAST_RELEASE_STATUS_NOTIFICATION, 0);
+    $time_since_last_notification = ($now - $last_notification);
+
+    // If the state has been something other than ready for more than 40
+    // minutes, the state is stale.
+    return ($time_since_last_notification > (60 * 40)) && !$state_is_ready;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public function handleError() : void {
+    $this->state->set(self::LAST_RELEASE_ERROR_KEY, $this->time->getCurrentTime());
+
+    // Make sure event listeners know about the error first. Note that another
+    // event will be dispatched by calling resetState() (so _two_ total events).
+    $old_state = $this->state->get(self::STATE_KEY, self::STATE_DEFAULT);
+    $new_state = self::STATE_ERROR;
+    $this->notifyListeners($old_state, $new_state);
+
+    $this->resetState();
   }
 
   /**

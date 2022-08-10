@@ -10,7 +10,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * Sends prometheus metrics to Datadog.
  */
-class Metrics implements EventSubscriberInterface {
+class Metrics {
   /**
    * The metrics collector manager.
    *
@@ -46,15 +46,6 @@ class Metrics implements EventSubscriberInterface {
     $this->metricsCollectorManager = $metricsCollectorManager;
     $this->settings = $settings;
     $this->datadog = $datadog;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getSubscribedEvents(): array {
-    return [
-      CoreHookEvents::CRON => 'updateDatadog',
-    ];
   }
 
   /**

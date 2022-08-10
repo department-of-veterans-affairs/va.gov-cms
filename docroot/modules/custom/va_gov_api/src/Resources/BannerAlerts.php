@@ -116,6 +116,10 @@ class BannerAlerts extends EntityResourceBase implements ContainerInjectionInter
             $this->collectBannerData($path, $resource_type);
             break;
 
+          case 'node--promo_banner':
+            $this->collectPromoBannerData($path, $resource_type);
+            break;
+
           case 'node--full_width_banner_alert':
             $this->collectFullWidthBannerAlertData($path, $resource_type);
             break;
@@ -186,6 +190,46 @@ class BannerAlerts extends EntityResourceBase implements ContainerInjectionInter
 
     // Add the banners to the response.
     foreach ($banners as $entity) {
+      $this->addEntityToResponse($resource_type, $entity);
+    }
+  }
+
+  /**
+   * Collect `promo_banner` entities to be returned in the response.
+   *
+   * Given a path, retrieves any `promo_banner` that should show there,
+   *  constructs a ResponseObject for it, and adds it to cacheableDependencies.
+   *
+   * @param string $path
+   *   The path to the item to find promo_banners for.
+   * @param \Drupal\jsonapi\ResourceType\ResourceType $resource_type
+   *   The ResourceType we want to collect data for.
+   */
+  protected function collectPromoBannerData(string $path, ResourceType $resource_type) {
+    $node_storage = $this->entityTypeManager->getStorage('node');
+
+    // Get all published promo_banner nodes.
+    $promo_banner_nids = $node_storage->getQuery()
+      ->condition('type', 'promo_banner')
+      ->condition('status', TRUE)
+      ->execute();
+    /** @var \Drupal\node\NodeInterface[] $promo_banners */
+    $promo_banners = $node_storage->loadMultiple(array_values($promo_banner_nids) ?? []);
+
+    // Filter the promo_banner list to just the ones that should be displayed
+    // for the provided item path.
+    $promo_banners = array_filter($promo_banners, function ($item) use ($path) {
+      // PathMatcher expects a newline delimited string for multiple paths.
+      $patterns = '';
+      foreach ($item->field_target_paths->getValue() as $target_path) {
+        $patterns .= $target_path['value'] . "\n";
+      }
+
+      return $this->pathMatcher->matchPath($path, $patterns);
+    });
+
+    // Add the promo_banners to the response.
+    foreach ($promo_banners as $entity) {
       $this->addEntityToResponse($resource_type, $entity);
     }
   }
