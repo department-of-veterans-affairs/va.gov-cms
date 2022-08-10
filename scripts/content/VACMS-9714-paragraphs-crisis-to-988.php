@@ -83,16 +83,16 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox, $revision_me
       );
       $paragraph->save();
       $sandbox['updated']++;
+      $pids[] = $paragraph->id();
     }
 
     unset($sandbox['pids_to_update']["paragraph_{$paragraph->id()}"]);
-    $pids[] = $paragraph->id();
     $sandbox['current'] = $sandbox['total'] - count($sandbox['pids_to_update']);
   }
 
   // Log the processed nodes.
   Drupal::logger('va_gov_db')
-    ->log(LogLevel::INFO, '%current paragraphs progress. Paragraphs processed: %pids', [
+    ->log(LogLevel::INFO, '%current paragraphs progress. Paragraphs updated: %pids', [
       '%current' => $sandbox['current'],
       '%pids' => implode(', ', $pids),
     ]);

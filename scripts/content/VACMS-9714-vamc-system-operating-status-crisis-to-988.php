@@ -101,16 +101,16 @@ function va_gov_change_crisis_hotline_to_988_nodes(array &$sandbox, $revision_me
       }
 
       $sandbox['updated']++;
+      $nids[] = $nid;
     }
 
     unset($sandbox['nids_to_update']["node_{$nid}"]);
-    $nids[] = $nid;
     $sandbox['current'] = $sandbox['total'] - count($sandbox['nids_to_update']);
   }
 
   // Log the processed nodes.
   Drupal::logger('va_gov_db')
-    ->log(LogLevel::INFO, 'VAMC System Operating Status nodes: %current nodes phone numbers updated. Nodes processed: %nids', [
+    ->log(LogLevel::INFO, 'VAMC System Operating Status nodes: %current nodes phone numbers updated. Nodes updated: %nids', [
       '%current' => $sandbox['current'],
       '%nids' => implode(', ', $nids),
     ]);
