@@ -3,7 +3,7 @@ va_gov_api.banner_alerts:
   methods: ['GET']
   defaults:
     _jsonapi_resource: Drupal\va_gov_api\Resources\BannerAlerts
-    _jsonapi_resource_types: ['node--banner', 'node--full_width_banner_alert']
+    _jsonapi_resource_types: ['node--banner', 'node--full_width_banner_alert', 'node--promo_banner']
   requirements:
     _permission: 'access content'
     _content_type_format: api_json
