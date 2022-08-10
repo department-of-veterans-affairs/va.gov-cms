@@ -85,7 +85,7 @@ class LovellEventSubscriber implements EventSubscriberInterface {
         $nid = $params['node'];
         $node_storage = $this->entityTypeManager->getStorage('node');
         $node = $node_storage->load($nid);
-
+        /** @var \Drupal\node\NodeInterface $node*/
         if ($node->hasField('field_administration')) {
           $section_id = $node->get('field_administration')->target_id;
           $section_map = [
