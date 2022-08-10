@@ -26,7 +26,7 @@ function get_node_at_latest_revision(int $nid): NodeInterface {
 }
 
 /**
- * Returns a serialized form of the node as JSON.
+ * Saves a node revision with log messaging.
  *
  * @param \Drupal\node\NodeInterface $node
  *   The node to serialize.
