@@ -54,8 +54,8 @@ class BuildMetricsTest extends UnitTestCase {
 
     $values = $plugin->collectMetrics();
 
-    $this->assertEquals(3900, $values[0]->getLabelledValues()[0]);
-    $this->assertEquals(300, $values[1]->getLabelledValues()[0]);
+    $this->assertEquals(3900, $values[0]->getLabelledValues()[0]->getValue());
+    $this->assertEquals(300, $values[1]->getLabelledValues()[0]->getValue());
   }
 
   /**
