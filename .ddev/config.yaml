@@ -19,9 +19,6 @@ hooks:
   - exec: drush deploy
   post-start:
   - exec: ./scripts/install_task_runner.sh
-  - exec: mkdir -p /etc/ca-certificates/ddev
-  - exec: cp /mnt/ddev-global-cache/mkcert/rootCA.pem
-  - exec: update-ca-certificates
   - composer: install
   - composer: va:theme:compile
   - composer: va:web:install

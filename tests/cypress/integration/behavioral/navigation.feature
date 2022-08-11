@@ -10,4 +10,4 @@ Feature: Various navigation features
     And I scroll to xpath '//*[@id="block-vagovclaro-content"]/article'
     Then I should see "Jump to:"
     When I click the link with xpath '//*[@id="block-vagovclaro-content"]/article' containing "District 5"
-    Then I should see "District 5 Vet Centers were kicked off July 14th and 15th 2021."
+    Then I should see "July 14th and 15th, 2021"
