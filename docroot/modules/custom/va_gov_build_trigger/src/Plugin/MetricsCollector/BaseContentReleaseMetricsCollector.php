@@ -60,10 +60,15 @@ abstract class BaseContentReleaseMetricsCollector extends BaseMetricsCollector i
    * {@inheritdoc}
    */
   public function collectMetrics() {
-    $gauge = new Gauge($this->getNamespace(), $this->name, $this->getDescription());
-    $gauge->set($this->calculate());
-    $metrics[] = $gauge;
-    return $metrics;
+    $value = $this->calculate();
+
+    $clock_gauge = new Gauge($this->getNamespace(), $this->name, $this->getDescription());
+    $clock_gauge->set($value);
+
+    $business_hours_gauge = new Gauge($this->getNamespace(), 'bizhours_' . $this->name, $this->getDescription());
+    $business_hours_gauge->set($value % 3600);
+
+    return [$clock_gauge, $business_hours_gauge];
   }
 
   /**
