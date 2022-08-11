@@ -95,7 +95,9 @@ class LovellEventSubscriber implements EventSubscriberInterface {
           ];
 
           // Set section for this menu item.
-          $entity->set('field_menu_section', $section_map[$section_id]);
+          if (!empty($section_map[$section_id])) {
+            $entity->set('field_menu_section', $section_map[$section_id]);
+          }
         }
       }
     }
