@@ -71,6 +71,30 @@ collectors:
     enabled: true
     weight: -48
     settings: {  }
+  va_gov_content_release_interval:
+    id: va_gov_content_release_interval
+    provider: va_gov_build_trigger
+    enabled: true
+    weight: -44
+    settings: {  }
+  va_gov_content_release_interval_rolling_average:
+    id: va_gov_content_release_interval_rolling_average
+    provider: va_gov_build_trigger
+    enabled: true
+    weight: -43
+    settings: {  }
+  va_gov_last_content_release_duration:
+    id: va_gov_last_content_release_duration
+    provider: va_gov_build_trigger
+    enabled: true
+    weight: -42
+    settings: {  }
+  va_gov_content_release_rolling_average:
+    id: va_gov_content_release_rolling_average
+    provider: va_gov_build_trigger
+    enabled: true
+    weight: -41
+    settings: {  }
   phpinfo:
     id: phpinfo
     provider: prometheus_exporter
@@ -141,27 +165,9 @@ collectors:
         vet_center_mobile_vet_center: 0
         vet_center_outstation: 0
         vha_facility_nonclinical_service: 0
-  va_gov_content_release_interval:
-    id: va_gov_content_release_interval
+  va_gov_time_since_last_content_release:
+    id: va_gov_time_since_last_content_release
     provider: va_gov_build_trigger
     enabled: true
-    weight: -44
-    settings: {  }
-  va_gov_content_release_interval_rolling_average:
-    id: va_gov_content_release_interval_rolling_average
-    provider: va_gov_build_trigger
-    enabled: true
-    weight: -43
-    settings: {  }
-  va_gov_content_release_rolling_average:
-    id: va_gov_content_release_rolling_average
-    provider: va_gov_build_trigger
-    enabled: true
-    weight: -41
-    settings: {  }
-  va_gov_last_content_release_duration:
-    id: va_gov_last_content_release_duration
-    provider: va_gov_build_trigger
-    enabled: true
-    weight: -42
+    weight: 0
     settings: {  }
