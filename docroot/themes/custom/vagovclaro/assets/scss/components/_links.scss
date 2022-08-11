@@ -1,0 +1,16 @@
+.layout-container {
+  a {
+    color: #004795;
+    text-decoration: underline;
+    transition-duration: 0.3s;
+    transition-property: color,background-color,border-color;
+    transition-timing-function: ease-in-out;
+
+    &:hover,
+    &:focus {
+      background-color: #e4eff9;
+      color: #003e73;
+      text-decoration: none;
+    }
+  }
+}
