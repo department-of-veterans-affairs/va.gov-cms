@@ -1,0 +1,6 @@
+services:
+  va_gov_lovell.entity_event_subscriber:
+    class: Drupal\va_gov_lovell\EventSubscriber\LovellEventSubscriber
+    arguments: ['@entity_type.manager', '@messenger']
+    tags:
+      - { name: event_subscriber }
