@@ -1,0 +1,28 @@
+uuid: d8f8f609-19e6-41fe-950a-529d8ead3710
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.menu_link_content.field_menu_section
+    - system.menu.lovell-federal-health-care
+  module:
+    - epp
+    - options
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: menu_link_content.lovell-federal-health-care.field_menu_section
+field_name: field_menu_section
+entity_type: menu_link_content
+bundle: lovell-federal-health-care
+label: 'Menu Section'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: va
+default_value_callback: ''
+settings: {  }
+field_type: list_string

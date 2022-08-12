@@ -4,7 +4,7 @@ about: Use this template for writing work on text that CMS users will see, as pa
   of the development, design, or communications.
 title: UX Writing for <insert issue name>
 labels: Needs refining, UX writing
-assignees: rachel-kauff
+assignees: ''
 
 ---
 

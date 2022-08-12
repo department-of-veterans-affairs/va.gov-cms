@@ -22,7 +22,7 @@ class PostFacilityStatus extends PostFacilityBase {
   const STATE_PUBLISHED = 'published';
 
   /**
-   * The facility service node.
+   * The facility node.
    *
    * @var \Drupal\node\NodeInterface
    */
@@ -277,6 +277,11 @@ class PostFacilityStatus extends PostFacilityBase {
 
     // Case race. First to evaluate to TRUE wins.
     switch (TRUE) {
+      case $this->isLovellTricareSection($this->facilityNode):
+        // Node is part of the Lovell-Tricare section, do not push.
+        $push = FALSE;
+        break;
+
       case $forcePush && $thisRevisionIsPublished:
         // Forced push from updates to referenced entity.
       case $isNew:

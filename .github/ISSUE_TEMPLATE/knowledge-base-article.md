@@ -4,7 +4,7 @@ about: Use this template for new CMS Knowledge Base articles that need to be wri
   and published.
 title: 'New KB article: <insert topic here>'
 labels: Knowledge Base, Needs refining
-assignees: rachel-kauff
+assignees: ''
 
 ---
 
