@@ -5,12 +5,17 @@
 * @preserve
 **/
 
+const { doc } = require("prettier");
+
 (function (Drupal) {
+  var myFacility = "";
+  var myService = "";
   var adminField = document.getElementById("edit-field-administration");
   var facilityFieldOptions = document.querySelectorAll("#edit-field-facility-location option");
   var systemFieldOptions = document.querySelectorAll("#edit-field-regional-health-service option");
   var facilityField = document.getElementById("edit-field-facility-location");
   var systemField = document.getElementById("edit-field-regional-health-service");
+  var officeField = document.getElementById("edit-field-office");
   var winnower = function winnower() {
     var pathType = drupalSettings.path.currentPath.split("/")[1];
 
@@ -20,16 +25,21 @@
     if (typeof systemField !== "undefined" && systemField !== null && pathType === "add") {
       systemField.selectedIndex = "_none";
     }
+    if (typeof officeField !== "undefined" && officeField !== null && pathType === "add") {
+      officeField.selectedIndex = "_none";
+    }
 
     var adminFieldText = adminField.options[adminField.selectedIndex].text;
 
     var adminMatcher = adminFieldText.replace(/(^-+)/g, "");
+    console.log(adminMatcher);
 
     facilityFieldOptions.forEach(function (i) {
       i.classList.remove("hidden-option");
       if (!i.text.includes(adminMatcher)) {
         i.classList.add("hidden-option");
       }
+
     });
 
     systemFieldOptions.forEach(function (i) {
@@ -38,12 +48,39 @@
         i.classList.add("hidden-option");
       }
     });
+
   };
+
+
 
   Drupal.behaviors.vaGovLimitServiceOptions = {
     attach: function attach() {
-      winnower();
+      if (myFacility == "") {
+        winnower();
+      }
       adminField.addEventListener("change", winnower);
+      if (myFacility !== null) {
+        facilityField.addEventListener("change", function() {
+          myFacility = facilityField.options[facilityField.selectedIndex].text;
+          console.log(myFacility);
+        });
+      }
+      if (systemField !== null) {
+        systemField.addEventListener("change", function() {
+          myService = systemField.options[facilityField.selectedIndex].text;
+          console.log(myService);
+        });
+      }
+
+
+
+      // myService = systemField.options[systemField.selectedIndex].text;
+      // console.log(myService);
+      // if (myFacility != "") {
+
+      // }
+      // facilityField.addEventListener("blur", printFacilityField);
+
     }
   };
 })(Drupal);
