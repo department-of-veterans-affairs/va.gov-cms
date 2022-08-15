@@ -29,6 +29,7 @@ The VA.gov CMS Team
       1. [HTTPS](READMES/https.md)
       1. [Environment Variables](READMES/environment-variables.md)
       1. [Kubernetes](READMES/kubernetes.md)
+   1. [Quality Assurance](READMES/qa.md)
    1. [Testing](READMES/testing.md)
    1. [Debugging](READMES/debugging.md)
    1. [Code Review](READMES/code-review.md)
