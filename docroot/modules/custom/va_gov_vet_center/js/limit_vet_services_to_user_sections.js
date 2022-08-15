@@ -31,14 +31,8 @@
 
   Drupal.behaviors.vaGovLimitVcServiceOptions = {
     attach: function attach() {
-      if (myVcField == "") winnower();
+      winnower();
       adminField.addEventListener("change", winnower);
-      if (vcField !== null) {
-        vcField.addEventListener("change", function() {
-          myVcField = vcField.options[vcField.selectedIndex].text;
-          console.log(myVcField);
-        });
-      }
     }
   };
 })(Drupal);
