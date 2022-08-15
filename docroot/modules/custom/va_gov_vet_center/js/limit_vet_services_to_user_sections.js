@@ -7,6 +7,7 @@
 
 (function (Drupal) {
   var myVcField = "";
+
   var adminField = document.getElementById("edit-field-administration");
   var vcFieldOptions = document.querySelectorAll("#edit-field-office option");
   var vcField = document.getElementById("edit-field-office");
@@ -31,8 +32,15 @@
 
   Drupal.behaviors.vaGovLimitVcServiceOptions = {
     attach: function attach() {
-      winnower();
+      if (myVcField === "") {
+        winnower();
+      }
       adminField.addEventListener("change", winnower);
+      if (vcField !== null) {
+        vcField.addEventListener("change", function setText() {
+          myVcField = vcField.options[vcField.selectedIndex].text;
+        });
+      }
     }
   };
 })(Drupal);
