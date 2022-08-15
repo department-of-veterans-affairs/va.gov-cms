@@ -5,8 +5,6 @@
 * @preserve
 **/
 
-const { doc } = require("prettier");
-
 (function (Drupal) {
   var myFacility = "";
 
