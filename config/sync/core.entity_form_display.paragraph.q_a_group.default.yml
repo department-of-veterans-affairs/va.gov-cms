@@ -6,10 +6,12 @@ dependencies:
     - entity_browser.browser.q_a_browser
     - field.field.paragraph.q_a_group.field_accordion_display
     - field.field.paragraph.q_a_group.field_q_as
+    - field.field.paragraph.q_a_group.field_rich_wysiwyg
     - field.field.paragraph.q_a_group.field_section_header
     - paragraphs.paragraphs_type.q_a_group
   module:
     - entity_browser_table
+    - limited_field_widgets
     - textfield_counter
 id: paragraph.q_a_group.default
 targetEntityType: paragraph
@@ -30,13 +32,15 @@ content:
     settings:
       entity_browser: q_a_browser
       field_widget_display: label
+      field_widget_edit: '1'
       field_widget_remove: '1'
       selection_mode: selection_append
-      field_widget_edit: 0
       field_widget_replace: 0
       open: 0
       field_widget_display_settings: {  }
-    third_party_settings: {  }
+    third_party_settings:
+      limited_field_widgets:
+        limit_values: '0'
   field_section_header:
     type: string_textfield_with_counter
     weight: 0
@@ -53,4 +57,5 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  field_rich_wysiwyg: true
   status: true

@@ -6,11 +6,17 @@ dependencies:
     - field.storage.node.field_content_block
     - node.type.support_resources_detail_page
     - paragraphs.paragraphs_type.collapsible_panel
+    - paragraphs.paragraphs_type.q_a_group
     - paragraphs.paragraphs_type.react_widget
     - paragraphs.paragraphs_type.table
     - paragraphs.paragraphs_type.wysiwyg
   module:
     - entity_reference_revisions
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
 id: node.support_resources_detail_page.field_content_block
 field_name: field_content_block
 entity_type: node
@@ -29,6 +35,7 @@ settings:
       table: table
       collapsible_panel: collapsible_panel
       react_widget: react_widget
+      q_a_group: q_a_group
     negate: 0
     target_bundles_drag_drop:
       address:
@@ -40,8 +47,17 @@ settings:
       alert_single:
         weight: -69
         enabled: false
+      audience_topics:
+        weight: 48
+        enabled: false
+      basic_accordion:
+        weight: 49
+        enabled: false
       button:
         weight: -68
+        enabled: false
+      centralized_content_descriptor:
+        weight: 51
         enabled: false
       checklist:
         weight: -67
@@ -55,20 +71,32 @@ settings:
       collapsible_panel_item:
         weight: -65
         enabled: false
+      contact_information:
+        weight: 56
+        enabled: false
       downloadable_file:
         weight: -64
         enabled: false
       email_contact:
         weight: -63
         enabled: false
+      embedded_video:
+        weight: 59
+        enabled: false
       expandable_text:
         weight: -62
+        enabled: false
+      featured_content:
+        weight: 61
         enabled: false
       health_care_local_facility_servi:
         weight: -61
         enabled: false
       link_teaser:
         weight: -60
+        enabled: false
+      link_teaser_with_image:
+        weight: 64
         enabled: false
       list_of_link_teasers:
         weight: -59
@@ -105,13 +133,16 @@ settings:
         enabled: false
       q_a_group:
         weight: -48
-        enabled: false
+        enabled: true
       q_a_section:
         weight: -47
         enabled: false
       react_widget:
         weight: -72
         enabled: true
+      rich_text_char_limit_1000:
+        weight: 79
+        enabled: false
       service_location:
         weight: -46
         enabled: false
@@ -126,9 +157,6 @@ settings:
         enabled: false
       staff_profile:
         weight: -42
-        enabled: false
-      starred_horizontal_rule:
-        weight: -41
         enabled: false
       step:
         weight: -40
