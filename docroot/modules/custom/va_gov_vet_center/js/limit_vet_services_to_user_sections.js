@@ -32,7 +32,11 @@
 
   Drupal.behaviors.vaGovLimitVcServiceOptions = {
     attach: function attach() {
+<<<<<<< HEAD
       if (myVcField === "" || window.onload) {
+=======
+      if (myVcField === "") {
+>>>>>>> be0d3312 (Adds transpiled js)
         winnower();
       }
       adminField.addEventListener("change", winnower);
