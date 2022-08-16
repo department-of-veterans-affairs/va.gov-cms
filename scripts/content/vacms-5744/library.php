@@ -5,9 +5,10 @@
  * Common code related to VACMS #5744 useful across multiple scripts.
  */
 
+require_once __DIR__ . '/../script-library.php';
+
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\entity_clone\EntityClone\Content\ContentEntityCloneBase;
-use Drupal\node\NodeInterface;
 use Drupal\user\Entity\User;
 
 // Notices might mean my world is getting rocked.
@@ -519,22 +520,6 @@ function get_node_serialization(NodeInterface $node): string {
     }, $paragraphs);
   }
   $result = json_encode($object, JSON_PRETTY_PRINT);
-  return $result;
-}
-
-/**
- * Load the latest revision of a node.
- *
- * @param int $nid
- *   The node ID.
- *
- * @return \Drupal\node\NodeInterface
- *   The latest revision of that node.
- */
-function get_node_at_latest_revision(int $nid): NodeInterface {
-  $entity_type_manager = \Drupal::entityTypeManager();
-  $node_storage = $entity_type_manager->getStorage('node');
-  $result = $node_storage->loadRevision($node_storage->getLatestRevisionId($nid));
   return $result;
 }
 

@@ -41,7 +41,7 @@ third_party_settings:
                   view_mode: user_guides
                   link: ''
                 third_party_settings: {  }
-            weight: 2
+            weight: 5
             additional: {  }
           04b0f8c6-fec6-4096-aa43-407854124966:
             uuid: 04b0f8c6-fec6-4096-aa43-407854124966
@@ -57,7 +57,7 @@ third_party_settings:
                 settings:
                   link: true
                 third_party_settings: {  }
-            weight: 3
+            weight: 6
             additional: {  }
           c1172e55-57fb-49cd-a5ff-77c1b965b945:
             uuid: c1172e55-57fb-49cd-a5ff-77c1b965b945
@@ -72,7 +72,47 @@ third_party_settings:
                 label: hidden
                 settings: {  }
                 third_party_settings: {  }
-            weight: 1
+            weight: 3
+            additional: {  }
+          098e1db2-6ff4-4502-b39a-0db7a61a3b25:
+            uuid: 098e1db2-6ff4-4502-b39a-0db7a61a3b25
+            region: content
+            configuration:
+              id: 'field_block:node:documentation_page:field_products'
+              label: 'Product tags'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_entity_view
+                label: hidden
+                settings:
+                  view_mode: token
+                third_party_settings: {  }
+            weight: 4
+            additional: {  }
+          5107a24c-8fbf-45cb-aa8e-927788cf671b:
+            uuid: 5107a24c-8fbf-45cb-aa8e-927788cf671b
+            region: content
+            configuration:
+              id: 'field_block:node:documentation_page:changed'
+              label: Changed
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: timestamp
+                label: hidden
+                settings:
+                  date_format: custom
+                  custom_date_format: '\L\a\s\t \u\p\d\a\t\e\d \o\n F j, Y \a\t g:i a'
+                  timezone: ''
+                third_party_settings: {  }
+            weight: 2
             additional: {  }
         third_party_settings: {  }
 id: node.documentation_page.default
