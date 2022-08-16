@@ -95,7 +95,8 @@ function vagovclaro_preprocess_container(&$variables) {
 function vagovclaro_theme_suggestions_paragraph_alter(&$suggestions, $variables) {
   $paragraph = $variables['elements']['#paragraph'];
   if ($paragraph->bundle() === 'collapsible_panel_item' || $paragraph->bundle() === 'q_a') {
-    if ($node = \Drupal::routeMatch()->getParameter('node') && $node instanceof NodeInterface) {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node && $node instanceof NodeInterface) {
       $suggestions[] = 'paragraph__' . $node->bundle() . '__' . $paragraph->bundle();
     }
   }
