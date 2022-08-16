@@ -1,5 +1,5 @@
 .layout-container {
-  a {
+  a:not(.button) {
     color: #004795;
     text-decoration: underline;
     transition-duration: 0.3s;
@@ -11,6 +11,12 @@
       background-color: #e4eff9;
       color: #003e73;
       text-decoration: none;
+    }
+  }
+
+  .region-footer {
+    a {
+      color: #fff;
     }
   }
 }

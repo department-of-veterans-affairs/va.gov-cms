@@ -7,6 +7,9 @@ $settings['jenkins_build_job_params'] = '/buildWithParameters?deploy=true';
 $settings['jenkins_build_job_url'] = $settings['jenkins_build_job_host'] . $settings['jenkins_build_job_path'] . $settings['jenkins_build_job_params'];
 $settings['skip_permissions_hardening'] = TRUE;
 
+// Set this to true to see the Log in with PIV screen.
+$config['simplesamlphp_auth.settings']['activate'] = FALSE;
+
 $config['config_split.config_split.dev']['status'] = FALSE;
 $config['config_split.config_split.stg']['status'] = FALSE;
 $config['config_split.config_split.prod']['status'] = FALSE;
