@@ -62,7 +62,7 @@
         winnower();
       }
       adminField.addEventListener("change", winnower);
-      if (myFacility !== null) {
+      if (facilityField !== null) {
         facilityField.addEventListener("change", function setText() {
           myFacility = facilityField.options[facilityField.selectedIndex].text;
         });
