@@ -39,12 +39,12 @@ The "Login With PIV" interface is enabled conditionally based on `simplesamlphp_
 
 To enable the "Login With PIV" interface in local development, do one of the following:
 
-1. Add code like the following to one of the settings files:
+- Add code like the following to one of the settings files:
 
 ```php
 $config['simplesamlphp_auth.settings']['activate'] = TRUE;
 ```
 
-1. Set `activate` to `true` in `config/local/simplesamlphp_auth.settings.yml`, then run `ddev drush cim`.
+- Set `activate` to `true` in `config/local/simplesamlphp_auth.settings.yml`, then run `ddev drush cim`.
 
 Regardless of which approach you choose, be careful not to commit these changes!
