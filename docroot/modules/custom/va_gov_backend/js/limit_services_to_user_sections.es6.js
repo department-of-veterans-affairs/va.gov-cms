@@ -58,7 +58,7 @@
 
   Drupal.behaviors.vaGovLimitServiceOptions = {
     attach() {
-      if (myFacility === "") {
+      if (myFacility === "" || window.onload) {
         winnower();
       }
       adminField.addEventListener("change", winnower);

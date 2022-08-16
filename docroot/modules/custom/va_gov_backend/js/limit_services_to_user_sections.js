@@ -44,11 +44,11 @@
 
   Drupal.behaviors.vaGovLimitServiceOptions = {
     attach: function attach() {
-      if (myFacility === "") {
+      if (myFacility === "" || window.onload) {
         winnower();
       }
       adminField.addEventListener("change", winnower);
-      if (myFacility !== null) {
+      if (facilityField !== null) {
         facilityField.addEventListener("change", function setText() {
           myFacility = facilityField.options[facilityField.selectedIndex].text;
         });
