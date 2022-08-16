@@ -28,5 +28,23 @@ Please see the [CMS knowledge base](https://prod.cms.va.gov/help/cms-basics/how-
 - If not, the module will attempt to match the name provided with a Drupal user account name (See `externalRegister` in the `SimplesamlphpDrupalAuth` service)
 - If this does not succeed, It will call `hook_simplesamlphp_auth_existing_user` as a last-ditch attempt to match a user. We [implement this hook](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/f4bfe6ce7c226668d715b28ff5ec176ea76827e0/docroot/modules/custom/va_gov_login/va_gov_login.module#L28) in the `va_gov_login` module and attempt to match the user by email address.
 
+## How do I...?
+
+### Enable "Login With PIV" in DDEV?
+
+The "Login With PIV" interface is enabled conditionally based on `simplesamlphp_auth` settings.
+
+To enable the "Login With PIV" interface in local development, do one of the following:
+
+1. Add code like the following to one of the settings files:
+
+```php
+$config['simplesamlphp_auth.settings']['activate'] = TRUE;
+```
+
+1. Set `activate` to `true` in `config/local/simplesamlphp_auth.settings.yml`, then run `ddev drush cim`.
+
+Regardless of which approach you choose, be careful not to commit these changes!
+
 ## Sample SSOi Response
 ![Sample simplesaml response](images/ssoi-response.png)
