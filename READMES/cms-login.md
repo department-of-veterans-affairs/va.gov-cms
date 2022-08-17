@@ -39,7 +39,7 @@ The "Login With PIV" interface is enabled conditionally based on `simplesamlphp_
 
 To enable the "Login With PIV" interface in local development, do one of the following:
 
-- Add code like the following to one of the settings files:
+- Change the below setting in `docroot/sites/default/settings/settings.local.php` to `TRUE`:
 
 ```php
 $config['simplesamlphp_auth.settings']['activate'] = TRUE;
