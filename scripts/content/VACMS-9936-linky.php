@@ -47,6 +47,7 @@ log_message("Acting as {$user->getDisplayName()} [{$uid}]");
 
 $linkies = \Drupal::entityQuery('linky')->execute();
 $linky_count = count($linkies);
+$previous_linky_count = $linky_count;
 log_message("Found {$linky_count} existing linkies...");
 
 $start_time = time();
@@ -62,22 +63,32 @@ foreach ($content_types as $content_type) {
   $nid_count = count($nids);
   log_message("Processing content type {$content_type}...");
   log_message("Found {$nid_count} nodes...");
-
   $chunks = array_chunk($nids, 50);
+
   foreach ($chunks as $chunk_id => $chunk) {
     /** @var \Drupal\node\NodeInterface[] $nodes */
     $nodes = $node_storage->loadMultiple($chunk);
     $count = count($nodes);
     log_message("Loaded {$count} nodes as chunk {$chunk_id}");
     foreach ($nodes as $nid => $node) {
+      $time = time();
       // Make this change a new revision.
       $node->setNewRevision(TRUE);
       $node->setRevisionUserId(1317);
-      $node->setChangedTime(time());
-      $node->setRevisionCreationTime(time());
+      $node->setChangedTime($time);
+      $node->setRevisionCreationTime($time);
       $node->setRevisionLogMessage('Saved to create linkies where applicable');
       $node->setSyncing(TRUE);
       $node->save();
+
+      $now_linkies = \Drupal::entityQuery('linky')->execute();
+      $now_linky_count = count($now_linkies);
+      $now_linky_count_diff = $now_linky_count - $previous_linky_count;
+      if ($now_linky_count_diff > 0) {
+        log_message("Created {$now_linky_count_diff} new linkies updating node ${nid}...");
+        $previous_linky_count = $now_linky_count;
+      }
+
     }
   }
 
