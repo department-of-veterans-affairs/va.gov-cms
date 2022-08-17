@@ -89,6 +89,7 @@ Feature: Content model: Paragraph fields
 | Paragraph type | Q&A | Question | field_question | Text (plain) | Required | 1 | Textfield with counter |  |
 | Paragraph type | Q&A group | Display this set of Q&As as a group of accordions. | field_accordion_display | Boolean |  | 1 | Single on/off checkbox | Translatable |
 | Paragraph type | Q&A group | Q&As | field_q_as | Entity reference | Required | Unlimited | Entity Browser - Table |  |
+| Paragraph type | Q&A group | Description | field_rich_wysiwyg | Text (formatted, long) |  | 1 | -- Disabled -- | Translatable |
 | Paragraph type | Q&A group | Section Header | field_section_header | Text (plain) |  | 1 | Textfield with counter | Translatable |
 | Paragraph type | Q&A Section | Display this set of Q&As as a group of accordions. | field_accordion_display | Boolean |  | 1 | Single on/off checkbox |  |
 | Paragraph type | Q&A Section | Questions | field_questions | Entity reference revisions | Required | Unlimited | Paragraphs (stable) |  |

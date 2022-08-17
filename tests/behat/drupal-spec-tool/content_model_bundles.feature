@@ -42,7 +42,7 @@ Feature: Content model bundles
 | VAMC System Health Service | regional_health_care_service_des | Content type | A description of a health service specific to a VAMC system, which appears on a VAMC's health services page and on facility pages, within accordions. |
 | Step-by-Step | step_by_step | Content type | A page that includes numbered steps a Veteran can take to complete an action. Use for instructions that must be completed in order. |
 | Stories List | story_listing | Content type | A listing of stories. |
-| Resources and support Detail Page | support_resources_detail_page | Content type | A page that contains in-depth information about a single resource available to Veterans or other beneficiaries.  |
+| Resources and Support Detail Page | support_resources_detail_page | Content type | A page that contains in-depth information about a single resource available to Veterans or other beneficiaries.  |
 | Support Service | support_service | Content type | Help desks, hotlines, etc, to be contextually placed alongside relevant content. |
 | VA Form | va_form | Content type | VA forms available for download. Used to populate search results and also generate form landing pages |
 | VAMC System Operating Status | vamc_operating_status_and_alerts | Content type | Create one of these pages for each VAMC system. Then you can add banner alerts and update facilities' operating status, all from one place. |

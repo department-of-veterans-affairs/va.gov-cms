@@ -1,0 +1,30 @@
+uuid: 042fa7d2-e282-4014-8de8-c95240df360d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_rich_wysiwyg
+    - paragraphs.paragraphs_type.q_a_group
+  module:
+    - allowed_formats
+    - epp
+    - text
+third_party_settings:
+  allowed_formats:
+    allowed_formats:
+      - rich_text_limited
+  epp:
+    value: ''
+    on_update: 0
+id: paragraph.q_a_group.field_rich_wysiwyg
+field_name: field_rich_wysiwyg
+entity_type: paragraph
+bundle: q_a_group
+label: Description
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
