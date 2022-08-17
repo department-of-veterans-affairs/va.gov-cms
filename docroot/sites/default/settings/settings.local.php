@@ -47,3 +47,5 @@ $settings['memcache']['servers'] = [
 ];
 
 $settings['cms_datadog_api_key'] = getenv('CMS_DATADOG_API_KEY');
+
+$settings['container_yamls'][] = DRUPAL_ROOT . '/sites/local.services.yml';
