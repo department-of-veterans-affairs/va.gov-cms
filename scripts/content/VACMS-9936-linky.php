@@ -1,3 +1,4 @@
+#!/usr/bin/env drush
 <?php
 
 /**
@@ -16,9 +17,7 @@ function log_message(string $message): void {
   echo PHP_EOL . $message;
 }
 
-error_reporting(E_ERROR | E_PARSE);
 $content_types = [
-  'health_care_region_detail_page',
   'campaign_landing_page',
   'page',
   'vet_center',
@@ -35,7 +34,15 @@ $content_types = [
   'vamc_operating_status_and_alerts',
   'regional_health_care_service_des',
   'person_profile',
+  'health_care_region_detail_page',
 ];
+
+$content_type = $_SERVER['argv'][3];
+assert(isset($content_type));
+assert(in_array($content_type, $content_types));
+
+error_reporting(E_ERROR | E_PARSE);
+
 $entity_type_manager = \Drupal::entityTypeManager();
 $node_storage = $entity_type_manager->getStorage('node');
 $user_storage = $entity_type_manager->getStorage('user');
@@ -52,58 +59,54 @@ log_message("Found {$linky_count} existing linkies...");
 
 $start_time = time();
 
-foreach ($content_types as $content_type) {
+$segment_start_time = time();
 
-  $segment_start_time = time();
+$nids = \Drupal::entityQuery('node')
+  ->condition('type', $content_type)
+  ->condition('status', '1')
+  ->execute();
+$nid_count = count($nids);
+log_message("Processing content type {$content_type}...");
+log_message("Found {$nid_count} nodes...");
+$chunks = array_chunk($nids, 50);
 
-  $nids = \Drupal::entityQuery('node')
-    ->condition('type', $content_type)
-    ->condition('status', '1')
-    ->execute();
-  $nid_count = count($nids);
-  log_message("Processing content type {$content_type}...");
-  log_message("Found {$nid_count} nodes...");
-  $chunks = array_chunk($nids, 50);
+foreach ($chunks as $chunk_id => $chunk) {
+  /** @var \Drupal\node\NodeInterface[] $nodes */
+  $nodes = $node_storage->loadMultiple($chunk);
+  $count = count($nodes);
+  log_message("Loaded {$count} nodes as chunk {$chunk_id}");
+  foreach ($nodes as $nid => $node) {
+    $time = time();
+    // Make this change a new revision.
+    $node->setNewRevision(TRUE);
+    $node->setRevisionUserId(1317);
+    $node->setChangedTime($time);
+    $node->setRevisionCreationTime($time);
+    $node->setRevisionLogMessage('Saved to create linkies where applicable');
+    $node->setSyncing(TRUE);
+    $node->save();
 
-  foreach ($chunks as $chunk_id => $chunk) {
-    /** @var \Drupal\node\NodeInterface[] $nodes */
-    $nodes = $node_storage->loadMultiple($chunk);
-    $count = count($nodes);
-    log_message("Loaded {$count} nodes as chunk {$chunk_id}");
-    foreach ($nodes as $nid => $node) {
-      $time = time();
-      // Make this change a new revision.
-      $node->setNewRevision(TRUE);
-      $node->setRevisionUserId(1317);
-      $node->setChangedTime($time);
-      $node->setRevisionCreationTime($time);
-      $node->setRevisionLogMessage('Saved to create linkies where applicable');
-      $node->setSyncing(TRUE);
-      $node->save();
-
-      $now_linkies = \Drupal::entityQuery('linky')->execute();
-      $now_linky_count = count($now_linkies);
-      $now_linky_count_diff = $now_linky_count - $previous_linky_count;
-      if ($now_linky_count_diff > 0) {
-        log_message("Created {$now_linky_count_diff} new linkies updating node ${nid}...");
-        $previous_linky_count = $now_linky_count;
-      }
-
+    $now_linkies = \Drupal::entityQuery('linky')->execute();
+    $now_linky_count = count($now_linkies);
+    $now_linky_count_diff = $now_linky_count - $previous_linky_count;
+    if ($now_linky_count_diff > 0) {
+      log_message("Created {$now_linky_count_diff} new linkies updating node ${nid}...");
+      $previous_linky_count = $now_linky_count;
     }
+
   }
-
-  $now = time();
-
-  $linkies = \Drupal::entityQuery('linky')->execute();
-  $new_linky_count = count($linkies);
-  $linky_count_difference = $new_linky_count - $linky_count;
-  $linky_count = $new_linky_count;
-
-  $total_elapsed_time = $now - $start_time;
-  $elapsed_time = $now - $segment_start_time;
-
-  $linky_rate = $linky_count_difference / $elapsed_time;
-  $total_linky_rate = $linky_count / $total_elapsed_time;
-  log_message("Finished content type {$content_type}... {$linky_count_difference} new linky entities added in {$elapsed_time} seconds ({$linky_rate} links/second; total: {$linky_count} links in {$total_elapsed_time} seconds, {$total_linky_rate} links/second).");
-
 }
+
+$now = time();
+
+$linkies = \Drupal::entityQuery('linky')->execute();
+$new_linky_count = count($linkies);
+$linky_count_difference = $new_linky_count - $linky_count;
+$linky_count = $new_linky_count;
+
+$total_elapsed_time = $now - $start_time;
+$elapsed_time = $now - $segment_start_time;
+
+$linky_rate = $linky_count_difference / $elapsed_time;
+$total_linky_rate = $linky_count / $total_elapsed_time;
+log_message("Finished content type {$content_type}... {$linky_count_difference} new linky entities added in {$elapsed_time} seconds ({$linky_rate} links/second; total: {$linky_count} links in {$total_elapsed_time} seconds, {$total_linky_rate} links/second).");
