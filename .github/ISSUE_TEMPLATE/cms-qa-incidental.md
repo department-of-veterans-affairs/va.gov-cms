@@ -8,5 +8,6 @@ assignees: []
 ---
 
 ### Table
-| Date | Time | Duration | Link(s) | Issue(s) or Resolution |
-| -- | -- | -- | -- | -- |
+| Date | Time | Duration | Description | Link(s) | Issue(s) or Resolution |
+| -- | -- | -- | -- | -- | -- |
+| | | | | | |
