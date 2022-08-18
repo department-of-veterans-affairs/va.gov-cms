@@ -68,7 +68,7 @@
         "drupal/environment_indicator": "^4.0",
         "drupal/epp": "^1.1",
         "drupal/fast_404": "2.x-dev#5382a99335ee466f8261dc1774a3d56f1699da81",
-        "drupal/feature_toggle": "1.0",
+        "drupal/feature_toggle": "^2.0",
         "drupal/field_group": "^3.1",
         "drupal/fieldhelptext": "^1.0@beta",
         "drupal/flag": "^4.0@beta",
@@ -81,7 +81,7 @@
         "drupal/graphql_core": "^3.1.0",
         "drupal/graphql_menu": "^1.0@alpha",
         "drupal/graphql_metatag": "^1.0",
-        "drupal/health_check_url": "2.0",
+        "drupal/health_check_url": "^3.0",
         "drupal/hierarchy_manager": "^3.0",
         "drupal/hms_field": "1.0",
         "drupal/hook_event_dispatcher": "^3.0",
@@ -212,32 +212,6 @@
         ]
     },
     "repositories": {
-        "drupal/feature_toggle": {
-            "type": "package",
-            "package": {
-                "name": "drupal/feature_toggle",
-                "type": "drupal-module",
-                "version": "1.0.0",
-                "source": {
-                    "type": "git",
-                    "url": "https://git.drupalcode.org/project/feature_toggle.git",
-                    "reference": "8753ecb9a6a541fdea2de04a4640aa6b998a8df4"
-                }
-            }
-        },
-        "drupal/health_check_url": {
-            "type": "package",
-            "package": {
-                "name": "drupal/health_check_url",
-                "type": "drupal-module",
-                "version": "2.0.0",
-                "source": {
-                    "type": "git",
-                    "url": "https://git.drupalcode.org/project/health_check_url.git",
-                    "reference": "6eff12c076f6e0412b33e11201e33b1257431f4e"
-                }
-            }
-        },
         "drupal/hms_field": {
             "type": "package",
             "package": {
@@ -250,7 +224,7 @@
                     "reference": "f138860c7b18c6aab00f5860b29d15b9ab2197f5"
                 }
             }
-        },
+        },        
         "drupal": {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
@@ -418,9 +392,6 @@
             "drupal/entity_reference_revisions": {
                 "2984027 Incorrect manipulation of default revision flag": "https://www.drupal.org/files/issues/2020-09-03/entity_reference_revisions-default_revision-2984027-10.patch"
             },
-            "drupal/feature_toggle": {
-                "3147452 - Make compatible with d9": "https://www.drupal.org/files/issues/2020-06-06/feature_toggle.1.x-dev.rector.patch"
-            },
             "drupal/field_group": {
                 "2787179 Visibility of invalid fields": "https://www.drupal.org/files/issues/2021-01-05/2787179-highlight-html5-validation-59.patch",
                 "1482958-47 Allow field_group with empty fields to be displayed via setting": "https://www.drupal.org/files/issues/2020-06-24/field_group-empty-config-1482958-47.patch",
@@ -432,9 +403,6 @@
             "drupal/graphql": {
                 "Fix Explorer with Layout Builder enabled - https://github.com/drupal-graphql/graphql/pull/1144": "patches/graphql_8x3x_layout_builder_incompat.patch",
                 "Remove outdated RouteQueryEnhancer controller reference - https://github.com/drupal-graphql/graphql/pull/1230": "patches/graphql_8x3x_query_route_enhancer_update.patch"
-            },
-            "drupal/health_check_url": {
-                "3147740 - Make d9 compatible": "https://www.drupal.org/files/issues/2020-06-06/health_check_url.2.x-dev.rector.patch"
             },
             "drupal/hms_field": {
                 "3145496 - Make d9 compatible": "https://www.drupal.org/files/issues/2020-06-05/3145496-6.patch"
