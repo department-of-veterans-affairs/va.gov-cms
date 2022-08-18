@@ -130,9 +130,22 @@ function vagovclaro_preprocess_paragraph(&$variables) {
  */
 function vagovclaro_preprocess_field__paragraph__field_hours(&$variables) {
   \Drupal::logger('vagoclaro')->notice('Called vagovclaro_preprocess_field__paragraph__field_hours');
+  $item_list = $variables['element']['#items'];
+  $paragraph = $item_list->getEntity();
+
+  $node_parent = _vagovclaro_get_node_parent($paragraph);
+
+  $node_type = $node_parent->getType();
 
   $variables['sl_hours'] = "SNL hours are 10 - 12 am or maybe 11:30 pm";
+  $bundles_referencing_content = [
+    'health_care_local_health_service',
+    'vha_facility_nonclinical_service'
+  ];
+  if (in_array($node_type , $bundles_referencing_content)) {
+    $variables['noding'] = "I got node.";
 
+  }
 }
 
 
