@@ -3,6 +3,7 @@
  */
 
 ((Drupal) => {
+  let myFacility = "";
   // Grab our fields and options.
   const adminField = document.getElementById("edit-field-administration");
   const facilityFieldOptions = document.querySelectorAll(
@@ -57,8 +58,15 @@
 
   Drupal.behaviors.vaGovLimitServiceOptions = {
     attach() {
-      winnower();
+      if (myFacility === "" || window.onload) {
+        winnower();
+      }
       adminField.addEventListener("change", winnower);
+      if (facilityField !== null) {
+        facilityField.addEventListener("change", function setText() {
+          myFacility = facilityField.options[facilityField.selectedIndex].text;
+        });
+      }
     },
   };
 })(Drupal);
