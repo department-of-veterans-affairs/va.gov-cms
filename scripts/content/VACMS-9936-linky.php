@@ -37,7 +37,7 @@ function get_memory_usage() {
 /**
  * Process a chunk of nodes.
  *
- * @param int $chunk_id 
+ * @param int $chunk_id
  *   Chunk index.
  * @param array $chunk
  *   Array of nodes.
@@ -88,9 +88,6 @@ function process_chunk(int $chunk_id, array $chunk, int $previous_linky_count) {
  *   List of nids that can be modified for specified content types.
  * @param int $previous_linky_count
  *   Number of linkies created so far.
- *
- * @return int
- *   Number of linkies created so far.
  */
 function process_content_type(string $content_type, array $nid_allow_lists, int $previous_linky_count) {
   if (isset($nid_allow_lists[$content_type])) {
@@ -111,21 +108,6 @@ function process_content_type(string $content_type, array $nid_allow_lists, int 
   foreach ($chunks as $chunk_id => $chunk) {
     $previous_linky_count = process_chunk($chunk_id, $chunk, $previous_linky_count);
   }
-
-  $now = time();
-
-  $linkies = \Drupal::entityQuery('linky')->execute();
-  $new_linky_count = count($linkies);
-  $linky_count_difference = $new_linky_count - $linky_count;
-  $linky_count = $new_linky_count;
-
-  $total_elapsed_time = $now - $start_time;
-  $elapsed_time = $now - $segment_start_time;
-
-  $linky_rate = $linky_count_difference / $elapsed_time;
-  $total_linky_rate = $linky_count / $total_elapsed_time;
-  log_message("Finished content type {$content_type}... {$linky_count_difference} new linky entities added in {$elapsed_time} seconds ({$linky_rate} links/second; total: {$linky_count} links in {$total_elapsed_time} seconds, {$total_linky_rate} links/second).");
-  return $linky_count;
 }
 
 $content_types = [
@@ -201,7 +183,15 @@ const TRACK_LINKIES = FALSE;
 
 $start_time = time();
 
-$segment_start_time = time();
-
 $linky_count = process_content_type($_SERVER['argv'][3], $nid_allow_lists, $linky_count);
+
+$now = time();
+
+$linkies = \Drupal::entityQuery('linky')->execute();
+$new_linky_count = count($linkies);
+$linky_count_difference = $new_linky_count - $previous_linky_count;
+$elapsed_time = $now - $start_time;
+$linky_rate = $linky_count_difference / $elapsed_time;
+
+log_message("Finished content type {$content_type}... {$linky_count_difference} new linky entities added in {$elapsed_time} seconds ({$linky_rate} links/second)");
 log_message('Memory usage: ' . get_memory_usage());
