@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e72963064ff748a9cf733f493615652b",
+    "content-hash": "3f2e02fe8d09825eb9045f88aa96bf6e",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -2665,26 +2665,27 @@
         },
         {
             "name": "doctrine/collections",
-            "version": "1.6.8",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/collections.git",
-                "reference": "1958a744696c6bb3bb0d28db2611dc11610e78af"
+                "reference": "07d15c8a766e664ec271ae84e5dfc597aeeb03b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/collections/zipball/1958a744696c6bb3bb0d28db2611dc11610e78af",
-                "reference": "1958a744696c6bb3bb0d28db2611dc11610e78af",
+                "url": "https://api.github.com/repos/doctrine/collections/zipball/07d15c8a766e664ec271ae84e5dfc597aeeb03b1",
+                "reference": "07d15c8a766e664ec271ae84e5dfc597aeeb03b1",
                 "shasum": ""
             },
             "require": {
+                "doctrine/deprecations": "^0.5.3 || ^1",
                 "php": "^7.1.3 || ^8.0"
             },
             "require-dev": {
                 "doctrine/coding-standard": "^9.0",
-                "phpstan/phpstan": "^0.12",
+                "phpstan/phpstan": "^1.4.8",
                 "phpunit/phpunit": "^7.5 || ^8.5 || ^9.1.5",
-                "vimeo/psalm": "^4.2.1"
+                "vimeo/psalm": "^4.22"
             },
             "type": "library",
             "autoload": {
@@ -2728,9 +2729,52 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/collections/issues",
-                "source": "https://github.com/doctrine/collections/tree/1.6.8"
+                "source": "https://github.com/doctrine/collections/tree/1.7.0"
             },
-            "time": "2021-08-10T18:51:53+00:00"
+            "time": "2022-08-18T05:44:45+00:00"
+        },
+        {
+            "name": "doctrine/deprecations",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/deprecations.git",
+                "reference": "0e2a4f1f8cdfc7a92ec3b01c9334898c806b30de"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/deprecations/zipball/0e2a4f1f8cdfc7a92ec3b01c9334898c806b30de",
+                "reference": "0e2a4f1f8cdfc7a92ec3b01c9334898c806b30de",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1|^8.0"
+            },
+            "require-dev": {
+                "doctrine/coding-standard": "^9",
+                "phpunit/phpunit": "^7.5|^8.5|^9.5",
+                "psr/log": "^1|^2|^3"
+            },
+            "suggest": {
+                "psr/log": "Allows logging deprecations via PSR-3 logger implementation"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Doctrine\\Deprecations\\": "lib/Doctrine/Deprecations"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A small layer on top of trigger_error(E_USER_DEPRECATED) or PSR-3 logging with options to disable all deprecations or selectively for packages.",
+            "homepage": "https://www.doctrine-project.org/",
+            "support": {
+                "issues": "https://github.com/doctrine/deprecations/issues",
+                "source": "https://github.com/doctrine/deprecations/tree/v1.0.0"
+            },
+            "time": "2022-05-02T15:47:09+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -5536,26 +5580,26 @@
         },
         {
             "name": "drupal/entity_block",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/entity_block.git",
-                "reference": "8.x-1.0"
+                "reference": "8.x-1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/entity_block-8.x-1.0.zip",
-                "reference": "8.x-1.0",
-                "shasum": "49249d264881eaea29cdbe07264bcd1281508dec"
+                "url": "https://ftp.drupal.org/files/projects/entity_block-8.x-1.1.zip",
+                "reference": "8.x-1.1",
+                "shasum": "16744324796d76dfdff2e1160c4f4a94327b135c"
             },
             "require": {
-                "drupal/core": "^8 || ^9"
+                "drupal/core": "^8 || ^9 || ^10"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0",
-                    "datestamp": "1643836667",
+                    "version": "8.x-1.1",
+                    "datestamp": "1660775172",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -5568,12 +5612,16 @@
             ],
             "authors": [
                 {
+                    "name": "floretan",
+                    "homepage": "https://www.drupal.org/user/66163"
+                },
+                {
                     "name": "Jaesin",
                     "homepage": "https://www.drupal.org/user/841054"
                 },
                 {
-                    "name": "floretan",
-                    "homepage": "https://www.drupal.org/user/66163"
+                    "name": "mglaman",
+                    "homepage": "https://www.drupal.org/user/2416470"
                 },
                 {
                     "name": "rrrob",
@@ -6471,13 +6519,51 @@
         },
         {
             "name": "drupal/feature_toggle",
-            "version": "1.0.0",
+            "version": "2.0.1-beta1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/feature_toggle.git",
-                "reference": "8753ecb9a6a541fdea2de04a4640aa6b998a8df4"
+                "reference": "2.0.1-beta1"
             },
-            "type": "drupal-module"
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/feature_toggle-2.0.1-beta1.zip",
+                "reference": "2.0.1-beta1",
+                "shasum": "ba7dfcae5fbd6d55450aac0f04e11e02f0f10951"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.1-beta1",
+                    "datestamp": "1634675424",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "plopesc",
+                    "homepage": "https://www.drupal.org/user/282415"
+                },
+                {
+                    "name": "TechNikh",
+                    "homepage": "https://www.drupal.org/user/372123"
+                }
+            ],
+            "description": "Enable or disable features.",
+            "homepage": "https://www.drupal.org/project/feature_toggle",
+            "support": {
+                "source": "https://git.drupalcode.org/project/feature_toggle"
+            }
         },
         {
             "name": "drupal/field_group",
@@ -7218,13 +7304,51 @@
         },
         {
             "name": "drupal/health_check_url",
-            "version": "2.0.0",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/health_check_url.git",
-                "reference": "6eff12c076f6e0412b33e11201e33b1257431f4e"
+                "reference": "8.x-3.1"
             },
-            "type": "drupal-module"
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/health_check_url-8.x-3.1.zip",
+                "reference": "8.x-3.1",
+                "shasum": "cffab34de69a7dbb76d81421822835815b989a09"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-3.1",
+                    "datestamp": "1625500176",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "btobac",
+                    "homepage": "https://www.drupal.org/user/3630142"
+                },
+                {
+                    "name": "karthikeyan-manivasagam",
+                    "homepage": "https://www.drupal.org/user/1494424"
+                }
+            ],
+            "description": "Configurable string & end point for load balancers to check Drupal site health",
+            "homepage": "https://www.drupal.org/project/health_check_url",
+            "support": {
+                "source": "https://git.drupalcode.org/project/health_check_url"
+            }
         },
         {
             "name": "drupal/hierarchy_manager",
@@ -25863,16 +25987,16 @@
         },
         {
             "name": "va-gov/content-build",
-            "version": "v0.0.3078",
+            "version": "v0.0.3080",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/content-build.git",
-                "reference": "9d6064c074c629f90768f46dcff2c7fadde4364b"
+                "reference": "ba15a3e02c937898663e1851ee48fcacf30a9a19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/9d6064c074c629f90768f46dcff2c7fadde4364b",
-                "reference": "9d6064c074c629f90768f46dcff2c7fadde4364b",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/ba15a3e02c937898663e1851ee48fcacf30a9a19",
+                "reference": "ba15a3e02c937898663e1851ee48fcacf30a9a19",
                 "shasum": ""
             },
             "type": "node-project",
@@ -25899,9 +26023,9 @@
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/content-build, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
             "support": {
                 "issues": "https://github.com/department-of-veterans-affairs/content-build/issues",
-                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3078"
+                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3080"
             },
-            "time": "2022-08-16T18:23:25+00:00"
+            "time": "2022-08-17T20:27:00+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -27925,7 +28049,6 @@
         "drupal/cer": 20,
         "drupal/components": 10,
         "drupal/content_lock": 15,
-        "drupal/entity_block": 10,
         "drupal/entity_clone": 10,
         "drupal/entity_field_fetch": 10,
         "drupal/entity_reference_validators": 15,
