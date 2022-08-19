@@ -96,7 +96,7 @@ Feature: Content model bundles
 | Phone number | phone_number | Paragraph type |  |
 | Process list | process | Paragraph type | An ordered list (1, 2, 3, 4, N) of steps in a process. |
 | Q&A | q_a | Paragraph type | Question and Answer |
-| Q&A group | q_a_group | Paragraph type | For content formatted as a series of questions and answers in "FAQ - multiple Q&A" content type. Use this (instead of Rich text) for better accessibility and easy rearranging. |
+| Q&A group | q_a_group | Paragraph type | Create a new group of existing Q&As. Use this (instead of Rich text) for better accessibility and easy rearranging. |
 | Q&A Section | q_a_section | Paragraph type | For content formatted as a series of questions and answers. Use this (instead of Rich text) for better accessibility and easy rearranging. |
 | React Widget | react_widget | Paragraph type | Advanced editors can use this to place react widgets (like a form) on the page. |
 | Rich text - char limit 1000 | rich_text_char_limit_1000 | Paragraph type | An open-ended text field that uses "Rich Text Limited" with a character limit 1000. |
