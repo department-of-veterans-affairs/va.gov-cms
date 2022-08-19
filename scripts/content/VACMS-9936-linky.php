@@ -151,7 +151,7 @@ foreach ($content_types as $content_type) {
       }
 
     }
-    echo 'Memory usage: ' . get_memory_usage();
+    log_message('Memory usage: ' . get_memory_usage());
   }
 
   $now = time();
