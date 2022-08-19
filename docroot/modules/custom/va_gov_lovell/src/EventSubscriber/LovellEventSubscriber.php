@@ -131,6 +131,7 @@ class LovellEventSubscriber implements EventSubscriberInterface {
         return;
       }
       // If this node is in a Lovell section disable pathauto pattern.
+      // @phpstan-ignore-next-line
       $entity->path->pathauto = 0;
     }
   }
