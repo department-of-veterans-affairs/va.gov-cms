@@ -130,8 +130,7 @@ class LovellEventSubscriber implements EventSubscriberInterface {
       if (!array_key_exists($section_id, self::LOVELL_SECTIONS)) {
         return;
       }
-      // If this node is in a Lovell section disable pathauto.
-      // This module will take it from here.
+      // If this node is in a Lovell section disable pathauto pattern.
       $entity->path->pathauto = 0;
     }
   }
@@ -234,6 +233,7 @@ class LovellEventSubscriber implements EventSubscriberInterface {
   protected function generateValidAliases(array $prefixes, NodeInterface $node): array {
     $new_url = $this->pathautoGenerator->createEntityAlias($node, 'return');
     $url_pieces = explode('/', $new_url);
+    $new_aliases = [];
     foreach ($prefixes as $section => $prefix) {
       $new_alias = PathAlias::Create([
         'path' => '/node/' . $node->id(),
