@@ -17,6 +17,23 @@ function log_message(string $message): void {
   echo PHP_EOL . $message;
 }
 
+/**
+ * Get memory usage, formatted.
+ *
+ * @return string
+ *   Formatted memory usage.
+ */
+function get_memory_usage() {
+  $bytes_used = memory_get_usage(TRUE);
+  if ($bytes_used < 1024) {
+    return $bytes_used . 'B';
+  }
+  elseif ($bytes_used < 1048576) {
+    return round($bytes_used / 1024, 2) . 'KB';
+  }
+  return round($bytes_used / (1024 * 1024), 2) . 'MB';
+}
+
 $content_types = [
   'health_care_region_detail_page',
   'campaign_landing_page',
@@ -86,6 +103,8 @@ $linky_count = count($linkies);
 $previous_linky_count = $linky_count;
 log_message("Found {$linky_count} existing linkies...");
 
+const TRACK_LINKIES = FALSE;
+
 $start_time = time();
 
 $segment_start_time = time();
@@ -121,15 +140,18 @@ foreach ($content_types as $content_type) {
       $node->setSyncing(TRUE);
       $node->save();
 
-      $now_linkies = \Drupal::entityQuery('linky')->execute();
-      $now_linky_count = count($now_linkies);
-      $now_linky_count_diff = $now_linky_count - $previous_linky_count;
-      if ($now_linky_count_diff > 0) {
-        log_message("Created {$now_linky_count_diff} new linkies updating node ${nid}...");
-        $previous_linky_count = $now_linky_count;
+      if (TRACK_LINKIES) {
+        $now_linkies = \Drupal::entityQuery('linky')->execute();
+        $now_linky_count = count($now_linkies);
+        $now_linky_count_diff = $now_linky_count - $previous_linky_count;
+        if ($now_linky_count_diff > 0) {
+          log_message("Created {$now_linky_count_diff} new linkies updating node ${nid}...");
+          $previous_linky_count = $now_linky_count;
+        }
       }
 
     }
+    echo 'Memory usage: ' . get_memory_usage();
   }
 
   $now = time();
