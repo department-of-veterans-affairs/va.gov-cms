@@ -22,5 +22,5 @@ content_types=(
 
 for content_type in "${content_types[@]}"; do
   echo "Processing content type ${content_type}.";
-  drush scr $(pwd)/VACMS-9936-linky.php "${content_type}"; 
+  drush scr scripts/content/VACMS-9936-linky.php "${content_type}"; 
 done;

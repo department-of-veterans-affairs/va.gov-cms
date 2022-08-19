@@ -203,5 +203,5 @@ $start_time = time();
 
 $segment_start_time = time();
 
-$linky_count = process_content_type($content_type, $nid_allow_lists, $linky_count);
+$linky_count = process_content_type($_SERVER['argv'][3], $nid_allow_lists, $linky_count);
 log_message('Memory usage: ' . get_memory_usage());
