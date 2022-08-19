@@ -132,10 +132,9 @@ function vagovclaro_preprocess_field__paragraph__field_hours(&$variables) {
   \Drupal::logger('vagoclaro')->notice('Called vagovclaro_preprocess_field__paragraph__field_hours');
   $item_list = $variables['element']['#items'];
   $paragraph = $item_list->getEntity();
-
   $node_parent = _vagovclaro_get_node_parent($paragraph);
-
   $node_type = $node_parent->getType();
+
 
   $variables['sl_hours'] = "SNL hours are 10 - 12 am or maybe 11:30 pm";
   $bundles_referencing_content = [
@@ -143,6 +142,22 @@ function vagovclaro_preprocess_field__paragraph__field_hours(&$variables) {
     'vha_facility_nonclinical_service'
   ];
   if (in_array($node_type , $bundles_referencing_content)) {
+    $viewBuilder = \Drupal::entityTypeManager()->getViewBuilder('node');
+
+    $node_grandpa = $node_parent->get('field_facility_location')->referencedEntities();
+    $node_entity =  $node_grandpa[0];
+    $value = $node_entity->get('field_office_hours');
+    $output = $viewBuilder->viewField($value, 'full');
+    $output['#cache']['tags'] = $node_entity->getCacheTags();
+    $variables['actual_hours'] = $output;
+    // $variables['actual_hours'] = $node_entity->get('field_office_hours')->getValue();
+
+    // foreach ($node_grandpa as $node_facility) {
+    //   $node_entity = $node_facility->getEntity();
+    //   $variables['actual_hours'] = $$node_entity->field_office_hours->value;
+    //   // $variables['actual_hours'] = $actual_hours->getValue();
+    // }
+
     $variables['noding'] = "I got node.";
 
   }
