@@ -48,11 +48,8 @@ function get_memory_usage() {
  *   The new count of linky items.
  */
 function process_chunk(int $chunk_id, array $chunk, int $previous_linky_count) {
-  static $node_storage;
-  if (!$node_storage) {
-    $entity_type_manager = \Drupal::entityTypeManager();
-    $node_storage = $entity_type_manager->getStorage('node');
-  }
+  $entity_type_manager = \Drupal::entityTypeManager();
+  $node_storage = $entity_type_manager->getStorage('node');
   /** @var \Drupal\node\NodeInterface[] $nodes */
   $nodes = $node_storage->loadMultiple($chunk);
   $count = count($nodes);
@@ -80,6 +77,55 @@ function process_chunk(int $chunk_id, array $chunk, int $previous_linky_count) {
 
   }
   return $previous_linky_count;
+}
+
+/**
+ * Process a content type.
+ *
+ * @param string $content_type
+ *   The content type to process.
+ * @param array $nid_allow_lists
+ *   List of nids that can be modified for specified content types.
+ * @param int $previous_linky_count
+ *   Number of linkies created so far.
+ *
+ * @return int
+ *   Number of linkies created so far.
+ */
+function process_content_type(string $content_type, array $nid_allow_lists, int $previous_linky_count) {
+  if (isset($nid_allow_lists[$content_type])) {
+    $nids = $nid_allow_lists[$content_type];
+  }
+  else {
+    $nids = \Drupal::entityQuery('node')
+      ->condition('type', $content_type)
+      ->condition('status', '1')
+      ->execute();
+  }
+  $nid_count = count($nids);
+  log_message("Processing content type {$content_type}...");
+  log_message("Found {$nid_count} nodes...");
+  $chunks = array_chunk($nids, 50);
+  $linky_count = $previous_linky_count;
+
+  foreach ($chunks as $chunk_id => $chunk) {
+    $previous_linky_count = process_chunk($chunk_id, $chunk, $previous_linky_count);
+  }
+
+  $now = time();
+
+  $linkies = \Drupal::entityQuery('linky')->execute();
+  $new_linky_count = count($linkies);
+  $linky_count_difference = $new_linky_count - $linky_count;
+  $linky_count = $new_linky_count;
+
+  $total_elapsed_time = $now - $start_time;
+  $elapsed_time = $now - $segment_start_time;
+
+  $linky_rate = $linky_count_difference / $elapsed_time;
+  $total_linky_rate = $linky_count / $total_elapsed_time;
+  log_message("Finished content type {$content_type}... {$linky_count_difference} new linky entities added in {$elapsed_time} seconds ({$linky_rate} links/second; total: {$linky_count} links in {$total_elapsed_time} seconds, {$total_linky_rate} links/second).");
+  return $linky_count;
 }
 
 $content_types = [
@@ -158,36 +204,6 @@ $start_time = time();
 $segment_start_time = time();
 
 foreach ($content_types as $content_type) {
-  if (isset($nid_allow_lists[$content_type])) {
-    $nids = $nid_allow_lists[$content_type];
-  }
-  else {
-    $nids = \Drupal::entityQuery('node')
-      ->condition('type', $content_type)
-      ->condition('status', '1')
-      ->execute();
-  }
-  $nid_count = count($nids);
-  log_message("Processing content type {$content_type}...");
-  log_message("Found {$nid_count} nodes...");
-  $chunks = array_chunk($nids, 50);
-
-  foreach ($chunks as $chunk_id => $chunk) {
-    $previous_linky_count = process_chunk($chunk_id, $chunk, $previous_linky_count);
-    log_message('Memory usage: ' . get_memory_usage());
-  }
-
-  $now = time();
-
-  $linkies = \Drupal::entityQuery('linky')->execute();
-  $new_linky_count = count($linkies);
-  $linky_count_difference = $new_linky_count - $linky_count;
-  $linky_count = $new_linky_count;
-
-  $total_elapsed_time = $now - $start_time;
-  $elapsed_time = $now - $segment_start_time;
-
-  $linky_rate = $linky_count_difference / $elapsed_time;
-  $total_linky_rate = $linky_count / $total_elapsed_time;
-  log_message("Finished content type {$content_type}... {$linky_count_difference} new linky entities added in {$elapsed_time} seconds ({$linky_rate} links/second; total: {$linky_count} links in {$total_elapsed_time} seconds, {$total_linky_rate} links/second).");
+  $linky_count = process_content_type($content_type, $nid_allow_lists, $linky_count);
+  log_message('Memory usage: ' . get_memory_usage());
 }
