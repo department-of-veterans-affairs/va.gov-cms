@@ -132,28 +132,29 @@ function vagovclaro_preprocess_field__paragraph__field_hours(&$variables) {
   \Drupal::logger('vagoclaro')->notice('Called vagovclaro_preprocess_field__paragraph__field_hours');
   $item_list = $variables['element']['#items'];
   $paragraph = $item_list->getEntity();
-  $node_parent = _vagovclaro_get_node_parent($paragraph);
-  $node_type = $node_parent->getType();
+  $field_hours_value = $paragraph->get('field_hours')->value;
+  if ($field_hours_value === "0") {
+    $node_parent = _vagovclaro_get_node_parent($paragraph);
+    $node_type = $node_parent->getType();
 
-  // TODO: Could pass in the nodes to check for
-  $bundles_referencing_content = [
-    'health_care_local_health_service',
-    'vha_facility_nonclinical_service'
-  ];
-  if (in_array($node_type , $bundles_referencing_content)) {
-    // TODO: will this ways be a node?
-    $viewBuilder = \Drupal::entityTypeManager()->getViewBuilder('node');
+    // @todo Could pass in the nodes to target others
+    $bundles_referencing_content = [
+      'health_care_local_health_service',
+      'vha_facility_nonclinical_service',
+    ];
+    if (in_array($node_type, $bundles_referencing_content)) {
 
-    $node_grandpa = $node_parent->get('field_facility_location')->referencedEntities();
-    $node_entity =  $node_grandpa[0];
-    $value = $node_entity->get('field_office_hours');
-    $output = $viewBuilder->viewField($value, 'full');
-    $output['#cache']['tags'] = $node_entity->getCacheTags();
-    $variables['actual_hours'] = $output;
-
+      // @todo will this ways be a node?
+      $viewBuilder = \Drupal::entityTypeManager()->getViewBuilder('node');
+      $referenced_node = $node_parent->get('field_facility_location')->referencedEntities();
+      $node_entity = $referenced_node[0];
+      $value = $node_entity->get('field_office_hours');
+      $output = $viewBuilder->viewField($value, 'full');
+      $output['#cache']['tags'] = $node_entity->getCacheTags();
+      $variables['actual_hours'] = $output;
+    }
   }
 }
-
 
 /**
  * Implements hook_theme_suggestions_HOOK_alter().
@@ -503,65 +504,4 @@ function _vagovclaro_form_cms_announcement_block(array &$form) {
     $form['info']['widget'][0]['value']['#description'] = t('Used for configuration settings only.');
     $form['info']['widget'][0]['value']['#title'] = t('Block name');
   }
-}
-
-/**
- * Implements template_preprocess_node()
- */
-function vagovclaro_preprocess_node(&$variables) {
-  $nodeType = $variables['node']->getType();
-  $bundles_referencing_content = [
-    'health_care_local_health_service',
-    'vha_facility_nonclinical_service'
-  ];
-if (in_array($nodeType, $bundles_referencing_content)) {
-  /**
-   * Logging to check
-   */
-  $node = $variables['node'];
-  \Drupal::logger('vagoclaro')->notice('Node type is @type', array(
-    '@type' => $nodeType,
-  ));
-  $fieldName = 'field_service_location';
-  $refEntities = $node->get('field_service_location')->referencedEntities();
-
-  // $hours = $refEntities->get('field_hours');
-  // \Drupal::logger('vagoclaro')->notice('Hours are @hours', array(
-  //   '@hours' => $hours,
-  // ));
-
-  foreach ($refEntities as $refEntity) {
-    $actualHoursValue = $refEntity->get('field_hours')->value;
-    if ($actualHoursValue === "0") {
-      \Drupal::logger('vagoclaro')->notice('We gonna use facility hours');
-      $parentNode = $node->get('field_facility_location')->referencedEntities();
-      foreach ($parentNode as $pn) {
-        // TODO: get them hours
-      }
-      $variables['referenced_hours'] = "Working 9 - 5, what a way to make a living.";
-
-      // $parentNodeId = $parentNode->get('entity_id'); // this line is broken
-      // $fflti = $parentNode->get('field_facility_location_target_id');
-
-      // $parentNode = $node->get('field_office')->referencedEntities();
-      // \Drupal::logger('vagoclaro')->notice('Parent node is @parent', array(
-      //   '@parent' => $parentNode,
-      // ));
-
-    }
-    $hours = $refEntity->get('field_hours');
-
-    \Drupal::logger('vagoclaro')->notice('Entity is @label', array(
-      '@label' => $refEntity->label(),
-    ));
-
-    if ($refEntity === 'field_hours') {
-      \Drupal::logger('vagoclaro')->notice('office hours');
-    }
-  }
-
-}
-}
-function _field_to_check($fieldName) {
-
 }
