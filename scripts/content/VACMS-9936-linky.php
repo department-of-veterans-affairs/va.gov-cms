@@ -34,6 +34,54 @@ function get_memory_usage() {
   return round($bytes_used / (1024 * 1024), 2) . 'MB';
 }
 
+/**
+ * Process a chunk of nodes.
+ *
+ * @param int $chunk_id 
+ *   Chunk index.
+ * @param array $chunk
+ *   Array of nodes.
+ * @param int $previous_linky_count
+ *   The count of linky items before.
+ *
+ * @return int
+ *   The new count of linky items.
+ */
+function process_chunk(int $chunk_id, array $chunk, int $previous_linky_count) {
+  static $node_storage;
+  if (!$node_storage) {
+    $entity_type_manager = \Drupal::entityTypeManager();
+    $node_storage = $entity_type_manager->getStorage('node');
+  }
+  /** @var \Drupal\node\NodeInterface[] $nodes */
+  $nodes = $node_storage->loadMultiple($chunk);
+  $count = count($nodes);
+  log_message("Loaded {$count} nodes as chunk {$chunk_id}");
+  foreach ($nodes as $nid => $node) {
+    $time = time();
+    // Make this change a new revision.
+    $node->setNewRevision(TRUE);
+    $node->setRevisionUserId(1317);
+    $node->setChangedTime($time);
+    $node->setRevisionCreationTime($time);
+    $node->setRevisionLogMessage('Saved to create linkies where applicable');
+    $node->setSyncing(TRUE);
+    $node->save();
+
+    if (TRACK_LINKIES) {
+      $now_linkies = \Drupal::entityQuery('linky')->execute();
+      $now_linky_count = count($now_linkies);
+      $now_linky_count_diff = $now_linky_count - $previous_linky_count;
+      if ($now_linky_count_diff > 0) {
+        log_message("Created {$now_linky_count_diff} new linkies updating node ${nid}...");
+        $previous_linky_count = $now_linky_count;
+      }
+    }
+
+  }
+  return $previous_linky_count;
+}
+
 $content_types = [
   'health_care_region_detail_page',
   'campaign_landing_page',
@@ -125,32 +173,7 @@ foreach ($content_types as $content_type) {
   $chunks = array_chunk($nids, 50);
 
   foreach ($chunks as $chunk_id => $chunk) {
-    /** @var \Drupal\node\NodeInterface[] $nodes */
-    $nodes = $node_storage->loadMultiple($chunk);
-    $count = count($nodes);
-    log_message("Loaded {$count} nodes as chunk {$chunk_id}");
-    foreach ($nodes as $nid => $node) {
-      $time = time();
-      // Make this change a new revision.
-      $node->setNewRevision(TRUE);
-      $node->setRevisionUserId(1317);
-      $node->setChangedTime($time);
-      $node->setRevisionCreationTime($time);
-      $node->setRevisionLogMessage('Saved to create linkies where applicable');
-      $node->setSyncing(TRUE);
-      $node->save();
-
-      if (TRACK_LINKIES) {
-        $now_linkies = \Drupal::entityQuery('linky')->execute();
-        $now_linky_count = count($now_linkies);
-        $now_linky_count_diff = $now_linky_count - $previous_linky_count;
-        if ($now_linky_count_diff > 0) {
-          log_message("Created {$now_linky_count_diff} new linkies updating node ${nid}...");
-          $previous_linky_count = $now_linky_count;
-        }
-      }
-
-    }
+    $previous_linky_count = process_chunk($chunk_id, $chunk, $previous_linky_count);
     log_message('Memory usage: ' . get_memory_usage());
   }
 
