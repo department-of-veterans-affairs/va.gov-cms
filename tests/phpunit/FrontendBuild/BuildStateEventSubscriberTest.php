@@ -91,7 +91,7 @@ class BuildStateEventSubscriberTest extends UnitTestCase {
     ];
 
     foreach ($no_states as $state) {
-      $subscriber = new ContentReleaseErrorSubscriber($buildRequester);
+      $subscriber = new ContentReleaseErrorSubscriber($buildRequester, $this->state);
       $event = new ReleaseStateTransitionEvent('ready', $state);
       $subscriber->handleError($event);
     }
@@ -108,7 +108,7 @@ class BuildStateEventSubscriberTest extends UnitTestCase {
         return $contains_str;
       }));
 
-    $subscriber = new ContentReleaseErrorSubscriber($buildRequester);
+    $subscriber = new ContentReleaseErrorSubscriber($buildRequester, $this->state);
     $event = new ReleaseStateTransitionEvent('ready', 'error');
     $subscriber->handleError($event);
   }
