@@ -323,4 +323,34 @@ This does have drawbacks, though; it can be confusing to have the same code in t
 
 But, all things considered, this seems to be the least painful way of managing static analysis.
 
+## How Do I...?
+
+### View the verbose output of the test runs on a PR?
+
+Follow one of two approaches, depending on the type of the test.
+
+#### If the test name begins with "va/tests/...", e.g. "va/tests/cypress"
+
+This test is run on Tugboat.  
+
+Find the PR that contains the links to the Tugboat environment:
+
+![Tugboat PR Comment](https://user-images.githubusercontent.com/1318579/186016897-9c2f26fb-c395-465e-9eb2-6a77363db4cf.png)
+
+Click the link under **Dashboard** (SOCKS must be enabled to access Tugboat).
+
+Once in the Tugboat instance dashboard, scroll down to the Preview Build Log and click "See Full Log".
+
+![Screen Shot 2022-08-22 at 4 54 24 PM](https://user-images.githubusercontent.com/1318579/186017075-fac60359-3a9f-4ce6-9c82-23a1e4caca1a.png)
+
+This will give you a scrollable view of all of the logged information output since the Tugboat environment was (re)built, including all test output.  Unfortunately, and extremely frustratingly, 1) it will autoscroll to the bottom until all tests have completed, and 2) the text is not searchable.  
+
+If you need to find some particular string, select all and copy it to an IDE/text editor/whatever.
+
+Otherwise, just scroll back to find the failed test, and go from there.
+
+#### Otherwise...
+
+This test is run by a GitHub Action.  Click the "Details" link in the row of the failed test.  This should take you to a view of the run details, which should contain the logged information.
+
 [Table of Contents](../README.md)
