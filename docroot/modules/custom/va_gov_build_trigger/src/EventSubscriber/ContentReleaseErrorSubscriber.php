@@ -2,13 +2,11 @@
 
 namespace Drupal\va_gov_build_trigger\EventSubscriber;
 
-use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\State\StateInterface;
 use Drupal\va_gov_build_trigger\Event\ReleaseStateTransitionEvent;
 use Drupal\va_gov_build_trigger\Plugin\MetricsCollector\ContentReleaseAttemptsSinceLastSuccess;
 use Drupal\va_gov_build_trigger\Service\BuildRequesterInterface;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
-use Drupal\views\Plugin\views\field\TimeInterval;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**

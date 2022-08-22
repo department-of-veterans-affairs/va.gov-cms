@@ -89,7 +89,7 @@ trait RunsDuringBusinessHours {
    *
    * @param callable $f
    *   The function (or other callable) to call.
-   * @param mixed ...$args
+   * @param mixed[] ...$args
    *   Any arguments to pass.
    *
    * @return mixed
