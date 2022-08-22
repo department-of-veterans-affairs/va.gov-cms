@@ -3,6 +3,7 @@
  */
 
 ((Drupal) => {
+  let myVcField = "";
   // Grab our fields and options.
   const adminField = document.getElementById("edit-field-administration");
   const vcFieldOptions = document.querySelectorAll("#edit-field-office option");
@@ -34,8 +35,15 @@
 
   Drupal.behaviors.vaGovLimitVcServiceOptions = {
     attach() {
-      winnower();
+      if (myVcField === "" || window.onload) {
+        winnower();
+      }
       adminField.addEventListener("change", winnower);
+      if (vcField !== null) {
+        vcField.addEventListener("change", function setText() {
+          myVcField = vcField.options[vcField.selectedIndex].text;
+        });
+      }
     },
   };
 })(Drupal);
