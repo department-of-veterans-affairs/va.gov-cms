@@ -36,6 +36,11 @@ services:
     arguments: ['@prometheus_exporter.metrics_collector_manager']
     tags:
       - { name: event_subscriber }
+  va_gov_build_trigger.continuous_release_subscriber:
+    class: Drupal\va_gov_build_trigger\EventSubscriber\ContinuousReleaseSubscriber
+    arguments: ['@state', '@datetime.time', '@va_gov_build_trigger.build_requester', '@date.formatter']
+    tags:
+      - { name: event_subscriber }
   va_gov_build_trigger.release_state_manager:
     class: Drupal\va_gov_build_trigger\Service\ReleaseStateManager
     arguments: ['@state', '@event_dispatcher', '@datetime.time']
