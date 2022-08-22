@@ -126,37 +126,6 @@ function vagovclaro_preprocess_paragraph(&$variables) {
 }
 
 /**
- * Implements hook_preprocess_HOOK().
- */
-function vagovclaro_preprocess_field__paragraph__field_hours(&$variables) {
-  \Drupal::logger('vagoclaro')->notice('Called vagovclaro_preprocess_field__paragraph__field_hours');
-  $item_list = $variables['element']['#items'];
-  $paragraph = $item_list->getEntity();
-  $field_hours_value = $paragraph->get('field_hours')->value;
-  if ($field_hours_value === "0") {
-    $node_parent = _vagovclaro_get_node_parent($paragraph);
-    $node_type = $node_parent->getType();
-
-    // @todo Could pass in the nodes to target others
-    $bundles_referencing_content = [
-      'health_care_local_health_service',
-      'vha_facility_nonclinical_service',
-    ];
-    if (in_array($node_type, $bundles_referencing_content)) {
-
-      // @todo will this always be a node?
-      $viewBuilder = \Drupal::entityTypeManager()->getViewBuilder('node');
-      $referenced_node = $node_parent->get('field_facility_location')->referencedEntities();
-      $node_entity = $referenced_node[0];
-      $value = $node_entity->get('field_office_hours');
-      $output = $viewBuilder->viewField($value, 'full');
-      $output['#cache']['tags'] = $node_entity->getCacheTags();
-      $variables['actual_hours'] = $output;
-    }
-  }
-}
-
-/**
  * Implements hook_theme_suggestions_HOOK_alter().
  */
 function vagovclaro_theme_suggestions_input_alter(&$suggestions, $variables) {
