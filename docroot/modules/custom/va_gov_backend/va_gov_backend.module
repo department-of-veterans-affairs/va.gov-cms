@@ -1642,7 +1642,7 @@ function va_gov_backend_toolbar() {
       '#value' => \Drupal::state()
         ->get("environment_indicator.environment_label"),
       '#attributes' => [
-        'class' => ['toolbar-icon', ''],
+        'class' => ['toolbar-icon', 'toolbar-icon-environment-label'],
       ],
     ],
     '#wrapper_attributes' => [

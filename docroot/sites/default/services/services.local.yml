@@ -1,0 +1,10 @@
+# Local development services additions defined by VA.gov-CMS.
+#
+# To activate this feature, copy this file to local.services.yml and follow the
+# instructions at the top of the 'example.settings.local.php' file, which sits
+# next to this file. Please use this code in your settings.local.php:
+# $settings['container_yamls'][] = DRUPAL_ROOT . '/sites/local.services.yml';
+parameters:
+  twig.config:
+    debug: true
+    auto_reload: true
