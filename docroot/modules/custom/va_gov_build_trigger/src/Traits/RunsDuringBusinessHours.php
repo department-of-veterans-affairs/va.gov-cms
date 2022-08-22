@@ -35,12 +35,12 @@ trait RunsDuringBusinessHours {
   /**
    * Get the time service.
    *
-   * @return \Drupal\Core\Datetime\TimeInterface
+   * @return \Drupal\Component\Datetime\TimeInterface
    *   The time service.
    */
   protected function getTimeService() : TimeInterface {
     if (!isset($this->time) || !($this->time instanceof TimeInterface)) {
-      throw new Exception('time property must be defined in ' . __CLASS__);
+      throw new \Exception('time property must be defined in ' . __CLASS__);
     }
 
     return $this->time;
@@ -61,7 +61,7 @@ trait RunsDuringBusinessHours {
    */
   protected function getDateFormatterService() : DateFormatterInterface {
     if (!isset($this->dateFormatter) || !($this->dateFormatter instanceof DateFormatterInterface)) {
-      throw new Exception('dateFormatter property must be defined in ' . __CLASS__);
+      throw new \Exception('dateFormatter property must be defined in ' . __CLASS__);
     }
 
     return $this->dateFormatter;
@@ -89,7 +89,7 @@ trait RunsDuringBusinessHours {
    *
    * @param callable $f
    *   The function (or other callable) to call.
-   * @param mixed[] ...$args
+   * @param mixed $args
    *   Any arguments to pass.
    *
    * @return mixed
