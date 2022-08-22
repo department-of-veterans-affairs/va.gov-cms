@@ -1593,6 +1593,26 @@ function va_gov_backend_rebuild() {
   }
 
   \Drupal::state()->set("environment_indicator.current_release", $indicator);
+
+  $host = \Drupal::request()->getHost();
+  $environment_label = '';
+  if (strpos($host, 'ci.cms') !== FALSE) {
+    $environment_label = 'PR Environment';
+  }
+  if (strpos($host, 'demo.cms') !== FALSE) {
+    $environment_label = 'Demo Environment';
+  }
+  if (strpos($host, 'staging.cms') !== FALSE) {
+    $environment_label = 'Staging Environment';
+  }
+  if (strpos($host, 'prod.cms') !== FALSE) {
+    $environment_label = 'Production Environment';
+  }
+  if (strpos($host, 'default') !== FALSE) {
+    $environment_label = 'Local Environment';
+  }
+
+  \Drupal::state()->set("environment_indicator.environment_label", $environment_label);
 }
 
 /**
@@ -1601,7 +1621,58 @@ function va_gov_backend_rebuild() {
  * Defines Branch component in Admin Toolbar Menu.
  */
 function va_gov_backend_toolbar() {
+
   $items = [];
+  $items['environment_label'] = [
+    '#attached' => [
+      'library' => [
+        'va_gov_backend/tippy_popover_theme',
+        'va_gov_backend/toolbar',
+      ],
+    ],
+    '#type' => 'toolbar_item',
+    'tab' => [
+      '#type' => 'html_tag',
+      '#tag' => 'div',
+      '#value' => \Drupal::state()
+        ->get("environment_indicator.environment_label"),
+      '#attributes' => [
+        'class' => ['toolbar-icon', ''],
+      ],
+    ],
+    '#wrapper_attributes' => [
+      'class' => ['toolbar-tab', 'environment-toolbar-tab'],
+    ],
+    '#weight' => 100,
+  ];
+
+  if (\Drupal::service('va_gov_user.user_perms')->hasAdminRole(TRUE)) {
+    $items['branch'] = [
+      '#attached'           => [
+        'library' => [
+          'va_gov_backend/toolbar',
+        ],
+      ],
+      '#cache'              => [
+        'contexts' => ['user.permissions'],
+      ],
+      '#type'               => 'toolbar_item',
+      'tab'                 => [
+        '#type'       => 'html_tag',
+        '#tag'        => 'div',
+        '#value'      => ' - ' . \Drupal::state()
+          ->get("environment_indicator.current_release"),
+        '#attributes' => [
+          'title' => 'See https://github.com/department-of-veterans-affairs/va.gov-cms for more info.',
+          'class' => ['toolbar-icon', 'toolbar-icon-branch'],
+        ],
+      ],
+      '#wrapper_attributes' => [
+        'class' => ['toolbar-tab', 'branch-toolbar-tab'],
+      ],
+      '#weight'             => 101,
+    ];
+  }
   $items['content_release_icon'] = [
     '#attached' => [
       'library' => [
@@ -1623,31 +1694,7 @@ function va_gov_backend_toolbar() {
     '#wrapper_attributes' => [
       'class' => ['toolbar-tab', 'content-release-toolbar-tab'],
     ],
-    '#weight' => 101,
-  ];
-  $items['branch'] = [
-    '#attached' => [
-      'library' => [
-        'va_gov_backend/toolbar',
-      ],
-    ],
-    '#cache' => [
-      'contexts' => ['user.permissions'],
-    ],
-    '#type' => 'toolbar_item',
-    'tab' => [
-      '#type' => 'html_tag',
-      '#tag' => 'div',
-      '#value' => \Drupal::state()->get("environment_indicator.current_release"),
-      '#attributes' => [
-        'title' => 'See https://github.com/department-of-veterans-affairs/va.gov-cms for more info.',
-        'class' => ['toolbar-icon', 'toolbar-icon-branch'],
-      ],
-    ],
-    '#wrapper_attributes' => [
-      'class' => ['toolbar-tab', 'branch-toolbar-tab'],
-    ],
-    '#weight' => 100,
+    '#weight' => 102,
   ];
 
   return $items;

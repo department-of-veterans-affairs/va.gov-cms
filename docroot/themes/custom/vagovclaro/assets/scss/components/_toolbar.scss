@@ -51,6 +51,8 @@ body.toolbar-fixed {
 }
 
 .toolbar-bar {
+  display: flex;
+
   .toolbar-icon {
     // Manage
     &-menu {
@@ -84,8 +86,14 @@ body.toolbar-fixed {
   }
 
   // Special treatment for the tab showing the indicator.
-  .toolbar-tab &.branch-toolbar-tab {
-    float: right;
+  .toolbar-tab {
+    &.branch-toolbar-tab {
+      margin-left: -26px;
+    }
+    
+    &.environment-toolbar-tab {
+      margin-left: auto;
+    }
 
     .toolbar-item {
       cursor: auto; // Remove the pointer cursor.

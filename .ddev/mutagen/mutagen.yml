@@ -3,7 +3,7 @@
 # and add your own configuration. If you override it you will
 # probably want to check it in.
 # See ddev mutagen docs at
-# https://ddev.readthedocs.io/en/latest/users/performance/#using-mutagen
+# https://ddev.readthedocs.io/en/latest/users/install/performance/
 # For detailed information about mutagen configuration options, see
 # https://mutagen.io/documentation/introduction/configuration
 sync:
@@ -21,9 +21,9 @@ sync:
       - "/.ddev/.importdb*"
       - ".DS_Store"
       - ".idea"
-
+      
       - "/docroot/sites/default/files"
-
+      
 
       # You can also exclude other directories from mutagen-syncing
       # For example /var/www/html/var does not need to sync in TYPO3
@@ -34,3 +34,4 @@ sync:
       # vcs: true
     symlink:
       mode: "posix-raw"
+
