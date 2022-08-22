@@ -16,26 +16,67 @@ function va_gov_facilities_page_attachments(array &$attachments) {
 /**
  * Implements hook_preprocess_HOOK().
  */
-function vagovclaro_preprocess_field__paragraph__field_hours(&$variables) {
+function va_gov_facilities_preprocess_field__paragraph__field_hours(&$variables) {
   $item_list = $variables['element']['#items'];
   $paragraph = $item_list->getEntity();
-  $field_hours_value = $paragraph->get('field_hours')->value;
-  if ($field_hours_value === "0") {
-    $node_parent = _vagovclaro_get_node_parent($paragraph);
+  $field_name = "field_hours";
+  // Equates to "Use facility's hours" choice.
+  $target_value = "0";
+  $bundles_referencing_content = [
+    'health_care_local_health_service',
+    'vha_facility_nonclinical_service',
+  ];
+  $node_parent = _va_gov_facilities_test_preprocess_show($paragraph, $field_name, $target_value, $bundles_referencing_content);
+  if ($node_parent) {
+    $related_field = "field_facility_location";
+    $field_to_render = "field_office_hours";
+    $variables['actual_hours'] = _va_gov_facilities_create_custom_variable($node_parent, $related_field, $field_to_render);
+  }
+}
+
+/**
+ * Tests to see if we should preprocess.
+ *
+ * @param object $test_object
+ *   Node that we will be testing to see if we should preprocess.
+ * @param string $field_name
+ *   Name of the field to.
+ * @param string $target_value
+ *   Value we expect the field to be.
+ * @param array $haystack_bundles
+ *   Names of bundles to compare against the type of node we have.
+ */
+function _va_gov_facilities_test_preprocess_show($test_object, string $field_name, $target_value, array $haystack_bundles) {
+  $field_value = $test_object->get($field_name)->value;
+  if ($field_value === $target_value) {
+    $node_parent = _vagovclaro_get_node_parent($test_object);
     $node_type = $node_parent->getType();
-    $bundles_referencing_content = [
-      'health_care_local_health_service',
-      'vha_facility_nonclinical_service',
-    ];
-    if (in_array($node_type, $bundles_referencing_content)) {
-      $viewBuilder = \Drupal::entityTypeManager()->getViewBuilder('node');
-      // @phpstan-ignore-next-line Test is unclear what get() we are using
-      $referenced_node = $node_parent->get('field_facility_location')->referencedEntities();
-      $node_entity = $referenced_node[0];
-      $value = $node_entity->get('field_office_hours');
-      $output = $viewBuilder->viewField($value, 'full');
-      $output['#cache']['tags'] = $node_entity->getCacheTags();
-      $variables['actual_hours'] = $output;
+    if (in_array($node_type, $haystack_bundles)) {
+      return $node_parent;
+    }
+    else {
+      return FALSE;
     }
   }
+}
+
+/**
+ * Creates custom array for render array.
+ *
+ * @param object $node
+ *   Node.
+ * @param string $related_field
+ *   Field that relates our node to another.
+ * @param string $field_to_render
+ *   Field we want to render.
+ */
+function _va_gov_facilities_create_custom_variable($node, $related_field, $field_to_render) {
+  // @phpstan-ignore-next-line Test is unclear what get() we are using
+  $referenced_node = $node->get($related_field)->referencedEntities();
+  $node_entity = $referenced_node[0];
+  $value = $node_entity->get($field_to_render);
+  $output['#cache']['tags'] = $node_entity->getCacheTags();
+  $viewBuilder = \Drupal::entityTypeManager()->getViewBuilder('node');
+  $output = $viewBuilder->viewField($value, 'full');
+  return $output;
 }
