@@ -1596,6 +1596,7 @@ function va_gov_backend_rebuild() {
 
   $host = \Drupal::request()->getHost();
   $environment_label = '';
+  $env = '';
   if (strpos($host, 'ci.cms') !== FALSE) {
     $environment_label = 'PR Environment';
   }
@@ -1607,12 +1608,16 @@ function va_gov_backend_rebuild() {
   }
   if (strpos($host, 'prod.cms') !== FALSE) {
     $environment_label = 'Production Environment';
+    $env = 'prod';
   }
   if (strpos($host, 'default') !== FALSE) {
     $environment_label = 'Local Environment';
+    $env = 'local';
   }
 
   \Drupal::state()->set("environment_indicator.environment_label", $environment_label);
+  \Drupal::state()
+    ->set('environment_indicator.env', $env);
 }
 
 /**
@@ -1674,28 +1679,55 @@ function va_gov_backend_toolbar() {
     ];
   }
   $items['content_release_icon'] = [
-    '#attached' => [
+    '#attached'           => [
       'library' => [
         'va_gov_backend/tippy_popover_theme',
         'va_gov_backend/toolbar',
       ],
     ],
-    '#type' => 'toolbar_item',
-    'tab' => [
-      '#type' => 'html_tag',
-      '#tag' => 'button',
-      '#value' => '<span class="button-text">Last Content Release Time</span>',
+    '#type'               => 'toolbar_item',
+    'tab'                 => [
+      '#type'       => 'html_tag',
+      '#tag'        => 'button',
+      '#value'      => '<span class="button-text">Last Content Release Time</span>',
       '#attributes' => [
         'class' => ['toolbar-icon', 'toolbar-icon-content-release'],
         'title' => 'Mouse over to see last content release time',
-        'id' => 'content-release-status-icon',
+        'id'    => 'content-release-status-icon',
       ],
     ],
     '#wrapper_attributes' => [
       'class' => ['toolbar-tab', 'content-release-toolbar-tab'],
     ],
-    '#weight' => 102,
+    '#weight'             => 102,
   ];
+  if (\Drupal::state()
+    ->get('environment_indicator.env') === 'prod' || \Drupal::state()
+    ->get('environment_indicator.env') === 'local') {
+    $items['content_release_icon'] = [
+      '#attached'           => [
+        'library' => [
+          'va_gov_backend/tippy_popover_theme',
+          'va_gov_backend/toolbar',
+        ],
+      ],
+      '#type'               => 'toolbar_item',
+      'tab'                 => [
+        '#type'       => 'html_tag',
+        '#tag'        => 'button',
+        '#value'      => '<span class="button-text">Last Content Release Time</span>',
+        '#attributes' => [
+          'class' => ['toolbar-icon', 'toolbar-icon-content-release'],
+          'title' => 'Mouse over to see last content release time',
+          'id'    => 'content-release-status-icon',
+        ],
+      ],
+      '#wrapper_attributes' => [
+        'class' => ['toolbar-tab', 'content-release-toolbar-tab-prod'],
+      ],
+      '#weight'             => 102,
+    ];
+  }
 
   return $items;
 }
