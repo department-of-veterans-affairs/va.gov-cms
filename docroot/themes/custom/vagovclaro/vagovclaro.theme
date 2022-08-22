@@ -144,7 +144,7 @@ function vagovclaro_preprocess_field__paragraph__field_hours(&$variables) {
     ];
     if (in_array($node_type, $bundles_referencing_content)) {
 
-      // @todo will this ways be a node?
+      // @todo will this always be a node?
       $viewBuilder = \Drupal::entityTypeManager()->getViewBuilder('node');
       $referenced_node = $node_parent->get('field_facility_location')->referencedEntities();
       $node_entity = $referenced_node[0];
