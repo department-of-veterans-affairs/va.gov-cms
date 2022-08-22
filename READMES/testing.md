@@ -341,7 +341,7 @@ Click the link under **Dashboard** (SOCKS must be enabled to access Tugboat).
 
 Once in the Tugboat instance dashboard, scroll down to the Preview Build Log and click "See Full Log".
 
-![Screen Shot 2022-08-22 at 4 54 24 PM](https://user-images.githubusercontent.com/1318579/186017075-fac60359-3a9f-4ce6-9c82-23a1e4caca1a.png)
+![Preview Build Log](https://user-images.githubusercontent.com/1318579/186017075-fac60359-3a9f-4ce6-9c82-23a1e4caca1a.png)
 
 This will give you a scrollable view of all of the logged information output since the Tugboat environment was (re)built, including all test output.  Unfortunately, and extremely frustratingly, 1) it will autoscroll to the bottom until all tests have completed, and 2) the text is not searchable.  
 
