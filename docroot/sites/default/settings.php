@@ -246,9 +246,3 @@ $env_services_path = __DIR__ . "/services/services.$env_type.yml";
 if (file_exists($env_services_path)) {
   $settings['container_yamls'][] = $env_services_path;
 }
-
-// Local overrides for services container.
-$local_services_path = __DIR__ . '/services/services.local.yml';
-if (file_exists($local_services_path)) {
-  $settings['container_yamls'][] = $local_services_path;
-}
