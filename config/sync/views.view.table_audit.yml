@@ -1069,8 +1069,24 @@ display:
           plugin_id: result
           empty: false
           content: '<p>Displaying @start - @end of @total</p>'
-      display_extenders: {  }
+      display_extenders:
+        jsonapi_views:
+          enabled: true
       path: admin/content/audit/table-audit
+      menu:
+        type: tab
+        title: 'Content Audit - Tables'
+        description: ''
+        weight: 0
+        expanded: false
+        menu_name: main
+        parent: ''
+        context: '0'
+        as_local_task: true
+        local_task_link_title: 'Tables'
+        local_task_parent: 'views_view:view.content.content_audit_page'
+        local_task_weight: 10
+        local_task_custom_parent_route: ''
     cache_metadata:
       max-age: -1
       contexts:
