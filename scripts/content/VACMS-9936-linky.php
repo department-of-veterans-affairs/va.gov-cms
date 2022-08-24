@@ -179,7 +179,7 @@ $linky_count = count($linkies);
 $previous_linky_count = $linky_count;
 log_message("Found {$linky_count} existing linkies...");
 
-const TRACK_LINKIES = FALSE;
+const TRACK_LINKIES = TRUE;
 
 $start_time = time();
 
