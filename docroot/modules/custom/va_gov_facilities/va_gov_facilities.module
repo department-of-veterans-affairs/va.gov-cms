@@ -16,6 +16,26 @@ function va_gov_facilities_page_attachments(array &$attachments) {
 }
 
 /**
+ * Implements hook_form_alter().
+ */
+function va_gov_facilities_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  /* @var Drupal\Core\Entity\FieldableEntityInterface $entity */
+  $formObject = $form_state->getFormObject();
+  if ($formObject instanceof \Drupal\Core\Entity\EntityFormInterface) {
+    $entity = $formObject->getEntity();
+    if (
+      $entity->getEntityTypeId() === 'node'
+      && in_array($entity->bundle(), ['health_care_local_health_service',
+        'vha_facility_nonclinical_service'])
+    ) {
+      $form['#attached']['library'][] = 'va_gov_facilities/use_facility_hours';
+    }
+  }
+}
+
+
+
+/**
  * Implements hook_preprocess_HOOK().
  */
 function va_gov_facilities_preprocess_field__paragraph__field_hours(&$variables) {
@@ -93,17 +113,37 @@ function va_gov_facilities_field_widget_paragraphs_form_alter(&$element, FormSta
   $field_definition = $context['items']->getFieldDefinition();
   $paragraph_entity_reference_field_name = $field_definition->getName();
   if ($paragraph_entity_reference_field_name === "field_service_location") {
-    $field_value = $element['subform']['field_hours']->value;
+  $item_list = $context['items'];
+  $node = $item_list->getEntity();
+  $related_field = "field_facility_location";
+    $field_to_render = "field_office_hours";
+    // $node_parent = _vagovclaro_get_node_parent($paragraph);
+    $element['subform']['field_hours']['facility_hours'] = _va_gov_facilities_create_custom_variable($node, $related_field, $field_to_render);
+    // $element['subform']['field_hours']['facility_hours']['#attributes'] = array(
+    //   'class' => ['hidden'],
+    // );
+
+    $field_value = $element['subform']['field_hours']['widget']['#default_value'][0];
+    // if ($field_value === "0") {
+    //   $element['subform']['field_hours']['facility_hours'] = array(
+    //     '#type' => 'item',
+    //     '#title' => t('My Facility Hours'),
+    //     '#markup' => t('where my facility hours will go'),
+    //   '#weight' => -6,
+    //   );
+      // @todo: get the hours
+      // @todo: show the hours
+    // }
     \Drupal::logger('va_gov_facilities')->notice("field_service_location");
-    $element['subform']['field_message'] = array(
-      '#type' => 'item',
-      '#title' => t('New article'),
-      '#markup' => t('Field value is @value',
-    array(
-      '@value' => $field_value,
-    )),
-      '#weight' => -6,
-    );
+    // $element['subform']['field_message'] = array(
+    //   '#type' => 'item',
+    //   '#title' => t('New article'),
+    //   '#markup' => t('Field value is @value',
+    // array(
+    //   '@value' => $field_value,
+    // )),
+    //   '#weight' => -6,
+    // );
   }
 }
 
