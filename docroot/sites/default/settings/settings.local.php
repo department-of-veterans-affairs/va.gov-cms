@@ -44,3 +44,15 @@ $settings['memcache']['servers'] = [
 ];
 
 $settings['cms_datadog_api_key'] = getenv('CMS_DATADOG_API_KEY');
+
+// Local overrides for settings.
+$local_settings_path = __DIR__ . '/../local.settings.php';
+if (file_exists($local_settings_path)) {
+  include_once $local_settings_path;
+}
+
+// Local overrides for services container.
+$local_services_path = __DIR__ . '/../local.services.yml';
+if (file_exists($local_services_path)) {
+  $settings['container_yamls'][] = realpath($local_services_path);
+}

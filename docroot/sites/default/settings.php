@@ -183,8 +183,6 @@ $settings_files = [
   __DIR__ . '/settings/settings.fast_404.php',
   // Ansible moves this file into place during deploy, so if it is present we are in deploy mode.
   __DIR__ . '/settings/settings.deploy.active.php',
-  // Local overrides
-  __DIR__ . '/settings.local.php',
 ];
 
 foreach ($settings_files as $file) {
