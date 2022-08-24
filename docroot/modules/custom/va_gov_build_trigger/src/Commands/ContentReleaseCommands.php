@@ -207,6 +207,8 @@ class ContentReleaseCommands extends DrushCommands {
   public function toggleContinuousRelease() {
     $current = $this->state->get(ContinuousReleaseSubscriber::CONTINUOUS_RELEASE_ENABLED, FALSE);
     $this->state->set(ContinuousReleaseSubscriber::CONTINUOUS_RELEASE_ENABLED, !$current);
+    $status_text = ($current === TRUE ? 'enabled' : 'disabled');
+    $this->io()->writeln('Continuous release is now ' . $status_text);
   }
 
 }
