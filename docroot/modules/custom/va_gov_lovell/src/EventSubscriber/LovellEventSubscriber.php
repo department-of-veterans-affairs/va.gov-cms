@@ -185,7 +185,7 @@ class LovellEventSubscriber implements EventSubscriberInterface {
       // Define valid url prefixes for Lovell content.
       $valid_prefixes = [
         '1039' => 'lovell-federal-tricare-health-care',
-        '1040' => 'lovell-federal-health-care',
+        '1040' => 'lovell-federal-va-health-care',
       ];
 
       // If section is not both remove invalid prefixes.
