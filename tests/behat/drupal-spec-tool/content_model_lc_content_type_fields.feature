@@ -58,19 +58,19 @@ Feature: Content model: LC Content Type fields
 | Content type | Q&A - single | Related Information | field_related_information | Entity reference revisions |  | 5 | Paragraphs (stable) | Translatable |
 | Content type | Q&A - single | Enable standalone Resources and support page for this Q&A. | field_standalone_page | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Q&A - single | Tags | field_tags | Entity reference revisions |  | 1 | Paragraphs Legacy |  |
-| Content type | Resources and support Detail Page | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Resources and support Detail Page | Alert | field_alert_single | Entity reference revisions | Required | 1 | Paragraphs Legacy | Translatable |
-| Content type | Resources and support Detail Page | Calls to action | field_buttons | Entity reference revisions |  | 2 | Paragraphs (stable) | Translatable |
-| Content type | Resources and support Detail Page | Repeat CTA buttons | field_buttons_repeat | Boolean |  | 1 | Single on/off checkbox | Translatable |
-| Content type | Resources and support Detail Page | Need more help? | field_contact_information | Entity reference revisions |  | 1 | Paragraphs Legacy | Translatable |
-| Content type | Resources and support Detail Page | Main content | field_content_block | Entity reference revisions | Required | Unlimited | Paragraphs Browser EXPERIMENTAL | Translatable |
-| Content type | Resources and support Detail Page | Page introduction | field_intro_text_limited_html  | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
-| Content type | Resources and support Detail Page | Additional categories (optional) | field_other_categories | Entity reference |  | 6 | Check boxes/radio buttons | Translatable |
-| Content type | Resources and support Detail Page | Primary category | field_primary_category | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Resources and support Detail Page | VA Benefit Hubs | field_related_benefit_hubs | Entity reference | Required | 3 | Entity Browser - Table |  |
-| Content type | Resources and support Detail Page | Related Information | field_related_information | Entity reference revisions |  | 5 | Paragraphs (stable) |  |
-| Content type | Resources and support Detail Page | Generate a table of contents from major headings | field_table_of_contents_boolean | Boolean |  | 1 | Single on/off checkbox | Translatable |
-| Content type | Resources and support Detail Page | Tags | field_tags | Entity reference revisions |  | 1 | Paragraphs Legacy |  |
+| Content type | Resources and Support Detail Page | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Resources and Support Detail Page | Alert | field_alert_single | Entity reference revisions | Required | 1 | Paragraphs Legacy | Translatable |
+| Content type | Resources and Support Detail Page | Calls to action | field_buttons | Entity reference revisions |  | 2 | Paragraphs (stable) | Translatable |
+| Content type | Resources and Support Detail Page | Repeat CTA buttons | field_buttons_repeat | Boolean |  | 1 | Single on/off checkbox | Translatable |
+| Content type | Resources and Support Detail Page | Need more help? | field_contact_information | Entity reference revisions |  | 1 | Paragraphs Legacy | Translatable |
+| Content type | Resources and Support Detail Page | Main content | field_content_block | Entity reference revisions | Required | Unlimited | Paragraphs Browser EXPERIMENTAL | Translatable |
+| Content type | Resources and Support Detail Page | Page introduction | field_intro_text_limited_html  | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
+| Content type | Resources and Support Detail Page | Additional categories (optional) | field_other_categories | Entity reference |  | 6 | Check boxes/radio buttons | Translatable |
+| Content type | Resources and Support Detail Page | Primary category | field_primary_category | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Resources and Support Detail Page | VA Benefit Hubs | field_related_benefit_hubs | Entity reference | Required | 3 | Entity Browser - Table |  |
+| Content type | Resources and Support Detail Page | Related Information | field_related_information | Entity reference revisions |  | 5 | Paragraphs (stable) |  |
+| Content type | Resources and Support Detail Page | Generate a table of contents from major headings | field_table_of_contents_boolean | Boolean |  | 1 | Single on/off checkbox | Translatable |
+| Content type | Resources and Support Detail Page | Tags | field_tags | Entity reference revisions |  | 1 | Paragraphs Legacy |  |
 | Content type | Step-by-Step | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Step-by-Step | Alert | field_alert_single | Entity reference revisions | Required | 1 | Paragraphs Legacy | Translatable |
 | Content type | Step-by-Step | Calls to action | field_buttons | Entity reference revisions |  | 2 | Paragraphs Legacy |  |

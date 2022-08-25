@@ -6,6 +6,8 @@
 **/
 
 (function (Drupal) {
+  var myFacility = "";
+
   var adminField = document.getElementById("edit-field-administration");
   var facilityFieldOptions = document.querySelectorAll("#edit-field-facility-location option");
   var systemFieldOptions = document.querySelectorAll("#edit-field-regional-health-service option");
@@ -42,8 +44,15 @@
 
   Drupal.behaviors.vaGovLimitServiceOptions = {
     attach: function attach() {
-      winnower();
+      if (myFacility === "" || window.onload) {
+        winnower();
+      }
       adminField.addEventListener("change", winnower);
+      if (facilityField !== null) {
+        facilityField.addEventListener("change", function setText() {
+          myFacility = facilityField.options[facilityField.selectedIndex].text;
+        });
+      }
     }
   };
 })(Drupal);

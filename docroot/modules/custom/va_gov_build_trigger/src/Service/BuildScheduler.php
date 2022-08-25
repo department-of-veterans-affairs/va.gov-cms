@@ -4,13 +4,15 @@ namespace Drupal\va_gov_build_trigger\Service;
 
 use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Datetime\DateFormatterInterface;
-use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\State\StateInterface;
+use Drupal\va_gov_build_trigger\Traits\RunsDuringBusinessHours;
 
 /**
  * The build scheduler service.
  */
 class BuildScheduler implements BuildSchedulerInterface {
+
+  use RunsDuringBusinessHours;
 
   public const VA_GOV_LAST_SCHEDULED_BUILD_REQUEST = 'va_gov_build_trigger.last_scheduled_build_request';
 
@@ -27,20 +29,6 @@ class BuildScheduler implements BuildSchedulerInterface {
    * @var \Drupal\Core\State\StateInterface
    */
   protected $state;
-
-  /**
-   * The time service.
-   *
-   * @var \Drupal\Component\Datetime\TimeInterface
-   */
-  protected $time;
-
-  /**
-   * The date formatter service.
-   *
-   * @var \Drupal\Core\Datetime\DateFormatterInterface
-   */
-  protected $dateFormatter;
 
   /**
    * Construct a new BuildRequester.
@@ -66,18 +54,15 @@ class BuildScheduler implements BuildSchedulerInterface {
    */
   public function checkScheduledBuild() : void {
     $currentTime = $this->time->getCurrentTime();
-    $day_of_week = $this->dateFormatter->format($currentTime, 'custom', 'w', 'America/New_York', LanguageInterface::LANGCODE_NOT_APPLICABLE);
-    $hour_of_day = $this->dateFormatter->format($currentTime, 'custom', 'G', 'America/New_York', LanguageInterface::LANGCODE_NOT_APPLICABLE);
     $last_scheduled_build = $this->state->get(self::VA_GOV_LAST_SCHEDULED_BUILD_REQUEST, 0);
     $time_since_last_build = ($currentTime - $last_scheduled_build);
 
-    $is_business_day = (1 <= $day_of_week && $day_of_week <= 5);
-    $is_business_hour = (9 <= $hour_of_day && $hour_of_day < 17);
-
-    if ($is_business_day && $is_business_hour && ($time_since_last_build >= 3600)) {
-      $this->buildRequester->requestFrontendBuild('Scheduled hourly build');
-      $this->state->set(self::VA_GOV_LAST_SCHEDULED_BUILD_REQUEST, $currentTime);
-    }
+    $this->runDuringBusinessHours(function () use ($currentTime, $time_since_last_build) {
+      if ($time_since_last_build >= 3600) {
+        $this->buildRequester->requestFrontendBuild('Scheduled hourly build');
+        $this->state->set(self::VA_GOV_LAST_SCHEDULED_BUILD_REQUEST, $currentTime);
+      }
+    }, $this->buildRequester, $this->state, $time_since_last_build);
   }
 
 }

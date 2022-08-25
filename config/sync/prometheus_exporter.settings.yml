@@ -37,6 +37,7 @@ collectors:
         person_profile: 0
         press_release: 0
         press_releases_listing: 0
+        promo_banner: 0
         publication_listing: 0
         q_a: 0
         regional_health_care_service_des: 0
@@ -57,6 +58,7 @@ collectors:
         vet_center_locations_list: 0
         vet_center_mobile_vet_center: 0
         vet_center_outstation: 0
+        vha_facility_nonclinical_service: 0
   user_count:
     id: user_count
     provider: prometheus_exporter
@@ -68,6 +70,30 @@ collectors:
     provider: va_gov_backend
     enabled: true
     weight: -48
+    settings: {  }
+  va_gov_content_release_interval:
+    id: va_gov_content_release_interval
+    provider: va_gov_build_trigger
+    enabled: true
+    weight: -44
+    settings: {  }
+  va_gov_content_release_interval_rolling_average:
+    id: va_gov_content_release_interval_rolling_average
+    provider: va_gov_build_trigger
+    enabled: true
+    weight: -43
+    settings: {  }
+  va_gov_last_content_release_duration:
+    id: va_gov_last_content_release_duration
+    provider: va_gov_build_trigger
+    enabled: true
+    weight: -42
+    settings: {  }
+  va_gov_content_release_rolling_average:
+    id: va_gov_content_release_rolling_average
+    provider: va_gov_build_trigger
+    enabled: true
+    weight: -41
     settings: {  }
   phpinfo:
     id: phpinfo
@@ -117,6 +143,7 @@ collectors:
         person_profile: 0
         press_release: 0
         press_releases_listing: 0
+        promo_banner: 0
         publication_listing: 0
         q_a: 0
         regional_health_care_service_des: 0
@@ -137,3 +164,10 @@ collectors:
         vet_center_locations_list: 0
         vet_center_mobile_vet_center: 0
         vet_center_outstation: 0
+        vha_facility_nonclinical_service: 0
+  va_gov_time_since_last_content_release:
+    id: va_gov_time_since_last_content_release
+    provider: va_gov_build_trigger
+    enabled: true
+    weight: 0
+    settings: {  }

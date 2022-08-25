@@ -2,7 +2,7 @@
 name: Accessibility Audit
 about: Submit a request to perform an accessibility audit for a VA.gov product.
 title: Accessibility Audit for <insert issue name>
-labels: ''
+labels: Helpdesk & support
 assignees: laflannery
 
 ---

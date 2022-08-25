@@ -2,6 +2,7 @@
 
 namespace tests\phpunit\FrontendBuild;
 
+use Drupal\Core\Http\RequestStack;
 use Drupal\Core\KeyValueStore\KeyValueMemoryFactory;
 use Drupal\Core\State\State;
 use Drupal\Tests\UnitTestCase;
@@ -9,7 +10,9 @@ use Drupal\va_gov_build_trigger\Plugin\MetricsCollector\ContentReleaseDuration;
 use Drupal\va_gov_build_trigger\Plugin\MetricsCollector\ContentReleaseDurationRollingAverage;
 use Drupal\va_gov_build_trigger\Plugin\MetricsCollector\ContentReleaseInterval;
 use Drupal\va_gov_build_trigger\Plugin\MetricsCollector\ContentReleaseIntervalRollingAverage;
+use Drupal\va_gov_build_trigger\Plugin\MetricsCollector\TimeSinceLastContentRelease;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
+use Tests\Support\Mock\SpecifiedTime;
 
 /**
  * Unit test for build metrics.
@@ -29,6 +32,30 @@ class BuildMetricsTest extends UnitTestCase {
     parent::setUp();
 
     $this->state = new State(new KeyValueMemoryFactory());
+  }
+
+  /**
+   * Test the time since last content release metric.
+   */
+  public function testTimeSinceLastContentRelease() {
+    $now = time();
+
+    $this->state->set(ReleaseStateManager::LAST_RELEASE_COMPLETE_KEY, $now - 3900);
+    $time = new SpecifiedTime(new RequestStack());
+    $time->setCurrentTime($now);
+
+    $plugin = new TimeSinceLastContentRelease(
+      [],
+      'test_plugin',
+      ['title' => 'test', 'description' => 'test'],
+      $this->state,
+      $time
+    );
+
+    $values = $plugin->collectMetrics();
+
+    $this->assertEquals(3900, $values[0]->getLabelledValues()[0]->getValue());
+    $this->assertEquals(300, $values[1]->getLabelledValues()[0]->getValue());
   }
 
   /**
