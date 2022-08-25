@@ -2,7 +2,9 @@
 
 namespace Drupal\va_gov_build_trigger\EventSubscriber;
 
+use Drupal\Core\State\StateInterface;
 use Drupal\va_gov_build_trigger\Event\ReleaseStateTransitionEvent;
+use Drupal\va_gov_build_trigger\Plugin\MetricsCollector\ContentReleaseAttemptsSinceLastSuccess;
 use Drupal\va_gov_build_trigger\Service\BuildRequesterInterface;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -13,6 +15,13 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class ContentReleaseErrorSubscriber implements EventSubscriberInterface {
 
   /**
+   * The state service.
+   *
+   * @var \Drupal\Core\State\StateInterface
+   */
+  protected $state;
+
+  /**
    * The build requester service.
    *
    * @var \Drupal\va_gov_build_trigger\Service\BuildRequesterInterface
@@ -21,9 +30,15 @@ class ContentReleaseErrorSubscriber implements EventSubscriberInterface {
 
   /**
    * Constructor for ContentReleaseErrorSubscriber objects.
+   *
+   * @param \Drupal\va_gov_build_trigger\Service\BuildRequesterInterface $buildRequester
+   *   The build requester service.
+   * @param \Drupal\Core\State\StateInterface $state
+   *   The state service.
    */
-  public function __construct(BuildRequesterInterface $buildRequester) {
+  public function __construct(BuildRequesterInterface $buildRequester, StateInterface $state) {
     $this->buildRequester = $buildRequester;
+    $this->state = $state;
   }
 
   /**
@@ -43,6 +58,15 @@ class ContentReleaseErrorSubscriber implements EventSubscriberInterface {
   public function handleError(ReleaseStateTransitionEvent $event) {
     if ($event->getNewReleaseState() === ReleaseStateManager::STATE_ERROR) {
       $this->buildRequester->requestFrontendBuild('Retrying build after build failure.');
+    }
+
+    if ($event->getNewReleaseState() === ReleaseStateManager::STATE_DISPATCHED) {
+      $attempts = $this->state->get(ContentReleaseAttemptsSinceLastSuccess::CONTENT_RELEASE_ATTEMPTS_STATE_KEY, 0);
+      $this->state->set(ContentReleaseAttemptsSinceLastSuccess::CONTENT_RELEASE_ATTEMPTS_STATE_KEY, $attempts + 1);
+    }
+
+    if ($event->getNewReleaseState() === ReleaseStateManager::STATE_COMPLETE) {
+      $this->state->set(ContentReleaseAttemptsSinceLastSuccess::CONTENT_RELEASE_ATTEMPTS_STATE_KEY, 0);
     }
   }
 

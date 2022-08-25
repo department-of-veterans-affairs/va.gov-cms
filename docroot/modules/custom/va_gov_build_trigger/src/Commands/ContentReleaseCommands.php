@@ -5,6 +5,7 @@ namespace Drupal\va_gov_build_trigger\Commands;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\State\StateInterface;
 use Drupal\va_gov_build_trigger\Controller\ContentReleaseNotificationController;
+use Drupal\va_gov_build_trigger\EventSubscriber\ContinuousReleaseSubscriber;
 use Drupal\va_gov_build_trigger\Service\BuildRequester;
 use Drupal\va_gov_build_trigger\Service\BuildRequesterInterface;
 use Drupal\va_gov_build_trigger\Service\BuildSchedulerInterface;
@@ -185,6 +186,29 @@ class ContentReleaseCommands extends DrushCommands {
       $this->resetState();
       $this->requestFrontendBuild();
     }
+  }
+
+  /**
+   * Check continuous release state.
+   *
+   * @command va-gov:content-release:is-continuous-release-enabled
+   * @aliases va-gov-content-release-is-continuous-release-enabled
+   */
+  public function checkContinuousReleaseState() {
+    $this->io()->writeln(print_r($this->state->get(ContinuousReleaseSubscriber::CONTINUOUS_RELEASE_ENABLED, FALSE)));
+  }
+
+  /**
+   * Toggle continuous release.
+   *
+   * @command va-gov:content-release:toggle-continuous
+   * @aliases va-gov-content-release-toggle-continuous
+   */
+  public function toggleContinuousRelease() {
+    $current = $this->state->get(ContinuousReleaseSubscriber::CONTINUOUS_RELEASE_ENABLED, FALSE);
+    $this->state->set(ContinuousReleaseSubscriber::CONTINUOUS_RELEASE_ENABLED, !$current);
+    $status_text = ($current === TRUE ? 'enabled' : 'disabled');
+    $this->io()->writeln('Continuous release is now ' . $status_text);
   }
 
 }
