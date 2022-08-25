@@ -20,11 +20,11 @@ content_types=(
   person_profile
 )
 
-for content_type in "${content_types[@]}"; do
+time for content_type in "${content_types[@]}"; do
   echo;
   echo;
   echo "Processing content type ${content_type}.";
-  drush scr scripts/content/VACMS-9936-linky.php "${content_type}"; 
+  time drush scr scripts/content/VACMS-9936-linky.php "${content_type}"; 
   echo;
   echo;
 done;
