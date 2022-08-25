@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @file
+ * Contains va_gov_facilities.module.
+ */
+
+use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
@@ -19,21 +25,20 @@ function va_gov_facilities_page_attachments(array &$attachments) {
  * Implements hook_form_alter().
  */
 function va_gov_facilities_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  /* @var Drupal\Core\Entity\FieldableEntityInterface $entity */
+  /** @var Drupal\Core\Entity\FieldableEntityInterface $entity */
   $formObject = $form_state->getFormObject();
-  if ($formObject instanceof \Drupal\Core\Entity\EntityFormInterface) {
+  if ($formObject instanceof EntityFormInterface) {
     $entity = $formObject->getEntity();
     if (
       $entity->getEntityTypeId() === 'node'
       && in_array($entity->bundle(), ['health_care_local_health_service',
-        'vha_facility_nonclinical_service'])
+        'vha_facility_nonclinical_service',
+      ])
     ) {
       $form['#attached']['library'][] = 'va_gov_facilities/use_facility_hours';
     }
   }
 }
-
-
 
 /**
  * Implements hook_preprocess_HOOK().
@@ -104,46 +109,20 @@ function _va_gov_facilities_create_custom_variable($node, $related_field, $field
   return $output;
 }
 
-
 /**
- * Implements hook_field_widget_entity_reference_paragraphs_form_alter().
+ * Implements hook_field_widget_widget_complete_form_alter().
  */
-function va_gov_facilities_field_widget_paragraphs_form_alter(&$element, FormStateInterface $form_state, $context) {
+function va_gov_facilities_field_widget_complete_form_alter(&$field_widget_complete_form, FormStateInterface $form_state, $context) {
   /** @var \Drupal\field\Entity\FieldConfig $field_definition */
   $field_definition = $context['items']->getFieldDefinition();
   $paragraph_entity_reference_field_name = $field_definition->getName();
   if ($paragraph_entity_reference_field_name === "field_service_location") {
-  $item_list = $context['items'];
-  $node = $item_list->getEntity();
-  $related_field = "field_facility_location";
-    $field_to_render = "field_office_hours";
-    // $node_parent = _vagovclaro_get_node_parent($paragraph);
-    $element['subform']['field_hours']['facility_hours'] = _va_gov_facilities_create_custom_variable($node, $related_field, $field_to_render);
-    // $element['subform']['field_hours']['facility_hours']['#attributes'] = array(
-    //   'class' => ['hidden'],
-    // );
-
-    $field_value = $element['subform']['field_hours']['widget']['#default_value'][0];
-    // if ($field_value === "0") {
-    //   $element['subform']['field_hours']['facility_hours'] = array(
-    //     '#type' => 'item',
-    //     '#title' => t('My Facility Hours'),
-    //     '#markup' => t('where my facility hours will go'),
-    //   '#weight' => -6,
-    //   );
-      // @todo: get the hours
-      // @todo: show the hours
-    // }
-    \Drupal::logger('va_gov_facilities')->notice("field_service_location");
-    // $element['subform']['field_message'] = array(
-    //   '#type' => 'item',
-    //   '#title' => t('New article'),
-    //   '#markup' => t('Field value is @value',
-    // array(
-    //   '@value' => $field_value,
-    // )),
-    //   '#weight' => -6,
-    // );
+    if ($context['form']['#attributes']['class']['0'] === "node-health-care-local-health-service-edit-form") {
+      $item_list = $context['items'];
+      $node = $item_list->getEntity();
+      $related_field = "field_facility_location";
+      $field_to_render = "field_office_hours";
+      $field_widget_complete_form['widget']['0']['subform']['field_hours']['facility_hours'] = _va_gov_facilities_create_custom_variable($node, $related_field, $field_to_render);
+    }
   }
 }
-

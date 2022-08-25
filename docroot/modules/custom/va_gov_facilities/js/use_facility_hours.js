@@ -5,37 +5,21 @@
 * @preserve
 **/
 
-// const { test } = require("mocha");
-
-function showHours(selector, selection) {
-    var hours = document.querySelector("[data-drupal-selector='edit-field-service-location-0-subform-field-hours-wrapper-facility-hours']");
-    if (selector.value === selection) {
-        hours.classList.remove("hidden");
-    } else {
-        hours.classList.add("hidden");
-    }
-}
-
-(function ($, Drupal) {
+(function ($, window, Drupal) {
     Drupal.behaviors.vaGovUseFacilityHours = {
         attach: function attach(context, settings) {
-            var USE_FACILITY_HOURS = "0";
-            var hoursSelection = document.querySelector("#edit-field-service-location-0-subform-field-hours");
-            var hours = document.querySelector("[data-drupal-selector='edit-field-service-location-0-subform-field-hours-wrapper-facility-hours']");
-            function testHours() {
-                if (hoursSelection.value === USE_FACILITY_HOURS) {
-                    hours.hidden = false;
-                } else {
-                    hours.hidden = true;
-            }
-            }
-            testHours();
-            $(hoursSelection, context).change(testHours);
-    }
-}
-    //         var hs = $(context).find('#edit-field-service-location-0-subform-field-hours').once('vaGovUseFacilityHours');
-    //         showHours(hoursSelection, USE_FACILITY_HOURS);
-    //         hoursSelection.addEventListener("change", showHours(hoursSelection, USE_FACILITY_HOURS));
-    //     }
-    // };
-})(jQuery, Drupal);
+            var hours = context.querySelector("[data-drupal-selector$='-subform-field-hours-wrapper-facility-hours']");
+            var hoursSelectionSelector = context.querySelectorAll("[id$=-subform-field-hours] input");
+            hoursSelectionSelector.forEach(function (hoursSelection) {
+                $(hoursSelection, context).on("click", function () {
+                    var choice = hoursSelection.value;
+                    if (choice == "0") {
+                        $(hours).show();
+                    } else {
+                        $(hours).hide();
+                    }
+                });
+            });
+        }
+    };
+})(jQuery, window, Drupal);
