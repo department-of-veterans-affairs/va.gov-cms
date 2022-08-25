@@ -16,9 +16,9 @@
 
   Drupal.behaviors.vaGovServiceLocationHours = {
     attach: function attach() {
-      var hourSelects = document.querySelectorAll(".field--name-field-hours select");
+      var hourSelects = document.querySelectorAll(".field--name-field-hours input");
       hourSelects.forEach(function (hourSelect) {
-        var hours = hourSelect.parentElement.parentElement.nextElementSibling;
+        var hours = document.querySelector(".field--name-field-hours").nextElementSibling;
 
         window.addEventListener("load", function () {
           displayHours(hourSelect, hours);

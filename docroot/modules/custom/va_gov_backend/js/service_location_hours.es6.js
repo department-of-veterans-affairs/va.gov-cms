@@ -15,11 +15,11 @@
     attach() {
       // Grab our hour selects.
       const hourSelects = document.querySelectorAll(
-        ".field--name-field-hours select"
+        ".field--name-field-hours input"
       );
       hourSelects.forEach((hourSelect) => {
         // Grab our closest hours table.
-        const hours = hourSelect.parentElement.parentElement.nextElementSibling;
+        const hours = document.querySelector(".field--name-field-hours").nextElementSibling;
 
         window.addEventListener("load", () => {
           // Determine whether or not to display on load.
