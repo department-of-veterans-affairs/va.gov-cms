@@ -7,9 +7,6 @@ $settings['jenkins_build_job_params'] = '/buildWithParameters?deploy=true';
 $settings['jenkins_build_job_url'] = $settings['jenkins_build_job_host'] . $settings['jenkins_build_job_path'] . $settings['jenkins_build_job_params'];
 $settings['skip_permissions_hardening'] = TRUE;
 
-// Set this to true to see the Log in with PIV screen.
-$config['simplesamlphp_auth.settings']['activate'] = FALSE;
-
 $config['config_split.config_split.dev']['status'] = FALSE;
 $config['config_split.config_split.stg']['status'] = FALSE;
 $config['config_split.config_split.prod']['status'] = FALSE;
@@ -47,5 +44,3 @@ $settings['memcache']['servers'] = [
 ];
 
 $settings['cms_datadog_api_key'] = getenv('CMS_DATADOG_API_KEY');
-
-$settings['container_yamls'][] = DRUPAL_ROOT . '/sites/local.services.yml';
