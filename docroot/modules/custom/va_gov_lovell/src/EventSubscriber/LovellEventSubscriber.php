@@ -182,27 +182,12 @@ class LovellEventSubscriber implements EventSubscriberInterface {
         return;
       }
 
-      // Define valid url prefixes for Lovell content.
-      $valid_prefixes = [
-        '1039' => 'lovell-federal-tricare-health-care',
-        '1040' => 'lovell-federal-va-health-care',
-      ];
-
-      // If section is not both remove invalid prefixes.
-      if ($section_id !== '347') {
-        $valid_prefixes = array_intersect_key($valid_prefixes, [$section_id => 'keep']);
-      }
-
-      // Generate valid aliases from the provided prefixes.
+      // Determine which prefixes are valid based on section.
+      $valid_prefixes = $this->getValidPrefixes($section_id);
       $valid_aliases = $this->generateValidAliases($valid_prefixes, $entity);
 
-      // Retrieve existing aliases for this node.
-      $path = '/node/' . $entity->id();
-      $path_alias_manager = $this->entityTypeManager->getStorage('path_alias');
-      $existing_aliases = $path_alias_manager->loadByProperties([
-        'path'     => $path,
-        'langcode' => 'en',
-      ]);
+      // Get any existing aliases for this node.
+      $existing_aliases = $this->getExistingNodeAliases($entity);
 
       // Omit existing aliases with a valid match from further processing.
       $this->omitAliasMatches($valid_aliases, $existing_aliases);
@@ -244,6 +229,51 @@ class LovellEventSubscriber implements EventSubscriberInterface {
       $new_aliases[] = $new_alias;
     }
     return $new_aliases;
+  }
+
+  /**
+   * Generate valid lovell url prefixes for the provided section.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   Node.
+   *
+   * @return array
+   *   An array of existing aliases for this node.
+   */
+  protected function getExistingNodeAliases(NodeInterface $node): array {
+    // Retrieve existing aliases for this node.
+    $path = '/node/' . $node->id();
+    $path_alias_manager = $this->entityTypeManager->getStorage('path_alias');
+    $existing_aliases = $path_alias_manager->loadByProperties([
+      'path'     => $path,
+      'langcode' => 'en',
+    ]);
+
+    return $existing_aliases;
+  }
+
+  /**
+   * Generate valid lovell url prefixes for the provided section.
+   *
+   * @param string $section_id
+   *   An id for a section taxonomy term.
+   *
+   * @return array
+   *   An array of valid url prefixes .
+   */
+  protected function getValidPrefixes(string $section_id): array {
+    // Define valid url prefixes for Lovell content.
+    $valid_prefixes = [
+      '1039' => 'lovell-federal-tricare-health-care',
+      '1040' => 'lovell-federal-va-health-care',
+    ];
+
+    // If section is not both remove invalid prefixes.
+    if ($section_id !== '347') {
+      $valid_prefixes = array_intersect_key($valid_prefixes, [$section_id => 'keep']);
+    }
+
+    return $valid_prefixes;
   }
 
   /**
