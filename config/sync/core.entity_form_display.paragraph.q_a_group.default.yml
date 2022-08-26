@@ -12,6 +12,7 @@ dependencies:
   module:
     - entity_browser_table
     - limited_field_widgets
+    - text
     - textfield_counter
 id: paragraph.q_a_group.default
 targetEntityType: paragraph
@@ -20,14 +21,14 @@ mode: default
 content:
   field_accordion_display:
     type: boolean_checkbox
-    weight: 1
+    weight: 2
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_q_as:
     type: entity_reference_browser_table_widget
-    weight: 2
+    weight: 3
     region: content
     settings:
       entity_browser: q_a_browser
@@ -41,6 +42,14 @@ content:
     third_party_settings:
       limited_field_widgets:
         limit_values: '0'
+  field_rich_wysiwyg:
+    type: text_textarea
+    weight: 1
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
   field_section_header:
     type: string_textfield_with_counter
     weight: 0
@@ -57,5 +66,4 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
-  field_rich_wysiwyg: true
   status: true
