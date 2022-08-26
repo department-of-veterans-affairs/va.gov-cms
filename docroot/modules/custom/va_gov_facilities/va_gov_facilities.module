@@ -49,12 +49,11 @@ function va_gov_facilities_preprocess_field__paragraph__field_hours(&$variables)
   $paragraph = $item_list->getEntity();
   $field_name = "field_hours";
   // Equates to "Use facility's hours" choice.
-  $target_value = "0";
   $bundles_referencing_content = [
     'health_care_local_health_service',
     'vha_facility_nonclinical_service',
   ];
-  $node_parent = _va_gov_facilities_test_preprocess_show($paragraph, $field_name, $target_value, $bundles_referencing_content);
+  $node_parent = _va_gov_facilities_test_preprocess_show($paragraph, $field_name, $bundles_referencing_content);
   if ($node_parent) {
     $related_field = "field_facility_location";
     $field_to_render = "field_office_hours";
@@ -74,9 +73,8 @@ function va_gov_facilities_preprocess_field__paragraph__field_hours(&$variables)
  * @param array $haystack_bundles
  *   Names of bundles to compare against the type of node we have.
  */
-function _va_gov_facilities_test_preprocess_show($test_object, string $field_name, $target_value, array $haystack_bundles) {
+function _va_gov_facilities_test_preprocess_show($test_object, string $field_name, array $haystack_bundles) {
   $field_value = $test_object->get($field_name)->value;
-  if ($field_value === $target_value) {
     $node_parent = _vagovclaro_get_node_parent($test_object);
     $node_type = $node_parent->getType();
     if (in_array($node_type, $haystack_bundles)) {
@@ -85,7 +83,6 @@ function _va_gov_facilities_test_preprocess_show($test_object, string $field_nam
     else {
       return FALSE;
     }
-  }
 }
 
 /**
@@ -118,12 +115,10 @@ function va_gov_facilities_field_widget_complete_form_alter(&$field_widget_compl
   $field_definition = $context['items']->getFieldDefinition();
   $paragraph_entity_reference_field_name = $field_definition->getName();
   if ($paragraph_entity_reference_field_name === "field_service_location") {
-    if ($context['form']['#attributes']['class']['0'] === "node-health-care-local-health-service-edit-form") {
       $item_list = $context['items'];
       $node = $item_list->getEntity();
       $related_field = "field_facility_location";
       $field_to_render = "field_office_hours";
       $field_widget_complete_form['widget']['0']['subform']['field_hours']['facility_hours'] = _va_gov_facilities_create_custom_variable($node, $related_field, $field_to_render);
-    }
   }
 }

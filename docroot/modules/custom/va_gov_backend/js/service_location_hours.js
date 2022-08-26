@@ -7,10 +7,12 @@
 
 (function (Drupal) {
   var displayHours = function displayHours(toggle, table) {
-    if (toggle.value === "2") {
-      table.style.display = "block";
-    } else {
-      table.style.display = "none";
+    if (toggle.checked) {
+      if (toggle.value === "2") {
+        table.style.display = "block";
+      } else {
+        table.style.display = "none";
+      }
     }
   };
 

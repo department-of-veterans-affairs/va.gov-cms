@@ -6,20 +6,28 @@
 **/
 
 (function ($, window, Drupal) {
-    Drupal.behaviors.vaGovUseFacilityHours = {
-        attach: function attach(context, settings) {
-            var hours = context.querySelector("[data-drupal-selector$='-subform-field-hours-wrapper-facility-hours']");
-            var hoursSelectionSelector = context.querySelectorAll("[id$=-subform-field-hours] input");
-            hoursSelectionSelector.forEach(function (hoursSelection) {
-                $(hoursSelection, context).on("click", function () {
-                    var choice = hoursSelection.value;
-                    if (choice == "0") {
-                        $(hours).show();
-                    } else {
-                        $(hours).hide();
-                    }
-                });
-            });
-        }
-    };
+  var displayHours = function displayHours(toggle, table) {
+    if (toggle.checked) {
+      if (toggle.value === "0") {
+        $(table).show();
+      } else {
+        $(table).hide();
+      }
+    }
+  };
+
+  Drupal.behaviors.vaGovUseFacilityHours = {
+    attach: function attach(context, settings) {
+      var hours = context.querySelector("[data-drupal-selector$='-subform-field-hours-wrapper-facility-hours']");
+      var hoursSelectionSelector = context.querySelectorAll("[id$=-subform-field-hours] input");
+      hoursSelectionSelector.forEach(function (hoursSelection) {
+        window.addEventListener("load", function () {
+          displayHours(hoursSelection, hours);
+        });
+        $(hoursSelection, context).on("click", function () {
+          displayHours(hoursSelection, hours);
+        });
+      });
+    }
+  };
 })(jQuery, window, Drupal);
