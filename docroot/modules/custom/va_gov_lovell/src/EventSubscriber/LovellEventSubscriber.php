@@ -238,7 +238,7 @@ class LovellEventSubscriber implements EventSubscriberInterface {
    *   Node.
    *
    * @return array
-   *   An array of existing aliases for this node.
+   *   An array of existing Pathalias objects for this node.
    */
   protected function getExistingNodeAliases(NodeInterface $node): array {
     // Retrieve existing aliases for this node.
