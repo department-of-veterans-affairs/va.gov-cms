@@ -19,7 +19,7 @@
       );
       hourSelects.forEach((hourSelect) => {
         // Grab our closest hours table.
-        const hours = document.querySelector(".field--name-field-hours").nextElementSibling;
+        const hours = hourSelect.parentElement.parentElement.parentElement.parentElement.parentElement.nextElementSibling;
 
         window.addEventListener("load", () => {
           // Determine whether or not to display on load.

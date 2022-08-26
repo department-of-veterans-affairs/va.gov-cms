@@ -103,6 +103,7 @@ function _va_gov_facilities_create_custom_variable($node, $related_field, $field
   $referenced_node = $node->get($related_field)->referencedEntities();
   $node_entity = $referenced_node[0];
   $value = $node_entity->get($field_to_render);
+  $output['content']['weight'] = 10;
   $output['#cache']['tags'] = $node_entity->getCacheTags();
   $viewBuilder = \Drupal::entityTypeManager()->getViewBuilder('node');
   $output = $viewBuilder->viewField($value, 'full');
