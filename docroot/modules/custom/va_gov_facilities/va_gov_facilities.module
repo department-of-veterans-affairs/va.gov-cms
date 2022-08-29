@@ -53,11 +53,13 @@ function va_gov_facilities_preprocess_field__paragraph__field_hours(&$variables)
     'health_care_local_health_service',
     'vha_facility_nonclinical_service',
   ];
-  $node_parent = _va_gov_facilities_test_preprocess_show($paragraph, $field_name, $bundles_referencing_content);
+  if ($paragraph->$field_name->value === "0"){
+    $node_parent = _va_gov_facilities_test_preprocess_show($paragraph, $field_name, $bundles_referencing_content);
   if ($node_parent) {
     $related_field = "field_facility_location";
     $field_to_render = "field_office_hours";
     $variables['actual_hours'] = _va_gov_facilities_create_custom_variable($node_parent, $related_field, $field_to_render);
+  }
   }
 }
 
