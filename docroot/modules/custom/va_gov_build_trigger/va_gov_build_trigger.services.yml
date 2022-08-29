@@ -23,7 +23,7 @@ services:
       - { name: event_subscriber }
   va_gov_build_trigger.content_release_error_subscriber:
     class: Drupal\va_gov_build_trigger\EventSubscriber\ContentReleaseErrorSubscriber
-    arguments: ['@va_gov_build_trigger.build_requester']
+    arguments: ['@va_gov_build_trigger.build_requester', '@state']
     tags:
       - { name: event_subscriber }
   va_gov_build_trigger.content_release_interval_subscriber:
@@ -34,6 +34,11 @@ services:
   va_gov_build_trigger.content_release_metrics_recalculation_subscriber:
     class: Drupal\va_gov_build_trigger\EventSubscriber\ContentReleaseMetricsRecalculationSubscriber
     arguments: ['@prometheus_exporter.metrics_collector_manager']
+    tags:
+      - { name: event_subscriber }
+  va_gov_build_trigger.continuous_release_subscriber:
+    class: Drupal\va_gov_build_trigger\EventSubscriber\ContinuousReleaseSubscriber
+    arguments: ['@state', '@datetime.time', '@va_gov_build_trigger.build_requester', '@date.formatter']
     tags:
       - { name: event_subscriber }
   va_gov_build_trigger.release_state_manager:
