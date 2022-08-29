@@ -1594,25 +1594,35 @@ function va_gov_backend_rebuild() {
 
   \Drupal::state()->set("environment_indicator.current_release", $indicator);
 
-  $host = \Drupal::request()->getHost();
   $environment_label = '';
-  $env = '';
-  if (strpos($host, 'ci.cms') !== FALSE) {
-    $environment_label = 'PR Environment';
-  }
-  if (strpos($host, 'demo.cms') !== FALSE) {
-    $environment_label = 'Demo Environment';
-  }
-  if (strpos($host, 'staging.cms') !== FALSE) {
-    $environment_label = 'Staging Environment';
-  }
-  if (strpos($host, 'prod.cms') !== FALSE) {
-    $environment_label = 'Production Environment';
-    $env = 'prod';
-  }
-  if (strpos($host, 'default') !== FALSE) {
-    $environment_label = 'Local Environment';
-    $env = 'local';
+  $env = getenv('CMS_ENVIRONMENT_TYPE') ?: 'ci';
+  switch ($env) {
+    case 'prod':
+      $environment_label = 'Production Environment';
+      break;
+
+    case 'staging':
+      $environment_label = 'Staging Environment';
+      break;
+
+    case 'dev':
+      $environment_label = 'Dev Environment';
+      break;
+
+    case 'tugboat':
+      $tugboat = getenv('TUGBOAT_PREVIEW_TYPE');
+      if ($tugboat === 'pullrequest') {
+        $environment_label = 'PR Environment';
+      }
+      elseif ($tugboat === 'branch') {
+        $environment_label = 'Demo Environment';
+      }
+      break;
+
+    case 'local':
+      $environment_label = 'Local Environment';
+      break;
+
   }
 
   \Drupal::state()->set("environment_indicator.environment_label", $environment_label);
@@ -1701,9 +1711,9 @@ function va_gov_backend_toolbar() {
     ],
     '#weight'             => 102,
   ];
-  if (\Drupal::state()
-    ->get('environment_indicator.env') === 'prod' || \Drupal::state()
-    ->get('environment_indicator.env') === 'local') {
+  $white_font = ['prod', 'local', 'dev'];
+  if (in_array(\Drupal::state()
+    ->get('environment_indicator.env'), $white_font)) {
     $items['content_release_icon'] = [
       '#attached'           => [
         'library' => [
