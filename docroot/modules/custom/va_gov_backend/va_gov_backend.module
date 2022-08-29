@@ -1663,19 +1663,19 @@ function va_gov_backend_toolbar() {
 
   if (\Drupal::service('va_gov_user.user_perms')->hasAdminRole(TRUE)) {
     $items['branch'] = [
-      '#attached'           => [
+      '#attached' => [
         'library' => [
           'va_gov_backend/toolbar',
         ],
       ],
-      '#cache'              => [
+      '#cache' => [
         'contexts' => ['user.permissions'],
       ],
-      '#type'               => 'toolbar_item',
-      'tab'                 => [
-        '#type'       => 'html_tag',
-        '#tag'        => 'div',
-        '#value'      => ' - ' . \Drupal::state()
+      '#type' => 'toolbar_item',
+      'tab' => [
+        '#type' => 'html_tag',
+        '#tag' => 'div',
+        '#value' => ' - ' . \Drupal::state()
           ->get("environment_indicator.current_release"),
         '#attributes' => [
           'title' => 'See https://github.com/department-of-veterans-affairs/va.gov-cms for more info.',
@@ -1685,57 +1685,57 @@ function va_gov_backend_toolbar() {
       '#wrapper_attributes' => [
         'class' => ['toolbar-tab', 'branch-toolbar-tab'],
       ],
-      '#weight'             => 101,
+      '#weight' => 101,
     ];
   }
   $items['content_release_icon'] = [
-    '#attached'           => [
+    '#attached' => [
       'library' => [
         'va_gov_backend/tippy_popover_theme',
         'va_gov_backend/toolbar',
       ],
     ],
-    '#type'               => 'toolbar_item',
-    'tab'                 => [
-      '#type'       => 'html_tag',
-      '#tag'        => 'button',
-      '#value'      => '<span class="button-text">Last Content Release Time</span>',
+    '#type' => 'toolbar_item',
+    'tab' => [
+      '#type' => 'html_tag',
+      '#tag' => 'button',
+      '#value' => '<span class="button-text">Last Content Release Time</span>',
       '#attributes' => [
         'class' => ['toolbar-icon', 'toolbar-icon-content-release'],
         'title' => 'Mouse over to see last content release time',
-        'id'    => 'content-release-status-icon',
+        'id' => 'content-release-status-icon',
       ],
     ],
     '#wrapper_attributes' => [
       'class' => ['toolbar-tab', 'content-release-toolbar-tab'],
     ],
-    '#weight'             => 102,
+    '#weight' => 102,
   ];
   $white_font = ['prod', 'local', 'dev'];
   if (in_array(\Drupal::state()
     ->get('environment_indicator.env'), $white_font)) {
     $items['content_release_icon'] = [
-      '#attached'           => [
+      '#attached' => [
         'library' => [
           'va_gov_backend/tippy_popover_theme',
           'va_gov_backend/toolbar',
         ],
       ],
-      '#type'               => 'toolbar_item',
-      'tab'                 => [
-        '#type'       => 'html_tag',
-        '#tag'        => 'button',
-        '#value'      => '<span class="button-text">Last Content Release Time</span>',
+      '#type' => 'toolbar_item',
+      'tab' => [
+        '#type' => 'html_tag',
+        '#tag' => 'button',
+        '#value' => '<span class="button-text">Last Content Release Time</span>',
         '#attributes' => [
           'class' => ['toolbar-icon', 'toolbar-icon-content-release'],
           'title' => 'Mouse over to see last content release time',
-          'id'    => 'content-release-status-icon',
+          'id' => 'content-release-status-icon',
         ],
       ],
       '#wrapper_attributes' => [
         'class' => ['toolbar-tab', 'content-release-toolbar-tab-prod'],
       ],
-      '#weight'             => 102,
+      '#weight' => 102,
     ];
   }
 
