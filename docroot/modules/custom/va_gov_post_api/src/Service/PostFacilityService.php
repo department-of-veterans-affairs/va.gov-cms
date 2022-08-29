@@ -63,6 +63,19 @@ class PostFacilityService extends PostFacilityBase {
   protected $serviceTerm;
 
   /**
+   * The services that should be withheld from Lighthouse.
+   *
+   * The key is for making sense of code, the TID is used for comparison.
+   *
+   * @var array
+   */
+  protected $servicesToWithhold = [
+    // Key: service name (not used) => Value: TID.
+    'Caregiver support' => 48,
+    'Mental health care' => 43,
+  ];
+
+  /**
    * Constructs a new PostFacilityBase object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
@@ -617,7 +630,7 @@ class PostFacilityService extends PostFacilityBase {
    * Checks to see if this service is slated for pushing.
    */
   private function isPushable() {
-    return (!empty($this->serviceTerm));
+    return (!empty($this->serviceTerm) && !in_array($this->serviceTerm->id(), $this->servicesToWithhold));
   }
 
   /**
