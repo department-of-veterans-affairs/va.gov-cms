@@ -1,4 +1,5 @@
 .toolbar-oriented .toolbar-bar .toolbar-tab.content-release-toolbar-tab,
+.toolbar-oriented .toolbar-bar .toolbar-tab.content-release-toolbar-tab-prod,
 .toolbar-oriented .toolbar-bar .toolbar-tab.branch-toolbar-tab {
   float: right;
   height: 39px;
@@ -12,8 +13,14 @@
   font-size: 0;
 }
 
-.content-release-toolbar-tab {
+.content-release-toolbar-tab-prod {
   background-image: url('../images/content-release-tooltip.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.content-release-toolbar-tab {
+  background-image: url('../images/content-release-tooltip-gray.svg');
   background-position: center;
   background-repeat: no-repeat;
 }
