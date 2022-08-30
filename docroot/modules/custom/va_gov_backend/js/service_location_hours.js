@@ -6,9 +6,9 @@
 **/
 
 (function (Drupal) {
-  var displayHours = function displayHours(toggle, table) {
+  var displayHours = function displayHours(value, toggle, table) {
     if (toggle.checked) {
-      if (toggle.value === "2") {
+      if (toggle.value === value) {
         table.style.display = "block";
       } else {
         table.style.display = "none";
@@ -21,13 +21,16 @@
       var hourSelects = document.querySelectorAll(".field--name-field-hours input");
       hourSelects.forEach(function (hourSelect) {
         var hours = hourSelect.parentElement.parentElement.parentElement.parentElement.parentElement.nextElementSibling;
+        var facilityHours = hourSelect.parentElement.parentElement.parentElement.parentElement.nextElementSibling;
 
         window.addEventListener("load", function () {
-          displayHours(hourSelect, hours);
+          displayHours("2", hourSelect, hours);
+          displayHours("0", hourSelect, facilityHours);
         });
 
         hourSelect.addEventListener("change", function () {
-          displayHours(hourSelect, hours);
+          displayHours("2", hourSelect, hours);
+          displayHours("0", hourSelect, facilityHours);
         });
       });
     }

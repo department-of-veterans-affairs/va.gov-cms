@@ -7,6 +7,8 @@
 
 use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\InvokeCommand;
 
 /**
  * @file
@@ -36,9 +38,20 @@ function va_gov_facilities_form_alter(&$form, FormStateInterface $form_state, $f
       ])
     ) {
       $form['#attached']['library'][] = 'va_gov_facilities/use_facility_hours';
+        // @phpstan-ignore-next-line Test is unclear what get() we are using
+      // $referenced_nodes = $entity->get('field_service_location')->referencedEntities();
+      // foreach ($referenced_nodes as $rn) {
+      //   if ($rn->getType()->value === "field_hours") {
+      //     \Drupal::logger('my_module')->notice("we have field hours");
+
+      //   }
+
+      // }
     }
   }
 }
+
+
 
 /**
  * Implements hook_preprocess_HOOK().
@@ -121,6 +134,15 @@ function va_gov_facilities_field_widget_complete_form_alter(&$field_widget_compl
       $node = $item_list->getEntity();
       $related_field = "field_facility_location";
       $field_to_render = "field_office_hours";
-      $field_widget_complete_form['widget']['0']['subform']['field_hours']['facility_hours'] = _va_gov_facilities_create_custom_variable($node, $related_field, $field_to_render);
+      $widget_items = $field_widget_complete_form['widget'];
+      $widget_list = [];
+      for ($i = 0; isset($widget_items[$i]); $i++) {
+        $widget_list[] = $widget_items[$i];
+      }
+      foreach ($widget_list as $index => $widget_list_item) {
+        $field_widget_complete_form['widget'][$index]['subform']['field_hours']['facility_hours'] = _va_gov_facilities_create_custom_variable($node, $related_field, $field_to_render);
+
+      }
   }
 }
+
