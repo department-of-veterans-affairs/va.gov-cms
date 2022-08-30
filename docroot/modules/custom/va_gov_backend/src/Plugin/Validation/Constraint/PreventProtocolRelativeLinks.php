@@ -21,7 +21,7 @@ class PreventProtocolRelativeLinks extends Constraint {
    * @var string
    * @see \Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventProtocolRelativeLinksValidator
    */
-  public $plainTextMessage = 'Review the link ":url" and update to include either http:// or https:// at the beginning of the URL.';
+  public $plainTextMessage = 'Review the link ":url" and update to include either http: or https: at the beginning of the URL.';
 
   /**
    * The error message for rich text fields.
