@@ -7,8 +7,6 @@
 
 use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Ajax\AjaxResponse;
-use Drupal\Core\Ajax\InvokeCommand;
 
 /**
  * @file
@@ -38,20 +36,9 @@ function va_gov_facilities_form_alter(&$form, FormStateInterface $form_state, $f
       ])
     ) {
       $form['#attached']['library'][] = 'va_gov_facilities/use_facility_hours';
-        // @phpstan-ignore-next-line Test is unclear what get() we are using
-      // $referenced_nodes = $entity->get('field_service_location')->referencedEntities();
-      // foreach ($referenced_nodes as $rn) {
-      //   if ($rn->getType()->value === "field_hours") {
-      //     \Drupal::logger('my_module')->notice("we have field hours");
-
-      //   }
-
-      // }
     }
   }
 }
-
-
 
 /**
  * Implements hook_preprocess_HOOK().
@@ -66,13 +53,13 @@ function va_gov_facilities_preprocess_field__paragraph__field_hours(&$variables)
     'health_care_local_health_service',
     'vha_facility_nonclinical_service',
   ];
-  if ($paragraph->$field_name->value === "0"){
+  if ($paragraph->$field_name->value === "0") {
     $node_parent = _va_gov_facilities_test_preprocess_show($paragraph, $field_name, $bundles_referencing_content);
-  if ($node_parent) {
-    $related_field = "field_facility_location";
-    $field_to_render = "field_office_hours";
-    $variables['actual_hours'] = _va_gov_facilities_create_custom_variable($node_parent, $related_field, $field_to_render);
-  }
+    if ($node_parent) {
+      $related_field = "field_facility_location";
+      $field_to_render = "field_office_hours";
+      $variables['actual_hours'] = _va_gov_facilities_create_custom_variable($node_parent, $related_field, $field_to_render);
+    }
   }
 }
 
@@ -83,21 +70,19 @@ function va_gov_facilities_preprocess_field__paragraph__field_hours(&$variables)
  *   Node that we will be testing to see if we should preprocess.
  * @param string $field_name
  *   Name of the field to.
- * @param string $target_value
- *   Value we expect the field to be.
  * @param array $haystack_bundles
  *   Names of bundles to compare against the type of node we have.
  */
 function _va_gov_facilities_test_preprocess_show($test_object, string $field_name, array $haystack_bundles) {
   $field_value = $test_object->get($field_name)->value;
-    $node_parent = _vagovclaro_get_node_parent($test_object);
-    $node_type = $node_parent->getType();
-    if (in_array($node_type, $haystack_bundles)) {
-      return $node_parent;
-    }
-    else {
-      return FALSE;
-    }
+  $node_parent = _vagovclaro_get_node_parent($test_object);
+  $node_type = $node_parent->getType();
+  if (in_array($node_type, $haystack_bundles)) {
+    return $node_parent;
+  }
+  else {
+    return FALSE;
+  }
 }
 
 /**
@@ -113,7 +98,7 @@ function _va_gov_facilities_test_preprocess_show($test_object, string $field_nam
 function _va_gov_facilities_create_custom_variable($node, $related_field, $field_to_render) {
   // @phpstan-ignore-next-line Test is unclear what get() we are using
   $referenced_node = $node->get($related_field)->referencedEntities();
-  if (isset($referenced_node[0])){
+  if (isset($referenced_node[0])) {
     $node_entity = $referenced_node[0];
     $value = $node_entity->get($field_to_render);
     $output['content']['weight'] = 10;
@@ -132,19 +117,18 @@ function va_gov_facilities_field_widget_complete_form_alter(&$field_widget_compl
   $field_definition = $context['items']->getFieldDefinition();
   $paragraph_entity_reference_field_name = $field_definition->getName();
   if ($paragraph_entity_reference_field_name === "field_service_location") {
-      $item_list = $context['items'];
-      $node = $item_list->getEntity();
-      $related_field = "field_facility_location";
-      $field_to_render = "field_office_hours";
-      $widget_items = $field_widget_complete_form['widget'];
-      $widget_list = [];
-      for ($i = 0; isset($widget_items[$i]); $i++) {
-        $widget_list[] = $widget_items[$i];
-      }
-      foreach ($widget_list as $index => $widget_list_item) {
-        $field_widget_complete_form['widget'][$index]['subform']['field_hours']['facility_hours'] = _va_gov_facilities_create_custom_variable($node, $related_field, $field_to_render);
+    $item_list = $context['items'];
+    $node = $item_list->getEntity();
+    $related_field = "field_facility_location";
+    $field_to_render = "field_office_hours";
+    $widget_items = $field_widget_complete_form['widget'];
+    $widget_list = [];
+    for ($i = 0; isset($widget_items[$i]); $i++) {
+      $widget_list[] = $widget_items[$i];
+    }
+    foreach ($widget_list as $index => $widget_list_item) {
+      $field_widget_complete_form['widget'][$index]['subform']['field_hours']['facility_hours'] = _va_gov_facilities_create_custom_variable($node, $related_field, $field_to_render);
 
-      }
+    }
   }
 }
-
