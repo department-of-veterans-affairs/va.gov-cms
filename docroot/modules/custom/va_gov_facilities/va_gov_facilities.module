@@ -5,7 +5,6 @@
  * Contains va_gov_facilities.module.
  */
 
-use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
@@ -19,25 +18,6 @@ use Drupal\Core\Form\FormStateInterface;
 function va_gov_facilities_page_attachments(array &$attachments) {
   // Control visibility/required for facility status details.
   $attachments['#attached']['library'][] = 'va_gov_facilities/facility_status_details';
-}
-
-/**
- * Implements hook_form_alter().
- */
-function va_gov_facilities_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  /** @var Drupal\Core\Entity\FieldableEntityInterface $entity */
-  $formObject = $form_state->getFormObject();
-  if ($formObject instanceof EntityFormInterface) {
-    $entity = $formObject->getEntity();
-    if (
-      $entity->getEntityTypeId() === 'node'
-      && in_array($entity->bundle(), ['health_care_local_health_service',
-        'vha_facility_nonclinical_service',
-      ])
-    ) {
-      $form['#attached']['library'][] = 'va_gov_facilities/use_facility_hours';
-    }
-  }
 }
 
 /**
