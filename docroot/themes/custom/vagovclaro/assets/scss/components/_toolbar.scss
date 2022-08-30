@@ -21,80 +21,181 @@ body.toolbar-fixed {
   background-image: url('../images/toolbar-logo.png');
 }
 
-// Consistent states for top-level toolbar items
-@mixin top-toolbar-item($icon) {
-  &:hover:active,
-  &:hover {
-    color: var(--va-blue-dark) !important;
-  }
-
-  &:active {
-    color: var(--color-white) !important;
-  }
-
-  &::before {
-    background-image: url('../images/icons/bebebe/#{$icon}.svg');
-  }
-
-  &:hover::before,
-  &:hover:active::before,
-  &:hover:focus::before,
-  &.is-active:hover::before {
-    background-image: url('../images/icons/004795/#{$icon}.svg');
-  }
-
-  &:focus::before,
-  &:active::before,
-  &.is-active::before {
-    background-image: url('../images/icons/ffffff/#{$icon}.svg');
-  }
-}
-
-.toolbar-bar {
-  .toolbar-icon {
-    // Manage
-    &-menu {
-      @include top-toolbar-item('hamburger');
+.cms-prod,
+.cms-local {
+  // Consistent states for top-level toolbar items
+  @mixin top-toolbar-item($icon) {
+    &:hover:active,
+    &:hover {
+      color: var(--va-blue-dark) !important;
     }
 
-    // Sections
-    &-toolbar-menu-sections {
-      @include top-toolbar-item('sections');
+    &:active {
+      color: var(--color-white) !important;
     }
 
-    // Knowledge Base
-    &-help {
-      @include top-toolbar-item('questionmark-disc');
+    &::before {
+      background-image: url('../images/icons/ffffff/#{$icon}.svg');
     }
 
-    // User
-    &-user {
-      @include top-toolbar-item('person');
+    &:hover::before,
+    &:hover:active::before,
+    &:hover:focus::before,
+    &.is-active:hover::before {
+      background-image: url('../images/icons/004795/#{$icon}.svg');
     }
 
-    // Edit
-    &-edit {
-      @include top-toolbar-item('pencil');
+    &:focus::before,
+    &:active::before,
+    &.is-active::before {
+      background-image: url('../images/icons/ffffff/#{$icon}.svg');
+    }
+  }
 
-      // this elememnt is a <button> instead of <a>, add bg color for consistency
-      &:hover {
-        background-color: var(--va-blue-lighter);
+  .toolbar-bar {
+    display: flex;
+
+    .toolbar-icon {
+      // Manage
+      &-menu {
+        @include top-toolbar-item('hamburger');
+      }
+
+      // Sections
+      &-toolbar-menu-sections {
+        @include top-toolbar-item('sections');
+      }
+
+      // Knowledge Base
+      &-help {
+        @include top-toolbar-item('questionmark-disc');
+      }
+
+      // User
+      &-user {
+        @include top-toolbar-item('person');
+      }
+
+      // Edit
+      &-edit {
+        @include top-toolbar-item('pencil');
+
+        // this elememnt is a <button> instead of <a>, add bg color for consistency
+        &:hover {
+          background-color: var(--va-blue-lighter);
+        }
+      }
+    }
+
+    // Special treatment for the tab showing the indicator.
+    .toolbar-tab {
+      &.branch-toolbar-tab {
+        margin-left: -26px;
+      }
+
+      &.environment-toolbar-tab {
+        margin-left: auto;
+      }
+      
+      .toolbar-icon-environment-label {
+        cursor: auto; // Remove the pointer cursor.
+        padding-left: 1.333em; // No icon.
+
+        // Remove hover behaviors.
+        &:hover {
+          background-image: none;
+          text-decoration: none;
+        }
       }
     }
   }
+}
 
-  // Special treatment for the tab showing the indicator.
-  .toolbar-tab &.branch-toolbar-tab {
-    float: right;
+.cms-staging,
+.cms-tugboat {
+  // Consistent states for top-level toolbar items
+  @mixin top-toolbar-item($icon) {
+    &:hover:active,
+    &:hover {
+      color: var(--va-blue-dark) !important;
+    }
 
-    .toolbar-item {
-      cursor: auto; // Remove the pointer cursor.
-      padding-left: 1.333em; // No icon.
+    &:active {
+      color: var(--color-white) !important;
+    }
 
-      // Remove hover behaviors.
-      &:hover {
-        background-image: none;
-        text-decoration: none;
+    &::before {
+      background-image: url('../images/icons/212121/#{$icon}.svg');
+    }
+
+    &:hover::before,
+    &:hover:active::before,
+    &:hover:focus::before,
+    &.is-active:hover::before {
+      background-image: url('../images/icons/004795/#{$icon}.svg');
+    }
+
+    &:focus::before,
+    &:active::before,
+    &.is-active::before {
+      background-image: url('../images/icons/212121/#{$icon}.svg');
+    }
+  }
+
+  .toolbar-bar {
+    display: flex;
+
+    .toolbar-icon {
+      // Manage
+      &-menu {
+        @include top-toolbar-item('hamburger');
+      }
+
+      // Sections
+      &-toolbar-menu-sections {
+        @include top-toolbar-item('sections');
+      }
+
+      // Knowledge Base
+      &-help {
+        @include top-toolbar-item('questionmark-disc');
+      }
+
+      // User
+      &-user {
+        @include top-toolbar-item('person');
+      }
+
+      // Edit
+      &-edit {
+        @include top-toolbar-item('pencil');
+
+        // this elememnt is a <button> instead of <a>, add bg color for consistency
+        &:hover {
+          background-color: var(--va-blue-lighter);
+        }
+      }
+    }
+
+    // Special treatment for the tab showing the indicator.
+    .toolbar-tab {
+      &.branch-toolbar-tab {
+        margin-left: -26px;
+      }
+
+      &.environment-toolbar-tab {
+        margin-left: auto;
+      }
+
+      .toolbar-icon-environment-label {
+        cursor: auto; // Remove the pointer cursor.
+        padding-left: 1.333em; // No icon.
+
+        // Remove hover behaviors.
+        &:hover {
+          background-image: none;
+          text-decoration: none;
+        }
       }
     }
   }

@@ -8,6 +8,7 @@
 1. [Points of Failure](#points-of-failure)
 
 ## Data Flow
+All times in ET.
 ```mermaid
   graph TD;
     fdb[(Forms DB)] -- "11:30PM (push)" --> csv1[CSV]
