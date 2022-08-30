@@ -1,6 +1,6 @@
 .layout-container {
   a {
-    color: #004795;
+    color: var(--va-blue-dark);
     text-decoration: underline;
     transition-duration: 0.3s;
     transition-property: color,background-color,border-color;
@@ -8,15 +8,15 @@
 
     &:hover,
     &:focus {
-      background-color: #e4eff9;
-      color: #003e73;
+      background-color: var(--va-blue-lighter);
+      color: var(--va-blue-darker);
       text-decoration: none;
     }
 
     &.button,
     &.is-active,
     &.feed-icon {
-      color: #fff;
+      color: var(--color-white);
       text-decoration: none;
 
       &:hover,
@@ -29,11 +29,11 @@
 
   .region-footer {
     a {
-      color: #fff;
+      color: var(--color-white);
 
       &:hover,
       &:focus {
-        color: #003e73;
+        color: var(--va-blue-darker);
       }
     }
   }
