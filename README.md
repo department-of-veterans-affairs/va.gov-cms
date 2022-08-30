@@ -63,7 +63,8 @@ The VA.gov CMS Team
    1. [Content Release](READMES/cms-content-release.md)
    1. [Section Dashboards](docroot/modules/custom/va_gov_dashboards/README.md)
    1. Facilities
-      1. [VA Lovell / TRICARE](READMES/facilities-lovell.md)
+      1. [VAMC Facilities](READMES/vamc-facilities.md)
+         1. [VA Lovell / TRICARE](READMES/vamc-facilities-lovell.md)
 
 ## Introduction
 
