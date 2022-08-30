@@ -243,7 +243,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function alterFacilityNodeForm(FormIdAlterEvent $event): void {
     $form = &$event->getForm();
-    $this->addCovidStatusTermTextToSettings($form);
+    // Short circuiting this for now.
+    // $this->addCovidStatusTermTextToSettings($form);
   }
 
   /**
