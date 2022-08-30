@@ -21,7 +21,7 @@ class PreventProtocolRelativeLinks extends Constraint {
    * @var string
    * @see \Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventProtocolRelativeLinksValidator
    */
-  public $plainTextMessage = 'The text contains a URL ( :url ) that lacks a scheme prefix, e.g. <code>https:</code>.  Update the link to begin with a scheme.';
+  public $plainTextMessage = 'Review the link ":url" and update to include either http:// or https:// at the beginning of the URL.';
 
   /**
    * The error message for rich text fields.
@@ -29,6 +29,6 @@ class PreventProtocolRelativeLinks extends Constraint {
    * @var string
    * @see \Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventProtocolRelativeLinksValidator
    */
-  public $richTextMessage = '":link" uses a URL ( :url ) that lacks a scheme prefix, e.g. <code>https:</code>.  Update the link to begin with a scheme.';
+  public $richTextMessage = 'Review the linked text ":link" (:url) and update to include either http: or https: at the beginning of the URL.';
 
 }
