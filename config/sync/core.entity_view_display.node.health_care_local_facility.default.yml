@@ -52,10 +52,11 @@ third_party_settings:
       children:
         - field_operating_status_facility
         - field_operating_status_more_info
+        - group_covid_19_safety_guidelines
       label: 'Operating status'
       parent_name: ''
       region: content
-      weight: 4
+      weight: 3
       format_type: fieldset
       format_settings:
         classes: ''
@@ -129,16 +130,17 @@ third_party_settings:
     group_covid_19_safety_guidelines:
       children:
         - field_supplemental_status
-      label: 'COVID-19 guidelines'
-      parent_name: ''
+      label: 'Supplemental status'
+      parent_name: group_operating_status
       region: content
-      weight: 3
+      weight: 21
       format_type: fieldset
       format_settings:
         classes: ''
         show_empty_fields: false
         id: ''
         description: ''
+        description_display: after
 id: node.health_care_local_facility.default
 targetEntityType: node
 bundle: health_care_local_facility
@@ -230,6 +232,10 @@ content:
         position: ''
         open_text: 'Currently open!'
         closed_text: 'Currently closed'
+      exceptions:
+        restrict_exceptions_to_num_days: 7
+        date_format: long
+        title: 'Exception hours'
       timezone_field: ''
       office_hours_first_day: ''
       schema:
