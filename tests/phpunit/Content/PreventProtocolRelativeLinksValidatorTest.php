@@ -98,6 +98,12 @@ class PreventProtocolRelativeLinksValidatorTest extends UnitTestCase {
         'plain_text',
       ],
       [
+        FALSE,
+        'This contains a <a href="//Users/bart/Downloads/You%20may%20be%20eligible%20for%20SNAP%20(1).pdf">protocol-relative link to a file</a> inside a tag and should fail.',
+        'text_long',
+        'rich_text',
+      ],
+      [
         TRUE,
         'This <a href="///www.example.org">protocol-relative link</a> starts with three slashes and is handled by a separate test.',
         'text_long',
