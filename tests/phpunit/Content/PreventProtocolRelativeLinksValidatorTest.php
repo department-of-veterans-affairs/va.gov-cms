@@ -28,9 +28,7 @@ class PreventProtocolRelativeLinksValidatorTest extends UnitTestCase {
   public function testAddViolation() {
     $validator = new PreventProtocolRelativeLinksValidator();
     $this->prepareValidator($validator, FALSE);
-    $validator->addViolation(3, '99 :things on the wall, 99 :things, take one down, pass it around, 103 :things on the wall', [
-      ':things' => 'violations of section 508',
-    ]);
+    $validator->addViolation(3, 'Test violation');
   }
 
   /**
@@ -72,64 +70,56 @@ class PreventProtocolRelativeLinksValidatorTest extends UnitTestCase {
     return [
       [
         TRUE,
-        'As the first century of the Targaryen dynasty came to a close The health of the Old King, Jaehaerys, was failing.',
+        'Normal string_long text should not fail validation.',
       ],
       [
         TRUE,
-        'In those days, //House Targaryen stood at the height of its strength with ten adult dragons under its yoke.',
+        'Normal string_long text with the occasional // scattered throughout should not // fail validation.',
+      ],
+      [
+        FALSE,
+        'However, string_long text with //something.like a protocol-relative URL should fail validation.',
       ],
       [
         TRUE,
-        'No power in the world could stand against it.',
+        'Normal text_long text should not fail validation.',
         'text_long',
       ],
       [
         FALSE,
-        'King Jaehaerys reigned over nearly 60 years of peace and prosperity but tragedy had claimed both his sons, //Leaving.his succession in doubt.',
+        'Something with a //pattern.like.this looks like it contains a protocol-relative URL.',
         'text_long',
         'plain_text',
       ],
       [
         FALSE,
-        'So, in the year 101 The Old King called a <a href="//www.example.org">Great Council</a> to choose an heir.',
+        'This contains a <a href="//www.example.org">protocol-relative link</a> inside a tag and should fail.',
         'text_long',
         'plain_text',
       ],
       [
         TRUE,
-        'Over a thousand lords made the journey to <a href="///www.example.org">Harrenhal</a>.',
+        'This <a href="///www.example.org">protocol-relative link</a> starts with three slashes and is handled by a separate test.',
         'text_long',
         'rich_text',
       ],
       [
         FALSE,
-        'Fourteen succession claims were heard... but only two were truly <a href="///www.example.org">considered</a>: Princess Rhaenys Targaryen, the King\'s eldest descendant; and her younger cousin, <a href="//www.example.org">Prince Viserys Targaryen</a>, the King\'s eldest <i>male</i> descendant..',
+        'This <a href="///www.example.org">triple-slash URL</a> should not trigger validation, while this <a href="//www.example.org">protocol-relative URL</a> should.',
         'text_long',
         'rich_text',
       ],
       [
         TRUE,
-        '<a href="mailto:rhaenys@targaryen.biz.co.uk">Rhaenys</>, a woman, would not inherit the Iron Throne.',
+        '<a href="mailto:rhaenys@targaryen.biz.co.uk">Mailto links</> should definitely not trigger the validator.',
         'text_long',
         'rich_text',
       ],
       [
         TRUE,
-        '//The lords instead chose <a href="gopher://viserys/">Viserys</a>... my father.',
+        '//Protocol.relative.links outside of <a href="https://www.example.org/">anchor tags</a> should not trigger the validator.',
         'text_long',
         'rich_text',
-      ],
-      [
-        FALSE,
-        'Jaehaerys called the <a href="//www.example.org/">Great Council</a> to prevent a war being fought over his succession.',
-        'text_long',
-        'rich_text',
-      ],
-      [
-        TRUE,
-        '// For //he knew //the cold truth:// the only thing that could tear down the House of the Dragon was itself.',
-        'text_long',
-        'plain_text',
       ],
     ];
   }
