@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * Contains va_gov_lovell.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function va_gov_lovell_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.va_gov_lovell':
+      $text = 'Visit the <a href="https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/facilities-lovell.md">Facility Lovell README</a>';
+
+      return "<pre>{$text}</pre>";
+  }
+
+  return NULL;
+}
