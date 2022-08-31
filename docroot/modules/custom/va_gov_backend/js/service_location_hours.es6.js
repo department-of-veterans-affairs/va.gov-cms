@@ -7,7 +7,7 @@
     if (toggle.checked) {
       if (toggle.value === value) {
         table.style.display = "block";
-        if (value = "0") {
+        if (value === "0") {
           $(table).once("button-build").each(function() {
             const button = document.createElement("button");
             button.className = "tooltip-toggle";
