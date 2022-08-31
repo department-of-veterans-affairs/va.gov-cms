@@ -5,7 +5,7 @@ jobs:
     name: runner / phpunit [PHPUnit Unit Tests]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: actions/cache@v2
         with:
           path: /tmp/composer-cache
@@ -17,4 +17,5 @@ jobs:
           tools: composer:v2
       - name: Run PHPUnit (Unit Tests only)
         run: |
+          composer install
           bin/phpunit --group unit tests/phpunit
