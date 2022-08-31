@@ -482,6 +482,11 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     if ($node_type === 'vet_center') {
       unset($form['actions']['save_continue']);
     }
+
+    // Add tooltip JS to the nodes the use Facility's Hours.
+    if ($node_type === 'health_care_local_health_service' || $node_type === 'vha_facility_nonclinical_service') {
+      $form['#attached']['library'][] = 'va_gov_backend/field_group_tooltip';
+    }
   }
 
   // Modifications for the VAMC "system menu" field.
@@ -503,12 +508,6 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
   if ($form_id === 'node_press_release_form' || $form_id === 'node_press_release_edit_form') {
     $form['field_address']['widget']['#after_build'][] = 'va_gov_backend_press_release_address_after_build';
   }
-
-  // Add tooltip JS to the nodes the use Facility's Hours.
-  if ($node_type === 'health_care_local_health_service' || $node_type === 'vha_facility_nonclinical_service') {
-    $form['#attached']['library'][] = 'va_gov_backend/field_group_tooltip';
-  }
-
 }
 
 /**
