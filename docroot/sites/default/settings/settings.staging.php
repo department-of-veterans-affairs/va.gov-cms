@@ -23,8 +23,8 @@ $config['system.performance']['response']['gzip'] = TRUE;
 $config['views.settings']['ui']['show']['sql_query']['enabled'] = FALSE;
 $config['views.settings']['ui']['show']['performance_statistics'] = FALSE;
 $config['system.logging']['error_level'] = 'none';
-$config['environment_indicator.indicator']['bg_color'] = '#FEBB08'; // $color-gold-light.
-$config['environment_indicator.indicator']['fg_color'] = '#000000';
+$config['environment_indicator.indicator']['bg_color'] = '#F9C642';
+$config['environment_indicator.indicator']['fg_color'] = '#212121';
 $config['environment_indicator.indicator']['name'] = 'Staging';
 
 $webhost_on_cli = 'https://staging.cms.va.gov';
