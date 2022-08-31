@@ -18,4 +18,4 @@ jobs:
       - name: Run PHPUnit (Unit Tests only)
         run: |
           composer install
-          bin/phpunit --group unit tests/phpunit
+          bin/phpunit --group unit --exclude-group disabled tests/phpunit
