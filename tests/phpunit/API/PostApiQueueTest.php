@@ -153,7 +153,7 @@ class PostApiQueueTest extends ExistingSiteBase {
    */
   protected function processItem($data) {
     $apikey = Settings::get('post_api_apikey');
-    $endpoint_path = isset($data['endpoint_path']) ?? NULL;
+    $endpoint_path = $data['endpoint_path'] ?? NULL;
     $endpoint = Settings::get('post_api_endpoint_host') . $endpoint_path;
     $payload = $data['payload'] ?? [];
 
