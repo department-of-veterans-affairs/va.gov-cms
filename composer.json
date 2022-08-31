@@ -631,9 +631,11 @@
         ],
         "va:test:content-build-gql": [
             "@va:web:prepare-dotenv",
+            "touch .buildlock",
             "mkdir -p web/build/vagovdev",
             "echo {} > web/build/vagovdev/metalsmith-build-data.json",
-            "cd web; INSTALL_HOOKS=no NODE_ENV=production yarn build --pull-drupal --gql-queries-only --nosymlink --no-drupal-proxy --api=https://dev-api.va.gov --buildtype=vagovdev"
+            "cd web; INSTALL_HOOKS=no NODE_ENV=production yarn build --pull-drupal --gql-queries-only --nosymlink --no-drupal-proxy --api=https://dev-api.va.gov --buildtype=vagovdev",
+            "rm .buildlock"
         ],
         "va:web:prepare-dotenv": [
             "if [ -f web/.env.example ]; then cat web/.env.example | grep -v DRUPAL_ADDRESS > web/.env; fi",
