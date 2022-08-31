@@ -482,11 +482,6 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     if ($node_type === 'vet_center') {
       unset($form['actions']['save_continue']);
     }
-
-    // Add tooltip JS to the nodes the use Facility's Hours.
-    if ($node_type === 'health_care_local_health_service' || $node_type === 'vha_facility_nonclinical_service') {
-      $form['#attached']['library'][] = 'va_gov_backend/field_group_tooltip';
-    }
   }
 
   // Modifications for the VAMC "system menu" field.

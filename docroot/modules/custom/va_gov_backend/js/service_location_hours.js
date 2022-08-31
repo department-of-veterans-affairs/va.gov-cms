@@ -11,7 +11,7 @@
       if (toggle.value === value) {
         table.style.display = "block";
         if (value === "0") {
-          $(table).once("button-build").each(function () {
+          $(table).once("button-build").each(function makeToolTip() {
             var button = document.createElement("button");
             button.className = "tooltip-toggle";
             button.value = "Why can't I edit this? VHA keeps these descriptions standardized to help Veterans identify the services they need.";
@@ -45,17 +45,21 @@
   Drupal.behaviors.vaGovServiceLocationHours = {
     attach: function attach(context) {
       var hourSelects = document.querySelectorAll(".field--name-field-hours input");
-      hourSelects.forEach(function (hourSelect) {
-        var hours = hourSelect.parentElement.parentElement.parentElement.parentElement.parentElement.nextElementSibling;
-        var facilityHours = hourSelect.parentElement.parentElement.parentElement.parentElement.nextElementSibling;
+      context.addEventListener("load", function () {
+        hourSelects.forEach(function (hourSelect) {
+          var hours = hourSelect.parentElement.parentElement.parentElement.parentElement.parentElement.nextElementSibling;
+          var facilityHours = hourSelect.parentElement.parentElement.parentElement.parentElement.nextElementSibling;
 
-
-        window.addEventListener("load", function () {
           displayHours("2", hourSelect, hours);
           displayHours("0", hourSelect, facilityHours);
         });
+      });
 
-        hourSelect.addEventListener("change", function () {
+      context.addEventListener("click", function () {
+        hourSelects.forEach(function (hourSelect) {
+          var hours = hourSelect.parentElement.parentElement.parentElement.parentElement.parentElement.nextElementSibling;
+          var facilityHours = hourSelect.parentElement.parentElement.parentElement.parentElement.nextElementSibling;
+
           displayHours("2", hourSelect, hours);
           displayHours("0", hourSelect, facilityHours);
         });
