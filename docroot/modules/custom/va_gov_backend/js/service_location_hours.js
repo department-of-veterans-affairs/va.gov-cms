@@ -25,6 +25,15 @@
             table.className = "no-content health_service_text_container field-group-tooltip tooltip-layout centralized css-tooltip";
 
             table.appendChild(button);
+            window.tippy(button, {
+              content: function content() {
+                return button.value;
+              },
+              theme: "tippy_popover",
+              placement: "right",
+              arrow: true,
+              offset: [15, 0]
+            });
           });
         }
       } else {
