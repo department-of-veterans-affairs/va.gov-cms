@@ -8,6 +8,9 @@ use Drupal\va_gov_backend\Service\ExclusionTypes;
 
 /**
  * Test the ExclusionTypes service.
+ *
+ * @group functional
+ * @group all
  */
 class ExclusionTypesServiceTest extends UnitTestCase {
 
@@ -32,7 +35,12 @@ class ExclusionTypesServiceTest extends UnitTestCase {
     parent::setUp();
 
     $this->configFactory = $this->getConfigFactoryStub([
-      'exclusion_types_admin.settings' => ['types_to_exclude' => ['page' => 'page', 'office' => 'office']],
+      'exclusion_types_admin.settings' => [
+        'types_to_exclude' => [
+          'page' => 'page',
+          'office' => 'office',
+        ],
+      ],
     ]);
     $this->exclusionTypes = new ExclusionTypes($this->configFactory);
 
@@ -46,9 +54,6 @@ class ExclusionTypesServiceTest extends UnitTestCase {
 
   /**
    * Verify getExcludedTypes method.
-   *
-   * @group functional
-   * @group all
    */
   public function testGetExcludedTypes() {
     $this->assertEquals(['page' => 'page', 'office' => 'office'], $this->exclusionTypes->getExcludedTypes());
@@ -56,9 +61,6 @@ class ExclusionTypesServiceTest extends UnitTestCase {
 
   /**
    * Verify getJson method.
-   *
-   * @group functional
-   * @group all
    */
   public function testGetJson() {
     $this->assertEquals('{"page":"page","office":"office"}', $this->exclusionTypes->getJson());
@@ -66,9 +68,6 @@ class ExclusionTypesServiceTest extends UnitTestCase {
 
   /**
    * Verify typeIsExcluded method.
-   *
-   * @group functional
-   * @group all
    */
   public function testTypeIsExcluded() {
     $this->assertTrue($this->exclusionTypes->typeIsExcluded('page'));

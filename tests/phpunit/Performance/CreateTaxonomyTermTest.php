@@ -6,6 +6,9 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
  * A test to confirm taxonomy creation and performance.
+ *
+ * @group functional
+ * @group all
  */
 class CreateTaxonomyTermTest extends ExistingSiteBase {
 
@@ -13,8 +16,6 @@ class CreateTaxonomyTermTest extends ExistingSiteBase {
    * A test method to determine the ability and time to create a node.
    *
    * @group performance
-   * @group functional
-   * @group all
    *
    * @dataProvider benchmarkTime
    */

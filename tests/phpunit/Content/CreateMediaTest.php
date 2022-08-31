@@ -7,6 +7,9 @@ use Drupal\media\Entity\Media;
 
 /**
  * A test to confirm ability to create media.
+ *
+ * @group functional
+ * @group all
  */
 class CreateMediaTest extends ExistingSiteBase {
 
@@ -14,8 +17,6 @@ class CreateMediaTest extends ExistingSiteBase {
    * A test method to determine the ability and time to create media.
    *
    * @group performance
-   * @group functional
-   * @group all
    *
    * @dataProvider benchmarkTime
    */

@@ -6,6 +6,9 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
  * A test to confirm node editing performance.
+ *
+ * @group functional
+ * @group all
  */
 class EditNodeTest extends ExistingSiteBase {
 
@@ -13,7 +16,6 @@ class EditNodeTest extends ExistingSiteBase {
    * A test method to deterine the amount of time to edit a node page.
    *
    * @group performance
-   * @group all
    *
    * @dataProvider benchmarkTime
    */

@@ -6,6 +6,9 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
  * A test to confirm login performance.
+ *
+ * @group functional
+ * @group all
  */
 class LoginTest extends ExistingSiteBase {
 
@@ -13,7 +16,6 @@ class LoginTest extends ExistingSiteBase {
    * A test method to determine the amount of time to load the Login page.
    *
    * @group performance
-   * @group all
    *
    * @dataProvider benchmarkTime
    */

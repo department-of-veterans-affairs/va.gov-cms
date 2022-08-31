@@ -9,6 +9,9 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
  * A test to confirm that the VA HC Facility Status Migration works correctly.
+ *
+ * @group functional
+ * @group all
  */
 class VaHealthCareLocalFacilityStatusMigrationTest extends ExistingSiteBase {
 
