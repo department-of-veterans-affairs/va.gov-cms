@@ -1,0 +1,40 @@
+.layout-container {
+  a {
+    color: #004795;
+    text-decoration: underline;
+    transition-duration: 0.3s;
+    transition-property: color,background-color,border-color;
+    transition-timing-function: ease-in-out;
+
+    &:hover,
+    &:focus {
+      background-color: #e4eff9;
+      color: #003e73;
+      text-decoration: none;
+    }
+
+    &.button,
+    &.is-active,
+    &.feed-icon {
+      color: #fff;
+      text-decoration: none;
+
+      &:hover,
+      &:focus {
+        background-color: var(--button--hover-bg-color--primary);
+        color: var(--button-fg-color--primary);
+      }
+    }
+  }
+
+  .region-footer {
+    a {
+      color: #fff;
+
+      &:hover,
+      &:focus {
+        color: #003e73;
+      }
+    }
+  }
+}
