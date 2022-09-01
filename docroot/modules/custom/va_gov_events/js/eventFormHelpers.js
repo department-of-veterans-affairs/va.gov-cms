@@ -25,7 +25,7 @@
   var fieldUrlOfOnlineEvent = document.getElementById("edit-field-url-of-an-online-event-0-uri");
   var fieldUrlOfOnlineEventWrapper = document.getElementById("edit-field-url-of-an-online-event-wrapper");
   var fieldAddressLine1 = document.getElementById("edit-field-address-0-address-address-line1");
-  var fieldAddressLin1Label = document.querySelector("label[for='edit-field-address-0-address-address-line1']");
+  var fieldAddressLine1Label = document.querySelector("label[for='edit-field-address-0-address-address-line1']");
   var fieldAddressLine2 = document.getElementById("edit-field-address-0-address-address-line2");
   var fieldAddressLocality = document.getElementById("edit-field-address-0-address-locality");
   var fieldAddressLocalityLabel = document.querySelector("label[for='edit-field-address-0-address-locality']");
@@ -78,8 +78,8 @@
     if (fieldAddressLine1) {
       fieldAddressLine1.required = enableDisable;
     }
-    if (fieldAddressLin1Label) {
-      fieldAddressLin1Label.classList[addRemove]("form-required");
+    if (fieldAddressLine1Label) {
+      fieldAddressLine1Label.classList[addRemove]("form-required");
     }
 
     if (fieldAddressLocality) {

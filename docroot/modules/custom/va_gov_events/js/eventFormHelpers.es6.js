@@ -54,7 +54,7 @@
   const fieldAddressLine1 = document.getElementById(
     "edit-field-address-0-address-address-line1"
   );
-  const fieldAddressLin1Label = document.querySelector(
+  const fieldAddressLine1Label = document.querySelector(
     "label[for='edit-field-address-0-address-address-line1']"
   );
   const fieldAddressLine2 = document.getElementById(
@@ -126,8 +126,8 @@
     if (fieldAddressLine1) {
       fieldAddressLine1.required = enableDisable;
     }
-    if (fieldAddressLin1Label) {
-      fieldAddressLin1Label.classList[addRemove]("form-required");
+    if (fieldAddressLine1Label) {
+      fieldAddressLine1Label.classList[addRemove]("form-required");
     }
     // City field.
     if (fieldAddressLocality) {
