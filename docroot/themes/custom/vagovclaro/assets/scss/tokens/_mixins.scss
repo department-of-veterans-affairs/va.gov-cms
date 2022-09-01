@@ -193,8 +193,7 @@
   }
 
   ul {
-    list-style: square;
-    list-style-position: outside;
+    list-style: square outside;
     margin: 0 0 0 1.25em;
     padding: 0;
   }
@@ -207,9 +206,8 @@
 
   /* Links */
 
-  a,
-  a:hover {
-    color: var(--va-blue-dark);
+  a {
+    color: #004795;
     text-decoration: underline;
     transition-duration: 0.3s;
     transition-property: color,background-color,border-color;
@@ -217,8 +215,9 @@
   }
 
   a:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-    color: inherit;
+    background-color: #e4eff9;
+    color: #003e73;
+    text-decoration: none;
   }
 
   .field--type-text-long,
