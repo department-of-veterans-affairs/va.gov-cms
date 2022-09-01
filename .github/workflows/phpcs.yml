@@ -8,12 +8,24 @@ jobs:
       - uses: actions/checkout@v3
       - run: |
           composer install
-      - uses: acrollet/action-phpcs-drupal@v1
-        with:
-          fail_on_error: true
-          github_token: ${{ secrets.github_token }}
-          reporter: github-pr-review
-          phpcs_args: 'docroot/modules/custom docroot/themes/custom tests'
-          phpcs_extensions: 'php,module,inc,install,profile,engine,theme,css'
-          phpcs_ignore: '*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,user_guides.css,whats_new.css,*/node_modules/*,*/simplesaml*/*,graphiql.css'
-
+          export REVIEWDOG_GITHUB_API_TOKEN="${GITHUB_TOKEN}"
+          bin/phpcs \
+            --standard="${STANDARD}" \
+            --extensions="${EXTENSIONS}"" \
+            --report="${REPORT}" \
+            --ignore="${IGNORE}" \
+            -q \
+            ${DIRECTORIES} \
+            | reviewdog \
+              -name="PHP_CodeSniffer" \
+              -f=checkstyle \
+              -reporter=github-pr-review \
+              -level=${INPUT_LEVEL} \
+              -diff='git diff'
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          STANDARD: './phpcs.xml.dist'
+          EXTENSIONS: 'php,module,inc,install,profile,engine,theme,css'
+          REPORT: 'checkstyle'
+          IGNORE: '*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,user_guides.css,whats_new.css,*/node_modules/*,*/simplesaml*/*,graphiql.css'
+          DIRECTORIES: 'docroot/modules/custom docroot/themes/custom tests'
