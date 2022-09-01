@@ -137,31 +137,6 @@ tasks:
           fi
         EOF
 
-  va/tests/revision-log:
-    desc: Ensure revision log field is present
-    cmds:
-      - |
-        cat <<EOF | bash
-          : "${SKIP_REPORTING:=0}"
-          : "${RETURN_EXIT_CODE:=0}"
-          set -o pipefail
-          output="\$(mktemp -d)/output"
-          mkfifo \$output
-          (cat \$output&)
-          result="\$(./tests/scripts/check-revision-logs.sh 2>&1 | tee \$output)"
-          exit_code=\$?
-          if [ "$SKIP_REPORTING" -ne 1 ]; then
-            if [ "\$exit_code" -eq 0 ]; then
-              github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
-            else
-              github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
-            fi
-          fi
-          if [ "$RETURN_EXIT_CODE" -ne 0 ]; then
-            exit "\$exit_code";
-          fi
-        EOF
-
   va/tests/status-error:
     desc: Check for Drupal status errors
     cmds:
@@ -257,12 +232,6 @@ tasks:
       - task: set-check-status
         vars:
           STATUS: pending
-          CONTEXT: va/tests/revision-log
-          DESCRIPTION: 'Revision Log'
-
-      - task: set-check-status
-        vars:
-          STATUS: pending
           CONTEXT: va/tests/status-error
           DESCRIPTION: 'Check for Drupal status errors'
 
@@ -285,6 +254,5 @@ tasks:
       - va/tests/check-cer
       - va/tests/phplint
       - va/tests/phpunit
-      - va/tests/revision-log
       - va/tests/status-error
       - va/tests/content-build-gql
