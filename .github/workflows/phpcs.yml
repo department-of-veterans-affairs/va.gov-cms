@@ -6,6 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: reviewdog/action-setup@v1
       - run: |
           composer install
           export REVIEWDOG_GITHUB_API_TOKEN="${GITHUB_TOKEN}"
