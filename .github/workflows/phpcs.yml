@@ -11,7 +11,7 @@ jobs:
           export REVIEWDOG_GITHUB_API_TOKEN="${GITHUB_TOKEN}"
           bin/phpcs \
             --standard="${STANDARD}" \
-            --extensions="${EXTENSIONS}"" \
+            --extensions="${EXTENSIONS}" \
             --report="${REPORT}" \
             --ignore="${IGNORE}" \
             -q \
