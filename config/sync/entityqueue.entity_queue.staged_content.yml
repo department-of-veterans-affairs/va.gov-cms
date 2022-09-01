@@ -12,12 +12,14 @@ entity_settings:
   target_type: node
   handler: 'default:node'
   handler_settings:
-    target_bundles: null
+    target_bundles:
+      page: page
+      support_resources_detail_page: support_resources_detail_page
     sort:
       field: _none
       direction: ASC
     auto_create: false
-    auto_create_bundle: ''
+    auto_create_bundle: page
 queue_settings:
   min_size: 0
   max_size: 0
