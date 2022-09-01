@@ -1,4 +1,4 @@
-name: phpcs
+name: PHP_CodeSniffer
 on: [pull_request]
 jobs:
   phpcs:
@@ -16,7 +16,8 @@ jobs:
           php-version: '7.4'
           extensions: dom, curl, libxml, mbstring, zip, pdo, mysql, pdo_mysql, bcmath, gd, exif, iconv
           tools: composer:v2
-      - run: |
+      - name: Run PHP_CodeSniffer and ReviewDog
+        run: |
           composer install
           export REVIEWDOG_GITHUB_API_TOKEN="${GITHUB_TOKEN}"
           bin/phpcs \
