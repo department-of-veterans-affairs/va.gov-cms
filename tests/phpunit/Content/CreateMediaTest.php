@@ -70,7 +70,7 @@ class CreateMediaTest extends ExistingSiteBase {
    */
   public function benchmarkTime() {
     return [
-      [2],
+      [4],
     ];
   }
 
