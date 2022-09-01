@@ -57,8 +57,8 @@ class EditNodeTest extends ExistingSiteBase {
    */
   public function benchmarkTime() {
     return [
-      ["page", 5],
-      ["landing_page", 5],
+      ["page", 8],
+      ["landing_page", 8],
     ];
   }
 

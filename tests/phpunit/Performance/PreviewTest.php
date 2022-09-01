@@ -110,7 +110,7 @@ class PreviewTest extends ExistingSiteBase {
    */
   public function benchmarkTime() {
     return [
-      [5],
+      [8],
     ];
   }
 
