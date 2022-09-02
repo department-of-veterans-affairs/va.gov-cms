@@ -61,32 +61,6 @@ tasks:
           fi
         EOF
 
-  va/tests/check-cer:
-    desc: Ensure cer fields exist
-    cmds:
-      - |
-        cat <<EOF | bash
-          : "${SKIP_REPORTING:=0}"
-          : "${RETURN_EXIT_CODE:=0}"
-          set -o pipefail
-          output="\$(mktemp -d)/output"
-          mkfifo \$output
-          (cat \$output&)
-          result="{{ .TASK }}:<br/><br/>\$(./tests/scripts/check-cer.sh 2>&1 | tee \$output)"
-          exit_code=\$?
-          if [ "$SKIP_REPORTING" -ne 1 ]; then
-            if [ "\$exit_code" -eq 0 ]; then
-              github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
-            else
-              github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
-              [ "\${GITHUB_COMMENT_TYPE}" == "pr" ] && github-commenter -delete-comment-regex="{{ .TASK }}" -comment="\${result}"
-            fi
-          fi
-          if [ "$RETURN_EXIT_CODE" -ne 0 ]; then
-            exit "\$exit_code";
-          fi
-        EOF
-
   va/tests/phplint:
     desc: PHP Lint
     cmds:
@@ -214,12 +188,6 @@ tasks:
       - task: set-check-status
         vars:
           STATUS: pending
-          CONTEXT: va/tests/check-cer
-          DESCRIPTION: 'Ensure cer fields exist'
-
-      - task: set-check-status
-        vars:
-          STATUS: pending
           CONTEXT: va/tests/phplint
           DESCRIPTION: 'PHPLint'
 
@@ -251,7 +219,6 @@ tasks:
     deps:
       - va/tests/behat
       - va/tests/cypress
-      - va/tests/check-cer
       - va/tests/phplint
       - va/tests/phpunit
       - va/tests/status-error
