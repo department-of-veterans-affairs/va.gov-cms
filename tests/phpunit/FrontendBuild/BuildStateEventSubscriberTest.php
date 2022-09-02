@@ -23,6 +23,9 @@ use Symfony\Component\DependencyInjection\Container;
 
 /**
  * Unit test for build state event subscribers.
+ *
+ * @group unit
+ * @group all
  */
 class BuildStateEventSubscriberTest extends UnitTestCase {
 

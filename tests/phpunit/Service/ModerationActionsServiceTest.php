@@ -7,6 +7,9 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
  * Test the ModerationActions service.
+ *
+ * @group functional
+ * @group all
  */
 class ModerationActionsServiceTest extends ExistingSiteBase {
 
@@ -27,9 +30,6 @@ class ModerationActionsServiceTest extends ExistingSiteBase {
 
   /**
    * Verify archiveNode method.
-   *
-   * @group functional
-   * @group all
    */
   public function testArchiveNode() {
     $author = $this->createUser();
@@ -51,9 +51,6 @@ class ModerationActionsServiceTest extends ExistingSiteBase {
 
   /**
    * Verify publishLatestRevision method.
-   *
-   * @group functional
-   * @group all
    */
   public function testPublishLatestRevision() {
     $author = $this->createUser();

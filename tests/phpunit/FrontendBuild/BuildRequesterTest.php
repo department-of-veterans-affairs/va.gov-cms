@@ -13,8 +13,12 @@ use Drupal\va_gov_build_trigger\Service\BuildRequester;
 
 /**
  * Unit test for the build requester..
+ *
+ * @group unit
+ * @group all
  */
 class BuildRequesterTest extends UnitTestCase {
+
   /**
    * The state service.
    *

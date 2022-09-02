@@ -9,6 +9,9 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
  * A test to confirm that the VA Form Migration works correctly.
+ *
+ * @group functional
+ * @group all
  */
 class VaFormMigrationTest extends ExistingSiteBase {
 

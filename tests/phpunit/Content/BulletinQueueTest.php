@@ -8,6 +8,9 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
  * A test to confirm that alerts and situation updates are queued.
+ *
+ * @group functional
+ * @group all
  */
 class BulletinQueueTest extends ExistingSiteBase {
 

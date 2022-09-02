@@ -8,6 +8,9 @@ define('IS_BEHAT', TRUE);
 
 /**
  * A test to confirm existence and correctness of metatags.
+ *
+ * @group functional
+ * @group all
  */
 class MetaTagTest extends ExistingSiteBase {
 
@@ -20,10 +23,6 @@ class MetaTagTest extends ExistingSiteBase {
 
   /**
    * Tests the existence of the twitter:image:alt metatag.
-   *
-   * @group functional
-   * @group all
-   * @group metatag
    */
   public function testImageAltTags() {
     $author = $this->createUser();

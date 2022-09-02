@@ -15,8 +15,65 @@
   const fieldLinkWrapperLabel = document.querySelector(
     "#edit-field-link-wrapper label"
   );
+  const fieldLocationTypeFacility = document.getElementById(
+    "edit-field-location-type-facility"
+  );
+  const fieldLocationTypeNonFacility = document.getElementById(
+    "edit-field-location-type-non-facility"
+  );
   const includeLocationItemsRadios = document.getElementById(
     "edit-field-location-type"
+  );
+  const fieldLocationHumanreadable = document.getElementById(
+    "edit-field-location-humanreadable-0-value"
+  );
+  const fieldLocationHumanreadableWrapper = document.getElementById(
+    "edit-field-location-humanreadable-wrapper"
+  );
+  const targetLocationElements = document.querySelectorAll(
+    "#edit-field-facility-location-wrapper, #edit-field-url-of-an-online-event-wrapper, #edit-field-location-humanreadable-wrapper, #edit-field-address-wrapper"
+  );
+  const fieldFacilityLocationWrapper = document.getElementById(
+    "edit-field-facility-location-wrapper"
+  );
+  const fieldFacilityLocation = document.getElementById(
+    "edit-field-facility-location-0-target-id"
+  );
+  const fieldLocationTypeOnline = document.getElementById(
+    "edit-field-location-type-online"
+  );
+  const fieldAddressWrapper = document.getElementById(
+    "edit-field-address-wrapper"
+  );
+  const fieldUrlOfOnlineEvent = document.getElementById(
+    "edit-field-url-of-an-online-event-0-uri"
+  );
+  const fieldUrlOfOnlineEventWrapper = document.getElementById(
+    "edit-field-url-of-an-online-event-wrapper"
+  );
+  const fieldAddressLine1 = document.getElementById(
+    "edit-field-address-0-address-address-line1"
+  );
+  const fieldAddressLine1Label = document.querySelector(
+    "label[for='edit-field-address-0-address-address-line1']"
+  );
+  const fieldAddressLine2 = document.getElementById(
+    "edit-field-address-0-address-address-line2"
+  );
+  const fieldAddressLocality = document.getElementById(
+    "edit-field-address-0-address-locality"
+  );
+  const fieldAddressLocalityLabel = document.querySelector(
+    "label[for='edit-field-address-0-address-locality']"
+  );
+  const fieldAddressAdminArea = document.getElementById(
+    "edit-field-address-0-address-administrative-area"
+  );
+  const fieldAddressAdminAreaLabel = document.querySelector(
+    "label[for='edit-field-address-0-address-administrative-area']"
+  );
+  const targetRegistrationElements = document.querySelectorAll(
+    ".centralized.reduced-padding, #edit-field-event-registrationrequired-wrapper, #edit-field-event-cta-wrapper, #edit-group-registration-link, #group-registration-link, #edit-field-additional-information-abo-wrapper"
   );
 
   const toggleCtaLinkRequired = (required = true) => {
@@ -30,9 +87,6 @@
   };
 
   const toggleRegistrationElements = () => {
-    const targetRegistrationElements = document.querySelectorAll(
-      ".centralized.reduced-padding, #edit-field-event-registrationrequired-wrapper, #edit-field-event-cta-wrapper, #edit-group-registration-link, #group-registration-link, #edit-field-additional-information-abo-wrapper"
-    );
     const toggleVal = !!includeRegistrationsBool.checked;
     let elementDisplayStyle = "block";
     if (!toggleVal) {
@@ -69,90 +123,57 @@
 
   const toggleAddressRequiredFields = (enableDisable, addRemove) => {
     // Address field.
-    if (document.getElementById("edit-field-address-0-address-address-line1")) {
-      document.getElementById(
-        "edit-field-address-0-address-address-line1"
-      ).required = enableDisable;
+    if (fieldAddressLine1) {
+      fieldAddressLine1.required = enableDisable;
     }
-    if (
-      document.querySelector(
-        "label[for='edit-field-address-0-address-address-line1']"
-      )
-    ) {
-      document
-        .querySelector(
-          "label[for='edit-field-address-0-address-address-line1']"
-        )
-        .classList[addRemove]("form-required");
+    if (fieldAddressLine1Label) {
+      fieldAddressLine1Label.classList[addRemove]("form-required");
     }
     // City field.
-    if (document.getElementById("edit-field-address-0-address-locality")) {
-      document.getElementById(
-        "edit-field-address-0-address-locality"
-      ).required = enableDisable;
+    if (fieldAddressLocality) {
+      fieldAddressLocality.required = enableDisable;
     }
-    if (
-      document.querySelector(
-        "label[for='edit-field-address-0-address-locality']"
-      )
-    ) {
-      document
-        .querySelector("label[for='edit-field-address-0-address-locality']")
-        .classList[addRemove]("form-required");
+    if (fieldAddressLocalityLabel) {
+      fieldAddressLocalityLabel.classList[addRemove]("form-required");
     }
     // State field.
-    if (
-      document.getElementById(
-        "edit-field-address-0-address-administrative-area"
-      )
-    ) {
-      document.getElementById(
-        "edit-field-address-0-address-administrative-area"
-      ).required = enableDisable;
+    if (fieldAddressAdminArea) {
+      fieldAddressAdminArea.required = enableDisable;
     }
-    if (
-      document.querySelector(
-        "label[for='edit-field-address-0-address-administrative-area']"
-      )
-    ) {
-      document
-        .querySelector(
-          "label[for='edit-field-address-0-address-administrative-area']"
-        )
-        .classList[addRemove]("form-required");
+    if (fieldAddressAdminAreaLabel) {
+      fieldAddressAdminAreaLabel.classList[addRemove]("form-required");
     }
   };
 
   const toggleLocationElements = () => {
-    const targetLocationElements = document.querySelectorAll(
-      "#edit-field-facility-location-wrapper, #edit-field-url-of-an-online-event-wrapper, #edit-field-location-humanreadable-wrapper, #edit-field-address-wrapper"
-    );
     targetLocationElements.forEach((element) => {
       element.style.display = "none";
     });
     toggleAddressRequiredFields(false, "remove");
-    if (document.getElementById("edit-field-location-type-facility").checked) {
-      document.getElementById(
-        "edit-field-facility-location-wrapper"
-      ).style.display = "block";
-      document.getElementById(
-        "edit-field-location-humanreadable-wrapper"
-      ).style.display = "block";
+    if (fieldLocationTypeFacility.checked) {
+      fieldFacilityLocationWrapper.style.display = "block";
+      fieldLocationHumanreadableWrapper.style.display = "block";
+      fieldUrlOfOnlineEvent.value = "";
+      fieldAddressLine1.value = "";
+      fieldAddressLine2.value = "";
+      fieldAddressLocality.value = "";
+      fieldAddressAdminArea.value = "";
     }
-    if (
-      document.getElementById("edit-field-location-type-non-facility").checked
-    ) {
-      document.getElementById(
-        "edit-field-location-humanreadable-wrapper"
-      ).style.display = "block";
-      document.getElementById("edit-field-address-wrapper").style.display =
-        "block";
+    if (fieldLocationTypeNonFacility.checked) {
+      fieldLocationHumanreadableWrapper.style.display = "block";
+      fieldAddressWrapper.style.display = "block";
       toggleAddressRequiredFields(true, "add");
+      fieldUrlOfOnlineEvent.value = "";
+      fieldFacilityLocation.value = "";
     }
-    if (document.getElementById("edit-field-location-type-online").checked) {
-      document.getElementById(
-        "edit-field-url-of-an-online-event-wrapper"
-      ).style.display = "block";
+    if (fieldLocationTypeOnline.checked) {
+      fieldUrlOfOnlineEventWrapper.style.display = "block";
+      fieldAddressLine1.value = "";
+      fieldAddressLine2.value = "";
+      fieldAddressLocality.value = "";
+      fieldAddressAdminArea.value = "";
+      fieldFacilityLocation.value = "";
+      fieldLocationHumanreadable.value = "";
     }
   };
 

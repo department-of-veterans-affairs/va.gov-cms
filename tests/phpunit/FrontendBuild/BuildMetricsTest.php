@@ -16,8 +16,12 @@ use Tests\Support\Mock\SpecifiedTime;
 
 /**
  * Unit test for build metrics.
+ *
+ * @group unit
+ * @group all
  */
 class BuildMetricsTest extends UnitTestCase {
+
   /**
    * The state service.
    *
