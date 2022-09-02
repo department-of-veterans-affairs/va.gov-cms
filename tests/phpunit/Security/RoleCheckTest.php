@@ -7,14 +7,15 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
  * A test to confirm role names.
+ *
+ * @group functional
+ * @group security
+ * @group all
  */
 class RoleCheckTest extends ExistingSiteBase {
 
   /**
    * A test method to deterine if the role exists.
-   *
-   * @group security
-   * @group all
    */
   public function testRole() {
 

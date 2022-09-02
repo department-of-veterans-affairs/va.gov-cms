@@ -13,6 +13,9 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 
 /**
  * Unit test for the release state manager.
+ *
+ * @group unit
+ * @group all
  */
 class ReleaseStateManagerTest extends UnitTestCase {
 

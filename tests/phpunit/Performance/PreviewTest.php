@@ -6,6 +6,9 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
  * A test to confirm the performance of edit preview.
+ *
+ * @group functional
+ * @group all
  */
 class PreviewTest extends ExistingSiteBase {
 
@@ -110,7 +113,7 @@ class PreviewTest extends ExistingSiteBase {
    */
   public function benchmarkTime() {
     return [
-      [5],
+      [8],
     ];
   }
 

@@ -7,6 +7,11 @@ use Drupal\va_gov_backend\Logger\Processor\DatadogApmProcessor;
 use Drupal\va_gov_backend\Service\DatadogContextProviderInterface;
 
 /**
+ * Test the Datadog APM processor.
+ *
+ * @group unit
+ * @group all
+ *
  * @covers \Drupal\va_gov_backend\Logger\Processor\DatadogApmProcessor
  */
 class DatadogApmProcessorTest extends UnitTestCase {

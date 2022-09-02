@@ -10,6 +10,9 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
  * Test the Metrics service.
+ *
+ * @group functional
+ * @group all
  */
 class MetricsTest extends ExistingSiteBase {
 

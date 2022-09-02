@@ -8,6 +8,9 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
  * Functional test of the Build trigger Form.
+ *
+ * @group functional
+ * @group all
  */
 class BuildTriggerFormTest extends ExistingSiteBase {
 
