@@ -13,8 +13,12 @@
       text-decoration: none;
     }
 
+    &.tabs__link {
+      text-decoration: none;
+    }
+
     &.button,
-    &.is-active,
+    &.pager__link.is-active,
     &.feed-icon {
       color: var(--color-white);
       text-decoration: none;
@@ -34,6 +38,19 @@
       &:hover,
       &:focus {
         color: var(--va-blue-darker);
+      }
+    }
+  }
+  
+  table {
+    a {
+      &.button,
+      &.button:not(:focus) {
+        color: var(--button-fg-color);
+
+        &:hover {
+          color: var(--color-white);
+        }
       }
     }
   }
