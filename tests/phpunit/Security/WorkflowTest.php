@@ -6,14 +6,15 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
  * A test to confirm access to workflow moderation.
+ *
+ * @group functional
+ * @group security
+ * @group all
  */
 class WorkflowTest extends ExistingSiteBase {
 
   /**
    * A test method to determine whether users can access workflow moderation.
-   *
-   * @group edit
-   * @group all
    */
   public function testAccessWorkflow() {
 

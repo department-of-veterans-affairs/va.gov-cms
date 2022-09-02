@@ -1,0 +1,11 @@
+name: Check Revision Log Fields
+on: [pull_request]
+jobs:
+  check-revision-logs:
+    name: runner / check-revision-log-fields
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Check Revision Log fields
+        run: |
+          ./tests/scripts/check-revision-logs.sh
