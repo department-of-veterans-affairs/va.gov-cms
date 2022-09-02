@@ -50,7 +50,7 @@ class CreateTaxonomyTermTest extends ExistingSiteBase {
    *   Array containing entity type as string and expected count as int
    */
   public function benchmarkTime() {
-    return [[2]];
+    return [[4]];
   }
 
 }

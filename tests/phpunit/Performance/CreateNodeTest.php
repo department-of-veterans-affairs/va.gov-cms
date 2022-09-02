@@ -53,7 +53,7 @@ class CreateNodeTest extends ExistingSiteBase {
    *   Array containing entity type as string and expected count as int
    */
   public function benchmarkTime() {
-    return [[5]];
+    return [[8]];
   }
 
 }
