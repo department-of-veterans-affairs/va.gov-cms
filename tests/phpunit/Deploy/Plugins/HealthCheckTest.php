@@ -10,6 +10,9 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Test for Deploy mode health check plugin.
  *
+ * @group unit
+ * @group all
+ *
  * @covers \Drupal\va_gov_backend\Deploy\Plugin\HealthCheck
  */
 class HealthCheckTest extends UnitTestCase {

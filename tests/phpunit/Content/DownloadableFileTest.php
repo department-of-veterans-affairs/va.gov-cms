@@ -10,6 +10,9 @@ use Drupal\Core\File\FileSystemInterface;
 
 /**
  * Confirm downloadable_file paragraphs are displayed correctly.
+ *
+ * @group functional
+ * @group all
  */
 class DownloadableFileTest extends ExistingSiteBase {
 

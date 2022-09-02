@@ -6,14 +6,15 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
  * A test to confirm admin dashboard security.
+ *
+ * @group functional
+ * @group security
+ * @group all
  */
 class AdminDashboardTest extends ExistingSiteBase {
 
   /**
    * A test method to check permissions to access the admin dashboard.
-   *
-   * @group security
-   * @group all
    *
    * @dataProvider getRoles
    */
