@@ -11,6 +11,11 @@ use Drupal\va_gov_backend\Test\DeployServiceMock;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
+ * Tests the DeployService.
+ *
+ * @group unit
+ * @group all
+ *
  * @covers \Drupal\va_gov_backend\Deploy\DeployService
  */
 class DeployServiceTest extends UnitTestCase {

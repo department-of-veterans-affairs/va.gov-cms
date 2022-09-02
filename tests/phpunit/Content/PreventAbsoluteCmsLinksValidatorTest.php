@@ -10,7 +10,7 @@ use Traits\ValidatorTestTrait;
 /**
  * A test to confirm the proper functioning of this validator.
  *
- * @group functional
+ * @group unit
  * @group all
  * @group validation
  *

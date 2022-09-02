@@ -6,6 +6,9 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
  * A test to confirm the performance of edit preview.
+ *
+ * @group functional
+ * @group all
  */
 class PreviewTest extends ExistingSiteBase {
 

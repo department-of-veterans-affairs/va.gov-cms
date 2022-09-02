@@ -6,6 +6,9 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
  * A test to confirm node creation performance.
+ *
+ * @group functional
+ * @group all
  */
 class CreateNodeTest extends ExistingSiteBase {
 
@@ -13,7 +16,6 @@ class CreateNodeTest extends ExistingSiteBase {
    * A test method to determine the amount of time it takes to create a node.
    *
    * @group performance
-   * @group all
    *
    * @dataProvider benchmarkTime
    */
