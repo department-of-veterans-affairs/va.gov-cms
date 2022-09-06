@@ -16,6 +16,9 @@ use Tests\Support\Mock\SpecifiedTime;
 
 /**
  * Unit test for the build scheduler.
+ *
+ * @group unit
+ * @group all
  */
 class BuildSchedulerTest extends UnitTestCase {
 

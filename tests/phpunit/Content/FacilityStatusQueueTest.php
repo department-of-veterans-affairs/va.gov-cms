@@ -22,6 +22,9 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 /**
  * Functional test of the Facility status queueing for push to Lighthouse.
  *
+ * @group functional
+ * @group all
+ *
  * @coversDefaultClass \Drupal\va_gov_post_api\Service\PostFacilityStatus
  */
 class FacilityStatusQueueTest extends ExistingSiteBase {

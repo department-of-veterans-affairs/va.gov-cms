@@ -14,6 +14,9 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
  * Test the VaGovUrl Service.
+ *
+ * @group functional
+ * @group all
  */
 class VaGovUrlServiceTest extends ExistingSiteBase {
 
@@ -65,9 +68,6 @@ class VaGovUrlServiceTest extends ExistingSiteBase {
 
   /**
    * Verify getVaGovFrontEndUrl method.
-   *
-   * @group functional
-   * @group all
    */
   public function testGetVaGovFrontEndUrl() {
     $this->mockClient();
@@ -77,9 +77,6 @@ class VaGovUrlServiceTest extends ExistingSiteBase {
 
   /**
    * Verify that the prod URL may be over-ridden with settings.
-   *
-   * @group functional
-   * @group all
    */
   public function testOverrideVaGovFrontEndUrl() {
     $this->mockClient();
@@ -92,9 +89,6 @@ class VaGovUrlServiceTest extends ExistingSiteBase {
 
   /**
    * Verify getVaGovFrontEndUrlForEntity method.
-   *
-   * @group functional
-   * @group all
    */
   public function testGetVaGovFrontEndUrlForEntity() {
     $this->mockClient();
@@ -115,9 +109,6 @@ class VaGovUrlServiceTest extends ExistingSiteBase {
 
   /**
    * Verify getVaGovFrontEndUrlForEntityIsLive method.
-   *
-   * @group functional
-   * @group all
    */
   public function testVaGovFrontEndUrlForEntityIsLive() {
     $this->mockClient(new Response('200'), new Response('404'));
