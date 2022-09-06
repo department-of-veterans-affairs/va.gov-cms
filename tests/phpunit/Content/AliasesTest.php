@@ -7,6 +7,9 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
  * A test to confirm correct alias settings.
+ *
+ * @group functional
+ * @group all
  */
 class AliasesTest extends ExistingSiteBase {
 

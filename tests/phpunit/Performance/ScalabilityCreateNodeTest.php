@@ -7,6 +7,9 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
  * A test to confirm amount of nodes by type.
+ *
+ * @group functional
+ * @group all
  */
 class ScalabilityCreateNodeTest extends ExistingSiteBase {
 
@@ -16,7 +19,6 @@ class ScalabilityCreateNodeTest extends ExistingSiteBase {
    * A test method to determine the amount of time it takes to create a node.
    *
    * @group performance
-   * @group all
    */
   public function testScalabilityCreateNodeTest() {
     $count = $this->runPerformanceTest();

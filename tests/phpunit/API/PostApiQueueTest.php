@@ -10,7 +10,8 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 /**
  * Tests Post API Queue functionality.
  *
- * @group PostApiQueue
+ * @group functional
+ * @group all
  */
 class PostApiQueueTest extends ExistingSiteBase {
 
@@ -152,9 +153,9 @@ class PostApiQueueTest extends ExistingSiteBase {
    */
   protected function processItem($data) {
     $apikey = Settings::get('post_api_apikey');
-    $endpoint_path = isset($data['endpoint_path']) ? $data['endpoint_path'] : NULL;
+    $endpoint_path = $data['endpoint_path'] ?? NULL;
     $endpoint = Settings::get('post_api_endpoint_host') . $endpoint_path;
-    $payload = isset($data['payload']) ? $data['payload'] : [];
+    $payload = $data['payload'] ?? [];
 
     $request_service = \Drupal::service('post_api.request');
 
