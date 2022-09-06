@@ -1,8 +1,9 @@
-uuid: 7ab7d63d-ae15-47b0-b6fa-f7ea39a90cb3
+uuid: e3d4ef8d-bad9-4a0f-969a-eaaeae71fe13
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.ief_table
     - field.field.node.vba_facility.field_address
     - field.field.node.vba_facility.field_administration
     - field.field.node.vba_facility.field_facility_locator_api_id
@@ -16,6 +17,7 @@ dependencies:
   module:
     - address
     - field_group
+    - layout_builder
     - office_hours
     - options
     - telephone
@@ -63,19 +65,24 @@ third_party_settings:
       weight: 9
       format_type: tooltip
       format_settings:
-        show_label: '0'
-        tooltip_description: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
-        description: ''
-        id: external-content
-        classes: not-editable
         show_empty_fields: 0
+        id: ''
+        classes: ''
         element: div
+        show_label: '0'
         label_element: h3
         attributes: ''
-id: node.vba_facility.default
+        description: ''
+        tooltip_description: ''
+        open: false
+        required_fields: false
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.vba_facility.ief_table
 targetEntityType: node
 bundle: vba_facility
-mode: default
+mode: ief_table
 content:
   field_address:
     type: address_default
@@ -86,7 +93,7 @@ content:
     region: content
   field_facility_locator_api_id:
     type: string
-    label: inline
+    label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
