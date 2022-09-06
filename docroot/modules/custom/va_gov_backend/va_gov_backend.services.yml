@@ -28,3 +28,7 @@ services:
   monolog.processor.va_gov_datadog_apm:
     class: Drupal\va_gov_backend\Logger\Processor\DatadogApmProcessor
     arguments: ['@va_gov_backend.datadog_context_provider']
+
+# Increases the # of items in the response for any given jsonapi request.
+parameters:
+  next_jsonapi.size_max: 2000
