@@ -6,6 +6,9 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
  * A test to confirm that the banner endpoint is working properly.
+ *
+ * @group functional
+ * @group all
  */
 class BannerEndpointTest extends ExistingSiteBase {
 

@@ -13,6 +13,9 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
  * Provides automated tests for the va_gov_backend module.
+ *
+ * @group functional
+ * @group all
  */
 class ContentReleaseStatusControllerTest extends ExistingSiteBase {
 

@@ -10,6 +10,9 @@ use Tests\Support\Mock\HttpClient;
 
 /**
  * Test the Datadog service.
+ *
+ * @group functional
+ * @group all
  */
 class DatadogTest extends ExistingSiteBase {
 

@@ -6,14 +6,15 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
  * A test to confirm access to node edit form tabs.
+ *
+ * @group functional
+ * @group security
+ * @group all
  */
 class NodeEditTabsTest extends ExistingSiteBase {
 
   /**
    * A test method to determine whether users can access node edit form tabs.
-   *
-   * @group edit
-   * @group all
    */
   public function testAccessNodeEditTab() {
     // Creates a user. Will be automatically cleaned up at the end of the test.

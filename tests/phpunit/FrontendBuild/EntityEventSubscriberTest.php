@@ -17,6 +17,9 @@ use Symfony\Component\DependencyInjection\Container;
 
 /**
  * Unit test for the entity event subscriber.
+ *
+ * @group unit
+ * @group all
  */
 class EntityEventSubscriberTest extends UnitTestCase {
 
