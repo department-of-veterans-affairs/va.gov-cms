@@ -17,6 +17,15 @@
       text-decoration: none;
     }
 
+    &.action-link.action-link--danger {
+      color: var(--color-white);
+      text-decoration: none;
+
+      &:hover {
+        color: var(--va-red-darker);
+      }
+    }
+
     &.button,
     &.pager__link.is-active,
     &.feed-icon {
@@ -27,6 +36,18 @@
       &:focus {
         background-color: var(--button--hover-bg-color--primary);
         color: var(--button-fg-color--primary);
+      }
+    }
+  }
+
+  .view-user-admin-people {
+    a {
+      &.button {
+        color: var(--button-fg-color);
+
+        &:hover {
+          background-color: var(--va-gray-button-hover);
+        }
       }
     }
   }
