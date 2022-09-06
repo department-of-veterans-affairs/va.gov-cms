@@ -6,8 +6,6 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require-dev": {
-        "drupal/console": "^1.9",
-        "drupal/console-extend-plugin": "^0.9.5",
         "drupal/devel": "^4.1",
         "drupal/html_tag_usage": "^1.0@beta",
         "drupal/media_entity_generic": "^1.0",
@@ -23,7 +21,7 @@
         "consolidation/robo": "^1",
         "consolidation/site-process": "^4.1",
         "cweagans/composer-patches": "^1.7",
-        "datadog/dd-trace": "^0.77.0",
+        "datadog/dd-trace": "^0.78.0",
         "drupal/address": "^1.4",
         "drupal/admin_feedback": "^2.2",
         "drupal/admin_toolbar": "^3.0",
@@ -44,8 +42,8 @@
         "drupal/consumer_image_styles": "^4.0",
         "drupal/consumers": "1.13.0",
         "drupal/content_lock": "^2.0@alpha",
-        "drupal/core-composer-scaffold": "~9.3.0",
-        "drupal/core-recommended": "~9.3.0",
+        "drupal/core-composer-scaffold": "~9.4.0",
+        "drupal/core-recommended": "~9.4.0",
         "drupal/crop": "^2.0",
         "drupal/csv_serialization": "^2.0",
         "drupal/ctools_block": "^3.2",
@@ -193,7 +191,7 @@
         "symfony/process": "^4.0",
         "symfony/routing": "^4.0",
         "traviscarden/behat-table-comparison": "~0.2",
-        "va-gov/content-build": "^0.0.3082",
+        "va-gov/content-build": "^0.0.3091",
         "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
@@ -225,7 +223,7 @@
                     "reference": "f138860c7b18c6aab00f5860b29d15b9ab2197f5"
                 }
             }
-        },        
+        },
         "drupal": {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
@@ -305,7 +303,7 @@
         },
         "mouf": {
             "nodejs": {
-                "version": "14.15.0",
+                "version": "16.0.0",
                 "targetDir": "docroot/vendor/nodejs/nodejs",
                 "forceLocal": true
             }
@@ -343,9 +341,6 @@
             "devshop/yaml-tasks": {
                 "Used 'pending' instead of 'queued' for commit status": "patches/yaml-tasks-pending.patch"
             },
-            "drupal/admin_feedback": {
-                "3254213 - Span and Label needed to support theming": "https://www.drupal.org/files/issues/2022-01-28/span-and-label-3254213-5.patch"
-            },
             "drupal/cer": {
                 "3197953-5 - Make d9 compatible": "https://www.drupal.org/files/issues/2021-03-19/cer-3197953-5.patch",
                 "3200122 - Remove delete hook": "https://www.drupal.org/files/issues/2021-02-24/delete-hook-added-in-dev-causes-test-failures.patch"
@@ -372,7 +367,6 @@
                 "2915792 - MenuLinkContentAccessControlHandler does not allow \"view\" access without admin permission": "patches/drupal-core-menu-link-perm-mr-339.patch",
                 "2421145 - Text format wrapper does not take description_display into account": "https://www.drupal.org/files/issues/2021-12-03/2421445-18_0.patch",
                 "Internal Claro tweaks": "patches/claro-css-tweaks.patch",
-                "3176625 - Install from existing config with a theme that declares module dependencies fails": "https://www.drupal.org/files/issues/2021-05-18/fix_ConfigImportSubscriber_validateThemes-3176625-29.patch",
                 "3099026 - Claro's preprocessing of field multiple value form's table header cell removes potential changes by others": "https://www.drupal.org/files/issues/2020-02-20/3099026-9.patch",
                 "2767243 - Create a theme suggestion for taxonomy terms by view mode": "https://www.drupal.org/files/issues/core-theme-suggestion-for-taxonomy-view-modes-2767243-14.patch"
             },
@@ -380,7 +374,8 @@
                 "Unable to resolve path on node in other language than default": "https://www.drupal.org/files/issues/2021-05-05/3111456-34.patch"
             },
             "drupal/entity_browser": {
-                "Entity browser cardinality validation": "https://www.drupal.org/files/issues/0001-Issue-2856138-by-gordon-Error-messages-are-not-being.patch"
+                "Entity browser cardinality validation": "https://www.drupal.org/files/issues/0001-Issue-2856138-by-gordon-Error-messages-are-not-being.patch",
+                "Make modal iframe tab accessible": "https://www.drupal.org/files/issues/2021-01-07/3191302-3.patch"
             },
             "drupal/entity_browser_table": {
                 "Table drag doesn't work on new entity form, and sort is lost on ajax": "https://www.drupal.org/files/issues/2020-08-25/fix-sort-loss-and-add-form-3166733-2.patch",
@@ -632,9 +627,11 @@
         ],
         "va:test:content-build-gql": [
             "@va:web:prepare-dotenv",
+            "touch .buildlock",
             "mkdir -p web/build/vagovdev",
             "echo {} > web/build/vagovdev/metalsmith-build-data.json",
-            "cd web; INSTALL_HOOKS=no NODE_ENV=production yarn build --pull-drupal --gql-queries-only --nosymlink --no-drupal-proxy --api=https://dev-api.va.gov --buildtype=vagovdev"
+            "cd web; INSTALL_HOOKS=no NODE_ENV=production yarn build --pull-drupal --gql-queries-only --nosymlink --no-drupal-proxy --api=https://dev-api.va.gov --buildtype=vagovdev",
+            "rm .buildlock"
         ],
         "va:web:prepare-dotenv": [
             "if [ -f web/.env.example ]; then cat web/.env.example | grep -v DRUPAL_ADDRESS > web/.env; fi",
