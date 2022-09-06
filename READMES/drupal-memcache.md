@@ -145,7 +145,7 @@ END
 
 #### Flushing Data
 
-If Memcache holds corrupted data, or for some other reason should be cleared manually (e.g. if Drush and Drupal Console do not work, or for debugging), the `flush_all` command can be used:
+If Memcache holds corrupted data, or for some other reason should be cleared manually (e.g. if Drush does not work, or for debugging), the `flush_all` command can be used:
 
 ```
 stats
