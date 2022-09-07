@@ -12,12 +12,12 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
  * Implements hook_form_alter().
  */
 function va_gov_consumers_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  _vagov_consumers_modify_va_form_fields($form, $form_id, $form_state);
-  _vagov_consumers_modify_vamc_system_fields($form, $form_id, $form_state);
-  _vagov_consumers_modify_vet_center_fields($form, $form_id, $form_state);
-  _vagov_consumers_disable_vha_api_form_fields($form, $form_id);
-  _vagov_consumers_disable_non_vha_facilities_api_form_fields($form, $form_id);
-  _vagov_consumers_modify_vba_facility_fields($form, $form_id, $form_state);
+  _va_gov_consumers_modify_va_form_fields($form, $form_id, $form_state);
+  _va_gov_consumers_modify_vamc_system_fields($form, $form_id, $form_state);
+  _va_gov_consumers_modify_vet_center_fields($form, $form_id, $form_state);
+  _va_gov_consumers_disable_vha_api_form_fields($form, $form_id);
+  _va_gov_consumers_disable_non_vha_facilities_api_form_fields($form, $form_id);
+  _va_gov_consumers_modify_vba_facility_fields($form, $form_id, $form_state);
 }
 
 /**
@@ -40,7 +40,7 @@ function _va_gov_consumers_customize_table($element) {
  * @param string $form_id
  *   The machine name for the form.
  */
-function _vagov_consumers_disable_vha_api_form_fields(array &$form, $form_id) {
+function _va_gov_consumers_disable_vha_api_form_fields(array &$form, $form_id) {
   if ($form_id === 'node_health_care_local_facility_edit_form' || $form_id === 'node_health_care_local_facility_form') {
     if (empty($form['title']['widget'][0]['value']['#default_value'])) {
       $form['title']['widget'][0]['value']['#default_value'] = t('API Data');
@@ -80,10 +80,12 @@ function _va_gov_consumers_return_vet_center_form_names() {
  * @param string $form_id
  *   The machine name for the form.
  */
-function _vagov_consumers_disable_non_vha_facilities_api_form_fields(array &$form, $form_id) {
+function _va_gov_consumers_disable_non_vha_facilities_api_form_fields(array &$form, $form_id) {
   $target_forms = [
     'node_nca_facility_edit_form',
     'node_nca_facility_form',
+    'node_vba_facility_edit_form',
+    'node_vba_facility_form',
     'node_vet_center_edit_form',
     'node_vet_center_form',
     'node_vet_center_mobile_vet_center_form',
@@ -124,7 +126,7 @@ function _vagov_consumers_disable_non_vha_facilities_api_form_fields(array &$for
  * @param \Drupal\Core\Form\FormStateInterface $form_state
  *   The form state by reference.
  */
-function _vagov_consumers_modify_va_form_fields(array &$form, $form_id, FormStateInterface &$form_state) {
+function _va_gov_consumers_modify_va_form_fields(array &$form, $form_id, FormStateInterface &$form_state) {
   if ($form_id === 'node_va_form_edit_form' || $form_id === 'node_va_form_form') {
     $node = $form_state->getformObject()->getEntity();
     $title = "<h1>{$node->getTitle()}</h1>";
@@ -168,7 +170,7 @@ function _vagov_consumers_modify_va_form_fields(array &$form, $form_id, FormStat
  * @param \Drupal\Core\Form\FormStateInterface $form_state
  *   The form state by reference.
  */
-function _vagov_consumers_modify_vet_center_fields(array &$form, $form_id, FormStateInterface &$form_state) {
+function _va_gov_consumers_modify_vet_center_fields(array &$form, $form_id, FormStateInterface &$form_state) {
 
   // We want to modify display of fields for specific form id's.
   $external_content_form_ids = [
@@ -231,7 +233,7 @@ function _vagov_consumers_modify_vet_center_fields(array &$form, $form_id, FormS
  * @param \Drupal\Core\Form\FormStateInterface $form_state
  *   The form state by reference.
  */
-function _vagov_consumers_modify_vamc_system_fields(array &$form, $form_id, FormStateInterface &$form_state) {
+function _va_gov_consumers_modify_vamc_system_fields(array &$form, $form_id, FormStateInterface &$form_state) {
 
   // We want to modify display of fields for specific form id's.
   $external_content_form_ids = [
@@ -256,7 +258,7 @@ function _vagov_consumers_modify_vamc_system_fields(array &$form, $form_id, Form
  * @param \Drupal\Core\Form\FormStateInterface $form_state
  *   The form state by reference.
  */
-function _vagov_consumers_modify_vba_facility_fields(array &$form, $form_id, FormStateInterface &$form_state) {
+function _va_gov_consumers_modify_vba_facility_fields(array &$form, $form_id, FormStateInterface &$form_state) {
 
   // We want to modify display of fields for specific form id's.
   $external_content_form_ids = [
@@ -346,7 +348,6 @@ function _va_gov_consumers_disable_external_content_editing(array &$form, FormSt
       unset($form['external_content']);
     }
   }
-
 }
 
 /**
