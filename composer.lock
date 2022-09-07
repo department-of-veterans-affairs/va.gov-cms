@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9d0bc81ecdad51cbcf7a16392fd2c533",
+    "content-hash": "da3c53b89966922c62418442ee5ee7a8",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -840,24 +840,30 @@
         },
         {
             "name": "bjeavons/zxcvbn-php",
-            "version": "0.4.0",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bjeavons/zxcvbn-php.git",
-                "reference": "7a7e1130c74c715e84c60c27384f657e9574a933"
+                "reference": "994928ae5b17ecff8baa2406832d37bdf01116c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bjeavons/zxcvbn-php/zipball/7a7e1130c74c715e84c60c27384f657e9574a933",
-                "reference": "7a7e1130c74c715e84c60c27384f657e9574a933",
+                "url": "https://api.github.com/repos/bjeavons/zxcvbn-php/zipball/994928ae5b17ecff8baa2406832d37bdf01116c0",
+                "reference": "994928ae5b17ecff8baa2406832d37bdf01116c0",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.6 || ^7.0"
+                "ext-json": "*",
+                "php": "^7.2 | ^8.0 | ^8.1",
+                "symfony/polyfill-mbstring": ">=1.3.1"
             },
             "require-dev": {
-                "phpunit/phpunit": "*",
-                "satooshi/php-coveralls": "*"
+                "php-coveralls/php-coveralls": "*",
+                "phpunit/phpunit": "^8.5",
+                "squizlabs/php_codesniffer": "3.*"
+            },
+            "suggest": {
+                "ext-gmp": "Required for optimized binomial calculations (also requires PHP >= 7.3)"
             },
             "type": "library",
             "autoload": {
@@ -883,9 +889,9 @@
             ],
             "support": {
                 "issues": "https://github.com/bjeavons/zxcvbn-php/issues",
-                "source": "https://github.com/bjeavons/zxcvbn-php/tree/master"
+                "source": "https://github.com/bjeavons/zxcvbn-php/tree/1.3.1"
             },
-            "time": "2018-07-23T05:05:36+00:00"
+            "time": "2021-12-21T18:37:02+00:00"
         },
         {
             "name": "bower-asset/blazy",
@@ -4700,26 +4706,26 @@
         },
         {
             "name": "drupal/ctools",
-            "version": "3.7.0",
+            "version": "3.11.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/ctools.git",
-                "reference": "8.x-3.7"
+                "reference": "8.x-3.11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/ctools-8.x-3.7.zip",
-                "reference": "8.x-3.7",
-                "shasum": "b11c0981a1d2ab3cc9e8e614a337d8e2a2a70c0e"
+                "url": "https://ftp.drupal.org/files/projects/ctools-8.x-3.11.zip",
+                "reference": "8.x-3.11",
+                "shasum": "67da670df43155d1e15c80c7b0e326b3049ac5a2"
             },
             "require": {
-                "drupal/core": "^8.8 || ^9"
+                "drupal/core": "^9.3 || ^10"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-3.7",
-                    "datestamp": "1623860918",
+                    "version": "8.x-3.11",
+                    "datestamp": "1660167573",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -9950,31 +9956,28 @@
         },
         {
             "name": "drupal/password_strength",
-            "version": "2.0.0-beta1",
+            "version": "dev-2.x",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/password_strength.git",
-                "reference": "8.x-2.0-beta1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/password_strength-8.x-2.0-beta1.zip",
-                "reference": "8.x-2.0-beta1",
-                "shasum": "ac70d4aa5cd45be5009a2be06f43b0b991fd8c1e"
+                "reference": "13718a202657365a7bb54eb0214341a1e601fa99"
             },
             "require": {
-                "bjeavons/zxcvbn-php": "0.4.0",
+                "bjeavons/zxcvbn-php": "^1.3",
                 "drupal/core": "^8 || ^9",
-                "drupal/password_policy": "*"
+                "drupal/password_policy": "^3.1"
             },
             "type": "drupal-module",
             "extra": {
+                "branch-alias": {
+                    "dev-2.x": "2.x-dev"
+                },
                 "drupal": {
-                    "version": "8.x-2.0-beta1",
-                    "datestamp": "1614007268",
+                    "version": "8.x-2.0-beta1+2-dev",
+                    "datestamp": "1661352550",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "message": "Dev releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -26007,81 +26010,6 @@
     ],
     "packages-dev": [
         {
-            "name": "composer/ca-bundle",
-            "version": "1.2.8",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/composer/ca-bundle.git",
-                "reference": "8a7ecad675253e4654ea05505233285377405215"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/8a7ecad675253e4654ea05505233285377405215",
-                "reference": "8a7ecad675253e4654ea05505233285377405215",
-                "shasum": ""
-            },
-            "require": {
-                "ext-openssl": "*",
-                "ext-pcre": "*",
-                "php": "^5.3.2 || ^7.0 || ^8.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4.8.35 || ^5.7 || 6.5 - 8",
-                "psr/log": "^1.0",
-                "symfony/process": "^2.5 || ^3.0 || ^4.0 || ^5.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Composer\\CaBundle\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jordi Boggiano",
-                    "email": "j.boggiano@seld.be",
-                    "homepage": "http://seld.be"
-                }
-            ],
-            "description": "Lets you find a path to the system CA bundle, and includes a fallback to the Mozilla CA bundle.",
-            "keywords": [
-                "cabundle",
-                "cacert",
-                "certificate",
-                "ssl",
-                "tls"
-            ],
-            "support": {
-                "irc": "irc://irc.freenode.org/composer",
-                "issues": "https://github.com/composer/ca-bundle/issues",
-                "source": "https://github.com/composer/ca-bundle/tree/1.2.8"
-            },
-            "funding": [
-                {
-                    "url": "https://packagist.com",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/composer",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/composer/composer",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2020-08-23T12:54:47+00:00"
-        },
-        {
             "name": "doctrine/cache",
             "version": "1.13.0",
             "source": {
@@ -26739,313 +26667,6 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/media_entity_generic"
             }
-        },
-        {
-            "name": "marcortola/behat-seo-contexts",
-            "version": "3.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/marcortola/behat-seo-contexts.git",
-                "reference": "ee916f8dc3f423db62727e7036947a2557bc5497"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/marcortola/behat-seo-contexts/zipball/ee916f8dc3f423db62727e7036947a2557bc5497",
-                "reference": "ee916f8dc3f423db62727e7036947a2557bc5497",
-                "shasum": ""
-            },
-            "require": {
-                "behat/behat": "^3.0",
-                "behat/mink-extension": "^2.0",
-                "ext-dom": "*",
-                "matriphe/iso-639": "^1.2",
-                "php": ">=7.1",
-                "rexxars/html-validator": "^2.1",
-                "vipnytt/robotstxtparser": "^2.0"
-            },
-            "require-dev": {
-                "behat/mink-browserkit-driver": "^1.3",
-                "behat/mink-goutte-driver": "^1.0",
-                "behat/symfony2-extension": "^2.0",
-                "phpmd/phpmd": "^2.7",
-                "phpstan/phpstan": "^0.12",
-                "phpstan/phpstan-webmozart-assert": "^0.12.7",
-                "sebastian/phpcpd": "^6.0",
-                "sensiolabs/security-checker": "^6.0",
-                "symplify/easy-coding-standard": "^8.2",
-                "thecodingmachine/phpstan-strict-rules": "^0.12",
-                "webmozart/assert": "^1.9"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "MarcOrtola\\BehatSEOContexts\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Marc Ortola",
-                    "homepage": "https://github.com/marcortola/"
-                }
-            ],
-            "description": "Behat extension for testing some On-Page SEO factors: meta title/description, canonical, hreflang, meta robots, robots.txt, redirects, sitemap validation, HTML validation, performance...",
-            "homepage": "https://github.com/marcortola/behat-seo-contexts",
-            "keywords": [
-                "BDD",
-                "Behat",
-                "Canonicalization",
-                "Context",
-                "HTML validation",
-                "Hreflang checker",
-                "Robots validation",
-                "Sitemap validation",
-                "redirects",
-                "seo"
-            ],
-            "support": {
-                "issues": "https://github.com/marcortola/behat-seo-contexts/issues",
-                "source": "https://github.com/marcortola/behat-seo-contexts/tree/master"
-            },
-            "time": "2020-09-08T08:44:50+00:00"
-        },
-        {
-            "name": "matriphe/iso-639",
-            "version": "1.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/matriphe/php-iso-639.git",
-                "reference": "0245d844daeefdd22a54b47103ffdb0e03c323e1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/matriphe/php-iso-639/zipball/0245d844daeefdd22a54b47103ffdb0e03c323e1",
-                "reference": "0245d844daeefdd22a54b47103ffdb0e03c323e1",
-                "shasum": ""
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4.7"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Matriphe\\ISO639\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Muhammad Zamroni",
-                    "email": "halo@matriphe.com"
-                }
-            ],
-            "description": "PHP library to convert ISO-639-1 code to language name.",
-            "keywords": [
-                "639",
-                "iso",
-                "iso-639",
-                "lang",
-                "language",
-                "laravel"
-            ],
-            "support": {
-                "issues": "https://github.com/matriphe/php-iso-639/issues",
-                "source": "https://github.com/matriphe/php-iso-639/tree/master"
-            },
-            "time": "2017-07-19T15:11:19+00:00"
-        },
-        {
-            "name": "rexxars/html-validator",
-            "version": "2.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/rexxars/html-validator.git",
-                "reference": "accab9cd2a8176d28bc6646c0f93c0443d1e31ee"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/rexxars/html-validator/zipball/accab9cd2a8176d28bc6646c0f93c0443d1e31ee",
-                "reference": "accab9cd2a8176d28bc6646c0f93c0443d1e31ee",
-                "shasum": ""
-            },
-            "require": {
-                "ext-dom": "*",
-                "ext-json": "*",
-                "guzzlehttp/guzzle": "^6.2.1|^7.0",
-                "php": ">=5.6.0"
-            },
-            "require-dev": {
-                "ext-dom": "*",
-                "phpunit/phpunit": "^5.5.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "HtmlValidator": "library"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Espen Hovlandsdal",
-                    "email": "espen@hovlandsdal.com"
-                }
-            ],
-            "description": "Validates HTML using Validator.nu",
-            "support": {
-                "issues": "https://github.com/rexxars/html-validator/issues",
-                "source": "https://github.com/rexxars/html-validator/tree/master"
-            },
-            "time": "2020-06-30T18:25:35+00:00"
-        },
-        {
-            "name": "vipnytt/robotstxtparser",
-            "version": "v2.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/VIPnytt/RobotsTxtParser.git",
-                "reference": "2042e4d0f59f5417a5bd296d23529a1685fcd0e0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/VIPnytt/RobotsTxtParser/zipball/2042e4d0f59f5417a5bd296d23529a1685fcd0e0",
-                "reference": "2042e4d0f59f5417a5bd296d23529a1685fcd0e0",
-                "shasum": ""
-            },
-            "require": {
-                "composer/ca-bundle": "^1.0",
-                "ext-curl": "*",
-                "ext-mbstring": "*",
-                "php": "^5.6 || ^7.0",
-                "vipnytt/useragentparser": "^1.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^5.2 || ^6.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "vipnytt\\RobotsTxtParser\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "VIP nytt AS",
-                    "email": "support@vipnytt.no",
-                    "role": "Owner"
-                },
-                {
-                    "name": "Jan-Petter Gundersen",
-                    "email": "jpg@vipnytt.no",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Robots.txt parsing library, with full support for every directive and specification.",
-            "homepage": "https://github.com/VIPnytt/RobotsTxtParser",
-            "keywords": [
-                "Martijn Koster",
-                "REP",
-                "Robot exclusion standard",
-                "Robots Exclusion Protocol",
-                "Sean Conner",
-                "The Web Robots Pages",
-                "W3C",
-                "google",
-                "parser",
-                "robot",
-                "robots",
-                "robots.txt",
-                "sitemaps.org",
-                "spider",
-                "web-crawler",
-                "yandex"
-            ],
-            "support": {
-                "docs": "https://github.com/VIPnytt/RobotsTxtParser/tree/master/docs",
-                "email": "support@vipnytt.no",
-                "issues": "https://github.com/VIPnytt/RobotsTxtParser/issues",
-                "source": "https://github.com/VIPnytt/RobotsTxtParser",
-                "wiki": "https://github.com/VIPnytt/RobotsTxtParser/tree/master/docs"
-            },
-            "time": "2020-08-27T15:23:36+00:00"
-        },
-        {
-            "name": "vipnytt/useragentparser",
-            "version": "v1.0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/VIPnytt/UserAgentParser.git",
-                "reference": "c5a6718a57088e0d45c2e36f09efabc4e008bd8c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/VIPnytt/UserAgentParser/zipball/c5a6718a57088e0d45c2e36f09efabc4e008bd8c",
-                "reference": "c5a6718a57088e0d45c2e36f09efabc4e008bd8c",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^5.5 || ^7.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.5"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "vipnytt\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "VIP nytt AS",
-                    "email": "support@vipnytt.no",
-                    "role": "Owner"
-                },
-                {
-                    "name": "Jan-Petter Gundersen",
-                    "email": "jpg@vipnytt.no",
-                    "role": "Developer"
-                }
-            ],
-            "description": "User-Agent parser for robot rule sets",
-            "homepage": "https://github.com/VIPnytt/UserAgentParser",
-            "keywords": [
-                "REP",
-                "Robots Exclusion Protocol",
-                "Robots meta tag",
-                "crawler",
-                "robot",
-                "robots.txt",
-                "spider",
-                "user-agent",
-                "useragent",
-                "x-robots-tag"
-            ],
-            "support": {
-                "docs": "https://github.com/VIPnytt/UserAgentParser/wiki",
-                "email": "support@vipnytt.no",
-                "issues": "https://github.com/VIPnytt/UserAgentParser/issues",
-                "source": "https://github.com/VIPnytt/UserAgentParser",
-                "wiki": "https://github.com/VIPnytt/UserAgentParser/wiki"
-            },
-            "time": "2017-12-17T14:23:27+00:00"
         }
     ],
     "aliases": [
@@ -27079,12 +26700,14 @@
         "drupal/migrate_tools": 20,
         "drupal/openapi": 5,
         "drupal/paragraphs_browser": 15,
+        "drupal/password_strength": 20,
         "drupal/path_redirect_import": 10,
         "drupal/pathologic": 15,
         "drupal/prometheus_exporter": 10,
         "drupal/schemata": 10,
         "drupal/styleguide": 10,
         "drupal/taxonomy_menu": 20,
+        "drupal/user_history": 15,
         "drupal/viewfield": 10,
         "drupal/views_data_export": 10,
         "weitzman/drupal-test-traits": 20,
