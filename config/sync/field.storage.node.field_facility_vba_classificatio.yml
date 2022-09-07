@@ -1,0 +1,42 @@
+uuid: ed3922f1-0bed-4419-a44a-e0140f1c0341
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_facility_vba_classificatio
+field_name: field_facility_vba_classificatio
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: '1'
+      label: 'IDES Site'
+    -
+      value: '2'
+      label: 'Pre-Discharge Site'
+    -
+      value: '3'
+      label: 'Regional Benefit Office'
+    -
+      value: '4'
+      label: 'Satellite Office'
+    -
+      value: '5'
+      label: 'Seamless Transition Integrated Care Clinic (STICC)'
+    -
+      value: '6'
+      label: 'Veteran Readiness and Employment Office'
+    -
+      value: '7'
+      label: 'VetSuccess On Campus'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -3,36 +3,27 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.vba_facility.field_address
     - field.field.node.vba_facility.field_administration
     - field.field.node.vba_facility.field_facility_locator_api_id
+    - field.field.node.vba_facility.field_facility_vba_classificatio
     - field.field.node.vba_facility.field_geolocation
+    - field.field.node.vba_facility.field_office_hours
     - field.field.node.vba_facility.field_operating_status_facility
     - field.field.node.vba_facility.field_operating_status_more_info
+    - field.field.node.vba_facility.field_phone_number
     - node.type.vba_facility
     - workflows.workflow.editorial
   module:
+    - address
     - content_moderation
     - field_group
     - geofield
+    - office_hours
+    - telephone
     - textfield_counter
 third_party_settings:
   field_group:
-    group_facility_api:
-      children:
-        - title
-        - field_facility_locator_api_id
-        - field_geolocation
-      label: 'Facility API'
-      region: content
-      parent_name: ''
-      weight: 0
-      format_type: details
-      format_settings:
-        classes: ''
-        id: ''
-        open: true
-        description: ''
-        required_fields: false
     group_operating_status:
       children:
         - field_operating_status_facility
@@ -40,13 +31,15 @@ third_party_settings:
       label: 'Operating status'
       region: content
       parent_name: ''
-      weight: 1
+      weight: 2
       format_type: fieldset
       format_settings:
         classes: ''
+        show_empty_fields: false
         id: ''
-        description: ''
+        description: 'Use this status for weather or other events that impact your facility''s operations. Don''t duplicate information contained in your COVID-19 status. This status will display on the facility''s location page and operating status page.'
         required_fields: true
+        description_display: after
     group_governance:
       children:
         - field_administration
@@ -77,11 +70,57 @@ third_party_settings:
         id: ''
         description: ''
         required_fields: true
+    group_locations_and_contact_info:
+      children:
+        - group_facility_data
+      label: 'Locations and contact information'
+      region: content
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: locations-and-contact-information
+        description: ''
+        required_fields: true
+        description_display: after
+    group_facility_data:
+      children:
+        - title
+        - field_facility_locator_api_id
+        - field_facility_vba_classificatio
+        - field_address
+        - field_geolocation
+        - field_phone_number
+        - field_office_hours
+      label: 'Facility data'
+      region: content
+      parent_name: group_locations_and_contact_info
+      weight: 15
+      format_type: tooltip
+      format_settings:
+        show_label: '1'
+        tooltip_description: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
+        description: '<a class="admin-help-email-tpl" href="/help/vamc/how-do-i-update-my-vamc-facilitys-basic-location-data">Learn how to correct or update centrally-managed data</a>.'
+        required_fields: '1'
+        id: external-content
+        classes: ''
+        show_empty_fields: 0
+        element: div
+        label_element: h3
+        attributes: ''
 id: node.vba_facility.default
 targetEntityType: node
 bundle: vba_facility
 mode: default
 content:
+  field_address:
+    type: address_default
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_administration:
     type: options_select
     weight: 12
@@ -96,12 +135,24 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_facility_vba_classificatio:
+    type: options_select
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_geolocation:
     type: geofield_latlon
-    weight: 3
+    weight: 5
     region: content
     settings:
       html5_geolocation: false
+    third_party_settings: {  }
+  field_office_hours:
+    type: office_hours_default
+    weight: 7
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_operating_status_facility:
     type: options_select
@@ -121,6 +172,13 @@ content:
       js_prevent_submit: true
       count_html_characters: true
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+    third_party_settings: {  }
+  field_phone_number:
+    type: telephone_default
+    weight: 6
+    region: content
+    settings:
+      placeholder: ''
     third_party_settings: {  }
   flag:
     weight: 6
