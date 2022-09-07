@@ -19,7 +19,6 @@ dependencies:
     - field_group
     - layout_builder
     - office_hours
-    - options
     - telephone
     - user
 third_party_settings:
@@ -29,9 +28,9 @@ third_party_settings:
         - field_operating_status_facility
         - field_operating_status_more_info
       label: 'Operating status'
-      parent_name: ''
-      region: content
-      weight: 0
+      parent_name: group_locations_and_contact_info
+      region: hidden
+      weight: 3
       format_type: fieldset
       format_settings:
         classes: ''
@@ -42,9 +41,10 @@ third_party_settings:
     group_locations_and_contact_info:
       children:
         - group_facility_data
+        - group_operating_status
       label: 'Locations and contact information'
       parent_name: ''
-      region: content
+      region: hidden
       weight: 1
       format_type: fieldset
       format_settings:
@@ -59,23 +59,21 @@ third_party_settings:
         - field_address
         - field_phone_number
         - field_office_hours
-      label: 'Facility data'
+      label: 'Location information'
       parent_name: group_locations_and_contact_info
       region: content
-      weight: 9
+      weight: 0
       format_type: tooltip
       format_settings:
-        show_empty_fields: 0
-        id: ''
-        classes: ''
-        element: div
         show_label: '0'
+        tooltip_description: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
+        description: ''
+        id: ''
+        classes: not-editable
+        show_empty_fields: 0
+        element: div
         label_element: h3
         attributes: ''
-        description: ''
-        tooltip_description: ''
-        open: false
-        required_fields: false
   layout_builder:
     enabled: false
     allow_custom: false
@@ -130,20 +128,6 @@ content:
     third_party_settings: {  }
     weight: 6
     region: content
-  field_operating_status_facility:
-    type: list_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 2
-    region: content
-  field_operating_status_more_info:
-    type: basic_string
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 3
-    region: content
   field_phone_number:
     type: telephone_link
     label: above
@@ -157,6 +141,8 @@ hidden:
   field_administration: true
   field_facility_vba_classificatio: true
   field_geolocation: true
+  field_operating_status_facility: true
+  field_operating_status_more_info: true
   flag_changed_name: true
   flag_changed_title: true
   flag_new: true
