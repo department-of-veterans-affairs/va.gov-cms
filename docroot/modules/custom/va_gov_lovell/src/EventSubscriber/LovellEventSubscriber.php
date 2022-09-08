@@ -194,7 +194,7 @@ class LovellEventSubscriber implements EventSubscriberInterface {
   /**
    * Update breadcrumbs for Lovell content.
    *
-   * @param Drupal\va_gov_lovell\Variables\BreadcrumbEventVariables $variables
+   * @param \Drupal\va_gov_lovell\Variables\BreadcrumbEventVariables $variables
    *   BreadcrumbEventVariables.
    */
   protected function updateLovellBreadcrumbs(BreadcrumbEventVariables $variables): void {
