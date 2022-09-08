@@ -57,6 +57,8 @@ tasks:
           exit_code=0
           tasks=(
             "va/background/periodic/migrate/facility_status"
+            "va/background/periodic/check_content_release_stale"
+            "va/background/periodic/check_scheduled_content_release"
             "va/background/periodic/cron"
           )
           trap '{ (( exit_code |=\$? )); }' ERR
@@ -75,6 +77,7 @@ tasks:
         cat <<EOF | bash
           exit_code=0
           tasks=(
+            "va/background/periodic/send_datadog_metrics"
             "va/background/periodic/content_release_queues"
           )
           trap '{ (( exit_code |=\$? )); }' ERR
@@ -151,6 +154,21 @@ tasks:
     desc: Process content release queues every minute.
     cmds:
       - drush $DRUSH_ALIAS advancedqueue:queue:process content_release
+
+  va/background/periodic/check_scheduled_content_release:
+    desc: Ensure scheduled content releases are requested during business hours.
+    cmds:
+      - drush $DRUSH_ALIAS va-gov:content-release:check-scheduled
+
+  va/background/periodic/check_content_release_stale:
+    desc: Ensure we don't have a stale release state.
+    cmds:
+      - drush $DRUSH_ALIAS va-gov:content-release:check-stale
+
+  va/background/periodic/send_datadog_metrics:
+    desc: Send metrics to datadog.
+    cmds:
+      - drush $DRUSH_ALIAS va-gov:metrics:send
 
   va/noop:
     desc: Placeholder command

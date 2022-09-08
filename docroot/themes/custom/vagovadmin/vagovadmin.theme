@@ -7,6 +7,7 @@
 
 use Drupal\Core\Render\Element;
 use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\node\NodeInterface;
 
 /**
  * Implements hook_preprocess_html().
@@ -22,7 +23,8 @@ function vagovadmin_preprocess_html(&$variables) {
 function vagovadmin_theme_suggestions_paragraph_alter(&$suggestions, $variables) {
   $paragraph = $variables['elements']['#paragraph'];
   if ($paragraph->bundle() === 'collapsible_panel_item' || $paragraph->bundle() === 'q_a') {
-    if ($node = \Drupal::routeMatch()->getParameter('node')) {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node && $node instanceof NodeInterface) {
       $suggestions[] = 'paragraph__' . $node->bundle() . '__' . $paragraph->bundle();
     }
   }

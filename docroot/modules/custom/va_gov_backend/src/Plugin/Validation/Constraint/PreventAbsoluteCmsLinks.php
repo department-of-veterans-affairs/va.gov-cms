@@ -21,7 +21,7 @@ class PreventAbsoluteCmsLinks extends Constraint {
    * @var string
    * @see \Drupal\va_gov_backend\Plugin\Validation\ConstraintPreventAbsoluteCmsLinksValidator
    */
-  public $plainTextMessage = 'The text contains an absolute CMS URL ( :url ).';
+  public $plainTextMessage = 'The text contains a URL ( :url ) that\'s only available on the VA network. Update the link to a valid public-facing page.';
 
   /**
    * The error message for rich text fields.
@@ -29,6 +29,6 @@ class PreventAbsoluteCmsLinks extends Constraint {
    * @var string
    * @see \Drupal\va_gov_backend\Plugin\Validation\ConstraintPreventAbsoluteCmsLinksValidator
    */
-  public $richTextMessage = 'The link ":link" contains an absolute CMS URL ( :url ).';
+  public $richTextMessage = '":link" uses a URL ( :url ) that\'s only available on the VA network. Update the link to a valid public-facing page.';
 
 }

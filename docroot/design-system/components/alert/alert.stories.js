@@ -34,7 +34,7 @@ export const Status = {
     title_ids: ['status', 'warning', 'error'],
     status_headings: ['status', 'warning', 'error'],
     hide_bg: false,
-    messages: ['this is an example alert message']
+    messages: ['this is an example drupal alert message']
   },
   ...shared
 };
@@ -52,7 +52,7 @@ export const Warning = {
     title_ids: ['status', 'warning', 'error'],
     status_headings: ['status', 'warning', 'error'],
     hide_bg: false,
-    messages: ['this is an example alert message']  },
+    messages: ['this is an example drupal warning message']  },
   ...shared
 };
 
@@ -69,7 +69,7 @@ export const Error = {
     title_ids: ['status', 'warning', 'error'],
     status_headings: ['status', 'warning', 'error'],
     hide_bg: false,
-    messages: ['this is an example alert message']
+    messages: ['this is an example drupal error message']
   },
   ...shared
 };

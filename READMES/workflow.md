@@ -51,9 +51,10 @@ _Example: VACMS-1234 Add configuration for menu reduction._
 * If your PR is a work in progress or should not be merged, prefix the pull request title with "WIP: " and use the Draft feature.
 * Put a link to the ticket at the top of the PR description.
 * Add required notes in the PR description:
-  1. If the PR requires manual deployment steps (this should never happen).
+  1. If the PR requires manual deployment steps (this should rarely happen).
   1. If the timing of the merging of the PR affects or has dependencies on additional PRs in this or other repositories.
   1. If the PR removes existing functionality that may impact other developers.
+  1. When the PR is ready for review, add appropriate QA steps and take it out of draft.
 
 
 ### Resolving merge conflicts
@@ -95,7 +96,7 @@ If your composer.lock ends up with a conflict due to incoming changes, these ste
 ## Drupal SpecTool
 
 * We use the [Drupal SpecTool](https://github.com/acquia/drupal-spec-tool) to keep track of config changes, and generate tests related to roles, content types, fields, menus views.
-* If you are modifying configuration of roles, content types, fields, menus views, Go update the appropritate tab(s) in our version of the [SpecTool](https://airtable.com/invite/l?inviteId=invOjKEIyZCQY5YRy&inviteToken=eea85291ef1cd72ce9560c5a833a18673ef10a92050f9210e878702e81ec49b3&utm_source=email).
+* If you are modifying configuration of roles, content types, fields, menus views, Go update the appropriate tab(s) in our version of the [SpecTool](https://airtable.com/invite/l?inviteId=invOjKEIyZCQY5YRy&inviteToken=eea85291ef1cd72ce9560c5a833a18673ef10a92050f9210e878702e81ec49b3&utm_source=email).
 * Edit the 'Data used in Behat test' view for the appropriate tables
 * Once all the modifications are made to the appropriate table(s), click on the "Extensions" link in the top right corner and choose 'Behat Tests' from the dashbaord selector. Click the 'run' button and follow the prompts to generate the test you need, then copy the output to your clipboard.
 * Open the related file in [/tests/behat/drupal/drupal-spec-tool/](../tests/behat/drupal/drupal-spec-too/)
@@ -120,12 +121,17 @@ We use the Composer plugin Composer Patches (https://github.com/cweagans/compose
   * e.g. https://patch-diff.githubusercontent.com/raw/drupal-graphql/graphql/pull/726.patch
   * For GitHub, you can usually type in `.patch` at the end of the PR URL to get the patch file
   * Some people use GitHub, some use drupal.org. Drupal moved to GitLab recently.
+  * If the patch is from a PR rather than an actual file, add it to the upstream issue as a file so that we can reference the file rather than a patch that will float with the upstream PR. A floating patch is a security risk.
 * In the `patches` section of `composer.json`, make an entry for the package you are patching, if not already there, write an explanation to what the patch does, and then include the URL to the patch, e.g.:
   * ```
     "patches": {
                    "drupal/migration_tools": {
                        "Add changeHtmlContents DomModifier method": "https://www.drupal.org/files/issues/2018-11-26/change_html_contents-3015381-3.patch",
     ```
+
+ ### Patch Contribution
+
+ Whenever possible, we want to contribute patches to support the community at the same time as our own project needs.  For Drupal contributions, here are some [suggestions for setting up module or issue contributions](https://handbook.civicactions.com/en/latest/050-how-we-work/practice-areas/drupal-practice-area/#contributions-to-drupalorg) to make sure your company and the [Department of Veteran Affairs](https://www.drupal.org/department-of-veterans-affairs) get credited correctly.
 
 ## Updates
 ### Updating Drupal Core (dependabot usually does this so you shouldn't need to do this, but if you do...)

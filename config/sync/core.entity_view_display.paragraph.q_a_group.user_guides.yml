@@ -6,10 +6,12 @@ dependencies:
     - core.entity_view_mode.paragraph.user_guides
     - field.field.paragraph.q_a_group.field_accordion_display
     - field.field.paragraph.q_a_group.field_q_as
+    - field.field.paragraph.q_a_group.field_rich_wysiwyg
     - field.field.paragraph.q_a_group.field_section_header
     - paragraphs.paragraphs_type.q_a_group
   module:
     - layout_builder
+    - text
 third_party_settings:
   layout_builder:
     enabled: false
@@ -27,7 +29,7 @@ content:
       format_custom_false: ''
       format_custom_true: 'Q&A''s in this section will display as accordions'
     third_party_settings: {  }
-    weight: 1
+    weight: 2
     region: content
   field_q_as:
     type: entity_reference_label
@@ -35,7 +37,14 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 2
+    weight: 3
+    region: content
+  field_rich_wysiwyg:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
     region: content
   field_section_header:
     type: string

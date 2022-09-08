@@ -1,0 +1,42 @@
+name: PHP_CodeSniffer
+on: [pull_request]
+jobs:
+  phpcs:
+    name: runner / phpcs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: reviewdog/action-setup@v1
+      - uses: actions/cache@v2
+        with:
+          path: /tmp/composer-cache
+          key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          extensions: dom, curl, libxml, mbstring, zip, pdo, mysql, pdo_mysql, bcmath, gd, exif, iconv
+          tools: composer:v2
+      - name: Run PHP_CodeSniffer and ReviewDog
+        run: |
+          composer install
+          export REVIEWDOG_GITHUB_API_TOKEN="${GITHUB_TOKEN}"
+          bin/phpcs \
+            --standard="${STANDARD}" \
+            --extensions="${EXTENSIONS}" \
+            --report="${REPORT}" \
+            --ignore="${IGNORE}" \
+            -q \
+            ${DIRECTORIES} \
+            | reviewdog \
+              -name="PHP_CodeSniffer" \
+              -f=checkstyle \
+              -reporter=github-pr-review \
+              -level=${INPUT_LEVEL} \
+              -diff='git diff'
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          STANDARD: './phpcs.xml.dist'
+          EXTENSIONS: 'php,module,inc,install,profile,engine,theme,css'
+          REPORT: 'checkstyle'
+          IGNORE: '*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,user_guides.css,whats_new.css,*/node_modules/*,*/simplesaml*/*,graphiql.css'
+          DIRECTORIES: 'docroot/modules/custom docroot/themes/custom tests'

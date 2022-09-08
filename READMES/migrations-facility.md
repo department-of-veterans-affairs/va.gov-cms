@@ -86,7 +86,7 @@ A migration should not be considered complete if there are ANY migrate messages 
    *  `--limit={quantity}`  - limits the action to a specific number of items.
 
 #### Migration Settings (settings.local.php)
-For these migrations to function, you'll need to obtain a Facility API Key from a member of the development team and place the key, along with the following code, into your settings.local.php file. This file should be located in `docroot/sites/default/settings/settings.local.php`.
+For these migrations to function, you'll need to obtain a Facility API Key from a member of the development team and place the key, along with the following code, into your settings.local.php file. This file should be located in `docroot/sites/default/settings.local.php`.
 
 ```
 <?php
