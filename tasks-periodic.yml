@@ -26,20 +26,20 @@ tasks:
           exit \$exit_code;
         EOF
 
-  # Run with: ./bin/task --taskfile=tasks-periodic.yml daily_two
+  # Run with: ./bin/task --taskfile=tasks-periodic.yml daily_0800
   # http://jenkins.vfs.va.gov/job/cms/job/cms-daily-two
   # Similar to daily but later in the day.
-  daily_two:
+  daily_0800:
     cmds:
       - |
         cat <<EOF | bash
           exit_code=0
           tasks=(
-            va/background/daily_two/migrate/health_care_local_facility
-            va/background/daily_two/migrate/vet_centers_facility
-            va/background/daily_two/migrate/vba_facility
-            va/background/daily_two/migrate/nca_facility
-            va/background/daily_two/migrate/flag_removed_facilities
+            va/background/daily_0800/migrate/health_care_local_facility
+            va/background/daily_0800/migrate/vet_centers_facility
+            va/background/daily_0800/migrate/vba_facility
+            va/background/daily_0800/migrate/nca_facility
+            va/background/daily_0800/migrate/flag_removed_facilities
           )
           trap '{ (( exit_code |=\$? )); }' ERR
           for i in "\${tasks[@]}"; do
@@ -103,13 +103,13 @@ tasks:
     cmds:
       - drush $DRUSH_ALIAS taxonomy_entity_index:rebuild
 
-  va/background/daily_two/migrate/health_care_local_facility:
+  va/background/daily_0800/migrate/health_care_local_facility:
     desc: These commands are to run nightly.
     cmds:
       - drush $DRUSH_ALIAS migrate:reset-status va_node_health_care_local_facility
       - drush $DRUSH_ALIAS migrate:import va_node_health_care_local_facility
 
-  va/background/daily_two/migrate/vet_centers_facility:
+  va/background/daily_0800/migrate/vet_centers_facility:
     desc: These commands are to run nightly.
     cmds:
       - drush $DRUSH_ALIAS migrate:reset-status va_node_facility_vet_centers
@@ -119,19 +119,19 @@ tasks:
       - drush $DRUSH_ALIAS migrate:reset-status va_node_facility_vet_centers_os
       - drush $DRUSH_ALIAS migrate:import va_node_facility_vet_centers_os
 
-  va/background/daily_two/migrate/vba_facility:
+  va/background/daily_0800/migrate/vba_facility:
     desc: These commands are to run nightly.
     cmds:
       - drush $DRUSH_ALIAS migrate:reset-status va_node_facility_vba
       - drush $DRUSH_ALIAS migrate:import va_node_facility_vba
 
-  va/background/daily_two/migrate/nca_facility:
+  va/background/daily_0800/migrate/nca_facility:
     desc: These commands are to run nightly.
     cmds:
       - drush $DRUSH_ALIAS migrate:reset-status va_node_facility_nca
       - drush $DRUSH_ALIAS migrate:import va_node_facility_nca
 
-  va/background/daily_two/migrate/flag_removed_facilities:
+  va/background/daily_0800/migrate/flag_removed_facilities:
     desc: These flagging process is to run once nightly.
     cmds:
       - drush $DRUSH_ALIAS va_gov_migrate:flag-missing-facilities
