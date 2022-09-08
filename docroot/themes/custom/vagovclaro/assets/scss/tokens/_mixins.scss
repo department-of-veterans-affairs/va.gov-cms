@@ -193,8 +193,7 @@
   }
 
   ul {
-    list-style: square;
-    list-style-position: outside;
+    list-style: square outside;
     margin: 0 0 0 1.25em;
     padding: 0;
   }
@@ -207,8 +206,7 @@
 
   /* Links */
 
-  a,
-  a:hover {
+  a {
     color: var(--va-blue-dark);
     text-decoration: underline;
     transition-duration: 0.3s;
@@ -217,8 +215,9 @@
   }
 
   a:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-    color: inherit;
+    background-color: var(--va-blue-lighter);
+    color: var(--va-blue-darker);
+    text-decoration: none;
   }
 
   .field--type-text-long,

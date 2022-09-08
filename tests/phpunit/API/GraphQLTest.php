@@ -6,6 +6,9 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
  * A test to confirm amount of nodes by type.
+ *
+ * @group functional
+ * @group all
  */
 class GraphQLTest extends ExistingSiteBase {
 

@@ -36,8 +36,8 @@ $config['system.performance']['response']['gzip'] = FALSE;
 $config['views.settings']['ui']['show']['sql_query']['enabled'] = TRUE;
 $config['views.settings']['ui']['show']['performance_statistics'] = TRUE;
 $config['system.logging']['error_level'] = 'all';
-$config['environment_indicator.indicator']['bg_color'] = '#533B03'; // dark brown.
-$config['environment_indicator.indicator']['fg_color'] = '#ffffff';
+$config['environment_indicator.indicator']['bg_color'] = '#02BFE7';
+$config['environment_indicator.indicator']['fg_color'] = '#212121';
 $config['environment_indicator.indicator']['name'] = 'Tugboat';
 
 $settings['trusted_host_patterns'] = [
