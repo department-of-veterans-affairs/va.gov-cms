@@ -4,7 +4,7 @@
 
 (($, Drupal) => {
   const displayHours = (value, toggle, table) => {
-    if (toggle.checked) {
+    if (toggle.checked && table) {
       if (toggle.value === value) {
         table.style.display = "block";
         if (value === "0") {
