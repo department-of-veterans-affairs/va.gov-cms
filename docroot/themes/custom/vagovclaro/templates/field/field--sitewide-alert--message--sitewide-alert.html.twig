@@ -1,0 +1,28 @@
+{#
+/**
+ * This template is used when viewing Sitewide Alert message fields.
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ * - attributes: HTML attributes for the container element. This should contain the `data-uuid` attribute needed for
+ *   the loading to work.
+ * - uuid: The UUID of the sitewide alert.
+ * - is_dismissible: True if this alert is dismissable, false otherwise.
+ * - style: The alert style.
+ * - style_class: A style class derived from the style.
+ * - sitewide_alert: The sitewide alert entity.
+ *
+ * @see template_preprocess_sitewide_alert()
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% for item in items %}
+  {% set content = {
+    '#type':   'processed_text',
+    '#text':    item.content["#text"],
+    '#format': 'full_html',
+  } %}
+  <div{{ item.attributes.addClass('field__item') }}>{{ content }}</div>
+{% endfor %}
