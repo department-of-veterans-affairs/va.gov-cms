@@ -1,0 +1,13 @@
+{#
+/**
+ * This template is used when viewing Sitewide Alert message fields.
+ *
+ * @see template_preprocess_sitewide_alert()
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% for item in items %}
+  <div{{ item.attributes.addClass('field__item') }}>{{ item.content["#text"] | raw }}</div>
+{% endfor %}
