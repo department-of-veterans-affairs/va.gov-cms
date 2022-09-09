@@ -51,7 +51,10 @@ class VAFieldOfficeHours extends ProcessPluginBase {
       'saturday' => '6',
       'sunday' => '0',
     ];
+
     foreach ($hours as $day => $hour) {
+      // Remove extra characters and make letters uppercase.
+      $hour = normalize_hours($hour);
       // Strip hour before the - for starthours.
       $start_time = strstr($hour, '-', TRUE);
       // Strip hour after the - for endhours.
@@ -94,6 +97,31 @@ class VAFieldOfficeHours extends ProcessPluginBase {
     return TRUE;
   }
 
+}
+
+/**
+ * Normalizes the hours for further parsing.
+ *
+ * @param string $hour_range
+ *   The string of opening and closing hours for a given day.
+ *
+ * @return string
+ *   A string with extraneous characters and letters capitalized.
+ */
+function normalize_hours($hour_range) {
+  // Set the replacement array with all characters to remove or make uppercase.
+  $replace = [
+    "/^0/"   => "",
+    "/\-0/"  => "",
+    "/\./"   => "",
+    "/\s+/"  => "",
+    "/\:/"   => "",
+    "/\–/"   => "-",
+    "/am/"   => "AM",
+    "/pm/"   => "PM",
+  ];
+  // Clean up the hours, based on the $replace array.
+  return preg_replace(array_keys($replace), array_values(($replace)), $hour_range);
 }
 
 /**
