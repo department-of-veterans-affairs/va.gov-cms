@@ -5,6 +5,7 @@ namespace Drupal\va_gov_lovell\EventSubscriber;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
@@ -14,6 +15,8 @@ use Drupal\menu_link_content\MenuLinkContentInterface;
 use Drupal\node\NodeInterface;
 use Drupal\path_alias\Entity\PathAlias;
 use Drupal\pathauto\PathautoGenerator;
+use Drupal\va_gov_lovell\Event\BreadcrumbPreprocessEvent;
+use Drupal\va_gov_lovell\Variables\BreadcrumbEventVariables;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -37,6 +40,13 @@ class LovellEventSubscriber implements EventSubscriberInterface {
   private $entityTypeManager;
 
   /**
+   * The route match interface.
+   *
+   * @var \Drupal\Core\Routing\RouteMatchInterface
+   */
+  protected $routeMatch;
+
+  /**
    * The pathauto generator.
    *
    * @var \Drupal\pathauto\PathautoGenerator
@@ -56,6 +66,8 @@ class LovellEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\Core\Entity\EntityTypeManager $entityTypeManager
    *   The string entity type service.
+   * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
+   *   Provides an interface for classes representing the result of routing.
    * @param \Drupal\pathauto\PathautoGenerator $pathautoGenerator
    *   The pathauto generator service.
    * @param \Drupal\Core\Messenger\MessengerInterface $messenger
@@ -63,10 +75,12 @@ class LovellEventSubscriber implements EventSubscriberInterface {
    */
   public function __construct(
     EntityTypeManager $entityTypeManager,
+    RouteMatchInterface $route_match,
     PathautoGenerator $pathautoGenerator,
     MessengerInterface $messenger
   ) {
     $this->entityTypeManager = $entityTypeManager;
+    $this->routeMatch = $route_match;
     $this->pathautoGenerator = $pathautoGenerator;
     $this->messenger = $messenger;
   }
@@ -79,6 +93,7 @@ class LovellEventSubscriber implements EventSubscriberInterface {
       EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
       EntityHookEvents::ENTITY_INSERT => 'entityInsert',
       EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
+      BreadcrumbPreprocessEvent::name() => 'preprocessBreadcrumb',
     ];
   }
 
@@ -114,6 +129,17 @@ class LovellEventSubscriber implements EventSubscriberInterface {
   public function entityUpdate(EntityUpdateEvent $event): void {
     $entity = $event->getEntity();
     $this->updatePathAliases($entity);
+  }
+
+  /**
+   * Breadcrumb preprocess Event call.
+   *
+   * @param \Drupal\va_gov_lovell\Event\BreadcrumbPreprocessEvent $event
+   *   The event.
+   */
+  public function preprocessBreadcrumb(BreadcrumbPreprocessEvent $event): void {
+    $variables = $event->getVariables();
+    $this->updateLovellBreadcrumbs($variables);
   }
 
   /**
@@ -162,6 +188,37 @@ class LovellEventSubscriber implements EventSubscriberInterface {
           }
         }
       }
+    }
+  }
+
+  /**
+   * Update breadcrumbs for Lovell content.
+   *
+   * @param \Drupal\va_gov_lovell\Variables\BreadcrumbEventVariables $variables
+   *   BreadcrumbEventVariables.
+   */
+  protected function updateLovellBreadcrumbs(BreadcrumbEventVariables $variables): void {
+    $breadcrumb = $variables->getBreadcrumb();
+    $node = $this->routeMatch->getParameter('node');
+    if (($node instanceof NodeInterface)
+    && ($node->hasField('path'))
+    && ($node->hasField('field_administration'))) {
+      // If this content does not belong to Lovell Tricare do nothing.
+      $section_id = $node->get('field_administration')->target_id;
+      if ($section_id !== '1039') {
+        return;
+      }
+
+      foreach ($breadcrumb as $key => $link) {
+        if (str_contains($link['url'], 'lovell-federal-va-health-care')) {
+          $breadcrumb[$key]['url'] = str_replace('lovell-federal-va-health-care', 'lovell-federal-tricare-health-care', $link['url']);
+          if (is_string($link['text'])) {
+            $breadcrumb[$key]['text'] = str_replace('Lovell Federal VA health care', 'Lovell Federal Tricare health care', $link['text']);
+          }
+        }
+      }
+
+      $variables->set('breadcrumb', $breadcrumb);
     }
   }
 
