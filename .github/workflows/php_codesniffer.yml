@@ -22,7 +22,6 @@ jobs:
           export REVIEWDOG_GITHUB_API_TOKEN="${GITHUB_TOKEN}"
           bin/phpcs \
             --report="${REPORT}" \
-            -v \
             -q \
             ${DIRECTORIES} \
             | reviewdog \
