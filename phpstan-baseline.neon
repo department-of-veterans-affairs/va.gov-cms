@@ -176,6 +176,11 @@ parameters:
 			path: docroot/modules/custom/va_gov_db/va_gov_db.install
 
 		-
+			message: "#^Call to deprecated function _va_gov_db_uninstall_modules#"
+			count: 20
+			path: docroot/modules/custom/va_gov_db/va_gov_db.install
+
+		-
 			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:setChangedTime\\(\\)\\.$#"
 			count: 1
 			path: docroot/modules/custom/va_gov_db/va_gov_db.post_update.php

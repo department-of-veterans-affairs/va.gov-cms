@@ -11,6 +11,9 @@ dependencies:
     - node.type.press_releases_listing
     - node.type.publication_listing
     - node.type.story_listing
+    - node.type.vet_center
+    - node.type.vet_center_cap
+    - node.type.vet_center_outstation
   module:
     - node
     - user
@@ -1057,6 +1060,9 @@ display:
           operator: in
           value:
             health_care_local_facility: health_care_local_facility
+            vet_center: vet_center
+            vet_center_cap: vet_center_cap
+            vet_center_outstation: vet_center_outstation
           group: 1
           exposed: false
           expose:
