@@ -159,26 +159,11 @@ flowchart TD
   A[Module removal] --> B{Is the module installed?}
   B -- Yes --> D[Needs a full uninstall.];
   B -- NO --> C[Create and merge PR that removes module from composer.];
-  D --> E[Create PR with hook_update_N in va_gov_db.install AND Drupal config removal. ];
+  D --> E[Create PR with Drupal config removal.];
   E --> F[Wait until PR makes it to CMS Prod.];
   F --> C;
   C --> Z[Process complete];
 ```
-In va_gov_db.install we use this pattern to uninstall a module.
-
-```php
-/**
- * Uninstall moduile name module.
- */
-function va_gov_db_update_9099(&$sandbox) {
-  $messages = _va_gov_db_uninstall_modules(['module_machine_name']);
-
-  return $messages;
-}
-```
-
-Since our deploy process runs update db before config import this allows for the
-module to be uninstalled and then config changes/removals flow as they should.
 
 
 [Table of Contents](../README.md)
