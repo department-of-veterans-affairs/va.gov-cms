@@ -53,8 +53,10 @@ class VAFieldOfficeHours extends ProcessPluginBase {
     ];
 
     foreach ($hours as $day => $hour) {
-      // Remove extra characters and make letters uppercase.
-      $hour = normalize_hours($hour);
+      // Test $hour for non-contiguous entries, separated by semi-colons.
+      if (preg_match('(\;)', $hour) === 0) {
+        $hour = normalize_hours($hour);
+      }
       // Strip hour before the - for starthours.
       $start_time = strstr($hour, '-', TRUE);
       // Strip hour after the - for endhours.
@@ -111,17 +113,13 @@ class VAFieldOfficeHours extends ProcessPluginBase {
 function normalize_hours($hour_range) {
   // Set the replacement array with all characters to remove or make uppercase.
   $replace = [
-    "/^0/"   => "",
-    "/\-0/"  => "",
-    "/\./"   => "",
-    "/\s+/"  => "",
-    "/\:/"   => "",
+    "/a\.?m\.?/i" => "AM",
+    "/p\.?m\.?/i" => "PM",
     "/\–/"   => "-",
-    "/am/"   => "AM",
-    "/pm/"   => "PM",
+    "/to/"   => "-",
   ];
   // Clean up the hours, based on the $replace array.
-  return preg_replace(array_keys($replace), array_values(($replace)), $hour_range);
+  return $hour_range = preg_replace(array_keys($replace), array_values(($replace)), $hour_range);
 }
 
 /**
