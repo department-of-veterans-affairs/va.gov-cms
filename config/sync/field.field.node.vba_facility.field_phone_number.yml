@@ -1,0 +1,26 @@
+uuid: 0c558bf4-490b-4c33-98bb-ac51c6f10999
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_phone_number
+    - node.type.vba_facility
+  module:
+    - epp
+    - telephone
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: node.vba_facility.field_phone_number
+field_name: field_phone_number
+entity_type: node
+bundle: vba_facility
+label: 'Phone Number'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

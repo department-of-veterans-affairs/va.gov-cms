@@ -1,8 +1,9 @@
-uuid: 7ab7d63d-ae15-47b0-b6fa-f7ea39a90cb3
+uuid: 9fef22f9-6384-40b8-987e-2b47c5ca2643
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.external_content
     - field.field.node.vba_facility.field_address
     - field.field.node.vba_facility.field_administration
     - field.field.node.vba_facility.field_facility_locator_api_id
@@ -16,8 +17,8 @@ dependencies:
   module:
     - address
     - field_group
+    - layout_builder
     - office_hours
-    - options
     - telephone
     - user
 third_party_settings:
@@ -27,9 +28,9 @@ third_party_settings:
         - field_operating_status_facility
         - field_operating_status_more_info
       label: 'Operating status'
-      parent_name: ''
-      region: content
-      weight: 0
+      parent_name: group_locations_and_contact_info
+      region: hidden
+      weight: 3
       format_type: fieldset
       format_settings:
         classes: ''
@@ -40,9 +41,10 @@ third_party_settings:
     group_locations_and_contact_info:
       children:
         - group_facility_data
-      label: 'Locations and contact information'
+        - group_operating_status
+      label: ''
       parent_name: ''
-      region: content
+      region: hidden
       weight: 1
       format_type: fieldset
       format_settings:
@@ -57,25 +59,28 @@ third_party_settings:
         - field_address
         - field_phone_number
         - field_office_hours
-      label: 'Facility data'
+      label: 'Location information'
       parent_name: group_locations_and_contact_info
       region: content
-      weight: 9
+      weight: 0
       format_type: tooltip
       format_settings:
         show_label: '0'
         tooltip_description: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
         description: ''
-        id: external-content
+        id: ''
         classes: not-editable
         show_empty_fields: 0
         element: div
         label_element: h3
         attributes: ''
-id: node.vba_facility.default
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.vba_facility.external_content
 targetEntityType: node
 bundle: vba_facility
-mode: default
+mode: external_content
 content:
   field_address:
     type: address_default
@@ -86,7 +91,7 @@ content:
     region: content
   field_facility_locator_api_id:
     type: string
-    label: inline
+    label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -123,20 +128,6 @@ content:
     third_party_settings: {  }
     weight: 6
     region: content
-  field_operating_status_facility:
-    type: list_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 2
-    region: content
-  field_operating_status_more_info:
-    type: basic_string
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 3
-    region: content
   field_phone_number:
     type: telephone_link
     label: above
@@ -150,6 +141,8 @@ hidden:
   field_administration: true
   field_facility_vba_classificatio: true
   field_geolocation: true
+  field_operating_status_facility: true
+  field_operating_status_more_info: true
   flag_changed_name: true
   flag_changed_title: true
   flag_new: true

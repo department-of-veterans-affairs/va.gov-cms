@@ -12,11 +12,11 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
  * Implements hook_form_alter().
  */
 function va_gov_consumers_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  _vagov_consumers_modify_va_form_fields($form, $form_id, $form_state);
-  _vagov_consumers_modify_vamc_system_fields($form, $form_id, $form_state);
-  _vagov_consumers_modify_vet_center_fields($form, $form_id, $form_state);
-  _vagov_consumers_disable_vha_api_form_fields($form, $form_id);
-  _vagov_consumers_disable_non_vha_facilities_api_form_fields($form, $form_id);
+  _va_gov_consumers_modify_va_form_fields($form, $form_id, $form_state);
+  _va_gov_consumers_modify_vamc_system_fields($form, $form_id, $form_state);
+  _va_gov_consumers_modify_facility_fields($form, $form_id, $form_state);
+  _va_gov_consumers_disable_vha_api_form_fields($form, $form_id);
+  _va_gov_consumers_disable_non_vha_facilities_api_form_fields($form, $form_id);
 }
 
 /**
@@ -39,7 +39,7 @@ function _va_gov_consumers_customize_table($element) {
  * @param string $form_id
  *   The machine name for the form.
  */
-function _vagov_consumers_disable_vha_api_form_fields(array &$form, $form_id) {
+function _va_gov_consumers_disable_vha_api_form_fields(array &$form, $form_id) {
   if ($form_id === 'node_health_care_local_facility_edit_form' || $form_id === 'node_health_care_local_facility_form') {
     if (empty($form['title']['widget'][0]['value']['#default_value'])) {
       $form['title']['widget'][0]['value']['#default_value'] = t('API Data');
@@ -79,7 +79,7 @@ function _va_gov_consumers_return_vet_center_form_names() {
  * @param string $form_id
  *   The machine name for the form.
  */
-function _vagov_consumers_disable_non_vha_facilities_api_form_fields(array &$form, $form_id) {
+function _va_gov_consumers_disable_non_vha_facilities_api_form_fields(array &$form, $form_id) {
   $target_forms = [
     'node_nca_facility_edit_form',
     'node_nca_facility_form',
@@ -125,7 +125,7 @@ function _vagov_consumers_disable_non_vha_facilities_api_form_fields(array &$for
  * @param \Drupal\Core\Form\FormStateInterface $form_state
  *   The form state by reference.
  */
-function _vagov_consumers_modify_va_form_fields(array &$form, $form_id, FormStateInterface &$form_state) {
+function _va_gov_consumers_modify_va_form_fields(array &$form, $form_id, FormStateInterface &$form_state) {
   if ($form_id === 'node_va_form_edit_form' || $form_id === 'node_va_form_form') {
     $node = $form_state->getformObject()->getEntity();
     $title = "<h1>{$node->getTitle()}</h1>";
@@ -169,12 +169,14 @@ function _vagov_consumers_modify_va_form_fields(array &$form, $form_id, FormStat
  * @param \Drupal\Core\Form\FormStateInterface $form_state
  *   The form state by reference.
  */
-function _vagov_consumers_modify_vet_center_fields(array &$form, $form_id, FormStateInterface &$form_state) {
+function _va_gov_consumers_modify_facility_fields(array &$form, $form_id, FormStateInterface &$form_state) {
 
   // We want to modify display of fields for specific form id's.
   $external_content_form_ids = [
     'node_health_care_local_facility_form',
     'node_health_care_local_facility_edit_form',
+    'node_vba_facility_edit_form',
+    'node_vba_facility_form',
     'node_vet_center_form',
     'node_vet_center_edit_form',
     'node_vet_center_mobile_vet_center_form',
@@ -188,9 +190,6 @@ function _vagov_consumers_modify_vet_center_fields(array &$form, $form_id, FormS
     $node = $form_state->getformObject()->getEntity();
     $get_help = '<div id="top-get-help-email">To request a correction or update to this centrally-managed data, <a class="admin-help-email-tpl" href="mailto:api@va.gov?bcc=vadrupalcms@va.gov&subject=Requested updates to [js_entry_facility_name] facility data&body=Dear API team,%0D%0A%0D%0AI would like to request an update to data for my facility.%0D%0A%0D%0AFacility%0D%0AFacility Name: [js_entry_facility_name]%0D%0AFacility ID: [js_entry_facility_id]%0D%0A%0D%0AAffected data%0D%0AThe following type of information needs to be updated:%0D%0A[Add your response here, for example: facility name, address, phone number, etc.]%0D%0A%0D%0ARequested Update%0D%0APlease make the following changes:%0D%0A[Add your response here, for example, \'change street address from 123 Fake Street to 456 Real Street.\']">email an administrator</a>.</div>';
     $title = "<p>{$node->getTitle()}</p>";
-
-    // We want the form name in a different location, so remove it from here.
-    unset($form['field_name_of_facility']);
 
     $form['top_of_page_information'] = [
       '#weight' => 1,
@@ -232,7 +231,7 @@ function _vagov_consumers_modify_vet_center_fields(array &$form, $form_id, FormS
  * @param \Drupal\Core\Form\FormStateInterface $form_state
  *   The form state by reference.
  */
-function _vagov_consumers_modify_vamc_system_fields(array &$form, $form_id, FormStateInterface &$form_state) {
+function _va_gov_consumers_modify_vamc_system_fields(array &$form, $form_id, FormStateInterface &$form_state) {
 
   // We want to modify display of fields for specific form id's.
   $external_content_form_ids = [
@@ -302,6 +301,7 @@ function _va_gov_consumers_disable_external_content_editing(array &$form, FormSt
     // We want to modify display of fields for specific node id's.
     $external_content_node_ids = [
       'health_care_local_facility',
+      'vba_facility',
       'vet_center',
       'vet_center_mobile_vet_center',
       'vet_center_outstation',
@@ -322,7 +322,6 @@ function _va_gov_consumers_disable_external_content_editing(array &$form, FormSt
       unset($form['external_content']);
     }
   }
-
 }
 
 /**
