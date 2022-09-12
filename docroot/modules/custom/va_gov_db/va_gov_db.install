@@ -24,6 +24,13 @@ use Psr\Log\LogLevel;
  * @return string
  *   A message about what requested modules were uninstalled.
  *
+ * @deprecated in va_gov_db:9.1.1 and is removed from va_gov_db:15.1.1 This is
+ *   no longer needed for simple module disables,  It is still appropriate when
+ *   order matters, if multiple uninstalls have a weighting problem. So may
+ *   never be fully removed.
+ *
+ * @see https://github.com/department-of-veterans-affairs/va.gov-cms/pull/10650#issuecomment-1240819457
+ *
  * @throws Drupal\Core\Utility\UpdateException
  */
 function _va_gov_db_uninstall_modules(array $modules, $uninstall_dependents = TRUE) {
