@@ -154,9 +154,8 @@ jobs:
           mkdir -p bin
           ./scripts/install_github_status_updater.sh
           for test_name in "${TEST_NAMES[@]}"; do
-            ./bin/github-status-updater \
+            echo ./bin/github-status-updater \
               -action=update_state \
-              -token="${GITHUB_TOKEN}" \
               -owner="${GITHUB_REPOSITORY_OWNER}" \
               -repo="$(basename ${GITHUB_REPOSITORY})" \
               -ref="${GITHUB_REF}" \
