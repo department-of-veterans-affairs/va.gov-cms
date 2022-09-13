@@ -161,8 +161,7 @@ jobs:
               -repo="$(basename ${GITHUB_REPOSITORY})" \
               -ref="${GITHUB_REF}" \
               -state=pending \
-              -context="${test_name}" \
-              -t
+              -context="${test_name}";
           done
         env:
           # Bash array syntax.
