@@ -164,5 +164,6 @@ jobs:
               -context="${test_name}";
           done
         env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           # Bash array syntax.
           TEST_NAMES: ('va/tests/behat' 'va/tests/cypress' 'va/tests/phplint' 'va/tests/phpunit' 'va/tests/status-error' 'va/tests/content-build-gql')
