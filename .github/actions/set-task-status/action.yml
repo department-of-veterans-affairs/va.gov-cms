@@ -19,6 +19,6 @@ runs:
       # Pinned for security.
       uses: ouzi-dev/commit-status-updater@ce8553fad082977ceadd109fdcbd8ff2fcaf5547
       with:
-        token: ${{ inputs.github_token }}
-        name: ${{ inputs.task_name }}
-        status: ${{ inputs.task_status }}
+        token: ${{ inputs.token }}
+        name: ${{ inputs.name }}
+        status: ${{ inputs.status }}

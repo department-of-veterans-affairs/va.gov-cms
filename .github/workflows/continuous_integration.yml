@@ -158,29 +158,29 @@ jobs:
       #   allowed to perform certain actions on these PRs.
       - uses: ./.github/actions/set-task-status
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.github_token }}
           name: va/tests/behat
       - uses: ./.github/actions/set-task-status
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.github_token }}
           name: va/tests/behat
       - uses: ./.github/actions/set-task-status
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.github_token }}
           name: va/tests/cypress
       - uses: ./.github/actions/set-task-status
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.github_token }}
           name: va/tests/phplint
       - uses: ./.github/actions/set-task-status
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.github_token }}
           name: va/tests/phpunit
       - uses: ./.github/actions/set-task-status
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.github_token }}
           name: va/tests/status-error
       - uses: ./.github/actions/set-task-status
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.github_token }}
           name: va/tests/content-build-gql
