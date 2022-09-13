@@ -154,11 +154,11 @@ jobs:
           mkdir -p bin
           ./scripts/install_github_status_updater.sh
           for test_name in "${TEST_NAMES[@]}"; do
-            echo ./bin/github-status-updater \
+            ./bin/github-status-updater \
               -action=update_state \
               -owner="${GITHUB_REPOSITORY_OWNER}" \
               -repo="$(basename ${GITHUB_REPOSITORY})" \
-              -ref="${GITHUB_REF}" \
+              -ref="${GITHUB_SHA}" \
               -state=pending \
               -context="${test_name}";
           done
