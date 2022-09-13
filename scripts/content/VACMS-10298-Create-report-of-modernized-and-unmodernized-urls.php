@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Print a list of URLs on www.va.gov that aren't in the CMS.
+ */
+
 $sitemap_url = 'https://www.va.gov/sitemap.xml';
 $sitemap_xml = simplexml_load_file($sitemap_url);
 $sitemap_array = json_decode(json_encode($sitemap_xml), TRUE);
@@ -22,8 +27,7 @@ $paths = array_filter($paths, function ($path) {
     && strpos($path, 'events/page') === FALSE
     && strpos($path, 'stories/page') === FALSE
     && strpos($path, 'news-releases/page') === FALSE
-    && strpos($path, '-health-care/status') === FALSE
-  ;
+    && strpos($path, '-health-care/status') === FALSE;
 });
 foreach ($paths as $path) {
   if (!in_array($path, $aliases)) {
