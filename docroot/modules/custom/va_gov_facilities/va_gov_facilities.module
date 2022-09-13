@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\NodeInterface;
 
 /**
  * @file
@@ -24,17 +25,17 @@ function va_gov_facilities_page_attachments(array &$attachments) {
  * Implements hook_preprocess_HOOK().
  */
 function va_gov_facilities_preprocess_field__paragraph__field_hours(&$variables) {
-
+  // The value of the "Use the facility's hours" choice.
+  $use_facility_hours = "0";
   $item_list = $variables['element']['#items'];
   $paragraph = $item_list->getEntity();
   $field_name = "field_hours";
-  // Equates to "Use facility's hours" choice.
   $bundles_referencing_content = [
     'health_care_local_health_service',
     'vha_facility_nonclinical_service',
   ];
-  if ($paragraph->$field_name->value === "0") {
-    $node_parent = _va_gov_facilities_test_preprocess_show($paragraph, $field_name, $bundles_referencing_content);
+  if ($paragraph->$field_name->value === $use_facility_hours) {
+    $node_parent = va_gov_backend_get_node_parent($paragraph);
     if ($node_parent) {
       $related_field = "field_facility_location";
       $field_to_render = "field_office_hours";
@@ -44,40 +45,22 @@ function va_gov_facilities_preprocess_field__paragraph__field_hours(&$variables)
 }
 
 /**
- * Tests to see if we should preprocess.
- *
- * @param object $test_object
- *   Node that we will be testing to see if we should preprocess.
- * @param string $field_name
- *   Name of the field to.
- * @param array $haystack_bundles
- *   Names of bundles to compare against the type of node we have.
- */
-function _va_gov_facilities_test_preprocess_show($test_object, string $field_name, array $haystack_bundles) {
-  $field_value = $test_object->get($field_name)->value;
-  $node_parent = _vagovclaro_get_node_parent($test_object);
-  $node_type = $node_parent->getType();
-  if (in_array($node_type, $haystack_bundles)) {
-    return $node_parent;
-  }
-  else {
-    return FALSE;
-  }
-}
-
-/**
  * Creates custom array for render array.
  *
- * @param object $node
- *   Node.
+ * @param \Drupal\node\NodeInterface $node
+ *   Node that relates to the one whose field we want to render.
  * @param string $related_field
  *   Field that relates our node to another.
  * @param string $field_to_render
  *   Field we want to render.
+ *
+ * @return array
+ *   Render array
  */
-function _va_gov_facilities_create_custom_variable($node, $related_field, $field_to_render) {
+function _va_gov_facilities_create_custom_variable(NodeInterface $node, $related_field, $field_to_render) {
   // @phpstan-ignore-next-line Test is unclear what get() we are using
   $referenced_node = $node->get($related_field)->referencedEntities();
+  $output = [];
   if (isset($referenced_node[0])) {
     $node_entity = $referenced_node[0];
     $value = $node_entity->get($field_to_render);
@@ -85,8 +68,8 @@ function _va_gov_facilities_create_custom_variable($node, $related_field, $field
     $output['#cache']['tags'] = $node_entity->getCacheTags();
     $viewBuilder = \Drupal::entityTypeManager()->getViewBuilder('node');
     $output = $viewBuilder->viewField($value, 'full');
-    return $output;
   }
+  return $output;
 }
 
 /**
