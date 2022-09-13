@@ -30,10 +30,6 @@ function va_gov_facilities_preprocess_field__paragraph__field_hours(&$variables)
   $item_list = $variables['element']['#items'];
   $paragraph = $item_list->getEntity();
   $field_name = "field_hours";
-  $bundles_referencing_content = [
-    'health_care_local_health_service',
-    'vha_facility_nonclinical_service',
-  ];
   if ($paragraph->$field_name->value === $use_facility_hours) {
     $node_parent = va_gov_backend_get_node_parent($paragraph);
     if ($node_parent) {
