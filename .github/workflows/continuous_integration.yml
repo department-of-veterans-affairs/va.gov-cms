@@ -148,22 +148,38 @@ jobs:
     name: Set Tugboat Tests Pending
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Set Tugboat Tests Pending
-        run: |
-          mkdir -p bin
-          ./scripts/install_github_status_updater.sh
-          IFS=';' read -ra test_names <<< "${TEST_NAMES}"
-          for test_name in "${test_names[@]}"; do
-            ./bin/github-status-updater \
-              -action=update_state \
-              -token="${GITHUB_TOKEN}" \
-              -owner="${GITHUB_REPOSITORY_OWNER}" \
-              -repo="$(basename ${GITHUB_REPOSITORY})" \
-              -ref="${GITHUB_SHA}" \
-              -state=pending \
-              -context="${test_name}";
-          done
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          TEST_NAMES: va/tests/behat;va/tests/cypress;va/tests/phplint;va/tests/phpunit;va/tests/status-error;va/tests/content-build-gql
+      # The following is hateful to the eye and mind, but this seems to be
+      # unavoidable at present (September 2022):
+      # - We can't simply loop through steps in GitHub Actions.
+      # - We can use matrix strategies, but that will multiply the tasks and
+      #   create visual noise on every PR.  We can't hide those tasks.
+      # - We can write a simple script and execute that, but it will not be
+      #   allowed to perform certain actions on these PRs.
+      - uses: .github/actions/set-task-status/action.yml
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: va/tests/behat
+      - uses: .github/actions/set-task-status/action.yml
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: va/tests/behat
+      - uses: .github/actions/set-task-status/action.yml
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: va/tests/cypress
+      - uses: .github/actions/set-task-status/action.yml
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: va/tests/phplint
+      - uses: .github/actions/set-task-status/action.yml
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: va/tests/phpunit
+      - uses: .github/actions/set-task-status/action.yml
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: va/tests/status-error
+      - uses: .github/actions/set-task-status/action.yml
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: va/tests/content-build-gql
