@@ -155,31 +155,31 @@ jobs:
       #   create visual noise on every PR.  We can't hide those tasks.
       # - We can write a simple script and execute that, but it will not be
       #   allowed to perform certain actions on these PRs.
-      - uses: .github/actions/set-task-status/action.yml
+      - uses: ./.github/actions/set-task-status/action.yml
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           name: va/tests/behat
-      - uses: .github/actions/set-task-status/action.yml
+      - uses: ./.github/actions/set-task-status/action.yml
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           name: va/tests/behat
-      - uses: .github/actions/set-task-status/action.yml
+      - uses: ./.github/actions/set-task-status/action.yml
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           name: va/tests/cypress
-      - uses: .github/actions/set-task-status/action.yml
+      - uses: ./.github/actions/set-task-status/action.yml
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           name: va/tests/phplint
-      - uses: .github/actions/set-task-status/action.yml
+      - uses: ./.github/actions/set-task-status/action.yml
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           name: va/tests/phpunit
-      - uses: .github/actions/set-task-status/action.yml
+      - uses: ./.github/actions/set-task-status/action.yml
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           name: va/tests/status-error
-      - uses: .github/actions/set-task-status/action.yml
+      - uses: ./.github/actions/set-task-status/action.yml
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           name: va/tests/content-build-gql
