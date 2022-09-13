@@ -148,6 +148,7 @@ jobs:
     name: Set Tugboat Tests Pending
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       # The following is hateful to the eye and mind, but this seems to be
       # unavoidable at present (September 2022):
       # - We can't simply loop through steps in GitHub Actions.
