@@ -1,0 +1,12 @@
+name: Check Fields
+on: [pull_request]
+jobs:
+  check-fields:
+    name: Check Fields
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Check Corresponding Entity Reference Fields
+        run: ./tests/scripts/check-cer.sh
+      - name: Check Revision Log fields
+        run: ./tests/scripts/check-revision-logs.sh

@@ -1,13 +1,11 @@
-name: stylelint-modules
+name: Stylelint Modules
 on: [pull_request]
 jobs:
   stylelint:
-    name: runner / stylelint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: stylelint
-        uses: reviewdog/action-stylelint@v1
+      - uses: reviewdog/action-stylelint@v1
         with:
           fail_on_error: true
           github_token: ${{ secrets.github_token }}
