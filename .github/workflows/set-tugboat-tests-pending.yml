@@ -1,0 +1,34 @@
+# Tugboat tests are not automatically set pending, even though they are
+# required in branch protection rules (see #10553).
+#
+# Therefore, a PR can inappropriately appear to be ready to merge if,
+# for instance, a composer.lock merge conflict prevents the Tugboat
+# preview from successfully building.
+#
+# This action sets these tests pending from a more reliable environment
+# so that we can trust our automated code review processes more.
+
+name: Set Tugboat Tests Pending
+on: [pull_request]
+jobs:
+  set-tugboat-tests-pending:
+    name: runner / set-tugboat-tests-pending
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # Tests performed on Tugboat need to be added here.
+        test_name: 
+          - va/tests/behat
+          - va/tests/cypress
+          - va/tests/phplint
+          - va/tests/phpunit
+          - va/tests/status-error
+          - va/tests/content-build-gql
+    steps:
+      - name: commit-status-updater
+        # https://github.com/ouzi-dev/commit-status-updater/releases/tag/v1.1.2
+        uses: ouzi-dev/commit-status-updater@ce8553fad082977ceadd109fdcbd8ff2fcaf5547
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: ${{ matrix.test_name }}
+          status: pending
