@@ -19,7 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/post-checkout
       - run: composer validate
 
   # Analyze the codebase with GitHub's CodeQL tool.
@@ -27,12 +26,9 @@ jobs:
     name: CodeQL Analyze
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
+    - uses: actions/checkout@v3
+    - uses: github/codeql-action/init@v2
+    - uses: github/codeql-action/analyze@v2
 
   # Check style of ES/JS files with ESLint and ReviewDog.
   eslint:
