@@ -1,9 +1,0 @@
-name: Composer Validate
-on: [pull_request]
-jobs:
-  composer-validate:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/actions/post-checkout
-      - run: composer validate
