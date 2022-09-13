@@ -151,9 +151,10 @@ jobs:
       - uses: actions/checkout@v3
       - name: Set Tugboat Tests Pending
         run: |
+          mkdir -p bin
           ./scripts/install_github_status_updater.sh
           for test_name in "${TEST_NAMES[@]}"; do
-            github-status-updater \
+            ./bin/github-status-updater \
               -action=update_state \
               -token="${GITHUB_TOKEN}" \
               -owner="${GITHUB_REPOSITORY_OWNER}" \
