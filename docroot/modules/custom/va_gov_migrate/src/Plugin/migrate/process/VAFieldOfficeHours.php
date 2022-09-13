@@ -115,8 +115,8 @@ function normalize_hours($hour_range) {
   $replace = [
     "/a\.?m\.?/i" => "AM",
     "/p\.?m\.?/i" => "PM",
-    "/\–/"   => "-",
-    "/to/"   => "-",
+    "/\–/" => "-",
+    "/to/" => "-",
   ];
   // Clean up the hours, based on the $replace array.
   return $hour_range = preg_replace(array_keys($replace), array_values(($replace)), $hour_range);
