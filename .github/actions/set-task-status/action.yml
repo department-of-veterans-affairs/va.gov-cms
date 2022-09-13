@@ -1,13 +1,13 @@
 name: 'VA.gov CMS Set Task Status'
 description: 'Sets a task status.'
 inputs:
-  github_token:
+  token:
     description: 'The GitHub API token.'
     required: true
-  task_name:
+  name:
     description: 'The task name.'
     required: true
-  task_status:
+  status:
     description: 'The task status to set.'
     required: false
     default: 'pending'
