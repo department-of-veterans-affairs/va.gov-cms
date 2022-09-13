@@ -155,7 +155,7 @@ jobs:
           ./scripts/install_github_status_updater.sh
           IFS=';' read -ra test_names <<< "${TEST_NAMES}"
           for test_name in "${test_names[@]}"; do
-            echo ./bin/github-status-updater \
+            ./bin/github-status-updater \
               -action=update_state \
               -owner="${GITHUB_REPOSITORY_OWNER}" \
               -repo="$(basename ${GITHUB_REPOSITORY})" \
