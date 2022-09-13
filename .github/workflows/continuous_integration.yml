@@ -157,6 +157,7 @@ jobs:
           for test_name in "${test_names[@]}"; do
             ./bin/github-status-updater \
               -action=update_state \
+              -token="${GITHUB_TOKEN}" \
               -owner="${GITHUB_REPOSITORY_OWNER}" \
               -repo="$(basename ${GITHUB_REPOSITORY})" \
               -ref="${GITHUB_SHA}" \
