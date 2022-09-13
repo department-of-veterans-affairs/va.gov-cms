@@ -148,6 +148,7 @@ jobs:
     name: Set Tugboat Tests Pending
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - name: Set Tugboat Tests Pending
         run: |
           ./scripts/install_github_status_updater.sh
