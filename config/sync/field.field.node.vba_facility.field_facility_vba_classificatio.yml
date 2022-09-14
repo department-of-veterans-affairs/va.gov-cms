@@ -1,0 +1,26 @@
+uuid: 13c7184c-b0b3-4ef9-bf25-82f95e1e50c9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_facility_vba_classificatio
+    - node.type.vba_facility
+  module:
+    - epp
+    - options
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: node.vba_facility.field_facility_vba_classificatio
+field_name: field_facility_vba_classificatio
+entity_type: node
+bundle: vba_facility
+label: Classification
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

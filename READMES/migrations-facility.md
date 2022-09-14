@@ -13,7 +13,7 @@
 ```mermaid
   graph TD;
     vast[VAST, Access To Care, etc]-- 7:30AM -->fapi;
-    fapi[(Facility API)]-- midnight -->migrations[CMS migrations];
+    fapi[(Facility API)]-- 8:00AM -->migrations[CMS migrations];
     fapi-->fl[[Facility Locator App]];
     teamsite[Teamsite Status Lovell only]-- every 15 min -->migrations;
     migrations-->nodes[Nodes: VAMC, Vet Centers, VBA, NCA];
@@ -23,7 +23,7 @@
 ```
 
 ## Facility Migrations
-Facility migrations occur nightly and the six types of facilities are updated
+Facility migrations occur once per day and the six types of facilities are updated
 with any data from the [Facility API](interfaces.md#facilities-api) including
 the creation of new facilities, updating titles, addresses, etc.  The facility
 is connected to the facility API by its unique "Facility Locator API ID"

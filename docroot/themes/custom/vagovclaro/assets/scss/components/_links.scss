@@ -1,6 +1,6 @@
 .layout-container {
   a {
-    color: #004795;
+    color: var(--va-blue-dark);
     text-decoration: underline;
     transition-duration: 0.3s;
     transition-property: color,background-color,border-color;
@@ -8,15 +8,28 @@
 
     &:hover,
     &:focus {
-      background-color: #e4eff9;
-      color: #003e73;
+      background-color: var(--va-blue-lighter);
+      color: var(--va-blue-darker);
       text-decoration: none;
     }
 
+    &.tabs__link {
+      text-decoration: none;
+    }
+
+    &.action-link.action-link--danger {
+      color: var(--color-white);
+      text-decoration: none;
+
+      &:hover {
+        color: var(--va-red-darker);
+      }
+    }
+
     &.button,
-    &.is-active,
+    &.pager__link.is-active,
     &.feed-icon {
-      color: #fff;
+      color: var(--color-white);
       text-decoration: none;
 
       &:hover,
@@ -27,13 +40,38 @@
     }
   }
 
+  .view-user-admin-people {
+    a {
+      &.button {
+        color: var(--button-fg-color);
+
+        &:hover {
+          background-color: var(--va-gray-button-hover);
+        }
+      }
+    }
+  }
+
   .region-footer {
     a {
-      color: #fff;
+      color: var(--color-white);
 
       &:hover,
       &:focus {
-        color: #003e73;
+        color: var(--va-blue-darker);
+      }
+    }
+  }
+
+  table {
+    a {
+      &.button,
+      &.button:not(:focus) {
+        color: var(--button-fg-color);
+
+        &:hover {
+          background-color: var(--button--hover-bg-color);
+        }
       }
     }
   }
