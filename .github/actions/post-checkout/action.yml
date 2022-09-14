@@ -1,0 +1,33 @@
+name: "VA.gov CMS Post-Checkout"
+description: "Performs common operations after checking out the CMS codebase."
+inputs: {}
+runs:
+  using: "composite"
+  steps:
+
+    - name: Get Composer cache directory
+      id: composer-cache
+      run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+      shell: bash
+
+    - name: Use the Composer cache, if possible
+      uses: actions/cache@v3
+      with:
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-composer-
+
+    - name: Setup the PHP environment
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.4'
+        extensions: dom, curl, libxml, mbstring, zip, pdo, mysql, pdo_mysql, bcmath, gd, exif, iconv
+        tools: composer:v2
+
+    - name: Install PHP packages via Composer
+      run: composer install --no-progress --prefer-dist --optimize-autoloader
+      shell: bash
+
+    - name: Setup ReviewDog
+      uses: reviewdog/action-setup@v1

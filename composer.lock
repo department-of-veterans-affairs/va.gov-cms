@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2b5981d5ab8b4804c2702dee564f82da",
+    "content-hash": "85c6e5bbd8f6c41fa3f46cfd7bbc8184",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -2202,16 +2202,16 @@
         },
         {
             "name": "datadog/dd-trace",
-            "version": "0.78.0",
+            "version": "v0.79.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DataDog/dd-trace-php.git",
-                "reference": "8ffb855d7fbec16c233d99a63ed5a9d2e4eb87e9"
+                "reference": "77e083b943458707e9e464d0e957263caa43b089"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DataDog/dd-trace-php/zipball/8ffb855d7fbec16c233d99a63ed5a9d2e4eb87e9",
-                "reference": "8ffb855d7fbec16c233d99a63ed5a9d2e4eb87e9",
+                "url": "https://api.github.com/repos/DataDog/dd-trace-php/zipball/77e083b943458707e9e464d0e957263caa43b089",
+                "reference": "77e083b943458707e9e464d0e957263caa43b089",
                 "shasum": ""
             },
             "require": {
@@ -2290,9 +2290,9 @@
             ],
             "support": {
                 "issues": "https://github.com/DataDog/dd-trace-php/issues",
-                "source": "https://github.com/DataDog/dd-trace-php/tree/0.78.0"
+                "source": "https://github.com/DataDog/dd-trace-php/tree/v0.79.0"
             },
-            "time": "2022-08-24T10:39:30+00:00"
+            "time": "2022-09-09T08:08:01+00:00"
         },
         {
             "name": "davedevelopment/stiphle",
@@ -2666,16 +2666,16 @@
         },
         {
             "name": "doctrine/collections",
-            "version": "1.7.2",
+            "version": "1.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/collections.git",
-                "reference": "3fe77330f5591108bbf1315da7377a7e704ed8a0"
+                "reference": "09dde3eb237756190f2de738d3c97cff10a8407b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/collections/zipball/3fe77330f5591108bbf1315da7377a7e704ed8a0",
-                "reference": "3fe77330f5591108bbf1315da7377a7e704ed8a0",
+                "url": "https://api.github.com/repos/doctrine/collections/zipball/09dde3eb237756190f2de738d3c97cff10a8407b",
+                "reference": "09dde3eb237756190f2de738d3c97cff10a8407b",
                 "shasum": ""
             },
             "require": {
@@ -2730,9 +2730,9 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/collections/issues",
-                "source": "https://github.com/doctrine/collections/tree/1.7.2"
+                "source": "https://github.com/doctrine/collections/tree/1.7.3"
             },
-            "time": "2022-08-27T16:08:58+00:00"
+            "time": "2022-09-01T19:34:23+00:00"
         },
         {
             "name": "doctrine/deprecations",
@@ -6322,8 +6322,8 @@
                     "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-3.2+9-dev",
-                    "datestamp": "1657477205",
+                    "version": "8.x-3.2+10-dev",
+                    "datestamp": "1662725646",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -6340,16 +6340,16 @@
                     "homepage": "https://www.drupal.org/user/647364"
                 },
                 {
-                    "name": "Stalski",
-                    "homepage": "https://www.drupal.org/user/322618"
-                },
-                {
                     "name": "jyve",
                     "homepage": "https://www.drupal.org/user/591438"
                 },
                 {
                     "name": "nils.destoop",
                     "homepage": "https://www.drupal.org/user/361625"
+                },
+                {
+                    "name": "Stalski",
+                    "homepage": "https://www.drupal.org/user/322618"
                 },
                 {
                     "name": "swentel",
@@ -8395,6 +8395,9 @@
             "require": {
                 "drupal/core": "^8 || ^9"
             },
+            "require-dev": {
+                "drupal/ckeditor": "*"
+            },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
@@ -9277,26 +9280,26 @@
         },
         {
             "name": "drupal/node_link_report",
-            "version": "1.17.0",
+            "version": "1.18.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/node_link_report.git",
-                "reference": "8.x-1.17"
+                "reference": "8.x-1.18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/node_link_report-8.x-1.17.zip",
-                "reference": "8.x-1.17",
-                "shasum": "6724bd3ca20e783f5f2605c1d53b2deac0b4b95b"
+                "url": "https://ftp.drupal.org/files/projects/node_link_report-8.x-1.18.zip",
+                "reference": "8.x-1.18",
+                "shasum": "0565a7c683c4b50f00583c86fbb43335effdc4c7"
             },
             "require": {
-                "drupal/core": "^8 || ^9"
+                "drupal/core": "^9.3 || ^10"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.17",
-                    "datestamp": "1623375656",
+                    "version": "8.x-1.18",
+                    "datestamp": "1663034708",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -11529,26 +11532,26 @@
         },
         {
             "name": "drupal/taxonomy_entity_index",
-            "version": "1.8.0",
+            "version": "1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/taxonomy_entity_index.git",
-                "reference": "8.x-1.8"
+                "reference": "8.x-1.9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/taxonomy_entity_index-8.x-1.8.zip",
-                "reference": "8.x-1.8",
-                "shasum": "9cb55061cf84931b4e36d706b1a1e7db5f1b1320"
+                "url": "https://ftp.drupal.org/files/projects/taxonomy_entity_index-8.x-1.9.zip",
+                "reference": "8.x-1.9",
+                "shasum": "1ddc249cfbce995dc51a45490578922bed8e77f9"
             },
             "require": {
-                "drupal/core": "^8 || ^9"
+                "drupal/core": "^8 || ^9 || ^10"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.8",
-                    "datestamp": "1648771279",
+                    "version": "8.x-1.9",
+                    "datestamp": "1662781957",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -11566,12 +11569,12 @@
             ],
             "authors": [
                 {
-                    "name": "Dave Reid",
-                    "homepage": "https://www.drupal.org/user/53892"
-                },
-                {
                     "name": "cameron prince",
                     "homepage": "https://www.drupal.org/user/1765640"
+                },
+                {
+                    "name": "Dave Reid",
+                    "homepage": "https://www.drupal.org/user/53892"
                 },
                 {
                     "name": "larowlan",
@@ -11885,6 +11888,7 @@
                 "drupal/core": "^8.8 || ^9"
             },
             "require-dev": {
+                "drupal/ckeditor": "*",
                 "drupal/colorbox": "^1.0",
                 "drupal/video_embed_media": "*"
             },
@@ -11905,16 +11909,16 @@
             ],
             "authors": [
                 {
-                    "name": "Sam152",
-                    "homepage": "https://www.drupal.org/user/1485048"
-                },
-                {
                     "name": "jec006",
                     "homepage": "https://www.drupal.org/user/855980"
                 },
                 {
                     "name": "plopesc",
                     "homepage": "https://www.drupal.org/user/282415"
+                },
+                {
+                    "name": "Sam152",
+                    "homepage": "https://www.drupal.org/user/1485048"
                 }
             ],
             "description": "A pluggable field type for storing videos from external video hosts such as Vimeo and YouTube.",
@@ -11947,16 +11951,16 @@
             ],
             "authors": [
                 {
-                    "name": "Sam152",
-                    "homepage": "https://www.drupal.org/user/1485048"
-                },
-                {
                     "name": "jec006",
                     "homepage": "https://www.drupal.org/user/855980"
                 },
                 {
                     "name": "plopesc",
                     "homepage": "https://www.drupal.org/user/282415"
+                },
+                {
+                    "name": "Sam152",
+                    "homepage": "https://www.drupal.org/user/1485048"
                 }
             ],
             "description": "Integrates video_embed_field with the Media module, creating a new media type tailored to display embedded videos. Useful for websites which are using the media suite of modules.",
@@ -12317,29 +12321,32 @@
         },
         {
             "name": "drupal/workbench_access",
-            "version": "1.0.0-beta4",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/workbench_access.git",
-                "reference": "8.x-1.0-beta4"
+                "reference": "8.x-1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/workbench_access-8.x-1.0-beta4.zip",
-                "reference": "8.x-1.0-beta4",
-                "shasum": "8d81c3daef91d89ecb3c0e3823ee0144b37889a8"
+                "url": "https://ftp.drupal.org/files/projects/workbench_access-8.x-1.0.zip",
+                "reference": "8.x-1.0",
+                "shasum": "5c2180d213a3b1eecfbc6870803f4acb37d2d189"
             },
             "require": {
                 "drupal/core": "^8.7.7 || ^9"
             },
+            "require-dev": {
+                "drupal/inline_entity_form": "*"
+            },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0-beta4",
-                    "datestamp": "1591119383",
+                    "version": "8.x-1.0",
+                    "datestamp": "1662476222",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 },
                 "drush": {
@@ -25458,16 +25465,16 @@
         },
         {
             "name": "va-gov/content-build",
-            "version": "v0.0.3095",
+            "version": "v0.0.3097",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/content-build.git",
-                "reference": "aa8b0c54378aab7a2ac332d3c64339f92f9cfff5"
+                "reference": "e9fbd7799244efc61f9adfd2aa0c9c079ec184d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/aa8b0c54378aab7a2ac332d3c64339f92f9cfff5",
-                "reference": "aa8b0c54378aab7a2ac332d3c64339f92f9cfff5",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/e9fbd7799244efc61f9adfd2aa0c9c079ec184d7",
+                "reference": "e9fbd7799244efc61f9adfd2aa0c9c079ec184d7",
                 "shasum": ""
             },
             "type": "node-project",
@@ -25494,9 +25501,9 @@
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/content-build, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
             "support": {
                 "issues": "https://github.com/department-of-veterans-affairs/content-build/issues",
-                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3095"
+                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3097"
             },
-            "time": "2022-09-08T16:19:55+00:00"
+            "time": "2022-09-13T12:59:33+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -25796,7 +25803,7 @@
             },
             "require": {
                 "behat/mink": "^1.8 | 1.7.1 | 1.7.x-dev",
-                "behat/mink-goutte-driver": "^1.2",
+                "behat/mink-goutte-driver": "^1.2 || ^2",
                 "php": ">=7.0.8",
                 "phpunit/phpunit": ">=6.5",
                 "webflo/drupal-finder": "^1.1"
@@ -25809,9 +25816,8 @@
                 "drupal/core-dev": "^9",
                 "drupal/core-recommended": "^9",
                 "drush/drush": "^10",
-                "jakub-onderka/php-parallel-lint": "^1.0",
-                "squizlabs/php_codesniffer": "^3.2",
-                "zaporylie/composer-drupal-optimizations": "^1.0"
+                "php-parallel-lint/php-parallel-lint": "^1.2",
+                "squizlabs/php_codesniffer": "^3.2"
             },
             "default-branch": true,
             "type": "library",
