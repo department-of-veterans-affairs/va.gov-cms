@@ -135,3 +135,52 @@ jobs:
           stylelint_config: '.stylelintrc'
           stylelint_input: 'docroot/themes/custom/**/*.scss'
 
+  # Tugboat tests are not automatically set pending, even though they are
+  # required in branch protection rules (see #10553).
+  #
+  # Therefore, a PR can inappropriately appear to be ready to merge if,
+  # for instance, a composer.lock merge conflict prevents the Tugboat
+  # preview from successfully building.
+  #
+  # This action sets these tests pending from a more reliable environment
+  # so that we can trust our automated code review processes more.
+  set-tugboat-tests-pending:
+    name: Set Tugboat Tests Pending
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      # The following is hateful to the eye and mind, but this seems to be
+      # unavoidable at present (September 2022):
+      # - We can't simply loop through steps in GitHub Actions.
+      # - We can use matrix strategies, but that will multiply the tasks and
+      #   create visual noise on every PR.  We can't hide those tasks.
+      # - We can write a simple script and execute that, but it will not be
+      #   allowed to perform certain actions on these PRs.
+      - uses: ./.github/actions/set-task-status
+        with:
+          token: ${{ secrets.github_token }}
+          name: va/tests/behat
+      - uses: ./.github/actions/set-task-status
+        with:
+          token: ${{ secrets.github_token }}
+          name: va/tests/behat
+      - uses: ./.github/actions/set-task-status
+        with:
+          token: ${{ secrets.github_token }}
+          name: va/tests/cypress
+      - uses: ./.github/actions/set-task-status
+        with:
+          token: ${{ secrets.github_token }}
+          name: va/tests/phplint
+      - uses: ./.github/actions/set-task-status
+        with:
+          token: ${{ secrets.github_token }}
+          name: va/tests/phpunit
+      - uses: ./.github/actions/set-task-status
+        with:
+          token: ${{ secrets.github_token }}
+          name: va/tests/status-error
+      - uses: ./.github/actions/set-task-status
+        with:
+          token: ${{ secrets.github_token }}
+          name: va/tests/content-build-gql
