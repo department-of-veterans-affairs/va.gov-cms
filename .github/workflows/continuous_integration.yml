@@ -55,7 +55,7 @@ jobs:
           bin/phpcs \
             --report="checkstyle" \
             -q \
-           | reviewdog \
+            | reviewdog \
               -name="PHP_CodeSniffer" \
               -f=checkstyle \
               -reporter=github-pr-review \
