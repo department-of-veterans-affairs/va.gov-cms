@@ -78,8 +78,6 @@ jobs:
             --no-interaction \
             --error-format=raw \
             --memory-limit=1G \
-            -q \
-            ${DIRECTORIES} \
             | reviewdog \
               -name="PHPStan" \
               -f=phpstan \
