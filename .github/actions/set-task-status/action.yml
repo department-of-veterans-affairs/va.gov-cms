@@ -1,0 +1,24 @@
+name: 'VA.gov CMS Set Task Status'
+description: 'Sets a task status.'
+inputs:
+  token:
+    description: 'The GitHub API token.'
+    required: true
+  name:
+    description: 'The task name.'
+    required: true
+  status:
+    description: 'The task status to set.'
+    required: false
+    default: 'pending'
+runs:
+  using: 'composite'
+  steps:
+    - name: Set the commit status.
+      # https://github.com/ouzi-dev/commit-status-updater/releases/tag/v1.1.2
+      # Pinned for security.
+      uses: ouzi-dev/commit-status-updater@ce8553fad082977ceadd109fdcbd8ff2fcaf5547
+      with:
+        token: ${{ inputs.token }}
+        name: ${{ inputs.name }}
+        status: ${{ inputs.status }}
