@@ -5,7 +5,7 @@ This is the public/open documentation for the VA.gov Content Management System (
 The VA.gov **CMS** is the backend for www.va.gov. The Frontend (**WEB**) repo is at https://github.com/department-of-veterans-affairs/vets-website/.
 
 ## Contributing to this documentation
-If you find any improvements to make to this documentation & you have push access, please commit your changes directly to the `main` branch. All commits that affect just `*.md` files will be ignored by the automated Continuous Deployment (CD) and will not be tested, so they won't have a commit status posted at https://github.com/department-of-veterans-affairs/va.gov-cms/commits. You **should** prefix your commit with `[docs]` e.g. `[docs] Commit message ...` so that we know why the commit status will be missing. If you don't have push access, you can submit a pull request for review.
+If you find any improvements to make to this documentation & you have push access, please commit your changes directly to the `main` branch. All commits that affect just `*.md` files will be ignored by the automated Continuous Deployment (CD) and will not be tested, so they won't have a [commit status posted](https://github.com/department-of-veterans-affairs/va.gov-cms/commits). Prefix your commit with `[DOCS]` e.g. `[DOCS] Commit message ...` so that we know why the commit status will be missing. You may also need to use the `-n` flag with your commit command to skip usual commit message naming convention checks. If you don't have push access, you can submit a pull request for review.
 
 Thanks,
 
