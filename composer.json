@@ -337,15 +337,12 @@
         "composer-exit-on-patch-failure": true,
         "patches-ignore": {},
         "patches": {
-            "devshop/yaml-tasks": {
-                "Used 'pending' instead of 'queued' for commit status": "patches/yaml-tasks-pending.patch"
-            },
             "drupal/cer": {
                 "3197953-5 - Make d9 compatible": "https://www.drupal.org/files/issues/2021-03-19/cer-3197953-5.patch",
                 "3200122 - Remove delete hook": "https://www.drupal.org/files/issues/2021-02-24/delete-hook-added-in-dev-causes-test-failures.patch"
             },
             "drupal/content_lock": {
-                "Content lock causes redirect response preventing migration rollback.": "https://www.drupal.org/files/issues/2018-08-28/2951652-4.patch"
+                "2951652 - Content lock causes redirect response preventing migration rollback.": "https://www.drupal.org/files/issues/2018-08-28/2951652-4.patch"
             },
             "drupal/core": {
                 "2807629 - Allow menu items which link to unpublished nodes to be selected in the parent item selector": "https://www.drupal.org/files/issues/2021-07-09/2807629-45.patch",
@@ -367,33 +364,34 @@
                 "2421145 - Text format wrapper does not take description_display into account": "https://www.drupal.org/files/issues/2021-12-03/2421445-18_0.patch",
                 "Internal Claro tweaks": "patches/claro-css-tweaks.patch",
                 "3099026 - Claro's preprocessing of field multiple value form's table header cell removes potential changes by others": "https://www.drupal.org/files/issues/2020-02-20/3099026-9.patch",
-                "2767243 - Create a theme suggestion for taxonomy terms by view mode": "https://www.drupal.org/files/issues/core-theme-suggestion-for-taxonomy-view-modes-2767243-14.patch"
+                "2767243 - Create a theme suggestion for taxonomy terms by view mode": "https://www.drupal.org/files/issues/core-theme-suggestion-for-taxonomy-view-modes-2767243-14.patch",
+                "2775665 - MenuLinkContent updateLink function generates a PHP Warning for override-able keys that are not present in the loaded entity": "https://www.drupal.org/files/issues/2021-09-17/updateLink-2775665-14.patch"
             },
             "drupal/danse_content_moderation": {
                 "3309657 - Danse 2.2.7 compatibility": "https://www.drupal.org/files/issues/2022-09-14/3309657-danse-2-2-7-compatibility.patch"
             },
             "drupal/decoupled_router": {
-                "Unable to resolve path on node in other language than default": "https://www.drupal.org/files/issues/2021-05-05/3111456-34.patch"
+                "3111456 - Unable to resolve path on node in other language than default": "https://www.drupal.org/files/issues/2021-05-05/3111456-34.patch"
             },
             "drupal/entity_browser": {
-                "Entity browser cardinality validation": "https://www.drupal.org/files/issues/0001-Issue-2856138-by-gordon-Error-messages-are-not-being.patch",
-                "Make modal iframe tab accessible": "https://www.drupal.org/files/issues/2021-01-07/3191302-3.patch"
+                "2856138 - Entity browser cardinality validation": "https://www.drupal.org/files/issues/0001-Issue-2856138-by-gordon-Error-messages-are-not-being.patch",
+                "3191302 - Make modal iframe tab accessible": "https://www.drupal.org/files/issues/2021-01-07/3191302-3.patch"
             },
             "drupal/entity_browser_table": {
-                "Table drag doesn't work on new entity form, and sort is lost on ajax": "https://www.drupal.org/files/issues/2020-08-25/fix-sort-loss-and-add-form-3166733-2.patch",
-                "Add moderation status column": "https://www.drupal.org/files/issues/2020-08-24/add-moderation-status-3166953-5.patch",
-                "Limit validation checks on remove": "https://www.drupal.org/files/issues/2021-01-25/limit-remove-button-validators.patch"
+                "3166733 - Table drag doesn't work on new entity form, and sort is lost on ajax": "https://www.drupal.org/files/issues/2020-08-25/fix-sort-loss-and-add-form-3166733-2.patch",
+                "3166953 - Add moderation status column": "https://www.drupal.org/files/issues/2020-09-27/add-moderation-status-6.patch",
+                "3194622 - Custom field validation should not be applied to remove button": "https://www.drupal.org/files/issues/2021-01-25/limit-remove-button-validators.patch"
             },
             "drupal/entity_clone": {
-                "Cloning child references to nodes has potential to cause memory resource issues": "https://www.drupal.org/files/issues/2020-02-10/entity_clone-child-node-system-drain-3112577-1.patch"
+                "3112577 - Cloning child references to nodes has potential to cause memory resource issues": "https://www.drupal.org/files/issues/2020-02-10/entity_clone-child-node-system-drain-3112577-1.patch"
             },
             "drupal/entity_reference_revisions": {
-                "2984027 Incorrect manipulation of default revision flag": "https://www.drupal.org/files/issues/2020-09-03/entity_reference_revisions-default_revision-2984027-10.patch"
+                "2984027 - Incorrect manipulation of default revision flag": "https://www.drupal.org/files/issues/2020-09-03/entity_reference_revisions-default_revision-2984027-10.patch"
             },
             "drupal/field_group": {
-                "2787179 Visibility of invalid fields": "https://www.drupal.org/files/issues/2021-01-05/2787179-highlight-html5-validation-59.patch",
-                "1482958-47 Allow field_group with empty fields to be displayed via setting": "https://www.drupal.org/files/issues/2020-06-24/field_group-empty-config-1482958-47.patch",
-                "3053242 Undefined index #description_display when adding a description to fieldset group type": "https://www.drupal.org/files/issues/2022-07-04/field_group-undefined-index-description-display-3053242-11.patch"
+                "2787179 - Visibility of invalid fields": "https://www.drupal.org/files/issues/2021-01-05/2787179-highlight-html5-validation-59.patch",
+                "1482958 - Allow field_group with empty fields to be displayed via setting": "https://www.drupal.org/files/issues/2020-06-24/field_group-empty-config-1482958-47.patch",
+                "3053242 - Undefined index #description_display when adding a description to fieldset group type": "https://www.drupal.org/files/issues/2022-07-04/field_group-undefined-index-description-display-3053242-11.patch"
             },
             "drupal/graphql": {
                 "Fix Explorer with Layout Builder enabled - https://github.com/drupal-graphql/graphql/pull/1144": "patches/graphql_8x3x_layout_builder_incompat.patch",
@@ -404,9 +402,6 @@
             },
             "drupal/html_tag_usage": {
                 "3270450 - Add csv generator and filters": "https://www.drupal.org/files/issues/2022-06-30/add-filters-and-csv-20.patch"
-            },
-            "drupal/ics_field": {
-                "Include end date / time in ICS file.": "https://www.drupal.org/files/issues/2018-10-06/ics_field-2852239-11.patch"
             },
             "drupal/inline_entity_form": {
                 "3226473 - Opt-in system delete.": "https://www.drupal.org/files/issues/2021-08-03/opt-in-systm-delete-3226473-1.patch",
@@ -424,9 +419,6 @@
             "drupal/menu_item_extras": {
                 "3210468 - The 'bundle' field is not always populated with the menu name": "https://www.drupal.org/files/issues/2021-04-23/3210468.patch"
             },
-            "drupal/menu_link_content": {
-                "Fix php warning when creating new items": "https://www.drupal.org/files/issues/updateLink-2775665-2.patch"
-            },
             "drupal/migrate_plus": {
                 "3113461 - Allow properties in str_replace process plugin.": "https://www.drupal.org/files/issues/2020-03-16/migrate_plus-properties_str_replace-2.patch"
             },
@@ -442,8 +434,8 @@
                 "3185778 - Fix TypeError: Cannot read property 'anyOf' of undefined": "https://www.drupal.org/files/issues/2020-12-21/add_required_keyword_8.x_2.x-3185778-5.patch"
             },
             "drupal/paragraphs": {
-                "Fix broken fieldsets on forms": "https://www.drupal.org/files/issues/2020-06-03/3138609-24.patch",
-                "Remove button should not be shown on required field": "https://www.drupal.org/files/issues/2020-05-13/hide_field_required_paragraphs_remove_button_1.patch"
+                "3138609 - Fix broken fieldsets on forms": "https://www.drupal.org/files/issues/2020-06-03/3138609-24.patch",
+                "2919186 - Remove button should not be shown on required field": "https://www.drupal.org/files/issues/2020-05-13/hide_field_required_paragraphs_remove_button_1.patch"
             },
             "drupal/pathauto": {
                 "3204586 - Update URL Alias action is only available for nodes + users and does not work with views_bulk_operations": "https://www.drupal.org/files/issues/2021-03-22/pathauto-add_deriver_for_alias_update_action-3204586-19.patch",
@@ -452,41 +444,35 @@
             "drupal/prometheus_exporter": {
                 "3214628 - Add published/unpublished node statistics to NodeCount.": "https://www.drupal.org/files/issues/2021-06-29/prometheus_exporter-add_status_metrics_to_node_count-3214628-3.patch"
             },
-            "drupal/hide_revision_field": {
-                "Fix whitescreen when editing your own user. https://www.drupal.org/project/hide_revision_field/issues/3018160": "https://www.drupal.org/files/issues/2019-05-15/hide-revision-field-3018160-5-8.x-2.1.patch"
-            },
             "drupal/schemata": {
                 "3198409 - Plugin definitions are not cached": "https://www.drupal.org/files/issues/2021-02-14/3198409_2.patch",
-                "3190131 - Possibly unnecessary logging in SchemaFactory::create(). https://www.drupal.org/project/schemata/issues/3190131": "https://www.drupal.org/files/issues/2020-12-28/schemata-remove-logging-statement-3190131-2.patch"
+                "3190131 - Possibly unnecessary logging in SchemaFactory::create().": "https://www.drupal.org/files/issues/2020-12-28/schemata-remove-logging-statement-3190131-2.patch"
             },
             "drupal/simplesamlphp_auth": {
-                "Don't attempt username sync when user was already matched by username": "https://www.drupal.org/files/issues/2020-07-31/reroll-existing-test-and-logging-fix-2748731-29.patch"
+                "2748731 - Don't attempt username sync when user was already matched by username": "https://www.drupal.org/files/issues/2020-07-31/reroll-existing-test-and-logging-fix-2748731-29.patch"
             },
             "drupal/social_media_links": {
                 "3044002 - Platform Name and Aria Label issue": "https://www.drupal.org/files/issues/2022-03-21/3044002-17.patch"
             },
             "drupal/subrequests": {
-                "Get same results on different request": "https://www.drupal.org/files/issues/2019-07-18/change_request_type-63049395-09.patch"
+                "63049395 - Get same results on different request": "https://www.drupal.org/files/issues/2019-07-18/change_request_type-63049395-09.patch"
             },
             "drupal/smart_date": {
                 "3260965 - Undefined index: #value": "https://www.drupal.org/files/issues/2022-01-27/smart_date_undefined_value_in_validation.patch",
                 "3294350 - Incorrect recurring dates created when using Phoenix timezone": "https://www.drupal.org/files/issues/2022-07-06/smart_date-incorrect-recurr-dates-phoenix-3294350-4.patch"
             },
             "drupal/tablefield": {
-                "0 string value in cell throws empty error": "https://www.drupal.org/files/issues/2019-12-10/0-value-throwing-empty-error.patch",
-                "Fix Undefined index: caption notice": "https://www.drupal.org/files/issues/2020-08-10/tablefield-empty-caption-notice-2.patch",
-                "Tablefield input elements have no title or label": "https://www.drupal.org/files/issues/2020-10-14/tablefield-add_title_to_input_elements-3176982-2.patch",
-                "Copying caption to value breaks some data exports https://www.drupal.org/project/tablefield/issues/3195203": "https://www.drupal.org/files/issues/2021-01-28/tablefield-caption-copied-to-value-3195203-2.patch"
+                "3100109 - 0 string value in cell throws empty error": "https://www.drupal.org/files/issues/2019-12-10/0-value-throwing-empty-error.patch",
+                "3163841 - Fix Undefined index: caption notice": "https://www.drupal.org/files/issues/2020-08-10/tablefield-empty-caption-notice-2.patch",
+                "3176982 - Tablefield input elements have no title or label": "https://www.drupal.org/files/issues/2020-10-14/tablefield-add_title_to_input_elements-3176982-2.patch",
+                "3195203 - Copying caption to value breaks some data exports 3195203": "https://www.drupal.org/files/issues/2021-01-28/tablefield-caption-copied-to-value-3195203-2.patch"
             },
             "drupal/textfield_counter": {
-                "Prevent form submission when character limit exceeded option does not work": "https://www.drupal.org/files/issues/2018-10-04/textfield_counter-prevent_form_submission_does_not_work-3004457-2.patch",
+                "3004457 - Prevent form submission when character limit exceeded option does not work": "https://www.drupal.org/files/issues/2018-10-04/textfield_counter-prevent_form_submission_does_not_work-3004457-2.patch",
                 "3182675 - Incompatibilities with Claro and Claro-based (e.g. Gin) themes": "https://www.drupal.org/files/issues/2022-08-04/textfield-counter-incompatible-with-claro-3182675-10.patch"
             },
             "drupal/viewfield": {
-                "Add option to display default view on node edit when always use default value selected": "https://www.drupal.org/files/issues/2021-12-15/viewfield-option-display-default-view-on-node-edit-3252356-4.patch"
-            },
-            "drupal/workflow_participants": {
-                "Fix revision uncaught type error by extending class.": "https://www.drupal.org/files/issues/2019-08-16/workflow_participants-revision-error-3075426-1.patch"
+                "3252356 - Add option to display default view on node edit when always use default value selected": "https://www.drupal.org/files/issues/2021-12-15/viewfield-option-display-default-view-on-node-edit-3252356-4.patch"
             },
             "traviscarden/behat-table-comparison": {
                 "Throw meaningful message for duplicate entry. See https://github.com/TravisCarden/behat-table-comparison/pull/7": "patches/duplicate-row-message.patch"
@@ -495,7 +481,7 @@
                 "Forbid connection reuse in PHPUnit tests": "patches/weitzman-drupal-test-traits-forbid-connection-reuse.patch"
             },
             "drupal/dropzonejs": {
-                "Select files button and Add media window text should respect field cardinality": "https://www.drupal.org/files/issues/2022-03-29/3174484-add-media-window-and-select-button-text-should-respect-field-cardinality-4.patch"
+                "3174484 - Select files button and Add media window text should respect field cardinality": "https://www.drupal.org/files/issues/2022-03-29/3174484-add-media-window-and-select-button-text-should-respect-field-cardinality-4.patch"
             },
             "drupal/sitewide_alert": {
                 "3290964 - Add drush commands for sitewide alerts": "https://www.drupal.org/files/issues/2022-06-24/3290964-add-drush-commands.patch"
