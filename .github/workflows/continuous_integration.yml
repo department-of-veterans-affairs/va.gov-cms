@@ -144,38 +144,32 @@ jobs:
   #
   # This technique exploits how GitHub Actions are keyed by name to get
   # around this.
-  tugboat_behat:
-    name: va/tests/behat
+  va/tests/behat:
     runs-on: ubuntu-latest
     if: false
     steps:
       - uses: actions/checkout@v3
-  tugboat_cypress:
-    name: va/tests/cypress
+  va/tests/cypress:
     runs-on: ubuntu-latest
     if: false
     steps:
       - uses: actions/checkout@v3
-  tugboat_phplint:
-    name: va/tests/phplint
+  va/tests/phplint:
     runs-on: ubuntu-latest
     if: false
     steps:
       - uses: actions/checkout@v3
-  tugboat_phpunit:
-    name: va/tests/phpunit
+  va/tests/phpunit:
     runs-on: ubuntu-latest
     if: false
     steps:
       - uses: actions/checkout@v3
-  tugboat_status_error:
-    name: va/tests/status-error
+  va/tests/status-error:
     runs-on: ubuntu-latest
     if: false
     steps:
       - uses: actions/checkout@v3
-  tugboat_content_build_gql:
-    name: va/tests/content-build-gql
+  va/tests/content-build-gql:
     runs-on: ubuntu-latest
     if: false
     steps:
