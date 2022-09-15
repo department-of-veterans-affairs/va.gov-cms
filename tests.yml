@@ -9,7 +9,9 @@ output: 'group'
 
 tasks:
 
-  # Any changes to test names or additions or removals must be updated in set-all-tests-pending as well for the Pending status to work.
+  # Any changes to test names or additions or removals must be updated in 
+  # .github/workflows/set-tugboat-tests-pending.yml as well for the 
+  # test to be required effectively.
   va/tests/behat:
     desc: Behat Tests
     cmds:
@@ -162,59 +164,7 @@ tasks:
           fi
         EOF
 
-  set-check-status:
-    cmds:
-      - |
-        if [ "$SKIP_REPORTING" -ne 1 ]; then
-          github-status-updater -action=update_state -state="{{ .STATUS }}" -context="{{ .CONTEXT }}" -description="{{ .DESCRIPTION }}"
-        fi
-
-  set-all-tests-pending:
-    deps:
-
-      # Any changes to test names or additions or removals above must be updated here as well for the Pending status to work.
-      - task: set-check-status
-        vars:
-          STATUS: pending
-          CONTEXT: va/tests/behat
-          DESCRIPTION: 'Behat'
-
-      - task: set-check-status
-        vars:
-          STATUS: pending
-          CONTEXT: va/tests/cypress
-          DESCRIPTION: 'Cypress Accessibility/Behavioral'
-
-      - task: set-check-status
-        vars:
-          STATUS: pending
-          CONTEXT: va/tests/phplint
-          DESCRIPTION: 'PHPLint'
-
-      - task: set-check-status
-        vars:
-          STATUS: pending
-          CONTEXT: va/tests/phpunit
-          DESCRIPTION: 'PHPUnit'
-
-      - task: set-check-status
-        vars:
-          STATUS: pending
-          CONTEXT: va/tests/status-error
-          DESCRIPTION: 'Check for Drupal status errors'
-
-      - task: set-check-status
-        vars:
-          STATUS: pending
-          CONTEXT: va/tests/content-build-gql
-          DESCRIPTION: 'Ensure that the content build graphql queries succeed'
-
   default:
-    cmds:
-      - task: set-all-tests-pending
-      - task: va/tests
-
-  va/tests:
     desc:
     deps:
       - va/tests/behat
