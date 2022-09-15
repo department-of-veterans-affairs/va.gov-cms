@@ -93,7 +93,7 @@ tasks:
     cmds:
       - |
         cd docroot/sites/default/files/migrate_source
-        curl http://vaww.webdevi.va.gov/vaforms/VAForms_DataExtract/VAForms_FormsData.txt --output va_forms_data.csv
+        curl https://vaww.webdevi.va.gov/vaforms/VAForms_DataExtract/VAForms_FormsData.txt -L --output va_forms_data.csv
 
   va/background/daily/migrate/va_forms:
     desc: Migrate va forms.

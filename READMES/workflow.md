@@ -159,7 +159,7 @@ flowchart TD
   A[Module removal] --> B{Is the module installed?}
   B -- Yes --> D[Needs a full uninstall.];
   B -- NO --> C[Create and merge PR that removes module from composer.];
-  D --> E[Create PR with Drupal config removal.];
+  D --> E[Create PR with Drupal config removal. And remove any patches and patch section.];
   E --> F[Wait until PR makes it to CMS Prod.];
   F --> C;
   C --> Z[Process complete];
