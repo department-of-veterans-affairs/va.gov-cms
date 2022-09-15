@@ -17,7 +17,6 @@ jobs:
   set-tugboat-tests-pending:
     name: Set Tugboat Tests Pending
     runs-on: ubuntu-latest
-    if: ${{ github.actor != 'dependabot[bot]' }}
     steps:
       - uses: actions/checkout@v3
 
