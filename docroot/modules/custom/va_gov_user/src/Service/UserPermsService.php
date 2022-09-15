@@ -266,7 +266,7 @@ class UserPermsService {
    *   The entity id.
    * @param string $entity_type
    *   E.g. node, block.
-   * @param \Drupal\core\Session\AccountInterface $account
+   * @param \Drupal\Core\Session\AccountInterface $account
    *   The user id.
    * @param string $target
    *   The target field name.
