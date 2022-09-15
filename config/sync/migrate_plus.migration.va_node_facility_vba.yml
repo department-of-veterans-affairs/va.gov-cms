@@ -30,9 +30,37 @@ source:
   constants: null
   fields:
     -
+      name: address1
+      label: address1
+      selector: properties/address/physical/address_1
+    -
+      name: address2
+      label: address2
+      selector: properties/address/physical/address_2
+    -
+      name: address3
+      label: address3
+      selector: properties/address/physical/address_3
+    -
+      name: city
+      label: city
+      selector: properties/address/physical/city
+    -
+      name: classification
+      label: classification
+      selector: properties/classification
+    -
+      name: coordinates
+      label: coordinates
+      selector: geometry/coordinates
+    -
       name: facility_type
       label: facility_type
       selector: properties/facility_type
+    -
+      name: hours
+      label: hours
+      selector: properties/hours
     -
       name: id
       label: id
@@ -42,9 +70,21 @@ source:
       label: name
       selector: properties/name
     -
-      name: coordinates
-      label: coordinates
-      selector: geometry/coordinates
+      name: phone-main
+      label: phone-main
+      selector: properties/phone/main
+    -
+      name: state
+      label: state
+      selector: properties/address/physical/state
+    -
+      name: zip
+      label: zip
+      selector: properties/address/physical/zip
+    -
+      name: benefits
+      label: benefits
+      selector: properties/services/benefits
 process:
   non_field1:
     plugin: skip_on_value
@@ -66,6 +106,36 @@ process:
   field_administration:
     plugin: default_value
     default_value: 191
+  langcode:
+    plugin: default_value
+    default_value: en
+  field_address/country_code:
+    plugin: default_value
+    default_value: US
+  field_address/langcode:
+    plugin: default_value
+    default_value: en
+  field_address/address_line1:
+    -
+      plugin: get
+      source:
+        - address1
+        - address2
+        - address3
+    -
+      plugin: callback
+      callable: array_filter
+    -
+      plugin: multiple_values
+    -
+      plugin: callback
+      callable: trim
+    -
+      plugin: concat
+      delimiter: ', '
+  field_address/locality: city
+  field_address/administrative_area: state
+  field_address/postal_code: zip
   latitude:
     plugin: extract
     source: coordinates
@@ -81,9 +151,36 @@ process:
     source:
       - '@latitude'
       - '@longitude'
-  langcode:
-    plugin: default_value
-    default_value: en
+  field_office_hours:
+    plugin: va_field_office_hours
+    source: hours
+  field_facility_vba_classificatio:
+    -
+      plugin: static_map
+      source: classification
+      map:
+        'IDES Site': 1
+        'Pre-Discharge Site': 2
+        'Regional Benefit Office': 3
+        'Satellite Office': 4
+        'Seamless Transition Integrated Care Clinic (STICC)': 5
+        'Veteran Readiness and Employment Office': 6
+        'VetSuccess On Campus': 7
+  field_phone_number:
+    -
+      plugin: str_replace
+      source: phone-main
+      search: Ext.
+      replace: x
+    -
+      plugin: explode
+      delimiter: x
+    -
+      plugin: callback
+      callable: trim
+    -
+      plugin: concat
+      delimiter: ' x'
   status:
     plugin: default_value
     default_value: 0
@@ -130,8 +227,16 @@ destination:
   plugin: 'entity:node'
   default_bundle: vba_facility
   overwrite_properties:
+    - field_address/address_line1
+    - field_address/administrative_area
+    - field_address/country_code
+    - field_address/locality
+    - field_address/postal_code
     - field_geolocation
+    - field_office_hours
     - changed
+    - field_facility_vba_classificatio
+    - field_phone_number
     - new_revision
     - revision_default
     - revision_log
