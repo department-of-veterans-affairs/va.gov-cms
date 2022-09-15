@@ -621,8 +621,8 @@
             "if [ -n \"$DRUPAL_ADDRESS\" ]; then echo DRUPAL_ADDRESS=${DRUPAL_ADDRESS} >> web/.env; fi",
             "if ! cat web/.env | grep DRUPAL_ADDRESS > /dev/null; then echo DRUPAL_ADDRESS=https://dev.cms.va.gov >> web/.env; fi"
         ],
-        "va:test:cs": [
-            "phpcs --ignore=*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,user_guides.css,whats_new.css,claro.css,*/node_modules/*,*/simplesaml*/*,graphiql.css --extensions=php,module,inc,install,profile,engine,theme,css --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom tests --colors"
+        "va:test:php_codesniffer": [
+            "phpcs --colors"
         ],
         "va:test:unit": "phpunit tests/phpunit --colors=always --exclude-group=disabled",
         "va:cbf": "phpcbf --ignore=*.md,*.min.css,uswds.css,claro.css,*/node_modules/*,*/simplesaml*/* --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom --colors",

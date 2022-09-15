@@ -53,12 +53,8 @@ jobs:
         run: |
           export REVIEWDOG_GITHUB_API_TOKEN="${GITHUB_TOKEN}"
           bin/phpcs \
-            --standard="${STANDARD}" \
-            --extensions="${EXTENSIONS}" \
-            --report="${REPORT}" \
-            --ignore="${IGNORE}" \
+            --report="checkstyle" \
             -q \
-            ${DIRECTORIES} \
             | reviewdog \
               -name="PHP_CodeSniffer" \
               -f=checkstyle \
@@ -66,11 +62,6 @@ jobs:
               -diff='git diff'
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          STANDARD: './phpcs.xml.dist'
-          EXTENSIONS: 'php,module,inc,install,profile,engine,theme,css'
-          REPORT: 'checkstyle'
-          IGNORE: '*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,user_guides.css,whats_new.css,*/node_modules/*,*/simplesaml*/*,graphiql.css'
-          DIRECTORIES: 'docroot/modules/custom docroot/themes/custom tests'
 
   # Analyze the codebase for programming errors with PHPStan.
   phpstan:
@@ -87,8 +78,6 @@ jobs:
             --no-interaction \
             --error-format=raw \
             --memory-limit=1G \
-            -q \
-            ${DIRECTORIES} \
             | reviewdog \
               -name="PHPStan" \
               -f=phpstan \
@@ -96,11 +85,6 @@ jobs:
               -diff='git diff'
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          STANDARD: './phpcs.xml.dist'
-          EXTENSIONS: 'php,module,inc,install,profile,engine,theme,css'
-          REPORT: 'checkstyle'
-          IGNORE: '*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,user_guides.css,whats_new.css,*/node_modules/*,*/simplesaml*/*,graphiql.css'
-          DIRECTORIES: 'docroot/modules/custom docroot/themes/custom tests'
 
   # Run unit tests against codebase with PHPUnit.
   phpunit:
