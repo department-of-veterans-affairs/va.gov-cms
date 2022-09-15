@@ -99,7 +99,7 @@ function va_gov_media_field_widget_form_alter(&$element, FormStateInterface $for
  */
 function va_gov_media_image_field_widget_process(array $element, FormStateInterface &$form_state, array $form) {
   if (isset($element['alt'])) {
-    $element['alt']['#description'] = t('Alternative text is important for accessibility. Tips for writing alternative text: include a short, specific description of the image. Avoid words such as “image,” "picture," “photo,” or “graphic”. Do not use the file name of the image.');
+    $element['alt']['#description'] = t('Alternative text is important for accessibility. Tips for writing alternative text: include a short, specific description of the image. Avoid words such as "image," "picture," "photo," or "graphic". Do not use the file name of the image.');
   }
 
   // Return the altered element.
