@@ -147,6 +147,8 @@ jobs:
   set-tugboat-tests-pending:
     name: Set Tugboat Tests Pending
     runs-on: ubuntu-latest
+    # Dependabot lacks write permissions, so this task will always fail.
+    if: ${{ github.actor != 'dependabot[bot]' }}
     steps:
       - uses: actions/checkout@v3
       # The following is hateful to the eye and mind, but this seems to be
