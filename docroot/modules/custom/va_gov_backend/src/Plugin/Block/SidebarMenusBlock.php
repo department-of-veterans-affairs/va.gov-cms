@@ -11,6 +11,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\node\NodeInterface;
+use Drupal\path_alias\AliasManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -24,6 +25,13 @@ use Symfony\Component\HttpFoundation\RequestStack;
  * )
  */
 class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInterface {
+  /**
+   * The alias manager interface.
+   *
+   * @var \Drupal\path_alias\AliasManagerInterface
+   */
+  protected $aliasManager;
+
   /**
    * The entity type manager.
    *
@@ -75,6 +83,8 @@ class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInter
    *   The plugin id.
    * @param string $plugin_definition
    *   The plugin definition.
+   * @param \Drupal\path_alias\AliasManagerInterface $alias_manager
+   *   Core path alias manager.
    * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
    *   Provides an interface for classes representing the result of routing.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
@@ -92,6 +102,7 @@ class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInter
     array $configuration,
     $plugin_id,
     $plugin_definition,
+    AliasManagerInterface $alias_manager,
     RouteMatchInterface $route_match,
     EntityTypeManagerInterface $entity_type_manager,
     MenuLinkTree $menu_link_tree,
@@ -100,6 +111,7 @@ class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInter
     RendererInterface $renderer
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->aliasManager = $alias_manager;
     $this->routeMatch = $route_match;
     $this->entityTypeManager = $entity_type_manager;
     $this->menuLinkTree = $menu_link_tree;
@@ -116,6 +128,7 @@ class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInter
       $configuration,
       $plugin_id,
       $plugin_definition,
+      $container->get('path_alias.manager'),
       $container->get('current_route_match'),
       $container->get('entity_type.manager'),
       $container->get('menu.link_tree'),
@@ -159,11 +172,29 @@ class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInter
     // This is the only thing we have to find the menu name.
     $path = $this->requestStack->getCurrentRequest()->getPathInfo();
     $args = explode('/', $path);
-    // Menu machine name and pathname usually differ by "va-" prefix.
-    $menu_name = substr($args[1], 0, 3) === 'va-' ? $args[1] : 'va-' . $args[1];
-    // Pittsburgh is a snowflake.
-    if ($args[1] === 'pittsburgh-health-care') {
-      $menu_name = $args[1];
+
+    // Load the node for the path root.
+    $url = '/' . $args[1];
+    $path = $this->aliasManager->getPathByAlias($url);
+    if (preg_match('/node\/(\d+)/', $path, $matches)) {
+      /** @var \Drupal\node\NodeInterface $node */
+      $node_storage = $this->entityTypeManager->getStorage('node');
+      $node = $node_storage->load($matches[1]);
+      $node_title = $node->getTitle();
+
+      // Lovell is a special case.
+      if ($node_title === 'Lovell Federal TRICARE health care') {
+        $node_title = 'Lovell Federal VA health care';
+      }
+
+      $menu_storage = $this->entityTypeManager->getStorage('menu');
+      $menus = $menu_storage->loadMultiple();
+      foreach ($menus as $menu) {
+        if ($menu->label() === $node_title) {
+          $menu_name = $menu->id();
+          break;
+        }
+      }
     }
     return $menu_name;
   }
