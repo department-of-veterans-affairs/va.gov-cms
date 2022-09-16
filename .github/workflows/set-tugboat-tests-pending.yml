@@ -30,7 +30,7 @@ jobs:
             va/tests/content-build-gql
           )
           for test_name in "${test_names[@]}"; do 
-            echo gh api
+            gh api \
               --method POST \
               -H "Accept: application/vnd.github+json" \
               "/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
