@@ -69,4 +69,4 @@ jobs:
           done;
         env:
           SHA: ${{ github.event.pull_request.head.sha }}
-          GITHUB_TOKEN: ${{ secrets.VA_CMS_BOT_TOKEN }}
+          GH_TOKEN: ${{ secrets.VA_CMS_BOT_TOKEN }}
