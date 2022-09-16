@@ -19,6 +19,36 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
+      # Get the initial AWS IAM User credentials. Only has basic permissions for sts:assumeRole
+      - name: Configure AWS credentials (1)
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-gov-west-1
+
+      # Get credentials from our SSM role. Least privilege method for AWS IAM.
+      - name: Configure AWS Credentials (2)
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-gov-west-1
+          role-to-assume: ${{ secrets.AWS_VAGOV_CMS_PROD_READ_SSM_ROLE }}
+          role-duration-seconds: 900
+          role-session-name: vsp-vagov-cms-githubaction
+
+      # Get VA_CMS_BOT Github token from SSM.
+      # This will be used to set the commit status.
+      - name: Get Parameter
+        uses: marvinpinto/action-inject-ssm-secrets@latest
+        with:
+          ssm_parameter: /cms/va-cms-bot/github_token
+          env_variable_name: VA_CMS_BOT_TOKEN
+
+      # Per Workflow secrets.GITHUB_TOKEN can't set commit status.
+      # Instead lookup and use VA CMS BOT Token to do so.   
       - name: Set status for Tugboat tasks.
         run: |
           test_names=(
@@ -39,4 +69,4 @@ jobs:
           done;
         env:
           SHA: ${{ github.event.pull_request.head.sha }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.VA_CMS_BOT_TOKEN }}
