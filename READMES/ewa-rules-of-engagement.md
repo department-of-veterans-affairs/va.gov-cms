@@ -52,9 +52,9 @@ development environment `ddev composer install`
 `git checkout -b VACMS-1234-branch-name`
 1. add code changes and run `git status` in the same directory to verify your
 changes are detected
-1. run PHPCS check locally before committing
+1. run PHP_CodeSniffer check locally before committing
    * `cd ../../../../ `
-   * `ddev composer va:test:cs`
+   * `ddev composer va:test:php_codesniffer`
    * address errors in `workflow_assignments`, if any
 1. `cd docroot/modules/contrib/workflow_assignments`
 1. commit changes, push to `workflow_assignment` repo -
