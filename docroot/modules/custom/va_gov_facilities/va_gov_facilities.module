@@ -35,7 +35,7 @@ function va_gov_facilities_preprocess_field__paragraph__field_hours(&$variables)
     if ($node_parent) {
       $related_field = "field_facility_location";
       $field_to_render = "field_office_hours";
-      $variables['actual_hours'] = _va_gov_facilities_create_custom_variable($node_parent, $related_field, $field_to_render);
+      $variables['actual_hours'] = _va_gov_facilities_create_custom_array($node_parent, $related_field, $field_to_render);
     }
   }
 }
@@ -53,7 +53,7 @@ function va_gov_facilities_preprocess_field__paragraph__field_hours(&$variables)
  * @return array
  *   Render array
  */
-function _va_gov_facilities_create_custom_variable(NodeInterface $node, $related_field, $field_to_render) {
+function _va_gov_facilities_create_custom_array(NodeInterface $node, $related_field, $field_to_render) {
   // @phpstan-ignore-next-line Test is unclear what get() we are using
   $referenced_node = $node->get($related_field)->referencedEntities();
   $output = [];
@@ -86,7 +86,7 @@ function va_gov_facilities_field_widget_complete_form_alter(&$field_widget_compl
       $widget_list[] = $widget_items[$i];
     }
     foreach ($widget_list as $index => $widget_list_item) {
-      $field_widget_complete_form['widget'][$index]['subform']['field_hours']['facility_hours'] = _va_gov_facilities_create_custom_variable($node, $related_field, $field_to_render);
+      $field_widget_complete_form['widget'][$index]['subform']['field_hours']['facility_hours'] = _va_gov_facilities_create_custom_array($node, $related_field, $field_to_render);
 
     }
   }
