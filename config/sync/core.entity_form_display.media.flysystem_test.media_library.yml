@@ -1,0 +1,20 @@
+uuid: e30f9651-a0b6-43cf-a2ce-5168b9aab350
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.media.media_library
+    - field.field.media.flysystem_test.field_media_file
+    - media.type.flysystem_test
+id: media.flysystem_test.media_library
+targetEntityType: media
+bundle: flysystem_test
+mode: media_library
+content: {  }
+hidden:
+  created: true
+  field_media_file: true
+  name: true
+  path: true
+  status: true
+  uid: true
