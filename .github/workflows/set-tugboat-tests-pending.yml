@@ -3,7 +3,9 @@ on:
   - pull_request_target
 permissions:
   pull-requests: write
+  checks: write
   contents: write
+  statuses: write
 jobs:
   # Tugboat tests are not automatically set pending, even though they are
   # required in branch protection rules (see #10553).
@@ -30,7 +32,7 @@ jobs:
             va/tests/content-build-gql
           )
           for test_name in "${test_names[@]}"; do 
-            gh api
+            gh api \
               --method POST \
               -H "Accept: application/vnd.github+json" \
               "/repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
@@ -39,4 +41,4 @@ jobs:
           done;
         env:
           SHA: ${{ github.event.pull_request.head.sha }}
-          GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
