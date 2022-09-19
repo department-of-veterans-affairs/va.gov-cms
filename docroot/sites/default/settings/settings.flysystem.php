@@ -22,6 +22,8 @@ if (!empty($bucket) && !empty($user_key) && !empty($user_secret)) {
       'secret' => $user_secret,
       'region' => 'us-gov-west-1',
       'bucket' => $bucket,
+      'name' => 'S3 public file storage',
+      'description' => 'This stores files in a publicly readable S3 bucket.',
       'options' => [
         'ACL' => 'public-read',
       ],
