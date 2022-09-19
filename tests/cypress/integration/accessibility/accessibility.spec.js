@@ -47,13 +47,13 @@ const routes = [
   "/dayton-health-care/about-us/leadership",
   // NCA Facility
   "/node/add/nca_facility",
-  "https://prod.cms.va.gov/nca-facilities/locations/fargo-national-cemetery",
+  "/nca-facilities/locations/fargo-national-cemetery",
   // News Release
   "/node/add/press_release",
-  "https://prod.cms.va.gov/orlando-health-care/news-releases/orlando-va-health-care-system-hosts-global-war-on-terrorism-wall-sept-6-15",
+  "/orlando-health-care/news-releases/orlando-va-health-care-system-hosts-global-war-on-terrorism-wall-sept-6-15",
   // News Releases List
   "/central-ohio-health-care/news-releases",
-  "https://prod.cms.va.gov/miami-health-care/news-releases",
+  "/miami-health-care/news-releases",
   // Office
   "/node/add/health_care_local_facility",
   "/vba",
@@ -77,79 +77,79 @@ const routes = [
   "/north-texas-health-care/staff-profiles/nathalee-walker",
   // Step-by-Step
   "/node/add/step_by_step",
-  "https://prod.cms.va.gov/resources/how-to-download-and-open-a-vagov-pdf-form",
+  "/resources/how-to-download-and-open-a-vagov-pdf-form",
   // Stories List
   "/node/add/story_listing",
-  "https://prod.cms.va.gov/white-river-junction-health-care/stories",
+  "/white-river-junction-health-care/stories",
   // Story
   "/node/add/news_story",
-  "https://prod.cms.va.gov/minneapolis-health-care/stories/quit-tobacco-and-enjoy-what-matters-to-you",
+  "/minneapolis-health-care/stories/quit-tobacco-and-enjoy-what-matters-to-you",
   // Support Service
   "/node/add/support_service",
-  "https://prod.cms.va.gov/va-central-office/ask-a-question-online",
+  "/va-central-office/ask-a-question-online",
   // VA Form
   "/node/add/va_form",
-  "https://prod.cms.va.gov/find-forms/about-form-27-2008",
+  "/find-forms/about-form-27-2008",
   // VAMC Detail Page
   "/node/add/health_care_region_detail_page",
-  "https://prod.cms.va.gov/montana-health-care/work-with-us/internships-and-fellowships/psychology-internship-program",
+  "/montana-health-care/work-with-us/internships-and-fellowships/psychology-internship-program",
   // VAMC Facility
   "/node/add/health_care_local_facility",
-  "https://prod.cms.va.gov/san-diego-health-care/locations/oceanside-va-clinic",
+  "/san-diego-health-care/locations/oceanside-va-clinic",
   // VAMC Facility Health Service
   "/node/add/health_care_local_health_service",
-  "https://prod.cms.va.gov/fayetteville-arkansas-health-care/locations/branson-va-clinic/mental-health-care",
+  "/fayetteville-arkansas-health-care/locations/branson-va-clinic/mental-health-care",
   // VAMC Facility Non-Clinical Service
   "/node/add/vha_facility_nonclinical_service",
-  "https://prod.cms.va.gov/boston-health-care/locations/jamaica-plain-va-medical-center/medical-records",
+  "/boston-health-care/locations/jamaica-plain-va-medical-center/medical-records",
   // VAMC System
   "/node/add/health_care_region_page",
-  "https://prod.cms.va.gov/bedford-health-care",
+  "/bedford-health-care",
   // VAMC System Banner Alert with Situation Updates
   "/node/add/full_width_banner_alert",
-  "https://prod.cms.va.gov/va-chillicothe-health-care/vamc-banner-alert/2022-08-10/face-mask-mandates-reinstated",
+  "/va-chillicothe-health-care/vamc-banner-alert/2022-08-10/face-mask-mandates-reinstated",
   // VAMC System Billing and Insurance
   "/node/add/vamc_system_billing_insurance",
-  "https://prod.cms.va.gov/poplar-bluff-health-care/billing-and-insurance",
+  "/poplar-bluff-health-care/billing-and-insurance",
   // VAMC System Health Service
   "/node/add/regional_health_care_service_des",
-  "https://prod.cms.va.gov/montana-health-care/health-services/radiology-at-va-montana-health-care",
+  "/montana-health-care/health-services/radiology-at-va-montana-health-care",
   // VAMC System Locations List
   "/node/add/locations_listing",
-  "https://prod.cms.va.gov/albany-health-care/locations",
+  "/albany-health-care/locations",
   // VAMC System Medical Records Office
   "/node/add/vamc_system_medical_records_offi",
-  "https://prod.cms.va.gov/miami-health-care/medical-records-office",
+  "/miami-health-care/medical-records-office",
   // VAMC System Operating Status
   "/node/add/vamc_operating_status_and_alerts",
-  "https://prod.cms.va.gov/illiana-health-care/operating-status",
+  "/illiana-health-care/operating-status",
   // VAMC System Policies Page
   "/node/add/vamc_system_policies_page",
-  "https://prod.cms.va.gov/tuscaloosa-health-care/policies",
+  "/tuscaloosa-health-care/policies",
   // VAMC System Register for Care
   "/node/add/vamc_system_register_for_care",
-  "https://prod.cms.va.gov/eastern-oklahoma-health-care/register-for-care",
+  "/eastern-oklahoma-health-care/register-for-care",
   // VBA Facility
   "/node/add/vba_facility",
-  "https://prod.cms.va.gov/vba-facilities/locations/sioux-falls-regional-office",
+  "/vba-facilities/locations/sioux-falls-regional-office",
   // Vet Center
   "/node/add/vet_center",
-  "https://prod.cms.va.gov/dubois-vet-center",
+  "/dubois-vet-center",
   // Vet Center - Community Access Point
   "/node/add/vet_center_cap",
-  "https://prod.cms.va.gov/miami-vet-center/community-access-point/miami-vet-center-key-largo",
+  "/miami-vet-center/community-access-point/miami-vet-center-key-largo",
   // Vet Center - Facility Service
   "/node/add/vet_center_facility_health_servi",
-  "https://prod.cms.va.gov/jacksonville-fl-vet-center/service/jacksonville-fl-vet-center-women-veteran-care",
+  "/jacksonville-fl-vet-center/service/jacksonville-fl-vet-center-women-veteran-care",
   // Vet Center - Locations List
   "/node/add/vet_center_locations_list",
-  "https://prod.cms.va.gov/macon-vet-center/locations",
+  "/macon-vet-center/locations",
   // Vet Center - Mobile Vet Center
   "/node/add/vet_center_mobile_vet_center",
-  "https://prod.cms.va.gov/saint-george-vet-center/saint-george-mobile-vet-center",
+  "/saint-george-vet-center/saint-george-mobile-vet-center",
   // Vet Center - Outstation
   "/node/add/vet_center_outstation",
-  "https://prod.cms.va.gov/anchorage-vet-center/kenai-outstation",
+  "/anchorage-vet-center/kenai-outstation",
   // Video List
   "/node/add/media_list_videos",
 
