@@ -5,7 +5,6 @@
  * Contains va_gov_facilities.module.
  */
 
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\NodeInterface;
 
 /**
@@ -66,28 +65,4 @@ function _va_gov_facilities_create_custom_array(NodeInterface $node, $related_fi
     $output = $viewBuilder->viewField($value, 'full');
   }
   return $output;
-}
-
-/**
- * Implements hook_field_widget_widget_complete_form_alter().
- */
-function va_gov_facilities_field_widget_complete_form_alter(&$field_widget_complete_form, FormStateInterface $form_state, $context) {
-  /** @var \Drupal\field\Entity\FieldConfig $field_definition */
-  $field_definition = $context['items']->getFieldDefinition();
-  $paragraph_entity_reference_field_name = $field_definition->getName();
-  if ($paragraph_entity_reference_field_name === "field_service_location") {
-    $item_list = $context['items'];
-    $node = $item_list->getEntity();
-    $related_field = "field_facility_location";
-    $field_to_render = "field_office_hours";
-    $widget_items = $field_widget_complete_form['widget'];
-    $widget_list = [];
-    for ($i = 0; isset($widget_items[$i]); $i++) {
-      $widget_list[] = $widget_items[$i];
-    }
-    foreach ($widget_list as $index => $widget_list_item) {
-      $field_widget_complete_form['widget'][$index]['subform']['field_hours']['facility_hours'] = _va_gov_facilities_create_custom_array($node, $related_field, $field_to_render);
-
-    }
-  }
 }

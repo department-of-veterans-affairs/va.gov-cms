@@ -4,12 +4,15 @@ namespace Drupal\va_gov_facilities\EventSubscriber;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
+use Drupal\field_event_dispatcher\Event\Field\WidgetCompleteFormAlterEvent;
+use Drupal\field_event_dispatcher\FieldHookEvents;
 use Drupal\node\NodeInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -69,6 +72,7 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
     return [
       EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
       EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
+      FieldHookEvents::WIDGET_COMPLETE_FORM_ALTER => 'widgetCompleteFormAlter',
     ];
   }
 
@@ -92,6 +96,46 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
   public function entityUpdate(EntityUpdateEvent $event): void {
     $entity = $event->getEntity();
     $this->archiveRelatedHealthFacilityContent($entity);
+  }
+
+  /**
+   * Widget complete form Event call.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Field\WidgetCompleteFormAlterEvent $event
+   *   The event.
+   */
+  public function widgetCompleteFormAlter(WidgetCompleteFormAlterEvent $event): void {
+    $widgetCompleteForm = &$event->getWidgetCompleteForm();
+    $formState = $event->getFormState();
+    $context = $event->getContext();
+
+    $this->getFacilityHours($widgetCompleteForm, $formState, $context);
+  }
+
+  /**
+   * Gets the facility hours.
+   *
+   * @param array &$widget_complete_form
+   *   The field widget form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   * @param array $context
+   *   The context.
+   */
+  private function getFacilityHours(array &$widget_complete_form, FormStateInterface $form_state, array $context) {
+    /** @var \Drupal\field\Entity\FieldConfig $field_definition */
+    $field_definition = $context['items']->getFieldDefinition();
+    $paragraph_entity_reference_field_name = $field_definition->getName();
+    if ($paragraph_entity_reference_field_name === "field_service_location") {
+      $item_list = $context['items'];
+      $node = $item_list->getEntity();
+      $related_field = "field_facility_location";
+      $field_to_render = "field_office_hours";
+      $widget_items = $widget_complete_form['widget'];
+      for ($i = 0; isset($widget_items[$i]); $i++) {
+        $widget_complete_form['widget'][$i]['subform']['field_hours']['facility_hours'] = _va_gov_facilities_create_custom_array($node, $related_field, $field_to_render);
+      }
+    }
   }
 
   /**
