@@ -13,13 +13,13 @@ const getTableText = (violations) => {
   const tableText = violations
     .map(
       (value, index) =>
-        `|${index}|${value.id}|${value.impact}|${value.description}|`
+        `|${value.route}|${index}|\`${value.id}\`|${value.impact}|${value.description}|${value.target}|${value.nodes}|`
     )
     .join("\n");
   return `<!-- Nate Did This -->
 ## Cypress Accessibility Test Failures
 
-| route | (index) | id | impact | description | nodes | Issue(s) or Resolution |
+| route | (index) | id | impact | description | target | nodes |
 | -- | -- | -- | -- | -- | -- | -- |
 ${tableText}
 
@@ -43,13 +43,13 @@ const reportCypressErrors = async (violations) => {
           octokit.rest.issues.deleteComment({
             owner,
             repo,
-            comment: comment.id,
+            comment_id: comment.id,
           })
         )
       )
     )
     .then(() => {
-      if (text.length > 0) {
+      if (violations.length > 0) {
         return octokit.rest.issues.createComment({
           owner,
           repo,
@@ -60,11 +60,13 @@ const reportCypressErrors = async (violations) => {
     });
 };
 
-const reportAllAccessibilityViolations = (violations) => {
+const reportAllAccessibilityViolations = () => {
   try {
-    const text = fs.readFileSync('error_table.md', 'utf8');
-    reportCypressErrors(text);
+    const json = fs.readFileSync('cypress_errors.json', 'utf8');
+    reportCypressErrors(JSON.parse(json));
   } catch (error) {
     console.error(error);
   }
 };
+
+reportAllAccessibilityViolations();
