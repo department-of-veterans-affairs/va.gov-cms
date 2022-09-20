@@ -191,6 +191,52 @@ ${tableText}
   `;
 };
 
+const reportAccessibilityViolations = async (violations) => {
+  console.log(JSON.stringify(violations));
+  await octokit.rest.issues
+    .listComments({
+      owner,
+      repo,
+      issue_number,
+    })
+    .then((response) => response.data)
+    .then((data) =>
+      data.filter((comment) => comment.body.includes("<!-- Nate Did This -->"))
+    )
+    .then((data) =>
+      Promise.all(
+        data.map((comment) =>
+          octokit.rest.issues.deleteComment({
+            owner,
+            repo,
+            comment: comment.id,
+          })
+        )
+      )
+    )
+    .then(() => {
+      if (violations.length > 0) {
+        return octokit.rest.issues.createComment({
+          owner,
+          repo,
+          issue_number,
+          body: getTableText(violations),
+        });
+      }
+    });
+};
+
+Cypress.Commands.add("reportAllAccessibilityViolations", (violations) => {
+  try {
+    if (owner && repo && issue_number) {
+      reportAccessibilityViolations(violations);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+
 Cypress.Commands.add("accessibilityLog", (violations) => {
   const violationData = violations.map(
     ({ id, impact, description, nodes }) => ({
@@ -202,47 +248,6 @@ Cypress.Commands.add("accessibilityLog", (violations) => {
     })
   );
   cy.task("table", violationData);
-  const reportViolations = async () => {
-    console.log(JSON.stringify(violations));
-    await octokit.rest.issues
-      .listComments({
-        owner,
-        repo,
-        issue_number,
-      })
-      .then((response) => response.data)
-      .then((data) =>
-        data.filter((comment) =>
-          comment.body.includes("<!-- Nate Did This -->")
-        )
-      )
-      .then((data) =>
-        Promise.all(
-          data.map((comment) =>
-            octokit.rest.issues.deleteComment({
-              owner,
-              repo,
-              comment: comment.id,
-            })
-          )
-        )
-      )
-      .then(() => {
-        if (violations.length > 0) {
-          return octokit.rest.issues.createComment({
-            owner,
-            repo,
-            issue_number,
-            body: getTableText(violations),
-          });
-        }
-      });
-  };
-  try {
-    reportViolations();
-  } catch (error) {
-    console.error(error);
-  }
 });
 
 compareSnapshotCommand();

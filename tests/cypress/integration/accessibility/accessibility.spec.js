@@ -1,3 +1,4 @@
+/* eslint-disable max-nested-callbacks */
 const routes = [
   // Home page
   "/",
@@ -193,12 +194,18 @@ const axeRuntimeOptions = {
 };
 
 describe("Component accessibility test", () => {
+  const allViolations = [];
+
   routes.forEach((route) => {
     const testName = `${route} has no detectable accessibility violations on load.`;
-    it(testName, { retries: { runMode: 2 } }, () => {
+    it(testName, () => {
       cy.visit(route);
       cy.injectAxe();
-      cy.checkA11y(axeContext, axeRuntimeOptions, cy.accessibilityLog);
+      cy.checkA11y(axeContext, axeRuntimeOptions, (violations) => {
+        cy.accessibilityLog(violations);
+        allViolations.push(...violations);
+      });
     });
   });
+  cy.reportAllAccessibilityViolations(allViolations);
 });
