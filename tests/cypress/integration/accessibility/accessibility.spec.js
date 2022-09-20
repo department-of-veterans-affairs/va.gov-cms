@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable max-nested-callbacks */
 const routes = [
   // Home page
@@ -193,6 +194,77 @@ const axeRuntimeOptions = {
   },
 };
 
+
+const octokit = new Octokit({
+  auth: process.env.GITHUB_TOKEN,
+});
+
+const owner = process.env.TUGBOAT_GITHUB_OWNER;
+const repo = process.env.TUGBOAT_GITHUB_REPO;
+const issue_number = process.env.TUGBOAT_GITHUB_PR;
+
+const getTableText = (violations) => {
+  const tableText = violations
+    .map(
+      (value, index) =>
+        `|${index}|${value.id}|${value.impact}|${value.description}|`
+    )
+    .join("\n");
+  return `<!-- Nate Did This -->
+## Cypress Accessibility Test Failures
+
+| route | (index) | id | impact | description | nodes | Issue(s) or Resolution |
+| -- | -- | -- | -- | -- | -- | -- |
+${tableText}
+
+  `;
+};
+
+const reportAccessibilityViolations = async (violations) => {
+  console.log(JSON.stringify(violations));
+  await octokit.rest.issues
+    .listComments({
+      owner,
+      repo,
+      issue_number,
+    })
+    .then((response) => response.data)
+    .then((data) =>
+      data.filter((comment) => comment.body.includes("<!-- Nate Did This -->"))
+    )
+    .then((data) =>
+      Promise.all(
+        data.map((comment) =>
+          octokit.rest.issues.deleteComment({
+            owner,
+            repo,
+            comment: comment.id,
+          })
+        )
+      )
+    )
+    .then(() => {
+      if (violations.length > 0) {
+        return octokit.rest.issues.createComment({
+          owner,
+          repo,
+          issue_number,
+          body: getTableText(violations),
+        });
+      }
+    });
+};
+
+const reportAllAccessibilityViolations = (violations) => {
+  try {
+    if (owner && repo && issue_number) {
+      reportAccessibilityViolations(violations);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 describe("Component accessibility test", () => {
   const allViolations = [];
 
@@ -203,9 +275,13 @@ describe("Component accessibility test", () => {
       cy.injectAxe();
       cy.checkA11y(axeContext, axeRuntimeOptions, (violations) => {
         cy.accessibilityLog(violations);
+        violations = violations.map((violation) => {
+          violation.route = route;
+          return violation;
+        });
         allViolations.push(...violations);
       });
     });
   });
-  cy.reportAllAccessibilityViolations(allViolations);
+  reportAllAccessibilityViolations(allViolations);
 });
