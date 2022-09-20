@@ -11,7 +11,8 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 /**
  * Test our requirements of the content moderation system.
  *
- * @group content_moderation
+ * @group functional
+ * @group all
  */
 class ContentModerationTest extends ExistingSiteBase {
 

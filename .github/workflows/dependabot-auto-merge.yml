@@ -21,7 +21,7 @@ jobs:
     
       # Checkout repo to make package allow list available
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         
       # Use a YAML formatted config file to list which dependencies can be auto-merged
       - name: Read list of Allowed Auto-merge Dependencies

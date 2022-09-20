@@ -1,0 +1,30 @@
+uuid: e7caa553-19c8-4af3-912c-ee13db0f089c
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_link_content
+    - options
+id: menu_link_content.field_menu_section
+field_name: field_menu_section
+entity_type: menu_link_content
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: va
+      label: 'Lovell - VA'
+    -
+      value: tricare
+      label: 'Lovell - Tricare'
+    -
+      value: both
+      label: 'Lovell - Both'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

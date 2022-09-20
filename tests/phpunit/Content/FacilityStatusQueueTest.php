@@ -22,6 +22,9 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 /**
  * Functional test of the Facility status queueing for push to Lighthouse.
  *
+ * @group functional
+ * @group all
+ *
  * @coversDefaultClass \Drupal\va_gov_post_api\Service\PostFacilityStatus
  */
 class FacilityStatusQueueTest extends ExistingSiteBase {
@@ -46,6 +49,7 @@ class FacilityStatusQueueTest extends ExistingSiteBase {
   const STATUS_SAME = 'status_same';
   const SUP_STATUS_ONE = 'sup_status_one';
   const SUP_STATUS_TWO = 'sup_status_two';
+  const SECTION_FIELD_NAME = 'field_administration';
   const STATUS_FIELD_NAME = 'field_operating_status_facility';
   const STATUS_FIELD_MORE_INFO_NAME = 'field_operating_status_more_info';
   const SUPPLEMENTAL_STATUS_FIELD_NAME = 'field_supplemental_status';
@@ -110,6 +114,8 @@ class FacilityStatusQueueTest extends ExistingSiteBase {
       $nodeProphecy->get(self::STATUS_FIELD_NAME)->willReturn((object) ['value' => 'a']);
       $nodeProphecy->hasField(self::STATUS_FIELD_MORE_INFO_NAME)->willReturn(TRUE);
       $nodeProphecy->get(self::STATUS_FIELD_MORE_INFO_NAME)->willReturn((object) ['value' => 'a']);
+      $nodeProphecy->hasField(self::SECTION_FIELD_NAME)->willReturn(TRUE);
+      $nodeProphecy->get(self::SECTION_FIELD_NAME)->willReturn((object) ['target_id' => '1']);
       if ($contentType === 'health_care_local_facility') {
         if (!is_null($supplementalStatusChanged)) {
           $nodeProphecy->hasField(self::SUPPLEMENTAL_STATUS_FIELD_NAME)->willReturn(TRUE);

@@ -9,7 +9,9 @@ output: 'group'
 
 tasks:
 
-  # Any changes to test names or additions or removals must be updated in set-all-tests-pending as well for the Pending status to work.
+  # Any changes to test names or additions or removals must be updated in 
+  # .github/workflows/set-tugboat-tests-pending.yml as well for the 
+  # test to be required effectively.
   va/tests/behat:
     desc: Behat Tests
     cmds:
@@ -61,32 +63,6 @@ tasks:
           fi
         EOF
 
-  va/tests/check-cer:
-    desc: Ensure cer fields exist
-    cmds:
-      - |
-        cat <<EOF | bash
-          : "${SKIP_REPORTING:=0}"
-          : "${RETURN_EXIT_CODE:=0}"
-          set -o pipefail
-          output="\$(mktemp -d)/output"
-          mkfifo \$output
-          (cat \$output&)
-          result="{{ .TASK }}:<br/><br/>\$(./tests/scripts/check-cer.sh 2>&1 | tee \$output)"
-          exit_code=\$?
-          if [ "$SKIP_REPORTING" -ne 1 ]; then
-            if [ "\$exit_code" -eq 0 ]; then
-              github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
-            else
-              github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
-              [ "\${GITHUB_COMMENT_TYPE}" == "pr" ] && github-commenter -delete-comment-regex="{{ .TASK }}" -comment="\${result}"
-            fi
-          fi
-          if [ "$RETURN_EXIT_CODE" -ne 0 ]; then
-            exit "\$exit_code";
-          fi
-        EOF
-
   va/tests/phplint:
     desc: PHP Lint
     cmds:
@@ -123,32 +99,7 @@ tasks:
           output="\$(mktemp -d)/output"
           mkfifo \$output
           (cat \$output&)
-          result="\$(time phpunit --exclude-group disabled tests/phpunit --colors=always 2>&1 | tee \$output)"
-          exit_code=\$?
-          if [ "$SKIP_REPORTING" -ne 1 ]; then
-            if [ "\$exit_code" -eq 0 ]; then
-              github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
-            else
-              github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
-            fi
-          fi
-          if [ "$RETURN_EXIT_CODE" -ne 0 ]; then
-            exit "\$exit_code";
-          fi
-        EOF
-
-  va/tests/revision-log:
-    desc: Ensure revision log field is present
-    cmds:
-      - |
-        cat <<EOF | bash
-          : "${SKIP_REPORTING:=0}"
-          : "${RETURN_EXIT_CODE:=0}"
-          set -o pipefail
-          output="\$(mktemp -d)/output"
-          mkfifo \$output
-          (cat \$output&)
-          result="\$(./tests/scripts/check-revision-logs.sh 2>&1 | tee \$output)"
+          result="\$(time phpunit --group functional --exclude-group disabled tests/phpunit --colors=always 2>&1 | tee \$output)"
           exit_code=\$?
           if [ "$SKIP_REPORTING" -ne 1 ]; then
             if [ "\$exit_code" -eq 0 ]; then
@@ -213,78 +164,12 @@ tasks:
           fi
         EOF
 
-  set-check-status:
-    cmds:
-      - |
-        if [ "$SKIP_REPORTING" -ne 1 ]; then
-          github-status-updater -action=update_state -state="{{ .STATUS }}" -context="{{ .CONTEXT }}" -description="{{ .DESCRIPTION }}"
-        fi
-
-  set-all-tests-pending:
-    deps:
-
-      # Any changes to test names or additions or removals above must be updated here as well for the Pending status to work.
-      - task: set-check-status
-        vars:
-          STATUS: pending
-          CONTEXT: va/tests/behat
-          DESCRIPTION: 'Behat'
-
-      - task: set-check-status
-        vars:
-          STATUS: pending
-          CONTEXT: va/tests/cypress
-          DESCRIPTION: 'Cypress Accessibility/Behavioral'
-
-      - task: set-check-status
-        vars:
-          STATUS: pending
-          CONTEXT: va/tests/check-cer
-          DESCRIPTION: 'Ensure cer fields exist'
-
-      - task: set-check-status
-        vars:
-          STATUS: pending
-          CONTEXT: va/tests/phplint
-          DESCRIPTION: 'PHPLint'
-
-      - task: set-check-status
-        vars:
-          STATUS: pending
-          CONTEXT: va/tests/phpunit
-          DESCRIPTION: 'PHPUnit'
-
-      - task: set-check-status
-        vars:
-          STATUS: pending
-          CONTEXT: va/tests/revision-log
-          DESCRIPTION: 'Revision Log'
-
-      - task: set-check-status
-        vars:
-          STATUS: pending
-          CONTEXT: va/tests/status-error
-          DESCRIPTION: 'Check for Drupal status errors'
-
-      - task: set-check-status
-        vars:
-          STATUS: pending
-          CONTEXT: va/tests/content-build-gql
-          DESCRIPTION: 'Ensure that the content build graphql queries succeed'
-
   default:
-    cmds:
-      - task: set-all-tests-pending
-      - task: va/tests
-
-  va/tests:
     desc:
     deps:
       - va/tests/behat
       - va/tests/cypress
-      - va/tests/check-cer
       - va/tests/phplint
       - va/tests/phpunit
-      - va/tests/revision-log
       - va/tests/status-error
       - va/tests/content-build-gql

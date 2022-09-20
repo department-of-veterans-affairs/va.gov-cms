@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.vet_center_outstation.field_address
     - field.field.node.vet_center_outstation.field_administration
     - field.field.node.vet_center_outstation.field_facility_locator_api_id
+    - field.field.node.vet_center_outstation.field_geolocation
     - field.field.node.vet_center_outstation.field_media
     - field.field.node.vet_center_outstation.field_office
     - field.field.node.vet_center_outstation.field_office_hours
@@ -19,6 +20,7 @@ dependencies:
     - address
     - content_moderation
     - field_group
+    - geofield
     - markup
     - media_library
     - office_hours
@@ -122,6 +124,7 @@ third_party_settings:
       children:
         - field_facility_locator_api_id
         - field_address
+        - field_geolocation
         - field_phone_number
         - field_office_hours
       label: 'Facility data'
@@ -165,6 +168,13 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_geolocation:
+    type: geofield_latlon
+    weight: 23
+    region: content
+    settings:
+      html5_geolocation: false
+    third_party_settings: {  }
   field_media:
     type: media_library_widget
     weight: 5
@@ -180,7 +190,7 @@ content:
     third_party_settings: {  }
   field_office_hours:
     type: office_hours_default
-    weight: 24
+    weight: 25
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -205,7 +215,7 @@ content:
     third_party_settings: {  }
   field_phone_number:
     type: telephone_default
-    weight: 23
+    weight: 24
     region: content
     settings:
       placeholder: ''

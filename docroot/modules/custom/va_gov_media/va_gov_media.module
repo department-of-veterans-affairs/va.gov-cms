@@ -9,6 +9,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\FieldableEntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\file\Plugin\Field\FieldType\FileFieldItemList;
+use Drupal\image\Plugin\Field\FieldWidget\ImageWidget;
 
 /**
  * Implements hook_form_FORM_ID_alter().
@@ -54,7 +55,7 @@ function va_gov_media_entity_update(EntityInterface $entity) {
  * Should be removed as part of va.gov-cms#4425 .
  */
 function _va_gov_media_image_style_warmer_warm_up(EntityInterface $entity) {
-  if (!isset($entity) || !($entity instanceof FieldableEntityInterface)) {
+  if (!($entity instanceof FieldableEntityInterface)) {
     return;
   }
   $image_styles_config = \Drupal::configFactory()->get('image_style_warmer.settings');
@@ -71,4 +72,36 @@ function _va_gov_media_image_style_warmer_warm_up(EntityInterface $entity) {
       }
     }
   }
+}
+
+/**
+ * Implements hook_field_widget_form_alter().
+ */
+function va_gov_media_field_widget_form_alter(&$element, FormStateInterface $form_state, $context) {
+  // If this is an image field type of instance.
+  if ($context['widget'] instanceof ImageWidget) {
+    $element['#process'][] = 'va_gov_media_image_field_widget_process';
+  }
+}
+
+/**
+ * Changes the alt text description to be more helpful.
+ *
+ * @param array $element
+ *   The element to change the alt text description.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The form state.
+ * @param array $form
+ *   The form.
+ *
+ * @return array
+ *   The element.
+ */
+function va_gov_media_image_field_widget_process(array $element, FormStateInterface &$form_state, array $form) {
+  if (isset($element['alt'])) {
+    $element['alt']['#description'] = t('Alternative text is important for accessibility. Tips for writing alternative text: include a short, specific description of the image. Avoid words such as "image," "picture," "photo," or "graphic". Do not use the file name of the image.');
+  }
+
+  // Return the altered element.
+  return $element;
 }

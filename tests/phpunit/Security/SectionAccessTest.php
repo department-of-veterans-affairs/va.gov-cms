@@ -8,14 +8,15 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
  * A test to confirm section access permissions.
+ *
+ * @group functional
+ * @group security
+ * @group all
  */
 class SectionAccessTest extends ExistingSiteBase {
 
   /**
    * Test method to confirm section access permissions.
-   *
-   * @group edit
-   * @group all
    *
    * @dataProvider sectionDataProvider
    */

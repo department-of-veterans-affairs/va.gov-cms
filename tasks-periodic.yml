@@ -16,11 +16,6 @@ tasks:
           tasks=(
             va/background/daily/migrate_copy/va_forms_csv_source
             va/background/daily/migrate/va_forms
-            va/background/daily/migrate/health_care_local_facility
-            va/background/daily/migrate/vet_centers_facility
-            va/background/daily/migrate/vba_facility
-            va/background/daily/migrate/nca_facility
-            va/background/daily/migrate/flag_removed_facilities
             va/background/daily/update/taxonomy_entity_index
           )
           trap '{ (( exit_code |=\$? )); }' ERR
@@ -31,6 +26,28 @@ tasks:
           exit \$exit_code;
         EOF
 
+  # Run with: ./bin/task --taskfile=tasks-periodic.yml daily_0800
+  # http://jenkins.vfs.va.gov/job/cms/job/cms-daily-two
+  # Similar to daily but later in the day.
+  daily_0800:
+    cmds:
+      - |
+        cat <<EOF | bash
+          exit_code=0
+          tasks=(
+            va/background/daily_0800/migrate/health_care_local_facility
+            va/background/daily_0800/migrate/vet_centers_facility
+            va/background/daily_0800/migrate/vba_facility
+            va/background/daily_0800/migrate/nca_facility
+            va/background/daily_0800/migrate/flag_removed_facilities
+          )
+          trap '{ (( exit_code |=\$? )); }' ERR
+          for i in "\${tasks[@]}"; do
+            task --taskfile=./tasks-periodic.yml \$i
+          done
+          trap - ERR
+          exit \$exit_code;
+        EOF
   # Run with: ./bin/task --taskfile=tasks-periodic.yml periodic
   # http://jenkins.vfs.va.gov/job/cms/job/cms-periodic
   periodic:
@@ -40,6 +57,7 @@ tasks:
           exit_code=0
           tasks=(
             "va/background/periodic/migrate/facility_status"
+            "va/background/periodic/check_content_release_stale"
             "va/background/periodic/check_scheduled_content_release"
             "va/background/periodic/cron"
           )
@@ -59,6 +77,7 @@ tasks:
         cat <<EOF | bash
           exit_code=0
           tasks=(
+            "va/background/periodic/send_datadog_metrics"
             "va/background/periodic/content_release_queues"
           )
           trap '{ (( exit_code |=\$? )); }' ERR
@@ -74,7 +93,7 @@ tasks:
     cmds:
       - |
         cd docroot/sites/default/files/migrate_source
-        curl http://vaww.webdevi.va.gov/vaforms/VAForms_DataExtract/VAForms_FormsData.txt --output va_forms_data.csv
+        curl https://vaww.webdevi.va.gov/vaforms/VAForms_DataExtract/VAForms_FormsData.txt -L --output va_forms_data.csv
 
   va/background/daily/migrate/va_forms:
     desc: Migrate va forms.
@@ -82,13 +101,18 @@ tasks:
       - drush $DRUSH_ALIAS migrate:reset-status va_node_form
       - drush $DRUSH_ALIAS migrate:import va_node_form
 
-  va/background/daily/migrate/health_care_local_facility:
+  va/background/daily/update/taxonomy_entity_index:
+    desc: Update the taxonomy_entity_index nightly.
+    cmds:
+      - drush $DRUSH_ALIAS taxonomy_entity_index:rebuild
+
+  va/background/daily_0800/migrate/health_care_local_facility:
     desc: These commands are to run nightly.
     cmds:
       - drush $DRUSH_ALIAS migrate:reset-status va_node_health_care_local_facility
       - drush $DRUSH_ALIAS migrate:import va_node_health_care_local_facility
 
-  va/background/daily/migrate/vet_centers_facility:
+  va/background/daily_0800/migrate/vet_centers_facility:
     desc: These commands are to run nightly.
     cmds:
       - drush $DRUSH_ALIAS migrate:reset-status va_node_facility_vet_centers
@@ -98,27 +122,22 @@ tasks:
       - drush $DRUSH_ALIAS migrate:reset-status va_node_facility_vet_centers_os
       - drush $DRUSH_ALIAS migrate:import va_node_facility_vet_centers_os
 
-  va/background/daily/migrate/vba_facility:
+  va/background/daily_0800/migrate/vba_facility:
     desc: These commands are to run nightly.
     cmds:
       - drush $DRUSH_ALIAS migrate:reset-status va_node_facility_vba
       - drush $DRUSH_ALIAS migrate:import va_node_facility_vba
 
-  va/background/daily/migrate/nca_facility:
+  va/background/daily_0800/migrate/nca_facility:
     desc: These commands are to run nightly.
     cmds:
       - drush $DRUSH_ALIAS migrate:reset-status va_node_facility_nca
       - drush $DRUSH_ALIAS migrate:import va_node_facility_nca
 
-  va/background/daily/migrate/flag_removed_facilities:
+  va/background/daily_0800/migrate/flag_removed_facilities:
     desc: These flagging process is to run once nightly.
     cmds:
       - drush $DRUSH_ALIAS va_gov_migrate:flag-missing-facilities
-
-  va/background/daily/update/taxonomy_entity_index:
-    desc: Update the taxonomy_entity_index nightly.
-    cmds:
-      - drush $DRUSH_ALIAS taxonomy_entity_index:rebuild
 
   va/background/periodic/migrate/facility_status:
     desc: Run migrate facility status to run every 15 min as called by Jenkins.
@@ -140,6 +159,16 @@ tasks:
     desc: Ensure scheduled content releases are requested during business hours.
     cmds:
       - drush $DRUSH_ALIAS va-gov:content-release:check-scheduled
+
+  va/background/periodic/check_content_release_stale:
+    desc: Ensure we don't have a stale release state.
+    cmds:
+      - drush $DRUSH_ALIAS va-gov:content-release:check-stale
+
+  va/background/periodic/send_datadog_metrics:
+    desc: Send metrics to datadog.
+    cmds:
+      - drush $DRUSH_ALIAS va-gov:metrics:send
 
   va/noop:
     desc: Placeholder command

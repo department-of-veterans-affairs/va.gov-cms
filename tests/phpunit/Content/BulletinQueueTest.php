@@ -8,6 +8,9 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 
 /**
  * A test to confirm that alerts and situation updates are queued.
+ *
+ * @group functional
+ * @group all
  */
 class BulletinQueueTest extends ExistingSiteBase {
 
@@ -30,7 +33,7 @@ class BulletinQueueTest extends ExistingSiteBase {
    */
   protected function setUp() {
     parent::setUp();
-
+    $this->markTestSkipped('this test is flaky and not working correctly. will be re-enabled in #9839.');
     $this->deleteQueue();
   }
 

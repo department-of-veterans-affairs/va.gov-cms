@@ -5,11 +5,17 @@ dependencies:
   config:
     - field.storage.paragraph.field_section_header
     - paragraphs.paragraphs_type.q_a_group
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
 id: paragraph.q_a_group.field_section_header
 field_name: field_section_header
 entity_type: paragraph
 bundle: q_a_group
-label: 'Section Header'
+label: Header
 description: ''
 required: false
 translatable: true

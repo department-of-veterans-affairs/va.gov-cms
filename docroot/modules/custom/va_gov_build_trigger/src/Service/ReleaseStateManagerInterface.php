@@ -67,4 +67,19 @@ interface ReleaseStateManagerInterface {
    */
   public function resetState() : void;
 
+  /**
+   * Record that a release status notification was received.
+   */
+  public function recordStatusNotification() : void;
+
+  /**
+   * Determine if the release state has gone stale.
+   */
+  public function releaseStateIsStale() : bool;
+
+  /**
+   * Handle an error condition.
+   */
+  public function handleError() : void;
+
 }
