@@ -198,7 +198,7 @@ describe("Component accessibility test", () => {
     it(testName, { retries: { runMode: 2 } }, () => {
       cy.visit(route);
       cy.injectAxe();
-      cy.checkA11y(axeContext, axeRuntimeOptions, cy.terminalLog);
+      cy.checkA11y(axeContext, axeRuntimeOptions, cy.accessibilityLog);
     });
   });
 });
