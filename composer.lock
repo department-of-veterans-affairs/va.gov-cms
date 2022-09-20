@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a3202a464530577a1f2ad8e4427c1b8c",
+    "content-hash": "350e37a66bcb9c2fdbac99bde8a07229",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -8505,26 +8505,30 @@
         },
         {
             "name": "drupal/menu_normalizer",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/menu_normalizer.git",
-                "reference": "2.0.0"
+                "reference": "2.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/menu_normalizer-2.0.0.zip",
-                "reference": "2.0.0",
-                "shasum": "5fd034e1e948c9887670b82a8f1d0692b73889ce"
+                "url": "https://ftp.drupal.org/files/projects/menu_normalizer-2.0.1.zip",
+                "reference": "2.0.1",
+                "shasum": "e56a9ef803e3f2a9950f77c77ec82e57ff93dda7"
             },
             "require": {
-                "drupal/core": "^8 || ^9"
+                "drupal/core": "^9 || ^10"
+            },
+            "require-dev": {
+                "drupal/coder": "^8.3",
+                "phpcompatibility/php-compatibility": "^9.3"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.0.0",
-                    "datestamp": "1591234904",
+                    "version": "2.0.1",
+                    "datestamp": "1663604740",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -8539,12 +8543,17 @@
                 {
                     "name": "davidwbarratt",
                     "homepage": "https://www.drupal.org/user/411675"
+                },
+                {
+                    "name": "wells",
+                    "homepage": "https://www.drupal.org/user/2452278"
                 }
             ],
-            "description": "Normalizer for Menu objects",
-            "homepage": "https://www.drupal.org/project/menu_normalizer",
+            "description": "Menu Normalizer provides normalizers for various menu objects that are missing from Drupal core.",
+            "homepage": "https://drupal.org/project/menu_normalizer",
             "support": {
-                "source": "https://git.drupalcode.org/project/menu_normalizer"
+                "source": "https://git.drupalcode.org/project/menu_normalizer",
+                "issues": "https://drupal.org/project/issues/menu_normalizer"
             }
         },
         {
@@ -25469,7 +25478,7 @@
         },
         {
             "name": "va-gov/content-build",
-            "version": "v0.0.3100",
+            "version": "v0.0.3101",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/content-build.git",
@@ -25505,7 +25514,7 @@
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/content-build, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
             "support": {
                 "issues": "https://github.com/department-of-veterans-affairs/content-build/issues",
-                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3100"
+                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3101"
             },
             "time": "2022-09-15T18:55:59+00:00"
         },
