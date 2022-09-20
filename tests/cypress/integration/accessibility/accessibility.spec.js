@@ -1,3 +1,5 @@
+import { Octokit } from "@octokit/rest";
+
 /* eslint-disable no-console */
 /* eslint-disable max-nested-callbacks */
 const routes = [

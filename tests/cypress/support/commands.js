@@ -4,7 +4,6 @@ import "cypress-axe";
 import "cypress-file-upload";
 import "cypress-real-events/support";
 import "cypress-xpath";
-import { Octokit } from "@octokit/rest";
 
 const compareSnapshotCommand = require("cypress-visual-regression/dist/command");
 
