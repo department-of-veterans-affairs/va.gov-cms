@@ -1,5 +1,5 @@
-const fs = require('fs');
-const { Octokit } = require('@octokit/rest');
+const fs = require("fs");
+const { Octokit } = require("@octokit/rest");
 
 const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
@@ -11,16 +11,16 @@ const issue_number = process.env.TUGBOAT_GITHUB_PR;
 
 const getText = (violations) => {
   const text = violations
-    .map(
-      (value, index) => {
-        **Route**: `${value.route}`
-        **Issue #**: `${index}`
-        **Impact**: ${value.impact}
-        **ID**: `${value.id}`
-        **Target**: `${value.target}`
-        **Nodes**: `${value.nodes}`
-        **Description**: ${value.description}
-      })
+    .map((value, index) => {
+      return `**Route**: \`${value.route}\`
+**Issue #**: ${index}
+**Impact**: ${value.impact}
+**ID**: \`${value.id}\`
+**Target**: \`${value.target}\`
+**Nodes**: \`${value.nodes}\`
+**Description**: ${value.description}
+`;
+    })
     .join("\n");
   return `<!-- Nate Did This -->
 ## Cypress Accessibility Test Failures
@@ -66,7 +66,7 @@ const reportCypressErrors = async (violations) => {
 
 const reportAllAccessibilityViolations = () => {
   try {
-    const json = fs.readFileSync('cypress_errors.json', 'utf8');
+    const json = fs.readFileSync("cypress_errors.json", "utf8");
     reportCypressErrors(JSON.parse(json));
   } catch (error) {
     console.error(error);
