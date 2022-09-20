@@ -194,7 +194,7 @@ The goal for this week is to get you set up with the tools you need to be succes
    - [ ] Mural
    - [ ] Figma (for designers on Sitewide CMS)
    - [ ] Airtable
-   - Review and start getting acquainted with existing design systems.
+   - [ ] Review and start getting acquainted with existing design systems.
 - [ ] Helpful Slack channels to join
    - #accessibility-ops
    - #design
