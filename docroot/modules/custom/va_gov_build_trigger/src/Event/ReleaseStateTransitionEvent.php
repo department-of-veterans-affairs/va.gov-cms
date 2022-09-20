@@ -45,7 +45,6 @@ class ReleaseStateTransitionEvent extends Event {
     if (!$old_state_is_valid || !$new_state_is_valid) {
       throw new \InvalidArgumentException('Invalid release state provided.');
     }
-
     $this->oldReleaseState = $oldReleaseState;
     $this->newReleaseState = $newReleaseState;
   }
