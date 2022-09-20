@@ -9,19 +9,23 @@ const owner = process.env.TUGBOAT_GITHUB_OWNER;
 const repo = process.env.TUGBOAT_GITHUB_REPO;
 const issue_number = process.env.TUGBOAT_GITHUB_PR;
 
-const getTableText = (violations) => {
-  const tableText = violations
+const getText = (violations) => {
+  const text = violations
     .map(
-      (value, index) =>
-        `|${value.route}|${index}|\`${value.id}\`|${value.impact}|${value.description}|${value.target}|${value.nodes}|`
-    )
+      (value, index) => {
+        **Route**: `${value.route}`
+        **Issue #**: `${index}`
+        **Impact**: ${value.impact}
+        **ID**: `${value.id}`
+        **Target**: `${value.target}`
+        **Nodes**: `${value.nodes}`
+        **Description**: ${value.description}
+      })
     .join("\n");
   return `<!-- Nate Did This -->
 ## Cypress Accessibility Test Failures
 
-| route | (index) | id | impact | description | target | nodes |
-| -- | -- | -- | -- | -- | -- | -- |
-${tableText}
+${text}
 
   `;
 };
@@ -54,7 +58,7 @@ const reportCypressErrors = async (violations) => {
           owner,
           repo,
           issue_number,
-          body: getTableText(violations),
+          body: getText(violations),
         });
       }
     });
