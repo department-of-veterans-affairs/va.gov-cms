@@ -195,7 +195,7 @@ const axeRuntimeOptions = {
   },
 };
 
-const violationData = [];
+const allViolations = [];
 
 describe("Component accessibility test", () => {
   routes.forEach((route) => {
@@ -222,5 +222,5 @@ describe("Component accessibility test", () => {
 });
 
 after(() => {
-  cy.writeFile('cypress_errors.json', JSON.stringify(violationData));
+  cy.writeFile('cypress_errors.json', JSON.stringify(allViolations));
 })
