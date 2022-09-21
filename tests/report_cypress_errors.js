@@ -9,16 +9,49 @@ const owner = process.env.TUGBOAT_GITHUB_OWNER;
 const repo = process.env.TUGBOAT_GITHUB_REPO;
 const issue_number = process.env.TUGBOAT_GITHUB_PR;
 
+function escapeHTML(html) {
+  const fn = function (tag) {
+    const charsToReplace = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&#34;",
+    };
+    return charsToReplace[tag] || tag;
+  };
+  return html.replace(/[&<>"]/g, fn);
+}
+
 const getText = (violations) => {
   const text = violations
     .map((value, index) => {
-      return `**Route**: \`${value.route}\`
-**Issue #**: ${index}
-**Impact**: ${value.impact}
+      let nodes = value.nodes
+        .map((node) => {
+          // Don't return results after the first child.
+          if (
+            node.target[0].match(/.*nth-child\(\d+\).*/) &&
+            !node.target[0].match(/.*nth-child\(1\).*/)
+          ) {
+            return "";
+          }
+          return `
+- **HTML**: \`${node.html.replace('\n', '')}\`
+  **Impact**: ${node.impact}
+  **Target**: \`${node.target}\`
+  **Summary**: ${escapeHTML(node.failureSummary)}
+`;
+        })
+        .filter((value) => value.length > 0)
+        .join("\n");
+      return `
+### \`${value.route}\`
 **ID**: \`${value.id}\`
-**Target**: \`${value.target}\`
-**Nodes**: \`${value.nodes}\`
-**Description**: ${value.description}
+**Impact**: ${value.impact}
+**Tags**: \`${value.tags.join(", ")}\`
+**Description**: ${escapeHTML(value.description)}
+**Help**: [${escapeHTML(value.help)}](${value.helpUrl})
+**Nodes**: ${nodes}
+
 `;
     })
     .join("\n");

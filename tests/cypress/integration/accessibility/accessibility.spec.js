@@ -206,13 +206,9 @@ describe("Component accessibility test", () => {
       cy.checkA11y(axeContext, axeRuntimeOptions, (violations) => {
         cy.accessibilityLog(violations);
         const violationData = violations.map(
-          ({ id, impact, description, nodes }) => ({
+          (violation) => ({
             route,
-            id,
-            impact,
-            description,
-            target: nodes[0].target,
-            nodes: nodes.length,
+            ... violation,
           })
         );
         allViolations.push(...violationData);
