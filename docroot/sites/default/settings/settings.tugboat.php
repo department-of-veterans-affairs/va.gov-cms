@@ -80,4 +80,4 @@ if (isset($TUGBOAT_PREVIEW_TYPE) && $TUGBOAT_PREVIEW_TYPE !== 'pullrequest') {
 
 // Settings supporting broken link report import.
 $settings['broken_link_report_import_enabled'] = TRUE;
-$settings['broken_link_report_location'] ='../vendor/va-gov/content-build/logs/vagovdev-broken-links.json';
+$settings['broken_link_report_location'] = '/var/lib/tugboat/docroot/vendor/va-gov/content-build/logs/vagovdev-broken-links.json';
