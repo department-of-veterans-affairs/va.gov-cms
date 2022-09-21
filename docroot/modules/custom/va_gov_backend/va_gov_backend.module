@@ -1889,28 +1889,33 @@ function _va_gov_backend_set_file_type(FieldableEntityInterface $entity) {
 function _va_gov_backend_apply_filter_to_tablefield_cells(FieldableEntityInterface $entity) {
   // We need to make sure this entity is fieldable before we start digging.
   $entity_type = $entity->getEntityTypeId();
-  $sanitized_items = [];
   $field_definitions = Drupal::service('entity_field.manager')->getFieldDefinitions($entity_type, $entity->bundle());
 
   foreach ($field_definitions as $field) {
     if ($field->getType() === 'tablefield') {
       $field_name = $field->getName();
-      $raw_table = $entity->get($field_name)->value;
+      try {
+        $values = $entity->get($field_name)->first()->getValue();
+      } catch (\Drupal\Core\TypedData\Exception\MissingDataException $e) {
+        // No field data, return early.
+        return;
+      }
+      $raw_table = $values['value'] ?? [];
       $format = $entity->get($field_name)->format ?? 'plain_text';
       if (!empty($raw_table) && is_array($raw_table)) {
         foreach ($raw_table as $row_key => $row_item) {
           if (is_array($row_item)) {
             foreach ($row_item as $cell_key => $cell_item) {
               $clean_html = check_markup($cell_item, $format, '', ['autop']);
-              $sanitized_items['value'][$row_key][$cell_key] = (string) $clean_html;
+              $values['value'][$row_key][$cell_key] = (string) $clean_html;
             }
           }
         }
 
         // Tablefield caption does not support html.
-        $sanitized_items['caption'] = strip_tags(trim($entity->get($field_name)->caption));
-        $sanitized_items['format'] = $format;
-        $entity->$field_name->setValue($sanitized_items);
+        $values['caption'] = strip_tags(trim($entity->get($field_name)->caption));
+        $values['format'] = $format;
+        $entity->$field_name->setValue($values);
       }
     }
   }
