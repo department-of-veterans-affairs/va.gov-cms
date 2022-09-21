@@ -5,7 +5,6 @@ const routes = [
   "/",
 
   // Add/Edit and View versions for each content type:
-/*
   // Admin pages
   "/admin",
   "/admin/content",
@@ -146,7 +145,6 @@ const routes = [
   // Vet Center - Locations List
   "/node/add/vet_center_locations_list",
   "/macon-vet-center/locations",
-*/
   // Vet Center - Mobile Vet Center
   "/node/add/vet_center_mobile_vet_center",
   "/saint-george-vet-center/saint-george-mobile-vet-center",
