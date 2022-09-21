@@ -1,10 +1,11 @@
 # VA.gov CMS
 
-This is the public/open documentation for the VA.gov Content Management System (CMS). The private/sensitive documentation is [here](https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/tree/master/platform/cms). Follow [sensitive-guidance.md](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/policies-work-norms/sensitive-guidance.md) to know what should be public vs private (we follow the U.S. Digital Services Playbook and [default to open/public](https://playbook.cio.gov/#play13)).
+This is the public/open documentation for the VA.gov Content Management System (CMS). The private/sensitive documentation is [here](https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/tree/master/platform/cms). See [sensitive-guidance.md](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/policies-work-norms/sensitive-guidance.md) to read about what should be public vs. private. We follow the U.S. Digital Services Playbook and [default to open/public](https://playbook.cio.gov/#play13)).
 
-The VA.gov CMS is the backend for www.va.gov. Frontend repo is at https://github.com/department-of-veterans-affairs/vets-website/.
+The VA.gov **CMS** is the backend for www.va.gov. The Frontend (**WEB**) repo is at https://github.com/department-of-veterans-affairs/vets-website/.
 
-If you find any improvements to make to this documentation & you have push access then please commit your changes directly to the `main` branch. All commits that affect just `*.md` files will be ignored by the automated Continuous Deployment (CD) and not be tested so they won't have a commit status posted at https://github.com/department-of-veterans-affairs/va.gov-cms/commits. You SHOULD prefix your commit with `[docs]` e.g. `[docs] Commit message ...` so that we know why the commit status will be missing. If you don't have push access, you can submit a pull request for review.
+## Contributing to this documentation
+If you find any improvements to make to this documentation and you have push access, please commit your changes directly to the `main` branch. Prefix your commit with `[DOCS]` e.g. `[DOCS] Commit message ...`. You may also need to use the `-n` flag with your commit command to skip usual commit message naming convention checks. If you don't have push access, you can submit a pull request for review.
 
 Thanks,
 
@@ -29,7 +30,7 @@ The VA.gov CMS Team
       1. [HTTPS](READMES/https.md)
       1. [Environment Variables](READMES/environment-variables.md)
       1. [Kubernetes](READMES/kubernetes.md)
-   1. [Quality Assurance](READMES/qa.md)
+   1. [Quality Assurance (QA)](READMES/qa.md)
    1. [Testing](READMES/testing.md)
    1. [Debugging](READMES/debugging.md)
    1. [Code Review](READMES/code-review.md)
@@ -38,7 +39,7 @@ The VA.gov CMS Team
 1. **Release & Deployment**
    1. [The BRD System: Build, Release, Deploy](READMES/brd.md)
    1. [CMS Release Process](READMES/brd.md#cms-release-process)
-   1. [CMS-CI Release Process](READMES/brd.md#cmsci-release-process)
+   1. [CMS-CI Release Process (TODO)](READMES/brd.md#cmsci-release-process)
 1. **Architecture**
    1. Overview
    1. Drupal
@@ -97,7 +98,7 @@ All development on these projects is done via Pull Requests.
 
 ### High-Level Architecture
 
-The public website seen at [VA.gov](https://www.va.gov) is a static site hosted on S3: just HTML, CSS, JavaScript and images.
+The public website seen at [VA.gov](https://www.va.gov) is a static site hosted on [S3](https://aws.amazon.com/pm/serv-s3/?trk=1c5ba169-86e9-4c61-8c90-c507636ad817&sc_channel=ps&s_kwcid=AL!4422!3!536394481108!e!!g!!s3%20static%20website%20hosting&ef_id=Cj0KCQjwmouZBhDSARIsALYcoup2OtRYxuY4SDZo_wfXk2sLJ_yE6KSfdfOdnpjTklSsHfdu2YZr6LUaAuLgEALw_wcB:G:s&s_kwcid=AL!4422!3!536394481108!e!!g!!s3%20static%20website%20hosting): just HTML, CSS, JavaScript and images.
 
 The source code used to generate the public site is called _vets-website_ or _Front-end_ or **WEB**, and is available
 at [github.com/department-of-veterans-affairs/vets-website](https://github.com/department-of-veterans-affairs/vets-website).
@@ -116,12 +117,12 @@ downloaded to the `./web` folder during `composer install`.
 When the content and code updates are ready for release, the **WEB** Build process is kicked off, it reads
 content from the [CMS](https://cms.va.gov) via GraphQL (and other locations), and outputs HTML, CSS, JavaScript and images.
 
-See [WEB & CMS Integration](READMES/unity.md) for full details on how the WEB and CMS projects work together.
+Pull requests from the **WEB** repo and the **CMS** repo can be integrated together for testing. See [WEB & CMS Integration](READMES/unity.md) for full details on how the WEB and CMS projects work together.
 
 ### Infrastructure
 
 This section outlines only the systems utilized by the CMS. For information on the **WEB** project's infrastucture, see
-[]().
+[Vets-Website Repo Readme](https://github.com/department-of-veterans-affairs/vets-website/blob/main/README.md).
 
 #### CMS-CI: Pull Request and Demo/Ad-hoc Environments
 
@@ -135,7 +136,7 @@ This section outlines only the systems utilized by the CMS. For information on t
   - Can be named anything and can be set to any branch or Pull Request.
   - These environments will not change or be rebuild unless the creator chooses.
   - Useful for testing and demos outside of the CMS-CI process.
-- Single EC2 Instance: @TODO: List size, storage, etc.
+- Single EC2 Instance: @TODO: List size, storage, etc. See [general EC2 info](https://aws.amazon.com/ec2/instance-types/).
 
 #### CMS in BRD: Dev, Staging, Production
 

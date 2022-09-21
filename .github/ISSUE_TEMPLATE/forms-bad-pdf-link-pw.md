@@ -1,11 +1,12 @@
 ---
-name: (PW) Forms/Bad PDF link defect
+name: "(PW) Forms/Bad PDF link defect"
 about: Forms outages / Bad PDF links, owned by Public Websites team
-title: "Forms defect: <form name>"
-labels: ⭐️ Public Websites, Needs refining, Defect, Find a form
+title: 'Forms defect: <form name>'
+labels: Defect, Find a form, Needs refining, ⭐️ Public Websites
 assignees: jilladams, wesrowe
 
 ---
+
 Public Websites manages issues related to [Find a Form](https://www.va.gov/find-forms/), including data migration, outages, bad PDF links. Please review the [Forms Knowledge Base article] before filing this ticket. 
 
 ## Forms issue

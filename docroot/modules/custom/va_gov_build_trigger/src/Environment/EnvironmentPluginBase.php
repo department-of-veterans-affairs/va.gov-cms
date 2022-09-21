@@ -59,6 +59,8 @@ abstract class EnvironmentPluginBase extends PluginBase implements EnvironmentIn
    * {@inheritDoc}
    */
   public function triggerFrontendBuild() : void {
+    // The existence of this file triggers a content release.
+    // See scripts/queue_runner/queue_runner.sh.
     $this->filesystem->saveData('build plz', 'public://.buildrequest', FileSystemInterface::EXISTS_REPLACE);
     $this->messenger()->addStatus('A request to rebuild the front end has been submitted.');
   }

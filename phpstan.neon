@@ -9,11 +9,13 @@ parameters:
   level: 2
   ignoreErrors:
     - '#Unsafe usage of new static\(\)#'
-    - '#Access to an undefined property Drupal\\Core\\Field\\FieldItemListInterface::\$entity\.#'
-    - '#Access to an undefined property Drupal\\Core\\Field\\FieldItemListInterface::\$target_id\.#'
-    - '#Access to an undefined property Drupal\\Core\\Field\\FieldItemListInterface::\$value\.#'
-    - '#Call to an undefined method Drupal\\Core\\Field\\FieldDefinitionInterface::get\(\)\.#'
-    - '#Access to an undefined property Drupal\\Core\\Entity\\ContentEntityInterface::\$.*\.#'
+    - '#Access to an undefined property Drupal\\Core\\Entity\\ContentEntityInterface::\$[^\.]+\.#'
+    - '#Access to an undefined property Drupal\\Core\\Entity\\EntityInterface::\$[^\.]+\.#'
+    - '#Access to an undefined property Drupal\\Core\\Field\\FieldItemListInterface::\$[^\.]+\.#'
+    - '#Call to an undefined method Drupal\\Core\\Entity\\EntityInterface::[^\(]+\(\)\.#'
+    - '#Call to an undefined method Drupal\\Core\\Field\\FieldDefinitionInterface::[^\(]+\(\)\.#'
+    - '#Call to an undefined method Drupal\\Core\\Field\\FieldItemListInterface::[^\(]+\(\)\.#'
+    - '#Call to deprecated function _va_gov_db_uninstall_modules\(\).*#'
   reportUnmatchedIgnoredErrors: false
   bootstrapFiles:
     - phpstan_bootstrap.php
