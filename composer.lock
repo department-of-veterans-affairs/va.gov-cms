@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b16aa7a7d5e8739136a2b234f8abd339",
+    "content-hash": "fb012795a18fecfca6c43683cb4c8b57",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -15500,42 +15500,47 @@
         },
         {
             "name": "mglaman/phpstan-drupal",
-            "version": "0.12.15",
+            "version": "1.1.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mglaman/phpstan-drupal.git",
-                "reference": "1d65da838f3f5136e30e7a7023c235775f30c53e"
+                "reference": "480245d5d0bd1858e01c43d738718dab85be0ad2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mglaman/phpstan-drupal/zipball/1d65da838f3f5136e30e7a7023c235775f30c53e",
-                "reference": "1d65da838f3f5136e30e7a7023c235775f30c53e",
+                "url": "https://api.github.com/repos/mglaman/phpstan-drupal/zipball/480245d5d0bd1858e01c43d738718dab85be0ad2",
+                "reference": "480245d5d0bd1858e01c43d738718dab85be0ad2",
                 "shasum": ""
             },
             "require": {
-                "nette/finder": "^2.5",
-                "php": "^7.1 || ^8.0",
-                "phpstan/phpstan": "^0.12.65",
-                "symfony/yaml": "~3.4.5|^4.2",
+                "php": "^7.4 || ^8.0",
+                "phpstan/phpstan": "^1.6.0",
+                "symfony/finder": "~3.4.5 ||^4.2 || ^5.0 || ^6.0",
+                "symfony/yaml": "~3.4.5 || ^4.2|| ^5.0 || ^6.0",
                 "webflo/drupal-finder": "^1.2"
             },
             "require-dev": {
+                "behat/mink": "^1.8",
                 "composer/installers": "^1.9",
-                "drupal/core-dev": "^8.8@alpha || ^9.0",
                 "drupal/core-recommended": "^8.8@alpha || ^9.0",
-                "drush/drush": "^9.6 | ^10.0",
-                "phpstan/phpstan-deprecation-rules": "~0.12.0",
-                "phpstan/phpstan-strict-rules": "^0.12.0",
+                "drush/drush": "^9.6 || ^10.0",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan-deprecation-rules": "^1.0",
+                "phpstan/phpstan-strict-rules": "^1.0",
                 "phpunit/phpunit": "^6.5 || ^7.5 || ^8.0 || ^9",
-                "squizlabs/php_codesniffer": "^3.3"
+                "slevomat/coding-standard": "^7.1",
+                "squizlabs/php_codesniffer": "^3.3",
+                "symfony/phpunit-bridge": "^3.4.3 || ^4.4 || ^5.4 || ^6.0"
             },
             "suggest": {
-                "phpstan/phpstan-deprecation-rules": "For catching deprecations, especially in Drupal core."
+                "jangregor/phpstan-prophecy": "Provides a prophecy/prophecy extension for phpstan/phpstan.",
+                "phpstan/phpstan-deprecation-rules": "For catching deprecations, especially in Drupal core.",
+                "phpstan/phpstan-phpunit": "PHPUnit extensions and rules for PHPStan."
             },
             "type": "phpstan-extension",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.12-dev"
+                    "dev-main": "1.0-dev"
                 },
                 "installer-paths": {
                     "tests/fixtures/drupal/core": [
@@ -15556,16 +15561,14 @@
                 },
                 "phpstan": {
                     "includes": [
-                        "extension.neon"
+                        "extension.neon",
+                        "rules.neon"
                     ]
                 }
             },
             "autoload": {
-                "files": [
-                    "drupal-phpunit-hack.php"
-                ],
                 "psr-4": {
-                    "PHPStan\\": "src/"
+                    "mglaman\\PHPStanDrupal\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -15581,7 +15584,7 @@
             "description": "Drupal extension and rules for PHPStan",
             "support": {
                 "issues": "https://github.com/mglaman/phpstan-drupal/issues",
-                "source": "https://github.com/mglaman/phpstan-drupal/tree/0.12.15"
+                "source": "https://github.com/mglaman/phpstan-drupal/tree/1.1.25"
             },
             "funding": [
                 {
@@ -15597,7 +15600,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-10-06T20:17:36+00:00"
+            "time": "2022-07-18T17:17:55+00:00"
         },
         {
             "name": "michelf/php-markdown",
@@ -16026,158 +16029,6 @@
                 }
             ],
             "time": "2022-03-03T13:19:32+00:00"
-        },
-        {
-            "name": "nette/finder",
-            "version": "v2.5.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nette/finder.git",
-                "reference": "4ad2c298eb8c687dd0e74ae84206a4186eeaed50"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nette/finder/zipball/4ad2c298eb8c687dd0e74ae84206a4186eeaed50",
-                "reference": "4ad2c298eb8c687dd0e74ae84206a4186eeaed50",
-                "shasum": ""
-            },
-            "require": {
-                "nette/utils": "^2.4 || ^3.0",
-                "php": ">=7.1"
-            },
-            "conflict": {
-                "nette/nette": "<2.2"
-            },
-            "require-dev": {
-                "nette/tester": "^2.0",
-                "phpstan/phpstan": "^0.12",
-                "tracy/tracy": "^2.3"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.5-dev"
-                }
-            },
-            "autoload": {
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause",
-                "GPL-2.0",
-                "GPL-3.0"
-            ],
-            "authors": [
-                {
-                    "name": "David Grudl",
-                    "homepage": "https://davidgrudl.com"
-                },
-                {
-                    "name": "Nette Community",
-                    "homepage": "https://nette.org/contributors"
-                }
-            ],
-            "description": "🔍 Nette Finder: find files and directories with an intuitive API.",
-            "homepage": "https://nette.org",
-            "keywords": [
-                "filesystem",
-                "glob",
-                "iterator",
-                "nette"
-            ],
-            "support": {
-                "issues": "https://github.com/nette/finder/issues",
-                "source": "https://github.com/nette/finder/tree/v2.5.2"
-            },
-            "time": "2020-01-03T20:35:40+00:00"
-        },
-        {
-            "name": "nette/utils",
-            "version": "v3.2.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nette/utils.git",
-                "reference": "9cd80396ca58d7969ab44fc7afcf03624dfa526e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nette/utils/zipball/9cd80396ca58d7969ab44fc7afcf03624dfa526e",
-                "reference": "9cd80396ca58d7969ab44fc7afcf03624dfa526e",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2 <8.2"
-            },
-            "conflict": {
-                "nette/di": "<3.0.6"
-            },
-            "require-dev": {
-                "nette/tester": "~2.0",
-                "phpstan/phpstan": "^0.12",
-                "tracy/tracy": "^2.3"
-            },
-            "suggest": {
-                "ext-gd": "to use Image",
-                "ext-iconv": "to use Strings::webalize(), toAscii(), chr() and reverse()",
-                "ext-intl": "to use Strings::webalize(), toAscii(), normalize() and compare()",
-                "ext-json": "to use Nette\\Utils\\Json",
-                "ext-mbstring": "to use Strings::lower() etc...",
-                "ext-tokenizer": "to use Nette\\Utils\\Reflection::getUseStatements()",
-                "ext-xml": "to use Strings::length() etc. when mbstring is not available"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.2-dev"
-                }
-            },
-            "autoload": {
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause",
-                "GPL-2.0-only",
-                "GPL-3.0-only"
-            ],
-            "authors": [
-                {
-                    "name": "David Grudl",
-                    "homepage": "https://davidgrudl.com"
-                },
-                {
-                    "name": "Nette Community",
-                    "homepage": "https://nette.org/contributors"
-                }
-            ],
-            "description": "🛠  Nette Utils: lightweight utilities for string & array manipulation, image handling, safe JSON encoding/decoding, validation, slug or strong password generating etc.",
-            "homepage": "https://nette.org",
-            "keywords": [
-                "array",
-                "core",
-                "datetime",
-                "images",
-                "json",
-                "nette",
-                "paginator",
-                "password",
-                "slugify",
-                "string",
-                "unicode",
-                "utf-8",
-                "utility",
-                "validation"
-            ],
-            "support": {
-                "issues": "https://github.com/nette/utils/issues",
-                "source": "https://github.com/nette/utils/tree/v3.2.5"
-            },
-            "time": "2021-09-20T10:50:11+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -17791,20 +17642,20 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "0.12.99",
+            "version": "1.8.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "b4d40f1d759942f523be267a1bab6884f46ca3f7"
+                "reference": "f6598a5ff12ca4499a836815e08b4d77a2ddeb20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/b4d40f1d759942f523be267a1bab6884f46ca3f7",
-                "reference": "b4d40f1d759942f523be267a1bab6884f46ca3f7",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/f6598a5ff12ca4499a836815e08b4d77a2ddeb20",
+                "reference": "f6598a5ff12ca4499a836815e08b4d77a2ddeb20",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1|^8.0"
+                "php": "^7.2|^8.0"
             },
             "conflict": {
                 "phpstan/phpstan-shim": "*"
@@ -17814,11 +17665,6 @@
                 "phpstan.phar"
             ],
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.12-dev"
-                }
-            },
             "autoload": {
                 "files": [
                     "bootstrap.php"
@@ -17829,9 +17675,13 @@
                 "MIT"
             ],
             "description": "PHPStan - PHP Static Analysis Tool",
+            "keywords": [
+                "dev",
+                "static analysis"
+            ],
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/0.12.99"
+                "source": "https://github.com/phpstan/phpstan/tree/1.8.5"
             },
             "funding": [
                 {
@@ -17843,44 +17693,39 @@
                     "type": "github"
                 },
                 {
-                    "url": "https://www.patreon.com/phpstan",
-                    "type": "patreon"
-                },
-                {
                     "url": "https://tidelift.com/funding/github/packagist/phpstan/phpstan",
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-09-12T20:09:55+00:00"
+            "time": "2022-09-07T16:05:32+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
-            "version": "0.12.6",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-deprecation-rules.git",
-                "reference": "46dbd43c2db973d2876d6653e53f5c2cc3a01fbb"
+                "reference": "e5ccafb0dd8d835dd65d8d7a1a0d2b1b75414682"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-deprecation-rules/zipball/46dbd43c2db973d2876d6653e53f5c2cc3a01fbb",
-                "reference": "46dbd43c2db973d2876d6653e53f5c2cc3a01fbb",
+                "url": "https://api.github.com/repos/phpstan/phpstan-deprecation-rules/zipball/e5ccafb0dd8d835dd65d8d7a1a0d2b1b75414682",
+                "reference": "e5ccafb0dd8d835dd65d8d7a1a0d2b1b75414682",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1 || ^8.0",
-                "phpstan/phpstan": "^0.12.60"
+                "phpstan/phpstan": "^1.0"
             },
             "require-dev": {
-                "phing/phing": "^2.16.3",
                 "php-parallel-lint/php-parallel-lint": "^1.2",
-                "phpstan/phpstan-phpunit": "^0.12",
-                "phpunit/phpunit": "^7.5.20"
+                "phpstan/phpstan-phpunit": "^1.0",
+                "phpunit/phpunit": "^9.5"
             },
             "type": "phpstan-extension",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.12-dev"
+                    "dev-master": "1.0-dev"
                 },
                 "phpstan": {
                     "includes": [
@@ -17900,9 +17745,9 @@
             "description": "PHPStan rules for detecting usage of deprecated classes, methods, properties, constants and traits.",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-deprecation-rules/issues",
-                "source": "https://github.com/phpstan/phpstan-deprecation-rules/tree/0.12.6"
+                "source": "https://github.com/phpstan/phpstan-deprecation-rules/tree/1.0.0"
             },
-            "time": "2020-12-13T10:20:54+00:00"
+            "time": "2021-09-23T11:02:21+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
