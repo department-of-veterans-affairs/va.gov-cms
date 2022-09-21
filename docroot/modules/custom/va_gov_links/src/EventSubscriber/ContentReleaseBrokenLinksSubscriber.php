@@ -90,7 +90,7 @@ class ContentReleaseBrokenLinksSubscriber implements EventSubscriberInterface {
               }
             }
             else {
-              $file_path = DRUPAL_ROOT . $report_location;
+              $file_path = DRUPAL_ROOT . '/' . $report_location;
               $file_stream = fopen($file_path, 'r');
               $contents = fread($file_stream, filesize($file_path));
               fclose($file_stream);
