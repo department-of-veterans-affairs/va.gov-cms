@@ -16,7 +16,9 @@ use Drupal\node\NodeInterface;
 use Drupal\path_alias\Entity\PathAlias;
 use Drupal\pathauto\PathautoGenerator;
 use Drupal\va_gov_lovell\Event\BreadcrumbPreprocessEvent;
+use Drupal\va_gov_lovell\Event\MenuPreprocessEvent;
 use Drupal\va_gov_lovell\Variables\BreadcrumbEventVariables;
+use Drupal\va_gov_lovell\Variables\MenuEventVariables;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -94,6 +96,7 @@ class LovellEventSubscriber implements EventSubscriberInterface {
       EntityHookEvents::ENTITY_INSERT => 'entityInsert',
       EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
       BreadcrumbPreprocessEvent::name() => 'preprocessBreadcrumb',
+      MenuPreprocessEvent::name() => 'preprocessMenu',
     ];
   }
 
@@ -140,6 +143,18 @@ class LovellEventSubscriber implements EventSubscriberInterface {
   public function preprocessBreadcrumb(BreadcrumbPreprocessEvent $event): void {
     $variables = $event->getVariables();
     $this->updateLovellBreadcrumbs($variables);
+  }
+
+  /**
+   * Menu preprocess Event call.
+   *
+   * @param \Drupal\va_gov_lovell\Event\MenuPreprocessEvent $event
+   *   The event.
+   */
+  public function preprocessMenu(MenuPreprocessEvent $event): void {
+    // @todo can we make this work.
+    // $variables = $event->getVariables();
+    // $this->updateLovellMenu($variables);
   }
 
   /**
@@ -220,6 +235,95 @@ class LovellEventSubscriber implements EventSubscriberInterface {
 
       $variables->set('breadcrumb', $breadcrumb);
     }
+  }
+
+  /**
+   * Update menu for Lovell content.
+   *
+   * @param \Drupal\va_gov_lovell\Variables\MenuEventVariables $variables
+   *   MenuEventVariables.
+   */
+  protected function updateLovellMenu(MenuEventVariables &$variables): void {
+    $menu = &$variables->getMenu();
+    $node = $this->routeMatch->getParameter('node');
+    if (($node instanceof NodeInterface)
+    && ($node->hasField('path'))
+    && ($node->hasField('field_administration'))) {
+      // If this content does not belong to a Lovell section do nothing.
+      $section_id = $node->get('field_administration')->target_id;
+      if (!array_key_exists($section_id, self::LOVELL_SECTIONS)) {
+        return;
+      }
+
+      // If the current node is Lovell content, filter the menu.
+      $this->filterLovellLinks($menu, $section_id, TRUE);
+      $variables->set('items', $menu);
+    }
+  }
+
+  /**
+   * Remove menu items that should not be displayed for a given section id.
+   *
+   * @param array $menu_links
+   *   The array of menu links.
+   * @param string $section_id
+   *   The section id for the current node.
+   * @param bool $first_call
+   *   Determines if this is the first call of this recursive function.
+   */
+  protected function filterLovellLinks(array &$menu_links, $section_id, $first_call = FALSE) {
+    foreach ($menu_links as $key => &$menu_link) {
+      // The menu includes two root menu items: one for VA and one for tricare.
+      // These should always be present so we do not filter them.
+      if (!$first_call) {
+        // Compare the section for the menu link to the section for the page.
+        $link_section = $menu_link['entity']->get('field_menu_section')->getValue()[0]['value'];
+        if (!$this->isLinkNeeded($section_id, $link_section)) {
+          unset($menu_links[$key]);
+          continue;
+        }
+      }
+
+      // Filter any children links for this menu item.
+      if (count($menu_link['below'])) {
+        $this->filterLovellLinks($menu_link['below'], $section_id);
+      }
+    }
+
+    // Post filtering - if section is tricare, swap the root items.
+    if (($first_call)
+    && (self::LOVELL_SECTIONS[$section_id] === 'tricare')
+    && (count($menu_items) === 2)) {
+      $tricare_menu = array_shift($menu_items);
+      $va_menu = array_shift($menu_items);
+      $tricare_menu['below'] = $va_menu['below'];
+      $va_menu['below'] = [];
+      $menu_items = [
+        'va_menu' => $va_menu,
+        'tricare_menu' => $tricare_menu,
+      ];
+    }
+  }
+
+  /**
+   * Determine if a node section and link section are a match.
+   *
+   * @param string $section_id
+   *   The section for a given node.
+   * @param string $link_section
+   *   The section for a given menu link.
+   *
+   * @return bool
+   *   True if the menu should be displayed, false otherwise.
+   */
+  protected function isLinkNeeded($section_id, $link_section) {
+    $needed = TRUE;
+    if ((self::LOVELL_SECTIONS[$section_id] !== $link_section)
+    && ($link_section !== 'both')
+    && ($section_id !== '347')) {
+      $needed = FALSE;
+    }
+    return $needed;
   }
 
   /**
