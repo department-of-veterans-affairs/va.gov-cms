@@ -436,3 +436,12 @@ function va_gov_backend_update_8011() {
     Drupal::logger('va_gov_backend')->log(LogLevel::INFO, 'Deleted field_facility_service_hours from service_location.');
   }
 }
+
+/**
+ * Clean up field_table field storage definitions.
+ */
+function va_gov_db_update_8012() {
+  $manager = \Drupal::entityDefinitionUpdateManager();
+  $field_storage_definition = $manager->getFieldStorageDefinition('field_table', 'paragraph');
+  $manager->updateFieldStorageDefinition($field_storage_definition);
+}
