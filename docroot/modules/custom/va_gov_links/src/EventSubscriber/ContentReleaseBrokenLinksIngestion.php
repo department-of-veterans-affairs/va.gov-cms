@@ -14,7 +14,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * Re-queues a content release when an error condition happens.
  */
-class ContentReleaseBrokenLinksSubscriber implements EventSubscriberInterface {
+class ContentReleaseBrokenLinksIngestion implements EventSubscriberInterface {
 
   /**
    * Http Client.
@@ -81,26 +81,43 @@ class ContentReleaseBrokenLinksSubscriber implements EventSubscriberInterface {
           ReleaseStateManager::STATE_COMPLETE,
           ReleaseStateManager::STATE_ERROR,
         ])) {
-          try {
-            $report_location = $this->settings->get('broken_link_report_location');
-            if (preg_match('/^http/', $report_location)) {
+          $report_location = $this->settings->get('broken_link_report_location');
+          // If the report location starts with http, use an http client to
+          // retrieve it. Otherwise, assume it is a local file and attempt to
+          // read it.
+          if (preg_match('/^http/', $report_location)) {
+            try {
               $response = $this->httpClient->request('GET', $this->settings->get('broken_link_report_location'));
               if ($response->getStatusCode() === 200) {
                 $this->state->set('content_release.broken_links', $response->getBody()->getContents());
+                $this->logger->get('va_gov_links')->info('The broken links report was successfully retrieved and committed to state.');
+              }
+              else {
+                $this->logger->get('va_gov_links')->error('Unable to retrieve broken links report; the request for ' . $report_location . ' returned a response code of ' . $response->getStatusCode());
               }
             }
-            else {
+            catch (RequestException $e) {
+              $this->logger->get('va_gov_links')->error('HTTP client failed to retrieve ' . $report_location . '. Full error: ' . $e->getMessage());
+            }
+          }
+          else {
+            try {
               $file_path = $report_location;
               $file_stream = fopen($file_path, 'r');
               $contents = fread($file_stream, filesize($file_path));
               fclose($file_stream);
-              $this->state->set('content_release.broken_links', $contents);
+              if ($contents) {
+                $this->state->set('content_release.broken_links', $contents);
+                $this->logger->get('va_gov_links')->info('The broken links report was successfully read and committed to state.');
+              }
+              else {
+                $this->logger->get('va_gov_links')->error('Unable to read ' . $report_location);
+              }
+            }
+            catch (\Exception $e) {
+              $this->logger->get('va_gov_links')->error('Unable to read ' . $report_location . '. Full error: ' . $e->getMessage());
             }
           }
-          catch (RequestException $e) {
-            throw new \Exception('Unable to retrieve broken links report.');
-          }
-          $this->logger->get('va_gov_links')->info('The broken links report was successfully retrieved and committed to state.');
         }
       }
     }
