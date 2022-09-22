@@ -24,7 +24,8 @@
  */
 
 // Some initial configuration.
-const SITES_PATH = __DIR__ . '/docroot/sites';
+$out = shell_exec('git rev-parse --show-toplevel');
+$sites_path = "${out}/docroot/sites";
 
 // Retrieve arguments.
 $env_type = $argv[1] ?? getenv('CMS_ENVIRONMENT_TYPE');
@@ -45,6 +46,8 @@ $local_settings_files = [
   'sites/default/settings.local.php',
   'sites/default/settings/local.settings.php',
   'sites/default/settings/settings.local.php',
+  'sites/default/settings/settings.ddev.php',
+  'sites/default/settings/settings.personal.php',
 ];
 $local_settings_files_to_remove = [];
 $local_settings_data = [];
@@ -74,6 +77,8 @@ $local_container_yamls = [
   'sites/default/services.local.yml',
   'sites/default/services/local.services.yml',
   'sites/default/services/services.local.yml',
+  'sites/default/services/services.ddev.yml',
+  'sites/default/services/services.personal.yml',
 ];
 $local_container_yamls_to_remove = [];
 $local_container_yaml_data = [];
@@ -95,7 +100,7 @@ foreach ($local_container_yamls as $local_container_yaml) {
 }
 
 // First, include the existing settings.php file.
-require_once SITES_PATH . '/default/settings.php';
+require_once $sites_path . '/default/settings.php';
 
 // Remove files we created above.
 foreach ($local_settings_files_to_remove as $full_path) {

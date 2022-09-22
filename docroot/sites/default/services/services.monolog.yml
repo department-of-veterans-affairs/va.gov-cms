@@ -1,3 +1,9 @@
+# Service modifications and additions for any environments relying upon 
+# Monolog.
+#
+# Because some environments (i.e. BRD) use Raven/Sentry reporting, this will
+# be overridden in places.  See the services.yml files for those environments
+# for details.
 parameters:
   monolog.channel_handlers:
     default:

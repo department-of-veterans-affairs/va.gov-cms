@@ -104,7 +104,7 @@ $config['image.settings']['suppress_itok_output'] = TRUE;
  * from va.gov-cms-devops Ansible Vault for testing.
  * @see /README.md for details
  */
-$settings['jenkins_build_env'] = getenv('CMS_ENVIRONMENT_TYPE') ?: FALSE;
+$env_type = $settings['jenkins_build_env'] = getenv('CMS_ENVIRONMENT_TYPE') ?: FALSE;
 $settings['jenkins_build_job_host'] = 'http://jenkins.vfs.va.gov';
 // Authorized to the Jenkins API via GitHub login.
 $settings['va_cms_bot_github_username'] = 'va-cms-bot';
@@ -135,8 +135,6 @@ $config['environment_indicator.indicator']['fg_color'] = '#000000';
 $config['environment_indicator.indicator']['name'] = 'Local';
 
 $settings['config_sync_directory'] = '../config/sync';
-
-$env_type = getenv('CMS_ENVIRONMENT_TYPE') ?: 'ci';
 
 $config['govdelivery_bulletins.settings']['govdelivery_endpoint'] = getenv('CMS_GOVDELIVERY_ENDPOINT') ?: FALSE;
 $config['govdelivery_bulletins.settings']['govdelivery_username'] = getenv('CMS_GOVDELIVERY_USERNAME') ?: FALSE;
