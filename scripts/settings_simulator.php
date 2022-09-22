@@ -24,7 +24,7 @@
  */
 
 // Some initial configuration.
-$out = shell_exec('git rev-parse --show-toplevel');
+$out = trim(shell_exec('git rev-parse --show-toplevel'));
 $sites_path = "${out}/docroot/sites";
 
 // Retrieve arguments.
