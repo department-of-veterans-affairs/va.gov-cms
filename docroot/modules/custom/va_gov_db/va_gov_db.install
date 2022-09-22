@@ -28,7 +28,7 @@ use Psr\Log\LogLevel;
  *   no longer needed for simple module disables,  It is still appropriate when
  *   order matters, if multiple uninstalls have a weighting problem. So may
  *   never be fully removed.
- *
+ // phpcs:ignore
  * @see https://github.com/department-of-veterans-affairs/va.gov-cms/pull/10650#issuecomment-1240819457
  *
  * @throws Drupal\Core\Utility\UpdateException
@@ -1058,4 +1058,13 @@ function va_gov_db_update_9009() {
   }
 
   return 'Removed field_hours_for_copay_inquiries_ from billing.';
+}
+
+/**
+ * Clean up field_table field storage definitions.
+ */
+function va_gov_db_update_9010() {
+  $manager = \Drupal::entityDefinitionUpdateManager();
+  $field_storage_definition = $manager->getFieldStorageDefinition('field_table', 'paragraph');
+  $manager->updateFieldStorageDefinition($field_storage_definition);
 }
