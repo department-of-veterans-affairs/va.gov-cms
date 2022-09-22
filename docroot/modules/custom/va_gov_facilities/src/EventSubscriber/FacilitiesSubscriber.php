@@ -77,6 +77,34 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Creates custom array for render array.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   Node that relates to the one whose field we want to render.
+   * @param string $related_field
+   *   Field that relates our node to another.
+   * @param string $field_to_render
+   *   Field we want to render.
+   *
+   * @return array
+   *   Render array
+   */
+  public static function createCustomArray(NodeInterface $node, $related_field, $field_to_render) {
+    // @phpstan-ignore-next-line Test is unclear what get() we are using
+    $referenced_node = $node->get($related_field)->referencedEntities();
+    $output = [];
+    if (isset($referenced_node[0])) {
+      $node_entity = $referenced_node[0];
+      $value = $node_entity->get($field_to_render);
+      $output['content']['weight'] = 10;
+      $output['#cache']['tags'] = $node_entity->getCacheTags();
+      $viewBuilder = \Drupal::entityTypeManager()->getViewBuilder('node');
+      $output = $viewBuilder->viewField($value, 'full');
+    }
+    return $output;
+  }
+
+  /**
    * Entity presave Event call.
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
@@ -133,7 +161,7 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
       $field_to_render = "field_office_hours";
       $widget_items = $widget_complete_form['widget'];
       for ($i = 0; isset($widget_items[$i]); $i++) {
-        $widget_complete_form['widget'][$i]['subform']['field_hours']['facility_hours'] = _va_gov_facilities_create_custom_array($node, $related_field, $field_to_render);
+        $widget_complete_form['widget'][$i]['subform']['field_hours']['facility_hours'] = $this->createCustomArray($node, $related_field, $field_to_render);
       }
     }
   }

@@ -5,7 +5,7 @@
  * Contains va_gov_facilities.module.
  */
 
-use Drupal\node\NodeInterface;
+use Drupal\va_gov_facilities\EventSubscriber\FacilitiesSubscriber;
 
 /**
  * @file
@@ -34,35 +34,7 @@ function va_gov_facilities_preprocess_field__paragraph__field_hours(&$variables)
     if ($node_parent) {
       $related_field = "field_facility_location";
       $field_to_render = "field_office_hours";
-      $variables['actual_hours'] = _va_gov_facilities_create_custom_array($node_parent, $related_field, $field_to_render);
+      $variables['actual_hours'] = FacilitiesSubscriber::createCustomArray($node_parent, $related_field, $field_to_render);
     }
   }
-}
-
-/**
- * Creates custom array for render array.
- *
- * @param \Drupal\node\NodeInterface $node
- *   Node that relates to the one whose field we want to render.
- * @param string $related_field
- *   Field that relates our node to another.
- * @param string $field_to_render
- *   Field we want to render.
- *
- * @return array
- *   Render array
- */
-function _va_gov_facilities_create_custom_array(NodeInterface $node, $related_field, $field_to_render) {
-  // @phpstan-ignore-next-line Test is unclear what get() we are using
-  $referenced_node = $node->get($related_field)->referencedEntities();
-  $output = [];
-  if (isset($referenced_node[0])) {
-    $node_entity = $referenced_node[0];
-    $value = $node_entity->get($field_to_render);
-    $output['content']['weight'] = 10;
-    $output['#cache']['tags'] = $node_entity->getCacheTags();
-    $viewBuilder = \Drupal::entityTypeManager()->getViewBuilder('node');
-    $output = $viewBuilder->viewField($value, 'full');
-  }
-  return $output;
 }
