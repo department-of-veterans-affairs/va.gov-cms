@@ -30,7 +30,7 @@ function va_gov_facilities_preprocess_field__paragraph__field_hours(&$variables)
   $paragraph = $item_list->getEntity();
   $field_name = "field_hours";
   if ($paragraph->$field_name->value === $use_facility_hours) {
-    $node_parent = va_gov_backend_get_node_parent($paragraph);
+    $node_parent = va_gov_backend_get_parent_node($paragraph);
     if ($node_parent) {
       $related_field = "field_facility_location";
       $field_to_render = "field_office_hours";
