@@ -34,7 +34,7 @@ function va_gov_facilities_preprocess_field__paragraph__field_hours(&$variables)
     if ($node_parent) {
       $related_field = "field_facility_location";
       $field_to_render = "field_office_hours";
-      $variables['actual_hours'] = FacilitiesSubscriber::createCustomArray($node_parent, $related_field, $field_to_render);
+      $variables['actual_hours'] = FacilitiesSubscriber::createRenderArrayFromFieldOnRefdEntity($node_parent, $related_field, $field_to_render);
     }
   }
 }
