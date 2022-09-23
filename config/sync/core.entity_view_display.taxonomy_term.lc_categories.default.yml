@@ -4,9 +4,12 @@ status: true
 dependencies:
   config:
     - taxonomy.vocabulary.lc_categories
+    - views.view.taxonomy_term
   module:
     - layout_builder
+    - layout_discovery
     - text
+    - views
 third_party_settings:
   layout_builder:
     enabled: false
@@ -24,5 +27,4 @@ content:
     weight: 0
     region: content
 hidden:
-  langcode: true
   search_api_excerpt: true

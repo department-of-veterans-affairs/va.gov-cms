@@ -8,7 +8,6 @@ dependencies:
     - field.field.block_content.cms_announcement.field_body
     - field.field.block_content.cms_announcement.field_submission_guidelines
     - field.field.block_content.cms_announcement.field_title
-    - workflows.workflow.editorial
   module:
     - content_moderation
     - markup
@@ -58,13 +57,6 @@ content:
     settings:
       size: 60
       placeholder: ''
-    third_party_settings: {  }
-  langcode:
-    type: language_select
-    weight: 2
-    region: content
-    settings:
-      include_locked: true
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
