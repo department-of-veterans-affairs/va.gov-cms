@@ -5479,26 +5479,32 @@
         },
         {
             "name": "drupal/entity_clone",
-            "version": "1.0.0-beta6",
+            "version": "1.0.0-beta7",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/entity_clone.git",
-                "reference": "8.x-1.0-beta6"
+                "reference": "8.x-1.0-beta7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/entity_clone-8.x-1.0-beta6.zip",
-                "reference": "8.x-1.0-beta6",
-                "shasum": "35d04649b6fb349df761abab37506a94f172981f"
+                "url": "https://ftp.drupal.org/files/projects/entity_clone-8.x-1.0-beta7.zip",
+                "reference": "8.x-1.0-beta7",
+                "shasum": "964b72b21a7e219cf337743ed5c8850235197594"
             },
             "require": {
                 "drupal/core": "^8 || ^9"
             },
+            "require-dev": {
+                "drupal/entity_browser": "2.x-dev",
+                "drupal/entity_usage": "2.x-dev",
+                "drupal/paragraphs": "^1.0",
+                "drupal/search_api": "~1.0"
+            },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0-beta6",
-                    "datestamp": "1617209997",
+                    "version": "8.x-1.0-beta7",
+                    "datestamp": "1663573486",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
@@ -5527,8 +5533,8 @@
                     "homepage": "https://www.drupal.org/user/1361586"
                 }
             ],
-            "description": "Add a clone action for all entities",
-            "homepage": "https://www.drupal.org/project/entity_clone",
+            "description": "Add a clone action for all entities.",
+            "homepage": "https://drupal.org/project/entity_clone",
             "support": {
                 "source": "https://git.drupalcode.org/project/entity_clone"
             }
@@ -27237,7 +27243,6 @@
         "drupal/components": 10,
         "drupal/content_lock": 15,
         "drupal/entity_block": 10,
-        "drupal/entity_clone": 10,
         "drupal/entity_field_fetch": 10,
         "drupal/entity_reference_validators": 15,
         "drupal/fast_404": 20,
