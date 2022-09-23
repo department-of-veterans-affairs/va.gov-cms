@@ -1,0 +1,7 @@
+services:
+  va_gov_links.broken_link_subscriber:
+    class: Drupal\va_gov_links\EventSubscriber\ContentReleaseBrokenLinksIngestion
+    arguments:
+      ["@http_client", "@state", "@logger.factory", "@settings"]
+    tags:
+      - { name: event_subscriber }
