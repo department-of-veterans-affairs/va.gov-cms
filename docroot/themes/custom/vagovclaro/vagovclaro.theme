@@ -107,7 +107,7 @@ function vagovclaro_theme_suggestions_paragraph_alter(&$suggestions, $variables)
 function vagovclaro_preprocess_paragraph(&$variables) {
   /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
-  $node_parent = va_gov_backend_get_node_parent($paragraph);
+  $node_parent = va_gov_backend_get_parent_node($paragraph);
   // If this paragraph belongs to a 'benefits detail page'.
   if (!empty($node_parent) && $node_parent->bundle() === 'page') {
     // Set the paragraph name.

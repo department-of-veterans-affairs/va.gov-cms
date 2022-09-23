@@ -2025,12 +2025,12 @@ function va_gov_backend_theme($existing, $type, $theme, $path) {
  * @return \Drupal\node\Entity\Node|null
  *   If the paragraph is attached to a node, return the node, otherwise NULL.
  */
-function va_gov_backend_get_node_parent(Paragraph $paragraph) {
+function va_gov_backend_get_parent_node(Paragraph $paragraph) {
   $parent_node = NULL;
   /** @var Drupal\paragraphs\Entity\Paragraph $parent */
   $parent = $paragraph->getParentEntity();
   if ($parent !== NULL && $parent->getEntityType()->id() === 'paragraph') {
-    $parent_node = va_gov_backend_get_node_parent($parent);
+    $parent_node = va_gov_backend_get_parent_node($parent);
   }
   elseif ($parent !== NULL && $parent->getEntityType()->id() === 'node') {
     $parent_node = $parent;
