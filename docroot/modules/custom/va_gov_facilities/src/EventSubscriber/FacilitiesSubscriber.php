@@ -96,10 +96,10 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
     if (isset($referenced_entities[0])) {
       $referenced_entity = $referenced_entities[0];
       $value = $referenced_entity->get($field_to_render);
-      $output['content']['weight'] = 10;
-      $output['#cache']['tags'] = $referenced_entity->getCacheTags();
       $viewBuilder = \Drupal::entityTypeManager()->getViewBuilder($referenced_entity->getEntityType());
       $output = $viewBuilder->viewField($value, 'full');
+      $output['content']['weight'] = 10;
+      $output['#cache']['tags'] = $referenced_entity->getCacheTags();
     }
     return $output;
   }
@@ -129,7 +129,7 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
   /**
    * Widget complete form Event call.
    *
-   * @param \Drupal\core_event_dispatcher\Event\Field\WidgetCompleteFormAlterEvent $event
+   * @param \Drupal\field_event_dispatcher\Event\Field\WidgetCompleteFormAlterEvent $event
    *   The event.
    */
   public function widgetCompleteFormAlter(WidgetCompleteFormAlterEvent $event): void {
@@ -157,11 +157,13 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
     if ($paragraph_entity_reference_field_name === "field_service_location") {
       $item_list = $context['items'];
       $node = $item_list->getEntity();
-      $related_field = "field_facility_location";
-      $field_to_render = "field_office_hours";
-      $widget_items = $widget_complete_form['widget'];
-      for ($i = 0; isset($widget_items[$i]); $i++) {
-        $widget_complete_form['widget'][$i]['subform']['field_hours']['facility_hours'] = $this->createRenderArrayFromFieldOnRefdEntity($node, $related_field, $field_to_render);
+      if ($node instanceof NodeInterface) {
+        $related_field = "field_facility_location";
+        $field_to_render = "field_office_hours";
+        $widget_items = $widget_complete_form['widget'];
+        for ($i = 0; isset($widget_items[$i]); $i++) {
+          $widget_complete_form['widget'][$i]['subform']['field_hours']['facility_hours'] = $this->createRenderArrayFromFieldOnRefdEntity($node, $related_field, $field_to_render);
+        }
       }
     }
   }
