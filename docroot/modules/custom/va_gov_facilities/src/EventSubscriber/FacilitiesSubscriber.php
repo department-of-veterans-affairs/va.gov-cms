@@ -77,7 +77,7 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Creates custom array for render array.
+   * Creates custom render array from field on referenced entity.
    *
    * @param \Drupal\node\NodeInterface $node
    *   Node that relates to the one whose field we want to render.
@@ -89,16 +89,16 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
    * @return array
    *   Render array
    */
-  public static function createCustomArray(NodeInterface $node, $related_field, $field_to_render) {
+  public static function createRenderArrayFromFieldOnRefdEntity(NodeInterface $node, $related_field, $field_to_render) {
     // @phpstan-ignore-next-line Test is unclear what get() we are using
-    $referenced_node = $node->get($related_field)->referencedEntities();
+    $referenced_entities = $node->get($related_field)->referencedEntities();
     $output = [];
-    if (isset($referenced_node[0])) {
-      $node_entity = $referenced_node[0];
-      $value = $node_entity->get($field_to_render);
+    if (isset($referenced_entities[0])) {
+      $referenced_entity = $referenced_entities[0];
+      $value = $referenced_entity->get($field_to_render);
       $output['content']['weight'] = 10;
-      $output['#cache']['tags'] = $node_entity->getCacheTags();
-      $viewBuilder = \Drupal::entityTypeManager()->getViewBuilder('node');
+      $output['#cache']['tags'] = $referenced_entity->getCacheTags();
+      $viewBuilder = \Drupal::entityTypeManager()->getViewBuilder($referenced_entity->getEntityType());
       $output = $viewBuilder->viewField($value, 'full');
     }
     return $output;
@@ -161,7 +161,7 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
       $field_to_render = "field_office_hours";
       $widget_items = $widget_complete_form['widget'];
       for ($i = 0; isset($widget_items[$i]); $i++) {
-        $widget_complete_form['widget'][$i]['subform']['field_hours']['facility_hours'] = $this->createCustomArray($node, $related_field, $field_to_render);
+        $widget_complete_form['widget'][$i]['subform']['field_hours']['facility_hours'] = $this->createRenderArrayFromFieldOnRefdEntity($node, $related_field, $field_to_render);
       }
     }
   }
