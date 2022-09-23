@@ -1,0 +1,18 @@
+uuid: 314ff822-b38b-40cc-8ba6-d0dbcc45e4c1
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.housing-assistance-benefits
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: menu_link_content.housing-assistance-benefits
+target_entity_type_id: menu_link_content
+target_bundle: housing-assistance-benefits
+default_langcode: site_default
+language_alterable: false

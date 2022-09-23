@@ -1,0 +1,22 @@
+uuid: 048debfa-e64e-4929-900b-fefa7ce7eb4e
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.wysiwyg
+id: paragraph.wysiwyg.status
+field_name: status
+entity_type: paragraph
+bundle: wysiwyg
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

@@ -1,0 +1,20 @@
+uuid: 60d26015-d9a9-48b9-a0f0-a5ea0dbe9636
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.step_by_step
+id: node.step_by_step.menu_link
+field_name: menu_link
+entity_type: node
+bundle: step_by_step
+label: 'Menu link'
+description: 'Computed menu link for the node (only available during node saving).'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

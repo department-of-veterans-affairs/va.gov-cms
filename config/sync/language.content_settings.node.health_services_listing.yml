@@ -1,0 +1,18 @@
+uuid: b1764217-60a7-4b47-ac5c-dc6cd8e78bbd
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.health_services_listing
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+id: node.health_services_listing
+target_entity_type_id: node
+target_bundle: health_services_listing
+default_langcode: site_default
+language_alterable: false

@@ -1,0 +1,22 @@
+uuid: f7bf307a-2e20-4735-bf45-81b4dd26ed92
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.collapsible_panel_item
+id: paragraph.collapsible_panel_item.status
+field_name: status
+entity_type: paragraph
+bundle: collapsible_panel_item
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

@@ -1,0 +1,20 @@
+uuid: ac7e8db6-4fd4-48c7-a4e6-267c7e04004b
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.media_list_images
+id: node.media_list_images.menu_link
+field_name: menu_link
+entity_type: node
+bundle: media_list_images
+label: 'Menu link'
+description: 'Computed menu link for the node (only available during node saving).'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

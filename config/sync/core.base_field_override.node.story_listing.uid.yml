@@ -1,0 +1,20 @@
+uuid: ca3bfb0b-a298-45c3-98a5-728639b2d939
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.story_listing
+id: node.story_listing.uid
+field_name: uid
+entity_type: node
+bundle: story_listing
+label: 'Authored by'
+description: 'The username of the content author.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: 'Drupal\node\Entity\Node::getDefaultEntityOwner'
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

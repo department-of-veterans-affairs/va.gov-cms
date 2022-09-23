@@ -1,0 +1,22 @@
+uuid: 96dd80d0-b8a5-444e-8764-45d0aff90634
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.checklist
+id: node.checklist.sticky
+field_name: sticky
+entity_type: node
+bundle: checklist
+label: 'Sticky at top of lists'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

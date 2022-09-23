@@ -1,0 +1,22 @@
+uuid: dab65aa3-9350-425c-8a29-2468afbd68fc
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.audience_beneficiaries
+id: taxonomy_term.audience_beneficiaries.status
+field_name: status
+entity_type: taxonomy_term
+bundle: audience_beneficiaries
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

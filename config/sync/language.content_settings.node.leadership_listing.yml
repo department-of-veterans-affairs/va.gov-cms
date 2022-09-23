@@ -1,0 +1,18 @@
+uuid: a09a9be1-671f-4d4a-bbb6-2c2701e66d6e
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.leadership_listing
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+id: node.leadership_listing
+target_entity_type_id: node
+target_bundle: leadership_listing
+default_langcode: site_default
+language_alterable: false

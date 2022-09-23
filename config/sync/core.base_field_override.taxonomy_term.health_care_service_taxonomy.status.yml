@@ -1,0 +1,22 @@
+uuid: 07bad6a1-4006-41d2-ae5b-11c626b07de6
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.health_care_service_taxonomy
+id: taxonomy_term.health_care_service_taxonomy.status
+field_name: status
+entity_type: taxonomy_term
+bundle: health_care_service_taxonomy
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

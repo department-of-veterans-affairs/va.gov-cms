@@ -1,0 +1,18 @@
+uuid: 3a30a2a2-0926-4423-bab5-64d38c4ae2be
+langcode: en
+status: true
+dependencies:
+  module:
+    - consumers
+id: consumer.consumer.redirect
+field_name: redirect
+entity_type: consumer
+bundle: consumer
+label: 'Redirect URI'
+description: 'The URI this client will redirect to when needed.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: uri

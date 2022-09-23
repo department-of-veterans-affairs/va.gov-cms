@@ -1,0 +1,22 @@
+uuid: f13dbc98-f676-4335-b6f5-51da3a9fcb0b
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vet_center_locations_list
+id: node.vet_center_locations_list.status
+field_name: status
+entity_type: node
+bundle: vet_center_locations_list
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

@@ -1,0 +1,20 @@
+uuid: b20ae026-f3a1-4e02-a6d0-4e6d3936634e
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.regional_health_care_service_des
+id: node.regional_health_care_service_des.uid
+field_name: uid
+entity_type: node
+bundle: regional_health_care_service_des
+label: 'Authored by'
+description: 'The username of the content author.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: 'Drupal\node\Entity\Node::getDefaultEntityOwner'
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

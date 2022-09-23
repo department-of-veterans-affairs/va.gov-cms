@@ -1,0 +1,22 @@
+uuid: f6412ee8-4c16-4eb1-bf92-862735749b1d
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vet_center_facility_health_servi
+id: node.vet_center_facility_health_servi.status
+field_name: status
+entity_type: node
+bundle: vet_center_facility_health_servi
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

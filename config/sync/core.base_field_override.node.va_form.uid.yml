@@ -1,0 +1,20 @@
+uuid: 68e10eeb-46dd-4458-b69d-dd5c1a32f728
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.va_form
+id: node.va_form.uid
+field_name: uid
+entity_type: node
+bundle: va_form
+label: 'Authored by'
+description: 'The username of the content author.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: 'Drupal\node\Entity\Node::getDefaultEntityOwner'
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

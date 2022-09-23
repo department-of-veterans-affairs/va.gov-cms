@@ -1,0 +1,20 @@
+uuid: 77dda32a-6f82-43b2-838e-77e5ae7b451f
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.health_care_local_facility
+id: node.health_care_local_facility.uid
+field_name: uid
+entity_type: node
+bundle: health_care_local_facility
+label: 'Authored by'
+description: 'The username of the content author.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: 'Drupal\node\Entity\Node::getDefaultEntityOwner'
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

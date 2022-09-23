@@ -1,0 +1,20 @@
+uuid: b46817ed-338b-43e4-96d8-71972df05f31
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.health_care_region_detail_page
+id: node.health_care_region_detail_page.menu_link
+field_name: menu_link
+entity_type: node
+bundle: health_care_region_detail_page
+label: 'Menu link'
+description: 'Computed menu link for the node (only available during node saving).'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

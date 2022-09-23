@@ -1,0 +1,20 @@
+uuid: 8fd54c8f-2227-428b-98bf-e5c72f1d9523
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.outreach_asset
+id: node.outreach_asset.menu_link
+field_name: menu_link
+entity_type: node
+bundle: outreach_asset
+label: 'Menu link'
+description: 'Computed menu link for the node (only available during node saving).'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

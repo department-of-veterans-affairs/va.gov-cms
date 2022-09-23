@@ -1,0 +1,20 @@
+uuid: 5f6972db-b11f-446e-a4f5-9c677b1222b5
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vamc_system_register_for_care
+id: node.vamc_system_register_for_care.menu_link
+field_name: menu_link
+entity_type: node
+bundle: vamc_system_register_for_care
+label: 'Menu link'
+description: 'Computed menu link for the node (only available during node saving).'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

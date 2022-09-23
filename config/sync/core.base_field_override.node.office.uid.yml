@@ -1,0 +1,20 @@
+uuid: 6798553a-b9b4-4b69-8f61-a63cc21389fc
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.office
+id: node.office.uid
+field_name: uid
+entity_type: node
+bundle: office
+label: 'Authored by'
+description: 'The username of the content author.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: 'Drupal\node\Entity\Node::getDefaultEntityOwner'
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference
