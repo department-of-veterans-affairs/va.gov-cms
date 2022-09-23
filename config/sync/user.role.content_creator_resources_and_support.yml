@@ -12,6 +12,7 @@ dependencies:
     - node.type.support_resources_detail_page
   module:
     - block_content_permissions
+    - content_translation
     - file
     - node
     - node_link_report
@@ -26,6 +27,7 @@ is_admin: null
 permissions:
   - 'access files overview'
   - 'create checklist content'
+  - 'create content translations'
   - 'create faq_multiple_q_a content'
   - 'create media_list_images content'
   - 'create media_list_videos content'
@@ -33,4 +35,8 @@ permissions:
   - 'create q_a content'
   - 'create step_by_step content'
   - 'create support_resources_detail_page content'
+  - 'delete content translations'
+  - 'translate any entity'
+  - 'translate editable entities'
+  - 'update content translations'
   - 'view node link report'

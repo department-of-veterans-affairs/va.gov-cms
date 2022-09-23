@@ -9,8 +9,6 @@ dependencies:
     - media.type.document_external
     - media.type.image
     - media.type.video
-    - node.type.banner
-    - node.type.promo_banner
     - node.type.vamc_system_billing_insurance
     - node.type.vamc_system_medical_records_offi
     - node.type.vamc_system_register_for_care
@@ -21,6 +19,7 @@ dependencies:
     - block_diff_ui
     - content_lock
     - content_moderation
+    - content_translation
     - entity_clone
     - entityqueue
     - file
@@ -34,6 +33,7 @@ dependencies:
     - paragraphs
     - path
     - pathauto
+    - smart_date_recur
     - system
     - tablefield
     - taxonomy
@@ -41,7 +41,6 @@ dependencies:
     - toolbar_menu
     - va_gov_backend
     - va_gov_build_trigger
-    - va_gov_menu_access
     - workbench_access
 third_party_settings:
   va_gov_backend:
@@ -73,6 +72,7 @@ permissions:
   - 'clone node entity'
   - 'clone paragraph entity'
   - 'create alert block content'
+  - 'create content translations'
   - 'create document media'
   - 'create document_external media'
   - 'create image media'
@@ -86,6 +86,7 @@ permissions:
   - 'delete alert revisions'
   - 'delete all block content revisions'
   - 'delete all media revisions'
+  - 'delete content translations'
   - 'delete document revisions'
   - 'delete document_external revisions'
   - 'delete image revisions'
@@ -116,6 +117,8 @@ permissions:
   - 'revert image revisions'
   - 'revert promo revisions'
   - 'revert video revisions'
+  - 'translate any entity'
+  - 'translate editable entities'
   - 'unflag changed_filename'
   - 'unflag changed_name'
   - 'unflag changed_title'
@@ -126,6 +129,7 @@ permissions:
   - 'update any alert block content'
   - 'update any media'
   - 'update any promo block content'
+  - 'update content translations'
   - 'update media'
   - 'use editorial transition approve'
   - 'use editorial transition archive'
