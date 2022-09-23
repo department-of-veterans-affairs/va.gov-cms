@@ -181,7 +181,6 @@ $settings['broken_link_report_import_enabled'] = FALSE;
 // Default prod location, overrideable by env var.
 $settings['broken_link_report_location'] = getenv('CONTENT_RELEASE_BROKEN_LINK_REPORT') ?: 'https://vetssgov-website-builds-s3-upload.s3-us-gov-west-1.amazonaws.com/broken-link-reports/vagovprod-broken-links.json';
 
-
 $settings_files = [
   // Flysistem settings
   __DIR__ . '/settings/settings.flysystem.php',
