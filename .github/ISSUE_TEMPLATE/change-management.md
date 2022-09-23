@@ -8,7 +8,7 @@ assignees: ContentBrewmaster
 
 ---
 
-The change represented by the epic # will [copy selection from epic].
+The change represented by the super epic # will [copy selection from epic].
  
 **1. Describe the change from the perspective of VA employees, in plain language. What is the employee going to experience with this change?**
 
