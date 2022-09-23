@@ -98,7 +98,7 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
       $value = $referenced_entity->get($field_to_render);
       $viewBuilder = \Drupal::entityTypeManager()->getViewBuilder($referenced_entity->getEntityTypeId());
       $output = $viewBuilder->viewField($value, 'full');
-      $output['content']['weight'] = 10;
+      $output['content']['#weight'] = 10;
       $output['#cache']['tags'] = $referenced_entity->getCacheTags();
     }
     return $output;
