@@ -6205,36 +6205,68 @@ display:
             value: '-365 days'
             type: offset
           group: 1
-          exposed: false
+          exposed: true
           expose:
-            operator_id: ''
-            label: ''
-            description: ''
+            operator_id: changed_op
+            label: Changed
+            description: null
             use_operator: false
-            operator: ''
+            operator: changed_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: ''
+            identifier: changed
             required: false
             remember: false
             multiple: false
             remember_roles:
               authenticated: authenticated
-            min_placeholder: ''
-            max_placeholder: ''
-            placeholder: ''
-          is_grouped: false
+            min_placeholder: null
+            max_placeholder: null
+            placeholder: null
+          is_grouped: true
           group_info:
-            label: ''
+            label: Outdated
             description: ''
-            identifier: ''
+            identifier: changed
             optional: true
             widget: select
             multiple: false
-            remember: false
-            default_group: All
+            remember: true
+            default_group: '1'
             default_group_multiple: {  }
-            group_items: {  }
+            group_items:
+              1:
+                title: '1 year'
+                operator: '<='
+                value:
+                  min: ''
+                  max: ''
+                  value: '-365 days'
+                  type: offset
+              2:
+                title: '30 days'
+                operator: '<='
+                value:
+                  min: ''
+                  max: ''
+                  value: '-395 days'
+                  type: offset
+              3:
+                title: '60 days'
+                operator: '<='
+                value:
+                  min: ''
+                  max: ''
+                  value: '-425 days'
+                  type: offset
+              4:
+                title: '90 days'
+                operator: '<='
+                value:
+                  min: ''
+                  max: ''
+                  value: '-455 days'
+                  type: offset
         status:
           id: status
           table: node_field_data
