@@ -44,3 +44,6 @@ $settings['trusted_host_patterns'] = [
 $settings['va_gov_frontend_url'] = 'https://www.va.gov';
 $settings['va_gov_frontend_build_type'] = 'brd';
 $settings['github_actions_deploy_env'] = 'prod';
+
+// Settings supporting broken link report import.
+$settings['broken_link_report_import_enabled'] = TRUE;
