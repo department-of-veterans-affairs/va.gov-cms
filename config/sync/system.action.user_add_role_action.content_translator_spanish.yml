@@ -1,0 +1,14 @@
+uuid: 9e9d7e6b-db9d-4232-80f1-d697273f4aec
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.content_translator_spanish
+  module:
+    - user
+id: user_add_role_action.content_translator_spanish
+label: 'Add the Content Translator - Spanish role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: content_translator_spanish

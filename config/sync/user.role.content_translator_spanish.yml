@@ -1,0 +1,39 @@
+uuid: 6bb5e84a-d839-48ea-95f2-94cbeb938b90
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.support_resources_detail_page
+    - workflows.workflow.editorial
+  module:
+    - content_moderation
+    - content_translation
+    - media
+    - node
+    - paragraphs
+    - system
+    - toolbar
+    - va_gov_backend
+third_party_settings:
+  va_gov_backend:
+    vgb_description: 'Role for Spanish content translators'
+id: content_translator_spanish
+label: 'Content Translator - Spanish'
+weight: 5
+is_admin: null
+permissions:
+  - 'access content overview'
+  - 'access toolbar'
+  - 'create content translations'
+  - 'delete content translations'
+  - 'delete media'
+  - 'translate any entity'
+  - 'translate paragraph'
+  - 'translate support_resources_detail_page node'
+  - 'update content translations'
+  - 'update media'
+  - 'use editorial transition create_new_draft'
+  - 'view any unpublished content'
+  - 'view latest version'
+  - 'view own unpublished media'
+  - 'view the administration theme'

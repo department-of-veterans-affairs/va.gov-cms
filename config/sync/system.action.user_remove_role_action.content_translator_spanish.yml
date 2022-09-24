@@ -1,0 +1,14 @@
+uuid: c572e587-5a62-4fcd-a785-652330861a00
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.content_translator_spanish
+  module:
+    - user
+id: user_remove_role_action.content_translator_spanish
+label: 'Remove the Content Translator - Spanish role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: content_translator_spanish
