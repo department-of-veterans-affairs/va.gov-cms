@@ -5,10 +5,36 @@
  * Contains va_gov_facilities.module.
  */
 
+use Drupal\va_gov_facilities\EventSubscriber\FacilitiesSubscriber;
+
+/**
+ * @file
+ * Contains va_gov_facilities.module.
+ */
+
 /**
  * Implements hook_page_attachments().
  */
 function va_gov_facilities_page_attachments(array &$attachments) {
   // Control visibility/required for facility status details.
   $attachments['#attached']['library'][] = 'va_gov_facilities/facility_status_details';
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function va_gov_facilities_preprocess_field__paragraph__field_hours(&$variables) {
+  // The value of the "Use the facility's hours" choice.
+  $use_facility_hours = "0";
+  $item_list = $variables['element']['#items'];
+  $paragraph = $item_list->getEntity();
+  $field_name = "field_hours";
+  if ($paragraph->$field_name->value === $use_facility_hours) {
+    $node_parent = va_gov_backend_get_parent_node($paragraph);
+    if ($node_parent) {
+      $related_field = "field_facility_location";
+      $field_to_render = "field_office_hours";
+      $variables['actual_hours'] = FacilitiesSubscriber::createRenderArrayFromFieldOnRefdEntity($node_parent, $related_field, $field_to_render);
+    }
+  }
 }

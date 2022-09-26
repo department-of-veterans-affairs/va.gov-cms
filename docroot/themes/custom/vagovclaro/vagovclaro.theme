@@ -9,7 +9,6 @@ use Drupal\block\Entity\Block;
 use Drupal\Core\Url;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
-use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 
@@ -108,7 +107,7 @@ function vagovclaro_theme_suggestions_paragraph_alter(&$suggestions, $variables)
 function vagovclaro_preprocess_paragraph(&$variables) {
   /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
-  $node_parent = _vagovclaro_get_node_parent($paragraph);
+  $node_parent = va_gov_backend_get_parent_node($paragraph);
   // If this paragraph belongs to a 'benefits detail page'.
   if (!empty($node_parent) && $node_parent->bundle() === 'page') {
     // Set the paragraph name.
@@ -161,31 +160,6 @@ function vagovclaro_preprocess_field(&$variables) {
   /** @var \Drupal\Core\Field\BaseFieldDefinition $field_def */
   $field_def = $field_defs[$element['#field_name']];
   $variables['description'] = str_replace('"', "'", $field_def->getDescription());
-}
-
-/**
- * Return the node that the paragraph belongs to.
- *
- * If the paragraph's parent is a paragraph, recurse up the tree until you
- * reach a non-paragraph entity.
- *
- * @param \Drupal\paragraphs\Entity\Paragraph $paragraph
- *   The paragraph to find the parent of.
- *
- * @return \Drupal\node\Entity\Node|null
- *   If the paragraph is attached to a node, return the node, otherwise NULL.
- */
-function _vagovclaro_get_node_parent(Paragraph $paragraph) {
-  $parent_node = NULL;
-  /** @var Drupal\paragraphs\Entity\Paragraph $parent */
-  $parent = $paragraph->getParentEntity();
-  if ($parent !== NULL && $parent->getEntityType()->id() === 'paragraph') {
-    $parent_node = _vagovclaro_get_node_parent($parent);
-  }
-  elseif ($parent !== NULL && $parent->getEntityType()->id() === 'node') {
-    $parent_node = $parent;
-  }
-  return $parent_node;
 }
 
 /**

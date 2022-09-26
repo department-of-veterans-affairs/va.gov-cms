@@ -176,7 +176,14 @@ $settings['post_api_apikey'] = getenv('CMS_VAGOV_API_KEY') ?: FALSE;
 $settings['slack_webhook_url'] = getenv('CMS_VAGOV_SLACK_WEBHOOK_URL') ?: FALSE;
 $config['slack.settings']['slack_webhook_url'] = $settings['slack_webhook_url'];
 
+// Settings supporting broken link report import. Off by default.
+$settings['broken_link_report_import_enabled'] = FALSE;
+// Default prod location, overrideable by env var.
+$settings['broken_link_report_location'] = getenv('CONTENT_RELEASE_BROKEN_LINK_REPORT') ?: 'https://vetsgov-website-builds-s3-upload.s3-us-gov-west-1.amazonaws.com/broken-link-reports/vagovprod-broken-links.json';
+
 $settings_files = [
+  // Flysistem settings
+  __DIR__ . '/settings/settings.flysystem.php',
   // Environment specific settings
   __DIR__ . '/settings/settings.' . $env_type . '.php',
   // Fast 404 settings
