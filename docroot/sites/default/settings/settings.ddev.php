@@ -46,13 +46,13 @@ $settings['memcache']['servers'] = [
 $settings['cms_datadog_api_key'] = getenv('CMS_DATADOG_API_KEY');
 
 // Personal overrides for settings.
-$personal_settings_path = __DIR__ . '/../default/settings.personal.php';
+$personal_settings_path = __DIR__ . '/settings.personal.php';
 if (file_exists($personal_settings_path)) {
   include_once $personal_settings_path;
 }
 
 // Personal overrides for services container.
-$personal_services_path = __DIR__ . '/../default/services.personal.yml';
+$personal_services_path = __DIR__ . '/../services/services.personal.yml';
 if (file_exists($personal_services_path)) {
   $settings['container_yamls'][] = realpath($personal_services_path);
 }
