@@ -4,7 +4,7 @@ about: Use this template for planning, coordinating and monitoring activities re
   to VFS-CMS updates that have a medium to high impact on VA employees.
 title: Change management for <insert issue name>
 labels: Needs refining
-assignees: ContentBrewmaster
+assignees: 
 
 ---
 
@@ -26,7 +26,7 @@ The change represented by the super epic # will [copy selection from epic].
 - [ ] VA Benefits Hub editor
 - [ ] Campaign landing page editor
 - [ ] VA Resources and Support editor
-- [ ] Offices editor
+- [ ] VBA editor
 - [ ] Supporting roles such as CMS account admin, Facilities or Public websites team member
 
 **4. How will success be measured for this change?**
