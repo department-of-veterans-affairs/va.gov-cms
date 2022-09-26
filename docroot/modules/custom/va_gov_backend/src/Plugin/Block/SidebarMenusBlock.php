@@ -25,10 +25,16 @@ use Symfony\Component\HttpFoundation\RequestStack;
  * )
  */
 class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInterface {
+  const TRICARE_ID = '1039';
+  const TRICARE_VALUE = 'tricare';
+  const VA_ID = '1040';
+  const VA_VALUE = 'va';
+  const BOTH_ID = '347';
+  const BOTH_VALUE = 'both';
   const LOVELL_SECTIONS = [
-    '1040' => 'va',
-    '1039' => 'tricare',
-    '347' => 'both',
+    self::VA_ID => self::VA_VALUE,
+    self::TRICARE_ID => self::TRICARE_VALUE,
+    self::BOTH_ID => self::BOTH_VALUE,
   ];
 
   /**
@@ -202,7 +208,7 @@ class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInter
 
       // Filter any children links for this menu item.
       if (count($menu_item['below'])) {
-        $this->filterLovellLinks($menu_item['below'], $section_id);
+        $this->filterLovellLinks($menu_item['below'], self::TRICARE_VALUE);
       }
     }
 
@@ -235,8 +241,8 @@ class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInter
   protected function isLinkNeeded($section_id, $link_section) {
     $needed = TRUE;
     if ((self::LOVELL_SECTIONS[$section_id] !== $link_section)
-    && ($link_section !== 'both')
-    && ($section_id !== '347')) {
+    && ($link_section !== self::BOTH_VALUE)
+    && ($section_id !== self::BOTH_ID)) {
       $needed = FALSE;
     }
     return $needed;
