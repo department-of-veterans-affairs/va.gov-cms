@@ -2,16 +2,17 @@
 
 namespace Drupal\va_gov_backend\Plugin\Block;
 
-use Drupal\Core\Menu\MenuTreeParameters;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Menu\MenuLinkManager;
 use Drupal\Core\Menu\MenuLinkTree;
+use Drupal\Core\Menu\MenuTreeParameters;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\node\NodeInterface;
 use Drupal\path_alias\AliasManagerInterface;
+use Drupal\va_gov_lovell\LovellOps;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -25,17 +26,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
  * )
  */
 class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInterface {
-  const TRICARE_ID = '1039';
-  const TRICARE_VALUE = 'tricare';
-  const VA_ID = '1040';
-  const VA_VALUE = 'va';
-  const BOTH_ID = '347';
-  const BOTH_VALUE = 'both';
-  const LOVELL_SECTIONS = [
-    self::VA_ID => self::VA_VALUE,
-    self::TRICARE_ID => self::TRICARE_VALUE,
-    self::BOTH_ID => self::BOTH_VALUE,
-  ];
+
 
   /**
    * The alias manager interface.
@@ -208,7 +199,7 @@ class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInter
 
       // Filter any children links for this menu item.
       if (count($menu_item['below'])) {
-        $this->filterLovellLinks($menu_item['below'], self::TRICARE_VALUE);
+        $this->filterLovellLinks($menu_item['below'], LovellOps::TRICARE_VALUE);
       }
     }
 
@@ -240,9 +231,9 @@ class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInter
    */
   protected function isLinkNeeded($section_id, $link_section) {
     $needed = TRUE;
-    if ((self::LOVELL_SECTIONS[$section_id] !== $link_section)
-    && ($link_section !== self::BOTH_VALUE)
-    && ($section_id !== self::BOTH_ID)) {
+    if ((LovellOps::LOVELL_SECTIONS[$section_id] !== $link_section)
+    && ($link_section !== LovellOps::BOTH_VALUE)
+    && ($section_id !== LovellOps::BOTH_ID)) {
       $needed = FALSE;
     }
     return $needed;
@@ -267,22 +258,9 @@ class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInter
       /** @var \Drupal\node\NodeInterface $node */
       $node_storage = $this->entityTypeManager->getStorage('node');
       $node = $node_storage->load($matches[1]);
-      $node_title = $node->getTitle();
-
-      // Lovell is a special case.
-      if ($node_title === 'Lovell Federal TRICARE health care') {
-        $node_title = 'Lovell Federal VA health care';
-      }
-
-      $menu_storage = $this->entityTypeManager->getStorage('menu');
-      $menus = $menu_storage->loadMultiple();
-      foreach ($menus as $menu) {
-        if ($menu->label() === $node_title) {
-          $menu_name = $menu->id();
-          break;
-        }
-      }
+      $menu_name = $node->field_system_menu->target_id;
     }
+
     return $menu_name;
   }
 
@@ -301,6 +279,12 @@ class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInter
     $manipulators = [
         ['callable' => 'menu.default_tree_manipulators:generateIndexAndSort'],
     ];
+    if (!empty($lovell_type)) {
+       $manipulators[] = [
+        'callable' => LovellOps::class . ':reduceLovellMenu',
+        'args' => [$lovell_type],
+        ];
+    }
     // If we don't do this, we won't see the whole menu on nested pages.
     $menu_parameters->setRoot('');
     $menu_parameters->onlyEnabledLinks();
