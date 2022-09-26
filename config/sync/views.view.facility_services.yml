@@ -943,7 +943,7 @@ display:
           sticky: true
           summary: ''
           empty_table: true
-          caption: 'Facility address audit'
+          caption: Facilities
           description: ''
       row:
         type: fields
@@ -1711,8 +1711,84 @@ display:
         operator: AND
         groups:
           1: AND
+      style:
+        type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          columns:
+            field_title: field_title
+            title: title
+            edit_node: edit_node
+            moderation_state: moderation_state
+            field_administration: field_administration
+            revision_uid: revision_uid
+            changed: changed
+          default: changed
+          info:
+            field_title:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            title:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            edit_node:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            moderation_state:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_administration:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            revision_uid:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            changed:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: by
+              empty_column: false
+              responsive: priority-low
+          override: true
+          sticky: true
+          summary: ''
+          empty_table: true
+          caption: 'List of accordion items in the "Prepare for your visit" field on VAMC facilities'
+          description: ''
+      row:
+        type: fields
+        options: {  }
       defaults:
         title: false
+        style: false
+        row: false
         fields: false
         filters: false
         filter_groups: false
@@ -3815,9 +3891,107 @@ display:
         operator: AND
         groups:
           1: AND
+      style:
+        type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          columns:
+            views_bulk_operations_bulk_form_1: views_bulk_operations_bulk_form_1
+            title: title
+            nid: nid
+            edit_node: edit_node
+            type: type
+            moderation_state: moderation_state
+            field_administration: field_administration
+            changed: changed
+            field_address: field_address
+            field_geolocation: field_geolocation
+          default: changed
+          info:
+            views_bulk_operations_bulk_form_1:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            title:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            nid:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            edit_node:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            type:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            moderation_state:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_administration:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            changed:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: by
+              empty_column: false
+              responsive: priority-low
+            field_address:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_geolocation:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          override: true
+          sticky: true
+          summary: ''
+          empty_table: true
+          caption: 'List of facility addresses'
+          description: ''
+      row:
+        type: fields
+        options: {  }
       defaults:
         empty: false
         title: false
+        style: false
+        row: false
         relationships: false
         fields: false
         sorts: false
@@ -6245,8 +6419,130 @@ display:
         operator: AND
         groups:
           1: AND
+      style:
+        type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          columns:
+            views_bulk_operations_bulk_form_1: views_bulk_operations_bulk_form_1
+            title: title
+            nid: nid
+            edit_node: edit_node
+            field_facility_locator_api_id: field_facility_locator_api_id
+            type: type
+            revision_uid: revision_uid
+            changed: changed
+            moderation_state: moderation_state
+            field_administration: field_administration
+            field_office: field_office
+            field_region_page: field_region_page
+            name: name
+          default: changed
+          info:
+            views_bulk_operations_bulk_form_1:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            title:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            nid:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            edit_node:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_facility_locator_api_id:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            type:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            revision_uid:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            changed:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: by
+              empty_column: false
+              responsive: priority-low
+            moderation_state:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_administration:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_office:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_region_page:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            name:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          override: true
+          sticky: true
+          summary: ''
+          empty_table: true
+          caption: 'List of facilities'
+          description: ''
+      row:
+        type: fields
+        options: {  }
       defaults:
         title: false
+        style: false
+        row: false
         relationships: false
         fields: false
         filters: false
@@ -9628,9 +9924,115 @@ display:
         operator: AND
         groups:
           1: AND
+      style:
+        type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          columns:
+            views_bulk_operations_bulk_form_1: views_bulk_operations_bulk_form_1
+            title: title
+            nid: nid
+            edit_node: edit_node
+            field_facility_locator_api_id: field_facility_locator_api_id
+            field_operating_status_facility: field_operating_status_facility
+            field_operating_status_more_info: field_operating_status_more_info
+            field_supplemental_status: field_supplemental_status
+            field_administration: field_administration
+            moderation_state: moderation_state
+            changed: changed
+          default: changed
+          info:
+            views_bulk_operations_bulk_form_1:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            title:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            nid:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            edit_node:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_facility_locator_api_id:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_operating_status_facility:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_operating_status_more_info:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_supplemental_status:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_administration:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            moderation_state:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            changed:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: by
+              empty_column: false
+              responsive: priority-low
+          override: true
+          sticky: true
+          summary: ''
+          empty_table: true
+          caption: 'List of facilities and their status'
+          description: ''
+      row:
+        type: fields
+        options: {  }
       defaults:
         empty: false
         title: false
+        style: false
+        row: false
         relationships: false
         fields: false
         sorts: false
@@ -13113,10 +13515,182 @@ display:
         operator: AND
         groups:
           1: AND
+      style:
+        type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          columns:
+            title: title
+            nid: nid
+            edit_node: edit_node
+            type: type
+            field_facility_location: field_facility_location
+            field_facility_locator_api_id: field_facility_locator_api_id
+            name_1: name_1
+            field_administration: field_administration
+            id: id
+            field_referral_required: field_referral_required
+            field_walk_ins_accepted: field_walk_ins_accepted
+            field_online_scheduling_availabl: field_online_scheduling_availabl
+            revision_uid: revision_uid
+            moderation_state: moderation_state
+            changed: changed
+            name: name
+            timestamp: timestamp
+            break: break
+            is_locked: is_locked
+          default: changed
+          info:
+            title:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            nid:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            edit_node:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            type:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_facility_location:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_facility_locator_api_id:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            name_1:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_administration:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            id:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_referral_required:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_walk_ins_accepted:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_online_scheduling_availabl:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            revision_uid:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            moderation_state:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            changed:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: by
+              empty_column: false
+              responsive: priority-low
+            name:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            timestamp:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            break:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            is_locked:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          override: true
+          sticky: true
+          summary: ''
+          empty_table: true
+          caption: 'List of health services at VAMC facilities'
+          description: ''
+      row:
+        type: fields
+        options: {  }
       defaults:
         access: true
         title: false
         group_by: false
+        style: false
+        row: false
         relationships: false
         fields: false
         filters: false
@@ -15768,10 +16342,158 @@ display:
         operator: AND
         groups:
           1: AND
+      style:
+        type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          columns:
+            title: title
+            nid: nid
+            edit_node: edit_node
+            type: type
+            field_facility_location: field_facility_location
+            field_facility_locator_api_id: field_facility_locator_api_id
+            name_1: name_1
+            field_administration: field_administration
+            id: id
+            revision_uid: revision_uid
+            moderation_state: moderation_state
+            changed: changed
+            name: name
+            timestamp: timestamp
+            break: break
+            is_locked: is_locked
+          default: changed
+          info:
+            title:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            nid:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            edit_node:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            type:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_facility_location:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_facility_locator_api_id:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            name_1:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_administration:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            id:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            revision_uid:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            moderation_state:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            changed:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: by
+              empty_column: false
+              responsive: priority-low
+            name:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            timestamp:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            break:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            is_locked:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          override: true
+          sticky: true
+          summary: ''
+          empty_table: true
+          caption: 'List of non-clinical services at VAMC facilities'
+          description: ''
+      row:
+        type: fields
+        options: {  }
       defaults:
         access: true
         title: false
         group_by: false
+        style: false
+        row: false
         relationships: false
         fields: false
         filters: false
@@ -17483,8 +18205,100 @@ display:
         operator: AND
         groups:
           1: AND
+      style:
+        type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          columns:
+            nid: nid
+            title: title
+            edit_node: edit_node
+            field_administration: field_administration
+            field_service_name_and_descripti: field_service_name_and_descripti
+            field_body: field_body
+            moderation_state: moderation_state
+            changed: changed
+            revision_uid: revision_uid
+          default: changed
+          info:
+            nid:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            title:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            edit_node:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_administration:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_service_name_and_descripti:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_body:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            moderation_state:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            changed:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: by
+              empty_column: false
+              responsive: priority-low
+            revision_uid:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          override: true
+          sticky: true
+          summary: ''
+          empty_table: true
+          caption: 'List of health services at VAMC systems'
+          description: ''
+      row:
+        type: fields
+        options: {  }
       defaults:
         title: false
+        style: false
+        row: false
         fields: false
         filters: false
         filter_groups: false
@@ -18340,9 +19154,107 @@ display:
         operator: AND
         groups:
           1: AND
+      style:
+        type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          columns:
+            parent_target_id: parent_target_id
+            title: title
+            nid: nid
+            edit_node: edit_node
+            field_vamc_system_official_name: field_vamc_system_official_name
+            view_node: view_node
+            field_appointments_online: field_appointments_online
+            field_vamc_ehr_system: field_vamc_ehr_system
+            field_va_health_connect_phone: field_va_health_connect_phone
+            moderation_state: moderation_state
+          default: '-1'
+          info:
+            parent_target_id:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            title:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            nid:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            edit_node:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_vamc_system_official_name:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            view_node:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_appointments_online:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_vamc_ehr_system:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_va_health_connect_phone:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            moderation_state:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          override: true
+          sticky: true
+          summary: ''
+          empty_table: true
+          caption: 'List of VAMC systems'
+          description: ''
+      row:
+        type: fields
+        options: {  }
       defaults:
         title: false
         pager: false
+        style: false
+        row: false
         relationships: false
         fields: false
         filters: false
@@ -20891,9 +21803,157 @@ display:
         operator: AND
         groups:
           1: AND
+      style:
+        type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          columns:
+            title: title
+            nid: nid
+            edit_node: edit_node
+            title_1: title_1
+            field_facility_locator_api_id: field_facility_locator_api_id
+            type: type
+            revision_uid: revision_uid
+            field_body: field_body
+            name_1: name_1
+            field_administration: field_administration
+            moderation_state: moderation_state
+            changed: changed
+            name: name
+            timestamp: timestamp
+            break: break
+            is_locked: is_locked
+          default: changed
+          info:
+            title:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            nid:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            edit_node:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            title_1:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_facility_locator_api_id:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            type:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            revision_uid:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_body:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            name_1:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_administration:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            moderation_state:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            changed:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: by
+              empty_column: false
+              responsive: priority-low
+            name:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            timestamp:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            break:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            is_locked:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          override: true
+          sticky: true
+          summary: ''
+          empty_table: true
+          caption: 'List of services at Vet Centers'
+          description: ''
+      row:
+        type: fields
+        options: {  }
       defaults:
         access: true
         title: false
+        style: false
+        row: false
         relationships: false
         fields: false
         filters: false

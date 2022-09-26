@@ -22,6 +22,7 @@ use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\file\Entity\File;
+use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\node\NodeInterface;
 use Drupal\taxonomy\TermInterface;
 use Drupal\user\Entity\Role;
@@ -268,7 +269,7 @@ function _va_gov_backend_get_clp_toggles() {
  * @param array $toggles
  *   The array containing arrays of trigger and toggle fields.
  */
-function _va_gov_toggle_fields_states(array &$form, array $toggles) {
+function _va_gov_backend_toggle_fields_states(array &$form, array $toggles) {
   if (!empty($toggles['toggle_groups']) && is_array($toggles['toggle_groups'])) {
     foreach ($toggles['toggle_groups'] as $toggle_group) {
       // Toggle the fields.
@@ -302,7 +303,7 @@ function _va_gov_toggle_fields_states(array &$form, array $toggles) {
  * @endcode
  * @codingStandardsIgnoreEnd
  */
-function _va_gov_toggle_field_states(array &$form, array $toggle_group) {
+function _va_gov_backend_toggle_field_states(array &$form, array $toggle_group) {
   if (isset($form[$toggle_group['trigger']])) {
     // The trigger is present so show/hide the associated fields.
     foreach ($toggle_group['toggle_fields'] as $key => $field) {
@@ -383,11 +384,11 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
   }
 
   // Disable path alias modification after lc node is published.
-  _va_gov_disable_alias_widget($form, $form_state);
+  _va_gov_backend_disable_alias_widget($form, $form_state);
 
   if ($form_id === 'node_campaign_landing_page_form' || $form_id === 'node_campaign_landing_page_edit_form') {
     $clp_toggles = _va_gov_backend_get_clp_toggles();
-    _va_gov_toggle_fields_states($form, $clp_toggles);
+    _va_gov_backend_toggle_fields_states($form, $clp_toggles);
     // Change story link teaser with image add button on clp form.
     if (!empty($form['field_clp_stories_teasers']['widget']['add_more']['add_more_button_link_teaser_with_image'])) {
       $form['field_clp_stories_teasers']['widget']['add_more']['add_more_button_link_teaser_with_image']['#value'] = t('Add story');
@@ -503,7 +504,6 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
   if ($form_id === 'node_press_release_form' || $form_id === 'node_press_release_edit_form') {
     $form['field_address']['widget']['#after_build'][] = 'va_gov_backend_press_release_address_after_build';
   }
-
 }
 
 /**
@@ -702,7 +702,7 @@ function _va_gov_backend_appt_intro_text_validation(array $form, FormStateInterf
  * @param Drupal\Core\Form\FormStateInterface $form_state
  *   Instance of FormStateInterface.
  */
-function _va_gov_disable_alias_widget(array &$form, FormStateInterface $form_state) {
+function _va_gov_backend_disable_alias_widget(array &$form, FormStateInterface $form_state) {
   if (!($form_state->getFormObject() instanceof EntityFormInterface)) {
     return;
   }
@@ -2011,4 +2011,29 @@ function va_gov_backend_theme($existing, $type, $theme, $path) {
       'base hook' => 'form_element',
     ],
   ];
+}
+
+/**
+ * Return the node that the paragraph belongs to.
+ *
+ * If the paragraph's parent is a paragraph, recurse up the tree until you
+ * reach a non-paragraph entity.
+ *
+ * @param \Drupal\paragraphs\Entity\Paragraph $paragraph
+ *   The paragraph to find the parent of.
+ *
+ * @return \Drupal\node\Entity\Node|null
+ *   If the paragraph is attached to a node, return the node, otherwise NULL.
+ */
+function va_gov_backend_get_parent_node(Paragraph $paragraph) {
+  $parent_node = NULL;
+  /** @var Drupal\paragraphs\Entity\Paragraph $parent */
+  $parent = $paragraph->getParentEntity();
+  if ($parent !== NULL && $parent->getEntityType()->id() === 'paragraph') {
+    $parent_node = va_gov_backend_get_parent_node($parent);
+  }
+  elseif ($parent !== NULL && $parent->getEntityType()->id() === 'node') {
+    $parent_node = $parent;
+  }
+  return $parent_node;
 }
