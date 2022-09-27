@@ -11,8 +11,6 @@
   beStrictAboutTestsThatDoNotTestAnything="true" 
   beStrictAboutOutputDuringTests="true" 
   beStrictAboutChangesToGlobalState="true"
-  addUncoveredFilesFromWhitelist="true"
-  processUncoveredFilesFromWhitelist="true"
 >
   <!-- TODO set printerClass="\Drupal\Tests\Listeners\HtmlOutputPrinter" once
  https://youtrack.jetbrains.com/issue/WI-24808 is resolved. Drupal provides a
@@ -64,7 +62,10 @@
   </listeners>
   <!-- Filter for coverage reports. -->
   <filter>
-    <whitelist>
+    <whitelist
+      addUncoveredFilesFromWhitelist="true"
+      processUncoveredFilesFromWhitelist="true"
+    >
       <directory>./docroot/modules/custom</directory>
       <!-- By definition test classes have no tests. -->
       <exclude>
