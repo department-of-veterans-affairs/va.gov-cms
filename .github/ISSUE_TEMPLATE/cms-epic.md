@@ -54,7 +54,7 @@ The change represented by this user story will:
 - [ ] Change the front end and be highly visible to the public
 - [ ] Noticeable performance improvements (publishing speed, predictability)
 
-If you selected an item above, open a new issue using the [change management template](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/.github/ISSUE_TEMPLATE/change-management.md).
+If you selected an item above, use the [Change Management Runbook](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/products/facilities/change-management) to create a CM epic and associated tickets.
 
 If you did not select an item above, update issues/PRs in GitHub but don’t plan for change management.
 
