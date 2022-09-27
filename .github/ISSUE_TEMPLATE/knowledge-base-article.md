@@ -44,7 +44,8 @@ assignees: ''
 
 
 **Is the article associated with change management initiatives?**
-- [ ] Yes
+- [ ] Yes<br>
+  [Change Management Epic](URL)
 - [ ] No
 
 
@@ -62,8 +63,10 @@ assignees: ''
 5. Publish
 
 
-## ACs
-- [ ] Article is reviewed by [assigned peer reviewer] and/or [SME/stakeholder]
+## Acceptance Criteria
+- [ ] Article is created using [KB article template](https://app.zenhub.com/workspaces/vagov-cms-team-5c0e7b864b5806bc2bfc2087/issues/department-of-veterans-affairs/va.gov-cms/10653) 
+- [ ] Article is reviewed by Sitewide CMS
+- [ ] Article posted to KB 
 - [ ] Article follows documented content style for the knowledge base
 - [ ] Article is assigned to a parent 
 - [ ] Impacts on other KB articles have been considered and any necessary changes have been made
