@@ -66,7 +66,9 @@
       addUncoveredFilesFromWhitelist="true"
       processUncoveredFilesFromWhitelist="true"
     >
-      <directory>./docroot/modules/custom</directory>
+      <directory suffix=".php">./docroot/modules/custom</directory>
+      <directory suffix=".inc">./docroot/modules/custom</directory>
+      <directory suffix=".module">./docroot/modules/custom</directory>
       <!-- By definition test classes have no tests. -->
       <exclude>
         <directory suffix="Test.php">./</directory>
