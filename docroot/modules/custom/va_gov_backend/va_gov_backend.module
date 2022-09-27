@@ -1388,6 +1388,42 @@ function va_gov_backend_entity_bundle_field_info_alter(&$fields, EntityTypeInter
 }
 
 /**
+ * Implements hook_node_access().
+ *
+ * Restrict translation to assigned language.
+ */
+function va_gov_backend_node_access(NodeInterface $node, $op, AccountInterface $account) {
+  $roles = $account->getRoles();
+  if (in_array('administrator', $roles)) {
+    return AccessResult::neutral();
+  }
+
+  if ($op !== 'update' && $op !== 'delete') {
+    return AccessResult::neutral();
+  }
+
+  // Access should be restricted only if this permission is set.
+  if (!$account->hasPermission('va_gov_backend_restrict')) {
+    return AccessResult::neutral();
+  }
+
+  $current_language = \Drupal::languageManager()->getCurrentLanguage();
+  $lang = $current_language->getId();
+
+  if ($account->hasPermission("va_gov_backend_{$lang}_allow")) {
+    return AccessResult::neutral();
+  }
+  return AccessResult::forbidden();
+}
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function va_gov_backend_entity_type_alter(array &$entity_types) {
+  $entity_types['node']->setHandlerClass('translation', CustomTranslationHandler::class);
+}
+
+/**
  * Implements hook_page_attachments().
  */
 function va_gov_backend_page_attachments(array &$attachments) {
