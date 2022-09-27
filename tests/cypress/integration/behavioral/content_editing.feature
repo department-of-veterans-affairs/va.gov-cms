@@ -21,6 +21,9 @@ Feature: CMS Users may effectively create & edit content
     And I click the "Save draft and continue editing" button
     Then I should see "Pages for the following VAMC systems"
     And I should see "[Test Data] Alert Title"
+    And I scroll to position "bottom"
+    And I click the "Unlock" link
+    And I click the "Confirm break lock" button
 
   Scenario: Confirm that content cannot be published directly from the node view but can from the node edit form.
     Given I am logged in as a user with the "content_admin" role

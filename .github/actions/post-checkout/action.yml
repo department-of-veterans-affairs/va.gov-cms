@@ -24,6 +24,7 @@ runs:
         php-version: '7.4'
         extensions: dom, curl, libxml, mbstring, zip, pdo, mysql, pdo_mysql, bcmath, gd, exif, iconv
         tools: composer:v2
+        coverage: xdebug
 
     - name: Install PHP packages via Composer
       run: composer install --no-progress --prefer-dist --optimize-autoloader
