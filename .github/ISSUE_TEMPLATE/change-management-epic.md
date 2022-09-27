@@ -47,4 +47,4 @@ If existing videos, list URLs:
 
 **7. Are there any known dependencies?**
 
-## Key Dates (pre-event communications, preview with User Support, launch date, post-event tasks)
+
