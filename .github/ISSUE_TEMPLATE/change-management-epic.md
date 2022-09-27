@@ -36,9 +36,9 @@ The change represented by the super epic # will [copy selection from epic].
 - [ ] The content adheres to VA policies and standards for VA.gov, as measured through a dashboard tool and/or audit
 
 ## Tactics to be used (select all that apply)
-- [ ] Knowledge Base article(s)
+- [ ] Knowledge Base article(s)<br>
 If existing articles, list URLs:
-- [ ] Training video(s)
+- [ ] Training video(s)<br>
 If existing videos, list URLs:
 - [ ] CMS UI support
 - [ ] Announcement block
