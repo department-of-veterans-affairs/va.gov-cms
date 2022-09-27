@@ -35,7 +35,7 @@ The change represented by the super epic # will [copy selection from epic].
 - [ ] No help desk support is needed, as measured through help desk tickets
 - [ ] The content adheres to VA policies and standards for VA.gov, as measured through a dashboard tool and/or audit
 
-## Tactics to be used (select all that apply
+## Tactics to be used (select all that apply)
 - [ ] Knowledge Base article(s)
 If existing articles, list URLs:
 - [ ] Training video(s)
