@@ -29,8 +29,6 @@ class PreventLocalFileLinksValidatorTest extends UnitTestCase {
    *   Some test string to attempt to validate.
    *
    * @covers ::validate
-   * @covers ::validateText
-   * @covers ::validateHtml
    * @dataProvider validateDataProvider
    */
   public function testValidate(bool $willValidate, string $testString) {
