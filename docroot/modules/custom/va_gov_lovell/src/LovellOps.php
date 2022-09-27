@@ -8,17 +8,37 @@ use Drupal\node\NodeInterface;
  * Wrapper class of largely static helper functions related to Lovell.
  */
 class LovellOps {
+  const BOTH_ID = '347';
+  const BOTH_VALUE = 'both';
   const TRICARE_ID = '1039';
   const TRICARE_VALUE = 'tricare';
   const VA_ID = '1040';
   const VA_VALUE = 'va';
-  const BOTH_ID = '347';
-  const BOTH_VALUE = 'both';
+  const LOVELL_FEDERAL_PATH = '/lovell-federal-health-care';
+  const LOVELL_MENU_ID = 'lovell-federal-health-care';
   const LOVELL_SECTIONS = [
     self::VA_ID => self::VA_VALUE,
     self::TRICARE_ID => self::TRICARE_VALUE,
     self::BOTH_ID => self::BOTH_VALUE,
   ];
+
+  /**
+   * Overrides the menu name if system path matches Lovell.
+   *
+   * @param string $system_path
+   *   The system path to check.
+   * @param string $menu_id
+   *   The existing menu ID in case we need to pass it through & chain these.
+   *
+   * @return string
+   *   The menu id.
+   */
+  public static function getLovellMenuFallback($system_path, $menu_id) {
+    if ($system_path === self::LOVELL_FEDERAL_PATH) {
+      $menu_id = self::LOVELL_MENU_ID;
+    }
+    return $menu_id;
+  }
 
   /**
    * Get the Lovell type of the node based on section.
@@ -39,37 +59,6 @@ class LovellOps {
       }
     }
     return $type;
-  }
-
-  /**
-   * Generates a unique index and sorts by it.
-   *
-   * @param \Drupal\Core\Menu\MenuLinkTreeElement $tree
-   *   The menu link tree to manipulate.
-   * @param string $lovell_type
-   *   The type of Lovell page this menu appears upon.
-   * @param array $menu_items
-   *   An array of loaded menu items.
-   *
-   * @return \Drupal\Core\Menu\MenuLinkTreeElement
-   *   The manipulated menu link tree.
-   */
-  public static function reduceLovellMenu(MenuLinkTreeElement $tree, $lovell_type, array $menu_items = NULL) {
-    $new_tree = [];
-    if (empty($menu_items)) {
-      $menu_items = "//load all the menu items.";
-    }
-
-    foreach ($tree as $key => $v) {
-      if ($tree[$key]->subtree) {
-        $tree[$key]->subtree = self::reduceLovellMenu($tree[$key]->subtree, $lovell_type, $menu_items);
-      }
-      $instance = $tree[$key]->link;
-      // Need to look for field_menu_section.
-      // $new_tree[ $instance->getTitle()] = $tree[$key];.
-    }
-
-    return $tree;
   }
 
 }

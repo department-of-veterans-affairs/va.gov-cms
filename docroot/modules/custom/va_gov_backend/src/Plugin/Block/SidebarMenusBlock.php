@@ -64,6 +64,13 @@ class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInter
   protected $requestStack;
 
   /**
+   * The renderer.
+   *
+   * @var \Drupal\Core\Render\RendererInterface
+   */
+  protected $renderer;
+
+  /**
    * The menu link manager.
    *
    * @var \Drupal\Core\Menu\MenuLinkManager
@@ -71,11 +78,11 @@ class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInter
   protected $menuLinkManager;
 
   /**
-   * The renderer.
+   * The name of the menu in play.
    *
-   * @var \Drupal\Core\Render\RendererInterface
+   * @var string
    */
-  protected $renderer;
+  protected $menuId;
 
   /**
    * Constructor.
@@ -147,149 +154,86 @@ class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInter
   public function build() {
     $build = [];
     $node = $this->routeMatch->getParameters()->get('node');
-    $menu_name = $this->getMenuName();
+    $menu_name = $this->getMenuId();
     // Before we start doing stuff, make sure we have a node object.
     if ($node instanceof NodeInterface) {
-
       $route_params = ['node' => $node->id()];
       // Load the menu.
       $menu_links = $this->menuLinkManager->loadLinksByRoute('entity.node.canonical', $route_params, $menu_name);
-
+      $lovell_type = LovellOps::getLovellType($node);
       // If it has links, put them together.
-      $build = $this->getMenuBuild($menu_links);
-
-      // If the current node is Lovell content, filter the menu.
-      if ($node->hasField('field_administration')) {
-        $section_id = $node->get('field_administration')->target_id;
-        if (array_key_exists($section_id, self::LOVELL_SECTIONS)) {
-          $this->filterLovellLinks($build['#items'], $section_id, TRUE);
-        }
-      }
+      $build = $this->getMenuBuild($menu_links, $lovell_type);
     }
+
     return [
       '#markup' => $this->renderer->render($build),
     ];
-
   }
 
   /**
-   * Remove menu items that should not be displayed for a given section id.
-   *
-   * @param array $menu_items
-   *   The array of menu items (links).
-   * @param string $section_id
-   *   The section id for the current node.
-   * @param bool $first_call
-   *   Determines if this is the first call of this recursive function.
-   */
-  protected function filterLovellLinks(array &$menu_items, $section_id, $first_call = FALSE) {
-    foreach ($menu_items as $key => &$menu_item) {
-      // The menu includes two root menu items: one for VA and one for tricare.
-      // These should always be present so we do not filter them.
-      if (!$first_call) {
-        $id = $menu_item['original_link']->getPluginDefinition()['metadata']['entity_id'];
-        $menu_link = $this->entityTypeManager->getStorage('menu_link_content')->load($id);
-        $link_section = $menu_link->get('field_menu_section')->getValue()[0]['value'];
-        // Compare the section for the page to the section for the menu link.
-        if (!$this->isLinkNeeded($section_id, $link_section)) {
-          unset($menu_items[$key]);
-          continue;
-        }
-      }
-
-      // Filter any children links for this menu item.
-      if (count($menu_item['below'])) {
-        $this->filterLovellLinks($menu_item['below'], LovellOps::TRICARE_VALUE);
-      }
-    }
-
-    // Post filtering - if section is tricare, swap the root items.
-    if (($first_call)
-    && (self::LOVELL_SECTIONS[$section_id] === 'tricare')
-    && (count($menu_items) === 2)) {
-      $tricare_menu = array_shift($menu_items);
-      $va_menu = array_shift($menu_items);
-      $tricare_menu['below'] = $va_menu['below'];
-      $va_menu['below'] = [];
-      $menu_items = [
-        'va_menu' => $va_menu,
-        'tricare_menu' => $tricare_menu,
-      ];
-    }
-  }
-
-  /**
-   * Determine if a node section and link section are a match.
-   *
-   * @param string $section_id
-   *   The section for a given node.
-   * @param string $link_section
-   *   The section for a given menu link.
-   *
-   * @return bool
-   *   True if the menu should be displayed, false otherwise.
-   */
-  protected function isLinkNeeded($section_id, $link_section) {
-    $needed = TRUE;
-    if ((LovellOps::LOVELL_SECTIONS[$section_id] !== $link_section)
-    && ($link_section !== LovellOps::BOTH_VALUE)
-    && ($section_id !== LovellOps::BOTH_ID)) {
-      $needed = FALSE;
-    }
-    return $needed;
-  }
-
-  /**
-   * Returns the name of the vamc menu for the current context.
+   * Returns the id of the vamc menu for the current context.
    *
    * @return string
    *   The menu name.
    */
-  public function getMenuName() {
-    $menu_name = '';
-    // This is the only thing we have to find the menu name.
-    $path = $this->requestStack->getCurrentRequest()->getPathInfo();
-    $args = explode('/', $path);
+  public function getMenuId() {
+    if (empty($this->menuId)) {
+      // Has not been set, so create it.
+      $menu_name = '';
+      // This is the only thing we have to find the menu name.
+      $alias = $this->requestStack->getCurrentRequest()->getPathInfo();
+      $alias_parts = explode('/', $alias);
 
-    // Load the node for the path root.
-    $url = '/' . $args[1];
-    $path = $this->aliasManager->getPathByAlias($url);
-    if (preg_match('/node\/(\d+)/', $path, $matches)) {
-      /** @var \Drupal\node\NodeInterface $node */
-      $node_storage = $this->entityTypeManager->getStorage('node');
-      $node = $node_storage->load($matches[1]);
-      $menu_name = $node->field_system_menu->target_id;
+      // Load the node for the path root.
+      $root_alias = '/' . $alias_parts[1];
+      $system_path = $this->aliasManager->getPathByAlias($root_alias);
+      if (preg_match('/node\/(\d+)/', $system_path, $matches)) {
+        $node_storage = $this->entityTypeManager->getStorage('node');
+        /** @var \Drupal\node\NodeInterface $node */
+        $node = $node_storage->load($matches[1]);
+        $this->menuId = $node->field_system_menu->target_id;
+      }
+      else {
+        // The proper node was not found, so attempt a default.
+        $this->menuId = LovellOps::getLovellMenuFallback($system_path, $this->menuId);
+      }
     }
 
-    return $menu_name;
+    return $this->menuId;
   }
 
   /**
-   * Returns the rendered vamc menu for the current context.
+   * Returns the rendered VAMC menu for the current context.
+   *
+   * @param \Drupal\Core\Menu\MenuLinkInterface[] $menu_links
+   *   The links to use in the menu.
+   * @param string $lovell_type
+   *   The type of Lovell menu (both, tricare, VA, '').
    *
    * @return array
    *   Returns the rendered menu array, or empty array if no menu.
    */
-  protected function getMenuBuild($menu_links) {
+  protected function getMenuBuild(array $menu_links, $lovell_type) {
     if (empty($menu_links)) {
       return [];
     }
     $menu_parameters = new MenuTreeParameters();
-    // This is needed to sort by weights set in ui.
-    $manipulators = [
-        ['callable' => 'menu.default_tree_manipulators:generateIndexAndSort'],
-    ];
-    if (!empty($lovell_type)) {
-       $manipulators[] = [
-        'callable' => LovellOps::class . ':reduceLovellMenu',
-        'args' => [$lovell_type],
-        ];
-    }
     // If we don't do this, we won't see the whole menu on nested pages.
     $menu_parameters->setRoot('');
     $menu_parameters->onlyEnabledLinks();
-    $tree = $this->menuLinkTree->load($this->getMenuName(), $menu_parameters);
+    $tree = $this->menuLinkTree->load($this->getMenuId(), $menu_parameters);
+    $manipulators = [
+        // This is needed to sort by weights set in ui.
+        ['callable' => 'menu.default_tree_manipulators:generateIndexAndSort'],
+    ];
+    if (!empty($lovell_type)) {
+      $manipulators[] = [
+        'callable' => 'va_gov_lovell.lovellmenulinktreemanipulators:reduceLovellMenu',
+        'args' => [$lovell_type],
+      ];
+    }
     $tree = $this->menuLinkTree->transform($tree, $manipulators);
+
     return $this->menuLinkTree->build($tree);
   }
 
