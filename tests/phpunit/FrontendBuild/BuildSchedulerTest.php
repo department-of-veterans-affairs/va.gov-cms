@@ -84,7 +84,7 @@ class BuildSchedulerTest extends UnitTestCase {
   /**
    * Test cases for scheduled build logic.
    *
-   * For reference, scheduled hours are Monday through Friday, 13:00-24:00
+   * For reference, scheduled hours are Monday through Friday, 12:00-24:00
    * (00:00 +1) GMT.
    */
   public function scheduledBuildDataProvider() {
