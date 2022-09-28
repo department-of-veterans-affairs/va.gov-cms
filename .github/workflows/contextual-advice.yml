@@ -1,0 +1,65 @@
+name: Contextual Advice
+on: 
+  - pull_request_target
+permissions:
+  pull-requests: write
+jobs:
+
+  # Provide context-specific advice to reviewers based on the files touched.
+  contextual_advice:
+    name: Contextual Advice
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Find available advice for each modified file.
+        id: find_advice
+        run: |
+          echo "::set-output name=run_job::false";
+          mkdir -p ./pr_advice;
+          while read filename; do
+            echo "${filename}";
+            IFS=', ' read -r -a path_components <<< "${filename}";
+            filename_path=".github/workflows/config/advice/";
+            advice_filename="";
+            for path_component in "${path_components[@]"; do
+              filename_path="${filename_path}_${path_component}";
+              if [ -f "${filename_path}.md" ]; then
+                advice_filename="${filename_path}.md";
+              fi;
+            done;
+            if [ ! -z "${advice_filename}" ]; then
+              cp "${advice_filename}" ./pr_advice/;
+              echo "::set-output name=run_job::true";
+            fi;
+          done < <(git diff --name-only "${GITHUB_SHA}" "${GITHUB_PR_SHA}")
+        env:
+          GITHUB_PR_SHA: ${{ github.event.pull_request.head.sha }}
+ 
+      - name: Provide advice in a PR comment.
+        if: find_advice.outputs.run_job == 'true'
+        run: |
+          # Find comments containing token, if any, and delete them.
+          gh api \
+            -H "Accept: application/vnd.github+json" \
+            /repos/${GITHUB_REPOSITORY}/issues/${GITHUB_PR}/comments \
+            | jq '.[] | select(.body | contains("<!-- PR Advice -->")).id' \
+            | while read -r pr_comment; do \
+              gh api \
+                --method DELETE \
+                -H "Accept: application/vnd.github+json" \
+                "/repos/${GITHUB_REPOSITORY}/issues/comments/${pr_comment}"; \
+              done;
+
+          body="$(cat ./pr_advice/*.md)";
+
+          # Create a new comment containing the compiled advice.
+          gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            /repos/${GITHUB_REPOSITORY}/issues/${GITHUB_PR}/comments \
+            -f body="<!-- PR Advice -->\n${body}";
+          
+        env:
+          GITHUB_PR: "${{ github.event.pull_request.number }}"
+          GITHUB_PR_SHA: ${{ github.event.pull_request.head.sha }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
