@@ -9,12 +9,17 @@ use Drupal\node\NodeInterface;
  */
 class LovellOps {
   const BOTH_ID = '347';
+  const BOTH_NAME = 'Lovell Federal health care';
+  const BOTH_PATH = 'lovell-federal-health-care';
   const BOTH_VALUE = 'both';
   const TRICARE_ID = '1039';
+  const TRICARE_NAME = 'Lovell Federal TRICARE health care';
+  const TRICARE_PATH = 'lovell-federal-tricare-health-care';
   const TRICARE_VALUE = 'tricare';
   const VA_ID = '1040';
+  const VA_NAME = 'Lovell Federal VA health care';
+  const VA_PATH = 'lovell-federal-va-health-care';
   const VA_VALUE = 'va';
-  const LOVELL_FEDERAL_PATH = '/lovell-federal-health-care';
   const LOVELL_MENU_ID = 'lovell-federal-health-care';
   const LOVELL_SECTIONS = [
     self::VA_ID => self::VA_VALUE,
@@ -34,7 +39,8 @@ class LovellOps {
    *   The menu id.
    */
   public static function getLovellMenuFallback($system_path, $menu_id) {
-    if ($system_path === self::LOVELL_FEDERAL_PATH) {
+    $system_path = ltrim($system_path, '/');
+    if ($system_path === self::BOTH_PATH) {
       $menu_id = self::LOVELL_MENU_ID;
     }
     return $menu_id;

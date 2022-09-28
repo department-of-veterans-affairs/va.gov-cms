@@ -2,34 +2,28 @@
 
 namespace Drupal\va_gov_lovell\EventSubscriber;
 
+use Drupal\core_event_dispatcher\EntityHookEvents;
+use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\core_event_dispatcher\EntityHookEvents;
-use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
-use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
-use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\menu_link_content\MenuLinkContentInterface;
 use Drupal\node\NodeInterface;
 use Drupal\path_alias\Entity\PathAlias;
 use Drupal\pathauto\PathautoGenerator;
 use Drupal\va_gov_lovell\Event\BreadcrumbPreprocessEvent;
-use Drupal\va_gov_lovell\Event\MenuPreprocessEvent;
+use Drupal\va_gov_lovell\LovellOps;
 use Drupal\va_gov_lovell\Variables\BreadcrumbEventVariables;
-use Drupal\va_gov_lovell\Variables\MenuEventVariables;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * VA.gov Lovell Entity Event Subscriber.
  */
 class LovellEventSubscriber implements EventSubscriberInterface {
-  const LOVELL_SECTIONS = [
-    '1040' => 'va',
-    '1039' => 'tricare',
-    '347' => 'both',
-  ];
 
   use StringTranslationTrait;
 
@@ -92,11 +86,10 @@ class LovellEventSubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents(): array {
     return [
-      EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
-      EntityHookEvents::ENTITY_INSERT => 'entityInsert',
-      EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
       BreadcrumbPreprocessEvent::name() => 'preprocessBreadcrumb',
-      MenuPreprocessEvent::name() => 'preprocessMenu',
+      EntityHookEvents::ENTITY_INSERT => 'entityInsert',
+      EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
+      EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
     ];
   }
 
@@ -146,18 +139,6 @@ class LovellEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Menu preprocess Event call.
-   *
-   * @param \Drupal\va_gov_lovell\Event\MenuPreprocessEvent $event
-   *   The event.
-   */
-  public function preprocessMenu(MenuPreprocessEvent $event): void {
-    // @todo can we make this work.
-    // $variables = $event->getVariables();
-    // $this->updateLovellMenu($variables);
-  }
-
-  /**
    * Disable pathauto for Lovell nodes.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
@@ -168,7 +149,7 @@ class LovellEventSubscriber implements EventSubscriberInterface {
     && ($entity->hasField('path'))
     && ($entity->hasField('field_administration'))) {
       $section_id = $entity->get('field_administration')->target_id;
-      if (!array_key_exists($section_id, self::LOVELL_SECTIONS)) {
+      if (!array_key_exists($section_id, LovellOps::LOVELL_SECTIONS)) {
         return;
       }
       // If this node is in a Lovell section disable pathauto pattern.
@@ -198,8 +179,8 @@ class LovellEventSubscriber implements EventSubscriberInterface {
         if ($node->hasField('field_administration')) {
           $section_id = $node->get('field_administration')->target_id;
           // Set section for this menu item.
-          if (!empty(self::LOVELL_SECTIONS[$section_id])) {
-            $entity->set('field_menu_section', self::LOVELL_SECTIONS[$section_id]);
+          if (!empty(LovellOps::LOVELL_SECTIONS[$section_id])) {
+            $entity->set('field_menu_section', LovellOps::LOVELL_SECTIONS[$section_id]);
           }
         }
       }
@@ -218,19 +199,13 @@ class LovellEventSubscriber implements EventSubscriberInterface {
     if (($node instanceof NodeInterface)
     && ($node->hasField('path'))
     && ($node->hasField('field_administration'))) {
-      // If this content does not belong to Lovell Tricare do nothing.
       $section_id = $node->get('field_administration')->target_id;
-      if ($section_id !== '1039') {
-        return;
+      if ($section_id === LovellOps::TRICARE_ID) {
+        $breadcrumb = $this->swapAforB('VA', 'TRICARE', $breadcrumb);
+        $breadcrumb = $this->swapAforB('BOTH', 'TRICARE', $breadcrumb);
       }
-
-      foreach ($breadcrumb as $key => $link) {
-        if (str_contains($link['url'], 'lovell-federal-va-health-care')) {
-          $breadcrumb[$key]['url'] = str_replace('lovell-federal-va-health-care', 'lovell-federal-tricare-health-care', $link['url']);
-          if (is_string($link['text'])) {
-            $breadcrumb[$key]['text'] = str_replace('Lovell Federal VA health care', 'Lovell Federal Tricare health care', $link['text']);
-          }
-        }
+      else {
+        $breadcrumb = $this->swapAforB('BOTH', 'VA', $breadcrumb);
       }
 
       $variables->set('breadcrumb', $breadcrumb);
@@ -238,92 +213,33 @@ class LovellEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Update menu for Lovell content.
+   * Replaces A Links and paths with B.
    *
-   * @param \Drupal\va_gov_lovell\Variables\MenuEventVariables $variables
-   *   MenuEventVariables.
-   */
-  protected function updateLovellMenu(MenuEventVariables &$variables): void {
-    $menu = &$variables->getMenu();
-    $node = $this->routeMatch->getParameter('node');
-    if (($node instanceof NodeInterface)
-    && ($node->hasField('path'))
-    && ($node->hasField('field_administration'))) {
-      // If this content does not belong to a Lovell section do nothing.
-      $section_id = $node->get('field_administration')->target_id;
-      if (!array_key_exists($section_id, self::LOVELL_SECTIONS)) {
-        return;
-      }
-
-      // If the current node is Lovell content, filter the menu.
-      $this->filterLovellLinks($menu, $section_id, TRUE);
-      $variables->set('items', $menu);
-    }
-  }
-
-  /**
-   * Remove menu items that should not be displayed for a given section id.
+   * @param string $a
+   *   Capped values of either TRICARE, VA, or BOTH.
+   * @param string $b
+   *   Capped values of either TRICARE, VA, or BOTH.
+   * @param array $breadcrumb
+   *   AN array of breadcrumbs.
    *
-   * @param array $menu_links
-   *   The array of menu links.
-   * @param string $section_id
-   *   The section id for the current node.
-   * @param bool $first_call
-   *   Determines if this is the first call of this recursive function.
+   * @return array
+   *   The breadcrumb.
    */
-  protected function filterLovellLinks(array &$menu_links, $section_id, $first_call = FALSE) {
-    foreach ($menu_links as $key => &$menu_link) {
-      // The menu includes two root menu items: one for VA and one for tricare.
-      // These should always be present so we do not filter them.
-      if (!$first_call) {
-        // Compare the section for the menu link to the section for the page.
-        $link_section = $menu_link['entity']->get('field_menu_section')->getValue()[0]['value'];
-        if (!$this->isLinkNeeded($section_id, $link_section)) {
-          unset($menu_links[$key]);
-          continue;
+  protected function swapAforB($a, $b, array $breadcrumb) {
+    $a_path = constant('\Drupal\va_gov_lovell\LovellOps::' . "{$a}_PATH");
+    $a_name = constant('\Drupal\va_gov_lovell\LovellOps::' . "{$a}_NAME");
+
+    $b_path = constant('\Drupal\va_gov_lovell\LovellOps::' . "{$b}_PATH");
+    $b_name = constant('\Drupal\va_gov_lovell\LovellOps::' . "{$b}_NAME");
+    foreach ($breadcrumb as $key => $link) {
+      if (str_contains($link['url'], $a_path)) {
+        $breadcrumb[$key]['url'] = str_replace($a_path, $b_path, $link['url']);
+        if (is_string($link['text'])) {
+          $breadcrumb[$key]['text'] = str_replace($a_name, $b_name, $link['text']);
         }
       }
-
-      // Filter any children links for this menu item.
-      if (count($menu_link['below'])) {
-        $this->filterLovellLinks($menu_link['below'], $section_id);
-      }
     }
-
-    // Post filtering - if section is tricare, swap the root items.
-    if (($first_call)
-    && (self::LOVELL_SECTIONS[$section_id] === 'tricare')
-    && (count($menu_items) === 2)) {
-      $tricare_menu = array_shift($menu_items);
-      $va_menu = array_shift($menu_items);
-      $tricare_menu['below'] = $va_menu['below'];
-      $va_menu['below'] = [];
-      $menu_items = [
-        'va_menu' => $va_menu,
-        'tricare_menu' => $tricare_menu,
-      ];
-    }
-  }
-
-  /**
-   * Determine if a node section and link section are a match.
-   *
-   * @param string $section_id
-   *   The section for a given node.
-   * @param string $link_section
-   *   The section for a given menu link.
-   *
-   * @return bool
-   *   True if the menu should be displayed, false otherwise.
-   */
-  protected function isLinkNeeded($section_id, $link_section) {
-    $needed = TRUE;
-    if ((self::LOVELL_SECTIONS[$section_id] !== $link_section)
-    && ($link_section !== 'both')
-    && ($section_id !== '347')) {
-      $needed = FALSE;
-    }
-    return $needed;
+    return $breadcrumb;
   }
 
   /**
@@ -339,7 +255,11 @@ class LovellEventSubscriber implements EventSubscriberInterface {
     && ($entity->hasField('field_administration'))) {
       // If this content does not belong to a Lovell section do nothing.
       $section_id = $entity->get('field_administration')->target_id;
-      if (!array_key_exists($section_id, self::LOVELL_SECTIONS)) {
+      if (!array_key_exists($section_id, LovellOps::LOVELL_SECTIONS)) {
+        return;
+      }
+      if ($entity->id() === '15007') {
+        // Special case of Lovell Federal system.
         return;
       }
 
@@ -425,12 +345,12 @@ class LovellEventSubscriber implements EventSubscriberInterface {
   protected function getValidPrefixes(string $section_id): array {
     // Define valid url prefixes for Lovell content.
     $valid_prefixes = [
-      '1039' => 'lovell-federal-tricare-health-care',
-      '1040' => 'lovell-federal-va-health-care',
+      LovellOps::TRICARE_ID => LovellOps::TRICARE_PATH,
+      LovellOps::VA_ID => LovellOps::VA_PATH,
     ];
 
     // If section is not both remove invalid prefixes.
-    if ($section_id !== '347') {
+    if ($section_id !== LovellOps::BOTH_ID) {
       $valid_prefixes = array_intersect_key($valid_prefixes, [$section_id => 'keep']);
     }
 
