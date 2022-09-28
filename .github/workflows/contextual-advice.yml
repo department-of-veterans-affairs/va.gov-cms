@@ -11,32 +11,53 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      # To create advice for a file or directory, determine the filename by:
+      # $ `echo "$filename" | sed -E 's/[^[:alnum:]]+/_/g'`
+      #
+      # Then add `.md` to the end of the filename and stick it in
+      # the advice folder.
+      #
+      # E.g.:
+      #
+      # .gitignore                                -> _gitignore.md
+      # .github/actions/post-checkout/action.yml  -> _github_actions_post_checkout_action_yml.md
+      # config/sync/core.extension.yml            -> config_sync_core_extension_yml.md
+      # docroot/sites/default                     -> docroot_sites_default.md
+      #
       - name: Find available advice for each modified file.
         id: find_advice
         run: |
-          echo "::set-output name=run_job::false";
           mkdir -p ./pr_advice;
+          advice_path=".github/workflows/config/advice/";
           while read filename; do
-            echo "${filename}";
-            IFS=', ' read -r -a path_components <<< "${filename}";
-            filename_path=".github/workflows/config/advice/";
+            echo "::debug::Looking for relevant advice for ${filename}...";
+            IFS='/' read -r -a path_components <<< "${filename}";
+            advice_file_path="${advice_path}";
             advice_filename="";
-            for path_component in "${path_components[@]"; do
-              filename_path="${filename_path}_${path_component}";
-              if [ -f "${filename_path}.md" ]; then
-                advice_filename="${filename_path}.md";
+            for path_component in "${path_components[@]}"; do
+              sanitized="$(echo "${path_component}" | sed -E 's/[^[:alnum:]]+/_/g')";
+              advice_file_path="${advice_file_path}_${sanitized}";
+              if [ -f "${advice_file_path}.md" ]; then
+                if [ ! -z "${advice_filename}" ]; then
+                  echo "::debug::Discarding advice in ${advice_filename} for (presumably) more relevant advice...";
+                fi;
+                advice_filename="${advice_file_path}.md";
+                echo "::debug::Found relevant advice for ${filename} at ${advice_filename}.";
               fi;
             done;
             if [ ! -z "${advice_filename}" ]; then
               cp "${advice_filename}" ./pr_advice/;
-              echo "::set-output name=run_job::true";
+              echo "::set-output name=provide_advice::true";
+            else
+              echo "::debug::... none found.";
             fi;
-          done < <(git diff --name-only "${GITHUB_SHA}" "${GITHUB_PR_SHA}")
+          done < <(git diff --name-only "${GITHUB_BASE_SHA}" HEAD);
         env:
+          GITHUB_BASE_SHA: ${{ github.event.pull_request.base.sha }}
           GITHUB_PR_SHA: ${{ github.event.pull_request.head.sha }}
  
       - name: Provide advice in a PR comment.
-        if: find_advice.outputs.run_job == 'true'
+        if: steps.find_advice.outputs.provide_advice == 'true'
         run: |
           # Find comments containing token, if any, and delete them.
           gh api \
