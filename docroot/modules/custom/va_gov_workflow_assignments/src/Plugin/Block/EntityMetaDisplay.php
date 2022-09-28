@@ -13,7 +13,9 @@ use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
 use Drupal\taxonomy\TermInterface;
 use Drupal\va_gov_backend\Service\ExclusionTypesInterface;
+// use Drupal\va_gov_backend\Service\VaGovUrl;
 use Drupal\va_gov_backend\Service\VaGovUrlInterface;
+use Drupal\va_gov_lovell\EventSubscriber\LovellEventSubscriber;
 use Drupal\va_gov_workflow_assignments\Service\EditorialWorkflowContentRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -99,6 +101,8 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
     $this->renderer = $renderer;
   }
 
+
+
   /**
    * {@inheritDoc}
    */
@@ -117,10 +121,55 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
   }
 
   /**
+   * Returns the type of special case or null
+   *
+   * @param Drupal\node\NodeInterface
+   *   A node.
+   *
+   * @return string
+   *   Type of special case (or empty).
+   */
+  private function isLovell (string $section_id): bool {
+    $is_lovell = false;
+    $lovell_sections = LovellEventSubscriber::LOVELL_SECTIONS;
+    if (array_key_exists($section_id, $lovell_sections)) {
+      $is_lovell = true;
+    }
+    return $is_lovell;
+  }
+  private function buildLovellUrlWithCorrectPrefix(NodeInterface $node, string $prefix): string {
+    $url = "";
+    $original_path = $node->toUrl()->toString();
+    $pattern_to_trim = "/^\/([a-z]|\-)*/i";
+    $trimmed_path = preg_replace($pattern_to_trim,"/" . $prefix, $original_path);
+    $va_gov_url_front_end_url = $this->vaGovUrl->getVaGovFrontEndUrl();
+    $url = $va_gov_url_front_end_url . $trimmed_path;
+    return $url;
+  }
+  private function getPathsToPrint(NodeInterface $node) {
+    $paths_to_print = [];
+    $section_id = $node->get('field_administration')->target_id;
+    $is_lovell = $this->isLovell($section_id);
+    if ($is_lovell) {
+      $valid_prefixes = LovellEventSubscriber::getValidPrefixes($section_id);
+      foreach ($valid_prefixes as $prefix) {
+        $paths_to_print[] = $this->buildLovellUrlWithCorrectPrefix($node, $prefix);
+        }
+    }
+    else {
+      $va_gov_url = $this->vaGovUrl->getVaGovFrontEndUrlForEntity($node);
+      $paths_to_print[] = $va_gov_url;
+    }
+    return $paths_to_print;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function build() {
+
     $node = $this->getNode();
+
     if (!$node) {
       return;
     }
@@ -136,20 +185,21 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
       $block_items['Owner'] = $this->getSectionHierarchyBreadcrumbLinks($node);
     }
     if ($this->vaGovUrlShouldBeDisplayed($node)) {
-      $va_gov_url = $this->vaGovUrl->getVaGovFrontEndUrlForEntity($node);
+      $paths_to_print = $this->getPathstoPrint($node);
+      foreach ($paths_to_print as $va_gov_url) {
+        if ($this->vaGovUrl->vaGovFrontEndUrlForEntityIsLive($node)) {
+          $link = Link::fromTextAndUrl($va_gov_url, Url::fromUri($va_gov_url))->toRenderable();
+          $link['#attributes'] = ['class' => 'va-gov-url'];
+          $block_items['VA.gov URL'] = $this->renderer->render($link);
+        }
+        else {
+          $block_items['VA.gov URL'][] = new FormattableMarkup('<span class="va-gov-url-pending">' . $va_gov_url . '</span> (pending)', []);
+          $block['#attached']['library'][] = 'va_gov_workflow_assignments/ewa_style';
 
-      if ($this->vaGovUrl->vaGovFrontEndUrlForEntityIsLive($node)) {
-        $link = Link::fromTextAndUrl($va_gov_url, Url::fromUri($va_gov_url))->toRenderable();
-        $link['#attributes'] = ['class' => 'va-gov-url'];
-        $block_items['VA.gov URL'] = $this->renderer->render($link);
-      }
-      else {
-        $block_items['VA.gov URL'] = new FormattableMarkup('<span class="va-gov-url-pending">' . $va_gov_url . '</span> (pending)', []);
-        $block['#attached']['library'][] = 'va_gov_workflow_assignments/ewa_style';
-
-        // Cache the response for 5 minutes to avoid repeated longer
-        // page loads if va.gov is not responding.
-        $block['#cache']['max-age'] = 300;
+          // Cache the response for 5 minutes to avoid repeated longer
+          // page loads if va.gov is not responding.
+          $block['#cache']['max-age'] = 300;
+        }
       }
     }
 
@@ -161,12 +211,25 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
       if ($block_key === 'Owner') {
         $output .= '<div><span class="va-gov-entity-meta__title"><strong>' . $block_key . ': </strong></span><span class="va-gov-entity-meta__content">' . $block_item . '</span></div>';
       }
-      else {
+      else if ($block_key === 'VA.gov URL') {
+        foreach ($block_item as $va_gov_url) {
+          $output .= $this->t('<div><span class="va-gov-entity-meta__title"><strong>@block_key: </strong></span><span class="va-gov-entity-meta__content">@va_gov_url</span></div>',
+          [
+            '@block_key' => $block_key,
+            '@va_gov_url' => $va_gov_url,
+          ]);
+        }
+
+
+      }
+      else  {
         $output .= $this->t('<div><span class="va-gov-entity-meta__title"><strong>@block_key: </strong></span><span class="va-gov-entity-meta__content">@block_item</span></div>',
         [
           '@block_key' => $block_key,
           '@block_item' => $block_item,
         ]);
+
+
       }
     }
     $block['#markup'] = $output;
@@ -268,6 +331,11 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
     )->toString();
   }
 
+  private function createLovellLink(NodeInterface $node) {
+    return true;
+  }
+
+
   /**
    * Determine whether the va.gov URL should be displayed.
    *
@@ -296,5 +364,7 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
 
     return TRUE;
   }
+
+
 
 }
