@@ -3,7 +3,7 @@
 namespace Drupal\va_gov_lovell;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\va_gov_lovell\LovellOps;
+use Drupal\va_gov_lovell\LovellOps; // phpcs:ignore
 
 /**
  * Provides a menu tree manipulator for VAMC Lovell.
@@ -57,9 +57,12 @@ class LovellMenuLinkTreeManipulators {
    *   The manipulated menu link tree.
    */
   public function reduceLovellMenu(array $tree, $lovell_type, $firstrun = TRUE) {
+    $lovell_type = ($lovell_type === LovellOps::BOTH_VALUE) ? LovellOps::VA_VALUE : $lovell_type;
+    $tricare_menu = [];
+    $va_menu = [];
+
     if ($firstrun && !empty($tree)) {
       // If the system parent is both, default to VA.
-      $lovell_type = ($lovell_type === LovellOps::BOTH_VALUE) ? LovellOps::VA_VALUE : $lovell_type;
       $this->menuType = $lovell_type;
       $this->setMenuEntities($tree);
       // Capture the main menus for juggling.

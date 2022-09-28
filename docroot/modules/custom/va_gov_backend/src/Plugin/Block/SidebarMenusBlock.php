@@ -179,8 +179,6 @@ class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInter
   public function getMenuId() {
     if (empty($this->menuId)) {
       // Has not been set, so create it.
-      $menu_name = '';
-      // This is the only thing we have to find the menu name.
       $alias = $this->requestStack->getCurrentRequest()->getPathInfo();
       $alias_parts = explode('/', $alias);
 
