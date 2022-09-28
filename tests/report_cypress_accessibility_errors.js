@@ -5,6 +5,8 @@ const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
 });
 
+const token = "<!-- Cypress Accessibility Errors -->";
+
 const owner = process.env.TUGBOAT_GITHUB_OWNER;
 const repo = process.env.TUGBOAT_GITHUB_REPO;
 const issue_number = process.env.TUGBOAT_GITHUB_PR;
@@ -55,7 +57,7 @@ const getText = (violations) => {
 `;
     })
     .join("\n");
-  return `<!-- Nate Did This -->
+  return `${token}
 ## Cypress Accessibility Test Failures
 
 ${text}
@@ -71,9 +73,7 @@ const reportCypressErrors = async (violations) => {
       issue_number,
     })
     .then((response) => response.data)
-    .then((data) =>
-      data.filter((comment) => comment.body.includes("<!-- Nate Did This -->"))
-    )
+    .then((data) => data.filter((comment) => comment.body.includes(token)))
     .then((data) =>
       Promise.all(
         data.map((comment) =>
@@ -99,7 +99,7 @@ const reportCypressErrors = async (violations) => {
 
 const reportAllAccessibilityViolations = () => {
   try {
-    const json = fs.readFileSync("cypress_errors.json", "utf8");
+    const json = fs.readFileSync("cypress_accessibility_errors.json", "utf8");
     reportCypressErrors(JSON.parse(json));
   } catch (error) {
     console.error(error);

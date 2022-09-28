@@ -77,5 +77,5 @@ describe("Component accessibility test", () => {
 });
 
 after(() => {
-  cy.writeFile("cypress_errors.json", JSON.stringify(allViolations));
+  cy.writeFile("cypress_accessibility_errors.json", JSON.stringify(allViolations));
 });
