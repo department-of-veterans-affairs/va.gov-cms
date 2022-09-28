@@ -5,7 +5,13 @@
  or your current system user. See core/tests/README.md and
  https://www.drupal.org/node/2116263 for details.
 -->
-<phpunit bootstrap="./docroot/vendor/weitzman/drupal-test-traits/src/bootstrap.php" colors="true" beStrictAboutTestsThatDoNotTestAnything="true" beStrictAboutOutputDuringTests="true" beStrictAboutChangesToGlobalState="true">
+<phpunit 
+  bootstrap="./docroot/vendor/weitzman/drupal-test-traits/src/bootstrap.php" 
+  colors="true" 
+  beStrictAboutTestsThatDoNotTestAnything="true" 
+  beStrictAboutOutputDuringTests="true" 
+  beStrictAboutChangesToGlobalState="true"
+>
   <!-- TODO set printerClass="\Drupal\Tests\Listeners\HtmlOutputPrinter" once
  https://youtrack.jetbrains.com/issue/WI-24808 is resolved. Drupal provides a
  result printer that links to the html output results for functional tests.
@@ -56,12 +62,13 @@
   </listeners>
   <!-- Filter for coverage reports. -->
   <filter>
-    <whitelist>
-      <directory>./includes</directory>
-      <directory>./lib</directory>
-      <directory>./modules</directory>
-      <directory>../modules</directory>
-      <directory>../sites</directory>
+    <whitelist
+      addUncoveredFilesFromWhitelist="true"
+      processUncoveredFilesFromWhitelist="true"
+    >
+      <directory suffix=".php">./docroot/modules/custom</directory>
+      <directory suffix=".inc">./docroot/modules/custom</directory>
+      <directory suffix=".module">./docroot/modules/custom</directory>
       <!-- By definition test classes have no tests. -->
       <exclude>
         <directory suffix="Test.php">./</directory>
