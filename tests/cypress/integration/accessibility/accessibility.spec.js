@@ -18,6 +18,8 @@ const routes = [
   "/node/add/regional_health_care_service_des",
   "/node/add/news_story",
   "/node/add/support_service",
+  // Added only for testing
+  "/anchorage-vet-center/kenai-outstation",
   "/user",
 ];
 
@@ -77,5 +79,8 @@ describe("Component accessibility test", () => {
 });
 
 after(() => {
-  cy.writeFile("cypress_accessibility_errors.json", JSON.stringify(allViolations));
+  cy.writeFile(
+    "cypress_accessibility_errors.json",
+    JSON.stringify(allViolations)
+  );
 });

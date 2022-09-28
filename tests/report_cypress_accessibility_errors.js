@@ -1,5 +1,7 @@
+/* eslint-disable no-console */
 const fs = require("fs");
 const { Octokit } = require("@octokit/rest");
+const { exit } = require("process");
 
 const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
@@ -9,7 +11,13 @@ const token = "<!-- Cypress Accessibility Errors -->";
 
 const owner = process.env.TUGBOAT_GITHUB_OWNER;
 const repo = process.env.TUGBOAT_GITHUB_REPO;
+// eslint-disable-next-line camelcase
 const issue_number = process.env.TUGBOAT_GITHUB_PR;
+
+// eslint-disable-next-line camelcase
+if (owner === undefined || repo === undefined || issue_number === undefined) {
+  exit(0);
+}
 
 function escapeHTML(html) {
   const fn = function (tag) {
@@ -37,7 +45,7 @@ const getText = (violations) => {
             return "";
           }
           return `
-- **HTML**: \`${node.html.replace('\n', '')}\`
+- **HTML**: \`${node.html.replace("\n", "")}\`
   **Impact**: ${node.impact}
   **Target**: \`${node.target}\`
   **Summary**: ${escapeHTML(node.failureSummary)}
