@@ -5,8 +5,6 @@ dependencies:
   config:
     - field.field.menu_link_content.lovell-federal-health-care.field_menu_section
     - system.menu.lovell-federal-health-care
-  module:
-    - options
 id: menu_link_content.lovell-federal-health-care.default
 targetEntityType: menu_link_content
 bundle: lovell-federal-health-care
@@ -15,14 +13,8 @@ content:
   children:
     settings: {  }
     third_party_settings: {  }
-    weight: 1
-    region: content
-  field_menu_section:
-    type: list_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 2
+    weight: 0
     region: content
 hidden:
+  field_menu_section: true
   search_api_excerpt: true

@@ -2,20 +2,21 @@
 
 namespace Drupal\va_gov_lovell\EventSubscriber;
 
+use Drupal\core_event_dispatcher\EntityHookEvents;
+use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\core_event_dispatcher\EntityHookEvents;
-use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
-use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
-use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\menu_link_content\MenuLinkContentInterface;
 use Drupal\node\NodeInterface;
 use Drupal\path_alias\Entity\PathAlias;
 use Drupal\pathauto\PathautoGenerator;
 use Drupal\va_gov_lovell\Event\BreadcrumbPreprocessEvent;
+use Drupal\va_gov_lovell\LovellOps;
 use Drupal\va_gov_lovell\Variables\BreadcrumbEventVariables;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -23,11 +24,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  * VA.gov Lovell Entity Event Subscriber.
  */
 class LovellEventSubscriber implements EventSubscriberInterface {
-  const LOVELL_SECTIONS = [
-    '1040' => 'va',
-    '1039' => 'tricare',
-    '347' => 'both',
-  ];
 
   use StringTranslationTrait;
 
@@ -90,10 +86,10 @@ class LovellEventSubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents(): array {
     return [
-      EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
-      EntityHookEvents::ENTITY_INSERT => 'entityInsert',
-      EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
       BreadcrumbPreprocessEvent::name() => 'preprocessBreadcrumb',
+      EntityHookEvents::ENTITY_INSERT => 'entityInsert',
+      EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
+      EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
     ];
   }
 
@@ -153,7 +149,7 @@ class LovellEventSubscriber implements EventSubscriberInterface {
     && ($entity->hasField('path'))
     && ($entity->hasField('field_administration'))) {
       $section_id = $entity->get('field_administration')->target_id;
-      if (!array_key_exists($section_id, self::LOVELL_SECTIONS)) {
+      if (!array_key_exists($section_id, LovellOps::LOVELL_SECTIONS)) {
         return;
       }
       // If this node is in a Lovell section disable pathauto pattern.
@@ -183,8 +179,8 @@ class LovellEventSubscriber implements EventSubscriberInterface {
         if ($node->hasField('field_administration')) {
           $section_id = $node->get('field_administration')->target_id;
           // Set section for this menu item.
-          if (!empty(self::LOVELL_SECTIONS[$section_id])) {
-            $entity->set('field_menu_section', self::LOVELL_SECTIONS[$section_id]);
+          if (!empty(LovellOps::LOVELL_SECTIONS[$section_id])) {
+            $entity->set('field_menu_section', LovellOps::LOVELL_SECTIONS[$section_id]);
           }
         }
       }
@@ -203,23 +199,47 @@ class LovellEventSubscriber implements EventSubscriberInterface {
     if (($node instanceof NodeInterface)
     && ($node->hasField('path'))
     && ($node->hasField('field_administration'))) {
-      // If this content does not belong to Lovell Tricare do nothing.
       $section_id = $node->get('field_administration')->target_id;
-      if ($section_id !== '1039') {
-        return;
+      if ($section_id === LovellOps::TRICARE_ID) {
+        $breadcrumb = $this->swapAforB('VA', 'TRICARE', $breadcrumb);
+        $breadcrumb = $this->swapAforB('BOTH', 'TRICARE', $breadcrumb);
       }
-
-      foreach ($breadcrumb as $key => $link) {
-        if (str_contains($link['url'], 'lovell-federal-va-health-care')) {
-          $breadcrumb[$key]['url'] = str_replace('lovell-federal-va-health-care', 'lovell-federal-tricare-health-care', $link['url']);
-          if (is_string($link['text'])) {
-            $breadcrumb[$key]['text'] = str_replace('Lovell Federal VA health care', 'Lovell Federal Tricare health care', $link['text']);
-          }
-        }
+      else {
+        $breadcrumb = $this->swapAforB('BOTH', 'VA', $breadcrumb);
       }
 
       $variables->set('breadcrumb', $breadcrumb);
     }
+  }
+
+  /**
+   * Replaces A Links and paths with B.
+   *
+   * @param string $a
+   *   Capped values of either TRICARE, VA, or BOTH.
+   * @param string $b
+   *   Capped values of either TRICARE, VA, or BOTH.
+   * @param array $breadcrumb
+   *   AN array of breadcrumbs.
+   *
+   * @return array
+   *   The breadcrumb.
+   */
+  protected function swapAforB($a, $b, array $breadcrumb) {
+    $a_path = constant('\Drupal\va_gov_lovell\LovellOps::' . "{$a}_PATH");
+    $a_name = constant('\Drupal\va_gov_lovell\LovellOps::' . "{$a}_NAME");
+
+    $b_path = constant('\Drupal\va_gov_lovell\LovellOps::' . "{$b}_PATH");
+    $b_name = constant('\Drupal\va_gov_lovell\LovellOps::' . "{$b}_NAME");
+    foreach ($breadcrumb as $key => $link) {
+      if (str_contains($link['url'], $a_path)) {
+        $breadcrumb[$key]['url'] = str_replace($a_path, $b_path, $link['url']);
+        if (is_string($link['text'])) {
+          $breadcrumb[$key]['text'] = str_replace($a_name, $b_name, $link['text']);
+        }
+      }
+    }
+    return $breadcrumb;
   }
 
   /**
@@ -235,7 +255,11 @@ class LovellEventSubscriber implements EventSubscriberInterface {
     && ($entity->hasField('field_administration'))) {
       // If this content does not belong to a Lovell section do nothing.
       $section_id = $entity->get('field_administration')->target_id;
-      if (!array_key_exists($section_id, self::LOVELL_SECTIONS)) {
+      if (!array_key_exists($section_id, LovellOps::LOVELL_SECTIONS)) {
+        return;
+      }
+      if ($entity->id() === '15007') {
+        // Special case of Lovell Federal system.
         return;
       }
 
@@ -321,12 +345,12 @@ class LovellEventSubscriber implements EventSubscriberInterface {
   protected function getValidPrefixes(string $section_id): array {
     // Define valid url prefixes for Lovell content.
     $valid_prefixes = [
-      '1039' => 'lovell-federal-tricare-health-care',
-      '1040' => 'lovell-federal-va-health-care',
+      LovellOps::TRICARE_ID => LovellOps::TRICARE_PATH,
+      LovellOps::VA_ID => LovellOps::VA_PATH,
     ];
 
     // If section is not both remove invalid prefixes.
-    if ($section_id !== '347') {
+    if ($section_id !== LovellOps::BOTH_ID) {
       $valid_prefixes = array_intersect_key($valid_prefixes, [$section_id => 'keep']);
     }
 
