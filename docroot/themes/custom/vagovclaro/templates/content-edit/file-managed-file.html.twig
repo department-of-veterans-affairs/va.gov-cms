@@ -47,14 +47,34 @@
           </div>
         </div>
       {% endif %}
-      {{ devel_breakpoint() }}
       {% if data.description or display or data.alt or data.title %}
         <div class="form-managed-file__meta-items">
           {{ data.description }}
           {% if display %}
             {{ data.display }}
           {% endif %}
-          {{ data.alt }}
+          <label for="{{ data.alt['#id'] }}" class="form-item__label js-form-required form-required">{{ data.alt['#title'] }}</label>
+          <div id="{{ data.alt['#id'] }}--description" class="form-item__description">{{ data.alt['#description'] }}
+            {% include '@components/inline-guidance/button.twig' with {
+              "title": data.alt['#title'],
+              "classes": '',
+            } %}
+          </div>
+          {% set inlineguidance %}
+            <p><strong>Best practices</strong></p>
+            <ul>
+              <li>Be accurate and descriptive, clearly identifying the main purpose of the image.</li>
+              <li>Be concise, ideally no more that 150 characters.</li>
+              <li>Avoid phrases like “image of”, “photo of”, “graphic of”, etc.</li>
+              <li>Leave the file name of the image out of the alt text.</li>
+              <li><a href="https://github.com/help/cms-basics/alternative-text">Learn more about alt text guidelines</a></li>
+            </ul>
+          {% endset %}
+          {% include '@components/inline-guidance/text-box.twig' with {
+            "content": inlineguidance,
+            "classes": '',
+          } %}
+          {{ data.alt|without('#title', '#description') }}
 
           {{ data.title }}
         </div>

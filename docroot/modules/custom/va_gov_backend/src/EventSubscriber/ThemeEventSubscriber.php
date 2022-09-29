@@ -9,6 +9,7 @@ use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
 use Drupal\core_event_dispatcher\FormHookEvents;
 use Drupal\field_event_dispatcher\Event\Field\WidgetSingleElementFormAlterEvent;
 use Drupal\field_event_dispatcher\FieldHookEvents;
+use Drupal\image\Plugin\Field\FieldWidget\ImageWidget;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -34,10 +35,12 @@ class ThemeEventSubscriber implements EventSubscriberInterface {
    *   The event.
    */
   public function formWidgetAlter(WidgetSingleElementFormAlterEvent $event): void {
-    $element = $event->getElement();
-    $form_state = $event->getFormState();
+    $element = &$event->getElement();
     $context = $event->getContext();
-
+    // If this is an image field type of instance.
+    if ($context['widget'] instanceof ImageWidget) {
+      $element['#process'][] = '_va_gov_media_image_field_widget_process';
+    }
   }
 
   /**
@@ -49,7 +52,7 @@ class ThemeEventSubscriber implements EventSubscriberInterface {
   public function formAlter(FormAlterEvent $event): void {
     $form    = &$event->getForm();
     $form_id = $event->getFormId();
-    $this->attachFormId($form, $form_id);
+    $this->attachFormIdToFormElements($form, $form_id);
   }
 
   /**
@@ -60,13 +63,13 @@ class ThemeEventSubscriber implements EventSubscriberInterface {
    * @param string $form_id
    *   The form id attached to form elements.
    */
-  protected function attachFormId(array &$form, string $form_id) {
+  protected function attachFormIdToFormElements(array &$form, string $form_id) {
     foreach (Element::children($form) as $child) {
       if (!isset($form[$child]['#form_id'])) {
         $form[$child]['#form_id'] = $form_id;
       }
       // Recurse for children.
-      $this->attachFormId($form[$child], $form_id);
+      $this->attachFormIdToFormElements($form[$child], $form_id);
     }
   }
 
