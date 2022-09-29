@@ -318,7 +318,7 @@ class LovellEventSubscriber implements EventSubscriberInterface {
    * @return array
    *   An array of valid url prefixes .
    */
-  protected function getValidPrefixes(string $section_id): array {
+  public static function getValidPrefixes(string $section_id): array {
     // Define valid url prefixes for Lovell content.
     $valid_prefixes = [
       '1039' => 'lovell-federal-tricare-health-care',
