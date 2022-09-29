@@ -8,3 +8,6 @@ services:
     class: Drupal\va_gov_lovell\Factory\BreadcrumbPreprocessEventFactory
     tags:
       -  { name: preprocess_event_factory }
+  va_gov_lovell.lovellmenulinktreemanipulators:
+    class: Drupal\va_gov_lovell\LovellMenuLinkTreeManipulators
+    arguments: ['@entity_type.manager']
