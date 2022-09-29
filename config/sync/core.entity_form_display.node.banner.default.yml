@@ -48,6 +48,26 @@ third_party_settings:
         id: ''
         description: ''
         required_fields: true
+    group_paths:
+      children:
+        - field_target_paths
+      label: Paths
+      region: content
+      parent_name: ''
+      weight: 4
+      format_type: inline_guidance
+      format_settings:
+        show_label: '0'
+        label_element: ''
+        required_fields: '1'
+        trigger_button_title: Paths
+        trigger_button_classes: extra-class-trigger
+        inline_guidance: 'This is the Guidance'
+        inline_guidance_classes: extra-class-text
+        id: ''
+        classes: ''
+        show_empty_fields: 0
+        element: div
 id: node.banner.default
 targetEntityType: node
 bundle: banner
@@ -55,7 +75,7 @@ mode: default
 content:
   body:
     type: text_textarea_with_summary_and_counter
-    weight: 4
+    weight: 3
     region: content
     settings:
       rows: 5
@@ -87,7 +107,7 @@ content:
     third_party_settings: {  }
   field_dismissible_option:
     type: options_buttons
-    weight: 2
+    weight: 1
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -101,13 +121,13 @@ content:
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 9
+    weight: 21
     region: content
     settings: {  }
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: 3
+    weight: 2
     region: content
     settings:
       size: 60
