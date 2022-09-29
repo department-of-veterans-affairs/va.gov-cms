@@ -1,0 +1,51 @@
+uuid: 6e3601ca-3106-4a2b-b452-a6446313e3ca
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.news_promo
+    - field.field.block_content.news_promo.field_owner
+    - field.field.block_content.news_promo.field_promo_headline
+    - field.field.block_content.news_promo.field_promo_link
+    - field.field.block_content.news_promo.field_promo_text
+  module:
+    - entity_reference_revisions
+id: block_content.news_promo.default
+targetEntityType: block_content
+bundle: news_promo
+mode: default
+content:
+  field_owner:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_promo_headline:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_promo_link:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_promo_text:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  search_api_excerpt: true
