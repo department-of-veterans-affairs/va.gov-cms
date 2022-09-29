@@ -94,7 +94,11 @@ jobs:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/post-checkout
       - name: Run PHPUnit (Unit Tests only)
-        run: bin/phpunit --group unit --exclude-group disabled tests/phpunit
+        run: bin/phpunit \
+          --group unit \
+          --exclude-group disabled \
+          --coverage-text \
+          tests/phpunit
 
   # Check styles of modules and themes with Stylelint.
   stylelint:
