@@ -124,6 +124,10 @@ class InlineGuidance extends HtmlElement {
       '#access' => FALSE,
     ];
 
+    $form['label_element'] = [
+      '#access' => FALSE,
+    ];
+
     return $form;
   }
 
