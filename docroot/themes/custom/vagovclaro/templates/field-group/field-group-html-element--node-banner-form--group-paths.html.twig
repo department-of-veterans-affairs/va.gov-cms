@@ -17,17 +17,19 @@
 #}
 
 <div {{ attributes }}>
+  {% if title %}
+  <label {{ title_attributes.addClass('form-item__label') }}>{{ title }}</label>
+  {% endif %}
+  <div class="form-item__description">{{ element.inline_guidance_help_text['#value'] }}
   {% include '@components/inline-guidance/button.twig' with {
     "title": element.trigger_button_title['#value'],
     "classes": element.trigger_button_title_classes['#value'],
   } %}
+  </div>
   {% include '@components/inline-guidance/text-box.twig' with {
-    "content": element.inline_guidance['#value'],
+    "content": element.inline_guidance['#value'].value,
     "classes": element.inline_guidance_classes['#value'],
   } %}
-  {% if title %}
-  <{{ title_element }}{{ title_attributes }}>{{ title }}</{{ title_element }}>
-  {% endif %}
   {% if collapsible %}
   <div class="field-group-wrapper">
   {% endif %}

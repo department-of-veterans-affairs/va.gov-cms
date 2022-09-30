@@ -27,6 +27,9 @@ class InlineGuidance extends HtmlElement {
 
     $element['#attributes']['class'][] = 'inline_guidance';
 
+    $element['inline_guidance_help_text'] = [
+      '#value' => $this->getSetting('inline_guidance_help_text'),
+    ];
     $element['inline_guidance'] = [
       '#value' => $this->getSetting('inline_guidance'),
     ];
@@ -55,12 +58,20 @@ class InlineGuidance extends HtmlElement {
   public function settingsForm() {
     $form = parent::settingsForm();
 
+    $form['inline_guidance_help_text'] = [
+      '#title' => $this->t('Inline Guidance Help Text'),
+      '#type' => 'textfield',
+      '#default_value' => $this->getSetting('inline_guidance_help_text'),
+      '#description' => $this->t('Help text that goes before the trigger button.'),
+      '#weight' => 4,
+    ];
+
     $form['trigger_button_title'] = [
       '#title' => $this->t('Trigger Button Title'),
       '#type' => 'textfield',
       '#default_value' => $this->getSetting('trigger_button_title'),
       '#description' => $this->t('Normally the field title.'),
-      '#weight' => 4,
+      '#weight' => 5,
     ];
 
     $form['trigger_button_classes'] = [
@@ -68,15 +79,16 @@ class InlineGuidance extends HtmlElement {
       '#type' => 'textfield',
       '#default_value' => $this->getSetting('trigger_button_classes'),
       '#description' => $this->t('Additional classes to allow for additional theming of the trigger button.'),
-      '#weight' => 5,
+      '#weight' => 6,
     ];
 
     $form['inline_guidance'] = [
       '#title' => $this->t('Inline Guidance'),
-      '#type' => 'textarea',
+      '#type' => 'text_format',
+      '#format' => 'full_html',
       '#default_value' => $this->getSetting('inline_guidance'),
       '#description' => $this->t('The actual guidance text to be displayed.'),
-      '#weight' => 6,
+      '#weight' => 7,
     ];
 
     $form['inline_guidance_classes'] = [
@@ -84,7 +96,7 @@ class InlineGuidance extends HtmlElement {
       '#type' => 'textfield',
       '#default_value' => $this->getSetting('inline_guidance_classes'),
       '#description' => $this->t('Additional classes to allow for additional theming of the text box.'),
-      '#weight' => 7,
+      '#weight' => 8,
     ];
 
     $form['element'] = [
