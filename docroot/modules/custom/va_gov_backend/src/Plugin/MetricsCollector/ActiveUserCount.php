@@ -3,9 +3,11 @@
 namespace Drupal\va_gov_backend\Plugin\MetricsCollector;
 
 use Drupal\Core\Database\Connection;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\prometheus_exporter\Plugin\BaseMetricsCollector;
+use Drupal\workbench_access\WorkbenchAccessManager;
 use PNX\Prometheus\Gauge;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -40,6 +42,13 @@ class ActiveUserCount extends BaseMetricsCollector implements ContainerFactoryPl
   protected $settingsService;
 
   /**
+   * The section IDs.
+   *
+   * @var string[]
+   */
+  protected $sectionIds;
+
+  /**
    * UserCount constructor.
    *
    * @param array $configuration
@@ -52,11 +61,25 @@ class ActiveUserCount extends BaseMetricsCollector implements ContainerFactoryPl
    *   The Drupal database connection.
    * @param \Drupal\Core\Site\Settings $settings
    *   The site settings.
+   * @param \Drupal\workbench_access\WorkbenchAccessManager $workbench_access_manager
+   *   The workbench access manager.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager service.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, Connection $database, Settings $settings) {
+  public function __construct(
+    array $configuration,
+    $plugin_id,
+    $plugin_definition,
+    Connection $database,
+    Settings $settings,
+    WorkbenchAccessManager $workbench_access_manager,
+    EntityTypeManagerInterface $entity_type_manager
+  ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->database = $database;
     $this->settingsService = $settings;
+    $sectionScheme = $entity_type_manager->getStorage('access_scheme')->load('section');
+    $this->sectionIds = $workbench_access_manager->getAllSections($sectionScheme);
   }
 
   /**
@@ -68,7 +91,9 @@ class ActiveUserCount extends BaseMetricsCollector implements ContainerFactoryPl
       $plugin_id,
       $plugin_definition,
       $container->get('database'),
-      $container->get('settings')
+      $container->get('settings'),
+      $container->get('plugin.manager.workbench_access.scheme'),
+      $container->get('entity_type.manager')
     );
   }
 
@@ -89,11 +114,12 @@ class ActiveUserCount extends BaseMetricsCollector implements ContainerFactoryPl
     $query = $this->database->select('users_field_data', 'ufd');
     // Email will lead the query to return 1 on non-prod environments, because
     // of database sanitization.  It should work as expected on prod.
-    $query->addField('ufd', 'mail');
+    $query->addField('ufd', 'uid');
     $query->innerJoin('user__roles', 'ur', 'ufd.uid = ur.entity_id AND ur.deleted = 0');
     $query->innerJoin('users', 'u', 'ufd.uid = u.uid');
     $query->leftJoin('section_association__user_id', 'suid', 'u.uid = suid.user_id_target_id');
     $query->condition('ur.roles_target_id', $disallowedRoles, 'NOT IN');
+    // $query->condition('suid.entity_id', $this->sectionIds, 'IN');
     $query->isNotNull('suid.entity_id');
     $query->isNotNull('ufd.access');
     $query->condition('status', 1);
