@@ -48,29 +48,6 @@ third_party_settings:
         id: ''
         description: ''
         required_fields: true
-    group_paths:
-      children:
-        - field_target_paths
-      label: 'Paths Group'
-      region: content
-      parent_name: ''
-      weight: 4
-      format_type: inline_guidance
-      format_settings:
-        show_label: '1'
-        label_element: label
-        required_fields: '1'
-        inline_guidance_help_text: 'This is the to help you provide more help.'
-        trigger_button_title: Paths
-        trigger_button_classes: extra-class-trigger
-        inline_guidance:
-          value: "<p><strong>Best practices</strong></p>\r\n            <ul>\r\n              <li>Be accurate and descriptive, clearly identifying the main purpose of the image.</li>\r\n              <li>Be concise, ideally no more that 150 characters.</li>\r\n              <li>Avoid phrases like “image of”, “photo of”, “graphic of”, etc.</li>\r\n              <li>Leave the file name of the image out of the alt text.</li>\r\n              <li><a href=\"https://github.com/help/cms-basics/alternative-text\">Learn more about alt text guidelines</a></li>\r\n            </ul>"
-          format: rich_text
-        inline_guidance_classes: extra-class-text
-        id: ''
-        classes: ''
-        show_empty_fields: 0
-        element: div
 id: node.banner.default
 targetEntityType: node
 bundle: banner
