@@ -114,7 +114,7 @@ class ActiveUserCount extends BaseMetricsCollector implements ContainerFactoryPl
     $query = $this->database->select('users_field_data', 'ufd');
     // Email will lead the query to return 1 on non-prod environments, because
     // of database sanitization.  It should work as expected on prod.
-    $query->addField('ufd', 'uid');
+    $query->addField('ufd', 'mail');
     $query->innerJoin('user__roles', 'ur', 'ufd.uid = ur.entity_id AND ur.deleted = 0');
     $query->innerJoin('users', 'u', 'ufd.uid = u.uid');
     $query->leftJoin('section_association__user_id', 'suid', 'u.uid = suid.user_id_target_id');
