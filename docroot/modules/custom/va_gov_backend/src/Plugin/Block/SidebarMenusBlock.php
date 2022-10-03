@@ -82,7 +82,7 @@ class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInter
    *
    * @var string
    */
-  protected $menuId;
+  protected $menuId = '';
 
   /**
    * Constructor.
@@ -156,7 +156,7 @@ class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInter
     $node = $this->routeMatch->getParameters()->get('node');
     $menu_name = $this->getMenuId();
     // Before we start doing stuff, make sure we have a node object.
-    if ($node instanceof NodeInterface) {
+    if ($node instanceof NodeInterface && !empty($menu_name)) {
       $route_params = ['node' => $node->id()];
       // Load the menu.
       $menu_links = $this->menuLinkManager->loadLinksByRoute('entity.node.canonical', $route_params, $menu_name);
@@ -189,7 +189,9 @@ class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInter
         $node_storage = $this->entityTypeManager->getStorage('node');
         /** @var \Drupal\node\NodeInterface $node */
         $node = $node_storage->load($matches[1]);
-        $this->menuId = $node->field_system_menu->target_id;
+        if (($node instanceof NodeInterface) && ($node->hasField('field_system_menu'))) {
+          $this->menuId = $node->field_system_menu->target_id;
+        }
       }
       else {
         // The proper node was not found, so attempt a default.
