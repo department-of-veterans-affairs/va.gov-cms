@@ -119,8 +119,8 @@ Feature: Views
       | Content | Content audit CSV export | content_audit_csv_export | Data export |
       | Content | Content audit tools | content_audit_page | Page |
       | Content | Master | default | Default |
-      | Content | Outdated Content CSV Export | data_export_1 | Data export |
-      | Content | Outdated Content | page_3 | Page |
+      | Content | Outdated Content CSV export | data_export_1 | Data export |
+      | Content | Outdated content | page_3 | Page |
       | Content | Resources and support | resources_support_dashboard | Page |
       | Content entity browsers | Event entity browser | event_entity_browser | Entity browser |
       | Content entity browsers | Master | default | Default |
