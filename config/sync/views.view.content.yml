@@ -2049,8 +2049,6 @@ display:
         type: role
         options:
           role:
-            content_admin: content_admin
-            admnistrator_users: admnistrator_users
             administrator: administrator
       filters:
         title:
@@ -2299,7 +2297,9 @@ display:
           plugin_id: result
           empty: false
           content: "<p>This view is only available to admins.</p>\r\n\r\n\r\n<p>Displaying @start - @end of @total</p>"
-      display_extenders: {  }
+      display_extenders:
+        jsonapi_views:
+          enabled: true
       path: admin/content/audit
       menu:
         type: tab
