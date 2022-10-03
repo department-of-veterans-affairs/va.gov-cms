@@ -264,7 +264,7 @@ class LovellEventSubscriber implements EventSubscriberInterface {
       }
 
       // Determine which prefixes are valid based on section.
-      $valid_prefixes = $this->getValidPrefixes($section_id);
+      $valid_prefixes = LovellOps::getValidPrefixes($section_id);
       $valid_aliases = $this->generateValidAliases($valid_prefixes, $entity);
 
       // Get any existing aliases for this node.
@@ -331,30 +331,6 @@ class LovellEventSubscriber implements EventSubscriberInterface {
     ]);
 
     return $existing_aliases;
-  }
-
-  /**
-   * Generate valid lovell url prefixes for the provided section.
-   *
-   * @param string $section_id
-   *   An id for a section taxonomy term.
-   *
-   * @return array
-   *   An array of valid url prefixes .
-   */
-  public static function getValidPrefixes(string $section_id): array {
-    // Define valid url prefixes for Lovell content.
-    $valid_prefixes = [
-      LovellOps::TRICARE_ID => LovellOps::TRICARE_PATH,
-      LovellOps::VA_ID => LovellOps::VA_PATH,
-    ];
-
-    // If section is not both remove invalid prefixes.
-    if ($section_id !== LovellOps::BOTH_ID) {
-      $valid_prefixes = array_intersect_key($valid_prefixes, [$section_id => 'keep']);
-    }
-
-    return $valid_prefixes;
   }
 
   /**

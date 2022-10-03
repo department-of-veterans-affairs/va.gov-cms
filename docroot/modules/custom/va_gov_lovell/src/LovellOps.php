@@ -28,6 +28,28 @@ class LovellOps {
   ];
 
   /**
+   * Build the Lovell URL to the front end with the correct prefix.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   Node entity to query for its original path.
+   * @param string $prefix
+   *   The prefix of the path to use.
+   * @param string $va_gov_url_front_end_url
+   *   The front-end URL domain.
+   *
+   * @return array
+   *   The complete Lovell URL.
+   */
+  public static function buildLovellUrlWithCorrectPrefix(NodeInterface $node, string $prefix, string $va_gov_url_front_end_url): string {
+    $url = "";
+    $original_path = $node->toUrl()->toString();
+    $pattern_to_trim = "/^\/([a-z]|\-)*/i";
+    $trimmed_path = preg_replace($pattern_to_trim, "/" . $prefix, $original_path);
+    $url = $va_gov_url_front_end_url . $trimmed_path;
+    return $url;
+  }
+
+  /**
    * Overrides the menu name if system path matches Lovell.
    *
    * @param string $system_path
@@ -65,6 +87,30 @@ class LovellOps {
       }
     }
     return $type;
+  }
+
+  /**
+   * Generate valid lovell url prefixes for the provided section.
+   *
+   * @param string $section_id
+   *   An id for a section taxonomy term.
+   *
+   * @return array
+   *   An array of valid url prefixes .
+   */
+  public static function getValidPrefixes(string $section_id): array {
+    // Define valid url prefixes for Lovell content.
+    $valid_prefixes = [
+      LovellOps::TRICARE_ID => LovellOps::TRICARE_PATH,
+      LovellOps::VA_ID => LovellOps::VA_PATH,
+    ];
+
+    // If section is not both remove invalid prefixes.
+    if ($section_id !== LovellOps::BOTH_ID) {
+      $valid_prefixes = array_intersect_key($valid_prefixes, [$section_id => 'keep']);
+    }
+
+    return $valid_prefixes;
   }
 
 }
