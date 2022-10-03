@@ -8,7 +8,8 @@
 (function ($, Drupal) {
   Drupal.behaviors.vaGovInlineGuidance = {
     attach: function attach() {
-      $("#inline-guidance-trigger").once().click(function () {
+      $("#inline-guidance-trigger").once().click(function (e) {
+        e.preventDefault();
         if ($("#inline-guidance-text-box").hasClass("hide")) {
           $("#inline-guidance-text-box").removeClass("hide");
           $("#inline-guidance-text-box").addClass("show");
@@ -22,7 +23,7 @@
           $("#inline-guidance-trigger").attr("aria-expanded", "false");
           setTimeout(function () {
             $("#inline-guidance-trigger").focus();
-          }, 500);;
+          }, 500);
         }
       });
     }
