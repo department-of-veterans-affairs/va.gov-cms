@@ -13,7 +13,8 @@
     attach: () => {
       $("#inline-guidance-trigger")
         .once()
-        .click(() => {
+        .click((e) => {
+          e.preventDefault();
           if ($("#inline-guidance-text-box").hasClass("hide")) {
             $("#inline-guidance-text-box").removeClass("hide");
             $("#inline-guidance-text-box").addClass("show");
@@ -32,4 +33,4 @@
         });
     },
   };
-})(jQuery, window.Drupal);
+})(jQuery, Drupal);
