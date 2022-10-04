@@ -287,7 +287,7 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
   /**
    * Returns the URLs to print (if any).
    *
-   * @param Drupal\node\NodeInterface $node
+   * @param \Drupal\node\NodeInterface $node
    *   A node.
    *
    * @return array
@@ -298,7 +298,6 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
     $section_id = $node->get('field_administration')->target_id;
     // If this is Lovell, we need to check for
     // multiple front-end urls and the right prefix.
-    /** @var \Drupal\node\NodeInterface $node*/
     $lovell_type = LovellOps::getLovellType($node);
     if ($lovell_type !== '') {
       $valid_prefixes = LovellOps::getValidPrefixes($section_id);
