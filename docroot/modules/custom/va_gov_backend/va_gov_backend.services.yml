@@ -4,6 +4,10 @@ services:
     arguments: ['@string_translation', '@va_gov_user.user_perms', '@entity_type.manager', '@entity_field.manager']
     tags:
       - { name: event_subscriber }
+  va_gov_backend.theme_suggestions:
+    class: Drupal\va_gov_backend\EventSubscriber\ThemeEventSubscriber
+    tags:
+      - { name: event_subscriber }
   va_gov_backend.exclusion_types:
     class: Drupal\va_gov_backend\Service\ExclusionTypes
     arguments: ['@config.factory']
