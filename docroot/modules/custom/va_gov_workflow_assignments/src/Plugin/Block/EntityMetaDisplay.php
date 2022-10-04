@@ -166,6 +166,7 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
         $output .= '<div><span class="va-gov-entity-meta__title"><strong>' . $block_key . ': </strong></span><span class="va-gov-entity-meta__content">' . $block_item . '</span></div>';
       }
       elseif ($block_key === 'VA.gov URL') {
+        // We may have multiple URLs, e.g. Lovell Federal Health Care.
         foreach ($block_items[$block_key] as $va_gov_url) {
           $output .= $this->t('<div><span class="va-gov-entity-meta__title"><strong>@block_key: </strong></span><span class="va-gov-entity-meta__content">@va_gov_url</span></div>',
           [
