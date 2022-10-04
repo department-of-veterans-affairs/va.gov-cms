@@ -27,9 +27,6 @@ class ScalabilityCreateNodeTest extends ExistingSiteBase {
     $secs = number_format($microsecs / 1000, 2);
 
     Timer::stop(static::TIMER_NAME);
-
-    $message = __METHOD__ . "\nOperation took " . $secs . " and completed $count iterations.\n";
-    fwrite(STDERR, print_r($message, TRUE));
   }
 
   /**
