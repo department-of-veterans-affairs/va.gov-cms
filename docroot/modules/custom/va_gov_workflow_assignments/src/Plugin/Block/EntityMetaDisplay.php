@@ -144,7 +144,7 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
         if ($this->vaGovUrl->vaGovFrontEndUrlForEntityIsLive($node)) {
           $link = Link::fromTextAndUrl($va_gov_url, Url::fromUri($va_gov_url))->toRenderable();
           $link['#attributes'] = ['class' => 'va-gov-url'];
-          $block_items['VA.gov URL'] = $this->renderer->render($link);
+          $block_items['VA.gov URL'][] = $this->renderer->render($link);
         }
         else {
           $block_items['VA.gov URL'][] = new FormattableMarkup('<span class="va-gov-url-pending">' . $va_gov_url . '</span> (pending)', []);
@@ -166,7 +166,7 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
         $output .= '<div><span class="va-gov-entity-meta__title"><strong>' . $block_key . ': </strong></span><span class="va-gov-entity-meta__content">' . $block_item . '</span></div>';
       }
       elseif ($block_key === 'VA.gov URL') {
-        foreach ($block_item as $va_gov_url) {
+        foreach ($block_items[$block_key] as $va_gov_url) {
           $output .= $this->t('<div><span class="va-gov-entity-meta__title"><strong>@block_key: </strong></span><span class="va-gov-entity-meta__content">@va_gov_url</span></div>',
           [
             '@block_key' => $block_key,
@@ -297,6 +297,7 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
     $section_id = $node->get('field_administration')->target_id;
     // If this is Lovell, we need to check for
     // multiple front-end urls and the right prefix.
+    /** @var \Drupal\node\NodeInterface $node*/
     $lovell_type = LovellOps::getLovellType($node);
     if ($lovell_type !== '') {
       $valid_prefixes = LovellOps::getValidPrefixes($section_id);

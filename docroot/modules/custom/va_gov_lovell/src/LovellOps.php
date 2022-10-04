@@ -37,7 +37,7 @@ class LovellOps {
    * @param string $va_gov_url_front_end_url
    *   The front-end URL domain.
    *
-   * @return array
+   * @return string
    *   The complete Lovell URL.
    */
   public static function buildLovellUrlWithCorrectPrefix(NodeInterface $node, string $prefix, string $va_gov_url_front_end_url): string {
