@@ -1,11 +1,11 @@
-uuid: 8dec7e07-4b19-4c26-91ab-452e51536cb4
+uuid: e6a137c7-32f2-4540-b390-0074e473d0f0
 langcode: en
 status: true
 dependencies:
   config:
     - block_content.type.news_promo
-    - field.storage.block_content.field_promo_link
-    - paragraphs.paragraphs_type.link_teaser
+    - field.storage.block_content.field_promo_cta
+    - paragraphs.paragraphs_type.button
   module:
     - entity_reference_revisions
     - epp
@@ -13,13 +13,13 @@ third_party_settings:
   epp:
     value: ''
     on_update: 0
-id: block_content.news_promo.field_promo_link
-field_name: field_promo_link
+id: block_content.news_promo.field_promo_cta
+field_name: field_promo_cta
 entity_type: block_content
 bundle: news_promo
-label: Link
+label: 'Promo Link'
 description: ''
-required: true
+required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''
@@ -27,7 +27,7 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     target_bundles:
-      link_teaser: link_teaser
+      button: button
     negate: 0
     target_bundles_drag_drop:
       address:
@@ -47,7 +47,7 @@ settings:
         enabled: false
       button:
         weight: 50
-        enabled: false
+        enabled: true
       centralized_content_descriptor:
         weight: 51
         enabled: false
@@ -86,7 +86,7 @@ settings:
         enabled: false
       link_teaser:
         weight: 63
-        enabled: true
+        enabled: false
       link_teaser_with_image:
         weight: 64
         enabled: false

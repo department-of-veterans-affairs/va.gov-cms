@@ -5,8 +5,8 @@ dependencies:
   config:
     - block_content.type.news_promo
     - field.field.block_content.news_promo.field_owner
+    - field.field.block_content.news_promo.field_promo_cta
     - field.field.block_content.news_promo.field_promo_headline
-    - field.field.block_content.news_promo.field_promo_link
     - field.field.block_content.news_promo.field_promo_text
   module:
     - entity_reference_revisions
@@ -23,6 +23,15 @@ content:
     third_party_settings: {  }
     weight: 3
     region: content
+  field_promo_cta:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 4
+    region: content
   field_promo_headline:
     type: string
     label: above
@@ -30,15 +39,6 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 0
-    region: content
-  field_promo_link:
-    type: entity_reference_revisions_entity_view
-    label: above
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    weight: 2
     region: content
   field_promo_text:
     type: basic_string

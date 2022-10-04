@@ -5,12 +5,12 @@ dependencies:
   config:
     - block_content.type.news_promo
     - field.field.block_content.news_promo.field_owner
+    - field.field.block_content.news_promo.field_promo_cta
     - field.field.block_content.news_promo.field_promo_headline
-    - field.field.block_content.news_promo.field_promo_link
     - field.field.block_content.news_promo.field_promo_text
   module:
     - content_moderation
-    - inline_entity_form
+    - paragraphs
     - textfield_counter
 id: block_content.news_promo.default
 targetEntityType: block_content
@@ -22,6 +22,18 @@ content:
     weight: 4
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_promo_cta:
+    type: entity_reference_paragraphs
+    weight: 3
+    region: content
+    settings:
+      title: Link
+      title_plural: Links
+      edit_mode: open
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: button
     third_party_settings: {  }
   field_promo_headline:
     type: string_textfield_with_counter
@@ -36,19 +48,6 @@ content:
       js_prevent_submit: true
       count_html_characters: true
       textcount_status_message: 'Maxlength: <span class="maxlength_count">@maxlength</span><br />Used: <span class="current_count">@current_length</span><br />Remaining: <span class="remaining_count">@remaining_count</span>'
-    third_party_settings: {  }
-  field_promo_link:
-    type: inline_entity_form_simple
-    weight: 3
-    region: content
-    settings:
-      form_mode: default
-      override_labels: false
-      label_singular: ''
-      label_plural: ''
-      collapsible: false
-      collapsed: false
-      revision: false
     third_party_settings: {  }
   field_promo_text:
     type: string_textarea_with_counter
