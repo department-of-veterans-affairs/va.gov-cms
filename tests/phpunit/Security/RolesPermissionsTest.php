@@ -78,7 +78,6 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'execute graphql requests',
           'execute persisted graphql requests',
           'give feedback',
-          'opt-in or out of google analytics tracking',
           'override all revision option',
           'override event authored on option',
           'override full_width_banner_alert published option',
