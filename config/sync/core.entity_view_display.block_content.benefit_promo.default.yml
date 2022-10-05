@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - block_content.type.benefit_promo
-    - field.field.block_content.benefit_promo.field_owner
     - field.field.block_content.benefit_promo.field_promo_cta
     - field.field.block_content.benefit_promo.field_promo_headline
     - field.field.block_content.benefit_promo.field_promo_text
@@ -15,14 +14,6 @@ targetEntityType: block_content
 bundle: benefit_promo
 mode: default
 content:
-  field_owner:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 3
-    region: content
   field_promo_cta:
     type: entity_reference_revisions_entity_view
     label: above
