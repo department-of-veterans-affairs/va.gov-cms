@@ -9,7 +9,6 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\FieldableEntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\file\Plugin\Field\FieldType\FileFieldItemList;
-use Drupal\image\Plugin\Field\FieldWidget\ImageWidget;
 
 /**
  * Implements hook_form_FORM_ID_alter().
@@ -75,16 +74,6 @@ function _va_gov_media_image_style_warmer_warm_up(EntityInterface $entity) {
 }
 
 /**
- * Implements hook_field_widget_form_alter().
- */
-function va_gov_media_field_widget_form_alter(&$element, FormStateInterface $form_state, $context) {
-  // If this is an image field type of instance.
-  if ($context['widget'] instanceof ImageWidget) {
-    $element['#process'][] = 'va_gov_media_image_field_widget_process';
-  }
-}
-
-/**
  * Changes the alt text description to be more helpful.
  *
  * @param array $element
@@ -97,9 +86,9 @@ function va_gov_media_field_widget_form_alter(&$element, FormStateInterface $for
  * @return array
  *   The element.
  */
-function va_gov_media_image_field_widget_process(array $element, FormStateInterface &$form_state, array $form) {
+function _va_gov_media_image_field_widget_process(array $element, FormStateInterface &$form_state, array $form) {
   if (isset($element['alt'])) {
-    $element['alt']['#description'] = t('Alternative text is important for accessibility. Tips for writing alternative text: include a short, specific description of the image. Avoid words such as "image," "picture," "photo," or "graphic". Do not use the file name of the image.');
+    $element['alt']['#description'] = t('Adding a clear and meaningful description of the image is important for accessibility.');
   }
 
   // Return the altered element.
