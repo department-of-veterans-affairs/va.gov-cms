@@ -13,6 +13,7 @@ core:
     assets/js/tabledrag.js: {}
     assets/js/vagovclaro.theme.help.js: {}
     assets/js/modal_accessibility.js: {}
+    assets/js/inline_guidance.js: {}
 
     # Library compiled from design system in docroot/design-system
     dist/ds-drupal.js: {
@@ -22,6 +23,7 @@ core:
   dependencies:
     - core/drupal
     - core/jquery
+    - core/jquery.once
     - core/drupal.tabledrag
     - va_gov_backend/tippy_popover_theme
     - va_gov_backend/tippyjs
