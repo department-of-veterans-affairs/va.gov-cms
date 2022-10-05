@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - block_content.type.benefit_promo
+    - field.field.block_content.benefit_promo.field_administration
     - field.field.block_content.benefit_promo.field_promo_cta
     - field.field.block_content.benefit_promo.field_promo_headline
     - field.field.block_content.benefit_promo.field_promo_text
@@ -16,6 +17,12 @@ targetEntityType: block_content
 bundle: benefit_promo
 mode: default
 content:
+  field_administration:
+    type: options_select
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_promo_cta:
     type: entity_reference_paragraphs
     weight: 3

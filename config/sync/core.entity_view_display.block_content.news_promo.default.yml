@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - block_content.type.news_promo
+    - field.field.block_content.news_promo.field_administration
     - field.field.block_content.news_promo.field_promo_cta
     - field.field.block_content.news_promo.field_promo_headline
     - field.field.block_content.news_promo.field_promo_text
@@ -14,6 +15,14 @@ targetEntityType: block_content
 bundle: news_promo
 mode: default
 content:
+  field_administration:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 5
+    region: content
   field_promo_cta:
     type: entity_reference_revisions_entity_view
     label: above
