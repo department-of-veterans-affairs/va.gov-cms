@@ -273,7 +273,7 @@ function _va_gov_backend_toggle_fields_states(array &$form, array $toggles) {
   if (!empty($toggles['toggle_groups']) && is_array($toggles['toggle_groups'])) {
     foreach ($toggles['toggle_groups'] as $toggle_group) {
       // Toggle the fields.
-      _va_gov_toggle_field_states($form, $toggle_group);
+      _va_gov_backend_toggle_field_states($form, $toggle_group);
     }
   }
 }

@@ -35,13 +35,19 @@ field_settings:
     type: text
     configuration:
       roles:
-        anonymous: anonymous
+        - anonymous
       view_mode:
         'entity:node':
+          banner: ''
+          basic_landing_page: ''
+          campaign_landing_page: ''
+          centralized_content: ''
           checklist: default
           documentation_page: default
           event: default
           event_listing: default
+          faq_multiple_q_a: ''
+          full_width_banner_alert: ''
           health_care_local_facility: default
           health_care_local_health_service: default
           health_care_region_detail_page: default
@@ -54,21 +60,36 @@ field_settings:
           media_list_videos: default
           nca_facility: default
           news_story: default
+          office: ''
           outreach_asset: default
           page: default
           person_profile: default
           press_release: default
           press_releases_listing: default
+          promo_banner: ''
           publication_listing: default
           q_a: default
           regional_health_care_service_des: default
           step_by_step: default
           story_listing: default
+          support_resources_detail_page: ''
+          support_service: ''
           va_form: default
+          vamc_operating_status_and_alerts: ''
+          vamc_system_billing_insurance: ''
+          vamc_system_medical_records_offi: ''
+          vamc_system_policies_page: ''
+          vamc_system_register_for_care: ''
           vba_facility: default
           vet_center: default
+          vet_center_cap: ''
+          vet_center_facility_health_servi: ''
+          vet_center_locations_list: ''
+          vet_center_mobile_vet_center: ''
+          vet_center_outstation: ''
+          vha_facility_nonclinical_service: ''
   status:
-    label: null
+    label: status
     datasource_id: 'entity:node'
     property_path: status
     type: boolean
@@ -78,7 +99,7 @@ field_settings:
       module:
         - node
   uid:
-    label: null
+    label: uid
     datasource_id: 'entity:node'
     property_path: uid
     type: integer
@@ -101,6 +122,7 @@ processor_settings:
   content_access:
     weights:
       preprocess_query: -10
+  entity_type: {  }
   html_filter:
     weights:
       preprocess_index: -10
@@ -180,6 +202,7 @@ processor_settings:
       - label
       - rendered
     spaces: ''
+    ignored: ._-
     overlap_cjk: 1
     minimum_word_size: '3'
   transliteration:
@@ -196,4 +219,5 @@ tracker_settings:
 options:
   cron_limit: 50
   index_directly: true
+  track_changes_in_references: true
 server: database

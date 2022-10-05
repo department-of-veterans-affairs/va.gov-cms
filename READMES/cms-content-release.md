@@ -141,6 +141,10 @@ The Tugboat and local development versions of the release content page do not tr
 
 For more information on creating or releasing content from a preview environment, see [Environments](./environments.md).
 
+## Troubleshooting
+
+Sometimes the state gets stuck and needs to be reset.  It can be done with a drush command
+`drush va-gov:content-release:reset-state`
 
 ## Other resources:
 
