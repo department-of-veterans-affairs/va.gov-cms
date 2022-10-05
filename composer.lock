@@ -9630,17 +9630,17 @@
         },
         {
             "name": "drupal/next",
-            "version": "1.1.0",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/next.git",
-                "reference": "1.1.0"
+                "reference": "1.3.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/next-1.1.0.zip",
-                "reference": "1.1.0",
-                "shasum": "41b2ba1978976fd03e56f3ad0d336cd9be128585"
+                "url": "https://ftp.drupal.org/files/projects/next-1.3.0.zip",
+                "reference": "1.3.0",
+                "shasum": "696e94311d45aad7a27915930741368c64e2182b"
             },
             "require": {
                 "cweagans/composer-patches": "~1.0",
@@ -9652,14 +9652,16 @@
             },
             "require-dev": {
                 "drupal/decoupled_router": "*",
+                "drupal/jwt": "*",
+                "drupal/jwt_auth_consumer": "*",
                 "drupal/subrequests": "*",
                 "phpunit/phpunit": "^6.0 || ^7.0"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "1.1.0",
-                    "datestamp": "1647273206",
+                    "version": "1.3.0",
+                    "datestamp": "1662572080",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
