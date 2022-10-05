@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8e016ea1bbfb8d5f0aac49c738fd21ab",
+    "content-hash": "92de5716bf54596e2546a8dd8a488d64",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -9630,17 +9630,17 @@
         },
         {
             "name": "drupal/next",
-            "version": "1.1.0",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/next.git",
-                "reference": "1.1.0"
+                "reference": "1.3.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/next-1.1.0.zip",
-                "reference": "1.1.0",
-                "shasum": "41b2ba1978976fd03e56f3ad0d336cd9be128585"
+                "url": "https://ftp.drupal.org/files/projects/next-1.3.0.zip",
+                "reference": "1.3.0",
+                "shasum": "696e94311d45aad7a27915930741368c64e2182b"
             },
             "require": {
                 "cweagans/composer-patches": "~1.0",
@@ -9652,14 +9652,16 @@
             },
             "require-dev": {
                 "drupal/decoupled_router": "*",
+                "drupal/jwt": "*",
+                "drupal/jwt_auth_consumer": "*",
                 "drupal/subrequests": "*",
                 "phpunit/phpunit": "^6.0 || ^7.0"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "1.1.0",
-                    "datestamp": "1647273206",
+                    "version": "1.3.0",
+                    "datestamp": "1662572080",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -26859,7 +26861,7 @@
         },
         {
             "name": "va-gov/content-build",
-            "version": "v0.0.3112",
+            "version": "v0.0.3113",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/content-build.git",
@@ -26895,7 +26897,7 @@
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/content-build, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
             "support": {
                 "issues": "https://github.com/department-of-veterans-affairs/content-build/issues",
-                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3112"
+                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3113"
             },
             "time": "2022-10-03T17:28:40+00:00"
         },
