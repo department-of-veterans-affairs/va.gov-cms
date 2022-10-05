@@ -87,6 +87,7 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'use workbench access',
           'view media',
           'view style guides',
+          'opt-in or out of google analytics tracking',
         ],
       ],
       [
