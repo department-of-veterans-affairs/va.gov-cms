@@ -297,6 +297,7 @@ Feature: Views
       | VAMC top task page revision histories | Page | page_1 | Page |
       | VAMCs | Master | default | Default |
       | Vet Center facility listing | Block | vc_facility_listing | Block |
+      | Vet Center facility listing | Block | mvc_facility_listing | Block |
       | Vet Center facility listing | Master | default | Default |
       | Vet Center facility listing | VC listing for node form | vc_listing_for_node_form | Block |
       | Vet centers | Master | default | Default |
