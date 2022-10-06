@@ -121,9 +121,7 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
    * {@inheritdoc}
    */
   public function build() {
-
     $node = $this->getNode();
-
     if (!$node) {
       return;
     }
@@ -174,7 +172,6 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
             '@va_gov_url' => $va_gov_url,
           ]);
         }
-
       }
       else {
         $output .= $this->t('<div><span class="va-gov-entity-meta__title"><strong>@block_key: </strong></span><span class="va-gov-entity-meta__content">@block_item</span></div>',
@@ -182,7 +179,6 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
           '@block_key' => $block_key,
           '@block_item' => $block_item,
         ]);
-
       }
     }
     $block['#markup'] = $output;
@@ -296,20 +292,14 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
   private function getUrlsToDisplay(NodeInterface $node): array {
     $va_gov_urls_to_display = [];
     $section_id = $node->get('field_administration')->target_id;
-    // If this is Lovell, we need to check for
-    // multiple front-end urls and the right prefix.
-    $lovell_type = LovellOps::getLovellType($node);
-    if ($lovell_type !== '') {
-      $valid_prefixes = LovellOps::getValidPrefixes($section_id);
-      foreach ($valid_prefixes as $prefix) {
-        $va_gov_url_front_end_url = $this->vaGovUrl->getVaGovFrontEndUrl();
-        $va_gov_urls_to_display[] = LovellOps::buildLovellUrlWithCorrectPrefix($node, $prefix, $va_gov_url_front_end_url);
-      }
+    if (LovellOps::getLovellType($node) !== '') {
+      $va_gov_urls_to_display = LovellOps::buildArrayLovellUrls($section_id, $this->vaGovUrl, $node);
     }
     else {
       $va_gov_url = $this->vaGovUrl->getVaGovFrontEndUrlForEntity($node);
       $va_gov_urls_to_display[] = $va_gov_url;
     }
+
     return $va_gov_urls_to_display;
   }
 
