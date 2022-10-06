@@ -6,13 +6,15 @@ dependencies:
     - block_content.type.news_promo
     - field.field.block_content.news_promo.field_administration
     - field.field.block_content.news_promo.field_image
-    - field.field.block_content.news_promo.field_promo_cta
+    - field.field.block_content.news_promo.field_link
+    - field.field.block_content.news_promo.field_link_label
     - field.field.block_content.news_promo.field_promo_headline
     - field.field.block_content.news_promo.field_promo_text
     - image.style.large
   module:
-    - entity_reference_revisions
+    - link
     - media
+    - options
 id: block_content.news_promo.default
 targetEntityType: block_content
 bundle: news_promo
@@ -37,14 +39,24 @@ content:
     third_party_settings: {  }
     weight: 3
     region: content
-  field_promo_cta:
-    type: entity_reference_revisions_entity_view
+  field_link:
+    type: link
     label: above
     settings:
-      view_mode: default
-      link: ''
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
     third_party_settings: {  }
-    weight: 2
+    weight: 6
+    region: content
+  field_link_label:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
     region: content
   field_promo_headline:
     type: string
