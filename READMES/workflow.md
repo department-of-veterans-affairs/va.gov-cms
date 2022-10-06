@@ -37,7 +37,7 @@ We are currently working off a single `main` branch. `main` is protected and req
 _Example: VACMS-1234 Add configuration for menu reduction._
 1. Push work to your fork of the repository so a Pull Request may be created
 `git push myfork <branchname>`
-1. Once your PR is merged it will be automatically deployed to dev.cms.va.gov and staging.cms.va.gov. If it is merged before 2:30pm ET and tests pass it will be in the daily, scheduled deploy to prod.cms.va.gov at 3:30pm ET.
+1. Once your PR is merged it will be automatically deployed to staging.cms.va.gov. If it is merged before 2:30pm ET and tests pass it will be in the daily, scheduled deploy to prod.cms.va.gov at 3:30pm ET.
 
   While working on your own branch, you may have to rebase it on main which will make it out of sync with your remote branch and will require you to force push to your branch.
 

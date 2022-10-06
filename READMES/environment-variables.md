@@ -51,7 +51,6 @@ The VA `devops` repo is private. Sensitive environment variables for BRD *may* b
 necessary, but it is not required.
 
 See the files:
- - [ansible/deployment/config/cms-vagov-dev](https://github.com/department-of-veterans-affairs/devops/blob/master/ansible/deployment/config/cms-vagov-dev.yml#L125)
  - [ansible/deployment/config/cms-vagov-staging](https://github.com/department-of-veterans-affairs/devops/blob/master/ansible/deployment/config/cms-vagov-staging.yml#L125)
  - [ansible/deployment/config/cms-vagov-prod](https://github.com/department-of-veterans-affairs/devops/blob/master/ansible/deployment/config/cms-vagov-prod.yml#L125)
 
