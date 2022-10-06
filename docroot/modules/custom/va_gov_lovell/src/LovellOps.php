@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_lovell;
 
 use Drupal\node\NodeInterface;
+use Drupal\va_gov_backend\Service\VaGovUrlInterface;
 
 /**
  * Wrapper class of largely static helper functions related to Lovell.
@@ -26,6 +27,52 @@ class LovellOps {
     self::TRICARE_ID => self::TRICARE_VALUE,
     self::BOTH_ID => self::BOTH_VALUE,
   ];
+
+  /**
+   * Build the array of Lovell URLs.
+   *
+   * @param string $section_id
+   *   An id for a section taxonomy term.
+   * @param \Drupal\va_gov_backend\Service\VaGovUrlInterface $vaGovUrl
+   *   The va.gov URL service.
+   * @param \Drupal\node\NodeInterface $node
+   *   Node entity to query for its original path.
+   *
+   * @return array
+   *   Array of complete Lovell URLs.
+   */
+  public static function buildArrayLovellUrls(string $section_id, VaGovUrlInterface $vaGovUrl, NodeInterface $node): array {
+    $va_gov_urls_to_display = [];
+    $valid_prefixes = LovellOps::getValidPrefixes($section_id);
+    foreach ($valid_prefixes as $prefix) {
+      $va_gov_url_front_end_domain = $vaGovUrl->getVaGovFrontEndUrl();
+      $va_gov_urls_to_display[] = LovellOps::buildLovellUrlWithCorrectPrefix($node, $prefix, $va_gov_url_front_end_domain);
+    }
+    return $va_gov_urls_to_display;
+  }
+
+  /**
+   * Build the Lovell URL to the front end with the correct prefix.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   Node entity to query for its original path.
+   * @param string $prefix
+   *   The prefix of the path to use, e.g. "lovell-federal-tricare-health-care",
+   *   "lovell-federal-va-health-care", or "lovell-federal-health-care".
+   * @param string $va_gov_url_front_end_domain
+   *   The front-end URL domain.
+   *
+   * @return string
+   *   The complete Lovell URL.
+   */
+  public static function buildLovellUrlWithCorrectPrefix(NodeInterface $node, string $prefix, string $va_gov_url_front_end_domain): string {
+    $url = "";
+    $original_path = $node->toUrl()->toString();
+    $pattern_to_trim = "/^\/([a-z]|\-)*/i";
+    $trimmed_path = preg_replace($pattern_to_trim, "/" . $prefix, $original_path);
+    $url = $va_gov_url_front_end_domain . $trimmed_path;
+    return $url;
+  }
 
   /**
    * Overrides the menu name if system path matches Lovell.
@@ -65,6 +112,30 @@ class LovellOps {
       }
     }
     return $type;
+  }
+
+  /**
+   * Generate valid lovell url prefixes for the provided section.
+   *
+   * @param string $section_id
+   *   An id for a section taxonomy term.
+   *
+   * @return array
+   *   An array of valid url prefixes .
+   */
+  public static function getValidPrefixes(string $section_id): array {
+    // Define valid url prefixes for Lovell content.
+    $valid_prefixes = [
+      LovellOps::TRICARE_ID => LovellOps::TRICARE_PATH,
+      LovellOps::VA_ID => LovellOps::VA_PATH,
+    ];
+
+    // If section is not both remove invalid prefixes.
+    if ($section_id !== LovellOps::BOTH_ID) {
+      $valid_prefixes = array_intersect_key($valid_prefixes, [$section_id => 'keep']);
+    }
+
+    return $valid_prefixes;
   }
 
 }
