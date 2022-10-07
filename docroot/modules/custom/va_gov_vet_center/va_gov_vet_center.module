@@ -134,7 +134,6 @@ function _va_gov_vet_center_add_facilities_listing_block_to_view(array &$build, 
       $view_render = $view->render();
       $rendered_view = \Drupal::service('renderer')->render($view_render);
       $build['vc_locations_view'] = [
-        '#prefix' => '<div class="field__label">' . t('Main and satellite locations') . '</div>',
         '#markup' => $rendered_view,
         '#weight' => 2,
       ];

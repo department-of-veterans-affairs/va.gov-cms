@@ -1464,9 +1464,45 @@ display:
         operator: AND
         groups:
           1: AND
+      style:
+        type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          columns:
+            title: title
+            moderation_state: moderation_state
+          default: '-1'
+          info:
+            title:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            moderation_state:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          override: true
+          sticky: false
+          summary: ''
+          empty_table: false
+          caption: 'Main and satellite locations'
+          description: ''
+      row:
+        type: fields
+        options: {  }
       defaults:
         empty: false
         css_class: false
+        style: false
+        row: false
         fields: false
         sorts: false
         arguments: false
@@ -1478,7 +1514,9 @@ display:
       display_description: ''
       header: {  }
       footer: {  }
-      display_extenders: {  }
+      display_extenders:
+        jsonapi_views:
+          enabled: true
     cache_metadata:
       max-age: -1
       contexts:
