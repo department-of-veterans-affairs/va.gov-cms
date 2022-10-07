@@ -741,9 +741,45 @@ display:
         operator: AND
         groups:
           1: AND
+      style:
+        type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          columns:
+            title: title
+            moderation_state: moderation_state
+          default: '-1'
+          info:
+            title:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            moderation_state:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          override: true
+          sticky: false
+          summary: ''
+          empty_table: false
+          caption: 'Additional Mobile Vet Centers'
+          description: ''
+      row:
+        type: fields
+        options: {  }
       defaults:
         empty: false
         css_class: false
+        style: false
+        row: false
         relationships: false
         fields: false
         sorts: false
@@ -764,20 +800,7 @@ display:
           required: true
       css_class: view-table-format
       display_description: ''
-      header:
-        area:
-          id: area
-          table: views
-          field: area
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: text
-          empty: false
-          content:
-            value: '<div class="field__label">Additional Mobile Vet Centers</div>'
-            format: rich_text
-          tokenize: false
+      header: {  }
       display_extenders:
         jsonapi_views:
           enabled: true
@@ -1454,18 +1477,7 @@ display:
       css_class: ''
       display_description: ''
       header: {  }
-      footer:
-        view:
-          id: view
-          table: views
-          field: view
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: view
-          empty: false
-          view_to_insert: 'vet_center_facility_listing:mvc_listing_for_node_form'
-          inherit_arguments: false
+      footer: {  }
       display_extenders: {  }
     cache_metadata:
       max-age: -1
