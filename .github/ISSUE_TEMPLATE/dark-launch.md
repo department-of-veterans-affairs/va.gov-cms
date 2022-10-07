@@ -1,8 +1,9 @@
 ---
 name: "(PW) Dark launch request"
-about: Request to dark launch CMS content that includes React widget, owned by Public Websites team
+about: Request to dark launch CMS content that includes React widget, owned by Public
+  Websites team
 title: 'CMS/React content dark launch request: <content info>'
-labels: Needs refining, ⭐️ Public Websites, Drupal engineering, VA.gov frontend
+labels: Drupal engineering, Needs refining, ⭐️ Public Websites, VA.gov frontend
 assignees: jilladams, wesrowe
 
 ---
