@@ -110,7 +110,7 @@ function _va_gov_vet_center_add_facilities_listing_block_to_view(array &$build, 
 
     if (is_object($view)) {
       $view->setDisplay('vc_listing_for_node_form');
-      $node_edit_pattern = "@/node/\d*/edit/@i";
+      $node_edit_pattern = "@/node/\d*/edit/.*@i";
       $current_path = \Drupal::service('path.current')->getPath();
       // Only attach the MVC view to the VC view footer on node:view.
       if (!preg_match($node_edit_pattern, $current_path)) {
