@@ -2,15 +2,17 @@
 
 namespace Drupal\va_gov_backend\Plugin\Block;
 
-use Drupal\Core\Menu\MenuTreeParameters;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Menu\MenuLinkManager;
 use Drupal\Core\Menu\MenuLinkTree;
+use Drupal\Core\Menu\MenuTreeParameters;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\node\NodeInterface;
+use Drupal\path_alias\AliasManagerInterface;
+use Drupal\va_gov_lovell\LovellOps;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -24,6 +26,15 @@ use Symfony\Component\HttpFoundation\RequestStack;
  * )
  */
 class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInterface {
+
+
+  /**
+   * The alias manager interface.
+   *
+   * @var \Drupal\path_alias\AliasManagerInterface
+   */
+  protected $aliasManager;
+
   /**
    * The entity type manager.
    *
@@ -53,6 +64,13 @@ class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInter
   protected $requestStack;
 
   /**
+   * The renderer.
+   *
+   * @var \Drupal\Core\Render\RendererInterface
+   */
+  protected $renderer;
+
+  /**
    * The menu link manager.
    *
    * @var \Drupal\Core\Menu\MenuLinkManager
@@ -60,11 +78,11 @@ class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInter
   protected $menuLinkManager;
 
   /**
-   * The renderer.
+   * The name of the menu in play.
    *
-   * @var \Drupal\Core\Render\RendererInterface
+   * @var string
    */
-  protected $renderer;
+  protected $menuId = '';
 
   /**
    * Constructor.
@@ -75,6 +93,8 @@ class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInter
    *   The plugin id.
    * @param string $plugin_definition
    *   The plugin definition.
+   * @param \Drupal\path_alias\AliasManagerInterface $alias_manager
+   *   Core path alias manager.
    * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
    *   Provides an interface for classes representing the result of routing.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
@@ -92,6 +112,7 @@ class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInter
     array $configuration,
     $plugin_id,
     $plugin_definition,
+    AliasManagerInterface $alias_manager,
     RouteMatchInterface $route_match,
     EntityTypeManagerInterface $entity_type_manager,
     MenuLinkTree $menu_link_tree,
@@ -100,6 +121,7 @@ class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInter
     RendererInterface $renderer
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->aliasManager = $alias_manager;
     $this->routeMatch = $route_match;
     $this->entityTypeManager = $entity_type_manager;
     $this->menuLinkTree = $menu_link_tree;
@@ -116,6 +138,7 @@ class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInter
       $configuration,
       $plugin_id,
       $plugin_definition,
+      $container->get('path_alias.manager'),
       $container->get('current_route_match'),
       $container->get('entity_type.manager'),
       $container->get('menu.link_tree'),
@@ -131,63 +154,86 @@ class SidebarMenusBlock extends BlockBase implements ContainerFactoryPluginInter
   public function build() {
     $build = [];
     $node = $this->routeMatch->getParameters()->get('node');
-    $menu_name = $this->getMenuName();
+    $menu_name = $this->getMenuId();
     // Before we start doing stuff, make sure we have a node object.
-    if ($node instanceof NodeInterface) {
-
+    if ($node instanceof NodeInterface && !empty($menu_name)) {
       $route_params = ['node' => $node->id()];
       // Load the menu.
       $menu_links = $this->menuLinkManager->loadLinksByRoute('entity.node.canonical', $route_params, $menu_name);
-
+      $lovell_type = LovellOps::getLovellType($node);
       // If it has links, put them together.
-      $build = $this->getMenuBuild($menu_links);
+      $build = $this->getMenuBuild($menu_links, $lovell_type);
     }
+
     return [
       '#markup' => $this->renderer->render($build),
     ];
-
   }
 
   /**
-   * Returns the name of the vamc menu for the current context.
+   * Returns the id of the vamc menu for the current context.
    *
    * @return string
    *   The menu name.
    */
-  public function getMenuName() {
-    $menu_name = '';
-    // This is the only thing we have to find the menu name.
-    $path = $this->requestStack->getCurrentRequest()->getPathInfo();
-    $args = explode('/', $path);
-    // Menu machine name and pathname usually differ by "va-" prefix.
-    $menu_name = substr($args[1], 0, 3) === 'va-' ? $args[1] : 'va-' . $args[1];
-    // Pittsburgh is a snowflake.
-    if ($args[1] === 'pittsburgh-health-care') {
-      $menu_name = $args[1];
+  public function getMenuId() {
+    if (empty($this->menuId)) {
+      // Has not been set, so create it.
+      $alias = $this->requestStack->getCurrentRequest()->getPathInfo();
+      $alias_parts = explode('/', $alias);
+
+      // Load the node for the path root.
+      $root_alias = '/' . $alias_parts[1];
+      $system_path = $this->aliasManager->getPathByAlias($root_alias);
+      if (preg_match('/node\/(\d+)/', $system_path, $matches)) {
+        $node_storage = $this->entityTypeManager->getStorage('node');
+        /** @var \Drupal\node\NodeInterface $node */
+        $node = $node_storage->load($matches[1]);
+        if (($node instanceof NodeInterface) && ($node->hasField('field_system_menu'))) {
+          $this->menuId = $node->field_system_menu->target_id;
+        }
+      }
+      else {
+        // The proper node was not found, so attempt a default.
+        $this->menuId = LovellOps::getLovellMenuFallback($system_path, $this->menuId);
+      }
     }
-    return $menu_name;
+
+    return $this->menuId;
   }
 
   /**
-   * Returns the rendered vamc menu for the current context.
+   * Returns the rendered VAMC menu for the current context.
+   *
+   * @param \Drupal\Core\Menu\MenuLinkInterface[] $menu_links
+   *   The links to use in the menu.
+   * @param string $lovell_type
+   *   The type of Lovell menu (both, tricare, VA, '').
    *
    * @return array
    *   Returns the rendered menu array, or empty array if no menu.
    */
-  protected function getMenuBuild($menu_links) {
+  protected function getMenuBuild(array $menu_links, $lovell_type) {
     if (empty($menu_links)) {
       return [];
     }
     $menu_parameters = new MenuTreeParameters();
-    // This is needed to sort by weights set in ui.
-    $manipulators = [
-        ['callable' => 'menu.default_tree_manipulators:generateIndexAndSort'],
-    ];
     // If we don't do this, we won't see the whole menu on nested pages.
     $menu_parameters->setRoot('');
     $menu_parameters->onlyEnabledLinks();
-    $tree = $this->menuLinkTree->load($this->getMenuName(), $menu_parameters);
+    $tree = $this->menuLinkTree->load($this->getMenuId(), $menu_parameters);
+    $manipulators = [
+        // This is needed to sort by weights set in ui.
+        ['callable' => 'menu.default_tree_manipulators:generateIndexAndSort'],
+    ];
+    if (!empty($lovell_type)) {
+      $manipulators[] = [
+        'callable' => 'va_gov_lovell.lovellmenulinktreemanipulators:reduceLovellMenu',
+        'args' => [$lovell_type],
+      ];
+    }
     $tree = $this->menuLinkTree->transform($tree, $manipulators);
+
     return $this->menuLinkTree->build($tree);
   }
 
