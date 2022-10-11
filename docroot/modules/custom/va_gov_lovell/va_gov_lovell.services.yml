@@ -1,6 +1,13 @@
 services:
   va_gov_lovell.entity_event_subscriber:
     class: Drupal\va_gov_lovell\EventSubscriber\LovellEventSubscriber
-    arguments: ['@entity_type.manager', '@messenger']
+    arguments: ['@entity_type.manager', '@current_route_match', '@pathauto.generator', '@messenger']
     tags:
       - { name: event_subscriber }
+  va_gov_lovell.factory.breadcrumb:
+    class: Drupal\va_gov_lovell\Factory\BreadcrumbPreprocessEventFactory
+    tags:
+      -  { name: preprocess_event_factory }
+  va_gov_lovell.lovellmenulinktreemanipulators:
+    class: Drupal\va_gov_lovell\LovellMenuLinkTreeManipulators
+    arguments: ['@entity_type.manager']
