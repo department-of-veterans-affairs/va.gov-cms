@@ -43,15 +43,25 @@
     facilityFieldOptions.forEach((i) => {
       // Apply reset everytime we fire.
       i.classList.add("hidden-option");
-      if (i.text.includes(adminMatcher) || i.text.search(lovellPattern) > -1) {
+      if (i.text.includes(adminMatcher)) {
+        i.classList.remove("hidden-option");
+      } else if (
+        i.text.search(lovellPattern) > -1 &&
+        adminFieldText.search(lovellPattern) > -1
+      ) {
         i.classList.remove("hidden-option");
       }
     });
     // Winnow system field options that don't contain adminMatcher.
     systemFieldOptions.forEach((i) => {
-      // Apply reset every time we fire.
+      // Apply reset everytime we fire.
       i.classList.add("hidden-option");
-      if (i.text.includes(adminMatcher) || i.text.search(lovellPattern) > -1) {
+      if (i.text.includes(adminMatcher)) {
+        i.classList.remove("hidden-option");
+      } else if (
+        i.text.search(lovellPattern) > -1 &&
+        adminFieldText.search(lovellPattern) > -1
+      ) {
         i.classList.remove("hidden-option");
       }
     });

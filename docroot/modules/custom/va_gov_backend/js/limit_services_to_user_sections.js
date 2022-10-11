@@ -30,14 +30,18 @@
 
     facilityFieldOptions.forEach(function (i) {
       i.classList.add("hidden-option");
-      if (i.text.includes(adminMatcher) || i.text.search(lovellPattern) > -1) {
+      if (i.text.includes(adminMatcher)) {
+        i.classList.remove("hidden-option");
+      } else if (i.text.search(lovellPattern) > -1 && adminFieldText.search(lovellPattern) > -1) {
         i.classList.remove("hidden-option");
       }
     });
 
     systemFieldOptions.forEach(function (i) {
       i.classList.add("hidden-option");
-      if (i.text.includes(adminMatcher) || i.text.search(lovellPattern) > -1) {
+      if (i.text.includes(adminMatcher)) {
+        i.classList.remove("hidden-option");
+      } else if (i.text.search(lovellPattern) > -1 && adminFieldText.search(lovellPattern) > -1) {
         i.classList.remove("hidden-option");
       }
     });
