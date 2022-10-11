@@ -1,3 +1,4 @@
+
 @api
 Feature: Views
   In order to present and expose content and configuration
@@ -120,8 +121,8 @@ Feature: Views
       | Content | Content audit CSV export | content_audit_csv_export | Data export |
       | Content | Content audit tools | content_audit_page | Page |
       | Content | Master | default | Default |
-      | Content | Outdated Content CSV export | data_export_1 | Data export |
       | Content | Outdated content | page_3 | Page |
+      | Content | Outdated Content CSV expo... | data_export_1 | Data export |
       | Content | Resources and support | resources_support_dashboard | Page |
       | Content entity browsers | Event entity browser | event_entity_browser | Entity browser |
       | Content entity browsers | Master | default | Default |
@@ -204,7 +205,7 @@ Feature: Views
       | Locked content | Master | default | Default |
       | Locked content | Page | page_1 | Page |
       | Managed links | Master | default | Default |
-      | Managed links | Page   | page_1  | Page    |
+      | Managed links | Page | page_1 | Page |
       | Media | Browser | entity_browser_1 | Entity browser |
       | Media | Data export | images_export | Data export |
       | Media | Downloadable document browser | entity_browser_3 | Entity browser |
