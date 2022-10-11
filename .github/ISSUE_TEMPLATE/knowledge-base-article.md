@@ -73,4 +73,3 @@ Who is this intended for? Who would need this information? (i.e. Everyone, non-a
 - [ ] Article is assigned to a parent 
 - [ ] Impacts on other KB articles have been considered and any necessary changes have been made
 - [ ] Once published, the person requesting the article has been notified
-  
