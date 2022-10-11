@@ -110,12 +110,30 @@ function _va_gov_vet_center_add_facilities_listing_block_to_view(array &$build, 
 
     if (is_object($view)) {
       $view->setDisplay('vc_listing_for_node_form');
+      $node_edit_pattern = "@/node/\d*/edit/.*@i";
+      $current_path = \Drupal::service('path.current')->getPath();
+      // Only attach the MVC view to the VC view footer on node:view.
+      if (!preg_match($node_edit_pattern, $current_path)) {
+        $options = [
+          'id' => 'view',
+          'table' => 'views',
+          'field' => 'view',
+          'relationship' => 'none',
+          'group_type' => 'group',
+          'admin_label' => '',
+          'empty' => FALSE,
+          'tokenize' => FALSE,
+          'view_to_insert' => 'vet_center_facility_listing:mvc_listing_for_node_form',
+          'plugin_id' => 'view',
+          'inherit_arguments' => FALSE,
+        ];
+        $view->setHandler('vc_listing_for_node_form', 'footer', 'view', $options);
+      }
       $view->execute();
       // Have to break it out to avoid php pass by reference notices.
       $view_render = $view->render();
       $rendered_view = \Drupal::service('renderer')->render($view_render);
       $build['vc_locations_view'] = [
-        '#prefix' => '<div class="field__label">' . t('Main and satellite locations') . '</div>',
         '#markup' => $rendered_view,
         '#weight' => 2,
       ];

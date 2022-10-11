@@ -4,7 +4,7 @@ about: Use this template for planning, coordinating and monitoring activities re
   to VFS-CMS updates that have a medium to high impact on VA employees.
 title: Change management for <insert issue name>
 labels: Needs refining
-assignees: 
+assignees: ''
 
 ---
 
