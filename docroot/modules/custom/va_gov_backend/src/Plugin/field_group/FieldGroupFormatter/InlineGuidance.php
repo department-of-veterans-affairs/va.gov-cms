@@ -85,8 +85,8 @@ class InlineGuidance extends HtmlElement {
     $form['inline_guidance'] = [
       '#title' => $this->t('Inline Guidance'),
       '#type' => 'text_format',
-      '#format' => 'full_html',
-      '#default_value' => $this->getSetting('inline_guidance'),
+      '#format' => $this->getSetting('inline_guidance')['format'] ?? 'rich_text',
+      '#default_value' => $this->getSetting('inline_guidance')['value'] ?? '',
       '#description' => $this->t('The actual guidance text to be displayed.'),
       '#weight' => 7,
     ];
