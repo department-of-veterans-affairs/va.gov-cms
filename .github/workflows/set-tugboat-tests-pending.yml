@@ -20,7 +20,9 @@ jobs:
     name: Set Tugboat Tests Pending
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        # https://github.com/actions/cache/releases/tag/v3.0.10
+        uses: actions/checkout@56461b9eb0f8438fd15c7a9968e3c9ebb18ceff1
       - name: Set status for Tugboat tasks.
         run: |
           test_names=(
