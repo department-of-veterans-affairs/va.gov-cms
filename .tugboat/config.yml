@@ -107,7 +107,7 @@ services:
         - echo "apc.enable_cli=1" >> /usr/local/etc/php/conf.d/php-cli.ini
 
         # Install memcache extension
-        - pecl install memcache-4.0.5.2
+        - pecl install memcache-8.0
         - docker-php-ext-enable memcache
 
         # Ensure that we're using version 2 of composer.
