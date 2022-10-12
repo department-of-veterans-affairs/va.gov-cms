@@ -64,6 +64,8 @@ third_party_settings:
         - field_address
         - field_phone_number
         - field_office_hours
+        - field_intro_text
+        - field_media
       label: 'Facility data'
       parent_name: group_locations_and_contact_info
       region: content
@@ -79,6 +81,23 @@ third_party_settings:
         element: div
         label_element: h3
         attributes: ''
+    group_vba_db:
+      children:
+        - field_shared_vha_location
+        - field_non_va_official_name
+        - field_non_va_location_url
+        - field_office
+      label: 'VBA DB'
+      parent_name: ''
+      region: content
+      weight: 2
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        description: ''
+        description_display: after
 id: node.vba_facility.default
 targetEntityType: node
 bundle: vba_facility
@@ -104,7 +123,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 7
     region: content
   field_media:
     type: entity_reference_label
@@ -112,7 +131,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 11
+    weight: 8
     region: content
   field_non_va_location_url:
     type: link
@@ -124,7 +143,7 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 15
+    weight: 5
     region: content
   field_non_va_official_name:
     type: string
@@ -132,7 +151,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 14
+    weight: 4
     region: content
   field_office:
     type: entity_reference_label
@@ -140,7 +159,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 16
+    weight: 6
     region: content
   field_office_hours:
     type: office_hours
@@ -201,7 +220,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 12
+    weight: 3
     region: content
 hidden:
   content_moderation_control: true
