@@ -2,7 +2,9 @@ services:
   # What to call the service hosting the site.
   php:
     # Use PHP 8.1 with Apache; this syntax pulls in the latest version of PHP 8.1.
-    image: tugboatqa/php:8.1-apache-bullseye
+    # Currently using Buster because of an issue with Bullseye and PHP 8.1 on Tugboat.
+    # See https://github.com/department-of-veterans-affairs/va.gov-cms/issues/7667
+    image: tugboatqa/php:8.1-apache-buster
 
     aliases:
       - cms
@@ -132,9 +134,9 @@ services:
         - composer va:theme:compile
         - composer va:web:install
 
-        - curl --remote-name https://dsva-vagov-prod-cms-backup-sanitized.s3-us-gov-west-1.amazonaws.com/files/cms-prod-files-latest.tgz
-        - tar --extract --gunzip --file cms-prod-files-latest.tgz --directory "${DOCROOT}/sites/default/files/"
-        - rm cms-prod-files-latest.tgz
+#        - curl --remote-name https://dsva-vagov-prod-cms-backup-sanitized.s3-us-gov-west-1.amazonaws.com/files/cms-prod-files-latest.tgz
+#        - tar --extract --gunzip --file cms-prod-files-latest.tgz --directory "${DOCROOT}/sites/default/files/"
+#        - rm cms-prod-files-latest.tgz
 
         # Set file permissions such that Drupal will not complain
         - chgrp -R www-data "${DOCROOT}/sites/default/files"
