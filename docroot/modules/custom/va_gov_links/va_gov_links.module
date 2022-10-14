@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ * Hooks for VA.gov links.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\va_gov_links\CorrectCarriageReturn;
+
+/**
+ * Implements hook_entity_presave().
+ *
+ * This is very much temporary and should be removed.
+ */
+function va_gov_links_entity_presave(EntityInterface $entity): void {
+  /** @var \Drupal\va_gov_links\CorrectCarriageReturn $carriageCorrecter */
+  $carriageCorrecter = \Drupal::service('class_resolver')->getInstanceFromDefinition(CorrectCarriageReturn::class);
+  $carriageCorrecter->entityPreSave($entity);
+}
