@@ -50,15 +50,23 @@ function process_chunk(int $chunk_id, array $chunk) {
   $count = count($nodes);
   log_message("Loaded {$count} nodes as chunk {$chunk_id}");
   foreach ($nodes as $nid => $node) {
-    $time = time();
-    // Make this change a new revision.
-    $node->setNewRevision(TRUE);
-    $node->setRevisionUserId(1317);
-    $node->setChangedTime($time);
-    $node->setRevisionCreationTime($time);
-    $node->setRevisionLogMessage('Saved to fix carriage returns in wysiwyg.');
-    $node->setSyncing(TRUE);
-    $node->save();
+    // Do not do this processing if there is a forward draft.
+    $default_revision = $node->getRevisionId();
+    $latest_revision = $node_storage->getLatestRevisionId($nid);
+    if ($latest_revision == $default_revision) {
+      $time = time();
+      // Make this change a new revision.
+      $node->setNewRevision(TRUE);
+      $node->setRevisionUserId(1317);
+      $node->setChangedTime($time);
+      $node->setRevisionCreationTime($time);
+      $node->setRevisionLogMessage('Saved to fix carriage returns in wysiwyg.');
+      $node->setSyncing(TRUE);
+      $node->save();
+    }
+    else {
+      log_message("https://prod.cms.va.gov/node/{$nid} may have a forward draft; latest revision {$latest_revision} is different than {$node_storage->getLatestRevisionId($nid)}. Skipping.");
+    }
   }
 }
 
