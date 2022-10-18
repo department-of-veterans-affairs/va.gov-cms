@@ -144,7 +144,7 @@ $previous_linky_count = $linky_count;
 log_message("Found {$linky_count} existing linkies...");
 
 $start_time = time();
-
+$nid_allow_lists = [];
 $linky_count = process_content_type($_SERVER['argv'][3], $nid_allow_lists, $linky_count);
 
 $now = time();
