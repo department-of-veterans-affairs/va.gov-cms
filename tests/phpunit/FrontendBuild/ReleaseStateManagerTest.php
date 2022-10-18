@@ -5,11 +5,11 @@ namespace tests\phpunit\FrontendBuild;
 use Drupal\Core\Http\RequestStack;
 use Drupal\Core\KeyValueStore\KeyValueMemoryFactory;
 use Drupal\Core\State\State;
-use Drupal\Tests\UnitTestCase;
 use Drupal\va_gov_build_trigger\Event\ReleaseStateTransitionEvent;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
 use Tests\Support\Mock\SpecifiedTime;
 use Symfony\Component\EventDispatcher\EventDispatcher;
+use Tests\Support\Classes\VaGovUnitTestBase;
 
 /**
  * Unit test for the release state manager.
@@ -17,7 +17,7 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
  * @group unit
  * @group all
  */
-class ReleaseStateManagerTest extends UnitTestCase {
+class ReleaseStateManagerTest extends VaGovUnitTestBase {
 
   /**
    * The event dispatcher service.

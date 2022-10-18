@@ -3,7 +3,7 @@
 namespace tests\phpunit\Content;
 
 use Drupal\taxonomy\Entity\Vocabulary;
-use weitzman\DrupalTestTraits\ExistingSiteBase;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * A test to confirm correct alias settings.
@@ -11,7 +11,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  * @group functional
  * @group all
  */
-class AliasesTest extends ExistingSiteBase {
+class AliasesTest extends VaGovExistingSiteBase {
 
   /**
    * A test method to test VAMC System & Facility Health Services Aliases.

@@ -181,12 +181,14 @@ Cypress.Commands.add("accessibilityLog", (violations) => {
 
 compareSnapshotCommand();
 
+let logText = '';
+
 beforeEach(() => {
   const testTitle = Cypress.currentTest.title;
   const testPath = Cypress.currentTest.titlePath;
   const date = new Date();
   const timestamp = Math.floor(Date.now() / 1000);
-  cy.log(`VA_GOV_DEBUG ${timestamp} ${date} BEFORE ${testPath} ${testTitle}`);
+  logText += `VA_GOV_DEBUG ${timestamp} ${date} BEFORE ${testPath} ${testTitle}\n`;
 });
 
 afterEach(() => {
@@ -194,5 +196,10 @@ afterEach(() => {
   const testPath = Cypress.currentTest.titlePath;
   const date = new Date();
   const timestamp = Math.floor(Date.now() / 1000);
-  cy.log(`VA_GOV_DEBUG ${timestamp} ${date} AFTER ${testPath} ${testTitle}`);
+  logText += `VA_GOV_DEBUG ${timestamp} ${date} AFTER ${testPath} ${testTitle}\n`;
+});
+
+
+after(() => {
+  cy.writeFile("cypress.log", logText, { flag: "a+" });
 });

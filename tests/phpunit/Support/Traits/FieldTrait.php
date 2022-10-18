@@ -1,6 +1,6 @@
 <?php
 
-namespace Traits;
+namespace Tests\Support\Traits;
 
 use PHPUnit\Framework\Assert;
 

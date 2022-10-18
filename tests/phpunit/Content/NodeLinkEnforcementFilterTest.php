@@ -2,7 +2,7 @@
 
 namespace tests\phpunit\Content;
 
-use weitzman\DrupalTestTraits\ExistingSiteBase;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * A test to confirm the proper functioning of the NodeLinkEnforcement filter.
@@ -13,7 +13,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  *
  * @coversDefaultClass \Drupal\va_gov_backend\Plugin\Filter\NodeLinkEnforcementFilter
  */
-class NodeLinkEnforcementFilterTest extends ExistingSiteBase {
+class NodeLinkEnforcementFilterTest extends VaGovExistingSiteBase {
 
   /**
    * Test node.
