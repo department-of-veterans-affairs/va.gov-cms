@@ -184,6 +184,8 @@ compareSnapshotCommand();
 beforeEach(() => {
   const testTitle = Cypress.currentTest.title;
   const testPath = Cypress.currentTest.titlePath;
+  const date = new Date();
+  const timestamp = Math.floor(Date.now() / 1000);
   cy.log(`VA_GOV_DEBUG ${timestamp} ${date} BEFORE ${testPath} ${testTitle}`);
 });
 
