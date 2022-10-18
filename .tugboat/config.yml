@@ -72,6 +72,7 @@ services:
         - echo "opcache.enable_cli = 1" >> /usr/local/etc/php/conf.d/php-cli.ini
         - echo "opcache.enable = 1" >> /usr/local/etc/php/conf.d/my-php.ini
         - echo "opcache.jit = 1255" >> /usr/local/etc/php/conf.d/my-php.ini
+        - echo "opcache.jit_buffer_size = 256M" >> /usr/local/etc/php/conf.d/my-php.ini
 
         # .tugboat/.env.j2 Jinja2 template file support
         - apt-get install python3-apt python3-distutils python3
