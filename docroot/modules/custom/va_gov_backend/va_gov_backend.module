@@ -1917,6 +1917,18 @@ function _va_gov_backend_apply_filter_to_tablefield_cells(FieldableEntityInterfa
 }
 
 /**
+ * Implements hook_field_widget_WIDGET_TYPE_form_alter().
+ *
+ * Deprecated in va_gov_backend:9.2.3 and is removed from va_gov_backend:10.0.1
+ *   This should be removed in #10675.
+ *
+ * @see https://github.com/department-of-veterans-affairs/va.gov-cms/issues/10675
+ */
+function va_gov_backend_field_widget_tablefield_form_alter(&$element, FormStateInterface $form_state, $context): void {
+  $element["#description"] = t('The first row will be formatted as the table header. The labels in the first row should accurately describe the corresponding columns.');
+}
+
+/**
  * Determine if pathauto alias should be enabled on node.
  *
  * @param \Drupal\Core\Entity\FieldableEntityInterface $entity
