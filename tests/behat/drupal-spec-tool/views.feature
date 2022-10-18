@@ -1,3 +1,4 @@
+
 @api
 Feature: Views
   In order to present and expose content and configuration
@@ -42,6 +43,7 @@ Feature: Views
       | Listing page dashboard | listing_page_dashboard | Content | Disabled |  |
       | Local facilities entity reference view | local_facilities_entity_reference_view | Content | Enabled | An entity reference view that determines options for the Local Health Service descriptions |
       | Locked content | locked_content | Content | Enabled |  |
+      | Managed links | managed_links | Managed Link | Enabled | Managed links admin |
       | Media | media | Media | Enabled |  |
       | Media library | media_library | Media | Enabled | Find and manage media. |
       | Message | message | Message | Enabled |  |
@@ -119,8 +121,8 @@ Feature: Views
       | Content | Content audit CSV export | content_audit_csv_export | Data export |
       | Content | Content audit tools | content_audit_page | Page |
       | Content | Master | default | Default |
-      | Content | Outdated Content CSV export | data_export_1 | Data export |
       | Content | Outdated content | page_3 | Page |
+      | Content | Outdated Content CSV export | data_export_1 | Data export |
       | Content | Resources and support | resources_support_dashboard | Page |
       | Content entity browsers | Event entity browser | event_entity_browser | Entity browser |
       | Content entity browsers | Master | default | Default |
@@ -202,6 +204,8 @@ Feature: Views
       | Local facilities entity reference view | Master | default | Default |
       | Locked content | Master | default | Default |
       | Locked content | Page | page_1 | Page |
+      | Managed links | Master | default | Default |
+      | Managed links | Page | page_1 | Page |
       | Media | Browser | entity_browser_1 | Entity browser |
       | Media | Data export | images_export | Data export |
       | Media | Downloadable document browser | entity_browser_3 | Entity browser |

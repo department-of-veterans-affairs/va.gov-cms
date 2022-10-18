@@ -62,6 +62,7 @@
         "drupal/entity_reference_revisions": "^1.7",
         "drupal/entity_reference_unpublished": "^1.1",
         "drupal/entity_reference_validators": "^1.0@alpha",
+        "drupal/entity_usage": "dev-2.x",
         "drupal/entityqueue": "^1.2",
         "drupal/environment_indicator": "^4.0",
         "drupal/epp": "^1.1",
@@ -97,6 +98,9 @@
         "drupal/libraries": "^3.0@alpha",
         "drupal/limited_field_widgets": "^2.0",
         "drupal/linkit": "^6.0.0-beta2",
+        "drupal/linky": "^1.0@beta",
+        "drupal/linkychecker": "^2.0@beta",
+        "drupal/linkyreplacer": "^2.2",
         "drupal/markup": "^1.0@beta",
         "drupal/memcache": "^2.3",
         "drupal/memcache_admin": "^2.3",
@@ -195,11 +199,11 @@
         "symfony/process": "^4.0",
         "symfony/routing": "^4.0",
         "traviscarden/behat-table-comparison": "~0.2",
-        "va-gov/content-build": "^0.0.3116",
+        "va-gov/content-build": "^0.0.3120",
         "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
-        "weitzman/drupal-test-traits": "dev-master",
+        "weitzman/drupal-test-traits": "^1.5.0",
         "zaporylie/composer-drupal-optimizations": "^1.2"
     },
     "autoload": {
@@ -370,7 +374,8 @@
                 "Internal Claro tweaks": "patches/claro-css-tweaks.patch",
                 "3099026 - Claro's preprocessing of field multiple value form's table header cell removes potential changes by others": "https://www.drupal.org/files/issues/2020-02-20/3099026-9.patch",
                 "2767243 - Create a theme suggestion for taxonomy terms by view mode": "https://www.drupal.org/files/issues/core-theme-suggestion-for-taxonomy-view-modes-2767243-14.patch",
-                "2775665 - MenuLinkContent updateLink function generates a PHP Warning for override-able keys that are not present in the loaded entity": "https://www.drupal.org/files/issues/2021-09-17/updateLink-2775665-14.patch"
+                "2775665 - MenuLinkContent updateLink function generates a PHP Warning for override-able keys that are not present in the loaded entity": "https://www.drupal.org/files/issues/2021-09-17/updateLink-2775665-14.patch",
+                "2975602 - Html::serialize() escapes backslash-r to &#13;": "https://www.drupal.org/files/issues/2018-05-27/2975602-2-html_serialize.patch"
             },
             "drupal/danse_content_moderation": {
                 "3309657 - Danse 2.2.7 compatibility": "https://www.drupal.org/files/issues/2022-09-14/3309657-danse-2-2-7-compatibility.patch"
