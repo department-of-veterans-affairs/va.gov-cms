@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Support\Traits;
+namespace CustomDrupal\Traits;
 
 use PHPUnit\Framework\Assert;
 
