@@ -18,7 +18,7 @@ abstract class VaGovExistingSiteBase extends ExistingSiteBase {
   public function setUp() {
     parent::setUp();
     $timestamp = time();
-    $date = date(DATE_RFC2822);
+    $date = gmdate(DATE_RFC2822);
     $testString = $this->toString();
     $message = "VA_GOV_DEBUG $timestamp $date BEFORE $testString";
     $this->writeLogMessage($message);
@@ -30,7 +30,7 @@ abstract class VaGovExistingSiteBase extends ExistingSiteBase {
   public function tearDown() {
     parent::tearDown();
     $timestamp = time();
-    $date = date(DATE_RFC2822);
+    $date = gmdate(DATE_RFC2822);
     $testString = $this->toString();
     $message = "VA_GOV_DEBUG $timestamp $date AFTER $testString";
     $this->writeLogMessage($message);

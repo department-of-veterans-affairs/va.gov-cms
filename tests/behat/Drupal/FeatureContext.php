@@ -591,7 +591,7 @@ class FeatureContext extends RawDrupalContext {
    */
   public function logBeforeScenario($event) {
     $timestamp = time();
-    $date = date(DATE_RFC2822);
+    $date = gmdate(DATE_RFC2822);
     $featureFile = $event->getFeature()->getFile();
     $scenarioTitle = $event->getScenario()->getTitle();
     $testString = "$featureFile $scenarioTitle";
@@ -606,7 +606,7 @@ class FeatureContext extends RawDrupalContext {
    */
   public function logAfterScenario($event) {
     $timestamp = time();
-    $date = date(DATE_RFC2822);
+    $date = gmdate(DATE_RFC2822);
     $featureFile = $event->getFeature()->getFile();
     $scenarioTitle = $event->getScenario()->getTitle();
     $testString = "$featureFile $scenarioTitle";
