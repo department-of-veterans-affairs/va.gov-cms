@@ -12,10 +12,14 @@ jobs:
   pr-team-labels:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        # https://github.com/actions/cache/releases/tag/v3.0.10
+        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
-      - uses: harupy/auto-labeling@master
+      - name: Autolabel
+        # https://github.com/harupy/auto-labeling/releases/tag/v0.0.2
+        uses: harupy/auto-labeling@03cdc56d0b56e0c1d4eb1bf68b53f8ec8b5f03e9
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
           label-pattern: '- \[(.*?)\] ?`(.+?)`' # matches '- [x] `label`'
