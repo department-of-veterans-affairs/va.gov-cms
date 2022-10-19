@@ -2838,7 +2838,7 @@ display:
           value:
             min: ''
             max: ''
-            value: '-365 days'
+            value: '-275 days'
             type: offset
           group: 1
           exposed: false
@@ -6276,11 +6276,35 @@ display:
             optional: true
             widget: select
             multiple: false
-            remember: true
-            default_group: '1'
+            remember: false
+            default_group: '4'
             default_group_multiple: {  }
             group_items:
               1:
+                title: '90 days until due'
+                operator: '<='
+                value:
+                  min: ''
+                  max: ''
+                  value: '-275 days'
+                  type: offset
+              2:
+                title: '60 days until due'
+                operator: '<='
+                value:
+                  min: ''
+                  max: ''
+                  value: '-305 days'
+                  type: offset
+              3:
+                title: '30 days until due'
+                operator: '<='
+                value:
+                  min: ''
+                  max: ''
+                  value: '-335 days'
+                  type: offset
+              4:
                 title: '1 year outdated'
                 operator: '<='
                 value:
@@ -6288,7 +6312,7 @@ display:
                   max: ''
                   value: '-365 days'
                   type: offset
-              2:
+              5:
                 title: 'Over 30 days past due'
                 operator: '<='
                 value:
@@ -6296,7 +6320,7 @@ display:
                   max: ''
                   value: '-395 days'
                   type: offset
-              3:
+              6:
                 title: 'Over 60 days past due'
                 operator: '<='
                 value:
@@ -6304,7 +6328,7 @@ display:
                   max: ''
                   value: '-425 days'
                   type: offset
-              4:
+              7:
                 title: 'Over 90 days past due'
                 operator: '<='
                 value:
