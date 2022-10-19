@@ -5,8 +5,8 @@ namespace tests\phpunit\Content;
 use Drupal\file\Entity\File;
 use Drupal\media\Entity\Media;
 use Drupal\paragraphs\Entity\Paragraph;
-use weitzman\DrupalTestTraits\ExistingSiteBase;
 use Drupal\Core\File\FileSystemInterface;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * Confirm downloadable_file paragraphs are displayed correctly.
@@ -14,7 +14,7 @@ use Drupal\Core\File\FileSystemInterface;
  * @group functional
  * @group all
  */
-class DownloadableFileTest extends ExistingSiteBase {
+class DownloadableFileTest extends VaGovExistingSiteBase {
 
   /**
    * Create a File entity with the specified name and content.

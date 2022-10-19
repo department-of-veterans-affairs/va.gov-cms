@@ -1,6 +1,6 @@
 <?php
 
-namespace Traits;
+namespace Tests\Support\Traits;
 
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemInterface;
