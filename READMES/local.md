@@ -1,7 +1,79 @@
 # [Environments](environments): Local
 
-For ddev docs, please see the CMS Platform's [Confluence guide](https://vfs.atlassian.net/wiki/spaces/PCMS/pages/1956937732/ddev).
+## DDEV
 
+We use ddev to power our local sandboxes.
+### Prerequisites
+
+- [Homebrew](https://brew.sh/)  (Mac only)
+- [Docker](https://docs.docker.com/get-docker/)
+
+### Getting started
+
+1. Follow the ddev installation documentation.
+2. If installing on Windows with WSL2, skip step 12.
+3. Make sure you run mkcert -install to get the ddev certificate root installed. You only need to do this the first time you bring install/run ddev.
+4. Run ddev config global --mutagen-enabled if you’re on a Mac.
+5. Make sure the va.gov-cms repo is cloned to a folder under ~
+6. Run ddev start in the root of the va.gov-cms repo.
+
+### Day-to-day commands
+You can look in `.ddev/commands/web` for a list of the commands that are available. To run any of those scripts, you can run ddev [scriptname]  (for example, ddev phpstan to run the phpstan checks). You can also run ddev help to list all of the available commands, including some basic descriptions about all of the custom commands. Note that the custom commands may not show up in that list until after you’ve run ddev start the first time.
+- auth - A collection of authentication commands
+- behat - Run behat test located in ./tests/behat (shell web container command)
+- blackfire - Enable or disable blackfire.io profiling (global shell web container command)
+- composer - Executes a composer command within the web container
+- config - Create or modify a ddev project configuration in the current directory
+- debug - - A collection of debugging commands
+- delete - Remove all project information (including database) for an existing project
+- describe -  Get a detailed description of a running ddev project.
+- drush - - Run drush CLI inside the web container (global shell web container command)
+- exec - Execute a shell command in the container for a service. Uses the web service by default.
+- export-db - Dump a database to a file or to stdout
+- help - Help about any command
+- hostname - Manage your hostfile entries.
+- import-db - Import a sql file into the project.
+- import-files - Pull the uploaded files directory of an existing project to the default public upload directory of your project.
+- launch - Launch a browser with the current site (shell host container command)
+- list - List projects
+- logs - Get the logs from your running services.
+- migrate-sync - Copy migration ymls from va_gov_migrate to config/sync and run config import. Always edit in va_gov_migrate. (shell web container command)
+- mutagen - Commands for mutagen status and sync, etc.
+- mysql - run mysql client in db container (shell db container command)
+- npm - Run npm commands (shell web container command)
+- pause - uses 'docker stop' to pause/stop the containers belonging to a project.
+- phpstan - Run PHPStan static analysis on custom code (shell web container command)
+- phpunit - Run VA PHPUnit test found in va/tests/phpunit (shell web container command)
+- phpunit-run - Run specific PHPUnit tests (shell web container command)
+- post-update -  Run updates after pulling new code (shell web container command)
+- poweroff - Completely stop all projects and containers
+- pre-commit - Run pre-commit checks (shell web container command)
+- pull - Pull files and database using a configured provider plugin.
+- push - push files and database using a configured provider plugin.
+- restart - Restart a project or several projects.
+- share - Share project on the internet via ngrok.
+- snapshot - Create a database snapshot for one or more projects.
+- ssh - Starts a shell session in the container for a service. Uses web service by default.
+- start - Start a ddev project.
+- stop - Stop and remove the containers of a project. Does not lose or harm anything unless you add --remove-data.
+- task - Run taskfile target (shell web container command)
+- test - Run all VA.gov tests, as defined in tests.yml. Add arguments to run subsets of test. For example, "ddev test web" will run all of the "va/web/*" tests. (shell web container command)
+- test-performance - Run performance tests (shell web container command)
+- version - print ddev version and component versions
+- web-build - Build the web frontend (shell web container command)
+- xdebug - Enable or disable xdebug (shell web container command)
+- xhprof - Enable or disable xhprof (global shell web container command)
+- yarn - Run yarn inside the web container in the root of the project (Use --cwd for another directory) (global shell host container command)
+
+## Toggling xdebug
+
+`ddev xdebug on` or `ddev xdebug off` . This does not restart your container. ddev has built-in support for xdebug + [comprehensive documentation](https://ddev.readthedocs.io/en/stable/users/step-debugging/) for how to use it.
+
+Currently, if you are debugging drush commands, it is recommended that you enable xdebug, ddev ssh to shell into your container, and run drush commands there via `drush <command>`.
+
+## Toggling Blackfire
+
+See the [ddev Blackfire documentation](https://ddev.readthedocs.io/en/stable/users/blackfire-profiling/) for setup and use instructions.
 ## Git
 
 ### Troubleshooting
@@ -37,18 +109,20 @@ There are plugins available to provide in-line style checking according to proje
 - [PhpStorm](https://www.jetbrains.com/help/phpstorm/using-stylelint-code-quality-tool.html)
 - [VS Code](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint)
 
-## Scripts
-There are some scripts created to help with managing the Drupal site locally.
 
-### Shell
+## Pulling DB from Prod
+Either method pulls a public copy of prod that has been sanitized to protect
+user data. The db export appears here  `.dumps/cms-db-latest.sql`.
 
-1. **Copy the database from PROD:** `./scripts/sync-db.sh` - This script obtains a
-recent copy of the PROD database that has been sanitized to protect user data
-and imports it into the local Drupal site.
-The db export appears here  `.dumps/cms-db-latest.sql`.
-1. **Copy the files from PROD:** `./scripts/sync-files.sh` - This copies
-the `/sites/default/files/*` from PROD down to your local environment
+- **DDEV** `ddev pull va --skip-files`
+- **Shell** `./scripts/sync-db.sh`
 
+
+## Pulling Files
+This is rarely needed and can take a long time.  Don't run unless you need to.
+This copies the `/sites/default/files/*` from PROD down to your local environment.
+- **DDEV** `ddev pull va --skip-db`
+- **Shell** `./scripts/sync-files.sh`
 
 ### Composer
 

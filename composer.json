@@ -6,7 +6,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require-dev": {
-        "drupal/devel": "^4.1",
+        "drupal/devel": "^5.0",
         "drupal/html_tag_usage": "^1.0@beta",
         "drupal/media_entity_generic": "^1.0"
     },
@@ -16,11 +16,11 @@
         "aws/aws-sdk-php": "^3.173",
         "bower-asset/blazy": "^1.8",
         "bower-asset/cropper": "^4.1",
+        "caxy/php-htmldiff": "^0.1.14",
         "composer/installers": "^2.2.0",
-        "consolidation/robo": "^1",
         "consolidation/site-process": "^4.1",
         "cweagans/composer-patches": "^1.7",
-        "datadog/dd-trace": "^0.79.0",
+        "datadog/dd-trace": "^0.80.0",
         "drupal/address": "^1.4",
         "drupal/admin_feedback": "^2.2",
         "drupal/admin_toolbar": "^3.0",
@@ -29,6 +29,7 @@
         "drupal/allowed_formats": "^1.3",
         "drupal/animated_gif": "^2.0",
         "drupal/auto_entitylabel": "^3.0-beta3",
+        "drupal/better_exposed_filters": "^6.0",
         "drupal/better_field_descriptions": "^1.4",
         "drupal/blazy": "^2.0@RC",
         "drupal/block_content_permissions": "^1.6",
@@ -48,7 +49,7 @@
         "drupal/ctools_block": "^3.2",
         "drupal/danse": "^2.1",
         "drupal/danse_content_moderation": "^2.0",
-        "drupal/diff": "1.0",
+        "drupal/diff": "^1.0",
         "drupal/dropzonejs": "^2.0",
         "drupal/dynamic_entity_reference": "^2.0",
         "drupal/embed": "^1.3",
@@ -61,6 +62,7 @@
         "drupal/entity_reference_revisions": "^1.7",
         "drupal/entity_reference_unpublished": "^1.1",
         "drupal/entity_reference_validators": "^1.0@alpha",
+        "drupal/entity_usage": "dev-2.x",
         "drupal/entityqueue": "^1.2",
         "drupal/environment_indicator": "^4.0",
         "drupal/epp": "^1.1",
@@ -70,9 +72,12 @@
         "drupal/fieldhelptext": "^1.0@beta",
         "drupal/flag": "^4.0@beta",
         "drupal/flood_control": "^2.2.2",
+        "drupal/flysystem_s3": "^2.0@RC",
+        "drupal/formdazzle": "^2.1",
         "drupal/geocoder": "^3.26",
         "drupal/geofield": "^1.39",
         "drupal/geofield_map": "^2.75",
+        "drupal/google_analytics": "^4.0",
         "drupal/govdelivery_bulletins": "^1.2",
         "drupal/graphql": "^3.0",
         "drupal/graphql_core": "^3.1.0",
@@ -93,6 +98,9 @@
         "drupal/libraries": "^3.0@alpha",
         "drupal/limited_field_widgets": "^2.0",
         "drupal/linkit": "^6.0.0-beta2",
+        "drupal/linky": "^1.0@beta",
+        "drupal/linkychecker": "^2.0@beta",
+        "drupal/linkyreplacer": "^2.2",
         "drupal/markup": "^1.0@beta",
         "drupal/memcache": "^2.3",
         "drupal/memcache_admin": "^2.3",
@@ -138,7 +146,7 @@
         "drupal/restui": "^1.16",
         "drupal/role_delegation": "1.2.0",
         "drupal/schemata": "^1.0@beta",
-        "drupal/search_api": "1.25.0",
+        "drupal/search_api": "1.26.0",
         "drupal/seckit": "^2.0",
         "drupal/simplesamlphp_auth": "^3.2",
         "drupal/sitewide_alert": "^2.0",
@@ -152,6 +160,8 @@
         "drupal/taxonomy_menu": "3.x-dev#e89d1e8",
         "drupal/textfield_counter": "^2.0",
         "drupal/toolbar_menu": "^2.1",
+        "drupal/twig_tweak": "^3.1",
+        "drupal/upgrade_status": "^3.17",
         "drupal/user_history": "^1.0@alpha",
         "drupal/video_embed_media": "^2.2",
         "drupal/viewfield": "^3.0@beta",
@@ -163,38 +173,37 @@
         "drupal/workbench_access": "^1.0-beta4",
         "drupal/workbench_menu_access": "^1.0",
         "drush-ops/behat-drush-endpoint": "^9.4.0",
-        "drush/drush": "^10.4",
+        "drush/drush": "^10.6",
         "easyrdf/easyrdf": "1.1.1 as 0.9.1",
         "geocoder-php/mapbox-provider": "^1.3",
         "gitonomy/gitlib": "^1.2",
         "http-interop/http-factory-guzzle": "^1.0",
         "knplabs/github-api": "^3.3",
-        "mglaman/phpstan-drupal": "^0.12.12",
-        "michelf/php-markdown": "^1.9",
+        "mglaman/phpstan-drupal": "^1.0",
+        "michelf/php-markdown": "^2.0",
         "mikey179/vfsstream": "^1.6",
         "mouf/nodejs-installer": "^1.0",
         "npm-asset/dropzone": "^5.5",
-        "npm-asset/yarn": "1.21.1",
+        "npm-asset/yarn": "1.19.1",
         "oomphinc/composer-installers-extender": "^2.0",
         "php-http/guzzle6-adapter": "^2.0",
         "phpspec/prophecy": "^1.15",
-        "phpstan/phpstan": "^0.12.94",
-        "phpstan/phpstan-deprecation-rules": "^0.12.6",
+        "phpstan/phpstan": "^1.0",
+        "phpstan/phpstan-deprecation-rules": "^1.0",
         "phpunit/phpunit": "^8.4.0",
         "querypath/querypath": "^3.0",
         "simplesamlphp/simplesamlphp": "^1.18",
         "squizlabs/php_codesniffer": "^3.5",
         "symfony/config": "^4.0",
-        "symfony/finder": "^3",
         "symfony/phpunit-bridge": "^5.1",
         "symfony/process": "^4.0",
         "symfony/routing": "^4.0",
         "traviscarden/behat-table-comparison": "~0.2",
-        "va-gov/content-build": "^0.0.3100",
+        "va-gov/content-build": "^0.0.3120",
         "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
-        "weitzman/drupal-test-traits": "dev-master",
+        "weitzman/drupal-test-traits": "^1.5.0",
         "zaporylie/composer-drupal-optimizations": "^1.2"
     },
     "autoload": {
@@ -365,7 +374,8 @@
                 "Internal Claro tweaks": "patches/claro-css-tweaks.patch",
                 "3099026 - Claro's preprocessing of field multiple value form's table header cell removes potential changes by others": "https://www.drupal.org/files/issues/2020-02-20/3099026-9.patch",
                 "2767243 - Create a theme suggestion for taxonomy terms by view mode": "https://www.drupal.org/files/issues/core-theme-suggestion-for-taxonomy-view-modes-2767243-14.patch",
-                "2775665 - MenuLinkContent updateLink function generates a PHP Warning for override-able keys that are not present in the loaded entity": "https://www.drupal.org/files/issues/2021-09-17/updateLink-2775665-14.patch"
+                "2775665 - MenuLinkContent updateLink function generates a PHP Warning for override-able keys that are not present in the loaded entity": "https://www.drupal.org/files/issues/2021-09-17/updateLink-2775665-14.patch",
+                "2975602 - Html::serialize() escapes backslash-r to &#13;": "https://www.drupal.org/files/issues/2018-05-27/2975602-2-html_serialize.patch"
             },
             "drupal/danse_content_moderation": {
                 "3309657 - Danse 2.2.7 compatibility": "https://www.drupal.org/files/issues/2022-09-14/3309657-danse-2-2-7-compatibility.patch"
@@ -409,7 +419,8 @@
             },
             "drupal/inline_entity_form": {
                 "3226473 - Opt-in system delete.": "https://www.drupal.org/files/issues/2021-08-03/opt-in-systm-delete-3226473-1.patch",
-                "3061620 - Cancel closes all forms": "https://www.drupal.org/files/issues/2020-04-25/inline_entity_form-close-only-forms-where-close-clicked-3061620-5.patch"
+                "3061620 - Cancel closes all forms": "https://www.drupal.org/files/issues/2020-04-25/inline_entity_form-close-only-forms-where-close-clicked-3061620-5.patch",
+                "3311501 - Add label to weight select field for accessibility": "https://www.drupal.org/files/issues/2022-09-23/Adding_labels_to_weight_selects_for_accessibility.patch"
             },
             "drupal/jsonapi_menu_items": {
                 "3276561 - Add support for the Menu Item Extras module": "https://www.drupal.org/files/issues/2022-08-01/3276561-05-menu_item_extras_support.patch"
@@ -456,7 +467,10 @@
                 "2748731 - Don't attempt username sync when user was already matched by username": "https://www.drupal.org/files/issues/2020-07-31/reroll-existing-test-and-logging-fix-2748731-29.patch"
             },
             "drupal/social_media_links": {
-                "3044002 - Platform Name and Aria Label issue": "https://www.drupal.org/files/issues/2022-03-21/3044002-17.patch"
+                "3044002 - Platform Name and Aria Label issue": "https://www.drupal.org/files/issues/2021-05-17/3044002-13.patch"
+            },
+            "drupal/styleguide": {
+                "3258816 - Fix [PHP 8.1] Deprecated function: strpos(): Passing null to parameter #1": "https://www.drupal.org/files/issues/2022-09-14/5.patch"
             },
             "drupal/subrequests": {
                 "63049395 - Get same results on different request": "https://www.drupal.org/files/issues/2019-07-18/change_request_type-63049395-09.patch"

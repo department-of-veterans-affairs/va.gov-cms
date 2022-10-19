@@ -181,7 +181,12 @@ const axeContext = {
   include: [["body"]],
   exclude: [
     [
-      "#edit-menu-menu-parent", // 8700-item select elements apparently break accessibility tests
+      // 8700-item select elements apparently break accessibility tests.
+      "#edit-menu-menu-parent",
+      // Not our widget, not our problem.
+      ".leaflet-marker-icon",
+      // Not our widget, not our problem.
+      "#jsd-widget",
     ],
   ],
 };
@@ -203,12 +208,10 @@ describe("Component accessibility test", () => {
       cy.injectAxe();
       cy.checkA11y(axeContext, axeRuntimeOptions, (violations) => {
         cy.accessibilityLog(violations);
-        const violationData = violations.map(
-          (violation) => ({
-            route,
-            ... violation,
-          })
-        );
+        const violationData = violations.map((violation) => ({
+          route,
+          ...violation,
+        }));
         allViolations.push(...violationData);
       });
     });
@@ -216,5 +219,8 @@ describe("Component accessibility test", () => {
 });
 
 after(() => {
-  cy.writeFile('cypress_errors.json', JSON.stringify(allViolations));
-})
+  cy.writeFile(
+    "cypress_accessibility_errors.json",
+    JSON.stringify(allViolations)
+  );
+});

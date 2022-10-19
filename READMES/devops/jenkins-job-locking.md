@@ -37,9 +37,9 @@ The above numerated list consists of partial URLs that can be added at the end o
 
 For Example:
 
-http://jenkins.vfs.va.gov/job/deploys/job/cms-vagov-dev/
+http://jenkins.vfs.va.gov/job/deploys/job/cms-vagov-staging/
 
-http://jenkins.vfs.va.gov/job/deploys/job/cms-test-vagov-dev/
+http://jenkins.vfs.va.gov/job/deploys/job/cms-test-vagov-staging/
 
 
 ## How to View Job Resource Lock Status ?
@@ -64,13 +64,13 @@ The key to understanding job locking is **1. Resource Name that is locked.** The
 
 ### For example:
 
-`deploys/job/cms-vagov-dev/ Block cms/job/cms-test-periodic-dev/`
+`deploys/job/cms-vagov-staging/ Block cms/job/cms-test-periodic-staging/`
 
-**deploys/job/cms-vagov-dev/** is the CMS Dev deployment job.
+**deploys/job/cms-vagov-staging/** is the CMS Dev deployment job.
 
-**cms/job/cms-periodic-dev/** is the CMS Periodic Tasks job run on servers.
+**cms/job/cms-periodic-staging/** is the CMS Periodic Tasks job run on servers.
 
-**Generated Resource Name:** deploys/job/cms-vagov-dev/ Block cms/job/cms-periodic-dev/
+**Generated Resource Name:** deploys/job/cms-vagov-staging/ Block cms/job/cms-periodic-staging/
 
 Each of these jobs generates the same resource lock name and attempts to place a lock on that resource. If one of these two (2) jobs has already placed a lock on the shared resource name, it will wait for the lock to be removed before continuing.
 
