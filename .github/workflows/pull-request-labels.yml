@@ -18,8 +18,8 @@ jobs:
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
       - name: Autolabel
-        # https://github.com/harupy/auto-labeling/releases/tag/v0.0.2
-        uses: harupy/auto-labeling@03cdc56d0b56e0c1d4eb1bf68b53f8ec8b5f03e9
+        # https://github.com/harupy/auto-labeling/commit/937d558e37285af6ca5c5813a826cf6f0d66bf0f
+        uses: harupy/auto-labeling@937d558e37285af6ca5c5813a826cf6f0d66bf0f
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
           label-pattern: '- \[(.*?)\] ?`(.+?)`' # matches '- [x] `label`'
