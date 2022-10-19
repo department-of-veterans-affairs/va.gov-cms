@@ -17,7 +17,7 @@ use Drupal\taxonomy\TermInterface;
 use Drupal\Tests\Traits\Core\GeneratePermutationsTrait;
 use Drupal\va_gov_post_api\Service\PostFacilityStatus;
 use Prophecy\Argument;
-use weitzman\DrupalTestTraits\ExistingSiteBase;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * Functional test of the Facility status queueing for push to Lighthouse.
@@ -27,7 +27,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  *
  * @coversDefaultClass \Drupal\va_gov_post_api\Service\PostFacilityStatus
  */
-class FacilityStatusQueueTest extends ExistingSiteBase {
+class FacilityStatusQueueTest extends VaGovExistingSiteBase {
 
   use GeneratePermutationsTrait;
 
