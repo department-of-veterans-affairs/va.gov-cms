@@ -64,8 +64,6 @@ third_party_settings:
         - field_address
         - field_phone_number
         - field_office_hours
-        - field_intro_text
-        - field_media
       label: 'Facility data'
       parent_name: group_locations_and_contact_info
       region: content
@@ -90,12 +88,27 @@ third_party_settings:
       label: 'VBA DB'
       parent_name: ''
       region: content
-      weight: 2
+      weight: 3
       format_type: fieldset
       format_settings:
         classes: ''
         show_empty_fields: false
         id: ''
+        description: ''
+        description_display: after
+    group_editable_fields:
+      children:
+        - field_intro_text
+        - field_media
+      label: 'Facility Intro and Photo'
+      parent_name: ''
+      region: content
+      weight: 2
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: facility-intro-photo
         description: ''
         description_display: after
 id: node.vba_facility.default
@@ -126,9 +139,10 @@ content:
     weight: 7
     region: content
   field_media:
-    type: entity_reference_label
+    type: entity_reference_entity_view
     label: above
     settings:
+      view_mode: default
       link: true
     third_party_settings: {  }
     weight: 8

@@ -39,7 +39,7 @@ third_party_settings:
       label: 'Operating status'
       region: content
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: fieldset
       format_settings:
         classes: ''
@@ -54,7 +54,7 @@ third_party_settings:
       label: 'Section settings'
       region: content
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -66,12 +66,11 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
-        - revision_log
         - flag
       label: 'Editorial Workflow'
       region: content
       parent_name: ''
-      weight: 4
+      weight: 5
       format_type: fieldset
       format_settings:
         classes: ''
@@ -102,8 +101,6 @@ third_party_settings:
         - field_geolocation
         - field_phone_number
         - field_office_hours
-        - field_intro_text
-        - field_media
       label: 'Facility data'
       region: content
       parent_name: group_locations_and_contact_info
@@ -129,12 +126,28 @@ third_party_settings:
       label: 'VBA DB'
       region: content
       parent_name: ''
-      weight: 1
+      weight: 2
       format_type: fieldset
       format_settings:
         classes: ''
         show_empty_fields: false
         id: ''
+        description: ''
+        required_fields: true
+        description_display: after
+    group_vba_editable_fields:
+      children:
+        - field_intro_text
+        - field_media
+      label: 'Facility Intro and Photo'
+      region: content
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: facility-intro-photo
         description: ''
         required_fields: true
         description_display: after
