@@ -98,7 +98,7 @@ All development on these projects is done via Pull Requests.
 
 ### High-Level Architecture
 
-The public website seen at [VA.gov](https://www.va.gov) is a static site hosted on [S3](https://aws.amazon.com/pm/serv-s3/?trk=1c5ba169-86e9-4c61-8c90-c507636ad817&sc_channel=ps&s_kwcid=AL!4422!3!536394481108!e!!g!!s3%20static%20website%20hosting&ef_id=Cj0KCQjwmouZBhDSARIsALYcoup2OtRYxuY4SDZo_wfXk2sLJ_yE6KSfdfOdnpjTklSsHfdu2YZr6LUaAuLgEALw_wcB:G:s&s_kwcid=AL!4422!3!536394481108!e!!g!!s3%20static%20website%20hosting): just HTML, CSS, JavaScript and images.
+The public website seen at [VA.gov](https://www.va.gov) is a static site hosted on S3: just HTML, CSS, JavaScript and images.
 
 The source code used to generate the public site is called _vets-website_ or _Front-end_ or **WEB**, and is available
 at [github.com/department-of-veterans-affairs/vets-website](https://github.com/department-of-veterans-affairs/vets-website).
