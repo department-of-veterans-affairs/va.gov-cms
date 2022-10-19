@@ -1,0 +1,148 @@
+name: Send data about the default branch to DataDog.
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  phpunit_code_coverage:
+    name: PHPUnit Code Coverage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        # https://github.com/actions/cache/releases/tag/v3.0.10
+        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+      - uses: ./.github/actions/post-checkout
+      - name: Run PHPUnit (Unit Tests only)
+        run: bin/phpunit \
+          --group unit \
+          --exclude-group disabled \
+          --coverage-text=./coverage.txt \
+          tests/phpunit
+      - name: Parse coverage file for metrics
+        id: code_coverage_metrics
+        run: |
+          # Class Coverage Metrics
+          classes="$(cat coverage.txt | grep 'Summary:' -A 3 | grep 'Classes')";
+
+          # Given a string like this:
+          #
+          #      Classes:  3.88% (8/206)
+          #
+          # Regex matches:
+          #   \d+           digit(s)
+          #   \.?           with an optional decimal separator
+          #   \d+           digit(s)
+          #   (?=%)         followed by (but don't include) percent sign
+          #
+          classes_percentage="$(echo "${classes}" | grep -oP '\d+\.?\d+(?=%)')";
+
+          # Regex matches:
+          #   (?<=\()       preceded by (but don't include) open parenthesis
+          #   \d+           digit(s)
+          #   (?=\/)        followed by (but don't include) forward slash
+          #
+          classes_numerator="$(echo "${classes}" | grep -oP '(?<=\()\d+(?=\/)')";
+
+          # Regex matches:
+          #   (?<=\/)       preceded by (but don't include) forward slash
+          #   \d+           digit(s)
+          #   (?=\))        followed by (but don't include) closing parenthesis
+          #
+          classes_denominator="$(echo "${classes}" | grep -oP '(?<=\/)\d+(?=\))')";
+
+          # Set the outputs.
+          echo "::set-output name=classes_percentage::${classes_percentage}";
+          echo "::set-output name=classes_numerator::${classes_numerator}";
+          echo "::set-output name=classes_denominator::${classes_denominator}";
+
+          # Method Coverage Metrics
+          methods="$(cat coverage.txt | grep 'Summary:' -A 3 | grep 'Methods')";
+          methods_percentage="$(echo "${methods}" | grep -oP '\d+\.?\d+(?=%)')";
+          methods_numerator="$(echo "${methods}" | grep -oP '(?<=\()\d+(?=\/)')";
+          methods_denominator="$(echo "${methods}" | grep -oP '(?<=\/)\d+(?=\))')";
+          echo "::set-output name=methods_percentage::${methods_percentage}";
+          echo "::set-output name=methods_numerator::${methods_numerator}";
+          echo "::set-output name=methods_denominator::${methods_denominator}";
+
+          # Line Coverage Metrics
+          lines="$(cat coverage.txt | grep 'Summary:' -A 3 | grep 'Lines')";
+          lines_percentage="$(echo "${lines}" | grep -oP '\d+\.?\d+(?=%)')";
+          lines_numerator="$(echo "${lines}" | grep -oP '(?<=\()\d+(?=\/)')";
+          lines_denominator="$(echo "${lines}" | grep -oP '(?<=\/)\d+(?=\))')";
+          echo "::set-output name=lines_percentage::${lines_percentage}";
+          echo "::set-output name=lines_numerator::${lines_numerator}";
+          echo "::set-output name=lines_denominator::${lines_denominator}";
+
+          # Class Coverage Metrics
+          echo "Classes Percentage: ${classes_percentage}";
+          echo "Classes Numerator: ${classes_numerator}";
+          echo "Classes Denominator: ${classes_denominator}";
+          echo "Methods Percentage: ${methods_percentage}";
+          echo "Methods Numerator: ${methods_numerator}";
+          echo "Methods Denominator: ${methods_denominator}";
+          echo "Lines Percentage: ${lines_percentage}";
+          echo "Lines Numerator: ${lines_numerator}";
+          echo "Lines Denominator: ${lines_denominator}";
+
+      - name: Send Metrics to DataDog.
+        # https://github.com/masci/datadog/releases/tag/v1.4.0
+        uses: masci/datadog@863b639c95138e957eb6e1e2499cecb82040a10b
+        with:
+          api-key: ${{ secrets.DATADOG_API_KEY }}
+          metrics: |
+            - type: "count"
+              name: "cms.qa.phpunit_code_coverage.classes_percentage"
+              value: ${{ steps.code_coverage_metrics.outputs.classes_percentage }}
+              host: "${{ github.repository }}""
+              tags:
+                - "project:${{ github.repository }}"
+            - type: "count"
+              name: "cms.qa.phpunit_code_coverage.classes_numerator"
+              value: ${{ steps.code_coverage_metrics.outputs.classes_numerator }}
+              host: "${{ github.repository }}""
+              tags:
+                - "project:${{ github.repository }}"
+            - type: "count"
+              name: "cms.qa.phpunit_code_coverage.classes_denominator"
+              value: ${{ steps.code_coverage_metrics.outputs.classes_denominator }}
+              host: "${{ github.repository }}""
+              tags:
+                - "project:${{ github.repository }}"
+            - type: "count"
+              name: "cms.qa.phpunit_code_coverage.methods_percentage"
+              value: ${{ steps.code_coverage_metrics.outputs.methods_percentage }}
+              host: "${{ github.repository }}""
+              tags:
+                - "project:${{ github.repository }}"
+            - type: "count"
+              name: "cms.qa.phpunit_code_coverage.methods_numerator"
+              value: ${{ steps.code_coverage_metrics.outputs.methods_numerator }}
+              host: "${{ github.repository }}""
+              tags:
+                - "project:${{ github.repository }}"
+            - type: "count"
+              name: "cms.qa.phpunit_code_coverage.methods_denominator"
+              value: ${{ steps.code_coverage_metrics.outputs.methods_denominator }}
+              host: "${{ github.repository }}""
+              tags:
+                - "project:${{ github.repository }}"
+            - type: "count"
+              name: "cms.qa.phpunit_code_coverage.lines_percentage"
+              value: ${{ steps.code_coverage_metrics.outputs.lines_percentage }}
+              host: "${{ github.repository }}""
+              tags:
+                - "project:${{ github.repository }}"
+            - type: "count"
+              name: "cms.qa.phpunit_code_coverage.lines_numerator"
+              value: ${{ steps.code_coverage_metrics.outputs.lines_numerator }}
+              host: "${{ github.repository }}""
+              tags:
+                - "project:${{ github.repository }}"
+            - type: "count"
+              name: "cms.qa.phpunit_code_coverage.lines_denominator"
+              value: ${{ steps.code_coverage_metrics.outputs.lines_denominator }}
+              host: "${{ github.repository }}""
+              tags:
+                - "project:${{ github.repository }}"
