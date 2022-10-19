@@ -91,6 +91,7 @@ jobs:
         uses: masci/datadog@863b639c95138e957eb6e1e2499cecb82040a10b
         with:
           api-key: ${{ secrets.DATADOG_API_KEY }}
+          api-url: https://api.ddog-gov.com
           metrics: |
             - type: "count"
               name: "cms.qa.phpunit_code_coverage.classes_percentage"
