@@ -10,7 +10,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Response;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use weitzman\DrupalTestTraits\ExistingSiteBase;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * Test the VaGovUrl Service.
@@ -18,7 +18,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  * @group functional
  * @group all
  */
-class VaGovUrlServiceTest extends ExistingSiteBase {
+class VaGovUrlServiceTest extends VaGovExistingSiteBase {
 
   /**
    * History of requests/responses.

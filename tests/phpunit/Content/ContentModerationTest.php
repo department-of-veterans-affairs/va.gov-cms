@@ -6,7 +6,7 @@ use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityPublishedInterface;
 use Drupal\Core\Form\FormStateInterface;
-use weitzman\DrupalTestTraits\ExistingSiteBase;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * Test our requirements of the content moderation system.
@@ -14,7 +14,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  * @group functional
  * @group all
  */
-class ContentModerationTest extends ExistingSiteBase {
+class ContentModerationTest extends VaGovExistingSiteBase {
 
   /**
    * Prevent accidental publication of un-proofed nodes.

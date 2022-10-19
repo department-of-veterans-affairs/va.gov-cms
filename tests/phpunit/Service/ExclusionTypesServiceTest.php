@@ -3,8 +3,8 @@
 namespace tests\phpunit\Service;
 
 use Composer\Autoload\ClassLoader;
-use Drupal\Tests\UnitTestCase;
 use Drupal\va_gov_backend\Service\ExclusionTypes;
+use Tests\Support\Classes\VaGovUnitTestBase;
 
 /**
  * Test the ExclusionTypes service.
@@ -12,7 +12,7 @@ use Drupal\va_gov_backend\Service\ExclusionTypes;
  * @group functional
  * @group all
  */
-class ExclusionTypesServiceTest extends UnitTestCase {
+class ExclusionTypesServiceTest extends VaGovUnitTestBase {
 
   /**
    * The mocked config factory.
