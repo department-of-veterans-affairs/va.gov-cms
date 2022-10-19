@@ -1199,7 +1199,7 @@ display:
         type: full
         options:
           offset: 0
-          items_per_page: 50
+          items_per_page: 100
           total_pages: null
           id: 0
           tags:
@@ -2068,7 +2068,7 @@ display:
     id: changed_filename
     display_title: 'Changed Filename'
     display_plugin: page
-    position: 1
+    position: 2
     display_options:
       fields:
         title:
@@ -3545,16 +3545,21 @@ display:
       display_extenders:
         jsonapi_views:
           enabled: true
-      path: admin/content/flagged/changed-filename
+      path: admin/content/va-forms/changed-filename
       menu:
         type: tab
-        title: Flagged
-        description: 'See flagged content'
+        title: 'Changed Filename'
+        description: 'Forms flagged for changed filename'
         weight: 110
         expanded: false
         menu_name: admin
         parent: system.admin_content
-        context: '0'
+        context: '1'
+        as_local_task: true
+        local_task_link_title: 'Changed Filename'
+        local_task_parent: 'views_view:view.va_forms.page_1'
+        local_task_weight: 20
+        local_task_custom_parent_route: ''
     cache_metadata:
       max-age: 0
       contexts:
