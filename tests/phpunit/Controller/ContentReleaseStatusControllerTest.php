@@ -9,7 +9,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Response;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use weitzman\DrupalTestTraits\ExistingSiteBase;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * Provides automated tests for the va_gov_backend module.
@@ -17,7 +17,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  * @group functional
  * @group all
  */
-class ContentReleaseStatusControllerTest extends ExistingSiteBase {
+class ContentReleaseStatusControllerTest extends VaGovExistingSiteBase {
 
   /**
    * History of requests/responses.
