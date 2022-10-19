@@ -18,6 +18,11 @@ dependencies:
     - node.type.vet_center
     - node.type.vet_center_mobile_vet_center
     - node.type.vet_center_outstation
+    - user.role.administrator
+    - user.role.content_admin
+    - user.role.content_editor
+    - user.role.content_publisher
+    - user.role.content_reviewer
   module:
     - content_lock
     - content_moderation
@@ -1198,7 +1203,7 @@ display:
         type: full
         options:
           offset: 0
-          items_per_page: 50
+          items_per_page: 100
           total_pages: null
           id: 0
           tags:
@@ -2067,7 +2072,7 @@ display:
     id: changed_title
     display_title: 'Changed Title'
     display_plugin: page
-    position: 1
+    position: 2
     display_options:
       title: 'Changed Title'
       fields:
@@ -3224,6 +3229,15 @@ display:
           type_custom_true: ''
           type_custom_false: ''
           not: false
+      access:
+        type: role
+        options:
+          role:
+            content_editor: content_editor
+            content_reviewer: content_reviewer
+            content_publisher: content_publisher
+            content_admin: content_admin
+            administrator: administrator
       filters:
         latest_revision:
           id: latest_revision
@@ -3476,25 +3490,31 @@ display:
           1: AND
           2: OR
       defaults:
+        access: false
         title: false
         fields: false
         filters: false
         filter_groups: false
       display_description: ''
-      display_comment: 'A view of flagged content.'
+      display_comment: 'A view of flagged forms with changed titles.'
       display_extenders:
         jsonapi_views:
           enabled: true
-      path: admin/content/flagged/changed-title
+      path: admin/content/va-forms/changed-title
       menu:
         type: tab
-        title: Flagged
-        description: 'See flagged content'
-        weight: 110
+        title: 'Changed Title'
+        description: 'Forms with changed titles'
+        weight: 0
         expanded: false
         menu_name: admin
         parent: system.admin_content
-        context: '0'
+        context: '1'
+        as_local_task: true
+        local_task_link_title: 'Changed Title'
+        local_task_parent: 'views_view:view.va_forms.page_1'
+        local_task_weight: 15
+        local_task_custom_parent_route: ''
     cache_metadata:
       max-age: -1
       contexts:
@@ -3504,7 +3524,7 @@ display:
         - url.query_args
         - user
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags:
         - 'config:field.storage.node.field_administration'
         - workbench_access_view
@@ -3516,7 +3536,9 @@ display:
     display_options:
       display_description: ''
       display_comment: 'A view of flagged content.'
-      display_extenders: {  }
+      display_extenders:
+        jsonapi_views:
+          enabled: true
       path: admin/content/flagged
       menu:
         type: tab
@@ -3527,6 +3549,11 @@ display:
         menu_name: admin
         parent: system.admin_content
         context: '0'
+        as_local_task: false
+        local_task_link_title: ''
+        local_task_parent: 'views_view:view.centralized_content_paragraphs.centralized_content_paragraphs'
+        local_task_weight: 0
+        local_task_custom_parent_route: ''
     cache_metadata:
       max-age: -1
       contexts:
