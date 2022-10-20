@@ -2,8 +2,8 @@
 
 namespace tests\phpunit\Security;
 
-use weitzman\DrupalTestTraits\ExistingSiteBase;
 use Drupal\user\Entity\Role;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * A test to confirm that roles are associated with the correct permissions.
@@ -12,7 +12,7 @@ use Drupal\user\Entity\Role;
  * @group security
  * @group all
  */
-class RolesPermissionsTest extends ExistingSiteBase {
+class RolesPermissionsTest extends VaGovExistingSiteBase {
 
   /**
    * Determine if each role has the expected permissions.

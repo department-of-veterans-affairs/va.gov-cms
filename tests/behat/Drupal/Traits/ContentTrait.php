@@ -1,6 +1,6 @@
 <?php
 
-namespace Traits;
+namespace CustomDrupal\Traits;
 
 use Drupal\node\NodeInterface;
 use Drupal\node\Entity\Node;

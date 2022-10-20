@@ -4,7 +4,7 @@ namespace tests\phpunit\Content;
 
 use Drupal\node\NodeInterface;
 use Drupal\paragraphs\Entity\Paragraph;
-use weitzman\DrupalTestTraits\ExistingSiteBase;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * A test to confirm that alerts and situation updates are queued.
@@ -12,7 +12,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  * @group functional
  * @group all
  */
-class BulletinQueueTest extends ExistingSiteBase {
+class BulletinQueueTest extends VaGovExistingSiteBase {
 
   /**
    * Govdelivery bulletins queue.
@@ -31,7 +31,7 @@ class BulletinQueueTest extends ExistingSiteBase {
   /**
    * Wipe the queue clean so we can get reliable counts.
    */
-  protected function setUp() {
+  public function setUp() {
     parent::setUp();
     $this->markTestSkipped('this test is flaky and not working correctly. will be re-enabled in #9839.');
     $this->deleteQueue();

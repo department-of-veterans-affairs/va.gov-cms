@@ -8,11 +8,11 @@ use Drupal\Core\Http\RequestStack;
 use Drupal\Core\KeyValueStore\KeyValueMemoryFactory;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\State\State;
-use Drupal\Tests\UnitTestCase;
 use Drupal\va_gov_build_trigger\Service\BuildRequester;
 use Drupal\va_gov_build_trigger\Service\BuildScheduler;
 use Symfony\Component\DependencyInjection\Container;
 use Tests\Support\Mock\SpecifiedTime;
+use Tests\Support\Classes\VaGovUnitTestBase;
 
 /**
  * Unit test for the build scheduler.
@@ -20,7 +20,7 @@ use Tests\Support\Mock\SpecifiedTime;
  * @group unit
  * @group all
  */
-class BuildSchedulerTest extends UnitTestCase {
+class BuildSchedulerTest extends VaGovUnitTestBase {
 
   /**
    * The build requester service.

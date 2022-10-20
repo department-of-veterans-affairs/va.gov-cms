@@ -288,6 +288,7 @@ Feature: Views
       | User history list | Page | page_1 | Page |
       | Users in section | Master | default | Default |
       | Users in section | Page | section_member_page | Page |
+      | VA Forms | Audit | audit | Page |
       | VA Forms | Master | default | Default |
       | VA Forms | Page | page_1 | Page |
       | VA Services | Data export | data_export_1 | Data export |
