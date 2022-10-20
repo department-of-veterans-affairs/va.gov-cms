@@ -193,7 +193,7 @@ display:
           admin_label: ''
           entity_type: node
           plugin_id: entity_link_edit
-          label: ''
+          label: Edit
           exclude: false
           alter:
             alter_text: true
@@ -2285,7 +2285,7 @@ display:
           admin_label: ''
           entity_type: node
           plugin_id: entity_link_edit
-          label: ''
+          label: Edit
           exclude: false
           alter:
             alter_text: true
@@ -4383,7 +4383,7 @@ display:
           admin_label: ''
           entity_type: node
           plugin_id: entity_link_edit
-          label: ''
+          label: Edit
           exclude: false
           alter:
             alter_text: true
@@ -6551,10 +6551,12 @@ display:
             8:
               action_id: 'flag_action:deleted_unflag'
               preconfiguration:
+                label_override: 'Removed deleted flag'
                 add_confirmation: 0
             16:
               action_id: 'flag_action:new_form_unflag'
               preconfiguration:
+                label_override: 'Remove New flag'
                 add_confirmation: 0
           clear_on_exposed: true
           force_selection_info: 0
@@ -6698,7 +6700,7 @@ display:
           admin_label: ''
           entity_type: node
           plugin_id: entity_link_edit
-          label: ''
+          label: Edit
           exclude: false
           alter:
             alter_text: true
