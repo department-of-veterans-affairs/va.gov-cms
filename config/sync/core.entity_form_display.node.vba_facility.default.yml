@@ -18,6 +18,7 @@ dependencies:
     - field.field.node.vba_facility.field_operating_status_more_info
     - field.field.node.vba_facility.field_phone_number
     - field.field.node.vba_facility.field_shared_vha_location
+    - field.field.node.vba_facility.field_vba_services
     - node.type.vba_facility
     - workflows.workflow.editorial
   module:
@@ -25,6 +26,7 @@ dependencies:
     - content_moderation
     - field_group
     - geofield
+    - ief_table_view_mode
     - link
     - media_library
     - office_hours
@@ -66,7 +68,6 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
-        - revision_log
         - flag
       label: 'Editorial Workflow'
       region: content
@@ -268,6 +269,24 @@ content:
       match_limit: 10
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  field_vba_services:
+    type: inline_entity_form_complex_table_view_mode
+    weight: 26
+    region: content
+    settings:
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: false
+      match_operator: CONTAINS
+      allow_duplicate: false
+      collapsible: false
+      collapsed: false
+      revision: false
+      allow_system_delete: false
     third_party_settings: {  }
   flag:
     weight: 6
