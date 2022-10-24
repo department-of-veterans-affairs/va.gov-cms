@@ -23,3 +23,9 @@ Feature: Content model: VBA facility Content Type fields
 | Content type | VBA Facility | Operating status - more info | field_operating_status_more_info | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
 | Content type | VBA Facility | Phone number | field_phone_number | Telephone number |  | 1 | Telephone number | Translatable |
 | Content type | VBA Facility | Shared VHA location | field_shared_vha_location | Entity reference |  | 1 | Autocomplete |  |
+| Content type | VBA Facility | Services | field_vba_services | Entity reference |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
+| Content type | VBA Facility Service | VBA Service Description | body | Text (formatted, long, with summary) |  | 1 | Text area (multiple rows) |  |
+| Content type | VBA Facility Service | Section | field_administration | Entity reference |  | 1 | Select list |  |
+| Content type | VBA Facility Service | Enforce unique combo | field_enforce_unique_combo | Allow Only One |  | 1 | Allow Only One widget |  |
+| Content type | VBA Facility Service | Facility | field_office | Entity reference |  | 1 | Select list |  |
+| Content type | VBA Facility Service | Service Name | field_service_name_and_descripti | Entity reference |  | 1 | Select list |  |
