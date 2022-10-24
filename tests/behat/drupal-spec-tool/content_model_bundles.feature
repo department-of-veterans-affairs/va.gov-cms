@@ -51,6 +51,7 @@ Feature: Content model bundles
 | VAMC System Policies Page | vamc_system_policies_page | Content type | Add policies specific to this VA medical center to appear on the Policies page. Local policies will appear alongside national policies that apply to all VAMCs. |
 | VAMC System Register for Care | vamc_system_register_for_care | Content type | A page about how Veterans can register for care at a specific VAMC system. |
 | VBA Facility | vba_facility | Content type | A facility within Veterans Benefits Administration system. |
+| VBA Facility Service | vba_facility_service | Content type | Facility-specific description of a service available at a VBA facility. |
 | Vet Center | vet_center | Content type | Location and page content for community-based counseling centers. |
 | Vet Center - Community Access Point | vet_center_cap | Content type | Location information for Vet Center services situated in another organization. |
 | Vet Center - Facility Service | vet_center_facility_health_servi | Content type | Facility-specific description of a health service available at a Vet Center. |
