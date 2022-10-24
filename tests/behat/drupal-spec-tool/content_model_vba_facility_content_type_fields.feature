@@ -6,7 +6,7 @@ Feature: Content model: VBA facility Content Type fields
 
   @dst @field_type @content_type_fields @dstfields
      Scenario: Fields
-       Then exactly the following fields should exist for bundles "vba_facility" of entity type node
+       Then exactly the following fields should exist for bundles "vba_facility,vba_facility_service" of entity type node
        | Type | Bundle | Field label | Machine name | Field type | Required | Cardinality | Form widget | Translatable |
 | Content type | VBA Facility | Address | field_address | Address |  | 1 | Address | Translatable |
 | Content type | VBA Facility | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
