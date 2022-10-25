@@ -3,8 +3,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.vba_facility_service.body
     - field.field.node.vba_facility_service.field_administration
+    - field.field.node.vba_facility_service.field_body
     - field.field.node.vba_facility_service.field_enforce_unique_combo
     - field.field.node.vba_facility_service.field_office
     - field.field.node.vba_facility_service.field_service_name_and_descripti
@@ -18,7 +18,7 @@ targetEntityType: node
 bundle: vba_facility_service
 mode: default
 content:
-  body:
+  field_body:
     type: text_default
     label: above
     settings: {  }
