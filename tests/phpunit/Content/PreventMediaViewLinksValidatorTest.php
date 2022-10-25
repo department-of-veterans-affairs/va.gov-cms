@@ -5,7 +5,7 @@ namespace tests\phpunit\Content;
 use Drupal\Tests\UnitTestCase;
 use Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventMediaViewLinks;
 use Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventMediaViewLinksValidator;
-use Traits\ValidatorTestTrait;
+use Tests\Support\Traits\ValidatorTestTrait;
 
 /**
  * A test to confirm the proper functioning of this validator.
