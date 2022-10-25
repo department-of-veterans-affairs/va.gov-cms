@@ -21,6 +21,6 @@ class PreventMediaViewLinks extends Constraint {
    * @var string
    * @see \Drupal\va_gov_backend\Plugin\Validation\ConstraintPreventMediaViewLinksValidator
    */
-  public $richTextMessage = '":link" uses a URL ( :url ) that\'s only available on the VA network. Update the link to a valid public-facing page.';
+  public $richTextMessage = '":link" ( :url ) is a link to an internal media page. Link to public-facing pages only.';
 
 }
