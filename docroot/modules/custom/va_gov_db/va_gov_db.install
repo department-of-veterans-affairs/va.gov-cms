@@ -1087,7 +1087,7 @@ function va_gov_db_update_9011(&$sandbox) {
   // Run initial entity query and store batch variables.
   if (empty($sandbox['total'])) {
     $sandbox['nids_process'] = \Drupal::entityQuery('node')
-      ->condition('type', 'publication')
+      ->condition('type', 'outreach_asset')
       ->execute();
     $sandbox['total'] = count($sandbox['nids_process']);
     $sandbox['current'] = 0;
@@ -1162,4 +1162,42 @@ function va_gov_db_update_9011(&$sandbox) {
   }
 
   return "Processing publication nodes...";
+}
+
+/**
+ * Populate new R&S Taxonomy fields field_topic_id & field_enforce_unique_value.
+ */
+function va_gov_db_update_9013(&$sandbox) {
+  $values = [
+    '# burial' => 'Burials and memorials',
+    '# careers' => 'Careers and employment',
+    '# decision' => 'Decision reviews and appeals',
+    '# disability' => 'Disability',
+    '# education' => 'Education and training',
+    'family' => 'Family member benefits',
+    '# healthcare' => 'Health care',
+    '# housing' => 'Housing assistance and home loans',
+    'general' => 'General benefits information',
+    '# insurance' => 'Life insurance',
+    '# pension' => 'Pension',
+    '# records' => 'Records',
+    'service' => 'Service member benefits',
+    '# account' => 'VA account and profile',
+    '# other' => 'Other topics and questions',
+  ];
+
+  foreach ($values as $machine_name => $name) {
+    // Attempt to locate an R&S Category term with this name.
+    $tid = \Drupal::entityQuery('taxonomy_term')
+      ->condition('name', $name)
+      ->condition('vid', 'lc_categories')
+      ->execute();
+    if (!empty($tid)) {
+      $term = Term::load(reset($tid));
+      if ($term) {
+        $term->set('field_topic_id', $machine_name);
+        $term->save();
+      }
+    }
+  }
 }
