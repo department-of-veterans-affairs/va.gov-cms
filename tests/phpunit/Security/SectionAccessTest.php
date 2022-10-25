@@ -4,7 +4,7 @@ namespace tests\phpunit\Security;
 
 use Drupal\Core\Url;
 use Drupal\user\UserInterface;
-use weitzman\DrupalTestTraits\ExistingSiteBase;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * A test to confirm section access permissions.
@@ -13,7 +13,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  * @group security
  * @group all
  */
-class SectionAccessTest extends ExistingSiteBase {
+class SectionAccessTest extends VaGovExistingSiteBase {
 
   /**
    * Test method to confirm section access permissions.

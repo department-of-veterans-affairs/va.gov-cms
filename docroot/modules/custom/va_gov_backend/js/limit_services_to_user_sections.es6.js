@@ -16,6 +16,7 @@
   const systemField = document.getElementById(
     "edit-field-regional-health-service"
   );
+  const lovellPattern = /Lovell/i;
   const winnower = () => {
     const pathType = drupalSettings.path.currentPath.split("/")[1];
     // Set our selects back to "Select a value." on add forms.
@@ -41,17 +42,27 @@
     // Winnow facility field options that don't contain adminMatcher.
     facilityFieldOptions.forEach((i) => {
       // Apply reset everytime we fire.
-      i.classList.remove("hidden-option");
-      if (!i.text.includes(adminMatcher)) {
-        i.classList.add("hidden-option");
+      i.classList.add("hidden-option");
+      if (i.text.includes(adminMatcher)) {
+        i.classList.remove("hidden-option");
+      } else if (
+        i.text.search(lovellPattern) > -1 &&
+        adminFieldText.search(lovellPattern) > -1
+      ) {
+        i.classList.remove("hidden-option");
       }
     });
     // Winnow system field options that don't contain adminMatcher.
     systemFieldOptions.forEach((i) => {
-      // Apply reset every time we fire.
-      i.classList.remove("hidden-option");
-      if (!i.text.includes(adminMatcher)) {
-        i.classList.add("hidden-option");
+      // Apply reset everytime we fire.
+      i.classList.add("hidden-option");
+      if (i.text.includes(adminMatcher)) {
+        i.classList.remove("hidden-option");
+      } else if (
+        i.text.search(lovellPattern) > -1 &&
+        adminFieldText.search(lovellPattern) > -1
+      ) {
+        i.classList.remove("hidden-option");
       }
     });
   };

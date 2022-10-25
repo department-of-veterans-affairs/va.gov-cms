@@ -6,7 +6,7 @@ use Drupal\Core\Site\Settings;
 use Drupal\prometheus_exporter\MetricsCollectorManager;
 use Drupal\va_gov_backend\Service\Datadog;
 use Drupal\va_gov_backend\Service\Metrics;
-use weitzman\DrupalTestTraits\ExistingSiteBase;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * Test the Metrics service.
@@ -14,7 +14,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  * @group functional
  * @group all
  */
-class MetricsTest extends ExistingSiteBase {
+class MetricsTest extends VaGovExistingSiteBase {
 
   /**
    * Tests the shouldSendMetrics method.

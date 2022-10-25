@@ -1,0 +1,29 @@
+uuid: b435dc7b-0aa7-4a5a-8bb2-6d9393fd543d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_show_for_vamc_facilities
+    - taxonomy.vocabulary.health_care_service_taxonomy
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: taxonomy_term.health_care_service_taxonomy.field_show_for_vamc_facilities
+field_name: field_show_for_vamc_facilities
+entity_type: taxonomy_term
+bundle: health_care_service_taxonomy
+label: 'Show for VAMC Facilities'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Show
+  off_label: 'Off'
+field_type: boolean

@@ -15,13 +15,15 @@ jobs:
       # will not occur.
       - name: Dependabot metadata
         id: dependabot-metadata
-        uses: dependabot/fetch-metadata@v1.1.1
+        # https://github.com/dependabot/fetch-metadata/releases/tag/v1.3.4
+        uses: dependabot/fetch-metadata@bfc19f43c126171ed783cdcf9a125055b7831d32
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"    
     
       # Checkout repo to make package allow list available
       - name: Checkout
-        uses: actions/checkout@v3
+        # https://github.com/actions/cache/releases/tag/v3.0.10
+        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
         
       # Use a YAML formatted config file to list which dependencies can be auto-merged
       - name: Read list of Allowed Auto-merge Dependencies
@@ -31,7 +33,8 @@ jobs:
 
       # Get the initial AWS IAM User credentials. Only has basic permissions for sts:assumeRole
       - name: Configure AWS credentials (1)
-        uses: aws-actions/configure-aws-credentials@v1
+        # https://github.com/aws-actions/configure-aws-credentials/releases/tag/v1.7.0
+        uses: aws-actions/configure-aws-credentials@67fbcbb121271f7775d2e7715933280b06314838
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -39,7 +42,8 @@ jobs:
 
       # Get credentials from our SSM role. Least privilege method for AWS IAM.
       - name: Configure AWS Credentials (2)
-        uses: aws-actions/configure-aws-credentials@v1
+        # https://github.com/aws-actions/configure-aws-credentials/releases/tag/v1.7.0
+        uses: aws-actions/configure-aws-credentials@67fbcbb121271f7775d2e7715933280b06314838
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -50,7 +54,8 @@ jobs:
           
       # Get VA_CMS_BOT Github token from SSM. this will be used to approve a matching PR.
       - name: Get Parameter
-        uses: marvinpinto/action-inject-ssm-secrets@latest
+        # https://github.com/marvinpinto/action-inject-ssm-secrets/releases/tag/latest
+        uses: marvinpinto/action-inject-ssm-secrets@40db08dfe313758837e611cac1679e3a89b35531
         with:
           ssm_parameter: /cms/va-cms-bot/github_token
           env_variable_name: VA_CMS_BOT_TOKEN

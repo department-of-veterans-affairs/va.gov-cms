@@ -4,7 +4,7 @@ namespace tests\phpunit\FrontendBuild;
 
 use Drupal\Core\Site\Settings;
 use Drupal\user\Entity\User;
-use weitzman\DrupalTestTraits\ExistingSiteBase;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * Functional test of the Build trigger Form.
@@ -12,7 +12,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  * @group functional
  * @group all
  */
-class BuildTriggerFormTest extends ExistingSiteBase {
+class BuildTriggerFormTest extends VaGovExistingSiteBase {
 
   /**
    * Store the default environment.

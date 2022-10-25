@@ -3,12 +3,12 @@
 namespace test\phpunit\Deploy;
 
 use Drupal\Core\Site\Settings;
-use Drupal\Tests\UnitTestCase;
 use Drupal\va_gov_backend\Deploy\DeployService;
 use Drupal\va_gov_backend\Deploy\Plugin\DeployPluginInterface;
 use Drupal\va_gov_backend\Deploy\SuccessHTTPException;
 use Drupal\va_gov_backend\Test\DeployServiceMock;
 use Symfony\Component\HttpFoundation\Request;
+use Tests\Support\Classes\VaGovUnitTestBase;
 
 /**
  * Tests the DeployService.
@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * @covers \Drupal\va_gov_backend\Deploy\DeployService
  */
-class DeployServiceTest extends UnitTestCase {
+class DeployServiceTest extends VaGovUnitTestBase {
 
   /**
    * Test the deploy service run class.
