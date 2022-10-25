@@ -178,8 +178,11 @@ Feature: Views
       | Files | File usage | page_2 | Page |
       | Files | Files overview | page_1 | Page |
       | Files | Master | default | Default |
+      | Flagged Content | Changed Filename | changed_filename | Page |
+      | Flagged Content | Changed Title | changed_title | Page |
       | Flagged Content | Default | default | Default |
       | Flagged Content | Flagged Content | flagged_content | Page |
+      | Flagged Content | New/Deleted Forms | new_deleted | Page |
       | Frontpage | Feed | feed_1 | Feed |
       | Frontpage | Master | default | Default |
       | Frontpage | Page | page_1 | Page |

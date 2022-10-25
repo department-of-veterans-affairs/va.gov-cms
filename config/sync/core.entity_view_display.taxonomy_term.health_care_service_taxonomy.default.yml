@@ -9,6 +9,12 @@ dependencies:
     - field.field.taxonomy_term.health_care_service_taxonomy.field_health_service_api_id
     - field.field.taxonomy_term.health_care_service_taxonomy.field_owner
     - field.field.taxonomy_term.health_care_service_taxonomy.field_service_type_of_care
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_show_for_vamc_facilities
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_show_for_vba_facilities
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_show_for_vet_centers
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_vba_com_conditions
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_vba_friendly_name
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_vba_service_descrip
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vet_center_com_conditions
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vet_center_friendly_name
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vet_center_required_servic
@@ -74,6 +80,59 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 3
+    region: content
+  field_show_for_vamc_facilities:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 12
+    region: content
+  field_show_for_vba_facilities:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 14
+    region: content
+  field_show_for_vet_centers:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 13
+    region: content
+  field_vba_com_conditions:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 16
+    region: content
+  field_vba_friendly_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 15
+    region: content
+  field_vba_service_descrip:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 17
     region: content
   field_vet_center_com_conditions:
     type: string
