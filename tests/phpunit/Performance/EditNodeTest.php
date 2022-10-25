@@ -2,7 +2,7 @@
 
 namespace tests\phpunit\Performance;
 
-use weitzman\DrupalTestTraits\ExistingSiteBase;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * A test to confirm node editing performance.
@@ -10,7 +10,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  * @group functional
  * @group all
  */
-class EditNodeTest extends ExistingSiteBase {
+class EditNodeTest extends VaGovExistingSiteBase {
 
   /**
    * A test method to deterine the amount of time to edit a node page.

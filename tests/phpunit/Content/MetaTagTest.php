@@ -2,7 +2,7 @@
 
 namespace tests\phpunit\Content;
 
-use weitzman\DrupalTestTraits\ExistingSiteBase;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 define('IS_BEHAT', TRUE);
 
@@ -12,7 +12,7 @@ define('IS_BEHAT', TRUE);
  * @group functional
  * @group all
  */
-class MetaTagTest extends ExistingSiteBase {
+class MetaTagTest extends VaGovExistingSiteBase {
 
   /**
    * This comment intentionally left blank.

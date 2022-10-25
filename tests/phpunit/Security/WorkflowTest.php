@@ -2,7 +2,7 @@
 
 namespace tests\phpunit\Security;
 
-use weitzman\DrupalTestTraits\ExistingSiteBase;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * A test to confirm access to workflow moderation.
@@ -11,7 +11,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  * @group security
  * @group all
  */
-class WorkflowTest extends ExistingSiteBase {
+class WorkflowTest extends VaGovExistingSiteBase {
 
   /**
    * A test method to determine whether users can access workflow moderation.

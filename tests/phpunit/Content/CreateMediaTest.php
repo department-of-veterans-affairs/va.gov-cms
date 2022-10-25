@@ -2,8 +2,8 @@
 
 namespace tests\phpunit\Content;
 
-use weitzman\DrupalTestTraits\ExistingSiteBase;
 use Drupal\media\Entity\Media;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * A test to confirm ability to create media.
@@ -11,7 +11,7 @@ use Drupal\media\Entity\Media;
  * @group functional
  * @group all
  */
-class CreateMediaTest extends ExistingSiteBase {
+class CreateMediaTest extends VaGovExistingSiteBase {
 
   /**
    * A test method to determine the ability and time to create media.
