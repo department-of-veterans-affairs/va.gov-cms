@@ -35,6 +35,7 @@ class PreventMediaViewLinksValidator extends ConstraintValidator {
    * {@inheritdoc}
    */
   public function validate($items, Constraint $constraint) {
+    /* Drupal\va_gov_backend\Plugin\Validation\Constraint $constraint */
     foreach ($items as $delta => $item) {
       $html = $item->getValue()['value'];
       $dom = Html::load($html);
