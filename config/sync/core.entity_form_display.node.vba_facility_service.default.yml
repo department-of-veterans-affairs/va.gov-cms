@@ -3,8 +3,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.vba_facility_service.field_body
     - field.field.node.vba_facility_service.field_administration
+    - field.field.node.vba_facility_service.field_body
     - field.field.node.vba_facility_service.field_enforce_unique_combo
     - field.field.node.vba_facility_service.field_office
     - field.field.node.vba_facility_service.field_service_name_and_descripti
@@ -22,7 +22,7 @@ third_party_settings:
       label: 'Section settings'
       region: content
       parent_name: ''
-      weight: 6
+      weight: 5
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -35,11 +35,10 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
-        - revision_log
       label: 'Editorial workflow'
       region: content
       parent_name: ''
-      weight: 7
+      weight: 6
       format_type: fieldset
       format_settings:
         classes: ''
@@ -69,6 +68,14 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_body:
+    type: text_textarea
+    weight: 4
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
   field_enforce_unique_combo:
     type: allow_only_one_widget
     weight: 1
@@ -78,13 +85,13 @@ content:
     third_party_settings: {  }
   field_office:
     type: options_select
-    weight: 3
+    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }
   field_service_name_and_descripti:
     type: options_select
-    weight: 4
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -96,7 +103,7 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 8
+    weight: 7
     region: content
     settings:
       display_label: true
@@ -110,7 +117,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 9
+    weight: 8
     region: content
     settings: {  }
     third_party_settings: {  }
