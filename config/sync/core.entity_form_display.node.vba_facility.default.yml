@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_form_mode.node.inline_entity_form
     - field.field.node.vba_facility.field_address
     - field.field.node.vba_facility.field_administration
     - field.field.node.vba_facility.field_facility_locator_api_id
@@ -24,9 +25,11 @@ dependencies:
   module:
     - address
     - content_moderation
+    - entity_browser_entity_form
     - field_group
     - geofield
     - ief_table_view_mode
+    - limited_field_widgets
     - link
     - media_library
     - office_hours
@@ -68,7 +71,6 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
-        - revision_log
         - flag
       label: 'Editorial Workflow'
       region: content
@@ -276,10 +278,10 @@ content:
     weight: 26
     region: content
     settings:
-      form_mode: default
-      override_labels: false
-      label_singular: ''
-      label_plural: ''
+      form_mode: inline_entity_form
+      override_labels: true
+      label_singular: service
+      label_plural: services
       allow_new: true
       allow_existing: false
       match_operator: CONTAINS
@@ -287,8 +289,12 @@ content:
       collapsible: false
       collapsed: false
       revision: false
-      allow_system_delete: false
-    third_party_settings: {  }
+      allow_system_delete: 0
+    third_party_settings:
+      entity_browser_entity_form:
+        entity_browser_id: _none
+      limited_field_widgets:
+        limit_values: '0'
   flag:
     weight: 6
     region: content
