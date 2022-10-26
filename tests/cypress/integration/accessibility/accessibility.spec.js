@@ -180,14 +180,12 @@ before(() => {
 const axeContext = {
   include: [["body"]],
   exclude: [
-    [
-      // 8700-item select elements apparently break accessibility tests.
-      "#edit-menu-menu-parent",
-      // Not our widget, not our problem.
-      "img.leaflet-marker-icon",
-      // Not our widget, not our problem.
-      "iframe#jsd-widget",
-    ],
+    // 8700-item select elements apparently break accessibility tests.
+    ["#edit-menu-menu-parent"],
+    // Not our widget, not our problem.
+    ["img.leaflet-marker-icon"],
+    // Not our widget, not our problem.
+    ["iframe#jsd-widget"],
   ],
 };
 
