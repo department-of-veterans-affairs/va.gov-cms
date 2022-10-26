@@ -204,8 +204,20 @@ function va_gov_backend_update_8004() {
     if ($owner !== $tid) {
       $term->set('field_owner', NULL);
       $term->field_owner[] = ['target_id' => $tid];
-      $message_prefix = "VHA health service taxonomy: Updated owner";
-      _save_term($term, $updated, $failed, $message_prefix);
+      try {
+        $saved = $term->save();
+        $updated = (is_int($saved) && $saved > 0) ? $updated + 1 : $updated;
+        Drupal::logger('va_gov_backend')->log(LogLevel::INFO, 'VHA health service taxonomy: Updated owner for term "%term_name".', [
+          '%term_name' => $term->label(),
+        ]);
+      }
+      catch (\Exception $e) {
+        $failed = (is_int($saved) && $saved <= 0) ? $failed + 1 : $failed;
+        Drupal::logger('va_gov_backend')->log(LogLevel::ERROR, 'VHA health service taxonomy: Error updating owner for term "%term_name". Do it manually. Error message: %error_message.', [
+          '%term_name' => $term->label(),
+          '%error_message' => $e->getMessage(),
+        ]);
+      }
     }
   }
 
