@@ -1,0 +1,29 @@
+uuid: be902036-1f1f-4310-ac80-259e67c332d5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_show_for_vba_facilities
+    - taxonomy.vocabulary.health_care_service_taxonomy
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: taxonomy_term.health_care_service_taxonomy.field_show_for_vba_facilities
+field_name: field_show_for_vba_facilities
+entity_type: taxonomy_term
+bundle: health_care_service_taxonomy
+label: 'Show for VBA Facilities'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Show
+  off_label: 'Off'
+field_type: boolean

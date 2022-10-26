@@ -11,7 +11,8 @@ runs:
       shell: bash
 
     - name: Use the Composer cache, if possible
-      uses: actions/cache@v3
+      # https://github.com/actions/cache/releases/tag/v3.0.10
+      uses: actions/cache@56461b9eb0f8438fd15c7a9968e3c9ebb18ceff1
       with:
         path: ${{ steps.composer-cache.outputs.dir }}
         key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -19,7 +20,8 @@ runs:
           ${{ runner.os }}-composer-
 
     - name: Setup the PHP environment
-      uses: shivammathur/setup-php@v2
+      # https://github.com/shivammathur/setup-php/releases/tag/2.21.2
+      uses: shivammathur/setup-php@e04e1d97f0c0481c6e1ba40f8a538454fe5d7709
       with:
         php-version: '7.4'
         extensions: dom, curl, libxml, mbstring, zip, pdo, mysql, pdo_mysql, bcmath, gd, exif, iconv
@@ -31,4 +33,5 @@ runs:
       shell: bash
 
     - name: Setup ReviewDog
-      uses: reviewdog/action-setup@v1
+      # https://github.com/reviewdog/action-setup/releases/tag/v1.0.3
+      uses: reviewdog/action-setup@8f2ec89e6b467ca9175527d2a1641bbd0c05783b

@@ -8,8 +8,8 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\KeyValueStore\KeyValueMemoryFactory;
 use Drupal\Core\State\State;
-use Drupal\Tests\UnitTestCase;
 use Drupal\va_gov_build_trigger\Service\BuildRequester;
+use Tests\Support\Classes\VaGovUnitTestBase;
 
 /**
  * Unit test for the build requester..
@@ -17,7 +17,7 @@ use Drupal\va_gov_build_trigger\Service\BuildRequester;
  * @group unit
  * @group all
  */
-class BuildRequesterTest extends UnitTestCase {
+class BuildRequesterTest extends VaGovUnitTestBase {
 
   /**
    * The state service.

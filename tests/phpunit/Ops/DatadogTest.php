@@ -3,10 +3,10 @@
 namespace tests\phpunit\Ops;
 
 use PNX\Prometheus\Gauge;
-use weitzman\DrupalTestTraits\ExistingSiteBase;
 use Drupal\Core\Site\Settings;
 use Drupal\va_gov_backend\Service\Datadog;
 use Tests\Support\Mock\HttpClient;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * Test the Datadog service.
@@ -14,7 +14,7 @@ use Tests\Support\Mock\HttpClient;
  * @group functional
  * @group all
  */
-class DatadogTest extends ExistingSiteBase {
+class DatadogTest extends VaGovExistingSiteBase {
 
   /**
    * Mock client.

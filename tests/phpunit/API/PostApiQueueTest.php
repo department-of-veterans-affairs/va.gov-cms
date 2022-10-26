@@ -5,7 +5,7 @@ namespace tests\phpunit\API;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Queue\DatabaseQueue;
 use Drupal\Core\Site\Settings;
-use weitzman\DrupalTestTraits\ExistingSiteBase;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * Tests Post API Queue functionality.
@@ -13,7 +13,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  * @group functional
  * @group all
  */
-class PostApiQueueTest extends ExistingSiteBase {
+class PostApiQueueTest extends VaGovExistingSiteBase {
 
   /**
    * Modules to install.
