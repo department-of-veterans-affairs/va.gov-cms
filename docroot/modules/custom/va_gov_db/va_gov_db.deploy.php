@@ -1,15 +1,21 @@
 <?php
 
 /**
- * @file vaThis is a NAME.deploy.php file. It contains "deploy" functions. These are
+ * @file
+ * Deploy hooks for va_gov_db.
+ *
+ * This is a NAME.deploy.php file. It contains "deploy" functions. These are
  * one-time functions that run *after* config is imported during a deployment.
- * These are a higher level alternative to hook_update_n and hook_post_update_NAME
- * functions. See https://www.drush.org/latest/deploycommand/#authoring-update-functions
+ * These are a higher level alternative to hook_update_n and
+ * hook_post_update_NAME functions.
+ *
+ * See https://www.drush.org/latest/deploycommand/#authoring-update-functions
  * for a detailed comparison.
  */
 
 use Drupal\node\Entity\Node;
 use Psr\Log\LogLevel;
+use Drupal\taxonomy\Entity\Term;
 
 /**
  * Migrate Publication field_benefits data to new field_lc_categories field.
@@ -93,7 +99,6 @@ function va_gov_db_deploy_create_field_lc_categories(&$sandbox) {
 
   return "Processing publication nodes...";
 }
-
 
 /**
  * Populate new R&S Taxonomy fields field_topic_id & field_enforce_unique_value.
