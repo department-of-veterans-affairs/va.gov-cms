@@ -184,7 +184,7 @@ const axeContext = {
       // 8700-item select elements apparently break accessibility tests.
       "#edit-menu-menu-parent",
       // Not our widget, not our problem.
-      ".leaflet-marker-icon",
+      "img.leaflet-marker-icon",
       // Not our widget, not our problem.
       "iframe#jsd-widget",
     ],
