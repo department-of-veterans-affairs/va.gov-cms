@@ -11,7 +11,7 @@ CHANGES=$( git diff --diff-filter=d --name-only HEAD )
 
 PHP_FILES=$( echo "${CHANGES}" | grep -E '\.(php|module|inc|install|profile|engine|theme|css)$' )
 if [ ${#PHP_FILES} -gt 0 ]; then
-  phpcs --ignore=*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,user_guides.css,whats_new.css,claro.css,*/node_modules/*,*/simplesaml*/*,graphiql.css --extensions=php,module,inc,install,profile,engine,theme,css --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml --colors ${PHP_FILES[*]}
+  phpcs --colors ${PHP_FILES[*]}
   bail_if_test_failed
 fi
 
