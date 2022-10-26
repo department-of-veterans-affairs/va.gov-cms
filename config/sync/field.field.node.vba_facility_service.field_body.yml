@@ -11,7 +11,8 @@ dependencies:
     - text
 third_party_settings:
   allowed_formats:
-    allowed_formats: {  }
+    allowed_formats:
+      - rich_text_limited
   epp:
     value: ''
     on_update: 0
@@ -20,7 +21,7 @@ field_name: field_body
 entity_type: node
 bundle: vba_facility_service
 label: 'VBA Service Description'
-description: ''
+description: 'Use this short paragraph and up to six bullet points to detail how your VBA Facility provides this service.'
 required: false
 translatable: true
 default_value: {  }
