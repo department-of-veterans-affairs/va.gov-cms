@@ -186,7 +186,7 @@ const axeContext = {
       // Not our widget, not our problem.
       ".leaflet-marker-icon",
       // Not our widget, not our problem.
-      "#jsd-widget",
+      "iframe#jsd-widget",
     ],
   ],
 };
