@@ -31,18 +31,22 @@ function va_gov_db_deploy_create_field_lc_categories(&$sandbox) {
   }
 
   $options = [
-    'general' => 'General Benefits Information',
-    'burial' => 'Burial Benefits And Memorial Items',
-    'careers' => 'Careers And Employment',
-    'disability' => 'Disability Compensation',
-    'education' => 'Education And Training Benefits',
+    'burial' => 'Burials and memorials',
+    'careers' => 'Careers and employment',
+    'decision' => 'Decision reviews and appeals',
+    'disability' => 'Disability',
+    'education' => 'Education and training',
     'family' => 'Family member benefits',
-    'healthcare' => 'Health Care',
-    'housing' => 'Housing Assistance',
-    'insurance' => 'Life Insurance',
-    'pension' => 'Pension Benefits',
-    'service' => 'Service Member Benefits',
+    'healthcare' => 'Health care',
+    'housing' => 'Housing assistance and home loans',
+    'general' => 'General benefits information',
+    'insurance' => 'Life insurance',
+    'pact' => 'PACT Act',
+    'pension' => 'Pension',
     'records' => 'Records',
+    'service' => 'Service member benefits',
+    'account' => 'VA account and profile',
+    'other' => 'Other topics and questions',
   ];
 
   // Execute in batches of 25.
@@ -115,6 +119,7 @@ function va_gov_db_deploy_populate_field_topic_id_terms(&$sandbox) {
     'housing' => 'Housing assistance and home loans',
     'general' => 'General benefits information',
     'insurance' => 'Life insurance',
+    'pact' => 'PACT Act',
     'pension' => 'Pension',
     'records' => 'Records',
     'service' => 'Service member benefits',
