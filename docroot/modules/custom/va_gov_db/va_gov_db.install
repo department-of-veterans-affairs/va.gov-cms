@@ -1069,6 +1069,7 @@ function va_gov_db_update_9010(&$sandbox) {
     'family' => 'Family member benefits',
     'general' => 'General benefits information',
     'service' => 'Service member benefits',
+    'pact' => 'PACT Act',
   ];
   foreach ($terms as $name) {
     $term = Term::create([
