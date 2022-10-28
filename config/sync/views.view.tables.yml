@@ -6,6 +6,7 @@ dependencies:
     - field.storage.paragraph.field_table
     - paragraphs.paragraphs_type.table
     - user.role.administrator
+    - user.role.content_admin
   module:
     - csv_serialization
     - paragraphs
@@ -518,6 +519,7 @@ display:
         type: role
         options:
           role:
+            content_admin: content_admin
             administrator: administrator
       cache:
         type: tag
