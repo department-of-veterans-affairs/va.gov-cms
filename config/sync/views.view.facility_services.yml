@@ -1828,12 +1828,14 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - 'user.node_grants:view'
         - user.roles
       tags:
         - 'config:field.storage.node.field_administration'
         - 'config:field.storage.paragraph.field_title'
         - 'config:workflow_list'
+        - workbench_access_view
   accordion_audit_export:
     id: accordion_audit_export
     display_title: 'Accordion audit export'
@@ -4024,6 +4026,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - 'user.node_grants:view'
         - user.roles
       tags:
@@ -4031,6 +4034,7 @@ display:
         - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_geolocation'
         - 'config:workflow_list'
+        - workbench_access_view
   addresses_export:
     id: addresses_export
     display_title: 'Addresses export'
@@ -5444,12 +5448,14 @@ display:
         - 'languages:language_interface'
         - request_format
         - url
+        - user
         - 'user.node_grants:view'
         - user.roles
       tags:
         - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_geolocation'
         - 'config:workflow_list'
+        - workbench_access_view
   content_audit_facilities:
     id: content_audit_facilities
     display_title: Facilities
@@ -6597,6 +6603,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - 'user.node_grants:view'
         - user.roles
       tags:
@@ -6605,6 +6612,7 @@ display:
         - 'config:field.storage.node.field_office'
         - 'config:field.storage.node.field_region_page'
         - 'config:workflow_list'
+        - workbench_access_view
   content_audit_facilities_export:
     id: content_audit_facilities_export
     display_title: 'Facilities export'
@@ -6633,6 +6641,69 @@ display:
           type: string
           settings:
             link_to_entity: true
+        field_facility_locator_api_id:
+          id: field_facility_locator_api_id
+          table: node__field_facility_locator_api_id
+          field: field_facility_locator_api_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Facility ID'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         type:
           id: type
           table: node_field_data
@@ -6689,6 +6760,201 @@ display:
           settings:
             link: false
           group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        revision_uid:
+          id: revision_uid
+          table: node_revision
+          field: revision_uid
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: revision_uid
+          plugin_id: field
+          label: 'Revision user'
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: false
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        changed:
+          id: changed
+          table: node_field_data
+          field: changed
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: changed
+          plugin_id: field
+          label: Updated
+          exclude: false
+          alter:
+            alter_text: true
+            text: '{{ changed }} by {{ revision_uid }}'
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: timestamp
+          settings:
+            date_format: short
+            custom_date_format: ''
+            timezone: ''
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        moderation_state:
+          id: moderation_state
+          table: node_field_data
+          field: moderation_state
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          plugin_id: moderation_state_field
+          label: 'Moderation state'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: content_moderation_state
+          settings: {  }
+          group_column: value
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -6824,15 +7090,17 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_facility_locator_api_id:
-          id: field_facility_locator_api_id
-          table: node__field_facility_locator_api_id
-          field: field_facility_locator_api_id
-          relationship: none
+        name:
+          id: name
+          table: taxonomy_term_field_data
+          field: name
+          relationship: parent_target_id
           group_type: group
           admin_label: ''
-          plugin_id: field
-          label: 'Facility ID'
+          entity_type: taxonomy_term
+          entity_field: name
+          plugin_id: term_name
+          label: 'Parent section'
           exclude: false
           alter:
             alter_text: false
@@ -6887,6 +7155,7 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          convert_spaces: false
       pager:
         type: some
         options:
@@ -7140,7 +7409,27 @@ display:
         fields: false
         filters: false
         filter_groups: false
-      relationships: {  }
+      relationships:
+        field_administration:
+          id: field_administration
+          table: node__field_administration
+          field: field_administration
+          relationship: none
+          group_type: group
+          admin_label: 'field_administration: Taxonomy term'
+          plugin_id: standard
+          required: false
+        parent_target_id:
+          id: parent_target_id
+          table: taxonomy_term__parent
+          field: parent_target_id
+          relationship: field_administration
+          group_type: group
+          admin_label: Parent
+          entity_type: taxonomy_term
+          entity_field: parent
+          plugin_id: standard
+          required: false
       display_description: ''
       display_extenders:
         jsonapi_views:
@@ -8694,6 +8983,7 @@ display:
         - 'config:field.storage.node.field_operating_status_more_info'
         - 'config:field.storage.node.field_supplemental_status'
         - 'config:workflow_list'
+        - workbench_access_view
   facility_status_page:
     id: facility_status_page
     display_title: 'Facility status'
@@ -10073,6 +10363,7 @@ display:
         - 'config:field.storage.node.field_operating_status_more_info'
         - 'config:field.storage.node.field_supplemental_status'
         - 'config:workflow_list'
+        - workbench_access_view
   vamc_facility_health_services_export:
     id: vamc_facility_health_services_export
     display_title: 'VAMC facility health services export'
@@ -13801,6 +14092,7 @@ display:
         - 'config:field.storage.node.field_referral_required'
         - 'config:field.storage.node.field_walk_ins_accepted'
         - 'config:workflow_list'
+        - workbench_access_view
     deleted: false
   vamc_facility_non_clinical_services_export:
     id: vamc_facility_non_clinical_services_export
@@ -16592,6 +16884,7 @@ display:
         - 'config:field.storage.node.field_facility_location'
         - 'config:field.storage.node.field_facility_locator_api_id'
         - 'config:workflow_list'
+        - workbench_access_view
     deleted: false
   vamc_system_service_audit_export:
     id: vamc_system_service_audit_export
@@ -18345,6 +18638,7 @@ display:
         - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_body'
         - 'config:field.storage.node.field_service_name_and_descripti'
+        - workbench_access_view
   vamc_systems:
     id: vamc_systems
     display_title: 'VAMC systems'
@@ -19338,6 +19632,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - 'user.node_grants:view'
         - user.roles
       tags:
@@ -19346,6 +19641,7 @@ display:
         - 'config:field.storage.node.field_vamc_ehr_system'
         - 'config:field.storage.node.field_vamc_system_official_name'
         - 'config:workflow_list'
+        - workbench_access_view
   vet_center_services_export:
     id: vet_center_services_export
     display_title: 'Vet Center services export'
@@ -22042,4 +22338,5 @@ display:
         - 'config:field.storage.node.field_body'
         - 'config:field.storage.node.field_facility_locator_api_id'
         - 'config:workflow_list'
+        - workbench_access_view
     deleted: false
