@@ -21,6 +21,6 @@ class LovellSectionListParity extends Constraint {
    * @var string
    * @see \Drupal\va_gov_lovell\Plugin\Validation\Constraint\LovellSectionListParityValidator
    */
-  public $notSectionListMatch = 'The selected list page is not within the %value section.';
+  public $notSectionListMatch = 'Please select "%validSelection" for the current section: "%section".';
 
 }
