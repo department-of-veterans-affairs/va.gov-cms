@@ -5,7 +5,7 @@ namespace Drupal\va_gov_lovell\Plugin\Validation\Constraint;
 use Symfony\Component\Validator\Constraint;
 
 /**
- * Checks that the submitted value is a valid number.
+ * Validates that a Lovell Section choice matches the listing page choice.
  *
  * @Constraint(
  *   id = "LovellSectionListParity",
@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraint;
 class LovellSectionListParity extends Constraint {
 
   /**
-   * The message that will be shown if the value does not match the section.
+   * The message shown if the listing page value does not match the Lovell section.
    *
    * @var string
    * @see \Drupal\va_gov_lovell\Plugin\Validation\Constraint\LovellSectionListParityValidator
