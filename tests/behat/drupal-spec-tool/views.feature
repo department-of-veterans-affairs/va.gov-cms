@@ -275,7 +275,7 @@ Feature: Views
       | Table Audit | Table Audit | table_audit | Page |
       | Tables | Data Export | data_export_1 | Data export |
       | Tables | Default | default | Default |
-      | Tables | Page | page_1 | Page |
+      | Tables | Tables | page_1 | Page |
       | Taxonomy entity browsers | Audiences vocabularies | audiences_vocabularies | Entity browser |
       | Taxonomy entity browsers | Block | block_1 | Block |
       | Taxonomy entity browsers | Master | default | Default |
