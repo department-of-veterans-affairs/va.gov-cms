@@ -43,7 +43,7 @@ function _va_gov_db_uninstall_modules(array $modules, $uninstall_dependents = TR
   else {
     // Something went wrong. Throw exception.
     throw new UpdateException(
-      "Failed to install the requested modules: " . implode(',', $modules_list)
+      "Failed to uninstall the requested modules: " . implode(',', $modules_list)
     );
   }
 }
