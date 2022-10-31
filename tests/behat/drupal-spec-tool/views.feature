@@ -1,5 +1,4 @@
 
-
 @api
 Feature: Views
   In order to present and expose content and configuration
@@ -68,7 +67,7 @@ Feature: Views
       | Subscribe user | subscribe_user | Users | Enabled |  |
       | Subscribe user email | subscribe_user_email | Users | Enabled |  |
       | Table Audit | table_audit | Content | Enabled |  |
-      | Tables | tables | Paragraphs | Enabled |  |
+      | Tables | tables | Paragraph | Enabled |  |
       | Taxonomy entity browsers | taxonomy_entity_browsers | Taxonomy terms | Enabled |  |
       | Taxonomy term | taxonomy_term | Content | Enabled | Content belonging to a certain taxonomy term. |
       | User creation & editing activity | user_creation_editing_activity | Users | Enabled |  |
@@ -275,6 +274,7 @@ Feature: Views
       | Table Audit | Default | default | Default |
       | Table Audit | Table Audit | table_audit | Page |
       | Tables | Data Export | data_export_1 | Data export |
+      | Tables | Default | default | Default |
       | Tables | Page | page_1 | Page |
       | Taxonomy entity browsers | Audiences vocabularies | audiences_vocabularies | Entity browser |
       | Taxonomy entity browsers | Block | block_1 | Block |
