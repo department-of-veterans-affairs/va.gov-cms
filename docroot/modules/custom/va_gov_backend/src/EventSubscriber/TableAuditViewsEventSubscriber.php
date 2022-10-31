@@ -64,11 +64,12 @@ class TableAuditViewsEventSubscriber implements EventSubscriberInterface {
   public function preRender(ViewsPreRenderEvent $event): void {
     $view = $event->getView();
     if ($view->id() === 'tables') {
-      foreach ($view->result as &$value) {
+      foreach ($view->result as $value) {
         $parent = $value->_entity->getParentEntity();
         if (empty($parent)) {
           return;
         }
+        // Recurse up the parent entity tree until we find a node.
         while ($parent->getEntityTypeId() !== 'node') {
           $parent = $parent->getParentEntity();
         }
