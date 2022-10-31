@@ -33,7 +33,7 @@ function va_gov_facilities_update_9001() {
     }
     _va_gov_facilities_save_term($term, $updated, $failed, $taxonomy, $field_labels);
   }
-  Drupal::logger('va_gov_backend')->log(LogLevel::INFO, $taxonomy . ': ' . 'Successfully updated "Show for VAMC Facilties" and "Show for Vet Centers" %updated times on %count terms. Failed to update %failed out of %count terms.', [
+  Drupal::logger('va_gov_backend')->log(LogLevel::INFO, $taxonomy . ': ' . 'Successfully updated "Show for VAMC Facilties" and "Show for Vet Centers" %updated terms. Failed to update %failed terms.', [
     '%count' => count($terms),
     '%updated' => $updated,
     '%failed' => $failed,
