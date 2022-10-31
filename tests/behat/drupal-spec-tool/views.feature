@@ -273,7 +273,7 @@ Feature: Views
       | Table Audit | Data export | tables_usage_export | Data export |
       | Table Audit | Default | default | Default |
       | Table Audit | Table Audit | table_audit | Page |
-      | Tables | Data Export | data_export_1 | Data export |
+      | Tables | Data export | data_export_1 | Data export |
       | Tables | Default | default | Default |
       | Tables | Tables | page_1 | Page |
       | Taxonomy entity browsers | Audiences vocabularies | audiences_vocabularies | Entity browser |
