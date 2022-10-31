@@ -11,28 +11,29 @@ use Psr\Log\LogLevel;
 /**
  * Update the checkbox for terms in health_care_service_taxonomy vocab.
  */
-function va_gov_facilities_update_8001() {
+function va_gov_facilities_update_9001() {
   $updated = 0;
   $failed = 0;
 
   $storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
   $terms = $storage->loadByProperties(['vid' => 'health_care_service_taxonomy']);
+  $taxonomy = 'VA Services taxonomy';
 
   foreach ($terms as $term) {
-    $is_vamc_service = isset($term->get('field_service_type_of_care')->value);
-    $is_vet_center_service = isset($term->get('field_vet_center_type_of_care')->value);
+    $is_vamc_service = !empty($term->get('field_service_type_of_care')->value);
+    $is_vet_center_service = !empty($term->get('field_vet_center_type_of_care')->value);
+    $field_labels = [];
     if ($is_vamc_service) {
       $term->field_show_for_vamc_facilities->value = 1;
-      $message_prefix = "VA Services taxonomy: 'Show for VAMC Facilties'";
-      _save_term($term, $updated, $failed, $message_prefix);
+      $field_labels[] = '"Show for VAMC Facilties"';
     }
     if ($is_vet_center_service) {
       $term->field_show_for_vet_centers->value = 1;
-      $message_prefix = "VA Services taxonomy: 'Show for Vet Centers'";
-      _save_term($term, $updated, $failed, $message_prefix);
+      $field_labels[] = '"Show for Vet Centers"';
     }
+    _va_gov_facilities_save_term($term, $updated, $failed, $taxonomy, $field_labels);
   }
-  Drupal::logger('va_gov_backend')->log(LogLevel::INFO, 'VA Services taxonomy: Successfully updated "Show for VAMC Facilties" and "Show for Vet Centers" %updated times on %count terms. Failed to update %failed out of %count terms.', [
+  Drupal::logger('va_gov_backend')->log(LogLevel::INFO, $taxonomy . ': ' . 'Successfully updated "Show for VAMC Facilties" and "Show for Vet Centers" %updated times on %count terms. Failed to update %failed out of %count terms.', [
     '%count' => count($terms),
     '%updated' => $updated,
     '%failed' => $failed,
@@ -48,22 +49,29 @@ function va_gov_facilities_update_8001() {
  *   Count of updates.
  * @param int $failed
  *   Count of failures.
- * @param string $message_prefix
- *   Prefix for log messages.
+ * @param string $taxonomy
+ *   Name of taxonomy.
+ * @param array $field_labels
+ *   Labels of updated fields.
  */
-function _save_term(TermInterface &$term, &$updated, &$failed, $message_prefix): void {
+function _va_gov_facilities_save_term(TermInterface &$term, &$updated, &$failed, $taxonomy, array $field_labels): void {
   try {
     $saved = $term->save();
-    $updated = (is_int($saved) && $saved > 0) ? $updated + 1 : $updated;
-    Drupal::logger('va_gov_backend')->log(LogLevel::INFO, $message_prefix . ' set for "%term_name".', [
-      '%term_name' => $term->label(),
-    ]);
+    $updated = (($saved === SAVED_NEW) || ($saved === SAVED_UPDATED)) ? ++$updated : $updated;
+    foreach ($field_labels as $field_label) {
+      Drupal::logger('va_gov_backend')->log(LogLevel::INFO, $taxonomy . ": " . $field_label . ' set for "%term_name".', [
+        '%term_name' => $term->label(),
+      ]);
+    }
+
   }
   catch (\Exception $e) {
-    $failed = (is_int($saved) && $saved <= 0) ? $failed + 1 : $failed;
-    Drupal::logger('va_gov_backend')->log(LogLevel::ERROR, $message_prefix . ' failed to update for "%term_name". Do it manually. Error message: %error_message.', [
-      '%term_name' => $term->label(),
-      '%error_message' => $e->getMessage(),
-    ]);
+    $failed++;
+    foreach ($field_labels as $field_label) {
+      Drupal::logger('va_gov_backend')->log(LogLevel::ERROR, $taxonomy . ": " . $field_label . ' failed to update for "%term_name". Do it manually. Error message: %error_message.', [
+        '%term_name' => $term->label(),
+        '%error_message' => $e->getMessage(),
+      ]);
+    }
   }
 }
