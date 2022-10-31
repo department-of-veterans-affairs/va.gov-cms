@@ -93,39 +93,39 @@ jobs:
           api-key: ${{ secrets.DATADOG_API_KEY }}
           api-url: https://api.ddog-gov.com
           metrics: |
-            - type: "count"
+            - type: "gauge"
               name: "cms.qa.phpunit_code_coverage.classes_percentage"
               value: ${{ steps.code_coverage_metrics.outputs.classes_percentage }}
               host: "${{ github.repository }}"
-            - type: "count"
+            - type: "gauge"
               name: "cms.qa.phpunit_code_coverage.classes_numerator"
               value: ${{ steps.code_coverage_metrics.outputs.classes_numerator }}
               host: "${{ github.repository }}"
-            - type: "count"
+            - type: "gauge"
               name: "cms.qa.phpunit_code_coverage.classes_denominator"
               value: ${{ steps.code_coverage_metrics.outputs.classes_denominator }}
               host: "${{ github.repository }}"
-            - type: "count"
+            - type: "gauge"
               name: "cms.qa.phpunit_code_coverage.methods_percentage"
               value: ${{ steps.code_coverage_metrics.outputs.methods_percentage }}
               host: "${{ github.repository }}"
-            - type: "count"
+            - type: "gauge"
               name: "cms.qa.phpunit_code_coverage.methods_numerator"
               value: ${{ steps.code_coverage_metrics.outputs.methods_numerator }}
               host: "${{ github.repository }}"
-            - type: "count"
+            - type: "gauge"
               name: "cms.qa.phpunit_code_coverage.methods_denominator"
               value: ${{ steps.code_coverage_metrics.outputs.methods_denominator }}
               host: "${{ github.repository }}"
-            - type: "count"
+            - type: "gauge"
               name: "cms.qa.phpunit_code_coverage.lines_percentage"
               value: ${{ steps.code_coverage_metrics.outputs.lines_percentage }}
               host: "${{ github.repository }}"
-            - type: "count"
+            - type: "gauge"
               name: "cms.qa.phpunit_code_coverage.lines_numerator"
               value: ${{ steps.code_coverage_metrics.outputs.lines_numerator }}
               host: "${{ github.repository }}"
-            - type: "count"
+            - type: "gauge"
               name: "cms.qa.phpunit_code_coverage.lines_denominator"
               value: ${{ steps.code_coverage_metrics.outputs.lines_denominator }}
               host: "${{ github.repository }}"
