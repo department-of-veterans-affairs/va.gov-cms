@@ -18,7 +18,7 @@ use Tests\Support\Classes\VaGovUnitTestBase;
  * @group all
  * @group validation
  *
- * @coversDefaultClass \Drupal\va_gov_backend\Serice\VaGovUrl
+ * @coversDefaultClass \Drupal\va_gov_backend\Service\VaGovUrl
  */
 class VaGovUrlTest extends VaGovUnitTestBase {
 
