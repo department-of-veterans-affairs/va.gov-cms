@@ -12,7 +12,6 @@ use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\node\Entity\Node;
 use Drupal\redirect\Entity\Redirect;
 use Psr\Log\LogLevel;
-use Drupal\taxonomy\Entity\Term;
 
 /**
  * Uninstalls requested modules.
@@ -1058,26 +1057,4 @@ function va_gov_db_update_9009() {
   }
 
   return 'Removed field_hours_for_copay_inquiries_ from billing.';
-}
-
-/**
- * Add new terms to R&S categories vocabulary.
- */
-function va_gov_db_update_9010(&$sandbox) {
-  // Add new R&S taxonomy terms:
-  $terms = [
-    'family' => 'Family member benefits',
-    'general' => 'General benefits information',
-    'service' => 'Service member benefits',
-    'pact' => 'PACT Act',
-  ];
-  foreach ($terms as $name) {
-    $term = Term::create([
-      'vid' => 'lc_categories',
-      'status' => 1,
-      'name' => $name,
-      'weight' => 0,
-    ]);
-    $term->save();
-  }
 }

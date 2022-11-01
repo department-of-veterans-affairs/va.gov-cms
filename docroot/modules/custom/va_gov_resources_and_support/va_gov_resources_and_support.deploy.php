@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Deploy hooks for va_gov_db.
+ * Deploy hooks for va_gov_resources_and_support.
  *
  * This is a NAME.deploy.php file. It contains "deploy" functions. These are
  * one-time functions that run *after* config is imported during a deployment.
@@ -22,7 +22,7 @@ use Drupal\taxonomy\Entity\Term;
 /**
  * Migrate Publication field_benefits data to new field_lc_categories field.
  */
-function va_gov_db_deploy_create_field_lc_categories(&$sandbox) {
+function va_gov_resources_and_support_deploy_create_field_lc_categories(&$sandbox) {
   // Run initial entity query and store batch variables.
   if (empty($sandbox['total'])) {
     $sandbox['nids_process'] = \Drupal::entityQuery('node')
@@ -81,7 +81,7 @@ function va_gov_db_deploy_create_field_lc_categories(&$sandbox) {
           $field_lc_categories[$delta] = array_search($option_value, $sandbox['terms']);
         }
         else {
-          Drupal::logger('va_gov_db')
+          Drupal::logger('va_gov_resources_and_support')
             ->log(LogLevel::INFO, "Unable to populate Publication's field_lc_categories field: No matching term found for %option in node id %nid", [
               '%current' => $sandbox['current'],
               '%nid' => $node->id(),
@@ -108,7 +108,7 @@ function va_gov_db_deploy_create_field_lc_categories(&$sandbox) {
   }
 
   // Tell drupal we processed some nodes.
-  Drupal::logger('va_gov_db')
+  Drupal::logger('va_gov_resources_and_support')
     ->log(LogLevel::INFO, 'Publication nodes %current nodes saved to migrate related benefits data. Nodes processed: %nids', [
       '%current' => $sandbox['current'],
       '%nids' => $nids,
@@ -118,7 +118,7 @@ function va_gov_db_deploy_create_field_lc_categories(&$sandbox) {
   $sandbox['#finished'] = ($sandbox['current'] / $sandbox['total']);
   // Log the all finished notice.
   if ($sandbox['#finished'] == 1) {
-    Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'Updating %count Publication nodes completed by va_gov_db_update_9010.', [
+    Drupal::logger('va_gov_resources_and_support')->log(LogLevel::INFO, 'Updating %count Publication nodes completed by va_gov_resources_and_support_deploy_create_field_lc_categories().', [
       '%count' => $sandbox['total'],
     ]);
     return "Process complete.";
@@ -130,7 +130,7 @@ function va_gov_db_deploy_create_field_lc_categories(&$sandbox) {
 /**
  * Populate new R&S Taxonomy fields field_topic_id & field_enforce_unique_value.
  */
-function va_gov_db_deploy_populate_field_topic_id_terms(&$sandbox) {
+function va_gov_resources_and_support_deploy_populate_field_topic_id_terms(&$sandbox) {
   $values = [
     'burial' => 'Burials and memorials',
     'careers' => 'Careers and employment',
@@ -161,6 +161,11 @@ function va_gov_db_deploy_populate_field_topic_id_terms(&$sandbox) {
       if ($term) {
         $term->set('field_topic_id', $machine_name);
         $term->save();
+      }
+      else {
+        Drupal::logger('va_gov_resources_and_support')->log(LogLevel::WARNING, 'Unable to load term with term id: %tid during va_gov_resources_and_support_deploy_populate_field_topic_id_terms() deploy hook processing.', [
+          '%tid' => $tid,
+        ]);
       }
     }
   }
