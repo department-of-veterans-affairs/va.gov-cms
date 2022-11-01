@@ -633,6 +633,8 @@
             "touch .buildlock",
             "mkdir -p web/build/vagovdev",
             "echo {} > web/build/vagovdev/metalsmith-build-data.json",
+            "cp patches/content-build-gql-logging.patch web/",
+            "cd web; git apply content-build-gql-logging.patch || echo 'patch failed'",
             "cd web; INSTALL_HOOKS=no NODE_ENV=production yarn build --pull-drupal --gql-queries-only --nosymlink --no-drupal-proxy --api=https://dev-api.va.gov --buildtype=vagovdev",
             "rm .buildlock"
         ],
