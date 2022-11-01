@@ -5,6 +5,7 @@ namespace Drupal\va_gov_backend\EventSubscriber;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
+use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\va_gov_backend\Service\VaGovUrlInterface;
 use Drupal\views_event_dispatcher\Event\Views\ViewsPreRenderEvent;
 use Drupal\views_event_dispatcher\ViewsHookEvents;
@@ -65,25 +66,24 @@ class TableAuditViewsEventSubscriber implements EventSubscriberInterface {
     $view = $event->getView();
     if ($view->id() === 'tables') {
       foreach ($view->result as $value) {
-        $parent = $value->_entity->getParentEntity();
-        if (empty($parent)) {
-          return;
+        $node = va_gov_backend_get_parent_node($value->_entity);
+        if (empty($node)) {
+          $str = 'This is an orphan paragraph.';
+          $value->_entity->set('parent_field_name', $str);
         }
-        // Recurse up the parent entity tree until we find a node.
-        while ($parent->getEntityTypeId() !== 'node') {
-          $parent = $parent->getParentEntity();
+        else {
+          $link = Link::fromTextAndUrl($node->getTitle(), $node->toUrl())->toRenderable();
+          $content_type = $node->type->entity->label();
+          $va_gov_url = $this->vaGovUrl->getVaGovFrontEndUrlForEntity($node);
+          $va_gov_link = Link::fromTextAndUrl($va_gov_url, Url::fromUri($va_gov_url))->toRenderable();
+          $va_gov_link['#attributes'] = ['class' => 'va-gov-url'];
+          $section = $node->field_administration->entity;
+          $section_link = Link::fromTextAndUrl($section->label(), $section->toUrl())->toRenderable();
+          $value->_entity->set('parent_id', $this->renderer->render($link));
+          $value->_entity->set('parent_type', $content_type);
+          $value->_entity->set('parent_field_name', $this->renderer->render($va_gov_link));
+          $value->_entity->set('revision_id', $this->renderer->render($section_link));
         }
-        $link = Link::fromTextAndUrl($parent->getTitle(), $parent->toUrl())->toRenderable();
-        $content_type = $parent->type->entity->label();
-        $va_gov_url = $this->vaGovUrl->getVaGovFrontEndUrlForEntity($parent);
-        $va_gov_link = Link::fromTextAndUrl($va_gov_url, Url::fromUri($va_gov_url))->toRenderable();
-        $va_gov_link['#attributes'] = ['class' => 'va-gov-url'];
-        $section = $parent->field_administration->entity;
-        $section_link = Link::fromTextAndUrl($section->label(), $section->toUrl())->toRenderable();
-        $value->_entity->set('parent_id', $this->renderer->render($link));
-        $value->_entity->set('parent_type', $content_type);
-        $value->_entity->set('parent_field_name', $this->renderer->render($va_gov_link));
-        $value->_entity->set('revision_id', $this->renderer->render($section_link));
       }
     }
   }
