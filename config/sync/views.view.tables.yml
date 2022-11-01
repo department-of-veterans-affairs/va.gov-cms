@@ -5,8 +5,6 @@ dependencies:
   config:
     - field.storage.paragraph.field_table
     - paragraphs.paragraphs_type.table
-    - user.role.administrator
-    - user.role.content_admin
   module:
     - csv_serialization
     - paragraphs
@@ -516,11 +514,9 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
       access:
-        type: role
+        type: perm
         options:
-          role:
-            content_admin: content_admin
-            administrator: administrator
+          perm: 'access content'
       cache:
         type: tag
         options: {  }
@@ -654,7 +650,7 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.paragraph.field_table'
   data_export_1:
@@ -718,7 +714,7 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - request_format
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.paragraph.field_table'
   page_1:
@@ -752,6 +748,6 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.paragraph.field_table'
