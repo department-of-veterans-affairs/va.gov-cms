@@ -13,6 +13,8 @@
  * for a detailed comparison.
  */
 
+require_once __DIR__ . '/../../../../scripts/content/script-library.php';
+
 use Drupal\node\Entity\Node;
 use Psr\Log\LogLevel;
 use Drupal\taxonomy\Entity\Term;
@@ -28,6 +30,19 @@ function va_gov_db_deploy_create_field_lc_categories(&$sandbox) {
       ->execute();
     $sandbox['total'] = count($sandbox['nids_process']);
     $sandbox['current'] = 0;
+    $sandbox['revision_message'] = 'Migrate data from field_benefits to field_lc_categories.';
+    /** @var \Drupal\taxonomy\TermStorageInterface $term_storage */
+    $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+    // Add all existing R&S Terms to $sandbox to avoid re-querying each time.
+    $tids = \Drupal::entityQuery('taxonomy_term')
+      ->condition('vid', 'lc_categories')
+      ->execute();
+    if (is_array($tids) && !empty($tids)) {
+      $terms = $term_storage->loadMultiple($tids);
+      foreach ($terms as $term) {
+        $sandbox['terms'][$term->id()] = $term->get('name')->value;
+      }
+    }
   }
 
   $options = [
@@ -57,27 +72,35 @@ function va_gov_db_deploy_create_field_lc_categories(&$sandbox) {
       break;
     }
     $node = Node::load($nid);
-    $node->setNewRevision(TRUE);
-    $node->setRevisionUserId(1317);
-    $node->setChangedTime(time());
-    $node->isDefaultRevision(TRUE);
-    $node->setRevisionCreationTime(time());
-    $node->setOwnerId(1317);
-    $node->setRevisionLogMessage('Migrate data from field_benefits to field_lc_categories.');
     $field_lc_categories = [];
     foreach ($node->get('field_benefits') as $delta => $field_benefits_value) {
       // Attempt to locate an R&S Category term with this name.
-      $tid = \Drupal::entityQuery('taxonomy_term')
-        ->condition('name', $options[$field_benefits_value->value])
-        ->condition('vid', 'lc_categories')
-        ->execute();
-      if (!empty($tid)) {
-        $field_lc_categories[$delta] = reset($tid);
+      if (isset($options[$field_benefits_value->value])) {
+        $option_value = $options[$field_benefits_value->value];
+        if (in_array($option_value, $sandbox['terms'])) {
+          $field_lc_categories[$delta] = array_search($option_value, $sandbox['terms']);
+        }
+        else {
+          Drupal::logger('va_gov_db')
+            ->log(LogLevel::INFO, "Unable to populate Publication's field_lc_categories field: No matching term found for %option in node id %nid", [
+              '%current' => $sandbox['current'],
+              '%nid' => $node->id(),
+            ]);
+        }
       }
     }
 
     $node->set('field_lc_categories', $field_lc_categories);
-    $node->save();
+    // Grab the latest revision before we save this one.
+    $nvid = $node->getRevisionId();
+    $latest_revision = get_node_at_latest_revision($nid);
+    save_node_revision($node, $sandbox['revision_message']);
+    // If a revision (draft) newer than the default exists, update it as well.
+    if ($nvid !== $latest_revision->getRevisionId()) {
+      $latest_revision->set('field_lc_categories', $field_lc_categories);
+      save_node_revision($latest_revision, $sandbox['revision_message']);
+      unset($latest_revision);
+    }
     unset($sandbox['nids_process'][$revision]);
     $i++;
     $nids .= $nid . ', ';
