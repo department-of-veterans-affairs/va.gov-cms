@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "35cc07af82faa6eff4bf24a561beae17",
+    "content-hash": "fc45fa6ea31c6bc92ea7e626d820f40a",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -918,7 +918,7 @@
             "version": "v4.1.0",
             "source": {
                 "type": "git",
-                "url": "git@github.com:fengyuanchen/cropper.git",
+                "url": "https://github.com/fengyuanchen/cropper.git",
                 "reference": "617d9bdb8688cc4edb3b03bc49a04b83c7facbe7"
             },
             "dist": {
@@ -6308,18 +6308,14 @@
             "require": {
                 "drupal/core": "^9.2 || ^10"
             },
-            "require-dev": {
-                "drupal/classy": "^1.0",
-                "drupal/stable": "^2.0"
-            },
             "type": "drupal-module",
             "extra": {
                 "branch-alias": {
                     "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-3.3+8-dev",
-                    "datestamp": "1664282856",
+                    "version": "8.x-3.4+1-dev",
+                    "datestamp": "1667316154",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -10609,6 +10605,59 @@
             }
         },
         {
+            "name": "drupal/paragraphs_usage",
+            "version": "1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/paragraphs_usage.git",
+                "reference": "1.0.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/paragraphs_usage-1.0.4.zip",
+                "reference": "1.0.4",
+                "shasum": "2c4a9fb9397fed22d8dc6b9f05eff70f76772b57"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9 || ^10",
+                "drupal/paragraphs": "^1.12"
+            },
+            "require-dev": {
+                "drupal/admin_toolbar": "^3.1"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.4",
+                    "datestamp": "1663947164",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Ines WALLON",
+                    "homepage": "https://www.drupal.org/u/liber_t",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "Check if an a paragraph is used in specific content types.",
+            "homepage": "https://www.drupal.org/project/paragraphs_usage",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "http://cgit.drupalcode.org/paragraphs_usage",
+                "issues": "https://www.drupal.org/project/issues/paragraphs_usage"
+            }
+        },
+        {
             "name": "drupal/password_policy",
             "version": "3.1.0",
             "source": {
@@ -11087,7 +11136,7 @@
             "extra": {
                 "drupal": {
                     "version": "4.0.6",
-                    "datestamp": "1666213825",
+                    "datestamp": "1666742450",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
