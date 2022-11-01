@@ -146,6 +146,15 @@ class UserSections extends BlockBase implements ContainerFactoryPluginInterface 
           ];
           break;
 
+        case 7:
+          $links[$parent_path[6]][$parent_path[5]][$parent_path[4]][$parent_path[3]][$parent_path[2]][$parent_path[1]][$parent_path[0]]['items'][$term->tid] = [
+            '#type' => 'link',
+            '#weight' => $term->weight,
+            '#title' => $term->name,
+            '#url' => Url::fromRoute('entity.taxonomy_term.canonical', ['taxonomy_term' => $term->tid]),
+          ];
+          break;
+
         default:
           $section_link = Link::fromTextAndUrl($term->name, Url::fromRoute('entity.taxonomy_term.canonical', ['taxonomy_term' => $term->tid]))->toString();
           $expand_button = $sections[$term->tid]['hasChildren'] ? Markup::create('<button class="toggle" aria-label="Toggle ' . $term->name . ' section" aria-pressed="false" aria-expanded="false" aria-controls="section-' . $term->tid . '"></button>') : NULL;
