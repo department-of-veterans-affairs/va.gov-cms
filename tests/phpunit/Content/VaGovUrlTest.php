@@ -159,7 +159,7 @@ class VaGovUrlTest extends VaGovUnitTestBase {
     $vaGovUrl = $this->getVaGovUrl($httpClient, NULL, $environmentDiscovery);
     $nid = 12412;
     $entityProphecy = $this->getEntityInterfaceProphecy($nid);
-    $this->expectException(\InvalidArgumentException::class);
+    $this->expectException(\Exception::class);
     $this->assertEquals(FALSE, $vaGovUrl->vaGovFrontEndUrlForEntityIsLive($entityProphecy->reveal()));
   }
 
