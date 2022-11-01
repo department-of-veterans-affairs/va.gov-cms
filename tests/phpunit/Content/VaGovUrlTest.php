@@ -16,7 +16,6 @@ use Tests\Support\Classes\VaGovUnitTestBase;
  *
  * @group unit
  * @group all
- * @group validation
  *
  * @coversDefaultClass \Drupal\va_gov_backend\Service\VaGovUrl
  */
