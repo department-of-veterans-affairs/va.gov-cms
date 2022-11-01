@@ -16,11 +16,11 @@ use Symfony\Component\Validator\Constraint;
 class LovellSectionListParity extends Constraint {
 
   /**
-   * The message shown if the listing page value does not match the Lovell section.
+   * The message shown if the listing page does not match the Lovell section.
    *
    * @var string
    * @see \Drupal\va_gov_lovell\Plugin\Validation\Constraint\LovellSectionListParityValidator
    */
-  public $notSectionListMatch = 'Please select "%validSelection" for the current section: "%section".';
+  public $notSectionListMatch = 'The selected option for <strong>%fieldLabel</strong> is not part of the <strong>%section</strong> section. Please choose a different option or change the section settings to match.';
 
 }
