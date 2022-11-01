@@ -20,4 +20,6 @@ Please follow the following guidelines:
 
 - Be careful with user-provided input, especially in scripts.  For example, do not read PR titles, comment bodies, or even the names of changed files in such a way that they might be executed as commands.
 
+- If you need to check that a given workflow or action still triggers as expected, consider running the scripts `scripts/create-bad-test-files.sh` and `scripts/delete-bad-test-files.sh` to respectively create and delete files that can be used to test lints and checks.
+
 See [here](https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions) for more details concerning GitHub Actions and security.
