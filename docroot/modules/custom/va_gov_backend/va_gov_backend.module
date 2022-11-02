@@ -413,12 +413,19 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     _va_gov_backend_smart_date_formatting($form, $form_state);
   };
 
-  $targets = [
-    'field_office',
-    'field_listing',
-  ];
+  // Only run when on a node.
+  // Additionally, reduce the number of times called when editing a paragraph,
+  // which will have a triggering_element set.
+  if (isset($form['#entity_type'])
+    && $form['#entity_type'] === 'node'
+    && (!$form_state->getTriggeringElement())) {
+    $targets = [
+      'field_office',
+      'field_listing',
+    ];
+    _va_gov_backend_dropdown_field_access($form, $targets);
+  }
 
-  _va_gov_backend_dropdown_field_access($form, $targets);
 
   if ($form_id === 'workbench_access_assign_user') {
     $form['#submit'][] = 'va_gov_backend_workbench_assign_user_form_submit';
