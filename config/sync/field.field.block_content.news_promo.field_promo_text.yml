@@ -1,0 +1,25 @@
+uuid: a8264ea4-16e6-499a-92a8-20468d7dbd1b
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.news_promo
+    - field.storage.block_content.field_promo_text
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: block_content.news_promo.field_promo_text
+field_name: field_promo_text
+entity_type: block_content
+bundle: news_promo
+label: 'Promo Text'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long
