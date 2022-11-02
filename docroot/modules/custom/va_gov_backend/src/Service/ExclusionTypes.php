@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_backend\Service;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\node\NodeInterface;
 
 /**
  * Class ExclusionTypes.
@@ -55,6 +56,13 @@ class ExclusionTypes implements ExclusionTypesInterface {
     }
 
     return FALSE;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public function hasExcludedType(NodeInterface $node): bool {
+    return $this->typeIsExcluded($node->bundle());
   }
 
 }

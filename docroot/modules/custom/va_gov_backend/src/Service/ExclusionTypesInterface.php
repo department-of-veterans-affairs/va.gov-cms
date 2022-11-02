@@ -2,6 +2,8 @@
 
 namespace Drupal\va_gov_backend\Service;
 
+use Drupal\node\NodeInterface;
+
 /**
  * Interface ExclusionTypesInterface.
  */
@@ -30,5 +32,15 @@ interface ExclusionTypesInterface {
    *   Whether or not the bundle id is excluded.
    */
   public function typeIsExcluded(String $bundle) : bool;
+
+  /**
+   * Determine whether the node has an excluded type.
+   * 
+   * 
+   * 
+   * @return bool
+   *   Whether or not the Node's bundle is excluded.
+   */
+  public function hasExcludedType(NodeInterface $node): bool;
 
 }
