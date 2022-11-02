@@ -111,8 +111,13 @@ class UserSections extends BlockBase implements ContainerFactoryPluginInterface 
 
       // Compose render array of section links while preserving hierarchy.
       // This switch accounts for taxonomy terms that are 5 levels deep.
-      // Sections vocabulary is 4 levels deep. If it grows over 5, this logic
-      // must be expanded.
+      // Sections vocabulary is 5 levels deep.
+      // If it grows over 5, this logic must be expanded.
+      // Each case below, including default, represents a level of term depth.
+      // The count represents the nesting level of parent items in $links[].
+      // The count values are always odd because of the structure of $links[].
+      // Each parent item has a sub array called items containing child items.
+      // Case 3 example: $links['parent_id = 3']['items']['parent_id = 8'].
       $count = count($parent_path);
       switch ($count) {
         case 1:
