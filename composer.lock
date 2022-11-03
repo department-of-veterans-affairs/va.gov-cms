@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ef2375832fd281bc998da95c1a94d367",
+    "content-hash": "d3ad53e3812ee3d1f99fb03cc0471c22",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -2041,16 +2041,16 @@
         },
         {
             "name": "datadog/dd-trace",
-            "version": "0.80.0",
+            "version": "0.81.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DataDog/dd-trace-php.git",
-                "reference": "c82659b34e66b766913648aa03e63a9834553bc3"
+                "reference": "811647a56c33f5c0936123c473cc6d98ffcb5f2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DataDog/dd-trace-php/zipball/c82659b34e66b766913648aa03e63a9834553bc3",
-                "reference": "c82659b34e66b766913648aa03e63a9834553bc3",
+                "url": "https://api.github.com/repos/DataDog/dd-trace-php/zipball/811647a56c33f5c0936123c473cc6d98ffcb5f2f",
+                "reference": "811647a56c33f5c0936123c473cc6d98ffcb5f2f",
                 "shasum": ""
             },
             "require": {
@@ -2129,9 +2129,9 @@
             ],
             "support": {
                 "issues": "https://github.com/DataDog/dd-trace-php/issues",
-                "source": "https://github.com/DataDog/dd-trace-php/tree/0.80.0"
+                "source": "https://github.com/DataDog/dd-trace-php/tree/0.81.0"
             },
-            "time": "2022-09-28T13:14:45+00:00"
+            "time": "2022-10-31T16:21:01+00:00"
         },
         {
             "name": "davedevelopment/stiphle",
@@ -6314,8 +6314,8 @@
                     "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-3.4+1-dev",
-                    "datestamp": "1667316154",
+                    "version": "8.x-3.4+2-dev",
+                    "datestamp": "1667403745",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -7568,34 +7568,34 @@
         },
         {
             "name": "drupal/image_widget_crop",
-            "version": "2.3.0",
+            "version": "2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/image_widget_crop.git",
-                "reference": "8.x-2.3"
+                "reference": "8.x-2.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/image_widget_crop-8.x-2.3.zip",
-                "reference": "8.x-2.3",
-                "shasum": "20f9e98bd6503699576ada6f4fd4c9fd06686361"
+                "url": "https://ftp.drupal.org/files/projects/image_widget_crop-8.x-2.4.zip",
+                "reference": "8.x-2.4",
+                "shasum": "6fcf4641d730bf1f5afce2a95d58f76094c72d1b"
             },
             "require": {
-                "drupal/core": "^8 || ^9",
-                "drupal/crop": "^1.0 || ^2.0"
+                "drupal/core": "^8 || ^9 || ^10",
+                "drupal/crop": "^1 || ^2"
             },
             "require-dev": {
+                "drupal/bartik": "^1",
                 "drupal/crop": "*",
-                "drupal/ctools": "3.x-dev",
-                "drupal/entity_browser": "1.x-dev",
-                "drupal/file_entity": "*",
-                "drupal/inline_entity_form": "*"
+                "drupal/ctools": "^3",
+                "drupal/entity_browser": "^2",
+                "drupal/inline_entity_form": "^1"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-2.3",
-                    "datestamp": "1585408029",
+                    "version": "8.x-2.4",
+                    "datestamp": "1667435355",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -7604,7 +7604,7 @@
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -7613,8 +7613,8 @@
                     "role": "Maintainer"
                 },
                 {
-                    "name": "Drupal media CI",
-                    "homepage": "https://www.drupal.org/user/3057985"
+                    "name": "Drupal Media Team",
+                    "homepage": "https://www.drupal.org/user/3260690"
                 },
                 {
                     "name": "phenaproxima",
@@ -9303,16 +9303,12 @@
             ],
             "authors": [
                 {
-                    "name": "Grayside",
-                    "homepage": "https://www.drupal.org/user/346868"
-                },
-                {
-                    "name": "RoySegall",
-                    "homepage": "https://www.drupal.org/user/1812910"
-                },
-                {
                     "name": "amitaibu",
                     "homepage": "https://www.drupal.org/user/57511"
+                },
+                {
+                    "name": "Grayside",
+                    "homepage": "https://www.drupal.org/user/346868"
                 },
                 {
                     "name": "itamar",
@@ -9321,6 +9317,10 @@
                 {
                     "name": "jhedstrom",
                     "homepage": "https://www.drupal.org/user/208732"
+                },
+                {
+                    "name": "RoySegall",
+                    "homepage": "https://www.drupal.org/user/1812910"
                 }
             ],
             "description": "Message",
@@ -9368,16 +9368,16 @@
             ],
             "authors": [
                 {
-                    "name": "RoySegall",
-                    "homepage": "https://www.drupal.org/user/1812910"
-                },
-                {
                     "name": "amitaibu",
                     "homepage": "https://www.drupal.org/user/57511"
                 },
                 {
                     "name": "jhedstrom",
                     "homepage": "https://www.drupal.org/user/208732"
+                },
+                {
+                    "name": "RoySegall",
+                    "homepage": "https://www.drupal.org/user/1812910"
                 }
             ],
             "description": "Notification framework for the Message module",
@@ -9435,10 +9435,6 @@
             ],
             "authors": [
                 {
-                    "name": "RoySegall",
-                    "homepage": "https://www.drupal.org/user/1812910"
-                },
-                {
                     "name": "amitaibu",
                     "homepage": "https://www.drupal.org/user/57511"
                 },
@@ -9449,6 +9445,10 @@
                 {
                     "name": "jhedstrom",
                     "homepage": "https://www.drupal.org/user/208732"
+                },
+                {
+                    "name": "RoySegall",
+                    "homepage": "https://www.drupal.org/user/1812910"
                 }
             ],
             "description": "Subscription API for the Message and Message notify modules",
@@ -10742,8 +10742,8 @@
                     "dev-2.x": "2.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-2.0-beta1+2-dev",
-                    "datestamp": "1661352550",
+                    "version": "8.x-2.0-beta1+3-dev",
+                    "datestamp": "1667431757",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -27221,16 +27221,16 @@
         },
         {
             "name": "va-gov/content-build",
-            "version": "v0.0.3132",
+            "version": "v0.0.3134",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/content-build.git",
-                "reference": "6dc80d182b656f43e837d0292ad79be698750a9c"
+                "reference": "9a11cf3bace8f1f6c07881660b05c92cf691ad49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/6dc80d182b656f43e837d0292ad79be698750a9c",
-                "reference": "6dc80d182b656f43e837d0292ad79be698750a9c",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/9a11cf3bace8f1f6c07881660b05c92cf691ad49",
+                "reference": "9a11cf3bace8f1f6c07881660b05c92cf691ad49",
                 "shasum": ""
             },
             "type": "node-project",
@@ -27257,9 +27257,9 @@
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/content-build, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
             "support": {
                 "issues": "https://github.com/department-of-veterans-affairs/content-build/issues",
-                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3132"
+                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3134"
             },
-            "time": "2022-10-27T21:12:16+00:00"
+            "time": "2022-11-02T21:11:14+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

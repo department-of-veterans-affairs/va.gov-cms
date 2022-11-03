@@ -1,0 +1,91 @@
+uuid: c9e89373-ad1e-4d92-98c5-5ef003aaa3fc
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.news_promo
+    - field.field.block_content.news_promo.field_administration
+    - field.field.block_content.news_promo.field_image
+    - field.field.block_content.news_promo.field_link
+    - field.field.block_content.news_promo.field_link_label
+    - field.field.block_content.news_promo.field_promo_headline
+    - field.field.block_content.news_promo.field_promo_text
+  module:
+    - content_moderation
+    - link
+    - media_library
+    - textfield_counter
+id: block_content.news_promo.default
+targetEntityType: block_content
+bundle: news_promo
+mode: default
+content:
+  field_administration:
+    type: options_select
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_image:
+    type: media_library_widget
+    weight: 1
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+  field_link:
+    type: link_default
+    weight: 4
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_link_label:
+    type: options_select
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_promo_headline:
+    type: string_textfield_with_counter
+    weight: 2
+    region: content
+    settings:
+      size: 100
+      placeholder: ''
+      use_field_maxlength: true
+      maxlength: 0
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+    third_party_settings: {  }
+  field_promo_text:
+    type: string_textarea_with_counter
+    weight: 3
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+      maxlength: 512
+      counter_position: after
+      js_prevent_submit: false
+      count_html_characters: true
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+    third_party_settings: {  }
+  info:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

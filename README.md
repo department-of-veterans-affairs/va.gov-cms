@@ -25,7 +25,7 @@ The VA.gov CMS Team
    1. [Project Conventions](READMES/project-conventions.md)
    1. [Environments](READMES/environments.md)
       1. [CI Environments](READMES/tugboat.md)
-      1. [Local - Lando](READMES/local.md)
+      1. [Local - DDEV](READMES/local.md)
       1. [BRD Environments](READMES/brd.md)
       1. [HTTPS](READMES/https.md)
       1. [Environment Variables](READMES/environment-variables.md)

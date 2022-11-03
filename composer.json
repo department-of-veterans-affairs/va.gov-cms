@@ -20,7 +20,7 @@
         "composer/installers": "^2.2.0",
         "consolidation/site-process": "^4.1",
         "cweagans/composer-patches": "^1.7",
-        "datadog/dd-trace": "^0.80.0",
+        "datadog/dd-trace": "^0.81.0",
         "drupal/address": "^1.4",
         "drupal/admin_feedback": "^2.2",
         "drupal/admin_toolbar": "^3.0",
@@ -200,7 +200,7 @@
         "symfony/process": "^4.0",
         "symfony/routing": "^4.0",
         "traviscarden/behat-table-comparison": "~0.2",
-        "va-gov/content-build": "^0.0.3132",
+        "va-gov/content-build": "^0.0.3134",
         "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
@@ -462,6 +462,9 @@
             },
             "drupal/prometheus_exporter": {
                 "3214628 - Add published/unpublished node statistics to NodeCount.": "https://www.drupal.org/files/issues/2021-06-29/prometheus_exporter-add_status_metrics_to_node_count-3214628-3.patch"
+            },
+            "drupal/raven": {
+                "Sentry/Dsn throws a TypeError, blowing up everything.": "patches/raven-catch-typeerror.patch"
             },
             "drupal/schemata": {
                 "3198409 - Plugin definitions are not cached": "https://www.drupal.org/files/issues/2021-02-14/3198409_2.patch",
