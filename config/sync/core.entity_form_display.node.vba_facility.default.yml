@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_form_mode.node.inline_entity_form
     - field.field.node.vba_facility.field_address
     - field.field.node.vba_facility.field_administration
     - field.field.node.vba_facility.field_facility_locator_api_id
@@ -18,13 +19,17 @@ dependencies:
     - field.field.node.vba_facility.field_operating_status_more_info
     - field.field.node.vba_facility.field_phone_number
     - field.field.node.vba_facility.field_shared_vha_location
+    - field.field.node.vba_facility.field_vba_services
     - node.type.vba_facility
     - workflows.workflow.editorial
   module:
     - address
     - content_moderation
+    - entity_browser_entity_form
     - field_group
     - geofield
+    - ief_table_view_mode
+    - limited_field_widgets
     - link
     - media_library
     - office_hours
@@ -39,7 +44,7 @@ third_party_settings:
       label: 'Operating status'
       region: content
       parent_name: ''
-      weight: 3
+      weight: 1
       format_type: fieldset
       format_settings:
         classes: ''
@@ -71,7 +76,7 @@ third_party_settings:
       label: 'Editorial Workflow'
       region: content
       parent_name: ''
-      weight: 5
+      weight: 6
       format_type: fieldset
       format_settings:
         classes: ''
@@ -127,7 +132,7 @@ third_party_settings:
       label: 'VBA DB'
       region: content
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: fieldset
       format_settings:
         classes: ''
@@ -143,7 +148,7 @@ third_party_settings:
       label: 'Facility Intro and Photo'
       region: content
       parent_name: ''
-      weight: 1
+      weight: 2
       format_type: fieldset
       format_settings:
         classes: ''
@@ -269,6 +274,28 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_vba_services:
+    type: inline_entity_form_complex_table_view_mode
+    weight: 5
+    region: content
+    settings:
+      form_mode: inline_entity_form
+      override_labels: true
+      label_singular: service
+      label_plural: services
+      allow_new: true
+      allow_existing: false
+      match_operator: CONTAINS
+      allow_duplicate: false
+      collapsible: false
+      collapsed: false
+      revision: false
+      allow_system_delete: 0
+    third_party_settings:
+      entity_browser_entity_form:
+        entity_browser_id: _none
+      limited_field_widgets:
+        limit_values: '0'
   flag:
     weight: 6
     region: content

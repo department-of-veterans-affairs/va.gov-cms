@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.outreach_asset.field_benefits
     - field.field.node.outreach_asset.field_description
     - field.field.node.outreach_asset.field_format
+    - field.field.node.outreach_asset.field_lc_categories
     - field.field.node.outreach_asset.field_listing
     - field.field.node.outreach_asset.field_media
     - field.field.node.outreach_asset.field_meta_tags
@@ -25,7 +26,7 @@ third_party_settings:
       label: 'Section settings'
       region: content
       parent_name: ''
-      weight: 12
+      weight: 13
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -40,7 +41,7 @@ third_party_settings:
       label: 'Editorial workflow'
       region: content
       parent_name: ''
-      weight: 11
+      weight: 12
       format_type: fieldset
       format_settings:
         classes: ''
@@ -53,7 +54,7 @@ third_party_settings:
       label: 'Meta Tags'
       region: content
       parent_name: ''
-      weight: 10
+      weight: 11
       format_type: fieldset
       format_settings:
         classes: ''
@@ -88,6 +89,12 @@ content:
   field_format:
     type: options_select
     weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_lc_categories:
+    type: options_select
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
