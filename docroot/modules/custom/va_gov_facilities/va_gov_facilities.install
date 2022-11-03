@@ -31,7 +31,6 @@ function va_gov_facilities_update_9001() {
       $term->field_show_for_vet_centers->value = 1;
       $field_labels[] = '"Show for Vet Centers"';
     }
-    $term->setRevisionUser($cms_migrator);
     if (!empty($field_labels)) {
       // There was a data change, so save it.
       _va_gov_facilities_save_term($term, $updated, $failed, $taxonomy, $field_labels);
