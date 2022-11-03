@@ -11,7 +11,7 @@ use Psr\Log\LogLevel;
 /**
  * Update the show for checkboxes for terms in health_care_service_taxonomy.
  */
-function va_gov_facilities_update_9006() {
+function va_gov_facilities_update_9001() {
   $updated = 0;
   $failed = 0;
 
@@ -70,7 +70,7 @@ function _va_gov_facilities_save_term(TermInterface &$term, &$updated, &$failed,
     $term->setSyncing(TRUE);
     $term->setValidationRequired(FALSE);
     $labels = implode(',', $field_labels);
-    $term->setRevisionLogMessage("Updated $labels checkbox(es).");
+    $term->setRevisionLogMessage("CMS Migrator updated $labels checkbox(es).");
     $term->isDefaultRevision(TRUE);
     $saved = $term->save();
     // Repeated save to clear out revision log.  There is an intentional bit
