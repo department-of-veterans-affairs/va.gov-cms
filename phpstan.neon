@@ -19,6 +19,8 @@ parameters:
   reportUnmatchedIgnoredErrors: false
   bootstrapFiles:
     - phpstan_bootstrap.php
+  scanFiles:
+    - scripts/content/script-library.php
 includes:
   - docroot/vendor/mglaman/phpstan-drupal/extension.neon
   - docroot/vendor/phpstan/phpstan-deprecation-rules/rules.neon

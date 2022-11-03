@@ -1,3 +1,4 @@
+
 @api
 Feature: Content model: Vocabulary fields
   In order to enter structured content into my site
@@ -16,6 +17,8 @@ Feature: Content model: Vocabulary fields
 | Vocabulary | Facility Supplemental Status | Guidance | field_guidance | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Vocabulary | Facility Supplemental Status | Status ID | field_status_id | Text (plain) | Required | 1 | Textfield |  |
 | Vocabulary | Products | Knowledge base landing page | field_kb_landing_page | Entity reference |  | 1 | Autocomplete |  |
+| Vocabulary | Resources and support Categories | Enforce Unique Value | field_enforce_unique_value | Allow Only One |  | 1 | Allow Only One widget |  |
+| Vocabulary | Resources and support Categories | Topic ID | field_topic_id | Text (plain) | Required | 1 | Textfield |  |
 | Vocabulary | Sections | Description | field_description | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | Sections | Product | field_product | Entity reference |  | 1 | Select list |  |
 | Vocabulary | VA Services | Patient-friendly name | field_also_known_as | Text (plain) |  | 1 | Textfield |  |
