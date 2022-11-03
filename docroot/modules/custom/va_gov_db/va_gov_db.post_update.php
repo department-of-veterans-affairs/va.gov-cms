@@ -28,7 +28,7 @@ function va_gov_db_post_update_resave_facility_nodes(&$sandbox) {
     $sandbox['total'] = $result_count;
     $sandbox['current'] = 0;
     $sandbox['nids_to_update'] = array_combine(
-            array_map('_va_gov_stringifynid', array_values($nids_to_update)),
+            array_map('_va_gov_db_stringifynid', array_values($nids_to_update)),
             array_values($nids_to_update));
   }
 
@@ -102,6 +102,6 @@ function va_gov_db_post_update_strip_trailing_redirect_slashes() {
  * @return string
  *   The node id concatenated to the end o node_
  */
-function _va_gov_stringifynid($nid) {
+function _va_gov_db_stringifynid($nid) {
   return "node_$nid";
 }
