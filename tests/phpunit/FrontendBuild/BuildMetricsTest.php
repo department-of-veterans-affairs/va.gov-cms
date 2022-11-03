@@ -5,7 +5,6 @@ namespace tests\phpunit\FrontendBuild;
 use Drupal\Core\Http\RequestStack;
 use Drupal\Core\KeyValueStore\KeyValueMemoryFactory;
 use Drupal\Core\State\State;
-use Drupal\Tests\UnitTestCase;
 use Drupal\va_gov_build_trigger\Plugin\MetricsCollector\ContentReleaseDuration;
 use Drupal\va_gov_build_trigger\Plugin\MetricsCollector\ContentReleaseDurationRollingAverage;
 use Drupal\va_gov_build_trigger\Plugin\MetricsCollector\ContentReleaseInterval;
@@ -13,6 +12,7 @@ use Drupal\va_gov_build_trigger\Plugin\MetricsCollector\ContentReleaseIntervalRo
 use Drupal\va_gov_build_trigger\Plugin\MetricsCollector\TimeSinceLastContentRelease;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
 use Tests\Support\Mock\SpecifiedTime;
+use Tests\Support\Classes\VaGovUnitTestBase;
 
 /**
  * Unit test for build metrics.
@@ -20,7 +20,7 @@ use Tests\Support\Mock\SpecifiedTime;
  * @group unit
  * @group all
  */
-class BuildMetricsTest extends UnitTestCase {
+class BuildMetricsTest extends VaGovUnitTestBase {
 
   /**
    * The state service.
