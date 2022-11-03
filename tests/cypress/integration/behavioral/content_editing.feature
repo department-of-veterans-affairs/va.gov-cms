@@ -93,3 +93,9 @@ Feature: CMS Users may effectively create & edit content
     # Make sure we are in draft state
     Then I edit the node
     And the option "Draft" from dropdown with selector "#edit-moderation-state-0-state" should be selected
+
+  Scenario: Confirm that the EWA block is shown correctly.
+    Given I am logged in as a user with the "content_admin" role
+    When I create a "office" node
+    And the element with selector "#block-entitymetadisplay" should contain "Content Type: Office"
+    And the element with selector "#block-entitymetadisplay" should not contain "VA.gov URL"
