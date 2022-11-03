@@ -2,14 +2,14 @@
 
 /**
  * @file
- * Install file for Va Gov Backend.
+ * Install file for Va Gov Facilities.
  */
 
 use Drupal\taxonomy\TermInterface;
 use Psr\Log\LogLevel;
 
 /**
- * Update the checkbox for terms in health_care_service_taxonomy vocab.
+ * Update the show for checkboxes for terms in health_care_service_taxonomy.
  */
 function va_gov_facilities_update_9001() {
   $updated = 0;
@@ -38,6 +38,7 @@ function va_gov_facilities_update_9001() {
     '%updated' => $updated,
     '%failed' => $failed,
   ]);
+  return "Updated  {$updated} health_care_service_taxonomy terms and failed to update {$failed} terms.";
 }
 
 /**
@@ -56,6 +57,12 @@ function va_gov_facilities_update_9001() {
  */
 function _va_gov_facilities_save_term(TermInterface &$term, &$updated, &$failed, $taxonomy, array $field_labels): void {
   try {
+    $term->setRevisionCreationTime(time());
+    $term->setChangedTime(time());
+    $term->setNewRevision(TRUE);
+    $term->isDefaultRevision(TRUE);
+    // Setting revision as CMS migrator.
+    $term->setRevisionUserId(1317);
     $saved = $term->save();
     $updated = (($saved === SAVED_NEW) || ($saved === SAVED_UPDATED)) ? ++$updated : $updated;
     foreach ($field_labels as $field_label) {
