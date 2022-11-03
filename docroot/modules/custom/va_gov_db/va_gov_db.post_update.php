@@ -92,3 +92,16 @@ function va_gov_db_post_update_strip_trailing_redirect_slashes() {
     ->expression('redirect_source__path', 'TRIM(TRAILING \'/\' FROM redirect_source__path)')
     ->execute();
 }
+
+/**
+ * Callback function to concat node ids with string.
+ *
+ * @param int $nid
+ *   The node id.
+ *
+ * @return string
+ *   The node id concatenated to the end o node_
+ */
+function _va_gov_stringifynid($nid) {
+  return "node_$nid";
+}
