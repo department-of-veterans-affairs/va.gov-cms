@@ -1,0 +1,106 @@
+uuid: 5f4606f1-9f03-4468-9f23-e9297225fb98
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.node.inline_entity_form
+    - field.field.node.vba_facility_service.field_administration
+    - field.field.node.vba_facility_service.field_body
+    - field.field.node.vba_facility_service.field_enforce_unique_combo
+    - field.field.node.vba_facility_service.field_office
+    - field.field.node.vba_facility_service.field_service_name_and_descripti
+    - node.type.vba_facility_service
+  module:
+    - field_group
+    - text
+third_party_settings:
+  field_group:
+    group_section_settings:
+      children: {  }
+      label: 'Section settings'
+      region: hidden
+      parent_name: ''
+      weight: 7
+      format_type: details_sidebar
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: true
+        weight: 0
+    group_editorial_workflow:
+      children:
+        - moderation_state
+      label: 'Editorial workflow'
+      region: hidden
+      parent_name: ''
+      weight: 8
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        description: ''
+        required_fields: true
+        description_display: after
+id: node.vba_facility_service.inline_entity_form
+targetEntityType: node
+bundle: vba_facility_service
+mode: inline_entity_form
+content:
+  body:
+    type: text_textarea_with_summary
+    weight: 5
+    region: content
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: {  }
+  field_administration:
+    type: options_select
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_body:
+    type: text_textarea
+    weight: 4
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_office:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_service_name_and_descripti:
+    type: options_select
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_enforce_unique_combo: true
+  moderation_state: true
+  path: true
+  promote: true
+  status: true
+  sticky: true
+  uid: true
+  url_redirects: true

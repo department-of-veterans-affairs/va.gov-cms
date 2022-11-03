@@ -194,6 +194,7 @@ Feature: Views
       | Health care service names and descriptions | Master | default | Default |
       | Health care service names and descriptions | Non clinical service | entity_reference_non_clinical_services | Entity Reference |
       | Health care service names and descriptions | VAMC health service and type of care - entity reference | entity_reference_vamc_services | Entity Reference |
+      | Health care service names and descriptions | VBA services | entity_reference_vba_services | Entity Reference |
       | Health care service names and descriptions | Vet Center health service and type of care - entity reference | entity_reference_vet_center_services | Entity Reference |
       | Image Style Warmer Warmup Files | Files overview  | page_1 | Page |
       | Image Style Warmer Warmup Files | Master | default | Default |

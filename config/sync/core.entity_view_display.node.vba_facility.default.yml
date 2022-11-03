@@ -18,6 +18,7 @@ dependencies:
     - field.field.node.vba_facility.field_operating_status_more_info
     - field.field.node.vba_facility.field_phone_number
     - field.field.node.vba_facility.field_shared_vha_location
+    - field.field.node.vba_facility.field_vba_services
     - node.type.vba_facility
   module:
     - address
@@ -235,6 +236,14 @@ content:
       link: true
     third_party_settings: {  }
     weight: 3
+    region: content
+  field_vba_services:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 10
     region: content
 hidden:
   content_moderation_control: true
