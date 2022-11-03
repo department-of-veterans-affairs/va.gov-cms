@@ -30,7 +30,9 @@ jobs:
       #
       - name: Find available advice for each modified file.
         id: find_advice
+        continue-on-error: true
         run: |
+          git fetch;
           mkdir -p ./.pr_advice;
           advice_path=".github/workflows/config/advice/";
           while read filename; do
@@ -69,6 +71,7 @@ jobs:
  
       - name: Provide advice in a PR comment.
         if: steps.find_advice.outputs.provide_advice == 'true'
+        continue-on-error: true
         run: |
           # Find comments containing token, if any, and delete them.
           gh api \
