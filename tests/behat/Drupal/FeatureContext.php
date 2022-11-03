@@ -8,7 +8,7 @@ use Drupal\DrupalExtension\Context\DrushContext;
 use Drupal\DrupalExtension\Context\RawDrupalContext;
 use Drupal\user\Entity\User;
 
-error_reporting(error_reporting() & ~E_USER_DEPRECATED);
+error_reporting(error_reporting() & ~E_USER_DEPRECATED & ~E_DEPRECATED);
 
 /**
  * FeatureContext class defines custom step definitions for Behat.
