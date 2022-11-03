@@ -20,7 +20,7 @@
         "composer/installers": "^2.2.0",
         "consolidation/site-process": "^4.1",
         "cweagans/composer-patches": "^1.7",
-        "datadog/dd-trace": "^0.80.0",
+        "datadog/dd-trace": "^0.81.0",
         "drupal/address": "^1.4",
         "drupal/admin_feedback": "^2.2",
         "drupal/admin_toolbar": "^3.0",
@@ -132,6 +132,7 @@
         "drupal/paragraphs": "^1.5",
         "drupal/paragraphs_browser": "^1.0@alpha",
         "drupal/paragraphs_features": "^1.12",
+        "drupal/paragraphs_usage": "^1.0",
         "drupal/password_policy": "3.1.0",
         "drupal/password_strength": "2.x-dev@dev",
         "drupal/path_redirect_import": "^1.0@beta",
@@ -199,7 +200,7 @@
         "symfony/process": "^4.0",
         "symfony/routing": "^4.0",
         "traviscarden/behat-table-comparison": "~0.2",
-        "va-gov/content-build": "^0.0.3130",
+        "va-gov/content-build": "^0.0.3134",
         "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
@@ -462,6 +463,9 @@
             "drupal/prometheus_exporter": {
                 "3214628 - Add published/unpublished node statistics to NodeCount.": "https://www.drupal.org/files/issues/2021-06-29/prometheus_exporter-add_status_metrics_to_node_count-3214628-3.patch"
             },
+            "drupal/raven": {
+                "Sentry/Dsn throws a TypeError, blowing up everything.": "patches/raven-catch-typeerror.patch"
+            },
             "drupal/schemata": {
                 "3198409 - Plugin definitions are not cached": "https://www.drupal.org/files/issues/2021-02-14/3198409_2.patch",
                 "3190131 - Possibly unnecessary logging in SchemaFactory::create().": "https://www.drupal.org/files/issues/2020-12-28/schemata-remove-logging-statement-3190131-2.patch"
@@ -632,6 +636,8 @@
             "touch .buildlock",
             "mkdir -p web/build/vagovdev",
             "echo {} > web/build/vagovdev/metalsmith-build-data.json",
+            "cp patches/content-build-gql-logging.patch web/",
+            "cd web; git apply content-build-gql-logging.patch || echo 'patch failed'",
             "cd web; INSTALL_HOOKS=no NODE_ENV=production yarn build --pull-drupal --gql-queries-only --nosymlink --no-drupal-proxy --api=https://dev-api.va.gov --buildtype=vagovdev",
             "rm .buildlock"
         ],

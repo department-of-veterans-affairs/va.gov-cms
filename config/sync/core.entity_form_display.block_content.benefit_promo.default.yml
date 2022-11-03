@@ -1,0 +1,79 @@
+uuid: dc8c65f9-4223-4e21-b201-a979b27118ae
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.benefit_promo
+    - field.field.block_content.benefit_promo.field_administration
+    - field.field.block_content.benefit_promo.field_promo_cta
+    - field.field.block_content.benefit_promo.field_promo_headline
+    - field.field.block_content.benefit_promo.field_promo_text
+  module:
+    - content_moderation
+    - paragraphs
+    - textfield_counter
+id: block_content.benefit_promo.default
+targetEntityType: block_content
+bundle: benefit_promo
+mode: default
+content:
+  field_administration:
+    type: options_select
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_promo_cta:
+    type: entity_reference_paragraphs
+    weight: 3
+    region: content
+    settings:
+      title: 'Call to Action Link'
+      title_plural: 'Call to Action Links'
+      edit_mode: open
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: button
+    third_party_settings: {  }
+  field_promo_headline:
+    type: string_textfield_with_counter
+    weight: 1
+    region: content
+    settings:
+      size: 100
+      placeholder: ''
+      use_field_maxlength: true
+      maxlength: 0
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+    third_party_settings: {  }
+  field_promo_text:
+    type: string_textarea_with_counter
+    weight: 2
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+      maxlength: 512
+      counter_position: after
+      js_prevent_submit: false
+      count_html_characters: true
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+    third_party_settings: {  }
+  info:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

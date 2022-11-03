@@ -1,0 +1,25 @@
+uuid: a3bd69da-1686-4d7b-b32d-753754c38ae5
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.news_promo
+    - field.storage.block_content.field_promo_headline
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: block_content.news_promo.field_promo_headline
+field_name: field_promo_headline
+entity_type: block_content
+bundle: news_promo
+label: 'Promo Headline'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

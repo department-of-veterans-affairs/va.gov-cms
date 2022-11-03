@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
 
 /**
  * Implements hook_help().
@@ -19,4 +20,22 @@ function va_gov_lovell_help($route_name, RouteMatchInterface $route_match) {
   }
 
   return NULL;
+}
+
+/**
+ * Implements hook_entity_bundle_field_info_alter().
+ */
+function va_gov_lovell_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $entity_type, $bundle) {
+  $list_item_bundles = [
+    'event',
+    'news_story',
+    'press_release',
+  ];
+  if (($entity_type->id() === 'node')
+  && (in_array($bundle, $list_item_bundles))
+  && (isset($fields['field_listing']))
+  && (isset($fields['field_administration']))) {
+    // Limit the listing selection based on section.
+    $fields['field_listing']->addConstraint('LovellSectionListParity');
+  }
 }

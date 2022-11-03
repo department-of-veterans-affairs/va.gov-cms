@@ -5,9 +5,9 @@ Feature: Content model bundles
   I want to have content entity bundles that reflect my content model.
 
   @dst @content_type @dstbundles
-     Scenario: Bundles
-       Then exactly the following content entity type bundles should exist
-       | Name | Machine name | Type | Description |
+    Scenario: Bundles
+      Then exactly the following content entity type bundles should exist
+      | Name | Machine name | Type | Description |
 | Full Width Alert | banner | Content type | A full width dismissible banner |
 | Landing Page | basic_landing_page | Content type | Basic Landing Page can be used to build one-off pages for various products. E.g. a homepage for a specific product. |
 | Campaign Landing Page | campaign_landing_page | Content type |  |
@@ -59,7 +59,9 @@ Feature: Content model bundles
 | Vet Center - Outstation | vet_center_outstation | Content type | Location information for remote facilities related to a main Vet Center. |
 | VAMC Facility Non-clinical Service | vha_facility_nonclinical_service | Content type | Address and contact info for offices and other non-clinical service locations. This content is always embedded within a VAMC system non-clinical service page. |
 | Alert | alert | Custom block type | An alert box that can be added to individual pages. |
+| Benefit Promo | benefit_promo | Custom block type | A call to action with a title, description, CTA label and link. |
 | CMS Announcement | cms_announcement | Custom block type | Display an announcement to CMS users. |
+| News Promo | news_promo | Custom block type | Promote a news link with a title and description. |
 | Promo | promo | Custom block type | Promote a link with an image, title, and description. |
 | Document | document | Media type | A locally hosted document, such as a PDF. |
 | Document - External | document_external | Media type |  |

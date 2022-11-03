@@ -1,0 +1,24 @@
+uuid: a995daba-09dd-46d8-b5d8-27a3db8d5713
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_content
+    - options
+id: block_content.field_link_label
+field_name: field_link_label
+entity_type: block_content
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: 'Read the full article'
+      label: 'Read the full article'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

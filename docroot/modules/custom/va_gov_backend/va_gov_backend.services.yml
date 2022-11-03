@@ -4,6 +4,11 @@ services:
     arguments: ['@string_translation', '@va_gov_user.user_perms', '@entity_type.manager', '@entity_field.manager']
     tags:
       - { name: event_subscriber }
+  va_gov_backend.views_event_subscriber:
+    class: Drupal\va_gov_backend\EventSubscriber\TableAuditViewsEventSubscriber
+    arguments: ['@renderer', '@va_gov_backend.va_gov_url']
+    tags:
+      - { name: event_subscriber }
   va_gov_backend.theme_suggestions:
     class: Drupal\va_gov_backend\EventSubscriber\ThemeEventSubscriber
     tags:
