@@ -12,6 +12,7 @@ dependencies:
     - field.field.taxonomy_term.health_care_service_taxonomy.field_show_for_vamc_facilities
     - field.field.taxonomy_term.health_care_service_taxonomy.field_show_for_vba_facilities
     - field.field.taxonomy_term.health_care_service_taxonomy.field_show_for_vet_centers
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_tricare_description
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vba_com_conditions
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vba_friendly_name
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vba_service_descrip
@@ -64,7 +65,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 11
+    weight: 12
     region: content
   field_health_service_api_id:
     type: string
@@ -89,7 +90,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 12
+    weight: 13
     region: content
   field_show_for_vba_facilities:
     type: boolean
@@ -99,7 +100,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 14
+    weight: 15
     region: content
   field_show_for_vet_centers:
     type: boolean
@@ -109,7 +110,14 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 13
+    weight: 14
+    region: content
+  field_tricare_description:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
     region: content
   field_vba_com_conditions:
     type: string
@@ -117,7 +125,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 16
+    weight: 17
     region: content
   field_vba_friendly_name:
     type: string
@@ -125,14 +133,14 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 15
+    weight: 16
     region: content
   field_vba_service_descrip:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 17
+    weight: 18
     region: content
   field_vet_center_com_conditions:
     type: string
@@ -158,7 +166,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 10
+    weight: 11
     region: content
   field_vet_center_service_descrip:
     type: basic_string
