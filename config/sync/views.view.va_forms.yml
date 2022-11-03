@@ -1124,15 +1124,15 @@ display:
             revision_uid: revision_uid
             title: title
             edit_node: edit_node
-            changed: changed
             moderation_state: moderation_state
             field_administration: field_administration
-            field_va_form_name: field_va_form_name
-            field_va_form_administration: field_va_form_administration
-            field_va_form_issue_date: field_va_form_issue_date
             field_va_form_revision_date: field_va_form_revision_date
+            field_va_form_name: field_va_form_name
+            changed: changed
+            field_va_form_issue_date: field_va_form_issue_date
             field_va_form_usage: field_va_form_usage
             field_va_form_tool_url: field_va_form_tool_url
+            field_va_form_administration: field_va_form_administration
           default: changed
           info:
             nid:
@@ -1163,13 +1163,6 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            changed:
-              sortable: true
-              default_sort_order: desc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
             moderation_state:
               sortable: false
               default_sort_order: asc
@@ -1184,6 +1177,13 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
+            field_va_form_revision_date:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
             field_va_form_name:
               sortable: true
               default_sort_order: asc
@@ -1191,9 +1191,9 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_va_form_administration:
+            changed:
               sortable: true
-              default_sort_order: asc
+              default_sort_order: desc
               align: ''
               separator: ''
               empty_column: false
@@ -1201,13 +1201,6 @@ display:
             field_va_form_issue_date:
               sortable: true
               default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_va_form_revision_date:
-              sortable: true
-              default_sort_order: desc
               align: ''
               separator: ''
               empty_column: false
@@ -1220,6 +1213,13 @@ display:
               empty_column: false
               responsive: ''
             field_va_form_tool_url:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_va_form_administration:
+              sortable: false
+              default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
@@ -1835,7 +1835,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: false
+          element_label_colon: true
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -2327,6 +2327,198 @@ display:
           reduce_duplicates: 0
           section_filter:
             show_hierarchy: 1
+        field_va_form_administration_target_id:
+          id: field_va_form_administration_target_id
+          table: node__field_va_form_administration
+          field: field_va_form_administration_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value:
+            8: 8
+            2: 2
+            1: 1
+            3: 3
+            193: 193
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_va_form_administration_target_id_op
+            label: 'Form administration'
+            description: ''
+            use_operator: false
+            operator: field_va_form_administration_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_va_form_administration_target_id
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+            reduce: true
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: administration
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
+        field_va_form_issue_date_value:
+          id: field_va_form_issue_date_value
+          table: node__field_va_form_issue_date
+          field: field_va_form_issue_date_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: datetime
+          operator: '>='
+          value:
+            min: ''
+            max: ''
+            value: ''
+            type: date
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_va_form_issue_date_value_op
+            label: 'Issue date'
+            description: 'A date in any machine readable format. CCYY-MM-DD HH:MM:SS is preferred'
+            use_operator: true
+            operator: field_va_form_issue_date_value_op
+            operator_limit_selection: true
+            operator_list:
+              '<=': '<='
+              '>=': '>='
+              between: between
+              empty: empty
+              'not empty': 'not empty'
+            identifier: field_va_form_issue_date_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_va_form_revision_date_value:
+          id: field_va_form_revision_date_value
+          table: node__field_va_form_revision_date
+          field: field_va_form_revision_date_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: datetime
+          operator: '>='
+          value:
+            min: ''
+            max: ''
+            value: ''
+            type: date
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_va_form_revision_date_value_op
+            label: 'Revision date'
+            description: 'A date in any machine readable format. CCYY-MM-DD HH:MM:SS is preferred'
+            use_operator: true
+            operator: field_va_form_revision_date_value_op
+            operator_limit_selection: true
+            operator_list:
+              '<=': '<='
+              '>=': '>='
+              between: between
+              empty: empty
+              'not empty': 'not empty'
+            identifier: field_va_form_revision_date_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
         field_va_form_usage_value:
           id: field_va_form_usage_value
           table: node__field_va_form_usage
@@ -2432,198 +2624,6 @@ display:
               redirect_administrator: '0'
               admnistrator_users: '0'
               administrator: '0'
-            placeholder: ''
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-        field_va_form_administration_target_id:
-          id: field_va_form_administration_target_id
-          table: node__field_va_form_administration
-          field: field_va_form_administration_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: taxonomy_index_tid
-          operator: or
-          value:
-            5: 5
-            2: 2
-            1: 1
-            3: 3
-            193: 193
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_va_form_administration_target_id_op
-            label: 'Form administration'
-            description: ''
-            use_operator: false
-            operator: field_va_form_administration_target_id_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_va_form_administration_target_id
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_api_consumer: '0'
-              content_creator_benefits_hubs: '0'
-              content_creator_resources_and_support: '0'
-              office_content_creator: '0'
-              vamc_content_creator: '0'
-              content_creator_vet_center: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              content_admin: '0'
-              redirect_administrator: '0'
-              admnistrator_users: '0'
-              administrator: '0'
-            reduce: true
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          vid: administration
-          type: select
-          hierarchy: false
-          limit: true
-          error_message: true
-        field_va_form_revision_date_value:
-          id: field_va_form_revision_date_value
-          table: node__field_va_form_revision_date
-          field: field_va_form_revision_date_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: datetime
-          operator: '>='
-          value:
-            min: ''
-            max: ''
-            value: ''
-            type: date
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_va_form_revision_date_value_op
-            label: 'Revision date'
-            description: 'A date in any machine readable format. CCYY-MM-DD HH:MM:SS is preferred'
-            use_operator: true
-            operator: field_va_form_revision_date_value_op
-            operator_limit_selection: true
-            operator_list:
-              '<=': '<='
-              '>=': '>='
-              between: between
-              empty: empty
-              'not empty': 'not empty'
-            identifier: field_va_form_revision_date_value
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_api_consumer: '0'
-              content_creator_benefits_hubs: '0'
-              content_creator_resources_and_support: '0'
-              office_content_creator: '0'
-              vamc_content_creator: '0'
-              content_creator_vet_center: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              content_admin: '0'
-              redirect_administrator: '0'
-              admnistrator_users: '0'
-              administrator: '0'
-            min_placeholder: ''
-            max_placeholder: ''
-            placeholder: ''
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-        field_va_form_issue_date_value:
-          id: field_va_form_issue_date_value
-          table: node__field_va_form_issue_date
-          field: field_va_form_issue_date_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: datetime
-          operator: '>='
-          value:
-            min: ''
-            max: ''
-            value: ''
-            type: date
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_va_form_issue_date_value_op
-            label: 'Issue date'
-            description: 'A date in any machine readable format. CCYY-MM-DD HH:MM:SS is preferred'
-            use_operator: true
-            operator: field_va_form_issue_date_value_op
-            operator_limit_selection: true
-            operator_list:
-              '<=': '<='
-              '>=': '>='
-              between: between
-              empty: empty
-              'not empty': 'not empty'
-            identifier: field_va_form_issue_date_value
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_api_consumer: '0'
-              content_creator_benefits_hubs: '0'
-              content_creator_resources_and_support: '0'
-              office_content_creator: '0'
-              vamc_content_creator: '0'
-              content_creator_vet_center: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              content_admin: '0'
-              redirect_administrator: '0'
-              admnistrator_users: '0'
-              administrator: '0'
-            min_placeholder: ''
-            max_placeholder: ''
             placeholder: ''
           is_grouped: false
           group_info:
