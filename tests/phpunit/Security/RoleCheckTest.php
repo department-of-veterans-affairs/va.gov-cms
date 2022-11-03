@@ -3,7 +3,7 @@
 namespace tests\phpunit\Security;
 
 use Drupal\user\Entity\Role;
-use weitzman\DrupalTestTraits\ExistingSiteBase;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * A test to confirm role names.
@@ -12,7 +12,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  * @group security
  * @group all
  */
-class RoleCheckTest extends ExistingSiteBase {
+class RoleCheckTest extends VaGovExistingSiteBase {
 
   /**
    * A test method to deterine if the role exists.

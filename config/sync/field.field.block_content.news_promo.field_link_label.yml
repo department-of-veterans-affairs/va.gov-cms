@@ -1,0 +1,28 @@
+uuid: 8935df98-a244-4a61-9be7-f3bb6acaa892
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.news_promo
+    - field.storage.block_content.field_link_label
+  module:
+    - epp
+    - options
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: block_content.news_promo.field_link_label
+field_name: field_link_label
+entity_type: block_content
+bundle: news_promo
+label: 'Link Text'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: read_full_article
+default_value_callback: ''
+settings: {  }
+field_type: list_string

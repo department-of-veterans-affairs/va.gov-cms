@@ -2,7 +2,7 @@
 
 namespace tests\phpunit\Performance;
 
-use weitzman\DrupalTestTraits\ExistingSiteBase;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * A test to confirm node creation performance.
@@ -10,7 +10,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  * @group functional
  * @group all
  */
-class CreateNodeTest extends ExistingSiteBase {
+class CreateNodeTest extends VaGovExistingSiteBase {
 
   /**
    * A test method to determine the amount of time it takes to create a node.

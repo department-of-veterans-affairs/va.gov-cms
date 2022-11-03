@@ -1,68 +1,64 @@
 ---
 name: Knowledge Base article
 about: Use this template for new CMS Knowledge Base articles that need to be written
-  and published.
-title: 'Request for new KB article: <insert topic here>'
+  and published or for requested updates to existing KB articles.
+title: 'Request for new or update to existing KB article : <insert topic here>'
 labels: Knowledge Base, Needs refining
 assignees: ''
 
 ---
 
 ## Background context
-**Topic**
-[Add details here. If possible, include an example of a use case or situation that illustrates the topic well.]
+**What is the request for?**
+- [If requesting an update, link to existing article. If requesting a new article, add details about the topic. If possible, include an example of a use case or situation that illustrates the topic well.]
 
 
-**Person and team requesting the article:** 
-- [name]
-- [team]
+**Person and team of requester:** 
+- [name], [team]
 
 
-**Associated SMEs/ stakeholders:** 
-- [name them here]
+**Priority or deadline for request**
 
+  Choose either Deadline or a priority:
+  
+- [ ] Deadline: [name the deadline here]
+- [ ] Priority:
+  - [ ] Critical - Without this, there is a large negative impact on the majority of editors causing negative consequences within the CMS; Should be completed as soon as possible
+  - [ ] High - Without this, there is negative impact on some editors causing negative consequences within the CMS; should be completed within the current sprint
+  - [ ] Medium - Without this, there is confusion for editors but not causing negative consequences within the CMS; Should be completed within the next 1-2 sprints
+  - [ ] Low - This is not currently causing confusion for many editors but would be a nice to have or is something that may be more impactful in the future; Should be completed within the next 3-4 sprints
+  
 
-**Audience:** 
-Who is this intended for? Who would need this information? (i.e. Everyone, non-admins, etc.)
+**Is the article associated with an ongoing product or feature update?**
+- [ ] Yes [Add the link to the relevant issue](URL)
+- [ ] No
+
+  
+## If requesting a new article:
+
+**Audience:**
+Who is this intended for? Who would need this information? (i.e. All editors, only editors for a particular product, Internal use only, etc.)
 - [name of product or type of editor]
 
 
-**Related KB articles:** 
-- [link them here]
+**Related KB articles, if applicable:** 
+- [If you know that related KB articles already exist, link them here]
 
   
-**Associated source of truth documentation:** 
+**Any other relevant documentation, if applicable:** 
 - [for example, could be the VA content style guide]
-
-
-**This article addresses:**
-- [ ] A business-driven need
-- [ ] A user-driven need
-
-
-**Does this article have a deadline?**
-- [ ] Yes: [name the deadline here]
-- [ ] No
-
-
-**Is the article associated with change management initiatives?**
-- [ ] Yes<br>
-  [Change Management Epic](URL)
-- [ ] No
-
-
-**What parts of the interface will link to the article, if any?** 
-- [list them here]
 
 
 ## Process
 1. Sitewide CMS and Helpdesk teams will review request and confirm no current, applicable KB article/content exists.
 2. Refine request and prioritize
-3. Assign to appropriate product team
-4. Draft article content 
-5. Sitewide CMS team will review for formatting and writing style guidelines
-6. Helpdesk team will review for functionality and editorial tone
-7. Publish
+3. Update KB article tracker to indicate that the article has been requested and is in progress
+4. Assign to appropriate product team
+5. Draft article content 
+6. Sitewide CMS team will review for formatting and writing style guidelines
+7. Helpdesk team will review for functionality and editorial tone
+8. Publish
+9. Update KB article tracker to indicate that the article has been published
 
 
 ## Acceptance Criteria
@@ -70,6 +66,5 @@ Who is this intended for? Who would need this information? (i.e. Everyone, non-a
 - [ ] Article is reviewed by Sitewide CMS
 - [ ] Article is reviewed by Helpdesk
 - [ ] Article posted to KB 
-- [ ] Article is assigned to a parent 
 - [ ] Impacts on other KB articles have been considered and any necessary changes have been made
 - [ ] Once published, the person requesting the article has been notified

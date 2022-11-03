@@ -5,7 +5,7 @@ namespace tests\phpunit\Migration;
 use Tests\Support\Entity\Storage as EntityStorage;
 use Tests\Support\Migration\Migrator;
 use Tests\Support\Mock\HttpClient as MockHttpClient;
-use weitzman\DrupalTestTraits\ExistingSiteBase;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * A test to confirm that the VA HC Facility Migration works correctly.
@@ -13,7 +13,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  * @group functional
  * @group all
  */
-class VaHealthCareLocalFacilityMigrationTest extends ExistingSiteBase {
+class VaHealthCareLocalFacilityMigrationTest extends VaGovExistingSiteBase {
 
   /**
    * Test the VA Health Care Local Facility Migration.
