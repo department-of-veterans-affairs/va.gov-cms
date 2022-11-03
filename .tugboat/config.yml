@@ -175,6 +175,7 @@ services:
         - ./bin/npm install
         - composer va:theme:compile
         - composer va:web:install
+        - drush cr
         - drush cim -y
         - drush deploy
 
