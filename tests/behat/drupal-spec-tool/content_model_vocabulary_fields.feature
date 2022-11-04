@@ -30,6 +30,7 @@ Feature: Content model: Vocabulary fields
 | Vocabulary | VA Services | Show for VAMC Facilities | field_show_for_vamc_facilities | Boolean |  | 1 | Single on/off checkbox |  |
 | Vocabulary | VA Services | Show for VBA Facilities | field_show_for_vba_facilities | Boolean |  | 1 | Single on/off checkbox |  |
 | Vocabulary | VA Services | Show for Vet Centers | field_show_for_vet_centers | Boolean |  | 1 | Single on/off checkbox |  |
+| Vocabulary | VA Services | TRICARE service description | field_tricare_description | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
 | Vocabulary | VA Services | VBA Common Conditions | field_vba_com_conditions | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | VA Services | VBA Patient Friendly Name | field_vba_friendly_name | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | VA Services | VBA Description | field_vba_service_descrip | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
