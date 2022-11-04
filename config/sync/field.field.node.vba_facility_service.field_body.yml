@@ -1,0 +1,30 @@
+uuid: a8986a3a-2dec-47c6-9c84-d9d790000c1f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_body
+    - node.type.vba_facility_service
+  module:
+    - allowed_formats
+    - epp
+    - text
+third_party_settings:
+  allowed_formats:
+    allowed_formats:
+      - rich_text_limited
+  epp:
+    value: ''
+    on_update: 0
+id: node.vba_facility_service.field_body
+field_name: field_body
+entity_type: node
+bundle: vba_facility_service
+label: 'VBA Service Description'
+description: 'Use this short paragraph and up to six bullet points to detail how your VBA Facility provides this service.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

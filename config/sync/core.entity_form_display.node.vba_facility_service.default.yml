@@ -1,0 +1,135 @@
+uuid: f4c0da6c-1c4d-4e7c-9748-db2d98170a19
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.vba_facility_service.field_administration
+    - field.field.node.vba_facility_service.field_body
+    - field.field.node.vba_facility_service.field_enforce_unique_combo
+    - field.field.node.vba_facility_service.field_office
+    - field.field.node.vba_facility_service.field_service_name_and_descripti
+    - node.type.vba_facility_service
+    - workflows.workflow.editorial
+  module:
+    - allow_only_one
+    - allowed_formats
+    - content_moderation
+    - field_group
+    - text
+third_party_settings:
+  field_group:
+    group_section_settings:
+      children:
+        - field_administration
+      label: 'Section settings'
+      region: content
+      parent_name: ''
+      weight: 5
+      format_type: details_sidebar
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: true
+        weight: 0
+    group_editorial_workflow:
+      children:
+        - moderation_state
+        - revision_log
+      label: 'Editorial workflow'
+      region: content
+      parent_name: ''
+      weight: 6
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        description: ''
+        required_fields: true
+        description_display: after
+id: node.vba_facility_service.default
+targetEntityType: node
+bundle: vba_facility_service
+mode: default
+content:
+  body:
+    type: text_textarea_with_summary
+    weight: 5
+    region: content
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: {  }
+  field_administration:
+    type: options_select
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_body:
+    type: text_textarea
+    weight: 4
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings:
+      allowed_formats:
+        hide_help: '1'
+        hide_guidelines: '1'
+  field_enforce_unique_combo:
+    type: allow_only_one_widget
+    weight: 1
+    region: content
+    settings:
+      size: 1
+    third_party_settings: {  }
+  field_office:
+    type: options_select
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_service_name_and_descripti:
+    type: options_select
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 7
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  url_redirects:
+    weight: 8
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  path: true
+  promote: true
+  sticky: true
+  uid: true

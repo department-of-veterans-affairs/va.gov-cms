@@ -1,0 +1,40 @@
+uuid: 2263639c-8aff-4bbe-af19-a51fb8d74024
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_lc_categories
+    - node.type.outreach_asset
+    - taxonomy.vocabulary.lc_categories
+  module:
+    - entity_reference_validators
+    - epp
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: false
+  epp:
+    value: ''
+    on_update: 0
+id: node.outreach_asset.field_lc_categories
+field_name: field_lc_categories
+entity_type: node
+bundle: outreach_asset
+label: 'Related Benefits'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      lc_categories: lc_categories
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

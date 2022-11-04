@@ -3,13 +3,13 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.taxonomy_term.lc_categories.field_enforce_unique_value
+    - field.field.taxonomy_term.lc_categories.field_topic_id
     - taxonomy.vocabulary.lc_categories
-    - views.view.taxonomy_term
   module:
+    - allow_only_one
     - layout_builder
-    - layout_discovery
     - text
-    - views
 third_party_settings:
   layout_builder:
     enabled: false
@@ -25,6 +25,21 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 0
+    region: content
+  field_enforce_unique_value:
+    type: allow_only_one
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_topic_id:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
     region: content
 hidden:
   search_api_excerpt: true

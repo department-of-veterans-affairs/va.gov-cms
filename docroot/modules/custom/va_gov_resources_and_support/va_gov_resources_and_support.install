@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * @file
+ * Install and update hooks for va_gov_resources_and_support.
+ */
+
+use Drupal\taxonomy\Entity\Term;
+
+/**
+ * Add new terms to R&S categories vocabulary.
+ */
+function va_gov_resources_and_support_update_9001(&$sandbox) {
+  // Add new R&S taxonomy terms:
+  $terms = [
+    'family' => 'Family member benefits',
+    'general' => 'General benefits information',
+    'service' => 'Service member benefits',
+    'pact' => 'PACT Act',
+  ];
+  foreach ($terms as $name) {
+    $term = Term::create([
+      'vid' => 'lc_categories',
+      'status' => 1,
+      'name' => $name,
+      'weight' => 0,
+    ]);
+    $term->save();
+  }
+  return 'va_gov_resources_and_support Complete: added four terms to the R&S Categories vocabulary.';
+}
