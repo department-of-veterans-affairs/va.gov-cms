@@ -10,12 +10,13 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
+use Drupal\Core\Utility\LinkGeneratorInterface;
 use Drupal\node\NodeInterface;
 use Drupal\taxonomy\TermInterface;
 use Drupal\va_gov_backend\Service\ExclusionTypesInterface;
 use Drupal\va_gov_backend\Service\VaGovUrlInterface;
 use Drupal\va_gov_lovell\LovellOps;
-use Drupal\va_gov_workflow_assignments\Service\EditorialWorkflowContentRepository;
+use Drupal\va_gov_workflow_assignments\Service\EditorialWorkflowContentRepositoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -66,7 +67,7 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
   /**
    * The Editorial Workflow service.
    *
-   * @var \Drupal\va_gov_workflow_assignments\Service\EditorialWorkflowContentRepository
+   * @var \Drupal\va_gov_workflow_assignments\Service\EditorialWorkflowContentRepositoryInterface
    */
   protected $editorialWorkflowContentRepository;
 
@@ -76,6 +77,13 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
    * @var \Drupal\Core\Render\RendererInterface
    */
   protected $renderer;
+
+  /**
+   * The link generator.
+   *
+   * @var \Drupal\Core\Utility\LinkGeneratorInterface
+   */
+  protected $linkGenerator;
 
   /**
    * {@inheritDoc}
@@ -88,8 +96,9 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
     EntityTypeManagerInterface $entity_type_manager,
     ExclusionTypesInterface $exclusionTypes,
     VaGovUrlInterface $vaGovUrl,
-    EditorialWorkflowContentRepository $editorialWorkflowContentRepository,
-    RendererInterface $renderer
+    EditorialWorkflowContentRepositoryInterface $editorialWorkflowContentRepository,
+    RendererInterface $renderer,
+    LinkGeneratorInterface $linkGenerator
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->routeMatch = $route_match;
@@ -98,6 +107,7 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
     $this->vaGovUrl = $vaGovUrl;
     $this->editorialWorkflowContentRepository = $editorialWorkflowContentRepository;
     $this->renderer = $renderer;
+    $this->linkGenerator = $linkGenerator;
   }
 
   /**
@@ -113,7 +123,8 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
       $container->get('va_gov_backend.exclusion_types'),
       $container->get('va_gov_backend.va_gov_url'),
       $container->get('va_gov_workflow_assignments.editorial_workflow'),
-      $container->get('renderer')
+      $container->get('renderer'),
+      $container->get('link_generator')
     );
   }
 
@@ -127,7 +138,10 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
     }
 
     $block = $block_items = [];
-    $block_items['Content Type'] = $node->type->entity->label();
+    $block_items['Content Type'] = $this->entityTypeManager
+      ->getStorage('node_type')
+      ->load($node->bundle())
+      ->label();
 
     $node_revision = $this->getNodeRevision();
     if ($node_revision) {
@@ -274,10 +288,13 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
    *   A section link.
    */
   private function getTermLink(TermInterface $term) {
-    return Link::fromTextAndUrl(
-      $this->t(':name', [':name' => $term->get('name')->getString()]),
+    $link = Link::fromTextAndUrl(
+      $this->t(':name', [
+        ':name' => $term->getName(),
+      ]),
       $term->toUrl()
-    )->toString();
+    );
+    return $this->linkGenerator->generateFromLink($link);
   }
 
   /**
