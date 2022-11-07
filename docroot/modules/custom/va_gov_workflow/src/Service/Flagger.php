@@ -90,7 +90,7 @@ class Flagger {
     if (!empty($message) && !$this->isTestData()) {
       $revision = $this->getLatestRevision($nid);
       if ($revision) {
-        $existing_message = $revision->getRevisionLogMessage();
+        $existing_message = $revision->getRevisionLogMessage() ?? '';
         $log_update = new FormattableMarkup($message, $msg_vars);
         $log_update = $log_update->__toString();
         // Prevent recursive messaging.
