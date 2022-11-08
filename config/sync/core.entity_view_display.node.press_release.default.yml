@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.press_release.field_address
     - field.field.node.press_release.field_administration
     - field.field.node.press_release.field_intro_text
+    - field.field.node.press_release.field_last_saved_by_an_editor
     - field.field.node.press_release.field_listing
     - field.field.node.press_release.field_meta_tags
     - field.field.node.press_release.field_pdf_version
@@ -37,6 +38,16 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 4
+    region: content
+  field_last_saved_by_an_editor:
+    type: timestamp
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 7
     region: content
   field_pdf_version:
     type: entity_reference_entity_view

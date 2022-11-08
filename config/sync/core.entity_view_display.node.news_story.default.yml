@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.news_story.field_full_story
     - field.field.node.news_story.field_image_caption
     - field.field.node.news_story.field_intro_text
+    - field.field.node.news_story.field_last_saved_by_an_editor
     - field.field.node.news_story.field_listing
     - field.field.node.news_story.field_media
     - field.field.node.news_story.field_meta_tags
@@ -81,6 +82,16 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 7
+    region: content
+  field_last_saved_by_an_editor:
+    type: timestamp
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 9
     region: content
   field_media:
     type: media_thumbnail

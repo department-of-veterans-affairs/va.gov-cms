@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.media_list_images.field_buttons_repeat
     - field.field.node.media_list_images.field_contact_information
     - field.field.node.media_list_images.field_intro_text_limited_html
+    - field.field.node.media_list_images.field_last_saved_by_an_editor
     - field.field.node.media_list_images.field_media_list_images
     - field.field.node.media_list_images.field_other_categories
     - field.field.node.media_list_images.field_primary_category
@@ -113,6 +114,16 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 7
+    region: content
+  field_last_saved_by_an_editor:
+    type: timestamp
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 16
     region: content
   field_media_list_images:
     type: entity_reference_revisions_entity_view

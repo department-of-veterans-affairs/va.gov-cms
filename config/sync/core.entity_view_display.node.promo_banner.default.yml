@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.promo_banner.field_administration
+    - field.field.node.promo_banner.field_last_saved_by_an_editor
     - field.field.node.promo_banner.field_link
     - field.field.node.promo_banner.field_promo_type
     - field.field.node.promo_banner.field_target_paths
@@ -17,6 +18,16 @@ targetEntityType: node
 bundle: promo_banner
 mode: default
 content:
+  field_last_saved_by_an_editor:
+    type: timestamp
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 5
+    region: content
   field_link:
     type: link
     label: above

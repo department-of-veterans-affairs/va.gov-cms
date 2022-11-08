@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.event_listing.field_description
     - field.field.node.event_listing.field_enforce_unique_combo
     - field.field.node.event_listing.field_intro_text
+    - field.field.node.event_listing.field_last_saved_by_an_editor
     - field.field.node.event_listing.field_meta_tags
     - field.field.node.event_listing.field_office
     - node.type.event_listing
@@ -80,6 +81,16 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 7
+    region: content
+  field_last_saved_by_an_editor:
+    type: timestamp
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 9
     region: content
 hidden:
   content_moderation_control: true

@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.person_profile.field_email_address
     - field.field.node.person_profile.field_intro_text
     - field.field.node.person_profile.field_last_name
+    - field.field.node.person_profile.field_last_saved_by_an_editor
     - field.field.node.person_profile.field_media
     - field.field.node.person_profile.field_meta_tags
     - field.field.node.person_profile.field_name_first
@@ -202,6 +203,12 @@ content:
     settings:
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  field_last_saved_by_an_editor:
+    type: datetime_timestamp
+    weight: 30
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_media:
     type: media_library_widget

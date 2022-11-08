@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.event.field_facility_location
     - field.field.node.event.field_featured
     - field.field.node.event.field_include_registration_info
+    - field.field.node.event.field_last_saved_by_an_editor
     - field.field.node.event.field_link
     - field.field.node.event.field_listing
     - field.field.node.event.field_location_humanreadable
@@ -207,6 +208,16 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     weight: 32
+    region: content
+  field_last_saved_by_an_editor:
+    type: timestamp
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 33
     region: content
   field_link:
     type: link

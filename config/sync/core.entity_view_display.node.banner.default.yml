@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.banner.field_administration
     - field.field.node.banner.field_alert_type
     - field.field.node.banner.field_dismissible_option
+    - field.field.node.banner.field_last_saved_by_an_editor
     - field.field.node.banner.field_target_paths
     - node.type.banner
   module:
@@ -38,6 +39,16 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 5
+    region: content
+  field_last_saved_by_an_editor:
+    type: timestamp
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 6
     region: content
   field_target_paths:
     type: string

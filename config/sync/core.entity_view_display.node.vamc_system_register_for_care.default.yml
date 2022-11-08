@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.vamc_system_register_for_care.field_cc_top_of_page_content
     - field.field.node.vamc_system_register_for_care.field_enforce_unique_combo
     - field.field.node.vamc_system_register_for_care.field_enforce_unique_combo_offic
+    - field.field.node.vamc_system_register_for_care.field_last_saved_by_an_editor
     - field.field.node.vamc_system_register_for_care.field_non_clinical_services
     - field.field.node.vamc_system_register_for_care.field_office
     - field.field.node.vamc_system_register_for_care.field_service_name_and_descripti
@@ -86,6 +87,16 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 5
+    region: content
+  field_last_saved_by_an_editor:
+    type: timestamp
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 10
     region: content
   field_non_clinical_services:
     type: viewfield_default

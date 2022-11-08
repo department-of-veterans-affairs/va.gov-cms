@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.vha_facility_nonclinical_service.field_administration
     - field.field.node.vha_facility_nonclinical_service.field_enforce_unique_combo_offic
     - field.field.node.vha_facility_nonclinical_service.field_facility_location
+    - field.field.node.vha_facility_nonclinical_service.field_last_saved_by_an_editor
     - field.field.node.vha_facility_nonclinical_service.field_service_location
     - field.field.node.vha_facility_nonclinical_service.field_service_name_and_descripti
     - node.type.vha_facility_nonclinical_service
@@ -24,6 +25,16 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 1
+    region: content
+  field_last_saved_by_an_editor:
+    type: timestamp
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 2
     region: content
   field_service_location:
     type: entity_reference_revisions_entity_view

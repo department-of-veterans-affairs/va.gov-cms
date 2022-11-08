@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.vba_facility_service.field_administration
     - field.field.node.vba_facility_service.field_body
     - field.field.node.vba_facility_service.field_enforce_unique_combo
+    - field.field.node.vba_facility_service.field_last_saved_by_an_editor
     - field.field.node.vba_facility_service.field_office
     - field.field.node.vba_facility_service.field_service_name_and_descripti
     - node.type.vba_facility_service
@@ -18,6 +19,11 @@ targetEntityType: node
 bundle: vba_facility_service
 mode: default
 content:
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
+    region: content
   field_body:
     type: text_default
     label: above
@@ -31,6 +37,16 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 4
+    region: content
+  field_last_saved_by_an_editor:
+    type: timestamp
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 5
     region: content
   field_office:
     type: entity_reference_label

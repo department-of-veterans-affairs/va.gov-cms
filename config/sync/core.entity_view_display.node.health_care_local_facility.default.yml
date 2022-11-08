@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.health_care_local_facility.field_facility_locator_api_id
     - field.field.node.health_care_local_facility.field_geolocation
     - field.field.node.health_care_local_facility.field_intro_text
+    - field.field.node.health_care_local_facility.field_last_saved_by_an_editor
     - field.field.node.health_care_local_facility.field_local_health_care_service_
     - field.field.node.health_care_local_facility.field_location_services
     - field.field.node.health_care_local_facility.field_main_location
@@ -173,6 +174,16 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 1
+    region: content
+  field_last_saved_by_an_editor:
+    type: timestamp
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 22
     region: content
   field_location_services:
     type: entity_reference_revisions_entity_view

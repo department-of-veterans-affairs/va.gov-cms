@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.vamc_system_medical_records_offi.field_enforce_unique_combo
     - field.field.node.vamc_system_medical_records_offi.field_enforce_unique_combo_offic
     - field.field.node.vamc_system_medical_records_offi.field_fax_number
+    - field.field.node.vamc_system_medical_records_offi.field_last_saved_by_an_editor
     - field.field.node.vamc_system_medical_records_offi.field_non_clinical_services
     - field.field.node.vamc_system_medical_records_offi.field_office
     - field.field.node.vamc_system_medical_records_offi.field_service_name_and_descripti
@@ -205,6 +206,16 @@ content:
       title: ''
     third_party_settings: {  }
     weight: 9
+    region: content
+  field_last_saved_by_an_editor:
+    type: timestamp
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 11
     region: content
   field_non_clinical_services:
     type: viewfield_default

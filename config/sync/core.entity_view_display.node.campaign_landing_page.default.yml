@@ -36,6 +36,7 @@ dependencies:
     - field.field.node.campaign_landing_page.field_clp_why_this_matters
     - field.field.node.campaign_landing_page.field_hero_blurb
     - field.field.node.campaign_landing_page.field_hero_image
+    - field.field.node.campaign_landing_page.field_last_saved_by_an_editor
     - field.field.node.campaign_landing_page.field_media
     - field.field.node.campaign_landing_page.field_primary_call_to_action
     - field.field.node.campaign_landing_page.field_related_office
@@ -449,6 +450,16 @@ content:
       image_style: 7_2_medium_thumbnail
     third_party_settings: {  }
     weight: 5
+    region: content
+  field_last_saved_by_an_editor:
+    type: timestamp
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 28
     region: content
   field_media:
     type: entity_reference_entity_view

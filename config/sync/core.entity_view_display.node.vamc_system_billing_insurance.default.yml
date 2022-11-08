@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.vamc_system_billing_insurance.field_cc_top_of_page_content
     - field.field.node.vamc_system_billing_insurance.field_enforce_unique_combo
     - field.field.node.vamc_system_billing_insurance.field_enforce_unique_combo_offic
+    - field.field.node.vamc_system_billing_insurance.field_last_saved_by_an_editor
     - field.field.node.vamc_system_billing_insurance.field_non_clinical_services
     - field.field.node.vamc_system_billing_insurance.field_office
     - field.field.node.vamc_system_billing_insurance.field_office_hours
@@ -138,6 +139,16 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 1
+    region: content
+  field_last_saved_by_an_editor:
+    type: timestamp
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 11
     region: content
   field_non_clinical_services:
     type: viewfield_default

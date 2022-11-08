@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.basic_landing_page.field_content_block
     - field.field.node.basic_landing_page.field_description
     - field.field.node.basic_landing_page.field_intro_text_limited_html
+    - field.field.node.basic_landing_page.field_last_saved_by_an_editor
     - field.field.node.basic_landing_page.field_product
     - field.field.node.basic_landing_page.field_table_of_contents_boolean
     - node.type.basic_landing_page
@@ -66,6 +67,16 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 2
+    region: content
+  field_last_saved_by_an_editor:
+    type: timestamp
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 11
     region: content
   field_product:
     type: entity_reference_label

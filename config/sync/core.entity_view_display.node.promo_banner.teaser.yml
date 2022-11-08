@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.promo_banner.field_administration
+    - field.field.node.promo_banner.field_last_saved_by_an_editor
     - field.field.node.promo_banner.field_link
     - field.field.node.promo_banner.field_promo_type
     - field.field.node.promo_banner.field_target_paths
@@ -28,6 +29,7 @@ content:
     region: content
 hidden:
   field_administration: true
+  field_last_saved_by_an_editor: true
   field_link: true
   field_promo_type: true
   field_target_paths: true

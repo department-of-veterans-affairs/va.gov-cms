@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.support_service.field_administration
+    - field.field.node.support_service.field_last_saved_by_an_editor
     - field.field.node.support_service.field_link
     - field.field.node.support_service.field_office
     - field.field.node.support_service.field_phone_number
@@ -17,6 +18,16 @@ targetEntityType: node
 bundle: support_service
 mode: default
 content:
+  field_last_saved_by_an_editor:
+    type: timestamp
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
   field_link:
     type: link
     label: above

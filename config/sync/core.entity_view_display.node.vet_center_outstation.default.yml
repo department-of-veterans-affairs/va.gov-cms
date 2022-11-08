@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.vet_center_outstation.field_administration
     - field.field.node.vet_center_outstation.field_facility_locator_api_id
     - field.field.node.vet_center_outstation.field_geolocation
+    - field.field.node.vet_center_outstation.field_last_saved_by_an_editor
     - field.field.node.vet_center_outstation.field_media
     - field.field.node.vet_center_outstation.field_office
     - field.field.node.vet_center_outstation.field_office_hours
@@ -105,6 +106,16 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 3
+    region: content
+  field_last_saved_by_an_editor:
+    type: timestamp
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 14
     region: content
   field_media:
     type: media_thumbnail
