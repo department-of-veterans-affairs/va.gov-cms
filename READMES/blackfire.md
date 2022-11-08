@@ -7,9 +7,9 @@ See also: Dedicated Blackfire page in [the ddev documentation]([https://ddev.rea
 ## Configuration
 Blackfire is licensed per-seat; if you need a seat, reach out in the #cms-platform channel on DSVA Slack.  Without a license, you will not be able to use Blackfire.
 
-Blackfire is configured for ddev at build time based on the presence of the `BLACKFIRE_CLIENT_ID` environment variable.  If it is set and non-empty, the PHP Blackfire PHP module and Blackfire Agent will be installed.  Otherwise, it will not be available.  **Lando will need to be rebuilt to recognize any changes made to this or other environment variables.**
+Blackfire will be configured for ddev at build time based on the presence of the `BLACKFIRE_CLIENT_ID` environment variable.  If it is set and non-empty, the Blackfire PHP module and Blackfire Agent will be installed. Otherwise, it will not be available. 
 
-For Blackfire to work correctly, the following four environment variables must be set.  They can be retrieved from [your Blackfire account credentials page](https://blackfire.io/my/settings/credentials).
+For Blackfire to work correctly, the following four environment variables must be set. They can be retrieved from [your Blackfire account credentials page](https://blackfire.io/my/settings/credentials).
 - **`BLACKFIRE_CLIENT_ID`**
 - **`BLACKFIRE_CLIENT_TOKEN`**
 - **`BLACKFIRE_SERVER_ID`**
@@ -25,6 +25,7 @@ There might be other approaches that make more sense in your specific circumstan
 
 * Turn blackfire on with `ddev blackfire on`
 * Turn blackfire off with `ddev blackfire off`
+* You may need to do a `blackfire poweroff && blackfire start` if the above doesn't work. 
 
 ## Testing
 To test that Blackfire is configured correctly, you can execute the following command once ddev has completed the build process: `ddev exec blackfire curl https://va-gov-cms.ddev.site/`
