@@ -5,7 +5,7 @@ Blackfire is a performance tool used for gathering and reporting how resources a
 See also: dedicated blackfire page in [the ddev documentation](https://ddev.readthedocs.io/en/stable/users/blackfire-profiling/).
 
 ## Configuration
-Blackfire is licensed per-seat; if you need a seat, reach out in the #cms-team channel on DSVA Slack.  Without a license, you will not be able to use Blackfire.
+Blackfire is licensed per-seat; if you need a seat, reach out in the #cms-platform channel on DSVA Slack.  Without a license, you will not be able to use Blackfire.
 
 Blackfire is configured for ddev at build time based on the presence of the `BLACKFIRE_CLIENT_ID` environment variable.  If it is set and non-empty, the PHP Blackfire PHP module and Blackfire Agent will be installed.  Otherwise, it will not be available.  **Lando will need to be rebuilt to recognize any changes made to this or other environment variables.**
 
