@@ -2,7 +2,7 @@
 
 Blackfire is a performance tool used for gathering and reporting how resources are used by PHP applications.  It can be used to measure the performance of a specific bit of code or an entire request.  This allows us to measure the performance impact of a code or platform change and debug performance issues.
 
-See also: dedicated blackfire page in [the ddev documentation](https://ddev.readthedocs.io/en/stable/users/blackfire-profiling/).
+See also: Dedicated Blackfire page in [the ddev documentation]([https://ddev.readthedocs.io/en/stable/users/blackfire-profiling/](https://ddev.readthedocs.io/en/latest/users/debugging-profiling/blackfire-profiling/)).
 
 ## Configuration
 Blackfire is licensed per-seat; if you need a seat, reach out in the #cms-platform channel on DSVA Slack.  Without a license, you will not be able to use Blackfire.
