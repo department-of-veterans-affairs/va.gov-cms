@@ -3,6 +3,10 @@ langcode: en
 status: true
 dependencies:
   module:
+    - block_content_permissions
+    - block_diff_ui
+    - entityqueue
+    - system
     - va_gov_backend
 third_party_settings:
   va_gov_backend:
@@ -11,4 +15,20 @@ id: homepage_content_publisher
 label: 'Homepage content publisher'
 weight: 5
 is_admin: null
-permissions: {  }
+permissions:
+  - 'access administration pages'
+  - 'administer menu'
+  - 'create benefit_promo block content'
+  - 'create news_promo block content'
+  - 'delete benefit_promo revisions'
+  - 'delete news_promo revisions'
+  - 'manipulate entityqueues'
+  - 'revert benefit_promo revisions'
+  - 'revert news_promo revisions'
+  - 'update any benefit_promo block content'
+  - 'update any news_promo block content'
+  - 'update home_page_hero entityqueue'
+  - 'update home_page_news_spotlight entityqueue'
+  - 'view benefit_promo revisions'
+  - 'view news_promo revisions'
+  - 'view the administration theme'

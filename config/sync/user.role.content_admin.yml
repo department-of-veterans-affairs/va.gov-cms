@@ -9,8 +9,6 @@ dependencies:
     - media.type.document_external
     - media.type.image
     - media.type.video
-    - node.type.banner
-    - node.type.promo_banner
     - node.type.vamc_system_billing_insurance
     - node.type.vamc_system_medical_records_offi
     - node.type.vamc_system_register_for_care
@@ -34,6 +32,7 @@ dependencies:
     - paragraphs
     - path
     - pathauto
+    - smart_date_recur
     - system
     - tablefield
     - taxonomy
@@ -41,7 +40,6 @@ dependencies:
     - toolbar_menu
     - va_gov_backend
     - va_gov_build_trigger
-    - va_gov_menu_access
     - workbench_access
 third_party_settings:
   va_gov_backend:
@@ -107,6 +105,7 @@ permissions:
   - 'import tablefield'
   - 'link to any page'
   - 'make smart dates recur'
+  - 'manipulate entityqueues'
   - 'notify of path changes'
   - 'override all authored by option'
   - 'rebuild tablefield'
