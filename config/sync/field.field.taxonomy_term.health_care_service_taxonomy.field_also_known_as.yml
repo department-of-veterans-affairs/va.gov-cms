@@ -5,11 +5,17 @@ dependencies:
   config:
     - field.storage.taxonomy_term.field_also_known_as
     - taxonomy.vocabulary.health_care_service_taxonomy
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
 id: taxonomy_term.health_care_service_taxonomy.field_also_known_as
 field_name: field_also_known_as
 entity_type: taxonomy_term
 bundle: health_care_service_taxonomy
-label: 'Patient-friendly name'
+label: 'Patient friendly name'
 description: ''
 required: false
 translatable: false
