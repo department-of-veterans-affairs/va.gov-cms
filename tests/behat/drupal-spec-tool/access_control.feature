@@ -1,3 +1,4 @@
+
 @api
 Feature: Access control
   In order to protect my site and its content
@@ -5,7 +6,7 @@ Feature: Access control
   I want to control access with user roles and permissions.
 
   @dst @access
-     Scenario: User roles
+  Scenario: User roles
        Then exactly the following roles should exist
        | Name | Machine name |
 | Administrator | administrator |
@@ -20,6 +21,7 @@ Feature: Access control
 | Content editor | content_editor |
 | Content publisher | content_publisher |
 | Content reviewer | content_reviewer |
+| Homepage content publisher | homepage_content_publisher |
 | Content creator - Outreach Hub | office_content_creator |
 | Redirect admin | redirect_administrator |
 | Content creator - VAMC | vamc_content_creator |
