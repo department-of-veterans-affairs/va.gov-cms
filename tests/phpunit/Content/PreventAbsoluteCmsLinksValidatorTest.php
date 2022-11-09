@@ -2,10 +2,10 @@
 
 namespace tests\phpunit\Content;
 
-use Drupal\Tests\UnitTestCase;
 use Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventAbsoluteCmsLinks;
 use Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventAbsoluteCmsLinksValidator;
-use Traits\ValidatorTestTrait;
+use Tests\Support\Traits\ValidatorTestTrait;
+use Tests\Support\Classes\VaGovUnitTestBase;
 
 /**
  * A test to confirm the proper functioning of this validator.
@@ -16,7 +16,7 @@ use Traits\ValidatorTestTrait;
  *
  * @coversDefaultClass \Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventAbsoluteCmsLinksValidator
  */
-class PreventAbsoluteCmsLinksValidatorTest extends UnitTestCase {
+class PreventAbsoluteCmsLinksValidatorTest extends VaGovUnitTestBase {
 
   use ValidatorTestTrait;
 
@@ -45,9 +45,9 @@ class PreventAbsoluteCmsLinksValidatorTest extends UnitTestCase {
    * @param string $format
    *   An optional format, like 'plain_text' or 'rich_text'.
    *
-   * @covers validate
-   * @covers validateText
-   * @covers validateHtml
+   * @covers ::validate
+   * @covers ::validateText
+   * @covers ::validateHtml
    * @dataProvider validateDataProvider
    */
   public function testValidate(bool $willValidate, string $testString, string $fieldType = 'string_long', string $format = NULL) {

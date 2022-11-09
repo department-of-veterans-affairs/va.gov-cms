@@ -1,0 +1,25 @@
+uuid: 6267a301-b709-4954-9c65-1c2169c18e50
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_non_va_official_name
+    - node.type.vba_facility
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: node.vba_facility.field_non_va_official_name
+field_name: field_non_va_official_name
+entity_type: node
+bundle: vba_facility
+label: 'Non-VA location official name'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

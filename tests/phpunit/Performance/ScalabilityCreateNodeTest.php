@@ -3,7 +3,7 @@
 namespace tests\phpunit\Performance;
 
 use Drupal\Component\Utility\Timer;
-use weitzman\DrupalTestTraits\ExistingSiteBase;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * A test to confirm amount of nodes by type.
@@ -11,7 +11,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  * @group functional
  * @group all
  */
-class ScalabilityCreateNodeTest extends ExistingSiteBase {
+class ScalabilityCreateNodeTest extends VaGovExistingSiteBase {
 
   public const TIMER_NAME = 'php-unit-scalable-page-test';
 
@@ -27,9 +27,6 @@ class ScalabilityCreateNodeTest extends ExistingSiteBase {
     $secs = number_format($microsecs / 1000, 2);
 
     Timer::stop(static::TIMER_NAME);
-
-    $message = __METHOD__ . "\nOperation took " . $secs . " and completed $count iterations.\n";
-    fwrite(STDERR, print_r($message, TRUE));
   }
 
   /**

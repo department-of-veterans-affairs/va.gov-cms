@@ -5,7 +5,6 @@ namespace tests\phpunit\FrontendBuild;
 use Drupal\Core\KeyValueStore\KeyValueMemoryFactory;
 use Drupal\Core\State\State;
 use Drupal\prometheus_exporter\MetricsCollectorManager;
-use Drupal\Tests\UnitTestCase;
 use Drupal\va_gov_build_trigger\Event\ReleaseStateTransitionEvent;
 use Drupal\va_gov_build_trigger\EventSubscriber\ContentReleaseErrorSubscriber;
 use Drupal\va_gov_build_trigger\EventSubscriber\ContentReleaseIntervalSubscriber;
@@ -20,6 +19,7 @@ use Drupal\Core\Datetime\DateFormatter;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Symfony\Component\DependencyInjection\Container;
+use Tests\Support\Classes\VaGovUnitTestBase;
 
 /**
  * Unit test for build state event subscribers.
@@ -27,7 +27,7 @@ use Symfony\Component\DependencyInjection\Container;
  * @group unit
  * @group all
  */
-class BuildStateEventSubscriberTest extends UnitTestCase {
+class BuildStateEventSubscriberTest extends VaGovUnitTestBase {
 
   /**
    * The state service.

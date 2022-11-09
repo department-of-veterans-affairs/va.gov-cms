@@ -2,7 +2,7 @@
 
 namespace tests\phpunit\Performance;
 
-use weitzman\DrupalTestTraits\ExistingSiteBase;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * A test to confirm taxonomy creation and performance.
@@ -10,7 +10,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  * @group functional
  * @group all
  */
-class CreateTaxonomyTermTest extends ExistingSiteBase {
+class CreateTaxonomyTermTest extends VaGovExistingSiteBase {
 
   /**
    * A test method to determine the ability and time to create a node.

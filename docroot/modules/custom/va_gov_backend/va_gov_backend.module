@@ -273,7 +273,7 @@ function _va_gov_backend_toggle_fields_states(array &$form, array $toggles) {
   if (!empty($toggles['toggle_groups']) && is_array($toggles['toggle_groups'])) {
     foreach ($toggles['toggle_groups'] as $toggle_group) {
       // Toggle the fields.
-      _va_gov_toggle_field_states($form, $toggle_group);
+      _va_gov_backend_toggle_field_states($form, $toggle_group);
     }
   }
 }
@@ -413,12 +413,19 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     _va_gov_backend_smart_date_formatting($form, $form_state);
   };
 
-  $targets = [
-    'field_office',
-    'field_listing',
-  ];
+  // Only run when on a node.
+  // Additionally, reduce the number of times called when editing a paragraph,
+  // which will have a triggering_element set.
+  if (isset($form['#entity_type'])
+    && $form['#entity_type'] === 'node'
+    && (!$form_state->getTriggeringElement())) {
+    $targets = [
+      'field_office',
+      'field_listing',
+    ];
+    _va_gov_backend_dropdown_field_access($form, $targets);
+  }
 
-  _va_gov_backend_dropdown_field_access($form, $targets);
 
   if ($form_id === 'workbench_access_assign_user') {
     $form['#submit'][] = 'va_gov_backend_workbench_assign_user_form_submit';
@@ -969,7 +976,7 @@ function va_gov_backend_preprocess_page_title(&$variables) {
 }
 
 /**
- * Add preview button to node view.
+ * Add va_gov preview button to view node on the front end.
  */
 function va_gov_backend_preprocess_page(&$variables) {
 
@@ -990,6 +997,7 @@ function va_gov_backend_preprocess_page(&$variables) {
       'regional_health_care_service_des',
       'support_service',
       'story_listing',
+      'vba_facility_service',
       'vet_center_cap',
       'vet_center_facility_health_servi',
       'vet_center_mobile_vet_center',
@@ -1325,6 +1333,7 @@ function va_gov_backend_entity_bundle_field_info_alter(&$fields, EntityTypeInter
       $field->addConstraint('PreventAbsoluteCmsLinks');
       $field->addConstraint('PreventLocalFileLinks');
       $field->addConstraint('PreventProtocolRelativeLinks');
+      $field->addConstraint('PreventMediaViewLinks');
     }
   }
   // Add paragraph checks on clp panels.
@@ -1914,6 +1923,18 @@ function _va_gov_backend_apply_filter_to_tablefield_cells(FieldableEntityInterfa
       }
     }
   }
+}
+
+/**
+ * Implements hook_field_widget_WIDGET_TYPE_form_alter().
+ *
+ * Deprecated in va_gov_backend:9.2.3 and is removed from va_gov_backend:10.0.1
+ *   This should be removed in #10675.
+ *
+ * @see https://github.com/department-of-veterans-affairs/va.gov-cms/issues/10675
+ */
+function va_gov_backend_field_widget_tablefield_form_alter(&$element, FormStateInterface $form_state, $context): void {
+  $element["#description"] = t('The first row will be formatted as the table header. The labels in the first row should accurately describe the corresponding columns.');
 }
 
 /**

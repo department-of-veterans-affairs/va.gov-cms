@@ -3,8 +3,11 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.taxonomy_term.lc_categories.field_enforce_unique_value
+    - field.field.taxonomy_term.lc_categories.field_topic_id
     - taxonomy.vocabulary.lc_categories
   module:
+    - allow_only_one
     - path
     - text
 id: taxonomy_term.lc_categories.default
@@ -18,6 +21,21 @@ content:
     region: content
     settings:
       rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_enforce_unique_value:
+    type: allow_only_one_widget
+    weight: 3
+    region: content
+    settings:
+      size: 1
+    third_party_settings: {  }
+  field_topic_id:
+    type: string_textfield
+    weight: 4
+    region: content
+    settings:
+      size: 60
       placeholder: ''
     third_party_settings: {  }
   name:

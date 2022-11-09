@@ -1,0 +1,100 @@
+<?php
+
+/**
+ * @file
+ * Install file for Va Gov Facilities.
+ */
+
+use Drupal\taxonomy\TermInterface;
+use Psr\Log\LogLevel;
+
+/**
+ * Update the show for checkboxes for terms in health_care_service_taxonomy.
+ */
+function va_gov_facilities_update_9001() {
+  $updated = 0;
+  $failed = 0;
+
+  $storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+  $terms = $storage->loadByProperties(['vid' => 'health_care_service_taxonomy']);
+  $taxonomy = 'VA Services taxonomy';
+
+  foreach ($terms as $term) {
+    $is_vamc_service = !empty($term->get('field_service_type_of_care')->value);
+    $is_vet_center_service = !empty($term->get('field_vet_center_type_of_care')->value);
+    $field_labels = [];
+    if ($is_vamc_service) {
+      $term->field_show_for_vamc_facilities->value = 1;
+      $field_labels[] = '"Show for VAMC Facilties"';
+    }
+    if ($is_vet_center_service) {
+      $term->field_show_for_vet_centers->value = 1;
+      $field_labels[] = '"Show for Vet Centers"';
+    }
+    if (!empty($field_labels)) {
+      // There was a data change, so save it.
+      _va_gov_facilities_save_term($term, $updated, $failed, $taxonomy, $field_labels);
+    }
+  }
+  Drupal::logger('va_gov_facilities')->log(LogLevel::INFO, $taxonomy . ': ' . 'Successfully updated "Show for VAMC Facilties" and "Show for Vet Centers" %updated terms. Failed to update %failed terms.', [
+    '%count' => count($terms),
+    '%updated' => $updated,
+    '%failed' => $failed,
+  ]);
+  return "Updated  {$updated} health_care_service_taxonomy terms and failed to update {$failed} terms.";
+}
+
+/**
+ * Save term (or throw error trying).
+ *
+ * @param Drupal\taxonomy\TermInterface $term
+ *   Taxonomy term.
+ * @param int $updated
+ *   Count of updates.
+ * @param int $failed
+ *   Count of failures.
+ * @param string $taxonomy
+ *   Name of taxonomy.
+ * @param array $field_labels
+ *   Labels of updated fields.
+ */
+function _va_gov_facilities_save_term(TermInterface &$term, &$updated, &$failed, $taxonomy, array $field_labels): void {
+  try {
+    $term->setNewRevision(TRUE);
+    // Setting revision as CMS migrator.
+    // Core bug: setting the user is not reflected in term revisions.
+    $term->setRevisionUserId(1317);
+    $term->setRevisionCreationTime(time());
+    $term->setChangedTime(time());
+    $term->setSyncing(TRUE);
+    $term->setValidationRequired(FALSE);
+    $labels = implode(',', $field_labels);
+    $term->setRevisionLogMessage("CMS Migrator updated $labels checkbox(es).");
+    $term->isDefaultRevision(TRUE);
+    $saved = $term->save();
+    // Repeated save to clear out revision log.  There is an intentional bit
+    // in core that if the revision_log is not intentionally set to empty
+    // it will carry forward with each save.
+    $term->setNewRevision(TRUE);
+    $term->setRevisionLogMessage('');
+    $term->isDefaultRevision(TRUE);
+    $saved = $term->save();
+
+    $updated = (($saved === SAVED_NEW) || ($saved === SAVED_UPDATED)) ? ++$updated : $updated;
+    foreach ($field_labels as $field_label) {
+      Drupal::logger('va_gov_facilities')->log(LogLevel::INFO, $taxonomy . ": " . $field_label . ' set for "%term_name".', [
+        '%term_name' => $term->label(),
+      ]);
+    }
+
+  }
+  catch (\Exception $e) {
+    $failed++;
+    foreach ($field_labels as $field_label) {
+      Drupal::logger('va_gov_facilities')->log(LogLevel::ERROR, $taxonomy . ": " . $field_label . ' failed to update for "%term_name". Do it manually. Error message: %error_message.', [
+        '%term_name' => $term->label(),
+        '%error_message' => $e->getMessage(),
+      ]);
+    }
+  }
+}

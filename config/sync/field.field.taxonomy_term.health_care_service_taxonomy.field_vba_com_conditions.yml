@@ -1,0 +1,25 @@
+uuid: 409cd108-9d38-4acf-a20b-6a836dfd6899
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_vba_com_conditions
+    - taxonomy.vocabulary.health_care_service_taxonomy
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: taxonomy_term.health_care_service_taxonomy.field_vba_com_conditions
+field_name: field_vba_com_conditions
+entity_type: taxonomy_term
+bundle: health_care_service_taxonomy
+label: 'VBA common conditions'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

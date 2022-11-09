@@ -4,7 +4,7 @@ _If you need to log in to production or staging, for instance to run a script to
 
 DevOps has kindly provided the [`ssm-session`](https://github.com/department-of-veterans-affairs/devops/tree/master/utilities/ssm-session) command line tool, which uses your existing AWS credentials to authenticate and access the running instance.
 
-It should go without saying that if you're attempting a task on production, you should first attempt it on staging or dev to confirm:
+It should go without saying that if you're attempting a task on production, you should first attempt it on staging to confirm:
 
 - that you understand the steps you need to perform
 - that those steps will complete as expected
@@ -29,7 +29,7 @@ You should see output similar to this, indicating that you have been issued an a
 
 The utility may be invoked as follows: `ssm-session <environment> <application> [auto]`
 
-For our purposes, our _environment_ will normally be one of `vagov-prod`, `vagov-staging`, or `vagov-dev`.  These are the environments within which the CMS is deployed.
+For our purposes, our _environment_ will normally be one of `vagov-prod` or `vagov-staging`.  These are the environments within which the CMS is deployed.
 
 Our _application_ may be either `cms` or `cms-test`.  CMS-Test is normally used for testing changes to infrastructure and is updated irregularly; if you need to use it, you'll know.  Otherwise, use `cms`.
 

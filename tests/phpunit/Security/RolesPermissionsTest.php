@@ -2,8 +2,8 @@
 
 namespace tests\phpunit\Security;
 
-use weitzman\DrupalTestTraits\ExistingSiteBase;
 use Drupal\user\Entity\Role;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * A test to confirm that roles are associated with the correct permissions.
@@ -12,7 +12,7 @@ use Drupal\user\Entity\Role;
  * @group security
  * @group all
  */
-class RolesPermissionsTest extends ExistingSiteBase {
+class RolesPermissionsTest extends VaGovExistingSiteBase {
 
   /**
    * Determine if each role has the expected permissions.
@@ -136,7 +136,12 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'edit any document_external media',
           'edit any image media',
           'edit any video media',
+          'execute changed_filename_unflag node',
+          'execute changed_title_unflag node',
+          'execute deleted_unflag node',
           'execute entity:break_lock node',
+          'execute flag_delete_flagging flagging',
+          'execute new_form_unflag node',
           'execute publish_latest_revision_action node',
           'execute views_bulk_edit all',
           'export tablefield',

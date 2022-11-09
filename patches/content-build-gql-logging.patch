@@ -1,0 +1,51 @@
+diff --git a/src/site/stages/build/drupal/api.js b/src/site/stages/build/drupal/api.js
+index 3b607731e..8f7739ee6 100644
+--- a/src/site/stages/build/drupal/api.js
++++ b/src/site/stages/build/drupal/api.js
+@@ -1,5 +1,6 @@
+ const moment = require('moment');
+ const fetch = require('node-fetch');
++const fs = require('fs');
+ const pRetry = require('p-retry');
+ const chalk = require('chalk');
+ const SocksProxyAgent = require('socks-proxy-agent');
+@@ -20,6 +21,22 @@ function encodeCredentials({ user, password }) {
+ 
+ const defaultClientOptions = { verbose: true, maxParallelRequests: 15 };
+ 
++const logStart = title => {
++  const date = new Date().toUTCString();
++  const timestamp = Math.floor(Date.now() / 1000);
++  fs.createWriteStream('content_build_gql.log', { flags: 'a' }).write(
++    `VA_GOV_DEBUG ${timestamp} ${date} BEFORE ${title}\n`,
++  );
++};
++
++const logEnd = title => {
++  const date = new Date().toUTCString();
++  const timestamp = Math.floor(Date.now() / 1000);
++  fs.createWriteStream('content_build_gql.log', { flags: 'a' }).write(
++    `VA_GOV_DEBUG ${timestamp} ${date} AFTER ${title}\n`,
++  );
++};
++
+ function getDrupalClient(buildOptions, clientOptionsArg) {
+   const buildArgs = {
+     address: buildOptions['drupal-address'],
+@@ -152,7 +169,7 @@ function getDrupalClient(buildOptions, clientOptionsArg) {
+         }
+ 
+         const [queryName, query] = individualQueries.pop();
+-
++        logStart(queryName);
+         const startTime = moment();
+         const allowedRetries = 3;
+         const json = await pRetry(
+@@ -200,6 +217,7 @@ function getDrupalClient(buildOptions, clientOptionsArg) {
+         say(
+           `| ${chalk.blue(queryName)} | ${timeElapsed}s | ${pageCount} pages |`,
+         );
++        logEnd(queryName);
+ 
+         if (individualQueries.length > 0) {
+           return parallelQuery();

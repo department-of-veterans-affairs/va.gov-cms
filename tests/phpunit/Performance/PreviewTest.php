@@ -2,7 +2,7 @@
 
 namespace tests\phpunit\Performance;
 
-use weitzman\DrupalTestTraits\ExistingSiteBase;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * A test to confirm the performance of edit preview.
@@ -10,7 +10,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  * @group functional
  * @group all
  */
-class PreviewTest extends ExistingSiteBase {
+class PreviewTest extends VaGovExistingSiteBase {
 
   /**
    * A test method to deterine the amount of time it takes to load preview.
