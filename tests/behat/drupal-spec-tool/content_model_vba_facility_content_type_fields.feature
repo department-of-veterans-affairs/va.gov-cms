@@ -25,7 +25,7 @@ Feature: Content model: VBA facility Content Type fields
 | Content type | VBA Facility | Shared VHA location | field_shared_vha_location | Entity reference |  | 1 | Autocomplete |  |
 | Content type | VBA Facility | Services | field_vba_services | Entity reference |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
 | Content type | VBA Facility Service | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | VBA Facility Service | VBA Service Description | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
+| Content type | VBA Facility Service | VBA service description | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | VBA Facility Service | Enforce unique combo | field_enforce_unique_combo | Allow Only One |  | 1 | Allow Only One widget | Translatable |
 | Content type | VBA Facility Service | Facility | field_office | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | VBA Facility Service | Service Name | field_service_name_and_descripti | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | VBA Facility Service | Service name | field_service_name_and_descripti | Entity reference | Required | 1 | Select list | Translatable |
