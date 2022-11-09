@@ -12,7 +12,6 @@ use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\Core\Url;
-use Drupal\Core\Utility\LinkGeneratorInterface;
 use Drupal\node\NodeInterface;
 use Drupal\taxonomy\TermInterface;
 use Drupal\taxonomy\TermStorageInterface;
@@ -20,6 +19,7 @@ use Drupal\va_gov_backend\Service\ExclusionTypesInterface;
 use Drupal\va_gov_backend\Service\VaGovUrlInterface;
 use Drupal\va_gov_workflow_assignments\Plugin\Block\EntityMetaDisplay;
 use Drupal\va_gov_workflow_assignments\Service\EditorialWorkflowContentRepositoryInterface;
+use Drupal\va_gov_workflow_assignments\Service\SectionHierarchyBreadcrumbInterface;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Tests\Support\Classes\VaGovUnitTestBase;
@@ -47,7 +47,7 @@ class EntityMetaDisplayTest extends VaGovUnitTestBase {
     VaGovUrlInterface $vaGovUrl,
     EditorialWorkflowContentRepositoryInterface $ewcRepository,
     RendererInterface $renderer,
-    LinkGeneratorInterface $linkGenerator
+    SectionHierarchyBreadcrumbInterface $sectionHierarchyBreadcrumb
   ): ContainerInterface {
     $containerProphecy = $this->prophesize(ContainerInterface::CLASS);
     $containerProphecy->get('current_route_match')->willReturn($routeMatch);
@@ -56,7 +56,7 @@ class EntityMetaDisplayTest extends VaGovUnitTestBase {
     $containerProphecy->get('va_gov_backend.va_gov_url')->willReturn($vaGovUrl);
     $containerProphecy->get('va_gov_workflow_assignments.editorial_workflow')->willReturn($ewcRepository);
     $containerProphecy->get('renderer')->willReturn($renderer);
-    $containerProphecy->get('link_generator')->willReturn($linkGenerator);
+    $containerProphecy->get('va_gov_workflow_assignments.section_hierarchy_breadcrumb')->willReturn($sectionHierarchyBreadcrumb);
     return $containerProphecy->reveal();
   }
 
@@ -131,23 +131,29 @@ class EntityMetaDisplayTest extends VaGovUnitTestBase {
 
     // `va_gov_backend.va_gov_url`.
     $vaGovUrlProphecy = $this->prophesize(VaGovUrlInterface::CLASS);
-    $vaGovUrlProphecy->getVaGovFrontEndUrlForEntity($node)->willReturn('https://www.example.org/');
-    $vaGovUrlProphecy->vaGovFrontEndUrlForEntityIsLive($node)->willReturn($isLive);
+    $vaGovUrlProphecy->getVaGovFrontEndUrlForEntity(Argument::type(NodeInterface::CLASS))->willReturn('https://www.example.org/');
+    $vaGovUrlProphecy->vaGovFrontEndUrlForEntityIsLive(Argument::type(NodeInterface::CLASS))->willReturn($isLive);
     $vaGovUrl = $vaGovUrlProphecy->reveal();
 
     // `va_gov_workflow_assignments.editorial_workflow`.
     $ewcRepositoryProphecy = $this->prophesize(EditorialWorkflowContentRepositoryInterface::CLASS);
-    $ewcRepositoryProphecy->getLatestPublishedRevisionId($node)->willReturn((int) $latestPublishedRevisionId);
-    $ewcRepositoryProphecy->getLatestArchivedRevisionId($node)->willReturn((int) $latestArchivedRevisionId);
+    $ewcRepositoryProphecy->getLatestPublishedRevisionId(Argument::type(NodeInterface::CLASS))->willReturn((int) $latestPublishedRevisionId);
+    $ewcRepositoryProphecy->getLatestArchivedRevisionId(Argument::type(NodeInterface::CLASS))->willReturn((int) $latestArchivedRevisionId);
     $ewcRepository = $ewcRepositoryProphecy->reveal();
 
     // `renderer`.
     $rendererProphecy = $this->prophesize(RendererInterface::CLASS);
     $renderer = $rendererProphecy->reveal();
 
-    // `link_generator`.
-    $linkGeneratorProphecy = $this->prophesize(LinkGeneratorInterface::CLASS);
-    $linkGenerator = $linkGeneratorProphecy->reveal();
+    // `va_gov_workflow_assignments.section_hierarchy_breadcrumb`.
+    $sectionHierarchyBreadcrumbProphecy = $this->prophesize(SectionHierarchyBreadcrumbInterface::CLASS);
+    $sectionHierarchyBreadcrumbProphecy->getLinksHtml(Argument::type(NodeInterface::CLASS))->willReturn([
+      '<a href="https://great-great-grandparent.example.com/">great-great-grandparent</a>',
+      '<a href="https://great-grandparent.example.com/">great-grandparent</a>',
+      '<a href="https://grandparent.example.com/">grandparent</a>',
+      '<a href="https://parent.example.com/">parent</a>',
+    ]);
+    $sectionHierarchyBreadcrumb = $sectionHierarchyBreadcrumbProphecy->reveal();
 
     $container = $this->getContainer(
       $routeMatch,
@@ -156,7 +162,7 @@ class EntityMetaDisplayTest extends VaGovUnitTestBase {
       $vaGovUrl,
       $ewcRepository,
       $renderer,
-      $linkGenerator
+      $sectionHierarchyBreadcrumb
     );
     $entityMetaDisplay = EntityMetaDisplay::create($container, [], 'entity_metadata_display', [
       'provider' => 'deez tests',
@@ -172,21 +178,26 @@ class EntityMetaDisplayTest extends VaGovUnitTestBase {
    * Data Provider for testBuild().
    */
   public function dataProviderBuild() {
-    $nodeProphecy = $this->prophesize(NodeInterface::CLASS);
+
     $nodeTypeProphecy = $this->prophesize(EntityTypeInterface::CLASS);
     $nodeType = $nodeTypeProphecy->reveal();
-    $nodeProphecy->bundle()->willReturn('test_bundle');
-    $nodeProphecy->getEntityType()->willReturn($nodeType);
+
     $term = $this->getTerm(0, 'Test Term 0', 'https://www.va.gov/term/0');
+
     $fieldItemListProphecy = $this->prophesize(EntityReferenceFieldItemListInterface::CLASS);
     $fieldItemListProphecy->referencedEntities()->willReturn([
       $term,
     ]);
     $fieldItemList = $fieldItemListProphecy->reveal();
+
+    $nodeProphecy = $this->prophesize(NodeInterface::CLASS);
+    $nodeProphecy->bundle()->willReturn('test_bundle');
+    $nodeProphecy->getEntityType()->willReturn($nodeType);
     $nodeProphecy->get('field_administration')->willReturn($fieldItemList);
     $node = $nodeProphecy->reveal();
 
     $nodeRevisionProphecy = $this->prophesize(NodeInterface::CLASS);
+    $nodeRevisionProphecy->bundle()->willReturn('test_bundle');
     $nodeRevisionProphecy->getEntityType()->willReturn($nodeType);
     $nodeRevisionProphecy->get('field_administration')->willReturn($fieldItemList);
     $nodeRevision = $nodeRevisionProphecy->reveal();
@@ -205,7 +216,11 @@ class EntityMetaDisplayTest extends VaGovUnitTestBase {
           '#cache' => [
             'max-age' => 300,
           ],
-          '#markup' => '<div><span class="va-gov-entity-meta__title"><strong>Owner: </strong></span><span class="va-gov-entity-meta__content"> »  » </span></div>',
+          '#markup' => '<div><span class="va-gov-entity-meta__title"><strong>Owner: </strong></span>'
+          . '<span class="va-gov-entity-meta__content">'
+          . '<a href="https://great-grandparent.example.com/">great-grandparent</a>'
+          . ' » <a href="https://grandparent.example.com/">grandparent</a>'
+          . ' » <a href="https://parent.example.com/">parent</a></span></div>',
         ],
         $node,
         $node,
@@ -215,7 +230,11 @@ class EntityMetaDisplayTest extends VaGovUnitTestBase {
       // A minimally valid live node.
       [
         [
-          '#markup' => '<div><span class="va-gov-entity-meta__title"><strong>Owner: </strong></span><span class="va-gov-entity-meta__content"> »  » </span></div>',
+          '#markup' => '<div><span class="va-gov-entity-meta__title"><strong>Owner: </strong></span>'
+          . '<span class="va-gov-entity-meta__content">'
+          . '<a href="https://great-grandparent.example.com/">great-grandparent</a>'
+          . ' » <a href="https://grandparent.example.com/">grandparent</a>'
+          . ' » <a href="https://parent.example.com/">parent</a></span></div>',
         ],
         $node,
         $node,
@@ -225,7 +244,11 @@ class EntityMetaDisplayTest extends VaGovUnitTestBase {
       // A minimally valid live node.
       [
         [
-          '#markup' => '<div><span class="va-gov-entity-meta__title"><strong>Owner: </strong></span><span class="va-gov-entity-meta__content"> »  » </span></div>',
+          '#markup' => '<div><span class="va-gov-entity-meta__title"><strong>Owner: </strong></span>'
+          . '<span class="va-gov-entity-meta__content">'
+          . '<a href="https://great-grandparent.example.com/">great-grandparent</a>'
+          . ' » <a href="https://grandparent.example.com/">grandparent</a>'
+          . ' » <a href="https://parent.example.com/">parent</a></span></div>',
         ],
         $node,
         $nodeRevision,

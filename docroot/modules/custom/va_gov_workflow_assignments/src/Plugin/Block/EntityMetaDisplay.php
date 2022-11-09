@@ -10,13 +10,12 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
-use Drupal\Core\Utility\LinkGeneratorInterface;
 use Drupal\node\NodeInterface;
-use Drupal\taxonomy\TermInterface;
 use Drupal\va_gov_backend\Service\ExclusionTypesInterface;
 use Drupal\va_gov_backend\Service\VaGovUrlInterface;
 use Drupal\va_gov_lovell\LovellOps;
 use Drupal\va_gov_workflow_assignments\Service\EditorialWorkflowContentRepositoryInterface;
+use Drupal\va_gov_workflow_assignments\Service\SectionHierarchyBreadcrumbInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -79,11 +78,11 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
   protected $renderer;
 
   /**
-   * The link generator.
+   * The section hierarchy breadcrumb service.
    *
-   * @var \Drupal\Core\Utility\LinkGeneratorInterface
+   * @var \Drupal\va_gov_workflow_assignments\Service\SectionHierarchyBreadcrumbInterface
    */
-  protected $linkGenerator;
+  protected $sectionHierarchyBreadcrumb;
 
   /**
    * {@inheritDoc}
@@ -98,7 +97,7 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
     VaGovUrlInterface $vaGovUrl,
     EditorialWorkflowContentRepositoryInterface $editorialWorkflowContentRepository,
     RendererInterface $renderer,
-    LinkGeneratorInterface $linkGenerator
+    SectionHierarchyBreadcrumbInterface $sectionHierarchyBreadcrumb
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->routeMatch = $route_match;
@@ -107,7 +106,7 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
     $this->vaGovUrl = $vaGovUrl;
     $this->editorialWorkflowContentRepository = $editorialWorkflowContentRepository;
     $this->renderer = $renderer;
-    $this->linkGenerator = $linkGenerator;
+    $this->sectionHierarchyBreadcrumb = $sectionHierarchyBreadcrumb;
   }
 
   /**
@@ -124,7 +123,7 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
       $container->get('va_gov_backend.va_gov_url'),
       $container->get('va_gov_workflow_assignments.editorial_workflow'),
       $container->get('renderer'),
-      $container->get('link_generator')
+      $container->get('va_gov_workflow_assignments.section_hierarchy_breadcrumb')
     );
   }
 
@@ -143,13 +142,7 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
       ->load($node->bundle())
       ->label();
 
-    $node_revision = $this->getNodeRevision();
-    if ($node_revision) {
-      $block_items['Owner'] = $this->getSectionHierarchyBreadcrumbLinks($node_revision);
-    }
-    else {
-      $block_items['Owner'] = $this->getSectionHierarchyBreadcrumbLinks($node);
-    }
+    $block_items['Owner'] = $this->getSectionHierarchyBreadcrumbLinks($this->getNodeRevision() ?? $node);
     if ($this->vaGovUrlShouldBeDisplayed($node)) {
       $va_gov_urls_to_display = $this->getUrlsToDisplay($node);
       foreach ($va_gov_urls_to_display as $va_gov_url) {
@@ -207,20 +200,10 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
    *   Node if available, NULL if not.
    */
   private function getNode() {
-    // Drupal sometimes hands us a nid and sometimes an upcasted node object.
-    // @todo remove type checks when the patch at
-    // https://www.drupal.org/project/drupal/issues/2730631
-    // is committed. (Should be in 9.2)
     $route_parameter = $this->routeMatch->getParameter('node');
     if ($route_parameter instanceof NodeInterface) {
       return $route_parameter;
     }
-    elseif (is_numeric($route_parameter)) {
-      return $this->entityTypeManager
-        ->getStorage('node')
-        ->load($route_parameter);
-    }
-
     return NULL;
   }
 
@@ -231,70 +214,27 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
    *   Node if available, NULL if not.
    */
   private function getNodeRevision() {
-    // Drupal sometimes hands us a nid and sometimes an upcasted node object.
-    // @todo remove type checks when the patch at
-    // https://www.drupal.org/project/drupal/issues/2730631
-    // is committed. (Should be in 9.2)
     $route_parameter = $this->routeMatch->getParameter('node_revision');
     if ($route_parameter instanceof NodeInterface) {
       return $route_parameter;
     }
-    elseif (is_numeric($route_parameter)) {
-      return $this->entityTypeManager
-        ->getStorage('node')
-        ->loadRevision($route_parameter);
-    }
-
     return NULL;
   }
 
   /**
    * Returns a maximum of 3 section hierarchy breadcrumb links.
    *
+   * @param \Drupal\node\NodeInterface $node
+   *   Node with section information to display.
+   *
    * @return string
    *   Section breadcrumb links in hierarchy.
    */
   public function getSectionHierarchyBreadcrumbLinks(NodeInterface $node) : string {
-    $links = [];
-    /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $field_administration */
-    $field_administration = $node->get('field_administration');
-    $owner_term = $field_administration->referencedEntities() ?
-      $field_administration->referencedEntities()[0] : [];
-
-    if (!empty($owner_term)) {
-      $links[] = $this->getTermLink($owner_term);
-      $parents = array_values($this->entityTypeManager
-        ->getStorage('taxonomy_term')
-        ->loadAllParents($owner_term->id())
-      );
-
-      for ($i = 1; $i < 3; $i++) {
-        if (!empty($parents[$i])) {
-          array_unshift($links, $this->getTermLink($parents[$i]));
-        }
-      }
-    }
-
+    $links = $this->sectionHierarchyBreadcrumb->getLinksHtml($node);
+    // We exclude the first link and anything beyond the fourth.
+    $links = array_slice($links, 1, 3);
     return implode(' » ', $links);
-  }
-
-  /**
-   * Returns a section link.
-   *
-   * @param \Drupal\taxonomy\TermInterface $term
-   *   A taxonomy term.
-   *
-   * @return string
-   *   A section link.
-   */
-  private function getTermLink(TermInterface $term) {
-    $link = Link::fromTextAndUrl(
-      $this->t(':name', [
-        ':name' => $term->getName(),
-      ]),
-      $term->toUrl()
-    );
-    return $this->linkGenerator->generateFromLink($link);
   }
 
   /**
