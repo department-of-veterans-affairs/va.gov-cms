@@ -20,11 +20,10 @@ class LastEditorSaveEventSubscriber implements EventSubscriberInterface {
    */
   public function formAlter(FormAlterEvent $event): void {
     $form = &$event->getForm();
-    $form_state = $event->getFormState();
     $form_id = $event->getFormId();
 
     if (str_contains($form_id, 'node')) {
-      $form['field_last_saved_by_an_editor']['#disabled'] = 'disabled';
+      $form['field_last_saved_by_an_editor']['#access'] = FALSE;
       $form['actions']['submit']['#submit'][] = [
         $this, 'lastSavedByEditorSetTimestamp',
       ];
@@ -49,10 +48,10 @@ class LastEditorSaveEventSubscriber implements EventSubscriberInterface {
    *   The form state.
    */
   public function lastSavedByEditorSetTimestamp(array $form, FormStateInterface $form_state) {
+    /** @var \Drupal\node\NodeInterface $node */
     $node = $form_state->getFormObject()->getEntity();
     $timestamp = time();
     $node->set('field_last_saved_by_an_editor', $timestamp);
-    $node->save();
   }
 
 }
