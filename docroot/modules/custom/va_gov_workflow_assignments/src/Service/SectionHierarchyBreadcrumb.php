@@ -75,8 +75,9 @@ class SectionHierarchyBreadcrumb implements SectionHierarchyBreadcrumbInterface 
    *   A valid section term.
    */
   public function getOwnerTerm(NodeInterface $node): ?TermInterface {
-    /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $field_administration */
-    $referencedTerms = $node->get('field_administration')->referencedEntities();
+    /** @var \Drupal\Core\Field\EntityReferenceFieldItemListInterface $fieldAdministration */
+    $fieldAdministration = $node->get('field_administration');
+    $referencedTerms = $fieldAdministration->referencedEntities();
     return $referencedTerms[0] ?? NULL;
   }
 
