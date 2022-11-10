@@ -7,7 +7,6 @@ dependencies:
     - field.storage.taxonomy_term.field_cms_option_label
     - field.storage.taxonomy_term.field_guidance
     - field.storage.taxonomy_term.field_service_type_of_care
-    - field.storage.taxonomy_term.field_vba_friendly_name
     - field.storage.taxonomy_term.field_vet_center_type_of_care
     - taxonomy.vocabulary.facility_supplemental_status
     - taxonomy.vocabulary.health_care_service_taxonomy
@@ -820,14 +819,16 @@ display:
     position: 1
     display_options:
       fields:
-        field_vba_friendly_name:
-          id: field_vba_friendly_name
-          table: taxonomy_term__field_vba_friendly_name
-          field: field_vba_friendly_name
+        name:
+          id: name
+          table: taxonomy_term_field_data
+          field: name
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: field
+          entity_type: taxonomy_term
+          entity_field: name
+          plugin_id: term_name
           label: ''
           exclude: false
           alter:
@@ -883,19 +884,22 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          convert_spaces: false
       pager:
         type: some
         options:
           offset: 0
           items_per_page: 0
       sorts:
-        field_vba_friendly_name_value:
-          id: field_vba_friendly_name_value
-          table: taxonomy_term__field_vba_friendly_name
-          field: field_vba_friendly_name_value
+        name:
+          id: name
+          table: taxonomy_term_field_data
+          field: name
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: taxonomy_term
+          entity_field: name
           plugin_id: standard
           order: ASC
           expose:
@@ -975,15 +979,13 @@ display:
         type: entity_reference
         options:
           search_fields:
-            field_vba_friendly_name: field_vba_friendly_name
-            name: '0'
+            name: name
       row:
         type: entity_reference_revisions
         options:
           default_field_elements: true
           inline:
             name: name
-            field_also_known_as: field_also_known_as
           separator: ' - '
           hide_empty: false
       defaults:
@@ -1003,8 +1005,7 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - user.permissions
-      tags:
-        - 'config:field.storage.taxonomy_term.field_vba_friendly_name'
+      tags: {  }
   entity_reference_vet_center_services:
     id: entity_reference_vet_center_services
     display_title: 'Vet Center health service and type of care - entity reference'
