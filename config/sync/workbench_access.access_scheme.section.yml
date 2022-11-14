@@ -51,12 +51,14 @@ dependencies:
     - field.field.node.vamc_system_policies_page.field_administration
     - field.field.node.vamc_system_register_for_care.field_administration
     - field.field.node.vba_facility.field_administration
+    - field.field.node.vba_facility_service.field_administration
     - field.field.node.vet_center.field_administration
     - field.field.node.vet_center_cap.field_administration
     - field.field.node.vet_center_facility_health_servi.field_administration
     - field.field.node.vet_center_locations_list.field_administration
     - field.field.node.vet_center_mobile_vet_center.field_administration
     - field.field.node.vet_center_outstation.field_administration
+    - field.field.node.vha_facility_nonclinical_service.field_administration
     - field.field.taxonomy_term.health_care_service_taxonomy.field_owner
     - taxonomy.vocabulary.administration
 id: section
@@ -282,6 +284,14 @@ scheme_settings:
     -
       entity_type: node
       bundle: vamc_system_billing_insurance
+      field: field_administration
+    -
+      entity_type: node
+      bundle: vha_facility_nonclinical_service
+      field: field_administration
+    -
+      entity_type: node
+      bundle: vba_facility_service
       field: field_administration
     -
       entity_type: taxonomy_term
