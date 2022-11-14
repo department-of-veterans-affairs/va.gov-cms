@@ -18,6 +18,8 @@ source:
   track_changes: true
   ids:
     - facility_number
+  constants:
+    vba_prefix: vba_
   fields:
     -
       name: facility_name
@@ -45,9 +47,14 @@ process:
     -
       plugin: concat
       source:
-        - vba_
+        - constants/vba_prefix
         - facility_number
-  pseudo_field_office: parent_office
+  pseudo_field_office:
+    -
+      plugin: concat
+      source:
+        - constants/vba_prefix
+        - parent_office
   pseudo_field_parent:
     -
       plugin: get
@@ -74,13 +81,10 @@ process:
       source: facility_number
       value: '@pseudo_field_office'
     -
-      plugin: callback
-      callable: trim
-      source: parent_office
-    -
       plugin: entity_lookup
       ignore_case: true
-      value_key: title
+      source: '@pseudo_field_office'
+      value_key: field_facility_locator_api_id
       entity_type: node
       bundle_key: type
       bundle: vba_facility
@@ -95,7 +99,7 @@ process:
     -
       plugin: concat
       source:
-        - vba_
+        - constants/vba_prefix
         - parent_office
     -
       plugin: callback
@@ -139,8 +143,8 @@ destination:
   overwrite_properties:
     - field_administration
     - field_office
-    - non_va_location_name
-    - non_va_location_url
+    - field_non_va_official_name
+    - field_non_va_location_url
     - changed
     - new_revision
     - revision_default

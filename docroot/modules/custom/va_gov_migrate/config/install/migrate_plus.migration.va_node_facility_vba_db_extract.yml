@@ -15,13 +15,12 @@ label: 'Node - Veterans Benefits Administration Facility (Database extract)'
 source:
   plugin: csv
   path: modules/custom/va_gov_migrate/data/vba_facility_terms_import_formatted.csv
-  delimiter: ','
-  enclosure: ''
-  escape: '\'
   header_offset: 0
   track_changes: true
   ids:
     - facility_number
+  constants:
+    vba_prefix: 'vba_'
   fields:
     -
       name: facility_name
@@ -49,9 +48,14 @@ process:
     -
       plugin: concat
       source:
-        - 'vba_'
+        - 'constants/vba_prefix'
         - facility_number
-  pseudo_field_office: parent_office
+  pseudo_field_office:
+    -
+        plugin: concat
+        source:
+          - 'constants/vba_prefix'
+          - parent_office
   pseudo_field_parent:
     -
       plugin: get
@@ -78,13 +82,10 @@ process:
       source: facility_number
       value: '@pseudo_field_office'
     -
-      plugin: callback
-      callable: trim
-      source: parent_office
-    -
       plugin: entity_lookup
       ignore_case: true
-      value_key: title
+      source: '@pseudo_field_office'
+      value_key: field_facility_locator_api_id
       entity_type: node
       bundle_key: type
       bundle: vba_facility
@@ -116,14 +117,11 @@ process:
   #     method: row
   #     message: 'Entity lookup for field_regional_health_service found nothing.'
 
-
-
-  # field_non_va_location_external_url:
   field_administration:
     -
       plugin: concat
       source:
-      - "vba_"
+      - 'constants/vba_prefix'
       - parent_office
     -
       plugin: callback
@@ -169,8 +167,8 @@ destination:
   overwrite_properties:
     - field_administration
     - field_office
-    - non_va_location_name
-    - non_va_location_url
+    - field_non_va_official_name
+    - field_non_va_location_url
     - changed
     - new_revision
     - revision_default
