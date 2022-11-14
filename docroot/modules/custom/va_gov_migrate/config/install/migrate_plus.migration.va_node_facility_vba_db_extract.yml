@@ -21,6 +21,7 @@ source:
     - facility_number
   constants:
     vba_prefix: 'vba_'
+    vba_facilities_section: 191
   fields:
     -
       name: facility_name
@@ -65,16 +66,21 @@ process:
       entity_type: taxonomy_term
       value_key: name
       bundle_key: vid
+      parent: 'constants/vba_facilities_section'
       bundle: administration
     -
       plugin: skip_on_empty
-      method: row
-      message: 'Entity lookup for District found nothing.'
+      method: process
+      message: 'Entity lookup for District parent found nothing.'
   nid:
     -
       plugin: migration_lookup
       migration: va_node_facility_vba
       source: '@pseudo_field_facility_number'
+    -
+      plugin: skip_on_empty
+      method: row
+      message: 'Migration lookup found nothing for @pseudo_field_facility_number.'
   field_office:
     -
       plugin: skip_on_value
@@ -94,10 +100,18 @@ process:
       method: row
       message: 'Entity lookup for parent office found nothing.'
   field_non_va_official_name: non_va_location_name
-  field_non_va_location_url/uri: non_va_location_url
-  field_non_va_location_url/title: non_va_location_name
-
-
+  field_non_va_location_url/uri:
+    -
+      plugin: str_replace
+      source: non_va_location_url
+      search: 'NULL'
+      replace: ''
+  field_non_va_location_url/title:
+    -
+      plugin: str_replace
+      source: non_va_location_name
+      search: 'NULL'
+      replace: ''
 
 
   # field_shared_vha_location: TODO: how to handle two or more sources
