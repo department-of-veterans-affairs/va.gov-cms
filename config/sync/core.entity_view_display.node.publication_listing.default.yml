@@ -47,7 +47,7 @@ third_party_settings:
       label: Relationships
       parent_name: ''
       region: hidden
-      weight: 6
+      weight: 7
       format_type: fieldset
       format_settings:
         classes: ''
@@ -73,16 +73,6 @@ content:
     third_party_settings: {  }
     weight: 5
     region: content
-  field_last_saved_by_an_editor:
-    type: timestamp
-    label: above
-    settings:
-      date_format: custom
-      custom_date_format: 'F j Y g:ia'
-      timezone: ''
-    third_party_settings: {  }
-    weight: 11
-    region: content
   flag_email_node:
     settings: {  }
     third_party_settings: {  }
@@ -96,6 +86,7 @@ content:
 hidden:
   content_moderation_control: true
   field_administration: true
+  field_last_saved_by_an_editor: true
   field_meta_tags: true
   field_office: true
   links: true

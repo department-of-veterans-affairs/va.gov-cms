@@ -78,7 +78,7 @@ third_party_settings:
       label: 'External content'
       parent_name: ''
       region: hidden
-      weight: 17
+      weight: 18
       format_type: fieldset
       format_settings:
         classes: ''
@@ -105,16 +105,6 @@ content:
       link: false
     third_party_settings: {  }
     weight: 18
-    region: content
-  field_last_saved_by_an_editor:
-    type: timestamp
-    label: above
-    settings:
-      date_format: custom
-      custom_date_format: 'F j Y g:ia'
-      timezone: ''
-    third_party_settings: {  }
-    weight: 19
     region: content
   field_meta_tags:
     type: metatag_empty_formatter
@@ -196,6 +186,7 @@ content:
 hidden:
   content_moderation_control: true
   field_administration: true
+  field_last_saved_by_an_editor: true
   field_va_form_administration: true
   field_va_form_deleted: true
   field_va_form_deleted_date: true

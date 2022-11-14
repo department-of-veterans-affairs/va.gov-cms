@@ -140,16 +140,6 @@ content:
     third_party_settings: {  }
     weight: 7
     region: content
-  field_last_saved_by_an_editor:
-    type: timestamp
-    label: above
-    settings:
-      date_format: custom
-      custom_date_format: 'F j Y g:ia'
-      timezone: ''
-    third_party_settings: {  }
-    weight: 11
-    region: content
   field_media:
     type: entity_reference_entity_view
     label: above
@@ -254,13 +244,14 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 10
+    weight: 4
     region: content
 hidden:
   content_moderation_control: true
   field_administration: true
   field_facility_vba_classificatio: true
   field_geolocation: true
+  field_last_saved_by_an_editor: true
   flag_changed_name: true
   flag_changed_title: true
   flag_new: true

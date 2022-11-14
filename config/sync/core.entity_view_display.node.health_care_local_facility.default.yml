@@ -175,16 +175,6 @@ content:
     third_party_settings: {  }
     weight: 1
     region: content
-  field_last_saved_by_an_editor:
-    type: timestamp
-    label: above
-    settings:
-      date_format: custom
-      custom_date_format: 'F j Y g:ia'
-      timezone: ''
-    third_party_settings: {  }
-    weight: 22
-    region: content
   field_location_services:
     type: entity_reference_revisions_entity_view
     label: hidden
@@ -200,6 +190,8 @@ content:
     settings:
       image_link: ''
       image_style: crop_3_2
+      image_loading:
+        attribute: lazy
     third_party_settings: {  }
     weight: 0
     region: content
@@ -294,6 +286,7 @@ hidden:
   field_administration: true
   field_facility_classification: true
   field_geolocation: true
+  field_last_saved_by_an_editor: true
   field_local_health_care_service_: true
   field_main_location: true
   field_meta_tags: true

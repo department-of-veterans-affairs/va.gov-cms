@@ -18,16 +18,6 @@ targetEntityType: node
 bundle: promo_banner
 mode: default
 content:
-  field_last_saved_by_an_editor:
-    type: timestamp
-    label: above
-    settings:
-      date_format: custom
-      custom_date_format: 'F j Y g:ia'
-      timezone: ''
-    third_party_settings: {  }
-    weight: 5
-    region: content
   field_link:
     type: link
     label: above
@@ -38,7 +28,7 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 3
+    weight: 2
     region: content
   field_promo_type:
     type: list_default
@@ -53,7 +43,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 4
+    weight: 3
     region: content
   links:
     settings: {  }
@@ -63,4 +53,5 @@ content:
 hidden:
   content_moderation_control: true
   field_administration: true
+  field_last_saved_by_an_editor: true
   search_api_excerpt: true

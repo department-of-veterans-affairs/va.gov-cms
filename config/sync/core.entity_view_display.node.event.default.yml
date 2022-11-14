@@ -145,6 +145,7 @@ content:
       format: default
       force_chronological: false
       add_classes: false
+      time_wrapper: true
     third_party_settings: {  }
     weight: 23
     region: content
@@ -207,17 +208,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 32
-    region: content
-  field_last_saved_by_an_editor:
-    type: timestamp
-    label: above
-    settings:
-      date_format: custom
-      custom_date_format: 'F j Y g:ia'
-      timezone: ''
-    third_party_settings: {  }
-    weight: 33
+    weight: 3
     region: content
   field_link:
     type: link
@@ -277,6 +268,7 @@ content:
 hidden:
   content_moderation_control: true
   field_administration: true
+  field_last_saved_by_an_editor: true
   field_listing: true
   field_meta_tags: true
   links: true

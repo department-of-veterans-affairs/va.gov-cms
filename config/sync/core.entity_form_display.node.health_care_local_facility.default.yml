@@ -56,6 +56,7 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
+        - revision_log
         - flag
       label: 'Editorial Workflow'
       region: content
@@ -213,6 +214,7 @@ third_party_settings:
       weight: 22
       format_type: tooltip
       format_settings:
+        show_empty_fields: '1'
         show_label: '0'
         tooltip_description: "Why can't I edit this?\r\n\r\nVHA Digital Media manages messaging about COVID protocols to ensure a consistent experience for Veterans nationwide."
         description: ''

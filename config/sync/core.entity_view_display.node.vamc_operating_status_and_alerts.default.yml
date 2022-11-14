@@ -46,16 +46,6 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
-  field_last_saved_by_an_editor:
-    type: timestamp
-    label: above
-    settings:
-      date_format: custom
-      custom_date_format: 'F j Y g:ia'
-      timezone: ''
-    third_party_settings: {  }
-    weight: 6
-    region: content
   field_links:
     type: link
     label: above
@@ -86,6 +76,7 @@ content:
 hidden:
   content_moderation_control: true
   field_administration: true
+  field_last_saved_by_an_editor: true
   field_meta_tags: true
   links: true
   search_api_excerpt: true

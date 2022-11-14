@@ -137,16 +137,6 @@ content:
     third_party_settings: {  }
     weight: 4
     region: content
-  field_last_saved_by_an_editor:
-    type: timestamp
-    label: above
-    settings:
-      date_format: custom
-      custom_date_format: 'F j Y g:ia'
-      timezone: ''
-    third_party_settings: {  }
-    weight: 17
-    region: content
   field_links:
     type: link
     label: above
@@ -183,7 +173,7 @@ content:
       view_mode: connect_with_us
       link: false
     third_party_settings: {  }
-    weight: 16
+    weight: 4
     region: content
   field_spokes:
     type: entity_reference_revisions_entity_view
@@ -229,6 +219,7 @@ content:
     region: content
 hidden:
   content_moderation_control: true
+  field_last_saved_by_an_editor: true
   field_meta_tags: true
   field_plainlanguage_date: true
   links: true

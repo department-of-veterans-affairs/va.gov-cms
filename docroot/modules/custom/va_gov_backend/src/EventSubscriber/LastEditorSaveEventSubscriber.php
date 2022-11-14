@@ -20,9 +20,11 @@ class LastEditorSaveEventSubscriber implements EventSubscriberInterface {
    */
   public function formAlter(FormAlterEvent $event): void {
     $form = &$event->getForm();
+    $form_state = $event->getFormState();
     $form_id = $event->getFormId();
 
-    if (str_contains($form_id, 'node')) {
+    $base_form_id = $form_state->getBuildInfo()['base_form_id'] ?? '';
+    if ($base_form_id === 'node_form') {
       $form['field_last_saved_by_an_editor']['#access'] = FALSE;
       $form['actions']['submit']['#submit'][] = [
         $this, 'lastSavedByEditorSetTimestamp',

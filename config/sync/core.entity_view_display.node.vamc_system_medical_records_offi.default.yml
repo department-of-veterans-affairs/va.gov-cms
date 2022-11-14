@@ -134,7 +134,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 9
     region: content
   field_cc_faqs:
     type: entity_field_fetch
@@ -207,16 +207,6 @@ content:
     third_party_settings: {  }
     weight: 9
     region: content
-  field_last_saved_by_an_editor:
-    type: timestamp
-    label: above
-    settings:
-      date_format: custom
-      custom_date_format: 'F j Y g:ia'
-      timezone: ''
-    third_party_settings: {  }
-    weight: 11
-    region: content
   field_non_clinical_services:
     type: viewfield_default
     label: hidden
@@ -242,6 +232,7 @@ content:
 hidden:
   content_moderation_control: true
   field_administration: true
+  field_last_saved_by_an_editor: true
   field_office: true
   field_service_name_and_descripti: true
   search_api_excerpt: true

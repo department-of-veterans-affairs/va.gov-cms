@@ -43,23 +43,13 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
-  field_last_saved_by_an_editor:
-    type: timestamp
-    label: above
-    settings:
-      date_format: custom
-      custom_date_format: 'F j Y g:ia'
-      timezone: ''
-    third_party_settings: {  }
-    weight: 6
-    region: content
   field_lc_categories:
     type: entity_reference_label
     label: above
     settings:
       link: true
     third_party_settings: {  }
-    weight: 5
+    weight: 4
     region: content
   field_media:
     type: entity_reference_entity_view
@@ -74,6 +64,7 @@ hidden:
   content_moderation_control: true
   field_administration: true
   field_lc_categories: true
+  field_last_saved_by_an_editor: true
   field_listing: true
   field_meta_tags: true
   links: true

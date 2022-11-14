@@ -72,7 +72,7 @@ third_party_settings:
       label: 'Blurbs for subpages'
       parent_name: ''
       region: hidden
-      weight: 12
+      weight: 13
       format_type: fieldset
       format_settings:
         classes: ''
@@ -233,16 +233,6 @@ content:
     third_party_settings: {  }
     weight: 4
     region: content
-  field_last_saved_by_an_editor:
-    type: timestamp
-    label: above
-    settings:
-      date_format: custom
-      custom_date_format: 'F j Y g:ia'
-      timezone: ''
-    third_party_settings: {  }
-    weight: 26
-    region: content
   field_media:
     type: media_thumbnail
     label: above
@@ -317,6 +307,7 @@ content:
     region: content
 hidden:
   content_moderation_control: true
+  field_last_saved_by_an_editor: true
   field_meta_tags: true
   field_system_menu: true
   links: true

@@ -73,17 +73,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 6
-    region: content
-  field_last_saved_by_an_editor:
-    type: timestamp
-    label: above
-    settings:
-      date_format: custom
-      custom_date_format: 'F j Y g:ia'
-      timezone: ''
-    third_party_settings: {  }
-    weight: 7
+    weight: 3
     region: content
   field_local_health_care_service_:
     type: entity_reference_entity_view
@@ -106,6 +96,7 @@ content:
 hidden:
   content_moderation_control: true
   field_administration: true
+  field_last_saved_by_an_editor: true
   field_region_page: true
   links: true
   search_api_excerpt: true
