@@ -42,7 +42,7 @@ function _va_gov_db_uninstall_modules(array $modules, $uninstall_dependents = TR
   else {
     // Something went wrong. Throw exception.
     throw new UpdateException(
-      t("Failed to uninstall the requested modules: @modules", ['@modules' => $modules_list])
+      "Failed to uninstall the requested modules: " . implode(',', $modules_list)
     );
   }
 }
@@ -69,7 +69,7 @@ function _va_gov_db_install_modules(array $modules, $install_dependents = TRUE) 
   else {
     // Something went wrong. Throw exception.
     throw new UpdateException(
-      t("Failed to install the requested modules: @modules", ['@modules' => $modules_list])
+      "Failed to install the requested modules: " . implode(',', $modules_list)
     );
   }
 }
@@ -529,7 +529,6 @@ function va_gov_db_update_8019(&$sandbox) {
  * Clear Drupal status report mis-matched entity/field errors.
  */
 function va_gov_db_update_8020() {
-  $messages = [];
 
   $missing_entity_types = [
     'environment_indicator',
@@ -701,7 +700,7 @@ function va_gov_db_update_8027(&$sandbox) {
     ->condition('type', 'health_care_region_detail_page')
     ->execute();
   $count = 0;
-  foreach ($nids as $key => $nid) {
+  foreach ($nids as $nid) {
     if ($key_value->get($nid) == 0) {
       $key_value->set($nid, 1);
       $count++;
@@ -761,7 +760,7 @@ function va_gov_db_update_8030(&$sandbox) {
     ->condition('type', 'leadership_listing')
     ->execute();
   $count = 0;
-  foreach ($nids as $key => $nid) {
+  foreach ($nids as $nid) {
     if ($key_value->get($nid) == 0) {
       $key_value->set($nid, 1);
       $count++;

@@ -1,0 +1,31 @@
+uuid: e18d6488-f323-4592-9c5f-1dd3ff95453b
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.vba_facility_service.field_administration
+    - field.field.node.vba_facility_service.field_body
+    - field.field.node.vba_facility_service.field_enforce_unique_combo
+    - field.field.node.vba_facility_service.field_office
+    - field.field.node.vba_facility_service.field_service_name_and_descripti
+    - node.type.vba_facility_service
+  module:
+    - user
+id: node.vba_facility_service.teaser
+targetEntityType: node
+bundle: vba_facility_service
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_administration: true
+  field_body: true
+  field_enforce_unique_combo: true
+  field_office: true
+  field_service_name_and_descripti: true
+  search_api_excerpt: true

@@ -13,9 +13,9 @@ use Drupal\user\Entity\User;
  */
 class FeatureContext extends RawDrupalContext {
 
-  use \Traits\FieldTrait;
-  use \Traits\UserEntityTrait;
-  use \Traits\ContentTrait;
+  use Traits\FieldTrait;
+  use Traits\UserEntityTrait;
+  use Traits\ContentTrait;
 
   /**
    * Make DrushContext available.
@@ -561,6 +561,57 @@ class FeatureContext extends RawDrupalContext {
       file_put_contents($textPath, $text);
       echo "\nDumped HTML to $htmlPath\nDumped Text to $textPath\n";
     }
+  }
+
+  /**
+   * Retrieves the log file path.
+   *
+   * @return string
+   *   An absolute path to the log file.
+   */
+  public function getLogFilePath(): string {
+    $rootPath = getenv('DDEV_APPROOT') ?: getenv('TUGBOAT_ROOT') ?: getenv('RUNNER_TEMP') ?: '/var/www/cms';
+    return "$rootPath/behat.log";
+  }
+
+  /**
+   * Write a message to the log file.
+   *
+   * @param string $message
+   *   The message to write.
+   */
+  public function writeLogMessage(string $message) {
+    file_put_contents($this->getLogFilePath(), "$message\n", FILE_APPEND);
+  }
+
+  /**
+   * Log before scenario.
+   *
+   * @BeforeScenario
+   */
+  public function logBeforeScenario($event) {
+    $timestamp = time();
+    $date = gmdate(DATE_RFC2822);
+    $featureFile = $event->getFeature()->getFile();
+    $scenarioTitle = $event->getScenario()->getTitle();
+    $testString = "$featureFile $scenarioTitle";
+    $message = "VA_GOV_DEBUG $timestamp $date BEFORE $testString";
+    $this->writeLogMessage($message);
+  }
+
+  /**
+   * Log after scenario.
+   *
+   * @AfterScenario
+   */
+  public function logAfterScenario($event) {
+    $timestamp = time();
+    $date = gmdate(DATE_RFC2822);
+    $featureFile = $event->getFeature()->getFile();
+    $scenarioTitle = $event->getScenario()->getTitle();
+    $testString = "$featureFile $scenarioTitle";
+    $message = "VA_GOV_DEBUG $timestamp $date AFTER $testString";
+    $this->writeLogMessage($message);
   }
 
 }

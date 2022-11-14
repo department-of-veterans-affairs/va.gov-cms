@@ -2,7 +2,7 @@
 
 namespace tests\phpunit\Content;
 
-use weitzman\DrupalTestTraits\ExistingSiteBase;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * A test to confirm the proper functioning of the EmailLinkRepair filter.
@@ -13,7 +13,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  *
  * @coversDefaultClass \Drupal\va_gov_backend\Plugin\Filter\EmailLinkRepairFilter
  */
-class EmailLinkRepairFilterTest extends ExistingSiteBase {
+class EmailLinkRepairFilterTest extends VaGovExistingSiteBase {
 
   /**
    * Tests the filter's processing.

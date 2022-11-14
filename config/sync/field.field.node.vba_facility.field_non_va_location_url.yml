@@ -1,0 +1,28 @@
+uuid: 90ff6955-17fd-4588-af65-23dd1700dce9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_non_va_location_url
+    - node.type.vba_facility
+  module:
+    - epp
+    - link
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: node.vba_facility.field_non_va_location_url
+field_name: field_non_va_location_url
+entity_type: node
+bundle: vba_facility
+label: 'Non-VA location URL'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 1
+  link_type: 16
+field_type: link

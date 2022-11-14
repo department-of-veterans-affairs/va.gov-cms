@@ -1,0 +1,15 @@
+diff --git a/src/Config/SecKitOverrides.php b/src/Config/SecKitOverrides.php
+index 3983ee5..5760958 100644
+--- a/src/Config/SecKitOverrides.php
++++ b/src/Config/SecKitOverrides.php
+@@ -52,6 +52,10 @@ class SecKitOverrides implements ConfigFactoryOverrideInterface {
+       // Raven is incorrectly configured.
+       return $overrides;
+     }
++    catch (\Throwable $e) {
++      // Raven is incorrectly configured.
++      return $overrides;
++    }
+     if ($config->get('seckit_set_report_uri')) {
+       $query = [];
+       if ($environment = empty($_SERVER['SENTRY_ENVIRONMENT']) ? $config->get('environment') : $_SERVER['SENTRY_ENVIRONMENT']) {

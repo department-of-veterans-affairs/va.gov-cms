@@ -2,10 +2,10 @@
 
 namespace tests\phpunit\Content;
 
-use Drupal\Tests\UnitTestCase;
 use Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventLocalFileLinks;
 use Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventLocalFileLinksValidator;
-use Traits\ValidatorTestTrait;
+use Tests\Support\Traits\ValidatorTestTrait;
+use Tests\Support\Classes\VaGovUnitTestBase;
 
 /**
  * A test to confirm the proper functioning of this validator.
@@ -16,7 +16,7 @@ use Traits\ValidatorTestTrait;
  *
  * @coversDefaultClass \Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventLocalFileLinksValidator
  */
-class PreventLocalFileLinksValidatorTest extends UnitTestCase {
+class PreventLocalFileLinksValidatorTest extends VaGovUnitTestBase {
 
   use ValidatorTestTrait;
 

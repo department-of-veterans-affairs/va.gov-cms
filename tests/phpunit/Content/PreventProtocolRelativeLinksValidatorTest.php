@@ -2,10 +2,10 @@
 
 namespace tests\phpunit\Content;
 
-use Drupal\Tests\UnitTestCase;
 use Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventProtocolRelativeLinks;
 use Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventProtocolRelativeLinksValidator;
-use Traits\ValidatorTestTrait;
+use Tests\Support\Classes\VaGovUnitTestBase;
+use Tests\Support\Traits\ValidatorTestTrait;
 
 /**
  * A test to confirm the proper functioning of this validator.
@@ -16,7 +16,7 @@ use Traits\ValidatorTestTrait;
  *
  * @coversDefaultClass \Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventProtocolRelativeLinksValidator
  */
-class PreventProtocolRelativeLinksValidatorTest extends UnitTestCase {
+class PreventProtocolRelativeLinksValidatorTest extends VaGovUnitTestBase {
 
   use ValidatorTestTrait;
 

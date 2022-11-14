@@ -1,0 +1,58 @@
+uuid: d343df64-6e16-4e53-86b0-a119001b3615
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.vba_facility_service.field_administration
+    - field.field.node.vba_facility_service.field_body
+    - field.field.node.vba_facility_service.field_enforce_unique_combo
+    - field.field.node.vba_facility_service.field_office
+    - field.field.node.vba_facility_service.field_service_name_and_descripti
+    - node.type.vba_facility_service
+  module:
+    - allow_only_one
+    - text
+    - user
+id: node.vba_facility_service.default
+targetEntityType: node
+bundle: vba_facility_service
+mode: default
+content:
+  field_body:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_enforce_unique_combo:
+    type: allow_only_one
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_office:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_service_name_and_descripti:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_administration: true
+  search_api_excerpt: true

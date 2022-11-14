@@ -7,7 +7,9 @@ jobs:
     name: Check Fields
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        # https://github.com/actions/cache/releases/tag/v3.0.10
+        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
       - name: Check Corresponding Entity Reference Fields
         run: ./tests/scripts/check-cer.sh
       - name: Check Revision Log fields
@@ -18,7 +20,9 @@ jobs:
     name: Composer Validate
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        # https://github.com/actions/cache/releases/tag/v3.0.10
+        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
       - run: composer validate
 
   # Analyze the codebase with GitHub's CodeQL tool.
@@ -26,17 +30,27 @@ jobs:
     name: CodeQL Analyze
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: github/codeql-action/init@v2
-    - uses: github/codeql-action/analyze@v2
+      - name: Checkout
+        # https://github.com/actions/cache/releases/tag/v3.0.10
+        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+      - name: CodeQL Init
+        # https://github.com/github/codeql-action/releases/tag/v2.1.26
+        uses: github/codeql-action/init@e0e5ded33cabb451ae0a9768fc7b0410bad9ad44
+      - name: CodeQL Analyze
+        # https://github.com/github/codeql-action/releases/tag/v2.1.26
+        uses: github/codeql-action/analyze@e0e5ded33cabb451ae0a9768fc7b0410bad9ad44
 
   # Check style of ES/JS files with ESLint and ReviewDog.
   eslint:
     name: ESLint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: reviewdog/action-eslint@v1
+      - name: Checkout
+        # https://github.com/actions/cache/releases/tag/v3.0.10
+        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+      - name: ReviewDog
+        # https://github.com/reviewdog/action-eslint/releases/tag/v1.17.0
+        uses: reviewdog/action-eslint@d3395027ea2cfc5cf8f460b1ea939b6c86fea656
         with:
           reporter: github-pr-review
           eslint_flags: '--max-warnings 0 -c .eslintrc.json --no-eslintrc docroot/modules/custom/**/*.es6.js docroot/themes/custom/**/*.es6.js'
@@ -47,7 +61,9 @@ jobs:
     name: PHP_CodeSniffer
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        # https://github.com/actions/cache/releases/tag/v3.0.10
+        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
       - uses: ./.github/actions/post-checkout
       - name: Run PHP_CodeSniffer and ReviewDog
         run: |
@@ -68,7 +84,9 @@ jobs:
     name: PHPStan
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        # https://github.com/actions/cache/releases/tag/v3.0.10
+        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
       - uses: ./.github/actions/post-checkout
       - name: Run PHPStan and ReviewDog
         run: |
@@ -91,7 +109,9 @@ jobs:
     name: PHPUnit
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        # https://github.com/actions/cache/releases/tag/v3.0.10
+        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
       - uses: ./.github/actions/post-checkout
       - name: Run PHPUnit (Unit Tests only)
         run: bin/phpunit \
@@ -105,8 +125,12 @@ jobs:
     name: Stylelint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: reviewdog/action-stylelint@v1
+      - name: Checkout
+        # https://github.com/actions/cache/releases/tag/v3.0.10
+        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+      - name: Stylelint modules
+        # https://github.com/reviewdog/action-stylelint/releases/tag/v1.14.0 
+        uses: reviewdog/action-stylelint@a45bf7c5a91efc6f9443ae59b9cf7387b7868492
         with:
           fail_on_error: true
           github_token: ${{ secrets.github_token }}
@@ -114,7 +138,9 @@ jobs:
           reporter: github-pr-review
           stylelint_config: '.stylelintrc'
           stylelint_input: 'docroot/modules/custom/**/*.css'
-      - uses: reviewdog/action-stylelint@v1
+      - name: Stylelint themes
+        # https://github.com/reviewdog/action-stylelint/releases/tag/v1.14.0 
+        uses: reviewdog/action-stylelint@a45bf7c5a91efc6f9443ae59b9cf7387b7868492
         with:
           fail_on_error: true
           github_token: ${{ secrets.github_token }}

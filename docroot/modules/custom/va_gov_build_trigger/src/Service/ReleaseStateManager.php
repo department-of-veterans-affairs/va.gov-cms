@@ -228,9 +228,9 @@ class ReleaseStateManager implements ReleaseStateManagerInterface {
     $last_notification = $this->state->get(self::LAST_RELEASE_STATUS_NOTIFICATION, 0);
     $time_since_last_notification = ($now - $last_notification);
 
-    // If the state has been something other than ready for more than 40
+    // If the state has been something other than ready for more than 50
     // minutes, the state is stale.
-    return ($time_since_last_notification > (60 * 40)) && !$state_is_ready;
+    return ($time_since_last_notification > (60 * 50)) && !$state_is_ready;
   }
 
   /**

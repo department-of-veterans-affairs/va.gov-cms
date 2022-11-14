@@ -164,6 +164,7 @@ services:
         - ./bin/npm install
         - composer va:theme:compile
         - composer va:web:install
+        # https://www.drush.org/latest/deploycommand/ (updatedb, cache:rebuild, config:import, deploy:hook)
         - drush deploy
 
         # Setup background processing service.  This uses runit to keep process up
