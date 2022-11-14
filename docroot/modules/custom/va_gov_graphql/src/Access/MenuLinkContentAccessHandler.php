@@ -37,4 +37,11 @@ class MenuLinkContentAccessHandler extends MenuLinkContentAccessControlHandler {
     return parent::checkAccess($entity, $operation, $account);
   }
 
+  /**
+   * Public alias for checkAccess().
+   */
+  public function accessCheck(EntityInterface $entity, $operation, AccountInterface $account) {
+    return $this->checkAccess($entity, $operation, $account);
+  }
+
 }

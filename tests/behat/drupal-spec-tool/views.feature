@@ -67,6 +67,7 @@ Feature: Views
       | Subscribe user | subscribe_user | Users | Enabled |  |
       | Subscribe user email | subscribe_user_email | Users | Enabled |  |
       | Table Audit | table_audit | Content | Enabled |  |
+      | Tables | tables | Paragraph | Enabled |  |
       | Taxonomy entity browsers | taxonomy_entity_browsers | Taxonomy terms | Enabled |  |
       | Taxonomy term | taxonomy_term | Content | Enabled | Content belonging to a certain taxonomy term. |
       | User creation & editing activity | user_creation_editing_activity | Users | Enabled |  |
@@ -193,6 +194,7 @@ Feature: Views
       | Health care service names and descriptions | Master | default | Default |
       | Health care service names and descriptions | Non clinical service | entity_reference_non_clinical_services | Entity Reference |
       | Health care service names and descriptions | VAMC health service and type of care - entity reference | entity_reference_vamc_services | Entity Reference |
+      | Health care service names and descriptions | VBA services | entity_reference_vba_services | Entity Reference |
       | Health care service names and descriptions | Vet Center health service and type of care - entity reference | entity_reference_vet_center_services | Entity Reference |
       | Image Style Warmer Warmup Files | Files overview  | page_1 | Page |
       | Image Style Warmer Warmup Files | Master | default | Default |
@@ -272,6 +274,9 @@ Feature: Views
       | Table Audit | Data export | tables_usage_export | Data export |
       | Table Audit | Default | default | Default |
       | Table Audit | Table Audit | table_audit | Page |
+      | Tables | Data export | data_export_1 | Data export |
+      | Tables | Default | default | Default |
+      | Tables | Tables | page_1 | Page |
       | Taxonomy entity browsers | Audiences vocabularies | audiences_vocabularies | Entity browser |
       | Taxonomy entity browsers | Block | block_1 | Block |
       | Taxonomy entity browsers | Master | default | Default |

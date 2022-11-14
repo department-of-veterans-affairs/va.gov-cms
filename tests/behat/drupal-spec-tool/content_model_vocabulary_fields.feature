@@ -16,9 +16,11 @@ Feature: Content model: Vocabulary fields
 | Vocabulary | Facility Supplemental Status | Guidance | field_guidance | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Vocabulary | Facility Supplemental Status | Status ID | field_status_id | Text (plain) | Required | 1 | Textfield |  |
 | Vocabulary | Products | Knowledge base landing page | field_kb_landing_page | Entity reference |  | 1 | Autocomplete |  |
+| Vocabulary | Resources and support Categories | Enforce Unique Value | field_enforce_unique_value | Allow Only One |  | 1 | Allow Only One widget |  |
+| Vocabulary | Resources and support Categories | Topic ID | field_topic_id | Text (plain) | Required | 1 | Textfield |  |
 | Vocabulary | Sections | Description | field_description | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | Sections | Product | field_product | Entity reference |  | 1 | Select list |  |
-| Vocabulary | VA Services | Patient-friendly name | field_also_known_as | Text (plain) |  | 1 | Textfield |  |
+| Vocabulary | VA Services | Patient friendly name | field_also_known_as | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | VA Services | Common conditions | field_commonly_treated_condition | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | VA Services | Enforce unique combo service | field_enforce_unique_combo_servi | Allow Only One |  | 1 | Allow Only One widget |  |
 | Vocabulary | VA Services | Health Service API ID | field_health_service_api_id | Text (plain) | Required | 1 | Textfield |  |
@@ -27,12 +29,13 @@ Feature: Content model: Vocabulary fields
 | Vocabulary | VA Services | Show for VAMC Facilities | field_show_for_vamc_facilities | Boolean |  | 1 | Single on/off checkbox |  |
 | Vocabulary | VA Services | Show for VBA Facilities | field_show_for_vba_facilities | Boolean |  | 1 | Single on/off checkbox |  |
 | Vocabulary | VA Services | Show for Vet Centers | field_show_for_vet_centers | Boolean |  | 1 | Single on/off checkbox |  |
-| Vocabulary | VA Services | VBA Common Conditions | field_vba_com_conditions | Text (plain) |  | 1 | Textfield |  |
-| Vocabulary | VA Services | VBA Patient Friendly Name | field_vba_friendly_name | Text (plain) |  | 1 | Textfield |  |
-| Vocabulary | VA Services | VBA Description | field_vba_service_descrip | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
+| Vocabulary | VA Services | TRICARE service description | field_tricare_description | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
+| Vocabulary | VA Services | VBA common conditions | field_vba_com_conditions | Text (plain) |  | 1 | Textfield |  |
+| Vocabulary | VA Services | VBA patient friendly name | field_vba_friendly_name | Text (plain) |  | 1 | Textfield |  |
+| Vocabulary | VA Services | VBA description | field_vba_service_descrip | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
 | Vocabulary | VA Services | Common conditions | field_vet_center_com_conditions  | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | VA Services | Patient friendly name | field_vet_center_friendly_name | Text (plain) |  | 1 | Textfield |  |
 | Vocabulary | VA Services | This is a required Vet Center service | field_vet_center_required_servic | Boolean |  | 1 | Single on/off checkbox |  |
 | Vocabulary | VA Services | Service description | field_vet_center_service_descrip | Text (plain, long) |  | 1 | Text area (multiple rows) |  |
 | Vocabulary | VA Services | Type of Care | field_vet_center_type_of_care | List (text) |  | 1 | Select list |  |
-| Vocabulary | VA Services | VHA Stop code | field_vha_healthservice_stopcode | Number (integer) |  | 1 | Number field |  |
+| Vocabulary | VA Services | VHA stop code | field_vha_healthservice_stopcode | Number (integer) |  | 1 | Number field |  |

@@ -5,9 +5,9 @@ Feature: Menus
   I want to have menus that reflect my information architecture.
 
   @dst @menus
-     Scenario: Menus
-       Then exactly the following menus should exist
-       | Name | Machine name | Description |
+    Scenario: Menus
+      Then exactly the following menus should exist
+      | Name | Machine name | Description |
 | Administration | admin | Administrative task links |
 | Burials and memorials benefits hub | burials-and-memorials-benef | For pages in the /burials-and-memorials benefits hub |
 | Careers & employment benefits hub | careers-employment-benefits | va.gov/careers-employment |
@@ -24,8 +24,10 @@ Feature: Menus
 | Life insurance benefits hub | life-insurance-benefits-hub | va.gov/life-insurance |
 | Lovell Federal health care | lovell-federal-health-care | VISN 12 \| va.gov/lovell-federal-health-care |
 | Main navigation | main | Site section links |
+| Other Search Tools | other-search-tools |  |
 | Outreach and events | outreach-and-events |  |
 | Pension benefits hub | pension-benefits-hub | va.gov/pension |
+| Popular on VA.gov | popular-on-va-gov |  |
 | Records benefits hub | records-benefits-hub | va.gov/records |
 | Root pages | root-benefits-hub | For various pages that live at the top level of the URL structure. |
 | Sections | sections | Automatically updated from the Sections taxonomy, and appears in admin toolbar. |
