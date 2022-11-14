@@ -32,6 +32,7 @@ Feature: Content model: Vet Center Content Type fields
 | Content type | Vet Center - Community Access Point | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center - Community Access Point | Facility Locator API ID | field_facility_locator_api_id | Text (plain) |  | 1 | -- Disabled -- | Translatable |
 | Content type | Vet Center - Community Access Point | Access point name | field_geographical_identifier | Text (plain) | Required | 1 | Textfield |  |
+| Content type | Vet Center - Community Access Point | Last Saved by an Editor | field_last_saved_by_an_editor | Timestamp |  | 1 | Datetime Timestamp | Translatable |
 | Content type | Vet Center - Community Access Point | Facility photo | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Content type | Vet Center - Community Access Point | Geolocation | field_geolocation | Geofield |  | 1 | Geofield Map |  |
 | Content type | Vet Center - Community Access Point | Main Vet Center location | field_office | Entity reference | Required | 1 | Select list | Translatable |

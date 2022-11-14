@@ -144,6 +144,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC Facility Health Service | Appointment intro text | field_hservice_appt_intro_select | List (text) | Required | 1 | Check boxes/radio buttons |  |
 | Content type | VAMC Facility Health Service | Appointment lead-in text | field_hservice_appt_leadin | Text (plain, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Content type | VAMC Facility Health Service | Appointment lead-in default | field_hservices_lead_in_default | Markup |  | 1 | Markup |  |
+| Content type | VAMC Facility Health Service | Last Saved by an Editor | field_last_saved_by_an_editor | Timestamp |  | 1 | Datetime Timestamp | Translatable |
 | Content type | VAMC Facility Health Service | Is online scheduling available for this service? | field_online_scheduling_availabl | List (text) | Required | 1 | Select list |  |
 | Content type | VAMC Facility Health Service | Phone number for appointments | field_phone_numbers_paragraph | Entity reference revisions |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
 | Content type | VAMC Facility Health Service | Is a referral required? | field_referral_required | List (text) | Required | 1 | Select list |  |
@@ -172,6 +173,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System | Operating status | field_operating_status | Link |  | 1 | Linkit |  |
 | Content type | VAMC System | Other VA Locations | field_other_va_locations | Text (plain) |  | Unlimited | Textfield |  |
 | Content type | VAMC System | Common Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs (stable) | Translatable |
+| Content type | VAMC System | System Menu | field_system_menu | Entity reference |  | 1 | Select list |  |
 | Content type | VAMC System | Twitter | field_twitter | Link |  | 1 | Linkit | Translatable |
 | Content type | VAMC System | VA Health Connect phone number | field_va_health_connect_phone | Telephone number |  | 1 | Telephone number |  |
 | Content type | VAMC System | Electronic health records system | field_vamc_ehr_system | List (text) |  | 1 | Select list |  |
@@ -259,7 +261,7 @@ Feature: Content model: VAMC Content Type fields
 | Content type | VAMC System Register for Care | National top of page content | field_cc_top_of_page_content | Entity Field Fetch field |  | 1 | Entity Field Fetch widget | Translatable |
 | Content type | VAMC System Register for Care | Enforce unique combo section | field_enforce_unique_combo | Allow Only One |  | 1 | Allow Only One widget | Translatable |
 | Content type | VAMC System Register for Care | Enforce unique combo office | field_enforce_unique_combo_offic | Allow Only One |  | 1 | Allow Only One widget | Translatable |
-| Content type | VAMC System Register for Care | Last Saved by an Editor | field_last_saved_by_an_editor | Timestamp |  | 1 | Datetime Timestamp |  |
+| Content type | VAMC System Register for Care | Last Saved by an Editor | field_last_saved_by_an_editor | Timestamp |  | 1 | Datetime Timestamp | Translatable |
 | Content type | VAMC System Register for Care | Non-clinical Services | field_non_clinical_services | Viewfield |  | 1 | Viewfield |  |
 | Content type | VAMC System Register for Care | VAMC System | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VAMC System Register for Care | Service | field_service_name_and_descripti | Entity reference |  | 1 | -- Disabled -- | Translatable |
