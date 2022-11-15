@@ -60,7 +60,6 @@ class LastEditorSaveEventSubscriber implements EventSubscriberInterface {
   public function formAlter(FormAlterEvent $event): void {
     $form = &$event->getForm();
     $form_state = $event->getFormState();
-    $form_id = $event->getFormId();
 
     $base_form_id = $form_state->getBuildInfo()['base_form_id'] ?? '';
     if ($base_form_id === 'node_form') {
@@ -88,7 +87,7 @@ class LastEditorSaveEventSubscriber implements EventSubscriberInterface {
       $form['meta']['author'] = [
         '#type' => 'item',
         '#title' => $this->t('Updated by'),
-        '#markup' => $node->getOwner()->getAccountName(),
+        '#markup' => !$node->isNew() ? $node->getRevisionUser()->getAccountName() : $this->t('Not saved yet'),
         '#wrapper_attributes' => ['class' => ['entity-meta__author']],
       ];
     }
