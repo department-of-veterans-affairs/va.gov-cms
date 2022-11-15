@@ -19,6 +19,7 @@ source:
   ids:
     - facility_number
   constants:
+    cmsmigrator_id: 1317
     vba_prefix: vba_
     vba_facilities_section: 191
   fields:
@@ -122,7 +123,7 @@ process:
       plugin: skip_on_value
       method: process
       source: facility_number
-      value: '@pseudo_field_office'
+      value: parent_office
     -
       plugin: entity_lookup
       ignore_case: true
@@ -133,7 +134,7 @@ process:
       bundle: vba_facility
     -
       plugin: skip_on_empty
-      method: row
+      method: process
       message: 'Entity lookup for parent office found nothing.'
   field_non_va_official_name:
     -
@@ -159,9 +160,6 @@ process:
       source:
         - '@pseudo_field_vamc_shared'
         - '@pseudo_field_vc_shared'
-    -
-      plugin: skip_on_empty
-      method: process
   field_administration:
     -
       plugin: concat
@@ -198,10 +196,10 @@ process:
     callable: va_gov_migrate_time
   revision_uid:
     plugin: default_value
-    default_value: 1317
+    default_value: constants/cmsmigrator_id
   uid:
     plugin: default_value
-    default_value: 1317
+    default_value: constants/cmsmigrator_id
   type:
     plugin: default_value
     default_value: vba_facility
@@ -216,6 +214,7 @@ destination:
     - field_shared_vha_location
     - changed
     - new_revision
+    - nid
     - revision_default
     - revision_log
     - revision_timestamp
