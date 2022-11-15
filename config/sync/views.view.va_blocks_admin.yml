@@ -4,12 +4,17 @@ status: true
 dependencies:
   config:
     - block_content.type.alert
+    - block_content.type.benefit_promo
+    - block_content.type.news_promo
     - block_content.type.promo
+    - field.storage.block_content.field_administration
     - field.storage.block_content.field_alert_content
     - field.storage.block_content.field_alert_title
     - field.storage.block_content.field_image
     - field.storage.block_content.field_owner
+    - field.storage.block_content.field_promo_headline
     - field.storage.block_content.field_promo_link
+    - field.storage.block_content.field_promo_text
     - image.style.thumbnail
     - taxonomy.vocabulary.administration
     - user.role.authenticated
@@ -1933,3 +1938,613 @@ display:
         - 'config:field.storage.block_content.field_alert_content'
         - 'config:field.storage.block_content.field_alert_title'
         - 'config:field.storage.block_content.field_owner'
+  page_3:
+    id: page_3
+    display_title: 'V2 Homepage Blocks'
+    display_plugin: page
+    position: 1
+    display_options:
+      title: 'V2 Homepage Blocks'
+      fields:
+        info:
+          id: info
+          table: block_content_field_data
+          field: info
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: block_content
+          entity_field: info
+          plugin_id: field
+          label: Description
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: strong
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        edit_block_content:
+          id: edit_block_content
+          table: block_content
+          field: edit_block_content
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: block_content
+          plugin_id: entity_link_edit
+          label: ''
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: strong
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          text: edit
+          output_url_as_text: false
+          absolute: false
+        moderation_state:
+          id: moderation_state
+          table: block_content_field_data
+          field: moderation_state
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: block_content
+          plugin_id: field
+          label: ''
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: content_moderation_state
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        changed:
+          id: changed
+          table: block_content_field_data
+          field: changed
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: block_content
+          entity_field: changed
+          plugin_id: field
+          label: 'Last edited'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: timestamp_ago
+          settings:
+            future_format: '@interval hence'
+            past_format: '@interval ago'
+            granularity: 1
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_promo_headline:
+          id: field_promo_headline
+          table: block_content__field_promo_headline
+          field: field_promo_headline
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Promo Headline'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_promo_text:
+          id: field_promo_text
+          table: block_content__field_promo_text
+          field: field_promo_text
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Promo Text'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: basic_string
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_administration:
+          id: field_administration
+          table: block_content__field_administration
+          field: field_administration
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: Section
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: true
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+      filters:
+        type:
+          id: type
+          table: block_content_field_data
+          field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: block_content
+          entity_field: type
+          plugin_id: bundle
+          operator: in
+          value:
+            benefit_promo: benefit_promo
+            news_promo: news_promo
+          group: 1
+          exposed: false
+          expose:
+            operator_id: type_op
+            label: Type
+            description: ''
+            use_operator: false
+            operator: type_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: type
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              media_creator: '0'
+              media_manager: '0'
+              content_creator: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              support_service_creator: '0'
+              support_service_reviewer: '0'
+            reduce: false
+            argument: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      defaults:
+        title: false
+        relationships: false
+        fields: false
+        filters: false
+        filter_groups: false
+        header: false
+      relationships: {  }
+      display_description: ''
+      header:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text_custom
+          empty: true
+          content: ''
+          tokenize: false
+      display_extenders:
+        jsonapi_views:
+          enabled: true
+        views_merge_rows: {  }
+      path: admin/content/v2-homepage
+      menu:
+        type: tab
+        title: 'V2 Homepage Blocks'
+        description: ''
+        weight: 11
+        expanded: false
+        menu_name: admin
+        parent: ''
+        context: '0'
+        as_local_task: false
+        local_task_link_title: ''
+        local_task_parent: 'views_view:view.centralized_content_paragraphs.centralized_content_paragraphs'
+        local_task_weight: 0
+        local_task_custom_parent_route: ''
+      merge_rows: 1
+      use_grouping: 0
+      field_config:
+        info:
+          merge_option: merge
+          exclude_first: 0
+          prefix: ''
+          separator: ', '
+          suffix: ''
+        field_alert_title:
+          merge_option: first_value
+          exclude_first: 0
+          prefix: ''
+          separator: ', '
+          suffix: ''
+        field_alert_content:
+          merge_option: first_value
+          exclude_first: 0
+          prefix: ''
+          separator: ', '
+          suffix: ''
+        edit_block_content:
+          merge_option: first_value
+          exclude_first: 0
+          prefix: ''
+          separator: ', '
+          suffix: ''
+        moderation_state:
+          merge_option: first_value
+          exclude_first: 0
+          prefix: ''
+          separator: ', '
+          suffix: ''
+        field_owner:
+          merge_option: first_value
+          exclude_first: 0
+          prefix: ''
+          separator: ', '
+          suffix: ''
+        changed:
+          merge_option: first_value
+          exclude_first: 0
+          prefix: ''
+          separator: ', '
+          suffix: ''
+        title:
+          merge_option: first_value
+          exclude_first: 0
+          prefix: ''
+          separator: ', '
+          suffix: ''
+        id:
+          merge_option: merge_unique
+          exclude_first: 0
+          prefix: ''
+          separator: ', '
+          suffix: ''
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url.query_args
+        - user.roles
+      tags:
+        - 'config:field.storage.block_content.field_administration'
+        - 'config:field.storage.block_content.field_promo_headline'
+        - 'config:field.storage.block_content.field_promo_text'
