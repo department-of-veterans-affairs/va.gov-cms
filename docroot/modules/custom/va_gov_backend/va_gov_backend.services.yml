@@ -15,6 +15,7 @@ services:
       - { name: event_subscriber }
   va_gov_backend.last_editor_save_event_subscriber:
       class: Drupal\va_gov_backend\EventSubscriber\LastEditorSaveEventSubscriber
+      arguments: ['@string_translation', '@entity_type.manager', '@date.formatter']
       tags:
         - { name: event_subscriber }
   va_gov_backend.exclusion_types:
