@@ -162,13 +162,9 @@ process:
         - '@pseudo_field_vc_shared'
   field_administration:
     -
-      plugin: concat
-      source:
-        - constants/vba_prefix
-        - parent_office
-    -
       plugin: callback
       callable: trim
+      source: '@pseudo_field_office'
     -
       plugin: entity_generate
       entity_type: taxonomy_term
@@ -194,12 +190,8 @@ process:
   revision_timestamp:
     plugin: callback
     callable: va_gov_migrate_time
-  revision_uid:
-    plugin: default_value
-    default_value: constants/cmsmigrator_id
-  uid:
-    plugin: default_value
-    default_value: constants/cmsmigrator_id
+  revision_uid: constants/cmsmigrator_id
+  uid: constants/cmsmigrator_id
   type:
     plugin: default_value
     default_value: vba_facility
