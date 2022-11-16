@@ -20,6 +20,7 @@ source:
     - facility_number
   constants:
     cmsmigrator_id: 1317
+    product_term_tid: 1050
     vba_prefix: vba_
     vba_facilities_section: 191
   fields:
@@ -179,7 +180,7 @@ process:
   field_administration:
     -
       plugin: entity_generate
-      source: '@pseudo_field_regional_office_api_id'
+      source: '@pseudo_field_regional_office_name'
       entity_type: taxonomy_term
       ignore_case: true
       value_key: name
@@ -188,7 +189,7 @@ process:
       values:
         name: '@pseudo_field_regional_office_name'
         parent: '@pseudo_field_district_tid'
-        field_product: 1050
+        field_product: constants/product_term_tid
   changed:
     plugin: callback
     callable: va_gov_migrate_time
