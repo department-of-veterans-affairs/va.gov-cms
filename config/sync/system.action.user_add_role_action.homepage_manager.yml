@@ -1,0 +1,14 @@
+uuid: f178b8fc-c456-4559-acfb-eb3bf393dc0b
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.homepage_manager
+  module:
+    - user
+id: user_add_role_action.homepage_manager
+label: 'Add the Homepage Manager role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: homepage_manager

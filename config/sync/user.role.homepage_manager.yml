@@ -1,0 +1,28 @@
+uuid: 42fd7c0a-0c02-4121-ab2b-508416995024
+langcode: en
+status: true
+dependencies:
+  module:
+    - va_gov_backend
+third_party_settings:
+  va_gov_backend:
+    vgb_description: 'Can create home page related components (news and benefit promo blocks; news spotlight and hero entityqueues).'
+id: homepage_manager
+label: 'Homepage Manager'
+weight: 5
+is_admin: null
+permissions:
+  - 'create benefit_promo block content'
+  - 'create news_promo block content'
+  - 'delete benefit_promo revisions'
+  - 'delete news_promo revisions'
+  - 'manipulate entityqueues'
+  - 'revert benefit_promo revisions'
+  - 'revert news_promo revisions'
+  - 'update any benefit_promo block content'
+  - 'update any news_promo block content'
+  - 'update home_page_hero entityqueue'
+  - 'update home_page_news_spotlight entityqueue'
+  - 'view benefit_promo revisions'
+  - 'view news_promo revisions'
+  - 'view the administration theme'

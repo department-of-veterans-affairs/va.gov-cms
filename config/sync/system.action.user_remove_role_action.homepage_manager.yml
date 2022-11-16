@@ -1,0 +1,14 @@
+uuid: 7939594e-d40d-4a92-b0ac-1e548f526abf
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.homepage_manager
+  module:
+    - user
+id: user_remove_role_action.homepage_manager
+label: 'Remove the Homepage Manager role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: homepage_manager
