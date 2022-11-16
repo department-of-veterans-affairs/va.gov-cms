@@ -45,25 +45,41 @@ source:
       name: shared_va_location
       label: 'Shared VA Location'
 process:
-  pseudo_field_facility_number:
+  pseudo_field_vba_facility_api_id:
     -
       plugin: concat
       source:
         - constants/vba_prefix
         - facility_number
-  pseudo_field_office:
+    -
+      plugin: callback
+      callable: trim
+  pseudo_field_regional_office_api_id:
     -
       plugin: concat
       source:
         - constants/vba_prefix
         - parent_office
-  pseudo_field_parent:
     -
-      plugin: get
-      source: field_district
+      plugin: callback
+      callable: trim
+  pseudo_field_regional_office_nid:
+    -
+      plugin: migration_lookup
+      migration: va_node_facility_vba
+      source: '@pseudo_field_regional_office_api_id'
+  pseudo_field_regional_office_name:
+    -
+      plugin: entity_value
+      source: '@pseudo_field_regional_office_nid'
+      entity_type: node
+      langcode: en
+      field_name: title
+  pseudo_field_district_tid:
     -
       plugin: entity_lookup
       entity_type: taxonomy_term
+      source: field_district
       value_key: name
       bundle_key: vid
       parent: constants/vba_facilities_section
@@ -113,11 +129,11 @@ process:
     -
       plugin: migration_lookup
       migration: va_node_facility_vba
-      source: '@pseudo_field_facility_number'
+      source: '@pseudo_field_vba_facility_api_id'
     -
       plugin: skip_on_empty
       method: row
-      message: 'Migration lookup found nothing for @pseudo_field_facility_number.'
+      message: 'Migration lookup found nothing for @pseudo_field_vba_facility_api_id.'
   field_office:
     -
       plugin: skip_on_value
@@ -127,7 +143,7 @@ process:
     -
       plugin: entity_lookup
       ignore_case: true
-      source: '@pseudo_field_office'
+      source: '@pseudo_field_regional_office_api_id'
       value_key: field_facility_locator_api_id
       entity_type: node
       bundle_key: type
@@ -162,19 +178,16 @@ process:
         - '@pseudo_field_vc_shared'
   field_administration:
     -
-      plugin: callback
-      callable: trim
-      source: '@pseudo_field_office'
-    -
       plugin: entity_generate
+      source: '@pseudo_field_regional_office_api_id'
       entity_type: taxonomy_term
       ignore_case: true
       value_key: name
       bundle_key: vid
       bundle: administration
       values:
-        name: facility_name
-        parent: '@pseudo_field_parent'
+        name: '@pseudo_field_regional_office_name'
+        parent: '@pseudo_field_district_tid'
   changed:
     plugin: callback
     callable: va_gov_migrate_time
