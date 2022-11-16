@@ -253,3 +253,6 @@ $env_services_path = __DIR__ . "/services/services.$env_type.yml";
 if (file_exists($env_services_path)) {
   $settings['container_yamls'][] = $env_services_path;
 }
+
+// Hide deprecation warnings during transition to PHP 8.1.
+ini_set('error_reporting', E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
