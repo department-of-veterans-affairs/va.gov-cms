@@ -47,3 +47,5 @@ $settings['github_actions_deploy_env'] = 'prod';
 
 // Settings supporting broken link report import.
 $settings['broken_link_report_import_enabled'] = TRUE;
+
+ini_set('error_reporting', E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
