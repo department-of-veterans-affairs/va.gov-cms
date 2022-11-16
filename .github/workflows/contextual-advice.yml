@@ -40,7 +40,6 @@ jobs:
         id: find_advice
         continue-on-error: true
         run: |
-          git fetch;
           mkdir -p ./.pr_advice;
           advice_path=".github/workflows/config/advice/";
           while read filename; do
