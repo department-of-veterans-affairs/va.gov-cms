@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.health_care_local_facility.field_facility_locator_api_id
     - field.field.node.health_care_local_facility.field_geolocation
     - field.field.node.health_care_local_facility.field_intro_text
+    - field.field.node.health_care_local_facility.field_last_saved_by_an_editor
     - field.field.node.health_care_local_facility.field_local_health_care_service_
     - field.field.node.health_care_local_facility.field_location_services
     - field.field.node.health_care_local_facility.field_main_location
@@ -287,6 +288,12 @@ content:
       js_prevent_submit: false
       count_html_characters: false
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+    third_party_settings: {  }
+  field_last_saved_by_an_editor:
+    type: datetime_timestamp
+    weight: 30
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_location_services:
     type: entity_reference_paragraphs

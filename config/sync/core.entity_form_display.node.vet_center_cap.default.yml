@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.vet_center_cap.field_facility_locator_api_id
     - field.field.node.vet_center_cap.field_geographical_identifier
     - field.field.node.vet_center_cap.field_geolocation
+    - field.field.node.vet_center_cap.field_last_saved_by_an_editor
     - field.field.node.vet_center_cap.field_media
     - field.field.node.vet_center_cap.field_office
     - field.field.node.vet_center_cap.field_office_hours
@@ -172,6 +173,12 @@ content:
           min_terms: 4
           delay: 800
           options: ''
+    third_party_settings: {  }
+  field_last_saved_by_an_editor:
+    type: datetime_timestamp
+    weight: 26
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_media:
     type: media_library_widget
