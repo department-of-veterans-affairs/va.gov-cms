@@ -18,6 +18,7 @@ Feature: Content model: Vet Center Content Type fields
 | Content type | Vet Center | Geolocation | field_geolocation | Geofield |  | 1 | Latitude/Longitude | Translatable |
 | Content type | Vet Center | Services | field_health_services | Entity reference |  | Unlimited | Inline entity form - Complex - Table View Mode |  |
 | Content type | Vet Center | Page introduction | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
+| Content type | Vet Center | Last Saved by an Editor | field_last_saved_by_an_editor | Timestamp |  | 1 | Datetime Timestamp | Translatable |
 | Content type | Vet Center | Facility photo | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Content type | Vet Center | Hours | field_office_hours | Office hours |  | Unlimited | Office hours (week) |  |
 | Content type | Vet Center | Name of Vet Center | field_official_name | Text (plain) | Required | 1 | Tooltip textfield |  |
@@ -31,6 +32,7 @@ Feature: Content model: Vet Center Content Type fields
 | Content type | Vet Center - Community Access Point | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center - Community Access Point | Facility Locator API ID | field_facility_locator_api_id | Text (plain) |  | 1 | -- Disabled -- | Translatable |
 | Content type | Vet Center - Community Access Point | Access point name | field_geographical_identifier | Text (plain) | Required | 1 | Textfield |  |
+| Content type | Vet Center - Community Access Point | Last Saved by an Editor | field_last_saved_by_an_editor | Timestamp |  | 1 | Datetime Timestamp | Translatable |
 | Content type | Vet Center - Community Access Point | Facility photo | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Content type | Vet Center - Community Access Point | Geolocation | field_geolocation | Geofield |  | 1 | Geofield Map |  |
 | Content type | Vet Center - Community Access Point | Main Vet Center location | field_office | Entity reference | Required | 1 | Select list | Translatable |
@@ -42,17 +44,20 @@ Feature: Content model: Vet Center Content Type fields
 | Content type | Vet Center - Facility Service | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center - Facility Service | Vet Center service description | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | Vet Center - Facility Service | Enforce unique combo | field_enforce_unique_combo | Allow Only One |  | 1 | Allow Only One widget | Translatable |
+| Content type | Vet Center - Facility Service | Last Saved by an Editor | field_last_saved_by_an_editor | Timestamp |  | 1 | Datetime Timestamp | Translatable |
 | Content type | Vet Center - Facility Service | Vet Center | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center - Facility Service | Service name | field_service_name_and_descripti | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center - Locations List | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center - Locations List | Enforce unique combo | field_enforce_unique_combo | Allow Only One |  | 1 | Allow Only One widget | Translatable |
 | Content type | Vet Center - Locations List | Page introduction | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
+| Content type | Vet Center - Locations List | Last Saved by an Editor | field_last_saved_by_an_editor | Timestamp |  | 1 | Datetime Timestamp | Translatable |
 | Content type | Vet Center - Locations List | Display Additional Mobile Vet Centers | field_nearby_mobile_vet_centers | Entity reference |  | Unlimited | Entity Browser - Table |  |
 | Content type | Vet Center - Locations List | Vet Center | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center - Mobile Vet Center | Location address | field_address | Address |  | 1 | Address | Translatable |
 | Content type | Vet Center - Mobile Vet Center | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center - Mobile Vet Center | Facility ID | field_facility_locator_api_id | Text (plain) |  | 1 | Textfield | Translatable |
 | Content type | Vet Center - Mobile Vet Center | Facility photo | field_media | Entity reference |  | 1 | Media library | Translatable |
+| Content type | Vet Center - Mobile Vet Center | Last Saved by an Editor | field_last_saved_by_an_editor | Timestamp |  | 1 | Datetime Timestamp | Translatable |
 | Content type | Vet Center - Mobile Vet Center | Main Vet Center location | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center - Mobile Vet Center | Hours | field_office_hours | Office hours |  | Unlimited | Office hours (week) | Translatable |
 | Content type | Vet Center - Mobile Vet Center | Direct line | field_phone_number | Telephone number |  | 1 | Telephone number | Translatable |
@@ -61,6 +66,7 @@ Feature: Content model: Vet Center Content Type fields
 | Content type | Vet Center - Outstation | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center - Outstation | Facility ID | field_facility_locator_api_id | Text (plain) |  | 1 | Textfield | Translatable |
 | Content type | Vet Center - Outstation | Geolocation | field_geolocation | Geofield |  | 1 | Latitude/Longitude | Translatable |
+| Content type | Vet Center - Outstation | Last Saved by an Editor | field_last_saved_by_an_editor | Timestamp |  | 1 | Datetime Timestamp | Translatable |
 | Content type | Vet Center - Outstation | Facility photo | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Content type | Vet Center - Outstation | Main Vet Center location | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Vet Center - Outstation | Hours | field_office_hours | Office hours |  | Unlimited | Office hours (week) | Translatable |
