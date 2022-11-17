@@ -79,7 +79,7 @@ class LastEditorSaveEventSubscriber implements EventSubscriberInterface {
       $form['meta']['saved'] = [
         '#type' => 'item',
         '#title' => $this->t('Last saved by an editor'),
-        '#markup' => !empty($node->get('field_last_saved_by_an_editor')->value) ? $this->dateFormatter->format((int) $node->get('field_last_saved_by_an_editor')->value, 'short') : $this->t('Not saved by an editor yet'),
+        '#markup' => !empty($node->get('field_last_saved_by_an_editor')->value) ? $this->dateFormatter->format((int) $node->get('field_last_saved_by_an_editor')->value, 'short') : $this->t('Unknown'),
         '#suffix' => '<p class="helper-text helper-text-editor">' . $this->t('This is the last time an editor updated this content.') . '</p>',
         '#wrapper_attributes' => ['class' => ['entity-meta__last-saved-by-editor']],
       ];
