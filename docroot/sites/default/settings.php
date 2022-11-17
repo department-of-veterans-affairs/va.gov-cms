@@ -255,4 +255,5 @@ if (file_exists($env_services_path)) {
 }
 
 // Hide deprecation warnings during transition to PHP 8.1.
-ini_set('error_reporting', E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
+$error_reporting = ini_get('error_reporting');
+ini_set('error_reporting', $error_reporting & ~E_DEPRECATED & ~E_USER_DEPRECATED);
