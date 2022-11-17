@@ -59,11 +59,11 @@ third_party_settings:
       format_type: details
       format_settings:
         classes: ''
-        show_empty_fields: false
         id: ''
         open: true
         description: 'Add content to these fields if you want to "override" how the service is described on Vet Center pages.'
         required_fields: true
+        show_empty_fields: false
     group_vamc:
       children:
         - field_show_for_vamc_facilities
@@ -79,11 +79,11 @@ third_party_settings:
       format_type: details
       format_settings:
         classes: ''
-        show_empty_fields: false
         id: ''
         open: true
         description: 'These values act as the default values for VHA health services, but can be overridden for Vet Centers, below.'
         required_fields: true
+        show_empty_fields: false
     group_vba:
       children:
         - field_show_for_vba_facilities
@@ -97,10 +97,10 @@ third_party_settings:
       format_type: fieldset
       format_settings:
         classes: ''
-        show_empty_fields: false
         id: ''
         description: ''
         required_fields: true
+        show_empty_fields: false
         description_display: after
 id: taxonomy_term.health_care_service_taxonomy.default
 targetEntityType: taxonomy_term
