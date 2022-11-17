@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.outreach_asset.field_benefits
     - field.field.node.outreach_asset.field_description
     - field.field.node.outreach_asset.field_format
+    - field.field.node.outreach_asset.field_last_saved_by_an_editor
     - field.field.node.outreach_asset.field_lc_categories
     - field.field.node.outreach_asset.field_listing
     - field.field.node.outreach_asset.field_media
@@ -48,7 +49,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 5
+    weight: 4
     region: content
   field_media:
     type: entity_reference_entity_view
@@ -63,6 +64,7 @@ hidden:
   content_moderation_control: true
   field_administration: true
   field_lc_categories: true
+  field_last_saved_by_an_editor: true
   field_listing: true
   field_meta_tags: true
   links: true

@@ -35,7 +35,7 @@ const creators = {
     cy.findAllByLabelText('Street address').type(faker.address.streetAddress(), { force: true });
     cy.findAllByLabelText('City').type(faker.address.city(), { force: true });
     cy.findAllByLabelText('State').select('Alabama', { force: true });
-    cy.findAllByLabelText('Section').select('VACO', { force: true });
+    cy.findAllByLabelText('Section').select('--Outreach Hub', { force: true });
     cy.scrollToSelector('#edit-field-media-open-button');
     cy.get('#edit-field-media-open-button').click({ force: true });
     cy.get('.dropzone', {
@@ -83,7 +83,7 @@ const creators = {
     cy.visit('/node/add/office');
     cy.scrollTo('top');
     cy.findAllByLabelText('Name').type('[Test Data] ' + faker.lorem.sentence(), { force: true });
-    cy.findAllByLabelText('Section').select('VACO', { force: true });
+    cy.findAllByLabelText('Section').select('---VA Sheridan health care', { force: true });
     cy.findAllByLabelText('Provide a menu link').check({ force: true });
     cy.findAllByLabelText('Menu link title').type('[Test Data] ' + faker.lorem.sentence(), { force: true });
     cy.findAllByLabelText('Parent link').select('-- Outreach and events', { force: true });

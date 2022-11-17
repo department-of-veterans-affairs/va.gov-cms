@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.leadership_listing.field_administration
     - field.field.node.leadership_listing.field_description
     - field.field.node.leadership_listing.field_intro_text
+    - field.field.node.leadership_listing.field_last_saved_by_an_editor
     - field.field.node.leadership_listing.field_leadership
     - field.field.node.leadership_listing.field_meta_tags
     - field.field.node.leadership_listing.field_office
@@ -34,7 +35,7 @@ third_party_settings:
       label: Relationships
       parent_name: ''
       region: hidden
-      weight: 7
+      weight: 8
       format_type: fieldset
       format_settings:
         classes: ''
@@ -84,6 +85,7 @@ content:
 hidden:
   content_moderation_control: true
   field_administration: true
+  field_last_saved_by_an_editor: true
   field_meta_tags: true
   field_office: true
   links: true

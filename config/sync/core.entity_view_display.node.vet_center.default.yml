@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.vet_center.field_geolocation
     - field.field.node.vet_center.field_health_services
     - field.field.node.vet_center.field_intro_text
+    - field.field.node.vet_center.field_last_saved_by_an_editor
     - field.field.node.vet_center.field_media
     - field.field.node.vet_center.field_office_hours
     - field.field.node.vet_center.field_official_name
@@ -41,7 +42,7 @@ third_party_settings:
       label: 'External content'
       parent_name: ''
       region: hidden
-      weight: 17
+      weight: 18
       format_type: fieldset
       format_settings:
         classes: ''
@@ -343,6 +344,7 @@ hidden:
   content_moderation_control: true
   field_administration: true
   field_geolocation: true
+  field_last_saved_by_an_editor: true
   field_table_of_contents: true
   flag_changed_name: true
   flag_changed_title: true

@@ -12,4 +12,5 @@ Feature: Content model: VA Common Content Type fields
 | Content type | Centralized Content | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Centralized Content | Applied to | field_applied_to | Text (plain) |  | 1 | Textfield |  |
 | Content type | Centralized Content | Content | field_content_block | Entity reference revisions |  | Unlimited | Paragraphs Browser EXPERIMENTAL | Translatable |
+| Content type | Centralized Content | Last Saved by an Editor | field_last_saved_by_an_editor | Timestamp |  | 1 | Datetime Timestamp | Translatable |
 | Content type | Centralized Content | Product | field_product | Entity reference |  | 1 | Select list | Translatable |
