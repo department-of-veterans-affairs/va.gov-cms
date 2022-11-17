@@ -198,7 +198,6 @@ class SectionHierarchyBreadcrumbTest extends VaGovUnitTestBase {
     $service = $this->getSectionHierarchyBreadcrumbService($entityTypeManager);
     // Note reverse order!
     $this->assertEquals($service->buildLinksHtml($term), [
-      '<a href="https://www.example.co.uk/">TEST4</a>',
       '<a href="https://www.example.net/">TEST3</a>',
       '<a href="https://www.example.org/">TEST2</a>',
       '<a href="https://www.example.com/">TEST1</a>',
@@ -239,7 +238,6 @@ class SectionHierarchyBreadcrumbTest extends VaGovUnitTestBase {
     $service = $this->getSectionHierarchyBreadcrumbService($entityTypeManager);
     // Note reverse order!
     $this->assertEquals($service->getLinksHtml($node), [
-      '<a href="https://www.example.co.uk/">TEST4</a>',
       '<a href="https://www.example.net/">TEST3</a>',
       '<a href="https://www.example.org/">TEST2</a>',
       '<a href="https://www.example.com/">TEST1</a>',
