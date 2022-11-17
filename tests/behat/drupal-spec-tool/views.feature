@@ -270,9 +270,9 @@ Feature: Views
       | Subscribe taxonomy term email | Master | default | Default |
       | Subscribe user | Master | default | Default |
       | Subscribe user email | Master | default | Default |
-      | Tables | Data export | data_export_1 | Data export |
+      | Tables | Data export | table_audit_export | Data export |
       | Tables | Default | default | Default |
-      | Tables | Tables | page_1 | Page |
+      | Tables | Tables | table_audit_page | Page |
       | Taxonomy entity browsers | Audiences vocabularies | audiences_vocabularies | Entity browser |
       | Taxonomy entity browsers | Block | block_1 | Block |
       | Taxonomy entity browsers | Master | default | Default |
