@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.basic_landing_page.field_content_block
     - field.field.node.basic_landing_page.field_description
     - field.field.node.basic_landing_page.field_intro_text_limited_html
+    - field.field.node.basic_landing_page.field_last_saved_by_an_editor
     - field.field.node.basic_landing_page.field_product
     - field.field.node.basic_landing_page.field_table_of_contents_boolean
     - node.type.basic_landing_page
@@ -156,6 +157,12 @@ content:
       allowed_formats:
         hide_help: '0'
         hide_guidelines: '0'
+  field_last_saved_by_an_editor:
+    type: datetime_timestamp
+    weight: 28
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_product:
     type: options_select
     weight: 26

@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.vba_facility.field_facility_vba_classificatio
     - field.field.node.vba_facility.field_geolocation
     - field.field.node.vba_facility.field_intro_text
+    - field.field.node.vba_facility.field_last_saved_by_an_editor
     - field.field.node.vba_facility.field_media
     - field.field.node.vba_facility.field_non_va_location_url
     - field.field.node.vba_facility.field_non_va_official_name
@@ -202,6 +203,12 @@ content:
     settings:
       rows: 5
       placeholder: ''
+    third_party_settings: {  }
+  field_last_saved_by_an_editor:
+    type: datetime_timestamp
+    weight: 26
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_media:
     type: media_library_widget

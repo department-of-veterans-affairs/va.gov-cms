@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.press_release.field_address
     - field.field.node.press_release.field_administration
     - field.field.node.press_release.field_intro_text
+    - field.field.node.press_release.field_last_saved_by_an_editor
     - field.field.node.press_release.field_listing
     - field.field.node.press_release.field_meta_tags
     - field.field.node.press_release.field_pdf_version
@@ -115,6 +116,12 @@ content:
       js_prevent_submit: false
       count_html_characters: false
       textcount_status_message: 'Characters Used: <span class="current_count">@current_length</span><br />Characters Remaining: <span class="remaining_count">@remaining_count</span>'
+    third_party_settings: {  }
+  field_last_saved_by_an_editor:
+    type: datetime_timestamp
+    weight: 26
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_listing:
     type: options_select

@@ -1,4 +1,3 @@
-
 @api
 Feature: Content model: Outreach hub Content Type fields
   In order to enter structured content into my site
@@ -14,6 +13,7 @@ Feature: Content model: Outreach hub Content Type fields
 | Content type | Office | Meta description | field_description | Text (plain) |  | 1 | Textfield | Translatable |
 | Content type | Office | Email updates link | field_email_updates_link | Link |  | 1 | Link |  |
 | Content type | Office | External link | field_external_link | Link |  | 1 | Link |  |
+| Content type | Office | Last Saved by an Editor | field_last_saved_by_an_editor | Timestamp |  | 1 | Datetime Timestamp | Translatable |
 | Content type | Office | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | Office | Office ID | field_office_id | Text (plain) |  | 1 | Textfield |  |
 | Content type | Office | Parent Office | field_parent_office | Entity reference |  | 1 | Autocomplete |  |
@@ -22,6 +22,7 @@ Feature: Content model: Outreach hub Content Type fields
 | Content type | Publication | Related Benefits | field_benefits | List (text) |  | 1 | Select list |  |
 | Content type | Publication | Meta description | field_description | Text (plain) |  | 1 | Textfield | Translatable |
 | Content type | Publication | Format | field_format | List (text) | Required | 1 | Select list |  |
+| Content type | Publication | Last Saved by an Editor | field_last_saved_by_an_editor | Timestamp |  | 1 | Datetime Timestamp | Translatable |
 | Content type | Publication | Related Benefits | field_lc_categories | Entity reference |  | Unlimited | Select list |  |
 | Content type | Publication | Publication listing | field_listing | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Publication | File or video | field_media | Entity reference |  | 1 | Media library |  |
@@ -29,5 +30,6 @@ Feature: Content model: Outreach hub Content Type fields
 | Content type | Publication Listing Page | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Publication Listing Page | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Publication Listing Page | Intro text | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
+| Content type | Publication Listing Page | Last Saved by an Editor | field_last_saved_by_an_editor | Timestamp |  | 1 | Datetime Timestamp | Translatable |
 | Content type | Publication Listing Page | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | Publication Listing Page | Related office or health care system | field_office | Entity reference | Required | 1 | Select list | Translatable |

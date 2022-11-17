@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.centralized_content.field_administration
     - field.field.node.centralized_content.field_applied_to
     - field.field.node.centralized_content.field_content_block
+    - field.field.node.centralized_content.field_last_saved_by_an_editor
     - field.field.node.centralized_content.field_product
     - node.type.centralized_content
     - workflows.workflow.editorial
@@ -112,6 +113,12 @@ content:
     third_party_settings:
       limited_field_widgets:
         limit_values: '0'
+  field_last_saved_by_an_editor:
+    type: datetime_timestamp
+    weight: 26
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_product:
     type: options_select
     weight: 1
