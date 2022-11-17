@@ -94,10 +94,7 @@ class SectionHierarchyBreadcrumb implements SectionHierarchyBreadcrumbInterface 
     if (is_null($term)) {
       return [];
     }
-    $links = [
-      $this->getTermLinkHtml($term),
-      ... $this->getParentTermLinksHtml($term),
-    ];
+    $links = $this->getParentTermLinksHtml($term);
     $links = array_reverse($links);
     return $links;
   }
