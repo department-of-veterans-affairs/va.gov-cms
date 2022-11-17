@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_backend\EventSubscriber;
 
 use Drupal\Core\Datetime\DateFormatter;
+use Drupal\Core\DependencyInjection\DependencySerializationTrait;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
@@ -17,6 +18,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class LastEditorSaveEventSubscriber implements EventSubscriberInterface {
 
   use StringTranslationTrait;
+  use DependencySerializationTrait;
 
   /**
    * The entity manager.
@@ -40,6 +42,8 @@ class LastEditorSaveEventSubscriber implements EventSubscriberInterface {
    *   The string translation service.
    * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
    *   The string entity type service.
+   * @param \Drupal\Core\Datetime\DateFormatter $date_formatter
+   *   The date formatter service.
    */
   public function __construct(
     TranslationInterface $string_translation,
@@ -63,8 +67,10 @@ class LastEditorSaveEventSubscriber implements EventSubscriberInterface {
 
     $base_form_id = $form_state->getBuildInfo()['base_form_id'] ?? '';
     if ($base_form_id === 'node_form') {
+      /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
+      $form_object = $form_state->getFormObject();
       /** @var \Drupal\node\NodeInterface $node */
-      $node = $form_state->getFormObject()->getEntity();
+      $node = $form_object->getEntity();
 
       $form['field_last_saved_by_an_editor']['#access'] = FALSE;
       $form['actions']['submit']['#submit'][] = [
@@ -111,8 +117,10 @@ class LastEditorSaveEventSubscriber implements EventSubscriberInterface {
    *   The form state.
    */
   public function lastSavedByEditorSetTimestamp(array $form, FormStateInterface $form_state) {
+    /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
+    $form_object = $form_state->getFormObject();
     /** @var \Drupal\node\NodeInterface $node */
-    $node = $form_state->getFormObject()->getEntity();
+    $node = $form_object->getEntity();
     $timestamp = time();
     $node->set('field_last_saved_by_an_editor', $timestamp);
   }
