@@ -232,8 +232,8 @@ class EntityMetaDisplay extends BlockBase implements ContainerFactoryPluginInter
    */
   public function getSectionHierarchyBreadcrumbLinks(NodeInterface $node) : string {
     $links = $this->sectionHierarchyBreadcrumb->getLinksHtml($node);
-    // We exclude the first link and anything beyond the fourth.
-    $links = array_slice($links, 1, 3);
+    // We include only up to the final 3 links.
+    $links = array_slice($links, -4, 3);
     return implode(' » ', $links);
   }
 

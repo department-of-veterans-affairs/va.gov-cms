@@ -87,7 +87,8 @@ class EntityMetaDisplayTest extends VaGovUnitTestBase {
     ?bool $isExcluded = FALSE,
     ?int $latestPublishedRevisionId = NULL,
     ?int $latestArchivedRevisionId = NULL,
-    ?bool $isLive = FALSE
+    ?bool $isLive = FALSE,
+    ?int $linksCount = NULL
   ) {
     // `current_route_match`.
     $routeMatchProphecy = $this->prophesize(RouteMatchInterface::CLASS);
@@ -119,6 +120,7 @@ class EntityMetaDisplayTest extends VaGovUnitTestBase {
       $this->getTerm(2, 'Test Term 2', '/term/2'),
       $this->getTerm(3, 'Test Term 3', '/term/3'),
       $this->getTerm(4, 'Test Term 4', '/term/4'),
+      $this->getTerm(5, 'Test Term 5', '/term/5'),
     ]);
     $termStorage = $termStorageProphecy->reveal();
     $entityTypeManagerProphecy->getStorage('taxonomy_term')->willReturn($termStorage);
@@ -147,12 +149,16 @@ class EntityMetaDisplayTest extends VaGovUnitTestBase {
 
     // `va_gov_workflow_assignments.section_hierarchy_breadcrumb`.
     $sectionHierarchyBreadcrumbProphecy = $this->prophesize(SectionHierarchyBreadcrumbInterface::CLASS);
-    $sectionHierarchyBreadcrumbProphecy->getLinksHtml(Argument::type(NodeInterface::CLASS))->willReturn([
+    $linksHtml = [
       '<a href="https://great-great-grandparent.example.com/">great-great-grandparent</a>',
       '<a href="https://great-grandparent.example.com/">great-grandparent</a>',
       '<a href="https://grandparent.example.com/">grandparent</a>',
       '<a href="https://parent.example.com/">parent</a>',
-    ]);
+    ];
+    if (!is_null($linksCount)) {
+      $linksHtml = array_slice($linksHtml, -$linksCount, $linksCount);
+    }
+    $sectionHierarchyBreadcrumbProphecy->getLinksHtml(Argument::type(NodeInterface::CLASS))->willReturn($linksHtml);
     $sectionHierarchyBreadcrumb = $sectionHierarchyBreadcrumbProphecy->reveal();
 
     $container = $this->getContainer(
@@ -254,6 +260,54 @@ class EntityMetaDisplayTest extends VaGovUnitTestBase {
         $nodeRevision,
         TRUE,
         457,
+      ],
+      // A minimally valid live node (three links).
+      [
+        [
+          '#markup' => '<div><span class="va-gov-entity-meta__title"><strong>Owner: </strong></span>'
+          . '<span class="va-gov-entity-meta__content">'
+          . '<a href="https://great-grandparent.example.com/">great-grandparent</a>'
+          . ' » <a href="https://grandparent.example.com/">grandparent</a>'
+          . ' » <a href="https://parent.example.com/">parent</a></span></div>',
+        ],
+        $node,
+        $nodeRevision,
+        TRUE,
+        457,
+        NULL,
+        NULL,
+        3,
+      ],
+      // A minimally valid live node (two links).
+      [
+        [
+          '#markup' => '<div><span class="va-gov-entity-meta__title"><strong>Owner: </strong></span>'
+          . '<span class="va-gov-entity-meta__content">'
+          . '<a href="https://grandparent.example.com/">grandparent</a>'
+          . ' » <a href="https://parent.example.com/">parent</a></span></div>',
+        ],
+        $node,
+        $nodeRevision,
+        TRUE,
+        457,
+        NULL,
+        NULL,
+        2,
+      ],
+      // A minimally valid live node (one link).
+      [
+        [
+          '#markup' => '<div><span class="va-gov-entity-meta__title"><strong>Owner: </strong></span>'
+          . '<span class="va-gov-entity-meta__content">'
+          . '<a href="https://parent.example.com/">parent</a></span></div>',
+        ],
+        $node,
+        $nodeRevision,
+        TRUE,
+        457,
+        NULL,
+        NULL,
+        1,
       ],
     ];
   }
