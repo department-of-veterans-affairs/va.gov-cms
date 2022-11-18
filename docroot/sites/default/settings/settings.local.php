@@ -44,3 +44,6 @@ $settings['memcache']['servers'] = [
 ];
 
 $settings['cms_datadog_api_key'] = getenv('CMS_DATADOG_API_KEY');
+
+# Show all messages locally.
+ini_set('error_reporting', E_ALL);
