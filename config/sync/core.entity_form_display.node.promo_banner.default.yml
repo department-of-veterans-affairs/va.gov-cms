@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.promo_banner.field_administration
+    - field.field.node.promo_banner.field_last_saved_by_an_editor
     - field.field.node.promo_banner.field_link
     - field.field.node.promo_banner.field_promo_type
     - field.field.node.promo_banner.field_target_paths
@@ -55,6 +56,12 @@ content:
   field_administration:
     type: options_select
     weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_last_saved_by_an_editor:
+    type: datetime_timestamp
+    weight: 26
     region: content
     settings: {  }
     third_party_settings: {  }

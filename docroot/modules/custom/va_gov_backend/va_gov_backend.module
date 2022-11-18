@@ -426,7 +426,6 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     _va_gov_backend_dropdown_field_access($form, $targets);
   }
 
-
   if ($form_id === 'workbench_access_assign_user') {
     $form['#submit'][] = 'va_gov_backend_workbench_assign_user_form_submit';
   }
@@ -1003,6 +1002,8 @@ function va_gov_backend_preprocess_page(&$variables) {
       'vet_center_mobile_vet_center',
       'vet_center_outstation',
     ];
+    $last_saved_by_an_editor = $node->get('field_last_saved_by_an_editor')->value;
+    $variables['page']['last_saved_by_an_editor'] = $last_saved_by_an_editor ? \Drupal::service('date.formatter')->format($last_saved_by_an_editor, 'custom', 'F j Y g:ia') : 'Unknown';
     // Exclude staff pages without bios.
     if ($node->bundle() === 'person_profile' && $node->field_complete_biography_create->value === '0') {
       $exclusion_types[] = 'person_profile';

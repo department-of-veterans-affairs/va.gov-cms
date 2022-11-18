@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.faq_multiple_q_a.field_buttons_repeat
     - field.field.node.faq_multiple_q_a.field_contact_information
     - field.field.node.faq_multiple_q_a.field_intro_text_limited_html
+    - field.field.node.faq_multiple_q_a.field_last_saved_by_an_editor
     - field.field.node.faq_multiple_q_a.field_other_categories
     - field.field.node.faq_multiple_q_a.field_primary_category
     - field.field.node.faq_multiple_q_a.field_q_a_groups
@@ -224,6 +225,12 @@ content:
       allowed_formats:
         hide_help: '0'
         hide_guidelines: '0'
+  field_last_saved_by_an_editor:
+    type: datetime_timestamp
+    weight: 26
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_other_categories:
     type: options_buttons
     weight: 14

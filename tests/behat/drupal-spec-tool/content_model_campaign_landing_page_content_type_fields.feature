@@ -41,6 +41,7 @@ Feature: Content model: Campaign Landing Page Content Type fields
 | Content type | Campaign Landing Page | Introduction | field_clp_why_this_matters | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter |  |
 | Content type | Campaign Landing Page | Page introduction | field_hero_blurb | Text (plain) |  | 1 | Textfield with counter |  |
 | Content type | Campaign Landing Page | Hero Image | field_hero_image | Entity reference | Required | 1 | Media library |  |
+| Content type | Campaign Landing Page | Last Saved by an Editor | field_last_saved_by_an_editor | Timestamp |  | 1 | Datetime Timestamp | Translatable |
 | Content type | Campaign Landing Page | Video | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Content type | Campaign Landing Page | Primary call to action | field_primary_call_to_action | Entity reference revisions | Required | 1 | Paragraphs (stable) |  |
 | Content type | Campaign Landing Page | Add a "Connect with us" panel | field_related_office | Entity reference |  | 1 | Select list | Translatable |

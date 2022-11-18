@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.health_care_local_facility.field_facility_locator_api_id
     - field.field.node.health_care_local_facility.field_geolocation
     - field.field.node.health_care_local_facility.field_intro_text
+    - field.field.node.health_care_local_facility.field_last_saved_by_an_editor
     - field.field.node.health_care_local_facility.field_local_health_care_service_
     - field.field.node.health_care_local_facility.field_location_services
     - field.field.node.health_care_local_facility.field_main_location
@@ -189,6 +190,8 @@ content:
     settings:
       image_link: ''
       image_style: crop_3_2
+      image_loading:
+        attribute: lazy
     third_party_settings: {  }
     weight: 0
     region: content
@@ -283,6 +286,7 @@ hidden:
   field_administration: true
   field_facility_classification: true
   field_geolocation: true
+  field_last_saved_by_an_editor: true
   field_local_health_care_service_: true
   field_main_location: true
   field_meta_tags: true

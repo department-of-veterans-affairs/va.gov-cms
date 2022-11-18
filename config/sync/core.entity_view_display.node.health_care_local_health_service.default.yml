@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.health_care_local_health_service.field_hservice_appt_intro_select
     - field.field.node.health_care_local_health_service.field_hservice_appt_leadin
     - field.field.node.health_care_local_health_service.field_hservices_lead_in_default
+    - field.field.node.health_care_local_health_service.field_last_saved_by_an_editor
     - field.field.node.health_care_local_health_service.field_online_scheduling_availabl
     - field.field.node.health_care_local_health_service.field_phone_numbers_paragraph
     - field.field.node.health_care_local_health_service.field_referral_required
@@ -32,7 +33,7 @@ third_party_settings:
       label: 'VHA and VAMC health service description'
       parent_name: ''
       region: hidden
-      weight: 12
+      weight: 13
       format_type: fieldset
       format_settings:
         classes: ''
@@ -43,7 +44,7 @@ third_party_settings:
       label: 'Facility description of service (this field will be no longer be used in 2021)'
       parent_name: ''
       region: hidden
-      weight: 3
+      weight: 12
       format_type: fieldset
       format_settings:
         classes: ''
@@ -77,7 +78,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 13
+    weight: 3
     region: content
   field_hservice_appt_intro_select:
     type: list_default
@@ -154,5 +155,6 @@ hidden:
   field_appointments_help_text: true
   field_facility_location: true
   field_facility_service_loc_help: true
+  field_last_saved_by_an_editor: true
   links: true
   search_api_excerpt: true

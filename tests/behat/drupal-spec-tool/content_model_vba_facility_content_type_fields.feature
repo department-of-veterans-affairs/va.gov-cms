@@ -14,6 +14,7 @@ Feature: Content model: VBA facility Content Type fields
 | Content type | VBA Facility | Classification | field_facility_vba_classificatio | List (text) |  | 1 | Select list |  |
 | Content type | VBA Facility | Geolocation | field_geolocation | Geofield |  | 1 | Latitude/Longitude | Translatable |
 | Content type | VBA Facility | Page introduction | field_intro_text | Text (plain, long) |  | 1 | Text area (multiple rows) | Translatable |
+| Content type | VBA Facility | Last Saved by an Editor | field_last_saved_by_an_editor | Timestamp |  | 1 | Datetime Timestamp | Translatable |
 | Content type | VBA Facility | Facility photo | field_media | Entity reference |  | 1 | Media library | Translatable |
 | Content type | VBA Facility | Non-VA location URL | field_non_va_location_url | Link |  | 1 | Link |  |
 | Content type | VBA Facility | Non-VA location official name | field_non_va_official_name | Text (plain) |  | 1 | Textfield |  |
@@ -27,5 +28,6 @@ Feature: Content model: VBA facility Content Type fields
 | Content type | VBA Facility Service | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VBA Facility Service | VBA service description | field_body | Text (formatted, long) |  | 1 | Text area (multiple rows) | Translatable |
 | Content type | VBA Facility Service | Enforce unique combo | field_enforce_unique_combo | Allow Only One |  | 1 | Allow Only One widget | Translatable |
+| Content type | VBA Facility Service | Last Saved by an Editor | field_last_saved_by_an_editor | Timestamp |  | 1 | Datetime Timestamp | Translatable |
 | Content type | VBA Facility Service | Facility | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VBA Facility Service | Service name | field_service_name_and_descripti | Entity reference | Required | 1 | Select list | Translatable |
