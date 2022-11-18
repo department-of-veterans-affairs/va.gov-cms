@@ -104,3 +104,22 @@ function va_gov_migrate_time($arg) {
   // Since time() can not use this so we don't use the arg.
   return time();
 }
+
+/**
+ * A callback to grab the first element from an array, or pass through.
+ *
+ * Reference https://www.drupal.org/project/migrate_plus/issues/3322342
+ *
+ * @param mixed $arg
+ *   An argument from the process plugin pipeline.
+ *
+ * @return mixed
+ *   The first element from the array, or $arg.
+ */
+function va_gov_migrate_optional_unwrap_array($arg) {
+  if (is_array($arg)) {
+    // Grab the first item and return it.
+    return array_shift($arg);
+  }
+  return $arg;
+}

@@ -141,10 +141,19 @@ process:
   field_office:
     -
       # Checks that it does not reference itself.
+      plugin: callback
+      callable: array_unique
+      source:
+        - facility_number
+        - parent_office
+    -
+      plugin: callback
+      callable: count
+    -
+      # If the count is one, it means parent of self so quit.
       plugin: skip_on_value
       method: process
-      source: facility_number
-      value: parent_office
+      value: 1
     -
       plugin: entity_lookup
       ignore_case: true
@@ -153,10 +162,6 @@ process:
       entity_type: node
       bundle_key: type
       bundle: vba_facility
-    -
-      plugin: skip_on_empty
-      method: process
-      message: 'Entity lookup for parent office found nothing.'
   field_non_va_official_name:
     -
       plugin: str_replace
@@ -195,6 +200,9 @@ process:
         name: '@pseudo_field_regional_office_name'
         parent: '@pseudo_field_district_tid'
         field_product: 'constants/product_term_tid'
+    -
+      plugin: callback
+      callable: va_gov_migrate_optional_unwrap_array
   changed:
     plugin: callback
     callable: va_gov_migrate_time
