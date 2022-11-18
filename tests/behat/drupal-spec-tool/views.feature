@@ -66,7 +66,6 @@ Feature: Views
       | Subscribe taxonomy term email | subscribe_taxonomy_term_email | Taxonomy terms | Enabled |  |
       | Subscribe user | subscribe_user | Users | Enabled |  |
       | Subscribe user email | subscribe_user_email | Users | Enabled |  |
-      | Table Audit | table_audit | Content | Enabled |  |
       | Tables | tables | Paragraph | Enabled |  |
       | Taxonomy entity browsers | taxonomy_entity_browsers | Taxonomy terms | Enabled |  |
       | Taxonomy term | taxonomy_term | Content | Enabled | Content belonging to a certain taxonomy term. |
@@ -271,12 +270,9 @@ Feature: Views
       | Subscribe taxonomy term email | Master | default | Default |
       | Subscribe user | Master | default | Default |
       | Subscribe user email | Master | default | Default |
-      | Table Audit | Data export | tables_usage_export | Data export |
-      | Table Audit | Default | default | Default |
-      | Table Audit | Table Audit | table_audit | Page |
-      | Tables | Data export | data_export_1 | Data export |
+      | Tables | Data export | table_audit_export | Data export |
       | Tables | Default | default | Default |
-      | Tables | Tables | page_1 | Page |
+      | Tables | Tables | table_audit_page | Page |
       | Taxonomy entity browsers | Audiences vocabularies | audiences_vocabularies | Entity browser |
       | Taxonomy entity browsers | Block | block_1 | Block |
       | Taxonomy entity browsers | Master | default | Default |
