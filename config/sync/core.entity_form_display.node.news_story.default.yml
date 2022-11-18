@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.news_story.field_full_story
     - field.field.node.news_story.field_image_caption
     - field.field.node.news_story.field_intro_text
+    - field.field.node.news_story.field_last_saved_by_an_editor
     - field.field.node.news_story.field_listing
     - field.field.node.news_story.field_media
     - field.field.node.news_story.field_meta_tags
@@ -170,6 +171,12 @@ content:
       js_prevent_submit: false
       count_html_characters: false
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+    third_party_settings: {  }
+  field_last_saved_by_an_editor:
+    type: datetime_timestamp
+    weight: 26
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_listing:
     type: options_select

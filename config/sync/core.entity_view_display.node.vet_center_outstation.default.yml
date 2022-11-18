@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.vet_center_outstation.field_administration
     - field.field.node.vet_center_outstation.field_facility_locator_api_id
     - field.field.node.vet_center_outstation.field_geolocation
+    - field.field.node.vet_center_outstation.field_last_saved_by_an_editor
     - field.field.node.vet_center_outstation.field_media
     - field.field.node.vet_center_outstation.field_office
     - field.field.node.vet_center_outstation.field_office_hours
@@ -79,7 +80,7 @@ third_party_settings:
       label: 'External content'
       parent_name: ''
       region: hidden
-      weight: 13
+      weight: 14
       format_type: fieldset
       format_settings:
         classes: ''
@@ -176,6 +177,7 @@ hidden:
   content_moderation_control: true
   field_administration: true
   field_geolocation: true
+  field_last_saved_by_an_editor: true
   field_table_of_contents: true
   flag_changed_name: true
   flag_changed_title: true

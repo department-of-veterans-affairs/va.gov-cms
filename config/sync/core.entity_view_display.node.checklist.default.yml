@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.checklist.field_checklist
     - field.field.node.checklist.field_contact_information
     - field.field.node.checklist.field_intro_text_limited_html
+    - field.field.node.checklist.field_last_saved_by_an_editor
     - field.field.node.checklist.field_other_categories
     - field.field.node.checklist.field_primary_category
     - field.field.node.checklist.field_related_benefit_hubs
@@ -135,6 +136,16 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 3
+    region: content
+  field_last_saved_by_an_editor:
+    type: timestamp
+    label: above
+    settings:
+      date_format: custom
+      custom_date_format: 'F j Y g:ia'
+      timezone: ''
+    third_party_settings: {  }
+    weight: 5
     region: content
   field_other_categories:
     type: entity_reference_label

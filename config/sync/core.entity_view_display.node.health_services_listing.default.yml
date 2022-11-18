@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.health_services_listing.field_enforce_unique_combo
     - field.field.node.health_services_listing.field_featured_content_healthser
     - field.field.node.health_services_listing.field_intro_text
+    - field.field.node.health_services_listing.field_last_saved_by_an_editor
     - field.field.node.health_services_listing.field_meta_tags
     - field.field.node.health_services_listing.field_office
     - node.type.health_services_listing
@@ -37,7 +38,7 @@ third_party_settings:
       label: Relationships
       parent_name: ''
       region: hidden
-      weight: 7
+      weight: 9
       format_type: fieldset
       format_settings:
         classes: ''
@@ -74,7 +75,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 8
+    weight: 3
     region: content
   field_featured_content_healthser:
     type: entity_reference_revisions_entity_view
@@ -95,6 +96,7 @@ content:
 hidden:
   content_moderation_control: true
   field_administration: true
+  field_last_saved_by_an_editor: true
   field_meta_tags: true
   field_office: true
   links: true
