@@ -181,6 +181,10 @@ $settings['broken_link_report_import_enabled'] = FALSE;
 // Default prod location, overrideable by env var.
 $settings['broken_link_report_location'] = getenv('CONTENT_RELEASE_BROKEN_LINK_REPORT') ?: 'https://vetsgov-website-builds-s3-upload.s3-us-gov-west-1.amazonaws.com/broken-link-reports/vagovprod-broken-links.json';
 
+// Hide deprecation warnings during transition to PHP 8.1.
+$error_reporting = ini_get('error_reporting');
+ini_set('error_reporting', $error_reporting & ~E_DEPRECATED & ~E_USER_DEPRECATED);
+
 $settings_files = [
   // Flysistem settings
   __DIR__ . '/settings/settings.flysystem.php',
