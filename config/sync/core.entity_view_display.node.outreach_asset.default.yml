@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - field.field.node.outreach_asset.field_administration
-    - field.field.node.outreach_asset.field_benefits
     - field.field.node.outreach_asset.field_description
     - field.field.node.outreach_asset.field_format
     - field.field.node.outreach_asset.field_last_saved_by_an_editor
@@ -21,13 +20,6 @@ targetEntityType: node
 bundle: outreach_asset
 mode: default
 content:
-  field_benefits:
-    type: list_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 3
-    region: content
   field_description:
     type: string
     label: above
