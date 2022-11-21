@@ -17,6 +17,7 @@ Feature: Menus
 | Education benefits hub | education-benefits-hub | For pages in the /education benefits hub |
 | Footer | footer | Site information links displayed in global footer |
 | Footer Bottom Rail | footer-bottom-rail | Horizontal list of links at the bottom of the page |
+| Footer VA.gov | va-gov-footer | Links to appear at the bottom of the public-facing site, va.gov |
 | Header megamenu | header-megamenu | Links and promos for the site's header menu. |
 | Health Care benefits hub | health-care-benefits-hub | va.gov/health-care |
 | Homepage top tasks blocks | homepage-top-tasks-blocks |  |
