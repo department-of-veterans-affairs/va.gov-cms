@@ -19,7 +19,6 @@ Feature: Content model: Outreach hub Content Type fields
 | Content type | Office | Parent Office | field_parent_office | Entity reference |  | 1 | Autocomplete |  |
 | Content type | Office | Social media links | field_social_media_links | Social Media Links Field  |  | 1 | List with all available platforms |  |
 | Content type | Publication | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
-| Content type | Publication | Related Benefits | field_benefits | List (text) |  | 1 | Select list |  |
 | Content type | Publication | Meta description | field_description | Text (plain) |  | 1 | Textfield | Translatable |
 | Content type | Publication | Format | field_format | List (text) | Required | 1 | Select list |  |
 | Content type | Publication | Last Saved by an Editor | field_last_saved_by_an_editor | Timestamp |  | 1 | Datetime Timestamp | Translatable |
