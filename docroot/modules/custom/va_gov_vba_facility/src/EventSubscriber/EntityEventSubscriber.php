@@ -4,6 +4,7 @@ namespace Drupal\va_gov_vba_facility\EventSubscriber;
 
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\core_event_dispatcher\EntityHookEvents;
+use Drupal\Core\Entity\EntityFieldManager;
 use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\FormStateInterface;
@@ -38,6 +39,14 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   private $entityTypeManager;
 
   /**
+   * The entity field manager.
+   *
+   * @var \Drupal\Core\Entity\EntityFieldManager
+   *  The entity field manager.
+   */
+  private $entityFieldManager;
+
+  /**
    * Constructs a EntityEventSubscriber object.
    *
    * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
@@ -46,6 +55,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The string translation service.
    * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
    *   The string translation service.
+   * @param \Drupal\Core\Entity\EntityFieldManager $entity_field_manager
+   *   The entity field service.
    */
   public function __construct(
     TranslationInterface $string_translation,
@@ -55,6 +66,15 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $this->stringTranslation = $string_translation;
     $this->userPermsService = $user_perms_service;
     $this->entityTypeManager = $entity_type_manager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function getSubscribedEvents(): array {
+    return [
+      EntityHookEvents::ENTITY_VIEW_ALTER => 'entityViewAlter',
+    ];
   }
 
    /**
@@ -67,22 +87,16 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $this->appendServiceTermDescriptionToVbaFacility($event);
   }
 
-   /**
-   * {@inheritdoc}
-   */
-  public static function getSubscribedEvents(): array {
-    return [
-      EntityHookEvents::ENTITY_VIEW_ALTER => 'entityViewAlter',
-    ];
-  }
+
 
   /**
-   * Appends health service entity description to title on entity view page.
+   * Appends VBA facility service description to title on facility node:view.
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
    *   The entity view alter service.
    */
   public function appendServiceTermDescriptionToVbaFacility(EntityViewAlterEvent $event):void {
+    // dd($event);
     if ($event->getDisplay()->getTargetBundle() === 'vba_facility') {
       $build = &$event->getBuild();
       $services = $build['field_vba_services'] ?? [];
@@ -92,11 +106,18 @@ class EntityEventSubscriber implements EventSubscriberInterface {
 
           // Look for real content in field_body. If just line breaks
           // and empty tags use field_service_name_and_descripti.
-          $body_tags_removed = trim(strip_tags($service_node->get('field_body')->value));
+          $field_body = $service_node->get('field_body')->value;
+
+          $field_vba_service_description =
+          '<div class="vba-services-term-description field-group-tooltip tooltip-layout centralized css-tooltip not-empty-display-block">' .
+            trim($service_node->get('field_service_name_and_descripti')
+            ->entity->get('field_vba_service_descrip')->value) .
+            '</div>';
+          $body_tags_removed = trim(strip_tags($field_body));
           $body_tags_and_ws_removed = str_replace("\r\n", "", $body_tags_removed);
           $description = strlen($body_tags_and_ws_removed) > 15
-          ? '<br />' . trim($service_node->get('field_body')->value)
-          : '<br />' . trim($service_node->get('field_service_name_and_descripti')->entity->get('field_vba_service_descrip')->value);
+          ? '<br />' . $field_vba_service_description . trim($field_body)
+          : '<br />' .  trim($field_vba_service_description);
 
           $formatted_markup = new FormattableMarkup($description, []);
           $build['field_vba_services'][$key]['#suffix'] = $formatted_markup;
