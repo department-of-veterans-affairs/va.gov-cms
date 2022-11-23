@@ -2059,3 +2059,50 @@ function va_gov_backend_get_parent_node(Paragraph $paragraph) {
   }
   return $parent_node;
 }
+
+/**
+ * Return the top entity that the paragraph belongs to.
+ *
+ * If the paragraph's parent is a paragraph, recurse up the tree until you
+ * reach a non-paragraph entity.
+ *
+ * @param \Drupal\paragraphs\Entity\Paragraph $paragraph
+ *   The paragraph to find the parent of.
+ *
+ * @return \Drupal\Core\Entity\EntityInterface|null
+ *   If the paragraph is attached to an entity, return the entity, otherwise NULL.
+ */
+function va_gov_backend_get_top_parent_entity(Paragraph $paragraph) {
+  $parent = NULL;
+  /** @var Drupal\paragraphs\Entity\Paragraph $parent */
+  $parent = $paragraph->getParentEntity();
+  if ($parent !== NULL && $parent->getEntityType()->id() === 'paragraph') {
+    $parent = va_gov_backend_get_top_parent_entity($parent);
+  }
+  return $parent;
+}
+
+/**
+ * Return link when there is no entity object.
+ *
+ * If the paragraph's parent is a paragraph, recurse up the tree until you
+ * reach a non-paragraph entity.
+ *
+ * @param \Drupal\paragraphs\Entity\Paragraph $paragraph
+ *   The paragraph to find the parent of.
+ *
+ * @return string
+ *   Return a link to the parent entity.
+ */
+function va_gov_backend_get_top_parent_entity_link(Paragraph $paragraph): string {
+  $parent_link = '';
+  /** @var Drupal\paragraphs\Entity\Paragraph $parent */
+  $parent = $paragraph->getParentEntity();
+  while ($parent !== NULL && $parent->getEntityType()->id() === 'paragraph') {
+    $parent_type = $parent->getEntityType()->id();
+    $parent_id = $parent->id();
+    $parent = $parent->getParentEntity();
+  }
+  $parent_link = $parent_type . '/' . $parent_id . '/edit';
+  return $parent_link;
+}

@@ -5,8 +5,9 @@ namespace Drupal\va_gov_backend\EventSubscriber;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
-use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\entity_reference_revisions\EntityReferenceRevisionsOrphanPurger;
 use Drupal\va_gov_backend\Service\VaGovUrlInterface;
+use Drupal\views_event_dispatcher\Event\Views\ViewsPostExecuteEvent;
 use Drupal\views_event_dispatcher\Event\Views\ViewsPreRenderEvent;
 use Drupal\views_event_dispatcher\ViewsHookEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -40,18 +41,40 @@ class TableAuditViewsEventSubscriber implements EventSubscriberInterface {
   protected $vaGovUrl;
 
   /**
+   * The entity reference revisions orphan purger service.
+   *
+   * @var \Drupal\entity_reference_revisions\EntityReferenceRevisionsOrphanPurger
+   */
+  protected $purger;
+
+  /**
    * ExampleViewsEventSubscribers constructor.
    *
    * @param \Drupal\Core\Render\RendererInterface $renderer
    *   The renderer service.
    * @param \Drupal\va_gov_backend\Service\VaGovUrlInterface $vaGovUrl
    *   The va.gov URL service.
+   * @param \Drupal\entity_reference_revisions\EntityReferenceRevisionsOrphanPurger $purger
+   *   The entity reference revisions orphan purger.
    */
   public function __construct(
     RendererInterface $renderer,
-    VaGovUrlInterface $vaGovUrl) {
+    VaGovUrlInterface $vaGovUrl,
+    EntityReferenceRevisionsOrphanPurger $purger) {
     $this->renderer = $renderer;
     $this->vaGovUrl = $vaGovUrl;
+    $this->purger = $purger;
+  }
+
+  /**
+   * Post execute event handler.
+   *
+   * @param \Drupal\views_event_dispatcher\Event\Views\ViewsPostExecuteEvent $event
+   *   The event.
+   */
+  public function postExecute(ViewsPostExecuteEvent $event): void {
+    $view = $event->getView();
+
   }
 
   /**
@@ -64,12 +87,31 @@ class TableAuditViewsEventSubscriber implements EventSubscriberInterface {
    */
   public function preRender(ViewsPreRenderEvent $event): void {
     $view = $event->getView();
+    $orphan_count = 0;
+    if ($view->id() === 'orphaned_paragraphs') {
+      foreach ($view->result as $key => $value) {
+        $parent = va_gov_backend_get_top_parent_entity($value->_entity);
+        if (!$parent) {
+          $link = va_gov_backend_get_top_parent_entity_link($value->_entity);
+        }
+        $used = $this->purger->isUsed($value->_entity);
+        if (!$used) {
+          $orphan_count++;
+          $str = 'This is an orphan paragraph. ' . $orphan_count . ' orphaned paragraphs found.';
+          $value->_entity->set('revision_id', $str);
+        }
+        else {
+          unset($view->result[$key]);
+        }
+      }
+    }
     if ($view->id() === 'tables') {
-      foreach ($view->result as $value) {
+      foreach ($view->result as $key => $value) {
         $node = va_gov_backend_get_parent_node($value->_entity);
         if (empty($node)) {
           $str = 'This is an orphan paragraph.';
           $value->_entity->set('parent_field_name', $str);
+
         }
         else {
           $link = Link::fromTextAndUrl($node->getTitle(), $node->toUrl())->toRenderable();
@@ -94,6 +136,7 @@ class TableAuditViewsEventSubscriber implements EventSubscriberInterface {
   public static function getSubscribedEvents(): array {
     return [
       ViewsHookEvents::VIEWS_PRE_RENDER => 'preRender',
+      ViewsHookEvents::VIEWS_POST_EXECUTE => 'postExecute',
     ];
   }
 
