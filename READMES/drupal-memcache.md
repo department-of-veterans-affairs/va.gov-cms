@@ -201,7 +201,7 @@ Thus, on BRD, the PHP Memcache extension can be disabled temporarily for inciden
 ```sh
 mv /etc/opt/remi/php81/php.d/40-memcache.ini ./            # Output of command above
 systemctl restart httpd
-php -m                                          # Should not list the Memcache module
+php -m | grep -i memcache                                  # Should not list the Memcache module
 ```
 
 The Memcache extension will be restored on the next deploy, or the file can simply be moved back into place and Apache reloaded again to reenable it.
