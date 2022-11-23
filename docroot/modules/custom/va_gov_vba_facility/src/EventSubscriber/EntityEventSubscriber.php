@@ -88,8 +88,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $this->appendServiceTermDescriptionToVbaFacility($event);
   }
 
-
-
   /**
    * Appends VBA facility service description to title on facility node:view.
    *
@@ -97,22 +95,18 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The entity view alter service.
    */
   public function appendServiceTermDescriptionToVbaFacility(EntityViewAlterEvent $event):void {
-    // dd($event);
     if ($event->getDisplay()->getTargetBundle() === 'vba_facility') {
       $build = &$event->getBuild();
       $services = $build['field_vba_services'] ?? [];
       foreach ($services as $key => $service) {
         if (is_numeric($key) && !empty($service['#options'])) {
-
           $service_node = $service['#options']['entity'];
-          // Look for real content in field_body. If just line breaks
-          // and empty tags use field_service_name_and_descripti.
           $referenced_term_id = $service_node->get('field_service_name_and_descripti')->getValue()['0']['target_id'];
           $entity = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($referenced_term_id);
           $view_builder = \Drupal::entityTypeManager()->getViewBuilder('taxonomy_term');
           $readonly_content = $view_builder->view($entity, 'vba_facility_service');
           $description = \Drupal::service('renderer')->render($readonly_content);
-          $description .= '<br />' . $service_node->get('field_body')->value;
+          $description .= $service_node->get('field_body')->value;
           $formatted_markup = new FormattableMarkup($description, []);
           $build['field_vba_services'][$key]['#suffix'] = $formatted_markup;
         }
