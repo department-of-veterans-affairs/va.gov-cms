@@ -143,6 +143,9 @@ services:
         - find "${DOCROOT}/sites/default/files" -type d -print0 | xargs -0 chmod 2775
         - find "${DOCROOT}/sites/default/files" -type f -print0 | xargs -0 chmod 0664
 
+        # Prevent continuous releases from running on Tugboat.
+        - drush sset va_gov_build_trigger.continuous_release_enabled 0
+
       # Commands that build the site. This is where you would add things
       # like feature reverts or any other drush commands required to
       # set up or configure the site. When a preview is built from a
