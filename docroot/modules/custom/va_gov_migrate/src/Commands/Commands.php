@@ -165,7 +165,7 @@ class Commands extends DrushCommands {
 
         // Send email to CMS Help Desk for follow-up steps.
         $message_fields = $this->notificationsManager->buildMessageFields($facility_node_to_flag, 'Facility removed:');
-        $this->notificationsManager->send('va_facility_removed_from_source', USER_CMS_HELP_DESK_NOTIFICATIONS, $message_fields);
+        $this->notificationsManager->send('va_facility_removed_from_source', self::USER_CMS_HELP_DESK_NOTIFICATIONS, $message_fields);
       }
 
       // Log amount to be processed.
