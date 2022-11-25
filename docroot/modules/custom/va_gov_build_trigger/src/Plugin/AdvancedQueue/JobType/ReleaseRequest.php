@@ -103,14 +103,11 @@ class ReleaseRequest extends JobTypeBase implements ContainerFactoryPluginInterf
   public function process(Job $job) {
     switch ($this->releaseStateManager->canAdvanceStateTo(ReleaseStateManager::STATE_REQUESTED)) {
       case ReleaseStateManager::STATE_TRANSITION_OK:
-        $payload = $job->getPayload();
         $dispatch_job = Job::create('va_gov_content_release_dispatch', ['placeholder' => 'placeholder']);
         $this->dispatchQueue->enqueueJob($dispatch_job);
         $this->releaseStateManager->advanceStateTo(ReleaseStateManager::STATE_REQUESTED);
-        $message = 'Content release dispatch has been queued. Reason: @reason';
-        $this->logger->info($message, [
-          '@reason' => $payload['reason'],
-        ]);
+        $message = 'Content release dispatch has been queued.';
+        $this->logger->info($message);
         return JobResult::success($message);
 
       case ReleaseStateManager::STATE_TRANSITION_WAIT:
