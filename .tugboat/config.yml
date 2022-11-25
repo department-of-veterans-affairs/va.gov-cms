@@ -186,7 +186,6 @@ services:
 
       online:
         # We only want tests running on PRs, not branches like the base preview build of master.
-        # This sets the commit status checks to pending all at once.
         - if [ "$TUGBOAT_PREVIEW_TYPE" = "pullrequest" ]; then bash -lc 'time task --taskfile=tests.yml'; fi
 
         # Build storybook and the frontend in parallel
