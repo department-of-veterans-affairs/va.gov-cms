@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.vamc_system_policies_page.field_cc_top_of_page_content
     - field.field.node.vamc_system_policies_page.field_enforce_unique_combo
     - field.field.node.vamc_system_policies_page.field_fieldset_markup
+    - field.field.node.vamc_system_policies_page.field_last_saved_by_an_editor
     - field.field.node.vamc_system_policies_page.field_office
     - field.field.node.vamc_system_policies_page.field_vamc_other_policies
     - field.field.node.vamc_system_policies_page.field_vamc_visitation_policy
@@ -170,6 +171,12 @@ content:
   field_fieldset_markup:
     type: markup
     weight: 26
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_last_saved_by_an_editor:
+    type: datetime_timestamp
+    weight: 33
     region: content
     settings: {  }
     third_party_settings: {  }

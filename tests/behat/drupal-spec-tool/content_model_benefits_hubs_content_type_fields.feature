@@ -14,6 +14,7 @@ Feature: Content model: Benefits hubs Content Type fields
 | Content type | Benefits Detail Page | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter |  |
 | Content type | Benefits Detail Page | Featured content | field_featured_content | Entity reference revisions |  | Unlimited | Paragraphs (stable) |  |
 | Content type | Benefits Detail Page | Page introduction | field_intro_text_limited_html | Text (formatted, long) | Required | 1 | Text area (multiple rows) |  |
+| Content type | Benefits Detail Page | Last Saved by an Editor | field_last_saved_by_an_editor | Timestamp |  | 1 | Datetime Timestamp |  |
 | Content type | Benefits Detail Page | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- |  |
 | Content type | Benefits Detail Page | Plain Language Certification Date | field_plainlanguage_date | Date |  | 1 | -- Disabled -- |  |
 | Content type | Benefits Detail Page | Related Links | field_related_links | Entity reference revisions |  | 1 | Paragraphs (stable) |  |
@@ -23,6 +24,7 @@ Feature: Content model: Benefits hubs Content Type fields
 | Content type | Benefits Hub Landing Page | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Benefits Hub Landing Page | Hub label | field_home_page_hub_label | Text (plain) |  | 1 | Textfield |  |
 | Content type | Benefits Hub Landing Page | Page introduction | field_intro_text | Text (plain, long) | Required | 1 | Text area (multiple rows) | Translatable |
+| Content type | Benefits Hub Landing Page | Last Saved by an Editor | field_last_saved_by_an_editor | Timestamp |  | 1 | Datetime Timestamp | Translatable |
 | Content type | Benefits Hub Landing Page | Links for non-veterans | field_links | Link |  | Unlimited | Linkit |  |
 | Content type | Benefits Hub Landing Page | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | Benefits Hub Landing Page | Plain language Certified Date | field_plainlanguage_date | Date |  | 1 | -- Disabled -- | Translatable |
@@ -37,9 +39,11 @@ Feature: Content model: Benefits hubs Content Type fields
 | Content type | Landing Page | Main content | field_content_block | Entity reference revisions | Required | Unlimited | Paragraphs Browser EXPERIMENTAL | Translatable |
 | Content type | Landing Page | Meta description | field_description | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Content type | Landing Page | Page introduction | field_intro_text_limited_html  | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
+| Content type | Landing Page | Last Saved by an Editor | field_last_saved_by_an_editor | Timestamp |  | 1 | Datetime Timestamp | Translatable |
 | Content type | Landing Page | Product | field_product | Entity reference | Required | 1 | Select list |  |
 | Content type | Landing Page | Generate a table of contents from major headings | field_table_of_contents_boolean | Boolean |  | 1 | Single on/off checkbox | Translatable |
 | Content type | Support Service | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Support Service | Last Saved by an Editor | field_last_saved_by_an_editor | Timestamp |  | 1 | Datetime Timestamp | Translatable |
 | Content type | Support Service | Link | field_link | Link |  | 1 | Linkit |  |
 | Content type | Support Service | Related office | field_office | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Support Service | Phone Number | field_phone_number | Telephone number |  | 1 | Telephone number |  |

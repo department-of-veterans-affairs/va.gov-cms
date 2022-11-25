@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.documentation_page.field_administration
     - field.field.node.documentation_page.field_content_block
     - field.field.node.documentation_page.field_intro_text
+    - field.field.node.documentation_page.field_last_saved_by_an_editor
     - field.field.node.documentation_page.field_products
     - field.field.node.documentation_page.field_related_user_guides
     - field.field.node.documentation_page.field_table_of_contents_boolean
@@ -87,6 +88,12 @@ content:
     settings:
       rows: 5
       placeholder: ''
+    third_party_settings: {  }
+  field_last_saved_by_an_editor:
+    type: datetime_timestamp
+    weight: 26
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_products:
     type: options_buttons

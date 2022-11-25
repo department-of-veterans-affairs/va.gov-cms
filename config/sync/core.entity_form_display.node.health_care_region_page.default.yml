@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.health_care_region_page.field_govdelivery_id_news
     - field.field.node.health_care_region_page.field_instagram
     - field.field.node.health_care_region_page.field_intro_text
+    - field.field.node.health_care_region_page.field_last_saved_by_an_editor
     - field.field.node.health_care_region_page.field_media
     - field.field.node.health_care_region_page.field_meta_tags
     - field.field.node.health_care_region_page.field_operating_status
@@ -320,6 +321,12 @@ content:
       js_prevent_submit: false
       count_html_characters: false
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+    third_party_settings: {  }
+  field_last_saved_by_an_editor:
+    type: datetime_timestamp
+    weight: 40
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_media:
     type: media_library_widget

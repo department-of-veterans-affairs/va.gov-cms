@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.full_width_banner_alert.field_banner_alert_situationinfo
     - field.field.node.full_width_banner_alert.field_banner_alert_vamcs
     - field.field.node.full_width_banner_alert.field_body
+    - field.field.node.full_width_banner_alert.field_last_saved_by_an_editor
     - field.field.node.full_width_banner_alert.field_operating_status_sendemail
     - field.field.node.full_width_banner_alert.field_situation_updates
     - node.type.full_width_banner_alert
@@ -100,7 +101,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 14
+    weight: 3
     region: content
   field_alert_operating_status_cta:
     type: boolean
@@ -163,5 +164,6 @@ content:
 hidden:
   content_moderation_control: true
   field_administration: true
+  field_last_saved_by_an_editor: true
   links: true
   search_api_excerpt: true
