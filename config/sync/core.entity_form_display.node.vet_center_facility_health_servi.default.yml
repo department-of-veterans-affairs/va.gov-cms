@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.vet_center_facility_health_servi.field_administration
     - field.field.node.vet_center_facility_health_servi.field_body
     - field.field.node.vet_center_facility_health_servi.field_enforce_unique_combo
+    - field.field.node.vet_center_facility_health_servi.field_last_saved_by_an_editor
     - field.field.node.vet_center_facility_health_servi.field_office
     - field.field.node.vet_center_facility_health_servi.field_service_name_and_descripti
     - node.type.vet_center_facility_health_servi
@@ -75,6 +76,12 @@ content:
     region: content
     settings:
       size: 1
+    third_party_settings: {  }
+  field_last_saved_by_an_editor:
+    type: datetime_timestamp
+    weight: 26
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_office:
     type: options_select

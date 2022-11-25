@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.vet_center_locations_list.field_administration
     - field.field.node.vet_center_locations_list.field_enforce_unique_combo
     - field.field.node.vet_center_locations_list.field_intro_text
+    - field.field.node.vet_center_locations_list.field_last_saved_by_an_editor
     - field.field.node.vet_center_locations_list.field_nearby_mobile_vet_centers
     - field.field.node.vet_center_locations_list.field_office
     - node.type.vet_center_locations_list
@@ -73,6 +74,12 @@ content:
     settings:
       rows: 5
       placeholder: ''
+    third_party_settings: {  }
+  field_last_saved_by_an_editor:
+    type: datetime_timestamp
+    weight: 26
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_nearby_mobile_vet_centers:
     type: entity_reference_browser_table_widget
