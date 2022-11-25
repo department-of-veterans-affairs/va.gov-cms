@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.full_width_banner_alert.field_banner_alert_situationinfo
     - field.field.node.full_width_banner_alert.field_banner_alert_vamcs
     - field.field.node.full_width_banner_alert.field_body
+    - field.field.node.full_width_banner_alert.field_last_saved_by_an_editor
     - field.field.node.full_width_banner_alert.field_operating_status_sendemail
     - field.field.node.full_width_banner_alert.field_situation_updates
     - node.type.full_width_banner_alert
@@ -228,6 +229,12 @@ content:
     settings:
       rows: 5
       placeholder: ''
+    third_party_settings: {  }
+  field_last_saved_by_an_editor:
+    type: datetime_timestamp
+    weight: 26
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_operating_status_sendemail:
     type: boolean_checkbox

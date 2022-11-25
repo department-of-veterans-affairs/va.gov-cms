@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.promo_banner.field_administration
+    - field.field.node.promo_banner.field_last_saved_by_an_editor
     - field.field.node.promo_banner.field_link
     - field.field.node.promo_banner.field_promo_type
     - field.field.node.promo_banner.field_target_paths
@@ -27,7 +28,7 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 3
+    weight: 2
     region: content
   field_promo_type:
     type: list_default
@@ -42,7 +43,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 4
+    weight: 3
     region: content
   links:
     settings: {  }
@@ -52,4 +53,5 @@ content:
 hidden:
   content_moderation_control: true
   field_administration: true
+  field_last_saved_by_an_editor: true
   search_api_excerpt: true

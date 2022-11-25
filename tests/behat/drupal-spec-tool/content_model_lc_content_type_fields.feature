@@ -15,6 +15,7 @@ Feature: Content model: LC Content Type fields
 | Content type | Checklist | Checklist | field_checklist | Entity reference revisions |  | 1 | Paragraphs (stable) |  |
 | Content type | Checklist | Need more help? | field_contact_information | Entity reference revisions |  | 1 | Paragraphs Legacy | Translatable |
 | Content type | Checklist | Page introduction | field_intro_text_limited_html | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
+| Content type | Checklist | Last Saved by an Editor | field_last_saved_by_an_editor | Timestamp |  | 1 | Datetime Timestamp | Translatable |
 | Content type | Checklist | Additional categories (optional) | field_other_categories | Entity reference |  | 6 | Check boxes/radio buttons |  |
 | Content type | Checklist | Primary category | field_primary_category | Entity reference | Required | 1 | Select list |  |
 | Content type | Checklist | VA Benefit Hubs | field_related_benefit_hubs | Entity reference | Required | 3 | Entity Browser - Table | Translatable |
@@ -27,6 +28,7 @@ Feature: Content model: LC Content Type fields
 | Content type | FAQ page | Repeat CTA buttons | field_buttons_repeat | Boolean |  | 1 | Single on/off checkbox | Translatable |
 | Content type | FAQ page | Need more help? | field_contact_information | Entity reference revisions |  | 1 | Paragraphs Legacy | Translatable |
 | Content type | FAQ page | Page introduction | field_intro_text_limited_html  | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
+| Content type | FAQ page | Last Saved by an Editor | field_last_saved_by_an_editor | Timestamp |  | 1 | Datetime Timestamp | Translatable |
 | Content type | FAQ page | Additional categories (optional) | field_other_categories | Entity reference |  | 6 | Check boxes/radio buttons | Translatable |
 | Content type | FAQ page | Primary category | field_primary_category | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | FAQ page | Q&A groups | field_q_a_groups | Entity reference revisions | Required | Unlimited | Paragraphs Legacy |  |
@@ -40,6 +42,7 @@ Feature: Content model: LC Content Type fields
 | Content type | Image list | Repeat CTA buttons | field_buttons_repeat | Boolean |  | 1 | Single on/off checkbox | Translatable |
 | Content type | Image list | Need more help? | field_contact_information | Entity reference revisions |  | 1 | Paragraphs Legacy | Translatable |
 | Content type | Image list | Page introduction | field_intro_text_limited_html | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
+| Content type | Image list | Last Saved by an Editor | field_last_saved_by_an_editor | Timestamp |  | 1 | Datetime Timestamp | Translatable |
 | Content type | Image list | Media list - Images | field_media_list_images | Entity reference revisions |  | 1 | Paragraphs (stable) |  |
 | Content type | Image list | Additional categories (optional) | field_other_categories | Entity reference |  | 6 | Check boxes/radio buttons | Translatable |
 | Content type | Image list | Primary category | field_primary_category | Entity reference | Required | 1 | Select list | Translatable |
@@ -52,6 +55,7 @@ Feature: Content model: LC Content Type fields
 | Content type | Q&A - single | Answer | field_answer | Entity reference revisions | Required | 1 | Paragraphs (stable) |  |
 | Content type | Q&A - single | Calls to action | field_buttons | Entity reference revisions |  | 2 | Paragraphs Legacy | Translatable |
 | Content type | Q&A - single | Need more help? | field_contact_information | Entity reference revisions |  | 1 | Paragraphs Legacy |  |
+| Content type | Q&A - single | Last Saved by an Editor | field_last_saved_by_an_editor | Timestamp |  | 1 | Datetime Timestamp | Translatable |
 | Content type | Q&A - single | Additional categories (optional) | field_other_categories | Entity reference |  | 6 | Check boxes/radio buttons | Translatable |
 | Content type | Q&A - single | Primary category | field_primary_category | Entity reference |  | 1 | Select list | Translatable |
 | Content type | Q&A - single | VA Benefit Hubs | field_related_benefit_hubs | Entity reference | Required | 3 | Entity Browser - Table | Translatable |
@@ -65,6 +69,7 @@ Feature: Content model: LC Content Type fields
 | Content type | Resources and Support Detail Page | Need more help? | field_contact_information | Entity reference revisions |  | 1 | Paragraphs Legacy | Translatable |
 | Content type | Resources and Support Detail Page | Main content | field_content_block | Entity reference revisions | Required | Unlimited | Paragraphs Browser EXPERIMENTAL | Translatable |
 | Content type | Resources and Support Detail Page | Page introduction | field_intro_text_limited_html  | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
+| Content type | Resources and Support Detail Page | Last Saved by an Editor | field_last_saved_by_an_editor | Timestamp |  | 1 | Datetime Timestamp | Translatable |
 | Content type | Resources and Support Detail Page | Additional categories (optional) | field_other_categories | Entity reference |  | 6 | Check boxes/radio buttons | Translatable |
 | Content type | Resources and Support Detail Page | Primary category | field_primary_category | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Resources and Support Detail Page | VA Benefit Hubs | field_related_benefit_hubs | Entity reference | Required | 3 | Entity Browser - Table |  |
@@ -77,6 +82,7 @@ Feature: Content model: LC Content Type fields
 | Content type | Step-by-Step | Repeat CTA buttons | field_buttons_repeat | Boolean |  | 1 | Single on/off checkbox |  |
 | Content type | Step-by-Step | Need more help? | field_contact_information | Entity reference revisions |  | 1 | Paragraphs Legacy | Translatable |
 | Content type | Step-by-Step | Page introduction | field_intro_text_limited_html | Text (formatted, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
+| Content type | Step-by-Step | Last Saved by an Editor | field_last_saved_by_an_editor | Timestamp |  | 1 | Datetime Timestamp | Translatable |
 | Content type | Step-by-Step | Additional categories (optional) | field_other_categories | Entity reference |  | 6 | Check boxes/radio buttons | Translatable |
 | Content type | Step-by-Step | Primary category | field_primary_category | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Step-by-Step | VA Benefit Hubs | field_related_benefit_hubs | Entity reference | Required | 3 | Entity Browser - Table | Translatable |
@@ -90,6 +96,7 @@ Feature: Content model: LC Content Type fields
 | Content type | Video list | Repeat CTA buttons | field_buttons_repeat | Boolean |  | 1 | Single on/off checkbox | Translatable |
 | Content type | Video list | Need more help? | field_contact_information | Entity reference revisions |  | 1 | Paragraphs Legacy | Translatable |
 | Content type | Video list | Page introduction | field_intro_text_limited_html | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter | Translatable |
+| Content type | Video list | Last Saved by an Editor | field_last_saved_by_an_editor | Timestamp |  | 1 | Datetime Timestamp | Translatable |
 | Content type | Video list | Videos | field_media_list_videos | Entity reference revisions |  | 1 | Paragraphs (stable) |  |
 | Content type | Video list | Additional categories (optional) | field_other_categories | Entity reference |  | 6 | Check boxes/radio buttons | Translatable |
 | Content type | Video list | Primary category | field_primary_category | Entity reference | Required | 1 | Select list | Translatable |
