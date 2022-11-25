@@ -12,8 +12,10 @@ Feature: Content model: Alerts Content Type fields
 | Content type | Full Width Alert | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | Full Width Alert | Alert type | field_alert_type | List (text) | Required | 1 | Select list | Translatable |
 | Content type | Full Width Alert | Persistence | field_dismissible_option | List (text) | Required | 1 | Check boxes/radio buttons |  |
+| Content type | Full Width Alert | Last Saved by an Editor | field_last_saved_by_an_editor | Timestamp |  | 1 | Datetime Timestamp | Translatable |
 | Content type | Full Width Alert | Paths | field_target_paths | Text (plain) |  | Unlimited | Textfield |  |
 | Content type | Promo Banner | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+| Content type | Promo Banner | Last Saved by an Editor | field_last_saved_by_an_editor | Timestamp |  | 1 | Datetime Timestamp | Translatable |
 | Content type | Promo Banner | URL | field_link | Link | Required | 1 | Linkit | Translatable |
 | Content type | Promo Banner | Promo type | field_promo_type | List (text) |  | 1 | Select list |  |
 | Content type | Promo Banner | Paths | field_target_paths | Text (plain) |  | Unlimited | Textfield | Translatable |

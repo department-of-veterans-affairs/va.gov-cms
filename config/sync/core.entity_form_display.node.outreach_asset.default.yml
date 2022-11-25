@@ -4,9 +4,9 @@ status: true
 dependencies:
   config:
     - field.field.node.outreach_asset.field_administration
-    - field.field.node.outreach_asset.field_benefits
     - field.field.node.outreach_asset.field_description
     - field.field.node.outreach_asset.field_format
+    - field.field.node.outreach_asset.field_last_saved_by_an_editor
     - field.field.node.outreach_asset.field_lc_categories
     - field.field.node.outreach_asset.field_listing
     - field.field.node.outreach_asset.field_media
@@ -72,12 +72,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_benefits:
-    type: options_select
-    weight: 9
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_description:
     type: string_textfield
     weight: 9
@@ -89,6 +83,12 @@ content:
   field_format:
     type: options_select
     weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_last_saved_by_an_editor:
+    type: datetime_timestamp
+    weight: 26
     region: content
     settings: {  }
     third_party_settings: {  }

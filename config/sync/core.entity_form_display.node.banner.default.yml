@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.banner.field_administration
     - field.field.node.banner.field_alert_type
     - field.field.node.banner.field_dismissible_option
+    - field.field.node.banner.field_last_saved_by_an_editor
     - field.field.node.banner.field_target_paths
     - node.type.banner
     - workflows.workflow.editorial
@@ -88,6 +89,12 @@ content:
   field_dismissible_option:
     type: options_buttons
     weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_last_saved_by_an_editor:
+    type: datetime_timestamp
+    weight: 26
     region: content
     settings: {  }
     third_party_settings: {  }

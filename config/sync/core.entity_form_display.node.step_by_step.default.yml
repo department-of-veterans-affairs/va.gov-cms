@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.step_by_step.field_buttons_repeat
     - field.field.node.step_by_step.field_contact_information
     - field.field.node.step_by_step.field_intro_text_limited_html
+    - field.field.node.step_by_step.field_last_saved_by_an_editor
     - field.field.node.step_by_step.field_other_categories
     - field.field.node.step_by_step.field_primary_category
     - field.field.node.step_by_step.field_related_benefit_hubs
@@ -238,6 +239,12 @@ content:
       allowed_formats:
         hide_help: '0'
         hide_guidelines: '0'
+  field_last_saved_by_an_editor:
+    type: datetime_timestamp
+    weight: 26
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_other_categories:
     type: options_buttons
     weight: 12
