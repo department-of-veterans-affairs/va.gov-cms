@@ -21,6 +21,7 @@ Memcache can be tested and interacted with directly using `telnet`.
 On BRD (using [ssm-session](https://github.com/department-of-veterans-affairs/devops/tree/master/utilities/ssm-session)):
 ```sh
 ./ssm-session vagov-staging cms-test
+sudo su -
 source /etc/sysconfig/httpd
 sudo yum install telnet
 telnet "${CMS_MEMCACHE_NODES%,*}" 11211 # Connect to the first node.

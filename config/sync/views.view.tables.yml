@@ -618,7 +618,7 @@ display:
           sticky: false
           summary: ''
           empty_table: false
-          caption: ''
+          caption: 'List of all tables used on the site'
           description: ''
       row:
         type: fields
@@ -641,7 +641,7 @@ display:
           admin_label: ''
           plugin_id: result
           empty: false
-          content: 'Displaying @start - @end of @total'
+          content: '<p>Displaying @start - @end of @total</p>'
       footer: {  }
       display_extenders: {  }
     cache_metadata:
@@ -653,8 +653,8 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.paragraph.field_table'
-  data_export_1:
-    id: data_export_1
+  table_audit_export:
+    id: table_audit_export
     display_title: 'Data export'
     display_plugin: data_export
     position: 2
@@ -717,8 +717,8 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.paragraph.field_table'
-  page_1:
-    id: page_1
+  table_audit_page:
+    id: table_audit_page
     display_title: Tables
     display_plugin: page
     position: 1
@@ -732,15 +732,15 @@ display:
         type: tab
         title: 'Content Audit - Tables'
         description: ''
-        weight: 0
+        weight: null
         expanded: false
         menu_name: main
         parent: ''
         context: '0'
         as_local_task: true
-        local_task_link_title: Tables(New)
+        local_task_link_title: Tables
         local_task_parent: 'views_view:view.content.content_audit_page'
-        local_task_weight: 0
+        local_task_weight: 4
         local_task_custom_parent_route: ''
     cache_metadata:
       max-age: -1

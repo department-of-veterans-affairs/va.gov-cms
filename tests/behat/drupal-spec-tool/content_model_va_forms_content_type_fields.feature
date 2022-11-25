@@ -11,6 +11,7 @@ Feature: Content model: VA Forms Content Type fields
 | Content type | VA Form | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Content type | VA Form | Alert | field_alert | Entity reference |  | 1 | Entity browser | Translatable |
 | Content type | VA Form | Benefits hub | field_benefit_categories | Entity reference |  | Unlimited | Check boxes/radio buttons |  |
+| Content type | VA Form | Last Saved by an Editor | field_last_saved_by_an_editor | Timestamp |  | 1 | Datetime Timestamp | Translatable |
 | Content type | VA Form | Meta tags | field_meta_tags | Meta tags |  | 1 | -- Disabled -- | Translatable |
 | Content type | VA Form | Form administration | field_va_form_administration | Entity reference |  | 1 | Select list |  |
 | Content type | VA Form | Deleted | field_va_form_deleted | Boolean |  | 1 | Single on/off checkbox |  |

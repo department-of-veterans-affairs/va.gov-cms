@@ -61,7 +61,6 @@ VAMC Statuses are updated by a separate migration `va_node_health_care_local_fac
 
 Changes to operating status also get [pushed to Lighthouse](vamc-facilities.md#status-changes-to-lighthouse).
 
-
 ### System and Facility Health Services
 These are created and run as needed as part of the VAMC Upgrade teams effort to get all the services into the CMS.  VAMC upgrade team will provide separate CSVs, one for system health services and one for facility health services.
 
@@ -74,6 +73,21 @@ There are dependencies in the migration that will cause a migrated item to be sk
    * VAMC facility must exist.
 
 A migration should not be considered complete if there are ANY migrate messages logged.
+
+### VBA Facilities VBA Database Migration
+The VBA database maintained by Dave Conlon contains unique data that updates VBA Facility content type through the "Node - Veterans Benefits Administration Facility (Database extract)" (`va_node_facility_vba_db_extract`) migration. The fields updated are
+- "Non-VA location official name" (`field_non_va official_name`)
+- "Non-VA location URL" (`field_non_va_location_external_url`)
+- "Parent office" (`field_office`)
+- "Section" (`field_administration`)
+- "Shared VHA location" (`field_shared_vha_location`)
+
+The CSV export is provided in the VBA Modernization Microsoft Teams channel. To prepare the data for import, follow these steps (_Note: columns letters are reset after each removal._):
+- Remove columns C (Facility_Type) - AL (Website_URL).
+- Remove columns D (ro_facility_url) and E (Country)
+- Remove column G (Phone)
+- Export as CSV with comma field delimiters and double quotes enclosures/text delimiters.
+- Save the file as `vba_facility_db_export_current.csv` in `docroot/modules/custom/va_gov_migrate/data/`, replacing the document already there.
 
 
 ### Migration Commands

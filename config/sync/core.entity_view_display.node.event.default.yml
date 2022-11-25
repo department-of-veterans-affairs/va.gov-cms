@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.event.field_facility_location
     - field.field.node.event.field_featured
     - field.field.node.event.field_include_registration_info
+    - field.field.node.event.field_last_saved_by_an_editor
     - field.field.node.event.field_link
     - field.field.node.event.field_listing
     - field.field.node.event.field_location_humanreadable
@@ -144,6 +145,7 @@ content:
       format: default
       force_chronological: false
       add_classes: false
+      time_wrapper: true
     third_party_settings: {  }
     weight: 23
     region: content
@@ -206,7 +208,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 32
+    weight: 3
     region: content
   field_link:
     type: link
@@ -266,6 +268,7 @@ content:
 hidden:
   content_moderation_control: true
   field_administration: true
+  field_last_saved_by_an_editor: true
   field_listing: true
   field_meta_tags: true
   links: true

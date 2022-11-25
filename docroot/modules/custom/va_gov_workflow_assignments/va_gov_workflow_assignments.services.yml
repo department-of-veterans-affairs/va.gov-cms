@@ -7,3 +7,6 @@ services:
     arguments: ['@va_gov_user.user_perms']
     tags:
       - { name: event_subscriber }
+  va_gov_workflow_assignments.section_hierarchy_breadcrumb:
+    class: Drupal\va_gov_workflow_assignments\Service\SectionHierarchyBreadcrumb
+    arguments: ['@entity_type.manager', '@link_generator', '@string_translation']
