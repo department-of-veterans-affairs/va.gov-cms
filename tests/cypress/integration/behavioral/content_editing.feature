@@ -100,20 +100,6 @@ Feature: CMS Users may effectively create & edit content
     Given I am logged in as a user with the "content_admin" role
     And I am at "node/add/event"
 
-    # Location type selector reveals conditional form elements
-    #
-    # List of all location type fields: 
-    #   [va] "Facility location"
-    #   [va][non-va] "Building, floor, or room"
-    #   [non-va] "Street address"
-    #  "#edit-field-address-0-address-locality" (City)
-    #   "State"
-    #   "Country"
-    #   [online] the element with selector "#edit-field-url-of-an-online-event-0-uri"
-    #
-    # TODO: Change these "should be visible" to "I should see" once .should(be.visible) is assigned to 
-    #       "I should see", and "should exist" is used for .should(exist) instead
-
     And I select the "At a VA facility" radio button
     Then "Facility location" should be visible
     And "Building, floor, or room" should be visible
