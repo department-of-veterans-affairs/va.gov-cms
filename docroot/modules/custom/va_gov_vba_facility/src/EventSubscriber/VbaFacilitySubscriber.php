@@ -4,23 +4,18 @@ namespace Drupal\va_gov_vba_facility\EventSubscriber;
 
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\core_event_dispatcher\EntityHookEvents;
-use Drupal\node\Entity\Node;
-use Drupal\Core\Entity\EntityFieldManager;
-use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityTypeManager;
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Render\Element;
+use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 
-
 /**
- * VA.gov VBA facility Entity Event Subscriber.
+ * VA.gov VBA Facility Event Subscriber.
  */
-class EntityEventSubscriber implements EventSubscriberInterface {
+class VbaFacilitySubscriber implements EventSubscriberInterface {
 
   use StringTranslationTrait;
 
@@ -47,6 +42,14 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   private $entityFieldManager;
 
+/**
+   * The renderer service.
+   *
+   * @var \Drupal\Core\Render\RendererInterface
+   *  The renderer.
+   */
+  private $renderer;
+
   /**
    * Constructs a EntityEventSubscriber object.
    *
@@ -56,17 +59,19 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The string translation service.
    * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
    *   The string translation service.
-   * @param \Drupal\Core\Entity\EntityFieldManager $entity_field_manager
-   *   The entity field service.
+   * @param \Drupal\Core\Render\RendererInterface $renderer
+   *   The renderer service.
    */
   public function __construct(
     TranslationInterface $string_translation,
     UserPermsService $user_perms_service,
-    EntityTypeManager $entity_type_manager
+    EntityTypeManager $entity_type_manager,
+    RendererInterface $renderer
     ) {
     $this->stringTranslation = $string_translation;
     $this->userPermsService = $user_perms_service;
     $this->entityTypeManager = $entity_type_manager;
+    $this->renderer = $renderer;
   }
 
   /**
@@ -78,7 +83,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     ];
   }
 
-   /**
+  /**
    * Alteration to entity view pages.
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
@@ -101,11 +106,15 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       foreach ($services as $key => $service) {
         if (is_numeric($key) && !empty($service['#options'])) {
           $service_node = $service['#options']['entity'];
+          // Get the content from the taxonomy term description field.
           $referenced_term_id = $service_node->get('field_service_name_and_descripti')->getValue()['0']['target_id'];
-          $entity = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($referenced_term_id);
-          $view_builder = \Drupal::entityTypeManager()->getViewBuilder('taxonomy_term');
+          $entity = $this->entityTypeManager->getStorage('taxonomy_term')->load($referenced_term_id);
+          $view_builder = $this->entityTypeManager->getViewBuilder('taxonomy_term');
+          // Use the "vba_facility_service" view mode.
           $readonly_content = $view_builder->view($entity, 'vba_facility_service');
-          $description = \Drupal::service('renderer')->render($readonly_content);
+          // Add the taxonomy term description to the render array.
+          $description = $this->renderer->render($readonly_content);
+          // Append the facility-specific service description.
           $description .= $service_node->get('field_body')->value;
           $formatted_markup = new FormattableMarkup($description, []);
           $build['field_vba_services'][$key]['#suffix'] = $formatted_markup;
