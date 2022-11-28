@@ -108,7 +108,7 @@ Feature: Views
       | Blocks listing | Alert Blocks | page_2 | Page |
       | Blocks listing | Master | default | Default |
       | Blocks listing | Promo blocks | page_1 | Page |
-      | Blocks listing | V2 Homepage Blocks | page_3 | Page |
+      | Blocks listing | V2 Homepage Blocks | v2_homepage_blocks | Page |
       | Build info | Master | default | Default |
       | Build info | REST export | rest_export_1 | REST export |
       | Centralized content paragraphs | Centralized Content paragraphs | centralized_content_paragraphs | Page |
@@ -124,8 +124,9 @@ Feature: Views
       | Content | Content audit tools | content_audit_page | Page |
       | Content | Master | default | Default |
       | Content | Outdated content | page_3 | Page |
-      | Content | Outdated Content CSV export | data_export_1 | Data export |
+      | Content | Outdated Content CSV expo... | data_export_1 | Data export |
       | Content | Resources and support | resources_support_dashboard | Page |
+      | Content | Resources and support landing page | resources_and_support_landing_page_block | Block |
       | Content entity browsers | Event entity browser | event_entity_browser | Entity browser |
       | Content entity browsers | Master | default | Default |
       | Content entity browsers | Q&A entity browser | entity_browser_1 | Entity browser |
@@ -251,16 +252,14 @@ Feature: Views
       | Redirect | Page | page_1 | Page |
       | Rich Text Field Audit | Content Audit - Buttons | content_audit_buttons | Page |
       | Rich Text Field Audit | Content Audit - Phone numbers | content_audit_phone_numbers | Page |
-      | Rich Text Field Audit | Content Audit - Rich Text Fields | content_audit_rich_text | Page |
       | Rich Text Field Audit | Data export - buttons | buttons_export | Data export |
       | Rich Text Field Audit | Data export - Phone numbers | phone_numbers_export | Data export |
-      | Rich Text Field Audit | Data export - Rich Text | rich_text_audit_data_export | Data export |
       | Rich Text Field Audit | Default | default | Default |
       | Right sidebar latest revision | All revisions | block_1 | Block |
       | Right sidebar latest revision | Latest revision | attachment_1 | Attachment |
       | Right sidebar latest revision | Master | default | Default |
       | Search | Master | default | Default |
-      | Search | Page | page | Page |
+      | Search | Search | page | Page |
       | Section administration and export | Data export | csv_export | Data export |
       | Section administration and export | Master | default | Default |
       | Section administration and export | Page | page_1 | Page |
