@@ -1,9 +1,5 @@
 import { Then } from 'cypress-cucumber-preprocessor/steps';
 
-// TODO: Remove this step definition and change "I should see" to accomplish this
-//       Then create "Should not exist" to use .should('exist') instead of "I should see"
-//       See VACMS-11609
-
 Then('the element with selector {string} should be visible', (selector) => cy.get(selector).should('be.visible'));
 Then('the element with selector {string} should not be visible', (selector) => cy.get(selector).should('not.be.visible'));
 
