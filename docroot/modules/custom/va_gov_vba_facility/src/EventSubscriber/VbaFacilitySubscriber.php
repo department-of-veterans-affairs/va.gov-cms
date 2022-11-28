@@ -101,6 +101,7 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
           // Get the content from the taxonomy term description field.
           $referenced_term_id = $service_node->get('field_service_name_and_descripti')->getValue()['0']['target_id'];
           $entity = $this->entityTypeManager->getStorage('taxonomy_term')->load($referenced_term_id);
+          // Create the view instance.
           $view_builder = $this->entityTypeManager->getViewBuilder('taxonomy_term');
           // Use the "vba_facility_service" view mode.
           $readonly_content = $view_builder->view($entity, 'vba_facility_service');
