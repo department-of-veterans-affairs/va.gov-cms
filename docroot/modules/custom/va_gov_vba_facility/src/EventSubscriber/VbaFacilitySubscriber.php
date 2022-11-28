@@ -42,7 +42,7 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
    */
   private $entityFieldManager;
 
-/**
+  /**
    * The renderer service.
    *
    * @var \Drupal\Core\Render\RendererInterface
