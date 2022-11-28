@@ -321,13 +321,14 @@ function update_revision(NodeInterface $revision, bool $force = FALSE): void {
  */
 function set_node_last_human_date(int $nid): void {
   $latest = get_latest_node_revision($nid);
+  $force = TRUE;
   if (!$latest->isDefaultRevision()) {
     // If the latest revision is not the default revision, then handle the
     // default revision separately.
     $default = get_default_node_revision($nid);
     $revision_id = $default->getRevisionId();
     log_message("Inspecting default revision $revision_id for node $nid");
-    update_revision($default);
+    update_revision($default, $force);
     $revision_id = $latest->getRevisionId();
     log_message("Inspecting latest revision $revision_id for node $nid");
   }
@@ -335,7 +336,7 @@ function set_node_last_human_date(int $nid): void {
     $revision_id = $latest->getRevisionId();
     log_message("Inspecting latest & default revision $revision_id for node $nid");
   }
-  update_revision($latest);
+  update_revision($latest, $force);
 }
 
 /**
