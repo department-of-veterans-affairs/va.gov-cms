@@ -35,14 +35,6 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
   private $entityTypeManager;
 
   /**
-   * The entity field manager.
-   *
-   * @var \Drupal\Core\Entity\EntityFieldManager
-   *  The entity field manager.
-   */
-  private $entityFieldManager;
-
-  /**
    * The renderer service.
    *
    * @var \Drupal\Core\Render\RendererInterface
