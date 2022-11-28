@@ -74,7 +74,7 @@ class LastEditorSaveEventSubscriber implements EventSubscriberInterface {
 
       $form['field_last_saved_by_an_editor']['#access'] = FALSE;
       array_unshift($form['actions']['submit']['#submit'],
-        [$this, 'lastSavedByEditorSetTimestamp']);
+        'Drupal\va_gov_backend\EventSubscriber\LastEditorSaveEventSubscriber::lastSavedByEditorSetTimestamp');
       $form['meta']['saved'] = [
         '#type' => 'item',
         '#title' => $this->t('Last saved by an editor'),
@@ -115,7 +115,7 @@ class LastEditorSaveEventSubscriber implements EventSubscriberInterface {
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form state.
    */
-  public function lastSavedByEditorSetTimestamp(array $form, FormStateInterface $form_state) {
+  public static function lastSavedByEditorSetTimestamp(array $form, FormStateInterface $form_state) {
     $timestamp = time();
     $form_state->setValue('field_last_saved_by_an_editor', [['value' => $timestamp]]);
   }
