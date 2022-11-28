@@ -152,6 +152,10 @@ class LovellEventSubscriber implements EventSubscriberInterface {
       if (!array_key_exists($section_id, LovellOps::LOVELL_SECTIONS)) {
         return;
       }
+      elseif (LovellOps::isLovellBothListingPage($entity)) {
+        return;
+      }
+
       // If this node is in a Lovell section disable pathauto pattern.
       // @phpstan-ignore-next-line
       $entity->path->pathauto = 0;
@@ -258,8 +262,9 @@ class LovellEventSubscriber implements EventSubscriberInterface {
       if (!array_key_exists($section_id, LovellOps::LOVELL_SECTIONS)) {
         return;
       }
-      if ($entity->id() === '15007') {
-        // Special case of Lovell Federal system.
+      if ($entity->id() === '15007'  || LovellOps::isLovellBothListingPage($entity)) {
+        // Special case of Lovell Federal system,
+        // or listing pages that are in both systems but not rendered.
         return;
       }
 
@@ -301,7 +306,7 @@ class LovellEventSubscriber implements EventSubscriberInterface {
     $new_url = $this->pathautoGenerator->createEntityAlias($node, 'return');
     $url_pieces = explode('/', $new_url);
     $new_aliases = [];
-    foreach ($prefixes as $section => $prefix) {
+    foreach ($prefixes as $prefix) {
       $new_alias = PathAlias::Create([
         'path' => '/node/' . $node->id(),
         'alias' => '/' . $prefix . '/' . implode('/', array_slice($url_pieces, 2)),
