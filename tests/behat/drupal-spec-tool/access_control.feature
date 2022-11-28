@@ -20,7 +20,7 @@ Feature: Access control
 | Content editor | content_editor |
 | Content publisher | content_publisher |
 | Content reviewer | content_reviewer |
-| Homepage content publisher | homepage_content_publisher |
+| Homepage Manager | homepage_manager |
 | Content creator - Outreach Hub | office_content_creator |
 | Redirect admin | redirect_administrator |
 | Content creator - VAMC | vamc_content_creator |

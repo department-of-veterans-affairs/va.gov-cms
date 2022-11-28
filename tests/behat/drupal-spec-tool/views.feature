@@ -124,9 +124,8 @@ Feature: Views
       | Content | Content audit tools | content_audit_page | Page |
       | Content | Master | default | Default |
       | Content | Outdated content | page_3 | Page |
-      | Content | Outdated Content CSV expo... | data_export_1 | Data export |
+      | Content | Outdated Content CSV export | data_export_1 | Data export |
       | Content | Resources and support | resources_support_dashboard | Page |
-      | Content | Resources and support landing page | resources_and_support_landing_page_block | Block |
       | Content entity browsers | Event entity browser | event_entity_browser | Entity browser |
       | Content entity browsers | Master | default | Default |
       | Content entity browsers | Q&A entity browser | entity_browser_1 | Entity browser |
@@ -255,11 +254,13 @@ Feature: Views
       | Rich Text Field Audit | Data export - buttons | buttons_export | Data export |
       | Rich Text Field Audit | Data export - Phone numbers | phone_numbers_export | Data export |
       | Rich Text Field Audit | Default | default | Default |
+      | Rich Text Field Audit | Content Audit - Rich Text Fields | content_audit_rich_text     | Page        |
+      | Rich Text Field Audit | Data export - Rich Text          | rich_text_audit_data_export | Data export |
       | Right sidebar latest revision | All revisions | block_1 | Block |
       | Right sidebar latest revision | Latest revision | attachment_1 | Attachment |
       | Right sidebar latest revision | Master | default | Default |
       | Search | Master | default | Default |
-      | Search | Search | page | Page |
+      | Search | Page | page | Page |
       | Section administration and export | Data export | csv_export | Data export |
       | Section administration and export | Master | default | Default |
       | Section administration and export | Page | page_1 | Page |
