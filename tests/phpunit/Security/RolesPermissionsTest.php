@@ -841,10 +841,8 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
         ],
       ],
       [
-        'homepage_content_publisher',
+        'homepage_manager',
         [
-          'access administration pages',
-          'administer menu',
           'create benefit_promo block content',
           'create news_promo block content',
           'delete benefit_promo revisions',
