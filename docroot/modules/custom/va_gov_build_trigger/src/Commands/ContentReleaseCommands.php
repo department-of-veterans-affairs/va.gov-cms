@@ -161,7 +161,7 @@ class ContentReleaseCommands extends DrushCommands {
    */
   public function requestFrontendBuild() {
     $this->buildRequester->resetFrontendVersion();
-    $this->buildRequester->requestFrontendBuild('Manually requested build');
+    $this->buildRequester->requestFrontendBuild('Build requested via Drush.');
     $this->io()->writeln('Frontend build has been requested');
   }
 
