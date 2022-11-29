@@ -129,7 +129,7 @@ Feature: CMS Users may effectively create & edit content
 
     # Registration checkbox reveals conditional form elements
     When I check the "Include registration information" checkbox
-    Then I "Cost" should be visible
+    Then "Cost" should be visible
     And "Registration is required for this event"  should be visible
     And "Call to action" should be visible
 
@@ -149,7 +149,6 @@ Feature: CMS Users may effectively create & edit content
     And "Registration is required for this event" should not be visible
     And "Call to action" should not be visible
     And an element with the selector "#edit-field-link-0-uri" should not be visible
-    Then the element with selector "#edit-field-link-0-uri" should not be visible
 
   Scenario: Confirm that event form conditional fields are cleared out if parent options change
     Given I am logged in as a user with the "content_admin" role
