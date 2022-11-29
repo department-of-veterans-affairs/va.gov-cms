@@ -128,21 +128,27 @@ Feature: CMS Users may effectively create & edit content
     And the element with selector "#edit-field-url-of-an-online-event-0-uri" should be visible
 
     # Registration checkbox reveals conditional form elements
-
     When I check the "Include registration information" checkbox
-    Then I should see "Cost"
-    And I should see "Registration is required for this event"
-    And I should see "Call to action"
+    Then I "Cost" should be visible
+    And "Registration is required for this event"  should be visible
+    And "Call to action" should be visible
 
-    When I select option "Register" from dropdown "Call to action"
-    Then I should see an element with the selector "#edit-field-link-0-uri"
+    When I select option "Register" from dropdown "Call to action" 
+    Then an element with the selector "#edit-field-link-0-uri" should be visible
     And I select option "Apply" from dropdown "Call to action"
-    Then I should see an element with the selector "#edit-field-link-0-uri"
+    Then an element with the selector "#edit-field-link-0-uri" should be visible
     And I select option "RSVP" from dropdown "Call to action"
-    Then I should see an element with the selector "#edit-field-link-0-uri"
+    Then an element with the selector "#edit-field-link-0-uri" should be visible
     And I select option "More Details" from dropdown "Call to action"
-    Then I should see an element with the selector "#edit-field-link-0-uri"
+    Then an element with the selector "#edit-field-link-0-uri" should be visible
     And I select option "- None -" from dropdown "Call to action"
+    Then the element with selector "#edit-field-link-0-uri" should not be visible
+
+    When I uncheck the "Include registration information" checkbox
+    Then "Cost" should not be visible
+    And "Registration is required for this event" should not be visible
+    And "Call to action" should not be visible
+    And an element with the selector "#edit-field-link-0-uri" should not be visible
     Then the element with selector "#edit-field-link-0-uri" should not be visible
 
   Scenario: Confirm that event form conditional fields are cleared out if parent options change
