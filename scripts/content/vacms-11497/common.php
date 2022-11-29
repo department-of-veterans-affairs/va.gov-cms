@@ -6,10 +6,9 @@
  */
 
 use Drupal\node\NodeInterface;
-use Drupal\node\NodeStorageInterface;
-use Drupal\user\UserStorageInterface;
 
-define('CMS_MIGRATOR_ID', 1317);
+require_once dirname(dirname(__FILE__)) . '/script-library.php';
+
 define('CMS_QUEUE_NAME', 'vacms_11497');
 define('CMS_CHUNK_LENGTH', 50);
 define('CMS_OUTPUT_HEADER', "%-6s | %-7s | %-7s | %-7s | %-5s | %-5s | %-19s | %-19s | %-19s | %-19s | %-19s | %-40s |\n");
@@ -19,90 +18,6 @@ define('CMS_EXCLUSION_USER_IDS', [
   1,
   CMS_MIGRATOR_ID,
 ]);
-
-/**
- * Log a message.
- *
- * @param string $message
- *   The message to log.
- */
-function log_message(string $message): void {
-  // \Drupal::logger(__FILE__)->notice($message);
-  echo $message . PHP_EOL;
-}
-
-/**
- * Get the node storage.
- */
-function get_node_storage(): NodeStorageInterface {
-  $entity_type_manager = \Drupal::entityTypeManager();
-  return $entity_type_manager->getStorage('node');
-}
-
-/**
- * Get the user storage.
- */
-function get_user_storage(): UserStorageInterface {
-  $entity_type_manager = \Drupal::entityTypeManager();
-  return $entity_type_manager->getStorage('user');
-}
-
-/**
- * Switch to the CMS Migrator user.
- */
-function switch_user(): void {
-  $uid = CMS_MIGRATOR_ID;
-  $user = get_user_storage()->load($uid);
-  \Drupal::service('account_switcher')
-    ->switchTo($user);
-  log_message("Acting as {$user->getDisplayName()} [{$uid}]");
-}
-
-/**
- * Load the latest revision of a node.
- *
- * @param int $nid
- *   The node ID.
- *
- * @return \Drupal\node\NodeInterface
- *   The latest revision of that node.
- */
-function get_latest_node_revision(int $nid): NodeInterface {
-  $node_storage = get_node_storage();
-  $result = $node_storage->loadRevision($node_storage->getLatestRevisionId($nid));
-  return $result;
-}
-
-/**
- * Load the default revision of a node.
- *
- * @param int $nid
- *   The node ID.
- *
- * @return \Drupal\node\NodeInterface
- *   The default revision of that node.
- */
-function get_default_node_revision(int $nid): NodeInterface {
-  $result = get_node_storage()->load($nid);
-  return $result;
-}
-
-/**
- * Load all revisions of a node.
- *
- * @param int $nid
- *   The node ID.
- *
- * @return \Drupal\node\NodeInterface
- *   The default revision of that node.
- */
-function get_all_node_revisions(int $nid): array {
-  $node_storage = get_node_storage();
-  $node = $node_storage->load($nid);
-  $vids = $node_storage->revisionIds($node);
-  $result = $node_storage->loadMultipleRevisions($vids);
-  return $result;
-}
 
 /**
  * Was node revision touched by a human?
@@ -270,14 +185,14 @@ function set_revision_last_human_date(NodeInterface $node, int $timestamp): void
   // We should only be altering the latest revision and the default revision,
   // if it is distinct.
   if (!$node->isLatestRevision() && !$node->isDefaultRevision()) {
-    log_message("This revision is neither the latest nor the default revision, so we ignore it.");
+    debug_log_message("This revision is neither the latest nor the default revision, so we ignore it.");
     return;
   }
   // If this draft is the default and it's not published, then we're doing
   // something weird.  We should only be running this (at this time) on nodes
   // with at least one published revision.
   if (!$node->isPublished() && $node->isDefaultRevision()) {
-    log_message("The default revision is not published, so we ignore it.");
+    debug_log_message("The default revision is not published, so we ignore it.");
     return;
   }
   $node->setNewRevision(FALSE);
@@ -300,16 +215,16 @@ function update_revision(NodeInterface $revision, bool $force = FALSE): void {
     $timestamp = get_node_last_human_date2($revision, $revision_id);
     if ($timestamp) {
       $date = format_time($timestamp);
-      log_message("Setting revision last-human date for revision $revision_id to $timestamp ($date).");
+      debug_log_message("Setting revision last-human date for revision $revision_id to $timestamp ($date).");
       set_revision_last_human_date($revision, $timestamp);
     }
     else {
-      log_message("Did not find a valid last-human date for revision $revision_id ; not updating.");
+      debug_log_message("Did not find a valid last-human date for revision $revision_id ; not updating.");
     }
   }
   else {
     $date = format_time($current);
-    log_message("Value already set for revision $revision_id to $current ($date); not overwriting.");
+    debug_log_message("Value already set for revision $revision_id to $current ($date); not overwriting.");
   }
 }
 
@@ -320,21 +235,21 @@ function update_revision(NodeInterface $revision, bool $force = FALSE): void {
  *   An ID of a valid node object to alter.
  */
 function set_node_last_human_date(int $nid): void {
-  $latest = get_latest_node_revision($nid);
+  $latest = get_node_at_latest_revision($nid);
   $force = TRUE;
   if (!$latest->isDefaultRevision()) {
     // If the latest revision is not the default revision, then handle the
     // default revision separately.
-    $default = get_default_node_revision($nid);
+    $default = get_node_at_default_revision($nid);
     $revision_id = $default->getRevisionId();
-    log_message("Inspecting default revision $revision_id for node $nid");
+    debug_log_message("Inspecting default revision $revision_id for node $nid");
     update_revision($default, $force);
     $revision_id = $latest->getRevisionId();
-    log_message("Inspecting latest revision $revision_id for node $nid");
+    debug_log_message("Inspecting latest revision $revision_id for node $nid");
   }
   else {
     $revision_id = $latest->getRevisionId();
-    log_message("Inspecting latest & default revision $revision_id for node $nid");
+    debug_log_message("Inspecting latest & default revision $revision_id for node $nid");
   }
   update_revision($latest, $force);
 }
@@ -348,7 +263,7 @@ function delete_queue(): void {
   /** @var QueueInterface $queue */
   $queue = $queue_factory->get(CMS_QUEUE_NAME);
   $queue->deleteQueue();
-  log_message("Deleted queue.");
+  debug_log_message("Deleted queue.");
 }
 
 /**
@@ -363,11 +278,11 @@ function load_queue(): void {
     ->condition('status', '1')
     ->execute();
   $nid_count = count($nids);
-  log_message("Found $nid_count nodes...");
+  debug_log_message("Found $nid_count nodes...");
   $chunk_length = CMS_CHUNK_LENGTH;
   $chunks = array_chunk($nids, CMS_CHUNK_LENGTH);
   $chunk_count = count($chunks);
-  log_message("Processing $chunk_count chunks of $chunk_length nodes.");
+  debug_log_message("Processing $chunk_count chunks of $chunk_length nodes.");
   foreach ($chunks as $chunk_id => $chunk) {
     $item = [
       'id' => $chunk_id,
@@ -393,7 +308,7 @@ function run_queue(): bool {
   $chunk_id = $item->data['id'];
   $chunk = $item->data['chunk'];
   $chunk_length = count($chunk);
-  log_message("Processing chunk #$chunk_id ($chunk_length items)...");
+  debug_log_message("Processing chunk #$chunk_id ($chunk_length items)...");
   foreach ($chunk as $nid) {
     set_node_last_human_date($nid);
   }
