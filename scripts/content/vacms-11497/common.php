@@ -6,6 +6,7 @@
  */
 
 use Drupal\node\NodeInterface;
+use Drupal\Core\Queue\QueueInterface;
 
 require_once dirname(dirname(__FILE__)) . '/script-library.php';
 
