@@ -138,4 +138,31 @@ class LovellOps {
     return $valid_prefixes;
   }
 
+  /**
+   * Checks if the node is a Lovell Federal (both) listing page.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The node entity to check.
+   *
+   * @return bool
+   *   TRUE if it is a listing page assigned to Lovell Federal,
+   *   FALSE otherwise.
+   */
+  public static function isLovellBothListingPage(NodeInterface $node): bool {
+    $is = FALSE;
+    if ($node->hasField('field_administration')) {
+      $section_id = $node->get('field_administration')->target_id;
+      $type = $node->getType();
+      $listing_types = [
+        'event_listing',
+        'press_releases_listing',
+        'story_listing',
+      ];
+      if (($section_id === LovellOps::BOTH_ID) && (in_array($type, $listing_types))) {
+        $is = TRUE;
+      }
+    }
+    return $is;
+  }
+
 }
