@@ -73,31 +73,6 @@ function get_latest_human_field_value(NodeInterface $node): int {
  */
 function get_node_last_human_date(NodeInterface $node, int $revision_id_limit = NULL): int {
   $revision_id_limit = $revision_id_limit ?? 99999999;
-  $revisions = get_all_node_revisions($node->id());
-  $result = 0;
-  foreach ($revisions as $revision) {
-    $revision_id = $revision->getRevisionId();
-    if ($revision_id > $revision_id_limit) {
-      break;
-    }
-    $result = get_revision_last_human_date($revision) ?: $result;
-  }
-  return (int) $result;
-}
-
-/**
- * Calculate a human-last-touched-date for a revision.
- *
- * @param \Drupal\node\NodeInterface $node
- *   The revision in question.
- * @param int $revision_id_limit
- *   The most recent revision ID that can be considered, or NULL to disable.
- *
- * @return int
- *   The timestamp of the last human touch (might be 0).
- */
-function get_node_last_human_date2(NodeInterface $node, int $revision_id_limit = NULL): int {
-  $revision_id_limit = $revision_id_limit ?? 99999999;
   $database = \Drupal::database();
   $query = $database->select('node_revision');
   $query->condition('nid', $node->id());
@@ -143,7 +118,7 @@ function print_node(NodeInterface $node): void {
   // O(1).
   $revision_date = get_revision_last_human_date($node);
   // O(1) or O(n) depending on version.
-  $node_date = get_node_last_human_date2($node, $node->getRevisionId());
+  $node_date = get_node_last_human_date($node, $node->getRevisionId());
   $set_date = ($node->isDefaultRevision() || $node->isLatestRevision()) ? $node_date : 0;
   printf(CMS_OUTPUT_HEADER,
     $node->id(),
@@ -212,7 +187,7 @@ function update_revision(NodeInterface $revision, bool $force = FALSE): void {
   $revision_id = $revision->getRevisionId();
   if (!$current || $force) {
     // If not set, or if we're forcing the issue, then calculate and update.
-    $timestamp = get_node_last_human_date2($revision, $revision_id);
+    $timestamp = get_node_last_human_date($revision, $revision_id);
     if ($timestamp) {
       $date = format_time($timestamp);
       debug_log_message("Setting revision last-human date for revision $revision_id to $timestamp ($date).");
