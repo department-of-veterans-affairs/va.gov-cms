@@ -255,14 +255,20 @@ function set_node_last_human_date(int $nid): void {
 }
 
 /**
+ * Get the queue!
+ *
+ * @return \Drupal\Core\Queue\QueueInterface
+ *   The queue we work on.
+ */
+function get_queue(): QueueInterface {
+  return \Drupal::service('queue')->get(CMS_QUEUE_NAME);
+}
+
+/**
  * Delete the queue.
  */
 function delete_queue(): void {
-  /** @var QueueFactory $queue_factory */
-  $queue_factory = \Drupal::service('queue');
-  /** @var QueueInterface $queue */
-  $queue = $queue_factory->get(CMS_QUEUE_NAME);
-  $queue->deleteQueue();
+  get_queue()->deleteQueue();
   debug_log_message("Deleted queue.");
 }
 
@@ -270,10 +276,7 @@ function delete_queue(): void {
  * Load the queue.
  */
 function load_queue(): void {
-  /** @var QueueFactory $queue_factory */
-  $queue_factory = \Drupal::service('queue');
-  /** @var QueueInterface $queue */
-  $queue = $queue_factory->get(CMS_QUEUE_NAME);
+  $queue = get_queue();
   $nids = \Drupal::entityQuery('node')
     ->condition('status', '1')
     ->execute();
@@ -296,10 +299,7 @@ function load_queue(): void {
  * Run the queue.
  */
 function run_queue(): bool {
-  /** @var QueueFactory $queue_factory */
-  $queue_factory = \Drupal::service('queue');
-  /** @var QueueInterface $queue */
-  $queue = $queue_factory->get(CMS_QUEUE_NAME);
+  $queue = get_queue();
   $item = $queue->claimItem();
   if (!$item) {
     // That's all, folks!
