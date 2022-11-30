@@ -4,6 +4,8 @@ status: true
 dependencies:
   config:
     - block_content.type.alert
+    - block_content.type.benefit_promo
+    - block_content.type.news_promo
     - block_content.type.promo
     - node.type.banner
     - node.type.basic_landing_page
@@ -139,6 +141,8 @@ type_settings:
   entity_types:
     block_content:
       - alert
+      - benefit_promo
+      - news_promo
       - promo
     node:
       - banner
