@@ -1,78 +1,14 @@
-.layout-container {
-  a {
-    color: var(--va-blue-dark);
-    text-decoration: underline;
-    transition-duration: 0.3s;
-    transition-property: color,background-color,border-color;
-    transition-timing-function: ease-in-out;
+a {
+  color: var(--va-blue-dark);
+  text-decoration: underline;
+  transition-duration: 0.3s;
+  transition-property: color,background-color,border-color;
+  transition-timing-function: ease-in-out;
 
-    &:hover,
-    &:focus {
-      background-color: var(--va-blue-lighter);
-      color: var(--va-blue-darker);
-      text-decoration: none;
-    }
-
-    &.tabs__link {
-      text-decoration: none;
-    }
-
-    &.action-link.action-link--danger {
-      color: var(--color-white);
-      text-decoration: none;
-
-      &:hover {
-        color: var(--va-red-darker);
-      }
-    }
-
-    &.button,
-    &.pager__link.is-active,
-    &.feed-icon {
-      color: var(--color-white);
-      text-decoration: none;
-
-      &:hover,
-      &:focus {
-        background-color: var(--button--hover-bg-color--primary);
-        color: var(--button-fg-color--primary);
-      }
-    }
-  }
-
-  .view-user-admin-people {
-    a {
-      &.button {
-        color: var(--button-fg-color);
-
-        &:hover {
-          background-color: var(--va-gray-button-hover);
-        }
-      }
-    }
-  }
-
-  .region-footer {
-    a {
-      color: var(--color-white);
-
-      &:hover,
-      &:focus {
-        color: var(--va-blue-darker);
-      }
-    }
-  }
-
-  table {
-    a {
-      &.button,
-      &.button:not(:focus) {
-        color: var(--button-fg-color);
-
-        &:hover {
-          background-color: var(--button--hover-bg-color);
-        }
-      }
-    }
+  &:hover,
+  &:focus {
+    background-color: var(--va-blue-lighter);
+    color: var(--va-blue-darker);
+    text-decoration: none;
   }
 }
