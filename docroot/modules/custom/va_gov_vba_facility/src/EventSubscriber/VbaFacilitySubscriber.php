@@ -107,16 +107,16 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
               $referenced_term_content = $view_builder->view($referenced_term, 'vba_facility_service');
               $description = $this->renderer->render($referenced_term_content);
             }
-            else {
-              $description = new FormattableMarkup(
-                '<div><strong><em>Notice: The national service description was not found.</em></strong></div>',
-                 []);
-            }
-            // Append the facility-specific service description.
-            $description .= $service_node->get('field_body')->value;
-            $formatted_markup = new FormattableMarkup($description, []);
-            $build['field_vba_services'][$key]['#suffix'] = $formatted_markup;
           }
+          else {
+            $description = new FormattableMarkup(
+              '<div><strong><em>Notice: The national service description was not found.</em></strong></div>',
+                []);
+          }
+          // Append the facility-specific service description.
+          $description .= $service_node->get('field_body')->value;
+          $formatted_markup = new FormattableMarkup($description, []);
+          $build['field_vba_services'][$key]['#suffix'] = $formatted_markup;
         }
       }
     }
