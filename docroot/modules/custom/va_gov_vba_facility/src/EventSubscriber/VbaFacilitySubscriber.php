@@ -98,18 +98,20 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
       foreach ($services as $key => $service) {
         if (is_numeric($key) && !empty($service['#options']['entity'])) {
           $service_node = $service['#options']['entity'];
-          // Get the content from the taxonomy term description field.
-          $entities = $service_node->get('field_service_name_and_descripti')->referencedEntities();
-          // $referenced_term_id = $service_node->get('field_service_name_and_descripti')->getValue()['0']['target_id'];
-          if (!empty($entities)) {
-            // Load the term as an entity.
-            $entity = reset($entities);
-            // Create the view instance.
-            $view_builder = $this->entityTypeManager->getViewBuilder('taxonomy_term');
-            // Use the "vba_facility_service" view mode.
-            $readonly_content = $view_builder->view($entity, 'vba_facility_service');
-            // Add the taxonomy term description to the render array.
-            $description = $this->renderer->render($readonly_content);
+          $referenced_term_array = $service_node->get('field_service_name_and_descripti')->referencedEntities();
+          // Render the national service term description.
+          if (!empty($referenced_term_array)) {
+            $referenced_term = reset($referenced_term_array);
+            if ($referenced_term) {
+              $view_builder = $this->entityTypeManager->getViewBuilder('taxonomy_term');
+              $referenced_term_content = $view_builder->view($referenced_term, 'vba_facility_service');
+              $description = $this->renderer->render($referenced_term_content);
+            }
+            else {
+              $description = new FormattableMarkup(
+                '<div><strong><em>Notice: The national service description was not found.</em></strong></div>',
+                 []);
+            }
             // Append the facility-specific service description.
             $description .= $service_node->get('field_body')->value;
             $formatted_markup = new FormattableMarkup($description, []);
