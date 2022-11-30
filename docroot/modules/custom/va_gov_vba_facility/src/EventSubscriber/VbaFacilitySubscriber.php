@@ -99,7 +99,7 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
         if (is_numeric($key) && !empty($service['#options']['entity'])) {
           $service_node = $service['#options']['entity'];
           $referenced_term_array = $service_node->get('field_service_name_and_descripti')->referencedEntities();
-          // Render the national service term description.
+          // Render the national service term description (if available).
           if (!empty($referenced_term_array)) {
             $referenced_term = reset($referenced_term_array);
             if ($referenced_term) {
@@ -113,7 +113,7 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
               '<div><strong><em>Notice: The national service description was not found.</em></strong></div>',
                 []);
           }
-          // Append the facility-specific service description.
+          // Append the facility-specific service description (no matter what).
           $description .= $service_node->get('field_body')->value;
           $formatted_markup = new FormattableMarkup($description, []);
           $build['field_vba_services'][$key]['#suffix'] = $formatted_markup;
