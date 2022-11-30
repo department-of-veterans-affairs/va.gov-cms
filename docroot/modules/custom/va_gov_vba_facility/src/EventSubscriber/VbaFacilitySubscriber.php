@@ -95,6 +95,7 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
     if ($event->getDisplay()->getTargetBundle() === 'vba_facility') {
       $build = &$event->getBuild();
       $services = $build['field_vba_services'] ?? [];
+      $description = new FormattableMarkup('', []);
       foreach ($services as $key => $service) {
         if (is_numeric($key) && !empty($service['#options']['entity'])) {
           $service_node = $service['#options']['entity'];
@@ -109,7 +110,7 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
             }
           }
           else {
-            $description = new FormattableMarkup(
+            $description .= new FormattableMarkup(
               '<div><strong><em>Notice: The national service description was not found.</em></strong></div>',
                 []);
           }
