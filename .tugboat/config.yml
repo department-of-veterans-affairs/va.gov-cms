@@ -167,6 +167,10 @@ services:
         # https://www.drush.org/latest/deploycommand/ (updatedb, cache:rebuild, config:import, deploy:hook)
         - drush deploy
 
+        # Prevent continuous releases from running on Tugboat, and reset to ready.
+        - drush sset va_gov_build_trigger.continuous_release_enabled 0
+        - drush sset va_gov_build_trigger.release_state ready
+
         # Setup background processing service.  This uses runit to keep process up
         # See https://docs.tugboat.qa/setting-up-services/how-to-set-up-services/running-a-background-process
         - mkdir -p /etc/service/drupal_events
