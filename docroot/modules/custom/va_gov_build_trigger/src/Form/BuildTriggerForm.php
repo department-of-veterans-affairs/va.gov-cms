@@ -123,7 +123,7 @@ class BuildTriggerForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->messenger()->addStatus($this->t('Content release requested successfully.'));
-    $this->buildRequester->requestFrontendBuild('Manual build request');
+    $this->buildRequester->requestFrontendBuild('Build requested via form.');
   }
 
 }
