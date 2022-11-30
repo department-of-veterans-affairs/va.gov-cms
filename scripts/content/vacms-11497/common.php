@@ -144,7 +144,7 @@ function print_node(NodeInterface $node): void {
  *   A valid node object to print.
  */
 function print_full_history_of_node(NodeInterface $node): void {
-  foreach (get_all_node_revisions($node->id()) as $revision) {
+  foreach (get_node_all_revisions($node->id()) as $revision) {
     print_node($revision);
   }
 }

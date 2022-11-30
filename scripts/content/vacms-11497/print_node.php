@@ -11,6 +11,6 @@ $nid = $_SERVER['argv'][3];
 
 switch_user();
 
-$node = get_default_node_revision((int) $nid);
+$node = get_node_at_default_revision((int) $nid);
 print_header();
 print_node($node);
