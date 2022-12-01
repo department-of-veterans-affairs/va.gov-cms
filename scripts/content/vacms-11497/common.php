@@ -171,19 +171,10 @@ function set_revision_last_human_date(NodeInterface $node, int $timestamp): void
     debug_log_message("The default revision is not published, so we ignore it.");
     return;
   }
-  $node->setNewRevision(FALSE);
-  $node->enforceIsNew(FALSE);
-  $node->setSyncing(TRUE);
-  $node->setValidationRequired(FALSE);
-  $revision_time = $node->getRevisionCreationTime();
-  // Incrementing by a nano second to bypass Drupal core logic
-  // that will update the "changed" value to request time if
-  // the value is not different from the original value.
-  $revision_time++;
-  $node->setRevisionCreationTime($revision_time);
-  $node->setChangedTime($revision_time);
+
   $node->set('field_last_saved_by_an_editor', $timestamp);
-  $node->save();
+
+  save_node_existing_revision_without_log($node);
 }
 
 /**

@@ -148,8 +148,11 @@ function normalize_crisis_number($input, $plain = FALSE): string {
  *   The node to serialize.
  * @param string $message
  *   The log message for the new revision.
+ *
+ * @return int
+ *   Either SAVED_NEW or SAVED_UPDATED, depending on the operation performed.
  */
-function save_node_revision(NodeInterface $node, $message): void {
+function save_node_revision(NodeInterface $node, $message): int {
   $states = [
     'draft',
     'review',
@@ -165,7 +168,31 @@ function save_node_revision(NodeInterface $node, $message): void {
   $prefix = (in_array($moderation_state, $states)) ? $node->getRevisionLogMessage() . ' - ' : '';
   $node->setRevisionLogMessage($prefix . $message);
   $node->set('moderation_state', $moderation_state);
-  $node->save();
+  return $node->save();
+}
+
+/**
+ * Saves a node revision with no new revision or log.
+ *
+ * @param \Drupal\node\NodeInterface $revision
+ *   The node to serialize.
+ *
+ * @return int
+ *   Either SAVED_NEW or SAVED_UPDATED, depending on the operation performed.
+ */
+function save_node_existing_revision_without_log(NodeInterface $revision): int {
+  $revision->setNewRevision(FALSE);
+  $revision->enforceIsNew(FALSE);
+  $revision->setSyncing(TRUE);
+  $revision->setValidationRequired(FALSE);
+  $revision_time = $revision->getRevisionCreationTime();
+  // Incrementing by a nano second to bypass Drupal core logic
+  // that will update the "changed" value to request time if
+  // the value is not different from the original value.
+  $revision_time++;
+  $revision->setRevisionCreationTime($revision_time);
+  $revision->setChangedTime($revision_time);
+  return $revision->save();
 }
 
 /**
