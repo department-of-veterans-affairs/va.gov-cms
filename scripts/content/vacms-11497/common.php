@@ -172,7 +172,15 @@ function set_revision_last_human_date(NodeInterface $node, int $timestamp): void
     return;
   }
   $node->setNewRevision(FALSE);
+  $node->enforceIsNew(FALSE);
   $node->setSyncing(TRUE);
+  $node->setValidationRequired(FALSE);
+  // Incrementing by a nano second to bypass Drupal core logic
+  // that will update the "changed" value to request time if
+  // the value is not different from the original value.
+  $timestamp++;
+  $node->setRevisionCreationTime($timestamp);
+  $node->setChangedTime($timestamp);
   $node->set('field_last_saved_by_an_editor', $timestamp);
   $node->save();
 }
