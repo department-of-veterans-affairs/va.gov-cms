@@ -13,7 +13,6 @@ dependencies:
     - flag.flag.removed_from_source
     - node.type.health_care_local_facility
     - node.type.nca_facility
-    - node.type.va_form
     - node.type.vba_facility
     - node.type.vet_center
     - node.type.vet_center_mobile_vet_center
@@ -1317,7 +1316,6 @@ display:
           operator: in
           value:
             nca_facility: nca_facility
-            va_form: va_form
             health_care_local_facility: health_care_local_facility
             vba_facility: vba_facility
             vet_center: vet_center
@@ -1365,7 +1363,6 @@ display:
           operator: in
           value:
             nca_facility: nca_facility
-            va_form: va_form
             health_care_local_facility: health_care_local_facility
             vba_facility: vba_facility
             vet_center: vet_center
@@ -2256,14 +2253,14 @@ display:
       path: admin/content/facilities/flagged
       menu:
         type: tab
-        title: 'Flagged Facilities'
+        title: Facilities
         description: 'See flagged content'
         weight: 110
         expanded: false
         menu_name: admin
         parent: system.admin_content
         context: '0'
-        as_local_task: false
+        as_local_task: true
         local_task_link_title: 'Flagged content'
         local_task_parent: 'views_view:view.facility_services.content_audit_facilities'
         local_task_weight: 20
