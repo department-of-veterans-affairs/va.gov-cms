@@ -3,10 +3,14 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.node.field_administration
+    - field.storage.paragraph.field_rich_wysiwyg
     - search_api.server.database
   module:
     - node
+    - taxonomy
     - search_api
+    - paragraphs
 _core:
   default_config_hash: qEX0c8Yf878jYMC-3TrFlGSSNQeGbl3u0Hs6GJfxA38
 id: content
@@ -14,6 +18,14 @@ name: Content
 description: 'An index of all content in your site.'
 read_only: false
 field_settings:
+  field_rich_wysiwyg:
+    label: 'Rich text'
+    datasource_id: 'entity:paragraph'
+    property_path: field_rich_wysiwyg
+    type: text
+    dependencies:
+      config:
+        - field.storage.paragraph.field_rich_wysiwyg
   label:
     label: Label
     property_path: aggregated_field
@@ -22,6 +34,16 @@ field_settings:
       type: first
       fields:
         - 'entity:node/title'
+  name:
+    label: 'Section » Taxonomy term » Name'
+    datasource_id: 'entity:node'
+    property_path: 'field_administration:entity:name'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_administration
+      module:
+        - taxonomy
   node_grants:
     label: 'Node access information'
     property_path: search_api_node_grants
@@ -98,6 +120,14 @@ field_settings:
     dependencies:
       module:
         - node
+  type:
+    label: 'Content type'
+    datasource_id: 'entity:node'
+    property_path: type
+    type: string
+    dependencies:
+      module:
+        - node
   uid:
     label: uid
     datasource_id: 'entity:node'
@@ -110,6 +140,13 @@ field_settings:
         - node
 datasource_settings:
   'entity:node':
+    bundles:
+      default: true
+      selected: {  }
+    languages:
+      default: true
+      selected: {  }
+  'entity:paragraph':
     bundles:
       default: true
       selected: {  }

@@ -1565,6 +1565,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - 'user.node_grants:view'
         - user.roles
       tags:
@@ -1577,6 +1578,7 @@ display:
         - 'config:field.storage.node.field_press_release_blurb'
         - 'config:field.storage.node.field_press_release_fulltext'
         - 'config:workflow_list'
+        - workbench_access_view
   buttons_export:
     id: buttons_export
     display_title: 'Data export - buttons'
@@ -2462,12 +2464,14 @@ display:
         - 'languages:language_interface'
         - request_format
         - url
+        - user
         - 'user.node_grants:view'
         - user.roles
       tags:
         - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_content_block'
         - 'config:workflow_list'
+        - workbench_access_view
   content_audit_buttons:
     id: content_audit_buttons
     display_title: 'Content Audit - Buttons'
@@ -3406,12 +3410,14 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - 'user.node_grants:view'
         - user.roles
       tags:
         - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_content_block'
         - 'config:workflow_list'
+        - workbench_access_view
   content_audit_phone_numbers:
     id: content_audit_phone_numbers
     display_title: 'Content Audit - Phone numbers'
@@ -4449,7 +4455,7 @@ display:
         as_local_task: true
         local_task_link_title: 'Phone Numbers'
         local_task_parent: 'views_view:view.content.content_audit_page'
-        local_task_weight: 2
+        local_task_weight: 3
         local_task_custom_parent_route: ''
     cache_metadata:
       max-age: -1
@@ -4458,6 +4464,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - 'user.node_grants:view'
         - user.roles
       tags:
@@ -4466,6 +4473,7 @@ display:
         - 'config:field.storage.node.field_phone_number'
         - 'config:field.storage.node.field_va_health_connect_phone'
         - 'config:workflow_list'
+        - workbench_access_view
   content_audit_rich_text:
     id: content_audit_rich_text
     display_title: 'Content Audit - Rich Text Fields'
@@ -5719,6 +5727,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - 'user.node_grants:view'
         - user.roles
       tags:
@@ -5730,6 +5739,7 @@ display:
         - 'config:field.storage.node.field_press_release_blurb'
         - 'config:field.storage.node.field_press_release_fulltext'
         - 'config:workflow_list'
+        - workbench_access_view
   phone_numbers_export:
     id: phone_numbers_export
     display_title: 'Data export - Phone numbers'
@@ -6789,6 +6799,7 @@ display:
         - 'languages:language_interface'
         - request_format
         - url
+        - user
         - 'user.node_grants:view'
         - user.roles
       tags:
@@ -6797,6 +6808,7 @@ display:
         - 'config:field.storage.node.field_phone_number'
         - 'config:field.storage.node.field_va_health_connect_phone'
         - 'config:workflow_list'
+        - workbench_access_view
   rich_text_audit_data_export:
     id: rich_text_audit_data_export
     display_title: 'Data export - Rich Text'
@@ -7631,6 +7643,7 @@ display:
         - 'languages:language_interface'
         - request_format
         - url
+        - user
         - 'user.node_grants:view'
         - user.roles
       tags:
@@ -7642,3 +7655,4 @@ display:
         - 'config:field.storage.node.field_press_release_blurb'
         - 'config:field.storage.node.field_press_release_fulltext'
         - 'config:workflow_list'
+        - workbench_access_view

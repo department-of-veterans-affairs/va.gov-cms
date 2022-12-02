@@ -57,7 +57,7 @@ Feature: Views
       | Redirect | redirect | Redirect | Enabled | List of redirects |
       | Rich Text Field Audit | rich_text_field_audit | Content | Enabled |  |
       | Right sidebar latest revision | right_sidebar_latest_revision | Content revisions | Enabled |  |
-      | Search | search | Index Content | Disabled |  |
+      | Search | search | Index Content | Enabled |  |
       | Section administration and export | section_export | Taxonomy terms | Enabled | Enables easier adminstration of Sections/Product relationship, and export tools for analysis outside Drupal |
       | Services | services | Content | Enabled | Lists of services for facility pages, health services lists, etc |
       | Subscribe node | subscribe_node | Content | Enabled |  |
@@ -259,7 +259,7 @@ Feature: Views
       | Right sidebar latest revision | Latest revision | attachment_1 | Attachment |
       | Right sidebar latest revision | Master | default | Default |
       | Search | Master | default | Default |
-      | Search | Page | page | Page |
+      | Search | Search | page | Page |
       | Section administration and export | Data export | csv_export | Data export |
       | Section administration and export | Master | default | Default |
       | Section administration and export | Page | page_1 | Page |
