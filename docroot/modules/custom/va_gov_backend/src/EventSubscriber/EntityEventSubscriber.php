@@ -93,12 +93,12 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Alteration to entity build info.
+   * Alteration to entity type build info.
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityTypeBuildEvent $event
    *   The Entity build event object.
    */
-  public function entityBuild(EntityTypeBuildEvent $event) {
+  public function entityTypeBuild(EntityTypeBuildEvent $event) {
     $this->overrideBlockContentTypeAccessHandler($event);
   }
 
@@ -573,7 +573,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public static function getSubscribedEvents(): array {
     return [
       EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
-      EntityHookEvents::ENTITY_TYPE_BUILD => 'entityBuild',
+      EntityHookEvents::ENTITY_TYPE_BUILD => 'entityTypeBuild',
       FieldHookEvents::WIDGET_SINGLE_ELEMENT_FORM_ALTER => 'formWidgetAlter',
       EntityHookEvents::ENTITY_VIEW_ALTER => 'entityViewAlter',
       FormHookEvents::FORM_ALTER => 'formAlter',
