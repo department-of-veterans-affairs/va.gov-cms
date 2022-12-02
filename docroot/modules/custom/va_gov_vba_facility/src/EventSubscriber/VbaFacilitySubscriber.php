@@ -4,13 +4,13 @@ namespace Drupal\va_gov_vba_facility\EventSubscriber;
 
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\core_event_dispatcher\EntityHookEvents;
-use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 
 /**
  * VA.gov VBA Facility Event Subscriber.
@@ -29,7 +29,7 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
   /**
    * The entity manager.
    *
-   * @var \Drupal\Core\Entity\EntityTypeManager
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    *  The entity manager.
    */
   private $entityTypeManager;
@@ -49,7 +49,7 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
    *   The string translation service.
    * @param \Drupal\va_gov_user\Service\UserPermsService $user_perms_service
    *   The string translation service.
-   * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The string translation service.
    * @param \Drupal\Core\Render\RendererInterface $renderer
    *   The renderer service.
@@ -57,7 +57,7 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
   public function __construct(
     TranslationInterface $string_translation,
     UserPermsService $user_perms_service,
-    EntityTypeManager $entity_type_manager,
+    EntityTypeManagerInterface $entity_type_manager,
     RendererInterface $renderer
     ) {
     $this->stringTranslation = $string_translation;
