@@ -99,10 +99,10 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
         $description = new FormattableMarkup('', []);
         if (is_numeric($key) && !empty($service['#options']['entity'])) {
           $service_node = $service['#options']['entity'];
-          $referenced_term_array = $service_node->get('field_service_name_and_descripti')->referencedEntities();
+          $referenced_terms = $service_node->get('field_service_name_and_descripti')->referencedEntities();
           // Render the national service term description (if available).
-          if (!empty($referenced_term_array)) {
-            $referenced_term = reset($referenced_term_array);
+          if (!empty($referenced_terms)) {
+            $referenced_term = reset($referenced_terms);
             if ($referenced_term) {
               $view_builder = $this->entityTypeManager->getViewBuilder('taxonomy_term');
               $referenced_term_content = $view_builder->view($referenced_term, 'vba_facility_service');
