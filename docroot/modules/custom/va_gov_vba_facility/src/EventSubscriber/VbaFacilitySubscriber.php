@@ -112,7 +112,7 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
           }
           else {
             $description = new FormattableMarkup(
-              '<div><strong><em>Notice: The national service description was not found.</em></strong></div>',
+              '<div><strong>Notice: The national service description was not found.</strong></div>',
                 []);
           }
           // Append the facility-specific service description (no matter what).
