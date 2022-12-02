@@ -31,8 +31,6 @@ use Drupal\va_gov_build_trigger\Form\PreviewForm;
 use Gitonomy\Git\Exception\RuntimeException as RuntimeExceptionAlias;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Drupal\va_gov_backend\Access\BlockContentTypeAccessControlHandler;
-use Drupal\Core\Config\Entity\ConfigEntityType;
 
 /**
  * Implements hook_help().
@@ -50,17 +48,6 @@ function va_gov_backend_help($route_name, RouteMatchInterface $route_match) {
       return $output;
 
     default:
-  }
-}
-
-/**
- * Implements hook_entity_type_build().
- */
-function va_gov_backend_entity_type_build(array &$entity_types) {
-  // Override the access control handler for Block Content Type (config)
-  // entities.
-  if (!empty($entity_types['block_content_type']) && $entity_types['block_content_type'] instanceof ConfigEntityType) {
-    $entity_types['block_content_type']->setAccessClass(BlockContentTypeAccessControlHandler::class);
   }
 }
 
