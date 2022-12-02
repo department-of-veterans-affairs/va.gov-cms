@@ -92,7 +92,8 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
    *   The entity view alter service.
    */
   public function appendServiceTermDescriptionToVbaFacility(EntityViewAlterEvent $event):void {
-    if ($event->getDisplay()->getTargetBundle() === 'vba_facility') {
+    $display = $event->getDisplay();
+    if (($display->getTargetBundle() === 'vba_facility') && ($display->getOriginalMode() === 'full')) {
       $build = &$event->getBuild();
       $services = $build['field_vba_services'] ?? [];
       foreach ($services as $key => $service) {
@@ -106,7 +107,7 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
             if ($referenced_term) {
               $view_builder = $this->entityTypeManager->getViewBuilder('taxonomy_term');
               $referenced_term_content = $view_builder->view($referenced_term, 'vba_facility_service');
-              $description = $this->renderer->render($referenced_term_content);
+              $description = $this->renderer->renderRoot($referenced_term_content);
             }
           }
           else {
