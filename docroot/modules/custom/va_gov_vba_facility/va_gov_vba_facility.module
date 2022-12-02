@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * @file
+ * Contains va_gov_vba_facility.module.
+ */
+
+/**
+ * Implements hook_page_attachments().
+ */
+function va_gov_vba_facility_page_attachments(array &$attachments) {
+  $attachments['#attached']['library'][] = 'va_gov_vba_facility/display_service_descriptions';
+}

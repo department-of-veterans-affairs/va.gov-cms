@@ -1,0 +1,7 @@
+services:
+  va_gov_vba_facility.vba_facility_subscriber:
+    class: Drupal\va_gov_vba_facility\EventSubscriber\VbaFacilitySubscriber
+    arguments: ['@string_translation', '@va_gov_user.user_perms', '@entity_type.manager', '@renderer']
+    tags:
+      - { name: event_subscriber }
+
