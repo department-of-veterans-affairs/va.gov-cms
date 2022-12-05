@@ -78,7 +78,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     UserPermsService $user_perms_service,
     RequiredServices $required_services,
     EntityTypeManager $entity_type_manager,
-    RendererInterface $renderer,
+    RendererInterface $renderer
     ) {
     $this->stringTranslation = $string_translation;
     $this->userPermsService = $user_perms_service;
