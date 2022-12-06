@@ -108,7 +108,6 @@ Feature: Views
       | Blocks listing | Alert Blocks | page_2 | Page |
       | Blocks listing | Master | default | Default |
       | Blocks listing | Promo blocks | page_1 | Page |
-      | Blocks listing | V2 Homepage Blocks | v2_homepage_blocks | Page |
       | Build info | Master | default | Default |
       | Build info | REST export | rest_export_1 | REST export |
       | Centralized content paragraphs | Centralized Content paragraphs | centralized_content_paragraphs | Page |
