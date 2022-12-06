@@ -93,10 +93,12 @@ jobs:
           find \
             docroot/modules/custom \
             docroot/themes \
-            -name '*.inc' \
-            -o -name '*.php' \
-            -o -name '*.module' \
-            -o -name '*.install' \
+            \( \
+              -name '*.inc' \
+              -o -name '*.php' \
+              -o -name '*.module' \
+              -o -name '*.install' \
+            \) \
             -print0 \
             | xargs \
               -0 \
