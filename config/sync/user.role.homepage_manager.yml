@@ -2,7 +2,14 @@ uuid: 42fd7c0a-0c02-4121-ab2b-508416995024
 langcode: en
 status: true
 dependencies:
+  config:
+    - workflows.workflow.editorial
   module:
+    - block_content_permissions
+    - block_diff_ui
+    - content_moderation
+    - entityqueue
+    - system
     - va_gov_backend
 third_party_settings:
   va_gov_backend:
@@ -23,6 +30,14 @@ permissions:
   - 'update any news_promo block content'
   - 'update home_page_hero entityqueue'
   - 'update home_page_news_spotlight entityqueue'
+  - 'use editorial transition approve'
+  - 'use editorial transition archive'
+  - 'use editorial transition archived_published'
+  - 'use editorial transition create_new_draft'
+  - 'use editorial transition publish'
+  - 'use editorial transition review'
+  - 'view any unpublished content'
   - 'view benefit_promo revisions'
+  - 'view latest version'
   - 'view news_promo revisions'
   - 'view the administration theme'
