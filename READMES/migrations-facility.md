@@ -30,16 +30,16 @@ is connected to the facility API by its unique "Facility Locator API ID"
 
 ### CrUD Operations
 #### Create
-When a new facility appears in the Facility API, it is created in the CMS in draft state.  It will need the following operations performed.  It is flagged as "new" and appears on the [Flagged dashboard](https://prod.cms.va.gov/admin/content/flagged).  An email message is sent to CMS Support to kick off the [New Facility Runbook](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Change+request&template=runbook-facility-new.md&title=New+Facility%3A+%3Cinsert_name_of_facility%3E).
+When a new facility appears in the Facility API, it is created in the CMS in draft state.  It will need the following operations performed.  It is flagged as "new" and appears on the [Flagged dashboard](https://prod.cms.va.gov/admin/content/facilities/flagged).  An email message is sent to CMS Support to kick off the [New Facility Runbook](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Change+request&template=runbook-facility-new.md&title=New+Facility%3A+%3Cinsert_name_of_facility%3E).
 
 #### Update
 
 Updates to facility address or hours are updated and maintain the current moderation state of the facility node.  If the node is published, the new changes will become published.  These changes are routine and need no intervention.
-If a title changes, the title of the facility updates but the name change does NOT.  In the event of a title change, the facility is flagged and appears on the [Flagged dashboard](https://prod.cms.va.gov/admin/content/flagged) to kick off the [Facility Name Change Runbook](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Change+request&template=runbook-facility-name-change.md&title=Facility+name+change%3A+%3Cinsert_name%3E).
+If a title changes, the title of the facility updates but the name change does NOT.  In the event of a title change, the facility is flagged and appears on the [Flagged dashboard](https://prod.cms.va.gov/admin/content/facilities/flagged) to kick off the [Facility Name Change Runbook](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Change+request&template=runbook-facility-name-change.md&title=Facility+name+change%3A+%3Cinsert_name%3E).
 
 
 #### Delete
-  When a facility is removed from the Facility API, a nightly scan (drush va_gov_migrate:flag-missing-facilities) reveals that it has been removed and flags it "Removed from source".  The flag makes it appear on the [Flagged dashboard](https://prod.cms.va.gov/admin/content/flagged) to kick off the [Facility Closed Runbook](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Change+request&template=runbook-facility-closed.md&title=Facility+closed%3A+%3Cinsert_name%3E).
+  When a facility is removed from the Facility API, a nightly scan (drush va_gov_migrate:flag-missing-facilities) reveals that it has been removed and flags it "Removed from source".  The flag makes it appear on the [Flagged dashboard](https://prod.cms.va.gov/admin/content/facilities/flagged) to kick off the [Facility Closed Runbook](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Change+request&template=runbook-facility-closed.md&title=Facility+closed%3A+%3Cinsert_name%3E).
 
 
   The nightly migrations are handled as part of our tasks-periodic.yml and
