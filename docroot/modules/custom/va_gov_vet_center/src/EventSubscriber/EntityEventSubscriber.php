@@ -145,7 +145,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
               if ($term_description) {
                 $body_tags_removed = trim(strip_tags($term_description));
                 $body_tags_and_ws_removed = str_replace("\r\n", "", $body_tags_removed);
-                // If there is legitimate copy in the description.
+                // 15 chars or more means the copy should be legitimate.
                 if (strlen($body_tags_and_ws_removed) > 15) {
                   $description = $this->renderer->renderRoot($referenced_term_content);
                 }
@@ -157,7 +157,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
               }
               else {
                 $description = new FormattableMarkup(
-                  '<div><strong>Notice: The national service description was empty.</strong></div>',
+                  '<div><strong>Notice: The national service description was not found.</strong></div>',
                     []);
               }
             }
