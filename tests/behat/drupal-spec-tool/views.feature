@@ -34,6 +34,7 @@ Feature: Views
       | File browsers | file_browsers | Media | Enabled |  |
       | Files | files | Files | Enabled | Find and manage files. |
       | Flagged Content | flagged_content | Content | Enabled |  |
+      | Flagged Content - VA Forms | flagged_content_va_forms | Content | Enabled |  |
       | Frontpage | frontpage | Content | Enabled | All content promoted to frontpage |
       | Glossary | glossary | Content | Disabled | All content, by letter. |
       | Health care service names and descriptions | health_care_service_names_and_descriptions | Taxonomy terms | Enabled | A list of nationally-controlled health care service names and descriptions |
@@ -178,11 +179,12 @@ Feature: Views
       | Files | File usage | page_2 | Page |
       | Files | Files overview | page_1 | Page |
       | Files | Master | default | Default |
-      | Flagged Content | Changed Filename | changed_filename | Page |
-      | Flagged Content | Changed Title | changed_title | Page |
       | Flagged Content | Default | default | Default |
       | Flagged Content | Flagged Content | flagged_content | Page |
-      | Flagged Content | New/Deleted Forms | new_deleted | Page |
+      | Flagged Content - VA Forms | Changed Filename | changed_filename | Page |
+      | Flagged Content - VA Forms | Changed Title | changed_title | Page |
+      | Flagged Content - VA Forms | Default | default | Default |
+      | Flagged Content - VA Forms | New/Deleted Forms | new_deleted | Page |
       | Frontpage | Feed | feed_1 | Feed |
       | Frontpage | Master | default | Default |
       | Frontpage | Page | page_1 | Page |

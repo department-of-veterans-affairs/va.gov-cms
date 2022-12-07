@@ -1058,3 +1058,10 @@ function va_gov_db_update_9009() {
 
   return 'Removed field_hours_for_copay_inquiries_ from billing.';
 }
+
+/**
+ * Create redirect for flagged content.
+ */
+function va_gov_db_update_9010(&$sandbox) {
+  return _va_gov_db_create_redirect_by_path('/admin/content/flagged', '/admin/content/facilities/flagged');
+}
