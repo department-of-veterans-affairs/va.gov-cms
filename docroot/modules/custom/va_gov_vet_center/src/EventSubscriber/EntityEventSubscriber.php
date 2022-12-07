@@ -140,31 +140,45 @@ class EntityEventSubscriber implements EventSubscriberInterface {
             $referenced_term = reset($referenced_terms);
             if ($referenced_term) {
               $view_builder = $this->entityTypeManager->getViewBuilder('taxonomy_term');
-              $referenced_term_content = $view_builder->view($referenced_term, 'vet_center_service');
-              $term_description = $referenced_term_content["#taxonomy_term"]->get('field_vet_center_service_descrip')->value;
-              if ($term_description) {
-                $body_tags_removed = trim(strip_tags($term_description));
+              $referenced_term_vet_content = $view_builder->view($referenced_term, 'vet_center_service');
+              $vet_term_description = $referenced_term_vet_content["#taxonomy_term"]->get('field_vet_center_service_descrip')->value;
+              if ($vet_term_description) {
+                $body_tags_removed = trim(strip_tags($vet_term_description));
                 $body_tags_and_ws_removed = str_replace("\r\n", "", $body_tags_removed);
                 // 15 chars or more means the copy should be legitimate.
                 if (strlen($body_tags_and_ws_removed) > 15) {
-                  $description = $this->renderer->renderRoot($referenced_term_content);
+                  $description = $this->renderer->renderRoot($referenced_term_vet_content);
                 }
                 else {
-                  $description = new FormattableMarkup(
-                    '<div><strong>Notice: The national service description was empty.</strong></div>',
-                      []);
+                  $referenced_term_vamc_content = $view_builder->view($referenced_term, 'vamc_facility_service');
+                  $vamc_term_description = $referenced_term_vamc_content["#taxonomy_term"]->get('description')->value;
+                  if ($vamc_term_description) {
+                    $description = $this->renderer->renderRoot($referenced_term_vamc_content);
+                  }
+                  else {
+                    $description = new FormattableMarkup(
+                      '<div><strong>Notice: The national service description was not found. Contact CMS Support to resolve this issue.</strong></div>',
+                        []);
+                  }
                 }
               }
               else {
-                $description = new FormattableMarkup(
-                  '<div><strong>Notice: The national service description was not found.</strong></div>',
-                    []);
+                $referenced_term_vamc_content = $view_builder->view($referenced_term, 'vamc_facility_service');
+                $vamc_term_description = $referenced_term_vamc_content["#taxonomy_term"]->get('description')->value;
+                if ($vamc_term_description) {
+                  $description = $this->renderer->renderRoot($referenced_term_vamc_content);
+                }
+                else {
+                  $description = new FormattableMarkup(
+                    '<div><strong>Notice: The national service description was not found. Contact CMS Support to resolve this issue.</strong></div>',
+                      []);
+                }
               }
             }
           }
           else {
             $description = new FormattableMarkup(
-            '<div><strong>Notice: The national service name and description were not found.</strong></div>',
+            '<div><strong>Notice: The national service name and description were not found. Contact CMS Support to resolve this issue.</strong></div>',
               []);
           }
 
