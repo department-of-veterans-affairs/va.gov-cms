@@ -53,7 +53,7 @@ class FeatureFlag implements DeployPluginInterface {
   /**
    * {@inheritDoc}
    */
-  protected function getStreamWrapper() : ?StreamWrapperInterface {
+  protected function getStreamWrapper() : StreamWrapperInterface {
     return $this->streamWrapperInstance;
   }
 
