@@ -131,6 +131,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       $services = $build['field_health_services'] ?? [];
       foreach ($services as $key => $service) {
         $description = new FormattableMarkup('', []);
+        // If there are services (because their keys are numeric.)
         if (is_numeric($key) && !empty($service['#options']['entity'])) {
           $service_node = $service['#options']['entity'];
           $referenced_terms = $service_node->get('field_service_name_and_descripti')->referencedEntities();
@@ -140,13 +141,31 @@ class EntityEventSubscriber implements EventSubscriberInterface {
             if ($referenced_term) {
               $view_builder = $this->entityTypeManager->getViewBuilder('taxonomy_term');
               $referenced_term_content = $view_builder->view($referenced_term, 'vet_center_service');
-              $description = $this->renderer->renderRoot($referenced_term_content);
+              $term_description = $referenced_term_content["#taxonomy_term"]->get('field_vet_center_service_descrip')->value;
+              if ($term_description) {
+                $body_tags_removed = trim(strip_tags($term_description));
+                $body_tags_and_ws_removed = str_replace("\r\n", "", $body_tags_removed);
+                // If there is legitimate copy in the description.
+                if (strlen($body_tags_and_ws_removed) > 15) {
+                  $description = $this->renderer->renderRoot($referenced_term_content);
+                }
+                else {
+                  $description = new FormattableMarkup(
+                    '<div><strong>Notice: The national service description was empty.</strong></div>',
+                      []);
+                }
+              }
+              else {
+                $description = new FormattableMarkup(
+                  '<div><strong>Notice: The national service description was empty.</strong></div>',
+                    []);
+              }
             }
           }
           else {
             $description = new FormattableMarkup(
-              '<div><strong>Notice: The national service description was not found.</strong></div>',
-                []);
+            '<div><strong>Notice: The national service name and description were not found.</strong></div>',
+              []);
           }
 
           // Append the facility-specific service description (no matter what).
