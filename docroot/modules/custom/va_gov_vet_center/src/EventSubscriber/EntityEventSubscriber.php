@@ -17,6 +17,7 @@ use Drupal\Core\Render\Element;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\taxonomy\Entity\Term;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Drupal\va_gov_vet_center\Service\RequiredServices;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -130,50 +131,16 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       $build = &$event->getBuild();
       $services = $build['field_health_services'] ?? [];
       foreach ($services as $key => $service) {
-        $description = new FormattableMarkup('', []);
         // If there are services (because their keys are numeric.)
         if (is_numeric($key) && !empty($service['#options']['entity'])) {
+          $description = new FormattableMarkup('', []);
           $service_node = $service['#options']['entity'];
           $referenced_terms = $service_node->get('field_service_name_and_descripti')->referencedEntities();
           // Render the national service term description (if available).
           if (!empty($referenced_terms)) {
             $referenced_term = reset($referenced_terms);
             if ($referenced_term) {
-              $view_builder = $this->entityTypeManager->getViewBuilder('taxonomy_term');
-              $referenced_term_vet_content = $view_builder->view($referenced_term, 'vet_center_service');
-              $vet_term_description = $referenced_term_vet_content["#taxonomy_term"]->get('field_vet_center_service_descrip')->value;
-              if ($vet_term_description) {
-                $body_tags_removed = trim(strip_tags($vet_term_description));
-                $body_tags_and_ws_removed = str_replace("\r\n", "", $body_tags_removed);
-                // 15 chars or more means the copy should be legitimate.
-                if (strlen($body_tags_and_ws_removed) > 15) {
-                  $description = $this->renderer->renderRoot($referenced_term_vet_content);
-                }
-                else {
-                  $referenced_term_vamc_content = $view_builder->view($referenced_term, 'vamc_facility_service');
-                  $vamc_term_description = $referenced_term_vamc_content["#taxonomy_term"]->get('description')->value;
-                  if ($vamc_term_description) {
-                    $description = $this->renderer->renderRoot($referenced_term_vamc_content);
-                  }
-                  else {
-                    $description = new FormattableMarkup(
-                      '<div><strong>Notice: The national service description was not found. Contact CMS Support to resolve this issue.</strong></div>',
-                        []);
-                  }
-                }
-              }
-              else {
-                $referenced_term_vamc_content = $view_builder->view($referenced_term, 'vamc_facility_service');
-                $vamc_term_description = $referenced_term_vamc_content["#taxonomy_term"]->get('description')->value;
-                if ($vamc_term_description) {
-                  $description = $this->renderer->renderRoot($referenced_term_vamc_content);
-                }
-                else {
-                  $description = new FormattableMarkup(
-                    '<div><strong>Notice: The national service description was not found. Contact CMS Support to resolve this issue.</strong></div>',
-                      []);
-                }
-              }
+              $description = $this->getVetServiceDescription($referenced_term);
             }
           }
           else {
@@ -181,7 +148,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
             '<div><strong>Notice: The national service name and description were not found. Contact CMS Support to resolve this issue.</strong></div>',
               []);
           }
-
           // Append the facility-specific service description (no matter what).
           $description .= $service_node->get('field_body')->value;
           $formatted_markup = new FormattableMarkup($description, []);
@@ -189,6 +155,60 @@ class EntityEventSubscriber implements EventSubscriberInterface {
         }
       }
     }
+  }
+
+  /**
+   * Gets the VA Services taxonomy term Vet Center service description.
+   *
+   * @param \Drupal\taxonomy\Entity\Term $service_term
+   *   VA Services taxonomy term.
+   *
+   * @return Drupal\Core\Render\Markup
+   *   Markup of service description.
+   */
+  private function getVetServiceDescription(Term $service_term) {
+    $view_builder = $this->entityTypeManager->getViewBuilder('taxonomy_term');
+    $referenced_term_vet_content = $view_builder->view($service_term, 'vet_center_service');
+    $vet_term_description = $referenced_term_vet_content["#taxonomy_term"]->get('field_vet_center_service_descrip')->value;
+    if ($vet_term_description) {
+      $body_tags_removed = trim(strip_tags($vet_term_description));
+      $body_tags_and_ws_removed = str_replace("\r\n", "", $body_tags_removed);
+      // 15 chars or more means the copy should be legitimate.
+      if (strlen($body_tags_and_ws_removed) > 15) {
+        $description = $this->renderer->renderRoot($referenced_term_vet_content);
+      }
+      else {
+        $description = $this->getVamcServiceDescription($service_term);
+      }
+    }
+    else {
+      $description = $this->getVamcServiceDescription($service_term);
+    }
+    return $description;
+  }
+
+  /**
+   * Gets the VA Services VAMC service description.
+   *
+   * @param \Drupal\taxonomy\Entity\Term $service_term
+   *   VA Services taxonomy term.
+   *
+   * @return Drupal\Core\Render\Markup
+   *   Markup of service description.
+   */
+  private function getVamcServiceDescription(Term $service_term) {
+    $view_builder = $this->entityTypeManager->getViewBuilder('taxonomy_term');
+    $referenced_term_vamc_content = $view_builder->view($service_term, 'vamc_facility_service');
+    $vamc_term_description = $referenced_term_vamc_content["#taxonomy_term"]->get('description')->value;
+    if ($vamc_term_description) {
+      $description = $this->renderer->renderRoot($referenced_term_vamc_content);
+    }
+    else {
+      $description = new FormattableMarkup(
+        '<div><strong>Notice: The national service description was not found. Contact CMS Support to resolve this issue.</strong></div>',
+          []);
+    }
+    return $description;
   }
 
   /**
