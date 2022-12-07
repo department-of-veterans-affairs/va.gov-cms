@@ -2,6 +2,7 @@
 
 namespace Tests\Support\Classes;
 
+use Prophecy\PhpUnit\ProphecyTrait;
 use Tests\Support\Traits\FileLoggerTrait;
 use weitzman\DrupalTestTraits\ExistingSiteBase;
 
@@ -11,6 +12,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
 abstract class VaGovExistingSiteBase extends ExistingSiteBase {
 
   use FileLoggerTrait;
+  use ProphecyTrait;
 
   /**
    * Executed before each test case.
