@@ -163,7 +163,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    * @param \Drupal\taxonomy\Entity\Term $service_term
    *   VA Services taxonomy term.
    *
-   * @return Drupal\Component\Render\FormattableMarkup
+   * @return \Drupal\Component\Render\FormattableMarkup
    *   Markup of service description.
    */
   private function getVetServiceDescription(Term $service_term) {
@@ -193,7 +193,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    * @param \Drupal\taxonomy\Entity\Term $service_term
    *   VA Services taxonomy term.
    *
-   * @return Drupal\Component\Render\FormattableMarkup
+   * @return \Drupal\Component\Render\FormattableMarkup
    *   Markup of service description.
    */
   private function getVamcServiceDescription(Term $service_term) {
