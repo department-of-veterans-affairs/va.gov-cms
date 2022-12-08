@@ -1,10 +1,10 @@
 services:
   # What to call the service hosting the site.
   php:
-    # Use PHP 7.4 with Apache; this syntax pulls in the latest version of PHP 7.4
-    # Currently using Buster because of an issue with Bullseye and PHP 7.4 on Tugboat.
+    # Use PHP 8.1 with Apache; this syntax pulls in the latest version of PHP 8.1.
+    # Currently, using Buster because of an issue with Bullseye and PHP 8.1 on Tugboat.
     # See https://github.com/department-of-veterans-affairs/va.gov-cms/issues/7667
-    image: tugboatqa/php:7.4-apache-buster
+    image: tugboatqa/php:8.1-apache-buster
 
     aliases:
       - cms
@@ -67,6 +67,17 @@ services:
         - echo "memory_limit = -1" >> /usr/local/etc/php/conf.d/php-cli.ini
         - echo "max_execution_time = 1800" >> /usr/local/etc/php/conf.d/my-php.ini
 
+        # Explicitly enable PHP 8 Opcache JIT (just-in-time compilation)
+        # https://stitcher.io/blog/php-8-jit-setup
+        - echo "opcache.enable_cli = 1" >> /usr/local/etc/php/conf.d/php-cli.ini
+        - echo "opcache.enable = 1" >> /usr/local/etc/php/conf.d/my-php.ini
+        # Disable JIT for now due to https://github.com/department-of-veterans-affairs/va.gov-cms/issues/11315
+        - echo "opcache.jit = disable" >> /usr/local/etc/php/conf.d/my-php.ini
+        - echo "opcache.jit_buffer_size = 256M" >> /usr/local/etc/php/conf.d/my-php.ini
+        # Explicitly set opcache.validate_timestamps for documentation in code. PHP default is 1. PROD is 0.
+        # https://www.php.net/manual/en/opcache.configuration.php#ini.opcache.validate-timestamps
+        - echo "opcache.validate_timestamps = 1" >> /usr/local/etc/php/conf.d/my-php.ini
+
         # .tugboat/.env.j2 Jinja2 template file support
         - apt-get install python3-apt python3-distutils python3
         - curl -O https://bootstrap.pypa.io/get-pip.py
@@ -107,7 +118,7 @@ services:
         - echo "apc.enable_cli=1" >> /usr/local/etc/php/conf.d/php-cli.ini
 
         # Install memcache extension
-        - pecl install memcache-4.0.5.2
+        - pecl install memcache-8.0
         - docker-php-ext-enable memcache
 
         # Ensure that we're using version 2 of composer.
@@ -186,7 +197,7 @@ services:
         - j2 "${TUGBOAT_ROOT}/.storybook/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.storybook/403-error-document.html"
 
       online:
-        # We only want tests running on PRs, not branches like the base preview build of master.
+        # We only want tests running on PRs, not branches like the base preview build of main.
         - if [ "$TUGBOAT_PREVIEW_TYPE" = "pullrequest" ]; then bash -lc 'time task --taskfile=tests.yml'; fi
 
         # Build storybook and the frontend in parallel
