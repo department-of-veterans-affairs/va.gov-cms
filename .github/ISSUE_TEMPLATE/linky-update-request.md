@@ -8,14 +8,14 @@ assignees: ''
 ---
 
 ## Instructions
-- Please fill out the form below to submit a request for a Sitewide CMS Collaboration Cycle kickoff.
+- Please fill out the information below to submit a request Linky reference update.
 - It is your responsibility to notify #cms-support after submitting this issue.
 
 ### Who is requesting this update?
 - [Name, Team]
 
 ### Linky Reference
-If there are multiple variations of the URL that should be update, please list those.
+If there are multiple variations of the URL that should be updated, please list those.
 
 | Current Destination URL |  Updated Destination URL |
 | ---  |  --- |
