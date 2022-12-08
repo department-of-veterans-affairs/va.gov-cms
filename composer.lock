@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "040d5dd8713d74d20bf80a8b168d0ceb",
+    "content-hash": "9a0e4275b766d8109a3868266f3b0e1f",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -3304,125 +3304,6 @@
             }
         },
         {
-            "name": "drupal/autoservices",
-            "version": "1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/autoservices.git",
-                "reference": "1.0.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/autoservices-1.0.1.zip",
-                "reference": "1.0.1",
-                "shasum": "1fa4a269dbd939286807aeafb6c59d775f0f7e93"
-            },
-            "require": {
-                "drupal/core": "^9 || ^10"
-            },
-            "require-dev": {
-                "composer/installers": "^1",
-                "cweagans/composer-patches": "~1.0",
-                "drupal/core-composer-scaffold": "^9.0",
-                "drupal/core-dev": "^9.0",
-                "drupal/core-recommended": "^9.0",
-                "drush/drush": "^10",
-                "mglaman/phpstan-drupal": "^0.12",
-                "php-parallel-lint/php-parallel-lint": "^1.2",
-                "phpstan/phpstan-deprecation-rules": "^0.12",
-                "zaporylie/composer-drupal-optimizations": "^1.0"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "1.0.1",
-                    "datestamp": "1662481011",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                },
-                "installer-paths": {
-                    "web/core": [
-                        "type:drupal-core"
-                    ],
-                    "web/libraries/{$name}": [
-                        "type:drupal-library"
-                    ],
-                    "web/modules/contrib/{$name}": [
-                        "type:drupal-module"
-                    ],
-                    "web/profiles/{$name}": [
-                        "type:drupal-profile"
-                    ],
-                    "web/themes/{$name}": [
-                        "type:drupal-theme"
-                    ],
-                    "drush/{$name}": [
-                        "type:drupal-drush"
-                    ]
-                },
-                "drupal-scaffold": {
-                    "locations": {
-                        "web-root": "web/"
-                    }
-                }
-            },
-            "autoload": {
-                "classmap": [
-                    ".spoons/ScriptHandler.php"
-                ]
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "scripts": {
-                "si": [
-                    "drush si -v --db-url=${SIMPLETEST_DB:-mysql://root:password@mariadb/db}"
-                ],
-                "phpcs": [
-                    "phpcs --runtime-set ignore_warnings_on_exit 1 --runtime-set ignore_errors_on_exit 1 web/modules/custom"
-                ],
-                "lint": [
-                    "parallel-lint --exclude web --exclude vendor ."
-                ],
-                "webserver": [
-                    "cd web && php -S 0.0.0.0:8888 .ht.router.php"
-                ],
-                "chromedriver": [
-                    "chromedriver --port=9515 --verbose --whitelisted-ips --log-path=/tmp/chromedriver.log --no-sandbox"
-                ],
-                "unit": [
-                    "phpunit --verbose web/modules/custom"
-                ],
-                "phpstan": [
-                    "phpstan analyse web/modules/custom"
-                ],
-                "stylelint": [
-                    "yarn --silent --cwd web/core stylelint --formatter verbose --config ./.stylelintrc.json ../modules/custom/**/*.css"
-                ],
-                "eslint": [
-                    "yarn --silent --cwd web/core eslint -c ./.eslintrc.json ../modules/custom"
-                ],
-                "post-update-cmd": [
-                    "Spoons\\ScriptHandler::createSymlinks"
-                ]
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "rodrigoaguilera",
-                    "homepage": "https://www.drupal.org/user/408170"
-                }
-            ],
-            "description": "Register services into the container without configuration",
-            "homepage": "https://gitlab.com/upstreamable/drupal-autoservices",
-            "support": {
-                "source": "https://gitlab.com/upstreamable/drupal-autoservices",
-                "issues": "https://gitlab.com/upstreamable/drupal-autoservices/issues"
-            }
-        },
-        {
             "name": "drupal/better_exposed_filters",
             "version": "6.0.2",
             "source": {
@@ -3722,37 +3603,19 @@
         },
         {
             "name": "drupal/change_labels",
-            "version": "1.0.4",
+            "version": "dev-3326097-remove-dependency-on-drupal-autoservices",
             "source": {
                 "type": "git",
-                "url": "https://git.drupalcode.org/project/change_labels.git",
-                "reference": "1.0.4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/change_labels-1.0.4.zip",
-                "reference": "1.0.4",
-                "shasum": "5ec3690881db56cabc487679380456193f047976"
+                "url": "https://git.drupalcode.org/issue/change_labels-3326097.git",
+                "reference": "7f92f90b456ac2f394dd434257e39e1d9b3086eb"
             },
             "require": {
-                "drupal/autoservices": "^1",
                 "drupal/core": "^9.2 || ^10",
                 "drupal/core_event_dispatcher": "^3 || ^4",
                 "drupal/field_event_dispatcher": "^3 || ^4",
                 "drupal/hook_event_dispatcher": "^3 || ^4"
             },
             "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "1.0.4",
-                    "datestamp": "1664659793",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
                 "GPL-2.0-or-later"
             ],
@@ -3766,9 +3629,10 @@
             "description": "Modify labels for entity forms.",
             "homepage": "https://drupal.org/project/change_labels",
             "support": {
-                "source": "https://git.drupalcode.org/project/change_labels",
-                "issues": "https://www.drupal.org/project/issues/change_labels"
-            }
+                "issues": "https://www.drupal.org/project/issues/change_labels",
+                "source": "https://git.drupalcode.org/project/change_labels"
+            },
+            "time": "2022-12-08T18:55:31+00:00"
         },
         {
             "name": "drupal/coder",
@@ -28946,6 +28810,7 @@
         "drupal/advancedqueue": 5,
         "drupal/blazy": 5,
         "drupal/cer": 20,
+        "drupal/change_labels": 20,
         "drupal/components": 10,
         "drupal/content_lock": 15,
         "drupal/entity_block": 10,
