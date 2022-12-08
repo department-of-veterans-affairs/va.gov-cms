@@ -10331,17 +10331,17 @@
         },
         {
             "name": "drupal/openapi_jsonapi",
-            "version": "3.0.2",
+            "version": "3.0.3",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/openapi_jsonapi.git",
-                "reference": "3.0.2"
+                "reference": "3.0.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/openapi_jsonapi-3.0.2.zip",
-                "reference": "3.0.2",
-                "shasum": "8e027d581270702fc3ed075759336457cc567a92"
+                "url": "https://ftp.drupal.org/files/projects/openapi_jsonapi-3.0.3.zip",
+                "reference": "3.0.3",
+                "shasum": "4c03bbdcb2e1b593904a9d90fe1fc85d90bee572"
             },
             "require": {
                 "drupal/core": "^8 || ^9",
@@ -10352,8 +10352,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "3.0.2",
-                    "datestamp": "1632062730",
+                    "version": "3.0.3",
+                    "datestamp": "1670360463",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -10362,7 +10362,7 @@
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0-or-later"
+                "GPL-2.0+"
             ],
             "authors": [
                 {
@@ -11422,32 +11422,32 @@
         },
         {
             "name": "drupal/schemata",
-            "version": "1.0.0-beta2",
+            "version": "1.0.0-beta3",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/schemata.git",
-                "reference": "8.x-1.0-beta2"
+                "reference": "8.x-1.0-beta3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/schemata-8.x-1.0-beta2.zip",
-                "reference": "8.x-1.0-beta2",
-                "shasum": "c50bc45c370073224877a8c72e6d8d5b2ec732d3"
+                "url": "https://ftp.drupal.org/files/projects/schemata-8.x-1.0-beta3.zip",
+                "reference": "8.x-1.0-beta3",
+                "shasum": "be2cbbf357c3f4d126c8ffbf926432b5fe44e4ff"
             },
             "require": {
-                "drupal/core": "^8 || ^9"
+                "drupal/core": "^8 || ^9 || ^10"
             },
             "require-dev": {
                 "drupal/coder": "^8.2",
+                "drupal/hal": "^1 || ^2",
                 "jakub-onderka/php-parallel-lint": "^0.9.2",
-                "league/json-guard": "^1.0",
-                "league/json-reference": "^1.0"
+                "justinrainbow/json-schema": "^5.2"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0-beta2",
-                    "datestamp": "1585777919",
+                    "version": "8.x-1.0-beta3",
+                    "datestamp": "1670337727",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
@@ -11471,7 +11471,7 @@
                 ]
             },
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -11522,16 +11522,16 @@
         },
         {
             "name": "drupal/schemata_json_schema",
-            "version": "1.0.0-beta2",
+            "version": "1.0.0-beta3",
             "require": {
-                "drupal/core": "^8 || ^9",
+                "drupal/core": "^8 || ^9 || ^10",
                 "drupal/schemata": "*"
             },
             "type": "metapackage",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0-beta2",
-                    "datestamp": "1585777919",
+                    "version": "8.x-1.0-beta3",
+                    "datestamp": "1670337727",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
