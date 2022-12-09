@@ -159,7 +159,8 @@ function vagovclaro_preprocess_field(&$variables) {
     ->getFieldDefinitions($element['#entity_type'], $element['#bundle']);
   /** @var \Drupal\Core\Field\BaseFieldDefinition $field_def */
   $field_def = $field_defs[$element['#field_name']];
-  $variables['description'] = str_replace('"', "'", $field_def->getDescription());
+  $description = $field_def->getDescription() ?? '';
+  $variables['description'] = str_replace('"', "'", $description);
 }
 
 /**

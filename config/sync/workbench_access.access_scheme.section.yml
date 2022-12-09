@@ -4,6 +4,8 @@ status: true
 dependencies:
   config:
     - field.field.block_content.alert.field_owner
+    - field.field.block_content.benefit_promo.field_administration
+    - field.field.block_content.news_promo.field_administration
     - field.field.block_content.promo.field_owner
     - field.field.media.document.field_owner
     - field.field.media.document_external.field_owner
@@ -77,6 +79,14 @@ scheme_settings:
       entity_type: block_content
       bundle: promo
       field: field_owner
+    -
+      entity_type: block_content
+      bundle: news_promo
+      field: field_administration
+    -
+      entity_type: block_content
+      bundle: benefit_promo
+      field: field_administration
     -
       entity_type: media
       bundle: image
