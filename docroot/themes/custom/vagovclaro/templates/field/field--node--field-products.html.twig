@@ -52,11 +52,11 @@
       {% else %}
         {% set separator = ", " %}
       {% endif %}
-      {{ item }}{{ separator }}
+      <span{{ item.attributes }}>{{ item.content }}</span>{{ separator }}
     {% endfor %}
   {% else %}
     {% for item in items %}
-      {{item}}
+      <span{{ item.attributes }}>{{ item.content }}</span>
     {% endfor %}
   {% endif %}
 </div>

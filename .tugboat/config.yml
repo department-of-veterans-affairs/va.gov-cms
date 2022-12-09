@@ -200,15 +200,15 @@ services:
         # We only want tests running on PRs, not branches like the base preview build of main.
         - if [ "$TUGBOAT_PREVIEW_TYPE" = "pullrequest" ]; then bash -lc 'time task --taskfile=tests.yml'; fi
 
-        # Build storybook and the frontend in parallel
-        - bash -lc 'time task --taskfile=tugboat.yml'
-
         # Set file permissions so web based build calls work.  This must run after all web builds are done in tests.
         - chown -R www-data:www-data "${DOCROOT}/vendor/va-gov/content-build"
         - find "${DOCROOT}/vendor/va-gov/content-build" -type d -exec chmod 2775 {} \+
         - find "${DOCROOT}/vendor/va-gov/content-build" -type f -exec chmod 0664 {} \+
         - find -L "${DOCROOT}/vendor/va-gov/content-build/node_modules/.bin" -type f -exec chmod +x {} \+
         - find "${DOCROOT}/vendor/va-gov/content-build/script" -type f -exec chmod +x {} \+
+
+        # Build storybook and the frontend in parallel
+        - bash -lc 'time task --taskfile=tugboat.yml'
 
   memcache:
     image: tugboatqa/memcached:1.6

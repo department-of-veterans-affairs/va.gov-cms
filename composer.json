@@ -34,6 +34,7 @@
         "drupal/blazy": "^2.0@RC",
         "drupal/block_content_permissions": "^1.6",
         "drupal/cer": "4.x-dev#f2ff7d6bf2a3e41757b7621a8367ede974750a84",
+        "drupal/change_labels": "dev-3326097-remove-dependency-on-drupal-autoservices#7f92f90b456ac2f394dd434257e39e1d9b3086eb",
         "drupal/coder": "^8.3",
         "drupal/components": "^3.0@beta",
         "drupal/config_ignore": "^2.1",
@@ -236,7 +237,10 @@
         },
         "drupal": {
             "type": "composer",
-            "url": "https://packages.drupal.org/8"
+            "url": "https://packages.drupal.org/8",
+            "exclude": [
+                "drupal/change_labels"
+            ]
         },
         "assets": {
             "type": "composer",
@@ -263,6 +267,10 @@
                     "composer/installers": "~1.0"
                 }
             }
+        },
+        "drupal/change_labels": {
+            "type": "git",
+            "url": "https://git.drupalcode.org/issue/change_labels-3326097.git"
         }
     },
     "config": {
