@@ -140,123 +140,26 @@ tasks:
           fi
         EOF
 
+  test-race-conditions-behat:
+    desc: Testing race conditions.
+    cmds:
+      - cd tests/behat && behat --strict --colors
+
+  test-race-conditions-phpunit:
+    desc: Testing race conditions.
+    cmds:
+      - phpunit --group functional --exclude-group disabled tests/phpunit --colors=always
+
   test-race-conditions:
     desc: Testing race conditions.
     cmds:
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
-      - va/tests/behat
-      - va/tests/phpunit
+      - task: test-race-conditions-inner
+
+  test-race-conditions-inner:
+    desc: Testing race conditions (inner).
+    deps:
+      - test-race-conditions-behat
+      - test-race-conditions-phpunit
 
   default:
     desc:
