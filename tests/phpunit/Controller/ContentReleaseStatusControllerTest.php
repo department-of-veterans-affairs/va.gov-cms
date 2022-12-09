@@ -85,21 +85,21 @@ class ContentReleaseStatusControllerTest extends VaGovExistingSiteBase {
    *   Test assertion data.
    */
   public function provideContentReleaseData() : \Generator {
-    date_default_timezone_set('America/New_York');
+    $time = time();
 
-    $today = strtotime('today 8am');
+    $today = strtotime('today 8am', $time);
     yield 'Last content release happened today' => [
       $this->generateBodyForTime($today),
       'VA.gov last updated<br />today at 08:00 am',
     ];
 
-    $yesterday = strtotime('yesterday 1405');
+    $yesterday = strtotime('yesterday 1405', $time);
     yield 'Last content release happened yesterday' => [
       $this->generateBodyForTime($yesterday),
       'VA.gov last updated<br />yesterday at 02:05 pm',
     ];
 
-    $four_days_ago = strtotime('-4 day 1038');
+    $four_days_ago = strtotime('-4 day 1038', $time);
     yield 'Last content release happened four days ago' => [
       $this->generateBodyForTime($four_days_ago),
       'VA.gov last updated<br />4 days ago at 10:38 am',
