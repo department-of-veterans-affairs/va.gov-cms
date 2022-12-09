@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "87780d796a100c4f7bcc358f60327041",
+    "content-hash": "6657e71ddcc95446f6f02a3678ffd3c6",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -3602,6 +3602,39 @@
             }
         },
         {
+            "name": "drupal/change_labels",
+            "version": "dev-3326097-remove-dependency-on-drupal-autoservices",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/issue/change_labels-3326097.git",
+                "reference": "7f92f90b456ac2f394dd434257e39e1d9b3086eb"
+            },
+            "require": {
+                "drupal/core": "^9.2 || ^10",
+                "drupal/core_event_dispatcher": "^3 || ^4",
+                "drupal/field_event_dispatcher": "^3 || ^4",
+                "drupal/hook_event_dispatcher": "^3 || ^4"
+            },
+            "type": "drupal-module",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Rodrigo Aguilera",
+                    "homepage": "https://www.drupal.org/u/rodrigoaguilera",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "Modify labels for entity forms.",
+            "homepage": "https://drupal.org/project/change_labels",
+            "support": {
+                "issues": "https://www.drupal.org/project/issues/change_labels",
+                "source": "https://git.drupalcode.org/project/change_labels"
+            },
+            "time": "2022-12-08T18:55:31+00:00"
+        },
+        {
             "name": "drupal/coder",
             "version": "8.3.16",
             "source": {
@@ -5917,8 +5950,8 @@
                     "dev-2.x": "2.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-2.0-beta7+2-dev",
-                    "datestamp": "1664438305",
+                    "version": "8.x-2.0-beta7+3-dev",
+                    "datestamp": "1670443798",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -6270,6 +6303,48 @@
             "homepage": "https://www.drupal.org/project/feature_toggle",
             "support": {
                 "source": "https://git.drupalcode.org/project/feature_toggle"
+            }
+        },
+        {
+            "name": "drupal/field_event_dispatcher",
+            "version": "3.3.1",
+            "require": {
+                "drupal/core": "^9.3",
+                "drupal/hook_event_dispatcher": "*"
+            },
+            "type": "metapackage",
+            "extra": {
+                "drupal": {
+                    "version": "3.3.1",
+                    "datestamp": "1662726785",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "el7cosmos",
+                    "homepage": "https://www.drupal.org/user/251087"
+                },
+                {
+                    "name": "pdenooijer",
+                    "homepage": "https://www.drupal.org/user/3175437"
+                },
+                {
+                    "name": "robin.ingelbrecht",
+                    "homepage": "https://www.drupal.org/user/2339074"
+                }
+            ],
+            "description": "Registers event dispatchers for several field hooks",
+            "homepage": "https://www.drupal.org/project/hook_event_dispatcher",
+            "support": {
+                "source": "https://git.drupalcode.org/project/hook_event_dispatcher"
             }
         },
         {
@@ -28735,6 +28810,7 @@
         "drupal/advancedqueue": 5,
         "drupal/blazy": 5,
         "drupal/cer": 20,
+        "drupal/change_labels": 20,
         "drupal/components": 10,
         "drupal/content_lock": 15,
         "drupal/entity_block": 10,
