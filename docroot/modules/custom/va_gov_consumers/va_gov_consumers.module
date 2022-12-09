@@ -9,6 +9,22 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
+ * Implements hook_module_implements_alter().
+ */
+function va_gov_consumers_module_implements_alter(&$implementations, $hook) {
+  switch ($hook) {
+    // Move our hook_form_alter() implementation to the end of the list.
+    // This was added to compensate for a similar call ignoring weights.
+    // See: docroot/modules/contrib/field_group/field_group.module.
+    case 'form_alter':
+      $va_gov_consumers = $implementations['va_gov_consumers'];
+      unset($implementations['va_gov_consumers']);
+      $implementations['va_gov_consumers'] = $va_gov_consumers;
+      break;
+  }
+}
+
+/**
  * Implements hook_form_alter().
  */
 function va_gov_consumers_form_alter(&$form, FormStateInterface $form_state, $form_id) {
