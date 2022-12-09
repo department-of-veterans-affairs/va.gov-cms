@@ -2,6 +2,8 @@ uuid: c57645a7-42e6-4372-ae4c-1dfde2b1b55f
 langcode: en
 status: true
 dependencies:
+  config:
+    - user.role.authenticated
   module:
     - block_content
     - user
@@ -289,9 +291,10 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
       access:
-        type: perm
+        type: role
         options:
-          perm: 'administer blocks'
+          role:
+            authenticated: authenticated
       cache:
         type: tag
         options: {  }
@@ -514,7 +517,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user.permissions
+        - user.roles
       tags: {  }
   page_1:
     id: page_1
@@ -522,7 +525,9 @@ display:
     display_plugin: page
     position: 1
     display_options:
-      display_extenders: {  }
+      display_extenders:
+        jsonapi_views:
+          enabled: true
       path: admin/structure/block/block-content
       menu:
         type: tab
@@ -539,5 +544,5 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user.permissions
+        - user.roles
       tags: {  }

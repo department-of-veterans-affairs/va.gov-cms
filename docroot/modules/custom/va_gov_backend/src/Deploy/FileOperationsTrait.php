@@ -70,8 +70,8 @@ trait FileOperationsTrait {
   /**
    * Get the stream wrapper instance.
    *
-   * @reutrn Drupal\Core\StreamWrapper\StreamWrapperInterface
-   *  The stream wrapper.
+   * @return Drupal\Core\StreamWrapper\StreamWrapperInterface
+   *   The stream wrapper.
    */
   abstract protected function getStreamWrapper() : StreamWrapperInterface;
 
