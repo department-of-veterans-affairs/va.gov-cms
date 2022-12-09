@@ -437,17 +437,22 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
       $connection = \Drupal::database()->select('redirect', 'r');
       $connection->fields('r', ['redirect_redirect__options']);
       $connection->condition('r.redirect_source__path', $src_path, '=');
+      // phpcs:disable
+      // Disabling phpcs here due to the warning:
+      // "unserialize() is insecure unless allowed classes are limited. Use a
+      // safe format like JSON or use the allowed_classes option.".
       $query = unserialize($connection->execute()->fetchField());
+      // phpcs:enable
       $value = !empty($query['matchType']) ? $query['matchType'] : '';
     }
     $form['redirect_match_type'] = [
       '#type' => 'select',
       '#options' => [
-        'prefix' => 'prefix',
-        'exact_match' => 'exact match',
-        'regex_case_sensitive' => 'regex case sensitive',
-        'regex_case_insensitive' => 'regex case insensitive',
-        'non_re' => 'non re',
+        'prefix' => t('prefix'),
+        'exact_match' => t('exact match'),
+        'regex_case_sensitive' => t('regex case sensitive'),
+        'regex_case_insensitive' => t('regex case insensitive'),
+        'non_re' => t('non re'),
       ],
       '#title' => t('Match Type'),
       '#default_value' => $value,
@@ -578,7 +583,7 @@ function va_gov_backend_form_media_library_add_form_upload_alter(&$form, FormSta
 function va_gov_backend_field_widget_boolean_checkbox_form_alter(&$element, FormStateInterface $form_state, $context) {
   $field_definition = $context['items']->getFieldDefinition();
   if ($field_definition instanceof FieldConfig) {
-    [$entity_type, $bundle, $field_name] = explode('.', $field_definition->id());
+    [$entity_type, , $field_name] = explode('.', $field_definition->id());
     if ($entity_type === 'media' && $field_name === 'field_media_in_library') {
       $element['value']['#attributes']['class'][] = 'field_media_in_library';
     }
@@ -1325,7 +1330,7 @@ function va_gov_backend_entity_bundle_field_info_alter(&$fields, EntityTypeInter
     $fields['field_benefit_categories']->addConstraint('BenefitsSelectionLimit');
   }
   // Validation constraints for long plain and rich text fields.
-  foreach ($fields as $field_name => $field) {
+  foreach ($fields as $field) {
     if ($field->getType() === 'string_long') {
       $field->addConstraint('PreventAbsoluteCmsLinks');
       $field->addConstraint('PreventProtocolRelativeLinks');

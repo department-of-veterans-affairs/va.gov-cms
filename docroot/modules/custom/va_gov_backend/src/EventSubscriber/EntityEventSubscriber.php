@@ -2,23 +2,26 @@
 
 namespace Drupal\va_gov_backend\EventSubscriber;
 
-use Drupal\node\NodeInterface;
 use Drupal\Component\Render\FormattableMarkup;
-use Drupal\Core\Entity\EntityFormInterface;
-use Drupal\Core\Entity\EntityTypeManager;
-use Drupal\Core\Entity\EntityFieldManager;
-use Drupal\Core\Entity\ContentEntityForm;
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityTypeBuildEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\core_event_dispatcher\FormHookEvents;
+use Drupal\Core\Config\Entity\ConfigEntityType;
+use Drupal\Core\Entity\ContentEntityForm;
+use Drupal\Core\Entity\EntityFieldManager;
+use Drupal\Core\Entity\EntityFormInterface;
+use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\field_event_dispatcher\Event\Field\WidgetSingleElementFormAlterEvent;
 use Drupal\field_event_dispatcher\FieldHookEvents;
+use Drupal\node\NodeInterface;
+use Drupal\va_gov_backend\Access\BlockContentTypeAccessControlHandler;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -90,6 +93,16 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Alteration to entity type build info.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityTypeBuildEvent $event
+   *   The Entity build event object.
+   */
+  public function entityTypeBuild(EntityTypeBuildEvent $event) {
+    $this->overrideBlockContentTypeAccessHandler($event);
+  }
+
+  /**
    * Alteration to entity view pages.
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
@@ -119,6 +132,25 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public function alterRegionalHealthServiceNodeForm(FormIdAlterEvent $event): void {
     $this->buildRegionalHealthServiceFormIntro($event);
     $this->buildHealthServicesDescriptionArrayAddToSettings($event);
+  }
+
+  /**
+   * Overrides Block Content Type access handler.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityTypeBuildEvent $event
+   *   The event.
+   */
+  public function overrideBlockContentTypeAccessHandler(EntityTypeBuildEvent $event) {
+    // Override the access control handler for block content type (config)
+    // entities. Core split the 'view' and 'view label' access operations to
+    // allow for modules to have more granular control over the content type
+    // label. The Core user module is an example of a module that makes use of
+    // the separate 'view label' operation, but the Core custom_block module is
+    // not.
+    $entityTypes = &$event->getEntityTypes();
+    if (!empty($entityTypes['block_content_type']) && $entityTypes['block_content_type'] instanceof ConfigEntityType) {
+      $entityTypes['block_content_type']->setAccessClass(BlockContentTypeAccessControlHandler::class);
+    }
   }
 
   /**
@@ -541,6 +573,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public static function getSubscribedEvents(): array {
     return [
       EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
+      EntityHookEvents::ENTITY_TYPE_BUILD => 'entityTypeBuild',
       FieldHookEvents::WIDGET_SINGLE_ELEMENT_FORM_ALTER => 'formWidgetAlter',
       EntityHookEvents::ENTITY_VIEW_ALTER => 'entityViewAlter',
       FormHookEvents::FORM_ALTER => 'formAlter',
