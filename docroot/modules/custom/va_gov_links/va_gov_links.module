@@ -13,7 +13,7 @@ use Drupal\Core\Form\FormStateInterface;
 function va_gov_links_form_editor_link_dialog_alter(&$form, FormStateInterface $form_state, $form_id) {
   // Retrieve the link element's attributes from form state.
   $input = $form_state->get('link_element') ?: [];
-  if (preg_match('#/admin/content/linky/(\d+)#', $input['href'], $matches)) {
+  if (isset($input['href']) && preg_match('#/admin/content/linky/(\d+)#', $input['href'], $matches)) {
     $linky_id = $matches[1];
     $linky = \Drupal::entityTypeManager()->getStorage('linky')->load($linky_id);
     $link_uri = $linky->get('link')->getValue()[0]['uri'];
