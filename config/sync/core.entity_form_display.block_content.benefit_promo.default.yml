@@ -8,10 +8,31 @@ dependencies:
     - field.field.block_content.benefit_promo.field_promo_cta
     - field.field.block_content.benefit_promo.field_promo_headline
     - field.field.block_content.benefit_promo.field_promo_text
+    - workflows.workflow.editorial
   module:
     - content_moderation
+    - field_group
     - paragraphs
     - textfield_counter
+third_party_settings:
+  field_group:
+    group_section_settings:
+      children:
+        - field_administration
+        - moderation_state
+        - revision_log
+      label: 'Section settings'
+      region: content
+      parent_name: ''
+      weight: 4
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        description: ''
+        required_fields: false
+        description_display: after
 id: block_content.benefit_promo.default
 targetEntityType: block_content
 bundle: benefit_promo
@@ -25,7 +46,7 @@ content:
     third_party_settings: {  }
   field_promo_cta:
     type: entity_reference_paragraphs
-    weight: 4
+    weight: 3
     region: content
     settings:
       title: 'Call to Action Link'

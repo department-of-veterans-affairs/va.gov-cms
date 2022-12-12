@@ -23,6 +23,7 @@ dependencies:
   content:
     - 'taxonomy_term:administration:2c331a6d-b525-4f0c-8bea-4ecde41c7ef0'
     - 'taxonomy_term:administration:867e4dcf-2f99-401a-977a-adb441d53350'
+    - 'taxonomy_term:administration:a9526e03-dda4-4dcc-b928-fcc5e56f4e5f'
     - 'taxonomy_term:administration:c20f3989-e93e-49bd-8c95-ad3821042a02'
     - 'taxonomy_term:administration:e5820ec7-83b0-4d03-8ebf-ed50fa8cc211'
     - 'taxonomy_term:administration:edadc39e-dbaa-4fe1-b6a8-344357d6abfe'
@@ -1124,15 +1125,15 @@ display:
             revision_uid: revision_uid
             title: title
             edit_node: edit_node
+            changed: changed
             moderation_state: moderation_state
             field_administration: field_administration
-            field_va_form_revision_date: field_va_form_revision_date
             field_va_form_name: field_va_form_name
-            changed: changed
+            field_va_form_administration: field_va_form_administration
             field_va_form_issue_date: field_va_form_issue_date
+            field_va_form_revision_date: field_va_form_revision_date
             field_va_form_usage: field_va_form_usage
             field_va_form_tool_url: field_va_form_tool_url
-            field_va_form_administration: field_va_form_administration
           default: changed
           info:
             nid:
@@ -1163,6 +1164,13 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
+            changed:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
             moderation_state:
               sortable: false
               default_sort_order: asc
@@ -1171,15 +1179,8 @@ display:
               empty_column: false
               responsive: ''
             field_administration:
-              sortable: true
+              sortable: false
               default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_va_form_revision_date:
-              sortable: true
-              default_sort_order: desc
               align: ''
               separator: ''
               empty_column: false
@@ -1191,35 +1192,35 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            changed:
+            field_va_form_administration:
               sortable: true
-              default_sort_order: desc
+              default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             field_va_form_issue_date:
-              sortable: true
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_va_form_revision_date:
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             field_va_form_usage:
-              sortable: true
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             field_va_form_tool_url:
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_va_form_administration:
-              sortable: false
-              default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
