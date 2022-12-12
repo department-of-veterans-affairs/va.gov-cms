@@ -270,7 +270,8 @@ function _vagovclaro_sort_and_alter_vetcenter_services(array &$variables) {
       if (!empty($form[$key]['form'])) {
         // Turn our required and name values into a string that can be used for
         // sorting.
-        $required_value = (string) $rows[$key]['req_optional']['#markup'] === 'Optional' ? 'z' : 'Required';
+        $markup = $rows[$key]['req_optional']['#markup'] ?? '';
+        $required_value = $markup === 'Optional' ? 'z' : 'Required';
         $format_required_value = strtolower(str_replace(' ', '-', $required_value));
         $format_name_value = strtolower(str_replace(' ', '-', $cells['label']['#markup']));
 
