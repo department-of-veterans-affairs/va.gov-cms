@@ -187,7 +187,7 @@ class LovellEventSubscriber implements EventSubscriberInterface {
    *   The entity being accessed.
    * @param string $operation
    *   The type of access operation: view, edit, delete, etc.
-   * @param Drupal\Core\Session\AccountInterface $account
+   * @param \Drupal\Core\Session\AccountInterface $account
    *   The account attempting access.
    *
    * @return \Drupal\Core\Access\AccessResult
