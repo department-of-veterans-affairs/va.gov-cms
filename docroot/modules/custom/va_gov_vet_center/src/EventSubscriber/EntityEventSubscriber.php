@@ -177,11 +177,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       if (strlen($body_tags_and_ws_removed) > 15) {
         $description = $this->renderer->renderRoot($referenced_term_vet_content);
       }
-      else {
-        $description = $this->getVamcServiceDescription($service_term);
-      }
     }
-    else {
+    if (strlen($body_tags_and_ws_removed) <= 15) {
       $description = $this->getVamcServiceDescription($service_term);
     }
     return $description;
