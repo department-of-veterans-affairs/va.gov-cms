@@ -1,4 +1,3 @@
-
 @api
 Feature: Views
   In order to present and expose content and configuration
@@ -210,6 +209,7 @@ Feature: Views
       | Local facilities entity reference view | Master | default | Default |
       | Locked content | Master | default | Default |
       | Locked content | Page | page_1 | Page |
+      | Managed links | External Link Status | external_link_status_page | Page |
       | Managed links | Master | default | Default |
       | Managed links | Page | page_1 | Page |
       | Media | Browser | entity_browser_1 | Entity browser |
