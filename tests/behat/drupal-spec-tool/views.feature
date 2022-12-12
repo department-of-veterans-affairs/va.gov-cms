@@ -123,7 +123,7 @@ Feature: Views
       | Content | Content audit tools | content_audit_page | Page |
       | Content | Master | default | Default |
       | Content | Outdated content | page_3 | Page |
-      | Content | Outdated Content CSV export | data_export_1 | Data export |
+      | Content | Outdated Content CSV export | outdated_content_data_export | Data export |
       | Content | Resources and support | resources_support_dashboard | Page |
       | Content entity browsers | Event entity browser | event_entity_browser | Entity browser |
       | Content entity browsers | Master | default | Default |

@@ -2,6 +2,7 @@
 
 namespace Tests\Support\Classes;
 
+use Prophecy\PhpUnit\ProphecyTrait;
 use Drupal\Tests\UnitTestCase;
 
 /**
@@ -9,4 +10,5 @@ use Drupal\Tests\UnitTestCase;
  */
 abstract class VaGovUnitTestBase extends UnitTestCase {
 
+  use ProphecyTrait;
 }
