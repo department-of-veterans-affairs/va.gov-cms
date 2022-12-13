@@ -129,3 +129,14 @@ jobs:
               name: "cms.qa.phpunit_code_coverage.lines_denominator"
               value: ${{ steps.code_coverage_metrics.outputs.lines_denominator }}
               host: "${{ github.repository }}"
+
+  phploc:
+    name: PHPLOC Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        # https://github.com/actions/cache/releases/tag/v3.0.10
+        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+      - uses: ./.github/actions/post-checkout
+      - name: Run PHPLOC.
+        run: php phploc.phar --suffix .php --suffix .inc --suffix .module docroot/modules/custom/
