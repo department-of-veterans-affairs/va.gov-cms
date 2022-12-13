@@ -167,6 +167,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   Markup of service description.
    */
   private function getVetServiceDescription(Term $service_term) {
+    $description = new FormattableMarkup('', []);
     $view_builder = $this->entityTypeManager->getViewBuilder('taxonomy_term');
     $referenced_term_vet_content = $view_builder->view($service_term, 'vet_center_service');
     $vet_term_description = $referenced_term_vet_content["#taxonomy_term"]->get('field_vet_center_service_descrip')->value;
@@ -178,9 +179,9 @@ class EntityEventSubscriber implements EventSubscriberInterface {
         $description = $this->renderer->renderRoot($referenced_term_vet_content);
       }
     }
-    if (!$vet_term_description || strlen($body_tags_and_ws_removed) <= 15) {
-      $description = $this->getVamcServiceDescription($service_term);
-    }
+    $description = (!$vet_term_description || strlen($body_tags_and_ws_removed <= 15))
+      ? $this->getVamcServiceDescription($service_term)
+      : $description;
     return $description;
   }
 
