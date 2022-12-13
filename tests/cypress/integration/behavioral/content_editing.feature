@@ -101,54 +101,54 @@ Feature: CMS Users may effectively create & edit content
     And I am at "node/add/event"
 
     And I select the "At a VA facility" radio button
-    Then "Facility location" should be visible
-    And "Building, floor, or room" should be visible
-    And "Street address" should not be visible
-    And an element with the selector "#edit-field-address-0-address-locality" should not be visible
-    And "State" should not be visible
-    And "Country" should not be visible
-    And an element with the selector "#edit-field-url-of-an-online-event-0-uri" should not be visible
+    Then I should see "Facility location"
+    And I should see "Building, floor, or room"
+    And I should not see "Street address"
+    And I should not see an element with the selector "#edit-field-address-0-address-locality"
+    And I should not see "State"
+    And I should not see "Country"
+    And I should not see an element with the selector "#edit-field-url-of-an-online-event-0-uri"
 
     When I select the "At a non-VA location" radio button
-    Then "Facility location" should not be visible
-    And "Building, floor, or room" should be visible
-    And "Street address" should be visible
-    And an element with the selector "#edit-field-address-0-address-locality" should be visible
-    And "State" should be visible
-    And "Country" should be visible
-    And an element with the selector "#edit-field-url-of-an-online-event-0-uri" should not be visible
+    Then I should not see "Facility location"
+    And I should see "Building, floor, or room"
+    And I should see "Street address"
+    And I should see an element with the selector "#edit-field-address-0-address-locality"
+    And I should see "State"
+    And I should see "Country"
+    And I should not see an element with the selector "#edit-field-url-of-an-online-event-0-uri"
 
     When I select the "Online" radio button
-    Then "Facility location" should not be visible
-    And "Building, floor, or room" should not be visible
-    And "Street address" should not be visible
-    And an element with the selector "#edit-field-address-0-address-locality" should not be visible
-    And "State" should not be visible
-    And "Country" should not be visible
-    And an element with the selector "#edit-field-url-of-an-online-event-0-uri" should be visible
+    Then I should not see "Facility location"
+    And I should not see "Building, floor, or room"
+    And I should not see "Street address"
+    And I should not see an element with the selector "#edit-field-address-0-address-locality"
+    And I should not see "State"
+    And I should not see "Country"
+    And I should see an element with the selector "#edit-field-url-of-an-online-event-0-uri"
 
     # Registration checkbox reveals conditional form elements
     When I check the "Include registration information" checkbox
-    Then "Cost" should be visible
-    And "Registration is required for this event" should be visible
-    And "Call to action" should be visible
+    Then I should see "Cost"
+    And I should see "Registration is required for this event"
+    And I should see "Call to action"
 
     When I select option "Register" from dropdown "Call to action" 
-    Then an element with the selector "#edit-field-link-0-uri" should be visible
+    Then I should see an element with the selector "#edit-field-link-0-uri"
     And I select option "Apply" from dropdown "Call to action"
-    Then an element with the selector "#edit-field-link-0-uri" should be visible
+    Then I should see an element with the selector "#edit-field-link-0-uri"
     And I select option "RSVP" from dropdown "Call to action"
-    Then an element with the selector "#edit-field-link-0-uri" should be visible
+    Then I should see an element with the selector "#edit-field-link-0-uri"
     And I select option "More Details" from dropdown "Call to action"
-    Then an element with the selector "#edit-field-link-0-uri" should be visible
+    Then I should see an element with the selector "#edit-field-link-0-uri"
     And I select option "- None -" from dropdown "Call to action"
-    Then an element with the selector "#edit-field-link-0-uri" should not be visible
+    Then I should not see an element with the selector "#edit-field-link-0-uri"
 
     When I uncheck the "Include registration information" checkbox
-    Then "Cost" should not be visible
-    And "Registration is required for this event" should not be visible
-    And "Call to action" should not be visible
-    And an element with the selector "#edit-field-link-0-uri" should not be visible
+    Then I should not see "Cost"
+    And I should not see "Registration is required for this event"
+    And I should not see "Call to action"
+    And I should not see an element with the selector "#edit-field-link-0-uri"
 
   Scenario: Confirm that event form conditional fields are cleared out if parent options change
     Given I am logged in as a user with the "content_admin" role
