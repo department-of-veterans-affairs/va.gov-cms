@@ -2,13 +2,12 @@ uuid: b4b52690-342c-4dc4-8d9c-1d6b560c8b92
 langcode: en
 status: true
 dependencies:
+  config:
+    - system.menu.admin
+    - user.role.administrator
   module:
-    - csv_serialization
     - paragraphs
-    - rest
-    - serialization
     - user
-    - views_data_export
 id: orphaned_paragraphs
 label: 'Orphaned Paragraphs'
 module: views
@@ -23,7 +22,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: Tables
+      title: 'Orphan Paragraphs'
       fields:
         id:
           id: id
@@ -550,7 +549,7 @@ display:
         type: full
         options:
           offset: 0
-          items_per_page: 50000
+          items_per_page: 20000
           total_pages: null
           id: 0
           tags:
@@ -578,9 +577,10 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
       access:
-        type: perm
+        type: role
         options:
-          perm: 'access content'
+          role:
+            administrator: administrator
       cache:
         type: tag
         options: {  }
@@ -597,11 +597,13 @@ display:
           columns:
             id: id
             status: status
-            field_table: field_table
             parent_field_name: parent_field_name
             parent_id: parent_id
             parent_type: parent_type
+            created: created
+            type: type
             revision_id: revision_id
+            rendered_entity: rendered_entity
           default: id
           info:
             id:
@@ -613,13 +615,6 @@ display:
               responsive: ''
             status:
               sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_table:
-              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
@@ -646,7 +641,28 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
+            created:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            type:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
             revision_id:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            rendered_entity:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -689,7 +705,7 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
-        - user.permissions
+        - user.roles
       tags: {  }
   orphaned_para_page:
     id: orphaned_para_page
@@ -701,17 +717,17 @@ display:
       display_extenders:
         jsonapi_views:
           enabled: true
-      path: admin/content/audit/orphaned-paragraphs
+      path: admin/reports/orphaned-paragraphs
       menu:
-        type: tab
+        type: normal
         title: 'Orphaned Paragraphs'
         description: ''
-        weight: 0
+        weight: 10
         expanded: false
-        menu_name: main
-        parent: ''
+        menu_name: admin
+        parent: system.admin_reports
         context: '0'
-        as_local_task: true
+        as_local_task: false
         local_task_link_title: 'Orphaned Paragraphs'
         local_task_parent: 'views_view:view.content.content_audit_page'
         local_task_weight: 2
@@ -722,68 +738,5 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
-        - user.permissions
-      tags: {  }
-  table_audit_export:
-    id: table_audit_export
-    display_title: 'Data export'
-    display_plugin: data_export
-    position: 2
-    display_options:
-      style:
-        type: data_export
-        options:
-          formats:
-            csv: csv
-          csv_settings:
-            delimiter: ','
-            enclosure: '"'
-            escape_char: \
-            strip_tags: true
-            trim: true
-            encoding: utf8
-            utf8_bom: '0'
-            use_serializer_encode_only: false
-      row:
-        type: data_field
-        options:
-          field_options:
-            id:
-              alias: ''
-              raw_output: false
-            status:
-              alias: ''
-              raw_output: false
-            field_table:
-              alias: ''
-              raw_output: false
-            parent_field_name:
-              alias: ''
-              raw_output: false
-            parent_id:
-              alias: ''
-              raw_output: false
-            parent_type:
-              alias: ''
-              raw_output: false
-      display_extenders:
-        jsonapi_views:
-          enabled: true
-      path: admin/content/audit/tables-audit.csv
-      displays:
-        page_1: page_1
-        default: '0'
-      filename: tables-audit.csv
-      automatic_download: false
-      store_in_public_file_directory: null
-      custom_redirect_path: false
-      redirect_to_display: none
-      include_query_params: false
-    cache_metadata:
-      max-age: -1
-      contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - request_format
-        - user.permissions
+        - user.roles
       tags: {  }
