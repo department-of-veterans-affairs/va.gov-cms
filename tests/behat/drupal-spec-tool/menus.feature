@@ -11,24 +11,22 @@ Feature: Menus
 | Administration | admin | Administrative task links |
 | Burials and memorials benefits hub | burials-and-memorials-benef | For pages in the /burials-and-memorials benefits hub |
 | Careers & employment benefits hub | careers-employment-benefits | va.gov/careers-employment |
+| CMS Footer | footer | Site information links that display in CMS global footer on CMS login page. |
 | CMS Knowledge Base | documentation | How-to's for editing content in the VA.gov CMS |
 | Decision reviews | decision-reviews-benefits-h |  |
 | Disability benefits hub | disability-benefits-hub | For pages in the /disability benefits hub |
 | Education benefits hub | education-benefits-hub | For pages in the /education benefits hub |
-| Footer | footer | Site information links displayed in global footer |
-| Footer Bottom Rail | footer-bottom-rail | Horizontal list of links at the bottom of the page |
-| Footer VA.gov | va-gov-footer | Links to appear at the bottom of the public-facing site, va.gov |
-| Header megamenu | header-megamenu | Links and promos for the site's header menu. |
+| Header megamenu | header-megamenu | Displayed in VA.gov global & injected header; Links and promos for the site's header menu. |
 | Health Care benefits hub | health-care-benefits-hub | va.gov/health-care |
+| Home page - Other search tools | other-search-tools | VA.gov homepage menu of links, displayed below the in-page search form. |
+| Home page - Top pages | popular-on-va-gov | VA.gov homepage menu of links |
 | Homepage top tasks blocks | homepage-top-tasks-blocks |  |
 | Housing Assistance benefits hub | housing-assistance-benefits | va.gov/housing-assistance |
 | Life insurance benefits hub | life-insurance-benefits-hub | va.gov/life-insurance |
 | Lovell Federal health care | lovell-federal-health-care | VISN 12 \| va.gov/lovell-federal-health-care |
 | Main navigation | main | Site section links |
-| Other Search Tools | other-search-tools |  |
 | Outreach and events | outreach-and-events |  |
 | Pension benefits hub | pension-benefits-hub | va.gov/pension |
-| Popular on VA.gov | popular-on-va-gov |  |
 | Records benefits hub | records-benefits-hub | va.gov/records |
 | Root pages | root-benefits-hub | For various pages that live at the top level of the URL structure. |
 | Sections | sections | Automatically updated from the Sections taxonomy, and appears in admin toolbar. |
@@ -174,3 +172,5 @@ Feature: Menus
 | VA Wichita health care | va-wichita-health-care | VISN 15 \| va.gov/wichita-health-care |
 | VA Wilkes-Barre health care | va-wilkes-barre-health-care | VISN 4 \| va.gov/wilkes-barre-health-care |
 | VA Wilmington health care | va-wilmington-health-care | VISN 4 \| va.gov/wilmington-health-care |
+| VA.gov Footer | va-gov-footer | Displayed in VA.gov global & injected footer; 3-column list of footer links. |
+| VA.gov Footer bottom rail | footer-bottom-rail | Displayed in VA.gov global & injected footer; horizontal list of links at the bottom of the page. |
