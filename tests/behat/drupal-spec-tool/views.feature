@@ -236,7 +236,7 @@ Feature: Views
       | Non-clinical services | Billing and insurance offices | billing_and_insurance | Block |
       | Non-clinical services | Default | default | Default |
       | Non-clinical services | Medical records offices | medical_records_offices | Block |
-      | Orphaned Paragraphs | Master | default | Default |
+      | Orphaned Paragraphs | Default | default | Default |
       | Orphaned Paragraphs | Orphaned Paragraphs | orphaned_para_page | Page |
       | PDF Audit | Data export | pdf_audit_export | Data export |
       | PDF Audit | Default | default | Default |
