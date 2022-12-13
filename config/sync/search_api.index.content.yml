@@ -32,6 +32,7 @@ dependencies:
     - search_api.server.database
     - core.entity_view_mode.block_content.full
     - core.entity_view_mode.media.full
+    - core.entity_view_mode.node.search_index
   module:
     - block_content
     - content_moderation
@@ -43,7 +44,7 @@ _core:
   default_config_hash: qEX0c8Yf878jYMC-3TrFlGSSNQeGbl3u0Hs6GJfxA38
 id: content
 name: Content
-description: 'An index of all content, media paragraphs and select vocabularies in this  site.'
+description: 'An index of all content, media paragraphs and select vocabularies in this  site. Many entity reference fields are withheld from the search by removing them from the search api view mode to prevent entity content recurrsion.'
 read_only: false
 field_settings:
   aggregated_moderation_state:
@@ -183,6 +184,7 @@ field_settings:
     datasource_id: 'entity:media'
     property_path: field_description
     type: text
+    boost: !!float 0
     dependencies:
       config:
         - field.storage.media.field_description
@@ -239,6 +241,7 @@ field_settings:
     datasource_id: 'entity:block_content'
     property_path: field_promo_text
     type: text
+    boost: !!float 13
     dependencies:
       config:
         - field.storage.block_content.field_promo_text
@@ -336,6 +339,7 @@ field_settings:
     label: Rendered
     property_path: rendered_item
     type: text
+    boost: !!float 0
     configuration:
       roles:
         - anonymous
@@ -362,7 +366,7 @@ field_settings:
           faq_multiple_q_a: default
           full_width_banner_alert: default
           health_care_local_facility: default
-          health_care_local_health_service: default
+          health_care_local_health_service: search_index
           health_care_region_detail_page: default
           health_care_region_page: default
           health_services_listing: default
@@ -382,22 +386,22 @@ field_settings:
           promo_banner: default
           publication_listing: default
           q_a: default
-          regional_health_care_service_des: default
+          regional_health_care_service_des: search_index
           step_by_step: default
           story_listing: default
           support_resources_detail_page: default
           support_service: default
           va_form: default
           vamc_operating_status_and_alerts: default
-          vamc_system_billing_insurance: default
-          vamc_system_medical_records_offi: default
-          vamc_system_policies_page: default
-          vamc_system_register_for_care: default
+          vamc_system_billing_insurance: search_index
+          vamc_system_medical_records_offi: search_index
+          vamc_system_policies_page: search_index
+          vamc_system_register_for_care: search_index
           vba_facility: default
-          vba_facility_service: default
+          vba_facility_service: search_index
           vet_center: default
           vet_center_cap: default
-          vet_center_facility_health_servi: default
+          vet_center_facility_health_servi: search_index
           vet_center_locations_list: default
           vet_center_mobile_vet_center: default
           vet_center_outstation: default
