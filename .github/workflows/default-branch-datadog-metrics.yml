@@ -66,10 +66,10 @@ jobs:
           api-url: https://api.ddog-gov.com
           metrics: |
             ${{ steps.module_file_line_counts.outputs.raw_config }}
-            - type: "gauge"
-              name: "cms.qa.custom_metrics.hook_implementations"
-              value: ${{ steps.hook_implementations.outputs.count }}
-              host: "${{ github.repository }}"
+              - type: "gauge"
+                name: "cms.qa.custom_metrics.hook_implementations"
+                value: ${{ steps.hook_implementations.outputs.count }}
+                host: "${{ github.repository }}"
   
   phpunit_code_coverage:
     name: PHPUnit Code Coverage
