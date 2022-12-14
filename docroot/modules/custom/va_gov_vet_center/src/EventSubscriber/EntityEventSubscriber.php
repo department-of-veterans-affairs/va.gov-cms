@@ -171,15 +171,11 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $view_builder = $this->entityTypeManager->getViewBuilder('taxonomy_term');
     $referenced_term_vet_content = $view_builder->view($service_term, 'vet_center_service');
     $vet_term_description = $referenced_term_vet_content["#taxonomy_term"]->get('field_vet_center_service_descrip')->value;
-    if ($vet_term_description) {
-      $body_tags_removed = trim(strip_tags($vet_term_description));
-      $body_tags_and_ws_removed = str_replace("\r\n", "", $body_tags_removed);
-      // 15 chars or more means the copy should be legitimate.
-      if (strlen($body_tags_and_ws_removed) > 15) {
-        $description = $this->renderer->renderRoot($referenced_term_vet_content);
-      }
+    if ($vet_term_description
+        && $this->longEnough($vet_term_description)) {
+      $description = $this->renderer->renderRoot($referenced_term_vet_content);
     }
-    if (!$vet_term_description || strlen($body_tags_and_ws_removed <= 15)) {
+    if (!$vet_term_description || !($this->longEnough($vet_term_description))) {
       $description = $this->getVamcServiceDescription($service_term);
     }
     return $description;
@@ -198,15 +194,37 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $view_builder = $this->entityTypeManager->getViewBuilder('taxonomy_term');
     $referenced_term_vamc_content = $view_builder->view($service_term, 'vamc_facility_service');
     $vamc_term_description = $referenced_term_vamc_content["#taxonomy_term"]->get('description')->value;
-    if ($vamc_term_description) {
+    if ($vamc_term_description
+        && $this->longEnough($vamc_term_description)) {
       $description = $this->renderer->renderRoot($referenced_term_vamc_content);
     }
     else {
       $description = new FormattableMarkup(
-        '<div><strong>Notice: The national service description was not found. Contact CMS Support to resolve this issue.</strong></div>',
+        '<div style="color:#e31c3d; font-weight:bold">Notice: The national service description was not found. Contact CMS Support to resolve this issue.</div>',
           []);
     }
     return $description;
+  }
+
+  /**
+   * Checks service description for adequate length.
+   *
+   * @param string $service_description
+   *   Service description.
+   *
+   * @return bool
+   *   TRUE if over 15 characters (after removing returns and white space).
+   */
+  private function longEnough(string $service_description) {
+    $long_enough = FALSE;
+    $body_tags_removed = trim(strip_tags($service_description));
+    $body_tags_and_ws_removed = str_replace("\r\n", "", $body_tags_removed);
+    // 15 chars or more means the copy should be legitimate.
+    if (strlen($body_tags_and_ws_removed) > 15) {
+      $long_enough = TRUE;
+    }
+
+    return $long_enough;
   }
 
   /**
