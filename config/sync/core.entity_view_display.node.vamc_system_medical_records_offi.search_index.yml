@@ -1,0 +1,182 @@
+uuid: 6b2c84c1-e810-4045-ba68-fcf09c98a061
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_index
+    - field.field.node.vamc_system_medical_records_offi.field_action_link_used_on_cerner
+    - field.field.node.vamc_system_medical_records_offi.field_administration
+    - field.field.node.vamc_system_medical_records_offi.field_cc_faqs
+    - field.field.node.vamc_system_medical_records_offi.field_cc_get_records_in_person
+    - field.field.node.vamc_system_medical_records_offi.field_cc_get_records_mail_or_fax
+    - field.field.node.vamc_system_medical_records_offi.field_cc_how_we_share_records
+    - field.field.node.vamc_system_medical_records_offi.field_cc_react_widget
+    - field.field.node.vamc_system_medical_records_offi.field_cc_related_links
+    - field.field.node.vamc_system_medical_records_offi.field_cc_top_of_page_content
+    - field.field.node.vamc_system_medical_records_offi.field_enforce_unique_combo
+    - field.field.node.vamc_system_medical_records_offi.field_enforce_unique_combo_offic
+    - field.field.node.vamc_system_medical_records_offi.field_fax_number
+    - field.field.node.vamc_system_medical_records_offi.field_last_saved_by_an_editor
+    - field.field.node.vamc_system_medical_records_offi.field_non_clinical_services
+    - field.field.node.vamc_system_medical_records_offi.field_office
+    - field.field.node.vamc_system_medical_records_offi.field_service_name_and_descripti
+    - field.field.node.vamc_system_medical_records_offi.field_vamc_med_records_mailing
+    - node.type.vamc_system_medical_records_offi
+  module:
+    - address
+    - entity_field_fetch
+    - field_group
+    - layout_builder
+    - telephone
+    - user
+    - viewfield
+third_party_settings:
+  field_group:
+    group_national_content:
+      children: {  }
+      label: 'National content'
+      parent_name: ''
+      region: content
+      weight: 6
+      format_type: tooltip
+      format_settings:
+        show_label: '0'
+        tooltip_description: 'Why can’t I edit this? VHA keeps this content standardized so that all VA medical centers have consistent messaging.'
+        description: ''
+        id: ''
+        classes: centralized
+        show_empty_fields: 0
+        element: div
+        label_element: h3
+        attributes: ''
+    group_get_your_records_online:
+      children:
+        - field_cc_react_widget
+      label: 'Get your records online'
+      parent_name: ''
+      region: content
+      weight: 1
+      format_type: tooltip
+      format_settings:
+        show_empty_fields: 0
+        id: ''
+        classes: centralized
+        element: div
+        show_label: '0'
+        label_element: h3
+        attributes: ''
+        description: ''
+        tooltip_description: 'Why can’t I edit this? VHA keeps this content standardized so that all VA medical centers have consistent messaging.'
+        open: false
+        required_fields: false
+    group_get_your_records_in_person:
+      children: {  }
+      label: 'Get your records in person'
+      parent_name: ''
+      region: content
+      weight: 2
+      format_type: tooltip
+      format_settings:
+        show_empty_fields: 0
+        id: ''
+        classes: centralized
+        element: div
+        show_label: '0'
+        label_element: h3
+        attributes: ''
+        description: ''
+        tooltip_description: 'Why can’t I edit this? VHA keeps this content standardized so that all VA medical centers have consistent messaging.'
+        open: false
+        required_fields: false
+    group_get_your_records_by_mail_o:
+      children: {  }
+      label: 'Get your records by mail or fax'
+      parent_name: ''
+      region: content
+      weight: 3
+      format_type: tooltip
+      format_settings:
+        show_label: '0'
+        tooltip_description: 'Why can’t I edit this? VHA keeps this content standardized so that all VA medical centers have consistent messaging.'
+        description: ''
+        id: ''
+        classes: centralized
+        show_empty_fields: 0
+        element: div
+        label_element: h3
+        attributes: ''
+    group_roi_service_location:
+      children:
+        - field_vamc_med_records_mailing
+        - field_fax_number
+      label: 'Local mailing address and fax numbers for medical records'
+      parent_name: ''
+      region: content
+      weight: 4
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        description: ''
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.vamc_system_medical_records_offi.search_index
+targetEntityType: node
+bundle: vamc_system_medical_records_offi
+mode: search_index
+content:
+  field_cc_react_widget:
+    type: entity_field_fetch
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_fax_number:
+    type: telephone_link
+    label: above
+    settings:
+      title: ''
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_non_clinical_services:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: above
+      always_build_output: true
+      empty_view_title: above
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_vamc_med_records_mailing:
+    type: address_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  content_moderation_control: true
+  field_action_link_used_on_cerner: true
+  field_administration: true
+  field_cc_faqs: true
+  field_cc_get_records_in_person: true
+  field_cc_get_records_mail_or_fax: true
+  field_cc_how_we_share_records: true
+  field_cc_related_links: true
+  field_cc_top_of_page_content: true
+  field_enforce_unique_combo: true
+  field_enforce_unique_combo_offic: true
+  field_last_saved_by_an_editor: true
+  field_office: true
+  field_service_name_and_descripti: true
+  search_api_excerpt: true
