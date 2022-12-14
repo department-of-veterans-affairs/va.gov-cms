@@ -1,4 +1,3 @@
-@api
 Feature: Views
   In order to present and expose content and configuration
   As a site owner
@@ -51,6 +50,8 @@ Feature: Views
 | Moderated content | moderated_content | Content revisions | Enabled | Find and moderate content. |
 | Moderation history | moderation_history | Content revisions | Enabled |  |
 | Non-clinical services | non_clinical_services | Content | Enabled | Views of non-clinical services content placed within several "Top tasks" VAMC node forms. |
+| Orphaned Paragraphs | orphaned_paragraphs | Paragraph | Enabled |  |
+| Orphaned Paragraphs | orphaned_paragraphs | Paragraph | Enabled |  |
 | Orphaned Paragraphs | orphaned_paragraphs | Paragraph | Enabled |  |
 | PDF Audit | pdf_audit | Media | Enabled |  |
 | People | user_admin_people | Users | Enabled | Find and manage people interacting with your site. |
@@ -237,6 +238,10 @@ Feature: Views
 | Non-clinical services | Billing and insurance offices | billing_and_insurance | Block |
 | Non-clinical services | Default | default | Default |
 | Non-clinical services | Medical records offices | medical_records_offices | Block |
+| Orphaned Paragraphs | Default | default | Default |
+| Orphaned Paragraphs | Orphaned Paragraphs | orphaned_para_page | Page |
+| Orphaned Paragraphs | Default | default | Default |
+| Orphaned Paragraphs | Orphaned Paragraphs | orphaned_para_page | Page |
 | Orphaned Paragraphs | Default | default | Default |
 | Orphaned Paragraphs | Orphaned Paragraphs | orphaned_para_page | Page |
 | PDF Audit | Data export | pdf_audit_export | Data export |
