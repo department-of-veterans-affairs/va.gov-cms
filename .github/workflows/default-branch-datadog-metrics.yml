@@ -14,14 +14,33 @@ jobs:
         # https://github.com/actions/cache/releases/tag/v3.0.10
         uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
       - uses: ./.github/actions/post-checkout
-      - name: Count hook implementations.
+      - name: Find occurrences of "Implements hook" in *.module files.
         id: hook_implementations
         run: |
-          # Find occurrences of "Implements hook" in *.module files.
           output=$(grep -rHino 'Implements hook[^\s]*' ./docroot/modules/custom/**/*.module)
           count=$(printf "%s" "${output}" | wc -l)
           echo "${output}"
-          echo "::set-output name=count::${count}";
+          echo "::set-output name=count::${count}"
+      - name: Record .module file line counts.
+        id: module_file_line_counts
+        run: |
+          output=$(find ./docroot/modules/custom/ -name '*.module' -exec wc -l {} \; | sort -k 2)
+          raw_metrics_output=""
+          while IFS= read -r line; do
+            lines="$(echo "${line}" | awk '{ print $1; }')"
+            filepath="$(printf "%s" "${line}" | awk '{ print $2; }')"
+            filename="$(basename "${filepath}" .module)"
+            echo "::set-output name=${filename}::${lines}"
+            read -r -d '' raw_metrics_output2 <<-EOF
+            - type: "gauge"
+              name: "cms.qa.custom_metrics.module_file_line_counts.${filename}"
+              value: \${{ steps.module_file_line_counts.outputs.${filename} }}
+              host: "\${{ github.repository }}"
+          EOF
+            raw_metrics_output="${raw_metrics_output}
+            ${raw_metrics_output2}"
+          done <<< "${output}"
+          echo "::set-output name=raw_config::${raw_metrics_output}"
       - name: Send Metrics to DataDog.
         # https://github.com/masci/datadog/releases/tag/v1.4.0
         uses: masci/datadog@863b639c95138e957eb6e1e2499cecb82040a10b
@@ -33,6 +52,7 @@ jobs:
               name: "cms.qa.custom_metrics.hook_implementations"
               value: ${{ steps.hook_implementations.outputs.count }}
               host: "${{ github.repository }}"
+            ${{ steps.module_file_line_coounts.outputs.raw_config }}
 
   phpunit_code_coverage:
     name: PHPUnit Code Coverage
