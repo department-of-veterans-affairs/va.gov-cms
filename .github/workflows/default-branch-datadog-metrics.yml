@@ -41,10 +41,10 @@ jobs:
             # success exit code for the command.
             #
             read -r -d '' raw_metrics_output2 <<-EOF || true
-            - type: "gauge"
-              name: "cms.qa.custom_metrics.module_file_line_counts.${filename}"
-              value: ${lines}
-              host: "${repository}"
+          - type: "gauge"
+            name: "cms.qa.custom_metrics.module_file_line_counts.${filename}"
+            value: ${lines}
+            host: "${repository}"
           EOF
 
             raw_metrics_output="${raw_metrics_output}
@@ -66,10 +66,10 @@ jobs:
           api-url: https://api.ddog-gov.com
           metrics: |
           
-              - type: "gauge"
-                name: "cms.qa.custom_metrics.hook_implementations"
-                value: ${{ steps.hook_implementations.outputs.count }}
-                host: "${{ github.repository }}"
+            - type: "gauge"
+              name: "cms.qa.custom_metrics.hook_implementations"
+              value: ${{ steps.hook_implementations.outputs.count }}
+              host: "${{ github.repository }}"
             ${{ steps.module_file_line_counts.outputs.raw_config }}
 
   phpunit_code_coverage:
