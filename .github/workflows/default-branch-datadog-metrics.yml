@@ -34,7 +34,7 @@ jobs:
             read -r -d '' raw_metrics_output2 <<-EOF
             - type: "gauge"
               name: "cms.qa.custom_metrics.module_file_line_counts.${filename}"
-              value: \${{ steps.module_file_line_counts.outputs.${filename} }}
+              value: ${lines}
               host: "\${{ github.repository }}"
           EOF
             raw_metrics_output="${raw_metrics_output}
