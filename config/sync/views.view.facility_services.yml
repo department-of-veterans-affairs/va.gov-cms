@@ -6575,7 +6575,9 @@ display:
           plugin_id: standard
           required: false
       display_description: ''
-      display_extenders: {  }
+      display_extenders:
+        jsonapi_views:
+          enabled: true
       path: admin/content/facilities
       menu:
         type: tab

@@ -3,13 +3,16 @@
 namespace Drupal\va_gov_lovell\EventSubscriber;
 
 use Drupal\core_event_dispatcher\EntityHookEvents;
+use Drupal\core_event_dispatcher\Event\Entity\EntityAccessEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
+use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\menu_link_content\MenuLinkContentInterface;
 use Drupal\node\NodeInterface;
@@ -87,10 +90,25 @@ class LovellEventSubscriber implements EventSubscriberInterface {
   public static function getSubscribedEvents(): array {
     return [
       BreadcrumbPreprocessEvent::name() => 'preprocessBreadcrumb',
+      EntityHookEvents::ENTITY_ACCESS => 'entityAccess',
       EntityHookEvents::ENTITY_INSERT => 'entityInsert',
       EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
       EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
     ];
+  }
+
+  /**
+   * Entity access Event call.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityAccessEvent $event
+   *   The event.
+   */
+  public function entityAccess(EntityAccessEvent $event): void {
+    $entity = $event->getEntity();
+    $operation = $event->getOperation();
+    $account = $event->getAccount();
+    $accessResult = $this->restrictLovellSystemToAdmin($entity, $operation, $account);
+    $event->setAccessResult($accessResult);
   }
 
   /**
@@ -152,10 +170,42 @@ class LovellEventSubscriber implements EventSubscriberInterface {
       if (!array_key_exists($section_id, LovellOps::LOVELL_SECTIONS)) {
         return;
       }
+      elseif (LovellOps::isLovellBothListingPage($entity)) {
+        return;
+      }
+
       // If this node is in a Lovell section disable pathauto pattern.
       // @phpstan-ignore-next-line
       $entity->path->pathauto = 0;
     }
+  }
+
+  /**
+   * Restrict non-admins to view only access for Lovell umbrella system.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The entity being accessed.
+   * @param string $operation
+   *   The type of access operation: view, edit, delete, etc.
+   * @param \Drupal\Core\Session\AccountInterface $account
+   *   The account attempting access.
+   *
+   * @return \Drupal\Core\Access\AccessResult
+   *   The access result.
+   */
+  protected function restrictLovellSystemToAdmin(EntityInterface $entity, string $operation, AccountInterface $account) {
+    if (($entity instanceof NodeInterface)
+    && ($entity->bundle() === 'health_care_region_page')
+    && ($entity->hasField('field_administration'))) {
+      $user_roles = $account->getRoles();
+      $section_id = $entity->get('field_administration')->target_id;
+      if (($section_id === LovellOps::BOTH_ID)
+      && (!in_array('administrator', $user_roles))
+      && ($operation != 'view')) {
+        return AccessResult::forbidden();
+      }
+    }
+    return AccessResult::neutral();
   }
 
   /**
@@ -258,8 +308,9 @@ class LovellEventSubscriber implements EventSubscriberInterface {
       if (!array_key_exists($section_id, LovellOps::LOVELL_SECTIONS)) {
         return;
       }
-      if ($entity->id() === '15007') {
-        // Special case of Lovell Federal system.
+      if ($entity->id() === '15007'  || LovellOps::isLovellBothListingPage($entity)) {
+        // Special case of Lovell Federal system,
+        // or listing pages that are in both systems but not rendered.
         return;
       }
 
@@ -301,7 +352,7 @@ class LovellEventSubscriber implements EventSubscriberInterface {
     $new_url = $this->pathautoGenerator->createEntityAlias($node, 'return');
     $url_pieces = explode('/', $new_url);
     $new_aliases = [];
-    foreach ($prefixes as $section => $prefix) {
+    foreach ($prefixes as $prefix) {
       $new_alias = PathAlias::Create([
         'path' => '/node/' . $node->id(),
         'alias' => '/' . $prefix . '/' . implode('/', array_slice($url_pieces, 2)),

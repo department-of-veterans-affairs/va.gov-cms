@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.regional_health_care_service_des.field_administration
     - field.field.node.regional_health_care_service_des.field_body
     - field.field.node.regional_health_care_service_des.field_enforce_unique_combo
+    - field.field.node.regional_health_care_service_des.field_last_saved_by_an_editor
     - field.field.node.regional_health_care_service_des.field_local_health_care_service_
     - field.field.node.regional_health_care_service_des.field_region_page
     - field.field.node.regional_health_care_service_des.field_service_name_and_descripti
@@ -72,7 +73,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 3
     region: content
   field_local_health_care_service_:
     type: entity_reference_entity_view
@@ -95,6 +96,7 @@ content:
 hidden:
   content_moderation_control: true
   field_administration: true
+  field_last_saved_by_an_editor: true
   field_region_page: true
   links: true
   search_api_excerpt: true

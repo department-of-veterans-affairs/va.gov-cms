@@ -1,0 +1,60 @@
+uuid: 4cb6a5ef-b62d-4bb3-9242-33a07fdd0cc6
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_index
+    - field.field.node.vet_center_facility_health_servi.field_administration
+    - field.field.node.vet_center_facility_health_servi.field_body
+    - field.field.node.vet_center_facility_health_servi.field_enforce_unique_combo
+    - field.field.node.vet_center_facility_health_servi.field_last_saved_by_an_editor
+    - field.field.node.vet_center_facility_health_servi.field_office
+    - field.field.node.vet_center_facility_health_servi.field_service_name_and_descripti
+    - node.type.vet_center_facility_health_servi
+  module:
+    - layout_builder
+    - text
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.vet_center_facility_health_servi.search_index
+targetEntityType: node
+bundle: vet_center_facility_health_servi
+mode: search_index
+content:
+  field_body:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_office:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_service_name_and_descripti:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  content_moderation_control: true
+  field_administration: true
+  field_enforce_unique_combo: true
+  field_last_saved_by_an_editor: true
+  search_api_excerpt: true

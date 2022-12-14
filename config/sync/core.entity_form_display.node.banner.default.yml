@@ -7,13 +7,16 @@ dependencies:
     - field.field.node.banner.field_administration
     - field.field.node.banner.field_alert_type
     - field.field.node.banner.field_dismissible_option
+    - field.field.node.banner.field_last_saved_by_an_editor
     - field.field.node.banner.field_target_paths
     - node.type.banner
     - workflows.workflow.editorial
   module:
     - allowed_formats
+    - change_labels
     - content_moderation
     - field_group
+    - limited_field_widgets
     - textfield_counter
 third_party_settings:
   field_group:
@@ -91,6 +94,12 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_last_saved_by_an_editor:
+    type: datetime_timestamp
+    weight: 26
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_target_paths:
     type: string_textfield
     weight: 5
@@ -98,7 +107,11 @@ content:
     settings:
       size: 60
       placeholder: ''
-    third_party_settings: {  }
+    third_party_settings:
+      limited_field_widgets:
+        limit_values: '0'
+      change_labels:
+        add_another: 'Add another path'
   moderation_state:
     type: moderation_state_default
     weight: 21
