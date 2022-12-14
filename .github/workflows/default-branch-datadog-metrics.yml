@@ -24,6 +24,8 @@ jobs:
       - name: Record .module file line counts.
         id: module_file_line_counts
         run: |
+          set +e
+          set -x
           output=$(find ./docroot/modules/custom/ -name '*.module' -exec wc -l {} \; | sort -k 2)
           raw_metrics_output=""
           repository="${{ github.repository }}"
