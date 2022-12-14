@@ -145,7 +145,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
           }
           else {
             $description = new FormattableMarkup(
-            '<div><strong>Notice: The national service name and description were not found. Contact CMS Support to resolve this issue.</strong></div>',
+            '<div style="color:#e31c3d; font-weight:bold">Notice: The national service name and description were not found. Contact CMS Support to resolve this issue.</div>',
               []);
           }
           // Append the facility-specific service description (no matter what).
