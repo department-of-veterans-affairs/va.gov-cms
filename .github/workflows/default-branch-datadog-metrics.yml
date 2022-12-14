@@ -28,18 +28,28 @@ jobs:
           raw_metrics_output=""
           repository="${GITHUB_REPOSITORY}"
           while IFS= read -r line; do
+
             lines="$(echo "${line}" | awk '{ print $1; }')"
             filepath="$(printf "%s" "${line}" | awk '{ print $2; }')"
             filename="$(basename "${filepath}" .module)"
             echo "::set-output name=${filename}::${lines}"
-            read -r raw_metrics_output2 <<-EOF
+
+            # `read` normally stops at a newline.  Since we'll be reading a multiline "chunk", we
+            # want to skip newlines, so we use `-d ''`.  That means `read` will stop when it hits
+            # the EOF. But in that case, it'll exit with a status code of 1.  GitHub has `set -e`
+            # prepended to scripts, so this will cause the script to fail if we don't ensure a
+            # success exit code for the command.
+            #
+            read -r -d '' raw_metrics_output2 <<-EOF || true
             - type: "gauge"
               name: "cms.qa.custom_metrics.module_file_line_counts.${filename}"
               value: ${lines}
               host: "${repository}"
           EOF
+
             raw_metrics_output="${raw_metrics_output}
             ${raw_metrics_output2}"
+
           done <<< "${output}"
           echo "::set-output name=raw_config::${raw_metrics_output}"
         env:
