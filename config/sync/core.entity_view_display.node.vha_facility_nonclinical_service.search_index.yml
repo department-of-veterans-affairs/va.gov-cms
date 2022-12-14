@@ -1,8 +1,9 @@
-uuid: 44e700e6-cf1e-4f89-ba75-d4cf98c1669e
+uuid: d8b1fcd9-af84-48ea-896d-aaec81bca37a
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.search_index
     - field.field.node.vha_facility_nonclinical_service.field_administration
     - field.field.node.vha_facility_nonclinical_service.field_enforce_unique_combo_offic
     - field.field.node.vha_facility_nonclinical_service.field_facility_location
@@ -11,19 +12,40 @@ dependencies:
     - field.field.node.vha_facility_nonclinical_service.field_service_name_and_descripti
     - node.type.vha_facility_nonclinical_service
   module:
+    - allow_only_one
+    - entity_reference_revisions
+    - layout_builder
     - user
-id: node.vha_facility_nonclinical_service.default
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.vha_facility_nonclinical_service.search_index
 targetEntityType: node
 bundle: vha_facility_nonclinical_service
-mode: default
-content: {  }
+mode: search_index
+content:
+  field_enforce_unique_combo_offic:
+    type: allow_only_one
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_service_location:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
 hidden:
   content_moderation_control: true
   field_administration: true
-  field_enforce_unique_combo_offic: true
   field_facility_location: true
   field_last_saved_by_an_editor: true
-  field_service_location: true
   field_service_name_and_descripti: true
   links: true
   search_api_excerpt: true
