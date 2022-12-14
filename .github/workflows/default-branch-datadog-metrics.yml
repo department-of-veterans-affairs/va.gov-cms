@@ -77,7 +77,7 @@ jobs:
           api-url: https://api.ddog-gov.com
           metrics: |
 
-            ${{ steps.module_file_line_counts.outputs.raw_config }}
+              ${{ steps.module_file_line_counts.outputs.raw_config }}
   
   phpunit_code_coverage:
     name: PHPUnit Code Coverage
