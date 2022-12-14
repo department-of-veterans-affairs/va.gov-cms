@@ -26,6 +26,7 @@ jobs:
         run: |
           output=$(find ./docroot/modules/custom/ -name '*.module' -exec wc -l {} \; | sort -k 2)
           raw_metrics_output=""
+          repository="${{ github.repository }}"
           while IFS= read -r line; do
             lines="$(echo "${line}" | awk '{ print $1; }')"
             filepath="$(printf "%s" "${line}" | awk '{ print $2; }')"
@@ -35,7 +36,7 @@ jobs:
             - type: "gauge"
               name: "cms.qa.custom_metrics.module_file_line_counts.${filename}"
               value: ${lines}
-              host: "\${{ github.repository }}"
+              host: "${repository}"
           EOF
             raw_metrics_output="${raw_metrics_output}
             ${raw_metrics_output2}"
