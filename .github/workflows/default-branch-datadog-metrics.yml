@@ -41,10 +41,10 @@ jobs:
             # success exit code for the command.
             #
             read -r -d '' raw_metrics_output2 <<-EOF || true
-              - type: "gauge"
-                name: "cms.qa.custom_metrics.module_file_line_counts.${filename}"
-                value: ${lines}
-                host: "${repository}"
+            - type: "gauge"
+              name: "cms.qa.custom_metrics.module_file_line_counts.${filename}"
+              value: ${lines}
+              host: "${repository}"
           EOF
 
             raw_metrics_output="${raw_metrics_output}
@@ -65,7 +65,8 @@ jobs:
           api-key: ${{ secrets.DATADOG_API_KEY }}
           api-url: https://api.ddog-gov.com
           metrics: |
-            ${{ steps.module_file_line_counts.outputs.raw_config }}
+            # Magic comment.  Remove this and metrics will break.
+              ${{ steps.module_file_line_counts.outputs.raw_config }}
               - type: "gauge"
                 name: "cms.qa.custom_metrics.hook_implementations"
                 value: ${{ steps.hook_implementations.outputs.count }}
