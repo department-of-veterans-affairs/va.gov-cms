@@ -125,7 +125,6 @@ Feature: Views
 | Content | Outdated content | page_3 | Page |
 | Content | Outdated Content CSV export | outdated_content_data_export | Data export |
 | Content | Resources and support | resources_support_dashboard | Page |
-| Content | Resources and support landing page | resources_and_support_landing_page_block | Block |
 | Content entity browsers | Event entity browser | event_entity_browser | Entity browser |
 | Content entity browsers | Master | default | Default |
 | Content entity browsers | Q&A entity browser | entity_browser_1 | Entity browser |
