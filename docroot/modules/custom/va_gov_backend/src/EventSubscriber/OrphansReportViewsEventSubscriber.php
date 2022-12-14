@@ -80,6 +80,16 @@ class OrphansReportViewsEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public static function getSubscribedEvents(): array {
+    return [
+      ViewsHookEvents::VIEWS_PRE_VIEW => 'preView',
+      ViewsHookEvents::VIEWS_PRE_RENDER => 'preRender',
+    ];
+  }
+
+  /**
    * Pre view event handler.
    *
    * @param \Drupal\views_event_dispatcher\Event\Views\ViewsPreViewEvent $event
@@ -97,7 +107,6 @@ class OrphansReportViewsEventSubscriber implements EventSubscriberInterface {
         $paragraphs = $storage->loadMultiple($chunk);
         /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
         foreach ($paragraphs as $paragraph) {
-          // $top_parent = va_gov_backend_get_top_parent_entity($paragraph);
           $used = $this->purger->isUsed($paragraph);
           if (!$used) {
             $orphan_count++;
@@ -151,7 +160,7 @@ class OrphansReportViewsEventSubscriber implements EventSubscriberInterface {
           $value->_entity->set('revision_id', $str);
         }
         elseif (!$used && $top_parent && $top_parent->getEntityTypeId() !== 'paragraph') {
-          $str = 'This paragraph is connected to ' . $top_parent->toLink()->toString() . '. Moderation state is: ' . $top_parent->get('moderation_state')->getValue()[0]['value'];;
+          $str = "This paragraph is connected to {$top_parent->toLink()->toString()}. Moderation state is: {$top_parent->get('moderation_state')->value}.";;
           $value->_entity->set('revision_id', $str);
         }
         else {
@@ -159,16 +168,6 @@ class OrphansReportViewsEventSubscriber implements EventSubscriberInterface {
         }
       }
     }
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getSubscribedEvents(): array {
-    return [
-      ViewsHookEvents::VIEWS_PRE_VIEW => 'preView',
-      ViewsHookEvents::VIEWS_PRE_RENDER => 'preRender',
-    ];
   }
 
   /**
