@@ -24,17 +24,15 @@ jobs:
       - name: Record .module file line counts.
         id: module_file_line_counts
         run: |
-          set +e
-          set -x
           output=$(find ./docroot/modules/custom/ -name '*.module' -exec wc -l {} \; | sort -k 2)
           raw_metrics_output=""
-          repository="${{ github.repository }}"
+          repository="${GITHUB_REPOSITORY}"
           while IFS= read -r line; do
             lines="$(echo "${line}" | awk '{ print $1; }')"
             filepath="$(printf "%s" "${line}" | awk '{ print $2; }')"
             filename="$(basename "${filepath}" .module)"
             echo "::set-output name=${filename}::${lines}"
-            read -r -d '' raw_metrics_output2 <<-EOF
+            read -r raw_metrics_output2 <<-EOF
             - type: "gauge"
               name: "cms.qa.custom_metrics.module_file_line_counts.${filename}"
               value: ${lines}
@@ -44,6 +42,8 @@ jobs:
             ${raw_metrics_output2}"
           done <<< "${output}"
           echo "::set-output name=raw_config::${raw_metrics_output}"
+        env:
+          GITHUB_REPOSITORY: "${{ github.repository }}"
       - name: Send Metrics to DataDog.
         # https://github.com/masci/datadog/releases/tag/v1.4.0
         uses: masci/datadog@863b639c95138e957eb6e1e2499cecb82040a10b
