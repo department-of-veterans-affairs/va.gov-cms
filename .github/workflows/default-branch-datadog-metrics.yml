@@ -65,6 +65,7 @@ jobs:
           api-key: ${{ secrets.DATADOG_API_KEY }}
           api-url: https://api.ddog-gov.com
           metrics: |
+          
             - type: "gauge"
               name: "cms.qa.custom_metrics.hook_implementations"
               value: ${{ steps.hook_implementations.outputs.count }}
