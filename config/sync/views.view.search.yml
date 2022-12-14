@@ -11,6 +11,7 @@ dependencies:
     - rest
     - search_api
     - serialization
+    - user
     - views_data_export
 _core:
   default_config_hash: 8eXHpZgzJ58fVmB7evA4TNESdXWjMOW9AFPYSxEimE4
@@ -1478,8 +1479,9 @@ display:
                   collapsible: false
                   is_secondary: false
       access:
-        type: none
-        options: {  }
+        type: perm
+        options:
+          perm: 'access content'
       cache:
         type: search_api_time
         options:
@@ -2105,6 +2107,7 @@ display:
         - url
         - url.query_args
         - 'user.node_grants:view'
+        - user.permissions
       tags:
         - 'config:field.storage.media.field_owner'
         - 'config:search_api.index.content'
@@ -2142,6 +2145,7 @@ display:
         - url
         - url.query_args
         - 'user.node_grants:view'
+        - user.permissions
       tags:
         - 'config:field.storage.media.field_owner'
         - 'config:search_api.index.content'
@@ -3553,6 +3557,7 @@ display:
         - request_format
         - url
         - 'user.node_grants:view'
+        - user.permissions
       tags:
         - 'config:field.storage.media.field_owner'
         - 'config:search_api.index.content'
