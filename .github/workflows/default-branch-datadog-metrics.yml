@@ -51,7 +51,11 @@ jobs:
             ${raw_metrics_output2}"
 
           done <<< "${output}"
-          echo "::set-output name=raw_config::${raw_metrics_output}"
+
+          # Set raw output, finally.
+          echo 'raw_config<<EOF' >> $GITHUB_OUTPUT
+          echo "${raw_metrics_output}" >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
         env:
           GITHUB_REPOSITORY: "${{ github.repository }}"
       - name: Send Metrics to DataDog.
