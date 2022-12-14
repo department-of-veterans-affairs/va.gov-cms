@@ -12,9 +12,11 @@ assignees: ''
 *What triggered this runbook?*
 _eg Flag in CMS, Help desk ticket, Product team, VHA Digital Media_
 
-*Please attach Facility Locator link and https://prod.cms.va.gov/ link to this ticket*
+*1. Please attach Facility Locator link to this ticket*
 
-*Please also include link to Jira help desk ticket, if applicable*
+*2. Please attach prod link to this ticket*
+
+*3. Please also include link to Jira help desk ticket, if applicable*
 
 ## Acceptance criteria
 

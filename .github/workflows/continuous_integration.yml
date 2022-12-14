@@ -79,6 +79,33 @@ jobs:
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
+  # Lint with PHP's built-in linting.
+  php_lint:
+    name: PHP Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        # https://github.com/actions/cache/releases/tag/v3.0.10
+        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+      - uses: ./.github/actions/post-checkout
+      - name: Run PHPLint
+        run: |
+          find \
+            docroot/modules/custom \
+            docroot/themes \
+            \( \
+              -name '*.inc' \
+              -o -name '*.php' \
+              -o -name '*.module' \
+              -o -name '*.install' \
+            \) \
+            -print0 \
+            | xargs \
+              -0 \
+              -n1 php \
+              -l \
+              2>&1
+
   # Analyze the codebase for programming errors with PHPStan.
   phpstan:
     name: PHPStan

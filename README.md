@@ -5,7 +5,7 @@ This is the public/open documentation for the VA.gov Content Management System (
 The VA.gov **CMS** is the backend for www.va.gov. The Frontend (**WEB**) repo is at https://github.com/department-of-veterans-affairs/vets-website/.
 
 ## Contributing to this documentation
-If you find any improvements to make to this documentation and you have push access, please commit your changes directly to the `main` branch. Prefix your commit with `[DOCS]` e.g. `[DOCS] Commit message ...`. You may also need to use the `-n` flag with your commit command to skip usual commit message naming convention checks. If you don't have push access, you can submit a pull request for review.
+If you find any improvements to make to this documentation and you have push access, please commit your changes directly to the `main` branch. Prefix your commit with `[DOCS]` e.g. `[DOCS] Commit message ...`. Using the `[DOCS]` prefix is helpful because tests don't run on commits that contain changes soley to *.md or *.txt files and therefore won't have status checks posted to the commit status that we see at https://github.com/department-of-veterans-affairs/va.gov-cms/commits. You may also need to use the `-n` flag with your commit command to skip usual commit message naming convention checks. If you don't have push access, you can submit a pull request for review.
 
 Thanks,
 
@@ -30,6 +30,7 @@ The VA.gov CMS Team
       1. [HTTPS](READMES/https.md)
       1. [Environment Variables](READMES/environment-variables.md)
       1. [Kubernetes](READMES/kubernetes.md)
+   1. [GitHub Workflows](READMES/github-workflows.md)
    1. [Quality Assurance (QA)](READMES/qa.md)
    1. [Testing](READMES/testing.md)
    1. [Debugging](READMES/debugging.md)

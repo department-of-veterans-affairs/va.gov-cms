@@ -232,8 +232,19 @@ p.vc-help-text {
   width: 16px;
 }
 
-.breadcrumb__link:hover {
-  color: var(--va-blue-med);
+.breadcrumb__link {
+  color: var(--va-blue-dark);
+  text-decoration: underline;
+  transition-duration: 0.3s;
+  transition-property: color,background-color,border-color;
+  transition-timing-function: ease-in-out;
+  
+  &:hover,
+  &:focus {
+    background-color: var(--va-blue-lighter);
+    color: var(--va-blue-darker);
+    text-decoration: none;
+  }
 }
 
 .no-wrap {

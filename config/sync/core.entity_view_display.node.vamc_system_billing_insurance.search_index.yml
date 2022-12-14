@@ -1,0 +1,191 @@
+uuid: 2969d4c8-5d91-40b9-84e1-7e3b655ff6dd
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_index
+    - field.field.node.vamc_system_billing_insurance.field_administration
+    - field.field.node.vamc_system_billing_insurance.field_cc_above_top_of_page
+    - field.field.node.vamc_system_billing_insurance.field_cc_bottom_of_page_content
+    - field.field.node.vamc_system_billing_insurance.field_cc_related_links
+    - field.field.node.vamc_system_billing_insurance.field_cc_top_of_page_content
+    - field.field.node.vamc_system_billing_insurance.field_enforce_unique_combo
+    - field.field.node.vamc_system_billing_insurance.field_enforce_unique_combo_offic
+    - field.field.node.vamc_system_billing_insurance.field_last_saved_by_an_editor
+    - field.field.node.vamc_system_billing_insurance.field_non_clinical_services
+    - field.field.node.vamc_system_billing_insurance.field_office
+    - field.field.node.vamc_system_billing_insurance.field_office_hours
+    - field.field.node.vamc_system_billing_insurance.field_phone_number
+    - field.field.node.vamc_system_billing_insurance.field_service_name_and_descripti
+    - node.type.vamc_system_billing_insurance
+  module:
+    - entity_field_fetch
+    - field_group
+    - layout_builder
+    - office_hours
+    - telephone
+    - user
+    - viewfield
+third_party_settings:
+  field_group:
+    group_national_content:
+      children:
+        - field_cc_related_links
+      label: 'National content'
+      parent_name: ''
+      region: content
+      weight: 5
+      format_type: tooltip
+      format_settings:
+        show_empty_fields: 0
+        id: ''
+        classes: centralized
+        element: div
+        show_label: '0'
+        label_element: h3
+        attributes: ''
+        description: ''
+        tooltip_description: 'Why can’t I edit this? VHA keeps this content standardized so that all VA medical centers have consistent messaging.'
+        open: false
+        required_fields: false
+    group_national_top_of_page_conte:
+      children: {  }
+      label: 'National top of page content'
+      parent_name: ''
+      region: content
+      weight: 3
+      format_type: tooltip
+      format_settings:
+        show_label: '0'
+        tooltip_description: 'Why can’t I edit this? VHA keeps this content standardized so that all VA medical centers have consistent messaging.'
+        description: ''
+        id: ''
+        classes: centralized
+        show_empty_fields: 0
+        element: div
+        label_element: h3
+        attributes: ''
+    group_inquiries_about_copay:
+      children:
+        - field_phone_number
+        - field_office_hours
+      label: 'For inquiries by phone about copay balance'
+      parent_name: ''
+      region: content
+      weight: 2
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: false
+    group_national_above_top_of_page:
+      children: {  }
+      label: 'National above top of page content'
+      parent_name: ''
+      region: content
+      weight: 1
+      format_type: tooltip
+      format_settings:
+        show_label: '0'
+        tooltip_description: 'Why can’t I edit this? VHA keeps this content standardized so that all VA medical centers have consistent messaging.'
+        description: ''
+        id: ''
+        classes: centralized
+        show_empty_fields: 0
+        element: div
+        label_element: h3
+        attributes: ''
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.vamc_system_billing_insurance.search_index
+targetEntityType: node
+bundle: vamc_system_billing_insurance
+mode: search_index
+content:
+  field_cc_related_links:
+    type: entity_field_fetch
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_non_clinical_services:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: above
+      always_build_output: true
+      empty_view_title: above
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_office_hours:
+    type: office_hours
+    label: above
+    settings:
+      day_format: long
+      time_format: G
+      compress: false
+      grouped: false
+      show_closed: all
+      closed_format: Closed
+      separator:
+        days: '<br />'
+        grouped_days: ' - '
+        day_hours: ': '
+        hours_hours: '-'
+        more_hours: ', '
+      current_status:
+        position: ''
+        open_text: 'Currently open!'
+        closed_text: 'Currently closed'
+      exceptions:
+        restrict_exceptions_to_num_days: 7
+        date_format: long
+        title: 'Exception hours'
+      timezone_field: ''
+      office_hours_first_day: ''
+      schema:
+        enabled: false
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  field_phone_number:
+    type: telephone_link
+    label: above
+    settings:
+      title: ''
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  flag_email_node:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  flag_subscribe_node:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  content_moderation_control: true
+  field_administration: true
+  field_cc_above_top_of_page: true
+  field_cc_bottom_of_page_content: true
+  field_cc_top_of_page_content: true
+  field_enforce_unique_combo: true
+  field_enforce_unique_combo_offic: true
+  field_last_saved_by_an_editor: true
+  field_office: true
+  field_service_name_and_descripti: true
+  search_api_excerpt: true

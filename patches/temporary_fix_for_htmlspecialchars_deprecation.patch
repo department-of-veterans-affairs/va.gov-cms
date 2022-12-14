@@ -1,0 +1,18 @@
+Index: core/lib/Drupal/Component/Utility/Html.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/core/lib/Drupal/Component/Utility/Html.php b/core/lib/Drupal/Component/Utility/Html.php
+--- a/core/lib/Drupal/Component/Utility/Html.php	(revision e16dac1de047ba8097fc915be6e4fa0347302ac4)
++++ b/core/lib/Drupal/Component/Utility/Html.php	(date 1666290461598)
+@@ -421,7 +421,8 @@
+    * @ingroup sanitization
+    */
+   public static function escape($text) {
+-    return htmlspecialchars($text, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
++    //@todo remove when no longer needed. Ultimately this needs to be fixed at the call location.
++    return htmlspecialchars($text ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+   }
+ 
+   /**

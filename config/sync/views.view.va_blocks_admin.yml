@@ -4,16 +4,22 @@ status: true
 dependencies:
   config:
     - block_content.type.alert
+    - block_content.type.benefit_promo
+    - block_content.type.news_promo
     - block_content.type.promo
+    - field.storage.block_content.field_administration
     - field.storage.block_content.field_alert_content
     - field.storage.block_content.field_alert_title
     - field.storage.block_content.field_image
     - field.storage.block_content.field_owner
+    - field.storage.block_content.field_promo_headline
     - field.storage.block_content.field_promo_link
+    - field.storage.block_content.field_promo_text
     - image.style.thumbnail
     - taxonomy.vocabulary.administration
     - user.role.authenticated
   module:
+    - better_exposed_filters
     - block_content
     - content_moderation
     - entity_reference_revisions
@@ -22,6 +28,7 @@ dependencies:
     - paragraphs
     - taxonomy
     - user
+    - workbench_access
 id: va_blocks_admin
 label: 'Blocks listing'
 module: views
@@ -744,29 +751,32 @@ display:
           default_row_class: true
           columns:
             info: info
-            field_alert_title: field_alert_title
-            field_alert_content: field_alert_title
+            id: id
+            revision_user: revision_user
             edit_block_content: edit_block_content
-            moderation_state: moderation_state
-            field_owner: field_owner
+            type: type
             changed: changed
-          default: '-1'
+            moderation_state: moderation_state
+            field_administration: field_administration
+            field_promo_headline: field_promo_headline
+            field_promo_text: field_promo_text
+          default: changed
           info:
             info:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            id:
               sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            field_alert_title:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_alert_content:
+            revision_user:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -780,6 +790,20 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
+            type:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            changed:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
             moderation_state:
               sortable: false
               default_sort_order: asc
@@ -787,15 +811,22 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_owner:
-              sortable: false
+            field_administration:
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            changed:
-              sortable: false
+            field_promo_headline:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_promo_text:
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
@@ -805,7 +836,7 @@ display:
           sticky: false
           summary: ''
           empty_table: false
-          caption: ''
+          caption: 'List of V2 homepage blocks'
           description: ''
       row:
         type: fields
