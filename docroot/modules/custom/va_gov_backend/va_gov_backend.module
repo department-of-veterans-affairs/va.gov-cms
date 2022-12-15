@@ -21,6 +21,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
 use Drupal\field\Entity\FieldConfig;
+use Drupal\field\FieldStorageConfigInterface;
 use Drupal\file\Entity\File;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\node\NodeInterface;
@@ -2063,4 +2064,45 @@ function va_gov_backend_get_parent_node(Paragraph $paragraph) {
     $parent_node = $parent;
   }
   return $parent_node;
+}
+
+/**
+ * Return the top entity that the paragraph belongs to.
+ *
+ * If the paragraph's parent is a paragraph, recurse up the tree until you
+ * reach a non-paragraph entity.
+ *
+ * @param \Drupal\paragraphs\Entity\Paragraph $paragraph
+ *   The paragraph to find the parent of.
+ *
+ * @return \Drupal\Core\Entity\EntityInterface|null
+ *   If the paragraph is attached to an entity, return the entity, otherwise NULL.
+ */
+function va_gov_backend_get_top_parent_entity(Paragraph $paragraph) {
+  $parent = NULL;
+  /** @var Drupal\paragraphs\Entity\Paragraph $parent */
+  $parent = $paragraph->getParentEntity();
+  if ($parent !== NULL && $parent->getEntityType()->id() === 'paragraph') {
+    $parent = va_gov_backend_get_top_parent_entity($parent);
+  }
+  return $parent;
+}
+
+/**
+ * Implements hook_field_views_data_alter().
+ *
+ * Views integration for timestamp field to filter as a date not a number.
+ *
+ * @see views_field_default_views_data()
+ */
+function va_gov_backend_field_views_data_alter(array &$data, FieldStorageConfigInterface $field_storage) {
+  if ($field_storage->getType() == 'timestamp') {
+    foreach ($data as $table_name => $table_data) {
+      foreach ($table_data as $field_name => $field_data) {
+        if (isset($field_data['filter']) && $field_name != 'delta') {
+          $data[$table_name][$field_name]['filter']['id'] = 'date';
+        }
+      }
+    }
+  }
 }
