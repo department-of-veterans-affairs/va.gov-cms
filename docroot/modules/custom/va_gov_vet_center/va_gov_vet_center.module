@@ -213,4 +213,7 @@ function va_gov_vet_center_page_attachments(array &$attachments) {
   $attachments['#attached']['library'][] = 'va_gov_vet_center/alert_form';
   // Prevent duplicate services in select.
   $attachments['#attached']['library'][] = 'va_gov_vet_center/prevent_select_duplicates';
+  // Show service descriptions on node:view.
+  $attachments['#attached']['library'][] = 'va_gov_vet_center/display_service_descriptions';
+
 }

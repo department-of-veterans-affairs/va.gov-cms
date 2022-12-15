@@ -109,7 +109,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The entity view alter service.
    */
   public function entityViewAlter(EntityViewAlterEvent $event):void {
-    $this->appendHealthServiceTermDescriptionToVetCenter($event);
     $this->showUnspecifiedWhenSystemEhrNumberEmpty($event);
   }
 
@@ -245,35 +244,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       ];
     }
     return $fields;
-  }
-
-  /**
-   * Appends health service entity description to title on entity view page.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
-   *   The entity view alter service.
-   */
-  public function appendHealthServiceTermDescriptionToVetCenter(EntityViewAlterEvent $event):void {
-    if ($event->getDisplay()->getTargetBundle() === 'vet_center') {
-      $build = &$event->getBuild();
-      $services = $build['field_health_services'] ?? [];
-      foreach ($services as $key => $service) {
-        if (is_numeric($key) && !empty($service['#options'])) {
-          $service_node = $service['#options']['entity'];
-
-          // Look for real content in field_body. If just line breaks
-          // and empty tags use field_service_name_and_descripti.
-          $body_tags_removed = trim(strip_tags($service_node->get('field_body')->value));
-          $body_tags_and_ws_removed = str_replace("\r\n", "", $body_tags_removed);
-          $description = strlen($body_tags_and_ws_removed) > 15
-          ? '<br />' . trim($service_node->get('field_body')->value)
-          : '<br />' . trim($service_node->get('field_service_name_and_descripti')->entity->get('field_vet_center_service_descrip')->value);
-
-          $formatted_markup = new FormattableMarkup($description, []);
-          $build['field_health_services'][$key]['#suffix'] = $formatted_markup;
-        }
-      }
-    }
   }
 
   /**
