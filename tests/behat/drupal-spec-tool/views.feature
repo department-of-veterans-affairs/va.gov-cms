@@ -28,7 +28,7 @@ Feature: Views
 | Custom block entity browsers | custom_block_entity_browsers | Custom Block | Enabled | For placing on content forms |
 | Custom block library | block_content | Custom Block | Enabled | Find and manage custom blocks. |
 | Date fields | date_fields | Content | Disabled |  |
-| Detail page URL audit and bulk update | detail_page_url_audit_and_bulk_udpate | Content | Enabled | For bulk updating URL aliases for VAMC detail pages. |
+| Detail page URL audit and bulk udpate | detail_page_url_audit_and_bulk_udpate | Content | Enabled | For bulk updating URL aliases for VAMC detail pages. |
 | Facility Services | facility_services | Content | Enabled |  |
 | Feedback | feedback | Admin feedback score | Enabled |  |
 | File browsers | file_browsers | Media | Enabled |  |
@@ -126,7 +126,6 @@ Feature: Views
 | Content | Outdated content | page_3 | Page |
 | Content | Outdated Content CSV export | outdated_content_data_export | Data export |
 | Content | Resources and support | resources_support_dashboard | Page |
-| Content | Resources and support landing page | resources_and_support_landing_page_block | Block |
 | Content entity browsers | Event entity browser | event_entity_browser | Entity browser |
 | Content entity browsers | Master | default | Default |
 | Content entity browsers | Q&A entity browser | entity_browser_1 | Entity browser |
@@ -150,9 +149,9 @@ Feature: Views
 | Custom block library | Page | page_1 | Page |
 | Date fields | Master | default | Default |
 | Date fields | Page | page_1 | Page |
-| Detail page URL audit and bulk update | Audit page | audit_page | Page |
-| Detail page URL audit and bulk update | CSV export | data_export_1 | Data export |
-| Detail page URL audit and bulk update | Master | default | Default |
+| Detail page URL audit and bulk udpate | Audit page | audit_page | Page |
+| Detail page URL audit and bulk udpate | CSV export | data_export_1 | Data export |
+| Detail page URL audit and bulk udpate | Master | default | Default |
 | Facility Services | Accordion audit | accordion_audit | Page |
 | Facility Services | Accordion audit export | accordion_audit_export | Data export |
 | Facility Services | Addresses | addresses | Page |
@@ -299,7 +298,6 @@ Feature: Views
 | Users in section | Master | default | Default |
 | Users in section | Page | section_member_page | Page |
 | VA Forms | Audit | audit | Page |
-| VA Forms | CSV export | csv_export | Data export |
 | VA Forms | Master | default | Default |
 | VA Forms | Page | page_1 | Page |
 | VA Services | Data export | data_export_1 | Data export |
