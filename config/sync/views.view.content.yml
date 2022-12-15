@@ -3987,27 +3987,28 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        field_administration_target_id:
-          id: field_administration_target_id
-          table: node__field_administration
-          field: field_administration_target_id
+        workbench_access_section__section:
+          id: workbench_access_section__section
+          table: node
+          field: workbench_access_section__section
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: taxonomy_index_tid
-          operator: or
+          entity_type: node
+          plugin_id: workbench_access_section
+          operator: in
           value: {  }
           group: 1
           exposed: true
           expose:
-            operator_id: owner
+            operator_id: workbench_access_section__section_op
             label: Section
             description: ''
             use_operator: false
-            operator: field_administration_target_id_op
+            operator: workbench_access_section__section_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: owner
+            identifier: section
             required: false
             remember: false
             multiple: false
@@ -4015,13 +4016,20 @@ display:
               authenticated: authenticated
               anonymous: '0'
               content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
               content_editor: '0'
               content_reviewer: '0'
               content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
               admnistrator_users: '0'
               administrator: '0'
-              redirect_administrator: '0'
-            reduce: false
+              homepage_manager: '0'
+            reduce: 1
           is_grouped: false
           group_info:
             label: ''
@@ -4034,15 +4042,9 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          reduce_duplicates: false
-          vid: administration
-          type: select
-          hierarchy: true
-          limit: true
-          error_message: true
-          parent: 0
-          level_labels: ''
-          force_deepest: false
+          reduce_duplicates: 0
+          section_filter:
+            show_hierarchy: 1
         field_last_saved_by_an_editor_value:
           id: field_last_saved_by_an_editor_value
           table: node__field_last_saved_by_an_editor
@@ -4407,6 +4409,7 @@ display:
       tags:
         - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_last_saved_by_an_editor'
+        - workbench_access_view
     deleted: false
   outdated_content_data_export:
     id: outdated_content_data_export
@@ -4793,27 +4796,28 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        field_administration_target_id:
-          id: field_administration_target_id
-          table: node__field_administration
-          field: field_administration_target_id
+        workbench_access_section__section:
+          id: workbench_access_section__section
+          table: node
+          field: workbench_access_section__section
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: taxonomy_index_tid
-          operator: or
+          entity_type: node
+          plugin_id: workbench_access_section
+          operator: in
           value: {  }
           group: 1
           exposed: true
           expose:
-            operator_id: owner
+            operator_id: workbench_access_section__section_op
             label: Section
             description: ''
             use_operator: false
-            operator: field_administration_target_id_op
+            operator: workbench_access_section__section_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: owner
+            identifier: section
             required: false
             remember: false
             multiple: false
@@ -4821,13 +4825,20 @@ display:
               authenticated: authenticated
               anonymous: '0'
               content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
               content_editor: '0'
               content_reviewer: '0'
               content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
               admnistrator_users: '0'
               administrator: '0'
-              redirect_administrator: '0'
-            reduce: false
+              homepage_manager: '0'
+            reduce: 1
           is_grouped: false
           group_info:
             label: ''
@@ -4840,15 +4851,9 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          reduce_duplicates: false
-          vid: administration
-          type: select
-          hierarchy: true
-          limit: true
-          error_message: true
-          parent: 0
-          level_labels: ''
-          force_deepest: false
+          reduce_duplicates: 0
+          section_filter:
+            show_hierarchy: 1
         field_last_saved_by_an_editor_value:
           id: field_last_saved_by_an_editor_value
           table: node__field_last_saved_by_an_editor
@@ -5080,6 +5085,7 @@ display:
       tags:
         - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_last_saved_by_an_editor'
+        - workbench_access_view
     deleted: false
   page_1:
     id: page_1
