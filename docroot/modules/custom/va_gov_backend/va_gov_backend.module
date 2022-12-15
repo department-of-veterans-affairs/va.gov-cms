@@ -2078,12 +2078,16 @@ function va_gov_backend_get_parent_node(Paragraph $paragraph) {
  * @return \Drupal\Core\Entity\EntityInterface|null
  *   If the paragraph is attached to an entity, return the entity, otherwise NULL.
  */
-function va_gov_backend_get_top_parent_entity(Paragraph $paragraph) {
+function va_gov_backend_get_top_parent_entity(Paragraph $paragraph, &$tree) {
   $parent = NULL;
+  $tree[] = [
+      'field_name' => $paragraph->get('parent_field_name')->value,
+      'revision_id' => $paragraph->get('revision_id')->value,
+    ];
   /** @var Drupal\paragraphs\Entity\Paragraph $parent */
   $parent = $paragraph->getParentEntity();
   if ($parent !== NULL && $parent->getEntityType()->id() === 'paragraph') {
-    $parent = va_gov_backend_get_top_parent_entity($parent);
+    $parent = va_gov_backend_get_top_parent_entity($parent, $tree);
   }
   return $parent;
 }

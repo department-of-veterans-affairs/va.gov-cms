@@ -6,6 +6,7 @@ use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\entity_reference_revisions\EntityReferenceRevisionsOrphanPurger;
+use Drupal\node\Entity\Node;
 use Drupal\va_gov_backend\Service\VaGovUrlInterface;
 use Drupal\views_event_dispatcher\Event\Views\ViewsPreRenderEvent;
 use Drupal\views_event_dispatcher\ViewsHookEvents;
@@ -59,10 +60,19 @@ class TableAuditViewsEventSubscriber implements EventSubscriberInterface {
   public function __construct(
     RendererInterface $renderer,
     VaGovUrlInterface $vaGovUrl,
-    EntityReferenceRevisionsOrphanPurger $purger) {
+  EntityReferenceRevisionsOrphanPurger $purger) {
     $this->renderer = $renderer;
     $this->vaGovUrl = $vaGovUrl;
     $this->purger = $purger;
+  }
+
+ /**
+   * {@inheritdoc}
+   */
+  public static function getSubscribedEvents(): array {
+    return [
+      ViewsHookEvents::VIEWS_PRE_RENDER => 'preRender',
+    ];
   }
 
   /**
@@ -73,39 +83,76 @@ class TableAuditViewsEventSubscriber implements EventSubscriberInterface {
    *
    * @throws \Exception
    */
-  public function preRender(ViewsPreRenderEvent $event): void {
+  public function preRender(ViewsPreRenderEvent $event) {
     $view = $event->getView();
     if ($view->id() === 'tables') {
       foreach ($view->result as $key => $value) {
-        $node = va_gov_backend_get_parent_node($value->_entity);
-        if (empty($node)) {
-          $str = 'This is an orphan paragraph.';
-          $value->_entity->set('parent_field_name', $str);
-        }
-        else {
-          $link = Link::fromTextAndUrl($node->getTitle(), $node->toUrl())->toRenderable();
-          $content_type = $node->type->entity->label();
-          $va_gov_url = $this->vaGovUrl->getVaGovFrontEndUrlForEntity($node);
-          $va_gov_link = Link::fromTextAndUrl($va_gov_url, Url::fromUri($va_gov_url))->toRenderable();
-          $va_gov_link['#attributes'] = ['class' => 'va-gov-url'];
-          $section = $node->field_administration->entity;
-          $section_link = Link::fromTextAndUrl($section->label(), $section->toUrl())->toRenderable();
-          $value->_entity->set('parent_id', $this->renderer->renderRoot($link));
-          $value->_entity->set('parent_type', $content_type);
-          $value->_entity->set('parent_field_name', $this->renderer->renderRoot($va_gov_link));
-          $value->_entity->set('revision_id', $this->renderer->renderRoot($section_link));
+        /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
+        $paragraph = $value->_entity;
+        $tree = [];
+        $top_parent = va_gov_backend_get_top_parent_entity($paragraph, $tree);
+        if ($top_parent) {
+          $is_in_current_node = $this->checkNodeRevisionUsesParagraph($top_parent, $tree);
+          if ($is_in_current_node) {
+            if ($top_parent->getEntityTypeId() === 'node') {
+              $node = $top_parent;
+              $link = Link::fromTextAndUrl($node->getTitle(), $node->toUrl())->toRenderable();
+              $content_type = $node->getType();
+              $va_gov_url = $this->vaGovUrl->getVaGovFrontEndUrlForEntity($node);
+              $va_gov_link = Link::fromTextAndUrl($va_gov_url, Url::fromUri($va_gov_url))->toRenderable();
+              $va_gov_link['#attributes'] = ['class' => 'va-gov-url'];
+              $section = $node->field_administration->entity;
+              $section_link = Link::fromTextAndUrl($section->label(), $section->toUrl())->toRenderable();
+              $value->_entity->set('parent_id', $this->renderer->renderRoot($link));
+              $value->_entity->set('parent_type', $content_type);
+              $value->_entity->set('parent_field_name', $this->renderer->renderRoot($va_gov_link));
+              $value->_entity->set('revision_id', $this->renderer->renderRoot($section_link));
+            }
+            if ($top_parent->getEntityTypeId() !== 'node') {
+              $str = 'This paragraph\'s top level parent is not a node.';
+              $value->_entity->set('parent_field_name', $str);
+            }
+          }
+          else {
+             unset($view->result[$key]);
+          }
         }
       }
     }
   }
 
   /**
-   * {@inheritdoc}
+   * Check if a node revision uses a paragraph.
+   *
+   * @param \Drupal\node\Entity\Node $node
+   *  The node to check.
+   * @param array $tree
+   *  The tree of parent entities.
+   *
+   * @return bool
    */
-  public static function getSubscribedEvents(): array {
-    return [
-      ViewsHookEvents::VIEWS_PRE_RENDER => 'preRender',
-    ];
+  protected function checkNodeRevisionUsesParagraph(Node $node, array $tree): bool {
+    $uses_revisions = [];
+    foreach ($tree as $value) {
+      if ($node->hasField($value['field_name'])) {
+        $field = $node->get($value['field_name'])->getValue();
+        foreach ($field as $item) {
+          if ($item['target_revision_id'] === $value['revision_id']) {
+            $uses_revisions[] = TRUE;
+          }
+          else {
+            $uses_revisions[] = FALSE;
+          }
+        }
+      }
+      else {
+        $uses_revisions[] = FALSE;
+      }
+    }
+    if (in_array(TRUE, $uses_revisions)) {
+      return TRUE;
+    }
+    return FALSE;
   }
 
 }
