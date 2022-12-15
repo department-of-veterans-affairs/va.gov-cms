@@ -160,7 +160,7 @@ class OrphansReportViewsEventSubscriber implements EventSubscriberInterface {
           $value->_entity->set('revision_id', $str);
         }
         elseif (!$used && $top_parent && $top_parent->getEntityTypeId() !== 'paragraph') {
-          $str = "This paragraph is connected to {$top_parent->toLink()->toString()}. Moderation state is: {$top_parent->get('moderation_state')->value}.";;
+          $str = "This paragraph is connected to {$top_parent->toLink()->toString()}. Moderation state is: {$top_parent->get('moderation_state')->value}.";
           $value->_entity->set('revision_id', $str);
         }
         else {
