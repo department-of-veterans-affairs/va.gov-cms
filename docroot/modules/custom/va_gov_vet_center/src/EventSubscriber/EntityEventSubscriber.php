@@ -7,14 +7,17 @@ use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\FormHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
+use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\taxonomy\Entity\Term;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Drupal\va_gov_vet_center\Service\RequiredServices;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -50,6 +53,14 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   private $entityTypeManager;
 
   /**
+   * The renderer service.
+   *
+   * @var \Drupal\Core\Render\RendererInterface
+   *  The renderer.
+   */
+  private $renderer;
+
+  /**
    * Constructs a EntityEventSubscriber object.
    *
    * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
@@ -60,17 +71,21 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The required services service.
    * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
    *   The string translation service.
+   * @param \Drupal\Core\Render\RendererInterface $renderer
+   *   The renderer service.
    */
   public function __construct(
     TranslationInterface $string_translation,
     UserPermsService $user_perms_service,
     RequiredServices $required_services,
-    EntityTypeManager $entity_type_manager
+    EntityTypeManager $entity_type_manager,
+    RendererInterface $renderer
     ) {
     $this->stringTranslation = $string_translation;
     $this->userPermsService = $user_perms_service;
     $this->requiredServices = $required_services;
     $this->entityTypeManager = $entity_type_manager;
+    $this->renderer = $renderer;
   }
 
   /**
@@ -80,6 +95,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     return [
       EntityHookEvents::ENTITY_INSERT => 'entityInsert',
       EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
+      EntityHookEvents::ENTITY_VIEW_ALTER => 'entityViewAlter',
       FormHookEvents::FORM_ALTER => 'formAlter',
       'hook_event_dispatcher.form_node_vet_center_locations_list_form.alter' => 'alterVetCenterLocationsListNodeForm',
       'hook_event_dispatcher.form_node_vet_center_locations_list_edit_form.alter' => 'alterVetCenterLocationsListNodeForm',
@@ -91,6 +107,124 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       'hook_event_dispatcher.form_node_vet_center_edit_form.alter' => 'alterVetCenterNodeForm',
 
     ];
+  }
+
+  /**
+   * Alteration to entity view pages.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
+   *   The entity view alter service.
+   */
+  public function entityViewAlter(EntityViewAlterEvent $event):void {
+    $this->appendHealthServiceTermDescriptionToVetCenter($event);
+  }
+
+  /**
+   * Appends health service entity description to title on entity view page.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
+   *   The entity view alter service.
+   */
+  public function appendHealthServiceTermDescriptionToVetCenter(EntityViewAlterEvent $event):void {
+    $display = $event->getDisplay();
+    if (($display->getTargetBundle() === 'vet_center') && ($display->getOriginalMode() === 'full')) {
+      $build = &$event->getBuild();
+      $services = $build['field_health_services'] ?? [];
+      foreach ($services as $key => $service) {
+        // If there are services (because their keys are numeric.)
+        if (is_numeric($key) && !empty($service['#options']['entity'])) {
+          $description = new FormattableMarkup('', []);
+          $service_node = $service['#options']['entity'];
+          $referenced_terms = $service_node->get('field_service_name_and_descripti')->referencedEntities();
+          // Render the national service term description (if available).
+          if (!empty($referenced_terms)) {
+            $referenced_term = reset($referenced_terms);
+            if ($referenced_term) {
+              $description = $this->getVetServiceDescription($referenced_term);
+            }
+          }
+          else {
+            $description = new FormattableMarkup(
+            '<div style="color:#e31c3d; font-weight:bold">Notice: The national service name and description were not found. Contact CMS Support to resolve this issue.</div>',
+              []);
+          }
+          // Append the facility-specific service description (no matter what).
+          $description .= $service_node->get('field_body')->value;
+          $formatted_markup = new FormattableMarkup($description, []);
+          $build['field_health_services'][$key]['#suffix'] = $formatted_markup;
+        }
+      }
+    }
+  }
+
+  /**
+   * Gets the VA Services taxonomy term Vet Center service description.
+   *
+   * @param \Drupal\taxonomy\Entity\Term $service_term
+   *   VA Services taxonomy term.
+   *
+   * @return \Drupal\Component\Render\FormattableMarkup
+   *   Markup of service description.
+   */
+  private function getVetServiceDescription(Term $service_term) {
+    $description = new FormattableMarkup('', []);
+    $view_builder = $this->entityTypeManager->getViewBuilder('taxonomy_term');
+    $referenced_term_vet_content = $view_builder->view($service_term, 'vet_center_service');
+    $vet_term_description = $referenced_term_vet_content["#taxonomy_term"]->get('field_vet_center_service_descrip')->value;
+    if ($vet_term_description
+        && $this->longEnough($vet_term_description)) {
+      $description = $this->renderer->renderRoot($referenced_term_vet_content);
+    }
+    if (!$vet_term_description || !($this->longEnough($vet_term_description))) {
+      $description = $this->getVamcServiceDescription($service_term);
+    }
+    return $description;
+  }
+
+  /**
+   * Gets the VA Services VAMC service description.
+   *
+   * @param \Drupal\taxonomy\Entity\Term $service_term
+   *   VA Services taxonomy term.
+   *
+   * @return \Drupal\Component\Render\FormattableMarkup
+   *   Markup of service description.
+   */
+  private function getVamcServiceDescription(Term $service_term) {
+    $view_builder = $this->entityTypeManager->getViewBuilder('taxonomy_term');
+    $referenced_term_vamc_content = $view_builder->view($service_term, 'vamc_facility_service');
+    $vamc_term_description = $referenced_term_vamc_content["#taxonomy_term"]->get('description')->value;
+    if ($vamc_term_description
+        && $this->longEnough($vamc_term_description)) {
+      $description = $this->renderer->renderRoot($referenced_term_vamc_content);
+    }
+    else {
+      $description = new FormattableMarkup(
+        '<div style="color:#e31c3d; font-weight:bold">Notice: The national service description was not found. Contact CMS Support to resolve this issue.</div>',
+          []);
+    }
+    return $description;
+  }
+
+  /**
+   * Checks service description for adequate length.
+   *
+   * @param string $service_description
+   *   Service description.
+   *
+   * @return bool
+   *   TRUE if over 15 characters (after removing returns and white space).
+   */
+  private function longEnough(string $service_description) {
+    $long_enough = FALSE;
+    $body_tags_removed = trim(strip_tags($service_description));
+    $body_tags_and_ws_removed = str_replace("\r\n", "", $body_tags_removed);
+    // 15 chars or more means the copy should be legitimate.
+    if (strlen($body_tags_and_ws_removed) > 15) {
+      $long_enough = TRUE;
+    }
+
+    return $long_enough;
   }
 
   /**
