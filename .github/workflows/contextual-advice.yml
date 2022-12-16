@@ -1,5 +1,5 @@
 name: Contextual Advice
-on: 
+on:
   - pull_request_target
 permissions:
   pull-requests: write
@@ -18,7 +18,7 @@ jobs:
       #
       # Do not execute any code located within the repository!
       - uses: actions/checkout@v3
-        with: 
+        with:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha }}
       # To create advice for a file or directory, determine the filename by:
@@ -67,7 +67,7 @@ jobs:
             done;
             if [ ! -z "${advice_filename}" ]; then
               cp "${advice_filename}" ./.pr_advice/;
-              echo "::set-output name=provide_advice::true";
+              echo "provide_advice=true" >> $GITHUB_OUTPUT;
             else
               echo "::debug::... none found.";
             fi;
@@ -75,7 +75,7 @@ jobs:
         env:
           GITHUB_BASE_SHA: ${{ github.event.pull_request.base.sha }}
           GITHUB_PR_SHA: ${{ github.event.pull_request.head.sha }}
- 
+
       - name: Provide advice in a PR comment.
         if: steps.find_advice.outputs.provide_advice == 'true'
         continue-on-error: true
@@ -101,7 +101,7 @@ jobs:
             /repos/${GITHUB_REPOSITORY}/issues/${GITHUB_PR}/comments \
             -f body="<!-- PR Advice -->
             ${body}";
-          
+
         env:
           GITHUB_PR: "${{ github.event.pull_request.number }}"
           GITHUB_PR_SHA: ${{ github.event.pull_request.head.sha }}
