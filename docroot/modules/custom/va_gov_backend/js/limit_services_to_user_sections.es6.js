@@ -17,6 +17,8 @@
     "edit-field-regional-health-service"
   );
   const lovellPattern = /Lovell/i;
+  const lovellTricarePattern = /TRICARE/i;
+  const lovellVaPattern = /VA/i;
   const winnower = () => {
     const pathType = drupalSettings.path.currentPath.split("/")[1];
     // Set our selects back to "Select a value." on add forms.
@@ -46,10 +48,23 @@
       if (i.text.includes(adminMatcher)) {
         i.classList.remove("hidden-option");
       } else if (
+        // Check for LoVell
         i.text.search(lovellPattern) > -1 &&
         adminFieldText.search(lovellPattern) > -1
       ) {
-        i.classList.remove("hidden-option");
+        // check for TRICARE
+        if (
+          i.text.search(lovellTricarePattern) > -1 &&
+          adminFieldText.search(lovellTricarePattern) > -1
+        ) {
+          i.classList.remove("hidden-option");
+        } else if (
+          // check for VA
+          i.text.search(lovellVaPattern) > -1 &&
+          adminFieldText.search(lovellVaPattern) > -1
+        ) {
+          i.classList.remove("hidden-option");
+        }
       }
     });
     // Winnow system field options that don't contain adminMatcher.
@@ -59,10 +74,23 @@
       if (i.text.includes(adminMatcher)) {
         i.classList.remove("hidden-option");
       } else if (
+        // Check for LoVell
         i.text.search(lovellPattern) > -1 &&
         adminFieldText.search(lovellPattern) > -1
       ) {
-        i.classList.remove("hidden-option");
+        // check for TRICARE
+        if (
+          i.text.search(lovellTricarePattern) > -1 &&
+          adminFieldText.search(lovellTricarePattern) > -1
+        ) {
+          i.classList.remove("hidden-option");
+        } else if (
+          // check for VA
+          i.text.search(lovellVaPattern) > -1 &&
+          adminFieldText.search(lovellVaPattern) > -1
+        ) {
+          i.classList.remove("hidden-option");
+        }
       }
     });
   };
