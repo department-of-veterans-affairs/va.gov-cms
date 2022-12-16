@@ -11,7 +11,7 @@ va_gov_backend.exclusion_types_admin_form:
 va_gov_backend.content_release_status:
   path: '/admin/content/deploy/status'
   defaults:
-    _controller: '\Drupal\va_gov_backend\Controller\ContentReleaseStatusController::getLastReleaseStatus'
+    _controller: '\Drupal\va_gov_backend\Controller\ContentReleaseStatusController::getDefault'
     _title: 'Last Content Release'
   requirements:
     _permission: 'access content'

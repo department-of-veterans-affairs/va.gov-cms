@@ -1065,3 +1065,12 @@ function va_gov_db_update_9009() {
 function va_gov_db_update_9010(&$sandbox) {
   return _va_gov_db_create_redirect_by_path('/admin/content/flagged', '/admin/content/facilities/flagged');
 }
+
+/**
+ * Create redirects for rich text search View displays.
+ */
+function va_gov_db_update_9011(&$sandbox) {
+  $mesages = _va_gov_db_create_redirect_by_path('/admin/content/audit/rich-text-field-audit.csv', '/admin/content/audit/search/export');
+  $mesages .= _va_gov_db_create_redirect_by_path('/admin/content/audit/rich-text-field-audit', '/admin/content/audit/search');
+  return $mesages;
+}

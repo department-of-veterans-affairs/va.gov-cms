@@ -1,8 +1,9 @@
-uuid: e5de6eae-f667-43a6-86d9-1d3474f8f8d5
+uuid: 2969d4c8-5d91-40b9-84e1-7e3b655ff6dd
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.search_index
     - field.field.node.vamc_system_billing_insurance.field_administration
     - field.field.node.vamc_system_billing_insurance.field_cc_above_top_of_page
     - field.field.node.vamc_system_billing_insurance.field_cc_bottom_of_page_content
@@ -18,9 +19,9 @@ dependencies:
     - field.field.node.vamc_system_billing_insurance.field_service_name_and_descripti
     - node.type.vamc_system_billing_insurance
   module:
-    - allow_only_one
     - entity_field_fetch
     - field_group
+    - layout_builder
     - office_hours
     - telephone
     - user
@@ -29,12 +30,11 @@ third_party_settings:
   field_group:
     group_national_content:
       children:
-        - field_cc_bottom_of_page_content
         - field_cc_related_links
       label: 'National content'
       parent_name: ''
       region: content
-      weight: 6
+      weight: 5
       format_type: tooltip
       format_settings:
         show_empty_fields: 0
@@ -49,12 +49,11 @@ third_party_settings:
         open: false
         required_fields: false
     group_national_top_of_page_conte:
-      children:
-        - field_cc_top_of_page_content
+      children: {  }
       label: 'National top of page content'
       parent_name: ''
       region: content
-      weight: 4
+      weight: 3
       format_type: tooltip
       format_settings:
         show_label: '0'
@@ -73,7 +72,7 @@ third_party_settings:
       label: 'For inquiries by phone about copay balance'
       parent_name: ''
       region: content
-      weight: 3
+      weight: 2
       format_type: details
       format_settings:
         classes: ''
@@ -83,12 +82,11 @@ third_party_settings:
         description: ''
         required_fields: false
     group_national_above_top_of_page:
-      children:
-        - field_cc_above_top_of_page
+      children: {  }
       label: 'National above top of page content'
       parent_name: ''
       region: content
-      weight: 2
+      weight: 1
       format_type: tooltip
       format_settings:
         show_label: '0'
@@ -100,45 +98,20 @@ third_party_settings:
         element: div
         label_element: h3
         attributes: ''
-id: node.vamc_system_billing_insurance.default
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.vamc_system_billing_insurance.search_index
 targetEntityType: node
 bundle: vamc_system_billing_insurance
-mode: default
+mode: search_index
 content:
-  field_cc_above_top_of_page:
-    type: entity_field_fetch
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 3
-    region: content
-  field_cc_bottom_of_page_content:
-    type: entity_field_fetch
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 9
-    region: content
   field_cc_related_links:
     type: entity_field_fetch
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 10
-    region: content
-  field_cc_top_of_page_content:
-    type: entity_field_fetch
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 8
-    region: content
-  field_enforce_unique_combo_offic:
-    type: allow_only_one
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 1
+    weight: 5
     region: content
   field_non_clinical_services:
     type: viewfield_default
@@ -148,7 +121,7 @@ content:
       always_build_output: true
       empty_view_title: above
     third_party_settings: {  }
-    weight: 5
+    weight: 4
     region: content
   field_office_hours:
     type: office_hours
@@ -207,7 +180,11 @@ content:
 hidden:
   content_moderation_control: true
   field_administration: true
+  field_cc_above_top_of_page: true
+  field_cc_bottom_of_page_content: true
+  field_cc_top_of_page_content: true
   field_enforce_unique_combo: true
+  field_enforce_unique_combo_offic: true
   field_last_saved_by_an_editor: true
   field_office: true
   field_service_name_and_descripti: true
