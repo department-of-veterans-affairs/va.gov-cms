@@ -18,7 +18,7 @@ dependencies:
     - views_data_export
     - workbench_access
 id: detail_page_url_audit_and_bulk_udpate
-label: 'Detail page URL audit and bulk udpate'
+label: 'Detail page URL audit and bulk update'
 module: views
 description: 'For bulk updating URL aliases for VAMC detail pages.'
 tag: ''
@@ -31,7 +31,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Detail page URL audit and bulk udpate'
+      title: 'Detail page URL audit and bulk update'
       fields:
         views_bulk_operations_bulk_form:
           id: views_bulk_operations_bulk_form
@@ -764,17 +764,21 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - 'user.node_grants:view'
         - user.roles
       tags:
         - 'config:workflow_list'
+        - workbench_access_view
   audit_page:
     id: audit_page
     display_title: 'Audit page'
     display_plugin: page
     position: 1
     display_options:
-      display_extenders: {  }
+      display_extenders:
+        jsonapi_views:
+          enabled: true
       path: admin/content/audit/vamc-detail-pages
       menu:
         type: normal
@@ -787,10 +791,12 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - 'user.node_grants:view'
         - user.roles
       tags:
         - 'config:workflow_list'
+        - workbench_access_view
   data_export_1:
     id: data_export_1
     display_title: 'CSV export'
@@ -811,7 +817,9 @@ display:
             encoding: utf8
             utf8_bom: '0'
             use_serializer_encode_only: false
-      display_extenders: {  }
+      display_extenders:
+        jsonapi_views:
+          enabled: true
       path: admin/content/audit/detail-pages-urls.csv
       displays:
         audit_page: audit_page
@@ -829,7 +837,9 @@ display:
         - 'languages:language_interface'
         - request_format
         - url
+        - user
         - 'user.node_grants:view'
         - user.roles
       tags:
         - 'config:workflow_list'
+        - workbench_access_view
