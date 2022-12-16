@@ -34,6 +34,7 @@
         "drupal/blazy": "^2.0@RC",
         "drupal/block_content_permissions": "^1.6",
         "drupal/cer": "4.x-dev#f2ff7d6bf2a3e41757b7621a8367ede974750a84",
+        "drupal/change_labels": "dev-3326097-remove-dependency-on-drupal-autoservices#7f92f90b456ac2f394dd434257e39e1d9b3086eb",
         "drupal/coder": "^8.3",
         "drupal/components": "^3.0@beta",
         "drupal/config_ignore": "^2.1",
@@ -174,7 +175,7 @@
         "drupal/workbench_access": "^1.0-beta4",
         "drupal/workbench_menu_access": "^1.0",
         "drush-ops/behat-drush-endpoint": "^9.4.0",
-        "drush/drush": "^10.6",
+        "drush/drush": "^11",
         "easyrdf/easyrdf": "1.1.1 as 0.9.1",
         "geocoder-php/mapbox-provider": "^1.3",
         "gitonomy/gitlib": "^1.2",
@@ -189,9 +190,10 @@
         "oomphinc/composer-installers-extender": "^2.0",
         "php-http/guzzle6-adapter": "^2.0",
         "phpspec/prophecy": "^1.15",
+        "phpspec/prophecy-phpunit": "^2.0",
         "phpstan/phpstan": "^1.0",
         "phpstan/phpstan-deprecation-rules": "^1.0",
-        "phpunit/phpunit": "^8.4.0",
+        "phpunit/phpunit": "^9.3.0",
         "querypath/querypath": "^3.0",
         "simplesamlphp/simplesamlphp": "^1.18",
         "squizlabs/php_codesniffer": "^3.5",
@@ -235,7 +237,10 @@
         },
         "drupal": {
             "type": "composer",
-            "url": "https://packages.drupal.org/8"
+            "url": "https://packages.drupal.org/8",
+            "exclude": [
+                "drupal/change_labels"
+            ]
         },
         "assets": {
             "type": "composer",
@@ -262,6 +267,10 @@
                     "composer/installers": "~1.0"
                 }
             }
+        },
+        "drupal/change_labels": {
+            "type": "git",
+            "url": "https://git.drupalcode.org/issue/change_labels-3326097.git"
         }
     },
     "config": {
@@ -273,7 +282,7 @@
         "sort-packages": true,
         "optimize-autoloader": true,
         "platform": {
-            "php": "7.4"
+            "php": "8.1"
         },
         "preferred-install": {
             "drupal/core": "source",
@@ -289,7 +298,8 @@
             "drupal/console-extend-plugin": true,
             "mouf/nodejs-installer": true,
             "oomphinc/composer-installers-extender": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "topfloor/composer-cleanup-vcs-dirs": true
         }
     },
     "extra": {
@@ -376,7 +386,8 @@
                 "3099026 - Claro's preprocessing of field multiple value form's table header cell removes potential changes by others": "https://www.drupal.org/files/issues/2020-02-20/3099026-9.patch",
                 "2767243 - Create a theme suggestion for taxonomy terms by view mode": "https://www.drupal.org/files/issues/core-theme-suggestion-for-taxonomy-view-modes-2767243-14.patch",
                 "2775665 - MenuLinkContent updateLink function generates a PHP Warning for override-able keys that are not present in the loaded entity": "https://www.drupal.org/files/issues/2021-09-17/updateLink-2775665-14.patch",
-                "2975602 - Html::serialize() escapes backslash-r to &#13;": "https://www.drupal.org/files/issues/2018-05-27/2975602-2-html_serialize.patch"
+                "2975602 - Html::serialize() escapes backslash-r to &#13;": "https://www.drupal.org/files/issues/2018-05-27/2975602-2-html_serialize.patch",
+                "Temporary fix for htmlspecialchars deprcation": "patches/temporary_fix_for_htmlspecialchars_deprecation.patch"
             },
             "drupal/danse_content_moderation": {
                 "3309657 - Danse 2.2.7 compatibility": "https://www.drupal.org/files/issues/2022-09-14/3309657-danse-2-2-7-compatibility.patch"
@@ -414,6 +425,9 @@
                 "Fix Explorer with Layout Builder enabled - https://github.com/drupal-graphql/graphql/pull/1144": "patches/graphql_8x3x_layout_builder_incompat.patch",
                 "Remove outdated RouteQueryEnhancer controller reference - https://github.com/drupal-graphql/graphql/pull/1230": "patches/graphql_8x3x_query_route_enhancer_update.patch"
             },
+            "drupal/health_check_url": {
+                "3294736 - PHP 8 Compatibility": "https://www.drupal.org/files/issues/2022-07-07/health_check_url_php8.patch"
+            },
             "drupal/hms_field": {
                 "3145496 - Make d9 compatible": "https://www.drupal.org/files/issues/2020-06-05/3145496-6.patch"
             },
@@ -437,6 +451,9 @@
             "drupal/menu_item_extras": {
                 "3302060 - Invalid argument supplied for foreach() ConfigImportSubscriber.php": "https://www.drupal.org/files/issues/2022-08-05/menu_items_extra_uninstall_config_import_warning.patch",
                 "3210468 - The 'bundle' field is not always populated with the menu name": "https://www.drupal.org/files/issues/2021-04-23/3210468.patch"
+            },
+            "drupal/message_subscribe": {
+                "3279287 - PHP 8.1 Deprecated function notices": "https://www.drupal.org/files/issues/2022-11-03/php-81-deprecation-notices.patch"
             },
             "drupal/migrate_plus": {
                 "3113461 - Allow properties in str_replace process plugin.": "https://www.drupal.org/files/issues/2020-03-16/migrate_plus-properties_str_replace-2.patch"
@@ -494,10 +511,14 @@
             },
             "drupal/textfield_counter": {
                 "3004457 - Prevent form submission when character limit exceeded option does not work": "https://www.drupal.org/files/issues/2018-10-04/textfield_counter-prevent_form_submission_does_not_work-3004457-2.patch",
-                "3182675 - Incompatibilities with Claro and Claro-based (e.g. Gin) themes": "https://www.drupal.org/files/issues/2022-08-04/textfield-counter-incompatible-with-claro-3182675-10.patch"
+                "3182675 - Incompatibilities with Claro and Claro-based (e.g. Gin) themes": "https://www.drupal.org/files/issues/2022-08-04/textfield-counter-incompatible-with-claro-3182675-10.patch",
+                "3272128 - Calling a static method, or accessing a static property directly on a trait is deprecated": "https://www.drupal.org/files/issues/2022-04-27/deprecated-static-function-call-in-trait-3272128.patch"
             },
             "drupal/viewfield": {
                 "3252356 - Add option to display default view on node edit when always use default value selected": "https://www.drupal.org/files/issues/2021-12-15/viewfield-option-display-default-view-on-node-edit-3252356-4.patch"
+            },
+            "drupal/views_data_export": {
+                "3189135 - Use relative URL for export button": "https://www.drupal.org/files/issues/2022-08-06/use-relative-url-for-export-3189135-10.patch"
             },
             "traviscarden/behat-table-comparison": {
                 "Throw meaningful message for duplicate entry. See https://github.com/TravisCarden/behat-table-comparison/pull/7": "patches/duplicate-row-message.patch"
@@ -519,23 +540,24 @@
             "# This will allow you to run any command in the ./bin directory without a path.",
             "echo \"export PATH=${PATH}\""
         ],
+        "remove-git-dirs": [
+            "echo \"Removing .git sub-directories...\"",
+            "find . -mindepth 2 -type d -name .git -not -path './docroot/vendor/va-gov/content-build/.git' | xargs rm -rf"
+        ],
         "pre-install-cmd": [
             "mkdir -p vendor",
             "[ -f .env ] || cp .env.example .env"
         ],
         "post-install-cmd": [
             "mkdir --parents docroot/profiles",
-            "# The rm post-merge command below can be removed after we think all engineers have run composer install.",
-            "rm -rf .git/hooks/post-merge",
             "cp -r 'hooks/git/.' '.git/hooks/'",
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
             "ln -snf 'docroot/vendor/simplesamlphp/simplesamlphp/' 'simplesamlphp'",
             "ln -snf 'docroot/vendor/simplesamlphp/saml2/' 'saml2'",
             "cp -r 'simplesamlphp-config-metadata/config' 'simplesamlphp-config-metadata/metadata' 'docroot/vendor/simplesamlphp/simplesamlphp/'",
-            "echo 'Removing deleted .git/hooks/commit-msg file, no longer used.'",
-            "rm -f .git/hooks/commit-msg",
             "git update-index --skip-worktree samlsessiondb.sq3",
-            "rm -r vendor"
+            "rm -r vendor",
+            "@remove-git-dirs"
         ],
         "pre-update-cmd": [
             "mkdir -p vendor",
@@ -544,7 +566,8 @@
         "post-update-cmd": [
             "cp -r 'hooks/git/.' '.git/hooks/'",
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
-            "rm -r vendor"
+            "rm -r vendor",
+            "@remove-git-dirs"
         ],
         "nuke": [
             "rm -rf bin node_modules docroot/libraries docroot/core docroot/modules/contrib docroot/themes/contrib docroot/profiles/contrib/ docroot/vendor /var/www/.cache/yarn",

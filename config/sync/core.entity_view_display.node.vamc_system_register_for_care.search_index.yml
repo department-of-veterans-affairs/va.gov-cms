@@ -1,0 +1,97 @@
+uuid: f21fb309-5a43-4ac6-a784-3b60c88038b3
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_index
+    - field.field.node.vamc_system_register_for_care.field_administration
+    - field.field.node.vamc_system_register_for_care.field_cc_bottom_of_page_content
+    - field.field.node.vamc_system_register_for_care.field_cc_related_links
+    - field.field.node.vamc_system_register_for_care.field_cc_top_of_page_content
+    - field.field.node.vamc_system_register_for_care.field_enforce_unique_combo
+    - field.field.node.vamc_system_register_for_care.field_enforce_unique_combo_offic
+    - field.field.node.vamc_system_register_for_care.field_last_saved_by_an_editor
+    - field.field.node.vamc_system_register_for_care.field_non_clinical_services
+    - field.field.node.vamc_system_register_for_care.field_office
+    - field.field.node.vamc_system_register_for_care.field_service_name_and_descripti
+    - node.type.vamc_system_register_for_care
+  module:
+    - field_group
+    - layout_builder
+    - user
+    - viewfield
+third_party_settings:
+  field_group:
+    group_national_content:
+      children: {  }
+      label: 'National content'
+      parent_name: ''
+      region: content
+      weight: 3
+      format_type: tooltip
+      format_settings:
+        show_empty_fields: 0
+        id: ''
+        classes: centralized
+        element: div
+        show_label: '0'
+        label_element: h3
+        attributes: ''
+        description: ''
+        tooltip_description: 'Why can’t I edit this? VHA keeps this content standardized so that all VA medical centers have consistent messaging.'
+        open: false
+        required_fields: false
+    group_national_top_of_page_conte:
+      children: {  }
+      label: 'National top of page content'
+      parent_name: ''
+      region: content
+      weight: 1
+      format_type: tooltip
+      format_settings:
+        show_empty_fields: 0
+        id: ''
+        classes: centralized
+        element: div
+        show_label: '0'
+        label_element: h3
+        attributes: ''
+        description: ''
+        tooltip_description: 'Why can’t I edit this? VHA keeps this content standardized so that all VA medical centers have consistent messaging.'
+        open: false
+        required_fields: false
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.vamc_system_register_for_care.search_index
+targetEntityType: node
+bundle: vamc_system_register_for_care
+mode: search_index
+content:
+  field_non_clinical_services:
+    type: viewfield_default
+    label: hidden
+    settings:
+      view_title: above
+      always_build_output: true
+      empty_view_title: above
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  content_moderation_control: true
+  field_administration: true
+  field_cc_bottom_of_page_content: true
+  field_cc_related_links: true
+  field_cc_top_of_page_content: true
+  field_enforce_unique_combo: true
+  field_enforce_unique_combo_offic: true
+  field_last_saved_by_an_editor: true
+  field_office: true
+  field_service_name_and_descripti: true
+  search_api_excerpt: true

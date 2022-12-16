@@ -5,12 +5,18 @@ dependencies:
   config:
     - field.storage.node.field_target_paths
     - node.type.promo_banner
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
 id: node.promo_banner.field_target_paths
 field_name: field_target_paths
 entity_type: node
 bundle: promo_banner
 label: Paths
-description: ''
+description: 'Add path(s) for pages that should display this content. All paths must begin with / and may use wildcards (*) or exclusions (!). (<a href="/help/homepage-alerts-and-promo-banners/promo-banners" target=“_blank”>See further guidelines</a>)'
 required: false
 translatable: true
 default_value: {  }
