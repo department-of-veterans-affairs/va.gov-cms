@@ -20,7 +20,7 @@ jobs:
           output=$(grep -rHino 'Implements hook[^\s]*' ./docroot/modules/custom/**/*.module)
           count=$(printf "%s" "${output}" | wc -l)
           echo "${output}"
-          echo "::set-output name=count::${count}"
+          echo "count=${count}" >> $GITHUB_OUTPUT
       - name: Record .module file line counts.
         id: module_file_line_counts
         run: |
@@ -32,7 +32,7 @@ jobs:
             lines="$(echo "${line}" | awk '{ print $1; }')"
             filepath="$(printf "%s" "${line}" | awk '{ print $2; }')"
             filename="$(basename "${filepath}" .module)"
-            echo "::set-output name=${filename}::${lines}"
+            echo "${filename}=${lines}" >> $GITHUB_OUTPUT
 
             # `read` normally stops at a newline.  Since we'll be reading a multiline "chunk", we
             # want to skip newlines, so we use `-d ''`.  That means `read` will stop when it hits
@@ -71,7 +71,7 @@ jobs:
                 name: "cms.qa.custom_metrics.hook_implementations"
                 value: ${{ steps.hook_implementations.outputs.count }}
                 host: "${{ github.repository }}"
-  
+
   phpunit_code_coverage:
     name: PHPUnit Code Coverage
     runs-on: ubuntu-latest
@@ -119,27 +119,27 @@ jobs:
           classes_denominator="$(echo "${classes}" | grep -oP '(?<=\/)\d+(?=\))')";
 
           # Set the outputs.
-          echo "::set-output name=classes_percentage::${classes_percentage}";
-          echo "::set-output name=classes_numerator::${classes_numerator}";
-          echo "::set-output name=classes_denominator::${classes_denominator}";
+          echo "classes_percentage=${classes_percentage}" >> $GITHUB_OUTPUT;
+          echo "classes_numerator=${classes_numerator}" >> $GITHUB_OUTPUT;
+          echo "classes_denominator=${classes_denominator}" >> $GITHUB_OUTPUT;
 
           # Method Coverage Metrics
           methods="$(cat coverage.txt | grep 'Summary:' -A 3 | grep 'Methods')";
           methods_percentage="$(echo "${methods}" | grep -oP '\d+\.?\d+(?=%)')";
           methods_numerator="$(echo "${methods}" | grep -oP '(?<=\()\d+(?=\/)')";
           methods_denominator="$(echo "${methods}" | grep -oP '(?<=\/)\d+(?=\))')";
-          echo "::set-output name=methods_percentage::${methods_percentage}";
-          echo "::set-output name=methods_numerator::${methods_numerator}";
-          echo "::set-output name=methods_denominator::${methods_denominator}";
+          echo "methods_percentage=${methods_percentage}" >> $GITHUB_OUTPUT;
+          echo "methods_numerator=${methods_numerator}" >> $GITHUB_OUTPUT;
+          echo "methods_denominator=${methods_denominator}" >> $GITHUB_OUTPUT;
 
           # Line Coverage Metrics
           lines="$(cat coverage.txt | grep 'Summary:' -A 3 | grep 'Lines')";
           lines_percentage="$(echo "${lines}" | grep -oP '\d+\.?\d+(?=%)')";
           lines_numerator="$(echo "${lines}" | grep -oP '(?<=\()\d+(?=\/)')";
           lines_denominator="$(echo "${lines}" | grep -oP '(?<=\/)\d+(?=\))')";
-          echo "::set-output name=lines_percentage::${lines_percentage}";
-          echo "::set-output name=lines_numerator::${lines_numerator}";
-          echo "::set-output name=lines_denominator::${lines_denominator}";
+          echo "lines_percentage=${lines_percentage}" >> $GITHUB_OUTPUT;
+          echo "lines_numerator=${lines_numerator}" >> $GITHUB_OUTPUT;
+          echo "lines_denominator=${lines_denominator}" >> $GITHUB_OUTPUT;
 
           # Class Coverage Metrics
           echo "Classes Percentage: ${classes_percentage}";
@@ -206,74 +206,74 @@ jobs:
       - uses: ./.github/actions/post-checkout
       - name: Run PHPLOC and parse output for metrics.
         id: phploc_code_quality
-        run: | 
+        run: |
           output=$(php phploc.phar --suffix .php --suffix .inc --suffix .module docroot/modules/custom/ --log-json phploc.json)
 
           # Size metrics.
-          echo "::set-output name=directory_count::$(jq '.directories' phploc.json)"
-          echo "::set-output name=file_count::$(jq '.files' phploc.json)"
-          echo "::set-output name=all_lines_of_code::$(jq '.loc' phploc.json)"
-          echo "::set-output name=comment_lines_of_code::$(jq '.cloc' phploc.json)"
-          echo "::set-output name=noncomment_lines_of_code::$(jq '.ncloc' phploc.json)"
-          echo "::set-output name=logical_lines_of_code::$(jq '.lloc' phploc.json)"
-          echo "::set-output name=logical_lines_of_code_classes::$(jq '.llocClasses' phploc.json)"
-          echo "::set-output name=logical_lines_of_code_classes_average_class_length::$(jq '.classLlocAvg' phploc.json)"
-          echo "::set-output name=logical_lines_of_code_classes_minimum_class_length::$(jq '.classLlocMin' phploc.json)"
-          echo "::set-output name=logical_lines_of_code_classes_maximum_class_length::$(jq '.classLlocMax' phploc.json)"
-          echo "::set-output name=logical_lines_of_code_classes_average_method_length::$(jq '.methodLlocAvg' phploc.json)"
-          echo "::set-output name=logical_lines_of_code_classes_minimum_method_length::$(jq '.methodLlocMin' phploc.json)"
-          echo "::set-output name=logical_lines_of_code_classes_maximum_method_length::$(jq '.methodLlocMax' phploc.json)"
-          echo "::set-output name=logical_lines_of_code_classes_average_methods_per_class::$(jq '.averageMethodsPerClass' phploc.json)"
-          echo "::set-output name=logical_lines_of_code_classes_minimum_methods_per_class::$(jq '.minimumMethodsPerClass' phploc.json)"
-          echo "::set-output name=logical_lines_of_code_classes_maximum_methods_per_class::$(jq '.maximumMethodsPerClass' phploc.json)"
-          echo "::set-output name=logical_lines_of_code_functions::$(jq '.llocFunctions' phploc.json)"
-          echo "::set-output name=logical_lines_of_code_functions_average_function_length::$(jq '.llocByNof' phploc.json)"
-          echo "::set-output name=logical_lines_of_code_not_in_classes_or_functions::$(jq '.llocGlobal' phploc.json)"
+          echo "directory_count=$(jq '.directories' phploc.json)" >> $GITHUB_OUTPUT
+          echo "file_count=$(jq '.files' phploc.json)" >> $GITHUB_OUTPUT
+          echo "all_lines_of_code=$(jq '.loc' phploc.json)" >> $GITHUB_OUTPUT
+          echo "comment_lines_of_code=$(jq '.cloc' phploc.json)" >> $GITHUB_OUTPUT
+          echo "noncomment_lines_of_code=$(jq '.ncloc' phploc.json)" >> $GITHUB_OUTPUT
+          echo "logical_lines_of_code=$(jq '.lloc' phploc.json)" >> $GITHUB_OUTPUT
+          echo "logical_lines_of_code_classes=$(jq '.llocClasses' phploc.json)" >> $GITHUB_OUTPUT
+          echo "logical_lines_of_code_classes_average_class_length=$(jq '.classLlocAvg' phploc.json)" >> $GITHUB_OUTPUT
+          echo "logical_lines_of_code_classes_minimum_class_length=$(jq '.classLlocMin' phploc.json)" >> $GITHUB_OUTPUT
+          echo "logical_lines_of_code_classes_maximum_class_length=$(jq '.classLlocMax' phploc.json)" >> $GITHUB_OUTPUT
+          echo "logical_lines_of_code_classes_average_method_length=$(jq '.methodLlocAvg' phploc.json)" >> $GITHUB_OUTPUT
+          echo "logical_lines_of_code_classes_minimum_method_length=$(jq '.methodLlocMin' phploc.json)" >> $GITHUB_OUTPUT
+          echo "logical_lines_of_code_classes_maximum_method_length=$(jq '.methodLlocMax' phploc.json)" >> $GITHUB_OUTPUT
+          echo "logical_lines_of_code_classes_average_methods_per_class=$(jq '.averageMethodsPerClass' phploc.json)" >> $GITHUB_OUTPUT
+          echo "logical_lines_of_code_classes_minimum_methods_per_class=$(jq '.minimumMethodsPerClass' phploc.json)" >> $GITHUB_OUTPUT
+          echo "logical_lines_of_code_classes_maximum_methods_per_class=$(jq '.maximumMethodsPerClass' phploc.json)" >> $GITHUB_OUTPUT
+          echo "logical_lines_of_code_functions=$(jq '.llocFunctions' phploc.json)" >> $GITHUB_OUTPUT
+          echo "logical_lines_of_code_functions_average_function_length=$(jq '.llocByNof' phploc.json)" >> $GITHUB_OUTPUT
+          echo "logical_lines_of_code_not_in_classes_or_functions=$(jq '.llocGlobal' phploc.json)" >> $GITHUB_OUTPUT
 
           # Cyclomatic complexity.
-          echo "::set-output name=average_complexity_per_lloc::$(jq '.ccnByLloc' phploc.json)"
-          echo "::set-output name=average_complexity_per_class::$(jq '.classCcnAvg' phploc.json)"
-          echo "::set-output name=minimum_complexity_per_class::$(jq '.classCcnMin' phploc.json)"
-          echo "::set-output name=maximum_complexity_per_class::$(jq '.classCcnMax' phploc.json)"
-          echo "::set-output name=average_complexity_per_method::$(jq '.methodCcnAvg' phploc.json)"
-          echo "::set-output name=minimum_complexity_per_method::$(jq '.methodCcnMin' phploc.json)"
-          echo "::set-output name=maximum_complexity_per_method::$(jq '.methodCcnMax' phploc.json)"
+          echo "average_complexity_per_lloc=$(jq '.ccnByLloc' phploc.json)" >> $GITHUB_OUTPUT
+          echo "average_complexity_per_class=$(jq '.classCcnAvg' phploc.json)" >> $GITHUB_OUTPUT
+          echo "minimum_complexity_per_class=$(jq '.classCcnMin' phploc.json)" >> $GITHUB_OUTPUT
+          echo "maximum_complexity_per_class=$(jq '.classCcnMax' phploc.json)" >> $GITHUB_OUTPUT
+          echo "average_complexity_per_method=$(jq '.methodCcnAvg' phploc.json)" >> $GITHUB_OUTPUT
+          echo "minimum_complexity_per_method=$(jq '.methodCcnMin' phploc.json)" >> $GITHUB_OUTPUT
+          echo "maximum_complexity_per_method=$(jq '.methodCcnMax' phploc.json)" >> $GITHUB_OUTPUT
 
           # Dependencies.
-          echo "::set-output name=global_accesses::$(jq '.globalAccesses' phploc.json)"
-          echo "::set-output name=global_constant_accesses::$(jq '.globalConstantAccesses' phploc.json)"
-          echo "::set-output name=global_variable_accesses::$(jq '.globalVariableAccesses' phploc.json)"
-          echo "::set-output name=super_global_variables::$(jq '.superGlobalVariableAccesses' phploc.json)"
-          echo "::set-output name=attribute_accesses::$(jq '.attributeAccesses' phploc.json)"
-          echo "::set-output name=instance_attribute_accesses::$(jq '.instanceAttributeAccesses' phploc.json)"
-          echo "::set-output name=static_attribute_accesses::$(jq '.staticAttributeAccesses' phploc.json)"
-          echo "::set-output name=method_calls::$(jq '.methodCalls' phploc.json)"
-          echo "::set-output name=instance_method_calls::$(jq '.instanceMethodCalls' phploc.json)"
-          echo "::set-output name=static_method_calls::$(jq '.staticMethodCalls' phploc.json)"
+          echo "global_accesses=$(jq '.globalAccesses' phploc.json)" >> $GITHUB_OUTPUT
+          echo "global_constant_accesses=$(jq '.globalConstantAccesses' phploc.json)" >> $GITHUB_OUTPUT
+          echo "global_variable_accesses=$(jq '.globalVariableAccesses' phploc.json)" >> $GITHUB_OUTPUT
+          echo "super_global_variables=$(jq '.superGlobalVariableAccesses' phploc.json)" >> $GITHUB_OUTPUT
+          echo "attribute_accesses=$(jq '.attributeAccesses' phploc.json)" >> $GITHUB_OUTPUT
+          echo "instance_attribute_accesses=$(jq '.instanceAttributeAccesses' phploc.json)" >> $GITHUB_OUTPUT
+          echo "static_attribute_accesses=$(jq '.staticAttributeAccesses' phploc.json)" >> $GITHUB_OUTPUT
+          echo "method_calls=$(jq '.methodCalls' phploc.json)" >> $GITHUB_OUTPUT
+          echo "instance_method_calls=$(jq '.instanceMethodCalls' phploc.json)" >> $GITHUB_OUTPUT
+          echo "static_method_calls=$(jq '.staticMethodCalls' phploc.json)" >> $GITHUB_OUTPUT
 
           # Structure
-          echo "::set-output name=namespaces::$(jq '.namespaces' phploc.json)"
-          echo "::set-output name=interfaces::$(jq '.interfaces' phploc.json)"
-          echo "::set-output name=traits::$(jq '.traits' phploc.json)"
-          echo "::set-output name=classes::$(jq '.classes' phploc.json)"
-          echo "::set-output name=abstract_classes::$(jq '.abstractClasses' phploc.json)"
-          echo "::set-output name=concrete_classes::$(jq '.concreteClasses' phploc.json)"
-          echo "::set-output name=final_classes::$(jq '.finalClasses' phploc.json)"
-          echo "::set-output name=nonfinal_classes::$(jq '.nonFinalClasses' phploc.json)"
-          echo "::set-output name=methods::$(jq '.methods' phploc.json)"
-          echo "::set-output name=nonstatic_methods::$(jq '.nonStaticMethods' phploc.json)"
-          echo "::set-output name=static_methods::$(jq '.staticMethods' phploc.json)"
-          echo "::set-output name=public_methods::$(jq '.publicMethods' phploc.json)"
-          echo "::set-output name=protected_methods::$(jq '.protectedMethods' phploc.json)"
-          echo "::set-output name=private_methods::$(jq '.privateMethods' phploc.json)"
-          echo "::set-output name=functions::$(jq '.functions' phploc.json)"
-          echo "::set-output name=named_functions::$(jq '.namedFunctions' phploc.json)"
-          echo "::set-output name=anonymous_functions::$(jq '.anonymousFunctions' phploc.json)"
-          echo "::set-output name=constants::$(jq '.constants' phploc.json)"
-          echo "::set-output name=global_constants::$(jq '.globalConstants' phploc.json)"
-          echo "::set-output name=class_constants::$(jq '.classConstants' phploc.json)"
-          echo "::set-output name=public_class_constants::$(jq '.publicClassConstants' phploc.json)"
-          echo "::set-output name=nonpublic_class_constants::$(jq '.nonPublicClassConstants' phploc.json)"
+          echo "namespaces=$(jq '.namespaces' phploc.json)" >> $GITHUB_OUTPUT
+          echo "interfaces=$(jq '.interfaces' phploc.json)" >> $GITHUB_OUTPUT
+          echo "traits=$(jq '.traits' phploc.json)" >> $GITHUB_OUTPUT
+          echo "classes=$(jq '.classes' phploc.json)" >> $GITHUB_OUTPUT
+          echo "abstract_classes=$(jq '.abstractClasses' phploc.json)" >> $GITHUB_OUTPUT
+          echo "concrete_classes=$(jq '.concreteClasses' phploc.json)" >> $GITHUB_OUTPUT
+          echo "final_classes=$(jq '.finalClasses' phploc.json)" >> $GITHUB_OUTPUT
+          echo "nonfinal_classes=$(jq '.nonFinalClasses' phploc.json)" >> $GITHUB_OUTPUT
+          echo "methods=$(jq '.methods' phploc.json)" >> $GITHUB_OUTPUT
+          echo "nonstatic_methods=$(jq '.nonStaticMethods' phploc.json)" >> $GITHUB_OUTPUT
+          echo "static_methods=$(jq '.staticMethods' phploc.json)" >> $GITHUB_OUTPUT
+          echo "public_methods=$(jq '.publicMethods' phploc.json)" >> $GITHUB_OUTPUT
+          echo "protected_methods=$(jq '.protectedMethods' phploc.json)" >> $GITHUB_OUTPUT
+          echo "private_methods=$(jq '.privateMethods' phploc.json)" >> $GITHUB_OUTPUT
+          echo "functions=$(jq '.functions' phploc.json)" >> $GITHUB_OUTPUT
+          echo "named_functions=$(jq '.namedFunctions' phploc.json)" >> $GITHUB_OUTPUT
+          echo "anonymous_functions=$(jq '.anonymousFunctions' phploc.json)" >> $GITHUB_OUTPUT
+          echo "constants=$(jq '.constants' phploc.json)" >> $GITHUB_OUTPUT
+          echo "global_constants=$(jq '.globalConstants' phploc.json)" >> $GITHUB_OUTPUT
+          echo "class_constants=$(jq '.classConstants' phploc.json)" >> $GITHUB_OUTPUT
+          echo "public_class_constants=$(jq '.publicClassConstants' phploc.json)" >> $GITHUB_OUTPUT
+          echo "nonpublic_class_constants=$(jq '.nonPublicClassConstants' phploc.json)" >> $GITHUB_OUTPUT
 
       - name: Send Metrics to DataDog.
         # https://github.com/masci/datadog/releases/tag/v1.4.0
