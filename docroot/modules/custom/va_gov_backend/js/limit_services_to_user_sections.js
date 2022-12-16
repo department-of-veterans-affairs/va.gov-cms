@@ -13,9 +13,8 @@
   var systemFieldOptions = document.querySelectorAll("#edit-field-regional-health-service option");
   var facilityField = document.getElementById("edit-field-facility-location");
   var systemField = document.getElementById("edit-field-regional-health-service");
-  var lovellPattern = /Lovell/i;
-  var lovellTricarePattern = /TRICARE/i;
-  var lovellVaPattern = /VA/i;
+  var lovellVaPattern = /Lovell.*VA/i;
+  var lovellTricarePattern = /Lovell.*TRICARE/i;
   var winnower = function winnower() {
     var pathType = drupalSettings.path.currentPath.split("/")[1];
 
@@ -34,12 +33,10 @@
       i.classList.add("hidden-option");
       if (i.text.includes(adminMatcher)) {
         i.classList.remove("hidden-option");
-      } else if (i.text.search(lovellPattern) > -1 && adminFieldText.search(lovellPattern) > -1) {
-        if (i.text.search(lovellTricarePattern) > -1 && adminFieldText.search(lovellTricarePattern) > -1) {
-          i.classList.remove("hidden-option");
-        } else if (i.text.search(lovellVaPattern) > -1 && adminFieldText.search(lovellVaPattern) > -1) {
-          i.classList.remove("hidden-option");
-        }
+      } else if (i.text.search(lovellVaPattern) > -1 && adminFieldText.search(lovellVaPattern) > -1) {
+        i.classList.remove("hidden-option");
+      } else if (i.text.search(lovellTricarePattern) > -1 && adminFieldText.search(lovellTricarePattern) > -1) {
+        i.classList.remove("hidden-option");
       }
     });
 
@@ -47,12 +44,10 @@
       i.classList.add("hidden-option");
       if (i.text.includes(adminMatcher)) {
         i.classList.remove("hidden-option");
-      } else if (i.text.search(lovellPattern) > -1 && adminFieldText.search(lovellPattern) > -1) {
-        if (i.text.search(lovellTricarePattern) > -1 && adminFieldText.search(lovellTricarePattern) > -1) {
-          i.classList.remove("hidden-option");
-        } else if (i.text.search(lovellVaPattern) > -1 && adminFieldText.search(lovellVaPattern) > -1) {
-          i.classList.remove("hidden-option");
-        }
+      } else if (i.text.search(lovellVaPattern) > -1 && adminFieldText.search(lovellVaPattern) > -1) {
+        i.classList.remove("hidden-option");
+      } else if (i.text.search(lovellTricarePattern) > -1 && adminFieldText.search(lovellTricarePattern) > -1) {
+        i.classList.remove("hidden-option");
       }
     });
   };
