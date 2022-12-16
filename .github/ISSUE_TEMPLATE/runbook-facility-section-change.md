@@ -45,7 +45,9 @@ On the new facility node:
 In the production DB:
 - [ ] Update the migrate_map entry to swap the api ids. (replace old with new) (sql command in drush)
 
+In [Lighthouse Facilties](https://github.com/department-of-veterans-affairs/lighthouse-facilities)
 - [ ] CMS engineer updates the [CSV in Lighthouse](https://github.com/department-of-veterans-affairs/lighthouse-facilities/blob/master/facilities/src/main/resources/websites.csv) with the changed URL, creating a PR, tagging the Lighthouse team and linking to it in Slack with an @mention to a Lighthouse team member 
+
 - [ ] HD notifies editor and any other stakeholders.
 
 
