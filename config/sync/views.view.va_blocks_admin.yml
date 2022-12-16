@@ -4,22 +4,16 @@ status: true
 dependencies:
   config:
     - block_content.type.alert
-    - block_content.type.benefit_promo
-    - block_content.type.news_promo
     - block_content.type.promo
-    - field.storage.block_content.field_administration
     - field.storage.block_content.field_alert_content
     - field.storage.block_content.field_alert_title
     - field.storage.block_content.field_image
     - field.storage.block_content.field_owner
-    - field.storage.block_content.field_promo_headline
     - field.storage.block_content.field_promo_link
-    - field.storage.block_content.field_promo_text
     - image.style.thumbnail
     - taxonomy.vocabulary.administration
     - user.role.authenticated
   module:
-    - better_exposed_filters
     - block_content
     - content_moderation
     - entity_reference_revisions
@@ -28,7 +22,6 @@ dependencies:
     - paragraphs
     - taxonomy
     - user
-    - workbench_access
 id: va_blocks_admin
 label: 'Blocks listing'
 module: views
@@ -750,33 +743,23 @@ display:
           row_class: ''
           default_row_class: true
           columns:
-            info: info
-            id: id
-            revision_user: revision_user
+            field_image: field_image
+            field_promo_link: field_promo_link
             edit_block_content: edit_block_content
-            type: type
             changed: changed
+            title: title
             moderation_state: moderation_state
-            field_administration: field_administration
-            field_promo_headline: field_promo_headline
-            field_promo_text: field_promo_text
+            field_owner: field_owner
           default: changed
           info:
-            info:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            id:
+            field_image:
               sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            revision_user:
+            field_promo_link:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -790,16 +773,16 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            type:
+            changed:
               sortable: true
-              default_sort_order: asc
+              default_sort_order: desc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            changed:
-              sortable: true
-              default_sort_order: desc
+            title:
+              sortable: false
+              default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
@@ -811,22 +794,8 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_administration:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_promo_headline:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_promo_text:
-              sortable: true
+            field_owner:
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
@@ -836,7 +805,7 @@ display:
           sticky: false
           summary: ''
           empty_table: false
-          caption: 'List of V2 homepage blocks'
+          caption: 'List of Promo blocks'
           description: ''
       row:
         type: fields
@@ -1335,9 +1304,13 @@ display:
           separator: ', '
           field_api_classes: false
       defaults:
+        style: true
+        row: true
         fields: false
       display_description: ''
-      display_extenders: {  }
+      display_extenders:
+        jsonapi_views:
+          enabled: true
       path: admin/content/promos
       menu:
         type: tab
@@ -1863,8 +1836,84 @@ display:
         operator: AND
         groups:
           1: AND
+      style:
+        type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          columns:
+            info: info
+            field_alert_title: field_alert_title
+            field_alert_content: field_alert_content
+            edit_block_content: edit_block_content
+            moderation_state: moderation_state
+            field_owner: field_owner
+            changed: changed
+          default: changed
+          info:
+            info:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_alert_title:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_alert_content:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            edit_block_content:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            moderation_state:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_owner:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            changed:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          override: true
+          sticky: false
+          summary: ''
+          empty_table: false
+          caption: 'List of Alert blocks'
+          description: ''
+      row:
+        type: fields
+        options: {  }
       defaults:
         title: false
+        style: false
+        row: false
         relationships: false
         fields: false
         filters: false
@@ -1885,6 +1934,8 @@ display:
           content: '<p>You can <a href="/block/add/alert?destination=/admin/content/alerts">create an alert</a> to highlight time-sensitive content, usually at the top of a page.  Alerts can be created and then added to an existing page, or can be added directly from certain types of content.</p>'
           tokenize: false
       display_extenders:
+        jsonapi_views:
+          enabled: true
         views_merge_rows: {  }
       path: admin/content/alerts
       menu:
