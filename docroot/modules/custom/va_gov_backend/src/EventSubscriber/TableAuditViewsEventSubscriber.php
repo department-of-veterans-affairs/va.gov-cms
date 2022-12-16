@@ -114,7 +114,12 @@ class TableAuditViewsEventSubscriber implements EventSubscriberInterface {
             }
           }
           else {
-             unset($view->result[$key]);
+            $str = 'This paragraph is not in the current revision of its top level parent.';
+            $value->_entity->set('field_table', [
+              'caption' => $str,
+              'format' => 'rich_text',
+              'value' => [[$str]],
+            ]);
           }
         }
       }
