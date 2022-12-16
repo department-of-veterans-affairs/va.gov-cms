@@ -159,7 +159,8 @@ function vagovclaro_preprocess_field(&$variables) {
     ->getFieldDefinitions($element['#entity_type'], $element['#bundle']);
   /** @var \Drupal\Core\Field\BaseFieldDefinition $field_def */
   $field_def = $field_defs[$element['#field_name']];
-  $variables['description'] = str_replace('"', "'", $field_def->getDescription());
+  $description = $field_def->getDescription() ?? '';
+  $variables['description'] = str_replace('"', "'", $description);
 }
 
 /**
@@ -269,7 +270,8 @@ function _vagovclaro_sort_and_alter_vetcenter_services(array &$variables) {
       if (!empty($form[$key]['form'])) {
         // Turn our required and name values into a string that can be used for
         // sorting.
-        $required_value = (string) $rows[$key]['req_optional']['#markup'] === 'Optional' ? 'z' : 'Required';
+        $markup = $rows[$key]['req_optional']['#markup'] ?? '';
+        $required_value = $markup === 'Optional' ? 'z' : 'Required';
         $format_required_value = strtolower(str_replace(' ', '-', $required_value));
         $format_name_value = strtolower(str_replace(' ', '-', $cells['label']['#markup']));
 
