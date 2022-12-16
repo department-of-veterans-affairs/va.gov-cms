@@ -298,7 +298,8 @@
             "drupal/console-extend-plugin": true,
             "mouf/nodejs-installer": true,
             "oomphinc/composer-installers-extender": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "topfloor/composer-cleanup-vcs-dirs": true
         }
     },
     "extra": {
@@ -542,23 +543,24 @@
             "# This will allow you to run any command in the ./bin directory without a path.",
             "echo \"export PATH=${PATH}\""
         ],
+        "remove-git-dirs": [
+            "echo \"Removing .git sub-directories...\"",
+            "find . -mindepth 2 -type d -name .git -not -path './docroot/vendor/va-gov/content-build/.git' | xargs rm -rf"
+        ],
         "pre-install-cmd": [
             "mkdir -p vendor",
             "[ -f .env ] || cp .env.example .env"
         ],
         "post-install-cmd": [
             "mkdir --parents docroot/profiles",
-            "# The rm post-merge command below can be removed after we think all engineers have run composer install.",
-            "rm -rf .git/hooks/post-merge",
             "cp -r 'hooks/git/.' '.git/hooks/'",
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
             "ln -snf 'docroot/vendor/simplesamlphp/simplesamlphp/' 'simplesamlphp'",
             "ln -snf 'docroot/vendor/simplesamlphp/saml2/' 'saml2'",
             "cp -r 'simplesamlphp-config-metadata/config' 'simplesamlphp-config-metadata/metadata' 'docroot/vendor/simplesamlphp/simplesamlphp/'",
-            "echo 'Removing deleted .git/hooks/commit-msg file, no longer used.'",
-            "rm -f .git/hooks/commit-msg",
             "git update-index --skip-worktree samlsessiondb.sq3",
-            "rm -r vendor"
+            "rm -r vendor",
+            "@remove-git-dirs"
         ],
         "pre-update-cmd": [
             "mkdir -p vendor",
@@ -567,7 +569,8 @@
         "post-update-cmd": [
             "cp -r 'hooks/git/.' '.git/hooks/'",
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
-            "rm -r vendor"
+            "rm -r vendor",
+            "@remove-git-dirs"
         ],
         "nuke": [
             "rm -rf bin node_modules docroot/libraries docroot/core docroot/modules/contrib docroot/themes/contrib docroot/profiles/contrib/ docroot/vendor /var/www/.cache/yarn",
