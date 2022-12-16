@@ -27,29 +27,26 @@
 
     var adminFieldText = adminField.options[adminField.selectedIndex].text;
 
-    var adminMatcher = adminFieldText.replace(/(^-+)/g, "");
+    var adminMatcher = void 0;
+    if (adminFieldText.search(lovellTricarePattern) > -1) {
+      adminMatcher = "Lovell Federal TRICARE health care";
+    } else if (adminFieldText.search(lovellVaPattern) > -1) {
+      adminMatcher = "Lovell Federal VA health care";
+    } else {
+      adminMatcher = adminFieldText.replace(/(^-+)/g, "");
+    }
 
-    facilityFieldOptions.forEach(function (i) {
-      i.classList.add("hidden-option");
-      if (i.text.includes(adminMatcher)) {
-        i.classList.remove("hidden-option");
-      } else if (i.text.search(lovellVaPattern) > -1 && adminFieldText.search(lovellVaPattern) > -1) {
-        i.classList.remove("hidden-option");
-      } else if (i.text.search(lovellTricarePattern) > -1 && adminFieldText.search(lovellTricarePattern) > -1) {
-        i.classList.remove("hidden-option");
-      }
-    });
+    function hideSeekShow(domElement) {
+      domElement.forEach(function (i) {
+        i.classList.add("hidden-option");
+        if (i.text.includes(adminMatcher)) {
+          i.classList.remove("hidden-option");
+        }
+      });
+    }
 
-    systemFieldOptions.forEach(function (i) {
-      i.classList.add("hidden-option");
-      if (i.text.includes(adminMatcher)) {
-        i.classList.remove("hidden-option");
-      } else if (i.text.search(lovellVaPattern) > -1 && adminFieldText.search(lovellVaPattern) > -1) {
-        i.classList.remove("hidden-option");
-      } else if (i.text.search(lovellTricarePattern) > -1 && adminFieldText.search(lovellTricarePattern) > -1) {
-        i.classList.remove("hidden-option");
-      }
-    });
+    hideSeekShow(facilityFieldOptions);
+    hideSeekShow(systemFieldOptions);
   };
 
   Drupal.behaviors.vaGovLimitServiceOptions = {

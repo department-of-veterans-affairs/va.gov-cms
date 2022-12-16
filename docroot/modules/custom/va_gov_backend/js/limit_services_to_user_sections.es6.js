@@ -36,50 +36,29 @@
       systemField.selectedIndex = "_none";
     }
 
-    // Get our base match text string.
     const adminFieldText = adminField.options[adminField.selectedIndex].text;
     // Get our search string from the field text.
-    const adminMatcher = adminFieldText.replace(/(^-+)/g, "");
-    // Winnow facility field options that don't contain adminMatcher.
-    facilityFieldOptions.forEach((i) => {
-      // Apply reset everytime we fire.
-      i.classList.add("hidden-option");
-      if (i.text.includes(adminMatcher)) {
-        i.classList.remove("hidden-option");
-      } else if (
-        // Check for LoVell VA
-        i.text.search(lovellVaPattern) > -1 &&
-        adminFieldText.search(lovellVaPattern) > -1
-      ) {
-        i.classList.remove("hidden-option");
-      } else if (
-        // Check for LoVell TRICARE
-        i.text.search(lovellTricarePattern) > -1 &&
-        adminFieldText.search(lovellTricarePattern) > -1
-      ) {
-        i.classList.remove("hidden-option");
-      }
-    });
-    // Winnow system field options that don't contain adminMatcher.
-    systemFieldOptions.forEach((i) => {
-      // Apply reset everytime we fire.
-      i.classList.add("hidden-option");
-      if (i.text.includes(adminMatcher)) {
-        i.classList.remove("hidden-option");
-      } else if (
-        // Check for LoVell VA
-        i.text.search(lovellVaPattern) > -1 &&
-        adminFieldText.search(lovellVaPattern) > -1
-      ) {
-        i.classList.remove("hidden-option");
-      } else if (
-        // Check for LoVell TRICARE
-        i.text.search(lovellTricarePattern) > -1 &&
-        adminFieldText.search(lovellTricarePattern) > -1
-      ) {
-        i.classList.remove("hidden-option");
-      }
-    });
+    let adminMatcher;
+    if (adminFieldText.search(lovellTricarePattern) > -1) {
+      adminMatcher = "Lovell Federal TRICARE health care";
+    } else if (adminFieldText.search(lovellVaPattern) > -1) {
+      adminMatcher = "Lovell Federal VA health care";
+    } else {
+      adminMatcher = adminFieldText.replace(/(^-+)/g, "");
+    }
+
+    // Hide all options and only show options matching field text.
+    function hideSeekShow(domElement) {
+      domElement.forEach((i) => {
+        i.classList.add("hidden-option");
+        if (i.text.includes(adminMatcher)) {
+          i.classList.remove("hidden-option");
+        }
+      });
+    }
+
+    hideSeekShow(facilityFieldOptions);
+    hideSeekShow(systemFieldOptions);
   };
 
   Drupal.behaviors.vaGovLimitServiceOptions = {
