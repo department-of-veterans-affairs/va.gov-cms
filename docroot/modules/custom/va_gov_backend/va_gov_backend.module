@@ -2067,6 +2067,28 @@ function va_gov_backend_get_parent_node(Paragraph $paragraph) {
 }
 
 /**
+ * Return the top entity that the paragraph belongs to.
+ *
+ * If the paragraph's parent is a paragraph, recurse up the tree until you
+ * reach a non-paragraph entity.
+ *
+ * @param \Drupal\paragraphs\Entity\Paragraph $paragraph
+ *   The paragraph to find the parent of.
+ *
+ * @return \Drupal\Core\Entity\EntityInterface|null
+ *   If the paragraph is attached to an entity, return the entity, otherwise NULL.
+ */
+function va_gov_backend_get_top_parent_entity(Paragraph $paragraph) {
+  $parent = NULL;
+  /** @var Drupal\paragraphs\Entity\Paragraph $parent */
+  $parent = $paragraph->getParentEntity();
+  if ($parent !== NULL && $parent->getEntityType()->id() === 'paragraph') {
+    $parent = va_gov_backend_get_top_parent_entity($parent);
+  }
+  return $parent;
+}
+
+/**
  * Implements hook_field_views_data_alter().
  *
  * Views integration for timestamp field to filter as a date not a number.
