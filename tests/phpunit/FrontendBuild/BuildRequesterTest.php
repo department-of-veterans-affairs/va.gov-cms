@@ -29,7 +29,7 @@ class BuildRequesterTest extends VaGovUnitTestBase {
   /**
    * {@inheritdoc}
    */
-  public function setUp() {
+  public function setUp() : void {
     parent::setUp();
 
     $this->state = new State(new KeyValueMemoryFactory());
