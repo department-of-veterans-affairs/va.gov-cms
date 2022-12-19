@@ -47,7 +47,7 @@ class DatadogTest extends VaGovExistingSiteBase {
   /**
    * {@inheritdoc}
    */
-  public function setUp() {
+  public function setUp() : void {
     parent::setUp();
     $this->mockClient = HttpClient::create();
     $this->config = ['cms_datadog_api_key' => 'faketestkey'];
