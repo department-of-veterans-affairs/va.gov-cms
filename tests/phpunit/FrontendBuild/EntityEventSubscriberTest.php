@@ -26,7 +26,7 @@ class EntityEventSubscriberTest extends VaGovUnitTestBase {
   /**
    * {@inheritDoc}
    */
-  public function setUp() {
+  public function setUp() : void {
     parent::setUp();
     $container = new Container();
     $container->set('string_translation', $this->getStringTranslationStub());
