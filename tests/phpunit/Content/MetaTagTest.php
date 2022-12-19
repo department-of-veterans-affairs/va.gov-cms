@@ -17,7 +17,7 @@ class MetaTagTest extends VaGovExistingSiteBase {
   /**
    * This comment intentionally left blank.
    */
-  public function setUp() {
+  public function setUp() : void {
     $this->markTestSkipped('this test is flaky and not working correctly. will be re-enabled in #9487.');
   }
 

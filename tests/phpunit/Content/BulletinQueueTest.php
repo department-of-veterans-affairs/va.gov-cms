@@ -31,7 +31,7 @@ class BulletinQueueTest extends VaGovExistingSiteBase {
   /**
    * Wipe the queue clean so we can get reliable counts.
    */
-  public function setUp() {
+  public function setUp() : void {
     parent::setUp();
     $this->deleteQueue();
   }

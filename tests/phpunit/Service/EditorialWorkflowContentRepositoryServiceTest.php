@@ -23,7 +23,7 @@ class EditorialWorkflowContentRepositoryServiceTest extends VaGovExistingSiteBas
   /**
    * {@inheritdoc}
    */
-  public function setUp() {
+  public function setUp() : void {
     parent::setUp();
     $this->editorialWorkflowContentRepository = new EditorialWorkflowContentRepository(\Drupal::database());
   }
