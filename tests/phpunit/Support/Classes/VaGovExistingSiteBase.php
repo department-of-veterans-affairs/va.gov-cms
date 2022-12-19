@@ -17,7 +17,7 @@ abstract class VaGovExistingSiteBase extends ExistingSiteBase {
   /**
    * Executed before each test case.
    */
-  public function setUp() {
+  public function setUp() : void {
     parent::setUp();
     $timestamp = time();
     $date = gmdate(DATE_RFC2822);
@@ -29,7 +29,7 @@ abstract class VaGovExistingSiteBase extends ExistingSiteBase {
   /**
    * Executed after each test case.
    */
-  public function tearDown() {
+  public function tearDown() : void {
     parent::tearDown();
     $timestamp = time();
     $date = gmdate(DATE_RFC2822);
