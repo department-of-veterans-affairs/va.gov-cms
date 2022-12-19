@@ -42,7 +42,7 @@ class PostApiQueueTest extends VaGovExistingSiteBase {
   /**
    * Setup.
    */
-  public function setUp() {
+  public function setUp() : void {
     parent::setUp();
     $queue = new DatabaseQueue('post_api_queue', Database::getConnection());
     $queue->deleteQueue();
