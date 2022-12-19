@@ -130,9 +130,9 @@ class TableAuditViewsEventSubscriber implements EventSubscriberInterface {
    * Check if a node revision uses a paragraph.
    *
    * @param \Drupal\node\Entity\Node $node
-   *  The node to check.
+   *   The node to check.
    * @param array $tree
-   *  The tree of parent entities.
+   *   The tree of parent entities.
    *
    * @return bool
    */
