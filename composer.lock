@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "38ada0ba23243d7a6f8b4af63c0723bc",
+    "content-hash": "603010fe52e7c2ff34986eaa4ac06c75",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -10120,26 +10120,26 @@
         },
         {
             "name": "drupal/node_revision_delete",
-            "version": "1.0.0-rc3",
+            "version": "1.0.0-rc6",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/node_revision_delete.git",
-                "reference": "8.x-1.0-rc3"
+                "reference": "8.x-1.0-rc6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/node_revision_delete-8.x-1.0-rc3.zip",
-                "reference": "8.x-1.0-rc3",
-                "shasum": "5c539e9ac8e4af276cc558a33f1da2a5ad57ac79"
+                "url": "https://ftp.drupal.org/files/projects/node_revision_delete-8.x-1.0-rc6.zip",
+                "reference": "8.x-1.0-rc6",
+                "shasum": "68db55e328bc247a2a16501dd930538961314107"
             },
             "require": {
-                "drupal/core": "^8.7.7 || ^9.0"
+                "drupal/core": "^8.7.7 || ^9.0 || ^10"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0-rc3",
-                    "datestamp": "1600878567",
+                    "version": "8.x-1.0-rc6",
+                    "datestamp": "1668447494",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "RC releases are not covered by Drupal security advisories."
@@ -10147,7 +10147,7 @@
                 },
                 "drush": {
                     "services": {
-                        "drush.services.yml": "^9"
+                        "drush.services.yml": "^9.0 || ^10 || ^11"
                     }
                 }
             },
