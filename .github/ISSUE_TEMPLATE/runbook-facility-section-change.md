@@ -30,26 +30,28 @@ Redirect request:
 
 (These are usually released Wednesday afternoons so you should coordinate the remaining items below around that timeframe)
 
+Update the new facility node:
+- [ ] Change the Facility Locator API ID on the new facility, to the Facility Locator API ID for the old one.
+- [ ] Change the section to the old one
+- [ ] Change the VAMC system to the old one
+- [ ] Update the Menu link (Parent link) to the old system (unable to delete it)
+- [ ] Check the box under URL alias to **Generate automatic URL alias**
+- [ ] Archive the facility with good log message
+- [ ] Manually disable the menu link for this item directly in the system menu
+
 Update the original facility node:
 - [ ] Change the Facility Locator API ID on the old facility, to the Facility Locator API ID for new one
 - [ ] Change the section to the new one
 - [ ] Change the VAMC system to the new one
 - [ ] Update the Menu link (Parent link) to the new system
-- [ ] Save new revision with good log message
-
-Update the new facility node:
-- [ ] Change the Facility Locator API ID on the new facility, to the Facility Locator API ID for the old one.
-- [ ] Change the section to the old one
-- [ ] Change the VAMC system to the old one
-- [ ] Unset the Menu link
-- [ ] Save new revision with good log message
+- [ ] Check the box under URL alias to **Generate automatic URL alias**
+- [ ] Publish changes with good log message
 
 Update related content (VAMC Facility Health Services, VAMC Non-clinical Services, Events, Stories, etc)
 - [ ] Bulk edit the VAMC Facility Health Services for the original Facility (update the section to the new section)
 - [ ] Manually edit each VAMC Facility Health Service (updating the VAMC system health service to use the new system)
-- [ ] Be sure the urls for each update to reflect the change in the URL for the referenced facility
-- [ ] Publish all
-- [ ] Archive the new facility node.
+- [ ] Bulk edit the VAMC Facility Health Services to **Update URL alias**
+- [ ] Bulk edit the VAMC Facility Health services to **Resave content** (now the urls will be correct)
 
 In the production DB:
 - [ ] Remove the migrate_map entry for the new facility
