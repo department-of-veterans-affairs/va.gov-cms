@@ -30,14 +30,14 @@ Please refer to the Knowledge Base article titled "How do I add a facility to my
 - [ ] 4. Communicate with editor (cc VHA Digital Media) to give them go-ahead to complete the content, with this [KB article](https://prod.cms.va.gov/help/vamc/about-locations-content-for-vamcs/how-do-i-add-a-facility-to-my-health-care-system). (See sample notification email below)
 - [ ] 5. When editor has prepared content and let help desk know, reassign this issue to appropriate CMS engineer on Product Support team, for bulk publishing.
 
-    #### Sample notification email:
+    #### Sample notification email for Step 4:
     Hello! You should now be able to edit the draft page for this facility, located at [LINK TO NEW FACILITY DRAFT PAGE ON PROD]
 
     Important: Please make sure that all relevant steps listed within the “How do I add a facility to my health care system?” Knowledge Base article have been completed: https://prod.cms.va.gov/help/vamc/about-locations-content-for-vamcs/how-do-i-add-a-facility-to-my-health-care-system
     
     Once finished, please save this page (and all related VAMC Facility Health Service pages) in the moderation state “Draft." Please do not save them as “Published.”
 
-    Please let us know once your draft is complete, so that we can wrap up the technical process from our end and ensure that the new facility and all linked health services publish to the live site as intended. Thanks!
+    Please let us know when your draft content is complete, so that we can wrap up the technical process from our end before publishing the new facility to VA.gov. Thanks!
 
 #### CMS engineer
 - [ ] 6. CMS engineer bulk publishes nodes and facility.

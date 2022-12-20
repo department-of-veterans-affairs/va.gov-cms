@@ -23,7 +23,7 @@ class ModerationActionsServiceTest extends VaGovExistingSiteBase {
   /**
    * {@inheritdoc}
    */
-  public function setUp() {
+  public function setUp() : void {
     parent::setUp();
     $this->moderationActions = new ModerationActions(\Drupal::currentUser(), \Drupal::time(), \Drupal::entityTypeManager());
   }
