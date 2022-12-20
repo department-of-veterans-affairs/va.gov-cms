@@ -57,6 +57,8 @@ In the production DB:
 - [ ] Remove the migrate_map entry for the new facility
 - [ ] Update the migrate_map entry for the old facility, updating the facility locator api id to the new one (sql command in drush)
 
+**Paste the script to be run here**
+
 In [Lighthouse Facilties](https://github.com/department-of-veterans-affairs/lighthouse-facilities)
 - [ ] CMS engineer updates the [CSV in Lighthouse](https://github.com/department-of-veterans-affairs/lighthouse-facilities/blob/master/facilities/src/main/resources/websites.csv) with the changed URL, creating a PR, tagging the Lighthouse team and linking to it in Slack with an @mention to a Lighthouse team member 
 
