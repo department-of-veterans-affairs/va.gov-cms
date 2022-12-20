@@ -66,7 +66,7 @@ class TableAuditViewsEventSubscriber implements EventSubscriberInterface {
     $this->purger = $purger;
   }
 
- /**
+  /**
    * {@inheritdoc}
    */
   public static function getSubscribedEvents(): array {
@@ -135,6 +135,7 @@ class TableAuditViewsEventSubscriber implements EventSubscriberInterface {
    *   The tree of parent entities.
    *
    * @return bool
+   *   TRUE if the node revision uses the paragraph.
    */
   protected function checkNodeRevisionUsesParagraph(Node $node, array $tree): bool {
     $uses_revisions = [];

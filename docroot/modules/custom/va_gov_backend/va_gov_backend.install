@@ -437,11 +437,12 @@ function va_gov_backend_update_8011() {
   }
 }
 
-  /**
-   * Remove table paragraph 50034.
-   */
-  function va_gov_backend_update_8012() {
+/**
+ * Remove table paragraph 50034.
+ */
+function va_gov_backend_update_8012() {
   $storage = \Drupal::entityTypeManager()->getStorage('paragraph');
+  /** @var \Drupal\paragraphs\ParagraphInterface $table */
   $table = $storage->load('50034');
   $table->delete();
 }
