@@ -23,6 +23,7 @@ assignees: ''
 - [ ] CMS engineer makes bulk alias changes to facility service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
 - [ ] CMS engineer bulk saves fixed titles to facility service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
 - [ ] CMS engineer updates menu title for facility
+- [ ] CMS engineer may also need to directly edit the VAMC System menu to alpha sort the menu item after the title changes
 - [ ] CMS engineer updates Alt text for facility image, if relevant
 - [ ] CMS engineer updates Meta description (TBD: some backwards compatibility for SEM, by including something like ", formerly known as [previous name]".
 - [ ] CMS engineer edit facility node and remove flag `Changed name` then save node
