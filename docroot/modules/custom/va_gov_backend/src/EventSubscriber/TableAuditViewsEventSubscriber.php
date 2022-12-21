@@ -74,7 +74,7 @@ class TableAuditViewsEventSubscriber implements EventSubscriberInterface {
   public function preRender(ViewsPreRenderEvent $event) {
     $view = $event->getView();
     if ($view->id() === 'tables') {
-      foreach ($view->result as $key => $value) {
+      foreach ($view->result as $value) {
         /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
         $paragraph = $value->_entity;
         $tree = [];
