@@ -5,7 +5,7 @@ namespace Drupal\va_gov_backend\EventSubscriber;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
-use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
 use Drupal\va_gov_backend\Service\VaGovUrlInterface;
 use Drupal\views_event_dispatcher\Event\Views\ViewsPreRenderEvent;
 use Drupal\views_event_dispatcher\ViewsHookEvents;
@@ -71,7 +71,7 @@ class TableAuditViewsEventSubscriber implements EventSubscriberInterface {
    *
    * @throws \Exception
    */
-  public function preRender(ViewsPreRenderEvent $event) {
+  public function preRender(ViewsPreRenderEvent $event): void {
     $view = $event->getView();
     if ($view->id() === 'tables') {
       foreach ($view->result as $value) {
@@ -82,7 +82,7 @@ class TableAuditViewsEventSubscriber implements EventSubscriberInterface {
         if ($top_parent) {
           $is_in_current_node = $this->checkNodeRevisionUsesParagraph($top_parent, $tree);
           if ($is_in_current_node) {
-            if ($top_parent->getEntityTypeId() === 'node') {
+            if ($top_parent instanceof NodeInterface) {
               $node = $top_parent;
               $link = Link::fromTextAndUrl($node->getTitle(), $node->toUrl())->toRenderable();
               $content_type = $node->getType();
@@ -96,6 +96,8 @@ class TableAuditViewsEventSubscriber implements EventSubscriberInterface {
               $value->_entity->set('parent_field_name', $this->renderer->renderRoot($va_gov_link));
               $value->_entity->set('revision_id', $this->renderer->renderRoot($section_link));
             }
+            // This can be expanded in the event that a table is used
+            // in entities besides nodes.
             if ($top_parent->getEntityTypeId() !== 'node') {
               $str = 'This paragraph\'s top level parent is not a node.';
               $value->_entity->set('parent_field_name', $str);
@@ -117,15 +119,16 @@ class TableAuditViewsEventSubscriber implements EventSubscriberInterface {
   /**
    * Check if a node revision uses a paragraph.
    *
-   * @param \Drupal\node\Entity\Node $node
+   * @param \Drupal\node\NodeInterface $node
    *   The node to check.
    * @param array $tree
-   *   The tree of parent entities.
+   *   The tree of entities that the paragraph belongs to, contains the field_name
+   *   and the revision_id of all entities in the tree.
    *
    * @return bool
    *   TRUE if the node revision uses the paragraph.
    */
-  protected function checkNodeRevisionUsesParagraph(Node $node, array $tree): bool {
+  protected function checkNodeRevisionUsesParagraph(NodeInterface $node, array $tree): bool {
     $uses_revisions = [];
     foreach ($tree as $value) {
       if ($node->hasField($value['field_name'])) {
