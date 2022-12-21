@@ -99,7 +99,6 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
           'access media overview',
           'access taxonomy overview',
           'access user profiles',
-          'access vamc_operating_statuses entity browser pages',
           'administer menu',
           'administer nodes',
           'administer taxonomy',

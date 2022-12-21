@@ -79,7 +79,7 @@ trait RunsDuringBusinessHours {
     $hour_of_day = $this->getDateFormatterService()->format($currentTime, 'custom', 'G', 'America/New_York', LanguageInterface::LANGCODE_NOT_APPLICABLE);
 
     $is_business_day = (1 <= $day_of_week && $day_of_week <= 5);
-    $is_business_hour = (9 <= $hour_of_day && $hour_of_day < 17);
+    $is_business_hour = (8 <= $hour_of_day && $hour_of_day < 20);
 
     return ($is_business_day && $is_business_hour);
   }
