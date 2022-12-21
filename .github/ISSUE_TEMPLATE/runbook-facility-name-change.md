@@ -15,7 +15,7 @@ assignees: ''
 
 ## Acceptance criteria
 
-- [ ] The H1 title change comes from Lighthouse to Drupal.
+- [ ] The title change comes from Lighthouse to Drupal.
 - [ ] Coordinate with Facilities team to create a [redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E)
 - [ ] CMS engineer locates the newly renamed VAMC Facility (https://prod.cms.va.gov/admin/content/bulk) Search by new name
 - [ ] CMS engineer updates URL alias for this facility
@@ -23,32 +23,28 @@ assignees: ''
 - [ ] CMS engineer makes bulk alias changes to facility service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
 - [ ] CMS engineer bulk saves fixed titles to facility service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
 - [ ] CMS engineer updates menu title for facility
-- [ ] CMS engineer updates Alt text for facility image, if relevant.
+- [ ] CMS engineer updates Alt text for facility image, if relevant
 - [ ] CMS engineer updates Meta description (TBD: some backwards compatibility for SEM, by including something like ", formerly known as [previous name]".
-- [ ] CMS engineer edit facility node and remove flag `Changed name` then save node.
-- [ ] HD notifies editor and any other stakeholders.
+- [ ] CMS engineer edit facility node and remove flag `Changed name` then save node
+- [ ] HD notifies editor and any other stakeholders
 </details>
 
 ## Vet Center – facility name change
 
-- [ ] The H1 title change comes from Lighthouse to Drupal.
-- Is the new official name plain language (Does it match the pattern <city> Vet Center)?
-  - [ ] If yes, update the common name to match (when #6955 Unlock title field on Vet Centers is handled).
-- Is the Vet Center published?
-  - If yes:
-    - [ ] CMS team submits [redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E), cc'ing Facilities team
-    - [ ] Once timing of Redirect going live is known, alert CMS engineers to carry out steps in **Update ready** section below
-  - If no: CMS engineers may continue with **Update ready** section below
-- Update ready
-    - [ ] CMS engineer: visit bulk operations page and filter by section = vet center name
-    - [ ] CMS engineer: update URLs for all content in that section by bulk operations.
-    - [ ] CMS engineer: **if a new section was created** - update field value for section by bulk operations.
-    - [ ] CMS engineer: resave all content in that section by bulk operations.
-    - [ ] CMS engineer edit Vet Center node and remove flag `Changed name` then save node.
-- Is the Vet Center published?
-  - [ ] If no, HD notifies Michelle Middaugh to bulk publish.
-  - [ ] HD notifies editor and any other stakeholders.
-  </details>
+- [ ] The title change comes from Lighthouse to Drupal
+- [ ] If the Vet Center published: CMS team submits [redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E), cc'ing Facilities team
+- [ ] If the Vet Center is not published or once the redirect request has gone live alert CMS engineers to continue steps below
+- [ ] CMS engineer renames the section for this Vet Center to match its new name (Section taxonomy change)
+- [ ] CMS engineer: If the new official name matches the pattern "<city> Vet Center", update the common name to match
+- [ ] CMS engineer visits bulk operations page and filter by section = vet center name
+- [ ] CMS engineer updates URLs for all content in that section by bulk operations
+- [ ] CMS engineer resaves all content in that section by bulk operations
+- [ ] CMS engineer edits Vet Center node and removes flag `Changed name` then saves node
+  
+In [Lighthouse Facilties](https://github.com/department-of-veterans-affairs/lighthouse-facilities)
+- [ ] CMS engineer updates the [CSV in Lighthouse](https://github.com/department-of-veterans-affairs/lighthouse-facilities/blob/master/facilities/src/main/resources/websites.csv) with the changed URL, creating a PR, tagging the Lighthouse team and linking to it in Slack with an @mention to a Lighthouse team member 
+- [ ] HD notifies editor and any other stakeholders.
+</details>
 
 ## CMS Team
 Please check the team(s) that will do this work.
