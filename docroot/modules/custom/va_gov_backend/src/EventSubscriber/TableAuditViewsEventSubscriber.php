@@ -5,7 +5,6 @@ namespace Drupal\va_gov_backend\EventSubscriber;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
-use Drupal\entity_reference_revisions\EntityReferenceRevisionsOrphanPurger;
 use Drupal\node\Entity\Node;
 use Drupal\va_gov_backend\Service\VaGovUrlInterface;
 use Drupal\views_event_dispatcher\Event\Views\ViewsPreRenderEvent;
@@ -41,29 +40,18 @@ class TableAuditViewsEventSubscriber implements EventSubscriberInterface {
   protected $vaGovUrl;
 
   /**
-   * The entity reference revisions orphan purger service.
-   *
-   * @var \Drupal\entity_reference_revisions\EntityReferenceRevisionsOrphanPurger
-   */
-  protected $purger;
-
-  /**
    * ExampleViewsEventSubscribers constructor.
    *
    * @param \Drupal\Core\Render\RendererInterface $renderer
    *   The renderer service.
    * @param \Drupal\va_gov_backend\Service\VaGovUrlInterface $vaGovUrl
    *   The va.gov URL service.
-   * @param \Drupal\entity_reference_revisions\EntityReferenceRevisionsOrphanPurger $purger
-   *   The entity reference revisions orphan purger.
    */
   public function __construct(
     RendererInterface $renderer,
-    VaGovUrlInterface $vaGovUrl,
-  EntityReferenceRevisionsOrphanPurger $purger) {
+    VaGovUrlInterface $vaGovUrl) {
     $this->renderer = $renderer;
     $this->vaGovUrl = $vaGovUrl;
-    $this->purger = $purger;
   }
 
   /**
@@ -114,7 +102,7 @@ class TableAuditViewsEventSubscriber implements EventSubscriberInterface {
             }
           }
           else {
-            $str = 'This paragraph is not in the current revision of its top level parent.';
+            $str = 'This paragraph is not in the current revision of its top level parent. It is safe to ignore.';
             $value->_entity->set('field_table', [
               'caption' => $str,
               'format' => 'rich_text',

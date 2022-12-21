@@ -2076,7 +2076,7 @@ function va_gov_backend_get_parent_node(Paragraph $paragraph) {
  *   The paragraph to find the parent of.
  *
  * @return \Drupal\Core\Entity\EntityInterface|null
- *   If the paragraph is attached to an entity, return the entity, otherwise NULL.
+ *   If the paragraph is attached to an entity, return it, otherwise NULL.
  */
 function va_gov_backend_get_top_parent_entity(Paragraph $paragraph, &$tree) {
   $parent = NULL;
