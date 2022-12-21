@@ -1,0 +1,13 @@
+diff --git a/core/themes/claro/claro.theme b/core/themes/claro/claro.theme
+index d7c49a793e..71a443cd18 100644
+--- a/core/themes/claro/claro.theme
++++ b/core/themes/claro/claro.theme
+@@ -788,7 +788,7 @@ function claro_preprocess_input(&$variables) {
+   }
+ 
+   $type_api = $variables['element']['#type'];
+-  $type_html = $variables['attributes']['type'];
++  $type_html = $variables['attributes']['type'] ?? '';
+   $text_types_html = [
+     'text',
+     'email',
