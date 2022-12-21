@@ -2081,9 +2081,9 @@ function va_gov_backend_get_parent_node(Paragraph $paragraph) {
 function va_gov_backend_get_top_parent_entity(Paragraph $paragraph, &$tree) {
   $parent = NULL;
   $tree[] = [
-      'field_name' => $paragraph->get('parent_field_name')->value,
-      'revision_id' => $paragraph->get('revision_id')->value,
-    ];
+    'field_name' => $paragraph->get('parent_field_name')->value,
+    'revision_id' => $paragraph->get('revision_id')->value,
+  ];
   /** @var Drupal\paragraphs\Entity\Paragraph $parent */
   $parent = $paragraph->getParentEntity();
   if ($parent !== NULL && $parent->getEntityType()->id() === 'paragraph') {
