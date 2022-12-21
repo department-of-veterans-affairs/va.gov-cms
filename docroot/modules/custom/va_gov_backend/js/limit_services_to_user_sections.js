@@ -9,6 +9,8 @@
   var myFacility = "";
 
   var adminField = document.getElementById("edit-field-administration");
+  var adminFieldOptions = document.querySelectorAll("#edit-field-administration option");
+
   var facilityFieldOptions = document.querySelectorAll("#edit-field-facility-location option");
   var systemFieldOptions = document.querySelectorAll("#edit-field-regional-health-service option");
   var facilityField = document.getElementById("edit-field-facility-location");
@@ -47,6 +49,16 @@
 
     hideSeekShow(facilityFieldOptions);
     hideSeekShow(systemFieldOptions);
+
+    function seekHide(domElement, match) {
+      domElement.forEach(function (i) {
+        if (i.text.includes(match)) {
+          i.classList.add("hidden-option");
+        }
+      });
+    }
+
+    seekHide(adminFieldOptions, "Lovell Federal health care");
   };
 
   Drupal.behaviors.vaGovLimitServiceOptions = {

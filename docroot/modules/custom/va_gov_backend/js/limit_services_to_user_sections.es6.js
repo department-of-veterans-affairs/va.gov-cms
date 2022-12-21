@@ -6,6 +6,10 @@
   let myFacility = "";
   // Grab our fields and options.
   const adminField = document.getElementById("edit-field-administration");
+  const adminFieldOptions = document.querySelectorAll(
+    "#edit-field-administration option"
+  );
+
   const facilityFieldOptions = document.querySelectorAll(
     "#edit-field-facility-location option"
   );
@@ -59,6 +63,17 @@
 
     hideSeekShow(facilityFieldOptions);
     hideSeekShow(systemFieldOptions);
+
+    // Seek and hide element based on a string match.
+    function seekHide(domElement, match) {
+      domElement.forEach((i) => {
+        if (i.text.includes(match)) {
+          i.classList.add("hidden-option");
+        }
+      });
+    }
+
+    seekHide(adminFieldOptions, "Lovell Federal health care");
   };
 
   Drupal.behaviors.vaGovLimitServiceOptions = {
