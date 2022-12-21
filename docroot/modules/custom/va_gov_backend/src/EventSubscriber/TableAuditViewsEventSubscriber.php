@@ -122,8 +122,8 @@ class TableAuditViewsEventSubscriber implements EventSubscriberInterface {
    * @param \Drupal\node\NodeInterface $node
    *   The node to check.
    * @param array $tree
-   *   The tree of entities that the paragraph belongs to, contains the field_name
-   *   and the revision_id of all entities in the tree.
+   *   The tree of entities that the paragraph belongs to, contains the
+   *   field_name and the revision_id of all entities in the tree.
    *
    * @return bool
    *   TRUE if the node revision uses the paragraph.
