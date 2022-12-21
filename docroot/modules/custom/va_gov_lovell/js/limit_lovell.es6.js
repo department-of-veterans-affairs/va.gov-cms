@@ -9,17 +9,21 @@
   const adminFieldOptions = document.querySelectorAll(
     "#edit-field-administration option"
   );
-
+  const facilityField = document.getElementById("edit-field-facility-location");
   const facilityFieldOptions = document.querySelectorAll(
     "#edit-field-facility-location option"
+  );
+  const systemField = document.getElementById(
+    "edit-field-regional-health-service"
   );
   const systemFieldOptions = document.querySelectorAll(
     "#edit-field-regional-health-service option"
   );
-  const facilityField = document.getElementById("edit-field-facility-location");
-  const systemField = document.getElementById(
-    "edit-field-regional-health-service"
+  const regionPageOptions = document.querySelectorAll(
+    "#edit-field-region-page option"
   );
+
+  const lovellFederalText = "Lovell Federal health care";
   const lovellVaPattern = /Lovell.*VA/i;
   const lovellTricarePattern = /Lovell.*TRICARE/i;
   const lovellWinnower = () => {
@@ -76,7 +80,8 @@
         }
       });
     }
-    seekHide(adminFieldOptions, "Lovell Federal health care");
+    seekHide(adminFieldOptions, lovellFederalText);
+    seekHide(regionPageOptions, lovellFederalText);
   };
 
   Drupal.behaviors.vaGovLimitLovell = {
