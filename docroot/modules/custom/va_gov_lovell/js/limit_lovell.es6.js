@@ -55,33 +55,38 @@
     }
 
     // If Lovell-y, hide all options and only show options matching field text.
-    function hideSeekShowLovell(domElement) {
+    function hideSeekShowLovell(domElement, textMatch) {
       domElement.forEach((i) => {
         if (i.text.includes("Lovell")) {
           i.classList.add("hidden-option");
-          if (i.text.includes(adminMatcher)) {
+          if (i.text.includes(textMatch)) {
             i.classList.remove("hidden-option");
           }
         }
       });
     }
     if (facilityFieldOptions) {
-      hideSeekShowLovell(facilityFieldOptions);
+      hideSeekShowLovell(facilityFieldOptions, adminMatcher);
     }
     if (systemFieldOptions) {
-      hideSeekShowLovell(systemFieldOptions);
+      hideSeekShowLovell(systemFieldOptions, adminMatcher);
     }
 
     // Seek and hide element based on a string match.
-    function seekHide(domElement, match) {
+    function seekHide(domElement, textMatch) {
       domElement.forEach((i) => {
-        if (i.text.includes(match)) {
+        if (i.text.includes(textMatch)) {
           i.classList.add("hidden-option");
         }
       });
     }
-    seekHide(adminFieldOptions, lovellFederalText);
-    seekHide(regionPageOptions, lovellFederalText);
+
+    if (adminFieldOptions) {
+      seekHide(adminFieldOptions, lovellFederalText);
+    }
+    if (regionPageOptions) {
+      seekHide(regionPageOptions, lovellFederalText);
+    }
   };
 
   Drupal.behaviors.vaGovLimitLovell = {

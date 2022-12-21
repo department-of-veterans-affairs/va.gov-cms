@@ -29,17 +29,17 @@
 
     var adminMatcher = adminFieldText.replace(/(^-+)/g, "");
 
-    function hideSeekShow(domElement) {
+    function hideSeekShow(domElement, textMatch) {
       domElement.forEach(function (i) {
         i.classList.add("hidden-option");
-        if (i.text.includes(adminMatcher)) {
+        if (i.text.includes(textMatch)) {
           i.classList.remove("hidden-option");
         }
       });
     }
 
-    hideSeekShow(facilityFieldOptions);
-    hideSeekShow(systemFieldOptions);
+    hideSeekShow(facilityFieldOptions, adminMatcher);
+    hideSeekShow(systemFieldOptions, adminMatcher);
   };
 
   Drupal.behaviors.vaGovLimitServiceOptions = {

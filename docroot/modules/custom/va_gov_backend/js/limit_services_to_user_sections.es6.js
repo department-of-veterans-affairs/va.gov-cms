@@ -41,17 +41,17 @@
     const adminMatcher = adminFieldText.replace(/(^-+)/g, "");
 
     // Hide all options and only show options matching field text.
-    function hideSeekShow(domElement) {
+    function hideSeekShow(domElement, textMatch) {
       domElement.forEach((i) => {
         i.classList.add("hidden-option");
-        if (i.text.includes(adminMatcher)) {
+        if (i.text.includes(textMatch)) {
           i.classList.remove("hidden-option");
         }
       });
     }
 
-    hideSeekShow(facilityFieldOptions);
-    hideSeekShow(systemFieldOptions);
+    hideSeekShow(facilityFieldOptions, adminMatcher);
+    hideSeekShow(systemFieldOptions, adminMatcher);
   };
 
   Drupal.behaviors.vaGovLimitServiceOptions = {
