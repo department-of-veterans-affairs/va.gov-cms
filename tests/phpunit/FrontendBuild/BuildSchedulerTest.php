@@ -84,7 +84,8 @@ class BuildSchedulerTest extends VaGovUnitTestBase {
   /**
    * Test cases for scheduled build logic.
    *
-   * For reference, scheduled hours are Monday through Friday, 13:00-21:00 GMT.
+   * For reference, scheduled hours are Monday through Friday, 12:00-24:00
+   * (00:00 +1) GMT.
    */
   public function scheduledBuildDataProvider() {
     return [
@@ -155,25 +156,25 @@ class BuildSchedulerTest extends VaGovUnitTestBase {
         TRUE,
       ],
       'weekday, after business hours, build never requested' => [
-        // Mon May 02 2022 22:00:00 GMT+0000.
-        1651528800,
+        // Mon May 03 2022 01:00:00 GMT+0000.
+        1651539600,
         0,
         FALSE,
       ],
       'weekday, after business hours, build requested 65 minutes ago' => [
-        // Mon May 02 2022 22:00:00 GMT+0000.
-        1651528800,
+        // Mon May 03 2022 01:00:00 GMT+0000.
+        1651539600,
         // Mon May 02 2022 20:55:00 GMT+0000.
-        1651524900,
+        1651535700,
         FALSE,
       ],
 
       // Edge cases:
-      // Ensure that business hours end at 5pm -- protect against inadvertently
-      // including 5:59 since we're only checking the hour.
-      'weekday, 5:01pm, build never requested' => [
-        // Mon May 02 2022 21:01:00 GMT+0000.
-        1651525260,
+      // Ensure that business hours end at 8pm ET -- protect against
+      // inadvertently including 8:59 since we're only checking the hour.
+      'weekday, 8:01pm, build never requested' => [
+        // Mon May 03 2022 12:01:00 GMT+0000.
+        1651536060,
         0,
         FALSE,
       ],
