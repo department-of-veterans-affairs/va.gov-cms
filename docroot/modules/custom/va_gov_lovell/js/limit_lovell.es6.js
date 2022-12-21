@@ -6,6 +6,9 @@
   let myFacility = "";
   // Grab our fields and options.
   const adminField = document.getElementById("edit-field-administration");
+  const adminFieldOptions = document.querySelectorAll(
+    "#edit-field-administration option"
+  );
 
   const facilityFieldOptions = document.querySelectorAll(
     "#edit-field-facility-location option"
@@ -17,8 +20,9 @@
   const systemField = document.getElementById(
     "edit-field-regional-health-service"
   );
-
-  const winnower = () => {
+  const lovellVaPattern = /Lovell.*VA/i;
+  const lovellTricarePattern = /Lovell.*TRICARE/i;
+  const lovellWinnower = () => {
     const pathType = drupalSettings.path.currentPath.split("/")[1];
     // Set our selects back to "Select a value." on add forms.
     if (
@@ -38,28 +42,49 @@
 
     const adminFieldText = adminField.options[adminField.selectedIndex].text;
     // Get our search string from the field text.
-    const adminMatcher = adminFieldText.replace(/(^-+)/g, "");
+    let adminMatcher;
+    if (adminFieldText.search(lovellTricarePattern) > -1) {
+      adminMatcher = "Lovell Federal TRICARE health care";
+    }
+    if (adminFieldText.search(lovellVaPattern) > -1) {
+      adminMatcher = "Lovell Federal VA health care";
+    }
 
-    // Hide all options and only show options matching field text.
-    function hideSeekShow(domElement) {
+    // If Lovell-y, hide all options and only show options matching field text.
+    function hideSeekShowLovell(domElement) {
       domElement.forEach((i) => {
-        i.classList.add("hidden-option");
-        if (i.text.includes(adminMatcher)) {
-          i.classList.remove("hidden-option");
+        if (i.text.includes("Lovell")) {
+          i.classList.add("hidden-option");
+          if (i.text.includes(adminMatcher)) {
+            i.classList.remove("hidden-option");
+          }
         }
       });
     }
+    if (facilityFieldOptions) {
+      hideSeekShowLovell(facilityFieldOptions);
+    }
+    if (systemFieldOptions) {
+      hideSeekShowLovell(systemFieldOptions);
+    }
 
-    hideSeekShow(facilityFieldOptions);
-    hideSeekShow(systemFieldOptions);
+    // Seek and hide element based on a string match.
+    function seekHide(domElement, match) {
+      domElement.forEach((i) => {
+        if (i.text.includes(match)) {
+          i.classList.add("hidden-option");
+        }
+      });
+    }
+    seekHide(adminFieldOptions, "Lovell Federal health care");
   };
 
-  Drupal.behaviors.vaGovLimitServiceOptions = {
+  Drupal.behaviors.vaGovLimitLovell = {
     attach() {
       if (myFacility === "" || window.onload) {
-        winnower();
+        lovellWinnower();
       }
-      adminField.addEventListener("change", winnower);
+      adminField.addEventListener("change", lovellWinnower);
       if (facilityField !== null) {
         facilityField.addEventListener("change", function setText() {
           myFacility = facilityField.options[facilityField.selectedIndex].text;

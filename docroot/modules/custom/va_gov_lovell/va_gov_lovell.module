@@ -23,8 +23,10 @@ function va_gov_lovell_form_node_form_alter(array &$form, FormStateInterface &$f
   $form_object = $form_state->getFormObject();
   if ($form_object instanceof EntityForm) {
     $node = $form_object->getEntity();
-    if ($node->bundle() === 'regional_health_care_service_des') {
-      $form['#attached']['library'][] = 'va_gov_lovell/remove_lovell_federal';
+    if ($node->bundle() === 'regional_health_care_service_des' ||
+        $node->bundle() === 'health_care_local_health_service' ||
+        $node->bundle() === 'vha_facility_nonclinical_service') {
+      $form['#attached']['library'][] = 'va_gov_lovell/limit_lovell';
     }
   }
 }
