@@ -46,6 +46,7 @@ Update the original facility node:
 - [ ] Update the Menu link (Parent link) to the new system
 - [ ] Check the box under URL alias to **Generate automatic URL alias**
 - [ ] Publish changes with good log message
+- [ ] Manually move the menu link for this item into alphabetical order in locations section of the menu for its new system
 
 Update related content (VAMC Facility Health Services, VAMC Non-clinical Services, Events, Stories, etc)
 - [ ] Bulk edit the VAMC Facility Health Services for the original Facility (update the section to the new section)
