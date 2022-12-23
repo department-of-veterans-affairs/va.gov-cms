@@ -30,7 +30,6 @@
         "drupal/animated_gif": "^2.0",
         "drupal/auto_entitylabel": "^3.0-beta3",
         "drupal/better_exposed_filters": "^6.0",
-        "drupal/better_field_descriptions": "^1.4",
         "drupal/blazy": "^2.0@RC",
         "drupal/block_content_permissions": "^1.6",
         "drupal/cer": "4.x-dev#f2ff7d6bf2a3e41757b7621a8367ede974750a84",
@@ -41,7 +40,7 @@
         "drupal/config_override_warn": "^1.0",
         "drupal/config_split": "^1.4",
         "drupal/consumer_image_styles": "^4.0",
-        "drupal/consumers": "1.15.0",
+        "drupal/consumers": "1.16.0",
         "drupal/content_lock": "^2.0@alpha",
         "drupal/core-composer-scaffold": "~9.4.0",
         "drupal/core-recommended": "~9.4.0",
@@ -52,7 +51,7 @@
         "drupal/danse_content_moderation": "^2.0",
         "drupal/diff": "^1.0",
         "drupal/dropzonejs": "^2.0",
-        "drupal/dynamic_entity_reference": "^2.0",
+        "drupal/dynamic_entity_reference": "^3.0",
         "drupal/embed": "^1.3",
         "drupal/entity_block": "^1.0@beta",
         "drupal/entity_browser": "^2.4",
@@ -202,11 +201,11 @@
         "symfony/process": "^4.0",
         "symfony/routing": "^4.0",
         "traviscarden/behat-table-comparison": "~0.2",
-        "va-gov/content-build": "^0.0.3154",
+        "va-gov/content-build": "^0.0.3165",
         "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
-        "weitzman/drupal-test-traits": "^1.5.0",
+        "weitzman/drupal-test-traits": "^2.0.1",
         "zaporylie/composer-drupal-optimizations": "^1.2"
     },
     "autoload": {
@@ -298,7 +297,8 @@
             "drupal/console-extend-plugin": true,
             "mouf/nodejs-installer": true,
             "oomphinc/composer-installers-extender": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "topfloor/composer-cleanup-vcs-dirs": true
         }
     },
     "extra": {
@@ -386,13 +386,14 @@
                 "2767243 - Create a theme suggestion for taxonomy terms by view mode": "https://www.drupal.org/files/issues/core-theme-suggestion-for-taxonomy-view-modes-2767243-14.patch",
                 "2775665 - MenuLinkContent updateLink function generates a PHP Warning for override-able keys that are not present in the loaded entity": "https://www.drupal.org/files/issues/2021-09-17/updateLink-2775665-14.patch",
                 "2975602 - Html::serialize() escapes backslash-r to &#13;": "https://www.drupal.org/files/issues/2018-05-27/2975602-2-html_serialize.patch",
-                "Temporary fix for htmlspecialchars deprcation": "patches/temporary_fix_for_htmlspecialchars_deprecation.patch"
+                "Temporary fix for htmlspecialchars deprcation": "patches/temporary_fix_for_htmlspecialchars_deprecation.patch",
+                "Claro claro_preprocess_input()": "patches/drupal-core-claro_preprocess_input.patch"
             },
             "drupal/danse_content_moderation": {
                 "3309657 - Danse 2.2.7 compatibility": "https://www.drupal.org/files/issues/2022-09-14/3309657-danse-2-2-7-compatibility.patch"
             },
             "drupal/decoupled_router": {
-                "3111456 - Unable to resolve path on node in other language than default": "https://www.drupal.org/files/issues/2021-05-05/3111456-34.patch"
+                "3111456 - Unable to resolve path on node in other language than default": "https://www.drupal.org/files/issues/2022-12-01/decouple_router-3111456-resolve-language-issue-58--get-translation.patch"
             },
             "drupal/diff": {
                 "3228798 - Make revisions overview page accessible": "https://www.drupal.org/files/issues/2022-01-21/diff-a11y-3228798-15.patch",
@@ -435,7 +436,7 @@
             },
             "drupal/inline_entity_form": {
                 "3226473 - Opt-in system delete.": "https://www.drupal.org/files/issues/2021-08-03/opt-in-systm-delete-3226473-1.patch",
-                "3061620 - Cancel closes all forms": "https://www.drupal.org/files/issues/2020-04-25/inline_entity_form-close-only-forms-where-close-clicked-3061620-5.patch",
+                "3061620 - Cancel closes all forms": "https://www.drupal.org/files/issues/2022-07-21/inline_entity_form-close-only-forms-where-close-clicked-3061620-13.patch",
                 "3311501 - Add label to weight select field for accessibility": "https://www.drupal.org/files/issues/2022-09-23/Adding_labels_to_weight_selects_for_accessibility.patch"
             },
             "drupal/jsonapi_menu_items": {
@@ -448,7 +449,6 @@
                 "3058121 - Use persistent connections": "https://www.drupal.org/files/issues/2020-09-10/3058121-16.patch"
             },
             "drupal/menu_item_extras": {
-                "3302060 - Invalid argument supplied for foreach() ConfigImportSubscriber.php": "https://www.drupal.org/files/issues/2022-08-05/menu_items_extra_uninstall_config_import_warning.patch",
                 "3210468 - The 'bundle' field is not always populated with the menu name": "https://www.drupal.org/files/issues/2021-04-23/3210468.patch"
             },
             "drupal/message_subscribe": {
@@ -456,9 +456,6 @@
             },
             "drupal/migrate_plus": {
                 "3113461 - Allow properties in str_replace process plugin.": "https://www.drupal.org/files/issues/2020-03-16/migrate_plus-properties_str_replace-2.patch"
-            },
-            "drupal/node_revision_delete": {
-                "3249493 - Not able to delete a revision via the interface": "https://www.drupal.org/files/issues/2022-02-21/3249493-9.patch"
             },
             "drupal/office_hours": {
                 "3227169 - Form fields in table cell missing labels causes accessibility warnings": "https://www.drupal.org/files/issues/2022-03-28/labels-for-accessibility-3227169-11.patch"
@@ -473,7 +470,7 @@
                 "2919186 - Remove button should not be shown on required field": "https://www.drupal.org/files/issues/2020-05-13/hide_field_required_paragraphs_remove_button_1.patch"
             },
             "drupal/pathauto": {
-                "3204586 - Update URL Alias action is only available for nodes + users and does not work with views_bulk_operations": "https://www.drupal.org/files/issues/2021-03-22/pathauto-add_deriver_for_alias_update_action-3204586-19.patch",
+                "3204586 - Update URL Alias action is only available for nodes + users and does not work with views_bulk_operations": "https://www.drupal.org/files/issues/2022-10-28/pathauto-add_deriver_for_alias_update_action-3204586-28_0.patch",
                 "3214658 - Omit nolink items from url path args and add token that uses parent url": "https://www.drupal.org/files/issues/2022-05-08/remove-nolink-args-use-parent-entity-url-3214658-18.patch"
             },
             "drupal/prometheus_exporter": {
@@ -483,7 +480,6 @@
                 "Sentry/Dsn throws a TypeError, blowing up everything.": "patches/raven-catch-typeerror.patch"
             },
             "drupal/schemata": {
-                "3198409 - Plugin definitions are not cached": "https://www.drupal.org/files/issues/2021-02-14/3198409_2.patch",
                 "3190131 - Possibly unnecessary logging in SchemaFactory::create().": "https://www.drupal.org/files/issues/2020-12-28/schemata-remove-logging-statement-3190131-2.patch"
             },
             "drupal/simplesamlphp_auth": {
@@ -507,9 +503,6 @@
                 "3163841 - Fix Undefined index: caption notice": "https://www.drupal.org/files/issues/2020-08-10/tablefield-empty-caption-notice-2.patch",
                 "3176982 - Tablefield input elements have no title or label": "https://www.drupal.org/files/issues/2020-10-14/tablefield-add_title_to_input_elements-3176982-2.patch",
                 "3195203 - Copying caption to value breaks some data exports 3195203": "https://www.drupal.org/files/issues/2021-01-28/tablefield-caption-copied-to-value-3195203-2.patch"
-            },
-            "drupal/taxonomy_entity_index": {
-                "3326616 - Callback must be a valid callback": "https://www.drupal.org/files/issues/2022-12-12/3326616-callback-must-be-a-valid-callback.patch"
             },
             "drupal/textfield_counter": {
                 "3004457 - Prevent form submission when character limit exceeded option does not work": "https://www.drupal.org/files/issues/2018-10-04/textfield_counter-prevent_form_submission_does_not_work-3004457-2.patch",
@@ -542,23 +535,24 @@
             "# This will allow you to run any command in the ./bin directory without a path.",
             "echo \"export PATH=${PATH}\""
         ],
+        "remove-git-dirs": [
+            "echo \"Removing .git sub-directories...\"",
+            "find . -mindepth 2 -type d -name .git -not -path './docroot/vendor/va-gov/content-build/.git' | xargs rm -rf"
+        ],
         "pre-install-cmd": [
             "mkdir -p vendor",
             "[ -f .env ] || cp .env.example .env"
         ],
         "post-install-cmd": [
             "mkdir --parents docroot/profiles",
-            "# The rm post-merge command below can be removed after we think all engineers have run composer install.",
-            "rm -rf .git/hooks/post-merge",
             "cp -r 'hooks/git/.' '.git/hooks/'",
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
             "ln -snf 'docroot/vendor/simplesamlphp/simplesamlphp/' 'simplesamlphp'",
             "ln -snf 'docroot/vendor/simplesamlphp/saml2/' 'saml2'",
             "cp -r 'simplesamlphp-config-metadata/config' 'simplesamlphp-config-metadata/metadata' 'docroot/vendor/simplesamlphp/simplesamlphp/'",
-            "echo 'Removing deleted .git/hooks/commit-msg file, no longer used.'",
-            "rm -f .git/hooks/commit-msg",
             "git update-index --skip-worktree samlsessiondb.sq3",
-            "rm -r vendor"
+            "rm -r vendor",
+            "@remove-git-dirs"
         ],
         "pre-update-cmd": [
             "mkdir -p vendor",
@@ -567,7 +561,8 @@
         "post-update-cmd": [
             "cp -r 'hooks/git/.' '.git/hooks/'",
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
-            "rm -r vendor"
+            "rm -r vendor",
+            "@remove-git-dirs"
         ],
         "nuke": [
             "rm -rf bin node_modules docroot/libraries docroot/core docroot/modules/contrib docroot/themes/contrib docroot/profiles/contrib/ docroot/vendor /var/www/.cache/yarn",
