@@ -12,10 +12,10 @@ Feature: Password policies are enforced
     And I fill in "Current password" with "test"
     And I fill in "Password" with "1"
     And I fill in "Confirm password" with "1"
-    Then I should not see "Fail - The password has a score"
-    Then I should not see "but the policy requires a score"
     And I wait "3" seconds
     And I save the user
+    Then I should not see "password has a score"
+    Then I should not see "but the policy requires a score"
     And I should see "The changes have been saved."
 
   @password_policy
@@ -27,10 +27,10 @@ Feature: Password policies are enforced
     And I fill in "Current password" with "test"
     And I fill in "Password" with "1"
     And I fill in "Confirm password" with "1"
-    Then I should see "Fail - The password has a score"
-    Then I should see "but the policy requires a score"
     And I wait "1" seconds
     And I save the user
+    Then I should see "password has a score"
+    Then I should see "but the policy requires a score"
     And I should not see "The changes have been saved."
     Then I log out
 
