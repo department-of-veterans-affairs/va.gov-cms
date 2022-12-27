@@ -3,6 +3,7 @@
 bail_if_test_failed () {
   if [ $? -ne 0 ]
   then
+    echo $@
     exit 1
   fi
 }
@@ -38,5 +39,11 @@ if [ ${#SCSS_FILES} -gt 0 ]; then
   npm run stylelint ${SCSS_FILES[*]}
   bail_if_test_failed
 fi
+
+SERVICES_ROOT=docroot/sites/default/services
+SERVICES_FILE1="$SERVICES_ROOT/services.staging.yml"
+SERVICES_FILE2="$SERVICES_ROOT/services.prod.yml"
+diff <(yq -P "$SERVICES_FILE1") <(yq -P "$SERVICES_FILE2")
+bail_if_test_failed "Mismatch in ${SERVICES_FILE1} and ${SERVICES_FILE2}; these files should always remain the same."
 
 exit 0
