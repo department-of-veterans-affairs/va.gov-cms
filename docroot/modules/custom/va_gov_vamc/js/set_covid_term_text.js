@@ -32,6 +32,8 @@
       covidStatusTextDiv.id = "covid-safety-guidelines-status-text-target";
       covidStatusTextDiv.innerHTML = drupalSettings.vamcCovidStatusTermText[statusId].name + drupalSettings.vamcCovidStatusTermText[statusId].description;
       fieldset.append(covidStatusTextDiv);
+      iframeDocument = document.querySelector("iframe").contentDocument;
+      iframeDocument.body.innerHTML = drupalSettings.vamcCovidStatusTermText[statusId].name + drupalSettings.vamcCovidStatusTermText[statusId].description;
 
       var covidStatusTextDivPrefix = document.createElement("div");
       covidStatusTextDivPrefix.id = "covid-safety-guidelines-status-text-prefix";
@@ -43,7 +45,15 @@
   Drupal.behaviors.vaGovSetCovidTermText = {
     attach: function attach() {
       window.addEventListener("DOMContentLoaded", textSetter);
-      document.getElementById("group-covid-19-safety-guidelines").addEventListener("click", textSetter);
+      setTimeout(function () {
+
+        var supplemental_status_choices = document.querySelectorAll("[id^='edit-field-supplemental-status-']");
+        function attachListener() {
+          supplemental_status_choices.forEach(function (choice) {
+            document.getElementById(choice.id).addEventListener("click", textSetter);
+          });
+        }
+      }, 10000);
     }
   };
 })(Drupal);

@@ -43,6 +43,11 @@
         drupalSettings.vamcCovidStatusTermText[statusId].name +
         drupalSettings.vamcCovidStatusTermText[statusId].description;
       fieldset.append(covidStatusTextDiv);
+          iframeDocument = document.querySelector("iframe").contentDocument;
+          iframeDocument.body.innerHTML =
+      drupalSettings.vamcCovidStatusTermText[statusId].name +
+        drupalSettings.vamcCovidStatusTermText[statusId].description;
+
 
       // Covid guidelines legend and description.
       const covidStatusTextDivPrefix = document.createElement("div");
@@ -58,9 +63,23 @@
     attach() {
       // Let's set the text on page load, and whenever radios are clicked.
       window.addEventListener("DOMContentLoaded", textSetter);
-      document
-        .getElementById("group-covid-19-safety-guidelines")
-        .addEventListener("click", textSetter);
+      setTimeout(() => {
+
+      const supplemental_status_choices = document.querySelectorAll("[id^='edit-field-supplemental-status-']");
+      function attachListener() {
+        // check if an interval has already been set up
+        supplemental_status_choices.forEach(choice => {
+          document
+          .getElementById(choice.id)
+          .addEventListener("click", textSetter);
+      });
+    }
+  }, 10000);
+  // TODO: fix the null issue
+  /* set_covid_term_text.js?rnkeh2:35 Uncaught TypeError: Cannot read properties of null (reading 'contentDocument')
+    at textSetter (set_covid_term_text.js?rnkeh2:35:56)
+    */
+
     },
   };
 })(Drupal);
