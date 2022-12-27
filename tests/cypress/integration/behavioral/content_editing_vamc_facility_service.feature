@@ -5,7 +5,7 @@ Feature: CMS Users may effectively interact with the VAMC Facility Health Servic
   I need to have certain functionality available
 
   Scenario: Log in and create VAMC Facility Health Service
-    When I am logged in as a user with the "content_admin" role
+    When I am logged in as a user with the "vamc_content_creator" role
     Then I am at "/node/add/health_care_local_health_service"
 
     # Non-Lovell test
