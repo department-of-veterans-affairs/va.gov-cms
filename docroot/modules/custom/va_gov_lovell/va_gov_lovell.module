@@ -24,7 +24,7 @@ function va_gov_lovell_form_node_form_alter(array &$form, FormStateInterface &$f
   $form_object = $form_state->getFormObject();
   if ($form_object instanceof EntityForm) {
     $node = $form_object->getEntity();
-    if (in_array($node->bundle(), bundles_to_remove_lovell_federal_from)) {
+    if (in_array($node->bundle(), $bundles_to_remove_lovell_federal_from)) {
       $form['#attached']['library'][] = 'va_gov_lovell/limit_lovell';
     }
   }
