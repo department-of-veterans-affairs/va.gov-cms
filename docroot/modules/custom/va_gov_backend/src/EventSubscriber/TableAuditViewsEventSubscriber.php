@@ -91,10 +91,10 @@ class TableAuditViewsEventSubscriber implements EventSubscriberInterface {
               $va_gov_link['#attributes'] = ['class' => 'va-gov-url'];
               $section = $node->field_administration->entity;
               $section_link = Link::fromTextAndUrl($section->label(), $section->toUrl())->toRenderable();
-              $value->_entity->set('parent_id', $this->renderer->renderRoot($link));
+              $value->_entity->set('parent_id', $this->renderer->render($link));
               $value->_entity->set('parent_type', $content_type);
-              $value->_entity->set('parent_field_name', $this->renderer->renderRoot($va_gov_link));
-              $value->_entity->set('revision_id', $this->renderer->renderRoot($section_link));
+              $value->_entity->set('parent_field_name', $this->renderer->render($va_gov_link));
+              $value->_entity->set('revision_id', $this->renderer->render($section_link));
             }
             // This can be expanded in the event that a table is used
             // in entities besides nodes.
