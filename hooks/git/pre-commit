@@ -1,15 +1,29 @@
 #!/usr/bin/env bash
 
-branch_name=$(git rev-parse --abbrev-ref HEAD)
-error_msg="Aborting commit. Your branch name must be prefixed with a VAGOV-TEAM-* or VACMS-* Github issue number format, e.g. 'VAGOV-TEAM-123-issue-name or VACMS-123-issue-name. Use \`git branch --move <VACMS-0000-new-name>\` to rename."
-# Regular expression to validate that the branch name starts with Jira story ID, e.g. VAGOV-000 or VACMS-000.
-no_match_vagov=1; [[ $branch_name =~ VAGOV-TEAM-[0-9]+ ]] && no_match_vagov=0
-no_match_vacms=1; [[ $branch_name =~ VACMS-[0-9]+ ]] && no_match_vacms=0
+# Check a specified branch name against a list of allowed patterns.
+function check_branch_name() {
+  case $1 in 
+    VAGOV-TEAM-[0-9]* | VACMS-[0-9]* | dependabot/* | revert-*) return 0;;
+    *) return 1;;
+  esac
+}
 
-if [ $no_match_vagov == 1 ] && [ $no_match_vacms == 1 ]; then
-    echo "${error_msg}" >&2
-    exit 1
-fi
+# Indicate an error with the branch name.
+function branch_name_error() {
+  cat <<-EOF >&2
+    Aborting commit. Your branch name must be prefixed with one of the following:
+      - a VAGOV-TEAM-* or VACMS-* Github issue number format, 
+        e.g. VAGOV-TEAM-123-issue-name or VACMS-123-issue-name. 
+      - dependabot/* (for work on Dependabot PRs)
+      - revert-* (for work on GitHub-initiated revert PRs)
+
+    Use e.g. \`git branch --move <VACMS-0000-new-name>\` to rename.
+EOF
+  exit 1
+}
+
+branch_name=$(git rev-parse --abbrev-ref HEAD)
+check_branch_name "${branch_name}" || branch_name_error
 
 # If ddev is running, run the lints there.
 if [ -x "$(command -v ddev)" ] && docker ps | grep ddev > /dev/null; then

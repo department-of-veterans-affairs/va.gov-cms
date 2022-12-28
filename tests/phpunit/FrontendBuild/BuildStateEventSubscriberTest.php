@@ -46,7 +46,7 @@ class BuildStateEventSubscriberTest extends VaGovUnitTestBase {
   /**
    * {@inheritdoc}
    */
-  public function setUp() {
+  public function setUp() : void {
     parent::setUp();
 
     $this->state = new State(new KeyValueMemoryFactory());
@@ -262,9 +262,9 @@ class BuildStateEventSubscriberTest extends VaGovUnitTestBase {
       'no' => [
         'weekend, before business hours' => SpecifiedTime::createFromTime(1651402800),
         'weekend, during business hours' => SpecifiedTime::createFromTime(1651413600),
-        'weekend, after business hours' => SpecifiedTime::createFromTime(1651442400),
+        'weekend, after business hours' => SpecifiedTime::createFromTime(1651453200),
         'weekday, before business hours' => SpecifiedTime::createFromTime(1651489200),
-        'weekday, after business hours' => SpecifiedTime::createFromTime(1651528800),
+        'weekday, after business hours' => SpecifiedTime::createFromTime(1651539600),
       ],
       'yes' => [
         'weekday, during business hours' => SpecifiedTime::createFromTime(1651503600),
