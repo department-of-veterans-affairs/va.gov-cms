@@ -140,16 +140,6 @@ tasks:
           fi
         EOF
 
-  test-race-conditions-behat:
-    desc: Testing race conditions.
-    cmds:
-      - cd tests/behat && behat --strict --colors
-
-  test-race-conditions-phpunit:
-    desc: Testing race conditions.
-    cmds:
-      - phpunit --group functional --exclude-group disabled tests/phpunit --colors=always
-
   test-race-conditions:
     desc: Testing race conditions.
     cmds:
@@ -159,7 +149,21 @@ tasks:
     desc: Testing race conditions (inner).
     deps:
       - test-race-conditions-behat
-      - test-race-conditions-phpunit
+      - test-race-conditions-behat
+      - test-race-conditions-behat
+      - test-race-conditions-behat
+      - test-race-conditions-behat
+      - test-race-conditions-behat
+
+  test-race-conditions-behat:
+    desc: Testing race conditions.
+    cmds:
+      - sleep $[ ( $RANDOM % 10 )  + 1 ]s && cd tests/behat && behat --strict --colors
+
+  test-race-conditions-phpunit:
+    desc: Testing race conditions.
+    cmds:
+      - sleep $[ ( $RANDOM % 10 )  + 1 ]s && phpunit --group functional --exclude-group disabled tests/phpunit --colors=always
 
   default:
     desc:
