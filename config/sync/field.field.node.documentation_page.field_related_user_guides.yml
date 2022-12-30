@@ -7,16 +7,20 @@ dependencies:
     - node.type.documentation_page
   module:
     - entity_reference_validators
+    - epp
 third_party_settings:
   entity_reference_validators:
     circular_reference: false
     circular_reference_deep: false
     duplicate_reference: false
+  epp:
+    value: ''
+    on_update: 0
 id: node.documentation_page.field_related_user_guides
 field_name: field_related_user_guides
 entity_type: node
 bundle: documentation_page
-label: Related
+label: 'Related Articles'
 description: ''
 required: false
 translatable: false
