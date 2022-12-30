@@ -9,6 +9,7 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\node\NodeInterface;
 use Drupal\paragraphs\ParagraphInterface;
@@ -17,6 +18,9 @@ use Drupal\va_gov_user\Service\UserPermsService;
 use Drupal\va_gov_vamc\Service\ContentHardeningDeduper;
 use Drupal\va_gov_workflow\Service\Flagger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\StringTranslation\TranslationInterface;
+
 
 // The UID of the CMS Help Desk account subscribing to facility messages.
 const USER_CMS_HELP_DESK_NOTIFICATIONS = 4050;
@@ -25,6 +29,9 @@ const USER_CMS_HELP_DESK_NOTIFICATIONS = 4050;
  * VA.gov VAMC Entity Event Subscriber.
  */
 class EntityEventSubscriber implements EventSubscriberInterface {
+
+  use StringTranslationTrait;
+
 
   /**
    * {@inheritdoc}
@@ -217,8 +224,11 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *
    * @param array $form
    *   The form.
+   *
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
    */
-  public function addCovidStatusTermTextToSettings(array &$form): void {
+  public function addCovidStatusTermTextToSettings(array &$form, FormStateInterface $form_state): void {
     /** @var \Drupal\taxonomy\Entity\Term $term_storage */
     $term_storage = $this->entityTypeManager->getStorage('taxonomy_term');
     $covid_status = [
@@ -230,12 +240,31 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       1035,
     ];
     $terms_text = [];
+    $chosen_term_description = "";
+    $form_object = $form_state->getFormObject();
+    /** @var \Drupal\user\RoleInterface $role */
+    $node = $form_object->getEntity();
+
     foreach ($covid_status as $status) {
       $terms_text[$status]['name'] = $term_storage->load($status)->getName();
       $terms_text[$status]['description'] = $term_storage->load($status)->getDescription();
+      if (isset($node->get("field_supplemental_status")['0']->getValue()['target_id'])) {
+        if ($node->get("field_supplemental_status")['0']->getValue()['target_id'] == $status &&
+        empty($node->get("field_supplemental_status_more_i")['0']->getValue()) ) {
+          $chosen_term_description = $term_storage->load($status)->getDescription();
+        }
+       }
     }
     $form['#attached']['library'][] = 'va_gov_vamc/set_covid_term_text';
     $form['#attached']['drupalSettings']['vamcCovidStatusTermText'] = $terms_text;
+
+    $form['field_supplemental_status_more_i']['widget']['0'] = array(
+      '#type' => 'text_format',
+      '#default_value' => $chosen_term_description,
+    );
+    // $details = $form['field_supplemental_status_more_i']['widget'][0]['#default_value'];
+    // $details = array($this->t($chosen_term_description));
+
   }
 
   /**
@@ -246,7 +275,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function alterFacilityNodeForm(FormIdAlterEvent $event): void {
     $form = &$event->getForm();
-    $this->addCovidStatusTermTextToSettings($form);
+    $formState = $event->getFormState();
+    $this->addCovidStatusTermTextToSettings($form, $formState);
   }
 
   /**
