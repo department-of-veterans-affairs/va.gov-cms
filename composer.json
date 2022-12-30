@@ -356,6 +356,9 @@
         "composer-exit-on-patch-failure": true,
         "patches-ignore": {},
         "patches": {
+            "drupal/auto_entitylabel": {
+                "Reverse bad patch for 3076302": "patches/auto_entitylabel-reverse-3076302-bad.patch"
+            },
             "drupal/cer": {
                 "3197953-5 - Make d9 compatible": "https://www.drupal.org/files/issues/2021-03-19/cer-3197953-5.patch",
                 "3200122 - Remove delete hook": "https://www.drupal.org/files/issues/2021-02-24/delete-hook-added-in-dev-causes-test-failures.patch"
