@@ -9,17 +9,17 @@ Feature: CMS Users may effectively interact with the VAMC Facility Health Servic
     And my workbench access sections are set to "347"
     Then I am at "/node/add/health_care_local_health_service"
 
-    # Lovell TRICARE test
-    Then I select option "----Lovell - TRICARE" from dropdown "Section"
-    I wait 2 seconds
-    Then I select option "Captain James A. Lovell Federal Health Care Center | Lovell Federal TRICARE health care" from dropdown with selector "#edit-field-facility-location"
-    Then I select option "Cardiology at Lovell Federal TRICARE health care" from dropdown with selector "#edit-field-regional-health-service"
-
     # Lovell VA test
     And I select option "----Lovell - VA" from dropdown "Section"
-    I wait 2 seconds
+    And I wait "2" seconds
     Then I select option "Captain James A. Lovell Federal Health Care Center | Lovell Federal VA health care" from dropdown with selector "#edit-field-facility-location"
     Then I select option "Cardiology at Lovell Federal VA health care" from dropdown with selector "#edit-field-regional-health-service"
+
+    # Lovell TRICARE test
+    Then I select option "----Lovell - TRICARE" from dropdown "Section"
+    And I wait "2" seconds
+    Then I select option "Captain James A. Lovell Federal Health Care Center | Lovell Federal TRICARE health care" from dropdown with selector "#edit-field-facility-location"
+    Then I select option "Cardiology at Lovell Federal TRICARE health care" from dropdown with selector "#edit-field-regional-health-service"
 
     # Lovell Federal umbrella test
     Then an option with the text "Lovell Federal health care" from dropdown with selector "#edit-field-administration" should not be visible
@@ -31,7 +31,7 @@ Feature: CMS Users may effectively interact with the VAMC Facility Health Servic
 
     # Non-Lovell test
     Then I select option "---VA Alaska health care" from dropdown "Section"
-    I wait 2 seconds
+    And I wait "2" seconds
     Then I click the button with selector "#edit-group-health-service-and-facilit"
     Then I select option "Anchorage VA Medical Center | VA Alaska health care" from dropdown with selector "#edit-field-facility-location"
     Then I select option "Audiology and speech at VA Alaska health care" from dropdown with selector "#edit-field-regional-health-service"
