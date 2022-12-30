@@ -11,11 +11,13 @@ Feature: CMS Users may effectively interact with the VAMC Facility Health Servic
 
     # Lovell TRICARE test
     Then I select option "----Lovell - TRICARE" from dropdown "Section"
+    I wait 2 seconds
     Then I select option "Captain James A. Lovell Federal Health Care Center | Lovell Federal TRICARE health care" from dropdown with selector "#edit-field-facility-location"
     Then I select option "Cardiology at Lovell Federal TRICARE health care" from dropdown with selector "#edit-field-regional-health-service"
 
     # Lovell VA test
     And I select option "----Lovell - VA" from dropdown "Section"
+    I wait 2 seconds
     Then I select option "Captain James A. Lovell Federal Health Care Center | Lovell Federal VA health care" from dropdown with selector "#edit-field-facility-location"
     Then I select option "Cardiology at Lovell Federal VA health care" from dropdown with selector "#edit-field-regional-health-service"
 
@@ -29,6 +31,7 @@ Feature: CMS Users may effectively interact with the VAMC Facility Health Servic
 
     # Non-Lovell test
     Then I select option "---VA Alaska health care" from dropdown "Section"
+    I wait 2 seconds
     Then I click the button with selector "#edit-group-health-service-and-facilit"
     Then I select option "Anchorage VA Medical Center | VA Alaska health care" from dropdown with selector "#edit-field-facility-location"
     Then I select option "Audiology and speech at VA Alaska health care" from dropdown with selector "#edit-field-regional-health-service"
