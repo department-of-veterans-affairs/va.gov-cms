@@ -100,8 +100,6 @@ tasks:
           output="\$(mktemp -d)/output"
           mkfifo \$output
           (cat \$output&)
-          # @todo: Remove once `jq` is available on Tugboat base preview.
-          apt install -y jq
           result=\$(drush core-requirements --format=json --ignore='update_core,update_contrib,"update status"' --severity=2 | jq '. | length')
           exit_code=\$?
           if [ "$SKIP_REPORTING" -ne 1 ]; then
