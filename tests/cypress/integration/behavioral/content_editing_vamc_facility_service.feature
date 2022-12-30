@@ -4,15 +4,10 @@ Feature: CMS Users may effectively interact with the VAMC Facility Health Servic
   As anyone involved in the project
   I need to have certain functionality available
 
-  Scenario: Log in and create VAMC Facility Health Service
-    When I am logged in as a user with the "content_admin" role
+  Scenario: Log in and create VAMC Facility Health Service as a Lovell editor
+    When I am logged in as a user with the "vamc_content_creator" role
+    And my workbench access sections are set to "347"
     Then I am at "/node/add/health_care_local_health_service"
-
-    # Non-Lovell test
-    Then I select option "---VA Alaska health care" from dropdown "Section"
-    Then I click the button with selector "#edit-group-health-service-and-facilit"
-    Then I select option "Anchorage VA Medical Center | VA Alaska health care" from dropdown with selector "#edit-field-facility-location"
-    Then I select option "Audiology and speech at VA Alaska health care" from dropdown with selector "#edit-field-regional-health-service"
 
     # Lovell TRICARE test
     Then I select option "----Lovell - TRICARE" from dropdown "Section"
@@ -26,3 +21,18 @@ Feature: CMS Users may effectively interact with the VAMC Facility Health Servic
 
     # Lovell Federal umbrella test
     Then an option with the text "Lovell Federal health care" from dropdown with selector "#edit-field-administration" should not be visible
+
+  Scenario: Log in and create VAMC Facility Health Service as a non-Lovell editor
+    When I am logged in as a user with the "vamc_content_creator" role
+    And my workbench access sections are set to "372"
+    Then I am at "/node/add/health_care_local_health_service"
+
+    # Non-Lovell test
+    Then I select option "---VA Alaska health care" from dropdown "Section"
+    Then I click the button with selector "#edit-group-health-service-and-facilit"
+    Then I select option "Anchorage VA Medical Center | VA Alaska health care" from dropdown with selector "#edit-field-facility-location"
+    Then I select option "Audiology and speech at VA Alaska health care" from dropdown with selector "#edit-field-regional-health-service"
+
+    # Lovell Federal umbrella test
+    Then an option with the text "Lovell Federal health care" from dropdown with selector "#edit-field-administration" should not be visible
+
