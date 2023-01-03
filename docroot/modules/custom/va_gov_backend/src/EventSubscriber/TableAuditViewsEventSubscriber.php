@@ -98,7 +98,7 @@ class TableAuditViewsEventSubscriber implements EventSubscriberInterface {
             }
             // This can be expanded in the event that a table is used
             // in entities besides nodes.
-            if ($top_parent->getEntityTypeId() !== 'node') {
+            else {
               $str = 'This paragraph\'s top level parent is not a node.';
               $value->_entity->set('parent_field_name', $str);
             }

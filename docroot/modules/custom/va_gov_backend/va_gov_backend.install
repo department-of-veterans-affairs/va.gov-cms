@@ -438,7 +438,7 @@ function va_gov_backend_update_8011() {
 }
 
 /**
- * Remove table paragraph 50034.
+ * Remove table paragraph 50034, it was a malformed remnant from clone cleanup.
  */
 function va_gov_backend_update_8012() {
   $storage = \Drupal::entityTypeManager()->getStorage('paragraph');
