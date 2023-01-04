@@ -69,7 +69,7 @@ For example, when creating the 'Wilmington health care' demo environment, these 
 1. Clone: Clones the Preview Environment of the database and codebase/filesystem state at the time it was created, and not the current state. <1 minute
 1. Environments are deleted on a PR merge/close by default. "Lock" the environment to prevent deletion.
 1. There should only be one "Base Preview" built on main
-    1. The base preview rebuilds daily at 4pm ET, just after our prod.cms.va.gov daily deployment
+    1. The base preview **refreshes** (_not_ rebuilds) daily at 4pm ET, just after our prod.cms.va.gov daily deployment
 1. You can change the prefix on any environment, all that matters is the token in the URL, e.g. https://pr165-z82nl225gxrzbpcmfxt34th673gtwpmu.tugboat.vfs.va.gov/ will go to the same place as https://rainboxes-z82nl225gxrzbpcmfxt34th673gtwpmu.tugboat.vfs.va.gov/, they are the same. The exception is that if any URL starts with `web-*` then it will be routed to the /docroot/static folder to serve out the static website (vets-website), see .htaccess).
 
 ## Common Tugboat operations
@@ -95,6 +95,7 @@ For example, when creating the 'Wilmington health care' demo environment, these 
 | Want to get the latest .env file | Run a "Refresh" to run the "Build" stage which re-generates the .env file with latest ENV variables. |
 | Use a branch as a base preview for further PRs that will be merged into that branch | Push the base preview branch upstream, then go to branches and click "Build Preview".  From that preview, click "Preview Settings", select "Use this preview as a Base Preview", then select "Branch Base Preview".  PRs representing branches based on the base preview branch will then create previews that use that base preview.| 
 | Send an email and capture it in the Tugboat interface | Manually update the email address of the user in question.|
+| Make changes in the `init` section of `.tugboat/config.yml` | This will require a manual explicit **rebuild** of the base preview image.|
 
 ## Tugboat config testing operations
 | I want to... | Then you should... |
@@ -116,3 +117,4 @@ For example, when creating the 'Wilmington health care' demo environment, these 
 1. You cannot search logs with a browser right now, it is a known issue. The alternative is to use the `tugboat` CLI tool to view logs. e.g. `tugboat log 6148dc56690c680da87db5f2 | grep -i 'error'`. You can get the service ID from the URL bar in the UI. 
 1. You cannot scroll the logs while they are outputting, you can only scroll once they are done. If you want to see previous output then use the Tugboat CLI tool with `tugboat log <service id>` and scroll that way. You can get the service ID from the URL bar in the UI. 
 1. Email cannot be sent to existing users, as their email addresses are blanked during the database sanitization process (see [#6100](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/6100)).  Email to new users, or users whose email addresses have been updated, can be sent and will be captured in the Tugboat interface.
+1. Base preview images are **refreshed** automatically, not **rebuilt**.  This means that certain changes to Tugboat config, e.g. in the `init` phase, must be followed by a manual rebuild operation.  The nightly refresh will not incorporate the new changes.

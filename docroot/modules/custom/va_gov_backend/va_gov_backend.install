@@ -436,3 +436,13 @@ function va_gov_backend_update_8011() {
     Drupal::logger('va_gov_backend')->log(LogLevel::INFO, 'Deleted field_facility_service_hours from service_location.');
   }
 }
+
+/**
+ * Remove table paragraph 50034, it was a malformed remnant from clone cleanup.
+ */
+function va_gov_backend_update_8012() {
+  $storage = \Drupal::entityTypeManager()->getStorage('paragraph');
+  /** @var \Drupal\paragraphs\ParagraphInterface $table */
+  $table = $storage->load('50034');
+  $table->delete();
+}
