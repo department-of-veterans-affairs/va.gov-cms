@@ -6,6 +6,7 @@
   let myFacility = "";
   // Grab our fields and options.
   const adminField = document.getElementById("edit-field-administration");
+
   const facilityFieldOptions = document.querySelectorAll(
     "#edit-field-facility-location option"
   );
@@ -16,7 +17,7 @@
   const systemField = document.getElementById(
     "edit-field-regional-health-service"
   );
-  const lovellPattern = /Lovell/i;
+
   const winnower = () => {
     const pathType = drupalSettings.path.currentPath.split("/")[1];
     // Set our selects back to "Select a value." on add forms.
@@ -35,36 +36,22 @@
       systemField.selectedIndex = "_none";
     }
 
-    // Get our base match text string.
     const adminFieldText = adminField.options[adminField.selectedIndex].text;
     // Get our search string from the field text.
     const adminMatcher = adminFieldText.replace(/(^-+)/g, "");
-    // Winnow facility field options that don't contain adminMatcher.
-    facilityFieldOptions.forEach((i) => {
-      // Apply reset everytime we fire.
-      i.classList.add("hidden-option");
-      if (i.text.includes(adminMatcher)) {
-        i.classList.remove("hidden-option");
-      } else if (
-        i.text.search(lovellPattern) > -1 &&
-        adminFieldText.search(lovellPattern) > -1
-      ) {
-        i.classList.remove("hidden-option");
-      }
-    });
-    // Winnow system field options that don't contain adminMatcher.
-    systemFieldOptions.forEach((i) => {
-      // Apply reset everytime we fire.
-      i.classList.add("hidden-option");
-      if (i.text.includes(adminMatcher)) {
-        i.classList.remove("hidden-option");
-      } else if (
-        i.text.search(lovellPattern) > -1 &&
-        adminFieldText.search(lovellPattern) > -1
-      ) {
-        i.classList.remove("hidden-option");
-      }
-    });
+
+    // Hide all options and only show options matching field text.
+    function hideSeekShow(domElement, textMatch) {
+      domElement.forEach((i) => {
+        i.classList.add("hidden-option");
+        if (i.text.includes(textMatch)) {
+          i.classList.remove("hidden-option");
+        }
+      });
+    }
+
+    hideSeekShow(facilityFieldOptions, adminMatcher);
+    hideSeekShow(systemFieldOptions, adminMatcher);
   };
 
   Drupal.behaviors.vaGovLimitServiceOptions = {
