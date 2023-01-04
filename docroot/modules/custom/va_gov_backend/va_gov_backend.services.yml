@@ -6,7 +6,7 @@ services:
       - { name: event_subscriber }
   va_gov_backend.table_audit_views_event_subscriber:
     class: Drupal\va_gov_backend\EventSubscriber\TableAuditViewsEventSubscriber
-    arguments: ['@renderer', '@va_gov_backend.va_gov_url', '@entity_reference_revisions.orphan_purger']
+    arguments: ['@renderer', '@va_gov_backend.va_gov_url']
     tags:
       - { name: event_subscriber }
   va_gov_backend.orphan_report_views_event_subscriber:
