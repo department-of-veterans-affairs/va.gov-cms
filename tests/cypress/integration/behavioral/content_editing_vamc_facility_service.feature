@@ -5,7 +5,7 @@ Feature: CMS Users may effectively interact with the VAMC Facility Health Servic
   I need to have certain functionality available
 
   Scenario: Log in and create VAMC Facility Health Service as a Lovell editor
-    When I am logged in as a user with the "vamc_content_creator" role
+    When I am logged in as a user with the roles "vamc_content_creator, content_publisher"
     And my workbench access sections are set to "347"
     Then I am at "/node/add/health_care_local_health_service"
 
@@ -25,7 +25,7 @@ Feature: CMS Users may effectively interact with the VAMC Facility Health Servic
     Then an option with the text "Lovell Federal health care" from dropdown with selector "#edit-field-administration" should not be visible
 
   Scenario: Log in and create VAMC Facility Health Service as a non-Lovell editor
-    When I am logged in as a user with the "vamc_content_creator" role
+    When I am logged in as a user with the roles "vamc_content_creator, content_publisher"
     And my workbench access sections are set to "372"
     Then I am at "/node/add/health_care_local_health_service"
 

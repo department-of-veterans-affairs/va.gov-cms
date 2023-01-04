@@ -64,7 +64,7 @@ Cypress.Commands.add("drupalAddUserWithRole", (role, username, password) => {
 
 Cypress.Commands.add("drupalAddUserWithRoles", (roles, username, password) => {
   cy.drupalDrushUserCreate(username, password);
-  roles.forEach(role => cy.drupalDrushUserRoleAdd(role, username, password));
+  roles.forEach(role => cy.drupalDrushUserRoleAdd(username, role));
 
   return cy;
 });
