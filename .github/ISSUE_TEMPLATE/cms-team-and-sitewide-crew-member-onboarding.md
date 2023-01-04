@@ -7,8 +7,6 @@ assignees: ''
 
 ---
 
-<details><summary>Welcome!</summary>
-
 # Welcome to the VA.gov Modernization Team! 👋
 We're thrilled to have you join us on this journey! 🎆🎉🙌
 
@@ -20,26 +18,30 @@ Have fun and we look forward to getting to know you! 😊
 
 Projected start date: <insert_here>
 
+**Team info**
 - Onboarding buddy (short check-in meetings the first week): <insert_here>
 - Team name: <insert_here>
 - Delivery Manager name: <insert_here>
 - Product Manager name: <insert_here>
 - Discipline lead name: <insert_here>
 
-</details>
 
 <details><summary>Day one</summary>
 
-## Day one (ideally led by the Program Manager but Delivery Managers can step in)
+## Day one
 ### How?
 - [ ] Read through our [team norms](https://docs.google.com/document/d/1cs5FePhtR0LIJi63b9ZtqT7T6dphgB584UpfEbejSOc/edit#), which will also give an overview of how we apply the [USDS playbook](https://playbook.cio.gov/) and VA.gov platform [code of conduct](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/policies-work-norms/code-of-conduct.md).
 ### Who?
-- [ ] Who is on the team? Read your [team members' user manuals and copy the template to add your own](https://drive.google.com/drive/u/0/folders/195otsT1IUxi_k8oEU21TUkvEG-6p5YQj?ths).
+- [ ] Who is on the team? Read your [team members' user manuals](https://drive.google.com/drive/u/0/folders/195otsT1IUxi_k8oEU21TUkvEG-6p5YQj?ths) and copy [the template](https://docs.google.com/document/d/1Rvtoo8CQvE7dptcqmMVqmJ_hbKSNWJ983NXkDj_gVg0/edit?usp=share_link) to add your own
+   - [ ] Share your user manual with your team in Slack, once you've created it!
 ### What?
-- [ ] [Onboarding questionnaire](https://drive.google.com/drive/u/0/folders/1fYwNBBbceqRM3qXfes_KEg1QeO-Nkq0q?ths=true) (what do you already know in regards to tooling, context, history, etc)
+- [ ] [Onboarding questionnaire](https://docs.google.com/document/d/17fWcL-5p4T3H7dT2bbw02u_CHEZ0tDlszcoMVLfRqP4/edit?usp=share_link) - copy this template and fill out. Your delivery manager will review with you to fill in gaps.
 - [ ] Contract - Discuss which contract you are on with your Delivery Manager or Program Manager. Your contract will determine your paperwork process.
 - [ ] Read the [VA.gov platform mission and goals](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/VA.gov%20Platform%20Overview%202021.pdf).
-- [ ] Open a VA.gov [Platform onboarding ticket](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=&labels=governance-team%2C+analytics-insights&template=orientation-epic.md&title=Platform+Orientation+Template+%5BYour+name+here%5D). The VA.gov Platform team manages VA.gov tooling and network access. In order to receive access to the SOCKS network proxy (described later), you must complete this Github issue, and attend a Platform orientation. That will result in adding you to the [VFS Platform roster](https://docs.google.com/spreadsheets/d/11dpCJjhs007uC6CWJI6djy3OAvjB8rHB65m0Yj8HXIw/edit?folder=0ALlyxurHpUilUk9PVA#gid=2042046665). If a Platform orientation isn't available for several weeks, sign up for the next available slot, then mention your Delivery manager and/or Clarence on your Platform ticket to expedite SOCKS access.
+- [ ] Open a VA.gov [Platform onboarding ticket](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=&labels=governance-team%2C+analytics-insights&template=orientation-epic.md&title=Platform+Orientation+Template+%5BYour+name+here%5D). 
+    * The VA.gov Platform team manages VA.gov tooling and network access. In order to receive access to the SOCKS network proxy (described later), you must complete this Github issue, and attend a Platform orientation. 
+    * That will result in adding you to the [VFS Platform roster](https://docs.google.com/spreadsheets/d/11dpCJjhs007uC6CWJI6djy3OAvjB8rHB65m0Yj8HXIw/edit?folder=0ALlyxurHpUilUk9PVA#gid=2042046665). 
+    * If a Platform orientation isn't available for several weeks, sign up for the next available slot, then mention your Delivery Manager and/or Program Manager on your Platform ticket to expedite SOCKS access.
 
 </details>
 
@@ -52,19 +54,18 @@ The goals of this week are:
 
 ### Paperwork: 
 - [ ] Wait to receive an email directing you to the paperwork you should fill out for secure access to relevant VA systems. Federal contractors are required to complete many of the same forms as federal employees. If you're not sure which you contract you are on, ask your Delivery Manager.  
-- **PTEMS** contract paperwork information will be sent by Booz Allen Hamilton (BAH/Liberty). If you are PTEMS and use a Mac, you will need to install Microsoft Word in order to use the paperwork checklist provided by your BAH contact. Contact your company's IT for assistance, if needed.  
-- **VFS-CMS** or **Sitewide Crew** contract paperwork will come from A6. 
-- [ ] Complete & submit your initial paperwork per contract instructions, including setting up your fingerprinting appointment. If you are PTEMS in contact with Booz Allen Hamilton, be sure to name your files and zip/encrypt them per the checklist instructions.
+   - **VFS-CMS** or **Sitewide Crew** contract paperwork will come from A6. 
+- [ ] Complete & submit your initial paperwork per contract instructions, including setting up your fingerprinting appointment. 
 - [ ] When you are notified to complete your e-QIP (the online version of the federal standard investigation form, SF 86), it will require a lot of background information. [Review page 7 of the SF 86 guide](https://www.dcsa.mil/Portals/91/Documents/pv/mbi/standard-form-sf-86-guide-for-applicants.pdf) in advance for the list of information you'll need to collect to complete e-QIP
 ### Why?
 - [ ] Why is VA.gov using a Drupal CMS and how is our success measured? Read the [objectives and key results](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/96698383/Product+CMS).
 - [ ] [Watch the Drupal GovCon presentation about the project](https://www.youtube.com/watch?v=WN4bGjEuQdM).
-- [ ] Why are Vet Centers important to Veterans? Watch the [2-minute YouTube video](https://www.youtube.com/watch?v=VMzkZNbKk1I).
 - [ ] Why are VA Medical Centers changing their websites? Watch the [2-minute YouTube video](https://youtu.be/Xrv5wCv6cKY).
+- [ ] Why are Vet Centers important to Veterans? Watch the [2-minute YouTube video](https://www.youtube.com/watch?v=VMzkZNbKk1I).
 ### How?
-- [ ] [How does the team work in an agile environment?](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/sprint-best-practices.md)
-- [ ] How do Agile 6, CivicActions, Friends From The City, and Kind Systems work together on this project? Discuss with the Program Manager.
 - [ ] Who is our team? [View this Mural diagram](https://app.mural.co/t/vagov6717/m/vagov6717/1653588059793/7a260edabca9535d25d71fac1035c979261c223c?sender=u252e7152800e3981889d1910)
+- [ ] [How does the team work in an agile environment?](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/sprint-best-practices.md)
+- [ ] How do Agile 6, CivicActions, Friends From The City, and Kind Systems work together on this project? Discuss with your Delivery Manager.
 - [ ] How does the team fit into the larger OCTO ecosystem? [View this Mural diagram](https://app.mural.co/t/vagov6717/m/vagov6717/1643724063628/1654203c1a0d6c763bbd5c969febf94ec476df79?sender=kevinwalsh8610)
 - [ ] How does OCTO fit into the VA universe? And how is VA structured? [View this Mural diagram](https://app.mural.co/t/vagov6717/m/vagov6717/1646447643431/1cbae3844c54a42877451e7a79706f0be048d740?sender=kevinwalsh8610)
   
@@ -89,39 +90,51 @@ The goal for this week is to get you set up with the tools you need to be succes
   - [ ] Demos
   - [ ] Retros
 ### What products do we support?
+- [ ] Discuss with your Delivery Manager, as this varies a lot by team. Review [this mural](https://app.mural.co/t/vagov6717/m/vagov6717/1658961045082/cedcb1c5c42489e47be37733c73890ef890070ae?sender=u252e7152800e3981889d1910) as a good starting point.
 - [ ] [Review the editor onboarding slides](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/https___prod.cms.va.gov_sites_default_files_2021-07_Welcome%2520to%2520the%2520new%2520VA.gov%2520CMS.pdf).
 - [ ] Read the [product sheets](https://github.com/department-of-veterans-affairs/va.gov-team/raw/master/platform/cms/VA-CMS-Product-Sheets.pdf) (PDF download).
 
-#### All team members need to review the following (note that with the exception of SOCKS, most of the tools will have been setup for you or requested by your Delivery Manager. This list is for you to verify along the way):
--  [ ] Github for issue tracking and document sharing
-    - [ ] [VA.gov request instructions](https://github.com/department-of-veterans-affairs/github-user-requests/issues/new?labels=add-user-to-org%2C+new-user%2C+user-created&template=add-user-to-the-va-organization.md&title=ADD+USER+TO+ORG+-+%5BUSERNAME%5D) - Your Delivery Manager should have already requested this for you so double check with them before submitting a new request.
-    - [ ] [Intro to CMS Team Github](https://github.com/department-of-veterans-affairs/va.gov-cms#readme)
-    - [ ] [CMS team list](https://github.com/orgs/department-of-veterans-affairs/teams/vfs-cms-team/members) - Same as above.
+### Access 
+Regardless of your role, please review these access notes. Your Delivery Manager will have set up most of the tools for you (with the exception of SOCKS). This list is for you to verify along the way:
+
+#### Github for issue tracking and document sharing
+  - [ ] [VA.gov request instructions](https://github.com/department-of-veterans-affairs/github-user-requests/issues/new?labels=add-user-to-org%2C+new-user%2C+user-created&template=add-user-to-the-va-organization.md&title=ADD+USER+TO+ORG+-+%5BUSERNAME%5D) - Your Delivery Manager should have already requested this for you so double check with them before submitting a new request.   
+  - [ ] [Zenhub extension instructions](https://www.zenhub.com/extension) - You'll need to install this on your preferred browser.
+  - [ ] [Intro to CMS Team Github](https://github.com/department-of-veterans-affairs/va.gov-cms#readme)
+  - [ ] [CMS team list](https://github.com/orgs/department-of-veterans-affairs/teams/vfs-cms-team/members) - Same as above. You must be added to this team to contribute in Github.
     - [ ] New to Github and markdown? [Learn about writing on Github](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github) or [watch a tutorial video](https://youtu.be/TBbtbKplUoc)
-    - [ ] [Zenhub extension instructions](https://www.zenhub.com/extension) - You'll need to install this on your preferred browser.
-  
-- [ ] [SOCKS proxy request](https://depo-platform-documentation.scrollhelp.site/getting-started/Internal-tools-access-via-SOCKS-proxy.1821081710.html) to access some VA network tools. The VA network is required for Drupal CMS and other VA tools and usually requires a VA ID card (PIV or Smartcard). Until you get your paperwork approved and ID card, SOCKS proxy is a back door to some of these tools. This is the first priority for week two. For the request, select the label for your team.
-    - [ ] [Platform orientation](https://depo-platform-documentation.scrollhelp.site/getting-started/Calendly-Orientation-Sessions.2133393543.html#CalendlyOrientationSessions-GeneralOrientation). This should have been requested on day one as part of the Platform onboarding ticket but is here as a reminder that this is a blocker for SOCKS access as you'll need to get added to their ecosystem roster in order to proceed.
-   - [ ] [Request a Github personal access token first](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token). You only need to do the "repo" panel in that form and leave the other panels as is. It may take a day or two for the SOCKS proxy request to be fulfilled before you can complete the rest of the SOCKS process. This can be a complex process. Post in CMS-Team Slack channel is you need help from a current member - we're happy to help.
+
+#### Slack for instant messaging. 
+Your Delivery Manager should have already requested this for you, but if not, view the [request instructions](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/orientation/slack-requests.md)
+  - [ ] [Review Slack etiquette](https://slack.com/blog/collaboration/etiquette-tips-in-slack).
+  - [ ] Update your profiles in Slack (in the A6 and DSVA workspaces), add a calendar link
+  - [ ] Your Delivery Manager should add you to appropriate Slack user groups for the DSVA workspace (e.g. `@sitewide-cms-team`, `@platform-cms-team`, `@cms-helpdesk`, `@public-websites-team`, `@facilities-team`. Also `@cms-engineers-group` for eng.)
+
+You should be in the following slack channels:
+ - [ ] A6/agency workspace = `#proj-vagov-team`
+ - [ ] DSVA workspace = `#sitewide-program`, and your team channel e.g. `#cms-team`, `#cms-platform`, `#sitewide-public-websites`, `#sitewide-facilities`
+ - [ ] [This is a description of other channels](https://docs.google.com/spreadsheets/d/1_lZzectbSzs8zt4dvTFJTiPURxa0Kfp3xinYEuZdqq4/edit#gid=0) that ought to be on your radar. Note that many are going to be dependent on which workstream you're in (DevOps, Helpdesk, UX, etc.). Feel free to join whichever you think will aid you and your work. 
+
+#### SOCKS - VA network proxy
+The VA network is required for Drupal CMS and other VA tools and usually requires a VA ID card (PIV or Smartcard). Until you get your paperwork approved and ID card, SOCKS proxy is a back door to some of these tools. This is the first priority for week two. 
+   - [ ] File a [SOCKS proxy request](https://depo-platform-documentation.scrollhelp.site/getting-started/Internal-tools-access-via-SOCKS-proxy.1821081710.html) and select the label for your team. 
+      - [ ] [Platform orientation](https://depo-platform-documentation.scrollhelp.site/getting-started/Calendly-Orientation-Sessions.2133393543.html#CalendlyOrientationSessions-GeneralOrientation). This should have been requested on day one as part of the Platform onboarding ticket but is here as a reminder that this is a blocker for SOCKS access as you'll need to get added to their ecosystem roster in order to proceed.
+   - [ ] [Request a Github personal access token first](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token). You only need to do the "repo" panel in that form and leave the other panels as is. It may take a day or two for the SOCKS proxy request to be fulfilled before you can complete the rest of the SOCKS process. This can be a complex process. Post in #sitewide-program Slack channel if you need help from a current member - we're happy to help.
    - [ ] Optional [Core Tunnel set up for SOCKS proxy on all browsers on Mac](https://www.youtube.com/watch?v=fSuN9LhkB5o)
 
-- [ ] [Learn about the different Drupal environments](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/environments.md)
+#### Drupal 
+  - [ ] [Learn about the different Drupal environments](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/environments.md)
   - [ ] If you are using a non-VA laptop for development you will need [follow the instructions on Github](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/https.md) to trust the VA Root Certificate Authority (CA) in your browser(s)
-  - [ ] Drupal production environment access (SOCKS or VA network required) - ask your Delivery Manager, Product Manager, or CMS Team helpdesk to set up an for you for [prod.cms.va.gov](prod.cms.va.gov). Standard practice is to have minimal access in prod (content editor or even a blocked account) and full admin access in lower environments.
+  - [ ] Drupal production environment access (SOCKS or VA network required) - in DSVA #cms-support channel, use the Slack workflow to file a helpdesk support request. Ask the helpdesk to create a Drupal user for you in [prod.cms.va.gov](prod.cms.va.gov). 
+     * DevOps team members require an administrator account. (SOCKS or VA access with PIV card required)
+     * Standard practice for other roles is to have minimal access in prod (content editor or even a blocked account) and full admin access in lower environments.
   
--  [ ] Tugboat demo environments
-    - [ ] [Tugboat for engineers](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/tugboat.md)
-    - [ ] [Tugboat for non-engineers](https://prod.cms.va.gov/help/demo-environments-tugboat-guides) SOCKS required
+##### Tugboat demo environments (Drupal)
+Tugboat is a development server platform where you can preview CMS code changes pre-production. 
+  - [ ] [Tugboat for engineers](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/tugboat.md)
+  - [ ] [Tugboat for non-engineers](https://prod.cms.va.gov/help/demo-environments-tugboat-guides) SOCKS required
 
- - [ ] [Slack](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/orientation/slack-requests.md) for instant messaging. Your Delivery Manager should have already requested this for you, but if not, view the request instructions in the link above.
-    - [ ] [Review Slack etiquette](https://slack.com/blog/collaboration/etiquette-tips-in-slack).
-    - [ ] Update your profiles in Slack (in the A6 and DSVA workspaces), add a calendar link
-    - [ ] Your Delivery Manager should add you to appropriate Slack user groups for the DSVA workspace (e.g. `@sitewide-cms-team`, `@platform-cms-team`, `@cms-helpdesk`, `@public-websites-team`, `@facilities-team`. Also `@cms-engineers-group` for eng.)
-    - [ ] You should be in the following slack channels:
-      - [ ] A6/agency workspace = `#proj-vagov-team`
-      - [ ] DSVA workspace = `#cms-team`, and your team channel e.g. `#cms-platform`, `#sitewide-public-websites`, `#sitewide-facilities`
-      - [ ] [This is a description of other channels](https://docs.google.com/spreadsheets/d/1_lZzectbSzs8zt4dvTFJTiPURxa0Kfp3xinYEuZdqq4/edit#gid=0) that ought to be on your radar. Note that many are going to be dependent on which workstream you're in (DevOps, Helpdesk, UX, etc.). Feel free to join whichever you think will aid you and your work. Some channels have changed recently.
-  
+#### Other tools / access
 
 - [ ] [Confluence](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/179765342/2020-2021?NO_SSR=1) for team resources and calendar
 
@@ -129,19 +142,19 @@ The goal for this week is to get you set up with the tools you need to be succes
 
 - [ ] [Trello](https://trello.com/vacmsteam) for project management
 
+
+
+</details>
+
+<details><summary>Discipline specific onboarding (UX, developers, helpdesk, etc.)</summary>
+
+## Keep only the discipline that applies to you below. Delete the other disciplines.
+
 - [ ] What do I need to know about my discipline on this team (DevOps, Engineering, Helpdesk, ID, UX)? Discuss with your discipline lead.
 
 - [ ] What applications or discipline-specific tools are needed? Discuss with your discipline lead.
 
-- [ ] Schedule a touchpoint with our Change Management specialist, Denise Eisner to learn how the practice plays out on our project.
-
-</details>
-
-<details><summary>Discipline specific onboarding (UX, developers, helpdesk, etc..)</summary>
-
-<Keep only the discipline that applies to you below, delete the other disciplines.>
-
-#### Onboarding for Developers
+## Onboarding for Developers
  
  - [ ] [VA.gov tools overview](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html)
  - [ ] [Access to dev & staging to be able to replicate the SSO piece of the login experience](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/5838) (SOCKS or VA access with PIV card required)
@@ -149,7 +162,13 @@ The goal for this week is to get you set up with the tools you need to be succes
  - [ ] Review the [VA.gov Design System](https://design.va.gov/) which includes [how to provide feedback](https://design.va.gov/documentation/feedback)
  - [ ] Browse the [CMS topic dives videos](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/1714094110/CMS+Topic+Dives)
 
-#### Onboarding for DevOps members
+ **VA Platform documentation**
+ - [ ] Deployments: https://depo-platform-documentation.scrollhelp.site/developer-docs/deployments
+  - [ ] [Deployment crib notes](https://docs.google.com/spreadsheets/d/164H07n4FChg-JxJZu964nfg2wAX0kPD0SjTfZMhzj_I/edit#gid=0) with detail re: various repos, timings, & support
+ - [ ] Front-end workflow: https://depo-platform-documentation.scrollhelp.site/developer-docs/frontend-workflow
+ - [ ] [Front-end steps to run & build VA.gov locally](https://depo-platform-documentation.scrollhelp.site/developer-docs/run-and-build-va-gov-locally)
+
+## Onboarding for DevOps members
  
  - [ ] [VA.gov tools overview](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html)
  - [ ] [IAM/SSO lower environment access](https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/blob/master/platform/cms/cms-sso-saml-iam-login-braindump.md#testing-login)
@@ -159,11 +178,10 @@ The goal for this week is to get you set up with the tools you need to be succes
  - [ ] [AWS](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html#Requestaccesstotools-Requestaccess) (SOCKS required)
    - [ ] And request to be added to the `adhoc-vetsgov-devops` group.
  - [ ] sshuttle
-- [ ] Contact CMS helpdesk on cms-team Slack for an administrator account on the [Drupal production environment](https://prod.cms.va.gov/) (SOCKS or VA access with PIV card required)
 - [ ] [Access to dev & staging to be able to replicate the SSO piece of the login experience](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/5838) (SOCKS or VA access required)
 - [ ] Browse the [CMS topic dives videos](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/1714094110/CMS+Topic+Dives)
 
-#### Onboarding for User Support members
+## Onboarding for User Support members
  - [ ] [Review the helpdesk Github repo](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/platform/cms/helpdesk).
  - [ ] [Review the helpdesk Google Drive](https://drive.google.com/drive/folders/1opC6DgZyBQ6uEVzIz3FWmISMLt-Y91ts).
  - [ ] [Jira Service Desk](https://va-gov.atlassian.net/jira/servicedesk/projects/VAHELP)
@@ -177,10 +195,10 @@ The goal for this week is to get you set up with the tools you need to be succes
    - [ ] [Watch the training video that VA Medical Center (VAMC) editors have to complete](https://youtu.be/Sowgt1rOmlE).
    - [ ] [Watch the training video that Vet Center editors have to complete](https://youtu.be/scuC5lSHZuw).
 
-#### Onboarding for Product Management members
+## Onboarding for Product Management members
  - [ ] Review [onboarding docs](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/PM/)
 
-#### Onboarding for UX members
+## Onboarding for UX members
 - [ ] Attend design onboarding call 1: You are here
    - You'll get an invite during Week 3-ish.
 - [ ] Attend design onboarding call 2: Partners

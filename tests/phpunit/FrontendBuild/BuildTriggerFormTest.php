@@ -24,7 +24,7 @@ class BuildTriggerFormTest extends VaGovExistingSiteBase {
   /**
    * {@inheritdoc}
    */
-  public function setUp() {
+  public function setUp() : void {
     parent::setUp();
 
     // Store the default environment so that we may later revert to it.
