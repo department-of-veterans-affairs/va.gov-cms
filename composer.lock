@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "04870b93052b766da4c255ddf4b7576a",
+    "content-hash": "ef3f2f38b53966cb1ed22b2f07436844",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -3236,35 +3236,38 @@
         },
         {
             "name": "drupal/auto_entitylabel",
-            "version": "3.0.0-beta3",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/auto_entitylabel.git",
-                "reference": "8.x-3.0-beta3"
+                "reference": "8.x-3.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/auto_entitylabel-8.x-3.0-beta3.zip",
-                "reference": "8.x-3.0-beta3",
-                "shasum": "466358949b485461a77d600e3aa27af7b72b4eec"
+                "url": "https://ftp.drupal.org/files/projects/auto_entitylabel-8.x-3.0.zip",
+                "reference": "8.x-3.0",
+                "shasum": "8dd54d4b677f2c7259a15afd7b71d0d1b6f6b4a6"
             },
             "require": {
-                "drupal/core": "^8 || ^9"
+                "drupal/core": "^9.3 || ^10"
+            },
+            "require-dev": {
+                "drupal/token": "^1.0"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-3.0-beta3",
-                    "datestamp": "1595625626",
+                    "version": "8.x-3.0",
+                    "datestamp": "1671545557",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -5952,26 +5955,26 @@
         },
         {
             "name": "drupal/entityqueue",
-            "version": "1.4.0",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/entityqueue.git",
-                "reference": "8.x-1.4"
+                "reference": "8.x-1.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/entityqueue-8.x-1.4.zip",
-                "reference": "8.x-1.4",
-                "shasum": "eb5fd020ae1ebc50381962e3ede51ed8adb5a6b7"
+                "url": "https://ftp.drupal.org/files/projects/entityqueue-8.x-1.5.zip",
+                "reference": "8.x-1.5",
+                "shasum": "7306f80ab03e82a908ccd421fe12d33804a891e0"
             },
             "require": {
-                "drupal/core": "^8.7.7 || ^9"
+                "drupal/core": "^8.7.7 || ^9 || ^10"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.4",
-                    "datestamp": "1670930861",
+                    "version": "8.x-1.5",
+                    "datestamp": "1672826319",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -5984,26 +5987,22 @@
             ],
             "authors": [
                 {
-                    "name": "Andrei Mateescu",
-                    "homepage": "https://www.drupal.org/u/amateescu",
-                    "role": "Maintainer"
+                    "name": "amateescu",
+                    "homepage": "https://www.drupal.org/user/729614"
                 },
                 {
-                    "name": "Jonathan Jordan",
-                    "homepage": "https://www.drupal.org/u/jojonaloha",
-                    "role": "Maintainer"
+                    "name": "jojonaloha",
+                    "homepage": "https://www.drupal.org/user/1579186"
                 },
                 {
                     "name": "quicksketch",
                     "homepage": "https://www.drupal.org/user/35821"
                 }
             ],
-            "description": "The Entityqueue module allows users to create queues of any entity type.",
+            "description": "Allows users to collect entities in arbitrarily ordered lists.",
             "homepage": "https://www.drupal.org/project/entityqueue",
             "support": {
-                "source": "http://cgit.drupalcode.org/entityqueue",
-                "issues": "https://www.drupal.org/project/issues/entityqueue",
-                "irc": "irc://irc.freenode.org/drupal-contribute"
+                "source": "https://git.drupalcode.org/project/entityqueue"
             }
         },
         {
@@ -9809,8 +9808,8 @@
                     "dev-5.x": "5.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-5.1+3-dev",
-                    "datestamp": "1650661352",
+                    "version": "8.x-5.1+6-dev",
+                    "datestamp": "1672419787",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -12350,17 +12349,17 @@
         },
         {
             "name": "drupal/taxonomy_entity_index",
-            "version": "1.10.0",
+            "version": "1.11.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/taxonomy_entity_index.git",
-                "reference": "8.x-1.10"
+                "reference": "8.x-1.11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/taxonomy_entity_index-8.x-1.10.zip",
-                "reference": "8.x-1.10",
-                "shasum": "e0c7dee08dfd9fbf81ec9f97709e8e0e63d4daa4"
+                "url": "https://ftp.drupal.org/files/projects/taxonomy_entity_index-8.x-1.11.zip",
+                "reference": "8.x-1.11",
+                "shasum": "2a53abf760c90d615c5138ebdb923791c03585cb"
             },
             "require": {
                 "drupal/core": "^8 || ^9 || ^10"
@@ -12368,8 +12367,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.10",
-                    "datestamp": "1671057087",
+                    "version": "8.x-1.11",
+                    "datestamp": "1672810352",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -13275,20 +13274,20 @@
         },
         {
             "name": "drupal/workbench_access",
-            "version": "1.1.0",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/workbench_access.git",
-                "reference": "8.x-1.1"
+                "reference": "2.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/workbench_access-8.x-1.1.zip",
-                "reference": "8.x-1.1",
-                "shasum": "9546c6c0269e5883551abab1f9b51d2d363404ae"
+                "url": "https://ftp.drupal.org/files/projects/workbench_access-2.0.0.zip",
+                "reference": "2.0.0",
+                "shasum": "72acace889ccfc907395329e66c905aa2952c9df"
             },
             "require": {
-                "drupal/core": "^8.7.7 || ^9"
+                "drupal/core": "^9 || ^10"
             },
             "require-dev": {
                 "drupal/inline_entity_form": "*"
@@ -13296,8 +13295,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.1",
-                    "datestamp": "1663772820",
+                    "version": "2.0.0",
+                    "datestamp": "1672771977",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -18874,16 +18873,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.9.4",
+            "version": "1.9.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "d03bccee595e2146b7c9d174486b84f4dc61b0f2"
+                "reference": "0501435cd342eac7664bd62155b1ef907fc60b6f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/d03bccee595e2146b7c9d174486b84f4dc61b0f2",
-                "reference": "d03bccee595e2146b7c9d174486b84f4dc61b0f2",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/0501435cd342eac7664bd62155b1ef907fc60b6f",
+                "reference": "0501435cd342eac7664bd62155b1ef907fc60b6f",
                 "shasum": ""
             },
             "require": {
@@ -18913,7 +18912,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.9.4"
+                "source": "https://github.com/phpstan/phpstan/tree/1.9.7"
             },
             "funding": [
                 {
@@ -18929,7 +18928,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-12-17T13:33:52+00:00"
+            "time": "2023-01-04T21:59:57+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -22964,6 +22963,7 @@
                 "issues": "https://github.com/simplesamlphp/twig-configurable-i18n/issues",
                 "source": "https://github.com/simplesamlphp/twig-configurable-i18n"
             },
+            "abandoned": true,
             "time": "2020-08-27T12:51:10+00:00"
         },
         {
@@ -27649,16 +27649,16 @@
         },
         {
             "name": "va-gov/content-build",
-            "version": "v0.0.3167",
+            "version": "v0.0.3168",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/content-build.git",
-                "reference": "6d882e71d1d4f0f15b40e349d46e20da214801f0"
+                "reference": "e8cd52eb8d758380dcd36c671ccc4139d542a7f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/6d882e71d1d4f0f15b40e349d46e20da214801f0",
-                "reference": "6d882e71d1d4f0f15b40e349d46e20da214801f0",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/e8cd52eb8d758380dcd36c671ccc4139d542a7f6",
+                "reference": "e8cd52eb8d758380dcd36c671ccc4139d542a7f6",
                 "shasum": ""
             },
             "type": "node-project",
@@ -27685,9 +27685,9 @@
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/content-build, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
             "support": {
                 "issues": "https://github.com/department-of-veterans-affairs/content-build/issues",
-                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3167"
+                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3168"
             },
-            "time": "2023-01-03T14:29:24+00:00"
+            "time": "2023-01-04T16:19:51+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
