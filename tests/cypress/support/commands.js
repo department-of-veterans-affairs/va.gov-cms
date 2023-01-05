@@ -62,6 +62,13 @@ Cypress.Commands.add("drupalAddUserWithRole", (role, username, password) => {
   return cy.drupalDrushUserRoleAdd(username, role);
 });
 
+Cypress.Commands.add("drupalAddUserWithRoles", (roles, username, password) => {
+  cy.drupalDrushUserCreate(username, password);
+  roles.forEach(role => cy.drupalDrushUserRoleAdd(username, role));
+
+  return cy;
+});
+
 Cypress.Commands.add(
   "iframe",
   { prevSubject: "element" },

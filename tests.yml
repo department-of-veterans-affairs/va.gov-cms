@@ -100,7 +100,7 @@ tasks:
           output="\$(mktemp -d)/output"
           mkfifo \$output
           (cat \$output&)
-          result=\$(drush core-requirements --format=json --ignore='update_core,update_contrib,"update status"' --severity=2 | jq '. | length' | tee \$output)
+          result=\$(drush core-requirements --format=json --ignore='update_core,update_contrib,"update status"' --severity=2 | jq '. | length')
           exit_code=\$?
           if [ "$SKIP_REPORTING" -ne 1 ]; then
             if [ "\$exit_code" -eq 0 ] && [ "\$result" -eq 0 ]; then
@@ -147,4 +147,4 @@ tasks:
       - va/tests/cypress
       - va/tests/phpunit
       - va/tests/content-build-gql
-      #- va/tests/status-error
+      - va/tests/status-error
