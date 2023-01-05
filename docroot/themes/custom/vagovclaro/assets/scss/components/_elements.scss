@@ -33,7 +33,7 @@
 #block-vagovclaro-help,
 #top-get-help-email {
   @include va-helptext;
-  color: var(--va-gray-med);
+  color: var(--va-gray-darkest);
 }
 
 #appointments h2,
@@ -98,9 +98,10 @@ a:hover {
   margin: var(--space-s) var(--space-xs) var(--space-s) 0;
 }
 
+
 // help text on a non-white background needs more contrast
 .claro-details__wrapper--accordion-item .form-item__description {
-  color: var(--input-fg-color-description--alt);
+  color: var(--va-gray-darkest);
 }
 
 th {
@@ -109,7 +110,7 @@ th {
   }
 
   .form-item__description {
-    color: var(--color-text);
+    color: var(--va-gray-darkest);
     margin: 0 var(--spacing-xxs) 0 0;
   }
 
@@ -238,7 +239,7 @@ p.vc-help-text {
   transition-duration: 0.3s;
   transition-property: color,background-color,border-color;
   transition-timing-function: ease-in-out;
-  
+
   &:hover,
   &:focus {
     background-color: var(--va-blue-lighter);
