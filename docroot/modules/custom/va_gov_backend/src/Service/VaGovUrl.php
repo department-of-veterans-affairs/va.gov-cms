@@ -10,7 +10,7 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
 
 /**
- * Class VaGovUrl.
+ * Class to check the status of va.gov URLs.
  */
 class VaGovUrl implements VaGovUrlInterface {
 
@@ -73,9 +73,7 @@ class VaGovUrl implements VaGovUrlInterface {
   /**
    * {@inheritDoc}
    */
-  public function vaGovFrontEndUrlForEntityIsLive(EntityInterface $entity) : bool {
-    $va_gov_url = $this->getVaGovFrontEndUrlForEntity($entity);
-
+  public function vaGovFrontEndUrlIsLive(string $va_gov_url) : bool {
     if (!empty($va_gov_url)) {
       try {
         // Keep the timeout low so that we don't block page loads for too long.

@@ -108,9 +108,9 @@ class VaGovUrlServiceTest extends VaGovExistingSiteBase {
   }
 
   /**
-   * Verify getVaGovFrontEndUrlForEntityIsLive method.
+   * Verify getVaGovFrontEndUrlIsLive method.
    */
-  public function testVaGovFrontEndUrlForEntityIsLive() {
+  public function testVaGovFrontEndUrlIsLive() {
     $this->mockClient(new Response('200'), new Response('404'));
     $vaGovUrl = new VaGovUrl($this->mockClient, $this->settings, $this->container->get('va_gov.build_trigger.environment_discovery'));
 
@@ -121,9 +121,10 @@ class VaGovUrlServiceTest extends VaGovExistingSiteBase {
       'uid' => $author->id(),
     ]);
     $system_node->setPublished()->save();
+    $url = $vaGovUrl->getVaGovFrontEndUrlForEntity($system_node);
 
-    $this->assertTrue($vaGovUrl->vaGovFrontEndUrlForEntityIsLive($system_node));
-    $this->assertFalse($vaGovUrl->vaGovFrontEndUrlForEntityIsLive($system_node));
+    $this->assertTrue($vaGovUrl->vaGovFrontEndUrlIsLive($url));
+    $this->assertFalse($vaGovUrl->vaGovFrontEndUrlIsLive($url));
   }
 
   /**
