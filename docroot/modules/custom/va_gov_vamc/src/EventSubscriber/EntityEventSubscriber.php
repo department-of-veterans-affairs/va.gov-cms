@@ -19,19 +19,16 @@ use Drupal\va_gov_vamc\Service\ContentHardeningDeduper;
 use Drupal\va_gov_workflow\Service\Flagger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\Core\StringTranslation\TranslationInterface;
-
-
-// The UID of the CMS Help Desk account subscribing to facility messages.
-const USER_CMS_HELP_DESK_NOTIFICATIONS = 4050;
 
 /**
  * VA.gov VAMC Entity Event Subscriber.
  */
 class EntityEventSubscriber implements EventSubscriberInterface {
 
-  use StringTranslationTrait;
+  // The UID of the CMS Help Desk account subscribing to facility messages.
+  const USER_CMS_HELP_DESK_NOTIFICATIONS = 4050;
 
+  use StringTranslationTrait;
 
   /**
    * {@inheritdoc}
@@ -224,7 +221,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *
    * @param array $form
    *   The form.
-   *
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The current state of the form.
    */
@@ -248,22 +244,22 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     foreach ($covid_status as $status) {
       $terms_text[$status]['name'] = $term_storage->load($status)->getName();
       $terms_text[$status]['description'] = $term_storage->load($status)->getDescription();
+      // If the COVID status is set but the COVID details are empty,
+      // set the COVID details form field to the COVID status term description.
       if (isset($node->get("field_supplemental_status")['0']->getValue()['target_id'])) {
         if ($node->get("field_supplemental_status")['0']->getValue()['target_id'] == $status &&
-        empty($node->get("field_supplemental_status_more_i")['0']->getValue()) ) {
+        empty($node->get("field_supplemental_status_more_i")['0']->getValue())) {
           $chosen_term_description = $term_storage->load($status)->getDescription();
+          $form['field_supplemental_status_more_i']['widget']['0'] = [
+            '#type' => 'text_format',
+            '#default_value' => $chosen_term_description,
+            '#format' => 'rich_text_limited',
+          ];
         }
-       }
+      }
     }
     $form['#attached']['library'][] = 'va_gov_vamc/set_covid_term_text';
     $form['#attached']['drupalSettings']['vamcCovidStatusTermText'] = $terms_text;
-
-    $form['field_supplemental_status_more_i']['widget']['0'] = array(
-      '#type' => 'text_format',
-      '#default_value' => $chosen_term_description,
-    );
-    // $details = $form['field_supplemental_status_more_i']['widget'][0]['#default_value'];
-    // $details = array($this->t($chosen_term_description));
 
   }
 

@@ -8,13 +8,6 @@
 (function (Drupal) {
   var statusId = void 0;
   var textSetter = function textSetter() {
-    var fieldset = document.getElementById("covid-safety-guidelines-status-text");
-
-    if (document.getElementById("covid-safety-guidelines-status-text-target")) {
-      document.getElementById("covid-safety-guidelines-status-text-target").remove();
-      document.getElementById("covid-safety-guidelines-status-text-prefix").remove();
-    }
-
     var covidStatusValue = document.querySelectorAll(".form-item--field-supplemental-status input");
 
     covidStatusValue.forEach(function (element) {
@@ -23,16 +16,19 @@
       }
     });
 
-    iframeDocument = document.querySelector("iframe").contentDocument;
-    iframeDocument.body.innerHTML = drupalSettings.vamcCovidStatusTermText[statusId].name + drupalSettings.vamcCovidStatusTermText[statusId].description;
+    var iframeDocument = "";
+    if (document.querySelector("#cke_edit-field-supplemental-status-more-i-0-value iframe")) {
+      iframeDocument = document.querySelector("#cke_edit-field-supplemental-status-more-i-0-value iframe").contentDocument;
+      iframeDocument.body.innerHTML = drupalSettings.vamcCovidStatusTermText[statusId].name + drupalSettings.vamcCovidStatusTermText[statusId].description;
+    }
   };
 
   Drupal.behaviors.vaGovSetCovidTermText = {
     attach: function attach() {
       window.addEventListener("DOMContentLoaded", textSetter);
-      var supplemental_status_choices = document.querySelectorAll("[id^='edit-field-supplemental-status-']");
+      var supplementalStatusChoices = document.querySelectorAll(".form-item--field-supplemental-status [id^='edit-field-supplemental-status-']");
 
-      supplemental_status_choices.forEach(function (choice) {
+      supplementalStatusChoices.forEach(function (choice) {
         document.getElementById(choice.id).addEventListener("click", textSetter);
       });
     }
