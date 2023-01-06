@@ -625,34 +625,112 @@
         "va:proxy:sshuttle": [
             "sudo -E sshuttle -r dsva@52.222.32.121 -e 'ssh -A ' 10.0.0.0/8"
         ],
+        "va:test": [
+            "# Run all of the tests!",
+            "@composer validate",
+            "@va:test:check-cer",
+            "@va:test:check-revision-logs",
+            "@va:test:php_codesniffer",
+            "@va:test:lint-php",
+            "@va:test:phpstan",
+            "@va:test:phpunit-unit",
+            "@va:test:phpunit-functional",
+            "@va:test:cypress",
+            "@va:test:behat",
+            "@va:test:content-build-gql",
+            "@va:test:stylelint-modules",
+            "@va:test:stylelint-themes",
+            "@va:test:eslint"
+        ],
+        "va:test:no-fail": [
+            "# Run all of the tests, even if some fail!",
+            "@composer validate || true",
+            "@va:test:check-cer || true",
+            "@va:test:check-revision-logs || true",
+            "@va:test:php_codesniffer || true",
+            "@va:test:lint-php || true",
+            "@va:test:phpstan || true",
+            "@va:test:phpunit-unit || true",
+            "@va:test:phpunit-functional || true",
+            "@va:test:cypress || true",
+            "@va:test:behat || true",
+            "@va:test:content-build-gql || true",
+            "@va:test:stylelint-modules || true",
+            "@va:test:stylelint-themes || true",
+            "@va:test:eslint || true"
+        ],
+        "va:test:check-cer": [
+            "# Check the Corresponding Entity References fields.",
+            "[ IS_DDEV_PROJECT != \"true\" ] || ./tests/scripts/check-cer.sh",
+            "! command -v ddev > /dev/null || ddev exec ./tests/scripts/check-cer.sh"
+        ],
+        "va:test:check-revision-logs": [
+            "# Check the revision log fields.",
+            "[ IS_DDEV_PROJECT != \"true\" ] || ./tests/scripts/check-revision-logs.sh",
+            "! command -v ddev > /dev/null || ddev exec ./tests/scripts/check-revision-logs.sh"
+        ],
         "va:test:eslint": [
-            "npm install",
-            "npm run eslint-all"
+            "# Run ESLint tests.",
+            "[ IS_DDEV_PROJECT != \"true\" ] || npm run eslint",
+            "! command -v ddev > /dev/null || ddev npm run eslint"
         ],
-        "va:test:lint-css-all": [
-            "npm install",
-            "npm run stylelint-modules && npm run stylelint-themes"
+        "va:test:php_codesniffer": [
+            "# Run PHP_CodeSniffer tests.",
+            "[ IS_DDEV_PROJECT != \"true\" ] || phpcs --colors",
+            "! command -v ddev > /dev/null || ddev phpcs --colors"
         ],
-        "va:test:module-lint-css": [
-            "npm install",
-            "npm run stylelint-modules"
+        "va:test:lint-php": [
+            "# Lint PHP files.",
+            "[ IS_DDEV_PROJECT != \"true\" ] || ./tests/scripts/lint-php.sh",
+            "! command -v ddev > /dev/null || ddev exec ./tests/scripts/lint-php.sh"
         ],
-        "va:test:theme-lint-scss": [
-            "npm install",
-            "npm run stylelint-themes"
+        "va:test:phpstan": [
+            "# Run PHPStan static analysis tests.",
+            "[ IS_DDEV_PROJECT != \"true\" ] || bin/phpstan analyze --memory-limit=1G",
+            "! command -v ddev > /dev/null || ddev exec bin/phpstan analyze --memory-limit=1G"
+        ],
+        "va:test:phpunit-unit": [
+            "# Run PHPUnit (unit) tests.",
+            "[ IS_DDEV_PROJECT != \"true\" ] || bin/phpunit --group unit --exclude-group disabled tests/phpunit",
+            "! command -v ddev > /dev/null || ddev exec bin/phpunit --group unit --exclude-group disabled tests/phpunit"
+        ],
+        "va:test:phpunit-functional": [
+            "# Run PHPUnit (functional) tests.",
+            "[ IS_DDEV_PROJECT != \"true\" ] || bin/phpunit --group functional --exclude-group disabled tests/phpunit",
+            "! command -v ddev > /dev/null || ddev exec bin/phpunit --group functional --exclude-group disabled tests/phpunit"
+        ],
+        "va:test:stylelint-modules": [
+            "# Run StyleLint tests on modules.",
+            "[ IS_DDEV_PROJECT != \"true\" ] || npm run stylelint-modules",
+            "! command -v ddev > /dev/null || ddev npm run stylelint-modules"
+        ],
+        "va:test:stylelint-themes": [
+            "# Run StyleLint tests on themes.",
+            "[ IS_DDEV_PROJECT != \"true\" ] || npm run stylelint-themes",
+            "! command -v ddev > /dev/null || ddev npm run stylelint-themes"
+        ],
+        "va:test:behat": [
+            "# Run Behat tests.",
+            "[ IS_DDEV_PROJECT != \"true\" ] || behat",
+            "! command -v ddev > /dev/null || ddev behat"
         ],
         "va:test:cypress": [
+            "# Run Cypress tests.",
+            "[ IS_DDEV_PROJECT != \"true\" ] || composer va:test:cypress-inner",
+            "! command -v ddev > /dev/null || ddev composer va:test:cypress-inner"
+        ],
+        "va:test:cypress-inner": [
             "cd \"$(git rev-parse --show-toplevel)\"",
             "[ -d node_modules ] || npm install",
             "./node_modules/.bin/cypress install",
             "npm run test:cypress"
         ],
-        "va:test:lint": [
-            "find docroot/modules/custom docroot/themes -name '*.php' -print0 | xargs -0 -n1 php -l > /dev/null",
-            "find docroot/modules/custom docroot/themes -name '*.module' -print0 | xargs -0 -n1 php -l > /dev/null",
-            "find docroot/modules/custom docroot/themes -name '*.install' -print0 | xargs -0 -n1 php -l > /dev/null"
-        ],
         "va:test:content-build-gql": [
+            "# Run GraphQL export to test content-build.",
+            "[ IS_DDEV_PROJECT != \"true\" ] || composer va:test:content-build-gql-inner",
+            "! command -v ddev > /dev/null || ddev composer va:test:content-build-gql-inner"
+        ],
+        "va:test:content-build-gql-inner": [
             "@va:web:prepare-dotenv",
             "touch .buildlock",
             "mkdir -p web/build/vagovdev",
@@ -669,11 +747,6 @@
             "if [ -n \"$DRUPAL_ADDRESS\" ]; then echo DRUPAL_ADDRESS=${DRUPAL_ADDRESS} >> web/.env; fi",
             "if ! cat web/.env | grep DRUPAL_ADDRESS > /dev/null; then echo DRUPAL_ADDRESS=https://dev.cms.va.gov >> web/.env; fi"
         ],
-        "va:test:php_codesniffer": [
-            "phpcs --colors"
-        ],
-        "va:test:unit": "phpunit tests/phpunit --colors=always --exclude-group=disabled",
-        "va:cbf": "phpcbf --ignore=*.md,*.min.css,uswds.css,claro.css,*/node_modules/*,*/simplesaml*/* --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom --colors",
         "va:web:install": [
             "# Preparing Front-end...",
             "cd bin && ln -sf ../docroot/libraries/yarn/bin/yarn yarn",
