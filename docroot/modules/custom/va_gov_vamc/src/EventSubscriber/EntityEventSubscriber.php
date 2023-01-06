@@ -237,8 +237,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     ];
     $terms_text = [];
     $chosen_term_description = "";
+    /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
     $form_object = $form_state->getFormObject();
-    /** @var \Drupal\user\RoleInterface $role */
     $node = $form_object->getEntity();
 
     foreach ($covid_status as $status) {
