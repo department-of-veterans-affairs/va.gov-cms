@@ -163,11 +163,12 @@ Tugboat is a development server platform where you can preview CMS code changes 
  - [ ] Browse the [CMS topic dives videos](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/1714094110/CMS+Topic+Dives)
 
  **VA Platform documentation**
+ - [ ] [VA Technical Architecture Overview](https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/blob/master/platform/engineering/TechnicalArchitectureOverview.md) - describes technical architecture of va.gov (+ api.va.gov)
  - [ ] Deployments: https://depo-platform-documentation.scrollhelp.site/developer-docs/deployments
   - [ ] [Deployment crib notes](https://docs.google.com/spreadsheets/d/164H07n4FChg-JxJZu964nfg2wAX0kPD0SjTfZMhzj_I/edit#gid=0) with detail re: various repos, timings, & support
  - [ ] Front-end workflow: https://depo-platform-documentation.scrollhelp.site/developer-docs/frontend-workflow
  - [ ] [Front-end steps to run & build VA.gov locally](https://depo-platform-documentation.scrollhelp.site/developer-docs/run-and-build-va-gov-locally)
-
+   
 ## Onboarding for DevOps members
  
  - [ ] [VA.gov tools overview](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html)
