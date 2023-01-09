@@ -6,6 +6,10 @@ pushd "${repo_root}" > /dev/null;
 
 : "${RETURN_EXIT_CODE:=0}"
 
+set -o allexport;
+source "${repo_root}/.env";
+set +o allexport;
+
 test_name="${1}";
 composer_name="${2:-va:test:${test_name}}";
 status_name="${3:-va/tests/${test_name}}";
