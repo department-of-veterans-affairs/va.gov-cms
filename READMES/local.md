@@ -132,14 +132,14 @@ Change to the CMS repository directory and run `composer` to list all commands, 
 
 The VA.gov project has the following custom commands.
 
-1. `composer set-path`
+1. `composer va:set-path`
 
-    Use `composer set-path` command to print out the needed PATH variable to allow running any command in the `./bin` directory just by it's name.
+    Use `composer va:set-path` command to print out the needed PATH variable to allow running any command in the `./bin` directory just by it's name.
 
     For example:
 
     ```bash
-    $  composer set-path
+    $  composer va:set-path
     > # Run the command output below to set your current terminal PATH variable.
     > # This will allow you to run any command in the ./bin directory without a path.
     > echo "export PATH=${PATH}"
@@ -166,7 +166,7 @@ The VA.gov project has the following custom commands.
 
     Test the proxy when it is running.
 
-4. `composer nuke`
+4. `composer va:nuke`
 
     Removes all composer installed directories, useful when you manually
     made changes to any files inside a composer managed directory. e.g.

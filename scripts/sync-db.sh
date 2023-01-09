@@ -3,15 +3,17 @@
 # Exit immediately if a command fails with a non-zero status code
 set -e
 
+repo_root="$(git rev-parse --show-toplevel)"
+pushd "${repo_root}" > /dev/null
+
 # Allow script to be run anywhere in git repo
-cd "$(git rev-parse --show-toplevel)"/.dumps
+cd ./.dumps
 
 # On BRD, CMS_APP_NAME is set upstream in Devops/Ansible.
 # If it is not set (local usage) assign 'cms' to it.
 if [ -z "$CMS_APP_NAME" ]; then
   CMS_APP_NAME=cms
 fi
-
 
 # Download and unzip the sanitized database snapshot.
 HOSTNAME="https://dsva-vagov-prod-${CMS_APP_NAME}-backup-sanitized.s3-us-gov-west-1.amazonaws.com"
@@ -34,12 +36,14 @@ fi
 # Local only
 if [ -z "$CMS_IS_BRD" ]; then
 echo "Purging devel configuration files."
-    rm -f "$(git rev-parse --show-toplevel)"/config/sync/devel.settings.yml
-    rm -f "$(git rev-parse --show-toplevel)"/config/sync/devel.toolbar.settings.yml
-    rm -f "$(git rev-parse --show-toplevel)"/config/sync/system.menu.devel.yml
-    rm -f "$(git rev-parse --show-toplevel)"/config/dev/devel.settings.yml
-    rm -f "$(git rev-parse --show-toplevel)"/config/dev/devel.toolbar.settings.yml
-    rm -f "$(git rev-parse --show-toplevel)"/config/dev/system.menu.devel.yml
+    rm -f ./config/sync/devel.settings.yml
+    rm -f ./config/sync/devel.toolbar.settings.yml
+    rm -f ./config/sync/system.menu.devel.yml
+    rm -f ./config/dev/devel.settings.yml
+    rm -f ./config/dev/devel.toolbar.settings.yml
+    rm -f ./config/dev/system.menu.devel.yml
     echo "Importing database."
     ddev import-db < cms-prod-db-sanitized-latest.sql
 fi
+
+popd > /dev/null

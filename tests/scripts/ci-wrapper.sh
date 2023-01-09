@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+# A wrapper for tests specifically as performed in CI (Tugboat, BRD Staging Post-Deploy Tests).
+repo_root="$(git rev-parse --show-toplevel)"
+pushd "${repo_root}" > /dev/null;
+
+: "${RETURN_EXIT_CODE:=0}"
+
+test_name="${1}";
+composer_name="${2:-va:test:${test_name}}";
+status_name="${3:-va/tests/${test_name}}";
+
+echo "Test name: ${test_name}";
+echo "Composer name: ${composer_name}";
+echo "Status name: ${status_name}";
+
+result="$(time composer "${composer_name}" 2>&1 > "${test_name}-ci.log")";
+exit_code=$?;
+
+cat "${test_name}-ci.log";
+
+if [ -n "${GITHUB_TOKEN}" ]; then 
+  if [ "${exit_code}" -eq 0 ]; then
+    github-status-updater \
+      -action=update_state \
+      -state=success \
+      -context="${status_name}" \
+      -description="Success";
+  else
+    github-status-updater \
+      -action=update_state \
+      -state=failure \
+      -context="${status_name}" \
+      -description="Failure";
+  fi;
+fi;
+
+popd > /dev/null;
+
+if [ "${RETURN_EXIT_CODE}" -ne 0 ]; then
+  exit "${exit_code}";
+fi;
+
+exit 0;
