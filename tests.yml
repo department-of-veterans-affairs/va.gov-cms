@@ -15,28 +15,28 @@ tasks:
   va/tests/behat:
     desc: Behat Tests
     cmds:
-      - ./scripts/ci-wrapper.sh behat 'va:test:behat'
+      - ./tests/scripts/ci-wrapper.sh behat 'va:test:behat'
 
   va/tests/cypress:
     desc: Accessibility and Behavioral tests with Cypress
     cmds:
-      - ./scripts/ci-wrapper.sh cypress 'va:test:cypress-ci'
+      - ./tests/scripts/ci-wrapper.sh cypress 'va:test:cypress-ci'
 
   va/tests/phpunit:
     desc: PHPUnit
     cmds:
-      - ./scripts/ci-wrapper.sh phpunit 'va:test:phpunit-functional'
+      - ./tests/scripts/ci-wrapper.sh phpunit 'va:test:phpunit-functional'
 
   va/tests/status-error:
     desc: Check for Drupal status errors
     cmds:
-      - ./scripts/ci-wrapper.sh status-error 'va:test:status-error-ci'
+      - ./tests/scripts/ci-wrapper.sh status-error 'va:test:status-error-ci'
 
 
   va/tests/content-build-gql:
     desc: Ensure that the content build graphql queries succeed
     cmds:
-      - ./scripts/ci-wrapper.sh content-build-gql 'va:test:content-build-gql'
+      - ./tests/scripts/ci-wrapper.sh content-build-gql 'va:test:content-build-gql'
 
   default:
     desc:
