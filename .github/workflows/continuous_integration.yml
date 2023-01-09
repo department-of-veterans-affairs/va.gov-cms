@@ -51,6 +51,8 @@ jobs:
       - name: Checkout
         # https://github.com/actions/cache/releases/tag/v3.0.10
         uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+      - name: Post-Checkout Actions
+        uses: ./.github/actions/post-checkout
       - name: ReviewDog
         # https://github.com/reviewdog/action-eslint/releases/tag/v1.17.0
         # See also composer.json
@@ -68,7 +70,8 @@ jobs:
       - name: Checkout
         # https://github.com/actions/cache/releases/tag/v3.0.10
         uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
-      - uses: ./.github/actions/post-checkout
+      - name: Post-Checkout Actions
+        uses: ./.github/actions/post-checkout
       - name: Run PHP_CodeSniffer and ReviewDog
         # See also composer.json
         run: |
@@ -92,7 +95,8 @@ jobs:
       - name: Checkout
         # https://github.com/actions/cache/releases/tag/v3.0.10
         uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
-      - uses: ./.github/actions/post-checkout
+      - name: Post-Checkout Actions
+        uses: ./.github/actions/post-checkout
       - name: Run PHPLint
         # See also composer.json
         run: ./tests/scripts/lint-php.sh
@@ -105,7 +109,8 @@ jobs:
       - name: Checkout
         # https://github.com/actions/cache/releases/tag/v3.0.10
         uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
-      - uses: ./.github/actions/post-checkout
+      - name: Post-Checkout Actions
+        uses: ./.github/actions/post-checkout
       - name: Run PHPStan and ReviewDog
         # See also composer.json
         run: |
@@ -131,7 +136,8 @@ jobs:
       - name: Checkout
         # https://github.com/actions/cache/releases/tag/v3.0.10
         uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
-      - uses: ./.github/actions/post-checkout
+      - name: Post-Checkout Actions
+        uses: ./.github/actions/post-checkout
       - name: Run PHPUnit (Unit Tests only)
         # See also composer.json
         run: bin/phpunit \

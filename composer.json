@@ -529,16 +529,13 @@
             }
         }
     },
+    "scripts-descriptions": {
+        "drush": "Run Drush transparently (all arguments will be passed).",
+        "npm": "Run NPM transparently (all arguments will be passed).",
+        "nuke": "Remove all Composer package and cache directories.",
+        "remove-git-dirs": "Remove .git directories within this directory, e.g. those created by Composer."
+    },
     "scripts": {
-        "set-path": [
-            "# Run the command output below to set your current terminal PATH variable.",
-            "# This will allow you to run any command in the ./bin directory without a path.",
-            "echo \"export PATH=${PATH}\""
-        ],
-        "remove-git-dirs": [
-            "echo \"Removing .git sub-directories...\"",
-            "find . -mindepth 2 -type d -name .git -not -path './docroot/vendor/va-gov/content-build/.git' | xargs rm -rf"
-        ],
         "pre-install-cmd": [
             "mkdir -p vendor",
             "[ -f .env ] || cp .env.example .env"
@@ -564,9 +561,26 @@
             "rm -r vendor",
             "@remove-git-dirs"
         ],
+        "drush": [
+            "[ -z \"${CMS_ENVIRONMENT}\" ] || drush --",
+            "! command -v ddev > /dev/null || ddev exec drush --"
+        ],
+        "npm": [
+            "[ -z \"${CMS_ENVIRONMENT}\" ] || npm --",
+            "! command -v ddev > /dev/null || ddev exec npm --"
+        ],
         "nuke": [
-            "rm -rf bin node_modules docroot/libraries docroot/core docroot/modules/contrib docroot/themes/contrib docroot/profiles/contrib/ docroot/vendor /var/www/.cache/yarn",
-            "composer clear-cache"
+            "[ -z \"${CMS_ENVIRONMENT}\" ] || ./scripts/nuke-composer-directories.sh --",
+            "! command -v ddev > /dev/null || ddev exec ./scripts/nuke-composer-directories.sh --"
+        ],
+        "va:remove-git-dirs": [
+            "echo \"Removing .git sub-directories...\"",
+            "find . -mindepth 2 -type d -name .git -not -path './docroot/vendor/va-gov/content-build/.git' | xargs rm -rf"
+        ],
+        "va:set-path": [
+            "# Run the command output below to set your current terminal PATH variable.",
+            "# This will allow you to run any command in the ./bin directory without a path.",
+            "echo \"export PATH=${PATH}\""
         ],
         "va:start": [
             "@composer install --ansi",
