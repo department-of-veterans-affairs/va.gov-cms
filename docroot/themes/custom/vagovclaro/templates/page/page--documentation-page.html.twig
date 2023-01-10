@@ -78,16 +78,16 @@
     {% if has_sidebar_first %}
     <aside class="layout-sidebar-first" role="complementary">
       {{ page.sidebar_first }}
+      <div class="field field--name-field-last-saved-by-an-editor field--type-timestamp field--label-above">
+        <div class="field__label">Last Saved by an Editor</div>
+        <div class="field__item">{{ page.last_saved_by_an_editor }}</div>
+      </div>
     </aside>{# /.layout-sidebar-first #}
     {% endif %}
 
     {% if page.sidebar_second %}
     <aside class="layout-sidebar-second" role="complementary">
       {{ page.sidebar_second }}
-      <div class="field field--name-field-last-saved-by-an-editor field--type-timestamp field--label-above">
-        <div class="field__label">Last Saved by an Editor</div>
-        <div class="field__item">{{ page.last_saved_by_an_editor }}</div>
-      </div>
     </aside>{# /.layout-sidebar-second #}
     {% endif %}
   </div>

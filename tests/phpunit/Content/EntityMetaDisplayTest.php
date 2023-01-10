@@ -134,7 +134,7 @@ class EntityMetaDisplayTest extends VaGovUnitTestBase {
     // `va_gov_backend.va_gov_url`.
     $vaGovUrlProphecy = $this->prophesize(VaGovUrlInterface::CLASS);
     $vaGovUrlProphecy->getVaGovFrontEndUrlForEntity(Argument::type(NodeInterface::CLASS))->willReturn('https://www.example.org/');
-    $vaGovUrlProphecy->vaGovFrontEndUrlForEntityIsLive(Argument::type(NodeInterface::CLASS))->willReturn($isLive);
+    $vaGovUrlProphecy->vaGovFrontEndUrlIsLive('https://www.example.org/')->willReturn($isLive);
     $vaGovUrl = $vaGovUrlProphecy->reveal();
 
     // `va_gov_workflow_assignments.editorial_workflow`.

@@ -5,7 +5,7 @@ namespace Drupal\va_gov_backend\Service;
 use Drupal\Core\Entity\EntityInterface;
 
 /**
- * Interface VaGovUrlInterface.
+ * Interface to check the status of va.gov URLs.
  */
 interface VaGovUrlInterface {
 
@@ -26,11 +26,11 @@ interface VaGovUrlInterface {
   public function getVaGovFrontEndUrlForEntity(EntityInterface $entity) : string;
 
   /**
-   * Get the va.gov URL status for an entity.
+   * Get the status for a va.gov URL.
    *
    * @return bool
    *   va.gov URL status.
    */
-  public function vaGovFrontEndUrlForEntityIsLive(EntityInterface $entity) : bool;
+  public function vaGovFrontEndUrlIsLive(string $va_gov_url) : bool;
 
 }

@@ -8,8 +8,8 @@
 (function ($, Drupal) {
   Drupal.behaviors.vagovmodalAccessibility = {
     attach: function attach() {
-      $('.ui-dialog.entity-browser-modal').attr('tabindex', '0');
-      $('.ui-dialog-titlebar-close').focus();
+      $(".ui-dialog.entity-browser-modal").attr("tabindex", "0");
+      $(".ui-dialog-titlebar-close").focus();
     }
   };
 })(jQuery, Drupal);

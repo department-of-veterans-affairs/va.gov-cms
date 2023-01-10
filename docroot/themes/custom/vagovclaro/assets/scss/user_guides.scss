@@ -63,14 +63,21 @@ h2.section-header {
   margin-top: 2rem;
 }
 
-.field--name-field-related-user-guides h2.field__label {
-  border-bottom: 1px solid var(--va-gray-cool-med);
-  margin: 0.5rem 0 1rem;
-  padding: 0 0 0.4rem;
-  text-transform: none !important;
-}
-
 #block-vagovclaro-content {
+  .field--name-field-related-user-guides.field--label-above {
+    margin: 0.5rem 0 3rem;
+
+    .field__label {
+      color: var(--va-gray-darkest);
+      font-family: var(--font-family-serif);
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 130%;
+      padding: 0 0 0.4rem;
+      text-transform: none !important;
+    }
+  }
   .paragraph--type--media-list-videos {
     &.paragraph--view-mode--user-guides {
       article {

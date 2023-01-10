@@ -2074,16 +2074,23 @@ function va_gov_backend_get_parent_node(Paragraph $paragraph) {
  *
  * @param \Drupal\paragraphs\Entity\Paragraph $paragraph
  *   The paragraph to find the parent of.
+ * @param array $tree
+ *   The tree of entities that the paragraph belongs to, contains the
+ *   field_name and the revision_id of all entities in the tree.
  *
  * @return \Drupal\Core\Entity\EntityInterface|null
- *   If the paragraph is attached to an entity, return the entity, otherwise NULL.
+ *   If the paragraph is attached to an entity, return it, otherwise NULL.
  */
-function va_gov_backend_get_top_parent_entity(Paragraph $paragraph) {
+function va_gov_backend_get_top_parent_entity(Paragraph $paragraph, array &$tree) {
   $parent = NULL;
+  $tree[] = [
+    'field_name' => $paragraph->get('parent_field_name')->value,
+    'revision_id' => $paragraph->get('revision_id')->value,
+  ];
   /** @var Drupal\paragraphs\Entity\Paragraph $parent */
   $parent = $paragraph->getParentEntity();
   if ($parent !== NULL && $parent->getEntityType()->id() === 'paragraph') {
-    $parent = va_gov_backend_get_top_parent_entity($parent);
+    $parent = va_gov_backend_get_top_parent_entity($parent, $tree);
   }
   return $parent;
 }
