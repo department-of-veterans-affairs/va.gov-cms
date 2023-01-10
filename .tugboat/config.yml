@@ -97,7 +97,7 @@ services:
         - echo "export DD_TAGS=pr:$TUGBOAT_GITHUB_PR,branch:$TUGBOAT_GITHUB_HEAD" >> /etc/apache2/envvars
 
         # Install VA Root CA
-        - cp "${TUGBOAT_ROOT}"/.tugboat/VA-Internal-S2-RCA1-v1.crt /usr/local/share/ca-certificates
+        - cp "${TUGBOAT_ROOT}"/.tugboat/*.crt /usr/local/share/ca-certificates
         - update-ca-certificates
 
         # Install drush-launcher, if desired.
