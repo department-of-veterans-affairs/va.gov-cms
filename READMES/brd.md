@@ -83,6 +83,6 @@ to view the additional Ansible tasks that are available to run on the site:
 - `cms_db_sanitize.yml`: Sanitize Database Backup.
 - `cms_efs_backup.yml`: Backup files directory.
 
-----------------------------
+----
 
 [Table of Contents](../README.md)
