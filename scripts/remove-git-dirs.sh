@@ -12,6 +12,6 @@ find . \
   \( \
     -path './docroot/vendor/va-gov/content-build/.git' \
   \) \
-  | xargs rm -rf
+  | xargs rm -rf;
 
 popd > /dev/null;
