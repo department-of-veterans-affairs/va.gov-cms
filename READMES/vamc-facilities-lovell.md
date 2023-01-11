@@ -72,5 +72,6 @@ Some Lovell facilities exist only in VA and some exist only in TRICARE.  Only VA
 ## List Pages
 List pages for events, news releases, stories and staff will need some unique handling that has not happened yet.
 
+----
 
 [Table of Contents](../README.md)

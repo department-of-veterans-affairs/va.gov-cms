@@ -6,6 +6,7 @@ All computers in VA already have this setup, if you are using a non-VA laptop fo
 ### Download certificates, right click "save as"
 * http://crl.pki.va.gov/PKI/AIA/VA/VA-Internal-S2-RCA1-v1.cer
 * http://crl.pki.va.gov/PKI/AIA/VA/VA-Internal-S2-ICA1-v1.cer
+* http://crl.pki.va.gov/PKI/AIA/VA/VA-Internal-S2-RCA2.cer
 
 If you see a message from your browser like the following:
 
