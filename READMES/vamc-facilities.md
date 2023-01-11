@@ -40,4 +40,6 @@ The handling is performed in:
 
   The queue and related settings can be seen here [/admin/config/services/govdelivery-bulletins](https://prod.cms.va.gov/admin/config/services/govdelivery-bulletins)
 
+----
+
 [Table of Contents](../README.md)
