@@ -49,8 +49,6 @@ The VA.gov CMS Team
    1. Overview
    1. Drupal
       1. [Memcache](READMES/drupal-memcache.md)
-   1. Amazon Web Services
-      1. [Elasticache for Memcache](READMES/elasticache.md)
    1. [content models](READMES/content-models.md)
    1. MetalSmith
    1. [Interfaces](READMES/interfaces.md) - APIs and Feature Flag
@@ -58,6 +56,8 @@ The VA.gov CMS Team
       1. [Facility](READMES/migrations-facility.md)
       1. [Form](READMES/migrations-forms.md)
    1. [Security](READMES/security.md)
+   1. [Upstream Dependencies](READMES/upstream-dependencies.md)
+   1. [Downstream Dependencies](READMES/downstream-dependencies.md)
 1. **CMS Users**
    1. [Login / SSOi](READMES/cms-login.md)
    2. [CMS User Notification Systems](READMES/cms-editor-notifications.md)
@@ -73,6 +73,7 @@ The VA.gov CMS Team
          1. [VA Lovell / TRICARE](READMES/vamc-facilities-lovell.md)
 1. **Historical**
    1. [Main branch name change](READMES/historical/cms-branch-name-change.md)
+   1. [Elasticache Investigation](READMES/historical/elasticache.md)
 
 ## Introduction
 
