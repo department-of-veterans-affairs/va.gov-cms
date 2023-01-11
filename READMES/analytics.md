@@ -27,3 +27,7 @@ The process of adding a new dimension includes connecting with the VSP Analytics
 #### How to request access to GA for new users
 
 Fill out [Analytics request template](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=joanneesteban%2C+bsmartin-ep%2C+jonwehausen&labels=analytics-insights%2C+analytics-request&template=analytics-request-google-analytics-access.md&title=Request+access+to+Google+Analytics).
+
+----
+
+[Table of Contents](../README.md)
