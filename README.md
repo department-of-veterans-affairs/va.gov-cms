@@ -39,6 +39,7 @@ The VA.gov CMS Team
    1. [Testing](READMES/testing.md)
    1. [Debugging](READMES/debugging.md)
    1. [Comparing GraphQL Output](READMES/graph_ql.md)
+   1. [Dependabot Updates](READMES/dependabot-updates.md)
 1. **Release & Deployment**
    1. [The BRD System: Build, Release, Deploy](READMES/brd.md)
    1. [CMS Release Process](READMES/brd.md#cms-release-process)
