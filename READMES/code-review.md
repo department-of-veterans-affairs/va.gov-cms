@@ -100,5 +100,6 @@ The following automated code tools must pass before a Pull Request can be merged
 * Manual Code Review Approved
 * Acceptance Criteria in related issue are met
 
+----
 
 [Table of Contents](../README.md)
