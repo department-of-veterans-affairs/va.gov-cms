@@ -49,8 +49,6 @@ The VA.gov CMS Team
    1. Overview
    1. Drupal
       1. [Memcache](READMES/drupal-memcache.md)
-   1. Amazon Web Services
-      1. [Elasticache for Memcache](READMES/elasticache.md)
    1. [content models](READMES/content-models.md)
    1. MetalSmith
    1. [Interfaces](READMES/interfaces.md) - APIs and Feature Flag
@@ -75,6 +73,7 @@ The VA.gov CMS Team
          1. [VA Lovell / TRICARE](READMES/vamc-facilities-lovell.md)
 1. **Historical**
    1. [Main branch name change](READMES/historical/cms-branch-name-change.md)
+   1. [Elasticache Investigation](READMES/historical/elasticache.md)
 
 ## Introduction
 
