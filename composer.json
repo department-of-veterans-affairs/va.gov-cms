@@ -618,6 +618,10 @@
             "# Set up a SOCKS proxy.",
             "./scripts/connect-socks.sh"
         ],
+        "va:proxy:socks:test": [
+            "# Test the SOCKS proxy.",
+            "curl -v --proxy socks5h://127.0.0.1:2001 sentry.vetsgov-internal"
+        ],
         "va:remove-git-dirs": [
             "# Remove .git directories within this directory, e.g. those created by Composer.",
             "! ./scripts/should-run-directly.sh || ./scripts/remove-git-dirs.sh",

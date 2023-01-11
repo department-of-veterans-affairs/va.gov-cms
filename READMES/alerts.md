@@ -1,9 +1,13 @@
 # CMS Alerts
+
 ## Overview
+
 CMS Alerts are managed by Prometheus Alertmanager. Metrics that are scraped by Prometheus from CMS infrastructure are available to create alerts inside rules files. Alerts are categorized by two different severities: warn and page.
+
 When an alert is configured to 'warn' it is routed to a Non-Critical receiver then appears in PagerDuty. When an alert is configured to 'page' it is routed to a Critical receiver then appears in PagerDuty, and a message in #cms-team Slack channel.
 
 ## Where Are Alerts Configured
+
 Alerts for CMS are configured by `.rules` files stored under `devops/ansible/deployment/config/prometheus/rules/` in the below two files:
 
 - `cms.rules`
