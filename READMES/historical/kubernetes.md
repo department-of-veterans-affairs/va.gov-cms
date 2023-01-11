@@ -66,4 +66,6 @@ docker push "008577686731.dkr.ecr.us-gov-west-1.amazonaws.com/${CMS_IMAGE_NAME}"
 
 This can be a lengthy process, especially on residential internet access, and it is highly recommended that this be done from within AWS' system.
 
+----
+
 [Table of Contents](../README.md)
