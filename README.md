@@ -74,6 +74,7 @@ The VA.gov CMS Team
 1. **Historical**
    1. [Main branch name change](READMES/historical/cms-branch-name-change.md)
    1. [Elasticache Investigation](READMES/historical/elasticache.md)
+   1. [EWA Rules of Engagement](READMES/historical/ewa-rules-of-engagement.md)
 
 ## Introduction
 
