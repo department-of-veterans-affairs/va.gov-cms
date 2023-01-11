@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-## Copy migration ymls from va_gov_migrate to config/sync and run config import. Always edit in va_gov_migrate.
+# Copy migration ymls from va_gov_migrate to config/sync and run config
+# import. Always edit in va_gov_migrate.
 
 repo_root="$(git rev-parse --show-toplevel)";
 pushd "${repo_root}" > /dev/null;

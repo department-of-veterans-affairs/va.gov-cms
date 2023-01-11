@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# This script will exit without an error if we should run a command without any
-# preamble, e.g. `ddev`.
+# This script will exit without an error if we should run the command directly,
+# without any preamble.
 
 if command -v ddev > /dev/null; then 
   # We're on a host machine running `ddev`.

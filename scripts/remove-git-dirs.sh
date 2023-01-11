@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# Remove .git subdirectories added by e.g. `composer install`.
 repo_root="$(git rev-parse --show-toplevel)";
 pushd "${repo_root}" > /dev/null;
 

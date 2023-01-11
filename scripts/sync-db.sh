@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 
-# Exit immediately if a command fails with a non-zero status code
+# Exit immediately if a command fails with a non-zero status code.
 set -e
 
 repo_root="$(git rev-parse --show-toplevel)"
 pushd "${repo_root}" > /dev/null
 
-# Allow script to be run anywhere in git repo
 cd ./.dumps
 
 # On BRD, CMS_APP_NAME is set upstream in Devops/Ansible.

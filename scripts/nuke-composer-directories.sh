@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# The OG `composer nuke` command.
 repo_root="$(git rev-parse --show-toplevel)";
 pushd "${repo_root}" > /dev/null;
 
