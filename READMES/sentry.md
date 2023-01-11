@@ -1,3 +1,5 @@
+# Sentry
+
 Sentry is used to track errors fom Drupal.  
 
 URL: http://sentry.vfs.va.gov/
@@ -13,10 +15,14 @@ Unless errors are in the Known Errors list below, an issue should be created in 
 
 On a BRD server, you may run this command to generate a test message:
 
-`sudo -u apache bash -c 'source /etc/sysconfig/httpd; /usr/local/bin/drush raven:captureMessage --level=error "TEST MESSAGE"'`
-
+```bash
+$ sudo su - cms
+$ drush raven:captureMessage --level=error "TEST MESSAGE"
+...
+```
 
 ## Known errors:
+
 * Facility/Teamsites related errors
 
 ### `Could not process `{teamsite facility url}`
@@ -30,4 +36,9 @@ Possible issue:
 ### `Exception va_node_health_care_local_facility_status migration failed.`
 
 This error comes from the [periodic job in Jenkins](http://jenkins.vfs.va.gov/job/cms/job/cms-periodic-prod/).
+
 This is being monitored in DataDog and Pager Duty and can be ignored.  If Pager Duty is triggered, then a notification will be triggered in Slack in the #cms-notifications channel.
+
+----
+
+[Table of Contents](../README.md)
