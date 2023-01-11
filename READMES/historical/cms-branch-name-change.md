@@ -72,3 +72,7 @@ git fetch upstream
 git branch -u upstream/main main
 git remote set-head upstream -a
 ```
+
+----
+
+[Table of Contents](../../README.md)
