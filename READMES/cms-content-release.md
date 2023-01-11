@@ -150,5 +150,6 @@ Sometimes the state gets stuck and needs to be reset.  It can be done with a dru
 
 * https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/platform/cms/accelerated_publishing/content-build
 
+----
 
 [Table of Contents](../README.md)
