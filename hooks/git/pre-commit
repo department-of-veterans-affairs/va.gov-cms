@@ -19,17 +19,15 @@ function branch_name_error() {
 
     Use e.g. \`git branch --move <VACMS-0000-new-name>\` to rename.
 EOF
-  exit 1
+  exit 1;
 }
 
-branch_name=$(git rev-parse --abbrev-ref HEAD)
-check_branch_name "${branch_name}" || branch_name_error
+branch_name="$(git rev-parse --abbrev-ref HEAD)";
+check_branch_name "${branch_name}" || branch_name_error;
 
-# If ddev is running, run the lints there.
 if [ -x "$(command -v ddev)" ] && docker ps | grep ddev > /dev/null; then
-  ddev pre-commit
+  ddev pre-commit;
 else
-  echo 'ddev is not running, falling back to local composer usage. Run `ddev start` to use ddev composer (recommended).'
-  # Run PHP Codesniffer as pre-commit check.
-  composer va:test:php_codesniffer
+  echo 'ddev is not running or is not available.';
+  echo 'Ensure that ddev is installed and running to run pre-commit hooks.';
 fi

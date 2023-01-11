@@ -1,7 +1,6 @@
 #!/bin/bash
 
-## Description: Run lint tests
-## Usage: test-lint
+# Lint PHP files using PHP's built-in linter.
 find \
   docroot/modules/custom \
   docroot/themes \

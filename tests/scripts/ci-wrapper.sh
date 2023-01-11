@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# A wrapper for tests specifically as performed in CI (Tugboat, BRD Staging Post-Deploy Tests).
+# A wrapper for tests specifically as performed in CI contexts.
 repo_root="$(git rev-parse --show-toplevel)"
 pushd "${repo_root}" > /dev/null;
 
