@@ -4,7 +4,7 @@ The site uses GraphQL (https://www.drupal.org/project/graphql) as the mechanism 
 
 The GraphQL endpoint is at `/graphql`. GraphQL Explorer to assist in writing queries is available via the CMS admin at: `/graphql/explorer`. Sample GraphQL query to grab all entities in the system:
 
-```
+```graphql
 query {
   nodeQuery()  {
     entities {
@@ -14,7 +14,6 @@ query {
   }
 }
 ```
-
 
 ## Drupal + GraphQL
 
@@ -26,21 +25,16 @@ Using GraphQL would not preclude us from also using JSONAPI if we want to on thi
 
 This series of blog posts is helpful for wrapping your head around Drupal + GraphQL: https://www.amazeelabs.com/en/blog/introduction-graphql & https://www.amazeelabs.com/en/blog/drupal-and-graphql-react-and-apollo. Note that these posts are a bit old and reference Drupal modules that are longer actively developed because their functionality has been integrated into the main Drupal GraphQL & GraphQL core modules. The core concepts are the same though.
 
-
-
 ## GraphQL Endpoint Authentication
 
 We can use the Basic Auth module in Drupal 8 core to restrict just the Graphql endpoint path (/graphql) to a specific user.
 
 Credentials are sent in header of request. The Basic Auth module takes a username and password out of the request and authenticates them against Drupal. Docs: https://www.drupal.org/docs/8/core/modules/basic_auth/overview
 
-
-
 ### Example GraphQL query
 
 This query retrieves pages from Drupal with field_introtext and field_ContentBlock:
-```
-gql`
+```graphql
         {
             nodeQuery{
                 count
@@ -64,7 +58,6 @@ gql`
                 }
             }
         }
-        `;
 ```
 
 The response to any query is in JSON.
@@ -76,6 +69,8 @@ Code: https://github.com/department-of-veterans-affairs/va.gov-cms/blob/develop/
 
 This plugin connects to the Drupal content API and retrieves node and entity data using the GraphQL endpoint.
 
-To run, from project root: cd metalsmith_app && node index.js
+To run, from project root: `cd metalsmith_app && node index.js`
+
+----
 
 [Table of Contents](../README.md)
