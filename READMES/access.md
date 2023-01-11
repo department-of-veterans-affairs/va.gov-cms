@@ -41,15 +41,15 @@ To test or debug the connection run:
 ```bash
 $ curl -v --proxy socks5h://127.0.0.1:2001 sentry.vetsgov-internal
 - or - 
-$ composer va:proxy:test
+$ composer va:proxy:socks:test
 ```
 
-## CMS Production, Staging, Dev
+## SSH access to CMS Production, Staging
 
 The three primary environments are hosted in the VAEC and managed by VFS's BRD
-System.
+System.  Access is controlled and limited to DevOps personnel.
 
-For more information on how to access these servers, see [BRD docs](./brd.md).
+For more information on how to access these servers via SSH, see [BRD Login docs](./brd-login.md).
 
 ## "what do people need to do before getting access to things" policy
 
@@ -63,3 +63,7 @@ take <=8 days from the time a person joins the team.
 2. To gain access to our AWS environments (console and/or programmatic), eQIP
 adjudication will need to be initiated. this should take <=30 days from the
 time the person joins the team.
+
+----
+
+[Table of Contents](../README.md)
