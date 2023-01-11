@@ -30,13 +30,15 @@ The VA.gov CMS Team
       1. [HTTPS](READMES/https.md)
       1. [Environment Variables](READMES/environment-variables.md)
       1. [Kubernetes](READMES/kubernetes.md)
+   1. [Alerts](READMES/alerts.md)
    1. [GitHub Workflows](READMES/github-workflows.md)
+   1. [Logging into BRD (e.g. production, staging) instances](READMES/brd-login.md)
+1. **Quality and Testing**
    1. [Quality Assurance (QA)](READMES/qa.md)
+   1. [Code Review](READMES/code-review.md)
    1. [Testing](READMES/testing.md)
    1. [Debugging](READMES/debugging.md)
-   1. [Code Review](READMES/code-review.md)
    1. [Comparing GraphQL Output](READMES/graph_ql.md)
-   1. [Logging into BRD (e.g. production, staging) instances](READMES/brd-login.md)
 1. **Release & Deployment**
    1. [The BRD System: Build, Release, Deploy](READMES/brd.md)
    1. [CMS Release Process](READMES/brd.md#cms-release-process)
