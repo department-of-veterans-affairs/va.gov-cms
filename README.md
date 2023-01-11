@@ -58,6 +58,8 @@ The VA.gov CMS Team
       1. [Facility](READMES/migrations-facility.md)
       1. [Form](READMES/migrations-forms.md)
    1. [Security](READMES/security.md)
+   1. [Upstream Dependencies](READMES/upstream-dependencies.md)
+   1. [Downstream Dependencies](READMES/downstream-dependencies.md)
 1. **CMS Users**
    1. [Login / SSOi](READMES/cms-login.md)
    2. [CMS User Notification Systems](READMES/cms-editor-notifications.md)
