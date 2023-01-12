@@ -6,7 +6,7 @@ pushd "${repo_root}" > /dev/null;
 
 : "${GITHUB_COMMENT_TYPE:=unset}"
 
-result="$(drush core-requirements --format=json --ignore='update_core,update_contrib,"update status"' --severity=2 | jq '. | length')";
+result="$(drush core-requirements --format=json --ignore='update_core,update_contrib,\"update status\"' --severity=2 | jq '. | length')";
 exit_code="${result}";
 if [ "${exit_code}" -ne 0 ]; then
   if [ "${GITHUB_COMMENT_TYPE}" == "pr" ]; then

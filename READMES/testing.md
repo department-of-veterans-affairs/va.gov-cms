@@ -31,17 +31,52 @@ The "fast" suite of tests are composed of linting, static analysis, and unit
 tests.  These are collocated because they are very fast and can be run both
 independently and simultaneously.
 
-## Goals
+At present, these include:
 
-To adopt a strong test driven culture, the testing tools must:
+- **PHPStan**, a PHP static analyzer focusing on maintainability and verifiable
+  behavior.
+- **PHP_CodeSniffer**, a PHP static analyzer focusing on code quality and
+  consistency with a style guide.
+- **PHP**'s built-in linter, which is fast and may catch other issues.
+- **Check CER Fields**, a script which checks for the presence of Corresponding
+  Entity Reference fields.
+- **Check Revision Logs**, a script which checks for the presence of revision
+  log fields in node forms; they tend to disappear unexpectedly.
+- **ESLint**, an ECMAScript/JavaScript linter and static analysis tool.
+- **PHPUnit**, a PHP testing framework that runs not only unit tests but also
+  functional/behavioral tests (see [below](#functional-and-behavioral-tests)).
+- **StyleLint**, a CSS/SCSS linter run on custom modules and themes.
 
-1. Run the same tests in multiple environments with minimal configuration and
-a single command.
-2. Allow developers to define tests to include in the suite and to write the
-tests.
-3. Provide feedback to developers as quickly as possible and make test output
-as readable and accessible as possible. (e.g. GitHub pull request comments with
-failure reasons)
+Further details and implementation or usage notes about some of these tools may
+be provided below under [Testing Tools](#testing-tools).
+
+## Functional and Behavioral Tests
+
+The "slow" suite of tests are functional and behavioral tests.  These mostly
+depend on a full, running installation of Drupal, and furthermore rely on
+details of our content model, infrastructure, implementation details, and so
+forth.
+
+At present, these include:
+
+- **Behat**, a PHP behavior-driven test framework.  Behat performs some tests
+  of user roles and permissions, and also performs "Spec Tool" tests that
+  verify the content model's consistency with an administrative model.
+- **Content-Build: GraphQL** or `content-build-gql`, a script that performs the
+  initial retrieval of content-build data from Drupal via GraphQL, in order to
+  verify compatibility.
+- **Cypress**, a behavioral test framework that verifies correct behavior by
+  puppeteering a headless Chromium browser.  This is the preferred location for
+  new behavioral tests and is extensible with JavaScript rather than PHP.
+- **PHPUnit**, in a separate suite from the PHPUnit tests mentioned above, runs
+  functional, security, and other tests.  This is an appropriate place for some
+  tests, especially those that operate at the request level, API level, etc.
+- **Status-Error** is a Drush command that checks Drupal's status for issues
+  like infrastructure availability, cron not running, database inconsistency,
+  etc.
+
+Further details and implementation or usage notes about some of these tools may
+be provided below under [Testing Tools](#testing-tools).
 
 ## GitHub Integration
 

@@ -545,6 +545,7 @@
         "va:proxy:socks": "Set up a SOCKS proxy.",
         "va:test": "Run all of the tests sequentially, stopping on the first failure.",
         "va:test:no-fail": "Run all of the tests sequentially, even if some fail.",
+        "va:test:fast": "Runs the \"fast\" static analysis, linting, and unit tests.",
         "va:test:behat": "Run Behat tests.",
         "va:test:check-cer": "Check the Corresponding Entity References fields.",
         "va:test:check-revision-logs": "Check the revision log fields.",
@@ -646,6 +647,20 @@
             "@va:test:phpstan",
             "@va:test:phpunit-functional",
             "@va:test:phpunit-unit",
+            "@va:test:status-error",
+            "@va:test:stylelint-modules",
+            "@va:test:stylelint-themes"
+        ],
+        "va:test:fast": [
+            "# Runs the \"fast\" static analysis, linting, and unit tests.",
+            "@composer validate",
+            "@va:test:check-cer",
+            "@va:test:check-revision-logs",
+            "@va:test:eslint",
+            "@va:test:lint-php",
+            "@va:test:php_codesniffer",
+            "@va:test:phpstan",
+            "@va:test:phpunit-unit",
             "@va:test:stylelint-modules",
             "@va:test:stylelint-themes"
         ],
@@ -663,6 +678,7 @@
             "@va:test:phpstan || true",
             "@va:test:phpunit-functional || true",
             "@va:test:phpunit-unit || true",
+            "@va:test:status-error || true",
             "@va:test:stylelint-modules || true",
             "@va:test:stylelint-themes || true"
         ],
@@ -730,6 +746,11 @@
             "# Run PHPUnit (unit) tests.",
             "! ./scripts/should-run-directly.sh || bin/phpunit --group unit --exclude-group disabled tests/phpunit --",
             "./scripts/should-run-directly.sh || ddev composer va:test:phpunit-unit --"
+        ],
+        "va:test:status-error": [
+            "# Check Drupal status for errors.",
+            "! ./scripts/should-run-directly.sh || ./tests/scripts/status-error.sh",
+            "./scripts/should-run-directly.sh || ddev composer va:test:status-error --"
         ],
         "va:test:status-error-ci": [
             "# Check Drupal status for errors with some CI-specific functionality.",
