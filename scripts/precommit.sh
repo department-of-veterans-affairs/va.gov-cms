@@ -15,6 +15,14 @@ pushd "${repo_root}" > /dev/null;
 # List changes to be committed, excluding deleted files.
 CHANGES=$( git diff --diff-filter=d --name-only HEAD );
 
+# Validate that the Composer.lock file is up-to-date.
+VALIDATE_OUTPUT="$(composer validate 2>&1)";
+VALIDATED=$?;
+if [ "${VALIDATED}" -ne 0 ]; then
+  cat "${VALIDATE_OUTPUT}";
+  bail_if_test_failed;
+fi;
+
 # Use PHP_CodeSniffer to lint changed/added PHP files.
 PHP_FILES=$( echo "${CHANGES}" | grep -E '\.(php|module|inc|install|profile|engine|theme|css)$' );
 if [ "${#PHP_FILES}" -gt 0 ]; then
