@@ -246,7 +246,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       $terms_text[$status]['description'] = $term_storage->load($status)->getDescription();
       // If the COVID status is set but the COVID details are empty,
       // set the COVID details form field to the COVID status term description.
-      if (isset($node->get("field_supplemental_status")['0']->getValue()['target_id'])) {
+      if (isset($node->get("field_supplemental_status")['0']->getValue() && isset($node->get("field_supplemental_status")['0']->getValue()['target_id'])) {
         if ($node->get("field_supplemental_status")['0']->getValue()['target_id'] == $status &&
         empty($node->get("field_supplemental_status_more_i")['0']->getValue())) {
           $chosen_term_description = $term_storage->load($status)->getDescription();
