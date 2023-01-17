@@ -19,8 +19,8 @@ cp -r \
   docroot/vendor/simplesamlphp/simplesamlphp/;
 git update-index --skip-worktree samlsessiondb.sq2;
 
-rm -r vendor;
-
 composer va:remove-git-dirs;
+
+rm -r vendor;
 
 popd > /dev/null;

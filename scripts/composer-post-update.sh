@@ -11,8 +11,8 @@ pushd "${repo_root}" > /dev/null;
 cp -r ./hooks/git/* .git/hooks/;
 chmod 0777 ./.git/hooks/pre-commit;
 
-rm -rf ./vendor;
-
 composer va:remove-git-dirs;
+
+rm -rf ./vendor;
 
 popd > /dev/null;
