@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e;
+
 # A wrapper for tests specifically as performed in CI contexts.
 repo_root="$(git rev-parse --show-toplevel)"
 pushd "${repo_root}" > /dev/null;

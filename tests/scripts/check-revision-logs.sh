@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e;
+
 export FAILURE=0
 for filename in config/sync/core.entity_form_display.node.*.default.yml
 do

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -eo pipefail;
+
 # Lint PHP files using PHP's built-in linter.
 find \
   docroot/modules/custom \

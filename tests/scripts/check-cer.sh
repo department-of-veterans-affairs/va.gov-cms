@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e;
+
 export FAILURE=0
 declare -a files=(
   "config/sync/cer.corresponding_reference.banner_alert_and_vamc_operating_status.yml"

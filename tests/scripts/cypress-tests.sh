@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e;
+
 # This runs the Cypress test suites.
 
 repo_root="$(git rev-parse --show-toplevel)";

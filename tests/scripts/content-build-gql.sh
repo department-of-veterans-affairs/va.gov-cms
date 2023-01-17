@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e;
+
 # This runs a portion of the GraphQL content build process, stopping once the
 # CMS's responsibilities have been fulfilled.
 #
@@ -42,6 +44,6 @@ yarn build \
   --buildtype="${build_type}";
 popd "${web_path}";
 
-rm ./.buildlock;
+rm -f ./.buildlock;
 
 popd > /dev/null;

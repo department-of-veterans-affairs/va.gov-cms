@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eo pipefail;
+
 # This runs the status-error test.
 repo_root="$(git rev-parse --show-toplevel)";
 pushd "${repo_root}" > /dev/null;
