@@ -567,16 +567,20 @@
     },
     "scripts": {
         "pre-install-cmd": [
-            "! ./scripts/should-run-directly.sh || ./scripts/composer-pre-install.sh || ddev composer run pre-install-cmd --"
+            "! ./scripts/should-run-directly.sh || ./scripts/composer-pre-install.sh",
+            "./scripts/should-run-directly.sh || ddev composer run pre-install-cmd --"
         ],
         "post-install-cmd": [
-            "! ./scripts/should-run-directly.sh || ./scripts/composer-post-install.sh || ddev composer run post-install-cmd --"
+            "! ./scripts/should-run-directly.sh || ./scripts/composer-post-install.sh",
+            "./scripts/should-run-directly.sh || ddev composer run post-install-cmd --"
         ],
         "pre-update-cmd": [
-            "! ./scripts/should-run-directly.sh || ./scripts/composer-pre-update.sh || ddev composer run pre-update-cmd --"
+            "! ./scripts/should-run-directly.sh || ./scripts/composer-pre-update.sh",
+            "./scripts/should-run-directly.sh || ddev composer run pre-update-cmd --"
         ],
         "post-update-cmd": [
-            "! ./scripts/should-run-directly.sh || ./scripts/composer-post-update.sh || ddev composer run post-update-cmd --"
+            "! ./scripts/should-run-directly.sh || ./scripts/composer-post-update.sh",
+            "./scripts/should-run-directly.sh || ddev composer run post-update-cmd --"
         ],
         "drush": "composer va:drush --",
         "npm": "composer va:npm --",

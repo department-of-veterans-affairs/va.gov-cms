@@ -8,7 +8,7 @@
 repo_root="$(git rev-parse --show-toplevel)";
 pushd "${repo_root}" > /dev/null;
 
-mkdir -p ./vendor;
+mkdir --parents ./docroot/vendor;
 
 [ -f .env ] || cp .env.example .env;
 
