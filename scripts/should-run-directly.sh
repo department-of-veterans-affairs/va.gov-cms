@@ -14,6 +14,6 @@ elif [ -n "${GITHUB_ACTION}" ]; then
   exit 0;
 fi
 
-# Otherwise, assume we're on a host machine running DDEV, and that we should
-# prefix our commands with `ddev`.
-exit 1;
+# Otherwise, assume we're in a build environment or something else and run
+# commands directly.
+exit 0;
