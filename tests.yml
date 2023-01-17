@@ -14,27 +14,34 @@ tasks:
   # test to be required effectively.
   va/tests/behat:
     desc: Behat Tests
+    # See also `composer va:test:behat` in composer.json
     cmds:
       - ./tests/scripts/ci-wrapper.sh behat 'va:test:behat'
 
   va/tests/cypress:
     desc: Accessibility and Behavioral tests with Cypress
+    # See also `composer va:test:cypress-ci` in composer.json
+    # For local (e.g. DDEV) use, invoke `composer va:test:cypress`.
     cmds:
       - ./tests/scripts/ci-wrapper.sh cypress 'va:test:cypress-ci'
 
   va/tests/phpunit:
     desc: PHPUnit
+    # See also `composer va:test:phpunit-functional` in composer.json
     cmds:
       - ./tests/scripts/ci-wrapper.sh phpunit 'va:test:phpunit-functional'
 
   va/tests/status-error:
     desc: Check for Drupal status errors
+    # See also `composer va:test:status-error-ci` in composer.json
+    # For local (e.g. DDEV) use, invoke `composer va:test:status-error`.
     cmds:
       - ./tests/scripts/ci-wrapper.sh status-error 'va:test:status-error-ci'
 
 
   va/tests/content-build-gql:
     desc: Ensure that the content build graphql queries succeed
+    # See also `composer va:test:content-build-gql` in composer.json
     cmds:
       - ./tests/scripts/ci-wrapper.sh content-build-gql 'va:test:content-build-gql'
 
