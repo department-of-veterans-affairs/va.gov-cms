@@ -10,7 +10,7 @@ Feature: Permissions
     Given I am logged in as a user with the "redirect_administrator" role
     And I should receive status code 200 when I request "/admin/config/search/redirect/edit/261"
     And I should receive status code 200 when I request "/admin/config/search/redirect/add"
-    And I should receive status code 200 when I request "/admin/config/search/redirect/import"
+    And I should receive status code 200 when I request "/admin/config/search/redirect/migrate"
     And I should receive status code 200 when I request "/admin/config/search/redirect"
 
   Scenario: Administer user role can add/edit users
