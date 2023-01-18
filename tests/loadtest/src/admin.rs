@@ -7,12 +7,12 @@ pub async fn log_in(user: &mut GooseUser) -> TransactionResult {
     // Use ADMIN_USERNAME= to set custom admin username.
     let admin_username = match env::var("ADMIN_USERNAME") {
         Ok(username) => username,
-        Err(_) => "export ADMIN_USERNAME=".to_string(),
+        Err(_) => "CMS Migrator".to_string(),
     };
     // Use ADMIN_PASSWORD= to set custom admin username.
     let admin_password = match env::var("ADMIN_PASSWORD") {
         Ok(password) => password,
-        Err(_) => "export ADMIN_PASSWORD=".to_string(),
+        Err(_) => "drupal8".to_string(),
     };
 
     let login = goose_eggs::drupal::Login::builder()
