@@ -3,48 +3,59 @@
 In local, Tugboat, and BRD environments, Drupal uses [Memcache](https://memcached.org/) and the [memcache](https://www.php.net/manual/en/book.memcache.php) PHP module to improve performance by relieving the load on the RDBMS.
 
 ## BRD (Staging and Production)
+
 BRD utilizes a Memcache cluster on [AWS ElastiCache](./elasticache.md).  The PECL memcache module is installed and configured [via Ansible](https://github.com/department-of-veterans-affairs/devops/pull/8943/files) and the Memcache nodes are listed explicitly in the `CMS_MEMCACHE_NODES` environment variable.
 
 This environment variable is read, split, and mapped in [settings.brd_common.php](./docroot/sites/default/settings/settings.brd_common.php) to populate `$settings['memcache']['servers']`.
 
 ## Tugboat
+
 Tugboat creates a single-node Memcache cluster, available at the hostname `memcache` and the default port of 11211.
 
 ## Local
+
 ddev creates a single-node Memcache cluster, available at the hostname `memcache` and the default port of 11211.
 
 ## Troubleshooting
 
 ### Testing Memcache directly
+
 Memcache can be tested and interacted with directly using `telnet`.
 
 On BRD (using [ssm-session](https://github.com/department-of-veterans-affairs/devops/tree/master/utilities/ssm-session)):
+
 ```sh
-./ssm-session vagov-staging cms-test
-sudo su -
-source /etc/sysconfig/httpd
-sudo yum install telnet
-telnet "${CMS_MEMCACHE_NODES%,*}" 11211 # Connect to the first node.
+$ ssm-session vagov-staging cms-test
+$ sudo su -
+$ source /etc/sysconfig/httpd
+$ sudo yum install telnet
+...
+$ telnet "${CMS_MEMCACHE_NODES%,*}" 11211 # Connect to the first node.
 ```
 
 On Tugboat:
+
 ```sh
-tugboat shell $PREVIEW_ID
-apt-get install telnet
-telnet memcache 11211
+$ tugboat shell $PREVIEW_ID
+$ apt-get install telnet
+...
+$ telnet memcache 11211
 ```
 
 Locally:
+
 ```sh
-ddev ssh
-apt-get install telnet
-telnet memcache 11211
+$ ddev ssh
+$ apt-get install telnet
+...
+$ telnet memcache 11211
 ```
 
 #### Stats
+
 While telnetted into Memcache, the `stats` command will return a (long) list of statistics useful for confirming basic health and function of the cluster.
 
-```
+```sh
 sh-4.2$ telnet memcache 11211
 Trying 10.247.34.20...
 Connected to 10.247.34.20.
@@ -148,7 +159,7 @@ END
 
 If Memcache holds corrupted data, or for some other reason should be cleared manually (e.g. if Drush does not work, or for debugging), the `flush_all` command can be used:
 
-```
+```sh
 stats
 ...
 STAT bytes 111303
@@ -165,14 +176,13 @@ STAT curr_items 0
 
 Most of the stats (hits, misses, connections, etc) will be retained, so this is not equivalent to restarting the cluster.
 
-
 ### Recovering From a Memcache Failure
 
 If ElastiCache or Memcache fails or is not available for any reason (networking, PHP extension issues, etc), recovery should be easily accomplished.
 
 The critical code instructing Drupal to _use_ Memcache (rather than just informing Drupal that the cluster exists) is located near the bottom of [settings.php](./docroot/sites/default/settings.php):
 
-```
+```php
 // Memcache-specific settings
 if (extension_loaded('memcache') && !empty($settings['memcache']['servers'])) {
   $settings['cache']['default'] = 'cache.backend.memcache';
@@ -184,45 +194,55 @@ if (extension_loaded('memcache') && !empty($settings['memcache']['servers'])) {
 ```
 
 The conditional depends on two factors, either of which will be sufficient to disable Memcache:
+
 1. The PECL Memcache module being loaded and configured for use by PHP.
 2. The `$settings['memcache']['servers']` array being populated.
 
 The PHP ini file that configures Memcache can be located with the following command:
 
 ```sh
-php --ini | grep memcache
+$ php --ini | grep memcache
+...
 ```
 
 #### BRD
 
 ##### Temporarily
+
 Thus, on BRD, the PHP Memcache extension can be disabled temporarily for incident response:
 
 ```sh
-mv /etc/opt/remi/php81/php.d/40-memcache.ini ./            # Output of command above
-systemctl restart httpd
-php -m | grep -i memcache                                  # Should not list the Memcache module
+$ mv /etc/opt/remi/php81/php.d/40-memcache.ini ./            # Output of command above
+$ systemctl restart httpd
+...
+$ php -m | grep -i memcache                                  # Should not list the Memcache module
+...
 ```
 
 The Memcache extension will be restored on the next deploy, or the file can simply be moved back into place and Apache reloaded again to reenable it.
 
 ##### Across Deploys
-If some profound issue with Memcache or its configuration is discovered, Memcache can be disabled by setting CMS_MEMCACHE_NODES to an empty string or unsetting it completely.
 
-CMS_MEMCACHE_NODES is set in [ansible/deployment/config/cms-vagov-prod.yml](https://github.com/department-of-veterans-affairs/devops/blob/master/ansible/deployment/config/cms-vagov-prod.yml).
+If some profound issue with Memcache or its configuration is discovered, Memcache can be disabled by setting `CMS_MEMCACHE_NODES` to an empty string or unsetting it completely.
+
+`CMS_MEMCACHE_NODES` is set in [ansible/deployment/config/cms-vagov-prod.yml](https://github.com/department-of-veterans-affairs/devops/blob/master/ansible/deployment/config/cms-vagov-prod.yml).
 
 This change will persist across deploys.
 
 #### Tugboat
+
 On Tugboat, the path to the ini file will differ:
 
 ```sh
-mv /usr/local/etc/php/conf.d/docker-php-ext-memcache.ini ./           # Output of command above
-sudo /etc/init.d/apache2 reload
-php -m                                                                # Should not list the Memcache module
+$ mv /usr/local/etc/php/conf.d/docker-php-ext-memcache.ini ./           # Output of command above
+$ sudo /etc/init.d/apache2 reload
+...
+$ php -m                                                                # Should not list the Memcache module
+...
 ```
 
 The Memcache extension will be restored on the next deploy, or the file can simply be moved back into place and Apache reloaded again to re-enable it.
 
+----
 
 [Table of Contents](../README.md)

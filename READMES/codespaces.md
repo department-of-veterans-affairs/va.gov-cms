@@ -15,12 +15,13 @@
 1. Download and install [Visual Studio Code](https://code.visualstudio.com/download)
   1. Arch Linux: `yay --sync visual-studio-code-bin`
 1. Open VS Code and install the [Codespaces plugin](https://marketplace.visualstudio.com/items?itemName=ms-vsonline.vsonline)
-  ![codespaces plugin](https://user-images.githubusercontent.com/101649/111006584-4d24ad80-834a-11eb-84d8-b0f574880e49.png)
+    ![codespaces plugin](https://user-images.githubusercontent.com/101649/111006584-4d24ad80-834a-11eb-84d8-b0f574880e49.png)
 1. Go to the main [Codespaces page](https://github.com/codespaces) and click the 'New codespace' button
 1. Type in the name of your fork of the [CMS repo](https://github.com/department-of-veterans-affairs/va.gov-cms) (create one if you haven't already) and choose the main branch. If it doesn't come up in the list you may have to type the full name, e.g. `elijahlynn/va.gov-cms`, not just `va.gov-cms`:
-  ![codespaces creation](https://user-images.githubusercontent.com/101649/111007305-beb12b80-834b-11eb-8c80-138586ca4720.png)
+    ![codespaces creation](https://user-images.githubusercontent.com/101649/111007305-beb12b80-834b-11eb-8c80-138586ca4720.png)
 1. Click "Sign into GitHub", a browser will open authorizing GitHub and VS Code.
-   ![image](https://user-images.githubusercontent.com/1504756/111011691-0d13f980-834f-11eb-8595-cff579659869.png)
+
+    ![image](https://user-images.githubusercontent.com/1504756/111011691-0d13f980-834f-11eb-8595-cff579659869.png)
 1. Click 'Create codespace'
 1. You will see this dialog:
 
@@ -62,3 +63,7 @@ To debug with [Xdebug](https://xdebug.org), follow these steps:
 ## Global Configuration
 
 The codespaces configuration and setup script are located in the [.devcontainer](../.devcontainer) directory of this repo. The main configuration is stored in `devcontainer.json` - available properties are [documented here](https://code.visualstudio.com/docs/remote/devcontainerjson-reference).
+
+----
+
+[Table of Contents](../README.md)

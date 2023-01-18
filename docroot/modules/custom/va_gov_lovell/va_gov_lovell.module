@@ -5,8 +5,30 @@
  * Contains va_gov_lovell.module.
  */
 
-use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function va_gov_lovell_form_node_form_alter(array &$form, FormStateInterface &$form_state) {
+
+  $bundles_to_remove_lovell_federal_from = [
+    'health_care_local_health_service',
+    'regional_health_care_service_des',
+    'vha_facility_nonclinical_service',
+  ];
+  /** @var \Drupal\Core\Entity\EntityForm $form_object */
+  $form_object = $form_state->getFormObject();
+  if ($form_object instanceof EntityForm) {
+    $node = $form_object->getEntity();
+    if (in_array($node->bundle(), $bundles_to_remove_lovell_federal_from)) {
+      $form['#attached']['library'][] = 'va_gov_lovell/limit_lovell';
+    }
+  }
+}
 
 /**
  * Implements hook_help().

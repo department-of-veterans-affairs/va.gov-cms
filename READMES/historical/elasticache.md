@@ -1,12 +1,17 @@
 # Elasticache for VA.GOV-CMS
 
-## Purpose:
-Provide an overview and detailed technical information regarding the implementation of AWS Elasticache using the Memcache engine.
-## Motivation:
-GraphQL queries increase load on Drupal backed VA.GOV-CMS database. By implementing a layer of the most frequently accessed data those queries will remove be much faster and shift load away from the CMS database. In-memory caching is an effective way to solve this problem
-## Research Findings:
+## Purpose
 
-Team tested build times<sup>[[4]](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/4461#issuecomment-806146870)</sup> and resource consumption of a PoC for Elasticache Memcache and found that a full build request was faster and consumed fewer resources<sup>[[5]](http://grafana.vfs.va.gov/d/dxf8a-6Zz/cms-dashboard?orgId=1&from=1616614756221&to=1616615896576&var-datasource=Prometheus%20(Utility)&var-environment=dev&var-app_name=cms-test)</sup> on the database server and only slightly more CPU on the app server. It is suspected that it is so much faster on a cold cache because the cache writes are faster with Memcache than RDS. 
+Provide an overview and detailed technical information regarding the implementation of AWS Elasticache using the Memcache engine.
+
+## Motivation:
+
+GraphQL queries increase load on Drupal backed VA.GOV-CMS database. By implementing a layer of the most frequently accessed data those queries will remove be much faster and shift load away from the CMS database. In-memory caching is an effective way to solve this problem
+
+## Research Findings
+
+Team tested build times<sup>[[4]](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/4461#issuecomment-806146870)</sup> and resource consumption of a PoC for Elasticache Memcache and found that a full build request was faster and consumed fewer resources<sup>[[5]](http://grafana.vfs.va.gov/d/dxf8a-6Zz/cms-dashboard?orgId=1&from=1616614756221&to=1616615896576&var-datasource=Prometheus%20(Utility)&var-environment=dev&var-app_name=cms-test)</sup> on the database server and only slightly more CPU on the app server. It is suspected that it is so much faster on a cold cache because the cache writes are faster with Memcache than RDS.
+
 Cold cache (over 50% decrease)
 
 - GraphQL Request time
@@ -48,7 +53,7 @@ The 50% decrease in response times for a vets-website GraphQL Build with our cur
     - Simple data structure
     - Old hotness?
 
-## Implementation Details:
+## Implementation Details
 
 AWS Elasticache using Memcache is implemented in Terraform.<sup>[[2]](https://github.com/department-of-veterans-affairs/terraform-aws-vsp-cms/pull/21)</sup>
 
@@ -67,17 +72,17 @@ Terraform is configured to ignore changes to the Node Type, Number of Nodes and 
 Any changes to the above attributes will be applied during the predefined Maintenance Window. Monday 2200-2300 UTC was chosen so that it coincides with COB Eastern time and 1500 Pacific time. This is meant to minimize disruptions to users while also occurring during business hours when DevOps support staff are available.
 
 ## Troubleshooting and How-to
+
 ### How do I disable Memcache locally?
 
-Debugging docs
-Elasticache/cluster debugging
-CI/Lando will be same-node debugging
+- Debugging docs
+- Elasticache/cluster debugging
+- CI/Lando will be same-node debugging
 
 ## Monitoring
 
 [Memcache health and performance metrics](http://grafana.vfs.va.gov/d/dxf8a-6Zz/cms-dashboard?orgId=1&refresh=5s) are graphed in Grafana.  This Grafrana implemenation is only available within the VA, accessible by the socks proxy. 
 Memcache metrics are at the bottom of this page.
-
 
 ## References
 1. https://github.com/department-of-veterans-affairs/va.gov-cms/issues/4458
@@ -86,3 +91,7 @@ Memcache metrics are at the bottom of this page.
 
 1. https://github.com/department-of-veterans-affairs/va.gov-cms/issues/4461#issuecomment-806146870
 1. http://grafana.vfs.va.gov/d/dxf8a-6Zz/cms-dashboard?orgId=1&from=1616614756221&to=1616615896576&var-datasource=Prometheus%20(Utility)&var-environment=dev&var-app_name=cms-test
+
+----
+
+[Table of Contents](../../README.md)

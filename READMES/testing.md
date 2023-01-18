@@ -58,10 +58,6 @@ There are 3 main types of tests:
 
 1.  **WEB Integration Tests** (e.g. WEB == FE decoupled [content-build](https://patch-diff.githubusercontent.com/raw/department-of-veterans-affairs/content-build/) repo)
 
-    1. Behat Decoupled.feature runs a content build and tests for content changes.
-
-    The long term goal is to run _all_ of the **WEB** project's tests in our test suite, but more work is needed in the **WEB** codebase to make that possible.
-
 1.  **Functional Tests**
 
     1. `va/tests/phpunit` - The CMS PHPUnit Tests include a number of functional tests, including creating media, testing GraphQL, performance and security. See the [tests/phpunit folder](tests/phpunit) to see all the PHPUnit tests.
@@ -184,10 +180,10 @@ You can add an argument to filter the tests to run:
 
 ```sh
 # Run the entire test suite.
-./bin/task --taskfile=tests.yml
+$ ./bin/task --taskfile=tests.yml
 
 # Run `va/tests/phpunit` only
-./bin/task --taskfile=tests.yml va/tests/phpunit
+$ ./bin/task --taskfile=tests.yml va/tests/phpunit
 ```
 
 ## GitHub Integration
@@ -358,5 +354,7 @@ Otherwise, just scroll back to find the failed test, and go from there.
 #### Otherwise...
 
 This test is run by a GitHub Action.  Click the "Details" link in the row of the failed test.  This should take you to a view of the run details, which should contain the logged information.
+
+----
 
 [Table of Contents](../README.md)

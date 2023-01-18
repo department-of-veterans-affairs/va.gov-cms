@@ -1,4 +1,4 @@
-# CMS-login
+# CMS Login
 
 More info at https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/blob/master/platform/cms/cms-sso-saml-iam-login-braindump.md
 
@@ -48,3 +48,7 @@ $config['simplesamlphp_auth.settings']['activate'] = TRUE;
 - Set `activate` to `true` in `config/local/simplesamlphp_auth.settings.yml`, then run `ddev drush cim`.
 
 Regardless of which approach you choose, be careful not to commit these changes!
+
+----
+
+[Table of Contents](../README.md)
