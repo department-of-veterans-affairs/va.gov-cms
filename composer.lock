@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "660b967cfad6fd5957656416807073ee",
+    "content-hash": "589e7fc19cde7e9179e6b6c989df1001",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -10525,27 +10525,27 @@
         },
         {
             "name": "drupal/paragraphs_browser",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/paragraphs_browser.git",
-                "reference": "8.x-1.0"
+                "reference": "8.x-1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/paragraphs_browser-8.x-1.0.zip",
-                "reference": "8.x-1.0",
-                "shasum": "f544b64a87479053ff51be98521e8e84752fe32c"
+                "url": "https://ftp.drupal.org/files/projects/paragraphs_browser-8.x-1.1.zip",
+                "reference": "8.x-1.1",
+                "shasum": "79d34a4885c7c669bb3a481f9aa25b91cad7aab0"
             },
             "require": {
-                "drupal/core": "^8 || ^9",
+                "drupal/core": "^9.3 || ^10",
                 "drupal/paragraphs": "*"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0",
-                    "datestamp": "1610299421",
+                    "version": "8.x-1.1",
+                    "datestamp": "1673972153",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -10828,30 +10828,36 @@
         },
         {
             "name": "drupal/path_redirect_import",
-            "version": "1.0.0-beta5",
+            "version": "2.0.6",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/path_redirect_import.git",
-                "reference": "8.x-1.0-beta5"
+                "reference": "2.0.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/path_redirect_import-8.x-1.0-beta5.zip",
-                "reference": "8.x-1.0-beta5",
-                "shasum": "84bf22f684e0d001a5038960589939434a93994a"
+                "url": "https://ftp.drupal.org/files/projects/path_redirect_import-2.0.6.zip",
+                "reference": "2.0.6",
+                "shasum": "5ae31f47afecd8ac422bac35cd025020e558e09c"
             },
             "require": {
-                "drupal/core": "^8 || ^9",
-                "drupal/redirect": "*"
+                "drupal/core": ">=9.1",
+                "drupal/migrate_source_csv": "^3.5",
+                "drupal/migrate_tools": "^5.0 || ^6.0",
+                "drupal/redirect": "*",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "drupal/migrate_plus": ">=5.0"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0-beta5",
-                    "datestamp": "1635359017",
+                    "version": "2.0.6",
+                    "datestamp": "1672133788",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
@@ -10861,8 +10867,9 @@
             ],
             "authors": [
                 {
-                    "name": "gabrielu",
-                    "homepage": "https://www.drupal.org/user/279352"
+                    "name": "Pablo López",
+                    "homepage": "https://www.drupal.org/u/plopesc",
+                    "role": "Maintainer"
                 },
                 {
                     "name": "paulocs",
@@ -10873,10 +10880,11 @@
                     "homepage": "https://www.drupal.org/user/282415"
                 }
             ],
-            "description": "Provides the ability to import redirects for the Redirect module",
+            "description": "Migrate Drupal redirects from CSV.",
             "homepage": "https://www.drupal.org/project/path_redirect_import",
             "support": {
-                "source": "https://git.drupalcode.org/project/path_redirect_import"
+                "source": "https://cgit.drupalcode.org/path_redirect_import",
+                "issues": "https://www.drupal.org/project/issues/path_redirect_import"
             }
         },
         {
@@ -12130,29 +12138,29 @@
         },
         {
             "name": "drupal/styleguide",
-            "version": "2.0.0-beta1",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/styleguide.git",
-                "reference": "2.0.0-beta1"
+                "reference": "2.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/styleguide-2.0.0-beta1.zip",
-                "reference": "2.0.0-beta1",
-                "shasum": "accf943a36e0162c2539162739e8f4d5035935d8"
+                "url": "https://ftp.drupal.org/files/projects/styleguide-2.0.1.zip",
+                "reference": "2.0.1",
+                "shasum": "caa8504bfc0da3b48c6bc37c5c5fcb96807b89a4"
             },
             "require": {
-                "drupal/core": "^8.8 || ^9"
+                "drupal/core": "^9.3 || ^10"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.0.0-beta1",
-                    "datestamp": "1603816575",
+                    "version": "2.0.1",
+                    "datestamp": "1673427290",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
@@ -12423,8 +12431,8 @@
                     "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-3.5+2-dev",
-                    "datestamp": "1665077150",
+                    "version": "8.x-3.5+3-dev",
+                    "datestamp": "1673816047",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -18871,16 +18879,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.9.11",
+            "version": "1.9.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "60f3d68481eef216199eae7a2603cd5fe124d464"
+                "reference": "44a338ff0d5572c13fd77dfd91addb96e48c29f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/60f3d68481eef216199eae7a2603cd5fe124d464",
-                "reference": "60f3d68481eef216199eae7a2603cd5fe124d464",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/44a338ff0d5572c13fd77dfd91addb96e48c29f8",
+                "reference": "44a338ff0d5572c13fd77dfd91addb96e48c29f8",
                 "shasum": ""
             },
             "require": {
@@ -18910,7 +18918,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.9.11"
+                "source": "https://github.com/phpstan/phpstan/tree/1.9.12"
             },
             "funding": [
                 {
@@ -18926,7 +18934,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-12T14:04:13+00:00"
+            "time": "2023-01-17T10:44:04+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -27645,16 +27653,16 @@
         },
         {
             "name": "va-gov/content-build",
-            "version": "v0.0.3175",
+            "version": "v0.0.3176",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/content-build.git",
-                "reference": "f375b3a1be537a04d17fafa1c5242d307fe9d46b"
+                "reference": "75f4e0e3822f5c107feceb6defb0ff7a1acb88ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/f375b3a1be537a04d17fafa1c5242d307fe9d46b",
-                "reference": "f375b3a1be537a04d17fafa1c5242d307fe9d46b",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/75f4e0e3822f5c107feceb6defb0ff7a1acb88ab",
+                "reference": "75f4e0e3822f5c107feceb6defb0ff7a1acb88ab",
                 "shasum": ""
             },
             "type": "node-project",
@@ -27681,9 +27689,9 @@
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/content-build, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
             "support": {
                 "issues": "https://github.com/department-of-veterans-affairs/content-build/issues",
-                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3175"
+                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3176"
             },
-            "time": "2023-01-11T14:40:22+00:00"
+            "time": "2023-01-17T18:40:02+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -28667,7 +28675,6 @@
         "drupal/migrate_source_ui": 5,
         "drupal/migrate_tools": 20,
         "drupal/openapi": 5,
-        "drupal/paragraphs_browser": 15,
         "drupal/password_strength": 20,
         "drupal/path_redirect_import": 10,
         "drupal/pathologic": 15,
