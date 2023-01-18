@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e;
+set -ex;
 
 # A wrapper for tests specifically as performed in CI contexts.
 repo_root="$(git rev-parse --show-toplevel)"
@@ -15,15 +15,16 @@ set +o allexport;
 test_name="${1}";
 composer_name="${2:-va:test:${test_name}}";
 status_name="${3:-va/tests/${test_name}}";
+log_name="${test_name}-ci.log";
 
 echo "Test name: ${test_name}";
 echo "Composer name: ${composer_name}";
 echo "Status name: ${status_name}";
 
-result="$(time composer "${composer_name}" 2>&1 > "${test_name}-ci.log")";
+result="$(time composer "${composer_name}" 2>&1 > "${log_name}")";
 exit_code=$?;
 
-cat "${test_name}-ci.log";
+cat "${log_name}";
 
 if [ -n "${GITHUB_TOKEN}" ]; then 
   if [ "${exit_code}" -eq 0 ]; then

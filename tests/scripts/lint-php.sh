@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -eo pipefail;
+set -exo pipefail;
 
 # Lint PHP files using PHP's built-in linter.
 find \

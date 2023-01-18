@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -eo pipefail;
+set -exo pipefail;
 
 # This runs the status-error test.
 repo_root="$(git rev-parse --show-toplevel)";

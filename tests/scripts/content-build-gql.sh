@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e;
+set -ex;
 
 # This runs a portion of the GraphQL content build process, stopping once the
 # CMS's responsibilities have been fulfilled.
@@ -30,7 +30,7 @@ echo "{}" > "${build_path}/metalsmith-build-data.json";
 cp patches/content-build-gql-logging.patch "${web_path}/";
 pushd "${web_path}";
 git apply content-build-gql-logging.patch || echo 'patch failed';
-popd "${web_path}";
+popd;
 
 pushd "${web_path}";
 export INSTALL_HOOKS=no;
@@ -42,7 +42,7 @@ yarn build \
   --no-drupal-proxy \
   --api="${build_api_url}" \
   --buildtype="${build_type}";
-popd "${web_path}";
+popd;
 
 rm -f ./.buildlock;
 

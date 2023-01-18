@@ -23,7 +23,7 @@ yarn build \
   --no-drupal-proxy \
   --api="${build_api_url}" \
   --buildtype="${build_type}";
-popd "${web_path}";
+popd;
 
 echo "Replacing s3 address with local in generated files."
 find \

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e;
+set -ex;
 
 export FAILURE=0
 declare -a files=(
