@@ -19,7 +19,7 @@ hooks:
   - exec: drush deploy
   post-start:
   - exec: ./scripts/install_task_runner.sh
-  - composer: install
+  - composer: install --no-interaction
   - composer: va:theme:compile
   - composer: va:web:install
 webimage_extra_packages: [build-essential, chrpath, libssl-dev, libxft-dev, libfreetype6-dev,

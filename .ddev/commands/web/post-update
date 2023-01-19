@@ -4,6 +4,6 @@
 ## Usage: post-update
 
 set -e
-composer install
+composer install --no-interaction
 drush updatedb --cache-clear=0 -y
 drush cache:rebuild -y
