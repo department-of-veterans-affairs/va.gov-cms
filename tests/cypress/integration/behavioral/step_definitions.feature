@@ -32,7 +32,7 @@ Feature: Step definitions function as expected
     And I am at "/"
     Then the element with selector "body" should have attribute "class"
     Then the element with selector "body" should not have attribute "nonsensical-attribute"
-    Then the element with selector "body" should have attribute "data-once" with value "contextualToolbar-init"
+    Then the element with selector "body" should have attribute "data-once" with value "contextualToolbar-init big-pipe-early-behaviors"
     Then the element with selector "body" should have attribute "data-once" containing value "init"
     Then the element with selector "body" should have attribute "data-once" matching expression "con([ext]+)...Toolbar-[a-z]{4}"
 
