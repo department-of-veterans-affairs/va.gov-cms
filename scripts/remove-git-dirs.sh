@@ -11,7 +11,9 @@ find . \
   -not \
   \( \
     -path './docroot/vendor/va-gov/content-build/.git' \
+    -or \
+    -path './docroot/core/.git' \
   \) \
-  | xargs rm -rf;
+  -delete;
 
 popd > /dev/null;
