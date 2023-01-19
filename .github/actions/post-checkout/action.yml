@@ -29,7 +29,7 @@ runs:
         coverage: xdebug
 
     - name: Install PHP packages via Composer
-      run: composer install --no-progress --prefer-dist --optimize-autoloader --no-interaction
+      run: composer install --no-progress --prefer-dist --optimize-autoloader
       shell: bash
 
     - name: Setup ReviewDog
