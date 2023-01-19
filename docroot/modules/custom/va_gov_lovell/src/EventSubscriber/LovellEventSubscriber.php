@@ -246,6 +246,7 @@ class LovellEventSubscriber implements EventSubscriberInterface {
   protected function updateLovellBreadcrumbs(BreadcrumbEventVariables $variables): void {
     $breadcrumb = $variables->getBreadcrumb();
     $node = $this->routeMatch->getParameter('node');
+
     if (($node instanceof NodeInterface)
     && ($node->hasField('path'))
     && ($node->hasField('field_administration'))) {
@@ -276,8 +277,8 @@ class LovellEventSubscriber implements EventSubscriberInterface {
    *   The breadcrumb.
    */
   protected function swapAforB($a, $b, array $breadcrumb) {
-    $a_path = constant('\Drupal\va_gov_lovell\LovellOps::' . "{$a}_PATH");
-    $a_name = constant('\Drupal\va_gov_lovell\LovellOps::' . "{$a}_NAME");
+    $a_path = `/constant('\Drupal\va_gov_lovell\LovellOps::' . "{$a}_PATH").*/`;
+    $a_name = `/constant('\Drupal\va_gov_lovell\LovellOps::' . "{$a}_NAME").*/`;
 
     $b_path = constant('\Drupal\va_gov_lovell\LovellOps::' . "{$b}_PATH");
     $b_name = constant('\Drupal\va_gov_lovell\LovellOps::' . "{$b}_NAME");

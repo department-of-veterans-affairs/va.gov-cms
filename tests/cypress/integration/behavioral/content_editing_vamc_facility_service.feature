@@ -12,14 +12,14 @@ Feature: CMS Users may effectively interact with the VAMC Facility Health Servic
     # Lovell VA test
     And I select option "----Lovell - VA" from dropdown "Section"
     And I wait "2" seconds
-    Then I select option "Captain James A. Lovell Federal Health Care Center | Lovell Federal VA health care" from dropdown with selector "#edit-field-facility-location"
-    Then I select option "Cardiology at Lovell Federal VA health care" from dropdown with selector "#edit-field-regional-health-service"
+    Then I select option "Captain James A. Lovell Federal Health Care Center | Lovell Federal health care - VA" from dropdown with selector "#edit-field-facility-location"
+    Then I select option "Cardiology at Lovell Federal health care - VA" from dropdown with selector "#edit-field-regional-health-service"
 
     # Lovell TRICARE test
     Then I select option "----Lovell - TRICARE" from dropdown "Section"
     And I wait "2" seconds
-    Then I select option "Captain James A. Lovell Federal Health Care Center | Lovell Federal TRICARE health care" from dropdown with selector "#edit-field-facility-location"
-    Then I select option "Cardiology at Lovell Federal TRICARE health care" from dropdown with selector "#edit-field-regional-health-service"
+    Then I select option "Captain James A. Lovell Federal Health Care Center | Lovell Federal health care - TRICARE" from dropdown with selector "#edit-field-facility-location"
+    Then I select option "Cardiology at Lovell Federal health care - TRICARE" from dropdown with selector "#edit-field-regional-health-service"
 
     # Lovell Federal umbrella test
     Then an option with the text "Lovell Federal health care" from dropdown with selector "#edit-field-administration" should not be visible
