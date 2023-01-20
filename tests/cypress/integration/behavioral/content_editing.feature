@@ -19,8 +19,8 @@ Feature: CMS Users may effectively create & edit content
     And I click the "Create banner alert" button
     And I wait "5" seconds
     And I click the "Save draft and continue editing" button
-    Then I should see "Pages for the following VAMC systems"
-    And I should see "[Test Data] Alert Title"
+    Then "Pages for the following VAMC systems" should exist
+    And "[Test Data] Alert Title" should exist
     And I scroll to position "bottom"
     And I click the "Unlock" link
     And I click the "Confirm break lock" button
