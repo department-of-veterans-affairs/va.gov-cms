@@ -1,0 +1,29 @@
+label: 'Mga talaksan'
+display:
+  default:
+    display_title: Pamantayan
+    display_options:
+      title: 'Mga talaksan'
+      fields:
+        filename:
+          label: Pangalan
+        status:
+          label: Kalagayan
+      exposed_form:
+        options:
+          submit_button: Salain
+          reset_button_label: 'Ibalik sa pamantayan'
+      filters:
+        status:
+          expose:
+            label: Kalagayan
+  page_1:
+    display_options:
+      menu:
+        title: 'Mga talaksan'
+  page_2:
+    display_options:
+      arguments:
+        fid:
+          exception:
+            title: Lahat

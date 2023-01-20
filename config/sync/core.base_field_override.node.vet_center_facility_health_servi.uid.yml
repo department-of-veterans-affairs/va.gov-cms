@@ -1,0 +1,20 @@
+uuid: ed396e9e-94e0-4b2b-a7de-cb36c20df760
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vet_center_facility_health_servi
+id: node.vet_center_facility_health_servi.uid
+field_name: uid
+entity_type: node
+bundle: vet_center_facility_health_servi
+label: 'Authored by'
+description: 'The username of the content author.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: 'Drupal\node\Entity\Node::getDefaultEntityOwner'
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

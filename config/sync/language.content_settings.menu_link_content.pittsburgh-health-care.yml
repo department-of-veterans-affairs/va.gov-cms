@@ -1,0 +1,18 @@
+uuid: 8db21fb4-e140-4d7f-93b8-d458c2375fc4
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.pittsburgh-health-care
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: menu_link_content.pittsburgh-health-care
+target_entity_type_id: menu_link_content
+target_bundle: pittsburgh-health-care
+default_langcode: site_default
+language_alterable: false

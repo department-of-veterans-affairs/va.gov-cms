@@ -1,0 +1,18 @@
+uuid: 4c9bc6fa-3b6a-4c96-957d-1f8449df91c2
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.step_by_step
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+id: node.step_by_step
+target_entity_type_id: node
+target_bundle: step_by_step
+default_langcode: site_default
+language_alterable: false

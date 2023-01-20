@@ -1,0 +1,22 @@
+uuid: 91aec475-4f3d-439f-a1a8-0a50166fd89a
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vba_facility
+id: node.vba_facility.sticky
+field_name: sticky
+entity_type: node
+bundle: vba_facility
+label: 'Sticky at top of lists'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

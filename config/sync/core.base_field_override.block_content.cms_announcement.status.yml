@@ -1,0 +1,22 @@
+uuid: e44eb9cb-fea7-46d7-b1c6-8b716b97a7a2
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.cms_announcement
+id: block_content.cms_announcement.status
+field_name: status
+entity_type: block_content
+bundle: cms_announcement
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

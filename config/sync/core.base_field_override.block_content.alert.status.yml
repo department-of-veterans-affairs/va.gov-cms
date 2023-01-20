@@ -1,0 +1,22 @@
+uuid: adb83e10-9aac-4729-98ab-3a2e4b54c90a
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alert
+id: block_content.alert.status
+field_name: status
+entity_type: block_content
+bundle: alert
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

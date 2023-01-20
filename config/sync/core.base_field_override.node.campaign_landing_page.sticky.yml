@@ -1,0 +1,22 @@
+uuid: aa18444f-2696-41ae-925a-985c78dc893e
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.campaign_landing_page
+id: node.campaign_landing_page.sticky
+field_name: sticky
+entity_type: node
+bundle: campaign_landing_page
+label: 'Sticky at top of lists'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

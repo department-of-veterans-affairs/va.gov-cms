@@ -1,0 +1,58 @@
+uuid: 1bc7565d-57a2-4ce5-87b5-e95f3ea9776f
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.user.register
+    - field.field.user.user.field_last_password_reset
+    - field.field.user.user.field_password_expiration
+    - field.field.user.user.field_pending_expire_sent
+    - field.field.user.user.message_subscribe_email
+    - field.field.user.user.tmgmt_translation_skills
+  module:
+    - path
+    - tmgmt_language_combination
+    - user
+id: user.user.register
+targetEntityType: user
+bundle: user
+mode: register
+content:
+  account:
+    weight: -10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  language:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  simplesamlphp_auth_user_enable:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  timezone:
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  tmgmt_translation_skills:
+    type: tmgmt_language_combination_default
+    weight: 31
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_last_password_reset: true
+  field_password_expiration: true
+  field_pending_expire_sent: true
+  langcode: true
+  message_subscribe_email: true

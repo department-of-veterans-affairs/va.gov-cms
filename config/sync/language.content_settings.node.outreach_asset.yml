@@ -1,0 +1,18 @@
+uuid: 865e0f1f-3bde-4c22-b461-26659b839888
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.outreach_asset
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+id: node.outreach_asset
+target_entity_type_id: node
+target_bundle: outreach_asset
+default_langcode: site_default
+language_alterable: false

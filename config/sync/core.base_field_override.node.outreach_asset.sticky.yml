@@ -1,0 +1,22 @@
+uuid: 79af14ed-5c08-4bc7-a6e8-d79bf9515cba
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.outreach_asset
+id: node.outreach_asset.sticky
+field_name: sticky
+entity_type: node
+bundle: outreach_asset
+label: 'Sticky at top of lists'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

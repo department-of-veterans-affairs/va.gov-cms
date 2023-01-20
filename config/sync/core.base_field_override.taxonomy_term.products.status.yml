@@ -1,0 +1,22 @@
+uuid: aff081f1-a683-4a7f-9a64-e01bc61e1359
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.products
+id: taxonomy_term.products.status
+field_name: status
+entity_type: taxonomy_term
+bundle: products
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

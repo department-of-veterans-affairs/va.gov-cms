@@ -1,0 +1,22 @@
+uuid: 63b50eb8-5b98-4746-9e10-6ae4e68aa54b
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.react_widget
+id: paragraph.react_widget.status
+field_name: status
+entity_type: paragraph
+bundle: react_widget
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

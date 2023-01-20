@@ -1,0 +1,20 @@
+uuid: 3ad4651a-5616-41d8-b5e9-af022d98dc56
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.outreach_asset
+id: node.outreach_asset.uid
+field_name: uid
+entity_type: node
+bundle: outreach_asset
+label: 'Authored by'
+description: 'The username of the content author.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: 'Drupal\node\Entity\Node::getDefaultEntityOwner'
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

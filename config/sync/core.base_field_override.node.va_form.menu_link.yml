@@ -1,0 +1,20 @@
+uuid: 07bc5575-6d7c-4edb-8c98-7ce3717e74be
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.va_form
+id: node.va_form.menu_link
+field_name: menu_link
+entity_type: node
+bundle: va_form
+label: 'Menu link'
+description: 'Computed menu link for the node (only available during node saving).'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

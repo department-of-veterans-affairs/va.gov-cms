@@ -1,0 +1,36 @@
+display:
+  default:
+    display_options:
+      exposed_form:
+        options:
+          reset_button_label: 'Ibalik sa pamantayan'
+  nodes_list:
+    display_options:
+      fields:
+        title:
+          label: Pamagat
+        total_score:
+          suffix: '%'
+        langcode:
+          label: Wika
+        edit_node:
+          text: wastuhin
+  nodes_score:
+    display_options:
+      arguments:
+        nid:
+          exception:
+            title: Lahat
+      fields:
+        feedback_type:
+          label: Uri
+        feedback_message:
+          label: Mensahe
+        langcode_2:
+          label: Wika
+        created:
+          label: Inilikha
+        id_1:
+          alter:
+            text: tanggalin
+            alt: tanggalin

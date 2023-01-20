@@ -1,0 +1,22 @@
+uuid: ed0bafd4-27c3-4c7a-9d24-0a3bf2241dc3
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.checklist
+id: paragraph.checklist.status
+field_name: status
+entity_type: paragraph
+bundle: checklist
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

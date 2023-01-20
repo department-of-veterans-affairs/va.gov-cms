@@ -1,0 +1,18 @@
+uuid: 0cc89b41-906c-49b9-a364-485a75e2e1ff
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.health_care_service_taxonomy
+id: taxonomy_term.health_care_service_taxonomy.metatag
+field_name: metatag
+entity_type: taxonomy_term
+bundle: health_care_service_taxonomy
+label: 'Metatags (Hidden field for JSON support)'
+description: 'The meta tags for the entity.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: map
