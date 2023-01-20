@@ -7,9 +7,11 @@ dependencies:
     - field.field.user.user.field_password_expiration
     - field.field.user.user.field_pending_expire_sent
     - field.field.user.user.message_subscribe_email
+    - field.field.user.user.tmgmt_translation_skills
   module:
     - datetime
     - path
+    - tmgmt_language_combination
     - user
 id: user.user.default
 targetEntityType: user
@@ -62,5 +64,12 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  tmgmt_translation_skills:
+    type: tmgmt_language_combination_default
+    weight: 31
+    region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   field_pending_expire_sent: true
+  langcode: true

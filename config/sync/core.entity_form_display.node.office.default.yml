@@ -84,7 +84,7 @@ third_party_settings:
         show_empty_fields: false
         id: ''
         direction: vertical
-        width_breakpoint: '640'
+        width_breakpoint: 640
     group_content:
       children:
         - field_body
@@ -189,6 +189,13 @@ content:
     weight: 28
     region: content
     settings: {  }
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default

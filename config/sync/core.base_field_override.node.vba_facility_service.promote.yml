@@ -1,0 +1,22 @@
+uuid: bdea3724-87da-4f35-903b-5ee1575c77e4
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vba_facility_service
+id: node.vba_facility_service.promote
+field_name: promote
+entity_type: node
+bundle: vba_facility_service
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

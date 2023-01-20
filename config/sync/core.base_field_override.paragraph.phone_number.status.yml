@@ -1,0 +1,22 @@
+uuid: db6e6553-e8f9-4641-b1ee-cb5569d092d9
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.phone_number
+id: paragraph.phone_number.status
+field_name: status
+entity_type: paragraph
+bundle: phone_number
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

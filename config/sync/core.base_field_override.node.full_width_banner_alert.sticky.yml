@@ -1,0 +1,22 @@
+uuid: 81cb8864-786d-4077-913c-f6fb4cd271a4
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.full_width_banner_alert
+id: node.full_width_banner_alert.sticky
+field_name: sticky
+entity_type: node
+bundle: full_width_banner_alert
+label: 'Sticky at top of lists'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

@@ -1,0 +1,22 @@
+uuid: b59ee61f-516d-4463-83e6-1bbae17d8d63
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.locations_listing
+id: node.locations_listing.sticky
+field_name: sticky
+entity_type: node
+bundle: locations_listing
+label: 'Sticky at top of lists'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

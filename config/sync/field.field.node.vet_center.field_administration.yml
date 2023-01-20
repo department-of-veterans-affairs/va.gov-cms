@@ -6,8 +6,6 @@ dependencies:
     - field.storage.node.field_administration
     - node.type.vet_center
     - taxonomy.vocabulary.administration
-  content:
-    - 'taxonomy_term:administration:a8b1bb11-67a8-4489-a648-6d35c04be9cb'
 id: node.vet_center.field_administration
 field_name: field_administration
 entity_type: node
@@ -15,7 +13,7 @@ bundle: vet_center
 label: Section
 description: 'Select a section to determine who will manage this content.'
 required: true
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:

@@ -1,0 +1,28 @@
+display:
+  default:
+    display_options:
+      exposed_form:
+        options:
+          submit_button: Salain
+          reset_button_label: 'Ibalik sa pamantayan'
+      pager:
+        options:
+          tags:
+            previous: '‹ nakaraan'
+            next: 'susunod ›'
+            first: '« una'
+            last: 'huli »'
+      fields:
+        redirect_source__path:
+          label: 'Mula kay'
+        created:
+          label: Inilikha
+      filters:
+        redirect_source__path:
+          expose:
+            label: 'Mula kay'
+        redirect_redirect__uri:
+          expose:
+            label: 'Para kay'
+  page_1:
+    display_title: Pahina

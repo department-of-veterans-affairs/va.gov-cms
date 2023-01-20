@@ -1,0 +1,22 @@
+uuid: 0c9a0e03-1b4d-40dd-ac22-f35b7606b38d
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.audience_topics
+id: paragraph.audience_topics.status
+field_name: status
+entity_type: paragraph
+bundle: audience_topics
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

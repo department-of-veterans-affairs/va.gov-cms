@@ -1,0 +1,22 @@
+uuid: 30b070b7-fa14-452b-b9ea-2a89da647943
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vet_center_mobile_vet_center
+id: node.vet_center_mobile_vet_center.status
+field_name: status
+entity_type: node
+bundle: vet_center_mobile_vet_center
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

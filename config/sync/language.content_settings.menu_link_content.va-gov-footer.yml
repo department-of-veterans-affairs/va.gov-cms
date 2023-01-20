@@ -1,0 +1,18 @@
+uuid: 0bcc7eda-93c7-48af-9163-bf05d7911eaa
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.va-gov-footer
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: menu_link_content.va-gov-footer
+target_entity_type_id: menu_link_content
+target_bundle: va-gov-footer
+default_langcode: site_default
+language_alterable: false

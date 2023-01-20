@@ -1,0 +1,20 @@
+uuid: a9c9b2a0-762d-46d6-9726-0ae7ff0a9f88
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vet_center_mobile_vet_center
+id: node.vet_center_mobile_vet_center.uid
+field_name: uid
+entity_type: node
+bundle: vet_center_mobile_vet_center
+label: 'Authored by'
+description: 'The username of the content author.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: 'Drupal\node\Entity\Node::getDefaultEntityOwner'
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

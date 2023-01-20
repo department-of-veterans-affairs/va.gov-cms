@@ -1,0 +1,20 @@
+uuid: d505bde5-eeda-4a3b-b6b1-fc10baefe934
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vba_facility_service
+id: node.vba_facility_service.uid
+field_name: uid
+entity_type: node
+bundle: vba_facility_service
+label: 'Authored by'
+description: 'The username of the content author.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: 'Drupal\node\Entity\Node::getDefaultEntityOwner'
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

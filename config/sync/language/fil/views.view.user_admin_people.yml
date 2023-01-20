@@ -1,0 +1,39 @@
+label: 'Mga tao'
+display:
+  default:
+    display_title: Pamantayan
+    display_options:
+      title: 'Mga tao'
+      fields:
+        name:
+          label: Bansag
+        status:
+          label: Kalagayan
+          settings:
+            format_custom_false: Hinadlangan
+            format_custom_true: Aktibo
+        roles_target_id:
+          label: 'Mga papel'
+        created:
+          label: 'Kasapi nang'
+      exposed_form:
+        options:
+          submit_button: Salain
+          reset_button_label: 'Ibalik sa pamantayan'
+      filters:
+        status:
+          group_info:
+            label: Kalagayan
+            group_items:
+              1:
+                title: Aktibo
+              2:
+                title: Hinadlangan
+      use_more_text: 'marami pa'
+  page_1:
+    display_title: Pahina
+    display_options:
+      menu:
+        title: Listahan
+      tab_options:
+        title: 'Mga tao'

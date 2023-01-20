@@ -1,0 +1,22 @@
+uuid: bfce72d9-4863-4329-8082-e1034df6f39f
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.health_care_region_detail_page
+id: node.health_care_region_detail_page.sticky
+field_name: sticky
+entity_type: node
+bundle: health_care_region_detail_page
+label: 'Sticky at top of lists'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

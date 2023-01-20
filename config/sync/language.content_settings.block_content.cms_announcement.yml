@@ -1,0 +1,18 @@
+uuid: 5fce6aab-1bea-42b0-a1f6-a73f4bf82b75
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.cms_announcement
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: block_content.cms_announcement
+target_entity_type_id: block_content
+target_bundle: cms_announcement
+default_langcode: site_default
+language_alterable: false
