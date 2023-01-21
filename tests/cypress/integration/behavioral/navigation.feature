@@ -8,6 +8,6 @@ Feature: Various navigation features
     # Any sufficiently long page with fragments pointing to sections should work.
     When I am at "/help/vet-centers/vet-center-website-development-status"
     And I scroll to xpath '//*[@id="block-vagovclaro-content"]/article'
-    Then I should see "Jump to:"
+    Then I should ssee "Jump to:"
     When I click the link with xpath '//*[@id="block-vagovclaro-content"]/article' containing "District 5"
-    Then I should see "July 14th and 15th, 2021"
+    Then I should ssee "July 14th and 15th, 2021"
