@@ -13,5 +13,5 @@ Feature: Entity Reference Validation
     And I select the "VA Careers and employment" benefits hub
     And I wait "3" seconds
     And I save the node
-    Then I should see "1 error has been found"
-    Then I should see "The value Careers and employment"
+    Then "1 error has been found" should exist
+    Then "The value Careers and employment" should exist
