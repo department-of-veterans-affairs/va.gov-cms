@@ -28,7 +28,7 @@ Feature: CMS Users may effectively create & edit content
   Scenario: Confirm that content cannot be published directly from the node view but can from the node edit form.
     Given I am logged in as a user with the "content_admin" role
     And I create a "landing_page" node
-    Then I should not see an element with the selector "#edit-new-state"
+    Then an element with the selector "#edit-new-state" should not exist
     And I edit the node
     Then the element with selector "#edit-moderation-state-0-state" should contain "Draft"
 
@@ -54,7 +54,7 @@ Feature: CMS Users may effectively create & edit content
   Scenario: Confirm that press release country fields are shown correctly
     Given I am logged in as a user with the "content_admin" role
     And I am at "node/add/press_release"
-    Then I should see "Create News Release"
+    Then I should ssee "Create News Release"
     And the element with selector "#edit-field-address-0" should contain "Country"
     And the element with selector "#edit-field-address-0" should contain "City"
     And the element with selector "#edit-field-address-0" should contain "State"
@@ -64,8 +64,8 @@ Feature: CMS Users may effectively create & edit content
     And I create a "checklist" node and continue
 
     # Verify data has been saved
-    Then I should not see "error has been found:"
-    And I should see "[Test Data]"
+    Then "error has been found:" should not exist
+    And I should ssee "[Test Data]"
     And the element with selector "#edit-field-checklist-0-subform-field-checklist-sections-0-subform-field-section-header-0-value" should have attribute "value" containing value "[Test Header Value]"
     And the element with selector "#edit-field-checklist-0-subform-field-checklist-sections-0-subform-field-checklist-items-0-value" should have attribute "value" containing value "[Test Items Value]"
     And the option "VACO" from dropdown with selector "#edit-field-administration" should be selected
@@ -77,8 +77,8 @@ Feature: CMS Users may effectively create & edit content
 
     # Confirm that the correct values are shown on preview.
     Then I visit the node
-    Then I should see "[Test Data] Save and Continue Test"
-    And I should see "[Test Items Value] Some item"
+    Then I should ssee "[Test Data] Save and Continue Test"
+    And I should ssee "[Test Items Value] Some item"
 
     # Confirm that the moderation history and state are shown correctly.
     And the element with selector ".views-field-moderation-state" should contain "Draft"
@@ -101,54 +101,54 @@ Feature: CMS Users may effectively create & edit content
     And I am at "node/add/event"
 
     And I select the "At a VA facility" radio button
-    Then "Facility location" should be visible
-    And "Building, floor, or room" should be visible
-    And "Street address" should not be visible
-    And an element with the selector "#edit-field-address-0-address-locality" should not be visible
-    And "State" should not be visible
-    And "Country" should not be visible
-    And an element with the selector "#edit-field-url-of-an-online-event-0-uri" should not be visible
+    Then I should ssee "Facility location"
+    And I should ssee "Building, floor, or room"
+    And I should not ssee "Street address"
+    And I should not ssee an element with the selector "#edit-field-address-0-address-locality"
+    And I should not ssee "State"
+    And I should not ssee "Country"
+    And I should not ssee an element with the selector "#edit-field-url-of-an-online-event-0-uri"
 
     When I select the "At a non-VA location" radio button
-    Then "Facility location" should not be visible
-    And "Building, floor, or room" should be visible
-    And "Street address" should be visible
-    And an element with the selector "#edit-field-address-0-address-locality" should be visible
-    And "State" should be visible
-    And "Country" should be visible
-    And an element with the selector "#edit-field-url-of-an-online-event-0-uri" should not be visible
+    Then I should not ssee "Facility location"
+    And I should ssee "Building, floor, or room"
+    And I should ssee "Street address"
+    And I should ssee an element with the selector "#edit-field-address-0-address-locality"
+    And I should ssee "State"
+    And I should ssee "Country"
+    And I should not ssee an element with the selector "#edit-field-url-of-an-online-event-0-uri"
 
     When I select the "Online" radio button
-    Then "Facility location" should not be visible
-    And "Building, floor, or room" should not be visible
-    And "Street address" should not be visible
-    And an element with the selector "#edit-field-address-0-address-locality" should not be visible
-    And "State" should not be visible
-    And "Country" should not be visible
-    And an element with the selector "#edit-field-url-of-an-online-event-0-uri" should be visible
+    Then I should not ssee "Facility location"
+    And I should not ssee "Building, floor, or room"
+    And I should not ssee "Street address"
+    And I should not ssee an element with the selector "#edit-field-address-0-address-locality"
+    And I should not ssee "State"
+    And I should not ssee "Country"
+    And I should ssee an element with the selector "#edit-field-url-of-an-online-event-0-uri"
 
     # Registration checkbox reveals conditional form elements
     When I check the "Include registration information" checkbox
     Then "Cost" should be visible
-    And "Registration is required for this event" should be visible
+    And I should ssee "Registration is required for this event"
     And "Call to action" should be visible
 
     When I select option "Register" from dropdown "Call to action" 
-    Then an element with the selector "#edit-field-link-0-uri" should be visible
+    Then I should ssee an element with the selector "#edit-field-link-0-uri"
     And I select option "Apply" from dropdown "Call to action"
-    Then an element with the selector "#edit-field-link-0-uri" should be visible
+    Then I should ssee an element with the selector "#edit-field-link-0-uri"
     And I select option "RSVP" from dropdown "Call to action"
-    Then an element with the selector "#edit-field-link-0-uri" should be visible
+    Then I should ssee an element with the selector "#edit-field-link-0-uri"
     And I select option "More Details" from dropdown "Call to action"
-    Then an element with the selector "#edit-field-link-0-uri" should be visible
+    Then I should ssee an element with the selector "#edit-field-link-0-uri"
     And I select option "- None -" from dropdown "Call to action"
-    Then an element with the selector "#edit-field-link-0-uri" should not be visible
+    Then I should not ssee an element with the selector "#edit-field-link-0-uri"
 
     When I uncheck the "Include registration information" checkbox
-    Then "Cost" should not be visible
-    And "Registration is required for this event" should not be visible
-    And "Call to action" should not be visible
-    And an element with the selector "#edit-field-link-0-uri" should not be visible
+    Then I should not ssee "Cost"
+    And I should not ssee "Registration is required for this event"
+    And I should not ssee "Call to action"
+    And I should not ssee an element with the selector "#edit-field-link-0-uri"
 
   Scenario: Confirm that event form conditional fields are cleared out if parent options change
     Given I am logged in as a user with the "content_admin" role
