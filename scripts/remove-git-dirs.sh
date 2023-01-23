@@ -13,8 +13,6 @@ find . \
   -not \
   \( \
     -path './docroot/vendor/va-gov/content-build/.git' \
-    -or \
-    -path './docroot/core/.git' \
   \) \
   -print \
   -delete;
