@@ -1,21 +1,20 @@
-uuid: 50ecf4bb-2cf0-4ec9-abce-b9577da6beb6
+uuid: 46a4d861-4976-4f51-949b-ac6f8dddbdd5
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_meta_tags
     - node.type.event
   module:
-    - metatag
-id: node.event.field_meta_tags
-field_name: field_meta_tags
+    - path
+id: node.event.path
+field_name: path
 entity_type: node
 bundle: event
-label: 'Meta tags'
+label: 'URL alias'
 description: ''
 required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: metatag
+field_type: path
