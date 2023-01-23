@@ -1,0 +1,13 @@
+diff --git a/src/Plugin/tmgmt/Translator/MicrosoftTranslator.php b/src/Plugin/tmgmt/Translator/MicrosoftTranslator.php
+index 5fd3bc3..e4de0b1 100755
+--- a/src/Plugin/tmgmt/Translator/MicrosoftTranslator.php
++++ b/src/Plugin/tmgmt/Translator/MicrosoftTranslator.php
+@@ -389,7 +389,7 @@ class MicrosoftTranslator extends TranslatorPluginBase implements ContainerFacto
+   public function defaultConfiguration() {
+     return [
+       'translate url' => 'https://api.cognitive.microsofttranslator.com',
+-      'token url' => 'https://api.cognitive.microsoft.com/sts/v1.0/issueToken/',
++      'token url' => 'https://westus.api.cognitive.microsoft.com/sts/v1.0/issueToken/',
+     ];
+   }
+ 
