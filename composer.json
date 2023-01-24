@@ -537,6 +537,7 @@
         "va:ds:storybook": "Build the Storybook.",
         "va:migrate:sync": "Copy migration ymls from va_gov_migrate to config/sync and run config import.",
         "va:proxy:socks": "Set up a SOCKS proxy.",
+        "va:proxy:socks:test": "Test whether the SOCKS proxy is operating correctly.",
         "va:test": "Run all of the tests sequentially, stopping on the first failure.",
         "va:test:no-fail": "Run all of the tests sequentially, even if some fail.",
         "va:test:fast": "Runs the \"fast\" static analysis, linting, and unit tests.",
@@ -549,10 +550,12 @@
         "va:test:cypress-interactive": "Run Cypress tests interactively (on host web browser).",
         "va:test:eslint": "Run ESLint tests.",
         "va:test:lint-php": "Lint PHP files.",
+        "va:test:scaling_performance": "Perform a test of the CMS' ability to scale.",
         "va:test:php_codesniffer": "Run PHP_CodeSniffer tests.",
         "va:test:phpstan": "Run PHPStan static analysis tests.",
         "va:test:phpunit-functional": "Run PHPUnit (functional) tests.",
         "va:test:phpunit-unit": "Run PHPUnit (unit) tests.",
+        "va:test:status-error": "Check Drupal status for errors.",
         "va:test:status-error-ci": "Check Drupal status for errors with some CI-specific functionality.",
         "va:test:stylelint-modules": "Run StyleLint tests on modules.", 
         "va:test:stylelint-themes": "Run StyleLint tests on themes.",
@@ -725,10 +728,10 @@
             "! ./scripts/should-run-directly.sh || ./tests/scripts/lint-php.sh",
             "./scripts/should-run-directly.sh || ddev composer va:test:lint-php --"
         ],
-        "va:test:performance": [
+        "va:test:scaling_performance": [
             "# Run PHP_CodeSniffer tests.",
             "! ./scripts/should-run-directly.sh || php tests/scaling_performance.php",
-            "./scripts/should-run-directly.sh || ddev composer va:test:performance --"
+            "./scripts/should-run-directly.sh || ddev composer va:test:scaling_performance --"
         ],
         "va:test:php_codesniffer": [
             "# Run PHP_CodeSniffer tests.",
