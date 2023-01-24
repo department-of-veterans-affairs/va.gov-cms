@@ -725,6 +725,11 @@
             "! ./scripts/should-run-directly.sh || ./tests/scripts/lint-php.sh",
             "./scripts/should-run-directly.sh || ddev composer va:test:lint-php --"
         ],
+        "va:test:performance": [
+            "# Run PHP_CodeSniffer tests.",
+            "! ./scripts/should-run-directly.sh || php tests/scaling_performance.php",
+            "./scripts/should-run-directly.sh || ddev composer va:test:performance --"
+        ],
         "va:test:php_codesniffer": [
             "# Run PHP_CodeSniffer tests.",
             "! ./scripts/should-run-directly.sh || phpcs --colors --",

@@ -3,7 +3,7 @@
 # Echo a message to stderr and exit with a failing exit code.
 bail_if_test_failed () {
   if [ $? -ne 0 ]; then
-    2> echo $@;
+    echo $@ >&2;
     exit 1;
   fi
 }
