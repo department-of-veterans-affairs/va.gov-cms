@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -ex;
+set -ex
 
 # This runs a portion of the GraphQL content build process, stopping once the
 # CMS's responsibilities have been fulfilled.

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -ex;
+set -ex
 
 export failure=0
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -ex;
+set -ex
 
 # Remove .git subdirectories added by e.g. `composer install`.
 repo_root="$(git rev-parse --show-toplevel)"

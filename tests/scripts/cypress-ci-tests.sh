@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -ex;
+set -ex
 
 # This runs the Cypress test suites with some additional functionality for CI.
 
