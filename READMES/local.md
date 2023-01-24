@@ -14,7 +14,7 @@ We use [DDEV](https://ddev.com/) to power our local sandboxes.  See [ddev.readth
 1. Follow the DDEV [installation documentation](https://ddev.readthedocs.io/en/latest/users/install/ddev-installation/).
 1. Make sure you run `mkcert -install` to get the ddev certificate root installed. You only need to do this the first time you bring install/run ddev.
 1. Run `ddev config global --mutagen-enabled` if you’re on a Mac.
-1. Make sure the `va.gov-cms` repo is cloned to a folder under your home directory.
+1. Make sure the `va.gov-cms` repo is cloned to a folder somewhere within your home directory.
 1. Run `ddev start` in the root of the va.gov-cms repo.
 
 ### Commands
