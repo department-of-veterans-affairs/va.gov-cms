@@ -66,6 +66,4 @@ SERVICES_FILE2="$SERVICES_ROOT/services.prod.yml";
 diff <(yq -P "$SERVICES_FILE1") <(yq -P "$SERVICES_FILE2");
 bail_if_test_failed "Mismatch in ${SERVICES_FILE1} and ${SERVICES_FILE2}; these files should always remain the same.";
 
-exit 0;
-
 popd > /dev/null;

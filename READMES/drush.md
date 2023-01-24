@@ -1,6 +1,6 @@
 # Drush
 
-In local development environments, these commands should normally be run with a `composer` prefix, e.g. `composer drush sqlq show tables"`.  For other usage notes regarding local development environments, see [Local](./local.md).  
+In local development environments, these commands should normally be run with a `composer` or `ddev` prefix, e.g. `composer drush sqlq show tables"`.  For other usage notes regarding local development environments, see [Local](./local.md).  
 
 ## Custom Drush Commands
 

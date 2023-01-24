@@ -94,7 +94,9 @@ See [testing](testing.md).
 
 ## Memory limit issues (e.g. _persistent_ MySQL Server has gone away)
 
-Sometimes your local environment may run out of memory and kill a container.
+Sometimes your local environment may run out of memory and kill a container.  Sometimes this is the container for MariaDB, the database server.
+
+This can be confirmed by running `docker ps`; if you don't see a container whose name includes "mariadb", then it would appear that the container has failed.
 
 `ddev restart` will fix this in the short term. If the problem persists, bumping up your Docker RAM to 4GB or higher should fix the issue.
 
