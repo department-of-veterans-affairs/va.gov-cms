@@ -277,13 +277,13 @@ class LovellEventSubscriber implements EventSubscriberInterface {
    *   The breadcrumb.
    */
   protected function swapAforB($a, $b, array $breadcrumb) {
-    $a_path = `/constant('\Drupal\va_gov_lovell\LovellOps::' . "{$a}_PATH").*/`;
-    $a_name = `/constant('\Drupal\va_gov_lovell\LovellOps::' . "{$a}_NAME").*/`;
+    $a_path = constant('\Drupal\va_gov_lovell\LovellOps::' . "{$a}_PATH");
+    $a_name = constant('\Drupal\va_gov_lovell\LovellOps::' . "{$a}_NAME");
 
     $b_path = constant('\Drupal\va_gov_lovell\LovellOps::' . "{$b}_PATH");
     $b_name = constant('\Drupal\va_gov_lovell\LovellOps::' . "{$b}_NAME");
     foreach ($breadcrumb as $key => $link) {
-      if (str_contains($link['url'], $a_path)) {
+      if (strcmp(ltrim($link['url'], "/"), $a_path) === 0) {
         $breadcrumb[$key]['url'] = str_replace($a_path, $b_path, $link['url']);
         if (is_string($link['text'])) {
           $breadcrumb[$key]['text'] = str_replace($a_name, $b_name, $link['text']);
