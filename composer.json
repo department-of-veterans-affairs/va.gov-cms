@@ -770,16 +770,6 @@
             "! ./scripts/should-run-directly.sh || npm run stylelint-themes --",
             "./scripts/should-run-directly.sh || ddev composer va:test:stylelint-themes --"
         ],
-        "va:test:true": [
-            "# Return true.",
-            "! ./scripts/should-run-directly.sh || true --",
-            "./scripts/should-run-directly.sh || ddev composer va:test:true --"
-        ],
-        "va:test:false": [
-            "# Return false.",
-            "! ./scripts/should-run-directly.sh || false --",
-            "./scripts/should-run-directly.sh || ddev composer va:test:false --"
-        ],
         "va:theme:compile": [
             "# Compile the VA.gov Claro theme.",
             "! ./scripts/should-run-directly.sh || ./scripts/compile-theme.sh",
