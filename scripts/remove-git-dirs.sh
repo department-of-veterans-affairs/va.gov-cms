@@ -3,8 +3,8 @@
 set -ex;
 
 # Remove .git subdirectories added by e.g. `composer install`.
-repo_root="$(git rev-parse --show-toplevel)";
-pushd "${repo_root}" > /dev/null;
+repo_root="$(git rev-parse --show-toplevel)"
+pushd "${repo_root}" > /dev/null
 
 find . \
   -mindepth 2 \
@@ -15,6 +15,6 @@ find . \
     -path './docroot/vendor/va-gov/content-build/.git' \
   \) \
   -print \
-  -delete;
+  -delete
 
-popd > /dev/null;
+popd > /dev/null

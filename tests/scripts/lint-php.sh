@@ -1,6 +1,9 @@
 #!/bin/bash
 
-set -exo pipefail;
+set -exo pipefail
+
+repo_root="$(git rev-parse --show-toplevel)"
+pushd "${repo_root}" > /dev/null
 
 # Lint PHP files using PHP's built-in linter.
 find \
@@ -18,3 +21,5 @@ find \
     -n1 php \
     -l \
     2>&1
+
+popd > /dev/null
