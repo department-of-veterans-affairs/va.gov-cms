@@ -12,7 +12,7 @@ proxy.
 
 ### SOCKS Proxy Setup
 
-1. Add the following to `~/.ssh/config`:
+Add the following to `~/.ssh/config`:
 
 ```ssh-config
 Host socks
@@ -21,7 +21,7 @@ Host socks
      User socks
 ```
 
-1. Run the following command:
+Run the following command:
   
 ```bash
 $ ssh socks -D 2001 -N &
