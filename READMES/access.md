@@ -7,9 +7,17 @@ users with SOCKS Proxy or CAG access.
 
 ### SOCKS Proxy or CAG Access
 
-To access any CMS or VA environment, you must connect with either CAG or SOCKS
-proxy.
+To access any CMS or VA environment, you must connect with one of the following:
 
+- **Citrix Access Gateway**
+- **SOCKS proxy**
+- **VFS Toolkit** (also referred to as VTK or `vtk`)
+
+If you're an engineer, you probably need the SOCKS proxy or VTK.
+
+### VFS Toolkit Setup
+
+See [here](https://github.com/department-of-veterans-affairs/vtk#socks) for instructions.
 ### SOCKS Proxy Setup
 
 Add the following to `~/.ssh/config`:
