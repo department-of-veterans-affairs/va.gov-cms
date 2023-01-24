@@ -78,7 +78,7 @@ See https://getcomposer.org/doc/articles/scripts.md for more information on how 
 
 ### Drush
 
-All Drush commands should be run with either a `composer` or `drush` prefix to ensure they function as intended.
+All Drush commands should be run with either a `composer` or `ddev` prefix to ensure they function as intended.
 
 Examples:
 
