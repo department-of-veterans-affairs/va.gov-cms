@@ -17,7 +17,14 @@ cp -r \
   simplesamlphp-config-metadata/config \
   simplesamlphp-config-metadata/metadata \
   docroot/vendor/simplesamlphp/simplesamlphp/
-git update-index --skip-worktree samlsessiondb.sq2
+
+if [ -f "samlsessiondb.sq2" ]; then
+  git update-index --skip-worktree samlsessiondb.sq2
+fi
+
+if [ -f "samlsessiondb.sq3" ]; then
+  git update-index --skip-worktree samlsessiondb.sq3
+fi
 
 composer va:remove-git-dirs
 
