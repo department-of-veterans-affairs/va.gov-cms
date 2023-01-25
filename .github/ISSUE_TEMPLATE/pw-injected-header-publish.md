@@ -2,7 +2,7 @@
 name: "(PW) Injected Header/Footer - publish to prod"
 about: Submit a request to publish the injected header/footer to prod.
 title: 'Injected header/footer: Publish to prod: <domain(s)>'
-labels: Injected header, Needs refining, ⭐️ Public Websites, VA.gov frontend
+labels: Injected header, Needs refining, Public Websites, VA.gov frontend
 assignees: jilladams
 
 ---
@@ -21,13 +21,10 @@ This ticket adds new domain(s) to allowlists that gate the injected header. When
 - [ ] Requesting team has signed off that they're ready to publish
 - [ ] On requested domain(s) the global header is injected on page load, with no cookie updates required
 
-### CMS Team
+### Team
 Please check the team(s) that will do this work.
 
-- [ ] `Program`
-- [ ] `Platform CMS Team`
-- [ ] `Sitewide Crew`
-- [ ] `⭐️ Sitewide CMS`
-- [X] `⭐️ Public Websites`
-- [ ] `⭐️ Facilities`
-- [ ] `⭐️ User support`
+- [ ] `CMS Team`
+- [X] `Public Websites`
+- [ ] `Facilities`
+- [ ] `User support`

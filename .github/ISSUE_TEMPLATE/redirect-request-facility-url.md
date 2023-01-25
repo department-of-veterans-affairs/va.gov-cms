@@ -22,13 +22,10 @@ When does this request need to be live:
 | current URL | new URL |
 
 
-## CMS Team
+### Team
 Please check the team(s) that will do this work.
 
-- [ ] `Program`
-- [ ] `Platform CMS Team`
-- [ ] `Sitewide Crew`
-- [ ] `⭐️ Sitewide CMS`
-- [ ] `⭐️ Public Websites`
-- [x] `⭐️ Facilities`
-- [x] `⭐️ User support`
+- [ ] `CMS Team`
+- [ ] `Public Websites`
+- [x] `Facilities`
+- [x] `User support`
