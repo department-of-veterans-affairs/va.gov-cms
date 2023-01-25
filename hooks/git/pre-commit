@@ -3,7 +3,7 @@
 # Check a specified branch name against a list of allowed patterns.
 function check_branch_name() {
   case $1 in 
-    VAGOV-TEAM-[0-9]* | VACMS-[0-9]* | dependabot/* | revert-*) return 0;;
+    VAGOV-TEAM-[0-9]* | VACMS-[0-9]* | dependabot/* | revert-* | "") return 0;;
     *) return 1;;
   esac
 }
