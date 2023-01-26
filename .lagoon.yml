@@ -1,56 +1,12 @@
+# https://docs.lagoon.sh/using-lagoon-the-basics/lagoon-yml/
 docker-compose-yaml: docker-compose.yml
 
-project: demo-vagov-drupal
+project: demo-vagov-cmstest
 
 tasks:
-#   pre-rollout:
-#     - run:
-#         name: drush sql-dump
-#         command: mkdir -p /app/web/sites/default/files/private/ && drush sql-dump --ordered-dump --gzip --result-file=/app/web/sites/default/files/private/pre-deploy-dump.sql.gz || true
-#         service: cli
-
   post-rollout:
     - run:
-        name: IF no Drupal installed and we are not main branch, sync from main brancy
-        command: |
-            if tables=$(drush sqlq 'show tables;') && [ -z "$tables" ] && [[ "$LAGOON_GIT_BRANCH" != "main" ]]; then
-                # no drupal installed, sync DB from main branch
-                drush -y sql-sync @lagoon.demo-vagov-drupal-main @self
-                drush -y rsync @lagoon.demo-vagov-drupal-main:%files @self:%files
-                drush -y cr
-            fi
+        name: Run drush deploy
+        command: drush deploy
         service: cli
         shell: bash
-    - run:
-        name: drush cim
-        command: drush -y cim
-        service: cli
-    - run:
-        name: drush updb
-        command: drush -y updb
-        service: cli
-    - run:
-        name: drush cr
-        command: drush -y cr
-        service: cli
-
-environments:
-  main:
-    # routes:
-    cronjobs:
-      - name: drush cron
-        schedule: "*/15 * * * *"
-        command: drush cron
-        service: cli
-
-lagoon-sync:
-  mariadb:
-    config:
-      hostname: "${MARIADB_HOST:-mariadb}"
-      username: "${MARIADB_USERNAME:-drupal}"
-      password: "${MARIADB_PASSWORD:-drupal}"
-      port: "${MARIADB_PORT:-3306}"
-      database: "${MARIADB_DATABASE:-drupal}"
-  files:
-    config:
-      sync-directory: "/app/web/sites/default/files"
