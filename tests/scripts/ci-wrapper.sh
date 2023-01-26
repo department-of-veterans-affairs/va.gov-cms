@@ -20,7 +20,7 @@ echo "Test name: ${test_name}"
 echo "Composer name: ${composer_name}"
 echo "Status name: ${status_name}"
 
-result="$(time composer "${composer_name}" 2>&1)"
+time composer "${composer_name}" 2>&1
 exit_code=$?
 
 if [ -n "${GITHUB_TOKEN}" ]; then 
