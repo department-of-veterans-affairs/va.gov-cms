@@ -5,12 +5,12 @@ x-volumes:
     # Define all volumes you would like to have real-time mounted into the docker containers
     volumes:
       - .:/app:delegated ### Local overrides to mount host filesystem. Automatically removed in CI and PROD.
-      - files:/app/web/sites/default/files
+      - ./docroot/sites/default/files:/app/docroot/sites/default/files
 
 x-environment:
   &default-environment
     # Route that should be used locally, if you are using pygmy, this route *must* end with .docker.amazee.io
-    LAGOON_ROUTE: &default-url http://${COMPOSE_PROJECT_NAME:-demo-vagov-drupal}.docker.amazee.io
+    LAGOON_ROUTE: &default-url http://demo-vagov-cmstest.docker.amazee.io
     # Uncomment if you like to have the system behave like in production
     #LAGOON_ENVIRONMENT_TYPE: production
     # Uncomment to enable xdebug and then restart via `docker-compose up -d`
@@ -33,12 +33,12 @@ services:
     build:
       context: .
       dockerfile: lagoon/cli.dockerfile
-    image: &cli-image ${COMPOSE_PROJECT_NAME:-demo-vagov-drupal}-cli # this image will be reused as `CLI_IMAGE` in subsequent Docker builds
+    image: &cli-image demo-vagov-cmstest-cli # this image will be reused as `CLI_IMAGE` in subsequent Docker builds
     labels:
       # Lagoon Labels
       lagoon.type: cli-persistent
       lagoon.persistent.name: nginx # mount the persistent storage of nginx into this container
-      lagoon.persistent: /app/web/sites/default/files/ # location where the persistent storage should be mounted
+      lagoon.persistent: /app/docroot/sites/default/files/ # location where the persistent storage should be mounted
       lando.type: php-cli-drupal
     << : *default-volumes # loads the defined volumes from the top
     user: root
@@ -55,7 +55,7 @@ services:
         CLI_IMAGE: *cli-image # Inject the name of the cli image
     labels:
       lagoon.type: nginx-php-persistent
-      lagoon.persistent: /app/web/sites/default/files/ # define where the persistent storage should be mounted too
+      lagoon.persistent: /app/docroot/sites/default/files/ # define where the persistent storage should be mounted too
       lando.type: nginx-drupal
     << : *default-volumes # loads the defined volumes from the top
     << : *default-user # uses the defined user from top
@@ -77,7 +77,7 @@ services:
     labels:
       lagoon.type: nginx-php-persistent
       lagoon.name: nginx # we want this service be part of the nginx pod in Lagoon
-      lagoon.persistent: /app/web/sites/default/files/ # define where the persistent storage should be mounted too
+      lagoon.persistent: /app/docroot/sites/default/files/ # define where the persistent storage should be mounted too
       lando.type: php-fpm
     << : *default-volumes # loads the defined volumes from the top
     << : *default-user # uses the defined user from top
