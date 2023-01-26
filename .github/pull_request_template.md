@@ -35,12 +35,10 @@ As user _uid_ with _user_role_
 
 ### Select Team for PR review
 
-- [ ] `Platform CMS Team`
-- [ ] `Sitewide program`
-- [ ] `⭐️ Sitewide CMS`
-- [ ] `⭐️ Public websites`
-- [ ] `⭐️ Facilities`
-- [ ] `⭐️ User support`
+- [ ] `CMS Team`
+- [ ] `Public websites`
+- [ ] `Facilities`
+- [ ] `User support`
 
 
 ### Is this PR blocked by another PR?
