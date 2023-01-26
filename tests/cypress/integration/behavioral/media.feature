@@ -1,6 +1,5 @@
 Feature: Media entities
 
-  @ignore
   Scenario: Log in and confirm that field_duration has h:m:s format
     Given I am logged in as a user with the "administrator" role
     And I am at "media/add/video"
