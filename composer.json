@@ -531,7 +531,7 @@
         ],
         "remove-git-dirs": [
             "echo \"Removing .git sub-directories...\"",
-            "find . -mindepth 2 -type d -name .git -not \\( -path './docroot/vendor/va-gov/content-build/.git' -or -path './docroot/core/.git' \\) | xargs rm -rfv"
+            "find . -mindepth 2 -type d -name .git -not -path './docroot/vendor/va-gov/content-build/.git' | xargs rm -rfv"
         ],
         "pre-install-cmd": [
             "mkdir -p vendor",
