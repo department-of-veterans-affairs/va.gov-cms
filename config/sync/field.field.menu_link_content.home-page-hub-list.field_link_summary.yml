@@ -1,0 +1,25 @@
+uuid: 7bac9db3-ef55-43eb-b962-bf90f00df374
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.menu_link_content.field_link_summary
+    - system.menu.home-page-hub-list
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: menu_link_content.home-page-hub-list.field_link_summary
+field_name: field_link_summary
+entity_type: menu_link_content
+bundle: home-page-hub-list
+label: 'Link summary'
+description: 'Displayed to Veteran under the link text.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

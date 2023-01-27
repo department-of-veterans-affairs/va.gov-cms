@@ -1,0 +1,57 @@
+uuid: 8ec8d012-a8b6-42d6-b8ec-e8ab389e7c61
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_link_content
+    - options
+id: menu_link_content.field_icon
+field_name: field_icon
+entity_type: menu_link_content
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: health-care
+      label: 'Health care'
+    -
+      value: disability
+      label: Disability
+    -
+      value: education
+      label: Education
+    -
+      value: records
+      label: Records
+    -
+      value: careers
+      label: 'Careers and employment'
+    -
+      value: pension
+      label: Pension
+    -
+      value: housing
+      label: Housing
+    -
+      value: life-insurance
+      label: 'Life insurance'
+    -
+      value: burials
+      label: 'Burials and memorials'
+    -
+      value: family-member
+      label: 'Family member benefits'
+    -
+      value: service-member
+      label: 'Service member benefits'
+    -
+      value: va-dept-info
+      label: 'VA department information'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
