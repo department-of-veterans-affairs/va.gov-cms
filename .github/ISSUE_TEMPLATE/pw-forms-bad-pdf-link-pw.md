@@ -2,7 +2,7 @@
 name: "(PW) Forms/Bad PDF link defect"
 about: Forms outages / Bad PDF links, owned by Public Websites team
 title: 'Forms defect: <form name>'
-labels: Defect, Find a form, Needs refining, ⭐️ Public Websites
+labels: Defect, Find a form, Needs refining, Public Websites
 assignees: jilladams, wesrowe
 
 ---
@@ -41,13 +41,10 @@ Steps to reproduce the behavior:
 ## Acceptance Criteria
 - [ ] Form page loads & form can be downloaded
 
-### CMS Team
+### Team
 Please check the team(s) that will do this work.
 
-- [ ] `Program`
-- [ ] `Platform CMS Team`
-- [ ] `Sitewide Crew`
-- [ ] `⭐️ Sitewide CMS`
-- [X] `⭐️ Public Websites`
-- [ ] `⭐️ Facilities`
-- [ ] `⭐️ User support`
+- [ ] `CMS Team`
+- [X] `Public Websites`
+- [ ] `Facilities`
+- [ ] `User support`

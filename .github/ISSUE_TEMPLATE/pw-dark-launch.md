@@ -3,7 +3,7 @@ name: "(PW) Dark launch request"
 about: Request to dark launch CMS content that includes React widget, owned by Public
   Websites team
 title: 'CMS/React content dark launch request: <content info>'
-labels: Drupal engineering, Needs refining, ⭐️ Public Websites, VA.gov frontend
+labels: Drupal engineering, Needs refining, Public Websites, VA.gov frontend
 assignees: jilladams, wesrowe
 
 ---
@@ -42,13 +42,10 @@ Please tick the boxes for completed steps as we go, for cross-team visibility.
 - [ ] Page is **not** live on Prod
 - [ ] Ticket is cut for production launch planning, e.g. #10627 
 
-### CMS Team
+### Team
 Please check the team(s) that will do this work.
 
-- [ ] `Program`
-- [ ] `Platform CMS Team`
-- [ ] `Sitewide Crew`
-- [ ] `⭐️ Sitewide CMS`
-- [X] `⭐️ Public Websites`
-- [ ] `⭐️ Facilities`
-- [ ] `⭐️ User support`
+- [ ] `CMS Team`
+- [X] `Public Websites`
+- [ ] `Facilities`
+- [ ] `User support`

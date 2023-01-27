@@ -41,13 +41,10 @@ Editor-centered
 - [ ] `Consistent`: Reduce user’s mental load by allowing them to fall back on pattern recognition to complete tasks.
 - [ ] `Empowering`: Provide clear information to help editors make decisions about their work.
 
-### CMS Team
+### Team
 Please check the team(s) that will do this work.
 
-- [ ] `Program`
-- [ ] `Platform CMS Team`
-- [ ] `Sitewide Crew`
-- [ ] `⭐️ Sitewide CMS`
-- [ ] `⭐️ Public Websites`
-- [ ] `⭐️ Facilities`
-- [ ] `⭐️ User support`
+- [ ] `CMS Team`
+- [ ] `Public Websites`
+- [ ] `Facilities`
+- [ ] `User support`
