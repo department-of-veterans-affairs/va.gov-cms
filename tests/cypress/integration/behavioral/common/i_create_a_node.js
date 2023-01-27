@@ -128,7 +128,7 @@ Given('I create a {string} node', (contentType) => {
 
 Given('I create a {string} node and continue', (contentType) => {
   let creator = creators[contentType];
-  assert.isNotNull(creator, `I do not know how to create ${contentType} nodes yet.  Please add a definition in ${__filename}.`);
+  assert.isDefined(creator, `I do not know how to create ${contentType} nodes yet.  Please add a definition in ${__filename}.`);
   creator().then(() => {
     cy.get('form.node-form').find('input#edit-save-continue').click();
     cy.location('pathname', {timeout: 10000}).should('not.include', '/node/add');
