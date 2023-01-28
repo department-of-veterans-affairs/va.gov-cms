@@ -6,16 +6,16 @@ Feature: CMS Users are able to get help and/or training information in the CMS
   @help_center @get_help_link
   Scenario: Anonymous users, who may have issues logging in, are able to submit a help desk request to help center
     Given I am at "/user/login"
-    Then I should see the Get Help link
+    Then the Get Help link should exist
 
   @help_center @jsd_widget
   Scenario: Users who are denied access to a page are able to submit a help desk request to JSD
     Given I am logged in as a user with the "content_publisher" role
     And I attempt to visit "/admin/reports/status"
-    Then I should see the JSD widget
+    Then the JSD widget should exist
 
   @help_center @jsd_widget
   Scenario: Users who are not denied access to a page should not see the JSD widget
     Given I am logged in as a user with the "administrator" role
     And I am at "/admin/reports/status"
-    Then I should not see the JSD widget
+    Then the JSD widget should not exist

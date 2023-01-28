@@ -55,7 +55,7 @@ Feature: Content Release
     And I reset the content release state from the command line
     And I reload the page
     And I scroll to position "bottom"
-    Then"Ready" should exist
+    Then "Ready" should exist
 
   @skip_on_brd @ignore
   # This test concerns functionality that is currently not available,

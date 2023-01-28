@@ -6,7 +6,6 @@ Then('an element with the selector {string} should not exist', (selector) => cy.
 Then(`{string} should exist`, (text) => cy.contains(text).should('exist'));
 Then(`{string} should not exist`, (text) => cy.contains(text).should('not.exist'));
 
-
 Then('an element with the xpath {string} should exist', (expression) => cy.xpath(expression).should('exist'));
 Then('an element with the xpath {string} should not exist', (expression) => cy.xpath(expression).should('not.exist'));
 

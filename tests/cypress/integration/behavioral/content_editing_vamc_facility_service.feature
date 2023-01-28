@@ -22,7 +22,7 @@ Feature: CMS Users may effectively interact with the VAMC Facility Health Servic
 #    Then I select option "Cardiology at Lovell Federal health care - TRICARE" from dropdown with selector "#edit-field-regional-health-service"
 
     # Lovell Federal umbrella test
-#    Then an option with the text "Lovell Federal health care" from dropdown with selector "#edit-field-administration" should not be visible
+#    Then I should not see an option with the text "Lovell Federal health care" from dropdown with selector "#edit-field-administration"
 
   Scenario: Log in and create VAMC Facility Health Service as a non-Lovell editor
     When I am logged in as a user with the roles "vamc_content_creator, content_publisher"
@@ -37,5 +37,5 @@ Feature: CMS Users may effectively interact with the VAMC Facility Health Servic
     Then I select option "Audiology and speech at VA Alaska health care" from dropdown with selector "#edit-field-regional-health-service"
 
     # Lovell Federal umbrella test
-|    Then an option with the text "Lovell Federal health care" from dropdown with selector "#edit-field-administration" should not be visible
+|    Then I should not see an option with the text "Lovell Federal health care" from dropdown with selector "#edit-field-administration"
 
