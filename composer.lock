@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fd1fb7de310155b728e3a21c23d75951",
+    "content-hash": "efba0d14b7f59344a5b47241a28507c0",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -3937,6 +3937,54 @@
             }
         },
         {
+            "name": "drupal/config_views",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/config_views.git",
+                "reference": "2.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/config_views-2.0.0.zip",
+                "reference": "2.0.0",
+                "shasum": "e1ca72fe7b5dd7ff7445059f3dd75c2bbc824de9"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.0",
+                    "datestamp": "1645191041",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "cosmicdreams",
+                    "homepage": "https://www.drupal.org/user/42579"
+                },
+                {
+                    "name": "vijaycs85",
+                    "homepage": "https://www.drupal.org/user/93488"
+                }
+            ],
+            "description": "Views handler implementation for configuration entities.",
+            "homepage": "https://www.drupal.org/project/config_views",
+            "support": {
+                "source": "https://git.drupalcode.org/project/config_views"
+            }
+        },
+        {
             "name": "drupal/consumer_image_styles",
             "version": "4.0.8",
             "source": {
@@ -4097,6 +4145,55 @@
             "homepage": "https://www.drupal.org/project/content_lock",
             "support": {
                 "source": "https://git.drupalcode.org/project/content_lock"
+            }
+        },
+        {
+            "name": "drupal/content_model_documentation",
+            "version": "1.0.0-alpha3",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/content_model_documentation.git",
+                "reference": "1.0.0-alpha3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/content_model_documentation-1.0.0-alpha3.zip",
+                "reference": "1.0.0-alpha3",
+                "shasum": "deb4689e0f441b42fda2aa276080625cd661b6e7"
+            },
+            "require": {
+                "drupal/config_views": "~2.0",
+                "drupal/core": "^9.3 || ^10"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.0-alpha3",
+                    "datestamp": "1674850672",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "swirt",
+                    "homepage": "https://www.drupal.org/user/138230"
+                }
+            ],
+            "description": "Provide reports and documentation for fields and entities.",
+            "homepage": "https://www.drupal.org/project/content_model_documentation",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "source": "http://cgit.drupalcode.org/content_model_documentation",
+                "issues": "http://drupal.org/project/issues/content_model_documentation"
             }
         },
         {
@@ -28670,6 +28767,7 @@
         "drupal/change_labels": 20,
         "drupal/components": 10,
         "drupal/content_lock": 15,
+        "drupal/content_model_documentation": 15,
         "drupal/entity_block": 10,
         "drupal/entity_clone": 10,
         "drupal/entity_field_fetch": 10,
