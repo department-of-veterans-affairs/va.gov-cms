@@ -48,10 +48,10 @@
     // Get our search string from the field text.
     let adminMatcher;
     if (adminFieldText.search(lovellTricarePattern) > -1) {
-      adminMatcher = "Lovell Federal TRICARE health care";
+      adminMatcher = "Lovell Federal health care - TRICARE";
     }
     if (adminFieldText.search(lovellVaPattern) > -1) {
-      adminMatcher = "Lovell Federal VA health care";
+      adminMatcher = "Lovell Federal health care - VA";
     }
 
     // If Lovell-y, hide all options and only show options matching field text.

@@ -246,6 +246,7 @@ class LovellEventSubscriber implements EventSubscriberInterface {
   protected function updateLovellBreadcrumbs(BreadcrumbEventVariables $variables): void {
     $breadcrumb = $variables->getBreadcrumb();
     $node = $this->routeMatch->getParameter('node');
+
     if (($node instanceof NodeInterface)
     && ($node->hasField('path'))
     && ($node->hasField('field_administration'))) {
@@ -282,7 +283,9 @@ class LovellEventSubscriber implements EventSubscriberInterface {
     $b_path = constant('\Drupal\va_gov_lovell\LovellOps::' . "{$b}_PATH");
     $b_name = constant('\Drupal\va_gov_lovell\LovellOps::' . "{$b}_NAME");
     foreach ($breadcrumb as $key => $link) {
-      if (str_contains($link['url'], $a_path)) {
+      // Either the system path itself or the system path in the longer path.
+      if (strcmp(ltrim($link['url'], "/"), $a_path) === 0
+          || str_contains($link['url'], "/$a_path/")) {
         $breadcrumb[$key]['url'] = str_replace($a_path, $b_path, $link['url']);
         if (is_string($link['text'])) {
           $breadcrumb[$key]['text'] = str_replace($a_name, $b_name, $link['text']);
