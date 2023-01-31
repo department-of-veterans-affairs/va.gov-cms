@@ -4,6 +4,12 @@ docker-compose-yaml: docker-compose.yml
 project: demo-vagov-cmstest
 
 tasks:
+  pre-rollout:
+    - run:
+        name: Copy Lagoon .env into place
+        command: j2 .lagoon/.env .env
+        service: cli
+        shell: bash
   post-rollout:
 #    - run:
 #        name: Run drush deploy

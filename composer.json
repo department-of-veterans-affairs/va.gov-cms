@@ -535,7 +535,8 @@
         ],
         "pre-install-cmd": [
             "mkdir -p vendor",
-            "[ -f .env ] || cp .env.example .env"
+            "if [ -n \"$DDEV_VERSION\" ]; then cp .ddev/.env .env; fi",
+            "if [ -n \"$LAGOON_VERSION\" ]; then j2 .lagoon/.env.j2 -o .env; fi"
         ],
         "post-install-cmd": [
             "mkdir --parents docroot/profiles",
@@ -550,7 +551,8 @@
         ],
         "pre-update-cmd": [
             "mkdir -p vendor",
-            "[ -f .env ] || cp .env.example .env"
+            "if [ -n \"$DDEV_VERSION\" ]; then cp .ddev/.env .env; fi",
+            "if [ -n \"$LAGOON_VERSION\" ]; then j2 .lagoon/.env.j2 -o .env; fi"
         ],
         "post-update-cmd": [
             "cp -r 'hooks/git/.' '.git/hooks/'",
