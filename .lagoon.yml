@@ -10,7 +10,7 @@ tasks:
         command: j2 .lagoon/.env .env
         service: cli
         shell: bash
-  post-rollout:
+#  post-rollout:
 #    - run:
 #        name: Run drush deploy
 #        command: drush deploy
