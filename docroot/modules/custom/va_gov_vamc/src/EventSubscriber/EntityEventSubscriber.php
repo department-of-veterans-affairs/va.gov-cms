@@ -9,7 +9,10 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\Core\Form\FormStateInterface;
+
 use Drupal\Core\Session\AccountInterface;
+
 use Drupal\node\NodeInterface;
 use Drupal\paragraphs\ParagraphInterface;
 use Drupal\va_gov_notifications\Service\NotificationsManager;
@@ -218,7 +221,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    * @param array $form
    *   The form.
    */
-  public function addCovidStatusTermTextToSettings(array &$form): void {
+  public function addCovidStatusTermTextToSettings(array &$form, FormStateInterface $form_state): void {
     /** @var \Drupal\taxonomy\Entity\Term $term_storage */
     $term_storage = $this->entityTypeManager->getStorage('taxonomy_term');
     $covid_status = [
@@ -234,6 +237,12 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       $terms_text[$status]['name'] = $term_storage->load($status)->getName();
       $terms_text[$status]['description'] = $term_storage->load($status)->getDescription();
     }
+    $form['group_covid_19_safety_guidelines'] = array(
+      '#type' => 'textfield',
+      '#prefix' => '<hr /><br>',
+      '#suffix' => '<p class="fieldset__description">Use these levels to help Veterans understand the current COVID-19 health protection guidelines at your facility. This content will display on
+      the facility\'s location page and operating status page.</p><br>',
+    );
     $form['#attached']['library'][] = 'va_gov_vamc/set_covid_term_text';
     $form['#attached']['drupalSettings']['vamcCovidStatusTermText'] = $terms_text;
   }
@@ -246,7 +255,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function alterFacilityNodeForm(FormIdAlterEvent $event): void {
     $form = &$event->getForm();
-    $this->addCovidStatusTermTextToSettings($form);
+    $form_state = $event->getFormState();
+    $this->addCovidStatusTermTextToSettings($form, $form_state);
   }
 
   /**
