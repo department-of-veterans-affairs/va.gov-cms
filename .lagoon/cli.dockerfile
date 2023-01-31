@@ -5,9 +5,10 @@ RUN apk add --no-cache py3-pip
 RUN pip install jinja2-cli
 RUN ln --symbolic /usr/bin/jinja2 /usr/bin/j2
 
-COPY composer.* /app
 COPY .lagoon /app/.lagoon
+COPY composer.* /app
 RUN composer install --no-dev
+
 COPY . /app
 RUN mkdir --parents --verbose --mode=775 /app/docroot/sites/default/files
 
