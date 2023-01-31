@@ -552,7 +552,7 @@
         "pre-update-cmd": [
             "mkdir -p vendor",
             "if [ -n \"$DDEV_VERSION\" ]; then cp .ddev/.env .env; fi",
-            "if [ -n \"$LAGOON_VERSION\" ]; then j2 /app/.lagoon/.env.j2 -o /app/.env; fi"
+            "if [ -n \"$LAGOON_VERSION\" ]; then j2 .lagoon/.env.j2 -o .env; fi"
         ],
         "post-update-cmd": [
             "cp -r 'hooks/git/.' '.git/hooks/'",
