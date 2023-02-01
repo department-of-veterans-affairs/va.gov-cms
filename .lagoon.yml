@@ -11,7 +11,7 @@ tasks:
   post-rollout:
     - run:
         name: Copy Lagoon .env into place
-        command: ep .lagoon/.env.conf .env
+        command: ep --dry-run .lagoon/.env.ep > .env
         service: cli
         shell: bash
 #    - run:
