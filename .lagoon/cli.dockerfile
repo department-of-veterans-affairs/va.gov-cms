@@ -5,8 +5,10 @@ RUN apk add --no-cache py3-pip
 RUN pip install j2cli
 
 COPY .lagoon/ /app/.lagoon/
+COPY .git/ /app/.git/
 COPY patches/ /app/patches/
 COPY hooks/ /app/hooks/
+COPY simplesamlphp-config-metadata/ /app/simplesamlphp-config-metadata/
 COPY composer.* /app/
 RUN composer install --no-dev
 
