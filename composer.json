@@ -26,7 +26,7 @@
         "drupal/allow_only_one": "1.0.1",
         "drupal/allowed_formats": "^2.0",
         "drupal/animated_gif": "^2.0",
-        "drupal/auto_entitylabel": "3.0-beta3",
+        "drupal/auto_entitylabel": "^3.0",
         "drupal/better_exposed_filters": "^6.0",
         "drupal/blazy": "^2.0@RC",
         "drupal/block_content_permissions": "^1.6",
@@ -39,7 +39,7 @@
         "drupal/config_split": "^1.4",
         "drupal/consumer_image_styles": "^4.0",
         "drupal/consumers": "^1.17.0",
-        "drupal/content_lock": "^2.0@alpha",
+        "drupal/content_lock": "^2.3",
         "drupal/content_model_documentation": "^1.0@alpha",
         "drupal/core": "10.0.2 as 9.5",
         "drupal/core-composer-scaffold": "10.0.2 as 9.5",
@@ -56,7 +56,7 @@
         "drupal/entity_block": "^1.0@beta",
         "drupal/entity_browser": "^2.4",
         "drupal/entity_browser_table": "^1.2",
-        "drupal/entity_clone": "^1.0@beta",
+        "drupal/entity_clone": "^2.0@alpha",
         "drupal/entity_diff_ui": "^1.0",
         "drupal/entity_field_fetch": "^1.0@beta",
         "drupal/entity_reference_revisions": "^1.7",
@@ -355,18 +355,15 @@
             "drupal/core": {
                 "2807629 - Allow menu items which link to unpublished nodes to be selected in the parent item selector": "https://www.drupal.org/files/issues/2022-12-16/2807629-75.patch",
                 "2894449 - Indirect modification of overloaded element with Views responsive table": "https://www.drupal.org/files/issues/2018-10-05/core-indirect-modification-of-overloaded-element-2894449-18.patch",
-                "3057267 - User logout during maintenance mode": "https://www.drupal.org/files/issues/2019-09-11/3057267-maintenance-forced-logout-experimental.patch",
-                "1091852 - Display Bug when using #states (Forms API) with Ajax Request": "https://www.drupal.org/files/issues/2023-01-17/1091852.patch",
+                "3057267 - User logout during maintenance mode": "https://www.drupal.org/files/issues/2023-01-31/3057267-maintenance-forced-logout-experimental.patch",
                 "2859042 - Entity original revision": "https://www.drupal.org/files/issues/2018-07-30/entity_original_revision-2859042-26.patch",
-                "2930508 - Seven inactive tabs do not meet WCAG AA 1.4.3 for contrast": "https://www.drupal.org/files/issues/2020-10-15/drupal-seven_inactive_tabs_do_not_meet_wcag_aa-2930508-36.patch",
                 "2632750 - Interface previews/skeleton screens through optional preview or placeholder templates": "https://www.drupal.org/files/issues/2020-11-18/2632750-76-do-not-test_0.patch",
-                "2911932 - Correct vertical tab does not focus on form validation": "https://www.drupal.org/files/issues/2020-12-12/vertical-tabs--focus-on-onvalid-7b.patch",
+                "2911932 - Correct vertical tab does not focus on form validation": "https://www.drupal.org/files/issues/2022-12-23/2911932-30_0.patch",
                 "2893933 - claimItem in the database and memory queues does not use expire correctly": "https://www.drupal.org/files/issues/2023-01-10/2893933-drupal-queue-claim-9.5.x-58.patch",
                 "3025164 - Make moderation_state available to field queries": "https://www.drupal.org/files/issues/2020-09-25/3025164-28.patch",
                 "3229493 - TextareaWidget::errorElement() does not consult violation property path.": "https://www.drupal.org/files/issues/2023-01-18/text_module-3229493-6.patch",
                 "3027240 - Undefined index: #parents FormState.php": "https://www.drupal.org/files/issues/2019-01-21/form_system-undefined_index-3027240-2.patch",
-                "3096790 - Remove aria-required attribute": "https://www.drupal.org/files/issues/2022-12-16/3096790-30-9.5.patch",
-                "3219165 - Seven inactive vertical tabs do not meet contrast requirements": "https://www.drupal.org/files/issues/2021-06-16/3219165-3.patch",
+                "3096790 - Remove aria-required attribute": "https://www.drupal.org/files/issues/2022-12-16/3096790-30-10.1.patch",
                 "2915792 - MenuLinkContentAccessControlHandler does not allow \"view\" access without admin permission": "patches/drupal-core-menu-link-perm-mr-339.patch",
                 "2421145 - Text format wrapper does not take description_display into account": "https://www.drupal.org/files/issues/2021-12-03/2421445-18_0.patch",
                 "3099026 - Claro's preprocessing of field multiple value form's table header cell removes potential changes by others": "https://www.drupal.org/files/issues/2020-02-20/3099026-9.patch",
@@ -379,6 +376,9 @@
                 "2942404 - Contentinfo landmark" : "https://www.drupal.org/files/issues/2023-01-17/2942404-43.patch",
                 "3351638 - Remove truncation of path alias in table." : "https://www.drupal.org/files/issues/2023-04-05/3351638-23.patch",
                 "3047110 - Add workflow to taxonomy" : "https://www.drupal.org/files/issues/2023-04-14/3047110-45.patch"
+            },
+            "drupal/csv_serialization": {
+                "3317133 - [Drupal 10, Drush 11] PHP Fatal error on install": "https://www.drupal.org/files/issues/2023-02-01/3317133-drupal-10-php-fatal-error_0.patch"
             },
             "drupal/danse_content_moderation": {
                 "3309657 - Danse 2.2.7 compatibility": "https://www.drupal.org/files/issues/2022-09-14/3309657-danse-2-2-7-compatibility.patch"
@@ -401,6 +401,9 @@
             },
             "drupal/entity_clone": {
                 "3112577 - Cloning child references to nodes has potential to cause memory resource issues": "https://www.drupal.org/files/issues/2020-02-10/entity_clone-child-node-system-drain-3112577-1.patch"
+            },
+            "drupal/entity_diff_ui": {
+                "3315629 - Remove deprecated MediaRevisionAccessCheck": "https://www.drupal.org/files/issues/2023-01-31/3315629-remove-deprecated-media-revision-access-check-5.patch"
             },
             "drupal/entity_reference_revisions": {
                 "2984027 - Incorrect manipulation of default revision flag": "https://www.drupal.org/files/issues/2020-09-03/entity_reference_revisions-default_revision-2984027-10.patch"
@@ -463,6 +466,9 @@
             "drupal/pathauto": {
                 "3204586 - Update URL Alias action is only available for nodes + users and does not work with views_bulk_operations": "https://www.drupal.org/files/issues/2022-10-28/pathauto-add_deriver_for_alias_update_action-3204586-28_0.patch",
                 "3214658 - Omit nolink items from url path args and add token that uses parent url": "https://www.drupal.org/files/issues/2022-05-08/remove-nolink-args-use-parent-entity-url-3214658-18.patch"
+            },
+            "drupal/post_api": {
+                "3289117 - Automated Drupal 10 compatibility fixes": "https://www.drupal.org/files/issues/2022-08-22/post_api.2.x-dev.rector.patch"
             },
             "drupal/prometheus_exporter": {
                 "3214628 - Add published/unpublished node statistics to NodeCount.": "https://www.drupal.org/files/issues/2021-06-29/prometheus_exporter-add_status_metrics_to_node_count-3214628-3.patch"
