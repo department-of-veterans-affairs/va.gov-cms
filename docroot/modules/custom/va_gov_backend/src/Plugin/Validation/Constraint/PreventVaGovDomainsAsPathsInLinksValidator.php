@@ -81,7 +81,7 @@ class PreventVaGovDomainsAsPathsInLinksValidator extends ConstraintValidator {
      * In other words, we look for a string like `/va.gov/something` or
      * `/www.va.gov/something-else`.
      */
-    if (preg_match('#[\s"\']/([^\s/]*va.gov[^\s]*)#', $text, $matches)) {
+    if (preg_match('#[\s"\']/([^\s/]*va\.gov[^\s]*)#', $text, $matches)) {
       $this->addViolation($delta, $constraint->plainTextMessage, [
         ':url' => $matches[1],
       ]);
@@ -121,7 +121,7 @@ class PreventVaGovDomainsAsPathsInLinksValidator extends ConstraintValidator {
        * In other words, we look for a string like `/va.gov/something` or
        * `/www.va.gov/something-else`, but not `/some-path/www.va.gov/`.
        */
-      if (!preg_match('#^/([^\s/]*va.gov[^\s]*)#', $url)) {
+      if (!preg_match('#^/([^\s/]*va\.gov[^\s]*)#', $url)) {
         continue;
       }
       $firstChild = $element->hasChildNodes() ? $element->childNodes[0] : NULL;
