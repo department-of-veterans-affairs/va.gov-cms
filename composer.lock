@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4d1808e65fc248646828f27db60ab6ec",
+    "content-hash": "44e54ea20cc31bd0c49d252a73f19c39",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -114,16 +114,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.257.10",
+            "version": "3.258.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "c1168bc3f6a6f370ff400774fdf421c57db31707"
+                "reference": "96ed88ca45e54f74a158002411966a92891e8ead"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c1168bc3f6a6f370ff400774fdf421c57db31707",
-                "reference": "c1168bc3f6a6f370ff400774fdf421c57db31707",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/96ed88ca45e54f74a158002411966a92891e8ead",
+                "reference": "96ed88ca45e54f74a158002411966a92891e8ead",
                 "shasum": ""
             },
             "require": {
@@ -202,9 +202,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.257.10"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.258.0"
             },
-            "time": "2023-01-27T19:23:30+00:00"
+            "time": "2023-01-31T19:33:16+00:00"
         },
         {
             "name": "behat/gherkin",
@@ -3111,35 +3111,38 @@
         },
         {
             "name": "drupal/auto_entitylabel",
-            "version": "3.0.0-beta3",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/auto_entitylabel.git",
-                "reference": "8.x-3.0-beta3"
+                "reference": "8.x-3.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/auto_entitylabel-8.x-3.0-beta3.zip",
-                "reference": "8.x-3.0-beta3",
-                "shasum": "466358949b485461a77d600e3aa27af7b72b4eec"
+                "url": "https://ftp.drupal.org/files/projects/auto_entitylabel-8.x-3.0.zip",
+                "reference": "8.x-3.0",
+                "shasum": "8dd54d4b677f2c7259a15afd7b71d0d1b6f6b4a6"
             },
             "require": {
-                "drupal/core": "^8 || ^9"
+                "drupal/core": "^9.3 || ^10"
+            },
+            "require-dev": {
+                "drupal/token": "^1.0"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-3.0-beta3",
-                    "datestamp": "1595625626",
+                    "version": "8.x-3.0",
+                    "datestamp": "1671545557",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -5348,20 +5351,20 @@
         },
         {
             "name": "drupal/entity_clone",
-            "version": "1.0.0-beta7",
+            "version": "2.0.0-alpha1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/entity_clone.git",
-                "reference": "8.x-1.0-beta7"
+                "reference": "2.0.0-alpha1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/entity_clone-8.x-1.0-beta7.zip",
-                "reference": "8.x-1.0-beta7",
-                "shasum": "964b72b21a7e219cf337743ed5c8850235197594"
+                "url": "https://ftp.drupal.org/files/projects/entity_clone-2.0.0-alpha1.zip",
+                "reference": "2.0.0-alpha1",
+                "shasum": "35c53a8469c2e242cea9b1ce1340bdcebb7c6bd9"
             },
             "require": {
-                "drupal/core": "^8 || ^9"
+                "drupal/core": "^8 || ^9 || ^10"
             },
             "require-dev": {
                 "drupal/entity_browser": "2.x-dev",
@@ -5372,11 +5375,11 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0-beta7",
-                    "datestamp": "1663573486",
+                    "version": "2.0.0-alpha1",
+                    "datestamp": "1665381824",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "message": "Alpha releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -11749,21 +11752,21 @@
         },
         {
             "name": "drupal/smart_date",
-            "version": "3.6.1",
+            "version": "3.7.0-rc2",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/smart_date.git",
-                "reference": "3.6.1"
+                "reference": "3.7.0-rc2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/smart_date-3.6.1.zip",
-                "reference": "3.6.1",
-                "shasum": "a2ce55f5e38d046143881839f5ba0e6dcb49e823"
+                "url": "https://ftp.drupal.org/files/projects/smart_date-3.7.0-rc2.zip",
+                "reference": "3.7.0-rc2",
+                "shasum": "d41112fd3ba1b985cbe1c1a4eb8448fa3ca54f1f"
             },
             "require": {
                 "drupal/core": "^9 || ^10",
-                "php": ">=7.1",
+                "php": ">=8.0",
                 "simshaun/recurr": "^4"
             },
             "suggest": {
@@ -11772,11 +11775,11 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "3.6.1",
-                    "datestamp": "1661631736",
+                    "version": "3.7.0-rc2",
+                    "datestamp": "1675000375",
                     "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
+                        "status": "not-covered",
+                        "message": "RC releases are not covered by Drupal security advisories."
                     }
                 },
                 "drush": {
@@ -21119,16 +21122,16 @@
         },
         {
             "name": "simplesamlphp/composer-module-installer",
-            "version": "v1.3.2",
+            "version": "v1.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/simplesamlphp/composer-module-installer.git",
-                "reference": "24422673102843d42411098245e37b68c951d650"
+                "reference": "ad700e45b1813cd7bfb067bcf66c78c5b410125f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simplesamlphp/composer-module-installer/zipball/24422673102843d42411098245e37b68c951d650",
-                "reference": "24422673102843d42411098245e37b68c951d650",
+                "url": "https://api.github.com/repos/simplesamlphp/composer-module-installer/zipball/ad700e45b1813cd7bfb067bcf66c78c5b410125f",
+                "reference": "ad700e45b1813cd7bfb067bcf66c78c5b410125f",
                 "shasum": ""
             },
             "require": {
@@ -21156,9 +21159,9 @@
             "description": "A Composer plugin that allows installing SimpleSAMLphp modules through Composer.",
             "support": {
                 "issues": "https://github.com/simplesamlphp/composer-module-installer/issues",
-                "source": "https://github.com/simplesamlphp/composer-module-installer/tree/v1.3.2"
+                "source": "https://github.com/simplesamlphp/composer-module-installer/tree/v1.3.3"
             },
-            "time": "2023-01-10T17:03:58+00:00"
+            "time": "2023-01-31T09:51:44+00:00"
         },
         {
             "name": "simplesamlphp/saml2",
@@ -21224,12 +21227,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/simplesamlphp/simplesamlphp.git",
-                "reference": "db997a7e8f64d7bfe55a5dd7d5bf5bdc3f8fde37"
+                "reference": "c3d2b6ffb61280ef902c6101fd80b0b16632cc57"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simplesamlphp/simplesamlphp/zipball/db997a7e8f64d7bfe55a5dd7d5bf5bdc3f8fde37",
-                "reference": "db997a7e8f64d7bfe55a5dd7d5bf5bdc3f8fde37",
+                "url": "https://api.github.com/repos/simplesamlphp/simplesamlphp/zipball/c3d2b6ffb61280ef902c6101fd80b0b16632cc57",
+                "reference": "c3d2b6ffb61280ef902c6101fd80b0b16632cc57",
                 "shasum": ""
             },
             "require": {
@@ -21334,7 +21337,7 @@
                 "issues": "https://github.com/simplesamlphp/simplesamlphp/issues",
                 "source": "https://github.com/simplesamlphp/simplesamlphp"
             },
-            "time": "2023-01-30T15:57:10+00:00"
+            "time": "2023-01-31T12:12:57+00:00"
         },
         {
             "name": "simplesamlphp/simplesamlphp-assets-base",
@@ -26822,9 +26825,8 @@
         "drupal/cer": 20,
         "drupal/change_labels": 20,
         "drupal/components": 10,
-        "drupal/content_lock": 15,
         "drupal/entity_block": 10,
-        "drupal/entity_clone": 10,
+        "drupal/entity_clone": 15,
         "drupal/entity_field_fetch": 10,
         "drupal/entity_reference_validators": 15,
         "drupal/entity_usage": 20,
@@ -26849,6 +26851,7 @@
         "drupal/prometheus_exporter": 10,
         "drupal/schemata": 10,
         "drupal/simplesamlphp_auth": 20,
+        "drupal/smart_date": 5,
         "drupal/styleguide": 10,
         "drupal/taxonomy_menu": 20,
         "drupal/upgrade_status": 15,
