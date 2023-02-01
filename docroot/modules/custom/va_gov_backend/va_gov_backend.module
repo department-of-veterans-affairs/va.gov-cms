@@ -1335,12 +1335,14 @@ function va_gov_backend_entity_bundle_field_info_alter(&$fields, EntityTypeInter
     if ($field->getType() === 'string_long') {
       $field->addConstraint('PreventAbsoluteCmsLinks');
       $field->addConstraint('PreventProtocolRelativeLinks');
+      $field->addConstraint('PreventVaGovDomainsAsPathsInLinks');
     }
     elseif ($field->getType() === 'text_long') {
       $field->addConstraint('PreventAbsoluteCmsLinks');
       $field->addConstraint('PreventLocalFileLinks');
       $field->addConstraint('PreventProtocolRelativeLinks');
       $field->addConstraint('PreventMediaViewLinks');
+      $field->addConstraint('PreventVaGovDomainsAsPathsInLinks');
     }
   }
   // Add paragraph checks on clp panels.
