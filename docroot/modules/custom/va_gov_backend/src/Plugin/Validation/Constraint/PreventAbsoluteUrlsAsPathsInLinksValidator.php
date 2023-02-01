@@ -64,9 +64,9 @@ class PreventAbsoluteUrlsAsPathsInLinksValidator extends ConstraintValidator {
      *
      * #              Begin delimiter (replace '/', since we're mucking about
      *                with URLs, which contain slashes.)
-     *   /            Look for a leading slash.
      *   (            Open capture group.  We capture the entire URL so that
      *                we can refer to it in the error message.
+     *     /          Look for a leading slash.
      *     https?     Match either 'http' or 'https'...
      *     ://        ... followed by a colon and two slashes...
      *     [\s]+      ... and any non-whitespace characters that follow.
@@ -76,7 +76,7 @@ class PreventAbsoluteUrlsAsPathsInLinksValidator extends ConstraintValidator {
      * In other words, we look for a string that looks like a valid URL but is
      * immediately preceded by a forward slash.
      */
-    if (preg_match('#/(https?://[^\s]+)#', $text, $matches)) {
+    if (preg_match('#(/https?://[^\s]+)#', $text, $matches)) {
       $this->addViolation($delta, $constraint->plainTextMessage, [
         ':url' => $matches[1],
       ]);
@@ -98,6 +98,7 @@ class PreventAbsoluteUrlsAsPathsInLinksValidator extends ConstraintValidator {
     $xpath = new \DOMXPath($dom);
     foreach ($xpath->query('//a[starts-with(@href, "/http")]') as $element) {
       $url = $element->getAttribute('href');
+      // False alarm!  Maybe page alias is `/https-better-than-http`!
       if (strpos($url, '//http:') !== FALSE && strpos($url, '//https:') !== FALSE) {
         continue;
       }

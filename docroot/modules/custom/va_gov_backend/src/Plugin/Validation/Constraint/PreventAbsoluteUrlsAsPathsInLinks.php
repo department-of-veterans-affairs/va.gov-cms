@@ -25,7 +25,7 @@ class PreventAbsoluteUrlsAsPathsInLinks extends Constraint {
    * @var string
    * @see \Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventProtocolRelativeLinksValidator
    */
-  public $plainTextMessage = 'Review the link ":url" and update to remove the leading slash.';
+  public $plainTextMessage = 'Review the link ":url" and update the URL to remove the leading slash.';
 
   /**
    * The error message for rich text fields.
@@ -33,6 +33,6 @@ class PreventAbsoluteUrlsAsPathsInLinks extends Constraint {
    * @var string
    * @see \Drupal\va_gov_backend\Plugin\Validation\Constraint\PreventProtocolRelativeLinksValidator
    */
-  public $richTextMessage = 'Review the linked text ":link" (:url) and update to remove the leading slash.';
+  public $richTextMessage = 'Review the linked text ":link" (:url) and update the URL to remove the leading slash.';
 
 }
