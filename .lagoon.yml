@@ -7,7 +7,7 @@ tasks:
   pre-rollout:
     - run:
         name: Copy Lagoon .env into place
-        command: j2 .lagoon/.env .env
+        command: ep .lagoon/.env.conf .env
         service: cli
         shell: bash
 #  post-rollout:
