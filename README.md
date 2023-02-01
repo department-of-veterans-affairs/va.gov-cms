@@ -91,7 +91,7 @@ This repository contains the source code for the _Content Management System_ (**
 
 Access to the production CMS is restricted with CAG. See [Getting Access](READMES/access.md).
 
-The **CMS** is built on [Drupal 9](https://www.drupal.org), using the [Composer](https://getcomposer.org) package management system. See [Getting Started](READMES/getting-started.md).
+The **CMS** is built on [Drupal 9.5](https://www.drupal.org), using the [Composer](https://getcomposer.org) package management system. See [Getting Started](READMES/getting-started.md).
 
 ### Contributing
 
