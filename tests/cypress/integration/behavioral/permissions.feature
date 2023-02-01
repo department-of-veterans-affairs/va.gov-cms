@@ -26,4 +26,4 @@ Feature: Permissions
     Given I am logged in as a user with the "content_admin" role
     And I am at "/user"
     Then I should see "You can edit content in the following VA.gov sections"
-    And I should not see "You don't have permission to access content in any VA.gov sections yet"
+    And "You don't have permission to access content in any VA.gov sections yet" should not exist
