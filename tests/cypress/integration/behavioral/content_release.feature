@@ -10,7 +10,7 @@ Feature: Content Release
     When I am at "/admin/content/deploy"
     And I reload the page
     And I scroll to position "bottom"
-    Then I should see "Ready"
+    Then "Ready" should exist
 
   @skip_on_brd
   Scenario: The content release page should show a pending default release initiated within the browser
@@ -21,11 +21,11 @@ Feature: Content Release
     And I process the content release queue
     And I reload the page
     And I scroll to position "bottom"
-    Then I should see "Preparing"
+    Then "Preparing" should exist
     And I reset the content release state from the command line
     And I reload the page
     And I scroll to position "bottom"
-    Then I should see "Ready"
+    Then "Ready" should exist
 
   @skip_on_brd
   # This test concerns functionality that is currently broken or not available
@@ -37,11 +37,11 @@ Feature: Content Release
     And I process the content release queue
     And I am at "/admin/content/deploy"
     And I scroll to position "bottom"
-    Then I should see "Preparing"
+    Then "Preparing" should exist
     And I reset the content release state from the command line
     And I reload the page
     And I scroll to position "bottom"
-    Then I should see "Ready"
+    Then "Ready" should exist
 
   @skip_on_brd
   Scenario: The content release page should show a pending default release initiated from the command line
@@ -51,11 +51,11 @@ Feature: Content Release
     And I process the content release queue
     And I am at "/admin/content/deploy"
     And I scroll to position "bottom"
-    Then I should see "Preparing"
+    Then "Preparing" should exist
     And I reset the content release state from the command line
     And I reload the page
     And I scroll to position "bottom"
-    Then I should see "Ready"
+    Then "Ready" should exist
 
   @skip_on_brd @ignore
   # This test concerns functionality that is currently not available,
@@ -70,9 +70,9 @@ Feature: Content Release
     And I process the content release queue
     And I reload the page
     And I scroll to position "bottom"
-    Then I should see "Branch: "
-    And I should see "Preparing"
+    Then "Branch: " should exist
+    And "Preparing" should exist
     And I reset the content release state from the command line
     And I reload the page
     And I scroll to position "bottom"
-    Then I should see "Ready"
+    Then "Ready" should exist

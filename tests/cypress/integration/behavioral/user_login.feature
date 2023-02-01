@@ -26,5 +26,5 @@ Feature: User Login
     Then I should see "VA.gov | Content Management System"
     And I should see "Create and publish Veteran-centered content"
     And I should see "Username"
-    And I should not see "Developer log in"
-    And I should not see "Log in with PIV"
+    And "Developer log in" should not exist
+    And "Log in with PIV" should not exist

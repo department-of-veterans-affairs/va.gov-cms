@@ -1,6 +1,7 @@
 {
   "extends": [
     "airbnb",
+    "plugin:cypress/recommended",
     "plugin:prettier/recommended"
   ],
   "root": true,
@@ -27,6 +28,7 @@
   "rules": {
     "prettier/prettier": "error",
     "consistent-return": ["off"],
+    "cypress/no-unnecessary-waiting": ["off"],
     "no-underscore-dangle": ["off"],
     "max-nested-callbacks": ["warn", 3],
     "import/no-mutable-exports": ["warn"],
