@@ -4,8 +4,7 @@ FROM uselagoon/php-8.1-cli-drupal:latest
 RUN apk add --no-cache py3-pip
 RUN pip install j2cli
 
-COPY .lagoon/ /app/.lagoon
-COPY composer.* /app/
+COPY .lagoon/ patches/ composer.* /app/
 RUN composer install --no-dev
 
 COPY . /app
