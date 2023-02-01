@@ -540,8 +540,8 @@
         ],
         "post-install-cmd": [
             "mkdir --parents docroot/profiles",
-            "cp -r 'hooks/git/.' '.git/hooks/'",
-            "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
+            "if [ -n \"$DDEV_VERSION\" ]; then cp -r 'hooks/git/.' '.git/hooks/'; fi",
+            "if [ -n \"$DDEV_VERSION\" ]; then php -r \"chmod('.git/hooks/pre-commit', 0777);\"; fi",
             "ln -snf 'docroot/vendor/simplesamlphp/simplesamlphp/' 'simplesamlphp'",
             "ln -snf 'docroot/vendor/simplesamlphp/saml2/' 'saml2'",
             "cp -r 'simplesamlphp-config-metadata/config' 'simplesamlphp-config-metadata/metadata' 'docroot/vendor/simplesamlphp/simplesamlphp/'",
