@@ -64,9 +64,9 @@ const creators = {
       const POINTER_DOWN = window.PointerEvent ? "pointerdown" : "mousedown";
       const POINTER_MOVE = window.PointerEvent ? "pointermove" : "mousemove";
       const POINTER_UP = window.PointerEvent ? "pointerup" : "mouseup";
-      const cropperType = window.jQuery("[data-drupal-iwc=wrapper]").data(
-        "ImageWidgetCrop"
-      ).types[0];
+      const cropperType = window
+        .jQuery("[data-drupal-iwc=wrapper]")
+        .data("ImageWidgetCrop").types[0];
       const { cropper } = cropperType;
       const { dragBox } = cropper;
       const $wrapper = window.jQuery(dragBox).closest(".crop-preview-wrapper");
@@ -129,6 +129,7 @@ Given("I create a {string} media", (contentType) => {
       "not.include",
       "/media/add"
     );
+    cy.drupalWatchdogHasNoNewErrors();
     cy.getDrupalSettings().then((drupalSettings) => {
       const { currentPath } = drupalSettings.path;
       const pathComponents = currentPath.split("/");
