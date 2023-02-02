@@ -26,8 +26,8 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class EntityEventSubscriber implements EventSubscriberInterface {
 
-// The UID of the CMS Help Desk account subscribing to facility messages.
-const USER_CMS_HELP_DESK_NOTIFICATIONS = 4050;
+  // The UID of the CMS Help Desk account subscribing to facility messages.
+  const USER_CMS_HELP_DESK_NOTIFICATIONS = 4050;
 
   /**
    * {@inheritdoc}
@@ -220,6 +220,8 @@ const USER_CMS_HELP_DESK_NOTIFICATIONS = 4050;
    *
    * @param array $form
    *   The form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
    */
   public function addCovidStatusTermTextToSettings(array &$form, FormStateInterface $form_state): void {
     /** @var \Drupal\taxonomy\Entity\Term $term_storage */
@@ -240,20 +242,29 @@ const USER_CMS_HELP_DESK_NOTIFICATIONS = 4050;
     foreach ($covid_status as $status) {
       $terms_text[$status]['name'] = $term_storage->load($status)->getName();
       $terms_text[$status]['description'] = $term_storage->load($status)->getDescription();
+      // When the supplemental status is set.
       if (isset($node->get("field_supplemental_status")['0'])
       && isset($node->get("field_supplemental_status")['0']->getValue()['target_id'])) {
-        if ($node->get("field_supplemental_status")['0']->getValue()['target_id'] == $status &&
-        empty($node->get("field_supplemental_status_more_i")['0']->getValue())) {
-          \Drupal::logger('my_module')->notice('message');
+        // When the status is the same as the status in this loop
+        // but the editor has not added details.
+        if ($node->get("field_supplemental_status")['0']->getValue()['target_id'] == $status
+        && empty($node->get("field_supplemental_status_more_i")['0']->getValue())) {
+          $chosen_term_description = $term_storage->load($status)->getName()
+          . $term_storage->load($status)->getDescription();
+          $form['field_supplemental_status_more_i']['widget']['0'] = [
+            '#type' => 'text_format',
+            '#default_value' => $chosen_term_description,
+            '#format' => 'rich_text_limited',
+          ];
         }
       }
     }
-    $form['group_covid_19_safety_guidelines'] = array(
+    $form['group_covid_19_safety_guidelines'] = [
       '#type' => 'textfield',
       '#prefix' => '<hr /><br>',
       '#suffix' => '<p class="fieldset__description">Use these levels to help Veterans understand the current COVID-19 health protection guidelines at your facility. This content will display on
       the facility\'s location page and operating status page.</p><br>',
-    );
+    ];
     $form['#attached']['library'][] = 'va_gov_vamc/set_covid_term_text';
     $form['#attached']['drupalSettings']['vamcCovidStatusTermText'] = $terms_text;
   }
