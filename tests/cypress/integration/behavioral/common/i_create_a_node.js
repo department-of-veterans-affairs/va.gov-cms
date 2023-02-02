@@ -23,6 +23,7 @@ const creators = {
     cy.findAllByLabelText('Page introduction').type(faker.lorem.sentence(), { force: true });
     cy.findAllByLabelText('Section').select('VACO', { force: true });
     cy.findAllByLabelText('Parent link').select('-- CMS Knowledge Base (disabled)', { force: true });
+    cy.findAllByLabelText('All products').check({ force: true });
     return cy.wait(1000);
   },
   event: () => {
