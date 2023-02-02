@@ -17,4 +17,4 @@ ENV WEBROOT=docroot
 # Explicitly copy over env.ep
 # If you’re using envplate, there is an entrypoint that will auto expand 
 # the vars as long as the .env is in the WORKDIR
-COPY .lagoon/env.ep .env
+COPY .lagoon/.env.ep .env
