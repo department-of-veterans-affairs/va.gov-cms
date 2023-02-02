@@ -4,7 +4,7 @@
 
 ((Drupal) => {
   let statusId;
-  const textSetter = () => {
+  const wysiwygSetter = () => {
     const covidStatusValue = document.querySelectorAll(
       ".form-item--field-supplemental-status input"
     );
@@ -34,16 +34,15 @@
 
   Drupal.behaviors.vaGovSetCovidTermText = {
     attach() {
-      // Let's set the text on page load, and whenever radios are clicked.
-      window.addEventListener("DOMContentLoaded", textSetter);
+      // use the supplemental status to drive the details content.
       const supplementalStatusChoices = document.querySelectorAll(
         ".form-item--field-supplemental-status [id^='edit-field-supplemental-status-']"
       );
-      // check if an interval has already been set up
+      // when user clicks, populate the status.
       supplementalStatusChoices.forEach((choice) => {
         document
           .getElementById(choice.id)
-          .addEventListener("click", textSetter);
+          .addEventListener("click", wysiwygSetter);
       });
     },
   };

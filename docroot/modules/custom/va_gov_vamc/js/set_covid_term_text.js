@@ -7,7 +7,7 @@
 
 (function (Drupal) {
   var statusId = void 0;
-  var textSetter = function textSetter() {
+  var wysiwygSetter = function wysiwygSetter() {
     var covidStatusValue = document.querySelectorAll(".form-item--field-supplemental-status input");
 
     covidStatusValue.forEach(function (element) {
@@ -25,11 +25,10 @@
 
   Drupal.behaviors.vaGovSetCovidTermText = {
     attach: function attach() {
-      window.addEventListener("DOMContentLoaded", textSetter);
       var supplementalStatusChoices = document.querySelectorAll(".form-item--field-supplemental-status [id^='edit-field-supplemental-status-']");
 
       supplementalStatusChoices.forEach(function (choice) {
-        document.getElementById(choice.id).addEventListener("click", textSetter);
+        document.getElementById(choice.id).addEventListener("click", wysiwygSetter);
       });
     }
   };
