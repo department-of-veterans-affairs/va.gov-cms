@@ -3,17 +3,17 @@ docker-compose-yaml: docker-compose.yml
 
 project: demo-vagov-cmstest
 
-tasks:
+#tasks:
 #  # pre-rollout tasks run on the old containers
 #  pre-rollout:
 
   # post-rollout tasks run on the new containers
-  post-rollout:
-    - run:
-        name: Copy Lagoon .env into place
-        command: ep --dry-run .lagoon/.env.ep > .env
-        service: cli
-        shell: bash
+#  post-rollout:
+#    - run:
+#        name: Copy Lagoon .env into place
+#        command: ep --dry-run .lagoon/.env.ep > .env
+#        service: cli
+#        shell: bash
 #    - run:
 #        name: Run drush deploy
 #        command: drush deploy
