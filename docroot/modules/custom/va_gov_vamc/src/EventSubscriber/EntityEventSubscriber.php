@@ -233,9 +233,20 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       1035,
     ];
     $terms_text = [];
+    $chosen_term_description = "";
+    /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
+    $form_object = $form_state->getFormObject();
+    $node = $form_object->getEntity();
     foreach ($covid_status as $status) {
       $terms_text[$status]['name'] = $term_storage->load($status)->getName();
       $terms_text[$status]['description'] = $term_storage->load($status)->getDescription();
+      if (isset($node->get("field_supplemental_status")['0'])
+      && isset($node->get("field_supplemental_status")['0']->getValue()['target_id'])) {
+        if ($node->get("field_supplemental_status")['0']->getValue()['target_id'] == $status &&
+        empty($node->get("field_supplemental_status_more_i")['0']->getValue())) {
+          \Drupal::logger('my_module')->notice('message');
+        }
+      }
     }
     $form['group_covid_19_safety_guidelines'] = array(
       '#type' => 'textfield',
