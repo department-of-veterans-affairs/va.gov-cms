@@ -22,7 +22,7 @@ use Drupal\node\Entity\Node;
  * @throws \Drupal\Core\Entity\EntityMalformedException
  * @throws \Drupal\Core\Entity\EntityStorageException
  */
-function va_gov_home_create_hub_menu_links() {
+function va_gov_home_deploy_create_hub_menu_links() {
   // List of existing Benefit Hub Landing Page node IDs, in the order we want
   // them in the home-page-hub-list menu.
   // 67 = Health Care
