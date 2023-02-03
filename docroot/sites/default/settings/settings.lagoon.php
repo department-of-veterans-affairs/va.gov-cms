@@ -10,3 +10,6 @@ $databases['default']['default'] = array(
   'port' => getenv('MARIADB_PORT'),
   'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
 );
+
+$settings['va_gov_web_root'] = getenv('LAGOON_ROOT');
+$settings['va_gov_app_root'] = getenv('LAGOON_ROOT') . '/web';
