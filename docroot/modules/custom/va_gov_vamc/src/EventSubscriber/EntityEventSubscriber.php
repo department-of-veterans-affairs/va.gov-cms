@@ -236,6 +236,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     ];
     $terms_text = [];
     $chosen_term_description = "";
+    $widget_title = "";
+    $widget_description = "";
     /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
     $form_object = $form_state->getFormObject();
     $node = $form_object->getEntity();
@@ -249,9 +251,17 @@ class EntityEventSubscriber implements EventSubscriberInterface {
         // but the editor has not added details.
         if ($node->get("field_supplemental_status")['0']->getValue()['target_id'] == $status
         && empty($node->get("field_supplemental_status_more_i")['0']->getValue())) {
+          if (isset($form['field_supplemental_status_more_i']['widget']['0']['#title'])) {
+            $widget_title = $form['field_supplemental_status_more_i']['widget']['0']['#title'];
+          }
+          if (isset($form['field_supplemental_status_more_i']['widget']['0']['#description'])) {
+            $widget_description = $form['field_supplemental_status_more_i']['widget']['0']['#description']->__toString();
+          }
           $chosen_term_description = $term_storage->load($status)->getName()
           . $term_storage->load($status)->getDescription();
           $form['field_supplemental_status_more_i']['widget']['0'] = [
+            "#title" => $widget_title,
+            '#description' => $widget_description,
             '#type' => 'text_format',
             '#default_value' => $chosen_term_description,
             '#format' => 'rich_text_limited',

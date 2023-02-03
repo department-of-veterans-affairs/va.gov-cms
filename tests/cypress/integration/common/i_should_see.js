@@ -66,3 +66,7 @@ Then("I should see a {string} downloadable file link", (type) => {
     `//a[contains(@class, "downloadable-file-link--${type}") and contains(@target, "_blank") and contains(@aria-label, "Download")]`
   ).should("be.visible");
 });
+
+Then(`I should see {string} in ckeditor {string}`, (value, label) => {
+  cy.read_ckeditor(label, value);
+});

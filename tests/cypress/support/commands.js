@@ -155,6 +155,21 @@ Cypress.Commands.add("type_ckeditor", (element, content) => {
   });
 });
 
+Cypress.Commands.add("read_ckeditor", (element, content) => {
+  cy.wait(5000);
+  cy.window().then((win) => {
+    const elements = Object.keys(win.CKEDITOR.instances);
+    if (elements.indexOf(element) === -1) {
+      const matches = elements.filter((el) => el.includes(element));
+      if (matches.length) {
+        element = matches[0];
+      }
+    }
+    win.CKEDITOR.instances[element].getData(content);
+  });
+});
+
+
 Cypress.Commands.add("scrollToSelector", (selector) => {
   return cy.document().then((document) => {
     const htmlElement = document.querySelector("html");
