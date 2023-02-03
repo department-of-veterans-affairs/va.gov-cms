@@ -75,7 +75,7 @@
     // Seek and hide element based on a string match.
     function seekHide(domElement, textMatch) {
       domElement.forEach((i) => {
-        if (i.text.includes(textMatch)) {
+        if (i.text === textMatch) {
           i.classList.add("hidden-option");
         }
       });
