@@ -16,21 +16,38 @@
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\node\Entity\Node;
 
+/**
+ * Creates hub menu links.
+ *
+ * @throws \Drupal\Core\Entity\EntityMalformedException
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
 function va_gov_home_create_hub_menu_links() {
-  // List of existing Benefit Hub Landing Page node IDs, in the order we want them
-  // in the home-page-hub-list menu.
+  // List of existing Benefit Hub Landing Page node IDs, in the order we want
+  // them in the home-page-hub-list menu.
+  // 67 = Health Care
+  // 68 = Disability
+  // 71 = Education and Training
+  // 72 = Careers and employment
+  // 73 = Pension
+  // 74 = Housing assistance
+  // 77 = Life insurance
+  // 78 = Burials and memorials
+  // 79 = Records
+  // 809 = Service member benefits
+  // 810 = Family member benefits.
   $nids = [
-    67, // Health Care
-    68, // Disability
-    71, // Education and Training
-    72, // Careers and employment
-    73, // Pension
-    74, // Housing assistance
-    77, // Life insurance
-    78, // Burials and memorials
-    79, // Records
-    809, // Service member benefits
-    810, // Family member benefits
+    67,
+    68,
+    71,
+    72,
+    73,
+    74,
+    77,
+    78,
+    79,
+    809,
+    810,
   ];
 
   // Create internal menu links.
@@ -48,7 +65,7 @@ function va_gov_home_create_hub_menu_links() {
     ]);
     $link->save();
   }
-  // Create 12th link as external url.
+  // Create VA Department information link as external url.
   $link = MenuLinkContent::create([
     'enabled' => TRUE,
     'title' => 'VA department information',
