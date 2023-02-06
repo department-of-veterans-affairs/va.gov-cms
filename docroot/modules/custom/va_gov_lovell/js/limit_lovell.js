@@ -58,7 +58,7 @@
 
     function seekHide(domElement, textMatch) {
       domElement.forEach(function (i) {
-        if (i.text.includes(textMatch)) {
+        if (i.text === textMatch) {
           i.classList.add("hidden-option");
         }
       });
