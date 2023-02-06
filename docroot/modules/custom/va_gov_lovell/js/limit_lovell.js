@@ -56,21 +56,19 @@
       hideSeekShowLovell(systemFieldOptions, adminMatcher);
     }
 
-    function seekHide(domElement, textMatch) {
-      var optionsPattern = /^-+/;
+    function seekHide(domElement, regexMatch) {
       domElement.forEach(function (i) {
-        var trimmedText = i.text.replace(optionsPattern, "");
-        if (trimmedText === textMatch) {
+        if (regexMatch.test(i.text)) {
           i.classList.add("hidden-option");
         }
       });
     }
 
     if (adminFieldOptions) {
-      seekHide(adminFieldOptions, lovellFederalText);
+      seekHide(adminFieldOptions, new RegExp("^-+" + lovellFederalText));
     }
     if (regionPageOptions) {
-      seekHide(regionPageOptions, lovellFederalText);
+      seekHide(regionPageOptions, new RegExp("^" + lovellFederalText + "$"));
     }
   };
 
