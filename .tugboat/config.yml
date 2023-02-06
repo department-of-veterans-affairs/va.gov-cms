@@ -4,7 +4,7 @@ services:
     # Use PHP 8.1 with Apache; this syntax pulls in the latest version of PHP 8.1.
     # Currently, using Buster because of an issue with Bullseye and PHP 8.1 on Tugboat.
     # See https://github.com/department-of-veterans-affairs/va.gov-cms/issues/7667
-    image: tugboatqa/php:8.1-apache-buster
+    image: tugboatqa/php:8.2-apache-buster
 
     aliases:
       - cms
@@ -48,6 +48,10 @@ services:
         # Install php ZIP extension (drush 10 requires it).
         - apt-get install libzip-dev zip
         - docker-php-ext-install zip
+
+        # Install ext-intl for simplesamlphp.
+        - apt-get install php8.2-intl
+        - docker-php-ext-install intl
 
         # Install opcache, and Apache modules
         - docker-php-ext-install opcache
