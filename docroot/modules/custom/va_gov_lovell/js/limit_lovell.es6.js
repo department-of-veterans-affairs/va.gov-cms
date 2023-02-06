@@ -74,8 +74,12 @@
 
     // Seek and hide element based on a string match.
     function seekHide(domElement, textMatch) {
+      // Multiple "-" prefix is used in Drupal menus.
+      // We can't get an exact match with it.
+      const optionsPattern = /^-+/;
       domElement.forEach((i) => {
-        if (i.text === textMatch) {
+        const trimmedText = i.text.replace(optionsPattern, "");
+        if (trimmedText === textMatch) {
           i.classList.add("hidden-option");
         }
       });

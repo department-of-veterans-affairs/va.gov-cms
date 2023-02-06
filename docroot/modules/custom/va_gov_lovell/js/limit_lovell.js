@@ -57,8 +57,10 @@
     }
 
     function seekHide(domElement, textMatch) {
+      var optionsPattern = /^-+/;
       domElement.forEach(function (i) {
-        if (i.text === textMatch) {
+        var trimmedText = i.text.replace(optionsPattern, "");
+        if (trimmedText === textMatch) {
           i.classList.add("hidden-option");
         }
       });
