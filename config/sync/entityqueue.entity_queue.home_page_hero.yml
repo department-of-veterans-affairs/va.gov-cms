@@ -1,0 +1,26 @@
+uuid: 45229e5d-bd7c-4dab-9838-0b05322e9e31
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_content
+id: home_page_hero
+label: 'V2 Home page benefit promo'
+handler: simple
+handler_configuration: {  }
+entity_settings:
+  target_type: block_content
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      benefit_promo: benefit_promo
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+queue_settings:
+  min_size: 1
+  max_size: 1
+  act_as_queue: false
+  reverse: false

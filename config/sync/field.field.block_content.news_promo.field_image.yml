@@ -1,0 +1,40 @@
+uuid: 9cbe3e08-c478-4165-9a7f-e7c41ffd1cbc
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.news_promo
+    - field.storage.block_content.field_image
+    - media.type.image
+  module:
+    - entity_reference_validators
+    - epp
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: false
+  epp:
+    value: ''
+    on_update: 0
+id: block_content.news_promo.field_image
+field_name: field_image
+entity_type: block_content
+bundle: news_promo
+label: Image
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

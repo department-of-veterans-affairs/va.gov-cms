@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.va_form.field_administration
     - field.field.node.va_form.field_alert
     - field.field.node.va_form.field_benefit_categories
+    - field.field.node.va_form.field_last_saved_by_an_editor
     - field.field.node.va_form.field_meta_tags
     - field.field.node.va_form.field_va_form_administration
     - field.field.node.va_form.field_va_form_deleted
@@ -77,7 +78,7 @@ third_party_settings:
       label: 'External content'
       parent_name: ''
       region: hidden
-      weight: 17
+      weight: 18
       format_type: fieldset
       format_settings:
         classes: ''
@@ -185,6 +186,7 @@ content:
 hidden:
   content_moderation_control: true
   field_administration: true
+  field_last_saved_by_an_editor: true
   field_va_form_administration: true
   field_va_form_deleted: true
   field_va_form_deleted_date: true

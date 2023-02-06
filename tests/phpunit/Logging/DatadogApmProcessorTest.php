@@ -2,9 +2,9 @@
 
 namespace test\phpunit\Deploy;
 
-use Drupal\Tests\UnitTestCase;
 use Drupal\va_gov_backend\Logger\Processor\DatadogApmProcessor;
 use Drupal\va_gov_backend\Service\DatadogContextProviderInterface;
+use Tests\Support\Classes\VaGovUnitTestBase;
 
 /**
  * Test the Datadog APM processor.
@@ -14,7 +14,7 @@ use Drupal\va_gov_backend\Service\DatadogContextProviderInterface;
  *
  * @covers \Drupal\va_gov_backend\Logger\Processor\DatadogApmProcessor
  */
-class DatadogApmProcessorTest extends UnitTestCase {
+class DatadogApmProcessorTest extends VaGovUnitTestBase {
 
   /**
    * Test ::getCurrentContext().

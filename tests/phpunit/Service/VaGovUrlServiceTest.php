@@ -10,7 +10,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Response;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use weitzman\DrupalTestTraits\ExistingSiteBase;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * Test the VaGovUrl Service.
@@ -18,7 +18,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  * @group functional
  * @group all
  */
-class VaGovUrlServiceTest extends ExistingSiteBase {
+class VaGovUrlServiceTest extends VaGovExistingSiteBase {
 
   /**
    * History of requests/responses.
@@ -58,7 +58,7 @@ class VaGovUrlServiceTest extends ExistingSiteBase {
   /**
    * {@inheritdoc}
    */
-  public function setUp() {
+  public function setUp() : void {
     parent::setUp();
 
     $this->newContainer = new ContainerBuilder();
@@ -108,9 +108,9 @@ class VaGovUrlServiceTest extends ExistingSiteBase {
   }
 
   /**
-   * Verify getVaGovFrontEndUrlForEntityIsLive method.
+   * Verify getVaGovFrontEndUrlIsLive method.
    */
-  public function testVaGovFrontEndUrlForEntityIsLive() {
+  public function testVaGovFrontEndUrlIsLive() {
     $this->mockClient(new Response('200'), new Response('404'));
     $vaGovUrl = new VaGovUrl($this->mockClient, $this->settings, $this->container->get('va_gov.build_trigger.environment_discovery'));
 
@@ -121,9 +121,10 @@ class VaGovUrlServiceTest extends ExistingSiteBase {
       'uid' => $author->id(),
     ]);
     $system_node->setPublished()->save();
+    $url = $vaGovUrl->getVaGovFrontEndUrlForEntity($system_node);
 
-    $this->assertTrue($vaGovUrl->vaGovFrontEndUrlForEntityIsLive($system_node));
-    $this->assertFalse($vaGovUrl->vaGovFrontEndUrlForEntityIsLive($system_node));
+    $this->assertTrue($vaGovUrl->vaGovFrontEndUrlIsLive($url));
+    $this->assertFalse($vaGovUrl->vaGovFrontEndUrlIsLive($url));
   }
 
   /**

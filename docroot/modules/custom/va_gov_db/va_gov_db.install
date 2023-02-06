@@ -42,7 +42,7 @@ function _va_gov_db_uninstall_modules(array $modules, $uninstall_dependents = TR
   else {
     // Something went wrong. Throw exception.
     throw new UpdateException(
-      t("Failed to uninstall the requested modules: @modules", ['@modules' => $modules_list])
+      "Failed to uninstall the requested modules: " . implode(',', $modules_list)
     );
   }
 }
@@ -69,7 +69,7 @@ function _va_gov_db_install_modules(array $modules, $install_dependents = TRUE) 
   else {
     // Something went wrong. Throw exception.
     throw new UpdateException(
-      t("Failed to install the requested modules: @modules", ['@modules' => $modules_list])
+      "Failed to install the requested modules: " . implode(',', $modules_list)
     );
   }
 }
@@ -529,7 +529,6 @@ function va_gov_db_update_8019(&$sandbox) {
  * Clear Drupal status report mis-matched entity/field errors.
  */
 function va_gov_db_update_8020() {
-  $messages = [];
 
   $missing_entity_types = [
     'environment_indicator',
@@ -701,7 +700,7 @@ function va_gov_db_update_8027(&$sandbox) {
     ->condition('type', 'health_care_region_detail_page')
     ->execute();
   $count = 0;
-  foreach ($nids as $key => $nid) {
+  foreach ($nids as $nid) {
     if ($key_value->get($nid) == 0) {
       $key_value->set($nid, 1);
       $count++;
@@ -761,7 +760,7 @@ function va_gov_db_update_8030(&$sandbox) {
     ->condition('type', 'leadership_listing')
     ->execute();
   $count = 0;
-  foreach ($nids as $key => $nid) {
+  foreach ($nids as $nid) {
     if ($key_value->get($nid) == 0) {
       $key_value->set($nid, 1);
       $count++;
@@ -1058,4 +1057,50 @@ function va_gov_db_update_9009() {
   }
 
   return 'Removed field_hours_for_copay_inquiries_ from billing.';
+}
+
+/**
+ * Create redirect for flagged content.
+ */
+function va_gov_db_update_9010(&$sandbox) {
+  return _va_gov_db_create_redirect_by_path('/admin/content/flagged', '/admin/content/facilities/flagged');
+}
+
+/**
+ * Create redirects for rich text search View displays.
+ */
+function va_gov_db_update_9011(&$sandbox) {
+  $mesages = _va_gov_db_create_redirect_by_path('/admin/content/audit/rich-text-field-audit.csv', '/admin/content/audit/search/export');
+  $mesages .= _va_gov_db_create_redirect_by_path('/admin/content/audit/rich-text-field-audit', '/admin/content/audit/search');
+  return $mesages;
+}
+
+/**
+ * Remove a number of old tables from the database.
+ */
+function va_gov_db_update_9012(&$sandbox) {
+  $logger = \Drupal::logger('va_gov_db_update_9012');
+  $schema = \Drupal::database()->schema();
+  $tables = $schema->findTables("old_%");
+  $table_names = array_keys($tables);
+  $count = count($tables);
+  $logger->info("Found $count tables: " . json_encode($table_names));
+  foreach ($table_names as $table_name) {
+    $removed = $schema->dropTable($table_name);
+    if ($removed) {
+      $logger->info("Table $table_name successfully dropped.");
+    }
+    else {
+      $logger->warning("Table $table_name not found.");
+    }
+  }
+  $tables = $schema->findTables("old_%");
+  $table_names = array_keys($tables);
+  $count = count($tables);
+  if (!$count) {
+    $logger->info("Successfully removed all old tables.");
+  }
+  else {
+    $logger->warning("Found $count tables after update: " . json_encode($table_names));
+  }
 }

@@ -13,7 +13,6 @@ dependencies:
     - flag.flag.removed_from_source
     - node.type.health_care_local_facility
     - node.type.nca_facility
-    - node.type.va_form
     - node.type.vba_facility
     - node.type.vet_center
     - node.type.vet_center_mobile_vet_center
@@ -181,7 +180,7 @@ display:
           admin_label: ''
           entity_type: node
           plugin_id: entity_link_edit
-          label: ''
+          label: Edit
           exclude: false
           alter:
             alter_text: true
@@ -223,7 +222,7 @@ display:
           empty_zero: false
           hide_alter_empty: true
           text: edit
-          output_url_as_text: false
+          output_url_as_text: true
           absolute: false
         flagged:
           id: flagged
@@ -1198,7 +1197,7 @@ display:
         type: full
         options:
           offset: 0
-          items_per_page: 50
+          items_per_page: 100
           total_pages: null
           id: 0
           tags:
@@ -1243,7 +1242,7 @@ display:
           plugin_id: text
           empty: true
           content:
-            value: 'There are no flagged items.'
+            value: 'There are no items that match your filters.'
             format: rich_text
           tokenize: false
       sorts:
@@ -1317,7 +1316,6 @@ display:
           operator: in
           value:
             nca_facility: nca_facility
-            va_form: va_form
             health_care_local_facility: health_care_local_facility
             vba_facility: vba_facility
             vet_center: vet_center
@@ -1365,7 +1363,6 @@ display:
           operator: in
           value:
             nca_facility: nca_facility
-            va_form: va_form
             health_care_local_facility: health_care_local_facility
             vba_facility: vba_facility
             vet_center: vet_center
@@ -1920,7 +1917,7 @@ display:
           sticky: false
           summary: ''
           empty_table: false
-          caption: ''
+          caption: 'Flagged content'
           description: ''
       row:
         type: fields
@@ -2046,7 +2043,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: result
-          empty: false
+          empty: true
           content: 'Displaying @start - @end of @total'
       footer: {  }
       display_extenders: {  }
@@ -2057,29 +2054,217 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - 'user.node_grants:view'
         - user.permissions
       tags:
         - 'config:field.storage.node.field_administration'
+        - workbench_access_view
   flagged_content:
     id: flagged_content
     display_title: 'Flagged Content'
     display_plugin: page
     position: 1
     display_options:
+      style:
+        type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          columns:
+            title: title
+            nid: nid
+            edit_node: edit_node
+            flagged: nothing
+            flagged_2: nothing
+            flagged_1: nothing
+            flagged_3: nothing
+            flagged_5: nothing
+            flagged_6: nothing
+            flagged_7: nothing
+            nothing: nothing
+            type: type
+            revision_uid: revision_uid
+            changed: changed
+            moderation_state: moderation_state
+            field_administration: field_administration
+            name: name
+            timestamp: timestamp
+            break: break
+            is_locked: is_locked
+          default: changed
+          info:
+            title:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            nid:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            edit_node:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            flagged:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            flagged_2:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            flagged_1:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            flagged_3:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            flagged_5:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            flagged_6:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            flagged_7:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            nothing:
+              align: views-align-center
+              separator: ' '
+              empty_column: false
+              responsive: ''
+            type:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            revision_uid:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            changed:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            moderation_state:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_administration:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            name:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            timestamp:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            break:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            is_locked:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          override: true
+          sticky: false
+          summary: ''
+          empty_table: false
+          caption: 'Flagged content'
+          description: ''
+      row:
+        type: fields
+        options: {  }
+      defaults:
+        style: false
+        row: false
       display_description: ''
       display_comment: 'A view of flagged content.'
-      display_extenders: {  }
-      path: admin/content/flagged
+      display_extenders:
+        jsonapi_views:
+          enabled: true
+      path: admin/content/facilities/flagged
       menu:
         type: tab
-        title: Flagged
+        title: Facilities
         description: 'See flagged content'
         weight: 110
         expanded: false
         menu_name: admin
         parent: system.admin_content
         context: '0'
+        as_local_task: true
+        local_task_link_title: 'Flagged content'
+        local_task_parent: 'views_view:view.facility_services.content_audit_facilities'
+        local_task_weight: 20
+        local_task_custom_parent_route: ''
     cache_metadata:
       max-age: -1
       contexts:
@@ -2087,7 +2272,9 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - 'user.node_grants:view'
         - user.permissions
       tags:
         - 'config:field.storage.node.field_administration'
+        - workbench_access_view

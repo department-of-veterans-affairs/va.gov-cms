@@ -1,10 +1,10 @@
 services:
   # What to call the service hosting the site.
   php:
-    # Use PHP 7.4 with Apache; this syntax pulls in the latest version of PHP 7.4
-    # Currently using Buster because of an issue with Bullseye and PHP 7.4 on Tugboat.
+    # Use PHP 8.1 with Apache; this syntax pulls in the latest version of PHP 8.1.
+    # Currently, using Buster because of an issue with Bullseye and PHP 8.1 on Tugboat.
     # See https://github.com/department-of-veterans-affairs/va.gov-cms/issues/7667
-    image: tugboatqa/php:7.4-apache-buster
+    image: tugboatqa/php:8.1-apache-buster
 
     aliases:
       - cms
@@ -24,12 +24,19 @@ services:
     # A set of commands to run while building this service
     commands:
       # Commands that set up the basic preview infrastructure
+      
+      # Changes made in this section will _not_ automatically take effect when
+      # base previews are refreshed through the scheduled process! A manual 
+      # rebuild of the base preview is necessary.
       init:
         - apt-get update
 
         # TODO: Add "Why" comment for Python, was this for the FE dependencies `yarn install`, if so which dependencies
         # so we can remove if they are removed in the future.
         - apt-get install python
+        
+        # General useful development tools
+        - apt-get install jq nano
 
         # cypress-axe dependencies - https://docs.cypress.io/guides/getting-started/installing-cypress.html#System-requirements
         - apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
@@ -67,6 +74,17 @@ services:
         - echo "memory_limit = -1" >> /usr/local/etc/php/conf.d/php-cli.ini
         - echo "max_execution_time = 1800" >> /usr/local/etc/php/conf.d/my-php.ini
 
+        # Explicitly enable PHP 8 Opcache JIT (just-in-time compilation)
+        # https://stitcher.io/blog/php-8-jit-setup
+        - echo "opcache.enable_cli = 1" >> /usr/local/etc/php/conf.d/php-cli.ini
+        - echo "opcache.enable = 1" >> /usr/local/etc/php/conf.d/my-php.ini
+        # Disable JIT for now due to https://github.com/department-of-veterans-affairs/va.gov-cms/issues/11315
+        - echo "opcache.jit = disable" >> /usr/local/etc/php/conf.d/my-php.ini
+        - echo "opcache.jit_buffer_size = 256M" >> /usr/local/etc/php/conf.d/my-php.ini
+        # Explicitly set opcache.validate_timestamps for documentation in code. PHP default is 1. PROD is 0.
+        # https://www.php.net/manual/en/opcache.configuration.php#ini.opcache.validate-timestamps
+        - echo "opcache.validate_timestamps = 1" >> /usr/local/etc/php/conf.d/my-php.ini
+
         # .tugboat/.env.j2 Jinja2 template file support
         - apt-get install python3-apt python3-distutils python3
         - curl -O https://bootstrap.pypa.io/get-pip.py
@@ -79,7 +97,7 @@ services:
         - echo "export DD_TAGS=pr:$TUGBOAT_GITHUB_PR,branch:$TUGBOAT_GITHUB_HEAD" >> /etc/apache2/envvars
 
         # Install VA Root CA
-        - cp "${TUGBOAT_ROOT}"/.tugboat/VA-Internal-S2-RCA1-v1.crt /usr/local/share/ca-certificates
+        - cp "${TUGBOAT_ROOT}"/.tugboat/*.crt /usr/local/share/ca-certificates
         - update-ca-certificates
 
         # Install drush-launcher, if desired.
@@ -107,7 +125,7 @@ services:
         - echo "apc.enable_cli=1" >> /usr/local/etc/php/conf.d/php-cli.ini
 
         # Install memcache extension
-        - pecl install memcache-4.0.5.2
+        - pecl install memcache-8.0
         - docker-php-ext-enable memcache
 
         # Ensure that we're using version 2 of composer.
@@ -164,7 +182,12 @@ services:
         - ./bin/npm install
         - composer va:theme:compile
         - composer va:web:install
+        # https://www.drush.org/latest/deploycommand/ (updatedb, cache:rebuild, config:import, deploy:hook)
         - drush deploy
+
+        # Prevent continuous releases from running on Tugboat, and reset to ready.
+        - drush sset va_gov_build_trigger.continuous_release_enabled 0
+        - drush sset va_gov_build_trigger.release_state ready
 
         # Setup background processing service.  This uses runit to keep process up
         # See https://docs.tugboat.qa/setting-up-services/how-to-set-up-services/running-a-background-process
@@ -181,12 +204,8 @@ services:
         - j2 "${TUGBOAT_ROOT}/.storybook/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.storybook/403-error-document.html"
 
       online:
-        # We only want tests running on PRs, not branches like the base preview build of master.
-        # This sets the commit status checks to pending all at once.
+        # We only want tests running on PRs, not branches like the base preview build of main.
         - if [ "$TUGBOAT_PREVIEW_TYPE" = "pullrequest" ]; then bash -lc 'time task --taskfile=tests.yml'; fi
-
-        # Build storybook and the frontend in parallel
-        - bash -lc 'time task --taskfile=tugboat.yml'
 
         # Set file permissions so web based build calls work.  This must run after all web builds are done in tests.
         - chown -R www-data:www-data "${DOCROOT}/vendor/va-gov/content-build"
@@ -194,6 +213,9 @@ services:
         - find "${DOCROOT}/vendor/va-gov/content-build" -type f -exec chmod 0664 {} \+
         - find -L "${DOCROOT}/vendor/va-gov/content-build/node_modules/.bin" -type f -exec chmod +x {} \+
         - find "${DOCROOT}/vendor/va-gov/content-build/script" -type f -exec chmod +x {} \+
+
+        # Build storybook and the frontend in parallel
+        - bash -lc 'time task --taskfile=tugboat.yml'
 
   memcache:
     image: tugboatqa/memcached:1.6

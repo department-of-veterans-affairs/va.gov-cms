@@ -2,7 +2,7 @@
 
 namespace tests\phpunit\Content;
 
-use weitzman\DrupalTestTraits\ExistingSiteBase;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * A test to confirm the proper functioning of TrimNodeTitleWhitespace.
@@ -12,7 +12,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  *
  * @coversDefaultClass \Drupal\va_gov_backend\EventSubscriber\EntityEventSubscriber
  */
-class TrimNodeTitleWhitespaceTest extends ExistingSiteBase {
+class TrimNodeTitleWhitespaceTest extends VaGovExistingSiteBase {
 
   /**
    * Confirm that the trimmed title is as expected.

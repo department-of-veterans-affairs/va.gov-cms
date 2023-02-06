@@ -1,0 +1,25 @@
+uuid: a631caae-4b20-4504-988e-84f7f98ac966
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_topic_id
+    - taxonomy.vocabulary.lc_categories
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: taxonomy_term.lc_categories.field_topic_id
+field_name: field_topic_id
+entity_type: taxonomy_term
+bundle: lc_categories
+label: 'Topic ID'
+description: 'A unique id for this topic used for analytics. Must not be changed once created.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

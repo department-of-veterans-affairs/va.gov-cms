@@ -14,14 +14,15 @@ jobs:
       # Cron set to run daily. Lets get the day of the week for the weekly backup steps.
       - name: Get current date
         id: date
-        run: echo "::set-output name=date::$(date)"
+        run: echo "date=$(date)" >> $GITHUB_OUTPUT
 
       - name: Display date
         run: echo "The current date is ${{ steps.date.outputs.date }}"
 
       # Get the initial AWS IAM User credentials. Only has basic permissions for sts:assumeRole
       - name: Configure AWS credentials (1)
-        uses: aws-actions/configure-aws-credentials@v1
+        # https://github.com/aws-actions/configure-aws-credentials/releases/tag/v1.7.0
+        uses: aws-actions/configure-aws-credentials@67fbcbb121271f7775d2e7715933280b06314838
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -35,8 +36,9 @@ jobs:
       #          env_variable_name: AWS_VAGOV_CMS_PROD_S3_ROLE
 
       # Get credentials from our s3 role. Least privilege method for AWS IAM.
-      - name: Configure AWS Credentials (2)
-        uses: aws-actions/configure-aws-credentials@v1
+      - name: Configure AWS credentials (1)
+        # https://github.com/aws-actions/configure-aws-credentials/releases/tag/v1.7.0
+        uses: aws-actions/configure-aws-credentials@67fbcbb121271f7775d2e7715933280b06314838
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

@@ -5,9 +5,9 @@ Feature: Content model bundles
   I want to have content entity bundles that reflect my content model.
 
   @dst @content_type @dstbundles
-     Scenario: Bundles
-       Then exactly the following content entity type bundles should exist
-       | Name | Machine name | Type | Description |
+    Scenario: Bundles
+      Then exactly the following content entity type bundles should exist
+      | Name | Machine name | Type | Description |
 | Full Width Alert | banner | Content type | A full width dismissible banner |
 | Landing Page | basic_landing_page | Content type | Basic Landing Page can be used to build one-off pages for various products. E.g. a homepage for a specific product. |
 | Campaign Landing Page | campaign_landing_page | Content type |  |
@@ -51,6 +51,7 @@ Feature: Content model bundles
 | VAMC System Policies Page | vamc_system_policies_page | Content type | Add policies specific to this VA medical center to appear on the Policies page. Local policies will appear alongside national policies that apply to all VAMCs. |
 | VAMC System Register for Care | vamc_system_register_for_care | Content type | A page about how Veterans can register for care at a specific VAMC system. |
 | VBA Facility | vba_facility | Content type | A facility within Veterans Benefits Administration system. |
+| VBA Facility Service | vba_facility_service | Content type | Facility-specific description of a service available at a VBA facility. |
 | Vet Center | vet_center | Content type | Location and page content for community-based counseling centers. |
 | Vet Center - Community Access Point | vet_center_cap | Content type | Location information for Vet Center services situated in another organization. |
 | Vet Center - Facility Service | vet_center_facility_health_servi | Content type | Facility-specific description of a health service available at a Vet Center. |
@@ -59,7 +60,9 @@ Feature: Content model bundles
 | Vet Center - Outstation | vet_center_outstation | Content type | Location information for remote facilities related to a main Vet Center. |
 | VAMC Facility Non-clinical Service | vha_facility_nonclinical_service | Content type | Address and contact info for offices and other non-clinical service locations. This content is always embedded within a VAMC system non-clinical service page. |
 | Alert | alert | Custom block type | An alert box that can be added to individual pages. |
+| V2 Home page benefit promo | benefit_promo | Custom block type | A call to action with a title, description, CTA label and link. |
 | CMS Announcement | cms_announcement | Custom block type | Display an announcement to CMS users. |
+| V2 Home page news spotlight | news_promo | Custom block type | Promote a news link with a title and description. |
 | Promo | promo | Custom block type | Promote a link with an image, title, and description. |
 | Document | document | Media type | A locally hosted document, such as a PDF. |
 | Document - External | document_external | Media type |  |

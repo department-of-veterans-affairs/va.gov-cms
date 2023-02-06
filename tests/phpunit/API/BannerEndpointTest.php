@@ -2,7 +2,7 @@
 
 namespace tests\phpunit\API;
 
-use weitzman\DrupalTestTraits\ExistingSiteBase;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * A test to confirm that the banner endpoint is working properly.
@@ -10,7 +10,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  * @group functional
  * @group all
  */
-class BannerEndpointTest extends ExistingSiteBase {
+class BannerEndpointTest extends VaGovExistingSiteBase {
 
   /**
    * Provides data to testBanner().

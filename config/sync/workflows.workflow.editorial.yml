@@ -4,6 +4,8 @@ status: true
 dependencies:
   config:
     - block_content.type.alert
+    - block_content.type.benefit_promo
+    - block_content.type.news_promo
     - block_content.type.promo
     - node.type.banner
     - node.type.basic_landing_page
@@ -47,6 +49,7 @@ dependencies:
     - node.type.vamc_system_policies_page
     - node.type.vamc_system_register_for_care
     - node.type.vba_facility
+    - node.type.vba_facility_service
     - node.type.vet_center
     - node.type.vet_center_cap
     - node.type.vet_center_facility_health_servi
@@ -138,6 +141,8 @@ type_settings:
   entity_types:
     block_content:
       - alert
+      - benefit_promo
+      - news_promo
       - promo
     node:
       - banner
@@ -182,6 +187,7 @@ type_settings:
       - vamc_system_policies_page
       - vamc_system_register_for_care
       - vba_facility
+      - vba_facility_service
       - vet_center
       - vet_center_cap
       - vet_center_facility_health_servi

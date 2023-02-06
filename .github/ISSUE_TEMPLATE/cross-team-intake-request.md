@@ -33,13 +33,10 @@ Please provide:
 - [ ] The Product Manager has discussed with the respective Product Owner to determine prioritization
 - [ ] Any decisions made on prioritization or implementation are communicated back to the originating team
 
-### CMS Team
+### Team
 Please check the team you project will do this work. If not sure, select "Program".
 
-- [ ] `Program`
-- [ ] `Platform CMS Team`
-- [ ] `Sitewide Crew`
-- [ ] `⭐️ Sitewide CMS`
-- [ ] `⭐️ Public Websites`
-- [ ] `⭐️ Facilities`
-- [ ] `⭐️ User support`
+- [ ] `CMS Team`
+- [ ] `Public Websites`
+- [ ] `Facilities`
+- [ ] `User support`

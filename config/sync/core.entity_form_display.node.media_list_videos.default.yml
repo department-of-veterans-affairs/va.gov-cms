@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.media_list_videos.field_buttons_repeat
     - field.field.node.media_list_videos.field_contact_information
     - field.field.node.media_list_videos.field_intro_text_limited_html
+    - field.field.node.media_list_videos.field_last_saved_by_an_editor
     - field.field.node.media_list_videos.field_media_list_videos
     - field.field.node.media_list_videos.field_other_categories
     - field.field.node.media_list_videos.field_primary_category
@@ -236,6 +237,12 @@ content:
       allowed_formats:
         hide_help: '0'
         hide_guidelines: '0'
+  field_last_saved_by_an_editor:
+    type: datetime_timestamp
+    weight: 26
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_media_list_videos:
     type: paragraphs
     weight: 5

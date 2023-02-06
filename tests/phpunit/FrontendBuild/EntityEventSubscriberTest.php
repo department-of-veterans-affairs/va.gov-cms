@@ -8,12 +8,12 @@ use Drupal\Core\Link;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\AbstractEntityEvent;
 use Drupal\node\NodeInterface;
-use Drupal\Tests\UnitTestCase;
 use Drupal\user\UserInterface;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery;
 use Drupal\va_gov_build_trigger\EventSubscriber\EntityEventSubscriber;
 use Drupal\va_gov_build_trigger\Service\BuildRequester;
 use Symfony\Component\DependencyInjection\Container;
+use Tests\Support\Classes\VaGovUnitTestBase;
 
 /**
  * Unit test for the entity event subscriber.
@@ -21,12 +21,12 @@ use Symfony\Component\DependencyInjection\Container;
  * @group unit
  * @group all
  */
-class EntityEventSubscriberTest extends UnitTestCase {
+class EntityEventSubscriberTest extends VaGovUnitTestBase {
 
   /**
    * {@inheritDoc}
    */
-  public function setUp() {
+  public function setUp() : void {
     parent::setUp();
     $container = new Container();
     $container->set('string_translation', $this->getStringTranslationStub());

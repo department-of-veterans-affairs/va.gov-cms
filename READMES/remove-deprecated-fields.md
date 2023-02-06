@@ -3,7 +3,8 @@
 1. Remove all graphql, template, and transformer references from vets-website codebase. Example Pr: https://github.com/department-of-veterans-affairs/vets-website/pull/15791
 2. After #1 is merged and deployed to prod, remove field instance from va.gov-cms config. Example Pr: https://github.com/department-of-veterans-affairs/va.gov-cms/pull/4093
 3. After #2 is merged and deployed to prod, remove empty field tables from db. Example Pr: https://github.com/department-of-veterans-affairs/va.gov-cms/pull/4116
-```
+
+```php
 /**
  * Remove nickname tables from db.
  */
@@ -28,3 +29,7 @@ function va_gov_backend_update_8010() {
 ## Related
 
 1. [Content model changes](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/product-team-support/content-model-changes.md)
+
+----
+
+[Table of Contents](../README.md)

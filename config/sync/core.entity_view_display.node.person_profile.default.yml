@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.person_profile.field_email_address
     - field.field.node.person_profile.field_intro_text
     - field.field.node.person_profile.field_last_name
+    - field.field.node.person_profile.field_last_saved_by_an_editor
     - field.field.node.person_profile.field_media
     - field.field.node.person_profile.field_meta_tags
     - field.field.node.person_profile.field_name_first
@@ -34,7 +35,7 @@ third_party_settings:
       label: ''
       parent_name: ''
       region: hidden
-      weight: 17
+      weight: 19
       format_type: fieldset
       format_settings:
         classes: ''
@@ -68,7 +69,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 18
+    weight: 10
     region: content
   field_description:
     type: string
@@ -106,6 +107,8 @@ content:
     settings:
       image_link: ''
       image_style: 2_3_medium_thumbnail
+      image_loading:
+        attribute: lazy
     third_party_settings: {  }
     weight: 0
     region: content
@@ -136,6 +139,7 @@ content:
 hidden:
   content_moderation_control: true
   field_administration: true
+  field_last_saved_by_an_editor: true
   field_meta_tags: true
   field_office: true
   field_photo_allow_hires_download: true

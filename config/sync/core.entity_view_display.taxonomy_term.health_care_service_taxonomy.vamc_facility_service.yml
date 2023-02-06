@@ -1,0 +1,88 @@
+uuid: 50b33641-6b18-42b1-b90d-1d65826247d5
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.taxonomy_term.vamc_facility_service
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_also_known_as
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_commonly_treated_condition
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_enforce_unique_combo_servi
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_health_service_api_id
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_owner
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_service_type_of_care
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_show_for_vamc_facilities
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_show_for_vba_facilities
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_show_for_vet_centers
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_tricare_description
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_vba_com_conditions
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_vba_friendly_name
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_vba_service_descrip
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_vet_center_com_conditions
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_vet_center_friendly_name
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_vet_center_required_servic
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_vet_center_service_descrip
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_vet_center_type_of_care
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_vha_healthservice_stopcode
+    - taxonomy.vocabulary.health_care_service_taxonomy
+  module:
+    - field_group
+    - layout_builder
+    - text
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+  field_group:
+    group_national_service_descripti:
+      children:
+        - description
+      label: 'National service description'
+      parent_name: ''
+      region: content
+      weight: 0
+      format_type: tooltip
+      format_settings:
+        show_empty_fields: 1
+        id: ''
+        classes: centralized
+        element: div
+        show_label: '0'
+        label_element: h3
+        attributes: ''
+        description: ''
+        tooltip_description: "Why can’t I edit this?\r\nThis nationally-managed service description will display before the facility-specific service description."
+        open: false
+        required_fields: false
+id: taxonomy_term.health_care_service_taxonomy.vamc_facility_service
+targetEntityType: taxonomy_term
+bundle: health_care_service_taxonomy
+mode: vamc_facility_service
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  field_also_known_as: true
+  field_commonly_treated_condition: true
+  field_enforce_unique_combo_servi: true
+  field_health_service_api_id: true
+  field_owner: true
+  field_service_type_of_care: true
+  field_show_for_vamc_facilities: true
+  field_show_for_vba_facilities: true
+  field_show_for_vet_centers: true
+  field_tricare_description: true
+  field_vba_com_conditions: true
+  field_vba_friendly_name: true
+  field_vba_service_descrip: true
+  field_vet_center_com_conditions: true
+  field_vet_center_friendly_name: true
+  field_vet_center_required_servic: true
+  field_vet_center_service_descrip: true
+  field_vet_center_type_of_care: true
+  field_vha_healthservice_stopcode: true
+  search_api_excerpt: true

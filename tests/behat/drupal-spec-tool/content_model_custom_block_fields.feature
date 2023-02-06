@@ -20,3 +20,13 @@ Feature: Content model: Custom Block fields
 | Custom block type | Promo | Image | field_image | Entity reference | Required | 1 | Media library |  |
 | Custom block type | Promo | Section | field_owner | Entity reference | Required | 1 | Select list | Translatable |
 | Custom block type | Promo | Link | field_promo_link | Entity reference revisions |  | 1 | Inline entity form - Simple |  |
+| Custom block type | V2 Home page benefit promo | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
+| Custom block type | V2 Home page benefit promo | Promo CTA | field_promo_cta | Entity reference revisions | Required | 1 | Paragraphs Legacy |  |
+| Custom block type | V2 Home page benefit promo | Promo Headline | field_promo_headline | Text (plain) | Required | 1 | Textfield with counter |  |
+| Custom block type | V2 Home page benefit promo | Promo Text | field_promo_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter |  |
+| Custom block type | V2 Home page news spotlight | Section | field_administration | Entity reference | Required | 1 | Select list |  |
+| Custom block type | V2 Home page news spotlight | Image | field_image | Entity reference | Required | 1 | Media library | Translatable |
+| Custom block type | V2 Home page news spotlight | Link | field_link | Link | Required | 1 | Link |  |
+| Custom block type | V2 Home page news spotlight | Link Text | field_link_label | List (text) | Required | 1 | Select list |  |
+| Custom block type | V2 Home page news spotlight | Promo Headline | field_promo_headline | Text (plain) | Required | 1 | Textfield with counter | Translatable |
+| Custom block type | V2 Home page news spotlight | Promo Text | field_promo_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |

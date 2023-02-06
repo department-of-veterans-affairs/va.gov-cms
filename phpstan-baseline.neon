@@ -300,3 +300,7 @@ parameters:
 			count: 3
 			path: tests/behat/Drupal/FeatureContext.php
 
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Field\\\\FieldItemInterface\\:\\:\\$value\\.$#"
+			count: 2
+			path: docroot/modules/custom/va_gov_resources_and_support/va_gov_resources_and_support.deploy.php
