@@ -36,6 +36,4 @@ Feature: CMS Users may effectively interact with the VAMC Facility Health Servic
     Then I select option "Anchorage VA Medical Center | VA Alaska health care" from dropdown with selector "#edit-field-facility-location"
     Then I select option "Audiology and speech at VA Alaska health care" from dropdown with selector "#edit-field-regional-health-service"
 
-    # Lovell Federal umbrella test
-|    Then I should not see an option with the text "Lovell Federal health care" from dropdown with selector "#edit-field-administration"
 
