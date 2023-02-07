@@ -1,0 +1,26 @@
+uuid: a900c64b-897b-4179-8d17-879be035b9f3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.menu_link_content.field_icon
+    - system.menu.home-page-hub-list
+  module:
+    - epp
+    - options
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: menu_link_content.home-page-hub-list.field_icon
+field_name: field_icon
+entity_type: menu_link_content
+bundle: home-page-hub-list
+label: Icon
+description: 'Select an icon to appear next to the link''s title.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string
