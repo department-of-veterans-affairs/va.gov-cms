@@ -10,11 +10,10 @@ use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\FormStateInterface;
-
 use Drupal\Core\Session\AccountInterface;
-
 use Drupal\node\NodeInterface;
 use Drupal\paragraphs\ParagraphInterface;
+use Drupal\taxonomy\Entity\Term;
 use Drupal\va_gov_notifications\Service\NotificationsManager;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Drupal\va_gov_vamc\Service\ContentHardeningDeduper;
@@ -214,16 +213,14 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Add js library for supplemental status display.
-   *
-   * Add covid term text to settings.
+   * Adds COVID status information to form and js library.
    *
    * @param array $form
    *   The form.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The form state.
    */
-  public function addCovidStatusTermTextToSettings(array &$form, FormStateInterface $form_state): void {
+  public function addCovidStatusData(array &$form, FormStateInterface $form_state): void {
     /** @var \Drupal\taxonomy\Entity\Term $term_storage */
     $term_storage = $this->entityTypeManager->getStorage('taxonomy_term');
     $covid_status = [
@@ -235,39 +232,17 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       1035,
     ];
     $terms_text = [];
-    $chosen_term_description = "";
-    $widget_title = "";
-    $widget_description = "";
     /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
     $form_object = $form_state->getFormObject();
     $node = $form_object->getEntity();
     foreach ($covid_status as $status) {
       $terms_text[$status]['name'] = $term_storage->load($status)->getName();
       $terms_text[$status]['description'] = $term_storage->load($status)->getDescription();
-      // When the supplemental status is set.
-      if (isset($node->get("field_supplemental_status")['0'])
-      && isset($node->get("field_supplemental_status")['0']->getValue()['target_id'])) {
-        // When the status is the same as the status in this loop
-        // but the editor has not added details.
-        if ($node->get("field_supplemental_status")['0']->getValue()['target_id'] == $status
-        && empty($node->get("field_supplemental_status_more_i")['0']->getValue())) {
-          if (isset($form['field_supplemental_status_more_i']['widget']['0']['#title'])) {
-            $widget_title = $form['field_supplemental_status_more_i']['widget']['0']['#title'];
-          }
-          if (isset($form['field_supplemental_status_more_i']['widget']['0']['#description'])) {
-            $widget_description = $form['field_supplemental_status_more_i']['widget']['0']['#description']->__toString();
-          }
-          $chosen_term_description = $term_storage->load($status)->getName()
-          . $term_storage->load($status)->getDescription();
-          $form['field_supplemental_status_more_i']['widget']['0'] = [
-            "#title" => $widget_title,
-            '#description' => $widget_description,
-            '#type' => 'text_format',
-            '#default_value' => $chosen_term_description,
-            '#format' => 'rich_text_limited',
-          ];
-        }
+      if ($this->isCovidStatusSetAndDetailsEmpty($node, $status)) {
+        $this->setCovidStatusDetails($form, $status, $term_storage);
       }
+    $form['#attached']['library'][] = 'va_gov_vamc/set_covid_term_text';
+    $form['#attached']['drupalSettings']['vamcCovidStatusTermText'] = $terms_text;
     }
     $form['group_covid_19_safety_guidelines'] = [
       '#type' => 'textfield',
@@ -275,8 +250,60 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       '#suffix' => '<p class="fieldset__description">Use these levels to help Veterans understand the current COVID-19 health protection guidelines at your facility. This content will display on
       the facility\'s location page and operating status page.</p><br>',
     ];
-    $form['#attached']['library'][] = 'va_gov_vamc/set_covid_term_text';
-    $form['#attached']['drupalSettings']['vamcCovidStatusTermText'] = $terms_text;
+  }
+
+  /**
+   * Checks to see if COVID Status is set but Details are empty.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The node to be interrogated.
+   * @param int $status
+   *   A single COVID status value
+   *
+   * @return bool
+   *   TRUE if COVID status is set but Details are empty.
+   *   Otherwise, FALSE.
+   */
+  private function isCovidStatusSetAndDetailsEmpty(NodeInterface $node, int $status) {
+    $statusIsEmpty = FALSE;
+    if (isset($node->get("field_supplemental_status")['0'])
+    && isset($node->get("field_supplemental_status")['0']->getValue()['target_id'])) {
+      if ($node->get("field_supplemental_status")['0']->getValue()['target_id'] == $status
+      && empty($node->get("field_supplemental_status_more_i")['0']->getValue())) {
+        $statusIsEmpty = TRUE;
+      }
+    }
+    return $statusIsEmpty;
+  }
+
+  /**
+   * Sets the COVID-19 Status Details with the term description.
+   * @param array $form
+   *   The form.
+   * @param int $status
+   *   A single COVID status value.
+   * @param \Drupal\taxonomy\Entity\Term $term_storage
+   *   The taxonomy term.
+   */
+  private function setCovidStatusDetails(array &$form, int $status, Term  $term_storage){
+    $chosen_term_description = "";
+    $widget_title = "";
+    $widget_description = "";
+    if (isset($form['field_supplemental_status_more_i']['widget']['0']['#title'])) {
+      $widget_title = $form['field_supplemental_status_more_i']['widget']['0']['#title'];
+    }
+    if (isset($form['field_supplemental_status_more_i']['widget']['0']['#description'])) {
+      $widget_description = $form['field_supplemental_status_more_i']['widget']['0']['#description']->__toString();
+    }
+    $chosen_term_description = $term_storage->load($status)->getName()
+    . $term_storage->load($status)->getDescription();
+    $form['field_supplemental_status_more_i']['widget']['0'] = [
+      "#title" => $widget_title,
+      '#description' => $widget_description,
+      '#type' => 'text_format',
+      '#default_value' => $chosen_term_description,
+      '#format' => 'rich_text_limited',
+    ];
   }
 
   /**
@@ -288,7 +315,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public function alterFacilityNodeForm(FormIdAlterEvent $event): void {
     $form = &$event->getForm();
     $form_state = $event->getFormState();
-    $this->addCovidStatusTermTextToSettings($form, $form_state);
+    $this->addCovidStatusData($form, $form_state);
   }
 
   /**
