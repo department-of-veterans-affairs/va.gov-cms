@@ -1,6 +1,3 @@
-# If any of these test names get updated they need to be updated here too
-# https://github.com/department-of-veterans-affairs/va.gov-cms/settings/branches
-
 version: '3'
 dotenv: ['.env']
 output: 'group'
@@ -16,16 +13,10 @@ tasks:
     cmds:
       - drush va-gov:content-release:request-frontend-build
 
-  check-header-violations:
-    desc: Check content build for header violations
-    cmds:
-      - scripts/check-header-violations.sh
-
   build:
     deps:
       - build-storybook
       - build-frontend
-      - check-header-violations
 
   default:
     cmds:

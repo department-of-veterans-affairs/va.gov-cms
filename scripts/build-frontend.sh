@@ -85,6 +85,14 @@ drush va-gov:content-release:advance-state ready
 echo "==> Broken link report" >> ${logfile}
 cat ./vendor/va-gov/content-build/logs/vagovdev-broken-links.json >> ${logfile}
 
+echo "==> List heading order violations" >> ${logfile}
+yarn list-heading-order-violations >> ${logfile}
+cp -v heading_order_violations.html /var/lib/tugboat/docroot/ >> ${logfile}
+curl -X POST "https://api.ddog-gov.com/api/v1/series" \
+  -H "Content-Type: text/json" \
+  -H "DD-API-KEY: ${HA_HA_HA_NO_DATADOG_KEY_YET}" \
+  -d @- < heading_order_violations.json >> ${logfile}
+
 # Make sure other builds can start.
 rm ${reporoot}/.buildlock
 
