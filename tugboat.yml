@@ -16,10 +16,16 @@ tasks:
     cmds:
       - drush va-gov:content-release:request-frontend-build
 
+  check-header-violations:
+    desc: Check content build for header violations
+    cmds:
+      - scripts/check-header-violations.sh
+
   build:
     deps:
       - build-storybook
       - build-frontend
+      - check-header-violations
 
   default:
     cmds:
