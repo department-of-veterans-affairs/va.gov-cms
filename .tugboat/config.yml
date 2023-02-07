@@ -49,10 +49,6 @@ services:
         - apt-get install libzip-dev zip
         - docker-php-ext-install zip
 
-        # Install ext-intl for simplesamlphp.
-        - apt-get install php8.2-intl
-        - docker-php-ext-install intl
-
         # Install opcache, and Apache modules
         - docker-php-ext-install opcache
         - a2enmod headers rewrite vhost_alias
