@@ -14,8 +14,7 @@
         statusId = element.value;
       }
     });
-    // If there's nothing in the COVID Details field
-    // or when the COVID status radio button is changed,
+    // When the COVID status radio button is changed,
     // change the COVID Details field to the appropriate COVID status term description
     let iframeDocument = "";
     if (
@@ -34,11 +33,11 @@
 
   Drupal.behaviors.vaGovSetCovidTermText = {
     attach() {
-      // use the supplemental status to drive the details content.
+      // Use the supplemental status to drive the details content.
       const supplementalStatusChoices = document.querySelectorAll(
         ".form-item--field-supplemental-status [id^='edit-field-supplemental-status-']"
       );
-      // when user clicks, populate the status.
+      // When user clicks, populate the status.
       supplementalStatusChoices.forEach((choice) => {
         document
           .getElementById(choice.id)

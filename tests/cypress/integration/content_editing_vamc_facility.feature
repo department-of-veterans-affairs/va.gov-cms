@@ -18,4 +18,10 @@ Feature: CMS Users may effectively interact with the VAMC Facility form
     And I select the radio button with the value "1035"
     And I wait "2" seconds
     Then I should see "high" in ckeditor "field-supplemental-status-more-i-0"
+    Then I fill in ckeditor "field-supplemental-status-more-i-0" with "[Test Data] COVID 19 Status Details"
+    Then I scroll to position "bottom"
+    And I click the "Save draft and continue editing" button
+    Then I should see "[Test Data] COVID 19 Status Details" in ckeditor "field-supplemental-status-more-i-0"
+
+
 
