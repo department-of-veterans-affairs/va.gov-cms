@@ -2,25 +2,49 @@
 
 namespace tests\phpunit\Content;
 
-use Tests\Support\Classes\VaGovExistingSiteBase;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\node\NodeInterface;
+use Drupal\node\NodeStorageInterface;
+use Drupal\va_gov_backend\Plugin\Filter\NodeLinkEnforcementFilter;
+use Tests\Support\Classes\VaGovUnitTestBase;
 
 /**
  * A test to confirm the proper functioning of the NodeLinkEnforcement filter.
  *
- * @group functional
- * @group all
- * @group filter
+ * @group unit
  *
  * @coversDefaultClass \Drupal\va_gov_backend\Plugin\Filter\NodeLinkEnforcementFilter
  */
-class NodeLinkEnforcementFilterTest extends VaGovExistingSiteBase {
+class NodeLinkEnforcementFilterTest extends VaGovUnitTestBase {
 
   /**
-   * Test node.
-   *
-   * @var \Drupal\node\NodeInterface
+   * Retrieve a valid filter instance.
    */
-  protected $node;
+  public function getFilter(string $nid, string $uuid): NodeLinkEnforcementFilter {
+
+    $nodeProphecy = $this->prophesize(NodeInterface::CLASS);
+    $nodeProphecy->id()->willReturn($nid);
+    $nodeProphecy->uuid()->willReturn($uuid);
+
+    $nodeStorageProphecy = $this->prophesize(NodeStorageInterface::CLASS);
+    $nodeStorageProphecy
+      ->load($nid)
+      ->willReturn($nodeProphecy->reveal());
+
+    $entityTypeManagerProphecy = $this->prophesize(EntityTypeManagerInterface::CLASS);
+    $entityTypeManagerProphecy
+      ->getStorage('node')
+      ->willReturn($nodeStorageProphecy->reveal());
+
+    return new NodeLinkEnforcementFilter(
+      [],
+      'va_gov_backend_node_link_enforcement',
+      [
+        'provider' => 'deez tests',
+      ],
+      $entityTypeManagerProphecy->reveal()
+    );
+  }
 
   /**
    * Tests the filter's processing.
@@ -34,41 +58,18 @@ class NodeLinkEnforcementFilterTest extends VaGovExistingSiteBase {
    * @dataProvider processDataProvider
    */
   public function testProcess(string $input, string $expected = NULL) {
-    $node = $this->getTestNode();
+    $nid = '14234';
+    $uuid = 'FC0B78FF-85FF-4769-A3C7-8F6B0480472D';
     $patterns = [
-      '__NODE_ID__' => $node->id(),
-      '__NODE_UUID__' => $node->uuid(),
+      '__NODE_ID__' => $nid,
+      '__NODE_UUID__' => $uuid,
     ];
-    $filter = $this->container->get('plugin.manager.filter')->createInstance('va_gov_backend_node_link_enforcement');
+    $filter = $this->getFilter($nid, $uuid);
     $langcode = 'en';
     $expected = $expected ?? $input;
     $input = str_replace(array_keys($patterns), array_values($patterns), $input);
     $expected = str_replace(array_keys($patterns), array_values($patterns), $expected);
     $this->assertEquals($expected, $filter->process($input, $langcode)->getProcessedText());
-  }
-
-  /**
-   * Retrieve a test node.
-   *
-   * @return \Drupal\node\NodeInterface
-   *   A test node.
-   */
-  public function getTestNode() {
-    if (empty($this->node)) {
-      $author = $this->createUser();
-      $author->addRole('content_editor');
-      $author->save();
-      $this->drupalLogin($author);
-      $name = uniqid();
-      $node = $this->createNode([
-        'title' => __FILE__ . ' test',
-        'type' => 'page',
-        'uid' => $author->id(),
-      ]);
-      $node->setPublished()->save();
-      $this->node = $node;
-    }
-    return $this->node;
   }
 
   /**
