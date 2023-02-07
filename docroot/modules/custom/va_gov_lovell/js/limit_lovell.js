@@ -56,19 +56,19 @@
       hideSeekShowLovell(systemFieldOptions, adminMatcher);
     }
 
-    function seekHide(domElement, textMatch) {
+    function seekHide(domElement, regexMatch) {
       domElement.forEach(function (i) {
-        if (i.text === textMatch) {
+        if (regexMatch.test(i.text)) {
           i.classList.add("hidden-option");
         }
       });
     }
 
     if (adminFieldOptions) {
-      seekHide(adminFieldOptions, lovellFederalText);
+      seekHide(adminFieldOptions, new RegExp("^-+" + lovellFederalText));
     }
     if (regionPageOptions) {
-      seekHide(regionPageOptions, lovellFederalText);
+      seekHide(regionPageOptions, new RegExp("^" + lovellFederalText + "$"));
     }
   };
 
