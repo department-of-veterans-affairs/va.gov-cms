@@ -24,6 +24,10 @@ services:
     # A set of commands to run while building this service
     commands:
       # Commands that set up the basic preview infrastructure
+      
+      # Changes made in this section will _not_ automatically take effect when
+      # base previews are refreshed through the scheduled process! A manual 
+      # rebuild of the base preview is necessary.
       init:
         - apt-get update
 
@@ -93,7 +97,7 @@ services:
         - echo "export DD_TAGS=pr:$TUGBOAT_GITHUB_PR,branch:$TUGBOAT_GITHUB_HEAD" >> /etc/apache2/envvars
 
         # Install VA Root CA
-        - cp "${TUGBOAT_ROOT}"/.tugboat/VA-Internal-S2-RCA1-v1.crt /usr/local/share/ca-certificates
+        - cp "${TUGBOAT_ROOT}"/.tugboat/*.crt /usr/local/share/ca-certificates
         - update-ca-certificates
 
         # Install drush-launcher, if desired.

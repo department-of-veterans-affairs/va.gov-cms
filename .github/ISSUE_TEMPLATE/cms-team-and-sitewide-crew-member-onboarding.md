@@ -38,6 +38,7 @@ Projected start date: <insert_here>
 - [ ] [Onboarding questionnaire](https://docs.google.com/document/d/17fWcL-5p4T3H7dT2bbw02u_CHEZ0tDlszcoMVLfRqP4/edit?usp=share_link) - copy this template and fill out. Your delivery manager will review with you to fill in gaps.
 - [ ] Contract - Discuss which contract you are on with your Delivery Manager or Program Manager. Your contract will determine your paperwork process.
 - [ ] Read the [VA.gov platform mission and goals](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/VA.gov%20Platform%20Overview%202021.pdf).
+- [ ] Read the [VA's Office of the CTO (OCTO) engineering excellence guiding principles](https://dsva.slack.com/archives/C04KXPXL4/p1674065912579799) [post in DSVA slack]
 - [ ] Open a VA.gov [Platform onboarding ticket](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=&labels=governance-team%2C+analytics-insights&template=orientation-epic.md&title=Platform+Orientation+Template+%5BYour+name+here%5D). 
     * The VA.gov Platform team manages VA.gov tooling and network access. In order to receive access to the SOCKS network proxy (described later), you must complete this Github issue, and attend a Platform orientation. 
     * That will result in adding you to the [VFS Platform roster](https://docs.google.com/spreadsheets/d/11dpCJjhs007uC6CWJI6djy3OAvjB8rHB65m0Yj8HXIw/edit?folder=0ALlyxurHpUilUk9PVA#gid=2042046665). 
@@ -163,11 +164,12 @@ Tugboat is a development server platform where you can preview CMS code changes 
  - [ ] Browse the [CMS topic dives videos](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/1714094110/CMS+Topic+Dives)
 
  **VA Platform documentation**
+ - [ ] [VA Technical Architecture Overview](https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/blob/master/platform/engineering/TechnicalArchitectureOverview.md) - describes technical architecture of va.gov (+ api.va.gov)
  - [ ] Deployments: https://depo-platform-documentation.scrollhelp.site/developer-docs/deployments
   - [ ] [Deployment crib notes](https://docs.google.com/spreadsheets/d/164H07n4FChg-JxJZu964nfg2wAX0kPD0SjTfZMhzj_I/edit#gid=0) with detail re: various repos, timings, & support
  - [ ] Front-end workflow: https://depo-platform-documentation.scrollhelp.site/developer-docs/frontend-workflow
  - [ ] [Front-end steps to run & build VA.gov locally](https://depo-platform-documentation.scrollhelp.site/developer-docs/run-and-build-va-gov-locally)
-
+   
 ## Onboarding for DevOps members
  
  - [ ] [VA.gov tools overview](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html)
@@ -267,10 +269,10 @@ By this point you should have enough context and access to be able to start cont
 
 </details>
 
-- [ ] `Program`
-- [ ] `Platform CMS Team`
-- [ ] `Sitewide Crew`
-- [ ] `⭐️ Sitewide CMS`
-- [ ] `⭐️ Public Websites`
-- [ ] `⭐️ Facilities`
-- [ ] `⭐️ User support`
+### Team
+Please check the team(s) that will do this work.
+
+- [ ] `CMS Team`
+- [ ] `Public Websites`
+- [ ] `Facilities`
+- [ ] `User support`

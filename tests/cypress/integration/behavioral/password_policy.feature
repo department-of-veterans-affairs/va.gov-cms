@@ -14,9 +14,9 @@ Feature: Password policies are enforced
     And I fill in "Confirm password" with "1"
     And I wait "3" seconds
     And I save the user
-    Then I should not see "password has a score"
-    Then I should not see "but the policy requires a score"
-    And I should see "The changes have been saved."
+    Then "password has a score" should not exist
+    Then "but the policy requires a score" should not exist
+    And "The changes have been saved." should exist
 
   @password_policy
   Scenario: Strong passwords should be required when changing a password on production environments
@@ -29,9 +29,9 @@ Feature: Password policies are enforced
     And I fill in "Confirm password" with "1"
     And I wait "1" seconds
     And I save the user
-    Then I should see "password has a score"
-    Then I should see "but the policy requires a score"
-    And I should not see "The changes have been saved."
+    Then "password has a score" should exist
+    Then "but the policy requires a score" should exist
+    And "The changes have been saved." should not exist
     Then I log out
 
     And I disable the password policy

@@ -5,7 +5,11 @@ This is the public/open documentation for the VA.gov Content Management System (
 The VA.gov **CMS** is the backend for www.va.gov. The Frontend (**WEB**) repo is at https://github.com/department-of-veterans-affairs/vets-website/.
 
 ## Contributing to this documentation
-If you find any improvements to make to this documentation and you have push access, please commit your changes directly to the `main` branch. Prefix your commit with `[DOCS]` e.g. `[DOCS] Commit message ...`. Using the `[DOCS]` prefix is helpful because tests don't run on commits that contain changes soley to *.md or *.txt files and therefore won't have status checks posted to the commit status that we see at https://github.com/department-of-veterans-affairs/va.gov-cms/commits. You may also need to use the `-n` flag with your commit command to skip usual commit message naming convention checks. If you don't have push access, you can submit a pull request for review.
+If you find any improvements to make to this documentation and you have push access, please commit your changes directly to the `main` branch. 
+
+Please prefix your commit message with `[DOCS]` e.g. `[DOCS] Commit message ...`. Using the `[DOCS]` prefix is helpful because tests don't run on commits that contain changes solely to \*.md or \*.txt files and therefore won't have related status checks posted to the commit status that we see at https://github.com/department-of-veterans-affairs/va.gov-cms/commits.  
+
+If you don't have push access, you can submit a pull request for review.
 
 Thanks,
 
@@ -30,13 +34,17 @@ The VA.gov CMS Team
       1. [HTTPS](READMES/https.md)
       1. [Environment Variables](READMES/environment-variables.md)
       1. [Kubernetes](READMES/kubernetes.md)
+   1. [Alerts](READMES/alerts.md)
    1. [GitHub Workflows](READMES/github-workflows.md)
+   1. [Logging into BRD (e.g. production, staging) instances](READMES/brd-login.md)
+1. **Quality and Testing**
    1. [Quality Assurance (QA)](READMES/qa.md)
+   1. [Development Best Practices](READMES/development-best-practices.md)
+   1. [Code Review](READMES/code-review.md)
    1. [Testing](READMES/testing.md)
    1. [Debugging](READMES/debugging.md)
-   1. [Code Review](READMES/code-review.md)
    1. [Comparing GraphQL Output](READMES/graph_ql.md)
-   1. [Logging into BRD (e.g. production, staging) instances](READMES/brd-login.md)
+   1. [Dependabot Updates](READMES/dependabot-updates.md)
 1. **Release & Deployment**
    1. [The BRD System: Build, Release, Deploy](READMES/brd.md)
    1. [CMS Release Process](READMES/brd.md#cms-release-process)
@@ -45,8 +53,6 @@ The VA.gov CMS Team
    1. Overview
    1. Drupal
       1. [Memcache](READMES/drupal-memcache.md)
-   1. Amazon Web Services
-      1. [Elasticache for Memcache](READMES/elasticache.md)
    1. [content models](READMES/content-models.md)
    1. MetalSmith
    1. [Interfaces](READMES/interfaces.md) - APIs and Feature Flag
@@ -54,6 +60,8 @@ The VA.gov CMS Team
       1. [Facility](READMES/migrations-facility.md)
       1. [Form](READMES/migrations-forms.md)
    1. [Security](READMES/security.md)
+   1. [Upstream Dependencies](READMES/upstream-dependencies.md)
+   1. [Downstream Dependencies](READMES/downstream-dependencies.md)
 1. **CMS Users**
    1. [Login / SSOi](READMES/cms-login.md)
    2. [CMS User Notification Systems](READMES/cms-editor-notifications.md)
@@ -67,6 +75,10 @@ The VA.gov CMS Team
    1. Facilities
       1. [VAMC Facilities](READMES/vamc-facilities.md)
          1. [VA Lovell / TRICARE](READMES/vamc-facilities-lovell.md)
+1. **Historical**
+   1. [Main branch name change](READMES/historical/cms-branch-name-change.md)
+   1. [Elasticache Investigation](READMES/historical/elasticache.md)
+   1. [EWA Rules of Engagement](READMES/historical/ewa-rules-of-engagement.md)
 
 ## Introduction
 
@@ -79,7 +91,7 @@ This repository contains the source code for the _Content Management System_ (**
 
 Access to the production CMS is restricted with CAG. See [Getting Access](READMES/access.md).
 
-The **CMS** is built on [Drupal 9](https://www.drupal.org), using the [Composer](https://getcomposer.org) package management system. See [Getting Started](READMES/getting-started.md).
+The **CMS** is built on [Drupal 9.5](https://www.drupal.org), using the [Composer](https://getcomposer.org) package management system. See [Getting Started](READMES/getting-started.md).
 
 ### Contributing
 

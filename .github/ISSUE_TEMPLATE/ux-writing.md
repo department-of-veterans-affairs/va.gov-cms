@@ -39,13 +39,10 @@ E.g. *As a user who may be making changes to content, I'd like a message that wa
 - [ ] Finalize edits to text, and mark as ready to implement in the original issue
 - [ ] Document strategy behind language choices that are relevant to [the back end style guide](https://docs.google.com/document/d/1o3euR0eMoXRyp8G6sx1OCpmRtBShYGAm-Rb8MSXXir0/edit#)
 
-### CMS Team
+### Team
 Please check the team(s) that will do this work.
 
-- [ ] `Program`
-- [ ] `Platform CMS Team`
-- [ ] `Sitewide Crew`
-- [ ] `⭐️ Sitewide CMS`
-- [ ] `⭐️ Public Websites`
-- [ ] `⭐️ Facilities`
-- [ ] `⭐️ User support`
+- [ ] `CMS Team`
+- [ ] `Public Websites`
+- [ ] `Facilities`
+- [ ] `User support`

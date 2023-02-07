@@ -2,7 +2,7 @@
 name: Linky Reference Update Request
 about: Submit a request to update a Linky Reference
 title: 'Linky Reference Update Request'
-labels: "⭐️ User Support"
+labels: "User Support"
 assignees: ''
 
 ---
