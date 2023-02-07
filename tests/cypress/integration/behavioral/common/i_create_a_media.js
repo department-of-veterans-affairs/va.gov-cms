@@ -129,14 +129,17 @@ Given("I create a {string} media", (contentType) => {
       "not.include",
       "/media/add"
     );
-    cy.drupalWatchdogHasNoNewErrors();
-    cy.getDrupalSettings().then((drupalSettings) => {
-      const { currentPath } = drupalSettings.path;
-      const pathComponents = currentPath.split("/");
-      const mediaId = pathComponents.pop();
-      cy.wrap(currentPath).as("mediaPath");
-      cy.wrap(mediaId).as("mediaId");
-      cy.wrap(currentPath).as("pagePath");
-    });
+    cy.xpath('//div[@class="messages__content"]/em[@class="placeholder"]/a')
+      .first()
+      .then(($element) => {
+        cy.drupalWatchdogHasNoNewErrors();
+        const mediaPath = $element.attr("href");
+        const pathComponents = mediaPath.split("/");
+        const mediaId = pathComponents.pop();
+        cy.wrap(mediaPath).as("mediaPath");
+        cy.wrap(mediaId).as("mediaId");
+        cy.wrap(mediaPath).as("pagePath");
+        return cy.visit(mediaPath);
+      });
   });
 });

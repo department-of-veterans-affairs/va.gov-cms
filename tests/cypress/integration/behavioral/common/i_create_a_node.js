@@ -44,6 +44,7 @@ const creators = {
     cy.findAllByLabelText(
       "Parent link"
     ).select("-- CMS Knowledge Base (disabled)", { force: true });
+    cy.findAllByLabelText("All products").check({ force: true });
     return cy.wait(1000);
   },
   event: () => {
