@@ -147,7 +147,7 @@ services:
       update:
         # Install/update packages managed by composer, including drush.
         # Composer options are in composer.json, 'config' key.
-        - composer install
+        - composer install --ignore-platform-req=ext-intl
         - ./bin/npm install
         - composer va:theme:compile
         - composer va:web:install
