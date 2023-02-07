@@ -13,6 +13,11 @@ Feature: CMS Users may effectively interact with the VAMC System Health Service 
     Then I should see an option with the text "Lovell Federal health care - TRICARE" from dropdown with selector "#edit-field-region-page"
     Then I should see an option with the text "Lovell Federal health care - VA" from dropdown with selector "#edit-field-region-page"
 
+  # Lovell Federal umbrella test
+    Then I scroll to position "bottom"
+    Then an element with the selector "#edit-field-administration" should be visible
+    And I should not see an option with the text "Lovell Federal health care" from dropdown with selector "#edit-field-administration"
+
   Scenario: Log in and add a VAMC System Health Service as a Lovell editor
     When I am logged in as a user with the roles "vamc_content_creator, content_publisher"
     And my workbench access sections are set to "347"
@@ -21,6 +26,11 @@ Feature: CMS Users may effectively interact with the VAMC System Health Service 
     Then I select option "Lovell Federal health care - VA" from dropdown with selector "#edit-field-region-page"
     Then I should see an option with the text "Lovell Federal health care - TRICARE" from dropdown with selector "#edit-field-region-page"
     Then I should see an option with the text "Lovell Federal health care - VA" from dropdown with selector "#edit-field-region-page"
+
+  # Lovell Federal umbrella test
+    Then I scroll to position "bottom"
+    Then an element with the selector "#edit-field-administration" should be visible
+    And I should not see an option with the text "Lovell Federal health care" from dropdown with selector "#edit-field-administration"
 
   Scenario: Log in and edit VAMC System Health Service as a non-Lovell editor
     When I am logged in as a user with the roles "vamc_content_creator, content_publisher"
