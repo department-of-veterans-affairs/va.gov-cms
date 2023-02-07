@@ -28,18 +28,18 @@ Feature: Media entities
     When I create a "document" media
     And I create a "documentation_page" node and continue
     And I add a main content block with a link to a "Document" file
-    Then xpath '//a[contains(@class, "downloadable-file-link--document") and contains(@target, "_blank") and contains(@aria-label, "Download")]' should exist
+    Then I should see a "document" downloadable file link
     
   Scenario: Log in and create an image media entity, a knowledge base page that refers to it, and verify it is downloadable.
     Given I am logged in as a user with the "content_admin" role
     Then I create a "image" media
     And I create a "documentation_page" node and continue
     And I add a main content block with a link to a "Image" file
-    And xpath '//a[contains(@class, "downloadable-file-link--image") and contains(@target, "_blank") and contains(@aria-label, "Download")]' should exist
+    Then I should see a "image" downloadable file link
     
   Scenario: Log in and create a video media entity, a knowledge base page that refers to it, and verify it is downloadable.
     Given I am logged in as a user with the "content_admin" role
     Then I create a "video" media
     And I create a "documentation_page" node and continue
     And I add a main content block with a link to a "Video" file
-    And xpath '//a[contains(@class, "downloadable-file-link--video") and contains(@target, "_blank")]' should exist
+    Then I should see a "video" file link
