@@ -155,9 +155,9 @@ Cypress.Commands.add("type_ckeditor", (element, content) => {
   });
 });
 
-Cypress.Commands.add("read_ckeditor", (element, content) => {
+Cypress.Commands.add("read_ckeditor", (element) => {
   cy.wait(5000);
-  cy.window().then((win) => {
+  return cy.window().then((win) => {
     const elements = Object.keys(win.CKEDITOR.instances);
     if (elements.indexOf(element) === -1) {
       const matches = elements.filter((el) => el.includes(element));
@@ -165,7 +165,7 @@ Cypress.Commands.add("read_ckeditor", (element, content) => {
         element = matches[0];
       }
     }
-    win.CKEDITOR.instances[element].getData(content);
+    return cy.wrap(win.CKEDITOR.instances[element].getData());
   });
 });
 

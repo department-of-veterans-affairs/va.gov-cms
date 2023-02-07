@@ -22,6 +22,3 @@ Feature: CMS Users may effectively interact with the VAMC Facility form
     Then I scroll to position "bottom"
     And I click the "Save draft and continue editing" button
     Then I should see "[Test Data] COVID 19 Status Details" in ckeditor "field-supplemental-status-more-i-0"
-
-
-

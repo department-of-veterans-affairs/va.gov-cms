@@ -68,5 +68,7 @@ Then("I should see a {string} downloadable file link", (type) => {
 });
 
 Then(`I should see {string} in ckeditor {string}`, (value, label) => {
-  cy.read_ckeditor(label, value);
+  cy.read_ckeditor(label).then((actual) => {
+    expect(actual).to.contain(value);
+  });
 });
