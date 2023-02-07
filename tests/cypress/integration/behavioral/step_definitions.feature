@@ -24,15 +24,15 @@ Feature: Step definitions function as expected
   Scenario: I should see xpath
     Given I am logged in as a user with the "administrator" role
     And I am at "/"
-    Then I should see an element with the xpath "//body"
-    Then I should not see an element with the xpath "//something-that-doesnt-exist"
+    Then an element with the xpath "//body" should exist
+    Then an element with the xpath "//something-that-doesnt-exist" should not exist
 
   Scenario: The element with selector should have attribute
     Given I am logged in as a user with the "administrator" role
     And I am at "/"
     Then the element with selector "body" should have attribute "class"
     Then the element with selector "body" should not have attribute "nonsensical-attribute"
-    Then the element with selector "body" should have attribute "data-once" with value "contextualToolbar-init"
+    Then the element with selector "body" should have attribute "data-once" with value "contextualToolbar-init big-pipe-early-behaviors"
     Then the element with selector "body" should have attribute "data-once" containing value "init"
     Then the element with selector "body" should have attribute "data-once" matching expression "con([ext]+)...Toolbar-[a-z]{4}"
 

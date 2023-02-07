@@ -23,6 +23,7 @@ Feature: Views
 | Content | content | Content | Enabled | Find and manage content. |
 | Content entity browsers | content_entity_browsers | Content | Enabled | Collection of Entity Browsers to use for field widgets configuration in form displays. |
 | Content Entity Reference Source | content_entity_reference_source | Content | Enabled | Various views used to populate options on entity reference fields |
+| Content Model Fields | content_model_fields | Field | Enabled | Displays field configuration for the content model. |
 | Content release logs | content_release_logs | Log entries | Enabled | Shows content release job log entries |
 | Content served from Drupal | content_served_from_drupal | Content | Enabled | An exportable list of all content served from Drupal |
 | Custom block entity browsers | custom_block_entity_browsers | Custom Block | Enabled | For placing on content forms |
@@ -137,6 +138,8 @@ Feature: Views
 | Content Entity Reference Source | Entity Reference: Story Listing | entity_reference_3 | Entity Reference |
 | Content Entity Reference Source | Entity Reference: Systems | entity_reference_6 | Entity Reference |
 | Content Entity Reference Source | Master | default | Default |
+| Content Model Fields | Default | default | Default |
+| Content Model Fields | Page | content_model_documentation_fields | Page |
 | Content release logs | Master | default | Default |
 | Content release logs | Page | page_1 | Page |
 | Content served from Drupal | Data export | data_export_1 | Data export |
@@ -298,9 +301,9 @@ Feature: Views
 | Users in section | Master | default | Default |
 | Users in section | Page | section_member_page | Page |
 | VA Forms | Audit | audit | Page |
+| VA Forms | CSV export | csv_export | Data export |
 | VA Forms | Master | default | Default |
 | VA Forms | Page | page_1 | Page |
-| VA Forms | CSV export | csv_export | Data export |
 | VA Services | Data export | data_export_1 | Data export |
 | VA Services | Master | default | Default |
 | VA Services | Page | page_1 | Page |

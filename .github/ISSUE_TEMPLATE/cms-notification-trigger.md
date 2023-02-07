@@ -2,7 +2,7 @@
 name: CMS Notification Trigger
 about: Use this template to formalize a CMS trigger for notification
 title: "[CMS Notification Trigger] "
-labels: Needs refining, ⭐️ Sitewide CMS
+labels: Needs refining, CMS Team
 assignees: ''
 
 ---
@@ -27,3 +27,11 @@ A trigger is a flag in the CMS that indicates there is an action for a user to c
 **6. Are there any change management implications for this trigger?**
 
 > All requests should be submitted to the Sitewide CMS team for prioritization. Please make sure to notify the Sitewide CMS team after you submit this issue on the #sitewide-cms team slack channel.
+
+### Team
+Please check the team(s) that will do this work.
+
+- [X] `CMS Team`
+- [ ] `Public Websites`
+- [ ] `Facilities`
+- [ ] `User support`
