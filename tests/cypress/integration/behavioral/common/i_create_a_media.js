@@ -132,6 +132,7 @@ Given("I create a {string} media", (contentType) => {
     cy.xpath('//div[@class="messages__content"]/em[@class="placeholder"]/a')
       .first()
       .then(($element) => {
+        cy.drupalWatchdogHasNoNewErrors();
         const mediaPath = $element.attr("href");
         const pathComponents = mediaPath.split("/");
         const mediaId = pathComponents.pop();
