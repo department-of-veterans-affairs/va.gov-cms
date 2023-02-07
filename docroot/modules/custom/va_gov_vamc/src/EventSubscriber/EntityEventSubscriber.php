@@ -13,7 +13,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\node\NodeInterface;
 use Drupal\paragraphs\ParagraphInterface;
-use Drupal\taxonomy\Entity\Term;
+use Drupal\taxonomy\TermStorage;
 use Drupal\va_gov_notifications\Service\NotificationsManager;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Drupal\va_gov_vamc\Service\ContentHardeningDeduper;
@@ -241,8 +241,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       if ($this->isCovidStatusSetAndDetailsEmpty($node, $status)) {
         $this->setCovidStatusDetails($form, $status, $term_storage);
       }
-    $form['#attached']['library'][] = 'va_gov_vamc/set_covid_term_text';
-    $form['#attached']['drupalSettings']['vamcCovidStatusTermText'] = $terms_text;
+      $form['#attached']['library'][] = 'va_gov_vamc/set_covid_term_text';
+      $form['#attached']['drupalSettings']['vamcCovidStatusTermText'] = $terms_text;
     }
     $form['group_covid_19_safety_guidelines'] = [
       '#type' => 'textfield',
@@ -258,7 +258,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    * @param \Drupal\node\NodeInterface $node
    *   The node to be interrogated.
    * @param int $status
-   *   A single COVID status value
+   *   A single COVID status value.
    *
    * @return bool
    *   TRUE if COVID status is set but Details are empty.
@@ -278,14 +278,15 @@ class EntityEventSubscriber implements EventSubscriberInterface {
 
   /**
    * Sets the COVID-19 Status Details with the term description.
+   *
    * @param array $form
    *   The form.
    * @param int $status
    *   A single COVID status value.
-   * @param \Drupal\taxonomy\Entity\Term $term_storage
+   * @param \Drupal\taxonomy\TermStorage $term_storage
    *   The taxonomy term.
    */
-  private function setCovidStatusDetails(array &$form, int $status, Term  $term_storage){
+  private function setCovidStatusDetails(array &$form, int $status, TermStorage $term_storage) {
     $chosen_term_description = "";
     $widget_title = "";
     $widget_description = "";
