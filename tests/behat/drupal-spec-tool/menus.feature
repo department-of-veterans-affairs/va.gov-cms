@@ -174,3 +174,4 @@ Feature: Menus
 | VA Wilmington health care | va-wilmington-health-care | VISN 4 \| va.gov/wilmington-health-care |
 | VA.gov Footer | va-gov-footer | Displayed in VA.gov global & injected footer; 3-column list of footer links. |
 | VA.gov Footer bottom rail | footer-bottom-rail | Displayed in VA.gov global & injected footer; horizontal list of links at the bottom of the page. |
+| VA.gov home page benefit hub list | home-page-hub-list | Menu on VA.gov new home page that displays Benefit Hubs |
