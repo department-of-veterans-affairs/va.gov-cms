@@ -14,7 +14,6 @@ Given(
   }
 );
 
-
 Given(
   `the watchdog log should contain {int} new {string} messages`,
   function watchdogLogHandler(count, severity) {
