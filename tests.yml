@@ -142,9 +142,10 @@ tasks:
 
   default:
     desc:
+    cmds:
+      - task: va/tests/content-build-gql
     deps:
       - va/tests/behat
       - va/tests/cypress
       - va/tests/phpunit
-      - va/tests/content-build-gql
       # - va/tests/status-error
