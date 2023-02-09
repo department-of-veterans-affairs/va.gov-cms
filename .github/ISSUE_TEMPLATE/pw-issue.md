@@ -1,6 +1,6 @@
 ---
 name: "(PW) Issue template"
-about: 
+about: 'Issue template for Public Websites team'
 title: ''
 labels: Needs refining, Public Websites
 assignees: ''
