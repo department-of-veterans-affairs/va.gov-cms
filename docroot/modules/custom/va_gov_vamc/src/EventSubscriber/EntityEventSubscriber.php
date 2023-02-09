@@ -221,7 +221,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The form state.
    */
   public function addCovidStatusData(array &$form, FormStateInterface $form_state): void {
-    /** @var \Drupal\taxonomy\Entity\Term $term_storage */
+    /** @var \Drupal\taxonomy\TermStorage $term_storage */
     $term_storage = $this->entityTypeManager->getStorage('taxonomy_term');
     $covid_status = [
       // Low.
@@ -265,15 +265,15 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   Otherwise, FALSE.
    */
   private function isCovidStatusSetAndDetailsEmpty(NodeInterface $node, int $status) {
-    $statusIsEmpty = FALSE;
-    if (isset($node->get("field_supplemental_status")['0'])
-    && isset($node->get("field_supplemental_status")['0']->getValue()['target_id'])) {
-      if ($node->get("field_supplemental_status")['0']->getValue()['target_id'] == $status
-      && empty($node->get("field_supplemental_status_more_i")['0']->getValue())) {
-        $statusIsEmpty = TRUE;
+    $statusButNoDetails = FALSE;
+    if (isset($node->get('field_supplemental_status')[0])
+    && isset($node->get('field_supplemental_status')[0]->getValue()['target_id'])) {
+      if ($node->get('field_supplemental_status')[0]->getValue()['target_id'] == $status
+      && empty($node->get('field_supplemental_status_more_i')[0]->getValue())) {
+        $statusButNoDetails = TRUE;
       }
     }
-    return $statusIsEmpty;
+    return $statusButNoDetails;
   }
 
   /**
@@ -287,18 +287,17 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The taxonomy term.
    */
   private function setCovidStatusDetails(array &$form, int $status, TermStorage $term_storage) {
-    $chosen_term_description = "";
     $widget_title = "";
     $widget_description = "";
-    if (isset($form['field_supplemental_status_more_i']['widget']['0']['#title'])) {
-      $widget_title = $form['field_supplemental_status_more_i']['widget']['0']['#title'];
+    if (isset($form['field_supplemental_status_more_i']['widget'][0]['#title'])) {
+      $widget_title = $form['field_supplemental_status_more_i']['widget'][0]['#title'];
     }
-    if (isset($form['field_supplemental_status_more_i']['widget']['0']['#description'])) {
-      $widget_description = $form['field_supplemental_status_more_i']['widget']['0']['#description']->__toString();
+    if (isset($form['field_supplemental_status_more_i']['widget'][0]['#description'])) {
+      $widget_description = $form['field_supplemental_status_more_i']['widget'][0]['#description']->__toString();
     }
     $chosen_term_description = $term_storage->load($status)->getName()
     . $term_storage->load($status)->getDescription();
-    $form['field_supplemental_status_more_i']['widget']['0'] = [
+    $form['field_supplemental_status_more_i']['widget'][0] = [
       "#title" => $widget_title,
       '#description' => $widget_description,
       '#type' => 'text_format',
