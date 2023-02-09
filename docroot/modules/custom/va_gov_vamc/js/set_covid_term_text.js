@@ -20,7 +20,7 @@
     if (document.querySelector("#cke_edit-field-supplemental-status-more-i-0-value iframe")) {
       iframeDocument = document.querySelector("#cke_edit-field-supplemental-status-more-i-0-value iframe").contentDocument;
       if (iframeDocument.body.innerHTML) {
-        iframeDocument.body.innerHTML = "<p>\n        " + drupalSettings.vamcCovidStatusTermText[statusId].name + "</p>\n        " + drupalSettings.vamcCovidStatusTermText[statusId].description;
+        iframeDocument.body.innerHTML = "\n          " + drupalSettings.vamcCovidStatusTermText[statusId].description;
       }
     }
   };

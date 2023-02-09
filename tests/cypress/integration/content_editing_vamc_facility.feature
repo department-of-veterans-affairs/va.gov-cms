@@ -10,13 +10,13 @@ Feature: CMS Users may effectively interact with the VAMC Facility form
     And I fill in "Name of facility" with "[Test Data] Facility Name"
     And I select the radio button with the value "1037"
     And I wait "2" seconds
-    Then I should see "low" in ckeditor "field-supplemental-status-more-i-0"
+    Then I should see "Visitors are welcome" in ckeditor "field-supplemental-status-more-i-0"
     And I select the radio button with the value "1036"
     And I wait "2" seconds
-    Then I should see "medium" in ckeditor "field-supplemental-status-more-i-0"
+    Then I should see "Your care partner is welcome" in ckeditor "field-supplemental-status-more-i-0"
     And I select the radio button with the value "1035"
     And I wait "2" seconds
-    Then I should see "high" in ckeditor "field-supplemental-status-more-i-0"
+    Then I should see "Approved visitors only" in ckeditor "field-supplemental-status-more-i-0"
     Then I fill in ckeditor "field-supplemental-status-more-i-0" with "[Test Data] COVID 19 Status Details"
     Then I select option "VA Alaska health care" from dropdown "What health care system does the facility belong to?"
     And I fill in "Meta description" with "[Test Data] Meta description"

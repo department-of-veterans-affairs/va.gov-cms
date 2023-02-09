@@ -26,9 +26,8 @@
         "#cke_edit-field-supplemental-status-more-i-0-value iframe"
       ).contentDocument;
       if (iframeDocument.body.innerHTML) {
-        iframeDocument.body.innerHTML = `<p>
-        ${drupalSettings.vamcCovidStatusTermText[statusId].name}</p>
-        ${drupalSettings.vamcCovidStatusTermText[statusId].description}`;
+        iframeDocument.body.innerHTML = `
+          ${drupalSettings.vamcCovidStatusTermText[statusId].description}`;
       }
     }
   };

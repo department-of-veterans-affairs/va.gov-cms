@@ -236,7 +236,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $form_object = $form_state->getFormObject();
     $node = $form_object->getEntity();
     foreach ($covid_status as $status) {
-      $terms_text[$status]['name'] = $term_storage->load($status)->getName();
       $terms_text[$status]['description'] = $term_storage->load($status)->getDescription();
       if ($this->isCovidStatusSetAndDetailsEmpty($node, $status)) {
         $this->setCovidStatusDetails($form, $status, $term_storage);
@@ -295,8 +294,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     if (isset($form['field_supplemental_status_more_i']['widget'][0]['#description'])) {
       $widget_description = $form['field_supplemental_status_more_i']['widget'][0]['#description']->__toString();
     }
-    $chosen_term_description = $term_storage->load($status)->getName()
-    . $term_storage->load($status)->getDescription();
+    $chosen_term_description = $term_storage->load($status)->getDescription();
     $form['field_supplemental_status_more_i']['widget'][0] = [
       "#title" => $widget_title,
       '#description' => $widget_description,
