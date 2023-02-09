@@ -87,12 +87,12 @@ cat ./vendor/va-gov/content-build/logs/vagovdev-broken-links.json >> ${logfile}
 
 echo "==> List heading order violations" >> ${logfile}
 pushd ./web
-yarn list-heading-order-violations >> ${logfile}
-cp -v heading_order_violations.html ${reporoot}/docroot/ >> ${logfile}
+yarn list-heading-order-violations &>> ${logfile}
+cp -v heading_order_violations.html ${reporoot}/docroot/ &>> ${logfile}
 curl -X POST "https://api.ddog-gov.com/api/v1/series" \
   -H "Content-Type: text/json" \
   -H "DD-API-KEY: ${HA_HA_HA_NO_DATADOG_KEY_YET}" \
-  -d @- < heading_order_violations.json >> ${logfile}
+  -d @- < heading_order_violations.json &>> ${logfile}
 popd
 
 # Make sure other builds can start.
