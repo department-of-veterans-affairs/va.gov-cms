@@ -1138,7 +1138,7 @@ function va_gov_db_update_9013(&$sandbox) {
     $schema->createTable('cm_document', $table);
     $messages .= "Added cm_document table to prevent uninstall from erroring.\n";
   }
-  if (!$schema->tableExists('cm_document_field_data', $table)) {
+  if (!$schema->tableExists('cm_document_field_data')) {
     $schema->createTable('cm_document_field_data', $table);
     $messages .= "Added cm_document_field_data table to prevent uninstall from erroring.\n";
   }
