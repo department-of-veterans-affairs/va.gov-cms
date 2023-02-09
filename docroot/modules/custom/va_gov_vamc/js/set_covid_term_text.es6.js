@@ -25,9 +25,11 @@
       iframeDocument = document.querySelector(
         "#cke_edit-field-supplemental-status-more-i-0-value iframe"
       ).contentDocument;
-      iframeDocument.body.innerHTML = `<p>
+      if (iframeDocument.body.innerHTML) {
+        iframeDocument.body.innerHTML = `<p>
         ${drupalSettings.vamcCovidStatusTermText[statusId].name}</p>
         ${drupalSettings.vamcCovidStatusTermText[statusId].description}`;
+      }
     }
   };
 
