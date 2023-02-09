@@ -20,6 +20,7 @@ dependencies:
     - node.type.q_a
     - node.type.step_by_step
     - node.type.support_resources_detail_page
+    - system.menu.admin
     - taxonomy.vocabulary.administration
     - taxonomy.vocabulary.lc_categories
     - taxonomy.vocabulary.topics
@@ -3902,10 +3903,9 @@ display:
           type_custom_false: ''
           not: false
       access:
-        type: role
+        type: perm
         options:
-          role:
-            administrator: administrator
+          perm: 'access content'
       filters:
         title:
           id: title
@@ -4257,7 +4257,7 @@ display:
             timestamp: timestamp
             break: break
             is_locked: is_locked
-          default: '-1'
+          default: field_last_saved_by_an_editor
           info:
             title:
               sortable: true
@@ -4295,7 +4295,7 @@ display:
               empty_column: false
               responsive: ''
             field_last_saved_by_an_editor:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
@@ -4378,10 +4378,10 @@ display:
           enabled: true
       path: admin/content/outdated_content
       menu:
-        type: tab
+        type: normal
         title: 'Outdated content'
         description: ''
-        weight: 1
+        weight: null
         expanded: false
         menu_name: admin
         parent: system.admin_content
@@ -4405,7 +4405,7 @@ display:
         - url.query_args
         - user
         - 'user.node_grants:view'
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_last_saved_by_an_editor'
