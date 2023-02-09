@@ -1138,11 +1138,7 @@ function va_gov_db_update_9013(&$sandbox) {
     $schema->createTable('cm_document', $table);
     $messages .= "Added cm_document table to prevent uninstall from erroring.\n";
   }
-<<<<<<< HEAD
   if (!$schema->tableExists('cm_document_field_data')) {
-=======
-  if (!$schema->tableExists('cm_document_field_data', $table)) {
->>>>>>> 624a85aa1 (VACMS-12287 Adjust module uninstall.)
     $schema->createTable('cm_document_field_data', $table);
     $messages .= "Added cm_document_field_data table to prevent uninstall from erroring.\n";
   }
