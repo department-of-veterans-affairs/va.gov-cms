@@ -1,9 +1,9 @@
 name: Send data about the default branch to DataDog.
 
 on:
-  push:
-    branches:
-      - main
+  schedule:
+    - cron: '45 3 * * *'
+  workflow_dispatch:
 
 jobs:
   custom_metrics:
