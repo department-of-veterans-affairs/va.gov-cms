@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.documentation_page.field_administration
     - field.field.node.documentation_page.field_content_block
     - field.field.node.documentation_page.field_intro_text
+    - field.field.node.documentation_page.field_last_saved_by_an_editor
     - field.field.node.documentation_page.field_products
     - field.field.node.documentation_page.field_related_user_guides
     - field.field.node.documentation_page.field_table_of_contents_boolean
@@ -135,6 +136,16 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 0
+    region: content
+  field_last_saved_by_an_editor:
+    type: timestamp
+    label: above
+    settings:
+      date_format: custom
+      custom_date_format: 'F j Y g:ia'
+      timezone: ''
+    third_party_settings: {  }
+    weight: 4
     region: content
   field_products:
     type: entity_reference_label

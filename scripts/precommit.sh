@@ -3,6 +3,7 @@
 bail_if_test_failed () {
   if [ $? -ne 0 ]
   then
+    echo $@
     exit 1
   fi
 }
@@ -11,7 +12,7 @@ CHANGES=$( git diff --diff-filter=d --name-only HEAD )
 
 PHP_FILES=$( echo "${CHANGES}" | grep -E '\.(php|module|inc|install|profile|engine|theme|css)$' )
 if [ ${#PHP_FILES} -gt 0 ]; then
-  phpcs --ignore=*.md,*.min.css,styles.css,wysiwyg.css,proofing.css,user_guides.css,whats_new.css,claro.css,*/node_modules/*,*/simplesaml*/*,graphiql.css --extensions=php,module,inc,install,profile,engine,theme,css --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml --colors ${PHP_FILES[*]}
+  phpcs --colors ${PHP_FILES[*]}
   bail_if_test_failed
 fi
 
@@ -38,5 +39,11 @@ if [ ${#SCSS_FILES} -gt 0 ]; then
   npm run stylelint ${SCSS_FILES[*]}
   bail_if_test_failed
 fi
+
+SERVICES_ROOT=docroot/sites/default/services
+SERVICES_FILE1="$SERVICES_ROOT/services.staging.yml"
+SERVICES_FILE2="$SERVICES_ROOT/services.prod.yml"
+diff <(yq -P "$SERVICES_FILE1") <(yq -P "$SERVICES_FILE2")
+bail_if_test_failed "Mismatch in ${SERVICES_FILE1} and ${SERVICES_FILE2}; these files should always remain the same."
 
 exit 0

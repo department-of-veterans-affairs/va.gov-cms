@@ -4,9 +4,10 @@ status: true
 dependencies:
   config:
     - field.field.node.outreach_asset.field_administration
-    - field.field.node.outreach_asset.field_benefits
     - field.field.node.outreach_asset.field_description
     - field.field.node.outreach_asset.field_format
+    - field.field.node.outreach_asset.field_last_saved_by_an_editor
+    - field.field.node.outreach_asset.field_lc_categories
     - field.field.node.outreach_asset.field_listing
     - field.field.node.outreach_asset.field_media
     - field.field.node.outreach_asset.field_meta_tags
@@ -19,13 +20,6 @@ targetEntityType: node
 bundle: outreach_asset
 mode: default
 content:
-  field_benefits:
-    type: list_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 3
-    region: content
   field_description:
     type: string
     label: above
@@ -41,6 +35,14 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
+  field_lc_categories:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 4
+    region: content
   field_media:
     type: entity_reference_entity_view
     label: above
@@ -53,6 +55,8 @@ content:
 hidden:
   content_moderation_control: true
   field_administration: true
+  field_lc_categories: true
+  field_last_saved_by_an_editor: true
   field_listing: true
   field_meta_tags: true
   links: true

@@ -1,6 +1,10 @@
 import { Given } from "cypress-cucumber-preprocessor/steps";
 Given('I disable the password policy', () => {
-  cy.visit('/admin/config/security/password-policy/va_gov_cms/roles');
-  cy.get('[type="checkbox"]').uncheck();
-  return cy.get('form#password-policy-roles-form').find('input#edit-submit').click();
+  return cy.drupalDrushCommand([
+    'config:set',
+    'password_policy.password_policy.va_gov_cms',
+    'roles.authenticated',
+    '0',
+    '--no-interaction',
+  ]);
 });

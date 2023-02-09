@@ -1,0 +1,127 @@
+uuid: 4246ab3c-c9f9-44b6-b834-2c7a6af7c78c
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_index
+    - field.field.node.vamc_system_policies_page.field_administration
+    - field.field.node.vamc_system_policies_page.field_cc_bottom_of_page_content
+    - field.field.node.vamc_system_policies_page.field_cc_gen_visitation_policy
+    - field.field.node.vamc_system_policies_page.field_cc_intro_text
+    - field.field.node.vamc_system_policies_page.field_cc_top_of_page_content
+    - field.field.node.vamc_system_policies_page.field_enforce_unique_combo
+    - field.field.node.vamc_system_policies_page.field_fieldset_markup
+    - field.field.node.vamc_system_policies_page.field_last_saved_by_an_editor
+    - field.field.node.vamc_system_policies_page.field_office
+    - field.field.node.vamc_system_policies_page.field_vamc_other_policies
+    - field.field.node.vamc_system_policies_page.field_vamc_visitation_policy
+    - node.type.vamc_system_policies_page
+  module:
+    - field_group
+    - layout_builder
+    - markup
+    - text
+    - user
+third_party_settings:
+  field_group:
+    group_policies:
+      children:
+        - field_fieldset_markup
+      label: 'National top of page content'
+      parent_name: ''
+      region: content
+      weight: 1
+      format_type: tooltip
+      format_settings:
+        show_label: '0'
+        tooltip_description: 'Why can’t I edit this? VHA keeps this content standardized so that all VA medical centers have consistent messaging.'
+        description: ''
+        id: ''
+        classes: centralized
+        element: div
+        label_element: h3
+        attributes: ''
+    group_national_visitation:
+      children: {  }
+      label: 'National general visitation policy'
+      parent_name: ''
+      region: content
+      weight: 3
+      format_type: tooltip
+      format_settings:
+        show_label: '0'
+        tooltip_description: 'Why can’t I edit this? VHA keeps this content standardized so that all VA medical centers have consistent messaging.'
+        description: ''
+        id: ''
+        classes: centralized
+        element: div
+        label_element: h3
+        attributes: ''
+    group_national_bottom:
+      children: {  }
+      label: 'National bottom of page content'
+      parent_name: ''
+      region: content
+      weight: 5
+      format_type: tooltip
+      format_settings:
+        show_label: '0'
+        tooltip_description: 'Why can’t I edit this? VHA keeps this content standardized so that all VA medical centers have consistent messaging.'
+        description: ''
+        id: ''
+        classes: centralized
+        element: div
+        label_element: h3
+        attributes: ''
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.vamc_system_policies_page.search_index
+targetEntityType: node
+bundle: vamc_system_policies_page
+mode: search_index
+content:
+  field_fieldset_markup:
+    type: markup
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_office:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_vamc_other_policies:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_vamc_visitation_policy:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 6
+    region: content
+hidden:
+  content_moderation_control: true
+  field_administration: true
+  field_cc_bottom_of_page_content: true
+  field_cc_gen_visitation_policy: true
+  field_cc_intro_text: true
+  field_cc_top_of_page_content: true
+  field_enforce_unique_combo: true
+  field_last_saved_by_an_editor: true
+  search_api_excerpt: true

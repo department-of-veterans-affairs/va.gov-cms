@@ -1,0 +1,25 @@
+diff --git a/auto_entitylabel.module b/auto_entitylabel.module
+index 2d2b8d9..7c27c67 100644
+--- a/auto_entitylabel.module
++++ b/auto_entitylabel.module
+@@ -189,10 +189,17 @@ function auto_entitylabel_entity_insert(EntityInterface $entity) {
+         || empty($entity->label()) && $decorated_entity->hasOptionalAutoLabel()
+       )
+     ) {
+-      if ($entity->getEntityType()->isRevisionable()) {
+-        $entity->setNewRevision(FALSE);
++      // Store the old label.
++      $old_label = $entity->label();
++      // Update the entity label.
++      $decorated_entity->setLabel();
++      // Save it only if the title has changed.
++      if ($entity->label() != $old_label) {
++        if ($entity->getEntityType()->isRevisionable()) {
++          $entity->setNewRevision(FALSE);
++        }
++        $entity->save();
+       }
+-      $entity->save();
+     }
+   }
+ }

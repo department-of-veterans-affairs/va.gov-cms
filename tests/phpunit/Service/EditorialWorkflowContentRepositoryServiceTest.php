@@ -3,7 +3,7 @@
 namespace tests\phpunit\Service;
 
 use Drupal\va_gov_workflow_assignments\Service\EditorialWorkflowContentRepository;
-use weitzman\DrupalTestTraits\ExistingSiteBase;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * Test the EditorialWorkflowContentRepository service.
@@ -11,7 +11,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  * @group functional
  * @group all
  */
-class EditorialWorkflowContentRepositoryServiceTest extends ExistingSiteBase {
+class EditorialWorkflowContentRepositoryServiceTest extends VaGovExistingSiteBase {
 
   /**
    * The tested EditorialWorkflowContentRepository service.
@@ -23,7 +23,7 @@ class EditorialWorkflowContentRepositoryServiceTest extends ExistingSiteBase {
   /**
    * {@inheritdoc}
    */
-  public function setUp() {
+  public function setUp() : void {
     parent::setUp();
     $this->editorialWorkflowContentRepository = new EditorialWorkflowContentRepository(\Drupal::database());
   }

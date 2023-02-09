@@ -3,7 +3,7 @@
 namespace tests\phpunit\Service;
 
 use Drupal\va_gov_bulk\Service\ModerationActions;
-use weitzman\DrupalTestTraits\ExistingSiteBase;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * Test the ModerationActions service.
@@ -11,7 +11,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  * @group functional
  * @group all
  */
-class ModerationActionsServiceTest extends ExistingSiteBase {
+class ModerationActionsServiceTest extends VaGovExistingSiteBase {
 
   /**
    * The tested ModerationActions service.
@@ -23,7 +23,7 @@ class ModerationActionsServiceTest extends ExistingSiteBase {
   /**
    * {@inheritdoc}
    */
-  public function setUp() {
+  public function setUp() : void {
     parent::setUp();
     $this->moderationActions = new ModerationActions(\Drupal::currentUser(), \Drupal::time(), \Drupal::entityTypeManager());
   }

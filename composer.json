@@ -6,7 +6,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require-dev": {
-        "drupal/devel": "^4.1",
+        "drupal/devel": "^5.0",
         "drupal/html_tag_usage": "^1.0@beta",
         "drupal/media_entity_generic": "^1.0"
     },
@@ -16,41 +16,43 @@
         "aws/aws-sdk-php": "^3.173",
         "bower-asset/blazy": "^1.8",
         "bower-asset/cropper": "^4.1",
+        "caxy/php-htmldiff": "^0.1.14",
         "composer/installers": "^2.2.0",
-        "consolidation/robo": "^1",
         "consolidation/site-process": "^4.1",
         "cweagans/composer-patches": "^1.7",
-        "datadog/dd-trace": "^0.79.0",
+        "datadog/dd-trace": "^0.84.0",
         "drupal/address": "^1.4",
         "drupal/admin_feedback": "^2.2",
         "drupal/admin_toolbar": "^3.0",
         "drupal/advancedqueue": "^1.0@RC",
-        "drupal/allow_only_one": "1.0.0-alpha1",
-        "drupal/allowed_formats": "^1.3",
+        "drupal/allow_only_one": "1.0.1",
+        "drupal/allowed_formats": "^2.0",
         "drupal/animated_gif": "^2.0",
-        "drupal/auto_entitylabel": "^3.0-beta3",
-        "drupal/better_field_descriptions": "^1.4",
+        "drupal/auto_entitylabel": "3.0-beta3",
+        "drupal/better_exposed_filters": "^6.0",
         "drupal/blazy": "^2.0@RC",
         "drupal/block_content_permissions": "^1.6",
         "drupal/cer": "4.x-dev#f2ff7d6bf2a3e41757b7621a8367ede974750a84",
+        "drupal/change_labels": "dev-3326097-remove-dependency-on-drupal-autoservices#7f92f90b456ac2f394dd434257e39e1d9b3086eb",
         "drupal/coder": "^8.3",
         "drupal/components": "^3.0@beta",
         "drupal/config_ignore": "^2.1",
         "drupal/config_override_warn": "^1.0",
         "drupal/config_split": "^1.4",
         "drupal/consumer_image_styles": "^4.0",
-        "drupal/consumers": "1.13.0",
+        "drupal/consumers": "1.16.0",
         "drupal/content_lock": "^2.0@alpha",
-        "drupal/core-composer-scaffold": "~9.4.0",
-        "drupal/core-recommended": "~9.4.0",
+        "drupal/content_model_documentation": "^1.0@alpha",
+        "drupal/core-composer-scaffold": "~9.5.0",
+        "drupal/core-recommended": "~9.5.0",
         "drupal/crop": "^2.0",
         "drupal/csv_serialization": "^2.0",
         "drupal/ctools_block": "^3.2",
         "drupal/danse": "^2.1",
         "drupal/danse_content_moderation": "^2.0",
-        "drupal/diff": "1.0",
+        "drupal/diff": "^1.0",
         "drupal/dropzonejs": "^2.0",
-        "drupal/dynamic_entity_reference": "^2.0",
+        "drupal/dynamic_entity_reference": "^3.0",
         "drupal/embed": "^1.3",
         "drupal/entity_block": "^1.0@beta",
         "drupal/entity_browser": "^2.4",
@@ -61,19 +63,22 @@
         "drupal/entity_reference_revisions": "^1.7",
         "drupal/entity_reference_unpublished": "^1.1",
         "drupal/entity_reference_validators": "^1.0@alpha",
+        "drupal/entity_usage": "dev-2.x",
         "drupal/entityqueue": "^1.2",
         "drupal/environment_indicator": "^4.0",
         "drupal/epp": "^1.1",
         "drupal/fast_404": "2.x-dev#5382a99335ee466f8261dc1774a3d56f1699da81",
         "drupal/feature_toggle": "^2.0",
-        "drupal/field_group": "^3.1",
+        "drupal/field_group": "^3.4",
         "drupal/fieldhelptext": "^1.0@beta",
         "drupal/flag": "^4.0@beta",
         "drupal/flood_control": "^2.2.2",
         "drupal/flysystem_s3": "^2.0@RC",
+        "drupal/formdazzle": "^2.1",
         "drupal/geocoder": "^3.26",
         "drupal/geofield": "^1.39",
-        "drupal/geofield_map": "^2.75",
+        "drupal/geofield_map": "^3.0",
+        "drupal/google_analytics": "^4.0",
         "drupal/govdelivery_bulletins": "^1.2",
         "drupal/graphql": "^3.0",
         "drupal/graphql_core": "^3.1.0",
@@ -91,9 +96,12 @@
         "drupal/jsonapi_menu_items": "^1.2",
         "drupal/jsonapi_resources": "^1.0@beta",
         "drupal/jsonapi_views": "^1.0",
-        "drupal/libraries": "^3.0@alpha",
+        "drupal/libraries": "^4.0@alpha",
         "drupal/limited_field_widgets": "^2.0",
         "drupal/linkit": "^6.0.0-beta2",
+        "drupal/linky": "^1.0@beta",
+        "drupal/linkychecker": "^2.0@beta",
+        "drupal/linkyreplacer": "^2.2",
         "drupal/markup": "^1.0@beta",
         "drupal/memcache": "^2.3",
         "drupal/memcache_admin": "^2.3",
@@ -125,9 +133,10 @@
         "drupal/paragraphs": "^1.5",
         "drupal/paragraphs_browser": "^1.0@alpha",
         "drupal/paragraphs_features": "^1.12",
-        "drupal/password_policy": "3.1.0",
+        "drupal/paragraphs_usage": "^1.0",
+        "drupal/password_policy": "^4.0",
         "drupal/password_strength": "2.x-dev@dev",
-        "drupal/path_redirect_import": "^1.0@beta",
+        "drupal/path_redirect_import": "^2.0@beta",
         "drupal/pathauto": "^1.6",
         "drupal/pathologic": "^1.0@alpha",
         "drupal/pfm": "^2.0",
@@ -139,7 +148,7 @@
         "drupal/restui": "^1.16",
         "drupal/role_delegation": "1.2.0",
         "drupal/schemata": "^1.0@beta",
-        "drupal/search_api": "1.25.0",
+        "drupal/search_api": "1.28.0",
         "drupal/seckit": "^2.0",
         "drupal/simplesamlphp_auth": "^3.2",
         "drupal/sitewide_alert": "^2.0",
@@ -152,7 +161,9 @@
         "drupal/taxonomy_entity_index": "^1.1",
         "drupal/taxonomy_menu": "3.x-dev#e89d1e8",
         "drupal/textfield_counter": "^2.0",
-        "drupal/toolbar_menu": "^2.1",
+        "drupal/toolbar_menu": "^3.0",
+        "drupal/twig_tweak": "^3.1",
+        "drupal/upgrade_status": "^3.17",
         "drupal/user_history": "^1.0@alpha",
         "drupal/video_embed_media": "^2.2",
         "drupal/viewfield": "^3.0@beta",
@@ -161,41 +172,41 @@
         "drupal/views_conditional": "^1.4",
         "drupal/views_data_export": "^1.0@beta",
         "drupal/views_local_tasks": "^1.0",
-        "drupal/workbench_access": "^1.0-beta4",
-        "drupal/workbench_menu_access": "^1.0",
+        "drupal/workbench_access": "^2.0",
+        "drupal/workbench_menu_access": "^2.0",
         "drush-ops/behat-drush-endpoint": "^9.4.0",
-        "drush/drush": "^10.4",
+        "drush/drush": "^11",
         "easyrdf/easyrdf": "1.1.1 as 0.9.1",
         "geocoder-php/mapbox-provider": "^1.3",
         "gitonomy/gitlib": "^1.2",
         "http-interop/http-factory-guzzle": "^1.0",
         "knplabs/github-api": "^3.3",
-        "mglaman/phpstan-drupal": "^0.12.12",
-        "michelf/php-markdown": "^1.9",
+        "mglaman/phpstan-drupal": "^1.0",
+        "michelf/php-markdown": "^2.0",
         "mikey179/vfsstream": "^1.6",
         "mouf/nodejs-installer": "^1.0",
         "npm-asset/dropzone": "^5.5",
-        "npm-asset/yarn": "1.21.1",
+        "npm-asset/yarn": "1.19.1",
         "oomphinc/composer-installers-extender": "^2.0",
         "php-http/guzzle6-adapter": "^2.0",
         "phpspec/prophecy": "^1.15",
-        "phpstan/phpstan": "^0.12.94",
-        "phpstan/phpstan-deprecation-rules": "^0.12.6",
-        "phpunit/phpunit": "^8.4.0",
+        "phpspec/prophecy-phpunit": "^2.0",
+        "phpstan/phpstan": "^1.0",
+        "phpstan/phpstan-deprecation-rules": "^1.0",
+        "phpunit/phpunit": "^9.3.0",
         "querypath/querypath": "^3.0",
         "simplesamlphp/simplesamlphp": "^1.18",
         "squizlabs/php_codesniffer": "^3.5",
         "symfony/config": "^4.0",
-        "symfony/finder": "^3",
         "symfony/phpunit-bridge": "^5.1",
         "symfony/process": "^4.0",
         "symfony/routing": "^4.0",
         "traviscarden/behat-table-comparison": "~0.2",
-        "va-gov/content-build": "^0.0.3102",
+        "va-gov/content-build": "^0.0.3191",
         "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
-        "weitzman/drupal-test-traits": "dev-master",
+        "weitzman/drupal-test-traits": "^2.0.1",
         "zaporylie/composer-drupal-optimizations": "^1.2"
     },
     "autoload": {
@@ -226,7 +237,10 @@
         },
         "drupal": {
             "type": "composer",
-            "url": "https://packages.drupal.org/8"
+            "url": "https://packages.drupal.org/8",
+            "exclude": [
+                "drupal/change_labels"
+            ]
         },
         "assets": {
             "type": "composer",
@@ -253,6 +267,10 @@
                     "composer/installers": "~1.0"
                 }
             }
+        },
+        "drupal/change_labels": {
+            "type": "git",
+            "url": "https://git.drupalcode.org/issue/change_labels-3326097.git"
         }
     },
     "config": {
@@ -264,10 +282,9 @@
         "sort-packages": true,
         "optimize-autoloader": true,
         "platform": {
-            "php": "7.4"
+            "php": "8.1"
         },
         "preferred-install": {
-            "drupal/core": "source",
             "va-gov/content-build": "source",
             "*": "dist"
         },
@@ -280,7 +297,8 @@
             "drupal/console-extend-plugin": true,
             "mouf/nodejs-installer": true,
             "oomphinc/composer-installers-extender": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "topfloor/composer-cleanup-vcs-dirs": true
         }
     },
     "extra": {
@@ -346,33 +364,34 @@
                 "2951652 - Content lock causes redirect response preventing migration rollback.": "https://www.drupal.org/files/issues/2018-08-28/2951652-4.patch"
             },
             "drupal/core": {
-                "2807629 - Allow menu items which link to unpublished nodes to be selected in the parent item selector": "https://www.drupal.org/files/issues/2021-07-09/2807629-45.patch",
+                "2807629 - Allow menu items which link to unpublished nodes to be selected in the parent item selector": "https://www.drupal.org/files/issues/2022-12-16/2807629-75.patch",
                 "2894449 - Indirect modification of overloaded element with Views responsive table": "https://www.drupal.org/files/issues/2018-10-05/core-indirect-modification-of-overloaded-element-2894449-18.patch",
                 "3057267 - User logout during maintenance mode": "https://www.drupal.org/files/issues/2019-09-11/3057267-maintenance-forced-logout-experimental.patch",
-                "1091852 - Display Bug when using #states (Forms API) with Ajax Request": "https://www.drupal.org/files/issues/2021-02-19/1091852-128.patch",
+                "1091852 - Display Bug when using #states (Forms API) with Ajax Request": "https://www.drupal.org/files/issues/2023-01-17/1091852.patch",
                 "2859042 - Entity original revision": "https://www.drupal.org/files/issues/2018-07-30/entity_original_revision-2859042-26.patch",
                 "2930508 - Seven inactive tabs do not meet WCAG AA 1.4.3 for contrast": "https://www.drupal.org/files/issues/2020-10-15/drupal-seven_inactive_tabs_do_not_meet_wcag_aa-2930508-36.patch",
                 "2632750 - Interface previews/skeleton screens through optional preview or placeholder templates": "https://www.drupal.org/files/issues/2020-11-18/2632750-76-do-not-test_0.patch",
                 "2911932 - Correct vertical tab does not focus on form validation": "https://www.drupal.org/files/issues/2020-12-12/vertical-tabs--focus-on-onvalid-7b.patch",
-                "2893933 - claimItem in the database and memory queues does not use expire correctly": "https://www.drupal.org/files/issues/2022-05-26/2893933-drupal-queue-claim-9.4.x-53.patch",
-                "3198608 - Migrate does not set set track_lst_updated from config": "https://www.drupal.org/files/issues/2021-07-27/track-last-updated-tests-3198608-14.patch",
+                "2893933 - claimItem in the database and memory queues does not use expire correctly": "https://www.drupal.org/files/issues/2023-01-10/2893933-drupal-queue-claim-9.5.x-58.patch",
                 "3025164 - Make moderation_state available to field queries": "https://www.drupal.org/files/issues/2020-09-25/3025164-28.patch",
-                "3229493 - TextareaWidget::errorElement() does not consult violation property path.": "https://www.drupal.org/files/issues/2021-08-23/test_module-3229493-2.patch",
+                "3229493 - TextareaWidget::errorElement() does not consult violation property path.": "https://www.drupal.org/files/issues/2023-01-18/text_module-3229493-6.patch",
                 "3027240 - Undefined index: #parents FormState.php": "https://www.drupal.org/files/issues/2019-01-21/form_system-undefined_index-3027240-2.patch",
-                "3096790 - Remove aria-required attribute": "https://www.drupal.org/files/issues/2021-09-28/drupal-remove-aria-require-3096790-7.patch",
+                "3096790 - Remove aria-required attribute": "https://www.drupal.org/files/issues/2022-12-16/3096790-30-9.5.patch",
                 "3219165 - Seven inactive vertical tabs do not meet contrast requirements": "https://www.drupal.org/files/issues/2021-06-16/3219165-3.patch",
                 "2915792 - MenuLinkContentAccessControlHandler does not allow \"view\" access without admin permission": "patches/drupal-core-menu-link-perm-mr-339.patch",
                 "2421145 - Text format wrapper does not take description_display into account": "https://www.drupal.org/files/issues/2021-12-03/2421445-18_0.patch",
-                "Internal Claro tweaks": "patches/claro-css-tweaks.patch",
                 "3099026 - Claro's preprocessing of field multiple value form's table header cell removes potential changes by others": "https://www.drupal.org/files/issues/2020-02-20/3099026-9.patch",
+                "Internal Claro tweaks": "patches/claro-css-tweaks.patch",
                 "2767243 - Create a theme suggestion for taxonomy terms by view mode": "https://www.drupal.org/files/issues/core-theme-suggestion-for-taxonomy-view-modes-2767243-14.patch",
-                "2775665 - MenuLinkContent updateLink function generates a PHP Warning for override-able keys that are not present in the loaded entity": "https://www.drupal.org/files/issues/2021-09-17/updateLink-2775665-14.patch"
+                "2775665 - MenuLinkContent updateLink function generates a PHP Warning for override-able keys that are not present in the loaded entity": "https://www.drupal.org/files/issues/2021-09-17/updateLink-2775665-14.patch",
+                "2975602 - Html::serialize() escapes backslash-r to &#13;": "https://www.drupal.org/files/issues/2018-05-27/2975602-2-html_serialize.patch",
+                "Claro claro_preprocess_input()": "patches/drupal-core-claro_preprocess_input.patch"
             },
             "drupal/danse_content_moderation": {
                 "3309657 - Danse 2.2.7 compatibility": "https://www.drupal.org/files/issues/2022-09-14/3309657-danse-2-2-7-compatibility.patch"
             },
             "drupal/decoupled_router": {
-                "3111456 - Unable to resolve path on node in other language than default": "https://www.drupal.org/files/issues/2021-05-05/3111456-34.patch"
+                "3111456 - Unable to resolve path on node in other language than default": "https://www.drupal.org/files/issues/2022-12-01/decouple_router-3111456-resolve-language-issue-58--get-translation.patch"
             },
             "drupal/diff": {
                 "3228798 - Make revisions overview page accessible": "https://www.drupal.org/files/issues/2022-01-21/diff-a11y-3228798-15.patch",
@@ -395,12 +414,17 @@
             },
             "drupal/field_group": {
                 "2787179 - Visibility of invalid fields": "https://www.drupal.org/files/issues/2021-01-05/2787179-highlight-html5-validation-59.patch",
-                "1482958 - Allow field_group with empty fields to be displayed via setting": "https://www.drupal.org/files/issues/2020-06-24/field_group-empty-config-1482958-47.patch",
                 "3053242 - Undefined index #description_display when adding a description to fieldset group type": "https://www.drupal.org/files/issues/2022-07-04/field_group-undefined-index-description-display-3053242-11.patch"
+            },
+            "drupal/flag": {
+                "2893259 - Flags with VBO 8.x-4.x Patch 40": "https://www.drupal.org/files/issues/2020-07-25/flag-vbo-2893259-40.patch"
             },
             "drupal/graphql": {
                 "Fix Explorer with Layout Builder enabled - https://github.com/drupal-graphql/graphql/pull/1144": "patches/graphql_8x3x_layout_builder_incompat.patch",
                 "Remove outdated RouteQueryEnhancer controller reference - https://github.com/drupal-graphql/graphql/pull/1230": "patches/graphql_8x3x_query_route_enhancer_update.patch"
+            },
+            "drupal/health_check_url": {
+                "3294736 - PHP 8 Compatibility": "https://www.drupal.org/files/issues/2022-07-07/health_check_url_php8.patch"
             },
             "drupal/hms_field": {
                 "3145496 - Make d9 compatible": "https://www.drupal.org/files/issues/2020-06-05/3145496-6.patch"
@@ -410,7 +434,8 @@
             },
             "drupal/inline_entity_form": {
                 "3226473 - Opt-in system delete.": "https://www.drupal.org/files/issues/2021-08-03/opt-in-systm-delete-3226473-1.patch",
-                "3061620 - Cancel closes all forms": "https://www.drupal.org/files/issues/2020-04-25/inline_entity_form-close-only-forms-where-close-clicked-3061620-5.patch"
+                "3061620 - Cancel closes all forms": "https://www.drupal.org/files/issues/2022-07-21/inline_entity_form-close-only-forms-where-close-clicked-3061620-13.patch",
+                "3311501 - Add label to weight select field for accessibility": "https://www.drupal.org/files/issues/2022-09-23/Adding_labels_to_weight_selects_for_accessibility.patch"
             },
             "drupal/jsonapi_menu_items": {
                 "3276561 - Add support for the Menu Item Extras module": "https://www.drupal.org/files/issues/2022-08-01/3276561-05-menu_item_extras_support.patch"
@@ -424,11 +449,11 @@
             "drupal/menu_item_extras": {
                 "3210468 - The 'bundle' field is not always populated with the menu name": "https://www.drupal.org/files/issues/2021-04-23/3210468.patch"
             },
+            "drupal/message_subscribe": {
+                "3279287 - PHP 8.1 Deprecated function notices": "https://www.drupal.org/files/issues/2022-11-03/php-81-deprecation-notices.patch"
+            },
             "drupal/migrate_plus": {
                 "3113461 - Allow properties in str_replace process plugin.": "https://www.drupal.org/files/issues/2020-03-16/migrate_plus-properties_str_replace-2.patch"
-            },
-            "drupal/node_revision_delete": {
-                "3249493 - Not able to delete a revision via the interface": "https://www.drupal.org/files/issues/2022-02-21/3249493-9.patch"
             },
             "drupal/office_hours": {
                 "3227169 - Form fields in table cell missing labels causes accessibility warnings": "https://www.drupal.org/files/issues/2022-03-28/labels-for-accessibility-3227169-11.patch"
@@ -443,21 +468,23 @@
                 "2919186 - Remove button should not be shown on required field": "https://www.drupal.org/files/issues/2020-05-13/hide_field_required_paragraphs_remove_button_1.patch"
             },
             "drupal/pathauto": {
-                "3204586 - Update URL Alias action is only available for nodes + users and does not work with views_bulk_operations": "https://www.drupal.org/files/issues/2021-03-22/pathauto-add_deriver_for_alias_update_action-3204586-19.patch",
+                "3204586 - Update URL Alias action is only available for nodes + users and does not work with views_bulk_operations": "https://www.drupal.org/files/issues/2022-10-28/pathauto-add_deriver_for_alias_update_action-3204586-28_0.patch",
                 "3214658 - Omit nolink items from url path args and add token that uses parent url": "https://www.drupal.org/files/issues/2022-05-08/remove-nolink-args-use-parent-entity-url-3214658-18.patch"
             },
             "drupal/prometheus_exporter": {
                 "3214628 - Add published/unpublished node statistics to NodeCount.": "https://www.drupal.org/files/issues/2021-06-29/prometheus_exporter-add_status_metrics_to_node_count-3214628-3.patch"
             },
+            "drupal/raven": {
+                "Sentry/Dsn throws a TypeError, blowing up everything.": "patches/raven-catch-typeerror.patch"
+            },
             "drupal/schemata": {
-                "3198409 - Plugin definitions are not cached": "https://www.drupal.org/files/issues/2021-02-14/3198409_2.patch",
                 "3190131 - Possibly unnecessary logging in SchemaFactory::create().": "https://www.drupal.org/files/issues/2020-12-28/schemata-remove-logging-statement-3190131-2.patch"
             },
             "drupal/simplesamlphp_auth": {
                 "2748731 - Don't attempt username sync when user was already matched by username": "https://www.drupal.org/files/issues/2020-07-31/reroll-existing-test-and-logging-fix-2748731-29.patch"
             },
             "drupal/social_media_links": {
-                "3044002 - Platform Name and Aria Label issue": "https://www.drupal.org/files/issues/2022-03-21/3044002-17.patch"
+                "3044002 - Platform Name and Aria Label issue": "https://www.drupal.org/files/issues/2021-05-17/3044002-13.patch"
             },
             "drupal/subrequests": {
                 "63049395 - Get same results on different request": "https://www.drupal.org/files/issues/2019-07-18/change_request_type-63049395-09.patch"
@@ -474,10 +501,14 @@
             },
             "drupal/textfield_counter": {
                 "3004457 - Prevent form submission when character limit exceeded option does not work": "https://www.drupal.org/files/issues/2018-10-04/textfield_counter-prevent_form_submission_does_not_work-3004457-2.patch",
-                "3182675 - Incompatibilities with Claro and Claro-based (e.g. Gin) themes": "https://www.drupal.org/files/issues/2022-08-04/textfield-counter-incompatible-with-claro-3182675-10.patch"
+                "3182675 - Incompatibilities with Claro and Claro-based (e.g. Gin) themes": "https://www.drupal.org/files/issues/2022-08-04/textfield-counter-incompatible-with-claro-3182675-10.patch",
+                "3272128 - Calling a static method, or accessing a static property directly on a trait is deprecated": "https://www.drupal.org/files/issues/2022-04-27/deprecated-static-function-call-in-trait-3272128.patch"
             },
             "drupal/viewfield": {
                 "3252356 - Add option to display default view on node edit when always use default value selected": "https://www.drupal.org/files/issues/2021-12-15/viewfield-option-display-default-view-on-node-edit-3252356-4.patch"
+            },
+            "drupal/views_data_export": {
+                "3189135 - Use relative URL for export button": "https://www.drupal.org/files/issues/2022-08-06/use-relative-url-for-export-3189135-10.patch"
             },
             "traviscarden/behat-table-comparison": {
                 "Throw meaningful message for duplicate entry. See https://github.com/TravisCarden/behat-table-comparison/pull/7": "patches/duplicate-row-message.patch"
@@ -499,23 +530,24 @@
             "# This will allow you to run any command in the ./bin directory without a path.",
             "echo \"export PATH=${PATH}\""
         ],
+        "remove-git-dirs": [
+            "echo \"Removing .git sub-directories...\"",
+            "find . -mindepth 2 -type d -name .git -not -path './docroot/vendor/va-gov/content-build/.git' | xargs rm -rfv"
+        ],
         "pre-install-cmd": [
             "mkdir -p vendor",
             "[ -f .env ] || cp .env.example .env"
         ],
         "post-install-cmd": [
             "mkdir --parents docroot/profiles",
-            "# The rm post-merge command below can be removed after we think all engineers have run composer install.",
-            "rm -rf .git/hooks/post-merge",
             "cp -r 'hooks/git/.' '.git/hooks/'",
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
             "ln -snf 'docroot/vendor/simplesamlphp/simplesamlphp/' 'simplesamlphp'",
             "ln -snf 'docroot/vendor/simplesamlphp/saml2/' 'saml2'",
             "cp -r 'simplesamlphp-config-metadata/config' 'simplesamlphp-config-metadata/metadata' 'docroot/vendor/simplesamlphp/simplesamlphp/'",
-            "echo 'Removing deleted .git/hooks/commit-msg file, no longer used.'",
-            "rm -f .git/hooks/commit-msg",
             "git update-index --skip-worktree samlsessiondb.sq3",
-            "rm -r vendor"
+            "rm -r vendor",
+            "@remove-git-dirs"
         ],
         "pre-update-cmd": [
             "mkdir -p vendor",
@@ -524,7 +556,8 @@
         "post-update-cmd": [
             "cp -r 'hooks/git/.' '.git/hooks/'",
             "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
-            "rm -r vendor"
+            "rm -r vendor",
+            "@remove-git-dirs"
         ],
         "nuke": [
             "rm -rf bin node_modules docroot/libraries docroot/core docroot/modules/contrib docroot/themes/contrib docroot/profiles/contrib/ docroot/vendor /var/www/.cache/yarn",
@@ -616,6 +649,8 @@
             "touch .buildlock",
             "mkdir -p web/build/vagovdev",
             "echo {} > web/build/vagovdev/metalsmith-build-data.json",
+            "cp patches/content-build-gql-logging.patch web/",
+            "cd web; git apply content-build-gql-logging.patch || echo 'patch failed'",
             "cd web; INSTALL_HOOKS=no NODE_ENV=production yarn build --pull-drupal --gql-queries-only --nosymlink --no-drupal-proxy --api=https://dev-api.va.gov --buildtype=vagovdev",
             "rm .buildlock"
         ],

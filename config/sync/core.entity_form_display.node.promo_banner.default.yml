@@ -4,14 +4,17 @@ status: true
 dependencies:
   config:
     - field.field.node.promo_banner.field_administration
+    - field.field.node.promo_banner.field_last_saved_by_an_editor
     - field.field.node.promo_banner.field_link
     - field.field.node.promo_banner.field_promo_type
     - field.field.node.promo_banner.field_target_paths
     - node.type.promo_banner
     - workflows.workflow.editorial
   module:
+    - change_labels
     - content_moderation
     - field_group
+    - limited_field_widgets
     - linkit
     - textfield_counter
 third_party_settings:
@@ -58,6 +61,12 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_last_saved_by_an_editor:
+    type: datetime_timestamp
+    weight: 26
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_link:
     type: linkit
     weight: 3
@@ -81,7 +90,11 @@ content:
     settings:
       size: 60
       placeholder: ''
-    third_party_settings: {  }
+    third_party_settings:
+      limited_field_widgets:
+        limit_values: '0'
+      change_labels:
+        add_another: 'Add another path'
   moderation_state:
     type: moderation_state_default
     weight: 13

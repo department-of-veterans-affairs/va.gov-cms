@@ -2,7 +2,7 @@
 
 namespace tests\phpunit\Content;
 
-use weitzman\DrupalTestTraits\ExistingSiteBase;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * A test to confirm the proper functioning of TrimNodeTitleWhitespace.
@@ -12,7 +12,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  *
  * @coversDefaultClass \Drupal\va_gov_backend\EventSubscriber\EntityEventSubscriber
  */
-class TrimNodeTitleWhitespaceTest extends ExistingSiteBase {
+class TrimNodeTitleWhitespaceTest extends VaGovExistingSiteBase {
 
   /**
    * Confirm that the trimmed title is as expected.
@@ -51,6 +51,7 @@ class TrimNodeTitleWhitespaceTest extends ExistingSiteBase {
    * @dataProvider titleTrimRestrictedToNodesDataProvider
    */
   public function testTitleTrimRestrictedToNodes($entityTypeId, $titleInput, $expectedTitleOutput) {
+    $this->markTestSkipped('This test combines poorly with GraphQL, and will be re-enabled in #11964.');
     // Creates a user. Will be automatically cleaned up at the end of the test.
     $author = $this->createUser();
     // Create a vocabulary for testing terms.

@@ -3,7 +3,6 @@
 namespace Drupal\va_gov_backend\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\Datetime\DrupalDateTime;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -34,6 +33,20 @@ class ContentReleaseStatusController extends ControllerBase {
   protected $renderer;
 
   /**
+   * Drupal Time service.
+   *
+   * @var \Drupal\Component\Datetime\TimeInterface
+   */
+  protected $time;
+
+  /**
+   * Drupal timezone.
+   *
+   * @var string
+   */
+  protected $timezone;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
@@ -42,82 +55,149 @@ class ContentReleaseStatusController extends ControllerBase {
     $instance->dateFormatter = $container->get('date.formatter');
     $instance->httpClient = $container->get('http_client');
     $instance->renderer = $container->get('renderer');
-
+    $instance->time = $container->get('datetime.time');
+    $instance->setStringTranslation($container->get('string_translation'));
+    $instance->timezone = $container
+      ->get('config.factory')
+      ->get('system.date')
+      ->get('timezone.default');
     return $instance;
   }
 
   /**
-   * Get last release status.
+   * Get last release status response.
    *
-   * @return string
-   *   Return release status string.
+   * @return \Symfony\Component\HttpFoundation\Response
+   *   Return release status response.
    */
-  public function getLastReleaseStatus() {
-    $release_time = $this->getLastReleaseTime();
+  public function getDefault(): Response {
+    $renderArray = $this->getLastReleaseStatus();
+    return $this->getLastReleaseResponse($renderArray);
+  }
 
-    $content = [
+  /**
+   * Get last release status render array.
+   *
+   * @param int|null $currentTimestamp
+   *   The current time, or NULL to use the Drupal system time.
+   *
+   * @return array
+   *   Render array for the last release status.
+   */
+  public function getLastReleaseStatus(?int $currentTimestamp = NULL): array {
+    $releaseTimestamp = $this->getLastReleaseTimestamp();
+    $currentTimestamp = $currentTimestamp ?? $this->time->getCurrentTime();
+    $releaseMessage = $this->getLastReleaseMessage($releaseTimestamp, $currentTimestamp);
+    return [
       '#type' => 'markup',
-      '#markup' => $this->t('VA.gov last updated<br />@release_time', [
-        '@release_time' => $release_time,
+      '#markup' => $this->t('VA.gov last updated<br />@release_message', [
+        '@release_message' => $releaseMessage,
       ]),
     ];
-    $output = $this->renderer->renderPlain($content);
+  }
 
+  /**
+   * Get last release status response.
+   *
+   * @param array $status
+   *   The last release status render array.
+   *
+   * @return \Symfony\Component\HttpFoundation\Response
+   *   A response encapsulating the last release status message.
+   */
+  public function getLastReleaseResponse(array $status): Response {
+    $output = $this->renderer->renderPlain($status);
     $response = Response::create($output);
     $response->setCache(['max_age' => 60]);
-
     return $response;
   }
 
   /**
-   * Get the time of the last content release from va.gov.
+   * Get the timestamp of the last content release from va.gov.
    *
-   * @return string
-   *   Formatted date of last content release.
+   * @return int
+   *   The timestamp parsed from the build file.
+   *
+   * @throws \Exception
+   *   If the build file could not be parsed.
    */
-  protected function getLastReleaseTime() {
-    $timestamp = 0;
-
-    /** @var \Psr\Http\Message\ResponseInterface $build_file */
-    $build_file = $this->httpClient->request('GET', 'https://www.va.gov/BUILD.txt');
-
-    $body = $build_file->getBody();
-    if (preg_match('/BUILDTIME=([0-9]*)/', $body, $matches)) {
-      $timestamp = $matches[1];
+  public function getLastReleaseTimestamp(): int {
+    /** @var \Psr\Http\Message\ResponseInterface $response */
+    $response = $this->httpClient->request('GET', 'https://www.va.gov/BUILD.txt');
+    if (preg_match('/BUILDTIME=([0-9]*)/', $response->getBody(), $matches)) {
+      return $matches[1];
     }
-
-    if ($timestamp) {
-      $days = $this->getDaysAgo($timestamp);
-      $time = $this->dateFormatter->format($timestamp, 'custom', 'h:i a T');
-      return "{$days} at {$time}";
-    }
-
-    return '';
+    throw new \Exception("Unable to parse timestamp from build file.");
   }
 
   /**
-   * Get the number of days from the passed timestamp until today.
+   * Calculate the last-released-at message.
    *
-   * @param int $timestamp
-   *   The UNIX timestamp to check.
+   * @param int $lastTimestamp
+   *   The timestamp of the last release.
+   * @param int $currentTimestamp
+   *   The timestamp used as our basis for comparison.
    *
    * @return string
-   *   Human-friendly number of days ago.
+   *   Human-friendly message describing the last-release.
    */
-  protected function getDaysAgo($timestamp) {
-    $now = DrupalDateTime::createFromTimestamp(time())->setTime(0, 0, 0);
-    $release_date = DrupalDateTime::createFromTimestamp($timestamp)->setTime(0, 0, 0);
-    $difference_in_days = $now->diff($release_date)->d;
+  public function getLastReleaseMessage(int $lastTimestamp, int $currentTimestamp): string {
+    $days = $this->getDifferenceInDaysMessage($lastTimestamp, $currentTimestamp);
+    $time = $this->dateFormatter->format($lastTimestamp, 'custom', 'h:i a');
+    return "{$days} at {$time}";
+  }
 
-    if ($difference_in_days === 0) {
+  /**
+   * Calculate the days portion of the last-released-at message.
+   *
+   * @param int $lastTimestamp
+   *   The timestamp of the last release.
+   * @param int $currentTimestamp
+   *   The timestamp used as our basis for comparison.
+   *
+   * @return string
+   *   Human-friendly message describing the last-release.
+   */
+  public function getDifferenceInDaysMessage(int $lastTimestamp, int $currentTimestamp): string {
+    $differenceInDays = $this->getDifferenceInDays($lastTimestamp, $currentTimestamp);
+    if ($differenceInDays === 0) {
       return $this->t('today');
     }
-
-    if ($difference_in_days === 1) {
+    if ($differenceInDays === 1) {
       return $this->t('yesterday');
     }
+    return $this->t('@days days ago', [
+      '@days' => $differenceInDays,
+    ]);
+  }
 
-    return $this->t('@days days ago', ['@days' => $difference_in_days]);
+  /**
+   * Calculate the difference in days between two timestamps.
+   *
+   * This is not a strict mathematical interval, e.g. ($2 - $1) / 86400.
+   *
+   * Rather, the timestamps are converted to dates in the Eastern timezone and
+   * the calendar day difference is calculated.
+   *
+   * @param int $timestamp1
+   *   One timestamp.
+   * @param int $timestamp2
+   *   A later timestamp.
+   *
+   * @return int
+   *   The number of calendar days difference between the timestamps.
+   */
+  public function getDifferenceInDays(int $timestamp1, int $timestamp2): int {
+    assert($timestamp2 >= $timestamp1);
+    $timezone = new \DateTimeZone($this->timezone);
+    $date1 = new \DateTime('@' . $timestamp1);
+    $date1->setTimezone($timezone);
+    $date1->setTime(0, 0, 0);
+    $date2 = new \DateTime('@' . $timestamp2);
+    $date2->setTimezone($timezone);
+    $date2->setTime(0, 0, 0);
+    $interval = $date1->diff($date2);
+    return $interval->d;
   }
 
 }

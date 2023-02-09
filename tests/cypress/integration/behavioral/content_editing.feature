@@ -19,13 +19,16 @@ Feature: CMS Users may effectively create & edit content
     And I click the "DO NOT Create banner alert LOL" button
     And I wait "5" seconds
     And I click the "Save draft and continue editing" button
-    Then I should see "Pages for the following VAMC systems"
-    And I should see "[Test Data] Alert Title"
+    Then "Pages for the following VAMC systems" should exist
+    And "[Test Data] Alert Title" should exist
+    And I scroll to position "bottom"
+    And I click the "Unlock" link
+    And I click the "Confirm break lock" button
 
   Scenario: Confirm that content cannot be published directly from the node view but can from the node edit form.
     Given I am logged in as a user with the "content_admin" role
     And I create a "landing_page" node
-    Then I should not see an element with the selector "#edit-new-state"
+    Then an element with the selector "#edit-new-state" should not exist
     And I edit the node
     Then the element with selector "#edit-moderation-state-0-state" should contain "Draft"
 
@@ -56,17 +59,12 @@ Feature: CMS Users may effectively create & edit content
     And the element with selector "#edit-field-address-0" should contain "City"
     And the element with selector "#edit-field-address-0" should contain "State"
 
-  Scenario: Confirm that the default time zone when creating an event is set explicitly to Eastern.
-    Given I am logged in as a user with the "content_admin" role
-    And I am at "node/add/event"
-    And the element with selector "#edit-field-datetime-range-timezone-0-timezone" should contain "New York"
-
   Scenario: Log in, edit, and save nodes with save and continue button and confirm revision saves changes.
     When I am logged in as a user with the "administrator" role
     And I create a "checklist" node and continue
 
     # Verify data has been saved
-    Then I should not see "error has been found:"
+    Then "error has been found:" should not exist
     And I should see "[Test Data]"
     And the element with selector "#edit-field-checklist-0-subform-field-checklist-sections-0-subform-field-section-header-0-value" should have attribute "value" containing value "[Test Header Value]"
     And the element with selector "#edit-field-checklist-0-subform-field-checklist-sections-0-subform-field-checklist-items-0-value" should have attribute "value" containing value "[Test Items Value]"
@@ -90,3 +88,93 @@ Feature: CMS Users may effectively create & edit content
     # Make sure we are in draft state
     Then I edit the node
     And the option "Draft" from dropdown with selector "#edit-moderation-state-0-state" should be selected
+
+  # EVENT FORM SPECS
+
+  Scenario: Confirm that the default time zone when creating an event is set explicitly to Eastern.
+    Given I am logged in as a user with the "content_admin" role
+    When I am at "node/add/event"
+    Then the element with selector "#edit-field-datetime-range-timezone-0-timezone" should contain "New York"
+
+  Scenario: Confirm that the event form conditional elements are shown or hidden appropriately
+    Given I am logged in as a user with the "content_admin" role
+    And I am at "node/add/event"
+
+    And I select the "At a VA facility" radio button
+    Then I should see "Facility location"
+    And I should see "Building, floor, or room"
+    And I should not see "Street address"
+    And I should not see an element with the selector "#edit-field-address-0-address-locality"
+    And I should not see an element with the selector "#edit-field-address-0-address-administrative-area"
+    And I should not see "Country"
+    And I should not see an element with the selector "#edit-field-url-of-an-online-event-0-uri"
+
+    When I select the "At a non-VA location" radio button
+    Then I should not see "Facility location"
+    And I should see "Building, floor, or room"
+    And I should see "Street address"
+    And I should see an element with the selector "#edit-field-address-0-address-locality"
+    And I should see an element with the selector "#edit-field-address-0-address-administrative-area"
+    And I should see "Country"
+    And I should not see an element with the selector "#edit-field-url-of-an-online-event-0-uri"
+
+    When I select the "Online" radio button
+    Then I should not see "Facility location"
+    And I should not see "Building, floor, or room"
+    And I should not see "Street address"
+    And I should not see an element with the selector "#edit-field-address-0-address-locality"
+    And I should not see an element with the selector "#edit-field-address-0-address-administrative-area"
+    And I should not see "Country"
+    And I should see an element with the selector "#edit-field-url-of-an-online-event-0-uri"
+
+    # Registration checkbox reveals conditional form elements
+    When I check the "Include registration information" checkbox
+    Then "Cost" should be visible
+    And I should see "Registration is required for this event"
+    And "Call to action" should be visible
+
+    When I select option "Register" from dropdown "Call to action" 
+    Then I should see an element with the selector "#edit-field-link-0-uri"
+    And I select option "Apply" from dropdown "Call to action"
+    Then I should see an element with the selector "#edit-field-link-0-uri"
+    And I select option "RSVP" from dropdown "Call to action"
+    Then I should see an element with the selector "#edit-field-link-0-uri"
+    And I select option "More Details" from dropdown "Call to action"
+    Then I should see an element with the selector "#edit-field-link-0-uri"
+    And I select option "- None -" from dropdown "Call to action"
+    Then I should not see an element with the selector "#edit-field-link-0-uri"
+
+    When I uncheck the "Include registration information" checkbox
+    Then I should not see "Cost"
+    And I should not see "Registration is required for this event"
+    And I should not see "Call to action"
+    And I should not see an element with the selector "#edit-field-link-0-uri"
+
+  Scenario: Confirm that event form conditional fields are cleared out if parent options change
+    Given I am logged in as a user with the "content_admin" role
+    And I am at "node/add/event"
+
+    # Check registration call to action conditional field
+    When I select option "Register" from dropdown "Call to action"
+    And I fill in autocomplete field with selector "#edit-field-url-of-an-online-event-0-uri" with value "/node/5016"
+    And I select option "- None -" from dropdown "Call to action"
+    And I select option "Register" from dropdown "Call to action"
+    Then an element with the selector "#edit-field-url-of-an-online-event-0-uri" should be empty
+
+    # Check the location type conditional fields
+    When I select the "At a VA facility" radio button
+    And I fill in autocomplete field with selector "#edit-field-facility-location-0-target-id" with value "Aberdeen VA Clinic | VA Sioux Falls health care (1111)"
+    And I select the "At a non-VA location" radio button
+    And I fill in field with selector "#edit-field-address-0-address-address-line1" with value "555 Test Street"
+    And I fill in field with selector "#edit-field-address-0-address-locality" with value "Testville"
+    And I select option "Alabama" from dropdown "State"
+    And I select the "Online" radio button
+    And I fill in autocomplete field with selector "#edit-field-url-of-an-online-event-0-uri" with value "https://va.gov"
+    And I select the "At a VA facility" radio button
+    Then an element with the selector "#edit-field-facility-location-0-target-id" should be empty
+    When I select the "At a non-VA location" radio button
+    Then an element with the selector "#edit-field-address-0-address-address-line1" should be empty
+    And an element with the selector "#edit-field-address-0-address-locality" should be empty
+    And the option "- None -" from dropdown "State" should be selected
+    When I select the "Online" radio button
+    Then an element with the selector "#edit-field-url-of-an-online-event-0-uri" should be empty

@@ -2,23 +2,26 @@
 
 namespace Drupal\va_gov_backend\EventSubscriber;
 
-use Drupal\node\NodeInterface;
 use Drupal\Component\Render\FormattableMarkup;
-use Drupal\Core\Entity\EntityFormInterface;
-use Drupal\Core\Entity\EntityTypeManager;
-use Drupal\Core\Entity\EntityFieldManager;
-use Drupal\Core\Entity\ContentEntityForm;
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityTypeBuildEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\core_event_dispatcher\FormHookEvents;
+use Drupal\Core\Config\Entity\ConfigEntityType;
+use Drupal\Core\Entity\ContentEntityForm;
+use Drupal\Core\Entity\EntityFieldManager;
+use Drupal\Core\Entity\EntityFormInterface;
+use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\field_event_dispatcher\Event\Field\WidgetSingleElementFormAlterEvent;
 use Drupal\field_event_dispatcher\FieldHookEvents;
+use Drupal\node\NodeInterface;
+use Drupal\va_gov_backend\Access\BlockContentTypeAccessControlHandler;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -90,13 +93,22 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Alteration to entity type build info.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityTypeBuildEvent $event
+   *   The Entity build event object.
+   */
+  public function entityTypeBuild(EntityTypeBuildEvent $event) {
+    $this->overrideBlockContentTypeAccessHandler($event);
+  }
+
+  /**
    * Alteration to entity view pages.
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
    *   The entity view alter service.
    */
   public function entityViewAlter(EntityViewAlterEvent $event):void {
-    $this->appendHealthServiceTermDescriptionToVetCenter($event);
     $this->showUnspecifiedWhenSystemEhrNumberEmpty($event);
   }
 
@@ -119,6 +131,25 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public function alterRegionalHealthServiceNodeForm(FormIdAlterEvent $event): void {
     $this->buildRegionalHealthServiceFormIntro($event);
     $this->buildHealthServicesDescriptionArrayAddToSettings($event);
+  }
+
+  /**
+   * Overrides Block Content Type access handler.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityTypeBuildEvent $event
+   *   The event.
+   */
+  public function overrideBlockContentTypeAccessHandler(EntityTypeBuildEvent $event) {
+    // Override the access control handler for block content type (config)
+    // entities. Core split the 'view' and 'view label' access operations to
+    // allow for modules to have more granular control over the content type
+    // label. The Core user module is an example of a module that makes use of
+    // the separate 'view label' operation, but the Core custom_block module is
+    // not.
+    $entityTypes = &$event->getEntityTypes();
+    if (!empty($entityTypes['block_content_type']) && $entityTypes['block_content_type'] instanceof ConfigEntityType) {
+      $entityTypes['block_content_type']->setAccessClass(BlockContentTypeAccessControlHandler::class);
+    }
   }
 
   /**
@@ -162,12 +193,13 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $vocabulary_definition = $this->entityFieldManager->getFieldDefinitions($entity_type, $bundle);
     $descriptions = [];
     foreach ($service_terms as $service_term) {
+      $description = $service_term->get($fields['description'])->value ?? '';
       /** @var \Drupal\taxonomy\Entity\Term $service_term */
       $descriptions[$service_term->id()] = [
         'type' => $service_term->get($fields['type'])->getSetting('allowed_values')[$service_term->get($fields['type'])->getString()] ?? NULL,
         'name' => $service_term->get($fields['name'])->getString(),
         'conditions' => $service_term->get($fields['conditions'])->getString(),
-        'description' => trim(strip_tags($service_term->get($fields['description'])->value)),
+        'description' => trim(strip_tags($description)),
         'vc_vocabulary_service_description_label' => $vocabulary_definition['field_vet_center_service_descrip']->getLabel(),
         'vc_vocabulary_description_help_text' => $vocabulary_definition['field_vet_center_service_descrip']->getDescription(),
       ];
@@ -212,35 +244,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       ];
     }
     return $fields;
-  }
-
-  /**
-   * Appends health service entity description to title on entity view page.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
-   *   The entity view alter service.
-   */
-  public function appendHealthServiceTermDescriptionToVetCenter(EntityViewAlterEvent $event):void {
-    if ($event->getDisplay()->getTargetBundle() === 'vet_center') {
-      $build = &$event->getBuild();
-      $services = $build['field_health_services'] ?? [];
-      foreach ($services as $key => $service) {
-        if (is_numeric($key) && !empty($service['#options'])) {
-          $service_node = $service['#options']['entity'];
-
-          // Look for real content in field_body. If just line breaks
-          // and empty tags use field_service_name_and_descripti.
-          $body_tags_removed = trim(strip_tags($service_node->get('field_body')->value));
-          $body_tags_and_ws_removed = str_replace("\r\n", "", $body_tags_removed);
-          $description = strlen($body_tags_and_ws_removed) > 15
-          ? '<br />' . trim($service_node->get('field_body')->value)
-          : '<br />' . trim($service_node->get('field_service_name_and_descripti')->entity->get('field_vet_center_service_descrip')->value);
-
-          $formatted_markup = new FormattableMarkup($description, []);
-          $build['field_health_services'][$key]['#suffix'] = $formatted_markup;
-        }
-      }
-    }
   }
 
   /**
@@ -540,6 +543,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public static function getSubscribedEvents(): array {
     return [
       EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
+      EntityHookEvents::ENTITY_TYPE_BUILD => 'entityTypeBuild',
       FieldHookEvents::WIDGET_SINGLE_ELEMENT_FORM_ALTER => 'formWidgetAlter',
       EntityHookEvents::ENTITY_VIEW_ALTER => 'entityViewAlter',
       FormHookEvents::FORM_ALTER => 'formAlter',

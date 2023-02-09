@@ -21,7 +21,9 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
 use Drupal\field\Entity\FieldConfig;
+use Drupal\field\FieldStorageConfigInterface;
 use Drupal\file\Entity\File;
+use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\node\NodeInterface;
 use Drupal\taxonomy\TermInterface;
 use Drupal\user\Entity\Role;
@@ -268,11 +270,11 @@ function _va_gov_backend_get_clp_toggles() {
  * @param array $toggles
  *   The array containing arrays of trigger and toggle fields.
  */
-function _va_gov_toggle_fields_states(array &$form, array $toggles) {
+function _va_gov_backend_toggle_fields_states(array &$form, array $toggles) {
   if (!empty($toggles['toggle_groups']) && is_array($toggles['toggle_groups'])) {
     foreach ($toggles['toggle_groups'] as $toggle_group) {
       // Toggle the fields.
-      _va_gov_toggle_field_states($form, $toggle_group);
+      _va_gov_backend_toggle_field_states($form, $toggle_group);
     }
   }
 }
@@ -302,7 +304,7 @@ function _va_gov_toggle_fields_states(array &$form, array $toggles) {
  * @endcode
  * @codingStandardsIgnoreEnd
  */
-function _va_gov_toggle_field_states(array &$form, array $toggle_group) {
+function _va_gov_backend_toggle_field_states(array &$form, array $toggle_group) {
   if (isset($form[$toggle_group['trigger']])) {
     // The trigger is present so show/hide the associated fields.
     foreach ($toggle_group['toggle_fields'] as $key => $field) {
@@ -383,11 +385,11 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
   }
 
   // Disable path alias modification after lc node is published.
-  _va_gov_disable_alias_widget($form, $form_state);
+  _va_gov_backend_disable_alias_widget($form, $form_state);
 
   if ($form_id === 'node_campaign_landing_page_form' || $form_id === 'node_campaign_landing_page_edit_form') {
     $clp_toggles = _va_gov_backend_get_clp_toggles();
-    _va_gov_toggle_fields_states($form, $clp_toggles);
+    _va_gov_backend_toggle_fields_states($form, $clp_toggles);
     // Change story link teaser with image add button on clp form.
     if (!empty($form['field_clp_stories_teasers']['widget']['add_more']['add_more_button_link_teaser_with_image'])) {
       $form['field_clp_stories_teasers']['widget']['add_more']['add_more_button_link_teaser_with_image']['#value'] = t('Add story');
@@ -412,12 +414,18 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
     _va_gov_backend_smart_date_formatting($form, $form_state);
   };
 
-  $targets = [
-    'field_office',
-    'field_listing',
-  ];
-
-  _va_gov_backend_dropdown_field_access($form, $targets);
+  // Only run when on a node.
+  // Additionally, reduce the number of times called when editing a paragraph,
+  // which will have a triggering_element set.
+  if (isset($form['#entity_type'])
+    && $form['#entity_type'] === 'node'
+    && (!$form_state->getTriggeringElement())) {
+    $targets = [
+      'field_office',
+      'field_listing',
+    ];
+    _va_gov_backend_dropdown_field_access($form, $targets);
+  }
 
   if ($form_id === 'workbench_access_assign_user') {
     $form['#submit'][] = 'va_gov_backend_workbench_assign_user_form_submit';
@@ -430,17 +438,22 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
       $connection = \Drupal::database()->select('redirect', 'r');
       $connection->fields('r', ['redirect_redirect__options']);
       $connection->condition('r.redirect_source__path', $src_path, '=');
+      // phpcs:disable
+      // Disabling phpcs here due to the warning:
+      // "unserialize() is insecure unless allowed classes are limited. Use a
+      // safe format like JSON or use the allowed_classes option.".
       $query = unserialize($connection->execute()->fetchField());
+      // phpcs:enable
       $value = !empty($query['matchType']) ? $query['matchType'] : '';
     }
     $form['redirect_match_type'] = [
       '#type' => 'select',
       '#options' => [
-        'prefix' => 'prefix',
-        'exact_match' => 'exact match',
-        'regex_case_sensitive' => 'regex case sensitive',
-        'regex_case_insensitive' => 'regex case insensitive',
-        'non_re' => 'non re',
+        'prefix' => t('prefix'),
+        'exact_match' => t('exact match'),
+        'regex_case_sensitive' => t('regex case sensitive'),
+        'regex_case_insensitive' => t('regex case insensitive'),
+        'non_re' => t('non re'),
       ],
       '#title' => t('Match Type'),
       '#default_value' => $value,
@@ -503,7 +516,6 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
   if ($form_id === 'node_press_release_form' || $form_id === 'node_press_release_edit_form') {
     $form['field_address']['widget']['#after_build'][] = 'va_gov_backend_press_release_address_after_build';
   }
-
 }
 
 /**
@@ -572,7 +584,7 @@ function va_gov_backend_form_media_library_add_form_upload_alter(&$form, FormSta
 function va_gov_backend_field_widget_boolean_checkbox_form_alter(&$element, FormStateInterface $form_state, $context) {
   $field_definition = $context['items']->getFieldDefinition();
   if ($field_definition instanceof FieldConfig) {
-    [$entity_type, $bundle, $field_name] = explode('.', $field_definition->id());
+    [$entity_type, , $field_name] = explode('.', $field_definition->id());
     if ($entity_type === 'media' && $field_name === 'field_media_in_library') {
       $element['value']['#attributes']['class'][] = 'field_media_in_library';
     }
@@ -702,7 +714,7 @@ function _va_gov_backend_appt_intro_text_validation(array $form, FormStateInterf
  * @param Drupal\Core\Form\FormStateInterface $form_state
  *   Instance of FormStateInterface.
  */
-function _va_gov_disable_alias_widget(array &$form, FormStateInterface $form_state) {
+function _va_gov_backend_disable_alias_widget(array &$form, FormStateInterface $form_state) {
   if (!($form_state->getFormObject() instanceof EntityFormInterface)) {
     return;
   }
@@ -969,7 +981,7 @@ function va_gov_backend_preprocess_page_title(&$variables) {
 }
 
 /**
- * Add preview button to node view.
+ * Add va_gov preview button to view node on the front end.
  */
 function va_gov_backend_preprocess_page(&$variables) {
 
@@ -990,11 +1002,14 @@ function va_gov_backend_preprocess_page(&$variables) {
       'regional_health_care_service_des',
       'support_service',
       'story_listing',
+      'vba_facility_service',
       'vet_center_cap',
       'vet_center_facility_health_servi',
       'vet_center_mobile_vet_center',
       'vet_center_outstation',
     ];
+    $last_saved_by_an_editor = $node->get('field_last_saved_by_an_editor')->value;
+    $variables['page']['last_saved_by_an_editor'] = $last_saved_by_an_editor ? \Drupal::service('date.formatter')->format($last_saved_by_an_editor, 'custom', 'F j Y g:ia') : 'Unknown';
     // Exclude staff pages without bios.
     if ($node->bundle() === 'person_profile' && $node->field_complete_biography_create->value === '0') {
       $exclusion_types[] = 'person_profile';
@@ -1316,15 +1331,20 @@ function va_gov_backend_entity_bundle_field_info_alter(&$fields, EntityTypeInter
     $fields['field_benefit_categories']->addConstraint('BenefitsSelectionLimit');
   }
   // Validation constraints for long plain and rich text fields.
-  foreach ($fields as $field_name => $field) {
+  foreach ($fields as $field) {
     if ($field->getType() === 'string_long') {
       $field->addConstraint('PreventAbsoluteCmsLinks');
       $field->addConstraint('PreventProtocolRelativeLinks');
+      $field->addConstraint('PreventAbsoluteUrlsAsPathsInLinks');
+      $field->addConstraint('PreventVaGovDomainsAsPathsInLinks');
     }
     elseif ($field->getType() === 'text_long') {
       $field->addConstraint('PreventAbsoluteCmsLinks');
       $field->addConstraint('PreventLocalFileLinks');
       $field->addConstraint('PreventProtocolRelativeLinks');
+      $field->addConstraint('PreventMediaViewLinks');
+      $field->addConstraint('PreventAbsoluteUrlsAsPathsInLinks');
+      $field->addConstraint('PreventVaGovDomainsAsPathsInLinks');
     }
   }
   // Add paragraph checks on clp panels.
@@ -1917,6 +1937,18 @@ function _va_gov_backend_apply_filter_to_tablefield_cells(FieldableEntityInterfa
 }
 
 /**
+ * Implements hook_field_widget_WIDGET_TYPE_form_alter().
+ *
+ * Deprecated in va_gov_backend:9.2.3 and is removed from va_gov_backend:10.0.1
+ *   This should be removed in #10675.
+ *
+ * @see https://github.com/department-of-veterans-affairs/va.gov-cms/issues/10675
+ */
+function va_gov_backend_field_widget_tablefield_form_alter(&$element, FormStateInterface $form_state, $context): void {
+  $element["#description"] = t('The first row will be formatted as the table header. The labels in the first row should accurately describe the corresponding columns.');
+}
+
+/**
  * Determine if pathauto alias should be enabled on node.
  *
  * @param \Drupal\Core\Entity\FieldableEntityInterface $entity
@@ -2011,4 +2043,77 @@ function va_gov_backend_theme($existing, $type, $theme, $path) {
       'base hook' => 'form_element',
     ],
   ];
+}
+
+/**
+ * Return the node that the paragraph belongs to.
+ *
+ * If the paragraph's parent is a paragraph, recurse up the tree until you
+ * reach a non-paragraph entity.
+ *
+ * @param \Drupal\paragraphs\Entity\Paragraph $paragraph
+ *   The paragraph to find the parent of.
+ *
+ * @return \Drupal\node\Entity\Node|null
+ *   If the paragraph is attached to a node, return the node, otherwise NULL.
+ */
+function va_gov_backend_get_parent_node(Paragraph $paragraph) {
+  $parent_node = NULL;
+  /** @var Drupal\paragraphs\Entity\Paragraph $parent */
+  $parent = $paragraph->getParentEntity();
+  if ($parent !== NULL && $parent->getEntityType()->id() === 'paragraph') {
+    $parent_node = va_gov_backend_get_parent_node($parent);
+  }
+  elseif ($parent !== NULL && $parent->getEntityType()->id() === 'node') {
+    $parent_node = $parent;
+  }
+  return $parent_node;
+}
+
+/**
+ * Return the top entity that the paragraph belongs to.
+ *
+ * If the paragraph's parent is a paragraph, recurse up the tree until you
+ * reach a non-paragraph entity.
+ *
+ * @param \Drupal\paragraphs\Entity\Paragraph $paragraph
+ *   The paragraph to find the parent of.
+ * @param array $tree
+ *   The tree of entities that the paragraph belongs to, contains the
+ *   field_name and the revision_id of all entities in the tree.
+ *
+ * @return \Drupal\Core\Entity\EntityInterface|null
+ *   If the paragraph is attached to an entity, return it, otherwise NULL.
+ */
+function va_gov_backend_get_top_parent_entity(Paragraph $paragraph, array &$tree) {
+  $parent = NULL;
+  $tree[] = [
+    'field_name' => $paragraph->get('parent_field_name')->value,
+    'revision_id' => $paragraph->get('revision_id')->value,
+  ];
+  /** @var Drupal\paragraphs\Entity\Paragraph $parent */
+  $parent = $paragraph->getParentEntity();
+  if ($parent !== NULL && $parent->getEntityType()->id() === 'paragraph') {
+    $parent = va_gov_backend_get_top_parent_entity($parent, $tree);
+  }
+  return $parent;
+}
+
+/**
+ * Implements hook_field_views_data_alter().
+ *
+ * Views integration for timestamp field to filter as a date not a number.
+ *
+ * @see views_field_default_views_data()
+ */
+function va_gov_backend_field_views_data_alter(array &$data, FieldStorageConfigInterface $field_storage) {
+  if ($field_storage->getType() == 'timestamp') {
+    foreach ($data as $table_name => $table_data) {
+      foreach ($table_data as $field_name => $field_data) {
+        if (isset($field_data['filter']) && $field_name != 'delta') {
+          $data[$table_name][$field_name]['filter']['id'] = 'date';
+        }
+      }
+    }
+  }
 }

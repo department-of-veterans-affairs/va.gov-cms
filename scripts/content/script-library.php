@@ -6,8 +6,67 @@
  */
 
 use Drupal\node\NodeInterface;
+use Drupal\node\NodeStorageInterface;
+use Drupal\user\UserStorageInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 
-const CMS_MIGRATOR_ID = 1317;
+define('CMS_MIGRATOR_ID', 1317);
+
+/**
+ * Log a message to stdout.
+ *
+ * @param string $message
+ *   The message to log.
+ */
+function debug_log_message(string $message): void {
+  // \Drupal::logger(__FILE__)->notice($message);
+  echo $message . PHP_EOL;
+}
+
+/**
+ * Entity type manager.
+ *
+ * @return \Drupal\Core\Entity\EntityTypeManagerInterface
+ *   The entity type manager service.
+ */
+function entity_type_manager(): EntityTypeManagerInterface {
+  static $entity_type_manager;
+  if (is_null($entity_type_manager)) {
+    $entity_type_manager = \Drupal::entityTypeManager();
+  }
+  return $entity_type_manager;
+}
+
+/**
+ * Get the node storage.
+ *
+ * @return \Drupal\node\NodeStorageInterface
+ *   Node storage.
+ */
+function get_node_storage(): NodeStorageInterface {
+  return entity_type_manager()->getStorage('node');
+}
+
+/**
+ * Get the user storage.
+ */
+function get_user_storage(): UserStorageInterface {
+  return entity_type_manager()->getStorage('user');
+}
+
+/**
+ * Switch to the CMS Migrator user.
+ *
+ * @param int|null $uid
+ *   The UID of the account to switch.
+ */
+function switch_user(?int $uid = NULL): void {
+  $uid = $uid ?? CMS_MIGRATOR_ID;
+  $user = get_user_storage()->load($uid);
+  \Drupal::service('account_switcher')
+    ->switchTo($user);
+  debug_log_message("Acting as {$user->getDisplayName()} [{$uid}]");
+}
 
 /**
  * Load the latest revision of a node.
@@ -19,10 +78,37 @@ const CMS_MIGRATOR_ID = 1317;
  *   The latest revision of that node.
  */
 function get_node_at_latest_revision(int $nid): NodeInterface {
-  $entity_type_manager = \Drupal::entityTypeManager();
-  $node_storage = $entity_type_manager->getStorage('node');
-  $result = $node_storage->loadRevision($node_storage->getLatestRevisionId($nid));
-  return $result;
+  $node_storage = get_node_storage();
+  return $node_storage->loadRevision($node_storage->getLatestRevisionId($nid));
+}
+
+/**
+ * Load the default revision of a node.
+ *
+ * @param int $nid
+ *   The node ID.
+ *
+ * @return \Drupal\node\NodeInterface
+ *   The latest revision of that node.
+ */
+function get_node_at_default_revision(int $nid): NodeInterface {
+  return get_node_storage()->load($nid);
+}
+
+/**
+ * Load all revisions of a node.
+ *
+ * @param int $nid
+ *   The node ID.
+ *
+ * @return \Drupal\node\NodeInterface[]
+ *   All revisions of that node.
+ */
+function get_node_all_revisions(int $nid): array {
+  $node_storage = get_node_storage();
+  $node = $node_storage->load($nid);
+  $vids = $node_storage->revisionIds($node);
+  return $node_storage->loadMultipleRevisions($vids);
 }
 
 /**
@@ -62,8 +148,11 @@ function normalize_crisis_number($input, $plain = FALSE): string {
  *   The node to serialize.
  * @param string $message
  *   The log message for the new revision.
+ *
+ * @return int
+ *   Either SAVED_NEW or SAVED_UPDATED, depending on the operation performed.
  */
-function save_node_revision(NodeInterface $node, $message): void {
+function save_node_revision(NodeInterface $node, $message): int {
   $states = [
     'draft',
     'review',
@@ -79,7 +168,31 @@ function save_node_revision(NodeInterface $node, $message): void {
   $prefix = (in_array($moderation_state, $states)) ? $node->getRevisionLogMessage() . ' - ' : '';
   $node->setRevisionLogMessage($prefix . $message);
   $node->set('moderation_state', $moderation_state);
-  $node->save();
+  return $node->save();
+}
+
+/**
+ * Saves a node revision with no new revision or log.
+ *
+ * @param \Drupal\node\NodeInterface $revision
+ *   The node to serialize.
+ *
+ * @return int
+ *   Either SAVED_NEW or SAVED_UPDATED, depending on the operation performed.
+ */
+function save_node_existing_revision_without_log(NodeInterface $revision): int {
+  $revision->setNewRevision(FALSE);
+  $revision->enforceIsNew(FALSE);
+  $revision->setSyncing(TRUE);
+  $revision->setValidationRequired(FALSE);
+  $revision_time = $revision->getRevisionCreationTime();
+  // Incrementing by a nano second to bypass Drupal core logic
+  // that will update the "changed" value to request time if
+  // the value is not different from the original value.
+  $revision_time++;
+  $revision->setRevisionCreationTime($revision_time);
+  $revision->setChangedTime($revision_time);
+  return $revision->save();
 }
 
 /**

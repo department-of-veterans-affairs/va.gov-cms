@@ -5,15 +5,16 @@
 1. [FacilitiesAPI](#facilities-api)
 1. [Mirrors](#mirrors)
 
-
 ## GraphQL
 
 See [GraphQL](graph_ql.md)
 
 ## FeatureFlags
-Feature Flags are set in Drupal as configuration and either turned off or on to enable the use of new features on the Front End.  They are controlled in the DB via
-`/admin/config/system/feature_toggle` and exported to config.
+
+Feature Flags are set in Drupal as configuration and either turned off or on to enable the use of new features on the Front End.  They are controlled in the DB via `/admin/config/system/feature_toggle` and exported to config.
+
 Drupal is the source of truth about the status of a Feature Flag and any use of them on the Front End should provide functionality for if the Flag is present and TRUE as well as if it is not present or FALSE.  A non-present flag should be treated as FALSE.
+
 After a Feature Flag and its matching Front End code have made it all the way to PROD, PR's should be created to first remove Feature Flag logic from the Front End and then Removed from the CMS after that.  We should strive for as few flags as possible in the system.  They are intended only to sync up deployments of Features, they are not intended to be used beyond both FE and CMS code making it to PROD.
 
 [FE Tools Team Feature Flag documentation](https://github.com/department-of-veterans-affairs/vspwiki/blob/master/frontend/pages/platform/tools/feature-toggles.md#testing-cms-feature-toggles)
@@ -26,23 +27,25 @@ To see what is set on a give environment use
 [Ongoing facility migrations](../migrations-facility.md)
 
 The Facilities API provides data about VA facilities (hospitals, clinics, mobile clinics, vet centers, outstations, mobile vet centers, cemetaries, and Veterans Benefits Administraion offices).
+
 [Facilities API Documentation](https://developer.va.gov/explore/facilities/docs/facilities) and the [code resides here](https://github.com/department-of-veterans-affairs/lighthouse-facilities).
 
 ### Facility API Locally
-To adjust your local build to use and display Facility API data:
-Use [this code](migrations-facility.md#migration-settings-settingslocalphp).
 
+To adjust your local build to use and display Facility API data:
+
+Use [this code](migrations-facility.md#migration-settings-settingslocalphp).
 
 ### How to call the API and parse the data:
 
 The complete API call and response is formatted JSON. Calls can be GET requests
 and common calls look like:
 
-* Find locations near me, from the current va.gov website: https://www.va.gov/find-locations/?zoomLevel=4&page=1&address=5624 Kipling Parkway%2C Arvada%2C Colorado 80002%2C United States&facilityType=all&serviceType&location=39.798459%2C-105.11022&context=80002
+* Find locations near me, from the current va.gov website: `https://www.va.gov/find-locations/?zoomLevel=4&page=1&address=5624 Kipling Parkway%2C Arvada%2C Colorado 80002%2C United States&facilityType=all&serviceType&location=39.798459%2C-105.11022&context=80002`
 
   NOTE: type can also be "health", "cemetery", "benefits", "vet_center", serviceType can be things like “MentalHealthCare”, “PrimaryCare”, “Dermatology” (see facility-locator-response-json.txt for mock examples with more serviceTypes)
 
-  The API call the above find locations react widget is making: https://api.va.gov/v0/facilities/va?address=5624 Kipling Parkway, Arvada, Colorado 80002, United States&bbox[]=-105.86022&bbox[]=39.048459&bbox[]=-104.36022&bbox[]=40.548459&type=all&page=1
+  The API call the above find locations react widget is making: `https://api.va.gov/v0/facilities/va?address=5624 Kipling Parkway, Arvada, Colorado 80002, United States&bbox[]=-105.86022&bbox[]=39.048459&bbox[]=-104.36022&bbox[]=40.548459&type=all&page=1`
 
   NOTE: bbox[] array is bounding coordinates of the map to return based on location coords and zoomLevel from map display
 
@@ -62,6 +65,8 @@ and common calls look like:
 
 ## Mirrors
 
-There are environment which exist in [Tugboat](tugboat.md) that provide a mirror of Prod.  The content and code are updated daily at 3am EST on the mirrors.  The list of mirrors can be found in the "[Mirrors (refreshed daily from PROD at 3am ET)](https://tugboat.vfs.va.gov/6042eeed6a89945a99399d3d)" project in tugboat.  Contact CMS Support in the #cms-support Slack channel to request a new mirror.
+There are environments which exist in [Tugboat](tugboat.md) that provide a mirror of Prod.  The content and code are updated daily at 3am EST on the mirrors.  The list of mirrors can be found in the "[Mirrors (refreshed daily from PROD at 3am ET)](https://tugboat.vfs.va.gov/6042eeed6a89945a99399d3d)" project in tugboat.  Contact CMS Support in the #cms-support Slack channel to request a new mirror.
+
+----
 
 [Table of Contents](../README.md)
