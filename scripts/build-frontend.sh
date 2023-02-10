@@ -91,6 +91,7 @@ cat "${broken_links_path}" | jq >> ${logfile}
 
 echo "==> List heading order violations" >> ${logfile}
 pushd ./web
+PATH="${reporoot}/bin:$PATH"
 yarn list-heading-order-violations 2>&1 | grep -vE '^Processing file ' &>> ${logfile}
 cp -v heading_order_violations.html ${reporoot}/docroot/ &>> ${logfile}
 curl -X POST "https://api.ddog-gov.com/api/v1/series" \
