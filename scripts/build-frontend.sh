@@ -82,9 +82,12 @@ echo "==> Build complete" >> ${logfile}
 drush va-gov:content-release:advance-state complete
 drush va-gov:content-release:advance-state ready
 
+# After this point, we are less concerned with errors; the build has completed.
+set +e
+
 echo "==> Broken link report" >> ${logfile}
-broken_links_path="./docroot/vendor/va-gov/content-build/logs/vagovdev-broken-links.json";
-[ -f "${broken_links_path}" ] && cat "${broken_links_path}" | jq >> ${logfile}
+broken_links_path="${reporoot}/docroot/vendor/va-gov/content-build/logs/vagovdev-broken-links.json"
+cat "${broken_links_path}" | jq >> ${logfile}
 
 echo "==> List heading order violations" >> ${logfile}
 pushd ./web
@@ -93,8 +96,7 @@ cp -v heading_order_violations.html ${reporoot}/docroot/ &>> ${logfile}
 curl -X POST "https://api.ddog-gov.com/api/v1/series" \
   -H "Content-Type: text/json" \
   -H "DD-API-KEY: ${HA_HA_HA_NO_DATADOG_KEY_YET}" \
-  -d @- < heading_order_violations.json &>> ${logfile} \
-  || true
+  -d @- < heading_order_violations.json &>> ${logfile}
 popd
 
 # Make sure other builds can start.
