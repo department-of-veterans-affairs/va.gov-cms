@@ -225,11 +225,11 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $term_storage = $this->entityTypeManager->getStorage('taxonomy_term');
     $covid_status = [
       // Low.
-      1037,
+      '1037',
       // Medium.
-      1036,
+      '1036',
       // High.
-      1035,
+      '1035',
     ];
     $terms_text = [];
     /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
@@ -256,21 +256,18 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\node\NodeInterface $node
    *   The node to be interrogated.
-   * @param int $status
+   * @param string $status
    *   A single COVID status value.
    *
    * @return bool
    *   TRUE if COVID status is set but Details are empty.
    *   Otherwise, FALSE.
    */
-  private function isCovidStatusSetAndDetailsEmpty(NodeInterface $node, int $status) {
+  private function isCovidStatusSetAndDetailsEmpty(NodeInterface $node, string $status) {
     $statusButNoDetails = FALSE;
-    if (isset($node->get('field_supplemental_status')[0])
-    && isset($node->get('field_supplemental_status')[0]->getValue()['target_id'])) {
-      if ($node->get('field_supplemental_status')[0]->getValue()['target_id'] == $status
-      && empty($node->get('field_supplemental_status_more_i')[0]->getValue())) {
-        $statusButNoDetails = TRUE;
-      }
+    if ($node->get('field_supplemental_status')->target_id === $status
+      && empty($node->get('field_supplemental_status_more_i')->value)) {
+      $statusButNoDetails = TRUE;
     }
     return $statusButNoDetails;
   }
