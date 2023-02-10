@@ -9,7 +9,7 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\node\NodeForm;
 use Drupal\path_alias\AliasManagerInterface;
 use Drupal\va_gov_user\Service\UserPermsService;
-use Drupal\va_gov_lovell\LovellOps; // phpcs:ignore
+use Drupal\va_gov_lovell\LovellOps;
 
 /**
  * Class MenuReductionService a service for reducing possible menu items.
@@ -442,7 +442,6 @@ class MenuReductionService {
   protected function checkForLovellSubSystem(string $alias) {
     if ($alias === '/' . LovellOps::TRICARE_PATH
       || $alias === '/' . LovellOps::VA_PATH) {
-      // By setting this value this item will be excluded.
       return self::LOVELLSYS;
     }
     return NULL;
