@@ -23,6 +23,7 @@ Feature: Views
 | Content | content | Content | Enabled | Find and manage content. |
 | Content entity browsers | content_entity_browsers | Content | Enabled | Collection of Entity Browsers to use for field widgets configuration in form displays. |
 | Content Entity Reference Source | content_entity_reference_source | Content | Enabled | Various views used to populate options on entity reference fields |
+| Content Model Documents | content_model_documents | Content Model Document | Enabled | Listing of all Content Model Documents.  (Created by the content_model_documentation module, but editable) |
 | Content Model Fields | content_model_fields | Field | Enabled | Displays field configuration for the content model. |
 | Content release logs | content_release_logs | Log entries | Enabled | Shows content release job log entries |
 | Content served from Drupal | content_served_from_drupal | Content | Enabled | An exportable list of all content served from Drupal |
@@ -138,6 +139,8 @@ Feature: Views
 | Content Entity Reference Source | Entity Reference: Story Listing | entity_reference_3 | Entity Reference |
 | Content Entity Reference Source | Entity Reference: Systems | entity_reference_6 | Entity Reference |
 | Content Entity Reference Source | Master | default | Default |
+| Content Model Documents | CM Documents | cm_documents | Page |
+| Content Model Documents | Default | default | Default |
 | Content Model Fields | Default | default | Default |
 | Content Model Fields | Page | content_model_documentation_fields | Page |
 | Content release logs | Master | default | Default |
