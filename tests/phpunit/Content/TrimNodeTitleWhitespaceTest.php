@@ -51,7 +51,7 @@ class TrimNodeTitleWhitespaceTest extends VaGovExistingSiteBase {
    * @dataProvider titleTrimRestrictedToNodesDataProvider
    */
   public function testTitleTrimRestrictedToNodes($entityTypeId, $titleInput, $expectedTitleOutput) {
-    $this->markTestSkipped('this test is encountering repeated failures. will be re-enabled in #11964.');
+    $this->markTestSkipped('This test combines poorly with GraphQL, and will be re-enabled in #11964.');
     // Creates a user. Will be automatically cleaned up at the end of the test.
     $author = $this->createUser();
     // Create a vocabulary for testing terms.
