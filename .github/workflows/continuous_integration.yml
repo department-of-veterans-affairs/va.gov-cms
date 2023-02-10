@@ -53,7 +53,7 @@ jobs:
         uses: reviewdog/action-eslint@d3395027ea2cfc5cf8f460b1ea939b6c86fea656
         with:
           reporter: github-pr-review
-          eslint_flags: '--max-warnings 0 -c .eslintrc.json --no-eslintrc docroot/modules/custom/**/*.es6.js docroot/themes/custom/**/*.es6.js'
+          eslint_flags: '--max-warnings 0 -c .eslintrc.json --no-eslintrc docroot/modules/custom/**/*.es6.js docroot/themes/custom/**/*.es6.js tests/cypress/**/*.js'
           fail_on_error: true
 
   # Check for common PHP code smells with PHP_CodeSniffer.
