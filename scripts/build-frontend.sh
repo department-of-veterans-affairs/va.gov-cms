@@ -95,7 +95,7 @@ yarn list-heading-order-violations 2>&1 | grep -vE '^Processing file ' &>> ${log
 cp -v heading_order_violations.html ${reporoot}/docroot/ &>> ${logfile}
 curl -X POST "https://api.ddog-gov.com/api/v1/series" \
   -H "Content-Type: text/json" \
-  -H "DD-API-KEY: ${HA_HA_HA_NO_DATADOG_KEY_YET}" \
+  -H "DD-API-KEY: ${CMS_DATADOG_API_KEY}" \
   -d @- < heading_order_violations.json &>> ${logfile}
 popd
 
