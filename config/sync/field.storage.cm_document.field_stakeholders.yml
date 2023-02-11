@@ -1,0 +1,20 @@
+uuid: 30b04a87-d9fa-439f-8aa6-4ae3fd59a0a4
+langcode: en
+status: true
+dependencies:
+  module:
+    - content_model_documentation
+    - taxonomy
+id: cm_document.field_stakeholders
+field_name: field_stakeholders
+entity_type: cm_document
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
