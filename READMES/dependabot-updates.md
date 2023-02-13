@@ -55,4 +55,13 @@ Diff: https://git.drupalcode.org/project/blazy/-/compare/8.x-2.2...8.x-2.4?from_
 Review the release notes and determine if manualy testing is required.  Most of the time if all tests pass then the PR can be merged but this is a case by case basis.  If you have any questions please reach out to your tech lead.
 
 It's also useful to review the code diff to look for any API/method changes and see if we use any of the changed code.
-  
+
+### When Tugboat Fails to Deploy
+
+The pull request events dispatched from GitHub to Tugboat cross the TIC; therefore, they are subject to inspection and rejection for possibly harmful content.  As of now (February 2023), a rejected request still has a 200 HTTP status code, making this difficult to detect.
+
+If a pull request's body contains code, it is possible that this will be interpreted as an attempt at server-side code injection.  For instance, if the message contains "We started using `filter_var()` to check if a variable is boolean.", it may be flagged as attempting PHP code injection and rejected transparently, regardless of the surrounding text.
+
+The result is that Tugboat will not receive the message and consequently will not know to deploy a PR preview environment, and so the complete suite of tests will not run.
+
+In this case, commenting `@dependabot recreate` will probably not have any effect.  Rather, enter the Tugboat interface, find the branch in the "available to build" list, and build it manually.  The tests will run and work should proceed normally from that point.
