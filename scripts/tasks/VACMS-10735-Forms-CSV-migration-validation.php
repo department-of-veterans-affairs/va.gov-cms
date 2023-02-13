@@ -5,19 +5,33 @@
  * CSV Validation for VA Forms CSV.
  */
 
+run();
+
+/**
+ * The run function that calls everything else.
+ */
+function run() {
+  $exitMessageBaseText = 'Find-a-form: CSV validation failed;';
+  $csv = _va_forms_get_csv_headers();
+  _va_forms_validate_csv_has_content($csv, $exitMessageBaseText);
+  _va_forms_validate_csv_headers($csv, $exitMessageBaseText);
+  // @todo add a date check on the file to see if it is not more than 3 days
+  // old (to allow for weekends).
+}
+
 /**
  * Gets the csv headers from the known forms data csv.
  *
  * @return array
  *   An array of headers from the csv
  */
-function _va_forms_get_csv() {
+function _va_forms_get_csv_headers() {
   /** @var \Drupal\Core\StreamWrapper\StreamWrapperManager $wrapper */
   $wrapper = \Drupal::service('stream_wrapper_manager');
   $basePath = $wrapper->getViaScheme('public')->realpath();
   $filePath = "{$basePath}/migrate_source/va_forms_data.csv";
   $handle = fopen($filePath, 'r');
-  return fgetcsv($handle, 1000);
+  return fgetcsv($handle, NULL);
 }
 
 /**
@@ -57,8 +71,3 @@ function _va_forms_validate_csv_has_content(bool|array $csv, string $exitMessage
     exit("{$exitMessage} Empty or invalid CSV. In _va_forms_validate_csv_contents()\r\n");
   }
 }
-
-$exitMessageBaseText = 'Find-a-form: CSV validation failed;';
-$csv = _va_forms_get_csv();
-_va_forms_validate_csv_has_content($csv, $exitMessageBaseText);
-_va_forms_validate_csv_headers($csv, $exitMessageBaseText);

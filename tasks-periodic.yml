@@ -15,7 +15,6 @@ tasks:
           exit_code=0
           tasks=(
             va/background/daily/migrate_copy/va_forms_csv_source
-            va/background/daily/migrate/csv_check
             va/background/daily/migrate/va_forms
             va/background/daily/update/taxonomy_entity_index
           )
@@ -96,14 +95,10 @@ tasks:
         cd docroot/sites/default/files/migrate_source
         curl https://vaww.webdevi.va.gov/vaforms/VAForms_DataExtract/VAForms_FormsData.txt -L --output va_forms_data.csv
 
-  va/background/daily/migrate/csv_check:
-    desc: Performs checks on migration csv download
-    cmds:
-      - drush src scripts/tasks/VACMS-10735-Forms-CSV-migration-validation.php
-
   va/background/daily/migrate/va_forms:
     desc: Migrate va forms.
     cmds:
+      - drush $DRUSH_ALIAS scr scripts/tasks/VACMS-10735-Forms-CSV-migration-validation.php
       - drush $DRUSH_ALIAS migrate:reset-status va_node_form
       - drush $DRUSH_ALIAS migrate:import va_node_form
 
