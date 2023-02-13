@@ -526,179 +526,281 @@
             }
         }
     },
+    "scripts-descriptions": {
+        "drush": "Run Drush transparently (all arguments will be passed).",
+        "npm": "Run NPM transparently (all arguments will be passed).",
+        "nuke": "Remove all Composer package and cache directories.",
+        "set-path": "Display a command for updating the path to include `./bin`.",
+        "va:drush": "Run Drush transparently (all arguments will be passed).",
+        "va:npm": "Run NPM transparently (all arguments will be passed).",
+        "va:nuke": "Remove all Composer package and cache directories.",
+        "va:remove-git-dirs": "Remove .git directories within this directory, e.g. those created by Composer.",
+        "va:set-path": "Display a command for updating the path to include `./bin`.",
+        "va:ds:drupal": "Build the Drupal theme.",
+        "va:ds:storybook": "Build the Storybook.",
+        "va:migrate:sync": "Copy migration ymls from va_gov_migrate to config/sync and run config import.",
+        "va:proxy:socks": "Set up a SOCKS proxy.",
+        "va:proxy:socks:test": "Test whether the SOCKS proxy is operating correctly.",
+        "va:test": "Run all of the tests sequentially, stopping on the first failure.",
+        "va:test:no-fail": "Run all of the tests sequentially, even if some fail.",
+        "va:test:fast": "Runs the \"fast\" static analysis, linting, and unit tests.",
+        "va:test:behat": "Run Behat tests.",
+        "va:test:check-cer": "Check the Corresponding Entity References fields.",
+        "va:test:check-revision-logs": "Check the revision log fields.",
+        "va:test:content-build-gql": "Run GraphQL export to test content-build.",
+        "va:test:cypress": "Run Cypress tests.",
+        "va:test:cypress-ci": "Run Cypress tests with CI-specific functionality.",
+        "va:test:cypress-interactive": "Run Cypress tests interactively (on host web browser).",
+        "va:test:eslint": "Run ESLint tests.",
+        "va:test:lint-php": "Lint PHP files.",
+        "va:test:scaling_performance": "Perform a test of the CMS' ability to scale.",
+        "va:test:php_codesniffer": "Run PHP_CodeSniffer tests.",
+        "va:test:phpstan": "Run PHPStan static analysis tests.",
+        "va:test:phpunit-functional": "Run PHPUnit (functional) tests.",
+        "va:test:phpunit-unit": "Run PHPUnit (unit) tests.",
+        "va:test:status-error": "Check Drupal status for errors.",
+        "va:test:status-error-ci": "Check Drupal status for errors with some CI-specific functionality.",
+        "va:test:stylelint-modules": "Run StyleLint tests on modules.", 
+        "va:test:stylelint-themes": "Run StyleLint tests on themes.",
+        "va:theme:compile": "Compile the VA.gov Claro theme.",
+        "va:theme:watch": "Watch VA.gov Claro theme source and compile as needed.",
+        "va:web:build": "Perform a content build.",
+        "va:web:install": "Prepare the content-build project.",
+        "va:web:prepare-dotenv": "Prepare the ./web/.env file."
+    },
     "scripts": {
-        "set-path": [
+        "pre-install-cmd": [
+            "! ./scripts/should-run-directly.sh || ./scripts/composer-pre-install.sh",
+            "./scripts/should-run-directly.sh || ddev composer run pre-install-cmd --"
+        ],
+        "post-install-cmd": [
+            "! ./scripts/should-run-directly.sh || ./scripts/composer-post-install.sh",
+            "./scripts/should-run-directly.sh || ddev composer run post-install-cmd --"
+        ],
+        "pre-update-cmd": [
+            "! ./scripts/should-run-directly.sh || ./scripts/composer-pre-update.sh",
+            "./scripts/should-run-directly.sh || ddev composer run pre-update-cmd --"
+        ],
+        "post-update-cmd": [
+            "! ./scripts/should-run-directly.sh || ./scripts/composer-post-update.sh",
+            "./scripts/should-run-directly.sh || ddev composer run post-update-cmd --"
+        ],
+        "drush": "composer va:drush --",
+        "npm": "composer va:npm --",
+        "nuke": "composer va:nuke --",
+        "set-path": "composer va:set-path --",
+        "va:drush": [
+            "# Run Drush transparently (all arguments will be passed).",
+            "! ./scripts/should-run-directly.sh || drush",
+            "./scripts/should-run-directly.sh || ddev composer va:drush --"
+        ],
+        "va:ds:drupal": [
+            "# Build the Drupal theme.",
+            "! ./scripts/should-run-directly.sh || (cd docroot/design-system && yarn install && yarn build:drupal)",
+            "./scripts/should-run-directly.sh || ddev composer va:ds:drupal --"
+        ],
+        "va:ds:storybook": [
+            "# Build the Storybook.",
+            "! ./scripts/should-run-directly.sh || (cd docroot/design-system && yarn install && yarn build:storybook)",
+            "./scripts/should-run-directly.sh || ddev composer va:ds:storybook --"
+        ],
+        "va:migrate:sync": [
+            "# Copy migration ymls from va_gov_migrate to config/sync and run config import.",
+            "! ./scripts/should-run-directly.sh || ./scripts/migrate-sync.sh",
+            "./scripts/should-run-directly.sh || ddev composer va:migrate:sync --"
+        ],
+        "va:npm": [
+            "# Run NPM transparently (all arguments will be passed).",
+            "! ./scripts/should-run-directly.sh || npm",
+            "./scripts/should-run-directly.sh || ddev composer va:npm --"
+        ],
+        "va:nuke": [
+            "# Remove all Composer package and cache directories.",
+            "! ./scripts/should-run-directly.sh || ./scripts/nuke-composer-directories.sh",
+            "./scripts/should-run-directly.sh || ddev composer va:nuke --"
+        ],
+        "va:proxy:socks": [
+            "# Set up a SOCKS proxy.",
+            "./scripts/connect-socks.sh"
+        ],
+        "va:proxy:socks:test": [
+            "# Test the SOCKS proxy.",
+            "curl -v --proxy socks5h://127.0.0.1:2001 sentry.vetsgov-internal"
+        ],
+        "va:remove-git-dirs": [
+            "# Remove .git directories within this directory, e.g. those created by Composer.",
+            "! ./scripts/should-run-directly.sh || ./scripts/remove-git-dirs.sh",
+            "./scripts/should-run-directly.sh || ddev composer va:remove-git-dirs --"
+        ],
+        "va:set-path": [
             "# Run the command output below to set your current terminal PATH variable.",
             "# This will allow you to run any command in the ./bin directory without a path.",
             "echo \"export PATH=${PATH}\""
         ],
-        "remove-git-dirs": [
-            "echo \"Removing .git sub-directories...\"",
-            "find . -mindepth 2 -type d -name .git -not -path './docroot/vendor/va-gov/content-build/.git' | xargs rm -rfv"
+        "va:test": [
+            "# Run all of the tests sequentially, stopping on the first failure.",
+            "@composer validate",
+            "@va:test:behat",
+            "@va:test:check-cer",
+            "@va:test:check-revision-logs",
+            "@va:test:content-build-gql",
+            "@va:test:cypress",
+            "@va:test:eslint",
+            "@va:test:lint-php",
+            "@va:test:php_codesniffer",
+            "@va:test:phpstan",
+            "@va:test:phpunit-functional",
+            "@va:test:phpunit-unit",
+            "@va:test:status-error",
+            "@va:test:stylelint-modules",
+            "@va:test:stylelint-themes"
         ],
-        "pre-install-cmd": [
-            "mkdir -p vendor",
-            "[ -f .env ] || cp .env.example .env"
+        "va:test:fast": [
+            "# Runs the \"fast\" static analysis, linting, and unit tests.",
+            "@composer validate",
+            "@va:test:check-cer",
+            "@va:test:check-revision-logs",
+            "@va:test:eslint",
+            "@va:test:lint-php",
+            "@va:test:php_codesniffer",
+            "@va:test:phpstan",
+            "@va:test:phpunit-unit",
+            "@va:test:stylelint-modules",
+            "@va:test:stylelint-themes"
         ],
-        "post-install-cmd": [
-            "mkdir --parents docroot/profiles",
-            "cp -r 'hooks/git/.' '.git/hooks/'",
-            "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
-            "ln -snf 'docroot/vendor/simplesamlphp/simplesamlphp/' 'simplesamlphp'",
-            "ln -snf 'docroot/vendor/simplesamlphp/saml2/' 'saml2'",
-            "cp -r 'simplesamlphp-config-metadata/config' 'simplesamlphp-config-metadata/metadata' 'docroot/vendor/simplesamlphp/simplesamlphp/'",
-            "git update-index --skip-worktree samlsessiondb.sq3",
-            "rm -r vendor",
-            "@remove-git-dirs"
+        "va:test:no-fail": [
+            "# Run all of the tests sequentially, even if some fail.",
+            "@composer validate || true",
+            "@va:test:behat || true",
+            "@va:test:check-cer || true",
+            "@va:test:check-revision-logs || true",
+            "@va:test:content-build-gql || true",
+            "@va:test:cypress || true",
+            "@va:test:eslint || true",
+            "@va:test:lint-php || true",
+            "@va:test:php_codesniffer || true",
+            "@va:test:phpstan || true",
+            "@va:test:phpunit-functional || true",
+            "@va:test:phpunit-unit || true",
+            "@va:test:status-error || true",
+            "@va:test:stylelint-modules || true",
+            "@va:test:stylelint-themes || true"
         ],
-        "pre-update-cmd": [
-            "mkdir -p vendor",
-            "[ -f .env ] || cp .env.example .env"
+        "va:test:behat": [
+            "# Run Behat tests.",
+            "! ./scripts/should-run-directly.sh || (cd tests/behat && behat)",
+            "./scripts/should-run-directly.sh || ddev composer va:test:behat --"
         ],
-        "post-update-cmd": [
-            "cp -r 'hooks/git/.' '.git/hooks/'",
-            "php -r \"chmod('.git/hooks/pre-commit', 0777);\"",
-            "rm -r vendor",
-            "@remove-git-dirs"
+        "va:test:check-cer": [
+            "# Check the Corresponding Entity References fields.",
+            "! ./scripts/should-run-directly.sh || ./tests/scripts/check-cer.sh",
+            "./scripts/should-run-directly.sh || ddev composer va:test:check-cer --"
         ],
-        "nuke": [
-            "rm -rf bin node_modules docroot/libraries docroot/core docroot/modules/contrib docroot/themes/contrib docroot/profiles/contrib/ docroot/vendor /var/www/.cache/yarn",
-            "composer clear-cache"
-        ],
-        "va:start": [
-            "@composer install --ansi",
-            "@va:install",
-            "@va:theme:compile",
-            "# To setup default content, run: `drupal module:install va_gov_content`",
-            "# cms.VA.gov installed: Username: admin  Password: admin",
-            "@va:server"
-        ],
-        "va:server": [
-            "drupal server localhost:9000 --ansi "
-        ],
-        "va:install": [
-            "drush site:install va_gov --yes --account-name admin --account-pass admin --ansi --site-name='Veterans Affairs'"
-        ],
-        "va:reinstall": [
-            "# This only reinstalls sites installed with SQLite...",
-            "chmod +w -R docroot/sites/default",
-            "rm -rf docroot/sites/default/files",
-            "@va:start"
-        ],
-        "va:theme:compile": [
-            "cd bin && ln -sf ../docroot/libraries/yarn/bin/yarn yarn",
-            "export NODE_EXTRA_CA_CERTS=/etc/pki/tls/certs/ca-bundle.crt PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=TRUE; cd docroot/core && yarn install",
-            "cd docroot/core && yarn build:css",
-            "cd docroot/design-system && yarn install && yarn build:drupal",
-            "cd docroot/themes/custom/vagovclaro && yarn install && yarn build"
-        ],
-        "va:theme:watch": [
-            "cd docroot/themes/custom/vagovclaro && yarn watch"
-        ],
-        "va:ds:storybook": [
-            "cd docroot/design-system && yarn install && yarn build:storybook"
-        ],
-        "va:ds:drupal": [
-            "cd docroot/design-system && yarn install && yarn build:drupal"
-        ],
-        "va:config:export": [
-            "drupal config:export --ansi"
-        ],
-        "va:config:import": [
-            "drupal config:import --ansi"
-        ],
-        "va:database:download": [
-            "cd .dumps && curl --remote-name --remote-header-name https://dsva-vagov-prod-cms-backup-sanitized.s3-us-gov-west-1.amazonaws.com/database/cms-prod-db-sanitized-latest.sql.gz && gunzip --force cms-prod-db-sanitized-latest.sql.gz && echo 'SQL dump saved to .dumps/cms-db-latest.sql'"
-        ],
-        "va:proxy:socks": [
-            "ssh socks -D 2001 -N"
-        ],
-        "va:proxy:test": [
-            "curl -v --proxy socks5h://127.0.0.1:2001 sentry.vetsgov-internal"
-        ],
-        "va:proxy:sshuttle": [
-            "sudo -E sshuttle -r dsva@52.222.32.121 -e 'ssh -A ' 10.0.0.0/8"
-        ],
-        "va:test:eslint": [
-            "npm install",
-            "npm run eslint-all"
-        ],
-        "va:test:lint-css-all": [
-            "npm install",
-            "npm run stylelint-modules && npm run stylelint-themes"
-        ],
-        "va:test:module-lint-css": [
-            "npm install",
-            "npm run stylelint-modules"
-        ],
-        "va:test:theme-lint-scss": [
-            "npm install",
-            "npm run stylelint-themes"
-        ],
-        "va:test:cypress": [
-            "cd \"$(git rev-parse --show-toplevel)\"",
-            "[ -d node_modules ] || npm install",
-            "./node_modules/.bin/cypress install",
-            "npm run test:cypress"
-        ],
-        "va:test:lint": [
-            "find docroot/modules/custom docroot/themes -name '*.php' -print0 | xargs -0 -n1 php -l > /dev/null",
-            "find docroot/modules/custom docroot/themes -name '*.module' -print0 | xargs -0 -n1 php -l > /dev/null",
-            "find docroot/modules/custom docroot/themes -name '*.install' -print0 | xargs -0 -n1 php -l > /dev/null"
+        "va:test:check-revision-logs": [
+            "# Check the revision log fields.",
+            "! ./scripts/should-run-directly.sh || ./tests/scripts/check-revision-logs.sh",
+            "./scripts/should-run-directly.sh || ddev composer va:test:check-revision-logs --"
         ],
         "va:test:content-build-gql": [
-            "@va:web:prepare-dotenv",
-            "touch .buildlock",
-            "mkdir -p web/build/vagovdev",
-            "echo {} > web/build/vagovdev/metalsmith-build-data.json",
-            "cp patches/content-build-gql-logging.patch web/",
-            "cd web; git apply content-build-gql-logging.patch || echo 'patch failed'",
-            "cd web; INSTALL_HOOKS=no NODE_ENV=production yarn build --pull-drupal --gql-queries-only --nosymlink --no-drupal-proxy --api=https://dev-api.va.gov --buildtype=vagovdev",
-            "rm .buildlock"
+            "# Run GraphQL export to test content-build.",
+            "! ./scripts/should-run-directly.sh || ./tests/scripts/content-build-gql.sh",
+            "./scripts/should-run-directly.sh || ddev composer va:test:content-build-gql --"
         ],
-        "va:web:prepare-dotenv": [
-            "if [ -f web/.env.example ]; then cat web/.env.example | grep -v DRUPAL_ADDRESS > web/.env; fi",
-            "if [ -n \"$TUGBOAT_DEFAULT_SERVICE_URL\" ]; then echo DRUPAL_ADDRESS=${TUGBOAT_DEFAULT_SERVICE_URL} >> web/.env; fi",
-            "if [ -n \"$DDEV_PRIMARY_URL\" ]; then echo DRUPAL_ADDRESS=${DDEV_PRIMARY_URL} >> web/.env; fi",
-            "if [ -n \"$DRUPAL_ADDRESS\" ]; then echo DRUPAL_ADDRESS=${DRUPAL_ADDRESS} >> web/.env; fi",
-            "if ! cat web/.env | grep DRUPAL_ADDRESS > /dev/null; then echo DRUPAL_ADDRESS=https://dev.cms.va.gov >> web/.env; fi"
+        "va:test:cypress": [
+            "# Run Cypress tests.",
+            "! ./scripts/should-run-directly.sh || ./tests/scripts/cypress-tests.sh",
+            "./scripts/should-run-directly.sh || ddev composer va:test:cypress --"
+        ],
+        "va:test:cypress-ci": [
+            "# Run Cypress tests with CI-specific functionality.",
+            "! ./scripts/should-run-directly.sh || ./tests/scripts/cypress-ci-tests.sh",
+            "./scripts/should-run-directly.sh || ddev composer va:test:cypress-ci --"
+        ],
+        "va:test:cypress-interactive": [
+            "# Run Cypress tests interactively (on host web browser).",
+            "! ./scripts/should-run-directly.sh || echo 'This command should only be run from a local development machine.'",
+            "./scripts/should-run-directly.sh || npm run test:cypress:interactive --"
+        ],
+        "va:test:eslint": [
+            "# Run ESLint tests.",
+            "! ./scripts/should-run-directly.sh || npm run eslint --",
+            "./scripts/should-run-directly.sh || ddev composer va:test:eslint --"
+        ],
+        "va:test:lint-php": [
+            "# Lint PHP files.",
+            "! ./scripts/should-run-directly.sh || ./tests/scripts/lint-php.sh",
+            "./scripts/should-run-directly.sh || ddev composer va:test:lint-php --"
+        ],
+        "va:test:scaling_performance": [
+            "# Run PHP_CodeSniffer tests.",
+            "! ./scripts/should-run-directly.sh || php tests/scaling_performance.php",
+            "./scripts/should-run-directly.sh || ddev composer va:test:scaling_performance --"
         ],
         "va:test:php_codesniffer": [
-            "phpcs --colors"
+            "# Run PHP_CodeSniffer tests.",
+            "! ./scripts/should-run-directly.sh || phpcs --colors --",
+            "./scripts/should-run-directly.sh || ddev composer va:test:php_codesniffer --"
         ],
-        "va:test:unit": "phpunit tests/phpunit --colors=always --exclude-group=disabled",
-        "va:cbf": "phpcbf --ignore=*.md,*.min.css,uswds.css,claro.css,*/node_modules/*,*/simplesaml*/* --standard=./docroot/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml docroot/modules/custom docroot/themes/custom --colors",
-        "va:web:install": [
-            "# Preparing Front-end...",
-            "cd bin && ln -sf ../docroot/libraries/yarn/bin/yarn yarn",
-            "node -v",
-            "npm -v",
-            "yarn -v",
-            "./scripts/composer/check_yarn_version.sh",
-            "cd web && yarn run install-repos",
-            "export NODE_EXTRA_CA_CERTS=/etc/pki/tls/certs/ca-bundle.crt PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=TRUE; cd web && yarn install"
+        "va:test:phpstan": [
+            "# Run PHPStan static analysis tests.",
+            "! ./scripts/should-run-directly.sh || bin/phpstan analyze --memory-limit=1G --",
+            "./scripts/should-run-directly.sh || ddev composer va:test:phpstan --"
         ],
-        "va:web:server": [
-            "cd web && yarn build"
+        "va:test:phpunit-functional": [
+            "# Run PHPUnit (functional) tests.",
+            "! ./scripts/should-run-directly.sh || bin/phpunit --group functional --exclude-group disabled tests/phpunit --",
+            "./scripts/should-run-directly.sh || ddev composer va:test:phpunit-functional --"
         ],
-        "va:web:watch": [
-            "cd web && npm run watch"
+        "va:test:phpunit-unit": [
+            "# Run PHPUnit (unit) tests.",
+            "! ./scripts/should-run-directly.sh || bin/phpunit --group unit --exclude-group disabled tests/phpunit --",
+            "./scripts/should-run-directly.sh || ddev composer va:test:phpunit-unit --"
         ],
-        "va:web:start": [
-            "@va:web:install",
-            "@va:web:watch"
+        "va:test:status-error": [
+            "# Check Drupal status for errors.",
+            "! ./scripts/should-run-directly.sh || ./tests/scripts/status-error.sh",
+            "./scripts/should-run-directly.sh || ddev composer va:test:status-error --"
+        ],
+        "va:test:status-error-ci": [
+            "# Check Drupal status for errors with some CI-specific functionality.",
+            "! ./scripts/should-run-directly.sh || ./tests/scripts/status-error-ci.sh",
+            "./scripts/should-run-directly.sh || ddev composer va:test:status-error-ci --"
+        ],
+        "va:test:stylelint-modules": [
+            "# Run StyleLint tests on modules.",
+            "! ./scripts/should-run-directly.sh || npm run stylelint-modules --",
+            "./scripts/should-run-directly.sh || ddev composer va:test:stylelint-modules --"
+        ],
+        "va:test:stylelint-themes": [
+            "# Run StyleLint tests on themes.",
+            "! ./scripts/should-run-directly.sh || npm run stylelint-themes --",
+            "./scripts/should-run-directly.sh || ddev composer va:test:stylelint-themes --"
+        ],
+        "va:theme:compile": [
+            "# Compile the VA.gov Claro theme.",
+            "! ./scripts/should-run-directly.sh || ./scripts/compile-theme.sh",
+            "./scripts/should-run-directly.sh || ddev composer va:theme:compile --"
+        ],
+        "va:theme:watch": [
+            "# Watch VA.gov Claro theme source and compile as needed.",
+            "! ./scripts/should-run-directly.sh || ( cd docroot/themes/custom/vagovclaro && yarn watch )",
+            "./scripts/should-run-directly.sh || ddev composer va:theme:watch --"
         ],
         "va:web:build": [
+            "# Perform a content build.",
             "Composer\\Config::disableProcessTimeout",
-            "rm -rf docroot/vendor/va-gov/content-build/build/vagovdev",
-            "cd docroot/vendor/va-gov/vets-website && echo \"Downloading assets for vets-website for vagovdev\" ",
-            "@va:web:prepare-dotenv",
-            "cd web; INSTALL_HOOKS=no NODE_ENV=production yarn build --pull-drupal --no-drupal-proxy --buildtype=vagovdev --api=https://dev-api.va.gov",
-            "echo 'Replace s3 address with local in generated files'",
-            "find ./docroot/vendor/va-gov/content-build/build/vagovdev/generated -type f -exec sed -i \"s#https://dev-va-gov-assets\\.s3-us-gov-west-1\\.amazonaws\\.com##g\" {} \\+"
+            "! ./scripts/should-run-directly.sh || ./scripts/web-build.sh",
+            "./scripts/should-run-directly.sh || ddev composer va:web:build --"
         ],
-        "va:web:test": [
-            "echo 'drupal address: ' $DRUPAL_ADDRESS"
+        "va:web:install": [
+            "# Prepare content-build project.",
+            "! ./scripts/should-run-directly.sh || ./scripts/web-install.sh",
+            "./scripts/should-run-directly.sh || ddev composer va:web:install --"
+        ],
+        "va:web:prepare-dotenv": [
+            "# Prepare the ./web/.env file.",
+            "! ./scripts/should-run-directly.sh || ./scripts/web-prepare-dotenv.sh",
+            "./scripts/should-run-directly.sh || ddev composer va:web:prepare-dotenv --"
         ]
     }
 }

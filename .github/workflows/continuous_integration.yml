@@ -11,8 +11,10 @@ jobs:
         # https://github.com/actions/cache/releases/tag/v3.0.10
         uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
       - name: Check Corresponding Entity Reference Fields
+        # See also `composer va:test:check-cer` in composer.json
         run: ./tests/scripts/check-cer.sh
       - name: Check Revision Log fields
+        # See also `composer va:test:check-revision-logs` in composer.json
         run: ./tests/scripts/check-revision-logs.sh
 
   # Validate that the `composer.lock` hash is up-to-date.
@@ -23,11 +25,14 @@ jobs:
       - name: Checkout
         # https://github.com/actions/cache/releases/tag/v3.0.10
         uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
-      - run: composer validate
+      - name: Composer Validate
+        run: composer validate
 
   # Analyze the codebase with GitHub's CodeQL tool.
   codeql-analyze:
     name: CodeQL Analyze
+    # Unlike most of our continuous integration tests, this test does not have
+    # a direct analog outside of GitHub Actions.
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -48,8 +53,11 @@ jobs:
       - name: Checkout
         # https://github.com/actions/cache/releases/tag/v3.0.10
         uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+      - name: Post-Checkout Actions
+        uses: ./.github/actions/post-checkout
       - name: ReviewDog
         # https://github.com/reviewdog/action-eslint/releases/tag/v1.17.0
+        # See also `composer va:test:eslint` in composer.json
         uses: reviewdog/action-eslint@d3395027ea2cfc5cf8f460b1ea939b6c86fea656
         with:
           reporter: github-pr-review
@@ -64,8 +72,10 @@ jobs:
       - name: Checkout
         # https://github.com/actions/cache/releases/tag/v3.0.10
         uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
-      - uses: ./.github/actions/post-checkout
+      - name: Post-Checkout Actions
+        uses: ./.github/actions/post-checkout
       - name: Run PHP_CodeSniffer and ReviewDog
+        # See also `composer va:test:php_codesniffer` in composer.json
         run: |
           export REVIEWDOG_GITHUB_API_TOKEN="${GITHUB_TOKEN}"
           bin/phpcs \
@@ -87,24 +97,11 @@ jobs:
       - name: Checkout
         # https://github.com/actions/cache/releases/tag/v3.0.10
         uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
-      - uses: ./.github/actions/post-checkout
+      - name: Post-Checkout Actions
+        uses: ./.github/actions/post-checkout
       - name: Run PHPLint
-        run: |
-          find \
-            docroot/modules/custom \
-            docroot/themes \
-            \( \
-              -name '*.inc' \
-              -o -name '*.php' \
-              -o -name '*.module' \
-              -o -name '*.install' \
-            \) \
-            -print0 \
-            | xargs \
-              -0 \
-              -n1 php \
-              -l \
-              2>&1
+        # See also `composer va:test:lint-php` in composer.json
+        run: ./tests/scripts/lint-php.sh
 
   # Analyze the codebase for programming errors with PHPStan.
   phpstan:
@@ -114,8 +111,10 @@ jobs:
       - name: Checkout
         # https://github.com/actions/cache/releases/tag/v3.0.10
         uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
-      - uses: ./.github/actions/post-checkout
+      - name: Post-Checkout Actions
+        uses: ./.github/actions/post-checkout
       - name: Run PHPStan and ReviewDog
+        # See also `composer va:test:phpstan` in composer.json
         run: |
           export REVIEWDOG_GITHUB_API_TOKEN="${GITHUB_TOKEN}"
           bin/phpstan analyze \
@@ -139,8 +138,10 @@ jobs:
       - name: Checkout
         # https://github.com/actions/cache/releases/tag/v3.0.10
         uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
-      - uses: ./.github/actions/post-checkout
+      - name: Post-Checkout Actions
+        uses: ./.github/actions/post-checkout
       - name: Run PHPUnit (Unit Tests only)
+        # See also `composer va:test:phpunit-unit` in composer.json
         run: bin/phpunit \
           --group unit \
           --exclude-group disabled \
@@ -157,6 +158,7 @@ jobs:
         uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
       - name: Stylelint modules
         # https://github.com/reviewdog/action-stylelint/releases/tag/v1.14.0 
+        # See also `composer va:test:stylelint-modules` in composer.json
         uses: reviewdog/action-stylelint@a45bf7c5a91efc6f9443ae59b9cf7387b7868492
         with:
           fail_on_error: true
@@ -167,6 +169,7 @@ jobs:
           stylelint_input: 'docroot/modules/custom/**/*.css'
       - name: Stylelint themes
         # https://github.com/reviewdog/action-stylelint/releases/tag/v1.14.0 
+        # See also `composer va:test:stylelint-themes` in composer.json
         uses: reviewdog/action-stylelint@a45bf7c5a91efc6f9443ae59b9cf7387b7868492
         with:
           fail_on_error: true
