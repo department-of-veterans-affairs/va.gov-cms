@@ -13,7 +13,6 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\node\NodeInterface;
 use Drupal\paragraphs\ParagraphInterface;
-use Drupal\taxonomy\TermStorage;
 use Drupal\va_gov_notifications\Service\NotificationsManager;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Drupal\va_gov_vamc\Service\ContentHardeningDeduper;
@@ -232,13 +231,19 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       '1035',
     ];
     $terms_text = [];
+    $chosen_term_description = "";
     /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
     $form_object = $form_state->getFormObject();
     $node = $form_object->getEntity();
     foreach ($covid_status as $status) {
       $terms_text[$status]['description'] = $term_storage->load($status)->getDescription();
-      if ($this->isCovidStatusSetAndDetailsEmpty($node, $status)) {
-        $this->setCovidStatusDetails($form, $status, $term_storage);
+      // If this is the chosen status (but there are no Details)
+      // get the term description.
+      if ($node->get('field_supplemental_status')->target_id === $status
+          && empty($node->get('field_supplemental_status_more_i')->value)) {
+        $chosen_term_description = $term_storage->load($status)->getDescription();
+        // Populate the Details WYSIWYG with the term description.
+        $form['field_supplemental_status_more_i']['widget'][0]['#default_value'] = $chosen_term_description;
       }
       $form['#attached']['library'][] = 'va_gov_vamc/set_covid_term_text';
       $form['#attached']['drupalSettings']['vamcCovidStatusTermText'] = $terms_text;
@@ -248,56 +253,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       '#prefix' => '<hr /><br>',
       '#suffix' => '<p class="fieldset__description">Use these levels to help Veterans understand the current COVID-19 health protection guidelines at your facility. This content will display on
       the facility\'s location page and operating status page.</p><br>',
-    ];
-  }
-
-  /**
-   * Checks to see if COVID Status is set but Details are empty.
-   *
-   * @param \Drupal\node\NodeInterface $node
-   *   The node to be interrogated.
-   * @param string $status
-   *   A single COVID status value.
-   *
-   * @return bool
-   *   TRUE if COVID status is set but Details are empty.
-   *   Otherwise, FALSE.
-   */
-  private function isCovidStatusSetAndDetailsEmpty(NodeInterface $node, string $status) {
-    $statusButNoDetails = FALSE;
-    if ($node->get('field_supplemental_status')->target_id === $status
-      && empty($node->get('field_supplemental_status_more_i')->value)) {
-      $statusButNoDetails = TRUE;
-    }
-    return $statusButNoDetails;
-  }
-
-  /**
-   * Sets the COVID-19 Status Details with the term description.
-   *
-   * @param array $form
-   *   The form.
-   * @param int $status
-   *   A single COVID status value.
-   * @param \Drupal\taxonomy\TermStorage $term_storage
-   *   The taxonomy term.
-   */
-  private function setCovidStatusDetails(array &$form, int $status, TermStorage $term_storage) {
-    $widget_title = "";
-    $widget_description = "";
-    if (isset($form['field_supplemental_status_more_i']['widget'][0]['#title'])) {
-      $widget_title = $form['field_supplemental_status_more_i']['widget'][0]['#title'];
-    }
-    if (isset($form['field_supplemental_status_more_i']['widget'][0]['#description'])) {
-      $widget_description = $form['field_supplemental_status_more_i']['widget'][0]['#description']->__toString();
-    }
-    $chosen_term_description = $term_storage->load($status)->getDescription();
-    $form['field_supplemental_status_more_i']['widget'][0] = [
-      "#title" => $widget_title,
-      '#description' => $widget_description,
-      '#type' => 'text_format',
-      '#default_value' => $chosen_term_description,
-      '#format' => 'rich_text_limited',
     ];
   }
 
