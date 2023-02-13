@@ -199,7 +199,6 @@ function va_gov_vet_center_vc_cap_hours_hide_caption_after_build(array $element,
  */
 function va_gov_vet_center_form_node_form_alter(array &$form, FormStateInterface &$form_state) {
   _va_gov_backend_set_owner_section_default($form, $form_state);
-  _va_gov_vet_center_disable_facility_service_change($form, $form_state);
 
   // Only attach the service select setter to vet_center service bundle.
   if ($form_state->getformObject()->getEntity()->bundle() === 'vet_center') {
@@ -228,21 +227,4 @@ function va_gov_vet_center_page_attachments(array &$attachments) {
   // Show service descriptions on node:view.
   $attachments['#attached']['library'][] = 'va_gov_vet_center/display_service_descriptions';
 
-}
-
-/**
- * Disable service name field for existing Vet Center Facility Services.
- *
- * @param array $form
- *   The entity form.
- * @param Drupal\Core\Form\FormStateInterface $form_state
- *   The entity form state.
- */
-function _va_gov_vet_center_disable_facility_service_change(array &$form, FormStateInterface &$form_state) {
-  $node = $form_state->getFormObject()->getEntity();
-  $nid = $node->id();
-  if ($node->getType() === 'vet_center_facility_health_servi' && isset($nid)) {
-    // We are editing an existing Vet Center - Facility Service.
-    $form['field_service_name_and_descripti']['#disabled'] = TRUE;
-  }
 }
