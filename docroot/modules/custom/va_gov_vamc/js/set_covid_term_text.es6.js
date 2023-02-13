@@ -25,9 +25,8 @@
       iframeDocument = document.querySelector(
         "#cke_edit-field-supplemental-status-more-i-0-value iframe"
       ).contentDocument;
-      if (iframeDocument.body.innerHTML) {
-        iframeDocument.body.innerHTML = `
-          ${drupalSettings.vamcCovidStatusTermText[statusId].description}`;
+      if (iframeDocument.body) {
+        iframeDocument.body.innerHTML = `${drupalSettings.vamcCovidStatusTermText[statusId].description}`;
       }
     }
   };
