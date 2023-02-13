@@ -39,8 +39,8 @@ fi
 # Use ESLint to lint changed/added JS files.
 # We normally write in ES6-conformant JS and cross-compile to a more compatible
 # dialect, so we don't bother linting the generated JS.
-JS_FILES=$( echo "${CHANGES}" | grep -E '\.es6.js$' )
-if [ "${#JS_FILES}" -gt 0 ]; then
+JS_FILES=$( echo "${CHANGES}" | grep -E '^(.*\.es6.js|tests/cypress/.*.js)$' )
+if [ ${#JS_FILES} -gt 0 ]; then
   composer va:test:eslint -- ${JS_FILES[*]}
   bail_if_test_failed
 fi

@@ -34,7 +34,7 @@ fi
 touch ${reporoot}/.buildlock
 
 # Make sure we clean up the build lock file if an error occurs or the build is killed.
-trap "rm ${reporoot}/.buildlock" INT TERM EXIT
+trap "rm -f ${reporoot}/.buildlock" INT TERM EXIT
 
 # Just because the path is really long:
 logfile="${reporoot}/docroot/sites/default/files/build.txt"
@@ -82,11 +82,26 @@ echo "==> Build complete" >> ${logfile}
 drush va-gov:content-release:advance-state complete
 drush va-gov:content-release:advance-state ready
 
+# After this point, we are less concerned with errors; the build has completed.
+set +e
+
 echo "==> Broken link report" >> ${logfile}
-cat ./vendor/va-gov/content-build/logs/vagovdev-broken-links.json >> ${logfile}
+broken_links_path="${reporoot}/docroot/vendor/va-gov/content-build/logs/vagovdev-broken-links.json"
+cat "${broken_links_path}" | jq >> ${logfile}
+
+echo "==> List heading order violations" >> ${logfile}
+pushd ./web
+PATH="${reporoot}/bin:$PATH"
+yarn list-heading-order-violations 2>&1 | grep -vE '^Processing file ' &>> ${logfile}
+cp -v heading_order_violations.html ${reporoot}/docroot/ &>> ${logfile}
+curl -X POST "https://api.ddog-gov.com/api/v1/series" \
+  -H "Content-Type: text/json" \
+  -H "DD-API-KEY: ${CMS_DATADOG_API_KEY}" \
+  -d @- < heading_order_violations.json &>> ${logfile}
+popd
 
 # Make sure other builds can start.
-rm ${reporoot}/.buildlock
+rm -f ${reporoot}/.buildlock
 
 # Just in case it wasn't clear :)
 echo "==> Done" >> ${logfile}

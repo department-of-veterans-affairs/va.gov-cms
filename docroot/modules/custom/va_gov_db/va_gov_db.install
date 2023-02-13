@@ -5,6 +5,7 @@
  * Install file for Va Gov DB.
  */
 
+use Drupal\Core\Database\Database;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Utility\UpdateException;
 use Drupal\field\Entity\FieldConfig;
@@ -1103,4 +1104,45 @@ function va_gov_db_update_9012(&$sandbox) {
   else {
     $logger->warning("Found $count tables after update: " . json_encode($table_names));
   }
+}
+
+/**
+ * Toggle content_model_documentation off so config import can fully reinstall.
+ */
+function va_gov_db_update_9013(&$sandbox) {
+  $messages = '';
+  $schema = Database::getConnection()->schema();
+
+  // Because the content_model_documentation module now has a content type,
+  // the module needs to be uninstalled and then re-installed.  The problem is
+  // the cleanup tries to remove content type fields that do not exist and
+  // throws a fatal error.  So we have to create fake tables with the right
+  // fields so the cleanup on module uninstall can proceed.
+  $table = [
+    'fields' => [
+      'id' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'size' => 'normal',
+        'default' => '0',
+      ],
+      'vid' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'size' => 'normal',
+        'default' => '0',
+      ],
+    ],
+  ];
+  if (!$schema->tableExists('cm_document')) {
+    $schema->createTable('cm_document', $table);
+    $messages .= "Added cm_document table to prevent uninstall from erroring.\n";
+  }
+  if (!$schema->tableExists('cm_document_field_data')) {
+    $schema->createTable('cm_document_field_data', $table);
+    $messages .= "Added cm_document_field_data table to prevent uninstall from erroring.\n";
+  }
+  $messages .= _va_gov_db_uninstall_modules(['content_model_documentation']);
+
+  return $messages;
 }
