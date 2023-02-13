@@ -260,7 +260,8 @@ class MenuReductionService {
       $alias = $this->getAliasFromUri($menu_item->get('link')->uri);
       if ($alias) {
         $subject_uuid = $parent_options_menu_ids[$menu_item->get('uuid')->value];
-        // The Lovell menu contains section information for each menu item.
+        // The Lovell menu is the only system menu with field_menu_section.
+        // This field stores section information for Lovell menu items.
         // Display this information for editors to help with menu placement.
         if ($menu_item->hasfield('field_menu_section')) {
           $menu_section = ' - ' . strtoupper($menu_item->get('field_menu_section')->value);
