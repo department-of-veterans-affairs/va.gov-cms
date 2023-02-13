@@ -5,10 +5,11 @@
  * Common code related to drupal content scripts.
  */
 
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\node\NodeInterface;
 use Drupal\node\NodeStorageInterface;
+use Drupal\taxonomy\Entity\Term;
 use Drupal\user\UserStorageInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 
 define('CMS_MIGRATOR_ID', 1317);
 
@@ -45,6 +46,16 @@ function entity_type_manager(): EntityTypeManagerInterface {
  */
 function get_node_storage(): NodeStorageInterface {
   return entity_type_manager()->getStorage('node');
+}
+
+/**
+ * Get the term storage.
+ *
+ * @return \Drupal\taxonomy\TermStorageInterface
+ *   Term storage.
+ */
+function get_term_storage(): NodeStorageInterface {
+  return entity_type_manager()->getStorage('taxonomy_term');
 }
 
 /**
@@ -193,6 +204,43 @@ function save_node_existing_revision_without_log(NodeInterface $revision): int {
   $revision->setRevisionCreationTime($revision_time);
   $revision->setChangedTime($revision_time);
   return $revision->save();
+}
+
+/**
+ * Create new terms for if they do not exist.
+ *
+ * @param string $vocabulary_id
+ *   The machine name of the taxonomy vocabulary.
+ * @param array $terms
+ *   An array of terms in the form of 'term name' => 'description'.
+ *
+ * @return int
+ *   The number of terms created.
+ */
+function save_new_terms($vocabulary_id, array $terms): int {
+  $terms_created = 0;
+  foreach ($terms as $name => $description) {
+    // Make sure we are not creating duplicate terms.
+    $tid = \Drupal::entityQuery('taxonomy_term')
+      ->condition('name', $name)
+      ->condition('vid', $vocabulary_id)
+      ->execute();
+    if (empty($tid)) {
+      // Term does not exist, so create it.
+      $term = Term::create([
+        'name' => $name,
+        'vid' => $vocabulary_id,
+      ]);
+      $term->setNewRevision(TRUE);
+      $term->setDescription($description);
+      $term->setRevisionUserId(CMS_MIGRATOR_ID);
+      $term->setSyncing(TRUE);
+      $term->setValidationRequired(FALSE);
+      $term->save();
+      $terms_created++;
+    }
+  }
+  return $terms_created;
 }
 
 /**
