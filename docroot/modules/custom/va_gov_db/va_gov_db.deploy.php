@@ -23,7 +23,7 @@ function va_gov_db_deploy_new_destination_terms_a(array &$sandbox) {
   $terms = [
     // Name => description.
     'Facility API' => 'The Facility API is an aggregator of facility data that comes from many sources. (VAST, Access to care, VBA Database...)',
-    'VA Forms API' => 'The VA forms API is an aggregator of Form data from the CMS',
+    'VA Forms API' => 'The VA forms API is an aggregator of Form data from the CMS.',
     'VA Forms Database' => 'The VA Forms Database is the upstream source from form managers related to Forms',
   ];
   $vocabulary = 'external_data_source_destination';
