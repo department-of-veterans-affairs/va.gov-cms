@@ -1,0 +1,28 @@
+uuid: 77008880-fbf8-43f8-bc57-9d2e8077fdd1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.cm_document.field_links_to_design
+  module:
+    - content_model_documentation
+    - epp
+    - link
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: cm_document.cm_document.field_links_to_design
+field_name: field_links_to_design
+entity_type: cm_document
+bundle: cm_document
+label: 'Links to design'
+description: 'Add links to design-related artifacts (Figma, Github Issue or Epic, relevant Slack thread).'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 1
+  link_type: 16
+field_type: link
