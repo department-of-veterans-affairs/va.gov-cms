@@ -249,7 +249,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The form state.
    */
   public function disableFacilityServiceChange(array &$form, FormStateInterface $form_state) {
-     /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
+    /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
     $form_object = $form_state->getFormObject();
     /** @var \Drupal\node\NodeInterface $node*/
     $node = $form_object->getEntity();
