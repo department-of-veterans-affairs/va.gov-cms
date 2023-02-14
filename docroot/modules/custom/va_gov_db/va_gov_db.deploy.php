@@ -13,7 +13,7 @@
  * for a detailed comparison.
  */
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/../scripts/content/script-library.php';
+require_once __DIR__ . '/../../../../scripts/content/script-library.php';
 
 /**
  * Populate new destination terms.
