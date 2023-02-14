@@ -1,0 +1,188 @@
+uuid: 8ed72acb-df6f-463e-af53-5cccd346f8f4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.cm_document.cm_document.field_data_pulled_from
+    - field.field.cm_document.cm_document.field_data_pushed_to
+    - field.field.cm_document.cm_document.field_link_to_cms_design_system
+    - field.field.cm_document.cm_document.field_link_to_va_design_system
+    - field.field.cm_document.cm_document.field_links_to_design
+    - field.field.cm_document.cm_document.field_links_to_research
+    - field.field.cm_document.cm_document.field_other_links
+    - field.field.cm_document.cm_document.field_related_knowledgebase
+    - field.field.cm_document.cm_document.field_screenshots
+    - field.field.cm_document.cm_document.field_stakeholders
+    - image.style.medium
+  module:
+    - change_labels
+    - content_model_documentation
+    - field_group
+    - image
+    - limited_field_widgets
+    - link
+    - text
+third_party_settings:
+  field_group:
+    group_design:
+      children:
+        - field_links_to_design
+        - field_link_to_cms_design_system
+        - field_links_to_research
+        - field_link_to_va_design_system
+      label: Design
+      region: content
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: design
+        description: ''
+        required_fields: true
+        description_display: after
+    group_data:
+      children:
+        - field_data_pushed_to
+        - field_data_pulled_from
+      label: Data
+      region: content
+      parent_name: ''
+      weight: 6
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: data
+        description: ''
+        required_fields: true
+        description_display: after
+id: cm_document.cm_document.default
+targetEntityType: cm_document
+bundle: cm_document
+mode: default
+content:
+  field_data_pulled_from:
+    type: options_buttons
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings:
+      limited_field_widgets:
+        limit_values: '0'
+      change_labels:
+        add_another: 'Add another source'
+  field_data_pushed_to:
+    type: options_buttons
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings:
+      limited_field_widgets:
+        limit_values: '0'
+      change_labels:
+        add_another: 'Add another destination'
+  field_link_to_cms_design_system:
+    type: link_default
+    weight: 5
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings:
+      limited_field_widgets:
+        limit_values: '0'
+      change_labels:
+        add_another: 'Add another link to CMS Design System'
+  field_link_to_va_design_system:
+    type: link_default
+    weight: 7
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings:
+      limited_field_widgets:
+        limit_values: '0'
+      change_labels:
+        add_another: 'Add another link to VA design system'
+  field_links_to_design:
+    type: link_default
+    weight: 4
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings:
+      limited_field_widgets:
+        limit_values: '0'
+      change_labels:
+        add_another: 'Add another design link'
+  field_links_to_research:
+    type: link_default
+    weight: 6
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings:
+      limited_field_widgets:
+        limit_values: '0'
+      change_labels:
+        add_another: 'Add another link to research'
+  field_other_links:
+    type: link_default
+    weight: 4
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings:
+      limited_field_widgets:
+        limit_values: '0'
+      change_labels:
+        add_another: 'Add another link'
+  field_related_knowledgebase:
+    type: entity_reference_autocomplete
+    weight: 2
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings:
+      limited_field_widgets:
+        limit_values: '0'
+      change_labels:
+        add_another: 'Add another Knowledge Base article link'
+  field_screenshots:
+    type: image_image
+    weight: 5
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: medium
+    third_party_settings:
+      limited_field_widgets:
+        limit_values: '0'
+      change_labels:
+        add_another: 'Add another screenshot'
+        remove_label: ''
+  field_stakeholders:
+    type: options_buttons
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  notes:
+    type: text_textarea
+    weight: 0
+    region: content
+    settings:
+      rows: 4
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  user_id: true

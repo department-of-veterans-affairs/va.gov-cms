@@ -207,6 +207,17 @@ function va_gov_vet_center_form_node_form_alter(array &$form, FormStateInterface
 }
 
 /**
+ * Implements hook_inline_entity_form_alter().
+ */
+function va_gov_vet_center_inline_entity_form_entity_form_alter(&$entity_form, FormStateInterface $form_state) {
+  // Disable service name field for existing Vet Center Facility Services.
+  $node_id = $entity_form['#entity']->id();
+  if ($entity_form['#bundle'] === 'vet_center_facility_health_servi' && isset($node_id)) {
+    $entity_form['field_service_name_and_descripti']['#disabled'] = TRUE;
+  }
+}
+
+/**
  * Implements hook_page_attachments().
  */
 function va_gov_vet_center_page_attachments(array &$attachments) {
