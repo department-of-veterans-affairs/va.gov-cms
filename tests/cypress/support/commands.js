@@ -153,8 +153,14 @@ Cypress.Commands.add("type_ckeditor", (element, content) => {
         element = matches[0];
       }
     }
-    cy.get(`#${element}`).parent().find("iframe").iframe();
-    win.CKEDITOR.instances[element].setData(content);
+    cy.wait(2000);
+    cy.get(`#${element}`)
+      .parent()
+      .find("iframe")
+      .iframe()
+      .then(() => {
+        win.CKEDITOR.instances[element].setData(content);
+      });
   });
 });
 
@@ -167,8 +173,15 @@ Cypress.Commands.add("read_ckeditor", (element) => {
         [element] = matches;
       }
     }
-    cy.get(`#${element}`).parent().find("iframe").iframe();
-    return cy.wrap(win.CKEDITOR.instances[element].getData());
+    cy.wait(2000);
+    return cy
+      .get(`#${element}`)
+      .parent()
+      .find("iframe")
+      .iframe()
+      .then(() => {
+        return cy.wrap(win.CKEDITOR.instances[element].getData());
+      });
   });
 });
 
