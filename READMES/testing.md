@@ -1,309 +1,148 @@
 # Testing
 
-The code deployed to prod.cms.va.gov undergoes numerous tests before merging, and automated tests are run before deployment.
+The CMS codebase is tested several times in the development lifecycle:
 
-The automated test suite for cms.va.gov is defined in the [tests.yml](../tests.yml) file and is run using the [Task](https://github.com/go-task/task) tool, allowing the same command to be used for local development, CI (via Tugboat) and for DEV, STAGING and PROD environments.
+- Prior to commit, changed files only (for performance reasons) are
+  individually statically analyzed and linted.
+- Commits that are part of a pull request are tested by two suites of tests:
+  - linting, static analysis, and unit tests in GitHub Actions
+  - functional/behavioral tests in Tugboat previews
+- The functional/behavioral test suite is executed once more on Staging before
+  being added to the final release.
 
-Task is installed by the `install_task.sh` script.
+## Pre-Commit Hooks
 
-## Goals
+The pre-commit tests will vary by environment:
 
-To adopt a strong test driven culture, the testing tools must:
+- on GitHub, no checks are performed.  This is fine because most changes made
+  via GitHub are documentation updates, Dependabot updates to package
+  dependencies, reverted PRs, etc.  And the full suite of tests will be run
+  anyway.
+- on other environments without `ddev` installed or running, no checks are
+  performed.  This is again more-or-less fine -- if someone's not running
+  `ddev`, they might have a good reason for that.  If they're working on a PR,
+  the full suite of tests will be run anyway.
+- on local environments with `ddev` installed and running, we run a set of
+  lints and static analysis tests.  These can be found in [`precommit.sh`](../scripts/precommit.sh).
 
-1. Run the same tests in multiple environments with minimal configuration and a single command.
-2. Allow developers to define tests to include in the suite and to write the tests.
-3. Provide feedback to developers as quickly as possible and make test output as readable and accessible as possible. (e.g. GitHub issue comments with failure reasons)
+## Linting, Static Analysis, and Unit Tests
 
-## Scope
+The "fast" suite of tests are composed of linting, static analysis, and unit
+tests.  These are collocated because they are very fast and can be run both
+independently and simultaneously.
 
-To avoid entanglement of tests, tests should adhere, when possible, to their own area of concern. Practice separation of concerns as much as possible. There are three areas of concern.
+At present, these include:
 
-1. **CMS** - This is the functioning of being able to login, edit and publish content. It's boundary of concern ends at the GraphQL endpoints.
-2. **Front-end** - This is the Metalsmith build that creates the HTML front-end from the content accessed at the GraphQL endpoints of the CMS.
-3. **Content** - This is the realm of making sure menu links and other links in content work. 508 testing is also part of content testing.
+- **PHPStan**, a PHP static analyzer focusing on maintainability and verifiable
+  behavior.
+- **PHP_CodeSniffer**, a PHP static analyzer focusing on code quality and
+  consistency with a style guide.
+- **PHP**'s built-in linter, which is fast and may catch other issues.
+- **Check CER Fields**, a script which checks for the presence of Corresponding
+  Entity Reference fields.
+- **Check Revision Logs**, a script which checks for the presence of revision
+  log fields in node forms; they tend to disappear unexpectedly.
+- **ESLint**, an ECMAScript/JavaScript linter and static analysis tool.
+- **PHPUnit**, a PHP testing framework that runs not only unit tests but also
+  functional/behavioral tests (see [below](#functional-and-behavioral-tests)).
+- **StyleLint**, a CSS/SCSS linter run on custom modules and themes.
 
-Entanglement should be avoided because it causes people from the non-relevant team to spend time solving issues that are not in their area of concern.
-Example: _Developers chasing down a mis-entered content link is not a good use of time._
-End to End tests should be achieved when possible, by each area of concern providing coverage for their particular area.
+Further details and implementation or usage notes about some of these tools may
+be provided below under [Testing Tools](#testing-tools).
 
-## VA.gov CMS Test Suite
+## Functional and Behavioral Tests
 
-Always refer to the file `tests.yml` for the canonical list of required tests that are included in the automated testing system, and are required to pass before merge or deployment,
+The "slow" suite of tests are functional and behavioral tests.  These mostly
+depend on a full, running installation of Drupal, and furthermore rely on
+details of our content model, infrastructure, implementation details, and so
+forth.
 
-There are 3 main types of tests:
+At present, these include:
 
-1.  **Static Tests:**
-    Static tests are run by [git pre-commit hooks](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks#_committing_workflow_hooks): Developers cannot commit code if
-    any of these tests fail. Static tests only require the source code. No active database is needed.
+- **Behat**, a PHP behavior-driven test framework.  Behat performs some tests
+  of user roles and permissions, and also performs "Spec Tool" tests that
+  verify the content model's consistency with an administrative model.
+- **Content-Build: GraphQL** or `content-build-gql`, a script that performs the
+  initial retrieval of content-build data from Drupal via GraphQL, in order to
+  verify compatibility.
+- **Cypress**, a behavioral test framework that verifies correct behavior by
+  puppeteering a headless Chromium browser.  This is the preferred location for
+  new behavioral tests and is extensible with JavaScript rather than PHP.
+- **PHPUnit**, in a separate suite from the PHPUnit tests mentioned above, runs
+  functional, security, and other tests.  This is an appropriate place for some
+  tests, especially those that operate at the request level, API level, etc.
+- **Status-Error** is a Drush command that checks Drupal's status for issues
+  like infrastructure availability, cron not running, database inconsistency,
+  etc.
 
-    See the [hooks/pre-commit file](../hooks/pre-commit) for the exact
-    command run before git commit.
-
-    Each static test should also be run by a corresponding [Github action](https://docs.github.com/en/actions) and block PR merges on failure. Github Actions are added and edited in the [Github workflows directory](../.github/workflows). When adding a new GitHub Action, our preferred process to minimize technical debt and maintenance is the following:
-    1. When possible, use a well-supported action from the open-source community. The [reviewdog](https://github.com/reviewdog) organization on GitHub is often a good place to start looking.
-    1. If the Action cannot meet our requirements without modifications, resolve in this order:
-      1. Modify the existing Action for configurability and attempt to contribute the modification upstream
-      1. If the contribution is not accepted or greater modifications are needed, create a new Action in a repo under the DSVA GitHub organization
-        1. If possible, try to contribute this new Action upstream under the [reviewdog](https://github.com/reviewdog) space
-
-    Existing tests:
-    1. `va/tests/phpcs` - "PHP CodeSniffer" tests ensure coding standards
-       are met.
-    1. [`CodeQL`](../.github/workflows/codeql.yml) - Automated vulnerability scanning
-    1. [`ESlint`](/.github/workflows/eslint.yml) - JavaScript linting
-    1. [`PHPCS`](../.github/workflows/phpcs.yml) - PHP linting
-    1. [`StyleLint (modules)`](../.github/workflows/stylelint-modules.yml) - JavaScript style checks for custom Drupal module code
-    1. [`StyleLint (themes)`](../.github/workflows/stylelint-themes.yml) - JavaScript style checks for custom Drupal theme code
-    1. [`PHPStan`](../.github/workflows/phpstan.yml) - Static code analysis
-
-1.  **WEB Integration Tests** (e.g. WEB == FE decoupled [content-build](https://patch-diff.githubusercontent.com/raw/department-of-veterans-affairs/content-build/) repo)
-
-1.  **Functional Tests**
-
-    1. `va/tests/phpunit` - The CMS PHPUnit Tests include a number of functional tests, including creating media, testing GraphQL, performance and security. See the [tests/phpunit folder](tests/phpunit) to see all the PHPUnit tests.
-
-        Utilizing the DrupalTestTraits library with PHPUnit gives developers the ability to bootstrap Drupal and write tests in PHP without an abstraction layer provided by Gherkin. PHPUnit is the preferred tool to write tests due to its speed of execution.
-
-        Run all tests:
-
-        ```
-        ddev phpunit
-        ```
-
-        Run a specific test with the "path" argument:
-        The path can be to a specific test file, or a directory with tests.
-
-        ```
-        ddev phpunit-run {Path-to-test}
-
-        ddev phpunit-run docroot/modules/contrib/config_split/tests/src/Kernel/ConfigSplitCliServiceTest.php
-        ```
-
-        Run a specific test:
-
-        ```
-        ddev phpunit-run {Path-to-test} --filter {test-function-name}
-
-        ddev phpunit-run docroot/modules/contrib/config_split/tests/src/Kernel/ConfigSplitCliServiceTest.php --filter testGrayAndBlackListExport
-        ```
-
-        Run a group of PHPUnit tests:
-
-        ```sh
-        ddev phpunit-run . --group security
-        ```
-
-    1. `va/tests/behat` - The Behat test suite includes:
-
-        1. _Content-Edit-Web-Rebuild test:_
-
-            This test is critical: it ensures the CMS does not break the WEB build.
-
-            See [tests/behat/features/content.feature](../tests/behat/features/content.feature)
-
-        1. _Permissons Test:_
-
-            See [tests/behat/features/perms.feature](../tests/behat/features/perms.feature)
-
-        1. _Drupal Spec Tests:_ The DST tool enforces the desired structure of the Drupal site by generating Gherkin Feature files. See [tests/behat/drupal-spec-tool](../tests/behat/drupal-spec-tool/) folder for all of the tests and more information on managing the Drupal Spec Tool and [VA's Spec tool doc here](https://airtable.com/invite/l?inviteId=invOjKEIyZCQY5YRy&inviteToken=eea85291ef1cd72ce9560c5a833a18673ef10a92050f9210e878702e81ec49b3&utm_source=email).
-
-        Run a specific behat test with the `--name` or `--tags` options:
-
-        ```sh
-        ddev behat --tags=dst
-        ```
-
-    1. `va/tests/cypress` - The [Cypress](https://github.com/cypress-io/cypress) test suite includes end-to-end behavioral and accessibility tests.
-
-          For local development, it's recommended to run Cypress from your host machine, not within ddev.  This requires that the browser be installed, so, from the project root on the _host_ machine, run:
-          
-          ```sh
-          node ./node_modules/.bin/cypress install
-          ```
-
-          To run a specific test:
-
-
-          ```sh
-          node_modules/.bin/cypress run --spec "tests/cypress/integration/behavioral/content_release.feature"
-          ```
-
-          To run and debug cypress tests in a web UI, run the following commands from the project root on your local machine (_not_ within ddev):
-
-          ```sh
-          npm run test:cypress:interactive
-          ```
-
-          You will see a window with a list of tests. Just click on the name of any test to run it within a browser.
-
-
-## Running Tests
-
-The main way to run tests is the `./bin/task --taskfile=tests.yml` command.
-
-Run `./bin/task --help` for more information.
-
-_NOTE: The `bin` directory is automatically included in the $PATH for all
-Composer commands, including Task itself._
-
-See [Composer Paths](#composer-configbinpath-and-path) for more information
-on Composer and $PATH.
-
-### Local Testing with ddev: `ddev test`
-
-This project is configured to work with ddev out of the box.
-
-ddev commands are listed in `ddev help. There are some helper commands that map
-to shell commands.
-
-| ddev Command         | Shell Command                                            |
-| -------------------- | -------------------------------------------------------- |
-| ddev task           | ./bin/task                                               |
-| ddev test           | ./bin/task --taskfile=tests.yml                          |
-| ddev test va/deploy | ./bin/task --taskfile=tests.yml va/deploy                |
-| ddev web-build      | composer va:web:build                                    |
-| ddev phpunit        | ./bin/task --taskfile=tests.yml va/tests/phpunit         |
-| ddev phpstan        | bin/phpstan analyze                                      |
-| ddev web-build      | composer va:web:build                                    |
-| ddev behat          | cd /app/tests/behat && /app/bin/behat                    |
-
-_NOTES:_
-
-- Any arguments passed to the `ddev` command are passed through to the
-  `composer` command.
-- Any `composer` command can be run inside a ddev container after you run
-  `ddev ssh`.
-
-### Limit tests to run
-
-You can add an argument to filter the tests to run:
-
-```sh
-# Run the entire test suite.
-$ ./bin/task --taskfile=tests.yml
-
-# Run `va/tests/phpunit` only
-$ ./bin/task --taskfile=tests.yml va/tests/phpunit
-```
+Further details and implementation or usage notes about some of these tools may
+be provided below under [Testing Tools](#testing-tools).
 
 ## GitHub Integration
 
-The Task tool also integrates with GitHub through ReviewDog, providing pass/fail commit
-status for each test listed in `tests.yml`, and posting errors as comments
-on the commit's page on GitHub.com.
+GitHub is used as the ultimate store of truth for what commits are safe to
+bundle into a release and deploy to production.
 
-### Branch Enforcement Rules
+### Branch Protection Rules
 
-All of the tests in `tests.yml` are required to pass before a Pull Request
-can be merged. This is enforced by GitHub.com and is configurable: See the
-[Branches section of the repository's Settings](https://github.com/department-of-veterans-affairs/va.gov-cms/settings/branches).
+All of the tests in the [Branch Protection Rules](https://github.com/department-of-veterans-affairs/va.gov-cms/settings/branches)
+are required to pass before the changes in a PR can be merged into `main`.
 
 ![GitHub comment with the output from a failed test.](images/github-test-fail-comment.png)
 
-If an individual test fails, the Task tool creates a comment on the
-commit with the failed test results.
-The test results are also logged in Tugboat.
-
 ### GitHub Statuses API
 
-The API used by Yaml Tests and GitHub for testing code is called the
-"Statuses API": https://developer.github.com/v3/repos/statuses/
+The API used by our test suites and GitHub for reporting test information is
+called the [Statuses API](https://developer.github.com/v3/repos/statuses/). It
+stores test results attached to the commit, based on SHA.
 
-It stores test results attached to the commit, based on SHA.
-
-Yaml-tasks reads the SHA of git repository, runs the test, and sends the state
-to GitHub Status API, which sends it along to the users.
+If an individual test fails, [GitHub Status Updater](#github-status-updater)
+tool marks that specific status as failing.  Additionally, optionally,
+[GitHub Commenter](#github-commenter) may add a comment containing the failure
+log or other relevant information in the PR thread.
 
 What you end up seeing is something like this:
 
 ![GitHub Commit Statuses, some failing, some passing.](images/github-commit-status.png)
 
 _NOTE: The GitHub API stores this information attached to the Commit, not to
-the PR._
+the PR. This means if you open a second PR with the same commits, the commit
+status AND the commit comments will show in both pull requests._
 
-*This means
-if you open a second PR with the same commits, the commit status AND the
-commit comments will show in *both* pull requests.*
+## Testing Tools
 
-### Composer, `config.bin-path`, and $PATH
+### PHP_CodeSniffer
 
-Composer automatically loads the directory `bin` into the PATH of any
-composer command or script. More accurately, it includes the directory set in
-the `config.bin-dir` section of `composer.json`.
+PHP_CodeSniffer tokenizes PHP files and compares them with a coding standard.
+It is thus mostly geared at maintaining consistency and an attractive and
+modern code style.  It has some overlapping functionality with PHPStan, but
+they complement one another too.
 
-This means you only have to include the script name when referring to them in
-`composer.json` or in `tests.yml`.
+### PHPStan
 
-For example, if you wanted to create a `composer special-tests` command as
-an alias for `yaml-tasks` but with a different file and with a filter, add
-this to `composer.json`:
+PHPStan performs static analysis on the codebase and reports issues such as
+references to unknown/undeclared properties, incorrect argument types in
+function calls, functions that are too long or too complex, etc.
 
-```json
-{
-  "scripts": {
-    "special-tests": [
-      "which yaml-tasks",
-      "yaml-tasks myuniquetests --file=custom.yml"
-    ]
-  }
-}
-```
+#### Magic Properties and Other Annoyances
 
-Or, if you want to run `drush` or `npm` (or any other script in the `bin` dir) as a
-test, just call the script name:
-
-```yaml
-# tasks.yml example that runs commands from the project's ./bin directory.
-example/drush/status: drush status
-example/drush/version: drush --version
-example/npm/which: which npm
-example/npm/version: npm --version
-```
-
-The `which npm` command helps you find out which file is actually being run.
-
-In this project's case, `which npm` would print `/path/to/va.gov-cms/bin/npm`.
-
-## Fortify security scans
-
-Fortify scans are run manually.
-
-About Drupal Security Team Coverage
-When a module is covered by the Drupal Security Team it means that the team will receive reports of vulnerabilities from the Drupal community and the general public and will work with the maintainer to fix and coordinate the module and advisory release.
-
-Symfony and other non-Drupal.org hosted libraries are all out of scope for the Drupal Security Team, though the security team will occasionally work with these projects security teams to coordinate releases or help test etc. Symfony has an active security team and process/advisories (see https://symfony.com/blog/category/security-advisories).
-
-Composer libraries don't have any defined process nor advisories, therefore this scan offers of additional scrutiny.
-
-Excluded directories
-Drupal 8 core and contributed modules covered by the Drupal Security Team were not included in the scan.
-
-```
-  ./docroot/core/**/*"
-  ./docroot/includes/**/*"
-  ./docroot/modules/contrib/**/*"
-  ./docroot/themes/contrib/**/*"
-  ./docroot/profiles/**/*"
-  ./docroot/scripts/**/*"
-```
-
-Included Vendor Libraries
-Vender libraries are third party open source packages included by Drupal core and modules to add functionality. For example Drupal 9 includes the Symfony open source project which in turn may include libraries from other open source projects. Symfony has an active security team monitoring security and posting process/advisories (see https://symfony.com/blog/category/security-advisories).
-
-Whether these third party libraries are secure involves multiple factors (and has no definitive answer) project lifetime, maintenance status, frequency/size of major changes, number of maintainers, skills of maintainers in security topics, security of the projects own dependencies, security surface area (does the project deal with user actions, data, sessions, external systems etc), security architecture and threat model, code quality, documentation etc.
-
-## PHPStan
-
-PHPStan performs static analysis on the codebase and reports issues such as references to unknown/undeclared properties, incorrect argument types in function calls, functions that are too long or too complex, etc.
-
-### Magic Properties and Other Annoyances
 Developing with Drupal idiomatically tends to conflict with PHPStan.
 
-For instance, you might type code like `$node->field_address->zip_code`.  If `$node` is declared as or implied to be a `\Drupal\node\Entity\Node` object, then PHPStan will look for a property named `$field_address` on `\Drupal\node\Entity\Node`.  `$node` might also be interpreted as `\Drupal\node\NodeInterface`, or `\Drupal\Core\Entity\EntityInterface`, or any of several other interfaces.  But functionality for accessing fields via constructs like `$node->field_address` is implemented via "magic properties," to which PHPStan does not and cannot have access.  As a consequence, PHPStan will view the use of these magic properties as errors.
+For instance, you might type code like `$node->field_address->zip_code`. If
+`$node` is declared as or implied to be a `\Drupal\node\Entity\Node` object,
+then PHPStan will look for a property named `$field_address` on
+`\Drupal\node\Entity\Node`.  But `$node` might also be interpreted as
+`\Drupal\node\NodeInterface`, or `\Drupal\Core\Entity\EntityInterface`, or any
+of several other interfaces.  But functionality for accessing fields via
+constructs like `$node->field_address` is implemented via "magic properties,"
+to which PHPStan does not and cannot have access. As a consequence, PHPStan
+will view the use of these magic properties as errors.
 
-To permit both idiomatic Drupaling and good static analysis, we simply allowlist errors that arise from this sort of use.
+To permit both idiomatic Drupaling and good static analysis, we allowlist
+errors that arise from this sort of use.
 
-This can be done by adding new expressions to the `parameters.ignoreErrors` array in [phpstan.neon](../phpstan.neon).
+This can be done by adding new expressions to the `parameters.ignoreErrors`
+array in [phpstan.neon](../phpstan.neon).
 
 ```yaml
 parameters:
@@ -312,18 +151,78 @@ parameters:
     - '#Access to an undefined property Drupal\\node\\NodeInterface::\$field_address\.#'
 ```
 
-This is hardly ideal, but we are optimistic that [entity bundle classes](https://www.drupal.org/node/3191609) will permit us to remove this sort of hack.
+This is hardly ideal, but we are optimistic that [entity bundle classes](https://www.drupal.org/node/3191609)
+will permit us to remove this sort of hack.
 
-### Baseline
-It sometimes happens that a developer will duplicate or repeat some code within our codebase and then find, much to their surprise, that PHPStan throws an error for the new code while seeming to ignore the old code.  This has historic reasons.
+#### Baseline
 
-PHPStan was integrated into the codebase after a substantial amount of development had already occurred.  Ordinarily, a PHPStan error would prevent code from being approved and merged.  But running PHPStan initially revealed a couple of hundred issues, almost all having to do with magic properties and other Drupal idioms.  Rather than break the build for days or weeks to eliminate these issues, we opted instead to generate a _baseline_ and fail only builds that introduced new code issues.
+It sometimes happens that a developer will duplicate or repeat some code within
+our codebase and then find, much to their surprise, that PHPStan throws an
+error for the new code while seeming to ignore the old code.  This has historic
+reasons.
 
-A PHPStan baseline is simply a list of existing errors.  We maintain the baseline in our codebase (see [phpstan-baseline.neon](../phpstan-baseline.neon) to prevent these historical errors from interfering with our CI/CD processes.
+PHPStan was integrated into the codebase after a substantial amount of
+development had already occurred.  Ordinarily, a PHPStan error would prevent
+code from being approved and merged.  But running PHPStan initially revealed a
+couple of hundred issues, almost all having to do with magic properties and
+other Drupal idioms.  Rather than break the build for days or weeks to
+eliminate these issues, we opted instead to generate a _baseline_ and fail only
+builds that introduced new code issues.
 
-This does have drawbacks, though; it can be confusing to have the same code in two places and see one instance trigger a PHPStan error and the other seem to slip through.  (And depending on where the addition is made, the error message may be misleading and point to old code and not the new code!)  And, if the issue is corrected (or the code removed) in the future, the baseline must be altered to match the new error set, so removing technical debt is slightly penalized by a maintenance burden.
+A PHPStan baseline is simply a list of existing errors.  We maintain the
+baseline in our codebase (see [phpstan-baseline.neon](../phpstan-baseline.neon)
+to prevent these historical errors from interfering with our CI/CD processes.
 
-But, all things considered, this seems to be the least painful way of managing static analysis.
+This does have drawbacks, though; it can be confusing to have the same code in
+two places and see one instance trigger a PHPStan error and the other seem to
+slip through.  (And depending on where the addition is made, the error message
+may be misleading and point to old code and not the new code!)  And, if the
+issue is corrected (or the code removed) in the future, the baseline must be
+altered to match the new error set, so removing technical debt is slightly
+penalized by a maintenance burden.
+
+But, all things considered, this seems to be the least painful way of managing
+static analysis.
+
+## Other Tools
+
+### GitHub Commenter
+
+The functional/behavioral tests may in some cases need to post a relevant
+comment in a GitHub pull request thread.
+
+To accomplish this, we use [GitHub Commenter](https://github.com/cloudposse/github-commenter),
+and script some scaffolding around the primary test execution to derive
+the comment content and handle cleaning and submitting it to GitHub.
+
+GitHub Commenter is installed by the [`install_github_commenter.sh`](../scripts/install_github_commenter.sh)
+script.
+
+### GitHub Status Updater
+
+The functional/behavioral tests need to inform GitHub of their success or
+failure.
+
+We do this with [Github Status Updater](https://github.com/cloudposse/github-status-updater) and
+a boilerplate script in [`ci-wrapper.sh`](tests/scripts/ci-wrapper.sh).
+
+The CI wrapper script simply executes the command; if it exits with a 0 exit
+code, we report success.  If it returns a nonzero exit code, we report failure.
+Any additional functionality is left up to the command being executed.
+
+GitHub Status Updater is installed by the [`install_github_status_updater.sh`](../scripts/install_github_status_updater.sh)
+script.
+
+### Task (or Go-Task)
+
+The functional/behavioral test suite tasks are defined in [`tests.yml`](../tests.yml).
+
+These tests are executed using an application known as Task (or Go-Task, Go
+being the programming language in which it is implemented).  Task allows us
+to run some tests in parallel, collect their output, and report it through
+either the Tugboat log or Jenkins, as appropriate for the environment.
+
+Task is installed by the [`install_task.sh`](./scripts/install_task.sh) script.
 
 ## How Do I...?
 
@@ -341,19 +240,29 @@ Find the PR that contains the links to the Tugboat environment:
 
 Click the link under **Dashboard** (SOCKS must be enabled to access Tugboat).
 
-Once in the Tugboat instance dashboard, scroll down to the Preview Build Log and click "See Full Log".
+Once in the Tugboat instance dashboard, scroll down to the Preview Build Log
+and click "See Full Log".
 
 ![Preview Build Log](https://user-images.githubusercontent.com/1318579/186017075-fac60359-3a9f-4ce6-9c82-23a1e4caca1a.png)
 
-This will give you a scrollable view of all of the logged information output since the Tugboat environment was (re)built, including all test output.  Unfortunately, and extremely frustratingly, 1) it will autoscroll to the bottom until all tests have completed, and 2) the text is not searchable.  
+This will give you a scrollable view of all of the logged information output
+since the Tugboat environment was (re)built, including all test output.  
 
-If you need to find some particular string, select all and copy it to an IDE/text editor/whatever.
+Unfortunately, and extremely frustratingly...
+
+- it will autoscroll to the bottom until all tests have completed, and
+- the text is not searchable.  
+
+If you need to find some particular string, select all and copy it to an
+IDE/text editor/whatever.
 
 Otherwise, just scroll back to find the failed test, and go from there.
 
 #### Otherwise...
 
-This test is run by a GitHub Action.  Click the "Details" link in the row of the failed test.  This should take you to a view of the run details, which should contain the logged information.
+This test is run by a GitHub Action.  Click the "Details" link in the row of
+the failed test.  This should take you to a view of the run details, which
+should contain the logged information.
 
 ----
 

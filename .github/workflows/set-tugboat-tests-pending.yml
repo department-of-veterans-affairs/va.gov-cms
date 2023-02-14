@@ -30,6 +30,7 @@ jobs:
             va/tests/cypress
             va/tests/phpunit
             va/tests/content-build-gql
+            va/tests/status-error
           )
           for test_name in "${test_names[@]}"; do 
             gh api \

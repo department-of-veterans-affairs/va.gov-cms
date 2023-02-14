@@ -1,7 +1,8 @@
 # Automated test log output.
-behat.log
-cypress.log
-phpunit.log
+cypress_accessibility_errors.json
+*.log
+docroot/cypress/videos/
+docroot/cypress/screenshots/
 
 # PHPLOC command output.
 phploc.json
@@ -51,9 +52,6 @@ node_modules/
 # Current
 /.dumps/cms-prod-files-latest.tgz
 /.dumps/cms-prod-db-sanitized-latest.sql*
-# Deprecated
-/.dumps/cms-app-files-latest.tgz
-/.dumps/cms-db-latest.sql*
 
 # Ignore common IDE configs
 # IntelliJ/PhpStorm

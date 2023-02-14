@@ -97,6 +97,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
       EntityHookEvents::ENTITY_VIEW_ALTER => 'entityViewAlter',
       FormHookEvents::FORM_ALTER => 'formAlter',
+      'hook_event_dispatcher.form_node_vet_center_facility_health_servi_edit_form.alter' => 'alterVetCenterServiceNodeForm',
       'hook_event_dispatcher.form_node_vet_center_locations_list_form.alter' => 'alterVetCenterLocationsListNodeForm',
       'hook_event_dispatcher.form_node_vet_center_locations_list_edit_form.alter' => 'alterVetCenterLocationsListNodeForm',
       'hook_event_dispatcher.form_node_vet_center_mobile_vet_center_form.alter' => 'alterVetCenterMvcNodeForm',
@@ -225,6 +226,36 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     }
 
     return $long_enough;
+  }
+
+  /**
+   * Alterations to Vet Center - Facility Service node form.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function alterVetCenterServiceNodeForm(FormIdAlterEvent $event): void {
+    $form = &$event->getForm();
+    $form_state = $event->getFormState();
+    $this->disableFacilityServiceChange($form, $form_state);
+  }
+
+  /**
+   * Disable service name field for existing Vet Center - Facility Services.
+   *
+   * @param array $form
+   *   The node form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   */
+  public function disableFacilityServiceChange(array &$form, FormStateInterface $form_state) {
+    /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
+    $form_object = $form_state->getFormObject();
+    /** @var \Drupal\node\NodeInterface $node*/
+    $node = $form_object->getEntity();
+    if (!$node->isNew()) {
+      $form['field_service_name_and_descripti']['#disabled'] = TRUE;
+    }
   }
 
   /**

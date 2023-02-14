@@ -1,0 +1,40 @@
+uuid: 24059a77-0949-438f-a2cb-66137843dda0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.cm_document.field_data_pulled_from
+    - taxonomy.vocabulary.external_data_source_destination
+  module:
+    - content_model_documentation
+    - entity_reference_validators
+    - epp
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: false
+  epp:
+    value: ''
+    on_update: 0
+id: cm_document.cm_document.field_data_pulled_from
+field_name: field_data_pulled_from
+entity_type: cm_document
+bundle: cm_document
+label: 'Data pulled from'
+description: 'Choose the source(s) that this field is created from.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      external_data_source_destination: external_data_source_destination
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

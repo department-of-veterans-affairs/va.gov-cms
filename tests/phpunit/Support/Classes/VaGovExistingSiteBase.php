@@ -24,6 +24,10 @@ abstract class VaGovExistingSiteBase extends ExistingSiteBase {
     $testString = $this->toString();
     $message = "VA_GOV_DEBUG $timestamp $date BEFORE $testString";
     $this->writeLogMessage($message);
+    // Disable failures on Watchdog messages.
+    // This is necessary since we're running at the same time as GraphQL,
+    // which can cause errors unrelated to the tests we're performing.
+    $this->failOnPhpWatchdogMessages = FALSE;
   }
 
   /**

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /// <reference types="cypress" />
 // ***********************************************************
 // This example plugins/index.js can be used to load plugins
@@ -9,8 +10,8 @@
 // https://on.cypress.io/plugins-guide
 // ***********************************************************
 
-const cucumber = require('cypress-cucumber-preprocessor').default;
-const getCompareSnapshotsPlugin = require('cypress-visual-regression/dist/plugin');
+const cucumber = require("cypress-cucumber-preprocessor").default;
+const getCompareSnapshotsPlugin = require("cypress-visual-regression/dist/plugin");
 
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
@@ -19,9 +20,9 @@ const getCompareSnapshotsPlugin = require('cypress-visual-regression/dist/plugin
  * @type {Cypress.PluginConfig}
  */
 module.exports = (on, config) => {
-  on('file:preprocessor', cucumber());
+  on("file:preprocessor", cucumber());
   getCompareSnapshotsPlugin(on, config);
-  on('task', {
+  on("task", {
     log(message) {
       console.log(message);
       return null;
@@ -29,6 +30,6 @@ module.exports = (on, config) => {
     table(message) {
       console.table(message);
       return null;
-    }
+    },
   });
-}
+};

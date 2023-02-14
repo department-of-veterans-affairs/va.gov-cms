@@ -1,3 +1,4 @@
+/* eslint-disable max-nested-callbacks */
 /* eslint-disable no-console */
 import "@testing-library/cypress/add-commands";
 import "cypress-axe";
@@ -64,21 +65,77 @@ Cypress.Commands.add("drupalAddUserWithRole", (role, username, password) => {
 
 Cypress.Commands.add("drupalAddUserWithRoles", (roles, username, password) => {
   cy.drupalDrushUserCreate(username, password);
-  roles.forEach(role => cy.drupalDrushUserRoleAdd(username, role));
+  roles.forEach((role) => cy.drupalDrushUserRoleAdd(username, role));
 
   return cy;
 });
 
 Cypress.Commands.add(
-  "iframe",
-  { prevSubject: "element" },
-  ($iframe, callback = () => {}) => {
-    return cy
-      .wrap($iframe)
-      .should((iframe) => expect(iframe.contents().find("body")).to.exist)
-      .then((iframe) => cy.wrap(iframe.contents().find("body")));
+  "drupalGetWatchdogMessages",
+  (username, severity = "Warning") => {
+    const fields = ["wid", "date", "type", "severity", "message", "username"];
+    const command = `watchdog:show --format=json --severity=${severity} --fields=${fields.join(
+      ","
+    )}`;
+    return cy.drupalDrushCommand(command).then((output) => {
+      return cy
+        .log(output)
+        .then(() => {
+          return JSON.parse(output.stdout || "{}");
+        })
+        .then((json) => {
+          return cy.log(json).then(() => {
+            return Object.values(json).filter(
+              (entry) => entry.username === username
+            );
+          });
+        })
+        .then((entries) => {
+          return cy.log(entries).then(() => {
+            return entries;
+          });
+        });
+    });
   }
 );
+
+Cypress.Commands.add("drupalWatchdogHasNoNewMessages", (username, severity) => {
+  cy.drupalGetWatchdogMessages(username, severity).then((messages) => {
+    cy.log(messages);
+    expect(messages.length).to.equal(0);
+  });
+});
+
+Cypress.Commands.add("drupalWatchdogHasNoNewErrors", (username) => {
+  cy.drupalGetWatchdogMessages(username, "Error").then((messages) => {
+    cy.log(messages);
+    expect(messages.length).to.equal(0);
+  });
+});
+
+Cypress.Commands.add(
+  "drupalWatchdogHasNewMessages",
+  (username, severity, count) => {
+    cy.drupalGetWatchdogMessages(username, severity).then((messages) => {
+      cy.log(messages);
+      expect(messages.length).to.equal(count);
+    });
+  }
+);
+
+Cypress.Commands.add("drupalWatchdogHasNewErrors", (username, count) => {
+  cy.drupalGetWatchdogMessages(username, "Error").then((messages) => {
+    cy.log(messages);
+    expect(messages.length).to.equal(count);
+  });
+});
+
+Cypress.Commands.add("iframe", { prevSubject: "element" }, ($iframe) => {
+  return cy
+    .wrap($iframe)
+    .should((iframe) => expect(iframe.contents().find("body")).to.exist)
+    .then((iframe) => cy.wrap(iframe.contents().find("body")));
+});
 
 Cypress.Commands.add("type_ckeditor", (element, content) => {
   cy.wait(5000);
@@ -172,7 +229,6 @@ Cypress.Commands.add("setWorkbenchAccessSections", (value) => {
     });
 });
 
-
 Cypress.Commands.add("accessibilityLog", (violations) => {
   const violationData = violations.map(
     ({ id, impact, description, nodes }) => ({
@@ -188,12 +244,12 @@ Cypress.Commands.add("accessibilityLog", (violations) => {
 
 compareSnapshotCommand();
 
-let logText = '';
+let logText = "";
 
 beforeEach(() => {
   const testTitle = Cypress.currentTest.title;
   const testPath = Cypress.currentTest.titlePath;
-  const date = (new Date()).toUTCString();
+  const date = new Date().toUTCString();
   const timestamp = Math.floor(Date.now() / 1000);
   logText += `VA_GOV_DEBUG ${timestamp} ${date} BEFORE ${testPath} ${testTitle}\n`;
 });
@@ -201,11 +257,10 @@ beforeEach(() => {
 afterEach(() => {
   const testTitle = Cypress.currentTest.title;
   const testPath = Cypress.currentTest.titlePath;
-  const date = (new Date()).toUTCString();
+  const date = new Date().toUTCString();
   const timestamp = Math.floor(Date.now() / 1000);
   logText += `VA_GOV_DEBUG ${timestamp} ${date} AFTER ${testPath} ${testTitle}\n`;
 });
-
 
 after(() => {
   cy.writeFile("cypress.log", logText, { flag: "a+" });

@@ -1,0 +1,37 @@
+uuid: d83e9c4a-44ef-4580-ac8e-8b1e67c353d4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.menu_link_content.home-page-hub-list.field_icon
+    - field.field.menu_link_content.home-page-hub-list.field_link_summary
+    - system.menu.home-page-hub-list
+  module:
+    - options
+id: menu_link_content.home-page-hub-list.default
+targetEntityType: menu_link_content
+bundle: home-page-hub-list
+mode: default
+content:
+  children:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_icon:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_link_summary:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+hidden:
+  search_api_excerpt: true

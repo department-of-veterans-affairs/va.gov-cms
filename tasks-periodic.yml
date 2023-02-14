@@ -98,6 +98,7 @@ tasks:
   va/background/daily/migrate/va_forms:
     desc: Migrate va forms.
     cmds:
+      - drush $DRUSH_ALIAS scr scripts/tasks/VACMS-10735-Forms-CSV-migration-validation.php
       - drush $DRUSH_ALIAS migrate:reset-status va_node_form
       - drush $DRUSH_ALIAS migrate:import va_node_form
 

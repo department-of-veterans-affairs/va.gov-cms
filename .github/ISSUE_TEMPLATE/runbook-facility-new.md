@@ -65,13 +65,10 @@ CMS engineer
 CMS Help desk
 - [ ] 9. HD notifies editor and any other stakeholders.
 
-## CMS Team
+### Team
 Please check the team(s) that will do this work.
 
-- [ ] `Program`
-- [ ] `Platform CMS Team`
-- [ ] `Sitewide Crew`
-- [ ] `⭐️ Sitewide CMS`
-- [ ] `⭐️ Public Websites`
-- [x] `⭐️ Facilities`
-- [x] `⭐️ User support`
+- [ ] `CMS Team`
+- [ ] `Public Websites`
+- [x] `Facilities`
+- [x] `User support`

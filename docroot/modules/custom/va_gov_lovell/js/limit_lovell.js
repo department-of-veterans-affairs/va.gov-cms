@@ -33,10 +33,10 @@
 
     var adminMatcher = void 0;
     if (adminFieldText.search(lovellTricarePattern) > -1) {
-      adminMatcher = "Lovell Federal TRICARE health care";
+      adminMatcher = "Lovell Federal health care - TRICARE";
     }
     if (adminFieldText.search(lovellVaPattern) > -1) {
-      adminMatcher = "Lovell Federal VA health care";
+      adminMatcher = "Lovell Federal health care - VA";
     }
 
     function hideSeekShowLovell(domElement, textMatch) {
@@ -56,19 +56,19 @@
       hideSeekShowLovell(systemFieldOptions, adminMatcher);
     }
 
-    function seekHide(domElement, textMatch) {
+    function seekHide(domElement, regexMatch) {
       domElement.forEach(function (i) {
-        if (i.text.includes(textMatch)) {
+        if (regexMatch.test(i.text)) {
           i.classList.add("hidden-option");
         }
       });
     }
 
     if (adminFieldOptions) {
-      seekHide(adminFieldOptions, lovellFederalText);
+      seekHide(adminFieldOptions, new RegExp("^-+" + lovellFederalText));
     }
     if (regionPageOptions) {
-      seekHide(regionPageOptions, lovellFederalText);
+      seekHide(regionPageOptions, new RegExp("^" + lovellFederalText + "$"));
     }
   };
 

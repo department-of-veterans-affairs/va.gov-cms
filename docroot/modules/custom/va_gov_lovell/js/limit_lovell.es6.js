@@ -48,10 +48,10 @@
     // Get our search string from the field text.
     let adminMatcher;
     if (adminFieldText.search(lovellTricarePattern) > -1) {
-      adminMatcher = "Lovell Federal TRICARE health care";
+      adminMatcher = "Lovell Federal health care - TRICARE";
     }
     if (adminFieldText.search(lovellVaPattern) > -1) {
-      adminMatcher = "Lovell Federal VA health care";
+      adminMatcher = "Lovell Federal health care - VA";
     }
 
     // If Lovell-y, hide all options and only show options matching field text.
@@ -73,19 +73,20 @@
     }
 
     // Seek and hide element based on a string match.
-    function seekHide(domElement, textMatch) {
+    function seekHide(domElement, regexMatch) {
       domElement.forEach((i) => {
-        if (i.text.includes(textMatch)) {
+        if (regexMatch.test(i.text)) {
           i.classList.add("hidden-option");
         }
       });
     }
 
     if (adminFieldOptions) {
-      seekHide(adminFieldOptions, lovellFederalText);
+      // Multiple "-" prefix is used in Drupal menus.
+      seekHide(adminFieldOptions, new RegExp(`^-+${lovellFederalText}`));
     }
     if (regionPageOptions) {
-      seekHide(regionPageOptions, lovellFederalText);
+      seekHide(regionPageOptions, new RegExp(`^${lovellFederalText}$`));
     }
   };
 
