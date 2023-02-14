@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "63c41d3e197c120ecf74d78e26b9ba3d",
+    "content-hash": "f6d3d45c9c6ef3bb734bb0ff7fae22c7",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -3760,27 +3760,27 @@
         },
         {
             "name": "drupal/config_ignore",
-            "version": "2.3.0",
+            "version": "2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/config_ignore.git",
-                "reference": "8.x-2.3"
+                "reference": "8.x-2.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/config_ignore-8.x-2.3.zip",
-                "reference": "8.x-2.3",
-                "shasum": "2e1f07a455275fb6637909921a8915646601fc00"
+                "url": "https://ftp.drupal.org/files/projects/config_ignore-8.x-2.4.zip",
+                "reference": "8.x-2.4",
+                "shasum": "e0e45dde2d6927c5d26de59f352792fb6cf26554"
             },
             "require": {
                 "drupal/config_filter": "^1 || ^2",
-                "drupal/core": "^8 || ^9"
+                "drupal/core": "^8 || ^9 || ^10"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-2.3",
-                    "datestamp": "1608306489",
+                    "version": "8.x-2.4",
+                    "datestamp": "1676045435",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -3812,7 +3812,7 @@
             "homepage": "http://drupal.org/project/config_ignore",
             "support": {
                 "source": "https://git.drupalcode.org/project/config_ignore",
-                "issues": "http://drupal.org/project/config_ignore",
+                "issues": "https://drupal.org/project/config_ignore",
                 "irc": "irc://irc.freenode.org/drupal-contribute"
             }
         },
@@ -4149,17 +4149,17 @@
         },
         {
             "name": "drupal/content_model_documentation",
-            "version": "1.0.0-alpha4",
+            "version": "1.0.0-alpha6",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/content_model_documentation.git",
-                "reference": "1.0.0-alpha4"
+                "reference": "1.0.0-alpha6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/content_model_documentation-1.0.0-alpha4.zip",
-                "reference": "1.0.0-alpha4",
-                "shasum": "6414225eb2d86b62db84d6ba28213a21e60d6879"
+                "url": "https://ftp.drupal.org/files/projects/content_model_documentation-1.0.0-alpha6.zip",
+                "reference": "1.0.0-alpha6",
+                "shasum": "67ab8d28542c88c9fd97408715f1532834321fe6"
             },
             "require": {
                 "drupal/config_views": "~2.0",
@@ -4168,8 +4168,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "1.0.0-alpha4",
-                    "datestamp": "1675826604",
+                    "version": "1.0.0-alpha6",
+                    "datestamp": "1676344016",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
@@ -4181,6 +4181,14 @@
                 "GPL-2.0+"
             ],
             "authors": [
+                {
+                    "name": "beeyayjay",
+                    "homepage": "https://www.drupal.org/user/1214286"
+                },
+                {
+                    "name": "msielski",
+                    "homepage": "https://www.drupal.org/user/218856"
+                },
                 {
                     "name": "swirt",
                     "homepage": "https://www.drupal.org/user/138230"
@@ -6011,8 +6019,8 @@
                     "dev-2.x": "2.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-2.0-beta8+2-dev",
-                    "datestamp": "1674490329",
+                    "version": "8.x-2.0-beta9+1-dev",
+                    "datestamp": "1675792834",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -8437,27 +8445,27 @@
         },
         {
             "name": "drupal/jsonapi_views",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/jsonapi_views.git",
-                "reference": "8.x-1.0"
+                "reference": "8.x-1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/jsonapi_views-8.x-1.0.zip",
-                "reference": "8.x-1.0",
-                "shasum": "e28c0030b279348dbe0247d3a8ce58b50972a024"
+                "url": "https://ftp.drupal.org/files/projects/jsonapi_views-8.x-1.1.zip",
+                "reference": "8.x-1.1",
+                "shasum": "d2d83e724db1d1ea1a4a83a78007c356bc210f6e"
             },
             "require": {
-                "drupal/core": "^8.8 || ^9",
+                "drupal/core": ">=8.8",
                 "drupal/jsonapi_resources": "^1.0"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0",
-                    "datestamp": "1633070688",
+                    "version": "8.x-1.1",
+                    "datestamp": "1675998787",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -8853,26 +8861,26 @@
         },
         {
             "name": "drupal/markup",
-            "version": "1.0.0-beta5",
+            "version": "2.0.0-beta6",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/markup.git",
-                "reference": "8.x-1.0-beta5"
+                "reference": "2.0.0-beta6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/markup-8.x-1.0-beta5.zip",
-                "reference": "8.x-1.0-beta5",
-                "shasum": "dcd4dc20d8ff45830dad9d4df9f75c7421df4d9e"
+                "url": "https://ftp.drupal.org/files/projects/markup-2.0.0-beta6.zip",
+                "reference": "2.0.0-beta6",
+                "shasum": "8f3b8e21814ee51776e757bc4d279483ee393b66"
             },
             "require": {
-                "drupal/core": "^8 || ^9"
+                "drupal/core": "^8.9 || ^9 || ^10"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0-beta5",
-                    "datestamp": "1645738831",
+                    "version": "2.0.0-beta6",
+                    "datestamp": "1675927815",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
@@ -8889,10 +8897,6 @@
                     "homepage": "https://www.drupal.org/user/291091"
                 },
                 {
-                    "name": "Deciphered",
-                    "homepage": "https://www.drupal.org/user/103796"
-                },
-                {
                     "name": "bcostlow",
                     "homepage": "https://www.drupal.org/user/1340686"
                 },
@@ -8901,8 +8905,16 @@
                     "homepage": "https://www.drupal.org/user/202205"
                 },
                 {
+                    "name": "Deciphered",
+                    "homepage": "https://www.drupal.org/user/103796"
+                },
+                {
                     "name": "ebeyrent",
                     "homepage": "https://www.drupal.org/user/23897"
+                },
+                {
+                    "name": "Grevil",
+                    "homepage": "https://www.drupal.org/user/3668491"
                 },
                 {
                     "name": "mqanneh",
@@ -11193,6 +11205,10 @@
             ],
             "authors": [
                 {
+                    "name": "edmund.dunn",
+                    "homepage": "https://www.drupal.org/user/3534438"
+                },
+                {
                     "name": "oksana-c",
                     "homepage": "https://www.drupal.org/user/2916547"
                 }
@@ -13054,26 +13070,26 @@
         },
         {
             "name": "drupal/viewfield",
-            "version": "3.0.0-beta6",
+            "version": "3.0.0-beta7",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/viewfield.git",
-                "reference": "8.x-3.0-beta6"
+                "reference": "8.x-3.0-beta7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/viewfield-8.x-3.0-beta6.zip",
-                "reference": "8.x-3.0-beta6",
-                "shasum": "92b6b15fdd2cbad234bb55f7b9c4602544ff5c0a"
+                "url": "https://ftp.drupal.org/files/projects/viewfield-8.x-3.0-beta7.zip",
+                "reference": "8.x-3.0-beta7",
+                "shasum": "60ab405ef94596e9f0b724eeb47c71bba9640aa6"
             },
             "require": {
-                "drupal/core": "^8 || ^9"
+                "drupal/core": "^9.2 || ^10"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-3.0-beta6",
-                    "datestamp": "1597345181",
+                    "version": "8.x-3.0-beta7",
+                    "datestamp": "1675788957",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
@@ -13085,6 +13101,10 @@
                 "GPL-2.0+"
             ],
             "authors": [
+                {
+                    "name": "danflanagan8",
+                    "homepage": "https://www.drupal.org/user/3615359"
+                },
                 {
                     "name": "jerdavis",
                     "homepage": "https://www.drupal.org/user/228997"
@@ -27770,16 +27790,16 @@
         },
         {
             "name": "va-gov/content-build",
-            "version": "v0.0.3193",
+            "version": "v0.0.3195",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/content-build.git",
-                "reference": "7a2004fdc5a085076b7b7976c4b61cb88c2e7da5"
+                "reference": "87b0c502efb2e92cd8aea0892d7a05caa0df8f3a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/7a2004fdc5a085076b7b7976c4b61cb88c2e7da5",
-                "reference": "7a2004fdc5a085076b7b7976c4b61cb88c2e7da5",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/87b0c502efb2e92cd8aea0892d7a05caa0df8f3a",
+                "reference": "87b0c502efb2e92cd8aea0892d7a05caa0df8f3a",
                 "shasum": ""
             },
             "type": "node-project",
@@ -27806,9 +27826,9 @@
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/content-build, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
             "support": {
                 "issues": "https://github.com/department-of-veterans-affairs/content-build/issues",
-                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3193"
+                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3195"
             },
-            "time": "2023-02-09T19:14:28+00:00"
+            "time": "2023-02-13T15:56:55+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -28788,7 +28808,6 @@
         "drupal/libraries": 15,
         "drupal/linky": 10,
         "drupal/linkychecker": 10,
-        "drupal/markup": 10,
         "drupal/message_ui": 10,
         "drupal/migrate_source_ui": 5,
         "drupal/migrate_tools": 20,

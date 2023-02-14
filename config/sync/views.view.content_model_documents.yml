@@ -5,6 +5,7 @@ dependencies:
   module:
     - content_model_documentation
     - options
+    - user
   enforced:
     module:
       - content_model_documentation
@@ -369,8 +370,9 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
       access:
-        type: none
-        options: {  }
+        type: perm
+        options:
+          perm: 'view content model documentation'
       cache:
         type: tag
         options: {  }
@@ -544,6 +546,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user.permissions
       tags: {  }
   cm_documents:
     id: cm_documents
@@ -563,4 +566,5 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user.permissions
       tags: {  }

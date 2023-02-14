@@ -1,0 +1,43 @@
+uuid: daac8bd1-396c-4e1e-b061-97ab4b83e97a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.cm_document.field_screenshots
+  module:
+    - content_model_documentation
+    - epp
+    - image
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: cm_document.cm_document.field_screenshots
+field_name: field_screenshots
+entity_type: cm_document
+bundle: cm_document
+label: Screenshots
+description: 'Add screenshots for both the look of the edit form after a design change and the look of the view mode.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: cm-documentation
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: ''
+  min_resolution: ''
+  alt_field: true
+  alt_field_required: true
+  title_field: true
+  title_field_required: true
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+field_type: image

@@ -9,14 +9,12 @@ assignees: ''
 
 ## Description
 
-
-
 ### User story
 > _Describe the audience/user, enhancement or fix, and value / outcome desired._
 
-* **AS A(N)**: 
-* **I WANT**: 
-* **SO THAT**: 
+**AS A(N)** 
+**I WANT** 
+**SO THAT** 
 
 
 ### Engineering notes / background

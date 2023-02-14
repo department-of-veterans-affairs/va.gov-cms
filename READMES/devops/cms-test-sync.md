@@ -28,14 +28,12 @@ Once the build is done, you can manually trigger the CMS-TEST PROD deploy job he
 1. Get commit from that was deployed at time of backup https://github.com/department-of-veterans-affairs/va.gov-cms-test/commits
 1. Copy S3 URL from https://console.amazonaws-us-gov.com/s3/object/dsva-vagov-prod-cms-backup
 1. SSM into server with `ssm-session vagov-prod cms-test auto`
-1. `sudo -u apache -s` # become apache user
-1. `cd /var/www/cms`
-1. `git fetch`
+1. `sudo su -u cms` # become apache user
 1. `git checkout <commit-from-above>`
-1. `source /etc/sysconfig/httpd; PATH=$PATH:/usr/local/bin composer nuke`
-1. `source /etc/sysconfig/httpd; PATH=$PATH:/usr/local/bin composer install`
-1. `source /etc/sysconfig/httpd; PATH=$PATH:/usr/local/bin drush status` # verify using the test database
+1. `composer va:nuke`
+1. `composer install`
+1. `drush status` # verify using the test database
 1. `aws --region us-gov-west-1 s3 cp s3://dsva-vagov-prod-cms-backup/database/drupal8-db-prod-2020-12-02-15-00.sql.gz . `
 1. `gunzip drupal8-db-prod-2020-12-02-15-00.sql.gz`
-1. `source /etc/sysconfig/httpd; PATH=$PATH:/usr/local/bin drush sql-drop --yes`
-1. `source /etc/sysconfig/httpd; PATH=$PATH:/usr/local/bin drush sql-cli < drupal8-db-prod-2020-12-02-15-00.sql`
+1. `drush sql-drop --yes`
+1. `drush sql-cli < drupal8-db-prod-2020-12-02-15-00.sql`
