@@ -8,7 +8,8 @@ Feature: CMS Users may effectively interact with the VAMC Facility form
     Given I am logged in as a user with the "content_admin" role
     When I am at "/node/add/health_care_local_facility"
     And I fill in "Name of facility" with "[Test Data] Facility Name"
-    And I scroll to element "[data-drupal-selector='edit-group-covid-19-safety-guidelines']"
+    And I scroll to element "#edit-field-supplemental-status-more-i-wrapper"
+    Then I fill in ckeditor "field-supplemental-status-more-i-0" with "[Test Data] COVID 19 Status Details"
     And I select the radio button with the value "1037"
     And I wait "2" seconds
     Then I should see "Visitors are welcome" in ckeditor "field-supplemental-status-more-i-0"
