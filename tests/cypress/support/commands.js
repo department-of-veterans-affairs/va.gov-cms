@@ -134,14 +134,16 @@ Cypress.Commands.add("drupalWatchdogHasNewErrors", (username, count) => {
 });
 
 Cypress.Commands.add("iframe", { prevSubject: "element" }, ($iframe) => {
-  return cy
-    .wrap($iframe)
-    .should((iframe) => expect(iframe.contents().find("body")).to.exist)
-    .then((iframe) => cy.wrap(iframe.contents().find("body")));
+  cy.get($iframe).scrollIntoView();
+  cy.get($iframe)
+    .its("0.contentDocument")
+    .should("not.be.empty")
+    .its("body")
+    .as("body");
+  cy.get("@body").should("be.visible").should("not.be.empty").then(cy.wrap);
 });
 
 Cypress.Commands.add("type_ckeditor", (element, content) => {
-  cy.wait(5000);
   cy.window().then((win) => {
     const elements = Object.keys(win.CKEDITOR.instances);
     if (elements.indexOf(element) === -1) {
@@ -151,12 +153,12 @@ Cypress.Commands.add("type_ckeditor", (element, content) => {
         element = matches[0];
       }
     }
+    cy.get(`#${element}`).parent().find("iframe").iframe();
     win.CKEDITOR.instances[element].setData(content);
   });
 });
 
 Cypress.Commands.add("read_ckeditor", (element) => {
-  cy.wait(5000);
   return cy.window().then((win) => {
     const elements = Object.keys(win.CKEDITOR.instances);
     if (elements.indexOf(element) === -1) {
@@ -165,6 +167,7 @@ Cypress.Commands.add("read_ckeditor", (element) => {
         [element] = matches;
       }
     }
+    cy.get(`#${element}`).parent().find("iframe").iframe();
     return cy.wrap(win.CKEDITOR.instances[element].getData());
   });
 });
