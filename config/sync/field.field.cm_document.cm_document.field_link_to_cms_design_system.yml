@@ -1,0 +1,28 @@
+uuid: 71b64261-e1aa-43dc-a46f-76a85a852e93
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.cm_document.field_link_to_cms_design_system
+  module:
+    - content_model_documentation
+    - epp
+    - link
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: cm_document.cm_document.field_link_to_cms_design_system
+field_name: field_link_to_cms_design_system
+entity_type: cm_document
+bundle: cm_document
+label: 'Links to CMS Design System'
+description: 'Add any links to Design system components or Storybook.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 1
+  link_type: 16
+field_type: link

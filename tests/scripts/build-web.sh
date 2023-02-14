@@ -10,11 +10,11 @@ set -eo pipefail
 # So, we decided to keep the "grep" for the Metalsmith error message to ensure
 # that we catch the situation where the error is shown, but the command exits
 # successfully (exit 0).
-TEMPFILE=$( mktemp )
-composer va:web:build | tee ${TEMPFILE}
-grep "Failed to pipe Drupal content into Metalsmith!" -B1000 -C8 ${TEMPFILE} &&
-  echo "tests.yml | composer va:web:build included the Drupal/Metalsmith error." &&
-  exit 1 ||
-    echo "tests.yml | Front end site was built! Check $DRUPAL_ADDRESS/static for raw output!"
+tempfile="$(mktemp)"
+composer va:web:build | tee "${tempfile}"
+grep "Failed to pipe Drupal content into Metalsmith!" -B1000 -C8 "${tempfile}" \
+  && echo "tests.yml | composer va:web:build included the Drupal/Metalsmith error." \
+  && exit 1 \
+    || echo "tests.yml | Front end site was built! Check $DRUPAL_ADDRESS/static for raw output!"
 
 exit $?

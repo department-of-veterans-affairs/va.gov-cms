@@ -3,9 +3,18 @@
 # Check a specified branch name against a list of allowed patterns.
 function check_branch_name() {
   case $1 in 
-    VAGOV-TEAM-[0-9]* | VACMS-[0-9]* | dependabot/* | revert-*) return 0;;
+    VAGOV-TEAM-[0-9]* | VACMS-[0-9]* | dependabot/* | revert-* | "") return 0;;
     *) return 1;;
   esac
+}
+
+# Is DDEV running?
+function is_ddev_running() {
+  # Get a list of running Docker containers relevant to DDEV.
+  # DDEV sometimes leaves an SSH agent container running even when stopped.
+  # So, to check if it is running, we exclude that from the list.
+  processes=$(docker ps | grep -v agent | grep -c ddev)
+  [ "$processes" -ge 1 ]
 }
 
 # Indicate an error with the branch name.
@@ -22,14 +31,11 @@ EOF
   exit 1
 }
 
-branch_name=$(git rev-parse --abbrev-ref HEAD)
+branch_name="$(git rev-parse --abbrev-ref HEAD)"
 check_branch_name "${branch_name}" || branch_name_error
-
-# If ddev is running, run the lints there.
-if [ -x "$(command -v ddev)" ] && docker ps | grep ddev > /dev/null; then
+if [ -x "$(command -v ddev)" ] && is_ddev_running; then
   ddev pre-commit
 else
-  echo 'ddev is not running, falling back to local composer usage. Run `ddev start` to use ddev composer (recommended).'
-  # Run PHP Codesniffer as pre-commit check.
-  composer va:test:php_codesniffer
+  echo 'ddev is not running or is not available.'
+  echo 'Ensure that ddev is installed and running to run pre-commit hooks.'
 fi
