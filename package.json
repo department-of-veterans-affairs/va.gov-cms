@@ -16,6 +16,7 @@
     "stylelint-themes": "npx stylelint 'docroot/themes/custom/**/*.scss'",
     "stylelint": "npx stylelint",
     "test:cypress": "cypress run -e \"TAGS=$CYPRESS_TAGS\"",
+    "test:cypress:parallel:reweight": "cypress-parallel -s test:cypress -t 1 -d 'tests/cypress/integration' -w 'tests/cypress/weights.json' -m false",
     "test:cypress:parallel": "cypress-parallel -s test:cypress -t 4 -d 'tests/cypress/integration' -w 'tests/cypress/weights.json' -m false",
     "test:cypress:interactive": "cypress open -e \"TAGS=not @ignore and not @piv,VAGOV_INTERACTIVE=true\""
   },
