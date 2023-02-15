@@ -17,6 +17,7 @@ const axeRuntimeOptions = {
 const accessibilityViolations = [];
 
 Cypress.Commands.add("checkAccessibility", () => {
+  cy.wait(1000);
   return cy.checkA11y(axeContext, axeRuntimeOptions, (violations) => {
     cy.accessibilityLog(violations);
     cy.location("pathname").then((route) => {
