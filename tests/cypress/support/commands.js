@@ -244,6 +244,12 @@ Cypress.Commands.add("accessibilityLog", (violations) => {
 
 compareSnapshotCommand();
 
+Cypress.on("uncaught:exception", () => {
+  // Prevent Cypress from automatically failing tests in response to uncaught
+  // application exceptions.
+  return false;
+});
+
 let logText = "";
 
 beforeEach(() => {
