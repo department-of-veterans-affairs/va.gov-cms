@@ -1,7 +1,7 @@
-import { Given, Then } from "cypress-cucumber-preprocessor/steps";
+import { Then } from "cypress-cucumber-preprocessor/steps";
 import { faker } from "@faker-js/faker";
 
-Given(`I add a main content block with a link to a {string} file`, (type) => {
+Then(`I add a main content block with a link to a {string} file`, (type) => {
   cy.get("#edit-field-content-block-add-more-browse")
     .scrollIntoView()
     .should("be.visible")

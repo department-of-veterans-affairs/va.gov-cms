@@ -24,6 +24,8 @@ Cypress.Commands.add("drupalLogin", (username, password) => {
   cy.window().then((window) => {
     cy.wrap(window.drupalSettings.user.uid).as("uid");
   });
+  cy.injectAxe();
+  cy.checkAccessibility();
 });
 
 Cypress.Commands.add("drupalLogout", () => {
@@ -144,6 +146,7 @@ Cypress.Commands.add("type_ckeditor", (element, content) => {
     if (elements.indexOf(element) === -1) {
       const matches = elements.filter((el) => el.includes(element));
       if (matches.length) {
+        // eslint-disable-next-line prefer-destructuring
         element = matches[0];
       }
     }
@@ -227,19 +230,6 @@ Cypress.Commands.add("setWorkbenchAccessSections", (value) => {
       `;
       return cy.drupalDrushEval(command);
     });
-});
-
-Cypress.Commands.add("accessibilityLog", (violations) => {
-  const violationData = violations.map(
-    ({ id, impact, description, nodes }) => ({
-      id,
-      impact,
-      description,
-      target: nodes[0].target,
-      nodes: nodes.length,
-    })
-  );
-  cy.task("table", violationData);
 });
 
 compareSnapshotCommand();
