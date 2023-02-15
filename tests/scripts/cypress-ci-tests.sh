@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -ex
+set -x
 
 # This runs the Cypress test suites with some additional functionality for CI.
 
@@ -14,3 +14,5 @@ if [ "${exit_code}" -ne 0 ]; then
 fi
 
 popd > /dev/null
+
+exit "${exit_code}"
