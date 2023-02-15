@@ -22,6 +22,9 @@ $databases['default']['default'] = array(
   'host' => getenv('CMS_MARIADB_HOST') ?: 'db',
   'port' => 3306,
   'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
+  'init_commands' => [
+    'isolation_level' => 'SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED',
+  ],
 );
 
 /**
