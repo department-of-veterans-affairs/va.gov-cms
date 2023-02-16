@@ -18,6 +18,7 @@ dependencies:
     - field.storage.node.field_region_page
     - field.storage.node.field_service_name_and_descripti
     - field.storage.node.field_supplemental_status
+    - field.storage.node.field_supplemental_status_more_i
     - field.storage.node.field_va_health_connect_phone
     - field.storage.node.field_vamc_ehr_system
     - field.storage.node.field_vamc_system_official_name
@@ -9491,6 +9492,68 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        field_supplemental_status_more_i:
+          id: field_supplemental_status_more_i
+          table: node__field_supplemental_status_more_i
+          field: field_supplemental_status_more_i
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Supplemental status - more info'
+          exclude: false
+          alter:
+            alter_text: true
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 200
+            word_boundary: true
+            ellipsis: true
+            more_link: true
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: true
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: text_default
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         field_administration:
           id: field_administration
           table: node__field_administration
@@ -10364,6 +10427,7 @@ display:
         - 'config:field.storage.node.field_operating_status_facility'
         - 'config:field.storage.node.field_operating_status_more_info'
         - 'config:field.storage.node.field_supplemental_status'
+        - 'config:field.storage.node.field_supplemental_status_more_i'
         - 'config:workflow_list'
         - workbench_access_view
   vamc_facility_health_services_export:
