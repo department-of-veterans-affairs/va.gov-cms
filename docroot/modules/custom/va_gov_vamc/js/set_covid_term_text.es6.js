@@ -15,7 +15,7 @@
       }
     });
     // When the COVID status radio button is changed,
-    // change the COVID Details field to the appropriate COVID status term description
+    // change the COVID Details field to the appropriate COVID status term description.
     let iframeDocument = "";
     if (
       document.querySelector(
