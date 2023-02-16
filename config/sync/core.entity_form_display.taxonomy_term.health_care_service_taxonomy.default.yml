@@ -13,6 +13,7 @@ dependencies:
     - field.field.taxonomy_term.health_care_service_taxonomy.field_show_for_vba_facilities
     - field.field.taxonomy_term.health_care_service_taxonomy.field_show_for_vet_centers
     - field.field.taxonomy_term.health_care_service_taxonomy.field_tricare_description
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_tricare_name
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vba_com_conditions
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vba_friendly_name
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vba_service_descrip
@@ -59,11 +60,11 @@ third_party_settings:
       format_type: details
       format_settings:
         classes: ''
+        show_empty_fields: false
         id: ''
         open: true
         description: 'Add content to these fields if you want to "override" how the service is described on Vet Center pages.'
         required_fields: true
-        show_empty_fields: false
     group_vamc:
       children:
         - field_show_for_vamc_facilities
@@ -71,6 +72,7 @@ third_party_settings:
         - field_also_known_as
         - field_commonly_treated_condition
         - description
+        - field_tricare_name
         - field_tricare_description
       label: VAMC
       region: content
@@ -79,11 +81,11 @@ third_party_settings:
       format_type: details
       format_settings:
         classes: ''
+        show_empty_fields: false
         id: ''
         open: true
         description: 'These values act as the default values for VHA health services, but can be overridden for Vet Centers, below.'
         required_fields: true
-        show_empty_fields: false
     group_vba:
       children:
         - field_show_for_vba_facilities
@@ -97,10 +99,10 @@ third_party_settings:
       format_type: fieldset
       format_settings:
         classes: ''
+        show_empty_fields: false
         id: ''
         description: ''
         required_fields: true
-        show_empty_fields: false
         description_display: after
 id: taxonomy_term.health_care_service_taxonomy.default
 targetEntityType: taxonomy_term
@@ -175,10 +177,18 @@ content:
     third_party_settings: {  }
   field_tricare_description:
     type: string_textarea
-    weight: 19
+    weight: 20
     region: content
     settings:
       rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_tricare_name:
+    type: string_textfield
+    weight: 19
+    region: content
+    settings:
+      size: 60
       placeholder: ''
     third_party_settings: {  }
   field_vba_com_conditions:
