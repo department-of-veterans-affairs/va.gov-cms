@@ -26,7 +26,8 @@
         "#cke_edit-field-supplemental-status-more-i-0-value iframe"
       ).contentDocument;
       if (iframeDocument.body) {
-        iframeDocument.body.innerHTML = `<p></p>${drupalSettings.vamcCovidStatusTermText[statusId].description}`;
+        iframeDocument.body.innerHTML =
+          drupalSettings.vamcCovidStatusTermText[statusId].description;
       }
     }
   };
