@@ -1,0 +1,28 @@
+Subject: [PATCH] 3342032-undefined-method-getimplementations
+---
+Index: libraries.module
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/libraries.module b/libraries.module
+--- a/libraries.module	(revision 56e956711047671f8df842bbfb5871170721a4ca)
++++ b/libraries.module	(date 1676480645036)
+@@ -404,12 +404,14 @@
+     $libraries = [];
+     // Gather information from hook_libraries_info().
+     $module_handler = \Drupal::moduleHandler();
+-    foreach ($module_handler->getImplementations('libraries_info') as $module) {
+-      foreach ($module_handler->invoke($module, 'libraries_info') as $machine_name => $properties) {
++    $hook = 'libraries_info';
++    $module_handler->invokeAllWith($hook, function (callable $hook, string $module) use ($module_handler, &$libraries) {
++
++      foreach ((array) $module_handler->invoke($module, 'libraries_info') as $machine_name => $properties) {
+         $properties['module'] = $module;
+         $libraries[$machine_name] = $properties;
+       }
+-    }
++    });
+     // Gather information from hook_libraries_info() in enabled themes.
+     // @see drupal_alter()
+     global $theme, $base_theme_info;

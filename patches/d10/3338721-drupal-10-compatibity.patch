@@ -1,0 +1,43 @@
+diff --git a/src/EventSubscriber/ContentModerationEventSubscriber.php b/src/EventSubscriber/ContentModerationEventSubscriber.php
+index 63ed7a8..da0965d 100644
+--- a/src/EventSubscriber/ContentModerationEventSubscriber.php
++++ b/src/EventSubscriber/ContentModerationEventSubscriber.php
+@@ -3,10 +3,10 @@
+ namespace Drupal\danse_content_moderation\EventSubscriber;
+ 
+ use Drupal\Core\Entity\ContentEntityInterface;
++use Drupal\core_event_dispatcher\EntityHookEvents;
+ use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
+ use Drupal\danse_content_moderation\Payload;
+ use Drupal\danse\PluginManager;
+-use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
+ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+ 
+ /**
+@@ -48,7 +48,7 @@ class ContentModerationEventSubscriber implements EventSubscriberInterface {
+    */
+   public static function getSubscribedEvents(): array {
+     return [
+-      HookEventDispatcherInterface::ENTITY_UPDATE => 'onEntityUpdate',
++      EntityHookEvents::ENTITY_UPDATE => 'onEntityUpdate',
+     ];
+   }
+ 
+diff --git a/src/Plugin/Danse/ContentModeration.php b/src/Plugin/Danse/ContentModeration.php
+index 874c8d9..989ce0d 100644
+--- a/src/Plugin/Danse/ContentModeration.php
++++ b/src/Plugin/Danse/ContentModeration.php
+@@ -38,10 +38,11 @@ class ContentModeration extends PluginBase {
+   /**
+    * {@inheritdoc}
+    */
+-  public function buildForm(&$form, FormStateInterface $form_state) {
+-    return FALSE;
++  public function buildForm(array &$form, FormStateInterface $form_state): array {
++    return [];
+   }
+ 
++
+   /**
+    * {@inheritdoc}
+    */
