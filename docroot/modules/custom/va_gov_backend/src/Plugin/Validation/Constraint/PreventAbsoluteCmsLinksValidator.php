@@ -59,11 +59,11 @@ class PreventAbsoluteCmsLinksValidator extends ConstraintValidator {
    *   The field item delta.
    */
   public function validateText(string $text, PreventAbsoluteCmsLinks $constraint, int $delta) {
-    if (strpos($text, 'cms.va.gov') === FALSE) {
+    if (strpos($text, 'cms.va.gov') === FALSE && strpos($text, 'vfs.va.gov') === FALSE) {
       return;
     }
     // We don't need no stinkin' XPath bc plain text.
-    if (preg_match('#((https?:)?(//)?[^\s]*?cms\.va\.gov[^\s]*)#', $text, $matches)) {
+    if (preg_match('#((https?:)?(//)?[^\s]*?(cms|vfs)\.va\.gov[^\s]*)#', $text, $matches)) {
       $this->addViolation($delta, $constraint->plainTextMessage, [
         ':url' => $matches[1],
       ]);
@@ -81,13 +81,13 @@ class PreventAbsoluteCmsLinksValidator extends ConstraintValidator {
    *   The field item delta.
    */
   public function validateHtml(string $html, PreventAbsoluteCmsLinks $constraint, int $delta) {
-    if (strpos($html, 'cms.va.gov') === FALSE) {
+    if (strpos($html, 'cms.va.gov') === FALSE && strpos($html, 'vfs.va.gov') === FALSE) {
       return;
     }
     $dom = Html::load($html);
     $xpath = new \DOMXPath($dom);
     // DOMXPath doesn't support matches(), so we need to use contains().
-    foreach ($xpath->query('//a[contains(@href, "cms.va.gov")]') as $element) {
+    foreach ($xpath->query('//a[contains(@href, "cms.va.gov") or contains(@href, "vfs.va.gov")]') as $element) {
       $url = $element->getAttribute('href');
       $firstChild = $element->hasChildNodes() ? $element->childNodes[0] : NULL;
       $link = $element->ownerDocument->saveHTML($firstChild ?? $element);
