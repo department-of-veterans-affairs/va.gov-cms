@@ -203,6 +203,9 @@ class EntityEventSubscriber implements EventSubscriberInterface {
         'vc_vocabulary_service_description_label' => $vocabulary_definition['field_vet_center_service_descrip']->getLabel(),
         'vc_vocabulary_description_help_text' => $vocabulary_definition['field_vet_center_service_descrip']->getDescription(),
       ];
+      // Lovell VAMC Facilities may include a TRICARE description field.
+      $tricare_description = $service_term->get('field_tricare_description')->value ?? '';
+      $descriptions[$service_term->id()]['tricare_description'] = trim(strip_tags($tricare_description));
     }
     $form['#attached']['drupalSettings']['availableHealthServices'] = $descriptions;
     $form['#attached']['library'][] = 'va_gov_backend/display_service_descriptions';
