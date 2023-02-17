@@ -47,6 +47,6 @@ Cypress.Commands.add("accessibilityLog", (violations) => {
 after(() => {
   cy.writeFile(
     "cypress_accessibility_violations.json",
-    accessibilityViolations
+    JSON.stringify(accessibilityViolations, null, 2)
   );
 });
