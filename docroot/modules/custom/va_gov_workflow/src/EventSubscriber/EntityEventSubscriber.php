@@ -104,10 +104,13 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The event.
    */
   public function alterNodeForm(FormBaseAlterEvent $event) {
+    $form = &$event->getForm();
     $form_state = $event->getFormState();
+    $form_id = $event->getFormId();
     if ($form_state->getFormObject() instanceof EntityFormInterface) {
       $this->removeArchiveOption($event);
     }
+    $this->requireRevisionMessage($form, $form_state, $form_id);
   }
 
   /**
@@ -189,6 +192,37 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       // A flag is being deleted.
       $this->flagger->logFlagOperation($entity, 'delete');
     }
+  }
+
+  /**
+   * Adds Validation to check revision log message is added.
+   *
+   * @param array $form
+   *   The exposed widget form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   * @param string $form_id
+   *   The form id.
+   */
+  public function requireRevisionMessage(array &$form, FormStateInterface &$form_state, $form_id) {
+    $widget_fields = [
+      'field_nearby_vet_centers',
+      'field_nearby_mobile_vet_centers',
+    ];
+    foreach ($widget_fields as $widget_field) {
+      // Stop the node form validation to fire on the removal buttons.
+      $current_widgets = $form[$widget_field]['widget']['current'] ?? [];
+      foreach ($current_widgets as $key => $button) {
+        if (is_numeric($key)) {
+          $form[$widget_field]['widget']['current'][$key]['actions']['remove_button']['#limit_validation_errors'] = [['field_nearby_vet_centers']];
+        }
+      }
+    }
+    $form['revision_log']['#required'] = TRUE;
+    $form['revision_log']['widget']['#required'] = TRUE;
+    $form['revision_log']['widget'][0]['#required'] = TRUE;
+    $form['revision_log']['widget'][0]['value']['#required'] = TRUE;
+    $form['#validate'][] = '_va_gov_workflow_validate_required_revision_message';
   }
 
 }
