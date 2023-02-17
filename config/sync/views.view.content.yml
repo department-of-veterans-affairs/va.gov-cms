@@ -493,12 +493,24 @@ display:
       pager:
         type: full
         options:
+          offset: 0
           items_per_page: 50
+          total_pages: null
+          id: 0
           tags:
             next: 'Next ›'
             previous: '‹ Previous'
             first: '« First'
             last: 'Last »'
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
+          quantity: 9
       exposed_form:
         type: basic
         options:
@@ -4230,6 +4242,66 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        field_last_saved_by_an_editor_value_1:
+          id: field_last_saved_by_an_editor_value_1
+          table: node__field_last_saved_by_an_editor
+          field: field_last_saved_by_an_editor_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: date
+          operator: '<'
+          value:
+            min: ''
+            max: ''
+            value: ''
+            type: date
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_last_saved_by_an_editor_value_1_op
+            label: ''
+            description: ''
+            use_operator: false
+            operator: field_last_saved_by_an_editor_value_1_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_last_saved_by_an_editor_value_1
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+              homepage_manager: '0'
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       filter_groups:
         operator: AND
         groups:
@@ -4257,7 +4329,7 @@ display:
             timestamp: timestamp
             break: break
             is_locked: is_locked
-          default: '-1'
+          default: field_last_saved_by_an_editor
           info:
             title:
               sortable: true
@@ -4295,7 +4367,7 @@ display:
               empty_column: false
               responsive: ''
             field_last_saved_by_an_editor:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
@@ -5781,6 +5853,7 @@ display:
         type: perm
         options:
           perm: 'access content'
+      sorts: {  }
       filters:
         title:
           id: title
@@ -5979,6 +6052,7 @@ display:
       defaults:
         access: false
         fields: false
+        sorts: false
         filters: false
         filter_groups: false
         header: false

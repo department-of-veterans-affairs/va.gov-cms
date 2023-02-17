@@ -10,6 +10,10 @@ services:
     arguments: [ '@va_gov_notifications.flagging' ]
     tags:
       - { name: event_subscriber }
+  hook_event_dispatcher.example_form_subscribers:
+    class: Drupal\va_gov_notifications\EventSubscriber\OutdatedContentReportFormEventSubscriber
+    tags:
+      - { name: event_subscriber }
   va_gov_notifications.notifications_manager:
     class: Drupal\va_gov_notifications\Service\NotificationsManager
     arguments:
