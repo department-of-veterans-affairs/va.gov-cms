@@ -314,6 +314,9 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   protected function isNodeIef(NodeInterface $node, $field_name): bool {
     $field_definition = $node->getFieldDefinition($field_name);
+    if (empty($field_definition)) {
+      return FALSE;
+    }
     $fieldType = $field_definition->getType();
     $field_types_for_ief = [
       'entity_reference',
