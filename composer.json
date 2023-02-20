@@ -688,7 +688,7 @@
         ],
         "va:test:behat": [
             "# Run Behat tests.",
-            "! ./scripts/should-run-directly.sh || (cd tests/behat && behat)",
+            "! ./scripts/should-run-directly.sh || ./tests/scripts/behat-tests.sh",
             "./scripts/should-run-directly.sh || ddev composer va:test:behat --"
         ],
         "va:test:check-cer": [
