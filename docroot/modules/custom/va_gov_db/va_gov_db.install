@@ -1146,3 +1146,10 @@ function va_gov_db_update_9013(&$sandbox) {
 
   return $messages;
 }
+
+/**
+ * Publish latest revision of KB related to required revision log messages.
+ */
+function va_gov_db_update_9014(&$sandbox) {
+  return _va_gov_db_publish_nodes([35029]);
+}
