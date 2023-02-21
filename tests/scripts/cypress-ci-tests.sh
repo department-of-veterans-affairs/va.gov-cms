@@ -8,10 +8,7 @@ repo_root="$(git rev-parse --show-toplevel)"
 pushd "${repo_root}" > /dev/null
 
 ./tests/scripts/cypress-tests.sh
-exit_code=$?
-if [ "${exit_code}" -ne 0 ]; then
-  node tests/report_cypress_accessibility_errors.js
-fi
+node tests/report_cypress_accessibility_errors.js
 
 popd > /dev/null
 
