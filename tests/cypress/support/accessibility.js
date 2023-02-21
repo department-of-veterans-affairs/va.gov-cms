@@ -1,8 +1,10 @@
+/* eslint-disable no-console */
 const axeContext = {
   include: [["body"]],
   exclude: [
     [
-      "#edit-menu-menu-parent", // 8700-item select elements apparently break accessibility tests
+      "#edit-menu-menu-parent", // 8700-item select elements apparently break accessibility tests.
+      "#jsd-widget", // Not really under our control.
     ],
   ],
 };
@@ -20,13 +22,17 @@ Cypress.Commands.add("checkAccessibility", () => {
   cy.wait(1000);
   return cy.checkA11y(axeContext, axeRuntimeOptions, (violations) => {
     cy.accessibilityLog(violations);
-    cy.location("pathname").then((route) => {
+    return cy.location("pathname").then((route) => {
       // eslint-disable-next-line max-nested-callbacks
       const violationData = violations.map((violation) => ({
         route,
         ...violation,
       }));
       accessibilityViolations.push(...violationData);
+      cy.writeFile(
+        "cypress_accessibility_violations.json",
+        JSON.stringify(accessibilityViolations, null, 2)
+      );
     });
   });
 });
@@ -42,11 +48,4 @@ Cypress.Commands.add("accessibilityLog", (violations) => {
     })
   );
   cy.task("table", violationData);
-});
-
-after(() => {
-  cy.writeFile(
-    "cypress_accessibility_violations.json",
-    JSON.stringify(accessibilityViolations, null, 2)
-  );
 });
