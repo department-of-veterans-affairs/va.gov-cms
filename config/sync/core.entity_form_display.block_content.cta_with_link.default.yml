@@ -72,14 +72,10 @@ bundle: cta_with_link
 mode: default
 content:
   field_administration:
-    type: entity_reference_autocomplete
+    type: options_select
     weight: 6
     region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
   field_cta_summary_text:
     type: string_textarea_with_counter
@@ -95,12 +91,18 @@ content:
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
   field_primary_cta_button_text:
-    type: string_textfield
+    type: string_textfield_with_counter
     weight: 5
     region: content
     settings:
       size: 60
       placeholder: ''
+      use_field_maxlength: false
+      maxlength: 60
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: true
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
   field_primary_cta_button_url:
     type: link_default
