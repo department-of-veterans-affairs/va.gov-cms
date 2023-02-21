@@ -4,6 +4,8 @@ const axeContext = {
   exclude: [
     [
       "#edit-menu-menu-parent", // 8700-item select elements apparently break accessibility tests.
+    ],
+    [
       "iframe#jsd-widget", // Not really under our control.
     ],
   ],
