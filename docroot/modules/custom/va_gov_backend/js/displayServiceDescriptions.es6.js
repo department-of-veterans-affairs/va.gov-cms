@@ -21,6 +21,10 @@
             .getElementById(`${service.id}-services-general-description`)
             .remove();
         }
+        // Grab the first selector that appears
+        const serviceSelector = context.querySelector(
+          ".field--name-field-service-name-and-descripti select"
+        );
         // Lovell - grab VAMC System field (if it exists).
         let tricareSystem = false;
         const vamcSystemSelector = context.getElementById(
@@ -32,11 +36,34 @@
           if (vamcSystemSelector.value === tricareSystemId) {
             tricareSystem = true;
           }
+          // Refresh service names based on VAMC system.
+          if (
+            serviceSelector !== undefined &&
+            serviceSelector.options !== undefined
+          ) {
+            let i = 0;
+            for (i = 0; i < serviceSelector.length; i++) {
+              const termId = serviceSelector.options[i].value;
+              if (
+                tricareSystem &&
+                drupalSettings.availableHealthServices[termId] !== undefined &&
+                drupalSettings.availableHealthServices[termId].tricare_name !==
+                  ""
+              ) {
+                serviceSelector.options[i].text =
+                  drupalSettings.availableHealthServices[termId].tricare_name;
+              }
+              if (
+                !tricareSystem &&
+                drupalSettings.availableHealthServices[termId] !== undefined &&
+                drupalSettings.availableHealthServices[termId].term_name !== ""
+              ) {
+                serviceSelector.options[i].text =
+                  drupalSettings.availableHealthServices[termId].term_name;
+              }
+            }
+          }
         }
-        // Grab the first selector that appears
-        const serviceSelector = context.querySelector(
-          ".field--name-field-service-name-and-descripti select"
-        );
         const wysiwyg = context.getElementById("edit-field-body-wrapper");
         // Use the selection from first selector to determine whether or
         // not we show the taxonomy fields div and wysiwyg.

@@ -16,6 +16,8 @@
           context.getElementById(service.id + "-services-general-description").remove();
         }
 
+        var serviceSelector = context.querySelector(".field--name-field-service-name-and-descripti select");
+
         var tricareSystem = false;
         var vamcSystemSelector = context.getElementById("edit-field-region-page");
         if (vamcSystemSelector !== null) {
@@ -23,9 +25,20 @@
           if (vamcSystemSelector.value === tricareSystemId) {
             tricareSystem = true;
           }
-        }
 
-        var serviceSelector = context.querySelector(".field--name-field-service-name-and-descripti select");
+          if (serviceSelector !== undefined && serviceSelector.options !== undefined) {
+            var i = 0;
+            for (i = 0; i < serviceSelector.length; i++) {
+              var termId = serviceSelector.options[i].value;
+              if (tricareSystem && drupalSettings.availableHealthServices[termId] !== undefined && drupalSettings.availableHealthServices[termId].tricare_name !== "") {
+                serviceSelector.options[i].text = drupalSettings.availableHealthServices[termId].tricare_name;
+              }
+              if (!tricareSystem && drupalSettings.availableHealthServices[termId] !== undefined && drupalSettings.availableHealthServices[termId].term_name !== "") {
+                serviceSelector.options[i].text = drupalSettings.availableHealthServices[termId].term_name;
+              }
+            }
+          }
+        }
         var wysiwyg = context.getElementById("edit-field-body-wrapper");
 
         var serviceSelectorSelectionClass = "empty-display-none";
