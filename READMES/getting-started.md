@@ -9,7 +9,7 @@ with PHP-CLI and SQLite.
 
 ## Quickstart with Codespaces
 
-See [the codespaces README](./codespaces.md) to get a fully functional cloud-based development environment.
+See [the Codespaces README](./codespaces.md) to get a fully functional cloud-based development environment.
 
 ## Step 1: Get Source Code / Git Setup
 
@@ -73,22 +73,12 @@ See [the codespaces README](./codespaces.md) to get a fully functional cloud-bas
    $ git pull upstream main
   ```
 
-
-
 ## Step 2: Launch development environment
-
-It is possible to run this site with ddev or any other Drupal development tool,
-including PHP's built-in web server.
-
-If you don't want to worry about your development machine's PHP version or
-libraries, use ddev.
-
-### Option 1: ddev
 
 1. [Install ddev](https://ddev.readthedocs.io/en/stable/#installation)
 2. Change into the project directory and run `ddev start`:
 
-   ```
+   ```bash
    $ cd va.gov-cms
    $ ddev start
    ```
@@ -96,20 +86,6 @@ libraries, use ddev.
 The `ddev start` command will include the `composer install` command.
 
 See [Environments: Local](./local.md) for more information on ddev.
-
-### Option 2: Local PHP
-
-If you are used to using tools like `composer` and `drush` locally, you can
-install the project using your native Terminal:
-
-1. Change into the project directory and run `composer install`:
-
-   ```
-   $ cd va.gov-cms
-   $ composer install
-   ```
-
-1. Run `composer va:start` to launch a running Drupal instance using PHP web-server and SQLite.
 
 ## Step 3: Sync your local site with Production Data
 

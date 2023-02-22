@@ -22,7 +22,7 @@
 # directory.
 
 # Change to the root of the repository, since we'll use relative paths.
-pushd "$(git rev-parse --show-toplevel)" > /dev/null;
+pushd "$(git rev-parse --show-toplevel)" > /dev/null
 
 # The Bad Place™.
 directory=./docroot/modules/custom/BAD_TEST_MODULE;
@@ -64,4 +64,4 @@ var results = [0,1,2,3].reduce((object, index) => {
 EOF
 
 # Change back to the directory whence we came, whatever that might be.
-popd > /dev/null;
+popd > /dev/null

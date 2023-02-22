@@ -24,6 +24,8 @@ Cypress.Commands.add("drupalLogin", (username, password) => {
   cy.window().then((window) => {
     cy.wrap(window.drupalSettings.user.uid).as("uid");
   });
+  cy.injectAxe();
+  cy.checkAccessibility();
 });
 
 Cypress.Commands.add("drupalLogout", () => {
@@ -130,16 +132,12 @@ Cypress.Commands.add("drupalWatchdogHasNewErrors", (username, count) => {
   });
 });
 
-Cypress.Commands.add(
-  "iframe",
-  { prevSubject: "element" },
-  ($iframe, callback = () => {}) => {
-    return cy
-      .wrap($iframe)
-      .should((iframe) => expect(iframe.contents().find("body")).to.exist)
-      .then((iframe) => cy.wrap(iframe.contents().find("body")));
-  }
-);
+Cypress.Commands.add("iframe", { prevSubject: "element" }, ($iframe) => {
+  return cy
+    .wrap($iframe)
+    .should((iframe) => expect(iframe.contents().find("body")).to.exist)
+    .then((iframe) => cy.wrap(iframe.contents().find("body")));
+});
 
 Cypress.Commands.add("type_ckeditor", (element, content) => {
   cy.wait(5000);
@@ -148,6 +146,7 @@ Cypress.Commands.add("type_ckeditor", (element, content) => {
     if (elements.indexOf(element) === -1) {
       const matches = elements.filter((el) => el.includes(element));
       if (matches.length) {
+        // eslint-disable-next-line prefer-destructuring
         element = matches[0];
       }
     }
@@ -233,39 +232,10 @@ Cypress.Commands.add("setWorkbenchAccessSections", (value) => {
     });
 });
 
-Cypress.Commands.add("accessibilityLog", (violations) => {
-  const violationData = violations.map(
-    ({ id, impact, description, nodes }) => ({
-      id,
-      impact,
-      description,
-      target: nodes[0].target,
-      nodes: nodes.length,
-    })
-  );
-  cy.task("table", violationData);
-});
-
 compareSnapshotCommand();
 
-let logText = "";
-
-beforeEach(() => {
-  const testTitle = Cypress.currentTest.title;
-  const testPath = Cypress.currentTest.titlePath;
-  const date = new Date().toUTCString();
-  const timestamp = Math.floor(Date.now() / 1000);
-  logText += `VA_GOV_DEBUG ${timestamp} ${date} BEFORE ${testPath} ${testTitle}\n`;
-});
-
-afterEach(() => {
-  const testTitle = Cypress.currentTest.title;
-  const testPath = Cypress.currentTest.titlePath;
-  const date = new Date().toUTCString();
-  const timestamp = Math.floor(Date.now() / 1000);
-  logText += `VA_GOV_DEBUG ${timestamp} ${date} AFTER ${testPath} ${testTitle}\n`;
-});
-
-after(() => {
-  cy.writeFile("cypress.log", logText, { flag: "a+" });
+Cypress.on("uncaught:exception", () => {
+  // Prevent Cypress from automatically failing tests in response to uncaught
+  // application exceptions.
+  return false;
 });

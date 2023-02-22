@@ -1,7 +1,9 @@
-uuid: e4c3968b-6fe5-4bf4-aaf1-c460616ecaa0
+uuid: 9cce4e26-7273-40be-99c0-9fb19a6823c3
 langcode: en
 status: true
 dependencies:
+  config:
+    - system.menu.admin
   module:
     - config_views
     - content_model_documentation
@@ -1089,21 +1091,21 @@ display:
       display_extenders:
         jsonapi_views:
           enabled: false
-      path: admin/reports/fields/content-model
+      path: admin/reports/content-model/fields
       menu:
-        type: tab
-        title: 'Content Model'
+        type: normal
+        title: Fields
         description: 'Displays field settings of the content model.'
         weight: 0
         expanded: false
         menu_name: admin
-        parent: entity.field_storage_config.collection
+        parent: system.admin_reports
         context: '0'
         as_local_task: false
         local_task_link_title: ''
         local_task_parent: _custom
         local_task_weight: 20
-        local_task_custom_parent_route: entity.field_storage_config.collection
+        local_task_custom_parent_route: content_model_documentation.reports
     cache_metadata:
       max-age: -1
       contexts:

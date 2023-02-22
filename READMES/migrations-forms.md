@@ -15,7 +15,8 @@ All times in ET.
   graph TD;
     fdb[(Forms DB)] -- "11:30PM (push)" --> csv1[CSV]
     csv1 -. midnight .-> csv2[CSV copied to cms]
-    csv2 -- "midnight migration (pull)" --> cms[CMS]
+    csv2 -. periodic task .-> csv3[validation tests run on csv copy]
+    csv3 -- "midnight migration (pull)" --> cms[CMS]
     cms-- "1AM (pull)" -->formapi[("VA Forms API (Lighthouse)")]
     cms -- va.gov content release --->fe[[VA.gov Form Detail pages]]
     formapi-->formsearch[[VA.gov Form Search]]
@@ -65,7 +66,7 @@ The timeline for changes to a VA Form looks like this:
 ![Forms data flow with timeline](images/va-forms-flow.png)
 1. Forms DB admin adds, edits or deletes a form entry and possibly updates the actual pdf file.
 2. 11:30PM: Forms DB performs a full data export to CSV
-3. 12:00 midnight: CMS moves the CSV and migrates in any changes.
+3. 12:00 midnight: CMS copies the CSV, tests the copy of the CSV, and migrates in any changes.
 4. 1:00AM Lighthouse pulls data from CMS and makes it available through Facility API exposed through [https://www.va.gov/find-forms/](https://www.va.gov/find-forms/).
 5. Updates to published content end up on VA.gov with the first content-release of the day from the CMS.
 
