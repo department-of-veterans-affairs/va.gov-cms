@@ -13,7 +13,7 @@ dependencies:
     - field.field.taxonomy_term.health_care_service_taxonomy.field_show_for_vba_facilities
     - field.field.taxonomy_term.health_care_service_taxonomy.field_show_for_vet_centers
     - field.field.taxonomy_term.health_care_service_taxonomy.field_tricare_description
-    - field.field.taxonomy_term.health_care_service_taxonomy.field_tricare_name
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_tricare_specific_service
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vba_com_conditions
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vba_friendly_name
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vba_service_descrip
@@ -120,13 +120,15 @@ content:
     third_party_settings: {  }
     weight: 11
     region: content
-  field_tricare_name:
-    type: string
+  field_tricare_specific_service:
+    type: boolean
     label: above
     settings:
-      link_to_entity: false
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
     third_party_settings: {  }
-    weight: 10
+    weight: 20
     region: content
   field_vba_com_conditions:
     type: string
