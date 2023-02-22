@@ -135,6 +135,11 @@
 
       window.addEventListener("DOMContentLoaded", function () {
         descriptionFill(context.querySelectorAll(".field--name-field-service-name-and-descripti select"));
+
+        var systemSelect = context.getElementById("edit-field-region-page");
+        systemSelect.addEventListener("change", function () {
+          descriptionFill(context.querySelectorAll(".field--name-field-service-name-and-descripti select"));
+        });
       });
     }
   };

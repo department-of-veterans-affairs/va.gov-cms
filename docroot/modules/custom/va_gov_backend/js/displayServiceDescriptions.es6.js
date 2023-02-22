@@ -210,6 +210,15 @@
             ".field--name-field-service-name-and-descripti select"
           )
         );
+        // Add a change event listener to the VAMC System field.
+        const systemSelect = context.getElementById("edit-field-region-page");
+        systemSelect.addEventListener("change", () => {
+          descriptionFill(
+            context.querySelectorAll(
+              ".field--name-field-service-name-and-descripti select"
+            )
+          );
+        });
       });
     },
   };
