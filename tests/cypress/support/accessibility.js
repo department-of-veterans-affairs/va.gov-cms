@@ -28,8 +28,7 @@ Cypress.Commands.add("checkAccessibility", () => {
         route,
         ...violation,
       }));
-      const accessibilityViolations =
-        Cypress.config("accessibilityViolations") || [];
+      const accessibilityViolations = Cypress.config("accessibilityViolations");
       accessibilityViolations.push(...violationData);
       Cypress.config("accessibilityViolations", accessibilityViolations);
     });
