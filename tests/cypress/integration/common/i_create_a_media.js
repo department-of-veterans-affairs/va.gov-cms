@@ -3,8 +3,6 @@ import { faker } from "@faker-js/faker";
 
 const creators = {
   document: () => {
-    cy.visit("/media/add/document");
-    cy.scrollTo("top");
     cy.findAllByLabelText("Name").type(
       `[Test Data] ${faker.lorem.sentence()}`,
       { force: true }
@@ -17,8 +15,6 @@ const creators = {
     return cy.wait(1000);
   },
   document_external: () => {
-    cy.visit("/media/add/document_external");
-    cy.scrollTo("top");
     cy.findAllByLabelText("Name").type(
       `[Test Data] ${faker.lorem.sentence()}`.substring(0, 60),
       {
@@ -39,8 +35,6 @@ const creators = {
     return cy.wait(1000);
   },
   image: () => {
-    cy.visit("/media/add/image");
-    cy.scrollTo("top");
     cy.findAllByLabelText("Name").type(
       `[Test Data] ${faker.lorem.sentence()}`,
       { force: true }
@@ -69,12 +63,6 @@ const creators = {
         .data("ImageWidgetCrop").types[0];
       const { cropper } = cropperType;
       const { dragBox } = cropper;
-      const $wrapper = window.jQuery(dragBox).closest(".crop-preview-wrapper");
-      const $cropBox = $wrapper.find(".cropper-crop-box");
-      const $points = $wrapper.find(".cropper-point");
-      const moveBox = window
-        .jQuery(".cropper-face.cropper-move")[0]
-        .getBoundingClientRect();
       cy.wrap(dragBox)
         .trigger("mouseover", { force: true })
         .wait(100)
@@ -97,8 +85,6 @@ const creators = {
     return cy.wait(1000);
   },
   video: () => {
-    cy.visit("/media/add/video");
-    cy.scrollTo("top");
     cy.findAllByLabelText("Name").type(
       `[Test Data] ${faker.lorem.sentence()}`,
       { force: true }
@@ -118,20 +104,28 @@ const creators = {
   },
 };
 
-Given("I create a {string} media", (contentType) => {
-  const creator = creators[contentType];
+Given("I create a {string} media", (mediaType) => {
+  const creator = creators[mediaType];
   assert.isDefined(
     creator,
-    `I do not know how to create ${contentType} media yet.  Please add a definition in ${__filename}.`
+    `I do not know how to create ${mediaType} media yet.  Please add a definition in ${__filename}.`
   );
+  cy.visit(`/media/add/${mediaType}`);
+  cy.injectAxe();
+  cy.scrollTo("top");
+  cy.checkAccessibility();
   creator().then(() => {
     cy.location("pathname", { timeout: 10000 }).should(
       "not.include",
       "/media/add"
     );
+    cy.injectAxe();
+    cy.checkAccessibility();
     cy.xpath('//div[@class="messages__content"]/em[@class="placeholder"]/a')
       .first()
       .then(($element) => {
+        cy.injectAxe();
+        cy.checkAccessibility();
         cy.drupalWatchdogHasNoNewErrors();
         const mediaPath = $element.attr("href");
         const pathComponents = mediaPath.split("/");

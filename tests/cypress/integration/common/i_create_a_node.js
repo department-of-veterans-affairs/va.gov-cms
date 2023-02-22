@@ -4,8 +4,6 @@ import { faker } from "@faker-js/faker";
 
 const creators = {
   checklist: () => {
-    cy.visit("/node/add/checklist");
-    cy.scrollTo("top");
     cy.findAllByLabelText(
       "Page title"
     ).type(`[Test Data] ${faker.lorem.sentence(3)}`, { force: true });
@@ -32,8 +30,6 @@ const creators = {
     return cy.wait(1000);
   },
   documentation_page: () => {
-    cy.visit("/node/add/documentation_page");
-    cy.scrollTo("top");
     cy.findAllByLabelText(
       "Page title"
     ).type(`[Test Data] ${faker.lorem.sentence()}`, { force: true });
@@ -48,8 +44,6 @@ const creators = {
     return cy.wait(1000);
   },
   event: () => {
-    cy.visit("/node/add/event");
-    cy.scrollTo("top");
     cy.findAllByLabelText("Name").type(
       `[Test Data] ${faker.lorem.sentence()}`,
       { force: true }
@@ -95,8 +89,6 @@ const creators = {
     return cy.wait(1000);
   },
   health_care_region_detail_page: () => {
-    cy.visit("/node/add/health_care_region_detail_page");
-    cy.scrollTo("top");
     cy.findAllByLabelText(
       "Page title"
     ).type(`[Test Data] ${faker.lorem.sentence()}`, { force: true });
@@ -116,8 +108,6 @@ const creators = {
     return cy.wait(1000);
   },
   landing_page: () => {
-    cy.visit("/node/add/landing_page");
-    cy.scrollTo("top");
     cy.findAllByLabelText(
       "Page title"
     ).type(`[Test Data] ${faker.lorem.sentence()}`, { force: true });
@@ -145,8 +135,6 @@ const creators = {
     return cy.wait(3000);
   },
   office: () => {
-    cy.visit("/node/add/office");
-    cy.scrollTo("top");
     cy.findAllByLabelText("Name").type(
       `[Test Data] ${faker.lorem.sentence()}`,
       { force: true }
@@ -164,8 +152,6 @@ const creators = {
     return cy.wait(1000);
   },
   step_by_step: () => {
-    cy.visit("/node/add/step_by_step");
-    cy.scrollTo("top");
     cy.findAllByLabelText(
       "Page title"
     ).type(`[Test Data] ${faker.lorem.word()}`, { force: true });
@@ -203,12 +189,18 @@ Given("I create a {string} node", (contentType) => {
     creator,
     `I do not know how to create ${contentType} nodes yet.  Please add a definition in ${__filename}.`
   );
+  cy.visit(`/node/add/${contentType}`);
+  cy.injectAxe();
+  cy.scrollTo("top");
+  cy.checkAccessibility();
   creator().then(() => {
     cy.get("form.node-form").find("input#edit-submit").click();
     cy.location("pathname", { timeout: 10000 }).should(
       "not.include",
       "/node/add"
     );
+    cy.injectAxe();
+    cy.checkAccessibility();
     cy.drupalWatchdogHasNoNewErrors();
     cy.getDrupalSettings().then((drupalSettings) => {
       const { currentPath } = drupalSettings.path;
@@ -227,12 +219,18 @@ Given("I create a {string} node and continue", (contentType) => {
     creator,
     `I do not know how to create ${contentType} nodes yet.  Please add a definition in ${__filename}.`
   );
+  cy.visit(`/node/add/${contentType}`);
+  cy.injectAxe();
+  cy.scrollTo("top");
+  cy.checkAccessibility();
   creator().then(() => {
     cy.get("form.node-form").find("input#edit-save-continue").click();
     cy.location("pathname", { timeout: 10000 }).should(
       "not.include",
       "/node/add"
     );
+    cy.injectAxe();
+    cy.checkAccessibility();
     cy.drupalWatchdogHasNoNewErrors();
     cy.getDrupalSettings().then((drupalSettings) => {
       const { currentPath } = drupalSettings.path;
