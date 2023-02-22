@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -ex
+set -x
 
 # This runs the Cypress test suites with some additional functionality for CI.
 
@@ -9,8 +9,8 @@ pushd "${repo_root}" > /dev/null
 
 ./tests/scripts/cypress-tests.sh
 exit_code=$?
-if [ "${exit_code}" -ne 0 ]; then
-  node tests/report_cypress_accessibility_errors.js
-fi
+node tests/report_cypress_accessibility_errors.js
 
 popd > /dev/null
+
+exit "${exit_code}"
