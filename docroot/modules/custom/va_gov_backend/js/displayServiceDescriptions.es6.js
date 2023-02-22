@@ -21,6 +21,18 @@
             .getElementById(`${service.id}-services-general-description`)
             .remove();
         }
+        // Lovell - grab VAMC System field (if it exists).
+        let tricareSystem = false;
+        const vamcSystemSelector = context.getElementById(
+          "edit-field-region-page"
+        );
+        if (vamcSystemSelector !== null) {
+          // The entity ID for the Lovell - TRICARE subsystem.
+          const tricareSystemId = "49011";
+          if (vamcSystemSelector.value === tricareSystemId) {
+            tricareSystem = true;
+          }
+        }
         // Grab the first selector that appears
         const serviceSelector = context.querySelector(
           ".field--name-field-service-name-and-descripti select"
@@ -110,21 +122,43 @@
         }
         if (
           drupalSettings.availableHealthServices[service.value] !== undefined &&
-          drupalSettings.availableHealthServices[service.value].description !==
-            ""
+          (drupalSettings.availableHealthServices[service.value].description !==
+            "" ||
+            drupalSettings.availableHealthServices[service.value]
+              .tricare_description !== "")
         ) {
           const p4 = context.createElement("p");
           const s4 = context.createElement("strong");
-          p4.textContent = drupalSettings.availableHealthServices[
-            service.value
-          ].description.replace(/&nbsp;/g, " ");
-          s4.textContent = `${
+          // If system is Lovell - TRICARE and service has TRICARE description.
+          if (
+            tricareSystem === true &&
             drupalSettings.availableHealthServices[service.value]
-              .vc_vocabulary_service_description_label
-          }: `;
-          div.classList.remove("no-content");
-          div.appendChild(p4);
-          p4.prepend(s4);
+              .tricare_description !== ""
+          ) {
+            // Display the TRICARE service description for this service.
+            p4.textContent = drupalSettings.availableHealthServices[
+              service.value
+            ].tricare_description.replace(/&nbsp;/g, " ");
+          }
+          if (
+            !p4.textContent &&
+            drupalSettings.availableHealthServices[service.value]
+              .description !== ""
+          ) {
+            // If no TRICARE service description was provided, use the default.
+            p4.textContent = drupalSettings.availableHealthServices[
+              service.value
+            ].description.replace(/&nbsp;/g, " ");
+          }
+          if (p4.textContent) {
+            s4.textContent = `${
+              drupalSettings.availableHealthServices[service.value]
+                .vc_vocabulary_service_description_label
+            }: `;
+            div.classList.remove("no-content");
+            div.appendChild(p4);
+            p4.prepend(s4);
+          }
         }
         // Plug in the term text below the select.
         service.after(div);
