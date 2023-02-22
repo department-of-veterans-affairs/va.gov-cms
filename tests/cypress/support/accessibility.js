@@ -18,8 +18,6 @@ const axeRuntimeOptions = {
   },
 };
 
-const accessibilityViolations = [];
-
 Cypress.Commands.add("checkAccessibility", () => {
   cy.wait(1000);
   return cy.checkA11y(axeContext, axeRuntimeOptions, (violations) => {
@@ -30,11 +28,10 @@ Cypress.Commands.add("checkAccessibility", () => {
         route,
         ...violation,
       }));
+      const accessibilityViolations =
+        Cypress.config("accessibilityViolations") || [];
       accessibilityViolations.push(...violationData);
-      cy.writeFile(
-        "cypress_accessibility_violations.json",
-        JSON.stringify(accessibilityViolations, null, 2)
-      );
+      Cypress.config("accessibilityViolations", accessibilityViolations);
     });
   });
 });
@@ -50,4 +47,17 @@ Cypress.Commands.add("accessibilityLog", (violations) => {
     })
   );
   cy.task("table", violationData);
+});
+
+before(() => {
+  const accessibilityViolations = [];
+  Cypress.config("accessibilityViolations", accessibilityViolations);
+});
+
+after(() => {
+  const accessibilityViolations = Cypress.config("accessibilityViolations");
+  cy.writeFile(
+    "cypress_accessibility_violations.json",
+    JSON.stringify(accessibilityViolations, null, 2)
+  );
 });
