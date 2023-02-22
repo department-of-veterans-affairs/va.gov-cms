@@ -8,14 +8,7 @@
 (function ($, Drupal) {
   Drupal.behaviors.vaGovDisplayServiceDescriptions = {
     attach: function attach(context) {
-      var loadItems = function loadItems(service) {
-        if (context.getElementById(service.id + "-health_service_text_container")) {
-          context.getElementById(service.id + "-health_service_text_container").remove();
-        }
-        if (context.getElementById(service.id + "-services-general-description")) {
-          context.getElementById(service.id + "-services-general-description").remove();
-        }
-
+      var isTricareSystem = function isTricareSystem() {
         var tricareSystem = false;
         var vamcSystemSelector = context.getElementById("edit-field-region-page");
         if (vamcSystemSelector !== null) {
@@ -24,6 +17,18 @@
             tricareSystem = true;
           }
         }
+        return tricareSystem;
+      };
+
+      var loadItems = function loadItems(service) {
+        if (context.getElementById(service.id + "-health_service_text_container")) {
+          context.getElementById(service.id + "-health_service_text_container").remove();
+        }
+        if (context.getElementById(service.id + "-services-general-description")) {
+          context.getElementById(service.id + "-services-general-description").remove();
+        }
+
+        var tricareSystem = isTricareSystem();
 
         var serviceSelector = context.querySelector(".field--name-field-service-name-and-descripti select");
         var wysiwyg = context.getElementById("edit-field-body-wrapper");
@@ -129,6 +134,20 @@
         }
       };
 
+      var winnowTricareServices = function winnowTricareServices(options) {
+        if (options && options.length > 0) {
+          var tricareSystem = isTricareSystem();
+
+          options.forEach(function (option) {
+            if (!tricareSystem && option.text.includes("(TRICARE)") || tricareSystem && option.text.includes("Veteran")) {
+              option.classList.add("hidden-option");
+            } else {
+              option.classList.remove("hidden-option");
+            }
+          });
+        }
+      };
+
       $(context).ajaxComplete(function () {
         descriptionFill(context.querySelectorAll(".field--name-field-service-name-and-descripti select"));
       });
@@ -137,9 +156,13 @@
         descriptionFill(context.querySelectorAll(".field--name-field-service-name-and-descripti select"));
 
         var systemSelect = context.getElementById("edit-field-region-page");
-        systemSelect.addEventListener("change", function () {
-          descriptionFill(context.querySelectorAll(".field--name-field-service-name-and-descripti select"));
-        });
+        if (systemSelect !== null) {
+          systemSelect.addEventListener("change", function () {
+            descriptionFill(context.querySelectorAll(".field--name-field-service-name-and-descripti select"));
+            winnowTricareServices(context.querySelectorAll(".field--name-field-service-name-and-descripti select option"));
+          });
+          winnowTricareServices(context.querySelectorAll(".field--name-field-service-name-and-descripti select option"));
+        }
       });
     }
   };

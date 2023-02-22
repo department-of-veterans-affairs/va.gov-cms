@@ -5,6 +5,22 @@
 (($, Drupal) => {
   Drupal.behaviors.vaGovDisplayServiceDescriptions = {
     attach(context) {
+      const isTricareSystem = () => {
+        // Lovell - grab VAMC System field (if it exists).
+        let tricareSystem = false;
+        const vamcSystemSelector = context.getElementById(
+          "edit-field-region-page"
+        );
+        if (vamcSystemSelector !== null) {
+          // The entity ID for the Lovell - TRICARE subsystem.
+          const tricareSystemId = "49011";
+          if (vamcSystemSelector.value === tricareSystemId) {
+            tricareSystem = true;
+          }
+        }
+        return tricareSystem;
+      };
+
       const loadItems = (service) => {
         // Clear out any existing term content.
         if (
@@ -21,18 +37,8 @@
             .getElementById(`${service.id}-services-general-description`)
             .remove();
         }
-        // Lovell - grab VAMC System field (if it exists).
-        let tricareSystem = false;
-        const vamcSystemSelector = context.getElementById(
-          "edit-field-region-page"
-        );
-        if (vamcSystemSelector !== null) {
-          // The entity ID for the Lovell - TRICARE subsystem.
-          const tricareSystemId = "49011";
-          if (vamcSystemSelector.value === tricareSystemId) {
-            tricareSystem = true;
-          }
-        }
+        // Check if system is Lovell - TRICARE.
+        const tricareSystem = isTricareSystem();
         // Grab the first selector that appears
         const serviceSelector = context.querySelector(
           ".field--name-field-service-name-and-descripti select"
@@ -192,6 +198,23 @@
         }
       };
 
+      const winnowTricareServices = (options) => {
+        if (options && options.length > 0) {
+          const tricareSystem = isTricareSystem();
+          // Loop through all of the service options.
+          options.forEach((option) => {
+            if (
+              (!tricareSystem && option.text.includes("(TRICARE)")) ||
+              (tricareSystem && option.text.includes("Veteran"))
+            ) {
+              option.classList.add("hidden-option");
+            } else {
+              option.classList.remove("hidden-option");
+            }
+          });
+        }
+      };
+
       // After services div is reloaded, operate on the selects.
       // Have to use the old school jQuery method here, because Promises
       // & Fetch libraries both require an url.
@@ -212,13 +235,25 @@
         );
         // Add a change event listener to the VAMC System field.
         const systemSelect = context.getElementById("edit-field-region-page");
-        systemSelect.addEventListener("change", () => {
-          descriptionFill(
+        if (systemSelect !== null) {
+          systemSelect.addEventListener("change", () => {
+            descriptionFill(
+              context.querySelectorAll(
+                ".field--name-field-service-name-and-descripti select"
+              )
+            );
+            winnowTricareServices(
+              context.querySelectorAll(
+                ".field--name-field-service-name-and-descripti select option"
+              )
+            );
+          });
+          winnowTricareServices(
             context.querySelectorAll(
-              ".field--name-field-service-name-and-descripti select"
+              ".field--name-field-service-name-and-descripti select option"
             )
           );
-        });
+        }
       });
     },
   };
