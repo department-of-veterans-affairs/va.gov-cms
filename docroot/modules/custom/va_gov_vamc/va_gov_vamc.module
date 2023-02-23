@@ -7,6 +7,8 @@
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
+
 
 /**
  * Implements hook_help().
@@ -185,5 +187,15 @@ function va_gov_vamc_inline_entity_form_entity_form_alter(&$entity_form, FormSta
   // but don't let the editor change it. It's driven by Facility API.
   if ($entity_form['#bundle'] === 'health_care_local_facility') {
     $entity_form['title']['widget'][0]['value']['#attributes']['disabled'] = 'disabled';
+  }
+}
+
+/**
+ * Implements hook_entity_bundle_field_info_alter().
+ */
+function va_gov_vamc_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $entity_type, $bundle) {
+  // Add facility validation on VAMC facility health service
+  if ($entity_type->id() === 'node' && $bundle === 'health_care_local_health_service' && isset($fields['field_facility_location'])) {
+    $fields['field_facility_location']->addConstraint('SectionMatcher');
   }
 }
