@@ -28,6 +28,101 @@ const creators = {
     cy.addMainContentBlockWithRichText(faker.lorem.sentence());
     return cy.wait(1000);
   },
+  campaign_landing_page: () => {
+    cy.findAllByLabelText("Page title").type(
+      faker.lorem.sentence().substring(0, 50),
+      {
+        force: true,
+      }
+    );
+    cy.findAllByLabelText("Section").select("VACO", { force: true });
+    cy.findAllByLabelText("Page introduction").type(faker.lorem.sentence(), {
+      force: true,
+    });
+    cy.findAllByLabelText("Link").type(faker.internet.url(), {
+      force: true,
+    });
+    cy.findAllByLabelText("Link text").type(faker.lorem.sentence(), {
+      force: true,
+    });
+
+    cy.contains("Hero banner").click({ force: true });
+    cy.contains("Hero banner")
+      .parent()
+      .then(($el) => {
+        cy.wrap($el).contains("Add media").click({ force: true });
+        cy.get(".dropzone", {
+          timeout: 10000,
+        });
+        cy.get(".dropzone").attachFile("images/polygon_image.png", {
+          subjectType: "drag-n-drop",
+        });
+        cy.wait(1000);
+        cy.findAllByLabelText("Alternative text").type(faker.lorem.sentence(), {
+          force: true,
+        });
+        cy.get('div[role="dialog"]').within(() => {
+          cy.findAllByLabelText("Section").select("VACO", { force: true });
+        });
+        cy.get("button").contains("Save and insert").click({ force: true });
+      });
+    cy.contains("Hero banner").click({ force: true });
+
+    cy.contains("Why this matters").click();
+    cy.contains("Why this matters")
+      .parent()
+      .findAllByLabelText("Introduction")
+      .type(faker.lorem.sentence(), {
+        force: true,
+      });
+    cy.contains("Why this matters").click();
+
+    cy.contains("What you can do").click();
+    cy.contains("What you can do")
+      .parent()
+      .within(() => {
+        cy.findAllByLabelText("Heading").type(faker.lorem.sentence(), {
+          force: true,
+        });
+        cy.findAllByLabelText("Introduction").type(faker.lorem.sentence(), {
+          force: true,
+        });
+        cy.get("#edit-field-clp-what-you-can-do-promos-actions-ief-add")
+          .scrollIntoView()
+          .click({ force: true });
+        cy.contains("Add media").click({ force: true });
+      });
+    cy.get('div[role="dialog"]').within(() => {
+      cy.get(".dropzone", {
+        timeout: 10000,
+      });
+      cy.get(".dropzone").attachFile("images/polygon_image.png", {
+        subjectType: "drag-n-drop",
+      });
+      cy.wait(1000);
+      cy.findAllByLabelText("Alternative text").type(faker.lorem.sentence(), {
+        force: true,
+      });
+      cy.get(
+        '[data-drupal-selector="edit-media-0-fields-field-owner"]'
+      ).select("VACO", { force: true });
+      cy.get("button").contains("Save and insert").click({ force: true });
+    });
+    cy.contains("What you can do")
+      .parent()
+      .within(() => {
+        cy.findAllByLabelText("URL")
+          .focus()
+          .type(faker.internet.url(), { force: true });
+        cy.findAllByLabelText("Link text").type(faker.lorem.sentence(), {
+          force: true,
+        });
+        cy.findAllByLabelText("Section").select("VACO", { force: true });
+      });
+    cy.contains("What you can do").click();
+
+    return cy.wait(1000);
+  },
   checklist: () => {
     cy.findAllByLabelText(
       "Page title"
