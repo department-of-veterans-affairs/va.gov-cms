@@ -205,6 +205,7 @@ const creators = {
     cy.get(
       "#edit-field-datetime-range-timezone-0-time-wrapper-value-time"
     ).type("12:00", { force: true });
+    cy.get('#edit-field-datetime-range-timezone-0-timezone').select('Phoenix');
     cy.findAllByLabelText(
       "Where should the event be listed?"
     ).select("VA Alaska health care: Events", { force: true });
