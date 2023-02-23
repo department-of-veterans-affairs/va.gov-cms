@@ -5,6 +5,7 @@ import "cypress-axe";
 import "cypress-file-upload";
 import "cypress-real-events/support";
 import "cypress-xpath";
+import "./main_content_blocks";
 
 const compareSnapshotCommand = require("cypress-visual-regression/dist/command");
 

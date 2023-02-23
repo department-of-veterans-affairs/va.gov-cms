@@ -12,6 +12,22 @@ const creators = {
     cy.findAllByLabelText("Section").select("VACO", { force: true });
     return cy.wait(1000);
   },
+  basic_landing_page: () => {
+    cy.findAllByLabelText("Page title").type(faker.lorem.sentence(), {
+      force: true,
+    });
+    cy.type_ckeditor(
+      "edit-field-intro-text-limited-html-0-value",
+      faker.lorem.sentence()
+    );
+    cy.findAllByLabelText("Product").select("All products", { force: true });
+    cy.findAllByLabelText("Section").select("VACO", { force: true });
+    cy.findAllByLabelText("Meta description").type(faker.lorem.sentence(), {
+      force: true,
+    });
+    cy.addMainContentBlockWithRichText(faker.lorem.sentence());
+    return cy.wait(1000);
+  },
   checklist: () => {
     cy.findAllByLabelText(
       "Page title"
@@ -167,8 +183,6 @@ const creators = {
     cy.findAllByLabelText("Page introduction").type(faker.lorem.sentence(), {
       force: true,
     });
-
-    // Enter text into page intro ckeditor.
     cy.type_ckeditor(
       "edit-field-intro-text-limited-html-0-value",
       faker.lorem.sentence()
