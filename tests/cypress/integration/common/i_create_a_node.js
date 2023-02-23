@@ -3,6 +3,15 @@ import { Given } from "cypress-cucumber-preprocessor/steps";
 import { faker } from "@faker-js/faker";
 
 const creators = {
+  banner: () => {
+    cy.findAllByLabelText("Alert type").select("Information", { force: true });
+    cy.findAllByLabelText("Heading").type(faker.lorem.sentence(), {
+      force: true,
+    });
+    cy.type_ckeditor("edit-body-0-value", faker.lorem.sentence());
+    cy.findAllByLabelText("Section").select("VACO", { force: true });
+    return cy.wait(1000);
+  },
   checklist: () => {
     cy.findAllByLabelText(
       "Page title"
