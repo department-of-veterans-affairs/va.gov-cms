@@ -4,15 +4,20 @@ To enable end to end quality analysis, from the VA.gov CMS through to the public
 
 The following table lists all environments and CMS/WEB sites used in the development process for VA.gov:
 
-| Environment | Drupal (CMS) | Frontend (FE / WEB / Static) | Data source | Management |
+| Environment | Drupal (CMS) | Frontend (FE / WEB / Static) | FE Data source | Management |
 | -- | -- | -- | -- | -- |
-| **PROD**<br> Live Site | [prod.cms.va.gov](https://prod.cms.va.gov) | [www.va.gov](https://www.va.gov) datasource: prod.cms.va.gov |  | [BRD: Jenkins](http://jenkins.vfs.va.gov/job/deploys/view/Prod/job/cms-vagov-prod/) |
-| **STAGING** <br> Pre-release testing. | [staging.cms.va.gov](https://staging.cms.va.gov)    | [staging.va.gov](http://staging.va.gov) datasource: Tugboat mirror (3AM copy of prod) | | [BRD: Jenkins](http://jenkins.vfs.va.gov/job/deploys/view/Staging/job/cms-vagov-staging/) |
+| **PROD**<br> Live Site | [prod.cms.va.gov](https://prod.cms.va.gov)<br/>va.gov-cms: main | [www.va.gov](https://www.va.gov)<br/>content-build: main<br/>vets-website: main | prod.cms.va.gov | [BRD: Jenkins](http://jenkins.vfs.va.gov/job/deploys/view/Prod/job/cms-vagov-prod/) |
+| **STAGING** <br> Pre-release testing. | [staging.cms.va.gov](https://staging.cms.va.gov)<br/>va.gov-cms: main<br/><br/>Staging CMS uses Tugboat Preview [content-build-branch-build (CMS PROD Mirror)](https://tugboat.vfs.va.gov/6189a9af690c68dad4877ea5) as its data source. This Preview is refreshed daily at 7am UTC (2am EST, 1am EDT), using the latest Database and Asset file snapshot from AWS S3 at that time.<br/><br/> * Staging CMS database edits will be overwritten the next time code is merged.<br/>* Staging CMS is not the source of data for the Staging front-end, meaning: edits you make in the Staging CMS will not cause the Staging front-end to be re-built, and your changes will not appear in the Staging.va.gov front-end. | [staging.va.gov](http://staging.va.gov)<br/>content-build: main<br/>vets-website: main | Tugboat Preview [content-build-branch-build (CMS PROD Mirror)](https://tugboat.vfs.va.gov/6189a9af690c68dad4877ea5) refreshed daily at 7am UTC (2am EST, 1am EDT), using the latest Database and Asset file snapshot from AWS S3 at that time.  | [BRD: Jenkins](http://jenkins.vfs.va.gov/job/deploys/view/Staging/job/cms-vagov-staging/) |
 | [LOCAL](http://va-gov-cms.ddev.site) <br> Local development | [va-gov-cms.ddev.site](http://va-gov-cms.ddev.site) | [va-gov-cms.ddev.site](http://va-gov-cms.ddev.site) <br> [va-gov-cms.ddev.site/static](http://va-gov-cms.ddev.site) <br> [va-gov-cms.ddev.site/$URL?\_format=static_html](http://va-gov-cms.ddev.site/$URL) | |
-| [CI / PR](1) <br> Pull Requests & Automated Testing | pr###-{hash}.ci.cms.va.gov | web-{hash}.ci.cms.va.gov <br> pr###-{hash}.ci.cms.va.gov/static <br> pr###-{hash}.ci.cms.va.gov/$URL?\_format=static_html | | [CMS-CI: Tugboat](1) |
-| [Demos](2) <br> Demos & Training | cms-{hash}.demo.cms.va.gov | web-{hash}.demo.ci.cms.va.gov <br> cms-{hash}.demo.cms.va.gov/static <br> cms-{hash}.demo.cms.va.gov/$URL?\_format=static_html | | [CMS-CI: Tugboat](1) | 
+| [CI / PR](1) <br> Pull Requests & Automated Testing | pr###-{hash}.ci.cms.va.gov<br/><br/>va.gov-cms: specified branch | web-{hash}.ci.cms.va.gov <br> pr###-{hash}.ci.cms.va.gov/static <br> pr###-{hash}.ci.cms.va.gov/$URL?\_format=static_html<br/><br/>content-build: main, unless another branch is specified in the CMS<br/>vets-website: main<br/><br/>It is not possible to specify an alternate vets-website branch until [#6434](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/6434) is complete | Tugboat: CMS > [CMS Pull Request Environments](https://tugboat.vfs.va.gov/5fd3b8ee7b4657022b5722d6#RepoBasePreviews__heading-h2--3rTIH) > Base Preview, including Database and Asset files, refreshed daily at 10am UTC (5am EST, 4am EDT).<br/><br/>Tugboat PR Previews need to be rebuilt (after 5am EST), or refreshed, for the database to stay up-to-date with Prod. | [CMS-CI: Tugboat](1) |
+| [Demos](2) <br> Demos & Training | cms-{hash}.demo.cms.va.gov | web-{hash}.demo.ci.cms.va.gov <br> cms-{hash}.demo.cms.va.gov/static <br> cms-{hash}.demo.cms.va.gov/$URL?\_format=static_html | Tugboat: CMS > [CMS Demo Environments](https://tugboat.vfs.va.gov/5ffe2f4dfa1ca136135134f6) > Base Preview, including Database and Asset files, refreshed daily at 9am UTC (4am EST, 3am EDT).<br/><br/>Demo Previews need to be rebuilt (after 4am EST), or refreshed, for the database to stay up-to-date with Prod. | [CMS-CI: Tugboat](1) | 
 
-For more information on how access these environments see [Access](./access.md)
+* [Access](./access.md): how to access these environments  
+
+* **To preview CMS non-prod data**: Publish the content in Tugboat PR Preview's CMS, then trigger a content release in the CMS (via `/admin/content/deploy`). You will see the content built from that Tugboat's CMS data. This will not include any changes to vets-website that are not in main.
+* **To preview vets-website changes along with CMS / content-build changes**: 
+  * **Staging [Dark launch](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/products/public-websites#shadow--dark-launches-of-content)** (for new content only). Allows preview of combined changes. Uses Staging CMS data & Frontend built from content-build main and vets-website main, so vets-website code changes must be merged to main. If vets-website changes are referenced by any existing CMS content, they should be placed behind a feature flag that can then be enabled on Staging.
+  * **In Tugboat**: you must merge to vets-website main with your changes behind a feature flag. Then, enable the feature flag within the Tugboat instance. (TODO: is this a real thing? Tugboat runs vets-api?)
 
 ## What is an Environment?
 
@@ -27,13 +32,15 @@ system built with Drupal, and the _WEB_ site is a static HTML site, built with M
 
 The _WEB_ build process consumes the content from the _CMS_ in the same environment.
 
+
 ## Important Concepts
 
 - Each _WEB_ site is made up of generated "static" files. This means that the _WEB_ site reflects the content from the CMS _at the time the WEB Build process was run_.
 - _CMS_ Editors will not see changes in the _WEB_ site until a "WEB Build" is triggered and the process completes successfully.
 - The _WEB_ site will not be accessible until at least one "WEB Build" has run successfully. This happens automatically for CI environments, but not yet for Demo environments. If you get an error such as "Forbidden" when visiting the _WEB_ site, try running the _Rebuild WEB_ process again.
 
-### Step-by-step Instructions
+
+## Manually build a demo env: Step-by-step Instructions
 
 1. Visit [https://tugboat.vfs.va.gov/](https://tugboat.vfs.va.gov/) and click on the "GitHub" link to log in with GitHub.
 
@@ -59,7 +66,7 @@ The _WEB_ build process consumes the content from the _CMS_ in the same environm
 
 **NOTE:** The WEB site for this environment will not work until you trigger a WEB Build process on the "Release Content" page.
 
-## WEB Build Process
+### WEB Build Process
 
 Within each environment, the static HTML for the _WEB_ site is occasionally
 "rebuilt" so that the latest content from that environment's _CMS_ is used.
@@ -70,7 +77,7 @@ CMS content schema.
 The _WEB_ build process is triggered automatically by certain actions in the CMS
 or manually via the [command line](#cli-build).
 
-### Build Triggers
+#### Build Triggers
 
 The _WEB_ instance of an environment is rebuilt when any of the following actions take place in the _CMS_:
 
@@ -80,7 +87,7 @@ The _WEB_ instance of an environment is rebuilt when any of the following action
 
 _Note to Developers:_ Keep this list up to date to help content editors understand the process.
 
-### Rebuilding Environments Manually
+## Rebuilding Environments Manually
 
 There is a special button and form for rebuilding VA.gov environments. Use this
 to manually trigger either a WEB or CMS rebuild (or both), and optionally check
@@ -113,24 +120,7 @@ out different code.
 
 6. That's it! If the process completed, you should see a site that looks like VA.gov.
 
-## What is an Environment?
 
-_Environments_ are copies of the production site that are running newer
-code or have different content that needs to be tested before going live.
-
-_Environments_ can also be used for demonstrations or training, without worrying
-about disrupting production content.
-
-Each _Environment_ has both a _CMS_ and a _WEB_ site. The _CMS_ is a content management
-system built with Drupal, and the _WEB_ site is a static HTML site, built with Metalsmith.
-
-The _WEB_ build process consumes the content from the _CMS_ in the same environment.
-
-## Important Concepts
-
-- Each _WEB_ site is made up of generated "static" files. This means that the _WEB_ site reflects the content from the CMS _at the time the WEB Build process was run_.
-- _CMS_ Editors will not see changes in the _WEB_ site until a "WEB Build" is triggered and the process completes successfully.
-- The _WEB_ site will not be accessible until at least one "WEB Build" has run successfully. This happens automatically for CI environments, but not yet for Demo environments. If you get an error such as "Forbidden" when visiting the _WEB_ site, try running the _Rebuild WEB_ process again.
 
 ## Creating new Environments
 
@@ -199,6 +189,7 @@ To access a CI environment via ssh, go to that environment's page on Tugboat and
 
 - https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/103448589/VA.gov+CMS+DevOps+2.0+Architecture+Notes
 - https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/28770332/CMS+Infrastructure+CI+CD+Architecture+Proposal+3
+- More info on DEPO(OCTO) [Environments](https://depo-platform-documentation.scrollhelp.site/developer-docs/environments) and [Deployments](https://depo-platform-documentation.scrollhelp.site/developer-docs/deployments)
 
 [Table of Contents](../README.md)
 
