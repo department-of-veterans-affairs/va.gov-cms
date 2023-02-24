@@ -123,7 +123,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Alterations to VAMC regional health service node forms.
+   * Alterations to VAMC system health service node forms.
    *
    * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
    *   The event.
