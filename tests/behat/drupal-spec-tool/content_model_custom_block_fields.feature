@@ -17,6 +17,11 @@ Feature: Content model: Custom Block fields
 | Custom block type | CMS Announcement | Alert body | field_body | Text (formatted, long) |  | 1 | Textarea (multiple rows) with counter |  |
 | Custom block type | CMS Announcement | Submission Guidelines | field_submission_guidelines | Markup |  | 1 | Markup |  |
 | Custom block type | CMS Announcement | Alert heading | field_title | Text (plain) |  | 1 | Textfield |  |
+| Custom block type | CTA with Links | CTA summary text | field_cta_summary_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter | |
+| Custom block type | CTA with Links | Primary CTA button text | field_primary_cta_button_text | Text (plain) | Required | 1 | Textfield with counter | |
+| Custom block type | CTA with Links | Primary CTA button URL | field_primary_cta_button_url | Link | Required | 1 | Linkit |  |
+| Custom block type | CTA with Links | Related info link(s) | field_related_info_links | Link | | 3 | Linkit | |
+| Custom block type | CTA with Links | Section | field_administration | Entity reference | Required | 1 | Select list | Translatable |
 | Custom block type | Promo | Image | field_image | Entity reference | Required | 1 | Media library |  |
 | Custom block type | Promo | Section | field_owner | Entity reference | Required | 1 | Select list | Translatable |
 | Custom block type | Promo | Link | field_promo_link | Entity reference revisions |  | 1 | Inline entity form - Simple |  |
@@ -30,3 +35,4 @@ Feature: Content model: Custom Block fields
 | Custom block type | V2 Home page news spotlight | Link Text | field_link_label | List (text) | Required | 1 | Select list |  |
 | Custom block type | V2 Home page news spotlight | Promo Headline | field_promo_headline | Text (plain) | Required | 1 | Textfield with counter | Translatable |
 | Custom block type | V2 Home page news spotlight | Promo Text | field_promo_text | Text (plain, long) | Required | 1 | Textarea (multiple rows) with counter | Translatable |
+

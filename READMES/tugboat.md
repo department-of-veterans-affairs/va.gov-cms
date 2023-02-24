@@ -1,7 +1,36 @@
 # Tugboat 101
 
 ## Summary of Tugboat
-[Tugboat](https://www.tugboat.qa) is a fast, modern Preview Environment creation tool based on containers ([Docker Swarm](https://docs.docker.com/engine/swarm/)). Tugboat creates "Previews" which are environments that you can test proposed code changes on, login with a web shell, and view logs in the UI. It uses a concept of a "Base Preview" which is a container with a production database snapshot baked into it and ready to put your new code onto and run post-deploy operations (updatedb, config:import). This base preview image is refreshed every day at 5am Eastern, which downloads and applies the previous day's Production Post Deployment Asset Files and Database backups. Then, when you launch your PR it launches from that state and doesn't have to sync the file assets or database snapshot and will only run your code updates (`drush updatedb`) and configuration import (`drush config:import`) and then posts a GitHub comment to your pull request with links to your preview environment(s).
+[Tugboat](https://www.tugboat.qa) (SOCKS required to access) is a fast, modern Preview Environment creation tool based on containers ([Docker Swarm](https://docs.docker.com/engine/swarm/)). Tugboat creates "Previews" which are environments that you can test proposed code changes in, login with a web shell, and view logs in the UI. Each Preview is built from a Base Preview.
+
+At VA, Tugboat is used primarily in conjunction with the CMS and content-build. It's helpful to understand a couple of basic terms from Tugboat, to make clear how lower environments receive their data.  
+
+Tugboat contains **Projects**. Each Project can contain **Repositories** (not related to Github). Each Repository then has a **Base Preview**, and **Previews**. 
+* **Previews**, or PR Previews, are the built environments you interact with for a given set of Pull Request (PR) changes.
+* **Base Preview** 
+Take the term Base to mean bottom or foundation: Base Preview is a container, built from a versioned state of the CMS code, with a production database snapshot baked in. Tugboat uses Base Previews to make PR Preview creation quick and disk storage efficient. After a 30-40min build, Base Previews are ready to layer va.gov-cms code changes on top and run post-deploy operations (updatedb, config:import). 
+
+## VA Usage
+At VA, our lower environments are each built from a Tugboat Base Preview, in some fashion. Our Tugboat configuration is relevant to the discussion:  
+
+1. **Project**: [CMS PROD Mirrors](https://tugboat.vfs.va.gov/6042eeed6a89948104399d3c) 
+    1. **Repository**: [Mirrors](https://tugboat.vfs.va.gov/6042eeed6a89945a99399d3d) 
+        1. **Base Preview**: Built daily at 7am UTC (2am EST, 1am EDT). This data will then be used on Staging until the next time this Base Preview is refreshed.
+        2. **Previews**: [content-build-branch-builds](https://tugboat.vfs.va.gov/6189a9af690c68dad4877ea5) — This Prod mirror snapshot of code + data backups is the base for building Staging.
+1. **Project**: [CMS](https://tugboat.vfs.va.gov/5fd3b8ee7b465711575722d5)
+    1. **Repository**: [CMS Demo Environments](https://tugboat.vfs.va.gov/5ffe2f4dfa1ca136135134f6) — Is used for building Demo & Training Previews, manually triggered.
+    2. **Repository**: [CMS Pull Request Environments](https://tugboat.vfs.va.gov/5fd3b8ee7b4657022b5722d6) — Is used for managing PR Previews, automatically trigged by Pull Requests in va.gov-cms or content-build repos.
+        1. **Base Preview**: Built nightly at 10am UTC (5am EST, 4am EDT). This data will then be used for all va.gov-cms and content-build PR Preview envs until the next time this Base Preview is refreshed.
+ 
+**Refresh**:
+*  .tugboat/config.ymlPHP and MySQL update commands
+* loads the latest Database and Asset file snapshot from AWS S3.
+
+Each Repository's Base Preview image is refreshed on a daily schedule, which downloads and applies the previous day's Production Post Deployment Asset Files and Database backups. Then, when you launch your PR it launches from that state and doesn't have to sync the file assets or database snapshot and will only run your code updates (`drush updatedb`) and configuration import (`drush config:import`) and then posts a GitHub comment to your pull request with links to your preview environment(s).
+
+## Other environments' uses of Tugboat and data
+[Environments & the Content Build Process](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/environments.md) (Github)
+
 
 ## Getting started with CMS Pull Request Preview Environments
 1. Log in to the Tugboat dashboard (internal) https://tugboat.vfs.va.gov. When you first log in with GitHub, you need to wait up to 2 minutes for your user account to be granted access to project(s) by a cron script that runs every minute (we are working on making this instant eventually). After you have waited the 2 minutes:

@@ -47,7 +47,10 @@ dependencies:
     - node.type.support_service
     - node.type.va_form
     - node.type.vamc_operating_status_and_alerts
+    - node.type.vamc_system_billing_insurance
+    - node.type.vamc_system_medical_records_offi
     - node.type.vamc_system_policies_page
+    - node.type.vamc_system_register_for_care
     - node.type.vba_facility
     - node.type.vet_center
     - node.type.vet_center_cap
@@ -55,6 +58,7 @@ dependencies:
     - node.type.vet_center_locations_list
     - node.type.vet_center_mobile_vet_center
     - node.type.vet_center_outstation
+    - node.type.vha_facility_nonclinical_service
     - workflows.workflow.editorial
   module:
     - actions_permissions
@@ -71,6 +75,7 @@ dependencies:
     - node_link_report
     - paragraphs
     - pathauto
+    - smart_date_recur
     - system
     - tablefield
     - toolbar_menu
@@ -224,6 +229,7 @@ permissions:
   - 'unflag new_form'
   - 'update any alert block content'
   - 'update any benefit_promo block content'
+  - 'update any cta_with_link block content'
   - 'update any media'
   - 'update any news_promo block content'
   - 'update any promo block content'
@@ -300,6 +306,6 @@ permissions:
   - 'view vet_center_mobile_vet_center revisions'
   - 'view vet_center_outstation revisions'
   - 'view vha_facility_nonclinical_service revisions'
-  - 'view video revisions'
   - 'view vha_facility_nonclinical_service revisions'
+  - 'view video revisions'
   - 'view workbench access information'
