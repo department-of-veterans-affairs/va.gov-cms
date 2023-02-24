@@ -240,11 +240,11 @@ Cypress.on("uncaught:exception", () => {
   return false;
 });
 
-before(() => {
+beforeEach(() => {
   // Requests to Google Tag Manager can cause spurious test failures.
-  cy.intercept("https://www.googletagmanager.com/gtm.js", {
+  cy.intercept("https://www.googletagmanager.com/gtm.js**", {
     statusCode: 200,
-    body: "200 everything's fine come on in",
+    body: "",
     headers: {
       "x-response-header": "ha ha ha disregard this",
     },
