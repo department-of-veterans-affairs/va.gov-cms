@@ -6596,34 +6596,29 @@
         },
         {
             "name": "drupal/flood_control",
-            "version": "2.3.0",
+            "version": "2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/flood_control.git",
-                "reference": "2.3.0"
+                "reference": "2.3.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/flood_control-2.3.0.zip",
-                "reference": "2.3.0",
-                "shasum": "194fc2134fd02c4f944656be8af2b05cd5b73d74"
+                "url": "https://ftp.drupal.org/files/projects/flood_control-2.3.1.zip",
+                "reference": "2.3.1",
+                "shasum": "895bf761f88cc8defa4db64164d8337df7d3e906"
             },
             "require": {
-                "drupal/core": "^8 || ^9"
+                "drupal/core": "^9 || ^10"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.3.0",
-                    "datestamp": "1674851365",
+                    "version": "2.3.1",
+                    "datestamp": "1677235134",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
-                    }
-                },
-                "drush": {
-                    "services": {
-                        "drush.services.yml": "^9 || ^10"
                     }
                 }
             },
@@ -6645,10 +6640,11 @@
                     "homepage": "https://www.drupal.org/user/278745"
                 }
             ],
-            "description": "Provides administration possibilities for hidden flood control variables",
+            "description": "Allows configuring hidden flood control options and unblocking IP addresses and user ID's that are blocked after multiple failed login attempts.",
             "homepage": "https://www.drupal.org/project/flood_control",
             "support": {
-                "source": "https://git.drupalcode.org/project/flood_control"
+                "source": "https://git.drupalcode.org/project/flood_control",
+                "error": "require.drupal/core : invalid version constraint (Could not parse version constraint ^: Invalid version string \"^\")"
             }
         },
         {
@@ -23296,16 +23292,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.7.1",
+            "version": "3.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "1359e176e9307e906dc3d890bcc9603ff6d90619"
+                "reference": "ed8e00df0a83aa96acf703f8c2979ff33341f879"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/1359e176e9307e906dc3d890bcc9603ff6d90619",
-                "reference": "1359e176e9307e906dc3d890bcc9603ff6d90619",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/ed8e00df0a83aa96acf703f8c2979ff33341f879",
+                "reference": "ed8e00df0a83aa96acf703f8c2979ff33341f879",
                 "shasum": ""
             },
             "require": {
@@ -23341,14 +23337,15 @@
             "homepage": "https://github.com/squizlabs/PHP_CodeSniffer",
             "keywords": [
                 "phpcs",
-                "standards"
+                "standards",
+                "static analysis"
             ],
             "support": {
                 "issues": "https://github.com/squizlabs/PHP_CodeSniffer/issues",
                 "source": "https://github.com/squizlabs/PHP_CodeSniffer",
                 "wiki": "https://github.com/squizlabs/PHP_CodeSniffer/wiki"
             },
-            "time": "2022-06-18T07:21:10+00:00"
+            "time": "2023-02-22T23:07:41+00:00"
         },
         {
             "name": "stack/builder",
