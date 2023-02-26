@@ -6596,34 +6596,29 @@
         },
         {
             "name": "drupal/flood_control",
-            "version": "2.3.0",
+            "version": "2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/flood_control.git",
-                "reference": "2.3.0"
+                "reference": "2.3.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/flood_control-2.3.0.zip",
-                "reference": "2.3.0",
-                "shasum": "194fc2134fd02c4f944656be8af2b05cd5b73d74"
+                "url": "https://ftp.drupal.org/files/projects/flood_control-2.3.1.zip",
+                "reference": "2.3.1",
+                "shasum": "895bf761f88cc8defa4db64164d8337df7d3e906"
             },
             "require": {
-                "drupal/core": "^8 || ^9"
+                "drupal/core": "^9 || ^10"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.3.0",
-                    "datestamp": "1674851365",
+                    "version": "2.3.1",
+                    "datestamp": "1677235134",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
-                    }
-                },
-                "drush": {
-                    "services": {
-                        "drush.services.yml": "^9 || ^10"
                     }
                 }
             },
@@ -6645,10 +6640,11 @@
                     "homepage": "https://www.drupal.org/user/278745"
                 }
             ],
-            "description": "Provides administration possibilities for hidden flood control variables",
+            "description": "Allows configuring hidden flood control options and unblocking IP addresses and user ID's that are blocked after multiple failed login attempts.",
             "homepage": "https://www.drupal.org/project/flood_control",
             "support": {
-                "source": "https://git.drupalcode.org/project/flood_control"
+                "source": "https://git.drupalcode.org/project/flood_control",
+                "error": "require.drupal/core : invalid version constraint (Could not parse version constraint ^: Invalid version string \"^\")"
             }
         },
         {
