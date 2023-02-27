@@ -60,8 +60,7 @@ forth.
 At present, these include:
 
 - **Behat**, a PHP behavior-driven test framework.  Behat performs some tests
-  of user roles and permissions, and also performs "Spec Tool" tests that
-  verify the content model's consistency with an administrative model.
+  of user roles and permissions.
 - **Content-Build: GraphQL** or `content-build-gql`, a script that performs the
   initial retrieval of content-build data from Drupal via GraphQL, in order to
   verify compatibility.
@@ -232,7 +231,7 @@ Follow one of two approaches, depending on the type of the test.
 
 #### If the test name begins with "va/tests/...", e.g. "va/tests/cypress"
 
-This test is run on Tugboat.  
+This test is run on Tugboat.
 
 Find the PR that contains the links to the Tugboat environment:
 
@@ -246,12 +245,12 @@ and click "See Full Log".
 ![Preview Build Log](https://user-images.githubusercontent.com/1318579/186017075-fac60359-3a9f-4ce6-9c82-23a1e4caca1a.png)
 
 This will give you a scrollable view of all of the logged information output
-since the Tugboat environment was (re)built, including all test output.  
+since the Tugboat environment was (re)built, including all test output.
 
 Unfortunately, and extremely frustratingly...
 
 - it will autoscroll to the bottom until all tests have completed, and
-- the text is not searchable.  
+- the text is not searchable.
 
 If you need to find some particular string, select all and copy it to an
 IDE/text editor/whatever.
@@ -260,7 +259,7 @@ Otherwise, just scroll back to find the failed test, and go from there.
 
 ### Develop or run Cypress tests locally (under DDEV)?
 
-The preferred approach is to run interactively, e.g. `npm run test:cypress:interactive` (NOT through DDEV).  This will load appropriate environment variables and open the Chrome browser on your host machine.  If you want to confirm that the tests run headless, run `composer va:test:cypress -- --<path to spec file>`.  
+The preferred approach is to run interactively, e.g. `npm run test:cypress:interactive` (NOT through DDEV).  This will load appropriate environment variables and open the Chrome browser on your host machine.  If you want to confirm that the tests run headless, run `composer va:test:cypress -- --<path to spec file>`.
 
 Don't run Cypress directly, e.g. via `./node_modules/.bin/cypress open`.  This will not load some necessary environment variables and consequently tests will not run correctly.
 
