@@ -62,6 +62,7 @@ Feature: Content model bundles
 | Alert | alert | Custom block type | An alert box that can be added to individual pages. |
 | V2 Home page benefit promo | benefit_promo | Custom block type | A call to action with a title, description, CTA label and link. |
 | CMS Announcement | cms_announcement | Custom block type | Display an announcement to CMS users. |
+| CTA with Links | cta_with_link | Custom block type | Call to Action button with text and additional link(s). |
 | V2 Home page news spotlight | news_promo | Custom block type | Promote a news link with a title and description. |
 | Promo | promo | Custom block type | Promote a link with an image, title, and description. |
 | Document | document | Media type | A locally hosted document, such as a PDF. |

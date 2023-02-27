@@ -258,6 +258,12 @@ IDE/text editor/whatever.
 
 Otherwise, just scroll back to find the failed test, and go from there.
 
+### Develop or run Cypress tests locally (under DDEV)?
+
+The preferred approach is to run interactively, e.g. `npm run test:cypress:interactive` (NOT through DDEV).  This will load appropriate environment variables and open the Chrome browser on your host machine.  If you want to confirm that the tests run headless, run `composer va:test:cypress -- --<path to spec file>`.  
+
+Don't run Cypress directly, e.g. via `./node_modules/.bin/cypress open`.  This will not load some necessary environment variables and consequently tests will not run correctly.
+
 #### Otherwise...
 
 This test is run by a GitHub Action.  Click the "Details" link in the row of
