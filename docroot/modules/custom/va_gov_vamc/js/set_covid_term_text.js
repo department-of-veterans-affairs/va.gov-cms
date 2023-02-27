@@ -6,19 +6,11 @@
 **/
 
 (function (Drupal) {
-  var statusId = void 0;
-  var wysiwygSetter = function wysiwygSetter() {
-    var covidStatusValue = document.querySelectorAll(".form-item--field-supplemental-status input");
+  var wysiwygSetter = function wysiwygSetter(e) {
+    var statusId = e.target.value;
 
-    covidStatusValue.forEach(function (element) {
-      if (element.checked) {
-        statusId = element.value;
-      }
-    });
-
-    var iframeDocument = "";
     if (document.querySelector("#cke_edit-field-supplemental-status-more-i-0-value iframe")) {
-      iframeDocument = document.querySelector("#cke_edit-field-supplemental-status-more-i-0-value iframe").contentDocument;
+      var iframeDocument = document.querySelector("#cke_edit-field-supplemental-status-more-i-0-value iframe").contentDocument;
       if (iframeDocument.body) {
         iframeDocument.body.innerHTML = "<div>" + drupalSettings.vamcCovidStatusTermText[statusId].description + "</div>";
       }

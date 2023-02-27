@@ -3,26 +3,16 @@
  */
 
 ((Drupal) => {
-  let statusId;
-  const wysiwygSetter = () => {
-    const covidStatusValue = document.querySelectorAll(
-      ".form-item--field-supplemental-status input"
-    );
-
-    covidStatusValue.forEach((element) => {
-      if (element.checked) {
-        statusId = element.value;
-      }
-    });
+  const wysiwygSetter = (e) => {
+    const statusId = e.target.value;
     // When the COVID status radio button is changed,
     // change the COVID Details field to the appropriate COVID status term description.
-    let iframeDocument = "";
     if (
       document.querySelector(
         "#cke_edit-field-supplemental-status-more-i-0-value iframe"
       )
     ) {
-      iframeDocument = document.querySelector(
+      const iframeDocument = document.querySelector(
         "#cke_edit-field-supplemental-status-more-i-0-value iframe"
       ).contentDocument;
       if (iframeDocument.body) {
