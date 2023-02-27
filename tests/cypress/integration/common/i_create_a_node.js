@@ -3,6 +3,154 @@ import { Given } from "cypress-cucumber-preprocessor/steps";
 import { faker } from "@faker-js/faker";
 
 const creators = {
+  banner: () => {
+    cy.findAllByLabelText("Alert type").select("Information", { force: true });
+    cy.findAllByLabelText("Heading").type(faker.lorem.sentence(), {
+      force: true,
+    });
+    cy.type_ckeditor("edit-body-0-value", faker.lorem.sentence());
+    cy.findAllByLabelText("Section").select("VACO", { force: true });
+    return cy.wait(1000);
+  },
+  basic_landing_page: () => {
+    cy.findAllByLabelText("Page title").type(faker.lorem.sentence(), {
+      force: true,
+    });
+    cy.type_ckeditor(
+      "edit-field-intro-text-limited-html-0-value",
+      faker.lorem.sentence()
+    );
+    cy.findAllByLabelText("Product").select("All products", { force: true });
+    cy.findAllByLabelText("Section").select("VACO", { force: true });
+    cy.findAllByLabelText("Meta description").type(faker.lorem.sentence(), {
+      force: true,
+    });
+    cy.addMainContentBlockWithRichText(faker.lorem.sentence());
+    return cy.wait(1000);
+  },
+  campaign_landing_page: () => {
+    // Basic page fields
+    cy.findAllByLabelText("Page title").type(
+      faker.lorem.sentence().substring(0, 50),
+      {
+        force: true,
+      }
+    );
+    cy.findAllByLabelText("Section").select("VACO", { force: true });
+    cy.findAllByLabelText("Page introduction").type(faker.lorem.sentence(), {
+      force: true,
+    });
+    cy.findAllByLabelText("Link").type(faker.internet.url(), {
+      force: true,
+    });
+    cy.findAllByLabelText("Link text").type(faker.lorem.sentence(), {
+      force: true,
+    });
+
+    // Hero banner
+    cy.contains("Hero banner").scrollIntoView().click({ force: true });
+    cy.contains("Hero banner")
+      .parent()
+      .then(($el) => {
+        cy.wrap($el).contains("Add media").click({ force: true });
+        cy.get(".dropzone", {
+          timeout: 10000,
+        });
+        cy.get(".dropzone").attachFile("images/polygon_image.png", {
+          subjectType: "drag-n-drop",
+        });
+        cy.wait(1000);
+        cy.findAllByLabelText("Alternative text").type(faker.lorem.sentence(), {
+          force: true,
+        });
+        cy.get('div[role="dialog"]').within(() => {
+          cy.findAllByLabelText("Section").select("VACO", { force: true });
+        });
+        cy.get("button").contains("Save and insert").click({ force: true });
+      });
+    cy.contains("Hero banner").click({ force: true });
+
+    // Why this matters
+    cy.contains("Why this matters").scrollIntoView().click({ force: true });
+    cy.contains("Why this matters")
+      .parent()
+      .findAllByLabelText("Introduction")
+      .type(faker.lorem.sentence(), {
+        force: true,
+      });
+    cy.contains("Why this matters").click();
+
+    // What you can do
+    cy.contains("What you can do").scrollIntoView().click({ force: true });
+    cy.contains("What you can do")
+      .parent()
+      .within(() => {
+        cy.findAllByLabelText("Heading").type(faker.lorem.sentence(), {
+          force: true,
+        });
+        cy.findAllByLabelText("Introduction").type(faker.lorem.sentence(), {
+          force: true,
+        });
+        cy.get("#edit-field-clp-what-you-can-do-promos-actions-ief-add")
+          .scrollIntoView()
+          .click({ force: true });
+        cy.contains("Add media").click({ force: true });
+      });
+    cy.get('div[role="dialog"]').within(() => {
+      cy.get(".dropzone", {
+        timeout: 10000,
+      });
+      cy.get(".dropzone").attachFile("images/polygon_image.png", {
+        subjectType: "drag-n-drop",
+      });
+      cy.wait(1000);
+      cy.findAllByLabelText("Alternative text").type(faker.lorem.sentence(), {
+        force: true,
+      });
+      cy.get(
+        '[data-drupal-selector="edit-media-0-fields-field-owner"]'
+      ).select("VACO", { force: true });
+      cy.get("button").contains("Save and insert").click({ force: true });
+    });
+    cy.contains("What you can do")
+      .parent()
+      .within(() => {
+        cy.findAllByLabelText("URL")
+          .focus()
+          .type(faker.internet.url(), { force: true });
+        cy.findAllByLabelText("Link text").type(faker.lorem.sentence(), {
+          force: true,
+        });
+        cy.findAllByLabelText("Section").select("VACO", { force: true });
+      });
+    cy.contains("What you can do").click();
+
+    // VA Benefits
+    cy.contains("VA Benefits").scrollIntoView().click({ force: true });
+    cy.contains("VA Benefits")
+      .parent()
+      .within(() => {
+        cy.contains("Related benefits").scrollIntoView().click({ force: true });
+        cy.contains("Select Benefit Hub(s)").click({ force: true });
+      });
+    cy.get("iframe.entity-browser-modal-iframe").should("exist");
+    cy.wait(3000);
+    cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
+        cy.get("tr")
+          .contains("VA Careers and employment")
+          .should("exist")
+          .parent()
+          .find("[type='checkbox']")
+          .check({ force: true });
+        cy.get("#edit-submit").click({ force: true });
+      });
+    cy.get("iframe.entity-browser-modal-iframe").should("not.exist");
+    cy.contains("VA Benefits").click();
+
+    return cy.wait(1000);
+  },
   checklist: () => {
     cy.findAllByLabelText(
       "Page title"
@@ -158,8 +306,6 @@ const creators = {
     cy.findAllByLabelText("Page introduction").type(faker.lorem.sentence(), {
       force: true,
     });
-
-    // Enter text into page intro ckeditor.
     cy.type_ckeditor(
       "edit-field-intro-text-limited-html-0-value",
       faker.lorem.sentence()

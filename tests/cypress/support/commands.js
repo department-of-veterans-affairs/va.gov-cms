@@ -5,6 +5,7 @@ import "cypress-axe";
 import "cypress-file-upload";
 import "cypress-real-events/support";
 import "cypress-xpath";
+import "./main_content_blocks";
 
 const compareSnapshotCommand = require("cypress-visual-regression/dist/command");
 
@@ -238,4 +239,15 @@ Cypress.on("uncaught:exception", () => {
   // Prevent Cypress from automatically failing tests in response to uncaught
   // application exceptions.
   return false;
+});
+
+beforeEach(() => {
+  // Requests to Google Tag Manager can cause spurious test failures.
+  cy.intercept("https://www.googletagmanager.com/gtm.js**", {
+    statusCode: 200,
+    body: "",
+    headers: {
+      "x-response-header": "ha ha ha disregard this",
+    },
+  });
 });
