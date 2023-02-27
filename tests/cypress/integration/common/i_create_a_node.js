@@ -29,6 +29,7 @@ const creators = {
     return cy.wait(1000);
   },
   campaign_landing_page: () => {
+    // Basic page fields
     cy.findAllByLabelText("Page title").type(
       faker.lorem.sentence().substring(0, 50),
       {
@@ -46,7 +47,8 @@ const creators = {
       force: true,
     });
 
-    cy.contains("Hero banner").click({ force: true });
+    // Hero banner
+    cy.contains("Hero banner").scrollIntoView().click({ force: true });
     cy.contains("Hero banner")
       .parent()
       .then(($el) => {
@@ -68,7 +70,8 @@ const creators = {
       });
     cy.contains("Hero banner").click({ force: true });
 
-    cy.contains("Why this matters").click();
+    // Why this matters
+    cy.contains("Why this matters").scrollIntoView().click({ force: true });
     cy.contains("Why this matters")
       .parent()
       .findAllByLabelText("Introduction")
@@ -77,7 +80,8 @@ const creators = {
       });
     cy.contains("Why this matters").click();
 
-    cy.contains("What you can do").click();
+    // What you can do
+    cy.contains("What you can do").scrollIntoView().click({ force: true });
     cy.contains("What you can do")
       .parent()
       .within(() => {
@@ -120,6 +124,30 @@ const creators = {
         cy.findAllByLabelText("Section").select("VACO", { force: true });
       });
     cy.contains("What you can do").click();
+
+    // VA Benefits
+    cy.contains("VA Benefits").scrollIntoView().click({ force: true });
+    cy.contains("VA Benefits")
+      .parent()
+      .within(() => {
+        cy.contains("Related benefits").scrollIntoView().click({ force: true });
+        cy.contains("Select Benefit Hub(s)").click({ force: true });
+      });
+    cy.get("iframe.entity-browser-modal-iframe").should("exist");
+    cy.wait(3000);
+    cy.get("iframe.entity-browser-modal-iframe")
+      .iframe()
+      .within(() => {
+        cy.get("tr")
+          .contains("VA Careers and employment")
+          .should("exist")
+          .parent()
+          .find("[type='checkbox']")
+          .check({ force: true });
+        cy.get("#edit-submit").click({ force: true });
+      });
+    cy.get("iframe.entity-browser-modal-iframe").should("not.exist");
+    cy.contains("VA Benefits").click();
 
     return cy.wait(1000);
   },
