@@ -11,6 +11,6 @@ pushd "${repo_root}" > /dev/null
 
 ./node_modules/.bin/cypress install
 
-npm run test:cypress
+npm run test:cypress -- "${@}"
 
 popd > /dev/null
