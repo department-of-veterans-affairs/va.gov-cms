@@ -134,54 +134,39 @@ Cypress.Commands.add("drupalWatchdogHasNewErrors", (username, count) => {
 });
 
 Cypress.Commands.add("iframe", { prevSubject: "element" }, ($iframe) => {
-  cy.get($iframe).scrollIntoView();
-  cy.get($iframe)
-    .its("0.contentDocument")
-    .should("not.be.empty")
-    .its("body")
-    .as("body");
-  cy.get("@body").should("be.visible").should("not.be.empty").then(cy.wrap);
+  return cy
+    .wrap($iframe)
+    .should((iframe) => expect(iframe.contents().find("body")).to.exist)
+    .then((iframe) => cy.wrap(iframe.contents().find("body")));
 });
 
-Cypress.Commands.add("type_ckeditor", (element, content) => {
-  cy.window().then((win) => {
+Cypress.Commands.add("get_ckeditor", (element) => {
+  cy.wait(5000);
+  return cy.window().then((win) => {
     const elements = Object.keys(win.CKEDITOR.instances);
-    if (elements.indexOf(element) === -1) {
+    const index = elements.indexOf(element);
+    if (index === -1) {
       const matches = elements.filter((el) => el.includes(element));
       if (matches.length) {
         // eslint-disable-next-line prefer-destructuring
         element = matches[0];
+      } else {
+        throw new Error(`CKEditor instance not found: ${element}`);
       }
     }
-    cy.wait(2000);
-    cy.get(`#${element}`)
-      .parent()
-      .find("iframe")
-      .iframe()
-      .then(() => {
-        win.CKEDITOR.instances[element].setData(content);
-      });
+    return cy.wrap(win.CKEDITOR.instances[element]);
+  });
+});
+
+Cypress.Commands.add("type_ckeditor", (element, content) => {
+  return cy.get_ckeditor(element).then((editor) => {
+    return cy.wrap(editor.setData(content));
   });
 });
 
 Cypress.Commands.add("read_ckeditor", (element) => {
-  return cy.window().then((win) => {
-    const elements = Object.keys(win.CKEDITOR.instances);
-    if (elements.indexOf(element) === -1) {
-      const matches = elements.filter((el) => el.includes(element));
-      if (matches.length) {
-        [element] = matches;
-      }
-    }
-    cy.wait(2000);
-    return cy
-      .get(`#${element}`)
-      .parent()
-      .find("iframe")
-      .iframe()
-      .then(() => {
-        return cy.wrap(win.CKEDITOR.instances[element].getData());
-      });
+  return cy.get_ckeditor(element).then((editor) => {
+    return cy.wrap(editor.getData());
   });
 });
 
