@@ -60,7 +60,7 @@ const creators = {
     cy.get(
       "#edit-field-datetime-range-timezone-0-time-wrapper-value-time"
     ).type("12:00", { force: true });
-    cy.get('#edit-field-datetime-range-timezone-0-timezone').select('Phoenix');
+    cy.get("#edit-field-datetime-range-timezone-0-timezone").select("Phoenix");
     cy.findAllByLabelText(
       "Where should the event be listed?"
     ).select("VA Alaska health care: Events", { force: true });
@@ -71,6 +71,11 @@ const creators = {
     cy.findAllByLabelText("City").type(faker.address.city(), { force: true });
     cy.findAllByLabelText("State").select("Alabama", { force: true });
     cy.findAllByLabelText("Section").select("--Outreach Hub", { force: true });
+    cy.get("#edit-field-datetime-range-timezone-0-make-recurring").check();
+    cy.get("#edit-field-datetime-range-timezone-0-interval").type("1");
+    cy.get(
+      "#edit-field-datetime-range-timezone-0-repeat-end-date"
+    ).type("2023-04-08", { force: true });
     cy.scrollToSelector("#edit-field-media-open-button");
     cy.get("#edit-field-media-open-button").click({ force: true });
     cy.get(".dropzone", {
@@ -93,6 +98,22 @@ const creators = {
         timeout: 15000,
       }
     );
+    cy.get("form.node-form").find("input#edit-submit").click();
+    cy.location("pathname", { timeout: 10000 }).should(
+      "not.include",
+      "/node/add"
+    );
+    cy.scrollTo("top", { ensureScrollable: false });
+    cy.get(".tabs__tab a").contains("Edit").click({ force: true });
+    cy.get("#edit-field-datetime-range-timezone-0-manage-instances").click();
+    cy.get("table#manage-instances")
+      .find(".dropbutton-action")
+      .first()
+      .find("a")
+      .click({ force: true });
+    cy.get("#manage-instances form").find("input.form-submit").click();
+    cy.get("#manage-instances form").should("not.exist");
+    cy.get("button.ui-dialog-titlebar-close").click();
     return cy.wait(1000);
   },
   health_care_region_detail_page: () => {
