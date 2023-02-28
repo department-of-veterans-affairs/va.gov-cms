@@ -16,6 +16,8 @@
           context.getElementById(service.id + "-services-general-description").remove();
         }
 
+        var tricareSystem = Drupal.isTricareSystem(context);
+
         var serviceSelector = context.querySelector(".field--name-field-service-name-and-descripti select");
         var wysiwyg = context.getElementById("edit-field-body-wrapper");
 
@@ -75,14 +77,22 @@
           div.appendChild(p3);
           p3.prepend(s3);
         }
-        if (drupalSettings.availableHealthServices[service.value] !== undefined && drupalSettings.availableHealthServices[service.value].description !== "") {
+        if (drupalSettings.availableHealthServices[service.value] !== undefined && (drupalSettings.availableHealthServices[service.value].description !== "" || drupalSettings.availableHealthServices[service.value].tricare_description !== "")) {
           var p4 = context.createElement("p");
           var s4 = context.createElement("strong");
-          p4.textContent = drupalSettings.availableHealthServices[service.value].description.replace(/&nbsp;/g, " ");
-          s4.textContent = drupalSettings.availableHealthServices[service.value].vc_vocabulary_service_description_label + ": ";
-          div.classList.remove("no-content");
-          div.appendChild(p4);
-          p4.prepend(s4);
+
+          if (tricareSystem === true && drupalSettings.availableHealthServices[service.value].tricare_description !== "") {
+            p4.textContent = drupalSettings.availableHealthServices[service.value].tricare_description.replace(/&nbsp;/g, " ");
+          }
+          if (!p4.textContent && drupalSettings.availableHealthServices[service.value].description !== "") {
+            p4.textContent = drupalSettings.availableHealthServices[service.value].description.replace(/&nbsp;/g, " ");
+          }
+          if (p4.textContent) {
+            s4.textContent = drupalSettings.availableHealthServices[service.value].vc_vocabulary_service_description_label + ": ";
+            div.classList.remove("no-content");
+            div.appendChild(p4);
+            p4.prepend(s4);
+          }
         }
 
         service.after(div);
@@ -118,6 +128,13 @@
 
       window.addEventListener("DOMContentLoaded", function () {
         descriptionFill(context.querySelectorAll(".field--name-field-service-name-and-descripti select"));
+
+        var systemSelect = context.getElementById("edit-field-region-page");
+        if (systemSelect !== null) {
+          systemSelect.addEventListener("change", function () {
+            descriptionFill(context.querySelectorAll(".field--name-field-service-name-and-descripti select"));
+          });
+        }
       });
     }
   };
