@@ -5,6 +5,7 @@ import "cypress-axe";
 import "cypress-file-upload";
 import "cypress-real-events/support";
 import "cypress-xpath";
+import "./main_content_blocks";
 
 const compareSnapshotCommand = require("cypress-visual-regression/dist/command");
 
@@ -24,6 +25,8 @@ Cypress.Commands.add("drupalLogin", (username, password) => {
   cy.window().then((window) => {
     cy.wrap(window.drupalSettings.user.uid).as("uid");
   });
+  cy.injectAxe();
+  cy.checkAccessibility();
 });
 
 Cypress.Commands.add("drupalLogout", () => {
@@ -230,23 +233,21 @@ Cypress.Commands.add("setWorkbenchAccessSections", (value) => {
     });
 });
 
-Cypress.Commands.add("accessibilityLog", (violations) => {
-  const violationData = violations.map(
-    ({ id, impact, description, nodes }) => ({
-      id,
-      impact,
-      description,
-      target: nodes[0].target,
-      nodes: nodes.length,
-    })
-  );
-  cy.task("table", violationData);
-});
-
 compareSnapshotCommand();
 
 Cypress.on("uncaught:exception", () => {
   // Prevent Cypress from automatically failing tests in response to uncaught
   // application exceptions.
   return false;
+});
+
+beforeEach(() => {
+  // Requests to Google Tag Manager can cause spurious test failures.
+  cy.intercept("https://www.googletagmanager.com/gtm.js**", {
+    statusCode: 200,
+    body: "",
+    headers: {
+      "x-response-header": "ha ha ha disregard this",
+    },
+  });
 });

@@ -161,7 +161,10 @@ const reportCypressErrors = async (violations) => {
  */
 const reportAllAccessibilityViolations = () => {
   try {
-    const json = fs.readFileSync("cypress_accessibility_errors.json", "utf8");
+    const json = fs.readFileSync(
+      "cypress_accessibility_violations.json",
+      "utf8"
+    );
     reportCypressErrors(JSON.parse(json));
   } catch (error) {
     console.error(error);

@@ -1,0 +1,25 @@
+uuid: bed14afa-2562-48ec-8938-1f2adbfe3103
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.cta_with_link
+    - field.storage.block_content.field_primary_cta_button_text
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: block_content.cta_with_link.field_primary_cta_button_text
+field_name: field_primary_cta_button_text
+entity_type: block_content
+bundle: cta_with_link
+label: 'Primary CTA button text'
+description: 'This text should tell Veterans the most important action for the CTA and include the purpose of the destination page. Additional tips are on the VA content style <a href="https://design.va.gov/content-style-guide/button-labels">buttons page</a>.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
