@@ -1,17 +1,14 @@
-uuid: e773e69e-5bbd-4025-bd5e-6318e027b3da
+uuid: 6bd03667-2d20-4712-a09b-b6eed3131423
 langcode: en
 status: true
 dependencies:
   module:
     - taxonomy
-id: taxonomy_term.field_tricare_name
-field_name: field_tricare_name
+id: taxonomy_term.field_tricare_specific_service
+field_name: field_tricare_specific_service
 entity_type: taxonomy_term
-type: string
-settings:
-  max_length: 255
-  case_sensitive: false
-  is_ascii: false
+type: boolean
+settings: {  }
 module: core
 locked: false
 cardinality: 1

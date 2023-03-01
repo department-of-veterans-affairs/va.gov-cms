@@ -1,0 +1,29 @@
+uuid: 62267541-c306-46ab-a93e-1101fab5c29f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_tricare_specific_service
+    - taxonomy.vocabulary.health_care_service_taxonomy
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: taxonomy_term.health_care_service_taxonomy.field_tricare_specific_service
+field_name: field_tricare_specific_service
+entity_type: taxonomy_term
+bundle: health_care_service_taxonomy
+label: 'Show for TRICARE Facilities only'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: '1'
+  off_label: '0'
+field_type: boolean

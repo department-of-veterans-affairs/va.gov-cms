@@ -123,7 +123,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Alterations to VAMC regional health service node forms.
+   * Alterations to VAMC system health service node forms.
    *
    * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
    *   The event.
@@ -194,12 +194,15 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $descriptions = [];
     foreach ($service_terms as $service_term) {
       $description = $service_term->get($fields['description'])->value ?? '';
+      // Lovell VAMC Facilities may include a TRICARE description field.
+      $tricare_description = $service_term->get('field_tricare_description')->value ?? '';
       /** @var \Drupal\taxonomy\Entity\Term $service_term */
       $descriptions[$service_term->id()] = [
         'type' => $service_term->get($fields['type'])->getSetting('allowed_values')[$service_term->get($fields['type'])->getString()] ?? NULL,
         'name' => $service_term->get($fields['name'])->getString(),
         'conditions' => $service_term->get($fields['conditions'])->getString(),
         'description' => trim(strip_tags($description)),
+        'tricare_description' => trim(strip_tags($tricare_description)),
         'vc_vocabulary_service_description_label' => $vocabulary_definition['field_vet_center_service_descrip']->getLabel(),
         'vc_vocabulary_description_help_text' => $vocabulary_definition['field_vet_center_service_descrip']->getDescription(),
       ];
