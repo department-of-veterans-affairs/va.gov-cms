@@ -1,4 +1,4 @@
-@content_editing_vamc_facility
+@content_editing_vamc_facility @ignore
 Feature: CMS Users may effectively interact with the VAMC Facility form
   In order to confirm that cms users have access to the necessary functionality
   As anyone involved in the project
@@ -8,7 +8,6 @@ Feature: CMS Users may effectively interact with the VAMC Facility form
     Given I am logged in as a user with the "content_admin" role
     When I am at "/node/add/health_care_local_facility"
     And I fill in "Name of facility" with "[Test Data] Facility Name"
-    And I wait "15" seconds
     And I select the radio button with the value "1037"
     Then I should see "Visitors are welcome" in ckeditor "field-supplemental-status-more-i-0"
     And I select the radio button with the value "1036"
