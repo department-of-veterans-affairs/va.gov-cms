@@ -3914,10 +3914,9 @@ display:
           type_custom_false: ''
           not: false
       access:
-        type: role
+        type: perm
         options:
-          role:
-            administrator: administrator
+          perm: 'access content'
       filters:
         title:
           id: title
@@ -4384,7 +4383,7 @@ display:
           admin_label: ''
           plugin_id: result
           empty: false
-          content: "<p>This view is only available to admins.</p>\r\n<p>Displaying @start - @end of @total</p>"
+          content: '<p>Displaying @start - @end of @total</p>'
       display_extenders:
         jsonapi_views:
           enabled: true
@@ -4417,7 +4416,7 @@ display:
         - url.query_args
         - user
         - 'user.node_grants:view'
-        - user.roles
+        - user.permissions
       tags:
         - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_last_saved_by_an_editor'
