@@ -478,6 +478,9 @@
             "drupal/raven": {
                 "Sentry/Dsn throws a TypeError, blowing up everything.": "patches/raven-catch-typeerror.patch"
             },
+            "drupal/redirect_options": {
+                "form_alter hook check on classes fails in some cases": "https://www.drupal.org/files/issues/2023-01-23/redirect_options-form_alter_array_check-3335893-2.patch"
+            },
             "drupal/schemata": {
                 "3190131 - Possibly unnecessary logging in SchemaFactory::create().": "https://www.drupal.org/files/issues/2020-12-28/schemata-remove-logging-statement-3190131-2.patch"
             },
@@ -558,7 +561,7 @@
         "va:test:phpunit-unit": "Run PHPUnit (unit) tests.",
         "va:test:status-error": "Check Drupal status for errors.",
         "va:test:status-error-ci": "Check Drupal status for errors with some CI-specific functionality.",
-        "va:test:stylelint-modules": "Run StyleLint tests on modules.", 
+        "va:test:stylelint-modules": "Run StyleLint tests on modules.",
         "va:test:stylelint-themes": "Run StyleLint tests on themes.",
         "va:theme:compile": "Compile the VA.gov Claro theme.",
         "va:theme:watch": "Watch VA.gov Claro theme source and compile as needed.",
