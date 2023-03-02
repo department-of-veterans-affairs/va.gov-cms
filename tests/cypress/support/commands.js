@@ -140,18 +140,33 @@ Cypress.Commands.add("iframe", { prevSubject: "element" }, ($iframe) => {
     .then((iframe) => cy.wrap(iframe.contents().find("body")));
 });
 
-Cypress.Commands.add("type_ckeditor", (element, content) => {
+Cypress.Commands.add("get_ckeditor", (element) => {
   cy.wait(5000);
-  cy.window().then((win) => {
+  return cy.window().then((win) => {
     const elements = Object.keys(win.CKEDITOR.instances);
-    if (elements.indexOf(element) === -1) {
+    const index = elements.indexOf(element);
+    if (index === -1) {
       const matches = elements.filter((el) => el.includes(element));
       if (matches.length) {
         // eslint-disable-next-line prefer-destructuring
         element = matches[0];
+      } else {
+        throw new Error(`CKEditor instance not found: ${element}`);
       }
     }
-    win.CKEDITOR.instances[element].setData(content);
+    return cy.wrap(win.CKEDITOR.instances[element]);
+  });
+});
+
+Cypress.Commands.add("type_ckeditor", (element, content) => {
+  return cy.get_ckeditor(element).then((editor) => {
+    return cy.wrap(editor.setData(content));
+  });
+});
+
+Cypress.Commands.add("read_ckeditor", (element) => {
+  return cy.get_ckeditor(element).then((editor) => {
+    return cy.wrap(editor.getData());
   });
 });
 
