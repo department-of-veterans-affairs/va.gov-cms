@@ -94,8 +94,8 @@ pushd ./web
 PATH="${reporoot}/bin:$PATH"
 yarn list-heading-order-violations 2>&1 | grep -vE '^Processing file ' &>> ${logfile}
 cp -v heading_order_violations.html ${reporoot}/docroot/ &>> ${logfile}
-curl -X POST "https://api.ddog-gov.com/api/v1/series" \
-  -H "Content-Type: text/json" \
+curl -X POST "https://api.ddog-gov.com/api/v2/series" \
+  -H "Content-Type: application/json" \
   -H "DD-API-KEY: ${CMS_DATADOG_API_KEY}" \
   -d @- < heading_order_violations.json &>> ${logfile}
 popd

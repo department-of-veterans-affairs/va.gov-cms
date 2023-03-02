@@ -6,44 +6,24 @@
 **/
 
 (function (Drupal) {
-  var statusId = void 0;
-  var textSetter = function textSetter() {
-    var fieldset = document.getElementById("covid-safety-guidelines-status-text");
+  var wysiwygSetter = function wysiwygSetter(e) {
+    var statusId = e.target.value;
 
-    if (document.getElementById("covid-safety-guidelines-status-text-target")) {
-      document.getElementById("covid-safety-guidelines-status-text-target").remove();
-      document.getElementById("covid-safety-guidelines-status-text-prefix").remove();
-    }
-
-    var covidStatusValue = document.querySelectorAll(".form-item--field-supplemental-status input");
-
-    covidStatusValue.forEach(function (element) {
-      if (element.checked) {
-        statusId = element.value;
+    if (document.querySelector("#cke_edit-field-supplemental-status-more-i-0-value iframe")) {
+      var iframeDocument = document.querySelector("#cke_edit-field-supplemental-status-more-i-0-value iframe").contentDocument;
+      if (iframeDocument.body) {
+        iframeDocument.body.innerHTML = "<div>" + drupalSettings.vamcCovidStatusTermText[statusId].description + "</div>";
       }
-    });
-
-    fieldset.style.display = "none";
-
-    if (statusId) {
-      fieldset.style.display = "block";
-
-      var covidStatusTextDiv = document.createElement("div");
-      covidStatusTextDiv.id = "covid-safety-guidelines-status-text-target";
-      covidStatusTextDiv.innerHTML = drupalSettings.vamcCovidStatusTermText[statusId].name + drupalSettings.vamcCovidStatusTermText[statusId].description;
-      fieldset.append(covidStatusTextDiv);
-
-      var covidStatusTextDivPrefix = document.createElement("div");
-      covidStatusTextDivPrefix.id = "covid-safety-guidelines-status-text-prefix";
-      covidStatusTextDivPrefix.innerHTML = '<h5>Guidelines</h5><div class="fieldset__description">Site visitors will see the following message for the level you selected.</div>';
-      fieldset.before(covidStatusTextDivPrefix);
     }
   };
 
   Drupal.behaviors.vaGovSetCovidTermText = {
     attach: function attach() {
-      window.addEventListener("DOMContentLoaded", textSetter);
-      document.getElementById("group-covid-19-safety-guidelines").addEventListener("click", textSetter);
+      var supplementalStatusChoices = document.querySelectorAll(".form-item--field-supplemental-status [id^='edit-field-supplemental-status-']");
+
+      supplementalStatusChoices.forEach(function (choice) {
+        document.getElementById(choice.id).addEventListener("click", wysiwygSetter);
+      });
     }
   };
 })(Drupal);

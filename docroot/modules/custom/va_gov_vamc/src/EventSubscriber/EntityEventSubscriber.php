@@ -9,6 +9,7 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\node\NodeInterface;
 use Drupal\paragraphs\ParagraphInterface;
@@ -18,13 +19,13 @@ use Drupal\va_gov_vamc\Service\ContentHardeningDeduper;
 use Drupal\va_gov_workflow\Service\Flagger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-// The UID of the CMS Help Desk account subscribing to facility messages.
-const USER_CMS_HELP_DESK_NOTIFICATIONS = 4050;
-
 /**
  * VA.gov VAMC Entity Event Subscriber.
  */
 class EntityEventSubscriber implements EventSubscriberInterface {
+
+  // The UID of the CMS Help Desk account subscribing to facility messages.
+  const USER_CMS_HELP_DESK_NOTIFICATIONS = 4050;
 
   /**
    * {@inheritdoc}
@@ -157,11 +158,11 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     if ($this->isFlaggableFacility($entity)) {
       if ($entity->bundle() === 'vet_center') {
         $this->flagger->flagFieldChanged('field_official_name', 'changed_name', $entity, "The Official name of this facility changed from '@old' to '@new'.");
-        $this->notificationsManager->sendMessageOnFieldChange('field_official_name', $entity, 'Vet Center Official Name Change:', 'vet_center_official_name_change', USER_CMS_HELP_DESK_NOTIFICATIONS);
+        $this->notificationsManager->sendMessageOnFieldChange('field_official_name', $entity, 'Vet Center Official Name Change:', 'vet_center_official_name_change', self::USER_CMS_HELP_DESK_NOTIFICATIONS);
       }
       else {
         $this->flagger->flagFieldChanged('title', 'changed_name', $entity, "The title of this facility changed from '@old' to '@new'.");
-        $this->notificationsManager->sendMessageOnFieldChange('title', $entity, 'Facility title changed:', 'va_facility_title_change', USER_CMS_HELP_DESK_NOTIFICATIONS);
+        $this->notificationsManager->sendMessageOnFieldChange('title', $entity, 'Facility title changed:', 'va_facility_title_change', self::USER_CMS_HELP_DESK_NOTIFICATIONS);
       }
     }
   }
@@ -181,7 +182,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       $first_save = (empty($entity->original)) ? TRUE : FALSE;
       if (!(defined('IS_BEHAT') && IS_BEHAT) && ($entity->isNew() || $first_save)) {
         $message_fields = $this->notificationsManager->buildMessageFields($entity, 'New facility:');
-        $this->notificationsManager->send('va_facility_new_facility', USER_CMS_HELP_DESK_NOTIFICATIONS, $message_fields);
+        $this->notificationsManager->send('va_facility_new_facility', self::USER_CMS_HELP_DESK_NOTIFICATIONS, $message_fields);
       }
     }
   }
@@ -211,31 +212,48 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Add js library for supplemental status display.
-   *
-   * Add covid term text to settings.
+   * Adds COVID status information to form and js library.
    *
    * @param array $form
    *   The form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
    */
-  public function addCovidStatusTermTextToSettings(array &$form): void {
-    /** @var \Drupal\taxonomy\Entity\Term $term_storage */
+  public function addCovidStatusData(array &$form, FormStateInterface $form_state): void {
+    /** @var \Drupal\taxonomy\TermStorage $term_storage */
     $term_storage = $this->entityTypeManager->getStorage('taxonomy_term');
     $covid_status = [
       // Low.
-      1037,
+      '1037',
       // Medium.
-      1036,
+      '1036',
       // High.
-      1035,
+      '1035',
     ];
     $terms_text = [];
+    $chosen_term_description = "";
+    /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
+    $form_object = $form_state->getFormObject();
+    $node = $form_object->getEntity();
     foreach ($covid_status as $status) {
-      $terms_text[$status]['name'] = $term_storage->load($status)->getName();
       $terms_text[$status]['description'] = $term_storage->load($status)->getDescription();
+      // If this is the chosen status (but there are no Details)
+      // get the term description.
+      if ($node->get('field_supplemental_status')->target_id === $status
+          && empty($node->get('field_supplemental_status_more_i')->value)) {
+        $chosen_term_description = $term_storage->load($status)->getDescription();
+        // Populate the Details WYSIWYG with the term description.
+        $form['field_supplemental_status_more_i']['widget'][0]['#default_value'] = $chosen_term_description;
+      }
+      $form['#attached']['library'][] = 'va_gov_vamc/set_covid_term_text';
+      $form['#attached']['drupalSettings']['vamcCovidStatusTermText'] = $terms_text;
     }
-    $form['#attached']['library'][] = 'va_gov_vamc/set_covid_term_text';
-    $form['#attached']['drupalSettings']['vamcCovidStatusTermText'] = $terms_text;
+    $form['group_covid_19_safety_guidelines'] = [
+      '#type' => 'textfield',
+      '#prefix' => '<hr /><br>',
+      '#suffix' => '<p class="fieldset__description">Use these levels to help Veterans understand the current COVID-19 health protection guidelines at your facility. This content will display on
+      the facility\'s location page and operating status page.</p><br>',
+    ];
   }
 
   /**
@@ -246,7 +264,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function alterFacilityNodeForm(FormIdAlterEvent $event): void {
     $form = &$event->getForm();
-    $this->addCovidStatusTermTextToSettings($form);
+    $form_state = $event->getFormState();
+    $this->addCovidStatusData($form, $form_state);
   }
 
   /**

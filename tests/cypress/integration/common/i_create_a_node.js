@@ -43,9 +43,12 @@ const creators = {
     cy.findAllByLabelText("Link").type(faker.internet.url(), {
       force: true,
     });
-    cy.findAllByLabelText("Link text").type(faker.lorem.sentence(), {
-      force: true,
-    });
+    cy.findAllByLabelText("Link text").type(
+      faker.lorem.sentence().substring(0, 35),
+      {
+        force: true,
+      }
+    );
 
     // Hero banner
     cy.contains("Hero banner").scrollIntoView().click({ force: true });

@@ -3,64 +3,36 @@
  */
 
 ((Drupal) => {
-  let statusId;
-  const textSetter = () => {
-    // The targeted tooltip fieldset.
-    const fieldset = document.getElementById(
-      "covid-safety-guidelines-status-text"
-    );
-
-    // Remove the previous setting = sanity reset.
-    if (document.getElementById("covid-safety-guidelines-status-text-target")) {
-      document
-        .getElementById("covid-safety-guidelines-status-text-target")
-        .remove();
-      document
-        .getElementById("covid-safety-guidelines-status-text-prefix")
-        .remove();
-    }
-
-    const covidStatusValue = document.querySelectorAll(
-      ".form-item--field-supplemental-status input"
-    );
-
-    covidStatusValue.forEach((element) => {
-      if (element.checked) {
-        statusId = element.value;
+  const wysiwygSetter = (e) => {
+    const statusId = e.target.value;
+    // When the COVID status radio button is changed,
+    // change the COVID Details field to the appropriate COVID status term description.
+    if (
+      document.querySelector(
+        "#cke_edit-field-supplemental-status-more-i-0-value iframe"
+      )
+    ) {
+      const iframeDocument = document.querySelector(
+        "#cke_edit-field-supplemental-status-more-i-0-value iframe"
+      ).contentDocument;
+      if (iframeDocument.body) {
+        iframeDocument.body.innerHTML = `<div>${drupalSettings.vamcCovidStatusTermText[statusId].description}</div>`;
       }
-    });
-
-    // We don't want the tooltip if a status isn't set.
-    fieldset.style.display = "none";
-
-    if (statusId) {
-      fieldset.style.display = "block";
-
-      // The text that is placed in the covid tooltip status box.
-      const covidStatusTextDiv = document.createElement("div");
-      covidStatusTextDiv.id = "covid-safety-guidelines-status-text-target";
-      covidStatusTextDiv.innerHTML =
-        drupalSettings.vamcCovidStatusTermText[statusId].name +
-        drupalSettings.vamcCovidStatusTermText[statusId].description;
-      fieldset.append(covidStatusTextDiv);
-
-      // Covid guidelines legend and description.
-      const covidStatusTextDivPrefix = document.createElement("div");
-      covidStatusTextDivPrefix.id =
-        "covid-safety-guidelines-status-text-prefix";
-      covidStatusTextDivPrefix.innerHTML =
-        '<h5>Guidelines</h5><div class="fieldset__description">Site visitors will see the following message for the level you selected.</div>';
-      fieldset.before(covidStatusTextDivPrefix);
     }
   };
 
   Drupal.behaviors.vaGovSetCovidTermText = {
     attach() {
-      // Let's set the text on page load, and whenever radios are clicked.
-      window.addEventListener("DOMContentLoaded", textSetter);
-      document
-        .getElementById("group-covid-19-safety-guidelines")
-        .addEventListener("click", textSetter);
+      // Use the supplemental status to drive the details content.
+      const supplementalStatusChoices = document.querySelectorAll(
+        ".form-item--field-supplemental-status [id^='edit-field-supplemental-status-']"
+      );
+      // When user clicks, populate the status.
+      supplementalStatusChoices.forEach((choice) => {
+        document
+          .getElementById(choice.id)
+          .addEventListener("click", wysiwygSetter);
+      });
     },
   };
 })(Drupal);
