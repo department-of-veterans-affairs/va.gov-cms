@@ -199,8 +199,6 @@ jobs:
         uses: ./.github/actions/post-checkout
       # Run all Cypress tests.
       - name: Run Cypress Against Sorry-Cypress
-        uses: cypress-io/github-action@v4
-        with:
-          command: |
-            export cy_build_id="${{ github.repository }}-${{ github.run_id }}-${{ github.run_attempt}}"
-            composer run va:test:cypress
+        run: |
+          export cy_build_id="${{ github.repository }}-${{ github.run_id }}-${{ github.run_attempt}}"
+          composer run va:test:cypress
