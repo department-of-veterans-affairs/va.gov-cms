@@ -202,7 +202,7 @@ jobs:
         uses: cypress-io/github-action@v4
         with:
           command: |
-            cy2 run \
+            ./node_modules/.bin/cy2 run \
               --record \
               --parallel \
               --env 'TAGS="not @ignore and not @piv"'' \
