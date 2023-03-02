@@ -5,9 +5,9 @@ This is the public/open documentation for the VA.gov Content Management System (
 The VA.gov **CMS** is the backend for www.va.gov. The Frontend (**WEB**) repo is at https://github.com/department-of-veterans-affairs/vets-website/.
 
 ## Contributing to this documentation
-If you find any improvements to make to this documentation and you have push access, please commit your changes directly to the `main` branch. 
+If you find any improvements to make to this documentation and you have push access, please commit your changes directly to the `main` branch.
 
-Please prefix your commit message with `[DOCS]` e.g. `[DOCS] Commit message ...`. Using the `[DOCS]` prefix is helpful because tests don't run on commits that contain changes solely to \*.md or \*.txt files and therefore won't have related status checks posted to the commit status that we see at https://github.com/department-of-veterans-affairs/va.gov-cms/commits.  
+Please prefix your commit message with `[DOCS]` e.g. `[DOCS] Commit message ...`. Using the `[DOCS]` prefix is helpful because tests don't run on commits that contain changes solely to \*.md or \*.txt files and therefore won't have related status checks posted to the commit status that we see at https://github.com/department-of-veterans-affairs/va.gov-cms/commits.
 
 If you don't have push access, you can submit a pull request for review.
 
@@ -53,7 +53,8 @@ The VA.gov CMS Team
    1. Overview
    1. Drupal
       1. [Memcache](READMES/drupal-memcache.md)
-   1. [content models](READMES/content-models.md)
+   1. [Content Models and Documentation](READMES/content-models.md)
+      1. [Centralized Content](READMES/content-model-centralized-content.md)
    1. MetalSmith
    1. [Interfaces](READMES/interfaces.md) - APIs and Feature Flag
    1. Migrations (data imports)
