@@ -1,11 +1,7 @@
-name: Continuous Integration
+name: Cypress
 on:
   workflow_dispatch:
     inputs:
-      build_id:
-        description: 'Sorry-Cypress build ID'
-        type: 'string'
-        required: true
       preview_url:
         description: 'Environment to run tests against'
         type: 'string'
@@ -34,5 +30,11 @@ jobs:
       # Run all Cypress tests.
       - name: Run Cypress Against Sorry-Cypress
         run: |
-          export cy_build_id="${{ github.repository }}-${{ github.run_id }}-${{ github.run_attempt}}"
-          composer run va:test:cypress
+          cy_build_id="${{ github.repository }}-${{ github.run_id }}-${{ github.run_attempt}}"
+          ./node_modules/.bin/cy2 run \
+            --record \
+            --parallel \
+            --env 'TAGS="not @ignore and not @piv"'' \
+            --ci-build-id "${cy_build_id}"
+        env:
+          CYPRESS_BASE_URL: "${{ inputs.preview_url }}"

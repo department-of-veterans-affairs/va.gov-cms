@@ -10,7 +10,6 @@ pushd "${repo_root}" > /dev/null
 [ -d node_modules ] || npm install
 
 workflow_id='cypress.yml'
-cy_build_id="${TUGBOAT_PREVIEW_SHA}"
 
 curl -L \
   -X POST \
@@ -18,6 +17,6 @@ curl -L \
   -H "Authorization: Bearer <YOUR-TOKEN>"\
   -H "X-GitHub-Api-Version: 2022-11-28" \
   https://api.github.com/repos/${TUGBOAT_GITHUB_OWNER}/${TUGBOAT_GITHUB_REPO}/actions/workflows/${workflow_id}/dispatches \
-  -d '{"ref":"'"${TUGBOAT_GITHUB_HEAD}"'","inputs":{"preview_url":"'"${TUGBOAT_DEFAULT_SERVICE_URL}"'", "build_id":"'"${cy_build_id}"'"}}'
+  -d '{"ref":"'"${TUGBOAT_GITHUB_HEAD}"'","inputs":{"preview_url":"'"${TUGBOAT_DEFAULT_SERVICE_URL}"'"}}'
 
 popd > /dev/null
