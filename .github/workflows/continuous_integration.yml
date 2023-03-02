@@ -198,12 +198,9 @@ jobs:
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
       # Run all Cypress tests.
-      - name: Run Cypress on Currents.dev
+      - name: Run Cypress Against Sorry-Cypress
         uses: cypress-io/github-action@v4
         with:
           command: |
-            ./node_modules/.bin/cy2 run \
-              --record \
-              --parallel \
-              --env 'TAGS="not @ignore and not @piv"'' \
-              --ci-build-id "${{ github.repository }}-${{ github.run_id }}-${{ github.run_attempt}}"
+            export cy_build_id="${{ github.repository }}-${{ github.run_id }}-${{ github.run_attempt}}"
+            composer run va:test:cypress

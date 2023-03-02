@@ -15,7 +15,7 @@
     "stylelint-modules": "npx stylelint 'docroot/modules/custom/**/*.css'",
     "stylelint-themes": "npx stylelint 'docroot/themes/custom/**/*.scss'",
     "stylelint": "npx stylelint",
-    "test:cypress": "cy2 run -e \"TAGS=$CYPRESS_TAGS\" --record --parallel --ci-build-id $TUGBOAT_PREVIEW_SHA",
+    "test:cypress": "cy2 run -e \"TAGS=$CYPRESS_TAGS\" --record --parallel --ci-build-id $cy_build_id",
     "test:cypress:interactive": "cypress open -e \"TAGS=not @ignore and not @piv,VAGOV_INTERACTIVE=true\""
   },
   "repository": {
