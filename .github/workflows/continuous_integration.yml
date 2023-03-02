@@ -178,3 +178,31 @@ jobs:
           reporter: github-pr-review
           stylelint_config: '.stylelintrc'
           stylelint_input: 'docroot/themes/custom/**/*.scss'
+
+  # Cypress tests, hopefully with parallelization. 
+  cypress:
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        # Let's try splitting tests four ways.
+        containers: [1, 2, 3, 4]
+    steps:
+      - name: Checkout
+        # https://github.com/actions/cache/releases/tag/v3.0.10
+        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        with:
+          # populate commit message for merge commits
+          # see ://currents.dev/readme/ci-setup/github-actions
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      # Run all Cypress tests.
+      - name: Run Cypress on Currents.dev
+        uses: cypress-io/github-action@v4
+        with:
+          command: |
+            cy2 run \
+              --record \
+              --parallel \
+              --env 'TAGS="not @ignore and not @piv"'' \
+              --ci-build-id "${{ github.repository }}-${{ github.run_id }}-${{ github.run_attempt}}"
