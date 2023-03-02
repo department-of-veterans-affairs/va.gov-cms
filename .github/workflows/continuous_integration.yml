@@ -195,7 +195,8 @@ jobs:
           # populate commit message for merge commits
           # see ://currents.dev/readme/ci-setup/github-actions
           ref: ${{ github.event.pull_request.head.sha }}
-
+      - name: Post-Checkout Actions
+        uses: ./.github/actions/post-checkout
       # Run all Cypress tests.
       - name: Run Cypress on Currents.dev
         uses: cypress-io/github-action@v4
