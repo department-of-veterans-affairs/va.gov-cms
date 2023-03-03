@@ -32,7 +32,7 @@ jobs:
         uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
         with:
           # When Sorry-Cypress support is enabled on `main`, this should be
-          # removed so that the `main` version of the workflow is used.
+          # removed so that the `main` version of the workflow is used
           ref: ${{ inputs.commit_sha }}
 
       - name: Setup the Node environment
@@ -41,13 +41,33 @@ jobs:
         with:
           node-version: '18.13'
 
+      - name: Install OS-level dependencies
+        run: |
+          # https://docs.cypress.io/guides/getting-started/installing-cypress
+          apt-get install -y \
+            libgtk2.0-0 \
+            libgtk-3-0 \
+            libgbm-dev \
+            libnotify-dev \
+            libgconf-2-4 \
+            libnss3 \
+            libxss1 \
+            libasound2 \
+            libxtst6 \
+            xauth \
+            xvfb
+
+      - name: Install Node package dependencies
+        run: |
+          npm install
+
       - name: Run Cypress Against Sorry-Cypress
         run: |
-          export CY_BUILD_ID="${{ github.repository }}-${{ github.run_id }}-${{ github.run_attempt}}"
           npm run test:cypress:parallel
         env:
           CYPRESS_BASE_URL: "${{ inputs.preview_url }}"
-
+          CY_BUILD_ID: "${{ github.repository }}-${{ github.run_id }}-${{ github.run_attempt}}"
+          
       - name: Update status on commit.
         # https://github.com/actions/github-script/releases/tag/v6.4.0
         uses: actions/github-script@98814c53be79b1d30f795b907e553d8679345975
