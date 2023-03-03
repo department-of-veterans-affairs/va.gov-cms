@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\va_gov_backend\Plugin\Validation\Constraint;
+namespace Drupal\va_gov_vamc\Plugin\Validation\Constraint;
 
 use Symfony\Component\Validator\Constraint;
 
@@ -35,7 +35,7 @@ class SectionMatcher extends Constraint {
    * @var string
    * @see \Drupal\va_gov_backend\Plugin\Validation\Constraint\SectionMatcherValidator
    */
-  public $notSectionMatchBoth = 'The Facility and VAMC system health service do not match the section. Please select matching options.';
+  public $notSectionMatchEither = 'The Facility and VAMC system health service do not match the section. Please select matching options.';
 
 
 }

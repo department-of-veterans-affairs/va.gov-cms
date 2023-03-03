@@ -196,6 +196,7 @@ function va_gov_vamc_inline_entity_form_entity_form_alter(&$entity_form, FormSta
 function va_gov_vamc_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $entity_type, $bundle) {
   // Add facility validation on VAMC facility health service
   if ($entity_type->id() === 'node' && $bundle === 'health_care_local_health_service' && isset($fields['field_facility_location'])) {
-    $fields['field_facility_location']->addConstraint('SectionMatcher');
+    $service_section = $fields['field_administration']->value;
+    $fields['field_facility_location']->addConstraint('SectionMatcher', $service_section);
   }
 }

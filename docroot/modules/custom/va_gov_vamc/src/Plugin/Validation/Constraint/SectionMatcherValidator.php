@@ -28,10 +28,6 @@ class SectionMatcherValidator extends ConstraintValidator {
       elseif ((!preg_match("/^\d{3}$/", $item->value)) && (strlen($item->value) === 3)) {
         $this->context->addViolation($constraint->notValidTty, ['%value' => $item->value]);
       }
-      // Length doesn't match any phone type.
-      elseif (strlen($item->value) !== 3 && strlen($item->value) !== 5 && strlen($item->value) !== 6 && strlen($item->value) !== 12) {
-        $this->context->addViolation($constraint->notValidLength, ['%value' => $item->value]);
-      }
     }
   }
 
