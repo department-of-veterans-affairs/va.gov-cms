@@ -38,6 +38,8 @@ jobs:
       - name: Setup the PHP environment
         # https://github.com/shivammathur/setup-php/releases/tag/2.21.2
         uses: shivammathur/setup-php@e04e1d97f0c0481c6e1ba40f8a538454fe5d7709
+        env:
+          runner: self-hosted
         with:
           php-version: '8.1'
           extensions: dom, curl, libxml, mbstring, zip, pdo, mysql, pdo_mysql, bcmath, gd, exif, iconv
