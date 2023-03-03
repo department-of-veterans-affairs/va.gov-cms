@@ -9,14 +9,8 @@ pushd "${repo_root}" > /dev/null
 
 [ -d node_modules ] || npm install
 
-workflow_id='cypress.yml'
+./node_modules/.bin/cypress install
 
-curl -L \
-  -X POST \
-  -H "Accept: application/vnd.github+json" \
-  -H "Authorization: Bearer ${GITHUB_TOKEN}" \
-  -H "X-GitHub-Api-Version: 2022-11-28" \
-  https://api.github.com/repos/${TUGBOAT_GITHUB_OWNER}/${TUGBOAT_GITHUB_REPO}/actions/workflows/${workflow_id}/dispatches \
-  -d '{"ref":"main","inputs":{"preview_url":"'"${TUGBOAT_DEFAULT_SERVICE_URL}"'", "pull_request": '"${TUGBOAT_GITHUB_PR}"', "commit_sha":"'"${TUGBOAT_PREVIEW_SHA}"'"}}'
+npm run test:cypress -- "${@}"
 
 popd > /dev/null
