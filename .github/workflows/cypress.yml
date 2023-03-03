@@ -25,6 +25,8 @@ jobs:
       matrix:
         # Let's try splitting tests four ways.
         containers: [1, 2, 3, 4]
+    env:
+      NODE_EXTRA_CA_CERTS: /share/ca-certificates/VA-Internal-S2-RCA1-v1.cer.crt
     steps:
 
       - name: Checkout
