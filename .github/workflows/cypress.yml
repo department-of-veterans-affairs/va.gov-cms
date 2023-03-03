@@ -33,9 +33,9 @@ jobs:
         # https://github.com/actions/cache/releases/tag/v3.0.10
         uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
         with:
-          # populate commit message for merge commits
-          # see ://currents.dev/readme/ci-setup/github-actions
-          ref: ${{ github.event.pull_request.head.sha }}
+          # When Sorry-Cypress support is enabled on `main`, this should be
+          # removed so that the `main` version of the workflow is used
+          ref: ${{ inputs.commit_sha }}
 
       - name: Setup the Node environment
         # https://github.com/actions/setup-node/releases/tag/v3.6.0
@@ -43,13 +43,19 @@ jobs:
         with:
           node-version: '18.13'
 
-      - name: Run Cypress Against Sorry-Cypress
-        run: |
-          export CY_BUILD_ID="${{ github.repository }}-${{ github.run_id }}-${{ github.run_attempt}}"
-          npm run test:cypress:parallel
+      - name: Install Node package dependencies
+        run: npm ci
+
+      - name: Cypress run
+        # https://github.com/cypress-io/github-action/releases/tag/v5.1.0
+        uses: cypress-io/github-action@cdbbcd60fb5d967d7a37d8eb148add76a7ded7b6
+        with:
+          wait-on: "${{ inputs.preview_url }}"
+          command: 'npm run test:cypress:parallel'
         env:
           CYPRESS_BASE_URL: "${{ inputs.preview_url }}"
-
+          CY_BUILD_ID: "${{ github.repository }}-${{ github.run_id }}-${{ github.run_attempt}}"
+          
       - name: Update status on commit.
         # https://github.com/actions/github-script/releases/tag/v6.4.0
         uses: actions/github-script@98814c53be79b1d30f795b907e553d8679345975

@@ -230,6 +230,9 @@ const creators = {
     cy.get(
       '[data-drupal-selector="edit-media-0-fields-field-owner"]'
     ).select("VACO", { force: true });
+    cy.get(
+      "#edit-revision-log-0-value"
+    ).type(`[Test revision log 1]${faker.lorem.sentence()}`, { force: true });
     cy.get("button").contains("Save and insert").click({ force: true });
     cy.get(
       'div.media-library-item[data-drupal-selector="edit-field-media-selection-0"]',
@@ -343,6 +346,9 @@ Given("I create a {string} node", (contentType) => {
   cy.scrollTo("top");
   cy.checkAccessibility();
   creator().then(() => {
+    cy.get(
+      "#edit-revision-log-0-value"
+    ).type(`[Test revision log]${faker.lorem.sentence()}`, { force: true });
     cy.get("form.node-form").find("input#edit-submit").click();
     cy.location("pathname", { timeout: 10000 }).should(
       "not.include",
@@ -373,6 +379,9 @@ Given("I create a {string} node and continue", (contentType) => {
   cy.scrollTo("top");
   cy.checkAccessibility();
   creator().then(() => {
+    cy.get(
+      "#edit-revision-log-0-value"
+    ).type(`[Test revision log]${faker.lorem.sentence()}`, { force: true });
     cy.get("form.node-form").find("input#edit-save-continue").click();
     cy.location("pathname", { timeout: 10000 }).should(
       "not.include",
