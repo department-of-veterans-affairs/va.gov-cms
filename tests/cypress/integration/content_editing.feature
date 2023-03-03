@@ -18,6 +18,7 @@ Feature: CMS Users may effectively create & edit content
     And I fill in ckeditor "field-body-0-value" with "[Test Data] Alert Body"
     And I click the "Create banner alert" button
     And I wait "5" seconds
+    And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
     And I click the "Save draft and continue editing" button
     Then "Pages for the following VAMC systems" should exist
     And "[Test Data] Alert Title" should exist
@@ -62,7 +63,7 @@ Feature: CMS Users may effectively create & edit content
   Scenario: Log in, edit, and save nodes with save and continue button and confirm revision saves changes.
     When I am logged in as a user with the "administrator" role
     And I create a "checklist" node and continue
-
+    And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
     # Verify data has been saved
     Then "error has been found:" should not exist
     And I should see "[Test Data]"
@@ -73,6 +74,7 @@ Feature: CMS Users may effectively create & edit content
     # Make sure additional edits are saved
     And I fill in "Page title" with "[Test Data] Save and Continue Test"
     And I fill in field with selector "#edit-field-checklist-0-subform-field-checklist-sections-0-subform-field-section-header-0-value" with value "[Test Items Value] Some item"
+    And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
     And I click the "Save draft and continue editing" button
 
     # Confirm that the correct values are shown on preview.
@@ -133,7 +135,7 @@ Feature: CMS Users may effectively create & edit content
     And I should see "Registration is required for this event"
     And "Call to action" should be visible
 
-    When I select option "Register" from dropdown "Call to action" 
+    When I select option "Register" from dropdown "Call to action"
     Then I should see an element with the selector "#edit-field-link-0-uri"
     And I select option "Apply" from dropdown "Call to action"
     Then I should see an element with the selector "#edit-field-link-0-uri"
