@@ -6,6 +6,14 @@ on:
         description: 'Environment to run tests against'
         type: 'string'
         required: true
+      pull_request:
+        description: 'Pull Request number'
+        type: 'integer'
+        required: true
+      commit_sha:
+        description: 'SHA of commit on which to update statuses'
+        type: 'string'
+        required: true
 
 jobs:
 
@@ -33,3 +41,17 @@ jobs:
           composer va:test:cypress-gha "${cy_build_id}"
         env:
           CYPRESS_BASE_URL: "${{ inputs.preview_url }}"
+      - name: Update status on commit.
+        # https://github.com/actions/github-script/releases/tag/v6.4.0
+        uses: actions/github-script@98814c53be79b1d30f795b907e553d8679345975
+        with:
+          script: |
+            await octokit.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: inputs.commit_sha,
+              state: context.job.status,
+              description: `Cypress tests ${context.job.status}`,
+            })
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
