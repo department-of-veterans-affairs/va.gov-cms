@@ -31,9 +31,9 @@ jobs:
         # https://github.com/actions/cache/releases/tag/v3.0.10
         uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
         with:
-          # populate commit message for merge commits
-          # see ://currents.dev/readme/ci-setup/github-actions
-          ref: ${{ github.event.pull_request.head.sha }}
+          # When Sorry-Cypress support is enabled on `main`, this should be
+          # removed so that the `main` version of the workflow is used.
+          ref: ${{ inputs.commit_sha }}
 
       - name: Setup the Node environment
         # https://github.com/actions/setup-node/releases/tag/v3.6.0
