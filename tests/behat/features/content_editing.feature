@@ -54,6 +54,7 @@ Feature: CMS Users may effectively create & edit content
 
     # Also select an audience.
     And I select the "BeHat - Awesome Veterans" radio button
+    And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
     And I press "Save draft and continue editing"
 
     # Confirm that our custom validation for Audiences & Topics is working.
