@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -ex
+set -x
 
 # A wrapper for tests specifically as performed in CI contexts.
 repo_root="$(git rev-parse --show-toplevel)"

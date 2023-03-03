@@ -24,10 +24,12 @@ dependencies:
     - field.field.node.health_care_local_facility.field_phone_number
     - field.field.node.health_care_local_facility.field_region_page
     - field.field.node.health_care_local_facility.field_supplemental_status
+    - field.field.node.health_care_local_facility.field_supplemental_status_more_i
     - node.type.health_care_local_facility
     - workflows.workflow.editorial
   module:
     - address
+    - allowed_formats
     - content_moderation
     - field_group
     - geofield
@@ -126,6 +128,9 @@ third_party_settings:
       children:
         - field_operating_status_facility
         - field_operating_status_more_info
+        - group_covid_19_safety_guidelines
+        - field_supplemental_status
+        - field_supplemental_status_more_i
       label: 'Operating status'
       region: content
       parent_name: ''
@@ -135,8 +140,9 @@ third_party_settings:
         classes: ''
         show_empty_fields: false
         id: ''
-        description: 'Use this status for weather or other events that impact your facility''s operations. Don''t duplicate information contained in your COVID-19 status. This status will display on the facility''s location page and operating status page.'
+        description: 'Use this status for weather or other events that impact your facility''s operations. This status will display on the facility''s location page and operating status page.'
         required_fields: true
+        description_display: after
     group_meta_tags:
       children:
         - field_description
@@ -192,39 +198,24 @@ third_party_settings:
         label_element: h3
         attributes: ''
     group_covid_19_safety_guidelines:
-      children:
-        - field_supplemental_status
-        - group_current_covid_19_safety_gu
+      children: {  }
       label: 'COVID-19 health protection guidelines'
       region: content
-      parent_name: ''
-      weight: 2
-      format_type: fieldset
+      parent_name: group_operating_status
+      weight: 7
+      format_type: html_element
       format_settings:
         classes: ''
         show_empty_fields: true
         id: ''
-        description: 'Use these levels to help Veterans understand the current COVID-19 health protection guidelines at your facility. The preset guidelines will appear on your facility’s location and operating status pages.'
-        required_fields: false
-        description_display: after
-    group_current_covid_19_safety_gu:
-      children: {  }
-      label: 'Current Covid-19 safety guidelines'
-      region: content
-      parent_name: group_covid_19_safety_guidelines
-      weight: 22
-      format_type: tooltip
-      format_settings:
-        show_empty_fields: '1'
-        show_label: '0'
-        tooltip_description: "Why can't I edit this?\r\n\r\nVHA Digital Media manages messaging about COVID protocols to ensure a consistent experience for Veterans nationwide."
-        description: ''
-        required_fields: '1'
-        id: covid-safety-guidelines-status-text
-        classes: ''
-        element: div
+        element: p
+        show_label: true
         label_element: h3
+        label_element_classes: ''
         attributes: ''
+        effect: none
+        speed: fast
+        required_fields: false
 id: node.health_care_local_facility.default
 targetEntityType: node
 bundle: health_care_local_facility
@@ -350,7 +341,7 @@ content:
     third_party_settings: {  }
   field_operating_status_more_info:
     type: string_textarea_with_counter
-    weight: 7
+    weight: 6
     region: content
     settings:
       rows: 5
@@ -376,10 +367,26 @@ content:
     third_party_settings: {  }
   field_supplemental_status:
     type: options_buttons
-    weight: 21
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_supplemental_status_more_i:
+    type: text_textarea_with_counter
+    weight: 10
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+      maxlength: 500
+      counter_position: after
+      js_prevent_submit: true
+      count_html_characters: false
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+    third_party_settings:
+      allowed_formats:
+        hide_help: '1'
+        hide_guidelines: '1'
   flag:
     weight: 12
     region: content

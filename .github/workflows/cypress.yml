@@ -1,0 +1,35 @@
+name: Cypress
+on:
+  workflow_dispatch:
+    inputs:
+      preview_url:
+        description: 'Environment to run tests against'
+        type: 'string'
+        required: true
+
+jobs:
+
+  # Cypress tests, hopefully with parallelization. 
+  cypress:
+    runs-on: self-hosted
+    strategy:
+      fail-fast: false
+      matrix:
+        # Let's try splitting tests four ways.
+        containers: [1, 2, 3, 4]
+    steps:
+      - name: Checkout
+        # https://github.com/actions/cache/releases/tag/v3.0.10
+        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        with:
+          # populate commit message for merge commits
+          # see ://currents.dev/readme/ci-setup/github-actions
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Post-Checkout Actions
+        uses: ./.github/actions/post-checkout
+      - name: Run Cypress Against Sorry-Cypress
+        run: |
+          cy_build_id="${{ github.repository }}-${{ github.run_id }}-${{ github.run_attempt}}"
+          composer va:test:cypress-gha "${cy_build_id}"
+        env:
+          CYPRESS_BASE_URL: "${{ inputs.preview_url }}"

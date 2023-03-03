@@ -1,7 +1,21 @@
-import { Given, Then } from "cypress-cucumber-preprocessor/steps";
 import { faker } from "@faker-js/faker";
 
-Given(`I add a main content block with a link to a {string} file`, (type) => {
+Cypress.Commands.add("addMainContentBlockWithRichText", (text) => {
+  cy.get("#edit-field-content-block-add-more-browse")
+    .scrollIntoView()
+    .should("be.visible")
+    .click();
+  cy.get("div#drupal-modal").within(() => {
+    cy.contains("Rich text")
+      .parent()
+      .find("input.button")
+      .click({ force: true });
+  });
+  cy.get("div#drupal-modal").should("not.exist");
+  cy.type_ckeditor("field-wysiwyg-0", text);
+});
+
+Cypress.Commands.add("addMainContentBlockWithFile", (type) => {
   cy.get("#edit-field-content-block-add-more-browse")
     .scrollIntoView()
     .should("be.visible")

@@ -100,7 +100,7 @@
         "drupal/jsonapi_views": "^1.0",
         "drupal/libraries": "^4.0",
         "drupal/limited_field_widgets": "^2.0",
-        "drupal/linkit": "^6.0.0-beta2",
+        "drupal/linkit": "6.0.x-dev@dev",
         "drupal/linky": "^1.0@beta",
         "drupal/linkychecker": "^2.0@beta",
         "drupal/linkyreplacer": "^2.2",
@@ -202,7 +202,7 @@
         "symfony/console": "^6.2",
         "symfony/phpunit-bridge": "^5.1",
         "traviscarden/behat-table-comparison": "~0.2",
-        "va-gov/content-build": "^0.0.3195",
+        "va-gov/content-build": "^0.0.3208",
         "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
@@ -384,7 +384,8 @@
                 "2767243 - Create a theme suggestion for taxonomy terms by view mode": "https://www.drupal.org/files/issues/core-theme-suggestion-for-taxonomy-view-modes-2767243-14.patch",
                 "2775665 - MenuLinkContent updateLink function generates a PHP Warning for override-able keys that are not present in the loaded entity": "https://www.drupal.org/files/issues/2021-09-17/updateLink-2775665-14.patch",
                 "2975602 - Html::serialize() escapes backslash-r to &#13;": "https://www.drupal.org/files/issues/2018-05-27/2975602-2-html_serialize.patch",
-                "Claro claro_preprocess_input()": "patches/drupal-core-claro_preprocess_input.patch"
+                "Claro claro_preprocess_input()": "patches/drupal-core-claro_preprocess_input.patch",
+                "1156338 - Fixed maximum number of field values, but use «add more» similar to when cardinality «unlimited» is used": "https://www.drupal.org/files/issues/2022-01-27/drupal-fix-limited-cardinality-fields-1156338-23.patch"
             },
             "drupal/csv_serialization": {
                 "3317133 - [Drupal 10, Drush 11] PHP Fatal error on install": "https://www.drupal.org/files/issues/2023-02-01/3317133-drupal-10-php-fatal-error_0.patch",
@@ -458,7 +459,8 @@
                 "3342032 - Undefined method getImplementations()": "https://www.drupal.org/files/issues/2023-02-15/3342032-undefined-method-getimplementations.patch"
             },
             "drupal/linkit": {
-                "2712951 - Linkit for Link field": "https://www.drupal.org/files/issues/2021-01-26/linkit-for-link-field-2712951-207.patch"
+                "2712951 - Linkit for Link field": "https://www.drupal.org/files/issues/2021-01-26/linkit-for-link-field-2712951-207.patch",
+                "3232190 - ckeditor 5 readiness":  "https://www.drupal.org/files/issues/2023-01-31/3232190-133.patch"
             },
             "drupal/memcache": {
                 "3058121 - Use persistent connections": "https://www.drupal.org/files/issues/2020-09-10/3058121-16.patch"
@@ -535,9 +537,6 @@
             },
             "weitzman/drupal-test-traits": {
                 "Forbid connection reuse in PHPUnit tests": "patches/weitzman-drupal-test-traits-forbid-connection-reuse.patch"
-            },
-            "drupal/dropzonejs": {
-                "3174484 - Select files button and Add media window text should respect field cardinality": "https://www.drupal.org/files/issues/2022-03-29/3174484-add-media-window-and-select-button-text-should-respect-field-cardinality-4.patch"
             },
             "drupal/sitewide_alert": {
                 "3290964 - Add drush commands for sitewide alerts": "https://www.drupal.org/files/issues/2022-06-24/3290964-add-drush-commands.patch"
@@ -706,7 +705,7 @@
         ],
         "va:test:behat": [
             "# Run Behat tests.",
-            "! ./scripts/should-run-directly.sh || (cd tests/behat && behat)",
+            "! ./scripts/should-run-directly.sh || ./tests/scripts/behat-tests.sh",
             "./scripts/should-run-directly.sh || ddev composer va:test:behat --"
         ],
         "va:test:check-cer": [

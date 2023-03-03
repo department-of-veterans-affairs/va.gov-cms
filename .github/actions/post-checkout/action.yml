@@ -28,6 +28,12 @@ runs:
         tools: composer:v2
         coverage: xdebug
 
+    - name: Setup the Node environment
+      # https://github.com/actions/setup-node/releases/tag/v3.6.0
+      uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c
+      with:
+        node-version: '18.13'
+
     - name: Install PHP packages via Composer
       run: composer install --no-progress --prefer-dist --optimize-autoloader
       shell: bash

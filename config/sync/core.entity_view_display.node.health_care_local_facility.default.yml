@@ -24,6 +24,7 @@ dependencies:
     - field.field.node.health_care_local_facility.field_phone_number
     - field.field.node.health_care_local_facility.field_region_page
     - field.field.node.health_care_local_facility.field_supplemental_status
+    - field.field.node.health_care_local_facility.field_supplemental_status_more_i
     - image.style.crop_3_2
     - node.type.health_care_local_facility
   module:
@@ -34,6 +35,7 @@ dependencies:
     - office_hours
     - options
     - telephone
+    - text
     - user
 third_party_settings:
   field_group:
@@ -130,7 +132,8 @@ third_party_settings:
     group_covid_19_safety_guidelines:
       children:
         - field_supplemental_status
-      label: 'COVID-19 guidelines'
+        - field_supplemental_status_more_i
+      label: 'COVID-19 health protection guidelines'
       parent_name: ''
       region: content
       weight: 3
@@ -140,6 +143,7 @@ third_party_settings:
         show_empty_fields: false
         id: ''
         description: ''
+        description_display: after
 id: node.health_care_local_facility.default
 targetEntityType: node
 bundle: health_care_local_facility
@@ -233,6 +237,10 @@ content:
         position: ''
         open_text: 'Currently open!'
         closed_text: 'Currently closed'
+      exceptions:
+        restrict_exceptions_to_num_days: 7
+        date_format: long
+        title: 'Exception hours'
       timezone_field: ''
       office_hours_first_day: ''
       schema:
@@ -263,13 +271,19 @@ content:
     weight: 17
     region: content
   field_supplemental_status:
-    type: entity_reference_entity_view
+    type: entity_reference_label
     label: hidden
     settings:
-      view_mode: name_with_term
       link: false
     third_party_settings: {  }
     weight: 18
+    region: content
+  field_supplemental_status_more_i:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 19
     region: content
   flag_email_node:
     settings: {  }
