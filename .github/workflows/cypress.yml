@@ -45,6 +45,8 @@ jobs:
 
       - name: Install Node package dependencies
         run: npm ci
+        env:
+          NODE_TLS_REJECT_UNAUTHORIZED: 0
 
       - name: Cypress run
         # https://github.com/cypress-io/github-action/releases/tag/v5.1.0
