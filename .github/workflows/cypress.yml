@@ -43,8 +43,8 @@ jobs:
 
       - name: Run Cypress Against Sorry-Cypress
         run: |
-          cy_build_id="${{ github.repository }}-${{ github.run_id }}-${{ github.run_attempt}}"
-          composer va:test:cypress-gha "${cy_build_id}"
+          export CY_BUILD_ID="${{ github.repository }}-${{ github.run_id }}-${{ github.run_attempt}}"
+          npm run test:cypress:parallel
         env:
           CYPRESS_BASE_URL: "${{ inputs.preview_url }}"
 
