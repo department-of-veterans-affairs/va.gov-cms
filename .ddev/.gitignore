@@ -1,3 +1,7 @@
+#ddev-generated: Automatically generated ddev .gitignore.
+# You can remove the above line if you want to edit and maintain this file yourself.
+/.gitignore
+
 /**/*.example
 /.dbimageBuild
 /.dbimageExtra
@@ -5,6 +9,7 @@
 /.*downloads
 /.global_commands
 /.homeadditions
+/.importdb*
 /.sshimageBuild
 /.webimageBuild
 /.webimageExtra
@@ -18,8 +23,11 @@
 /db_snapshots
 /import-db
 /import.yaml
+/mutagen
 /nginx_full/nginx-site.conf
+/postgres/postgresql.conf
+/providers/platform.yaml
 /sequelpro.spf
+/traefik
 /xhprof
 /**/README.*
-docker-compose.datadog.yaml
