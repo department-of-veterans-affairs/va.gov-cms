@@ -9,7 +9,10 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormBaseAlterEvent;
 use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\NodeForm;
+use Drupal\node\NodeInterface;
 use Drupal\va_gov_notifications\Service\NotificationsManager;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Drupal\va_gov_workflow\Service\Flagger;
@@ -21,6 +24,13 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class EntityEventSubscriber implements EventSubscriberInterface {
 
+  /**
+   * The entity manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   *  The entityType manager.
+   */
+  private $entityTypeManager;
 
   /**
    * The vagov workflow flagger service.
@@ -65,6 +75,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   /**
    * Constructs the EventSubscriber object.
    *
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entityTypeManager.
    * @param \Drupal\va_gov_user\Service\UserPermsService $user_perms_service
    *   The user perms service.
    * @param \Drupal\va_gov_workflow\Service\WorkflowContentControl $workflow_content_control
@@ -75,11 +87,13 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   VA gov NotificationsManager service.
    */
   public function __construct(
+    EntityTypeManagerInterface $entity_type_manager,
     UserPermsService $user_perms_service,
     WorkflowContentControl $workflow_content_control,
     Flagger $flagger,
     NotificationsManager $notifications_manager
   ) {
+    $this->entityTypeManager = $entity_type_manager;
     $this->userPermsService = $user_perms_service;
     $this->workflowContentControl = $workflow_content_control;
     $this->flagger = $flagger;
@@ -104,10 +118,13 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The event.
    */
   public function alterNodeForm(FormBaseAlterEvent $event) {
+    $form = &$event->getForm();
     $form_state = $event->getFormState();
+    $form_id = $event->getFormId();
     if ($form_state->getFormObject() instanceof EntityFormInterface) {
       $this->removeArchiveOption($event);
     }
+    $this->requireRevisionMessage($form, $form_state, $form_id);
   }
 
   /**
@@ -189,6 +206,125 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       // A flag is being deleted.
       $this->flagger->logFlagOperation($entity, 'delete');
     }
+  }
+
+  /**
+   * Adds Validation to check revision log message is added.
+   *
+   * @param array $form
+   *   The exposed widget form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   * @param string $form_id
+   *   The form id.
+   */
+  public function requireRevisionMessage(array &$form, FormStateInterface &$form_state, $form_id) {
+    $form['revision_log']['#required'] = TRUE;
+    $form['revision_log']['widget']['#required'] = TRUE;
+    $form['revision_log']['widget'][0]['#required'] = TRUE;
+    $form['revision_log']['widget'][0]['value']['#required'] = TRUE;
+    $form['#validate'][] = '_va_gov_workflow_validate_required_revision_message';
+    // Hide the checkbox that lets you opt into making a revision.
+    $form["revision_information"]["#attributes"]['class'][] = 'visually-hidden';
+    $this->bypassRevisionLogValidationOnIef($form, $form_state);
+  }
+
+  /**
+   * Bypasses required revision log for validation for Inline Entity Forms.
+   *
+   * @param array $form
+   *   The form array by reference.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   */
+  protected function bypassRevisionLogValidationOnIef(array &$form, FormStateInterface $form_state): void {
+    /** @var \Drupal\node\NodeInterface $node **/
+    $node = $form_state->getFormObject()->getEntity();
+    $ief_fields = $this->getIefTypeFields($node);
+    $operation_button_map = [
+      'field_widget_edit' => 'edit_button',
+      'field_widget_remove' => 'remove_button',
+      'field_widget_replace' => 'replace_button',
+    ];
+
+    foreach ($ief_fields as $ief_field_name => $widget_operations) {
+      $widget_operations = array_intersect_key($operation_button_map, $widget_operations);
+      // Stop the node form validation from firing on ief operation buttons.
+      $current_widgets = $form[$ief_field_name]['widget']['current'] ?? [];
+      foreach ($current_widgets as $key => $widget_details) {
+        // The array contains a mix of numeric keys and named keys. The numeric
+        // are the ones with button actions that we must intercept.
+        if (is_numeric($key)) {
+          foreach ($widget_operations as $widget_button) {
+            if ($widget_button && isset($form[$ief_field_name]['widget']['current'][$key]['actions'][$widget_button])) {
+              $form[$ief_field_name]['widget']['current'][$key]['actions'][$widget_button]['#limit_validation_errors'] = [[$ief_field_name]];
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+  /**
+   * Get all fields on node that are IEF fields that result node edit/save.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The node to pull the fields from.
+   *
+   * @return array
+   *   An array whose elements look like 'field_name' => [widget operations].
+   */
+  protected function getIefTypeFields(NodeInterface $node): array {
+    $ief_fields = [];
+    // Load all of the form displays for the given bundle.
+    /** @var \Drupal\Core\Entity\Entity\EntityFormDisplay $form_displays */
+    $form_displays = $this->entityTypeManager->getStorage('entity_form_display')->loadByProperties([
+      'targetEntityType' => 'node',
+      'bundle' => $node->bundle(),
+    ]);
+    $form_display = reset($form_displays);
+    $field_displays = $form_display->toArray();
+
+    foreach ($field_displays['content'] as $field_name => $field_display) {
+      if ($this->isNodeIef($node, $field_name)) {
+        $operations = [
+          'field_widget_edit' => !empty($field_display['settings']['field_widget_edit']),
+          'field_widget_remove' => !empty($field_display['settings']['field_widget_remove']),
+          'field_widget_replace' => !empty($field_display['settings']['field_widget_replace']),
+        ];
+        $operations = array_filter($operations);
+        $ief_fields[$field_name] = $operations;
+      }
+    }
+
+    return $ief_fields;
+  }
+
+  /**
+   * Checks to see if a field is an entity reference that targets a node.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The node object.
+   * @param string $field_name
+   *   The machine name of the field being checked.
+   *
+   * @return bool
+   *   TRUE if it is an ief field targeting a node, FALSE otherwise.
+   */
+  protected function isNodeIef(NodeInterface $node, $field_name): bool {
+    $field_definition = $node->getFieldDefinition($field_name);
+    if (empty($field_definition)) {
+      return FALSE;
+    }
+    $fieldType = $field_definition->getType();
+    $field_types_for_ief = [
+      'entity_reference',
+      'entity_reference_revisions',
+    ];
+    $target_type = $field_definition->getItemDefinition()->getSettings()['target_type'] ?? '';
+
+    return (in_array($fieldType, $field_types_for_ief)) && ($target_type === "node");
   }
 
 }
