@@ -12,6 +12,7 @@ Feature: Entity Reference Validation
     And I wait "3" seconds
     And I select the "VA Careers and employment" benefits hub
     And I wait "3" seconds
+    And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
     And I save the node
     Then "1 error has been found" should exist
     Then "The value Careers and employment" should exist

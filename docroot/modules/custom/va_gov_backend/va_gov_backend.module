@@ -519,21 +519,6 @@ function va_gov_backend_form_alter(&$form, FormStateInterface $form_state, $form
 }
 
 /**
- * Adds Validation to check for presence of revision log message.
- *
- * @param array $form
- *   The exposed widget form array.
- * @param \Drupal\Core\Form\FormStateInterface $form_state
- *   The form state.
- */
-function _va_gov_backend_validate_required_revision_message(array $form, FormStateInterface &$form_state) {
-  // Add revision log validation.
-  if ($form_state->isValueEmpty(['revision_log', '0', 'value'])) {
-    $form_state->setErrorByName('revision_log][0][value', t('Revision log message is required'));
-  }
-}
-
-/**
  * Implements hook_field_group_build_pre_render_alter().
  */
 function va_gov_backend_field_group_form_process_build_alter(array $form, FormStateInterface $form_state, &$element) {
