@@ -35,7 +35,5 @@ Scenario: Log in and create VAMC Facility Health Service as a non-Lovell editor
   Then I select option "---VA Alaska health care" from dropdown "Section"
   And I wait "2" seconds
   Then I click the button with selector "#edit-group-health-service-and-facilit"
-  Then I select option "Anchorage VA Medical Center | VA Alaska health care" from dropdown with selector "#edit-field-facility-location"
+  Then I select option "Colonel Mary Louise Rasmuson Campus of the Alaska VA Healthcare System | VA Alaska health care" from dropdown with selector "#edit-field-facility-location"
   Then I select option "Audiology and speech at VA Alaska health care" from dropdown with selector "#edit-field-regional-health-service"
-
-
