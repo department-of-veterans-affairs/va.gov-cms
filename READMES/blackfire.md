@@ -5,7 +5,9 @@ are used by PHP applications.  It can be used to measure the performance of a
 specific bit of code or an entire request.  This allows us to measure the
 performance impact of a code or platform change and debug performance issues.
 
-See also: Dedicated Blackfire page in [the ddev documentation]([https://ddev.readthedocs.io/en/stable/users/blackfire-profiling/](https://ddev.readthedocs.io/en/latest/users/debugging-profiling/blackfire-profiling/)).
+See also: 
+  * https://ddev.readthedocs.io/en/latest/users/debugging-profiling/blackfire-profiling
+  * https://blackfire.io/docs/integrations/paas/ddev
 
 ## Configuration
 
