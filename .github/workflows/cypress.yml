@@ -52,9 +52,7 @@ jobs:
           node-version: '16.0'
 
       - name: Install Node package dependencies
-        run: |
-          npm config set strict-ssl false
-          npm ci
+        run: npm ci
 
       - name: Cypress run
         # https://github.com/cypress-io/github-action/releases/tag/v5.1.0
