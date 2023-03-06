@@ -375,13 +375,6 @@ content:
       linkit_profile: default
       linkit_auto_link_text: false
     third_party_settings: {  }
-  langcode:
-    type: language_select
-    weight: 2
-    region: content
-    settings:
-      include_locked: true
-    third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
     weight: 14
@@ -420,6 +413,7 @@ content:
 hidden:
   field_event_cost: true
   field_meta_tags: true
+  langcode: true
   promote: true
   status: true
   sticky: true

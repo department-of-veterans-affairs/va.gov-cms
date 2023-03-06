@@ -24,13 +24,6 @@ content:
     settings:
       progress_indicator: throbber
     third_party_settings: {  }
-  langcode:
-    type: language_select
-    weight: 2
-    region: content
-    settings:
-      include_locked: true
-    third_party_settings: {  }
   name:
     type: string_textfield
     weight: 0
@@ -44,6 +37,7 @@ hidden:
   field_media_in_library: true
   field_media_submission_guideline: true
   field_owner: true
+  langcode: true
   moderation_state: true
   path: true
   revision_log_message: true

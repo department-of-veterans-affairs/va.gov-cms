@@ -176,13 +176,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  langcode:
-    type: language_select
-    weight: 2
-    region: content
-    settings:
-      include_locked: true
-    third_party_settings: {  }
   notes:
     type: text_textarea
     weight: 0
@@ -192,4 +185,5 @@ content:
       placeholder: ''
     third_party_settings: {  }
 hidden:
+  langcode: true
   user_id: true

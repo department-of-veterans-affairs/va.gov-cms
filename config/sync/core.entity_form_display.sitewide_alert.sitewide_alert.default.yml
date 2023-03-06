@@ -21,13 +21,6 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  langcode:
-    type: language_select
-    weight: 2
-    region: content
-    settings:
-      include_locked: true
-    third_party_settings: {  }
   message:
     type: text_textarea
     weight: 1
@@ -37,4 +30,5 @@ content:
       placeholder: ''
     third_party_settings: {  }
 hidden:
+  langcode: true
   user_id: true

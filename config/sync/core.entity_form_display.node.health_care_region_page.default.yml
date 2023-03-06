@@ -409,13 +409,6 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  langcode:
-    type: language_select
-    weight: 2
-    region: content
-    settings:
-      include_locked: true
-    third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
     weight: 11
@@ -458,6 +451,7 @@ hidden:
   field_links: true
   field_meta_tags: true
   field_sign_up_for_emergency_emai: true
+  langcode: true
   promote: true
   sticky: true
   uid: true

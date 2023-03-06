@@ -223,13 +223,6 @@ content:
         collapse_edit_all: collapse_edit_all
         duplicate: duplicate
     third_party_settings: {  }
-  langcode:
-    type: language_select
-    weight: 2
-    region: content
-    settings:
-      include_locked: true
-    third_party_settings: {  }
   status:
     type: boolean_checkbox
     weight: 1
@@ -249,6 +242,7 @@ hidden:
   created: true
   field_banner_alert_vamcs: true
   field_last_saved_by_an_editor: true
+  langcode: true
   moderation_state: true
   path: true
   promote: true

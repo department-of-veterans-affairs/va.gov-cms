@@ -78,13 +78,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  langcode:
-    type: language_select
-    weight: 2
-    region: content
-    settings:
-      include_locked: true
-    third_party_settings: {  }
   title:
     type: string_textfield
     weight: 0
@@ -97,6 +90,7 @@ hidden:
   created: true
   field_enforce_unique_combo: true
   field_last_saved_by_an_editor: true
+  langcode: true
   moderation_state: true
   path: true
   promote: true
