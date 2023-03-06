@@ -1,7 +1,7 @@
 ---
-name: Runbook - New facility
-about: changing facility information in the CMS for VHA facilities
-title: 'New Facility: <insert_name_of_facility>'
+name: Runbook - New VAMC Facility
+about: changing facility information in the CMS for VAMC facilities
+title: 'New VAMC Facility: <insert_name_of_facility>'
 labels: Change request
 assignees: ''
 
@@ -45,24 +45,6 @@ Please refer to the Knowledge Base article titled "How do I add a facility to my
 - [ ] 8. Let help desk know this has been done.
 
 #### CMS Help desk
-- [ ] 9. HD notifies editor and any other stakeholders.
-
-
-### Vet Center
-
-CMS help desk steps
-- [ ] 1. Become aware that the new facility is now on the Facility API (typically, via a Flag).
-- [ ] 2. Check with RCS(?) what district it belongs to.
-- [ ] 3. Move the section to the appropriate district.
-- [ ] 4. Communicate with editor (do they need to be onboarded) @todo write sample email.
-- [ ] 5. When editor has prepared content and let help desk know, reassign this issue to appropriate CMS engineer on Product Support team, for bulk publishing.
-
-CMS engineer
-- [ ] 6. CMS engineer bulk publishes nodes and facility.
-- [ ] 7. CMS engineer edit facility node and remove `New facility` flag and save node.
-- [ ] 9. Let help desk know this has been done.
-
-CMS Help desk
 - [ ] 9. HD notifies editor and any other stakeholders.
 
 ### Team
