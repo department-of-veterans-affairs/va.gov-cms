@@ -7,28 +7,44 @@ assignees: ''
 
 ---
 
-## Background
+## Intake
+- [ ] What triggered this runbook? (Flag in CMS, Help desk ticket, Product team, VHA Digital Media)
+Trigger: <insert_trigger>
 
-**Who are the stakeholders for this?**
+- [ ] Link to associated help desk ticket (if applicable)
+Help desk ticket: <insert_help_desk_link>
 
-- Editor(s):
-- District web manager (optional):
-- Product team member:
-- CMS Help desk
+- [ ] Name of submitter (if applicable)
+Submitter: <insert_name>
 
-**Associated HD issue, if any**
+- [ ] If the submitter is an editor, send them a link to the operating status KB article and have them change the status to Facility notice and provide a description of the facility closure so that Veterans are aware of the future closure.
+KB articles: <insert_kb_article_links>
 
-<insert_link>
+- [ ] Stakeholders for this issue (name and email):
+Editors: <insert_editors>
+Web manager(s): <insert_managers>
+Product team member: <insert_product_team_member>
+Other stakeholders: <insert_other_stakeholders>
+
+- [ ] Link to new facility in production:
+Facility link: <insert_facility_link>
 
 ## Acceptance criteria
 
 ### Vet Center facility closure
-- [ ] CMS team becomes aware that the facility is no longer on the Facility API.
-- [ ] CMS team submits [Redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E), cc'ing Facilities team, and referencing this issue.
-- [ ] Once timing of Redirect going live is known, alert CMS engineers to carry out the other steps
-- [ ] CMS engineer bulk unpublishes the nodes.
-- [ ] CMS engineer removes the Section.
-- [ ] CMS engineer edit facility node and remove flag `Removed from source`, sets moderation state to archived, then save node.
+
+#### CMS help desk steps
+- [ ] 1. CMS team becomes aware that the facility is no longer on the Facility API.
+- [ ] 2. CMS team submits [Redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E), cc'ing Facilities team, and referencing this issue.
+- [ ] 3. Once timing of Redirect going live is known, alert CMS engineers to carry out the other steps
+
+#### CMS engineer steps
+- [ ] 4. CMS engineer bulk unpublishes the nodes.
+- [ ] 5. CMS engineer removes the Section.
+- [ ] 6. CMS engineer edit facility node and remove flag `Removed from source`, sets moderation state to archived, then save node.
+
+#### CMS Help desk (wrap up)
+- [ ] 7. Help desk notifies editor and any other stakeholders.
 
 ### Team
 Please check the team(s) that will do this work.

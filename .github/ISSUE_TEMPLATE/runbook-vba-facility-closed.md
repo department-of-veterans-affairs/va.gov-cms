@@ -7,18 +7,27 @@ assignees: ''
 
 ---
 
-## Background
+## Intake
+- [ ] What triggered this runbook? (Flag in CMS, Help desk ticket, Product team, VHA Digital Media)
+Trigger: <insert_trigger>
 
-**Who are the stakeholders for this?**
+- [ ] Link to associated help desk ticket (if applicable)
+Help desk ticket: <insert_help_desk_link>
 
-- Editor(s):
-- Web manager (optional):
-- Product team member:
-- CMS Help desk
+- [ ] Name of submitter (if applicable)
+Submitter: <insert_name>
 
-**Associated HD issue, if any**
+- [ ] If the submitter is an editor, send them a link to the operating status KB article and have them change the status to Facility notice and provide a description of the facility closure so that Veterans are aware of the future closure.
+KB articles: <insert_kb_article_links>
 
-<insert_link>
+- [ ] Stakeholders for this issue (name and email):
+Editors: <insert_editors>
+Web manager(s): <insert_managers>
+Product team member: <insert_product_team_member>
+Other stakeholders: <insert_other_stakeholders>
+
+- [ ] Link to new facility in production:
+Facility link: <insert_facility_link>
 
 ## Acceptance criteria
 

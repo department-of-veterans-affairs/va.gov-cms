@@ -7,16 +7,27 @@ assignees: ''
 
 ---
 
-## Background
+## Intake
+- [ ] What triggered this runbook? (Flag in CMS, Help desk ticket, Product team, VHA Digital Media)
+Trigger: <insert_trigger>
 
-*What triggered this runbook?*
-_eg Flag in CMS, Help desk ticket, Product team, VHA Digital Media_
+- [ ] Link to associated help desk ticket (if applicable)
+Help desk ticket: <insert_help_desk_link>
 
-*1. Please attach Facility Locator link to this ticket*
+- [ ] Name of submitter (if applicable)
+Submitter: <insert_name>
 
-*2. Please attach prod link to this ticket*
+- [ ] If the submitter is an editor, send them links to any relevate KB articles for the VAMC Facility product.
+KB articles: <insert_kb_article_links>
 
-*3. Please also include link to Jira help desk ticket, if applicable*
+- [ ] Stakeholders for this issue (name and email):
+Editors: <insert_editors>
+VISN web manager(s): <insert_managers>
+Product team member: <insert_product_team_member>
+Other stakeholders: <insert_other_stakeholders>
+
+- [ ] Link to new facility in production:
+Facility link: <insert_facility_link>
 
 ## Acceptance criteria
 
@@ -39,13 +50,13 @@ Please refer to the Knowledge Base article titled "How do I add a facility to my
 
     Please let us know when your draft content is complete, so that we can wrap up the technical process from our end before publishing the new facility to VA.gov. Thanks!
 
-#### CMS engineer
+#### CMS engineer steps
 - [ ] 6. CMS engineer bulk publishes nodes and facility.
 - [ ] 7. CMS engineer edit facility node and remove `New facility` flag and save node.
 - [ ] 8. Let help desk know this has been done.
 
-#### CMS Help desk
-- [ ] 9. HD notifies editor and any other stakeholders.
+#### CMS Help desk (wrap up)
+- [ ] 9. Help desk notifies editor and any other stakeholders.
 
 ### Team
 Please check the team(s) that will do this work.
