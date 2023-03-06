@@ -24,6 +24,7 @@ dependencies:
     - taxonomy.vocabulary.lc_categories
     - taxonomy.vocabulary.topics
     - user.role.administrator
+    - user.role.authenticated
     - user.role.content_admin
     - user.role.content_creator_resources_and_support
     - user.role.redirect_administrator
@@ -36,6 +37,7 @@ dependencies:
     - paragraphs
     - rest
     - serialization
+    - smart_date
     - taxonomy
     - taxonomy_entity_index
     - user
@@ -3914,9 +3916,10 @@ display:
           type_custom_false: ''
           not: false
       access:
-        type: perm
+        type: role
         options:
-          perm: 'access content'
+          role:
+            authenticated: authenticated
       filters:
         title:
           id: title
@@ -4416,7 +4419,7 @@ display:
         - url.query_args
         - user
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags:
         - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_last_saved_by_an_editor'
