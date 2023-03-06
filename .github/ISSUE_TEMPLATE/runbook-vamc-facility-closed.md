@@ -1,7 +1,7 @@
 ---
-name: Runbook - Facility closed
-about: Steps for arching a facility in VA.gov CMS.
-title: 'Facility closed: <insert_name>'
+name: Runbook - VAMC Facility closed
+about: Steps for archiving a VAMC facility in VA.gov CMS.
+title: 'VAMC Facility closed: <insert_name>'
 labels: Change request
 assignees: ''
 

@@ -20,7 +20,7 @@ _eg Flag in CMS, Help desk ticket, Product team, VHA Digital Media_
 
 ## Acceptance criteria
 
-### Vet Center
+### New Vet Center
 
 #### CMS help desk steps
 - [ ] 1. Become aware that the new facility is now on the Facility API (typically, via a Flag).

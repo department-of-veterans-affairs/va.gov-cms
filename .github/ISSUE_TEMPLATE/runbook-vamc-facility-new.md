@@ -20,7 +20,7 @@ _eg Flag in CMS, Help desk ticket, Product team, VHA Digital Media_
 
 ## Acceptance criteria
 
-### VAMC
+### New VAMC Facility
 Please refer to the Knowledge Base article titled "How do I add a facility to my health care system?" for more information: https://prod.cms.va.gov/help/vamc/about-locations-content-for-vamcs/how-do-i-add-a-facility-to-my-health-care-system
 
 #### CMS help desk steps
