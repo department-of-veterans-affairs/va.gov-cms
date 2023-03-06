@@ -12,7 +12,7 @@ assignees: ''
 **Who are the stakeholders for this?**
 
 - Editor(s):
-- VISN web manager (optional):
+- District web manager (optional):
 - Product team member:
 - CMS Help desk
 

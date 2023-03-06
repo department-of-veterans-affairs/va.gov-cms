@@ -81,14 +81,6 @@ If this facility has been removed from VAST in error, please notify our Support 
 #### 3. CMS Help desk
 - [ ] Notifies editor and any other stakeholders that this is complete.
 
-### Vet Center – facility closure [this needs work]
-- [ ] CMS team becomes aware that the facility is no longer on the Facility API.
-- [ ] CMS team submits [Redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E), cc'ing Facilities team, and referencing this issue.
-- [ ] Once timing of Redirect going live is known, alert CMS engineers to carry out the other steps
-- [ ] CMS engineer bulk unpublishes the nodes.
-- [ ] CMS engineer removes the Section.
-- [ ] CMS engineer edit facility node and remove flag `Removed from source`, sets moderation state to archived, then save node.
-
 ### Team
 Please check the team(s) that will do this work.
 
