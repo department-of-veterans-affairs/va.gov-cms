@@ -36,6 +36,7 @@ Feature: Google Tag Manager dataLayer values are correct
     And I click the edit tab
     And I fill in "Name" with "[Test Data] My Test Office"
     And I select option "--Outreach Hub" from dropdown "Section"
+    And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
     And I save the node
     Then the GTM data layer value for "contentTitle" should be set to "[Test Data] My Test Office"
     Then the GTM data layer value for "contentType" should be set to "office"

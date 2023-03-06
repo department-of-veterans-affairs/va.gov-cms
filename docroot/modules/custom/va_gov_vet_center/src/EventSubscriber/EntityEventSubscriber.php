@@ -425,8 +425,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
         '#markup' => $this->t('Add a photo of the facility'),
       ];
     }
-    // Require message on revision.
-    $this->requireRevisionMessage($form, $form_state, $form_id);
   }
 
   /**
@@ -475,48 +473,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
           ],
         ];
       }
-    }
-  }
-
-  /**
-   * Adds Validation to check revision log message is added.
-   *
-   * @param array $form
-   *   The exposed widget form array.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The form state.
-   * @param string $form_id
-   *   The form id.
-   */
-  public function requireRevisionMessage(array &$form, FormStateInterface &$form_state, $form_id) {
-    $vc_types = [
-      'node_vet_center_edit_form',
-      'node_vet_center_cap_edit_form',
-      'node_vet_center_facility_health_servi_edit_form',
-      'node_vet_center_locations_list_edit_form',
-      'node_vet_center_mobile_vet_center_edit_form',
-      'node_vet_center_outstation_edit_form',
-    ];
-    // Vet centers need to have revision log messages on edit.
-    if (in_array($form_id, $vc_types)) {
-      $widget_fields = [
-        'field_nearby_vet_centers',
-        'field_nearby_mobile_vet_centers',
-      ];
-      foreach ($widget_fields as $widget_field) {
-        // Stop the node form validation to fire on the removal buttons.
-        $current_widgets = $form[$widget_field]['widget']['current'] ?? [];
-        foreach ($current_widgets as $key => $button) {
-          if (is_numeric($key)) {
-            $form[$widget_field]['widget']['current'][$key]['actions']['remove_button']['#limit_validation_errors'] = [['field_nearby_vet_centers']];
-          }
-        }
-      }
-      $form['revision_log']['#required'] = TRUE;
-      $form['revision_log']['widget']['#required'] = TRUE;
-      $form['revision_log']['widget'][0]['#required'] = TRUE;
-      $form['revision_log']['widget'][0]['value']['#required'] = TRUE;
-      $form['#validate'][] = '_va_gov_backend_validate_required_revision_message';
     }
   }
 
