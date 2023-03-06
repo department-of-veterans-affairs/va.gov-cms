@@ -25,6 +25,8 @@ jobs:
       matrix:
         # Let's try splitting tests four ways.
         containers: [1, 2, 3, 4]
+    env:
+      NODE_EXTRA_CA_CERTS: /etc/ssl/certs/ca-certificates.crt
     steps:
 
       - name: Checkout
@@ -43,6 +45,8 @@ jobs:
 
       - name: Install Node package dependencies
         run: npm ci
+        env:
+          NODE_TLS_REJECT_UNAUTHORIZED: 0
 
       - name: Cypress run
         # https://github.com/cypress-io/github-action/releases/tag/v5.1.0
