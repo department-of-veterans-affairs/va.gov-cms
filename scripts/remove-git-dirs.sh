@@ -15,6 +15,6 @@ find . \
     -path './docroot/vendor/va-gov/content-build/.git' \
   \) \
   -print \
-  -delete
+  -exec rm -rf {} +
 
 popd > /dev/null
