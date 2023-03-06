@@ -30,7 +30,7 @@ jobs:
       NODE_EXTRA_CA_CERTS: /etc/ssl/certs/VA-Internal-S2-RCA-combined.pem
     container:
       image: public.ecr.aws/cypress-io/cypress/browsers:node16.14.2-slim-chrome103-ff102
-      options: --user 1001:1001 --workdir /github/workspace
+      options: --user 0 --workdir /github/workspace
       volumes:
         - /usr/local/share:/share
         - /etc/ssl/certs
