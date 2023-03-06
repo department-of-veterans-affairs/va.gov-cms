@@ -8,6 +8,7 @@ performance impact of a code or platform change and debug performance issues.
 See also: 
   * https://ddev.readthedocs.io/en/latest/users/debugging-profiling/blackfire-profiling
   * https://blackfire.io/docs/integrations/paas/ddev
+  * https://blackfire.io/docs/up-and-running/installation (install instructions for non-DDEV environments)
 
 ## Configuration
 
