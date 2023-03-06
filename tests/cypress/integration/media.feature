@@ -28,18 +28,24 @@ Feature: Media entities
     When I create a "document" media
     And I create a "documentation_page" node and continue
     And I add a main content block with a link to a "Document" file
+    And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
+    And I save the node
     Then I should see a "document" downloadable file link
-    
+
   Scenario: Log in and create an image media entity, a knowledge base page that refers to it, and verify a downloadable link is created.
     Given I am logged in as a user with the "content_admin" role
     Then I create a "image" media
     And I create a "documentation_page" node and continue
     And I add a main content block with a link to a "Image" file
+    And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
+    And I save the node
     Then I should see a "image" downloadable file link
-    
+
   Scenario: Log in and create a video media entity, a knowledge base page that refers to it, and verify a link is created.
     Given I am logged in as a user with the "content_admin" role
     Then I create a "video" media
     And I create a "documentation_page" node and continue
     And I add a main content block with a link to a "Video" file
+    And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
+    And I save the node
     Then I should see a "video" file link
