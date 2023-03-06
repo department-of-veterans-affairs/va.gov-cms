@@ -243,13 +243,6 @@ content:
     settings:
       placeholder: ''
     third_party_settings: {  }
-  langcode:
-    type: language_select
-    weight: 2
-    region: content
-    settings:
-      include_locked: true
-    third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
     weight: 7
@@ -274,6 +267,7 @@ content:
 hidden:
   created: true
   field_service_name_and_descripti: true
+  langcode: true
   path: true
   promote: true
   sticky: true

@@ -93,13 +93,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  langcode:
-    type: language_select
-    weight: 2
-    region: content
-    settings:
-      include_locked: true
-    third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
     weight: 5
@@ -109,6 +102,7 @@ content:
 hidden:
   created: true
   field_local_health_care_service_: true
+  langcode: true
   path: true
   promote: true
   status: true

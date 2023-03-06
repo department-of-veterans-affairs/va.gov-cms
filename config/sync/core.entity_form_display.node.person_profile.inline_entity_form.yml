@@ -219,13 +219,6 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  langcode:
-    type: language_select
-    weight: 2
-    region: content
-    settings:
-      include_locked: true
-    third_party_settings: {  }
   moderation_state:
     type: string_textfield
     weight: 0
@@ -248,6 +241,7 @@ hidden:
   field_complete_biography_create: true
   field_last_saved_by_an_editor: true
   field_meta_tags: true
+  langcode: true
   path: true
   promote: true
   status: true
