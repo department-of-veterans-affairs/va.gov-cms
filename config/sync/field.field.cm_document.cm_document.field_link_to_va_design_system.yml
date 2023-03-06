@@ -1,0 +1,28 @@
+uuid: e08c59f4-5ff3-472d-b04b-48dc145e2c82
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.cm_document.field_link_to_va_design_system
+  module:
+    - content_model_documentation
+    - epp
+    - link
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: cm_document.cm_document.field_link_to_va_design_system
+field_name: field_link_to_va_design_system
+entity_type: cm_document
+bundle: cm_document
+label: 'Links to VA Design System (FE)'
+description: 'Add links to relevant <a target="_blank" href="https://design.va.gov/">VA Design System</a> documentation.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 1
+  link_type: 16
+field_type: link

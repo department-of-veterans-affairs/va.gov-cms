@@ -9,6 +9,7 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\node\NodeForm;
 use Drupal\path_alias\AliasManagerInterface;
 use Drupal\va_gov_user\Service\UserPermsService;
+use Drupal\va_gov_lovell\LovellOps;
 
 /**
  * Class MenuReductionService a service for reducing possible menu items.
@@ -23,6 +24,7 @@ class MenuReductionService {
   const ENABLED = 'enabled';
   const DISABLED = 'disabled';
   const SEPARATOR = 'separator';
+  const LOVELLSYS = 'lovellsys';
 
   /**
    * The alias manager interface.
@@ -258,6 +260,14 @@ class MenuReductionService {
       $alias = $this->getAliasFromUri($menu_item->get('link')->uri);
       if ($alias) {
         $subject_uuid = $parent_options_menu_ids[$menu_item->get('uuid')->value];
+        // The Lovell menu is the only system menu with field_menu_section.
+        // This field stores section information for Lovell menu items.
+        // Display this information for editors to help with menu placement.
+        if ($menu_item->hasfield('field_menu_section')) {
+          $menu_section = ' - ' . strtoupper($menu_item->get('field_menu_section')->value);
+          $subject_uuid['option'] .= $menu_section;
+        }
+
         $menu_element_type = $this->getMenuItemType($alias);
         $menu_element_type = $menu_element_type ?? $this->checkForSeparator($allowed_separators, $menu_item);
 
@@ -422,6 +432,23 @@ class MenuReductionService {
   }
 
   /**
+   * Check for a match for a pattern of Lovell subsystem.
+   *
+   * @param string $alias
+   *   The current alias.
+   *
+   * @return string|null
+   *   A state of self::LOVELLSYS or NULL.
+   */
+  protected function checkForLovellSubSystem(string $alias) {
+    if ($alias === '/' . LovellOps::TRICARE_PATH
+      || $alias === '/' . LovellOps::VA_PATH) {
+      return self::LOVELLSYS;
+    }
+    return NULL;
+  }
+
+  /**
    * Check for a match for a pattern of enabled allowed parent.
    *
    * @param string $alias
@@ -481,7 +508,8 @@ class MenuReductionService {
   protected function getMenuItemType($alias) {
     $type = NULL;
     if ($alias) {
-      $type = $this->checkForDisabledParentWithChildren($alias)
+      $type = $this->checkForLovellSubSystem($alias)
+      ?? $this->checkForDisabledParentWithChildren($alias)
       ?? $this->checkForTypeDisabledParent($alias)
       ?? $this->checkForSimpleMatch($alias);
     }

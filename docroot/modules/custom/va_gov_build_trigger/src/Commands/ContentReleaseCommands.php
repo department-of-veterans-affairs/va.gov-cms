@@ -154,7 +154,7 @@ class ContentReleaseCommands extends DrushCommands {
   }
 
   /**
-   * Request a frontend build.
+   * Request a frontend build (but do not initiate it).
    *
    * @command va-gov:content-release:request-frontend-build
    * @aliases va-gov-content-release-request-frontend-build

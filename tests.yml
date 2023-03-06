@@ -14,131 +14,36 @@ tasks:
   # test to be required effectively.
   va/tests/behat:
     desc: Behat Tests
+    # See also `composer va:test:behat` in composer.json
     cmds:
-      - |
-        cat <<EOF | bash
-          : "${SKIP_REPORTING:=0}"
-          : "${RETURN_EXIT_CODE:=0}"
-          set -o pipefail
-          output="\$(mktemp -d)/output"
-          mkfifo \$output
-          (cat \$output&)
-          cd tests/behat
-          result="\$(time behat --strict --colors 2>&1 | tee \$output)"
-          exit_code=\$?
-          if [ "$SKIP_REPORTING" -ne 1 ]; then
-            if [ "\$exit_code" -eq 0 ]; then
-              github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
-            else
-              github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
-            fi
-          fi
-          if [ "$RETURN_EXIT_CODE" -ne 0 ]; then
-            exit "\$exit_code";
-          fi
-        EOF
+      - ./tests/scripts/ci-wrapper.sh behat 'va:test:behat'
 
   va/tests/cypress:
     desc: Accessibility and Behavioral tests with Cypress
+    # See also `composer va:test:cypress-ci` in composer.json
+    # For local (e.g. DDEV) use, invoke `composer va:test:cypress`.
     cmds:
-      - |
-        cat <<EOF | bash
-          : "${SKIP_REPORTING:=0}"
-          : "${RETURN_EXIT_CODE:=0}"
-          set -o pipefail
-          output="\$(mktemp -d)/output"
-          mkfifo \$output
-          (cat \$output&)
-          result="\$(time composer va:test:cypress 2>&1 | tee \$output)"
-          exit_code=\$?
-          if [ "$SKIP_REPORTING" -ne 1 ]; then
-            if [ "\$exit_code" -eq 0 ]; then
-              github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
-            else
-              github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
-              node tests/report_cypress_accessibility_errors.js
-            fi
-          fi
-          if [ "$RETURN_EXIT_CODE" -ne 0 ]; then
-            exit "\$exit_code";
-          fi
-        EOF
+      - ./tests/scripts/ci-wrapper.sh cypress 'va:test:cypress-ci'
 
   va/tests/phpunit:
     desc: PHPUnit
+    # See also `composer va:test:phpunit-functional` in composer.json
     cmds:
-      - |
-        cat <<EOF | bash
-          : "${SKIP_REPORTING:=0}"
-          : "${RETURN_EXIT_CODE:=0}"
-          set -o pipefail
-          output="\$(mktemp -d)/output"
-          mkfifo \$output
-          (cat \$output&)
-          result="\$(time phpunit --group functional --exclude-group disabled tests/phpunit --colors=always 2>&1 | tee \$output)"
-          exit_code=\$?
-          if [ "$SKIP_REPORTING" -ne 1 ]; then
-            if [ "\$exit_code" -eq 0 ]; then
-              github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
-            else
-              github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
-            fi
-          fi
-          if [ "$RETURN_EXIT_CODE" -ne 0 ]; then
-            exit "\$exit_code";
-          fi
-        EOF
+      - ./tests/scripts/ci-wrapper.sh phpunit 'va:test:phpunit-functional'
 
   va/tests/status-error:
     desc: Check for Drupal status errors
+    # See also `composer va:test:status-error-ci` in composer.json
+    # For local (e.g. DDEV) use, invoke `composer va:test:status-error`.
     cmds:
-      - |
-        cat <<EOF | bash
-          : "${SKIP_REPORTING:=0}"
-          : "${RETURN_EXIT_CODE:=0}"
-          set -o pipefail
-          output="\$(mktemp -d)/output"
-          mkfifo \$output
-          (cat \$output&)
-          result=\$(drush core-requirements --format=json --ignore='update_core,update_contrib,"update status"' --severity=2 | jq '. | length')
-          exit_code=\$?
-          if [ "$SKIP_REPORTING" -ne 1 ]; then
-            if [ "\$exit_code" -eq 0 ] && [ "\$result" -eq 0 ]; then
-              github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success: No Drupal status requirement errors were found.'
-            else
-              github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description="Failed: \${line_count} Drupal status requirements found."
-              [ "\${GITHUB_COMMENT_TYPE}" == "pr" ] && github-commenter -delete-comment-regex="{{ .TASK }}" -comment="{{ .TASK }}:<br /><br /><pre>\$(drush $DRUSH_ALIAS core-requirements --severity=2)</pre>"
-            fi
-          fi
-          if [ "$RETURN_EXIT_CODE" -ne 0 ]; then
-            exit "\$line_count";
-          fi
-        EOF
+      - ./tests/scripts/ci-wrapper.sh status-error 'va:test:status-error-ci'
+
 
   va/tests/content-build-gql:
     desc: Ensure that the content build graphql queries succeed
+    # See also `composer va:test:content-build-gql` in composer.json
     cmds:
-      - |
-        cat <<EOF | bash
-          : "${SKIP_REPORTING:=0}"
-          : "${RETURN_EXIT_CODE:=0}"
-          set -o pipefail
-          output="\$(mktemp -d)/output"
-          mkfifo \$output
-          (cat \$output&)
-          result="\$(composer va:test:content-build-gql 2>&1 | tee \$output)"
-          exit_code=\$?
-          if [ "$SKIP_REPORTING" -ne 1 ]; then
-            if [ "\$exit_code" -eq 0 ]; then
-              github-status-updater -action=update_state -state=success -context='{{ .TASK }}' -description='Success'
-            else
-              github-status-updater -action=update_state -state=failure -context='{{ .TASK }}' -description='Failed'
-            fi
-          fi
-          if [ "$RETURN_EXIT_CODE" -ne 0 ]; then
-            exit "\$exit_code";
-          fi
-        EOF
+      - ./tests/scripts/ci-wrapper.sh content-build-gql 'va:test:content-build-gql'
 
   default:
     desc:
@@ -147,4 +52,4 @@ tasks:
       - va/tests/cypress
       - va/tests/phpunit
       - va/tests/content-build-gql
-      # - va/tests/status-error
+      - va/tests/status-error
