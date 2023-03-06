@@ -19,23 +19,31 @@ jobs:
 
   # Cypress tests, hopefully with parallelization. 
   cypress:
-    runs-on: self-hosted
+    runs-on: [self-hosted]
     strategy:
       fail-fast: false
       matrix:
         # Let's try splitting tests four ways.
         containers: [1, 2, 3, 4]
+    timeout-minutes: 15
     env:
-      NODE_EXTRA_CA_CERTS: /etc/ssl/certs/ca-certificates.crt
+      NODE_EXTRA_CA_CERTS: /etc/ssl/certs/VA-Internal-S2-RCA-combined.pem
+    container:
+      image: public.ecr.aws/cypress-io/cypress/browsers:node16.14.2-slim-chrome103-ff102
+      options: --user 1001:1001 --workdir /github/workspace
+      volumes:
+        - /usr/local/share:/share
+        - /etc/ssl/certs
+
     steps:
+
+      # Required for Docker
+      - name: Move VA cert to /etc/ssl/certs
+        run: mv certs/VA-Internal-S2-RCA-combined.pem /etc/ssl/certs/
 
       - name: Checkout
         # https://github.com/actions/cache/releases/tag/v3.0.10
         uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
-        with:
-          # When Sorry-Cypress support is enabled on `main`, this should be
-          # removed so that the `main` version of the workflow is used
-          ref: ${{ inputs.commit_sha }}
 
       - name: Setup the Node environment
         # https://github.com/actions/setup-node/releases/tag/v3.6.0
@@ -44,9 +52,9 @@ jobs:
           node-version: '18.13'
 
       - name: Install Node package dependencies
-        run: npm ci
-        env:
-          NODE_TLS_REJECT_UNAUTHORIZED: 0
+        run: |
+          npm config set strict-ssl false
+          npm ci
 
       - name: Cypress run
         # https://github.com/cypress-io/github-action/releases/tag/v5.1.0
