@@ -5,9 +5,12 @@ dependencies:
   config:
     - field.field.taxonomy_term.audience_beneficiaries.field_audience_rs_homepage
     - taxonomy.vocabulary.audience_beneficiaries
+    - views.view.taxonomy_term
   module:
     - layout_builder
+    - layout_discovery
     - text
+    - views
 third_party_settings:
   layout_builder:
     enabled: false
