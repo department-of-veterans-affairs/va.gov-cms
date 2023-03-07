@@ -8,6 +8,7 @@ performance impact of a code or platform change and debug performance issues.
 See also: 
   * https://ddev.readthedocs.io/en/latest/users/debugging-profiling/blackfire-profiling
   * https://blackfire.io/docs/integrations/paas/ddev
+  * https://blackfire.io/docs/up-and-running/installation (install instructions for non-DDEV environments)
 
 ## Configuration
 
@@ -43,7 +44,7 @@ circumstances.
 
 - Turn blackfire on with `ddev blackfire on`
 - Turn blackfire off with `ddev blackfire off`
-- You may need to do a `blackfire poweroff && blackfire start` if the above
+- You may need to do a `ddev poweroff && ddev start` if the above
 doesn't work.
 
 ## Testing
