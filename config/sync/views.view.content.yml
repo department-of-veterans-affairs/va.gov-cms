@@ -20,11 +20,11 @@ dependencies:
     - node.type.q_a
     - node.type.step_by_step
     - node.type.support_resources_detail_page
-    - system.menu.admin
     - taxonomy.vocabulary.administration
     - taxonomy.vocabulary.lc_categories
     - taxonomy.vocabulary.topics
     - user.role.administrator
+    - user.role.authenticated
     - user.role.content_admin
     - user.role.content_creator_resources_and_support
     - user.role.redirect_administrator
@@ -37,6 +37,7 @@ dependencies:
     - paragraphs
     - rest
     - serialization
+    - smart_date
     - taxonomy
     - taxonomy_entity_index
     - user
@@ -494,12 +495,24 @@ display:
       pager:
         type: full
         options:
-          items_per_page: 50
+          offset: 0
+          items_per_page: 25
+          total_pages: null
+          id: 0
           tags:
             next: 'Next ›'
             previous: '‹ Previous'
             first: '« First'
             last: 'Last »'
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
+          quantity: 9
       exposed_form:
         type: basic
         options:
@@ -3903,9 +3916,10 @@ display:
           type_custom_false: ''
           not: false
       access:
-        type: perm
+        type: role
         options:
-          perm: 'access content'
+          role:
+            authenticated: authenticated
       filters:
         title:
           id: title
@@ -4237,11 +4251,7 @@ display:
       style:
         type: table
         options:
-          grouping:
-            -
-              field: field_administration
-              rendered: true
-              rendered_strip: false
+          grouping: {  }
           row_class: ''
           default_row_class: true
           columns:
@@ -4372,16 +4382,16 @@ display:
           admin_label: ''
           plugin_id: result
           empty: false
-          content: "<p>This view is only available to admins.</p>\r\n<p>Displaying @start - @end of @total</p>"
+          content: '<p>Displaying @start - @end of @total</p>'
       display_extenders:
         jsonapi_views:
           enabled: true
       path: admin/content/outdated_content
       menu:
-        type: normal
+        type: tab
         title: 'Outdated content'
         description: ''
-        weight: null
+        weight: 1
         expanded: false
         menu_name: admin
         parent: system.admin_content
@@ -4405,7 +4415,7 @@ display:
         - url.query_args
         - user
         - 'user.node_grants:view'
-        - user.permissions
+        - user.roles
       tags:
         - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_last_saved_by_an_editor'
@@ -5781,6 +5791,7 @@ display:
         type: perm
         options:
           perm: 'access content'
+      sorts: {  }
       filters:
         title:
           id: title
@@ -5979,6 +5990,7 @@ display:
       defaults:
         access: false
         fields: false
+        sorts: false
         filters: false
         filter_groups: false
         header: false
