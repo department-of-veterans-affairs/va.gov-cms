@@ -20,6 +20,7 @@ Problem description. How might we _____________ ?
 - [ ] Testable_Outcome_X
 - [ ] Testable_Outcome_Y
 - [ ] Testable_Outcome_Z
+- [ ] Requires Content Model Documentation
 - [ ] Requires design review
 - [ ] Requires KB article update
 

@@ -7,6 +7,7 @@ dependencies:
     - field.storage.taxonomy_term.field_cms_option_label
     - field.storage.taxonomy_term.field_guidance
     - field.storage.taxonomy_term.field_service_type_of_care
+    - field.storage.taxonomy_term.field_tricare_specific_service
     - field.storage.taxonomy_term.field_vet_center_type_of_care
     - taxonomy.vocabulary.facility_supplemental_status
     - taxonomy.vocabulary.health_care_service_taxonomy
@@ -617,6 +618,71 @@ display:
     position: 1
     display_options:
       fields:
+        field_tricare_specific_service:
+          id: field_tricare_specific_service
+          table: taxonomy_term__field_tricare_specific_service
+          field: field_tricare_specific_service
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: true
+            text: (TRICARE)
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: true
+          empty_zero: true
+          hide_alter_empty: true
+          click_sort_column: value
+          type: boolean
+          settings:
+            format: default
+            format_custom_false: ''
+            format_custom_true: ''
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
         name:
           id: name
           table: taxonomy_term_field_data
@@ -630,8 +696,8 @@ display:
           label: ''
           exclude: false
           alter:
-            alter_text: false
-            text: '{{ name }}'
+            alter_text: true
+            text: '{{ name }} {{ field_tricare_specific_service }}'
             make_link: false
             path: ''
             absolute: false
@@ -811,7 +877,8 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - user.permissions
-      tags: {  }
+      tags:
+        - 'config:field.storage.taxonomy_term.field_tricare_specific_service'
   entity_reference_vba_services:
     id: entity_reference_vba_services
     display_title: 'VBA services'

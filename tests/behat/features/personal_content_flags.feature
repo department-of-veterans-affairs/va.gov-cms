@@ -12,6 +12,7 @@ Feature: Personal Content Flags indicate a user's relationship to content.
 
     And I fill in "Name" with "Behat Edited Flag Test"
     And I fill in "Section" with "7"
+    And I fill in the ckeditor "revision_log" with "[Test Data] Revision log message."
     And I press "Save"
     Then I should see "Behat Edited Flag Test"
     And the "edited" flag for node "Behat Edited Flag Test" should be set for me
@@ -19,8 +20,7 @@ Feature: Personal Content Flags indicate a user's relationship to content.
     Then I am logged in as a user with the "content_admin" role
     Then I visit the "edit" page for a node with the title "Behat Edited Flag Test"
     And I fill in "Name" with "Behat Edited Flag Test Part Deux"
+    And I fill in the ckeditor "revision_log" with "[Test Data] Revision log message."
     And I press "Save"
     Then I should see "Behat Edited Flag Test Part Deux"
     And the "edited" flag for node "Behat Edited Flag Test Part Deux" should be set for me
-
-

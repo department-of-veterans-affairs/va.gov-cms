@@ -1,0 +1,42 @@
+uuid: eabd6831-378a-47e1-ad08-9cf46b01ac61
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.cm_document.field_stakeholders
+    - taxonomy.vocabulary.external_data_source_destination
+    - taxonomy.vocabulary.products
+  module:
+    - content_model_documentation
+    - entity_reference_validators
+    - epp
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: false
+  epp:
+    value: ''
+    on_update: 0
+id: cm_document.cm_document.field_stakeholders
+field_name: field_stakeholders
+entity_type: cm_document
+bundle: cm_document
+label: 'Stakeholders / Owners'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      external_data_source_destination: external_data_source_destination
+      products: products
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: external_data_source_destination
+field_type: entity_reference

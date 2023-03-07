@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
-export FAILURE=0
+set -ex
+
+export failure=0
+
 declare -a files=(
   "config/sync/cer.corresponding_reference.banner_alert_and_vamc_operating_status.yml"
   "config/sync/cer.corresponding_reference.hub_promo_block.yml"
@@ -9,17 +12,14 @@ declare -a files=(
   "config/sync/cer.corresponding_reference.region_to_regional_health_service_offering.yml"
 )
 
-for file in "${files[@]}"
-
-do
-  if [[ ! -f "$file" ]]
-  then
-    export FAILURE=1
+for file in "${files[@]}"; do
+  if [[ ! -f "$file" ]]; then
+    failure=1
     echo "The cer field file named ${file} does not exist."
   fi
 done
-if [ ${FAILURE} -eq 1 ]
-then
+
+if [ "${failure}" -eq 1 ]; then
   echo "To fix this test, ensure that there are 5 cer fields, here: /admin/config/content/cer
   1) Banner alert and VAMC operating status
   2) Hub Promo Block

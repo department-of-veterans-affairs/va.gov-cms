@@ -9,14 +9,12 @@ assignees: ''
 
 ## Description
 
-
-
 ### User story
 > _Describe the audience/user, enhancement or fix, and value / outcome desired._
 
-* **AS A(N)**: 
-* **I WANT**: 
-* **SO THAT**: 
+**AS A(N)**
+**I WANT**
+**SO THAT**
 
 
 ### Engineering notes / background
@@ -30,14 +28,15 @@ assignees: ''
 
 ## Acceptance criteria
 
->Consider 
+>Consider
 > - Design / Accessibility reviews
 > - Collab cycle requirements
 > - Device sizes (mobile first)
 > - Documentation updates / Change management
+< - [Content model documentation](https://prod.cms.va.gov/admin/structure/cm_document)
 > - Testing notes
 
-- [ ] 
+- [ ]
 
 
 ### Team

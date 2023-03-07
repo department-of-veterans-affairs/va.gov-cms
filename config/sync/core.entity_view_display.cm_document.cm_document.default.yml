@@ -1,0 +1,173 @@
+uuid: af9c1015-9825-4e92-9307-a9da9112abeb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.cm_document.cm_document.field_data_pulled_from
+    - field.field.cm_document.cm_document.field_data_pushed_to
+    - field.field.cm_document.cm_document.field_link_to_cms_design_system
+    - field.field.cm_document.cm_document.field_link_to_va_design_system
+    - field.field.cm_document.cm_document.field_links_to_design
+    - field.field.cm_document.cm_document.field_links_to_research
+    - field.field.cm_document.cm_document.field_other_links
+    - field.field.cm_document.cm_document.field_related_knowledgebase
+    - field.field.cm_document.cm_document.field_screenshots
+    - field.field.cm_document.cm_document.field_stakeholders
+    - image.style.large
+  module:
+    - content_model_documentation
+    - field_group
+    - image
+    - link
+    - text
+third_party_settings:
+  field_group:
+    group_design:
+      children:
+        - field_links_to_design
+        - field_link_to_cms_design_system
+        - field_links_to_research
+        - field_link_to_va_design_system
+      label: Design
+      parent_name: ''
+      region: content
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: design
+        description: ''
+        description_display: invisible
+    group_data:
+      children:
+        - field_data_pushed_to
+        - field_data_pulled_from
+      label: Data
+      parent_name: ''
+      region: content
+      weight: 6
+      format_type: fieldset
+      format_settings:
+        classes: data
+        show_empty_fields: false
+        id: ''
+        description: ''
+        description_display: after
+id: cm_document.cm_document.default
+targetEntityType: cm_document
+bundle: cm_document
+mode: default
+content:
+  field_data_pulled_from:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_data_pushed_to:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_link_to_cms_design_system:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_link_to_va_design_system:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_links_to_design:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: '0'
+      target: '0'
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_links_to_research:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_other_links:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: '0'
+      target: '0'
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_related_knowledgebase:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_screenshots:
+    type: image
+    label: hidden
+    settings:
+      image_link: file
+      image_style: large
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_stakeholders:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  notes:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

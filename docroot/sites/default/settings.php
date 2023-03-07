@@ -257,3 +257,8 @@ $env_services_path = __DIR__ . "/services/services.$env_type.yml";
 if (file_exists($env_services_path)) {
   $settings['container_yamls'][] = $env_services_path;
 }
+
+// Global override for setting the session transaction isolation level.
+// This is intended to prevent deadlocks in the course of normal operation.
+// @see https://www.drupal.org/project/drupal/issues/2733675
+$databases['default']['default']['init_commands']['isolation_level'] = 'SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED';
