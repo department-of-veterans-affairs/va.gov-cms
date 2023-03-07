@@ -2,9 +2,16 @@ uuid: e4332a2c-0604-4625-b9b7-cee4ccc41074
 langcode: en
 status: true
 dependencies:
+  config:
+    - field.storage.cm_document.field_data_pulled_from
+    - field.storage.cm_document.field_data_pushed_to
+    - field.storage.cm_document.field_stakeholders
+    - taxonomy.vocabulary.external_data_source_destination
+    - taxonomy.vocabulary.products
   module:
     - content_model_documentation
     - options
+    - taxonomy
     - user
   enforced:
     module:
@@ -92,6 +99,59 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        edit_cm_document:
+          id: edit_cm_document
+          table: cm_document
+          field: edit_cm_document
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: cm_document
+          plugin_id: entity_link_edit
+          label: ''
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: true
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: button
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          text: Edit
+          output_url_as_text: false
+          absolute: false
         documented_entity:
           id: documented_entity
           table: cm_document
@@ -156,17 +216,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        status:
-          id: status
-          table: cm_document
-          field: status
+        field_stakeholders:
+          id: field_stakeholders
+          table: cm_document__field_stakeholders
+          field: field_stakeholders
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: cm_document
-          entity_field: status
           plugin_id: field
-          label: Published
+          label: 'Stakeholders / Owners'
           exclude: false
           alter:
             alter_text: false
@@ -207,20 +265,144 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: value
-          type: boolean
+          click_sort_column: target_id
+          type: entity_reference_label
           settings:
-            format: yes-no
-            format_custom_false: ''
-            format_custom_true: ''
-          group_column: value
+            link: false
+          group_column: target_id
           group_columns: {  }
           group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
-          multi_type: separator
+          multi_type: ul
+          separator: ', '
+          field_api_classes: false
+        field_data_pulled_from:
+          id: field_data_pulled_from
+          table: cm_document__field_data_pulled_from
+          field: field_data_pulled_from
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Data pulled from'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: false
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: ul
+          separator: ', '
+          field_api_classes: false
+        field_data_pushed_to:
+          id: field_data_pushed_to
+          table: cm_document__field_data_pushed_to
+          field: field_data_pushed_to
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Data pushed to'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: false
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: ul
           separator: ', '
           field_api_classes: false
         changed:
@@ -277,7 +459,7 @@ display:
           click_sort_column: value
           type: timestamp
           settings:
-            date_format: medium
+            date_format: short
             custom_date_format: ''
             timezone: ''
           group_column: value
@@ -290,57 +472,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        operations:
-          id: operations
-          table: cm_document
-          field: operations
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: cm_document
-          plugin_id: entity_operations
-          label: 'Operations links'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          destination: false
       pager:
         type: mini
         options:
@@ -374,7 +505,7 @@ display:
         options:
           perm: 'view content model documentation'
       cache:
-        type: tag
+        type: none
         options: {  }
       empty:
         area_text_custom:
@@ -391,19 +522,62 @@ display:
       sorts: {  }
       arguments: {  }
       filters:
-        status:
-          id: status
+        name:
+          id: name
           table: cm_document
-          field: status
+          field: name
+          relationship: none
+          group_type: group
+          admin_label: ''
           entity_type: cm_document
-          entity_field: status
-          plugin_id: boolean
-          value: '1'
+          entity_field: name
+          plugin_id: string
+          operator: contains
+          value: ''
           group: 1
+          exposed: true
           expose:
-            operator: ''
+            operator_id: name_op
+            label: Name
+            description: ''
+            use_operator: false
+            operator: name_op
             operator_limit_selection: false
             operator_list: {  }
+            identifier: title
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+              homepage_manager: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
         documented_entity:
           id: documented_entity
           table: cm_document
@@ -462,6 +636,246 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        field_stakeholders_target_id:
+          id: field_stakeholders_target_id
+          table: cm_document__field_stakeholders
+          field: field_stakeholders_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_stakeholders_target_id_op
+            label: 'Stakeholders / Owners'
+            description: ''
+            use_operator: false
+            operator: field_stakeholders_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: stakeholder
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+              homepage_manager: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: true
+          vid: products
+          type: select
+          hierarchy: true
+          limit: true
+          error_message: true
+        field_data_pulled_from_target_id:
+          id: field_data_pulled_from_target_id
+          table: cm_document__field_data_pulled_from
+          field: field_data_pulled_from_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_data_pulled_from_target_id_op
+            label: 'Data pulled from'
+            description: ''
+            use_operator: false
+            operator: field_data_pulled_from_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: pulled
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+              homepage_manager: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: true
+          vid: external_data_source_destination
+          type: select
+          hierarchy: true
+          limit: true
+          error_message: true
+        field_data_pushed_to_target_id:
+          id: field_data_pushed_to_target_id
+          table: cm_document__field_data_pushed_to
+          field: field_data_pushed_to_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_data_pushed_to_target_id_op
+            label: 'Data pushed to'
+            description: ''
+            use_operator: false
+            operator: field_data_pushed_to_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: pushed
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+              homepage_manager: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: true
+          vid: external_data_source_destination
+          type: select
+          hierarchy: true
+          limit: true
+          error_message: true
+        notes__value:
+          id: notes__value
+          table: cm_document
+          field: notes__value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: cm_document
+          entity_field: notes
+          plugin_id: string
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: notes__value_op
+            label: Notes
+            description: ''
+            use_operator: false
+            operator: notes__value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: notes
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+              homepage_manager: '0'
+            placeholder: 'Search the contents of the notes field.'
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
       style:
         type: table
         options:
@@ -471,10 +885,12 @@ display:
           columns:
             name: name
             documented_entity: documented_entity
-            status: status
+            field_stakeholders: field_stakeholders
+            field_data_pulled_from: field_data_pulled_from
+            field_data_pushed_to: field_data_pushed_to
             changed: changed
             operations: operations
-          default: '-1'
+          default: changed
           info:
             name:
               sortable: true
@@ -490,16 +906,24 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            status:
-              sortable: true
-              default_sort_order: asc
+            field_stakeholders:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_data_pulled_from:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_data_pushed_to:
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             changed:
               sortable: true
-              default_sort_order: asc
+              default_sort_order: desc
               align: ''
               separator: ''
               empty_column: false
@@ -510,7 +934,7 @@ display:
               empty_column: false
               responsive: ''
           override: true
-          sticky: false
+          sticky: true
           summary: ''
           empty_table: false
           caption: 'List of content model documents.'
@@ -546,8 +970,12 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - user.permissions
-      tags: {  }
+      tags:
+        - 'config:field.storage.cm_document.field_data_pulled_from'
+        - 'config:field.storage.cm_document.field_data_pushed_to'
+        - 'config:field.storage.cm_document.field_stakeholders'
   cm_documents:
     id: cm_documents
     display_title: 'CM Documents'
@@ -566,5 +994,9 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - user.permissions
-      tags: {  }
+      tags:
+        - 'config:field.storage.cm_document.field_data_pulled_from'
+        - 'config:field.storage.cm_document.field_data_pushed_to'
+        - 'config:field.storage.cm_document.field_stakeholders'
