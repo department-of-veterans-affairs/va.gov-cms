@@ -47,7 +47,7 @@ Facility link: <insert_facility_link>
 #### CMS engineer steps
 - [ ] 6. CMS engineer bulk publishes nodes and facility.
 - [ ] 7. CMS engineer edit facility node and remove `New facility` flag and save node.
-- [ ] 9. Let help desk know this has been done.
+- [ ] 8. Let help desk know this has been done.
 
 #### CMS Help desk (wrap up)
 - [ ] 9. Help desk notifies editor and any other stakeholders.
