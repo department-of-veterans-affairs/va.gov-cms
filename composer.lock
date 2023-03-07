@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "461089e9f2270056cc53ef33f263fed2",
+    "content-hash": "3fab8f85ab9f51397d7b43d75b6134a8",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -3542,14 +3542,15 @@
         },
         {
             "name": "drupal/coder",
-            "version": "8.3.16",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/coder.git",
-                "reference": "d6f6112e5e84ff4f6baaada223c93dadbd6d3887"
+            "version": "8.3.17",
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pfrenssen/coder/zipball/1c4662337418ab88c9ddf40348f0638e35d49182",
+                "reference": "1c4662337418ab88c9ddf40348f0638e35d49182",
+                "shasum": ""
             },
             "require": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1 || ^1.0.0",
                 "ext-mbstring": "*",
                 "php": ">=7.1",
                 "sirbrillig/phpcs-variable-analysis": "^2.11.7",
@@ -3583,7 +3584,7 @@
                 "issues": "https://www.drupal.org/project/issues/coder",
                 "source": "https://www.drupal.org/project/coder"
             },
-            "time": "2022-08-20T17:31:46+00:00"
+            "time": "2023-02-19T21:05:01+00:00"
         },
         {
             "name": "drupal/components",
@@ -4091,17 +4092,17 @@
         },
         {
             "name": "drupal/content_model_documentation",
-            "version": "1.0.0-alpha12",
+            "version": "1.0.0-alpha13",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/content_model_documentation.git",
-                "reference": "1.0.0-alpha12"
+                "reference": "1.0.0-alpha13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/content_model_documentation-1.0.0-alpha12.zip",
-                "reference": "1.0.0-alpha12",
-                "shasum": "c4c1b41ce73173f48c4b50911633f2fc0cf3b3d9"
+                "url": "https://ftp.drupal.org/files/projects/content_model_documentation-1.0.0-alpha13.zip",
+                "reference": "1.0.0-alpha13",
+                "shasum": "f20202a7b8a2be939b66c6bbca3cd5184ede4489"
             },
             "require": {
                 "drupal/config_views": "~2.0",
@@ -4110,8 +4111,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "1.0.0-alpha12",
-                    "datestamp": "1678075244",
+                    "version": "1.0.0-alpha13",
+                    "datestamp": "1678212786",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
@@ -8659,6 +8660,10 @@
                 {
                     "name": "johnwebdev",
                     "homepage": "https://www.drupal.org/user/3331569"
+                },
+                {
+                    "name": "mark_fullmer",
+                    "homepage": "https://www.drupal.org/user/2612816"
                 }
             ],
             "description": "Linkit - Enriched linking experience",
@@ -12523,26 +12528,26 @@
         },
         {
             "name": "drupal/tablefield",
-            "version": "2.4.0",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/tablefield.git",
-                "reference": "8.x-2.4"
+                "reference": "8.x-2.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/tablefield-8.x-2.4.zip",
-                "reference": "8.x-2.4",
-                "shasum": "ef024051b3a02aaf8c41b50fc27ab535d7618980"
+                "url": "https://ftp.drupal.org/files/projects/tablefield-8.x-2.3.zip",
+                "reference": "8.x-2.3",
+                "shasum": "ee37306ebb9710f954f0358b558e9d674b225a06"
             },
             "require": {
-                "drupal/core": "^9.1 || ^10"
+                "drupal/core": "^8 || ^9"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-2.4",
-                    "datestamp": "1677254141",
+                    "version": "8.x-2.3",
+                    "datestamp": "1659345818",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -28979,7 +28984,6 @@
         "drupal/change_labels": 20,
         "drupal/components": 10,
         "drupal/content_lock": 15,
-        "drupal/content_model_documentation": 15,
         "drupal/entity_block": 10,
         "drupal/entity_clone": 10,
         "drupal/entity_field_fetch": 10,
