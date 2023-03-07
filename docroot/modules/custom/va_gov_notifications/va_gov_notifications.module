@@ -32,7 +32,7 @@ function va_gov_notifications_preprocess_message__va_outdated_content__mail_body
 }
 
 /**
- *
+ * Implements hook_mail_alter().
  */
 function va_gov_notifications_mail_alter(&$message) {
   if ($message['key'] == 'va_outdated_content' && !empty($message['params']['message_entity'])) {
