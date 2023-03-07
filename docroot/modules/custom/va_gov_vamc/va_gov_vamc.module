@@ -199,11 +199,13 @@ function va_gov_vamc_entity_bundle_field_info_alter(&$fields, EntityTypeInterfac
   if (($entity_type->id() === 'node')
   && (in_array($bundle, $list_item_bundles))) {
     // Focused on VAMC facility health services.
-    if (isset($fields['field_service_location'])
-    && isset($fields['field_regional_health_service'])
-    && isset($fields['field_administration'])) {
+    if (isset($fields['field_administration'])
+    && isset($fields['field_service_location'])) {
       // Validate the Facility selection based on Section.
       $fields['field_facility_location']->addConstraint('SectionMatcher');
+    }
+    if (isset($fields['field_administration'])
+    && isset($fields['field_regional_health_service'])) {
       // Validate the VAMC system health service selection based on Section.
       $fields['field_regional_health_service']->addConstraint('SectionMatcher');
     }
