@@ -20,6 +20,7 @@ dependencies:
     - node.type.q_a
     - node.type.step_by_step
     - node.type.support_resources_detail_page
+    - system.menu.admin
     - taxonomy.vocabulary.administration
     - taxonomy.vocabulary.lc_categories
     - taxonomy.vocabulary.topics
@@ -4251,11 +4252,7 @@ display:
       style:
         type: table
         options:
-          grouping:
-            -
-              field: field_administration
-              rendered: true
-              rendered_strip: false
+          grouping: {  }
           row_class: ''
           default_row_class: true
           columns:
@@ -4392,7 +4389,7 @@ display:
           enabled: true
       path: admin/content/outdated_content
       menu:
-        type: tab
+        type: normal
         title: 'Outdated content'
         description: ''
         weight: 1
