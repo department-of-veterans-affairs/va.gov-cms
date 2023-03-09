@@ -21,9 +21,9 @@ class SectionMatcherValidator extends ConstraintValidator {
     $termStorage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
     $sectionName = $termStorage->load($sectionTermID)->getName();
     foreach ($items as $item) {
-      /** @var \Drupal\va_gov_vamc\Plugin\Validation\Constraint\SectionMatcher $constraint */
-      $refEnt = $nodeStorage->load($item->target_id);
-      if ($refEnt->field_administration->target_id !== $sectionTermID) {
+      $referencedEntity = $nodeStorage->load($item->target_id);
+      if ($referencedEntity->field_administration->target_id !== $sectionTermID) {
+        /** @var \Drupal\va_gov_vamc\Plugin\Validation\Constraint\SectionMatcher $constraint */
         $this->context->addViolation($constraint->notSectionMatch, [
           '%section' => $sectionName,
           '%fieldLabel' => $fieldLabel,
