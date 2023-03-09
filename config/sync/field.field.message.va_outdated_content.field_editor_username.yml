@@ -1,0 +1,25 @@
+uuid: 293f3ddd-4992-414b-a55b-80ea2b493fc8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.message.field_editor_username
+    - message.template.va_outdated_content
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: message.va_outdated_content.field_editor_username
+field_name: field_editor_username
+entity_type: message
+bundle: va_outdated_content
+label: 'Editor Username'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
