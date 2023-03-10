@@ -11,7 +11,7 @@ Cypress.Commands.add("addMainContentBlockWithRichText", (text) => {
       .find("input.button")
       .click({ force: true });
   });
-  cy.get("div#drupal-modal").should("not.exist");
+  cy.get("div#drupal-modal").should("not.be.visible");
   cy.type_ckeditor("field-wysiwyg-0", text);
 });
 
@@ -41,8 +41,9 @@ Cypress.Commands.add("addMainContentBlockWithFile", (type) => {
   });
   cy.get("button.media-library-select").contains("Insert selected").click();
   cy.get("div#drupal-modal").should("not.exist");
-  cy.findAllByLabelText(
-    "Link text"
-  ).type(`[Test Data] ${faker.lorem.sentence()}`, { force: true });
+  cy.findAllByLabelText("Link text").type(
+    `[Test Data] ${faker.lorem.sentence()}`,
+    { force: true }
+  );
   cy.get("form.node-form").find("input#edit-submit").click();
 });
