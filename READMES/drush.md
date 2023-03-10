@@ -1,6 +1,6 @@
 # Drush
 
-In local development environments, these commands should normally be run with a `composer` or `ddev` prefix, e.g. `composer drush sqlq show tables"`.  For other usage notes regarding local development environments, see [Local](./local.md).  
+In local development environments, these commands should normally be run with a `composer` or `ddev` prefix, e.g. `composer drush sqlq show tables"`.  For other usage notes regarding local development environments, see [Local](./local.md).
 
 ## Custom Drush Commands
 
@@ -32,3 +32,10 @@ See [ContentReleaseCommands.php](../docroot/modules/custom/va_gov_build_trigger/
 See [MetricsCommands.php](../docroot/modules/custom/va_gov_backend/src/Commands/MetricsCommands.php).
 
 - `va-gov:metrics:send` -- Send various application metrics to DataDog.
+
+
+### Outdated Content
+See
+[OutdatedContent.php](..docroot/modules/custom/va_gov_notifications/src/Service/OutdatedContent.php
+).
+- `drush php-eval "print_r(\Drupal::service('va_gov_notifications.outdated_content')->checkForOutdatedContent());"` -- Check for outdated content and queue notifications for any found.

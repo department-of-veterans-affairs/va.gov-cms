@@ -1,0 +1,25 @@
+uuid: 87c4eee7-76ad-4bb5-83d5-f6c0dedceffa
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.message.field_subject
+    - message.template.va_outdated_content
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: message.va_outdated_content.field_subject
+field_name: field_subject
+entity_type: message
+bundle: va_outdated_content
+label: Subject
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

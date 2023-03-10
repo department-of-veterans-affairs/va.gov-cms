@@ -123,6 +123,7 @@ function update_health_health_service_nodes(&$sandbox) {
     $node->field_service_location->appendItem($paragraph);
     // Make this change a new revision.
     /** @var \Drupal\node\NodeInterface $node */
+    $moderation_state = $node->get('moderation_state')->value;
     $node->setNewRevision(TRUE);
     // Set revision user to uid 1317 (CMS Migrator user).
     $node->setRevisionUserId(1317);
@@ -130,6 +131,7 @@ function update_health_health_service_nodes(&$sandbox) {
     $node->setRevisionCreationTime(time());
     // Revision log message.
     $node->setRevisionLogMessage('Resaved node to add service location.');
+    $node->set('moderation_state', $moderation_state);
     $node->save();
 
     // Node has been processed, take it out of the sandbox.
