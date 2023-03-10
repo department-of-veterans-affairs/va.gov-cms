@@ -20,20 +20,14 @@ Submitter: <insert_name>
 - [ ] If the submitter is an editor, send them a link to the operating status KB article and have them change the status to Facility notice and provide a description of the facility closure so that Veterans are aware of the future closure.
 KB articles: <insert_kb_article_links>
 
-- [ ] Stakeholders for this issue (name and email):
-Editors: <insert_editors>
-Web manager(s): <insert_managers>
-Product team member: <insert_product_team_member>
-Other stakeholders: <insert_other_stakeholders>
-
-- [ ] Link to new facility in production:
+- [ ] Link to facility in production:
 Facility link: <insert_facility_link>
 
 ## Acceptance criteria
 
 ### VAMC facility closure
 
-[PLACEHOLDER DRAFT]
+[@TODO: DRAFT FOR HELP DESK AND DEV STEPS]
 
 ### Team
 Please check the team(s) that will do this work.

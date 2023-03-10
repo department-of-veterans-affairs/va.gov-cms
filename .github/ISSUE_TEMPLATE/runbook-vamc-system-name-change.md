@@ -17,14 +17,8 @@ Help desk ticket: <insert_help_desk_link>
 - [ ] Name of submitter (if applicable)
 Submitter: <insert_name>
 
-- [ ] Stakeholders for this issue (name and email):
-Editors: <insert_editors>
-District web manager(s): <insert_managers>
-Product team member: <insert_product_team_member>
-Other stakeholders: <insert_other_stakeholders>
-
-- [ ] Link to new facility in production:
-Facility link: <insert_facility_link>
+- [ ] Link to system in production:
+System link: <insert_facility_link>
 
 ## Steps before proceeding
 
@@ -36,8 +30,10 @@ Facility link: <insert_facility_link>
 Timing around these is critical and we may need more detail here.
 
 #### CMS help desk steps
-- [ ] 1. CMS team submits [Redirect request](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=mnorthuis&labels=ia&template=redirect-request.md&title=Redirect+Request), cc'ing Facilities team
+- [ ] 1. CMS team submits [Redirect request](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=mnorthuis&labels=ia&template=redirect-request.md&title=Redirect+Request) from old system URL to new system URL.
 - [ ] 2. Once timing of Redirect going live is known, alert CMS engineers to carry out the other steps
+
+<insert_redirect_request_link>
 
 #### CMS engineer steps
 - [ ] 3. CMS engineer updates the Section name

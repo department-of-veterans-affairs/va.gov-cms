@@ -1,7 +1,7 @@
 ---
-name: Runbook - VBA Facility name change
-about: Steps for updating names and URLs
-title: 'VBA Facility name change: <insert_name>'
+name: Runbook - Vet Center CAP becomes an Outstation
+about: Steps for upgrading a CAP to an Outstation
+title: 'Vet Center CAP beomces an Outstation: <insert_name_of_facility>'
 labels: Change request
 assignees: ''
 
@@ -17,7 +17,7 @@ Help desk ticket: <insert_help_desk_link>
 - [ ] Name of submitter (if applicable)
 Submitter: <insert_name>
 
-- [ ] If the submitter is an editor, send them links to any relevate KB articles for the VBA product. Let them know that facility changes can take between 75 days and 4 months after submitting a request, according to VAST administrators.
+- [ ] If the submitter is an editor, send them links to any relevate KB articles for this process.
 KB articles: <insert_kb_article_links>
 
 - [ ] Link to facility in production:
@@ -25,7 +25,7 @@ Facility link: <insert_facility_link>
 
 ## Acceptance criteria
 
-## VBA Facility name change
+## Vet Center Community Access Point becomes an Outstation
 
 [@TODO: DRAFT FOR HELP DESK AND DEV STEPS]
 

@@ -20,13 +20,7 @@ Submitter: <insert_name>
 - [ ] If the submitter is an editor, send them links to any relevate KB articles for the VBA Facility product.
 KB articles: <insert_kb_article_links>
 
-- [ ] Stakeholders for this issue (name and email):
-Editors: <insert_editors>
-Web manager(s): <insert_managers>
-Product team member: <insert_product_team_member>
-Other stakeholders: <insert_other_stakeholders>
-
-- [ ] Link to new facility in production:
+- [ ] Link to facility in production:
 Facility link: <insert_facility_link>
 
 ## Acceptance criteria

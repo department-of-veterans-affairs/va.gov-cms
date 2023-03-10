@@ -17,13 +17,7 @@ Help desk ticket: <insert_help_desk_link>
 - [ ] Name of submitter (if applicable)
 Submitter: <insert_name>
 
-- [ ] Stakeholders for this issue (name and email):
-Editors: <insert_editors>
-Web manager(s): <insert_managers>
-Product team member: <insert_product_team_member>
-Other stakeholders: <insert_other_stakeholders>
-
-- [ ] Link to new facility in production:
+- [ ] Link to facility in production:
 Facility link: <insert_facility_link>
 
 ## Steps before proceeding
@@ -35,10 +29,10 @@ Facility link: <insert_facility_link>
 
 A section change is typically represented by two facility records in VAST for a single physical location. In most cases the only difference between the two records are the Facility API ID values for each facility. That being said, sometimes **a facility name chage may result in two records in VAST** if VAST opted to create a new record with the new name (with a new Facility API ID) instead of simply updating the name field for the existing facility record. In either instance we have two VAST records representing the same physical location and we need to make changes in the CMS so VAST data for the NEW VAST entry properly maps to our original CMS facility. We do this to preserve revision log information and other history stored in the CMS.
 
-**Please note:** timing is important. Once the redirect 
-
 #### CMS help desk steps
-- [ ] 1. Submit a [redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E) to the devops repo from the original URL for the Facility to the newly updated URL once it changes systems
+- [ ] 1. Submit a [redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E) from the original URL for the facility to the new URL for the facility.
+
+<insert_redirect_request_link>
 
 (These are usually released Wednesday afternoons so you should coordinate the remaining items below around that timeframe)
 

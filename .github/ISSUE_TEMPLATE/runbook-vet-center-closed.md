@@ -20,13 +20,7 @@ Submitter: <insert_name>
 - [ ] If the submitter is an editor, send them a link to the operating status KB article and have them change the status to Facility notice and provide a description of the facility closure so that Veterans are aware of the future closure.
 KB articles: <insert_kb_article_links>
 
-- [ ] Stakeholders for this issue (name and email):
-Editors: <insert_editors>
-Web manager(s): <insert_managers>
-Product team member: <insert_product_team_member>
-Other stakeholders: <insert_other_stakeholders>
-
-- [ ] Link to new facility in production:
+- [ ] Link to facility in production:
 Facility link: <insert_facility_link>
 
 ## Acceptance criteria
@@ -36,6 +30,9 @@ Facility link: <insert_facility_link>
 #### CMS help desk steps
 - [ ] 1. CMS team becomes aware that the facility is no longer on the Facility API.
 - [ ] 2. CMS team submits [Redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E), cc'ing Facilities team, and referencing this issue.
+
+<insert_redirect_request_link>
+
 - [ ] 3. Once timing of Redirect going live is known, alert CMS engineers to carry out the other steps
 
 #### CMS engineer steps

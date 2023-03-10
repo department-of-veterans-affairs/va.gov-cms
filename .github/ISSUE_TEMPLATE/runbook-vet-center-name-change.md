@@ -20,13 +20,7 @@ Submitter: <insert_name>
 - [ ] If the submitter is an editor, send them links to any relevate KB articles for the Vet Center product. Let them know that facility changes can take between 75 days and 4 months after submitting a request, according to VAST administrators.
 KB articles: <insert_kb_article_links>
 
-- [ ] Stakeholders for this issue (name and email):
-Editors: <insert_editors>
-District web manager(s): <insert_managers>
-Product team member: <insert_product_team_member>
-Other stakeholders: <insert_other_stakeholders>
-
-- [ ] Link to new facility in production:
+- [ ] Link to facility in production:
 Facility link: <insert_facility_link>
 
 ## Acceptance criteria
@@ -36,6 +30,9 @@ Facility link: <insert_facility_link>
 #### CMS help desk steps
 - [ ] 1. The title (Name of Vet Center field) change comes from Lighthouse to Drupal
 - [ ] 2. If the Vet Center published: CMS team submits [redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E), cc'ing Facilities team
+
+<insert_redirect_request_link>
+
 - [ ] 3. If the Vet Center is not published or once the redirect request has gone live alert CMS engineers to continue steps below
 
 #### CMS engineer steps

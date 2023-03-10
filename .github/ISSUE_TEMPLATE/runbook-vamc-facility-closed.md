@@ -11,22 +11,15 @@ assignees: ''
 - [ ] What triggered this runbook? (Flag in CMS, Help desk ticket, Product team, VHA Digital Media)
 Trigger: <insert_trigger>
 
-- [ ] Link to associated help desk ticket (if applicable)
+- [ ] Link to associated JIRA help desk ticket (if applicable)
 Help desk ticket: <insert_help_desk_link>
 
 - [ ] Name of submitter (if applicable)
 Submitter: <insert_name>
 
-- [ ] If the submitter is an editor, send them a link to the operating status KB article and have them change the status to Facility notice and provide a description of the facility closure so that Veterans are aware of the future closure.
-KB articles: <insert_kb_article_links>
+- [ ] If the submitter is an editor, send them a link to the KB article: [How to archive a closed facility](https://prod.cms.va.gov/help/vamc/about-locations-content-for-vamcs/how-to-archive-a-closed-facility)
 
-- [ ] Stakeholders for this issue (name and email):
-Editors: <insert_editors>
-Web manager(s): <insert_managers>
-Product team member: <insert_product_team_member>
-Other stakeholders: <insert_other_stakeholders>
-
-- [ ] Link to new facility in production:
+- [ ] Link to facility in production:
 Facility link: <insert_facility_link>
 
 ## Acceptance criteria
@@ -37,6 +30,8 @@ Facility link: <insert_facility_link>
 - [ ] 1. CMS team becomes aware that the facility is no longer on the Facility API.
 - [ ] 2. If we don't already have context (say, via a HD ticket submitted by an editor), check with editor to find out more about the status of the facility
 - [ ] 3. Find out if there are any services or events tied to the facility to be archived that should be moved to a new facility or otherwise preserved and updated
+
+[@TODO: Update email template]
 
 <details><summary>Email template </summary>
 
@@ -68,25 +63,19 @@ If this facility has been removed from VAST in error, please notify our Support 
 
 </details>
 
-#### If facility has moved to a new system or merged
-- [ ] 4. Can any of the associated content (eg services, facility map, future events?) be reused? If so
-  - [ ] 4a. is there a new facility in VAST/Facility API that content should be moved to?
-- [ ] 5. Create [redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E) to point to URL of new facility.
+- [ ] 4. Are any of the services or upcoming events for the facility to be closed moving to a different facility?
+  - [ ] 4a. If so, note the facility picking up the services and events here: <insert_target_facility>
+  - [ ] 4b. If so, note the services and events here: <insert_services_to_be_moved>
+- [ ] 5. Create a [redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E) from the URL of the facility to be closed to the URL of its parent system.
 
-##### CMS engineer steps
-- [ ] 6. When redirect is ready to go out, plan to make these changes immediately after redirect is released. Practice first on staging or a demo environment.
-  - [ ] 6a. In certain, rare situations: CMS engineer bulk moves any content to new facility.
-  - [ ] 6b. CMS engineer finds the menu for the system https://prod.cms.va.gov/admin/structure/menu and deletes the menu item for the merged facility.
+<insert_redirect_request_link>
 
-#### If facility has NOT moved to a new system or merged
-- [ ] 4. Determine where should redirect go? to the system? or to the nearest clinic?
-- [ ] 5. Create [redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E) accordingly.
+(These are usually released Wednesday afternoons so you should coordinate the remaining items below around that timeframe)
 
-##### CMS engineer steps
-- [ ] 6. When redirect is ready to go out, plan to make these changes immediately after redirect is released. Practice first on staging or a demo environment.
-  - [ ] 6a. Are there any events tied to this facility that have yet to occur and if so should any of them be updated to a new location? If yes, update these events accordingly.
-  - [ ] 6b. CMS engineer edits the facility node, removes flag `Removed from source`, add a revision log that explains the change, with a link to github issue, and change moderation state to archive. (Note: any related health services, non-clinical services and events for the given facility will be archived automatically when these changes are saved.)
-  - [ ] 6c. CMS engineer finds the menu for the system https://prod.cms.va.gov/admin/structure/menu and deletes the menu item for the closed facility.
+- [ ] 6. When redirect has been deployed, make these changes. Practice first on staging or a demo environment.
+  - [ ] 6a. CMS engineer bulk moves any content identified **4b** to new facility **4a**.
+  - [ ] 6b. CMS engineer edits the facility node, removes flag `Removed from source`, add a revision log that explains the change, with a link to github issue, and change moderation state to archive. (Note: any remaining health services, non-clinical services and events for the given facility will be archived automatically when these changes are saved.)
+  - [ ] 6c. CMS engineer finds the menu for the system https://prod.cms.va.gov/admin/structure/menu and deletes the menu item for the facility being closed.
 
 #### CMS Help desk (wrap up)
 - [ ] 7. Help desk notifies editor and any other stakeholders.
