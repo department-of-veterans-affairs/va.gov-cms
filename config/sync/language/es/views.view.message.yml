@@ -1,0 +1,49 @@
+label: Mensaje
+display:
+  default:
+    display_title: Máster
+    display_options:
+      exposed_form:
+        options:
+          submit_button: Aplicar
+          reset_button_label: Restablecer
+          exposed_sorts_label: 'Ordenar por'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      pager:
+        options:
+          expose:
+            items_per_page_label: 'Elementos por página'
+            items_per_page_options_all_label: '- Todo -'
+            offset_label: Desplazamiento
+          tags:
+            previous: '‹ anterior'
+            next: 'siguiente ›'
+            first: '« primero'
+            last: 'último »'
+      fields:
+        message_bulk_form_1:
+          action_title: 'Con selección'
+        mid:
+          label: 'ID de mensaje'
+          separator: ', '
+        template:
+          label: 'Plantilla de mensaje'
+          separator: ', '
+        get_text:
+          label: 'Texto del mensaje'
+        uid:
+          label: Autor
+          separator: ', '
+        created:
+          label: 'Fecha de publicación'
+      filters:
+        template:
+          expose:
+            label: Plantilla
+      title: Mensaje
+  page_1:
+    display_title: Página
+    display_options:
+      menu:
+        title: Mensaje
