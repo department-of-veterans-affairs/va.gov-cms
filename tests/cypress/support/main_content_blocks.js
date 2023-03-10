@@ -5,7 +5,9 @@ Cypress.Commands.add("addMainContentBlockWithRichText", (text) => {
     .scrollIntoView()
     .should("be.visible")
     .click();
+  cy.wait(1000);
   cy.get("div#drupal-modal").within(() => {
+    cy.wait(1000);
     cy.contains("Rich text")
       .parent()
       .find("input.button")
@@ -20,13 +22,16 @@ Cypress.Commands.add("addMainContentBlockWithFile", (type) => {
     .scrollIntoView()
     .should("be.visible")
     .click();
+  cy.wait(1000);
   cy.get("div#drupal-modal").within(() => {
+    cy.wait(1000);
     cy.contains("Link to file or video")
       .parent()
       .find("input.button")
       .click({ force: true });
   });
   cy.get("div#drupal-modal").should("not.exist");
+  cy.wait(1000);
   cy.get("div.page-wrapper").contains("Add media").click();
   cy.get("div#drupal-modal").within(() => {
     cy.contains(type).click({ force: true });
@@ -41,6 +46,7 @@ Cypress.Commands.add("addMainContentBlockWithFile", (type) => {
   });
   cy.get("button.media-library-select").contains("Insert selected").click();
   cy.get("div#drupal-modal").should("not.exist");
+  cy.wait(1000);
   cy.findAllByLabelText("Link text").type(
     `[Test Data] ${faker.lorem.sentence()}`,
     { force: true }
