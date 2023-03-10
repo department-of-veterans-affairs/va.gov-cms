@@ -9,7 +9,7 @@ const axeContext = {
       "iframe#jsd-widget", // Not really under our control.
     ],
     [
-      "li.pager_item--ellipsis", // See department-of-veterans-affairs/va.gov-cms#12912.
+      "li.pager__item--ellipsis", // See department-of-veterans-affairs/va.gov-cms#12912.
     ],
   ],
 };
