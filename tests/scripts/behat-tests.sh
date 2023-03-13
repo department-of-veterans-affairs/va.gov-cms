@@ -2,7 +2,7 @@
 
 set -ex
 
-# This runs the Cypress test suites.
+# This runs the Behat test suites.
 
 repo_root="$(git rev-parse --show-toplevel)"
 pushd "${repo_root}" > /dev/null
