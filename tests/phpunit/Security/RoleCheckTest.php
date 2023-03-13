@@ -31,6 +31,7 @@ class RoleCheckTest extends VaGovExistingSiteBase {
       'content_admin',
       'content_reviewer',
       'content_publisher',
+      'translation_manager',
       'admnistrator_users',
       'administrator',
     ];
