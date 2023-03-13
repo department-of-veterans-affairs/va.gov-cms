@@ -30,7 +30,7 @@ Cypress.Commands.add("addMainContentBlockWithFile", (type) => {
       .find("input.button")
       .click({ force: true });
   });
-  cy.get("div#drupal-modal").should("not.exist");
+  cy.get("div#drupal-modal").should("not.be.visible");
   cy.wait(1000);
   cy.get("div.page-wrapper").contains("Add media").click();
   cy.get("div#drupal-modal").within(() => {
@@ -45,7 +45,7 @@ Cypress.Commands.add("addMainContentBlockWithFile", (type) => {
       .check({ force: true });
   });
   cy.get("button.media-library-select").contains("Insert selected").click();
-  cy.get("div#drupal-modal").should("not.exist");
+  cy.get("div#drupal-modal").should("not.be.visible");
   cy.wait(1000);
   cy.findAllByLabelText("Link text").type(
     `[Test Data] ${faker.lorem.sentence()}`,
