@@ -13,10 +13,9 @@ run();
 function run() {
   $exitMessageBaseText = 'Find-a-form: CSV validation failed;';
   $csv = _va_forms_get_csv_headers();
-  _va_forms_validate_csv_has_content($csv, $exitMessageBaseText);
   _va_forms_validate_csv_headers($csv, $exitMessageBaseText);
-  // @todo add a date check on the file to see if it is not more than 3 days
-  // old (to allow for weekends).
+  _va_forms_validate_csv_has_content($csv, $exitMessageBaseText);
+  _va_forms_validate_csv_date($csv, $exitMessageBaseText);
 }
 
 /**
@@ -68,6 +67,17 @@ function _va_forms_validate_csv_headers(array $headers, string $exitMessage) {
  */
 function _va_forms_validate_csv_has_content(bool|array $csv, string $exitMessage) {
   if ($csv === FALSE) {
-    exit("{$exitMessage} Empty or invalid CSV. In _va_forms_validate_csv_contents()\r\n");
+    exit("{$exitMessage} Empty or invalid CSV. In _va_forms_validate_has_content()\r\n");
+  }
+}
+
+/**
+ * Validates that the forms csv migrate file isn't old.
+ */
+function _va_forms_validate_csv_date() {
+  // Checks if the file modification datestamp is less than 3 days old.
+  $threshold = strtotime('-3 days');
+  if (filemtime($filePath) < $threshold) {
+    exit("{$exitMessage} CSV file is over 3 days old in _va_forms_validate_csv_date()\r\n");
   }
 }
