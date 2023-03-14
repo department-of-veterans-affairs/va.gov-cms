@@ -40,7 +40,7 @@ Facility link: <insert_facility_link>
 
 #### CMS engineer steps
 - [ ] 6. CMS engineer bulk publishes the nodes and facility.
-- [ ] 7. CMS engineer edit facility node and remove `New facility` flag and save node.
+- [ ] 7. CMS engineer edits facility node by removing the `New facility` flag and saves the node.
 - [ ] 8. Let help desk know this has been done.
 - [ ] 9. CMS engineer updates the [CSV in Lighthouse](https://github.com/department-of-veterans-affairs/lighthouse-facilities/blob/master/facilities/src/main/resources/websites.csv) with the changed URL, creating a PR, tagging the Lighthouse team and linking to it in Slack with an @mention to a Lighthouse team member 
 
