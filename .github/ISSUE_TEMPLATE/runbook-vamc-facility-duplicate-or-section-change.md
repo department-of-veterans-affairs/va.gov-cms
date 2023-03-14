@@ -42,7 +42,7 @@ A section change is typically represented by two facility records in VAST for a 
 - [ ] 4. Change the VAMC system on the new facility to the old one
 - [ ] 5. Update the Menu link (Parent link) on the new facility to the old system (unable to delete it)
 - [ ] 6. Check the box under URL alias to **Generate automatic URL alias**
-- [ ] 7. Archive the facility with good log message
+- [ ] 7. Archive the facility with a good log message
 - [ ] 8. Manually disable the menu link for this item directly in the system menu
 
 #### CMS engineer steps (the original facility)
