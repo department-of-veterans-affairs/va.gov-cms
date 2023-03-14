@@ -38,7 +38,7 @@ Facility link: <insert_facility_link>
 #### CMS engineer steps
 - [ ] 4. CMS engineer bulk unpublishes the nodes.
 - [ ] 5. CMS engineer removes the Section.
-- [ ] 6. CMS engineer edit facility node and remove flag `Removed from source`, sets moderation state to archived, then save node.
+- [ ] 6. CMS engineer edits facility node by removing the flag `Removed from source`, sets moderation state to archived, and saves the node.
 
 #### CMS Help desk (wrap up)
 - [ ] 7. Help desk notifies editor and any other stakeholders.
