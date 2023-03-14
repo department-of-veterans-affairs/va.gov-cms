@@ -27,7 +27,11 @@ Facility link: <insert_facility_link>
 
 ## VAMC facility section change (and duplicate VAST records)
 
-A section change is typically represented by two facility records in VAST for a single physical location. In most cases the only difference between the two records are the Facility API ID values for each facility. That being said, sometimes **a facility name chage may result in two records in VAST** if VAST opted to create a new record with the new name (with a new Facility API ID) instead of simply updating the name field for the existing facility record. In either instance we have two VAST records representing the same physical location and we need to make changes in the CMS so VAST data for the NEW VAST entry properly maps to our original CMS facility. We do this to preserve revision log information and other history stored in the CMS.
+A section change is typically represented by two facility records in VAST for a single physical location. In most cases the only difference between the two records are the Facility API ID values for each facility. 
+
+Duplicate records can also show up in VAST as the result of a facility name change if VAST opted to create a new record with the new name (with a new Facility API ID) instead of simply updating the name field for the existing facility record. 
+
+In either instance we have two VAST records representing the same physical location and we need to make changes in the CMS so VAST data for the NEW VAST entry properly maps to our original CMS facility. We do this to preserve revision log information and other history stored in the CMS.
 
 #### CMS help desk steps
 - [ ] 1. Submit a [redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E) from the original URL for the facility to the new URL for the facility.
