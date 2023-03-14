@@ -37,7 +37,7 @@ A section change is typically represented by two facility records in VAST for a 
 (These are usually released Wednesday afternoons so you should coordinate the remaining items below around that timeframe)
 
 #### CMS engineer steps (the new facility)
-- [ ] 2. Change the Facility Locator API ID on the new facility, to the Facility Locator API ID for the old one.
+- [ ] 2. Change the Facility Locator API ID on the new facility to the Facility Locator API ID for the old one.
 - [ ] 3. Change the section on the new facility to the old one
 - [ ] 4. Change the VAMC system on the new facility to the old one
 - [ ] 5. Update the Menu link (Parent link) on the new facility to the old system (unable to delete it)
