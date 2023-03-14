@@ -1,0 +1,20 @@
+uuid: d9ec34d1-90d5-4531-bb0a-54c059bd6e6b
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.nca_facility
+id: node.nca_facility.uid
+field_name: uid
+entity_type: node
+bundle: nca_facility
+label: 'Authored by'
+description: 'The username of the content author.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: 'Drupal\node\Entity\Node::getDefaultEntityOwner'
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

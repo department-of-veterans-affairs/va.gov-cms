@@ -1,0 +1,20 @@
+uuid: 228573bb-cfd6-4486-8b1f-da9b5a81b1dc
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.health_services_listing
+id: node.health_services_listing.uid
+field_name: uid
+entity_type: node
+bundle: health_services_listing
+label: 'Authored by'
+description: 'The username of the content author.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: 'Drupal\node\Entity\Node::getDefaultEntityOwner'
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

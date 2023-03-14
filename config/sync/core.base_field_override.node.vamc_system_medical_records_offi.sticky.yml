@@ -1,0 +1,22 @@
+uuid: ebe6ce3d-61f2-4911-af21-ce7db1d6f315
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vamc_system_medical_records_offi
+id: node.vamc_system_medical_records_offi.sticky
+field_name: sticky
+entity_type: node
+bundle: vamc_system_medical_records_offi
+label: 'Sticky at top of lists'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

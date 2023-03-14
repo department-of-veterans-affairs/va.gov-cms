@@ -1,0 +1,20 @@
+uuid: 1fa44412-228c-4e87-8bb8-743c6dfdefdc
+langcode: en
+status: true
+dependencies:
+  config:
+    - message.template.vet_center_official_name_change
+id: message.vet_center_official_name_change.uid
+field_name: uid
+entity_type: message
+bundle: vet_center_official_name_change
+label: 'Created by'
+description: 'The user that created the message.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: 'Drupal\message\Entity\Message::getCurrentUserId'
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

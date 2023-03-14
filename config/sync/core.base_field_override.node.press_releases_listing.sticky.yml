@@ -1,0 +1,22 @@
+uuid: 80dc86ea-e6a9-4437-a400-540b027d5fec
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.press_releases_listing
+id: node.press_releases_listing.sticky
+field_name: sticky
+entity_type: node
+bundle: press_releases_listing
+label: 'Sticky at top of lists'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

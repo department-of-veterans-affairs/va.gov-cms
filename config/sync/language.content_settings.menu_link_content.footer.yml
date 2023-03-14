@@ -1,0 +1,18 @@
+uuid: 39cca375-1b30-420c-82bc-9e39e2bd2ff0
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.footer
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: menu_link_content.footer
+target_entity_type_id: menu_link_content
+target_bundle: footer
+default_langcode: site_default
+language_alterable: false
