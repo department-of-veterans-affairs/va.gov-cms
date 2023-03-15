@@ -12,7 +12,7 @@
     return toolbarHeight + tooltrayHeight;
   };
 
-  Drupal.behaviors.vagovadminAnchorLinks = {
+  Drupal.behaviors.vagovclaroAnchorLinks = {
     attach: function attach() {
       $('a[href^="#"][href!="#"]:not([href^="#edit-group"])').click(function (event) {
         event.preventDefault();
