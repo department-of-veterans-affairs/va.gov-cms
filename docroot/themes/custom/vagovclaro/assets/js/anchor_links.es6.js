@@ -23,7 +23,7 @@
    *
    * @type {Drupal~behavior}
    */
-  Drupal.behaviors.vagovadminAnchorLinks = {
+  Drupal.behaviors.vagovclaroAnchorLinks = {
     attach() {
       $('a[href^="#"][href!="#"]:not([href^="#edit-group"])').click((event) => {
         event.preventDefault();

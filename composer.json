@@ -74,7 +74,7 @@
         "drupal/flag": "^4.0@beta",
         "drupal/flood_control": "^2.2.2",
         "drupal/flysystem_s3": "^2.0@RC",
-        "drupal/formdazzle": "^2.1",
+        "drupal/formdazzle": "^3.0",
         "drupal/geocoder": "^3.26",
         "drupal/geofield": "^1.39",
         "drupal/geofield_map": "^3.0",
@@ -121,6 +121,7 @@
         "drupal/migrate_source_ui": "^1.0@RC",
         "drupal/migrate_tools": "5.x-dev#7ae3747d1e30790d11c2eefcc56e0796bea25c76",
         "drupal/migration_tools": "^2.3",
+        "drupal/mimemail": "^1.0@alpha",
         "drupal/monolog": "^2.0",
         "drupal/next": "^1.1",
         "drupal/node_link_report": "^1.14",
@@ -202,7 +203,7 @@
         "symfony/process": "^4.0",
         "symfony/routing": "^4.0",
         "traviscarden/behat-table-comparison": "~0.2",
-        "va-gov/content-build": "^0.0.3209",
+        "va-gov/content-build": "^0.0.3217",
         "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
@@ -298,7 +299,6 @@
             "mouf/nodejs-installer": true,
             "oomphinc/composer-installers-extender": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
-            "topfloor/composer-cleanup-vcs-dirs": true,
             "php-http/discovery": true
         }
     },
@@ -478,6 +478,9 @@
             },
             "drupal/raven": {
                 "Sentry/Dsn throws a TypeError, blowing up everything.": "patches/raven-catch-typeerror.patch"
+            },
+            "drupal/redirect_options": {
+                "form_alter hook check on classes fails in some cases": "https://www.drupal.org/files/issues/2023-01-23/redirect_options-form_alter_array_check-3335893-2.patch"
             },
             "drupal/schemata": {
                 "3190131 - Possibly unnecessary logging in SchemaFactory::create().": "https://www.drupal.org/files/issues/2020-12-28/schemata-remove-logging-statement-3190131-2.patch"

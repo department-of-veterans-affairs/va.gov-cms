@@ -15,3 +15,6 @@ services:
     arguments:
       - '@message_notify.sender'
       - '@entity_type.manager'
+  va_gov_notifications.outdated_content:
+    class: Drupal\va_gov_notifications\Service\OutdatedContent
+    arguments: ['@entity_type.manager', '@logger.channel.va_gov_notifications', '@workbench_access.user_section_storage', '@queue']
