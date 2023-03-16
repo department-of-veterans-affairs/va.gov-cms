@@ -38,7 +38,7 @@ Facility link: <insert_facility_link>
 #### CMS engineer steps
 - [ ] 4. CMS engineer renames the section for this Vet Center to match its new name (Section taxonomy change)
 - [ ] 5. CMS engineer: If the new official name matches the pattern "<city> Vet Center", update the common name to match
-- [ ] 6. CMS engineer visits bulk operations page and filter by section = vet center name
+- [ ] 6. CMS engineer visits [bulk operations](https://prod.cms.va.gov/admin/content/bulk) page and filter by section = vet center name
 - [ ] 7. CMS engineer updates URLs for all content in that section by bulk operations
 - [ ] 8. CMS engineer resaves all content in that section by bulk operations
 - [ ] 9. CMS engineer edits the Vet Center node by removing flag `Changed name`, and saves the node
