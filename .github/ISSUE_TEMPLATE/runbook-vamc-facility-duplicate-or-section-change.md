@@ -1,7 +1,7 @@
 ---
-name: Runbook - VAMC facility section change
+name: Runbook - VAMC facility duplicate record or section change
 about: How to update the section of a VAMC.
-title: 'VAMC Facility section name change: <insert_name_of_vamc>'
+title: 'VAMC Facility duplicate record or section change: <insert_name_of_vamc>'
 labels: Change request
 assignees: ''
 
