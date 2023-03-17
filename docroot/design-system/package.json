@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "css": "node ./.storybook/cssVariables.js",
-    "storybook": "yarn css && start-storybook -p 6006",
-    "build:storybook": "yarn css && build-storybook",
+    "storybook": "npm run css && start-storybook -p 6006",
+    "build:storybook": "npm run css && build-storybook",
     "build:drupal": "webpack --mode=production --node-env=production",
     "build:dev": "webpack --mode=development",
     "watch": "webpack --watch"
@@ -56,12 +56,15 @@
     "postcss": "^8.4.21",
     "postcss-custom-properties": "^13.1.4",
     "postcss-scss": "^4.0.6",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
     "sass": "^1.59.3",
     "sass-loader": "^13.2.0",
     "style-loader": "^3.3.2",
     "trim-newlines": "^4.0.2",
     "twing": "^5.1.2",
     "twing-loader": "^4.0.0",
+    "typescript": "^5.0.2",
     "webpack": "^5.76.2",
     "webpack-cli": "^5.0.1"
   },
