@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d5c92298d57c3b3bc7a63b45e3f14785",
+    "content-hash": "f93e00a6baee79545c84db1cf20896ad",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -1946,16 +1946,16 @@
         },
         {
             "name": "datadog/dd-trace",
-            "version": "0.84.0",
+            "version": "0.85.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DataDog/dd-trace-php.git",
-                "reference": "0dbf1c9503e87d255d36bd24dc80ab28515cef43"
+                "reference": "6ea2981602de7566dfb86bf904defe4a42ee62b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DataDog/dd-trace-php/zipball/0dbf1c9503e87d255d36bd24dc80ab28515cef43",
-                "reference": "0dbf1c9503e87d255d36bd24dc80ab28515cef43",
+                "url": "https://api.github.com/repos/DataDog/dd-trace-php/zipball/6ea2981602de7566dfb86bf904defe4a42ee62b1",
+                "reference": "6ea2981602de7566dfb86bf904defe4a42ee62b1",
                 "shasum": ""
             },
             "require": {
@@ -1967,7 +1967,7 @@
                 "ext-posix": "*",
                 "g1a/composer-test-scenarios": "~3.0",
                 "mockery/mockery": "*",
-                "phpunit/phpunit": "*",
+                "phpunit/phpunit": "<10",
                 "squizlabs/php_codesniffer": "^3.3.0",
                 "symfony/process": "<5"
             },
@@ -2034,9 +2034,9 @@
             ],
             "support": {
                 "issues": "https://github.com/DataDog/dd-trace-php/issues",
-                "source": "https://github.com/DataDog/dd-trace-php/tree/0.84.0"
+                "source": "https://github.com/DataDog/dd-trace-php/tree/0.85.0"
             },
-            "time": "2023-02-03T09:57:28+00:00"
+            "time": "2023-03-15T13:01:46+00:00"
         },
         {
             "name": "davedevelopment/stiphle",
@@ -4119,8 +4119,8 @@
                     "version": "1.0.1",
                     "datestamp": "1678245573",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Project has not opted into security advisory coverage!"
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
@@ -6029,8 +6029,8 @@
                     "dev-2.x": "2.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-2.0-beta10+1-dev",
-                    "datestamp": "1676966094",
+                    "version": "8.x-2.0-beta11+2-dev",
+                    "datestamp": "1678972577",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -7139,6 +7139,10 @@
                 {
                     "name": "japerry",
                     "homepage": "https://www.drupal.org/user/45640"
+                },
+                {
+                    "name": "mglaman",
+                    "homepage": "https://www.drupal.org/user/2416470"
                 },
                 {
                     "name": "pfaocle",
@@ -11422,17 +11426,17 @@
         },
         {
             "name": "drupal/raven",
-            "version": "4.0.13",
+            "version": "4.0.14",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/raven.git",
-                "reference": "4.0.13"
+                "reference": "4.0.14"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/raven-4.0.13.zip",
-                "reference": "4.0.13",
-                "shasum": "2db505bab422830372eba8e44a2ff58123a689ae"
+                "url": "https://ftp.drupal.org/files/projects/raven-4.0.14.zip",
+                "reference": "4.0.14",
+                "shasum": "d6c22e4be50221f274c6fedaed283272623e99ec"
             },
             "require": {
                 "drupal/core": "^8 || ^9 || ^10",
@@ -11446,8 +11450,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "4.0.13",
-                    "datestamp": "1677021175",
+                    "version": "4.0.14",
+                    "datestamp": "1679002874",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -12231,10 +12235,6 @@
                     "name": "Stephen Mustgrave (smustgrave)",
                     "homepage": "https://www.drupal.org/u/smustgrave",
                     "role": "Maintainer"
-                },
-                {
-                    "name": "smustgrave",
-                    "homepage": "https://www.drupal.org/user/3252890"
                 }
             ],
             "description": "Integration with Slack.com service.",
@@ -19219,16 +19219,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.6",
+            "version": "1.10.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "50d089a3e0904b0fe7e2cf2d4fd37d427d64235a"
+                "reference": "b10ceb526d9607903c5b2673f1fc8775dbe48975"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/50d089a3e0904b0fe7e2cf2d4fd37d427d64235a",
-                "reference": "50d089a3e0904b0fe7e2cf2d4fd37d427d64235a",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/b10ceb526d9607903c5b2673f1fc8775dbe48975",
+                "reference": "b10ceb526d9607903c5b2673f1fc8775dbe48975",
                 "shasum": ""
             },
             "require": {
@@ -19257,8 +19257,11 @@
                 "static analysis"
             ],
             "support": {
+                "docs": "https://phpstan.org/user-guide/getting-started",
+                "forum": "https://github.com/phpstan/phpstan/discussions",
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.10.6"
+                "security": "https://github.com/phpstan/phpstan/security/policy",
+                "source": "https://github.com/phpstan/phpstan-src"
             },
             "funding": [
                 {
@@ -19274,7 +19277,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-03-09T16:55:12+00:00"
+            "time": "2023-03-16T15:24:20+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -21415,16 +21418,16 @@
         },
         {
             "name": "sentry/sentry",
-            "version": "3.13.1",
+            "version": "3.16.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php.git",
-                "reference": "71c86fe4699a7f1a40c7d985f3dc7667045152f0"
+                "reference": "5326a8786b8c7c3a51ea0c6d06e6cb6a9dfa6779"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/71c86fe4699a7f1a40c7d985f3dc7667045152f0",
-                "reference": "71c86fe4699a7f1a40c7d985f3dc7667045152f0",
+                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/5326a8786b8c7c3a51ea0c6d06e6cb6a9dfa6779",
+                "reference": "5326a8786b8c7c3a51ea0c6d06e6cb6a9dfa6779",
                 "shasum": ""
             },
             "require": {
@@ -21482,7 +21485,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD-3-Clause"
+                "MIT"
             ],
             "authors": [
                 {
@@ -21503,7 +21506,7 @@
             ],
             "support": {
                 "issues": "https://github.com/getsentry/sentry-php/issues",
-                "source": "https://github.com/getsentry/sentry-php/tree/3.13.1"
+                "source": "https://github.com/getsentry/sentry-php/tree/3.16.0"
             },
             "funding": [
                 {
@@ -21515,7 +21518,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2023-02-10T10:17:57+00:00"
+            "time": "2023-03-16T10:37:16+00:00"
         },
         {
             "name": "simplesamlphp/assert",
