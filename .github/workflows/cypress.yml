@@ -74,10 +74,12 @@ jobs:
 
       - name: Setup Tugboat CLI
         run: |
-          curl -LO https://tugboat.vfs.va.gov/cli/linux/tugboat.tar.gz
-          sudo tar -zxf tugboat.tar.gz -C /usr/local/bin/
+          curl -kLO https://tugboat.vfs.va.gov/cli/linux/tugboat.tar.gz
+          tar -zxf tugboat.tar.gz -C /usr/local/bin/
           cp .tugboat/.tugboat.yml $HOME/.tugboat.yml
-          sed -i "s/<generated access token>/${TUGBOAT_API_TOKEN}/g" $HOME/.tugboat.yml
+          sed -i "s/<generated access token>/${{ env.TUGBOAT_API_TOKEN }}/g" $HOME/.tugboat.yml
+        env:
+          TUGBOAT_API_TOKEN: ${{ secrets.TUGBOAT_API_TOKEN }}
 
       - name: Install Node package dependencies
         run: npm install
