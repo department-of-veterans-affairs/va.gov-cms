@@ -2,5 +2,5 @@
 module.exports = {
   projectId: "platform-cms",
   recordKey: "platform-cms",
-  cloudServiceUrl: "http://director.sorry-cypress-dev.vfs.va.gov/"
+  cloudServiceUrl: "http://director.sorry-cypress-dev.vfs.va.gov/",
 };

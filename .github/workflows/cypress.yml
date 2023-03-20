@@ -78,6 +78,8 @@ jobs:
           tar -zxf tugboat.tar.gz -C /usr/local/bin/
           cp .tugboat/.tugboat.yml $HOME/.tugboat.yml
           sed -i "s/<generated access token>/${TUGBOAT_API_TOKEN}/g" $HOME/.tugboat.yml
+          mkdir docroot/cypress/videos
+          chmod -R 777 docroot/cypress/videos
         env:
           TUGBOAT_API_TOKEN: ${{ secrets.TUGBOAT_API_TOKEN }}
 
@@ -101,7 +103,7 @@ jobs:
         uses: actions/github-script@98814c53be79b1d30f795b907e553d8679345975
         with:
           script: |
-            await octokit.rest.repos.createCommitStatus({
+            await github.rest.repos.createCommitStatus({
               owner: context.repo.owner,
               repo: context.repo.repo,
               sha: inputs.commit_sha,
