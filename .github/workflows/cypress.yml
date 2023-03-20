@@ -78,8 +78,8 @@ jobs:
           tar -zxf tugboat.tar.gz -C /usr/local/bin/
           cp .tugboat/.tugboat.yml $HOME/.tugboat.yml
           sed -i "s/<generated access token>/${TUGBOAT_API_TOKEN}/g" $HOME/.tugboat.yml
-          mkdir docroot/cypress/videos
-          chmod -R 777 docroot/cypress/videos
+          mkdir docroot/cypress
+          chmod -R 777 docroot/cypress
         env:
           TUGBOAT_API_TOKEN: ${{ secrets.TUGBOAT_API_TOKEN }}
 
