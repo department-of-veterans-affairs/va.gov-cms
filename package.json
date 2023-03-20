@@ -16,7 +16,7 @@
     "stylelint-themes": "npx stylelint 'docroot/themes/custom/**/*.scss'",
     "stylelint": "npx stylelint",
     "test:cypress": "cypress run -e \"TAGS=$CYPRESS_TAGS\"",
-    "test:cypress:parallel": "cypress-cloud run -e \"TAGS=$CYPRESS_TAGS,CYPRESS_IN_GHA=true\" --record --parallel --ci-build-id $CYPRESS_BUILD_ID",
+    "test:cypress:parallel": "cypress-cloud run -e \"TAGS=$CYPRESS_TAGS,CYPRESS_IN_GHA=true,TUGBOAT_PREVIEW_ID=$TUGBOAT_PREVIEW_ID\" --record --parallel --ci-build-id $CYPRESS_BUILD_ID",
     "test:cypress:interactive": "cypress open -e \"TAGS=not @ignore and not @piv,VAGOV_INTERACTIVE=true\""
   },
   "repository": {
