@@ -37,7 +37,7 @@ Cypress.Commands.add("drupalDrushCommand", (command) => {
   let cmd = "drush %command";
   if (Cypress.env("VAGOV_INTERACTIVE")) {
     cmd = "ddev drush %command";
-  } else if (Cypress.env("CYPRESS_IN_GHA") || process.env.CYPRESS_IN_GHA) {
+  } else if (Cypress.env("CYPRESS_IN_GHA")) {
     const tugboatId = Cypress.env("TUGBOAT_PREVIEW_ID");
     cmd = `tugboat shell ${tugboatId} command='%command'`;
   }
