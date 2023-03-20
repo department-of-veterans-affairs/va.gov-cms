@@ -1,0 +1,22 @@
+uuid: 6da98705-8b10-4315-b9a8-45ed691ff756
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vamc_operating_status_and_alerts
+id: node.vamc_operating_status_and_alerts.sticky
+field_name: sticky
+entity_type: node
+bundle: vamc_operating_status_and_alerts
+label: 'Sticky at top of lists'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

@@ -1,0 +1,20 @@
+uuid: b91d7495-52dc-4cca-9690-2634a6ef475a
+langcode: en
+status: true
+dependencies:
+  config:
+    - entityqueue.entity_queue.home_page_news_spotlight
+id: entity_subqueue.home_page_news_spotlight.uid
+field_name: uid
+entity_type: entity_subqueue
+bundle: home_page_news_spotlight
+label: 'User ID'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: 'Drupal\entityqueue\Entity\EntitySubqueue::getDefaultEntityOwner'
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

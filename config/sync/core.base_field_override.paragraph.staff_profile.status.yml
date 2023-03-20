@@ -1,0 +1,22 @@
+uuid: 32db47e9-c828-46ab-a36d-65bcefea5aba
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.staff_profile
+id: paragraph.staff_profile.status
+field_name: status
+entity_type: paragraph
+bundle: staff_profile
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

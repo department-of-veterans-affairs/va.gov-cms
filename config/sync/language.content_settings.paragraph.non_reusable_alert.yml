@@ -1,0 +1,18 @@
+uuid: a67116fb-b428-4bb4-97e5-1d502eb8c7c2
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.non_reusable_alert
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+id: paragraph.non_reusable_alert
+target_entity_type_id: paragraph
+target_bundle: non_reusable_alert
+default_langcode: site_default
+language_alterable: false

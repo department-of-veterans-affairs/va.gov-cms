@@ -1,0 +1,22 @@
+uuid: b9adff7b-0178-4466-90ef-bd1aeb4bc3a0
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.non_reusable_alert
+id: paragraph.non_reusable_alert.status
+field_name: status
+entity_type: paragraph
+bundle: non_reusable_alert
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

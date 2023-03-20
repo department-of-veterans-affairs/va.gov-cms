@@ -1,0 +1,18 @@
+uuid: f65184a9-9e40-42a4-88f1-e227d0352e40
+langcode: en
+status: true
+dependencies:
+  config:
+    - message.template.va_outdated_content
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: message.va_outdated_content
+target_entity_type_id: message
+target_bundle: va_outdated_content
+default_langcode: site_default
+language_alterable: false

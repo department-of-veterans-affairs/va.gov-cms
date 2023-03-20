@@ -1,0 +1,22 @@
+uuid: 08c260eb-bf39-4851-8834-e8d3776fbf82
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.external_data_source_destination
+id: taxonomy_term.external_data_source_destination.status
+field_name: status
+entity_type: taxonomy_term
+bundle: external_data_source_destination
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

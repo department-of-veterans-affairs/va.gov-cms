@@ -38,10 +38,10 @@ Facility link: <insert_facility_link>
 #### CMS engineer steps
 - [ ] 4. CMS engineer renames the section for this Vet Center to match its new name (Section taxonomy change)
 - [ ] 5. CMS engineer: If the new official name matches the pattern "<city> Vet Center", update the common name to match
-- [ ] 6. CMS engineer visits bulk operations page and filter by section = vet center name
+- [ ] 6. CMS engineer visits [bulk operations](https://prod.cms.va.gov/admin/content/bulk) page and filter by section = vet center name
 - [ ] 7. CMS engineer updates URLs for all content in that section by bulk operations
 - [ ] 8. CMS engineer resaves all content in that section by bulk operations
-- [ ] 9. CMS engineer edits the Vet Center node by removing flag `Changed name`, and saves the node
+- [ ] 9. CMS engineer edits the Vet Center node by removing flag `Changed name`, and saves the node (with moderation state = published)
   
 In [Lighthouse Facilties](https://github.com/department-of-veterans-affairs/lighthouse-facilities)
 - [ ] 10. CMS engineer updates the [CSV in Lighthouse](https://github.com/department-of-veterans-affairs/lighthouse-facilities/blob/master/facilities/src/main/resources/websites.csv) with the changed URL, creating a PR, tagging the Lighthouse team and linking to it in Slack with an @mention to a Lighthouse team member 

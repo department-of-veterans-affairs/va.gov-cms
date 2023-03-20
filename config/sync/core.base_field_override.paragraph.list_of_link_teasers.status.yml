@@ -1,0 +1,22 @@
+uuid: 3537cee7-a6ca-4616-9d69-4b6a168b0e08
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.list_of_link_teasers
+id: paragraph.list_of_link_teasers.status
+field_name: status
+entity_type: paragraph
+bundle: list_of_link_teasers
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

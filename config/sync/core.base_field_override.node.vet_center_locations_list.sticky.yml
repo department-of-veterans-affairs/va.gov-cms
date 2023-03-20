@@ -1,0 +1,22 @@
+uuid: 767a2dea-e20e-4ff5-aad7-4c4daf01db26
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vet_center_locations_list
+id: node.vet_center_locations_list.sticky
+field_name: sticky
+entity_type: node
+bundle: vet_center_locations_list
+label: 'Sticky at top of lists'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

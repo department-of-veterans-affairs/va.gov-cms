@@ -1,0 +1,18 @@
+uuid: 057d3f7b-7472-412c-9d21-654988b869aa
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.home-page-hub-list
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: menu_link_content.home-page-hub-list
+target_entity_type_id: menu_link_content
+target_bundle: home-page-hub-list
+default_langcode: site_default
+language_alterable: false

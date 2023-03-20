@@ -1,0 +1,22 @@
+uuid: 185abd3c-a975-4a4f-bff6-2de8f36d04f5
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.audience_non_beneficiaries
+id: taxonomy_term.audience_non_beneficiaries.status
+field_name: status
+entity_type: taxonomy_term
+bundle: audience_non_beneficiaries
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

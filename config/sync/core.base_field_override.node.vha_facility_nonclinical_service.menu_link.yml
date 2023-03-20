@@ -1,0 +1,20 @@
+uuid: 49a5103a-b809-4eaa-8700-20f23112461e
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vha_facility_nonclinical_service
+id: node.vha_facility_nonclinical_service.menu_link
+field_name: menu_link
+entity_type: node
+bundle: vha_facility_nonclinical_service
+label: 'Menu link'
+description: 'Computed menu link for the node (only available during node saving).'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

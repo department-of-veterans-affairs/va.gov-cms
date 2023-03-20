@@ -1,0 +1,22 @@
+uuid: 8a768d62-1609-447f-ae60-6d70f552cdc1
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.campaign_landing_page
+id: node.campaign_landing_page.status
+field_name: status
+entity_type: node
+bundle: campaign_landing_page
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

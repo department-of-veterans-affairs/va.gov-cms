@@ -5,6 +5,7 @@ dependencies:
   config:
     - views.view.right_sidebar_latest_revision
   module:
+    - language
     - system
     - views
   theme:
@@ -29,3 +30,10 @@ visibility:
     negate: true
     context_mapping: {  }
     pages: "/node/*/edit\r\n/node/*/history\r\n/node/*/delete\r\n/node/*/clone\r\n/node/*/moderation-history\r\n/node/add/*\r\n/help\r\n/help/*\r\n\r\n"
+  language:
+    id: language
+    negate: false
+    context_mapping:
+      language: '@language.current_language_context:language_interface'
+    langcodes:
+      en: en

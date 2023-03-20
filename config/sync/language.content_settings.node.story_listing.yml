@@ -1,0 +1,18 @@
+uuid: 63f22c6c-ac15-4648-9d7c-326ac413341c
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.story_listing
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+id: node.story_listing
+target_entity_type_id: node
+target_bundle: story_listing
+default_langcode: site_default
+language_alterable: false

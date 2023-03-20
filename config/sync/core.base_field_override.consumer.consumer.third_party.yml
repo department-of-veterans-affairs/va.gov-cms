@@ -1,0 +1,22 @@
+uuid: 874b592a-ceb5-4df1-aa6c-1ff039b07755
+langcode: en
+status: true
+dependencies:
+  module:
+    - consumers
+id: consumer.consumer.third_party
+field_name: third_party
+entity_type: consumer
+bundle: consumer
+label: 'Is this consumer 3rd party?'
+description: 'Mark this if the organization behind this consumer is not the same as the one behind the Drupal API.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
