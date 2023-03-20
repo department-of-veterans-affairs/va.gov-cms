@@ -1,0 +1,20 @@
+uuid: 94ca7991-0695-4641-9c66-676782b6feb9
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vamc_system_medical_records_offi
+id: node.vamc_system_medical_records_offi.uid
+field_name: uid
+entity_type: node
+bundle: vamc_system_medical_records_offi
+label: 'Authored by'
+description: 'The username of the content author.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: 'Drupal\node\Entity\Node::getDefaultEntityOwner'
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

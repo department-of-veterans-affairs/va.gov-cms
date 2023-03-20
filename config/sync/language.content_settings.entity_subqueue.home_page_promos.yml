@@ -1,0 +1,18 @@
+uuid: 0ac01201-b8d1-4111-96f2-0885b494ce65
+langcode: en
+status: true
+dependencies:
+  config:
+    - entityqueue.entity_queue.home_page_promos
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: entity_subqueue.home_page_promos
+target_entity_type_id: entity_subqueue
+target_bundle: home_page_promos
+default_langcode: site_default
+language_alterable: false

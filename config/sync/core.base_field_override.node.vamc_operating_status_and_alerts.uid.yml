@@ -1,0 +1,20 @@
+uuid: eefe2e42-262a-4a68-9801-fa4fe56f2257
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vamc_operating_status_and_alerts
+id: node.vamc_operating_status_and_alerts.uid
+field_name: uid
+entity_type: node
+bundle: vamc_operating_status_and_alerts
+label: 'Authored by'
+description: 'The username of the content author.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: 'Drupal\node\Entity\Node::getDefaultEntityOwner'
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

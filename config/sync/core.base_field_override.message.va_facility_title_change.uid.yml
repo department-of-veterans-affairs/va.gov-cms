@@ -1,0 +1,20 @@
+uuid: e77862b3-5c73-43a0-a811-2ab098998db7
+langcode: en
+status: true
+dependencies:
+  config:
+    - message.template.va_facility_title_change
+id: message.va_facility_title_change.uid
+field_name: uid
+entity_type: message
+bundle: va_facility_title_change
+label: 'Created by'
+description: 'The user that created the message.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: 'Drupal\message\Entity\Message::getCurrentUserId'
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

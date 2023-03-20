@@ -1,0 +1,20 @@
+uuid: 2ff72ce4-fd9e-4982-90ed-fff6c344e689
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.regional_health_care_service_des
+id: node.regional_health_care_service_des.menu_link
+field_name: menu_link
+entity_type: node
+bundle: regional_health_care_service_des
+label: 'Menu link'
+description: 'Computed menu link for the node (only available during node saving).'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

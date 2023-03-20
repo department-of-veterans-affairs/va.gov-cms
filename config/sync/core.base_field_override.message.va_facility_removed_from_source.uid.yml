@@ -1,0 +1,20 @@
+uuid: 14b3c9d7-8712-463b-bc9b-ae37f6240edb
+langcode: en
+status: true
+dependencies:
+  config:
+    - message.template.va_facility_removed_from_source
+id: message.va_facility_removed_from_source.uid
+field_name: uid
+entity_type: message
+bundle: va_facility_removed_from_source
+label: 'Created by'
+description: 'The user that created the message.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: 'Drupal\message\Entity\Message::getCurrentUserId'
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

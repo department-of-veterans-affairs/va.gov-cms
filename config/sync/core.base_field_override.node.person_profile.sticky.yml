@@ -1,0 +1,22 @@
+uuid: 0816215a-17ae-4685-9f76-d8eb2ce23a1d
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.person_profile
+id: node.person_profile.sticky
+field_name: sticky
+entity_type: node
+bundle: person_profile
+label: 'Sticky at top of lists'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

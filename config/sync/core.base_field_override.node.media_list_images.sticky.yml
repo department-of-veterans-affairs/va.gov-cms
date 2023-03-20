@@ -1,0 +1,22 @@
+uuid: aa804d0e-7cc0-4fc7-be67-ff1453e73b03
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.media_list_images
+id: node.media_list_images.sticky
+field_name: sticky
+entity_type: node
+bundle: media_list_images
+label: 'Sticky at top of lists'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
