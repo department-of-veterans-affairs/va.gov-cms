@@ -1,0 +1,44 @@
+display:
+  default:
+    display_title: Máster
+    display_options:
+      exposed_form:
+        options:
+          submit_button: Aplicar
+          reset_button_label: Restablecer
+          exposed_sorts_label: 'Ordenar por'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      pager:
+        options:
+          expose:
+            items_per_page_label: 'Elementos por página'
+            items_per_page_options_all_label: '- Todo -'
+            offset_label: Desplazamiento
+          tags:
+            previous: '‹ Anterior'
+            next: 'Siguiente >'
+            first: '« Primero'
+            last: 'Último »'
+      fields:
+        status:
+          label: Estado
+          format_plural_string: !!binary MQNAY291bnQ=
+        progress:
+          label: Progreso
+        label:
+          label: Etiqueta
+        item_type:
+          label: Tipo
+          separator: ', '
+        word_count:
+          label: Palabras
+          separator: ', '
+        operations:
+          label: Operaciones
+      arguments:
+        tltid:
+          exception:
+            title: Todo(s)
+  block_1:
+    display_title: Bloque

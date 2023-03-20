@@ -6,12 +6,19 @@ dependencies:
     - config_translation
     - content_translation
     - locale
+    - tmgmt
+    - tmgmt_local
 id: translation_manager
 label: 'Translation manager'
 weight: 6
 is_admin: null
 permissions:
+  - 'accept translation jobs'
   - 'create content translations'
+  - 'create translation jobs'
+  - 'delete translation jobs'
+  - 'provide translation services'
+  - 'submit translation jobs'
   - 'translate any entity'
   - 'translate configuration'
   - 'translate interface'

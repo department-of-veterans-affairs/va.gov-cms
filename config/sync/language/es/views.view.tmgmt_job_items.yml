@@ -1,0 +1,61 @@
+display:
+  default:
+    display_title: Máster
+    display_options:
+      exposed_form:
+        options:
+          submit_button: Aplicar
+          reset_button_label: Restablecer
+          exposed_sorts_label: 'Ordenar por'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      pager:
+        options:
+          expose:
+            items_per_page_label: 'Elementos por página'
+            items_per_page_options_all_label: '- Todo -'
+            offset_label: Desplazamiento
+          tags:
+            previous: '‹ anterior'
+            next: 'siguiente ›'
+            first: '« primero'
+            last: 'último »'
+      fields:
+        state:
+          label: Estado
+        label:
+          label: Etiqueta
+        type:
+          label: Tipo
+        progress:
+          label: Progreso
+        word_count:
+          label: Palabras
+          separator: ', '
+        tags_count:
+          label: Etiquetas
+          separator: ', '
+        changed:
+          label: Modificado
+        operations:
+          label: Operaciones
+      arguments:
+        tjid:
+          exception:
+            title: Todo(s)
+  checkout:
+    display_title: 'Tramitar compra'
+    display_options:
+      fields:
+        label:
+          label: Etiqueta
+        type:
+          label: Tipo
+        word_count:
+          label: Palabras
+          separator: ', '
+        changed:
+          label: Modificado
+          separator: ', '
+  submitted:
+    display_title: Enviado

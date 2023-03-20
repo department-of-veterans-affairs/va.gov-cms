@@ -1,0 +1,290 @@
+display:
+  default:
+    display_title: Máster
+    display_options:
+      exposed_form:
+        options:
+          submit_button: Filtro
+          reset_button_label: Restablecer
+          exposed_sorts_label: 'Ordenar por'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      pager:
+        options:
+          expose:
+            items_per_page_label: 'Elementos por página'
+            items_per_page_options_all_label: '- Todo -'
+            offset_label: Desplazamiento
+          tags:
+            previous: '‹ Anterior'
+            next: 'Siguiente >'
+            first: '« Primero'
+            last: 'Último »'
+      fields:
+        tmgmt_local_task_bulk_form:
+          label: 'Actualización masiva'
+          action_title: 'Con selección'
+        title:
+          label: Etiqueta
+          separator: ', '
+        word_count:
+          label: Palabras
+        item_count:
+          label: Elementos
+        progress:
+          label: Progreso
+      filters:
+        status:
+          expose:
+            label: Estado
+  closed:
+    display_options:
+      fields:
+        tmgmt_local_task_bulk_form:
+          label: 'Actualización masiva'
+          action_title: 'Con selección'
+        status:
+          label: Estado
+          format_plural_string: !!binary MQNAY291bnQ=
+        progress:
+          label: Progreso
+        title:
+          label: Etiqueta
+          separator: ', '
+        source_language:
+          label: Desde
+          separator: ', '
+        target_language:
+          label: Para
+          separator: ', '
+        word_count:
+          label: Palabras
+        item_count:
+          label: Elementos
+        operations:
+          label: Operaciones
+      filters:
+        status:
+          expose:
+            label: Estado
+        source_language:
+          expose:
+            label: 'Idioma de origen'
+        title:
+          expose:
+            label: Etiqueta
+      menu:
+        title: Cerrado
+  completed:
+    display_options:
+      fields:
+        tmgmt_local_task_bulk_form:
+          label: 'Actualización masiva'
+          action_title: 'Con selección'
+        status:
+          label: Estado
+          format_plural_string: !!binary MQNAY291bnQ=
+        progress:
+          label: Progreso
+        title:
+          label: Etiqueta
+          separator: ', '
+        source_language:
+          label: Desde
+          separator: ', '
+        target_language:
+          label: Para
+          separator: ', '
+        word_count:
+          label: Palabras
+        item_count:
+          label: Elementos
+        operations:
+          label: Operaciones
+      filters:
+        status:
+          expose:
+            label: Estado
+        source_language:
+          expose:
+            label: 'Idioma de origen'
+        title:
+          expose:
+            label: Etiqueta
+      menu:
+        title: Completado
+  eligible:
+    display_options:
+      fields:
+        tmgmt_local_task_bulk_form:
+          label: 'Actualización masiva'
+          action_title: 'Con selección'
+        status:
+          label: Estado
+          format_plural_string: !!binary MQNAY291bnQ=
+        title:
+          label: Etiqueta
+          separator: ', '
+        source_language:
+          label: Desde
+          separator: ', '
+        target_language:
+          label: Para
+          separator: ', '
+        word_count:
+          label: Palabras
+        item_count:
+          label: Elementos
+        operations:
+          label: Operaciones
+      filters:
+        status:
+          expose:
+            label: Estado
+        source_language:
+          expose:
+            label: 'Idioma de origen'
+        title:
+          expose:
+            label: Etiqueta
+  my_tasks:
+    display_options:
+      fields:
+        tmgmt_local_task_bulk_form:
+          label: 'Actualización masiva'
+          action_title: 'Con selección'
+        status:
+          label: Estado
+        progress:
+          label: Progreso
+        title:
+          label: Etiqueta
+          separator: ', '
+        source_language:
+          label: Desde
+          separator: ', '
+        target_language:
+          label: Para
+          separator: ', '
+        word_count:
+          label: Palabras
+        item_count:
+          label: Elementos
+        operations:
+          label: Operaciones
+      filters:
+        status:
+          expose:
+            label: Estado
+        source_language:
+          expose:
+            label: 'Idioma de origen'
+        title:
+          expose:
+            label: Etiqueta
+  pending:
+    display_options:
+      fields:
+        tmgmt_local_task_bulk_form:
+          label: 'Actualización masiva'
+          action_title: 'Con selección'
+        status:
+          label: Estado
+          separator: ', '
+        progress:
+          label: Progreso
+        title:
+          label: Etiqueta
+          separator: ', '
+        source_language:
+          label: Desde
+          separator: ', '
+        target_language:
+          label: Para
+          separator: ', '
+        word_count:
+          label: Palabras
+        item_count:
+          label: Elementos
+        operations:
+          label: Operaciones
+      filters:
+        status:
+          expose:
+            label: Estado
+        source_language:
+          expose:
+            label: 'Idioma de origen'
+        title:
+          expose:
+            label: Etiqueta
+      menu:
+        title: Pendiente
+  rejected:
+    display_options:
+      fields:
+        tmgmt_local_task_bulk_form:
+          label: 'Actualización masiva'
+          action_title: 'Con selección'
+        status:
+          label: Estado
+          format_plural_string: !!binary MQNAY291bnQ=
+        progress:
+          label: Progreso
+        title:
+          label: Etiqueta
+          separator: ', '
+        source_language:
+          label: Desde
+          separator: ', '
+        target_language:
+          label: Para
+          separator: ', '
+        word_count:
+          label: Palabras
+        item_count:
+          label: Elementos
+        operations:
+          label: Operaciones
+      filters:
+        status:
+          expose:
+            label: Estado
+        source_language:
+          expose:
+            label: 'Idioma de origen'
+        title:
+          expose:
+            label: Etiqueta
+      menu:
+        title: Rechazado
+  unassigned:
+    display_options:
+      fields:
+        tmgmt_local_task_bulk_form:
+          label: 'Actualización masiva'
+          action_title: 'Con selección'
+        status:
+          label: Estado
+          format_plural_string: !!binary MQNAY291bnQ=
+        title:
+          label: Etiqueta
+          separator: ', '
+        source_language:
+          label: Desde
+          separator: ', '
+        target_language:
+          label: Para
+          separator: ', '
+        word_count:
+          label: Palabras
+        item_count:
+          label: Elementos
+        operations:
+          label: Operaciones
+      filters:
+        status:
+          expose:
+            label: Estado
+      tab_options:
+        title: Traducir
