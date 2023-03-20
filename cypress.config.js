@@ -10,6 +10,7 @@ module.exports = defineConfig({
     failSilently: false,
   },
   fixturesFolder: "tests/cypress/fixtures",
+  projectId: "vagovs",
   screenshotsFolder: "docroot/cypress/screenshots/actual",
   trashAssetsBeforeRuns: true,
   videoCompression: false,
