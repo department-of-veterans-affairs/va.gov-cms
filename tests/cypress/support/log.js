@@ -1,4 +1,9 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+const installLogsCollector = require("cypress-terminal-report/src/installLogsPrinter");
+
 let logText = "";
+
+installLogsCollector();
 
 beforeEach(() => {
   const testTitle = Cypress.currentTest.title;

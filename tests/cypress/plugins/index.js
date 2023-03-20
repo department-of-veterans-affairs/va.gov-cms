@@ -14,6 +14,7 @@
 
 const cucumber = require("cypress-cucumber-preprocessor").default;
 const getCompareSnapshotsPlugin = require("cypress-visual-regression/dist/plugin");
+const installLogsCollector = require("cypress-terminal-report/src/installLogsPrinter");
 const { cloudPlugin } = require("cypress-cloud/plugin");
 
 // This function is called when a project is opened or re-opened (e.g. due to
@@ -26,6 +27,7 @@ module.exports = (on, config) => {
   on("file:preprocessor", cucumber());
   getCompareSnapshotsPlugin(on, config);
   cloudPlugin(on, config);
+  installLogsCollector(on, config);
   on("task", {
     log(message) {
       console.log(message);
