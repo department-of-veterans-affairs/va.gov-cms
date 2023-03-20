@@ -72,16 +72,20 @@ jobs:
         continue-on-error: true
         run: npm list
 
+      - name: Create Tugboat configuration.
+        run: |
+          echo "token: ${TUGBOAT_API_TOKEN}" > $HOME/.tugboat.yml
+          echo "api: https://api.tugboat.vfs.va.gov" >> $HOME/.tugboat.yml
+          echo "insecure: true" >> $HOME/.tugboat.yml
+        env:
+          TUGBOAT_API_TOKEN: ${{ secrets.TUGBOAT_API_TOKEN }}
+
       - name: Setup Tugboat CLI
         run: |
           curl -kLO https://tugboat.vfs.va.gov/cli/linux/tugboat.tar.gz
           tar -zxf tugboat.tar.gz -C /usr/local/bin/
-          cp .tugboat/.tugboat.yml $HOME/.tugboat.yml
-          sed -i "s/<generated access token>/${TUGBOAT_API_TOKEN}/g" $HOME/.tugboat.yml
           mkdir -p docroot/cypress
           chmod -R 777 docroot/cypress
-        env:
-          TUGBOAT_API_TOKEN: ${{ secrets.TUGBOAT_API_TOKEN }}
 
       - name: Install Node package dependencies
         run: npm install
