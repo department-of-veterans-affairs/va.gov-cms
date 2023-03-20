@@ -1,0 +1,20 @@
+uuid: 73ce83f3-430b-484d-acf0-aa19e481364e
+langcode: en
+status: true
+dependencies:
+  config:
+    - entityqueue.entity_queue.v2_home_page_create_account
+id: entity_subqueue.v2_home_page_create_account.uid
+field_name: uid
+entity_type: entity_subqueue
+bundle: v2_home_page_create_account
+label: 'User ID'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: 'Drupal\entityqueue\Entity\EntitySubqueue::getDefaultEntityOwner'
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

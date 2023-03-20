@@ -1,0 +1,20 @@
+uuid: 19a78b6e-c20e-43b5-b3ad-d26df364dc95
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vha_facility_nonclinical_service
+id: node.vha_facility_nonclinical_service.uid
+field_name: uid
+entity_type: node
+bundle: vha_facility_nonclinical_service
+label: 'Authored by'
+description: 'The username of the content author.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: 'Drupal\node\Entity\Node::getDefaultEntityOwner'
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

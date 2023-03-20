@@ -1,0 +1,18 @@
+uuid: 8aab293f-b9d3-48c5-b149-47888a208309
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.popular-on-va-gov
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: menu_link_content.popular-on-va-gov
+target_entity_type_id: menu_link_content
+target_bundle: popular-on-va-gov
+default_langcode: site_default
+language_alterable: false

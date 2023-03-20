@@ -1,0 +1,18 @@
+uuid: 0fe9ad26-8527-4b57-9691-7cca0ffb4bed
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vba_facility
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+id: node.vba_facility
+target_entity_type_id: node
+target_bundle: vba_facility
+default_langcode: site_default
+language_alterable: false

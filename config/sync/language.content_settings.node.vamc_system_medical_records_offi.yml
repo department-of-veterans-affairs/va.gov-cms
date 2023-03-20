@@ -1,0 +1,18 @@
+uuid: 2cd9f7d0-56cf-4ce7-a3e6-d26cd2ed8950
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vamc_system_medical_records_offi
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+id: node.vamc_system_medical_records_offi
+target_entity_type_id: node
+target_bundle: vamc_system_medical_records_offi
+default_langcode: site_default
+language_alterable: false

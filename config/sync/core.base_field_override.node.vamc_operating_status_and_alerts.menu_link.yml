@@ -1,0 +1,20 @@
+uuid: 7f6b22dd-e0bc-4027-b430-826460cca900
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vamc_operating_status_and_alerts
+id: node.vamc_operating_status_and_alerts.menu_link
+field_name: menu_link
+entity_type: node
+bundle: vamc_operating_status_and_alerts
+label: 'Menu link'
+description: 'Computed menu link for the node (only available during node saving).'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

@@ -1,0 +1,18 @@
+uuid: 863e1e8f-6168-411f-a7bd-c4b5d6a0d1b6
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vamc_system_register_for_care
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+id: node.vamc_system_register_for_care
+target_entity_type_id: node
+target_bundle: vamc_system_register_for_care
+default_langcode: site_default
+language_alterable: false

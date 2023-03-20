@@ -1,0 +1,22 @@
+uuid: a595c471-6eb4-4552-82b4-96705aeadbfa
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vet_center_locations_list
+id: node.vet_center_locations_list.promote
+field_name: promote
+entity_type: node
+bundle: vet_center_locations_list
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

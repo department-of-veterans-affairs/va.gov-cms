@@ -1,0 +1,18 @@
+uuid: a442bbba-4f0a-4f32-a1c5-1e91711136fd
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.other-search-tools
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: menu_link_content.other-search-tools
+target_entity_type_id: menu_link_content
+target_bundle: other-search-tools
+default_langcode: site_default
+language_alterable: false

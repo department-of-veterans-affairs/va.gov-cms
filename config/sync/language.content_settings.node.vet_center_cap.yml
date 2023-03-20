@@ -1,0 +1,18 @@
+uuid: 88670c0d-239d-46f3-8317-9b626fe0b1ae
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vet_center_cap
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+id: node.vet_center_cap
+target_entity_type_id: node
+target_bundle: vet_center_cap
+default_langcode: site_default
+language_alterable: false

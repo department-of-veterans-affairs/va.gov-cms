@@ -1,0 +1,20 @@
+uuid: 9a7c1d9e-63b5-40ae-8693-99074cce20ef
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.leadership_listing
+id: node.leadership_listing.uid
+field_name: uid
+entity_type: node
+bundle: leadership_listing
+label: 'Authored by'
+description: 'The username of the content author.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: 'Drupal\node\Entity\Node::getDefaultEntityOwner'
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

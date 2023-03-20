@@ -1,0 +1,22 @@
+uuid: 448b0b9f-eee4-4e03-9a5a-96c908ee9a1a
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vamc_system_policies_page
+id: node.vamc_system_policies_page.sticky
+field_name: sticky
+entity_type: node
+bundle: vamc_system_policies_page
+label: 'Sticky at top of lists'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

@@ -1,0 +1,18 @@
+uuid: 617f9b12-e4a3-4d73-a466-e2e30bc52c74
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.collapsible_panel
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+id: paragraph.collapsible_panel
+target_entity_type_id: paragraph
+target_bundle: collapsible_panel
+default_langcode: site_default
+language_alterable: false

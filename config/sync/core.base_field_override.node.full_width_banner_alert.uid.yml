@@ -1,0 +1,20 @@
+uuid: d35ee075-a66c-4aab-b798-ab254b3b5fd6
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.full_width_banner_alert
+id: node.full_width_banner_alert.uid
+field_name: uid
+entity_type: node
+bundle: full_width_banner_alert
+label: 'Authored by'
+description: 'The username of the content author.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: 'Drupal\node\Entity\Node::getDefaultEntityOwner'
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

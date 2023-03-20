@@ -1,0 +1,22 @@
+uuid: 4f664c7e-d9d3-461b-bc9f-fff573f5b617
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.leadership_listing
+id: node.leadership_listing.sticky
+field_name: sticky
+entity_type: node
+bundle: leadership_listing
+label: 'Sticky at top of lists'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

@@ -1,0 +1,18 @@
+uuid: eee1d0bc-75b8-488b-9e55-7f5ccf5f0ba1
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vamc_operating_status_and_alerts
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+id: node.vamc_operating_status_and_alerts
+target_entity_type_id: node
+target_bundle: vamc_operating_status_and_alerts
+default_langcode: site_default
+language_alterable: false

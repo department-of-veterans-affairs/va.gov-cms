@@ -1,0 +1,18 @@
+uuid: 7bbe0c2b-3d51-4626-a8c8-2ffae3203079
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.publication_listing
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+id: node.publication_listing
+target_entity_type_id: node
+target_bundle: publication_listing
+default_langcode: site_default
+language_alterable: false

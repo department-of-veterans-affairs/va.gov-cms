@@ -1,0 +1,22 @@
+uuid: 93c4d704-798a-42d7-a5cc-7ae2c5dc5e76
+langcode: en
+status: true
+dependencies:
+  config:
+    - entityqueue.entity_queue.home_page_hero
+id: entity_subqueue.home_page_hero.status
+field_name: status
+entity_type: entity_subqueue
+bundle: home_page_hero
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
