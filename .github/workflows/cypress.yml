@@ -92,10 +92,8 @@ jobs:
           command: 'npm run test:cypress:parallel'
         env:
           CYPRESS_BASE_URL: "${{ inputs.preview_url }}"
-          CYPRESS_API_URL: "http://director.sorry-cypress-dev.vfs.va.gov/"
-          CYPRESS_RECORD_KEY: platform-cms
           CYPRESS_IN_GHA: 'true'
-          CY_BUILD_ID: "${{ github.repository }}-${{ github.run_id }}-${{ github.run_attempt}}"
+          CYPRESS_BUILD_ID: "${{ github.repository }}-${{ github.run_id }}-${{ github.run_attempt}}"
           TUGBOAT_PREVIEW_ID: "${{ inputs.preview_id }}"
           
       - name: Update status on commit.

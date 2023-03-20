@@ -1,3 +1,5 @@
+/* eslint-disable valid-jsdoc */
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-console */
 /// <reference types="cypress" />
 // ***********************************************************
@@ -12,6 +14,7 @@
 
 const cucumber = require("cypress-cucumber-preprocessor").default;
 const getCompareSnapshotsPlugin = require("cypress-visual-regression/dist/plugin");
+const { cloudPlugin } = require("cypress-cloud/plugin");
 
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
@@ -22,6 +25,7 @@ const getCompareSnapshotsPlugin = require("cypress-visual-regression/dist/plugin
 module.exports = (on, config) => {
   on("file:preprocessor", cucumber());
   getCompareSnapshotsPlugin(on, config);
+  cloudPlugin(on, config);
   on("task", {
     log(message) {
       console.log(message);
