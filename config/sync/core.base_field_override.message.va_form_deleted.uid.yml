@@ -1,0 +1,20 @@
+uuid: d2125371-fdc5-4466-a89b-116ac0ae04bb
+langcode: en
+status: true
+dependencies:
+  config:
+    - message.template.va_form_deleted
+id: message.va_form_deleted.uid
+field_name: uid
+entity_type: message
+bundle: va_form_deleted
+label: 'Created by'
+description: 'The user that created the message.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: 'Drupal\message\Entity\Message::getCurrentUserId'
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

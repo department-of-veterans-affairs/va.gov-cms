@@ -1,0 +1,18 @@
+uuid: eb6e7414-c6a6-47b8-8e75-fbad72e0e103
+langcode: en
+status: true
+dependencies:
+  config:
+    - message.template.va_form_changed_title
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: message.va_form_changed_title
+target_entity_type_id: message
+target_bundle: va_form_changed_title
+default_langcode: site_default
+language_alterable: false

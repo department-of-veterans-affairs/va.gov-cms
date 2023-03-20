@@ -1,0 +1,18 @@
+uuid: fc9b1f81-831e-48d0-80ae-dffe45d60123
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.wysiwyg
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+id: paragraph.wysiwyg
+target_entity_type_id: paragraph
+target_bundle: wysiwyg
+default_langcode: site_default
+language_alterable: false

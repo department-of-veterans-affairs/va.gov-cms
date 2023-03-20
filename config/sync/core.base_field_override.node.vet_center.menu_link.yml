@@ -1,0 +1,20 @@
+uuid: b85a43e8-5ac3-41be-a0d2-f4f8e4073a5b
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vet_center
+id: node.vet_center.menu_link
+field_name: menu_link
+entity_type: node
+bundle: vet_center
+label: 'Menu link'
+description: 'Computed menu link for the node (only available during node saving).'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

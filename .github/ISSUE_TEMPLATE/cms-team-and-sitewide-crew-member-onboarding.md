@@ -199,6 +199,7 @@ Tugboat is a development server platform where you can preview CMS code changes 
 
 ## Onboarding for Product Management members
  - [ ] Review [onboarding docs](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/PM/)
+ - [ ] [VA doc: Expectations for how VA internal Product Lead / Product Owners work with contractor PMs](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/octo/product/Product%20Expectations.md)
 
 ## Onboarding for UX members
 - [ ] Attend design onboarding call 1: You are here

@@ -1,0 +1,20 @@
+uuid: c0c0d2d8-35a7-4d76-b7e4-96c1c4a1c77f
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vba_facility
+id: node.vba_facility.menu_link
+field_name: menu_link
+entity_type: node
+bundle: vba_facility
+label: 'Menu link'
+description: 'Computed menu link for the node (only available during node saving).'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

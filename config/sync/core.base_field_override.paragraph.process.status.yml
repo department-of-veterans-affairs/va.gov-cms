@@ -1,0 +1,22 @@
+uuid: ad9df101-4e8b-4d7b-8911-85da19c3d6b8
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.process
+id: paragraph.process.status
+field_name: status
+entity_type: paragraph
+bundle: process
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

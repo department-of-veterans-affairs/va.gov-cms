@@ -1,0 +1,20 @@
+uuid: 200215fa-811a-4410-b670-325f95cf9cad
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vamc_system_policies_page
+id: node.vamc_system_policies_page.menu_link
+field_name: menu_link
+entity_type: node
+bundle: vamc_system_policies_page
+label: 'Menu link'
+description: 'Computed menu link for the node (only available during node saving).'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

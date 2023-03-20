@@ -1,0 +1,22 @@
+uuid: 9bedabc8-a9af-455d-b0de-f02b70f04d45
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.situation_update
+id: paragraph.situation_update.status
+field_name: status
+entity_type: paragraph
+bundle: situation_update
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

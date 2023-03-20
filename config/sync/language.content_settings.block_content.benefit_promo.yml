@@ -1,0 +1,18 @@
+uuid: 8401bc7f-213a-4eba-87d5-f73caa309f81
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.benefit_promo
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+id: block_content.benefit_promo
+target_entity_type_id: block_content
+target_bundle: benefit_promo
+default_langcode: site_default
+language_alterable: false

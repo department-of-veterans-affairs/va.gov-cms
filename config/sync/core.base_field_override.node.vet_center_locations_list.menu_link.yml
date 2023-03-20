@@ -1,0 +1,20 @@
+uuid: 57a839f2-b987-492d-b34c-7d843fb4b52d
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vet_center_locations_list
+id: node.vet_center_locations_list.menu_link
+field_name: menu_link
+entity_type: node
+bundle: vet_center_locations_list
+label: 'Menu link'
+description: 'Computed menu link for the node (only available during node saving).'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

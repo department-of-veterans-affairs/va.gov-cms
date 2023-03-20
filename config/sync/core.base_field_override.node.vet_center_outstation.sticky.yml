@@ -1,0 +1,22 @@
+uuid: 9fe2701c-3321-4279-89de-de2225e8c3c4
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vet_center_outstation
+id: node.vet_center_outstation.sticky
+field_name: sticky
+entity_type: node
+bundle: vet_center_outstation
+label: 'Sticky at top of lists'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

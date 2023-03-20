@@ -1,0 +1,22 @@
+uuid: 82704280-81e2-4a20-93cf-355f520120a8
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vet_center_facility_health_servi
+id: node.vet_center_facility_health_servi.promote
+field_name: promote
+entity_type: node
+bundle: vet_center_facility_health_servi
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

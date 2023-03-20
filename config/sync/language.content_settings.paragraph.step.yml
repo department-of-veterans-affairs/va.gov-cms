@@ -1,0 +1,18 @@
+uuid: cf37a4a5-2036-47fc-abcc-0f71f3d4cda0
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.step
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: paragraph.step
+target_entity_type_id: paragraph
+target_bundle: step
+default_langcode: site_default
+language_alterable: false
