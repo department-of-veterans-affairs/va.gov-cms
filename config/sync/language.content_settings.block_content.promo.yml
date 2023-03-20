@@ -1,0 +1,18 @@
+uuid: 270c958b-47a2-4726-be5c-1a566d6abccf
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.promo
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+id: block_content.promo
+target_entity_type_id: block_content
+target_bundle: promo
+default_langcode: site_default
+language_alterable: false

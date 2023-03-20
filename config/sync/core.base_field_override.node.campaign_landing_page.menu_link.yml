@@ -1,0 +1,20 @@
+uuid: e0f45ccd-34f5-4454-b6f0-3d54da404556
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.campaign_landing_page
+id: node.campaign_landing_page.menu_link
+field_name: menu_link
+entity_type: node
+bundle: campaign_landing_page
+label: 'Menu link'
+description: 'Computed menu link for the node (only available during node saving).'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

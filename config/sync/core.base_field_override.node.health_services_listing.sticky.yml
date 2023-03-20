@@ -1,0 +1,22 @@
+uuid: 22626870-098a-4ecc-b4a2-a87463dde89e
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.health_services_listing
+id: node.health_services_listing.sticky
+field_name: sticky
+entity_type: node
+bundle: health_services_listing
+label: 'Sticky at top of lists'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

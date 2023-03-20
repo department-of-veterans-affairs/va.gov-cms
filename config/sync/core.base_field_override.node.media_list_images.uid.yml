@@ -1,0 +1,20 @@
+uuid: 10fd933f-922b-4052-ae6c-176304d76356
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.media_list_images
+id: node.media_list_images.uid
+field_name: uid
+entity_type: node
+bundle: media_list_images
+label: 'Authored by'
+description: 'The username of the content author.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: 'Drupal\node\Entity\Node::getDefaultEntityOwner'
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

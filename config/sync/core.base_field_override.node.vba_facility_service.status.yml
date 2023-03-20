@@ -1,0 +1,22 @@
+uuid: 64003ab1-bc91-46b7-9207-9a284d8eec7f
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vba_facility_service
+id: node.vba_facility_service.status
+field_name: status
+entity_type: node
+bundle: vba_facility_service
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

@@ -1,0 +1,18 @@
+uuid: a13f20ea-48d9-4cd1-a825-74abe1bfec17
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.health_care_service_taxonomy
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: taxonomy_term.health_care_service_taxonomy
+target_entity_type_id: taxonomy_term
+target_bundle: health_care_service_taxonomy
+default_langcode: site_default
+language_alterable: false

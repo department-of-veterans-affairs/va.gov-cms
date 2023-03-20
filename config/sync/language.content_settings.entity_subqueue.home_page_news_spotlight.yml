@@ -1,0 +1,18 @@
+uuid: c89dec9b-c1c6-4a4b-b50e-53aaa8d2968a
+langcode: en
+status: true
+dependencies:
+  config:
+    - entityqueue.entity_queue.home_page_news_spotlight
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: entity_subqueue.home_page_news_spotlight
+target_entity_type_id: entity_subqueue
+target_bundle: home_page_news_spotlight
+default_langcode: site_default
+language_alterable: false

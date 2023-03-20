@@ -1,0 +1,20 @@
+uuid: c8ee4966-ab81-4787-bb6d-6e4bc628ec8c
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.health_care_local_facility
+id: node.health_care_local_facility.menu_link
+field_name: menu_link
+entity_type: node
+bundle: health_care_local_facility
+label: 'Menu link'
+description: 'Computed menu link for the node (only available during node saving).'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference
