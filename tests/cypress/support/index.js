@@ -16,3 +16,6 @@
 import "./commands";
 import "./accessibility";
 import "./log";
+
+// eslint-disable-next-line import/no-extraneous-dependencies
+require("cypress-terminal-report/src/installLogsCollector")();
