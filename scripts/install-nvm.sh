@@ -16,3 +16,6 @@ echo "nvm use 16.19.1" >> $BASH_ENV
 
 # Verify node is installed.
 node -v
+
+# Verify npm is installed.
+npm -v
