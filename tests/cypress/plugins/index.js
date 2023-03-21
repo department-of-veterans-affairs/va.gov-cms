@@ -27,7 +27,7 @@ module.exports = (on, config) => {
   on("file:preprocessor", cucumber());
   getCompareSnapshotsPlugin(on, config);
   cloudPlugin(on, config);
-  installLogsCollector(on, config);
+  installLogsCollector(on);
   on("task", {
     log(message) {
       console.log(message);
