@@ -39,7 +39,7 @@ Cypress.Commands.add("drupalDrushCommand", (command) => {
     cmd = "ddev drush %command";
   } else if (Cypress.env("CYPRESS_IN_GHA")) {
     const tugboatId = Cypress.env("TUGBOAT_PREVIEW_ID");
-    cmd = `tugboat --no-check-certificate --verbose --debug shell ${tugboatId} command='drush %command'`;
+    cmd = `tugboat --no-check-certificate --verbose --debug shell ${tugboatId} command="drush %command"`;
   }
   if (typeof command === "string") {
     command = [command];
