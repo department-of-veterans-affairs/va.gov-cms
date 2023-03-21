@@ -23,7 +23,7 @@ Scenario: Log in and create VAMC Facility Health Service as a Lovell editor
 
 # Phone number AJAX test
   Then I click the "Add new phone number" button
-  And I wait for "20" seconds
+  And I wait "20" seconds
   Then I should see an element with the selector "[data-drupal-selector*='edit-field-phone-numbers-paragraph-form-']"
 
 # Lovell Federal umbrella test
