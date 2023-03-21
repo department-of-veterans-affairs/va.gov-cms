@@ -97,6 +97,7 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
       [
         'content_admin',
         [
+          'accept translation jobs',
           'access administration pages',
           'access files overview',
           'access media overview',
@@ -888,7 +889,12 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
       [
         'translation_manager',
         [
+          'accept translation jobs',
           'create content translations',
+          'create translation jobs',
+          'delete translation jobs',
+          'provide translation services',
+          'submit translation jobs',
           'translate any entity',
           'translate configuration',
           'translate interface',
