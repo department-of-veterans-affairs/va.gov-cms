@@ -45,7 +45,7 @@ Cypress.Commands.add("drupalDrushCommand", (command) => {
     command = [command];
   }
   return cy.exec(cmd.replace("%command", command.join(" "))).then((result) => {
-    cy.log(result);
+    cy.log(JSON.stringify(result));
     return cy.wrap(result);
   });
 });
