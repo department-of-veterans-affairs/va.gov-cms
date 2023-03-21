@@ -21,9 +21,20 @@ yarn install
 yarn build:drupal
 popd
 
+if [[ "${CMS_ENVIRONMENT_TYPE}" == "tugboat" ]]; then
+
 pushd ./docroot/themes/custom/vagovclaro
-yarn install
-yarn build
+npm install
+npm run test
 popd
+
+else
+
+pushd ./docroot/themes/custom/vagovclaro
+npm install
+npm run prod
+popd
+
+fi
 
 popd > /dev/null
