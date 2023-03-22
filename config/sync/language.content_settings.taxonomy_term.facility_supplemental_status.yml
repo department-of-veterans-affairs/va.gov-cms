@@ -1,0 +1,18 @@
+uuid: 92977aef-d907-45b3-8f48-357bbc13f9da
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.facility_supplemental_status
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: taxonomy_term.facility_supplemental_status
+target_entity_type_id: taxonomy_term
+target_bundle: facility_supplemental_status
+default_langcode: site_default
+language_alterable: false

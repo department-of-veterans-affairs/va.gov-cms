@@ -39,7 +39,7 @@ Projected start date: <insert_here>
 - [ ] Contract - Discuss which contract you are on with your Delivery Manager or Program Manager. Your contract will determine your paperwork process.
 - [ ] Read the [VA.gov platform mission and goals](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/VA.gov%20Platform%20Overview%202021.pdf).
 - [ ] Read the [VA's Office of the CTO (OCTO) engineering excellence guiding principles](https://dsva.slack.com/archives/C04KXPXL4/p1674065912579799) [post in DSVA slack]
-- [ ] Open a VA.gov [Platform onboarding ticket](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=&labels=governance-team%2C+analytics-insights&template=orientation-epic.md&title=Platform+Orientation+Template+%5BYour+name+here%5D). 
+- [ ] Open a VA.gov [Platform orientation ticket](https://depo-platform-documentation.scrollhelp.site/getting-started/guidance-for-new-teams-and-team-members#Guidancefornewteamsandteammembers-NewVFSteammembers). 
     * The VA.gov Platform team manages VA.gov tooling and network access. In order to receive access to the SOCKS network proxy (described later), you must complete this Github issue, and attend a Platform orientation. 
     * That will result in adding you to the [VFS Platform roster](https://docs.google.com/spreadsheets/d/11dpCJjhs007uC6CWJI6djy3OAvjB8rHB65m0Yj8HXIw/edit?folder=0ALlyxurHpUilUk9PVA#gid=2042046665). 
     * If a Platform orientation isn't available for several weeks, sign up for the next available slot, then mention your Delivery Manager and/or Program Manager on your Platform ticket to expedite SOCKS access.
@@ -199,6 +199,7 @@ Tugboat is a development server platform where you can preview CMS code changes 
 
 ## Onboarding for Product Management members
  - [ ] Review [onboarding docs](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/PM/)
+ - [ ] [VA doc: Expectations for how VA internal Product Lead / Product Owners work with contractor PMs](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/octo/product/Product%20Expectations.md)
 
 ## Onboarding for UX members
 - [ ] Attend design onboarding call 1: You are here

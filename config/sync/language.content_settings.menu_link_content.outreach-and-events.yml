@@ -1,0 +1,18 @@
+uuid: 8d0249c1-5059-4c38-84be-f22420e50d54
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.outreach-and-events
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: menu_link_content.outreach-and-events
+target_entity_type_id: menu_link_content
+target_bundle: outreach-and-events
+default_langcode: site_default
+language_alterable: false

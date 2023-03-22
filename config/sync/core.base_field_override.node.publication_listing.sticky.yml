@@ -1,0 +1,22 @@
+uuid: 6d8353f8-68e2-43e3-808e-0b446e895237
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.publication_listing
+id: node.publication_listing.sticky
+field_name: sticky
+entity_type: node
+bundle: publication_listing
+label: 'Sticky at top of lists'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

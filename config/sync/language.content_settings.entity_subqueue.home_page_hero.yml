@@ -1,0 +1,18 @@
+uuid: 804d9eb9-dacd-43e5-ab8a-0ed9a2e26486
+langcode: en
+status: true
+dependencies:
+  config:
+    - entityqueue.entity_queue.home_page_hero
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: entity_subqueue.home_page_hero
+target_entity_type_id: entity_subqueue
+target_bundle: home_page_hero
+default_langcode: site_default
+language_alterable: false

@@ -1,0 +1,18 @@
+uuid: 33b2e786-d614-46d9-a891-a88cd1dd98fc
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.health_care_local_facility
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+id: node.health_care_local_facility
+target_entity_type_id: node
+target_bundle: health_care_local_facility
+default_langcode: site_default
+language_alterable: false

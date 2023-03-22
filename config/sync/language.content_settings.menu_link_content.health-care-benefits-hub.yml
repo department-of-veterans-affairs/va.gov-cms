@@ -1,0 +1,18 @@
+uuid: 93c01273-d946-4567-92fa-e7beeb4ce6a9
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.health-care-benefits-hub
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: menu_link_content.health-care-benefits-hub
+target_entity_type_id: menu_link_content
+target_bundle: health-care-benefits-hub
+default_langcode: site_default
+language_alterable: false

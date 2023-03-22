@@ -1,0 +1,18 @@
+uuid: da4a7d57-8ceb-4abd-8606-48d2f6450e33
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vet_center
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+id: node.vet_center
+target_entity_type_id: node
+target_bundle: vet_center
+default_langcode: site_default
+language_alterable: false
