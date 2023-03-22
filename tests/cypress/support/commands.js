@@ -83,9 +83,9 @@ Cypress.Commands.add(
   "drupalGetWatchdogMessages",
   (username, severity = "Warning") => {
     const fields = ["wid", "date", "type", "severity", "message", "username"];
-    const command = `watchdog:show --format=json --severity=${severity} --fields=\\"${fields.join(
+    const command = `watchdog:show --format=json --severity=${severity} --fields=${fields.join(
       ","
-    )}\\"`;
+    )}`;
     return cy.drupalDrushCommand(command).then((output) => {
       return cy
         .log(output)
