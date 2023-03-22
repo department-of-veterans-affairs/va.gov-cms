@@ -19,7 +19,7 @@ class SectionMatcherValidator extends ConstraintValidator {
     $fieldLabel = $items->getFieldDefinition()->getLabel();
     $nodeStorage = \Drupal::entityTypeManager()->getStorage('node');
     $termStorage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
-    // If the node is new, no Section has been set; so do not validate.
+    // If the node is new, the Section is empty; so do not validate.
     if (!empty($sectionTermID)) {
       $sectionName = $termStorage->load($sectionTermID)->getName();
       foreach ($items as $item) {
