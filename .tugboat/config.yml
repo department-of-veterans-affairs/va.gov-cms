@@ -150,6 +150,7 @@ services:
       update:
         # Install/update packages managed by composer, including drush.
         # Composer options are in composer.json, 'config' key.
+        - nvm install
         - composer install
         - ./bin/npm install
         - composer va:theme:compile
@@ -181,6 +182,7 @@ services:
         # This command is shared by the clone and build stages, make sure to update both stages.
         - j2 "${TUGBOAT_ROOT}/.web/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.web/403-error-document.html"
         - j2 "${TUGBOAT_ROOT}/.storybook/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.storybook/403-error-document.html"
+        - nvm install
         - composer install
         - ./bin/npm install
         - composer va:theme:compile
