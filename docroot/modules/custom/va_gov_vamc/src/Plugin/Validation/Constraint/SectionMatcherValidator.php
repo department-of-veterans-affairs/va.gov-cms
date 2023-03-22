@@ -20,7 +20,7 @@ class SectionMatcherValidator extends ConstraintValidator {
     $nodeStorage = \Drupal::entityTypeManager()->getStorage('node');
     $termStorage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
     // If the node is new, no Section has been set; so do not validate.
-    if (isset($sectionTermID)) {
+    if (!empty($sectionTermID)) {
       $sectionName = $termStorage->load($sectionTermID)->getName();
       foreach ($items as $item) {
         $referencedEntity = $nodeStorage->load($item->target_id);
