@@ -34,7 +34,6 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
     // Doing this without copying the array can cause segmentation faults.
     $expected = $expectedPerms;
     sort($expected);
-    
     // Sort $permissions for consistency.
     sort($permissions);
 
