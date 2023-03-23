@@ -41,7 +41,10 @@ Cypress.Commands.add("drupalDrushCommand", (command) => {
   if (typeof command === "string") {
     command = [command];
   }
-  return cy.exec(cmd.replace("%command", command.join(" ")));
+  return cy.exec(cmd.replace("%command", command.join(" "))).then((result) => {
+    cy.log(JSON.stringify(result));
+    return cy.wrap(result);
+  });
 });
 
 Cypress.Commands.add("drupalDrushEval", (php) => {

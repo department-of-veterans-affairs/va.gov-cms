@@ -16,6 +16,7 @@
     "stylelint-themes": "npx stylelint 'docroot/themes/custom/**/*.scss'",
     "stylelint": "npx stylelint",
     "test:cypress": "cypress run -e \"TAGS=$CYPRESS_TAGS\"",
+    "test:cypress:parallel": "cypress-cloud run -e \"TAGS=$CYPRESS_TAGS\" --record --parallel --ci-build-id $CYPRESS_BUILD_ID",
     "test:cypress:interactive": "cypress open -e \"TAGS=not @ignore and not @piv,VAGOV_INTERACTIVE=true\""
   },
   "repository": {
@@ -51,9 +52,11 @@
     "cross-env": "^5.2.1",
     "cypress": "^12.0.0",
     "cypress-axe": "^1.4.0",
+    "cypress-cloud": "^1.5.5",
     "cypress-cucumber-preprocessor": "^4.3.1",
     "cypress-file-upload": "^5.0.8",
     "cypress-real-events": "^1.7.6",
+    "cypress-terminal-report": "^5.0.2",
     "cypress-visual-regression": "^2.1.1",
     "cypress-xpath": "^1.6.2",
     "debug": "^3.2.7",
