@@ -92,6 +92,9 @@ services:
         - echo "export PATH=/var/lib/tugboat/bin:~/.local/bin:$PATH" >> ~/.bashrc
         - pip3 install j2cli
 
+        # Install GNU Parallel for parallelizing Cypress tests.
+        - apt-get install parallel
+
         # Set Datadog agent config defaults
         - j2 "${TUGBOAT_ROOT}/.tugboat/datadog.yaml.j2" -o "/etc/datadog-agent/datadog.yaml"
         - echo "export DD_TAGS=pr:$TUGBOAT_GITHUB_PR,branch:$TUGBOAT_GITHUB_HEAD" >> /etc/apache2/envvars
