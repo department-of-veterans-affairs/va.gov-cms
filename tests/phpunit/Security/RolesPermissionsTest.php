@@ -20,11 +20,13 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
    * @dataProvider expectedPerms
    */
   public function testSecurityRolesPermissions($roleMatch, $expectedPerms) {
+    sort($expectedPerms);
     $role = Role::load($roleMatch);
     $permissions = NULL;
 
     if (isset($role)) {
       $permissions = $role->getPermissions();
+      sort($permissions);
       $message = "The permissions for the " . $roleMatch . " do not match the expected permissions.  Make the expected look like this, to get the test passing: \n '" . implode("',\n '", $permissions) . "',\n";
     }
     else {
@@ -411,8 +413,8 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
           'view vet_center_mobile_vet_center revisions',
           'view vet_center_outstation revisions',
           'view vha_facility_nonclinical_service revisions',
-          'view video revisions',
           'view vha_facility_nonclinical_service revisions',
+          'view video revisions',
           'view workbench access information',
         ],
       ],
@@ -562,8 +564,8 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
           'view vet_center_mobile_vet_center revisions',
           'view vet_center_outstation revisions',
           'view vha_facility_nonclinical_service revisions',
-          'view video revisions',
           'view vha_facility_nonclinical_service revisions',
+          'view video revisions',
           'view workbench access information',
         ],
       ],
