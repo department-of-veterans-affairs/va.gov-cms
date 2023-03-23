@@ -17,87 +17,12 @@ base_table: tmgmt_local_task
 base_field: tltid
 display:
   default:
-    display_plugin: default
     id: default
     display_title: Master
+    display_plugin: default
     position: 0
     display_options:
-      access:
-        type: perm
-        options:
-          perm: 'provide translation services'
-      cache:
-        type: tag
-        options: {  }
-      query:
-        type: views_query
-        options:
-          disable_sql_rewrite: false
-          distinct: false
-          replica: false
-          query_comment: ''
-          query_tags: {  }
-      exposed_form:
-        type: basic
-        options:
-          submit_button: Filter
-          reset_button: false
-          reset_button_label: Reset
-          exposed_sorts_label: 'Sort by'
-          expose_sort_order: true
-          sort_asc_label: Asc
-          sort_desc_label: Desc
-      pager:
-        type: full
-        options:
-          items_per_page: 10
-          offset: 0
-          id: 0
-          total_pages: null
-          expose:
-            items_per_page: false
-            items_per_page_label: 'Items per page'
-            items_per_page_options: '5, 10, 25, 50'
-            items_per_page_options_all: false
-            items_per_page_options_all_label: '- All -'
-            offset: false
-            offset_label: Offset
-          tags:
-            previous: '‹ Previous'
-            next: 'Next ›'
-            first: '« First'
-            last: 'Last »'
-          quantity: 9
-      style:
-        type: table
-        options:
-          grouping: {  }
-          row_class: ''
-          default_row_class: true
-          override: true
-          sticky: false
-          caption: ''
-          summary: ''
-          description: ''
-          columns:
-            title: title
-          info:
-            title:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-          default: '-1'
-          empty_table: false
-      row:
-        type: fields
-        options:
-          inline: {  }
-          separator: ''
-          hide_empty: false
-          default_field_elements: true
+      title: 'Local Tasks'
       fields:
         tmgmt_local_task_bulk_form:
           id: tmgmt_local_task_bulk_form
@@ -106,6 +31,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: bulk_form
           label: 'Bulk update'
           exclude: false
           alter:
@@ -152,8 +79,6 @@ display:
           selected_actions:
             - tmgmt_local_task_assign_to_me
             - tmgmt_local_task_unassign_multiple
-          entity_type: tmgmt_local_task
-          plugin_id: bulk_form
         title:
           id: title
           table: tmgmt_local_task
@@ -161,6 +86,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          entity_field: title
+          plugin_id: field
           label: Label
           exclude: false
           alter:
@@ -216,9 +144,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: tmgmt_local_task
-          entity_field: title
-          plugin_id: field
         word_count:
           id: word_count
           table: tmgmt_local_task
@@ -226,6 +151,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: tmgmt_local_wordcount
           label: Words
           exclude: false
           alter:
@@ -267,8 +194,6 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          entity_type: tmgmt_local_task
-          plugin_id: tmgmt_local_wordcount
         item_count:
           id: item_count
           table: tmgmt_local_task
@@ -276,6 +201,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: tmgmt_local_item_count
           label: Items
           exclude: false
           alter:
@@ -318,8 +245,6 @@ display:
           empty_zero: false
           hide_alter_empty: true
           state: ''
-          entity_type: tmgmt_local_task
-          plugin_id: tmgmt_local_item_count
         progress:
           id: progress
           table: tmgmt_local_task
@@ -327,6 +252,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: tmgmt_local_progress
           label: Progress
           exclude: false
           alter:
@@ -368,8 +295,60 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          entity_type: tmgmt_local_task
-          plugin_id: tmgmt_local_progress
+      pager:
+        type: full
+        options:
+          offset: 0
+          items_per_page: 10
+          total_pages: null
+          id: 0
+          tags:
+            next: 'Next ›'
+            previous: '‹ Previous'
+            first: '« First'
+            last: 'Last »'
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
+          quantity: 9
+      exposed_form:
+        type: basic
+        options:
+          submit_button: Filter
+          reset_button: false
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      access:
+        type: perm
+        options:
+          perm: 'provide translation services'
+      cache:
+        type: tag
+        options: {  }
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: true
+          content:
+            value: 'You do not have tasks assigned to you.'
+            format: basic_html
+          tokenize: false
+      sorts: {  }
+      arguments: {  }
       filters:
         status:
           id: status
@@ -378,6 +357,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          entity_field: status
+          plugin_id: numeric
           operator: '='
           value:
             min: ''
@@ -391,6 +373,8 @@ display:
             description: ''
             use_operator: false
             operator: status_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: status
             required: false
             remember: false
@@ -399,8 +383,6 @@ display:
               authenticated: authenticated
               anonymous: '0'
               administrator: '0'
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -413,10 +395,57 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+      style:
+        type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          columns:
+            title: title
+          default: '-1'
+          info:
+            title:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          override: true
+          sticky: false
+          summary: ''
+          empty_table: false
+          caption: ''
+          description: ''
+      row:
+        type: fields
+        options:
+          default_field_elements: true
+          inline: {  }
+          separator: ''
+          hide_empty: false
+      query:
+        type: views_query
+        options:
+          query_comment: ''
+          disable_sql_rewrite: false
+          distinct: false
+          replica: false
+          query_tags: {  }
+      relationships:
+        tjid:
+          id: tjid
+          table: tmgmt_local_task
+          field: tjid
+          relationship: none
+          group_type: group
+          admin_label: 'Translation Job'
           entity_type: tmgmt_local_task
-          entity_field: status
-          plugin_id: numeric
-      sorts: {  }
+          entity_field: tjid
+          plugin_id: standard
+          required: false
+      link_display: unassigned
       header: {  }
       footer:
         footer:
@@ -426,39 +455,10 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          empty: true
           entity_type: tmgmt_local_task
           plugin_id: tmgmt_local_task_legend
-      empty:
-        area:
-          id: area
-          table: views
-          field: area
-          relationship: none
-          group_type: group
-          admin_label: ''
           empty: true
-          tokenize: false
-          content:
-            value: 'You do not have tasks assigned to you.'
-            format: basic_html
-          plugin_id: text
-      relationships:
-        tjid:
-          id: tjid
-          table: tmgmt_local_task
-          field: tjid
-          relationship: none
-          group_type: group
-          admin_label: 'Translation Job'
-          required: false
-          entity_type: tmgmt_local_task
-          entity_field: tjid
-          plugin_id: standard
-      arguments: {  }
       display_extenders: {  }
-      title: 'Local Tasks'
-      link_display: unassigned
     cache_metadata:
       max-age: 0
       contexts:
@@ -469,14 +469,11 @@ display:
         - user.permissions
       tags: {  }
   closed:
-    display_plugin: page
     id: closed
     display_title: 'Closed tasks'
+    display_plugin: page
     position: 7
     display_options:
-      display_extenders: {  }
-      path: translate/closed
-      display_description: 'Shows closed tasks for the current translator.'
       fields:
         tmgmt_local_task_bulk_form:
           id: tmgmt_local_task_bulk_form
@@ -485,6 +482,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: bulk_form
           label: 'Bulk update'
           exclude: false
           alter:
@@ -531,8 +530,6 @@ display:
           selected_actions:
             - tmgmt_local_task_assign_to_me
             - tmgmt_local_task_unassign_multiple
-          entity_type: tmgmt_local_task
-          plugin_id: bulk_form
         status:
           id: status
           table: tmgmt_local_task
@@ -540,6 +537,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: tmgmt_local_task_status
           label: Status
           exclude: false
           alter:
@@ -589,8 +588,6 @@ display:
           format_plural_string: !!binary MQNAY291bnQ=
           prefix: ''
           suffix: ''
-          entity_type: tmgmt_local_task
-          plugin_id: tmgmt_local_task_status
         progress:
           id: progress
           table: tmgmt_local_task
@@ -598,6 +595,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: tmgmt_local_progress
           label: Progress
           exclude: false
           alter:
@@ -639,8 +638,6 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          entity_type: tmgmt_local_task
-          plugin_id: tmgmt_local_progress
         title:
           id: title
           table: tmgmt_local_task
@@ -648,6 +645,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          entity_field: title
+          plugin_id: field
           label: Label
           exclude: false
           alter:
@@ -703,9 +703,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: tmgmt_local_task
-          entity_field: title
-          plugin_id: field
         source_language:
           id: source_language
           table: tmgmt_job
@@ -713,6 +710,9 @@ display:
           relationship: tjid
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_job
+          entity_field: source_language
+          plugin_id: field
           label: From
           exclude: false
           alter:
@@ -769,9 +769,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: tmgmt_job
-          entity_field: source_language
-          plugin_id: field
         target_language:
           id: target_language
           table: tmgmt_job
@@ -779,6 +776,9 @@ display:
           relationship: tjid
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_job
+          entity_field: target_language
+          plugin_id: field
           label: To
           exclude: false
           alter:
@@ -835,9 +835,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: tmgmt_job
-          entity_field: target_language
-          plugin_id: field
         word_count:
           id: word_count
           table: tmgmt_local_task
@@ -845,6 +842,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: tmgmt_local_wordcount
           label: Words
           exclude: false
           alter:
@@ -886,8 +885,6 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          entity_type: tmgmt_local_task
-          plugin_id: tmgmt_local_wordcount
         item_count:
           id: item_count
           table: tmgmt_local_task
@@ -895,6 +892,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: tmgmt_local_item_count
           label: Items
           exclude: false
           alter:
@@ -937,8 +936,6 @@ display:
           empty_zero: false
           hide_alter_empty: true
           state: ''
-          entity_type: tmgmt_local_task
-          plugin_id: tmgmt_local_item_count
         operations:
           id: operations
           table: tmgmt_local_task
@@ -946,6 +943,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: entity_operations
           label: Operations
           exclude: false
           alter:
@@ -988,14 +987,20 @@ display:
           empty_zero: false
           hide_alter_empty: true
           destination: true
-          entity_type: tmgmt_local_task
-          plugin_id: entity_operations
-      defaults:
-        fields: false
-        filters: false
-        filter_groups: false
-        empty: false
-        relationships: false
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: true
+          content:
+            value: 'You do not have closed tasks.'
+            format: basic_html
+          tokenize: false
       filters:
         uid_current:
           id: uid_current
@@ -1004,6 +1009,8 @@ display:
           relationship: tuid
           group_type: group
           admin_label: ''
+          entity_type: user
+          plugin_id: user_current
           operator: '='
           value: '1'
           group: 1
@@ -1014,14 +1021,14 @@ display:
             description: ''
             use_operator: false
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: ''
             required: false
             remember: false
             multiple: false
             remember_roles:
               authenticated: authenticated
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -1034,8 +1041,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: user
-          plugin_id: user_current
         status:
           id: status
           table: tmgmt_local_task
@@ -1043,6 +1048,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          entity_field: status
+          plugin_id: numeric
           operator: '='
           value:
             min: ''
@@ -1056,6 +1064,8 @@ display:
             description: ''
             use_operator: false
             operator: status_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: status
             required: false
             remember: false
@@ -1064,8 +1074,6 @@ display:
               authenticated: authenticated
               anonymous: '0'
               administrator: '0'
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -1078,9 +1086,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: tmgmt_local_task
-          entity_field: status
-          plugin_id: numeric
         source_language:
           id: source_language
           table: tmgmt_job
@@ -1088,6 +1093,9 @@ display:
           relationship: tjid
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_job
+          entity_field: source_language
+          plugin_id: language
           operator: in
           value: {  }
           group: 1
@@ -1098,6 +1106,8 @@ display:
             description: ''
             use_operator: false
             operator: source_language_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: source_language
             required: false
             remember: false
@@ -1107,8 +1117,6 @@ display:
               anonymous: '0'
               administrator: '0'
             reduce: false
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -1121,9 +1129,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: tmgmt_job
-          entity_field: source_language
-          plugin_id: language
         target_language:
           id: target_language
           table: tmgmt_job
@@ -1131,6 +1136,9 @@ display:
           relationship: tjid
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_job
+          entity_field: target_language
+          plugin_id: language
           operator: in
           value: {  }
           group: 1
@@ -1141,6 +1149,8 @@ display:
             description: ''
             use_operator: false
             operator: target_language_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: target_language
             required: false
             remember: false
@@ -1150,8 +1160,6 @@ display:
               anonymous: '0'
               administrator: '0'
             reduce: false
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -1164,9 +1172,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: tmgmt_job
-          entity_field: target_language
-          plugin_id: language
         title:
           id: title
           table: tmgmt_local_task
@@ -1174,6 +1179,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          entity_field: title
+          plugin_id: string
           operator: '='
           value: ''
           group: 1
@@ -1184,6 +1192,8 @@ display:
             description: ''
             use_operator: false
             operator: title_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: title
             required: false
             remember: false
@@ -1192,8 +1202,6 @@ display:
               authenticated: authenticated
               anonymous: '0'
               administrator: '0'
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -1206,36 +1214,16 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: tmgmt_local_task
-          entity_field: title
-          plugin_id: string
       filter_groups:
         operator: AND
         groups:
           1: AND
-      menu:
-        type: tab
-        title: Closed
-        description: ''
-        expanded: false
-        parent: ''
-        weight: 50
-        context: '0'
-        menu_name: main
-      empty:
-        area:
-          id: area
-          table: views
-          field: area
-          relationship: none
-          group_type: group
-          admin_label: ''
-          empty: true
-          tokenize: false
-          content:
-            value: 'You do not have closed tasks.'
-            format: basic_html
-          plugin_id: text
+      defaults:
+        empty: false
+        relationships: false
+        fields: false
+        filters: false
+        filter_groups: false
       relationships:
         tjid:
           id: tjid
@@ -1244,10 +1232,10 @@ display:
           relationship: none
           group_type: group
           admin_label: 'Translation Job'
-          required: false
           entity_type: tmgmt_local_task
           entity_field: tjid
           plugin_id: standard
+          required: false
         tuid:
           id: tuid
           table: tmgmt_local_task
@@ -1255,10 +1243,22 @@ display:
           relationship: none
           group_type: group
           admin_label: User
-          required: true
           entity_type: tmgmt_local_task
           entity_field: tuid
           plugin_id: standard
+          required: true
+      display_description: 'Shows closed tasks for the current translator.'
+      display_extenders: {  }
+      path: translate/closed
+      menu:
+        type: tab
+        title: Closed
+        description: ''
+        weight: 50
+        expanded: false
+        menu_name: main
+        parent: ''
+        context: '0'
     cache_metadata:
       max-age: 0
       contexts:
@@ -1270,14 +1270,11 @@ display:
         - user.permissions
       tags: {  }
   completed:
-    display_plugin: page
     id: completed
     display_title: 'Completed tasks'
+    display_plugin: page
     position: 5
     display_options:
-      display_extenders: {  }
-      path: translate/completed
-      display_description: 'Shows completed tasks for the current translator.'
       fields:
         tmgmt_local_task_bulk_form:
           id: tmgmt_local_task_bulk_form
@@ -1286,6 +1283,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: bulk_form
           label: 'Bulk update'
           exclude: false
           alter:
@@ -1332,8 +1331,6 @@ display:
           selected_actions:
             - tmgmt_local_task_assign_to_me
             - tmgmt_local_task_unassign_multiple
-          entity_type: tmgmt_local_task
-          plugin_id: bulk_form
         status:
           id: status
           table: tmgmt_local_task
@@ -1341,6 +1338,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: tmgmt_local_task_status
           label: Status
           exclude: false
           alter:
@@ -1390,8 +1389,6 @@ display:
           format_plural_string: !!binary MQNAY291bnQ=
           prefix: ''
           suffix: ''
-          entity_type: tmgmt_local_task
-          plugin_id: tmgmt_local_task_status
         progress:
           id: progress
           table: tmgmt_local_task
@@ -1399,6 +1396,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: tmgmt_local_progress
           label: Progress
           exclude: false
           alter:
@@ -1440,8 +1439,6 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          entity_type: tmgmt_local_task
-          plugin_id: tmgmt_local_progress
         title:
           id: title
           table: tmgmt_local_task
@@ -1449,6 +1446,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          entity_field: title
+          plugin_id: field
           label: Label
           exclude: false
           alter:
@@ -1504,9 +1504,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: tmgmt_local_task
-          entity_field: title
-          plugin_id: field
         source_language:
           id: source_language
           table: tmgmt_job
@@ -1514,6 +1511,9 @@ display:
           relationship: tjid
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_job
+          entity_field: source_language
+          plugin_id: field
           label: From
           exclude: false
           alter:
@@ -1570,9 +1570,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: tmgmt_job
-          entity_field: source_language
-          plugin_id: field
         target_language:
           id: target_language
           table: tmgmt_job
@@ -1580,6 +1577,9 @@ display:
           relationship: tjid
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_job
+          entity_field: target_language
+          plugin_id: field
           label: To
           exclude: false
           alter:
@@ -1636,9 +1636,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: tmgmt_job
-          entity_field: target_language
-          plugin_id: field
         word_count:
           id: word_count
           table: tmgmt_local_task
@@ -1646,6 +1643,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: tmgmt_local_wordcount
           label: Words
           exclude: false
           alter:
@@ -1687,8 +1686,6 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          entity_type: tmgmt_local_task
-          plugin_id: tmgmt_local_wordcount
         item_count:
           id: item_count
           table: tmgmt_local_task
@@ -1696,6 +1693,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: tmgmt_local_item_count
           label: Items
           exclude: false
           alter:
@@ -1738,8 +1737,6 @@ display:
           empty_zero: false
           hide_alter_empty: true
           state: ''
-          entity_type: tmgmt_local_task
-          plugin_id: tmgmt_local_item_count
         operations:
           id: operations
           table: tmgmt_local_task
@@ -1747,6 +1744,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: entity_operations
           label: Operations
           exclude: false
           alter:
@@ -1789,14 +1788,20 @@ display:
           empty_zero: false
           hide_alter_empty: true
           destination: true
-          entity_type: tmgmt_local_task
-          plugin_id: entity_operations
-      defaults:
-        fields: false
-        filters: false
-        filter_groups: false
-        empty: false
-        relationships: false
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: true
+          content:
+            value: 'You do not have completed tasks.'
+            format: basic_html
+          tokenize: false
       filters:
         uid_current:
           id: uid_current
@@ -1805,6 +1810,8 @@ display:
           relationship: tuid
           group_type: group
           admin_label: ''
+          entity_type: user
+          plugin_id: user_current
           operator: '='
           value: '1'
           group: 1
@@ -1815,14 +1822,14 @@ display:
             description: ''
             use_operator: false
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: ''
             required: false
             remember: false
             multiple: false
             remember_roles:
               authenticated: authenticated
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -1835,8 +1842,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: user
-          plugin_id: user_current
         status:
           id: status
           table: tmgmt_local_task
@@ -1844,6 +1849,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          entity_field: status
+          plugin_id: numeric
           operator: '='
           value:
             min: ''
@@ -1857,6 +1865,8 @@ display:
             description: ''
             use_operator: false
             operator: status_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: status
             required: false
             remember: false
@@ -1865,8 +1875,6 @@ display:
               authenticated: authenticated
               anonymous: '0'
               administrator: '0'
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -1879,9 +1887,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: tmgmt_local_task
-          entity_field: status
-          plugin_id: numeric
         source_language:
           id: source_language
           table: tmgmt_job
@@ -1889,6 +1894,9 @@ display:
           relationship: tjid
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_job
+          entity_field: source_language
+          plugin_id: language
           operator: in
           value: {  }
           group: 1
@@ -1899,6 +1907,8 @@ display:
             description: ''
             use_operator: false
             operator: source_language_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: source_language
             required: false
             remember: false
@@ -1908,8 +1918,6 @@ display:
               anonymous: '0'
               administrator: '0'
             reduce: false
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -1922,9 +1930,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: tmgmt_job
-          entity_field: source_language
-          plugin_id: language
         target_language:
           id: target_language
           table: tmgmt_job
@@ -1932,6 +1937,9 @@ display:
           relationship: tjid
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_job
+          entity_field: target_language
+          plugin_id: language
           operator: in
           value: {  }
           group: 1
@@ -1942,6 +1950,8 @@ display:
             description: ''
             use_operator: false
             operator: target_language_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: target_language
             required: false
             remember: false
@@ -1951,8 +1961,6 @@ display:
               anonymous: '0'
               administrator: '0'
             reduce: false
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -1965,9 +1973,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: tmgmt_job
-          entity_field: target_language
-          plugin_id: language
         title:
           id: title
           table: tmgmt_local_task
@@ -1975,6 +1980,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          entity_field: title
+          plugin_id: string
           operator: '='
           value: ''
           group: 1
@@ -1985,6 +1993,8 @@ display:
             description: ''
             use_operator: false
             operator: title_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: title
             required: false
             remember: false
@@ -1993,8 +2003,6 @@ display:
               authenticated: authenticated
               anonymous: '0'
               administrator: '0'
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -2007,36 +2015,16 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: tmgmt_local_task
-          entity_field: title
-          plugin_id: string
       filter_groups:
         operator: AND
         groups:
           1: AND
-      menu:
-        type: tab
-        title: Completed
-        description: ''
-        expanded: false
-        parent: ''
-        weight: 30
-        context: '0'
-        menu_name: main
-      empty:
-        area:
-          id: area
-          table: views
-          field: area
-          relationship: none
-          group_type: group
-          admin_label: ''
-          empty: true
-          tokenize: false
-          content:
-            value: 'You do not have completed tasks.'
-            format: basic_html
-          plugin_id: text
+      defaults:
+        empty: false
+        relationships: false
+        fields: false
+        filters: false
+        filter_groups: false
       relationships:
         tjid:
           id: tjid
@@ -2045,10 +2033,10 @@ display:
           relationship: none
           group_type: group
           admin_label: 'Translation Job'
-          required: false
           entity_type: tmgmt_local_task
           entity_field: tjid
           plugin_id: standard
+          required: false
         tuid:
           id: tuid
           table: tmgmt_local_task
@@ -2056,10 +2044,22 @@ display:
           relationship: none
           group_type: group
           admin_label: User
-          required: true
           entity_type: tmgmt_local_task
           entity_field: tuid
           plugin_id: standard
+          required: true
+      display_description: 'Shows completed tasks for the current translator.'
+      display_extenders: {  }
+      path: translate/completed
+      menu:
+        type: tab
+        title: Completed
+        description: ''
+        weight: 30
+        expanded: false
+        menu_name: main
+        parent: ''
+        context: '0'
     cache_metadata:
       max-age: 0
       contexts:
@@ -2071,14 +2071,11 @@ display:
         - user.permissions
       tags: {  }
   eligible:
-    display_plugin: page
     id: eligible
     display_title: Eligible
+    display_plugin: page
     position: 2
     display_options:
-      display_extenders: {  }
-      path: translate/elegible
-      display_description: 'Shows elegible (unasigned) tasks.'
       fields:
         tmgmt_local_task_bulk_form:
           id: tmgmt_local_task_bulk_form
@@ -2087,6 +2084,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: bulk_form
           label: 'Bulk update'
           exclude: false
           alter:
@@ -2133,8 +2132,6 @@ display:
           selected_actions:
             - tmgmt_local_task_assign_to_me
             - tmgmt_local_task_unassign_multiple
-          entity_type: tmgmt_local_task
-          plugin_id: bulk_form
         status:
           id: status
           table: tmgmt_local_task
@@ -2142,6 +2139,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: tmgmt_local_task_status
           label: Status
           exclude: false
           alter:
@@ -2191,8 +2190,6 @@ display:
           format_plural_string: !!binary MQNAY291bnQ=
           prefix: ''
           suffix: ''
-          entity_type: tmgmt_local_task
-          plugin_id: tmgmt_local_task_status
         title:
           id: title
           table: tmgmt_local_task
@@ -2200,6 +2197,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          entity_field: title
+          plugin_id: field
           label: Label
           exclude: false
           alter:
@@ -2255,9 +2255,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: tmgmt_local_task
-          entity_field: title
-          plugin_id: field
         source_language:
           id: source_language
           table: tmgmt_job
@@ -2265,6 +2262,9 @@ display:
           relationship: tjid
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_job
+          entity_field: source_language
+          plugin_id: field
           label: From
           exclude: false
           alter:
@@ -2321,9 +2321,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: tmgmt_job
-          entity_field: source_language
-          plugin_id: field
         target_language:
           id: target_language
           table: tmgmt_job
@@ -2331,6 +2328,9 @@ display:
           relationship: tjid
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_job
+          entity_field: target_language
+          plugin_id: field
           label: To
           exclude: false
           alter:
@@ -2387,9 +2387,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: tmgmt_job
-          entity_field: target_language
-          plugin_id: field
         word_count:
           id: word_count
           table: tmgmt_local_task
@@ -2397,6 +2394,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: tmgmt_local_wordcount
           label: Words
           exclude: false
           alter:
@@ -2438,8 +2437,6 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          entity_type: tmgmt_local_task
-          plugin_id: tmgmt_local_wordcount
         item_count:
           id: item_count
           table: tmgmt_local_task
@@ -2447,6 +2444,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: tmgmt_local_item_count
           label: Items
           exclude: false
           alter:
@@ -2489,8 +2488,6 @@ display:
           empty_zero: false
           hide_alter_empty: true
           state: ''
-          entity_type: tmgmt_local_task
-          plugin_id: tmgmt_local_item_count
         operations:
           id: operations
           table: tmgmt_local_task
@@ -2498,6 +2495,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: entity_operations
           label: Operations
           exclude: false
           alter:
@@ -2540,13 +2539,20 @@ display:
           empty_zero: false
           hide_alter_empty: true
           destination: true
-          entity_type: tmgmt_local_task
-          plugin_id: entity_operations
-      defaults:
-        fields: false
-        filters: false
-        filter_groups: false
-        empty: false
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: true
+          content:
+            value: 'You do not have eligible tasks.'
+            format: basic_html
+          tokenize: false
       filters:
         status:
           id: status
@@ -2555,6 +2561,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          entity_field: status
+          plugin_id: numeric
           operator: '='
           value:
             min: ''
@@ -2568,6 +2577,8 @@ display:
             description: ''
             use_operator: false
             operator: status_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: status
             required: false
             remember: false
@@ -2576,8 +2587,6 @@ display:
               authenticated: authenticated
               anonymous: '0'
               administrator: '0'
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -2590,9 +2599,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: tmgmt_local_task
-          entity_field: status
-          plugin_id: numeric
         eligible:
           id: eligible
           table: tmgmt_job
@@ -2600,6 +2606,8 @@ display:
           relationship: tjid
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_job
+          plugin_id: tmgmt_local_task_eligible
           operator: '='
           group: 1
           exposed: false
@@ -2609,14 +2617,14 @@ display:
             description: ''
             use_operator: false
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: ''
             required: false
             remember: false
             multiple: false
             remember_roles:
               authenticated: authenticated
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -2629,8 +2637,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: tmgmt_job
-          plugin_id: tmgmt_local_task_eligible
         source_language:
           id: source_language
           table: tmgmt_job
@@ -2638,6 +2644,9 @@ display:
           relationship: tjid
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_job
+          entity_field: source_language
+          plugin_id: language
           operator: in
           value: {  }
           group: 1
@@ -2648,6 +2657,8 @@ display:
             description: ''
             use_operator: false
             operator: source_language_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: source_language
             required: false
             remember: false
@@ -2657,8 +2668,6 @@ display:
               anonymous: '0'
               administrator: '0'
             reduce: false
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -2671,9 +2680,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: tmgmt_job
-          entity_field: source_language
-          plugin_id: language
         target_language:
           id: target_language
           table: tmgmt_job
@@ -2681,6 +2687,9 @@ display:
           relationship: tjid
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_job
+          entity_field: target_language
+          plugin_id: language
           operator: in
           value: {  }
           group: 1
@@ -2691,6 +2700,8 @@ display:
             description: ''
             use_operator: false
             operator: target_language_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: target_language
             required: false
             remember: false
@@ -2700,8 +2711,6 @@ display:
               anonymous: '0'
               administrator: '0'
             reduce: false
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -2714,9 +2723,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: tmgmt_job
-          entity_field: target_language
-          plugin_id: language
         title:
           id: title
           table: tmgmt_local_task
@@ -2724,6 +2730,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          entity_field: title
+          plugin_id: string
           operator: '='
           value: ''
           group: 1
@@ -2734,6 +2743,8 @@ display:
             description: ''
             use_operator: false
             operator: title_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: title
             required: false
             remember: false
@@ -2742,8 +2753,6 @@ display:
               authenticated: authenticated
               anonymous: '0'
               administrator: '0'
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -2756,36 +2765,27 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: tmgmt_local_task
-          entity_field: title
-          plugin_id: string
       filter_groups:
         operator: AND
         groups:
           1: AND
+      defaults:
+        empty: false
+        fields: false
+        filters: false
+        filter_groups: false
+      display_description: 'Shows elegible (unasigned) tasks.'
+      display_extenders: {  }
+      path: translate/elegible
       menu:
         type: tab
         title: Eligible
         description: 'List of eligible tasks'
-        expanded: false
-        parent: ''
         weight: 10
-        context: '0'
+        expanded: false
         menu_name: main
-      empty:
-        area:
-          id: area
-          table: views
-          field: area
-          relationship: none
-          group_type: group
-          admin_label: ''
-          empty: true
-          tokenize: false
-          content:
-            value: 'You do not have eligible tasks.'
-            format: basic_html
-          plugin_id: text
+        parent: ''
+        context: '0'
     cache_metadata:
       max-age: 0
       contexts:
@@ -2796,14 +2796,11 @@ display:
         - user.permissions
       tags: {  }
   my_tasks:
-    display_plugin: page
     id: my_tasks
     display_title: 'My Tasks'
+    display_plugin: page
     position: 3
     display_options:
-      display_extenders: {  }
-      path: translate/mine
-      display_description: 'Shows tasks for current user (translator).'
       fields:
         tmgmt_local_task_bulk_form:
           id: tmgmt_local_task_bulk_form
@@ -2812,6 +2809,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: bulk_form
           label: 'Bulk update'
           exclude: false
           alter:
@@ -2858,8 +2857,6 @@ display:
           selected_actions:
             - tmgmt_local_task_assign_to_me
             - tmgmt_local_task_unassign_multiple
-          entity_type: tmgmt_local_task
-          plugin_id: bulk_form
         status:
           id: status
           table: tmgmt_local_task
@@ -2867,6 +2864,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          entity_field: status
+          plugin_id: tmgmt_local_task_status
           label: Status
           exclude: false
           alter:
@@ -2909,9 +2909,6 @@ display:
           empty_zero: false
           hide_alter_empty: true
           separator: ', '
-          entity_type: tmgmt_local_task
-          entity_field: status
-          plugin_id: tmgmt_local_task_status
         progress:
           id: progress
           table: tmgmt_local_task
@@ -2919,6 +2916,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: tmgmt_local_progress
           label: Progress
           exclude: false
           alter:
@@ -2960,8 +2959,6 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          entity_type: tmgmt_local_task
-          plugin_id: tmgmt_local_progress
         title:
           id: title
           table: tmgmt_local_task
@@ -2969,6 +2966,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          entity_field: title
+          plugin_id: field
           label: Label
           exclude: false
           alter:
@@ -3024,9 +3024,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: tmgmt_local_task
-          entity_field: title
-          plugin_id: field
         source_language:
           id: source_language
           table: tmgmt_job
@@ -3034,6 +3031,9 @@ display:
           relationship: tjid
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_job
+          entity_field: source_language
+          plugin_id: field
           label: From
           exclude: false
           alter:
@@ -3090,9 +3090,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: tmgmt_job
-          entity_field: source_language
-          plugin_id: field
         target_language:
           id: target_language
           table: tmgmt_job
@@ -3100,6 +3097,9 @@ display:
           relationship: tjid
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_job
+          entity_field: target_language
+          plugin_id: field
           label: To
           exclude: false
           alter:
@@ -3156,9 +3156,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: tmgmt_job
-          entity_field: target_language
-          plugin_id: field
         word_count:
           id: word_count
           table: tmgmt_local_task
@@ -3166,6 +3163,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: tmgmt_local_wordcount
           label: Words
           exclude: false
           alter:
@@ -3207,8 +3206,6 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          entity_type: tmgmt_local_task
-          plugin_id: tmgmt_local_wordcount
         item_count:
           id: item_count
           table: tmgmt_local_task
@@ -3216,6 +3213,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: tmgmt_local_item_count
           label: Items
           exclude: false
           alter:
@@ -3258,8 +3257,6 @@ display:
           empty_zero: false
           hide_alter_empty: true
           state: ''
-          entity_type: tmgmt_local_task
-          plugin_id: tmgmt_local_item_count
         operations:
           id: operations
           table: tmgmt_local_task
@@ -3267,6 +3264,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: entity_operations
           label: Operations
           exclude: false
           alter:
@@ -3309,13 +3308,6 @@ display:
           empty_zero: false
           hide_alter_empty: true
           destination: true
-          entity_type: tmgmt_local_task
-          plugin_id: entity_operations
-      defaults:
-        fields: false
-        filters: false
-        filter_groups: false
-        relationships: false
       filters:
         uid_current:
           id: uid_current
@@ -3324,6 +3316,8 @@ display:
           relationship: tuid
           group_type: group
           admin_label: ''
+          entity_type: user
+          plugin_id: user_current
           operator: '='
           value: '1'
           group: 1
@@ -3334,14 +3328,14 @@ display:
             description: ''
             use_operator: false
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: ''
             required: false
             remember: false
             multiple: false
             remember_roles:
               authenticated: authenticated
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -3354,8 +3348,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: user
-          plugin_id: user_current
         status:
           id: status
           table: tmgmt_local_task
@@ -3363,6 +3355,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          entity_field: status
+          plugin_id: numeric
           operator: between
           value:
             min: '1'
@@ -3376,6 +3371,8 @@ display:
             description: ''
             use_operator: false
             operator: status_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: status
             required: false
             remember: false
@@ -3384,8 +3381,6 @@ display:
               authenticated: authenticated
               anonymous: '0'
               administrator: '0'
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -3398,9 +3393,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: tmgmt_local_task
-          entity_field: status
-          plugin_id: numeric
         source_language:
           id: source_language
           table: tmgmt_job
@@ -3408,6 +3400,9 @@ display:
           relationship: tjid
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_job
+          entity_field: source_language
+          plugin_id: language
           operator: in
           value: {  }
           group: 1
@@ -3418,6 +3413,8 @@ display:
             description: ''
             use_operator: false
             operator: source_language_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: source_language
             required: false
             remember: false
@@ -3427,8 +3424,6 @@ display:
               anonymous: '0'
               administrator: '0'
             reduce: false
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -3441,9 +3436,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: tmgmt_job
-          entity_field: source_language
-          plugin_id: language
         target_language:
           id: target_language
           table: tmgmt_job
@@ -3451,6 +3443,9 @@ display:
           relationship: tjid
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_job
+          entity_field: target_language
+          plugin_id: language
           operator: in
           value: {  }
           group: 1
@@ -3461,6 +3456,8 @@ display:
             description: ''
             use_operator: false
             operator: target_language_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: target_language
             required: false
             remember: false
@@ -3470,8 +3467,6 @@ display:
               anonymous: '0'
               administrator: '0'
             reduce: false
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -3484,9 +3479,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: tmgmt_job
-          entity_field: target_language
-          plugin_id: language
         title:
           id: title
           table: tmgmt_local_task
@@ -3494,6 +3486,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          entity_field: title
+          plugin_id: string
           operator: '='
           value: ''
           group: 1
@@ -3504,6 +3499,8 @@ display:
             description: ''
             use_operator: false
             operator: title_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: title
             required: false
             remember: false
@@ -3512,8 +3509,6 @@ display:
               authenticated: authenticated
               anonymous: '0'
               administrator: '0'
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -3526,13 +3521,15 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: tmgmt_local_task
-          entity_field: title
-          plugin_id: string
       filter_groups:
         operator: AND
         groups:
           1: AND
+      defaults:
+        relationships: false
+        fields: false
+        filters: false
+        filter_groups: false
       relationships:
         tjid:
           id: tjid
@@ -3541,10 +3538,10 @@ display:
           relationship: none
           group_type: group
           admin_label: 'Translation Job'
-          required: false
           entity_type: tmgmt_local_task
           entity_field: tjid
           plugin_id: standard
+          required: false
         tuid:
           id: tuid
           table: tmgmt_local_task
@@ -3552,10 +3549,13 @@ display:
           relationship: none
           group_type: group
           admin_label: User
-          required: true
           entity_type: tmgmt_local_task
           entity_field: tuid
           plugin_id: standard
+          required: true
+      display_description: 'Shows tasks for current user (translator).'
+      display_extenders: {  }
+      path: translate/mine
     cache_metadata:
       max-age: 0
       contexts:
@@ -3567,14 +3567,11 @@ display:
         - user.permissions
       tags: {  }
   pending:
-    display_plugin: page
     id: pending
     display_title: 'Pending tasks'
+    display_plugin: page
     position: 4
     display_options:
-      display_extenders: {  }
-      path: translate/pending
-      display_description: 'Shows pending tasks for the current translator.'
       fields:
         tmgmt_local_task_bulk_form:
           id: tmgmt_local_task_bulk_form
@@ -3583,6 +3580,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: bulk_form
           label: 'Bulk update'
           exclude: false
           alter:
@@ -3629,8 +3628,6 @@ display:
           selected_actions:
             - tmgmt_local_task_assign_to_me
             - tmgmt_local_task_unassign_multiple
-          entity_type: tmgmt_local_task
-          plugin_id: bulk_form
         status:
           id: status
           table: tmgmt_local_task
@@ -3638,6 +3635,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          entity_field: status
+          plugin_id: field
           label: Status
           exclude: false
           alter:
@@ -3694,9 +3694,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: tmgmt_local_task
-          entity_field: status
-          plugin_id: field
         progress:
           id: progress
           table: tmgmt_local_task
@@ -3704,6 +3701,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: tmgmt_local_progress
           label: Progress
           exclude: false
           alter:
@@ -3745,8 +3744,6 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          entity_type: tmgmt_local_task
-          plugin_id: tmgmt_local_progress
         title:
           id: title
           table: tmgmt_local_task
@@ -3754,6 +3751,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          entity_field: title
+          plugin_id: field
           label: Label
           exclude: false
           alter:
@@ -3809,9 +3809,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: tmgmt_local_task
-          entity_field: title
-          plugin_id: field
         source_language:
           id: source_language
           table: tmgmt_job
@@ -3819,6 +3816,9 @@ display:
           relationship: tjid
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_job
+          entity_field: source_language
+          plugin_id: field
           label: From
           exclude: false
           alter:
@@ -3875,9 +3875,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: tmgmt_job
-          entity_field: source_language
-          plugin_id: field
         target_language:
           id: target_language
           table: tmgmt_job
@@ -3885,6 +3882,9 @@ display:
           relationship: tjid
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_job
+          entity_field: target_language
+          plugin_id: field
           label: To
           exclude: false
           alter:
@@ -3941,9 +3941,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: tmgmt_job
-          entity_field: target_language
-          plugin_id: field
         word_count:
           id: word_count
           table: tmgmt_local_task
@@ -3951,6 +3948,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: tmgmt_local_wordcount
           label: Words
           exclude: false
           alter:
@@ -3992,8 +3991,6 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          entity_type: tmgmt_local_task
-          plugin_id: tmgmt_local_wordcount
         item_count:
           id: item_count
           table: tmgmt_local_task
@@ -4001,6 +3998,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: tmgmt_local_item_count
           label: Items
           exclude: false
           alter:
@@ -4043,8 +4042,6 @@ display:
           empty_zero: false
           hide_alter_empty: true
           state: ''
-          entity_type: tmgmt_local_task
-          plugin_id: tmgmt_local_item_count
         operations:
           id: operations
           table: tmgmt_local_task
@@ -4052,6 +4049,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: entity_operations
           label: Operations
           exclude: false
           alter:
@@ -4094,14 +4093,20 @@ display:
           empty_zero: false
           hide_alter_empty: true
           destination: true
-          entity_type: tmgmt_local_task
-          plugin_id: entity_operations
-      defaults:
-        fields: false
-        filters: false
-        filter_groups: false
-        empty: false
-        relationships: false
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: true
+          content:
+            value: 'You do not have pending tasks.'
+            format: basic_html
+          tokenize: false
       filters:
         uid_current:
           id: uid_current
@@ -4110,6 +4115,8 @@ display:
           relationship: tuid
           group_type: group
           admin_label: ''
+          entity_type: user
+          plugin_id: user_current
           operator: '='
           value: '1'
           group: 1
@@ -4120,14 +4127,14 @@ display:
             description: ''
             use_operator: false
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: ''
             required: false
             remember: false
             multiple: false
             remember_roles:
               authenticated: authenticated
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -4140,8 +4147,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: user
-          plugin_id: user_current
         status:
           id: status
           table: tmgmt_local_task
@@ -4149,6 +4154,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          entity_field: status
+          plugin_id: numeric
           operator: '='
           value:
             min: ''
@@ -4162,6 +4170,8 @@ display:
             description: ''
             use_operator: false
             operator: status_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: status
             required: false
             remember: false
@@ -4170,8 +4180,6 @@ display:
               authenticated: authenticated
               anonymous: '0'
               administrator: '0'
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -4184,9 +4192,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: tmgmt_local_task
-          entity_field: status
-          plugin_id: numeric
         source_language:
           id: source_language
           table: tmgmt_job
@@ -4194,6 +4199,9 @@ display:
           relationship: tjid
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_job
+          entity_field: source_language
+          plugin_id: language
           operator: in
           value: {  }
           group: 1
@@ -4204,6 +4212,8 @@ display:
             description: ''
             use_operator: false
             operator: source_language_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: source_language
             required: false
             remember: false
@@ -4213,8 +4223,6 @@ display:
               anonymous: '0'
               administrator: '0'
             reduce: false
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -4227,9 +4235,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: tmgmt_job
-          entity_field: source_language
-          plugin_id: language
         target_language:
           id: target_language
           table: tmgmt_job
@@ -4237,6 +4242,9 @@ display:
           relationship: tjid
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_job
+          entity_field: target_language
+          plugin_id: language
           operator: in
           value: {  }
           group: 1
@@ -4247,6 +4255,8 @@ display:
             description: ''
             use_operator: false
             operator: target_language_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: target_language
             required: false
             remember: false
@@ -4256,8 +4266,6 @@ display:
               anonymous: '0'
               administrator: '0'
             reduce: false
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -4270,9 +4278,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: tmgmt_job
-          entity_field: target_language
-          plugin_id: language
         title:
           id: title
           table: tmgmt_local_task
@@ -4280,6 +4285,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          entity_field: title
+          plugin_id: string
           operator: '='
           value: ''
           group: 1
@@ -4290,6 +4298,8 @@ display:
             description: ''
             use_operator: false
             operator: title_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: title
             required: false
             remember: false
@@ -4298,8 +4308,6 @@ display:
               authenticated: authenticated
               anonymous: '0'
               administrator: '0'
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -4312,36 +4320,16 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: tmgmt_local_task
-          entity_field: title
-          plugin_id: string
       filter_groups:
         operator: AND
         groups:
           1: AND
-      menu:
-        type: tab
-        title: Pending
-        description: ''
-        expanded: false
-        parent: ''
-        weight: 20
-        context: '0'
-        menu_name: main
-      empty:
-        area:
-          id: area
-          table: views
-          field: area
-          relationship: none
-          group_type: group
-          admin_label: ''
-          empty: true
-          tokenize: false
-          content:
-            value: 'You do not have pending tasks.'
-            format: basic_html
-          plugin_id: text
+      defaults:
+        empty: false
+        relationships: false
+        fields: false
+        filters: false
+        filter_groups: false
       relationships:
         tjid:
           id: tjid
@@ -4350,10 +4338,10 @@ display:
           relationship: none
           group_type: group
           admin_label: 'Translation Job'
-          required: false
           entity_type: tmgmt_local_task
           entity_field: tjid
           plugin_id: standard
+          required: false
         tuid:
           id: tuid
           table: tmgmt_local_task
@@ -4361,10 +4349,22 @@ display:
           relationship: none
           group_type: group
           admin_label: User
-          required: true
           entity_type: tmgmt_local_task
           entity_field: tuid
           plugin_id: standard
+          required: true
+      display_description: 'Shows pending tasks for the current translator.'
+      display_extenders: {  }
+      path: translate/pending
+      menu:
+        type: tab
+        title: Pending
+        description: ''
+        weight: 20
+        expanded: false
+        menu_name: main
+        parent: ''
+        context: '0'
     cache_metadata:
       max-age: 0
       contexts:
@@ -4376,14 +4376,11 @@ display:
         - user.permissions
       tags: {  }
   rejected:
-    display_plugin: page
     id: rejected
     display_title: 'Rejected tasks'
+    display_plugin: page
     position: 6
     display_options:
-      display_extenders: {  }
-      path: translate/rejected
-      display_description: 'Shows rejected tasks for the current translator.'
       fields:
         tmgmt_local_task_bulk_form:
           id: tmgmt_local_task_bulk_form
@@ -4392,6 +4389,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: bulk_form
           label: 'Bulk update'
           exclude: false
           alter:
@@ -4438,8 +4437,6 @@ display:
           selected_actions:
             - tmgmt_local_task_assign_to_me
             - tmgmt_local_task_unassign_multiple
-          entity_type: tmgmt_local_task
-          plugin_id: bulk_form
         status:
           id: status
           table: tmgmt_local_task
@@ -4447,6 +4444,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: tmgmt_local_task_status
           label: Status
           exclude: false
           alter:
@@ -4496,8 +4495,6 @@ display:
           format_plural_string: !!binary MQNAY291bnQ=
           prefix: ''
           suffix: ''
-          entity_type: tmgmt_local_task
-          plugin_id: tmgmt_local_task_status
         progress:
           id: progress
           table: tmgmt_local_task
@@ -4505,6 +4502,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: tmgmt_local_progress
           label: Progress
           exclude: false
           alter:
@@ -4546,8 +4545,6 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          entity_type: tmgmt_local_task
-          plugin_id: tmgmt_local_progress
         title:
           id: title
           table: tmgmt_local_task
@@ -4555,6 +4552,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          entity_field: title
+          plugin_id: field
           label: Label
           exclude: false
           alter:
@@ -4610,9 +4610,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: tmgmt_local_task
-          entity_field: title
-          plugin_id: field
         source_language:
           id: source_language
           table: tmgmt_job
@@ -4620,6 +4617,9 @@ display:
           relationship: tjid
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_job
+          entity_field: source_language
+          plugin_id: field
           label: From
           exclude: false
           alter:
@@ -4676,9 +4676,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: tmgmt_job
-          entity_field: source_language
-          plugin_id: field
         target_language:
           id: target_language
           table: tmgmt_job
@@ -4686,6 +4683,9 @@ display:
           relationship: tjid
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_job
+          entity_field: target_language
+          plugin_id: field
           label: To
           exclude: false
           alter:
@@ -4742,9 +4742,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: tmgmt_job
-          entity_field: target_language
-          plugin_id: field
         word_count:
           id: word_count
           table: tmgmt_local_task
@@ -4752,6 +4749,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: tmgmt_local_wordcount
           label: Words
           exclude: false
           alter:
@@ -4793,8 +4792,6 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          entity_type: tmgmt_local_task
-          plugin_id: tmgmt_local_wordcount
         item_count:
           id: item_count
           table: tmgmt_local_task
@@ -4802,6 +4799,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: tmgmt_local_item_count
           label: Items
           exclude: false
           alter:
@@ -4844,8 +4843,6 @@ display:
           empty_zero: false
           hide_alter_empty: true
           state: ''
-          entity_type: tmgmt_local_task
-          plugin_id: tmgmt_local_item_count
         operations:
           id: operations
           table: tmgmt_local_task
@@ -4853,6 +4850,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: entity_operations
           label: Operations
           exclude: false
           alter:
@@ -4895,14 +4894,20 @@ display:
           empty_zero: false
           hide_alter_empty: true
           destination: true
-          entity_type: tmgmt_local_task
-          plugin_id: entity_operations
-      defaults:
-        fields: false
-        filters: false
-        filter_groups: false
-        empty: false
-        relationships: false
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: true
+          content:
+            value: 'You do not have rejected tasks.'
+            format: basic_html
+          tokenize: false
       filters:
         uid_current:
           id: uid_current
@@ -4911,6 +4916,8 @@ display:
           relationship: tuid
           group_type: group
           admin_label: ''
+          entity_type: user
+          plugin_id: user_current
           operator: '='
           value: '1'
           group: 1
@@ -4921,14 +4928,14 @@ display:
             description: ''
             use_operator: false
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: ''
             required: false
             remember: false
             multiple: false
             remember_roles:
               authenticated: authenticated
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -4941,8 +4948,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: user
-          plugin_id: user_current
         status:
           id: status
           table: tmgmt_local_task
@@ -4950,6 +4955,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          entity_field: status
+          plugin_id: numeric
           operator: '='
           value:
             min: ''
@@ -4963,6 +4971,8 @@ display:
             description: ''
             use_operator: false
             operator: status_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: status
             required: false
             remember: false
@@ -4971,8 +4981,6 @@ display:
               authenticated: authenticated
               anonymous: '0'
               administrator: '0'
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -4985,9 +4993,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: tmgmt_local_task
-          entity_field: status
-          plugin_id: numeric
         source_language:
           id: source_language
           table: tmgmt_job
@@ -4995,6 +5000,9 @@ display:
           relationship: tjid
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_job
+          entity_field: source_language
+          plugin_id: language
           operator: in
           value: {  }
           group: 1
@@ -5005,6 +5013,8 @@ display:
             description: ''
             use_operator: false
             operator: source_language_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: source_language
             required: false
             remember: false
@@ -5014,8 +5024,6 @@ display:
               anonymous: '0'
               administrator: '0'
             reduce: false
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -5028,9 +5036,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: tmgmt_job
-          entity_field: source_language
-          plugin_id: language
         target_language:
           id: target_language
           table: tmgmt_job
@@ -5038,6 +5043,9 @@ display:
           relationship: tjid
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_job
+          entity_field: target_language
+          plugin_id: language
           operator: in
           value: {  }
           group: 1
@@ -5048,6 +5056,8 @@ display:
             description: ''
             use_operator: false
             operator: target_language_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: target_language
             required: false
             remember: false
@@ -5057,8 +5067,6 @@ display:
               anonymous: '0'
               administrator: '0'
             reduce: false
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -5071,9 +5079,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: tmgmt_job
-          entity_field: target_language
-          plugin_id: language
         title:
           id: title
           table: tmgmt_local_task
@@ -5081,6 +5086,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          entity_field: title
+          plugin_id: string
           operator: '='
           value: ''
           group: 1
@@ -5091,6 +5099,8 @@ display:
             description: ''
             use_operator: false
             operator: title_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: title
             required: false
             remember: false
@@ -5099,8 +5109,6 @@ display:
               authenticated: authenticated
               anonymous: '0'
               administrator: '0'
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -5113,36 +5121,16 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: tmgmt_local_task
-          entity_field: title
-          plugin_id: string
       filter_groups:
         operator: AND
         groups:
           1: AND
-      menu:
-        type: tab
-        title: Rejected
-        description: ''
-        expanded: false
-        parent: ''
-        weight: 40
-        context: '0'
-        menu_name: main
-      empty:
-        area:
-          id: area
-          table: views
-          field: area
-          relationship: none
-          group_type: group
-          admin_label: ''
-          empty: true
-          tokenize: false
-          content:
-            value: 'You do not have rejected tasks.'
-            format: basic_html
-          plugin_id: text
+      defaults:
+        empty: false
+        relationships: false
+        fields: false
+        filters: false
+        filter_groups: false
       relationships:
         tjid:
           id: tjid
@@ -5151,10 +5139,10 @@ display:
           relationship: none
           group_type: group
           admin_label: 'Translation Job'
-          required: false
           entity_type: tmgmt_local_task
           entity_field: tjid
           plugin_id: standard
+          required: false
         tuid:
           id: tuid
           table: tmgmt_local_task
@@ -5162,10 +5150,22 @@ display:
           relationship: none
           group_type: group
           admin_label: User
-          required: true
           entity_type: tmgmt_local_task
           entity_field: tuid
           plugin_id: standard
+          required: true
+      display_description: 'Shows rejected tasks for the current translator.'
+      display_extenders: {  }
+      path: translate/rejected
+      menu:
+        type: tab
+        title: Rejected
+        description: ''
+        weight: 40
+        expanded: false
+        menu_name: main
+        parent: ''
+        context: '0'
     cache_metadata:
       max-age: 0
       contexts:
@@ -5177,14 +5177,11 @@ display:
         - user.permissions
       tags: {  }
   unassigned:
-    display_plugin: page
     id: unassigned
     display_title: 'Eligible and mine'
+    display_plugin: page
     position: 1
     display_options:
-      display_extenders: {  }
-      path: translate/default
-      display_description: 'Shows elegible (unassigned) and mine tasks.'
       fields:
         tmgmt_local_task_bulk_form:
           id: tmgmt_local_task_bulk_form
@@ -5193,6 +5190,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: bulk_form
           label: 'Bulk update'
           exclude: false
           alter:
@@ -5239,8 +5238,6 @@ display:
           selected_actions:
             - tmgmt_local_task_assign_to_me
             - tmgmt_local_task_unassign_multiple
-          entity_type: tmgmt_local_task
-          plugin_id: bulk_form
         status:
           id: status
           table: tmgmt_local_task
@@ -5248,6 +5245,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: tmgmt_local_task_status
           label: Status
           exclude: false
           alter:
@@ -5297,8 +5296,6 @@ display:
           format_plural_string: !!binary MQNAY291bnQ=
           prefix: ''
           suffix: ''
-          entity_type: tmgmt_local_task
-          plugin_id: tmgmt_local_task_status
         title:
           id: title
           table: tmgmt_local_task
@@ -5306,6 +5303,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          entity_field: title
+          plugin_id: field
           label: Label
           exclude: false
           alter:
@@ -5361,9 +5361,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: tmgmt_local_task
-          entity_field: title
-          plugin_id: field
         source_language:
           id: source_language
           table: tmgmt_job
@@ -5371,6 +5368,9 @@ display:
           relationship: tjid
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_job
+          entity_field: source_language
+          plugin_id: field
           label: From
           exclude: false
           alter:
@@ -5427,9 +5427,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: tmgmt_job
-          entity_field: source_language
-          plugin_id: field
         target_language:
           id: target_language
           table: tmgmt_job
@@ -5437,6 +5434,9 @@ display:
           relationship: tjid
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_job
+          entity_field: target_language
+          plugin_id: field
           label: To
           exclude: false
           alter:
@@ -5493,9 +5493,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: tmgmt_job
-          entity_field: target_language
-          plugin_id: field
         word_count:
           id: word_count
           table: tmgmt_local_task
@@ -5503,6 +5500,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: tmgmt_local_wordcount
           label: Words
           exclude: false
           alter:
@@ -5544,8 +5543,6 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          entity_type: tmgmt_local_task
-          plugin_id: tmgmt_local_wordcount
         item_count:
           id: item_count
           table: tmgmt_local_task
@@ -5553,6 +5550,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: tmgmt_local_item_count
           label: Items
           exclude: false
           alter:
@@ -5595,8 +5594,6 @@ display:
           empty_zero: false
           hide_alter_empty: true
           state: ''
-          entity_type: tmgmt_local_task
-          plugin_id: tmgmt_local_item_count
         operations:
           id: operations
           table: tmgmt_local_task
@@ -5604,6 +5601,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          plugin_id: entity_operations
           label: Operations
           exclude: false
           alter:
@@ -5646,14 +5645,20 @@ display:
           empty_zero: false
           hide_alter_empty: true
           destination: true
-          entity_type: tmgmt_local_task
-          plugin_id: entity_operations
-      defaults:
-        fields: false
-        filters: false
-        filter_groups: false
-        footer: false
-        empty: false
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: true
+          content:
+            value: 'There are no eligible tasks.'
+            format: basic_html
+          tokenize: false
       filters:
         status:
           id: status
@@ -5662,6 +5667,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_local_task
+          entity_field: status
+          plugin_id: numeric
           operator: '='
           value:
             min: ''
@@ -5675,6 +5683,8 @@ display:
             description: ''
             use_operator: false
             operator: status_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: status
             required: false
             remember: false
@@ -5683,8 +5693,6 @@ display:
               authenticated: authenticated
               anonymous: '0'
               administrator: '0'
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -5697,9 +5705,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: tmgmt_local_task
-          entity_field: status
-          plugin_id: numeric
         eligible:
           id: eligible
           table: tmgmt_job
@@ -5707,6 +5712,8 @@ display:
           relationship: tjid
           group_type: group
           admin_label: ''
+          entity_type: tmgmt_job
+          plugin_id: tmgmt_local_task_eligible
           operator: '='
           group: 1
           exposed: false
@@ -5716,14 +5723,14 @@ display:
             description: ''
             use_operator: false
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: ''
             required: false
             remember: false
             multiple: false
             remember_roles:
               authenticated: authenticated
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -5736,26 +5743,17 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: tmgmt_job
-          plugin_id: tmgmt_local_task_eligible
       filter_groups:
         operator: AND
         groups:
           1: AND
-      menu:
-        type: 'default tab'
-        title: 'Unassigned and mine'
-        description: ''
-        expanded: false
-        parent: ''
-        weight: 0
-        context: '0'
-        menu_name: main
-      tab_options:
-        type: normal
-        title: Translate
-        description: ''
-        weight: 0
+      defaults:
+        empty: false
+        fields: false
+        filters: false
+        filter_groups: false
+        footer: false
+      display_description: 'Shows elegible (unassigned) and mine tasks.'
       footer:
         area:
           id: area
@@ -5764,12 +5762,12 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: text
           empty: false
-          tokenize: false
           content:
             value: '<h2>My Tasks</h2>'
             format: basic_html
-          plugin_id: text
+          tokenize: false
         view:
           id: view
           table: views
@@ -5777,24 +5775,26 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
+          plugin_id: view
           empty: false
           view_to_insert: 'tmgmt_local_task_overview:my_tasks'
           inherit_arguments: false
-          plugin_id: view
-      empty:
-        area:
-          id: area
-          table: views
-          field: area
-          relationship: none
-          group_type: group
-          admin_label: ''
-          empty: true
-          tokenize: false
-          content:
-            value: 'There are no eligible tasks.'
-            format: basic_html
-          plugin_id: text
+      display_extenders: {  }
+      path: translate/default
+      menu:
+        type: 'default tab'
+        title: 'Unassigned and mine'
+        description: ''
+        weight: 0
+        expanded: false
+        menu_name: main
+        parent: ''
+        context: '0'
+      tab_options:
+        type: normal
+        title: Translate
+        description: ''
+        weight: 0
     cache_metadata:
       max-age: 0
       contexts:
