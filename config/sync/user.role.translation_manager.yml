@@ -2,8 +2,11 @@ uuid: d7aa2ade-c81d-45f7-bdde-cc040fce83bf
 langcode: en
 status: true
 dependencies:
+  config:
+    - workflows.workflow.editorial
   module:
     - config_translation
+    - content_moderation
     - content_translation
     - locale
     - tmgmt
@@ -21,3 +24,11 @@ permissions:
   7: 'translate configuration'
   8: 'translate interface'
   9: 'update content translations'
+  10: 'use editorial transition approve'
+  11: 'use editorial transition archive'
+  12: 'use editorial transition create_new_draft'
+  13: 'use editorial transition publish'
+  14: 'use editorial transition archived_published'
+  15: 'use editorial transition review'
+  16: 'view any unpublished content'
+  17: 'view latest version'
