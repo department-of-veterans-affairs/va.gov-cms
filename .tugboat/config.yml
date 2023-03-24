@@ -154,7 +154,7 @@ services:
         - bash -lc 'nvm install'
         - bash -lc 'npm install'
         - bash -lc 'composer va:theme:compile'
-        - composer va:web:install
+        - bash -lc 'composer va:web:install'
 
         - curl --remote-name https://dsva-vagov-prod-cms-backup-sanitized.s3-us-gov-west-1.amazonaws.com/files/cms-prod-files-latest.tgz
         - tar --extract --gunzip --file cms-prod-files-latest.tgz --directory "${DOCROOT}/sites/default/files/"
@@ -186,7 +186,7 @@ services:
         - bash -lc 'nvm install'
         - bash -lc 'npm install'
         - bash -lc 'composer va:theme:compile'
-        - composer va:web:install
+        - bash -lc 'composer va:web:install'
         # https://www.drush.org/latest/deploycommand/ (updatedb, cache:rebuild, config:import, deploy:hook)
         - drush deploy
 
