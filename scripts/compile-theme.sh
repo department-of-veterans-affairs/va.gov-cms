@@ -10,7 +10,6 @@ popd
 
 export NODE_EXTRA_CA_CERTS=/etc/pki/tls/certs/ca-bundle.crt
 export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=TRUE
-nvm install
 
 pushd ./docroot/core
 yarn install
@@ -18,13 +17,11 @@ yarn build:css
 popd
 
 pushd ./docroot/design-system
-nvm install
 yarn install
 yarn build:drupal
 popd
 
 pushd ./docroot/themes/custom/vagovclaro
-nvm install
 yarn install
 yarn build
 popd

@@ -128,7 +128,7 @@ services:
         - pecl install memcache-8.0
         - docker-php-ext-enable memcache
 
-        # Install NVM
+        # Install node and npm.
         - ./scripts/install-nvm.sh
 
         # Ensure that we're using version 2 of composer.
@@ -150,10 +150,10 @@ services:
       update:
         # Install/update packages managed by composer, including drush.
         # Composer options are in composer.json, 'config' key.
-        - nvm install
         - composer install
-        - ./bin/npm install
-        - composer va:theme:compile
+        - bash -lc 'nvm install'
+        - bash -lc 'npm install'
+        - bash -lc 'composer va:theme:compile'
         - composer va:web:install
 
         - curl --remote-name https://dsva-vagov-prod-cms-backup-sanitized.s3-us-gov-west-1.amazonaws.com/files/cms-prod-files-latest.tgz
@@ -182,10 +182,10 @@ services:
         # This command is shared by the clone and build stages, make sure to update both stages.
         - j2 "${TUGBOAT_ROOT}/.web/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.web/403-error-document.html"
         - j2 "${TUGBOAT_ROOT}/.storybook/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.storybook/403-error-document.html"
-        - nvm install
         - composer install
-        - ./bin/npm install
-        - composer va:theme:compile
+        - bash -lc 'nvm install'
+        - bash -lc 'npm install'
+        - bash -lc 'composer va:theme:compile'
         - composer va:web:install
         # https://www.drush.org/latest/deploycommand/ (updatedb, cache:rebuild, config:import, deploy:hook)
         - drush deploy
