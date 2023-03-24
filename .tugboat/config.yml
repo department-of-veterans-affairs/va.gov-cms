@@ -220,11 +220,6 @@ services:
         # Build storybook and the frontend in parallel
         - bash -lc 'time task --taskfile=tugboat.yml'
 
-  sorry-cypress-director:
-    image: agoldis/sorry-cypress-director:latest
-    ports:
-      - 1234:1234
-
   memcache:
     image: tugboatqa/memcached:1.6
     commands:
