@@ -17,6 +17,7 @@ yarn build:css
 popd
 
 pushd ./docroot/design-system
+nvm install
 yarn install
 yarn build:drupal
 popd
@@ -24,6 +25,7 @@ popd
 if [[ "${CMS_ENVIRONMENT_TYPE}" == "tugboat" ]]; then
 
 pushd ./docroot/themes/custom/vagovclaro
+nvm install
 npm install
 npm run test
 popd
@@ -31,6 +33,7 @@ popd
 else
 
 pushd ./docroot/themes/custom/vagovclaro
+nvm install
 npm install
 npm run prod
 popd
