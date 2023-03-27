@@ -13,7 +13,7 @@ echo "Node $(node -v)"
 echo "NPM $(npm -v)"
 echo "Yarn $(yarn -v)"
 
-./scripts/composer/check-yarn-version.sh
+./scripts/composer/check_yarn_version.sh
 
 pushd "./web"
 yarn run install-repos
