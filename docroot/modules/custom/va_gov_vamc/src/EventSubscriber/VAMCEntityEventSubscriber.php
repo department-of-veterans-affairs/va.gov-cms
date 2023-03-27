@@ -2,10 +2,12 @@
 
 namespace Drupal\va_gov_vamc\EventSubscriber;
 
+use Drupal\Component\Render\FormattableMarkup;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManager;
@@ -22,7 +24,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * VA.gov VAMC Entity Event Subscriber.
  */
-class EntityEventSubscriber implements EventSubscriberInterface {
+class VAMCEntityEventSubscriber implements EventSubscriberInterface {
 
   // The UID of the CMS Help Desk account subscribing to facility messages.
   const USER_CMS_HELP_DESK_NOTIFICATIONS = 4050;
@@ -32,26 +34,26 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents(): array {
     return [
-      // React on Op status forms.
       'hook_event_dispatcher.form_node_vamc_operating_status_and_alerts_form.alter' => 'alterOpStatusNodeForm',
+      'hook_event_dispatcher.form_node_full_width_banner_alert_edit_form.alter' => 'alterFullWidthBannerNodeForm',
+      'hook_event_dispatcher.form_node_full_width_banner_alert_form.alter' => 'alterFullWidthBannerNodeForm',
+      'hook_event_dispatcher.form_node_health_care_local_facility_edit_form.alter' => 'alterFacilityNodeForm',
+      'hook_event_dispatcher.form_node_health_care_local_facility_form.alter' => 'alterFacilityNodeForm',
+      'hook_event_dispatcher.form_node_regional_health_care_service_des_edit_form.alter' => 'alterRegionalHealthCareServiceDesNodeForm',
+      'hook_event_dispatcher.form_node_regional_health_care_service_des_form.alter' => 'alterRegionalHealthCareServiceDesNodeForm',
       'hook_event_dispatcher.form_node_vamc_operating_status_and_alerts_edit_form.alter' => 'alterOpStatusNodeForm',
+      'hook_event_dispatcher.form_node_vamc_system_billing_insurance_edit_form.alter' => 'alterTopTaskNodeForm',
+      'hook_event_dispatcher.form_node_vamc_system_billing_insurance_form.alter' => 'alterTopTaskNodeForm',
+      'hook_event_dispatcher.form_node_vamc_system_medical_records_offi_edit_form.alter' => 'alterTopTaskNodeForm',
+      'hook_event_dispatcher.form_node_vamc_system_medical_records_offi_form.alter' => 'alterTopTaskNodeForm',
+      'hook_event_dispatcher.form_node_vamc_system_policies_page_edit_form.alter' => 'alterTopTaskNodeForm',
+      'hook_event_dispatcher.form_node_vamc_system_policies_page_form.alter' => 'alterTopTaskNodeForm',
+      'hook_event_dispatcher.form_node_vamc_system_register_for_care_edit_form.alter' => 'alterTopTaskNodeForm',
+      'hook_event_dispatcher.form_node_vamc_system_register_for_care_form.alter' => 'alterTopTaskNodeForm',
       EntityHookEvents::ENTITY_INSERT => 'entityInsert',
       EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
+      EntityHookEvents::ENTITY_VIEW_ALTER => 'entityViewAlter',
       EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
-      'hook_event_dispatcher.form_node_full_width_banner_alert_form.alter' => 'alterFullWidthBannerNodeForm',
-      'hook_event_dispatcher.form_node_full_width_banner_alert_edit_form.alter' => 'alterFullWidthBannerNodeForm',
-      'hook_event_dispatcher.form_node_regional_health_care_service_des_form.alter' => 'alterRegionalHealthCareServiceDesNodeForm',
-      'hook_event_dispatcher.form_node_regional_health_care_service_des_edit_form.alter' => 'alterRegionalHealthCareServiceDesNodeForm',
-      'hook_event_dispatcher.form_node_vamc_system_register_for_care_form.alter' => 'alterTopTaskNodeForm',
-      'hook_event_dispatcher.form_node_vamc_system_register_for_care_edit_form.alter' => 'alterTopTaskNodeForm',
-      'hook_event_dispatcher.form_node_vamc_system_medical_records_offi_form.alter' => 'alterTopTaskNodeForm',
-      'hook_event_dispatcher.form_node_vamc_system_medical_records_offi_edit_form.alter' => 'alterTopTaskNodeForm',
-      'hook_event_dispatcher.form_node_vamc_system_billing_insurance_form.alter' => 'alterTopTaskNodeForm',
-      'hook_event_dispatcher.form_node_vamc_system_billing_insurance_edit_form.alter' => 'alterTopTaskNodeForm',
-      'hook_event_dispatcher.form_node_vamc_system_policies_page_form.alter' => 'alterTopTaskNodeForm',
-      'hook_event_dispatcher.form_node_vamc_system_policies_page_edit_form.alter' => 'alterTopTaskNodeForm',
-      'hook_event_dispatcher.form_node_health_care_local_facility_form.alter' => 'alterFacilityNodeForm',
-      'hook_event_dispatcher.form_node_health_care_local_facility_edit_form.alter' => 'alterFacilityNodeForm',
     ];
   }
 
@@ -131,6 +133,16 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $this->userPermsService = $user_perms_service;
     $this->contentHardeningDeduper = $content_hardening_deduper;
     $this->notificationsManager = $notifications_manager;
+  }
+
+  /**
+   * Alteration to entity view pages.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
+   *   The entity view alter service.
+   */
+  public function entityViewAlter(EntityViewAlterEvent $event):void {
+    $this->showUnspecifiedWhenSystemEhrNumberEmpty($event);
   }
 
   /**
@@ -370,6 +382,29 @@ class EntityEventSubscriber implements EventSubscriberInterface {
         }
       }
     }
+  }
+
+  /**
+   * Shows the text "Unspecified" when phone number is blank.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
+   *   The entity view alter service.
+   */
+  public function showUnspecifiedWhenSystemEhrNumberEmpty(EntityViewAlterEvent $event):void {
+    if ($event->getDisplay()->getTargetBundle() === 'health_care_region_page') {
+      $build = &$event->getBuild();
+      if (empty($build['field_va_health_connect_phone']['#title'])) {
+        $undefined_number_text = '
+          <div class="field field--name-field-va-health-connect-phone field--type-list-string field--label-above">
+              <div class="field__label">VA Health Connect phone number</div>
+              <div class="field__item">Undefined</div>
+          </div>';
+
+        $formatted_markup = new FormattableMarkup($undefined_number_text, []);
+        $build['field_va_health_connect_phone']['#prefix'] = $formatted_markup;
+      }
+    }
+
   }
 
 }
