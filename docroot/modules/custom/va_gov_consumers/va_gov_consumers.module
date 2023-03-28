@@ -36,18 +36,6 @@ function va_gov_consumers_form_alter(&$form, FormStateInterface $form_state, $fo
 }
 
 /**
- * Callback for table field widget.
- *
- * @param object $element
- *   The field object.
- */
-function _va_gov_consumers_customize_table($element) {
-  unset($element['tablefield']['import']);
-  unset($element['tablefield']['rebuild']);
-  return $element;
-}
-
-/**
  * Disable api sourced fields on vha local facility to prevent human editing.
  *
  * @param array $form
@@ -64,12 +52,6 @@ function _va_gov_consumers_disable_vha_api_form_fields(array &$form, $form_id) {
     // should not be altered, or it will deviate from the API.
     if (!empty($form['field_facility_locator_api_id']['widget'][0]['value']['#default_value'])) {
       $form['field_facility_locator_api_id']['widget'][0]['value']['#attributes']['disabled'] = TRUE;
-    }
-    // Special handling for the table field widget.
-    $form['field_facility_hours']['widget'][0]['#after_build'][] = '_va_gov_consumers_customize_table';
-    $form['field_facility_hours']['widget'][0]['#addrow'] = FALSE;
-    if (isset($form['field_facility_hours']['widget'][0]['caption'])) {
-      unset($form['field_facility_hours']['widget'][0]['caption']);
     }
   }
 }
