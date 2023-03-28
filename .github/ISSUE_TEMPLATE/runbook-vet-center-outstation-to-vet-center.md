@@ -8,8 +8,8 @@ assignees: ''
 ---
 # Vet Center Outstation becomes a Vet Center
 ## Background
-  Oustations have entries in VAST. When an Outstation becomes a full Vet Center,
-  it gets a **new entry in VAST**. When this happens, it will have a node created
+  Outstations have entries in VAST. When an Outstation becomes a full Vet Center,
+  it gets a **new entry in VAST** with a new facility API id. When this happens, it will have a node created
   for it as part of the migration.
 ## Intake
 - [ ] What triggered this runbook? (Flag in CMS, Help desk ticket, Product team, VHA Digital Media)
@@ -31,7 +31,7 @@ Facility link: <insert_facility_link>
 ### CMS help desk steps
 #### Edit new Vet Center
 - [ ] 1. Become aware that the new Vet Center is now in the Facility API and in the CMS (typically, via a Flag, but this may come in as a help desk ticket).
-- [ ] 2. Check with RCS(?) what district it belongs to.
+- [ ] 2. Check with RCS(?) what district it belongs to, or it may be pulled from the former Outstation.
 - [ ] 3. Update the Section (default is "Vet Center", but it should be under a district).
 - [ ] 4.  Communicate with editor (cc VHA Digital Media) to give them go-ahead to complete the content. An Outstation does not have any services, but a Vet Center does, so these must be added.
 #### Publish new Vet Center
