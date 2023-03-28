@@ -1,0 +1,22 @@
+uuid: 4a9f4b24-ce54-4299-a46c-ae5caf18b5cd
+langcode: en
+status: true
+dependencies:
+  module:
+    - consumers
+id: consumer.consumer.pkce
+field_name: pkce
+entity_type: consumer
+bundle: consumer
+label: 'Use PKCE?'
+description: 'A boolean indicating whether the client uses @pkce (e.g., a native client or SPA)'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

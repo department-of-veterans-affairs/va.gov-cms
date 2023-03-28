@@ -1,0 +1,20 @@
+uuid: 66724ff0-35b8-46ff-9201-0cfb4309de2f
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vamc_system_register_for_care
+id: node.vamc_system_register_for_care.uid
+field_name: uid
+entity_type: node
+bundle: vamc_system_register_for_care
+label: 'Authored by'
+description: 'The username of the content author.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: 'Drupal\node\Entity\Node::getDefaultEntityOwner'
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

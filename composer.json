@@ -18,7 +18,7 @@
         "caxy/php-htmldiff": "^0.1.14",
         "composer/installers": "^2.2.0",
         "cweagans/composer-patches": "^1.7",
-        "datadog/dd-trace": "^0.84.0",
+        "datadog/dd-trace": "^0.86.0",
         "drupal/address": "^1.4",
         "drupal/admin_feedback": "^2.2",
         "drupal/admin_toolbar": "^3.0",
@@ -75,7 +75,7 @@
         "drupal/flag": "^4.0@beta",
         "drupal/flood_control": "^2.2.2",
         "drupal/flysystem_s3": "^2.0@RC",
-        "drupal/formdazzle": "^2.1",
+        "drupal/formdazzle": "^3.0",
         "drupal/geocoder": "^4.4",
         "drupal/geofield": "^1.39",
         "drupal/geofield_map": "^3.0",
@@ -109,7 +109,7 @@
         "drupal/memcache_admin": "^2.3",
         "drupal/menu_breadcrumb": "^1.8",
         "drupal/menu_export": "^1.2",
-        "drupal/menu_force": "^1.2",
+        "drupal/menu_force": "^2.0",
         "drupal/menu_item_extras": "^2.7",
         "drupal/menu_link_attributes": "^1.2",
         "drupal/menu_normalizer": "^2.0",
@@ -123,6 +123,7 @@
         "drupal/migrate_source_ui": "^1.0@RC",
         "drupal/migrate_tools": "5.x-dev#7ae3747d1e30790d11c2eefcc56e0796bea25c76",
         "drupal/migration_tools": "^2.3",
+        "drupal/mimemail": "^1.0@alpha",
         "drupal/monolog": "^2.0",
         "drupal/next": "^1.1",
         "drupal/node_link_report": "^1.14",
@@ -157,17 +158,17 @@
         "drupal/simplesamlphp_auth": "4.x-dev@dev",
         "drupal/sitewide_alert": "^2.0",
         "drupal/slack": "^1.3",
-        "drupal/smart_date": "^3.7@RC",
+        "drupal/smart_date": "^3.7",
         "drupal/social_media_links": "^2.8",
         "drupal/string_field_formatter": "^2.0",
         "drupal/styleguide": "^2.0@beta",
-        "drupal/tablefield": "^2.1",
+        "drupal/tablefield": "^2.4",
         "drupal/taxonomy_entity_index": "^1.1",
         "drupal/taxonomy_menu": "3.x-dev#e89d1e8",
         "drupal/textfield_counter": "^2.0",
         "drupal/toolbar_menu": "^3.0",
         "drupal/twig_tweak": "^3.1",
-        "drupal/upgrade_status": "^4.0@alpha",
+        "drupal/upgrade_status": "^4.0",
         "drupal/user_history": "^1.0@alpha",
         "drupal/video_embed_media": "^2.2",
         "drupal/viewfield": "^3.0@beta",
@@ -202,7 +203,7 @@
         "symfony/console": "^6.2",
         "symfony/phpunit-bridge": "^5.1",
         "traviscarden/behat-table-comparison": "~0.2",
-        "va-gov/content-build": "^0.0.3208",
+        "va-gov/content-build": "^0.0.3225",
         "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
@@ -298,7 +299,7 @@
             "mouf/nodejs-installer": true,
             "oomphinc/composer-installers-extender": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
-            "topfloor/composer-cleanup-vcs-dirs": true,
+            "php-http/discovery": true,
             "php-http/discovery": true
         }
     },
@@ -322,7 +323,7 @@
         },
         "mouf": {
             "nodejs": {
-                "version": "16.0.0",
+                "version": "^16.0.0",
                 "targetDir": "docroot/vendor/nodejs/nodejs",
                 "forceLocal": true
             }
@@ -385,7 +386,8 @@
                 "2775665 - MenuLinkContent updateLink function generates a PHP Warning for override-able keys that are not present in the loaded entity": "https://www.drupal.org/files/issues/2021-09-17/updateLink-2775665-14.patch",
                 "2975602 - Html::serialize() escapes backslash-r to &#13;": "https://www.drupal.org/files/issues/2018-05-27/2975602-2-html_serialize.patch",
                 "Claro claro_preprocess_input()": "patches/drupal-core-claro_preprocess_input.patch",
-                "1156338 - Fixed maximum number of field values, but use «add more» similar to when cardinality «unlimited» is used": "https://www.drupal.org/files/issues/2022-01-27/drupal-fix-limited-cardinality-fields-1156338-23.patch"
+                "1156338 - Fixed maximum number of field values, but use «add more» similar to when cardinality «unlimited» is used": "https://www.drupal.org/files/issues/2022-01-27/drupal-fix-limited-cardinality-fields-1156338-23.patch",
+                "2942404 - Contentinfo landmark" : "https://www.drupal.org/files/issues/2023-01-17/2942404-43.patch"
             },
             "drupal/csv_serialization": {
                 "3317133 - [Drupal 10, Drush 11] PHP Fatal error on install": "https://www.drupal.org/files/issues/2023-02-01/3317133-drupal-10-php-fatal-error_0.patch",
@@ -499,6 +501,9 @@
             "drupal/raven": {
                 "Sentry/Dsn throws a TypeError, blowing up everything.": "patches/raven-catch-typeerror.patch"
             },
+            "drupal/redirect_options": {
+                "form_alter hook check on classes fails in some cases": "https://www.drupal.org/files/issues/2023-01-23/redirect_options-form_alter_array_check-3335893-2.patch"
+            },
             "drupal/schemata": {
                 "3190131 - Possibly unnecessary logging in SchemaFactory::create().": "https://www.drupal.org/files/issues/2020-12-28/schemata-remove-logging-statement-3190131-2.patch"
             },
@@ -512,14 +517,14 @@
                 "63049395 - Get same results on different request": "https://www.drupal.org/files/issues/2019-07-18/change_request_type-63049395-09.patch"
             },
             "drupal/smart_date": {
-                "3260965 - Undefined index: #value": "https://www.drupal.org/files/issues/2022-01-27/smart_date_undefined_value_in_validation.patch",
-                "Editing event series causes ajax error 500": "patches/smart_date_missing_route.patch"
+                "3260965 - Undefined index: #value": "https://www.drupal.org/files/issues/2022-01-27/smart_date_undefined_value_in_validation.patch"
             },
             "drupal/tablefield": {
                 "3100109 - 0 string value in cell throws empty error": "https://www.drupal.org/files/issues/2019-12-10/0-value-throwing-empty-error.patch",
                 "3163841 - Fix Undefined index: caption notice": "https://www.drupal.org/files/issues/2020-08-10/tablefield-empty-caption-notice-2.patch",
                 "3176982 - Tablefield input elements have no title or label": "https://www.drupal.org/files/issues/2020-10-14/tablefield-add_title_to_input_elements-3176982-2.patch",
-                "3195203 - Copying caption to value breaks some data exports 3195203": "https://www.drupal.org/files/issues/2021-01-28/tablefield-caption-copied-to-value-3195203-2.patch"
+                "3195203 - Copying caption to value breaks some data exports 3195203": "https://www.drupal.org/files/issues/2021-01-28/tablefield-caption-copied-to-value-3195203-2.patch",
+		"3341971 - Drag & drop addition adds meaningless numbers to table data, could break integrating code": "https://www.drupal.org/files/issues/2023-03-23/tablefield-disable-drag-drop-controls.patch"
             },
             "drupal/textfield_counter": {
                 "3004457 - Prevent form submission when character limit exceeded option does not work": "https://www.drupal.org/files/issues/2018-10-04/textfield_counter-prevent_form_submission_does_not_work-3004457-2.patch",

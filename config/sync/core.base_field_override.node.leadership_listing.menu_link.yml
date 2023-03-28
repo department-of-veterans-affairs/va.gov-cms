@@ -1,0 +1,20 @@
+uuid: 4de4c7f9-6092-47e8-a4a0-5fd5bd0d7e70
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.leadership_listing
+id: node.leadership_listing.menu_link
+field_name: menu_link
+entity_type: node
+bundle: leadership_listing
+label: 'Menu link'
+description: 'Computed menu link for the node (only available during node saving).'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

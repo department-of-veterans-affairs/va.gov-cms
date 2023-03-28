@@ -8,6 +8,9 @@ const axeContext = {
     [
       "iframe#jsd-widget", // Not really under our control.
     ],
+    [
+      "ul.pager__items", // See department-of-veterans-affairs/va.gov-cms#12912.
+    ],
   ],
 };
 

@@ -1,0 +1,22 @@
+uuid: c3659e67-b697-40fc-ac94-1e649433dc75
+langcode: en
+status: true
+dependencies:
+  config:
+    - entityqueue.entity_queue.v2_home_page_create_account
+id: entity_subqueue.v2_home_page_create_account.status
+field_name: status
+entity_type: entity_subqueue
+bundle: v2_home_page_create_account
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

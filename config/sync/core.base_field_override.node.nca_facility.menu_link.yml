@@ -1,0 +1,20 @@
+uuid: 15219bc9-58ec-43ca-af1b-9d73b03b391f
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.nca_facility
+id: node.nca_facility.menu_link
+field_name: menu_link
+entity_type: node
+bundle: nca_facility
+label: 'Menu link'
+description: 'Computed menu link for the node (only available during node saving).'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

@@ -74,7 +74,7 @@ class WhatsNew extends BlockBase implements ContainerFactoryPluginInterface {
     return [
       '#markup' => $markup,
       '#attached' => [
-        'library' => ['vagovadmin/whatsnew'],
+        'library' => ['vagovclaro/whatsnew'],
       ],
     ];
   }

@@ -1,0 +1,22 @@
+uuid: 75d35f4c-810a-4a04-a15c-6f20b64cb9d8
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.email_contact
+id: paragraph.email_contact.status
+field_name: status
+entity_type: paragraph
+bundle: email_contact
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

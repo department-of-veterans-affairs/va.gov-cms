@@ -1,0 +1,18 @@
+uuid: fb88f5d4-655b-474a-a327-f67eac2105e9
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.account
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: menu_link_content.account
+target_entity_type_id: menu_link_content
+target_bundle: account
+default_langcode: site_default
+language_alterable: false

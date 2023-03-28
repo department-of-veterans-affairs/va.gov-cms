@@ -1,0 +1,22 @@
+uuid: 38f7c40a-5e61-457e-a9fb-46d84ba3baad
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.nca_facility
+id: node.nca_facility.sticky
+field_name: sticky
+entity_type: node
+bundle: nca_facility
+label: 'Sticky at top of lists'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

@@ -1,0 +1,16 @@
+uuid: d4c1926a-e396-4277-9d5c-e73842926e09
+langcode: en
+status: true
+dependencies: {  }
+id: outdated_content_notification
+label: 'Outdated Content Notification'
+backend: database
+backend_configuration:
+  lease_time: 30
+processor: cron
+processing_time: 10
+locked: false
+threshold:
+  type: 1
+  limit: 100
+  state: all

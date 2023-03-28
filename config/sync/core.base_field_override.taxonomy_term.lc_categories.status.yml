@@ -1,0 +1,22 @@
+uuid: 546ae56a-1bff-4505-a8ec-f535fa043434
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.lc_categories
+id: taxonomy_term.lc_categories.status
+field_name: status
+entity_type: taxonomy_term
+bundle: lc_categories
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

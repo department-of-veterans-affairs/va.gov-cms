@@ -13,9 +13,12 @@ const creators = {
     return cy.wait(1000);
   },
   basic_landing_page: () => {
-    cy.findAllByLabelText("Page title").type(faker.lorem.sentence(), {
-      force: true,
-    });
+    cy.findAllByLabelText("Page title").type(
+      faker.lorem.sentence().substring(0, 50),
+      {
+        force: true,
+      }
+    );
     cy.type_ckeditor(
       "edit-field-intro-text-limited-html-0-value",
       faker.lorem.sentence()
@@ -88,9 +91,12 @@ const creators = {
     cy.contains("What you can do")
       .parent()
       .within(() => {
-        cy.findAllByLabelText("Heading").type(faker.lorem.sentence(), {
-          force: true,
-        });
+        cy.findAllByLabelText("Heading").type(
+          faker.lorem.sentence().substring(0, 50),
+          {
+            force: true,
+          }
+        );
         cy.findAllByLabelText("Introduction").type(faker.lorem.sentence(), {
           force: true,
         });
@@ -110,9 +116,10 @@ const creators = {
       cy.findAllByLabelText("Alternative text").type(faker.lorem.sentence(), {
         force: true,
       });
-      cy.get(
-        '[data-drupal-selector="edit-media-0-fields-field-owner"]'
-      ).select("VACO", { force: true });
+      cy.get('[data-drupal-selector="edit-media-0-fields-field-owner"]').select(
+        "VACO",
+        { force: true }
+      );
       cy.get("button").contains("Save and insert").click({ force: true });
     });
     cy.contains("What you can do")
@@ -155,9 +162,10 @@ const creators = {
     return cy.wait(1000);
   },
   checklist: () => {
-    cy.findAllByLabelText(
-      "Page title"
-    ).type(`[Test Data] ${faker.lorem.sentence(3)}`, { force: true });
+    cy.findAllByLabelText("Page title").type(
+      `[Test Data] ${faker.lorem.sentence(3)}`,
+      { force: true }
+    );
     cy.findAllByLabelText("Page introduction").type(faker.lorem.sentence(), {
       force: true,
     });
@@ -165,12 +173,14 @@ const creators = {
     cy.findAllByLabelText("Primary category").select("Burials and memorials", {
       force: true,
     });
-    cy.get(
-      "#edit-field-related-information-0-subform-field-link-0-uri"
-    ).type("http://www.example.com/", { force: true });
-    cy.get(
-      "#edit-field-related-information-0-subform-field-link-0-title"
-    ).type(`[Test Link Title]${faker.lorem.sentence()}`, { force: true });
+    cy.get("#edit-field-related-information-0-subform-field-link-0-uri").type(
+      "http://www.example.com/",
+      { force: true }
+    );
+    cy.get("#edit-field-related-information-0-subform-field-link-0-title").type(
+      `[Test Link Title]${faker.lorem.sentence()}`,
+      { force: true }
+    );
     cy.get(
       "#edit-field-checklist-0-subform-field-checklist-sections-0-subform-field-section-header-0-value"
     ).type(`[Test Header Value]${faker.lorem.sentence(3)}`, { force: true });
@@ -181,16 +191,18 @@ const creators = {
     return cy.wait(1000);
   },
   documentation_page: () => {
-    cy.findAllByLabelText(
-      "Page title"
-    ).type(`[Test Data] ${faker.lorem.sentence()}`, { force: true });
+    cy.findAllByLabelText("Page title").type(
+      `[Test Data] ${faker.lorem.sentence()}`,
+      { force: true }
+    );
     cy.findAllByLabelText("Page introduction").type(faker.lorem.sentence(), {
       force: true,
     });
     cy.findAllByLabelText("Section").select("VACO", { force: true });
-    cy.findAllByLabelText(
-      "Parent link"
-    ).select("-- CMS Knowledge Base (disabled)", { force: true });
+    cy.findAllByLabelText("Parent link").select(
+      "-- CMS Knowledge Base (disabled)",
+      { force: true }
+    );
     cy.findAllByLabelText("All products").check({ force: true });
     return cy.wait(1000);
   },
@@ -201,13 +213,28 @@ const creators = {
     );
     cy.get(
       "#edit-field-datetime-range-timezone-0-time-wrapper-value-date"
-    ).type("2023-04-05", { force: true });
+    ).type("2023-11-04", { force: true });
+    cy.get(
+      "#edit-field-datetime-range-timezone-0-time-wrapper-value-date"
+    ).type("2023-11-04", { force: true });
     cy.get(
       "#edit-field-datetime-range-timezone-0-time-wrapper-value-time"
-    ).type("12:00", { force: true });
-    cy.findAllByLabelText(
-      "Where should the event be listed?"
-    ).select("VA Alaska health care: Events", { force: true });
+    ).type("10:00:00", { force: true });
+    cy.get(
+      "#edit-field-datetime-range-timezone-0-time-wrapper-end-value-time"
+    ).type("11:00:00", { force: true });
+    cy.get("#edit-field-datetime-range-timezone-0-timezone").select("Phoenix");
+    cy.get("#edit-field-datetime-range-timezone-0-make-recurring").check();
+    cy.get("#edit-field-datetime-range-timezone-0-interval").type("1");
+    cy.get("#edit-field-datetime-range-timezone-0-repeat-end-date").type(
+      "2023-11-07",
+      { force: true }
+    );
+    cy.get("#edit-field-datetime-range-timezone-0-repeat").select("DAILY");
+    cy.findAllByLabelText("Where should the event be listed?").select(
+      "VA Alaska health care: Events",
+      { force: true }
+    );
     cy.findAllByLabelText("Street address").type(
       faker.address.streetAddress(),
       { force: true }
@@ -227,9 +254,14 @@ const creators = {
     cy.findAllByLabelText("Alternative text").type(faker.lorem.sentence(), {
       force: true,
     });
-    cy.get(
-      '[data-drupal-selector="edit-media-0-fields-field-owner"]'
-    ).select("VACO", { force: true });
+    cy.get('[data-drupal-selector="edit-media-0-fields-field-owner"]').select(
+      "VACO",
+      { force: true }
+    );
+    cy.get("#edit-revision-log-0-value").type(
+      `[Test revision log 1]${faker.lorem.sentence()}`,
+      { force: true }
+    );
     cy.get("button").contains("Save and insert").click({ force: true });
     cy.get(
       'div.media-library-item[data-drupal-selector="edit-field-media-selection-0"]',
@@ -237,31 +269,48 @@ const creators = {
         timeout: 15000,
       }
     );
+    cy.get("form.node-form").find("input#edit-submit").click();
+    cy.get(".node__content").contains("Sun, Nov 5 2023, 10:00am - 11:00am MST");
+    cy.scrollTo("top", { ensureScrollable: false });
+    cy.get(".tabs__tab a").contains("Edit").click({ force: true });
+    cy.get("#edit-field-datetime-range-timezone-0-manage-instances").click();
+    cy.get("table#manage-instances")
+      .find(".dropbutton-action")
+      .first()
+      .find("a")
+      .click({ force: true });
+    cy.get("#manage-instances form").find("input.form-submit").click();
+    cy.get("#manage-instances form").should("not.exist");
+    cy.get("button.ui-dialog-titlebar-close").click();
     return cy.wait(1000);
   },
   health_care_region_detail_page: () => {
-    cy.findAllByLabelText(
-      "Page title"
-    ).type(`[Test Data] ${faker.lorem.sentence()}`, { force: true });
+    cy.findAllByLabelText("Page title").type(
+      `[Test Data] ${faker.lorem.sentence()}`,
+      { force: true }
+    );
     cy.findAllByLabelText("Page introduction").type(faker.lorem.sentence(), {
       force: true,
     });
     cy.findAllByLabelText("Section").select("VACO", { force: true });
-    cy.findAllByLabelText(
-      "Related office or health care system"
-    ).select("VA Alaska health care", { force: true });
-    cy.findAllByLabelText(
-      "Parent link"
-    ).select("-------- Anchorage VA Medical Center", { force: true });
+    cy.findAllByLabelText("Related office or health care system").select(
+      "VA Alaska health care",
+      { force: true }
+    );
+    cy.findAllByLabelText("Parent link").select(
+      "-------- Anchorage VA Medical Center",
+      { force: true }
+    );
     cy.findAllByLabelText("Meta description").type(faker.lorem.sentence(), {
       force: true,
     });
     return cy.wait(1000);
   },
   landing_page: () => {
-    cy.findAllByLabelText(
-      "Page title"
-    ).type(`[Test Data] ${faker.lorem.sentence()}`, { force: true });
+    cy.findAllByLabelText("Page title").type(
+      `[Test Data] ${faker.lorem.sentence()}`,
+      { force: true }
+    );
     cy.findAllByLabelText("Page introduction").type(faker.lorem.sentence(), {
       force: true,
     });
@@ -270,9 +319,10 @@ const creators = {
       force: true,
     });
     cy.findAllByLabelText("Provide a menu link").check({ force: true });
-    cy.findAllByLabelText(
-      "Menu link title"
-    ).type(`[Test Data] ${faker.lorem.sentence()}`, { force: true });
+    cy.findAllByLabelText("Menu link title").type(
+      `[Test Data] ${faker.lorem.sentence()}`,
+      { force: true }
+    );
     cy.findAllByLabelText("Parent link").select("---- Disability", {
       force: true,
     });
@@ -294,18 +344,20 @@ const creators = {
       force: true,
     });
     cy.findAllByLabelText("Provide a menu link").check({ force: true });
-    cy.findAllByLabelText(
-      "Menu link title"
-    ).type(`[Test Data] ${faker.lorem.sentence()}`, { force: true });
+    cy.findAllByLabelText("Menu link title").type(
+      `[Test Data] ${faker.lorem.sentence()}`,
+      { force: true }
+    );
     cy.findAllByLabelText("Parent link").select("-- Outreach and events", {
       force: true,
     });
     return cy.wait(1000);
   },
   step_by_step: () => {
-    cy.findAllByLabelText(
-      "Page title"
-    ).type(`[Test Data] ${faker.lorem.word()}`, { force: true });
+    cy.findAllByLabelText("Page title").type(
+      `[Test Data] ${faker.lorem.word()}`,
+      { force: true }
+    );
     cy.findAllByLabelText("Page introduction").type(faker.lorem.sentence(), {
       force: true,
     });
@@ -343,6 +395,10 @@ Given("I create a {string} node", (contentType) => {
   cy.scrollTo("top");
   cy.checkAccessibility();
   creator().then(() => {
+    cy.get("#edit-revision-log-0-value").type(
+      `[Test revision log]${faker.lorem.sentence()}`,
+      { force: true }
+    );
     cy.get("form.node-form").find("input#edit-submit").click();
     cy.location("pathname", { timeout: 10000 }).should(
       "not.include",
@@ -373,6 +429,10 @@ Given("I create a {string} node and continue", (contentType) => {
   cy.scrollTo("top");
   cy.checkAccessibility();
   creator().then(() => {
+    cy.get("#edit-revision-log-0-value").type(
+      `[Test revision log]${faker.lorem.sentence()}`,
+      { force: true }
+    );
     cy.get("form.node-form").find("input#edit-save-continue").click();
     cy.location("pathname", { timeout: 10000 }).should(
       "not.include",

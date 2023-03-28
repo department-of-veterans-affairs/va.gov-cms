@@ -1,0 +1,18 @@
+uuid: b6dae8e0-c69c-4c38-adc7-20266087bb57
+langcode: en
+status: true
+dependencies:
+  config:
+    - entityqueue.entity_queue.staged_content
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: entity_subqueue.staged_content
+target_entity_type_id: entity_subqueue
+target_bundle: staged_content
+default_langcode: site_default
+language_alterable: false

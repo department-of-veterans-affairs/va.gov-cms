@@ -1,0 +1,18 @@
+uuid: 6db4ef3e-8010-4ed6-9db3-eb04f55b1ff4
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.education-benefits-hub
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: menu_link_content.education-benefits-hub
+target_entity_type_id: menu_link_content
+target_bundle: education-benefits-hub
+default_langcode: site_default
+language_alterable: false

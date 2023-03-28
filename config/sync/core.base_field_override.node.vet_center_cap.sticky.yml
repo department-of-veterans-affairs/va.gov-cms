@@ -1,0 +1,22 @@
+uuid: d57de565-50e1-4b6b-85f1-fbcf3c135bc5
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vet_center_cap
+id: node.vet_center_cap.sticky
+field_name: sticky
+entity_type: node
+bundle: vet_center_cap
+label: 'Sticky at top of lists'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

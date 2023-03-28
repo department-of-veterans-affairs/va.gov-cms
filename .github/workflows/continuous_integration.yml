@@ -28,23 +28,6 @@ jobs:
       - name: Composer Validate
         run: composer validate
 
-  # Analyze the codebase with GitHub's CodeQL tool.
-  codeql-analyze:
-    name: CodeQL Analyze
-    # Unlike most of our continuous integration tests, this test does not have
-    # a direct analog outside of GitHub Actions.
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
-      - name: CodeQL Init
-        # https://github.com/github/codeql-action/releases/tag/v2.1.26
-        uses: github/codeql-action/init@e0e5ded33cabb451ae0a9768fc7b0410bad9ad44
-      - name: CodeQL Analyze
-        # https://github.com/github/codeql-action/releases/tag/v2.1.26
-        uses: github/codeql-action/analyze@e0e5ded33cabb451ae0a9768fc7b0410bad9ad44
-
   # Check style of ES/JS files with ESLint and ReviewDog.
   eslint:
     name: ESLint

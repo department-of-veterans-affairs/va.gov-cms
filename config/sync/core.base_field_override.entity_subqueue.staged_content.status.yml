@@ -1,0 +1,22 @@
+uuid: 1211b341-6018-4fbd-ac91-f2b4f4d719c3
+langcode: en
+status: true
+dependencies:
+  config:
+    - entityqueue.entity_queue.staged_content
+id: entity_subqueue.staged_content.status
+field_name: status
+entity_type: entity_subqueue
+bundle: staged_content
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

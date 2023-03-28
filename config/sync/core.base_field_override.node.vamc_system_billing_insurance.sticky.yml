@@ -1,0 +1,22 @@
+uuid: 197aa1ee-8025-4c6e-a392-e6d4c313f87a
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vamc_system_billing_insurance
+id: node.vamc_system_billing_insurance.sticky
+field_name: sticky
+entity_type: node
+bundle: vamc_system_billing_insurance
+label: 'Sticky at top of lists'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

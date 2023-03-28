@@ -1,0 +1,18 @@
+uuid: d0b8fce1-81e1-424e-9043-8c1c9b556af2
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vet_center_locations_list
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+id: node.vet_center_locations_list
+target_entity_type_id: node
+target_bundle: vet_center_locations_list
+default_langcode: site_default
+language_alterable: false

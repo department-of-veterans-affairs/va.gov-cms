@@ -1,0 +1,59 @@
+{#
+/**
+ * @file
+ * Default template to format a HTML email using the Mime Mail module.
+ *
+ * Copy this file in your default theme folder to create a custom themed email.
+ * If you modify this template you MUST be sure to keep the html, body, and
+ * header tags. This template should produce a fully-formed HTML document.
+ * Failure to include these will result in a malformed email and possibly
+ * errors shown to the user when sending email.
+ *
+ * To override this template for all emails sent by a given module,
+ * rename this template to mimemail-messages--[module].html.twig.
+ *
+ * To override this template for a specific email sent by a given module,
+ * rename this template to mimemail-messages--[module]--[key].html.twig.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the body element of the message.
+ * - key: The message identifier.
+ * - module: The machine name of the sending module.
+ * - css: Internal style sheets.
+ * - recipient: The recipient of the message.
+ * - subject: The message subject.
+ * - body: The message body.
+ *
+ * @see template_preprocess_mimemail_message()
+ *
+ * @ingroup themeable
+ */
+#}
+{% set classes = module ? (key ? module ~ '-' ~ key) %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Review Content Report</title>
+{% if css %}
+    <style type="text/css">
+      <!-- {{ css }} -->
+    </style>
+{% endif %}
+    <!--[if gte mso 9]>
+    <xml>
+    <o:OfficeDocumentSettings>
+    <o:AllowPNG/>
+    <o:PixelsPerInch>96</o:PixelsPerInch>
+    </o:OfficeDocumentSettings>
+    </xml>
+    <![endif]-->
+  </head>
+  <body id="mimemail-body"{{ attributes.addClass(classes) }}>
+    <div id="center">
+      <div id="main">
+        {{ body|raw }}
+      </div>
+    </div>
+  </body>
+</html>

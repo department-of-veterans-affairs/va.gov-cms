@@ -1,0 +1,22 @@
+uuid: f273af8d-4a6b-486d-8297-739893933b8e
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.benefit_promo
+id: block_content.benefit_promo.status
+field_name: status
+entity_type: block_content
+bundle: benefit_promo
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

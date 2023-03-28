@@ -1,0 +1,22 @@
+uuid: ace8b116-43f7-47a2-baa2-bfbc93774276
+langcode: en
+status: true
+dependencies:
+  module:
+    - sitewide_alert
+id: sitewide_alert.sitewide_alert.status
+field_name: status
+entity_type: sitewide_alert
+bundle: sitewide_alert
+label: Active
+description: 'If selected this Sitewide Alert will be active and will show if all other conditions are met.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
