@@ -27,9 +27,9 @@ Facility link: <insert_facility_link>
 
 ## VAMC facility section change (and duplicate VAST records)
 
-A section change is typically represented by two facility records in VAST for a single physical location. In most cases the only difference between the two records are the Facility API ID values for each facility. 
+A section change is typically represented by two facility records in VAST for a single physical location. In most cases the only difference between the two records are the Facility API ID values for each facility.
 
-Duplicate records can also show up in VAST as the result of a facility name change if VAST opted to create a new record with the new name (with a new Facility API ID) instead of simply updating the name field for the existing facility record. 
+Duplicate records can also show up in VAST as the result of a facility name change if VAST opted to create a new record with the new name (with a new Facility API ID) instead of simply updating the name field for the existing facility record.
 
 In either instance we have two VAST records representing the same physical location and we need to make changes in the CMS so VAST data for the NEW VAST entry properly maps to our original CMS facility. We do this to preserve revision log information and other history stored in the CMS.
 
@@ -76,14 +76,16 @@ This script will need to be run against the production database by a member of t
 
 #### Example script
 ```
-drush sql:query "DELETE FROM migrate_map_va_node_health_care_local_facility WHERE sourceid1 = 'vha_612GL'"
+// remove old facility migration map
+drush sql:query "DELETE FROM migrate_map_va_node_health_care_local_facility WHERE destid1 = '[old node id]'"
 
-drush sql:query "UPDATE migrate_map_va_node_health_care_local_facility SET sourceid1 = 'vha_612GL' WHERE sourceid1 = 'vha_640GB'"
+// update new facility migration map so that it updates the original node
+drush sql:query "UPDATE migrate_map_va_node_health_care_local_facility SET destid1 = '[old node id]' WHERE destid1 = '[new node id]'"
 ```
 
 #### CMS engineer (update lighthouse)
 In [Lighthouse Facilties](https://github.com/department-of-veterans-affairs/lighthouse-facilities)
-- [ ] 20. CMS engineer updates the [CSV in Lighthouse](https://github.com/department-of-veterans-affairs/lighthouse-facilities/blob/master/facilities/src/main/resources/websites.csv) with the changed URL, creating a PR, tagging the Lighthouse team and linking to it in Slack with an @mention to a Lighthouse team member 
+- [ ] 20. CMS engineer updates the [CSV in Lighthouse](https://github.com/department-of-veterans-affairs/lighthouse-facilities/blob/master/facilities/src/main/resources/websites.csv) with the changed URL, creating a PR, tagging the Lighthouse team and linking to it in Slack with an @mention to a Lighthouse team member
 
 #### CMS Help desk (wrap up)
 - [ ] Help desk notifies editor and any other stakeholders.
