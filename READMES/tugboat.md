@@ -138,7 +138,7 @@ For example, when creating the 'Wilmington health care' demo environment, these 
 1. Generate API key at https://tugboat.vfs.va.gov/access-tokens
 1. Add token to $HOME/.tugboat.yml
 1. Start SOCKS connection
-1. Test with `tugboat help`, use `-v` for verboseness
+1. Test with `tugboat --help`.
 1. See more Tugboat CLI documentation [here](https://docs.tugboat.qa/tugboat-cli/)
 
 ## Known issues
