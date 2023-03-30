@@ -3,7 +3,7 @@ name: CMS Design System update or addition
 about: Use this template for Desin system updates.
 title: 'Update/add <insert topic here> in the design system.'
 labels: Needs refining, CMS Team, CMS design system
-assignees: '@BlakeOrgan'
+assignees: 'BlakeOrgan'
 
 ---
 
