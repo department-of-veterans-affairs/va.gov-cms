@@ -6,7 +6,7 @@
  */
 
 /**
- * Ininstall messages stack.
+ * Install messages stack.
  */
 function va_gov_notifications_update_9001(&$sandbox) {
   \Drupal::moduleHandler()->loadInclude('va_gov_db', 'install');
@@ -21,4 +21,27 @@ function va_gov_notifications_update_9001(&$sandbox) {
   $messages = _va_gov_db_install_modules($modules);
 
   return $messages;
+}
+
+/**
+ * Assign a product to VAMCs and Vet Centers in the Section taxonomy.
+ */
+function va_gov_notifications_update_9002() {
+  $vid = 'administration';
+  // The parent term id for VAMC System.
+  $vamc_parent_tid = '8';
+  // The parent term id for Vet Center System.
+  $vet_center_parent_tid = '190';
+  $vamc_child_terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($vid, $vamc_parent_tid, NULL, TRUE);
+  foreach ($vamc_child_terms as $term) {
+    // VAMCs are product 284.
+    $term->field_product->target_id = '284';
+    $term->save();
+  }
+  $vet_center_child_terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($vid, $vet_center_parent_tid, NULL, TRUE);
+  foreach ($vet_center_child_terms as $term) {
+    // Vet Centers are product 289.
+    $term->field_product->target_id = '289';
+    $term->save();
+  }
 }
