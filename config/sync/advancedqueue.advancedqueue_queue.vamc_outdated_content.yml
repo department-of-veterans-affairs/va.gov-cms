@@ -1,9 +1,9 @@
-uuid: d4c1926a-e396-4277-9d5c-e73842926e09
+uuid: 72c80a8c-bd11-4916-a297-27b57da2fa67
 langcode: en
 status: true
 dependencies: {  }
-id: outdated_content_notification
-label: 'Outdated Content Notification'
+id: vamc_outdated_content
+label: 'VAMC Outdated Content'
 backend: database
 backend_configuration:
   lease_time: 30
@@ -11,6 +11,6 @@ processor: cron
 processing_time: 10
 locked: false
 threshold:
-  type: 1
-  limit: 100
+  type: 2
+  limit: 30
   state: all
