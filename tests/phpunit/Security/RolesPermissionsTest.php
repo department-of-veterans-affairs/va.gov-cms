@@ -37,7 +37,7 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
     // Sort $permissions for consistency.
     sort($permissions);
 
-    $this->assertEqual($permissions, $expected);
+    $this->assertEquals($permissions, $expected, $message);
   }
 
   /**
