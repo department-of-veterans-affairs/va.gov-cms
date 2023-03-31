@@ -46,4 +46,4 @@ Choose either Deadline or a priority:
 - [ ] Article is created/updated using [KB content style guidelines](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/1771831299/Knowledge+Base+content+style) and saved as a draft
 - [ ] Impacts on other KB articles have been considered and any necessary changes have been made and saved as draft
 - [ ] If necessary, add link to the new KB article in the [Content model document](https://prod.cms.va.gov/admin/structure/cm_document) for that content type 
-- [ ] Ticket for article review has been created
+- [ ] [Ticket for article review](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Knowledge+Base%2C+Needs+refining&template=knowledge-base-article-review.md&title=Review+of+new+or+updated+KB+article+%3A+%3Cinsert+topic+here%3E) has been created
