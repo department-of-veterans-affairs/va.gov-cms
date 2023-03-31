@@ -30,11 +30,14 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
     else {
       $message = 'The ' . $roleMatch . ' role is missing from the system.';
     }
+    // Copy $expectedPerms to a new array, then sort it.
+    // Doing this without copying the array can cause segmentation faults.
+    $expected = $expectedPerms;
+    sort($expected);
+    // Sort $permissions for consistency.
+    sort($permissions);
 
-    // Test assertion.
-    $match = ($expectedPerms == $permissions);
-
-    $this->assertTrue($match, $message);
+    $this->assertEquals($permissions, $expected, $message);
   }
 
   /**
