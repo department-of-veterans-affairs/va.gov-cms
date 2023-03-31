@@ -19,21 +19,20 @@ assignees: ''
 Details about the topic. If possible, include an example of a use case or situation that illustrates the topic well.
 - [topic description]
 
- **Audience**
+**Audience**
 Who is this intended for? Who would need this information? (i.e. All editors, only editors for a particular product, Internal use only, etc.)
 - [name of product or type of editor]
 
 **Other related KB articles, if applicable:**
 - [If you know that related KB articles already exist, link them here]
 
-##Is the article associated with an ongoing product or feature update?
+## Is the article associated with an ongoing product or feature update?
 - [ ] Yes [Link to relevant Github ticket](URL)
 - [ ] No
 
   
-##Priority or deadline for request
-
-  Choose either Deadline or a priority:
+## Priority or deadline for request
+Choose either Deadline or a priority:
 
 - [ ] Deadline: [name the deadline here]
 - [ ] Priority:
