@@ -1,5 +1,10 @@
 name: CodeQL
-on: [pull_request]
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ "main" ]
 jobs:
 
   # Analyze the codebase with GitHub's CodeQL tool. This apparently needs to be
