@@ -14,6 +14,12 @@ jobs:
     # Unlike most of our continuous integration tests, this test does not have
     # a direct analog outside of GitHub Actions.
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        language:
+          - javascript
+          - python
     steps:
       - name: Checkout
         # https://github.com/actions/cache/releases/tag/v3.0.10
@@ -21,6 +27,10 @@ jobs:
       - name: CodeQL Init
         # https://github.com/github/codeql-action/releases/tag/codeql-bundle-20230317
         uses: github/codeql-action/init@d23060145bc9131d50558d5d4185494a20208101
+        with:
+          languages: ${{ matrix.language }}
       - name: CodeQL Analyze
         # https://github.com/github/codeql-action/releases/tag/codeql-bundle-20230317
         uses: github/codeql-action/analyze@d23060145bc9131d50558d5d4185494a20208101
+        with:
+          category: "/language:${{matrix.language}}"
