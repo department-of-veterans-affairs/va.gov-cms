@@ -56,7 +56,8 @@ Please let us know when your draft content is complete, so that we can wrap up t
 - [ ] 6. CMS engineer bulk publishes nodes and facility.
 - [ ] 7. CMS engineer edit facility node and remove `New facility` flag and save node.
 - [ ] 8. Let help desk know this has been done.
-- [ ] 9. CMS engineer updates the [CSV in Lighthouse](https://github.com/department-of-veterans-affairs/lighthouse-facilities/blob/master/facilities/src/main/resources/websites.csv) with the changed URL, creating a PR, tagging the Lighthouse team and linking to it in Slack with an @mention to a Lighthouse team member 
+- [ ] 9. Create a [url change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old url to the new facility URL.
+
 
 #### CMS Help desk (wrap up)
 - [ ] 10. Help desk notifies editor and any other stakeholders.

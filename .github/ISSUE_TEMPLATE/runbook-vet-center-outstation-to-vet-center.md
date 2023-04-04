@@ -42,7 +42,9 @@ Facility link: <insert_facility_link>
 - [ ] 8. Submit a [Redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E), cc'ing Facilities team, and referencing this issue to redirect from the Outstation URL to the new Vet Center URL.
 - [ ] 9. When the redirect has been made live, set the status of the Outstation node to 'closed'.
 - [ ] 10. Archive the Outstation with a comment in the revision log that points to the new Vet Center.
-- [ ] 11. Work with a CMS engineer to update the [CSV in Lighthouse](https://github.com/department-of-veterans-affairs/lighthouse-facilities/blob/master/facilities/src/main/resources/websites.csv) with the new URL (engineer creates a PR, tags the Lighthouse team and links to the PR in Slack with an @mention to a Lighthouse team member).
+#### Create new Vet Center link
+- [ ] 11. CMS engineer creates a [url change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), for the new facility URL.
+
 - [ ] 12. Help desk notifies editor and any other stakeholders.
 
 ### Team

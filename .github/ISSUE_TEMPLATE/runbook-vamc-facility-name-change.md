@@ -45,8 +45,9 @@ Facility link: <insert_facility_link>
 - [ ] 11. CMS engineer updates Meta description (TBD: some backwards compatibility for SEM, by including something like ", formerly known as [previous name]".
 - [ ] 12. CMS engineer edit facility node and remove flag `Changed name` then save node (with moderation state = published)
 
-In [Lighthouse Facilties](https://github.com/department-of-veterans-affairs/lighthouse-facilities)
-- [ ] 13. CMS engineer updates the [CSV in Lighthouse](https://github.com/department-of-veterans-affairs/lighthouse-facilities/blob/master/facilities/src/main/resources/websites.csv) with the changed URL, creating a PR, tagging the Lighthouse team and linking to it in Slack with an @mention to a Lighthouse team member 
+#### CMS engineer (request a URL change)
+- [ ] Create a [url change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old url to the new facility URL.
+
 
 #### CMS Help desk (wrap up)
 - [ ] Help desk notifies editor and any other stakeholders

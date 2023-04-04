@@ -62,8 +62,10 @@ Facility link: <insert_facility_link>
 - [ ] 8. CMS team submits [Redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E), cc'ing Facilities team, and referencing this issue to redirect from the CAP URL to the Outstation URL.
 - [ ] 9. When the redirect has been made live, set the status of the CAP node to 'closed'.
 - [ ] 10. Archive the CAP with a comment in the revision log that points to the
-  new Outstation.
-- [ ] 11. CMS engineer updates the [CSV in Lighthouse](https://github.com/department-of-veterans-affairs/lighthouse-facilities/blob/master/facilities/src/main/resources/websites.csv) with the new URL, creating a PR, tagging the Lighthouse team and linking to it in Slack with an @mention to a Lighthouse team member
+
+ ### Create new Outstation URL
+- [ ] 11. CMS engineer creates a [url change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), for the Outstation URL.
+
 - [ ] 12. Help desk notifies editor and any other stakeholders.
 
 

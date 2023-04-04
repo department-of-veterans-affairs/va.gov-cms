@@ -40,7 +40,8 @@ Timing around these is critical and we may need more detail here.
 - [ ] 4. CMS engineer bulk alias changes all nodes within the system. (https://prod.cms.va.gov/admin/content/bulk)
 - [ ] 5. CMS engineer bulk saves to fix titles for all nodes within system. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
 - [ ] 6. CMS engineer creates a PR to rename the menu for the system accordingly.  (In the future, they may need to rebuild the menu so that name and machine name match.)
-- [ ] 7. CMS engineer updates the [CSV in Lighthouse](https://github.com/department-of-veterans-affairs/lighthouse-facilities/blob/master/facilities/src/main/resources/websites.csv) with the changed URL, creating a PR, tagging the Lighthouse team and linking to it in Slack with an @mention to a Lighthouse team member
+- [ ] 7. CMS engineer creates a [url change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old url to the new facility URL.
+
 
 #### CMS Help desk (wrap up)
 - [ ] Help desk notifies editor and any other stakeholders.

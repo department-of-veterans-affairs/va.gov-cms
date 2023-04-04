@@ -65,7 +65,7 @@ Update related content (VAMC Facility Health Services, VAMC Non-clinical Service
 - [ ] 18. Bulk edit the VAMC Facility Health Services to **Update URL alias**
 - [ ] 19. Bulk edit the VAMC Facility Health services to **Resave content** (now the urls will be correct)
 
-#### CMS engineer (create sript to be run against the production DB)
+#### CMS engineer (create script to be run against the production DB)
 
 This script will need to be run against the production database by a member of the platform team and should accomplish the following goals:
 
@@ -83,9 +83,9 @@ drush sql:query "DELETE FROM migrate_map_va_node_health_care_local_facility WHER
 drush sql:query "UPDATE migrate_map_va_node_health_care_local_facility SET destid1 = '[old node id]' WHERE destid1 = '[new node id]'"
 ```
 
-#### CMS engineer (update lighthouse)
-In [Lighthouse Facilties](https://github.com/department-of-veterans-affairs/lighthouse-facilities)
-- [ ] 20. CMS engineer updates the [CSV in Lighthouse](https://github.com/department-of-veterans-affairs/lighthouse-facilities/blob/master/facilities/src/main/resources/websites.csv) with the changed URL, creating a PR, tagging the Lighthouse team and linking to it in Slack with an @mention to a Lighthouse team member
+#### CMS engineer (request a URL change)
+If there has been a section change, which results in a change to the facility  URL:
+- [ ] Create a [url change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old url to the new facility URL.
 
 #### CMS Help desk (wrap up)
 - [ ] Help desk notifies editor and any other stakeholders.

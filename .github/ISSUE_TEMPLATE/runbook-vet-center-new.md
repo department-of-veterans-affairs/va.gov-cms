@@ -32,7 +32,7 @@ Facility link: <insert_facility_link>
 - [ ] 1. Become aware that the new facility is now on the Facility API (typically, via a Flag).
 - [ ] 2. Check with RCS(?) what district it belongs to.
 - [ ] 3. Move the section to the appropriate district.
-- [ ] 4. Communicate with editor (do they need to be onboarded) 
+- [ ] 4. Communicate with editor (do they need to be onboarded)
 
 [@TODO write sample email - SEE runbook-vamc-facility-new]
 
@@ -42,7 +42,8 @@ Facility link: <insert_facility_link>
 - [ ] 6. CMS engineer bulk publishes the nodes and facility.
 - [ ] 7. CMS engineer edits facility node by removing the `New facility` flag and saves the node.
 - [ ] 8. Let help desk know this has been done.
-- [ ] 9. CMS engineer updates the [CSV in Lighthouse](https://github.com/department-of-veterans-affairs/lighthouse-facilities/blob/master/facilities/src/main/resources/websites.csv) with the changed URL, creating a PR, tagging the Lighthouse team and linking to it in Slack with an @mention to a Lighthouse team member 
+- [ ] 9. CMS engineer creates a [url change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E) for the new facility URL.
+
 
 #### CMS Help desk (wrap up)
 - [ ] 10. Help desk notifies editor and any other stakeholders.
