@@ -4,7 +4,7 @@ services:
     tags:
       - { name: event_subscriber }
   va_gov_graphql.explorer_routes:
-    decorates: graphql.graphiql.explorer_routes
+    decorates: graphql.introspection
     class: Drupal\va_gov_graphql\Routing\ExplorerRoutes
     arguments: [ '@plugin.manager.graphql.schema' ]
     tags:
