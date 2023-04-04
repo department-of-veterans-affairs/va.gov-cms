@@ -1,0 +1,63 @@
+display:
+  default:
+    display_title: Máster
+    display_options:
+      exposed_form:
+        options:
+          submit_button: Aplicar
+          reset_button_label: Restablecer
+          exposed_sorts_label: 'Ordenar por'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      pager:
+        options:
+          expose:
+            items_per_page_label: 'Elementos por página'
+            items_per_page_options_all_label: '- Todo -'
+            offset_label: Desplazamiento
+          tags:
+            previous: '‹ anterior'
+            next: 'siguiente ›'
+            first: '« primero'
+            last: 'último »'
+      fields:
+        state:
+          label: Estado
+          separator: ', '
+        label:
+          label: Etiqueta
+        source_language_1:
+          label: Desde
+          separator: ', '
+        target_language:
+          label: Para
+          separator: ', '
+        translator:
+          label: Proveedor
+        progress:
+          label: Progreso
+        word_count:
+          label: Palabras
+        tags_count:
+          label: Etiquetas
+        changed:
+          label: Modificado
+        operations:
+          label: Operaciones
+      filters:
+        state:
+          expose:
+            label: Estado
+        source_language:
+          expose:
+            label: 'Idioma de origen'
+        translator:
+          expose:
+            label: Proveedor
+  page_1:
+    display_title: Página
+    display_options:
+      menu:
+        title: Empleos
+      tab_options:
+        title: Empleos
