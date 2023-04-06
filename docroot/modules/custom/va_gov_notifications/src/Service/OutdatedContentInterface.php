@@ -8,8 +8,13 @@ namespace Drupal\va_gov_notifications\Service;
 interface OutdatedContentInterface {
 
   /**
-   * Checks if every editor has outdated content.
+   * Checks if VAMC editors have outdated content.
    */
-  public function checkForOutdatedContent();
+  public function checkForOutdatedVamcContent();
+
+  /**
+   * Checks if Vet Center editors have outdated content.
+   */
+  public function checkForOutdatedVetCenterContent();
 
 }

@@ -170,12 +170,6 @@ process:
   field_office_hours:
     plugin: va_field_office_hours
     source: hours
-  field_facility_hours/value:
-    plugin: va_table_field_hours
-    source: hours
-  field_facility_hours/caption:
-    plugin: default_value
-    default_value: 'Daily hours of operation.'
   field_facility_classification:
     -
       plugin: static_map
@@ -281,7 +275,6 @@ destination:
     - 'field_address/postal_code'
     - 'field_geolocation'
     - 'field_office_hours'
-    - 'field_facility_hours/value'
     - changed
     - field_facility_classification
     - field_mental_health_phone
