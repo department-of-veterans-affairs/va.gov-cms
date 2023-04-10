@@ -29,11 +29,11 @@ Facility link: <insert_facility_link>
 
 #### CMS help desk steps
 - [ ] 1. The title (Name of Vet Center field) change comes from Lighthouse to Drupal
-- [ ] 2. If the Vet Center published: CMS team submits [redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E), cc'ing Facilities team
+- [ ] 2. If the Vet Center published: CMS team submits [redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E), cc'ing Facilities team NOT NEEDED for Outstation
 
 <insert_redirect_request_link>
 
-- [ ] 3. If the Vet Center is not published or once the redirect request has gone live alert CMS engineers to continue steps below
+- [ ] 3. If the Vet Center is not published or once the redirect request has gone live alert CMS engineers to continue steps below 
 
 #### CMS engineer steps
 - [ ] 4. CMS engineer renames the section for this Vet Center to match its new name (Section taxonomy change)
@@ -44,7 +44,7 @@ Facility link: <insert_facility_link>
 - [ ] 9. CMS engineer edits the Vet Center node by removing flag `Changed name`, and saves the node (with moderation state = published)
   
 In [Lighthouse Facilties](https://github.com/department-of-veterans-affairs/lighthouse-facilities)
-- [ ] 10. CMS engineer updates the [CSV in Lighthouse](https://github.com/department-of-veterans-affairs/lighthouse-facilities/blob/master/facilities/src/main/resources/websites.csv) with the changed URL, creating a PR, tagging the Lighthouse team and linking to it in Slack with an @mention to a Lighthouse team member 
+- [ ] 10. CMS engineer updates the [CSV in Lighthouse](https://github.com/department-of-veterans-affairs/lighthouse-facilities/blob/master/facilities/src/main/resources/websites.csv) with the changed URL, creating a PR, tagging the Lighthouse team and linking to it in Slack with an @mention to a Lighthouse team member  NOT NEEDED for Outstation
 
 #### CMS Help desk (wrap up)
 - [ ] 11. Help desk notifies editor and any other stakeholders.
