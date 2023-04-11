@@ -49,7 +49,7 @@ Please let us know when your draft content is complete, so that we can wrap up t
 ```
 
 </details>
-- [ ] 5. Create a [url change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old facility URL to the new facility URL. (**Note: The URL change request ticket blocks the completion of this ticket.**)
+- [ ] 5. Create a [URL change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old facility URL to the new facility URL. (**Note: The URL change request ticket blocks the completion of this ticket.**)
 
 <insert_url_change_request_link>
 
@@ -58,13 +58,14 @@ Please let us know when your draft content is complete, so that we can wrap up t
 - [ ] 6. When editor has prepared content and let help desk know, reassign this issue to appropriate CMS engineer on Product Support team, for bulk publishing.
 
 #### CMS engineer steps
-- [ ] 7. CMS engineer bulk publishes nodes and facility.
-- [ ] 8. CMS engineer edit facility node and remove `New facility` flag and save node.
-- [ ] 9. Let help desk know this has been done.
+- [ ] 7. CMS engineer executes the steps of the URL change request ticket from step 5.
+- [ ] 8. CMS engineer bulk publishes nodes and facility.
+- [ ] 9. CMS engineer edit facility node and remove `New facility` flag and save node.
+- [ ] 10. Let help desk know this has been done.
 
 
 #### CMS Help desk (wrap up)
-- [ ] 10. Help desk notifies editor and any other stakeholders.
+- [ ] 11. Help desk notifies editor and any other stakeholders.
 
 ### Team
 Please check the team(s) that will do this work.

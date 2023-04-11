@@ -35,36 +35,37 @@ In either instance we have two VAST records representing the same physical locat
 
 #### CMS help desk steps
 If there has been a section change, which results in a change to the facility URL:
-- [ ] Create a [url change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old facility URL to the new facility URL. (**Note: The URL change request ticket blocks the completion of this ticket.**)
+- [ ] 1. Create a [URL change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old facility URL to the new facility URL. (**Note: The URL change request ticket blocks the completion of this ticket.**)
 
 <insert_url_change_request_link>
 
 (Redirects are released Wednesday afternoons, so coordinate the following items below and canonical URL change around that timeframe.)
 
 #### CMS engineer steps (the new facility)
-- [ ] 2. Change the Facility Locator API ID on the new facility to the Facility Locator API ID for the old one.
-- [ ] 3. Change the section on the new facility to the old one
-- [ ] 4. Change the VAMC system on the new facility to the old one
-- [ ] 5. Update the Menu link (Parent link) on the new facility to the old system (unable to delete it)
-- [ ] 6. Check the box under URL alias to **Generate automatic URL alias**
-- [ ] 7. Archive the facility with a good log message
-- [ ] 8. Manually disable the menu link for this item directly in the system menu
+- [ ] 2. Execute the steps of the URL change request ticket from step 1.
+- [ ] 3. Change the Facility Locator API ID on the new facility to the Facility Locator API ID for the old one.
+- [ ] 4. Change the section on the new facility to the old one
+- [ ] 5. Change the VAMC system on the new facility to the old one
+- [ ] 6. Update the Menu link (Parent link) on the new facility to the old system (unable to delete it)
+- [ ] 7. Check the box under URL alias to **Generate automatic URL alias**
+- [ ] 8. Archive the facility with a good log message
+- [ ] 9. Manually disable the menu link for this item directly in the system menu
 
 #### CMS engineer steps (the original facility)
-- [ ] 9. Change the Facility Locator API ID on the old facility to the Facility Locator API ID for new one
-- [ ] 10. Change the section on the old facility to the new one
-- [ ] 11. Change the VAMC system on the old facility to the new one
-- [ ] 12. Update the Menu link (Parent link) on the old facility to the new system
-- [ ] 13. Check the box under URL alias to **Generate automatic URL alias**
-- [ ] 14. Publish changes with good log message
-- [ ] 15. Manually move the menu link for this item into alphabetical order in locations section of the menu for its new system
+- [ ] 10. Change the Facility Locator API ID on the old facility to the Facility Locator API ID for new one
+- [ ] 11. Change the section on the old facility to the new one
+- [ ] 12. Change the VAMC system on the old facility to the new one
+- [ ] 13. Update the Menu link (Parent link) on the old facility to the new system
+- [ ] 14. Check the box under URL alias to **Generate automatic URL alias**
+- [ ] 15. Publish changes with good log message
+- [ ] 16. Manually move the menu link for this item into alphabetical order in locations section of the menu for its new system
 
 #### CMS engineer steps (bulk edit)
 Update related content (VAMC Facility Health Services, VAMC Non-clinical Services, Events, Stories, etc)
-- [ ] 16. Bulk edit the VAMC Facility Health Services for the original Facility (update the section to the new section)
-- [ ] 17. Manually edit each VAMC Facility Health Service (updating the VAMC system health service to use the new system)
-- [ ] 18. Bulk edit the VAMC Facility Health Services to **Update URL alias**
-- [ ] 19. Bulk edit the VAMC Facility Health services to **Resave content** (now the urls will be correct)
+- [ ] 17. Bulk edit the VAMC Facility Health Services for the original Facility (update the section to the new section)
+- [ ] 18. Manually edit each VAMC Facility Health Service (updating the VAMC system health service to use the new system)
+- [ ] 19. Bulk edit the VAMC Facility Health Services to **Update URL alias**
+- [ ] 20. Bulk edit the VAMC Facility Health services to **Resave content** (now the urls will be correct)
 
 #### CMS engineer (create script to be run against the production DB)
 
@@ -86,7 +87,7 @@ drush sql:query "UPDATE migrate_map_va_node_health_care_local_facility SET desti
 
 
 #### CMS Help desk (wrap up)
-- [ ] Help desk notifies editor and any other stakeholders.
+- [ ] Notify editor and any other stakeholders.
 
 ### Team
 Please check the team(s) that will do this work.

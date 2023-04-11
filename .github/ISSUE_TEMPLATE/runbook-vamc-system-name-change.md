@@ -30,20 +30,21 @@ System link: <insert_facility_link>
 Timing around these is critical and we may need more detail here.
 
 #### CMS help desk steps
-- [ ] 1. Create a [url change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old facility URL to the new facility URL. (**Note: The URL change request ticket blocks the completion of this ticket.**)
+- [ ] 1. Create a [URL change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old facility URL to the new facility URL. (**Note: The URL change request ticket blocks the completion of this ticket.**)
 
 <insert_url_change_request_link>
 
 (Redirects are released Wednesday afternoons, so coordinate the following items below and canonical URL change around that timeframe.)
 
 #### CMS engineer steps
-- [ ] 2. CMS engineer updates the Section name
-- [ ] 3. CMS engineer bulk alias changes all nodes within the system. (https://prod.cms.va.gov/admin/content/bulk)
-- [ ] 4. CMS engineer bulk saves to fix titles for all nodes within system. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
-- [ ] 5. CMS engineer creates a PR to rename the menu for the system accordingly.  (In the future, they may need to rebuild the menu so that name and machine name match.)
+- [ ] 2. Execute the steps of the URL change request ticket from step 1.
+- [ ] 3. Update the Section name.
+- [ ] 3. Bulk alias change all nodes within the system. (https://prod.cms.va.gov/admin/content/bulk)
+- [ ] 4. Bulk save to fix titles for all nodes within system. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
+- [ ] 5. Creates a PR to rename the menu for the system accordingly.  (In the future, they may need to rebuild the menu so that name and machine name match.)
 
 #### CMS Help desk (wrap up)
-- [ ] Help desk notifies editor and any other stakeholders.
+- [ ] Notify editor and any other stakeholders.
 
 ### Team
 Please check the team(s) that will do this work.
