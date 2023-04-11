@@ -29,7 +29,7 @@ Facility link: <insert_facility_link>
 
 #### CMS help desk steps
 - [ ] 1. The title (Name of Vet Center field) change comes from Lighthouse to Drupal
-- [ ] 2. Create a [URL change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old facility URL to the new facility URL. (**Note: The URL change request ticket blocks the completion of this ticket.**)
+- [ ] 2. If the Vet Center published and NOT an Outstation, create a [URL change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old facility URL to the new facility URL. (**Note: The URL change request ticket blocks the completion of this ticket.**)
 
 <insert_redirect_request_link>
 
@@ -43,7 +43,6 @@ Facility link: <insert_facility_link>
 - [ ] 7. Update URLs for all content in that section by bulk operations
 - [ ] 8. Resave all content in that section by bulk operations
 - [ ] 9. Edit the Vet Center node by removing flag `Changed name`, and saves the node (with moderation state = published)
-
 
 #### CMS Help desk (wrap up)
 - [ ] 10. Notify editor and any other stakeholders.
