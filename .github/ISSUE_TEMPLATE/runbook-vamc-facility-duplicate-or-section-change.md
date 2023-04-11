@@ -69,7 +69,7 @@ Update related content (VAMC Facility Health Services, VAMC Non-clinical Service
 
 #### CMS engineer (create script to be run against the production DB)
 
-This script will need to be run against the production database by a member of the platform team and should accomplish the following goals:
+- [ ] 21. Update this script to be tested on stage and then run against the production database by a member of the platform team to accomplish the following goals:
 
 - [ ] Remove the migrate_map entry for the old facility
 - [ ] Update the migrate_map entry for the new facility, updating the destid1 from the new nid to the old nid (sql command in drush)
@@ -87,7 +87,7 @@ drush sql:query "UPDATE migrate_map_va_node_health_care_local_facility SET desti
 
 
 #### CMS Help desk (wrap up)
-- [ ] Notify editor and any other stakeholders.
+- [ ] 22. Notify editor and any other stakeholders.
 
 ### Team
 Please check the team(s) that will do this work.

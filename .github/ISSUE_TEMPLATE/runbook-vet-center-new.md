@@ -51,7 +51,7 @@ Facility link: <insert_facility_link>
 - [ ] 10. Let help desk know this has been done.
 
 #### CMS Help desk (wrap up)
-- [ ] 10. Notify editor and any other stakeholders.
+- [ ] 11. Notify editor and any other stakeholders.
 
 ### Team
 Please check the team(s) that will do this work.

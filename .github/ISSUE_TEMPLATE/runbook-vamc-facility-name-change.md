@@ -36,20 +36,20 @@ Facility link: <insert_facility_link>
 (Redirects are released Wednesday afternoons, so coordinate the following items below and canonical URL change around that timeframe.)
 
 #### CMS engineer steps
-- [ ] 2. Execute the steps of the URL change request ticket from step 2.
-- [ ] 3. Locate the newly renamed VAMC Facility (https://prod.cms.va.gov/admin/content/bulk) Search by new name
-- [ ] 4. Updates URL alias for this facility
-- [ ] 5. Resave this facility
-- [ ] 6. Make bulk alias changes to facility service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
-- [ ] 7. Bulk save fixed titles to facility service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
-- [ ] 8. Update menu title for facility
-- [ ] 9. May also need to directly edit the VAMC System menu to alpha sort the menu item after the title changes
-- [ ] 10. Update Alt text for facility image, if relevant
-- [ ] 11. Update Meta description (TBD: some backwards compatibility for SEM, by including something like ", formerly known as [previous name]".
-- [ ] 12. Edit facility node and remove flag `Changed name` then save node (with moderation state = published)
+- [ ] 3. Execute the steps of the URL change request ticket from step 2.
+- [ ] 4. Locate the newly renamed VAMC Facility (https://prod.cms.va.gov/admin/content/bulk) Search by new name
+- [ ] 5. Updates URL alias for this facility
+- [ ] 6. Resave this facility
+- [ ] 7. Make bulk alias changes to facility service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
+- [ ] 8. Bulk save fixed titles to facility service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
+- [ ] 9. Update menu title for facility
+- [ ] 10. May also need to directly edit the VAMC System menu to alpha sort the menu item after the title changes
+- [ ] 11. Update Alt text for facility image, if relevant
+- [ ] 12. Update Meta description (TBD: some backwards compatibility for SEM, by including something like ", formerly known as [previous name]".
+- [ ] 13. Edit facility node and remove flag `Changed name` then save node (with moderation state = published)
 
 #### CMS Help desk (wrap up)
-- [ ] Notify editor and any other stakeholders
+- [ ] 14. Notify editor and any other stakeholders
 
 ### Team
 Please check the team(s) that will do this work.

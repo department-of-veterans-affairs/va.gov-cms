@@ -42,11 +42,11 @@ Facility link: <insert_facility_link>
 - [ ] 6. Visit [bulk operations](https://prod.cms.va.gov/admin/content/bulk) page and filter by section = vet center name
 - [ ] 7. Update URLs for all content in that section by bulk operations
 - [ ] 8. Resave all content in that section by bulk operations
-- [ ] 9. Edits the Vet Center node by removing flag `Changed name`, and saves the node (with moderation state = published)
+- [ ] 9. Edit the Vet Center node by removing flag `Changed name`, and saves the node (with moderation state = published)
 
 
 #### CMS Help desk (wrap up)
-- [ ] 11. Notify editor and any other stakeholders.
+- [ ] 10. Notify editor and any other stakeholders.
 
 ### Team
 Please check the team(s) that will do this work.

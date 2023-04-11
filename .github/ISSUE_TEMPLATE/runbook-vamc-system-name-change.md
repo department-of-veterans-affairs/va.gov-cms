@@ -44,7 +44,7 @@ Timing around these is critical and we may need more detail here.
 - [ ] 5. Creates a PR to rename the menu for the system accordingly.  (In the future, they may need to rebuild the menu so that name and machine name match.)
 
 #### CMS Help desk (wrap up)
-- [ ] Notify editor and any other stakeholders.
+- [ ] 6. Notify editor and any other stakeholders.
 
 ### Team
 Please check the team(s) that will do this work.
