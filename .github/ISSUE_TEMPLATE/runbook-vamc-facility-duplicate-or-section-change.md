@@ -34,11 +34,12 @@ Duplicate records can also show up in VAST as the result of a facility name chan
 In either instance we have two VAST records representing the same physical location and we need to make changes in the CMS so VAST data for the NEW VAST entry properly maps to our original CMS facility. We do this to preserve revision log information and other history stored in the CMS.
 
 #### CMS help desk steps
-- [ ] 1. Submit a [redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E) from the original URL for the facility to the new URL for the facility.
+If there has been a section change, which results in a change to the facility URL:
+- [ ] Create a [url change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old facility URL to the new facility URL. (**Note: The URL change request ticket blocks the completion of this ticket.**)
 
-<insert_redirect_request_link>
+<insert_url_change_request_link>
 
-(These are usually released Wednesday afternoons so you should coordinate the remaining items below around that timeframe)
+(Redirects are released Wednesday afternoons, so coordinate the following items below and canonical URL change around that timeframe.)
 
 #### CMS engineer steps (the new facility)
 - [ ] 2. Change the Facility Locator API ID on the new facility to the Facility Locator API ID for the old one.
@@ -69,8 +70,8 @@ Update related content (VAMC Facility Health Services, VAMC Non-clinical Service
 
 This script will need to be run against the production database by a member of the platform team and should accomplish the following goals:
 
-- [ ] Remove the migrate_map entry for the new facility
-- [ ] Update the migrate_map entry for the old facility, updating the facility locator api id to the new one (sql command in drush)
+- [ ] Remove the migrate_map entry for the old facility
+- [ ] Update the migrate_map entry for the new facility, updating the destid1 from the new nid to the old nid (sql command in drush)
 
 **Paste the script to be run here**
 
@@ -83,9 +84,6 @@ drush sql:query "DELETE FROM migrate_map_va_node_health_care_local_facility WHER
 drush sql:query "UPDATE migrate_map_va_node_health_care_local_facility SET destid1 = '[old node id]' WHERE destid1 = '[new node id]'"
 ```
 
-#### CMS engineer (request a URL change)
-If there has been a section change, which results in a change to the facility  URL:
-- [ ] Create a [url change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old url to the new facility URL.
 
 #### CMS Help desk (wrap up)
 - [ ] Help desk notifies editor and any other stakeholders.

@@ -12,7 +12,7 @@ assignees: ''
 - [ ] Notify VA stakeholders as appropriate.
 - [ ] Link the related facility closure / rename issue.
 - [ ] Create a URL redirect in the [devops](https://github.com/department-of-veterans-affairs/devops) repo in `ansible/deployment/config/revproxy-vagov/vars/redirects.yml`
-- [ ] Validate that the URL redirect is deployed
+- [ ] Validate that the URL redirect is deployed.
 
 ### Implementation date
 When does this request need to be live:

@@ -15,7 +15,7 @@ When does this request need to be live:
 - [ ] Notify VA stakeholders as appropriate.
 - [ ] Link the related facility closure / rename issue.
 - [ ] Create a URL redirect in the [devops](https://github.com/department-of-veterans-affairs/devops) repo in `ansible/deployment/config/revproxy-vagov/vars/redirects.yml`
-- [ ]  Validate that the URL redirect is deployed. (Note: In the event of a facility closure or name change,  validate that this occurs before making the Lighthouse csv changes.)
+- [ ]  Validate that the URL redirect is deployed. (Note: In the event of a facility closure or a name change,  validate that this occurs before making the Lighthouse csv changes.)
 
 #### URL Redirect
 | Current URL  |  Redirect Destination or New URL |
@@ -23,10 +23,11 @@ When does this request need to be live:
 | current URL | new URL |
 
 ### Instructions for canonical URL change
-- [ ] Verify that the new URL for the facility is published and accessible on VA.gov
-- [ ] Update the [CSV in Lighthouse](https://github.com/department-of-veterans-affairs/lighthouse-facilities/blob/master/facilities/src/main/resources/websites.csv) with the changed URL, maintaining the sorted order of the Facility API IDs
-- [ ] Create a PR in the [lighthouse-facilities repo](https://github.com/department-of-veterans-affairs/lighthouse-facilities), tagging the Lighthouse team
-- [ ] Post a message in the #api-facilities channel in Slack, with an @mention to a Lighthouse team member
+- [ ] Verify that the new URL for the facility is published and accessible on VA.gov.
+- [ ] Update the [CSV in Lighthouse](https://github.com/department-of-veterans-affairs/lighthouse-facilities/blob/master/facilities/src/main/resources/websites.csv) with the changed URL, maintaining the sorted order of the Facility API IDs.
+- [ ] Create a PR in the [lighthouse-facilities repo](https://github.com/department-of-veterans-affairs/lighthouse-facilities), tagging the Lighthouse team.
+- [ ] Post a message in the #api-facilities channel in Slack, with an @mention to a Lighthouse team member.
+- [ ] Validate that the change has deployed by checking that the Facility Locator has been updated with the new url.
 
 
 #### URL change example (update with actual ID and URL)
