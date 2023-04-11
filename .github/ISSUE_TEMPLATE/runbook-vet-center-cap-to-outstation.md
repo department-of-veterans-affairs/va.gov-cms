@@ -68,7 +68,9 @@ Facility link: <insert_facility_link>
 - [ ] 9. Execute the steps of the URL change request ticket from step 8.
 - [ ] 10. When the redirect has been made live, set the status of the CAP node to 'closed'.
 - [ ] 11. Archive the CAP with a comment in the revision log that points to the new Vet Center.
-- [ ] 12. Help desk notifies editor and any other stakeholders.
+
+### Help desk steps
+- [ ] 12. Notify editor and any other stakeholders.
 
 
 ### Team

@@ -65,7 +65,7 @@ Please let us know when your draft content is complete, so that we can wrap up t
 
 
 #### CMS Help desk (wrap up)
-- [ ] 11. Help desk notifies editor and any other stakeholders.
+- [ ] 11. Notify editor and any other stakeholders.
 
 ### Team
 Please check the team(s) that will do this work.

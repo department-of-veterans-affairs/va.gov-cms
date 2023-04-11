@@ -36,22 +36,22 @@ Facility link: <insert_facility_link>
 
 [@TODO write sample email - SEE runbook-vamc-facility-new]
 
-- [ ] 8. Create a [URL change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E). (**Note: The URL change request ticket blocks the completion of this ticket.**)
+- [ ] 5. Create a [URL change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E). (**Note: The URL change request ticket blocks the completion of this ticket.**)
 
 <insert_url_change_request_link>
 
 (Redirects are released Wednesday afternoons, so coordinate the following items below and canonical URL change around that timeframe.)
 
-- [ ] 5. When editor has prepared content and let help desk know, reassign this issue to appropriate CMS engineer on Product Support team, for bulk publishing.
+- [ ] 6. When editor has prepared content and let help desk know, reassign this issue to appropriate CMS engineer on Product Support team, for bulk publishing.
 
 #### CMS engineer steps
-- [ ] 6. Execute the steps of the URL change request ticket from step 8.
-- [ ] 7. Bulk publish the nodes and facility.
-- [ ] 8. Edits facility node by removing the `New facility` flag and saves the node.
-- [ ] 9. Let help desk know this has been done.
+- [ ] 7. Execute the steps of the URL change request ticket from step 5.
+- [ ] 8. Bulk publish the nodes and facility.
+- [ ] 9. Edits facility node by removing the `New facility` flag and saves the node.
+- [ ] 10. Let help desk know this has been done.
 
 #### CMS Help desk (wrap up)
-- [ ] 11. Help desk notifies editor and any other stakeholders.
+- [ ] 10. Notify editor and any other stakeholders.
 
 ### Team
 Please check the team(s) that will do this work.
