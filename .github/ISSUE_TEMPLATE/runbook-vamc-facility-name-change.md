@@ -29,27 +29,27 @@ Facility link: <insert_facility_link>
 
 #### CMS help desk steps
 - [ ] 1. The title change comes from Lighthouse to Drupal.
-- [ ] 2. Coordinate with Facilities team to create a [redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E) from the original URL for the facility to the new URL for the facility.
+- [ ] 2. Create a [URL change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old facility URL to the new facility URL. (**Note: The URL change request ticket blocks the completion of this ticket.**)
 
-<insert_redirect_request_link>
+<insert_url_change_request_link>
+
+(Redirects are released Wednesday afternoons, so coordinate the following items below and canonical URL change around that timeframe.)
 
 #### CMS engineer steps
-- [ ] 3. CMS engineer locates the newly renamed VAMC Facility (https://prod.cms.va.gov/admin/content/bulk) Search by new name
-- [ ] 4. CMS engineer updates URL alias for this facility
-- [ ] 5. CMS engineer resaves this facility
-- [ ] 6. CMS engineer makes bulk alias changes to facility service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
-- [ ] 7. CMS engineer bulk saves fixed titles to facility service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
-- [ ] 8. CMS engineer updates menu title for facility
-- [ ] 9. CMS engineer may also need to directly edit the VAMC System menu to alpha sort the menu item after the title changes
-- [ ] 10. CMS engineer updates Alt text for facility image, if relevant
-- [ ] 11. CMS engineer updates Meta description (TBD: some backwards compatibility for SEM, by including something like ", formerly known as [previous name]".
-- [ ] 12. CMS engineer edit facility node and remove flag `Changed name` then save node (with moderation state = published)
-
-In [Lighthouse Facilties](https://github.com/department-of-veterans-affairs/lighthouse-facilities)
-- [ ] 13. CMS engineer updates the [CSV in Lighthouse](https://github.com/department-of-veterans-affairs/lighthouse-facilities/blob/master/facilities/src/main/resources/websites.csv) with the changed URL, creating a PR, tagging the Lighthouse team and linking to it in Slack with an @mention to a Lighthouse team member 
+- [ ] 3. Execute the steps of the URL change request ticket from step 2.
+- [ ] 4. Locate the newly renamed VAMC Facility (https://prod.cms.va.gov/admin/content/bulk) Search by new name
+- [ ] 5. Updates URL alias for this facility
+- [ ] 6. Resave this facility
+- [ ] 7. Make bulk alias changes to facility service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
+- [ ] 8. Bulk save fixed titles to facility service nodes. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
+- [ ] 9. Update menu title for facility
+- [ ] 10. May also need to directly edit the VAMC System menu to alpha sort the menu item after the title changes
+- [ ] 11. Update Alt text for facility image, if relevant
+- [ ] 12. Update Meta description (TBD: some backwards compatibility for SEM, by including something like ", formerly known as [previous name]".
+- [ ] 13. Edit facility node and remove flag `Changed name` then save node (with moderation state = published)
 
 #### CMS Help desk (wrap up)
-- [ ] Help desk notifies editor and any other stakeholders
+- [ ] 14. Notify editor and any other stakeholders
 
 ### Team
 Please check the team(s) that will do this work.
