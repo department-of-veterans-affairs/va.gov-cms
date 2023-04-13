@@ -125,6 +125,7 @@ The VA network is required for Drupal CMS and other VA tools and usually require
    - [ ] Optional [Core Tunnel set up for SOCKS proxy on all browsers on Mac](https://www.youtube.com/watch?v=fSuN9LhkB5o)
 
 #### Drupal 
+Drupal is the VA's content management system of choice. For anyone on our team, it's beneficial to have a CMS user account so you can login, look at settings, and understand how the CMS works at a high level. If you need help completing the technical steps here, schedule 30 mins with your Delivery Manager.
   - [ ] [Learn about the different Drupal environments](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/environments.md)
   - [ ] If you are using a non-VA laptop for development you will need [follow the instructions on Github](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/https.md) to trust the VA Root Certificate Authority (CA) in your browser(s)
   - [ ] Drupal production environment access (SOCKS or VA network required) - in DSVA #cms-support channel, use the Slack workflow to file a helpdesk support request. Ask the helpdesk to create a Drupal user for you in [prod.cms.va.gov](prod.cms.va.gov). 
