@@ -29,25 +29,23 @@ Facility link: <insert_facility_link>
 
 #### CMS help desk steps
 - [ ] 1. The title (Name of Vet Center field) change comes from Lighthouse to Drupal
-- [ ] 2. If the Vet Center published: CMS team submits [redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E), cc'ing Facilities team NOT NEEDED for Outstation
+- [ ] 2. If the Vet Center published and NOT an Outstation, create a [URL change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old facility URL to the new facility URL. (**Note: The URL change request ticket blocks the completion of this ticket.**)
 
 <insert_redirect_request_link>
 
-- [ ] 3. If the Vet Center is not published or once the redirect request has gone live alert CMS engineers to continue steps below 
+(Redirects are released Wednesday afternoons, so coordinate the following items below and canonical URL change around that timeframe.)
 
 #### CMS engineer steps
-- [ ] 4. CMS engineer renames the section for this Vet Center to match its new name (Section taxonomy change)
-- [ ] 5. CMS engineer: If the new official name matches the pattern "<city> Vet Center", update the common name to match
-- [ ] 6. CMS engineer visits [bulk operations](https://prod.cms.va.gov/admin/content/bulk) page and filter by section = vet center name
-- [ ] 7. CMS engineer updates URLs for all content in that section by bulk operations
-- [ ] 8. CMS engineer resaves all content in that section by bulk operations
-- [ ] 9. CMS engineer edits the Vet Center node by removing flag `Changed name`, and saves the node (with moderation state = published)
-  
-In [Lighthouse Facilties](https://github.com/department-of-veterans-affairs/lighthouse-facilities)
-- [ ] 10. CMS engineer updates the [CSV in Lighthouse](https://github.com/department-of-veterans-affairs/lighthouse-facilities/blob/master/facilities/src/main/resources/websites.csv) with the changed URL, creating a PR, tagging the Lighthouse team and linking to it in Slack with an @mention to a Lighthouse team member  NOT NEEDED for Outstation
+- [ ] 3. Execute the steps of the URL change request ticket from step 2.
+- [ ] 4. Rename the section for this Vet Center to match its new name (Section taxonomy change)
+- [ ] 5. If the new official name matches the pattern "<city> Vet Center", update the common name to match
+- [ ] 6. Visit [bulk operations](https://prod.cms.va.gov/admin/content/bulk) page and filter by section = vet center name
+- [ ] 7. Update URLs for all content in that section by bulk operations
+- [ ] 8. Resave all content in that section by bulk operations
+- [ ] 9. Edit the Vet Center node by removing flag `Changed name`, and saves the node (with moderation state = published)
 
 #### CMS Help desk (wrap up)
-- [ ] 11. Help desk notifies editor and any other stakeholders.
+- [ ] 10. Notify editor and any other stakeholders.
 
 ### Team
 Please check the team(s) that will do this work.

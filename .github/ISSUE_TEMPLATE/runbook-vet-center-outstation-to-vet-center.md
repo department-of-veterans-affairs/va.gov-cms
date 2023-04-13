@@ -38,11 +38,19 @@ Facility link: <insert_facility_link>
 - [ ] 5. When editor has prepared content and let help desk know, publish the new Vet Center.
 - [ ] 6. Remove the `New facility` flag from the node.
 - [ ] 7. Communicate with editor (do they need to be onboarded)
-#### Close old Outstation
-- [ ] 8. Submit a [Redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E), cc'ing Facilities team, and referencing this issue to redirect from the Outstation URL to the new Vet Center URL.
-- [ ] 9. When the redirect has been made live, set the status of the Outstation node to 'closed'.
-- [ ] 10. Archive the Outstation with a comment in the revision log that points to the new Vet Center.
-- [ ] 11. Work with a CMS engineer to update the [CSV in Lighthouse](https://github.com/department-of-veterans-affairs/lighthouse-facilities/blob/master/facilities/src/main/resources/websites.csv) with the new URL (engineer creates a PR, tags the Lighthouse team and links to the PR in Slack with an @mention to a Lighthouse team member).
+
+#### Close old Outstation and Create Vet Center URL
+- [ ] 8. Create a [URL change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old facility URL to the new facility URL. (**Note: The URL change request ticket blocks the completion of this ticket.**)
+
+<insert_url_change_request_link>
+
+(Redirects are released Wednesday afternoons, so coordinate the following items below and canonical URL change around that timeframe.)
+### CMS engineer steps
+- [ ] 9. Execute the steps of the URL change request ticket from step 8.
+- [ ] 10. When the redirect has been made live, set the status of the Outstation node to 'closed'.
+- [ ] 11. Archive the Outstation with a comment in the revision log that points to the new Vet Center.
+
+
 - [ ] 12. Help desk notifies editor and any other stakeholders.
 
 ### Team

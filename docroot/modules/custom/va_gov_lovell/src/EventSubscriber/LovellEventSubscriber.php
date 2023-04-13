@@ -337,7 +337,7 @@ class LovellEventSubscriber implements EventSubscriberInterface {
       if (!array_key_exists($section_id, LovellOps::LOVELL_SECTIONS)) {
         return;
       }
-      if ($entity->id() === '15007'  || LovellOps::isLovellBothListingPage($entity)) {
+      if ($entity->id() === LovellOps::LOVELL_FEDERAL_SYSTEM_ID  || LovellOps::isLovellBothListingPage($entity)) {
         // Special case of Lovell Federal system,
         // or listing pages that are in both systems but not rendered.
         return;
@@ -382,9 +382,14 @@ class LovellEventSubscriber implements EventSubscriberInterface {
     $url_pieces = explode('/', $new_url);
     $new_aliases = [];
     foreach ($prefixes as $prefix) {
+      // Replace the first segment and use the rest.
+      $url = "/{$prefix}/" . implode('/', array_slice($url_pieces, 2));
+      // Remove trailing -0 from using the menu parent for VAMC detail pages.
+      // This also applies to leadership pages.
+      $url = preg_replace('/-0$/', '', $url);
       $new_alias = PathAlias::Create([
-        'path' => '/node/' . $node->id(),
-        'alias' => '/' . $prefix . '/' . implode('/', array_slice($url_pieces, 2)),
+        'path' => "/node/{$node->id()}",
+        'alias' => $url,
         'langcode' => $node->language()->getId(),
       ]);
       $new_aliases[] = $new_alias;
@@ -407,7 +412,7 @@ class LovellEventSubscriber implements EventSubscriberInterface {
     $path_alias_manager = $this->entityTypeManager->getStorage('path_alias');
     $existing_aliases = $path_alias_manager->loadByProperties([
       'path'     => $path,
-      'langcode' => 'en',
+      'langcode' => $node->language()->getId(),
     ]);
 
     return $existing_aliases;
