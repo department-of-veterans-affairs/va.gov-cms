@@ -20,7 +20,7 @@ Submitter: <insert_name>
 - [ ] If the submitter is an editor, send them links to any relevate KB articles for the VAMC Facility product.
 KB articles: <insert_kb_article_links>
 
-- [ ] Link to facility in production:
+- [ ] Link to facility in production, including facility locator link:
 Facility link: <insert_facility_link>
 
 ## Acceptance criteria

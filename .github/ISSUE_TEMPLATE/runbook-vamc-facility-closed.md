@@ -72,7 +72,7 @@ https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignee
 
 <insert_redirect_request_link>
 
-(These are usually released Wednesday afternoons so you should coordinate the remaining items below around that timeframe)
+(Redirects deploy weekly on Wed. at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. Coordinate the items below and canonical URL change after URL change ticket is merged, deployed, and verified in prod.)
 
 - [ ] 6. When redirect has been deployed, make these changes. Practice first on staging or a demo environment.
   - [ ] 6a. CMS engineer bulk moves any content identified **4b** to new facility **4a**.
