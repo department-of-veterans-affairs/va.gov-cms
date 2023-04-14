@@ -27,6 +27,7 @@ $config['environment_indicator.indicator']['fg_color'] = '#ffffff';
 $config['environment_indicator.indicator']['name'] = 'ddev';
 
 $webhost_on_cli = 'https://va-gov-cms.ddev.site';
+$settings['webhost'] = $webhost_on_cli;
 
 // Link to this file locally since local can not access prod where the real
 // file exists.  You will need to copy the file from the same path on prod.
