@@ -59,7 +59,10 @@ Facility link: <insert_facility_link>
 [@TODO help desk write sample email - SEE runbook-vamc-facility-new]
 
 ### Close old CAP and Create new Outstation URL
-- [ ] 8. Create a [URL change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old facility URL to the new facility URL, referencing this issue to redirect from the CAP URL to the Outstation URL. (**Note: The URL change request ticket blocks the completion of this ticket.**)
+- [ ] 8. Create a URL change request, changing the entry from the old facility URL to the new facility URL, referencing this issue to redirect from the CAP URL to the Outstation URL. 
+
+https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E
+(**Note: The URL change request ticket blocks the completion of this ticket.**)
 
 <insert_url_change_request_link>
 

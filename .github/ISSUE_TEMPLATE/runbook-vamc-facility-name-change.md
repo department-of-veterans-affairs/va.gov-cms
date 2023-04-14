@@ -30,7 +30,10 @@ Facility link: <insert_facility_link>
 #### CMS help desk steps
 What happens: The name change is made in VAST, that syncs to Lighthouse which syncs to Drupal.
 - [ ] 1. Check that the title change in name field on the VACM node has shown up in Drupal.
-- [ ] 2. Create a [URL change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old facility URL to the new facility URL. (**Note: The URL change request ticket blocks the completion of this ticket.**)
+- [ ] 2. Create a URL change request, changing the entry from the old facility URL to the new facility URL. 
+
+https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E
+(**Note: The URL change request ticket blocks the completion of this ticket.**)
 
 <insert_url_change_request_link>
 

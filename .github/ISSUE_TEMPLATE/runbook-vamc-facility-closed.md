@@ -65,7 +65,10 @@ If this facility has been removed from VAST in error, please notify our Support 
 - [ ] 4. Are any of the services or upcoming events for the facility to be closed moving to a different facility?
   - [ ] 4a. If so, note the facility picking up the services and events here: <insert_target_facility>
   - [ ] 4b. If so, note the services and events here: <insert_services_to_be_moved>
-- [ ] 5. Create a [redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E) from the URL of the facility to be closed to the URL of its parent system.
+- [ ] 5. Create a redirect request, from the URL of the facility to be closed to the URL of its parent system.
+
+https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E
+(**Note: The URL change request ticket blocks the completion of this ticket.**)
 
 <insert_redirect_request_link>
 
