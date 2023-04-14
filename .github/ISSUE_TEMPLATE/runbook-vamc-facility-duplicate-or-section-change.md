@@ -17,8 +17,9 @@ Help desk ticket: <insert_help_desk_link>
 - [ ] Name of submitter (if applicable)
 Submitter: <insert_name>
 
-- [ ] Link to facility in production:
+- [ ] Link to facility in production, including facility locator link:
 Facility link: <insert_facility_link>
+Facility locator link: <insert_facility_locator_link>
 
 ## Steps before proceeding
 

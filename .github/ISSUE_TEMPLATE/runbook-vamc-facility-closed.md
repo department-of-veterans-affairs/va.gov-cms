@@ -19,8 +19,9 @@ Submitter: <insert_name>
 
 - [ ] If the submitter is an editor, send them a link to the KB article: [How to archive a closed facility](https://prod.cms.va.gov/help/vamc/about-locations-content-for-vamcs/how-to-archive-a-closed-facility)
 
-- [ ] Link to facility in production:
+- [ ] Link to facility in production, including facility locator link:
 Facility link: <insert_facility_link>
+Facility locator link: <insert_facility_locator_link>
 
 ## Acceptance criteria
 

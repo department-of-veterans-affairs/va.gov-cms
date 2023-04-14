@@ -20,8 +20,9 @@ Submitter: <insert_name>
 - [ ] If the submitter is an editor, send them links to any relevate KB articles for the VBA product. Let them know that facility changes can take between 75 days and 4 months after submitting a request, according to VAST administrators.
 KB articles: <insert_kb_article_links>
 
-- [ ] Link to facility in production:
+- [ ] Link to facility in production, including facility locator link:
 Facility link: <insert_facility_link>
+Facility locator link: <insert_facility_locator_link>
 
 ## Acceptance criteria
 
