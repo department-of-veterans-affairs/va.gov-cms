@@ -2,7 +2,7 @@
 name: Runbook - VAMC Facility name change
 about: Steps for updating names and URLs
 title: 'VAMC Facility name change: <insert_name>'
-labels: Change request
+labels: Change request, VAMC, Facilities, User support, VA.gov frontend, Drupal engineering
 assignees: ''
 
 ---

@@ -2,7 +2,7 @@
 name: Runbook - Vet Center name change
 about: Steps for updating names and URLs
 title: 'Vet Center name change: <insert_name>'
-labels: Change request
+labels: Change request, Vet Center, Facilities, User support, VA.gov frontend, Drupal engineering
 assignees: ''
 
 ---
@@ -33,7 +33,7 @@ Facility link: <insert_facility_link>
 
 <insert_redirect_request_link>
 
-(Redirects are released Wednesday afternoons, so coordinate the following items below and canonical URL change around that timeframe.)
+(Redirects deploy weekly on Wed. at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. Coordinate the items below and canonical URL change after URL change ticket is merged, deployed, and verified in prod.)
 
 #### CMS engineer steps
 - [ ] 3. Execute the steps of the URL change request ticket from step 2.

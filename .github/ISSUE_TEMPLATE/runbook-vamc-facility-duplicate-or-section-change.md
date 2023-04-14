@@ -2,7 +2,7 @@
 name: Runbook - VAMC facility duplicate record or section change
 about: How to update the section of a VAMC.
 title: 'VAMC Facility duplicate record or section change: <insert_name_of_vamc>'
-labels: Change request
+labels: Change request, VAMC, Facilities, User support, VA.gov frontend, Drupal engineering
 assignees: ''
 
 ---
@@ -39,7 +39,9 @@ If there has been a section change, which results in a change to the facility UR
 
 <insert_url_change_request_link>
 
-(Redirects are released Wednesday afternoons, so coordinate the following items below and canonical URL change around that timeframe.)
+
+(Redirects deploy weekly on Wed. at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. Coordinate the items below and canonical URL change after URL change ticket is merged, deployed, and verified in prod.)
+
 
 #### CMS engineer steps (the new facility)
 - [ ] 2. Execute the steps of the URL change request ticket from step 1.

@@ -2,7 +2,7 @@
 name: Runbook - VAMC Facility closed
 about: Steps for archiving a VAMC facility in VA.gov CMS.
 title: 'VAMC Facility closed: <insert_name>'
-labels: Change request
+labels: Change request, VAMC, Facilities, User support, VA.gov frontend, Drupal engineering
 assignees: ''
 
 ---
@@ -60,7 +60,6 @@ If this facility has been removed from VAST in error, please notify our Support 
 
 [CMS helpdesk signature]
 ```
-
 </details>
 
 - [ ] 4. Are any of the services or upcoming events for the facility to be closed moving to a different facility?
