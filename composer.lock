@@ -4784,27 +4784,30 @@
         },
         {
             "name": "drupal/danse",
-            "version": "2.2.7",
+            "version": "2.2.15",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/danse.git",
-                "reference": "2.2.7"
+                "reference": "2.2.15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/danse-2.2.7.zip",
-                "reference": "2.2.7",
-                "shasum": "8ff84ced7645f7722812421d8f53b5b5b28a1c6d"
+                "url": "https://ftp.drupal.org/files/projects/danse-2.2.15.zip",
+                "reference": "2.2.15",
+                "shasum": "d2dea3f6dc4e6eb4e094d5988755c6a443bafbb3"
             },
             "require": {
-                "drupal/core": "^8.8 || ^9",
+                "drupal/core": "^9.5 || ^10",
                 "php": ">=7.4"
+            },
+            "require-dev": {
+                "drupal/eca": "*"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.2.7",
-                    "datestamp": "1662642954",
+                    "version": "2.2.15",
+                    "datestamp": "1680675411",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -4812,13 +4815,13 @@
                 },
                 "drush": {
                     "services": {
-                        "drush.services.yml": "^9 | ^10"
+                        "drush.services.yml": "^9 | ^10 | ^11"
                     }
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
