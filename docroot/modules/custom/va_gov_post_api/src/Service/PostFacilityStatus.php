@@ -169,7 +169,20 @@ class PostFacilityStatus extends PostFacilityBase {
 
     // Current field values.
     $this->statusToPush = $this->facilityNode->get('field_operating_status_facility')->value;
-    $this->additionalInfoToPush = $this->facilityNode->get('field_operating_status_more_info')->value;
+    if ($this->facilityNode->get('field_operating_status_more_info')->value) {
+      $additionalInfoToPushLength = json_encode($this->facilityNode->get('field_operating_status_more_info')->value);
+      $additionalInfoToPushLength = mb_strlen($additionalInfoToPushLength);
+      // 300 is the character limit for field_operating_status_facility
+      // let's do our best to trim this down if we need to
+      if ($additionalInfoToPushLength > 300) {
+        $this->additionalInfoToPush = str_replace('&nbsp;', ' ', $this->facilityNode->get('field_operating_status_more_info')->value);
+        $this->additionalInfoToPush = trim($this->additionalInfoToPush);
+        $this->additionalInfoToPush = preg_replace("/(\r?\n|\r)+/", " ", $this->additionalInfoToPush);
+      }
+      else {
+        $this->additionalInfoToPush = $this->facilityNode->get('field_operating_status_more_info')->value;
+      }
+    }
 
     if (empty($this->statusToPush)) {
       // We can not send this without a status, so bail out.
