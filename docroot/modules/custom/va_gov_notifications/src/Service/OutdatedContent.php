@@ -70,17 +70,26 @@ class OutdatedContent implements OutdatedContentInterface {
   /**
    * {@inheritdoc}
    */
-  public function checkForOutdatedContent(): array {
+  public function checkForOutdatedVamcContent(): array {
     $have_outdated_content = [];
     $editors = $this->getAllEditors();
     foreach ($editors as $editor) {
       $editor_sections = $this->getEditorsSections($editor);
       foreach ($editor_sections as $section) {
+        $product = $this->getSectionProduct($section);
         $outdated_content = $this->getOutdatedContentForSection($section);
-        if (!empty($outdated_content)) {
-          $this->vaGovNotifications->info('Outdated content found for editor: ' . $editor->getAccountName());
-          $this->queueNotification($editor);
-          $have_outdated_content[] = $editor->getAccountName();
+        // VAMCs are product 284.
+        if (!empty($outdated_content) && $product === '284') {
+          $editorName = $editor->getAccountName();
+          $sectionName = $this->getSectionName($section);
+          $this->vaGovNotifications
+            ->info('Outdated content found for @sectionName editor: @editor',
+            ['@editor' => $editorName, '@sectionName' => $sectionName]);
+          $this->queueNotification($editor, 'vamc_outdated_content');
+          $have_outdated_content[] = [
+            'editor' => $editorName,
+            'section' => $sectionName,
+          ];
         }
         break;
       }
@@ -90,20 +99,96 @@ class OutdatedContent implements OutdatedContentInterface {
   }
 
   /**
-   * Sends a notification to the editor.
+   * {@inheritdoc}
+   */
+  public function checkForOutdatedVetCenterContent(): array {
+    $have_outdated_content = [];
+    $editors = $this->getAllEditors();
+    foreach ($editors as $editor) {
+      $editor_sections = $this->getEditorsSections($editor);
+      foreach ($editor_sections as $section) {
+        $product = $this->getSectionProduct($section);
+        $outdated_content = $this->getOutdatedContentForSection($section);
+        // Vet Centers are product 289.
+        if (!empty($outdated_content) && $product === '289') {
+          $editorName = $editor->getAccountName();
+          $sectionName = $this->getSectionName($section);
+          $this->vaGovNotifications
+            ->info('Outdated content found for @sectionName editor: @editor',
+            ['@editor' => $editorName, '@sectionName' => $sectionName]);
+          $this->queueNotification($editor, 'vet_center_outdated_content');
+          $have_outdated_content[] = [
+            'editor' => $editorName,
+            'section' => $sectionName,
+          ];
+        }
+        break;
+      }
+    }
+    // This is to provide output for the drush command only.
+    return $have_outdated_content;
+  }
+
+  /**
+   * Get the product for the section.
    *
-   * @param \Drupal\Core\Session\AccountInterface $editor
-   *   The editor user object.
+   * @param string $section
+   *   The section id.
+   *
+   * @return string
+   *   The product id.
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  protected function queueNotification(AccountInterface $editor): void {
+  protected function getSectionProduct(string $section): string {
+    $storage = $this->entityTypeManager->getStorage('taxonomy_term');
+    $term = $storage->load($section);
+    if ($term && $term->hasField('field_product')) {
+      $product = $term->get('field_product')->getValue();
+      return $product[0]['target_id'] ?? '';
+    }
+    return '';
+  }
+
+  /**
+   * Get the name for the section.
+   *
+   * @param string $section
+   *   The section id.
+   *
+   * @return string
+   *   The section name.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
+  protected function getSectionName(string $section): string {
+    $storage = $this->entityTypeManager->getStorage('taxonomy_term');
+    $term = $storage->load($section);
+    if ($term) {
+      return $term->get('name')->value;
+    }
+    return '';
+  }
+
+  /**
+   * Sends a notification to VAMC editors.
+   *
+   * @param \Drupal\Core\Session\AccountInterface $editor
+   *   The editor user object.
+   * @param string $queue
+   *   The queue to use.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
+  protected function queueNotification(AccountInterface $editor, string $queue): void {
     // Get the queue.
     /** @var \Drupal\advancedqueue\Entity\Queue $queue */
     $queue = $this->entityTypeManager
       ->getStorage('advancedqueue_queue')
-      ->load('outdated_content_notification');
+      ->load($queue);
 
     // Build the variables being passed to the template.
     $uid = $editor->id();

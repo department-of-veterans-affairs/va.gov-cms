@@ -2,17 +2,37 @@ uuid: d7aa2ade-c81d-45f7-bdde-cc040fce83bf
 langcode: en
 status: true
 dependencies:
+  config:
+    - workflows.workflow.editorial
   module:
     - config_translation
+    - content_moderation
     - content_translation
     - locale
+    - node
+    - tmgmt
 id: translation_manager
 label: 'Translation manager'
 weight: 6
 is_admin: null
 permissions:
-  - 'create content translations'
-  - 'translate any entity'
-  - 'translate configuration'
-  - 'translate interface'
-  - 'update content translations'
+  0: 'accept translation jobs'
+  1: 'create content translations'
+  2: 'create translation jobs'
+  3: 'delete translation jobs'
+  5: 'submit translation jobs'
+  6: 'translate any entity'
+  7: 'translate configuration'
+  8: 'translate interface'
+  9: 'update content translations'
+  10: 'use editorial transition approve'
+  11: 'use editorial transition archive'
+  12: 'use editorial transition create_new_draft'
+  13: 'use editorial transition publish'
+  14: 'use editorial transition archived_published'
+  15: 'use editorial transition review'
+  16: 'view any unpublished content'
+  17: 'view latest version'
+  68: 'access content overview'
+  69: 'administer nodes'
+  70: 'bypass node access'

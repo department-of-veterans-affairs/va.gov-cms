@@ -5,8 +5,7 @@
  * Primary module hooks for VA.gov Notifications module.
  */
 
-use Drupal\media\Entity\Media;
-use Drupal\file\Entity\File;
+use Drupal\Core\Site\Settings;
 
 /**
  * Sets up twig template fore Outdated Content notifications.
@@ -25,10 +24,12 @@ function va_gov_notifications_theme() {
 function va_gov_notifications_preprocess_message__va_outdated_content__mail_body(array &$variables) {
   // Any fields on the message can be made available as template variables.
   $message = $variables['message'];
+
   $module_handler = \Drupal::service('module_handler');
   $path = $module_handler->getModule('va_gov_notifications')->getPath();
   $variables['user_name'] = $message->get('field_editor_username')->getString();
   $variables['banner'] = '/' . $path . '/assets/outdated-content-email-banner.png';
+  $variables['webhost'] = Settings::get('webhost', 'https://prod.cms.va.gov');
 }
 
 /**

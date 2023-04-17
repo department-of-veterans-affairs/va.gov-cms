@@ -397,7 +397,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     if ($form_id === 'node_vet_center_cap_form' || $form_id === 'node_vet_center_cap_edit_form') {
       // Add after_build callbacks for VC CAP node forms.
       $form['field_address']['widget']['#after_build'][] = 'va_gov_vet_center_vc_cap_address_alter_label_after_build';
-      $form['field_facility_hours']['widget']['#after_build'][] = 'va_gov_vet_center_vc_cap_hours_hide_caption_after_build';
     }
 
     if ($form_id === 'node_vet_center_locations_list_form' || $form_id === 'node_vet_center_locations_list_edit_form') {

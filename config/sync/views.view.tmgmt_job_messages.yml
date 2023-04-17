@@ -1,0 +1,364 @@
+uuid: e4409250-61e8-4ee0-8d6b-c1f985421cd8
+langcode: en
+status: true
+dependencies:
+  module:
+    - tmgmt
+    - user
+_core:
+  default_config_hash: Oc4rgGJ1UsWBRKlkWEX36de0R9bhbnGTY-x4DCCdN7k
+id: tmgmt_job_messages
+label: 'Translation Job messages'
+module: views
+description: ''
+tag: ''
+base_table: tmgmt_message
+base_field: mid
+display:
+  default:
+    id: default
+    display_title: Master
+    display_plugin: default
+    position: 1
+    display_options:
+      title: Messages
+      fields:
+        created:
+          id: created
+          table: tmgmt_message
+          field: created
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: date
+          label: Created
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: null
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          date_format: html_date
+          custom_date_format: ''
+          timezone: ''
+        label:
+          id: label
+          table: tmgmt_job_item
+          field: label
+          relationship: tjiid
+          group_type: group
+          admin_label: ''
+          entity_type: tmgmt_job_item
+          plugin_id: tmgmt_entity_label
+          label: Item
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          link_to_entity: true
+        message:
+          id: message
+          table: tmgmt_message
+          field: message
+          plugin_id: tmgmt_handler_field_tmgmt_message_message
+          exclude: false
+        name:
+          id: name
+          table: users_field_data
+          field: name
+          relationship: uid
+          group_type: group
+          admin_label: ''
+          entity_type: user
+          entity_field: name
+          plugin_id: field
+          label: Name
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: user_name
+          settings:
+            link_to_entity: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+      pager:
+        type: full
+        options:
+          offset: 0
+          items_per_page: 10
+          total_pages: null
+          id: 1
+          tags:
+            next: 'next ›'
+            previous: '‹ previous'
+            first: '« first'
+            last: 'last »'
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 20, 40, 60'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
+          quantity: 9
+      exposed_form:
+        type: basic
+        options:
+          submit_button: Apply
+          reset_button: false
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      access:
+        type: tmgmt_job
+        options: {  }
+      cache:
+        type: none
+        options: {  }
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: true
+          content:
+            value: 'There are no messages yet in this Job.'
+            format: basic_html
+          tokenize: false
+      sorts:
+        created:
+          id: created
+          table: tmgmt_message
+          field: created
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: tmgmt_message
+          entity_field: created
+          plugin_id: date
+          order: DESC
+          expose:
+            label: ''
+            field_identifier: created
+          exposed: false
+          granularity: second
+      arguments:
+        tjid:
+          id: tjid
+          table: tmgmt_message
+          field: tjid
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: numeric
+          default_action: ignore
+          exception:
+            value: all
+            title_enable: false
+            title: All
+          title_enable: false
+          title: ''
+          default_argument_type: fixed
+          default_argument_options:
+            argument: ''
+          default_argument_skip_url: false
+          summary_options:
+            base_path: ''
+            count: true
+            override: false
+            items_per_page: 25
+          summary:
+            sort_order: asc
+            number_of_records: 0
+            format: default_summary
+          specify_validation: false
+          validate:
+            type: none
+            fail: 'not found'
+          validate_options: {  }
+          break_phrase: false
+          not: false
+      filters: {  }
+      style:
+        type: table
+      row:
+        type: fields
+      query:
+        type: views_query
+        options:
+          query_comment: ''
+          disable_sql_rewrite: false
+          distinct: false
+          query_tags: {  }
+      relationships:
+        tjiid:
+          id: tjiid
+          table: tmgmt_message
+          field: tjiid
+          relationship: none
+          group_type: group
+          admin_label: 'Translation Job Item'
+          plugin_id: standard
+          required: false
+        uid:
+          id: uid
+          table: tmgmt_message
+          field: uid
+          relationship: none
+          group_type: group
+          admin_label: User
+          entity_type: tmgmt_message
+          entity_field: uid
+          plugin_id: standard
+          required: false
+      header: {  }
+      footer: {  }
+      rendering_language: '***LANGUAGE_entity_default***'
+      display_extenders: {  }
+    cache_metadata:
+      max-age: 0
+      contexts:
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+      tags: {  }
+      cacheable: false
+  embed:
+    id: embed
+    display_title: Embed
+    display_plugin: embed
+    position: 1
+    display_options:
+      rendering_language: '***LANGUAGE_entity_default***'
+      display_extenders: {  }
+    cache_metadata:
+      max-age: 0
+      contexts:
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+      tags: {  }
+      cacheable: false
