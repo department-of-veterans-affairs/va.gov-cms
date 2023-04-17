@@ -48,7 +48,7 @@ class StaticEncoder extends SerializationJsonEncoder {
    *   The string translation service.
    */
   public function __construct(MessengerInterface $messenger, TranslationInterface $string_translation) {
-    $this->messenger = $messenger;
+    $this->messenger         = $messenger;
     $this->stringTranslation = $string_translation;
   }
 
@@ -57,7 +57,7 @@ class StaticEncoder extends SerializationJsonEncoder {
    *
    * This reads the static files right off the server and returns them.
    */
-  public function encode($data, $format, array $context = []) {
+  public function encode(mixed $data, string $format, array $context = []): string {
     $requested_path = Url::fromRoute('<current>', [], ['absolute' => FALSE])->toString();
     $content_path = StaticServiceProvider::urlPathToServerPath($requested_path);
 

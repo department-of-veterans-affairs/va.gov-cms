@@ -21,7 +21,7 @@ field_settings:
     datasource_id: 'entity:node'
     property_path: field_content_block
     type: text
-    boost: !!float 0
+    boost: 0.0
     dependencies:
       config:
         - field.storage.node.field_content_block
@@ -54,7 +54,7 @@ field_settings:
     label: 'Rendered HTML output'
     property_path: rendered_item
     type: text
-    boost: !!float 0
+    boost: 0.0
     configuration:
       roles:
         anonymous: anonymous
@@ -76,7 +76,7 @@ field_settings:
     datasource_id: 'entity:node'
     property_path: title
     type: text
-    boost: !!float 21
+    boost: 21.0
     dependencies:
       module:
         - node

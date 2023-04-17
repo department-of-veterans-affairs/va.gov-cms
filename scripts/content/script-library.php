@@ -11,7 +11,7 @@ use Drupal\node\NodeStorageInterface;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\user\UserStorageInterface;
 
-define('CMS_MIGRATOR_ID', 1317);
+const CMS_MIGRATOR_ID = 1317;
 
 /**
  * Log a message to stdout.
@@ -224,6 +224,7 @@ function save_new_terms($vocabulary_id, array $terms): int {
     $tid = \Drupal::entityQuery('taxonomy_term')
       ->condition('name', $name)
       ->condition('vid', $vocabulary_id)
+      ->accessCheck(FALSE)
       ->execute();
     if (empty($tid)) {
       // Term does not exist, so create it.
