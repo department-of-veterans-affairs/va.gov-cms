@@ -22,9 +22,9 @@ class ExplorerController extends GraphQLExplorerController {
    *   The render array.
    */
   public function viewExplorer($schema, Request $request) : array {
+    parent::viewExplorer($schema, $request);
     $url = $this->urlGenerator->generate("graphql.query.$schema");
     $introspectionData = $this->introspection->introspect($schema);
-
     return [
       '#type' => 'page',
       '#theme' => 'page__va_gov_graphql_explorer',
