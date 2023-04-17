@@ -22,6 +22,7 @@ class LovellOps {
   const VA_PATH = 'lovell-federal-health-care-va';
   const VA_VALUE = 'va';
   const LOVELL_MENU_ID = 'lovell-federal-health-care';
+  const LOVELL_FEDERAL_SYSTEM_ID = '15007';
   const LOVELL_SECTIONS = [
     self::VA_ID => self::VA_VALUE,
     self::TRICARE_ID => self::TRICARE_VALUE,
@@ -130,7 +131,7 @@ class LovellOps {
       LovellOps::VA_ID => LovellOps::VA_PATH,
     ];
 
-    // If section is not both remove invalid prefixes.
+    // If section is not both, remove invalid prefixes.
     if ($section_id !== LovellOps::BOTH_ID) {
       $valid_prefixes = array_intersect_key($valid_prefixes, [$section_id => 'keep']);
     }

@@ -18,6 +18,7 @@ We leverage the [Content Model Documentaion module](https://www.drupal.org/proje
 * New Views
 * Fields that have an undetectable use (not all fields) such as being pulled from
   or pushed to somewhere else.
+* New modules, why they were added.
 
 Basically we want to document:
 * What team owns it.

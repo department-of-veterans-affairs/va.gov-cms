@@ -30,6 +30,7 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
     else {
       $message = 'The ' . $roleMatch . ' role is missing from the system.';
     }
+
     // Copy $expectedPerms to a new array, then sort it.
     // Doing this without copying the array can cause segmentation faults.
     $expected = $expectedPerms;
@@ -97,6 +98,7 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
       [
         'content_admin',
         [
+          'accept translation jobs',
           'access administration pages',
           'access files overview',
           'access media overview',
@@ -414,8 +416,8 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
           'view vet_center_mobile_vet_center revisions',
           'view vet_center_outstation revisions',
           'view vha_facility_nonclinical_service revisions',
-          'view vha_facility_nonclinical_service revisions',
           'view video revisions',
+          'view vha_facility_nonclinical_service revisions',
           'view workbench access information',
         ],
       ],
@@ -565,8 +567,8 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
           'view vet_center_mobile_vet_center revisions',
           'view vet_center_outstation revisions',
           'view vha_facility_nonclinical_service revisions',
-          'view vha_facility_nonclinical_service revisions',
           'view video revisions',
+          'view vha_facility_nonclinical_service revisions',
           'view workbench access information',
         ],
       ],
@@ -888,11 +890,26 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
       [
         'translation_manager',
         [
+          'accept translation jobs',
           'create content translations',
+          'create translation jobs',
+          'delete translation jobs',
+          'submit translation jobs',
           'translate any entity',
           'translate configuration',
           'translate interface',
           'update content translations',
+          'use editorial transition approve',
+          'use editorial transition archive',
+          'use editorial transition create_new_draft',
+          'use editorial transition publish',
+          'use editorial transition archived_published',
+          'use editorial transition review',
+          'view any unpublished content',
+          'view latest version',
+          'access content overview',
+          'administer nodes',
+          'bypass node access',
         ],
       ],
     ];
