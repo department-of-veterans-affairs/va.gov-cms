@@ -36,10 +36,7 @@ In either instance we have two VAST records representing the same physical locat
 
 #### CMS help desk steps
 If there has been a section change, which results in a change to the facility URL:
-- [ ] 1. Create a URL change request, changing the entry from the old facility URL to the new facility URL.
-
-https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E
-(**Note: The URL change request ticket blocks the completion of this ticket.**)
+- [ ] 1. Create a [URL change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old facility URL to the new facility URL. (**Note: The URL change request ticket blocks the completion of this ticket.**)
 
 <insert_url_change_request_link>
 

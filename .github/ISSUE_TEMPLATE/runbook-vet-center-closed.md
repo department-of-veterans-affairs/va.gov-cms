@@ -30,10 +30,7 @@ Facility locator link: <insert_facility_locator_link>
 
 #### CMS help desk steps
 - [ ] 1. CMS team becomes aware that the facility is no longer on the Facility API.
-- [ ] 2. CMS team submits Redirect request, cc'ing Facilities team, and referencing this issue.
-
-https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E
-(**Note: The URL change request ticket blocks the completion of this ticket.**)
+- [ ] 2. CMS team submits [Redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E), cc'ing Facilities team, and referencing this issue.
 
 <insert_redirect_request_link>
 

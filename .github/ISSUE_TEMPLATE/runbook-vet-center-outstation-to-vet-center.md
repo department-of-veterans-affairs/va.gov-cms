@@ -41,10 +41,7 @@ Facility locator link: <insert_facility_locator_link>
 - [ ] 7. Communicate with editor (do they need to be onboarded)
 
 #### Close old Outstation and Create Vet Center URL
-- [ ] 8. Create a URL change request, changing the entry from the old facility URL to the new facility URL. 
-
-https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E
-(**Note: The URL change request ticket blocks the completion of this ticket.**)
+- [ ] 8. Create a [URL change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old facility URL to the new facility URL. (**Note: The URL change request ticket blocks the completion of this ticket.**)
 
 <insert_url_change_request_link>
 
