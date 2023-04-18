@@ -28,12 +28,13 @@ Facility link: <insert_facility_link>
 ## VAMC Facility name change
 
 #### CMS help desk steps
-- [ ] 1. The title change comes from Lighthouse to Drupal.
+What happens: The name change is made in VAST, that syncs to Lighthouse which syncs to Drupal.
+- [ ] 1. Check that the title change in name field on the VACM node has shown up in Drupal.
 - [ ] 2. Create a [URL change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old facility URL to the new facility URL. (**Note: The URL change request ticket blocks the completion of this ticket.**)
 
 <insert_url_change_request_link>
 
-(Redirects are released Wednesday afternoons, so coordinate the following items below and canonical URL change around that timeframe.)
+(Redirects deploy weekly on Wed. at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. Coordinate the following items below and canonical URL change after URL change ticket is merged, deployed, and verified in prod.)
 
 #### CMS engineer steps
 - [ ] 3. Execute the steps of the URL change request ticket from step 2.

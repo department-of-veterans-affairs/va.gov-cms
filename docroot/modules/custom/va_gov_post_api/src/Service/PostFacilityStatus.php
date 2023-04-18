@@ -201,11 +201,11 @@ class PostFacilityStatus extends PostFacilityBase {
   protected function getOperatingStatusMoreInfoShort() : string {
     if ($this->facilityNode->get('field_operating_status_more_info')->value) {
       $operatingStatusMoreInfo = $this->facilityNode->get('field_operating_status_more_info')->value;
-      $operatingSatusMoreInfoJson = json_encode($this->facilityNode->get('field_operating_status_more_info')->value);
-      $operatingSatusMoreInfoLength = mb_strlen($operatingSatusMoreInfoJson);
+      $operatingStatusMoreInfoJson = json_encode($this->facilityNode->get('field_operating_status_more_info')->value);
+      $operatingStatusMoreInfoLength = mb_strlen($operatingStatusMoreInfoJson);
       // 300 is the character limit for field_operating_status_facility
       // let's do our best to trim this down if we need to
-      if ($operatingSatusMoreInfoLength > 300) {
+      if ($operatingStatusMoreInfoLength > 300) {
         $operatingStatusMoreInfo = str_replace('&nbsp;', ' ', $operatingStatusMoreInfo);
         $operatingStatusMoreInfo = trim($operatingStatusMoreInfo);
         $operatingStatusMoreInfo = preg_replace("/(\r?\n|\r)+/", " ", $operatingStatusMoreInfo);
