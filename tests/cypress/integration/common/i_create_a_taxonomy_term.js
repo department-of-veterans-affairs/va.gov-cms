@@ -50,6 +50,10 @@ Given("I create a {string} taxonomy term", (vocabulary) => {
     `I do not know how to create ${vocabulary} taxonomy terms yet.  Please add a definition in ${__filename}.`
   );
   creator().then(() => {
+    cy.get("#edit-revision-log-message-0-value").type(
+      `[Test revision log 1]${faker.lorem.sentence()}`,
+      { force: true }
+    );
     cy.get("form.taxonomy-term-form").find("input#edit-submit").click();
     cy.getLastCreatedTaxonomyTerm().then((tidCommand) => {
       cy.log(tidCommand);
