@@ -39,6 +39,11 @@ const creators = {
       faker.datatype.number(),
       { force: true }
     );
+
+    cy.get("#edit-moderation-state-0-state").select("published", {
+      force: true,
+    });
+
     return cy.wait(1000);
   },
 };
