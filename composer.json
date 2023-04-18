@@ -553,7 +553,8 @@
         "va:test:fast": "Runs the \"fast\" static analysis, linting, and unit tests.",
         "va:test:behat": "Run Behat tests.",
         "va:test:check-cer": "Check the Corresponding Entity References fields.",
-        "va:test:check-revision-logs": "Check the revision log fields.",
+        "va:test:check-node-revision-logs": "Check the node revision log fields.",
+        "va:test:check-taxonomy-revision-logs": "Check the taxonomy revision log fields.",
         "va:test:content-build-gql": "Run GraphQL export to test content-build.",
         "va:test:cypress": "Run Cypress tests.",
         "va:test:cypress-ci": "Run Cypress tests with CI-specific functionality.",
@@ -649,7 +650,8 @@
             "@composer validate",
             "@va:test:behat",
             "@va:test:check-cer",
-            "@va:test:check-revision-logs",
+            "@va:test:check-node-revision-logs",
+            "@va:test:check-taxonomy-revision-logs",
             "@va:test:content-build-gql",
             "@va:test:cypress",
             "@va:test:eslint",
@@ -666,7 +668,8 @@
             "# Runs the \"fast\" static analysis, linting, and unit tests.",
             "@composer validate",
             "@va:test:check-cer",
-            "@va:test:check-revision-logs",
+            "@va:test:check-node-revision-logs",
+            "@va:test:check-taxonomy-revision-logs",
             "@va:test:eslint",
             "@va:test:lint-php",
             "@va:test:php_codesniffer",
@@ -680,7 +683,8 @@
             "@composer validate || true",
             "@va:test:behat || true",
             "@va:test:check-cer || true",
-            "@va:test:check-revision-logs || true",
+            "@va:test:check-node-revision-logs || true",
+            "@va:test:check-taxonomy-revision-logs || true",
             "@va:test:content-build-gql || true",
             "@va:test:cypress || true",
             "@va:test:eslint || true",
@@ -703,10 +707,15 @@
             "! ./scripts/should-run-directly.sh || ./tests/scripts/check-cer.sh",
             "./scripts/should-run-directly.sh || ddev composer va:test:check-cer --"
         ],
-        "va:test:check-revision-logs": [
-            "# Check the revision log fields.",
-            "! ./scripts/should-run-directly.sh || ./tests/scripts/check-revision-logs.sh",
-            "./scripts/should-run-directly.sh || ddev composer va:test:check-revision-logs --"
+        "va:test:check-node-revision-logs": [
+            "# Check the node revision log fields.",
+            "! ./scripts/should-run-directly.sh || ./tests/scripts/check-node-revision-logs.sh",
+            "./scripts/should-run-directly.sh || ddev composer va:test:check-node-revision-logs --"
+        ],
+        "va:test:check-taxonomy-revision-logs": [
+            "# Check the taxonomy revision log fields.",
+            "! ./scripts/should-run-directly.sh || ./tests/scripts/check-taxonomy-revision-logs.sh",
+            "./scripts/should-run-directly.sh || ddev composer va:test:check-taxonomy-revision-logs --"
         ],
         "va:test:content-build-gql": [
             "# Run GraphQL export to test content-build.",
