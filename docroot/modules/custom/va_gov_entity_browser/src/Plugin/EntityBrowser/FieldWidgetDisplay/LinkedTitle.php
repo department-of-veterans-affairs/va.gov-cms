@@ -26,7 +26,8 @@ class LinkedTitle extends EntityLabel {
     $config = $this->getConfiguration();
     $translation = $this->entityRepository->getTranslationFromContext($entity);
 
-    // Display a linked title if user has access to view the label and entity.
+    // Display a linked title only if user has access to view the label and
+    // entity.
     if ($translation->access('view label') && $translation->access('view') && $entity->hasLinkTemplate('canonical')) {
       $return = [
         '#title' => $entity->label(),
