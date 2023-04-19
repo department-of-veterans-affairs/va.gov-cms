@@ -17,9 +17,9 @@ Help desk ticket: <insert_help_desk_link>
 - [ ] Name of submitter (if applicable)
 Submitter: <insert_name>
 
-- [ ] Link to facility in production, including facility locator link:
-Facility link: <insert_facility_link>
-Facility locator link: <insert_facility_locator_link>
+- [ ] Link to facility in production:
+Facility CMS link: <insert_facility_link>
+Facility API ID: <insert_facility_API_ID>
 
 ## Steps before proceeding
 
@@ -45,7 +45,7 @@ If there has been a section change, which results in a change to the facility UR
 
 
 #### CMS engineer steps (the new facility)
-- [ ] 2. Execute the steps of the URL change request ticket from step 1.
+- [ ] 2. Execute the steps of the URL change request ticket from step 1 above.
 - [ ] 3. Change the Facility Locator API ID on the new facility to the Facility Locator API ID for the old one.
 - [ ] 4. Change the section on the new facility to the old one
 - [ ] 5. Change the VAMC system on the new facility to the old one

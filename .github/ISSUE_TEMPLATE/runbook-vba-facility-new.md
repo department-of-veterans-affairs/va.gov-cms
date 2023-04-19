@@ -21,7 +21,8 @@ Submitter: <insert_name>
 KB articles: <insert_kb_article_links>
 
 - [ ] Link to facility in production:
-Facility link: <insert_facility_link>
+Facility CMS link: <insert_facility_link>
+Facility API ID: <insert_facility_API_ID>
 
 ## Acceptance criteria
 

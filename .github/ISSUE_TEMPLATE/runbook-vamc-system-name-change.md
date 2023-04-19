@@ -18,7 +18,7 @@ Help desk ticket: <insert_help_desk_link>
 Submitter: <insert_name>
 
 - [ ] Link to system in production:
-System link: <insert_facility_link>
+System CMS link: <insert_facility_link>
 
 ## Steps before proceeding
 
@@ -41,7 +41,7 @@ Timing around these is critical and we may need more detail here.
 - [ ] 3. Update the Section name.
 - [ ] 3. Bulk alias change all nodes within the system. (https://prod.cms.va.gov/admin/content/bulk)
 - [ ] 4. Bulk save to fix titles for all nodes within system. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
-- [ ] 5. Creates a PR to rename the menu for the system accordingly.  (In the future, they may need to rebuild the menu so that name and machine name match.)
+- [ ] 5. Create a PR to rename the menu for the system accordingly.  (In the future, they may need to rebuild the menu so that name and machine name match.)
 
 #### CMS Help desk (wrap up)
 - [ ] 6. Notify editor and any other stakeholders.

@@ -20,9 +20,9 @@ Submitter: <insert_name>
 - [ ] If the submitter is an editor, send them links to any relevate KB articles for the VAMC product. Let them know that facility changes can take between 75 days and 4 months after submitting a request, according to VAST administrators.
 KB articles: <insert_kb_article_links>
 
-- [ ] Link to facility in production, including facility locator link:
-Facility link: <insert_facility_link>
-Facility locator link: <insert_facility_locator_link>
+- [ ] Link to facility in production:
+Facility CMS link: <insert_facility_link>
+Facility API ID: <insert_facility_API_ID>
 
 ## Acceptance criteria
 
@@ -35,10 +35,13 @@ What happens: The name change is made in VAST, that syncs to Lighthouse which sy
 
 <insert_url_change_request_link>
 
+
+#### CMS Engineer steps
+- [ ] 3. Execute the steps of the URL change request ticket from step 2 above.
+
 (Redirects deploy weekly on Wed. at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. Coordinate the following items below and canonical URL change after URL change ticket is merged, deployed, and verified in prod.)
 
-#### CMS engineer steps
-- [ ] 3. Execute the steps of the URL change request ticket from step 2.
+#### Drupal Admin steps (CMS Engineer or Help desk)
 - [ ] 4. Locate the newly renamed VAMC Facility (https://prod.cms.va.gov/admin/content/bulk) Search by new name
 - [ ] 5. Updates URL alias for this facility
 - [ ] 6. Resave this facility

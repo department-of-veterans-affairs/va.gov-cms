@@ -20,9 +20,9 @@ Submitter: <insert_name>
 - [ ] If the submitter is an editor, send them links to any relevate KB articles for the VAMC Facility product.
 KB articles: <insert_kb_article_links>
 
-- [ ] Link to facility in production, including facility locator link:
-Facility link: <insert_facility_link>
-Facility locator link: <insert_facility_locator_link>
+- [ ] Link to facility in production:
+Facility CMS link: <insert_facility_link>
+Facility API ID: <insert_facility_API_ID>
 
 ## Acceptance criteria
 
@@ -55,15 +55,17 @@ Please let us know when your draft content is complete, so that we can wrap up t
 
 <insert_url_change_request_link>
 
-(Redirects deploy weekly on Wed. at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. Coordinate the items below and canonical URL change after URL change ticket is merged, deployed, and verified in prod.)
-
 - [ ] 6. When editor has prepared content and let help desk know, reassign this issue to appropriate CMS engineer on Product Support team, for bulk publishing.
 
 #### CMS engineer steps
-- [ ] 7. CMS engineer executes the steps of the URL change request ticket from step 5.
-- [ ] 8. CMS engineer bulk publishes nodes and facility.
-- [ ] 9. CMS engineer edit facility node and remove `New facility` flag and save node.
-- [ ] 10. Let help desk know this has been done.
+- [ ] 7. CMS engineer executes the steps of the URL change request ticket from step 5 above.
+
+(Redirects deploy weekly on Wed. at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. Coordinate the items below and canonical URL change after URL change ticket is merged, deployed, and verified in prod.)
+
+#### Drupal Admin steps (CMS Engineer or Help desk)
+- [ ] 8. Drupal Admin bulk publishes nodes and facility.
+- [ ] 9. Drupal Admin edit facility node and remove `New facility` flag and save node.
+- [ ] 10. Let Help desk know this has been done, if not done by Help desk.
 
 
 #### CMS Help desk (wrap up)

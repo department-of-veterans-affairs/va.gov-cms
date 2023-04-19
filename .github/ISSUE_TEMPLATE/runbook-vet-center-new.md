@@ -20,8 +20,9 @@ Submitter: <insert_name>
 - [ ] If the submitter is an editor, send them links to any relevate KB articles for the Vet Center product.
 KB articles: <insert_kb_article_links>
 
-- [ ] Link to new facility in production:
-Facility link: <insert_facility_link>
+- [ ] Link to facility in production:
+Facility CMS link: <insert_facility_link>
+Facility API ID: <insert_facility_API_ID>
 
 ## Acceptance criteria
 

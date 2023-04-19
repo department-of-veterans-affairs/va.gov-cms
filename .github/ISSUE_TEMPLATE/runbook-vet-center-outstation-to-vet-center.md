@@ -24,9 +24,9 @@ Submitter: <insert_name>
 - [ ] If the submitter is an editor, send them links to any relevant KB articles for this process.
 KB articles: <insert_kb_article_links>
 
-- [ ] Link to facility in production, including facility locator link:
-Facility link: <insert_facility_link>
-Facility locator link: <insert_facility_locator_link>
+- [ ] Link to facility in production:
+Facility CMS link: <insert_facility_link>
+Facility API ID: <insert_facility_API_ID>
 
 ## Acceptance criteria
 ### CMS help desk steps
@@ -45,14 +45,16 @@ Facility locator link: <insert_facility_locator_link>
 
 <insert_url_change_request_link>
 
-(Redirects deploy weekly on Wed. at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. Coordinate the items below and canonical URL change after URL change ticket is merged, deployed, and verified in prod.)
-
 ### CMS engineer steps
 - [ ] 9. Execute the steps of the URL change request ticket from step 8.
+
+(Redirects deploy weekly on Wed. at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. Coordinate the items below and canonical URL change after URL change ticket is merged, deployed, and verified in prod.)
+
+### Drupal Admin steps
 - [ ] 10. When the redirect has been made live, set the status of the Outstation node to 'closed'.
 - [ ] 11. Archive the Outstation with a comment in the revision log that points to the new Vet Center.
 
-
+### Helpdesk steps
 - [ ] 12. Help desk notifies editor and any other stakeholders.
 
 ### Team

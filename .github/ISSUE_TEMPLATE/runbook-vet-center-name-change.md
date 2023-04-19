@@ -20,24 +20,26 @@ Submitter: <insert_name>
 - [ ] If the submitter is an editor, send them links to any relevate KB articles for the Vet Center product. Let them know that facility changes can take between 75 days and 4 months after submitting a request, according to VAST administrators.
 KB articles: <insert_kb_article_links>
 
-- [ ] Link to facility in production, including facility locator link:
-Facility link: <insert_facility_link>
-Facility locator link: <insert_facility_locator_link>
+- [ ] Link to facility in production:
+Facility CMS link: <insert_facility_link>
+Facility API ID: <insert_facility_API_ID>
 
 ## Acceptance criteria
 
-## Vet Center facility name change
+### Vet Center facility name change
 
 #### CMS help desk steps
 - [ ] 1. The title (Name of Vet Center field) change comes from Lighthouse to Drupal
-- [ ] 2. If the Vet Center published and NOT an Outstation, create a [URL change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old facility URL to the new facility URL. (**Note: The URL change request ticket blocks the completion of this ticket.**)
+- [ ] 2. If the Vet Center published and is NOT an Outstation, create a [URL change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old facility URL to the new facility URL. (**Note: The URL change request ticket blocks the completion of this ticket.**)
 
 <insert_redirect_request_link>
 
-(Redirects deploy weekly on Wed. at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. Coordinate the items below and canonical URL change after URL change ticket is merged, deployed, and verified in prod.)
-
 #### CMS engineer steps
 - [ ] 3. Execute the steps of the URL change request ticket from step 2.
+
+(Redirects deploy weekly on Wed. at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. Coordinate the items below and canonical URL change after URL change ticket is merged, deployed, and verified in prod.)
+
+#### Drupal Admin steps (CMS Engineer or Help desk)
 - [ ] 4. Rename the section for this Vet Center to match its new name (Section taxonomy change)
 - [ ] 5. If the new official name matches the pattern "<city> Vet Center", update the common name to match
 - [ ] 6. Visit [bulk operations](https://prod.cms.va.gov/admin/content/bulk) page and filter by section = vet center name
