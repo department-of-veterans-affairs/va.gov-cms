@@ -89,7 +89,7 @@ tasks:
         EOF
 
   # Run with: ./bin/task --taskfile=tasks-periodic.yml every_month
-  # http://jenkins.vfs.va.gov/job/cms/job/cms-every-minute
+  # http://jenkins.vfs.va.gov/job/cms/job/cms-every-month
   every_month:
     cmds:
       - drush php-eval "\Drupal::logger('va_gov_notifications')->alert('Monthly cron fired');"
