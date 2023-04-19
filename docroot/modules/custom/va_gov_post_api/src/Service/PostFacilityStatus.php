@@ -198,8 +198,9 @@ class PostFacilityStatus extends PostFacilityBase {
    * @return string
    *   Details of operating status.
    */
-  protected function getOperatingStatusMoreInfoShort() {
-    if ($this->facilityNode->get('field_operating_status_more_info')->value) {
+  protected function getOperatingStatusMoreInfoShort() : ?string {
+    $operatingStatusMoreInfo = $this->facilityNode->get('field_operating_status_more_info')->value;
+    if ($operatingStatusMoreInfo) {
       $operatingStatusMoreInfo = $this->facilityNode->get('field_operating_status_more_info')->value;
       $operatingStatusMoreInfoJson = json_encode($this->facilityNode->get('field_operating_status_more_info')->value);
       $operatingStatusMoreInfoLength = mb_strlen($operatingStatusMoreInfoJson);
@@ -210,8 +211,8 @@ class PostFacilityStatus extends PostFacilityBase {
         $operatingStatusMoreInfo = trim($operatingStatusMoreInfo);
         $operatingStatusMoreInfo = preg_replace("/(\r?\n|\r)+/", " ", $operatingStatusMoreInfo);
       }
-      return $operatingStatusMoreInfo;
     }
+    return $operatingStatusMoreInfo;
   }
 
   /**
