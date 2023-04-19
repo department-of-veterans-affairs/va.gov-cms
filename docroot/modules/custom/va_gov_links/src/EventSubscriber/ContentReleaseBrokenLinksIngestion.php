@@ -76,10 +76,10 @@ class ContentReleaseBrokenLinksIngestion implements EventSubscriberInterface {
           $reportContents = file_get_contents($reportLocation);
           if ($reportContents !== FALSE) {
             $this->state->set('content_release.broken_links', $reportContents);
-            $this->logger->get('va_gov_links')->info('The broken links report was successfully read and committed to state.');
+            $this->logger->info('The broken links report was successfully read and committed to state.');
           }
           else {
-            $this->logger->get('va_gov_links')->error('Unable to read ' . $reportLocation);
+            $this->logger->error('Unable to read ' . $reportLocation);
           }
         }
       }
