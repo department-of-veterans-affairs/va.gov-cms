@@ -198,7 +198,7 @@ class PostFacilityStatus extends PostFacilityBase {
    * @return string
    *   Details of operating status.
    */
-  protected function getOperatingStatusMoreInfoShort() : ?string {
+  protected function getOperatingStatusMoreInfoShort() {
     if ($this->facilityNode->get('field_operating_status_more_info')->value) {
       $operatingStatusMoreInfo = $this->facilityNode->get('field_operating_status_more_info')->value;
       $operatingStatusMoreInfoJson = json_encode($this->facilityNode->get('field_operating_status_more_info')->value);
