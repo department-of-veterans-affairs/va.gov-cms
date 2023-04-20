@@ -42,9 +42,10 @@ class VaGovFlagsController implements ContainerInjectionInterface {
    * Callback for the API.
    */
   public function renderApi() {
-    return JsonResponse::create(
-      $this->featureFlagDataBuilder->buildData()
-    );
+//    return JsonResponse::create(
+//      $this->featureFlagDataBuilder->buildData()
+//    );
+    return new JsonResponse($this->featureFlagDataBuilder->buildData());
   }
 
 }

@@ -1,0 +1,66 @@
+diff --git a/modules/graphql_core/src/Plugin/GraphQL/Fields/EntityQuery/EntityQuery.php b/modules/graphql_core/src/Plugin/GraphQL/Fields/EntityQuery/EntityQuery.php
+index ab7fddf..f451780 100644
+--- a/modules/graphql_core/src/Plugin/GraphQL/Fields/EntityQuery/EntityQuery.php
++++ b/modules/graphql_core/src/Plugin/GraphQL/Fields/EntityQuery/EntityQuery.php
+@@ -17,7 +17,7 @@ use GraphQL\Type\Definition\ResolveInfo;
+ /**
+  * @GraphQLField(
+  *   id = "entity_query",
+- *   secure = false,
++ *   secure = true,
+  *   type = "EntityQueryResult",
+  *   arguments = {
+  *     "filter" = "EntityQueryFilterInput",
+diff --git a/src/GraphQL/Execution/QueryProcessor.php b/src/GraphQL/Execution/QueryProcessor.php
+index fb2ad50..573ff7e 100644
+--- a/src/GraphQL/Execution/QueryProcessor.php
++++ b/src/GraphQL/Execution/QueryProcessor.php
+@@ -154,7 +154,8 @@ class QueryProcessor {
+         $result->setErrorsHandler($config->getErrorsHandler());
+       }
+ 
+-      if ($config->getErrorFormatter() || $config->getDebug()) {
++      //if ($config->getErrorFormatter() || $config->getDebug()) {
++      if ($config->getErrorFormatter()) {
+         $result->setErrorFormatter(FormattedError::prepareFormatter($config->getErrorFormatter(), $config->getDebug()));
+       }
+ 
+@@ -230,7 +231,8 @@ class QueryProcessor {
+    */
+   protected function executeCacheableOperation(PromiseAdapter $adapter, ServerConfig $config, OperationParams $params, DocumentNode $document, $validate = TRUE) {
+     $contextCacheId = 'ccid:' . $this->cacheIdentifier($params, $document);
+-    if (!$config->getDebug() && $contextCache = $this->cacheBackend->get($contextCacheId)) {
++    //if (!$config->getDebug() && $contextCache = $this->cacheBackend->get($contextCacheId)) {
++    if ($contextCache = $this->cacheBackend->get($contextCacheId)) {
+       $contexts = $contextCache->data ?: [];
+       $cid = 'cid:' . $this->cacheIdentifier($params, $document, $contexts);
+       if ($cache = $this->cacheBackend->get($cid)) {
+diff --git a/src/Plugin/GraphQL/Schemas/SchemaPluginBase.php b/src/Plugin/GraphQL/Schemas/SchemaPluginBase.php
+index dc60dd9..cbddeed 100644
+--- a/src/Plugin/GraphQL/Schemas/SchemaPluginBase.php
++++ b/src/Plugin/GraphQL/Schemas/SchemaPluginBase.php
+@@ -288,7 +288,7 @@ abstract class SchemaPluginBase extends PluginBase implements SchemaPluginInterf
+ 
+     $config->setPersistentQueryLoader([$this->queryProvider, 'getQuery']);
+     $config->setQueryBatching(TRUE);
+-    $config->setDebug(!!$this->parameters['development']);
++    //$config->setDebug(!!$this->parameters['development']);
+     $config->setSchema($this->getSchema());
+ 
+     // Always log the errors.
+diff --git a/src/Plugin/TypePluginManagerAggregator.php b/src/Plugin/TypePluginManagerAggregator.php
+index fc8f3b9..ffdd863 100644
+--- a/src/Plugin/TypePluginManagerAggregator.php
++++ b/src/Plugin/TypePluginManagerAggregator.php
+@@ -46,7 +46,7 @@ class TypePluginManagerAggregator implements \IteratorAggregate {
+   /**
+    * {@inheritdoc}
+    */
+-  public function getIterator() {
++  public function getIterator(): \ArrayIterator {
+     return new \ArrayIterator($this->pluginManagers);
+   }
+-}
+\ No newline at end of file
++}
+
