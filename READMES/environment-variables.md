@@ -56,7 +56,7 @@ See the files:
 
 Environment variables like API tokens should be treated as secrets.
 
-For secrets, the BRD system uses [AWS Systems Manager (SSM) Parameter Store](https://vfs.atlassian.net/wiki/spaces/OT/pages/1601503564/Credstash+Parameter+Store+Procedures).
+For secrets, the BRD system uses [AWS Systems Manager (SSM) Parameter Store](https://vfs.atlassian.net/wiki/spaces/OT/pages/1601503564/Credstash+Parameter+Store+Procedures). Please contact a member of the [@cms-devops-engineers](https://app.slack.com/client/T03FECE8V/CT4GZBM8F/user_groups/S01JXBLLMJL) group in the DSVA Slack to add, modify, or to get information about a Parameter Store secret. 
 
 ----
 

@@ -32,20 +32,26 @@ Facility link: <insert_facility_link>
 - [ ] 1. Become aware that the new facility is now on the Facility API (typically, via a Flag).
 - [ ] 2. Check with RCS(?) what district it belongs to.
 - [ ] 3. Move the section to the appropriate district.
-- [ ] 4. Communicate with editor (do they need to be onboarded) 
+- [ ] 4. Communicate with editor (do they need to be onboarded)
 
 [@TODO write sample email - SEE runbook-vamc-facility-new]
 
-- [ ] 5. When editor has prepared content and let help desk know, reassign this issue to appropriate CMS engineer on Product Support team, for bulk publishing.
+- [ ] 5. Create a [URL change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E). (**Note: The URL change request ticket blocks the completion of this ticket.**)
+
+<insert_url_change_request_link>
+
+(Redirects are released Wednesday afternoons, so coordinate the following items below and canonical URL change around that timeframe.)
+
+- [ ] 6. When editor has prepared content and let help desk know, reassign this issue to appropriate CMS engineer on Product Support team, for bulk publishing.
 
 #### CMS engineer steps
-- [ ] 6. CMS engineer bulk publishes the nodes and facility.
-- [ ] 7. CMS engineer edits facility node by removing the `New facility` flag and saves the node.
-- [ ] 8. Let help desk know this has been done.
-- [ ] 9. CMS engineer updates the [CSV in Lighthouse](https://github.com/department-of-veterans-affairs/lighthouse-facilities/blob/master/facilities/src/main/resources/websites.csv) with the changed URL, creating a PR, tagging the Lighthouse team and linking to it in Slack with an @mention to a Lighthouse team member 
+- [ ] 7. Execute the steps of the URL change request ticket from step 5.
+- [ ] 8. Bulk publish the nodes and facility.
+- [ ] 9. Edits facility node by removing the `New facility` flag and saves the node.
+- [ ] 10. Let help desk know this has been done.
 
 #### CMS Help desk (wrap up)
-- [ ] 10. Help desk notifies editor and any other stakeholders.
+- [ ] 11. Notify editor and any other stakeholders.
 
 ### Team
 Please check the team(s) that will do this work.

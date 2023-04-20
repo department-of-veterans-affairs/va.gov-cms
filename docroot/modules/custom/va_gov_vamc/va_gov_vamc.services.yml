@@ -1,6 +1,6 @@
 services:
   va_gov_vamc.entity_event_subscriber:
-    class: Drupal\va_gov_vamc\EventSubscriber\EntityEventSubscriber
+    class: Drupal\va_gov_vamc\EventSubscriber\VAMCEntityEventSubscriber
     arguments:
       - '@entity_type.manager'
       - '@current_user'
