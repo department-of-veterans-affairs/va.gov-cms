@@ -268,7 +268,7 @@ By this point you should have enough context and access to be able to start cont
 
 ## Month two
 ### What additional tools do you need access to?
-- [ ] Mainly for helpdesk folks: [CMS Support distro group](https://mim.va.gov/IdentityManagement/default.aspx)
+- [ ] Mainly for helpdesk folks: [CMS Support distro group](https://mim.va.gov/IdentityManagement/default.aspx) - must access on VA network (requires PIV card + CAG access)
 
 </details>
 
