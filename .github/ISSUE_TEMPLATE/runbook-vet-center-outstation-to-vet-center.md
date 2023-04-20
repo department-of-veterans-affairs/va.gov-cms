@@ -2,10 +2,11 @@
 name: Runbook - Vet Center Outstation becomes a Vet Center
 about: Steps for upgrading an outstation to a full Vet Center
 title: 'Outstation beomces Vet Center: <insert_name_of_facility>'
-labels: Change request
+labels: Change request, Facilities, User support, Vet Center
 assignees: ''
 
 ---
+
 # Vet Center Outstation becomes a Vet Center
 ## Background
   Outstations have entries in VAST. When an Outstation becomes a full Vet Center,
@@ -52,11 +53,3 @@ Facility link: <insert_facility_link>
 
 
 - [ ] 12. Help desk notifies editor and any other stakeholders.
-
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [x] `Facilities`
-- [x] `User support`

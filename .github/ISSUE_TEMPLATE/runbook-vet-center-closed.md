@@ -2,7 +2,7 @@
 name: Runbook - Vet Center Facility closed
 about: Steps for archiving a Vet Center facility in VA.gov CMS.
 title: 'Vet Center Facility closed: <insert_name>'
-labels: Change request
+labels: Change request, Facilities, User support, Vet Center
 assignees: ''
 
 ---
@@ -42,11 +42,3 @@ Facility link: <insert_facility_link>
 
 #### CMS Help desk (wrap up)
 - [ ] 7. Help desk notifies editor and any other stakeholders.
-
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [x] `Facilities`
-- [x] `User support`

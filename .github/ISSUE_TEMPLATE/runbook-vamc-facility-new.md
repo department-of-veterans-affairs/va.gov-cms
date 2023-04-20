@@ -2,7 +2,7 @@
 name: Runbook - New VAMC Facility
 about: changing facility information in the CMS for VAMC facilities
 title: 'New VAMC Facility: <insert_name_of_facility>'
-labels: Change request
+labels: Change request, Facilities, User support, VAMC
 assignees: ''
 
 ---
@@ -66,11 +66,3 @@ Please let us know when your draft content is complete, so that we can wrap up t
 
 #### CMS Help desk (wrap up)
 - [ ] 11. Notify editor and any other stakeholders.
-
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [x] `Facilities`
-- [x] `User support`

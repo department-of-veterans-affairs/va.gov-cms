@@ -2,7 +2,7 @@
 name: Runbook - Vet Center name change
 about: Steps for updating names and URLs
 title: 'Vet Center name change: <insert_name>'
-labels: Change request
+labels: Change request, Facilities, User support, Vet Center
 assignees: ''
 
 ---
@@ -46,11 +46,3 @@ Facility link: <insert_facility_link>
 
 #### CMS Help desk (wrap up)
 - [ ] 10. Notify editor and any other stakeholders.
-
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [x] `Facilities`
-- [x] `User support`

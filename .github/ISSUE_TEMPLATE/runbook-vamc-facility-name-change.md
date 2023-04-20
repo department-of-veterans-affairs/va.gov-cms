@@ -2,7 +2,7 @@
 name: Runbook - VAMC Facility name change
 about: Steps for updating names and URLs
 title: 'VAMC Facility name change: <insert_name>'
-labels: Change request
+labels: Change request, Facilities, User support, VAMC
 assignees: ''
 
 ---
@@ -51,11 +51,3 @@ What happens: The name change is made in VAST, that syncs to Lighthouse which sy
 
 #### CMS Help desk (wrap up)
 - [ ] 14. Notify editor and any other stakeholders
-
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [x] `Facilities`
-- [x] `User support`

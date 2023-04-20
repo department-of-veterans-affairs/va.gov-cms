@@ -2,7 +2,7 @@
 name: Runbook - VAMC system name change
 about: How to update the name of a VAMC.
 title: 'VAMC system name change: <insert_name_of_vamc>'
-labels: Change request
+labels: Change request, Facilities, User support, VAMC
 assignees: ''
 
 ---
@@ -45,11 +45,3 @@ Timing around these is critical and we may need more detail here.
 
 #### CMS Help desk (wrap up)
 - [ ] 6. Notify editor and any other stakeholders.
-
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [x] `Facilities`
-- [x] `User support`

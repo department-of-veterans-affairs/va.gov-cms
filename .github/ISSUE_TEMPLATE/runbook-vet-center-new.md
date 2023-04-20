@@ -2,7 +2,7 @@
 name: Runbook - New Vet Center Facility
 about: changing facility information in the CMS for Vet Center facilities
 title: 'New Vet Center Facility: <insert_name_of_facility>'
-labels: Change request
+labels: Change request, Facilities, User support, Vet Center
 assignees: ''
 
 ---
@@ -52,11 +52,3 @@ Facility link: <insert_facility_link>
 
 #### CMS Help desk (wrap up)
 - [ ] 11. Notify editor and any other stakeholders.
-
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [x] `Facilities`
-- [x] `User support`

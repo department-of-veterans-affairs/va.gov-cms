@@ -2,7 +2,7 @@
 name: Runbook - VBA Facility closed
 about: Steps for archiving a VBA facility in VA.gov CMS.
 title: 'VBA Facility closed: <insert_name>'
-labels: Change request
+labels: Change request, Facilities, User support, VBA
 assignees: ''
 
 ---
@@ -28,11 +28,3 @@ Facility link: <insert_facility_link>
 ### VAMC facility closure
 
 [@TODO: DRAFT FOR HELP DESK AND DEV STEPS]
-
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [x] `Facilities`
-- [x] `User support`

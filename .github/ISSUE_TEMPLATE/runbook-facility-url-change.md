@@ -2,10 +2,11 @@
 name: Runbook - Facility URL Change
 about: Submit a request to change the URL of a facility
 title: 'URL Change for: <insert facility name>'
-labels: URL Change
+labels: ''
 assignees: ''
 
 ---
+
 ### Implementation date
 When does this request need to be live:
 [MM/DD/YYYY]

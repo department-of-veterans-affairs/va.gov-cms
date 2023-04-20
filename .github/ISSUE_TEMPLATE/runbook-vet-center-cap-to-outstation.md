@@ -2,7 +2,7 @@
 name: Runbook - Vet Center CAP becomes an Outstation
 about: Steps for upgrading a CAP to an Outstation
 title: 'Vet Center CAP becomes an Outstation: <insert_name_of_facility>'
-labels: Change request, Vet Center
+labels: Change request, Facilities, User support, Vet Center
 assignees: ''
 
 ---
@@ -71,12 +71,3 @@ Facility link: <insert_facility_link>
 
 ### Help desk steps
 - [ ] 12. Notify editor and any other stakeholders.
-
-
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [x] `Facilities`
-- [x] `User support`

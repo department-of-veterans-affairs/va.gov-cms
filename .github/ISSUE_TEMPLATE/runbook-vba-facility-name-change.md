@@ -2,7 +2,7 @@
 name: Runbook - VBA Facility name change
 about: Steps for updating names and URLs
 title: 'VBA Facility name change: <insert_name>'
-labels: Change request
+labels: Change request, Facilities, User support, VBA
 assignees: ''
 
 ---
@@ -28,11 +28,3 @@ Facility link: <insert_facility_link>
 ## VBA Facility name change
 
 [@TODO: DRAFT FOR HELP DESK AND DEV STEPS]
-
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [x] `Facilities`
-- [x] `User support`

@@ -6,7 +6,7 @@ labels: Quality Assurance
 assignees: ''
 
 ---
-  
+
 _Record any unplanned QA work (tests suddenly failing, investigating unexpected defects, triaging error logs, etc) below._
 
 ### Table
@@ -20,4 +20,3 @@ _Semi-frequently (at least a few times per sprint), read through the production 
 | Date | Issue(s) |
 | ---- | -------- |
 | | |
-  
