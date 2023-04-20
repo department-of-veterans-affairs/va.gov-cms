@@ -390,7 +390,8 @@
                 "Claro claro_preprocess_input()": "patches/drupal-core-claro_preprocess_input.patch",
                 "1156338 - Fixed maximum number of field values, but use «add more» similar to when cardinality «unlimited» is used": "https://www.drupal.org/files/issues/2022-01-27/drupal-fix-limited-cardinality-fields-1156338-23.patch",
                 "2942404 - Contentinfo landmark" : "https://www.drupal.org/files/issues/2023-01-17/2942404-43.patch",
-                "3351638 - Remove truncation of path alias in table." : "https://www.drupal.org/files/issues/2023-04-05/3351638-23.patch"
+                "3351638 - Remove truncation of path alias in table." : "https://www.drupal.org/files/issues/2023-04-05/3351638-23.patch",
+                "3047110 - Add workflow to taxonomy" : "https://www.drupal.org/files/issues/2023-04-14/3047110-45.patch"
             },
             "drupal/danse_content_moderation": {
                 "3309657 - Danse 2.2.7 compatibility": "https://www.drupal.org/files/issues/2022-09-14/3309657-danse-2-2-7-compatibility.patch"
@@ -552,7 +553,8 @@
         "va:test:fast": "Runs the \"fast\" static analysis, linting, and unit tests.",
         "va:test:behat": "Run Behat tests.",
         "va:test:check-cer": "Check the Corresponding Entity References fields.",
-        "va:test:check-revision-logs": "Check the revision log fields.",
+        "va:test:check-node-revision-logs": "Check the node revision log fields.",
+        "va:test:check-taxonomy-revision-logs": "Check the taxonomy revision log fields.",
         "va:test:content-build-gql": "Run GraphQL export to test content-build.",
         "va:test:cypress": "Run Cypress tests.",
         "va:test:cypress-ci": "Run Cypress tests with CI-specific functionality.",
@@ -648,7 +650,8 @@
             "@composer validate",
             "@va:test:behat",
             "@va:test:check-cer",
-            "@va:test:check-revision-logs",
+            "@va:test:check-node-revision-logs",
+            "@va:test:check-taxonomy-revision-logs",
             "@va:test:content-build-gql",
             "@va:test:cypress",
             "@va:test:eslint",
@@ -665,7 +668,8 @@
             "# Runs the \"fast\" static analysis, linting, and unit tests.",
             "@composer validate",
             "@va:test:check-cer",
-            "@va:test:check-revision-logs",
+            "@va:test:check-node-revision-logs",
+            "@va:test:check-taxonomy-revision-logs",
             "@va:test:eslint",
             "@va:test:lint-php",
             "@va:test:php_codesniffer",
@@ -679,7 +683,8 @@
             "@composer validate || true",
             "@va:test:behat || true",
             "@va:test:check-cer || true",
-            "@va:test:check-revision-logs || true",
+            "@va:test:check-node-revision-logs || true",
+            "@va:test:check-taxonomy-revision-logs || true",
             "@va:test:content-build-gql || true",
             "@va:test:cypress || true",
             "@va:test:eslint || true",
@@ -702,10 +707,15 @@
             "! ./scripts/should-run-directly.sh || ./tests/scripts/check-cer.sh",
             "./scripts/should-run-directly.sh || ddev composer va:test:check-cer --"
         ],
-        "va:test:check-revision-logs": [
-            "# Check the revision log fields.",
-            "! ./scripts/should-run-directly.sh || ./tests/scripts/check-revision-logs.sh",
-            "./scripts/should-run-directly.sh || ddev composer va:test:check-revision-logs --"
+        "va:test:check-node-revision-logs": [
+            "# Check the node revision log fields.",
+            "! ./scripts/should-run-directly.sh || ./tests/scripts/check-node-revision-logs.sh",
+            "./scripts/should-run-directly.sh || ddev composer va:test:check-node-revision-logs --"
+        ],
+        "va:test:check-taxonomy-revision-logs": [
+            "# Check the taxonomy revision log fields.",
+            "! ./scripts/should-run-directly.sh || ./tests/scripts/check-taxonomy-revision-logs.sh",
+            "./scripts/should-run-directly.sh || ddev composer va:test:check-taxonomy-revision-logs --"
         ],
         "va:test:content-build-gql": [
             "# Run GraphQL export to test content-build.",

@@ -24,19 +24,32 @@ third_party_settings:
         open: false
         required_fields: false
     group_email_updates:
-      children:
-        - field_email_updates_link_text
-        - field_email_updates_url
+      children: {  }
       label: 'Email updates'
       region: hidden
       parent_name: ''
-      weight: 5
+      weight: 9
       format_type: fieldset
       format_settings:
         classes: ''
         id: ''
         description: 'A link that leads someone to subscribe to email updates.'
         required_fields: true
+    group_workflow:
+      children:
+        - revision_log_message
+      label: 'Editorial workflow'
+      region: content
+      parent_name: ''
+      weight: 20
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: sections
+        description: ''
+        required_fields: true
+        description_display: after
 id: taxonomy_term.administration.default
 targetEntityType: taxonomy_term
 bundle: administration
@@ -68,5 +81,6 @@ hidden:
   description: true
   langcode: true
   layout_builder__layout: true
+  moderation_state: true
   path: true
   status: true
