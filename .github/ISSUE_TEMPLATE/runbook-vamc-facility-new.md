@@ -71,11 +71,3 @@ _Help desk will complete these steps or escalate to request help from CMS engine
 
 #### CMS Help desk (wrap up)
 - [ ] 11. Notify editor and any other stakeholders.
-
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [x] `Facilities`
-- [x] `User support`

@@ -45,11 +45,3 @@ Timing around these is critical and we may need more detail here.
 
 #### CMS Help desk (wrap up)
 - [ ] 6. Notify editor and any other stakeholders.
-
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [x] `Facilities`
-- [x] `User support`

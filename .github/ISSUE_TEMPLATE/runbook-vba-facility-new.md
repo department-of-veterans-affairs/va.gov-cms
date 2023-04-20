@@ -29,11 +29,3 @@ Facility API ID: <insert_facility_API_ID>
 ### New VBA Facility
 
 [@TODO: DRAFT FOR HELP DESK AND DEV STEPS]
-
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [x] `Facilities`
-- [x] `User support`
