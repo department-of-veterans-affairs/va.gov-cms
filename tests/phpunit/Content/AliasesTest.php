@@ -51,7 +51,7 @@ class AliasesTest extends VaGovExistingSiteBase {
       'description' => 'Test Services Description',
       'uid' => $author->id(),
     ]);
-    $vha_service_category_term->save();
+    $vha_service_category_term->setPublished()->save();
 
     // Create a VHA health care service term.
     $vha_service_term = $this->createTerm($vha_service_vocab, [
@@ -61,7 +61,7 @@ class AliasesTest extends VaGovExistingSiteBase {
       'parent' => $vha_service_category_term->id(),
       'uid' => $author->id(),
     ]);
-    $vha_service_term->save();
+    $vha_service_term->set('moderation_state', 'published')->setPublished()->save();
 
     // Create a VAMC regional health care service node.
     $service_node = $this->createNode([

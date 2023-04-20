@@ -14,8 +14,11 @@ jobs:
         # See also `composer va:test:check-cer` in composer.json
         run: ./tests/scripts/check-cer.sh
       - name: Check Revision Log fields
-        # See also `composer va:test:check-revision-logs` in composer.json
-        run: ./tests/scripts/check-revision-logs.sh
+        # See also `composer va:test:check-node-revision-logs` in composer.json
+        # See also `composer va:test:check-taxonomy-revision-logs` in composer.json
+        run: |
+          ./tests/scripts/check-node-revision-logs.sh
+          ./tests/scripts/check-taxonomy-revision-logs.sh
 
   # Validate that the `composer.lock` hash is up-to-date.
   composer-validate:
@@ -140,7 +143,7 @@ jobs:
         # https://github.com/actions/cache/releases/tag/v3.0.10
         uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
       - name: Stylelint modules
-        # https://github.com/reviewdog/action-stylelint/releases/tag/v1.14.0 
+        # https://github.com/reviewdog/action-stylelint/releases/tag/v1.14.0
         # See also `composer va:test:stylelint-modules` in composer.json
         uses: reviewdog/action-stylelint@a45bf7c5a91efc6f9443ae59b9cf7387b7868492
         with:
@@ -151,7 +154,7 @@ jobs:
           stylelint_config: '.stylelintrc'
           stylelint_input: 'docroot/modules/custom/**/*.css'
       - name: Stylelint themes
-        # https://github.com/reviewdog/action-stylelint/releases/tag/v1.14.0 
+        # https://github.com/reviewdog/action-stylelint/releases/tag/v1.14.0
         # See also `composer va:test:stylelint-themes` in composer.json
         uses: reviewdog/action-stylelint@a45bf7c5a91efc6f9443ae59b9cf7387b7868492
         with:
