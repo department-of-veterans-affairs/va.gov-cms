@@ -19,6 +19,7 @@ Submitter: <insert_name>
 
 - [ ] Link to system in production:
 System CMS link: <insert_facility_link>
+System API ID: <insert_facility_API_ID>
 
 ## Steps before proceeding
 
