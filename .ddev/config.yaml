@@ -19,6 +19,7 @@ hooks:
   - exec: drush deploy
   post-start:
   - exec: ./scripts/install_task_runner.sh
+  - exec: ./scripts/install-nvm.sh
   - composer: install
   - composer: va:theme:compile
   - composer: va:web:install

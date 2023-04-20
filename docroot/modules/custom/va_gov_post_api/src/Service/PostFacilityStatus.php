@@ -169,7 +169,7 @@ class PostFacilityStatus extends PostFacilityBase {
 
     // Current field values.
     $this->statusToPush = $this->facilityNode->get('field_operating_status_facility')->value;
-    $this->additionalInfoToPush = $this->facilityNode->get('field_operating_status_more_info')->value;
+    $this->additionalInfoToPush = $this->getOperatingStatusMoreInfoShort();
 
     if (empty($this->statusToPush)) {
       // We can not send this without a status, so bail out.
@@ -190,6 +190,29 @@ class PostFacilityStatus extends PostFacilityBase {
     }
 
     return $payload;
+  }
+
+  /**
+   * Get operating status details, shortened as necessary.
+   *
+   * @return string
+   *   Details of operating status.
+   */
+  protected function getOperatingStatusMoreInfoShort() : ?string {
+    $operatingStatusMoreInfo = $this->facilityNode->get('field_operating_status_more_info')->value;
+    if ($operatingStatusMoreInfo) {
+      $operatingStatusMoreInfo = $this->facilityNode->get('field_operating_status_more_info')->value;
+      $operatingStatusMoreInfoJson = json_encode($this->facilityNode->get('field_operating_status_more_info')->value);
+      $operatingStatusMoreInfoLength = mb_strlen($operatingStatusMoreInfoJson);
+      // 300 is the character limit for field_operating_status_facility
+      // let's do our best to trim this down if we need to
+      if ($operatingStatusMoreInfoLength > 300) {
+        $operatingStatusMoreInfo = str_replace('&nbsp;', ' ', $operatingStatusMoreInfo);
+        $operatingStatusMoreInfo = trim($operatingStatusMoreInfo);
+        $operatingStatusMoreInfo = preg_replace("/(\r?\n|\r)+/", " ", $operatingStatusMoreInfo);
+      }
+    }
+    return $operatingStatusMoreInfo;
   }
 
   /**

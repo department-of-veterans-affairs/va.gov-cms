@@ -7,6 +7,7 @@
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Entity\ContentEntityTypeInterface;
 
 /**
  * Implements hook_help().
@@ -36,5 +37,23 @@ function _va_gov_workflow_validate_required_revision_message(array $form, FormSt
   // Add revision log validation.
   if ($form_state->isValueEmpty(['revision_log', '0', 'value'])) {
     $form_state->setErrorByName('revision_log][0][value', t('Revision log message is required'));
+  }
+}
+
+/**
+ * Implements hook_entity_base_field_info_alter().
+ *
+ * {@inheritdoc}
+ */
+function va_gov_workflow_entity_base_field_info_alter(&$fields, ContentEntityTypeInterface $entity_type) {
+  // Display the revision_log_message field.
+  if ($entity_type->id() == 'taxonomy_term' && isset($fields['revision_log_message'])) {
+    // Grab the existing options so we don't stomp them without intent.
+    $form_options = $fields['revision_log_message']->getDisplayOptions('form');
+    // For some reason the field defaults to region = hidden.
+    $form_options['region'] = 'content';
+    $fields['revision_log_message']
+      ->setRequired(TRUE)
+      ->setDisplayOptions('form', $form_options);
   }
 }
