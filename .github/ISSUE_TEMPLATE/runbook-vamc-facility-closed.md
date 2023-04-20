@@ -76,6 +76,7 @@ If this facility has been removed from VAST in error, please notify our Support 
 (Redirects deploy weekly on Wed. at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. Coordinate the items below and canonical URL change after URL change ticket is merged, deployed, and verified in prod.)
 
 #### Drupal Admin steps (CMS Engineer or Helpdesk)
+_Help desk will complete these steps or escalate to request help from CMS engineering._
 - [ ] 7. When redirect has been deployed, make these changes. Practice first on staging or a demo environment.
   - [ ] 7a. Drupal Admin bulk moves any content identified **4b** to new facility **4a**.
   - [ ] 7b. Drupal Admin edits the facility node, removes flag `Removed from source`, add a revision log that explains the change, with a link to github issue, and change moderation state to archive. (Note: any remaining health services, non-clinical services and events for the given facility will be archived automatically when these changes are saved.)

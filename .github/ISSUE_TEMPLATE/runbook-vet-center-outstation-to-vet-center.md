@@ -51,6 +51,7 @@ Facility API ID: <insert_facility_API_ID>
 (Redirects deploy weekly on Wed. at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. Coordinate the items below and canonical URL change after URL change ticket is merged, deployed, and verified in prod.)
 
 ### Drupal Admin steps
+_Help desk will complete these steps or escalate to request help from CMS engineering._
 - [ ] 10. When the redirect has been made live, set the status of the Outstation node to 'closed'.
 - [ ] 11. Archive the Outstation with a comment in the revision log that points to the new Vet Center.
 

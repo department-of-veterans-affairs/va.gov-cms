@@ -40,6 +40,7 @@ Facility API ID: <insert_facility_API_ID>
 (Redirects deploy weekly on Wed. at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. Coordinate the items below and canonical URL change after URL change ticket is merged, deployed, and verified in prod.)
 
 #### Drupal Admin steps (CMS Engineer or Help desk)
+_Help desk will complete these steps or escalate to request help from CMS engineering._
 - [ ] 4. Rename the section for this Vet Center to match its new name (Section taxonomy change)
 - [ ] 5. If the new official name matches the pattern "<city> Vet Center", update the common name to match
 - [ ] 6. Visit [bulk operations](https://prod.cms.va.gov/admin/content/bulk) page and filter by section = vet center name
