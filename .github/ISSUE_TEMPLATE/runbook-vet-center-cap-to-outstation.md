@@ -58,13 +58,19 @@ Facility link: <insert_facility_link>
 
 [@TODO help desk write sample email - SEE runbook-vamc-facility-new]
 
-### Close old CAP
-- [ ] 8. CMS team submits [Redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E), cc'ing Facilities team, and referencing this issue to redirect from the CAP URL to the Outstation URL.
-- [ ] 9. When the redirect has been made live, set the status of the CAP node to 'closed'.
-- [ ] 10. Archive the CAP with a comment in the revision log that points to the
-  new Outstation.
-- [ ] 11. CMS engineer updates the [CSV in Lighthouse](https://github.com/department-of-veterans-affairs/lighthouse-facilities/blob/master/facilities/src/main/resources/websites.csv) with the new URL, creating a PR, tagging the Lighthouse team and linking to it in Slack with an @mention to a Lighthouse team member
-- [ ] 12. Help desk notifies editor and any other stakeholders.
+### Close old CAP and Create new Outstation URL
+- [ ] 8. Create a [URL change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old facility URL to the new facility URL, referencing this issue to redirect from the CAP URL to the Outstation URL. (**Note: The URL change request ticket blocks the completion of this ticket.**)
+
+<insert_url_change_request_link>
+
+(Redirects are released Wednesday afternoons, so coordinate the following items below and canonical URL change around that timeframe.)
+### CMS engineer steps
+- [ ] 9. Execute the steps of the URL change request ticket from step 8.
+- [ ] 10. When the redirect has been made live, set the status of the CAP node to 'closed'.
+- [ ] 11. Archive the CAP with a comment in the revision log that points to the new Vet Center.
+
+### Help desk steps
+- [ ] 12. Notify editor and any other stakeholders.
 
 
 ### Team

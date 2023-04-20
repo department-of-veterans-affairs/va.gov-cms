@@ -58,6 +58,7 @@ dependencies:
     - node.type.vet_center_mobile_vet_center
     - node.type.vet_center_outstation
     - node.type.vha_facility_nonclinical_service
+    - taxonomy.vocabulary.health_care_service_taxonomy
   module:
     - content_moderation
 _core:
@@ -197,4 +198,6 @@ type_settings:
       - vet_center_mobile_vet_center
       - vet_center_outstation
       - vha_facility_nonclinical_service
+    taxonomy_term:
+      - health_care_service_taxonomy
   default_moderation_state: draft

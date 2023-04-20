@@ -14,7 +14,7 @@ for filename in config/sync/core.entity_form_display.node.*.default.yml; do
 done
 
 if [ "${failure}" -eq 1 ]; then
-  echo "To fix this test, ensure that all content types with the moderation_state field"
+  echo "To fix this test, ensure that all node content types with the moderation_state field"
   echo "also have the revision_log field directly below it."
   exit 1
 fi

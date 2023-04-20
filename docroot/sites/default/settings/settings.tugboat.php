@@ -53,6 +53,7 @@ $settings['file_chmod_directory'] = 02775;
 $settings['skip_permissions_hardening'] = TRUE;
 
 $webhost_on_cli = getenv('DRUPAL_ADDRESS');
+$settings['webhost'] = $webhost_on_cli;
 
 // Link to this file locally since Tugboat can not access prod where the real
 // file exists.  You will need to copy the file from the same path on prod.
