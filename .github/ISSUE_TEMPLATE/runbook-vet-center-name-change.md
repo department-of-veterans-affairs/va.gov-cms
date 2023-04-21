@@ -2,7 +2,7 @@
 name: Runbook - Vet Center name change
 about: Steps for updating names and URLs
 title: 'Vet Center name change: <insert_name>'
-labels: Change request, Vet Center, Facilities, User support, VA.gov frontend, Drupal engineering
+labels: Change request, Drupal engineering, Facilities, User support, VA.gov frontend, Vet Center
 assignees: ''
 
 ---

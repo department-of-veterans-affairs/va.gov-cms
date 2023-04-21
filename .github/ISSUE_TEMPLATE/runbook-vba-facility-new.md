@@ -2,7 +2,7 @@
 name: Runbook - New VBA Facility
 about: changing facility information in the CMS for VBA facilities
 title: 'New VBA Facility: <insert_name_of_facility>'
-labels: Change request, VBA, Facilities, User support, VA.gov frontend, Drupal engineering
+labels: Change request, Drupal engineering, Facilities, User support, VA.gov frontend, VBA
 assignees: ''
 
 ---

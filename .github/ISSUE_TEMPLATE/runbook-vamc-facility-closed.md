@@ -2,7 +2,7 @@
 name: Runbook - VAMC Facility closed
 about: Steps for archiving a VAMC facility in VA.gov CMS.
 title: 'VAMC Facility closed: <insert_name>'
-labels: Change request, VAMC, Facilities, User support, VA.gov frontend, Drupal engineering
+labels: Change request, Drupal engineering, Facilities, User support, VA.gov frontend, VAMC
 assignees: ''
 
 ---

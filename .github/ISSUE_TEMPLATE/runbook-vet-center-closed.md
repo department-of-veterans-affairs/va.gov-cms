@@ -2,7 +2,7 @@
 name: Runbook - Vet Center Facility closed
 about: Steps for archiving a Vet Center facility in VA.gov CMS.
 title: 'Vet Center Facility closed: <insert_name>'
-labels: Change request, Vet Center, Facilities, User support, VA.gov frontend, Drupal engineering
+labels: Change request, Drupal engineering, Facilities, User support, VA.gov frontend, Vet Center
 assignees: ''
 
 ---

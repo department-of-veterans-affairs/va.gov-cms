@@ -2,7 +2,7 @@
 name: Runbook - Vet Center Outstation becomes a Vet Center
 about: Steps for upgrading an outstation to a full Vet Center
 title: 'Outstation becomes Vet Center: <insert_name_of_facility>'
-labels: Change request, Vet Center, Facilities, User support, VA.gov frontend, Drupal engineering
+labels: Change request, Drupal engineering, Facilities, User support, VA.gov frontend, Vet Center
 assignees: ''
 
 ---
