@@ -2,7 +2,7 @@
 name: Runbook - VAMC Facility closed
 about: Steps for archiving a VAMC facility in VA.gov CMS.
 title: 'VAMC Facility closed: <insert_name>'
-labels: Change request
+labels: Change request, VAMC, Facilities, User support, VA.gov frontend, Drupal engineering
 assignees: ''
 
 ---
@@ -20,7 +20,8 @@ Submitter: <insert_name>
 - [ ] If the submitter is an editor, send them a link to the KB article: [How to archive a closed facility](https://prod.cms.va.gov/help/vamc/about-locations-content-for-vamcs/how-to-archive-a-closed-facility)
 
 - [ ] Link to facility in production:
-Facility link: <insert_facility_link>
+Facility CMS link: <insert_facility_link>
+Facility API ID: <insert_facility_API_ID>
 
 ## Acceptance criteria
 
@@ -60,7 +61,6 @@ If this facility has been removed from VAST in error, please notify our Support 
 
 [CMS helpdesk signature]
 ```
-
 </details>
 
 - [ ] 4. Are any of the services or upcoming events for the facility to be closed moving to a different facility?
@@ -70,20 +70,17 @@ If this facility has been removed from VAST in error, please notify our Support 
 
 <insert_redirect_request_link>
 
-(These are usually released Wednesday afternoons so you should coordinate the remaining items below around that timeframe)
+#### CMS Engineer steps
+- [ ] 6. Execute the steps of the URL change request ticket from step 5 above.
 
-- [ ] 6. When redirect has been deployed, make these changes. Practice first on staging or a demo environment.
-  - [ ] 6a. CMS engineer bulk moves any content identified **4b** to new facility **4a**.
-  - [ ] 6b. CMS engineer edits the facility node, removes flag `Removed from source`, add a revision log that explains the change, with a link to github issue, and change moderation state to archive. (Note: any remaining health services, non-clinical services and events for the given facility will be archived automatically when these changes are saved.)
-  - [ ] 6c. CMS engineer finds the menu for the system https://prod.cms.va.gov/admin/structure/menu and deletes the menu item for the facility being closed.
+(Redirects deploy weekly on Wed. at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. Coordinate the items below and canonical URL change after URL change ticket is merged, deployed, and verified in prod.)
+
+#### Drupal Admin steps (CMS Engineer or Helpdesk)
+_Help desk will complete these steps or escalate to request help from CMS engineering._
+- [ ] 7. When redirect has been deployed, make these changes. Practice first on staging or a demo environment.
+  - [ ] 7a. Drupal Admin bulk moves any content identified **4b** to new facility **4a**.
+  - [ ] 7b. Drupal Admin edits the facility node, removes flag `Removed from source`, add a revision log that explains the change, with a link to github issue, and change moderation state to archive. (Note: any remaining health services, non-clinical services and events for the given facility will be archived automatically when these changes are saved.)
+  - [ ] 7c. Drupal Admin finds the menu for the system https://prod.cms.va.gov/admin/structure/menu and deletes the menu item for the facility being closed.
 
 #### CMS Help desk (wrap up)
-- [ ] 7. Help desk notifies editor and any other stakeholders.
-
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [x] `Facilities`
-- [x] `User support`
+- [ ] 8. Help desk notifies editor and any other stakeholders.

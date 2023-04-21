@@ -2,7 +2,7 @@
 name: Runbook - VAMC facility duplicate record or section change
 about: How to update the section of a VAMC.
 title: 'VAMC Facility duplicate record or section change: <insert_name_of_vamc>'
-labels: Change request
+labels: Change request, VAMC, Facilities, User support, VA.gov frontend, Drupal engineering
 assignees: ''
 
 ---
@@ -18,7 +18,8 @@ Help desk ticket: <insert_help_desk_link>
 Submitter: <insert_name>
 
 - [ ] Link to facility in production:
-Facility link: <insert_facility_link>
+Facility CMS link: <insert_facility_link>
+Facility API ID: <insert_facility_API_ID>
 
 ## Steps before proceeding
 
@@ -39,10 +40,12 @@ If there has been a section change, which results in a change to the facility UR
 
 <insert_url_change_request_link>
 
-(Redirects are released Wednesday afternoons, so coordinate the following items below and canonical URL change around that timeframe.)
+
+(Redirects deploy weekly on Wed. at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. Coordinate the items below and canonical URL change after URL change ticket is merged, deployed, and verified in prod.)
+
 
 #### CMS engineer steps (the new facility)
-- [ ] 2. Execute the steps of the URL change request ticket from step 1.
+- [ ] 2. Execute the steps of the URL change request ticket from step 1 above.
 - [ ] 3. Change the Facility Locator API ID on the new facility to the Facility Locator API ID for the old one.
 - [ ] 4. Change the section on the new facility to the old one
 - [ ] 5. Change the VAMC system on the new facility to the old one
@@ -88,11 +91,3 @@ drush sql:query "UPDATE migrate_map_va_node_health_care_local_facility SET desti
 
 #### CMS Help desk (wrap up)
 - [ ] 22. Notify editor and any other stakeholders.
-
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [x] `Facilities`
-- [x] `User support`

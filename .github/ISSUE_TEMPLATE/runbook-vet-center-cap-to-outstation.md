@@ -2,7 +2,7 @@
 name: Runbook - Vet Center CAP becomes an Outstation
 about: Steps for upgrading a CAP to an Outstation
 title: 'Vet Center CAP becomes an Outstation: <insert_name_of_facility>'
-labels: Change request, Vet Center
+labels: Change request, Vet Center, Facilities, User support, VA.gov frontend, Drupal engineering
 assignees: ''
 
 ---
@@ -35,7 +35,8 @@ Submitter: <insert_name>
 KB articles: <insert_kb_article_links>
 
 - [ ] Link to facility in production:
-Facility link: <insert_facility_link>
+Facility CMS link: <insert_facility_link>
+Facility API ID: <insert_facility_API_ID>
 
 ## Acceptance criteria
 ## CMS help desk steps
@@ -63,7 +64,8 @@ Facility link: <insert_facility_link>
 
 <insert_url_change_request_link>
 
-(Redirects are released Wednesday afternoons, so coordinate the following items below and canonical URL change around that timeframe.)
+(Redirects deploy weekly on Wed. at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. Coordinate the items below and canonical URL change after URL change ticket is merged, deployed, and verified in prod.)
+
 ### CMS engineer steps
 - [ ] 9. Execute the steps of the URL change request ticket from step 8.
 - [ ] 10. When the redirect has been made live, set the status of the CAP node to 'closed'.
@@ -71,12 +73,3 @@ Facility link: <insert_facility_link>
 
 ### Help desk steps
 - [ ] 12. Notify editor and any other stakeholders.
-
-
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [x] `Facilities`
-- [x] `User support`

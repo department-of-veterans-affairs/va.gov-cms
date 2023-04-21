@@ -2,7 +2,7 @@
 name: Runbook - New VAMC Facility
 about: changing facility information in the CMS for VAMC facilities
 title: 'New VAMC Facility: <insert_name_of_facility>'
-labels: Change request
+labels: Change request, VAMC, Facilities, User support, VA.gov frontend, Drupal engineering
 assignees: ''
 
 ---
@@ -21,7 +21,8 @@ Submitter: <insert_name>
 KB articles: <insert_kb_article_links>
 
 - [ ] Link to facility in production:
-Facility link: <insert_facility_link>
+Facility CMS link: <insert_facility_link>
+Facility API ID: <insert_facility_API_ID>
 
 ## Acceptance criteria
 
@@ -54,24 +55,19 @@ Please let us know when your draft content is complete, so that we can wrap up t
 
 <insert_url_change_request_link>
 
-(Redirects are released Wednesday afternoons, so coordinate the following items below and canonical URL change around that timeframe.)
-
 - [ ] 6. When editor has prepared content and let help desk know, reassign this issue to appropriate CMS engineer on Product Support team, for bulk publishing.
 
 #### CMS engineer steps
-- [ ] 7. CMS engineer executes the steps of the URL change request ticket from step 5.
-- [ ] 8. CMS engineer bulk publishes nodes and facility.
-- [ ] 9. CMS engineer edit facility node and remove `New facility` flag and save node.
-- [ ] 10. Let help desk know this has been done.
+- [ ] 7. CMS engineer executes the steps of the URL change request ticket from step 5 above.
+
+(Redirects deploy weekly on Wed. at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. Coordinate the items below and canonical URL change after URL change ticket is merged, deployed, and verified in prod.)
+
+#### Drupal Admin steps (CMS Engineer or Help desk)
+_Help desk will complete these steps or escalate to request help from CMS engineering._
+- [ ] 8. Drupal Admin bulk publishes nodes and facility.
+- [ ] 9. Drupal Admin edit facility node and remove `New facility` flag and save node.
+- [ ] 10. Let Help desk know this has been done, if not done by Help desk.
 
 
 #### CMS Help desk (wrap up)
 - [ ] 11. Notify editor and any other stakeholders.
-
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [x] `Facilities`
-- [x] `User support`

@@ -2,7 +2,7 @@
 name: Runbook - VBA Facility name change
 about: Steps for updating names and URLs
 title: 'VBA Facility name change: <insert_name>'
-labels: Change request
+labels: Change request, VBA, Facilities, User support, VA.gov frontend, Drupal engineering
 assignees: ''
 
 ---
@@ -21,18 +21,11 @@ Submitter: <insert_name>
 KB articles: <insert_kb_article_links>
 
 - [ ] Link to facility in production:
-Facility link: <insert_facility_link>
+Facility CMS link: <insert_facility_link>
+Facility API ID: <insert_facility_API_ID>
 
 ## Acceptance criteria
 
 ## VBA Facility name change
 
 [@TODO: DRAFT FOR HELP DESK AND DEV STEPS]
-
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [x] `Facilities`
-- [x] `User support`

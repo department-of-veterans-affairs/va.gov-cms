@@ -2,7 +2,7 @@
 name: Runbook - New VBA Facility
 about: changing facility information in the CMS for VBA facilities
 title: 'New VBA Facility: <insert_name_of_facility>'
-labels: Change request
+labels: Change request, VBA, Facilities, User support, VA.gov frontend, Drupal engineering
 assignees: ''
 
 ---
@@ -21,18 +21,11 @@ Submitter: <insert_name>
 KB articles: <insert_kb_article_links>
 
 - [ ] Link to facility in production:
-Facility link: <insert_facility_link>
+Facility CMS link: <insert_facility_link>
+Facility API ID: <insert_facility_API_ID>
 
 ## Acceptance criteria
 
 ### New VBA Facility
 
 [@TODO: DRAFT FOR HELP DESK AND DEV STEPS]
-
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [x] `Facilities`
-- [x] `User support`
