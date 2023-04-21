@@ -2,7 +2,7 @@
 name: Runbook - Facility URL Change
 about: Submit a request to change the URL of a facility
 title: 'URL Change for: <insert facility name>'
-labels: URL Change, Redirect request, Facilities, User support, VA.gov frontend, Drupal engineering
+labels: Facilities, Drupal engineering, Redirect request, URL Change, User support, VA.gov frontend
 assignees: ''
 
 ---

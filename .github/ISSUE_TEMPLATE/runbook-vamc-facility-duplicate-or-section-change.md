@@ -2,7 +2,7 @@
 name: Runbook - VAMC facility duplicate record or section change
 about: How to update the section of a VAMC.
 title: 'VAMC Facility duplicate record or section change: <insert_name_of_vamc>'
-labels: Change request, VAMC, Facilities, User support, VA.gov frontend, Drupal engineering
+labels: Change request, Drupal engineering, Facilities, User support, VA.gov frontend, VAMC
 assignees: ''
 
 ---
