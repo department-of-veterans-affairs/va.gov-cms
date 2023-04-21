@@ -17,8 +17,8 @@ Help desk ticket: <insert_help_desk_link>
 - [ ] Name of submitter (if applicable)
 Submitter: <insert_name>
 
-- [ ] If the submitter is an editor, send them links to any relevate KB articles for the VAMC product. Let them know that facility changes can take between 75 days and 4 months after submitting a request, according to VAST administrators.
-KB articles: <insert_kb_article_links>
+- [ ] If the submitter is an editor, send them links to any relevant KB articles for the VAMC product. Let them know that facility changes can take between 75 days and 4 months after submitting a request, according to VAST administrators.
+KB article: ["How Do I Update My VAMC Facility's Basic Location Data?"](https://prod.cms.va.gov/help/vamc/how-do-i-update-my-vamc-facilitys-basic-location-data)
 
 - [ ] Link to facility in production:
 Facility link: <insert_facility_link>

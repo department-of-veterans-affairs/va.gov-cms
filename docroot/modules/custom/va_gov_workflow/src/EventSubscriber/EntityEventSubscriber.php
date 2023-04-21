@@ -66,6 +66,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public static function getSubscribedEvents(): array {
     return [
       'hook_event_dispatcher.form_base_node_form.alter' => 'alterNodeForm',
+      'hook_event_dispatcher.form_base_taxonomy_term_form.alter' => 'alterTermForm',
       EntityHookEvents::ENTITY_DELETE => 'entityDelete',
       EntityHookEvents::ENTITY_INSERT => 'entityInsert',
       EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
@@ -125,6 +126,35 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       $this->removeArchiveOption($event);
     }
     $this->requireRevisionMessage($form, $form_state, $form_id);
+  }
+
+  /**
+   * Alters to be applied to all content types.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormBaseAlterEvent $event
+   *   The event.
+   */
+  public function alterTermForm(FormBaseAlterEvent $event) {
+    $form = &$event->getForm();
+    $form_state = $event->getFormState();
+    if ($form_state->getFormObject() instanceof EntityFormInterface) {
+      $this->removePreviousRevisionLogMessage($form);
+    }
+  }
+
+  /**
+   * Prevent the previous revision message from persisting to new revision.
+   *
+   * This is due workflow not fully supporting terms and using a patch for
+   * issue #3047110 {@see https://drupal.org/i/3047110}
+   *
+   * @param array $form
+   *   The Drupal form array by reference.
+   */
+  protected function removePreviousRevisionLogMessage(array &$form): void {
+    if (isset($form['revision_log_message'])) {
+      $form["revision_log_message"]["widget"][0]["value"]["#default_value"] = '';
+    }
   }
 
   /**
