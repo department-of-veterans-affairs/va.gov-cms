@@ -791,7 +791,7 @@
         ],
         "va:theme:watch": [
             "# Watch VA.gov Claro theme source and compile as needed.",
-            "! ./scripts/should-run-directly.sh || ( cd docroot/themes/custom/vagovclaro && yarn watch )",
+            "! ./scripts/should-run-directly.sh || ( cd docroot/themes/custom/vagovclaro && npm run dev )",
             "./scripts/should-run-directly.sh || ddev composer va:theme:watch --"
         ],
         "va:web:build": [
