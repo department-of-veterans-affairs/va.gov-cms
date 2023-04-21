@@ -49,6 +49,7 @@ Please let us know when your draft content is complete, so that we can wrap up t
 ```
 
 </details>
+
 - [ ] 5. Create a [URL change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old facility URL to the new facility URL. (**Note: The URL change request ticket blocks the completion of this ticket.**)
 
 <insert_url_change_request_link>
