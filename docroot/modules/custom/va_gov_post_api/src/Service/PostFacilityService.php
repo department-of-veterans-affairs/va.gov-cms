@@ -3,6 +3,9 @@
 namespace Drupal\va_gov_post_api\Service;
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\office_hours\OfficeHoursDateHelper;
+use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\va_gov_lovell\LovellOps;
 
 /**
@@ -10,12 +13,21 @@ use Drupal\va_gov_lovell\LovellOps;
  */
 class PostFacilityService extends PostFacilityBase {
 
+  use StringTranslationTrait;
+
   /**
    * A array of any errors in prepping the data.
    *
    * @var array
    */
   protected $errors = [];
+
+  /**
+   * The facility node.
+   *
+   * @var \Drupal\Core\Entity\EntityInterface
+   */
+  protected $facility;
 
   /**
    * The facility service node.
@@ -78,8 +90,8 @@ class PostFacilityService extends PostFacilityBase {
         // There were no errors gathering data and it is pushable, so proceed.
         $data['nid'] = $this->facilityService->id();
         // Queue item's Unique ID.
-        $data['uid'] = "facility_service_{$this->Facility->id()}_{$this->facilityService->id()}";
-        $facilityApiId = $this->Facility->hasField('field_facility_locator_api_id') ? $this->Facility->get('field_facility_locator_api_id')->value : NULL;
+        $data['uid'] = "facility_service_{$this->facility->id()}_{$this->facilityService->id()}";
+        $facilityApiId = $this->facility->hasField('field_facility_locator_api_id') ? $this->facility->get('field_facility_locator_api_id')->value : NULL;
         $data['endpoint_path'] = ($facilityApiId) ? "/services/va_facilities/v0/facilities/{$facilityApiId}/cms-overlay" : NULL;
         $data['payload'] = $this->getPayload($forcePush);
 
@@ -210,11 +222,11 @@ class PostFacilityService extends PostFacilityBase {
       $service->active = ($this->facilityService->isPublished()) ? TRUE : FALSE;
       $service->description_national = $this->serviceTerm->getDescription();
       $service->description_system = $this->systemService->get('field_body')->value;
-      $service->health_service_api_id = $this->serviceTerm->get('field_health_service_api_id')->value;
+      $service->service_api_id = $this->serviceTerm->get('field_health_service_api_id')->value;
       $service->appointment_leadin = $this->getAppointmentLeadin();
-      $service->appointment_phones = $this->getPhones();
-      $service->referral_required = $this->getReferralRequired();
-      $service->walk_ins_accepted = $this->getWalkInsAccepted();
+      $field_phone_numbers_paragraphs = $this->facilityService->get('field_phone_numbers_paragraph')->referencedEntities();
+      $service->appointment_phones = $this->getPhones(FALSE, $field_phone_numbers_paragraphs);
+      $service->service_locations = $this->getServiceLocations();
 
       $payload = [
         'detailed_services' => [$service],
@@ -225,18 +237,25 @@ class PostFacilityService extends PostFacilityBase {
   }
 
   /**
-   * Assembles the phone data and returns an array of objects.
+   * Assembles the phone data and returns an array of phone objects.
+   *
+   * @param bool $from_facility
+   *   Whether to include the phone from the facility.
+   * @param array $phone_paragraphs
+   *   Optional array of phone paragraphs.
    *
    * @return array
    *   An array of objects with properties type, label, number, extension.
    */
-  protected function getPhones() {
+  protected function getPhones($from_facility = FALSE, array $phone_paragraphs = []) {
     $assembled_phones = [];
-    // Grab phones from the facility service.
-    $phones = $this->facilityService->get('field_phone_numbers_paragraph')->referencedEntities();
-    if (empty($phones)) {
-      // The service has no phones, so use the facility's as fallback.
-      $phone_w_ext = $this->Facility->get('field_phone_number')->value;
+    if (!empty($phone_paragraphs)) {
+      $phones = $phone_paragraphs;
+    }
+
+    if ($from_facility) {
+      // We need to include the Facility's phone.
+      $phone_w_ext = $this->facility->get('field_phone_number')->value;
       // This field may have extension present like 555-555-1212 x 444.
       $phone_split = explode('x', $phone_w_ext);
       $assembledPhone = new \stdClass();
@@ -246,8 +265,9 @@ class PostFacilityService extends PostFacilityBase {
       $assembledPhone->extension = !empty($phone_split[1]) ? trim($phone_split[1]) : NULL;
       $assembled_phones[] = $assembledPhone;
     }
-    else {
-      // Process the phones from the facility health service.
+
+    if (!empty($phones)) {
+      // Assemble the phones.
       foreach ($phones as $phone) {
         $assembledPhone = new \stdClass();
         $assembledPhone->type = $phone->get('field_phone_number_type')->value;
@@ -259,6 +279,57 @@ class PostFacilityService extends PostFacilityBase {
     }
 
     return $assembled_phones;
+  }
+
+  /**
+   * Gets the service hours with fallback to facility.
+   *
+   * @param array $office_hours
+   *   Office hours values to extract days from.
+   *
+   * @return object
+   *   An object of days of the week with hours strings.
+   */
+  protected function getServiceHours(array $office_hours = []): object {
+    if (empty($office_hours)) {
+      $office_hours = $this->facility->get('field_office_hours')->getValue();
+    }
+    $hours = new \stdClass();
+    $hours->Monday = $this->getDay(0, $office_hours);
+    $hours->Tuesday = $this->getDay(1, $office_hours);
+    $hours->Wednesday = $this->getDay(2, $office_hours);
+    $hours->Thursday = $this->getDay(3, $office_hours);
+    $hours->Friday = $this->getDay(4, $office_hours);
+    $hours->Saturday = $this->getDay(5, $office_hours);
+    $hours->Sunday = $this->getDay(6, $office_hours);
+
+    return $hours;
+  }
+
+  /**
+   * Gets the string for a given day.
+   *
+   * @param int $day_num
+   *   Number 0-6 specifying which day to return.
+   * @param array $days
+   *   The array of days data.
+   *
+   * @return string
+   *   a sting made up of start and end times with comment, or just comment.
+   */
+  protected function getDay($day_num, array $days): string {
+    $start = OfficeHoursDateHelper::format($days[$day_num]['starthours'], 'h:i a');
+    $end = OfficeHoursDateHelper::format($days[$day_num]['endhours'], 'h:i a');
+    $comment = $days[$day_num]['comment'];
+    if (!empty($start) && !empty($comment)) {
+      return "{$start} - {$end} {$comment}";
+    }
+    elseif (empty($comment)) {
+      return "{$start} - {$end}";
+    }
+    else {
+      return $comment;
+    }
   }
 
   /**
@@ -287,7 +358,142 @@ class PostFacilityService extends PostFacilityBase {
         break;
     }
 
-    return $text;
+    return $this->stringNullify($text);
+  }
+
+  /**
+   * Builds the array of service locations.
+   *
+   * @return array
+   *   An array of 1 or more service location objects.
+   */
+  protected function getServiceLocations(): array {
+    $service_locations = [];
+    $field_service_locations = $this->facilityService->get('field_service_location')->referencedEntities();
+    $facility_location = new \stdClass();
+    $facility_location->office_name = NULL;
+    $facility_location->email_contacts = NULL;
+    $facility_location->facility_service_hours = [$this->getServiceHours()];
+    $facility_location->additional_hours_info = NULL;
+    $facility_location->phones = $this->getPhones(TRUE);
+    $facility_location->service_location_address = $this->facility->get('field_address');
+    if (empty($field_service_locations)) {
+      // The service has no locations, so use the facility's as fallback.
+      $service_locations[] = $facility_location;
+    }
+    else {
+      // We have some locations.
+      foreach ($field_service_locations as $location) {
+        $service_location = new \stdClass();
+        $field_service_location_address = $location->get('field_service_location_address')->referencedEntities();
+        $address_paragraph = reset($field_service_location_address);
+        $service_location->office_name = $this->stringNullify($address_paragraph->get('field_clinic_name')->value);
+        $service_location->service_location_address = $this->getServiceLocationAddress($address_paragraph);
+        $field_email_contacts = $location->get('field_email_contacts')->referencedEntities();
+
+        $service_location->email_contacts = $this->getEmailContacts($field_email_contacts);
+        if ($location->get('field_hours')->value === '0') {
+          // Use facility hours.
+          $service_location->facility_service_hours = [$this->getServiceHours()];
+        }
+        elseif ($location->get('field_hours')->value === '2') {
+          // Use location hours.
+          $service_location->facility_service_hours = [$this->getServiceHours($location->field_office_hours->getValue())];
+        }
+        else {
+          // Provide no hours.
+          $service_location->facility_service_hours = [];
+        }
+
+        $service_location->additional_hours_info = $location->get('field_additional_hours_info')->value;
+        $use_facility_phone = $location->get('field_use_main_facility_phone')->value;
+        $service_location->phones = $this->getPhones($use_facility_phone, $location->get('field_phone')->referencedEntities());
+
+        $service_location->referral_required = $this->getReferralRequired();
+        $service_location->walk_ins_accepted = $this->getWalkInsAccepted();
+        $service_location->online_scheduling_available = $this->getOnlineSchedulingAvailable();
+
+        $service_locations[] = $service_location;
+      }
+    }
+
+    return $service_locations;
+  }
+
+  /**
+   * Gets the email addresses from the field data.
+   *
+   * @param array $field_email_contacts
+   *   An array of email_contact paragraphs.
+   *
+   * @return array
+   *   An array of stdClass objects containing label and address.
+   */
+  protected function getEmailContacts(array $field_email_contacts): array {
+    $email_contacts = [];
+    if (!empty($field_email_contacts)) {
+      foreach ($field_email_contacts as $field_email_contact) {
+        $contact = new \stdClass();
+        $contact->email_label = $field_email_contact->get('field_email_label')->value;
+        $contact->email_address = $field_email_contact->get('field_email_address')->value;
+
+        $email_contacts[] = $contact;
+      }
+    }
+
+    return $email_contacts;
+  }
+
+  /**
+   * Pull the address info from an address paragraph.
+   *
+   * @param \Drupal\paragraphs\Entity\Paragraph|bool $address_paragraph
+   *   A drupal paragraph object that should be the address paragraph.
+   *
+   * @return object
+   *   A stdClass object with address elements.
+   */
+  protected function getServiceLocationAddress(Paragraph | bool $address_paragraph): object {
+    $address = new \stdClass();
+    if (empty($address_paragraph)) {
+      return $address;
+    }
+    // We made it this far so it must be a paragraph, so declare it.
+    /** @var \Drupal\paragraphs\Entity\Paragraph $address_paragraph */
+    // Prep the parts of the address not dependent on facility.
+    $address->clinic_name = $this->stringNullify($address_paragraph->get('field_clinic_name')->value);
+    $address->building_name_number = $this->stringNullify($address_paragraph->get('field_building_name_number')->value);
+    $address->wing_floor_or_room_number = $this->stringNullify($address_paragraph->get('field_wing_floor_or_room_number')->value);
+    if ($address_paragraph->get('field_use_facility_address')->value) {
+      // Get info from the facility.
+      $field_address = $this->facility->field_address->getValue();
+      $use_address = reset($field_address);
+    }
+    else {
+      $field_address = $address_paragraph->field_address->getValue();
+      $use_address = reset($field_address);
+    }
+    $address->address_line1 = $use_address['address_line1'];
+    $address->address_line2 = $use_address['address_line2'];
+    $address->city = $use_address['locality'];
+    $address->state = $use_address['administrative_area'];
+    $address->zip_code = $use_address['postal_code'];
+    $address->country_code = $use_address['country_code'];
+
+    return $address;
+  }
+
+  /**
+   * Converts any empty string to NULL.
+   *
+   * @param string|null $string
+   *   Any possible value to evaluate.
+   *
+   * @return string|null
+   *   String if the value is not empty, NULL otherwise.
+   */
+  protected function stringNullify($string) {
+    return (empty($string)) ? NULL : $string;
   }
 
   /**
@@ -317,6 +523,25 @@ class PostFacilityService extends PostFacilityBase {
    */
   protected function getWalkInsAccepted() {
     $raw = $this->facilityService->get('field_walk_ins_accepted')->value;
+    $map = [
+      // Value => Return.
+      // Lighthouse decided to receive these as strings since non-bool options.
+      '0' => 'false',
+      '1' => 'true',
+      'not_applicable' => 'not applicable',
+    ];
+
+    return $map[$raw] ?? NULL;
+  }
+
+  /**
+   * Maps and returns the value of online scheduling.
+   *
+   * @return string
+   *   The mapped values of the field.  True, False, not applicable, NULL.
+   */
+  protected function getOnlineSchedulingAvailable() {
+    $raw = $this->facilityService->get('field_online_scheduling_availabl')->value;
     $map = [
       // Value => Return.
       // Lighthouse decided to receive these as strings since non-bool options.
@@ -400,7 +625,7 @@ class PostFacilityService extends PostFacilityBase {
     $field = $this->facilityService->get('field_facility_location');
     $facility = (!empty($field)) ? $field->referencedEntities() : NULL;
     if (!empty($facility)) {
-      $this->Facility = reset($facility);
+      $this->facility = reset($facility);
     }
     else {
       $this->errors[] = "Unable to load related facility. Field 'field_facility_location' not set.";
