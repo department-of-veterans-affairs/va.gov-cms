@@ -1,13 +1,11 @@
-uuid: 39aa50cd-863f-4399-ac03-22ef3d200535
+uuid: 740e1b98-4880-44f4-91a8-45562a1e394b
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.lc_categories.field_enforce_unique_value
-    - field.field.taxonomy_term.lc_categories.field_topic_id
-    - taxonomy.vocabulary.lc_categories
+    - taxonomy.vocabulary.external_data_source_destination
   module:
-    - allow_only_one
+    - field_group
     - path
     - text
 third_party_settings:
@@ -15,6 +13,7 @@ third_party_settings:
     group_workflow:
       children:
         - revision_log_message
+        - status
       label: 'Editorial workflow'
       region: content
       parent_name: ''
@@ -27,9 +26,9 @@ third_party_settings:
         description: ''
         required_fields: true
         description_display: after
-id: taxonomy_term.lc_categories.default
+id: taxonomy_term.external_data_source_destination.default
 targetEntityType: taxonomy_term
-bundle: lc_categories
+bundle: external_data_source_destination
 mode: default
 content:
   description:
@@ -40,20 +39,12 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  field_enforce_unique_value:
-    type: allow_only_one_widget
-    weight: 3
+  langcode:
+    type: language_select
+    weight: 2
     region: content
     settings:
-      size: 1
-    third_party_settings: {  }
-  field_topic_id:
-    type: string_textfield
-    weight: 4
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
+      include_locked: true
     third_party_settings: {  }
   name:
     type: string_textfield
@@ -65,16 +56,16 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 2
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
-  translation:
-    weight: 5
+  status:
+    type: boolean_checkbox
+    weight: 4
     region: content
-    settings: {  }
+    settings:
+      display_label: true
     third_party_settings: {  }
 hidden:
-  langcode: true
   moderation_state: true
-  status: true

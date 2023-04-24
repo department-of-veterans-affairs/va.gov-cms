@@ -88,6 +88,13 @@ tasks:
           exit \$exit_code;
         EOF
 
+  # Run with: ./bin/task --taskfile=tasks-periodic.yml every_month
+  # http://jenkins.vfs.va.gov/job/cms/job/cms-every-month
+  every_month:
+    cmds:
+      - drush php-eval "\Drupal::logger('va_gov_notifications')->alert('Monthly cron fired');"
+  #   - drush php-eval "print_r(\Drupal::service('va_gov_notifications.outdated_content')->checkForOutdatedVamcContent());"
+
   va/background/daily/migrate_copy/va_forms_csv_source:
     desc: This is because we cannot access the server on the SOCKS proxy right now.
     cmds:

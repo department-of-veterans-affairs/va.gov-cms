@@ -24,9 +24,9 @@ services:
     # A set of commands to run while building this service
     commands:
       # Commands that set up the basic preview infrastructure
-      
+
       # Changes made in this section will _not_ automatically take effect when
-      # base previews are refreshed through the scheduled process! A manual 
+      # base previews are refreshed through the scheduled process! A manual
       # rebuild of the base preview is necessary.
       init:
         - apt-get update
@@ -34,7 +34,7 @@ services:
         # TODO: Add "Why" comment for Python, was this for the FE dependencies `yarn install`, if so which dependencies
         # so we can remove if they are removed in the future.
         - apt-get install python
-        
+
         # General useful development tools
         - apt-get install jq nano
 
@@ -128,6 +128,9 @@ services:
         - pecl install memcache-8.0
         - docker-php-ext-enable memcache
 
+        # Install node and npm.
+        - ./scripts/install-nvm.sh
+
         # Ensure that we're using version 2 of composer.
         - composer self-update --2
 
@@ -148,9 +151,10 @@ services:
         # Install/update packages managed by composer, including drush.
         # Composer options are in composer.json, 'config' key.
         - composer install
-        - ./bin/npm install
-        - composer va:theme:compile
-        - composer va:web:install
+        - bash -lc 'nvm install'
+        - bash -lc 'npm install'
+        - bash -lc 'composer va:theme:compile'
+        - bash -lc 'composer va:web:install'
 
         - curl --remote-name https://dsva-vagov-prod-cms-backup-sanitized.s3-us-gov-west-1.amazonaws.com/files/cms-prod-files-latest.tgz
         - tar --extract --gunzip --file cms-prod-files-latest.tgz --directory "${DOCROOT}/sites/default/files/"
@@ -179,9 +183,10 @@ services:
         - j2 "${TUGBOAT_ROOT}/.web/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.web/403-error-document.html"
         - j2 "${TUGBOAT_ROOT}/.storybook/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.storybook/403-error-document.html"
         - composer install
-        - ./bin/npm install
-        - composer va:theme:compile
-        - composer va:web:install
+        - bash -lc 'nvm install'
+        - bash -lc 'npm install'
+        - bash -lc 'composer va:theme:compile'
+        - bash -lc 'composer va:web:install'
         # https://www.drush.org/latest/deploycommand/ (updatedb, cache:rebuild, config:import, deploy:hook)
         - drush deploy
 
