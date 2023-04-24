@@ -23,7 +23,7 @@ jobs:
       # Checkout repo to make package allow list available
       - name: Checkout
         # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@actions/checkout@v3
+        uses: actions/checkout@v3
 
       # Use a YAML formatted config file to list which dependencies can be auto-merged
       - name: Read list of Allowed Auto-merge Dependencies
