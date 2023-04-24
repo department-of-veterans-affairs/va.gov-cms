@@ -12,7 +12,7 @@ assignees: ''
 ### User story
 > _Describe the audience/user, enhancement or fix, and value / outcome desired._
 
-**AS A(N)**
+**AS A**
 **I WANT**
 **SO THAT**
 
@@ -37,12 +37,3 @@ assignees: ''
 > - Testing notes
 
 - [ ]
-
-
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [X] `Public Websites`
-- [ ] `Facilities`
-- [ ] `User support`
