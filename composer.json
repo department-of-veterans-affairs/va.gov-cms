@@ -596,12 +596,12 @@
         ],
         "va:ds:drupal": [
             "# Build the Drupal theme.",
-            "! ./scripts/should-run-directly.sh || (cd docroot/design-system && yarn install && yarn build:drupal)",
+            "! ./scripts/should-run-directly.sh || (cd docroot/design-system && npm install && npm run build:drupal)",
             "./scripts/should-run-directly.sh || ddev composer va:ds:drupal --"
         ],
         "va:ds:storybook": [
             "# Build the Storybook.",
-            "! ./scripts/should-run-directly.sh || (cd docroot/design-system && yarn install && yarn build:storybook)",
+            "! ./scripts/should-run-directly.sh || (cd docroot/design-system && npm install && npm run build:storybook)",
             "./scripts/should-run-directly.sh || ddev composer va:ds:storybook --"
         ],
         "va:migrate:sync": [
