@@ -23,8 +23,8 @@ popd
 
 pushd ./docroot/design-system
 nvm install
-yarn install
-yarn build:drupal
+npm install
+npm run build:drupal
 popd
 
 if [[ "${CMS_ENVIRONMENT_TYPE}" == "tugboat" ]]; then
