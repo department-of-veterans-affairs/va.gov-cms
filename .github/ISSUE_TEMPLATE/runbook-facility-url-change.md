@@ -16,12 +16,15 @@ When does this request need to be live:
 - [ ] Link the related facility closure / rename issue.
 - [ ] Create a URL redirect in the [devops](https://github.com/department-of-veterans-affairs/devops) repo in `ansible/deployment/config/revproxy-vagov/vars/redirects.yml`
 - [ ]  Redirects deploy weekly on Wed. at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. After deploy, validate that the URL redirect is deployed. (Note: In the event of a facility closure or a name change,  validate that this occurs before making the Lighthouse csv changes.)
-- [ ]  Notify helpdesk via comment on ticket or Slack message in #cms-support that changes are ready for review.  
+- [ ]  Notify helpdesk via comment on ticket or Slack message in #cms-support that changes are ready for review.
 
 #### URL Redirect
 | Current URL  |  Redirect Destination or New URL |
 | ---  |  --- |
 | current URL | new URL |
+
+## Use 1 of the following: 1. canonical URL change or 2. canonical URL removal (if removed from VAST)
+**Note: Canonical URL changes do not block the completion of the parent ticket. Once the URL redirect above has been deployed, the value to the Veteran is delivered. This ticket should be kept open until the URL change is verified, except in the case of a removal (as described below).
 
 ### Instructions for canonical URL change
 - [ ] Verify that the new URL for the facility is published and accessible on VA.gov.
@@ -35,4 +38,17 @@ When does this request need to be live:
 | Facility API ID  |  Full VA.gov URL |
 | ---  |  --- |
 | vha_691GM | https://www.va.gov/greater-los-angeles-health-care/locations/oxnard-va-clinic/ |
+
+### Instructions for canonical URL removal
+- [ ] Try to find the facility via the Facility Locator. If it is not available, proceed.
+- [ ] Verify that the Facility API ID is no longer available by reaching out to Lighthouse via Slack #api-facilities.
+- [ ] Update the [CSV in Lighthouse](https://github.com/department-of-veterans-affairs/lighthouse-facilities/blob/master/facilities/src/main/resources/websites.csv) removing the row with the Facility API ID.
+- [ ] Create a PR in the [lighthouse-facilities repo](https://github.com/department-of-veterans-affairs/lighthouse-facilities), tagging the Lighthouse team.
+- [ ] Post a message in the #api-facilities channel in Slack, with an @mention to a Lighthouse team member.
+**Note: there's no check to see if it's not returning anything, as it should already be not showing anything in the Facility Locator.**
+
+#### URL removal example (update with actual ID and URL to remove)
+| Facility API ID  |  Full VA.gov URL |
+| ---  |  --- |
+| vha_691GM | https://www.va.gov/greater-los-angeles-health-care/locations/oxnard-va-clinic |
 
