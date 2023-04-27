@@ -23,7 +23,9 @@ When does this request need to be live:
 | ---  |  --- |
 | current URL | new URL |
 
-## Use 1 of the following: 1. canonical URL change or 2. canonical URL removal (if removed from VAST)
+## Use one of the following:
+### 1. Canonical URL change or
+### 2. Canonical URL removal (if removed from VAST)
 **Note: Canonical URL changes do not block the completion of the parent ticket. Once the URL redirect above has been deployed, the value to the Veteran is delivered. This ticket should be kept open until the URL change is verified, except in the case of a removal (as described below).
 
 ### Instructions for canonical URL change
