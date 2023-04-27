@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Checkout
         # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@v3
       - name: Check Corresponding Entity Reference Fields
         # See also `composer va:test:check-cer` in composer.json
         run: ./tests/scripts/check-cer.sh
@@ -27,7 +27,7 @@ jobs:
     steps:
       - name: Checkout
         # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@v3
       - name: Composer Validate
         run: composer validate
 
@@ -38,7 +38,7 @@ jobs:
     steps:
       - name: Checkout
         # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@v3
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
       - name: ReviewDog
@@ -57,7 +57,7 @@ jobs:
     steps:
       - name: Checkout
         # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@v3
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
       - name: Run PHP_CodeSniffer and ReviewDog
@@ -82,7 +82,7 @@ jobs:
     steps:
       - name: Checkout
         # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@v3
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
       - name: Run PHPLint
@@ -96,7 +96,7 @@ jobs:
     steps:
       - name: Checkout
         # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@v3
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
       - name: Run PHPStan and ReviewDog
@@ -123,7 +123,7 @@ jobs:
     steps:
       - name: Checkout
         # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@v3
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
       - name: Run PHPUnit (Unit Tests only)
@@ -141,7 +141,7 @@ jobs:
     steps:
       - name: Checkout
         # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@v3
       - name: Stylelint modules
         # https://github.com/reviewdog/action-stylelint/releases/tag/v1.14.0
         # See also `composer va:test:stylelint-modules` in composer.json
@@ -180,14 +180,14 @@ jobs:
     steps:
       - name: Checkout
         # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@v3
       - name: CodeQL Init
         # https://github.com/github/codeql-action/releases/tag/codeql-bundle-20230317
-        uses: github/codeql-action/init@d23060145bc9131d50558d5d4185494a20208101
+        uses: github/codeql-action/init@v2
         with:
           languages: ${{ matrix.language }}
       - name: CodeQL Analyze
         # https://github.com/github/codeql-action/releases/tag/codeql-bundle-20230317
-        uses: github/codeql-action/analyze@d23060145bc9131d50558d5d4185494a20208101
+        uses: github/codeql-action/analyze@v2
         with:
           category: "/language:${{matrix.language}}"
