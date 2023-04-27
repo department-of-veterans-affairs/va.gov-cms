@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "249d64fb67d92e63e790c16b4c73ea1f",
+    "content-hash": "88bda902f1bb0ad106f08c9bf6705e6a",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -2855,20 +2855,20 @@
         },
         {
             "name": "drupal/admin_toolbar",
-            "version": "3.0.0",
+            "version": "3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/admin_toolbar.git",
-                "reference": "3.0.0"
+                "reference": "3.3.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/admin_toolbar-3.0.0.zip",
-                "reference": "3.0.0",
-                "shasum": "204f7a0e8b62a8a54256142cf38ca139739fb65c"
+                "url": "https://ftp.drupal.org/files/projects/admin_toolbar-3.3.0.zip",
+                "reference": "3.3.0",
+                "shasum": "8e61fba9c9d83a94a844cff96d00871878a7eb98"
             },
             "require": {
-                "drupal/core": "^8.8.0 || ^9.0"
+                "drupal/core": "^9.2 || ^10"
             },
             "require-dev": {
                 "drupal/admin_toolbar_tools": "*"
@@ -2876,8 +2876,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "3.0.0",
-                    "datestamp": "1629907124",
+                    "version": "3.3.0",
+                    "datestamp": "1669567837",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -3186,35 +3186,38 @@
         },
         {
             "name": "drupal/auto_entitylabel",
-            "version": "3.0.0-beta3",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/auto_entitylabel.git",
-                "reference": "8.x-3.0-beta3"
+                "reference": "8.x-3.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/auto_entitylabel-8.x-3.0-beta3.zip",
-                "reference": "8.x-3.0-beta3",
-                "shasum": "466358949b485461a77d600e3aa27af7b72b4eec"
+                "url": "https://ftp.drupal.org/files/projects/auto_entitylabel-8.x-3.0.zip",
+                "reference": "8.x-3.0",
+                "shasum": "8dd54d4b677f2c7259a15afd7b71d0d1b6f6b4a6"
             },
             "require": {
-                "drupal/core": "^8 || ^9"
+                "drupal/core": "^9.3 || ^10"
+            },
+            "require-dev": {
+                "drupal/token": "^1.0"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-3.0-beta3",
-                    "datestamp": "1595625626",
+                    "version": "8.x-3.0",
+                    "datestamp": "1671545557",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -3448,23 +3451,26 @@
         },
         {
             "name": "drupal/cer",
-            "version": "dev-4.x",
+            "version": "5.0.0-beta3",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/cer.git",
-                "reference": "f2ff7d6bf2a3e41757b7621a8367ede974750a84"
+                "reference": "5.0.0-beta3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/cer-5.0.0-beta3.zip",
+                "reference": "5.0.0-beta3",
+                "shasum": "732e95528a8aa0771f38785a5db49861612da150"
             },
             "require": {
-                "drupal/core": "^8.9 || ^9 || ^10"
+                "drupal/core": "^9.5 || ^10"
             },
             "type": "drupal-module",
             "extra": {
-                "branch-alias": {
-                    "dev-4.x": "4.x-dev"
-                },
                 "drupal": {
-                    "version": "8.x-4.0-alpha3+3-dev",
-                    "datestamp": "1671549828",
+                    "version": "5.0.0-beta3",
+                    "datestamp": "1679926745",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
@@ -28968,7 +28974,7 @@
     "stability-flags": {
         "drupal/advancedqueue": 5,
         "drupal/blazy": 5,
-        "drupal/cer": 20,
+        "drupal/cer": 10,
         "drupal/change_labels": 20,
         "drupal/components": 10,
         "drupal/content_model_documentation": 15,
