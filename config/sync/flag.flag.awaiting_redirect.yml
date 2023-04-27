@@ -1,0 +1,36 @@
+uuid: 6c0713a7-f45f-4480-a32c-94a6f673002d
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: awaiting_redirect
+label: 'Awaiting redirect'
+bundles:
+  - health_care_local_facility
+  - nca_facility
+  - vba_facility
+  - vet_center
+  - vet_center_mobile_vet_center
+  - vet_center_outstation
+entity_type: node
+global: true
+flag_short: 'Awaiting redirect'
+flag_long: ''
+flag_message: 'Awaiting redirect deploy'
+unflag_short: 'Redirect has been deployed'
+unflag_long: 'This will remove the awaiting redirect flag'
+unflag_message: ''
+unflag_denied_text: ''
+weight: 0
+flag_type: 'entity:node'
+link_type: reload
+flagTypeConfig:
+  show_in_links:
+    diff: diff
+  show_as_field: true
+  show_on_form: true
+  show_contextual_link: false
+  extra_permissions:
+    owner: '0'
+linkTypeConfig: {  }
