@@ -15,7 +15,10 @@ When does this request need to be live:
 - [ ] Notify VA stakeholders as appropriate.
 - [ ] Link the related facility closure / rename issue.
 - [ ] Create a URL redirect in the [devops](https://github.com/department-of-veterans-affairs/devops) repo in `ansible/deployment/config/revproxy-vagov/vars/redirects.yml`
-- [ ]  Redirects deploy weekly on Wed. at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. After deploy, validate that the URL redirect is deployed. (Note: In the event of a facility closure or a name change,  validate that this occurs before making the Lighthouse csv changes.)
+- [ ] Add the "Awaiting redirect" flag to the facility node with a revision log message that includes a link to this ticket.
+- [ ] Redirects deploy weekly on Wed. at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. After deploy, validate that the URL redirect is deployed. (Note: In the event of a facility closure or a name change,  validate that this occurs before making the Lighthouse csv changes.)
+- [ ] Update this ticket with a comment that the redirect has been deployed.
+- [ ] Remove the "Awaiting redirect" flag on the facility node with a revision log message that includes a link to this ticket.
 - [ ]  Notify helpdesk via comment on ticket or Slack message in #cms-support that changes are ready for review.
 
 #### URL Redirect
@@ -33,7 +36,11 @@ When does this request need to be live:
 - [ ] Update the [CSV in Lighthouse](https://github.com/department-of-veterans-affairs/lighthouse-facilities/blob/master/facilities/src/main/resources/websites.csv) with the changed URL, maintaining the sorted order of the Facility API IDs.
 - [ ] Create a PR in the [lighthouse-facilities repo](https://github.com/department-of-veterans-affairs/lighthouse-facilities), tagging the Lighthouse team.
 - [ ] Post a message in the #api-facilities channel in Slack, with an @mention to a Lighthouse team member.
+- [ ] Add the "Awaiting CSV" flag to the facility node with a revision log message that includes a link to this ticket.
 - [ ] Validate that the change has deployed by checking that the Facility Locator has been updated with the new url.
+- [ ] Update this ticket with a comment that the CSV change has been deployed.
+- [ ] Remove the "Awaiting CSV" flag to the facility node with a revision log message that includes a link to this ticket.
+
 
 
 #### URL change example (update with actual ID and URL)
