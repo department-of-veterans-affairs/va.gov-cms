@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7739b870907901ebcd6c0fe6bbcaba99",
+    "content-hash": "6d149f36991da92dab2f926c7dd0649b",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -9747,37 +9747,38 @@
         },
         {
             "name": "drupal/metatag",
-            "version": "1.21.0",
+            "version": "1.22.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/metatag.git",
-                "reference": "8.x-1.21"
+                "reference": "8.x-1.22"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/metatag-8.x-1.21.zip",
-                "reference": "8.x-1.21",
-                "shasum": "677ff7384b557390d4d1a36f335452e8172f741d"
+                "url": "https://ftp.drupal.org/files/projects/metatag-8.x-1.22.zip",
+                "reference": "8.x-1.22",
+                "shasum": "045cd6a4aa5048bfd6d47584eae1210eab9ba1fa"
             },
             "require": {
-                "drupal/core": "^9",
-                "drupal/token": "^1.0",
-                "php": ">=7.0"
+                "drupal/core": "^9.3 || ^10",
+                "drupal/token": "^1.0"
             },
             "require-dev": {
-                "drupal/devel": "^4.0",
+                "drupal/devel": "^4.0 || ^5.0",
+                "drupal/hal": "^9 || ^1 || ^2",
                 "drupal/metatag_dc": "*",
                 "drupal/metatag_open_graph": "*",
-                "drupal/page_manager": "4.x-dev",
-                "drupal/panelizer": "4.x-dev",
-                "drupal/redirect": "1.x-dev",
+                "drupal/page_manager": "^4.0",
+                "drupal/panelizer": "^4.0",
+                "drupal/redirect": "^1.0",
+                "drupal/webprofiler": "^9 || ^10",
                 "mpyw/phpunit-patch-serializable-comparison": "*"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.21",
-                    "datestamp": "1657971667",
+                    "version": "8.x-1.22",
+                    "datestamp": "1664472988",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -9813,20 +9814,21 @@
         },
         {
             "name": "drupal/migrate_plus",
-            "version": "5.3.0",
+            "version": "6.0.1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/migrate_plus.git",
-                "reference": "8.x-5.3"
+                "reference": "6.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/migrate_plus-8.x-5.3.zip",
-                "reference": "8.x-5.3",
-                "shasum": "3cf6dde235d7604ee49be2986812c0ee5e2982f6"
+                "url": "https://ftp.drupal.org/files/projects/migrate_plus-6.0.1.zip",
+                "reference": "6.0.1",
+                "shasum": "154e5c627c8b32648cb4b4034a196a289b0626fa"
             },
             "require": {
-                "drupal/core": "^9.1"
+                "drupal/core": ">=9.1",
+                "php": ">=7.4"
             },
             "require-dev": {
                 "drupal/migrate_example_advanced_setup": "*",
@@ -9839,8 +9841,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-5.3",
-                    "datestamp": "1650658156",
+                    "version": "6.0.1",
+                    "datestamp": "1672428002",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -9928,32 +9930,32 @@
         },
         {
             "name": "drupal/migrate_source_ui",
-            "version": "1.0.0-rc2",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/migrate_source_ui.git",
-                "reference": "8.x-1.0-rc2"
+                "reference": "8.x-1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/migrate_source_ui-8.x-1.0-rc2.zip",
-                "reference": "8.x-1.0-rc2",
-                "shasum": "b154aaf477e3b0f2590f0ba27555a733bf3bdcec"
+                "url": "https://ftp.drupal.org/files/projects/migrate_source_ui-8.x-1.0.zip",
+                "reference": "8.x-1.0",
+                "shasum": "83214f27bf591ceae709976adb35aa8e631ce389"
             },
             "require": {
-                "drupal/core": "^8 || ^9",
-                "drupal/migrate_plus": "^4.0|^5.0",
+                "drupal/core": "^8 || ^9 || ^10",
+                "drupal/migrate_plus": "^6",
                 "drupal/migrate_source_csv": "^2.2|^3.0",
-                "drupal/migrate_tools": "^4.0|^5.0"
+                "drupal/migrate_tools": "^6"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0-rc2",
-                    "datestamp": "1619193516",
+                    "version": "8.x-1.0",
+                    "datestamp": "1662135320",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "RC releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
@@ -9984,40 +9986,44 @@
         },
         {
             "name": "drupal/migrate_tools",
-            "version": "dev-5.x",
+            "version": "6.0.1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/migrate_tools.git",
-                "reference": "7ae3747d1e30790d11c2eefcc56e0796bea25c76"
+                "reference": "6.0.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/migrate_tools-6.0.1.zip",
+                "reference": "6.0.1",
+                "shasum": "8c07d1b61b319acd4fd395e22ef9bf34d23299ba"
             },
             "require": {
-                "drupal/core": "^9.1",
-                "drupal/migrate_plus": "^5",
-                "php": ">=7.1"
+                "drupal/core": ">=9.1",
+                "php": ">=7.4"
             },
             "require-dev": {
-                "drupal/migrate_source_csv": "^3.0",
-                "drush/drush": "^10"
+                "drupal/migrate_plus": ">=5",
+                "drupal/migrate_source_csv": ">=3",
+                "drush/drush": ">=11"
             },
             "suggest": {
-                "drush/drush": "^9 || ^10"
+                "drupal/migrate_plus": ">=5",
+                "drush/drush": ">=11"
             },
             "type": "drupal-module",
             "extra": {
-                "branch-alias": {
-                    "dev-5.x": "5.x-dev"
-                },
                 "drupal": {
-                    "version": "8.x-5.1+6-dev",
-                    "datestamp": "1672419787",
+                    "version": "6.0.1",
+                    "datestamp": "1672424943",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Dev releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 },
                 "drush": {
                     "services": {
-                        "drush.services.yml": "^9 || ^10"
+                        "drush.services.yml": ">=9"
                     }
                 }
             },
@@ -29088,7 +29094,6 @@
         "drupal/linkychecker": 10,
         "drupal/menu_breadcrumb": 15,
         "drupal/message_ui": 10,
-        "drupal/migrate_tools": 20,
         "drupal/mimemail": 15,
         "drupal/openapi": 5,
         "drupal/paragraphs_browser": 15,
