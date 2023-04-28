@@ -295,13 +295,13 @@ class PostFacilityService extends PostFacilityBase {
       $office_hours = $this->facility->get('field_office_hours')->getValue();
     }
     $hours = new \stdClass();
-    $hours->Monday = $this->getDay(0, $office_hours);
-    $hours->Tuesday = $this->getDay(1, $office_hours);
-    $hours->Wednesday = $this->getDay(2, $office_hours);
-    $hours->Thursday = $this->getDay(3, $office_hours);
-    $hours->Friday = $this->getDay(4, $office_hours);
-    $hours->Saturday = $this->getDay(5, $office_hours);
-    $hours->Sunday = $this->getDay(6, $office_hours);
+    $hours->monday = $this->getDay(0, $office_hours);
+    $hours->tuesday = $this->getDay(1, $office_hours);
+    $hours->wednesday = $this->getDay(2, $office_hours);
+    $hours->thursday = $this->getDay(3, $office_hours);
+    $hours->friday = $this->getDay(4, $office_hours);
+    $hours->saturday = $this->getDay(5, $office_hours);
+    $hours->sunday = $this->getDay(6, $office_hours);
 
     return $hours;
   }
@@ -373,7 +373,7 @@ class PostFacilityService extends PostFacilityBase {
     $facility_location = new \stdClass();
     $facility_location->office_name = NULL;
     $facility_location->email_contacts = NULL;
-    $facility_location->facility_service_hours = [$this->getServiceHours()];
+    $facility_location->fservice_hours = [$this->getServiceHours()];
     $facility_location->additional_hours_info = NULL;
     $facility_location->phones = $this->getPhones(TRUE);
     $facility_location->service_location_address = $this->facility->get('field_address');
@@ -388,21 +388,21 @@ class PostFacilityService extends PostFacilityBase {
         $field_service_location_address = $location->get('field_service_location_address')->referencedEntities();
         $address_paragraph = reset($field_service_location_address);
         $service_location->office_name = $this->stringNullify($address_paragraph->get('field_clinic_name')->value);
-        $service_location->service_location_address = $this->getServiceLocationAddress($address_paragraph);
+        $service_location->service_address = $this->getServiceAddress($address_paragraph);
         $field_email_contacts = $location->get('field_email_contacts')->referencedEntities();
 
         $service_location->email_contacts = $this->getEmailContacts($field_email_contacts);
         if ($location->get('field_hours')->value === '0') {
           // Use facility hours.
-          $service_location->facility_service_hours = [$this->getServiceHours()];
+          $service_location->service_hours = [$this->getServiceHours()];
         }
         elseif ($location->get('field_hours')->value === '2') {
           // Use location hours.
-          $service_location->facility_service_hours = [$this->getServiceHours($location->field_office_hours->getValue())];
+          $service_location->service_hours = [$this->getServiceHours($location->field_office_hours->getValue())];
         }
         else {
           // Provide no hours.
-          $service_location->facility_service_hours = [];
+          $service_location->service_hours = [];
         }
 
         $service_location->additional_hours_info = $location->get('field_additional_hours_info')->value;
@@ -453,7 +453,7 @@ class PostFacilityService extends PostFacilityBase {
    * @return object
    *   A stdClass object with address elements.
    */
-  protected function getServiceLocationAddress(Paragraph | bool $address_paragraph): object {
+  protected function getServiceAddress(Paragraph | bool $address_paragraph): object {
     $address = new \stdClass();
     if (empty($address_paragraph)) {
       return $address;
@@ -461,7 +461,6 @@ class PostFacilityService extends PostFacilityBase {
     // We made it this far so it must be a paragraph, so declare it.
     /** @var \Drupal\paragraphs\Entity\Paragraph $address_paragraph */
     // Prep the parts of the address not dependent on facility.
-    $address->clinic_name = $this->stringNullify($address_paragraph->get('field_clinic_name')->value);
     $address->building_name_number = $this->stringNullify($address_paragraph->get('field_building_name_number')->value);
     $address->wing_floor_or_room_number = $this->stringNullify($address_paragraph->get('field_wing_floor_or_room_number')->value);
     if ($address_paragraph->get('field_use_facility_address')->value) {
