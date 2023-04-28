@@ -86,7 +86,7 @@
         "drupal/graphql_metatag": "^1.0",
         "drupal/health_check_url": "^3.0",
         "drupal/hierarchy_manager": "^3.0",
-        "drupal/hms_field": "1.0",
+        "drupal/hms_field": "^2.0",
         "drupal/hook_event_dispatcher": "^4.0@beta",
         "drupal/ief_table_view_mode": "^2.1",
         "drupal/image_style_warmer": "^1.2@RC",
@@ -224,19 +224,6 @@
         ]
     },
     "repositories": {
-        "drupal/hms_field": {
-            "type": "package",
-            "package": {
-                "name": "drupal/hms_field",
-                "type": "drupal-module",
-                "version": "1.0.0",
-                "source": {
-                    "type": "git",
-                    "url": "https://git.drupalcode.org/project/hms_field.git",
-                    "reference": "f138860c7b18c6aab00f5860b29d15b9ab2197f5"
-                }
-            }
-        },
         "drupal": {
             "type": "composer",
             "url": "https://packages.drupal.org/8",
@@ -443,9 +430,6 @@
             "drupal/health_check_url": {
                 "3294736 - PHP 8 Compatibility": "https://www.drupal.org/files/issues/2022-07-07/health_check_url_php8.patch",
                 "3287872 - Automated Drupal 10 compatibility fixes": "https://www.drupal.org/files/issues/2022-06-15/health_check_url.3.x-dev.rector.patch"
-            },
-            "drupal/hms_field": {
-                "3145496 - Make d9 compatible": "https://www.drupal.org/files/issues/2020-06-05/3145496-6.patch"
             },
             "drupal/html_tag_usage": {
                 "3270450 - Add csv generator and filters": "https://www.drupal.org/files/issues/2022-06-30/add-filters-and-csv-20.patch"

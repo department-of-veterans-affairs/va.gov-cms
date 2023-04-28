@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ce93edad1df8a2f32d71e3ead0ee5ba4",
+    "content-hash": "889fedd2640c83ebd6015075fac26313",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -7542,13 +7542,60 @@
         },
         {
             "name": "drupal/hms_field",
-            "version": "1.0.0",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/hms_field.git",
-                "reference": "f138860c7b18c6aab00f5860b29d15b9ab2197f5"
+                "reference": "2.0.0"
             },
-            "type": "drupal-module"
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/hms_field-2.0.0.zip",
+                "reference": "2.0.0",
+                "shasum": "62455b0c69005aa8a83388a0f447cd6d44bee3f4"
+            },
+            "require": {
+                "drupal/core": "^9 || ^10"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.0",
+                    "datestamp": "1677832086",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Frans",
+                    "homepage": "https://www.drupal.org/user/514222"
+                },
+                {
+                    "name": "jeroen.b",
+                    "homepage": "https://www.drupal.org/user/1853532"
+                },
+                {
+                    "name": "svendecabooter",
+                    "homepage": "https://www.drupal.org/user/35369"
+                },
+                {
+                    "name": "ws.agency",
+                    "homepage": "https://www.drupal.org/user/2851415"
+                }
+            ],
+            "description": "Provides Hour minute second formatter for integers.",
+            "homepage": "https://www.drupal.org/project/hms_field",
+            "support": {
+                "source": "http://cgit.drupalcode.org/hms_field",
+                "issues": "https://www.drupal.org/project/issues/hms_field"
+            }
         },
         {
             "name": "drupal/hook_event_dispatcher",
