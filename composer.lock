@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ac9efd810a96e10bdc21cbfa197e7c36",
+    "content-hash": "ce93edad1df8a2f32d71e3ead0ee5ba4",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -6683,17 +6683,11 @@
         },
         {
             "name": "drupal/flysystem",
-            "version": "2.0.0-beta1",
+            "version": "dev-2.0.x",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/flysystem.git",
-                "reference": "2.0.0-beta1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/flysystem-2.0.0-beta1.zip",
-                "reference": "2.0.0-beta1",
-                "shasum": "877bd3666cdc0c48c3bbdc885455d01fd9089897"
+                "reference": "cf46f90fa6cda0e794318d04e5e8e6e148818c9a"
             },
             "require": {
                 "drupal/core": "^8.8 || ^9",
@@ -6706,12 +6700,15 @@
             },
             "type": "drupal-module",
             "extra": {
+                "branch-alias": {
+                    "dev-2.0.x": "2.0.x-dev"
+                },
                 "drupal": {
-                    "version": "2.0.0-beta1",
-                    "datestamp": "1628606414",
+                    "version": "2.0.0-alpha1+1-dev",
+                    "datestamp": "1620077243",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "message": "Dev releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -17655,6 +17652,49 @@
                 "source": "https://github.com/oomphinc/composer-installers-extender/tree/2.0.1"
             },
             "time": "2021-12-15T12:32:42+00:00"
+        },
+        {
+            "name": "orakili/composer-drupal-info-file-patch-helper",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/orakili/composer-drupal-info-file-patch-helper.git",
+                "reference": "26dc73c0ad6a55486c09c75fd1cd091c79f98967"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/orakili/composer-drupal-info-file-patch-helper/zipball/26dc73c0ad6a55486c09c75fd1cd091c79f98967",
+                "reference": "26dc73c0ad6a55486c09c75fd1cd091c79f98967",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^2.0",
+                "php": ">=8.1"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "ComposerDrupalInfoFilePatchHelper\\Plugin"
+            },
+            "autoload": {
+                "psr-4": {
+                    "ComposerDrupalInfoFilePatchHelper\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "orakili",
+                    "homepage": "https://github.com/orakili"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/orakili/composer-drupal-info-file-patch-helper/issues",
+                "source": "https://github.com/orakili/composer-drupal-info-file-patch-helper/tree/1.0.1"
+            },
+            "time": "2022-12-20T03:47:48+00:00"
         },
         {
             "name": "paragonie/random_compat",

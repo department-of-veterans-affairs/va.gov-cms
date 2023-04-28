@@ -189,6 +189,7 @@
         "npm-asset/dropzone": "^5.5",
         "npm-asset/yarn": "1.19.1",
         "oomphinc/composer-installers-extender": "^2.0",
+        "orakili/composer-drupal-info-file-patch-helper": "*",
         "php-http/guzzle6-adapter": "^2.0",
         "phpspec/prophecy": "^1.15",
         "phpspec/prophecy-phpunit": "^2.0",
@@ -287,19 +288,20 @@
         },
         "preferred-install": {
             "va-gov/content-build": "source",
+            "drupal/flysystem": "source",
             "*": "dist"
         },
         "allow-plugins": {
             "simplesamlphp/composer-module-installer": true,
             "composer/installers": true,
-            "cweagans/composer-patches": true,
             "drupal/core-composer-scaffold": true,
             "zaporylie/composer-drupal-optimizations": true,
             "drupal/console-extend-plugin": true,
             "oomphinc/composer-installers-extender": true,
-            "mouf/nodejs-installer": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
-            "php-http/discovery": true
+            "php-http/discovery": true,
+            "cweagans/composer-patches": true,
+            "orakili/composer-drupal-info-file-patch-helper": true
         }
     },
     "extra": {
@@ -415,7 +417,8 @@
                 "3287297 - Automated Drupal 10 compatibility fixes": "https://www.drupal.org/files/issues/2022-06-15/entity_reference_validators.1.x-dev.rector.patch"
             },
             "drupal/fast_404": {
-                "3287465 - Automated Drupal 10 compatibility fixes": "https://www.drupal.org/files/issues/2022-08-22/fast_404.2.x-dev.rector.patch"
+                "3287465 - Automated Drupal 10 compatibility fixes": "https://www.drupal.org/files/issues/2023-04-28/3287465-automated-drupal-10-compatibility-fixes-6.patch",
+                "3287465 - D10 .info.yml patch": "https://www.drupal.org/files/issues/2023-04-28/d10-fast-404-info-yml.patch"
             },
             "drupal/field_group": {
                 "2787179 - Visibility of invalid fields": "https://www.drupal.org/files/issues/2021-01-05/2787179-highlight-html5-validation-59.patch",
@@ -425,10 +428,13 @@
                 "2893259 - Flags with VBO 8.x-4.x Patch 40": "https://www.drupal.org/files/issues/2020-07-25/flag-vbo-2893259-40.patch"
             },
             "drupal/flysystem": {
-                "3297255 - Automated Drupal 10 compatibility fixes": "https://www.drupal.org/files/issues/2022-08-22/flysystem.3.x-dev.rector.patch"
+                "3292158 - Drupal 10 compatibility for 2.0.x-dev": "https://www.drupal.org/files/issues/2023-04-28/flysystem-d10-support-for-2-0-dev-3292158-6.patch"
             },
             "drupal/flysystem_s3": {
                 "3297257 - Automated Drupal 10 compatibility fixes": "https://www.drupal.org/files/issues/2023-04-27/3297257-drupal-10-compatibility-fixes_0.patch"
+            },
+            "drupal/govdelivery_bulletins": {
+                "3297330 - Automated Drupal 10 compatibility fixes": "https://www.drupal.org/files/issues/2022-07-18/govdelivery_bulletins.1.x-dev.rector.patch"
             },
             "drupal/graphql": {
                 "Fix Explorer with Layout Builder enabled - https://github.com/drupal-graphql/graphql/pull/1144": "patches/graphql_8x3x_layout_builder_incompat.patch",
