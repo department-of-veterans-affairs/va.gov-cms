@@ -15,14 +15,12 @@ jobs:
       # will not occur.
       - name: Dependabot metadata
         id: dependabot-metadata
-        # https://github.com/dependabot/fetch-metadata/releases/tag/v1.3.4
-        uses: dependabot/fetch-metadata@bfc19f43c126171ed783cdcf9a125055b7831d32
+        uses: dependabot/fetch-metadata@v1
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
 
       # Checkout repo to make package allow list available
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
         uses: actions/checkout@v3
 
       # Use a YAML formatted config file to list which dependencies can be auto-merged
@@ -33,7 +31,6 @@ jobs:
 
       # Get the initial AWS IAM User credentials. Only has basic permissions for sts:assumeRole
       - name: Configure AWS credentials (1)
-        # https://github.com/aws-actions/configure-aws-credentials/releases/tag/v1.7.0
         uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -42,7 +39,6 @@ jobs:
 
       # Get credentials from our SSM role. Least privilege method for AWS IAM.
       - name: Configure AWS Credentials (2)
-        # https://github.com/aws-actions/configure-aws-credentials/releases/tag/v1.7.0
         uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -54,7 +50,6 @@ jobs:
 
       # Get VA_CMS_BOT Github token from SSM. this will be used to approve a matching PR.
       - name: Get Parameter
-        # https://github.com/marvinpinto/action-inject-ssm-secrets/releases/tag/latest
         uses: department-of-veterans-affairs/action-inject-ssm-secrets@latest
         with:
           ssm_parameter: /cms/va-cms-bot/github_token

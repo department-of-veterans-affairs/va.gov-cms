@@ -13,13 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
         uses: actions/checkout@v3
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
       - name: Autolabel
-        # https://github.com/harupy/auto-labeling/commit/937d558e37285af6ca5c5813a826cf6f0d66bf0f
-        uses: harupy/auto-labeling@937d558e37285af6ca5c5813a826cf6f0d66bf0f
+        # Temporary until we get this fixed upstream or pulled into this repo.
+        uses: timcosgrove/auto-labeling@937d558e37285af6ca5c5813a826cf6f0d66bf0f
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
           label-pattern: '- \[(.*?)\] ?`(.+?)`' # matches '- [x] `label`'
