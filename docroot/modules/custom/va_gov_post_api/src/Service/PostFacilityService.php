@@ -373,7 +373,7 @@ class PostFacilityService extends PostFacilityBase {
     $facility_location = new \stdClass();
     $facility_location->office_name = NULL;
     $facility_location->email_contacts = NULL;
-    $facility_location->fservice_hours = [$this->getServiceHours()];
+    $facility_location->fservice_hours = $this->getServiceHours();
     $facility_location->additional_hours_info = NULL;
     $facility_location->phones = $this->getPhones(TRUE);
     $facility_location->service_location_address = $this->facility->get('field_address');
@@ -394,11 +394,11 @@ class PostFacilityService extends PostFacilityBase {
         $service_location->email_contacts = $this->getEmailContacts($field_email_contacts);
         if ($location->get('field_hours')->value === '0') {
           // Use facility hours.
-          $service_location->service_hours = [$this->getServiceHours()];
+          $service_location->service_hours = $this->getServiceHours();
         }
         elseif ($location->get('field_hours')->value === '2') {
           // Use location hours.
-          $service_location->service_hours = [$this->getServiceHours($location->field_office_hours->getValue())];
+          $service_location->service_hours = $this->getServiceHours($location->field_office_hours->getValue());
         }
         else {
           // Provide no hours.
