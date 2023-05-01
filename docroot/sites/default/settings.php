@@ -243,7 +243,7 @@ if (!empty($webhost_on_cli)) {
 $settings['container_yamls'][] = __DIR__ . '/services/services.monolog.yml';
 
 // Memcache-specific settings
-if (extension_loaded('memcache') && !empty($settings['memcache']['servers'])) {
+if ((extension_loaded('memcache') || extension_loaded('memcached')) && !empty($settings['memcache']['servers'])) {
   $settings['cache']['default'] = 'cache.backend.memcache';
   $settings['memcache']['bins'] = [
     'default' => 'default',

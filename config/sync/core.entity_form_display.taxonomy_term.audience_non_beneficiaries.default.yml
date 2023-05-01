@@ -8,6 +8,23 @@ dependencies:
   module:
     - path
     - text
+third_party_settings:
+  field_group:
+    group_workflow:
+      children:
+        - revision_log_message
+      label: 'Editorial workflow'
+      region: content
+      parent_name: ''
+      weight: 20
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: sections
+        description: ''
+        required_fields: true
+        description_display: after
 id: taxonomy_term.audience_non_beneficiaries.default
 targetEntityType: taxonomy_term
 bundle: audience_non_beneficiaries
@@ -42,6 +59,12 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  translation:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   langcode: true
+  moderation_state: true
   status: true
