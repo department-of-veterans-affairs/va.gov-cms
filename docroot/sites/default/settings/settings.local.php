@@ -41,7 +41,7 @@ $settings['va_gov_app_root'] = getenv('DDEV_APPROOT');
 $settings['va_gov_web_root'] = getenv('DDEV_APPROOT') . '/web';
 
 $settings['memcache']['servers'] = [
-  'memcache:11211' => 'default',
+  'memcached:11211' => 'default',
 ];
 
 $settings['cms_datadog_api_key'] = getenv('CMS_DATADOG_API_KEY');
