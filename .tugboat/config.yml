@@ -124,9 +124,10 @@ services:
         - echo "apc.enable=1" >> /usr/local/etc/php/conf.d/php-cli.ini
         - echo "apc.enable_cli=1" >> /usr/local/etc/php/conf.d/php-cli.ini
 
-        # Install memcache extension
-        - pecl install memcache-8.0
-        - docker-php-ext-enable memcache
+        # Install memcached extension
+        - apt-get install libmemcached-dev
+        - yes '' | pecl install -f memcached
+        - docker-php-ext-enable memcached
 
         # Install node and npm.
         - ./scripts/install-nvm.sh

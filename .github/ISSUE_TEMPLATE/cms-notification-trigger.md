@@ -2,7 +2,7 @@
 name: CMS Notification Trigger
 about: Use this template to formalize a CMS trigger for notification
 title: "[CMS Notification Trigger] "
-labels: Needs refining, CMS Team
+labels: CMS Team, Needs refining
 assignees: ''
 
 ---

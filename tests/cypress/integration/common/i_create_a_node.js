@@ -298,7 +298,7 @@ const creators = {
       { force: true }
     );
     cy.findAllByLabelText("Parent link").select(
-      "-------- Anchorage VA Medical Center",
+      "-------- Colonel Mary Louise Rasmuson",
       { force: true }
     );
     cy.findAllByLabelText("Meta description").type(faker.lorem.sentence(), {
