@@ -4465,16 +4465,16 @@
         },
         {
             "name": "drupal/core_event_dispatcher",
-            "version": "3.2.0",
+            "version": "3.3.2",
             "require": {
-                "drupal/core": "^8 || ^9",
+                "drupal/core": "^9.3",
                 "drupal/hook_event_dispatcher": "*"
             },
             "type": "metapackage",
             "extra": {
                 "drupal": {
-                    "version": "3.2.0",
-                    "datestamp": "1653279726",
+                    "version": "3.3.2",
+                    "datestamp": "1677506345",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -4785,27 +4785,30 @@
         },
         {
             "name": "drupal/danse",
-            "version": "2.2.7",
+            "version": "2.2.16",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/danse.git",
-                "reference": "2.2.7"
+                "reference": "2.2.16"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/danse-2.2.7.zip",
-                "reference": "2.2.7",
-                "shasum": "8ff84ced7645f7722812421d8f53b5b5b28a1c6d"
+                "url": "https://ftp.drupal.org/files/projects/danse-2.2.16.zip",
+                "reference": "2.2.16",
+                "shasum": "2b759b2a47463e856b6feedac05b8be2d0f13607"
             },
             "require": {
-                "drupal/core": "^8.8 || ^9",
+                "drupal/core": "^9.5 || ^10",
                 "php": ">=7.4"
+            },
+            "require-dev": {
+                "drupal/eca": "*"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.2.7",
-                    "datestamp": "1662642954",
+                    "version": "2.2.16",
+                    "datestamp": "1681979923",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -4813,13 +4816,13 @@
                 },
                 "drush": {
                     "services": {
-                        "drush.services.yml": "^9 | ^10"
+                        "drush.services.yml": "^9 | ^10 | ^11"
                     }
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -4845,28 +4848,28 @@
         },
         {
             "name": "drupal/danse_content_moderation",
-            "version": "2.0.0-beta3",
+            "version": "2.0.0-beta6",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/danse_content_moderation.git",
-                "reference": "2.0.0-beta3"
+                "reference": "2.0.0-beta6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/danse_content_moderation-2.0.0-beta3.zip",
-                "reference": "2.0.0-beta3",
-                "shasum": "1741e59c666eec8d9af3ea74f7cca71e67ff5c05"
+                "url": "https://ftp.drupal.org/files/projects/danse_content_moderation-2.0.0-beta6.zip",
+                "reference": "2.0.0-beta6",
+                "shasum": "82cef0db38856ed39e1e0259993c66242b87e380"
             },
             "require": {
-                "drupal/core": "^8.8 || ^9",
+                "drupal/core": "^8.8 || ^9 || ^10",
                 "drupal/core_event_dispatcher": "*",
                 "drupal/danse": "*"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.0.0-beta3",
-                    "datestamp": "1645719813",
+                    "version": "2.0.0-beta6",
+                    "datestamp": "1682542560",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
@@ -4883,16 +4886,12 @@
                     "homepage": "https://www.drupal.org/user/253909"
                 },
                 {
-                    "name": "indytechcook",
-                    "homepage": "https://www.drupal.org/user/245817"
+                    "name": "edmund.dunn",
+                    "homepage": "https://www.drupal.org/user/3534438"
                 },
                 {
                     "name": "natedouglas",
                     "homepage": "https://www.drupal.org/user/3518344"
-                },
-                {
-                    "name": "oksana-c",
-                    "homepage": "https://www.drupal.org/user/2916547"
                 }
             ],
             "description": "Creates DANSE events for Content Moderation transitions",
@@ -7543,17 +7542,17 @@
         },
         {
             "name": "drupal/hook_event_dispatcher",
-            "version": "3.2.0",
+            "version": "3.3.2",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/hook_event_dispatcher.git",
-                "reference": "3.2.0"
+                "reference": "3.3.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/hook_event_dispatcher-3.2.0.zip",
-                "reference": "3.2.0",
-                "shasum": "08e975804e8c11c33ec19cb619dee5cf4d14dc7c"
+                "url": "https://ftp.drupal.org/files/projects/hook_event_dispatcher-3.3.2.zip",
+                "reference": "3.3.2",
+                "shasum": "960a2bdd61e90067af24c3bd9bd736d8235e3376"
             },
             "require": {
                 "drupal/core": "^9.3"
@@ -7565,7 +7564,6 @@
                 "drupal/webform": "^6.0",
                 "mglaman/phpstan-drupal": "^1.1",
                 "mockery/mockery": "^1.3",
-                "phpmd/phpmd": "^2.8",
                 "phpstan/phpstan-deprecation-rules": "^1.0"
             },
             "suggest": {
@@ -7575,8 +7573,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "3.2.0",
-                    "datestamp": "1653279726",
+                    "version": "3.3.2",
+                    "datestamp": "1677506345",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
