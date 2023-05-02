@@ -52,7 +52,7 @@ When does this request need to be live:
 - [ ] Try to find the facility via the Facility Locator, using the Facility API ID (e.g. https://va.gov/find-locations/facility/"facility_api_id"). If it is not available, proceed.
 - [ ] Update the [CSV in Lighthouse](https://github.com/department-of-veterans-affairs/lighthouse-facilities/blob/master/facilities/src/main/resources/websites.csv) removing the row with the Facility API ID.
 - [ ] Create a PR in the [lighthouse-facilities repo](https://github.com/department-of-veterans-affairs/lighthouse-facilities), tagging the Lighthouse team.
-- [ ] Post a message in the #api-facilities channel in Slack, with an @mention to a Lighthouse team member.
+- [ ] Post a message in the #cms-lighthouse channel in Slack, with an @mention to a Lighthouse team member.
 **Note: there's no check to see if it's not returning anything, as it should already be not showing anything in the Facility Locator.**
 
 #### URL removal example (update with actual ID and URL to remove)
