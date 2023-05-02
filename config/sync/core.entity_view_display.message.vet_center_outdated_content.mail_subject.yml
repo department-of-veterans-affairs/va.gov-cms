@@ -19,11 +19,18 @@ targetEntityType: message
 bundle: vet_center_outdated_content
 mode: mail_subject
 content:
+  field_subject:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
   partial_0:
     weight: 0
     region: content
 hidden:
   field_editor_username: true
-  field_subject: true
   partial_1: true
   search_api_excerpt: true
