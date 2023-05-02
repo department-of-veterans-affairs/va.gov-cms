@@ -79,3 +79,15 @@ diff --git a/modules/graphql_core/src/Plugin/GraphQL/Fields/Entity/Fields/Image/
 +      yield \Drupal::service('file_url_generator')->generateAbsoluteString($value->entity->getFileUri());
      }
    }
+diff --git a/modules/graphql_core/src/Plugin/GraphQL/Fields/File/FileUrl.php b/modules/graphql_core/src/Plugin/GraphQL/Fields/File/FileUrl.php
+index 9702e99..7dc08ab 100644
+--- a/modules/graphql_core/src/Plugin/GraphQL/Fields/File/FileUrl.php
++++ b/modules/graphql_core/src/Plugin/GraphQL/Fields/File/FileUrl.php
+@@ -25,7 +25,7 @@ class FileUrl extends FieldPluginBase {
+    */
+   public function resolveValues($value, array $args, ResolveContext $context, ResolveInfo $info) {
+     if ($value instanceof FileInterface) {
+-      yield file_create_url($value->getFileUri());
++      yield \Drupal::service('file_url_generator')->generateAbsoluteString($value->getFileUri());
+     }
+   }
