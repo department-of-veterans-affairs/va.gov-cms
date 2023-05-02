@@ -117,8 +117,7 @@ class LovellMenuLinkTreeManipulators {
    */
   protected function setMenuEntities(array $tree) {
     if (empty($this->menuEntities)) {
-      $ids = [];
-      $this->getIdsFromTree($ids, $tree);
+      $ids = $this->getIdsFromTree($tree);
       if (!empty($ids) && is_array($ids)) {
         $this->menuEntities = $this->entityTypeManager->getStorage('menu_link_content')->loadMultiple($ids);
       }
@@ -128,21 +127,22 @@ class LovellMenuLinkTreeManipulators {
   /**
    * Traverse a menu tree and extract all menu entity ids.
    *
-   * @param array $ids
-   *   An array of menu ids accumulated by reference.
    * @param \Drupal\Core\Menu\MenuLinkTreeElement[] $tree
    *   An array of MenuLinkTreeElements.
    *
-   * @return void
+   * @return array
+   *   An array of menu ids accumulated from all recursion of tree.
    */
-  protected function getIdsFromTree(array &$ids, array $tree): void {
+  protected function getIdsFromTree(array $tree): array {
+    $ids = [];
     foreach ($tree as $branch) {
       $menu_item = $this->accessProtected($branch->link, 'entity');
       $ids[] = $menu_item->id();
       if (!empty($branch->subtree)) {
-        $this->getIdsFromTree($ids, $branch->subtree);
+        $ids = array_merge($ids, $this->getIdsFromTree($branch->subtree));
       }
     }
+    return $ids;
   }
 
   /**
