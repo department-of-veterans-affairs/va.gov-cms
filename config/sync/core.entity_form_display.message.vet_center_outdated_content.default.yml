@@ -13,29 +13,13 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 10
+    weight: 1
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_editor_username:
-    type: string_textfield
-    weight: 12
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_subject:
-    type: string_textfield
-    weight: 13
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 5
+    weight: 0
     region: content
     settings:
       match_operator: CONTAINS
@@ -44,4 +28,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     '#group': advanced
-hidden: {  }
+hidden:
+  field_editor_username: true
+  field_subject: true
