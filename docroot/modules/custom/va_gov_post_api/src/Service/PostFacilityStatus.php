@@ -128,6 +128,7 @@ class PostFacilityStatus extends PostFacilityBase {
       $nids = $query->condition('type', 'health_care_local_facility')
         ->condition('field_region_page', $entity->id())
         ->condition('status', 1)
+        ->accessCheck(TRUE)
         ->execute();
 
       $vamc_facility_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);

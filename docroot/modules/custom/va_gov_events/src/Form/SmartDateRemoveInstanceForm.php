@@ -89,6 +89,7 @@ class SmartDateRemoveInstanceForm extends ConfirmFormBase {
       ->getQuery()
       ->condition('rrule', $rrule->id())
       ->condition('rrule_index', $index)
+      ->accessCheck(TRUE)
       ->execute();
     if ($result && $override = SmartDateOverride::load(array_pop($result))) {
       $this->oid = $override->id();

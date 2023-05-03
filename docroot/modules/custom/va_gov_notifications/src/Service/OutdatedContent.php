@@ -220,7 +220,7 @@ class OutdatedContent implements OutdatedContentInterface {
       ->condition('status', 1)
       ->condition('field_last_saved_by_an_editor', $offset, '<=')
       ->condition('field_administration', $section, '=');
-    return $query->execute();
+    return $query->accessCheck(TRUE)->execute();
   }
 
   /**
@@ -230,6 +230,7 @@ class OutdatedContent implements OutdatedContentInterface {
     $userStorage = $this->entityTypeManager->getStorage('user');
     $uids = $userStorage->getQuery()
       ->condition('status', 1)
+      ->accessCheck(TRUE)
       ->execute();
     return $userStorage->loadMultiple($uids);
   }
