@@ -89,7 +89,7 @@ class PostFacilityService extends PostFacilityBase {
           $this->postQueue->addToQueue($data, $this->shouldDedupe());
           // @todo When this is expanded to more than just COVID we may want
           // to remove the messenger as it will be too noisy.
-          $message = t('The facility service data for %service_name is being sent to the Facility Locator.', ['%service_name' => $this->facilityService->getTitle()]);
+          $message = $this->t('The facility service data for %service_name is being sent to the Facility Locator.', ['%service_name' => $this->facilityService->getTitle()]);
           $this->messenger->addStatus($message);
           return 1;
         }
@@ -122,6 +122,7 @@ class PostFacilityService extends PostFacilityBase {
       $result = $query->condition('type', 'regional_health_care_service_des')
         ->condition('field_service_name_and_descripti', $entity->id())
         ->condition('status', 1)
+        ->accessCheck(TRUE)
         ->execute();
 
       if (!empty($result)) {
@@ -175,6 +176,7 @@ class PostFacilityService extends PostFacilityBase {
         $nids = $query->condition('type', 'health_care_local_health_service')
           ->condition('field_regional_health_service', $entity->id())
           ->condition('status', 1)
+          ->accessCheck(TRUE)
           ->execute();
 
         $facility_health_service_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);

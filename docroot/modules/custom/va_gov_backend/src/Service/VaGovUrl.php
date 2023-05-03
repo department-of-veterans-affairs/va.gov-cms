@@ -5,7 +5,6 @@ namespace Drupal\va_gov_backend\Service;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery;
-use Exception;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
 
@@ -65,7 +64,7 @@ class VaGovUrl implements VaGovUrlInterface {
     try {
       return $this->getVaGovFrontEndUrl() . $entity->toUrl()->toString();
     }
-    catch (Exception $e) {
+    catch (\Exception $e) {
       return '';
     }
   }
@@ -77,7 +76,7 @@ class VaGovUrl implements VaGovUrlInterface {
     if (!empty($va_gov_url)) {
       try {
         // Keep the timeout low so that we don't block page loads for too long.
-        $response = $this->httpClient->head($va_gov_url, ['connect_timeout' => 2]);
+        $this->httpClient->head($va_gov_url, ['connect_timeout' => 2]);
 
         // Guzzle follows redirects and throws exceptions for 4xx/5xx
         // responses, so we can assume the request was successful.
@@ -86,7 +85,7 @@ class VaGovUrl implements VaGovUrlInterface {
       catch (RequestException $e) {
         return FALSE;
       }
-      catch (Exception $e) {
+      catch (\Exception $e) {
         return FALSE;
       }
     }
