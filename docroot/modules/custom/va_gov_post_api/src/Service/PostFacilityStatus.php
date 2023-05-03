@@ -4,6 +4,7 @@ namespace Drupal\va_gov_post_api\Service;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\node\NodeInterface;
+use Drupal\va_gov_lovell\LovellOps;
 
 /**
  * Class PostFacilityService posts facility status info to Lighthouse.
@@ -257,7 +258,7 @@ class PostFacilityStatus extends PostFacilityBase {
         $payload['system'] = [
           'name' => $systemNode->get('title')->value,
           'url' => 'https://www.va.gov' . $systemUrl,
-          'covid_url' => 'https://www.va.gov' . $systemUrl . '/programs/covid-19-vaccines',
+          'covid_url' => "https://www.va.gov{$systemUrl}/programs/covid-19-vaccines",
           'va_health_connect_phone' => $systemNode->get('field_va_health_connect_phone')->value,
         ];
       }
@@ -274,8 +275,8 @@ class PostFacilityStatus extends PostFacilityBase {
     // If this facility references a system, include system information.
     if ($this->facilityNode->hasField('field_region_page')) {
       $systemId = $this->facilityNode->get('field_region_page')->target_id;
-      // System url overrides: Lovell VAMC System - 15007.
-      if ($systemId === '15007') {
+      // System url overrides for Lovell VA.
+      if (($systemId === LovellOps::LOVELL_FEDERAL_SYSTEM_ID) || ($systemId === LovellOps::VA_SYSTEM_ID)) {
         $payload['core']['facility_url'] = 'https://www.lovell.fhcc.va.gov';
         $payload['system']['url'] = 'https://www.lovell.fhcc.va.gov';
         $payload['system']['covid_url'] = 'https://www.lovell.fhcc.va.gov/services/covid-19-vaccines.asp';
