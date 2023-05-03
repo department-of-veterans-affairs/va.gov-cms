@@ -28,6 +28,7 @@ Facility API ID: <insert_facility_API_ID>
 ### VAMC facility closure
 
 #### CMS Help desk steps
+**Note: If the help desk is waiting on information from the facility staff or editor, add the "Awaiting editor" flag to the facility with a log message that includes a link to this ticket. Remove the flag when the ticket is ready to be worked by the Facilities team. Be sure to preserve the current moderation state of the node when adding or removing the flag.**
 - [ ] 1. CMS team becomes aware that the facility is no longer on the Facility API.
 - [ ] 2. If we don't already have context (say, via a HD ticket submitted by an editor), check with editor to find out more about the status of the facility
 - [ ] 3. Find out if there are any services or events tied to the facility to be archived that should be moved to a new facility or otherwise preserved and updated

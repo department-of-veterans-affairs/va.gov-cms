@@ -22,7 +22,7 @@ System CMS link: <insert_facility_link>
 System API ID: <insert_facility_API_ID>
 
 ## Steps before proceeding
-
+**Note: If the help desk is waiting on information from the facility staff or editor, add the "Awaiting editor" flag to the facility with a log message that includes a link to this ticket. Remove the flag when the ticket is ready to be worked by the Facilities team. Be sure to preserve the current moderation state of the node when adding or removing the flag.**
 - [ ] Check with Facilities team Product Owner to get approval of name change.
 - [ ] Check with VHA Digital Media.
 
