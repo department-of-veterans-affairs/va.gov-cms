@@ -29,6 +29,7 @@ Facility API ID: <insert_facility_API_ID>
 ## VAMC Facility name change
 
 #### CMS help desk steps
+**Note: If the help desk is waiting on information from the facility staff or editor, add the "Awaiting editor" flag to the facility with a log message that includes a link to this ticket. Remove the flag when the ticket is ready to be worked by the Facilities team. Be sure to preserve the current moderation state of the node when adding or removing the flag.**
 What happens: The name change is made in VAST, that syncs to Lighthouse which syncs to Drupal.
 - [ ] 1. Check that the title change in name field on the VACM node has shown up in Drupal.
 - [ ] 2. Create a [URL change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old facility URL to the new facility URL. (**Note: The URL change request ticket blocks the completion of this ticket.**)
