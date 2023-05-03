@@ -4,7 +4,7 @@ services:
     # Use PHP 8.1 with Apache; this syntax pulls in the latest version of PHP 8.1.
     # Currently, using Buster because of an issue with Bullseye and PHP 8.1 on Tugboat.
     # See https://github.com/department-of-veterans-affairs/va.gov-cms/issues/7667
-    image: tugboatqa/php:8.2-apache-buster
+    image: tugboatqa/php:8.1-apache-buster
 
     aliases:
       - cms
@@ -43,7 +43,7 @@ services:
 
         # Ensure GD has support for JPEG.
         - apt-get install libjpeg-dev
-        - docker-php-ext-configure gd --with-jpeg --with-webp --with-freetype && docker-php-ext-install gd
+        - docker-php-ext-configure gd --with-jpeg --with-freetype && docker-php-ext-install gd
 
         # Install php ZIP extension (drush 10 requires it).
         - apt-get install libzip-dev zip
@@ -183,7 +183,11 @@ services:
         # This command is shared by the clone and build stages, make sure to update both stages.
         - j2 "${TUGBOAT_ROOT}/.web/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.web/403-error-document.html"
         - j2 "${TUGBOAT_ROOT}/.storybook/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.storybook/403-error-document.html"
+<<<<<<< HEAD
         - composer install --ignore-platform-req=ext-intl
+=======
+        - composer install
+>>>>>>> fixed outdated .tugboat/config.yml
         - bash -lc 'nvm install'
         - bash -lc 'npm install'
         - bash -lc 'composer va:theme:compile'
