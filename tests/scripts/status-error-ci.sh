@@ -12,8 +12,8 @@ result="$(drush core-requirements --format=json --ignore='update_core,update_con
 exit_code="${result}"
 if [ "${exit_code}" -ne 0 ]; then
   if [ "${GITHUB_COMMENT_TYPE}" == "pr" ]; then
-    requirements="$(drush $DRUSH_ALIAS core-requirements --severity=2)"
-    comment="$(printf 'va/tests/status-error:<br /><br /><pre>%q</pre>' "${requirements}")"
+    requirements="$(drush $DRUSH_ALIAS core-requirements --severity=2 --format=sections)"
+    comment="$(printf 'va/tests/status-error:<br /><br />%q' "${requirements}")"
     github-commenter \
       -delete-comment-regex="va/tests/status-error" \
       -comment="${comment}"
