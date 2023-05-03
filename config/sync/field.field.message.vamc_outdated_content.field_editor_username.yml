@@ -1,0 +1,24 @@
+uuid: b27cbe85-a20d-4152-a2e0-05a668e50437
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.message.field_editor_username
+    - message.template.vamc_outdated_content
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: message.vamc_outdated_content.field_editor_username
+field_name: field_editor_username
+entity_type: message
+bundle: vamc_outdated_content
+label: 'Editor Username'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
