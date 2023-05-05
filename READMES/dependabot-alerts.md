@@ -42,7 +42,7 @@ This policy's intent is to systematize how we handle these on an ongoing basis.
    - _actually_ remedy a reasonable threat to our security, stability, or reliability?
 
    If the alert does not meet any of these criteria, we should _not_ proceed with addressing it, and should simply dismiss the alert and
-   provide our reasoning for doing so.
+   provide our reasoning for doing so in the "Dismissal comment" field.
    
 5. Triage and create issues for Dependabot alerts during DevSecOps Refinement meetings. We don't need a lot of boilerplate here, and
    these things are almost impossible to size. But we can at least say "Try to knock out the stack overflow vulnerability in padLeft" 
