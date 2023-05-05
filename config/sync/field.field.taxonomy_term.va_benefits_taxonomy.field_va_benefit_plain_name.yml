@@ -1,0 +1,19 @@
+uuid: 5988b9d7-a646-46a1-82f8-94d5f2293a22
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_va_benefit_plain_name
+    - taxonomy.vocabulary.va_benefits_taxonomy
+id: taxonomy_term.va_benefits_taxonomy.field_va_benefit_plain_name
+field_name: field_va_benefit_plain_name
+entity_type: taxonomy_term
+bundle: va_benefits_taxonomy
+label: 'Alternate benefit name(s)'
+description: 'Add one or more Veteran-facing nicknames for the benefit, separated by commas.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

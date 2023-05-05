@@ -1,0 +1,38 @@
+uuid: 8c0e021a-f155-4aa3-88a0-85a1294fa6b5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_va_benefit_coconsidered
+    - taxonomy.vocabulary.va_benefits_taxonomy
+  module:
+    - entity_reference_validators
+    - tmgmt_content
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: true
+    circular_reference_deep: false
+    duplicate_reference: false
+  tmgmt_content:
+    excluded: false
+id: taxonomy_term.va_benefits_taxonomy.field_va_benefit_coconsidered
+field_name: field_va_benefit_coconsidered
+entity_type: taxonomy_term
+bundle: va_benefits_taxonomy
+label: 'Co-considered benefits'
+description: 'If beneficiaries need to consider other benefits at the same time as this one, select them here. Note: you must create the other benefits first them to appear in the list.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      va_benefits_taxonomy: va_benefits_taxonomy
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

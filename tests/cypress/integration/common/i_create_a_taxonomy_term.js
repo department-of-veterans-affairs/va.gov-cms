@@ -46,6 +46,24 @@ const creators = {
 
     return cy.wait(1000);
   },
+  va_benefits_taxonomy: () => {
+    cy.visit("admin/structure/taxonomy/manage/va_benefits_taxonomy/add");
+    cy.scrollTo("top");
+    cy.findAllByLabelText("Official Benefit name").type(
+      `[Test Data] ${faker.lorem.sentence()}`,
+      { force: true }
+    );
+    cy.get("#edit-field-va-benefit-api-id-0-value").type(
+      faker.datatype.number(),
+      { force: true }
+    );
+
+    cy.get("#edit-moderation-state-0-state").select("published", {
+      force: true,
+    });
+
+    return cy.wait(1000);
+  },
 };
 
 Given("I create a {string} taxonomy term", (vocabulary) => {
