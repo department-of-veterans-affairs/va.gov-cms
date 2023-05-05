@@ -76,7 +76,7 @@ class PostFacilityStatus extends PostFacilityBase {
     if ($entity instanceof NodeInterface && $this->isFacilityWithStatus($entity)) {
       /** @var \Drupal\node\NodeInterface $entity*/
       $this->facilityNode = $entity;
-      $facility_id = $entity->hasField('field_facility_locator_api_id') ? $entity->get('field_facility_locator_api_id')->value : NULL;
+      $facility_id = $this->facilityNode->field_facility_locator_api_id->value;
       $data['nid'] = $entity->id();
       // Queue item's Unique ID.
       $data['uid'] = $facility_id ? "facility_status_{$facility_id}" : NULL;
@@ -181,7 +181,7 @@ class PostFacilityStatus extends PostFacilityBase {
     if ($this->shouldPush($forcePush)) {
       $payload = [
         'core' => [
-          'facility_url' => 'https://www.va.gov' . $this->facilityNode->toUrl()->toString(),
+          'facility_url' => $this->getFacilityUrl(),
         ],
         'operating_status' => [
           'code' => strtoupper($this->statusToPush),
@@ -195,6 +195,30 @@ class PostFacilityStatus extends PostFacilityBase {
     }
 
     return $payload;
+  }
+
+  /**
+   * Builds the appropriate url for a facility.
+   *
+   * @return string|null
+   *   A facility locator detail page if the node is not published.
+   *   A html page URL if the node is published.
+   *   Null if something completely went wrong.
+   */
+  protected function getFacilityUrl(): string | null {
+    $facility_url = NULL;
+    if ($this->facilityNode->isPublished()) {
+      // The node is published, so use the FE URL of the page.
+      $facility_url = "https://www.va.gov{$this->facilityNode->toUrl()->toString()}";
+    }
+    else {
+      // The page is not published, so send the Facility Locator Detail Page.
+      $facility_id = $this->facilityNode->field_facility_locator_api_id->value;
+      if ($facility_id) {
+        $facility_url = "https://www.va.gov/find-locations/facility/{$facility_id}";
+      }
+    }
+    return $facility_url;
   }
 
   /**
@@ -282,7 +306,7 @@ class PostFacilityStatus extends PostFacilityBase {
         $payload['system']['covid_url'] = 'https://www.lovell.fhcc.va.gov/services/covid-19-vaccines.asp';
       }
       // Facility url overrides.
-      $facility_id = $this->facilityNode->hasField('field_facility_locator_api_id') ? $this->facilityNode->get('field_facility_locator_api_id')->value : NULL;
+      $facility_id = $this->facilityNode->field_facility_locator_api_id->value;
       // Evanston VA clinic - vha_556GA.
       if ($facility_id === 'vha_556GA') {
         $payload['core']['facility_url'] = 'https://www.lovell.fhcc.va.gov/locations/Evanston_Community_Based_Outpatient_Clinic.asp';
