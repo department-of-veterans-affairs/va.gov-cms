@@ -56,9 +56,11 @@ Facility API ID: <insert_facility_API_ID>
 
 #### CMS engineer steps
 - [ ] 7. Execute the steps of the URL change request ticket from step 5.
+
+**Drupal Admin steps**
 - [ ] 8. Bulk publish the nodes and facility.
-- [ ] 9. Edits facility node by removing the `New facility` flag and saves the node.
-- [ ] 10. Let help desk know this has been done.
+- [ ] 9. Edit the facility node: remove the `New facility` flag, save the node.
+- [ ] 10. Let Help desk know this has been done.
 
 #### CMS Help desk (wrap up)
 - [ ] 11. Notify editor and any other stakeholders.
