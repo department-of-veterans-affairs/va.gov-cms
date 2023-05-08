@@ -1,0 +1,29 @@
+uuid: 299920a3-aa85-4f91-95d4-e776bc6ae262
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_va_benefit_after_applying
+    - taxonomy.vocabulary.va_benefits_taxonomy
+  module:
+    - allowed_formats
+    - text
+    - tmgmt_content
+third_party_settings:
+  allowed_formats:
+    allowed_formats:
+      - rich_text_limited
+  tmgmt_content:
+    excluded: false
+id: taxonomy_term.va_benefits_taxonomy.field_va_benefit_after_applying
+field_name: field_va_benefit_after_applying
+entity_type: taxonomy_term
+bundle: va_benefits_taxonomy
+label: 'After you apply summary'
+description: 'Describe what will happen next in the application process after an applicant submits an application.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

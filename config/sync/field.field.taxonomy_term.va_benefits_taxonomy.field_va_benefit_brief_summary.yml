@@ -1,0 +1,29 @@
+uuid: 8a0805f8-ea7f-4e21-a0b5-3c0d33705f67
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_va_benefit_brief_summary
+    - taxonomy.vocabulary.va_benefits_taxonomy
+  module:
+    - allowed_formats
+    - text
+    - tmgmt_content
+third_party_settings:
+  allowed_formats:
+    allowed_formats:
+      - rich_text_limited
+  tmgmt_content:
+    excluded: false
+id: taxonomy_term.va_benefits_taxonomy.field_va_benefit_brief_summary
+field_name: field_va_benefit_brief_summary
+entity_type: taxonomy_term
+bundle: va_benefits_taxonomy
+label: 'Brief summary'
+description: 'A brief summary of what the benefit offers. Think of this as the high-level "About" content for each benefit.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

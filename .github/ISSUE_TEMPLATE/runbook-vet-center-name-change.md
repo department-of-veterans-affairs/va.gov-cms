@@ -1,5 +1,5 @@
 ---
-name: Runbook - Vet Center name change
+name: Runbook - Vet Center, Outstation, Mobile Vet Center name change
 about: Steps for updating names and URLs
 title: 'Vet Center name change: <insert_name>'
 labels: Change request, Drupal engineering, Facilities, User support, VA.gov frontend, Vet Center
@@ -26,7 +26,7 @@ Facility API ID: <insert_facility_API_ID>
 
 ## Acceptance criteria
 
-### Vet Center facility name change
+### Vet Center, Outstation, Mobile Vet Center facility name change
 
 #### CMS help desk steps
 **Note: If the help desk is waiting on information from the facility staff or editor, add the "Awaiting editor" flag to the facility with a log message that includes a link to this ticket. Remove the flag when the ticket is ready to be worked by the Facilities team. Be sure to preserve the current moderation state of the node when adding or removing the flag.**

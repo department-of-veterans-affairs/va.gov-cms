@@ -54,7 +54,8 @@ const creators = {
     );
 
     // Hero banner
-    cy.contains("Hero banner").scrollIntoView().click({ force: true });
+    cy.contains("Hero banner").scrollIntoView();
+    cy.contains("Hero banner").click({ force: true });
     cy.contains("Hero banner")
       .parent()
       .then(($el) => {
@@ -77,7 +78,8 @@ const creators = {
     cy.contains("Hero banner").click({ force: true });
 
     // Why this matters
-    cy.contains("Why this matters").scrollIntoView().click({ force: true });
+    cy.contains("Why this matters").scrollIntoView();
+    cy.contains("Why this matters").click({ force: true });
     cy.contains("Why this matters")
       .parent()
       .findAllByLabelText("Introduction")
@@ -87,7 +89,8 @@ const creators = {
     cy.contains("Why this matters").click();
 
     // What you can do
-    cy.contains("What you can do").scrollIntoView().click({ force: true });
+    cy.contains("What you can do").scrollIntoView();
+    cy.contains("What you can do").click({ force: true });
     cy.contains("What you can do")
       .parent()
       .within(() => {
@@ -100,9 +103,12 @@ const creators = {
         cy.findAllByLabelText("Introduction").type(faker.lorem.sentence(), {
           force: true,
         });
-        cy.get("#edit-field-clp-what-you-can-do-promos-actions-ief-add")
-          .scrollIntoView()
-          .click({ force: true });
+        cy.get(
+          "#edit-field-clp-what-you-can-do-promos-actions-ief-add"
+        ).scrollIntoView();
+        cy.get("#edit-field-clp-what-you-can-do-promos-actions-ief-add").click({
+          force: true,
+        });
         cy.contains("Add media").click({ force: true });
       });
     cy.get('div[role="dialog"]').within(() => {
@@ -125,9 +131,10 @@ const creators = {
     cy.contains("What you can do")
       .parent()
       .within(() => {
-        cy.findAllByLabelText("URL")
-          .focus()
-          .type(faker.internet.url(), { force: true });
+        cy.findAllByLabelText("URL").focus();
+        cy.findAllByLabelText("URL").type(faker.internet.url(), {
+          force: true,
+        });
         cy.findAllByLabelText("Link text").type(faker.lorem.sentence(), {
           force: true,
         });
@@ -136,11 +143,13 @@ const creators = {
     cy.contains("What you can do").click();
 
     // VA Benefits
-    cy.contains("VA Benefits").scrollIntoView().click({ force: true });
-    cy.contains("VA Benefits")
+    cy.get("#edit-group-va-benefits").scrollIntoView();
+    cy.get("#edit-group-va-benefits").click({ force: true });
+    cy.get("#edit-group-va-benefits")
       .parent()
       .within(() => {
-        cy.contains("Related benefits").scrollIntoView().click({ force: true });
+        cy.contains("Related benefits").scrollIntoView();
+        cy.contains("Related benefits").click({ force: true });
         cy.contains("Select Benefit Hub(s)").click({ force: true });
       });
     cy.get("iframe.entity-browser-modal-iframe").should("exist");
@@ -157,7 +166,7 @@ const creators = {
         cy.get("#edit-submit").click({ force: true });
       });
     cy.get("iframe.entity-browser-modal-iframe").should("not.exist");
-    cy.contains("VA Benefits").click();
+    cy.get("#edit-group-va-benefits").click();
 
     return cy.wait(1000);
   },
