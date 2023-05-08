@@ -7,6 +7,9 @@ assignees: ''
 
 ---
 
+## Description
+Use this runbook if: a Vet Centers, Mobile Vet Centers, Vet Center Outstations is flagged as New, OR if an existing facility is flagged as New with a new Facility API ID. (This may happen  if a Vet Center moves districts, or a Mobile Vet Center is sold to a different Vet Center.)
+
 ## Intake
 - [ ] What triggered this runbook? (Flag in CMS, Help desk ticket, Product team, VHA Digital Media)
 Trigger: <insert_trigger>
@@ -30,10 +33,15 @@ Facility API ID: <insert_facility_API_ID>
 [@TODO: KB ARTICLE FOR ADDING VET CENTERS - SEE runbook-vamc-facility-new]
 
 #### CMS help desk steps
-**Note: If the help desk is waiting on information from the facility staff or editor, add the "Awaiting editor" flag to the facility with a log message that includes a link to this ticket. Remove the flag when the ticket is ready to be worked by the Facilities team. Be sure to preserve the current moderation state of the node when adding or removing the flag.**
+**Note: If the help desk is waiting on information from the facility staff or editor, add the "Awaiting editor" flag to the facility** with a log message that includes a link to this ticket. Remove the flag when the ticket is ready to be worked by the Facilities team. **Be sure to preserve the current moderation state of the node when adding or removing the flag.**
+
+**If a Mobile Vet Center:**
+- [ ] Confirm what Vet Center it belongs to, and set the "Main Vet Center location" field. (This is the only step required for an MVC flagged as New.) 
+
+**If a Vet Center:**
 - [ ] 1. Become aware that the new facility is now on the Facility API (typically, via a Flag).
-- [ ] 2. Check with RCS(?) what district it belongs to.
-- [ ] 3. Move the section to the appropriate district.
+- [ ] 2. Check with Readjustment Counseling Services to confirm what district the Vet Center belongs to. 
+- [ ] 3. In [Sections taxonomy](https://prod.cms.va.gov/admin/structure/taxonomy/manage/administration/overview), move the Vet Center Section to the appropriate district.
 - [ ] 4. Communicate with editor (do they need to be onboarded)
 
 [@TODO write sample email - SEE runbook-vamc-facility-new]
