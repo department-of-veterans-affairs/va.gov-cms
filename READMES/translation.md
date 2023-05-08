@@ -1,7 +1,7 @@
 # Translation overview
 This document outlines how to select content for translation, send it for translation, import the results, and review and manage the imported translations.
 
-## Sources
+## Selecting content for translation
 
 The [Sources](https://prod.cms.va.gov/admin/tmgmt/sources) page provides an overview of all content in the CMS that is translatable and its translation state. The page defaults to listing nodes, but anything that can be translated can be listed here. 
 
