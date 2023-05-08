@@ -226,6 +226,12 @@ class PostFacilityService extends PostFacilityBase {
       $service->appointment_leadin = $this->getAppointmentLeadin();
       $field_phone_numbers_paragraphs = $this->facilityService->get('field_phone_numbers_paragraph')->referencedEntities();
       $service->appointment_phones = $this->getPhones(FALSE, $field_phone_numbers_paragraphs);
+      // These three fields are repeated here to support Facilty API V0
+      // for Covid-19 Vaccines.
+      $service->referral_required = $this->getReferralRequired();
+      $service->walk_ins_accepted = $this->getWalkInsAccepted();
+      $service->online_scheduling_available = $this->getOnlineSchedulingAvailable();
+
       $service->service_locations = $this->getServiceLocations();
 
       $payload = [
@@ -408,7 +414,9 @@ class PostFacilityService extends PostFacilityBase {
         $service_location->additional_hours_info = $location->get('field_additional_hours_info')->value;
         $use_facility_phone = $location->get('field_use_main_facility_phone')->value;
         $service_location->phones = $this->getPhones($use_facility_phone, $location->get('field_phone')->referencedEntities());
-
+        // These three fields are here for Facilities API V1+
+        // They will eventually be part of the CMS service location, but are
+        // currently sourced from the facility service node.
         $service_location->referral_required = $this->getReferralRequired();
         $service_location->walk_ins_accepted = $this->getWalkInsAccepted();
         $service_location->online_scheduling_available = $this->getOnlineSchedulingAvailable();
