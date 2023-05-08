@@ -33,4 +33,4 @@ Facility API ID: <insert_facility_API_ID>
 ### Drupal Admin steps
 - [ ] Go to [Sections taxonomy]( https://prod.cms.va.gov/admin/structure/taxonomy/manage/administration/overview), VBA > Rename the term that matches the old Facility name to use the new Facility name
     * If this process gets automated, this runbook can be retired.
-- [ ] Edit the facility node, remove the `New facility` flag, save the node with revision log
+- [ ] Edit the facility node, remove the `Changed name` flag, save the node with revision log
