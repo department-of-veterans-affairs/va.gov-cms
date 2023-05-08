@@ -27,9 +27,12 @@ const creators = {
         force: true,
       }
     );
-    cy.findAllByLabelText("Description").type(faker.lorem.sentence(), {
-      force: true,
-    });
+    cy.findAllByLabelText("Description").type(
+      faker.lorem.sentence().substring(0, 80),
+      {
+        force: true,
+      }
+    );
     cy.findAllByLabelText("Section").select("VACO");
     cy.get("form.media-form").find("input#edit-submit").click();
     return cy.wait(1000);
