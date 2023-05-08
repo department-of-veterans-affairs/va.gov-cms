@@ -85,7 +85,7 @@ class OutdatedContent implements OutdatedContentInterface {
           $this->vaGovNotifications
             ->info('Outdated content found for @sectionName editor: @editor',
             ['@editor' => $editorName, '@sectionName' => $sectionName]);
-          $this->queueNotification($editor, 'vamc_outdated_content', 'vamc_outdated_content');
+          $this->queueNotification($editor, 'vamc_outdated_content');
           $have_outdated_content[] = [
             'editor' => $editorName,
             'section' => $sectionName,
@@ -116,7 +116,7 @@ class OutdatedContent implements OutdatedContentInterface {
           $this->vaGovNotifications
             ->info('Outdated content found for @sectionName editor: @editor',
             ['@editor' => $editorName, '@sectionName' => $sectionName]);
-          $this->queueNotification($editor, 'vet_center_outdated_content', 'vet_center_outdated_content');
+          $this->queueNotification($editor, 'vet_center_outdated_content');
           $have_outdated_content[] = [
             'editor' => $editorName,
             'section' => $sectionName,
@@ -179,13 +179,11 @@ class OutdatedContent implements OutdatedContentInterface {
    *   The editor user object.
    * @param string $queue
    *   The queue to use.
-   * @param string $template
-   *   The template to use.
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  protected function queueNotification(AccountInterface $editor, string $queue, string $template): void {
+  protected function queueNotification(AccountInterface $editor, string $queue): void {
     // Get the queue.
     /** @var \Drupal\advancedqueue\Entity\Queue $queue */
     $queue = $this->entityTypeManager
@@ -195,7 +193,8 @@ class OutdatedContent implements OutdatedContentInterface {
     // Build the variables being passed to the template.
     $uid = $editor->id();
     $editor_username = $editor->getAccountName();
-    $template_values = compact('template', 'uid');
+    $template_values = ['template' => 'va_outdated_content'];
+    $template_values['uid'] = $uid;
     $values = [
       'field_editor_username' => $editor_username,
       'field_subject' => '[ACTION REQUIRED] Review Content Report',
@@ -221,7 +220,7 @@ class OutdatedContent implements OutdatedContentInterface {
       ->condition('status', 1)
       ->condition('field_last_saved_by_an_editor', $offset, '<=')
       ->condition('field_administration', $section, '=');
-    return $query->execute();
+    return $query->accessCheck(TRUE)->execute();
   }
 
   /**
@@ -231,6 +230,7 @@ class OutdatedContent implements OutdatedContentInterface {
     $userStorage = $this->entityTypeManager->getStorage('user');
     $uids = $userStorage->getQuery()
       ->condition('status', 1)
+      ->accessCheck(TRUE)
       ->execute();
     return $userStorage->loadMultiple($uids);
   }

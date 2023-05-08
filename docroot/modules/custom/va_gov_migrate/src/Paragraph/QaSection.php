@@ -204,7 +204,7 @@ class QaSection extends ParagraphType {
    */
   protected function testIntro(DOMQuery $elements) {
     $new_line_tags = ['p', 'br'];
-    /* @var \QueryPath\DOMQuery $element */
+    /** @var \QueryPath\DOMQuery $element */
     foreach ($elements as $element) {
       if ($element->tag() && !in_array($element->tag(), $new_line_tags)) {
         $message = 'Q&A Section intro text does not support html';
