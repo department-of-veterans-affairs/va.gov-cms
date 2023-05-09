@@ -16,10 +16,13 @@ The process consists of these steps:
 Translation management can be performed by users with either the 'Translation manager' or 'Content admin' roles.
 
 ## Selecting content sources for translation
+<div style="border: 1px solid black; padding: 10px;">
 <figure>
 <img src="https://user-images.githubusercontent.com/203623/231054441-f8fd1bf4-bd96-40a6-bc0e-e3f12c4f9dab.png" />
 <figcaption><strong>The Sources overview page</strong></figcaption>
 </figure>
+</div>
+
 The [Sources](https://prod.cms.va.gov/admin/tmgmt/sources) page provides an overview of all content in the CMS that is translatable and its translation state. The page defaults to listing nodes, but anything that can be translated can be listed here.
 
 <figure>
