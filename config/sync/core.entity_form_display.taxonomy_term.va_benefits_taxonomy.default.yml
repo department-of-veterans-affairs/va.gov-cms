@@ -286,18 +286,17 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_va_benefit_plain_name:
-    type: string_textarea_with_counter
-    weight: 5
+    type: string_textfield
+    weight: 14
     region: content
     settings:
-      rows: 5
+      size: 60
       placeholder: ''
-      maxlength: 300
-      counter_position: after
-      js_prevent_submit: false
-      count_html_characters: false
-      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
-    third_party_settings: {  }
+    third_party_settings:
+      limited_field_widgets:
+        limit_values: '0'
+      change_labels:
+        add_another: 'Add another name'
   field_va_benefit_prerequisite:
     type: entity_reference_autocomplete
     weight: 5
