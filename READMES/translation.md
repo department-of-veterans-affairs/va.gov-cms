@@ -6,12 +6,12 @@ In the translation management system, content that can be submitted for translat
 The process consists of these steps:
 
 1. [Selecting content sources for translation](#selecting-content)
-2. Creating a translation job
-3. Downloading the job file
-4. Handing off the job files and receiving them
-5. Importing the job file
-6. Reviewing the translations
-7. Finalizing translations
+2. [Creating a translation job](#creating-job)
+3. [Downloading the job file](#downloading-file)
+4. [Handing off the job files and receiving them](#file-transfer)
+5. [Importing the job file](#file-import)
+6. [Reviewing the translations](#translation-review)
+7. [Finalizing translations](#finalizing-translations)
 
 Translation management can be performed by users with either the 'Translation manager' or 'Content admin' roles.
 
@@ -80,7 +80,7 @@ You can also select content and use 'Add to cart' to mark it for translation. Yo
 ---
 
 
-## Creating a translation job
+## <a name="creating-job">Creating a translation job</a>
 <figure>
 <img src="https://user-images.githubusercontent.com/203623/231054552-ae4b8965-523e-4be2-8cd7-b4c568db3118.png" />
 <figcaption><strong>The job creation page</strong></figcaption>
@@ -100,7 +100,7 @@ The 'provider' is the method by which the translation will happen. On the VA CMS
 
 Once you are satisfied with your job, you can select "Submit to provider", which will set up the job. "Save job" is a way to save a job during the creation process without setting it up, but it will not allow the job to be translated.
 
-## Downloading the translation job file
+## <a name="downloading-file">Downloading the translation job file</a>
 
 Once you’ve set up your job by clicking 'Submit to provider', there will be message that you can download the file with your translation data:
 
@@ -119,7 +119,7 @@ You can rename the file if it helps you keep organized. We do recommend keeping 
 
 It is recommended to download the file at this stage. If you do not, or you need to retrieve the file later, you can do this by clicking 'Manage' for the job in question, scrolling down to the messages at the bottom of the screen, and finding the message with the link and downloading it from there.
 
-## Handing off the job files and receiving them
+## <a name="file-transfer">Handing off the job files and receiving them</a>
 
 Translation will be handled by translators at other government agencies. As such, the files that have been downloaded from the previous steps can be delivered to the other government agencies via any method (i.e. email).
 
@@ -127,7 +127,7 @@ When the translators have completed their translations, they will send the files
 
 It should be noted that with our setup, the people doing the actual translations at other agencies will never see the CMS translation management interface.
 
-## Importing the job file
+## <a name="file-import">Importing the job file</a>
 
 All jobs can be seen at the [job overview page](https://prod.cms.va.gov/admin/tmgmt/jobs).
 
@@ -155,7 +155,7 @@ To import the file for a given job, click on ‘Manage’ for that job. You will
 
 ---
 
-## Reviewing the translations
+## <a name="translation-review">Reviewing the translations</a>
 Once the completed file for a translation job is imported, the content items in the job can be reviewed. Each content item will be reviewed individually. To review these items, click 'Manage' for that job, and then 'Review' for a given content item on the subsequent page.
 
 ---
@@ -195,7 +195,7 @@ If you are midway through a review, you can 'Save it and return to it later.
 
 When you are satisfied with the translation, save it as completed. This will create the translation node.
 
-## Finalizing translations
+## <a name="finalizing-translations">Finalizing translations</a>
 
 You will sometimes need to edit translations after they have been imported. This can be done from the main content page.
 
