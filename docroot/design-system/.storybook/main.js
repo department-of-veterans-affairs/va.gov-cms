@@ -44,6 +44,11 @@ const config = {
       }],
       include: path.resolve(__dirname, '..', 'components')
     });
+    config.optimization = {
+      ...config.optimization,
+      chunkIds: 'named',
+      usedExports: false,
+    }
 
     config.resolve.fallback = {
       ...config.resolve.fallback,

@@ -25,6 +25,7 @@ const config = {
         test: /\.(js|jsx)$/i,
         exclude: ["/node_modules/core-js/", "/node_modules/webpack/buildin/"],
         loader: "babel-loader",
+        cacheDirectory: true,
       },
       {
         test: /\.(s[ac]ss|css)$/i,
