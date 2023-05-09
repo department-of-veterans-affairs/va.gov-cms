@@ -1,0 +1,36 @@
+uuid: 97deb41a-652d-438e-bf53-3220be10dcd9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_va_benefit_app_form
+    - node.type.va_form
+    - taxonomy.vocabulary.va_benefits_taxonomy
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: false
+id: taxonomy_term.va_benefits_taxonomy.field_va_benefit_app_form
+field_name: field_va_benefit_app_form
+entity_type: taxonomy_term
+bundle: va_benefits_taxonomy
+label: 'Related VA Forms'
+description: 'Select one or more VA Forms related to this VA Benefit.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      va_form: va_form
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

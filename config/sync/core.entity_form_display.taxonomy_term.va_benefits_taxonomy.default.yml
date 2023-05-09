@@ -1,0 +1,353 @@
+uuid: d2f6176c-a607-4262-aa87-9b866b72958a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_enforce_unique_id
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_enforce_unique_value
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_after_applying
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_api_id
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_app_form
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_app_help
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_app_preparation
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_beneficiaries
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_brief_summary
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_coconsidered
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_eligibility
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_legislation
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_long_summary
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_plain_name
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_prerequisite
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_teaser_summary
+    - taxonomy.vocabulary.va_benefits_taxonomy
+    - workflows.workflow.editorial
+  module:
+    - allow_only_one
+    - allowed_formats
+    - change_labels
+    - content_moderation
+    - field_group
+    - limited_field_widgets
+    - link
+    - text
+    - textfield_counter
+third_party_settings:
+  field_group:
+    group_va_benefit_name:
+      children:
+        - name
+        - field_enforce_unique_value
+        - field_va_benefit_api_id
+        - field_enforce_unique_id
+        - field_va_benefit_plain_name
+      label: 'Benefit name'
+      region: content
+      parent_name: ''
+      weight: 0
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: true
+    group_va_benefit_relationships:
+      children:
+        - field_va_benefit_legislation
+        - field_va_benefit_prerequisite
+        - field_va_benefit_coconsidered
+      label: 'Benefit Relationships'
+      region: content
+      parent_name: ''
+      weight: 1
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: true
+    group_va_benefit_description:
+      children:
+        - field_va_benefit_teaser_summary
+        - field_va_benefit_brief_summary
+        - field_va_benefit_long_summary
+      label: 'Benefit Description'
+      region: content
+      parent_name: ''
+      weight: 2
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: true
+    group_va_benefit_eligibility:
+      children:
+        - field_va_benefit_beneficiaries
+        - field_va_benefit_eligibility
+      label: 'Benefit Eligibility'
+      region: content
+      parent_name: ''
+      weight: 3
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: true
+    group_va_benefit_apply:
+      children:
+        - field_va_benefit_app_form
+        - field_va_benefit_app_preparation
+        - field_va_benefit_app_help
+      label: 'How to apply'
+      region: content
+      parent_name: ''
+      weight: 4
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: true
+    group_va_benefits_after:
+      children:
+        - field_va_benefit_after_applying
+      label: 'After you apply'
+      region: content
+      parent_name: ''
+      weight: 5
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: true
+    group_va_benefit_workflow:
+      children:
+        - moderation_state
+        - revision_log_message
+      label: 'Editorial workflow'
+      region: content
+      parent_name: ''
+      weight: 8
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: sections
+        description: ''
+        required_fields: true
+        description_display: after
+id: taxonomy_term.va_benefits_taxonomy.default
+targetEntityType: taxonomy_term
+bundle: va_benefits_taxonomy
+mode: default
+content:
+  field_enforce_unique_id:
+    type: allow_only_one_widget
+    weight: 4
+    region: content
+    settings:
+      size: 1
+    third_party_settings: {  }
+  field_enforce_unique_value:
+    type: allow_only_one_widget
+    weight: 2
+    region: content
+    settings:
+      size: 1
+    third_party_settings: {  }
+  field_va_benefit_after_applying:
+    type: text_textarea
+    weight: 7
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_va_benefit_api_id:
+    type: string_textfield_with_counter
+    weight: 3
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+      use_field_maxlength: false
+      maxlength: 60
+      counter_position: after
+      js_prevent_submit: false
+      count_html_characters: false
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+    third_party_settings: {  }
+  field_va_benefit_app_form:
+    type: entity_reference_autocomplete
+    weight: 6
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings:
+      limited_field_widgets:
+        limit_values: '0'
+      change_labels:
+        add_another: 'Add another form'
+  field_va_benefit_app_help:
+    type: text_textarea
+    weight: 8
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_va_benefit_app_preparation:
+    type: text_textarea
+    weight: 7
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_va_benefit_beneficiaries:
+    type: options_buttons
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_va_benefit_brief_summary:
+    type: text_textarea_with_counter
+    weight: 8
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+      maxlength: 500
+      counter_position: after
+      js_prevent_submit: false
+      count_html_characters: false
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+    third_party_settings:
+      allowed_formats:
+        hide_help: '0'
+        hide_guidelines: '0'
+  field_va_benefit_coconsidered:
+    type: entity_reference_autocomplete
+    weight: 6
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings:
+      limited_field_widgets:
+        limit_values: '0'
+      change_labels:
+        add_another: 'Add another link'
+  field_va_benefit_eligibility:
+    type: text_textarea
+    weight: 12
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_va_benefit_legislation:
+    type: link_default
+    weight: 4
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings:
+      limited_field_widgets:
+        limit_values: '0'
+      change_labels:
+        add_another: 'Add another link'
+  field_va_benefit_long_summary:
+    type: text_textarea
+    weight: 9
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_va_benefit_plain_name:
+    type: string_textarea_with_counter
+    weight: 5
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+      maxlength: 300
+      counter_position: after
+      js_prevent_submit: false
+      count_html_characters: false
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+    third_party_settings: {  }
+  field_va_benefit_prerequisite:
+    type: entity_reference_autocomplete
+    weight: 5
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings:
+      limited_field_widgets:
+        limit_values: '0'
+      change_labels:
+        add_another: 'Add another link'
+  field_va_benefit_teaser_summary:
+    type: string_textarea_with_counter
+    weight: 7
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+      maxlength: 300
+      counter_position: after
+      js_prevent_submit: false
+      count_html_characters: false
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+    third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  name:
+    type: string_textfield_with_counter
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+      use_field_maxlength: true
+      maxlength: 255
+      counter_position: after
+      js_prevent_submit: false
+      count_html_characters: false
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+    third_party_settings: {  }
+hidden:
+  description: true
+  langcode: true
+  path: true
+  status: true
+  translation: true

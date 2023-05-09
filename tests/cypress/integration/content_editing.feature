@@ -180,3 +180,14 @@ Feature: CMS Users may effectively create & edit content
     And the option "- None -" from dropdown "State" should be selected
     When I select the "Online" radio button
     Then an element with the selector "#edit-field-url-of-an-online-event-0-uri" should be empty
+
+  # VA Benefit Taxonomy
+
+  Scenario: Confirm that content admins access and/or edit certain form elements
+    Given I am logged in as a user with the "content_admin" role
+    When I am at "admin/structure/taxonomy/manage/va_benefits_taxonomy/add"
+    Then I should see "Official Benefit name"
+    And I should see "The full name of the benefit."
+    And an element with the selector "#edit-name-0-value" should be disabled
+    And an element with the selector "#edit-field-va-benefit-api-id-0-value" should not exist
+    And an element with the selector "#edit-relations" should not exist
