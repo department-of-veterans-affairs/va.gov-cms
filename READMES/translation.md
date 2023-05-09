@@ -18,11 +18,14 @@ Translation management can be performed by users with either the 'Translation ma
 ## Selecting content sources for translation
 <figure>
 <img src="https://user-images.githubusercontent.com/203623/231054441-f8fd1bf4-bd96-40a6-bc0e-e3f12c4f9dab.png" />
-<figcaption>The Sources overview page</figcaption>
+<figcaption><strong>The Sources overview page</strong></figcaption>
 </figure>
 The [Sources](https://prod.cms.va.gov/admin/tmgmt/sources) page provides an overview of all content in the CMS that is translatable and its translation state. The page defaults to listing nodes, but anything that can be translated can be listed here.
 
-## *insert content source filter*
+<figure>
+<img src="images/translation-other-content.gif" />
+<figcaption><strong>Using the source filters to select other kinds of content.</strong></figcaption>
+</figure>
 
 In this overview, we can see:
 
@@ -34,19 +37,29 @@ There are a number of icons giving information about each piece of content. This
 
 This image shows the possible statuses a content item can have:
 
-## *image.png*
+<figure>
+<img src="images/translation-content-statuses.png" />
+<figcaption><strong>Various statuses content can have.</strong></figcaption>
+</figure>
 
 The process of selecting content for translation uses a shopping metaphor. You can select the items you want to translate from the Sources page, and either "check out" immediately, or "add to cart", collecting items for translation a few at a time.
 
 In order to translate content, select the checkbox(es) for that content. You can submit the selected content immediately to a job by using the 'Request translation' button:
-
+<figure>
+<img src="images/translation-direct-checkout.gif" />
+<figcaption><strong>Selecting content and using 'Request translation'.</strong></figcaption>
+</figure>
 
 You can also select content and use 'Add to cart' to mark it for translation. You can then search for different content, add that to your cart as well, and then submit the entire cart to job creation.
+<figure>
+<img src="images/translation-cart.gif" />
+<figcaption><strong>Selecting content with 'Add to cart'.</strong></figcaption>
+</figure>
 
 ## Creating a translation job
 <figure>
 <img src="https://user-images.githubusercontent.com/203623/231054552-ae4b8965-523e-4be2-8cd7-b4c568db3118.png" />
-<figcaption>The job creation page</figcaption>
+<figcaption><strong>The job creation page</strong></figcaption>
 </figure>
 
 Once you have selected content sources for translation, you are taken to the job creation page. This is where you will finalize your job, add any last minute items, and save it.
@@ -61,10 +74,13 @@ The 'provider' is the method by which the translation will happen. On the VA CMS
 
 Once you are satisfied with your job, you can select "Submit to provider", which will set up the job. "Save job" is a way to save a job during the creation process without setting it up, but it will not allow the job to be translated.
 
-## Downloading the job file
+## Downloading the translation job file
 
 Once you’ve set up your job by clicking 'Submit to provider', there will be message that you can download the file with your translation data:
-![image](https://user-images.githubusercontent.com/203623/231054596-43e9e24d-b25b-4c35-b104-69edf64295b7.png)
+<figure>
+<img src="https://user-images.githubusercontent.com/203623/231054596-43e9e24d-b25b-4c35-b104-69edf64295b7.png" />
+<figcaption><strong>Downloading a translation job file.</strong></figcaption>
+</figure>
 
 Right-click on the link and select ‘Save as…’. This file will be what gets sent to translation.
 
@@ -83,7 +99,11 @@ It should be noted that with our setup, the people doing the actual translations
 ## Importing the job file
 
 All jobs can be seen at the [job overview page](https://prod.cms.va.gov/admin/tmgmt/jobs).
-![image](https://user-images.githubusercontent.com/203623/231054663-312a621c-75f7-4c48-b78d-18848bb59ab9.png)
+
+<figure>
+<img src="https://user-images.githubusercontent.com/203623/231054663-312a621c-75f7-4c48-b78d-18848bb59ab9.png" />
+<figcaption><strong>The jobs overview page.</strong></figcaption>
+</figure>
 
 You can see each job with its label, the source and target languages, the job progress, and numbers of words and HTML tags. The job shows a general status on the left, generally a blue hourglass for "in progress" or a yellow caution sign for 'needs review'.
 
@@ -91,20 +111,32 @@ A job that has not imported a file will have a progress meter that show blue. A 
 
 To import the file for a given job, click on ‘Manage’ for that job. You will see the job overview. This shows each content item and its status. To import a file, scroll further down the page, select it via the file upload widget, and click import. Once you do this, each job item can be reviewed.
 
-## *insert gif*
+<figure>
+<img src="images/translation-job-file-import.gif" />
+<figcaption><strong>Importing a file to a job.</strong></figcaption>
+</figure>
 
 ## Reviewing the translations
 Once the completed file for a translation job is imported, the content items in the job can be reviewed. Each content item will be reviewed individually. To review these items, click 'Manage' for that job, and then 'Review' for a given content item on the subsequent page.
 
-## *insert gif*
+<figure>
+<img src="images/translation-review-process.gif" />
+<figcaption><strong>Going into review for a content translation.</strong></figcaption>
+</figure>
 
 This is an opportunity for a language expert to review the translation to ensure it is correct. It is possible to make changes here, if desired. Click the checkmark on the right if the translation is satisfactory.
 
-![image](https://user-images.githubusercontent.com/203623/231054805-4ec594b9-910b-4ae0-9dca-ef851bb08002.png)
+<figure>
+<img src="https://user-images.githubusercontent.com/203623/231054805-4ec594b9-910b-4ae0-9dca-ef851bb08002.png" />
+<figcaption><strong>Reviewing and accepting an individual translation.</strong></figcaption>
+</figure>
 
 Once all translations have been reviewed, you can accept them, at the bottom of the form:
 
-![image](https://user-images.githubusercontent.com/203623/231054823-cb759482-2dbc-4c4b-84ff-b98d9e11b6d1.png)
+<figure>
+<img src="https://user-images.githubusercontent.com/203623/231054823-cb759482-2dbc-4c4b-84ff-b98d9e11b6d1.png" />
+<figcaption><strong>Accepting the translation.</strong></figcaption>
+</figure>
 
 Note that the interface will show you the current moderation state of the source content - draft, published, etc - and allow you to decide what moderation state the translation should be in. You also have the option to 'Validate' the translation (this will mainly check for empty fields) and to specifically 'Validate the HTML tags' in the translation.
 
@@ -118,15 +150,19 @@ You will sometimes need to edit translations after they have been imported. This
 
 Take this example page:
 
-![image](https://user-images.githubusercontent.com/203623/231054844-0ae91795-5bc8-4ce7-8c6a-91ca4d6fed25.png)
+<figure>
+<img src="https://user-images.githubusercontent.com/203623/231054844-0ae91795-5bc8-4ce7-8c6a-91ca4d6fed25.png" />
+<figcaption><strong>A content page with a 'Translate' tab.</strong></figcaption>
+</figure>
 
 
 In addition to options for View, Edit, etc, there is a tab ‘Translate’. The Translate tab is always available on content that is allowed to translated. It is possible to do translation completely via this tab, as well make updates to existing translations, but the process will be manual and have no connection to the translation management system.
 
 Click on the Translate tab to get an overview of translations for this content.
 
-
-![image](https://user-images.githubusercontent.com/203623/231054869-3c3ae9f8-b30b-426d-846a-45374588bb1a.png)
-
+<figure>
+<img src="https://user-images.githubusercontent.com/203623/231054869-3c3ae9f8-b30b-426d-846a-45374588bb1a.png" />
+<figcaption><strong>The translations overview for an individual piece of content.</strong></figcaption>
+</figure>
 
 Here you can see each translation, and edit it if you choose.
