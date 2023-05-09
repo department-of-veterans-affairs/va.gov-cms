@@ -1,0 +1,29 @@
+uuid: 090733b0-1c8d-41b5-920b-fcf56de8805b
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.message.mail_body
+    - field.field.message.vet_center_outdated_content.field_editor_username
+    - field.field.message.vet_center_outdated_content.field_subject
+    - message.template.vet_center_outdated_content
+  module:
+    - layout_builder
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: message.vet_center_outdated_content.mail_body
+targetEntityType: message
+bundle: vet_center_outdated_content
+mode: mail_body
+content:
+  partial_1:
+    weight: 0
+    region: content
+hidden:
+  field_editor_username: true
+  field_subject: true
+  partial_0: true
+  search_api_excerpt: true

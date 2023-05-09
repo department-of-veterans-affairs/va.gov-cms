@@ -1,0 +1,163 @@
+uuid: c66422b4-2aee-49fd-b777-ff56ae7d7d1a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_enforce_unique_id
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_enforce_unique_value
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_after_applying
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_api_id
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_app_form
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_app_help
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_app_preparation
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_beneficiaries
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_brief_summary
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_coconsidered
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_eligibility
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_legislation
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_long_summary
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_plain_name
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_prerequisite
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_teaser_summary
+    - taxonomy.vocabulary.va_benefits_taxonomy
+  module:
+    - allow_only_one
+    - link
+    - text
+id: taxonomy_term.va_benefits_taxonomy.default
+targetEntityType: taxonomy_term
+bundle: va_benefits_taxonomy
+mode: default
+content:
+  description:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_enforce_unique_id:
+    type: allow_only_one
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 26
+    region: content
+  field_enforce_unique_value:
+    type: allow_only_one
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 25
+    region: content
+  field_va_benefit_after_applying:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 17
+    region: content
+  field_va_benefit_api_id:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 21
+    region: content
+  field_va_benefit_app_form:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 19
+    region: content
+  field_va_benefit_app_help:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 16
+    region: content
+  field_va_benefit_app_preparation:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 15
+    region: content
+  field_va_benefit_beneficiaries:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 20
+    region: content
+  field_va_benefit_brief_summary:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 24
+    region: content
+  field_va_benefit_coconsidered:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 22
+    region: content
+  field_va_benefit_eligibility:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 27
+    region: content
+  field_va_benefit_legislation:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 23
+    region: content
+  field_va_benefit_long_summary:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  field_va_benefit_plain_name:
+    type: basic_string
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_va_benefit_prerequisite:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_va_benefit_teaser_summary:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 7
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

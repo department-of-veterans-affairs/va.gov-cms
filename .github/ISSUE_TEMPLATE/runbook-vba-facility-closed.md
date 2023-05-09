@@ -2,7 +2,7 @@
 name: Runbook - VBA Facility closed
 about: Steps for archiving a VBA facility in VA.gov CMS.
 title: 'VBA Facility closed: <insert_name>'
-labels: Change request
+labels: Change request, Drupal engineering, Facilities, User support, VA.gov frontend, VBA
 assignees: ''
 
 ---
@@ -21,18 +21,16 @@ Submitter: <insert_name>
 KB articles: <insert_kb_article_links>
 
 - [ ] Link to facility in production:
-Facility link: <insert_facility_link>
+Facility CMS link: <insert_facility_link>
+Facility API ID: <insert_facility_API_ID>
 
 ## Acceptance criteria
 
 ### VAMC facility closure
-
+**Note: If the help desk is waiting on information from the facility staff or editor, add the "Awaiting editor" flag to the facility with a log message that includes a link to this ticket. Remove the flag when the ticket is ready to be worked by the Facilities team. Be sure to preserve the current moderation state of the node when adding or removing the flag.**
 [@TODO: DRAFT FOR HELP DESK AND DEV STEPS]
 
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [x] `Facilities`
-- [x] `User support`
+### Drupal Admin steps
+- [ ] Go to [Sections taxonomy]( https://prod.cms.va.gov/admin/structure/taxonomy/manage/administration/overview), VBA > Delete the term that matches the Facility name
+    * If this process gets automated, this runbook can be retired.
+- [ ] Edit the facility node, remove the `Removed from source` flag, save the node with revision log

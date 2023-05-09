@@ -1,0 +1,39 @@
+uuid: c4fa806c-d095-41c9-80bb-201cfe68ce98
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.message.vamc_outdated_content.field_subject
+    - message.template.vamc_outdated_content
+id: message.vamc_outdated_content.default
+targetEntityType: message
+bundle: vamc_outdated_content
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_subject:
+    type: string_textfield
+    weight: 11
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    field_name: field_subject
+  uid:
+    type: entity_reference_autocomplete
+    weight: 5
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    '#group': advanced
+hidden: {  }

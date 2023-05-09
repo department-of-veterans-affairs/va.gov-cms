@@ -1,0 +1,15 @@
+uuid: c4f93d2c-a293-46c3-aaf1-3f5bcc616f09
+langcode: en
+status: true
+dependencies:
+  config:
+    - flag.flag.awaiting_redirect
+  module:
+    - flag
+id: flag_action.awaiting_redirect_unflag
+label: 'No longer awaiting editor action'
+type: node
+plugin: 'flag_action:awaiting_redirect_unflag'
+configuration:
+  flag_id: awaiting_redirect
+  flag_action: unflag

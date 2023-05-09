@@ -2,7 +2,7 @@
 name: Runbook - New VBA Facility
 about: changing facility information in the CMS for VBA facilities
 title: 'New VBA Facility: <insert_name_of_facility>'
-labels: Change request
+labels: Change request, Drupal engineering, Facilities, User support, VA.gov frontend, VBA
 assignees: ''
 
 ---
@@ -21,18 +21,18 @@ Submitter: <insert_name>
 KB articles: <insert_kb_article_links>
 
 - [ ] Link to facility in production:
-Facility link: <insert_facility_link>
+Facility CMS link: <insert_facility_link>
+Facility API ID: <insert_facility_API_ID>
 
 ## Acceptance criteria
 
 ### New VBA Facility
-
+**Note: If the help desk is waiting on information from the facility staff or editor, add the "Awaiting editor" flag to the facility with a log message that includes a link to this ticket. Remove the flag when the ticket is ready to be worked by the Facilities team. Be sure to preserve the current moderation state of the node when adding or removing the flag.**
 [@TODO: DRAFT FOR HELP DESK AND DEV STEPS]
 
-### Team
-Please check the team(s) that will do this work.
+#### Help desk steps
+- [ ] Notify an editor to set an operating status so the facility will get pushed to the Facility API
+- [ ] Verify when the status is added            
 
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [x] `Facilities`
-- [x] `User support`
+#### Drupal Admin steps
+- [ ] Edit the facility node: remove the `New facility` flag, save the node

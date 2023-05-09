@@ -124,9 +124,13 @@ services:
         - echo "apc.enable=1" >> /usr/local/etc/php/conf.d/php-cli.ini
         - echo "apc.enable_cli=1" >> /usr/local/etc/php/conf.d/php-cli.ini
 
-        # Install memcache extension
-        - pecl install memcache-8.0
-        - docker-php-ext-enable memcache
+        # Install memcached extension
+        - apt-get install libmemcached-dev
+        - yes '' | pecl install -f memcached
+        - docker-php-ext-enable memcached
+
+        # Install node and npm.
+        - ./scripts/install-nvm.sh
 
         # Ensure that we're using version 2 of composer.
         - composer self-update --2
@@ -148,9 +152,10 @@ services:
         # Install/update packages managed by composer, including drush.
         # Composer options are in composer.json, 'config' key.
         - composer install --ignore-platform-req=ext-intl
-        - ./bin/npm install
-        - composer va:theme:compile
-        - composer va:web:install
+        - bash -lc 'nvm install'
+        - bash -lc 'npm install'
+        - bash -lc 'composer va:theme:compile'
+        - bash -lc 'composer va:web:install'
 
         - curl --remote-name https://dsva-vagov-prod-cms-backup-sanitized.s3-us-gov-west-1.amazonaws.com/files/cms-prod-files-latest.tgz
         - tar --extract --gunzip --file cms-prod-files-latest.tgz --directory "${DOCROOT}/sites/default/files/"
@@ -179,9 +184,10 @@ services:
         - j2 "${TUGBOAT_ROOT}/.web/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.web/403-error-document.html"
         - j2 "${TUGBOAT_ROOT}/.storybook/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.storybook/403-error-document.html"
         - composer install --ignore-platform-req=ext-intl
-        - ./bin/npm install
-        - composer va:theme:compile
-        - composer va:web:install
+        - bash -lc 'nvm install'
+        - bash -lc 'npm install'
+        - bash -lc 'composer va:theme:compile'
+        - bash -lc 'composer va:web:install'
         # https://www.drush.org/latest/deploycommand/ (updatedb, cache:rebuild, config:import, deploy:hook)
         - drush deploy
 

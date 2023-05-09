@@ -7,8 +7,6 @@ use Drupal\Core\Site\Settings;
 use Drupal\Core\State\StateInterface;
 use Drupal\va_gov_build_trigger\Event\ReleaseStateTransitionEvent;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
-use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\RequestException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -17,23 +15,19 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class ContentReleaseBrokenLinksIngestion implements EventSubscriberInterface {
 
   /**
-   * Http Client.
-   *
-   * @var \GuzzleHttp\ClientInterface
-   */
-  protected $httpClient;
-  /**
    * The state service.
    *
    * @var \Drupal\Core\State\StateInterface
    */
   protected $state;
+
   /**
    * Logger.
    *
-   * @var \Drupal\Core\Logger\LoggerChannelFactoryInterface
+   * @var \Psr\Log\LoggerInterface
    */
   protected $logger;
+
   /**
    * Settings Service.
    *
@@ -44,19 +38,16 @@ class ContentReleaseBrokenLinksIngestion implements EventSubscriberInterface {
   /**
    * Constructor for ContentReleaseBrokenLinksSubscriber objects.
    *
-   * @param \GuzzleHttp\ClientInterface $http_client
-   *   Http client.
    * @param \Drupal\Core\State\StateInterface $state
    *   The state service.
-   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger
+   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerFactory
    *   Logger logger logger logger.
    * @param \Drupal\Core\Site\Settings $settings
    *   Settings.
    */
-  public function __construct(ClientInterface $http_client, StateInterface $state, LoggerChannelFactoryInterface $logger, Settings $settings) {
-    $this->httpClient = $http_client;
+  public function __construct(StateInterface $state, LoggerChannelFactoryInterface $loggerFactory, Settings $settings) {
     $this->state = $state;
-    $this->logger = $logger;
+    $this->logger = $loggerFactory->get('va_gov_links');
     $this->settings = $settings;
   }
 
@@ -81,42 +72,14 @@ class ContentReleaseBrokenLinksIngestion implements EventSubscriberInterface {
           ReleaseStateManager::STATE_COMPLETE,
           ReleaseStateManager::STATE_ERROR,
         ])) {
-          $report_location = $this->settings->get('broken_link_report_location');
-          // If the report location starts with http, use an http client to
-          // retrieve it. Otherwise, assume it is a local file and attempt to
-          // read it.
-          if (preg_match('/^http/', $report_location)) {
-            try {
-              $response = $this->httpClient->request('GET', $this->settings->get('broken_link_report_location'));
-              if ($response->getStatusCode() === 200) {
-                $this->state->set('content_release.broken_links', $response->getBody()->getContents());
-                $this->logger->get('va_gov_links')->info('The broken links report was successfully retrieved and committed to state.');
-              }
-              else {
-                $this->logger->get('va_gov_links')->error('Unable to retrieve broken links report; the request for ' . $report_location . ' returned a response code of ' . $response->getStatusCode());
-              }
-            }
-            catch (RequestException $e) {
-              $this->logger->get('va_gov_links')->error('HTTP client failed to retrieve ' . $report_location . '. Full error: ' . $e->getMessage());
-            }
+          $reportLocation = $this->settings->get('broken_link_report_location');
+          $reportContents = file_get_contents($reportLocation);
+          if ($reportContents !== FALSE) {
+            $this->state->set('content_release.broken_links', $reportContents);
+            $this->logger->info('The broken links report was successfully read and committed to state.');
           }
           else {
-            try {
-              $file_path = $report_location;
-              $file_stream = fopen($file_path, 'r');
-              $contents = fread($file_stream, filesize($file_path));
-              fclose($file_stream);
-              if ($contents) {
-                $this->state->set('content_release.broken_links', $contents);
-                $this->logger->get('va_gov_links')->info('The broken links report was successfully read and committed to state.');
-              }
-              else {
-                $this->logger->get('va_gov_links')->error('Unable to read ' . $report_location);
-              }
-            }
-            catch (\Exception $e) {
-              $this->logger->get('va_gov_links')->error('Unable to read ' . $report_location . '. Full error: ' . $e->getMessage());
-            }
+            $this->logger->error('Unable to read ' . $reportLocation);
           }
         }
       }

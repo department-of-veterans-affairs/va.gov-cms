@@ -1,0 +1,24 @@
+uuid: 7f93162a-4432-423b-b70f-5145628b8421
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.message.field_editor_username
+    - message.template.vet_center_outdated_content
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: message.vet_center_outdated_content.field_editor_username
+field_name: field_editor_username
+entity_type: message
+bundle: vet_center_outdated_content
+label: 'Editor Username'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

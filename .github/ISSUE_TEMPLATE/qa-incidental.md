@@ -6,7 +6,7 @@ labels: Quality Assurance
 assignees: ''
 
 ---
-  
+
 _Record any unplanned QA work (tests suddenly failing, investigating unexpected defects, triaging error logs, etc) below._
 
 ### Table
