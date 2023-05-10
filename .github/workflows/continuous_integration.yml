@@ -8,7 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
         uses: actions/checkout@v3
       - name: Check Corresponding Entity Reference Fields
         # See also `composer va:test:check-cer` in composer.json
@@ -26,7 +25,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
         uses: actions/checkout@v3
       - name: Composer Validate
         run: composer validate
@@ -37,14 +35,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
         uses: actions/checkout@v3
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
       - name: ReviewDog
-        # https://github.com/reviewdog/action-eslint/releases/tag/v1.17.0
         # See also `composer va:test:eslint` in composer.json
-        uses: reviewdog/action-eslint@d3395027ea2cfc5cf8f460b1ea939b6c86fea656
+        uses: reviewdog/action-eslint@v1
         with:
           reporter: github-pr-review
           eslint_flags: '--max-warnings 0 -c .eslintrc.json --no-eslintrc docroot/modules/custom/**/*.es6.js docroot/themes/custom/**/*.es6.js tests/cypress/**/*.js'
@@ -56,7 +52,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
         uses: actions/checkout@v3
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
@@ -81,7 +76,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
         uses: actions/checkout@v3
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
@@ -95,7 +89,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
         uses: actions/checkout@v3
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
@@ -122,7 +115,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
         uses: actions/checkout@v3
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
@@ -140,12 +132,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
         uses: actions/checkout@v3
       - name: Stylelint modules
-        # https://github.com/reviewdog/action-stylelint/releases/tag/v1.14.0
         # See also `composer va:test:stylelint-modules` in composer.json
-        uses: reviewdog/action-stylelint@a45bf7c5a91efc6f9443ae59b9cf7387b7868492
+        uses: reviewdog/action-stylelint@v1
         with:
           fail_on_error: true
           github_token: ${{ secrets.github_token }}
@@ -154,9 +144,8 @@ jobs:
           stylelint_config: '.stylelintrc'
           stylelint_input: 'docroot/modules/custom/**/*.css'
       - name: Stylelint themes
-        # https://github.com/reviewdog/action-stylelint/releases/tag/v1.14.0
         # See also `composer va:test:stylelint-themes` in composer.json
-        uses: reviewdog/action-stylelint@a45bf7c5a91efc6f9443ae59b9cf7387b7868492
+        uses: reviewdog/action-stylelint@v1
         with:
           fail_on_error: true
           github_token: ${{ secrets.github_token }}
@@ -179,15 +168,12 @@ jobs:
           - python
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
         uses: actions/checkout@v3
       - name: CodeQL Init
-        # https://github.com/github/codeql-action/releases/tag/codeql-bundle-20230317
         uses: github/codeql-action/init@v2
         with:
           languages: ${{ matrix.language }}
       - name: CodeQL Analyze
-        # https://github.com/github/codeql-action/releases/tag/codeql-bundle-20230317
         uses: github/codeql-action/analyze@v2
         with:
           category: "/language:${{matrix.language}}"
