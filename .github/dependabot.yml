@@ -77,3 +77,8 @@ updates:
     - "> 1.9.0"
     - "< 1.10"
   rebase-strategy: disabled
+- package-ecosystem: "github-actions"
+  directory: "/"
+  schedule:
+    # Check for updates to GitHub Actions every week
+    interval: "weekly"
