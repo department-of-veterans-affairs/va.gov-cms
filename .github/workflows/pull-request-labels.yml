@@ -18,7 +18,7 @@ jobs:
           token: "${{ secrets.GITHUB_TOKEN }}"
       - name: Autolabel
         # Temporary until we get this fixed upstream or pulled into this repo.
-        uses: timcosgrove/auto-labeling@937d558e37285af6ca5c5813a826cf6f0d66bf0f
+        uses: timcosgrove/auto-labeling@ed43ee47522f3a52cb912be7dea67e185e720a8e
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
           label-pattern: '- \[(.*?)\] ?`(.+?)`' # matches '- [x] `label`'
