@@ -1,68 +1,52 @@
 const path = require('path');
 const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
-const TerserPlugin = require("terser-webpack-plugin");
 
-/** @type { import('@storybook/html').StorybookConfig } */
-const config = {
+module.exports = {
+  core: {
+    builder: 'webpack5'
+  },
   features: {
-    storyStoreV7: true
+    storyStoreV7: true,
   },
   stories: [
-    '../components/**/*.stories.js',
-    '../stories/**/*.mdx'
+    "../components/**/*.stories.js",
+    "../components/**/*.stories.mdx",
+    "../stories/**/*.stories.mdx",
+    "../stories/**/*.stories.@(js|jsx|ts|tsx)"
   ],
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/preset-scss"
   ],
-  framework: {
-    name: '@storybook/html-webpack5',
-    options: {}
-  },
-  webpackFinal: async (config, {configType}) => {
+  framework: "@storybook/html",
+
+  webpackFinal: async config => {
     config.experiments = {
       ...(config.experiments ? config.experiments : {}),
-      topLevelAwait: true
+      topLevelAwait: true,
     };
 
     // make twing-loader compatible with webpack5
-    config.plugins.push(
-      new NodePolyfillPlugin({
-        includeAliases: ['Buffer', 'crypto']
-      })
-    );
+    config.plugins.push(new NodePolyfillPlugin({
+      // exclude everything except `Buffer` b/c that's all we need
+      excludeAliases: ['buffer', 'console', 'process', 'assert', 'constants', 'crypto', 'domain', 'events', 'http', 'https', 'os', 'path', 'punycode', 'querystring', 'stream', '_stream_duplex', '_stream_passthrough', '_stream_readable', '_stream_transform', '_stream_writable', 'string_decoder', 'sys', 'timers', 'tty', 'url', 'util', 'vm', 'zlib'],
+    }));
 
     // add twig support to storybook
     config.module.rules.push({
       test: /\.twig/,
-      use: [{
-        loader: 'twing-loader',
-        options: {
-          environmentModulePath: path.resolve(__dirname, 'twing-environment.js')
-        }
-      }],
-      include: path.resolve(__dirname, '..', 'components')
+      use: [
+        {
+          loader: 'twing-loader',
+          options: {
+            environmentModulePath: path.resolve(__dirname, 'twing-environment.js'),
+          },
+        },
+      ],
+      include: path.resolve(__dirname, '..', 'components'),
     });
-    config.optimization = {
-      ...config.optimization,
-      chunkIds: 'named',
-      usedExports: false,
-    }
 
-    config.resolve.fallback = {
-      ...config.resolve.fallback,
-      crypto: require.resolve('crypto-browserify'),
-      stream: require.resolve('stream-browserify')
-    };
-
-    return config
+    return config;
   },
-  docs: {
-    source: {
-      format: 'dedent',
-    },
-    autodocs: true
-  }
 };
-export default config;

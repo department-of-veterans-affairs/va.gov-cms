@@ -1,6 +1,5 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-
 const stylesHandler = MiniCssExtractPlugin.loader;
 
 const isProduction = process.env.NODE_ENV === "production";
@@ -8,7 +7,7 @@ const isProduction = process.env.NODE_ENV === "production";
 const config = {
   entry: "./components/index.js",
   output: {
-    filename: "ds-drupal.js",
+    filename: 'ds-drupal.js',
 
     // output to the theme for .libraries.yml consumption
     path: path.resolve(__dirname, "../themes/custom/vagovclaro/dist"),
@@ -23,9 +22,7 @@ const config = {
     rules: [
       {
         test: /\.(js|jsx)$/i,
-        exclude: ["/node_modules/core-js/", "/node_modules/webpack/buildin/"],
         loader: "babel-loader",
-        cacheDirectory: true,
       },
       {
         test: /\.(s[ac]ss|css)$/i,
@@ -36,10 +33,10 @@ const config = {
         use: [
           // Output twig files to theme as well for easy namespacing. See vagovclaro.info.yml.
           {
-            loader: "file-loader",
+            loader: 'file-loader',
             options: {
               emitFile: isProduction,
-              name: "[path][name].[ext]",
+              name: '[path][name].[ext]'
             },
           },
         ],
@@ -60,11 +57,9 @@ module.exports = () => {
     config.mode = "production";
 
     // Styles get extracted to this file.
-    config.plugins.push(
-      new MiniCssExtractPlugin({
-        filename: "ds-drupal.styles.css",
-      })
-    );
+    config.plugins.push(new MiniCssExtractPlugin({
+      filename: 'ds-drupal.styles.css'
+    }));
   } else {
     config.mode = "development";
   }
