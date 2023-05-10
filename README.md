@@ -87,7 +87,7 @@ The VA.gov CMS Team
 
 ### About the CMS
 
-This repository hosts the source code for the _Content Management System_ (**CMS** or **CMS-API**) utilized by [VA.gov](https://www.va.gov). 
+This repository hosts the source code for the _Content Management System_ (**CMS** or **CMS-API**) utilized by [VA.gov](https://www.va.gov).
 
 The production instance can be found at [prod.cms.va.gov](https://prod.cms.va.gov/). Please note that access to the production CMS is limited; refer to [Getting Access](READMES/access.md) for more information.
 
@@ -156,5 +156,3 @@ The **BRD** system builds Amazon server images using Ansible, and tags those ima
 The VFS team then deploys those images to the _staging_ and _production_ environments inside the VAEC when the release is ready.
 
 See [The BRD System: Build, Release, Deploy](READMES/brd.md) for more information.
-
-# I am all that enables you to create a PR.
