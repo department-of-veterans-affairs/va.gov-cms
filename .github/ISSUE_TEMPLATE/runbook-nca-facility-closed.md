@@ -1,8 +1,8 @@
 ---
-name: Runbook - VBA Facility name change
-about: Steps for updating names and URLs
-title: 'VBA Facility name change: <insert_name>'
-labels: Change request, Drupal engineering, Facilities, User support, VA.gov frontend, VBA
+name: Runbook - NCA Facility closed
+about: Steps for archiving a NCA facility in VA.gov CMS.
+title: 'NCA Facility closed: <insert_name>'
+labels: Change request, Drupal engineering, Facilities, User support, VA.gov frontend, NCA
 assignees: ''
 
 ---
@@ -17,7 +17,7 @@ Help desk ticket: <insert_help_desk_link>
 - [ ] Name of submitter (if applicable)
 Submitter: <insert_name>
 
-- [ ] If the submitter is an editor, send them links to any relevate KB articles for the VBA product. Let them know that facility changes can take between 75 days and 4 months after submitting a request, according to VAST administrators.
+- [ ] If the submitter is an editor, send them a link to the operating status KB article and have them change the status to Facility notice and provide a description of the facility closure so that Veterans are aware of the future closure.
 KB articles: <insert_kb_article_links>
 
 - [ ] Link to facility in production:
@@ -26,11 +26,11 @@ Facility API ID: <insert_facility_API_ID>
 
 ## Acceptance criteria
 
-## VBA Facility name change
+### NCA facility closure
 **Note: If the help desk is waiting on information from the facility staff or editor, add the "Awaiting editor" flag to the facility with a log message that includes a link to this ticket. Remove the flag when the ticket is ready to be worked by the Facilities team. Be sure to preserve the current moderation state of the node when adding or removing the flag.**
 [@TODO: DRAFT FOR HELP DESK AND DEV STEPS]
 
 ### Drupal Admin steps
-- [ ] Go to [Sections taxonomy]( https://prod.cms.va.gov/admin/structure/taxonomy/manage/administration/overview), VBA > Rename the term that matches the old Facility name to use the new Facility name
+- [ ] Move Node state to Archived
     * If this process gets automated, this runbook can be retired.
-- [ ] Edit the facility node, remove the `Changed name` flag, save the node with revision log
+- [ ] Edit the facility node, remove the `Removed from source` flag, save the node with revision log

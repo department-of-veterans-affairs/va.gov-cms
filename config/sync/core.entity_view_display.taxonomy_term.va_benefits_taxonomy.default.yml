@@ -29,6 +29,11 @@ targetEntityType: taxonomy_term
 bundle: va_benefits_taxonomy
 mode: default
 content:
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
+    region: content
   description:
     type: text_default
     label: above
@@ -137,11 +142,12 @@ content:
     weight: 9
     region: content
   field_va_benefit_plain_name:
-    type: basic_string
-    label: inline
-    settings: {  }
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
     third_party_settings: {  }
-    weight: 2
+    weight: 28
     region: content
   field_va_benefit_prerequisite:
     type: entity_reference_label
