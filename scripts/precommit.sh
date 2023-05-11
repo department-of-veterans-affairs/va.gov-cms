@@ -19,7 +19,7 @@ CHANGES=$( git diff --diff-filter=d --name-only HEAD )
 VALIDATE_OUTPUT="$(composer validate 2>&1)"
 VALIDATED=$?
 if [ "${VALIDATED}" -ne 0 ]; then
-  cat "${VALIDATE_OUTPUT}"
+  echo "${VALIDATE_OUTPUT}"
   bail_if_test_failed
 fi
 

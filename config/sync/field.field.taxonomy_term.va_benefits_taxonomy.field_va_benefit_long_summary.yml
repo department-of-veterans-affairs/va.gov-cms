@@ -1,0 +1,29 @@
+uuid: 439b5e9e-f35c-443a-996c-4897987efaa6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_va_benefit_long_summary
+    - taxonomy.vocabulary.va_benefits_taxonomy
+  module:
+    - allowed_formats
+    - text
+    - tmgmt_content
+third_party_settings:
+  allowed_formats:
+    allowed_formats:
+      - rich_text_limited
+  tmgmt_content:
+    excluded: false
+id: taxonomy_term.va_benefits_taxonomy.field_va_benefit_long_summary
+field_name: field_va_benefit_long_summary
+entity_type: taxonomy_term
+bundle: va_benefits_taxonomy
+label: 'Longer summary'
+description: 'The full overview of the benefit.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

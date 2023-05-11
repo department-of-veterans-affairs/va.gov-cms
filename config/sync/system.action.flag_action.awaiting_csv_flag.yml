@@ -1,0 +1,15 @@
+uuid: 3be821ac-8f7e-4928-affe-54cf8ecb6bd5
+langcode: en
+status: true
+dependencies:
+  config:
+    - flag.flag.awaiting_csv
+  module:
+    - flag
+id: flag_action.awaiting_csv_flag
+label: 'Awaiting redirect'
+type: node
+plugin: 'flag_action:awaiting_csv_flag'
+configuration:
+  flag_id: awaiting_csv
+  flag_action: flag

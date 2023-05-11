@@ -1,0 +1,29 @@
+uuid: ee977f07-0899-43b8-b38f-12262bcd1ad4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_va_benefit_app_preparation
+    - taxonomy.vocabulary.va_benefits_taxonomy
+  module:
+    - allowed_formats
+    - text
+    - tmgmt_content
+third_party_settings:
+  allowed_formats:
+    allowed_formats:
+      - rich_text_limited
+  tmgmt_content:
+    excluded: false
+id: taxonomy_term.va_benefits_taxonomy.field_va_benefit_app_preparation
+field_name: field_va_benefit_app_preparation
+entity_type: taxonomy_term
+bundle: va_benefits_taxonomy
+label: 'Preparing to apply'
+description: 'Describe what a user needs to do before they begin the application. List items needed to complete the application (SSN, military history, etc.). Required items should be called out.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

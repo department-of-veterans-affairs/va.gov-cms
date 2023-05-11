@@ -1,0 +1,36 @@
+uuid: a13f9d0a-6bca-42be-9ec5-11fe5ebf9fed
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: awaiting_csv
+label: 'Awaiting CSV'
+bundles:
+  - health_care_local_facility
+  - nca_facility
+  - vba_facility
+  - vet_center
+  - vet_center_mobile_vet_center
+  - vet_center_outstation
+entity_type: node
+global: true
+flag_short: 'Awaiting CSV'
+flag_long: ''
+flag_message: 'Awaiting URL CSV deploy'
+unflag_short: 'URL CSV has been deployed'
+unflag_long: 'This will remove the awaiting CSV flag'
+unflag_message: ''
+unflag_denied_text: ''
+weight: 0
+flag_type: 'entity:node'
+link_type: reload
+flagTypeConfig:
+  show_in_links:
+    diff: diff
+  show_as_field: true
+  show_on_form: true
+  show_contextual_link: false
+  extra_permissions:
+    owner: '0'
+linkTypeConfig: {  }

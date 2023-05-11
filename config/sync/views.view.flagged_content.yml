@@ -4,6 +4,9 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_administration
+    - flag.flag.awaiting_csv
+    - flag.flag.awaiting_editor
+    - flag.flag.awaiting_redirect
     - flag.flag.changed_filename
     - flag.flag.changed_name
     - flag.flag.changed_title
@@ -438,6 +441,168 @@ display:
           hide_alter_empty: true
           type: custom
           type_custom_true: 'Removed from source'
+          type_custom_false: ''
+          not: 0
+        flagged_4:
+          id: flagged_4
+          table: flagging
+          field: flagged
+          relationship: flag_relationship_4
+          group_type: group
+          admin_label: ''
+          entity_type: flagging
+          plugin_id: flag_flagged
+          label: Flagged
+          exclude: false
+          alter:
+            alter_text: true
+            text: '<span class="flag awaiting">{{ flagged_4 }}</span> '
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          type: custom
+          type_custom_true: '⏳ Awaiting editor'
+          type_custom_false: ''
+          not: 0
+        flagged_8:
+          id: flagged_8
+          table: flagging
+          field: flagged
+          relationship: flag_relationship_9
+          group_type: group
+          admin_label: ''
+          entity_type: flagging
+          plugin_id: flag_flagged
+          label: Flagged
+          exclude: false
+          alter:
+            alter_text: true
+            text: '<span class="flag awaiting">{{ flagged_8 }}</span> '
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          type: custom
+          type_custom_true: '⏳ Awaiting redirect'
+          type_custom_false: ''
+          not: 0
+        flagged_9:
+          id: flagged_9
+          table: flagging
+          field: flagged
+          relationship: flag_relationship_8
+          group_type: group
+          admin_label: ''
+          entity_type: flagging
+          plugin_id: flag_flagged
+          label: Flagged
+          exclude: false
+          alter:
+            alter_text: true
+            text: '<span class="flag awaiting">{{ flagged_9 }}</span> '
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          type: custom
+          type_custom_true: '⏳ Awaiting CSV'
           type_custom_false: ''
           not: 0
         flagged_5:
@@ -1193,6 +1358,70 @@ display:
           type_custom_true: ''
           type_custom_false: ''
           not: false
+        revision_log:
+          id: revision_log
+          table: node_revision
+          field: revision_log
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: revision_log
+          plugin_id: field
+          label: 'Revision log message'
+          exclude: false
+          alter:
+            alter_text: true
+            text: "<br>\r\n{{ revision_log }} "
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: basic_string
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
       pager:
         type: full
         options:
@@ -1741,6 +1970,123 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        flagged_4:
+          id: flagged_4
+          table: flagging
+          field: flagged
+          relationship: flag_relationship_4
+          group_type: group
+          admin_label: ''
+          entity_type: flagging
+          plugin_id: flag_filter
+          operator: '='
+          value: '1'
+          group: 2
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        flagged_8:
+          id: flagged_8
+          table: flagging
+          field: flagged
+          relationship: flag_relationship_9
+          group_type: group
+          admin_label: ''
+          entity_type: flagging
+          plugin_id: flag_filter
+          operator: '='
+          value: '1'
+          group: 2
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        flagged_9:
+          id: flagged_9
+          table: flagging
+          field: flagged
+          relationship: flag_relationship_8
+          group_type: group
+          admin_label: ''
+          entity_type: flagging
+          plugin_id: flag_filter
+          operator: '='
+          value: '1'
+          group: 2
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       filter_groups:
         operator: AND
         groups:
@@ -2014,6 +2360,42 @@ display:
           required: false
           flag: removed_from_source
           user_scope: any
+        flag_relationship_4:
+          id: flag_relationship_4
+          table: node_field_data
+          field: flag_relationship
+          relationship: none
+          group_type: group
+          admin_label: 'Flag Awaiting editor'
+          entity_type: node
+          plugin_id: flag_relationship
+          required: false
+          flag: awaiting_editor
+          user_scope: any
+        flag_relationship_9:
+          id: flag_relationship_9
+          table: node_field_data
+          field: flag_relationship
+          relationship: none
+          group_type: group
+          admin_label: 'Flag Awaiting redirect'
+          entity_type: node
+          plugin_id: flag_relationship
+          required: false
+          flag: awaiting_redirect
+          user_scope: any
+        flag_relationship_8:
+          id: flag_relationship_8
+          table: node_field_data
+          field: flag_relationship
+          relationship: none
+          group_type: group
+          admin_label: 'Flag Awaiting CSV'
+          entity_type: node
+          plugin_id: flag_relationship
+          required: false
+          flag: awaiting_csv
+          user_scope: any
         uid_2:
           id: uid_2
           table: node_field_data
@@ -2080,8 +2462,11 @@ display:
             flagged_2: nothing
             flagged_1: nothing
             flagged_3: nothing
+            flagged_4: nothing
             flagged_5: nothing
             flagged_6: nothing
+            flagged_8: nothing
+            flagged_9: nothing
             flagged_7: nothing
             nothing: nothing
             type: type
@@ -2093,6 +2478,7 @@ display:
             timestamp: timestamp
             break: break
             is_locked: is_locked
+            revision_log: changed
           default: changed
           info:
             title:
@@ -2144,6 +2530,13 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
+            flagged_4:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
             flagged_5:
               sortable: false
               default_sort_order: asc
@@ -2152,6 +2545,20 @@ display:
               empty_column: false
               responsive: ''
             flagged_6:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            flagged_8:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            flagged_9:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -2227,6 +2634,13 @@ display:
               empty_column: false
               responsive: ''
             is_locked:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            revision_log:
               sortable: false
               default_sort_order: asc
               align: ''

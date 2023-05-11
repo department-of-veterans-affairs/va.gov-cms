@@ -38,4 +38,5 @@ See [MetricsCommands.php](../docroot/modules/custom/va_gov_backend/src/Commands/
 See
 [OutdatedContent.php](..docroot/modules/custom/va_gov_notifications/src/Service/OutdatedContent.php
 ).
-- `drush php-eval "print_r(\Drupal::service('va_gov_notifications.outdated_content')->checkForOutdatedContent());"` -- Check for outdated content and queue notifications for any found.
+- `drush php-eval "print_r(\Drupal::service('va_gov_notifications.outdated_content')->checkForOutdatedVamcContent());"` -- Check for outdated VAMC content and queue notifications for any found.
+- `drush php-eval "print_r(\Drupal::service('va_gov_notifications.outdated_content')->checkForOutdatedVetCenterContent());"` -- Check for outdated Vet Center content and queue notifications for any found.

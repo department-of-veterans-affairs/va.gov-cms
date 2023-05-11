@@ -1,0 +1,46 @@
+uuid: 02400cd1-576c-43db-9c35-74b3e6c7a0ef
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_enforce_unique_value
+    - taxonomy.vocabulary.va_benefits_taxonomy
+  module:
+    - allow_only_one
+    - tmgmt_content
+third_party_settings:
+  allow_only_one:
+    field_eligibility_summary: 0
+    field_va_benefit_after_applying: 0
+    field_va_benefit_api_id: 0
+    field_va_benefit_app_form: 0
+    field_va_benefit_app_help: 0
+    field_va_benefit_app_preparation: 0
+    field_va_benefit_app_type: 0
+    field_va_benefit_beneficiaries: 0
+    field_va_benefit_brief_summary: 0
+    field_va_benefit_coconsidered: 0
+    field_va_benefit_legislation: 0
+    field_va_benefit_long_summary: 0
+    field_va_benefit_plain_name: 0
+    field_va_benefit_prerequisite: 0
+    field_va_benefit_teaser_summary: 0
+    title: 1
+    case_sensitive: '0'
+    limit_validation_to_published: 0
+  tmgmt_content:
+    excluded: false
+id: taxonomy_term.va_benefits_taxonomy.field_enforce_unique_value
+field_name: field_enforce_unique_value
+entity_type: taxonomy_term
+bundle: va_benefits_taxonomy
+label: 'Enforce Unique Benefit'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings: {  }
+field_type: allow_only_one

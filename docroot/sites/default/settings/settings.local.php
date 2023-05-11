@@ -27,6 +27,7 @@ $config['environment_indicator.indicator']['fg_color'] = '#ffffff';
 $config['environment_indicator.indicator']['name'] = 'ddev';
 
 $webhost_on_cli = 'https://va-gov-cms.ddev.site';
+$settings['webhost'] = $webhost_on_cli;
 
 // Link to this file locally since local can not access prod where the real
 // file exists.  You will need to copy the file from the same path on prod.
@@ -40,7 +41,7 @@ $settings['va_gov_app_root'] = getenv('DDEV_APPROOT');
 $settings['va_gov_web_root'] = getenv('DDEV_APPROOT') . '/web';
 
 $settings['memcache']['servers'] = [
-  'memcache:11211' => 'default',
+  'memcached:11211' => 'default',
 ];
 
 $settings['cms_datadog_api_key'] = getenv('CMS_DATADOG_API_KEY');

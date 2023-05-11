@@ -10,6 +10,7 @@ dependencies:
     - field.field.paragraph.q_a_group.field_section_header
     - paragraphs.paragraphs_type.q_a_group
   module:
+    - change_labels
     - entity_browser_table
     - limited_field_widgets
     - text
@@ -32,16 +33,19 @@ content:
     region: content
     settings:
       entity_browser: q_a_browser
-      field_widget_display: label
-      field_widget_edit: '1'
+      field_widget_display: linked_title
+      field_widget_display_settings:
+        target_blank: '1'
       field_widget_remove: '1'
       selection_mode: selection_append
+      field_widget_edit: 0
       field_widget_replace: 0
       open: 0
-      field_widget_display_settings: {  }
     third_party_settings:
       limited_field_widgets:
         limit_values: '0'
+      change_labels:
+        add_another: ''
   field_rich_wysiwyg:
     type: text_textarea
     weight: 1
@@ -63,6 +67,11 @@ content:
       js_prevent_submit: true
       count_html_characters: false
       textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
+    third_party_settings: {  }
+  translation:
+    weight: 10
+    region: content
+    settings: {  }
     third_party_settings: {  }
 hidden:
   created: true
