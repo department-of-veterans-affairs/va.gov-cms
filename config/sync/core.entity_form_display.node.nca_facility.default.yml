@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.nca_facility.field_last_saved_by_an_editor
     - field.field.node.nca_facility.field_link
     - field.field.node.nca_facility.field_mailing_address
+    - field.field.node.nca_facility.field_nca_classification
     - field.field.node.nca_facility.field_office_hours
     - field.field.node.nca_facility.field_operating_status_facility
     - field.field.node.nca_facility.field_operating_status_more_info
@@ -30,19 +31,6 @@ dependencies:
     - tzfield
 third_party_settings:
   field_group:
-    group_facility_api:
-      children: {  }
-      label: 'Facility API'
-      region: content
-      parent_name: ''
-      weight: 1
-      format_type: details
-      format_settings:
-        classes: ''
-        id: ''
-        open: true
-        description: ''
-        required_fields: false
     group_operating_status:
       children:
         - field_operating_status_facility
@@ -106,7 +94,7 @@ third_party_settings:
       children:
         - title
         - field_facility_locator_api_id
-        - field_facility_classification
+        - field_nca_classification
         - field_mailing_address
         - field_address
         - field_geolocation
@@ -187,6 +175,12 @@ content:
   field_mailing_address:
     type: address_default
     weight: 24
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_nca_classification:
+    type: options_select
+    weight: 23
     region: content
     settings: {  }
     third_party_settings: {  }
