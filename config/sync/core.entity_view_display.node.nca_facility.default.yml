@@ -19,11 +19,70 @@ dependencies:
     - node.type.nca_facility
   module:
     - address
+    - field_group
     - link
     - office_hours
     - options
     - telephone
     - user
+third_party_settings:
+  field_group:
+    group_operating_status:
+      children:
+        - field_operating_status_facility
+        - field_operating_status_more_info
+      label: 'Operating Status'
+      parent_name: ''
+      region: content
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        description: ''
+        description_display: after
+    group_locations_and_contact_info:
+      children:
+        - group_facility_data
+      label: 'Locations and contact information'
+      parent_name: ''
+      region: content
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: locations-and-contact-information
+        description: ''
+        description_display: after
+    group_facility_data:
+      children:
+        - field_facility_locator_api_id
+        - field_mailing_address
+        - field_address
+        - field_fax_number
+        - field_phone_number
+        - field_link
+        - field_office_hours
+        - field_timezone
+      label: 'Facility Data'
+      parent_name: group_locations_and_contact_info
+      region: content
+      weight: 23
+      format_type: tooltip
+      format_settings:
+        show_empty_fields: 0
+        id: external-content
+        classes: not-editable
+        element: div
+        show_label: '0'
+        label_element: h3
+        attributes: ''
+        description: ''
+        tooltip_description: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
+        open: false
+        required_fields: false
 id: node.nca_facility.default
 targetEntityType: node
 bundle: nca_facility
@@ -34,15 +93,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 15
-    region: content
-  field_administration:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 4
+    weight: 5
     region: content
   field_facility_locator_api_id:
     type: string
@@ -50,7 +101,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 1
+    weight: 3
     region: content
   field_fax_number:
     type: telephone_link
@@ -58,7 +109,7 @@ content:
     settings:
       title: ''
     third_party_settings: {  }
-    weight: 16
+    weight: 6
     region: content
   field_link:
     type: link
@@ -70,14 +121,14 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 13
+    weight: 8
     region: content
   field_mailing_address:
     type: address_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 14
+    weight: 4
     region: content
   field_office_hours:
     type: office_hours
@@ -108,21 +159,21 @@ content:
       schema:
         enabled: false
     third_party_settings: {  }
-    weight: 18
+    weight: 9
     region: content
   field_operating_status_facility:
     type: list_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: content
   field_operating_status_more_info:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 4
     region: content
   field_phone_number:
     type: telephone_link
@@ -130,42 +181,27 @@ content:
     settings:
       title: ''
     third_party_settings: {  }
-    weight: 17
+    weight: 7
     region: content
   field_timezone:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 11
-    region: content
-  flag_awaiting_csv:
-    settings: {  }
-    third_party_settings: {  }
     weight: 10
-    region: content
-  flag_awaiting_editor:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 10
-    region: content
-  flag_awaiting_redirect:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 10
-    region: content
-  links:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
     region: content
 hidden:
   content_moderation_control: true
+  field_administration: true
   field_geolocation: true
   field_last_saved_by_an_editor: true
+  flag_awaiting_csv: true
+  flag_awaiting_editor: true
+  flag_awaiting_redirect: true
   flag_changed_name: true
   flag_changed_title: true
   flag_new: true
   flag_removed_from_source: true
   langcode: true
+  links: true
   search_api_excerpt: true
