@@ -80,7 +80,7 @@ $settings['cms_datadog_api_key'] = getenv('CMS_DATADOG_API_KEY');
 // However, we want to _preserve_ the PIV login interface on Tugboat PR
 // environments so that we can test the login page and the logic behind it
 // as it would run on staging and production.
-$tugboat_preview_type = getenv('TUGBOAT_PREVIEW_TYPE') ?? '';
+$tugboat_preview_type = getenv('TUGBOAT_PREVIEW_TYPE');
 $is_pull_request = $tugboat_preview_type === 'pullrequest';
 if (!$is_pull_request) {
   // Disable SSO variation of the user login form.
