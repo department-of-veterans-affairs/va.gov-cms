@@ -56,7 +56,6 @@ tasks:
         cat <<EOF | bash
           exit_code=0
           tasks=(
-            "va/background/periodic/migrate/facility_status"
             "va/background/periodic/check_content_release_stale"
             "va/background/periodic/check_scheduled_content_release"
             "va/background/periodic/cron"
@@ -146,12 +145,6 @@ tasks:
     desc: These flagging process is to run once nightly.
     cmds:
       - drush $DRUSH_ALIAS va_gov_migrate:flag-missing-facilities
-
-  va/background/periodic/migrate/facility_status:
-    desc: Run migrate facility status to run every 15 min as called by Jenkins.
-    cmds:
-      - drush $DRUSH_ALIAS migrate:reset-status va_node_health_care_local_facility_status
-      - drush $DRUSH_ALIAS migrate:import va_node_health_care_local_facility_status
 
   va/background/periodic/cron:
     desc: Run cron every 15 min as called by Jenkins.

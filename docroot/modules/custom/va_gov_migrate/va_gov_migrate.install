@@ -175,3 +175,29 @@ function va_gov_migrate_update_8009(&$sandbox) {
 
   return _va_gov_migrate_move_data_file('vet-center-facility-status.csv');
 }
+
+/**
+ * Remove migrate map tables that are no longer needed for status migrations.
+ */
+function va_gov_migrate_update_8010() {
+  $database = \Drupal::database();
+  $table_names = [
+    'migrate_map_va_node_health_care_local_facility_status',
+    'migrate_message_va_node_health_care_local_facility_status',
+    'migrate_map_va_node_facility_vet_centers_status',
+    'migrate_message_va_node_facility_vet_centers_status',
+  ];
+
+  $messages = '';
+  foreach ($table_names as $table_name) {
+    $dropped = $database->schema()->dropTable($table_name);
+    if ($dropped) {
+      $messages .= " Dropped table {$table_name}.\n";
+    }
+    else {
+      $messages .= "Did not drop {$table_name} because it did not exist.\n";
+    }
+  }
+
+  return $messages;
+}
