@@ -17,7 +17,7 @@ on:
 
 jobs:
 
-  # Cypress tests, hopefully with parallelization. 
+  # Cypress tests, hopefully with parallelization.
   cypress:
     runs-on: self-hosted
     strategy:
@@ -30,16 +30,14 @@ jobs:
     steps:
 
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@v3
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
         with:
           # When Sorry-Cypress support is enabled on `main`, this should be
           # removed so that the `main` version of the workflow is used
           ref: ${{ inputs.commit_sha }}
 
       - name: Setup the Node environment
-        # https://github.com/actions/setup-node/releases/tag/v3.6.0
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0
         with:
           node-version: '18.13'
 
@@ -49,18 +47,16 @@ jobs:
           NODE_TLS_REJECT_UNAUTHORIZED: 0
 
       - name: Cypress run
-        # https://github.com/cypress-io/github-action/releases/tag/v5.1.0
-        uses: cypress-io/github-action@cdbbcd60fb5d967d7a37d8eb148add76a7ded7b6
+        uses: cypress-io/github-action@6e17f678e755fadb8522f4ee0b58c63b95768031 # v5.7.2
         with:
           wait-on: "${{ inputs.preview_url }}"
           command: 'npm run test:cypress:parallel'
         env:
           CYPRESS_BASE_URL: "${{ inputs.preview_url }}"
           CY_BUILD_ID: "${{ github.repository }}-${{ github.run_id }}-${{ github.run_attempt}}"
-          
+
       - name: Update status on commit.
-        # https://github.com/actions/github-script/releases/tag/v6.4.0
-        uses: actions/github-script@98814c53be79b1d30f795b907e553d8679345975
+        uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962f410 # v6.4.1
         with:
           script: |
             await octokit.rest.repos.createCommitStatus({
