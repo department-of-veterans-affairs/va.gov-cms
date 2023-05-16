@@ -1,0 +1,24 @@
+uuid: 52769b69-c343-4a06-8d15-dd0f4586e11c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_magichead_heading
+    - paragraphs.paragraphs_type.magichead
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: paragraph.magichead.field_magichead_heading
+field_name: field_magichead_heading
+entity_type: paragraph
+bundle: magichead
+label: 'Paragraph heading'
+description: 'Enter the heading for this paragraph.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

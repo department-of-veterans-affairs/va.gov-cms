@@ -1,0 +1,29 @@
+uuid: fd2a32b2-7832-4c83-a744-b913f874e7cc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_magichead_body
+    - paragraphs.paragraphs_type.magichead
+  module:
+    - allowed_formats
+    - text
+    - tmgmt_content
+third_party_settings:
+  allowed_formats:
+    allowed_formats:
+      - rich_text_limited
+  tmgmt_content:
+    excluded: false
+id: paragraph.magichead.field_magichead_body
+field_name: field_magichead_body
+entity_type: paragraph
+bundle: magichead
+label: 'Paragraph body'
+description: 'Enter the text for this heading or add a child heading.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

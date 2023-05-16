@@ -1,23 +1,22 @@
-uuid: 693886f1-b3ea-4e95-83e8-9386429adae9
+uuid: c149af0c-0089-42c5-a669-870afad09a9b
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.taxonomy_term.field_va_benefit_eligibility
-    - paragraphs.paragraphs_type.magichead_group
-    - taxonomy.vocabulary.va_benefits_taxonomy
+    - field.storage.paragraph.field_magichead_child
+    - paragraphs.paragraphs_type.magichead
   module:
     - entity_reference_revisions
     - tmgmt_content
 third_party_settings:
   tmgmt_content:
     excluded: false
-id: taxonomy_term.va_benefits_taxonomy.field_va_benefit_eligibility
-field_name: field_va_benefit_eligibility
-entity_type: taxonomy_term
-bundle: va_benefits_taxonomy
-label: 'Eligibility summary'
-description: 'Add a new paragraph with heading for each top-level heading and it''s content.'
+id: paragraph.magichead.field_magichead_child
+field_name: field_magichead_child
+entity_type: paragraph
+bundle: magichead
+label: 'Child paragraph with heading'
+description: ''
 required: false
 translatable: false
 default_value: {  }
@@ -26,7 +25,7 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     target_bundles:
-      magichead_group: magichead_group
+      magichead: magichead
     negate: 0
     target_bundles_drag_drop:
       address:
@@ -100,10 +99,10 @@ settings:
         enabled: false
       magichead:
         weight: 70
-        enabled: false
+        enabled: true
       magichead_group:
         weight: 71
-        enabled: true
+        enabled: false
       media:
         weight: 72
         enabled: false

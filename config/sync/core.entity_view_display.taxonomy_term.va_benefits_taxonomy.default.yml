@@ -22,6 +22,7 @@ dependencies:
     - taxonomy.vocabulary.va_benefits_taxonomy
   module:
     - allow_only_one
+    - entity_reference_revisions
     - link
     - text
 id: taxonomy_term.va_benefits_taxonomy.default
@@ -116,11 +117,13 @@ content:
     weight: 22
     region: content
   field_va_benefit_eligibility:
-    type: text_default
+    type: entity_reference_revisions_entity_view
     label: above
-    settings: {  }
+    settings:
+      view_mode: default
+      link: ''
     third_party_settings: {  }
-    weight: 27
+    weight: 29
     region: content
   field_va_benefit_legislation:
     type: link
