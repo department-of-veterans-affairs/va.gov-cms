@@ -224,7 +224,7 @@ Tugboat is a development server platform where you can preview CMS code changes 
    - #cms-design
    - #inclusive-design
    - #research-ops
-   - #vagov-accessibility
+   - #accessibility-help
 - [ ] Fonts to download
    - Lucida Grande [download from fontsgeek.com](https://fontsgeek.com/fonts/Lucida-Grande-Regular)
    - Source Sans Pro [download from Google Fonts](https://fonts.google.com/specimen/Source+Sans+Pro)
