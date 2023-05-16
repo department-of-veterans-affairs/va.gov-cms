@@ -112,7 +112,7 @@ Your Delivery Manager should have already requested this for you, but if not, vi
   - [ ] Your Delivery Manager should add you to appropriate Slack user groups for the DSVA workspace (e.g. `@sitewide-cms-team`, `@platform-cms-team`, `@cms-helpdesk`, `@public-websites-team`, `@facilities-team`. Also `@cms-engineers-group` for eng.)
 
 You should be in the following slack channels:
- - [ ] A6/agency workspace = `#proj-vagov-team`
+ - [ ] A6/agency workspace = `#proj-sitewide-vfs-cms-team`
  - [ ] DSVA workspace = `#sitewide-program`, and your team channel e.g. `#cms-team`, `#cms-platform`, `#sitewide-public-websites`, `#sitewide-facilities`
  - [ ] [This is a description of other channels](https://docs.google.com/spreadsheets/d/1_lZzectbSzs8zt4dvTFJTiPURxa0Kfp3xinYEuZdqq4/edit#gid=0) that ought to be on your radar. Note that many are going to be dependent on which workstream you're in (DevOps, Helpdesk, UX, etc.). Feel free to join whichever you think will aid you and your work. 
 
@@ -246,7 +246,7 @@ By this point you should have enough context and access to be able to start cont
 - [ ] Who should we know on the platform teams? Discuss with your Delivery Manager or Product Manager.
 - [ ] Background [history of the ecosystem](https://app.mural.co/t/vagov6717/m/vagov6717/1646745279937/9a5570c420939d84e875e8334fd73073e3a3971b?sender=clarencemaeng1702)
 ### What?
-- [ ] Complete any VA-assigned trainings in the TMS system. If the TMS learning modules malfunction, assign yourself the print version of the module. (Ask in #proj-vagov-team if you need help.)
+- [ ] Complete any VA-assigned trainings in the TMS system. If the TMS learning modules malfunction, assign yourself the print version of the module. (Ask in #proj-sitewide-vfs-cms-team if you need help.)
 - [ ] You'll receive an email confirming that you have been approved for remote access, using Citrix Access Gateway (CAG). You can contact Enterprise Service desk via provided instructions to set up your CAG access manually, if you need access prior to receiving your PIV card.
 - [ ] After your background check is complete, you will get an email to get your Personal Identify Verification (PIV) card. Contact your local VA office (where you got your fingerprints taken) for information about getting your [PIV card](https://www.oit.va.gov/programs/piv/how-to.cfm?). 
   - [ ] Review a [video about the benefits of the PIV card and VA network access](https://youtu.be/6rI-i8zmOzE).
