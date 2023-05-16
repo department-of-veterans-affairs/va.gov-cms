@@ -1,0 +1,43 @@
+uuid: 3a7ae425-0e83-46f3-9aaa-f19167c27ca8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.magichead.field_magichead_body
+    - field.field.paragraph.magichead.field_magichead_child
+    - field.field.paragraph.magichead.field_magichead_heading
+    - paragraphs.paragraphs_type.magichead
+  module:
+    - entity_reference_revisions
+    - text
+id: paragraph.magichead.default
+targetEntityType: paragraph
+bundle: magichead
+mode: default
+content:
+  field_magichead_body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_magichead_child:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_magichead_heading:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true
