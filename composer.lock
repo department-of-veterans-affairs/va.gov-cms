@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "859247e64eefad0fc20d024d317bde01",
+    "content-hash": "974536ab3edd91eb6a66256dc32a5295",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -4883,16 +4883,12 @@
                     "homepage": "https://www.drupal.org/user/253909"
                 },
                 {
-                    "name": "indytechcook",
-                    "homepage": "https://www.drupal.org/user/245817"
+                    "name": "edmund.dunn",
+                    "homepage": "https://www.drupal.org/user/3534438"
                 },
                 {
                     "name": "natedouglas",
                     "homepage": "https://www.drupal.org/user/3518344"
-                },
-                {
-                    "name": "oksana-c",
-                    "homepage": "https://www.drupal.org/user/2916547"
                 }
             ],
             "description": "Creates DANSE events for Content Moderation transitions",
@@ -5692,6 +5688,10 @@
                     "homepage": "https://www.drupal.org/user/58704"
                 },
                 {
+                    "name": "joevagyok",
+                    "homepage": "https://www.drupal.org/user/2876343"
+                },
+                {
                     "name": "NickDickinsonWilde",
                     "homepage": "https://www.drupal.org/user/3094661"
                 },
@@ -5738,8 +5738,8 @@
                     "version": "1.0.1",
                     "datestamp": "1617756156",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Project has not opted into security advisory coverage!"
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
@@ -6037,8 +6037,8 @@
                     "dev-2.x": "2.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-2.0-beta11+2-dev",
-                    "datestamp": "1678972577",
+                    "version": "8.x-2.0-beta11+3-dev",
+                    "datestamp": "1684263429",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -7028,14 +7028,6 @@
                     "name": "Pablo López",
                     "homepage": "https://www.drupal.org/u/plopesc",
                     "role": "Drupal 7 Maintainer"
-                },
-                {
-                    "name": "phayes",
-                    "homepage": "https://www.drupal.org/user/47098"
-                },
-                {
-                    "name": "plopesc",
-                    "homepage": "https://www.drupal.org/user/282415"
                 }
             ],
             "description": "Stores geographic and location data (points, lines, and polygons).",
@@ -7845,12 +7837,12 @@
                     "homepage": "https://www.drupal.org/user/972218"
                 },
                 {
-                    "name": "kaythay",
-                    "homepage": "https://www.drupal.org/user/2182186"
-                },
-                {
                     "name": "oknate",
                     "homepage": "https://www.drupal.org/user/471638"
+                },
+                {
+                    "name": "podarok",
+                    "homepage": "https://www.drupal.org/user/116002"
                 },
                 {
                     "name": "ram4nd",
@@ -13065,6 +13057,54 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/twig_tweak",
                 "issues": "https://www.drupal.org/project/issues/twig_tweak"
+            }
+        },
+        {
+            "name": "drupal/tzfield",
+            "version": "1.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/tzfield.git",
+                "reference": "8.x-1.7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/tzfield-8.x-1.7.zip",
+                "reference": "8.x-1.7",
+                "shasum": "12f6a0ee4a73755ce4735d0301a8af2179f1dba5"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9 || ^10"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.7",
+                    "datestamp": "1673516096",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "k_zoltan",
+                    "homepage": "https://www.drupal.org/user/834136"
+                },
+                {
+                    "name": "mfb",
+                    "homepage": "https://www.drupal.org/user/12302"
+                }
+            ],
+            "description": "Defines a time zone field type.",
+            "homepage": "https://www.drupal.org/project/tzfield",
+            "support": {
+                "source": "https://git.drupalcode.org/project/tzfield"
             }
         },
         {
@@ -18563,6 +18603,7 @@
                 "issues": "https://github.com/php-http/message-factory/issues",
                 "source": "https://github.com/php-http/message-factory/tree/1.1.0"
             },
+            "abandoned": "psr/http-factory",
             "time": "2023-04-14T14:16:17+00:00"
         },
         {

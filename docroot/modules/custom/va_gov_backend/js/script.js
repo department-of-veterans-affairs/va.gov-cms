@@ -40,7 +40,7 @@
         });
 
         var adminRoles = ["content_admin", "administrator"];
-        var targetTypes = ["health_care_local_facility", "vba_facility"];
+        var targetTypes = ["health_care_local_facility", "vba_facility", "nca_facility"];
 
         if (drupalSettings.gtm_data.contentType && targetTypes.some(function (item) {
           return drupalSettings.gtm_data.contentType.includes(item);
