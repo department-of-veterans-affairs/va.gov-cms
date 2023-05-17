@@ -76,7 +76,7 @@ class PostFacilityStatus extends PostFacilityBase {
     if ($entity instanceof NodeInterface && $this->isFacilityWithStatus($entity)) {
       /** @var \Drupal\node\NodeInterface $entity*/
       $this->facilityNode = $entity;
-      $facility_id = $this->facilityNode->field_facility_locator_api_id->value;
+      $facility_id = $entity->hasField('field_facility_locator_api_id') ? $entity->get('field_facility_locator_api_id')->value : NULL;
       $data['nid'] = $entity->id();
       // Queue item's Unique ID.
       $data['uid'] = $facility_id ? "facility_status_{$facility_id}" : NULL;
@@ -213,7 +213,8 @@ class PostFacilityStatus extends PostFacilityBase {
     }
     else {
       // The page is not published, so send the Facility Locator Detail Page.
-      $facility_id = $this->facilityNode->field_facility_locator_api_id->value;
+      $facility_id = $this->facilityNode->hasField('field_facility_locator_api_id') ? $this->facilityNode->get('field_facility_locator_api_id')->value : NULL;
+
       if ($facility_id) {
         $facility_url = "https://www.va.gov/find-locations/facility/{$facility_id}";
       }
@@ -306,7 +307,7 @@ class PostFacilityStatus extends PostFacilityBase {
         $payload['system']['covid_url'] = 'https://www.va.gov/lovell-federal-health-care-va/programs/covid-19-vaccines-and-testing/';
       }
       // Facility url overrides.
-      $facility_id = $this->facilityNode->field_facility_locator_api_id->value;
+      $facility_id = $this->facilityNode->hasField('field_facility_locator_api_id') ? $this->facilityNode->get('field_facility_locator_api_id')->value : NULL;
 
       // Manila VA Clinic - vha_358.  Manila is a one facility system.
       if ($facility_id === 'vha_358') {
