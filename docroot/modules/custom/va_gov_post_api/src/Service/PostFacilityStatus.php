@@ -301,25 +301,14 @@ class PostFacilityStatus extends PostFacilityBase {
       $systemId = $this->facilityNode->get('field_region_page')->target_id;
       // System url overrides for Lovell VA.
       if (($systemId === LovellOps::LOVELL_FEDERAL_SYSTEM_ID) || ($systemId === LovellOps::VA_SYSTEM_ID)) {
-        $payload['core']['facility_url'] = 'https://www.lovell.fhcc.va.gov';
-        $payload['system']['url'] = 'https://www.lovell.fhcc.va.gov';
-        $payload['system']['covid_url'] = 'https://www.lovell.fhcc.va.gov/services/covid-19-vaccines.asp';
+        $payload['core']['facility_url'] = 'https://www.va.gov/lovell-federal-health-care-va/';
+        $payload['system']['url'] = 'https://www.va.gov/lovell-federal-health-care-va/';
+        $payload['system']['covid_url'] = 'https://www.va.gov/lovell-federal-health-care-va/programs/covid-19-vaccines-and-testing/';
       }
       // Facility url overrides.
       $facility_id = $this->facilityNode->field_facility_locator_api_id->value;
-      // Evanston VA clinic - vha_556GA.
-      if ($facility_id === 'vha_556GA') {
-        $payload['core']['facility_url'] = 'https://www.lovell.fhcc.va.gov/locations/Evanston_Community_Based_Outpatient_Clinic.asp';
-      }
-      // Kenosha VA Clinic - vha_556GD.
-      if ($facility_id === 'vha_556GD') {
-        $payload['core']['facility_url'] = 'https://www.lovell.fhcc.va.gov/locations/Kenosha_Community_Based_Outpatient_Clinic.asp';
-      }
-      // McHenry VA Clinic - vha_556GC.
-      if ($facility_id === 'vha_556GC') {
-        $payload['core']['facility_url'] = 'https://www.lovell.fhcc.va.gov/locations/McHenry_Community_Based_Outpatient_Clinic.asp';
-      }
-      // Manila VA Clinic - vha_358.
+
+      // Manila VA Clinic - vha_358.  Manila is a one facility system.
       if ($facility_id === 'vha_358') {
         $payload['core']['facility_url'] = 'https://www.visn21.va.gov/locations/manila.asp';
       }
