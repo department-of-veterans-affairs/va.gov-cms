@@ -5,7 +5,7 @@ Feature: CMS Users may not unintentionally change information in fields populate
   I need to have certain fields locked down
 
 Scenario: Log in and edit a VAMC facility
-  When I am logged in as a user with the roles "vamc_content_creator, content_creator_vet_center, content_publisher, content_editor"
+  When I am logged in as a user with the roles "content_admin, vamc_content_creator, content_creator_vet_center, content_publisher, content_editor"
   And my workbench access sections are set to "2,12,396,856,921,1104"
   # 2 = NCA (Louisiana National Cemetery)
   # 12 = VA Pittsburgh health care (H. John Heinz III Department of Veterans Affairs Medical Center)
