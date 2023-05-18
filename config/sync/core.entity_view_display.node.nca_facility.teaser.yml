@@ -4,12 +4,20 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.nca_facility.field_address
     - field.field.node.nca_facility.field_administration
     - field.field.node.nca_facility.field_facility_locator_api_id
+    - field.field.node.nca_facility.field_fax_number
     - field.field.node.nca_facility.field_geolocation
     - field.field.node.nca_facility.field_last_saved_by_an_editor
+    - field.field.node.nca_facility.field_link
+    - field.field.node.nca_facility.field_mailing_address
+    - field.field.node.nca_facility.field_nca_classification
+    - field.field.node.nca_facility.field_office_hours
     - field.field.node.nca_facility.field_operating_status_facility
     - field.field.node.nca_facility.field_operating_status_more_info
+    - field.field.node.nca_facility.field_phone_number
+    - field.field.node.nca_facility.field_timezone
     - node.type.nca_facility
   module:
     - user
@@ -23,18 +31,41 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
+  flag_awaiting_csv:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  flag_awaiting_editor:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  flag_awaiting_redirect:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
   links:
     settings: {  }
     third_party_settings: {  }
     weight: 1
     region: content
 hidden:
+  field_address: true
   field_administration: true
   field_facility_locator_api_id: true
+  field_fax_number: true
   field_geolocation: true
   field_last_saved_by_an_editor: true
+  field_link: true
+  field_mailing_address: true
+  field_nca_classification: true
+  field_office_hours: true
   field_operating_status_facility: true
   field_operating_status_more_info: true
+  field_phone_number: true
+  field_timezone: true
   flag_changed_name: true
   flag_changed_title: true
   flag_new: true

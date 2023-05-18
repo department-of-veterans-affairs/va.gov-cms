@@ -4,6 +4,7 @@ namespace Drupal\va_gov_post_api\Service;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\node\NodeInterface;
+use Drupal\va_gov_lovell\LovellOps;
 
 /**
  * Class PostFacilityService posts facility status info to Lighthouse.
@@ -179,6 +180,9 @@ class PostFacilityStatus extends PostFacilityBase {
 
     if ($this->shouldPush($forcePush)) {
       $payload = [
+        'core' => [
+          'facility_url' => $this->getFacilityUrl(),
+        ],
         'operating_status' => [
           'code' => strtoupper($this->statusToPush),
           'additional_info' => (strtoupper($this->statusToPush) != 'NORMAL') ? $this->additionalInfoToPush : NULL,
@@ -187,9 +191,35 @@ class PostFacilityStatus extends PostFacilityBase {
 
       $this->addSupplementalStatus($payload);
       $this->getRelatedSystemInfo($payload);
+      $this->getSystemOverrides($payload);
     }
 
     return $payload;
+  }
+
+  /**
+   * Builds the appropriate url for a facility.
+   *
+   * @return string|null
+   *   A facility locator detail page if the node is not published.
+   *   A html page URL if the node is published.
+   *   Null if something completely went wrong.
+   */
+  protected function getFacilityUrl(): string | null {
+    $facility_url = NULL;
+    if ($this->facilityNode->isPublished()) {
+      // The node is published, so use the FE URL of the page.
+      $facility_url = "https://www.va.gov{$this->facilityNode->toUrl()->toString()}";
+    }
+    else {
+      // The page is not published, so send the Facility Locator Detail Page.
+      $facility_id = $this->facilityNode->hasField('field_facility_locator_api_id') ? $this->facilityNode->get('field_facility_locator_api_id')->value : NULL;
+
+      if ($facility_id) {
+        $facility_url = "https://www.va.gov/find-locations/facility/{$facility_id}";
+      }
+    }
+    return $facility_url;
   }
 
   /**
@@ -253,9 +283,35 @@ class PostFacilityStatus extends PostFacilityBase {
         $payload['system'] = [
           'name' => $systemNode->get('title')->value,
           'url' => 'https://www.va.gov' . $systemUrl,
-          'covid_url' => 'https://www.va.gov' . $systemUrl . '/programs/covid-19-vaccines',
+          'covid_url' => "https://www.va.gov{$systemUrl}/programs/covid-19-vaccines",
           'va_health_connect_phone' => $systemNode->get('field_va_health_connect_phone')->value,
         ];
+      }
+    }
+  }
+
+  /**
+   * Update payload array with overrides for specific systems.
+   *
+   * @param array $payload
+   *   Payload array.
+   */
+  protected function getSystemOverrides(array &$payload) {
+    // If this facility references a system, include system information.
+    if ($this->facilityNode->hasField('field_region_page')) {
+      $systemId = $this->facilityNode->get('field_region_page')->target_id;
+      // System url overrides for Lovell VA.
+      if (($systemId === LovellOps::LOVELL_FEDERAL_SYSTEM_ID) || ($systemId === LovellOps::VA_SYSTEM_ID)) {
+        $payload['core']['facility_url'] = 'https://www.va.gov/lovell-federal-health-care-va/';
+        $payload['system']['url'] = 'https://www.va.gov/lovell-federal-health-care-va/';
+        $payload['system']['covid_url'] = 'https://www.va.gov/lovell-federal-health-care-va/programs/covid-19-vaccines-and-testing/';
+      }
+      // Facility url overrides.
+      $facility_id = $this->facilityNode->hasField('field_facility_locator_api_id') ? $this->facilityNode->get('field_facility_locator_api_id')->value : NULL;
+
+      // Manila VA Clinic - vha_358.  Manila is a one facility system.
+      if ($facility_id === 'vha_358') {
+        $payload['core']['facility_url'] = 'https://www.visn21.va.gov/locations/manila.asp';
       }
     }
   }
