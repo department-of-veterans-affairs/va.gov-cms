@@ -324,18 +324,80 @@ class PostFacilityService extends PostFacilityBase {
    *   a sting made up of start and end times with comment, or just comment.
    */
   protected function getDay($day_num, array $days): string {
-    $start = OfficeHoursDateHelper::format($days[$day_num]['starthours'], 'h:i a');
-    $end = OfficeHoursDateHelper::format($days[$day_num]['endhours'], 'h:i a');
-    $comment = $days[$day_num]['comment'];
-    if (!empty($start) && !empty($comment)) {
-      return "{$start} - {$end} {$comment}";
+    $start = OfficeHoursDateHelper::format($days[$day_num]['starthours'], 'h:i a') ?? '';
+    $end = OfficeHoursDateHelper::format($days[$day_num]['endhours'], 'h:i a') ?? '';
+    // Make sure there is no end if there is no start. Data error.
+    $end = empty($start) ? '' : $end;
+    $start = $this->normalizeTime($start);
+    $end = $this->normalizeTime($end);
+    $comment = $days[$day_num]['comment'] ?? '';
+    $comment = $this->normalizeComment($comment);
+    if (!empty($start) && !empty($end) && !empty($comment)) {
+      $day_entry = "{$start} to {$end} {$comment}";
     }
-    elseif (empty($comment)) {
-      return "{$start} - {$end}";
+    elseif (!empty($start) && empty($end) && !empty($comment)) {
+      $day_entry = "{$start} to {$comment}";
+    }
+    elseif (!empty($start) && !empty($end) && empty($comment)) {
+      $day_entry = "{$start} to {$end}";
     }
     else {
-      return $comment;
+      $day_entry = $comment;
     }
+
+    return trim($day_entry);
+  }
+
+  /**
+   * Perform processes on a comment to make it normal.
+   *
+   * @param string $comment
+   *   A comment to normalize.
+   *
+   * @return string
+   *   A normalized comment.
+   */
+  protected function normalizeComment(string $comment): string {
+    $comment = trim($comment);
+    // There will be more processes coming here.
+    return $comment;
+  }
+
+  /**
+   * Perform alterations to a time string to make normal.
+   *
+   * @param string $time
+   *   A formatted time string.
+   *
+   * @return string
+   *   The normalized string.
+   */
+  protected function normalizeTime(string $time): string {
+    $time = trim($time);
+    // Make am pm follow design.va.gov.
+    $time = str_replace(['am', 'pm'], ['a.m.', 'p.m.'], $time);
+    $time = $this->midnightNoonify($time);
+    return $time;
+  }
+
+  /**
+   * Convert noon or midnight to those terms.
+   *
+   * @param string $time
+   *   A time including am or pm.
+   *
+   * @return string
+   *   The time passed in or 'noon' or 'midnight'.
+   */
+  protected function midnightNoonify(string $time): string {
+    $time = trim($time);
+    if ($time === '12:00 am' || $time === '12:00 a.m.') {
+      $time = 'noon';
+    }
+    elseif ($time === '12:00 pm' || $time === '12:00 p.m.') {
+      $time = 'midnight';
+    }
+    return $time;
   }
 
   /**
@@ -408,7 +470,7 @@ class PostFacilityService extends PostFacilityBase {
         }
         else {
           // Provide no hours.
-          $service_location->service_hours = [];
+          $service_location->service_hours = NULL;
         }
 
         $service_location->additional_hours_info = $location->get('field_additional_hours_info')->value;
