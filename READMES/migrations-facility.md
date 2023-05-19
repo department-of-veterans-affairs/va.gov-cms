@@ -3,7 +3,6 @@
 1. [Facility Migrations](#facility-migrations)
    1. NCA (National Cemetery Administration) Facilities
    1. VAMC (VA Medical Center) Facilities
-      - [VAMC Status](#vamc-status-migration)
       - [System and Facility Health Services](#system-and-facility-health-services)
    1. VBA (Veterans Benefits Administraion) Facilities
    1. Vet Centers, Mobile VCs, and Vet Center Outstions
@@ -15,7 +14,6 @@
     vast[VAST, Access To Care, etc]-- 7:30AM -->fapi;
     fapi[(Facility API)]-- 8:00AM -->migrations[CMS migrations];
     fapi-->fl[[Facility Locator App]];
-    teamsite[Teamsite Status Lovell only]-- every 15 min -->migrations;
     migrations-->nodes[Nodes: VAMC, Vet Centers, VBA, NCA];
     nodes-->FE[[FE pages]];
     nodes-->data
@@ -57,12 +55,6 @@ to the user "CMS Migrator"
      2. Outstations - vet_center_outstation
      3. Vet Center Community Access Points - vet_center_cap The CMS is the source of truth for these and will be pushing data to the facility API not migrating from it.
 
-### VAMC Status Migration
-VAMC Statuses are updated by a separate migration `va_node_health_care_local_facility_status` that runs every 15 min. It grabs [only a single CSV for Lovell Federal health care](../docroot/modules/custom/va_gov_migrate/config/install/migrate_plus.migration.va_node_health_care_local_facility_status.yml) which is scraped from TeamSite (hosted by [EWIS](https://github.com/department-of-veterans-affairs/devops/blob/master/docs/External%20Service%20Integrations/EWIS.md)) and updates the fields:
-- "Operating status" (`field_operating_status_facility`)
-- "Operating status - more info" (`field_operating_status_more_info`)
-
-Changes to operating status also get [pushed to Lighthouse](vamc-facilities.md#status-changes-to-lighthouse).
 
 ### System and Facility Health Services
 These are created and run as needed as part of the VAMC Upgrade teams effort to get all the services into the CMS.  VAMC upgrade team will provide separate CSVs, one for system health services and one for facility health services.

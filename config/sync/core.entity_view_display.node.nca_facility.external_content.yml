@@ -1,8 +1,9 @@
-uuid: 0db27c9f-38d8-47de-9b46-09c6a6e10761
+uuid: e1e1db7d-4b0b-4a28-b6a1-9e8d2cb9ef99
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.external_content
     - field.field.node.nca_facility.field_address
     - field.field.node.nca_facility.field_administration
     - field.field.node.nca_facility.field_facility_locator_api_id
@@ -21,43 +22,18 @@ dependencies:
   module:
     - address
     - field_group
+    - layout_builder
     - link
     - office_hours
     - options
     - telephone
     - user
 third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
   field_group:
-    group_operating_status:
-      children:
-        - field_operating_status_facility
-        - field_operating_status_more_info
-      label: 'Operating Status'
-      parent_name: ''
-      region: content
-      weight: 0
-      format_type: fieldset
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        description: ''
-        description_display: after
-    group_locations_and_contact_info:
-      children:
-        - group_facility_data
-      label: 'Locations and contact information'
-      parent_name: ''
-      region: content
-      weight: 1
-      format_type: fieldset
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: locations-and-contact-information
-        description: ''
-        description_display: after
-    group_facility_data:
+    group_tooltip:
       children:
         - field_facility_locator_api_id
         - field_nca_classification
@@ -68,14 +44,14 @@ third_party_settings:
         - field_link
         - field_office_hours
         - field_timezone
-      label: 'Facility Data'
-      parent_name: group_locations_and_contact_info
+      label: 'Location Information'
+      parent_name: ''
       region: content
-      weight: 23
+      weight: 0
       format_type: tooltip
       format_settings:
         show_empty_fields: 0
-        id: external-content
+        id: ''
         classes: not-editable
         element: div
         show_label: '0'
@@ -85,17 +61,17 @@ third_party_settings:
         tooltip_description: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
         open: false
         required_fields: false
-id: node.nca_facility.default
+id: node.nca_facility.external_content
 targetEntityType: node
 bundle: nca_facility
-mode: default
+mode: external_content
 content:
   field_address:
     type: address_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 5
     region: content
   field_facility_locator_api_id:
     type: string
@@ -103,7 +79,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 3
+    weight: 2
     region: content
   field_fax_number:
     type: telephone_link
@@ -111,7 +87,7 @@ content:
     settings:
       title: ''
     third_party_settings: {  }
-    weight: 7
+    weight: 6
     region: content
   field_link:
     type: link
@@ -123,21 +99,21 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 9
+    weight: 8
     region: content
   field_mailing_address:
     type: address_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 4
     region: content
   field_nca_classification:
     type: list_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 3
     region: content
   field_office_hours:
     type: office_hours
@@ -168,21 +144,7 @@ content:
       schema:
         enabled: false
     third_party_settings: {  }
-    weight: 10
-    region: content
-  field_operating_status_facility:
-    type: list_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 3
-    region: content
-  field_operating_status_more_info:
-    type: basic_string
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 4
+    weight: 9
     region: content
   field_phone_number:
     type: telephone_link
@@ -190,20 +152,22 @@ content:
     settings:
       title: ''
     third_party_settings: {  }
-    weight: 8
+    weight: 7
     region: content
   field_timezone:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 11
+    weight: 10
     region: content
 hidden:
   content_moderation_control: true
   field_administration: true
   field_geolocation: true
   field_last_saved_by_an_editor: true
+  field_operating_status_facility: true
+  field_operating_status_more_info: true
   flag_awaiting_csv: true
   flag_awaiting_editor: true
   flag_awaiting_redirect: true

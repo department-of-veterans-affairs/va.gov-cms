@@ -1,0 +1,42 @@
+uuid: 5627c72b-2448-4062-ad81-79ceb4ba216f
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_nca_classification
+field_name: field_nca_classification
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: '1'
+      label: 'Confederate Cemetery'
+    -
+      value: '2'
+      label: 'Government Lots'
+    -
+      value: '3'
+      label: 'Monument Sites'
+    -
+      value: '4'
+      label: 'National Cemetery'
+    -
+      value: '5'
+      label: 'Post Cemetery'
+    -
+      value: '6'
+      label: Rural
+    -
+      value: '7'
+      label: 'Soldiers Lot'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

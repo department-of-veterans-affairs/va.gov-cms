@@ -1,0 +1,26 @@
+uuid: 0e89886a-a021-452e-9037-5be291b2c84d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_timezone
+    - node.type.nca_facility
+  module:
+    - tmgmt_content
+    - tzfield
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.nca_facility.field_timezone
+field_name: field_timezone
+entity_type: node
+bundle: nca_facility
+label: Timezone
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  exclude: {  }
+field_type: tzfield
