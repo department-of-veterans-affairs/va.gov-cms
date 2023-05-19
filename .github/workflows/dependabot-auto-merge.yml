@@ -15,15 +15,13 @@ jobs:
       # will not occur.
       - name: Dependabot metadata
         id: dependabot-metadata
-        # https://github.com/dependabot/fetch-metadata/releases/tag/v1.3.4
-        uses: dependabot/fetch-metadata@bfc19f43c126171ed783cdcf9a125055b7831d32
+        uses: dependabot/fetch-metadata@efb5c8deb113433243b6b08de1aa879d5aa01cf7 # v1.4.0
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
 
       # Checkout repo to make package allow list available
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@v3
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
 
       # Use a YAML formatted config file to list which dependencies can be auto-merged
       - name: Read list of Allowed Auto-merge Dependencies
@@ -33,8 +31,7 @@ jobs:
 
       # Get the initial AWS IAM User credentials. Only has basic permissions for sts:assumeRole
       - name: Configure AWS credentials (1)
-        # https://github.com/aws-actions/configure-aws-credentials/releases/tag/v1.7.0
-        uses: aws-actions/configure-aws-credentials@v2
+        uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef # v2.0.0
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -42,8 +39,7 @@ jobs:
 
       # Get credentials from our SSM role. Least privilege method for AWS IAM.
       - name: Configure AWS Credentials (2)
-        # https://github.com/aws-actions/configure-aws-credentials/releases/tag/v1.7.0
-        uses: aws-actions/configure-aws-credentials@v2
+        uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef # v2.0.0
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -54,8 +50,7 @@ jobs:
 
       # Get VA_CMS_BOT Github token from SSM. this will be used to approve a matching PR.
       - name: Get Parameter
-        # https://github.com/marvinpinto/action-inject-ssm-secrets/releases/tag/latest
-        uses: department-of-veterans-affairs/action-inject-ssm-secrets@latest
+        uses: department-of-veterans-affairs/action-inject-ssm-secrets@d8e6de3bde4dd728c9d732baef58b3c854b8c4bb # latest
         with:
           ssm_parameter: /cms/va-cms-bot/github_token
           env_variable_name: VA_CMS_BOT_TOKEN
