@@ -3,61 +3,43 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.magichead_group.field_magichead_body
+    - field.field.paragraph.magichead_group.field_magichead_heading
     - field.field.paragraph.magichead_group.field_magichead_intro
+    - field.field.paragraph.magichead_group.field_magichead_level
     - field.field.paragraph.magichead_group.field_magichead_top
     - paragraphs.paragraphs_type.magichead_group
   module:
-    - allowed_formats
-    - change_labels
-    - limited_field_widgets
-    - paragraphs
-    - paragraphs_features
     - text
 id: paragraph.magichead_group.default
 targetEntityType: paragraph
 bundle: magichead_group
 mode: default
 content:
-  field_magichead_intro:
+  field_magichead_body:
     type: text_textarea
-    weight: 0
+    weight: 2
     region: content
     settings:
-      rows: 3
-      placeholder: Heading
-    third_party_settings:
-      allowed_formats:
-        hide_help: '1'
-        hide_guidelines: '1'
-  field_magichead_top:
-    type: paragraphs
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_magichead_heading:
+    type: string_textfield
     weight: 1
     region: content
     settings:
-      title: heading
-      title_plural: headings
-      edit_mode: open
-      closed_mode: summary
-      autocollapse: none
-      closed_mode_threshold: 0
-      add_mode: select
-      form_display_mode: default
-      default_paragraph_type: _none
-      features:
-        add_above: '0'
-        collapse_edit_all: '0'
-        duplicate: '0'
-    third_party_settings:
-      limited_field_widgets:
-        limit_values: '0'
-      change_labels:
-        add_another: ''
-      paragraphs_features:
-        add_in_between: false
-        add_in_between_link_count: 3
-        delete_confirmation: false
-        split_text: false
-        show_drag_and_drop: false
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_magichead_level:
+    type: options_select
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   created: true
+  field_magichead_intro: true
+  field_magichead_top: true
   status: true

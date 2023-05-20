@@ -1,0 +1,29 @@
+uuid: 8f82d082-5b27-4d32-ba2d-1bb81651dc52
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_magichead_body
+    - paragraphs.paragraphs_type.magichead_group
+  module:
+    - allowed_formats
+    - text
+    - tmgmt_content
+third_party_settings:
+  allowed_formats:
+    allowed_formats:
+      - rich_text_limited
+  tmgmt_content:
+    excluded: false
+id: paragraph.magichead_group.field_magichead_body
+field_name: field_magichead_body
+entity_type: paragraph
+bundle: magichead_group
+label: Body
+description: 'Enter the information that goes with the heading.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

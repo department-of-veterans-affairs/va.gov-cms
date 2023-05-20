@@ -1,0 +1,25 @@
+uuid: c8a38b0b-1c4e-4fec-bdd0-169c2ce9acc7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_magichead_level
+    - paragraphs.paragraphs_type.magichead_group
+  module:
+    - options
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: paragraph.magichead_group.field_magichead_level
+field_name: field_magichead_level
+entity_type: paragraph
+bundle: magichead_group
+label: Level
+description: 'Select heading level that one more than the parent and equal to a sibling.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_integer

@@ -1,0 +1,30 @@
+uuid: fcd5cd08-340b-4a7d-91cb-54d09deba14c
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_magichead_level
+field_name: field_magichead_level
+entity_type: paragraph
+type: list_integer
+settings:
+  allowed_values:
+    -
+      value: 1
+      label: '1'
+    -
+      value: 2
+      label: '2'
+    -
+      value: 3
+      label: '3'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
