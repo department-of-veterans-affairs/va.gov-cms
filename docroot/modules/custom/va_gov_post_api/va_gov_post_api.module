@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains post_api.module.
+ * Contains va_gov_post_api.module.
  */
 
 use Drupal\Core\Entity\EntityInterface;
@@ -12,9 +12,10 @@ use Drupal\Core\Entity\EntityInterface;
  *
  * Queues new items for sync.
  */
-function post_api_entity_insert(EntityInterface $entity) {
-  _post_api_add_facility_status_to_queue($entity);
-  _post_api_add_facility_service_to_queue($entity);
+function va_gov_post_api_entity_insert(EntityInterface $entity) {
+  _va_gov_post_api_add_facility_status_to_queue($entity);
+  _va_gov_post_api_add_facility_service_to_queue($entity);
+  _va_gov_post_api_add_facility_vetcenter_cap_to_queue($entity);
 
 }
 
@@ -23,9 +24,10 @@ function post_api_entity_insert(EntityInterface $entity) {
  *
  * Queues updated items for sync.
  */
-function post_api_entity_update(EntityInterface $entity) {
-  _post_api_add_facility_status_to_queue($entity);
-  _post_api_add_facility_service_to_queue($entity);
+function va_gov_post_api_entity_update(EntityInterface $entity) {
+  _va_gov_post_api_add_facility_status_to_queue($entity);
+  _va_gov_post_api_add_facility_service_to_queue($entity);
+  _va_gov_post_api_add_facility_vetcenter_cap_to_queue($entity);
 }
 
 /**
@@ -37,7 +39,7 @@ function post_api_entity_update(EntityInterface $entity) {
  * @return int
  *   The count of the number of items queued.
  */
-function _post_api_add_facility_status_to_queue(EntityInterface $entity) {
+function _va_gov_post_api_add_facility_status_to_queue(EntityInterface $entity) {
   $facilitiesWithStatus = [
     'health_care_local_facility',
     'nca_facility',
@@ -64,7 +66,7 @@ function _post_api_add_facility_status_to_queue(EntityInterface $entity) {
  * @return int
  *   The count of the number of items queued.
  */
-function _post_api_add_facility_service_to_queue(EntityInterface $entity) {
+function _va_gov_post_api_add_facility_service_to_queue(EntityInterface $entity) {
   if ($entity->bundle() === 'health_care_local_health_service') {
     return Drupal::service('va_gov_post_api.queue_service_updates')->queueFacilityService($entity);
   }
@@ -73,6 +75,23 @@ function _post_api_add_facility_service_to_queue(EntityInterface $entity) {
   }
   elseif ($entity->bundle() === 'regional_health_care_service_des') {
     return Drupal::service('va_gov_post_api.queue_service_updates')->queueSystemRelatedServices($entity);
+  }
+
+  return 0;
+}
+
+/**
+ * Adds Facility Vet Center CAP data to Post API queue.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   Entity.
+ *
+ * @return int
+ *   The count of the number of items queued.
+ */
+function _va_gov_post_api_add_facility_vetcenter_cap_to_queue(EntityInterface $entity) {
+  if ($entity->bundle() === 'vet_center_cap') {
+    return Drupal::service('va_gov_post_api.queue_facility_vetcenter_cap')->queueFacility($entity);
   }
 
   return 0;
