@@ -4,7 +4,6 @@ namespace Drupal\va_gov_post_api\Service;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\office_hours\OfficeHoursDateHelper;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\va_gov_lovell\LovellOps;
 
@@ -288,119 +287,6 @@ class PostFacilityService extends PostFacilityBase {
   }
 
   /**
-   * Gets the service hours with fallback to facility.
-   *
-   * @param array $office_hours
-   *   Office hours values to extract days from.
-   *
-   * @return object
-   *   An object of days of the week with hours strings.
-   */
-  protected function getServiceHours(array $office_hours = []): object {
-    if (empty($office_hours)) {
-      $office_hours = $this->facility->get('field_office_hours')->getValue();
-    }
-    $hours = new \stdClass();
-    $hours->monday = $this->getDay(0, $office_hours);
-    $hours->tuesday = $this->getDay(1, $office_hours);
-    $hours->wednesday = $this->getDay(2, $office_hours);
-    $hours->thursday = $this->getDay(3, $office_hours);
-    $hours->friday = $this->getDay(4, $office_hours);
-    $hours->saturday = $this->getDay(5, $office_hours);
-    $hours->sunday = $this->getDay(6, $office_hours);
-
-    return $hours;
-  }
-
-  /**
-   * Gets the string for a given day.
-   *
-   * @param int $day_num
-   *   Number 0-6 specifying which day to return.
-   * @param array $days
-   *   The array of days data.
-   *
-   * @return string
-   *   a sting made up of start and end times with comment, or just comment.
-   */
-  protected function getDay($day_num, array $days): string {
-    $start = OfficeHoursDateHelper::format($days[$day_num]['starthours'], 'h:i a') ?? '';
-    $end = OfficeHoursDateHelper::format($days[$day_num]['endhours'], 'h:i a') ?? '';
-    // Make sure there is no end if there is no start. Data error.
-    $end = empty($start) ? '' : $end;
-    $start = $this->normalizeTime($start);
-    $end = $this->normalizeTime($end);
-    $comment = $days[$day_num]['comment'] ?? '';
-    $comment = $this->normalizeComment($comment);
-    if (!empty($start) && !empty($end) && !empty($comment)) {
-      $day_entry = "{$start} to {$end} {$comment}";
-    }
-    elseif (!empty($start) && empty($end) && !empty($comment)) {
-      $day_entry = "{$start} to {$comment}";
-    }
-    elseif (!empty($start) && !empty($end) && empty($comment)) {
-      $day_entry = "{$start} to {$end}";
-    }
-    else {
-      $day_entry = $comment;
-    }
-
-    return trim($day_entry);
-  }
-
-  /**
-   * Perform processes on a comment to make it normal.
-   *
-   * @param string $comment
-   *   A comment to normalize.
-   *
-   * @return string
-   *   A normalized comment.
-   */
-  protected function normalizeComment(string $comment): string {
-    $comment = trim($comment);
-    // There will be more processes coming here.
-    return $comment;
-  }
-
-  /**
-   * Perform alterations to a time string to make normal.
-   *
-   * @param string $time
-   *   A formatted time string.
-   *
-   * @return string
-   *   The normalized string.
-   */
-  protected function normalizeTime(string $time): string {
-    $time = trim($time);
-    // Make am pm follow design.va.gov.
-    $time = str_replace(['am', 'pm'], ['a.m.', 'p.m.'], $time);
-    $time = $this->midnightNoonify($time);
-    return $time;
-  }
-
-  /**
-   * Convert noon or midnight to those terms.
-   *
-   * @param string $time
-   *   A time including am or pm.
-   *
-   * @return string
-   *   The time passed in or 'noon' or 'midnight'.
-   */
-  protected function midnightNoonify(string $time): string {
-    $time = trim($time);
-    if ($time === '12:00 am' || $time === '12:00 a.m.') {
-      $time = 'noon';
-    }
-    elseif ($time === '12:00 pm' || $time === '12:00 p.m.') {
-      $time = 'midnight';
-    }
-    return $time;
-  }
-
-  /**
    * Gets the appropriate appointment intro text.
    *
    * @return string
@@ -550,19 +436,6 @@ class PostFacilityService extends PostFacilityBase {
     $address->country_code = $use_address['country_code'];
 
     return $address;
-  }
-
-  /**
-   * Converts any empty string to NULL.
-   *
-   * @param string|null $string
-   *   Any possible value to evaluate.
-   *
-   * @return string|null
-   *   String if the value is not empty, NULL otherwise.
-   */
-  protected function stringNullify($string) {
-    return (empty($string)) ? NULL : $string;
   }
 
   /**
