@@ -102,36 +102,6 @@ class PostFacilityCmsSourced extends PostFacilityBase {
   }
 
   /**
-   * Add facility data to Post API queue by VetCenter.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   Entity.
-   *
-   * @return int
-   *   The count of the number of items queued.
-   */
-  public function queueSystemRelatedFacilities(EntityInterface $entity) {
-    $queued_count = 0;
-    if (($entity->getEntityTypeId() === 'node')
-    && ($this->shouldPushSystem($entity))) {
-      // Not sure if this needs to be based of the parent vet center.
-      // if it is not published. the cap should not be either.
-      // $query = $this->entityTypeManager->getStorage('node')->getQuery();
-      // $nids = $query->condition('type', 'health_care_local_facility')
-      //   ->condition('field_region_page', $entity->id())
-      //   ->condition('status', 1)
-      //   ->execute();
-      $vamc_facility_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
-      foreach ($vamc_facility_nodes as $node) {
-        // Process each VAMC Facility referencing this node.
-        $queued_count += $this->queueFacilityStatus($node, TRUE);
-      }
-    }
-
-    return $queued_count;
-  }
-
-  /**
    * Get the message variables and values.
    *
    * @return array
@@ -330,30 +300,20 @@ class PostFacilityCmsSourced extends PostFacilityBase {
     $isArchived = ($moderationState === self::STATE_ARCHIVED) ? TRUE : FALSE;
     $thisRevisionIsPublished = $this->facilityNode->isPublished();
     $defaultRevision = $this->getDefaultRevision($this->facilityNode);
-    $isNew = $this->facilityNode->isNew();
     $defaultRevisionIsPublished = $defaultRevision->isPublished();
-    $statusChanged = $this->changedValue($this->facilityNode, $defaultRevision, 'field_operating_status_facility');
-    $statusInfoChanged = $this->changedValue($this->facilityNode, $defaultRevision, 'field_operating_status_more_info');
-    $supStatusChanged = $this->changedTarget($this->facilityNode, $defaultRevision, 'field_supplemental_status');
-    $somethingChanged = $statusChanged || $statusInfoChanged || $supStatusChanged;
+    // Forcing this to be TRUE since there are too many fields on a CAP to
+    // to track and if anthing changed we would want to push.  So push with
+    // any and all published revisions.
+    $somethingChanged = TRUE;
 
     // Case race. First to evaluate to TRUE wins.
     switch (TRUE) {
-      case $this->isLovellTricareSection($this->facilityNode):
-        // Node is part of the Lovell-Tricare section, do not push.
-        $push = FALSE;
-        break;
-
       case $forcePush && $thisRevisionIsPublished:
         // Forced push from updates to referenced entity.
-      case $isNew:
-        // A new node, should be pushed to initiate the value.
       case $thisRevisionIsPublished && $somethingChanged && $moderationState === self::STATE_PUBLISHED:
         // This revision is published and had a change, should be pushed.
       case $isArchived && $somethingChanged:
         // This node has been archived, got to push to remove it.
-      case (!$defaultRevisionIsPublished && !$thisRevisionIsPublished && $somethingChanged):
-        // Draft on an unpublished node, should be pushed.
         $push = TRUE;
         break;
 
@@ -375,30 +335,6 @@ class PostFacilityCmsSourced extends PostFacilityBase {
         break;
     }
 
-    return $push;
-  }
-
-  /**
-   * Determines if a VAMC system change merits a facility status push.
-   *
-   * @param \Drupal\node\NodeInterface $entity
-   *   The node VAMC system node we need to check push status for.
-   *
-   * @return bool
-   *   TRUE if should be pushed, FALSE otherwise.
-   */
-  protected function shouldPushSystem(NodeInterface $entity) {
-    // If the name of the system changes we should push facility statuses.
-    $moderationState = $entity->get('moderation_state')->value;
-    $thisRevisionIsPublished = $entity->isPublished();
-    $defaultRevision = $this->getDefaultRevision($entity);
-    $nameChanged = $this->changedValue($entity, $defaultRevision, 'title');
-    $phoneChanged = $this->changedValue($entity, $defaultRevision, 'field_va_health_connect_phone');
-    $somethingChanged = $nameChanged || $phoneChanged;
-    $push = FALSE;
-    if ($thisRevisionIsPublished && $somethingChanged && $moderationState === self::STATE_PUBLISHED) {
-      $push = TRUE;
-    }
     return $push;
   }
 
@@ -429,49 +365,6 @@ class PostFacilityCmsSourced extends PostFacilityBase {
     }
 
     return $defaultRevision;
-  }
-
-  /**
-   * Checks if the value of the field on the node changed.
-   *
-   * @param \Drupal\node\NodeInterface $node
-   *   The node we need to compare.
-   * @param \Drupal\node\NodeInterface $revision
-   *   The revision we are comparing to.
-   * @param string $field_name
-   *   The machine name of the field to check on.
-   *
-   * @return bool
-   *   TRUE if the value changed.  FALSE otherwise.
-   */
-  protected function changedValue(NodeInterface $node, NodeInterface $revision, $field_name): bool {
-    $value = $node->get($field_name)->value;
-    $original_value = $revision->get($field_name)->value;
-
-    return $value !== $original_value;
-  }
-
-  /**
-   * Checks if the target_id of the field on the node changed.
-   *
-   * @param \Drupal\node\NodeInterface $node
-   *   The node we need to compare.
-   * @param \Drupal\node\NodeInterface $revision
-   *   The revision we are comparing to.
-   * @param string $field_name
-   *   The machine name of the field to check on.
-   *
-   * @return bool
-   *   TRUE if the value changed.  FALSE otherwise.
-   */
-  protected function changedTarget(NodeInterface $node, NodeInterface $revision, $field_name): bool {
-    if ($node->hasField($field_name)) {
-      $value = $node->get($field_name)->target_id;
-      $original_value = $revision->get($field_name)->target_id;
-
-      return $value !== $original_value;
-    }
-    return FALSE;
   }
 
   /**
