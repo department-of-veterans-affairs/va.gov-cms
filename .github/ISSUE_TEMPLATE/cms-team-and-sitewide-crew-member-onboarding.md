@@ -39,8 +39,8 @@ Projected start date: <insert_here>
 - [ ] Contract - Discuss which contract you are on with your Delivery Manager or Program Manager. Your contract will determine your paperwork process.
 - [ ] Read the [VA.gov platform mission and goals](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/VA.gov%20Platform%20Overview%202021.pdf).
 - [ ] Read the [VA's Office of the CTO (OCTO) engineering excellence guiding principles](https://dsva.slack.com/archives/C04KXPXL4/p1674065912579799) [post in DSVA slack]
-- [ ] Open a VA.gov [Platform onboarding ticket](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=&labels=governance-team%2C+analytics-insights&template=orientation-epic.md&title=Platform+Orientation+Template+%5BYour+name+here%5D). 
-    * The VA.gov Platform team manages VA.gov tooling and network access. In order to receive access to the SOCKS network proxy (described later), you must complete this Github issue, and attend a Platform orientation. 
+- [ ] Open a VA.gov [Platform orientation ticket](https://depo-platform-documentation.scrollhelp.site/getting-started/guidance-for-new-teams-and-team-members#Guidancefornewteamsandteammembers-NewVFSteammembers). 
+    * The VA.gov Platform team manages VA.gov tooling and network access. In order to receive access to the SOCKS network proxy (described later), you must 1) complete this Github issue, 2) have completed your eQip paperwork and receive/provide a screenshot of the email with your E-QIP transmittal date, 3) attend a Platform orientation. 
     * That will result in adding you to the [VFS Platform roster](https://docs.google.com/spreadsheets/d/11dpCJjhs007uC6CWJI6djy3OAvjB8rHB65m0Yj8HXIw/edit?folder=0ALlyxurHpUilUk9PVA#gid=2042046665). 
     * If a Platform orientation isn't available for several weeks, sign up for the next available slot, then mention your Delivery Manager and/or Program Manager on your Platform ticket to expedite SOCKS access.
 
@@ -112,7 +112,7 @@ Your Delivery Manager should have already requested this for you, but if not, vi
   - [ ] Your Delivery Manager should add you to appropriate Slack user groups for the DSVA workspace (e.g. `@sitewide-cms-team`, `@platform-cms-team`, `@cms-helpdesk`, `@public-websites-team`, `@facilities-team`. Also `@cms-engineers-group` for eng.)
 
 You should be in the following slack channels:
- - [ ] A6/agency workspace = `#proj-vagov-team`
+ - [ ] A6/agency workspace = `#proj-sitewide-vfs-cms-team`
  - [ ] DSVA workspace = `#sitewide-program`, and your team channel e.g. `#cms-team`, `#cms-platform`, `#sitewide-public-websites`, `#sitewide-facilities`
  - [ ] [This is a description of other channels](https://docs.google.com/spreadsheets/d/1_lZzectbSzs8zt4dvTFJTiPURxa0Kfp3xinYEuZdqq4/edit#gid=0) that ought to be on your radar. Note that many are going to be dependent on which workstream you're in (DevOps, Helpdesk, UX, etc.). Feel free to join whichever you think will aid you and your work. 
 
@@ -120,10 +120,12 @@ You should be in the following slack channels:
 The VA network is required for Drupal CMS and other VA tools and usually requires a VA ID card (PIV or Smartcard). Until you get your paperwork approved and ID card, SOCKS proxy is a back door to some of these tools. This is the first priority for week two. 
    - [ ] File a [SOCKS proxy request](https://depo-platform-documentation.scrollhelp.site/getting-started/Internal-tools-access-via-SOCKS-proxy.1821081710.html) and select the label for your team. 
       - [ ] [Platform orientation](https://depo-platform-documentation.scrollhelp.site/getting-started/Calendly-Orientation-Sessions.2133393543.html#CalendlyOrientationSessions-GeneralOrientation). This should have been requested on day one as part of the Platform onboarding ticket but is here as a reminder that this is a blocker for SOCKS access as you'll need to get added to their ecosystem roster in order to proceed.
+   - [ ] Provide a screenshot of the email that confirms your eQip transmittal date. This is an acknowledgement that your paperwork is being processed from a security standpoint. You cannot receive SOCKS access prior to this point in your onboarding.
    - [ ] [Request a Github personal access token first](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token). You only need to do the "repo" panel in that form and leave the other panels as is. It may take a day or two for the SOCKS proxy request to be fulfilled before you can complete the rest of the SOCKS process. This can be a complex process. Post in #sitewide-program Slack channel if you need help from a current member - we're happy to help.
    - [ ] Optional [Core Tunnel set up for SOCKS proxy on all browsers on Mac](https://www.youtube.com/watch?v=fSuN9LhkB5o)
 
 #### Drupal 
+Drupal is the VA's content management system of choice. For anyone on our team, it's beneficial to have a CMS user account so you can login, look at settings, and understand how the CMS works at a high level. If you need help completing the technical steps here, schedule 30 mins with your Delivery Manager.
   - [ ] [Learn about the different Drupal environments](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/environments.md)
   - [ ] If you are using a non-VA laptop for development you will need [follow the instructions on Github](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/READMES/https.md) to trust the VA Root Certificate Authority (CA) in your browser(s)
   - [ ] Drupal production environment access (SOCKS or VA network required) - in DSVA #cms-support channel, use the Slack workflow to file a helpdesk support request. Ask the helpdesk to create a Drupal user for you in [prod.cms.va.gov](prod.cms.va.gov). 
@@ -160,7 +162,7 @@ Tugboat is a development server platform where you can preview CMS code changes 
  - [ ] [VA.gov tools overview](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html)
  - [ ] [Access to dev & staging to be able to replicate the SSO piece of the login experience](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/5838) (SOCKS or VA access with PIV card required)
  - [ ] [Datadog](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html#Requestaccesstotools-Requestaccess) to access monitoring metrics (as of 8/5/22 this is TBD. reach out to your DM for details)
- - [ ] Review the [VA.gov Design System](https://design.va.gov/) which includes [how to provide feedback](https://design.va.gov/documentation/feedback)
+ - [ ] Review the [VA.gov Design System](https://design.va.gov/) which includes [how to provide feedback]([https://design.va.gov/about/feedback](https://design.va.gov/about/feedback))
  - [ ] Browse the [CMS topic dives videos](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/1714094110/CMS+Topic+Dives)
 
  **VA Platform documentation**
@@ -199,6 +201,7 @@ Tugboat is a development server platform where you can preview CMS code changes 
 
 ## Onboarding for Product Management members
  - [ ] Review [onboarding docs](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/PM/)
+ - [ ] [VA doc: Expectations for how VA internal Product Lead / Product Owners work with contractor PMs](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/octo/product/Product%20Expectations.md)
 
 ## Onboarding for UX members
 - [ ] Attend design onboarding call 1: You are here
@@ -221,7 +224,7 @@ Tugboat is a development server platform where you can preview CMS code changes 
    - #cms-design
    - #inclusive-design
    - #research-ops
-   - #vagov-accessibility
+   - #accessibility-help
 - [ ] Fonts to download
    - Lucida Grande [download from fontsgeek.com](https://fontsgeek.com/fonts/Lucida-Grande-Regular)
    - Source Sans Pro [download from Google Fonts](https://fonts.google.com/specimen/Source+Sans+Pro)
@@ -243,7 +246,7 @@ By this point you should have enough context and access to be able to start cont
 - [ ] Who should we know on the platform teams? Discuss with your Delivery Manager or Product Manager.
 - [ ] Background [history of the ecosystem](https://app.mural.co/t/vagov6717/m/vagov6717/1646745279937/9a5570c420939d84e875e8334fd73073e3a3971b?sender=clarencemaeng1702)
 ### What?
-- [ ] Complete any VA-assigned trainings in the TMS system. If the TMS learning modules malfunction, assign yourself the print version of the module. (Ask in #proj-vagov-team if you need help.)
+- [ ] Complete any VA-assigned trainings in the TMS system. If the TMS learning modules malfunction, assign yourself the print version of the module. (Ask in #proj-sitewide-vfs-cms-team if you need help.)
 - [ ] You'll receive an email confirming that you have been approved for remote access, using Citrix Access Gateway (CAG). You can contact Enterprise Service desk via provided instructions to set up your CAG access manually, if you need access prior to receiving your PIV card.
 - [ ] After your background check is complete, you will get an email to get your Personal Identify Verification (PIV) card. Contact your local VA office (where you got your fingerprints taken) for information about getting your [PIV card](https://www.oit.va.gov/programs/piv/how-to.cfm?). 
   - [ ] Review a [video about the benefits of the PIV card and VA network access](https://youtu.be/6rI-i8zmOzE).
@@ -265,7 +268,7 @@ By this point you should have enough context and access to be able to start cont
 
 ## Month two
 ### What additional tools do you need access to?
-- [ ] Mainly for helpdesk folks: [CMS Support distro group](https://mim.va.gov/IdentityManagement/default.aspx)
+- [ ] Mainly for helpdesk folks: [CMS Support distro group](https://mim.va.gov/IdentityManagement/default.aspx) - must access on VA network (requires PIV card + CAG access)
 
 </details>
 

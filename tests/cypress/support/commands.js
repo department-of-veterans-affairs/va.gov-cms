@@ -5,6 +5,7 @@ import "cypress-axe";
 import "cypress-file-upload";
 import "cypress-real-events/support";
 import "cypress-xpath";
+import "./main_content_blocks";
 
 const compareSnapshotCommand = require("cypress-visual-regression/dist/command");
 
@@ -24,6 +25,8 @@ Cypress.Commands.add("drupalLogin", (username, password) => {
   cy.window().then((window) => {
     cy.wrap(window.drupalSettings.user.uid).as("uid");
   });
+  cy.injectAxe();
+  cy.checkAccessibility();
 });
 
 Cypress.Commands.add("drupalLogout", () => {
@@ -130,28 +133,40 @@ Cypress.Commands.add("drupalWatchdogHasNewErrors", (username, count) => {
   });
 });
 
-Cypress.Commands.add(
-  "iframe",
-  { prevSubject: "element" },
-  ($iframe, callback = () => {}) => {
-    return cy
-      .wrap($iframe)
-      .should((iframe) => expect(iframe.contents().find("body")).to.exist)
-      .then((iframe) => cy.wrap(iframe.contents().find("body")));
-  }
-);
+Cypress.Commands.add("iframe", { prevSubject: "element" }, ($iframe) => {
+  return cy
+    .wrap($iframe)
+    .should((iframe) => expect(iframe.contents().find("body")).to.exist)
+    .then((iframe) => cy.wrap(iframe.contents().find("body")));
+});
 
-Cypress.Commands.add("type_ckeditor", (element, content) => {
+Cypress.Commands.add("get_ckeditor", (element) => {
   cy.wait(5000);
-  cy.window().then((win) => {
+  return cy.window().then((win) => {
     const elements = Object.keys(win.CKEDITOR.instances);
-    if (elements.indexOf(element) === -1) {
+    const index = elements.indexOf(element);
+    if (index === -1) {
       const matches = elements.filter((el) => el.includes(element));
       if (matches.length) {
+        // eslint-disable-next-line prefer-destructuring
         element = matches[0];
+      } else {
+        throw new Error(`CKEditor instance not found: ${element}`);
       }
     }
-    win.CKEDITOR.instances[element].setData(content);
+    return cy.wrap(win.CKEDITOR.instances[element]);
+  });
+});
+
+Cypress.Commands.add("type_ckeditor", (element, content) => {
+  return cy.get_ckeditor(element).then((editor) => {
+    return cy.wrap(editor.setData(content));
+  });
+});
+
+Cypress.Commands.add("read_ckeditor", (element) => {
+  return cy.get_ckeditor(element).then((editor) => {
+    return cy.wrap(editor.getData());
   });
 });
 
@@ -233,39 +248,21 @@ Cypress.Commands.add("setWorkbenchAccessSections", (value) => {
     });
 });
 
-Cypress.Commands.add("accessibilityLog", (violations) => {
-  const violationData = violations.map(
-    ({ id, impact, description, nodes }) => ({
-      id,
-      impact,
-      description,
-      target: nodes[0].target,
-      nodes: nodes.length,
-    })
-  );
-  cy.task("table", violationData);
-});
-
 compareSnapshotCommand();
 
-let logText = "";
+Cypress.on("uncaught:exception", () => {
+  // Prevent Cypress from automatically failing tests in response to uncaught
+  // application exceptions.
+  return false;
+});
 
 beforeEach(() => {
-  const testTitle = Cypress.currentTest.title;
-  const testPath = Cypress.currentTest.titlePath;
-  const date = new Date().toUTCString();
-  const timestamp = Math.floor(Date.now() / 1000);
-  logText += `VA_GOV_DEBUG ${timestamp} ${date} BEFORE ${testPath} ${testTitle}\n`;
-});
-
-afterEach(() => {
-  const testTitle = Cypress.currentTest.title;
-  const testPath = Cypress.currentTest.titlePath;
-  const date = new Date().toUTCString();
-  const timestamp = Math.floor(Date.now() / 1000);
-  logText += `VA_GOV_DEBUG ${timestamp} ${date} AFTER ${testPath} ${testTitle}\n`;
-});
-
-after(() => {
-  cy.writeFile("cypress.log", logText, { flag: "a+" });
+  // Requests to Google Tag Manager can cause spurious test failures.
+  cy.intercept("https://www.googletagmanager.com/gtm.js**", {
+    statusCode: 200,
+    body: "",
+    headers: {
+      "x-response-header": "ha ha ha disregard this",
+    },
+  });
 });

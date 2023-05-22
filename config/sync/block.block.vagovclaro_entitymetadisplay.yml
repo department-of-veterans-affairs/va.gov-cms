@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   module:
+    - language
     - system
     - user
     - va_gov_workflow_assignments
@@ -34,3 +35,10 @@ visibility:
       user: '@user.current_user_context:current_user'
     roles:
       authenticated: authenticated
+  language:
+    id: language
+    negate: false
+    context_mapping:
+      language: '@language.current_language_context:language_interface'
+    langcodes:
+      en: en

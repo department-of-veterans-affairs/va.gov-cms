@@ -4,5 +4,4 @@
 ## Usage: test
 
 set -e
-export SKIP_REPORTING=1
-./bin/task --taskfile=tests.yml $@
+composer va:test:no-fail

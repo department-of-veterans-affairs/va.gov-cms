@@ -8,12 +8,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
       - name: Check Corresponding Entity Reference Fields
+        # See also `composer va:test:check-cer` in composer.json
         run: ./tests/scripts/check-cer.sh
       - name: Check Revision Log fields
-        run: ./tests/scripts/check-revision-logs.sh
+        # See also `composer va:test:check-node-revision-logs` in composer.json
+        # See also `composer va:test:check-taxonomy-revision-logs` in composer.json
+        run: |
+          ./tests/scripts/check-node-revision-logs.sh
+          ./tests/scripts/check-taxonomy-revision-logs.sh
 
   # Validate that the `composer.lock` hash is up-to-date.
   composer-validate:
@@ -21,24 +25,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
-      - run: composer validate
-
-  # Analyze the codebase with GitHub's CodeQL tool.
-  codeql-analyze:
-    name: CodeQL Analyze
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
-      - name: CodeQL Init
-        # https://github.com/github/codeql-action/releases/tag/v2.1.26
-        uses: github/codeql-action/init@e0e5ded33cabb451ae0a9768fc7b0410bad9ad44
-      - name: CodeQL Analyze
-        # https://github.com/github/codeql-action/releases/tag/v2.1.26
-        uses: github/codeql-action/analyze@e0e5ded33cabb451ae0a9768fc7b0410bad9ad44
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
+      - name: Composer Validate
+        run: composer validate
 
   # Check style of ES/JS files with ESLint and ReviewDog.
   eslint:
@@ -46,14 +35,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
+      - name: Post-Checkout Actions
+        uses: ./.github/actions/post-checkout
       - name: ReviewDog
-        # https://github.com/reviewdog/action-eslint/releases/tag/v1.17.0
-        uses: reviewdog/action-eslint@d3395027ea2cfc5cf8f460b1ea939b6c86fea656
+        # See also `composer va:test:eslint` in composer.json
+        uses: reviewdog/action-eslint@94d539484aab48e9b2ffff6466d8866ee4e4b217 # v1.18.2
         with:
           reporter: github-pr-review
-          eslint_flags: '--max-warnings 0 -c .eslintrc.json --no-eslintrc docroot/modules/custom/**/*.es6.js docroot/themes/custom/**/*.es6.js'
+          eslint_flags: '--max-warnings 0 -c .eslintrc.json --no-eslintrc docroot/modules/custom/**/*.es6.js docroot/themes/custom/**/*.es6.js tests/cypress/**/*.js'
           fail_on_error: true
 
   # Check for common PHP code smells with PHP_CodeSniffer.
@@ -62,10 +52,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
-      - uses: ./.github/actions/post-checkout
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
+      - name: Post-Checkout Actions
+        uses: ./.github/actions/post-checkout
       - name: Run PHP_CodeSniffer and ReviewDog
+        # See also `composer va:test:php_codesniffer` in composer.json
         run: |
           export REVIEWDOG_GITHUB_API_TOKEN="${GITHUB_TOKEN}"
           bin/phpcs \
@@ -85,26 +76,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
-      - uses: ./.github/actions/post-checkout
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
+      - name: Post-Checkout Actions
+        uses: ./.github/actions/post-checkout
       - name: Run PHPLint
-        run: |
-          find \
-            docroot/modules/custom \
-            docroot/themes \
-            \( \
-              -name '*.inc' \
-              -o -name '*.php' \
-              -o -name '*.module' \
-              -o -name '*.install' \
-            \) \
-            -print0 \
-            | xargs \
-              -0 \
-              -n1 php \
-              -l \
-              2>&1
+        # See also `composer va:test:lint-php` in composer.json
+        run: ./tests/scripts/lint-php.sh
 
   # Analyze the codebase for programming errors with PHPStan.
   phpstan:
@@ -112,10 +89,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
-      - uses: ./.github/actions/post-checkout
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
+      - name: Post-Checkout Actions
+        uses: ./.github/actions/post-checkout
       - name: Run PHPStan and ReviewDog
+        # See also `composer va:test:phpstan` in composer.json
         run: |
           export REVIEWDOG_GITHUB_API_TOKEN="${GITHUB_TOKEN}"
           bin/phpstan analyze \
@@ -137,10 +115,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
-      - uses: ./.github/actions/post-checkout
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
+      - name: Post-Checkout Actions
+        uses: ./.github/actions/post-checkout
       - name: Run PHPUnit (Unit Tests only)
+        # See also `composer va:test:phpunit-unit` in composer.json
         run: bin/phpunit \
           --group unit \
           --exclude-group disabled \
@@ -153,11 +132,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
       - name: Stylelint modules
-        # https://github.com/reviewdog/action-stylelint/releases/tag/v1.14.0 
-        uses: reviewdog/action-stylelint@a45bf7c5a91efc6f9443ae59b9cf7387b7868492
+        # See also `composer va:test:stylelint-modules` in composer.json
+        uses: reviewdog/action-stylelint@a858bffc5f08800fa6a4a5c66a911a14ae6c1151 # v1.16.0
         with:
           fail_on_error: true
           github_token: ${{ secrets.github_token }}
@@ -166,8 +144,8 @@ jobs:
           stylelint_config: '.stylelintrc'
           stylelint_input: 'docroot/modules/custom/**/*.css'
       - name: Stylelint themes
-        # https://github.com/reviewdog/action-stylelint/releases/tag/v1.14.0 
-        uses: reviewdog/action-stylelint@a45bf7c5a91efc6f9443ae59b9cf7387b7868492
+        # See also `composer va:test:stylelint-themes` in composer.json
+        uses: reviewdog/action-stylelint@a858bffc5f08800fa6a4a5c66a911a14ae6c1151 # v1.16.0
         with:
           fail_on_error: true
           github_token: ${{ secrets.github_token }}
@@ -175,3 +153,27 @@ jobs:
           reporter: github-pr-review
           stylelint_config: '.stylelintrc'
           stylelint_input: 'docroot/themes/custom/**/*.scss'
+
+  # Analyze the codebase with GitHub's CodeQL tool.
+  codeql:
+    name: CodeQL Analyze
+    # Unlike most of our continuous integration tests, this test does not have
+    # a direct analog outside of GitHub Actions.
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        language:
+          - javascript
+          - python
+    steps:
+      - name: Checkout
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
+      - name: CodeQL Init
+        uses: github/codeql-action/init@29b1f65c5e92e24fe6b6647da1eaabe529cec70f # v2.3.3
+        with:
+          languages: ${{ matrix.language }}
+      - name: CodeQL Analyze
+        uses: github/codeql-action/analyze@29b1f65c5e92e24fe6b6647da1eaabe529cec70f # v2.3.3
+        with:
+          category: "/language:${{matrix.language}}"

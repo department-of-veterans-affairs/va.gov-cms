@@ -1,39 +1,60 @@
 ---
-name: Runbook - Vet Center name change
+name: Runbook - Vet Center, Outstation, Mobile Vet Center name change
 about: Steps for updating names and URLs
 title: 'Vet Center name change: <insert_name>'
-labels: Change request
+labels: Change request, Drupal engineering, Facilities, User support, VA.gov frontend, Vet Center
 assignees: ''
 
 ---
+## Vet Center, Outstation, Mobile Vet Center facility name change - Description
+Vet Centers, Mobile Vet Centers, and Vet Center Oustations may all be subject to name changes in VAST. Not all steps apply to each type of facility -- please pay attention and make sure you've done the relevant steps based on facility type.
 
 ## Intake
-- [ ] Submitter: <insert_name>
-- [ ] If the submitter is an editor, send them the link to the CMS Knowledge Base (KB) article on facility basic data for their product (VAMC or Vet Center). Let them know that facility changes can take between 75 days and 4 months after submitting a request, according to VAST administrators.
-- [ ] If the change is a facility closure, send the editor a link to the operating status KB article and have them change the status to Facility notice and provide a description of the facility closure so that Veterans are aware of the future closure.
-- [ ] Other stakeholders to include on updates, if any: <insert name>
+- [ ] What triggered this runbook? (Flag in CMS, Help desk ticket, Product team, VHA Digital Media)
+Trigger: <insert_trigger>
 
-## Vet Center – facility name change
+- [ ] Link to associated help desk ticket (if applicable)
+Help desk ticket: <insert_help_desk_link>
 
-- [ ] The title (Name of Vet Center field) change comes from Lighthouse to Drupal
-- [ ] If the Vet Center published: CMS team submits [redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E), cc'ing Facilities team
-- [ ] If the Vet Center is not published or once the redirect request has gone live alert CMS engineers to continue steps below
-- [ ] CMS engineer renames the section for this Vet Center to match its new name (Section taxonomy change)
-- [ ] CMS engineer: If the new official name matches the pattern "<city> Vet Center", update the common name to match
-- [ ] CMS engineer visits bulk operations page and filter by section = vet center name
-- [ ] CMS engineer updates URLs for all content in that section by bulk operations
-- [ ] CMS engineer resaves all content in that section by bulk operations
-- [ ] CMS engineer edits Vet Center node and removes flag `Changed name` then saves node
+- [ ] Name of submitter (if applicable)
+Submitter: <insert_name>
+
+- [ ] If the submitter is an editor, send them links to any relevate KB articles for the Vet Center product. Let them know that facility changes can take between 75 days and 4 months after submitting a request, according to VAST administrators.
+KB articles: <insert_kb_article_links>
+
+- [ ] Link to facility in production:
+Facility CMS link: <insert_facility_link>
+Facility API ID: <insert_facility_API_ID>
+
+## Acceptance criteria
+
+### CMS help desk steps
+**Note: If the help desk is waiting on information from the facility staff or editor, add the "Awaiting editor" flag to the facility** with a log message that includes a link to this ticket. Remove the flag when the ticket is ready to be worked by the Facilities team. **Be sure to preserve the current moderation state of the node when adding or removing the flag.**
+- [ ] 1. The title (Name of Vet Center field) change comes from Lighthouse to Drupal & is flagged
+- [ ] 2. If the Vet Center published and is NOT an Outstation/MVC, create a [URL change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old facility URL to the new facility URL. (**Note: The URL change request ticket blocks the completion of this ticket.**)
+
+<insert_redirect_request_link>
+
+### CMS engineer steps - Vet Center only (not Outstation/MVC)
+- [ ] 3. Execute the steps of the URL change request ticket from step 2.
+
+(Redirects deploy weekly on Wed. at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. Coordinate the items below and canonical URL change after URL change ticket is merged, deployed, and verified in prod.)
+
+### Drupal Admin steps (CMS Engineer or Help desk)
+_Help desk will complete these steps or escalate to request help from CMS engineering._
+
+**If a Mobile Vet Center or Outstation**
+- [ ] 4. Verify which Vet Center it belongs to, and confirm that the "Main Vet Center Location" field is set correctly.
+
+**If a Vet Center**
+- [ ] 5. In the [Sections taxonomy](https://prod.cms.va.gov/admin/structure/taxonomy/manage/administration/overview), Vet Centers: rename the Section for this Vet Center to match its new name
+- [ ] 6. If the new official name matches the pattern "<city> Vet Center", update the common name to match
+- [ ] 7. Visit [bulk operations](https://prod.cms.va.gov/admin/content/bulk) page and filter by section = vet center name
+- [ ] 8. Update URLs for all content in that section by bulk operations
+- [ ] 9. Resave all content in that section by bulk operations
   
-In [Lighthouse Facilties](https://github.com/department-of-veterans-affairs/lighthouse-facilities)
-- [ ] CMS engineer updates the [CSV in Lighthouse](https://github.com/department-of-veterans-affairs/lighthouse-facilities/blob/master/facilities/src/main/resources/websites.csv) with the changed URL, creating a PR, tagging the Lighthouse team and linking to it in Slack with an @mention to a Lighthouse team member 
-- [ ] HD notifies editor and any other stakeholders.
-</details>
+**For all types**
+- [ ] 10. Edit the Vet Center node by removing flag `Changed name`, and saves the node (with moderation state = published)
 
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [x] `Facilities`
-- [x] `User support`
+#### CMS Help desk (wrap up)
+- [ ] 11. Notify editor and any other stakeholders.

@@ -1,0 +1,30 @@
+uuid: f65d8020-c8a3-4cb2-854c-b65f1e187124
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_supplemental_status_more_i
+    - node.type.health_care_local_facility
+  module:
+    - allowed_formats
+    - epp
+    - text
+third_party_settings:
+  allowed_formats:
+    allowed_formats:
+      - rich_text_limited
+  epp:
+    value: ''
+    on_update: 0
+id: node.health_care_local_facility.field_supplemental_status_more_i
+field_name: field_supplemental_status_more_i
+entity_type: node
+bundle: health_care_local_facility
+label: Details
+description: 'Add relevant details about how this status will impact Veterans and visitors. This section is pre-populated with suggested text based on the level you selected but is editable to fit your unique situation.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

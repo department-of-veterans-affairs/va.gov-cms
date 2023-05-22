@@ -27,7 +27,7 @@
 {% endif %}
 
 
-<div role="contentinfo" {{ attributes.addClass(classes)|without('role', 'aria-label') }}>
+<div role="region" aria-label="Status message" {{ attributes.addClass(classes)|without('role', 'aria-label') }}>
   {% if type == 'error' %}
   {% set alert_icon = 'ban' %}
   <div role="alert">

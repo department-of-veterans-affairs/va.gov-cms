@@ -8,9 +8,7 @@ Ansible roles to standardize a testing and release process across all of these
 apps.
 
 See the [README.md](https://github.com/department-of-veterans-affairs/devops/blob/master/README.md)
-file from the DevOps Repo for more information. (This is a private repository.
-
-For access, talk to your supervisor or see the [VA.gov-team git repository issue queue](https://github.com/department-of-veterans-affairs/va.gov-team).)
+file from the DevOps Repo for more information.
 
 ## BRD OS
 

@@ -1,0 +1,22 @@
+uuid: 8ed6d46f-8c27-4b2b-9aea-d20e929d1d27
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.centralized_content_descriptor
+id: paragraph.centralized_content_descriptor.status
+field_name: status
+entity_type: paragraph
+bundle: centralized_content_descriptor
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

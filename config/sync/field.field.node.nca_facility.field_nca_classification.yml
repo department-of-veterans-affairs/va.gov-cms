@@ -1,0 +1,25 @@
+uuid: ff3be1b5-3345-405c-8df3-687c87c93f9b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_nca_classification
+    - node.type.nca_facility
+  module:
+    - options
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.nca_facility.field_nca_classification
+field_name: field_nca_classification
+entity_type: node
+bundle: nca_facility
+label: 'Cemetery Classification'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

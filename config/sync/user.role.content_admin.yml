@@ -19,6 +19,7 @@ dependencies:
     - block_diff_ui
     - content_lock
     - content_moderation
+    - content_translation
     - entity_clone
     - entityqueue
     - file
@@ -37,6 +38,7 @@ dependencies:
     - tablefield
     - taxonomy
     - taxonomy_diff_ui
+    - tmgmt
     - toolbar_menu
     - va_gov_backend
     - va_gov_build_trigger
@@ -49,6 +51,7 @@ label: 'Content admin'
 weight: 1
 is_admin: null
 permissions:
+  - 'accept translation jobs'
   - 'access administration pages'
   - 'access files overview'
   - 'access media overview'
@@ -70,6 +73,8 @@ permissions:
   - 'clone node entity'
   - 'clone paragraph entity'
   - 'create alert block content'
+  - 'create content translations'
+  - 'create cta_with_link block content'
   - 'create document media'
   - 'create document_external media'
   - 'create image media'
@@ -117,6 +122,7 @@ permissions:
   - 'revert image revisions'
   - 'revert promo revisions'
   - 'revert video revisions'
+  - 'translate any entity'
   - 'unflag changed_filename'
   - 'unflag changed_name'
   - 'unflag changed_title'
@@ -126,9 +132,11 @@ permissions:
   - 'unflag removed_from_source'
   - 'update any alert block content'
   - 'update any benefit_promo block content'
+  - 'update any cta_with_link block content'
   - 'update any media'
   - 'update any news_promo block content'
   - 'update any promo block content'
+  - 'update content translations'
   - 'update home_page_hub_list entityqueue'
   - 'update media'
   - 'use editorial transition approve'

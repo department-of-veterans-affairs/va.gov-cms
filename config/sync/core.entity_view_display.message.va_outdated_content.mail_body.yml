@@ -1,0 +1,36 @@
+uuid: 62a9aef1-d6f8-499d-8393-2fb31b8fcc9f
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.message.mail_body
+    - field.field.message.va_outdated_content.field_editor_username
+    - field.field.message.va_outdated_content.field_subject
+    - message.template.va_outdated_content
+  module:
+    - layout_builder
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: message.va_outdated_content.mail_body
+targetEntityType: message
+bundle: va_outdated_content
+mode: mail_body
+content:
+  field_editor_username:
+    type: string
+    label: visually_hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  partial_1:
+    weight: 0
+    region: content
+hidden:
+  field_subject: true
+  partial_0: true
+  search_api_excerpt: true

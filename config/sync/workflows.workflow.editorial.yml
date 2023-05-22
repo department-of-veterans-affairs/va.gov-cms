@@ -5,6 +5,7 @@ dependencies:
   config:
     - block_content.type.alert
     - block_content.type.benefit_promo
+    - block_content.type.cta_with_link
     - block_content.type.news_promo
     - block_content.type.promo
     - node.type.banner
@@ -57,6 +58,8 @@ dependencies:
     - node.type.vet_center_mobile_vet_center
     - node.type.vet_center_outstation
     - node.type.vha_facility_nonclinical_service
+    - taxonomy.vocabulary.health_care_service_taxonomy
+    - taxonomy.vocabulary.va_benefits_taxonomy
   module:
     - content_moderation
 _core:
@@ -142,6 +145,7 @@ type_settings:
     block_content:
       - alert
       - benefit_promo
+      - cta_with_link
       - news_promo
       - promo
     node:
@@ -195,4 +199,7 @@ type_settings:
       - vet_center_mobile_vet_center
       - vet_center_outstation
       - vha_facility_nonclinical_service
+    taxonomy_term:
+      - health_care_service_taxonomy
+      - va_benefits_taxonomy
   default_moderation_state: draft

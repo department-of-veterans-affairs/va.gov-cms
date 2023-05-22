@@ -1,0 +1,20 @@
+uuid: d251ef4e-b04b-4934-87d2-dab19dfc4ff1
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vet_center_facility_health_servi
+id: node.vet_center_facility_health_servi.menu_link
+field_name: menu_link
+entity_type: node
+bundle: vet_center_facility_health_servi
+label: 'Menu link'
+description: 'Computed menu link for the node (only available during node saving).'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

@@ -178,23 +178,6 @@ function va_gov_vet_center_vc_cap_address_alter_label_after_build(array $element
 }
 
 /**
- * Hide hours caption in hours widget on vc cap type.
- *
- * @param array $element
- *   The hours table widget form array.
- * @param \Drupal\Core\Form\FormStateInterface $form_state
- *   The form state.
- *
- * @return string
- *   The altered hours table widget.
- */
-function va_gov_vet_center_vc_cap_hours_hide_caption_after_build(array $element, FormStateInterface $form_state) {
-  unset($element[0]['#description']);
-  unset($element[0]['caption']);
-  return $element;
-}
-
-/**
  * Implements hook_form_BASE_FORM_ID_alter().
  */
 function va_gov_vet_center_form_node_form_alter(array &$form, FormStateInterface &$form_state) {
@@ -203,6 +186,17 @@ function va_gov_vet_center_form_node_form_alter(array &$form, FormStateInterface
   // Only attach the service select setter to vet_center service bundle.
   if ($form_state->getformObject()->getEntity()->bundle() === 'vet_center') {
     $form['#attached']['library'][] = 'va_gov_vet_center/set_ief_service_selects';
+  }
+}
+
+/**
+ * Implements hook_inline_entity_form_alter().
+ */
+function va_gov_vet_center_inline_entity_form_entity_form_alter(&$entity_form, FormStateInterface $form_state) {
+  // Disable service name field for existing Vet Center Facility Services.
+  $node_id = $entity_form['#entity']->id();
+  if ($entity_form['#bundle'] === 'vet_center_facility_health_servi' && isset($node_id)) {
+    $entity_form['field_service_name_and_descripti']['#disabled'] = TRUE;
   }
 }
 

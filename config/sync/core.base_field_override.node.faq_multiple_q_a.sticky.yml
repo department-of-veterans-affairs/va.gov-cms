@@ -1,0 +1,22 @@
+uuid: fe020fa3-8f13-448f-bc2c-92d5860f1eb7
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.faq_multiple_q_a
+id: node.faq_multiple_q_a.sticky
+field_name: sticky
+entity_type: node
+bundle: faq_multiple_q_a
+label: 'Sticky at top of lists'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

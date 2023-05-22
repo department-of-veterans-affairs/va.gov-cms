@@ -1,0 +1,18 @@
+uuid: 8bb6289c-ac02-4e98-b484-809784c08b61
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.faq_multiple_q_a
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+id: node.faq_multiple_q_a
+target_entity_type_id: node
+target_bundle: faq_multiple_q_a
+default_langcode: site_default
+language_alterable: false

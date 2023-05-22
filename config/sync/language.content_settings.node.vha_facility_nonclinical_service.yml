@@ -1,0 +1,18 @@
+uuid: a4c9a6c1-878b-4f02-92b5-26a0b100a977
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vha_facility_nonclinical_service
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+id: node.vha_facility_nonclinical_service
+target_entity_type_id: node
+target_bundle: vha_facility_nonclinical_service
+default_langcode: site_default
+language_alterable: false

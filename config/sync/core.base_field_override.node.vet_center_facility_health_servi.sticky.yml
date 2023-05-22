@@ -1,0 +1,22 @@
+uuid: b8ed9cbe-388e-4ef4-9316-887f4286dd5a
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vet_center_facility_health_servi
+id: node.vet_center_facility_health_servi.sticky
+field_name: sticky
+entity_type: node
+bundle: vet_center_facility_health_servi
+label: 'Sticky at top of lists'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

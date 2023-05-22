@@ -1,0 +1,16 @@
+uuid: 72c80a8c-bd11-4916-a297-27b57da2fa67
+langcode: en
+status: true
+dependencies: {  }
+id: vamc_outdated_content
+label: 'VAMC Outdated Content'
+backend: database
+backend_configuration:
+  lease_time: 30
+processor: cron
+processing_time: 10
+locked: false
+threshold:
+  type: 2
+  limit: 30
+  state: all

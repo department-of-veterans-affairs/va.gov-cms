@@ -13,6 +13,9 @@
  * for a detailed comparison.
  */
 
+use Drupal\block_content\Entity\BlockContent;
+use Drupal\entityqueue\Entity\EntityQueue;
+use Drupal\entityqueue\Entity\EntitySubqueue;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\node\Entity\Node;
 
@@ -77,4 +80,34 @@ function va_gov_home_deploy_create_hub_menu_links() {
     'field_link_summary' => 'Learn more about the VA departments that manage our benefit and health care programs.',
   ]);
   $link->save();
+}
+
+/**
+ * Creates new CTA with Links block for Homepage, and adds it to entityqueue.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function va_gov_home_deploy_create_i_cta_with_links() {
+  $block = BlockContent::create([
+    'type' => 'cta_with_link',
+    'info' => 'Home page create account block',
+    'langcode' => 'en',
+    'reusable' => TRUE,
+    'moderation_state' => 'published',
+    'revision_log' => 'Initial creation via Drush deploy hook.',
+    'field_administration' => ['target_id' => 1109],
+    'field_cta_summary_text' => 'Create an account to manage your VA benefits and care in one place — anytime, from anywhere.',
+    'field_primary_cta_button_text' => 'Create account',
+    'field_primary_cta_button_url' => ['uri' => 'internal:/<none>'],
+    'field_related_info_links' => [
+      'uri' => 'entity:node/51915',
+      'title' => 'Learn how an account helps you',
+    ],
+  ]);
+  $block->save();
+
+  $queue = EntityQueue::load('v2_home_page_create_account');
+  $subQueue = EntitySubqueue::load($queue->id());
+  $subQueue->set('items', ['target_id' => $block->id()]);
+  $subQueue->save();
 }

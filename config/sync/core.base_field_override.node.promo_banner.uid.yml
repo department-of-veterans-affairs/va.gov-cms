@@ -1,0 +1,20 @@
+uuid: 96fd8ded-b850-4845-8c7a-5e8646257d8a
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.promo_banner
+id: node.promo_banner.uid
+field_name: uid
+entity_type: node
+bundle: promo_banner
+label: 'Authored by'
+description: 'The username of the content author.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: 'Drupal\node\Entity\Node::getDefaultEntityOwner'
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

@@ -97,6 +97,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
       EntityHookEvents::ENTITY_VIEW_ALTER => 'entityViewAlter',
       FormHookEvents::FORM_ALTER => 'formAlter',
+      'hook_event_dispatcher.form_node_vet_center_facility_health_servi_edit_form.alter' => 'alterVetCenterServiceNodeForm',
       'hook_event_dispatcher.form_node_vet_center_locations_list_form.alter' => 'alterVetCenterLocationsListNodeForm',
       'hook_event_dispatcher.form_node_vet_center_locations_list_edit_form.alter' => 'alterVetCenterLocationsListNodeForm',
       'hook_event_dispatcher.form_node_vet_center_mobile_vet_center_form.alter' => 'alterVetCenterMvcNodeForm',
@@ -225,6 +226,36 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     }
 
     return $long_enough;
+  }
+
+  /**
+   * Alterations to Vet Center - Facility Service node form.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function alterVetCenterServiceNodeForm(FormIdAlterEvent $event): void {
+    $form = &$event->getForm();
+    $form_state = $event->getFormState();
+    $this->disableFacilityServiceChange($form, $form_state);
+  }
+
+  /**
+   * Disable service name field for existing Vet Center - Facility Services.
+   *
+   * @param array $form
+   *   The node form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   */
+  public function disableFacilityServiceChange(array &$form, FormStateInterface $form_state) {
+    /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
+    $form_object = $form_state->getFormObject();
+    /** @var \Drupal\node\NodeInterface $node*/
+    $node = $form_object->getEntity();
+    if (!$node->isNew()) {
+      $form['field_service_name_and_descripti']['#disabled'] = TRUE;
+    }
   }
 
   /**
@@ -366,7 +397,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     if ($form_id === 'node_vet_center_cap_form' || $form_id === 'node_vet_center_cap_edit_form') {
       // Add after_build callbacks for VC CAP node forms.
       $form['field_address']['widget']['#after_build'][] = 'va_gov_vet_center_vc_cap_address_alter_label_after_build';
-      $form['field_facility_hours']['widget']['#after_build'][] = 'va_gov_vet_center_vc_cap_hours_hide_caption_after_build';
     }
 
     if ($form_id === 'node_vet_center_locations_list_form' || $form_id === 'node_vet_center_locations_list_edit_form') {
@@ -394,8 +424,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
         '#markup' => $this->t('Add a photo of the facility'),
       ];
     }
-    // Require message on revision.
-    $this->requireRevisionMessage($form, $form_state, $form_id);
   }
 
   /**
@@ -444,48 +472,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
           ],
         ];
       }
-    }
-  }
-
-  /**
-   * Adds Validation to check revision log message is added.
-   *
-   * @param array $form
-   *   The exposed widget form array.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The form state.
-   * @param string $form_id
-   *   The form id.
-   */
-  public function requireRevisionMessage(array &$form, FormStateInterface &$form_state, $form_id) {
-    $vc_types = [
-      'node_vet_center_edit_form',
-      'node_vet_center_cap_edit_form',
-      'node_vet_center_facility_health_servi_edit_form',
-      'node_vet_center_locations_list_edit_form',
-      'node_vet_center_mobile_vet_center_edit_form',
-      'node_vet_center_outstation_edit_form',
-    ];
-    // Vet centers need to have revision log messages on edit.
-    if (in_array($form_id, $vc_types)) {
-      $widget_fields = [
-        'field_nearby_vet_centers',
-        'field_nearby_mobile_vet_centers',
-      ];
-      foreach ($widget_fields as $widget_field) {
-        // Stop the node form validation to fire on the removal buttons.
-        $current_widgets = $form[$widget_field]['widget']['current'] ?? [];
-        foreach ($current_widgets as $key => $button) {
-          if (is_numeric($key)) {
-            $form[$widget_field]['widget']['current'][$key]['actions']['remove_button']['#limit_validation_errors'] = [['field_nearby_vet_centers']];
-          }
-        }
-      }
-      $form['revision_log']['#required'] = TRUE;
-      $form['revision_log']['widget']['#required'] = TRUE;
-      $form['revision_log']['widget'][0]['#required'] = TRUE;
-      $form['revision_log']['widget'][0]['value']['#required'] = TRUE;
-      $form['#validate'][] = '_va_gov_backend_validate_required_revision_message';
     }
   }
 

@@ -1,0 +1,58 @@
+display:
+  default:
+    display_title: 'Por defecto'
+    display_options:
+      fields:
+        field_name:
+          label: 'Nombre del campo'
+        field_type:
+          label: 'Tipo de campo'
+        entity_type:
+          label: 'Tipo de entidad'
+        bundle:
+          label: Paquete
+        label:
+          label: Etiqueta
+        description:
+          label: Descripción
+        required:
+          label: 'Campo obligatorio'
+        'field_cardinality setting':
+          label: Cardinalidad
+        translatable:
+          label: Traducible
+        langcode:
+          label: 'Código de idioma'
+        operation:
+          label: Operaciones
+      exposed_form:
+        options:
+          submit_button: Filtro
+          reset_button_label: Restablecer
+          exposed_sorts_label: 'Ordenar por'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      filters:
+        field_name:
+          expose:
+            label: 'Nombre del campo'
+        field_type:
+          expose:
+            label: 'Tipo de campo'
+        entity_type:
+          expose:
+            label: 'Tipo de entidad'
+        bundle:
+          expose:
+            label: Paquete
+        label:
+          expose:
+            label: Etiqueta
+      header:
+        result:
+          content: 'Mostrando @start - @end de @total'
+  content_model_documentation_fields:
+    display_title: Página
+    display_options:
+      menu:
+        title: Campos

@@ -13,6 +13,7 @@ dependencies:
     - field.field.taxonomy_term.health_care_service_taxonomy.field_show_for_vba_facilities
     - field.field.taxonomy_term.health_care_service_taxonomy.field_show_for_vet_centers
     - field.field.taxonomy_term.health_care_service_taxonomy.field_tricare_description
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_tricare_specific_service
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vba_com_conditions
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vba_friendly_name
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vba_service_descrip
@@ -23,8 +24,10 @@ dependencies:
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vet_center_type_of_care
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vha_healthservice_stopcode
     - taxonomy.vocabulary.health_care_service_taxonomy
+    - workflows.workflow.editorial
   module:
     - allow_only_one
+    - content_moderation
     - field_group
     - path
     - text
@@ -36,7 +39,7 @@ third_party_settings:
       label: 'Section settings'
       region: hidden
       parent_name: ''
-      weight: 9
+      weight: 12
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -59,11 +62,11 @@ third_party_settings:
       format_type: details
       format_settings:
         classes: ''
+        show_empty_fields: false
         id: ''
         open: true
         description: 'Add content to these fields if you want to "override" how the service is described on Vet Center pages.'
         required_fields: true
-        show_empty_fields: false
     group_vamc:
       children:
         - field_show_for_vamc_facilities
@@ -72,6 +75,7 @@ third_party_settings:
         - field_commonly_treated_condition
         - description
         - field_tricare_description
+        - field_tricare_specific_service
       label: VAMC
       region: content
       parent_name: ''
@@ -79,11 +83,11 @@ third_party_settings:
       format_type: details
       format_settings:
         classes: ''
+        show_empty_fields: false
         id: ''
         open: true
         description: 'These values act as the default values for VHA health services, but can be overridden for Vet Centers, below.'
         required_fields: true
-        show_empty_fields: false
     group_vba:
       children:
         - field_show_for_vba_facilities
@@ -97,10 +101,26 @@ third_party_settings:
       format_type: fieldset
       format_settings:
         classes: ''
+        show_empty_fields: false
         id: ''
         description: ''
         required_fields: true
-        show_empty_fields: false
+        description_display: after
+    group_workflow:
+      children:
+        - moderation_state
+        - revision_log_message
+      label: 'Editorial workflow'
+      region: content
+      parent_name: ''
+      weight: 20
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: sections
+        description: ''
+        required_fields: true
         description_display: after
 id: taxonomy_term.health_care_service_taxonomy.default
 targetEntityType: taxonomy_term
@@ -181,6 +201,13 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
+  field_tricare_specific_service:
+    type: boolean_checkbox
+    weight: 20
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
   field_vba_com_conditions:
     type: string_textfield
     weight: 9
@@ -249,6 +276,12 @@ content:
     settings:
       placeholder: ''
     third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 8
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   name:
     type: string_textfield
     weight: 0
@@ -265,4 +298,5 @@ content:
     third_party_settings: {  }
 hidden:
   field_owner: true
+  langcode: true
   status: true

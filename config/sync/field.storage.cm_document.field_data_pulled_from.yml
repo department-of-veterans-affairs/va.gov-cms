@@ -1,0 +1,20 @@
+uuid: 87c82422-584d-46e3-ac1f-f55650861a51
+langcode: en
+status: true
+dependencies:
+  module:
+    - content_model_documentation
+    - taxonomy
+id: cm_document.field_data_pulled_from
+field_name: field_data_pulled_from
+entity_type: cm_document
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

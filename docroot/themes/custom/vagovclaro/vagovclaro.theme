@@ -352,7 +352,7 @@ function vagovclaro_preprocess_page__documentation_page(&$variables) {
   }
 
   // Load the search form block and put in a variable for twig.
-  $block = Block::load('vagovclaro_knowledge_base_search_form');
+  $block = Block::load('knowledge_base_search_form');
   $variables['search_block'] = \Drupal::entityTypeManager()
     ->getViewBuilder('block')
     ->view($block);
