@@ -285,10 +285,10 @@ abstract class PostFacilityBase {
   protected function midnightNoonify(string $time): string {
     $time = trim($time);
     if ($time === '12:00 am' || $time === '12:00 a.m.') {
-      $time = 'noon';
+      $time = 'midnight';
     }
     elseif ($time === '12:00 pm' || $time === '12:00 p.m.') {
-      $time = 'midnight';
+      $time = 'noon';
     }
     return $time;
   }
