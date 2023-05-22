@@ -6,9 +6,9 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\node\NodeInterface;
 
 /**
- * Class PostFacilityService posts VetCenter CAP info and status to Lighthouse.
+ * Class PostFacilityCmsSourced posts CMS sourced info and status to Lighthouse.
  */
-class PostFacilityVetCenterCap extends PostFacilityBase {
+class PostFacilityCmsSourced extends PostFacilityBase {
 
   const STATE_ARCHIVED = 'archived';
   const STATE_DRAFT = 'draft';
@@ -68,7 +68,7 @@ class PostFacilityVetCenterCap extends PostFacilityBase {
   public function queueFacility(EntityInterface $entity, bool $forcePush = FALSE) {
     $queued_count = 0;
 
-    if ($entity instanceof NodeInterface && $this->isFacilitySourccedFromCms($entity)) {
+    if ($entity instanceof NodeInterface && $this->isFacilitySourcedFromCms($entity)) {
       /** @var \Drupal\node\NodeInterface $entity*/
       $this->facilityNode = $entity;
       $facility_id = $entity->hasField('field_facility_locator_api_id') ? $entity->get('field_facility_locator_api_id')->value : NULL;
@@ -76,8 +76,8 @@ class PostFacilityVetCenterCap extends PostFacilityBase {
       // Queue item's Unique ID.
       $data['uid'] = $facility_id ? "facility_{$facility_id}" : NULL;
 
-      // Set a key based on which the endpoint will be
-      // defined during queue execution.
+      // Set the endpoint will be used during queue execution.
+      // @todo Change this to whatever lighthouse creates for us.
       $data['endpoint_path'] = ($facility_id) ? "/services/va_facilities/v1/facilities/{$facility_id}/cms-crud-overlay" : NULL;
 
       $data['payload'] = $this->getPayload($forcePush);
@@ -114,13 +114,13 @@ class PostFacilityVetCenterCap extends PostFacilityBase {
     $queued_count = 0;
     if (($entity->getEntityTypeId() === 'node')
     && ($this->shouldPushSystem($entity))) {
-      // Not sure if this needs to be based of the parent vet center.   if it is not published. the cap should not be either.
-    // $query = $this->entityTypeManager->getStorage('node')->getQuery();
-    // $nids = $query->condition('type', 'health_care_local_facility')
-    //   ->condition('field_region_page', $entity->id())
-    //   ->condition('status', 1)
-    //   ->execute();
-
+      // Not sure if this needs to be based of the parent vet center.
+      // if it is not published. the cap should not be either.
+      // $query = $this->entityTypeManager->getStorage('node')->getQuery();
+      // $nids = $query->condition('type', 'health_care_local_facility')
+      //   ->condition('field_region_page', $entity->id())
+      //   ->condition('status', 1)
+      //   ->execute();
       $vamc_facility_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
       foreach ($vamc_facility_nodes as $node) {
         // Process each VAMC Facility referencing this node.
@@ -176,17 +176,23 @@ class PostFacilityVetCenterCap extends PostFacilityBase {
       $facility->facility_type = $this->getFacilityType();
       $facility->classification = $this->getFacilityClassification();
       $facility->active_status = $this->facilityNode->isPublished();
-      $facility->website = $this->getFacilityUrl()
-      $facility->vet_center = $this->getParentVetCenter();
+      $facility->vet_center = $this->getParentOffice();
+      $facility->website = $this->getFacilityUrl();
       $facility->operating_status = [
         'code' => strtoupper($this->statusToPush),
         'additional_info' => (strtoupper($this->statusToPush) != 'NORMAL') ? $this->additionalInfoToPush : NULL,
       ];
-      $facility->geographical_identifier = ;//field_geographical_identifier;
-      $facility->address = $this->getAddress();
+      $facility->geographical_identifier = $this->facilityNode->field_geographical_identifier->value;
+      $addresses_field = $this->facilityNode->get('field_address');
+      $facility->address = $this->getAddresses($addresses_field);
       $facility->geometry = $this->getGeometry();
       $facility->call_for_hours = $this->getCallForHours();
-      $facility->getHours();
+      if (!$facility->call_for_hours) {
+        $facility->hours = $this->getServiceHours($this->facilityNode->field_office_hours->getValue());
+      }
+      else {
+        $facility->hours = NULL;
+      }
 
       $payload = [
         'facility' => [$facility],
@@ -208,7 +214,7 @@ class PostFacilityVetCenterCap extends PostFacilityBase {
   }
 
   /**
-   * Gets the classificaion of the facility.
+   * Gets the classification of the facility.
    *
    * @return string|null
    *   The Facility API classification.
@@ -218,68 +224,67 @@ class PostFacilityVetCenterCap extends PostFacilityBase {
     return $this->facilitiesSourcedFromCms[$bundle]['classification'] ?? NULL;
   }
 
-  protected function getParentVetCenter() {
-    // via  field_office (the parent vet center)
-     {
-      "name": "Jupiter Vet Center",
-      "url": "https://www.va.gov/jupiter-vet-center",
-      "phone": "561-422-1220"
-    }
-  }
-
-  protected function getAddress() {
-          // field_address
-    {
-      "address_organization": "Port St. Lucie VA Clinic",
-      "address_line1": "126 SW Chamber Court",
-      "address_line2": null,
-      "state": "FL",
-      "country_code": "US",
-      "city": "Port St. Lucie",
-      "zip_code": "34986",
-    },
-  }
-
-  protected function getCallForHours() {
-    //field_vetcenter_cap_hours_opt_in (0 Veterans should call main Vet Center for hours) (1 Provide CAP hours online)
-  }
-
-  protected function getHours () {
-    // Should return empty if field_vetcenter_cap_hours_opt_in =0.
-    // // field_office_hours
-    {
-        "Monday": "1100AM-200PM",
-        "Tuesday": "1100AM-200PM",
-        "Wednesday": "1100AM-200PM",
-        "Thursday": "Closed",
-        "Friday": "Closed",
-        "Saturday": "Closed",
-        "Sunday": "Closed"
+  /**
+   * Get the parent office payload.
+   *
+   * @return object|null
+   *   Stdclass object or parent properties or NULL if no parent.
+   */
+  protected function getParentOffice() {
+    $parent = NULL;
+    if ($this->facilityNode->hasField('field_office')) {
+      $referenced_entities = $this->facilityNode->get('field_office')->referencedEntities();
+      if (isset($referenced_entities[0])) {
+        $parentFacility = $referenced_entities[0];
+        $parent = new \stdClass();
+        $parent->name = $parentFacility->getTitle();
+        $url = $parentFacility->toUrl()->toString();
+        $parent->url = "https://www.va.gov{$url}";
+        $parent->phone = $parentFacility->get('field_phone_number')->value;
       }
+    }
+    return $parent;
   }
 
   /**
-   * Gets an entry for the geolocation
+   * Get the value of call for hours field.
+   *
+   * @return bool|null
+   *   Boolean if the field has values.  NULL if no value.
+   */
+  protected function getCallForHours() {
+    // TRUE Veterans should call main Vet Center for hours.
+    // FALSE Provide CAP hours online.
+    if ($this->facilityNode->hasField('field_vetcenter_cap_hours_opt_in')) {
+      return !(bool) $this->facilityNode->get('field_vetcenter_cap_hours_opt_in')->value;
+    }
+    return NULL;
+  }
+
+  /**
+   * Gets an entry for the geolocation.
    *
    * @return object|null
-   * The type point and coordinates or NULL if undefined.
+   *   The type point and coordinates or NULL if undefined.
    */
   protected function getGeometry() {
-    // via  field_geolocation
-     {
-        "type": "Point",
-        "coordinates": [
-            -80.40251,
-            27.31034
-        ]
-    },
+    $geolocation = NULL;
+    if ($this->facilityNode->hasField('field_geolocation')) {
+      $geolocation = new \stdClass();
+      $geolocation->type = $this->facilityNode->get('field_geolocation')->geo_type;
+      $geolocation->coordinates = [
+        $this->facilityNode->get('field_geolocation')->lon,
+        $this->facilityNode->get('field_geolocation')->lat,
+      ];
+    }
+    return $geolocation;
   }
 
   /**
    * Builds the appropriate url for a facility.
    *
    * @return string|null
-   *   A facility page wher this facility can be found.
+   *   A facility page where this facility can be found.
    *   Null if something completely went wrong.
    */
   protected function getFacilityUrl(): string | null {
@@ -289,9 +294,7 @@ class PostFacilityVetCenterCap extends PostFacilityBase {
       // CAPs don't have their own page, so link to the parent facility's
       // locations page. Should look like this:
       // https://www.va.gov/big-vet-center/locations/#name-vet-center
-      $parent_slug = '???';
-      $name_fragment = $this->getNameFragment();
-      $facility_url = "https://www.va.gov/{$parent_slug}/locations/#{$name_fragment}";
+      $facility_url = $this->getParentLocationsPageUrl($this->facilityNode);
     }
     return $facility_url;
   }
@@ -305,8 +308,8 @@ class PostFacilityVetCenterCap extends PostFacilityBase {
    * @return bool
    *   TRUE if it is a facility with status info. FALSE otherwise.
    */
-  protected function isFacilitySourccedFromCms(NodeInterface $entity) : bool {
-    return in_array($entity->bundle(), $this->facilitiesSourcedFromCms);
+  protected function isFacilitySourcedFromCms(NodeInterface $entity) : bool {
+    return array_key_exists($entity->bundle(), $this->facilitiesSourcedFromCms);
   }
 
   /**
