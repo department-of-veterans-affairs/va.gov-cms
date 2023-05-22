@@ -91,7 +91,7 @@ function _va_gov_post_api_add_facility_service_to_queue(EntityInterface $entity)
  */
 function _va_gov_post_api_add_facility_vetcenter_cap_to_queue(EntityInterface $entity) {
   if ($entity->bundle() === 'vet_center_cap') {
-    return Drupal::service('va_gov_post_api.queue_facility_vetcenter_cap')->queueFacility($entity);
+    return Drupal::service('va_gov_post_api.queue_facility_cms_sourced')->queueFacility($entity);
   }
 
   return 0;
