@@ -168,10 +168,7 @@ p.vc-help-text {
 }
 
 .visual-layout-svg {
-  padding-bottom: 55px;
-  padding-left: 0;
-  padding-right: 30px;
-  padding-top: 30px;
+  padding: 30px 30px 55px 0;
 }
 
 .item-list {
@@ -245,6 +242,11 @@ p.vc-help-text {
     background-color: var(--va-blue-lighter);
     color: var(--va-blue-darker);
     text-decoration: none;
+  }
+
+  &:focus {
+    outline: var(--focus-outline);
+    box-shadow: var(--focus-box-shadow);
   }
 }
 
