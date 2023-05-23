@@ -71,7 +71,7 @@ The goals of this week are:
 - [ ] How does OCTO fit into the VA universe? And how is VA structured? [View this Mural diagram](https://app.mural.co/t/vagov6717/m/vagov6717/1646447643431/1cbae3844c54a42877451e7a79706f0be048d740?sender=kevinwalsh8610)
   
 ### Who?
-- [ ] Complete your personal information in the [official team roster](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/185270337/Team+Roster+2022). Note: this is separate from the Platform ecosystem's roster.
+- [ ] Complete your personal information in the [official team roster](https://docs.google.com/spreadsheets/d/1S31-cj0TPczh4K9r2G--kERqZStOOECX_W2VrQy3kRA/edit#gid=0). Note: this is separate from the Platform ecosystem's roster.
 - [ ] Make your Google calendar publicly accessible, showing free/busy time. This will allow team members in other organizations to easily schedule with you. See [Mark your calendar as public](https://support.google.com/calendar/answer/37083?hl=en#zippy=%2Cmark-your-calendar-as-public).
 - [ ] Let's start introducing you to the team and key stakeholders. If you're on a meeting where you don't know someone, feel free to kickstart an introduction. Everyone in the ecosystem is friendly and interested in connecting.
 ### When?
