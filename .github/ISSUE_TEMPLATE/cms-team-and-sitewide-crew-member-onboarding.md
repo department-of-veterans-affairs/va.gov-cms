@@ -91,7 +91,7 @@ The goal for this week is to get you set up with the tools you need to be succes
   - [ ] Demos
   - [ ] Retros
 ### What products do we support?
-- [ ] Discuss with your Delivery Manager, as this varies a lot by team. Review [this mural](https://app.mural.co/t/vagov6717/m/vagov6717/1658961045082/cedcb1c5c42489e47be37733c73890ef890070ae?sender=u252e7152800e3981889d1910) as a good starting point.
+- [ ] Discuss with your Delivery Manager, as this varies a lot by team. Review [this mural](https://app.mural.co/t/vagov6717/m/vagov6717/1646745279937/9a5570c420939d84e875e8334fd73073e3a3971b?fromVisitorModal=true&sender=u0b235d03cbd64f7f93673243) as a good starting point.
 - [ ] [Review the editor onboarding slides](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/https___prod.cms.va.gov_sites_default_files_2021-07_Welcome%2520to%2520the%2520new%2520VA.gov%2520CMS.pdf).
 - [ ] Read the [product sheets](https://github.com/department-of-veterans-affairs/va.gov-team/raw/master/platform/cms/VA-CMS-Product-Sheets.pdf) (PDF download).
 
