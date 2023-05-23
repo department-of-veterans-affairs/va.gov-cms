@@ -237,16 +237,16 @@ p.vc-help-text {
   transition-property: color,background-color,border-color;
   transition-timing-function: ease-in-out;
 
-  &:hover,
-  &:focus {
+  &:focus,
+  &:hover {
     background-color: var(--va-blue-lighter);
     color: var(--va-blue-darker);
     text-decoration: none;
   }
 
   &:focus {
-    outline: var(--focus-outline);
     box-shadow: var(--focus-box-shadow);
+    outline: var(--focus-outline);
   }
 }
 

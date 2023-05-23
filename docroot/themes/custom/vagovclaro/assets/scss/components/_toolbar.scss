@@ -31,6 +31,11 @@ body.toolbar-fixed {
       color: var(--va-blue-dark) !important;
     }
 
+    &:focus {
+      box-shadow: var(--focus-box-shadow);
+      outline: var(--focus-outline);
+    }
+
     &:active {
       color: var(--color-white) !important;
     }
@@ -117,8 +122,14 @@ body.toolbar-fixed {
   // Consistent states for top-level toolbar items
   @mixin top-toolbar-item($icon) {
     &:hover:active,
-    &:hover {
+    &:hover,
+    &:focus {
       color: var(--va-blue-dark) !important;
+    }
+
+    &:focus {
+      box-shadow: var(--focus-box-shadow);
+      outline: var(--focus-outline);
     }
 
     &:active {
