@@ -207,15 +207,37 @@ class PostFacilityStatus extends PostFacilityBase {
    */
   protected function getFacilityUrl(): string | null {
     $facility_url = NULL;
+    // These are nodes that are published but have no FE page of their own.
+    $facilities_with_no_pages = [
+      'vet_center_mobile_vet_center',
+      'vet_center_outstation',
+    ];
+    // These are nodes for products that have not launched yet.
+    $facilities_with_no_cms_url = [
+      'nca_facility',
+      'vba_facility',
+    ];
+
     if ($this->facilityNode->isPublished()) {
-      // The node is published, so use the FE URL of the page.
-      $facility_url = "https://www.va.gov{$this->facilityNode->toUrl()->toString()}";
+      if (in_array($this->facilityNode->bundle(), $facilities_with_no_pages)) {
+        // This facility is published, but has no page of its own.
+        $facility_url = $this->getParentLocationsPageUrl($this->facilityNode);
+      }
+      else {
+        // The node is published, so use the FE URL of the page.
+        $facility_url = "https://www.va.gov{$this->facilityNode->toUrl()->toString()}";
+      }
+
     }
     else {
       // The page is not published, so send the Facility Locator Detail Page.
       $facility_id = $this->facilityNode->hasField('field_facility_locator_api_id') ? $this->facilityNode->get('field_facility_locator_api_id')->value : NULL;
-
-      if ($facility_id) {
+      if (in_array($this->facilityNode->bundle(), $facilities_with_no_cms_url)) {
+        // This hasn't launched, and is not published, so we don't know the url.
+        $facility_url = NULL;
+      }
+      elseif ($facility_id) {
+        // Has launched but the page does not exist yet so send locator detail.
         $facility_url = "https://www.va.gov/find-locations/facility/{$facility_id}";
       }
     }
