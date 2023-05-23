@@ -168,10 +168,7 @@ p.vc-help-text {
 }
 
 .visual-layout-svg {
-  padding-bottom: 55px;
-  padding-left: 0;
-  padding-right: 30px;
-  padding-top: 30px;
+  padding: 30px 30px 55px 0;
 }
 
 .item-list {
@@ -240,11 +237,16 @@ p.vc-help-text {
   transition-property: color,background-color,border-color;
   transition-timing-function: ease-in-out;
 
-  &:hover,
-  &:focus {
+  &:focus,
+  &:hover {
     background-color: var(--va-blue-lighter);
     color: var(--va-blue-darker);
     text-decoration: none;
+  }
+
+  &:focus {
+    box-shadow: var(--focus-box-shadow);
+    outline: var(--focus-outline);
   }
 }
 
