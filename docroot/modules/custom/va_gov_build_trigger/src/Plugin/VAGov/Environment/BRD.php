@@ -7,7 +7,7 @@ use Drupal\Core\Site\Settings;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentPluginBase;
 use Drupal\va_gov_build_trigger\Form\BrdBuildTriggerForm;
-use Drupal\va_gov_consumers\Git\GithubAdapter;
+use Drupal\va_gov_consumers\GitHub\GitHubClientInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -33,7 +33,7 @@ class BRD extends EnvironmentPluginBase {
   /**
    * Github API adapter.
    *
-   * @var \Drupal\va_gov_consumers\Git\GithubAdapter
+   * @var \Drupal\va_gov_consumers\GitHub\GitHubClientInterface
    */
   protected $githubAdapter;
 
@@ -47,7 +47,7 @@ class BRD extends EnvironmentPluginBase {
     LoggerInterface $logger,
     FileSystemInterface $filesystem,
     Settings $settings,
-    GithubAdapter $githubAdapter
+    GitHubClientInterface $githubAdapter
   ) {
     parent::__construct(
       $configuration,
@@ -87,7 +87,7 @@ class BRD extends EnvironmentPluginBase {
         $message = $this->t('Changes will be included in a content release to VA.gov that\'s already in progress. <a href="@job_link">Check status</a>.', $vars);
       }
       else {
-        $this->githubAdapter->repositoryDispatch('content-release');
+        $this->githubAdapter->repositoryDispatchWorkflow('content-release');
         $vars = [
           '@job_link' => 'https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml',
         ];
