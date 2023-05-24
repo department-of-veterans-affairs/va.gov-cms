@@ -1,9 +1,11 @@
+/* eslint-disable max-nested-callbacks */
 /* eslint-disable no-console */
 import "@testing-library/cypress/add-commands";
 import "cypress-axe";
 import "cypress-file-upload";
 import "cypress-real-events/support";
 import "cypress-xpath";
+import "./main_content_blocks";
 
 const compareSnapshotCommand = require("cypress-visual-regression/dist/command");
 
@@ -23,6 +25,8 @@ Cypress.Commands.add("drupalLogin", (username, password) => {
   cy.window().then((window) => {
     cy.wrap(window.drupalSettings.user.uid).as("uid");
   });
+  cy.injectAxe();
+  cy.checkAccessibility();
 });
 
 Cypress.Commands.add("drupalLogout", () => {
@@ -62,28 +66,107 @@ Cypress.Commands.add("drupalAddUserWithRole", (role, username, password) => {
   return cy.drupalDrushUserRoleAdd(username, role);
 });
 
+Cypress.Commands.add("drupalAddUserWithRoles", (roles, username, password) => {
+  cy.drupalDrushUserCreate(username, password);
+  roles.forEach((role) => cy.drupalDrushUserRoleAdd(username, role));
+
+  return cy;
+});
+
 Cypress.Commands.add(
-  "iframe",
-  { prevSubject: "element" },
-  ($iframe, callback = () => {}) => {
-    return cy
-      .wrap($iframe)
-      .should((iframe) => expect(iframe.contents().find("body")).to.exist)
-      .then((iframe) => cy.wrap(iframe.contents().find("body")));
+  "drupalGetWatchdogMessages",
+  (username, severity = "Warning") => {
+    const fields = ["wid", "date", "type", "severity", "message", "username"];
+    const command = `watchdog:show --format=json --severity=${severity} --fields=${fields.join(
+      ","
+    )}`;
+    return cy.drupalDrushCommand(command).then((output) => {
+      return cy
+        .log(output)
+        .then(() => {
+          return JSON.parse(output.stdout || "{}");
+        })
+        .then((json) => {
+          return cy.log(json).then(() => {
+            return Object.values(json).filter(
+              (entry) => entry.username === username
+            );
+          });
+        })
+        .then((entries) => {
+          return cy.log(entries).then(() => {
+            return entries;
+          });
+        });
+    });
   }
 );
 
-Cypress.Commands.add("type_ckeditor", (element, content) => {
+Cypress.Commands.add("drupalWatchdogHasNoNewMessages", (username, severity) => {
+  cy.drupalGetWatchdogMessages(username, severity).then((messages) => {
+    cy.log(messages);
+    expect(messages.length).to.equal(0);
+  });
+});
+
+Cypress.Commands.add("drupalWatchdogHasNoNewErrors", (username) => {
+  cy.drupalGetWatchdogMessages(username, "Error").then((messages) => {
+    cy.log(messages);
+    expect(messages.length).to.equal(0);
+  });
+});
+
+Cypress.Commands.add(
+  "drupalWatchdogHasNewMessages",
+  (username, severity, count) => {
+    cy.drupalGetWatchdogMessages(username, severity).then((messages) => {
+      cy.log(messages);
+      expect(messages.length).to.equal(count);
+    });
+  }
+);
+
+Cypress.Commands.add("drupalWatchdogHasNewErrors", (username, count) => {
+  cy.drupalGetWatchdogMessages(username, "Error").then((messages) => {
+    cy.log(messages);
+    expect(messages.length).to.equal(count);
+  });
+});
+
+Cypress.Commands.add("iframe", { prevSubject: "element" }, ($iframe) => {
+  return cy
+    .wrap($iframe)
+    .should((iframe) => expect(iframe.contents().find("body")).to.exist)
+    .then((iframe) => cy.wrap(iframe.contents().find("body")));
+});
+
+Cypress.Commands.add("get_ckeditor", (element) => {
   cy.wait(5000);
-  cy.window().then((win) => {
+  return cy.window().then((win) => {
     const elements = Object.keys(win.CKEDITOR.instances);
-    if (elements.indexOf(element) === -1) {
+    const index = elements.indexOf(element);
+    if (index === -1) {
       const matches = elements.filter((el) => el.includes(element));
       if (matches.length) {
+        // eslint-disable-next-line prefer-destructuring
         element = matches[0];
+      } else {
+        throw new Error(`CKEditor instance not found: ${element}`);
       }
     }
-    win.CKEDITOR.instances[element].setData(content);
+    return cy.wrap(win.CKEDITOR.instances[element]);
+  });
+});
+
+Cypress.Commands.add("type_ckeditor", (element, content) => {
+  return cy.get_ckeditor(element).then((editor) => {
+    return cy.wrap(editor.setData(content));
+  });
+});
+
+Cypress.Commands.add("read_ckeditor", (element) => {
+  return cy.get_ckeditor(element).then((editor) => {
+    return cy.wrap(editor.getData());
   });
 });
 
@@ -165,18 +248,21 @@ Cypress.Commands.add("setWorkbenchAccessSections", (value) => {
     });
 });
 
+compareSnapshotCommand();
 
-Cypress.Commands.add("accessibilityLog", (violations) => {
-  const violationData = violations.map(
-    ({ id, impact, description, nodes }) => ({
-      id,
-      impact,
-      description,
-      target: nodes[0].target,
-      nodes: nodes.length,
-    })
-  );
-  cy.task("table", violationData);
+Cypress.on("uncaught:exception", () => {
+  // Prevent Cypress from automatically failing tests in response to uncaught
+  // application exceptions.
+  return false;
 });
 
-compareSnapshotCommand();
+beforeEach(() => {
+  // Requests to Google Tag Manager can cause spurious test failures.
+  cy.intercept("https://www.googletagmanager.com/gtm.js**", {
+    statusCode: 200,
+    body: "",
+    headers: {
+      "x-response-header": "ha ha ha disregard this",
+    },
+  });
+});

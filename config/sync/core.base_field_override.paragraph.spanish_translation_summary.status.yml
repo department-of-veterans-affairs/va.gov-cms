@@ -1,0 +1,22 @@
+uuid: 914a01e3-e455-463c-a236-4dd8b7fb8c1b
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.spanish_translation_summary
+id: paragraph.spanish_translation_summary.status
+field_name: status
+entity_type: paragraph
+bundle: spanish_translation_summary
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

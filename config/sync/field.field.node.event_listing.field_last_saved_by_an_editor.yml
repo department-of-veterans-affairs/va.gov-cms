@@ -1,0 +1,25 @@
+uuid: c2d8ce9a-9b66-4138-8034-bcece4525ecf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_last_saved_by_an_editor
+    - node.type.event_listing
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: node.event_listing.field_last_saved_by_an_editor
+field_name: field_last_saved_by_an_editor
+entity_type: node
+bundle: event_listing
+label: 'Last Saved by an Editor'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: timestamp

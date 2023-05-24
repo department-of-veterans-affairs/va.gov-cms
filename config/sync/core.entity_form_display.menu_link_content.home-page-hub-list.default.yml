@@ -1,0 +1,59 @@
+uuid: effa7c87-1eb4-4706-a49e-ce117e9fb971
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.menu_link_content.home-page-hub-list.field_icon
+    - field.field.menu_link_content.home-page-hub-list.field_link_summary
+    - system.menu.home-page-hub-list
+  module:
+    - link
+    - menu_item_extras
+    - textfield_counter
+id: menu_link_content.home-page-hub-list.default
+targetEntityType: menu_link_content
+bundle: home-page-hub-list
+mode: default
+content:
+  field_icon:
+    type: options_select
+    weight: 21
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_link_summary:
+    type: string_textfield_with_counter
+    weight: 22
+    region: content
+    settings:
+      size: 100
+      placeholder: ''
+      use_field_maxlength: false
+      maxlength: 180
+      counter_position: after
+      js_prevent_submit: false
+      count_html_characters: true
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+    third_party_settings: {  }
+  title:
+    type: string_textfield_with_counter
+    weight: -5
+    region: content
+    settings:
+      size: 25
+      placeholder: ''
+      use_field_maxlength: false
+      maxlength: 25
+      counter_position: after
+      js_prevent_submit: false
+      count_html_characters: true
+      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
+    third_party_settings: {  }
+  view_mode:
+    type: menu_item_extras_view_mode_selector_select
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  langcode: true

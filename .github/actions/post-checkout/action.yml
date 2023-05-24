@@ -7,11 +7,11 @@ runs:
 
     - name: Get Composer cache directory
       id: composer-cache
-      run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+      run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       shell: bash
 
     - name: Use the Composer cache, if possible
-      uses: actions/cache@v3
+      uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3.3.1
       with:
         path: ${{ steps.composer-cache.outputs.dir }}
         key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -19,16 +19,21 @@ runs:
           ${{ runner.os }}-composer-
 
     - name: Setup the PHP environment
-      uses: shivammathur/setup-php@v2
+      uses: shivammathur/setup-php@cb8f453143149404c7fd670b5f37c91d395b3054 # v2.25.1
       with:
-        php-version: '7.4'
+        php-version: '8.1'
         extensions: dom, curl, libxml, mbstring, zip, pdo, mysql, pdo_mysql, bcmath, gd, exif, iconv
         tools: composer:v2
         coverage: xdebug
+
+    - name: Setup the Node environment
+      uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0
+      with:
+        node-version: '18.13'
 
     - name: Install PHP packages via Composer
       run: composer install --no-progress --prefer-dist --optimize-autoloader
       shell: bash
 
     - name: Setup ReviewDog
-      uses: reviewdog/action-setup@v1
+      uses: reviewdog/action-setup@8dc47785c4a3a899d16d7371637b070e600cd65f # v1.0.4

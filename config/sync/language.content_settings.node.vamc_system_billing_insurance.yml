@@ -1,0 +1,18 @@
+uuid: 3a406855-377c-4f9b-8184-fb67052e52d2
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vamc_system_billing_insurance
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+id: node.vamc_system_billing_insurance
+target_entity_type_id: node
+target_bundle: vamc_system_billing_insurance
+default_langcode: site_default
+language_alterable: false

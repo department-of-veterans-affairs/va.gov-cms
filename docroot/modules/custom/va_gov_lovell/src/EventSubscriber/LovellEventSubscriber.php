@@ -3,13 +3,17 @@
 namespace Drupal\va_gov_lovell\EventSubscriber;
 
 use Drupal\core_event_dispatcher\EntityHookEvents;
+use Drupal\core_event_dispatcher\Event\Entity\EntityAccessEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
+use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
+use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\menu_link_content\MenuLinkContentInterface;
 use Drupal\node\NodeInterface;
@@ -87,10 +91,27 @@ class LovellEventSubscriber implements EventSubscriberInterface {
   public static function getSubscribedEvents(): array {
     return [
       BreadcrumbPreprocessEvent::name() => 'preprocessBreadcrumb',
+      EntityHookEvents::ENTITY_ACCESS => 'entityAccess',
       EntityHookEvents::ENTITY_INSERT => 'entityInsert',
       EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
       EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
+      'hook_event_dispatcher.form_node_regional_health_care_service_des_form.alter' => 'alterRegionalHealthServiceNodeForm',
+      'hook_event_dispatcher.form_node_regional_health_care_service_des_edit_form.alter' => 'alterRegionalHealthServiceNodeForm',
     ];
+  }
+
+  /**
+   * Entity access Event call.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityAccessEvent $event
+   *   The event.
+   */
+  public function entityAccess(EntityAccessEvent $event): void {
+    $entity = $event->getEntity();
+    $operation = $event->getOperation();
+    $account = $event->getAccount();
+    $accessResult = $this->restrictLovellSystemToAdmin($entity, $operation, $account);
+    $event->setAccessResult($accessResult);
   }
 
   /**
@@ -139,6 +160,29 @@ class LovellEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Alterations to VAMC system health service node forms.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function alterRegionalHealthServiceNodeForm(FormIdAlterEvent $event): void {
+    $this->winnowServiceNamesForTricare($event);
+  }
+
+  /**
+   * Adds javascript to winnow available Health Services by system.
+   *
+   * This is a special case to accommodate Lovell TRICARE.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function winnowServiceNamesForTricare(FormIdAlterEvent $event): void {
+    $form = &$event->getForm();
+    $form['#attached']['library'][] = 'va_gov_lovell/winnow_service_names_tricare';
+  }
+
+  /**
    * Disable pathauto for Lovell nodes.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
@@ -152,10 +196,42 @@ class LovellEventSubscriber implements EventSubscriberInterface {
       if (!array_key_exists($section_id, LovellOps::LOVELL_SECTIONS)) {
         return;
       }
+      elseif (LovellOps::isLovellBothListingPage($entity)) {
+        return;
+      }
+
       // If this node is in a Lovell section disable pathauto pattern.
       // @phpstan-ignore-next-line
       $entity->path->pathauto = 0;
     }
+  }
+
+  /**
+   * Restrict non-admins to view only access for Lovell umbrella system.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The entity being accessed.
+   * @param string $operation
+   *   The type of access operation: view, edit, delete, etc.
+   * @param \Drupal\Core\Session\AccountInterface $account
+   *   The account attempting access.
+   *
+   * @return \Drupal\Core\Access\AccessResult
+   *   The access result.
+   */
+  protected function restrictLovellSystemToAdmin(EntityInterface $entity, string $operation, AccountInterface $account) {
+    if (($entity instanceof NodeInterface)
+    && ($entity->bundle() === 'health_care_region_page')
+    && ($entity->hasField('field_administration'))) {
+      $user_roles = $account->getRoles();
+      $section_id = $entity->get('field_administration')->target_id;
+      if (($section_id === LovellOps::BOTH_ID)
+      && (!in_array('administrator', $user_roles))
+      && ($operation != 'view')) {
+        return AccessResult::forbidden();
+      }
+    }
+    return AccessResult::neutral();
   }
 
   /**
@@ -196,6 +272,7 @@ class LovellEventSubscriber implements EventSubscriberInterface {
   protected function updateLovellBreadcrumbs(BreadcrumbEventVariables $variables): void {
     $breadcrumb = $variables->getBreadcrumb();
     $node = $this->routeMatch->getParameter('node');
+
     if (($node instanceof NodeInterface)
     && ($node->hasField('path'))
     && ($node->hasField('field_administration'))) {
@@ -232,7 +309,9 @@ class LovellEventSubscriber implements EventSubscriberInterface {
     $b_path = constant('\Drupal\va_gov_lovell\LovellOps::' . "{$b}_PATH");
     $b_name = constant('\Drupal\va_gov_lovell\LovellOps::' . "{$b}_NAME");
     foreach ($breadcrumb as $key => $link) {
-      if (str_contains($link['url'], $a_path)) {
+      // Either the system path itself or the system path in the longer path.
+      if (strcmp(ltrim($link['url'], "/"), $a_path) === 0
+          || str_contains($link['url'], "/$a_path/")) {
         $breadcrumb[$key]['url'] = str_replace($a_path, $b_path, $link['url']);
         if (is_string($link['text'])) {
           $breadcrumb[$key]['text'] = str_replace($a_name, $b_name, $link['text']);
@@ -258,8 +337,9 @@ class LovellEventSubscriber implements EventSubscriberInterface {
       if (!array_key_exists($section_id, LovellOps::LOVELL_SECTIONS)) {
         return;
       }
-      if ($entity->id() === '15007') {
-        // Special case of Lovell Federal system.
+      if ($entity->id() === LovellOps::LOVELL_FEDERAL_SYSTEM_ID  || LovellOps::isLovellBothListingPage($entity)) {
+        // Special case of Lovell Federal system,
+        // or listing pages that are in both systems but not rendered.
         return;
       }
 
@@ -301,10 +381,15 @@ class LovellEventSubscriber implements EventSubscriberInterface {
     $new_url = $this->pathautoGenerator->createEntityAlias($node, 'return');
     $url_pieces = explode('/', $new_url);
     $new_aliases = [];
-    foreach ($prefixes as $section => $prefix) {
+    foreach ($prefixes as $prefix) {
+      // Replace the first segment and use the rest.
+      $url = "/{$prefix}/" . implode('/', array_slice($url_pieces, 2));
+      // Remove trailing -0 from using the menu parent for VAMC detail pages.
+      // This also applies to leadership pages.
+      $url = preg_replace('/-0$/', '', $url);
       $new_alias = PathAlias::Create([
-        'path' => '/node/' . $node->id(),
-        'alias' => '/' . $prefix . '/' . implode('/', array_slice($url_pieces, 2)),
+        'path' => "/node/{$node->id()}",
+        'alias' => $url,
         'langcode' => $node->language()->getId(),
       ]);
       $new_aliases[] = $new_alias;
@@ -327,7 +412,7 @@ class LovellEventSubscriber implements EventSubscriberInterface {
     $path_alias_manager = $this->entityTypeManager->getStorage('path_alias');
     $existing_aliases = $path_alias_manager->loadByProperties([
       'path'     => $path,
-      'langcode' => 'en',
+      'langcode' => $node->language()->getId(),
     ]);
 
     return $existing_aliases;

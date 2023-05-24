@@ -1,0 +1,40 @@
+uuid: 42d67edb-ddea-4182-a5c1-4bfc5c714f3f
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.benefit_promo
+    - field.storage.block_content.field_administration
+    - taxonomy.vocabulary.administration
+  module:
+    - entity_reference_validators
+    - epp
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: false
+  epp:
+    value: ''
+    on_update: 0
+id: block_content.benefit_promo.field_administration
+field_name: field_administration
+entity_type: block_content
+bundle: benefit_promo
+label: Section
+description: 'Select a section to determine who will manage this content.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      administration: administration
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

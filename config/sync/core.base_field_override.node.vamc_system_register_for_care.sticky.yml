@@ -1,0 +1,22 @@
+uuid: 428ed97a-bcb8-45ee-af5a-0e29ebf62776
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.vamc_system_register_for_care
+id: node.vamc_system_register_for_care.sticky
+field_name: sticky
+entity_type: node
+bundle: vamc_system_register_for_care
+label: 'Sticky at top of lists'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

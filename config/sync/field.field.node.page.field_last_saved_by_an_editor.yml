@@ -1,0 +1,25 @@
+uuid: 4c185e8e-4ad4-448a-960c-d13b6df811bb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_last_saved_by_an_editor
+    - node.type.page
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: node.page.field_last_saved_by_an_editor
+field_name: field_last_saved_by_an_editor
+entity_type: node
+bundle: page
+label: 'Last Saved by an Editor'
+description: 'This is the last time an editor interacted with this content. This field is populated automatically when you click Save.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: timestamp

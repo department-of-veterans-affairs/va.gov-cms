@@ -1,0 +1,26 @@
+uuid: 94a2b406-5f2d-4c83-9cd6-3b20a9e7c98f
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_content
+id: home_page_news_spotlight
+label: 'V2 Home page news spotlight'
+handler: simple
+handler_configuration: {  }
+entity_settings:
+  target_type: block_content
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      news_promo: news_promo
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+queue_settings:
+  min_size: 1
+  max_size: 1
+  act_as_queue: false
+  reverse: false

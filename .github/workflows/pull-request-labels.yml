@@ -12,10 +12,13 @@ jobs:
   pr-team-labels:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
-      - uses: harupy/auto-labeling@master
+      - name: Autolabel
+        # Temporary until we get this fixed upstream or pulled into this repo.
+        uses: timcosgrove/auto-labeling@ed43ee47522f3a52cb912be7dea67e185e720a8e
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
           label-pattern: '- \[(.*?)\] ?`(.+?)`' # matches '- [x] `label`'

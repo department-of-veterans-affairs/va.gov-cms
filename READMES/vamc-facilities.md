@@ -10,7 +10,7 @@
 ## Status Changes to Lighthouse
 Whenever any NCA facility, VAMC facility, VBA faciltiy, Vet Center, or Vet
 Center Outstation has a change of "Operating status", "Operating status -
-more info", or "Supplemental status" saved in VACMS (whether by an editor, or migration), a change 
+more info", or "Supplemental status" saved in VACMS (whether by an editor, or migration), a change
 is added to the "post API queue" by module:va_gov_post_api. When cron runs, any
 items in the queue are posted to the Lighthouse API.
 
@@ -39,5 +39,7 @@ The handling is performed in:
   * which leverages contrib [GovDelivery Bulletins](https://www.drupal.org/project/govdelivery_bulletins)
 
   The queue and related settings can be seen here [/admin/config/services/govdelivery-bulletins](https://prod.cms.va.gov/admin/config/services/govdelivery-bulletins)
+
+----
 
 [Table of Contents](../README.md)

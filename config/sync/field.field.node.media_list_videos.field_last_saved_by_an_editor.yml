@@ -1,0 +1,25 @@
+uuid: cc42ddcc-71cd-419c-b82e-d07ecdd09a34
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_last_saved_by_an_editor
+    - node.type.media_list_videos
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: node.media_list_videos.field_last_saved_by_an_editor
+field_name: field_last_saved_by_an_editor
+entity_type: node
+bundle: media_list_videos
+label: 'Last Saved by an Editor'
+description: 'This is the last time an editor interacted with this content. This field is populated automatically when you click Save.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: timestamp

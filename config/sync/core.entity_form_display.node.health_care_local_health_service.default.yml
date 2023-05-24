@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.health_care_local_health_service.field_hservice_appt_intro_select
     - field.field.node.health_care_local_health_service.field_hservice_appt_leadin
     - field.field.node.health_care_local_health_service.field_hservices_lead_in_default
+    - field.field.node.health_care_local_health_service.field_last_saved_by_an_editor
     - field.field.node.health_care_local_health_service.field_online_scheduling_availabl
     - field.field.node.health_care_local_health_service.field_phone_numbers_paragraph
     - field.field.node.health_care_local_health_service.field_referral_required
@@ -223,6 +224,12 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_last_saved_by_an_editor:
+    type: datetime_timestamp
+    weight: 32
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_online_scheduling_availabl:
     type: options_select
     weight: 0
@@ -294,6 +301,7 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  langcode: true
   path: true
   promote: true
   status: true

@@ -1,0 +1,36 @@
+uuid: ed187576-e3b9-4d4c-8d76-df99a3183451
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_service_name_and_descripti
+    - node.type.vba_facility_service
+  module:
+    - entity_reference_validators
+    - epp
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: true
+  epp:
+    value: ''
+    on_update: 0
+id: node.vba_facility_service.field_service_name_and_descripti
+field_name: field_service_name_and_descripti
+entity_type: node
+bundle: vba_facility_service
+label: 'Service name'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: health_care_service_names_and_descriptions
+      display_name: entity_reference_vba_services
+      arguments: {  }
+field_type: entity_reference

@@ -1,0 +1,33 @@
+uuid: bb8e3805-7540-4a22-8904-1cd8bb251a90
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.message.va_outdated_content.field_editor_username
+    - field.field.message.va_outdated_content.field_subject
+    - message.template.va_outdated_content
+  module:
+    - user
+id: message.va_outdated_content.default
+targetEntityType: message
+bundle: va_outdated_content
+mode: default
+content:
+  field_editor_username:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_subject:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  search_api_excerpt: true

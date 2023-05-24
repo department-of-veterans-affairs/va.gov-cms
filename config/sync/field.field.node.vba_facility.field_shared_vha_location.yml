@@ -1,0 +1,42 @@
+uuid: f8a14978-dffe-4ab9-8aa0-79f89d4a8e09
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_shared_vha_location
+    - node.type.health_care_local_facility
+    - node.type.vba_facility
+    - node.type.vet_center
+  module:
+    - entity_reference_validators
+    - epp
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: false
+  epp:
+    value: ''
+    on_update: 0
+id: node.vba_facility.field_shared_vha_location
+field_name: field_shared_vha_location
+entity_type: node
+bundle: vba_facility
+label: 'Shared VHA location'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      health_care_local_facility: health_care_local_facility
+      vet_center: vet_center
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: health_care_local_facility
+field_type: entity_reference

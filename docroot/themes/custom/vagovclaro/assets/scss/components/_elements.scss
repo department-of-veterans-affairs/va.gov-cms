@@ -33,7 +33,7 @@
 #block-vagovclaro-help,
 #top-get-help-email {
   @include va-helptext;
-  color: var(--va-gray-med);
+  color: var(--va-gray-darkest);
 }
 
 #appointments h2,
@@ -52,7 +52,8 @@
 }
 
 .label,
-.form-item__label {
+.form-item__label,
+.fieldset__label {
   @include va-label;
   margin-bottom: var(--spacing-xs);
 }
@@ -97,9 +98,10 @@ a:hover {
   margin: var(--space-s) var(--space-xs) var(--space-s) 0;
 }
 
+
 // help text on a non-white background needs more contrast
 .claro-details__wrapper--accordion-item .form-item__description {
-  color: var(--input-fg-color-description--alt);
+  color: var(--va-gray-darkest);
 }
 
 th {
@@ -108,7 +110,7 @@ th {
   }
 
   .form-item__description {
-    color: var(--color-text);
+    color: var(--va-gray-darkest);
     margin: 0 var(--spacing-xxs) 0 0;
   }
 
@@ -139,6 +141,14 @@ th {
   padding: var(--spacing-s);
 }
 
+.field--name-field-last-saved-by-an-editor {
+  border: 1px solid var(--va-gray-cool-med);
+  border-radius: 2px;
+  margin-bottom: var(--spacing-m);
+  margin-top: var(--spacing-m);
+  padding: var(--spacing-s);
+}
+
 .ief-entity-table {
   th:last-child {
     font-size: 0;
@@ -158,10 +168,7 @@ p.vc-help-text {
 }
 
 .visual-layout-svg {
-  padding-bottom: 55px;
-  padding-left: 0;
-  padding-right: 30px;
-  padding-top: 30px;
+  padding: 30px 30px 55px 0;
 }
 
 .item-list {
@@ -223,8 +230,24 @@ p.vc-help-text {
   width: 16px;
 }
 
-.breadcrumb__link:hover {
-  color: var(--va-blue-med);
+.breadcrumb__link {
+  color: var(--va-blue-dark);
+  text-decoration: underline;
+  transition-duration: 0.3s;
+  transition-property: color,background-color,border-color;
+  transition-timing-function: ease-in-out;
+
+  &:focus,
+  &:hover {
+    background-color: var(--va-blue-lighter);
+    color: var(--va-blue-darker);
+    text-decoration: none;
+  }
+
+  &:focus {
+    box-shadow: var(--focus-box-shadow);
+    outline: var(--focus-outline);
+  }
 }
 
 .no-wrap {
@@ -279,5 +302,28 @@ p.vc-help-text {
 
   &.show {
     display: block;
+  }
+}
+
+.entity-meta__header {
+  .entity-meta__last-saved-by-editor {
+    margin-bottom: 0;
+    margin-top: 20px;
+  }
+
+  .entity-meta__last-saved {
+    margin-bottom: 0;
+  }
+
+  p.helper-text {
+    font-size: 14px;
+  }
+
+  p.helper-text-saved {
+    margin-bottom: 0;
+  }
+
+  .entity-meta__author {
+    margin-top: 0;
   }
 }

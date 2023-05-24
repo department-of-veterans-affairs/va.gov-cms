@@ -1,0 +1,25 @@
+uuid: c76a40f5-a946-4a51-ad94-4c8c75f50d29
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_last_saved_by_an_editor
+    - node.type.health_care_local_health_service
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: node.health_care_local_health_service.field_last_saved_by_an_editor
+field_name: field_last_saved_by_an_editor
+entity_type: node
+bundle: health_care_local_health_service
+label: 'Last Saved by an Editor'
+description: 'This is the last time an editor interacted with this content. This field is populated automatically when you click Save.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: timestamp

@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.page.field_description
     - field.field.node.page.field_featured_content
     - field.field.node.page.field_intro_text_limited_html
+    - field.field.node.page.field_last_saved_by_an_editor
     - field.field.node.page.field_meta_tags
     - field.field.node.page.field_plainlanguage_date
     - field.field.node.page.field_related_links
@@ -201,6 +202,12 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
+  field_last_saved_by_an_editor:
+    type: datetime_timestamp
+    weight: 26
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_related_links:
     type: paragraphs
     weight: 6
@@ -261,6 +268,7 @@ hidden:
   created: true
   field_meta_tags: true
   field_plainlanguage_date: true
+  langcode: true
   panelizer: true
   promote: true
   status: true

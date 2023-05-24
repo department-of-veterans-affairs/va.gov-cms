@@ -1,0 +1,28 @@
+uuid: 3663b589-c119-415c-a9bd-2dc8baf8b0bd
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.news_promo
+    - field.storage.block_content.field_link
+  module:
+    - epp
+    - link
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: block_content.news_promo.field_link
+field_name: field_link
+entity_type: block_content
+bundle: news_promo
+label: Link
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 0
+  link_type: 17
+field_type: link

@@ -1,0 +1,20 @@
+uuid: 540e5187-4719-4592-bc9d-51a73ba2cafb
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.office
+id: node.office.menu_link
+field_name: menu_link
+entity_type: node
+bundle: office
+label: 'Menu link'
+description: 'Computed menu link for the node (only available during node saving).'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

@@ -14,13 +14,13 @@ use Drush\Commands\DrushCommands;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 
-// The UID of the CMS Help Desk account subscribing to facility messages.
-const USER_CMS_HELP_DESK_NOTIFICATIONS = 4050;
-
 /**
  * Drush commands related to migrations.
  */
 class Commands extends DrushCommands {
+
+  // The UID of the CMS Help Desk account subscribing to facility messages.
+  const USER_CMS_HELP_DESK_NOTIFICATIONS = 4050;
 
   /**
    * EntityTypemanager.
@@ -165,7 +165,7 @@ class Commands extends DrushCommands {
 
         // Send email to CMS Help Desk for follow-up steps.
         $message_fields = $this->notificationsManager->buildMessageFields($facility_node_to_flag, 'Facility removed:');
-        $this->notificationsManager->send('va_facility_removed_from_source', USER_CMS_HELP_DESK_NOTIFICATIONS, $message_fields);
+        $this->notificationsManager->send('va_facility_removed_from_source', self::USER_CMS_HELP_DESK_NOTIFICATIONS, $message_fields);
       }
 
       // Log amount to be processed.
@@ -272,6 +272,7 @@ class Commands extends DrushCommands {
     $query = $this->database->select('node__field_facility_locator_api_id', 'fapi');
     // For now we are excluding CAPs, they are not in the facility API.
     $query->condition('field_facility_locator_api_id_value', '%CAP%', 'NOT LIKE');
+    $query->condition('field_facility_locator_api_id_value', '%tricare%', 'NOT LIKE');
     $query->fields('fapi', ['field_facility_locator_api_id_value', 'entity_id']);
     $facility_fields = $query->execute()->fetchAll();
     if ($facility_fields) {

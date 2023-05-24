@@ -1,0 +1,78 @@
+display:
+  default:
+    display_title: Máster
+    display_options:
+      exposed_form:
+        options:
+          submit_button: Aplicar
+          reset_button_label: Restablecer
+          exposed_sorts_label: 'Ordenar por'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      pager:
+        options:
+          tags:
+            previous: ‹‹
+            next: ››
+          expose:
+            items_per_page_label: 'Elementos por página'
+            items_per_page_options_all_label: '- Todo -'
+            offset_label: Desplazamiento
+      fields:
+        feedback_type:
+          format_plural_string: !!binary MQNAY291bnQ=
+        id:
+          format_plural_string: !!binary MQNAY291bnQ=
+  nodes_list:
+    display_options:
+      fields:
+        nid:
+          separator: ', '
+        id:
+          format_plural_string: !!binary MQNAY291bnQ=
+        title:
+          label: Título
+          separator: ', '
+        total_score:
+          label: Puntuación
+          format_plural_string: !!binary MQNAY291bnQ=
+          suffix: '%'
+        no_count:
+          format_plural_string: !!binary MQNAY291bnQ=
+        yes_count:
+          format_plural_string: !!binary MQNAY291bnQ=
+        count:
+          label: Total
+          format_plural_string: !!binary MQNAY291bnQ=
+        langcode:
+          label: Idioma
+          separator: ', '
+        edit_node:
+          text: editar
+  nodes_score:
+    display_options:
+      arguments:
+        nid:
+          exception:
+            title: Todo(s)
+      fields:
+        id:
+          label: ID
+          format_plural_string: !!binary MQNAY291bnQ=
+        feedback_type:
+          label: Tipo
+          format_plural_string: !!binary MQNAY291bnQ=
+        feedback_message:
+          label: Mensaje
+        langcode_2:
+          label: Idioma
+        created:
+          label: Creado
+          format_plural_string: !!binary MQNAY291bnQ=
+        inspected:
+          format_plural_string: !!binary MQNAY291bnQ=
+        id_1:
+          alter:
+            text: eliminar
+            alt: eliminar
+          format_plural_string: !!binary MQNAY291bnQ=

@@ -1,0 +1,18 @@
+uuid: 03ad8c56-ebba-4bf4-81de-5bebdc8845a2
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.centralized_content
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+id: node.centralized_content
+target_entity_type_id: node
+target_bundle: centralized_content
+default_langcode: site_default
+language_alterable: false

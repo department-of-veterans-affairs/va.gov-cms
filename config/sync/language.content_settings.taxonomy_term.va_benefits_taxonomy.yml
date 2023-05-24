@@ -1,0 +1,16 @@
+uuid: 7e9ace46-e4d1-4903-9348-92a111e699ef
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.va_benefits_taxonomy
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+id: taxonomy_term.va_benefits_taxonomy
+target_entity_type_id: taxonomy_term
+target_bundle: va_benefits_taxonomy
+default_langcode: site_default
+language_alterable: true

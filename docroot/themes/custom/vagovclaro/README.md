@@ -13,7 +13,7 @@ with `ddev` to run inside your local development container.
 a recompile & a clear of drupal caches. Reload your browser to see your changes.
 
 Local commands:
-- `yarn install` in this directory which contains a gulp workflow for sass, similar to the existing vagovadmin theme.
+- `yarn install` in this directory which contains a gulp workflow for sass, similar to the existing vagovclaro theme.
 - `yarn build` to build the compiled css for higher environments. These files are .gitignored, and get compiled as part of the normal CI build process.
 - `yarn watch` to watch & recompile during local development. drupal caches are cleared as part of this.
 

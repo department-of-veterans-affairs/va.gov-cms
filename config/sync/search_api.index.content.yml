@@ -3,53 +3,370 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.block_content.field_alert_content
+    - field.storage.block_content.field_alert_title
+    - field.storage.block_content.field_promo_headline
+    - field.storage.block_content.field_promo_text
+    - field.storage.media.field_description
+    - field.storage.node.field_additional_information_abo
+    - field.storage.node.field_answer
+    - field.storage.node.field_banner_alert_situationinfo
+    - field.storage.node.field_hservice_appt_leadin
+    - field.storage.node.body
+    - field.storage.node.field_full_story
+    - field.storage.node.field_image_caption
+    - field.storage.node.field_operating_status_more_info
+    - field.storage.node.field_va_form_title
+    - field.storage.node.field_body
+    - field.storage.node.field_press_release_fulltext
+    - field.storage.node.field_content_block
+    - field.storage.node.field_administration
+    - field.storage.taxonomy_term.field_commonly_treated_condition
+    - field.storage.taxonomy_term.field_vet_center_com_conditions
+    - field.storage.taxonomy_term.field_also_known_as
+    - field.storage.taxonomy_term.field_vet_center_friendly_name
+    - field.storage.taxonomy_term.field_administration
+    - field.storage.taxonomy_term.field_vet_center_service_descrip
+    - field.storage.taxonomy_term.field_tricare_description
+    - field.storage.taxonomy_term.field_vba_friendly_name
     - search_api.server.database
+    - core.entity_view_mode.block_content.full
+    - core.entity_view_mode.media.full
+    - core.entity_view_mode.node.search_index
   module:
+    - block_content
+    - content_moderation
+    - media
     - node
+    - taxonomy
     - search_api
 _core:
   default_config_hash: qEX0c8Yf878jYMC-3TrFlGSSNQeGbl3u0Hs6GJfxA38
 id: content
 name: Content
-description: 'An index of all content in your site.'
+description: 'An index of all content, media paragraphs and select vocabularies in this  site. Many entity reference fields are withheld from the search by removing them from the search api view mode to prevent entity content recurrsion.'
 read_only: false
 field_settings:
-  label:
-    label: Label
+  aggregated_moderation_state:
+    label: 'Aggregated moderation state'
+    property_path: aggregated_field
+    type: string
+    configuration:
+      type: max
+      fields:
+        - 'entity:block_content/moderation_state'
+        - 'entity:node/moderation_state'
+  aggregated_published:
+    label: 'Aggregated published'
+    property_path: aggregated_field
+    type: boolean
+    configuration:
+      type: max
+      fields:
+        - 'entity:block_content/status'
+        - 'entity:media/status'
+        - 'entity:node/status'
+        - 'entity:taxonomy_term/status'
+  aggregated_title:
+    label: 'Aggregated title'
     property_path: aggregated_field
     type: text
+    boost: 0.9
     configuration:
-      type: first
+      type: union
       fields:
+        - 'entity:block_content/field_alert_title'
+        - 'entity:block_content/field_promo_headline'
+        - 'entity:block_content/info'
+        - 'entity:media/name'
         - 'entity:node/title'
-  node_grants:
-    label: 'Node access information'
-    property_path: search_api_node_grants
+        - 'entity:taxonomy_term/field_also_known_as'
+        - 'entity:taxonomy_term/field_vet_center_friendly_name'
+        - 'entity:taxonomy_term/name'
+  body:
+    label: Body
+    datasource_id: 'entity:node'
+    property_path: body
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.body
+  description:
+    label: Description
+    datasource_id: 'entity:taxonomy_term'
+    property_path: description
+    type: text
+    dependencies:
+      module:
+        - taxonomy
+  field_additional_information_abo:
+    label: 'Additional registration  information'
+    datasource_id: 'entity:node'
+    property_path: field_additional_information_abo
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_additional_information_abo
+  field_administration:
+    label: Section
+    datasource_id: 'entity:taxonomy_term'
+    property_path: field_administration
+    type: integer
+    dependencies:
+      config:
+        - field.storage.taxonomy_term.field_administration
+  field_alert_content:
+    label: 'Alert body'
+    datasource_id: 'entity:block_content'
+    property_path: field_alert_content
+    type: text
+    dependencies:
+      config:
+        - field.storage.block_content.field_alert_content
+  field_alert_title:
+    label: 'Alert title'
+    datasource_id: 'entity:block_content'
+    property_path: field_alert_title
+    type: text
+    dependencies:
+      config:
+        - field.storage.block_content.field_alert_title
+  field_also_known_as:
+    label: 'Patient friendly name'
+    datasource_id: 'entity:taxonomy_term'
+    property_path: field_also_known_as
+    type: text
+    dependencies:
+      config:
+        - field.storage.taxonomy_term.field_also_known_as
+  field_answer:
+    label: Answer
+    datasource_id: 'entity:node'
+    property_path: field_answer
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_answer
+  field_banner_alert_situationinfo:
+    label: 'Any information that is additional to any time-sensitive situation updates'
+    datasource_id: 'entity:node'
+    property_path: field_banner_alert_situationinfo
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_banner_alert_situationinfo
+  field_body:
+    label: 'Full event description'
+    datasource_id: 'entity:node'
+    property_path: field_body
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_body
+  field_commonly_treated_condition:
+    label: 'Common conditions'
+    datasource_id: 'entity:taxonomy_term'
+    property_path: field_commonly_treated_condition
+    type: text
+    dependencies:
+      config:
+        - field.storage.taxonomy_term.field_commonly_treated_condition
+  field_content_block:
+    label: 'Main content'
+    datasource_id: 'entity:node'
+    property_path: field_content_block
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_content_block
+  field_description:
+    label: Description
+    datasource_id: 'entity:media'
+    property_path: field_description
+    type: text
+    boost: !!float 0
+    dependencies:
+      config:
+        - field.storage.media.field_description
+  field_full_story:
+    label: 'Body text'
+    datasource_id: 'entity:node'
+    property_path: field_full_story
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_full_story
+  field_hservice_appt_leadin:
+    label: 'Appointment lead-in text'
+    datasource_id: 'entity:node'
+    property_path: field_hservice_appt_leadin
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_hservice_appt_leadin
+  field_image_caption:
+    label: Caption
+    datasource_id: 'entity:node'
+    property_path: field_image_caption
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_image_caption
+  field_operating_status_more_info:
+    label: Details
+    datasource_id: 'entity:node'
+    property_path: field_operating_status_more_info
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_operating_status_more_info
+  field_press_release_fulltext:
+    label: 'Full text of the Press Release'
+    datasource_id: 'entity:node'
+    property_path: field_press_release_fulltext
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_press_release_fulltext
+  field_promo_headline:
+    label: 'Promo Headline'
+    datasource_id: 'entity:block_content'
+    property_path: field_promo_headline
+    type: text
+    dependencies:
+      config:
+        - field.storage.block_content.field_promo_headline
+  field_promo_text:
+    label: 'Promo Text'
+    datasource_id: 'entity:block_content'
+    property_path: field_promo_text
+    type: text
+    boost: !!float 13
+    dependencies:
+      config:
+        - field.storage.block_content.field_promo_text
+  field_tricare_description:
+    label: 'TRICARE service description'
+    datasource_id: 'entity:taxonomy_term'
+    property_path: field_tricare_description
+    type: text
+    dependencies:
+      config:
+        - field.storage.taxonomy_term.field_tricare_description
+  field_va_form_title:
+    label: 'Form title'
+    datasource_id: 'entity:node'
+    property_path: field_va_form_title
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_va_form_title
+  field_vba_friendly_name:
+    label: 'VBA patient friendly name'
+    datasource_id: 'entity:taxonomy_term'
+    property_path: field_vba_friendly_name
+    type: text
+    dependencies:
+      config:
+        - field.storage.taxonomy_term.field_vba_friendly_name
+  field_vet_center_com_conditions:
+    label: 'Common conditions'
+    datasource_id: 'entity:taxonomy_term'
+    property_path: field_vet_center_com_conditions
+    type: text
+    dependencies:
+      config:
+        - field.storage.taxonomy_term.field_vet_center_com_conditions
+  field_vet_center_friendly_name:
+    label: 'Patient friendly name'
+    datasource_id: 'entity:taxonomy_term'
+    property_path: field_vet_center_friendly_name
+    type: text
+    dependencies:
+      config:
+        - field.storage.taxonomy_term.field_vet_center_friendly_name
+  field_vet_center_service_descrip:
+    label: 'Service description'
+    datasource_id: 'entity:taxonomy_term'
+    property_path: field_vet_center_service_descrip
+    type: text
+    dependencies:
+      config:
+        - field.storage.taxonomy_term.field_vet_center_service_descrip
+  info:
+    label: 'Block description'
+    datasource_id: 'entity:block_content'
+    property_path: info
+    type: text
+    dependencies:
+      module:
+        - block_content
+  moderation_state:
+    label: 'Moderation state'
+    datasource_id: 'entity:node'
+    property_path: moderation_state
     type: string
-    indexed_locked: true
-    type_locked: true
-    hidden: true
+    dependencies:
+      module:
+        - content_moderation
+  moderation_state_1:
+    label: 'Moderation state'
+    datasource_id: 'entity:block_content'
+    property_path: moderation_state
+    type: string
+    dependencies:
+      module:
+        - content_moderation
+  name:
+    label: 'Section » Taxonomy term » Name'
+    datasource_id: 'entity:node'
+    property_path: 'field_administration:entity:name'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_administration
+      module:
+        - taxonomy
+  name_1:
+    label: Name
+    datasource_id: 'entity:media'
+    property_path: name
+    type: text
+    dependencies:
+      module:
+        - media
   rendered:
     label: Rendered
     property_path: rendered_item
     type: text
+    boost: !!float 0
     configuration:
       roles:
         - anonymous
       view_mode:
+        'entity:block_content':
+          alert: full
+          benefit_promo: full
+          news_promo: full
+          promo: full
+        'entity:media':
+          document: full
+          document_external: full
+          image: full
+          video: full
         'entity:node':
-          banner: ''
-          basic_landing_page: ''
-          campaign_landing_page: ''
-          centralized_content: ''
+          banner: default
+          basic_landing_page: default
+          campaign_landing_page: default
+          centralized_content: default
           checklist: default
           documentation_page: default
           event: default
           event_listing: default
-          faq_multiple_q_a: ''
-          full_width_banner_alert: ''
+          faq_multiple_q_a: default
+          full_width_banner_alert: default
           health_care_local_facility: default
-          health_care_local_health_service: default
+          health_care_local_health_service: search_index
           health_care_region_detail_page: default
           health_care_region_page: default
           health_services_listing: default
@@ -60,41 +377,54 @@ field_settings:
           media_list_videos: default
           nca_facility: default
           news_story: default
-          office: ''
+          office: default
           outreach_asset: default
           page: default
           person_profile: default
           press_release: default
           press_releases_listing: default
-          promo_banner: ''
+          promo_banner: default
           publication_listing: default
           q_a: default
-          regional_health_care_service_des: default
+          regional_health_care_service_des: search_index
           step_by_step: default
           story_listing: default
-          support_resources_detail_page: ''
-          support_service: ''
+          support_resources_detail_page: default
+          support_service: default
           va_form: default
-          vamc_operating_status_and_alerts: ''
-          vamc_system_billing_insurance: ''
-          vamc_system_medical_records_offi: ''
-          vamc_system_policies_page: ''
-          vamc_system_register_for_care: ''
+          vamc_operating_status_and_alerts: default
+          vamc_system_billing_insurance: search_index
+          vamc_system_medical_records_offi: search_index
+          vamc_system_policies_page: search_index
+          vamc_system_register_for_care: search_index
           vba_facility: default
+          vba_facility_service: search_index
           vet_center: default
-          vet_center_cap: ''
-          vet_center_facility_health_servi: ''
-          vet_center_locations_list: ''
-          vet_center_mobile_vet_center: ''
-          vet_center_outstation: ''
-          vha_facility_nonclinical_service: ''
+          vet_center_cap: default
+          vet_center_facility_health_servi: search_index
+          vet_center_locations_list: default
+          vet_center_mobile_vet_center: default
+          vet_center_outstation: default
+          vha_facility_nonclinical_service: search_index
+        'entity:taxonomy_term':
+          audience_beneficiaries: default
+          audience_non_beneficiaries: default
+          facility_supplemental_status: default
+          health_care_service_taxonomy: default
+          lc_categories: default
   status:
     label: status
     datasource_id: 'entity:node'
     property_path: status
     type: boolean
-    indexed_locked: true
-    type_locked: true
+    dependencies:
+      module:
+        - node
+  type:
+    label: 'Content type'
+    datasource_id: 'entity:node'
+    property_path: type
+    type: string
     dependencies:
       module:
         - node
@@ -103,12 +433,25 @@ field_settings:
     datasource_id: 'entity:node'
     property_path: uid
     type: integer
-    indexed_locked: true
-    type_locked: true
     dependencies:
       module:
         - node
 datasource_settings:
+  'entity:block_content':
+    bundles:
+      default: true
+      selected:
+        - cms_announcement
+    languages:
+      default: true
+      selected: {  }
+  'entity:media':
+    bundles:
+      default: true
+      selected: {  }
+    languages:
+      default: true
+      selected: {  }
   'entity:node':
     bundles:
       default: true
@@ -116,20 +459,39 @@ datasource_settings:
     languages:
       default: true
       selected: {  }
+  'entity:taxonomy_term':
+    bundles:
+      default: true
+      selected:
+        - administration
+        - products
+        - topics
+        - type_of_redirect
+    languages:
+      default: true
+      selected: {  }
 processor_settings:
   add_url: {  }
   aggregated_field: {  }
-  content_access:
-    weights:
-      preprocess_query: -10
   entity_type: {  }
+  highlight:
+    weights:
+      postprocess_query: 0
+    prefix: '<strong>'
+    suffix: '</strong>'
+    excerpt: true
+    excerpt_always: false
+    excerpt_length: 256
+    exclude_fields: {  }
+    highlight: always
+    highlight_partial: false
   html_filter:
     weights:
       preprocess_index: -10
       preprocess_query: -9
     all_fields: false
     fields:
-      - label
+      - aggregated_title
       - rendered
     title: true
     alt: true
@@ -145,61 +507,17 @@ processor_settings:
       preprocess_query: -8
     all_fields: false
     fields:
-      - label
+      - aggregated_title
       - rendered
   language_with_fallback: {  }
   rendered_item: {  }
-  stopwords:
-    weights:
-      preprocess_index: -5
-      preprocess_query: -4
-    all_fields: false
-    fields:
-      - label
-      - rendered
-    stopwords:
-      - a
-      - an
-      - and
-      - are
-      - as
-      - at
-      - be
-      - but
-      - by
-      - for
-      - if
-      - in
-      - into
-      - is
-      - it
-      - 'no'
-      - not
-      - of
-      - 'on'
-      - or
-      - s
-      - such
-      - t
-      - that
-      - the
-      - their
-      - then
-      - there
-      - these
-      - they
-      - this
-      - to
-      - was
-      - will
-      - with
   tokenizer:
     weights:
       preprocess_index: -6
       preprocess_query: -5
     all_fields: false
     fields:
-      - label
+      - aggregated_title
       - rendered
     spaces: ''
     ignored: ._-
@@ -211,11 +529,11 @@ processor_settings:
       preprocess_query: -3
     all_fields: false
     fields:
-      - label
+      - aggregated_title
       - rendered
 tracker_settings:
   default:
-    indexing_order: fifo
+    indexing_order: lifo
 options:
   cron_limit: 50
   index_directly: true

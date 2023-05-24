@@ -181,6 +181,10 @@ $settings['broken_link_report_import_enabled'] = FALSE;
 // Default prod location, overrideable by env var.
 $settings['broken_link_report_location'] = getenv('CONTENT_RELEASE_BROKEN_LINK_REPORT') ?: 'https://vetsgov-website-builds-s3-upload.s3-us-gov-west-1.amazonaws.com/broken-link-reports/vagovprod-broken-links.json';
 
+// Hide deprecation warnings during transition to PHP 8.1.
+$error_reporting = (int) ini_get('error_reporting');
+ini_set('error_reporting', $error_reporting & ~E_DEPRECATED & ~E_USER_DEPRECATED);
+
 $settings_files = [
   // Flysistem settings
   __DIR__ . '/settings/settings.flysystem.php',
@@ -239,7 +243,7 @@ if (!empty($webhost_on_cli)) {
 $settings['container_yamls'][] = __DIR__ . '/services/services.monolog.yml';
 
 // Memcache-specific settings
-if (extension_loaded('memcache') && !empty($settings['memcache']['servers'])) {
+if ((extension_loaded('memcache') || extension_loaded('memcached')) && !empty($settings['memcache']['servers'])) {
   $settings['cache']['default'] = 'cache.backend.memcache';
   $settings['memcache']['bins'] = [
     'default' => 'default',
@@ -253,3 +257,8 @@ $env_services_path = __DIR__ . "/services/services.$env_type.yml";
 if (file_exists($env_services_path)) {
   $settings['container_yamls'][] = $env_services_path;
 }
+
+// Global override for setting the session transaction isolation level.
+// This is intended to prevent deadlocks in the course of normal operation.
+// @see https://www.drupal.org/project/drupal/issues/2733675
+$databases['default']['default']['init_commands']['isolation_level'] = 'SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED';

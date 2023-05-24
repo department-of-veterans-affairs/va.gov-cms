@@ -1,0 +1,18 @@
+uuid: 1a17fa16-844d-4ff9-abef-fe12503dd802
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.nca_facility
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '1'
+id: node.nca_facility
+target_entity_type_id: node
+target_bundle: nca_facility
+default_langcode: site_default
+language_alterable: false

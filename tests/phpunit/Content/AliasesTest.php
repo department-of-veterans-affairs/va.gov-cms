@@ -3,7 +3,7 @@
 namespace tests\phpunit\Content;
 
 use Drupal\taxonomy\Entity\Vocabulary;
-use weitzman\DrupalTestTraits\ExistingSiteBase;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * A test to confirm correct alias settings.
@@ -11,7 +11,7 @@ use weitzman\DrupalTestTraits\ExistingSiteBase;
  * @group functional
  * @group all
  */
-class AliasesTest extends ExistingSiteBase {
+class AliasesTest extends VaGovExistingSiteBase {
 
   /**
    * A test method to test VAMC System & Facility Health Services Aliases.
@@ -51,7 +51,7 @@ class AliasesTest extends ExistingSiteBase {
       'description' => 'Test Services Description',
       'uid' => $author->id(),
     ]);
-    $vha_service_category_term->save();
+    $vha_service_category_term->setPublished()->save();
 
     // Create a VHA health care service term.
     $vha_service_term = $this->createTerm($vha_service_vocab, [
@@ -61,7 +61,7 @@ class AliasesTest extends ExistingSiteBase {
       'parent' => $vha_service_category_term->id(),
       'uid' => $author->id(),
     ]);
-    $vha_service_term->save();
+    $vha_service_term->set('moderation_state', 'published')->setPublished()->save();
 
     // Create a VAMC regional health care service node.
     $service_node = $this->createNode([

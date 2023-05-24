@@ -9,6 +9,14 @@ dependencies:
     - field.field.taxonomy_term.health_care_service_taxonomy.field_health_service_api_id
     - field.field.taxonomy_term.health_care_service_taxonomy.field_owner
     - field.field.taxonomy_term.health_care_service_taxonomy.field_service_type_of_care
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_show_for_vamc_facilities
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_show_for_vba_facilities
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_show_for_vet_centers
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_tricare_description
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_tricare_specific_service
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_vba_com_conditions
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_vba_friendly_name
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_vba_service_descrip
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vet_center_com_conditions
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vet_center_friendly_name
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vet_center_required_servic
@@ -30,6 +38,11 @@ targetEntityType: taxonomy_term
 bundle: health_care_service_taxonomy
 mode: default
 content:
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
+    region: content
   description:
     type: text_default
     label: above
@@ -58,7 +71,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 11
+    weight: 13
     region: content
   field_health_service_api_id:
     type: string
@@ -74,6 +87,76 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 3
+    region: content
+  field_show_for_vamc_facilities:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 14
+    region: content
+  field_show_for_vba_facilities:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 16
+    region: content
+  field_show_for_vet_centers:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 15
+    region: content
+  field_tricare_description:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 11
+    region: content
+  field_tricare_specific_service:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 20
+    region: content
+  field_vba_com_conditions:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 18
+    region: content
+  field_vba_friendly_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 17
+    region: content
+  field_vba_service_descrip:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 19
     region: content
   field_vet_center_com_conditions:
     type: string
@@ -99,7 +182,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 10
+    weight: 12
     region: content
   field_vet_center_service_descrip:
     type: basic_string
@@ -126,4 +209,5 @@ content:
     region: content
 hidden:
   field_owner: true
+  langcode: true
   search_api_excerpt: true

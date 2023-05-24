@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.vamc_operating_status_and_alerts.field_banner_alert
     - field.field.node.vamc_operating_status_and_alerts.field_enforce_unique_combo
     - field.field.node.vamc_operating_status_and_alerts.field_facility_operating_status
+    - field.field.node.vamc_operating_status_and_alerts.field_last_saved_by_an_editor
     - field.field.node.vamc_operating_status_and_alerts.field_links
     - field.field.node.vamc_operating_status_and_alerts.field_meta_tags
     - field.field.node.vamc_operating_status_and_alerts.field_office
@@ -119,6 +120,12 @@ content:
       collapsed: true
       revision: false
     third_party_settings: {  }
+  field_last_saved_by_an_editor:
+    type: datetime_timestamp
+    weight: 26
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_links:
     type: linkit
     weight: 6
@@ -160,6 +167,7 @@ content:
 hidden:
   created: true
   field_meta_tags: true
+  langcode: true
   path: true
   promote: true
   status: true

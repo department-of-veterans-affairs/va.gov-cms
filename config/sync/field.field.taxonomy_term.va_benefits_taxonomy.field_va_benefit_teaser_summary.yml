@@ -1,0 +1,24 @@
+uuid: 887b187e-c8ba-4ecb-ad84-143aa1227b7b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_va_benefit_teaser_summary
+    - taxonomy.vocabulary.va_benefits_taxonomy
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: taxonomy_term.va_benefits_taxonomy.field_va_benefit_teaser_summary
+field_name: field_va_benefit_teaser_summary
+entity_type: taxonomy_term
+bundle: va_benefits_taxonomy
+label: 'Teaser summary'
+description: 'A very brief (1-2 sentence) description of the benefit.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

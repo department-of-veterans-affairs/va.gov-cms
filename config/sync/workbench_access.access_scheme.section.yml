@@ -4,6 +4,8 @@ status: true
 dependencies:
   config:
     - field.field.block_content.alert.field_owner
+    - field.field.block_content.benefit_promo.field_administration
+    - field.field.block_content.news_promo.field_administration
     - field.field.block_content.promo.field_owner
     - field.field.media.document.field_owner
     - field.field.media.document_external.field_owner
@@ -51,12 +53,14 @@ dependencies:
     - field.field.node.vamc_system_policies_page.field_administration
     - field.field.node.vamc_system_register_for_care.field_administration
     - field.field.node.vba_facility.field_administration
+    - field.field.node.vba_facility_service.field_administration
     - field.field.node.vet_center.field_administration
     - field.field.node.vet_center_cap.field_administration
     - field.field.node.vet_center_facility_health_servi.field_administration
     - field.field.node.vet_center_locations_list.field_administration
     - field.field.node.vet_center_mobile_vet_center.field_administration
     - field.field.node.vet_center_outstation.field_administration
+    - field.field.node.vha_facility_nonclinical_service.field_administration
     - field.field.taxonomy_term.health_care_service_taxonomy.field_owner
     - taxonomy.vocabulary.administration
 id: section
@@ -75,6 +79,14 @@ scheme_settings:
       entity_type: block_content
       bundle: promo
       field: field_owner
+    -
+      entity_type: block_content
+      bundle: news_promo
+      field: field_administration
+    -
+      entity_type: block_content
+      bundle: benefit_promo
+      field: field_administration
     -
       entity_type: media
       bundle: image
@@ -282,6 +294,14 @@ scheme_settings:
     -
       entity_type: node
       bundle: vamc_system_billing_insurance
+      field: field_administration
+    -
+      entity_type: node
+      bundle: vha_facility_nonclinical_service
+      field: field_administration
+    -
+      entity_type: node
+      bundle: vba_facility_service
       field: field_administration
     -
       entity_type: taxonomy_term

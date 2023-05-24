@@ -743,30 +743,23 @@ display:
           row_class: ''
           default_row_class: true
           columns:
-            info: info
-            field_alert_title: field_alert_title
-            field_alert_content: field_alert_title
+            field_image: field_image
+            field_promo_link: field_promo_link
             edit_block_content: edit_block_content
+            changed: changed
+            title: title
             moderation_state: moderation_state
             field_owner: field_owner
-            changed: changed
-          default: '-1'
+          default: changed
           info:
-            info:
+            field_image:
               sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            field_alert_title:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_alert_content:
+            field_promo_link:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -774,6 +767,20 @@ display:
               empty_column: false
               responsive: ''
             edit_block_content:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            changed:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            title:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -794,18 +801,11 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            changed:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
           override: true
           sticky: false
           summary: ''
           empty_table: false
-          caption: ''
+          caption: 'List of Promo blocks'
           description: ''
       row:
         type: fields
@@ -1304,9 +1304,13 @@ display:
           separator: ', '
           field_api_classes: false
       defaults:
+        style: true
+        row: true
         fields: false
       display_description: ''
-      display_extenders: {  }
+      display_extenders:
+        jsonapi_views:
+          enabled: true
       path: admin/content/promos
       menu:
         type: tab
@@ -1832,8 +1836,84 @@ display:
         operator: AND
         groups:
           1: AND
+      style:
+        type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          columns:
+            info: info
+            field_alert_title: field_alert_title
+            field_alert_content: field_alert_content
+            edit_block_content: edit_block_content
+            moderation_state: moderation_state
+            field_owner: field_owner
+            changed: changed
+          default: changed
+          info:
+            info:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_alert_title:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_alert_content:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            edit_block_content:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            moderation_state:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_owner:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            changed:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          override: true
+          sticky: false
+          summary: ''
+          empty_table: false
+          caption: 'List of Alert blocks'
+          description: ''
+      row:
+        type: fields
+        options: {  }
       defaults:
         title: false
+        style: false
+        row: false
         relationships: false
         fields: false
         filters: false
@@ -1854,6 +1934,8 @@ display:
           content: '<p>You can <a href="/block/add/alert?destination=/admin/content/alerts">create an alert</a> to highlight time-sensitive content, usually at the top of a page.  Alerts can be created and then added to an existing page, or can be added directly from certain types of content.</p>'
           tokenize: false
       display_extenders:
+        jsonapi_views:
+          enabled: true
         views_merge_rows: {  }
       path: admin/content/alerts
       menu:

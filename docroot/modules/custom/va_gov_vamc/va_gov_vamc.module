@@ -7,6 +7,7 @@
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
 
 /**
  * Implements hook_help().
@@ -186,4 +187,28 @@ function va_gov_vamc_inline_entity_form_entity_form_alter(&$entity_form, FormSta
   if ($entity_form['#bundle'] === 'health_care_local_facility') {
     $entity_form['title']['widget'][0]['value']['#attributes']['disabled'] = 'disabled';
   }
+}
+
+/**
+ * Implements hook_entity_bundle_field_info_alter().
+ */
+function va_gov_vamc_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $entity_type, $bundle) {
+  $list_item_bundles = [
+    'health_care_local_health_service',
+  ];
+  if (($entity_type->id() === 'node')
+  && (in_array($bundle, $list_item_bundles))) {
+    // Focused on VAMC facility health services.
+    if (isset($fields['field_administration'])
+    && isset($fields['field_service_location'])) {
+      // Validate the Facility selection based on Section.
+      $fields['field_facility_location']->addConstraint('SectionMatcher');
+    }
+    if (isset($fields['field_administration'])
+    && isset($fields['field_regional_health_service'])) {
+      // Validate the VAMC system health service selection based on Section.
+      $fields['field_regional_health_service']->addConstraint('SectionMatcher');
+    }
+  }
+
 }

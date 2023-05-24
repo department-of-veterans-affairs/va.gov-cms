@@ -9,8 +9,6 @@ dependencies:
     - media.type.document_external
     - media.type.image
     - media.type.video
-    - node.type.banner
-    - node.type.promo_banner
     - node.type.vamc_system_billing_insurance
     - node.type.vamc_system_medical_records_offi
     - node.type.vamc_system_register_for_care
@@ -21,6 +19,7 @@ dependencies:
     - block_diff_ui
     - content_lock
     - content_moderation
+    - content_translation
     - entity_clone
     - entityqueue
     - file
@@ -34,14 +33,15 @@ dependencies:
     - paragraphs
     - path
     - pathauto
+    - smart_date_recur
     - system
     - tablefield
     - taxonomy
     - taxonomy_diff_ui
+    - tmgmt
     - toolbar_menu
     - va_gov_backend
     - va_gov_build_trigger
-    - va_gov_menu_access
     - workbench_access
 third_party_settings:
   va_gov_backend:
@@ -51,12 +51,12 @@ label: 'Content admin'
 weight: 1
 is_admin: null
 permissions:
+  - 'accept translation jobs'
   - 'access administration pages'
   - 'access files overview'
   - 'access media overview'
   - 'access taxonomy overview'
   - 'access user profiles'
-  - 'access vamc_operating_statuses entity browser pages'
   - 'administer menu'
   - 'administer nodes'
   - 'administer taxonomy'
@@ -73,6 +73,8 @@ permissions:
   - 'clone node entity'
   - 'clone paragraph entity'
   - 'create alert block content'
+  - 'create content translations'
+  - 'create cta_with_link block content'
   - 'create document media'
   - 'create document_external media'
   - 'create image media'
@@ -95,14 +97,18 @@ permissions:
   - 'edit any document_external media'
   - 'edit any image media'
   - 'edit any video media'
+  - 'execute changed_filename_unflag node'
+  - 'execute changed_title_unflag node'
+  - 'execute deleted_unflag node'
   - 'execute entity:break_lock node'
+  - 'execute flag_delete_flagging flagging'
+  - 'execute new_form_unflag node'
   - 'execute publish_latest_revision_action node'
   - 'execute views_bulk_edit all'
   - 'export tablefield'
   - 'import tablefield'
   - 'link to any page'
   - 'make smart dates recur'
-  - 'manipulate all entityqueues'
   - 'manipulate entityqueues'
   - 'notify of path changes'
   - 'override all authored by option'
@@ -116,6 +122,7 @@ permissions:
   - 'revert image revisions'
   - 'revert promo revisions'
   - 'revert video revisions'
+  - 'translate any entity'
   - 'unflag changed_filename'
   - 'unflag changed_name'
   - 'unflag changed_title'
@@ -124,8 +131,13 @@ permissions:
   - 'unflag new_form'
   - 'unflag removed_from_source'
   - 'update any alert block content'
+  - 'update any benefit_promo block content'
+  - 'update any cta_with_link block content'
   - 'update any media'
+  - 'update any news_promo block content'
   - 'update any promo block content'
+  - 'update content translations'
+  - 'update home_page_hub_list entityqueue'
   - 'update media'
   - 'use editorial transition approve'
   - 'use editorial transition archive'

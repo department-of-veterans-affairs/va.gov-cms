@@ -2,8 +2,8 @@
 
 namespace tests\phpunit\Security;
 
-use weitzman\DrupalTestTraits\ExistingSiteBase;
 use Drupal\user\Entity\Role;
+use Tests\Support\Classes\VaGovExistingSiteBase;
 
 /**
  * A test to confirm that roles are associated with the correct permissions.
@@ -12,7 +12,7 @@ use Drupal\user\Entity\Role;
  * @group security
  * @group all
  */
-class RolesPermissionsTest extends ExistingSiteBase {
+class RolesPermissionsTest extends VaGovExistingSiteBase {
 
   /**
    * Determine if each role has the expected permissions.
@@ -31,10 +31,14 @@ class RolesPermissionsTest extends ExistingSiteBase {
       $message = 'The ' . $roleMatch . ' role is missing from the system.';
     }
 
-    // Test assertion.
-    $match = ($expectedPerms == $permissions);
+    // Copy $expectedPerms to a new array, then sort it.
+    // Doing this without copying the array can cause segmentation faults.
+    $expected = $expectedPerms;
+    sort($expected);
+    // Sort $permissions for consistency.
+    sort($permissions);
 
-    $this->assertTrue($match, $message);
+    $this->assertEquals($permissions, $expected, $message);
   }
 
   /**
@@ -52,6 +56,7 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'access prometheus metrics',
           'give feedback',
           'view media',
+          'view published sitewide alert entities',
           'view style guides',
         ],
       ],
@@ -86,18 +91,19 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'override press_release authored on option',
           'use workbench access',
           'view media',
+          'view published sitewide alert entities',
           'view style guides',
         ],
       ],
       [
         'content_admin',
         [
+          'accept translation jobs',
           'access administration pages',
           'access files overview',
           'access media overview',
           'access taxonomy overview',
           'access user profiles',
-          'access vamc_operating_statuses entity browser pages',
           'administer menu',
           'administer nodes',
           'administer taxonomy',
@@ -114,6 +120,8 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'clone node entity',
           'clone paragraph entity',
           'create alert block content',
+          'create content translations',
+          'create cta_with_link block content',
           'create document media',
           'create document_external media',
           'create image media',
@@ -136,14 +144,18 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'edit any document_external media',
           'edit any image media',
           'edit any video media',
+          'execute changed_filename_unflag node',
+          'execute changed_title_unflag node',
+          'execute deleted_unflag node',
           'execute entity:break_lock node',
+          'execute flag_delete_flagging flagging',
+          'execute new_form_unflag node',
           'execute publish_latest_revision_action node',
           'execute views_bulk_edit all',
           'export tablefield',
           'import tablefield',
           'link to any page',
           'make smart dates recur',
-          'manipulate all entityqueues',
           'manipulate entityqueues',
           'notify of path changes',
           'override all authored by option',
@@ -157,6 +169,7 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'revert image revisions',
           'revert promo revisions',
           'revert video revisions',
+          'translate any entity',
           'unflag changed_filename',
           'unflag changed_name',
           'unflag changed_title',
@@ -165,8 +178,13 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'unflag new_form',
           'unflag removed_from_source',
           'update any alert block content',
+          'update any benefit_promo block content',
+          'update any cta_with_link block content',
           'update any media',
+          'update any news_promo block content',
           'update any promo block content',
+          'update content translations',
+          'update home_page_hub_list entityqueue',
           'update media',
           'use editorial transition approve',
           'use editorial transition archive',
@@ -696,7 +714,10 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'unflag deleted',
           'unflag new_form',
           'update any alert block content',
+          'update any benefit_promo block content',
+          'update any cta_with_link block content',
           'update any media',
+          'update any news_promo block content',
           'update any promo block content',
           'update media',
           'use editorial transition approve',
@@ -771,8 +792,8 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'view vet_center_mobile_vet_center revisions',
           'view vet_center_outstation revisions',
           'view vha_facility_nonclinical_service revisions',
-          'view video revisions',
           'view vha_facility_nonclinical_service revisions',
+          'view video revisions',
           'view workbench access information',
         ],
       ],
@@ -831,6 +852,64 @@ class RolesPermissionsTest extends ExistingSiteBase {
           'create regional_health_care_service_des content',
           'create vha_facility_nonclinical_service content',
           'view node link report',
+        ],
+      ],
+      [
+        'homepage_manager',
+        [
+          'create benefit_promo block content',
+          'create cta_with_link block content',
+          'create news_promo block content',
+          'delete benefit_promo revisions',
+          'delete cta_with_link revisions',
+          'delete news_promo revisions',
+          'manipulate entityqueues',
+          'revert benefit_promo revisions',
+          'revert cta_with_link revisions',
+          'revert news_promo revisions',
+          'update any benefit_promo block content',
+          'update any cta_with_link block content',
+          'update any news_promo block content',
+          'update home_page_hero entityqueue',
+          'update home_page_news_spotlight entityqueue',
+          'update v2_home_page_create_account entityqueue',
+          'use editorial transition approve',
+          'use editorial transition archive',
+          'use editorial transition archived_published',
+          'use editorial transition create_new_draft',
+          'use editorial transition publish',
+          'use editorial transition review',
+          'view any unpublished content',
+          'view benefit_promo revisions',
+          'view cta_with_link revisions',
+          'view latest version',
+          'view news_promo revisions',
+          'view the administration theme',
+        ],
+      ],
+      [
+        'translation_manager',
+        [
+          'accept translation jobs',
+          'create content translations',
+          'create translation jobs',
+          'delete translation jobs',
+          'submit translation jobs',
+          'translate any entity',
+          'translate configuration',
+          'translate interface',
+          'update content translations',
+          'use editorial transition approve',
+          'use editorial transition archive',
+          'use editorial transition create_new_draft',
+          'use editorial transition publish',
+          'use editorial transition archived_published',
+          'use editorial transition review',
+          'view any unpublished content',
+          'view latest version',
+          'access content overview',
+          'administer nodes',
+          'bypass node access',
         ],
       ],
     ];

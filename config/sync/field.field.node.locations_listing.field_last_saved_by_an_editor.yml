@@ -1,0 +1,25 @@
+uuid: 90568d88-061d-437f-8ccd-b4a8181de379
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_last_saved_by_an_editor
+    - node.type.locations_listing
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: node.locations_listing.field_last_saved_by_an_editor
+field_name: field_last_saved_by_an_editor
+entity_type: node
+bundle: locations_listing
+label: 'Last Saved by an Editor'
+description: 'This is the last time an editor interacted with this content. This field is populated automatically when you click Save.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: timestamp

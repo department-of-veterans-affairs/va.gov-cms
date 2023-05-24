@@ -9,6 +9,22 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
+ * Implements hook_module_implements_alter().
+ */
+function va_gov_consumers_module_implements_alter(&$implementations, $hook) {
+  switch ($hook) {
+    // Move our hook_form_alter() implementation to the end of the list.
+    // This was added to compensate for a similar call ignoring weights.
+    // See: docroot/modules/contrib/field_group/field_group.module.
+    case 'form_alter':
+      $va_gov_consumers = $implementations['va_gov_consumers'];
+      unset($implementations['va_gov_consumers']);
+      $implementations['va_gov_consumers'] = $va_gov_consumers;
+      break;
+  }
+}
+
+/**
  * Implements hook_form_alter().
  */
 function va_gov_consumers_form_alter(&$form, FormStateInterface $form_state, $form_id) {
@@ -17,18 +33,6 @@ function va_gov_consumers_form_alter(&$form, FormStateInterface $form_state, $fo
   _va_gov_consumers_modify_facility_fields($form, $form_id, $form_state);
   _va_gov_consumers_disable_vha_api_form_fields($form, $form_id);
   _va_gov_consumers_disable_non_vha_facilities_api_form_fields($form, $form_id);
-}
-
-/**
- * Callback for table field widget.
- *
- * @param object $element
- *   The field object.
- */
-function _va_gov_consumers_customize_table($element) {
-  unset($element['tablefield']['import']);
-  unset($element['tablefield']['rebuild']);
-  return $element;
 }
 
 /**
@@ -48,12 +52,6 @@ function _va_gov_consumers_disable_vha_api_form_fields(array &$form, $form_id) {
     // should not be altered, or it will deviate from the API.
     if (!empty($form['field_facility_locator_api_id']['widget'][0]['value']['#default_value'])) {
       $form['field_facility_locator_api_id']['widget'][0]['value']['#attributes']['disabled'] = TRUE;
-    }
-    // Special handling for the table field widget.
-    $form['field_facility_hours']['widget'][0]['#after_build'][] = '_va_gov_consumers_customize_table';
-    $form['field_facility_hours']['widget'][0]['#addrow'] = FALSE;
-    if (isset($form['field_facility_hours']['widget'][0]['caption'])) {
-      unset($form['field_facility_hours']['widget'][0]['caption']);
     }
   }
 }
@@ -173,6 +171,8 @@ function _va_gov_consumers_modify_facility_fields(array &$form, $form_id, FormSt
 
   // We want to modify display of fields for specific form id's.
   $external_content_form_ids = [
+    'node_nca_facility_edit_form',
+    'node_nca_facility_form',
     'node_health_care_local_facility_form',
     'node_health_care_local_facility_edit_form',
     'node_vba_facility_edit_form',
@@ -200,7 +200,11 @@ function _va_gov_consumers_modify_facility_fields(array &$form, $form_id, FormSt
     ];
 
     // We want the title to appear within the page_title fieldgroup.
-    if ($node->getType() !== 'health_care_local_facility') {
+    $content_types_hiding_title = [
+      'health_care_local_facility',
+      'nca_facility',
+    ];
+    if (!in_array($node->getType(), $content_types_hiding_title)) {
       $form['group_page_title_tooltip']['top_of_page_information'] = $form['top_of_page_information'];
     }
 
@@ -300,6 +304,7 @@ function _va_gov_consumers_disable_external_content_editing(array &$form, FormSt
 
     // We want to modify display of fields for specific node id's.
     $external_content_node_ids = [
+      'nca_facility',
       'health_care_local_facility',
       'vba_facility',
       'vet_center',

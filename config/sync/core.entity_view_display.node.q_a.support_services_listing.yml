@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.q_a.field_answer
     - field.field.node.q_a.field_buttons
     - field.field.node.q_a.field_contact_information
+    - field.field.node.q_a.field_last_saved_by_an_editor
     - field.field.node.q_a.field_other_categories
     - field.field.node.q_a.field_primary_category
     - field.field.node.q_a.field_related_benefit_hubs
@@ -80,10 +81,12 @@ content:
     region: content
 hidden:
   field_administration: true
+  field_last_saved_by_an_editor: true
   field_other_categories: true
   field_primary_category: true
   field_related_benefit_hubs: true
   field_related_information: true
   field_standalone_page: true
   field_tags: true
+  langcode: true
   search_api_excerpt: true

@@ -5,15 +5,35 @@
  * to display css variables in Storybook without duplicating them in JS & keep a single source of truth.
  */
 const postcss = require('postcss');
-const postcssCustomProperties = require('postcss-custom-properties');
+const postcssExtract = require('@csstools/postcss-extract');
 const fs = require('fs');
 const path = require('path');
 
 fs.readFile(path.resolve(__dirname,'../components/tokens/_variables.scss'), (err, css) => {
   postcss({
     plugins: [
-      postcssCustomProperties({
-        exportTo: './.storybook/cssVariables.json'
+      postcssExtract({
+        queries: {
+          'custom-properties': 'rule[selector*=":root" i] > decl[variable]'
+        },
+        results: function(results) {
+          let finalResults = {
+            'custom-properties': {}
+          };
+          results = results['custom-properties'].map(r => ({
+              [r.prop]: r.value
+          }));
+          for(let i = 0; i < results.length; i++ ) {
+            Object.assign(finalResults["custom-properties"], results[i]);
+          }
+          fs.writeFile("./.storybook/cssVariables.json", JSON.stringify(finalResults, null, 2), (err) => {
+            if (err) {
+                console.error(err);
+                return;
+            };
+            console.log("cssVariables.json has been created");
+        });
+        }
       })
     ]
   }).process(css, {

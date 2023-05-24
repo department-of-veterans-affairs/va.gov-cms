@@ -1,0 +1,25 @@
+uuid: b0b3ed09-195b-4ca0-bb25-d4a7d5fde364
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.benefit_promo
+    - field.storage.block_content.field_promo_text
+  module:
+    - epp
+third_party_settings:
+  epp:
+    value: ''
+    on_update: 0
+id: block_content.benefit_promo.field_promo_text
+field_name: field_promo_text
+entity_type: block_content
+bundle: benefit_promo
+label: 'Promo Text'
+description: 'Use this text to tell Veterans how this promo topic affects them.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

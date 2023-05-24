@@ -1,0 +1,29 @@
+uuid: 18af7a89-1475-4bbd-b76e-af72aa75675c
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.message.mail_body
+    - field.field.message.vamc_outdated_content.field_editor_username
+    - field.field.message.vamc_outdated_content.field_subject
+    - message.template.vamc_outdated_content
+  module:
+    - layout_builder
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: message.vamc_outdated_content.mail_body
+targetEntityType: message
+bundle: vamc_outdated_content
+mode: mail_body
+content:
+  partial_1:
+    weight: 0
+    region: content
+hidden:
+  field_editor_username: true
+  field_subject: true
+  partial_0: true
+  search_api_excerpt: true

@@ -1,15 +1,12 @@
 default:
+  calls:
+    error_reporting: 8191
   suites:
     default:
       paths:
-        - "%paths.base%/drupal-spec-tool"
         - "%paths.base%/features-default"
         - "%paths.base%/features"
       contexts:
-        - Acquia\DrupalSpecTool\Context\AccessControlContext
-        - Acquia\DrupalSpecTool\Context\MediaContext
-        - Acquia\DrupalSpecTool\Context\MenuContext
-        - Acquia\DrupalSpecTool\Context\ViewsContext
         - Acquia\DrupalSpecTool\Context\WorkflowContext
         - Drupal\DrupalExtension\Context\DrupalContext
         - Drupal\DrupalExtension\Context\MinkContext

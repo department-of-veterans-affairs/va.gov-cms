@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.support_service.field_administration
+    - field.field.node.support_service.field_last_saved_by_an_editor
     - field.field.node.support_service.field_link
     - field.field.node.support_service.field_office
     - field.field.node.support_service.field_phone_number
@@ -58,6 +59,12 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_last_saved_by_an_editor:
+    type: datetime_timestamp
+    weight: 26
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_link:
     type: linkit
     weight: 3
@@ -101,6 +108,7 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  langcode: true
   promote: true
   status: true
   sticky: true

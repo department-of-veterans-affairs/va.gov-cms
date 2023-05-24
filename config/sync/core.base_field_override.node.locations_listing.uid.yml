@@ -1,0 +1,20 @@
+uuid: 201242ec-cbc8-41f4-ae8d-be8a33ce539d
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.locations_listing
+id: node.locations_listing.uid
+field_name: uid
+entity_type: node
+bundle: locations_listing
+label: 'Authored by'
+description: 'The username of the content author.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: 'Drupal\node\Entity\Node::getDefaultEntityOwner'
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

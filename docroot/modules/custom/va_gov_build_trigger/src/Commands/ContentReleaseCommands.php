@@ -154,14 +154,14 @@ class ContentReleaseCommands extends DrushCommands {
   }
 
   /**
-   * Request a frontend build.
+   * Request a frontend build (but do not initiate it).
    *
    * @command va-gov:content-release:request-frontend-build
    * @aliases va-gov-content-release-request-frontend-build
    */
   public function requestFrontendBuild() {
     $this->buildRequester->resetFrontendVersion();
-    $this->buildRequester->requestFrontendBuild('Manually requested build');
+    $this->buildRequester->requestFrontendBuild('Build requested via Drush.');
     $this->io()->writeln('Frontend build has been requested');
   }
 

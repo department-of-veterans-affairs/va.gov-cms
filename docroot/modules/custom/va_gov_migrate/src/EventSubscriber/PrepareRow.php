@@ -32,8 +32,8 @@ class PrepareRow implements EventSubscriberInterface {
    */
   public function onMigratePrepareRow(MigratePrepareRowEvent $event) {
     // Fix encoding mess.
-    $event->getRow()->setSourceProperty('title', str_replace('�', "'", $event->getRow()->getSourceProperty('title')));
-    $event->getRow()->setSourceProperty('teaser', str_replace('�', "'", $event->getRow()->getSourceProperty('teaser')));
+    $event->getRow()->setSourceProperty('title', str_replace('�', "'", $event->getRow()->getSourceProperty('title') ?? ''));
+    $event->getRow()->setSourceProperty('teaser', str_replace('�', "'", $event->getRow()->getSourceProperty('teaser') ?? ''));
 
     // Skip files that don't fit specific migration.
     $file_format = $event->getRow()->getSourceProperty('file_format');
