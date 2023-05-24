@@ -19,6 +19,10 @@ use Drupal\va_gov_lovell\LovellOps;
 abstract class PostFacilityBase {
   use StringTranslationTrait;
 
+  const STATE_ARCHIVED = 'archived';
+  const STATE_DRAFT = 'draft';
+  const STATE_PUBLISHED = 'published';
+
   /**
    * Config factory.
    *
@@ -32,7 +36,6 @@ abstract class PostFacilityBase {
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entityTypeManager;
-
 
   /**
    * Logger.
@@ -350,6 +353,87 @@ abstract class PostFacilityBase {
    */
   protected function stringNullify($string) {
     return (empty($string)) ? NULL : $string;
+  }
+
+  /**
+   * Decides what to use as the previous/default revision and returns it.
+   *
+   * @param \Drupal\node\NodeInterface $entity
+   *   The node we need to find a default revision for.
+   *
+   * @return \Drupal\node\NodeInterface
+   *   The node.
+   */
+  protected function getDefaultRevision(NodeInterface $entity) : NodeInterface {
+    $hasOriginal = isset($entity->original) && ($entity->original instanceof EntityInterface);
+    if ($entity->isNew()) {
+      // There is no previous revision but to make comparison easier, set
+      // the current node as the default.
+      $defaultRevision = $entity;
+    }
+    elseif (($entity->get('moderation_state')->value === self::STATE_PUBLISHED || !$entity->isPublished()) && $hasOriginal) {
+      // If it has never been published we just want the last save.
+      // If the node is published, loading the default is an exact copy,
+      // because the save already happened. Switch to using original.
+      $defaultRevision = $entity->original;
+    }
+    else {
+      $defaultRevision = $this->entityTypeManager->getStorage('node')->load($entity->id());
+    }
+
+    return $defaultRevision;
+  }
+
+  /**
+   * Checks if the value of the field on the node changed.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The node we need to compare.
+   * @param \Drupal\node\NodeInterface $revision
+   *   The revision we are comparing to.
+   * @param string $field_name
+   *   The machine name of the field to check on.
+   *
+   * @return bool
+   *   TRUE if the value changed.  FALSE otherwise.
+   */
+  protected function changedValue(NodeInterface $node, NodeInterface $revision, $field_name): bool {
+    $value = $node->get($field_name)->value;
+    $original_value = $revision->get($field_name)->value;
+
+    return $value !== $original_value;
+  }
+
+  /**
+   * Checks if the target_id of the field on the node changed.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The node we need to compare.
+   * @param \Drupal\node\NodeInterface $revision
+   *   The revision we are comparing to.
+   * @param string $field_name
+   *   The machine name of the field to check on.
+   *
+   * @return bool
+   *   TRUE if the value changed.  FALSE otherwise.
+   */
+  protected function changedTarget(NodeInterface $node, NodeInterface $revision, $field_name): bool {
+    if ($node->hasField($field_name)) {
+      $value = $node->get($field_name)->target_id;
+      $original_value = $revision->get($field_name)->target_id;
+
+      return $value !== $original_value;
+    }
+    return FALSE;
+  }
+
+  /**
+   * Removes values from anything that should not be kept in state.
+   */
+  protected function nuke() : void {
+    $this->statusToPush = NULL;
+    $this->additionalInfoToPush = NULL;
+    unset($this->facilityNode);
   }
 
 }

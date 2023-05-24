@@ -16,3 +16,6 @@ services:
   va_gov_post_api.queue_facility_status_updates:
     class: '\Drupal\va_gov_post_api\Service\PostFacilityStatus'
     arguments: ['@config.factory', '@entity_type.manager', '@logger.factory', '@messenger', '@post_api.add_to_queue']
+  va_gov_post_api.queue_facility_without_status_updates:
+    class: '\Drupal\va_gov_post_api\Service\PostFacilityWithoutStatus'
+    arguments: ['@config.factory', '@entity_type.manager', '@logger.factory', '@messenger', '@post_api.add_to_queue']

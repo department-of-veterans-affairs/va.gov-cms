@@ -4,6 +4,7 @@ namespace Drupal\va_gov_post_api\Service;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\node\NodeInterface;
+use Drupal\va_gov_facilities\FacilityOps;
 use Drupal\va_gov_lovell\LovellOps;
 
 /**
@@ -17,10 +18,6 @@ class PostFacilityStatus extends PostFacilityBase {
    * @var array
    */
   protected $errors = [];
-
-  const STATE_ARCHIVED = 'archived';
-  const STATE_DRAFT = 'draft';
-  const STATE_PUBLISHED = 'published';
 
   /**
    * The facility node.
@@ -44,22 +41,6 @@ class PostFacilityStatus extends PostFacilityBase {
   protected $additionalInfoToPush;
 
   /**
-   * The facilities that have services pushed to Lighthouse.
-   *
-   * For now we are only pushing covid 19 services. The key is only for
-   * making sense of code, the TID is what is used for comparison.
-   *
-   * @var array
-   */
-  protected $facilitiesWithServices = [
-    'health_care_local_facility',
-    'nca_facility',
-    'vba_facility',
-    'vet_center',
-    'vet_center_outstation',
-  ];
-
-  /**
    * Adds facility service data to Post API queue.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
@@ -73,7 +54,7 @@ class PostFacilityStatus extends PostFacilityBase {
   public function queueFacilityStatus(EntityInterface $entity, bool $forcePush = FALSE) {
     $queued_count = 0;
 
-    if ($entity instanceof NodeInterface && $this->isFacilityWithStatus($entity)) {
+    if ($entity instanceof NodeInterface && FacilityOps::isFacilityWithStatus($entity)) {
       /** @var \Drupal\node\NodeInterface $entity*/
       $this->facilityNode = $entity;
       $facility_id = $entity->hasField('field_facility_locator_api_id') ? $entity->get('field_facility_locator_api_id')->value : NULL;
@@ -207,32 +188,21 @@ class PostFacilityStatus extends PostFacilityBase {
    */
   protected function getFacilityUrl(): string | null {
     $facility_url = NULL;
-    // These are nodes that are published but have no FE page of their own.
-    $facilities_with_no_pages = [
-      'vet_center_mobile_vet_center',
-      'vet_center_outstation',
-    ];
-    // These are nodes for products that have not launched yet.
-    $facilities_with_no_cms_url = [
-      'nca_facility',
-      'vba_facility',
-    ];
-
     if ($this->facilityNode->isPublished()) {
-      if (in_array($this->facilityNode->bundle(), $facilities_with_no_pages)) {
+      if (!FacilityOps::facilityHasFePage($this->facilityNode)) {
         // This facility is published, but has no page of its own.
         $facility_url = $this->getParentLocationsPageUrl($this->facilityNode);
       }
       else {
         // The node is published, so use the FE URL of the page.
-        $facility_url = "https://www.va.gov{$this->facilityNode->toUrl()->toString()}";
+        $facility_url = "https://www.va.gov{$this->facilityNode->toUrl()->toString()}/";
       }
 
     }
     else {
       // The page is not published, so send the Facility Locator Detail Page.
       $facility_id = $this->facilityNode->hasField('field_facility_locator_api_id') ? $this->facilityNode->get('field_facility_locator_api_id')->value : NULL;
-      if (in_array($this->facilityNode->bundle(), $facilities_with_no_cms_url)) {
+      if (!FacilityOps::isFacilityLaunched($this->facilityNode)) {
         // This hasn't launched, and is not published, so we don't know the url.
         $facility_url = NULL;
       }
@@ -316,19 +286,6 @@ class PostFacilityStatus extends PostFacilityBase {
   }
 
   /**
-   * Checks if the entity is a facility node with status info.
-   *
-   * @param \Drupal\node\NodeInterface $entity
-   *   The node to evaluate.
-   *
-   * @return bool
-   *   TRUE if it is a facility with status info. FALSE otherwise.
-   */
-  protected function isFacilityWithStatus(NodeInterface $entity) : bool {
-    return in_array($entity->bundle(), $this->facilitiesWithServices);
-  }
-
-  /**
    * Determines if the data says a payload should be assembled and pushed.
    *
    * Potentially alters the pushed data based on what it evaluates.  This is
@@ -351,7 +308,16 @@ class PostFacilityStatus extends PostFacilityBase {
     $statusChanged = $this->changedValue($this->facilityNode, $defaultRevision, 'field_operating_status_facility');
     $statusInfoChanged = $this->changedValue($this->facilityNode, $defaultRevision, 'field_operating_status_more_info');
     $supStatusChanged = $this->changedTarget($this->facilityNode, $defaultRevision, 'field_supplemental_status');
-    $somethingChanged = $statusChanged || $statusInfoChanged || $supStatusChanged;
+    // Since we are also sending a url, we need to detect change to the url.
+    $titleChanged = $this->changedValue($this->facilityNode, $defaultRevision, 'title');
+    if ($field_name = FacilityOps::getFacilityParentFieldName($this->facilityNode)) {
+      $parentChanged = $this->changedTarget($this->facilityNode, $defaultRevision, $field_name);
+    }
+    else {
+      $parentChanged = FALSE;
+    }
+
+    $somethingChanged = $statusChanged || $statusInfoChanged || $supStatusChanged || $titleChanged || $parentChanged;
 
     // Case race. First to evaluate to TRUE wins.
     switch (TRUE) {
@@ -366,10 +332,13 @@ class PostFacilityStatus extends PostFacilityBase {
         // A new node, should be pushed to initiate the value.
       case $thisRevisionIsPublished && $somethingChanged && $moderationState === self::STATE_PUBLISHED:
         // This revision is published and had a change, should be pushed.
-      case $isArchived && $somethingChanged:
+      case $isArchived:
         // This node has been archived, got to push to remove it.
       case (!$defaultRevisionIsPublished && !$thisRevisionIsPublished && $somethingChanged):
         // Draft on an unpublished node, should be pushed.
+      case ($thisRevisionIsPublished && !$defaultRevisionIsPublished):
+        // To be the source of truth for urls, we need to push url on newly
+        // published, because we use different urls.
         $push = TRUE;
         break;
 
@@ -416,87 +385,6 @@ class PostFacilityStatus extends PostFacilityBase {
       $push = TRUE;
     }
     return $push;
-  }
-
-  /**
-   * Decides what to use as the previous/default revision and returns it.
-   *
-   * @param \Drupal\node\NodeInterface $entity
-   *   The node we need to find a default revision for.
-   *
-   * @return \Drupal\node\NodeInterface
-   *   The node.
-   */
-  protected function getDefaultRevision(NodeInterface $entity) : NodeInterface {
-    $hasOriginal = isset($entity->original) && ($entity->original instanceof EntityInterface);
-    if ($entity->isNew()) {
-      // There is no previous revision but to make comparison easier, set
-      // the current node as the default.
-      $defaultRevision = $entity;
-    }
-    elseif (($entity->get('moderation_state')->value === self::STATE_PUBLISHED || !$entity->isPublished()) && $hasOriginal) {
-      // If it has never been published we just want the last save.
-      // If the node is published, loading the default is an exact copy,
-      // because the save already happened. Switch to using original.
-      $defaultRevision = $entity->original;
-    }
-    else {
-      $defaultRevision = $this->entityTypeManager->getStorage('node')->load($entity->id());
-    }
-
-    return $defaultRevision;
-  }
-
-  /**
-   * Checks if the value of the field on the node changed.
-   *
-   * @param \Drupal\node\NodeInterface $node
-   *   The node we need to compare.
-   * @param \Drupal\node\NodeInterface $revision
-   *   The revision we are comparing to.
-   * @param string $field_name
-   *   The machine name of the field to check on.
-   *
-   * @return bool
-   *   TRUE if the value changed.  FALSE otherwise.
-   */
-  protected function changedValue(NodeInterface $node, NodeInterface $revision, $field_name): bool {
-    $value = $node->get($field_name)->value;
-    $original_value = $revision->get($field_name)->value;
-
-    return $value !== $original_value;
-  }
-
-  /**
-   * Checks if the target_id of the field on the node changed.
-   *
-   * @param \Drupal\node\NodeInterface $node
-   *   The node we need to compare.
-   * @param \Drupal\node\NodeInterface $revision
-   *   The revision we are comparing to.
-   * @param string $field_name
-   *   The machine name of the field to check on.
-   *
-   * @return bool
-   *   TRUE if the value changed.  FALSE otherwise.
-   */
-  protected function changedTarget(NodeInterface $node, NodeInterface $revision, $field_name): bool {
-    if ($node->hasField($field_name)) {
-      $value = $node->get($field_name)->target_id;
-      $original_value = $revision->get($field_name)->target_id;
-
-      return $value !== $original_value;
-    }
-    return FALSE;
-  }
-
-  /**
-   * Removes values from anything that should not be kept in state.
-   */
-  protected function nuke() : void {
-    $this->statusToPush = NULL;
-    $this->additionalInfoToPush = NULL;
-    unset($this->facilityNode);
   }
 
 }
