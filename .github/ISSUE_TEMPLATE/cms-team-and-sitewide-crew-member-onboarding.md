@@ -71,7 +71,7 @@ The goals of this week are:
 - [ ] How does OCTO fit into the VA universe? And how is VA structured? [View this Mural diagram](https://app.mural.co/t/vagov6717/m/vagov6717/1646447643431/1cbae3844c54a42877451e7a79706f0be048d740?sender=kevinwalsh8610)
   
 ### Who?
-- [ ] Complete your personal information in the [official team roster](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/185270337/Team+Roster+2022). Note: this is separate from the Platform ecosystem's roster.
+- [ ] Complete your personal information in the [official team roster](https://docs.google.com/spreadsheets/d/1S31-cj0TPczh4K9r2G--kERqZStOOECX_W2VrQy3kRA/edit#gid=0). Note: this is separate from the Platform ecosystem's roster.
 - [ ] Make your Google calendar publicly accessible, showing free/busy time. This will allow team members in other organizations to easily schedule with you. See [Mark your calendar as public](https://support.google.com/calendar/answer/37083?hl=en#zippy=%2Cmark-your-calendar-as-public).
 - [ ] Let's start introducing you to the team and key stakeholders. If you're on a meeting where you don't know someone, feel free to kickstart an introduction. Everyone in the ecosystem is friendly and interested in connecting.
 ### When?
@@ -91,7 +91,7 @@ The goal for this week is to get you set up with the tools you need to be succes
   - [ ] Demos
   - [ ] Retros
 ### What products do we support?
-- [ ] Discuss with your Delivery Manager, as this varies a lot by team. Review [this mural](https://app.mural.co/t/vagov6717/m/vagov6717/1658961045082/cedcb1c5c42489e47be37733c73890ef890070ae?sender=u252e7152800e3981889d1910) as a good starting point.
+- [ ] Discuss with your Delivery Manager, as this varies a lot by team. Review [this mural](https://app.mural.co/t/vagov6717/m/vagov6717/1646745279937/9a5570c420939d84e875e8334fd73073e3a3971b?fromVisitorModal=true&sender=u0b235d03cbd64f7f93673243) as a good starting point.
 - [ ] [Review the editor onboarding slides](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/https___prod.cms.va.gov_sites_default_files_2021-07_Welcome%2520to%2520the%2520new%2520VA.gov%2520CMS.pdf).
 - [ ] Read the [product sheets](https://github.com/department-of-veterans-affairs/va.gov-team/raw/master/platform/cms/VA-CMS-Product-Sheets.pdf) (PDF download).
 

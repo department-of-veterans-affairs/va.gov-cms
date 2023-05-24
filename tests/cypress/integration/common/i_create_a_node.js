@@ -254,12 +254,11 @@ const creators = {
     cy.scrollToSelector("#edit-field-media-open-button");
     cy.get("#edit-field-media-open-button").click({ force: true });
     cy.get(".dropzone", {
-      timeout: 10000,
-    });
+      timeout: 20000,
+    }).should("exist");
     cy.get(".dropzone").attachFile("images/polygon_image.png", {
       subjectType: "drag-n-drop",
     });
-    cy.wait(1000);
     cy.findAllByLabelText("Alternative text").type(faker.lorem.sentence(), {
       force: true,
     });
@@ -275,9 +274,9 @@ const creators = {
     cy.get(
       'div.media-library-item[data-drupal-selector="edit-field-media-selection-0"]',
       {
-        timeout: 15000,
+        timeout: 20000,
       }
-    );
+    ).should("exist");
     cy.get("form.node-form").find("input#edit-submit").click();
     cy.get(".node__content").contains("Sun, Nov 5 2023, 10:00am - 11:00am MST");
     cy.scrollTo("top", { ensureScrollable: false });
