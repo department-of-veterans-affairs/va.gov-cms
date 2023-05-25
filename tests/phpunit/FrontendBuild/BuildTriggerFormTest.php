@@ -90,6 +90,14 @@ class BuildTriggerFormTest extends VaGovExistingSiteBase {
   private function setupEnvironment($environment) {
     $settings = $this->container->get('settings')->getAll();
     $settings['va_gov_frontend_build_type'] = $environment;
+
+    // Set a fake token so that the factory will not throw an exception.
+    // This is necessary because we're loading different config, and trying to
+    // find the token in different methods depending on the environment.
+    // This test does not actually attempt to use the token, so it's fine to
+    // just set it to a fake value.
+    $settings['va_cms_bot_github_auth_token'] = 'fake-token';
+
     $this->container->set('settings', new Settings($settings));
 
     // Rebuild the routing cache so that the correct
