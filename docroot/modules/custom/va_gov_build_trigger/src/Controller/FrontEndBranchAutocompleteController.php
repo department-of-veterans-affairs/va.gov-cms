@@ -109,8 +109,8 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
 
     $frontEndPrs = $this->searchFrontEndPrs($string, $individual_count);
     for ($i = 0; $i < $individual_count; $i++) {
-      if (!empty($frontEndPrs['items'][$i])) {
-        $item = $frontEndPrs['items'][$i];
+      if (!empty($frontEndPrs[$i])) {
+        $item = $frontEndPrs[$i];
         $results[] = [
           'label' => "PR {$item['number']} ({$item['title']})",
           'value' => "PR {$item['number']} - {$item['title']} ({$item['number']})",
