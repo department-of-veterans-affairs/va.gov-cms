@@ -25,7 +25,7 @@ class GitHubClientFactory implements GitHubClientFactoryInterface {
   protected $httpClient;
 
   /**
-   * GitHubFactory constructor.
+   * GitHubClientFactory constructor.
    *
    * @param \Drupal\Core\Site\Settings $settings
    *   Drupal settings.

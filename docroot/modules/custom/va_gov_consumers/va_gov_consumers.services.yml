@@ -5,7 +5,7 @@ services:
     calls:
       - [ setContainer, [ '@service_container' ] ]
   va_gov.consumers.github.factory:
-    class: Drupal\va_gov_consumers\GitHub\GitHubFactory
+    class: Drupal\va_gov_consumers\GitHub\GitHubClientFactory
     arguments: ['@settings', '@http_client']
   va_gov.consumers.github.vets_website:
     class: Drupal\va_gov_consumers\GitHub\GithubClient
