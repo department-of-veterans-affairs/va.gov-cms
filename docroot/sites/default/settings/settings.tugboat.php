@@ -72,12 +72,20 @@ $settings['cms_datadog_api_key'] = getenv('CMS_DATADOG_API_KEY');
 // Uncomment this line to temporarily enable sending metrics to datadog on cron.
 //$settings['va_gov_force_sending_metrics'] = true;
 
-// Disable SSO form (PIV login) for tugboat demo environments (not automated PR builds)
-$TUGBOAT_PREVIEW_TYPE = getenv('TUGBOAT_PREVIEW_TYPE');
-if (isset($TUGBOAT_PREVIEW_TYPE) && $TUGBOAT_PREVIEW_TYPE !== 'pullrequest') {
-  // Disable sso form.
-  $config['simplesamlphp_auth.settings']['activate'] = FALSE;
-}
+// PIV login does not currently work on Tugboat.
+//
+// To avoid confusing editors, we want to disable PIV login completely on 
+// Tugboat demo environments.
+//
+// However, we want to _preserve_ the PIV login interface on Tugboat PR
+// environments so that we can test the login page and the logic behind it
+// as it would run on staging and production.
+//
+// Therefore, we should enable the PIV login interface on PR environments
+// and disable it everywhere else.
+$tugboat_preview_type = getenv('TUGBOAT_PREVIEW_TYPE');
+$is_pull_request = $tugboat_preview_type === 'pullrequest';
+$config['simplesamlphp_auth.settings']['activate'] = $is_pull_request;
 
 // Settings supporting broken link report import.
 $settings['broken_link_report_import_enabled'] = TRUE;

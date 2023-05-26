@@ -171,6 +171,8 @@ function _va_gov_consumers_modify_facility_fields(array &$form, $form_id, FormSt
 
   // We want to modify display of fields for specific form id's.
   $external_content_form_ids = [
+    'node_nca_facility_edit_form',
+    'node_nca_facility_form',
     'node_health_care_local_facility_form',
     'node_health_care_local_facility_edit_form',
     'node_vba_facility_edit_form',
@@ -198,7 +200,11 @@ function _va_gov_consumers_modify_facility_fields(array &$form, $form_id, FormSt
     ];
 
     // We want the title to appear within the page_title fieldgroup.
-    if ($node->getType() !== 'health_care_local_facility') {
+    $content_types_hiding_title = [
+      'health_care_local_facility',
+      'nca_facility',
+    ];
+    if (!in_array($node->getType(), $content_types_hiding_title)) {
       $form['group_page_title_tooltip']['top_of_page_information'] = $form['top_of_page_information'];
     }
 
@@ -298,6 +304,7 @@ function _va_gov_consumers_disable_external_content_editing(array &$form, FormSt
 
     // We want to modify display of fields for specific node id's.
     $external_content_node_ids = [
+      'nca_facility',
       'health_care_local_facility',
       'vba_facility',
       'vet_center',

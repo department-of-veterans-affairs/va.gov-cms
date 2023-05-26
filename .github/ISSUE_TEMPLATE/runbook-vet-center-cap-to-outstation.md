@@ -40,6 +40,7 @@ Facility API ID: <insert_facility_API_ID>
 
 ## Acceptance criteria
 ## CMS help desk steps
+**Note: If the help desk is waiting on information from the facility staff or editor, add the "Awaiting editor" flag to the facility with a log message that includes a link to this ticket. Remove the flag when the ticket is ready to be worked by the Facilities team. Be sure to preserve the current moderation state of the node when adding or removing the flag.**
 - [ ] 1. Become aware that the new Vet Center Outstation is now in the Facility
   API and in the CMS (typically, via a Flag, but this may come in as a help
   desk ticket).

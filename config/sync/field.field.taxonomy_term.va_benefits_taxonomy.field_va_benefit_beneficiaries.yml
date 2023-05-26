@@ -1,0 +1,36 @@
+uuid: 684b20bd-d806-46e4-bde6-4d79bb7f9f6a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_va_benefit_beneficiaries
+    - taxonomy.vocabulary.audience_beneficiaries
+    - taxonomy.vocabulary.va_benefits_taxonomy
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: false
+id: taxonomy_term.va_benefits_taxonomy.field_va_benefit_beneficiaries
+field_name: field_va_benefit_beneficiaries
+entity_type: taxonomy_term
+bundle: va_benefits_taxonomy
+label: Beneficiaries
+description: 'Choose which beneficiaries this benefit applies to.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      audience_beneficiaries: audience_beneficiaries
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

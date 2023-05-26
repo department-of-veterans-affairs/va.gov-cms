@@ -1,0 +1,38 @@
+uuid: 9c82bc02-45e5-4b1d-9d4e-84c6e8de7079
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_va_benefit_prerequisite
+    - taxonomy.vocabulary.va_benefits_taxonomy
+  module:
+    - entity_reference_validators
+    - tmgmt_content
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: true
+    circular_reference_deep: false
+    duplicate_reference: false
+  tmgmt_content:
+    excluded: false
+id: taxonomy_term.va_benefits_taxonomy.field_va_benefit_prerequisite
+field_name: field_va_benefit_prerequisite
+entity_type: taxonomy_term
+bundle: va_benefits_taxonomy
+label: 'Pre-requisite benefits'
+description: 'If this benefit has a pre-requisite benefit, select it here. Note: you must create the pre-requisite benefit first for it to appear in the list.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      va_benefits_taxonomy: va_benefits_taxonomy
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: va_benefit_taxonomy
+field_type: entity_reference
