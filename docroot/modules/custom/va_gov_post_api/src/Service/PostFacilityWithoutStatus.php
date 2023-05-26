@@ -193,11 +193,13 @@ class PostFacilityWithoutStatus extends PostFacilityBase {
     $defaultRevision = $this->getDefaultRevision($this->facilityNode);
     $isNew = $this->facilityNode->isNew();
     $defaultRevisionIsPublished = $defaultRevision->isPublished();
-    $titleChanged = $this->changedValue($this->facilityNode, $defaultRevision, 'title');
-    $parentChanged = $this->changedTarget($this->facilityNode, $defaultRevision, 'field_office');
     // We only care if the url changes, so title and parent are the only
     // things that affect the url other than published state.
-    $somethingChanged = $titleChanged || $parentChanged;
+    $fields_to_detect = [
+      'title',
+      'field_office',
+    ];
+    $somethingChanged = $this->fieldsHaveChanges($this->facilityNode, $defaultRevision, $fields_to_detect);
 
     // Case race. First to evaluate to TRUE wins.
     switch (TRUE) {

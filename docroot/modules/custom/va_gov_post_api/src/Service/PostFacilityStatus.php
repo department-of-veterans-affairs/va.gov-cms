@@ -305,19 +305,15 @@ class PostFacilityStatus extends PostFacilityBase {
     $defaultRevision = $this->getDefaultRevision($this->facilityNode);
     $isNew = $this->facilityNode->isNew();
     $defaultRevisionIsPublished = $defaultRevision->isPublished();
-    $statusChanged = $this->changedValue($this->facilityNode, $defaultRevision, 'field_operating_status_facility');
-    $statusInfoChanged = $this->changedValue($this->facilityNode, $defaultRevision, 'field_operating_status_more_info');
-    $supStatusChanged = $this->changedTarget($this->facilityNode, $defaultRevision, 'field_supplemental_status');
-    // Since we are also sending a url, we need to detect change to the url.
-    $titleChanged = $this->changedValue($this->facilityNode, $defaultRevision, 'title');
-    if ($field_name = FacilityOps::getFacilityParentFieldName($this->facilityNode)) {
-      $parentChanged = $this->changedTarget($this->facilityNode, $defaultRevision, $field_name);
-    }
-    else {
-      $parentChanged = FALSE;
-    }
 
-    $somethingChanged = $statusChanged || $statusInfoChanged || $supStatusChanged || $titleChanged || $parentChanged;
+    $fields_to_detect = [
+      'title',
+      FacilityOps::getFacilityParentFieldName($this->facilityNode),
+      'field_operating_status_facility',
+      'field_operating_status_more_info',
+      'field_supplemental_status',
+    ];
+    $somethingChanged = $this->fieldsHaveChanges($this->facilityNode, $defaultRevision, $fields_to_detect);
 
     // Case race. First to evaluate to TRUE wins.
     switch (TRUE) {
@@ -377,9 +373,12 @@ class PostFacilityStatus extends PostFacilityBase {
     $moderationState = $entity->get('moderation_state')->value;
     $thisRevisionIsPublished = $entity->isPublished();
     $defaultRevision = $this->getDefaultRevision($entity);
-    $nameChanged = $this->changedValue($entity, $defaultRevision, 'title');
-    $phoneChanged = $this->changedValue($entity, $defaultRevision, 'field_va_health_connect_phone');
-    $somethingChanged = $nameChanged || $phoneChanged;
+
+    $fields_to_detect = [
+      'title',
+      'field_va_health_connect_phone',
+    ];
+    $somethingChanged = $this->fieldsHaveChanges($this->facilityNode, $defaultRevision, $fields_to_detect);
     $push = FALSE;
     if ($thisRevisionIsPublished && $somethingChanged && $moderationState === self::STATE_PUBLISHED) {
       $push = TRUE;

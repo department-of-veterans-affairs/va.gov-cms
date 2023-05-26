@@ -398,10 +398,7 @@ abstract class PostFacilityBase {
    *   TRUE if the value changed.  FALSE otherwise.
    */
   protected function changedValue(NodeInterface $node, NodeInterface $revision, $field_name): bool {
-    $value = $node->get($field_name)->value;
-    $original_value = $revision->get($field_name)->value;
-
-    return $value !== $original_value;
+    return $this->fieldsHaveChanges($node, $revision, [$field_name]);
   }
 
   /**
@@ -425,6 +422,43 @@ abstract class PostFacilityBase {
       return $value !== $original_value;
     }
     return FALSE;
+  }
+
+  /**
+   * Looks for changes in all identified fields.
+   *
+   * @param \Drupal\node\NodeInterface $current_revision
+   *   The current revision.
+   * @param \Drupal\node\NodeInterface $default_revision
+   *   The default revision.
+   * @param array $field_names
+   *   An array of drupal field machine names.
+   *
+   * @return bool
+   *   TRUE if there have been changes, FALSE otherwise.
+   */
+  protected function fieldsHaveChanges(NodeInterface $current_revision, NodeInterface $default_revision, array $field_names): bool {
+    $current_revision_values = [];
+    $default_revision_values = [];
+    $field_reference_types = [
+      'entity_reference',
+      'entity_reference_revisions',
+    ];
+    foreach ($field_names as $field_name) {
+      if ($current_revision->hasField($field_name)) {
+        if (in_array($current_revision->get($field_name)->getFieldDefinition()->getType(), $field_reference_types)) {
+          // Tt is a reference we need to get the target.
+          $current_revision_values[$field_name] = ($current_revision->hasField($field_name)) ? $current_revision->get($field_name)->target_id : NULL;
+          $default_revision_values[$field_name] = ($default_revision->hasField($field_name)) ? $default_revision->get($field_name)->target_id : NULL;
+        }
+        else {
+          // It is a normal field, use values.
+          $current_revision_values[$field_name] = ($current_revision->hasField($field_name)) ? $current_revision->get($field_name)->value : NULL;
+          $default_revision_values[$field_name] = ($default_revision->hasField($field_name)) ? $default_revision->get($field_name)->value : NULL;
+        }
+      }
+    }
+    return $current_revision_values == $default_revision_values;
   }
 
   /**

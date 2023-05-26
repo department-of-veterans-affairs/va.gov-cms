@@ -56,6 +56,19 @@ class FacilityOps {
    *   TRUE if it is a facility with status info. FALSE otherwise.
    */
   public static function isFacilityWithStatus(NodeInterface $node) : bool {
+    return self::isBundleFacilityWithStatus($node->bundle());
+  }
+
+  /**
+   * Checks if the entity is a facility node with status info.
+   *
+   * @param string $type
+   *   The bundle id to evaluate.
+   *
+   * @return bool
+   *   TRUE if it is a facility bundle with status info. FALSE otherwise.
+   */
+  public static function isBundleFacilityWithStatus(string $type) : bool {
     $facilities_with_status = [
       'health_care_local_facility',
       'nca_facility',
@@ -63,11 +76,12 @@ class FacilityOps {
       'vet_center_outstation',
       'vet_center',
     ];
-    return in_array($node->bundle(), $facilities_with_status);
+
+    return in_array($type, $facilities_with_status);
   }
 
   /**
-   * Checks if the entity is a facility is a product that has launched.
+   * Check if the entity is a facility is a product that has launched.
    *
    * @param \Drupal\node\NodeInterface $node
    *   The node to evaluate.
