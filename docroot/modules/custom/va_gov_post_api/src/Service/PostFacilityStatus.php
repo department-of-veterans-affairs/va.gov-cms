@@ -53,8 +53,10 @@ class PostFacilityStatus extends PostFacilityBase {
    */
   public function queueFacilityStatus(EntityInterface $entity, bool $forcePush = FALSE) {
     $queued_count = 0;
+    // Vet Center CAPs are excluded from this push and will have their own.
+    $is_vet_center_cap = $entity->bundle() === 'vet_center_cap';
 
-    if ($entity instanceof NodeInterface && FacilityOps::isFacilityWithStatus($entity)) {
+    if ($entity instanceof NodeInterface && FacilityOps::isFacilityWithStatus($entity) && !$is_vet_center_cap) {
       /** @var \Drupal\node\NodeInterface $entity*/
       $this->facilityNode = $entity;
       $facility_id = $entity->hasField('field_facility_locator_api_id') ? $entity->get('field_facility_locator_api_id')->value : NULL;

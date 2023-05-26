@@ -10,24 +10,25 @@ use Drupal\node\NodeInterface;
 class FacilityOps {
 
   /**
-   * Checks if the entity is a facility.
+   * Checks if the node is a facility.
    *
    * @param \Drupal\node\NodeInterface $node
    *   The node to evaluate.
    *
    * @return bool
-   *   TRUE if it is a facility with status info. FALSE otherwise.
+   *   TRUE if it is a facility. FALSE otherwise.
    */
   public static function isFacility(NodeInterface $node) : bool {
-    $facilities_with_status = [
+    $facilities = [
       'health_care_local_facility',
       'nca_facility',
       'vba_facility',
+      'vet_center_cap',
       'vet_center_mobile_vet_center',
       'vet_center_outstation',
       'vet_center',
     ];
-    return in_array($node->bundle(), $facilities_with_status);
+    return in_array($node->bundle(), $facilities);
   }
 
   /**
@@ -73,11 +74,29 @@ class FacilityOps {
       'health_care_local_facility',
       'nca_facility',
       'vba_facility',
+      'vet_center_cap',
       'vet_center_outstation',
       'vet_center',
     ];
 
     return in_array($type, $facilities_with_status);
+  }
+
+  /**
+   * Checks if the entity is a facility node with supplemental status.
+   *
+   * @param string $type
+   *   The bundle id to evaluate.
+   *
+   * @return bool
+   *   TRUE if it is a facility bundle with status info. FALSE otherwise.
+   */
+  public static function isBundleFacilityWithSupplementalStatus(string $type) : bool {
+    $facilities_with_supplemental_status = [
+      'health_care_local_facility',
+    ];
+
+    return in_array($type, $facilities_with_supplemental_status);
   }
 
   /**
@@ -108,6 +127,7 @@ class FacilityOps {
    */
   public static function facilityHasFePage(NodeInterface $node) : bool {
     $facilities_with_no_fe_page = [
+      'vet_center_cap',
       'vet_center_mobile_vet_center',
       'vet_center_outstation',
     ];
