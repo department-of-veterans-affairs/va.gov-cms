@@ -44,7 +44,7 @@ class PostFacilityStatus extends PostFacilityBase {
   protected $additionalInfoToPush;
 
   /**
-   * The services that should be pushed to Lighthouse.
+   * The facilities that have services pushed to Lighthouse.
    *
    * For now we are only pushing covid 19 services. The key is only for
    * making sense of code, the TID is what is used for comparison.
@@ -220,29 +220,6 @@ class PostFacilityStatus extends PostFacilityBase {
       }
     }
     return $facility_url;
-  }
-
-  /**
-   * Get operating status details, shortened as necessary.
-   *
-   * @return string
-   *   Details of operating status.
-   */
-  protected function getOperatingStatusMoreInfoShort() : ?string {
-    $operatingStatusMoreInfo = $this->facilityNode->get('field_operating_status_more_info')->value;
-    if ($operatingStatusMoreInfo) {
-      $operatingStatusMoreInfo = $this->facilityNode->get('field_operating_status_more_info')->value;
-      $operatingStatusMoreInfoJson = json_encode($this->facilityNode->get('field_operating_status_more_info')->value);
-      $operatingStatusMoreInfoLength = mb_strlen($operatingStatusMoreInfoJson);
-      // 300 is the character limit for field_operating_status_facility
-      // let's do our best to trim this down if we need to
-      if ($operatingStatusMoreInfoLength > 300) {
-        $operatingStatusMoreInfo = str_replace('&nbsp;', ' ', $operatingStatusMoreInfo);
-        $operatingStatusMoreInfo = trim($operatingStatusMoreInfo);
-        $operatingStatusMoreInfo = preg_replace("/(\r?\n|\r)+/", " ", $operatingStatusMoreInfo);
-      }
-    }
-    return $operatingStatusMoreInfo;
   }
 
   /**
