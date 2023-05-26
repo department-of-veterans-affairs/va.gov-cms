@@ -18,24 +18,27 @@ The onboarding materials below are organized by:
 * chronological time to complete (day one, week one, week two, month one)
 * and category
 
-There's a lot to digest but don't worry, your Delivery Manager will guide you, you'll have an onboarding buddy to provide support, and we'll also introduce you to your workstream's lead to help with specific things related to your discipline (UX, DevOps, Drupal Engineering, etc). In addition, you'll have the support of the entire team, who have all gone through this process before and are eager to answer any questions that arise. Come back to this ticket any time to refresh your knowledge on a specific topic covered below.
+There's a lot to digest but don't worry, your Delivery Manager will guide you, you'll have an onboarding buddy to provide support, and we'll also introduce you to your workstream's lead to help with specific things related to your discipline (UX, DevOps, Drupal Engineering, etc). In addition, you'll have the support of the entire team, who have all gone through this process before and are eager to answer any questions that arise. Come back to this ticket any time to refresh your knowledge on a specific topic covered below. Have fun and we look forward to getting to know you! 😊
+
+Projected start date: <insert_here>
 
 **Team info**
 - Onboarding buddy (short check-in meetings the first week): 
-- Team name: Sitewide
+- Team name: 
 - Delivery Manager name:  
 - Product Manager name:  
 - Discipline lead name: 
 
 
 <details><summary>Day one</summary>
+
+## Day one
 Your top priority is any onboarding paperwork provided by Contract Onboarding folks. Start tasks below after that.
 
 ### Process & Principles
 - [ ] Read through our [team norms](https://docs.google.com/document/d/1cs5FePhtR0LIJi63b9ZtqT7T6dphgB584UpfEbejSOc/edit#), which will also give an overview of how we apply the [USDS playbook](https://playbook.cio.gov/) and VA.gov platform [code of conduct](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/working-with-vsp/policies-work-norms/code-of-conduct.md).
 - [ ] Read the [VA.gov platform mission and goals](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/VA.gov%20Platform%20Overview%202021.pdf).
 - [ ] Read the [VA's Office of the CTO (OCTO) engineering excellence guiding principles](https://dsva.slack.com/archives/C04KXPXL4/p1674065912579799) [post in DSVA slack]
-
 
 ### People
 - [ ] Meet with A6 Contract Onboarding Specialists (COS) to get an introduction to the paperwork process. They'll schedule.
@@ -65,7 +68,6 @@ The goals of this week are:
 1) get background paperwork completed as quickly as possible 
 2) start gaining context for what we're doing and why
 
-
 ### Access & Delivery
 **Paperwork**
 You'll receive an email from A6 COS directing you to the paperwork you should fill out for secure access to relevant VA systems. Federal contractors are required to complete many of the same forms as federal employees.
@@ -91,7 +93,6 @@ You can view team sprint boards using either the Github view with Zenhub browser
 )
 * Public Websites: [Github view](https://github.com/department-of-veterans-affairs/va.gov-cms/#workspaces/public-websites-6171bf4bf43742001af18cc5/board), [Zenhub webapp view](https://app.zenhub.com/workspaces/public-websites-6171bf4bf43742001af18cc5/board)
 
-
 ### Process & Principles
 - [ ] Read about our teams' [Agile / sprint best practices](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/sprint-best-practices.md)
 - [ ] How do Agile 6 and our partners work together on this project? Discuss with your Delivery Manager.
@@ -110,23 +111,18 @@ You can view team sprint boards using either the Github view with Zenhub browser
 - [ ] Familiarize yourself with our team's [shared calendar](https://va-gov.atlassian.net/wiki/spaces/VAGOV/calendars) and add in any known upcoming out of office (OOO). Choose "Calendar" = OOO and "Event type" = whatever is relevant.
 - [ ] Let's start introducing you to the team and key stakeholders. If you're on a meeting where you don't know someone, feel free to kickstart an introduction. Everyone in the ecosystem is friendly and interested in connecting.
 
-
 ### Context & History
 - [ ] How does the team fit into the larger OCTO ecosystem? [View this Mural diagram](https://app.mural.co/t/vagov6717/m/vagov6717/1643724063628/1654203c1a0d6c763bbd5c969febf94ec476df79?sender=u0b235d03cbd64f7f93673243)
 - [ ] Why is VA.gov using a Drupal CMS and how is our success measured? Read the [objectives and key results](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/96698383/Product+CMS).
 - [ ] [Watch the Drupal GovCon presentation about the project](https://www.youtube.com/watch?v=WN4bGjEuQdM).
 - [ ] Why are VA Medical Centers changing their websites? Watch the [2-minute YouTube video](https://youtu.be/Xrv5wCv6cKY).
 - [ ] Why are Vet Centers important to Veterans? Watch the [2-minute YouTube video](https://www.youtube.com/watch?v=VMzkZNbKk1I).
-
-
-
 </details>
 
 <details><summary>Week two</summary>
 
 ## Week two
 The goal for this week is to get you set up with the tools you need to be successful. We will pair you up with a buddy on the project that is in your same discipline to help inform which ones are relevant and which aren't. **The most important thing is to get set up is SOCKS** as it will give you access to our systems so try to prioritize that.
-
 
 ### Process & Principles
 - [ ] Check your calendar for invitations to team ceremonies.
@@ -136,13 +132,11 @@ The goal for this week is to get you set up with the tools you need to be succes
   - [ ] Demo
   - [ ] Retro
 
-
 ### Context & History: What products do we support?
 - [ ] Review [History of sitewide product portfolio & teams mural](https://app.mural.co/t/vagov6717/m/vagov6717/1646745279937/9a5570c420939d84e875e8334fd73073e3a3971b?fromVisitorModal=true&sender=u0b235d03cbd64f7f93673243).
     - [ ] Discuss with your Delivery Manager and Product Manager for more context on your team's products. 
 - [ ] [Review the editor onboarding slides](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/library/https___prod.cms.va.gov_sites_default_files_2021-07_Welcome%2520to%2520the%2520new%2520VA.gov%2520CMS.pdf).
 - [ ] Read the [product sheets](https://github.com/department-of-veterans-affairs/va.gov-team/raw/master/platform/cms/VA-CMS-Product-Sheets.pdf) (PDF download).
-
 
 ### Access & Delivery
 - [ ] [Opt out](https://www.va.gov/analytics-opt-out.html) of Google Analytics collection on VA.gov.
@@ -190,11 +184,8 @@ Tugboat is a development server platform where you can preview CMS code changes 
   - [ ] [Tugboat for non-engineers](https://prod.cms.va.gov/help/demo-environments-tugboat-guides) SOCKS required
 
 #### Other tools / access
-
 - [ ] [Confluence](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/179765342/2020-2021?NO_SSR=1) for team calendar, demo run of show, and reporting.
-
 - [ ] [Google Drive](https://drive.google.com/drive/u/0/folders/0ADx85_gnl3Y4Uk9PVA?ths=true) for team documents. VA doesn't have access to view Google products while on the VA network. Use Github or downloadable files when sharing with VA.
-
 - [ ] [Trello](https://trello.com/vacmsteam) for retro boards
 
 </details>
@@ -207,9 +198,6 @@ By this point you should have enough context and access to be able to start cont
 - [ ] Who are our VA points of contact? Discuss with your Delivery Manager or Product Manager.
 - [ ] Who should we know on the platform teams? Discuss with your Delivery Manager or Product Manager.
 
-
-### Process & Principles
-
 ### Access & Delivery
 **Paperwork**
 - [ ] Complete any VA-assigned trainings in the TMS system. If the TMS learning modules malfunction, assign yourself the print version of the module. (Ask in #proj-sitewide-vfs-cms-team if you need help.)
@@ -221,15 +209,6 @@ By this point you should have enough context and access to be able to start cont
     - [ ] Mac users should [follow these CAG download instructions](https://docs.google.com/document/d/1_3HKMk4AXyqAoQcfF4CthEQ7uU_d1h9Tt7CPHGJ-FaM)
     - [ ] Purchase a card reader, if you don't have one. A6 IT recommends these options: [USB](https://www.amazon.com/gp/product/B002N3MM6W/ref=ppx_yo_dt_b_asin_title_o01_s00?ie=UTF8&th=1) or [USB-C](https://www.amazon.com/gp/product/B002N3MM6W/ref=ppx_yo_dt_b_asin_title_o01_s00?ie=UTF8&th=1)
     - [ ] Use your PIV card to access CAG. You must access CAG every 60 days or your access will be expired.
-
-
-
-</details>
-
-<details><summary>Month two</summary>
-
-## Month two
-### What additional tools do you need access to?
 
 </details>
 
@@ -296,7 +275,6 @@ Each repository includes READMEs to help with setup.
 - [ ] Browse the [CMS topic dives videos](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/1714094110/CMS+Topic+Dives)
 </details>
 
-
 <details><summary>Onboarding for User Support members</summary>
 
 ## Onboarding for User Support members
@@ -315,14 +293,12 @@ Each repository includes READMEs to help with setup.
    - [ ] [Watch the training video that Vet Center editors have to complete](https://youtu.be/scuC5lSHZuw).
 </details>
 
-
 <details><summary>Onboarding for Product Management members</summary>
 
  - [ ] Review [onboarding docs](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/PM/)
  - [ ] [VA doc: Expectations for how VA internal Product Lead / Product Owners work with contractor PMs](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/octo/product/Product%20Expectations.md)
  - [ ] [Request access to Google Analytics](https://depo-platform-documentation.scrollhelp.site/analytics-monitoring/New-Users-to-Google-Analytics.1877704964.html)
 </details>
-
 
 <details><summary>Onboarding for UX members</summary>
 
@@ -360,7 +336,6 @@ Your discipline lead will assist with onboarding tasks / calls.
 - [ ] Request a Github Cliff's Notes call [optional]
   - Aren't comfortable with Github? It's cool. We have people who can help.
   - [ ] Watch the "Github / pull request basics for non-engineers" [Topic Dive](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/1714094110/CMS+Topic+Dives)
-  
 </details>
 
 <details><summary>Onboarding for Delivery Managers</summary>
@@ -377,8 +352,6 @@ Your discipline lead will assist with onboarding tasks / calls.
 - [ ] Review other Delivery documents in [Google Drive](https://drive.google.com/drive/u/1/folders/1mFC5NCUkeQlGX2S8TIpD1om2V-5B0ikc)
 
 </details>
-
-
 
 ### Team
 Please check the team(s) that will do this work.
