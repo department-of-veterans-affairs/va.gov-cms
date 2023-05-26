@@ -60,7 +60,7 @@ class FacilityOps {
   }
 
   /**
-   * Checks if the entity is a facility node with status info.
+   * Checks if a bundle type has status info.
    *
    * @param string $type
    *   The bundle id to evaluate.
@@ -81,13 +81,13 @@ class FacilityOps {
   }
 
   /**
-   * Check if the entity is a facility is a product that has launched.
+   * Check if the entity is a facility of a product that has launched.
    *
    * @param \Drupal\node\NodeInterface $node
    *   The node to evaluate.
    *
    * @return bool
-   *   TRUE if it is a facility is launched. FALSE otherwise.
+   *   TRUE if it is a facility of a product that has launched. FALSE otherwise.
    */
   public static function isFacilityLaunched(NodeInterface $node) : bool {
     $facilities_not_launched = [
@@ -104,7 +104,7 @@ class FacilityOps {
    *   The node to evaluate.
    *
    * @return bool
-   *   TRUE if it is a facility ha a FE page. FALSE otherwise.
+   *   TRUE if it is a facility that has a FE page. FALSE otherwise.
    */
   public static function facilityHasFePage(NodeInterface $node) : bool {
     $facilities_with_no_fe_page = [

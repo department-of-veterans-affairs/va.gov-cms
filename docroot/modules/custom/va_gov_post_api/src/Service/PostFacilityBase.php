@@ -447,7 +447,7 @@ abstract class PostFacilityBase {
     foreach ($field_names as $field_name) {
       if ($current_revision->hasField($field_name)) {
         if (in_array($current_revision->get($field_name)->getFieldDefinition()->getType(), $field_reference_types)) {
-          // Tt is a reference we need to get the target.
+          // It is a reference; we need to get the target.
           $current_revision_values[$field_name] = ($current_revision->hasField($field_name)) ? $current_revision->get($field_name)->target_id : NULL;
           $default_revision_values[$field_name] = ($default_revision->hasField($field_name)) ? $default_revision->get($field_name)->target_id : NULL;
         }
