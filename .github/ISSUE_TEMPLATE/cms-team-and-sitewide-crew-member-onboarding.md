@@ -23,11 +23,11 @@ There's a lot to digest but don't worry, your Delivery Manager will guide you, y
 Projected start date: <insert_here>
 
 **Team info**
-- Onboarding buddy (short check-in meetings the first week): 
-- Team name: 
-- Delivery Manager name:  
-- Product Manager name:  
-- Discipline lead name: 
+- **Onboarding buddy** (short check-in meetings the first week): 
+- **Team name:** 
+- **Delivery Manager name:**  
+- **Product Manager name:**  
+- **Discipline lead name:** 
 
 
 <details><summary>Day one</summary>
