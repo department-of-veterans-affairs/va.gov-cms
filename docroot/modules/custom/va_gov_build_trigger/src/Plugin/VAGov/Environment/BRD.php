@@ -35,7 +35,7 @@ class BRD extends EnvironmentPluginBase {
    *
    * @var \Drupal\va_gov_consumers\GitHub\GitHubClientInterface
    */
-  protected $githubAdapter;
+  protected $gitHubAdapter;
 
   /**
    * {@inheritDoc}
@@ -47,7 +47,7 @@ class BRD extends EnvironmentPluginBase {
     LoggerInterface $logger,
     FileSystemInterface $filesystem,
     Settings $settings,
-    GitHubClientInterface $githubAdapter
+    GitHubClientInterface $gitHubAdapter
   ) {
     parent::__construct(
       $configuration,
@@ -57,7 +57,7 @@ class BRD extends EnvironmentPluginBase {
       $filesystem,
     );
     $this->settings = $settings;
-    $this->githubAdapter = $githubAdapter;
+    $this->gitHubAdapter = $gitHubAdapter;
   }
 
   /**
@@ -87,7 +87,7 @@ class BRD extends EnvironmentPluginBase {
         $message = $this->t('Changes will be included in a content release to VA.gov that\'s already in progress. <a href="@job_link">Check status</a>.', $vars);
       }
       else {
-        $this->githubAdapter->repositoryDispatchWorkflow('content-release');
+        $this->gitHubAdapter->repositoryDispatchWorkflow('content-release');
         $vars = [
           '@job_link' => 'https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml',
         ];
@@ -127,7 +127,7 @@ class BRD extends EnvironmentPluginBase {
         'status' => 'pending',
         'created' => '>=' . date('c', $check_time),
       ];
-      $workflow_runs = $this->githubAdapter->listWorkflowRuns('content-release.yml', $workflow_run_params);
+      $workflow_runs = $this->gitHubAdapter->listWorkflowRuns('content-release.yml', $workflow_run_params);
 
       // A well-formed response will have `total_count` set.
       return !empty($workflow_runs['total_count']) && $workflow_runs['total_count'] > 0;

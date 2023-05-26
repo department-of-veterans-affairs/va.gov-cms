@@ -159,7 +159,7 @@ class GitHubClient implements GitHubClientInterface {
     if ($data === NULL) {
       throw new \Exception('The GitHub API returned an invalid JSON response.');
     }
-    return $data['items'];
+    return $data;
   }
 
   /**
@@ -175,7 +175,7 @@ class GitHubClient implements GitHubClientInterface {
   public function listWorkflowRuns(string $workflowName, array $params = []) : array {
     $response = $this->listWorkflowRunsRaw($workflowName, $params);
     $data = json_decode($response->getBody()->getContents(), TRUE);
-    return $data['workflow_runs'];
+    return $data;
   }
 
   /**

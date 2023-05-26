@@ -44,8 +44,8 @@ class GitHubClientServiceTest extends VaGovUnitTestBase {
     $response = $client->searchPullRequestsRaw($searchTerm);
     $this->assertEquals(200, $response->getStatusCode());
     $this->assertEquals('Bar', $response->getHeaderLine('X-Foo'));
-    $items = $client->searchPullRequests($searchTerm);
-    $this->assertEquals([["number" => 1, "title" => "Test PR"]], $items);
+    $data = $client->searchPullRequests($searchTerm);
+    $this->assertEquals([["number" => 1, "title" => "Test PR"]], $data['items']);
   }
 
   /**
@@ -121,7 +121,7 @@ class GitHubClientServiceTest extends VaGovUnitTestBase {
     $this->assertEquals(200, $response->getStatusCode());
     $this->assertEquals('Bar', $response->getHeaderLine('X-Foo'));
     $runs = $client->listWorkflowRuns($workflowName, $params);
-    $this->assertEquals(4848584790, $runs[0]['id']);
+    $this->assertEquals(4848584790, $runs['workflow_runs'][0]['id']);
   }
 
   /**
