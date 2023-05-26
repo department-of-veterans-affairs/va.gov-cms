@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "80f640b7327b816d98010113767e320a",
+    "content-hash": "b9b410714dbfd65a636ff1132d1cbb7d",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -9387,6 +9387,10 @@
                     "name": "Mykhailo Gurei",
                     "homepage": "https://www.drupal.org/u/ozin",
                     "role": "Maintainer"
+                },
+                {
+                    "name": "voleger",
+                    "homepage": "https://www.drupal.org/user/3260314"
                 }
             ],
             "description": "Provide an additional custom fields which can be used on Menu link",
@@ -15607,94 +15611,6 @@
             "time": "2022-04-13T08:02:27+00:00"
         },
         {
-            "name": "knplabs/github-api",
-            "version": "v3.11.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/KnpLabs/php-github-api.git",
-                "reference": "c68b874ac3267c3cc0544b726dbb4e49a72a9920"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/php-github-api/zipball/c68b874ac3267c3cc0544b726dbb4e49a72a9920",
-                "reference": "c68b874ac3267c3cc0544b726dbb4e49a72a9920",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "php": "^7.2.5 || ^8.0",
-                "php-http/cache-plugin": "^1.7.1",
-                "php-http/client-common": "^2.3",
-                "php-http/discovery": "^1.12",
-                "php-http/httplug": "^2.2",
-                "php-http/multipart-stream-builder": "^1.1.2",
-                "psr/cache": "^1.0|^2.0|^3.0",
-                "psr/http-client-implementation": "^1.0",
-                "psr/http-factory-implementation": "^1.0",
-                "psr/http-message": "^1.0",
-                "symfony/deprecation-contracts": "^2.2|^3.0",
-                "symfony/polyfill-php80": "^1.17"
-            },
-            "require-dev": {
-                "guzzlehttp/guzzle": "^7.2",
-                "guzzlehttp/psr7": "^1.7",
-                "http-interop/http-factory-guzzle": "^1.0",
-                "php-http/mock-client": "^1.4.1",
-                "phpstan/extension-installer": "^1.0.5",
-                "phpstan/phpstan": "^0.12.57",
-                "phpstan/phpstan-deprecation-rules": "^0.12.5",
-                "phpunit/phpunit": "^8.5 || ^9.4",
-                "symfony/cache": "^5.1.8",
-                "symfony/phpunit-bridge": "^5.2"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-2.x": "2.20.x-dev",
-                    "dev-master": "3.10.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Github\\": "lib/Github/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "KnpLabs Team",
-                    "homepage": "http://knplabs.com"
-                },
-                {
-                    "name": "Thibault Duplessis",
-                    "email": "thibault.duplessis@gmail.com",
-                    "homepage": "http://ornicar.github.com"
-                }
-            ],
-            "description": "GitHub API v3 client",
-            "homepage": "https://github.com/KnpLabs/php-github-api",
-            "keywords": [
-                "api",
-                "gh",
-                "gist",
-                "github"
-            ],
-            "support": {
-                "issues": "https://github.com/KnpLabs/php-github-api/issues",
-                "source": "https://github.com/KnpLabs/php-github-api/tree/v3.11.0"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/acrobat",
-                    "type": "github"
-                }
-            ],
-            "time": "2023-03-10T11:40:14+00:00"
-        },
-        {
             "name": "laminas/laminas-diactoros",
             "version": "2.14.0",
             "source": {
@@ -18155,65 +18071,6 @@
             "time": "2022-02-21T01:04:05+00:00"
         },
         {
-            "name": "php-http/cache-plugin",
-            "version": "1.7.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-http/cache-plugin.git",
-                "reference": "63bc3f7242825c9a817db8f78e4c9703b0c471e2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-http/cache-plugin/zipball/63bc3f7242825c9a817db8f78e4c9703b0c471e2",
-                "reference": "63bc3f7242825c9a817db8f78e4c9703b0c471e2",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.1 || ^8.0",
-                "php-http/client-common": "^1.9 || ^2.0",
-                "php-http/message-factory": "^1.0",
-                "psr/cache": "^1.0 || ^2.0 || ^3.0",
-                "symfony/options-resolver": "^2.6 || ^3.0 || ^4.0 || ^5.0 || ^6.0"
-            },
-            "require-dev": {
-                "phpspec/phpspec": "^5.1 || ^6.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.6-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Http\\Client\\Common\\Plugin\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Márk Sági-Kazár",
-                    "email": "mark.sagikazar@gmail.com"
-                }
-            ],
-            "description": "PSR-6 Cache plugin for HTTPlug",
-            "homepage": "http://httplug.io",
-            "keywords": [
-                "cache",
-                "http",
-                "httplug",
-                "plugin"
-            ],
-            "support": {
-                "issues": "https://github.com/php-http/cache-plugin/issues",
-                "source": "https://github.com/php-http/cache-plugin/tree/1.7.5"
-            },
-            "time": "2022-01-18T12:24:56+00:00"
-        },
-        {
             "name": "php-http/client-common",
             "version": "2.6.1",
             "source": {
@@ -18608,68 +18465,6 @@
             },
             "abandoned": "psr/http-factory",
             "time": "2023-04-14T14:16:17+00:00"
-        },
-        {
-            "name": "php-http/multipart-stream-builder",
-            "version": "1.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-http/multipart-stream-builder.git",
-                "reference": "11c1d31f72e01c738bbce9e27649a7cca829c30e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-http/multipart-stream-builder/zipball/11c1d31f72e01c738bbce9e27649a7cca829c30e",
-                "reference": "11c1d31f72e01c738bbce9e27649a7cca829c30e",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.1 || ^8.0",
-                "php-http/discovery": "^1.7",
-                "php-http/message-factory": "^1.0.2",
-                "psr/http-factory": "^1.0",
-                "psr/http-message": "^1.0"
-            },
-            "require-dev": {
-                "nyholm/psr7": "^1.0",
-                "php-http/message": "^1.5",
-                "phpunit/phpunit": "^7.5.15 || ^8.5 || ^9.3"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Http\\Message\\MultipartStream\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Tobias Nyholm",
-                    "email": "tobias.nyholm@gmail.com"
-                }
-            ],
-            "description": "A builder class that help you create a multipart stream",
-            "homepage": "http://php-http.org",
-            "keywords": [
-                "factory",
-                "http",
-                "message",
-                "multipart stream",
-                "stream"
-            ],
-            "support": {
-                "issues": "https://github.com/php-http/multipart-stream-builder/issues",
-                "source": "https://github.com/php-http/multipart-stream-builder/tree/1.2.0"
-            },
-            "time": "2021-05-21T08:32:01+00:00"
         },
         {
             "name": "php-http/promise",
