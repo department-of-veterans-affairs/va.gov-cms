@@ -10,6 +10,24 @@ use Drupal\node\NodeInterface;
 class FacilityOps {
 
   /**
+   * Get facility types.
+   *
+   * @return array
+   *   Array of facility types.
+   */
+  public static function getFacilityTypes() : array {
+    return [
+      'health_care_local_facility',
+      'nca_facility',
+      'vba_facility',
+      'vet_center_cap',
+      'vet_center_mobile_vet_center',
+      'vet_center_outstation',
+      'vet_center',
+    ];
+  }
+
+  /**
    * Checks if the node is a facility.
    *
    * @param \Drupal\node\NodeInterface $node
@@ -19,16 +37,19 @@ class FacilityOps {
    *   TRUE if it is a facility. FALSE otherwise.
    */
   public static function isFacility(NodeInterface $node) : bool {
-    $facilities = [
-      'health_care_local_facility',
-      'nca_facility',
-      'vba_facility',
-      'vet_center_cap',
+    return in_array($node->bundle(), self::getFacilityTypes());
+  }
+
+  /**
+   * Get facility types without status info.
+   *
+   * @return array
+   *   Facility types that have no status.
+   */
+  public static function getFacilityTypesWithoutStatus() : array {
+    return [
       'vet_center_mobile_vet_center',
-      'vet_center_outstation',
-      'vet_center',
     ];
-    return in_array($node->bundle(), $facilities);
   }
 
   /**
@@ -41,10 +62,7 @@ class FacilityOps {
    *   TRUE if it is a facility with status info. FALSE otherwise.
    */
   public static function isFacilityWithoutStatus(NodeInterface $node) : bool {
-    $facilities_without_status = [
-      'vet_center_mobile_vet_center',
-    ];
-    return in_array($node->bundle(), $facilities_without_status);
+    return in_array($node->bundle(), self::getFacilityTypesWithoutStatus());
   }
 
   /**
@@ -61,6 +79,23 @@ class FacilityOps {
   }
 
   /**
+   * Get facilty types that have status info.
+   *
+   * @return array
+   *   An array of facility types that have status.
+   */
+  public static function getFacilityTypesWithStatus() : array {
+    return [
+      'health_care_local_facility',
+      'nca_facility',
+      'vba_facility',
+      'vet_center_cap',
+      'vet_center_outstation',
+      'vet_center',
+    ];
+  }
+
+  /**
    * Checks if a bundle type has status info.
    *
    * @param string $type
@@ -70,16 +105,7 @@ class FacilityOps {
    *   TRUE if it is a facility bundle with status info. FALSE otherwise.
    */
   public static function isBundleFacilityWithStatus(string $type) : bool {
-    $facilities_with_status = [
-      'health_care_local_facility',
-      'nca_facility',
-      'vba_facility',
-      'vet_center_cap',
-      'vet_center_outstation',
-      'vet_center',
-    ];
-
-    return in_array($type, $facilities_with_status);
+    return in_array($type, self::getFacilityTypesWithStatus());
   }
 
   /**

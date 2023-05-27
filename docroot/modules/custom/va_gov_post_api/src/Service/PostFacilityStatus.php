@@ -308,14 +308,17 @@ class PostFacilityStatus extends PostFacilityBase {
     $isNew = $this->facilityNode->isNew();
     $defaultRevisionIsPublished = $defaultRevision->isPublished();
 
-    $fields_to_detect = [
-      'title',
-      FacilityOps::getFacilityParentFieldName($this->facilityNode),
-      'field_operating_status_facility',
-      'field_operating_status_more_info',
-      'field_supplemental_status',
-    ];
-    $somethingChanged = $this->fieldsHaveChanges($this->facilityNode, $defaultRevision, $fields_to_detect);
+    // $fields_to_detect = [
+    // title',
+    // FacilityOps::getFacilityParentFieldName($this->facilityNode),
+    // 'field_operating_status_facility',
+    // 'field_operating_status_more_info',
+    // 'field_supplemental_status',
+    // ];
+    // Shortcircuiting this for now.  To revisit with a different testing model.
+    // $somethingChanged = $this->fieldsHaveChanges($this->facilityNode,
+    // $defaultRevision, $fields_to_detect); .
+    $somethingChanged = TRUE;
 
     // Case race. First to evaluate to TRUE wins.
     switch (TRUE) {
