@@ -10,7 +10,7 @@ use Drupal\va_gov_lovell\LovellOps;
 /**
  * Class PostFacilityService posts facility status info to Lighthouse.
  */
-class PostFacilityStatus extends PostFacilityBase {
+class PostFacilityStatus extends PostFacilityBase implements PostServiceInterface {
 
   /**
    * A array of any errors in prepping the data.
@@ -161,7 +161,7 @@ class PostFacilityStatus extends PostFacilityBase {
       return $payload;
     }
 
-    if ($this->shouldPush($forcePush)) {
+    if (self::shouldPush($this->facilityNode, $forcePush)) {
       $payload = [
         'core' => [
           'facility_url' => $this->getFacilityUrl(),
@@ -288,42 +288,64 @@ class PostFacilityStatus extends PostFacilityBase {
   }
 
   /**
+   * Determines if the entity is such that it is covered by this service.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   Entity (usually a node, but not required).
+   *
+   * @return bool
+   *   TRUE if a pushable entity, FALSE otherwise.
+   */
+  public static function isPushAble(EntityInterface $entity): bool {
+    if (
+      $entity instanceof NodeInterface
+      && FacilityOps::isFacilityWithStatus($entity)
+      && $entity->bundle() !== 'vet_center_cap') {
+      // CAPS do have status but are covered by a different push.
+      return TRUE;
+    }
+    return FALSE;
+  }
+
+  /**
    * Determines if the data says a payload should be assembled and pushed.
    *
    * Potentially alters the pushed data based on what it evaluates.  This is
    * beyond its concern but can not be separated cleanly.
    *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   Entity - A node in this case.
    * @param bool $forcePush
    *   Force processing of facility status if true.
    *
    * @return bool
    *   TRUE if should be pushed, FALSE otherwise.
    */
-  protected function shouldPush(bool $forcePush = FALSE) {
-    // Moderation state of what is being saved.
-    $moderationState = $this->facilityNode->get('moderation_state')->value;
-    $isArchived = ($moderationState === self::STATE_ARCHIVED) ? TRUE : FALSE;
-    $thisRevisionIsPublished = $this->facilityNode->isPublished();
-    $defaultRevision = $this->getDefaultRevision($this->facilityNode);
-    $isNew = $this->facilityNode->isNew();
-    $defaultRevisionIsPublished = $defaultRevision->isPublished();
+  public static function shouldPush(EntityInterface $entity, bool $forcePush = FALSE) {
+    if (!self::isPushable($entity)) {
+      // This is not covered by this service.
+      return FALSE;
+    }
+    else {
+      // If it made it this far it is a node.
+      /**@var \Drupal\node\NodeInterface $nodeFacility */
+      $nodeFacility = $entity;
+    }
 
-    // $fields_to_detect = [
-    // title',
-    // FacilityOps::getFacilityParentFieldName($this->facilityNode),
-    // 'field_operating_status_facility',
-    // 'field_operating_status_more_info',
-    // 'field_supplemental_status',
-    // ];
-    // Shortcircuiting this for now.  To revisit with a different testing model.
-    // $somethingChanged = $this->fieldsHaveChanges($this->facilityNode,
-    // $defaultRevision, $fields_to_detect); .
-    $somethingChanged = TRUE;
+    // Moderation state of what is being saved.
+    $moderationState = $nodeFacility->get('moderation_state')->value;
+    $isArchived = ($moderationState === self::STATE_ARCHIVED) ? TRUE : FALSE;
+    $thisRevisionIsPublished = $nodeFacility->isPublished();
+    $defaultRevision = self::getDefaultRevision($nodeFacility);
+    $isNew = $nodeFacility->isNew();
+    $defaultRevisionIsPublished = $defaultRevision->isPublished();
 
     // Case race. First to evaluate to TRUE wins.
     switch (TRUE) {
-      case $this->isLovellTricareSection($this->facilityNode):
+      case LovellOps::isLovellTricareSection($nodeFacility):
         // Node is part of the Lovell-Tricare section, do not push.
+      case $nodeFacility->bundle() === 'vet_center_cap':
+        // Vet Center Caps are handled by a separate push.
         $push = FALSE;
         break;
 
@@ -331,11 +353,11 @@ class PostFacilityStatus extends PostFacilityBase {
         // Forced push from updates to referenced entity.
       case $isNew:
         // A new node, should be pushed to initiate the value.
-      case $thisRevisionIsPublished && $somethingChanged && $moderationState === self::STATE_PUBLISHED:
-        // This revision is published and had a change, should be pushed.
+      case $thisRevisionIsPublished && $moderationState === self::STATE_PUBLISHED:
+        // This revision is published, should be pushed.
       case $isArchived:
         // This node has been archived, got to push to remove it.
-      case (!$defaultRevisionIsPublished && !$thisRevisionIsPublished && $somethingChanged):
+      case (!$defaultRevisionIsPublished && !$thisRevisionIsPublished):
         // Draft on an unpublished node, should be pushed.
       case ($thisRevisionIsPublished && !$defaultRevisionIsPublished):
         // To be the source of truth for urls, we need to push url on newly
@@ -346,13 +368,6 @@ class PostFacilityStatus extends PostFacilityBase {
       case ($defaultRevisionIsPublished && !$thisRevisionIsPublished && $moderationState === self::STATE_DRAFT):
         // Draft revision on published node, should not push, even w/bypass.
         $push = FALSE;
-        break;
-
-      case ($this->shouldBypass()):
-        // Bypass is activated.
-        // If it is on bypass this is a bulk push, which will be the default rev
-        // so there is no risk of a draft status overriding published status.
-        $push = TRUE;
         break;
 
       default:
@@ -377,15 +392,9 @@ class PostFacilityStatus extends PostFacilityBase {
     // If the name of the system changes we should push facility statuses.
     $moderationState = $entity->get('moderation_state')->value;
     $thisRevisionIsPublished = $entity->isPublished();
-    $defaultRevision = $this->getDefaultRevision($entity);
 
-    $fields_to_detect = [
-      'title',
-      'field_va_health_connect_phone',
-    ];
-    $somethingChanged = $this->fieldsHaveChanges($this->facilityNode, $defaultRevision, $fields_to_detect);
     $push = FALSE;
-    if ($thisRevisionIsPublished && $somethingChanged && $moderationState === self::STATE_PUBLISHED) {
+    if ($thisRevisionIsPublished && $moderationState === self::STATE_PUBLISHED) {
       $push = TRUE;
     }
     return $push;

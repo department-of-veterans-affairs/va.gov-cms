@@ -11,7 +11,6 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\node\NodeInterface;
 use Drupal\office_hours\OfficeHoursDateHelper;
 use Drupal\post_api\Service\AddToQueue;
-use Drupal\va_gov_lovell\LovellOps;
 
 /**
  * Class PostFacilityService posts specific service info to Lighthouse.
@@ -81,16 +80,6 @@ abstract class PostFacilityBase {
   }
 
   /**
-   * Checks to see if the data checks should be bypassed.
-   *
-   * @return bool
-   *   TRUE if bypass, FALSE if no bypass.
-   */
-  protected function shouldBypass() : bool {
-    return !empty($this->configFactory->get('va_gov_post_api.settings')->get('bypass_data_check'));
-  }
-
-  /**
    * Checks to see if the post queueing should dedupe.
    *
    * @return bool
@@ -122,25 +111,6 @@ abstract class PostFacilityBase {
       }
     }
     return $operatingStatusMoreInfo;
-  }
-
-  /**
-   * Checks if the entity is within the Lovell Tricare section.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   Entity.
-   *
-   * @return bool
-   *   TRUE if entity is within Lovell Tricare section. FALSE otherwise.
-   */
-  protected function isLovellTricareSection(EntityInterface $entity) : bool {
-    if (($entity instanceof NodeInterface) && ($entity->hasField('field_administration'))) {
-      /** @var \Drupal\node\NodeInterface $entity*/
-      if ($entity->get('field_administration')->target_id == LovellOps::TRICARE_ID) {
-        return TRUE;
-      }
-    }
-    return FALSE;
   }
 
   /**
@@ -364,7 +334,7 @@ abstract class PostFacilityBase {
    * @return \Drupal\node\NodeInterface
    *   The node.
    */
-  protected function getDefaultRevision(NodeInterface $entity) : NodeInterface {
+  public static function getDefaultRevision(NodeInterface $entity) : NodeInterface {
     $hasOriginal = isset($entity->original) && ($entity->original instanceof EntityInterface);
     if ($entity->isNew()) {
       // There is no previous revision but to make comparison easier, set
@@ -378,7 +348,8 @@ abstract class PostFacilityBase {
       $defaultRevision = $entity->original;
     }
     else {
-      $defaultRevision = $this->entityTypeManager->getStorage('node')->load($entity->id());
+      // As a static function this can no use Dependency Injection.
+      $defaultRevision = \Drupal::service('entity_type.manager')->getStorage('node')->load($entity->id());
     }
 
     return $defaultRevision;
