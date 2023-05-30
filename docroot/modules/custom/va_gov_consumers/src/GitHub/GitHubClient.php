@@ -145,7 +145,7 @@ class GitHubClient implements GitHubClientInterface {
     return $this->request('POST', "repos/{$this->repositoryPath}/dispatches", [
       'json' => [
         'event_type' => $eventType,
-        'client_payload' => $clientPayload,
+        'client_payload' => $clientPayload ?? new \stdClass(),
       ],
     ]);
   }

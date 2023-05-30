@@ -14,6 +14,8 @@ use Prophecy\Argument;
  *
  * @group unit
  * @group all
+ *
+ * @coversDefaultClass \Drupal\va_gov_consumers\GitHub\GitHubClient
  */
 class GitHubClientServiceTest extends VaGovUnitTestBase {
 
