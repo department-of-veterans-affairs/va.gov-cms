@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_post_api\Service;
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\va_gov_lovell\LovellOps;
 
 /**
  * Class PostFacilityService posts specific service info to Lighthouse.
@@ -89,7 +90,7 @@ class PostFacilityService extends PostFacilityBase {
           $this->postQueue->addToQueue($data, $this->shouldDedupe());
           // @todo When this is expanded to more than just COVID we may want
           // to remove the messenger as it will be too noisy.
-          $message = t('The facility service data for %service_name is being sent to the Facility Locator.', ['%service_name' => $this->facilityService->getTitle()]);
+          $message = $this->t('The facility service data for %service_name is being sent to the Facility Locator.', ['%service_name' => $this->facilityService->getTitle()]);
           $this->messenger->addStatus($message);
           return 1;
         }
@@ -346,7 +347,7 @@ class PostFacilityService extends PostFacilityBase {
 
     // Case race. First to evaluate to TRUE wins.
     switch (TRUE) {
-      case $this->isLovellTricareSection($entity):
+      case LovellOps::isLovellTricareSection($entity):
         // Node is part of the Lovell-Tricare section, do not push.
         $push = FALSE;
         break;
