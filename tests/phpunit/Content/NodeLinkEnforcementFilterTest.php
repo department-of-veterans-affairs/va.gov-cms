@@ -54,7 +54,7 @@ class NodeLinkEnforcementFilterTest extends VaGovUnitTestBase {
    * @param string $expected
    *   The expected output, if different from the input.
    *
-   * @covers NodeLinkEnforcementFilter::process
+   * @covers ::process
    * @dataProvider processDataProvider
    */
   public function testProcess(string $input, string $expected = NULL) {

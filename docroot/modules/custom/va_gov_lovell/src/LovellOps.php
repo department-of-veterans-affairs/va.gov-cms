@@ -168,4 +168,20 @@ class LovellOps {
     return $is;
   }
 
+  /**
+   * Checks if the entity is within the Lovell Tricare section.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The node entity to check.
+   *
+   * @return bool
+   *   TRUE if entity is within Lovell Tricare section. FALSE otherwise.
+   */
+  public static function isLovellTricareSection(NodeInterface $node) : bool {
+    if ($node->hasField('field_administration') && ($node->get('field_administration')->target_id == self::TRICARE_ID)) {
+      return TRUE;
+    }
+    return FALSE;
+  }
+
 }

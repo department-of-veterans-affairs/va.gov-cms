@@ -47,7 +47,7 @@ jobs:
           NODE_TLS_REJECT_UNAUTHORIZED: 0
 
       - name: Cypress run
-        uses: cypress-io/github-action@6e17f678e755fadb8522f4ee0b58c63b95768031 # v5.7.2
+        uses: cypress-io/github-action@191187832803e908aa13b6e33c2c42abd8b12c5a # v5.8.0
         with:
           wait-on: "${{ inputs.preview_url }}"
           command: 'npm run test:cypress:parallel'
