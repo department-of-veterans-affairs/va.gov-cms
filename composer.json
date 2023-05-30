@@ -341,6 +341,12 @@
         "composer-exit-on-patch-failure": true,
         "patches-ignore": {},
         "patches": {
+            "drupal/admin_toolbar": {
+                "3338408 - Resolve access check errors for D10 compatibility": "https://www.drupal.org/files/issues/2023-05-30/3338408-fix-access-check-error.patch"
+            },
+            "drupal/allow_only_one": {
+                "3358123 - Entity queries must explicitly set whether the query should be access checked or not.":  "https://www.drupal.org/files/issues/2023-05-30/3358123-explicit-access-check.patch"
+            },
             "drupal/cer": {
                 "3200122 - Remove delete hook": "https://www.drupal.org/files/issues/2021-02-24/delete-hook-added-in-dev-causes-test-failures.patch"
             },
