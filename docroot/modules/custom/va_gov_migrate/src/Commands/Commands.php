@@ -157,46 +157,67 @@ class Commands extends DrushCommands {
     }
     $facilities_to_archive = ['nca_facility'];
     $facilities_to_flag = $this->getFacilitiesToFlag($facilities_in_fapi);
-    $count = count($facilities_to_flag);
-    if ($count) {
+    $count_flagged = count($facilities_to_flag);
+    $count_archived = 0;
+    if ($count_flagged) {
       $facility_nodes_to_flag = $this->entityTypeManager->getStorage('node')->loadMultiple(array_values($facilities_to_flag));
       foreach ($facility_nodes_to_flag as $facility_node_to_flag) {
-        $this->addNodeRevision($facility_node_to_flag);
-        // get bundle type
-        $node_type = $facility_node_to_flag->getEntityType();
-        if (!in_array($facilities_to_archive, $node_type)) {
+        // Get bundle type.
+        $bundle_type = $facility_node_to_flag->type->entity->id();
+        if (!in_array($bundle_type, $facilities_to_archive)) {
+          $this->addNodeRevision($facility_node_to_flag);
           $this->flagger->setFlag('removed_from_source', $facility_node_to_flag);
-
           // Send email to CMS Help Desk for follow-up steps.
           $message_fields = $this->notificationsManager->buildMessageFields($facility_node_to_flag, 'Facility removed:');
           $this->notificationsManager->send('va_facility_removed_from_source', self::USER_CMS_HELP_DESK_NOTIFICATIONS, $message_fields);
-        } else {
-          $facility_node_to_flag->set('moderation_state', 'archived');
-          $this->logger->success("Archived");
-          $facility_node_to_flag->save();
-
-  // Save the updated node.
-
-        // archive it
-        // log the archive
+          // Log amount to be processed.
         }
-
-
-
-
+        else {
+          $this->archiveRemovedFacility($facility_node_to_flag);
+          $count_flagged--;
+          $count_archived++;
+        }
       }
-
-      // Log amount to be processed.
       $vars = [
-        '%count' => $count,
+        '%count_flagged' => $count_flagged,
+        '%count_archived' => $count_archived,
       ];
-      $msg = 'Flagged %count facilities as removed from Facility API.';
-      $this->migrateChannelLogger->log(LogLevel::INFO, $msg, $vars);
-      // Create drush output.
-      // @phpstan-ignore-next-line
-      $this->logger->success("Flagged {$count} facilities as removed from Facility API.");
-    }
 
+      if ($vars['%count_flagged'] > 0) {
+        $facility_string = ngettext("facility", "facilities", $count_flagged);
+        $vars['@facility_string'] = $facility_string;
+        $msg = 'Flagged %count_flagged @facility_string as removed from Facility API.';
+        $this->migrateChannelLogger->log(LogLevel::INFO, $msg, $vars);
+        // Create drush output.
+        // @phpstan-ignore-next-line
+        $this->logger->success("Flagged {$count_flagged} {$facility_string} as removed from Facility API.",
+          ['@facility_string' => $facility_string]
+          );
+      }
+      if ($vars['%count_archived'] > 0) {
+        $facility_string = ngettext("facility", "facilities", $count_archived);
+        $vars['@facility_string'] = $facility_string;
+        $msg = 'Archived %count_archived @facility_string due to removal from Facility API.';
+        $this->migrateChannelLogger->log(LogLevel::INFO, $msg, $vars);
+        // Create drush output.
+        // @phpstan-ignore-next-line
+        $this->logger->success("Archived {$count_archived} {$facility_string} due to removal from Facility API.",
+          ['@facility_string' => $facility_string]
+          );
+      }
+    }
+  }
+
+  /**
+   * Archive a facility.
+   *
+   * @param \Drupal\node\NodeInterface $facility
+   *   The facility to archive.
+   */
+  protected function archiveRemovedFacility(NodeInterface $facility) {
+    $facility->set('moderation_state', 'archived');
+    $facility->setRevisionLogMessage('Archived due to removal from Facility API.');
+    $facility->save();
   }
 
   /**
