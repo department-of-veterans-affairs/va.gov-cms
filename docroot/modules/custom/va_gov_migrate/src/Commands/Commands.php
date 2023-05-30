@@ -155,17 +155,35 @@ class Commands extends DrushCommands {
       $this->migrateChannelLogger->log(LogLevel::WARNING, 'The facility API returned %count facilities, which seems suspicious. Flagging aborted.', $vars);
       return;
     }
+    $facilities_to_archive = ['nca_facility'];
     $facilities_to_flag = $this->getFacilitiesToFlag($facilities_in_fapi);
     $count = count($facilities_to_flag);
     if ($count) {
       $facility_nodes_to_flag = $this->entityTypeManager->getStorage('node')->loadMultiple(array_values($facilities_to_flag));
       foreach ($facility_nodes_to_flag as $facility_node_to_flag) {
         $this->addNodeRevision($facility_node_to_flag);
-        $this->flagger->setFlag('removed_from_source', $facility_node_to_flag);
+        // get bundle type
+        $node_type = $facility_node_to_flag->getEntityType();
+        if (!in_array($facilities_to_archive, $node_type)) {
+          $this->flagger->setFlag('removed_from_source', $facility_node_to_flag);
 
-        // Send email to CMS Help Desk for follow-up steps.
-        $message_fields = $this->notificationsManager->buildMessageFields($facility_node_to_flag, 'Facility removed:');
-        $this->notificationsManager->send('va_facility_removed_from_source', self::USER_CMS_HELP_DESK_NOTIFICATIONS, $message_fields);
+          // Send email to CMS Help Desk for follow-up steps.
+          $message_fields = $this->notificationsManager->buildMessageFields($facility_node_to_flag, 'Facility removed:');
+          $this->notificationsManager->send('va_facility_removed_from_source', self::USER_CMS_HELP_DESK_NOTIFICATIONS, $message_fields);
+        } else {
+          $facility_node_to_flag->set('moderation_state', 'archived');
+          $this->logger->success("Archived");
+          $facility_node_to_flag->save();
+
+  // Save the updated node.
+
+        // archive it
+        // log the archive
+        }
+
+
+
+
       }
 
       // Log amount to be processed.
