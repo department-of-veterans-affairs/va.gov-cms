@@ -57,24 +57,26 @@ class FormEventSubscriber implements EventSubscriberInterface {
       /** @var Drupal\tmgmt\Form\JobForm $form_object */
       $form_object = $event->getFormState()->getFormObject();
       $job = $form_object->getEntity();
-      $conflicting_items_by_item = $job->getConflictingItems();
-      $form = &$event->getForm();
-      $form['message'] = [];
-      if (count($conflicting_items_by_item)) {
-        // Make a list of links to the existing items causing the conflicts.
-        $conflicts = [];
-        $num_of_existing_items = 0;
-        foreach ($conflicting_items_by_item as $conflicting_items) {
-          $num_of_existing_items += count($conflicting_items);
-          foreach (JobItem::loadMultiple($conflicting_items) as $id => $conflicting_item) {
-            $conflicts[] = Link::createFromRoute($conflicting_item->label(), 'entity.tmgmt_job_item.canonical', ['tmgmt_job_item' => $id])->toString();
+      if (!$job->isContinuous()) {
+        $conflicting_items_by_item = $job->getConflictingItems();
+        $form = &$event->getForm();
+        $form['message'] = [];
+        if (count($conflicting_items_by_item)) {
+          // Make a list of links to the existing items causing the conflicts.
+          $conflicts = [];
+          $num_of_existing_items = 0;
+          foreach ($conflicting_items_by_item as $conflicting_items) {
+            $num_of_existing_items += count($conflicting_items);
+            foreach (JobItem::loadMultiple($conflicting_items) as $id => $conflicting_item) {
+              $conflicts[] = Link::createFromRoute($conflicting_item->label(), 'entity.tmgmt_job_item.canonical', ['tmgmt_job_item' => $id])->toString();
+            }
           }
+          // Make the links usable in formatPlural().
+          $conflict_list = Markup::create(implode(', ', $conflicts));
+          $message = $this->translationManager
+            ->formatPlural($num_of_existing_items, $this::CONFLICTING_ITEMS_MESSAGE_SINGLE, $this::CONFLICTING_ITEMS_MESSAGE_PLURAL, ['@items' => $conflict_list]);
+          $this->messenger->addWarning($message);
         }
-        // Make the links usable in formatPlural().
-        $conflict_list = Markup::create(implode(', ', $conflicts));
-        $message = $this->translationManager
-          ->formatPlural($num_of_existing_items, $this::CONFLICTING_ITEMS_MESSAGE_SINGLE, $this::CONFLICTING_ITEMS_MESSAGE_PLURAL, ['@items' => $conflict_list]);
-        $this->messenger->addWarning($message);
       }
     };
   }
