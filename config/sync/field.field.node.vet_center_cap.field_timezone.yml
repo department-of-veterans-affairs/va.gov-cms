@@ -1,0 +1,26 @@
+uuid: 46e03d67-7327-4470-bebe-4192476c0ebd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_timezone
+    - node.type.vet_center_cap
+  module:
+    - tmgmt_content
+    - tzfield
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.vet_center_cap.field_timezone
+field_name: field_timezone
+entity_type: node
+bundle: vet_center_cap
+label: Timezone
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  exclude: {  }
+field_type: tzfield

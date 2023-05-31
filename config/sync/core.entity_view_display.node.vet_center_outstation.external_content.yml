@@ -16,6 +16,7 @@ dependencies:
     - field.field.node.vet_center_outstation.field_operating_status_more_info
     - field.field.node.vet_center_outstation.field_phone_number
     - field.field.node.vet_center_outstation.field_table_of_contents
+    - field.field.node.vet_center_outstation.field_timezone
     - node.type.vet_center_outstation
   module:
     - address
@@ -111,6 +112,10 @@ hidden:
   field_operating_status_facility: true
   field_operating_status_more_info: true
   field_table_of_contents: true
+  field_timezone: true
+  flag_awaiting_csv: true
+  flag_awaiting_editor: true
+  flag_awaiting_redirect: true
   flag_changed_name: true
   flag_new: true
   flag_removed_from_source: true
