@@ -155,7 +155,7 @@ class Commands extends DrushCommands {
       $this->migrateChannelLogger->log(LogLevel::WARNING, 'The facility API returned %count facilities, which seems suspicious. Flagging aborted.', $vars);
       return;
     }
-    $facilities_to_archive = ['nca_facility'];
+    $facility_bundles_to_archive = ['nca_facility'];
     $facilities_to_flag = $this->getFacilitiesToFlag($facilities_in_fapi);
     $count_flagged = count($facilities_to_flag);
     $count_archived = 0;
