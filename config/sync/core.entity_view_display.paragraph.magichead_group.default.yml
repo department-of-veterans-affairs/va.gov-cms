@@ -10,7 +10,6 @@ dependencies:
     - field.field.paragraph.magichead_group.field_magichead_top
     - paragraphs.paragraphs_type.magichead_group
   module:
-    - entity_reference_revisions
     - layout_builder
     - options
     - text
@@ -25,41 +24,27 @@ mode: default
 content:
   field_magichead_body:
     type: text_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 3
-    region: content
-  field_magichead_heading:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 4
-    region: content
-  field_magichead_intro:
-    type: text_default
     label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
-    region: content
-  field_magichead_level:
-    type: list_default
-    label: above
     settings: {  }
     third_party_settings: {  }
     weight: 2
     region: content
-  field_magichead_top:
-    type: entity_reference_revisions_entity_view
+  field_magichead_heading:
+    type: string
     label: hidden
     settings:
-      view_mode: default
-      link: ''
+      link_to_entity: false
     third_party_settings: {  }
     weight: 1
     region: content
+  field_magichead_level:
+    type: list_default
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
 hidden:
+  field_magichead_intro: true
+  field_magichead_top: true
   search_api_excerpt: true
