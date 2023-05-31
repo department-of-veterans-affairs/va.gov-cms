@@ -219,7 +219,7 @@ class Commands extends DrushCommands {
     $facility->setRevisionLogMessage('Archived due to removal from Facility API.');
     $facility->setNewRevision(TRUE);
     $facility->setUnpublished();
-    Assign to CMS Migrator user.
+    // Assign to CMS Migrator user.
     $facility->setRevisionUserId(1317);
     // Prevents some other actions.
     $facility->setSyncing(TRUE);
