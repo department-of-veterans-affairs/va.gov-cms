@@ -217,6 +217,15 @@ class Commands extends DrushCommands {
   protected function archiveRemovedFacility(NodeInterface $facility) {
     $facility->set('moderation_state', 'archived');
     $facility->setRevisionLogMessage('Archived due to removal from Facility API.');
+    $facility->setNewRevision(TRUE);
+    $facility->setUnpublished();
+    Assign to CMS Migrator user.
+    $facility->setRevisionUserId(1317);
+    // Prevents some other actions.
+    $facility->setSyncing(TRUE);
+    $facility->setChangedTime(time());
+    $facility->isDefaultRevision(TRUE);
+    $facility->setRevisionCreationTime(time());
     $facility->save();
   }
 
