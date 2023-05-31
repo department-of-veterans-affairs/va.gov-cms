@@ -163,7 +163,7 @@ class Commands extends DrushCommands {
       $facility_nodes_to_flag = $this->entityTypeManager->getStorage('node')->loadMultiple(array_values($facilities_to_flag));
       foreach ($facility_nodes_to_flag as $facility_node_to_flag) {
         // Get bundle type.
-        $bundle_type = $facility_node_to_flag->type->entity->id();
+        $bundle_type = $facility_node_to_flag->bundle();
         if (!in_array($bundle_type, $facility_bundles_to_archive)) {
           $this->addNodeRevision($facility_node_to_flag);
           $this->flagger->setFlag('removed_from_source', $facility_node_to_flag);
