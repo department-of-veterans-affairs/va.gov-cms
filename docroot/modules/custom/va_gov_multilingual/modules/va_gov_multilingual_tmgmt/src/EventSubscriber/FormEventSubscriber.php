@@ -51,6 +51,27 @@ class FormEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\core_event_dispatcher\Event\Form\FormAlterEvent $event
    *   The form event.
+   *
+   *   What we are doing here is replacing TMGMT's version of the warning around
+   *   duplicate items being dropped from a new translation job. They use
+   *   alarming language, weird non-standard formatting, and place it
+   *   incorrectly for a warning message.
+   *
+   *   Everything we're doing in the form alter is to send the information to a
+   *   standard warning message. This itself presents a problem. Ideally we
+   *   would only want this message to show when the user is looking at the job
+   *   form. However, since we do this in formAlter, and since formAlter is
+   *   invoked prior to form build, which is called during the submission
+   *   process, we cannot prevent the message from showing on the success page
+   *   after form submission is complete.
+   *
+   *   I tried doing this in a #pre_render callback, with some success in terms
+   *   of when a message would show. However, #pre_render operates on a render
+   *   array, which means we don't have access to the form, form_state, or the
+   *   TMGMT job objects. We need the job object to construct the actual message
+   *   of the text.
+   *
+   *   See https://github.com/department-of-veterans-affairs/va.gov-cms/issues/13780.
    */
   public function formAlter(FormAlterEvent $event) {
     if ($event->getFormId() === 'tmgmt_job_edit_form') {
