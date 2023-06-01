@@ -1,7 +1,16 @@
 diff --git a/src/Form/JobForm.php b/src/Form/JobForm.php
-index 8c9396ee..eb6d1beb 100644
+index 8c9396ee..1c32cbc9 100644
 --- a/src/Form/JobForm.php
 +++ b/src/Form/JobForm.php
+@@ -592,7 +592,7 @@ class JobForm extends TmgmtFormBase {
+       // If the amount of existing items is the same as the total job item count
+       // then the job can not be submitted.
+       if (count($job->getItems()) == count($existing_items_ids)) {
+-        $form_state->setErrorByName('target_language', $this->t('All job items are conflicting, the job can not be submitted.'));
++        $form_state->setErrorByName('target_language', $this->t('All items in this job are already being translated. This job cannot be submitted.'));
+       }
+     }
+   }
 @@ -640,7 +640,7 @@ class JobForm extends TmgmtFormBase {
        if ($existing_items_ids = $form_state->get('existing_item_ids')) {
          $storage->delete($storage->loadMultiple($existing_items_ids));
