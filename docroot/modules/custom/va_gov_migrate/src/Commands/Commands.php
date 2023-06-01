@@ -184,26 +184,18 @@ class Commands extends DrushCommands {
       ];
 
       if ($vars['%count_flagged'] > 0) {
-        $facility_string = ngettext("facility", "facilities", $count_flagged);
-        $vars['@facility_string'] = $facility_string;
-        $msg = 'Flagged %count_flagged @facility_string as removed from Facility API.';
+        $msg = 'Flagged %count_flagged facilities as removed from Facility API.';
         $this->migrateChannelLogger->log(LogLevel::INFO, $msg, $vars);
         // Create drush output.
         // @phpstan-ignore-next-line
-        $this->logger->success("Flagged {$count_flagged} {$facility_string} as removed from Facility API.",
-          ['@facility_string' => $facility_string]
-          );
+        $this->logger->success("Flagged {$count_flagged} facilities as removed from Facility API.");
       }
       if ($vars['%count_archived'] > 0) {
-        $facility_string = ngettext("facility", "facilities", $count_archived);
-        $vars['@facility_string'] = $facility_string;
-        $msg = 'Archived %count_archived @facility_string due to removal from Facility API.';
+        $msg = 'Archived %count_archived facilities due to removal from Facility API.';
         $this->migrateChannelLogger->log(LogLevel::INFO, $msg, $vars);
         // Create drush output.
         // @phpstan-ignore-next-line
-        $this->logger->success("Archived {$count_archived} {$facility_string} due to removal from Facility API.",
-          ['@facility_string' => $facility_string]
-          );
+        $this->logger->success("Archived {$count_archived} facilities due to removal from Facility API.");
       }
     }
   }
