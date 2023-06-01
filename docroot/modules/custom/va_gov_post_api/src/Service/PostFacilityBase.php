@@ -11,13 +11,16 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\node\NodeInterface;
 use Drupal\office_hours\OfficeHoursDateHelper;
 use Drupal\post_api\Service\AddToQueue;
-use Drupal\va_gov_lovell\LovellOps;
 
 /**
  * Class PostFacilityService posts specific service info to Lighthouse.
  */
 abstract class PostFacilityBase {
   use StringTranslationTrait;
+
+  const STATE_ARCHIVED = 'archived';
+  const STATE_DRAFT = 'draft';
+  const STATE_PUBLISHED = 'published';
 
   /**
    * Config factory.
@@ -32,7 +35,6 @@ abstract class PostFacilityBase {
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entityTypeManager;
-
 
   /**
    * Logger.
@@ -119,25 +121,6 @@ abstract class PostFacilityBase {
       }
     }
     return $operatingStatusMoreInfo;
-  }
-
-  /**
-   * Checks if the entity is within the Lovell Tricare section.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   Entity.
-   *
-   * @return bool
-   *   TRUE if entity is within Lovell Tricare section. FALSE otherwise.
-   */
-  protected function isLovellTricareSection(EntityInterface $entity) : bool {
-    if (($entity instanceof NodeInterface) && ($entity->hasField('field_administration'))) {
-      /** @var \Drupal\node\NodeInterface $entity*/
-      if ($entity->get('field_administration')->target_id == LovellOps::TRICARE_ID) {
-        return TRUE;
-      }
-    }
-    return FALSE;
   }
 
   /**
@@ -350,6 +333,122 @@ abstract class PostFacilityBase {
    */
   protected function stringNullify($string) {
     return (empty($string)) ? NULL : $string;
+  }
+
+  /**
+   * Decides what to use as the previous/default revision and returns it.
+   *
+   * @param \Drupal\node\NodeInterface $entity
+   *   The node we need to find a default revision for.
+   *
+   * @return \Drupal\node\NodeInterface
+   *   The node.
+   */
+  public static function getDefaultRevision(NodeInterface $entity) : NodeInterface {
+    $hasOriginal = isset($entity->original) && ($entity->original instanceof EntityInterface);
+    if ($entity->isNew()) {
+      // There is no previous revision but to make comparison easier, set
+      // the current node as the default.
+      $defaultRevision = $entity;
+    }
+    elseif (($entity->get('moderation_state')->value === self::STATE_PUBLISHED || !$entity->isPublished()) && $hasOriginal) {
+      // If it has never been published we just want the last save.
+      // If the node is published, loading the default is an exact copy,
+      // because the save already happened. Switch to using original.
+      $defaultRevision = $entity->original;
+    }
+    else {
+      // As a static function this can no use Dependency Injection.
+      $defaultRevision = \Drupal::service('entity_type.manager')->getStorage('node')->load($entity->id());
+    }
+
+    return $defaultRevision;
+  }
+
+  /**
+   * Checks if the value of the field on the node changed.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The node we need to compare.
+   * @param \Drupal\node\NodeInterface $revision
+   *   The revision we are comparing to.
+   * @param string $field_name
+   *   The machine name of the field to check on.
+   *
+   * @return bool
+   *   TRUE if the value changed.  FALSE otherwise.
+   */
+  protected function changedValue(NodeInterface $node, NodeInterface $revision, $field_name): bool {
+    return $this->fieldsHaveChanges($node, $revision, [$field_name]);
+  }
+
+  /**
+   * Checks if the target_id of the field on the node changed.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The node we need to compare.
+   * @param \Drupal\node\NodeInterface $revision
+   *   The revision we are comparing to.
+   * @param string $field_name
+   *   The machine name of the field to check on.
+   *
+   * @return bool
+   *   TRUE if the value changed.  FALSE otherwise.
+   */
+  protected function changedTarget(NodeInterface $node, NodeInterface $revision, $field_name): bool {
+    if ($node->hasField($field_name)) {
+      $value = $node->get($field_name)->target_id;
+      $original_value = $revision->get($field_name)->target_id;
+
+      return $value !== $original_value;
+    }
+    return FALSE;
+  }
+
+  /**
+   * Looks for changes in all identified fields.
+   *
+   * @param \Drupal\node\NodeInterface $current_revision
+   *   The current revision.
+   * @param \Drupal\node\NodeInterface $default_revision
+   *   The default revision.
+   * @param array $field_names
+   *   An array of drupal field machine names.
+   *
+   * @return bool
+   *   TRUE if there have been changes, FALSE otherwise.
+   */
+  protected function fieldsHaveChanges(NodeInterface $current_revision, NodeInterface $default_revision, array $field_names): bool {
+    $current_revision_values = [];
+    $default_revision_values = [];
+    $field_reference_types = [
+      'entity_reference',
+      'entity_reference_revisions',
+    ];
+    foreach ($field_names as $field_name) {
+      if ($current_revision->hasField($field_name)) {
+        if (in_array($current_revision->get($field_name)->getFieldDefinition()->getType(), $field_reference_types)) {
+          // It is a reference; we need to get the target.
+          $current_revision_values[$field_name] = ($current_revision->hasField($field_name)) ? $current_revision->get($field_name)->target_id : NULL;
+          $default_revision_values[$field_name] = ($default_revision->hasField($field_name)) ? $default_revision->get($field_name)->target_id : NULL;
+        }
+        else {
+          // It is a normal field, use values.
+          $current_revision_values[$field_name] = ($current_revision->hasField($field_name)) ? $current_revision->get($field_name)->value : NULL;
+          $default_revision_values[$field_name] = ($default_revision->hasField($field_name)) ? $default_revision->get($field_name)->value : NULL;
+        }
+      }
+    }
+    return $current_revision_values == $default_revision_values;
+  }
+
+  /**
+   * Removes values from anything that should not be kept in state.
+   */
+  protected function nuke() : void {
+    $this->statusToPush = NULL;
+    $this->additionalInfoToPush = NULL;
+    unset($this->facilityNode);
   }
 
 }
