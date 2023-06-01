@@ -8,6 +8,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\migrate_plus\DataFetcherPluginManager;
 use Drupal\migrate_plus\Entity\Migration;
 use Drupal\node\NodeInterface;
+use Drupal\va_gov_facilities\FacilityOps;
 use Drupal\va_gov_notifications\Service\NotificationsManager;
 use Drupal\va_gov_workflow\Service\Flagger;
 use Drush\Commands\DrushCommands;
@@ -155,16 +156,13 @@ class Commands extends DrushCommands {
       $this->migrateChannelLogger->log(LogLevel::WARNING, 'The facility API returned %count facilities, which seems suspicious. Flagging aborted.', $vars);
       return;
     }
-    $facility_bundles_to_archive = ['nca_facility'];
     $facilities_to_flag = $this->getFacilitiesToFlag($facilities_in_fapi);
     $count_flagged = count($facilities_to_flag);
     $count_archived = 0;
     if ($count_flagged) {
       $facility_nodes_to_flag = $this->entityTypeManager->getStorage('node')->loadMultiple(array_values($facilities_to_flag));
       foreach ($facility_nodes_to_flag as $facility_node_to_flag) {
-        // Get bundle type.
-        $bundle_type = $facility_node_to_flag->bundle();
-        if (!in_array($bundle_type, $facility_bundles_to_archive)) {
+        if (!FacilityOps::isAutoArchiveFacility($facility_node_to_flag)) {
           $this->addNodeRevision($facility_node_to_flag);
           $this->flagger->setFlag('removed_from_source', $facility_node_to_flag);
           // Send email to CMS Help Desk for follow-up steps.
