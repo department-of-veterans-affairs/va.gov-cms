@@ -342,9 +342,10 @@ Your discipline lead will assist with onboarding tasks / calls.
 
 - [ ] Review https://depo-platform-documentation.scrollhelp.site/research-design/
    - [ ] [Sign up for the next research and design orientation session](https://calendly.com/collaboration-cycle/design-orientation-for-va-gov-platform)
-- [ ] Ask for invitation to Monday Research meeting
 - [ ] Ask (who?) to be invited to the [va.gov-research-repository](https://github.com/department-of-veterans-affairs/va.gov-research-repository)
 - [ ] Join #research-ops channel in DSVA slack
+- [ ] Join DSVA #design slack channel and request that your agency and VA email addresses be added to the invite for the weekly Monday VA Design/UX Sync meeting (@mention Cailin O'Connor)
+
 </details>
 
 <details><summary>Onboarding for Delivery Managers</summary>
