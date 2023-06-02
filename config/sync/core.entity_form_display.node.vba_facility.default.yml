@@ -20,6 +20,7 @@ dependencies:
     - field.field.node.vba_facility.field_operating_status_more_info
     - field.field.node.vba_facility.field_phone_number
     - field.field.node.vba_facility.field_shared_vha_location
+    - field.field.node.vba_facility.field_timezone
     - field.field.node.vba_facility.field_vba_services
     - node.type.vba_facility
     - workflows.workflow.editorial
@@ -36,6 +37,7 @@ dependencies:
     - office_hours
     - telephone
     - textfield_counter
+    - tzfield
 third_party_settings:
   field_group:
     group_operating_status:
@@ -108,6 +110,7 @@ third_party_settings:
         - field_geolocation
         - field_phone_number
         - field_office_hours
+        - field_timezone
       label: 'Facility data'
       region: content
       parent_name: group_locations_and_contact_info
@@ -280,6 +283,12 @@ content:
       match_limit: 10
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  field_timezone:
+    type: tzfield_default
+    weight: 8
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_vba_services:
     type: inline_entity_form_complex_table_view_mode

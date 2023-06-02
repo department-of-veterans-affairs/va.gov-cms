@@ -23,6 +23,7 @@ dependencies:
     - field.field.node.vet_center.field_phone_number
     - field.field.node.vet_center.field_prepare_for_visit
     - field.field.node.vet_center.field_table_of_contents
+    - field.field.node.vet_center.field_timezone
     - field.field.node.vet_center.field_vet_center_feature_content
     - node.type.vet_center
   module:
@@ -58,7 +59,11 @@ hidden:
   field_phone_number: true
   field_prepare_for_visit: true
   field_table_of_contents: true
+  field_timezone: true
   field_vet_center_feature_content: true
+  flag_awaiting_csv: true
+  flag_awaiting_editor: true
+  flag_awaiting_redirect: true
   flag_changed_name: true
   flag_changed_title: true
   flag_new: true
