@@ -338,6 +338,15 @@ Your discipline lead will assist with onboarding tasks / calls.
   - [ ] Watch the "Github / pull request basics for non-engineers" [Topic Dive](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/1714094110/CMS+Topic+Dives)
 </details>
 
+<details><summary>Onboarding for Researchers</summary>
+
+- [ ] Review https://depo-platform-documentation.scrollhelp.site/research-design/
+   - [ ] [Sign up for the next research and design orientation session](https://calendly.com/collaboration-cycle/design-orientation-for-va-gov-platform)
+- [ ] Ask for invitation to Monday Research meeting
+- [ ] Ask (who?) to be invited to the [va.gov-research-repository](https://github.com/department-of-veterans-affairs/va.gov-research-repository)
+- [ ] Join #research-ops channel in DSVA slack
+</details>
+
 <details><summary>Onboarding for Delivery Managers</summary>
 
 ## Onboarding for Delivery Managers
