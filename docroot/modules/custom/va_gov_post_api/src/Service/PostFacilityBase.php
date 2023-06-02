@@ -3,15 +3,13 @@
 namespace Drupal\va_gov_post_api\Service;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\node\NodeInterface;
-use Drupal\office_hours\OfficeHoursDateHelper;
 use Drupal\post_api\Service\AddToQueue;
-use Drupal\va_gov_lovell\LovellOps;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\node\NodeInterface;
 
 /**
  * Class PostFacilityService posts specific service info to Lighthouse.
@@ -54,6 +52,8 @@ abstract class PostFacilityBase {
    * @var \Drupal\post_api\Service\AddToQueue
    */
   protected $postQueue;
+
+  const LOVELL_TRICARE = 1039;
 
   /**
    * Constructs a new PostFacilityBase object.
@@ -119,25 +119,6 @@ abstract class PostFacilityBase {
       }
     }
     return $operatingStatusMoreInfo;
-  }
-
-  /**
-   * Checks if the entity is within the Lovell Tricare section.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   Entity.
-   *
-   * @return bool
-   *   TRUE if entity is within Lovell Tricare section. FALSE otherwise.
-   */
-  protected function isLovellTricareSection(EntityInterface $entity) : bool {
-    if (($entity instanceof NodeInterface) && ($entity->hasField('field_administration'))) {
-      /** @var \Drupal\node\NodeInterface $entity*/
-      if ($entity->get('field_administration')->target_id == LovellOps::TRICARE_ID) {
-        return TRUE;
-      }
-    }
-    return FALSE;
   }
 
   /**
@@ -350,6 +331,25 @@ abstract class PostFacilityBase {
    */
   protected function stringNullify($string) {
     return (empty($string)) ? NULL : $string;
+  }
+
+  /**
+   * Checks if the entity is within the Lovell Tricare section.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   Entity.
+   *
+   * @return bool
+   *   TRUE if entity is within Lovell Tricare section. FALSE otherwise.
+   */
+  protected function isLovellTricareSection(EntityInterface $entity) : bool {
+    if (($entity instanceof NodeInterface) && ($entity->hasField('field_administration'))) {
+      /** @var \Drupal\node\NodeInterface $entity*/
+      if ($entity->get('field_administration')->target_id == self::LOVELL_TRICARE) {
+        return TRUE;
+      }
+    }
+    return FALSE;
   }
 
 }
