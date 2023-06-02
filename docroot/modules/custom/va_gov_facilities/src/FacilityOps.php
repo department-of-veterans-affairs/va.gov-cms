@@ -79,7 +79,7 @@ class FacilityOps {
   }
 
   /**
-   * Get facilty types that have status info.
+   * Get facility types that have status info.
    *
    * @return array
    *   An array of facility types that have status.
@@ -123,6 +123,36 @@ class FacilityOps {
     ];
 
     return in_array($type, $facilities_with_supplemental_status);
+  }
+
+  /**
+   * Checks if the entity is a facility node that should be auto-archived.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The node to evaluate.
+   *
+   * @return bool
+   *   TRUE if it is a facility to be auto-archived. FALSE otherwise.
+   */
+  public static function isAutoArchiveFacility(NodeInterface $node) : bool {
+    return self::isBundleFacilityToAutoArchive($node->bundle());
+  }
+
+  /**
+   * Checks if the entity is a facility to be auto-archived.
+   *
+   * @param string $type
+   *   The bundle id to evaluate.
+   *
+   * @return bool
+   *   TRUE if it is a facility bundle to be auto-archived. FALSE otherwise.
+   */
+  public static function isBundleFacilityToAutoArchive(string $type) : bool {
+    $facilities_to_auto_archive = [
+      'nca_facility',
+    ];
+
+    return in_array($type, $facilities_to_auto_archive);
   }
 
   /**
