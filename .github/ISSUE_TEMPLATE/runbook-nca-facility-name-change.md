@@ -20,5 +20,5 @@ Facility API ID: <insert_facility_API_ID>
 
 ### Drupal Admin steps
 - [ ] Edit the node and update the alias to match the new facility name, lowercase with dashes.
- Note: Low priority because these are not currently published on the FE. We should, however, not let these build up and overwhelm us later. High liklihood that we may want to automate this prior to first publish.
+ Note: Low priority because these are not currently published on the FE. We should, however, not let these build up and overwhelm us later. High likelihood that we may want to automate this prior to first publish.
 - [ ] Remove the `Changed name` flag, save the node with revision log
