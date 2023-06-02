@@ -1,0 +1,26 @@
+uuid: 86d410c7-f63b-4a0c-ac21-b40f139a09df
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_timezone
+    - node.type.health_care_local_facility
+  module:
+    - tmgmt_content
+    - tzfield
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.health_care_local_facility.field_timezone
+field_name: field_timezone
+entity_type: node
+bundle: health_care_local_facility
+label: Timezone
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  exclude: {  }
+field_type: tzfield

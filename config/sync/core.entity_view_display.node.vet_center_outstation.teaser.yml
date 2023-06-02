@@ -16,6 +16,7 @@ dependencies:
     - field.field.node.vet_center_outstation.field_operating_status_more_info
     - field.field.node.vet_center_outstation.field_phone_number
     - field.field.node.vet_center_outstation.field_table_of_contents
+    - field.field.node.vet_center_outstation.field_timezone
     - node.type.vet_center_outstation
   module:
     - user
@@ -28,21 +29,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: -20
-    region: content
-  flag_changed_name:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 10
-    region: content
-  flag_new:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 10
-    region: content
-  flag_removed_from_source:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 10
     region: content
   links:
     settings: {  }
@@ -62,5 +48,12 @@ hidden:
   field_operating_status_more_info: true
   field_phone_number: true
   field_table_of_contents: true
+  field_timezone: true
+  flag_awaiting_csv: true
+  flag_awaiting_editor: true
+  flag_awaiting_redirect: true
+  flag_changed_name: true
+  flag_new: true
+  flag_removed_from_source: true
   langcode: true
   search_api_excerpt: true

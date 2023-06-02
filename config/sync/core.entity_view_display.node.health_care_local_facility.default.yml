@@ -25,6 +25,7 @@ dependencies:
     - field.field.node.health_care_local_facility.field_region_page
     - field.field.node.health_care_local_facility.field_supplemental_status
     - field.field.node.health_care_local_facility.field_supplemental_status_more_i
+    - field.field.node.health_care_local_facility.field_timezone
     - image.style.crop_3_2
     - node.type.health_care_local_facility
   module:
@@ -112,6 +113,7 @@ third_party_settings:
         - field_mobile
         - field_mental_health_phone
         - field_office_hours
+        - field_timezone
       label: 'Facility data'
       parent_name: group_locations_and_contact_info
       region: content
@@ -205,7 +207,7 @@ content:
     settings:
       title: ''
     third_party_settings: {  }
-    weight: 20
+    weight: 19
     region: content
   field_mobile:
     type: boolean
@@ -215,7 +217,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 19
+    weight: 18
     region: content
   field_office_hours:
     type: office_hours
@@ -246,7 +248,7 @@ content:
       schema:
         enabled: false
     third_party_settings: {  }
-    weight: 21
+    weight: 20
     region: content
   field_operating_status_facility:
     type: list_default
@@ -285,6 +287,13 @@ content:
     third_party_settings: {  }
     weight: 19
     region: content
+  field_timezone:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 21
+    region: content
   flag_email_node:
     settings: {  }
     third_party_settings: {  }
@@ -305,6 +314,9 @@ hidden:
   field_main_location: true
   field_meta_tags: true
   field_region_page: true
+  flag_awaiting_csv: true
+  flag_awaiting_editor: true
+  flag_awaiting_redirect: true
   flag_changed_name: true
   flag_changed_title: true
   flag_new: true

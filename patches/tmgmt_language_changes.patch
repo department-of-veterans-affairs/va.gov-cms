@@ -1,0 +1,42 @@
+diff --git a/src/Form/JobForm.php b/src/Form/JobForm.php
+index 8c9396ee..1c32cbc9 100644
+--- a/src/Form/JobForm.php
++++ b/src/Form/JobForm.php
+@@ -592,7 +592,7 @@ class JobForm extends TmgmtFormBase {
+       // If the amount of existing items is the same as the total job item count
+       // then the job can not be submitted.
+       if (count($job->getItems()) == count($existing_items_ids)) {
+-        $form_state->setErrorByName('target_language', $this->t('All job items are conflicting, the job can not be submitted.'));
++        $form_state->setErrorByName('target_language', $this->t('All items in this job are already being translated. This job cannot be submitted.'));
+       }
+     }
+   }
+@@ -640,7 +640,7 @@ class JobForm extends TmgmtFormBase {
+       if ($existing_items_ids = $form_state->get('existing_item_ids')) {
+         $storage->delete($storage->loadMultiple($existing_items_ids));
+         $num_of_items = count($existing_items_ids);
+-        $this->messenger()->addWarning(\Drupal::translation()->formatPlural($num_of_items, '1 conflicting item has been dropped.', '@count conflicting items have been dropped.'));
++        $this->messenger()->addWarning(\Drupal::translation()->formatPlural($num_of_items, '1 item is already in translation and was not included in the job.', '@count items are already in translation and were not included in the job.'));
+       }
+
+       if ($form_state->getValue('submit_all')) {
+diff --git a/src/JobCheckoutManager.php b/src/JobCheckoutManager.php
+index dac0b255..d91c04c2 100644
+--- a/src/JobCheckoutManager.php
++++ b/src/JobCheckoutManager.php
+@@ -255,12 +255,13 @@ class JobCheckoutManager {
+     if ($existing_items_ids = $job->getConflictingItemIds()) {
+       $item_storage = $this->entityTypeManager->getStorage('tmgmt_job_item');
+       if (count($existing_items_ids) == $job->getItems()) {
+-        $this->messenger()->addStatus($this->t('All job items for job @label are conflicting, the job can not be submitted.', ['@label' => $job->label()]));
++        $this->messenger()->addStatus($this->t('All items for job @label are already being translated. This job cannot be submitted.
++', ['@label' => $job->label()]));
+         return;
+       }
+       $item_storage->delete($item_storage->loadMultiple($existing_items_ids));
+       $num_of_items = count($existing_items_ids);
+-      $this->messenger()->addWarning($this->getStringTranslation()->formatPlural($num_of_items, '1 conflicting item has been dropped for job @label.', '@count conflicting items have been dropped for job @label.', ['@label' => $job->label()]));
++      $this->messenger()->addWarning($this->getStringTranslation()->formatPlural($num_of_items, '1 item is already in translation and was not included in job @label.', '@count items are already in translation and were not included in job @label.', ['@label' => $job->label()]));
+     }
+
+     if ($template_job_id && $job_id != $template_job_id) {
