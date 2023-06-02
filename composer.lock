@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b9b410714dbfd65a636ff1132d1cbb7d",
+    "content-hash": "b9abce6f3702cf23360714732127c308",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -6289,7 +6289,7 @@
                 "reference": "5382a99335ee466f8261dc1774a3d56f1699da81"
             },
             "require": {
-                "drupal/core": "^8.8 || ^9"
+                "drupal/core": "^8.8 || ^9 || ^10"
             },
             "require-dev": {
                 "drupal/redirect": "^1.3.0"
@@ -6300,8 +6300,8 @@
                     "dev-2.x": "2.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-2.0-alpha5+6-dev",
-                    "datestamp": "1600095923",
+                    "version": "8.x-2.0-alpha6+1-dev",
+                    "datestamp": "1685469070",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -6320,6 +6320,10 @@
                 {
                     "name": "gg4",
                     "homepage": "https://www.drupal.org/user/360002"
+                },
+                {
+                    "name": "joseph.olstad",
+                    "homepage": "https://www.drupal.org/user/1321830"
                 },
                 {
                     "name": "Kristen Pol",
@@ -9329,29 +9333,26 @@
         },
         {
             "name": "drupal/menu_item_extras",
-            "version": "2.19.0",
+            "version": "3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/menu_item_extras.git",
-                "reference": "8.x-2.19"
+                "reference": "3.0.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/menu_item_extras-8.x-2.19.zip",
-                "reference": "8.x-2.19",
-                "shasum": "4b3f6c1db6f6678438aebddea42f6101ae43bccb"
+                "url": "https://ftp.drupal.org/files/projects/menu_item_extras-3.0.2.zip",
+                "reference": "3.0.2",
+                "shasum": "e9a86d3e703f480f93992237c5cc6e5a88671106"
             },
             "require": {
-                "drupal/core": "^9.4 || ^10.0"
-            },
-            "require-dev": {
-                "drupal/ckeditor": "*"
+                "drupal/core": "^9.4 || ^10"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-2.19",
-                    "datestamp": "1671971153",
+                    "version": "3.0.2",
+                    "datestamp": "1685006505",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -27823,16 +27824,16 @@
         },
         {
             "name": "va-gov/content-build",
-            "version": "v0.0.3261",
+            "version": "v0.0.3276",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/content-build.git",
-                "reference": "9fef335bca8f7f16051740f334bb18029fd99484"
+                "reference": "75f83959c350475e91f3dd2d6617193138bd4768"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/9fef335bca8f7f16051740f334bb18029fd99484",
-                "reference": "9fef335bca8f7f16051740f334bb18029fd99484",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/75f83959c350475e91f3dd2d6617193138bd4768",
+                "reference": "75f83959c350475e91f3dd2d6617193138bd4768",
                 "shasum": ""
             },
             "type": "node-project",
@@ -27859,9 +27860,9 @@
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/content-build, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
             "support": {
                 "issues": "https://github.com/department-of-veterans-affairs/content-build/issues",
-                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3261"
+                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3276"
             },
-            "time": "2023-05-16T22:13:15+00:00"
+            "time": "2023-05-31T21:04:23+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
