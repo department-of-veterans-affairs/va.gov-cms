@@ -33,19 +33,6 @@
   word-break: break-all;
 }
 
-.va-alert.messages--warning {
-  background-color: var(--va-gold-lightest);
-  border-color: var(--va-gold-med);
-
-  svg {
-    color: var(--va-gold-med);
-  }
-}
-
-.va-alert.messages--warning a {
-  background-color: var(--va-gold-lightest);
-}
-
 .va-alert.messages--success,
 .va-alert.messages--status {
   background-color: var(--va-green-lightest);
@@ -59,6 +46,19 @@
 .va-alert.messages--success a,
 .va-alert.messages--status a {
   background-color: var(--va-green-lightest);
+}
+
+.va-alert.messages--warning {
+  background-color: var(--va-gold-lightest);
+  border-color: var(--va-gold-med);
+
+  svg {
+    color: var(--va-gold-med);
+  }
+}
+
+.va-alert.messages--warning a {
+  background-color: var(--va-gold-lightest);
 }
 
 .va-alert.messages--error {
