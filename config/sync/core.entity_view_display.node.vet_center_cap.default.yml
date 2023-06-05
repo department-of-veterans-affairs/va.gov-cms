@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.vet_center_cap.field_operating_status_facility
     - field.field.node.vet_center_cap.field_operating_status_more_info
     - field.field.node.vet_center_cap.field_table_of_contents
+    - field.field.node.vet_center_cap.field_timezone
     - field.field.node.vet_center_cap.field_vetcenter_cap_hours_opt_in
     - image.style.crop_3_2
     - node.type.vet_center_cap
@@ -46,6 +47,7 @@ third_party_settings:
         - field_address
         - field_vetcenter_cap_hours_opt_in
         - field_office_hours
+        - field_timezone
       label: 'Locations and contact information'
       parent_name: ''
       region: content
@@ -147,6 +149,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 7
+    region: content
+  field_timezone:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
     region: content
   field_vetcenter_cap_hours_opt_in:
     type: boolean

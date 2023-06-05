@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_post_api\Service;
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\va_gov_lovell\LovellOps;
 
 /**
  * Class PostFacilityService posts specific service info to Lighthouse.
@@ -348,7 +349,7 @@ class PostFacilityService extends PostFacilityBase {
 
     // Case race. First to evaluate to TRUE wins.
     switch (TRUE) {
-      case $this->isLovellTricareSection($entity):
+      case LovellOps::isLovellTricareSection($entity):
         // Node is part of the Lovell-Tricare section, do not push.
         $push = FALSE;
         break;

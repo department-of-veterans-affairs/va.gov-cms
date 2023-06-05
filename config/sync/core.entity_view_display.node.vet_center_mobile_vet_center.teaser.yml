@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.vet_center_mobile_vet_center.field_office_hours
     - field.field.node.vet_center_mobile_vet_center.field_phone_number
     - field.field.node.vet_center_mobile_vet_center.field_table_of_contents
+    - field.field.node.vet_center_mobile_vet_center.field_timezone
     - node.type.vet_center_mobile_vet_center
   module:
     - user
@@ -25,21 +26,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: -20
-    region: content
-  flag_changed_name:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 10
-    region: content
-  flag_new:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 10
-    region: content
-  flag_removed_from_source:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 10
     region: content
   links:
     settings: {  }
@@ -56,5 +42,9 @@ hidden:
   field_office_hours: true
   field_phone_number: true
   field_table_of_contents: true
+  field_timezone: true
+  flag_awaiting_csv: true
+  flag_awaiting_editor: true
+  flag_awaiting_redirect: true
   langcode: true
   search_api_excerpt: true

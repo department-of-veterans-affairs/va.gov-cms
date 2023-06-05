@@ -1,7 +1,10 @@
 uuid: 0fe338f4-d68a-4ec0-8725-47973d878bde
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  enforced:
+    module:
+      - tzfield
 id: va_node_facility_vet_centers_mvc
 class: null
 field_plugin_method: null
@@ -73,6 +76,10 @@ source:
       name: hours
       label: hours
       selector: properties/hours
+    -
+      name: time_zone
+      label: time_zone
+      selector: properties/time_zone
 process:
   non_field1:
     plugin: skip_on_value
@@ -169,6 +176,7 @@ process:
   field_office_hours:
     plugin: va_field_office_hours
     source: hours
+  field_timezone: time_zone
   field_administration:
     -
       plugin: entity_lookup
@@ -238,6 +246,7 @@ destination:
     - field_address/locality
     - field_address/postal_code
     - field_office_hours
+    - field_timezone
     - field_phone_number
     - new_revision
     - revision_default
