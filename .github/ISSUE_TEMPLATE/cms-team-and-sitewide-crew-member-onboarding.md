@@ -313,7 +313,7 @@ Your discipline lead will assist with onboarding tasks / calls.
    - [Collaboration Cycle](https://depo-platform-documentation.scrollhelp.site/collaboration-cycle/collaboration-cycle-kickoff)
    - [Research Overview](https://depo-platform-documentation.scrollhelp.site/research-design/research-overview)
    - [VA Design System](https://design.va.gov/)
-- [ ] Install tools and request access if not already provided
+- [ ] Install tools and request access from your DM, if not already provided
    - [ ] Sketch (for designers on Public Websites or Facilities)
    - [ ] [Mural](https://app.mural.co/t/departmentofveteransaffairs9999) - when you have been assigned your VA email address, ask your DM to add you to Team folders in Mural. Without a VA email, other users can share the Visitor link to Murals so you can view them meantime.
    - [ ] Figma (for designers on Sitewide CMS)
@@ -342,7 +342,7 @@ Your discipline lead will assist with onboarding tasks / calls.
 
 - [ ] Review https://depo-platform-documentation.scrollhelp.site/research-design/
    - [ ] [Sign up for the next research and design orientation session](https://calendly.com/collaboration-cycle/design-orientation-for-va-gov-platform)
-- [ ] Ask (who?) to be invited to the [va.gov-research-repository](https://github.com/department-of-veterans-affairs/va.gov-research-repository)
+   - [ ] After orientation, you should be added to the [va.gov-research-repository](https://github.com/department-of-veterans-affairs/va.gov-research-repository). Verify your access.
 - [ ] Join #research-ops channel in DSVA slack
 - [ ] Join DSVA #design slack channel and request that your agency and VA email addresses be added to the invite for the weekly Monday VA Design/UX Sync meeting (@mention Cailin O'Connor)
 
