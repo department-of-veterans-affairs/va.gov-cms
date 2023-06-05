@@ -1,7 +1,10 @@
 # Migration meta data.
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  enforced:
+    module:
+      - tzfield
 id: va_node_facility_vba
 class: null
 field_plugin_method: null
@@ -67,6 +70,10 @@ source:
       name: hours
       label: hours
       selector: properties/hours
+    -
+      name: time_zone
+      label: time_zone
+      selector: properties/time_zone
     -
       name: id
       label: id
@@ -166,6 +173,7 @@ process:
   field_office_hours:
     plugin: va_field_office_hours
     source: hours
+  field_timezone: time_zone
   field_facility_vba_classificatio:
     -
       plugin: static_map
@@ -250,6 +258,7 @@ destination:
     - 'field_address/postal_code'
     - 'field_geolocation'
     - 'field_office_hours'
+    - field_timezone
     - changed
     - field_facility_vba_classificatio
     - field_phone_number

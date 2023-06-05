@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.vet_center_mobile_vet_center.field_office_hours
     - field.field.node.vet_center_mobile_vet_center.field_phone_number
     - field.field.node.vet_center_mobile_vet_center.field_table_of_contents
+    - field.field.node.vet_center_mobile_vet_center.field_timezone
     - node.type.vet_center_mobile_vet_center
     - workflows.workflow.editorial
   module:
@@ -22,6 +23,7 @@ dependencies:
     - media_library
     - office_hours
     - telephone
+    - tzfield
 third_party_settings:
   field_group:
     group_op:
@@ -101,6 +103,7 @@ third_party_settings:
         - field_address
         - field_phone_number
         - field_office_hours
+        - field_timezone
       label: 'Facility data'
       region: content
       parent_name: group_locations_and_contact_info
@@ -196,6 +199,12 @@ content:
   field_table_of_contents:
     type: markup
     weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_timezone:
+    type: tzfield_default
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }

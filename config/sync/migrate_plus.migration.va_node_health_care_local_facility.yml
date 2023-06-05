@@ -1,7 +1,10 @@
 uuid: e609d96b-f8c9-46bd-a0a7-0498f5a7955b
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  enforced:
+    module:
+      - tzfield
 id: va_node_health_care_local_facility
 class: null
 field_plugin_method: null
@@ -61,6 +64,10 @@ source:
       name: hours
       label: hours
       selector: properties/hours
+    -
+      name: time_zone
+      label: time_zone
+      selector: properties/time_zone
     -
       name: id
       label: id
@@ -158,6 +165,7 @@ process:
   field_office_hours:
     plugin: va_field_office_hours
     source: hours
+  field_timezone: time_zone
   field_facility_classification:
     -
       plugin: static_map
@@ -265,6 +273,7 @@ destination:
     - field_address/postal_code
     - field_geolocation
     - field_office_hours
+    - field_timezone
     - changed
     - field_facility_classification
     - field_mental_health_phone

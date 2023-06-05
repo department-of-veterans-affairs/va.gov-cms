@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.vet_center_mobile_vet_center.field_office_hours
     - field.field.node.vet_center_mobile_vet_center.field_phone_number
     - field.field.node.vet_center_mobile_vet_center.field_table_of_contents
+    - field.field.node.vet_center_mobile_vet_center.field_timezone
     - node.type.vet_center_mobile_vet_center
   module:
     - address
@@ -107,6 +108,10 @@ hidden:
   field_media: true
   field_office: true
   field_table_of_contents: true
+  field_timezone: true
+  flag_awaiting_csv: true
+  flag_awaiting_editor: true
+  flag_awaiting_redirect: true
   flag_changed_name: true
   flag_changed_title: true
   flag_new: true
