@@ -23,6 +23,7 @@ dependencies:
     - field.field.node.vet_center.field_phone_number
     - field.field.node.vet_center.field_prepare_for_visit
     - field.field.node.vet_center.field_table_of_contents
+    - field.field.node.vet_center.field_timezone
     - field.field.node.vet_center.field_vet_center_feature_content
     - node.type.vet_center
     - workflows.workflow.editorial
@@ -41,6 +42,7 @@ dependencies:
     - paragraphs
     - telephone
     - textfield_counter
+    - tzfield
     - va_gov_backend
 third_party_settings:
   field_group:
@@ -205,6 +207,7 @@ third_party_settings:
         - field_geolocation
         - field_phone_number
         - field_office_hours
+        - field_timezone
       label: 'Facility data'
       region: content
       parent_name: group_locations_and_contact_info
@@ -419,6 +422,12 @@ content:
   field_table_of_contents:
     type: markup
     weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_timezone:
+    type: tzfield_default
+    weight: 12
     region: content
     settings: {  }
     third_party_settings: {  }

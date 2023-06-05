@@ -1,6 +1,9 @@
 # Migration meta data.
 status: true
-dependencies: {  }
+dependencies:
+  enforced:
+    module:
+      - tzfield
 id: va_node_facility_nca
 class: null
 field_plugin_method: null
@@ -32,6 +35,7 @@ source:
       type: string
   # Define any constants that are needed to pass in as data.
   constants:
+    country_code: 'US'
   # All the fields that are used from the source.
   fields:
     -
@@ -50,6 +54,74 @@ source:
       name: classification
       label: classification
       selector: properties/classification
+    -
+      name: website
+      label: website
+      selector: properties/website
+    -
+      name: time_zone
+      label: time_zone
+      selector: properties/time_zone
+    -
+      name: mailing_city
+      label: mailing_city
+      selector: properties/address/mailing/city
+    -
+      name: mailing_state
+      label: mailing_state
+      selector: properties/address/mailing/state
+    -
+      name: mailing_zip
+      label: mailing_zip
+      selector: properties/address/mailing/zip
+    -
+      name: mailing_address1
+      label: mailing_address1
+      selector: properties/address/mailing/address_1
+    -
+      name: mailing_address2
+      label: mailing_address2
+      selector: properties/address/mailing/address_2
+    -
+      name: mailing_address3
+      label: mailing_address3
+      selector: properties/address/mailing/address_3
+    -
+      name: physical_city
+      label: physical_city
+      selector: properties/address/physical/city
+    -
+      name: physical_state
+      label: physical_state
+      selector: properties/address/physical/state
+    -
+      name: physical_zip
+      label: physical_zip
+      selector: properties/address/physical/zip
+    -
+      name: physical_address1
+      label: physical_address1
+      selector: properties/address/physical/address_1
+    -
+      name: physical_address2
+      label: physical_address2
+      selector: properties/address/physical/address_2
+    -
+      name: physical_address3
+      label: physical_address3
+      selector: properties/address/physical/address_3
+    -
+      name: fax
+      label: fax
+      selector: properties/phone/fax
+    -
+      name: phone
+      label: phone
+      selector: properties/phone/main
+    -
+      name: hours
+      label: hours
+      selector: properties/hours
     -
       name: coordinates
       label: coordinates
@@ -82,6 +154,138 @@ process:
     method: row
     source: id
     message: 'Skipped: Source API ID is empty, must have it.'
+  field_nca_classification:
+    -
+      plugin: static_map
+      source: classification
+      map:
+        'Confederate Cemetery': 1
+        'Government Lots': 2
+        'Monument Sites': 3
+        'National Cemetery': 4
+        'Post Cemetery': 5
+        Rural: 6
+        'Soldiers Lot': 7
+  field_link/uri:
+    -
+      plugin: str_replace
+      source: website
+      search: 'NULL'
+      replace: ''
+  field_link/title:
+    -
+      plugin: str_replace
+      source: name
+      search: 'NULL'
+      replace: ''
+  field_timezone: time_zone
+  field_mailing_address/langcode:
+    plugin: default_value
+    default_value: en
+  field_mailing_address/address_line1:
+    plugin: callback
+    callable: trim
+    source: mailing_address1
+  # We have two lines that have to become one.
+  field_mailing_address/address_line2:
+    -
+      plugin: get
+      source:
+        - mailing_address2
+        - mailing_address3
+    -
+      # This gets rid of any empty elements.
+      plugin: callback
+      callable: array_filter
+    -
+      plugin: multiple_values
+    -
+      plugin: callback
+      callable: trim
+    -
+      plugin: concat
+      delimiter: ', '
+  field_mailing_address/locality: mailing_city
+  field_mailing_address/administrative_area: mailing_state
+  field_mailing_address/postal_code: mailing_zip
+  field_mailing_address/country_code:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: mailing_zip
+    -
+      plugin: get
+      source: 'constants/country_code'
+  field_address/langcode:
+    plugin: default_value
+    default_value: en
+  field_address/address_line1:
+    plugin: callback
+    callable: trim
+    source: physical_address1
+  # We have two lines that have to become one.
+  field_address/address_line2:
+    -
+      plugin: get
+      source:
+        - physical_address2
+        - physical_address3
+    -
+      # This gets rid of any empty elements.
+      plugin: callback
+      callable: array_filter
+    -
+      plugin: multiple_values
+    -
+      plugin: callback
+      callable: trim
+    -
+      plugin: concat
+      delimiter: ', '
+  field_address/locality: physical_city
+  field_address/administrative_area: physical_state
+  field_address/postal_code: physical_zip
+  field_address/country_code:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: physical_zip
+    -
+      plugin: get
+      source: 'constants/country_code'
+  field_fax_number:
+    -
+      plugin: str_replace
+      source: fax
+      search: Ext.
+      replace: x
+    -
+      plugin: explode
+      delimiter: x
+    -
+      plugin: callback
+      callable: trim
+    -
+      plugin: concat
+      delimiter: ' x'
+  field_phone_number:
+    -
+      plugin: str_replace
+      source: phone
+      search: Ext.
+      replace: x
+    -
+      plugin: explode
+      delimiter: x
+    -
+      plugin: callback
+      callable: trim
+    -
+      plugin: concat
+      delimiter: ' x'
+  field_office_hours:
+    plugin: va_field_office_hours
+    source: hours
   field_administration:
     plugin: default_value
     # Set the value for "NCA Facilities" which is 192.
@@ -155,6 +359,14 @@ destination:
   # Only these fields will be overwritten if the content changes in the API.
   overwrite_properties:
     - 'field_geolocation'
+    - field_nca_classification
+    - field_link
+    - field_timezone
+    - field_mailing_address
+    - field_address
+    - field_fax_number
+    - field_phone_number
+    - field_office_hours
     - changed
     - new_revision
     - revision_default

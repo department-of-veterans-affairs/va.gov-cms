@@ -8,6 +8,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\migrate_plus\DataFetcherPluginManager;
 use Drupal\migrate_plus\Entity\Migration;
 use Drupal\node\NodeInterface;
+use Drupal\va_gov_facilities\FacilityOps;
 use Drupal\va_gov_notifications\Service\NotificationsManager;
 use Drupal\va_gov_workflow\Service\Flagger;
 use Drush\Commands\DrushCommands;
@@ -156,29 +157,66 @@ class Commands extends DrushCommands {
       return;
     }
     $facilities_to_flag = $this->getFacilitiesToFlag($facilities_in_fapi);
-    $count = count($facilities_to_flag);
-    if ($count) {
+    $count_flagged = count($facilities_to_flag);
+    $count_archived = 0;
+    if ($count_flagged) {
       $facility_nodes_to_flag = $this->entityTypeManager->getStorage('node')->loadMultiple(array_values($facilities_to_flag));
       foreach ($facility_nodes_to_flag as $facility_node_to_flag) {
-        $this->addNodeRevision($facility_node_to_flag);
-        $this->flagger->setFlag('removed_from_source', $facility_node_to_flag);
-
-        // Send email to CMS Help Desk for follow-up steps.
-        $message_fields = $this->notificationsManager->buildMessageFields($facility_node_to_flag, 'Facility removed:');
-        $this->notificationsManager->send('va_facility_removed_from_source', self::USER_CMS_HELP_DESK_NOTIFICATIONS, $message_fields);
+        if (!FacilityOps::isAutoArchiveFacility($facility_node_to_flag)) {
+          $this->addNodeRevision($facility_node_to_flag);
+          $this->flagger->setFlag('removed_from_source', $facility_node_to_flag);
+          // Send email to CMS Help Desk for follow-up steps.
+          $message_fields = $this->notificationsManager->buildMessageFields($facility_node_to_flag, 'Facility removed:');
+          $this->notificationsManager->send('va_facility_removed_from_source', self::USER_CMS_HELP_DESK_NOTIFICATIONS, $message_fields);
+          // Log amount to be processed.
+        }
+        else {
+          $this->archiveRemovedFacility($facility_node_to_flag);
+          $count_flagged--;
+          $count_archived++;
+        }
       }
-
-      // Log amount to be processed.
       $vars = [
-        '%count' => $count,
+        '%count_flagged' => $count_flagged,
+        '%count_archived' => $count_archived,
       ];
-      $msg = 'Flagged %count facilities as removed from Facility API.';
-      $this->migrateChannelLogger->log(LogLevel::INFO, $msg, $vars);
-      // Create drush output.
-      // @phpstan-ignore-next-line
-      $this->logger->success("Flagged {$count} facilities as removed from Facility API.");
-    }
 
+      if ($vars['%count_flagged'] > 0) {
+        $msg = 'Flagged %count_flagged facilities as removed from Facility API.';
+        $this->migrateChannelLogger->log(LogLevel::INFO, $msg, $vars);
+        // Create drush output.
+        // @phpstan-ignore-next-line
+        $this->logger->success("Flagged {$count_flagged} facilities as removed from Facility API.");
+      }
+      if ($vars['%count_archived'] > 0) {
+        $msg = 'Archived %count_archived facilities due to removal from Facility API.';
+        $this->migrateChannelLogger->log(LogLevel::INFO, $msg, $vars);
+        // Create drush output.
+        // @phpstan-ignore-next-line
+        $this->logger->success("Archived {$count_archived} facilities due to removal from Facility API.");
+      }
+    }
+  }
+
+  /**
+   * Archive a facility.
+   *
+   * @param \Drupal\node\NodeInterface $facility
+   *   The facility to archive.
+   */
+  protected function archiveRemovedFacility(NodeInterface $facility) {
+    $facility->set('moderation_state', 'archived');
+    $facility->setRevisionLogMessage('Archived due to removal from Facility API.');
+    $facility->setNewRevision(TRUE);
+    $facility->setUnpublished();
+    // Assign to CMS Migrator user.
+    $facility->setRevisionUserId(1317);
+    // Prevents some other actions.
+    $facility->setSyncing(TRUE);
+    $facility->setChangedTime(time());
+    $facility->isDefaultRevision(TRUE);
+    $facility->setRevisionCreationTime(time());
+    $facility->save();
   }
 
   /**
