@@ -4,7 +4,7 @@ status: true
 dependencies:
   config:
     - field.storage.taxonomy_term.field_va_benefit_eligibility
-    - paragraphs.paragraphs_type.magichead_group
+    - paragraphs.paragraphs_type.magichad_container
     - taxonomy.vocabulary.va_benefits_taxonomy
   module:
     - entity_reference_revisions
@@ -26,7 +26,7 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     target_bundles:
-      magichead_group: magichead_group
+      magichad_container: magichad_container
     negate: 0
     target_bundles_drag_drop:
       address:
@@ -98,12 +98,12 @@ settings:
       lists_of_links:
         weight: 67
         enabled: false
-      magichead:
+      magichad_container:
         weight: 70
-        enabled: false
+        enabled: true
       magichead_group:
         weight: 71
-        enabled: true
+        enabled: false
       media:
         weight: 72
         enabled: false

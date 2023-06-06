@@ -1,0 +1,25 @@
+uuid: 9178410e-9785-4e35-8425-ad88cc6e7686
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_magichead_position
+    - paragraphs.paragraphs_type.magichead_group
+  module:
+    - options
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: paragraph.magichead_group.field_magichead_position
+field_name: field_magichead_position
+entity_type: paragraph
+bundle: magichead_group
+label: 'Heading position'
+description: 'Enter the position of this heading relative to the information under other heading positions. "Top heading" is the primary heading position. "Subheading" is the secondary heading position, or child of "top heading". "Tertiary heading" is a child heading of any subheading, also known as a "sub-subheading".'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

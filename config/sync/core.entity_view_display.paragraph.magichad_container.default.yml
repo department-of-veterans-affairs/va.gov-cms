@@ -1,0 +1,34 @@
+uuid: 5fc906f3-88c7-4fc0-a400-e35f87dd56b4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.magichad_container.field_magichead_group
+    - field.field.paragraph.magichad_container.field_magichead_intro
+    - paragraphs.paragraphs_type.magichad_container
+  module:
+    - entity_reference_revisions
+    - text
+id: paragraph.magichad_container.default
+targetEntityType: paragraph
+bundle: magichad_container
+mode: default
+content:
+  field_magichead_group:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_magichead_intro:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

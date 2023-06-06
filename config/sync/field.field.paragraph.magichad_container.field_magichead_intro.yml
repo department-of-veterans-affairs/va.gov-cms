@@ -1,10 +1,10 @@
-uuid: fd2a32b2-7832-4c83-a744-b913f874e7cc
+uuid: 22175168-1a60-4ab5-a427-793aa8dc67f0
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_magichead_body
-    - paragraphs.paragraphs_type.magichead
+    - field.storage.paragraph.field_magichead_intro
+    - paragraphs.paragraphs_type.magichad_container
   module:
     - allowed_formats
     - text
@@ -15,12 +15,12 @@ third_party_settings:
       - rich_text_limited
   tmgmt_content:
     excluded: false
-id: paragraph.magichead.field_magichead_body
-field_name: field_magichead_body
+id: paragraph.magichad_container.field_magichead_intro
+field_name: field_magichead_intro
 entity_type: paragraph
-bundle: magichead
-label: 'Paragraph body'
-description: 'Enter the text for this heading or add a child heading.'
+bundle: magichad_container
+label: Introduction
+description: 'Enter any text that comes before, or that is not included under, any heading.'
 required: false
 translatable: false
 default_value: {  }

@@ -1,20 +1,15 @@
-uuid: e91d7259-d4c5-4e7c-b71c-1d0e8d0230e5
+uuid: ff1ce2b8-9315-4aea-abb4-0983cefb4295
 langcode: en
 status: true
 dependencies:
   config:
     - field.field.paragraph.magichead_group.field_magichead_body
     - field.field.paragraph.magichead_group.field_magichead_heading
-    - field.field.paragraph.magichead_group.field_magichead_level
+    - field.field.paragraph.magichead_group.field_magichead_position
     - paragraphs.paragraphs_type.magichead_group
   module:
-    - layout_builder
     - options
     - text
-third_party_settings:
-  layout_builder:
-    enabled: false
-    allow_custom: false
 id: paragraph.magichead_group.default
 targetEntityType: paragraph
 bundle: magichead_group
@@ -22,7 +17,7 @@ mode: default
 content:
   field_magichead_body:
     type: text_default
-    label: hidden
+    label: inline
     settings: {  }
     third_party_settings: {  }
     weight: 2
@@ -35,7 +30,7 @@ content:
     third_party_settings: {  }
     weight: 1
     region: content
-  field_magichead_level:
+  field_magichead_position:
     type: list_default
     label: inline
     settings: {  }

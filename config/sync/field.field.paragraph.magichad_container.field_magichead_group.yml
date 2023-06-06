@@ -1,23 +1,24 @@
-uuid: c149af0c-0089-42c5-a669-870afad09a9b
+uuid: 71b61a83-1e77-45e9-a799-7608027939ff
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_magichead_child
-    - paragraphs.paragraphs_type.magichead
+    - field.storage.paragraph.field_magichead_group
+    - paragraphs.paragraphs_type.magichad_container
+    - paragraphs.paragraphs_type.magichead_group
   module:
     - entity_reference_revisions
     - tmgmt_content
 third_party_settings:
   tmgmt_content:
     excluded: false
-id: paragraph.magichead.field_magichead_child
-field_name: field_magichead_child
+id: paragraph.magichad_container.field_magichead_group
+field_name: field_magichead_group
 entity_type: paragraph
-bundle: magichead
-label: 'Child paragraph with heading'
-description: ''
-required: false
+bundle: magichad_container
+label: 'Paragraph with heading'
+description: 'Enter information that is broken down under headings. Use the "Add paragraph with heading" button to add a new heading and body field.'
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''
@@ -25,7 +26,7 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     target_bundles:
-      magichead: magichead
+      magichead_group: magichead_group
     negate: 0
     target_bundles_drag_drop:
       address:
@@ -97,12 +98,12 @@ settings:
       lists_of_links:
         weight: 67
         enabled: false
-      magichead:
+      magichad_container:
         weight: 70
-        enabled: true
+        enabled: false
       magichead_group:
         weight: 71
-        enabled: false
+        enabled: true
       media:
         weight: 72
         enabled: false

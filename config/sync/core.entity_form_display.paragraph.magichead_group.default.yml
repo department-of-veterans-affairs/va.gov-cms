@@ -1,11 +1,11 @@
-uuid: 79499f43-5ccf-44ab-9831-bdb2d0cd25ae
+uuid: f9fd0117-7775-4af6-932c-c2e2987aa0f2
 langcode: en
 status: true
 dependencies:
   config:
     - field.field.paragraph.magichead_group.field_magichead_body
     - field.field.paragraph.magichead_group.field_magichead_heading
-    - field.field.paragraph.magichead_group.field_magichead_level
+    - field.field.paragraph.magichead_group.field_magichead_position
     - paragraphs.paragraphs_type.magichead_group
   module:
     - text
@@ -30,7 +30,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_magichead_level:
+  field_magichead_position:
     type: options_select
     weight: 0
     region: content

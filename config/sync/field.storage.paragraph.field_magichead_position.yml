@@ -1,0 +1,30 @@
+uuid: d0287b5b-296e-4661-8fa6-172d4757b22f
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_magichead_position
+field_name: field_magichead_position
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: 'I. Top heading'
+      label: 'I. Top heading'
+    -
+      value: 'II. Subheading'
+      label: 'II. Subheading'
+    -
+      value: 'III. Tertiary heading'
+      label: 'III. Tertiary heading (Sub-subheading)'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
