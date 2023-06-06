@@ -36,7 +36,7 @@ function va_gov_backend_update_8002() {
     $storage_handler = \Drupal::entityTypeManager()->getStorage("node");
     $va_bene_title_result = \Drupal::entityQuery('node')
       ->condition('title', $item, '=')
-      ->accessCheck(TRUE)
+      ->accessCheck(FALSE)
       ->execute();
     $entities = $storage_handler->loadMultiple($va_bene_title_result);
     if ($item === 'Benefit Materials') {

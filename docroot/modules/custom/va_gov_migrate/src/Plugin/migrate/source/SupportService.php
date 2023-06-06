@@ -71,7 +71,7 @@ class SupportService extends MetalsmithSource {
         ->condition('title', $unique_row['service_name'])
         ->count();
 
-      if (empty($query->accessCheck(TRUE)->execute())) {
+      if (empty($query->accessCheck(FALSE)->execute())) {
         $new_rows[] = $unique_row;
       }
     }

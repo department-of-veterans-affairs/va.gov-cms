@@ -79,27 +79,27 @@ class VaGovFacilityForceQueueForm extends FormBase {
     // Queries to get total number of nodes for each type for reference.
     $health_care_local_facility = $this->nodeQuery
       ->condition('type', 'health_care_local_facility')
-      ->accessCheck(TRUE)
+      ->accessCheck(FALSE)
       ->execute();
 
     $health_care_facility_service = $this->nodeQuery
       ->condition('type', 'health_care_local_health_service')
-      ->accessCheck(TRUE)
+      ->accessCheck(FALSE)
       ->execute();
 
     $nca_facility = $this->nodeQuery
       ->condition('type', 'nca_facility')
-      ->accessCheck(TRUE)
+      ->accessCheck(FALSE)
       ->execute();
 
     $vba_facility = $this->nodeQuery
       ->condition('type', 'vba_facility')
-      ->accessCheck(TRUE)
+      ->accessCheck(FALSE)
       ->execute();
 
     $vet_center = $this->nodeQuery
       ->condition('type', 'vet_center')
-      ->accessCheck(TRUE)
+      ->accessCheck(FALSE)
       ->execute();
 
     $form['description'] = [
@@ -144,7 +144,7 @@ class VaGovFacilityForceQueueForm extends FormBase {
 
     $sandbox['nids'] = $this->nodeQuery
       ->condition('type', $bundle)
-      ->accessCheck(TRUE)
+      ->accessCheck(FALSE)
       ->execute();
 
     if (!empty($sandbox['nids'])) {

@@ -129,14 +129,14 @@ class WhereDoesThisAppear extends BlockBase implements ContainerFactoryPluginInt
     $nid = $this->getNode()->id();
     $qa_query = $this->entityTypeManager->getStorage('paragraph')->getQuery()
       ->condition('field_q_as', [$nid], 'IN');
-    $qa_entities = $qa_query->accessCheck(TRUE)->execute();
+    $qa_entities = $qa_query->accessCheck(FALSE)->execute();
     if (!$qa_entities) {
       return NULL;
     }
 
     $node_query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('field_q_a_groups', $qa_entities, 'IN');
-    $nids = $node_query->accessCheck(TRUE)->execute();
+    $nids = $node_query->accessCheck(FALSE)->execute();
     if (!$nids) {
       return NULL;
     }

@@ -34,7 +34,7 @@ class UniqueTitleValidator extends ConstraintValidator {
     if (!empty($id = $this->context->getRoot()->getEntity()->id())) {
       $query->condition('nid', $id, '!=');
     }
-    $nids = $query->accessCheck(TRUE)->execute();
+    $nids = $query->accessCheck(FALSE)->execute();
     $nodes = $node_storage->loadMultiple($nids);
 
     if (!empty($nodes)) {
