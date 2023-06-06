@@ -1,0 +1,12 @@
+diff --git a/modules/webhook/src/Payload.php b/modules/webhook/src/Payload.php
+index aa9d7f9..febb733 100644
+--- a/modules/webhook/src/Payload.php
++++ b/modules/webhook/src/Payload.php
+@@ -178,6 +178,7 @@ final class Payload extends PayloadBase {
+         $users = $storage->getQuery('OR')
+           ->condition('name', $recipient)
+           ->condition('mail', $recipient)
++          ->accessCheck(FALSE)
+           ->execute();
+         if (!empty($users)) {
+           return TRUE;
