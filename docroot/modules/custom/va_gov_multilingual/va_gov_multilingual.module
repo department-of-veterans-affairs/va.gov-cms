@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * Support for VA.gov Multilingual functionality.
+ */
+
+/**
+ * Implements hook_field_widget_info_alter().
+ *
+ * Makes the textfield_with_counter widgets available to string_ and text_long.
+ */
+function va_gov_multilingual_field_widget_info_alter(&$info) {
+  $info['string_textfield_with_counter']['field_types'][] = 'string_long';
+  $info['text_textfield_with_counter']['field_types'][] = 'text_long';
+}
