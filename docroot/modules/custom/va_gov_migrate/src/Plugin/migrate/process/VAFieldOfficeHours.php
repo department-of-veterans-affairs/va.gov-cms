@@ -53,8 +53,10 @@ class VAFieldOfficeHours extends ProcessPluginBase {
     ];
 
     foreach ($hours as $day => $hour) {
-      // Test $hour for non-contiguous entries, separated by semi-colons.
-      if (preg_match('(\;)', $hour) === 0) {
+      // Test $hour for non-contiguous entries,
+      // separated by semi-colons or comma.
+      if ((preg_match('(\;)', $hour) === 0)
+        && (preg_match('/(,\s\d)/', $hour) === 0)) {
         $hour = normalize_hours($hour);
       }
       // Strip hour before the - for starthours.
@@ -62,7 +64,11 @@ class VAFieldOfficeHours extends ProcessPluginBase {
       // Strip hour after the - for endhours.
       $end_time = strstr($hour, '-');
       $low_day = strtolower($day);
-      if (preg_match('(AM|PM)', $hour) === 0) {
+      if (preg_match('/(,\s\d)/', $hour) === 1) {
+        // If it has 2 sets of hours, treat it as a comment.
+        $hours_clean[$low_day]['comment'] = $hour;
+      }
+      elseif (preg_match('(AM|PM)', $hour) === 0) {
         // It is not hours, treat it as a comment.
         $hours_clean[$low_day]['comment'] = $hour;
       }
@@ -70,7 +76,6 @@ class VAFieldOfficeHours extends ProcessPluginBase {
         $hours_clean[$low_day]['start_time'] = clean_time($start_time);
         $hours_clean[$low_day]['end_time'] = clean_time($end_time);
       }
-
     }
     if (empty($hours_clean)) {
       $return = NULL;
