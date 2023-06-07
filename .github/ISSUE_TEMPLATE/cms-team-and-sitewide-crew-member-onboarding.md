@@ -254,6 +254,7 @@ Each repository includes READMEs to help with setup.
 ### Tools & Resources
 - [ ] [VA.gov tools overview](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html)
   - [ ] [Access to dev & staging to be able to replicate the SSO piece of the login experience](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/5838) (SOCKS or VA access with PIV card required)
+  - [ ] Test User Dashboard: https://tud.vfs.va.gov/. In lower environments, we are encouraged not to use our actual login credentials to test authed work. The TUD provides a set of test users you can use to login to various environments for testing. 
   - [ ] [Datadog](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html#Requestaccesstotools-Requestaccess) to access monitoring metrics (as of 8/5/22 this is TBD. reach out to your DM for details)
 - [ ] Browse the [Topic Dives videos](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/1714094110/CMS+Topic+Dives) - includes CMS content, and non-CMS topics for Facilities & Public Websites teams as well
 
