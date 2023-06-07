@@ -14,14 +14,16 @@ use Drupal\field\Entity\FieldStorageConfig;
  * This is only here for demonstrating the POC.
  */
 function va_gov_multilingual_install() {
-  va_gov_multilingual_update_9001();
+  // va_gov_multilingual_update_9001(); //.
+  return;
 }
 
 /**
  * Implements hook_update_N().
  */
 function va_gov_multilingual_update_9001() {
-  va_gov_multilingual_convert_short_text_field('node', 'field_clp_events_header');
+  // va_gov_multilingual_convert_short_text_field('node',
+  // 'field_clp_events_header'); //.
 }
 
 /**
