@@ -53,20 +53,23 @@ class VAFieldOfficeHours extends ProcessPluginBase {
     ];
 
     foreach ($hours as $day => $hour) {
-
+      // First, we normalize the data.
       $hour = normalize_hour_characters($hour);
       $hour = remove_leading_zeroes($hour);
       $low_day = strtolower($day);
+      // Second, we parse the data.
       if (parse_as_hour($hour)) {
         // We have one start and one end time.
-        // Strip hour before the - for starthours.
+        // Strip hour before the "to" for starthours.
         $start_time = strstr($hour, 'to', TRUE);
-        // Strip hour after the - for endhours.
+        // Strip hour after the "to" for endhours.
         $end_time = strstr($hour, 'to');
         $hours_clean[$low_day]['start_time'] = clean_time($start_time);
         $hours_clean[$low_day]['end_time'] = clean_time($end_time);
       }
       else {
+        // We have something other than one start and one end time.
+        // Make it a comment.
         $hours_clean[$low_day]['comment'] = $hour;
       }
     }
