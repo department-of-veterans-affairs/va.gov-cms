@@ -53,8 +53,7 @@ class VAFieldOfficeHours extends ProcessPluginBase {
     ];
 
     foreach ($hours as $day => $hour) {
-      // Test $hour for non-contiguous entries,
-      // separated by semi-colons or comma.
+
       $hour = normalize_hour_characters($hour);
       $hour = remove_leading_zeroes($hour);
       $low_day = strtolower($day);
@@ -174,10 +173,10 @@ function parse_as_hour($hour_range) {
  */
 function clean_time($times) {
   $time = preg_replace("/[^0-9]/", "", $times);
-  $period = preg_replace("/[^a-zA-Z]/", "", $times);
+  $period = preg_replace("/[^(a\.m\.)|(p\.m\.)]/", "", $times);
 
-  // If period is PM then perform the following time conversion.
-  if ($period === "PM") {
+  // If period is p.m. then perform the following time conversion.
+  if ($period === "p.m.") {
     $time_mil = substr_replace($time, ':', -2, -2);
     $time_mil_clean = date("H:i", strtotime($time_mil . " " . $period));
     $h = substr($time_mil_clean, 0, -3);
