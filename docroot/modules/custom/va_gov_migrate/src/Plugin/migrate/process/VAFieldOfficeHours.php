@@ -55,26 +55,20 @@ class VAFieldOfficeHours extends ProcessPluginBase {
     foreach ($hours as $day => $hour) {
       // Test $hour for non-contiguous entries,
       // separated by semi-colons or comma.
-      if ((preg_match('(\;)', $hour) === 0)
-        && (preg_match('/(,\s\d)/', $hour) === 0)) {
-        $hour = normalize_hours($hour);
-      }
-      // Strip hour before the - for starthours.
-      $start_time = strstr($hour, '-', TRUE);
-      // Strip hour after the - for endhours.
-      $end_time = strstr($hour, '-');
+      $hour = normalize_hour_characters($hour);
+      $hour = remove_leading_zeroes($hour);
       $low_day = strtolower($day);
-      if (preg_match('/(,\s\d)/', $hour) === 1) {
-        // If it has 2 sets of hours, treat it as a comment.
-        $hours_clean[$low_day]['comment'] = $hour;
-      }
-      elseif (preg_match('(AM|PM)', $hour) === 0) {
-        // It is not hours, treat it as a comment.
-        $hours_clean[$low_day]['comment'] = $hour;
-      }
-      else {
+      if (parse_as_hour($hour)) {
+        // We have one start and one end time.
+        // Strip hour before the - for starthours.
+        $start_time = strstr($hour, 'to', TRUE);
+        // Strip hour after the - for endhours.
+        $end_time = strstr($hour, 'to');
         $hours_clean[$low_day]['start_time'] = clean_time($start_time);
         $hours_clean[$low_day]['end_time'] = clean_time($end_time);
+      }
+      else {
+        $hours_clean[$low_day]['comment'] = $hour;
       }
     }
     if (empty($hours_clean)) {
@@ -107,24 +101,66 @@ class VAFieldOfficeHours extends ProcessPluginBase {
 }
 
 /**
- * Normalizes the hours for further parsing.
+ * Normalizes the hours characters for further parsing.
  *
  * @param string $hour_range
  *   The string of opening and closing hours for a given day.
  *
  * @return string
- *   A string with extraneous characters and letters capitalized.
+ *   A string formatted best for viewing.
+ *   Example: 8:00 a.m. to 4:00 p.m.
  */
-function normalize_hours($hour_range) {
+function normalize_hour_characters($hour_range) {
   // Set the replacement array with all characters to remove or make uppercase.
   $replace = [
-    "/a\.?m\.?/i" => "AM",
-    "/p\.?m\.?/i" => "PM",
-    "/\–/" => "-",
-    "/to/" => "-",
+    "/\s?a\.?m\.?/i" => " a.m.",
+    "/\s?p\.?m\.?/i" => " p.m.",
+    "/(\s?–\s?)/" => " to ",
+    "/(\s?-\s?)/" => " to ",
+
   ];
   // Clean up the hours, based on the $replace array.
   return $hour_range = preg_replace(array_keys($replace), array_values(($replace)), $hour_range);
+}
+
+/**
+ * Normalizes the hours digits for further parsing.
+ *
+ * @param string $hour_range
+ *   The string of opening and closing hours for a given day.
+ *
+ * @return string
+ *   A string with leading zeroes removed.
+ */
+function remove_leading_zeroes($hour_range) {
+  // Set the replacement array with all characters to remove or make uppercase.
+  $replace = [
+    "/0(\d:\d\d)( [a|p]\.[m]\.)/" => "$1$2",
+    "/0(\d\d\d)( [a|p]\.[m]\.)/" => "$1$2",
+  ];
+  // Clean up the hours, based on the $replace array.
+  return $hour_range = preg_replace(array_keys($replace), array_values(($replace)), $hour_range);
+}
+
+/**
+ * Checks to see if we should parse the string as hours.
+ *
+ * @param string $hour_range
+ *   The string of opening and closing hours for a given day.
+ *
+ * @return bool
+ *   TRUE if it has one opening and one closing time.
+ */
+function parse_as_hour($hour_range) {
+  // No hours.
+  if (preg_match('(a.m.|p.m.)', $hour_range) === 0) {
+    return FALSE;
+  }
+  // Multiple hour ranges.
+  if (preg_match_all('(a.m.|p.m.)', $hour_range) > 3) {
+    return FALSE;
+  }
+  return TRUE;
 }
 
 /**
