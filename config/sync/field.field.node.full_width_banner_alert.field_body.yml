@@ -6,7 +6,15 @@ dependencies:
     - field.storage.node.field_body
     - node.type.full_width_banner_alert
   module:
+    - allowed_formats
     - text
+    - tmgmt_content
+third_party_settings:
+  allowed_formats:
+    allowed_formats:
+      - rich_text_limited
+  tmgmt_content:
+    excluded: false
 id: node.full_width_banner_alert.field_body
 field_name: field_body
 entity_type: node
