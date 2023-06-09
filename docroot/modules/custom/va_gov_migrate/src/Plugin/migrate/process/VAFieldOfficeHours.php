@@ -58,11 +58,12 @@ class VAFieldOfficeHours extends ProcessPluginBase {
       $hour = remove_leading_zeroes($hour);
       $low_day = strtolower($day);
       // Second, we parse the data.
-      if (parse_as_hour($hour)) {
-        // We have one start and one end time.
+      if (has_one_set_of_hours($hour)) {
         // Strip hour before the "to" for starthours.
         $start_time = strstr($hour, 'to', TRUE);
         // Strip hour after the "to" for endhours.
+        // Possible risk that there are comments after the hours
+        // that won't be captured. (None in the data on 2023-06-09, though.)
         $end_time = strstr($hour, 'to');
         $hours_clean[$low_day]['start_time'] = clean_time($start_time);
         $hours_clean[$low_day]['end_time'] = clean_time($end_time);
@@ -153,7 +154,7 @@ function remove_leading_zeroes($hour_range) {
  * @return bool
  *   TRUE if it has one opening and one closing time.
  */
-function parse_as_hour($hour_range) {
+function has_one_set_of_hours($hour_range) {
   // No hours.
   if (preg_match('(a.m.|p.m.)', $hour_range) === 0) {
     return FALSE;
