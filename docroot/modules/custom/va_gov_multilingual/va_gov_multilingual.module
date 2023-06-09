@@ -43,7 +43,9 @@ function va_gov_multilingual_field_widget_single_element_form_alter(array &$elem
       'text_textfield_with_counter',
     ];
     if (in_array($field_widget_id, $counter_widget_ids)) {
-      // Remove the textfieldCounter if this is a translation form.
+      // Remove textfieldCounter if this is a translation form.
+      // TextFieldCounter structures string and text widgets differently.
+      // This case applies to string elements.
       if (isset($element['value']['#attached'])) {
         if (is_array($element['value']['#attached']['library'])) {
           foreach ($element['value']['#attached']['library'] as $index => $library) {
@@ -56,6 +58,23 @@ function va_gov_multilingual_field_widget_single_element_form_alter(array &$elem
           foreach ($element['value']['#attached']['drupalSettings'] as $index => $settings) {
             if ($index === 'textfieldCounter') {
               unset($element['value']['#attached']['drupalSettings'][$index]);
+            }
+          }
+        }
+      }
+      // This case applies to text elements.
+      if (isset($element['#attached'])) {
+        if (is_array($element['#attached']['library'])) {
+          foreach ($element['#attached']['library'] as $index => $library) {
+            if ($library === 'textfield_counter/counter') {
+              unset($element['#attached']['library'][$index]);
+            }
+          }
+        }
+        if (is_array($element['#attached']['drupalSettings'])) {
+          foreach ($element['#attached']['drupalSettings'] as $index => $settings) {
+            if ($index === 'textfieldCounter') {
+              unset($element['#attached']['drupalSettings'][$index]);
             }
           }
         }
