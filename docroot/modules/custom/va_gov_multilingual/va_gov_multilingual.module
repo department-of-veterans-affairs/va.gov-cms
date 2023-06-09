@@ -1,0 +1,81 @@
+<?php
+
+/**
+ * @file
+ * Support for VA.gov multilingual.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * @file
+ * Support for VA.gov Multilingual functionality.
+ */
+
+/**
+ * Implements hook_field_widget_single_element_form_alter().
+ *
+ * Disable textfield_with_counter behaviors if editing a translation.
+ */
+function va_gov_multilingual_field_widget_single_element_form_alter(array &$element, FormStateInterface $form_state, array $context) {
+  $form_object = $form_state->getFormObject();
+  $entity = NULL;
+  if (method_exists($form_object, 'getEntity')) {
+    $entity = $form_object->getEntity();
+  }
+  if (isset($entity) && !$entity->isDefaultTranslation()) {
+    $field_widget_id = $context['widget']->getPluginId();
+    $counter_widget_ids = [
+      'string_textarea_with_counter',
+      'string_textfield_with_counter',
+      'text_textarea_with_counter',
+      'text_textarea_with_summary_and_counter',
+      'text_textfield_with_counter',
+    ];
+    if (in_array($field_widget_id, $counter_widget_ids)) {
+      // Remove textfieldCounter if this is a translation form.
+      // TextFieldCounter structures string and text widgets differently.
+      // This case applies to string elements.
+      if (isset($element['value']['#attached'])) {
+        if (is_array($element['value']['#attached']['library'])) {
+          foreach ($element['value']['#attached']['library'] as $index => $library) {
+            if ($library === 'textfield_counter/counter') {
+              unset($element['value']['#attached']['library'][$index]);
+            }
+          }
+        }
+        if (is_array($element['value']['#attached']['drupalSettings'])) {
+          foreach ($element['value']['#attached']['drupalSettings'] as $index => $settings) {
+            if ($index === 'textfieldCounter') {
+              unset($element['value']['#attached']['drupalSettings'][$index]);
+            }
+          }
+        }
+      }
+      // This case applies to text elements.
+      if (isset($element['#attached'])) {
+        if (is_array($element['#attached']['library'])) {
+          foreach ($element['#attached']['library'] as $index => $library) {
+            if ($library === 'textfield_counter/counter') {
+              unset($element['#attached']['library'][$index]);
+            }
+          }
+        }
+        if (is_array($element['#attached']['drupalSettings'])) {
+          foreach ($element['#attached']['drupalSettings'] as $index => $settings) {
+            if ($index === 'textfieldCounter') {
+              unset($element['#attached']['drupalSettings'][$index]);
+            }
+          }
+        }
+      }
+      if (isset($element['#element_validate'])) {
+        foreach ($element['#element_validate'] as $index => $validation_hook) {
+          if (is_array($validation_hook) && str_contains($validation_hook[0], 'TextFieldCounterWidgetTrait') && $validation_hook[1] === 'validateFieldFormElement') {
+            unset($element['#element_validate'][$index]);
+          }
+        }
+      }
+    }
+  }
+}
