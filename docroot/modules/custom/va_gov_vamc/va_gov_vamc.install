@@ -280,8 +280,8 @@ function va_gov_vamc_update_9007() {
     $alert->setRevisionLogMessage('VACMS Facilities Team: Updated Alert body text format to Rich Text Limited');
     $alert->setRevisionCreationTime(Drupal::time()->getRequestTime());
     $alert->setChangedTime(Drupal::time()->getRequestTime());
-    // Setting revision as super admin.
-    $alert->setRevisionUserId(1);
+    // Set revision author to uid 1317 (CMS Migrator user).
+    $alert->setRevisionAuthorId(1317);
     $saved = $alert->save();
     $updated = (is_int($saved) && $saved > 0) ? $updated + 1 : $updated;
   }
