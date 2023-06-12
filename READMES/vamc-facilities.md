@@ -34,6 +34,28 @@ Vaccines but is expandable to handle more or eventually all services.
 
 Information related to this can be found in CMS Content Model Document for [Full Width Banner alerts with Situation Updates](https://prod.cms.va.gov/admin/structure/types/manage/full_width_banner_alert/document)
 
+```mermaid
+flowchart TD
+  subgraph CMS 
+    FWB[Full width banner alert created/updated] -->|optional| Q(add GovDelivery Bulletin to Queue)
+    SU[Situation Update created] -->|optional| Q
+    Q --> GDqueue
+
+    GDqueue[(Bulletin Queue)]
+    GDendpoint[CMS GovDelivery endpoint] --> PQ(Process all pre start-time items in Bulletin Queue)
+    PQ ---> GDsend(Send each item to GovDelivery)
+    GDqueue -.->PQ
+
+  end 
+  subgraph Content-build
+    CB1[Content release start] -->|record start-time|CB2[GraphQL Queries]
+    CB2 --> CB3[Content built and deployed]
+    CB3 --> CBfinal[Ping CMS GovDelivery endpoint with start-time]-.->GDendpoint
+  end
+  GDsend -.->GovDelivery[/GovDelivery\]
+
+```
+
 ----
 
 [Table of Contents](../README.md)
