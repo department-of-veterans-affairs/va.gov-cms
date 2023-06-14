@@ -1,0 +1,25 @@
+uuid: f2be389d-bde5-4110-a77f-607a54648ff6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.magichead_intro.field_magichead_intro
+    - paragraphs.paragraphs_type.magichead_intro
+  module:
+    - text
+id: paragraph.magichead_intro.default
+targetEntityType: paragraph
+bundle: magichead_intro
+mode: default
+content:
+  field_magichead_intro:
+    type: text_textarea
+    weight: 0
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

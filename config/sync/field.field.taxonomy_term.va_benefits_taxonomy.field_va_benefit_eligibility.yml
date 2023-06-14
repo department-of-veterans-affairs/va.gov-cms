@@ -1,29 +1,172 @@
-uuid: 72b44e93-0544-4ded-8efc-5359bde2b3cc
+uuid: d83bde0f-bbb1-4da4-b485-52ad339380f0
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.taxonomy_term.field_va_benefit_eligibility
+    - paragraphs.paragraphs_type.magichead_group
+    - paragraphs.paragraphs_type.magichead_intro
     - taxonomy.vocabulary.va_benefits_taxonomy
   module:
-    - allowed_formats
-    - text
+    - entity_reference_hierarchy_revisions
     - tmgmt_content
 third_party_settings:
-  allowed_formats:
-    allowed_formats:
-      - rich_text_limited
   tmgmt_content:
     excluded: false
 id: taxonomy_term.va_benefits_taxonomy.field_va_benefit_eligibility
 field_name: field_va_benefit_eligibility
 entity_type: taxonomy_term
 bundle: va_benefits_taxonomy
-label: 'Eligibility summary'
-description: ''
+label: 'Eligibility overview'
+description: 'Describe the eligibility rules that cover the most common scenarios. '
 required: false
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
-settings: {  }
-field_type: text_long
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: '0'
+    target_bundles:
+      magichead_group: magichead_group
+      magichead_intro: magichead_intro
+    target_bundles_drag_drop:
+      address:
+        weight: '47'
+        enabled: 0
+      alert:
+        weight: '48'
+        enabled: 0
+      alert_single:
+        weight: '49'
+        enabled: 0
+      audience_topics:
+        weight: '50'
+        enabled: 0
+      basic_accordion:
+        weight: '51'
+        enabled: 0
+      button:
+        weight: '52'
+        enabled: 0
+      centralized_content_descriptor:
+        weight: '53'
+        enabled: 0
+      checklist:
+        weight: '54'
+        enabled: 0
+      checklist_item:
+        weight: '55'
+        enabled: 0
+      collapsible_panel:
+        weight: '56'
+        enabled: 0
+      collapsible_panel_item:
+        weight: '57'
+        enabled: 0
+      contact_information:
+        weight: '58'
+        enabled: 0
+      downloadable_file:
+        weight: '59'
+        enabled: 0
+      email_contact:
+        weight: '60'
+        enabled: 0
+      embedded_video:
+        weight: '61'
+        enabled: 0
+      expandable_text:
+        weight: '62'
+        enabled: 0
+      featured_content:
+        weight: '63'
+        enabled: 0
+      health_care_local_facility_servi:
+        weight: '64'
+        enabled: 0
+      link_teaser:
+        weight: '65'
+        enabled: 0
+      link_teaser_with_image:
+        weight: '66'
+        enabled: 0
+      lists_of_links:
+        weight: '67'
+        enabled: 0
+      list_of_links:
+        weight: '68'
+        enabled: 0
+      list_of_link_teasers:
+        weight: '69'
+        enabled: 0
+      magichead_group:
+        enabled: '1'
+        weight: '70'
+      magichead_intro:
+        enabled: '1'
+        weight: '71'
+      media:
+        weight: '72'
+        enabled: 0
+      media_list_images:
+        weight: '73'
+        enabled: 0
+      media_list_videos:
+        weight: '74'
+        enabled: 0
+      non_reusable_alert:
+        weight: '75'
+        enabled: 0
+      number_callout:
+        weight: '76'
+        enabled: 0
+      phone_number:
+        weight: '77'
+        enabled: 0
+      process:
+        weight: '78'
+        enabled: 0
+      q_a:
+        weight: '79'
+        enabled: 0
+      q_a_group:
+        weight: '80'
+        enabled: 0
+      q_a_section:
+        weight: '81'
+        enabled: 0
+      react_widget:
+        weight: '82'
+        enabled: 0
+      rich_text_char_limit_1000:
+        weight: '83'
+        enabled: 0
+      service_location:
+        weight: '84'
+        enabled: 0
+      service_location_address:
+        weight: '85'
+        enabled: 0
+      situation_update:
+        weight: '86'
+        enabled: 0
+      spanish_translation_summary:
+        weight: '87'
+        enabled: 0
+      staff_profile:
+        weight: '88'
+        enabled: 0
+      step:
+        weight: '89'
+        enabled: 0
+      step_by_step:
+        weight: '90'
+        enabled: 0
+      table:
+        weight: '91'
+        enabled: 0
+      wysiwyg:
+        weight: '92'
+        enabled: 0
+field_type: entity_reference_hierarchy_revisions

@@ -1,0 +1,29 @@
+uuid: 1afef062-e340-4ccb-bf5a-a63e74e3ac92
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_magichead_intro
+    - paragraphs.paragraphs_type.magichead_intro
+  module:
+    - allowed_formats
+    - text
+    - tmgmt_content
+third_party_settings:
+  allowed_formats:
+    allowed_formats:
+      - rich_text_limited
+  tmgmt_content:
+    excluded: false
+id: paragraph.magichead_intro.field_magichead_intro
+field_name: field_magichead_intro
+entity_type: paragraph
+bundle: magichead_intro
+label: Introduction
+description: 'Provide a simple introduction to the overview. '
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
