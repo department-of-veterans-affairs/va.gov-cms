@@ -22,7 +22,6 @@ Feature: Permissions
       | "content_editor" | "office"                           |
       | "content_editor" | "outreach_asset"                   |
       | "content_editor" | "publication_listing"              |
-      | "content_editor" | "person_profile"                   |
       | "content_editor" | "news_story"                       |
 
 
