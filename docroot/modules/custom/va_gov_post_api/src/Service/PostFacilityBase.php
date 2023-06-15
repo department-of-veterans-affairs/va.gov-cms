@@ -3,13 +3,14 @@
 namespace Drupal\va_gov_post_api\Service;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\post_api\Service\AddToQueue;
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\node\NodeInterface;
+use Drupal\office_hours\OfficeHoursDateHelper;
+use Drupal\post_api\Service\AddToQueue;
 
 /**
  * Class PostFacilityService posts specific service info to Lighthouse.
@@ -55,8 +56,6 @@ abstract class PostFacilityBase {
    * @var \Drupal\post_api\Service\AddToQueue
    */
   protected $postQueue;
-
-  const LOVELL_TRICARE = 1039;
 
   /**
    * Constructs a new PostFacilityBase object.
@@ -335,7 +334,7 @@ abstract class PostFacilityBase {
   protected function stringNullify($string) {
     return (empty($string)) ? NULL : $string;
   }
-  
+
   /**
    * Decides what to use as the previous/default revision and returns it.
    *
@@ -365,7 +364,7 @@ abstract class PostFacilityBase {
 
     return $defaultRevision;
   }
-  
+
   /**
    * Checks if the value of the field on the node changed.
    *
@@ -382,7 +381,7 @@ abstract class PostFacilityBase {
   protected function changedValue(NodeInterface $node, NodeInterface $revision, $field_name): bool {
     return $this->fieldsHaveChanges($node, $revision, [$field_name]);
   }
-  
+
   /**
    * Checks if the target_id of the field on the node changed.
    *
@@ -405,7 +404,7 @@ abstract class PostFacilityBase {
     }
     return FALSE;
   }
-  
+
   /**
    * Looks for changes in all identified fields.
    *
@@ -442,26 +441,7 @@ abstract class PostFacilityBase {
     }
     return $current_revision_values == $default_revision_values;
   }
-  
-  /**
-   * Checks if the entity is within the Lovell Tricare section.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   Entity.
-   *
-   * @return bool
-   *   TRUE if entity is within Lovell Tricare section. FALSE otherwise.
-   */
-  protected function isLovellTricareSection(EntityInterface $entity) : bool {
-    if (($entity instanceof NodeInterface) && ($entity->hasField('field_administration'))) {
-      /** @var \Drupal\node\NodeInterface $entity*/
-      if ($entity->get('field_administration')->target_id == self::LOVELL_TRICARE) {
-        return TRUE;
-      }
-    }
-    return FALSE;
-  }
-  
+
   /**
    * Removes values from anything that should not be kept in state.
    */
@@ -470,4 +450,5 @@ abstract class PostFacilityBase {
     $this->additionalInfoToPush = NULL;
     unset($this->facilityNode);
   }
+
 }
