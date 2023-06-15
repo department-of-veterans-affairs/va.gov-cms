@@ -89,7 +89,10 @@ export async function shouldSubmitMetrics(testsFailed) {
 export function buildTimeToRestoreMetricSeries(timeToRestore) {
   const name = getStandardizedMetricName("time_to_restore");
   const now = startTime;
-  return buildMetricsObject(name, [buildLeadTimeDataPoint(now, timeToRestore)]);
+  return buildMetricsObject(name, [{
+    timestamp: now,
+    value: timeToRestore,
+  }]);
 }
 
 /**
@@ -127,6 +130,9 @@ export async function calculateAccruedTimeInFailure(sha) {
  * This is equal to the accrued time in failure for the chain of failing commits
  * leading up to the current commit, plus the time between the most recent failing
  * commit and the current commit.
+ * 
+ * This assumes that the current commit has passed and the previous commit (at least)
+ * has failed.
  *
  * @return {number} The time to restore service.
  */
@@ -137,7 +143,7 @@ export async function calculateTimeToRestore() {
   const previousTimestamp = getCommitTimestamp(previousCommit);
   const currentDelta = currentTimestamp - previousTimestamp;
   const accruedTimeInFailure = await calculateAccruedTimeInFailure(
-    currentCommit
+    previousCommit
   );
   return accruedTimeInFailure + currentDelta;
 }

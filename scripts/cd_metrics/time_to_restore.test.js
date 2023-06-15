@@ -62,21 +62,6 @@ describe("time_to_restore.lib.js", () => {
       expect(result).toEqual(expectedOutput);
     });
 
-    it("should agree to submit metrics when the current commit succeeded and the last commit failed tests", async () => {
-      const testsFailed = false;
-      jest.unstable_mockModule("./common", () => {
-        return {
-          ...actualCommon,
-          getParentCommitSha: () => "some-failing-sha",
-          getCombinedStatusForCommit: () => "failure",
-        };
-      });
-      const { shouldSubmitMetrics } = await import("./time_to_restore.lib");
-      const result = await shouldSubmitMetrics(testsFailed);
-      const expectedOutput = true;
-      expect(result).toEqual(expectedOutput);
-    });
-
     it("should refuse to submit metrics when the current commit succeeded and the last commit is marked pending", async () => {
       const testsFailed = false;
       jest.unstable_mockModule("./common", () => {
@@ -92,35 +77,283 @@ describe("time_to_restore.lib.js", () => {
       expect(result).toEqual(expectedOutput);
     });
 
-    it("should agree to submit metrics when the current commit succeeded and the last commit failed tests", async () => {
-      const testsFailed = false;
-      jest.unstable_mockModule("./common", () => {
-        return {
-          ...actualCommon,
-          getParentCommitSha: () => "some-failing-sha",
-          getCombinedStatusForCommit: () => "failure",
-        };
-      });
-      const { shouldSubmitMetrics } = await import("./time_to_restore.lib");
-      const result = await shouldSubmitMetrics(testsFailed);
-      const expectedOutput = true;
-      expect(result).toEqual(expectedOutput);
+  });
+});
+
+describe("buildTimeToRestoreMetricSeries", () => {
+  const PREVIOUS_ENV = process.env;
+
+  beforeEach(() => {
+    jest.resetModules();
+    process.env = { ...PREVIOUS_ENV };
+  });
+
+  // eslint-disable-next-line no-undef
+  afterAll(() => {
+    process.env = PREVIOUS_ENV;
+  });
+
+  it("should return a metric series with the correct name and data point", async () => {
+    const now = 1700000000;
+    const restoreTimestamp = 1690000000;
+    const expectedRestoreTime = 10000000;
+
+    jest.unstable_mockModule("./common", async () => {
+      return {
+        ...actualCommon,
+        startTime: now,
+      };
     });
 
-    it("should agree to submit metrics when the current commit succeeded and the last commit failed tests", async () => {
-      const testsFailed = false;
-      jest.unstable_mockModule("./common", () => {
-        return {
-          ...actualCommon,
-          getParentCommitSha: () => "some-failing-sha",
-          getCombinedStatusForCommit: () => "failure",
-        };
-      });
-      const { shouldSubmitMetrics } = await import("./time_to_restore.lib");
-      const result = await shouldSubmitMetrics(testsFailed);
-      const expectedOutput = true;
-      expect(result).toEqual(expectedOutput);
+    const { buildTimeToRestoreMetricSeries } = await import("./time_to_restore.lib");
+    const result = buildTimeToRestoreMetricSeries(expectedRestoreTime);
+
+    const expectedOutput = {
+      metric: "cms_test.product_delivery.time_to_restore",
+      points: [
+        {
+          timestamp: now,
+          value: expectedRestoreTime,
+        },
+      ],
+      resources: [
+        {
+          name: "https://va-gov-cms.ddev.site/",
+          type: "host",
+        },
+        {
+          name: "local",
+          type: "env",
+        },
+      ],
+      type: 3,
+    };
+
+    expect(result).toEqual(expectedOutput);
+  });
+});
+
+describe("calculateAccruedTimeInFailure", () => {
+  beforeEach(() => {
+    jest.resetModules();
+  });
+
+  it("should calculate the accrued time in failure correctly", async () => {
+    jest.unstable_mockModule("./common", () => {
+      return {
+        ...actualCommon,
+        getCommitTimestamp: jest.fn().mockImplementation((sha) => {
+          if (sha === "failing-sha-2") {
+            return 3000;
+          }
+          if (sha === "failing-sha-1") {
+            return 2000;
+          }
+          if (sha === "passing-sha") {
+            return 1000;
+          }
+          throw new Error("Unexpected sha");
+        }),
+        getParentCommitSha: jest.fn().mockImplementation((sha) => {
+          if (sha === "failing-sha-2") {
+            return "failing-sha-1";
+          }
+          if (sha === "failing-sha-1") {
+            return "passing-sha";
+          }
+          if (sha === "passing-sha") {
+            return "some-sha";
+          }
+          throw new Error("Unexpected sha");
+        }),
+        getCombinedStatusForCommit: jest.fn().mockImplementation(async (owner, repo, sha) => {
+          if (sha.startsWith("failing-sha")) {
+            return "failure";
+          }
+          if (sha.startsWith("passing-sha")) {
+            return "success";
+          }
+        }),
+      };
     });
 
+    const { calculateAccruedTimeInFailure } = await import("./time_to_restore.lib");
+    const result = await calculateAccruedTimeInFailure("failing-sha-2");
+    const expectedOutput = 1000;
+    expect(result).toEqual(expectedOutput);
+  });
+
+  it("should calculate the accrued time in failure correctly for three failing commits", async () => {
+    jest.unstable_mockModule("./common", () => {
+      return {
+        ...actualCommon,
+        getCommitTimestamp: jest.fn().mockImplementation((sha) => {
+          if (sha === "failing-sha-3") {
+            return 4000;
+          }
+          if (sha === "failing-sha-2") {
+            return 3000;
+          }
+          if (sha === "failing-sha-1") {
+            return 2000;
+          }
+          if (sha === "passing-sha") {
+            return 1000;
+          }
+          throw new Error("Unexpected sha");
+        }),
+        getParentCommitSha: jest.fn().mockImplementation((sha) => {
+          if (sha === "failing-sha-3") {
+            return "failing-sha-2";
+          }
+          if (sha === "failing-sha-2") {
+            return "failing-sha-1";
+          }
+          if (sha === "failing-sha-1") {
+            return "passing-sha";
+          }
+          if (sha === "passing-sha") {
+            return "some-sha";
+          }
+          throw new Error("Unexpected sha");
+        }),
+        getCombinedStatusForCommit: jest.fn().mockImplementation(async (owner, repo, sha) => {
+          if (sha.startsWith("failing-sha")) {
+            return "failure";
+          }
+          if (sha.startsWith("passing-sha")) {
+            return "success";
+          }
+        }),
+      };
+    });
+  
+    const { calculateAccruedTimeInFailure } = await import("./time_to_restore.lib");
+    const result = await calculateAccruedTimeInFailure("failing-sha-3");
+    const expectedOutput = 2000;
+    expect(result).toEqual(expectedOutput);
+  });
+  
+  it("should return zero if the previous commit was not a failure", async () => {
+    jest.unstable_mockModule("./common", () => {
+      return {
+        ...actualCommon,
+        getCommitTimestamp: jest.fn().mockImplementation(() => 3000),
+        getParentCommitSha: jest.fn().mockImplementation(() => "passing-sha"),
+        getCombinedStatusForCommit: jest.fn().mockImplementation(async (owner, repo, sha) => {
+          return "success";
+        }),
+      };
+    });
+
+    const { calculateAccruedTimeInFailure } = await import("./time_to_restore.lib");
+    const result = await calculateAccruedTimeInFailure("failing-sha-3");
+    const expectedOutput = 0;
+    expect(result).toEqual(expectedOutput);
+  });
+});
+
+describe("calculateTimeToRestore", () => {
+  beforeEach(() => {
+    jest.resetModules();
+  });
+
+  it("should calculate the time to restore service correctly", async () => {
+    jest.unstable_mockModule("./common", () => {
+      return {
+        ...actualCommon,
+        getCommitTimestamp: jest.fn().mockImplementation((sha) => {
+          if (sha === "HEAD") {
+            return 4000;
+          }
+          if (sha === "failing-sha-2") {
+            return 3000;
+          }
+          if (sha === "failing-sha-1") {
+            return 2000;
+          }
+          if (sha === "passing-sha") {
+            return 1000;
+          }
+          throw new Error("Unexpected sha");
+        }),
+        getParentCommitSha: jest.fn().mockImplementation((sha) => {
+          if (sha === "HEAD") {
+            return "failing-sha-2";
+          }
+          if (sha === "failing-sha-2") {
+            return "failing-sha-1";
+          }
+          if (sha === "failing-sha-1") {
+            return "passing-sha";
+          }
+          if (sha === "passing-sha") {
+            return "some-sha";
+          }
+          throw new Error("Unexpected sha");
+        }),
+        getCombinedStatusForCommit: jest.fn().mockImplementation(async (owner, repo, sha) => {
+          if (sha.startsWith("failing-sha")) {
+            return "failure";
+          }
+          if (sha.startsWith("passing-sha") || sha === "HEAD") {
+            return "success";
+          }
+        }),
+      };
+    });
+
+    const { calculateTimeToRestore } = await import("./time_to_restore.lib");
+    const result = await calculateTimeToRestore();
+    const expectedOutput = 2000;
+    expect(result).toEqual(expectedOutput);
+  });
+
+  it("should calculate the time to restore service correctly when there is no accrued failure time", async () => {
+    jest.unstable_mockModule("./common", () => {
+      return {
+        ...actualCommon,
+        getCommitTimestamp: jest.fn().mockImplementation((sha) => {
+          if (sha === "HEAD") {
+            return 2000;
+          }
+          if (sha === "failing-sha-1") {
+            return 1000;
+          }
+          if (sha === "passing-sha") {
+            return 0;
+          }
+          throw new Error("Unexpected sha");
+        }),
+        getParentCommitSha: jest.fn().mockImplementation((sha) => {
+          if (sha === "HEAD") {
+            return "failing-sha-1";
+          }
+          if (sha === "failing-sha-1") {
+            return "passing-sha";
+          }
+          if (sha === "passing-sha") { 
+            return "some-sha";
+          }
+          throw new Error("Unexpected sha");
+        }),
+        getCombinedStatusForCommit: jest.fn().mockImplementation(async (owner, repo, sha) => {
+          if (sha === "HEAD") {
+            return "passing";
+          }
+          if (sha.startsWith("failing-sha")) {
+            return "failure";
+          }
+          if (sha.startsWith("passing-sha")) {
+            return "success";
+          }
+        }),
+      };
+    });
+
+    const { calculateTimeToRestore } = await import("./time_to_restore.lib");
+    const result = await calculateTimeToRestore();
+    const expectedOutput = 1000;
+    expect(result).toEqual(expectedOutput);
   });
 });
