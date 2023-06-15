@@ -1,6 +1,7 @@
 /* eslint-disable max-nested-callbacks */
 // eslint-disable-next-line import/no-extraneous-dependencies, no-unused-vars
 import { jest } from "@jest/globals";
+const actualCommon = await import("./common");
 
 describe("test_end_lead_time.lib.js", () => {
   const PREVIOUS_ENV = process.env;
@@ -20,8 +21,6 @@ describe("test_end_lead_time.lib.js", () => {
       const now = 1700000000;
       const commitTimestamp = 1680000000;
       const expectedLeadTime = 20000000;
-      /** eslint-disable-next-line */
-      const actualCommon = await import("./common");
       jest.unstable_mockModule("./common", async () => {
         return {
           ...actualCommon,
@@ -60,7 +59,6 @@ describe("test_end_lead_time.lib.js", () => {
       const now = 1700000000;
       const commitTimestamp = 1680000000;
       const expectedLeadTime = 20000000;
-      const actualCommon = await import("./common");
       jest.unstable_mockModule("./common", async () => {
         return {
           ...actualCommon,
@@ -98,7 +96,6 @@ describe("test_end_lead_time.lib.js", () => {
       const now = 1700000000;
       const commitTimestamp = 1680000000;
       const expectedLeadTime = 20000000;
-      const actualCommon = await import("./common");
       jest.unstable_mockModule("./common", async () => {
         return {
           ...actualCommon,

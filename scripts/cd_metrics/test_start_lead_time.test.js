@@ -2,6 +2,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies, no-unused-vars
 import { jest } from "@jest/globals";
 
+const actualCommon = await import("./common");
+
 describe("test_start_lead_time.lib.js", () => {
   const PREVIOUS_ENV = process.env;
 
@@ -20,7 +22,6 @@ describe("test_start_lead_time.lib.js", () => {
       const now = 1700000000;
       const commitTimestamp = 1680000000;
       const expectedLeadTime = 20000000;
-      const actualCommon = await import("./common");
       jest.unstable_mockModule("./common", async () => {
         return {
           ...actualCommon,
