@@ -10,7 +10,7 @@ import {
 } from "./common.js";
 
 /**
- * @file Calculate (and submit to Datadog) a metric for the time to restore service.
+ * @file Calculate a metric for the time to restore service.
  *
  * For our purposes, and because it's too substantial of a pain to calculate this
  * any other way, we define "time to restore service" as the delta between the
@@ -26,6 +26,9 @@ import {
  *    A. We set the current commit as the "first passing commit".
  *    B. We calculate the accrued time in failure for the previous commit, that is,
  *    the time between the first failing commit and that commit.
+ *    C. The time to restore service is equal to that accrued time in failure plus
+ *    the time between the previous (last failing) commit and the current (first 
+ *    passing) commit.
  *
  * For example, if we have the following commits:
  *    A. 2021-01-01: Passed
@@ -34,7 +37,7 @@ import {
  *    D. 2021-01-04: Passed
  *
  * Then the accrued time in failure for commit C is 0, because it is the first failing
- * commit. The accrued time in failure for commit D is 86400, because it is the first
+ * commit. The time to restore for commit D is 86400, because it is the first
  * passing commit after commit C, and the time between commit C and commit D is 86400
  * seconds.
  *
@@ -50,7 +53,7 @@ import {
  * commit. The accrued time in failure for commit C is 86400, because the time between
  * commit B and commit C is 86400 seconds. The accrued time in failure for commit D is
  * 172800 (D - C + C - B). The accrued time in failure for E is 259200 (E - D + D - C +
- * C - B). The accrued time in failure for F is 345600 (F - E + E - D + D - C + C - B).
+ * C - B). The time to restore for F is 345600 (F - E + E - D + D - C + C - B).
  */
 
 const owner = "department-of-veterans-affairs";
