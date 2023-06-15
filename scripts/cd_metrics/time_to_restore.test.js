@@ -1,7 +1,7 @@
 /* eslint-disable max-nested-callbacks */
 // eslint-disable-next-line import/no-extraneous-dependencies, no-unused-vars
 import { jest } from "@jest/globals";
-const actualCommon = await import("./common");
+const actualCommon = await import("./common.js");
 
 describe("time_to_restore.lib.js", () => {
   const PREVIOUS_ENV = process.env;
@@ -19,14 +19,14 @@ describe("time_to_restore.lib.js", () => {
   describe("shouldSubmitMetrics", () => {
     it("should refuse to submit metrics when in a failure state", async () => {
       const testsFailed = true;
-      jest.unstable_mockModule("./common", () => {
+      jest.unstable_mockModule("./common.js", () => {
         return {
           ...actualCommon,
           getParentCommitSha: jest.fn(() => "some-irrelevant-sha"),
           getCombinedStatusForCommit: jest.fn(async () => "not-needed"),
         };
       });
-      const { shouldSubmitMetrics } = await import("./time_to_restore.lib");
+      const { shouldSubmitMetrics } = await import("./time_to_restore.lib.js");
       const result = await shouldSubmitMetrics(testsFailed);
       const expectedOutput = false;
       expect(result).toEqual(expectedOutput);
@@ -34,14 +34,14 @@ describe("time_to_restore.lib.js", () => {
 
     it("should agree to submit metrics when the current commit succeeded and the last commit failed tests", async () => {
       const testsFailed = false;
-      jest.unstable_mockModule("./common", () => {
+      jest.unstable_mockModule("./common.js", () => {
         return {
           ...actualCommon,
           getParentCommitSha: jest.fn(() => "some-failing-sha"),
           getCombinedStatusForCommit: jest.fn(async () => "failure"),
         };
       });
-      const { shouldSubmitMetrics } = await import("./time_to_restore.lib");
+      const { shouldSubmitMetrics } = await import("./time_to_restore.lib.js");
       const result = await shouldSubmitMetrics(testsFailed);
       const expectedOutput = true;
       expect(result).toEqual(expectedOutput);
@@ -49,14 +49,14 @@ describe("time_to_restore.lib.js", () => {
 
     it("should refuse to submit metrics when the current commit succeeded and the last commit passed tests", async () => {
       const testsFailed = false;
-      jest.unstable_mockModule("./common", async () => {
+      jest.unstable_mockModule("./common.js", async () => {
         return {
           ...actualCommon,
           getParentCommitSha: jest.fn(() => "some-passing-sha"),
           getCombinedStatusForCommit: jest.fn(() => "success"),
         };
       });
-      const { shouldSubmitMetrics } = await import("./time_to_restore.lib");
+      const { shouldSubmitMetrics } = await import("./time_to_restore.lib.js");
       const result = await shouldSubmitMetrics(testsFailed);
       const expectedOutput = false;
       expect(result).toEqual(expectedOutput);
@@ -64,14 +64,14 @@ describe("time_to_restore.lib.js", () => {
 
     it("should refuse to submit metrics when the current commit succeeded and the last commit is marked pending", async () => {
       const testsFailed = false;
-      jest.unstable_mockModule("./common", () => {
+      jest.unstable_mockModule("./common.js", () => {
         return {
           ...actualCommon,
           getParentCommitSha: () => "some-pending-sha",
           getCombinedStatusForCommit: () => "pending",
         };
       });
-      const { shouldSubmitMetrics } = await import("./time_to_restore.lib");
+      const { shouldSubmitMetrics } = await import("./time_to_restore.lib.js");
       const result = await shouldSubmitMetrics(testsFailed);
       const expectedOutput = false;
       expect(result).toEqual(expectedOutput);
@@ -98,14 +98,14 @@ describe("buildTimeToRestoreMetricSeries", () => {
     const restoreTimestamp = 1690000000;
     const expectedRestoreTime = 10000000;
 
-    jest.unstable_mockModule("./common", async () => {
+    jest.unstable_mockModule("./common.js", async () => {
       return {
         ...actualCommon,
         startTime: now,
       };
     });
 
-    const { buildTimeToRestoreMetricSeries } = await import("./time_to_restore.lib");
+    const { buildTimeToRestoreMetricSeries } = await import("./time_to_restore.lib.js");
     const result = buildTimeToRestoreMetricSeries(expectedRestoreTime);
 
     const expectedOutput = {
@@ -139,7 +139,7 @@ describe("calculateAccruedTimeInFailure", () => {
   });
 
   it("should calculate the accrued time in failure correctly", async () => {
-    jest.unstable_mockModule("./common", () => {
+    jest.unstable_mockModule("./common.js", () => {
       return {
         ...actualCommon,
         getCommitTimestamp: jest.fn().mockImplementation((sha) => {
@@ -177,14 +177,14 @@ describe("calculateAccruedTimeInFailure", () => {
       };
     });
 
-    const { calculateAccruedTimeInFailure } = await import("./time_to_restore.lib");
+    const { calculateAccruedTimeInFailure } = await import("./time_to_restore.lib.js");
     const result = await calculateAccruedTimeInFailure("failing-sha-2");
     const expectedOutput = 1000;
     expect(result).toEqual(expectedOutput);
   });
 
   it("should calculate the accrued time in failure correctly for three failing commits", async () => {
-    jest.unstable_mockModule("./common", () => {
+    jest.unstable_mockModule("./common.js", () => {
       return {
         ...actualCommon,
         getCommitTimestamp: jest.fn().mockImplementation((sha) => {
@@ -228,14 +228,14 @@ describe("calculateAccruedTimeInFailure", () => {
       };
     });
   
-    const { calculateAccruedTimeInFailure } = await import("./time_to_restore.lib");
+    const { calculateAccruedTimeInFailure } = await import("./time_to_restore.lib.js");
     const result = await calculateAccruedTimeInFailure("failing-sha-3");
     const expectedOutput = 2000;
     expect(result).toEqual(expectedOutput);
   });
   
   it("should return zero if the previous commit was not a failure", async () => {
-    jest.unstable_mockModule("./common", () => {
+    jest.unstable_mockModule("./common.js", () => {
       return {
         ...actualCommon,
         getCommitTimestamp: jest.fn().mockImplementation(() => 3000),
@@ -246,7 +246,7 @@ describe("calculateAccruedTimeInFailure", () => {
       };
     });
 
-    const { calculateAccruedTimeInFailure } = await import("./time_to_restore.lib");
+    const { calculateAccruedTimeInFailure } = await import("./time_to_restore.lib.js");
     const result = await calculateAccruedTimeInFailure("failing-sha-3");
     const expectedOutput = 0;
     expect(result).toEqual(expectedOutput);
@@ -259,7 +259,7 @@ describe("calculateTimeToRestore", () => {
   });
 
   it("should calculate the time to restore service correctly", async () => {
-    jest.unstable_mockModule("./common", () => {
+    jest.unstable_mockModule("./common.js", () => {
       return {
         ...actualCommon,
         getCommitTimestamp: jest.fn().mockImplementation((sha) => {
@@ -303,14 +303,14 @@ describe("calculateTimeToRestore", () => {
       };
     });
 
-    const { calculateTimeToRestore } = await import("./time_to_restore.lib");
+    const { calculateTimeToRestore } = await import("./time_to_restore.lib.js");
     const result = await calculateTimeToRestore();
     const expectedOutput = 2000;
     expect(result).toEqual(expectedOutput);
   });
 
   it("should calculate the time to restore service correctly when there is no accrued failure time", async () => {
-    jest.unstable_mockModule("./common", () => {
+    jest.unstable_mockModule("./common.js", () => {
       return {
         ...actualCommon,
         getCommitTimestamp: jest.fn().mockImplementation((sha) => {
@@ -351,7 +351,7 @@ describe("calculateTimeToRestore", () => {
       };
     });
 
-    const { calculateTimeToRestore } = await import("./time_to_restore.lib");
+    const { calculateTimeToRestore } = await import("./time_to_restore.lib.js");
     const result = await calculateTimeToRestore();
     const expectedOutput = 1000;
     expect(result).toEqual(expectedOutput);

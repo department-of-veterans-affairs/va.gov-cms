@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
-import { metricsApi, startTime } from "./common";
+import { metricsApi, startTime } from "./common.js";
 import {
   buildTestEndLeadTimeMetricSeries,
   buildTestResultLeadTimeMetricSeries,
-} from "./test_end_lead_time.lib";
+} from "./test_end_lead_time.lib.js";
 
 const testsFailed = process.env.CMS_TESTS_FAILED === "true";
 

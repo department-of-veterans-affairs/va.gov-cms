@@ -4,7 +4,7 @@ import {
   buildMetricsObject,
   getStandardizedMetricName,
   getCommitTimestamp,
-} from "./common";
+} from "./common.js";
 
 /**
  * Build a metric series for the test_end_lead_time metric.

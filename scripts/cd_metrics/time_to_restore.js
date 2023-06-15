@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
-import { metricsApi } from "./common";
+import { metricsApi } from "./common.js";
 import {
   shouldSubmitMetrics,
   calculateTimeToRestore,
   buildTimeToRestoreMetricSeries,
-} from "./time_to_restore.lib";
+} from "./time_to_restore.lib.js";
 
 const testsFailed = process.env.CMS_TESTS_FAILED === "true";
 

@@ -2,7 +2,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies, no-unused-vars
 import { jest } from "@jest/globals";
 
-const actualCommon = await import("./common");
+const actualCommon = await import("./common.js");
 
 describe("test_start_lead_time.lib.js", () => {
   const PREVIOUS_ENV = process.env;
@@ -22,14 +22,14 @@ describe("test_start_lead_time.lib.js", () => {
       const now = 1700000000;
       const commitTimestamp = 1680000000;
       const expectedLeadTime = 20000000;
-      jest.unstable_mockModule("./common", async () => {
+      jest.unstable_mockModule("./common.js", async () => {
         return {
           ...actualCommon,
           startTime: now,
           getCommitTimestamp: () => commitTimestamp,
         };
       });
-      const { buildTestStartLeadTimeMetricSeries } = await import("./test_start_lead_time.lib");
+      const { buildTestStartLeadTimeMetricSeries } = await import("./test_start_lead_time.lib.js");
       const result = buildTestStartLeadTimeMetricSeries(now);
       const expectedOutput = {
         metric: "cms_test.product_delivery.test_start_lead_time",

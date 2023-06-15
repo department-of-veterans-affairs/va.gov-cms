@@ -7,7 +7,7 @@ import {
   buildLeadTimeDataPoint,
   getStandardizedMetricName,
   startTime,
-} from "./common";
+} from "./common.js";
 
 /**
  * @file Calculate (and submit to Datadog) a metric for the time to restore service.

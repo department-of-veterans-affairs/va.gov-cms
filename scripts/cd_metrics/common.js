@@ -3,7 +3,6 @@
 import { client, v2 } from "@datadog/datadog-api-client";
 import { execSync } from "child_process";
 import { Octokit } from "@octokit/rest";
-import { Console } from "console";
 
 const options = {
   authMethods: {

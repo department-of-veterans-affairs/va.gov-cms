@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
-import { metricsApi, startTime } from "./common";
-import { buildTestStartLeadTimeMetricSeries } from "./test_start_lead_time.lib";
+import { metricsApi, startTime } from "./common.js";
+import { buildTestStartLeadTimeMetricSeries } from "./test_start_lead_time.lib.js";
 
 const params = {
   body: {
