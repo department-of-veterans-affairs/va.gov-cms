@@ -8,7 +8,7 @@
     "test_start_lead_time": "node ./test_start_lead_time.js",
     "test_end_lead_time": "node ./test_end_lead_time.js",
     "time_to_restore": "node ./time_to_restore.js",
-    "test": "CMS_DATADOG_TEST_MODE=true NODE_OPTIONS=--experimental-vm-modules npx jest --verbose"
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --verbose"
   },
   "dependencies": {
     "@datadog/datadog-api-client": "^1.13.0",
