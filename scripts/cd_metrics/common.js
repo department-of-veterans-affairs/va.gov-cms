@@ -16,7 +16,7 @@ client.setServerVariables(configuration, {
   site: "ddog-gov.com", // GovCloud Datadog host
 });
 
-const inTestMode = process.env.CMS_DATADOG_TEST_MODE === "true";
+const inTestMode = process.env.CMS_APP_NAME === "cms-test" || process.env.CMS_DATADOG_TEST_MODE === "true";
 const address =
   process.env.CMS_DRUPAL_ADDRESS || process.env.DRUPAL_ADDRESS || "unknown";
 const environment = process.env.CMS_ENVIRONMENT_TYPE || "unknown";
