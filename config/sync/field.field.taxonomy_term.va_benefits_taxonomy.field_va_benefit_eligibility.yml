@@ -5,7 +5,6 @@ dependencies:
   config:
     - field.storage.taxonomy_term.field_va_benefit_eligibility
     - paragraphs.paragraphs_type.magichead_group
-    - paragraphs.paragraphs_type.magichead_intro
     - taxonomy.vocabulary.va_benefits_taxonomy
   module:
     - entity_reference_hierarchy_revisions
@@ -29,7 +28,6 @@ settings:
     negate: '0'
     target_bundles:
       magichead_group: magichead_group
-      magichead_intro: magichead_intro
     target_bundles_drag_drop:
       address:
         weight: '47'
