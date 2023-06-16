@@ -16,8 +16,8 @@ id: taxonomy_term.va_benefits_taxonomy.field_va_benefit_eligibility
 field_name: field_va_benefit_eligibility
 entity_type: taxonomy_term
 bundle: va_benefits_taxonomy
-label: 'Eligibility overview'
-description: 'Describe the eligibility rules that cover the most common scenarios. '
+label: 'Eligibility overview sections'
+description: 'Group the eligibility information into logical sections. Each section will contain a heading and optional paragraph content. The drag and drop feature controls section depth. Section depth determines the relative position of this section to other sections.'
 required: false
 translatable: false
 default_value: {  }
@@ -101,9 +101,6 @@ settings:
       magichead_group:
         enabled: '1'
         weight: '70'
-      magichead_intro:
-        enabled: '1'
-        weight: '71'
       media:
         weight: '72'
         enabled: 0
