@@ -108,7 +108,9 @@ You can view team sprint boards using either the Github view with Zenhub browser
   - [ ] Retro
 
 ### People
-- [ ] Familiarize yourself with our team's shared calendars: [Sitewide Team calendar](https://calendar.google.com/calendar/u/1?cid=c2l0ZXdpZGUtdGVhbUBhZ2lsZTYuY29t) and [VFS-CMS team calendar] (link tbd) and add in any known upcoming out of office (OOO). Choose "Calendar" = OOO and "Event type" = whatever is relevant.
+- [ ] Familiarize yourself with our team's shared calendars: [Sitewide Team calendar](https://calendar.google.com/calendar/u/1?cid=c2l0ZXdpZGUtdGVhbUBhZ2lsZTYuY29t) and [VFS-CMS team calendar] (https://calendar.google.com/calendar/u/1/r?cid=vfs-cms-team@agile6.com) 
+    * Ask your DM to add you with write access to the calendar, if you have not already received / accepted an invite
+    * Add any known upcoming out of office (OOO).
 - [ ] Let's start introducing you to the team and key stakeholders. If you're on a meeting where you don't know someone, feel free to kickstart an introduction. Everyone in the ecosystem is friendly and interested in connecting.
 
 ### Context & History
