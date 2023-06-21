@@ -2,15 +2,11 @@
 
 /**
  * @file
- * Support for VA.gov multilingual.
- */
-
-use Drupal\Core\Form\FormStateInterface;
-
-/**
- * @file
  * Support for VA.gov Multilingual functionality.
  */
+
+use Drupal\Core\Entity\ContentEntityBase;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Implements hook_field_widget_single_element_form_alter().
@@ -23,7 +19,7 @@ function va_gov_multilingual_field_widget_single_element_form_alter(array &$elem
   if (method_exists($form_object, 'getEntity')) {
     $entity = $form_object->getEntity();
   }
-  if (isset($entity) && !$entity->isDefaultTranslation()) {
+  if (isset($entity) && $entity instanceof ContentEntityBase && !$entity->isDefaultTranslation()) {
     $field_widget_id = $context['widget']->getPluginId();
     $counter_widget_ids = [
       'string_textarea_with_counter',
