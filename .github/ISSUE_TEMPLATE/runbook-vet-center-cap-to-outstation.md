@@ -60,7 +60,7 @@ Note: We should always check to see if there is an existing facility at that add
 - [ ] 5. Add the photo from the CAP as the photo for the new Outstation. This will prevent duplicate photos from being uploaded into Drupal.
 ### Publish new Outstation
 - [ ] 6. Publish the new Outstation 
-- [ ] 7. Archive the old CAP. NOTE: redirects are not necessary due to low traffic, same page as landing, and general overhead/maintenance.
+- [ ] 7. Archive the old with a revision log that points to the new OS, set status to closed and clear out status description. CAP. NOTE: redirects are not necessary due to low traffic, same page as landing, and general overhead/maintenance.
 - [ ] 6. Remove the `New facility` flag from the node.
 - [ ] 7. Communicate with editor and RCS Central Office
 
