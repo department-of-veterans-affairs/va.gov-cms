@@ -1,3 +1,15 @@
+diff --git a/drush.services.yml b/drush.services.yml
+new file mode 100644
+index 0000000..1cf22e4
+--- /dev/null
++++ b/drush.services.yml
+@@ -0,0 +1,6 @@
++services:
++  sitewide_alert.commands:
++    class: Drupal\sitewide_alert\Commands\SitewideAlertCommands
++    arguments: ['@sitewide_alert.cli_commands']
++    tags:
++      - { name: drush.command }
 diff --git a/sitewide_alert.services.yml b/sitewide_alert.services.yml
 index 62e0c38..1e8e5af 100644
 --- a/sitewide_alert.services.yml
@@ -9,3 +21,720 @@ index 62e0c38..1e8e5af 100644
 +  sitewide_alert.cli_commands:
 +    class: Drupal\sitewide_alert\CliCommands
 +    arguments: ['@entity_type.manager']
+diff --git a/src/CliCommands.php b/src/CliCommands.php
+new file mode 100644
+index 0000000..01fa363
+--- /dev/null
++++ b/src/CliCommands.php
+@@ -0,0 +1,220 @@
++<?php
++
++declare(strict_types = 1);
++
++namespace Drupal\sitewide_alert;
++
++use Drupal\Core\Entity\EntityTypeManagerInterface;
++use Drupal\Core\Datetime\DrupalDateTime;
++use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
++use Drupal\sitewide_alert\Entity\SitewideAlert;
++
++/**
++ * Service with shared code for CLI tools to perform common tasks.
++ */
++class CliCommands implements CliCommandsInterface {
++
++  /**
++   * The entity type manager.
++   *
++   * @var EntityTypeManagerInterface
++   */
++  private EntityTypeManagerInterface $entityTypeManager;
++
++  /**
++   * Constructs a new CliCommands service.
++   *
++   * @param EntityTypeManagerInterface $entityTypeManager
++   *   The entity type manager.
++   */
++  public function __construct(EntityTypeManagerInterface $entityTypeManager) {
++    $this->entityTypeManager = $entityTypeManager;
++  }
++
++  /**
++   * {@inheritdoc}
++   */
++  public function create(string $label, string $message, array $options): void {
++    $this->validateCreateInput($label, $message, $options);
++
++    // Set possible options.
++    $start = $options['start'] ?? NULL;
++    $end = $options['end'] ?? NULL;
++    $status = $options['status'] ?? TRUE;
++    $dismissible = $options['dismissible'] ?? NULL;
++    $style = $this->normalizeStyle($options['style'] ?? 'primary');
++
++    $storage = $this->entityTypeManager->getStorage('sitewide_alert');
++    $entity_values = [
++      'status' => $status,
++      'name' => $label,
++      'style' => $style,
++      'dismissible' => $dismissible,
++      'message' => $message,
++    ];
++
++    if (!empty($start) || !empty($end)) {
++      $entity_values['scheduled_alert'] = TRUE;
++      $entity_values['scheduled_date'] = [
++        'value' => $start,
++        'end_value' => $end,
++      ];
++    }
++
++    $sitewide_alert = $storage->create($entity_values);
++    $storage->save($sitewide_alert);
++  }
++
++  /**
++   * {@inheritdoc}
++   */
++  public function validateCreateInput(string $label, string $message, array &$options): void {
++    // Validate the label parameter.
++    if (empty($label)) {
++      throw new \InvalidArgumentException('A label is required.');
++    }
++
++    // Validate the message parameter.
++    if (empty($message)) {
++      throw new \InvalidArgumentException('A message is required.');
++    }
++
++    // Validate the 'start' and 'end' options.
++    foreach (['start', 'end'] as $option) {
++      if (!empty($options[$option])) {
++        if (strtotime($options[$option]) === FALSE) {
++          throw new \InvalidArgumentException(sprintf("Invalid date format for '%s' option.", $option));
++        }
++        $options[$option] = (new DrupalDateTime($options[$option], DateTimeItemInterface::STORAGE_TIMEZONE))->format(DateTimeItemInterface::DATETIME_STORAGE_FORMAT);
++      }
++      // If only an end time is passed, set the start date to pass field validation.
++      if (isset($options['end']) && empty($options['start'])) {
++        $options['start'] = (new DrupalDateTime('now', DateTimeItemInterface::STORAGE_TIMEZONE))->format(DateTimeItemInterface::DATETIME_STORAGE_FORMAT);
++      }
++    }
++
++    // Validate the 'status' option.
++    if (isset($options['status']) && !is_bool($options['status'])) {
++      throw new \InvalidArgumentException("The 'status' option should be a boolean value.");
++    }
++
++    // Validate the 'style' option.
++    if (!empty($options['style'])
++      && !array_key_exists($options['style'], AlertStyleProvider::alertStyles())) {
++        throw new \InvalidArgumentException(sprintf("The 'style' option should be one of %s.", implode(',', array_keys(AlertStyleProvider::alertStyles()))));
++    }
++
++    // Validate the 'dismissible' option.
++    if (isset($options['dismissible']) && !is_bool($options['dismissible'])) {
++      throw new \InvalidArgumentException("The 'dismissible' option should be a boolean value.");
++    }
++  }
++
++  /**
++   * {@inheritdoc}
++   */
++  public function delete(string $label): int {
++    if (empty($label)) {
++      throw new \InvalidArgumentException('A label is required.');
++    }
++
++    $sitewide_alert = $this->getAlertsByLabel($label);
++    $count = count($sitewide_alert);
++
++    $this->entityTypeManager->getStorage('sitewide_alert')->delete($sitewide_alert);
++
++    return $count;
++  }
++
++  /**
++   * {@inheritdoc}
++   */
++  public function disable(?string $label = NULL): int {
++    if (empty($label)) {
++      $sitewide_alert = $this->entityTypeManager->getStorage('sitewide_alert')->loadByProperties(['status' => 1]);
++    }
++    else {
++      $sitewide_alert = $this->getAlertsByLabel($label, TRUE);
++      if (empty($sitewide_alert)) {
++        throw new \InvalidArgumentException(sprintf("No active sitewide alerts found with the label '%s'.", $label));
++      }
++    }
++
++    $count = 0;
++    foreach ($sitewide_alert as $alert) {
++      $alert->set('status', FALSE)->save();
++      $count++;
++    }
++    return $count;
++  }
++
++  /**
++   * {@inheritdoc}
++   */
++  public function enable(string $label): int {
++    $sitewide_alert = $this->getAlertsByLabel($label, FALSE);
++    if (empty($sitewide_alert)) {
++      throw new \InvalidArgumentException(sprintf("No inactive sitewide alerts found with the label '%s'.", $label));
++    }
++
++    $count = 0;
++    foreach ($sitewide_alert as $alert) {
++      $alert->set('status', TRUE)->save();
++      $count++;
++    }
++    return $count;
++  }
++
++  /**
++   * Returns all site alerts that match the given label.
++   *
++   * @param string $label
++   *   The label to match.
++   * @param bool|null $status
++   *   When TRUE or FALSE only active or inactive site alerts are returned. If
++   *   NULL, both are returned.
++   *
++   * @return SitewideAlert[]
++   *   An array of site alert entities that match the label.
++   */
++  protected function getAlertsByLabel(string $label, ?bool $status = NULL): array {
++    $sitewide_alert = [];
++    if (!empty($label)) {
++      $storage = $this->entityTypeManager->getStorage('sitewide_alert');
++      $query = $storage->getQuery();
++      $query->condition('name', $label, '=');
++      if ($status !== NULL) {
++        $query->condition('status', $status);
++      }
++      $result = $query->execute();
++
++      if (!empty($result)) {
++        $sitewide_alert = $storage->loadMultiple($result);
++      }
++    }
++
++    return $sitewide_alert;
++  }
++
++  /**
++   * Normalizes to an allowed value.
++   *
++   * @param string $style
++   *   One of the values defined in the sitewide_alert.settings for styles.
++   *
++   * @return string
++   *   The normalized style.
++   */
++  protected function normalizeStyle(string $style = 'primary'): string {
++    $style = trim($style);
++    $style = strtolower($style);
++    $allowed_styles = array_keys(AlertStyleProvider::alertStyles());
++
++    if (!in_array($style, $allowed_styles)) {
++      $style = 'primary';
++    }
++
++    return $style;
++  }
++
++}
+diff --git a/src/CliCommandsInterface.php b/src/CliCommandsInterface.php
+new file mode 100644
+index 0000000..1005d9d
+--- /dev/null
++++ b/src/CliCommandsInterface.php
+@@ -0,0 +1,105 @@
++<?php
++
++declare(strict_types = 1);
++
++namespace Drupal\sitewide_alert;
++
++/**
++ * Interface for a service with shared code for CLI tools.
++ */
++interface CliCommandsInterface {
++
++  /**
++   * Creates a new sitewide alert.
++   *
++   * @param string $label
++   *   The label of the sitewide alert.
++   * @param string $message
++   *   The message to put in the sitewide alert.
++   * @param array $options
++   *   Array of optional human readable values to set on the sitewide alert, passed
++   *   on the command line. The following values can be set:
++   *   - start: The start date, in ISO 8601 format.
++   *   - end: The end date, in ISO 8601 format.
++   *   - status: Optional boolean value indicating if the created alert will be
++   *     activated. If omitted or set to TRUE, the alert will be active. If set
++   *     to FALSE it will be inactive.
++   *   - style: The style of alert, from the list provided in config. If
++   *     omitted or any other value this will default to 'primary'.
++   *
++   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
++   *   Thrown when the sitewide alert entity definition is invalid.
++   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
++   *   Thrown when the sitewide alert entity type is not defined.
++   * @throws \Drupal\Core\Entity\EntityStorageException
++   *   Thrown when an error occurs during the saving of the sitewide alert.
++   * @throws \InvalidArgumentException
++   *   Thrown in case one of the passed in arguments or options is invalid.
++   */
++  public function create(string $label, string $message, array $options): void;
++
++  /**
++   * Validates the input for the 'create' command.
++   *
++   * @param string $label
++   *   The label argument.
++   * @param string $message
++   *   The message argument.
++   * @param array $options
++   *   An array of options, passed by reference. The 'start' and 'end' options
++   *   will be converted from a human readable string to the standard datetime
++   *   storage format.
++   *
++   * @throws \InvalidArgumentException
++   *   Thrown when a passed in argument or option is invalid.
++   *
++   * @see \Drupal\site_alert\CliCommands::create()
++   */
++  public function validateCreateInput(string $label, string $message, array &$options): void;
++
++  /**
++   * Deletes sitewide alert(s) with a matching label.
++   *
++   * @param string $label
++   *   The label to match for deletion.
++   *
++   * @return int
++   *   The number of deleted sitewide alerts.
++   *
++   * @throws \InvalidArgumentException
++   *   Thrown when the label is missing or is not a string.
++   * @throws \Drupal\Core\Entity\EntityStorageException
++   *   Thrown when an error occurs during the deletion of a sitewide alert.
++   */
++  public function delete(string $label): int;
++
++  /**
++   * Disables sitewide alert(s).
++   *
++   * @param string|null $label
++   *   The label of a sitewide alert to disable. If omitted, all sitewide alerts will be
++   *   disabled.
++   *
++   * @return int
++   *   The number of sitewide alerts that were disabled.
++   *
++   * @throws \Drupal\Core\Entity\EntityStorageException
++   *   Thrown when an error occurs while disabling a sitewide alert.
++   */
++  public function disable(?string $label = NULL): int;
++
++  /**
++   * Enables a sitewide alert.
++   *
++   * @param string $label
++   *   The label of the sitewide alert to enable.
++   *
++   * @return int
++   *   The number of sitewide alerts that were enabled.
++   *
++   * @throws \Drupal\Core\Entity\EntityStorageException
++   *   Thrown when an error occurs while enabling a sitewide alert.
++   */
++  public function enable(string $label): int;
++
++}
+diff --git a/src/Commands/SitewideAlertCommands.php b/src/Commands/SitewideAlertCommands.php
+new file mode 100644
+index 0000000..9dd9c32
+--- /dev/null
++++ b/src/Commands/SitewideAlertCommands.php
+@@ -0,0 +1,225 @@
++<?php
++
++declare(strict_types = 1);
++
++namespace Drupal\sitewide_alert\Commands;
++
++use Drupal\sitewide_alert\CliCommandsInterface;
++use Drush\Commands\DrushCommands;
++
++/**
++ * A Drush command file for the sitewide alert module.
++ */
++class SitewideAlertCommands extends DrushCommands {
++
++  /**
++   * The CLI service for doing CLI operations on sitewide_alert.
++   *
++   * @var \Drupal\sitewide_alert\CliCommandsInterface
++   */
++  protected $cli;
++
++  /**
++   * Construct a new Drush command object.
++   *
++   * @param \Drupal\sitewide_alert\CliCommandsInterface $cli_commands
++   *   The shared service for CLI commands.
++   */
++  public function __construct(CliCommandsInterface $cli_commands) {
++    parent::__construct();
++
++    $this->cli = $cli_commands;
++  }
++
++  /**
++   * Create a sitewide alert.
++   *
++   * @param string $label
++   *   The label of the sitewide alert. This is an internal identifier which will
++   *   not be shown to end users.
++   * @param string $message
++   *   The text content of the sitewide alert.
++   * @param array $options
++   *   Optional array of options keyed by option [start, end, severity].
++   *
++   * @command sitewide-alert:create
++   *
++   * @option start
++   *   Optional time when the sitewide alert should appear. Can be in ISO 8601
++   *   format ("2020-10-22T14:30:00-05:00") or in a human readable format like
++   *   "October 22, 2020" or "Saturday 12:30".
++   * @option end
++   *   Optional time when the sitewide alert should disappear. Can be in ISO 8601
++   *   format ("2020-10-22T14:30:00-05:00") or in a human readable format like
++   *   "+6 hours" or "midnight".
++   * @option severity
++   *   Optional severity of the sitewide alert [low, medium (default), high].
++   * @option active
++   *   Marks the sitewide alert as active.
++   *
++   * @usage drush sitewide-alert:create "label" "Message"
++   *   Create a sitewide-alert with the label and message with medium severity. The
++   *   alert will be immediately visible and will remain so until manually
++   *   disabled or deleted.
++   * @usage drush sitewide-alert:create "label name" "message" --severity=high --no-active.
++   *   Create a sitewide-alert with the label and message with high severity. The
++   *   alert is inactive and will not be visible until activated.
++   * @usage drush sitewide-alert:create "label name" "message" --start=2022-10-15T15:00:00 --end=2022-10-15T17:00:00
++   *   Create a sitewide alert with the label and message that will be displayed
++   *   between the start and end dates provided.
++   * @usage drush sitewide-alert:create "label name" "message" --start=13:45 --end="tomorrow 13:45"
++   *   Create a sitewide alert with the label and message that will be displayed
++   *   this afternoon at 13:45 and will end tomorrow at the same time.
++   * @usage drush sitewide-alert:create "label name" "message" --start="2 hours 30 minutes"
++   *   Create a sitewide alert with the label and message that will be displayed
++   *   150 minutes from now and will remain visible until manually disabled or
++   *   deleted.
++   * @usage drush sitewide-alert:create "label name" "message" --end="15 minutes"
++   *   Create a sitewide alert with the label and message that will be displayed
++   *   immediately and will disappear after 15 minutes.
++   */
++  public function create(string $label, string $message, array $options = [
++    'start' => NULL,
++    'end' => NULL,
++    'style' => NULL,
++    'status' => TRUE,
++    'dismissible' => FALSE,
++  ]): int {
++    $vars = [
++      '@name' => 'sitewide alert',
++      '@label' => $label,
++    ];
++
++    try {
++      $this->cli->create($label, $message, $options);
++    }
++    catch (\Exception $e) {
++      $this->logger()->error($e->getMessage());
++      return self::EXIT_FAILURE;
++    }
++
++    $this->logger()->success((string) dt("Created @name '@label'.", $vars));
++    return self::EXIT_SUCCESS;
++  }
++
++  /**
++   * Delete sitewide alert(s) matching the label.
++   *
++   * @param string $label
++   *   The label of the sitewide alert(s) to delete.
++   *
++   * @command sitewide-alert:delete
++   *
++   * @usage drush sitewide-alert:delete "label"
++   *   Delete any sitewide alerts that are active and have the label of "label".
++   */
++  public function delete(string $label): int {
++    if (!$this->io()->confirm(dt("Are you sure you want to delete the sitewide alert labeled '@label'?", [
++      '@label' => $label,
++    ]))) {
++      $this->logger()->warning((string) 'Operation cancelled by user');
++      return self::EXIT_FAILURE;
++    }
++
++    try {
++      $count = $this->cli->delete($label);
++    }
++    catch (\Exception $e) {
++      $this->logger()->error($e->getMessage());
++      return self::EXIT_FAILURE;
++    }
++
++    $vars = [
++      '@name' => 'sitewide alerts',
++      '@count' => $count,
++      '@label' => $label,
++    ];
++
++    if ($count >= 1) {
++      $this->logger()->success((string) dt("Deleted @count @name labelled '@label'.", $vars));
++    }
++    else {
++      $this->logger()->notice((string) dt("Found no @name with label '@label' to delete.", $vars));
++    }
++    return self::EXIT_SUCCESS;
++  }
++
++  /**
++   * Disable sitewide alert(s).
++   *
++   * @param string|null $label
++   *   The label of sitewide alert to disable. If no label is passed all sitewide alerts
++   *   will be disabled.
++   *
++   * @command sitewide-alert:disable
++   *
++   * @usage drush sitewide-alert:disable
++   *   Disable all sitewide alerts.
++   * @usage drush sitewide-alert:disable "my-alert"
++   *   Disable the sitewide alert with the label "my-alert".
++   */
++  public function disable(?string $label = NULL): int {
++    try {
++      $count = $this->cli->disable($label);
++    }
++    catch (\Exception $e) {
++      $this->logger()->error($e->getMessage());
++      return self::EXIT_FAILURE;
++    }
++
++    if ($count === 0) {
++      // If a specific alert was given and it could not be disabled, then the
++      // user has given invalid input. Alert the user by returning an error.
++      if (!empty($label)) {
++        $vars = ['@label' => $label];
++        $this->logger()->error((string) dt("No active sitewide alerts found with the label '@label'.", $vars));
++        return self::EXIT_FAILURE;
++      }
++      else {
++        $this->logger()->notice('There were no sitewide alerts to disable.');
++      }
++    }
++    elseif (empty($label)) {
++      $this->logger()->success('All active sitewide alerts have been disabled.');
++    }
++    else {
++      $vars = ['@label' => $label];
++      $this->logger()->success((string) dt("Disabled sitewide alert '@label'.", $vars));
++    }
++    return self::EXIT_SUCCESS;
++  }
++
++  /**
++   * Enable a sitewide alert.
++   *
++   * @param string $label
++   *   The label of sitewide alert to enable.
++   *
++   * @command sitewide-alert:enable
++   *
++   * @usage drush sitewide-alert:enable my-alert
++   *   Enable the sitewide alert with the label "my-alert".
++   */
++  public function enable(string $label): int {
++    try {
++      $count = $this->cli->enable($label);
++    }
++    catch (\Exception $e) {
++      $this->logger()->error($e->getMessage());
++      return self::EXIT_FAILURE;
++    }
++
++    if ($count === 0) {
++      $vars = ['@label' => $label];
++      $this->logger()->error((string) dt("No inactive sitewide alerts found with the label '@label'.", $vars));
++
++      return self::EXIT_FAILURE;
++    }
++
++    $vars = ['@label' => $label];
++    $this->logger()->success((string) dt("Enabled sitewide alert '@label'.", $vars));
++
++    return self::EXIT_SUCCESS;
++  }
++
++}
+diff --git a/tests/src/Functional/DrushCommandsTest.php b/tests/src/Functional/DrushCommandsTest.php
+new file mode 100644
+index 0000000..324b1ad
+--- /dev/null
++++ b/tests/src/Functional/DrushCommandsTest.php
+@@ -0,0 +1,143 @@
++<?php
++
++declare(strict_types = 1);
++
++namespace Drupal\Tests\sitewide_alert\Functional;
++
++use  Drupal\Tests\BrowserTestBase;
++use Drupal\Tests\sitewide_alert\Traits\SitewideAlertTestTrait;
++use Drush\TestTraits\DrushTestTrait;
++
++/**
++ * Execute drush commands on site_alert.
++ *
++ * @group site_alert
++ */
++class DrushCommandsTest extends BrowserTestBase {
++
++  use DrushTestTrait;
++  use SitewideAlertTestTrait;
++
++  /**
++   * The sitewide alert entity storage handler.
++   *
++   * @var \Drupal\sitewide_alert\SitewideAlertStorageInterface
++   */
++  protected $sitewideAlertStorage;
++
++  /**
++   * {@inheritdoc}
++   */
++  protected static $modules = [
++    'sitewide_alert',
++    'system',
++  ];
++
++  /**
++   * {@inheritdoc}
++   */
++  protected function setUp(): void {
++    parent::setUp();
++
++    $entity_type_manager = $this->container->get('entity_type.manager');
++    $this->sitewideAlertStorage = $entity_type_manager->getStorage('sitewide_alert');
++  }
++
++  /**
++   * Tests sitewide-alert:create minimal.
++   */
++  public function testCreateMinimalDelete(): void {
++    $label = 'automated-test-alert';
++    $message = 'A sitewide alert test.';
++    $this->drush('sitewide-alert:create', [$label, $message]);
++    $this->assertErrorOutputEquals("[success] Created sitewide alert 'automated-test-alert'.");
++    $this->assertAlertCount(1);
++    $this->assertAlertByLabel($label, $message);
++
++    $this->drush('sitewide-alert:delete', [$label]);
++    $this->assertErrorOutputEquals("[success] Deleted 1 sitewide alerts labelled 'automated-test-alert'.");
++    $this->assertAlertCount(0);
++  }
++
++  /**
++   * Tests sitewide-alert:delete non-existent alert.
++   */
++  public function testDeleteNone(): void {
++    $this->drush('sitewide-alert:delete', ['crazy8342111hash65923label']);
++    $this->assertErrorOutputEquals("[notice] Found no sitewide alerts with label 'crazy8342111hash65923label' to delete.");
++  }
++
++  /**
++   * Tests sitewide-alert:create with an end, but no start.
++   *
++   * When the start date is omitted it should default to now.
++   */
++  public function testCreateEndNoStart(): void {
++    $label = 'automated-test-alert-no-start';
++    $message = 'A sitewide alert test.';
++    // Set the end date comfortably in the future.
++    $next_year = date('Y') + 1;
++    $end_time = $next_year . '-10-15T15:00:00';
++    $scheduling_options = ['end' => $end_time];
++    $this->drush(
++      'sitewide-alert:create',
++      [$label, $message],
++      $scheduling_options
++    );
++    $this->assertErrorOutputEquals("[success] Created sitewide alert 'automated-test-alert-no-start'.");
++    $this->assertAlertCount(1);
++    $this->assertAlertByLabel($label, $message, 'medium', TRUE, $scheduling_options);
++
++    $this->drush('sitewide-alert:delete', [$label]);
++    $this->assertErrorOutputEquals("[success] Deleted 1 sitewide alerts labelled 'automated-test-alert-no-start'.");
++    $this->assertAlertCount(0);
++  }
++
++  /**
++   * Tests sitewide-alert:disable [label].
++   */
++  public function testDisableWithLabel(): void {
++    $this->drush(
++      'sitewide-alert:create',
++      ['automated-test-alert', 'A sitewide alert test.'],
++      []
++    );
++    $this->assertActiveAlertCount(1);
++    $this->drush('sitewide-alert:disable', ['automated-test-alert']);
++    $this->assertErrorOutputEquals("[success] Disabled sitewide alert 'automated-test-alert'.");
++    $this->assertAlertCount(1);
++    $this->assertActiveAlertCount(0);
++  }
++
++  /**
++   * Tests sitewide-alert:disable --all.
++   */
++  public function testDisableAll(): void {
++    $this->drush(
++      'sitewide-alert:create',
++      ['automated-test-alert', 'A test sitewide alert.'],
++      []
++    );
++    $this->drush(
++      'sitewide-alert:create',
++      ['automated-test-alert-2', 'Another test sitewide alert.'],
++      []
++    );
++    $this->assertActiveAlertCount(2);
++    $this->drush('sitewide-alert:disable', [], []);
++    $this->assertErrorOutputEquals("[success] All active sitewide alerts have been disabled.");
++    $this->assertAlertCount(2);
++    $this->assertActiveAlertCount(0);
++  }
++
++  /**
++   * Tests sitewide-alert:disable with invalid input.
++   */
++  public function testDisableInput(): void {
++    $this->drush('sitewide-alert:disable', ['automated-test-alert'], [], NULL, NULL, 1);
++    $this->assertErrorOutputEquals("[error] No active sitewide alerts found with the label 'automated-test-alert'.");
++    $this->drush('sitewide-alert:disable', [], [], NULL, NULL, 0);
++    $this->assertErrorOutputEquals('[notice] There were no sitewide alerts to disable.');
++  }
++
++}
