@@ -1,0 +1,12 @@
+diff --git a/src/Plugin/Validation/Constraint/AllowOnlyOneConstraintValidator.php b/src/Plugin/Validation/Constraint/AllowOnlyOneConstraintValidator.php
+index bf48d31e1ab9eac761bf353e005d8e226da1d258..e909fbd5f1d44c2bd023105fa4a6252f42a8e5be 100644
+--- a/src/Plugin/Validation/Constraint/AllowOnlyOneConstraintValidator.php
++++ b/src/Plugin/Validation/Constraint/AllowOnlyOneConstraintValidator.php
+@@ -132,6 +132,7 @@ class AllowOnlyOneConstraintValidator extends ConstraintValidator {
+     }
+     if ($entity_type && $unique_field_key_values && $bundle_property && $entity_bundle) {
+       $query = \Drupal::entityQuery($entity_type)
++        ->accessCheck(FALSE)
+         ->condition($bundle_property, $entity_bundle)
+         ->range(0, 1);
+       foreach ($unique_field_key_values as $field => $value) {
