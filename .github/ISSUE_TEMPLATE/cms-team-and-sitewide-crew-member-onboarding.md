@@ -108,11 +108,13 @@ You can view team sprint boards using either the Github view with Zenhub browser
   - [ ] Retro
 
 ### People
-- [ ] Familiarize yourself with our team's [shared calendar](https://va-gov.atlassian.net/wiki/spaces/VAGOV/calendars) and add in any known upcoming out of office (OOO). Choose "Calendar" = OOO and "Event type" = whatever is relevant.
+- [ ] Familiarize yourself with our team's shared calendars: [Sitewide Team calendar](https://calendar.google.com/calendar/u/1?cid=c2l0ZXdpZGUtdGVhbUBhZ2lsZTYuY29t) and [VFS-CMS team calendar] (https://calendar.google.com/calendar/u/1?cid=vfs-cms-team@agile6.com) 
+    * Ask your DM to give you write access to your team calendar, if you have not already been invited
+    * If you have time off planned, add to calendar as OOO
 - [ ] Let's start introducing you to the team and key stakeholders. If you're on a meeting where you don't know someone, feel free to kickstart an introduction. Everyone in the ecosystem is friendly and interested in connecting.
 
 ### Context & History
-- [ ] How does the team fit into the larger OCTO ecosystem? [View this Mural diagram](https://app.mural.co/t/vagov6717/m/vagov6717/1643724063628/1654203c1a0d6c763bbd5c969febf94ec476df79?sender=u0b235d03cbd64f7f93673243)
+- [ ] How does the team fit into the larger OCTO ecosystem? [View this Mural diagram](https://app.mural.co/t/departmentofveteransaffairs9999/m/departmentofveteransaffairs9999/1686789362540/fb8f73b8d536f088e56bd3e38f0e37141560f62a?sender=u0b235d03cbd64f7f93673243)
 - [ ] Why is VA.gov using a Drupal CMS and how is our success measured? Read the [objectives and key results](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/96698383/Product+CMS).
 - [ ] [Watch the Drupal GovCon presentation about the project](https://www.youtube.com/watch?v=WN4bGjEuQdM).
 - [ ] Why are VA Medical Centers changing their websites? Watch the [2-minute YouTube video](https://youtu.be/Xrv5wCv6cKY).
@@ -254,6 +256,7 @@ Each repository includes READMEs to help with setup.
 ### Tools & Resources
 - [ ] [VA.gov tools overview](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html)
   - [ ] [Access to dev & staging to be able to replicate the SSO piece of the login experience](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/5838) (SOCKS or VA access with PIV card required)
+  - [ ] Test User Dashboard: https://tud.vfs.va.gov/ and [Test User Dashboard docs](https://depo-platform-documentation.scrollhelp.site/developer-docs/test-user-dashboard-guide). In lower environments, we are encouraged not to use our actual login credentials to test authed work. The TUD provides a set of test users you can use to login to various environments for testing. 
   - [ ] [Datadog](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html#Requestaccesstotools-Requestaccess) to access monitoring metrics (as of 8/5/22 this is TBD. reach out to your DM for details)
 - [ ] Browse the [Topic Dives videos](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/1714094110/CMS+Topic+Dives) - includes CMS content, and non-CMS topics for Facilities & Public Websites teams as well
 
@@ -313,7 +316,7 @@ Your discipline lead will assist with onboarding tasks / calls.
    - [Collaboration Cycle](https://depo-platform-documentation.scrollhelp.site/collaboration-cycle/collaboration-cycle-kickoff)
    - [Research Overview](https://depo-platform-documentation.scrollhelp.site/research-design/research-overview)
    - [VA Design System](https://design.va.gov/)
-- [ ] Install tools and request access if not already provided
+- [ ] Install tools and request access from your DM, if not already provided
    - [ ] Sketch (for designers on Public Websites or Facilities)
    - [ ] [Mural](https://app.mural.co/t/departmentofveteransaffairs9999) - when you have been assigned your VA email address, ask your DM to add you to Team folders in Mural. Without a VA email, other users can share the Visitor link to Murals so you can view them meantime.
    - [ ] Figma (for designers on Sitewide CMS)
@@ -336,6 +339,16 @@ Your discipline lead will assist with onboarding tasks / calls.
 - [ ] Request a Github Cliff's Notes call [optional]
   - Aren't comfortable with Github? It's cool. We have people who can help.
   - [ ] Watch the "Github / pull request basics for non-engineers" [Topic Dive](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/1714094110/CMS+Topic+Dives)
+</details>
+
+<details><summary>Onboarding for Researchers</summary>
+
+- [ ] Review https://depo-platform-documentation.scrollhelp.site/research-design/
+   - [ ] [Sign up for the next research and design orientation session](https://calendly.com/collaboration-cycle/design-orientation-for-va-gov-platform)
+   - [ ] After orientation, you should be added to the [va.gov-research-repository](https://github.com/department-of-veterans-affairs/va.gov-research-repository). Verify your access.
+- [ ] Join #research-ops channel in DSVA slack
+- [ ] Join DSVA #design slack channel and request that your agency and VA email addresses be added to the invite for the weekly Monday VA Design/UX Sync meeting (@mention Cailin O'Connor)
+
 </details>
 
 <details><summary>Onboarding for Delivery Managers</summary>

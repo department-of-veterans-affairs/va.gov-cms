@@ -20,6 +20,7 @@ dependencies:
     - field.field.node.vba_facility.field_operating_status_more_info
     - field.field.node.vba_facility.field_phone_number
     - field.field.node.vba_facility.field_shared_vha_location
+    - field.field.node.vba_facility.field_timezone
     - field.field.node.vba_facility.field_vba_services
     - node.type.vba_facility
   module:
@@ -158,7 +159,11 @@ hidden:
   field_operating_status_facility: true
   field_operating_status_more_info: true
   field_shared_vha_location: true
+  field_timezone: true
   field_vba_services: true
+  flag_awaiting_csv: true
+  flag_awaiting_editor: true
+  flag_awaiting_redirect: true
   flag_changed_name: true
   flag_changed_title: true
   flag_new: true
