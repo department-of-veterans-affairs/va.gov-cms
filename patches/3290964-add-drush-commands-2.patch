@@ -1,0 +1,11 @@
+diff --git a/sitewide_alert.services.yml b/sitewide_alert.services.yml
+index 62e0c38..1e8e5af 100644
+--- a/sitewide_alert.services.yml
++++ b/sitewide_alert.services.yml
+@@ -11,3 +11,6 @@ services:
+   sitewide_alert.sitewide_alert_renderer:
+     class: Drupal\sitewide_alert\SitewideAlertRenderer
+     arguments: ['@config.factory', '@router.admin_context', '@current_user']
++  sitewide_alert.cli_commands:
++    class: Drupal\sitewide_alert\CliCommands
++    arguments: ['@entity_type.manager']

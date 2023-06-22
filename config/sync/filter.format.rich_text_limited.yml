@@ -3,13 +3,12 @@ langcode: en
 status: true
 dependencies:
   module:
-    - blazy
-    - editor
-    - linkit
-    - linky
-    - media
-    - pathologic
-    - va_gov_backend
+    1: editor
+    2: linkit
+    3: linky
+    4: media
+    5: pathologic
+    6: va_gov_backend
 _core:
   default_config_hash: Mc8Hl-Ya14lrbMXaUx7Ybmv-18vtqE4lw2DpgNHPj-s
 name: 'Rich Text Limited'
@@ -100,20 +99,6 @@ filters:
       default_view_mode: default
       allowed_view_modes: {  }
       allowed_media_types: {  }
-  blazy_filter:
-    id: blazy_filter
-    provider: blazy
-    status: false
-    weight: -36
-    settings:
-      media_switch: ''
-      hybrid_style: ''
-      box_style: ''
-      box_caption: ''
-      filter_tags:
-        img: img
-        iframe: iframe
-      use_data_uri: '0'
   va_gov_backend_node_link_enforcement:
     id: va_gov_backend_node_link_enforcement
     provider: va_gov_backend
