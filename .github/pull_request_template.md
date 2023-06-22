@@ -49,7 +49,7 @@ As user _uid_ with _user_role_
 
 - [ ] `Needs PO review`
 
-### CMS user-facing annoucement
+### CMS user-facing announcement
 
 Is an announcement needed to let editors know of this change?
 - [ ] Yes, and it's written in issue ____ and queued for publication.

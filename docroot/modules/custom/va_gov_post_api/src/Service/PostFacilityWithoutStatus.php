@@ -163,7 +163,7 @@ class PostFacilityWithoutStatus extends PostFacilityBase implements PostServiceI
     else {
       // The page is not published.
       $facility_id = $this->facilityNode->hasField('field_facility_locator_api_id') ? $this->facilityNode->get('field_facility_locator_api_id')->value : NULL;
-      if (FacilityOps::isFacilityLaunched()) {
+      if (!FacilityOps::isFacilityLaunched($this->facilityNode)) {
         // This hasn't launched, and is not published, so we don't know the url.
         // Lighthouse will have to use their url csv to figure it out.
         $facility_url = NULL;

@@ -37,6 +37,9 @@ The target_type and the target_uuid provide the details about where the content 
    - field_cc_intro_text
    - field_cc_top_of_page_content
 
+[List of all field implementations of this across the cms](https://prod.cms.va.gov/admin/reports/content-model/fields?field_name=&field_type=entity_field_fetch)
+[Related Content Model Document](https://prod.cms.va.gov/admin/structure/types/manage/centralized_content/document)
+
 ## How to establish a new Centralized Content field?
 1. Create a new appropriately named centralized content node on [Prod](https://prod.cms.va.gov/node/add/centralized_content) (Unless it makes sense to use an existing one).
 2. Add a "Centralized Content Descriptor" paragraph that provides the Title and Description for the paragraph that you will be creating next.  This will only appear as guidance for the editors on the node you are creating.

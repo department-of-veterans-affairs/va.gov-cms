@@ -1,0 +1,6 @@
+services:
+  va_gov_multilingual_tmgmt.event_subscriber:
+    class: Drupal\va_gov_multilingual_tmgmt\EventSubscriber\FormEventSubscriber
+    arguments: ['@string_translation', '@messenger']
+    tags:
+      - { name: event_subscriber }

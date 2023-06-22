@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.vet_center_mobile_vet_center.field_office_hours
     - field.field.node.vet_center_mobile_vet_center.field_phone_number
     - field.field.node.vet_center_mobile_vet_center.field_table_of_contents
+    - field.field.node.vet_center_mobile_vet_center.field_timezone
     - image.style.3_2_medium_thumbnail
     - node.type.vet_center_mobile_vet_center
   module:
@@ -42,6 +43,7 @@ third_party_settings:
         - field_address
         - field_phone_number
         - field_office_hours
+        - field_timezone
       label: 'Facility data'
       parent_name: group_locations_and_contact_info
       region: content
@@ -131,11 +133,21 @@ content:
     third_party_settings: {  }
     weight: 4
     region: content
+  field_timezone:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 6
+    region: content
 hidden:
   content_moderation_control: true
   field_administration: true
   field_last_saved_by_an_editor: true
   field_table_of_contents: true
+  flag_awaiting_csv: true
+  flag_awaiting_editor: true
+  flag_awaiting_redirect: true
   flag_changed_name: true
   flag_changed_title: true
   flag_new: true

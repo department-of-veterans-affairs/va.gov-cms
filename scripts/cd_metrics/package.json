@@ -1,0 +1,21 @@
+{
+  "name": "cd_metrics",
+  "version": "1.0.0",
+  "description": "This is a suite of small scripts, using a common library, that calculates and submits certain metrics concerning software product delivery performance to Datadog.",
+  "main": "",
+  "type": "module",
+  "scripts": {
+    "test_start_lead_time": "node ./test_start_lead_time.js",
+    "test_end_lead_time": "node ./test_end_lead_time.js",
+    "time_to_restore": "node ./time_to_restore.js",
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --verbose"
+  },
+  "dependencies": {
+    "@datadog/datadog-api-client": "^1.13.0",
+    "@octokit/rest": "^19.0.11"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.22.5",
+    "jest": "^29.5.0"
+  }
+}
