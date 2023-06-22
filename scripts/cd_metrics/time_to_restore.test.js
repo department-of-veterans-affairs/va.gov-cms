@@ -547,6 +547,60 @@ describe("time_to_restore.lib.js", () => {
       expect(result).toEqual(expectedOutput);
     });
   
+    it("should calculate the time to restore service correctly when there are pending commits", async () => {
+      jest.unstable_mockModule("./common.js", () => {
+        return {
+          ...actualCommon,
+          getCommitTimestamp: jest.fn().mockImplementation((sha) => {
+            if (sha === "HEAD") {
+              return 4000;
+            }
+            if (sha === "pending-sha-2") {
+              return 3000;
+            }
+            if (sha === "failing-sha-1") {
+              return 2000;
+            }
+            if (sha === "passing-sha") {
+              return 1000;
+            }
+            throw new Error("Unexpected sha");
+          }),
+          getParentCommitSha: jest.fn().mockImplementation((sha) => {
+            if (sha === "HEAD") {
+              return "pending-sha-2";
+            }
+            if (sha === "pending-sha-2") {
+              return "failing-sha-1";
+            }
+            if (sha === "failing-sha-1") {
+              return "passing-sha";
+            }
+            if (sha === "passing-sha") {
+              return "some-sha";
+            }
+            throw new Error("Unexpected sha");
+          }),
+          getCombinedStatusForCommit: jest.fn().mockImplementation(async (owner, repo, sha) => {
+            if (sha.startsWith("failing-sha")) {
+              return "failure";
+            }
+            if (sha.startsWith("passing-sha") || sha === "HEAD") {
+              return "success";
+            }
+            if (sha.startsWith("pending-sha")) {
+              return "pending";
+            }
+          }),
+        };
+      });
+  
+      const { calculateTimeToRestore } = await import("./time_to_restore.lib.js");
+      const result = await calculateTimeToRestore();
+      const expectedOutput = 2000;
+      expect(result).toEqual(expectedOutput);
+    });
+    
     it("should calculate the time to restore service correctly when there is no accrued failure time", async () => {
       jest.unstable_mockModule("./common.js", () => {
         return {
