@@ -8,7 +8,7 @@ assignees: ''
 ---
 
 ## Intake
-- [ ] What triggered this runbook? (Flag in CMS, Help desk ticket, Product team, VHA Digital Media)
+- [ ] What triggered this runbook? (Flag in CMS, Help desk ticket, Product team, RCS Central Office)
 Trigger: <insert_trigger>
 
 - [ ] Link to associated help desk ticket (if applicable)
@@ -17,7 +17,9 @@ Help desk ticket: <insert_help_desk_link>
 - [ ] Name of submitter (if applicable)
 Submitter: <insert_name>
 
-- [ ] If the submitter is an editor, send them a link to the operating status KB article and have them change the status to Facility notice and provide a description of the facility closure so that Veterans are aware of the future closure.
+- [ ] Contact the Vet Center editor and send them a link to the operating status KB article. If the facility has not closed yet and we can provide lead-time, the editor should change the Facility status to "Facility notice" and provide information in the Facility Status additional information about when the facility will permanantly close.  
+- [ ] When the facility has already closed - including if we were unable to give the aforementioned lead time- the editor should change the Facility status to Closed and provide information in the Facility Status additional information that the facility has permanantly closed as of DATE.
+- [ ] After 30 days of the facility being closed AND that the facility has been removed from the Lighthouse Facilities API, we can then archive the facility.
 KB articles: <insert_kb_article_links>
 
 - [ ] Link to facility in production:
@@ -26,19 +28,18 @@ Facility API ID: <insert_facility_API_ID>
 
 ## Acceptance criteria
 
-### Vet Center, Outstation, Mobile Vet Center facility closure
+### Vet Center -> Talk to Michelle
+
+### Mobile Vet Center closure -> Just unpublish (redirects unnecessary)
+
+### Outstation -> Let's give it a soft landing
+
+
 
 #### CMS help desk steps
 **Note: If the help desk is waiting on information from the facility staff or editor, add the "Awaiting editor" flag to the facility with a log message that includes a link to this ticket. Remove the flag when the ticket is ready to be worked by the Facilities team. Be sure to preserve the current moderation state of the node when adding or removing the flag.**
 - [ ] 1. Become aware that the facility is no longer on the Facility API (typically, via a Flag, but this may come in as a helpdesk ticket).
-- [ ] 2. CMS team submits [Redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E), cc'ing Facilities team, and referencing this issue.
-
-<insert_redirect_request_link>
-
-#### CMS engineer steps
-- [ ] 3. Execute the steps of the URL change request ticket from step 2 above.
-
-(Redirects deploy weekly on Wed. at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. Coordinate the items below and canonical URL change after URL change ticket is merged, deployed, and verified in prod.)
+- [ ] 2. ~~CMS team submits [Redirect request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Redirect+request&template=redirect-request-facility-url.md&title=Redirect+Request+for%3A+%3Cinsert+facility+name%3E), cc'ing Facilities team, and referencing this issue.~~ redirects are not necessary for Outstations.
 
 #### Drupal Admin steps (CMS Engineer or Help desk)
 _Help desk will complete these steps or escalate to request help from CMS engineering._
