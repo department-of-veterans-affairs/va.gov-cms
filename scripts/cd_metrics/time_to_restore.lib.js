@@ -80,9 +80,11 @@ export async function shouldSubmitMetrics(testsFailed) {
     repo,
     previousSha
   );
-  while (previousStatus === "pending") {
+  let limit = 25;
+  while (previousStatus === "pending" && limit > 0) {
     previousSha = getParentCommitSha(previousSha);
     previousStatus = await getCombinedStatusForCommit(owner, repo, previousSha);
+    limit -= 1;
   }
   return previousStatus === "failure";
 }
