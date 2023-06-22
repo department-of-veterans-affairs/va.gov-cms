@@ -120,7 +120,7 @@ export async function calculateAccruedTimeInFailure(sha) {
     repo,
     previousSha
   );
-  if (previousStatus !== "failure") {
+  if (previousStatus === "success") {
     // This would seem to be the first failing commit, so there is no accrued time in
     // failure.
     return 0;
