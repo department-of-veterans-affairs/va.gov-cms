@@ -74,12 +74,16 @@ export async function shouldSubmitMetrics(testsFailed) {
   if (testsFailed) {
     return false;
   }
-  const previousSha = getParentCommitSha("HEAD");
-  const previousStatus = await getCombinedStatusForCommit(
+  let previousSha = getParentCommitSha("HEAD");
+  let previousStatus = await getCombinedStatusForCommit(
     owner,
     repo,
     previousSha
   );
+  while (previousStatus === "pending") {
+    previousSha = getParentCommitSha(previousSha);
+    previousStatus = await getCombinedStatusForCommit(owner, repo, previousSha);
+  }
   return previousStatus === "failure";
 }
 

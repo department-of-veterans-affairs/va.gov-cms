@@ -62,18 +62,153 @@ describe("time_to_restore.lib.js", () => {
       expect(result).toEqual(expectedOutput);
     });
 
-    it("should refuse to submit metrics when the current commit succeeded and the last commit is marked pending", async () => {
+    it("should refuse to submit metrics when the current commit succeeded and the last commit is marked pending and the previous succeeded", async () => {
       const testsFailed = false;
       jest.unstable_mockModule("./common.js", () => {
         return {
           ...actualCommon,
-          getParentCommitSha: () => "some-pending-sha",
-          getCombinedStatusForCommit: () => "pending",
+          getParentCommitSha: jest.fn().mockImplementation((sha) => {
+            if (sha === "HEAD") {
+              return "pending-sha-1";
+            }
+            if (sha === "pending-sha-1") {
+              return "passing-sha";
+            }
+            if (sha === "passing-sha") {
+              return "some-sha";
+            }
+            throw new Error("Unexpected sha");
+          }),
+          getCombinedStatusForCommit: jest.fn().mockImplementation(async (owner, repo, sha) => {
+            if (sha.startsWith("pending-sha")) {
+              return "pending";
+            }
+            if (sha.startsWith("passing-sha")) {
+              return "success";
+            }
+            if (sha.startsWith("failing-sha")) {
+              return "failure";
+            }
+          }),
         };
       });
       const { shouldSubmitMetrics } = await import("./time_to_restore.lib.js");
       const result = await shouldSubmitMetrics(testsFailed);
       const expectedOutput = false;
+      expect(result).toEqual(expectedOutput);
+    });
+
+    it("should submit metrics when the current commit succeeded and the last commit is marked pending and the previous failed", async () => {
+      const testsFailed = false;
+      jest.unstable_mockModule("./common.js", () => {
+        return {
+          ...actualCommon,
+          getParentCommitSha: jest.fn().mockImplementation((sha) => {
+            if (sha === "HEAD") {
+              return "pending-sha-1";
+            }
+            if (sha === "pending-sha-1") {
+              return "failing-sha";
+            }
+            if (sha === "failing-sha") {
+              return "some-sha";
+            }
+            throw new Error("Unexpected sha");
+          }),
+          getCombinedStatusForCommit: jest.fn().mockImplementation(async (owner, repo, sha) => {
+            if (sha.startsWith("pending-sha")) {
+              return "pending";
+            }
+            if (sha.startsWith("passing-sha")) {
+              return "success";
+            }
+            if (sha.startsWith("failing-sha")) {
+              return "failure";
+            }
+          }),
+        };
+      });
+      const { shouldSubmitMetrics } = await import("./time_to_restore.lib.js");
+      const result = await shouldSubmitMetrics(testsFailed);
+      const expectedOutput = true;
+      expect(result).toEqual(expectedOutput);
+    });
+
+    it("should refuse to submit metrics when the current commit succeeded and the last two commits were marked pending and the previous succeeded", async () => {
+      const testsFailed = false;
+      jest.unstable_mockModule("./common.js", () => {
+        return {
+          ...actualCommon,
+          getParentCommitSha: jest.fn().mockImplementation((sha) => {
+            if (sha === "HEAD") {
+              return "pending-sha-1";
+            }
+            if (sha === "pending-sha-1") {
+              return "pending-sha-2";
+            }
+            if (sha === "pending-sha-2") {
+              return "passing-sha";
+            }
+            if (sha === "passing-sha") {
+              return "some-sha";
+            }
+            throw new Error("Unexpected sha");
+          }),
+          getCombinedStatusForCommit: jest.fn().mockImplementation(async (owner, repo, sha) => {
+            if (sha.startsWith("pending-sha")) {
+              return "pending";
+            }
+            if (sha.startsWith("passing-sha")) {
+              return "success";
+            }
+            if (sha.startsWith("failing-sha")) {
+              return "failure";
+            }
+          }),
+        };
+      });
+      const { shouldSubmitMetrics } = await import("./time_to_restore.lib.js");
+      const result = await shouldSubmitMetrics(testsFailed);
+      const expectedOutput = false;
+      expect(result).toEqual(expectedOutput);
+    });
+
+    it("should submit metrics when the current commit succeeded and the last two commits were marked pending and the previous failed", async () => {
+      const testsFailed = false;
+      jest.unstable_mockModule("./common.js", () => {
+        return {
+          ...actualCommon,
+          getParentCommitSha: jest.fn().mockImplementation((sha) => {
+            if (sha === "HEAD") {
+              return "pending-sha-1";
+            }
+            if (sha === "pending-sha-1") {
+              return "pending-sha-2";
+            }
+            if (sha === "pending-sha-2") {
+              return "failing-sha";
+            }
+            if (sha === "failing-sha") {
+              return "some-sha";
+            }
+            throw new Error("Unexpected sha");
+          }),
+          getCombinedStatusForCommit: jest.fn().mockImplementation(async (owner, repo, sha) => {
+            if (sha.startsWith("pending-sha")) {
+              return "pending";
+            }
+            if (sha.startsWith("passing-sha")) {
+              return "success";
+            }
+            if (sha.startsWith("failing-sha")) {
+              return "failure";
+            }
+          }),
+        };
+      });
+      const { shouldSubmitMetrics } = await import("./time_to_restore.lib.js");
+      const result = await shouldSubmitMetrics(testsFailed);
+      const expectedOutput = true;
       expect(result).toEqual(expectedOutput);
     });
 
