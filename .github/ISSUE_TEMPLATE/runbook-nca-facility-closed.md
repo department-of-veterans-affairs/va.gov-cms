@@ -31,6 +31,4 @@ Facility API ID: <insert_facility_API_ID>
 [@TODO: DRAFT FOR HELP DESK AND DEV STEPS]
 
 ### Drupal Admin steps
-- [ ] Move Node state to Archived
-    * If this process gets automated, this runbook can be retired.
-- [ ] Edit the facility node, remove the `Removed from source` flag, save the node with revision log
+None:  Since NCA does not have a FE presence, the facilities get auto-archived by the CMS when they are removed from the Facilty API.  There are no flags created, and a revision log is added to the facility that indicates why it was archived.  When the NCA Facility product launches, the autoarchiving and this runbook will need to be updated.
