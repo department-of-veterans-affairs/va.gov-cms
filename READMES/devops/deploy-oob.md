@@ -36,9 +36,9 @@ For ease of reference, the following is a breakdown of our current product deplo
 | Pull Request CI Tests | ~50 minutes | ~2 hours, 30 minutes |
 | [`testing/cms`](http://jenkins.vfs.va.gov/job/testing/job/cms/) Jenkins job | ~25 minutes | ~2 hours, 10 minutes |
 | [`deploys/cms-vagov-staging`](http://jenkins.vfs.va.gov/job/deploys/job/cms-vagov-staging/) Jenkins job | ~35 minutes | ~90 minutes |
-| [`cms/deploy-live-staging'](http://jenkins.vfs.va.gov/job/cms/job/deploy-live-staging/) Jenkins job | ~1 minute | ~90 minutes |
-| [`testing/cms-post-deploy-tests-staging'](http://jenkins.vfs.va.gov/job/testing/job/cms-post-deploy-tests-staging/) Jenkins job | ~55 minutes | ~35 minutes |
-| [`deploys/cms-auto-deploy'](http://jenkins.vfs.va.gov/job/deploys/job/cms-auto-deploy/) Jenkins job | ~15 minutes | ~20 minutes |
+| [`cms/deploy-live-staging`](http://jenkins.vfs.va.gov/job/cms/job/deploy-live-staging/) Jenkins job | ~1 minute | ~90 minutes |
+| [`testing/cms-post-deploy-tests-staging`](http://jenkins.vfs.va.gov/job/testing/job/cms-post-deploy-tests-staging/) Jenkins job | ~55 minutes | ~35 minutes |
+| [`deploys/cms-auto-deploy`](http://jenkins.vfs.va.gov/job/deploys/job/cms-auto-deploy/) Jenkins job | ~15 minutes | ~20 minutes |
 | [`cms/cms-full-pipeline`](http://jenkins.vfs.va.gov/job/cms/job/cms-full-pipeline/) Jenkins job | ~7 minutes | ~10 minutes |
 | [`releases/cms`](http://jenkins.vfs.va.gov/job/releases/job/cms/) Jenkins job | ~1 minute | ~10 minutes |
 | [`deploys/cms-vagov-prod`](http://jenkins.vfs.va.gov/job/deploys/job/cms-vagov-prod/) Jenkins job | ~7 minutes | |
@@ -127,7 +127,7 @@ Helpdesk should notify editors and other stakeholders that the issue has been re
 
 Chances are that any situation serious enough to require an out-of-band deploy will warrant a postmortem.
 
-To create the postmortem, follow the procedure [here](https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/tree/master/Postmortems). Note that this involves a pull request and review process. Don't just create it in `master` 🙂
+To create the postmortem, follow the procedure [here](https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/tree/master/Postmortems). Note that this involves a pull request and review process. Don't just create it in `master` :slightly_smiling_face:
 
 Remember that the purpose of a postmortem is to determine the root causes – the deficits in processes and tools – that made this situation possible, and reduce the likelihood of it happening again. It is not to assign blame, express guilt, etc.
 
