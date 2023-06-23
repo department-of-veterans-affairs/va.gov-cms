@@ -47,7 +47,7 @@ For ease of reference, the following is a breakdown of our current product deplo
 
 ### Approval
 
-The overarching OOB deployment process for VA.gov does not apply to CMS [1], but we need to ask approval for the deploy from the CMS Product Owner.
+The overarching OOB deployment process for VA.gov does not apply to CMS [1](https://dsva.slack.com/archives/CT4GZBM8F/p1652819017525619), but we need to ask approval for the deploy from the CMS Product Owner.
 
 If the PO is not already aware, we should inform them of:
 
