@@ -17,10 +17,18 @@ assignees: ''
   the CAP becomes an Outstation and it appears for the first time in VAST.  When
    it appears in VAST, it will have a node created for it as part of the
    migration.
+   
+   Note: What we're trying to accomplish here is synchronizing the archive of the CAP and the initial publication of the Outstation so that we don't have 1/ a missing entry or 2/ duplicative entries.
+  
+   
+   
 ## Intake
-- [ ] What triggered this runbook? (Flag in CMS, Help desk ticket, Product team, VHA Digital Media)
+
+Note: I've updated this with how we learn about these things (Jessica or New Facility Flag in CMS)
+
+- [ ] What triggered this runbook? (Flag in CMS, Notification from RCS Central Office)
 Triggers:
-  A)  A Vet Center notifies help desk that they are converting a CAP to an Outstation.
+  A)  A RCS Central Office notifies help desk that they are converting a CAP to an Outstation.
   B)  A new Vet Center Outstation is entered in VAST so appears in the CMS as New.
 
   <insert_trigger>
@@ -31,46 +39,29 @@ Help desk ticket: <insert_help_desk_link>
 - [ ] Name of submitter (if applicable)
 Submitter: <insert_name>
 
-- [ ] If the submitter is an editor, send them links to any relevant KB articles for this process.
-KB articles: <insert_kb_article_links>
-
 - [ ] Link to facility in production:
-Facility CMS link: <insert_facility_link>
-Facility API ID: <insert_facility_API_ID>
+CAP CMS link (Published): <insert_facility_link>
+Outstation CMS link (in draft): <insert_facility_link>
+Outstation Facility API ID: <insert_facility_API_ID>
 
 ## Acceptance criteria
 ## CMS help desk steps
+
+Note: We should always check to see if there is an existing facility at that address regardless. We can check that using Facility Locator and/or asking Jessica and/or asking the parent facility.
+
 **Note: If the help desk is waiting on information from the facility staff or editor, add the "Awaiting editor" flag to the facility with a log message that includes a link to this ticket. Remove the flag when the ticket is ready to be worked by the Facilities team. Be sure to preserve the current moderation state of the node when adding or removing the flag.**
 - [ ] 1. Become aware that the new Vet Center Outstation is now in the Facility
   API and in the CMS (typically, via a Flag, but this may come in as a help
   desk ticket).
-- [ ] 2. If the editor has followed the steps from the Knowledge Base
-  article and included which district and Vet Center the facility belongs to, great!  If not, check
-  with RCS(?) what district it belongs to.
-- [ ] 3. Update the Section (default is "Vet Center", but it should be a under
+- [ ] 2. Determine the node ID of the existing CAP that has become a new outstation.
+- [ ] 3. The parent facility of the outstation can be derived from the API ID via removing the last 3 characters (e.g. "1OS") and adding a "V". For example the outstation "vc_3072OS" has the parent facility "vc_372V".
+- [ ] 4. Update the Section (default is "Vet Center", but it should be a under
   a district) and Vet Center accordingly.
-- [ ] 4. Communicate with editor (cc VHA Digital Media) to give them go-ahead to
-  complete the content.  An Outstation has no services, so typically all that
-  is needed to publish is a photo.
+- [ ] 5. Add the photo from the CAP as the photo for the new Outstation. This will prevent duplicate photos from being uploaded into Drupal.
 ### Publish new Outstation
-- [ ] 5. When editor has prepared content and let help desk know, publish the
-  new Outstation.
+- [ ] 6. Publish the new Outstation 
+- [ ] 7. Archive the old with a revision log that points to the new OS, set status to closed and clear out status description. CAP. NOTE: redirects are not necessary due to low traffic, same page as landing, and general overhead/maintenance.
 - [ ] 6. Remove the `New facility` flag from the node.
-- [ ] 7. Communicate with editor (do they need to be onboarded)
+- [ ] 7. Communicate with editor and RCS Central Office
 
 [@TODO help desk write sample email - SEE runbook-vamc-facility-new]
-
-### Close old CAP and Create new Outstation URL
-- [ ] 8. Create a [URL change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old facility URL to the new facility URL, referencing this issue to redirect from the CAP URL to the Outstation URL. (**Note: The URL change request ticket blocks the completion of this ticket.**)
-
-<insert_url_change_request_link>
-
-(Redirects deploy weekly on Wed. at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. Coordinate the items below and canonical URL change after URL change ticket is merged, deployed, and verified in prod.)
-
-### CMS engineer steps
-- [ ] 9. Execute the steps of the URL change request ticket from step 8.
-- [ ] 10. When the redirect has been made live, set the status of the CAP node to 'closed'.
-- [ ] 11. Archive the CAP with a comment in the revision log that points to the new Vet Center.
-
-### Help desk steps
-- [ ] 12. Notify editor and any other stakeholders.
