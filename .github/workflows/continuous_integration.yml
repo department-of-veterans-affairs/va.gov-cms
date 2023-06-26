@@ -135,7 +135,7 @@ jobs:
         uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - name: Stylelint modules
         # See also `composer va:test:stylelint-modules` in composer.json
-        uses: reviewdog/action-stylelint@a858bffc5f08800fa6a4a5c66a911a14ae6c1151 # v1.16.0
+        uses: reviewdog/action-stylelint@e45410880466232c34ec6ab2e0fbc15f5ce3fdd2 # v1.17.1
         with:
           fail_on_error: true
           github_token: ${{ secrets.github_token }}
@@ -145,7 +145,7 @@ jobs:
           stylelint_input: 'docroot/modules/custom/**/*.css'
       - name: Stylelint themes
         # See also `composer va:test:stylelint-themes` in composer.json
-        uses: reviewdog/action-stylelint@a858bffc5f08800fa6a4a5c66a911a14ae6c1151 # v1.16.0
+        uses: reviewdog/action-stylelint@e45410880466232c34ec6ab2e0fbc15f5ce3fdd2 # v1.17.1
         with:
           fail_on_error: true
           github_token: ${{ secrets.github_token }}
