@@ -2,6 +2,8 @@
 
 namespace Drupal\va_gov_environment\Service;
 
+use Drupal\va_gov_environment\Environment\Environment;
+
 /**
  * Interface for the Environment Discovery service.
  *
@@ -9,28 +11,6 @@ namespace Drupal\va_gov_environment\Service;
  * which the application is running, but is easily mocked for testing.
  */
 interface DiscoveryInterface {
-
-  // Differentiate between DDEV and e.g. Lando, Pygmy, etc. We can handle
-  // this more abstractly below.
-  const ENVIRONMENT_DDEV = 'ddev';
-
-  // Staging environment. As with prod, this may be on the CMS-TEST or CMS
-  // infrastructure.
-  const ENVIRONMENT_STAGING = 'staging';
-
-  // Production environment. This may be on the CMS-TEST or CMS infrastructure.
-  const ENVIRONMENT_PROD = 'prod';
-
-  // Tugboat preview environment.
-  const ENVIRONMENT_TUGBOAT = 'tugboat';
-
-  // All environments.
-  const ENVIRONMENTS = [
-    self::ENVIRONMENT_DDEV,
-    self::ENVIRONMENT_STAGING,
-    self::ENVIRONMENT_PROD,
-    self::ENVIRONMENT_TUGBOAT,
-  ];
 
   /**
    * Get the current raw detected environment.
@@ -48,7 +28,7 @@ interface DiscoveryInterface {
    * @return string
    *   The current environment.
    */
-  public function getEnvironment() : string;
+  public function getEnvironment() : Environment;
 
   /**
    * Check if the current environment is a local development environment.

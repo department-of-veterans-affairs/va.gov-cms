@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_environment\Service;
 
 use Drupal\Core\Site\Settings;
+use Drupal\va_gov_environment\Environment\Environment;
 
 /**
  * Builds and sends metrics to Datadog.
@@ -17,6 +18,13 @@ class Discovery implements DiscoveryInterface {
   protected $settings;
 
   /**
+   * The environment.
+   *
+   * @var \Drupal\va_gov_environment\Environment\Environment
+   */
+  protected $environment;
+
+  /**
    * Constructor.
    *
    * @param \Drupal\Core\Site\Settings $settings
@@ -24,6 +32,7 @@ class Discovery implements DiscoveryInterface {
    */
   public function __construct(Settings $settings) {
     $this->settings = $settings;
+    $this->environment = Environment::fromSettings($this->settings);
   }
 
   /**
@@ -36,40 +45,36 @@ class Discovery implements DiscoveryInterface {
   /**
    * {@inheritDoc}
    */
-  public function getEnvironment() : string {
-    $environment = $this->settings->get('va_gov_environment')['environment'];
-    if (in_array($environment, self::ENVIRONMENTS)) {
-      return $environment;
-    }
-    throw new \Exception('Invalid environment detected: ' . $environment);
+  public function getEnvironment() : Environment {
+    return $this->environment;
   }
 
   /**
    * {@inheritDoc}
    */
   public function isLocalDev() : bool {
-    return $this->getEnvironment() === self::ENVIRONMENT_DDEV;
+    return $this->getEnvironment()->isLocalDev();
   }
 
   /**
    * {@inheritDoc}
    */
   public function isTugboat() : bool {
-    return $this->getEnvironment() === self::ENVIRONMENT_TUGBOAT;
+    return $this->getEnvironment()->isTugboat();
   }
 
   /**
    * {@inheritDoc}
    */
   public function isStaging() : bool {
-    return $this->getEnvironment() === self::ENVIRONMENT_STAGING;
+    return $this->getEnvironment()->isStaging();
   }
 
   /**
    * {@inheritDoc}
    */
   public function isProduction() : bool {
-    return $this->getEnvironment() === self::ENVIRONMENT_PROD;
+    return $this->getEnvironment()->isProduction();
   }
 
   /**

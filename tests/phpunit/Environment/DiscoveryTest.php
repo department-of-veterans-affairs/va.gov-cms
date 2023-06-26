@@ -3,8 +3,9 @@
 namespace tests\phpunit\Environment;
 
 use Drupal\Core\Site\Settings;
+use Drupal\va_gov_environment\Environment\Environment;
 use Drupal\va_gov_environment\Service\Discovery;
-use Drupal\va_gov_environment\Service\DiscoveryInterface;
+use Drupal\va_gov_environment\Exception\InvalidEnvironmentException;
 use Tests\Support\Classes\VaGovUnitTestBase;
 
 /**
@@ -29,6 +30,7 @@ class DiscoveryTest extends VaGovUnitTestBase {
     $settings = new Settings([
       'va_gov_environment' => [
         'environment_raw' => 'local',
+        'environment' => 'ddev',
       ],
     ]);
     $discoveryService = new Discovery($settings);
@@ -41,7 +43,7 @@ class DiscoveryTest extends VaGovUnitTestBase {
    * @covers ::getEnvironment
    * @dataProvider getEnvironmentDataProvider
    */
-  public function testGetEnvironment($va_gov_environment, $expected) {
+  public function testGetEnvironment($va_gov_environment, Environment $expected) {
     $settings = new Settings([
       'va_gov_environment' => $va_gov_environment,
     ]);
@@ -61,27 +63,42 @@ class DiscoveryTest extends VaGovUnitTestBase {
         [
           'environment' => 'ddev',
         ],
-        DiscoveryInterface::ENVIRONMENT_DDEV,
+        Environment::Ddev,
       ],
       [
         [
           'environment' => 'tugboat',
         ],
-        DiscoveryInterface::ENVIRONMENT_TUGBOAT,
+        Environment::Tugboat,
       ],
       [
         [
           'environment' => 'staging',
         ],
-        DiscoveryInterface::ENVIRONMENT_STAGING,
+        Environment::Staging,
       ],
       [
         [
           'environment' => 'prod',
         ],
-        DiscoveryInterface::ENVIRONMENT_PROD,
+        Environment::Prod,
       ],
     ];
+  }
+
+  /**
+   * Test that the processed environment matches one of our expected values.
+   *
+   * @covers ::getEnvironment
+   */
+  public function testGetEnvironment2() {
+    $settings = new Settings([
+      'va_gov_environment' => [
+        'environment' => 'unknown',
+      ],
+    ]);
+    $this->expectException(InvalidEnvironmentException::class);
+    new Discovery($settings);
   }
 
   /**
@@ -109,12 +126,14 @@ class DiscoveryTest extends VaGovUnitTestBase {
       [
         [
           'is_cms_test' => FALSE,
+          'environment' => 'staging',
         ],
         FALSE,
       ],
       [
         [
           'is_cms_test' => TRUE,
+          'environment' => 'staging',
         ],
         TRUE,
       ],
