@@ -2,6 +2,8 @@
 
 // phpcs:ignoreFile
 
+$settings['va_gov_environment']['environment'] = 'prod';
+
 include dirname(__FILE__) . '/settings.brd_common.php';
 
 $settings['jenkins_build_job_path'] = '/job/deploys/job/vets-gov-autodeploy-content-build';
