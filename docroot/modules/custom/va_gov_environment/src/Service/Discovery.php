@@ -53,6 +53,13 @@ class Discovery implements DiscoveryInterface, EnvironmentInterface {
   /**
    * {@inheritDoc}
    */
+  public function getRawValue(): string {
+    return $this->getEnvironment()->getRawValue();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   public function isLocalDev() : bool {
     return $this->getEnvironment()->isLocalDev();
   }

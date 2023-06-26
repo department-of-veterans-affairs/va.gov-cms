@@ -8,6 +8,14 @@ namespace Drupal\va_gov_environment\Environment;
 interface EnvironmentInterface {
 
   /**
+   * Get the raw value of the current environment.
+   *
+   * @return string
+   *   The raw value of the current environment.
+   */
+  public function getRawValue() : string;
+
+  /**
    * Check if the current environment is a local development environment.
    *
    * We want to differentiate between local dev and just "local", which could

@@ -44,6 +44,13 @@ enum Environment: string implements EnvironmentInterface {
   /**
    * {@inheritDoc}
    */
+  public function getRawValue(): string {
+    return $this->value;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   public function isDdev(): bool {
     return match ($this) {
       self::Ddev => TRUE,
