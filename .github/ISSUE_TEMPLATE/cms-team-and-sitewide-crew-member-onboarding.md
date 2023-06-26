@@ -366,6 +366,27 @@ Your discipline lead will assist with onboarding tasks / calls.
 
 </details>
 
+
+### Team-specific onboarding (CMS, Facilities, Public Websites)
+Remove the sections that don't apply
+
+<details><summary>CMS Team Onboarding</summary>
+   ## Onboarding for CMS
+   
+</details>
+
+<details><summary>Facilities Team Onboarding</summary>
+   - [ ] Read the [Facilities team charter](https://docs.google.com/document/d/1eI1w9Bcj2rlmFtxkM6Dkn_c-Srszd88UxAQimSZkVqo/edit#)
+   - [ ] [Facilities product portfolio notes ](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/products/facilities)
+</details>
+
+<details><summary>Public Websites Team Onboarding</summary>
+   - [ ] Read the [Public Websites team charter](https://docs.google.com/document/d/1jiq90ffon5UxAqybiEncl8feqmXhEOChlijiDBOWUtc/edit#heading=h.tu2ayudos7uc)
+   - [ ] [Public Websites product portfolio documentation ](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/products/public-websites)
+
+</details>
+
+
 ### Team
 Please check the team(s) that will do this work.
 
