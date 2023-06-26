@@ -4,11 +4,12 @@ namespace Drupal\va_gov_environment\Service;
 
 use Drupal\Core\Site\Settings;
 use Drupal\va_gov_environment\Environment\Environment;
+use Drupal\va_gov_environment\Environment\EnvironmentInterface;
 
 /**
  * Builds and sends metrics to Datadog.
  */
-class Discovery implements DiscoveryInterface {
+class Discovery implements DiscoveryInterface, EnvironmentInterface {
 
   /**
    * The Settings service.
@@ -20,7 +21,7 @@ class Discovery implements DiscoveryInterface {
   /**
    * The environment.
    *
-   * @var \Drupal\va_gov_environment\Environment\Environment
+   * @var \Drupal\va_gov_environment\Environment\EnvironmentInterface
    */
   protected $environment;
 
@@ -45,7 +46,7 @@ class Discovery implements DiscoveryInterface {
   /**
    * {@inheritDoc}
    */
-  public function getEnvironment() : Environment {
+  public function getEnvironment() : EnvironmentInterface {
     return $this->environment;
   }
 

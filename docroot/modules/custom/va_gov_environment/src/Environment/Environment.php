@@ -13,7 +13,7 @@ use Drupal\va_gov_environment\Exception\InvalidEnvironmentException;
 /**
  * Enum of the possible environments.
  */
-enum Environment: string {
+enum Environment: string implements EnvironmentInterface {
   case Ddev = 'ddev';
   case Tugboat = 'tugboat';
   case Staging = 'staging';
@@ -42,10 +42,7 @@ enum Environment: string {
   }
 
   /**
-   * Is this environment a DDEV environment?
-   *
-   * @return bool
-   *   TRUE if this is a DDEV environment, FALSE otherwise.
+   * {@inheritDoc}
    */
   public function isDdev(): bool {
     return match ($this) {
@@ -55,10 +52,7 @@ enum Environment: string {
   }
 
   /**
-   * Is this environment a local development environment?
-   *
-   * @return bool
-   *   TRUE if this is a local development environment, FALSE otherwise.
+   * {@inheritDoc}
    */
   public function isLocalDev(): bool {
     return match ($this) {
@@ -68,10 +62,7 @@ enum Environment: string {
   }
 
   /**
-   * Is this environment a Tugboat environment?
-   *
-   * @return bool
-   *   TRUE if this is a Tugboat environment, FALSE otherwise.
+   * {@inheritDoc}
    */
   public function isTugboat(): bool {
     return match ($this) {
@@ -81,10 +72,7 @@ enum Environment: string {
   }
 
   /**
-   * Is this environment a Staging environment?
-   *
-   * @return bool
-   *   TRUE if this is a Staging environment, FALSE otherwise.
+   * {@inheritDoc}
    */
   public function isStaging(): bool {
     return match ($this) {
@@ -94,10 +82,7 @@ enum Environment: string {
   }
 
   /**
-   * Is this environment a Prod environment?
-   *
-   * @return bool
-   *   TRUE if this is a Prod environment, FALSE otherwise.
+   * {@inheritDoc}
    */
   public function isProduction(): bool {
     return match ($this) {
