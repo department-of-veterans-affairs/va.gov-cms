@@ -19,6 +19,6 @@ class SuccessTest extends StrategyPluginBase {
   /**
    * {@inheritDoc}
    */
-  public function triggerFrontendBuild() : void {}
+  public function triggerContentRelease() : void {}
 
 }

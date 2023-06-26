@@ -30,7 +30,6 @@ abstract class StrategyPluginBase extends PluginBase implements StrategyPluginIn
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->logger = $logger;
-    $this->filesystem = $filesystem;
   }
 
   /**

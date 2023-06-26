@@ -36,7 +36,7 @@ class StrategyPluginManager extends DefaultPluginManager implements StrategyPlug
   /**
    * {@inheritDoc}
    */
-  public function getStrategyPlugin(string $id) : StrategyPluginInterface {
+  public function getStrategy(string $id) : StrategyPluginInterface {
     try {
       return $this->createInstance($id);
     }
@@ -49,7 +49,7 @@ class StrategyPluginManager extends DefaultPluginManager implements StrategyPlug
    * {@inheritDoc}
    */
   public function triggerContentRelease(string $id) : void {
-    $this->getStrategyPlugin($id)->triggerContentRelease();
+    $this->getStrategy($id)->triggerContentRelease();
   }
 
 }

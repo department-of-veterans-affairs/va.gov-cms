@@ -20,7 +20,7 @@ class ExceptionTest extends StrategyPluginBase {
   /**
    * {@inheritDoc}
    */
-  public function triggerFrontendBuild() : void {
+  public function triggerContentRelease() : void {
     throw new StrategyErrorException('This is a test exception.');
   }
 

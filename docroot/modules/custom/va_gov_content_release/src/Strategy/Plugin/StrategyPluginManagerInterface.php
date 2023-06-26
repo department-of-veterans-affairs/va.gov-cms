@@ -19,7 +19,7 @@ interface StrategyPluginManagerInterface {
    * @throws \Drupal\va_gov_content_release\Exception\StrategyErrorException
    *   If the strategy cannot be found.
    */
-  public function getStrategyPlugin(string $id) : StrategyPluginInterface;
+  public function getStrategy(string $id) : StrategyPluginInterface;
 
   /**
    * Trigger the content release using the specified strategy.
