@@ -40,8 +40,8 @@ class GitHubRepositoryDispatch extends StrategyPluginBase {
     $plugin_id,
     $plugin_definition,
     ReporterInterface $reporter,
-    GitHubRepositoryDispatchInterface $gitHubRepositoryDispatch,
-    TranslationInterface $stringTranslation
+    TranslationInterface $stringTranslation,
+    GitHubRepositoryDispatchInterface $gitHubRepositoryDispatch
   ) {
     parent::__construct(
       $configuration,
@@ -62,18 +62,18 @@ class GitHubRepositoryDispatch extends StrategyPluginBase {
       $plugin_id,
       $plugin_definition,
       $container->get('va_gov_content_release.reporter'),
-      $container->get('va_gov_content_release.github_repository_dispatch'),
-      $container->get('string_translation')
+      $container->get('string_translation'),
+      $container->get('va_gov_content_release.github_repository_dispatch')
     );
   }
 
   /**
-   * Build a message to display when the release is dispatched.
+   * Build a message to display when the release is submitted.
    *
    * @return string
    *   The message.
    */
-  public function buildDispatchedMessage(): string {
+  public function buildSubmittedMessage(): string {
     return $this->t('The system started the process of releasing this content to go live on VA.gov. <a href="@job_link">Check status</a>.', [
       '@job_link' => static::JOB_LINK,
     ]);
@@ -109,7 +109,7 @@ class GitHubRepositoryDispatch extends StrategyPluginBase {
   public function triggerContentRelease() : void {
     try {
       $this->gitHubRepositoryDispatch->dispatch();
-      $this->reporter->reportInfo($this->buildDispatchedMessage());
+      $this->reporter->reportInfo($this->buildSubmittedMessage());
     }
     catch (ContentReleaseInProgressException $exception) {
       $this->reporter->reportInfo($this->buildAlreadyInProgressMessage());
