@@ -2,6 +2,13 @@
 
 // phpcs:ignoreFile
 
+// This should be set to something different, e.g. 'lando', if not in DDEV.
+//
+// We should shift to using the string 'ddev' rather than 'local' in the future
+// to avoid confusion (especially given that we can have local overrides on 
+// _any_ environment).
+$settings['va_gov_environment']['environment'] = 'ddev';
+
 $settings['jenkins_build_job_path'] = '/job/builds/job/vets-website-content-vagov' . $settings['jenkins_build_env'];
 $settings['jenkins_build_job_params'] = '/buildWithParameters?deploy=true';
 $settings['jenkins_build_job_url'] = $settings['jenkins_build_job_host'] . $settings['jenkins_build_job_path'] . $settings['jenkins_build_job_params'];

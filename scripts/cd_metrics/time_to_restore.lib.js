@@ -74,12 +74,18 @@ export async function shouldSubmitMetrics(testsFailed) {
   if (testsFailed) {
     return false;
   }
-  const previousSha = getParentCommitSha("HEAD");
-  const previousStatus = await getCombinedStatusForCommit(
+  let previousSha = getParentCommitSha("HEAD");
+  let previousStatus = await getCombinedStatusForCommit(
     owner,
     repo,
     previousSha
   );
+  let limit = 25;
+  while (previousStatus === "pending" && limit > 0) {
+    previousSha = getParentCommitSha(previousSha);
+    previousStatus = await getCombinedStatusForCommit(owner, repo, previousSha);
+    limit -= 1;
+  }
   return previousStatus === "failure";
 }
 
@@ -114,7 +120,7 @@ export async function calculateAccruedTimeInFailure(sha) {
     repo,
     previousSha
   );
-  if (previousStatus !== "failure") {
+  if (previousStatus === "success") {
     // This would seem to be the first failing commit, so there is no accrued time in
     // failure.
     return 0;
