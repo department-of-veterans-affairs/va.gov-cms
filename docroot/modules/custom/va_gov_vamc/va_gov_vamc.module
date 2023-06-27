@@ -5,9 +5,13 @@
  * Contains va_gov_vamc.module.
  */
 
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\node\NodeInterface;
+use Drupal\va_gov_facilities\FacilityOps;
+use Drupal\va_gov_vamc\EventSubscriber\VAMCEntityPreventReuse;
 
 /**
  * Implements hook_help().
@@ -46,6 +50,31 @@ function va_gov_vamc_form_alter(&$form, FormStateInterface $form_state, $form_id
       _va_gov_vamc_vbo_facility_status_form_ui($form, $form_state);
     }
   }
+}
+
+/**
+ * Implements hook_node_access_records().
+ */
+function va_gov_vamc_node_access_records(NodeInterface $node) {
+  $grants = VAMCEntityPreventReuse::buildGrantForEditLock($node);
+
+  return $grants;
+}
+
+/**
+ * Implements hook_node_grants().
+ */
+function va_gov_vamc_node_grants(AccountInterface $account, $operation) {
+  // This assigns access grants, to remove the edit tab/operation.
+  $grants = [];
+  /** @var Drupal\va_gov_user\Service\UserPermsService $va_perm_service */
+  $va_perm_service = Drupal::getContainer()->get('va_gov_user.user_perms');
+  if (!$va_perm_service->hasAdminRole(TRUE)) {
+    // This user is not admin, everyone else should be restricted from re-using
+    // if a reusing grant is set on the node.
+    $grants['node_reuse_restrict'] = [FacilityOps::getFacilityTypeSectionId('vamc')];
+  }
+  return $grants;
 }
 
 /**
@@ -113,13 +142,9 @@ function _va_gov_vamc_vbo_facility_status_form_ui(array &$form, FormStateInterfa
  *   The node form array.
  */
 function _va_gov_vamc_vamc_title_access(array &$form) {
-  $allowed_roles = [
-    'administrator',
-    'content_admin',
-  ];
-  $current_user_roles = \Drupal::currentUser()->getRoles();
-  $admin_role_count = count(array_intersect($allowed_roles, $current_user_roles));
-  if ($admin_role_count < 1) {
+  /** @var Drupal\va_gov_user\Service\UserPermsService  $va_permservice */
+  $va_permservice = Drupal::getContainer()->get('va_gov_user.user_perms');
+  if (!$va_permservice->hasAdminRole()) {
     $form['title']['#disabled'] = 'disabled';
   }
 }
