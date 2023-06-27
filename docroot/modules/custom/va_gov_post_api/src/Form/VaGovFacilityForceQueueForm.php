@@ -116,7 +116,6 @@ class VaGovFacilityForceQueueForm extends FormBase {
         'vet_center' => $this->t('Vet Centers') . ' (' . count($vet_center) . ')',
         'vet_center_outstation' => $this->t('Vet Center Outstations') . ' (' . count($vet_center_outstation) . ')',
         'vet_center_mobile_vet_center' => $this->t('Vet Center Mobile Vet Centers') . ' (' . count($vet_center_mobile_vet_center) . ')',
-        'vet_center_cap' => $this->t('Vet Center Community Access Points (Only published facilities)') . ' (' . count($vet_center_cap) . ')',
       ],
       '#required' => TRUE,
     ];
@@ -166,12 +165,6 @@ class VaGovFacilityForceQueueForm extends FormBase {
               $bundle === 'vet_center_mobile_vet_center'
               ) {
               if ($node->moderation_state->value !== 'archived') {
-                $queued_count += _va_gov_post_api_add_facility_to_queue($node);
-              }
-            }
-            // We don't push unpublished CAPs.
-            elseif ($bundle === 'vet_center_cap') {
-              if ($node->status->value === "1") {
                 $queued_count += _va_gov_post_api_add_facility_to_queue($node);
               }
             }
