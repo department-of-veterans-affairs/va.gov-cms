@@ -4,7 +4,9 @@ namespace Drupal\va_gov_content_release\Strategy\Plugin;
 
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Plugin\PluginBase;
-use Psr\Log\LoggerInterface;
+use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\va_gov_content_release\Reporter\ReporterInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -12,12 +14,14 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 abstract class StrategyPluginBase extends PluginBase implements StrategyPluginInterface, ContainerFactoryPluginInterface {
 
+  use StringTranslationTrait;
+
   /**
-   * The logger service.
+   * The reporter service.
    *
-   * @var \Psr\Log\LoggerInterface
+   * @var \Drupal\va_gov_content_release\Reporter\ReporterInterface
    */
-  protected $logger;
+  protected $reporter;
 
   /**
    * {@inheritDoc}
@@ -26,21 +30,29 @@ abstract class StrategyPluginBase extends PluginBase implements StrategyPluginIn
     array $configuration,
     $plugin_id,
     $plugin_definition,
-    LoggerInterface $logger
+    ReporterInterface $reporter,
+    TranslationInterface $stringTranslation
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->logger = $logger;
+    $this->reporter = $reporter;
+    $this->stringTranslation = $stringTranslation;
   }
 
   /**
    * {@inheritDoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+  public static function create(
+    ContainerInterface $container,
+    array $configuration,
+    $plugin_id,
+    $plugin_definition
+  ) {
     return new static(
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('logger.factory')->get('va_gov_content_release')
+      $container->get('va_gov_content_release.reporter'),
+      $container->get('string_translation')
     );
   }
 
