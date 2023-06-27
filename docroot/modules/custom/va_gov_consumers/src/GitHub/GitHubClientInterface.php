@@ -43,6 +43,9 @@ interface GitHubClientInterface {
    * @param array $params
    *   A list of named params to pass to the action as arguments. Keys should
    *   match the action input names.
+   *
+   * @throws \Drupal\va_gov_consumers\Exception\GitHubRepositoryDispatchException
+   *   If listing workflow runs fails or returns an unexpected status code.
    */
   public function listWorkflowRuns(string $workflowName, array $params = []) : array;
 
@@ -53,6 +56,9 @@ interface GitHubClientInterface {
    *   A custom webhook event name. Must be 100 characters or fewer.
    * @param object $clientPayload
    *   Optional extra data to send as the payload with the dispatch.
+   *
+   * @throws \Drupal\va_gov_consumers\Exception\GitHubRepositoryDispatchException
+   *   If the repository dispatch fails or returns an unexpected status code.
    */
   public function repositoryDispatchWorkflow(string $eventType, object $clientPayload = NULL) : void;
 

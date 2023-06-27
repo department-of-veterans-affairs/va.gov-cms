@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit\Environment;
+namespace tests\phpunit\va_gov_environment;
 
 use Tests\Support\Classes\VaGovExistingSiteBase;
 
