@@ -87,6 +87,18 @@ class VaGovFacilityForceQueueForm extends FormBase {
       ->condition('type', 'vet_center')
       ->execute();
 
+    $vet_center_outstation = \Drupal::entityQuery('node')
+      ->condition('type', 'vet_center_outstation')
+      ->execute();
+
+    $vet_center_mobile_vet_center = \Drupal::entityQuery('node')
+      ->condition('type', 'vet_center_mobile_vet_center')
+      ->execute();
+
+    $vet_center_cap = \Drupal::entityQuery('node')
+      ->condition('type', 'vet_center_cap')
+      ->execute();
+
     $form['description'] = [
       '#type' => 'markup',
       '#markup' => $this->t('This form queues ALL items of a selected type for sync to Lighthouse.'),
@@ -102,6 +114,9 @@ class VaGovFacilityForceQueueForm extends FormBase {
         'nca_facility' => $this->t('NCA facilities') . ' (' . count($nca_facility) . ')',
         'vba_facility' => $this->t('VBA facilities') . ' (' . count($vba_facility) . ')',
         'vet_center' => $this->t('Vet Centers') . ' (' . count($vet_center) . ')',
+        'vet_center_outstation' => $this->t('Vet Center Outstations') . ' (' . count($vet_center_outstation) . ')',
+        'vet_center_mobile_vet_center' => $this->t('Vet Center Outstations') . ' (' . count($vet_center_mobile_vet_center) . ')',
+        'vet_center_cap' => $this->t('Vet Center Outstations') . ' (' . count($vet_center_cap) . ')',
       ],
       '#required' => TRUE,
     ];
@@ -146,7 +161,7 @@ class VaGovFacilityForceQueueForm extends FormBase {
               $queued_count += _va_gov_post_api_add_facility_service_to_queue($node);
             }
             else {
-              $queued_count += _va_gov_post_api_add_facility_service_to_queue($node);
+              $queued_count += _va_gov_post_api_add_facility_to_queue($node);
             }
           }
 
