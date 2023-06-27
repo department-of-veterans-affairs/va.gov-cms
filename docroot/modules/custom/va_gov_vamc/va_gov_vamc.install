@@ -270,8 +270,9 @@ function va_gov_vamc_update_9006(&$sandbox) {
  */
 function va_gov_vamc_update_9007(&$sandbox) {
   node_access_needs_rebuild(TRUE);
-  node_access_rebuild();
-  return 'Rebuilt all node_access grants. Approximately 49,000.';
+  // Note for history.  Used of node_access_rebuild() yields faulty results
+  // so rebuild using the UI.
+  return 'Flagged that node_access need to be rebuilt in the UI.';
 }
 
 /**
