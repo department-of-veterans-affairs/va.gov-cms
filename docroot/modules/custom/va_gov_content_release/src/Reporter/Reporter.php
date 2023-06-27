@@ -4,7 +4,6 @@ namespace Drupal\va_gov_content_release\Reporter;
 
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Messenger\MessengerInterface;
-use Drupal\Core\Utility\Error;
 
 /**
  * The content release reporter service.
@@ -57,7 +56,10 @@ class Reporter implements ReporterInterface {
     $this->messenger->addError($message);
     $this->logger->error($message);
     if ($exception) {
-      Error::logException($this->logger, $exception);
+      // When we are on Drupal 10.0.0, we can use the following:
+      // Error::logException($this->logger, $exception);
+      // Until then, we have to do this:
+      watchdog_exception('va_gov_content_release', $exception);
     }
   }
 

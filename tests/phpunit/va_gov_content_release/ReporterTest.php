@@ -2,10 +2,13 @@
 
 namespace tests\phpunit\va_gov_environment;
 
+use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\va_gov_content_release\Reporter\Reporter;
+use Prophecy\Argument;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Tests\Support\Classes\VaGovUnitTestBase;
 
 /**
@@ -46,12 +49,23 @@ class ReporterTest extends VaGovUnitTestBase {
     $messenger = $messengerProphecy->reveal();
     $loggerProphecy = $this->prophesize(LoggerInterface::class);
     $loggerProphecy->error('message')->shouldBeCalled();
+    $loggerProphecy->log(Argument::cetera())->shouldBeCalled();
     $logger = $loggerProphecy->reveal();
+    $stringTranslationProphecy = $this->prophesize(TranslationInterface::class);
+    $stringTranslationProphecy->translateString(Argument::any())->will(function ($args) {
+      return $args[0]->getUntranslatedString();
+    });
+    $stringTranslationService = $stringTranslationProphecy->reveal();
+    $containerProphecy = $this->prophesize(ContainerInterface::class);
+    $containerProphecy->get('string_translation')->willReturn($stringTranslationService);
     $loggerChannelFactoryProphecy = $this->prophesize(LoggerChannelFactoryInterface::class);
     $loggerChannelFactoryProphecy->get('va_gov_content_release')->willReturn($logger);
     $loggerChannelFactory = $loggerChannelFactoryProphecy->reveal();
+    $containerProphecy->get('logger.factory')->willReturn($loggerChannelFactory);
+    $container = $containerProphecy->reveal();
+    \Drupal::setContainer($container);
     $reporter = new Reporter($messenger, $loggerChannelFactory);
-    $reporter->reportError('message');
+    $reporter->reportError('message', new \Exception('test'));
   }
 
   /**
