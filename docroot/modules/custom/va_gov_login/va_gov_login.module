@@ -17,13 +17,6 @@ function va_gov_login_form_user_login_form_alter(&$form, FormStateInterface $for
   unset($form['pass']['#description']);
   unset($form['pass']['description']);
 
-  // Bail from any further login changes if PIV is disabled.
-  $config = \Drupal::config('simplesamlphp_auth.settings');
-  \Drupal::service('renderer')->addCacheableDependency($form, $config);
-//  if (!$config->get('activate') || (!$config->get('login_link_show'))) {
-//    return;
-//  }
-
   // Create PIV login & container.
   $form['samlauth_login_link'] = [
     '#type' => 'fieldset',
@@ -40,7 +33,7 @@ function va_gov_login_form_user_login_form_alter(&$form, FormStateInterface $for
     '#url' => Url::fromRoute('samlauth.saml_controller_login'),
     '#attributes' => [
       'title' => 'Follow this link to login using your PIV or other smartcard.',
-      'class' => ['simplesamlphp-auth-login-link', 'button', 'button--primary'],
+      'class' => ['samlauth-login-link', 'button', 'button--primary'],
     ],
   ];
 
