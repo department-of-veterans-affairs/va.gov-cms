@@ -115,8 +115,8 @@ class VaGovFacilityForceQueueForm extends FormBase {
         'vba_facility' => $this->t('VBA facilities') . ' (' . count($vba_facility) . ')',
         'vet_center' => $this->t('Vet Centers') . ' (' . count($vet_center) . ')',
         'vet_center_outstation' => $this->t('Vet Center Outstations') . ' (' . count($vet_center_outstation) . ')',
-        'vet_center_mobile_vet_center' => $this->t('Vet Center Outstations') . ' (' . count($vet_center_mobile_vet_center) . ')',
-        'vet_center_cap' => $this->t('Vet Center Outstations') . ' (' . count($vet_center_cap) . ')',
+        'vet_center_mobile_vet_center' => $this->t('Vet Center Mobile Vet Centers') . ' (' . count($vet_center_mobile_vet_center) . ')',
+        'vet_center_cap' => $this->t('Vet Center Community Access Points (Only published facilities)') . ' (' . count($vet_center_cap) . ')',
       ],
       '#required' => TRUE,
     ];
@@ -159,6 +159,21 @@ class VaGovFacilityForceQueueForm extends FormBase {
           foreach ($nodes as $node) {
             if ($bundle === 'health_care_local_health_service') {
               $queued_count += _va_gov_post_api_add_facility_service_to_queue($node);
+            }
+            // We don't push archived outstations or mobile vet centers.
+            elseif (
+              $bundle === 'vet_center_outstation' ||
+              $bundle === 'vet_center_mobile_vet_center'
+              ) {
+              if ($node->moderation_state->value !== 'archived') {
+                $queued_count += _va_gov_post_api_add_facility_to_queue($node);
+              }
+            }
+            // We don't push unpublished CAPs.
+            elseif ($bundle === 'vet_center_cap') {
+              if ($node->status->value === "1") {
+                $queued_count += _va_gov_post_api_add_facility_to_queue($node);
+              }
             }
             else {
               $queued_count += _va_gov_post_api_add_facility_to_queue($node);
