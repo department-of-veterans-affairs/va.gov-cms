@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_consumers\GitHub;
 
+use Drupal\va_gov_consumers\Exception\GitHubRepositoryDispatchException;
 use GuzzleHttp\ClientInterface as HttpClientInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -173,16 +174,32 @@ class GitHubClient implements GitHubClientInterface {
    * {@inheritDoc}
    */
   public function listWorkflowRuns(string $workflowName, array $params = []) : array {
-    $response = $this->listWorkflowRunsRaw($workflowName, $params);
-    $data = json_decode($response->getBody()->getContents(), TRUE);
-    return $data;
+    try {
+      $response = $this->listWorkflowRunsRaw($workflowName, $params);
+      if ($response->getStatusCode() !== 200) {
+        throw new GitHubRepositoryDispatchException('Listing workflow runs failed with status code: ' . $response->getStatusCode());
+      }
+      $data = json_decode($response->getBody()->getContents(), TRUE);
+      return $data;
+    }
+    catch (\Throwable $exception) {
+      throw new GitHubRepositoryDispatchException('Listing workflow runs failed.', $exception->getCode(), $exception);
+    }
   }
 
   /**
    * {@inheritDoc}
    */
   public function repositoryDispatchWorkflow(string $eventType, object $clientPayload = NULL) : void {
-    $this->repositoryDispatchWorkflowRaw($eventType, $clientPayload);
+    try {
+      $response = $this->repositoryDispatchWorkflowRaw($eventType, $clientPayload);
+      if ($response->getStatusCode() !== 204) {
+        throw new GitHubRepositoryDispatchException('Repository dispatch failed with status code: ' . $response->getStatusCode());
+      }
+    }
+    catch (\Throwable $exception) {
+      throw new GitHubRepositoryDispatchException('Repository dispatch failed.', $exception->getCode(), $exception);
+    }
   }
 
 }
