@@ -13,7 +13,14 @@ Example situations include issues preventing or impairing:
 
 In this case, we might elect to perform an out-of-band deployment – a manually-initiated deployment of the CMS codebase to the production environment outside of the normal deployment schedule.
 
-Out-of-band deployments are disruptive, as they incur a few minutes of downtime. They also require approval from the product owner, and normally a postmortem procedure to address the inadequacies in processes or tools that led to the issue.
+Out-of-band deployments are disruptive, as they:
+
+- require oversight, attention, and manual actions
+- cause some downtime for all editors
+- require communication with multiple teams
+- necessitate other engineers not merging PRs for a time
+
+They also require approval from the product owner, and normally a postmortem procedure to address the inadequacies in processes or tools that led to the issue.
 
 This document should provide guidance and reduce the stress, uncertainty, and likelihood of error while executing an out-of-band deployment.
 
@@ -89,12 +96,6 @@ Notify all Drupal engineers in `@cms-engineers-group`  (product teams & CMS Team
 
 We want to notify the CMS team to minimize surprise and alarm (if they unexpectedly see an unscheduled deployment happen) and for general situational awareness.
 
-To notify the CMS team, send a Slack message like the following in the `#sitewide-something-platform` Slack channel:
-
-```slack
-:alert: @whoever We will be performing an out-of-band deployment for the CMS (with a 15-minute delay) to resolve critical issues.
-```
-
 ### Trigger CMS Release
 
 Only a single Jenkins job needs to be triggered to perform a prod deploy.
@@ -113,7 +114,7 @@ Nothing will happen for about fifteen minutes, giving you a chance to cancel the
 The `auto-deploy` job log should contain a line like the following:
 
 ```
-Commit status: success : 0e1aa59568840a39a4f37cf6a4b908e588c12b59
+Commit status: success : 0e1aa59-some-commit-sha-588c12b59
 ```
 
 The hash mentioned should correspond to a commit containing the fix. If it does not, check the post-deploy tests job and combined status for the commit and confirm that they indicate success. If tests unexpectedly failed or did not complete, it is probably too late to cancel the deploy, and too risky to attempt, but a new deploy can be initiated with minimal delay.
@@ -141,4 +142,3 @@ Chances are that any situation serious enough to require an out-of-band deploy w
 To create the postmortem, follow the procedure [here](https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/tree/master/Postmortems). Note that this involves a pull request and review process. Don't just create it in `master` :slightly_smiling_face:
 
 Remember that the purpose of a postmortem is to determine the root causes – the deficits in processes and tools – that made this situation possible, and reduce the likelihood of it happening again. It is not to assign blame, express guilt, etc.
-
