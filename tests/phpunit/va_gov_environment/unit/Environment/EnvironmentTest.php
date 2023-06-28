@@ -69,87 +69,85 @@ class EnvironmentTest extends VaGovUnitTestBase {
   }
 
   /**
-   * Confirm that production environments are detected as intended.
+   * Confirm that environments are detected as intended.
    *
    * @param string $environmentName
    *   The name of the environment.
-   * @param bool $expected
+   * @param bool $isProduction
    *   Whether the environment is expected to be production.
+   * @param bool $isStaging
+   *   Whether the environment is expected to be staging.
+   * @param bool $isDev
+   *   Whether the environment is expected to be dev.
+   * @param bool $isTugboat
+   *   Whether the environment is expected to be Tugboat.
+   * @param bool $isDdev
+   *   Whether the environment is expected to be DDEV.
    *
    * @covers ::isProduction
-   * @dataProvider isProductionDataProvider
-   */
-  public function testIsProduction(string $environmentName, bool $expected) {
-    $environment = Environment::from($environmentName);
-    $this->assertEquals($expected, $environment->isProduction());
-  }
-
-  /**
-   * Data provider for testIsProduction.
-   *
-   * @return array
-   *   The data.
-   */
-  public function isProductionDataProvider() {
-    return [
-      [
-        'ddev',
-        FALSE,
-      ],
-      [
-        'tugboat',
-        FALSE,
-      ],
-      [
-        'staging',
-        FALSE,
-      ],
-      [
-        'prod',
-        TRUE,
-      ],
-    ];
-  }
-
-  /**
-   * Confirm that staging environments are detected as intended.
-   *
-   * @param string $environmentName
-   *   The name of the environment.
-   * @param bool $expected
-   *   Whether the environment is expected to be staging.
-   *
    * @covers ::isStaging
-   * @dataProvider isStagingDataProvider
+   * @covers ::isTugboat
+   * @covers ::isDdev
+   * @covers ::isLocalDev
+   * @dataProvider isWhateverDataProvider
    */
-  public function testIsStaging(string $environmentName, bool $expected) {
+  public function testIsWhatever(string $environmentName, bool $isProduction, bool $isStaging, bool $isDev, bool $isTugboat, bool $isDdev) {
     $environment = Environment::from($environmentName);
-    $this->assertEquals($expected, $environment->isStaging());
+    $this->assertEquals($isProduction, $environment->isProduction());
+    $this->assertEquals($isStaging, $environment->isStaging());
+    $this->assertEquals($isDev, $environment->isDev());
+    $this->assertEquals($isTugboat, $environment->isTugboat());
+    $this->assertEquals($isDdev, $environment->isDdev());
+    $this->assertEquals($isDdev, $environment->isLocalDev());
   }
 
   /**
-   * Data provider for testIsStaging.
+   * Data provider for testIsWhatever.
    *
    * @return array
    *   The data.
    */
-  public function isStagingDataProvider() {
+  public function isWhateverDataProvider() {
     return [
-      [
-        'ddev',
-        FALSE,
+      'ddev' => [
+        'environmentName' => 'ddev',
+        'isProduction' => FALSE,
+        'isStaging' => FALSE,
+        'isDev' => FALSE,
+        'isTugboat' => FALSE,
+        'isDdev' => TRUE,
       ],
-      [
-        'tugboat',
-        FALSE,
+      'tugboat' => [
+        'environmentName' => 'tugboat',
+        'isProduction' => FALSE,
+        'isStaging' => FALSE,
+        'isDev' => FALSE,
+        'isTugboat' => TRUE,
+        'isDdev' => FALSE,
       ],
-      [
-        'staging',
-        TRUE,
+      'dev' => [
+        'environmentName' => 'dev',
+        'isProduction' => FALSE,
+        'isStaging' => FALSE,
+        'isDev' => TRUE,
+        'isTugboat' => FALSE,
+        'isDdev' => FALSE,
       ],
-      [
-        'prod',
-        FALSE,
+      'staging' => [
+        'environmentName' => 'staging',
+        'isProduction' => FALSE,
+        'isStaging' => TRUE,
+        'isDev' => FALSE,
+        'isTugboat' => FALSE,
+        'isDdev' => FALSE,
+      ],
+      'prod' => [
+        'environmentName' => 'prod',
+        'isProduction' => TRUE,
+        'isStaging' => FALSE,
+        'isDev' => FALSE,
+        'isTugboat' => FALSE,
+        'isDdev' => FALSE,
       ],
     ];
   }
