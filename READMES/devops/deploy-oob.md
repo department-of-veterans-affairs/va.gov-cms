@@ -9,6 +9,7 @@ Example situations include issues preventing or impairing:
 - content release
 - editor login
 - content workflow
+- risk of data loss
 
 In this case, we might elect to perform an out-of-band deployment – a manually-initiated deployment of the CMS codebase to the production environment outside of the normal deployment schedule.
 
