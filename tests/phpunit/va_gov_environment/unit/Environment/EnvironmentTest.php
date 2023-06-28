@@ -86,9 +86,11 @@ class EnvironmentTest extends VaGovUnitTestBase {
    *
    * @covers ::isProduction
    * @covers ::isStaging
+   * @covers ::isDev
    * @covers ::isTugboat
    * @covers ::isDdev
    * @covers ::isLocalDev
+   * @covers ::isBrd
    * @dataProvider isWhateverDataProvider
    */
   public function testIsWhatever(string $environmentName, bool $isProduction, bool $isStaging, bool $isDev, bool $isTugboat, bool $isDdev) {
@@ -99,6 +101,7 @@ class EnvironmentTest extends VaGovUnitTestBase {
     $this->assertEquals($isTugboat, $environment->isTugboat());
     $this->assertEquals($isDdev, $environment->isDdev());
     $this->assertEquals($isDdev, $environment->isLocalDev());
+    $this->assertEquals($isProduction || $isStaging || $isDev, $environment->isBrd());
   }
 
   /**
