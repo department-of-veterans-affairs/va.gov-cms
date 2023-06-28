@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit\va_gov_environment;
+namespace tests\phpunit\va_gov_environment\unit\Service;
 
 use Drupal\Core\Site\Settings;
 use Drupal\va_gov_environment\Environment\Environment;
