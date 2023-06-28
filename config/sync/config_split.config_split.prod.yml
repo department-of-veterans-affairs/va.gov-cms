@@ -9,14 +9,14 @@ weight: 0
 folder: ../config/prod
 module:
   fast404: 0
-  raven: 0
   simplesamlphp_auth: 0
+  raven: 0
   syslog: 0
 theme: {  }
 blacklist: {  }
 graylist:
   - password_policy.password_policy.va_gov_cms
-  - simplesamlphp_auth.settings
+  - samlauth.authentication
   - raven.settings.yml
 graylist_dependents: true
 graylist_skip_equal: true
