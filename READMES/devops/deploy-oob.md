@@ -81,6 +81,12 @@ github-status-updater \
 
 First, notify the Sitewide team, Helpdesk, and Editors of an Out-of-Band deployment and the resulting downtime.
 
+Notify all Drupal engineers in `@cms-engineers-group`  (product teams & CMS Team) in `#sitewide-program` and request that they hold off on merging anything until further notice, as that can delay the testing pipeline.
+
+```slack
+:alert: @cms-engineers-group We are preparing for an Out-of-Band deployment.  Please hold off on merging anything until further notice, so as not to delay testing and rollout.  
+```
+
 We want to notify the CMS team to minimize surprise and alarm (if they unexpectedly see an unscheduled deployment happen) and for general situational awareness.
 
 To notify the CMS team, send a Slack message like the following in the `#sitewide-something-platform` Slack channel:
@@ -123,7 +129,11 @@ Once the deploy shield is lowered, perform these steps:
 Helpdesk should notify editors and other stakeholders that the issue has been resolved successfully.
 
 ## Post-Deployment
+Notify all Drupal engineers `@cms-engineers-group`  (product teams & CMS Team) in `#sitewide-program` and let them know they are clear to resume merging code as needed.
 
+```slack
+@cms-engineers-group The Out-of-Band deployment is complete.  You may resume merging as needed.  
+```
 ### Postmortem
 
 Chances are that any situation serious enough to require an out-of-band deploy will warrant a postmortem.
