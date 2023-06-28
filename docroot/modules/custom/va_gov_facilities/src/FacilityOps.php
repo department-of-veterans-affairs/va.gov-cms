@@ -150,6 +150,8 @@ class FacilityOps {
   public static function isBundleFacilityToAutoArchive(string $type) : bool {
     $facilities_to_auto_archive = [
       'nca_facility',
+      'vet_center_mobile_vet_center',
+      'vet_center_outstation',
     ];
 
     return in_array($type, $facilities_to_auto_archive);
