@@ -58,4 +58,12 @@ interface EnvironmentInterface {
    */
   public function isProduction() : bool;
 
+  /**
+   * Check if the current environment is a BRD environment.
+   *
+   * @return bool
+   *   TRUE if the current environment is BRD, FALSE otherwise.
+   */
+  public function isBrd() : bool;
+
 }

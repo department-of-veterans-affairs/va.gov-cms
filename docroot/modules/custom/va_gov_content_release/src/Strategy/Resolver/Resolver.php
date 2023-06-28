@@ -45,7 +45,7 @@ class Resolver implements ResolverInterface {
   }
 
   /**
-   * Get the strategy plugin.
+   * Get the strategy plugin ID.
    *
    * @return string
    *   The strategy plugin ID.
@@ -56,11 +56,11 @@ class Resolver implements ResolverInterface {
   public function getStrategyId() : string {
     $environment = $this->environmentDiscovery->getEnvironment();
     return match (TRUE) {
-      $environment->isProduction() => 'github_repository_dispatch',
-      $environment->isStaging() => 'github_repository_dispatch',
-      $environment->isDev() => 'github_repository_dispatch',
-      $environment->isTugboat() => 'local_filesystem_build_file',
-      $environment->isLocalDev() => 'local_filesystem_build_file',
+      $environment->isProduction() => static::STRATEGY_GITHUB_REPOSITORY_DISPATCH,
+      $environment->isStaging() => static::STRATEGY_GITHUB_REPOSITORY_DISPATCH,
+      $environment->isDev() => static::STRATEGY_GITHUB_REPOSITORY_DISPATCH,
+      $environment->isTugboat() => static::STRATEGY_LOCAL_FILESYSTEM_BUILD_FILE,
+      $environment->isLocalDev() => static::STRATEGY_LOCAL_FILESYSTEM_BUILD_FILE,
       default => throw new CouldNotDetermineStrategyException('Could not determine a valid content release strategy for environment: ' . $environment->getRawValue()),
     };
   }

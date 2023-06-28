@@ -11,7 +11,7 @@ use Tests\Support\Classes\VaGovExistingSiteBase;
  * @group functional
  * @group all
  *
- * @coversDefaultClass \Drupal\va_gov_content_release\Strategy\Resolver
+ * @coversDefaultClass \Drupal\va_gov_content_release\Strategy\Resolver\Resolver
  */
 class ResolverTest extends VaGovExistingSiteBase {
 
@@ -21,7 +21,8 @@ class ResolverTest extends VaGovExistingSiteBase {
    * @covers ::__construct
    */
   public function testConstruct() {
-    $this->assertInstanceOf(Resolver::class, \Drupal::service('va_gov_content_release.strategy_resolver'));
+    $resolver = \Drupal::service('va_gov_content_release.strategy_resolver');
+    $this->assertInstanceOf(Resolver::class, $resolver);
   }
 
 }

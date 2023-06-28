@@ -4,6 +4,7 @@ namespace tests\phpunit\va_gov_environment\unit\Strategy\Resolver;
 
 use Drupal\va_gov_content_release\Strategy\Plugin\StrategyPluginManagerInterface;
 use Drupal\va_gov_content_release\Strategy\Resolver\Resolver;
+use Drupal\va_gov_content_release\Strategy\Resolver\ResolverInterface;
 use Drupal\va_gov_environment\Environment\Environment;
 use Drupal\va_gov_environment\Service\DiscoveryInterface;
 use Tests\Support\Classes\VaGovUnitTestBase;
@@ -68,22 +69,22 @@ class ResolverTest extends VaGovUnitTestBase {
     return [
       'ddev' => [
         'ddev',
-        'local_filesystem_build_file',
+        ResolverInterface::STRATEGY_LOCAL_FILESYSTEM_BUILD_FILE,
         NULL,
       ],
       'prod' => [
         'prod',
-        'github_repository_dispatch',
+        ResolverInterface::STRATEGY_GITHUB_REPOSITORY_DISPATCH,
         NULL,
       ],
       'staging' => [
         'staging',
-        'github_repository_dispatch',
+        ResolverInterface::STRATEGY_GITHUB_REPOSITORY_DISPATCH,
         NULL,
       ],
       'tugboat' => [
         'tugboat',
-        'local_filesystem_build_file',
+        ResolverInterface::STRATEGY_LOCAL_FILESYSTEM_BUILD_FILE,
         NULL,
       ],
       'invalid' => [
@@ -107,7 +108,7 @@ class ResolverTest extends VaGovUnitTestBase {
     $strategyPluginManager = $strategyPluginManagerProphecy->reveal();
     $resolver = new Resolver($strategyPluginManager, $environmentDiscovery);
     $resolver->triggerContentRelease();
-    $strategyPluginManagerProphecy->triggerContentRelease('local_filesystem_build_file')->shouldHaveBeenCalled();
+    $strategyPluginManagerProphecy->triggerContentRelease(ResolverInterface::STRATEGY_LOCAL_FILESYSTEM_BUILD_FILE)->shouldHaveBeenCalled();
   }
 
 }

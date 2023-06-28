@@ -95,6 +95,13 @@ class Discovery implements DiscoveryInterface {
   /**
    * {@inheritDoc}
    */
+  public function isBrd() : bool {
+    return $this->getEnvironment()->isBrd();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   public function isCmsTest() : bool {
     return (bool) $this->settings->get('va_gov_environment')['is_cms_test'];
   }

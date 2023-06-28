@@ -109,4 +109,16 @@ enum Environment: string implements EnvironmentInterface {
     };
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  public function isBrd(): bool {
+    return match ($this) {
+      self::Prod => TRUE,
+      self::Staging => TRUE,
+      self::Dev => TRUE,
+      default => FALSE,
+    };
+  }
+
 }
