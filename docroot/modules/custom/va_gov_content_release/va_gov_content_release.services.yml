@@ -9,7 +9,7 @@ services:
     class: Drupal\va_gov_content_release\Reporter\Reporter
     arguments: ['@messenger', '@logger.factory']
   va_gov_content_release.strategy_resolver:
-    class: Drupal\va_gov_content_release\Strategy\StrategyResolver
+    class: Drupal\va_gov_content_release\Strategy\Resolver
     arguments: ['@plugin.manager.va_gov_content_release.strategy', '@va_gov_environment.discovery']
   plugin.manager.va_gov_content_release.strategy:
     class: Drupal\va_gov_content_release\Strategy\Plugin\StrategyPluginManager

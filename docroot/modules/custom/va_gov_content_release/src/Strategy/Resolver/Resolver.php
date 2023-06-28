@@ -56,7 +56,7 @@ class Resolver implements ResolverInterface {
   public function getStrategyId() : string {
     $environment = $this->environmentDiscovery->getEnvironment();
     return match (TRUE) {
-      $environment->isProd() => 'github_repository_dispatch',
+      $environment->isProduction() => 'github_repository_dispatch',
       $environment->isStaging() => 'github_repository_dispatch',
       $environment->isDev() => 'github_repository_dispatch',
       $environment->isTugboat() => 'local_filesystem_build_file',
@@ -70,7 +70,7 @@ class Resolver implements ResolverInterface {
    */
   public function triggerContentRelease() : void {
     $strategyId = $this->getStrategyId();
-    $this->strategyPluginManagerr->triggerRelease($strategyId);
+    $this->strategyPluginManager->triggerContentRelease($strategyId);
   }
 
 }

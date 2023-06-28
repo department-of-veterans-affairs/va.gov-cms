@@ -16,7 +16,7 @@ use Tests\Support\Classes\VaGovExistingSiteBase;
 class GitHubRepositoryDispatchTest extends VaGovExistingSiteBase {
 
   /**
-   * Test that the Strategy Plugin Manager service is available.
+   * Test that the service is available.
    *
    * @covers ::__construct
    */

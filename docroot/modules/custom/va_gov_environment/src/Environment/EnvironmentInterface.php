@@ -35,6 +35,14 @@ interface EnvironmentInterface {
   public function isTugboat() : bool;
 
   /**
+   * Check if the current environment is a dev environment.
+   *
+   * @return bool
+   *   TRUE if the current environment is dev, FALSE otherwise.
+   */
+  public function isDev() : bool;
+
+  /**
    * Check if the current environment is a staging environment.
    *
    * @return bool

@@ -9,7 +9,7 @@ use Drupal\va_gov_environment\Environment\EnvironmentInterface;
 /**
  * Builds and sends metrics to Datadog.
  */
-class Discovery implements DiscoveryInterface, EnvironmentInterface {
+class Discovery implements DiscoveryInterface {
 
   /**
    * The Settings service.
@@ -69,6 +69,13 @@ class Discovery implements DiscoveryInterface, EnvironmentInterface {
    */
   public function isTugboat() : bool {
     return $this->getEnvironment()->isTugboat();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public function isDev() : bool {
+    return $this->getEnvironment()->isDev();
   }
 
   /**
