@@ -15,6 +15,7 @@ services:
     arguments:
       - '@database'
       - '@messenger'
+      - '@current_route_match'
       - '@va_gov_user.user_perms'
     tags:
       - { name: event_subscriber }

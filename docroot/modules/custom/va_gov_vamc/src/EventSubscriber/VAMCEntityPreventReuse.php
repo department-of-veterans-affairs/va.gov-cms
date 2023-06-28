@@ -4,9 +4,11 @@ namespace Drupal\va_gov_vamc\EventSubscriber;
 
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityAccessEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityViewEvent;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\node\NodeInterface;
 use Drupal\va_gov_facilities\FacilityOps;
@@ -36,6 +38,13 @@ class VAMCEntityPreventReuse implements EventSubscriberInterface {
   protected $messenger;
 
   /**
+   * The route match object.
+   *
+   * @var \Drupal\Core\Routing\RouteMatchInterface
+   */
+  protected $routeMatch;
+
+  /**
    * The User Perms Service.
    *
    * @var \Drupal\va_gov_user\Service\UserPermsService
@@ -49,16 +58,20 @@ class VAMCEntityPreventReuse implements EventSubscriberInterface {
    *   The current user.
    * @param \Drupal\Core\Messenger\MessengerInterface $messenger
    *   The messenger.
+   * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
+   *   The route match object.
    * @param \Drupal\va_gov_user\Service\UserPermsService $user_perms_service
    *   The user perms service.
    */
   public function __construct(
     Connection $database,
     MessengerInterface $messenger,
+    RouteMatchInterface $route_match,
     UserPermsService $user_perms_service,
   ) {
     $this->database = $database;
     $this->messenger = $messenger;
+    $this->routeMatch = $route_match;
     $this->userPermsService = $user_perms_service;
   }
 
@@ -68,7 +81,22 @@ class VAMCEntityPreventReuse implements EventSubscriberInterface {
   public static function getSubscribedEvents(): array {
     return [
       EntityHookEvents::ENTITY_ACCESS => 'entityAccess',
+      EntityHookEvents::ENTITY_VIEW => 'entityView',
     ];
+  }
+
+  /**
+   * Alteration to entity view pages.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewEvent $event
+   *   The entity view alter service.
+   */
+  public function entityView(EntityViewEvent $event):void {
+    $entity = $event->getEntity();
+    if ($entity instanceof NodeInterface) {
+      // Call this so admins see the message because admins skip node_access.
+      $this->isRestricted($entity, 'view');
+    }
   }
 
   /**
@@ -83,12 +111,11 @@ class VAMCEntityPreventReuse implements EventSubscriberInterface {
     if ($node instanceof NodeInterface && $this->isRestricted($node, $op)) {
       $tokens = ['@content_type' => $node->type->entity->label()];
       $reason_message = (string) $this->t('This @content_type has already been unpublished, it can no longer be edited.', $tokens);
-      $this->messenger->addWarning($reason_message);
       // Like other perms in Drupal, grants are additive, so we have to pull
       // this one grant out explicitly to operate only on the basis of
       // restricting to this grant.
-      $result = AccessResult::forbidden($reason_message);
-      $result->addCacheTags(['tag_from_' . __FUNCTION__]);
+      $result = AccessResult::forbiddenIf(TRUE, $reason_message);
+      $result->addCacheTags(['tag_from_va_gov_vamc_node_access']);
       $result->cachePerUser();
       // Cache for a week.  This value should not change often.
       $result->setCacheMaxAge(604800);
@@ -162,6 +189,7 @@ class VAMCEntityPreventReuse implements EventSubscriberInterface {
       'clone',
       'delete',
       'update',
+      'view',
     ];
     if (in_array($op, $restricted_ops) && $node->bundle() === 'full_width_banner_alert') {
       // Check the node for an existing access grant of this type.
@@ -172,7 +200,19 @@ class VAMCEntityPreventReuse implements EventSubscriberInterface {
         ->condition('na.gid', FacilityOps::getFacilityTypeSectionId('vamc'), '=')
         ->condition('nid', $node->id());
       $result = $select->execute()->fetchObject();
-      if (!empty($result) && empty($result->$op)) {
+      $op_grant_name = "grant_{$op}";
+      if (!empty($result)) {
+        $route = $this->routeMatch->getRouteName();
+        if ($route === 'entity.node.canonical') {
+          // Note: For admins, this message will only be seen once because
+          // admins bypass most access checks.  All others will see this as
+          // persistent on node view.
+          $tokens = ['@content_type' => $node->type->entity->label()];
+          $reason_message = (string) $this->t('This @content_type has already been unpublished, it can no longer be edited.', $tokens);
+          $this->messenger->addWarning($reason_message);
+        }
+      }
+      if (!empty($result) && empty($result->$op_grant_name)) {
         $is_restricted = TRUE;
       }
       elseif (!empty($result) && $op === 'clone') {
