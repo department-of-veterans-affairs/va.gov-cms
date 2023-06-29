@@ -69,34 +69,42 @@ class VaGovFacilityForceQueueForm extends FormBase {
     // Queries to get total number of nodes for each type for reference.
     $health_care_local_facility = \Drupal::entityQuery('node')
       ->condition('type', 'health_care_local_facility')
+      ->condition('moderation_state', 'archived', '!=')
       ->execute();
 
     $health_care_facility_service = \Drupal::entityQuery('node')
       ->condition('type', 'health_care_local_health_service')
+      ->condition('moderation_state', 'archived', '!=')
       ->execute();
 
     $nca_facility = \Drupal::entityQuery('node')
       ->condition('type', 'nca_facility')
+      ->condition('moderation_state', 'archived', '!=')
       ->execute();
 
     $vba_facility = \Drupal::entityQuery('node')
       ->condition('type', 'vba_facility')
+      ->condition('moderation_state', 'archived', '!=')
       ->execute();
 
     $vet_center = \Drupal::entityQuery('node')
       ->condition('type', 'vet_center')
+      ->condition('moderation_state', 'archived', '!=')
       ->execute();
 
     $vet_center_outstation = \Drupal::entityQuery('node')
       ->condition('type', 'vet_center_outstation')
+      ->condition('moderation_state', 'archived', '!=')
       ->execute();
 
     $vet_center_mobile_vet_center = \Drupal::entityQuery('node')
       ->condition('type', 'vet_center_mobile_vet_center')
+      ->condition('moderation_state', 'archived', '!=')
       ->execute();
 
     $vet_center_cap = \Drupal::entityQuery('node')
       ->condition('type', 'vet_center_cap')
+      ->condition('moderation_state', 'archived', '!=')
       ->execute();
 
     $form['description'] = [
@@ -143,6 +151,7 @@ class VaGovFacilityForceQueueForm extends FormBase {
 
     $sandbox['nids'] = \Drupal::entityQuery('node')
       ->condition('type', $bundle)
+      ->condition('moderation_state', 'archived', '!=')
       ->execute();
 
     if (!empty($sandbox['nids'])) {
@@ -158,15 +167,6 @@ class VaGovFacilityForceQueueForm extends FormBase {
           foreach ($nodes as $node) {
             if ($bundle === 'health_care_local_health_service') {
               $queued_count += _va_gov_post_api_add_facility_service_to_queue($node);
-            }
-            // We don't push archived outstations or mobile vet centers.
-            elseif (
-              $bundle === 'vet_center_outstation' ||
-              $bundle === 'vet_center_mobile_vet_center'
-              ) {
-              if ($node->moderation_state->value !== 'archived') {
-                $queued_count += _va_gov_post_api_add_facility_to_queue($node);
-              }
             }
             else {
               $queued_count += _va_gov_post_api_add_facility_to_queue($node);
