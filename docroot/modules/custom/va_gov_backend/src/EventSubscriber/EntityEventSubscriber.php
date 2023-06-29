@@ -145,20 +145,13 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $form = &$event->getForm();
     $form_state = $event->getFormState();
 
-    $form['#submit'][] = $this->addStateManagementToBioFieldsSubmitHandler($event);
     $selector = ':input[name="field_complete_biography_create[value]"]';
     $form['field_intro_text']['widget'][0]['value']['#states'] = [
-      'required' => [
-          [$selector => ['checked' => TRUE]],
-      ],
       'visible' => [
             [$selector => ['checked' => TRUE]],
       ],
     ];
     $form['field_body']['#states'] = [
-      'required' => [
-          [$selector => ['checked' => TRUE]],
-      ],
       'visible' => [
           [$selector => ['checked' => TRUE]],
       ],
@@ -168,22 +161,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
           [$selector => ['checked' => TRUE]],
       ],
     ];
-  }
-
-  /**
-   * Submit handler removes field body req when bio toggle is set to FALSE.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
-   *   The event.
-   */
-  public function addStateManagementToBioFieldsSubmitHandler(FormIdAlterEvent $event) {
-    $form = &$event->getForm();
-    $form_state = $event->getFormState();
-    $bio_display = !empty($form_state->getUserInput()['field_complete_biography_create']['value']) ? TRUE : FALSE;
-    if (!$bio_display) {
-      $form['actions']['submit']['#limit_validation_errors'] = [['revision_log'], ['field_name_first'], ['field_last_name'], ['field_administration'], ['field_office']];
-      $form['field_body']['widget'][0]['#required'] = FALSE;
-    }
   }
 
   /**
