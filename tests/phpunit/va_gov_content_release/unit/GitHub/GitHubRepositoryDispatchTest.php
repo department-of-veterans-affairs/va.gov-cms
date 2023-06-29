@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit\va_gov_environment;
+namespace tests\phpunit\va_gov_environment\unit\GitHub;
 
 use Drupal\va_gov_consumers\GitHub\GitHubClientInterface;
 use Drupal\va_gov_content_release\Exception\ContentReleaseInProgressException;
@@ -131,7 +131,7 @@ class GitHubRepositoryDispatchTest extends VaGovUnitTestBase {
    * @param \Throwable $throwException
    *   The exception to throw, if any.
    *
-   * @covers ::dispatch
+   * @covers ::submit
    * @covers ::isPending
    * @dataProvider dispatchDataProvider
    */
@@ -149,7 +149,7 @@ class GitHubRepositoryDispatchTest extends VaGovUnitTestBase {
     }
     $gitHubClient = $gitHubClientProphecy->reveal();
     $gitHubRepositoryDispatch = new GitHubRepositoryDispatch($gitHubClient);
-    $gitHubRepositoryDispatch->dispatch();
+    $gitHubRepositoryDispatch->submit();
   }
 
   /**

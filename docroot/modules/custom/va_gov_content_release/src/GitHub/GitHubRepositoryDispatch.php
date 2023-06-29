@@ -9,7 +9,7 @@ use Drupal\va_gov_content_release\Exception\GitHubRepositoryDispatchException;
 /**
  * The GitHub repository dispatch service.
  *
- * This service is used to dispatch repository dispatch events to GitHub, to
+ * This service is used to submit repository dispatch events to GitHub, to
  * check whether a current workflow is pending, and to make these operations
  * testable.
  *
@@ -56,7 +56,7 @@ class GitHubRepositoryDispatch implements GitHubRepositoryDispatchInterface {
   /**
    * {@inheritDoc}
    */
-  public function dispatch() : void {
+  public function submit() : void {
     try {
       if ($this->isPending()) {
         throw new ContentReleaseInProgressException('A workflow is already pending.');
