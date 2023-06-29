@@ -34,3 +34,11 @@ Then("an image with the selector {string} should exist", (selector) => {
       expect($img[0].naturalHeight).to.be.greaterThan(0);
     });
 });
+
+Then("the {string} tab should exist", (text) =>
+  cy.get(".tabs__tab a").contains(text).should("exist")
+);
+
+Then("the {string} tab should not exist", (text) =>
+  cy.get(".tabs__tab a").contains(text).should("not exist")
+);
