@@ -10,7 +10,7 @@ use Drupal\va_gov_environment\Environment\EnvironmentInterface;
  * This describes a service that can be used to discover the environment in
  * which the application is running, but is easily mocked for testing.
  */
-interface DiscoveryInterface {
+interface DiscoveryInterface extends EnvironmentInterface {
 
   /**
    * Get the current raw detected environment.

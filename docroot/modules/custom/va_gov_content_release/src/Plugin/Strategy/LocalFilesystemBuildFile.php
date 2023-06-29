@@ -2,9 +2,8 @@
 
 namespace Drupal\va_gov_content_release\Plugin\Strategy;
 
-use Drupal\Core\File\FileSystemInterface;
-use Drupal\Core\File\Exception\FileException;
 use Drupal\va_gov_content_release\Exception\StrategyErrorException;
+use Drupal\va_gov_content_release\LocalFilesystem\LocalFilesystemBuildFileInterface;
 use Drupal\va_gov_content_release\Strategy\Plugin\StrategyPluginBase;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\va_gov_content_release\Reporter\ReporterInterface;
@@ -23,16 +22,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class LocalFilesystemBuildFile extends StrategyPluginBase {
 
-  const FILE_CONTENTS = 'build plz';
-
-  const FILE_URI = 'public://.buildrequest';
-
   /**
    * Filesystem service.
    *
-   * @var \Drupal\Core\File\FileSystemInterface
+   * @var \Drupal\va_gov_content_release\LocalFilesystem\LocalFilesystemBuildFileInterface
    */
-  protected $filesystem;
+  protected $localFilesystemBuildFile;
 
   /**
    * {@inheritDoc}
@@ -43,7 +38,7 @@ class LocalFilesystemBuildFile extends StrategyPluginBase {
     $plugin_definition,
     ReporterInterface $reporter,
     TranslationInterface $stringTranslation,
-    FileSystemInterface $filesystem
+    LocalFilesystemBuildFileInterface $localFilesystemBuildFile
   ) {
     parent::__construct(
       $configuration,
@@ -52,7 +47,7 @@ class LocalFilesystemBuildFile extends StrategyPluginBase {
       $reporter,
       $stringTranslation
     );
-    $this->filesystem = $filesystem;
+    $this->localFilesystemBuildFile = $localFilesystemBuildFile;
   }
 
   /**
@@ -65,7 +60,7 @@ class LocalFilesystemBuildFile extends StrategyPluginBase {
       $plugin_definition,
       $container->get('va_gov_content_release.reporter'),
       $container->get('string_translation'),
-      $container->get('file_system')
+      $container->get('va_gov_content_release.local_filesystem_build_file')
     );
   }
 
@@ -94,14 +89,8 @@ class LocalFilesystemBuildFile extends StrategyPluginBase {
    */
   public function triggerContentRelease() : void {
     try {
-      // The existence of this file triggers a content release.
-      // See scripts/queue_runner/queue_runner.sh.
-      $this->filesystem->saveData(static::FILE_CONTENTS, static::FILE_URI, FileSystemInterface::EXISTS_REPLACE);
+      $this->localFilesystemBuildFile->submit();
       $this->reporter->reportInfo($this->buildSubmittedMessage());
-    }
-    catch (FileException $exception) {
-      $this->reporter->reportError($exception->getMessage(), $exception);
-      throw new StrategyErrorException('A content release request has failed with a filesystem exception.', $exception->getCode(), $exception);
     }
     catch (\Throwable $exception) {
       $this->reporter->reportError($exception->getMessage(), $exception);

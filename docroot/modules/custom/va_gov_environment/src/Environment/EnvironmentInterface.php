@@ -35,6 +35,14 @@ interface EnvironmentInterface {
   public function isTugboat() : bool;
 
   /**
+   * Check if the current environment is a dev environment.
+   *
+   * @return bool
+   *   TRUE if the current environment is dev, FALSE otherwise.
+   */
+  public function isDev() : bool;
+
+  /**
    * Check if the current environment is a staging environment.
    *
    * @return bool
@@ -49,5 +57,13 @@ interface EnvironmentInterface {
    *   TRUE if the current environment is production, FALSE otherwise.
    */
   public function isProduction() : bool;
+
+  /**
+   * Check if the current environment is a BRD environment.
+   *
+   * @return bool
+   *   TRUE if the current environment is BRD, FALSE otherwise.
+   */
+  public function isBrd() : bool;
 
 }
