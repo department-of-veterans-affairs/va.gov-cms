@@ -60,7 +60,7 @@ class Csv extends DataParserPluginBase implements ContainerFactoryPluginInterfac
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): DataParserPluginBase {
     return new static(
       $configuration,
       $plugin_id,
@@ -283,7 +283,7 @@ class Csv extends DataParserPluginBase implements ContainerFactoryPluginInterfac
   /**
    * {@inheritdoc}
    */
-  protected function openSourceUrl($url) {
+  protected function openSourceUrl($url): bool {
     // (Re)open the provided URL.
     $source_data = $this->getSourceData($url);
     $this->iterator = new \ArrayIterator($source_data);
@@ -325,7 +325,7 @@ class Csv extends DataParserPluginBase implements ContainerFactoryPluginInterfac
   /**
    * {@inheritdoc}
    */
-  protected function fetchNextRow() {
+  protected function fetchNextRow(): void {
     $current = $this->iterator->current();
 
     if ($current && is_array($current)) {

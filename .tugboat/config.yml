@@ -2,9 +2,7 @@ services:
   # What to call the service hosting the site.
   php:
     # Use PHP 8.1 with Apache; this syntax pulls in the latest version of PHP 8.1.
-    # Currently, using Buster because of an issue with Bullseye and PHP 8.1 on Tugboat.
-    # See https://github.com/department-of-veterans-affairs/va.gov-cms/issues/7667
-    image: tugboatqa/php:8.1-apache-buster
+    image: tugboatqa/php:8.1-apache-bullseye
 
     aliases:
       - cms

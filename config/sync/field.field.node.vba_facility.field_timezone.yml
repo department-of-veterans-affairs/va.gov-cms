@@ -1,0 +1,26 @@
+uuid: 61e83a9c-c1b1-41a9-8301-322ccb4d887f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_timezone
+    - node.type.vba_facility
+  module:
+    - tmgmt_content
+    - tzfield
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.vba_facility.field_timezone
+field_name: field_timezone
+entity_type: node
+bundle: vba_facility
+label: Timezone
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  exclude: {  }
+field_type: tzfield

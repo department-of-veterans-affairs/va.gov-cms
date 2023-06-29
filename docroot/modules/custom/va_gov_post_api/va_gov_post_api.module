@@ -6,16 +6,19 @@
  */
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\node\NodeInterface;
+use Drupal\va_gov_facilities\FacilityOps;
 
 /**
  * Implements hook_entity_insert().
  *
  * Queues new items for sync.
  */
-function post_api_entity_insert(EntityInterface $entity) {
-  _post_api_add_facility_status_to_queue($entity);
-  _post_api_add_facility_service_to_queue($entity);
-
+function va_gov_post_api_entity_insert(EntityInterface $entity) {
+  if ($entity instanceof NodeInterface) {
+    _va_gov_post_api_add_facility_to_queue($entity);
+    _va_gov_post_api_add_facility_service_to_queue($entity);
+  }
 }
 
 /**
@@ -23,33 +26,32 @@ function post_api_entity_insert(EntityInterface $entity) {
  *
  * Queues updated items for sync.
  */
-function post_api_entity_update(EntityInterface $entity) {
-  _post_api_add_facility_status_to_queue($entity);
-  _post_api_add_facility_service_to_queue($entity);
+function va_gov_post_api_entity_update(EntityInterface $entity) {
+  if ($entity instanceof NodeInterface) {
+    _va_gov_post_api_add_facility_to_queue($entity);
+    _va_gov_post_api_add_facility_service_to_queue($entity);
+  }
 }
 
 /**
  * Adds facility data to Post API queue.
  *
- * @param \Drupal\Core\Entity\EntityInterface $entity
+ * @param \Drupal\node\NodeInterface $node
  *   Entity.
  *
  * @return int
  *   The count of the number of items queued.
  */
-function _post_api_add_facility_status_to_queue(EntityInterface $entity) {
-  $facilitiesWithStatus = [
-    'health_care_local_facility',
-    'nca_facility',
-    'vba_facility',
-    'vet_center',
-    'vet_center_outstation',
-  ];
-  if (in_array($entity->bundle(), $facilitiesWithStatus)) {
-    return Drupal::service('va_gov_post_api.queue_facility_status_updates')->queueFacilityStatus($entity);
+function _va_gov_post_api_add_facility_to_queue(NodeInterface $node) {
+  if (FacilityOps::isFacilityWithStatus($node)) {
+    return Drupal::service('va_gov_post_api.queue_facility_status_updates')->queueFacilityStatus($node);
   }
-  elseif ($entity->bundle() === 'health_care_region_page') {
-    return Drupal::service('va_gov_post_api.queue_facility_status_updates')->queueSystemRelatedFacilities($entity);
+  elseif (FacilityOps::isFacilityWithoutStatus($node)) {
+    // These don't have editable status, but we also need to push.
+    return Drupal::service('va_gov_post_api.queue_facility_without_status_updates')->queueFacility($node);
+  }
+  elseif ($node->bundle() === 'health_care_region_page') {
+    return Drupal::service('va_gov_post_api.queue_facility_status_updates')->queueSystemRelatedFacilities($node);
   }
 
   return 0;
@@ -58,21 +60,21 @@ function _post_api_add_facility_status_to_queue(EntityInterface $entity) {
 /**
  * Adds facility service data to Post API queue to update Lighthouse.
  *
- * @param \Drupal\Core\Entity\EntityInterface $entity
- *   Entity.
+ * @param \Drupal\node\NodeInterface $node
+ *   Node.
  *
  * @return int
  *   The count of the number of items queued.
  */
-function _post_api_add_facility_service_to_queue(EntityInterface $entity) {
-  if ($entity->bundle() === 'health_care_local_health_service') {
-    return Drupal::service('va_gov_post_api.queue_service_updates')->queueFacilityService($entity);
+function _va_gov_post_api_add_facility_service_to_queue(NodeInterface $node) {
+  if ($node->bundle() === 'health_care_local_health_service') {
+    return Drupal::service('va_gov_post_api.queue_service_updates')->queueFacilityService($node);
   }
-  elseif ($entity->bundle() === 'health_care_service_taxonomy') {
-    return Drupal::service('va_gov_post_api.queue_service_updates')->queueServiceTermRelatedServices($entity);
+  elseif ($node->bundle() === 'health_care_service_taxonomy') {
+    return Drupal::service('va_gov_post_api.queue_service_updates')->queueServiceTermRelatedServices($node);
   }
-  elseif ($entity->bundle() === 'regional_health_care_service_des') {
-    return Drupal::service('va_gov_post_api.queue_service_updates')->queueSystemRelatedServices($entity);
+  elseif ($node->bundle() === 'regional_health_care_service_des') {
+    return Drupal::service('va_gov_post_api.queue_service_updates')->queueSystemRelatedServices($node);
   }
 
   return 0;

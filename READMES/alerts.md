@@ -2,7 +2,7 @@
 
 ## Overview
 
-CMS Alerts are managed by [Sentry](https://sentry.vfs.va.gov/) and [DataDog](https://vagov.ddog-gov.com/).  
+CMS Alerts are managed by [Sentry](https://sentry.vfs.va.gov/) and [DataDog](https://vagov.ddog-gov.com/).
 
 Runtime issues are reported to Sentry via the Raven module.
 
@@ -47,7 +47,6 @@ few different ways:
 | DNS | DataDog to PagerDuty | Urgent |
 | Drupal Emergency/Critical/Alert/Error | Drupal to Sentry to Slack | QA |
 | Drupal Warning/Info/Notice/Debug | None | None |
-| [TeamSite Facility Status](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/downstream_dependencies.md) | Datadog to Slack | Medium |
 | Prod CMS Down | Datadog to Slack, PagerDuty | Urgent |
 | [Drupal Post Content Webhook](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/master/READMES/downstream_dependencies.md) | GovDelivery, Drupal `post_api` to Slack | High |
 | Drupal Flag List (`/flags_list`) | Datadog to Slack | High |

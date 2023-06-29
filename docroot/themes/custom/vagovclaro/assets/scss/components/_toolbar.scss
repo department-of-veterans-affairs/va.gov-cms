@@ -26,8 +26,14 @@ body.toolbar-fixed {
   // Consistent states for top-level toolbar items
   @mixin top-toolbar-item($icon) {
     &:hover:active,
-    &:hover {
+    &:hover,
+    &:focus {
       color: var(--va-blue-dark) !important;
+    }
+
+    &:focus {
+      box-shadow: var(--focus-box-shadow);
+      outline: var(--focus-outline);
     }
 
     &:active {
@@ -41,11 +47,11 @@ body.toolbar-fixed {
     &:hover::before,
     &:hover:active::before,
     &:hover:focus::before,
+    &:focus::before,
     &.is-active:hover::before {
       background-image: url('../images/icons/004795/#{$icon}.svg');
     }
 
-    &:focus::before,
     &:active::before,
     &.is-active::before {
       background-image: url('../images/icons/ffffff/#{$icon}.svg');
@@ -80,7 +86,7 @@ body.toolbar-fixed {
       &-edit {
         @include top-toolbar-item('pencil');
 
-        // this elememnt is a <button> instead of <a>, add bg color for consistency
+        // this element is a <button> instead of <a>, add bg color for consistency
         &:hover {
           background-color: var(--va-blue-lighter);
         }
@@ -96,7 +102,7 @@ body.toolbar-fixed {
       &.environment-toolbar-tab {
         margin-left: auto;
       }
-      
+
       .toolbar-icon-environment-label {
         cursor: auto; // Remove the pointer cursor.
         padding-left: 1.333em; // No icon.
@@ -116,8 +122,14 @@ body.toolbar-fixed {
   // Consistent states for top-level toolbar items
   @mixin top-toolbar-item($icon) {
     &:hover:active,
-    &:hover {
+    &:hover,
+    &:focus {
       color: var(--va-blue-dark) !important;
+    }
+
+    &:focus {
+      box-shadow: var(--focus-box-shadow);
+      outline: var(--focus-outline);
     }
 
     &:active {
@@ -170,7 +182,7 @@ body.toolbar-fixed {
       &-edit {
         @include top-toolbar-item('pencil');
 
-        // this elememnt is a <button> instead of <a>, add bg color for consistency
+        // this element is a <button> instead of <a>, add bg color for consistency
         &:hover {
           background-color: var(--va-blue-lighter);
         }

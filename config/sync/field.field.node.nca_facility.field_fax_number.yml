@@ -1,0 +1,25 @@
+uuid: a2b715d8-3970-409e-b5df-c45f393c18a3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_fax_number
+    - node.type.nca_facility
+  module:
+    - telephone
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.nca_facility.field_fax_number
+field_name: field_fax_number
+entity_type: node
+bundle: nca_facility
+label: 'Fax number'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

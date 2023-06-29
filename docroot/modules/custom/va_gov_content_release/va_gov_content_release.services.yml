@@ -1,0 +1,10 @@
+services:
+  va_gov_content_release.github_repository_dispatch:
+    class: Drupal\va_gov_content_release\GitHubRepositoryDispatch
+    arguments: ['@va_gov.consumers.github.content_build']
+  va_gov_content_release.reporter:
+    class: Drupal\va_gov_content_release\Reporter\Reporter
+    arguments: ['@messenger', '@logger.factory']
+  plugin.manager.va_gov_content_release.strategy:
+    class: Drupal\va_gov_content_release\Strategy\Plugin\StrategyPluginManager
+    parent: default_plugin_manager

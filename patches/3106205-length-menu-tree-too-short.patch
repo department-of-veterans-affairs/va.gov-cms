@@ -1,0 +1,55 @@
+diff --git a/core/lib/Drupal/Core/Menu/MenuTreeStorage.php b/core/lib/Drupal/Core/Menu/MenuTreeStorage.php
+index cc471496e0bda6bc15424cc3ef6a136840a011a0..2b4383ae328fa73bdf4088b6dd8c68982c2f4f7c 100644
+--- a/core/lib/Drupal/Core/Menu/MenuTreeStorage.php
++++ b/core/lib/Drupal/Core/Menu/MenuTreeStorage.php
+@@ -1251,7 +1251,7 @@ protected static function schemaDefinition() {
+         'route_param_key' => [
+           'description' => 'An encoded string of route parameters for loading by route.',
+           'type' => 'varchar',
+-          'length' => 255,
++          'length' => 2048,
+         ],
+         'route_parameters' => [
+           'description' => 'Serialized array of route parameters of this menu link.',
+@@ -1263,7 +1263,7 @@ protected static function schemaDefinition() {
+         'url' => [
+           'description' => 'The external path this link points to (when not using a route).',
+           'type' => 'varchar',
+-          'length' => 255,
++          'length' => 2048,
+           'not null' => TRUE,
+           'default' => '',
+         ],
+diff --git a/core/modules/system/system.install b/core/modules/system/system.install
+index a896ba9897435a082dcab1fd3097ca1bff785939..32f1f8f9ffa0961c97fea07f545cd0cb2e0eb56d 100644
+--- a/core/modules/system/system.install
++++ b/core/modules/system/system.install
+@@ -1608,6 +1608,28 @@ function system_update_last_removed() {
+   return 8901;
+ }
+
++/**
++ * Update length of menu_tree fields url and route_param_key from 255 to 2048.
++ */
++function system_update_10101() {
++  $schema = \Drupal::database()->schema();
++  $spec = [
++    'description' => 'The external path this link points to (when not using a route).',
++    'type' => 'varchar',
++    'length' => 2048,
++    'not null' => TRUE,
++    'default' => '',
++  ];
++  $schema->changeField('menu_tree', 'url', 'url', $spec);
++
++  $spec = [
++    'description' => 'An encoded string of route parameters for loading by route.',
++    'type' => 'varchar',
++    'length' => 2048,
++  ];
++  $schema->changeField('menu_tree', 'route_param_key', 'route_param_key', $spec);
++}
++
+ /**
+  * Display requirements from security advisories.
+  *
