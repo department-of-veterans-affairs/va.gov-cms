@@ -266,16 +266,6 @@ function va_gov_vamc_update_9006(&$sandbox) {
 }
 
 /**
- * Rebuild node_access table to include new node grants for VAMC Banners.
- */
-function va_gov_vamc_update_9007(&$sandbox) {
-  node_access_needs_rebuild(TRUE);
-  // Note for history.  Used of node_access_rebuild() yields faulty results
-  // so rebuild using the UI.
-  return 'Flagged that node_access need to be rebuilt in the UI.';
-}
-
-/**
  * Update the alert body field to only rich_text_limited.
  */
 function va_gov_vamc_update_9007() {
