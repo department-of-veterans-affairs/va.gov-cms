@@ -227,11 +227,13 @@ class Commands extends DrushCommands {
    *   The facility to clean.
    */
   protected function clearStatusData(NodeInterface &$facility) {
-    if (true);
-    // TODO: check that status field exists
-    // if so, set it to "closed"
-    // TODO: check that the status more info field exists
-    // if so, clear it
+    if ($facility->hasField('field_operating_status_facility')) {
+      $facility->field_operating_status_facility->value = 'closed';
+    }
+    if ($facility->hasField('field_operating_status_more_info')) {
+      $facility->field_operating_status_more_info->value = '';
+    }
+    $facility->save();
   }
 
   /**
