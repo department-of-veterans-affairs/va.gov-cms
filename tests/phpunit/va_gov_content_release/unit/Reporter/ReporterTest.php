@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit\va_gov_environment;
+namespace tests\phpunit\va_gov_environment\unit\Reporter;
 
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;

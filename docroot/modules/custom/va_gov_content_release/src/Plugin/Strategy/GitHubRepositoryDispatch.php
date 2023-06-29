@@ -108,7 +108,7 @@ class GitHubRepositoryDispatch extends StrategyPluginBase {
    */
   public function triggerContentRelease() : void {
     try {
-      $this->gitHubRepositoryDispatch->dispatch();
+      $this->gitHubRepositoryDispatch->submit();
       $this->reporter->reportInfo($this->buildSubmittedMessage());
     }
     catch (ContentReleaseInProgressException $exception) {
