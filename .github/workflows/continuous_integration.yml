@@ -8,8 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - name: Check Corresponding Entity Reference Fields
         # See also `composer va:test:check-cer` in composer.json
         run: ./tests/scripts/check-cer.sh
@@ -26,8 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - name: Composer Validate
         run: composer validate
 
@@ -37,14 +35,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
       - name: ReviewDog
-        # https://github.com/reviewdog/action-eslint/releases/tag/v1.17.0
         # See also `composer va:test:eslint` in composer.json
-        uses: reviewdog/action-eslint@d3395027ea2cfc5cf8f460b1ea939b6c86fea656
+        uses: reviewdog/action-eslint@e1dbcf30466d267e79331b2f5bacb269093125b5 # v1.19.1
         with:
           reporter: github-pr-review
           eslint_flags: '--max-warnings 0 -c .eslintrc.json --no-eslintrc docroot/modules/custom/**/*.es6.js docroot/themes/custom/**/*.es6.js tests/cypress/**/*.js'
@@ -56,8 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
       - name: Run PHP_CodeSniffer and ReviewDog
@@ -81,8 +76,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
       - name: Run PHPLint
@@ -95,8 +89,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
       - name: Run PHPStan and ReviewDog
@@ -122,8 +115,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
       - name: Run PHPUnit (Unit Tests only)
@@ -140,12 +132,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - name: Stylelint modules
-        # https://github.com/reviewdog/action-stylelint/releases/tag/v1.14.0
         # See also `composer va:test:stylelint-modules` in composer.json
-        uses: reviewdog/action-stylelint@a45bf7c5a91efc6f9443ae59b9cf7387b7868492
+        uses: reviewdog/action-stylelint@e45410880466232c34ec6ab2e0fbc15f5ce3fdd2 # v1.17.1
         with:
           fail_on_error: true
           github_token: ${{ secrets.github_token }}
@@ -154,9 +144,8 @@ jobs:
           stylelint_config: '.stylelintrc'
           stylelint_input: 'docroot/modules/custom/**/*.css'
       - name: Stylelint themes
-        # https://github.com/reviewdog/action-stylelint/releases/tag/v1.14.0
         # See also `composer va:test:stylelint-themes` in composer.json
-        uses: reviewdog/action-stylelint@a45bf7c5a91efc6f9443ae59b9cf7387b7868492
+        uses: reviewdog/action-stylelint@e45410880466232c34ec6ab2e0fbc15f5ce3fdd2 # v1.17.1
         with:
           fail_on_error: true
           github_token: ${{ secrets.github_token }}
@@ -179,15 +168,12 @@ jobs:
           - python
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - name: CodeQL Init
-        # https://github.com/github/codeql-action/releases/tag/codeql-bundle-20230317
-        uses: github/codeql-action/init@d23060145bc9131d50558d5d4185494a20208101
+        uses: github/codeql-action/init@cdcdbb579706841c47f7063dda365e292e5cad7a # v2.13.4
         with:
           languages: ${{ matrix.language }}
       - name: CodeQL Analyze
-        # https://github.com/github/codeql-action/releases/tag/codeql-bundle-20230317
-        uses: github/codeql-action/analyze@d23060145bc9131d50558d5d4185494a20208101
+        uses: github/codeql-action/analyze@cdcdbb579706841c47f7063dda365e292e5cad7a # v2.13.4
         with:
           category: "/language:${{matrix.language}}"

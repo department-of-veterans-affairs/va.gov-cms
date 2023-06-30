@@ -1,8 +1,8 @@
 ---
 name: Runbook - Vet Center Outstation becomes a Vet Center
 about: Steps for upgrading an outstation to a full Vet Center
-title: 'Outstation beomces Vet Center: <insert_name_of_facility>'
-labels: Change request
+title: 'Outstation becomes Vet Center: <insert_name_of_facility>'
+labels: Change request, Drupal engineering, Facilities, User support, VA.gov frontend, Vet Center
 assignees: ''
 
 ---
@@ -25,10 +25,13 @@ Submitter: <insert_name>
 KB articles: <insert_kb_article_links>
 
 - [ ] Link to facility in production:
-Facility link: <insert_facility_link>
+Facility CMS link: <insert_facility_link>
+Facility API ID: <insert_facility_API_ID>
 
 ## Acceptance criteria
 ### CMS help desk steps
+**Note: If the help desk is waiting on information from the facility staff or editor, add the "Awaiting editor" flag to the facility with a log message that includes a link to this ticket. Remove the flag when the ticket is ready to be worked by the Facilities team. Be sure to preserve the current moderation state of the node when adding or removing the flag.**
+
 #### Edit new Vet Center
 - [ ] 1. Become aware that the new Vet Center is now in the Facility API and in the CMS (typically, via a Flag, but this may come in as a help desk ticket).
 - [ ] 2. Check with RCS(?) what district it belongs to, or it may be pulled from the former Outstation.
@@ -44,19 +47,15 @@ Facility link: <insert_facility_link>
 
 <insert_url_change_request_link>
 
-(Redirects are released Wednesday afternoons, so coordinate the following items below and canonical URL change around that timeframe.)
 ### CMS engineer steps
 - [ ] 9. Execute the steps of the URL change request ticket from step 8.
+
+(Redirects deploy weekly on Wed. at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. Coordinate the items below and canonical URL change after URL change ticket is merged, deployed, and verified in prod.)
+
+### Drupal Admin steps
+_Help desk will complete these steps or escalate to request help from CMS engineering._
 - [ ] 10. When the redirect has been made live, set the status of the Outstation node to 'closed'.
 - [ ] 11. Archive the Outstation with a comment in the revision log that points to the new Vet Center.
 
-
+### Helpdesk steps
 - [ ] 12. Help desk notifies editor and any other stakeholders.
-
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [x] `Facilities`
-- [x] `User support`

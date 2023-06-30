@@ -2,9 +2,7 @@ services:
   # What to call the service hosting the site.
   php:
     # Use PHP 8.1 with Apache; this syntax pulls in the latest version of PHP 8.1.
-    # Currently, using Buster because of an issue with Bullseye and PHP 8.1 on Tugboat.
-    # See https://github.com/department-of-veterans-affairs/va.gov-cms/issues/7667
-    image: tugboatqa/php:8.1-apache-buster
+    image: tugboatqa/php:8.1-apache-bullseye
 
     aliases:
       - cms
@@ -124,9 +122,10 @@ services:
         - echo "apc.enable=1" >> /usr/local/etc/php/conf.d/php-cli.ini
         - echo "apc.enable_cli=1" >> /usr/local/etc/php/conf.d/php-cli.ini
 
-        # Install memcache extension
-        - pecl install memcache-8.0
-        - docker-php-ext-enable memcache
+        # Install memcached extension
+        - apt-get install libmemcached-dev
+        - yes '' | pecl install -f memcached
+        - docker-php-ext-enable memcached
 
         # Install node and npm.
         - ./scripts/install-nvm.sh

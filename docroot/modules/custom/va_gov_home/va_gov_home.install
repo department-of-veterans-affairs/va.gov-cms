@@ -1,0 +1,37 @@
+<?php
+
+/**
+ * @file
+ * Install and update hooks for va_gov_home.
+ */
+
+use Drupal\entityqueue\Entity\EntitySubqueue;
+
+/**
+ * Delete homepage-top-tasks-blocks menu links.
+ */
+function va_gov_home_update_8001() {
+  $mids = \Drupal::entityQuery('menu_link_content')
+    ->condition('menu_name', 'homepage-top-tasks-blocks')
+    ->execute();
+  $linkStorage = \Drupal::entityTypeManager()->getStorage('menu_link_content');
+
+  $entities = $linkStorage->loadMultiple($mids);
+  $linkStorage->delete($entities);
+}
+
+/**
+ * Delete the home_page_promos and home_page_hub_list entityqueues.
+ */
+function va_gov_home_update_8002() {
+  $queues = [
+    'home_page_promos',
+    'home_page_hub_list',
+  ];
+  foreach ($queues as $queue) {
+    $subQ = EntitySubqueue::load($queue);
+    if ($subQ instanceof EntitySubqueue) {
+      $subQ->delete();
+    }
+  }
+}

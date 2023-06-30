@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+source ~/.bashrc
+
 # Performs a local content-build.
 # See also:
 # - ../tests/scripts/content-build-gql.sh
@@ -18,6 +23,10 @@ rm -rf "${build_path}"
 pushd "${web_path}"
 export INSTALL_HOOKS=no
 export NODE_ENV=production
+
+nvm install
+echo "Node $(node -v)"
+
 yarn build \
   --pull-drupal \
   --no-drupal-proxy \

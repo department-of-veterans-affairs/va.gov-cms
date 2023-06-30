@@ -1,0 +1,180 @@
+uuid: e1e1db7d-4b0b-4a28-b6a1-9e8d2cb9ef99
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.external_content
+    - field.field.node.nca_facility.field_address
+    - field.field.node.nca_facility.field_administration
+    - field.field.node.nca_facility.field_facility_locator_api_id
+    - field.field.node.nca_facility.field_fax_number
+    - field.field.node.nca_facility.field_geolocation
+    - field.field.node.nca_facility.field_last_saved_by_an_editor
+    - field.field.node.nca_facility.field_link
+    - field.field.node.nca_facility.field_mailing_address
+    - field.field.node.nca_facility.field_nca_classification
+    - field.field.node.nca_facility.field_office_hours
+    - field.field.node.nca_facility.field_operating_status_facility
+    - field.field.node.nca_facility.field_operating_status_more_info
+    - field.field.node.nca_facility.field_phone_number
+    - field.field.node.nca_facility.field_timezone
+    - node.type.nca_facility
+  module:
+    - address
+    - field_group
+    - layout_builder
+    - link
+    - office_hours
+    - options
+    - telephone
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+  field_group:
+    group_tooltip:
+      children:
+        - field_facility_locator_api_id
+        - field_nca_classification
+        - field_mailing_address
+        - field_address
+        - field_fax_number
+        - field_phone_number
+        - field_link
+        - field_office_hours
+        - field_timezone
+      label: 'Location Information'
+      parent_name: ''
+      region: content
+      weight: 0
+      format_type: tooltip
+      format_settings:
+        show_empty_fields: 0
+        id: ''
+        classes: not-editable
+        element: div
+        show_label: '0'
+        label_element: h3
+        attributes: ''
+        description: ''
+        tooltip_description: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
+        open: false
+        required_fields: false
+id: node.nca_facility.external_content
+targetEntityType: node
+bundle: nca_facility
+mode: external_content
+content:
+  field_address:
+    type: address_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_facility_locator_api_id:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_fax_number:
+    type: telephone_link
+    label: above
+    settings:
+      title: ''
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_link:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_mailing_address:
+    type: address_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_nca_classification:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_office_hours:
+    type: office_hours
+    label: above
+    settings:
+      day_format: long
+      time_format: G
+      compress: false
+      grouped: false
+      show_closed: all
+      closed_format: Closed
+      separator:
+        days: '<br />'
+        grouped_days: ' - '
+        day_hours: ': '
+        hours_hours: '-'
+        more_hours: ', '
+      current_status:
+        position: ''
+        open_text: 'Currently open!'
+        closed_text: 'Currently closed'
+      exceptions:
+        restrict_exceptions_to_num_days: 7
+        date_format: long
+        title: 'Exception hours'
+      timezone_field: ''
+      office_hours_first_day: ''
+      schema:
+        enabled: false
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  field_phone_number:
+    type: telephone_link
+    label: above
+    settings:
+      title: ''
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_timezone:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+hidden:
+  content_moderation_control: true
+  field_administration: true
+  field_geolocation: true
+  field_last_saved_by_an_editor: true
+  field_operating_status_facility: true
+  field_operating_status_more_info: true
+  flag_awaiting_csv: true
+  flag_awaiting_editor: true
+  flag_awaiting_redirect: true
+  flag_changed_name: true
+  flag_changed_title: true
+  flag_new: true
+  flag_removed_from_source: true
+  langcode: true
+  links: true
+  search_api_excerpt: true

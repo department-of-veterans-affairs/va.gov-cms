@@ -5,8 +5,8 @@ namespace Drupal\va_gov_build_trigger\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Utility\Error;
-use Drupal\va_gov_consumers\Git\GithubInterface;
 use Drupal\va_gov_consumers\Git\GitInterface;
+use Drupal\va_gov_consumers\GitHub\GitHubClientInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,11 +18,11 @@ use Symfony\Component\HttpFoundation\Response;
 class FrontEndBranchAutocompleteController extends ControllerBase {
 
   /**
-   * Github Client.
+   * GitHub Client.
    *
-   * @var \Drupal\va_gov_consumers\Git\GithubInterface
+   * @var \Drupal\va_gov_consumers\GitHub\GitHubClientInterface
    */
-  protected $githubClient;
+  protected $gitHubClient;
 
   /**
    * Logger.
@@ -41,8 +41,8 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
   /**
    * {@inheritdoc}
    */
-  public function __construct(GithubInterface $githubClient, GitInterface $git, LoggerChannelFactoryInterface $logger) {
-    $this->githubClient = $githubClient;
+  public function __construct(GitHubClientInterface $gitHubClient, GitInterface $git, LoggerChannelFactoryInterface $logger) {
+    $this->gitHubClient = $gitHubClient;
     $this->logger = $logger->get('va_gov_build_trigger');
     $this->git = $git;
   }
@@ -52,10 +52,7 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('va_gov.consumers.github.factory')->get(
-        'department-of-veterans-affairs/content-build',
-        'va_cms_bot_github_auth_token'
-      ),
+      $container->get('va_gov.consumers.github.content_build'),
       $container->get('va_gov.consumers.git.repository.factory')->getWebRepository(),
       $container->get('logger.factory')
     );
@@ -154,7 +151,7 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
     $results = [];
 
     try {
-      $results = $this->githubClient->searchPullRequests($string, $count);
+      $results = $this->gitHubClient->searchPullRequests($string, $count);
     }
     catch (\Exception $e) {
       $variables = Error::decodeException($e);

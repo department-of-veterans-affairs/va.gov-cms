@@ -25,6 +25,7 @@ dependencies:
     - field.field.node.health_care_local_facility.field_region_page
     - field.field.node.health_care_local_facility.field_supplemental_status
     - field.field.node.health_care_local_facility.field_supplemental_status_more_i
+    - field.field.node.health_care_local_facility.field_timezone
     - node.type.health_care_local_facility
     - workflows.workflow.editorial
   module:
@@ -39,6 +40,7 @@ dependencies:
     - path
     - telephone
     - textfield_counter
+    - tzfield
 third_party_settings:
   field_group:
     group_governance:
@@ -181,6 +183,7 @@ third_party_settings:
         - field_phone_number
         - field_mental_health_phone
         - field_office_hours
+        - field_timezone
       label: 'Facility data'
       region: content
       parent_name: group_locations_and_contact_info
@@ -387,6 +390,12 @@ content:
       allowed_formats:
         hide_help: '1'
         hide_guidelines: '1'
+  field_timezone:
+    type: tzfield_default
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   flag:
     weight: 12
     region: content

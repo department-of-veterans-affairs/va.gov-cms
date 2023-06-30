@@ -53,24 +53,26 @@ class VAFieldOfficeHours extends ProcessPluginBase {
     ];
 
     foreach ($hours as $day => $hour) {
-      // Test $hour for non-contiguous entries, separated by semi-colons.
-      if (preg_match('(\;)', $hour) === 0) {
-        $hour = normalize_hours($hour);
-      }
-      // Strip hour before the - for starthours.
-      $start_time = strstr($hour, '-', TRUE);
-      // Strip hour after the - for endhours.
-      $end_time = strstr($hour, '-');
+      // First, we normalize the data.
+      $hour = normalize_hour_characters($hour);
+      $hour = remove_leading_zeroes($hour);
       $low_day = strtolower($day);
-      if (preg_match('(AM|PM)', $hour) === 0) {
-        // It is not hours, treat it as a comment.
-        $hours_clean[$low_day]['comment'] = $hour;
-      }
-      else {
+      // Second, we parse the data.
+      if (has_one_set_of_hours($hour)) {
+        // Strip hour before the "to" for starthours.
+        $start_time = strstr($hour, 'to', TRUE);
+        // Strip hour after the "to" for endhours.
+        // Possible risk that there are comments after the hours
+        // that won't be captured. (None in the data on 2023-06-09, though.)
+        $end_time = strstr($hour, 'to');
         $hours_clean[$low_day]['start_time'] = clean_time($start_time);
         $hours_clean[$low_day]['end_time'] = clean_time($end_time);
       }
-
+      else {
+        // We have something other than one start and one end time.
+        // Make it a comment.
+        $hours_clean[$low_day]['comment'] = $hour;
+      }
     }
     if (empty($hours_clean)) {
       $return = NULL;
@@ -102,24 +104,66 @@ class VAFieldOfficeHours extends ProcessPluginBase {
 }
 
 /**
- * Normalizes the hours for further parsing.
+ * Normalizes the hours characters for further parsing.
  *
  * @param string $hour_range
  *   The string of opening and closing hours for a given day.
  *
  * @return string
- *   A string with extraneous characters and letters capitalized.
+ *   A string formatted best for viewing.
+ *   Example: 8:00 a.m. to 4:00 p.m.
  */
-function normalize_hours($hour_range) {
+function normalize_hour_characters($hour_range) {
   // Set the replacement array with all characters to remove or make uppercase.
   $replace = [
-    "/a\.?m\.?/i" => "AM",
-    "/p\.?m\.?/i" => "PM",
-    "/\–/" => "-",
-    "/to/" => "-",
+    "/\s?a\.?m\.?/i" => " a.m.",
+    "/\s?p\.?m\.?/i" => " p.m.",
+    "/(\s?–\s?)/" => " to ",
+    "/(\s?-\s?)/" => " to ",
+
   ];
   // Clean up the hours, based on the $replace array.
   return $hour_range = preg_replace(array_keys($replace), array_values(($replace)), $hour_range);
+}
+
+/**
+ * Normalizes the hours digits for further parsing.
+ *
+ * @param string $hour_range
+ *   The string of opening and closing hours for a given day.
+ *
+ * @return string
+ *   A string with leading zeroes removed.
+ */
+function remove_leading_zeroes($hour_range) {
+  // Set the replacement array with all characters to remove or make uppercase.
+  $replace = [
+    "/0(\d:\d\d)( [a|p]\.[m]\.)/" => "$1$2",
+    "/0(\d\d\d)( [a|p]\.[m]\.)/" => "$1$2",
+  ];
+  // Clean up the hours, based on the $replace array.
+  return $hour_range = preg_replace(array_keys($replace), array_values(($replace)), $hour_range);
+}
+
+/**
+ * Checks to see if we should parse the string as hours.
+ *
+ * @param string $hour_range
+ *   The string of opening and closing hours for a given day.
+ *
+ * @return bool
+ *   TRUE if it has one opening and one closing time.
+ */
+function has_one_set_of_hours($hour_range) {
+  // No hours.
+  if (preg_match('(a.m.|p.m.)', $hour_range) === 0) {
+    return FALSE;
+  }
+  // Multiple hour ranges.
+  if (preg_match_all('(a.m.|p.m.)', $hour_range) > 3) {
+    return FALSE;
+  }
+  return TRUE;
 }
 
 /**
@@ -133,10 +177,10 @@ function normalize_hours($hour_range) {
  */
 function clean_time($times) {
   $time = preg_replace("/[^0-9]/", "", $times);
-  $period = preg_replace("/[^a-zA-Z]/", "", $times);
+  $period = preg_replace("/[^(a\.m\.)|(p\.m\.)]/", "", $times);
 
-  // If period is PM then perform the following time conversion.
-  if ($period === "PM") {
+  // If period is p.m. then perform the following time conversion.
+  if ($period === "p.m.") {
     $time_mil = substr_replace($time, ':', -2, -2);
     $time_mil_clean = date("H:i", strtotime($time_mil . " " . $period));
     $h = substr($time_mil_clean, 0, -3);

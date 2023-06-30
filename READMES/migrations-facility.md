@@ -3,7 +3,6 @@
 1. [Facility Migrations](#facility-migrations)
    1. NCA (National Cemetery Administration) Facilities
    1. VAMC (VA Medical Center) Facilities
-      - [VAMC Status](#vamc-status-migration)
       - [System and Facility Health Services](#system-and-facility-health-services)
    1. VBA (Veterans Benefits Administraion) Facilities
    1. Vet Centers, Mobile VCs, and Vet Center Outstions
@@ -15,7 +14,6 @@
     vast[VAST, Access To Care, etc]-- 7:30AM -->fapi;
     fapi[(Facility API)]-- 8:00AM -->migrations[CMS migrations];
     fapi-->fl[[Facility Locator App]];
-    teamsite[Teamsite Status Lovell only]-- every 15 min -->migrations;
     migrations-->nodes[Nodes: VAMC, Vet Centers, VBA, NCA];
     nodes-->FE[[FE pages]];
     nodes-->data
@@ -57,12 +55,6 @@ to the user "CMS Migrator"
      2. Outstations - vet_center_outstation
      3. Vet Center Community Access Points - vet_center_cap The CMS is the source of truth for these and will be pushing data to the facility API not migrating from it.
 
-### VAMC Status Migration
-VAMC Statuses are updated by a separate migration `va_node_health_care_local_facility_status` that runs every 15 min. It grabs [only a single CSV for Lovell Federal health care](../docroot/modules/custom/va_gov_migrate/config/install/migrate_plus.migration.va_node_health_care_local_facility_status.yml) which is scraped from TeamSite (hosted by [EWIS](https://github.com/department-of-veterans-affairs/devops/blob/master/docs/External%20Service%20Integrations/EWIS.md)) and updates the fields:
-- "Operating status" (`field_operating_status_facility`)
-- "Operating status - more info" (`field_operating_status_more_info`)
-
-Changes to operating status also get [pushed to Lighthouse](vamc-facilities.md#status-changes-to-lighthouse).
 
 ### System and Facility Health Services
 These are created and run as needed as part of the VAMC Upgrade teams effort to get all the services into the CMS.  VAMC upgrade team will provide separate CSVs, one for system health services and one for facility health services.
@@ -129,7 +121,7 @@ foreach ($facility_migrations as $facility_migration) {
 
 ###  Workflow
   1. Edit or create a new migration configuration in docroot/modules/custom/va_gov_migrate/config/install
-  2. Use `ddev migrate-sync` to copy the config into config/sync imported it and export it again.  Always work in `va_gov_migrate/config/install` and then sync.  This preserves any comments in the migration yml.
+  2. Use `ddev composer va:migrate:sync` to copy the config into config/sync imported it and export it again.  Always work in `va_gov_migrate/config/install` and then sync.  This preserves any comments in the migration yml.
   3. Preflight any new data from the VAMC upgrade team in libre office by importing the CSV with the import config set to separator: ; and encapsulation: '.  Look for jumped columns missing data or the appearance of wrapping quotes.
   4. Append the data to an existing CSV or add it as new (if you are dealing with thousands, add it as new.)  Name the file as a match to the id of the migration you are creating.
   5.  Run the System Health Service migration.  Look for presence of migrate messages.  The messages will indicate the problems with the data.  Fix, rollback, repeat until there are no messages created and the row count of the data, matches the created count.
