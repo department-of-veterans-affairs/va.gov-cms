@@ -24,13 +24,12 @@ These levels match the levels in [VA.gov Design System Documentation](https://de
 
 ## Acceptance Criteria
 **Update Figma**
-- [ ] [Replace me outlining specific things that need to be done for this design ticket.]
-- [ ] Ensure that the [CMS Design System in Figma](https://www.figma.com/file/LAlrfgqFJgCV9EIq7eyDcw/Simplified-Design-System?node-id=210%3A123&t=HGcnMLHgk9fV2TxN-1) is updated to reflect the changes listed above.
-
-**Collab with Dev**
-- [ ] Set up a meeting to collaborate with the developer who will be implementing the design.
-- [ ] Agree on a naming convention to use in Figma and in Storybook.
-
-**Create Follow Up Tickets**
-- [ ] Create a github ticket using (this template) to update the [CMS Design System Documentation in Confluence](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/1712324609/CMS+Design+System) and link to it as a comment in this ticket.
-- [ ] Create a github ticket using [this template](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=edmund-dunn%2C+tonytaylor&labels=CMS+design+system%2C+CMS+Team%2C+Needs+refining&projects=&template=cms-design-system-dev-implementation.md&title=Implement+%3Cinsert+topic+here%3E+from+the+design+system.) for a developer to update the [CMS Storybook](https://storybook-stdirdt4jxl4xlaze1syc4vdz1pb9gvr.ci.cms.va.gov/?path=/story/introduction--page) and link to it as a comment in this ticket.
+- [ ] Include your documentation directly in the Figma file for this design system element.
+- [ ] Include a link from Figma to Storybook for the element that is being referenced.
+- [ ] Include examples of how to use the element being referenced.
+- [ ] Include examples of how NOT to use the element being referenced.
+- [ ] Briefly explain what this design system element does.
+- [ ] Label the anatomy of this design system element.
+- [ ] Provide examples for standard variations of this element that might appear.
+- [ ] Describe how the element behaves in different contexts.
+- [ ] Describe how the element should be styled visually. Include information about alignment, padding, etc.
