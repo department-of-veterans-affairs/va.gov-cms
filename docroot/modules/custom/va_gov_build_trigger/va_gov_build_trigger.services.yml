@@ -2,9 +2,6 @@ services:
   logger.channel.va_gov_build_trigger:
     parent: logger.channel_base
     arguments: ['va_gov_build_trigger']
-  va_gov_build_trigger.aws_ssm_client:
-    class: Aws\Ssm\SsmClient
-    arguments: [ { 'version': 'latest', 'region': 'us-gov-west-1' } ]
   va_gov_build_trigger.entity_event_subscriber:
     class: Drupal\va_gov_build_trigger\EventSubscriber\EntityEventSubscriber
     arguments: ['@va_gov_build_trigger.build_requester', '@va_gov.build_trigger.environment_discovery']
