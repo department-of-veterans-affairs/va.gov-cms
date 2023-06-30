@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.taxonomy_term.va_benefits_taxonomy.field_enforce_unique_id
     - field.field.taxonomy_term.va_benefits_taxonomy.field_enforce_unique_value
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_magic
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_after_applying
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_api_id
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_app_form
@@ -156,6 +157,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 3
+    region: content
+  field_magic:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 13
     region: content
   field_va_benefit_after_applying:
     type: text_default
