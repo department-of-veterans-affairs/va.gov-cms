@@ -22,5 +22,4 @@ function va_gov_magichead_entity_bundle_field_info_alter(&$fields, EntityTypeInt
   if (!empty($fields['field_va_benefit_eligibility'])) {
     $fields['field_va_benefit_eligibility']->addConstraint('MagicheadDepthFieldConstraint', []);
   }
-
 }
