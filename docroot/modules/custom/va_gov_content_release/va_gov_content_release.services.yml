@@ -8,6 +8,9 @@ services:
   va_gov_content_release.reporter:
     class: Drupal\va_gov_content_release\Reporter\Reporter
     arguments: ['@messenger', '@logger.factory']
+  va_gov_content_release.form_resolver:
+    class: Drupal\va_gov_content_release\Form\Resolver\Resolver
+    arguments: ['@va_gov_environment.discovery']
   va_gov_content_release.strategy_resolver:
     class: Drupal\va_gov_content_release\Strategy\Resolver\Resolver
     arguments: ['@plugin.manager.va_gov_content_release.strategy', '@va_gov_environment.discovery']
