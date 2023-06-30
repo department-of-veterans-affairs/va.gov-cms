@@ -2,7 +2,6 @@
 
 namespace Drupal\va_gov_backend\EventSubscriber;
 
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityTypeBuildEvent;
@@ -143,9 +142,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function addStateManagementToBioFields(FormIdAlterEvent $event) {
     $form = &$event->getForm();
-    $form_state = $event->getFormState();
-
     $form['#submit'][] = $this->addStateManagementToBioFieldsSubmitHandler($event);
+    $form['#attached']['library'][] = 'va_gov_backend/set_body_to_required';
     $selector = ':input[name="field_complete_biography_create[value]"]';
     $form['field_intro_text']['widget'][0]['value']['#states'] = [
       'required' => [
@@ -156,9 +154,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       ],
     ];
     $form['field_body']['#states'] = [
-      'required' => [
-          [$selector => ['checked' => TRUE]],
-      ],
       'visible' => [
           [$selector => ['checked' => TRUE]],
       ],
@@ -181,7 +176,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $form_state = $event->getFormState();
     $bio_display = !empty($form_state->getUserInput()['field_complete_biography_create']['value']) ? TRUE : FALSE;
     if (!$bio_display) {
-      $form['actions']['submit']['#limit_validation_errors'] = [['revision_log'], ['field_name_first'], ['field_last_name'], ['field_administration'], ['field_office']];
       $form['field_body']['widget'][0]['#required'] = FALSE;
     }
   }
