@@ -195,8 +195,6 @@ $error_reporting = (int) ini_get('error_reporting');
 ini_set('error_reporting', $error_reporting & ~E_DEPRECATED & ~E_USER_DEPRECATED);
 
 $settings_files = [
-  // Flysistem settings
-  __DIR__ . '/settings/settings.flysystem.php',
   // Environment specific settings
   __DIR__ . '/settings/settings.' . $env_type . '.php',
   // Fast 404 settings
