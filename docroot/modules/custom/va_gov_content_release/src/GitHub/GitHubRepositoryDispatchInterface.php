@@ -17,12 +17,12 @@ interface GitHubRepositoryDispatchInterface {
   const EVENT_TYPE = 'content-release';
 
   /**
-   * Dispatch a repository dispatch event to trigger content release.
+   * Submit a repository dispatch event to trigger content release.
    *
    * @throws \Drupal\va_gov_content_release\Exception\GitHubRepositoryDispatchException
    *   If the repository dispatch fails.
    */
-  public function dispatch() : void;
+  public function submit() : void;
 
   /**
    * Check whether a workflow is pending.

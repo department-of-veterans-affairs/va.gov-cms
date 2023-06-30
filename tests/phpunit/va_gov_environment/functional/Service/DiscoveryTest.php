@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit\va_gov_environment;
+namespace tests\phpunit\va_gov_environment\functional\Service;
 
 use Tests\Support\Classes\VaGovExistingSiteBase;
 
@@ -12,7 +12,7 @@ use Tests\Support\Classes\VaGovExistingSiteBase;
  *
  * @coversDefaultClass \Drupal\va_gov_environment\Service\Discovery
  */
-class DiscoveryFunctionalTest extends VaGovExistingSiteBase {
+class DiscoveryTest extends VaGovExistingSiteBase {
 
   /**
    * Test that the raw environment matches one of our expected values.

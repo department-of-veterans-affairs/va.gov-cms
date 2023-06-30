@@ -12,7 +12,6 @@
         "palantirnet/drupal-rector": "^0.15.0"
     },
     "require": {
-        "aws/aws-sdk-php": "^3.173",
         "bower-asset/blazy": "^1.8",
         "bower-asset/cropper": "^4.1",
         "caxy/php-htmldiff": "^0.1.14",
@@ -76,7 +75,6 @@
         "drupal/fieldhelptext": "^1.0@beta",
         "drupal/flag": "^4.0@beta",
         "drupal/flood_control": "^2.2.2",
-        "drupal/flysystem_s3": "^2.0@RC",
         "drupal/formdazzle": "^3.0",
         "drupal/geocoder": "^4.4",
         "drupal/geofield": "^1.39",
@@ -543,9 +541,6 @@
             },
             "traviscarden/behat-table-comparison": {
                 "Throw meaningful message for duplicate entry. See https://github.com/TravisCarden/behat-table-comparison/pull/7": "patches/duplicate-row-message.patch"
-            },
-            "weitzman/drupal-test-traits": {
-                "Forbid connection reuse in PHPUnit tests": "patches/weitzman-drupal-test-traits-forbid-connection-reuse.patch"
             },
             "drupal/sitewide_alert": {
                 "3290964 - Add drush commands for sitewide alerts": "https://www.drupal.org/files/issues/2023-06-22/3290964-add-drush-commands-2.patch"

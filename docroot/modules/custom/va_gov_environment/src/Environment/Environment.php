@@ -16,6 +16,7 @@ use Drupal\va_gov_environment\Exception\InvalidEnvironmentException;
 enum Environment: string implements EnvironmentInterface {
   case Ddev = 'ddev';
   case Tugboat = 'tugboat';
+  case Dev = 'dev';
   case Staging = 'staging';
   case Prod = 'prod';
 
@@ -81,6 +82,16 @@ enum Environment: string implements EnvironmentInterface {
   /**
    * {@inheritDoc}
    */
+  public function isDev(): bool {
+    return match ($this) {
+      self::Dev => TRUE,
+      default => FALSE,
+    };
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   public function isStaging(): bool {
     return match ($this) {
       self::Staging => TRUE,
@@ -94,6 +105,18 @@ enum Environment: string implements EnvironmentInterface {
   public function isProduction(): bool {
     return match ($this) {
       self::Prod => TRUE,
+      default => FALSE,
+    };
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public function isBrd(): bool {
+    return match ($this) {
+      self::Prod => TRUE,
+      self::Staging => TRUE,
+      self::Dev => TRUE,
       default => FALSE,
     };
   }
