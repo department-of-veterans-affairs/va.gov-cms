@@ -55,8 +55,70 @@ third_party_settings:
         - field_va_benefit_coconsidered
       label: 'Benefit relationships'
       parent_name: ''
-      region: hidden
+      region: content
       weight: 1
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        description: ''
+        description_display: after
+    group_benefit_description:
+      children:
+        - field_va_benefit_teaser_summary
+        - field_va_benefit_brief_summary
+        - field_va_benefit_long_summary
+      label: 'Benefit description'
+      parent_name: ''
+      region: content
+      weight: 2
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        description: ''
+        description_display: after
+    group_benefit_eligibility:
+      children:
+        - field_va_benefit_beneficiaries
+        - field_va_benefits_elig_intro
+        - field_va_benefit_eligibility
+      label: 'Benefit eligibility'
+      parent_name: ''
+      region: content
+      weight: 3
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        description: ''
+        description_display: after
+    group_benefit_apply_help:
+      children:
+        - field_va_benefit_app_form
+        - field_va_benefit_app_preparation
+        - field_va_benefit_app_help
+      label: 'How to apply'
+      parent_name: ''
+      region: content
+      weight: 4
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        description: ''
+        description_display: after
+    group_benefit_after_applying:
+      children:
+        - field_va_benefit_after_applying
+      label: 'After you apply'
+      parent_name: ''
+      region: content
+      weight: 5
       format_type: fieldset
       format_settings:
         classes: ''
@@ -83,7 +145,7 @@ content:
     region: content
   field_enforce_unique_id:
     type: allow_only_one
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     weight: 5
@@ -123,18 +185,18 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 10
     region: content
   field_va_benefit_app_preparation:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 9
     region: content
   field_va_benefit_beneficiaries:
     type: entity_reference_label
-    label: above
+    label: inline
     settings:
       link: true
     third_party_settings: {  }
@@ -145,11 +207,11 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 3
     region: content
   field_va_benefit_coconsidered:
     type: entity_reference_label
-    label: above
+    label: inline
     settings:
       link: true
     third_party_settings: {  }
@@ -209,7 +271,7 @@ content:
     region: content
   field_va_benefits_elig_intro:
     type: text_default
-    label: hidden
+    label: above
     settings: {  }
     third_party_settings: {  }
     weight: 11
