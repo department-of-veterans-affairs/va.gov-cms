@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f767fc2b4f92b4471ddcd27765cdada4",
+    "content-hash": "3c88ddae43c10e7994255df61e6fd725",
     "packages": [
         {
             "name": "acquia/drupal-spec-tool",
@@ -8102,17 +8102,17 @@
         },
         {
             "name": "drupal/image_style_warmer",
-            "version": "1.2.0-rc2",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/image_style_warmer.git",
-                "reference": "8.x-1.2-rc2"
+                "reference": "8.x-1.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/image_style_warmer-8.x-1.2-rc2.zip",
-                "reference": "8.x-1.2-rc2",
-                "shasum": "f4022d5346bbd7ab58d952e7b7928a8d6a3a1ab7"
+                "url": "https://ftp.drupal.org/files/projects/image_style_warmer-8.x-1.2.zip",
+                "reference": "8.x-1.2",
+                "shasum": "c029502973921203f6c65f446b8e0f0a4fd77089"
             },
             "require": {
                 "drupal/core": "^9 || ^10"
@@ -8123,11 +8123,11 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.2-rc2",
-                    "datestamp": "1684931334",
+                    "version": "8.x-1.2",
+                    "datestamp": "1686119705",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "RC releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 },
                 "drush": {
@@ -10192,12 +10192,16 @@
             ],
             "authors": [
                 {
-                    "name": "RoySegall",
-                    "homepage": "https://www.drupal.org/user/1812910"
+                    "name": "bluegeek9",
+                    "homepage": "https://www.drupal.org/user/1286304"
                 },
                 {
                     "name": "cosolom",
                     "homepage": "https://www.drupal.org/user/1816882"
+                },
+                {
+                    "name": "RoySegall",
+                    "homepage": "https://www.drupal.org/user/1812910"
                 }
             ],
             "description": "UI for the Message module",
@@ -12168,6 +12172,68 @@
             }
         },
         {
+            "name": "drupal/samlauth",
+            "version": "3.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/samlauth.git",
+                "reference": "8.x-3.8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/samlauth-8.x-3.8.zip",
+                "reference": "8.x-3.8",
+                "shasum": "5467da0bfe0287460d8f66a9432f03ac0838726f"
+            },
+            "require": {
+                "drupal/core": "^9.2 || ^10",
+                "drupal/externalauth": "^1.3 || ^2",
+                "onelogin/php-saml": "^3.3.1 || ^4"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-3.8",
+                    "datestamp": "1662058906",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                },
+                "branch-alias": {
+                    "dev-8.x-3.x": "3.x-dev"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "cweagans",
+                    "homepage": "https://www.drupal.org/user/404732"
+                },
+                {
+                    "name": "japerry",
+                    "homepage": "https://www.drupal.org/user/45640"
+                },
+                {
+                    "name": "Mills00013@gmail.com",
+                    "homepage": "https://www.drupal.org/user/3348892"
+                },
+                {
+                    "name": "roderik",
+                    "homepage": "https://www.drupal.org/user/8841"
+                }
+            ],
+            "description": "Allows users to authenticate against an external SAML identity provider.",
+            "homepage": "http://drupal.org/project/samlauth",
+            "support": {
+                "source": "http://cgit.drupalcode.org/samlauth",
+                "issues": "http://drupal.org/project/samlauth"
+            }
+        },
+        {
             "name": "drupal/schemata",
             "version": "1.0.0-beta3",
             "source": {
@@ -12603,17 +12669,17 @@
         },
         {
             "name": "drupal/sitewide_alert",
-            "version": "2.1.0",
+            "version": "2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/sitewide_alert.git",
-                "reference": "2.1.0"
+                "reference": "2.1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/sitewide_alert-2.1.0.zip",
-                "reference": "2.1.0",
-                "shasum": "bc92d7fe6af94430b62e68da4b52e3d37f19b90b"
+                "url": "https://ftp.drupal.org/files/projects/sitewide_alert-2.1.1.zip",
+                "reference": "2.1.1",
+                "shasum": "f701fb86c702cb2c64fb39744b3e8bb64dd45018"
             },
             "require": {
                 "drupal/core": "^9.2 || ^10",
@@ -12622,8 +12688,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.1.0",
-                    "datestamp": "1684257887",
+                    "version": "2.1.1",
+                    "datestamp": "1686841073",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -17993,16 +18059,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v4.15.5",
+            "version": "v4.16.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "11e2663a5bc9db5d714eedb4277ee300403b4a9e"
+                "reference": "19526a33fb561ef417e822e85f08a00db4059c17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/11e2663a5bc9db5d714eedb4277ee300403b4a9e",
-                "reference": "11e2663a5bc9db5d714eedb4277ee300403b4a9e",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/19526a33fb561ef417e822e85f08a00db4059c17",
+                "reference": "19526a33fb561ef417e822e85f08a00db4059c17",
                 "shasum": ""
             },
             "require": {
@@ -18043,9 +18109,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v4.15.5"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v4.16.0"
             },
-            "time": "2023-05-19T20:20:00+00:00"
+            "time": "2023-06-25T14:52:30+00:00"
         },
         {
             "name": "npm-asset/dropzone",
@@ -18070,6 +18136,62 @@
             "license": [
                 "BSD-2-Clause"
             ]
+        },
+        {
+            "name": "onelogin/php-saml",
+            "version": "4.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/onelogin/php-saml.git",
+                "reference": "b22a57ebd13e838b90df5d3346090bc37056409d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/onelogin/php-saml/zipball/b22a57ebd13e838b90df5d3346090bc37056409d",
+                "reference": "b22a57ebd13e838b90df5d3346090bc37056409d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.3",
+                "robrichards/xmlseclibs": ">=3.1.1"
+            },
+            "require-dev": {
+                "pdepend/pdepend": "^2.8.0",
+                "php-coveralls/php-coveralls": "^2.0",
+                "phploc/phploc": "^4.0 || ^5.0 || ^6.0 || ^7.0",
+                "phpunit/phpunit": "^9.5",
+                "sebastian/phpcpd": "^4.0 || ^5.0 || ^6.0 ",
+                "squizlabs/php_codesniffer": "^3.5.8"
+            },
+            "suggest": {
+                "ext-curl": "Install curl lib to be able to use the IdPMetadataParser for parsing remote XMLs",
+                "ext-dom": "Install xml lib",
+                "ext-openssl": "Install openssl lib in order to handle with x509 certs (require to support sign and encryption)",
+                "ext-zlib": "Install zlib"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "OneLogin\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "OneLogin PHP SAML Toolkit",
+            "homepage": "https://developers.onelogin.com/saml/php",
+            "keywords": [
+                "SAML2",
+                "onelogin",
+                "saml"
+            ],
+            "support": {
+                "email": "sixto.garcia@onelogin.com",
+                "issues": "https://github.com/onelogin/php-saml/issues",
+                "source": "https://github.com/onelogin/php-saml/"
+            },
+            "time": "2022-07-15T20:44:36+00:00"
         },
         {
             "name": "oomphinc/composer-installers-extender",
@@ -25372,16 +25494,16 @@
         },
         {
             "name": "symfony/http-client",
-            "version": "v5.4.24",
+            "version": "v5.4.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-client.git",
-                "reference": "9e89ac4c9dfe29f4ed2b10a36e62720286632ad6"
+                "reference": "ccbb572627466f03a3d7aa1b23483787f5969afc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-client/zipball/9e89ac4c9dfe29f4ed2b10a36e62720286632ad6",
-                "reference": "9e89ac4c9dfe29f4ed2b10a36e62720286632ad6",
+                "url": "https://api.github.com/repos/symfony/http-client/zipball/ccbb572627466f03a3d7aa1b23483787f5969afc",
+                "reference": "ccbb572627466f03a3d7aa1b23483787f5969afc",
                 "shasum": ""
             },
             "require": {
@@ -25443,7 +25565,7 @@
                 "http"
             ],
             "support": {
-                "source": "https://github.com/symfony/http-client/tree/v5.4.24"
+                "source": "https://github.com/symfony/http-client/tree/v5.4.25"
             },
             "funding": [
                 {
@@ -25459,7 +25581,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-07T13:11:28+00:00"
+            "time": "2023-06-21T14:44:30+00:00"
         },
         {
             "name": "symfony/http-client-contracts",
@@ -27706,16 +27828,16 @@
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v5.4.24",
+            "version": "v5.4.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "8e12706bf9c68a2da633f23bfdc15b4dce5970b3"
+                "reference": "82269f73c0f0f9859ab9b6900eebacbe54954ede"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/8e12706bf9c68a2da633f23bfdc15b4dce5970b3",
-                "reference": "8e12706bf9c68a2da633f23bfdc15b4dce5970b3",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/82269f73c0f0f9859ab9b6900eebacbe54954ede",
+                "reference": "82269f73c0f0f9859ab9b6900eebacbe54954ede",
                 "shasum": ""
             },
             "require": {
@@ -27774,7 +27896,7 @@
                 "dump"
             ],
             "support": {
-                "source": "https://github.com/symfony/var-dumper/tree/v5.4.24"
+                "source": "https://github.com/symfony/var-dumper/tree/v5.4.25"
             },
             "funding": [
                 {
@@ -27790,7 +27912,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-25T13:05:00+00:00"
+            "time": "2023-06-20T20:56:26+00:00"
         },
         {
             "name": "symfony/var-exporter",
@@ -28323,16 +28445,16 @@
         },
         {
             "name": "va-gov/content-build",
-            "version": "v0.0.3288",
+            "version": "v0.0.3292",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/content-build.git",
-                "reference": "90abc1c209d607d7041ec4fb3093ab7257a5cde8"
+                "reference": "3d57a54e980fa8e11fe7ede5df0e2da76605d344"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/90abc1c209d607d7041ec4fb3093ab7257a5cde8",
-                "reference": "90abc1c209d607d7041ec4fb3093ab7257a5cde8",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/3d57a54e980fa8e11fe7ede5df0e2da76605d344",
+                "reference": "3d57a54e980fa8e11fe7ede5df0e2da76605d344",
                 "shasum": ""
             },
             "type": "node-project",
@@ -28359,9 +28481,9 @@
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/content-build, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
             "support": {
                 "issues": "https://github.com/department-of-veterans-affairs/content-build/issues",
-                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3288"
+                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3292"
             },
-            "time": "2023-06-20T17:34:16+00:00"
+            "time": "2023-06-23T20:19:29+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
