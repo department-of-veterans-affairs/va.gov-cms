@@ -1,13 +1,14 @@
 <?php
 
-namespace tests\phpunit\va_gov_environment;
+namespace tests\phpunit\va_gov_environment\unit\Plugin\Strategy;
 
-use Drupal\Core\File\FileSystemInterface;
-use Drupal\Core\File\Exception\FileException;
 use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\va_gov_content_release\Exception\ContentReleaseInProgressException;
+use Drupal\va_gov_content_release\Exception\GitHubRepositoryDispatchException;
 use Drupal\va_gov_content_release\Exception\StrategyErrorException;
+use Drupal\va_gov_content_release\GitHub\GitHubRepositoryDispatchInterface;
 use Drupal\va_gov_content_release\Reporter\ReporterInterface;
-use Drupal\va_gov_content_release\Plugin\Strategy\LocalFilesystemBuildFile;
+use Drupal\va_gov_content_release\Plugin\Strategy\GitHubRepositoryDispatch;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Tests\Support\Classes\VaGovUnitTestBase;
@@ -18,14 +19,16 @@ use Tests\Support\Classes\VaGovUnitTestBase;
  * @group unit
  * @group all
  *
- * @coversDefaultClass \Drupal\va_gov_content_release\Plugin\Strategy\LocalFilesystemBuildFile
+ * @coversDefaultClass \Drupal\va_gov_content_release\Plugin\Strategy\GitHubRepositoryDispatch
  */
-class LocalFilesystemBuildFilePluginTest extends VaGovUnitTestBase {
+class GitHubRepositoryDispatchTest extends VaGovUnitTestBase {
 
   /**
-   * Construct a LocalFilesystemBuildFile strategy plugin.
+   * Construct a GitHubRepositoryDispatch strategy plugin.
    */
-  public function getLocalFilesystemBuildFile() {
+  public function getGitHubRepositoryDispatch() {
+    $gitHubServiceProphecy = $this->prophesize(GitHubRepositoryDispatchInterface::class);
+    $gitHubService = $gitHubServiceProphecy->reveal();
     $reporterProphecy = $this->prophesize(ReporterInterface::class);
     $reporter = $reporterProphecy->reveal();
     $stringTranslationProphecy = $this->prophesize(TranslationInterface::class);
@@ -33,27 +36,22 @@ class LocalFilesystemBuildFilePluginTest extends VaGovUnitTestBase {
       return $args[0]->getUntranslatedString();
     });
     $stringTranslationService = $stringTranslationProphecy->reveal();
-    $filesystemProphecy = $this->prophesize(FilesystemInterface::class);
-    $filesystemProphecy->saveData(Argument::any(), Argument::any(), Argument::any())->will(function ($args) {
-      return $args[1];
-    });
-    $filesystem = $filesystemProphecy->reveal();
     $containerProphecy = $this->prophesize(ContainerInterface::class);
+    $containerProphecy->get('va_gov_content_release.github_repository_dispatch')->willReturn($gitHubService);
     $containerProphecy->get('va_gov_content_release.reporter')->willReturn($reporter);
     $containerProphecy->get('string_translation')->willReturn($stringTranslationService);
-    $containerProphecy->get('file_system')->willReturn($filesystem);
     $container = $containerProphecy->reveal();
-    return LocalFilesystemBuildFile::create($container, [], 'test', []);
+    return GitHubRepositoryDispatch::create($container, [], 'test', []);
   }
 
   /**
-   * Test that the LocalFilesystemBuildFile strategy plugin can be created.
+   * Test that the GitHub Repository Dispatch strategy plugin can be created.
    *
    * @covers ::create
    * @covers ::__construct
    */
   public function testConstruct() {
-    $this->assertInstanceOf(LocalFilesystemBuildFile::class, $this->getLocalFilesystemBuildFile());
+    $this->assertInstanceOf(GitHubRepositoryDispatch::class, $this->getGitHubRepositoryDispatch());
   }
 
   /**
@@ -62,7 +60,16 @@ class LocalFilesystemBuildFilePluginTest extends VaGovUnitTestBase {
    * @covers ::buildSubmittedMessage
    */
   public function testBuildSubmittedMessage() {
-    $this->assertStringContainsString('A content release request has been submitted.', $this->getLocalFilesystemBuildFile()->buildSubmittedMessage());
+    $this->assertStringContainsString('The system started the process of releasing this content to go live on VA.gov.', $this->getGitHubRepositoryDispatch()->buildSubmittedMessage());
+  }
+
+  /**
+   * Test that we can build an "already in progress" message.
+   *
+   * @covers ::buildAlreadyInProgressMessage
+   */
+  public function testBuildAlreadyInProgressMessage() {
+    $this->assertStringContainsString('Changes will be included in a content release to VA.gov that\'s already in progress.', $this->getGitHubRepositoryDispatch()->buildAlreadyInProgressMessage());
   }
 
   /**
@@ -71,11 +78,11 @@ class LocalFilesystemBuildFilePluginTest extends VaGovUnitTestBase {
    * @covers ::buildFailureMessage
    */
   public function testBuildFailureMessage() {
-    $this->assertStringContainsString('A content release request has failed.', $this->getLocalFilesystemBuildFile()->buildFailureMessage());
+    $this->assertStringContainsString('A content release request has failed with an Exception.', $this->getGitHubRepositoryDispatch()->buildFailureMessage());
   }
 
   /**
-   * Test that we can submit a content release request.
+   * Test that we can trigger a content release.
    *
    * Note this method should _never_ throw an exception other than
    * StrategyErrorException.
@@ -91,6 +98,12 @@ class LocalFilesystemBuildFilePluginTest extends VaGovUnitTestBase {
    * @dataProvider triggerContentReleaseDataProvider
    */
   public function testTriggerContentRelease(\Throwable $exception = NULL, int $reportInfoCalls = 1, int $reportErrorCalls = 0) {
+    $gitHubServiceProphecy = $this->prophesize(GitHubRepositoryDispatchInterface::class);
+    $gitHubServiceProphecy->submit()->shouldBeCalledOnce();
+    if ($exception) {
+      $gitHubServiceProphecy->submit()->willThrow($exception);
+    }
+    $gitHubService = $gitHubServiceProphecy->reveal();
     $reporterProphecy = $this->prophesize(ReporterInterface::class);
     $reporterProphecy->reportInfo(Argument::type('string'))->shouldBeCalledTimes($reportInfoCalls);
     $reporterProphecy->reportError(Argument::type('string'), $exception)->shouldBeCalledTimes($reportErrorCalls);
@@ -100,23 +113,13 @@ class LocalFilesystemBuildFilePluginTest extends VaGovUnitTestBase {
       return $args[0]->getUntranslatedString();
     });
     $stringTranslationService = $stringTranslationProphecy->reveal();
-    $filesystemProphecy = $this->prophesize(FilesystemInterface::class);
-    if ($exception) {
-      $filesystemProphecy->saveData(Argument::any(), Argument::any(), Argument::any())->shouldBeCalledOnce()->willThrow($exception);
-    }
-    else {
-      $filesystemProphecy->saveData(Argument::any(), Argument::any(), Argument::any())->shouldBeCalledOnce()->will(function ($args) {
-        return $args[1];
-      });
-    }
-    $filesystem = $filesystemProphecy->reveal();
     $containerProphecy = $this->prophesize(ContainerInterface::class);
+    $containerProphecy->get('va_gov_content_release.github_repository_dispatch')->willReturn($gitHubService);
     $containerProphecy->get('va_gov_content_release.reporter')->willReturn($reporter);
     $containerProphecy->get('string_translation')->willReturn($stringTranslationService);
-    $containerProphecy->get('file_system')->willReturn($filesystem);
     $container = $containerProphecy->reveal();
-    $plugin = LocalFilesystemBuildFile::create($container, [], 'test', []);
-    if ($exception) {
+    $plugin = GitHubRepositoryDispatch::create($container, [], 'test', []);
+    if ($reportErrorCalls > 0) {
       $this->expectException(StrategyErrorException::class);
     }
     $plugin->triggerContentRelease();
@@ -126,22 +129,22 @@ class LocalFilesystemBuildFilePluginTest extends VaGovUnitTestBase {
    * Data provider for testTriggerContentRelease().
    *
    * @return array
-   *   The test data.
+   *   The data.
    */
-  public function triggerContentReleaseDataProvider() {
+  public function triggerContentReleaseDataProvider(): array {
     return [
       'no exception' => [
         'exception' => NULL,
         'reportInfoCalls' => 1,
         'reportErrorCalls' => 0,
       ],
-      'StrategyErrorException' => [
-        'exception' => new StrategyErrorException(),
-        'reportInfoCalls' => 0,
-        'reportErrorCalls' => 1,
+      'ContentReleaseInProgressException' => [
+        'exception' => new ContentReleaseInProgressException(),
+        'reportInfoCalls' => 1,
+        'reportErrorCalls' => 0,
       ],
-      'FileException' => [
-        'exception' => new FileException(),
+      'GitHubRepositoryDispatchException' => [
+        'exception' => new GitHubRepositoryDispatchException(),
         'reportInfoCalls' => 0,
         'reportErrorCalls' => 1,
       ],
