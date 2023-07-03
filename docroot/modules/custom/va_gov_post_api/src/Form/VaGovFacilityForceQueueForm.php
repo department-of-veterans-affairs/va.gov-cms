@@ -69,22 +69,42 @@ class VaGovFacilityForceQueueForm extends FormBase {
     // Queries to get total number of nodes for each type for reference.
     $health_care_local_facility = \Drupal::entityQuery('node')
       ->condition('type', 'health_care_local_facility')
+      ->condition('moderation_state', 'archived', '!=')
       ->execute();
 
     $health_care_facility_service = \Drupal::entityQuery('node')
       ->condition('type', 'health_care_local_health_service')
+      ->condition('moderation_state', 'archived', '!=')
       ->execute();
 
     $nca_facility = \Drupal::entityQuery('node')
       ->condition('type', 'nca_facility')
+      ->condition('moderation_state', 'archived', '!=')
       ->execute();
 
     $vba_facility = \Drupal::entityQuery('node')
       ->condition('type', 'vba_facility')
+      ->condition('moderation_state', 'archived', '!=')
       ->execute();
 
     $vet_center = \Drupal::entityQuery('node')
       ->condition('type', 'vet_center')
+      ->condition('moderation_state', 'archived', '!=')
+      ->execute();
+
+    $vet_center_outstation = \Drupal::entityQuery('node')
+      ->condition('type', 'vet_center_outstation')
+      ->condition('moderation_state', 'archived', '!=')
+      ->execute();
+
+    $vet_center_mobile_vet_center = \Drupal::entityQuery('node')
+      ->condition('type', 'vet_center_mobile_vet_center')
+      ->condition('moderation_state', 'archived', '!=')
+      ->execute();
+
+    $vet_center_cap = \Drupal::entityQuery('node')
+      ->condition('type', 'vet_center_cap')
+      ->condition('moderation_state', 'archived', '!=')
       ->execute();
 
     $form['description'] = [
@@ -102,6 +122,8 @@ class VaGovFacilityForceQueueForm extends FormBase {
         'nca_facility' => $this->t('NCA facilities') . ' (' . count($nca_facility) . ')',
         'vba_facility' => $this->t('VBA facilities') . ' (' . count($vba_facility) . ')',
         'vet_center' => $this->t('Vet Centers') . ' (' . count($vet_center) . ')',
+        'vet_center_outstation' => $this->t('Vet Center Outstations') . ' (' . count($vet_center_outstation) . ')',
+        'vet_center_mobile_vet_center' => $this->t('Vet Center Mobile Vet Centers') . ' (' . count($vet_center_mobile_vet_center) . ')',
       ],
       '#required' => TRUE,
     ];
@@ -129,6 +151,7 @@ class VaGovFacilityForceQueueForm extends FormBase {
 
     $sandbox['nids'] = \Drupal::entityQuery('node')
       ->condition('type', $bundle)
+      ->condition('moderation_state', 'archived', '!=')
       ->execute();
 
     if (!empty($sandbox['nids'])) {
@@ -146,7 +169,7 @@ class VaGovFacilityForceQueueForm extends FormBase {
               $queued_count += _va_gov_post_api_add_facility_service_to_queue($node);
             }
             else {
-              $queued_count += _va_gov_post_api_add_facility_service_to_queue($node);
+              $queued_count += _va_gov_post_api_add_facility_to_queue($node);
             }
           }
 
