@@ -577,23 +577,7 @@ display:
         type: tag
         options: {  }
       empty: {  }
-      sorts:
-        created:
-          id: created
-          table: node_field_data
-          field: created
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          entity_field: created
-          plugin_id: date
-          order: DESC
-          expose:
-            label: ''
-            field_identifier: created
-          exposed: false
-          granularity: second
+      sorts: {  }
       arguments: {  }
       filters:
         field_alert_type_value:
@@ -923,8 +907,8 @@ display:
             field_administration: field_administration
             created: created
             changed: changed
-            moderation_state: moderation_state
-          default: '-1'
+            status: status
+          default: changed
           info:
             title:
               sortable: true
@@ -968,12 +952,12 @@ display:
               responsive: ''
             changed:
               sortable: true
-              default_sort_order: asc
+              default_sort_order: desc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            moderation_state:
+            status:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -984,7 +968,7 @@ display:
           sticky: false
           summary: ''
           empty_table: false
-          caption: ''
+          caption: 'Results of VAMC System banner alerts and Operating status pages.'
           description: ''
       row:
         type: fields
@@ -1046,7 +1030,9 @@ display:
     display_plugin: page
     position: 1
     display_options:
-      display_extenders: {  }
+      display_extenders:
+        jsonapi_views:
+          enabled: true
       path: admin/content/vamc-alerts-and-statuses
       menu:
         type: normal
