@@ -8,6 +8,7 @@ use Drupal\core_event_dispatcher\Event\Entity\EntityTypeBuildEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\Core\Config\Entity\ConfigEntityType;
 use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\field_event_dispatcher\Event\Field\WidgetSingleElementFormAlterEvent;
 use Drupal\field_event_dispatcher\FieldHookEvents;
@@ -142,7 +143,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function addStateManagementToBioFields(FormIdAlterEvent $event) {
     $form = &$event->getForm();
-    $form['#submit'][] = $this->addStateManagementToBioFieldsSubmitHandler($event);
+    $form['#submit'][] = 'Drupal\va_gov_backend\EventSubscriber\EntityEventSubscriber::addStateManagementToBioFieldsSubmitHandler';
     $form['#attached']['library'][] = 'va_gov_backend/set_body_to_required';
     $selector = ':input[name="field_complete_biography_create[value]"]';
     $form['field_intro_text']['widget'][0]['value']['#states'] = [
@@ -166,17 +167,21 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Submit handler removes field body req when bio toggle is set to FALSE.
+   * Submit handler for DANSE forms.
    *
-   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
-   *   The event.
+   * @param array $form
+   *   The form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
    */
-  public function addStateManagementToBioFieldsSubmitHandler(FormIdAlterEvent $event) {
-    $form = &$event->getForm();
-    $form_state = $event->getFormState();
+  public static function addStateManagementToBioFieldsSubmitHandler(array $form, FormStateInterface $form_state) {
     $bio_display = !empty($form_state->getUserInput()['field_complete_biography_create']['value']) ? TRUE : FALSE;
     if (!$bio_display) {
+
+      $form['field_body']['widget']['#required'] = FALSE;
       $form['field_body']['widget'][0]['#required'] = FALSE;
+      $form['field_body']['widget'][0]['value']['#required'] = FALSE;
+      //'#limit_validation_errors' => [],
     }
   }
 
