@@ -2,8 +2,9 @@
 name: CMS Design System Dev Implementation
 about: Use this template for Developers to implement CMS design system updates.
 title: 'Implement <insert topic here> from the design system.'
-labels: CMS design system, CMS Team, Needs refining
+labels: CMS design system, CMS Team, Drupal engineering, Needs refining
 assignees: edmund-dunn, tonytaylor
+pipelines: New/Unrefined
 
 ---
 
@@ -30,8 +31,4 @@ These levels match the levels in [VA.gov Design System Documentation](https://de
 **Collab with Design**
 - [ ] Set up a meeting to collaborate with the designer who made the updates in the design system.
 - [ ] Add the designer who made the updates in the design system as a reviewer on the pull request.
-- [ ] Tag the the designer who made the updates in the design system in a Slack message in the #sitewide-cms-platform channel letting them know that the pull request is ready for their review.
-
-**Create Follow Up Tickets**
-- [ ] Create a github ticket using (this template) to update the [CMS Design System Documentation in Confluence](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/1712324609/CMS+Design+System) and link to it as a comment in this ticket.
-- [ ] Create a github ticket using (this template) for a developer to update the [CMS Storybook](https://storybook-stdirdt4jxl4xlaze1syc4vdz1pb9gvr.ci.cms.va.gov/?path=/story/introduction--page) and link to it as a comment in this ticket.
+- [ ] Tag the designer who made the updates in the design system in a Slack message in the #sitewide-cms-platform channel letting them know that the pull request is ready for their review.
