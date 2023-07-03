@@ -4,7 +4,6 @@ about: Use this template for Developers to implement CMS design system updates.
 title: 'Implement <insert topic here> from the design system.'
 labels: CMS design system, CMS Team, Drupal engineering, Needs refining
 assignees: edmund-dunn, tonytaylor
-pipelines: New/Unrefined
 
 ---
 
