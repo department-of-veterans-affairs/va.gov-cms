@@ -11,13 +11,17 @@ use Symfony\Component\Validator\ConstraintValidator;
  */
 class DepthFieldConstraintValidator extends ConstraintValidator {
 
-  protected static $lastItemDepth;
+  /**
+   * The depth of the previous item.
+   *
+   * @var int
+   */
+  protected static int $lastItemDepth;
 
   /**
-   * Checks that depth field value != >1 than the one before it
-   * This one minus previous one is 1 or less, can be negative
+   * Validates the depth property is set correctly.
    *
-   * @param $value
+   * @param mixed $value
    *   The field values.
    * @param \Symfony\Component\Validator\Constraint $constraint
    *   The constraint for the validation.
@@ -27,16 +31,18 @@ class DepthFieldConstraintValidator extends ConstraintValidator {
     if (!$value instanceof MagicheadItem) {
       return;
     }
-    if (isset(self::$lastItemDepth)) {
+    // Return early if we are validating the first item, and set the itemDepth
+    // cache for future iterations.
+    if ($value->getName() === 0) {
+      self::$lastItemDepth = 0;
+    }
+    elseif (isset(self::$lastItemDepth)) {
       $values = $value->getValue();
       $currentItemDepth = $values['depth'];
       if (($currentItemDepth - self::$lastItemDepth) > 1) {
         $this->context->buildViolation($constraint->errorMessage)->addViolation();
       }
       self::$lastItemDepth = $currentItemDepth;
-    }
-    else {
-      self::$lastItemDepth = 0;
     }
   }
 
