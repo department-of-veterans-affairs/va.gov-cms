@@ -17,3 +17,8 @@ services:
   plugin.manager.va_gov_content_release.strategy:
     class: Drupal\va_gov_content_release\Strategy\Plugin\StrategyPluginManager
     parent: default_plugin_manager
+  va_gov_content_release.form_route_subscriber:
+    class: Drupal\va_gov_content_release\EventSubscriber\FormRouteSubscriber
+    arguments: ['@va_gov_content_release.form_resolver']
+    tags:
+      - { name: event_subscriber }

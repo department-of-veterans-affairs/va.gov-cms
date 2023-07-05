@@ -6,7 +6,7 @@ use Drupal\va_gov_build_trigger\Form\BrdBuildTriggerForm;
 use Drupal\va_gov_build_trigger\Form\LocalBuildTriggerForm;
 use Drupal\va_gov_build_trigger\Form\TugboatBuildTriggerForm;
 use Drupal\va_gov_content_release\Exception\CouldNotDetermineFormException;
-use Drupal\va_gov_environment\Service\DiscoveryInterface;
+use Drupal\va_gov_environment\Discovery\DiscoveryInterface;
 
 /**
  * The form resolver service.
@@ -20,14 +20,14 @@ class Resolver implements ResolverInterface {
   /**
    * The environment discovery service.
    *
-   * @var \Drupal\va_gov_environment\Service\DiscoveryInterface
+   * @var \Drupal\va_gov_environment\Discovery\DiscoveryInterface
    */
   protected $environmentDiscovery;
 
   /**
    * Constructor.
    *
-   * @param \Drupal\va_gov_environment\Service\DiscoveryInterface $environmentDiscovery
+   * @param \Drupal\va_gov_environment\Discovery\DiscoveryInterface $environmentDiscovery
    *   The environment discovery service.
    */
   public function __construct(DiscoveryInterface $environmentDiscovery) {
