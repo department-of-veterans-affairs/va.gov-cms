@@ -12,7 +12,6 @@ settings:
   toolbar:
     items:
       - bold
-      - italic
       - '|'
       - link
       - '|'
@@ -21,6 +20,7 @@ settings:
       - '|'
       - sourceEditing
       - blockQuote
+      - abbreviation
   plugins:
     ckeditor5_list:
       reversed: false
@@ -28,6 +28,7 @@ settings:
     ckeditor5_sourceEditing:
       allowed_tags:
         - '<a hreflang aria-label data-entity-substitution data-entity-type data-entity-uuid title>'
+        - '<abbr title>'
 image_upload:
   status: false
   scheme: public

@@ -12,7 +12,6 @@ settings:
   toolbar:
     items:
       - bold
-      - italic
       - '|'
       - link
       - '|'
@@ -25,6 +24,7 @@ settings:
       - blockQuote
       - heading
       - style
+      - abbreviation
   plugins:
     ckeditor5_heading:
       enabled_headings:
@@ -44,13 +44,9 @@ settings:
         - '<blockquote cite>'
         - '<ul type>'
         - '<ol type>'
-        - '<h2 id>'
-        - '<h3 id>'
-        - '<h4 id>'
-        - '<h5 id>'
-        - '<h6 id>'
-        - '<p id class="block-va-gov-text">'
+        - '<p class="block-va-gov-text">'
         - '<a hreflang aria-label data-entity-substitution data-entity-type data-entity-uuid target title class="button button-action button--primary login-required block-vet-center-facility-button">'
+        - '<abbr title>'
     ckeditor5_style:
       styles:
         -
