@@ -1,0 +1,110 @@
+diff --git a/src/Plugin/migrate/process/StrReplace.php b/src/Plugin/migrate/process/StrReplace.php
+index 08dece7..5c2c6f3 100644
+--- a/src/Plugin/migrate/process/StrReplace.php
++++ b/src/Plugin/migrate/process/StrReplace.php
+@@ -5,6 +5,7 @@ declare(strict_types = 1);
+ namespace Drupal\migrate_plus\Plugin\migrate\process;
+
+ use Drupal\migrate\MigrateExecutableInterface;
++use Drupal\migrate\MigrateSkipProcessException;
+ use Drupal\migrate\ProcessPluginBase;
+ use Drupal\migrate\Row;
+
+@@ -72,6 +73,16 @@ use Drupal\migrate\Row;
+  *   search: ["AT", "CH", "DK"]
+  *   replace: ["Austria", "Switzerland", "Denmark"]
+  * @endcode
++ * Row properties can be referenced using the '@' placeholder format and setting
++ * 'properties' option to true:
++ * @code
++ * field_text:
++ *   plugin: str_replace
++ *   properties: true
++ *   source: text
++ *   search: 'Name: @title'
++ *   replace: ''
++ * @endcode
+  *
+  * Replace with a regex backreference like this:
+  * @code
+@@ -114,6 +125,9 @@ class StrReplace extends ProcessPluginBase {
+    */
+   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
+     $this->multiple = is_array($value);
++    if (!$this->multiple && !is_string($value)) {
++      return $value;
++    }
+     $this->configuration += [
+       'case_insensitive' => FALSE,
+       'regex' => FALSE,
+@@ -125,7 +139,37 @@ class StrReplace extends ProcessPluginBase {
+     if ($this->configuration['regex']) {
+       $function = 'preg_replace';
+     }
+-    return $function($this->configuration['search'], $this->configuration['replace'], $value);
++    $config = array_intersect_key($this->configuration, array_flip(['search', 'replace']));
++    if ($this->configuration['properties'] ?? NULL) {
++      foreach ($config as &$strings) {
++        $strings = is_array($strings) ? $strings : [$strings];
++        $strings = array_map(function ($string) use ($row) {
++          preg_match_all('/@[\w_]+/', $string, $matches);
++          foreach ($matches as $match) {
++            if (!isset($match[0])) {
++              continue;
++            }
++            $var_name = $match[0];
++            $var_value = $row->get($var_name);
++            if ($var_value && is_string($var_value)) {
++              $string = str_replace($var_name, $var_value, $string);
++            }
++          }
++          return $string;
++        }, $strings);
++      }
++    }
++    if($this->multiple) {
++      foreach($value as $key => $item) {
++        if (is_string($item)) {
++          $value[$key] = $function($config['search'], $config['replace'], $item);
++        } else {
++          $value[$key] = $item;
++        }
++      }
++      return $value;
++    }
++    return $function($config['search'], $config['replace'], $value);
+   }
+
+   /**
+diff --git a/tests/src/Unit/process/StrReplaceTest.php b/tests/src/Unit/process/StrReplaceTest.php
+index 320c4c9..5e04ac5 100644
+--- a/tests/src/Unit/process/StrReplaceTest.php
++++ b/tests/src/Unit/process/StrReplaceTest.php
+@@ -4,6 +4,7 @@ declare(strict_types = 1);
+
+ namespace Drupal\Tests\migrate_plus\Unit\process;
+
++use Drupal\migrate\MigrateSkipProcessException;
+ use Drupal\migrate_plus\Plugin\migrate\process\StrReplace;
+ use Drupal\Tests\migrate\Unit\process\MigrateProcessTestCase;
+
+@@ -16,6 +17,19 @@ use Drupal\Tests\migrate\Unit\process\MigrateProcessTestCase;
+ final class StrReplaceTest extends MigrateProcessTestCase {
+
+   /**
++   * Test for a simple str_replace with NULL in $value.
++   */
++  public function testStrReplaceNull(): void {
++    $configuration = [];
++    $value = NULL;
++    $configuration['search'] = 'et';
++    $configuration['replace'] = 'that';
++    $plugin = new StrReplace($configuration, 'str_replace', []);
++    $actual = $plugin->transform($value, $this->migrateExecutable, $this->row, 'destinationproperty');
++    $this->assertNull($actual);
++  }
++
++  /**
+    * Test for a simple str_replace string.
+    */
+   public function testStrReplace(): void {

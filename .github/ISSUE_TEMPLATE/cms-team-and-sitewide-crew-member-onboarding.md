@@ -108,7 +108,9 @@ You can view team sprint boards using either the Github view with Zenhub browser
   - [ ] Retro
 
 ### People
-- [ ] Familiarize yourself with our team's [shared calendar](https://va-gov.atlassian.net/wiki/spaces/VAGOV/calendars) and add in any known upcoming out of office (OOO). Choose "Calendar" = OOO and "Event type" = whatever is relevant.
+- [ ] Familiarize yourself with our team's shared calendars: [Sitewide Team calendar](https://calendar.google.com/calendar/u/1?cid=c2l0ZXdpZGUtdGVhbUBhZ2lsZTYuY29t) and [VFS-CMS team calendar] (https://calendar.google.com/calendar/u/1?cid=vfs-cms-team@agile6.com) 
+    * Ask your DM to give you write access to your team calendar, if you have not already been invited
+    * If you have time off planned, add to calendar as OOO
 - [ ] Let's start introducing you to the team and key stakeholders. If you're on a meeting where you don't know someone, feel free to kickstart an introduction. Everyone in the ecosystem is friendly and interested in connecting.
 
 ### Context & History
@@ -363,6 +365,33 @@ Your discipline lead will assist with onboarding tasks / calls.
 - [ ] Review other Delivery documents in [Google Drive](https://drive.google.com/drive/u/1/folders/1mFC5NCUkeQlGX2S8TIpD1om2V-5B0ikc)
 
 </details>
+
+
+### Team-specific onboarding (CMS, Facilities, Public Websites)
+Remove the sections that don't apply
+
+<details><summary>CMS Team Onboarding</summary>
+
+   ## Onboarding for CMS
+   
+</details>
+
+<details><summary>Facilities Team Onboarding</summary>
+
+   ## Onboarding for Facilities
+   - [ ] Read the [Facilities team charter](https://docs.google.com/document/d/1eI1w9Bcj2rlmFtxkM6Dkn_c-Srszd88UxAQimSZkVqo/edit#)
+   - [ ] [Facilities product portfolio notes ](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/products/facilities)
+
+</details>
+
+<details><summary>Public Websites Team Onboarding</summary>
+
+   ## Onboarding for Public Websites
+   - [ ] Read the [Public Websites team charter](https://docs.google.com/document/d/1jiq90ffon5UxAqybiEncl8feqmXhEOChlijiDBOWUtc/edit#heading=h.tu2ayudos7uc)
+   - [ ] [Public Websites product portfolio documentation ](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/products/public-websites)
+
+</details>
+
 
 ### Team
 Please check the team(s) that will do this work.

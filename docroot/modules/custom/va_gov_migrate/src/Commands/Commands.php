@@ -205,6 +205,7 @@ class Commands extends DrushCommands {
    *   The facility to archive.
    */
   protected function archiveRemovedFacility(NodeInterface $facility) {
+    $this->clearStatusData($facility);
     $facility->set('moderation_state', 'archived');
     $facility->setRevisionLogMessage('Archived due to removal from Facility API.');
     $facility->setNewRevision(TRUE);
@@ -216,6 +217,22 @@ class Commands extends DrushCommands {
     $facility->setChangedTime(time());
     $facility->isDefaultRevision(TRUE);
     $facility->setRevisionCreationTime(time());
+    $facility->save();
+  }
+
+  /**
+   * Clear out a facility's status data.
+   *
+   * @param \Drupal\node\NodeInterface $facility
+   *   The facility to clean.
+   */
+  protected function clearStatusData(NodeInterface &$facility) {
+    if ($facility->hasField('field_operating_status_facility')) {
+      $facility->field_operating_status_facility->value = 'closed';
+    }
+    if ($facility->hasField('field_operating_status_more_info')) {
+      $facility->field_operating_status_more_info->value = '';
+    }
     $facility->save();
   }
 

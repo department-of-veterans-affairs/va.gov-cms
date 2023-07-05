@@ -222,10 +222,8 @@ process:
       plugin: concat
       delimiter: ' x'
   field_mobile:
-    plugin: str_replace
+    plugin: convert_boolean
     source: mobile
-    search: ["true", "false", "null"]
-    replace: ["1", "0", "0"]
   # Bring these in as unpublished.
   status:
     plugin: default_value

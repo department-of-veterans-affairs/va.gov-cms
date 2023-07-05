@@ -138,6 +138,15 @@ $settings['config_sync_directory'] = '../config/sync';
 
 $env_type = getenv('CMS_ENVIRONMENT_TYPE') ?: 'ci';
 
+/**
+ * Environment discovery service settings, vended by the Environment Discovery
+ * service (`va_gov.environment_discovery`).
+ */
+$settings['va_gov_environment'] = [
+  'environment_raw' => $env_type,
+  'is_cms_test' => getenv('CMS_APP_NAME') ?? '' === 'cms-test',
+];
+
 $config['govdelivery_bulletins.settings']['govdelivery_endpoint'] = getenv('CMS_GOVDELIVERY_ENDPOINT') ?: FALSE;
 $config['govdelivery_bulletins.settings']['govdelivery_username'] = getenv('CMS_GOVDELIVERY_USERNAME') ?: FALSE;
 $config['govdelivery_bulletins.settings']['govdelivery_password'] = getenv('CMS_GOVDELIVERY_PASSWORD') ?: FALSE;
@@ -186,8 +195,6 @@ $error_reporting = (int) ini_get('error_reporting');
 ini_set('error_reporting', $error_reporting & ~E_DEPRECATED & ~E_USER_DEPRECATED);
 
 $settings_files = [
-  // Flysistem settings
-  __DIR__ . '/settings/settings.flysystem.php',
   // Environment specific settings
   __DIR__ . '/settings/settings.' . $env_type . '.php',
   // Fast 404 settings
@@ -200,7 +207,7 @@ $settings_files = [
 
 foreach ($settings_files as $file) {
   if (file_exists($file)) {
-    include_once $file;
+    include $file;
   }
 }
 
