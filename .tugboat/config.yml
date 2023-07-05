@@ -189,6 +189,9 @@ services:
         # https://www.drush.org/latest/deploycommand/ (updatedb, cache:rebuild, config:import, deploy:hook)
         - drush deploy
 
+        # Disable sitewide alerts so as not to interfere with testing.
+        - drush sitewide-alert:disable
+
         # Prevent continuous releases from running on Tugboat, and reset to ready.
         - drush sset va_gov_build_trigger.continuous_release_enabled 0
         - drush sset va_gov_build_trigger.release_state ready
