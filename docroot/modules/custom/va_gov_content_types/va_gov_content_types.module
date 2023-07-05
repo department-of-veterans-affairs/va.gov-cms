@@ -11,61 +11,8 @@ use Drupal\va_gov_content_types\Entity\VaNode;
  * Implements hook_entity_bundle_info_alter().
  */
 function va_gov_content_types_entity_bundle_info_alter(array &$bundles): void {
-  $map = [
-    'banner' => VaNode::class,
-    'basic_landing_page' => VaNode::class,
-    'campaign_landing_page' => VaNode::class,
-    'centralized_content' => VaNode::class,
-    'checklist' => VaNode::class,
-    'documentation_page' => VaNode::class,
-    'event_listing' => VaNode::class,
-    'event' => VaNode::class,
-    'faq_multiple_q_a' => VaNode::class,
-    'full_width_banner_alert' => VaNode::class,
-    'health_care_local_facility' => VaNode::class,
-    'health_care_local_health_service' => VaNode::class,
-    'health_care_region_detail_page' => VaNode::class,
-    'health_care_region_page' => VaNode::class,
-    'health_services_listing' => VaNode::class,
-    'landing_page' => VaNode::class,
-    'leadership_listing' => VaNode::class,
-    'locations_listing' => VaNode::class,
-    'media_list_images' => VaNode::class,
-    'media_list_videos' => VaNode::class,
-    'nca_facility' => VaNode::class,
-    'news_story' => VaNode::class,
-    'office' => VaNode::class,
-    'outreach_asset' => VaNode::class,
-    'page' => VaNode::class,
-    'press_release' => VaNode::class,
-    'press_releases_listing' => VaNode::class,
-    'promo_banner' => VaNode::class,
-    'publication_listing' => VaNode::class,
-    'qa' => VaNode::class,
-    'regional_health_care_service_des' => VaNode::class,
-    'step_by_step' => VaNode::class,
-    'story_listing' => VaNode::class,
-    'support_resources_detail_page' => VaNode::class,
-    'support_service' => VaNode::class,
-    'va_form' => VaNode::class,
-    'vamc_operating_status_and_alerts' => VaNode::class,
-    'vamc_system_billing_insurance' => VaNode::class,
-    'vamc_system_medical_records_offi' => VaNode::class,
-    'vamc_system_policies_page' => VaNode::class,
-    'vamc_system_register_for_care' => VaNode::class,
-    'vba_facility_service' => VaNode::class,
-    'vba_facility' => VaNode::class,
-    'vet_center_cap' => VaNode::class,
-    'vet_center_facility_health_servi' => VaNode::class,
-    'vet_center_locations_list' => VaNode::class,
-    'vet_center_mobile_vet_center' => VaNode::class,
-    'vet_center_outstation' => VaNode::class,
-    'vet_center' => VaNode::class,
-    'vha_facility_nonclinical_service' => VaNode::class,
-  ];
-  foreach ($map as $machine_name => $class_name) {
-    if (isset($bundles['node'][$machine_name])) {
-      $bundles['node'][$machine_name]['class'] = $class_name;
-    }
+  $bundleClasses = [];
+  foreach (array_keys($bundles['node']) as $machine_name) {
+    $bundles['node'][$machine_name]['class'] = $bundleClasses[$machine_name] ?? VaNode::class;
   }
 }
