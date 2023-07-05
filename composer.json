@@ -38,6 +38,7 @@
         "drupal/config_ignore": "^2.1",
         "drupal/config_override_warn": "^1.0",
         "drupal/config_split": "^1.9",
+        "drupal/config_view": "^9.0",
         "drupal/config_views": "^2.0",
         "drupal/consumer_image_styles": "^4.0",
         "drupal/consumers": "^1.17.0",
@@ -47,7 +48,7 @@
         "drupal/core-composer-scaffold": "10.1.0 as 9.5",
         "drupal/core-recommended": "10.1.0 as 9.5",
         "drupal/crop": "^2.0",
-        "drupal/csv_serialization": "^2.0",
+        "drupal/csv_serialization": "^3.0",
         "drupal/ctools_block": "^4.0",
         "drupal/danse": "^2.2",
         "drupal/danse_content_moderation": "^2.0@beta",
@@ -60,11 +61,12 @@
         "drupal/entity_browser": "^2.4",
         "drupal/entity_browser_table": "^1.4",
         "drupal/entity_clone": "^2.0@alpha",
-        "drupal/entity_diff_ui": "^1.0",
+        "drupal/entity_diff_ui": "1.0.x-dev@dev",
         "drupal/entity_field_fetch": "^1.0@beta",
         "drupal/entity_reference_revisions": "^1.7",
         "drupal/entity_reference_unpublished": "^2.0",
         "drupal/entity_reference_validators": "^1.0@alpha",
+        "drupal/entity_route_context": "^4.0@RC",
         "drupal/entity_usage": "^2.0@beta",
         "drupal/entityqueue": "^1.2",
         "drupal/environment_indicator": "^4.0",
@@ -348,6 +350,9 @@
                 "3200122 - Remove delete hook": "https://www.drupal.org/files/issues/2021-02-24/delete-hook-added-in-dev-causes-test-failures.patch",
                 "3254663 - Notice: Undefined index: target_bundles on Drupal\\cer\\Entity\\CorrespondingReference->synchronizeCorrespondingField()": "https://www.drupal.org/files/issues/2022-02-14/prevent-undefined-index-3254663-6.patch"
             },
+            "drupal/config_views": {
+                "3286692 - Automated Drupal 10 compatibility fixes": "https://www.drupal.org/files/issues/2023-06-30/3286692-config-views-d10-compatibility.patch"
+            },
             "drupal/content_lock": {
                 "2951652 - Content lock causes redirect response preventing migration rollback.": "https://www.drupal.org/files/issues/2018-08-28/2951652-4.patch",
                 "3307402 - Content Lock should typehint ModuleHandler interface rather than a specific implementation": "https://www.drupal.org/files/issues/2023-02-03/3307402-typehint-module-handler-interface.patch"
@@ -374,10 +379,6 @@
             "drupal/danse": {
                 "3364925 - added explicit access check": "https://www.drupal.org/files/issues/2023-06-05/3364925-added-explicit-access-check.patch"
             },
-            "drupal/csv_serialization": {
-                "3317133 - [Drupal 10, Drush 11] PHP Fatal error on install": "https://www.drupal.org/files/issues/2023-02-01/3317133-drupal-10-php-fatal-error_0.patch",
-                "3295036 - Automated Drupal 10 compatibility fixes": "https://www.drupal.org/files/issues/2022-07-22/csv_serialization.2.x-dev.rector.patch"
-            },
             "drupal/decoupled_router": {
                 "3111456 - Unable to resolve path on node in other language than default": "https://www.drupal.org/files/issues/2022-12-01/decouple_router-3111456-resolve-language-issue-58--get-translation.patch"
             },
@@ -394,9 +395,6 @@
             },
             "drupal/entity_clone": {
                 "3112577 - Cloning child references to nodes has potential to cause memory resource issues": "https://www.drupal.org/files/issues/2020-02-10/entity_clone-child-node-system-drain-3112577-1.patch"
-            },
-            "drupal/entity_diff_ui": {
-                "3315629 - Remove deprecated MediaRevisionAccessCheck": "https://www.drupal.org/files/issues/2023-01-31/3315629-remove-deprecated-media-revision-access-check-5.patch"
             },
             "drupal/entity_reference_revisions": {
                 "2984027 - Incorrect manipulation of default revision flag": "https://www.drupal.org/files/issues/2020-09-03/entity_reference_revisions-default_revision-2984027-10.patch"
@@ -419,6 +417,12 @@
                 "Remove outdated RouteQueryEnhancer controller reference - https://github.com/drupal-graphql/graphql/pull/1230": "patches/graphql_8x3x_query_route_enhancer_update.patch",
                 "Fix for d10 deprecations": "patches/VACMS-12252-fix-deprecation-for-d10.patch",
                 "updates for update graphql library": "patches/graphql3-libraryv14.patch"
+            },
+            "drupal/graphql_menu": {
+                "3287799 - Automated Drupal 10 compatibility fixes": "https://www.drupal.org/files/issues/2022-06-15/graphql_menu.1.x-dev.rector.patch"
+            },
+            "drupal/graphql_metatag": {
+                "3372632 - Drupal 10 readiness": "https://www.drupal.org/files/issues/2023-07-05/3372632-d10-compatibility-graphq-metatag.patch"
             },
             "drupal/health_check_url": {
                 "3294736 - PHP 8 Compatibility": "https://www.drupal.org/files/issues/2022-07-07/health_check_url_php8.patch",

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "008d2baa34a223c33c58726beed19751",
+    "content-hash": "a2bcb8b1346459ce0bc6c40a1308a779",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3512,6 +3512,60 @@
             }
         },
         {
+            "name": "drupal/config_view",
+            "version": "9.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/config_view.git",
+                "reference": "9.0.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/config_view-9.0.2.zip",
+                "reference": "9.0.2",
+                "shasum": "442868e27a5e7bcbfc6b597df3558e799002f461"
+            },
+            "require": {
+                "drupal/core": "^8.8 || ^9 || ^10"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "9.0.2",
+                    "datestamp": "1666197151",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "George Anderson (geoanders)",
+                    "homepage": "https://www.drupal.org/u/geoanders",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "I. Peric",
+                    "homepage": "http://pericxc.com",
+                    "email": "ip@pericxc.com"
+                }
+            ],
+            "description": "Exposing Configuration Entities to Views.",
+            "keywords": [
+                "Configuration Entities",
+                "Drupal",
+                "Views"
+            ],
+            "support": {
+                "source": "https://git.drupalcode.org/project/config_view"
+            }
+        },
+        {
             "name": "drupal/config_views",
             "version": "2.0.0",
             "source": {
@@ -4172,31 +4226,30 @@
         },
         {
             "name": "drupal/csv_serialization",
-            "version": "2.1.0",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/csv_serialization.git",
-                "reference": "8.x-2.1"
+                "reference": "3.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/csv_serialization-8.x-2.1.zip",
-                "reference": "8.x-2.1",
-                "shasum": "10b8629a5808ed1ecf358d5ca7054d6c14a476d4"
+                "url": "https://ftp.drupal.org/files/projects/csv_serialization-3.0.0.zip",
+                "reference": "3.0.0",
+                "shasum": "7365f98428ab26b3f94527388583e4da8c9dc2fc"
             },
             "require": {
-                "drupal/core": "^8 || ^9",
+                "drupal/core": "^10",
                 "league/csv": "^9.1"
             },
             "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
                 "drupal/coder": "^8.3"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-2.1",
-                    "datestamp": "1655054417",
+                    "version": "3.0.0",
+                    "datestamp": "1681824255",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -4204,6 +4257,14 @@
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
+            "scripts": {
+                "phpcs": [
+                    "vendor/bin/phpcs"
+                ],
+                "test": [
+                    "@phpcs"
+                ]
+            },
             "license": [
                 "GPL-2.0-or-later"
             ],
@@ -5363,30 +5424,27 @@
         },
         {
             "name": "drupal/entity_diff_ui",
-            "version": "1.0.1",
+            "version": "dev-1.0.x",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/entity_diff_ui.git",
-                "reference": "1.0.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/entity_diff_ui-1.0.1.zip",
-                "reference": "1.0.1",
-                "shasum": "a204401ccc3e9136087cb038f743134b3a03f664"
+                "reference": "2eb18091039d747fd36ab5120fe94ac1d3511212"
             },
             "require": {
-                "drupal/core": "^8.7.7 || ^9",
+                "drupal/core": "^9.3.0 || ^10",
                 "drupal/diff": "^1.0"
             },
             "type": "drupal-module",
             "extra": {
+                "branch-alias": {
+                    "dev-1.0.x": "1.0.x-dev"
+                },
                 "drupal": {
-                    "version": "1.0.1",
-                    "datestamp": "1617756156",
+                    "version": "1.0.1+3-dev",
+                    "datestamp": "1685489856",
                     "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
+                        "status": "not-covered",
+                        "message": "Dev releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -5608,36 +5666,36 @@
         },
         {
             "name": "drupal/entity_route_context",
-            "version": "3.0.0",
+            "version": "4.0.0-rc2",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/entity_route_context.git",
-                "reference": "3.0.0"
+                "reference": "4.0.0-rc2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/entity_route_context-3.0.0.zip",
-                "reference": "3.0.0",
-                "shasum": "70f2cce75ca8562c112f6796c266d9f63c915602"
+                "url": "https://ftp.drupal.org/files/projects/entity_route_context-4.0.0-rc2.zip",
+                "reference": "4.0.0-rc2",
+                "shasum": "a5122d0820507678aa3f0bd44eef8fd18def7dad"
             },
             "require": {
-                "drupal/core": "^9",
-                "php": ">=7.3"
+                "drupal/core": ">=10",
+                "php": ">=8.1"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "3.0.0",
-                    "datestamp": "1615185789",
+                    "version": "4.0.0-rc2",
+                    "datestamp": "1663672420",
                     "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
+                        "status": "not-covered",
+                        "message": "RC releases are not covered by Drupal security advisories."
                     }
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -5651,7 +5709,7 @@
                 "Drupal"
             ],
             "support": {
-                "source": "http://cgit.drupalcode.org/entity_route_context",
+                "source": "https://git.drupalcode.org/project/entity_route_context",
                 "issues": "https://www.drupal.org/project/issues/entity_route_context"
             }
         },
@@ -24692,8 +24750,10 @@
         "drupal/danse_content_moderation": 10,
         "drupal/entity_block": 10,
         "drupal/entity_clone": 15,
+        "drupal/entity_diff_ui": 20,
         "drupal/entity_field_fetch": 10,
         "drupal/entity_reference_validators": 15,
+        "drupal/entity_route_context": 5,
         "drupal/entity_usage": 10,
         "drupal/fieldhelptext": 10,
         "drupal/flag": 10,
