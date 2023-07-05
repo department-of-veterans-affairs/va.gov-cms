@@ -7,7 +7,7 @@ use Drupal\va_gov_build_trigger\Form\LocalBuildTriggerForm;
 use Drupal\va_gov_build_trigger\Form\TugboatBuildTriggerForm;
 use Drupal\va_gov_content_release\Form\Resolver\Resolver;
 use Drupal\va_gov_environment\Environment\Environment;
-use Drupal\va_gov_environment\Service\DiscoveryInterface;
+use Drupal\va_gov_environment\Discovery\DiscoveryInterface;
 use Tests\Support\Classes\VaGovUnitTestBase;
 
 /**
