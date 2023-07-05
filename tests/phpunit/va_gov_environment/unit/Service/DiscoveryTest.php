@@ -4,7 +4,7 @@ namespace tests\phpunit\va_gov_environment\unit\Service;
 
 use Drupal\Core\Site\Settings;
 use Drupal\va_gov_environment\Environment\Environment;
-use Drupal\va_gov_environment\Service\Discovery;
+use Drupal\va_gov_environment\Discovery\Discovery;
 use Drupal\va_gov_environment\Exception\InvalidEnvironmentException;
 use Tests\Support\Classes\VaGovUnitTestBase;
 
@@ -14,7 +14,7 @@ use Tests\Support\Classes\VaGovUnitTestBase;
  * @group unit
  * @group all
  *
- * @coversDefaultClass \Drupal\va_gov_environment\Service\Discovery
+ * @coversDefaultClass \Drupal\va_gov_environment\Discovery\Discovery
  */
 class DiscoveryTest extends VaGovUnitTestBase {
 
