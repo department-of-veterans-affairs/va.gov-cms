@@ -1,71 +1,131 @@
 diff --git a/src/Plugin/migrate/process/StrReplace.php b/src/Plugin/migrate/process/StrReplace.php
-index 08dece7..aef5332 100644
+index 08dece7..46ab0e8 100644
 --- a/src/Plugin/migrate/process/StrReplace.php
 +++ b/src/Plugin/migrate/process/StrReplace.php
-@@ -5,6 +5,7 @@ declare(strict_types = 1);
- namespace Drupal\migrate_plus\Plugin\migrate\process;
-
- use Drupal\migrate\MigrateExecutableInterface;
-+use Drupal\migrate\MigrateSkipProcessException;
- use Drupal\migrate\ProcessPluginBase;
- use Drupal\migrate\Row;
-
-@@ -114,6 +115,9 @@ class StrReplace extends ProcessPluginBase {
-    */
-   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
-     $this->multiple = is_array($value);
-+    if (!$this->multiple && !is_string($value)) {
-+      return $value;
-+    }
-     $this->configuration += [
-       'case_insensitive' => FALSE,
-       'regex' => FALSE,
-@@ -125,6 +129,16 @@ class StrReplace extends ProcessPluginBase {
+@@ -125,6 +125,24 @@ class StrReplace extends ProcessPluginBase {
      if ($this->configuration['regex']) {
        $function = 'preg_replace';
      }
 +    if($this->multiple) {
 +      foreach($value as $key => $item) {
++        $item = $this->makeStringIfPossible($item);
 +        if (is_string($item)) {
++          //Replace the item.
 +          $value[$key] = $function($this->configuration['search'], $this->configuration['replace'], $item);
 +        } else {
++          //Cannot replace so pass it through.
 +          $value[$key] = $item;
 +        }
 +      }
 +      return $value;
 +    }
++    $value = $this->makeStringIfPossible($value);
++    if (!is_string($value)) {
++      //Value cannot be processed so pass it through.
++      return $value;
++    }
      return $function($this->configuration['search'], $this->configuration['replace'], $value);
    }
 
+@@ -135,4 +153,29 @@ class StrReplace extends ProcessPluginBase {
+     return $this->multiple;
+   }
+
++  /**
++   * Makes a string of a value (if possible)
++   *
++   * @param string $possible_string
++   *   A value to be converted to a string if possible.
++   *
++   */
++  public function makeStringIfPossible($possible_string) {
++    if (is_null($possible_string)) {
++      return '';
++    }
++    elseif ($possible_string === FALSE) {
++      return '';
++    }
++    elseif ($possible_string === TRUE) {
++      return '1';
++    }
++    elseif (is_numeric($possible_string)) {
++      return strval($possible_string);
++    }
++    else {
++      return $possible_string;
++    }
++  }
++
+ }
 diff --git a/tests/src/Unit/process/StrReplaceTest.php b/tests/src/Unit/process/StrReplaceTest.php
-index 320c4c9..5e04ac5 100644
+index 320c4c9..0aed26d 100644
 --- a/tests/src/Unit/process/StrReplaceTest.php
 +++ b/tests/src/Unit/process/StrReplaceTest.php
-@@ -4,6 +4,7 @@ declare(strict_types = 1);
+@@ -29,8 +29,66 @@ final class StrReplaceTest extends MigrateProcessTestCase {
 
- namespace Drupal\Tests\migrate_plus\Unit\process;
+   }
 
-+use Drupal\migrate\MigrateSkipProcessException;
- use Drupal\migrate_plus\Plugin\migrate\process\StrReplace;
- use Drupal\Tests\migrate\Unit\process\MigrateProcessTestCase;
-
-@@ -16,6 +17,19 @@ use Drupal\Tests\migrate\Unit\process\MigrateProcessTestCase;
- final class StrReplaceTest extends MigrateProcessTestCase {
-
-   /**
-+   * Test for a simple str_replace with NULL in $value.
++   /**
++   * Test for a simple str_replace given NULL.
 +   */
 +  public function testStrReplaceNull(): void {
 +    $configuration = [];
 +    $value = NULL;
-+    $configuration['search'] = 'et';
++    $configuration['search'] = '';
 +    $configuration['replace'] = 'that';
 +    $plugin = new StrReplace($configuration, 'str_replace', []);
 +    $actual = $plugin->transform($value, $this->migrateExecutable, $this->row, 'destinationproperty');
-+    $this->assertNull($actual);
++    $this->assertSame('that', $actual);
++
 +  }
 +
-+  /**
-    * Test for a simple str_replace string.
++   /**
++   * Test for a simple str_replace given int 1.
++   */
++  public function testStrReplaceInt(): void {
++    $configuration = [];
++    $value = 1;
++    $configuration['search'] = '1';
++    $configuration['replace'] = 'that';
++    $plugin = new StrReplace($configuration, 'str_replace', []);
++    $actual = $plugin->transform($value, $this->migrateExecutable, $this->row, 'destinationproperty');
++    $this->assertSame('that', $actual);
++
++  }
++
++
++   /**
++   * Test for a simple str_replace given TRUE.
++   */
++  public function testStrReplaceTrue(): void {
++    $configuration = [];
++    $value = TRUE;
++    $configuration['search'] = '1';
++    $configuration['replace'] = 'that';
++    $plugin = new StrReplace($configuration, 'str_replace', []);
++    $actual = $plugin->transform($value, $this->migrateExecutable, $this->row, 'destinationproperty');
++    $this->assertSame('that', $actual);
++
++  }
++
++
++   /**
++   * Test for a simple str_replace given FALSE.
++   */
++  public function testStrReplaceFalse(): void {
++    $configuration = [];
++    $value = FALSE;
++    $configuration['search'] = '';
++    $configuration['replace'] = 'that';
++    $plugin = new StrReplace($configuration, 'str_replace', []);
++    $actual = $plugin->transform($value, $this->migrateExecutable, $this->row, 'destinationproperty');
++    $this->assertSame('that', $actual);
++
++  }
++
+   /**
+-   * Test for case insensitive searches.
++   * Test for case-insensitive searches.
     */
-   public function testStrReplace(): void {
+   public function testStrIreplace(): void {
+     $configuration = [];
