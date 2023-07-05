@@ -15,7 +15,7 @@ use Symfony\Component\Routing\RouteCollection;
  */
 class FormRouteSubscriber extends RouteSubscriberBase implements FormRouteSubscriberInterface {
 
-  const ROUTE_NAME = 'va_gov_content_release.content_release_form';
+  const ROUTE_NAME = 'va_gov_content_release.form';
 
   /**
    * Form Resolver service.

@@ -36,7 +36,7 @@ class FormRouteSubscriberTest extends VaGovExistingSiteBase {
    * case, the route has not been altered and something's broken.
    */
   public function testAlterRoute() {
-    $route = $this->container->get('router.route_provider')->getRouteByName('va_gov_content_release.content_release_form');
+    $route = $this->container->get('router.route_provider')->getRouteByName('va_gov_content_release.form');
     $form = $route->getDefault('_form');
     $this->assertNotEquals(BuildTriggerForm::class, $form);
     $this->assertContains($form, [
@@ -57,7 +57,7 @@ class FormRouteSubscriberTest extends VaGovExistingSiteBase {
    * @dataProvider formTestRoutesProvider
    */
   public function testFormTestRoutes(string $route, string $class) {
-    $prefix = 'va_gov_content_release.content_release_form.';
+    $prefix = 'va_gov_content_release.form.';
     $route = $this->container->get('router.route_provider')->getRouteByName("{$prefix}{$route}");
     $form = $route->getDefault('_form');
     $this->assertEquals("\\{$class}", $form);
