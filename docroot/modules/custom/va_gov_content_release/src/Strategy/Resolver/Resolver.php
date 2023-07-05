@@ -2,7 +2,7 @@
 
 namespace Drupal\va_gov_content_release\Strategy\Resolver;
 
-use Drupal\va_gov_environment\Service\DiscoveryInterface;
+use Drupal\va_gov_environment\Discovery\DiscoveryInterface;
 use Drupal\va_gov_content_release\Strategy\Plugin\StrategyPluginManagerInterface;
 use Drupal\va_gov_content_release\Exception\CouldNotDetermineStrategyException;
 
@@ -24,7 +24,7 @@ class Resolver implements ResolverInterface {
   /**
    * The environment discovery service.
    *
-   * @var \Drupal\va_gov_environment\Service\DiscoveryInterface
+   * @var \Drupal\va_gov_environment\Discovery\DiscoveryInterface
    */
   protected $environmentDiscovery;
 
@@ -33,7 +33,7 @@ class Resolver implements ResolverInterface {
    *
    * @param \Drupal\va_gov_content_release\Strategy\Plugin\StrategyPluginManagerInterface $strategyPluginManager
    *   The strategy plugin manager.
-   * @param \Drupal\va_gov_environment\Service\DiscoveryInterface $environmentDiscovery
+   * @param \Drupal\va_gov_environment\Discovery\DiscoveryInterface $environmentDiscovery
    *   The environment discovery service.
    */
   public function __construct(

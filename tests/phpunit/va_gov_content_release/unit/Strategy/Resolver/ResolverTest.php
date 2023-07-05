@@ -6,7 +6,7 @@ use Drupal\va_gov_content_release\Strategy\Plugin\StrategyPluginManagerInterface
 use Drupal\va_gov_content_release\Strategy\Resolver\Resolver;
 use Drupal\va_gov_content_release\Strategy\Resolver\ResolverInterface;
 use Drupal\va_gov_environment\Environment\Environment;
-use Drupal\va_gov_environment\Service\DiscoveryInterface;
+use Drupal\va_gov_environment\Discovery\DiscoveryInterface;
 use Tests\Support\Classes\VaGovUnitTestBase;
 
 /**
