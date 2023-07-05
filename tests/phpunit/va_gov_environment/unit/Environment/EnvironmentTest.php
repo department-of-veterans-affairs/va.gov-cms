@@ -4,7 +4,7 @@ namespace tests\phpunit\va_gov_environment\unit\Environment;
 
 use Drupal\Core\Site\Settings;
 use Drupal\va_gov_environment\Environment\Environment;
-use Drupal\va_gov_environment\Service\Discovery;
+use Drupal\va_gov_environment\Discovery\Discovery;
 use Tests\Support\Classes\VaGovUnitTestBase;
 
 /**
