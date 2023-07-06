@@ -1,0 +1,31 @@
+va_gov_content_release.form:
+  path: "/admin/content/deploy/new"
+  defaults:
+    _title: 'Manual content release'
+    _form: '\Drupal\va_gov_build_trigger\Form\BuildTriggerForm'
+  requirements:
+    _permission: "va gov deploy content build"
+
+va_gov_content_release.form.local:
+  path: "/admin/content/deploy/local"
+  defaults:
+    _title: '[TEST] Local manual content release'
+    _form: '\Drupal\va_gov_build_trigger\Form\LocalBuildTriggerForm'
+  requirements:
+    _permission: "va gov deploy content build"
+
+va_gov_content_release.form.tugboat:
+  path: "/admin/content/deploy/tugboat"
+  defaults:
+    _title: '[TEST] Tugboat manual content release'
+    _form: '\Drupal\va_gov_build_trigger\Form\TugboatBuildTriggerForm'
+  requirements:
+    _permission: "va gov deploy content build"
+
+va_gov_content_release.form.brd:
+  path: "/admin/content/deploy/brd"
+  defaults:
+    _title: '[TEST] BRD manual content release'
+    _form: '\Drupal\va_gov_build_trigger\Form\BrdBuildTriggerForm'
+  requirements:
+    _permission: "va gov deploy content build"

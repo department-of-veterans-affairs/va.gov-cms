@@ -19,7 +19,7 @@ trait LoadMaintenanceFileTrait {
    *   html to use as the page response.
    */
   protected function loadMaintenanceHtml(string $app_root, string $site_path) : ?string {
-    // @TODO make this configurable.
+    // @todo make this configurable.
     $file = $app_root . '/' . $site_path . '/maintenance.html';
     // We don't have drupal file schema set up yet so we do this old school.
     if (file_exists($file)) {

@@ -123,6 +123,7 @@ class PostFacilityService extends PostFacilityBase {
       $result = $query->condition('type', 'regional_health_care_service_des')
         ->condition('field_service_name_and_descripti', $entity->id())
         ->condition('status', 1)
+        ->accessCheck(FALSE)
         ->execute();
 
       if (!empty($result)) {
@@ -176,6 +177,7 @@ class PostFacilityService extends PostFacilityBase {
         $nids = $query->condition('type', 'health_care_local_health_service')
           ->condition('field_regional_health_service', $entity->id())
           ->condition('status', 1)
+          ->accessCheck(FALSE)
           ->execute();
 
         $facility_health_service_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);

@@ -10,7 +10,7 @@ use Tests\Support\Classes\VaGovExistingSiteBase;
  * @group functional
  * @group all
  *
- * @coversDefaultClass \Drupal\va_gov_environment\Service\Discovery
+ * @coversDefaultClass \Drupal\va_gov_environment\Discovery\Discovery
  */
 class DiscoveryTest extends VaGovExistingSiteBase {
 

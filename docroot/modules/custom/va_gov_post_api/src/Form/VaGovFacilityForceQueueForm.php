@@ -28,6 +28,13 @@ class VaGovFacilityForceQueueForm extends FormBase {
   protected $entityTypeManager;
 
   /**
+   * Drupal\Core\Entity\Query\QueryInterface definition.
+   *
+   * @var \Drupal\Core\Entity\Query\QueryInterface
+   */
+  protected $nodeQuery;
+
+  /**
    * Class constructor.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
@@ -35,6 +42,9 @@ class VaGovFacilityForceQueueForm extends FormBase {
    */
   public function __construct(EntityTypeManagerInterface $entity_type_manager) {
     $this->entityTypeManager = $entity_type_manager;
+    $this->nodeQuery = $entity_type_manager
+      ->getStorage('node')
+      ->getQuery('AND');
   }
 
   /**
@@ -67,28 +77,33 @@ class VaGovFacilityForceQueueForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     // Queries to get total number of nodes for each type for reference.
-    $health_care_local_facility = \Drupal::entityQuery('node')
+    $health_care_local_facility = $this->nodeQuery
       ->condition('type', 'health_care_local_facility')
+      ->accessCheck(FALSE)
       ->condition('moderation_state', 'archived', '!=')
       ->execute();
 
-    $health_care_facility_service = \Drupal::entityQuery('node')
+    $health_care_facility_service = $this->nodeQuery
       ->condition('type', 'health_care_local_health_service')
+      ->accessCheck(FALSE)
       ->condition('moderation_state', 'archived', '!=')
       ->execute();
 
-    $nca_facility = \Drupal::entityQuery('node')
+    $nca_facility = $this->nodeQuery
       ->condition('type', 'nca_facility')
+      ->accessCheck(FALSE)
       ->condition('moderation_state', 'archived', '!=')
       ->execute();
 
-    $vba_facility = \Drupal::entityQuery('node')
+    $vba_facility = $this->nodeQuery
       ->condition('type', 'vba_facility')
+      ->accessCheck(FALSE)
       ->condition('moderation_state', 'archived', '!=')
       ->execute();
 
-    $vet_center = \Drupal::entityQuery('node')
+    $vet_center = $this->nodeQuery
       ->condition('type', 'vet_center')
+      ->accessCheck(FALSE)             
       ->condition('moderation_state', 'archived', '!=')
       ->execute();
 
@@ -115,7 +130,7 @@ class VaGovFacilityForceQueueForm extends FormBase {
     $form['facility_type'] = [
       '#type' => 'radios',
       '#title' => $this->t('Content type'),
-      '#description' => t('Select a content type to queue.'),
+      '#description' => $this->t('Select a content type to queue.'),
       '#options' => [
         'health_care_local_facility' => $this->t('VAMC facilities') . ' (' . count($health_care_local_facility) . ')',
         'health_care_local_health_service' => ' - ' . $this->t('VAMC facility services') . ' (' . count($health_care_facility_service) . ')',
@@ -149,8 +164,9 @@ class VaGovFacilityForceQueueForm extends FormBase {
       ->set('bypass_data_check', 1)
       ->save();
 
-    $sandbox['nids'] = \Drupal::entityQuery('node')
+    $sandbox['nids'] = $this->nodeQuery
       ->condition('type', $bundle)
+      ->accessCheck(FALSE)
       ->condition('moderation_state', 'archived', '!=')
       ->execute();
 

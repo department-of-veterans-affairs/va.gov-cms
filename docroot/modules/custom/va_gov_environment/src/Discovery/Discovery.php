@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\va_gov_environment\Service;
+namespace Drupal\va_gov_environment\Discovery;
 
 use Drupal\Core\Site\Settings;
 use Drupal\va_gov_environment\Environment\Environment;
