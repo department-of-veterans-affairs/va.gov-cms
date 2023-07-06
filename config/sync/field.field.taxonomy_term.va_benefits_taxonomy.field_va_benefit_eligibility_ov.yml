@@ -1,9 +1,9 @@
-uuid: 91b25c7f-829d-4953-955b-5ff03fcc9e1a
+uuid: f6cc1ba7-2b40-4507-a9ab-3073580f4924
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.taxonomy_term.field_magic
+    - field.storage.taxonomy_term.field_va_benefit_eligibility_ov
     - paragraphs.paragraphs_type.magichead_group
     - taxonomy.vocabulary.va_benefits_taxonomy
   module:
@@ -12,12 +12,12 @@ dependencies:
 third_party_settings:
   tmgmt_content:
     excluded: false
-id: taxonomy_term.va_benefits_taxonomy.field_magic
-field_name: field_magic
+id: taxonomy_term.va_benefits_taxonomy.field_va_benefit_eligibility_ov
+field_name: field_va_benefit_eligibility_ov
 entity_type: taxonomy_term
 bundle: va_benefits_taxonomy
-label: Magic
-description: ''
+label: 'Eligibility overview sections'
+description: 'Group the eligibility information into logical sections. Each section will contain a heading and optional paragraph content. The drag and drop feature controls section depth. Section depth determines the relative position of this section to other sections.'
 required: false
 translatable: false
 default_value: {  }

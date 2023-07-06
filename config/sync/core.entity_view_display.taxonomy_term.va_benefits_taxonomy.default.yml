@@ -5,7 +5,6 @@ dependencies:
   config:
     - field.field.taxonomy_term.va_benefits_taxonomy.field_enforce_unique_id
     - field.field.taxonomy_term.va_benefits_taxonomy.field_enforce_unique_value
-    - field.field.taxonomy_term.va_benefits_taxonomy.field_magic
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_after_applying
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_api_id
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_app_form
@@ -15,6 +14,7 @@ dependencies:
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_brief_summary
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_coconsidered
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_eligibility
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_eligibility_ov
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_legislation
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_long_summary
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_plain_name
@@ -86,6 +86,7 @@ third_party_settings:
         - field_va_benefit_beneficiaries
         - field_va_benefits_elig_intro
         - field_va_benefit_eligibility
+        - field_va_benefit_eligibility_ov
       label: 'Benefit eligibility'
       parent_name: ''
       region: content
@@ -157,14 +158,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 3
-    region: content
-  field_magic:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 13
     region: content
   field_va_benefit_after_applying:
     type: text_default
@@ -286,5 +279,6 @@ content:
     weight: 11
     region: content
 hidden:
+  field_va_benefit_eligibility_ov: true
   langcode: true
   search_api_excerpt: true
