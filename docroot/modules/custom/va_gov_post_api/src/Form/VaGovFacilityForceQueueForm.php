@@ -169,7 +169,7 @@ class VaGovFacilityForceQueueForm extends FormBase {
       ->set('bypass_data_check', 1)
       ->save();
 
-    $sandbox['nids'] = $this->nodeQuery
+    $sandbox['nids'] = \Drupal::entityQuery('node')
       ->condition('type', $bundle)
       ->accessCheck(FALSE)
       ->condition('moderation_state', 'archived', '!=')
