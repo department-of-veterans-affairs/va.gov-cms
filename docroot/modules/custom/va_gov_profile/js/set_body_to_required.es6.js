@@ -1,5 +1,5 @@
 ((Drupal) => {
-  Drupal.behaviors.vaGovSetMenuTitle = {
+  Drupal.behaviors.vaGovProfileBodyConditional = {
     attach() {
       const bodyWysiwygLabel = document.querySelector(
         'label[for="edit-field-body-0-value"]'

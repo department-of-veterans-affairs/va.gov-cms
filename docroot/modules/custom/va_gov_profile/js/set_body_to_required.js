@@ -6,7 +6,7 @@
 **/
 
 (function (Drupal) {
-  Drupal.behaviors.vaGovSetMenuTitle = {
+  Drupal.behaviors.vaGovProfileBodyConditional = {
     attach: function attach() {
       var bodyWysiwygLabel = document.querySelector('label[for="edit-field-body-0-value"]');
 
