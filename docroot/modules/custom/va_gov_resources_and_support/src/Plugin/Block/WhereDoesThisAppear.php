@@ -99,7 +99,7 @@ class WhereDoesThisAppear extends BlockBase implements ContainerFactoryPluginInt
    */
   private function getNode() {
     // Drupal sometimes hands us a nid and sometimes an upcasted node object.
-    // @TODO remove type checks when the patch at
+    // @todo remove type checks when the patch at
     // https://www.drupal.org/project/drupal/issues/2730631
     // is committed. (Should be in 9.2)
     $route_parameter = $this->routeMatch->getParameter('node');
@@ -129,14 +129,14 @@ class WhereDoesThisAppear extends BlockBase implements ContainerFactoryPluginInt
     $nid = $this->getNode()->id();
     $qa_query = $this->entityTypeManager->getStorage('paragraph')->getQuery()
       ->condition('field_q_as', [$nid], 'IN');
-    $qa_entities = $qa_query->execute();
+    $qa_entities = $qa_query->accessCheck(FALSE)->execute();
     if (!$qa_entities) {
       return NULL;
     }
 
     $node_query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('field_q_a_groups', $qa_entities, 'IN');
-    $nids = $node_query->execute();
+    $nids = $node_query->accessCheck(FALSE)->execute();
     if (!$nids) {
       return NULL;
     }

@@ -5,7 +5,6 @@ namespace Drupal\va_gov_banner\EventSubscriber;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityBundleFieldInfoAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
-use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

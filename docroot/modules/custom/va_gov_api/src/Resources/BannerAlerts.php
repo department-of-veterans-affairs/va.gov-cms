@@ -172,6 +172,7 @@ class BannerAlerts extends EntityResourceBase implements ContainerInjectionInter
     $banner_nids = $node_storage->getQuery()
       ->condition('type', 'banner')
       ->condition('status', TRUE)
+      ->accessCheck(FALSE)
       ->execute();
     /** @var \Drupal\node\NodeInterface[] $banners */
     $banners = $node_storage->loadMultiple(array_values($banner_nids) ?? []);
@@ -212,6 +213,7 @@ class BannerAlerts extends EntityResourceBase implements ContainerInjectionInter
     $promo_banner_nids = $node_storage->getQuery()
       ->condition('type', 'promo_banner')
       ->condition('status', TRUE)
+      ->accessCheck(FALSE)
       ->execute();
     /** @var \Drupal\node\NodeInterface[] $promo_banners */
     $promo_banners = $node_storage->loadMultiple(array_values($promo_banner_nids) ?? []);
@@ -279,6 +281,7 @@ class BannerAlerts extends EntityResourceBase implements ContainerInjectionInter
       ->condition('type', 'vamc_operating_status_and_alerts')
       ->condition('status', TRUE)
       ->condition('field_office', $system_node->id())
+      ->accessCheck(FALSE)
       ->execute();
 
     // Find any facility banners connected to the operating status nodes.
@@ -286,6 +289,7 @@ class BannerAlerts extends EntityResourceBase implements ContainerInjectionInter
       ->condition('type', 'full_width_banner_alert')
       ->condition('status', TRUE)
       ->condition('field_banner_alert_vamcs', array_values($operating_status_nids), 'IN')
+      ->accessCheck(FALSE)
       ->execute();
 
     /** @var \Drupal\node\NodeInterface[] $facility_banners */

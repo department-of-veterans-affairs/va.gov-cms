@@ -101,7 +101,7 @@ class OrphansReportViewsEventSubscriber implements EventSubscriberInterface {
       $types = $view->getHandlerTypes();
       $orphan_count = 0;
       $storage = $this->entityTypeManager->getStorage('paragraph');
-      $results = $storage->getQuery()->execute();
+      $results = $storage->getQuery()->accessCheck(FALSE)->execute();
       $result_chunks = array_chunk($results, 1000);
       foreach ($result_chunks as $chunk) {
         $paragraphs = $storage->loadMultiple($chunk);
