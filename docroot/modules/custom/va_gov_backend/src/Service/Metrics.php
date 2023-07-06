@@ -3,9 +3,7 @@
 namespace Drupal\va_gov_backend\Service;
 
 use Drupal\Core\Site\Settings;
-use Drupal\core_event_dispatcher\CoreHookEvents;
 use Drupal\prometheus_exporter\MetricsCollectorManager;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Sends prometheus metrics to Datadog.

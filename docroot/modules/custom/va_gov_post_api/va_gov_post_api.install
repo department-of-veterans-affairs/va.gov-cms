@@ -31,6 +31,7 @@ function va_gov_post_api_update_8002(&$sandbox) {
     foreach ($facility_types as $facility_type) {
       $nids = \Drupal::entityQuery('node')
         ->condition('type', $facility_type)
+        ->accessCheck(FALSE)
         ->execute();
       $sandbox['nids_process'] = array_merge($sandbox['nids_process'], $nids);
     }

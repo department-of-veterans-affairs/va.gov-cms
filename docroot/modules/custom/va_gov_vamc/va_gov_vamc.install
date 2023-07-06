@@ -115,6 +115,7 @@ function _va_gov_get_vamc_systems() {
   $systems = \Drupal::entityQuery('node')
     ->condition('type', 'health_care_region_page')
     ->condition('status', 1)
+    ->accessCheck(FALSE)
     ->execute();
   return array_values($systems);
 }
@@ -131,6 +132,7 @@ function _va_gov_get_vamc_systems() {
 function _va_gov_get_systems_with_existing_pages($top_task_bundle) {
   $existing_tt_nids = \Drupal::entityQuery('node')
     ->condition('type', $top_task_bundle)
+    ->accessCheck(FALSE)
     ->execute();
   $existing_tt_pages = Node::loadMultiple($existing_tt_nids);
   $systems_with_tt_page = [];

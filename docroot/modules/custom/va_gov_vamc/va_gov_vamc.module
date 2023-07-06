@@ -149,6 +149,7 @@ function _va_gov_vamc_add_vamc_regions_select(array &$form) {
   // Gather vamc nodes and sort by title.
   $nids = $nids->condition('type', 'health_care_region_page')
     ->sort('title')
+    ->accessCheck(FALSE)
     ->execute();
 
   // If there are no nodes, move on.
