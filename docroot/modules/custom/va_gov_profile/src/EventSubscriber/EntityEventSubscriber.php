@@ -3,11 +3,10 @@
 namespace Drupal\va_gov_profile\EventSubscriber;
 
 use Drupal\core_event_dispatcher\EntityHookEvents;
+use Drupal\core_event_dispatcher\Event\Entity\EntityTypeAlterEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\Core\Entity\EntityTypeManager;
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\node\NodeInterface;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -56,7 +55,22 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     return [
       'hook_event_dispatcher.form_node_person_profile_edit_form.alter' => 'alterStaffProfileNodeForm',
       'hook_event_dispatcher.form_node_person_profile_form.alter' => 'alterStaffProfileNodeForm',
+      EntityHookEvents::ENTITY_TYPE_ALTER => 'entityTypeAlter',
     ];
+  }
+
+  /**
+   * Equivalent of hook_entity_type_alter().
+   *
+   * @param Drupal\core_event_dispatcher\Event\Entity\EntityTypeAlterEvent $event
+   *   The event for entyTypeAlter.
+   */
+  public function entityTypeAlter(EntityTypeAlterEvent $event): void {
+    $entity_types = $event->getEntityTypes();
+    if (!empty($entity_types['node'])) {
+      $entity = $entity_types['node'];
+      $entity->addConstraint('PageRequiredFieldsConstraint');
+    }
   }
 
   /**
@@ -77,11 +91,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function addStateManagementToBioFields(FormIdAlterEvent $event) {
     $form = &$event->getForm();
-    $form_state = $event->getFormState();
-    // $this->addStateManagementToBioFieldsSubmitHandler($form, $form_state);
-    // $form['#submit'][] = 'Drupal\va_gov_backend\EventSubscriber\EntityEventSubscriber::addStateManagementToBioFieldsSubmitHandler';
-    // $form['#submit'][] = [$this, 'addStateManagementToBioFieldsSubmitHandler'];
-    $form['#attached']['library'][] = 'va_gov_backend/set_body_to_required';
+    $form['#attached']['library'][] = 'va_gov_profile/set_body_to_required';
     $selector = ':input[name="field_complete_biography_create[value]"]';
     $form['field_intro_text']['widget'][0]['value']['#states'] = [
       'required' => [
@@ -92,31 +102,22 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       ],
     ];
 
-    // $form['field_body']['widget']['value']['#states'] = [
-    //   'required' => [
-    //       [$selector => ['checked' => TRUE]],
-    //   ],
-    // ];
-    // Error: An invalid form control with name='field_body[0][value]' is not
-    // focusable.
-    // This is the one that sets it right.  but fails validation because
-    // ckeditor changes the id of the field, so when html 5 validation goes to
-    // kick in, it can't find the field to hilight as being required.
     $form['field_body']['widget'][0]['#states'] = [
-      'required' => [
-          [$selector => ['checked' => TRUE]],
-      ],
       'visible' => [
             [$selector => ['checked' => TRUE]],
       ],
+      // Unfortunately we can not set the requiredness of a ckeditor field using
+      // states.  So we end up adding this with JS to bypass HTML5 validation
+      // and let the validation constraint handle it.
+      // This is to prevent the error:
+      // An invalid form control with name='field_body[0][value]' is not
+      // focusable.
+      // because ckeditor changes the id of the field, so when html5 validation
+      // kiks in, it can't find the field to hilight as being required.
+      // @see https://www.drupal.org/project/drupal/issues/2722319
+      // 'required' => [[$selector => ['checked' => TRUE]],],
     ];
-    // This seems odd.... but useful.
-    //  $form['actions']['submit']['#limit_validation_errors'] = [['revision_log'], ['field_name_first'], ['field_last_name'], ['field_administration'], ['field_office']];
-    // $form['field_body']['widget'][0]['value']['#states'] = [
-    //   'required' => [
-    //       [$selector => ['checked' => TRUE]],
-    //   ],
-    // ];
+
     $form['field_body']['#states'] = [
       'visible' => [
           [$selector => ['checked' => TRUE]],
@@ -128,28 +129,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
           [$selector => ['checked' => TRUE]],
       ],
     ];
-  }
-
-  /**
-   * Submit handler for DANSE forms.
-   *
-   * @param array $form
-   *   The form.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The form state.
-   */
-  public function addStateManagementToBioFieldsSubmitHandler(array &$form, FormStateInterface $form_state) {
-    $bio_display = !empty($form_state->getUserInput()['field_complete_biography_create']['value']) ? TRUE : FALSE;
-    if (!$bio_display) {
-
-      $form['field_intro_text']['widget']['#required'] = FALSE;
-      $form['field_intro_text']['widget'][0]['#required'] = FALSE;
-      $form['field_intro_text']['widget'][0]['value']['#required'] = FALSE;
-      $form['field_body']['widget']['#required'] = FALSE;
-      $form['field_body']['widget'][0]['#required'] = FALSE;
-      $form['field_body']['widget'][0]['value']['#required'] = FALSE;
-      // '#limit_validation_errors' => [],
-    }
   }
 
 }
