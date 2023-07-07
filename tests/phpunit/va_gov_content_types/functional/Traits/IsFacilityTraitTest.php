@@ -26,30 +26,8 @@ class IsFacilityTraitTest extends VaGovExistingSiteBase {
    * @dataProvider isFacilityDataProvider
    */
   public function testIsFacility(string $type, bool $expected) {
-    $node = $this->getNodeOfType($type);
+    $node = $this->getArbitraryNodeOfType($type);
     $this->assertEquals($expected, $node->isFacility());
-  }
-
-  /**
-   * Get a node of the given type.
-   *
-   * The specifics of the node shouldn't matter, so we just grab the first one.
-   *
-   * @param string $type
-   *   The content type to get.
-   *
-   * @return \Drupal\va_gov_content_types\Entity\VaNodeInterface
-   *   The node of the given type.
-   */
-  public function getNodeOfType(string $type) {
-    $entityTypeManager = \Drupal::entityTypeManager();
-    $nodeStorage = $entityTypeManager->getStorage('node');
-    $nids = $nodeStorage->getQuery()
-      ->condition('type', $type)
-      ->execute();
-    $firstNid = reset($nids);
-    $node = $nodeStorage->load($firstNid);
-    return $node;
   }
 
   /**
