@@ -11,7 +11,7 @@ use Drupal\va_gov_user\Service\UserPermsService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * VA.gov Generic Entity Event Subscriber. Do only multi-product stuff here.
+ * VA.gov person_profile entity Event Subscriber.
  */
 class EntityEventSubscriber implements EventSubscriberInterface {
 
@@ -69,7 +69,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $entity_types = $event->getEntityTypes();
     if (!empty($entity_types['node'])) {
       $entity = $entity_types['node'];
-      $entity->addConstraint('PageRequiredFieldsConstraint');
+      $entity->addConstraint('PersonPageRequiredFieldsConstraint');
     }
   }
 
@@ -95,16 +95,16 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $selector = ':input[name="field_complete_biography_create[value]"]';
     $form['field_intro_text']['widget'][0]['value']['#states'] = [
       'required' => [
-          [$selector => ['checked' => TRUE]],
+        [$selector => ['checked' => TRUE]],
       ],
       'visible' => [
-            [$selector => ['checked' => TRUE]],
+        [$selector => ['checked' => TRUE]],
       ],
     ];
 
     $form['field_body']['widget'][0]['#states'] = [
       'visible' => [
-            [$selector => ['checked' => TRUE]],
+        [$selector => ['checked' => TRUE]],
       ],
       // Unfortunately we can not set the requiredness of a ckeditor field using
       // states.  So we end up adding this with JS to bypass HTML5 validation
@@ -113,20 +113,20 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       // An invalid form control with name='field_body[0][value]' is not
       // focusable.
       // because ckeditor changes the id of the field, so when html5 validation
-      // kiks in, it can't find the field to hilight as being required.
+      // kicks in, it can't find the field to hilight as being required.
       // @see https://www.drupal.org/project/drupal/issues/2722319
       // 'required' => [[$selector => ['checked' => TRUE]],],
     ];
 
     $form['field_body']['#states'] = [
       'visible' => [
-          [$selector => ['checked' => TRUE]],
+        [$selector => ['checked' => TRUE]],
       ],
     ];
 
     $form['field_complete_biography']['#states'] = [
       'visible' => [
-          [$selector => ['checked' => TRUE]],
+        [$selector => ['checked' => TRUE]],
       ],
     ];
   }

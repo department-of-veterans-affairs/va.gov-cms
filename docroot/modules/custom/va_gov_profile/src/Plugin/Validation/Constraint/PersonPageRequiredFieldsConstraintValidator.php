@@ -7,9 +7,9 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 /**
- * That validator for the PageRequiredFieldsConstraint.
+ * That validator for the PersonPageRequiredFieldsConstraint.
  */
-class PageRequiredFieldsConstraintValidator extends ConstraintValidator {
+class PersonPageRequiredFieldsConstraintValidator extends ConstraintValidator {
 
   /**
    * {@inheritdoc}
@@ -32,6 +32,7 @@ class PageRequiredFieldsConstraintValidator extends ConstraintValidator {
           $empty_fields[] = $entity->get('field_body')->getFieldDefinition()->getLabel();
           // This anchor link created for the path does not work as it points to
           // a field id the ckeditor replaced with something else.
+          // @see https://www.drupal.org/project/drupal/issues/3229493
           $field_error_path = 'field_body';
         }
 
