@@ -86,19 +86,51 @@ class GetOriginalTraitTest extends VaGovExistingSiteBase {
 
   /**
    * Test that the didChangeField method works.
+   *
+   * @param string $oldValue
+   *   The original value of the field.
+   * @param string $newValue
+   *   The new value of the field.
+   * @param bool $expected
+   *   The expected result of the didChangeField method.
+   *
+   * @covers ::didChangeField
+   * @dataProvider didChangeFieldDataProvider
    */
-  public function testDidChangeField() {
+  public function testDidChangeField(string $oldValue, string $newValue, bool $expected) {
     $node = $this->createNode([
       'bundle' => 'page',
     ]);
     $node->setNewRevision(TRUE);
-    $node->setTitle('Original Title');
+    $node->setTitle($oldValue);
     $node->save();
     $revision = \Drupal::entityTypeManager()->getStorage('node')->loadRevision($node->getLoadedRevisionId());
-    $node->setTitle('Changed Title');
+    $node->setTitle($newValue);
     $node->save();
     $node->original = $revision;
-    $this->assertTrue($node->didChangeField('title'));
+    $this->assertEquals($expected, $node->didChangeField('title'));
+  }
+
+  /**
+   * Data provider for testDidChangeField.
+   *
+   * @return array
+   *   An array of arrays containing the parameters for the testDidChangeField
+   *   test method.
+   */
+  public function didChangeFieldDataProvider() {
+    return [
+      [
+        'Original Title',
+        'Changed Title',
+        TRUE,
+      ],
+      [
+        'Original Title',
+        'Original Title',
+        FALSE,
+      ],
+    ];
   }
 
 }
