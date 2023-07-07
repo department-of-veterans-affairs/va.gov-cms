@@ -19,7 +19,7 @@ Scenario: Log in and create a Person Profile
   And I check the "Create profile page with biography" checkbox
   And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
   And I click the "Save" button
-  Then I am prevented from saving the node by textarea "#edit-field-intro-text-0-value" with error "Please fill out this field."
+  Then I am prevented from saving the node by "textarea" "#edit-field-intro-text-0-value" with error "Please fill out this field."
 
   # Create the page with intention of using biography but only providing First sentence.
   Given I fill in field with selector "#edit-field-intro-text-0-value" with value "[Test Data] First sentence."
