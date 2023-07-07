@@ -8,16 +8,19 @@ dependencies:
   module:
     - allowed_formats
     - text
+    - tmgmt_content
 third_party_settings:
   allowed_formats:
     allowed_formats: {  }
+  tmgmt_content:
+    excluded: false
 id: node.person_profile.field_body
 field_name: field_body
 entity_type: node
 bundle: person_profile
 label: 'Body text'
 description: 'Add everything else from the second sentence on. Don''t include the first sentence in this field.'
-required: true
+required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
