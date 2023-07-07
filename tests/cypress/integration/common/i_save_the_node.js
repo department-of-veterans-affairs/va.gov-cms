@@ -7,3 +7,25 @@ Given("I save the node", () => {
     cy.wrap(pagePath).as("pagePath");
   });
 });
+
+Given(
+  "I am prevented from saving the node by textarea {string} with error {string}",
+  (selector, html5Error) => {
+    cy.get("form.node-form input#edit-submit").click({ force: true });
+    cy.get("textarea:invalid").should("have.length", 1);
+    cy.get(selector).then(($input) => {
+      expect($input[0].validationMessage).to.eq(html5Error);
+    });
+  }
+);
+
+Given(
+  "I am prevented from saving the node by input {string} with error {string}",
+  (selector, html5Error) => {
+    cy.get("form.node-form input#edit-submit").click({ force: true });
+    cy.get("input:invalid").should("have.length", 1);
+    cy.get(selector).then(($input) => {
+      expect($input[0].validationMessage).to.eq(html5Error);
+    });
+  }
+);

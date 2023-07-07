@@ -11,14 +11,15 @@ Scenario: Log in and create a Person Profile
   And I fill in "First name" with "James"
   And I fill in "Last name" with "Smith"
   And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
-  And I click the "Save draft and continue editing" button
-  Then I should see "Staff Profile James Smith has been updated."
+  And I click the "Save" button
+  Then I should see "Staff Profile James Smith has been created."
 
   # Create the page with intention of using biography without providing both required.
-  Given I check the "Create profile page with biography" checkbox
+  Given I click the edit tab
+  And I check the "Create profile page with biography" checkbox
   And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
-  And I click the "Save draft and continue editing" button
-  Then I should not see "Staff Profile James Smith has been updated."
+  And I click the "Save" button
+  Then I am prevented from saving the node by textarea "#edit-field-intro-text-0-value" with error "Please fill out this field."
 
   # Create the page with intention of using biography but only providing First sentence.
   Given I fill in field with selector "#edit-field-intro-text-0-value" with value "[Test Data] First sentence."
@@ -27,15 +28,16 @@ Scenario: Log in and create a Person Profile
 
   # Create the page with intention of using biography providing required fields.
   Given I fill in ckeditor "field-body-0-value" with "[Test Data] Profile Body"
-  And I click the "Save draft and continue editing" button
+  And I click the "Save" button
   Then I should see "Staff Profile James Smith has been updated."
 
   # Check to see if a change of intention still allows data saving.
-  Given I fill in ckeditor "field-body-0-value" with "[Test Data] Fresh body."
+  Given I click the edit tab
+  And I fill in ckeditor "field-body-0-value" with "[Test Data] Fresh body."
   And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
   And I fill in field with selector "#edit-field-intro-text-0-value" with value "[Test Data] Better words."
   And I uncheck the "Create profile page with biography" checkbox
-  And I click the "Save draft and continue editing" button
+  And I click the "Save" button
   Then I should see "Staff Profile James Smith has been updated."
   And I should see "Better words."
   And I should see "Fresh body."
