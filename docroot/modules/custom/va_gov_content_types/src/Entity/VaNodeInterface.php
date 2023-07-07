@@ -20,7 +20,6 @@ interface VaNodeInterface extends
   ContentReleaseTriggerInterface,
   DidChangeOperatingStatusInterface,
   GetOriginalInterface,
-  GetTypeInterface,
   IsFacilityInterface {
 
 }

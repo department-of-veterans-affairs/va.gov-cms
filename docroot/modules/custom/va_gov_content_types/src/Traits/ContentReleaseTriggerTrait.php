@@ -119,7 +119,6 @@ trait ContentReleaseTriggerTrait {
    *   FALSE otherwise.
    */
   public function alwaysTriggersContentRelease(): bool {
-    /** @var \Drupal\va_gov_content_types\Interfaces\GetTypeInterface $this */
     return in_array($this->getType(), ContentReleaseTriggerInterface::ALWAYS_TRIGGERING_TYPES);
   }
 

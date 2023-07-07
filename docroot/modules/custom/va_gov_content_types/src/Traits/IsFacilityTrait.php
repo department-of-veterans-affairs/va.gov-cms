@@ -18,7 +18,6 @@ trait IsFacilityTrait {
    *   TRUE if this content type is a facility content type, FALSE otherwise.
    */
   public function isFacility(): bool {
-    /** @var \Drupal\va_gov_content_types\Interfaces\GetTypeInterface $this */
     return in_array($this->getType(), IsFacilityInterface::FACILITY_CONTENT_TYPES);
   }
 
