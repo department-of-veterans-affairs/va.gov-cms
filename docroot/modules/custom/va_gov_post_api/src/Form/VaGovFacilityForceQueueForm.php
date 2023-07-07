@@ -28,13 +28,6 @@ class VaGovFacilityForceQueueForm extends FormBase {
   protected $entityTypeManager;
 
   /**
-   * Drupal\Core\Entity\Query\QueryInterface definition.
-   *
-   * @var \Drupal\Core\Entity\Query\QueryInterface
-   */
-  protected $nodeQuery;
-
-  /**
    * Class constructor.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
@@ -42,9 +35,6 @@ class VaGovFacilityForceQueueForm extends FormBase {
    */
   public function __construct(EntityTypeManagerInterface $entity_type_manager) {
     $this->entityTypeManager = $entity_type_manager;
-    $this->nodeQuery = $entity_type_manager
-      ->getStorage('node')
-      ->getQuery('AND');
   }
 
   /**
@@ -77,33 +67,43 @@ class VaGovFacilityForceQueueForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     // Queries to get total number of nodes for each type for reference.
-    $health_care_local_facility = $this->nodeQuery
+    $health_care_local_facility = $this->entityTypeManager
+      ->getStorage('node')
+      ->getQuery('AND')
       ->condition('type', 'health_care_local_facility')
       ->accessCheck(FALSE)
       ->condition('moderation_state', 'archived', '!=')
       ->execute();
 
-    $health_care_facility_service = $this->nodeQuery
+    $health_care_facility_service = $this->entityTypeManager
+      ->getStorage('node')
+      ->getQuery('AND')
       ->condition('type', 'health_care_local_health_service')
       ->accessCheck(FALSE)
       ->condition('moderation_state', 'archived', '!=')
       ->execute();
 
-    $nca_facility = $this->nodeQuery
+    $nca_facility = $this->entityTypeManager
+      ->getStorage('node')
+      ->getQuery('AND')
       ->condition('type', 'nca_facility')
       ->accessCheck(FALSE)
       ->condition('moderation_state', 'archived', '!=')
       ->execute();
 
-    $vba_facility = $this->nodeQuery
+    $vba_facility = $this->entityTypeManager
+      ->getStorage('node')
+      ->getQuery('AND')
       ->condition('type', 'vba_facility')
       ->accessCheck(FALSE)
       ->condition('moderation_state', 'archived', '!=')
       ->execute();
 
-    $vet_center = $this->nodeQuery
+    $vet_center = $this->entityTypeManager
+      ->getStorage('node')
+      ->getQuery('AND')
       ->condition('type', 'vet_center')
-      ->accessCheck(FALSE)             
+      ->accessCheck(FALSE)
       ->condition('moderation_state', 'archived', '!=')
       ->execute();
 
@@ -164,7 +164,9 @@ class VaGovFacilityForceQueueForm extends FormBase {
       ->set('bypass_data_check', 1)
       ->save();
 
-    $sandbox['nids'] = $this->nodeQuery
+    $sandbox['nids'] = $this->entityTypeManager
+      ->getStorage('node')
+      ->getQuery('AND')
       ->condition('type', $bundle)
       ->accessCheck(FALSE)
       ->condition('moderation_state', 'archived', '!=')
