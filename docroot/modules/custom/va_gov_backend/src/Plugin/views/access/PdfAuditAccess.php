@@ -34,6 +34,9 @@ class PdfAuditAccess extends AccessPluginBase {
       '29',
       '80',
       '2046',
+      '4433', //erika washburn
+      '1203', //dave conlon
+      '1342' //michelle middaugh
     ];
     $account_roles = $account->getRoles();
     $account_id = $account->id();
