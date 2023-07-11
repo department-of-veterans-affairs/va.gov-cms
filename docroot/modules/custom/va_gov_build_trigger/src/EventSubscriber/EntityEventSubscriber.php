@@ -7,8 +7,8 @@ use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\AbstractEntityEvent;
 use Drupal\node\NodeInterface;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Drupal\va_gov_build_trigger\Service\BuildRequesterInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * VA.gov Build Trigger Entity Event Subscriber.
