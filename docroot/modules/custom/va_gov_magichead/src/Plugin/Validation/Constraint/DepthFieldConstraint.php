@@ -19,6 +19,6 @@ class DepthFieldConstraint extends Constraint {
    *
    * @var string
    */
-  public $errorMessage = 'Doh! This is an error message';
+  public $errorMessage = 'Heading depth must increment by 1 or less.';
 
 }
