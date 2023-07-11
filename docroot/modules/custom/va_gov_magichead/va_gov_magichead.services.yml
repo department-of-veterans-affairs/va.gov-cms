@@ -1,0 +1,6 @@
+services:
+  va_gov_magichead.magichead_entity_view:
+    class: Drupal\va_gov_magichead\Plugin\Field\FieldFormatter\MagicheadFormatter
+    parent: plugin.manager.field.formatter
+    tags:
+      - { name: field_formatter }
