@@ -1,20 +1,20 @@
 <?php
 
-namespace tests\phpunit\va_gov_environment\unit\Strategy\Resolver;
+namespace tests\phpunit\va_gov_environment\unit\EntityEvent\Strategy\Resolver;
 
-use Drupal\va_gov_content_release\Strategy\Resolver\Resolver;
-use Drupal\va_gov_content_release\Strategy\Resolver\ResolverInterface;
+use Drupal\va_gov_content_release\EntityEvent\Strategy\Resolver\Resolver;
+use Drupal\va_gov_content_release\EntityEvent\Strategy\Resolver\ResolverInterface;
 use Drupal\va_gov_environment\Environment\Environment;
 use Drupal\va_gov_environment\Discovery\DiscoveryInterface;
 use Tests\Support\Classes\VaGovUnitTestBase;
 
 /**
- * Unit test of the Strategy Resolver service.
+ * Unit test of the Entity Event Strategy Resolver service.
  *
  * @group unit
  * @group all
  *
- * @coversDefaultClass \Drupal\va_gov_content_release\Strategy\Resolver\Resolver
+ * @coversDefaultClass \Drupal\va_gov_content_release\EntityEvent\Strategy\Resolver\Resolver
  */
 class ResolverTest extends VaGovUnitTestBase {
 
@@ -64,22 +64,22 @@ class ResolverTest extends VaGovUnitTestBase {
     return [
       'ddev' => [
         'ddev',
-        ResolverInterface::STRATEGY_LOCAL_FILESYSTEM_BUILD_FILE,
+        ResolverInterface::STRATEGY_NEVER,
         NULL,
       ],
       'prod' => [
         'prod',
-        ResolverInterface::STRATEGY_GITHUB_REPOSITORY_DISPATCH,
+        ResolverInterface::STRATEGY_ON_DEMAND,
         NULL,
       ],
       'staging' => [
         'staging',
-        ResolverInterface::STRATEGY_GITHUB_REPOSITORY_DISPATCH,
+        ResolverInterface::STRATEGY_ON_DEMAND,
         NULL,
       ],
       'tugboat' => [
         'tugboat',
-        ResolverInterface::STRATEGY_LOCAL_FILESYSTEM_BUILD_FILE,
+        ResolverInterface::STRATEGY_NEVER,
         NULL,
       ],
       'invalid' => [
