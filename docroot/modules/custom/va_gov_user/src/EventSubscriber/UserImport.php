@@ -166,10 +166,7 @@ class UserImport implements EventSubscriberInterface {
 
     $this->addUserToSections($row, $user);
 
-    if ($this->environmentDiscovery->isBRD()) {
-      $this->enableSamlAuth($user);
-    }
-    else {
+    if (!$this->environmentDiscovery->isBRD()) {
       $user->setPassword('drupal8');
     }
 
