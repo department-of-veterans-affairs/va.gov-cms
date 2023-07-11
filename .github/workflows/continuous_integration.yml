@@ -40,7 +40,7 @@ jobs:
         uses: ./.github/actions/post-checkout
       - name: ReviewDog
         # See also `composer va:test:eslint` in composer.json
-        uses: reviewdog/action-eslint@e1dbcf30466d267e79331b2f5bacb269093125b5 # v1.19.1
+        uses: reviewdog/action-eslint@f2ee6727e05e6f0e46ea1d06a16f6685d3d7fb37 # v1.19.2
         with:
           reporter: github-pr-review
           eslint_flags: '--max-warnings 0 -c .eslintrc.json --no-eslintrc docroot/modules/custom/**/*.es6.js docroot/themes/custom/**/*.es6.js tests/cypress/**/*.js'
