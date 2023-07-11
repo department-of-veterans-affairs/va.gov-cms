@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit\va_gov_content_release\functional\Plugin\Strategy;
+namespace tests\phpunit\va_gov_content_release\functional\Strategy\Plugin;
 
 use Drupal\va_gov_content_release\Exception\StrategyErrorException;
 use Drupal\va_gov_content_release\Strategy\Plugin\StrategyPluginInterface;
