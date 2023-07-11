@@ -131,10 +131,6 @@ class EntityEventSubscriberTest extends VaGovUnitTestBase {
         foreach ($triggerable_state as $key => $val) {
           $description .= $key . ': ' . $val . '; ';
         }
-        print json_encode([
-          'description' => $description,
-          'should_build' => $should_build,
-        ]);
         yield $description => [
           'enabled',
           $node,
