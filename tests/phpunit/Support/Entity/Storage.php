@@ -64,7 +64,7 @@ class Storage {
       $query->condition($key, $value);
     }
 
-    return $query->execute();
+    return $query->accessCheck(FALSE)->execute();
   }
 
   /**
