@@ -9,7 +9,7 @@ use Drupal\entity_reference_hierarchy_revisions\Plugin\Field\FieldFormatter\Enti
  *
  * @FieldFormatter(
  *   id = "magichead_entity_view",
- *   label = @Translation("Magichead Rendered Entity View"),
+ *   label = @Translation("Magichead Rendered Entity"),
  *   description = @Translation("Display the referenced entities rendered by entity_view() with hierarchy."),
  *   field_types = {
  *     "magichead"

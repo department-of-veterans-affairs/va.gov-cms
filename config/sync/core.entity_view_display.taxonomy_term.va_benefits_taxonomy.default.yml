@@ -13,7 +13,6 @@ dependencies:
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_beneficiaries
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_brief_summary
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_coconsidered
-    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_eligibility
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_eligibility_ov
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_legislation
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_long_summary
@@ -24,10 +23,10 @@ dependencies:
     - taxonomy.vocabulary.va_benefits_taxonomy
   module:
     - allow_only_one
-    - entity_reference_hierarchy_revisions
     - field_group
     - link
     - text
+    - va_gov_magichead
 third_party_settings:
   field_group:
     group_va_benefit_name:
@@ -85,7 +84,6 @@ third_party_settings:
       children:
         - field_va_benefit_beneficiaries
         - field_va_benefits_elig_intro
-        - field_va_benefit_eligibility
         - field_va_benefit_eligibility_ov
       label: 'Benefit eligibility'
       parent_name: ''
@@ -187,7 +185,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 11
     region: content
   field_va_benefit_app_preparation:
     type: text_default
@@ -219,13 +217,13 @@ content:
     third_party_settings: {  }
     weight: 7
     region: content
-  field_va_benefit_eligibility:
-    type: entity_reference_hierarchy_revisions_entity_view
+  field_va_benefit_eligibility_ov:
+    type: magichead_entity_view
     label: above
     settings:
-      view_mode: default
-      link: ''
       list_type: ol
+      view_mode: default
+      link: false
     third_party_settings: {  }
     weight: 12
     region: content
@@ -276,9 +274,8 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 11
+    weight: 10
     region: content
 hidden:
-  field_va_benefit_eligibility_ov: true
   langcode: true
   search_api_excerpt: true

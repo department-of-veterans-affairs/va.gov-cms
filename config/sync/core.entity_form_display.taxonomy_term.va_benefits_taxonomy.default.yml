@@ -13,7 +13,6 @@ dependencies:
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_beneficiaries
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_brief_summary
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_coconsidered
-    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_eligibility
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_eligibility_ov
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_legislation
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_long_summary
@@ -283,8 +282,8 @@ content:
     settings:
       title: 'Eligibility overview section'
       title_plural: 'Eligibility overview sections'
-      edit_mode: open
-      add_mode: button
+      edit_mode: closed
+      add_mode: dropdown
       form_display_mode: default
       default_paragraph_type: _none
     third_party_settings:
@@ -381,7 +380,6 @@ content:
     third_party_settings: {  }
 hidden:
   description: true
-  field_va_benefit_eligibility: true
   langcode: true
   path: true
   status: true
