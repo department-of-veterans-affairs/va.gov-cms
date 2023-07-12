@@ -13,13 +13,16 @@ services:
     arguments: ['@va_gov_environment.discovery']
   va_gov_content_release.strategy_resolver:
     class: Drupal\va_gov_content_release\Strategy\Resolver\Resolver
-    arguments: ['@plugin.manager.va_gov_content_release.strategy', '@va_gov_environment.discovery']
+    arguments: ['@va_gov_environment.discovery']
   plugin.manager.va_gov_content_release.strategy:
     class: Drupal\va_gov_content_release\Strategy\Plugin\StrategyPluginManager
     parent: default_plugin_manager
   plugin.manager.va_gov_content_release.entity_event_strategy:
     class: Drupal\va_gov_content_release\EntityEvent\Strategy\Plugin\StrategyPluginManager
     parent: default_plugin_manager
+  va_gov_content_release.entity_event_strategy_resolver:
+    class: Drupal\va_gov_content_release\EntityEvent\Strategy\Resolver\Resolver
+    arguments: ['@va_gov_environment.discovery']
   va_gov_content_release.form_route_subscriber:
     class: Drupal\va_gov_content_release\EventSubscriber\FormRouteSubscriber
     arguments: ['@va_gov_content_release.form_resolver']

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\va_gov_content_release\Strategy\Resolver;
+namespace Drupal\va_gov_content_release\EntityEvent\Strategy\Resolver;
 
 use Drupal\va_gov_environment\Discovery\DiscoveryInterface;
 use Drupal\va_gov_content_release\Exception\CouldNotDetermineStrategyException;
@@ -38,9 +38,9 @@ class Resolver implements ResolverInterface {
   public function getStrategyId() : string {
     $environment = $this->environmentDiscovery->getEnvironment();
     return match (TRUE) {
-      $environment->isBrd() => static::STRATEGY_GITHUB_REPOSITORY_DISPATCH,
-      $environment->isTugboat() => static::STRATEGY_LOCAL_FILESYSTEM_BUILD_FILE,
-      $environment->isLocalDev() => static::STRATEGY_LOCAL_FILESYSTEM_BUILD_FILE,
+      $environment->isBrd() => static::STRATEGY_ON_DEMAND,
+      $environment->isTugboat() => static::STRATEGY_NEVER,
+      $environment->isLocalDev() => static::STRATEGY_NEVER,
       default => throw new CouldNotDetermineStrategyException('Could not determine a valid content release strategy for environment: ' . $environment->getRawValue()),
     };
   }
