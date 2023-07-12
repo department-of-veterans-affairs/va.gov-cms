@@ -54,4 +54,9 @@ abstract class StrategyPluginBase extends PluginBase implements StrategyPluginIn
    */
   abstract public function shouldTriggerContentRelease(VaNodeInterface $node) : bool;
 
+  /**
+   * {@inheritDoc}
+   */
+  abstract public function getReasonMessage(VaNodeInterface $node) : string;
+
 }
