@@ -82,7 +82,7 @@ sequenceDiagram
     CMS->>GHA: Dispatch release request
     rect rgb(20,20,20)
     Note right of GHA: Content release workflow
-    GHA->>+CMS: Update staus to Starting
+    GHA->>+CMS: Update status to Starting
     GHA->>+GHA: Set up runner
     GHA->>+GHA: Wait for release ready
     GHA->>+GHA: Install dependencies

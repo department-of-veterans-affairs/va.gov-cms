@@ -26,7 +26,7 @@ To see what is set on a give environment use
 
 [Ongoing facility migrations](../migrations-facility.md)
 
-The Facilities API provides data about VA facilities (hospitals, clinics, mobile clinics, vet centers, outstations, mobile vet centers, cemetaries, and Veterans Benefits Administraion offices).
+The Facilities API provides data about VA facilities (hospitals, clinics, mobile clinics, vet centers, outstations, mobile vet centers, cemeteries, and Veterans Benefits Administraion offices).
 
 [Facilities API Documentation](https://developer.va.gov/explore/facilities/docs/facilities) and the [code resides here](https://github.com/department-of-veterans-affairs/lighthouse-facilities).
 
