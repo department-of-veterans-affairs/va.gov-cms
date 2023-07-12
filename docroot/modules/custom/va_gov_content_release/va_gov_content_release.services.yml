@@ -28,3 +28,6 @@ services:
     arguments: ['@va_gov_content_release.form_resolver']
     tags:
       - { name: event_subscriber }
+  va_gov_content_release.request:
+    class: Drupal\va_gov_content_release\Request\Request
+    arguments: ['@entity_type.manager']
