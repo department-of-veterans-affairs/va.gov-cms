@@ -19,4 +19,4 @@ Once installed test can be run either through the command line or in the browser
 `locust -f locustLoginTest.py --host="http://localhost:32776" --no-web  -c 2 -r 1 --run-time 1m
 `
 
-Where `-c` is the numer of Locust users to spawn, and `-r` specifies the hatch rate (number of users to spawn per second).
+Where `-c` is the number of Locust users to spawn, and `-r` specifies the hatch rate (number of users to spawn per second).
