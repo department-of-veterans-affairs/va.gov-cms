@@ -60,6 +60,7 @@ abstract class VaGovExistingSiteBase extends ExistingSiteBase {
     $nodeStorage = $entityTypeManager->getStorage('node');
     $nids = $nodeStorage->getQuery()
       ->condition('type', $type)
+      ->accessCheck(FALSE)
       ->execute();
     $firstNid = reset($nids);
     $node = $nodeStorage->load($firstNid);

@@ -77,7 +77,7 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
       $results = $this->getMatchingRefs($string, $count);
     }
 
-    return JsonResponse::create($results);
+    return new JsonResponse($results);
   }
 
   /**
