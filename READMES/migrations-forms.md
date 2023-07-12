@@ -81,7 +81,7 @@ There are several failures that happen due to loose governance on the Forms DB. 
 **Cause:** Forms DB updated the filename of the form, but did not push out the new file.
 **Solution:** Notify VA Forms team (Slack: #va-forms) to contact Forms DB manager to either push out the new file, or change the filename in the row back to the original.  Filenames are not supposed to change.
 3.  **Effect:**  Seems to be a data mismatch somewhere.
-**Cause:** See the timeline graphic above.  There are gaps in time where either the CMS has outdated data, or the Front End has data that is out of date with whats in CMS or VA Forms API.
+**Cause:** See the timeline graphic above.  There are gaps in time where either the CMS has outdated data, or the Front End has data that is out of date with what's in CMS or VA Forms API.
 **Solution:** Wait until after the 9AM content releases to see if all is right with the world.  If after that, things are not right, raise it in Slack: #va-forms
 
 ----

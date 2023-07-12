@@ -26,7 +26,7 @@ Considerations:
 
 The final consideration point above affects existing PR Previews. Since they are based off the `master` branch base preview they will need to be deleted and recreated. This will ensure that they are based off the newly named `main` branch base preview.
 
-### Demo Envrionments
+### Demo Environments
 
 Demo environments that require changes from prod will need to be deleted and rebuilt.  The major concerns here are:
 
