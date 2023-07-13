@@ -38,6 +38,20 @@ class EntityEventSubscriberTest extends VaGovUnitTestBase {
   }
 
   /**
+   * The hook events.
+   *
+   * @return array
+   *   The hook events.
+   */
+  public function getHookEvents() {
+    return [
+      EntityHookEvents::ENTITY_DELETE,
+      EntityHookEvents::ENTITY_INSERT,
+      EntityHookEvents::ENTITY_UPDATE,
+    ];
+  }
+
+  /**
    * Make sure the right events are subscribed to (but not the handler name).
    */
   public function testGetSubscribedEvents() {
@@ -57,20 +71,26 @@ class EntityEventSubscriberTest extends VaGovUnitTestBase {
     $user = $this->getMockBuilder(UserInterface::class)
       ->disableOriginalConstructor()
       ->getMock();
-    yield 'non-node entity' => [
-      'never',
-      $user,
-      FALSE,
-    ];
+    foreach ($this->getHookEvents() as $event_name) {
+      yield 'non-node entity ' . $event_name => [
+        $event_name,
+        $user,
+        FALSE,
+        $event_name,
+      ];
+    }
 
     $node = $this->getMockBuilder(VaNodeInterface::class)
       ->disableOriginalConstructor()
       ->getMock();
-    yield 'content initiated builds requests are disabled' => [
-      'disabled',
-      $node,
-      FALSE,
-    ];
+    foreach ($this->getHookEvents() as $event_name) {
+      yield 'non-published node ' . $event_name => [
+        $event_name,
+        $node,
+        FALSE,
+        $event_name,
+      ];
+    }
   }
 
   /**
@@ -79,55 +99,59 @@ class EntityEventSubscriberTest extends VaGovUnitTestBase {
   public function nonFacilityNodeTestDataProvider() {
     foreach ($this->getTriggerableStatePermutations() as $triggerable_state) {
       foreach ($this->getNonFacilityTypePermutations() as $content_type => $content_type_should_trigger) {
+        foreach ($this->getHookEvents() as $event_name) {
 
-        $nodeProphecy = $this->prophesize(VaNodeInterface::class);
+          $nodeProphecy = $this->prophesize(VaNodeInterface::class);
 
-        $originalNodeProphecy = $this->prophesize(VaNodeInterface::class);
+          $originalNodeProphecy = $this->prophesize(VaNodeInterface::class);
 
-        $nodeProphecy->isPublished()->willReturn($triggerable_state['is_published']);
+          $nodeProphecy->isPublished()->willReturn($triggerable_state['is_published']);
 
-        if ($triggerable_state['was_published'] === TRUE) {
-          $originalNodeProphecy->isPublished()->willReturn($triggerable_state['was_published']);
+          if ($triggerable_state['was_published'] === TRUE) {
+            $originalNodeProphecy->isPublished()->willReturn($triggerable_state['was_published']);
+          }
+
+          $nodeProphecy->getType()->willReturn($content_type);
+
+          $mod_state = new \stdClass();
+          $mod_state->value = $triggerable_state['new_moderation_state'];
+          if ($triggerable_state['new_moderation_state'] === 'null') {
+            $mod_state->value = NULL;
+          }
+
+          $nodeProphecy->getModerationState()->willReturn($mod_state);
+
+          $should_build = ($triggerable_state['is_triggerable_state'] && $content_type_should_trigger);
+
+          // If a build should be triggered, we need to include a few more items
+          // for the log message formatting. Add it always just in case.
+          $link = $this->getMockBuilder(Link::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+          $link->expects($this->any())
+            ->method('toString')
+            ->willReturn('https://fake.link/');
+
+          $nodeProphecy->toLink(Argument::any())->willReturn($link);
+
+          $nodeProphecy->id()->willReturn('12345');
+
+          $originalNode = $originalNodeProphecy->reveal();
+          $nodeProphecy->getOriginal()->willReturn($originalNode);
+          $node = $nodeProphecy->reveal();
+
+          $description = $content_type . ' node: ';
+          foreach ($triggerable_state as $key => $val) {
+            $description .= $key . ': ' . $val . '; ';
+          }
+          $description .= $event_name;
+          yield $description => [
+            'enabled',
+            $node,
+            $should_build,
+            $event_name,
+          ];
         }
-
-        $nodeProphecy->getType()->willReturn($content_type);
-
-        $mod_state = new \stdClass();
-        $mod_state->value = $triggerable_state['new_moderation_state'];
-        if ($triggerable_state['new_moderation_state'] === 'null') {
-          $mod_state->value = NULL;
-        }
-
-        $nodeProphecy->getModerationState()->willReturn($mod_state);
-
-        $should_build = ($triggerable_state['is_triggerable_state'] && $content_type_should_trigger);
-
-        // If a build should be triggered, we need to include a few more items
-        // for the log message formatting. Add it always just in case.
-        $link = $this->getMockBuilder(Link::class)
-          ->disableOriginalConstructor()
-          ->getMock();
-        $link->expects($this->any())
-          ->method('toString')
-          ->willReturn('https://fake.link/');
-
-        $nodeProphecy->toLink(Argument::any())->willReturn($link);
-
-        $nodeProphecy->id()->willReturn('12345');
-
-        $originalNode = $originalNodeProphecy->reveal();
-        $nodeProphecy->getOriginal()->willReturn($originalNode);
-        $node = $nodeProphecy->reveal();
-
-        $description = $content_type . ' node: ';
-        foreach ($triggerable_state as $key => $val) {
-          $description .= $key . ': ' . $val . '; ';
-        }
-        yield $description => [
-          'enabled',
-          $node,
-          $should_build,
-        ];
       }
     }
   }
@@ -140,157 +164,160 @@ class EntityEventSubscriberTest extends VaGovUnitTestBase {
       foreach ($this->getFacilityTypePermutations() as $content_type => $content_type_should_trigger) {
         foreach ($this->getFacilityModerationStatusChangePermutations() as $facility_moderation_status_change) {
           foreach ($this->getFacilityStatusFieldPermutations() as $facility_status) {
+            foreach ($this->getHookEvents() as $event_name) {
 
-            // These situations are not possible and will confuse the event
-            // subscriber.
-            if (
-              ($triggerable_state['is_published'] === TRUE && $facility_moderation_status_change['new_state'] !== 'published') ||
-              ($triggerable_state['was_published'] === TRUE && $facility_moderation_status_change['old_state'] !== 'published') ||
-              ($triggerable_state['is_published'] === FALSE && $facility_moderation_status_change['new_state'] === 'published') ||
-              (($facility_moderation_status_change['old_state'] !== $facility_moderation_status_change['new_state']) !== $facility_status['facility_status_field_changed']) ||
-              ($facility_moderation_status_change['new_state'] !== $triggerable_state['new_moderation_state']) ||
-              ($triggerable_state['was_published'] === FALSE && $facility_moderation_status_change['old_state'] === 'published')
-            ) {
-              continue;
-            }
+              // These situations are not possible and will confuse the event
+              // subscriber.
+              if (
+                ($triggerable_state['is_published'] === TRUE && $facility_moderation_status_change['new_state'] !== 'published') ||
+                ($triggerable_state['was_published'] === TRUE && $facility_moderation_status_change['old_state'] !== 'published') ||
+                ($triggerable_state['is_published'] === FALSE && $facility_moderation_status_change['new_state'] === 'published') ||
+                (($facility_moderation_status_change['old_state'] !== $facility_moderation_status_change['new_state']) !== $facility_status['facility_status_field_changed']) ||
+                ($facility_moderation_status_change['new_state'] !== $triggerable_state['new_moderation_state']) ||
+                ($triggerable_state['was_published'] === FALSE && $facility_moderation_status_change['old_state'] === 'published')
+              ) {
+                continue;
+              }
 
-            $nodeProphecy = $this->prophesize(VaNodeInterface::class);
+              $nodeProphecy = $this->prophesize(VaNodeInterface::class);
 
-            $originalNodeProphecy = $this->prophesize(VaNodeInterface::class);
+              $originalNodeProphecy = $this->prophesize(VaNodeInterface::class);
 
-            $nodeProphecy->isPublished()->willReturn($triggerable_state['is_published']);
+              $nodeProphecy->isPublished()->willReturn($triggerable_state['is_published']);
 
-            if ($triggerable_state['was_published'] === TRUE) {
-              $originalNodeProphecy->isPublished()->willReturn($triggerable_state['was_published']);
-            }
+              if ($triggerable_state['was_published'] === TRUE) {
+                $originalNodeProphecy->isPublished()->willReturn($triggerable_state['was_published']);
+              }
 
-            $nodeProphecy->getType()->willReturn($content_type);
+              $nodeProphecy->getType()->willReturn($content_type);
 
-            $mod_state = new \stdClass();
-            $mod_state->value = $triggerable_state['new_moderation_state'];
-            if ($triggerable_state['new_moderation_state'] === 'null') {
-              $mod_state->value = NULL;
-            }
+              $mod_state = new \stdClass();
+              $mod_state->value = $triggerable_state['new_moderation_state'];
+              if ($triggerable_state['new_moderation_state'] === 'null') {
+                $mod_state->value = NULL;
+              }
 
-            $old_mod_state = new \stdClass();
-            $old_mod_state->value = $facility_moderation_status_change['old_state'];
+              $old_mod_state = new \stdClass();
+              $old_mod_state->value = $facility_moderation_status_change['old_state'];
 
-            $node_get_map = [
-              ['moderation_state', $mod_state],
-            ];
-            $original_node_get_map = [
-              ['moderation_state', $old_mod_state],
-            ];
-
-            if ($facility_status['has_field_operating_status_facility']) {
-              $nodeProphecy->hasField('field_operating_status_facility')->willReturn(TRUE);
-
-              $field_val = new \stdClass();
-              $field_val->value = 'operating_status';
-              $node_get_map[] = [
-                'field_operating_status_facility',
-                $field_val,
+              $node_get_map = [
+                ['moderation_state', $mod_state],
+              ];
+              $original_node_get_map = [
+                ['moderation_state', $old_mod_state],
               ];
 
-              if ($facility_status['field_operating_status_facility_changed']) {
-                $old_field_val = new \stdClass();
-                $old_field_val->value = 'different_operating_status';
-                $original_node_get_map[] = [
-                  'field_operating_status_facility',
-                  $old_field_val,
-                ];
-              }
-              else {
-                $original_node_get_map[] = [
+              if ($facility_status['has_field_operating_status_facility']) {
+                $nodeProphecy->hasField('field_operating_status_facility')->willReturn(TRUE);
+
+                $field_val = new \stdClass();
+                $field_val->value = 'operating_status';
+                $node_get_map[] = [
                   'field_operating_status_facility',
                   $field_val,
                 ];
-              }
-            }
-            else {
-              $nodeProphecy->hasField('field_operating_status_facility')->willReturn(FALSE);
-            }
 
-            if ($facility_status['has_field_operating_status_more_info']) {
-              $field_val = new \stdClass();
-              $field_val->value = 'operating_status';
-              $node_get_map[] = [
-                'field_operating_status_more_info',
-                $field_val,
-              ];
-
-              if ($facility_status['field_operating_status_more_info_changed']) {
-                $old_field_val = new \stdClass();
-                $old_field_val->value = 'operating_status';
-                $original_node_get_map[] = [
-                  'field_operating_status_more_info',
-                  $old_field_val,
-                ];
+                if ($facility_status['field_operating_status_facility_changed']) {
+                  $old_field_val = new \stdClass();
+                  $old_field_val->value = 'different_operating_status';
+                  $original_node_get_map[] = [
+                    'field_operating_status_facility',
+                    $old_field_val,
+                  ];
+                }
+                else {
+                  $original_node_get_map[] = [
+                    'field_operating_status_facility',
+                    $field_val,
+                  ];
+                }
               }
               else {
-                $original_node_get_map[] = [
+                $nodeProphecy->hasField('field_operating_status_facility')->willReturn(FALSE);
+              }
+
+              if ($facility_status['has_field_operating_status_more_info']) {
+                $field_val = new \stdClass();
+                $field_val->value = 'operating_status';
+                $node_get_map[] = [
                   'field_operating_status_more_info',
                   $field_val,
                 ];
+
+                if ($facility_status['field_operating_status_more_info_changed']) {
+                  $old_field_val = new \stdClass();
+                  $old_field_val->value = 'operating_status';
+                  $original_node_get_map[] = [
+                    'field_operating_status_more_info',
+                    $old_field_val,
+                  ];
+                }
+                else {
+                  $original_node_get_map[] = [
+                    'field_operating_status_more_info',
+                    $field_val,
+                  ];
+                }
               }
+
+              $nodeProphecy->get(Argument::type('string'))->will(function ($args) {
+                return $node_get_map[$args[0]][1];
+              });
+              $originalNodeProphecy->get(Argument::type('string'))->will(function ($args) {
+                return $original_node_get_map[$args[0]][1];
+              });
+
+              $is_triggerable_state = $triggerable_state['is_triggerable_state'];
+              $has_status_related_change = $facility_status['facility_status_field_changed'];
+              $oldstate_was_draft = $facility_moderation_status_change['old_state'] === 'draft';
+              $oldstate_was_archived = $facility_moderation_status_change['old_state'] === 'archived';
+              $oldstate_was_published = $facility_moderation_status_change['old_state'] === 'published';
+              $newstate_is_archived = $facility_moderation_status_change['new_state'] === 'archived';
+              $archived_from_published = ($oldstate_was_published && $newstate_is_archived);
+
+              $facility_changed_status = (
+                ($content_type_should_trigger === TRUE && $facility_status['has_field_operating_status_facility'] === TRUE) &&
+                ($is_triggerable_state && ($has_status_related_change || $oldstate_was_draft || $oldstate_was_archived || $archived_from_published))
+              );
+
+              $should_build = ($is_triggerable_state && $facility_changed_status);
+
+              // If a build should be triggered, we need to include a few more
+              // items for the log message formatting. Add it just in case.
+              $link = $this->getMockBuilder(Link::class)
+                ->disableOriginalConstructor()
+                ->getMock();
+              $link->expects($this->any())
+                ->method('toString')
+                ->willReturn('https://fake.link/');
+
+              $nodeProphecy->toLink()->willReturn($link);
+
+              $nodeProphecy->id()->willReturn('12345');
+
+              $description = $content_type . ' node: ';
+              foreach ($triggerable_state as $key => $val) {
+                $description .= $key . ': ' . $val . '; ';
+              }
+              foreach ($facility_status as $key => $val) {
+                $description .= $key . ': ' . $val . '; ';
+              }
+              foreach ($facility_moderation_status_change as $key => $val) {
+                $description .= $key . ': ' . $val . '; ';
+              }
+
+              $originalNode = $originalNodeProphecy->reveal();
+              $nodeProphecy->getOriginal()->willReturn($originalNode);
+              $node = $nodeProphecy->reveal();
+              $description .= $event_name;
+
+              yield $description => [
+                'enabled',
+                $node,
+                $should_build,
+                $event_name,
+              ];
             }
-
-            $nodeProphecy->get(Argument::type('string'))->will(function ($args) {
-              return $node_get_map[$args[0]][1];
-            });
-            $originalNodeProphecy->get(Argument::type('string'))->will(function ($args) {
-              return $original_node_get_map[$args[0]][1];
-            });
-
-            $is_triggerable_state = $triggerable_state['is_triggerable_state'];
-            $has_status_related_change = $facility_status['facility_status_field_changed'];
-            $oldstate_was_draft = $facility_moderation_status_change['old_state'] === 'draft';
-            $oldstate_was_archived = $facility_moderation_status_change['old_state'] === 'archived';
-            $oldstate_was_published = $facility_moderation_status_change['old_state'] === 'published';
-            $newstate_is_archived = $facility_moderation_status_change['new_state'] === 'archived';
-            $archived_from_published = ($oldstate_was_published && $newstate_is_archived);
-
-            $facility_changed_status = (
-              ($content_type_should_trigger === TRUE && $facility_status['has_field_operating_status_facility'] === TRUE) &&
-              ($is_triggerable_state && ($has_status_related_change || $oldstate_was_draft || $oldstate_was_archived || $archived_from_published))
-            );
-
-            $should_build = ($is_triggerable_state && $facility_changed_status);
-
-            // If a build should be triggered, we need to include a few more
-            // items for the log message formatting. Add it always just in case.
-            $link = $this->getMockBuilder(Link::class)
-              ->disableOriginalConstructor()
-              ->getMock();
-            $link->expects($this->any())
-              ->method('toString')
-              ->willReturn('https://fake.link/');
-
-            $nodeProphecy->toLink()->willReturn($link);
-
-            $nodeProphecy->id()->willReturn('12345');
-
-            $description = $content_type . ' node: ';
-            foreach ($triggerable_state as $key => $val) {
-              $description .= $key . ': ' . $val . '; ';
-            }
-            foreach ($facility_status as $key => $val) {
-              $description .= $key . ': ' . $val . '; ';
-            }
-            foreach ($facility_moderation_status_change as $key => $val) {
-              $description .= $key . ': ' . $val . '; ';
-            }
-
-            $originalNode = $originalNodeProphecy->reveal();
-            $nodeProphecy->getOriginal()->willReturn($originalNode);
-            $node = $nodeProphecy->reveal();
-
-            yield $description => [
-              'enabled',
-              $node,
-              $should_build,
-            ];
-
           }
         }
       }
@@ -451,6 +478,8 @@ class EntityEventSubscriberTest extends VaGovUnitTestBase {
    *   The entity to test.
    * @param bool $shouldTriggerContentRelease
    *   Whether or not the entity should trigger a content release.
+   * @param string $eventName
+   *   The event name to test, e.g. ENTITY_INSERT.
    *
    * @dataProvider stopEarlyTestDataProvider
    * @dataProvider nonFacilityNodeTestDataProvider
@@ -459,10 +488,9 @@ class EntityEventSubscriberTest extends VaGovUnitTestBase {
   public function testAutomaticBuildTriggering(
     string $strategyId,
     EntityInterface $entity,
-    bool $shouldTriggerContentRelease
+    bool $shouldTriggerContentRelease,
+    string $eventName
   ) {
-
-    $eventName = EntityHookEvents::ENTITY_INSERT;
 
     $strategyPluginProphecy = $this->prophesize(StrategyPluginInterface::class);
     $strategyPluginProphecy->shouldTriggerContentRelease($entity)
