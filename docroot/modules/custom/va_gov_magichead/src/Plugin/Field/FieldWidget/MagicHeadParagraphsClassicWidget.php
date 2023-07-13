@@ -16,4 +16,10 @@ use Drupal\entity_reference_hierarchy_paragraphs\Plugin\Field\FieldWidget\Inline
  *   }
  * )
  */
-class MagicHeadParagraphsClassicWidget extends InlineParagraphsHierarchyWidget {}
+class MagicHeadParagraphsClassicWidget extends InlineParagraphsHierarchyWidget {
+  public function formElement(FieldItemListInterface $items, $delta, array &$element, array &$form,
+    FormStateInterface $form_state) {
+    $element['magichead_paragraphs_classic']['#attached']['library'][] = 'va_gov_magichead/magichead_tree_lines';
+  }
+
+}
