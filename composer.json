@@ -6,12 +6,13 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require-dev": {
+        "behat/mink": "^1.10",
+        "behat/mink-browserkit-driver": "^2.1",
         "drupal/devel": "^5.0",
         "drupal/html_tag_usage": "^1.0@beta",
         "drupal/media_entity_generic": "^1.0"
     },
     "require": {
-        "acquia/drupal-spec-tool": "^5.0.0",
         "alchemy/zippy": "^1.0.0",
         "bower-asset/blazy": "^1.8",
         "bower-asset/cropper": "^4.1",
@@ -178,7 +179,6 @@
         "drupal/views_local_tasks": "^1.0",
         "drupal/workbench_access": "^2.0",
         "drupal/workbench_menu_access": "^2.0",
-        "drush-ops/behat-drush-endpoint": "^9.4.0",
         "drush/drush": "^11",
         "easyrdf/easyrdf": "1.1.1 as 0.9.1",
         "geocoder-php/mapbox-provider": "^1.3",
@@ -200,11 +200,11 @@
         "querypath/querypath": "^3.0",
         "simplesamlphp/simplesamlphp": "^1.18",
         "squizlabs/php_codesniffer": "^3.5",
+        "symfony/browser-kit": "^6.3",
         "symfony/config": "^4.0",
         "symfony/phpunit-bridge": "^5.1",
         "symfony/process": "^4.0",
         "symfony/routing": "^4.0",
-        "traviscarden/behat-table-comparison": "~0.2",
         "va-gov/content-build": "^0.0.3296",
         "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
@@ -214,7 +214,6 @@
     },
     "autoload": {
         "psr-4": {
-            "CustomDrupal\\": "tests/behat/Drupal",
             "Drupal\\va_gov_backend\\": "docroot/modules/custom/va_gov_backend/src",
             "Drupal\\va_gov_flags\\": "docroot/modules/custom/va_gov_flags/src",
             "Tests\\Support\\": "tests/phpunit/Support",
@@ -532,9 +531,6 @@
             "drupal/views_data_export": {
                 "3189135 - Use relative URL for export button": "https://www.drupal.org/files/issues/2022-08-06/use-relative-url-for-export-3189135-10.patch"
             },
-            "traviscarden/behat-table-comparison": {
-                "Throw meaningful message for duplicate entry. See https://github.com/TravisCarden/behat-table-comparison/pull/7": "patches/duplicate-row-message.patch"
-            },
             "drupal/sitewide_alert": {
                 "3290964 - Add drush commands for sitewide alerts": "https://www.drupal.org/files/issues/2023-06-22/3290964-add-drush-commands-2.patch"
             }
@@ -558,7 +554,6 @@
         "va:test": "Run all of the tests sequentially, stopping on the first failure.",
         "va:test:no-fail": "Run all of the tests sequentially, even if some fail.",
         "va:test:fast": "Runs the \"fast\" static analysis, linting, and unit tests.",
-        "va:test:behat": "Run Behat tests.",
         "va:test:check-cer": "Check the Corresponding Entity References fields.",
         "va:test:check-node-revision-logs": "Check the node revision log fields.",
         "va:test:check-taxonomy-revision-logs": "Check the taxonomy revision log fields.",
@@ -655,7 +650,6 @@
         "va:test": [
             "# Run all of the tests sequentially, stopping on the first failure.",
             "@composer validate",
-            "@va:test:behat",
             "@va:test:check-cer",
             "@va:test:check-node-revision-logs",
             "@va:test:check-taxonomy-revision-logs",
@@ -688,7 +682,6 @@
         "va:test:no-fail": [
             "# Run all of the tests sequentially, even if some fail.",
             "@composer validate || true",
-            "@va:test:behat || true",
             "@va:test:check-cer || true",
             "@va:test:check-node-revision-logs || true",
             "@va:test:check-taxonomy-revision-logs || true",
@@ -703,11 +696,6 @@
             "@va:test:status-error || true",
             "@va:test:stylelint-modules || true",
             "@va:test:stylelint-themes || true"
-        ],
-        "va:test:behat": [
-            "# Run Behat tests.",
-            "! ./scripts/should-run-directly.sh || ./tests/scripts/behat-tests.sh",
-            "./scripts/should-run-directly.sh || ddev composer va:test:behat --"
         ],
         "va:test:check-cer": [
             "# Check the Corresponding Entity References fields.",

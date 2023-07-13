@@ -12,11 +12,6 @@ tasks:
   # Any changes to test names or additions or removals must be updated in 
   # .github/workflows/set-tugboat-tests-pending.yml as well for the 
   # test to be required effectively.
-  va/tests/behat:
-    desc: Behat Tests
-    # See also `composer va:test:behat` in composer.json
-    cmds:
-      - ./tests/scripts/ci-wrapper.sh behat 'va:test:behat'
 
   va/tests/cypress:
     desc: Accessibility and Behavioral tests with Cypress
@@ -48,7 +43,6 @@ tasks:
   default:
     desc:
     deps:
-      - va/tests/behat
       - va/tests/cypress
       - va/tests/phpunit
       - va/tests/content-build-gql
