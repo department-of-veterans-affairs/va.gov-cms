@@ -29,9 +29,9 @@ We are currently working off a single `main` branch. `main` is protected and req
 1. `ddev composer install`
 1. `ddev start` or `ddev restart`
 1. `ddev pull va --skip-files`  or `ddev pull va` idf you need managed files (images and pdfs)
-1. Running `ddev test` will build the frontend web and run all tests (PHPUnit, Behat, accessibility, FE web) See [testing](testing.md) for additional details.
+1. Running `ddev test` will build the frontend web and run all tests (PHPUnit, accessibility, FE web) See [testing](testing.md) for additional details.
 1. If possible, write your test, before you write code.  The test should fail initially and not pass until you succeed.
-1. Fix code formatting issues with CodeSniffer, Drupal standard. (linters should run automatically upon trying to commit.
+1. Fix code formatting issues with CodeSniffer, Drupal standard (linters should run automatically upon trying to commit).
 1. Commit your changes. Each commit should be logically atomic (e.g. module adds in one commit, config in another, custom code in additional logical commits), and your commit messages should follow the pattern: "VACMS-123: A grammatically correct sentence starting with an action verb and ending with punctuation."
 _Example: VACMS-1234 Add configuration for menu reduction._
 1. Push work to your fork of the repository so a Pull Request may be created
