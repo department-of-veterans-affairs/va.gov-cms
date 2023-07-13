@@ -182,7 +182,7 @@ SOCKS proxy or PIV+GFE hardware is required for accessing VA internal network.
   - Notifies GitHub of deployment success or failure, with lnks to the environments.
 - Includes the FE/WEB Build process in the Drupal CI pipeline.
   - Front-end WEB project can be built inside PR environments by using the "Release Content" page.
-  - End-to-end testing of CMS+WEB with Behat and Cypress:
+  - End-to-end testing of CMS+WEB with Cypress:
     1. Make CMS updates: Change content, publish state, etc.
     1. Run WEB build command to rebuild static assets.
     1. Confirm CMS change is visible in WEB static assets.

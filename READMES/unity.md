@@ -18,8 +18,6 @@ the **CMS** build process:
   This tool automatically installs executable versions of Node and NPM at the specific version we set in `composer.json`.
 - Add to `composer.json`'s "scripts" section (post-install-cmd), to kick off "yarn build" and "npm build" commands after `composer install`.
 - Add Composer commands (See `composer.json`'s "scripts" section) to faciitate building and rebuilding the **WEB** project.
-- To confirm this entire stack is working, the Behat test suite includes editing a CMS node, running the web rebuild,
-  then confirms edited content is visible.
 
 ### Developing WEB and CMS Together
 
