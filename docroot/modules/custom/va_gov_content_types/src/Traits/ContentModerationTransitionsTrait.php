@@ -24,6 +24,11 @@ trait ContentModerationTransitionsTrait {
   /**
    * {@inheritDoc}
    */
+  abstract public function hasOriginal(): bool;
+
+  /**
+   * {@inheritDoc}
+   */
   abstract public function getOriginal(): VaNodeInterface;
 
   /**
@@ -58,6 +63,9 @@ trait ContentModerationTransitionsTrait {
    *   TRUE if the node was previously published, FALSE otherwise.
    */
   public function wasPublished(): bool {
+    if (!$this->hasOriginal()) {
+      return FALSE;
+    }
     return $this->getOriginalModerationState() === ContentModerationInterface::MODERATION_STATE_PUBLISHED;
   }
 
@@ -68,6 +76,9 @@ trait ContentModerationTransitionsTrait {
    *   TRUE if the node was previously archived, FALSE otherwise.
    */
   public function wasArchived(): bool {
+    if (!$this->hasOriginal()) {
+      return FALSE;
+    }
     return $this->getOriginalModerationState() === ContentModerationInterface::MODERATION_STATE_ARCHIVED;
   }
 
@@ -78,6 +89,9 @@ trait ContentModerationTransitionsTrait {
    *   TRUE if the node was previously a draft, FALSE otherwise.
    */
   public function wasDraft(): bool {
+    if (!$this->hasOriginal()) {
+      return FALSE;
+    }
     return $this->getOriginalModerationState() === ContentModerationInterface::MODERATION_STATE_DRAFT;
   }
 
@@ -98,6 +112,9 @@ trait ContentModerationTransitionsTrait {
    *   TRUE if the node _was_ published and _is_ now archived, otherwise FALSE.
    */
   public function didTransitionFromPublishedToArchived(): bool {
+    if (!$this->hasOriginal()) {
+      return FALSE;
+    }
     // If the current state is archived, isPublished() lies to us because the
     // save just happened, so we have to look back in time.
     return $this->wasPublished() && $this->isArchived();

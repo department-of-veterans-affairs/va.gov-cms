@@ -33,7 +33,7 @@ enum Environment: string implements EnvironmentInterface {
    *   If an invalid environment is detected.
    */
   public static function fromSettings(Settings $settings): Environment {
-    $environment = $settings->get('va_gov_environment')['environment'];
+    $environment = $settings->get('va_gov_environment')['environment'] ?? '(no value provided)';
     try {
       return static::from($environment);
     }
