@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "043b08814c5bb58ea2acd0ed99db94ba",
+    "content-hash": "fa5a3c81187eccf2a55d581530eba545",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -9173,34 +9173,34 @@
         },
         {
             "name": "drupal/message_ui",
-            "version": "1.0.0-beta4",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/message_ui.git",
-                "reference": "8.x-1.0-beta4"
+                "reference": "8.x-1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/message_ui-8.x-1.0-beta4.zip",
-                "reference": "8.x-1.0-beta4",
-                "shasum": "a10405fffdfd26d1a6b18d6ce762f8b79dedd29f"
+                "url": "https://ftp.drupal.org/files/projects/message_ui-8.x-1.0.zip",
+                "reference": "8.x-1.0",
+                "shasum": "c81e184bde08152d639fb09a5329c85b8a4b60f0"
             },
             "require": {
-                "drupal/core": "^8 || ^9",
-                "drupal/message": "*"
+                "drupal/core": "^9 || ^10",
+                "drupal/message": "^1"
             },
             "require-dev": {
                 "drupal/message": "*",
-                "drupal/message_notify": "*"
+                "drupal/message_notify": "^1"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0-beta4",
-                    "datestamp": "1607775367",
+                    "version": "8.x-1.0",
+                    "datestamp": "1688399905",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
@@ -9222,10 +9222,14 @@
                     "homepage": "https://www.drupal.org/user/1812910"
                 }
             ],
-            "description": "UI for the Message module",
-            "homepage": "https://www.drupal.org/project/message_ui",
+            "description": "Message ui",
+            "homepage": "http://drupal.org/project/message_ui",
+            "keywords": [
+                "Drupal"
+            ],
             "support": {
-                "source": "https://git.drupalcode.org/project/message_ui"
+                "source": "http://cgit.drupalcode.org/message_ui",
+                "issues": "http://drupal.org/project/issues/message_ui"
             }
         },
         {
