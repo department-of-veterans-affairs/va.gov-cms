@@ -14,7 +14,7 @@ Here are the steps to follow when setting up a new UX research process:
 **Pre-work**
 - [ ] Align with Product Manager & Product Owner on the high-level purpose and scope of the research
 - [ ] Review Research Repo for previous relevant research
-- [ ] Read and understand [Platform's Reasearch Guidleines](https://depo-platform-documentation.scrollhelp.site/research-design/). This runbook is meant help reduce time creating tickets, not to replace or overrule those guidelines.
+- [ ] Read and understand [Platform's Research Guidleines](https://depo-platform-documentation.scrollhelp.site/research-design/). This runbook is meant help reduce time creating tickets, not to replace or overrule those guidelines.
 
 **Setting up your Research Epic**
 - [ ] Create a Research [Epic](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Epic%2C+Needs+refining&template=cms-epic.md&title=%3CInsert+summary+of+epic%3E) for your product/initiative

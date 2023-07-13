@@ -92,6 +92,7 @@ class ContentModerationTraitTest extends VaGovExistingSiteBase {
     $nodeStorage = $entityTypeManager->getStorage('node');
     $nids = $nodeStorage->getQuery()
       ->condition('moderation_state', $moderationState)
+      ->accessCheck(FALSE)
       ->execute();
     $firstNid = reset($nids);
     $node = $nodeStorage->load($firstNid);

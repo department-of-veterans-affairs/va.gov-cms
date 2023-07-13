@@ -78,7 +78,7 @@ The _WEB_ build process consumes the content from the _CMS_ in the same environm
 Within each environment, the static HTML for the _WEB_ site is occasionally
 "rebuilt" so that the latest content from that environment's _CMS_ is used.
 
-The _WEB_ build process is tested in the CI system to ensure compatiblity with the
+The _WEB_ build process is tested in the CI system to ensure compatibility with the
 CMS content schema.
 
 The _WEB_ build process is triggered automatically by certain actions in the CMS
