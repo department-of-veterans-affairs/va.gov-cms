@@ -13,7 +13,7 @@ trait DidChangeOperatingStatusTrait {
   /**
    * {@inheritDoc}
    */
-  abstract public function hasField($fieldName): bool;
+  abstract public function hasField($fieldName);
 
   /**
    * {@inheritDoc}
