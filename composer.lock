@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "67e16b4f91de820a921b6ce4eae46b13",
+    "content-hash": "fa5a3c81187eccf2a55d581530eba545",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -9173,34 +9173,34 @@
         },
         {
             "name": "drupal/message_ui",
-            "version": "1.0.0-beta4",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/message_ui.git",
-                "reference": "8.x-1.0-beta4"
+                "reference": "8.x-1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/message_ui-8.x-1.0-beta4.zip",
-                "reference": "8.x-1.0-beta4",
-                "shasum": "a10405fffdfd26d1a6b18d6ce762f8b79dedd29f"
+                "url": "https://ftp.drupal.org/files/projects/message_ui-8.x-1.0.zip",
+                "reference": "8.x-1.0",
+                "shasum": "c81e184bde08152d639fb09a5329c85b8a4b60f0"
             },
             "require": {
-                "drupal/core": "^8 || ^9",
-                "drupal/message": "*"
+                "drupal/core": "^9 || ^10",
+                "drupal/message": "^1"
             },
             "require-dev": {
                 "drupal/message": "*",
-                "drupal/message_notify": "*"
+                "drupal/message_notify": "^1"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0-beta4",
-                    "datestamp": "1607775367",
+                    "version": "8.x-1.0",
+                    "datestamp": "1688399905",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
@@ -9222,10 +9222,14 @@
                     "homepage": "https://www.drupal.org/user/1812910"
                 }
             ],
-            "description": "UI for the Message module",
-            "homepage": "https://www.drupal.org/project/message_ui",
+            "description": "Message ui",
+            "homepage": "http://drupal.org/project/message_ui",
+            "keywords": [
+                "Drupal"
+            ],
             "support": {
-                "source": "https://git.drupalcode.org/project/message_ui"
+                "source": "http://cgit.drupalcode.org/message_ui",
+                "issues": "http://drupal.org/project/issues/message_ui"
             }
         },
         {
@@ -11851,26 +11855,26 @@
         },
         {
             "name": "drupal/string_field_formatter",
-            "version": "2.0.0",
+            "version": "2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/string_field_formatter.git",
-                "reference": "2.0.0"
+                "reference": "2.0.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/string_field_formatter-2.0.0.zip",
-                "reference": "2.0.0",
-                "shasum": "deac34befbe9bc13977223da31058cbc66251a81"
+                "url": "https://ftp.drupal.org/files/projects/string_field_formatter-2.0.2.zip",
+                "reference": "2.0.2",
+                "shasum": "22055a38ffaa0de12802be186bf348c1aeb1a52f"
             },
             "require": {
-                "drupal/core": "^8 || ^9"
+                "drupal/core": "^8 || ^9 || ^10"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.0.0",
-                    "datestamp": "1604697749",
+                    "version": "2.0.2",
+                    "datestamp": "1687527067",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -17985,16 +17989,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.23",
+            "version": "1.10.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "65ab678d1248a8bc6fde456f0d7ff3562a61a4cd"
+                "reference": "578f4e70d117f9a90699324c555922800ac38d8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/65ab678d1248a8bc6fde456f0d7ff3562a61a4cd",
-                "reference": "65ab678d1248a8bc6fde456f0d7ff3562a61a4cd",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/578f4e70d117f9a90699324c555922800ac38d8c",
+                "reference": "578f4e70d117f9a90699324c555922800ac38d8c",
                 "shasum": ""
             },
             "require": {
@@ -18043,7 +18047,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-07-04T13:32:44+00:00"
+            "time": "2023-07-06T12:11:37+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -18413,16 +18417,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.6.9",
+            "version": "9.6.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "a9aceaf20a682aeacf28d582654a1670d8826778"
+                "reference": "a6d351645c3fe5a30f5e86be6577d946af65a328"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/a9aceaf20a682aeacf28d582654a1670d8826778",
-                "reference": "a9aceaf20a682aeacf28d582654a1670d8826778",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/a6d351645c3fe5a30f5e86be6577d946af65a328",
+                "reference": "a6d351645c3fe5a30f5e86be6577d946af65a328",
                 "shasum": ""
             },
             "require": {
@@ -18496,7 +18500,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6.9"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6.10"
             },
             "funding": [
                 {
@@ -18512,7 +18516,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-06-11T06:13:56+00:00"
+            "time": "2023-07-10T04:04:23+00:00"
         },
         {
             "name": "politsin/jquery-ui-touch-punch",
