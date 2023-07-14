@@ -3,7 +3,8 @@
 namespace Drupal\va_gov_content_types\Traits;
 
 use Drupal\va_gov_content_types\Entity\VaNodeInterface;
-use Drupal\va_gov_content_types\Exception\NotModeratedContentTypeException;
+use Drupal\va_gov_content_types\Exception\NoOriginalExistsException;
+use Drupal\va_gov_content_types\Exception\UnmoderatedContentTypeException;
 use Drupal\va_gov_content_types\Interfaces\ContentModerationInterface;
 
 /**
@@ -37,6 +38,11 @@ trait ContentModerationTransitionsTrait {
   abstract public function isArchived(): bool;
 
   /**
+   * {@inheritDoc}
+   */
+  abstract public function get($fieldName);
+
+  /**
    * Get the original moderation_state value.
    *
    * @return string
@@ -44,15 +50,16 @@ trait ContentModerationTransitionsTrait {
    *
    * @throws \Drupal\va_gov_content_types\Exception\NoOriginalExistsException
    *   Thrown when the node has no original version.
-   * @throws \Drupal\va_gov_content_types\Exception\NotModeratedContentTypeException
+   * @throws \Drupal\va_gov_content_types\Exception\UnmoderatedContentTypeException
    *   Thrown when the node is not under content moderation.
    */
   public function getOriginalModerationState(): string {
-    /** @var \Drupal\va_gov_content_types\Interfaces\ContentModerationInterface $this */
     if (!$this->isModerated()) {
-      throw new NotModeratedContentTypeException('This node is not under content moderation.');
+      throw new UnmoderatedContentTypeException('This node is not under content moderation.');
     }
-    /** @var \Drupal\va_gov_content_types\Interfaces\GetOriginalInterface $this */
+    if (!$this->hasOriginal()) {
+      throw new NoOriginalExistsException('This node does not have an original version.');
+    }
     return $this->getOriginal()->getModerationState();
   }
 

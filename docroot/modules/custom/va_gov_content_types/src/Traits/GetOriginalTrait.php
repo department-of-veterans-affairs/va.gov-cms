@@ -12,6 +12,11 @@ use Drupal\va_gov_content_types\Exception\NoOriginalExistsException;
 trait GetOriginalTrait {
 
   /**
+   * {@inheritDoc}
+   */
+  abstract public function get($fieldName);
+
+  /**
    * Indicates whether the node has an original version.
    *
    * @return bool

@@ -21,6 +21,7 @@ class LocalFilesystemBuildFileTest extends VaGovUnitTestBase {
   /**
    * Test the submit() function.
    *
+   * @covers ::__construct
    * @covers ::submit
    */
   public function testSubmit() : void {
@@ -36,6 +37,7 @@ class LocalFilesystemBuildFileTest extends VaGovUnitTestBase {
   /**
    * Test the submit() function with a FileException.
    *
+   * @covers ::__construct
    * @covers ::submit
    */
   public function testSubmitException(): void {
