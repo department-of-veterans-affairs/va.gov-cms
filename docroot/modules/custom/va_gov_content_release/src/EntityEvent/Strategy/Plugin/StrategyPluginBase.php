@@ -21,6 +21,8 @@ abstract class StrategyPluginBase extends PluginBase implements StrategyPluginIn
 
   /**
    * {@inheritDoc}
+   *
+   * @codeCoverageIgnore
    */
   public function __construct(
     array $configuration,
@@ -34,6 +36,8 @@ abstract class StrategyPluginBase extends PluginBase implements StrategyPluginIn
 
   /**
    * {@inheritDoc}
+   *
+   * @codeCoverageIgnore
    */
   public static function create(
     ContainerInterface $container,
