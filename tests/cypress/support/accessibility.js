@@ -11,9 +11,6 @@ const axeContext = {
     [
       "ul.pager__items", // See department-of-veterans-affairs/va.gov-cms#12912.
     ],
-    [
-      "aria-allowed-attr", // See department-of-veterans-affairs/va.gov-cms#14358.
-    ],
   ],
 };
 
@@ -21,6 +18,9 @@ const axeRuntimeOptions = {
   runOnly: {
     type: "tag",
     values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"],
+  },
+  rules: {
+    "aria-allowed-attr": { enabled: false },  // See department-of-veterans-affairs/va.gov-cms#14358.
   },
 };
 
