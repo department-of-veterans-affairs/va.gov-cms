@@ -15,7 +15,7 @@ Feature: CMS Users may effectively create & edit content
     And I click the "Add new banner alert" button
     And I select option "Information" from dropdown "Alert type"
     And I fill in "Title" with "[Test Data] Alert Title"
-    And I fill in ckeditor "field-body-0-value" with "[Test Data] Alert Body"
+    And I fill in ckeditor "edit-field-banner-alert-form-1-field-body-0-value" with "[Test Data] Alert Body"
     And I click the "Create banner alert" button
     And I wait "5" seconds
     And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."

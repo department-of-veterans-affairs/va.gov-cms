@@ -11,6 +11,9 @@ const axeContext = {
     [
       "ul.pager__items", // See department-of-veterans-affairs/va.gov-cms#12912.
     ],
+    [
+      "aria-allowed-attr", // See department-of-veterans-affairs/va.gov-cms#14358.
+    ],
   ],
 };
 

@@ -52,24 +52,30 @@
 
         if (parentClasses.includes("menu-level-3")) {
           level4 = item;
-          level3 = item.closest("li.menu-item--expanded.menu-level-2")
-            .firstElementChild;
-          level2 = level3.closest("li.menu-item--expanded.menu-level-1")
-            .firstElementChild;
-          level1 = level2.closest("li.menu-item--expanded.menu-level-0")
-            .firstElementChild;
+          level3 = item.closest(
+            "li.menu-item--expanded.menu-level-2"
+          ).firstElementChild;
+          level2 = level3.closest(
+            "li.menu-item--expanded.menu-level-1"
+          ).firstElementChild;
+          level1 = level2.closest(
+            "li.menu-item--expanded.menu-level-0"
+          ).firstElementChild;
         }
         if (parentClasses.includes("menu-level-2")) {
           level3 = item;
-          level2 = item.closest("li.menu-item--expanded.menu-level-1")
-            .firstElementChild;
-          level1 = level2.closest("li.menu-item--expanded.menu-level-0")
-            .firstElementChild;
+          level2 = item.closest(
+            "li.menu-item--expanded.menu-level-1"
+          ).firstElementChild;
+          level1 = level2.closest(
+            "li.menu-item--expanded.menu-level-0"
+          ).firstElementChild;
         }
         if (parentClasses.includes("menu-level-1")) {
           level2 = item;
-          level1 = item.closest("li.menu-item--expanded.menu-level-0")
-            .firstElementChild;
+          level1 = item.closest(
+            "li.menu-item--expanded.menu-level-0"
+          ).firstElementChild;
         }
         if (parentClasses.includes("menu-level-0")) {
           level1 = item;
@@ -85,37 +91,35 @@
         const editPageTypes = ["content-page", "bulk-content-page"];
         // Push cms data into dataLayer.
         selector.forEach((el) => {
-          $(el, context)
-            .once()
-            .click(() => {
-              dataCollection.event = event;
+          $(once("pushGTM", el, context)).click(() => {
+            dataCollection.event = event;
 
-              // Special handling for content admin pages.
-              if (editPageTypes.includes(subtype)) {
-                dataCollection.contentTitle = $(el)
-                  .parent()
-                  .siblings(".views-field-title")
-                  .text()
-                  .trim();
-                dataCollection.contentType = $(el)
-                  .parent()
-                  .siblings(".views-field-type")
-                  .text()
-                  .trim();
-                dataCollection.contentOwner = $(el)
-                  .parent()
-                  .siblings(".views-field-field-administration")
-                  .text()
-                  .trim();
-              }
+            // Special handling for content admin pages.
+            if (editPageTypes.includes(subtype)) {
+              dataCollection.contentTitle = $(el)
+                .parent()
+                .siblings(".views-field-title")
+                .text()
+                .trim();
+              dataCollection.contentType = $(el)
+                .parent()
+                .siblings(".views-field-type")
+                .text()
+                .trim();
+              dataCollection.contentOwner = $(el)
+                .parent()
+                .siblings(".views-field-field-administration")
+                .text()
+                .trim();
+            }
 
-              // Special handling for menu nav items.
-              menuTraverser(el);
-              // Unset old Unique ID.
-              dataCollection["gtm.uniqueEventId"] = "";
-              // Now send it to the dataLayer.
-              window.dataLayer.push(dataCollection);
-            });
+            // Special handling for menu nav items.
+            menuTraverser(el);
+            // Unset old Unique ID.
+            dataCollection["gtm.uniqueEventId"] = "";
+            // Now send it to the dataLayer.
+            window.dataLayer.push(dataCollection);
+          });
         });
       }
 
@@ -201,11 +205,9 @@
       // Three behaviors loaded on edit pages.
       // This causes function to fire three times on page load.
       // Once method used to resolve.
-      $(window, context)
-        .once("vaGovTagTracker")
-        .on("load", () => {
-          gtmPageLoadPush();
-        });
+      $(once("vaGovTagTracker", window, context)).on("load", () => {
+        gtmPageLoadPush();
+      });
     },
   };
 })(jQuery, Drupal);
