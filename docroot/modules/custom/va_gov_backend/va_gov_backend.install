@@ -36,6 +36,7 @@ function va_gov_backend_update_8002() {
     $storage_handler = \Drupal::entityTypeManager()->getStorage("node");
     $va_bene_title_result = \Drupal::entityQuery('node')
       ->condition('title', $item, '=')
+      ->accessCheck(FALSE)
       ->execute();
     $entities = $storage_handler->loadMultiple($va_bene_title_result);
     if ($item === 'Benefit Materials') {
@@ -56,9 +57,6 @@ function va_gov_backend_update_8002() {
   ]);
   $node->save();
   $nid = (int) $node->id();
-
-  // Load the MenuLinkManager.
-  $menu_handler = \Drupal::service('plugin.manager.menu.link');
 
   $outreach_landing_page = MenuLinkContent::create([
     'title' => 'Outreach and events',
@@ -127,14 +125,14 @@ function va_gov_backend_update_8002() {
 
   // Change our ef to new node.
   $connection = \Drupal::database();
-  $swap = $connection->update('node__field_office')
+  $connection->update('node__field_office')
     ->fields([
       'field_office_target_id' => $nid,
     ])
     ->condition('field_office_target_id', $swap_key)
     ->execute();
 
-  $swap_revision = $connection->update('node_revision__field_office')
+  $connection->update('node_revision__field_office')
     ->fields([
       'field_office_target_id' => $nid,
     ])

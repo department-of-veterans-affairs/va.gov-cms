@@ -42,4 +42,28 @@ abstract class VaGovExistingSiteBase extends ExistingSiteBase {
     $this->writeLogMessage($message);
   }
 
+  /**
+   * Get an arbitrary node of the given type.
+   *
+   * The specifics of the node shouldn't matter, so we just grab the first one.
+   *
+   * Don't use this if you're going to change the node.
+   *
+   * @param string $type
+   *   The content type to get.
+   *
+   * @return \Drupal\va_gov_content_types\Entity\VaNodeInterface
+   *   The node of the given type.
+   */
+  public function getArbitraryNodeOfType(string $type) {
+    $entityTypeManager = \Drupal::entityTypeManager();
+    $nodeStorage = $entityTypeManager->getStorage('node');
+    $nids = $nodeStorage->getQuery()
+      ->condition('type', $type)
+      ->execute();
+    $firstNid = reset($nids);
+    $node = $nodeStorage->load($firstNid);
+    return $node;
+  }
+
 }

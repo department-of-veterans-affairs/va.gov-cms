@@ -281,26 +281,6 @@ parameters:
 			path: docroot/modules/custom/va_gov_user/src/Service/UserPermsService.php
 
 		-
-			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
-			count: 2
-			path: tests/behat/Drupal/ContentModelContext.php
-
-		-
-			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
-			count: 4
-			path: tests/behat/Drupal/ContentModelContextCustom.php
-
-		-
-			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
-			count: 1
-			path: tests/behat/Drupal/ContextBase.php
-
-		-
-			message: "#^\\\\Drupal calls should be avoided in classes, use dependency injection instead$#"
-			count: 3
-			path: tests/behat/Drupal/FeatureContext.php
-
-		-
 			message: "#^Access to an undefined property Drupal\\\\Core\\\\Field\\\\FieldItemInterface\\:\\:\\$value\\.$#"
 			count: 2
 			path: docroot/modules/custom/va_gov_resources_and_support/va_gov_resources_and_support.deploy.php

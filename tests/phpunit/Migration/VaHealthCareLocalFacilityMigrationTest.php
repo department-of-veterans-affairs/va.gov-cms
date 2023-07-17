@@ -18,7 +18,8 @@ class VaHealthCareLocalFacilityMigrationTest extends VaGovExistingSiteBase {
   /**
    * Test the VA Health Care Local Facility Migration.
    *
-   * This test first imports a new form and verifies that a new node is created.
+   * This test first imports a new facility
+   * and verifies that a new node is created.
    * It then re-runs the same migration with updated data and verifies that the
    * updated data has been saved to the node.
    *
@@ -44,7 +45,7 @@ class VaHealthCareLocalFacilityMigrationTest extends VaGovExistingSiteBase {
   }
 
   /**
-   * Data provider for testVaFormMigration.
+   * Data provider for testVaLocalHealthCareFacilityMigration.
    *
    * @return \Generator
    *   Test assertion data.

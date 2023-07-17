@@ -36,7 +36,7 @@ function _va_gov_migrate_move_data_file($filename) {
   if (empty($new_location)) {
     // Something went wrong. Throw exception.
     throw new UpdateException(
-      t("Failed to move data source file: @file", ['@file' => $file_source])
+      "Failed to move data source file: $file_source"
     );
   }
   else {

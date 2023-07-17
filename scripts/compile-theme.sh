@@ -17,6 +17,7 @@ export NODE_EXTRA_CA_CERTS=/etc/pki/tls/certs/ca-bundle.crt
 export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=TRUE
 
 pushd ./docroot/core
+nvm install 16
 yarn install
 yarn build:css
 popd

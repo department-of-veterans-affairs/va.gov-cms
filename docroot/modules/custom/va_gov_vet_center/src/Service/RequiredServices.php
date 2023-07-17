@@ -149,6 +149,7 @@ class RequiredServices {
         $vet_center_query = $node_storage->getQuery();
         $vet_center_nids = $vet_center_query
           ->condition('type', 'vet_center')
+          ->accessCheck(FALSE)
           ->execute();
 
         // Get all the facility health service node ids using this term.
@@ -157,6 +158,7 @@ class RequiredServices {
         $facility_service_nids = $service_query
           ->condition('type', 'vet_center_facility_health_servi')
           ->condition('field_service_name_and_descripti.target_id', $term_id)
+          ->accessCheck(FALSE)
           ->execute();
 
         // Load all the facility health service nodes.
@@ -206,6 +208,7 @@ class RequiredServices {
       // Return an array of all VHA health service terms.
       $term_ids = $term_query
         ->condition('vid', 'health_care_service_taxonomy')
+        ->accessCheck(FALSE)
         ->execute();
       $service_terms = $term_storage->loadMultiple($term_ids);
       $required_services = [];
@@ -261,6 +264,7 @@ class RequiredServices {
       ->condition('type', 'vet_center_facility_health_servi')
       ->condition('field_office.target_id', $facility_id)
       ->condition('field_service_name_and_descripti.target_id', $term_id)
+      ->accessCheck(FALSE)
       ->execute();
 
     $has_service = (count($facility_service_nids) > 0 ? TRUE : FALSE);

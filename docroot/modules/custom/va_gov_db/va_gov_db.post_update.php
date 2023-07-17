@@ -23,7 +23,7 @@ function va_gov_db_post_update_resave_facility_nodes(&$sandbox) {
       ->condition('type', 'regional_health_care_service_des');
 
     $nids_to_update = $query
-      ->condition($group)->execute();
+      ->condition($group)->accessCheck(FALSE)->execute();
     $result_count = count($nids_to_update);
     $sandbox['total'] = $result_count;
     $sandbox['current'] = 0;
