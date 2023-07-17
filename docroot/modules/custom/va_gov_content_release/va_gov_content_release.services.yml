@@ -31,3 +31,6 @@ services:
   va_gov_content_release.request:
     class: Drupal\va_gov_content_release\Request\Request
     arguments: ['@entity_type.manager']
+  va_gov_content_release.frontend_version:
+    class: Drupal\va_gov_content_release\FrontendVersion\FrontendVersion
+    arguments: ['@state']

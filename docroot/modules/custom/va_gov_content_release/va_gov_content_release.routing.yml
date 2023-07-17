@@ -6,10 +6,10 @@ va_gov_content_release.form:
   requirements:
     _permission: "va gov deploy content build"
 
-va_gov_content_release.form.local:
-  path: "/admin/content/deploy/local"
+va_gov_content_release.form.local_dev:
+  path: "/admin/content/deploy/local_dev"
   defaults:
-    _title: '[TEST] Local manual content release'
+    _title: '[TEST] Local Dev manual content release'
     _form: '\Drupal\va_gov_build_trigger\Form\LocalBuildTriggerForm'
   requirements:
     _permission: "va gov deploy content build"
