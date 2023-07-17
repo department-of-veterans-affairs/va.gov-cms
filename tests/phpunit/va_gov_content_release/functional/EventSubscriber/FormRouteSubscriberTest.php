@@ -72,7 +72,7 @@ class FormRouteSubscriberTest extends VaGovExistingSiteBase {
   public function formTestRoutesProvider() {
     return [
       ['brd', BrdBuildTriggerForm::class],
-      ['local', LocalBuildTriggerForm::class],
+      ['local_dev', LocalBuildTriggerForm::class],
       ['tugboat', TugboatBuildTriggerForm::class],
     ];
   }
