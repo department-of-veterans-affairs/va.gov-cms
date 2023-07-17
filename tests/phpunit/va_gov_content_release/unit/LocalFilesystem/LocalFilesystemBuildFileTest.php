@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit\va_gov_environment\unit\LocalFilesystem;
+namespace tests\phpunit\va_gov_content_release\unit\LocalFilesystem;
 
 use Drupal\va_gov_content_release\LocalFilesystem\LocalFilesystemBuildFile;
 use Tests\Support\Classes\VaGovUnitTestBase;
