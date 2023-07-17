@@ -17,8 +17,11 @@ Content releases can be requested in one of four ways:
 
 Related code: `Drupal\va_gov_build_trigger\Service\BuildScheduler`
 
-Builds are automatically requested at the top of every hour 8am-5pm Eastern Time, Monday through Friday.
+As of December 2022, content releases run continuously on a rolling basis from 8 a.m. - 8 p.m. Eastern Time, Monday through Friday, except for some federal holidays.
 
+In general, the content release process will take about 30 to 45 minutes to complete if there are no technical or content issues. This is because all published content, not just new content, is sent to VA.gov each time.
+
+**Note**: 3:30 p.m. Eastern Time is the daily update that will include the content release. It will always take longer than scheduled content-only releases.
 
 ### Content-triggered
 
