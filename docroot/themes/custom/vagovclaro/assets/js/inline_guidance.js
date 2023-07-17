@@ -4,10 +4,10 @@
 * https://www.drupal.org/node/2815083
 * @preserve
 **/
-(($, Drupal) => {
+(($, Drupal, once) => {
   Drupal.behaviors.vaGovInlineGuidance = {
     attach: () => {
-      $(once("inline_guidance", "#inline-guidance-trigger")).click(e => {
+      $(once("inline-guidance", "#inline-guidance-trigger")).click(e => {
         e.preventDefault();
         if ($("#inline-guidance-text-box").hasClass("hide")) {
           $("#inline-guidance-text-box").removeClass("hide");
@@ -27,4 +27,4 @@
       });
     }
   };
-})(jQuery, Drupal);
+})(jQuery, Drupal, once);

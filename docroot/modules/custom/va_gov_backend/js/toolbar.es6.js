@@ -2,7 +2,7 @@
  * @file
  */
 
-(($, Drupal, Tippy) => {
+(($, Drupal, once, Tippy) => {
   Drupal.behaviors.vaGovToolbar = {
     attach(context) {
       const loadingText =

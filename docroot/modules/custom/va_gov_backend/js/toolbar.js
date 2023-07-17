@@ -4,7 +4,7 @@
 * https://www.drupal.org/node/2815083
 * @preserve
 **/
-(function ($, Drupal, Tippy) {
+(function ($, Drupal, once, Tippy) {
   Drupal.behaviors.vaGovToolbar = {
     attach: function attach(context) {
       var loadingText = "<div style='height: 20px; width: 40px;' class='claro-spinner'></div>";

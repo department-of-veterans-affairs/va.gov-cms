@@ -4,7 +4,7 @@
 * https://www.drupal.org/node/2815083
 * @preserve
 **/
-(function ($, Drupal) {
+(function ($, Drupal, once) {
   Drupal.behaviors.vaGovTagTracker = {
     attach: function attach(context, settings) {
       function titleResolver(data) {
@@ -122,4 +122,4 @@
       });
     }
   };
-})(jQuery, Drupal);
+})(jQuery, Drupal, once);

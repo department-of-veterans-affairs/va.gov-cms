@@ -2,7 +2,7 @@
  * @file
  */
 
-(($, Drupal) => {
+(($, Drupal, once) => {
   Drupal.behaviors.vaGovTagTracker = {
     attach(context, settings) {
       // Handle different title data scenarios.
@@ -210,4 +210,4 @@
       });
     },
   };
-})(jQuery, Drupal);
+})(jQuery, Drupal, once);
