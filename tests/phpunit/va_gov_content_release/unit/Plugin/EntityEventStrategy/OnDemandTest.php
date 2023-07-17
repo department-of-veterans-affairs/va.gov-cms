@@ -104,7 +104,7 @@ class OnDemandTest extends VaGovUnitTestBase {
     $nodeProphecy->toLink(Argument::cetera())->willReturn($link);
     $nodeProphecy->shouldTriggerContentRelease()->willReturn(TRUE);
     return [
-      'page' => [
+      'va_node' => [
         $nodeProphecy->reveal(),
         'A content release was triggered by a change to <em class="placeholder">va_node</em>: <em class="placeholder">https://fake.link/</em> (node<em class="placeholder">123</em>).',
       ],
