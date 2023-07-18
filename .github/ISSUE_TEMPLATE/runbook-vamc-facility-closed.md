@@ -27,9 +27,36 @@ Facility API ID: <insert_facility_API_ID>
 
 ### VAMC facility closure
 
+A VAMC Facility closure is when a existing facility with patients is no longer serving patients for a prolonged (likely permanent) amount of time. The outcome we are trying to achieve is continued care for our Veterans. Therefore we are looking to inform and redirect.
+
+Ideal state is
+- Editor notifies CMS that Facility will be closing on X date
+- Editor uses facility status of "notice" and facility status more info of "We're closing on X date, information for current patients goes here".
+- On X date, move "facility status" to "Closed/permanantely closed" facility status more info of "We have closed on X date, information for current patients goes here". Should be in place for a certain set time (30 days? 60 days?)
+- Wherever we are routing patients, we should put in a Facility Notice "welcome people from the place we closed" Should be in place for a certain set time (30 days? 60 days? whatever is the same as above)
+- After that time frame, old facility get archived by CMS including all services. Redirect is put in place for old facility to wherever we are routing patients facility.
+
+What typically happens is:
+- We (CMS) learn from Lighthouse that a Facility no longer exists
+- We contact editor + VHA DM to verify that Lighthouse is not in error
+- We learn from Facility where patients should be taken care of as part of that facility "If this clinic is closing, where are patients being told they are receiving care now?"
+- Move "facility status" for the closed facility to "Closed/permanantely closed" facility status more info of "We have closed on X date, information for current patients goes here". Should be in place for a certain set time (30 days? 60 days?)
+- Wherever we are routing patients, we should put in a Facility Notice "welcome people from the place we closed" Should be in place for a certain set time (30 days? 60 days? whatever is the same as above)
+- After that time frame, old facility get archived by CMS including all services. Redirect is put in place for old facility to wherever we are routing patients facility.
+
+  For consideration: Health Care System Banner could be used.
+
+  Note: a closure is different than a replacement - meaning we're closing a facility and opening a new facility nearby that will serve (for the most part) the same Veteran population. That's a different problem to solve
+
+In that case we should
+- use new facility runbook
+- use of two facilities is unnecessary because it's a 1-to-1 swap, a redirect is sufficient
+- "We've moved" facility notice should be used.
+
+
 #### CMS Help desk steps
 **Note: If the help desk is waiting on information from the facility staff or editor, add the "Awaiting editor" flag to the facility with a log message that includes a link to this ticket. Remove the flag when the ticket is ready to be worked by the Facilities team. Be sure to preserve the current moderation state of the node when adding or removing the flag.**
-- [ ] 1. CMS team becomes aware that the facility is no longer on the Facility API.
+- [ ] 1. CMS team becomes aware that the facility is closing (via above). Ideally we would learn about this before it is no longer in the Facility API.
 - [ ] 2. If we don't already have context (say, via a HD ticket submitted by an editor), check with editor to find out more about the status of the facility
 - [ ] 3. Find out if there are any services or events tied to the facility to be archived that should be moved to a new facility or otherwise preserved and updated
 
