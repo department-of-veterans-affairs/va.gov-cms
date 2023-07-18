@@ -12,7 +12,6 @@ use Drupal\va_gov_build_trigger\Service\BuildSchedulerInterface;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManagerInterface;
 use Drush\Commands\DrushCommands;
-use Psr\Log\LoggerInterface;
 
 /**
  * A Drush interface to the content release.
@@ -45,13 +44,6 @@ class ContentReleaseCommands extends DrushCommands {
    * @var \Drupal\Core\State\StateInterface
    */
   protected $state;
-
-  /**
-   * Logger Channel.
-   *
-   * @var \Psr\Log\LoggerInterface
-   */
-  protected ?LoggerInterface $logger;
 
   /**
    * Constructor.
