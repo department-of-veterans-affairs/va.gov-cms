@@ -126,7 +126,7 @@ Feature: Content Release
     And I scroll to position "bottom"
     Then "Ready" should exist
 
-  @skip_on_brd @old_content_release
+  @skip_on_brd @ignore @old_content_release 
   # When we shift to the new content release system, this will be obsoleted by
   # the new content release tests above.
   # This test concerns functionality that is currently not available,
