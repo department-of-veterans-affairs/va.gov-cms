@@ -57,7 +57,7 @@ class StaticEncoder extends SerializationJsonEncoder {
    *
    * This reads the static files right off the server and returns them.
    */
-  public function encode(mixed $data, string $format, array $context = []): string {
+  public function encode(mixed $data, $format, array $context = []): string {
     $requested_path = Url::fromRoute('<current>', [], ['absolute' => FALSE])->toString();
     $content_path = StaticServiceProvider::urlPathToServerPath($requested_path);
 
