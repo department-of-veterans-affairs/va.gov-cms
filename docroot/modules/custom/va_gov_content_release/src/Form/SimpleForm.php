@@ -33,11 +33,12 @@ class SimpleForm extends BaseForm {
       '#weight' => -10,
     ];
 
-    $form['actions']['#type'] = 'actions';
-    $form['actions']['confirm'] = [
+    $form['confirm'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('I understand that all VA content set to Published will go live once the release is finished.'),
     ];
+
+    $form['actions']['#type'] = 'actions';
     $form['actions']['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Release content'),
@@ -48,6 +49,15 @@ class SimpleForm extends BaseForm {
     ];
 
     return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    if ($form_state->getValue('confirm') !== 1) {
+      $form_state->setErrorByName('confirm', $this->t('You must confirm that you understand this implication.'));
+    }
   }
 
 }

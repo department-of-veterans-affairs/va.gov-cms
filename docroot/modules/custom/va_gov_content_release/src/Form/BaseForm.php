@@ -92,6 +92,13 @@ class BaseForm extends FormBase {
       $form['tip']['#weight'] = 100;
     }
 
+    // The following hidden field allows us to test the form behavior and even
+    // submit the form without actually triggering a build.
+    $form['is_under_test'] = [
+      '#type' => 'hidden',
+      '#default_value' => 'false',
+    ];
+
     $form['content_release_status_help'] = [
       '#type' => 'item',
       '#description' => $this->getHelp(),
@@ -132,6 +139,20 @@ class BaseForm extends FormBase {
   }
 
   /**
+   * Is this form being submitted under test conditions?
+   *
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   Object containing current form state.
+   *
+   * @return bool
+   *   Whether or not this form is being submitted under test conditions.
+   */
+  public function isUnderTest(FormStateInterface $form_state): bool {
+    $isUnderTestRaw = $form_state->getValue('is_under_test');
+    return filter_var($isUnderTestRaw, FILTER_VALIDATE_BOOLEAN);
+  }
+
+  /**
    * Submit the build trigger form.
    *
    * @param array $form
@@ -141,7 +162,12 @@ class BaseForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->reporter->reportInfo($this->t('Content release requested successfully.'));
-    $this->request->submitRequest('Build requested via form.');
+    if (!$this->isUnderTest($form_state)) {
+      $this->request->submitRequest('Build requested via form.');
+    }
+    else {
+      $this->reporter->reportInfo($this->t('Build request skipped; form is under test.'));
+    }
   }
 
 }

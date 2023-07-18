@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_content_release\Form;
 
+use Drupal\Core\Block\BlockManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\va_gov_content_release\FrontendVersion\FrontendVersionInterface;
 use Drupal\va_gov_content_release\Request\RequestInterface;
@@ -22,6 +23,13 @@ class GitForm extends BaseForm {
   protected $frontendVersion;
 
   /**
+   * Block Manager Service.
+   *
+   * @var \Drupal\Core\Block\BlockManagerInterface
+   */
+  protected $blockManager;
+
+  /**
    * Constructor.
    *
    * @param \Drupal\va_gov_content_release\Request\RequestInterface $request
@@ -32,15 +40,19 @@ class GitForm extends BaseForm {
    *   Release state manager service.
    * @param \Drupal\va_gov_content_release\FrontendVersion\FrontendVersionInterface $frontendVersion
    *   The frontend version service.
+   * @param \Drupal\Core\Block\BlockManager $blockManager
+   *   The block manager service.
    */
   public function __construct(
     RequestInterface $request,
     ReporterInterface $reporter,
     ReleaseStateManagerInterface $releaseStateManager,
-    FrontendVersionInterface $frontendVersion
+    FrontendVersionInterface $frontendVersion,
+    BlockManagerInterface $blockManager
   ) {
     parent::__construct($request, $reporter, $releaseStateManager);
     $this->frontendVersion = $frontendVersion;
+    $this->blockManager = $blockManager;
   }
 
   /**
@@ -51,7 +63,8 @@ class GitForm extends BaseForm {
       $container->get('va_gov_content_release.request'),
       $container->get('va_gov_content_release.reporter'),
       $container->get('va_gov_build_trigger.release_state_manager'),
-      $container->get('va_gov_content_release.frontend_version')
+      $container->get('va_gov_content_release.frontend_version'),
+      $container->get('plugin.manager.block')
     );
   }
 
@@ -113,7 +126,21 @@ class GitForm extends BaseForm {
       ],
     ];
 
+    $form['content_release_status_block'] = $this->getContentReleaseStatusBlock();
+
     return $form;
+  }
+
+  /**
+   * Get the rendered content release status block.
+   *
+   * @return array
+   *   Block render array.
+   */
+  protected function getContentReleaseStatusBlock() {
+    return $this->blockManager
+      ->createInstance('content_release_status_block', [])
+      ->build();
   }
 
   /**
@@ -126,13 +153,10 @@ class GitForm extends BaseForm {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     if ($form_state->getValue('selection') === 'default') {
-      $this->resetFrontendVersion();
+      $this->resetFrontendVersion($form_state);
     }
     else {
-      // If they selected a specific git ref, use that.
-      $gitRefValue = $form_state->getValue('git_ref');
-      $gitRef = $this->getGitRef($gitRefValue);
-      $this->setFrontendVersion($gitRef);
+      $this->setFrontendVersion($form_state);
     }
 
     parent::submitForm($form, $form_state);
@@ -145,41 +169,53 @@ class GitForm extends BaseForm {
     if ($form_state->getValue('selection') === 'default') {
       return;
     }
-    $gitRefFormValue = $form_state->getValue('git_ref');
-    $gitRef = $this->getGitRef($gitRefFormValue);
-
-    if (empty($gitRef)) {
+    if (empty($this->getGitRef($form_state))) {
       $form_state->setErrorByName('git_ref', $this->t('Invalid selection.'));
     }
   }
 
   /**
    * Reset the frontend version.
+   *
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   Object containing current form state.
    */
-  public function resetFrontendVersion() {
-    $this->frontendVersion->reset();
+  public function resetFrontendVersion(FormStateInterface $form_state) {
+    if (!$this->isUnderTest($form_state)) {
+      $this->frontendVersion->reset();
+    }
+    else {
+      $this->reporter->reportInfo($this->t('Reset frontend version skipped; form is under test.'));
+    }
   }
 
   /**
-   * Set the frontend version to the specified value.
+   * Set the frontend version according to the form.
    *
-   * @param string $gitRef
-   *   The git ref to set.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   Object containing current form state.
    */
-  public function setFrontendVersion(string $gitRef) {
-    $this->frontendVersion->set($gitRef);
+  public function setFrontendVersion(FormStateInterface $form_state) {
+    if (!$this->isUnderTest($form_state)) {
+      $this->frontendVersion->set($this->getGitRef($form_state));
+    }
+    else {
+      $this->reporter->reportInfo($this->t('Set frontend version skipped; form is under test.'));
+    }
   }
 
   /**
    * Parse a git ref out of the `git_ref` field value.
    *
-   * @param string $formValue
-   *   The contents of the git ref field.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   Object containing current form state.
    *
    * @return string
-   *   A standalone git ref.
+   *   A standalone git ref, or an empty string.
    */
-  public function getGitRef(string $formValue = '') : string {
+  public function getGitRef(FormStateInterface $form_state) : string {
+    // If they selected a specific git ref, use that.
+    $formValue = $form_state->getValue('git_ref');
     $result = '';
     if (preg_match("/.+\\s\\(([^\\)]+)\\)/", $formValue, $matches)) {
       $result = $matches[1];

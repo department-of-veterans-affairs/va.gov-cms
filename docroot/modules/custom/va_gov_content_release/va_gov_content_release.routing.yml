@@ -4,23 +4,7 @@ va_gov_content_release.form:
     _title: 'Manual content release'
     # This will be altered by the form resolver.
     # See \Drupal\va_gov_content_release\Form\Resolver\Resolver::getFormClass()
-    _form: '\Drupal\va_gov_content_release\Form\BuildTriggerForm'
-  requirements:
-    _permission: "va gov deploy content build"
-
-va_gov_content_release.form.simple:
-  path: "/admin/content/deploy/simple"
-  defaults:
-    _title: '[TEST] Simple manual content release'
-    _form: '\Drupal\va_gov_content_release\Form\SimpleForm'
-  requirements:
-    _permission: "va gov deploy content build"
-
-va_gov_content_release.form.simple.success:
-  path: "/admin/content/deploy/simple/success"
-  defaults:
-    _title: '[TEST] Simple manual content release (always succeeds)'
-    _form: '\Drupal\va_gov_content_release\Form\StubbedForms\SimpleFormSuccess'
+    _form: '\Drupal\va_gov_content_release\Form\BaseForm'
   requirements:
     _permission: "va gov deploy content build"
 
@@ -32,10 +16,10 @@ va_gov_content_release.form.git:
   requirements:
     _permission: "va gov deploy content build"
 
-va_gov_content_release.form.git.success:
-  path: "/admin/content/deploy/git/success"
+va_gov_content_release.form.simple:
+  path: "/admin/content/deploy/simple"
   defaults:
-    _title: '[TEST] Git reference manual content release (always succeeds)'
-    _form: '\Drupal\va_gov_content_release\Form\StubbedForms\GitFormSuccess'
+    _title: '[TEST] Simple manual content release'
+    _form: '\Drupal\va_gov_content_release\Form\SimpleForm'
   requirements:
     _permission: "va gov deploy content build"
