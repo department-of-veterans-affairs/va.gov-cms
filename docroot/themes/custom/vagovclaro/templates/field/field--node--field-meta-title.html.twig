@@ -55,7 +55,7 @@
 {% set classes = classes|merge(['seo-alert']) %}
 {% endif %}
 
-<table>
+<table {% block a11y_role %}{% endblock %}>
   <tbody>
     <tr{{ attributes.addClass(classes) }}>
       <td{{ title_attributes.addClass(title_classes) }}><div>{{ label }}</div></td>
