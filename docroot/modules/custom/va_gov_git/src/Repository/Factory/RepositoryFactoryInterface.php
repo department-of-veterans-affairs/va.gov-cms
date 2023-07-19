@@ -2,6 +2,8 @@
 
 namespace Drupal\va_gov_git\Repository\Factory;
 
+use Drupal\va_gov_git\Repository\RepositoryInterface;
+
 /**
  * Interface for the repository factory.
  *
@@ -13,5 +15,19 @@ namespace Drupal\va_gov_git\Repository\Factory;
  * - The `content-build` repository.
  */
 interface RepositoryFactoryInterface {
+
+  /**
+   * Retrieve a specific repository, by name.
+   *
+   * @param string $name
+   *   The name of the repository.
+   *
+   * @return \Drupal\va_gov_git\Repository\RepositoryInterface
+   *   The repository.
+   *
+   * @throws \Drupal\va_gov_git\Exception\UnknownRepositoryException
+   *   If the given repository name is unknown.
+   */
+  public function get(string $name): RepositoryInterface;
 
 }
