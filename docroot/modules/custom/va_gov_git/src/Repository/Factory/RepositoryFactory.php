@@ -43,4 +43,18 @@ class RepositoryFactory implements RepositoryFactoryInterface {
     return new Repository($name, $path);
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  public function getCms(): RepositoryInterface {
+    return $this->get(RepositorySettingsInterface::VA_GOV_CMS);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public function getContentBuild(): RepositoryInterface {
+    return $this->get(RepositorySettingsInterface::CONTENT_BUILD);
+  }
+
 }

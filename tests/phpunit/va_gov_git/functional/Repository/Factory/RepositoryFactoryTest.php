@@ -53,4 +53,20 @@ class RepositoryFactoryTest extends VaGovExistingSiteBase {
     ];
   }
 
+  /**
+   * Test the getCms() method.
+   */
+  public function testGetCms() {
+    $repository = \Drupal::service('va_gov_git.repository_factory')->getCms();
+    $this->assertInstanceOf(RepositoryInterface::class, $repository);
+  }
+
+  /**
+   * Test the getContentBuild() method.
+   */
+  public function testGetContentBuild() {
+    $repository = \Drupal::service('va_gov_git.repository_factory')->getContentBuild();
+    $this->assertInstanceOf(RepositoryInterface::class, $repository);
+  }
+
 }
