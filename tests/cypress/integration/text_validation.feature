@@ -9,8 +9,8 @@ Feature: Text fields are validated
     And I create a "health_care_region_detail_page" node
     And I click the edit tab
     And I click the "Add Content block" button
-    And I scroll to element 'div.cke_inner'
-    And I fill in ckeditor "field-content-block-0" with '<a href="https://staging.cms.va.gov/">test</a>'
+    And I scroll to element "div.ck-content"
+    And I fill in ckeditor "edit-field-content-block-0-subform-field-wysiwyg-0-value" with '<a href="https://staging.cms.va.gov/">test</a>'
     And I fill in field with selector "#edit-revision-log-0-value" with value "[Test Data] Revision log message."
     And I save the node
     Then I should see "1 error has been found: Text"
