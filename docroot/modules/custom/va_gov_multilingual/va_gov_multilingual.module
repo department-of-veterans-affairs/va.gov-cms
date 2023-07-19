@@ -67,7 +67,7 @@ function va_gov_multilingual_field_widget_single_element_form_alter(array &$elem
       }
       if (isset($element['#element_validate'])) {
         foreach ($element['#element_validate'] as $index => $validation_hook) {
-          if (is_array($validation_hook) && str_contains($validation_hook[0], 'TextFieldCounterWidgetTrait') && $validation_hook[1] === 'validateFieldFormElement') {
+          if (is_array($validation_hook) && str_contains($validation_hook[0], 'Drupal\textfield_counter\Plugin\Field\FieldWidget\TextareaWithCounterWidget') && $validation_hook[1] === 'validateFieldFormElement') {
             unset($element['#element_validate'][$index]);
           }
         }
