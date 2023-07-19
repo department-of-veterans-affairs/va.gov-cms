@@ -4,15 +4,17 @@
 * https://www.drupal.org/node/2815083
 * @preserve
 **/
+
 (function ($, Drupal, once) {
   function refreshStatusBlock(url) {
     $.get(url, function (data) {
       $(".content-release-status-block").html(data);
     });
   }
+
   Drupal.behaviors.vaGovContentReleaseStatusBlock = {
     attach: function attach(context, settings) {
-      $(once("contentReleaseStatusBlock", window, context)).on("load", function () {
+      $(once("contentReleaseStatusBlock", "body", context)).on("load", function () {
         window.setInterval(function () {
           refreshStatusBlock(settings.contentReleaseStatusBlock.blockRefreshPath);
         }, 10000);

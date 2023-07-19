@@ -205,7 +205,7 @@
       // Three behaviors loaded on edit pages.
       // This causes function to fire three times on page load.
       // Once method used to resolve.
-      $(once("vaGovTagTracker", window, context)).on("load", () => {
+      $(once("vaGovTagTracker", "body", context)).on("load", () => {
         gtmPageLoadPush();
       });
     },

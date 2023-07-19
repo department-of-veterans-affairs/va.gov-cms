@@ -11,7 +11,7 @@
 
   Drupal.behaviors.vaGovContentReleaseStatusBlock = {
     attach: (context, settings) => {
-      $(once("contentReleaseStatusBlock", window, context)).on("load", () => {
+      $(once("contentReleaseStatusBlock", "body", context)).on("load", () => {
         window.setInterval(() => {
           refreshStatusBlock(
             settings.contentReleaseStatusBlock.blockRefreshPath
