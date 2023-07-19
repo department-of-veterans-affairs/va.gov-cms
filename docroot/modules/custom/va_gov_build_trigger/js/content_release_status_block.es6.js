@@ -9,7 +9,7 @@
     });
   }
 
-  Drupal.behaviors.vaGovContentReleaseStatusBlock = {
+  Drupal.behaviors.contentReleaseStatusBlock = {
     attach: (context, settings) => {
       $(once("contentReleaseStatusBlock", "body", context)).on("load", () => {
         window.setInterval(() => {

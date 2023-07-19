@@ -8,7 +8,7 @@
   Drupal.behaviors.vaGovToolbar = {
     attach: function attach(context) {
       var loadingText = "<div style='height: 20px; width: 40px;' class='claro-spinner'></div>";
-      $(once("content-release-status-icon", document, context)).each(function () {
+      $(once("content-release-status-icon", "body", context)).each(function () {
         Tippy("#content-release-status-icon", {
           content: function content(reference) {
             reference.removeAttribute("title");
@@ -42,4 +42,4 @@
       });
     }
   };
-})(jQuery, window.Drupal, window.tippy);
+})(jQuery, window.Drupal, once, window.tippy);

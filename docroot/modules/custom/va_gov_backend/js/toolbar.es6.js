@@ -7,7 +7,7 @@
     attach(context) {
       const loadingText =
         "<div style='height: 20px; width: 40px;' class='claro-spinner'></div>";
-      $(once("content-release-status-icon", document, context)).each(() => {
+      $(once("content-release-status-icon", "body", context)).each(() => {
         Tippy("#content-release-status-icon", {
           content(reference) {
             reference.removeAttribute("title");
@@ -45,4 +45,4 @@
       });
     },
   };
-})(jQuery, window.Drupal, window.tippy);
+})(jQuery, window.Drupal, once, window.tippy);

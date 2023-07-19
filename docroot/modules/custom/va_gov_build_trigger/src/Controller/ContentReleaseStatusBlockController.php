@@ -62,7 +62,7 @@ class ContentReleaseStatusBlockController extends ControllerBase {
       ->createInstance('content_release_status_block')
       ->build();
     $output = $this->renderer->render($block);
-    return new Response($output);
+    return new HtmlResponse($output);
   }
 
 }
