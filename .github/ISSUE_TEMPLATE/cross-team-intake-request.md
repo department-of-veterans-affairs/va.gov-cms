@@ -40,3 +40,4 @@ Please check the team you project will do this work. If not sure, select "Progra
 - [ ] `Public Websites`
 - [ ] `Facilities`
 - [ ] `User support`
+- [ ] `Accelerated Publishing`
