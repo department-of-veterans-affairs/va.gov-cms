@@ -18,5 +18,5 @@ Feature: User Login
     And I should see "Log in with PIV"
     When I click the "Developer log in" button
     Then I should see "Username"
-    When I click the "Developer log in" button
+    When I click the "Log in with PIV" button
     Then I should see "Log in with PIV"
