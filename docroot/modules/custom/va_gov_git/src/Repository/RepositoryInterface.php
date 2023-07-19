@@ -41,6 +41,12 @@ interface RepositoryInterface {
   /**
    * Get a list of remote branches.
    *
+   * Note that these will include a prefix like `refs/remotes/origin`.
+   *
+   * The returned items will look like:
+   * - `refs/remotes/origin/main`
+   * - `refs/remotes/origin/revert-some-commit`
+   *
    * @return array
    *   An array of branch names.
    */

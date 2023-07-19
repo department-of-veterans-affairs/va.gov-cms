@@ -10,6 +10,13 @@ interface BranchSearchInterface {
   /**
    * Get the list of remote branches on the specified remote.
    *
+   * Raw branch refs include a prefix like `refs/remotes/origin`.
+   * This method strips them out!
+   *
+   * The returned items will look like:
+   * - `main`
+   * - `revert-some-commit`
+   *
    * @param string $remote
    *   The remote to search.
    *
@@ -20,6 +27,13 @@ interface BranchSearchInterface {
 
   /**
    * Get the list of remote branches containing the given string.
+   *
+   * Raw branch refs include a prefix like `refs/remotes/origin`.
+   * This method strips them out!
+   *
+   * The returned items will look like:
+   * - `main`
+   * - `revert-some-commit`
    *
    * @param string $string
    *   The string to search for.
