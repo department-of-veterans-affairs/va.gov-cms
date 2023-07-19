@@ -4,6 +4,7 @@
 * https://www.drupal.org/node/2815083
 * @preserve
 **/
+
 (function ($, Drupal, once) {
   Drupal.behaviors.vaGovTagTracker = {
     attach: function attach(context, settings) {
@@ -17,6 +18,7 @@
         }
         return title;
       }
+
       var dataCollection = {
         pagePath: settings.gtm_data.pagePath ? settings.gtm_data.pagePath : null,
         pageTitle: titleResolver(settings.gtm_data.pageTitle),
@@ -28,12 +30,14 @@
         userId: settings.gtm_data.userId ? settings.gtm_data.userId : null,
         userSections: settings.gtm_data.userSections ? settings.gtm_data.userSections : null
       };
+
       function menuTraverser(item) {
         var parentClasses = item.parentNode.className;
         var level4 = null;
         var level3 = null;
         var level2 = null;
         var level1 = null;
+
         if (parentClasses.includes("menu-level-3")) {
           level4 = item;
           level3 = item.closest("li.menu-item--expanded.menu-level-2").firstElementChild;
@@ -57,22 +61,29 @@
         dataCollection.thirdSectionLevel = level3 ? level3.textContent : "";
         dataCollection.fourthSectionLevel = level4 ? level4.textContent : "";
       }
+
       function pushGTM(selector, event, subtype) {
         var editPageTypes = ["content-page", "bulk-content-page"];
+
         selector.forEach(function (el) {
           $(once("pushGTM", el, context)).click(function () {
             dataCollection.event = event;
+
             if (editPageTypes.includes(subtype)) {
               dataCollection.contentTitle = $(el).parent().siblings(".views-field-title").text().trim();
               dataCollection.contentType = $(el).parent().siblings(".views-field-type").text().trim();
               dataCollection.contentOwner = $(el).parent().siblings(".views-field-field-administration").text().trim();
             }
+
             menuTraverser(el);
+
             dataCollection["gtm.uniqueEventId"] = "";
+
             window.dataLayer.push(dataCollection);
           });
         });
       }
+
       var targets = [{
         selector: document.querySelectorAll("ul.toolbar-menu.top-level-nav > li > a"),
         event: "top-level-nav",
@@ -110,14 +121,17 @@
         event: "content-unlock",
         subtype: false
       }];
+
       targets.forEach(function (e) {
         pushGTM(e.selector, e.event, e.subtype);
       });
+
       function gtmPageLoadPush() {
         dataCollection.event = "pageLoad";
         window.dataLayer.push(dataCollection);
       }
-      $(once("vaGovTagTracker", window, context)).on("load", function () {
+
+      $(once("vaGovTagTracker", "body", context)).on("load", function () {
         gtmPageLoadPush();
       });
     }
