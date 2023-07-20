@@ -63,14 +63,14 @@
 
       {% set has_sidebar_first = page.sidebar_first|render|striptags|trim is not empty %}
       {% if has_sidebar_first %}
-        <aside class="layout-sidebar-first" role="complementary">
+        <aside class="layout-sidebar-first" aria-label="Section Menu" role="complementary">
           {{ page.sidebar_first }}
 
         </aside>{# /.layout-sidebar-first #}
       {% endif %}
 
       {% if page.sidebar_second %}
-        <aside class="layout-sidebar-second" role="complementary">
+        <aside class="layout-sidebar-second" aria-label="Content Metadata" role="complementary">
           {{ page.sidebar_second }}
           {% if page.last_saved_by_an_editor %}
           <div class="field field--name-field-last-saved-by-an-editor field--type-timestamp field--label-above">
