@@ -1,9 +1,4 @@
 services:
-  va_gov.consumers.git.repository.factory:
-    class: Drupal\va_gov_consumers\Git\GitFactory
-    arguments: ['@settings']
-    calls:
-      - [ setContainer, [ '@service_container' ] ]
   va_gov.consumers.github.factory:
     class: Drupal\va_gov_consumers\GitHub\GitHubClientFactory
     arguments: ['@settings', '@http_client']
