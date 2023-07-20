@@ -25,7 +25,7 @@
         }
 
         if (loginForm.classList.contains("piv-login")) {
-          document.querySelector("a.simplesamlphp-auth-login-link").focus();
+          document.querySelector("a.samlauth-login-link").focus();
         } else {
           document.querySelector(".js-login-username input").focus();
         }
