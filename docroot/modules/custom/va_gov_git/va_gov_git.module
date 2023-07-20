@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Contains va_gov_git.module.
+ */
+
+/**
+ * Implements hook_raven_options_alter().
+ */
+function va_gov_git_raven_options_alter(array &$options) {
+  try {
+    $repository = Drupal::getContainer()->get('va_gov_git.repository_factory')->getCms();
+    $options['release'] = $repository->getLastCommitHash();
+  }
+  catch (\Throwable $exception) {
+    watchdog_exception('va_gov_git', $exception, 'Error setting Raven release: ' . $exception->getMessage());
+  }
+}

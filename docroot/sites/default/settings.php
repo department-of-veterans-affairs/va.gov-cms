@@ -114,7 +114,7 @@ $settings['va_cms_bot_github_auth_token'] = getenv('CMS_GITHUB_VA_CMS_BOT_TOKEN'
 $settings['va_gov_composer_home'] = getenv('COMPOSER_HOME');
 $settings['va_gov_path_to_composer'] = '/usr/local/bin/composer';
 // The default BRD locations. These settings are currently only used on tugboat/local
-$settings['va_gov_web_root'] = '/var/www/cms/docroot/web';
+$settings['va_gov_web_root'] = '/var/www/cms/web';
 $settings['va_gov_app_root'] = '/var/www/cms';
 
 // Defaults (should only be local that doesn't set these), default to dev for config_split
