@@ -30,7 +30,6 @@ use Drupal\taxonomy\TermInterface;
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
 use Drupal\va_gov_build_trigger\Form\PreviewForm;
-use Gitonomy\Git\Exception\RuntimeException as RuntimeExceptionAlias;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
@@ -1997,20 +1996,6 @@ function _va_gov_backend_feature_bump(EntityInterface $entity) {
       }
     }
   }
-}
-
-/**
- * Implements hook_raven_options_alter().
- */
-function va_gov_backend_raven_options_alter(array &$options) {
-  try {
-    $repository = Drupal::getContainer()->get('va_gov.consumers.git.repository.factory')->getAppRepository();
-    $options['release'] = !empty($repository->getLastCommit()) ? $repository->getLastCommit()->getHash() : NULL;
-  }
-  catch (RuntimeExceptionAlias $e) {
-    watchdog_exception('git', $e, 'Error getting HEAD commit');
-  }
-
 }
 
 /**
