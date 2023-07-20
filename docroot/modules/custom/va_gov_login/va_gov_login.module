@@ -17,15 +17,8 @@ function va_gov_login_form_user_login_form_alter(&$form, FormStateInterface $for
   unset($form['pass']['#description']);
   unset($form['pass']['description']);
 
-  // Bail from any further login changes if PIV is disabled.
-  $config = \Drupal::config('simplesamlphp_auth.settings');
-  \Drupal::service('renderer')->addCacheableDependency($form, $config);
-  if (!$config->get('activate') || (!$config->get('login_link_show'))) {
-    return;
-  }
-
   // Create PIV login & container.
-  $form['simplesamlphp_auth_login_link'] = [
+  $form['samlauth_login_link'] = [
     '#type' => 'fieldset',
     '#title' => 'PIV login',
     '#title_display' => 'invisible',
@@ -34,13 +27,13 @@ function va_gov_login_form_user_login_form_alter(&$form, FormStateInterface $for
       'class' => ['piv-container', 'js-piv-container'],
     ],
   ];
-  $form['simplesamlphp_auth_login_link']['link'] = [
+  $form['samlauth_login_link']['link'] = [
     '#title' => 'Log in with PIV',
     '#type' => 'link',
-    '#url' => Url::fromRoute('simplesamlphp_auth.saml_login'),
+    '#url' => Url::fromRoute('samlauth.saml_controller_login'),
     '#attributes' => [
       'title' => 'Follow this link to login using your PIV or other smartcard.',
-      'class' => ['simplesamlphp-auth-login-link', 'button', 'button--primary'],
+      'class' => ['samlauth-login-link', 'button', 'button--primary'],
     ],
   ];
 
@@ -78,21 +71,4 @@ function va_gov_login_form_user_login_form_alter(&$form, FormStateInterface $for
 
   // Attach JS library for toggle button.
   $form['#attached']['library'][] = 'va_gov_login/login-toggle';
-}
-
-/**
- * Implements hook_simplesamlphp_auth_existing_user().
- *
- * @see hook_simplesamlphp_auth_existing_user()
- */
-function va_gov_login_simplesamlphp_auth_existing_user($attributes) {
-  $saml_mail = $attributes['adEmail'];
-  $existing_users = \Drupal::service('entity_type.manager')->getStorage('user')->loadByProperties(['mail' => $saml_mail]);
-  if ($existing_users) {
-    $existing_user = is_array($existing_users) ? reset($existing_users) : FALSE;
-    if ($existing_user) {
-      return $existing_user;
-    }
-  }
-  return FALSE;
 }

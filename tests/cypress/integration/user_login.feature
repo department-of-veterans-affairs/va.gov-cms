@@ -11,7 +11,6 @@ Feature: User Login
     And I log back in
     Then I should be at "/section/vha/vamc-facilities/va-bedford-health-care"
 
-  @piv
   Scenario: The homepage is the PIV enabled login form and the site title is as intended
     Given I am at "/"
     Then I should see "VA.gov | Content Management System"
@@ -19,12 +18,5 @@ Feature: User Login
     And I should see "Log in with PIV"
     When I click the "Developer log in" button
     Then I should see "Username"
-
-  @piv_off
-  Scenario: The homepage is the login form without PIV and the site title is as intended
-    Given I am at "/"
-    Then I should see "VA.gov | Content Management System"
-    And I should see "Create and publish Veteran-centered content"
-    And I should see "Username"
-    And "Developer log in" should not exist
-    And "Log in with PIV" should not exist
+    When I click the "Log in with PIV" button
+    Then I should see "Log in with PIV"
