@@ -1885,7 +1885,7 @@ function va_gov_backend_entity_presave(EntityInterface $entity) {
  */
 function _va_gov_backend_set_file_type(FieldableEntityInterface $entity) {
   $uri = $entity->get('field_media_external_file')->getValue()[0]['uri'];
-  $mime = \Drupal::service('file.mime_type.guesser')->guess($uri);
+  $mime = \Drupal::service('file.mime_type.guesser')->guessMimeType($uri);
   $entity->set('field_mime_type', $mime);
 }
 
