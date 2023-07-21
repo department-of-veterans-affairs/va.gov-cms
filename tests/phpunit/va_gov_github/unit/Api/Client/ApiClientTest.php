@@ -6,6 +6,9 @@ use Drupal\va_gov_github\Api\Client\ApiClient;
 use Tests\Support\Traits\RawGitHubApiClientTrait;
 use Tests\Support\Classes\VaGovUnitTestBase;
 use Github\AuthMethod;
+use Github\Api\Repo;
+use Github\Api\Repository\Actions\WorkflowRuns;
+use Github\Client as RawApiClient;
 
 /**
  * Unit test of the API Client class.
@@ -103,6 +106,43 @@ class ApiClientTest extends VaGovUnitTestBase {
       ],
       ['fake_endpoint.string', 'test_string'],
     ];
+  }
+
+  /**
+   * Test getWorkflowRuns().
+   *
+   * @covers ::getWorkflowRuns
+   */
+  public function testGetWorkflowRuns() {
+    $login = 'fake_token';
+    $owner = 'fake_owner';
+    $repository = 'fake_repository';
+    $actionName = 'content-build.yml';
+    $parameters = [];
+
+    $expected = $this->getFixture('workflow_runs.all');
+
+    $workflowRunsProphecy = $this->prophesize(WorkflowRuns::class);
+    $workflowRunsProphecy
+      ->listRuns($owner, $repository, $actionName, $parameters)
+      ->willReturn($expected);
+    $workflowRuns = $workflowRunsProphecy->reveal();
+
+    $repoProphecy = $this->prophesize(Repo::class);
+    $repoProphecy
+      ->workflowRuns()
+      ->willReturn($workflowRuns);
+    $repo = $repoProphecy->reveal();
+
+    $rawApiClientProphecy = $this->prophesize(RawApiClient::class);
+    $rawApiClientProphecy
+      ->repositories()
+      ->willReturn($repo);
+
+    $rawApiClient = $rawApiClientProphecy->reveal();
+    $client = ApiClient::createWithRawApiClient($rawApiClient, $owner, $repository, $login);
+    $workflowRuns = $client->getWorkflowRuns($actionName, $parameters);
+    $this->assertEquals($expected, $workflowRuns);
   }
 
 }
