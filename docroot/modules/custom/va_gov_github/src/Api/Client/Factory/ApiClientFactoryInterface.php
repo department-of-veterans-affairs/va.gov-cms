@@ -34,4 +34,26 @@ interface ApiClientFactoryInterface {
    */
   public function get(string $owner, string $repository, string $apiToken = NULL): ApiClientInterface;
 
+  /**
+   * Retrieve an API client for the VA.gov-CMS repository.
+   *
+   * @return \Drupal\va_gov_github\Api\Client\ApiClientInterface
+   *   The GitHub Api Client instance.
+   *
+   * @throws \Drupal\va_gov_github\Exception\InvalidApiTokenException
+   *   If the GitHub API token is provided, but is invalid.
+   */
+  public function getCms(): ApiClientInterface;
+
+  /**
+   * Retrieve an API client for the Content Build repository.
+   *
+   * @return \Drupal\va_gov_github\Api\Client\ApiClientInterface
+   *   The GitHub Api Client instance.
+   *
+   * @throws \Drupal\va_gov_github\Exception\InvalidApiTokenException
+   *   If the GitHub API token is provided, but is invalid.
+   */
+  public function getContentBuild(): ApiClientInterface;
+
 }
