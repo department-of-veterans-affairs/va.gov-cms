@@ -22,4 +22,15 @@ interface ApiClientInterface {
    */
   public function get(string $route, array $headers = []): array|string;
 
+  /**
+   * Get workflow runs for an action.
+   *
+   * @param string $workflowName
+   *   The name of the workflow, e.g. 'deploy.yml'.
+   * @param array $parameters
+   *   A list of named parameters to pass to the action as arguments. Keys
+   *   should match the action input names.
+   */
+  public function getWorkflowRuns(string $workflowName, array $parameters = []) : array;
+
 }

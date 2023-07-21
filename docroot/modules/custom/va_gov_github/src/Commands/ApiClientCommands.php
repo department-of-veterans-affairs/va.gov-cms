@@ -11,6 +11,17 @@ use Drush\Commands\DrushCommands;
  */
 class ApiClientCommands extends DrushCommands {
 
+  const WORKFLOW_RUN_COLUMN_HEADERS = [
+    'id',
+    'name',
+    'event',
+    'status',
+    'conclusion',
+    'created_at',
+    'updated_at',
+    'html_url',
+  ];
+
   /**
    * The API client factory.
    *
@@ -89,10 +100,34 @@ class ApiClientCommands extends DrushCommands {
     $apiClient = $this->getApiClient($owner, $repository, $apiToken);
     $organizations = $apiClient->getRawClient()->currentUser()->memberships()->all();
     $organizationNames = array_map(function ($organization) {
-      print json_encode($organization, JSON_PRETTY_PRINT);
       return $organization['organization']['login'];
     }, $organizations);
     $this->io()->listing($organizationNames);
+  }
+
+  /**
+   * List workflow runs for a repository and workflow.
+   *
+   * @command va-gov-github:api-client:workflow-runs
+   * @aliases va-gov-github-api-client-workflow-runs
+   */
+  public function listWorkflowRuns(string $owner, string $repository, string $workflow, string $apiToken = '') {
+    $apiClient = $this->getApiClient($owner, $repository, $apiToken);
+    $workflowRuns = $apiClient->getWorkflowRuns($workflow);
+    print json_encode($workflowRuns, JSON_PRETTY_PRINT);
+    $workflowRuns = array_map(function ($workflowRun) {
+      return [
+        $workflowRun['id'],
+        $workflowRun['name'],
+        $workflowRun['event'],
+        $workflowRun['status'],
+        $workflowRun['conclusion'],
+        $workflowRun['created_at'],
+        $workflowRun['updated_at'],
+        $workflowRun['html_url'],
+      ];
+    }, $workflowRuns['workflow_runs']);
+    $this->io()->table(static::WORKFLOW_RUN_COLUMN_HEADERS, $workflowRuns);
   }
 
 }

@@ -65,6 +65,32 @@ class ApiClient implements ApiClientInterface {
   }
 
   /**
+   * Create an instance with the specified raw client.
+   *
+   * @param \Github\Client $rawClient
+   *   The raw client.
+   * @param string $owner
+   *   The GitHub repository owner.
+   * @param string $repository
+   *   The GitHub repository name.
+   * @param string $token
+   *   The GitHub API token.
+   *
+   * @return static
+   *   The instance.
+   */
+  public static function createWithRawApiClient(
+    RawApiClient $rawClient,
+    string $owner,
+    string $repository,
+    string $token = NULL
+  ): self {
+    $instance = new static($owner, $repository, $token);
+    $instance->rawClient = $rawClient;
+    return $instance;
+  }
+
+  /**
    * Attempt authentication with the GitHub API.
    *
    * @throws \Drupal\va_gov_github\Exception\InvalidApiTokenException
@@ -110,6 +136,18 @@ class ApiClient implements ApiClientInterface {
   public function get(string $route, array $headers = []): array|string {
     $response = $this->rawClient->getHttpClient()->get($route, $headers);
     return $this->getContent($response);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getWorkflowRuns(string $actionName, array $parameters = []): array {
+    return $this->rawClient->repositories()->workflowRuns()->listRuns(
+      $this->owner,
+      $this->repository,
+      $actionName,
+      $parameters
+    );
   }
 
 }
