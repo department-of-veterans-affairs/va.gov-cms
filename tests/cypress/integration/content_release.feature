@@ -6,6 +6,7 @@ Feature: Content Release
   @new_content_release
   Scenario: The user should be able to deploy a content release from the Simple form
     Given I am logged in as a user with the "content_admin" role
+    And I reset the content release state from the command line
     When I am at "/admin/content/deploy/simple"
     And I stub form submission for the current page
     And I click the "Release content" button
@@ -21,6 +22,7 @@ Feature: Content Release
   @new_content_release
   Scenario: The user should be able to deploy a content release from the Git form
     Given I am logged in as a user with the "content_admin" role
+    And I reset the content release state from the command line
     When I am at "/admin/content/deploy/git"
     And I stub form submission for the current page
     And I click the "Release content" button
@@ -32,6 +34,7 @@ Feature: Content Release
   @new_content_release
   Scenario: The user should be able to deploy a content release from the Git form with a branch selected.
     Given I am logged in as a user with the "content_admin" role
+    And I reset the content release state from the command line
     When I am at "/admin/content/deploy/git"
     And I stub form submission for the current page
     And I select the "Select a different frontend branch/pull request" radio button
@@ -50,6 +53,7 @@ Feature: Content Release
   @new_content_release
   Scenario: The Simple content release form should not display the content release status block.
     Given I am logged in as a user with the "content_admin" role
+    And I reset the content release state from the command line
     When I am at "/admin/content/deploy/simple"
     And I reload the page
     And I scroll to position "bottom"
@@ -58,10 +62,11 @@ Feature: Content Release
   @new_content_release
   Scenario: The Git content release form should normally display no in-process releases by default.
     Given I am logged in as a user with the "content_admin" role
+    And I reset the content release state from the command line
     When I am at "/admin/content/deploy/git"
     And I reload the page
     And I scroll to position "bottom"
-    Then I should see "Ready"
+    Then "Ready" should exist
     And I should see "View the full output of the last completed build process (including a broken link report)."
 
   @skip_on_brd @old_content_release
