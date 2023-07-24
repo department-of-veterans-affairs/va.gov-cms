@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit\va_gov_environment\functional\Service;
+namespace tests\phpunit\va_gov_environment\functional\Discovery;
 
 use Tests\Support\Classes\VaGovExistingSiteBase;
 

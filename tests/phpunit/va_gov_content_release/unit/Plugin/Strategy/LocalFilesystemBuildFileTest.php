@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit\va_gov_environment\unit\Plugin\Strategy;
+namespace tests\phpunit\va_gov_content_release\unit\Plugin\Strategy;
 
 use Drupal\Core\File\Exception\FileException;
 use Drupal\Core\StringTranslation\TranslationInterface;

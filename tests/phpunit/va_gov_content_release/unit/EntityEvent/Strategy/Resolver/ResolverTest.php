@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit\va_gov_environment\unit\EntityEvent\Strategy\Resolver;
+namespace tests\phpunit\va_gov_content_release\unit\EntityEvent\Strategy\Resolver;
 
 use Drupal\va_gov_content_release\EntityEvent\Strategy\Resolver\Resolver;
 use Drupal\va_gov_content_release\EntityEvent\Strategy\Resolver\ResolverInterface;

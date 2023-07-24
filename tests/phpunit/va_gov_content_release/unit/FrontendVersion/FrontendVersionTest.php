@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit\va_gov_environment\unit\FrontendVersion;
+namespace tests\phpunit\va_gov_content_release\unit\FrontendVersion;
 
 use Drupal\Core\State\State;
 use Drupal\Core\KeyValueStore\KeyValueMemoryFactory;
