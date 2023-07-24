@@ -18,7 +18,7 @@ assignees: ''
 * Perigean will create official calendar events and invite team members indicated in the Research Plan 
 * If some Observers will only be invited to certain sessions, consider using an [observer sign-up sheet](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/products/facilities/regional-offices/research/observer_schedule_template.xlsx)
 * The Research Lead should coordinate with Perigean to schedule a [pilot session](https://depo-platform-documentation.scrollhelp.site/research-design/research-checklist#ResearchChecklist-4.Runapilotsession)
-* The Research Lead should schedule 30-minute Daily Reseach Debrief meetings and invite Observer(s)
+* The Research Lead should schedule 30-minute Daily Research Debrief meetings and invite Observer(s)
 
 **Editor-facing research**
 * The Research Lead should work with Product Manager, Product Owner, and Business Stakeholders to identify a list of potential participants
@@ -32,7 +32,7 @@ assignees: ''
 * Ideally one of the Observers should be a Drupal developer so that they might be there to help answer technical questions or see defects in action
 * Once participants are scheduled, the Research Lead invites other team members to official calendar events
 * The Research Lead should schedule a [pilot session](https://depo-platform-documentation.scrollhelp.site/research-design/research-checklist#ResearchChecklist-4.Runapilotsession)
-* The Research Lead should schedule 30-minute Daily Reseach Debrief meetings and invite Notetaker(s) & Observer(s)
+* The Research Lead should schedule 30-minute Daily Research Debrief meetings and invite Notetaker(s) & Observer(s)
 
 **Field Research** and **Unmoderated Studies**
 * These types of studies have additional logistical considerations

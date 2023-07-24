@@ -2,6 +2,8 @@
 
 // phpcs:ignoreFile
 
+$settings['va_gov_environment']['environment'] = 'tugboat';
+
 $databases['default']['default'] = array (
   'database' => 'tugboat',
   'username' => 'tugboat',
@@ -15,11 +17,6 @@ $databases['default']['default'] = array (
 // Use the TUGBOAT_REPO_ID to generate a hash salt for Tugboat sites.
 $settings['hash_salt'] = hash('sha256', getenv('TUGBOAT_REPO_ID'));
 
-/**
- * GLOBAL SETTINGS.PHP OVERRIDES
- *
- * Put regular settings.php overrides below this section.
- */
 $config['config_split.config_split.dev']['status'] = FALSE;
 $config['config_split.config_split.stg']['status'] = FALSE;
 $config['config_split.config_split.prod']['status'] = FALSE;

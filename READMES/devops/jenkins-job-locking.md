@@ -8,7 +8,7 @@ This plugin allows defining lockable resources (such as printers, phones, comput
 
 When the lock step is used in a Pipeline, **if the resource to be locked isn't already defined in the Jenkins global configuration, an ephemeral resource is used**: These resources only exist as long as any running build is referencing them.
 
-The above bolded section is a crucial point to pay attention to. This avoids using Jenkins Global configuration to define resources that can be locked and to maintain as much configuration in code as possible. Resources to be locked are defined in Jenkinsfiles called by the job itself. Consequently this means that a pair of jobs that should block eachother must define the same resource name *precisely* in their Jenkinsfiles.
+The above bolded section is a crucial point to pay attention to. This avoids using Jenkins Global configuration to define resources that can be locked and to maintain as much configuration in code as possible. Resources to be locked are defined in Jenkinsfiles called by the job itself. Consequently this means that a pair of jobs that should block each other must define the same resource name *precisely* in their Jenkinsfiles.
 
 ### Purpose of Lockable Resources for Job Blocking
 
@@ -33,7 +33,7 @@ This applies to CMS Infrastructure across all environments (Dev,Staging,Prod) as
 1. testing/job/cms-post-deploy-tests-[ENV]/
 1. cms/job/cms-test-db-backup-prod/
 
-The above numerated list consists of partial URLs that can be added at the end of http://jenkins.vfs.va.gov/job/ replacing the desired environment for [ENV]. Additionally swaping `cms-test` for `cms` will open test infrastructure jobs.
+The above numerated list consists of partial URLs that can be added at the end of http://jenkins.vfs.va.gov/job/ replacing the desired environment for [ENV]. Additionally swapping `cms-test` for `cms` will open test infrastructure jobs.
 
 For Example:
 
@@ -58,7 +58,7 @@ From the above picture it's possible to identify:
 1. Label property. For va.gov-cms use this is always Ephemeral/true.
 1. Lock override option.
 
-The key to understanding job locking is **1. Resource Name that is locked.** The resouce name is parameritized in each Jenkinsfile to dynamically fill in the environment identifier. Resource names follow this pattern:
+The key to understanding job locking is **1. Resource Name that is locked.** The resource name is parameritized in each Jenkinsfile to dynamically fill in the environment identifier. Resource names follow this pattern:
 
 `partial/path/to/job Block partial/path/to/job`
 

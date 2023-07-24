@@ -6,6 +6,8 @@ Provide steps to a Devops Engineer to update/renew `cms.va.gov` TLS certificates
 
 ## Importing Into AWS ACM
 
+![image](https://github.com/department-of-veterans-affairs/va.gov-cms/assets/39352093/de57b15c-d40c-4934-9341-17c50dede936)
+
 ### Generate a TLS Certificate with VA Venafi
 Instructions can be found [here](https://vfs.atlassian.net/wiki/spaces/OT/pages/1787953328/Venafi+Create+and+download+TLS+certificates) to renew the CMS TLS Certificate. Scroll down to the last section `How to import the certificate, private key, and chain into ACM` for tips on importing the certificate.
 

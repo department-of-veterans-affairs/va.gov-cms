@@ -19,7 +19,7 @@ class CollapsiblePanelItem extends ParagraphType {
    *
    * @var \QueryPath\DOMQuery
    */
-  protected  $tables;
+  protected $tables;
 
   /**
    * {@inheritdoc}

@@ -1,0 +1,4 @@
+services:
+  va_gov_environment.discovery:
+    class: Drupal\va_gov_environment\Discovery\Discovery
+    arguments: [ '@settings' ]

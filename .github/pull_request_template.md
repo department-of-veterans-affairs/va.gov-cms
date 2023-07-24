@@ -10,9 +10,9 @@ Relates to #_issueid_. (or closes?)
 
 ## QA steps
 
-What needs to be checked to prove this works?  
-What needs to be checked to prove it didn't break any related things?  
-What variations of circumstances (users, actions, values) need to be checked?  
+What needs to be checked to prove this works?
+What needs to be checked to prove it didn't break any related things?
+What variations of circumstances (users, actions, values) need to be checked?
 
 As user _uid_ with _user_role_
 1. Do this
@@ -39,6 +39,7 @@ As user _uid_ with _user_role_
 - [ ] `Public websites`
 - [ ] `Facilities`
 - [ ] `User support`
+- [ ] `Accelerated Publishing`
 
 
 ### Is this PR blocked by another PR?
@@ -49,7 +50,7 @@ As user _uid_ with _user_role_
 
 - [ ] `Needs PO review`
 
-### CMS user-facing annoucement
+### CMS user-facing announcement
 
 Is an announcement needed to let editors know of this change?
 - [ ] Yes, and it's written in issue ____ and queued for publication.

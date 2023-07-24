@@ -4,7 +4,7 @@ When possible, documentation about entities should live in Drupal.  Entities
 include Content types, blocks, paragraphs, taxonomy, menus, media and the fields
 used in those.
 
-We leverage the [Content Model Documentaion module](https://www.drupal.org/project/content_model_documentation) to do most of this.  It is based on two concepts:
+We leverage the [Content Model Documentation module](https://www.drupal.org/project/content_model_documentation) to do most of this.  It is based on two concepts:
 
 1. Don't document what can be read directly from Drupal. [Reports -> Content Model](https://prod.cms.va.gov/admin/reports/content-model).
 2. Document what can not be read directly from Drupal (who, when, where, why). [Structure -> Content Model Documents](https://prod.cms.va.gov/admin/structure/cm_document)

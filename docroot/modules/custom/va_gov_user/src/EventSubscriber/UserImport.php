@@ -3,7 +3,7 @@
 namespace Drupal\va_gov_user\EventSubscriber;
 
 use Drupal\Core\Entity\EntityTypeManager;
-use Drupal\Core\Extension\ModuleHandler;
+use Drupal\hook_event_dispatcher\HookEventDispatcherModuleHandler;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
@@ -58,7 +58,7 @@ class UserImport implements EventSubscriberInterface {
   /**
    * The module handler service.
    *
-   * @var \Drupal\Core\Extension\ModuleHandler
+   * @var \Drupal\hook_event_dispatcher\HookEventDispatcherModuleHandler
    */
   protected $moduleHandler;
 
@@ -80,7 +80,7 @@ class UserImport implements EventSubscriberInterface {
    *   External Authentication service.
    * @param \Drupal\Core\Messenger\MessengerInterface $messenger
    *   The messenger service.
-   * @param \Drupal\Core\Extension\ModuleHandler $moduleHandler
+   * @param \Drupal\hook_event_dispatcher\HookEventDispatcherModuleHandler $moduleHandler
    *   Module Handler service.
    * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
    *   The string translation service.
@@ -92,7 +92,7 @@ class UserImport implements EventSubscriberInterface {
     EnvironmentDiscovery $environmentDiscovery,
     ExternalAuth $externalAuth,
     MessengerInterface $messenger,
-    ModuleHandler $moduleHandler,
+    HookEventDispatcherModuleHandler $moduleHandler,
     TranslationInterface $string_translation,
     UserSectionStorageInterface $user_section_storage
   ) {
