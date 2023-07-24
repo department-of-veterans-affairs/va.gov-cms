@@ -10,7 +10,7 @@ interface ResolverInterface {
   // Respond to node updates immediately.
   const STRATEGY_ON_DEMAND = 'on_demand';
   // Ignore node updates.
-  const STRATEGY_NEVER = 'test_false';
+  const STRATEGY_VERBOSE_NEVER = 'verbose_false';
 
   /**
    * Get the strategy plugin ID.
