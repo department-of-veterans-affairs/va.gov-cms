@@ -7,8 +7,11 @@ use Tests\Support\Traits\RawGitHubApiClientTrait;
 use Tests\Support\Classes\VaGovUnitTestBase;
 use Github\AuthMethod;
 use Github\Api\Repo;
+use Github\Api\Search;
 use Github\Api\Repository\Actions\WorkflowRuns;
+use Github\Api\Repository\Actions\Workflows;
 use Github\Client as RawApiClient;
+use Prophecy\Argument;
 
 /**
  * Unit test of the API Client class.
@@ -125,24 +128,164 @@ class ApiClientTest extends VaGovUnitTestBase {
     $workflowRunsProphecy = $this->prophesize(WorkflowRuns::class);
     $workflowRunsProphecy
       ->listRuns($owner, $repository, $actionName, $parameters)
-      ->willReturn($expected);
+      ->willReturn($expected)
+      ->shouldBeCalled();
     $workflowRuns = $workflowRunsProphecy->reveal();
 
     $repoProphecy = $this->prophesize(Repo::class);
     $repoProphecy
       ->workflowRuns()
-      ->willReturn($workflowRuns);
+      ->willReturn($workflowRuns)
+      ->shouldBeCalled();
     $repo = $repoProphecy->reveal();
 
     $rawApiClientProphecy = $this->prophesize(RawApiClient::class);
     $rawApiClientProphecy
       ->repositories()
-      ->willReturn($repo);
+      ->willReturn($repo)
+      ->shouldBeCalled();
 
     $rawApiClient = $rawApiClientProphecy->reveal();
     $client = ApiClient::createWithRawApiClient($rawApiClient, $owner, $repository, $login);
     $workflowRuns = $client->getWorkflowRuns($actionName, $parameters);
     $this->assertEquals($expected, $workflowRuns);
+  }
+
+  /**
+   * Test searchIssues().
+   *
+   * @covers ::searchIssues
+   */
+  public function testSearchIssues() {
+    $login = 'fake_token';
+    $owner = 'fake_owner';
+    $repository = 'fake_repository';
+    $searchString = 'fake_search';
+    $sortField = 'fake_sort_field';
+    $order = 'fake_order';
+
+    $expected = $this->getFixture('search_issues.all');
+
+    $searchProphecy = $this->prophesize(Search::class);
+    $searchProphecy
+      ->issues(Argument::type('string'), $sortField, $order)
+      ->willReturn($expected)
+      ->shouldBeCalled();
+    $search = $searchProphecy->reveal();
+
+    $rawApiClientProphecy = $this->prophesize(RawApiClient::class);
+    $rawApiClientProphecy
+      ->search()
+      ->willReturn($search)
+      ->shouldBeCalled();
+
+    $rawApiClient = $rawApiClientProphecy->reveal();
+    $client = ApiClient::createWithRawApiClient($rawApiClient, $owner, $repository, $login);
+    $issues = $client->searchIssues($searchString, $sortField, $order);
+    $this->assertEquals($expected, $issues);
+  }
+
+  /**
+   * Test searchPullRequests().
+   *
+   * @covers ::searchPullRequests
+   */
+  public function testSearchPullRequests() {
+    $login = 'fake_token';
+    $owner = 'fake_owner';
+    $repository = 'fake_repository';
+    $searchString = 'fake_search';
+    $sortField = 'fake_sort_field';
+    $order = 'fake_order';
+    $parameters = [];
+
+    $expected = $this->getFixture('search_prs.all');
+
+    $searchProphecy = $this->prophesize(Search::class);
+    $searchProphecy
+      ->issues(Argument::type('string'), $sortField, $order)
+      ->willReturn($expected)
+      ->shouldBeCalled();
+    $search = $searchProphecy->reveal();
+
+    $rawApiClientProphecy = $this->prophesize(RawApiClient::class);
+    $rawApiClientProphecy
+      ->search()
+      ->willReturn($search)
+      ->shouldBeCalled();
+
+    $rawApiClient = $rawApiClientProphecy->reveal();
+    $client = ApiClient::createWithRawApiClient($rawApiClient, $owner, $repository, $login);
+    $pullRequests = $client->searchPullRequests($searchString, $sortField, $order, $parameters);
+    $this->assertEquals($expected, $pullRequests);
+  }
+
+  /**
+   * Test triggerRepositoryDispatchEvent().
+   *
+   * @covers ::triggerRepositoryDispatchEvent
+   */
+  public function testTriggerRepositoryDispatchEvent() {
+    $login = 'fake_token';
+    $owner = 'fake_owner';
+    $repository = 'fake_repository';
+    $eventType = 'fake_event_type';
+    $parameters = [];
+
+    $repoProphecy = $this->prophesize(Repo::class);
+    $repoProphecy
+      ->dispatch($owner, $repository, $eventType, $parameters)
+      ->willReturn('')
+      ->shouldBeCalled();
+    $repo = $repoProphecy->reveal();
+
+    $rawApiClientProphecy = $this->prophesize(RawApiClient::class);
+    $rawApiClientProphecy
+      ->repositories()
+      ->willReturn($repo)
+      ->shouldBeCalled();
+
+    $rawApiClient = $rawApiClientProphecy->reveal();
+    $client = ApiClient::createWithRawApiClient($rawApiClient, $owner, $repository, $login);
+    $client->triggerRepositoryDispatchEvent($eventType, $parameters);
+  }
+
+  /**
+   * Test triggerWorkflowDispatchEvent().
+   *
+   * @covers ::triggerWorkflowDispatchEvent
+   */
+  public function testTriggerWorkflowDispatchEvent() {
+    $login = 'fake_token';
+    $owner = 'fake_owner';
+    $repository = 'fake_repository';
+    $workflowId = 'fake_workflow_id';
+    $reference = 'fake_reference';
+    $parameters = [];
+
+    $workflowsProphecy = $this->prophesize(Workflows::class);
+    $workflowsProphecy
+      ->dispatches($owner, $repository, $workflowId, $reference, $parameters)
+      ->willReturn('')
+      ->shouldBeCalled();
+    $workflows = $workflowsProphecy->reveal();
+
+    $repoProphecy = $this->prophesize(Repo::class);
+    $repoProphecy
+      ->workflows()
+      ->willReturn($workflows)
+      ->shouldBeCalled();
+    $repo = $repoProphecy->reveal();
+
+    $rawApiClientProphecy = $this->prophesize(RawApiClient::class);
+    $rawApiClientProphecy
+      ->repositories()
+      ->willReturn($repo)
+      ->shouldBeCalled();
+
+    $rawApiClient = $rawApiClientProphecy->reveal();
+    $client = ApiClient::createWithRawApiClient($rawApiClient, $owner, $repository, $login);
+    $client->triggerWorkflowDispatchEvent($workflowId, $reference, $parameters);
   }
 
 }
