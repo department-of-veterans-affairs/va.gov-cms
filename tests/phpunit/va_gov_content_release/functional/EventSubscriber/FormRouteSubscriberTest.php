@@ -1,13 +1,12 @@
 <?php
 
-namespace tests\phpunit\va_gov_content_release\functional\Form\Resolver;
+namespace tests\phpunit\va_gov_content_release\functional\EventSubscriber;
 
 use Drupal\va_gov_content_release\EventSubscriber\FormRouteSubscriber;
 use Tests\Support\Classes\VaGovExistingSiteBase;
-use Drupal\va_gov_build_trigger\Form\BuildTriggerForm;
-use Drupal\va_gov_build_trigger\Form\BrdBuildTriggerForm;
-use Drupal\va_gov_build_trigger\Form\LocalBuildTriggerForm;
-use Drupal\va_gov_build_trigger\Form\TugboatBuildTriggerForm;
+use Drupal\va_gov_content_release\Form\BaseForm;
+use Drupal\va_gov_content_release\Form\GitForm;
+use Drupal\va_gov_content_release\Form\SimpleForm;
 
 /**
  * Functional test of the Form Route Subscriber service.
@@ -38,11 +37,10 @@ class FormRouteSubscriberTest extends VaGovExistingSiteBase {
   public function testAlterRoute() {
     $route = $this->container->get('router.route_provider')->getRouteByName('va_gov_content_release.form');
     $form = $route->getDefault('_form');
-    $this->assertNotEquals(BuildTriggerForm::class, $form);
+    $this->assertNotEquals(BaseForm::class, $form);
     $this->assertContains($form, [
-      BrdBuildTriggerForm::class,
-      LocalBuildTriggerForm::class,
-      TugboatBuildTriggerForm::class,
+      GitForm::class,
+      SimpleForm::class,
     ]);
   }
 
@@ -71,9 +69,8 @@ class FormRouteSubscriberTest extends VaGovExistingSiteBase {
    */
   public function formTestRoutesProvider() {
     return [
-      ['brd', BrdBuildTriggerForm::class],
-      ['local_dev', LocalBuildTriggerForm::class],
-      ['tugboat', TugboatBuildTriggerForm::class],
+      ['git', GitForm::class],
+      ['simple', SimpleForm::class],
     ];
   }
 
