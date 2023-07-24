@@ -13,7 +13,7 @@ Any existing environment variables will be overwritten if the same variable exis
 Using a `.env` file instead on relying on the server environment has many benefits:
 
  - When the Composer autoloader is forced to use the `.env`, all of tools that use it will have the exact
-   same environment. This includes Drupal itself, and everything in the [.bin folder](../bin): `drush`, `phpunit`, `behat`, `task`, `etc`.
+   same environment. This includes Drupal itself, and everything in the [.bin folder](../bin): `drush`, `phpunit`, `task`, `etc`.
  - No need to write variables to server configuration.
  - No need to pass variables through docker, docker-compose, Dockerfiles, etc.
  - No need to worry about the execution environment:
@@ -56,7 +56,7 @@ See the files:
 
 Environment variables like API tokens should be treated as secrets.
 
-For secrets, the BRD system uses [AWS Systems Manager (SSM) Parameter Store](https://vfs.atlassian.net/wiki/spaces/OT/pages/1601503564/Credstash+Parameter+Store+Procedures). Please contact a member of the [@cms-devops-engineers](https://app.slack.com/client/T03FECE8V/CT4GZBM8F/user_groups/S01JXBLLMJL) group in the DSVA Slack to add, modify, or to get information about a Parameter Store secret. 
+For secrets, the BRD system uses [AWS Systems Manager (SSM) Parameter Store](https://vfs.atlassian.net/wiki/spaces/OT/pages/1601503564/Credstash+Parameter+Store+Procedures). Please contact a member of the [@cms-devops-engineers](https://app.slack.com/client/T03FECE8V/CT4GZBM8F/user_groups/S01JXBLLMJL) group in the DSVA Slack to add, modify, or to get information about a Parameter Store secret.
 
 ----
 

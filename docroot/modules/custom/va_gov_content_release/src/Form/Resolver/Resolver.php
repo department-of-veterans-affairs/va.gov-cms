@@ -2,9 +2,8 @@
 
 namespace Drupal\va_gov_content_release\Form\Resolver;
 
-use Drupal\va_gov_build_trigger\Form\BrdBuildTriggerForm;
-use Drupal\va_gov_build_trigger\Form\LocalBuildTriggerForm;
-use Drupal\va_gov_build_trigger\Form\TugboatBuildTriggerForm;
+use Drupal\va_gov_content_release\Form\GitForm;
+use Drupal\va_gov_content_release\Form\SimpleForm;
 use Drupal\va_gov_content_release\Exception\CouldNotDetermineFormException;
 use Drupal\va_gov_environment\Discovery\DiscoveryInterface;
 
@@ -40,9 +39,9 @@ class Resolver implements ResolverInterface {
   public function getFormClass() : string {
     $environment = $this->environmentDiscovery->getEnvironment();
     return match (TRUE) {
-      $environment->isBrd() => BrdBuildTriggerForm::class,
-      $environment->isTugboat() => TugboatBuildTriggerForm::class,
-      $environment->isLocalDev() => LocalBuildTriggerForm::class,
+      $environment->isBrd() => SimpleForm::class,
+      $environment->isTugboat() => GitForm::class,
+      $environment->isLocalDev() => GitForm::class,
       default => throw new CouldNotDetermineFormException('Could not determine a valid content release form for environment: ' . $environment->getRawValue()),
     };
   }

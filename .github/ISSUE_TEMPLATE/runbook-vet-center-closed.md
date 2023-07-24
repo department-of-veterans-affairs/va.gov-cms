@@ -17,8 +17,8 @@ Help desk ticket: <insert_help_desk_link>
 - [ ] Name of submitter (if applicable)
 Submitter: <insert_name>
 
-- [ ] Contact the Vet Center editor and send them a link to the operating status KB article. If the facility has not closed yet and we can provide lead-time, the editor should change the Facility status to "Facility notice" and provide information in the Facility Status additional information about when the facility will permanantly close.  
-- [ ] When the facility has already closed - including if we were unable to give the aforementioned lead time- the editor should change the Facility status to Closed and provide information in the Facility Status additional information that the facility has permanantly closed as of DATE.
+- [ ] Contact the Vet Center editor and send them a link to the operating status KB article. If the facility has not closed yet and we can provide lead-time, the editor should change the Facility status to "Facility notice" and provide information in the Facility Status additional information about when the facility will permanently close.  
+- [ ] When the facility has already closed - including if we were unable to give the aforementioned lead time- the editor should change the Facility status to Closed and provide information in the Facility Status additional information that the facility has permanently closed as of DATE.
    - Vet Center Mobile autoarchive when they are removed from the facilty API.  No action required.
    - Vet Center Outstations autoarchive when they are removed from the facilty API.  No action required.
 - [ ] After 30 days of the facility being closed AND that the facility has been removed from the Lighthouse Facilities API, we can then archive the facility.

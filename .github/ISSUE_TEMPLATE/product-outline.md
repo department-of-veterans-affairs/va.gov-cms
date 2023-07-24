@@ -1,6 +1,6 @@
 ---
 name: Product Outline
-about: Use this template for outlining your new product or proposed chahges to exsiting
+about: Use this template for outlining your new product or proposed chahges to existing
   products or features.
 title: Product Outline for <insert product or feature name>
 labels: Needs refining

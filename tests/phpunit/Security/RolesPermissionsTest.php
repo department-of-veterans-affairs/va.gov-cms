@@ -184,7 +184,6 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
           'update any news_promo block content',
           'update any promo block content',
           'update content translations',
-          'update home_page_hub_list entityqueue',
           'update media',
           'use editorial transition approve',
           'use editorial transition archive',

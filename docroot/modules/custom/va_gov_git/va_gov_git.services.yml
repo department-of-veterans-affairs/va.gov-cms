@@ -1,0 +1,26 @@
+services:
+  va_gov_git.repository_factory:
+    class: Drupal\va_gov_git\Repository\Factory\RepositoryFactory
+    arguments: ['@va_gov_git.repository_settings']
+  va_gov_git.repository_settings:
+    class: Drupal\va_gov_git\Repository\Settings\RepositorySettings
+    arguments: ['@settings']
+  va_gov_git.repository.va_gov_cms:
+    class: Drupal\va_gov_git\Repository\Repository
+    factory: ['@va_gov_git.repository_factory', 'getCms']
+    arguments: []
+  va_gov_git.repository.content_build:
+    class: Drupal\va_gov_git\Repository\Repository
+    factory: ['@va_gov_git.repository_factory', 'getContentBuild']
+    arguments: []
+  va_gov_git.branch_search_factory:
+    class: Drupal\va_gov_git\BranchSearch\Factory\BranchSearchFactory
+    arguments: ['@va_gov_git.repository_factory']
+  va_gov_git.branch_search.va_gov_cms:
+    class: Drupal\va_gov_git\BranchSearch\BranchSearch
+    factory: ['@va_gov_git.branch_search_factory', 'getCms']
+    arguments: []
+  va_gov_git.branch_search.content_build:
+    class: Drupal\va_gov_git\BranchSearch\BranchSearch
+    factory: ['@va_gov_git.branch_search_factory', 'getContentBuild']
+    arguments: []

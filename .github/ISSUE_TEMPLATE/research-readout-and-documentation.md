@@ -12,14 +12,14 @@ assignees: ''
 
 **Crafting Recommendations**
 
-Recommendations are key outputs of the research process. They connect your findings back to the product roadmap(s) and shape the experience of future users. Depending on the type of research conducted, recommendations might be narrowly focused on improving a specific interface component of your team's product, or they might have broad implications for multiple parts of the VA.gov ecosystem. Work with your Design team, Product Manager, & Product Owner to generate, refine, and categorize recommendations. PMs and POs also play a key role in socializing recomendations to other teams.
+Recommendations are key outputs of the research process. They connect your findings back to the product roadmap(s) and shape the experience of future users. Depending on the type of research conducted, recommendations might be narrowly focused on improving a specific interface component of your team's product, or they might have broad implications for multiple parts of the VA.gov ecosystem. Work with your Design team, Product Manager, & Product Owner to generate, refine, and categorize recommendations. PMs and POs also play a key role in socializing recommendations to other teams.
 
 **Research Readout(s)**
 - Work with PM & PO to determine audience(s) and meeting length(s)
 - Default to a 30-min meeting with 20 min for presenting and 10 min for discussion
 - [Research Presentation Template](https://docs.google.com/presentation/d/13G80avWGdY7tHU40PbP_l05W1yRpDr-opOk0u_AAhzQ/edit#slide=id.g892adcb623_0_141)
   - Consider slimming down this template based on your audience
-  - Consider doing a pratice runthrough with Design Team or PM to ensure it flows
+  - Consider doing a practice runthrough with Design Team or PM to ensure it flows
 - After readout(s) with your immediate team(s) and stakeholder(s), consider presenting your research at Platform's weekly Design + Content + Research meeting
   - Message Naomi Marcussen on Slack to sign up
 

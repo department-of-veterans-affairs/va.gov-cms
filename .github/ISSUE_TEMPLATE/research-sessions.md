@@ -28,7 +28,7 @@ assignees: ''
   - In Veteran-facing research, the Perigean Notetaker will handle contacting the participant by phone and email
   - In Editor-facing research, the Moderator should contact the participant through email or Microsoft Teams
 - If the participant hasn't shown up within 15 minutes of the start, consider it a no show
-  - Contact the participant to see if they can reschedule for a different avaialable slot 
+  - Contact the participant to see if they can reschedule for a different available slot 
   - If unable to reschedule, mark them officially as a no show in the recruitment tracker 
 - Keep the PM and PO in the loop about no-shows in case additional sessions need to be scheduled
 
@@ -43,7 +43,7 @@ assignees: ''
 - [ ] All notes are stored in the research folder
 - [ ] Update the recruitment tracker with participant demographics daily
 - [ ] Download all session recording to your local machine for synthesis
-- [ ] You have conducted enough sessions to satify our intended demographics from research plan 
+- [ ] You have conducted enough sessions to satisfy our intended demographics from research plan 
   - [ ] OR Product Owner has signed off that you've done enough to move forward
 
 ### Team
