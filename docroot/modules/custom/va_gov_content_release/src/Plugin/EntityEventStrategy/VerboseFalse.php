@@ -6,7 +6,7 @@ use Drupal\va_gov_content_release\EntityEvent\Strategy\Plugin\StrategyPluginBase
 use Drupal\va_gov_content_types\Entity\VaNodeInterface;
 
 /**
- * FALSE verbose strategy.
+ * Verbose FALSE strategy.
  *
  * This always returns FALSE, but checks the node and logs whether the update
  * would have merited a content release.
