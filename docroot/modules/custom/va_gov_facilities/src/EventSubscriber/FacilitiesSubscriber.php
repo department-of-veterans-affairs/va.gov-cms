@@ -340,7 +340,7 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
         $query->condition('type', $relatedTypes, 'IN')
           ->condition('field_facility_location', $facilityID)
           ->condition('moderation_state', 'archived', '!=');
-        $nids = $query->execute();
+        $nids = $query->accessCheck(FALSE)->execute();
 
         if (count($nids)) {
           $nodes = $nodeStorage->loadMultiple($nids);

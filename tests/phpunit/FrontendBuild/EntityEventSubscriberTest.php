@@ -131,7 +131,6 @@ class EntityEventSubscriberTest extends VaGovUnitTestBase {
         foreach ($triggerable_state as $key => $val) {
           $description .= $key . ': ' . $val . '; ';
         }
-
         yield $description => [
           'enabled',
           $node,
