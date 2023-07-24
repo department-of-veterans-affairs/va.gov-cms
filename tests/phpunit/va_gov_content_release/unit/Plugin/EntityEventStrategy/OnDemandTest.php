@@ -5,7 +5,9 @@ namespace tests\phpunit\va_gov_content_release\unit\Plugin\EntityEventStrategy;
 use Drupal\Core\Link;
 use Drupal\va_gov_content_types\Entity\VaNodeInterface;
 use Drupal\va_gov_content_release\Plugin\EntityEventStrategy\OnDemand;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Prophecy\Argument;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Tests\Support\Classes\VaGovUnitTestBase;
 
@@ -26,6 +28,15 @@ class OnDemandTest extends VaGovUnitTestBase {
     $stringTranslation = $this->getStringTranslationStub();
     $containerProphecy = $this->prophesize(ContainerInterface::class);
     $containerProphecy->get('string_translation')->willReturn($stringTranslation);
+
+    $loggerProphecy = $this->prophesize(LoggerInterface::class);
+    $loggerProphecy->info(Argument::cetera())->willReturn(NULL);
+    $logger = $loggerProphecy->reveal();
+    $loggerChannelFactoryProphecy = $this->prophesize(LoggerChannelFactoryInterface::class);
+    $loggerChannelFactoryProphecy->get('va_gov_content_release')->willReturn($logger);
+    $loggerChannelFactory = $loggerChannelFactoryProphecy->reveal();
+
+    $containerProphecy->get('logger.factory')->willReturn($loggerChannelFactory);
     $container = $containerProphecy->reveal();
     return OnDemand::create($container, [], 'test', []);
   }
