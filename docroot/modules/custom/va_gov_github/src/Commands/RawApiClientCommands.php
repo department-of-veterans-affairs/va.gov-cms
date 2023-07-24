@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_github\Commands;
 
 use Drush\Commands\DrushCommands;
+use Github\AuthMethod;
 use Github\Client as RawApiClient;
 use Github\HttpClient\Message\ResponseMediator;
 
@@ -23,7 +24,7 @@ class RawApiClientCommands extends DrushCommands {
   protected function getApiClient(string $apiToken = ''): RawApiClient {
     $client = new RawApiClient();
     if ($apiToken) {
-      $client->authenticate($apiToken, NULL, RawApiClient::AUTH_ACCESS_TOKEN);
+      $client->authenticate($apiToken, NULL, AuthMethod::ACCESS_TOKEN);
     }
     return $client;
   }

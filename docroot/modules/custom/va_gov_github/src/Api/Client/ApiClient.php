@@ -5,7 +5,7 @@ namespace Drupal\va_gov_github\Api\Client;
 use Drupal\va_gov_github\Exception\InvalidApiTokenException;
 use Drupal\va_gov_github\Exception\RepositoryDispatchException;
 use Drupal\va_gov_github\Exception\WorkflowDispatchException;
-
+use Github\AuthMethod;
 use Github\Client as RawApiClient;
 use Github\HttpClient\Message\ResponseMediator as RawApiClientResponseMediator;
 use Psr\Http\Message\ResponseInterface;
@@ -101,7 +101,7 @@ class ApiClient implements ApiClientInterface {
   public function authenticate(): void {
     if ($this->token) {
       try {
-        $this->rawClient->authenticate($this->token, NULL, RawApiClient::AUTH_ACCESS_TOKEN);
+        $this->rawClient->authenticate($this->token, NULL, AuthMethod::ACCESS_TOKEN);
       }
       catch (\Throwable $exception) {
         throw new InvalidApiTokenException('Error Authenticating: ' . $exception->getMessage(), 0, $exception);
