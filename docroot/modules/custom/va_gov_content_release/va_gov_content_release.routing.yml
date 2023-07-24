@@ -2,30 +2,24 @@ va_gov_content_release.form:
   path: "/admin/content/deploy/new"
   defaults:
     _title: 'Manual content release'
-    _form: '\Drupal\va_gov_build_trigger\Form\BuildTriggerForm'
+    # This will be altered by the form resolver.
+    # See \Drupal\va_gov_content_release\Form\Resolver\Resolver::getFormClass()
+    _form: '\Drupal\va_gov_content_release\Form\BaseForm'
   requirements:
     _permission: "va gov deploy content build"
 
-va_gov_content_release.form.local_dev:
-  path: "/admin/content/deploy/local_dev"
+va_gov_content_release.form.git:
+  path: "/admin/content/deploy/git"
   defaults:
-    _title: '[TEST] Local Dev manual content release'
-    _form: '\Drupal\va_gov_build_trigger\Form\LocalBuildTriggerForm'
+    _title: '[TEST] Git reference manual content release'
+    _form: '\Drupal\va_gov_content_release\Form\GitForm'
   requirements:
     _permission: "va gov deploy content build"
 
-va_gov_content_release.form.tugboat:
-  path: "/admin/content/deploy/tugboat"
+va_gov_content_release.form.simple:
+  path: "/admin/content/deploy/simple"
   defaults:
-    _title: '[TEST] Tugboat manual content release'
-    _form: '\Drupal\va_gov_build_trigger\Form\TugboatBuildTriggerForm'
-  requirements:
-    _permission: "va gov deploy content build"
-
-va_gov_content_release.form.brd:
-  path: "/admin/content/deploy/brd"
-  defaults:
-    _title: '[TEST] BRD manual content release'
-    _form: '\Drupal\va_gov_build_trigger\Form\BrdBuildTriggerForm'
+    _title: '[TEST] Simple manual content release'
+    _form: '\Drupal\va_gov_content_release\Form\SimpleForm'
   requirements:
     _permission: "va gov deploy content build"
