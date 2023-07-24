@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_content_release\EntityEvent\Strategy\Plugin;
 
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Plugin\PluginBase;
 use Drupal\Core\StringTranslation\TranslationInterface;
@@ -20,6 +21,13 @@ abstract class StrategyPluginBase extends PluginBase implements StrategyPluginIn
   use StringTranslationTrait;
 
   /**
+   * The logger service.
+   *
+   * @var \Psr\Log\LoggerInterface
+   */
+  protected $logger;
+
+  /**
    * {@inheritDoc}
    *
    * @codeCoverageIgnore
@@ -28,10 +36,12 @@ abstract class StrategyPluginBase extends PluginBase implements StrategyPluginIn
     array $configuration,
     $plugin_id,
     $plugin_definition,
-    TranslationInterface $stringTranslation
+    TranslationInterface $stringTranslation,
+    LoggerChannelFactoryInterface $loggerFactory
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->stringTranslation = $stringTranslation;
+    $this->logger = $loggerFactory->get('va_gov_content_release');
   }
 
   /**
@@ -49,7 +59,8 @@ abstract class StrategyPluginBase extends PluginBase implements StrategyPluginIn
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('string_translation')
+      $container->get('string_translation'),
+      $container->get('logger.factory')
     );
   }
 
