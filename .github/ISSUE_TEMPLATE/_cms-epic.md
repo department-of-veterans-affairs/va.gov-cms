@@ -58,7 +58,7 @@ If you selected an item above, use the [Change Management Runbook](https://githu
 
 If you did not select an item above, update issues/PRs in GitHub but don’t plan for change management.
 
-  
+
 ## Design principles
 
 Veteran-centered
@@ -93,3 +93,4 @@ Please check the team(s) that will do this work.
 - [ ] `Public Websites`
 - [ ] `Facilities`
 - [ ] `User support`
+- [ ] `Accelerated Publishing`
