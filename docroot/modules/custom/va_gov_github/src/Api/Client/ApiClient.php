@@ -3,6 +3,8 @@
 namespace Drupal\va_gov_github\Api\Client;
 
 use Drupal\va_gov_github\Exception\InvalidApiTokenException;
+use Drupal\va_gov_github\Exception\RepositoryDispatchException;
+use Drupal\va_gov_github\Exception\WorkflowDispatchException;
 
 use Github\Client as RawApiClient;
 use Github\HttpClient\Message\ResponseMediator as RawApiClientResponseMediator;
@@ -148,6 +150,57 @@ class ApiClient implements ApiClientInterface {
       $actionName,
       $parameters
     );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function searchIssues(string $search, string $sortField = 'updated', string $order = 'desc') : array {
+    $expression = "is:issue repo:{$this->owner}/{$this->repository} {$search}";
+    return $this->rawClient->search()->issues($expression, $sortField, $order);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function searchPullRequests(string $search, string $sortField = 'updated', string $order = 'desc') : array {
+    $expression = "is:pr repo:{$this->owner}/{$this->repository} {$search}";
+    return $this->rawClient->search()->issues($expression, $sortField, $order);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function triggerRepositoryDispatchEvent(string $eventType, array $parameters = []) : void {
+    try {
+      $this->rawClient->repositories()->dispatch(
+        $this->owner,
+        $this->repository,
+        $eventType,
+        $parameters
+      );
+    }
+    catch (\Throwable $exception) {
+      throw new RepositoryDispatchException('Error triggering repository dispatch: ' . $exception->getMessage(), 0, $exception);
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function triggerWorkflowDispatchEvent(string $workflowId, string $reference = 'main', array $parameters = []) : void {
+    try {
+      $this->rawClient->repositories()->workflows()->dispatches(
+        $this->owner,
+        $this->repository,
+        $workflowId,
+        $reference,
+        $parameters
+      );
+    }
+    catch (\Throwable $exception) {
+      throw new WorkflowDispatchException('Error triggering workflow dispatch: ' . $exception->getMessage(), 0, $exception);
+    }
   }
 
 }

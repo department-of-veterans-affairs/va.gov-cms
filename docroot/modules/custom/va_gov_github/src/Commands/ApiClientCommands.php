@@ -19,7 +19,20 @@ class ApiClientCommands extends DrushCommands {
     'conclusion',
     'created_at',
     'updated_at',
-    'html_url',
+  ];
+
+  const ISSUE_COLUMN_HEADERS = [
+    'id',
+    'number',
+    'title',
+    'state',
+  ];
+
+  const PULL_REQUEST_COLUMN_HEADERS = [
+    'id',
+    'number',
+    'title',
+    'state',
   ];
 
   /**
@@ -59,62 +72,28 @@ class ApiClientCommands extends DrushCommands {
   }
 
   /**
-   * Get an API client.
+   * List workflow runs for a repository and workflow.
    *
    * @param string $owner
    *   The owner.
    * @param string $repository
    *   The repository.
+   * @param string $workflowId
+   *   The workflow ID.
    * @param string $apiToken
    *   The API token.
-   *
-   * @command va-gov-github:api-client:get
-   * @aliases va-gov-github-api-client-get
-   */
-  public function get(string $owner, string $repository, string $apiToken = '') {
-    $this->io()->success('It worked!');
-  }
-
-  /**
-   * List repositories accessible by the current user.
-   *
-   * @command va-gov-github:api-client:current-user:repositories
-   * @aliases va-gov-github-api-client-current-user-repositories
-   */
-  public function listRepositories(string $owner, string $repository, string $apiToken = '') {
-    $apiClient = $this->getApiClient($owner, $repository, $apiToken);
-    $repositories = $apiClient->getRawClient()->currentUser()->repositories();
-    $repositoryNames = array_map(function ($repository) {
-      return $repository['full_name'];
-    }, $repositories);
-    $this->io()->listing($repositoryNames);
-  }
-
-  /**
-   * List organizational memberships of the current user.
-   *
-   * @command va-gov-github:api-client:current-user:organizations
-   * @aliases va-gov-github-api-client-current-user-organizations
-   */
-  public function listOrganizations(string $owner, string $repository, string $apiToken = '') {
-    $apiClient = $this->getApiClient($owner, $repository, $apiToken);
-    $organizations = $apiClient->getRawClient()->currentUser()->memberships()->all();
-    $organizationNames = array_map(function ($organization) {
-      return $organization['organization']['login'];
-    }, $organizations);
-    $this->io()->listing($organizationNames);
-  }
-
-  /**
-   * List workflow runs for a repository and workflow.
    *
    * @command va-gov-github:api-client:workflow-runs
    * @aliases va-gov-github-api-client-workflow-runs
    */
-  public function listWorkflowRuns(string $owner, string $repository, string $workflow, string $apiToken = '') {
+  public function listWorkflowRuns(
+    string $owner,
+    string $repository,
+    string $workflowId,
+    string $apiToken = ''
+  ) {
     $apiClient = $this->getApiClient($owner, $repository, $apiToken);
-    $workflowRuns = $apiClient->getWorkflowRuns($workflow);
-    print json_encode($workflowRuns, JSON_PRETTY_PRINT);
+    $workflowRuns = $apiClient->getWorkflowRuns($workflowId);
     $workflowRuns = array_map(function ($workflowRun) {
       return [
         $workflowRun['id'],
@@ -124,10 +103,148 @@ class ApiClientCommands extends DrushCommands {
         $workflowRun['conclusion'],
         $workflowRun['created_at'],
         $workflowRun['updated_at'],
-        $workflowRun['html_url'],
       ];
     }, $workflowRuns['workflow_runs']);
     $this->io()->table(static::WORKFLOW_RUN_COLUMN_HEADERS, $workflowRuns);
+  }
+
+  /**
+   * Search issues for a repository.
+   *
+   * @param string $owner
+   *   The owner.
+   * @param string $repository
+   *   The repository.
+   * @param string $searchString
+   *   The search string.
+   * @param string $apiToken
+   *   The API token.
+   * @param string $sortField
+   *   The sort field.
+   * @param string $sortOrder
+   *   The sort order.
+   *
+   * @command va-gov-github:api-client:search-issues
+   * @aliases va-gov-github-api-client-search-issues
+   */
+  public function searchIssues(
+    string $owner,
+    string $repository,
+    string $searchString,
+    string $apiToken = '',
+    string $sortField = 'updated',
+    string $sortOrder = 'desc'
+  ) {
+    $apiClient = $this->getApiClient($owner, $repository, $apiToken);
+    $issues = $apiClient->searchIssues($searchString, $sortField, $sortOrder);
+    $maxTitleLength = 90;
+    $issues = array_map(function ($issue) use ($maxTitleLength) {
+      return [
+        $issue['id'],
+        $issue['number'],
+        strlen($issue['title']) <= $maxTitleLength ? $issue['title'] : substr($issue['title'], 0, $maxTitleLength - 3) . '...',
+        $issue['state'],
+      ];
+    }, $issues['items']);
+    $this->io()->table(static::ISSUE_COLUMN_HEADERS, $issues);
+  }
+
+  /**
+   * Search pull requests for a repository.
+   *
+   * @param string $owner
+   *   The owner.
+   * @param string $repository
+   *   The repository.
+   * @param string $searchString
+   *   The search string.
+   * @param string $apiToken
+   *   The API token.
+   * @param string $sortField
+   *   The sort field.
+   * @param string $sortOrder
+   *   The sort order.
+   *
+   * @command va-gov-github:api-client:search-pull-requests
+   * @aliases va-gov-github-api-client-search-pull-requests
+   *   va-gov-github:api-client:search-prs
+   *   va-gov-github-api-client-search-prs
+   */
+  public function searchPullRequests(
+    string $owner,
+    string $repository,
+    string $searchString,
+    string $apiToken = '',
+    string $sortField = 'updated',
+    string $sortOrder = 'desc'
+  ) {
+    $apiClient = $this->getApiClient($owner, $repository, $apiToken);
+    $pullRequests = $apiClient->searchPullRequests($searchString, $sortField, $sortOrder);
+    $maxTitleLength = 90;
+    $pullRequests = array_map(function ($pullRequest) use ($maxTitleLength) {
+      return [
+        $pullRequest['id'],
+        $pullRequest['number'],
+        strlen($pullRequest['title']) <= $maxTitleLength ? $pullRequest['title'] : substr($pullRequest['title'], 0, $maxTitleLength - 3) . '...',
+        $pullRequest['state'],
+      ];
+    }, $pullRequests['items']);
+    $this->io()->table(static::ISSUE_COLUMN_HEADERS, $pullRequests);
+  }
+
+  /**
+   * Send a repository dispatch event.
+   *
+   * @param string $owner
+   *   The owner.
+   * @param string $repository
+   *   The repository.
+   * @param string $eventType
+   *   The event type.
+   * @param string $apiToken
+   *   The API token.
+   *
+   * @command va-gov-github:api-client:repository-dispatch
+   * @aliases va-gov-github-api-client-repository-dispatch
+   */
+  public function repositoryDispatch(
+    string $owner,
+    string $repository,
+    string $eventType,
+    string $apiToken = ''
+  ) {
+    $apiClient = $this->getApiClient($owner, $repository, $apiToken);
+    $apiClient->triggerRepositoryDispatchEvent($eventType);
+    $this->io()->success('Repository dispatch event sent.');
+  }
+
+  /**
+   * Send a workflow dispatch event.
+   *
+   * @param string $owner
+   *   The owner.
+   * @param string $repository
+   *   The repository.
+   * @param string $workflowId
+   *   The workflow ID.
+   * @param string $reference
+   *   The git commit, tag, branch, etc.
+   * @param string $apiToken
+   *   The API token.
+   *
+   * @command va-gov-github:api-client:workflow-dispatch
+   * @aliases va-gov-github-api-client-workflow-dispatch
+   */
+  public function workflowDispatch(
+    string $owner,
+    string $repository,
+    string $workflowId,
+    string $reference = 'main',
+    string $apiToken = ''
+  ) {
+    $apiClient = $this->getApiClient($owner, $repository, $apiToken);
+    $apiClient->triggerWorkflowDispatchEvent($workflowId, $reference);
+    $this->io()->success('Workflow dispatch event sent.');
   }
 
 }
