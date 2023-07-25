@@ -19,78 +19,22 @@ use Drupal\va_gov_content_types\Entity\VaNodeInterface;
 class VerboseFalse extends StrategyPluginBase {
 
   /**
-   * Safely get a detail about the node and its changes.
+   * Construct a text link to a node.
    *
    * @param \Drupal\va_gov_content_types\Entity\VaNodeInterface $node
    *   The node.
-   * @param callable $callback
-   *   The callback to invoke.
-   * @param mixed $default
-   *   The default value to return if the callback throws an exception.
    *
-   * @return mixed
-   *   The value returned by the callback, or the default value if the callback
-   *   threw an exception.
+   * @return string
+   *   The link.
    */
-  protected function safelyGetNodeDetail(VaNodeInterface $node, callable $callback, $default = NULL) {
+  public function getNodeLink(VaNodeInterface $node): string {
     try {
-      return $callback($node);
+      return $node->toLink(NULL, 'canonical', ['absolute' => TRUE])->toString();
     }
-    catch (\Exception $exception) {
-      return $default;
+    catch (\Throwable $exception) {
+      // No link could be created, likely because we're in a test environment.
+      return 'http://invalid-link.example.com/';
     }
-  }
-
-  /**
-   * Get details about the node and changes thereto.
-   *
-   * @param \Drupal\va_gov_content_types\Entity\VaNodeInterface $node
-   *   The node.
-   *
-   * @return array
-   *   The details, as an associative array.
-   */
-  public function getNodeDetails(VaNodeInterface $node): array {
-    $details = [
-      'isFacility',
-      'isModerated',
-      'hasOriginal',
-      'didChangeOperatingStatus',
-      'alwaysTriggersContentRelease',
-      'isModeratedAndPublished',
-      'isModeratedAndTransitionedFromPublishedToArchived',
-      'isUnmoderatedAndPublished',
-      'isUnmoderatedAndWasPreviouslyPublished',
-      'didTransitionFromPublishedToArchived',
-      'isCmPublished',
-      'isPublished',
-      'isArchived',
-      'isDraft',
-      'wasPublished',
-    ];
-    $detailValues = [];
-    foreach ($details as $detail) {
-      $detailValues[$detail] = $this->safelyGetNodeDetail($node, function () use ($node, $detail) {
-        return call_user_func([$node, $detail]);
-      }, 'exception occurred');
-    }
-    return [
-      'isFacility' => $detailValues['isFacility'],
-      'isModerated' => $detailValues['isModerated'],
-      'hasOriginal' => $detailValues['hasOriginal'],
-      'didChangeOperatingStatus' => $detailValues['isFacility'] && $detailValues['didChangeOperatingStatus'],
-      'alwaysTriggersContentRelease' => $detailValues['alwaysTriggersContentRelease'],
-      'isModeratedAndPublished' => $detailValues['isModeratedAndPublished'],
-      'isModeratedAndTransitionedFromPublishedToArchived' => $detailValues['isModeratedAndTransitionedFromPublishedToArchived'],
-      'isUnmoderatedAndPublished' => $detailValues['isUnmoderatedAndPublished'],
-      'isUnmoderatedAndWasPreviouslyPublished' => $detailValues['isUnmoderatedAndWasPreviouslyPublished'],
-      'didTransitionFromPublishedToArchived' => $detailValues['isModerated'] && $detailValues['hasOriginal'] && $detailValues['didTransitionFromPublishedToArchived'],
-      'isCmPublished' => $detailValues['isModerated'] && $detailValues['isCmPublished'],
-      'isPublished' => $detailValues['isPublished'],
-      'isArchived' => $detailValues['isModerated'] && $detailValues['isArchived'],
-      'isDraft' => $detailValues['isModerated'] && $detailValues['isDraft'],
-      'wasPublished' => $detailValues['isModerated'] && $detailValues['hasOriginal'] && $detailValues['wasPublished'],
-    ];
   }
 
   /**
@@ -102,10 +46,10 @@ class VerboseFalse extends StrategyPluginBase {
    * @return array
    *   The variables.
    */
-  public function calculateVariables(VaNodeInterface $node): array {
-    $details = $this->getNodeDetails($node);
+  public function getNodeVariables(VaNodeInterface $node): array {
+    $details = $node->getContentReleaseTriggerDetails();
     return [
-      '%link_to_node' => $node->toLink(NULL, 'canonical', ['absolute' => TRUE])->toString(),
+      '%link_to_node' => $this->getNodeLink($node),
       '%nid' => $node->id(),
       '%type' => $node->getType(),
       '%details' => json_encode($details, JSON_PRETTY_PRINT),
@@ -118,8 +62,9 @@ class VerboseFalse extends StrategyPluginBase {
    * @param \Drupal\va_gov_content_types\Entity\VaNodeInterface $node
    *   The node.
    */
-  public function logContentReleaseTriggerDecision(VaNodeInterface $node) {
+  public function logTriggerDecision(VaNodeInterface $node) {
     $wouldHaveBeenTriggered = $node->shouldTriggerContentRelease();
+    $variables = $this->getNodeVariables($node);
     $variables['@would'] = $wouldHaveBeenTriggered ? 'would have' : 'would not have';
     $message = $this->t('A content release @would been triggered by a change to %type: %link_to_node (node%nid) (%details).', $variables);
     $this->logger->info($message);
@@ -129,7 +74,7 @@ class VerboseFalse extends StrategyPluginBase {
    * {@inheritDoc}
    */
   public function shouldTriggerContentRelease(VaNodeInterface $node) : bool {
-    $this->logContentReleaseTriggerDecision($node);
+    $this->logTriggerDecision($node);
     return FALSE;
   }
 

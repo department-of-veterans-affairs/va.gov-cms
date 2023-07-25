@@ -175,4 +175,42 @@ trait ContentReleaseTriggerTrait {
     return $this->hasOriginal() && $this->getOriginal()->isPublished();
   }
 
+  /**
+   * Safely get a content release detail about the node and its changes.
+   *
+   * @param callable $callback
+   *   The callback to invoke.
+   * @param mixed $default
+   *   The default value to return if the callback throws an exception.
+   *
+   * @return mixed
+   *   The value returned by the callback, or the default value if the callback
+   *   threw an exception.
+   */
+  public function safelyGetContentReleaseDetail(callable $callback, $default = NULL) {
+    try {
+      return $callback($this);
+    }
+    catch (\Throwable $exception) {
+      return $default;
+    }
+  }
+
+  /**
+   * Get details about the node and changes thereto.
+   *
+   * @return array
+   *   The details, as an associative array.
+   */
+  public function getContentReleaseTriggerDetails(): array {
+    $details = ContentReleaseTriggerInterface::CONTENT_RELEASE_DETAILS;
+    $result = [];
+    foreach ($details as $detail) {
+      $result[$detail] = $this->safelyGetContentReleaseDetail($node, function ($node) use ($detail) {
+        return call_user_func([$node, $detail]);
+      }, 'exception occurred');
+    }
+    return $result;
+  }
+
 }

@@ -12,6 +12,26 @@ interface ContentReleaseTriggerInterface {
     'full_width_banner_alert',
   ];
 
+  // Methods that will be used to determine if a content release should be
+  // triggered.
+  const CONTENT_RELEASE_DETAILS = [
+    'isFacility',
+    'isModerated',
+    'hasOriginal',
+    'didChangeOperatingStatus',
+    'alwaysTriggersContentRelease',
+    'isModeratedAndPublished',
+    'isModeratedAndTransitionedFromPublishedToArchived',
+    'isUnmoderatedAndPublished',
+    'isUnmoderatedAndWasPreviouslyPublished',
+    'didTransitionFromPublishedToArchived',
+    'isCmPublished',
+    'isPublished',
+    'isArchived',
+    'isDraft',
+    'wasPublished',
+  ];
+
   /**
    * Indicate whether this node should trigger a content release event.
    *
@@ -80,5 +100,13 @@ interface ContentReleaseTriggerInterface {
    *   FALSE otherwise.
    */
   public function isUnmoderatedAndWasPreviouslyPublished(): bool;
+
+  /**
+   * Get details about the node and changes thereto.
+   *
+   * @return array
+   *   The details, as an associative array.
+   */
+  public function getContentReleaseTriggerDetails(): array;
 
 }

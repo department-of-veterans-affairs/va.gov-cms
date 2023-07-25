@@ -66,6 +66,21 @@ class VerboseFalseTest extends VaGovUnitTestBase {
   public function testShouldTriggerContentRelease(bool $expected) {
     $nodeProphecy = $this->prophesize(VaNodeInterface::class);
     $nodeProphecy->shouldTriggerContentRelease()->willReturn($expected);
+    $nodeProphecy->label()->willReturn('Test Node');
+    $nodeProphecy->id()->willReturn('123');
+    $nodeProphecy->getEntityTypeId()->willReturn('node');
+    $nodeProphecy->getType()->willReturn('va_node');
+    $nodeProphecy->getContentReleaseTriggerDetails()->willReturn(['foo' => 'bar']);
+
+    $link = $this->getMockBuilder(Link::class)
+      ->disableOriginalConstructor()
+      ->getMock();
+    $link->expects($this->any())
+      ->method('toString')
+      ->willReturn('https://fake.link/');
+    $nodeProphecy->toLink(Argument::cetera())->willReturn($link);
+
+    $node = $nodeProphecy->reveal();
 
     $stringTranslation = $this->getStringTranslationStub();
     $containerProphecy = $this->prophesize(ContainerInterface::class);
@@ -86,7 +101,7 @@ class VerboseFalseTest extends VaGovUnitTestBase {
     $container = $containerProphecy->reveal();
     $plugin = VerboseFalse::create($container, [], 'test', []);
 
-    $this->assertFalse($plugin->shouldTriggerContentRelease($nodeProphecy->reveal()));
+    $this->assertFalse($plugin->shouldTriggerContentRelease($node));
   }
 
   /**
@@ -146,154 +161,36 @@ class VerboseFalseTest extends VaGovUnitTestBase {
   }
 
   /**
-   * Test getNodeDetails().
+   * Test getNodeVariables().
    *
-   * This is a very long test. Don't enable it (by adding the `test` prefix)
-   * unless you need to debug something.
-   *
-   * @param bool $isFacility
-   *   Whether the node is a facility.
-   * @param bool $isModerated
-   *   Whether the node is moderated.
-   * @param bool $hasOriginal
-   *   Whether the node has an original.
-   * @param bool $didChangeOperatingStatus
-   *   Whether the node changed operating status.
-   * @param bool $alwaysTriggersContentRelease
-   *   Whether the node always triggers a content release.
-   * @param bool $isModeratedAndPublished
-   *   Whether the node is moderated and published.
-   * @param bool $isModeratedAndTransitionedFromPublishedToArchived
-   *   Whether the node is moderated and transitioned from published to
-   *   archived.
-   * @param bool $isUnmoderatedAndPublished
-   *   Whether the node is unmoderated and published.
-   * @param bool $isUnmoderatedAndWasPreviouslyPublished
-   *   Whether the node is unmoderated and was previously published.
-   * @param bool $didTransitionFromPublishedToArchived
-   *   Whether the node transitioned from published to archived.
-   * @param bool $isCmPublished
-   *   Whether the node is published under content moderation.
-   * @param bool $isPublished
-   *   Whether the node is published.
-   * @param bool $isArchived
-   *   Whether the node is archived.
-   * @param bool $isDraft
-   *   Whether the node is a draft.
-   * @param bool $wasPublished
-   *   Whether the node was published.
-   * @param array $expected
-   *   The expected result.
-   *
-   * @covers ::getNodeDetails
-   * @dataProvider getNodeDetailsDataProvider
+   * @covers ::getNodeVariables
    */
-  public function getNodeDetails(
-    bool $isFacility,
-    bool $isModerated,
-    bool $hasOriginal,
-    bool $didChangeOperatingStatus,
-    bool $alwaysTriggersContentRelease,
-    bool $isModeratedAndPublished,
-    bool $isModeratedAndTransitionedFromPublishedToArchived,
-    bool $isUnmoderatedAndPublished,
-    bool $isUnmoderatedAndWasPreviouslyPublished,
-    bool $didTransitionFromPublishedToArchived,
-    bool $isCmPublished,
-    bool $isPublished,
-    bool $isArchived,
-    bool $isDraft,
-    bool $wasPublished,
-    array $expected
-  ) {
+  public function testGetNodeVariables() {
     $nodeProphecy = $this->prophesize(VaNodeInterface::class);
     $nodeProphecy->label()->willReturn('Test Node');
     $nodeProphecy->id()->willReturn('123');
     $nodeProphecy->getEntityTypeId()->willReturn('node');
     $nodeProphecy->getType()->willReturn('va_node');
-    $nodeProphecy->isFacility()->willReturn($isFacility);
-    $nodeProphecy->isModerated()->willReturn($isModerated);
-    $nodeProphecy->hasOriginal()->willReturn($hasOriginal);
-    $nodeProphecy->didChangeOperatingStatus()->willReturn($didChangeOperatingStatus);
-    $nodeProphecy->alwaysTriggersContentRelease()->willReturn($alwaysTriggersContentRelease);
-    $nodeProphecy->isModeratedAndPublished()->willReturn($isModeratedAndPublished);
-    $nodeProphecy->isModeratedAndTransitionedFromPublishedToArchived()->willReturn($isModeratedAndTransitionedFromPublishedToArchived);
-    $nodeProphecy->isUnmoderatedAndPublished()->willReturn($isUnmoderatedAndPublished);
-    $nodeProphecy->isUnmoderatedAndWasPreviouslyPublished()->willReturn($isUnmoderatedAndWasPreviouslyPublished);
-    $nodeProphecy->didTransitionFromPublishedToArchived()->willReturn($didTransitionFromPublishedToArchived);
-    $nodeProphecy->isCmPublished()->willReturn($isCmPublished);
-    $nodeProphecy->isPublished()->willReturn($isPublished);
-    $nodeProphecy->isArchived()->willReturn($isArchived);
-    $nodeProphecy->isDraft()->willReturn($isDraft);
-    $nodeProphecy->wasPublished()->willReturn($wasPublished);
+    $nodeProphecy->getContentReleaseTriggerDetails()->willReturn(['foo' => 'bar']);
+
+    $link = $this->getMockBuilder(Link::class)
+      ->disableOriginalConstructor()
+      ->getMock();
+    $link->expects($this->any())
+      ->method('toString')
+      ->willReturn('https://fake.link/');
+    $nodeProphecy->toLink(Argument::cetera())->willReturn($link);
+
     $node = $nodeProphecy->reveal();
-    $this->assertEquals($expected, $this->getPlugin()->getNodeDetails($node));
-  }
-
-  /**
-   * Data provider for testGetNodeDetails().
-   *
-   * @return array[]
-   *   An array of test data.
-   */
-  public function getNodeDetailsDataProvider() {
-    $combinations = [
-      'isFacility' => [TRUE, FALSE],
-      'isModerated' => [TRUE, FALSE],
-      'hasOriginal' => [TRUE, FALSE],
-      'didChangeOperatingStatus' => [TRUE, FALSE],
-      'alwaysTriggersContentRelease' => [TRUE, FALSE],
-      'isModeratedAndPublished' => [TRUE, FALSE],
-      'isModeratedAndTransitionedFromPublishedToArchived' => [TRUE, FALSE],
-      'isUnmoderatedAndPublished' => [TRUE, FALSE],
-      'isUnmoderatedAndWasPreviouslyPublished' => [TRUE, FALSE],
-      'didTransitionFromPublishedToArchived' => [TRUE, FALSE],
-      'isCmPublished' => [TRUE, FALSE],
-      'isPublished' => [TRUE, FALSE],
-      'isArchived' => [TRUE, FALSE],
-      'isDraft' => [TRUE, FALSE],
-      'wasPublished' => [TRUE, FALSE],
+    $expected = [
+      '%link_to_node' => 'https://fake.link/',
+      '%nid' => '123',
+      '%type' => 'va_node',
+      '%details' => json_encode([
+        'foo' => 'bar',
+      ], JSON_PRETTY_PRINT),
     ];
-    $permutations = $this->generatePermutations($combinations);
-    foreach ($permutations as $permutation) {
-      $expected = [];
-
-      foreach ($permutation as $key => $value) {
-        switch ($key) {
-
-          case 'didChangeOperatingStatus':
-            $expected['didChangeOperatingStatus'] = $permutation['isFacility'] && $value;
-            break;
-
-          case 'didTransitionFromPublishedToArchived':
-            $expected['didTransitionFromPublishedToArchived'] = $permutation['isModerated'] && $permutation['hasOriginal'] && $value;
-            break;
-
-          case 'isCmPublished':
-            $expected['isCmPublished'] = $permutation['isModerated'] && $value;
-            break;
-
-          case 'isArchived':
-            $expected['isArchived'] = $permutation['isModerated'] && $value;
-            break;
-
-          case 'isDraft':
-            $expected['isDraft'] = $permutation['isModerated'] && $value;
-            break;
-
-          case 'wasPublished':
-            $expected['wasPublished'] = $permutation['isModerated'] && $permutation['hasOriginal'] && $value;
-            break;
-
-          default:
-            $expected[$key] = $value;
-            break;
-
-        }
-      }
-      yield array_merge($permutation, ['expected' => $expected]);
-    }
-    return $permutations;
+    $this->assertEquals($expected, $this->getPlugin()->getNodeVariables($node));
   }
 
 }
