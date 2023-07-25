@@ -46,7 +46,7 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
     ApiClientInterface $cbGitHubClient,
     LoggerChannelFactoryInterface $logger
   ) {
-    $this->gitHubClient = $gitHubClient;
+    $this->cbGitHubClient = $cbGitHubClient;
     $this->cbBranchSearch = $cbBranchSearch;
     $this->logger = $logger->get('va_gov_build_trigger');
   }
@@ -161,7 +161,7 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
     $results = [];
 
     try {
-      $results = $this->cbGitHubClient->getPullRequests($string);
+      $results = $this->cbGitHubClient->searchPullRequests($string);
     }
     catch (\Exception $e) {
       $variables = Error::decodeException($e);

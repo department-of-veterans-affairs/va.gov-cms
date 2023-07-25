@@ -20,14 +20,14 @@ class FormRouteSubscriber extends RouteSubscriberBase implements FormRouteSubscr
   /**
    * Form Resolver service.
    *
-   * @var \Drupal\va_gov_content_release\Form\ResolverInterface
+   * @var \Drupal\va_gov_content_release\Form\Resolver\ResolverInterface
    */
   protected $formResolver;
 
   /**
    * The constructor.
    *
-   * @param \Drupal\va_gov_content_release\Form\ResolverInterface $formResolver
+   * @param \Drupal\va_gov_content_release\Form\Resolver\ResolverInterface $formResolver
    *   Form resolver service.
    */
   public function __construct(ResolverInterface $formResolver) {

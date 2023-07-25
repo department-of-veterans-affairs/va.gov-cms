@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_git\BranchSearch\Factory;
 
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\va_gov_git\BranchSearch\BranchSearch;
 use Drupal\va_gov_git\BranchSearch\BranchSearchInterface;
 use Drupal\va_gov_git\Repository\Factory\RepositoryFactoryInterface;
@@ -26,34 +27,47 @@ class BranchSearchFactory implements BranchSearchFactoryInterface {
   protected $repositoryFactory;
 
   /**
+   * The logger.
+   *
+   * @var \Psr\Log\LoggerInterface
+   */
+  protected $logger;
+
+  /**
    * Constructor.
    *
    * @param \Drupal\va_gov_git\Repository\Factory\RepositoryFactoryInterface $repositoryFactory
    *   The repository factory service.
+   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerFactory
+   *   The logger channel factory.
    */
-  public function __construct(RepositoryFactoryInterface $repositoryFactory) {
+  public function __construct(
+    RepositoryFactoryInterface $repositoryFactory,
+    LoggerChannelFactoryInterface $loggerFactory
+  ) {
     $this->repositoryFactory = $repositoryFactory;
+    $this->logger = $loggerFactory->get('va_gov_git');
   }
 
   /**
    * {@inheritDoc}
    */
   public function get(string $name): BranchSearchInterface {
-    return new BranchSearch($this->repositoryFactory->get($name));
+    return new BranchSearch($this->repositoryFactory->get($name), $this->logger);
   }
 
   /**
    * {@inheritDoc}
    */
   public function getCms(): BranchSearchInterface {
-    return new BranchSearch($this->repositoryFactory->getCms());
+    return new BranchSearch($this->repositoryFactory->getCms(), $this->logger);
   }
 
   /**
    * {@inheritDoc}
    */
   public function getContentBuild(): BranchSearchInterface {
-    return new BranchSearch($this->repositoryFactory->getContentBuild());
+    return new BranchSearch($this->repositoryFactory->getContentBuild(), $this->logger);
   }
 
 }
