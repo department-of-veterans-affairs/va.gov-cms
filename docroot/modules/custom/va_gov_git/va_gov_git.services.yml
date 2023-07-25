@@ -15,7 +15,7 @@ services:
     arguments: []
   va_gov_git.branch_search_factory:
     class: Drupal\va_gov_git\BranchSearch\Factory\BranchSearchFactory
-    arguments: ['@va_gov_git.repository_factory']
+    arguments: ['@va_gov_git.repository_factory', '@logger.factory']
   va_gov_git.branch_search.va_gov_cms:
     class: Drupal\va_gov_git\BranchSearch\BranchSearch
     factory: ['@va_gov_git.branch_search_factory', 'getCms']

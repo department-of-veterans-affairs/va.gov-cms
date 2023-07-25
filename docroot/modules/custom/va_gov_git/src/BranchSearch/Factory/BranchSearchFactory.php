@@ -27,6 +27,14 @@ class BranchSearchFactory implements BranchSearchFactoryInterface {
   protected $repositoryFactory;
 
   /**
+   * The logger factory.
+   *
+   * @var \Drupal\Core\Logger\LoggerChannelFactoryInterface
+   *   The logger factory.
+   */
+  protected $loggerFactory;
+
+  /**
    * The logger.
    *
    * @var \Psr\Log\LoggerInterface
@@ -46,6 +54,7 @@ class BranchSearchFactory implements BranchSearchFactoryInterface {
     LoggerChannelFactoryInterface $loggerFactory
   ) {
     $this->repositoryFactory = $repositoryFactory;
+    $this->loggerFactory = $loggerFactory;
     $this->logger = $loggerFactory->get('va_gov_git');
   }
 
@@ -53,21 +62,21 @@ class BranchSearchFactory implements BranchSearchFactoryInterface {
    * {@inheritDoc}
    */
   public function get(string $name): BranchSearchInterface {
-    return new BranchSearch($this->repositoryFactory->get($name), $this->logger);
+    return new BranchSearch($this->repositoryFactory->get($name), $this->loggerFactory);
   }
 
   /**
    * {@inheritDoc}
    */
   public function getCms(): BranchSearchInterface {
-    return new BranchSearch($this->repositoryFactory->getCms(), $this->logger);
+    return new BranchSearch($this->repositoryFactory->getCms(), $this->loggerFactory);
   }
 
   /**
    * {@inheritDoc}
    */
   public function getContentBuild(): BranchSearchInterface {
-    return new BranchSearch($this->repositoryFactory->getContentBuild(), $this->logger);
+    return new BranchSearch($this->repositoryFactory->getContentBuild(), $this->loggerFactory);
   }
 
 }
