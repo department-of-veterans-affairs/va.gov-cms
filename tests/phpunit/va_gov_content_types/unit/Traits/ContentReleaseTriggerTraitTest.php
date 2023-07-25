@@ -3,6 +3,7 @@
 namespace tests\phpunit\va_gov_content_types\unit\Traits;
 
 use Drupal\Tests\Traits\Core\GeneratePermutationsTrait;
+use Drupal\va_gov_content_types\Entity\VaNodeInterface;
 use Drupal\va_gov_content_types\Interfaces\ContentModerationInterface;
 use Drupal\va_gov_content_types\Traits\ContentReleaseTriggerTrait;
 use Tests\Support\Classes\VaGovUnitTestBase;
@@ -56,13 +57,14 @@ class ContentReleaseTriggerTraitTest extends VaGovUnitTestBase {
     $original->expects($this->any())
       ->method('isPublished')
       ->willReturn($wasPublished);
+
+    $node->expects($this->any())->method('hasOriginal')->will($this->returnValue(TRUE));
     $node->expects($this->any())->method('getOriginal')->will($this->returnValue($original));
     $node->expects($this->any())->method('isModerated')->will($this->returnValue($isModerated));
     $node->expects($this->any())->method('isCmPublished')->will($this->returnValue($isCmPublished));
     $node->expects($this->any())->method('isPublished')->will($this->returnValue($isPublished));
     $node->expects($this->any())->method('isArchived')->will($this->returnValue($isArchived));
     $node->expects($this->any())->method('isDraft')->will($this->returnValue($isDraft));
-    $node->expects($this->any())->method('wasPublished')->will($this->returnValue($wasPublished));
     $node->expects($this->any())->method('wasPublished')->will($this->returnValue($wasPublished));
     $node->expects($this->any())->method('didTransitionFromPublishedToArchived')->will($this->returnValue($wasPublished && $isArchived));
     $this->assertEquals($expected, $node->hasTriggeringChanges());
@@ -124,9 +126,19 @@ class ContentReleaseTriggerTraitTest extends VaGovUnitTestBase {
           $expected = TRUE;
           break;
       }
-
-      $name = sprintf("%sisModerated, %sisCmPublished, %sisPublished, %sisArchived, %sisDraft, %swasPublished, %sexpected",
-        $isModerated ? '' : '!', $isCmPublished ? '' : '!', $isPublished ? '' : '!', $isArchived ? '' : '!', $isDraft ? '' : '!', $wasPublished ? '' : '!', $expected ? '' : '!');
+      if (!$expected || $isModerated || $isPublished || !(!$isModerated && $wasPublished && !$isPublished)) {
+        continue;
+      }
+      $name = sprintf(
+        "%sisModerated, %sisCmPublished, %sisPublished, %sisArchived, %sisDraft, %swasPublished, %sexpected",
+        $isModerated ? '' : '!',
+        $isCmPublished ? '' : '!',
+        $isPublished ? '' : '!',
+        $isArchived ? '' : '!',
+        $isDraft ? '' : '!',
+        $wasPublished ? '' : '!',
+        $expected ? '' : '!'
+      );
       $result[$name] = [
         'isModerated' => $isModerated,
         'isCmPublished' => $isCmPublished,
@@ -223,8 +235,14 @@ class ContentReleaseTriggerTraitTest extends VaGovUnitTestBase {
        */
       $expected = $hasTriggeringChanges && ($alwaysTriggersContentRelease || ($isFacility && $didChangeOperatingStatus));
 
-      $name = sprintf("%shasTriggeringChanges, %salwaysTriggersContentRelease, %sisFacility, %sdidChangeOperatingStatus, %sexpected",
-        $hasTriggeringChanges ? '' : '!', $alwaysTriggersContentRelease ? '' : '!', $isFacility ? '' : '!', $didChangeOperatingStatus ? '' : '!', $expected ? '' : '!');
+      $name = sprintf(
+        "%shasTriggeringChanges, %salwaysTriggersContentRelease, %sisFacility, %sdidChangeOperatingStatus, %sexpected",
+        $hasTriggeringChanges ? '' : '!',
+        $alwaysTriggersContentRelease ? '' : '!',
+        $isFacility ? '' : '!',
+        $didChangeOperatingStatus ? '' : '!',
+        $expected ? '' : '!'
+      );
       $result[$name] = [
         'hasTriggeringChanges' => $hasTriggeringChanges,
         'alwaysTriggersContentRelease' => $alwaysTriggersContentRelease,
@@ -278,6 +296,90 @@ class ContentReleaseTriggerTraitTest extends VaGovUnitTestBase {
       'full_width_banner_alert' => [
         'type' => 'full_width_banner_alert',
         'expected' => TRUE,
+      ],
+    ];
+  }
+
+  /**
+   * Test isUnmoderatedAndWasPreviouslyPublished().
+   *
+   * @param bool $isModerated
+   *   Whether the node is moderated.
+   * @param bool $hasOriginal
+   *   Whether the node has an original.
+   * @param bool $isOriginalPublished
+   *   Whether the original is published.
+   * @param bool $expected
+   *   The expected result.
+   *
+   * @covers ::isUnmoderatedAndWasPreviouslyPublished
+   * @dataProvider isUnmoderatedAndWasPreviouslyPublishedDataProvider
+   */
+  public function testIsUnmoderatedAndWasPreviouslyPublished(
+    bool $isModerated,
+    bool $hasOriginal,
+    bool $isOriginalPublished,
+    bool $expected
+  ) {
+    $original = $this->getMockBuilder(VaNodeInterface::class)
+      ->disableOriginalConstructor()
+      ->getMock();
+    $original->expects($this->any())
+      ->method('isPublished')
+      ->willReturn($isOriginalPublished);
+
+    $node = $this->getMockForTrait(ContentReleaseTriggerTrait::class);
+    $node->expects($this->any())->method('isModerated')->will($this->returnValue($isModerated));
+    $node->expects($this->any())->method('hasOriginal')->will($this->returnValue($hasOriginal));
+    $node->expects($this->any())->method('getOriginal')->will($this->returnValue($original));
+
+    $this->assertEquals($expected, $node->isUnmoderatedAndWasPreviouslyPublished());
+  }
+
+  /**
+   * Data provider for testIsUnmoderatedAndWasPreviouslyPublished.
+   *
+   * @return array
+   *   An array of arrays, each containing a set of values for the parameters
+   *   of testIsUnmoderatedAndWasPreviouslyPublished and the expected result.
+   */
+  public function isUnmoderatedAndWasPreviouslyPublishedDataProvider(): array {
+    return [
+      'unmoderated, has original, original published' => [
+        'isModerated' => FALSE,
+        'hasOriginal' => TRUE,
+        'isOriginalPublished' => TRUE,
+        'expected' => TRUE,
+      ],
+      'unmoderated, has original, original not published' => [
+        'isModerated' => FALSE,
+        'hasOriginal' => TRUE,
+        'isOriginalPublished' => FALSE,
+        'expected' => FALSE,
+      ],
+      'unmoderated, no original' => [
+        'isModerated' => FALSE,
+        'hasOriginal' => FALSE,
+        'isOriginalPublished' => FALSE,
+        'expected' => FALSE,
+      ],
+      'moderated, has original, original published' => [
+        'isModerated' => TRUE,
+        'hasOriginal' => TRUE,
+        'isOriginalPublished' => TRUE,
+        'expected' => FALSE,
+      ],
+      'moderated, has original, original not published' => [
+        'isModerated' => TRUE,
+        'hasOriginal' => TRUE,
+        'isOriginalPublished' => FALSE,
+        'expected' => FALSE,
+      ],
+      'moderated, no original' => [
+        'isModerated' => TRUE,
+        'hasOriginal' => FALSE,
+        'isOriginalPublished' => FALSE,
+        'expected' => FALSE,
       ],
     ];
   }

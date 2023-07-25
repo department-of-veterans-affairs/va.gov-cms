@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_content_types\Traits;
 
+use Drupal\va_gov_content_types\Entity\VaNodeInterface;
 use Drupal\va_gov_content_types\Interfaces\ContentReleaseTriggerInterface;
 
 /**
@@ -60,6 +61,16 @@ trait ContentReleaseTriggerTrait {
   abstract public function isDraft(): bool;
 
   /**
+   * {@inheritDoc}
+   */
+  abstract public function getOriginal(): VaNodeInterface;
+
+  /**
+   * {@inheritDoc}
+   */
+  abstract public function hasOriginal(): bool;
+
+  /**
    * Indicate whether this node should trigger a content release event.
    *
    * The decision is made based on a number of factors:
@@ -94,9 +105,7 @@ trait ContentReleaseTriggerTrait {
    */
   public function hasTriggeringChanges(): bool {
     $isModerated = $this->isModerated();
-    // If the node is not under content moderation, we need to check if the
-    // node was published before and is not published now.
-    $wasPublished = !$this->isPublished() && $this->getOriginal()->isPublished();
+    $wasPublished = $this->isUnmoderatedAndWasPreviouslyPublished();
     switch (TRUE) {
       case $isModerated && $this->isCmPublished():
         // If the node is currently published under content moderation...
@@ -123,6 +132,20 @@ trait ContentReleaseTriggerTrait {
    */
   public function alwaysTriggersContentRelease(): bool {
     return in_array($this->getType(), ContentReleaseTriggerInterface::ALWAYS_TRIGGERING_TYPES);
+  }
+
+  /**
+   * Is this node unmoderated but was previously published?
+   *
+   * @return bool
+   *   TRUE if this node is unmoderated but was previously published, or
+   *   FALSE otherwise.
+   */
+  public function isUnmoderatedAndWasPreviouslyPublished(): bool {
+    if ($this->isModerated()) {
+      return FALSE;
+    }
+    return $this->hasOriginal() && $this->getOriginal()->isPublished();
   }
 
 }
