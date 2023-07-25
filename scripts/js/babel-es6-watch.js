@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /**
  * @file
  *
@@ -7,21 +8,18 @@
  * meant to be used in that context.
  */
 
-'use strict';
+const fs = require("fs");
+const chokidar = require("chokidar");
 
-const fs = require('fs');
-const path = require('path');
-const chokidar = require('chokidar');
-
-const changeOrAdded = require('./changeOrAdded');
-const log = require('./log');
+const changeOrAdded = require("./changeOrAdded");
+const log = require("./log");
 
 // Match only on .es6.js files.
-const fileMatch = './docroot/{modules,themes}/custom/**/*.es6.js';
+const fileMatch = "./docroot/{modules,themes}/custom/**/*.es6.js";
 // Ignore everything in node_modules
 const watcher = chokidar.watch(fileMatch, {
   ignoreInitial: true,
-  ignored: './**/node_modules/**'
+  ignored: "./**/node_modules/**",
 });
 
 const unlinkHandler = (err) => {
@@ -32,12 +30,12 @@ const unlinkHandler = (err) => {
 
 // Watch for filesystem changes.
 watcher
-  .on('add', changeOrAdded)
-  .on('change', changeOrAdded)
-  .on('unlink', (filePath) => {
+  .on("add", changeOrAdded)
+  .on("change", changeOrAdded)
+  .on("unlink", (filePath) => {
     const fileName = filePath.slice(0, -7);
     fs.stat(`${fileName}.js`, () => {
       fs.unlink(`${fileName}.js`, unlinkHandler);
     });
   })
-  .on('ready', () => log(`Watching '${fileMatch}' for changes.`));
+  .on("ready", () => log(`Watching '${fileMatch}' for changes.`));
