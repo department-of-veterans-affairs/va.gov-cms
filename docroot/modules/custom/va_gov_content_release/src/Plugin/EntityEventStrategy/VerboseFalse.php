@@ -36,7 +36,7 @@ class VerboseFalse extends StrategyPluginBase {
     try {
       return $callback($node);
     }
-    catch (\Exception $e) {
+    catch (\Exception $exception) {
       return $default;
     }
   }
@@ -72,7 +72,7 @@ class VerboseFalse extends StrategyPluginBase {
     foreach ($details as $detail) {
       $detailValues[$detail] = $this->safelyGetNodeDetail($node, function () use ($node, $detail) {
         return call_user_func([$node, $detail]);
-      }, FALSE);
+      }, 'exception occurred');
     }
     return [
       'isFacility' => $detailValues['isFacility'],
