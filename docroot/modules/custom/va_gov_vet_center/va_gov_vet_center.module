@@ -178,23 +178,6 @@ function va_gov_vet_center_vc_cap_address_alter_label_after_build(array $element
 }
 
 /**
- * Hide hours caption in hours widget on vc cap type.
- *
- * @param array $element
- *   The hours table widget form array.
- * @param \Drupal\Core\Form\FormStateInterface $form_state
- *   The form state.
- *
- * @return string
- *   The altered hours table widget.
- */
-function va_gov_vet_center_vc_cap_hours_hide_caption_after_build(array $element, FormStateInterface $form_state) {
-  unset($element[0]['#description']);
-  unset($element[0]['caption']);
-  return $element;
-}
-
-/**
  * Implements hook_form_BASE_FORM_ID_alter().
  */
 function va_gov_vet_center_form_node_form_alter(array &$form, FormStateInterface &$form_state) {

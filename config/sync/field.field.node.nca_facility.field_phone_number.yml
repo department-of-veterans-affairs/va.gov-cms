@@ -1,0 +1,25 @@
+uuid: cb247fb5-192d-460e-aa05-9dd6c7980fdc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_phone_number
+    - node.type.nca_facility
+  module:
+    - telephone
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.nca_facility.field_phone_number
+field_name: field_phone_number
+entity_type: node
+bundle: nca_facility
+label: 'Phone Number'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

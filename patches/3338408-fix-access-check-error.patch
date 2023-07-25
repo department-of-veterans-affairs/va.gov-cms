@@ -1,0 +1,26 @@
+diff --git a/admin_toolbar_search/src/SearchLinks.php b/admin_toolbar_search/src/SearchLinks.php
+index 8c612d4..6f67661 100644
+--- a/admin_toolbar_search/src/SearchLinks.php
++++ b/admin_toolbar_search/src/SearchLinks.php
+@@ -120,7 +120,7 @@ class SearchLinks {
+       $content_entity = $entities['content_entity'];
+       // Load the remaining items that were not loaded by the toolbar.
+       $content_entity_bundle_storage = $this->entityTypeManager->getStorage($content_entity_bundle);
+-      $bundles_ids = $content_entity_bundle_storage->getQuery()->sort('weight')->range($max_bundle_number)->execute();
++      $bundles_ids = $content_entity_bundle_storage->getQuery()->accessCheck(FALSE)->sort('weight')->range($max_bundle_number)->execute();
+       if (!empty($bundles_ids)) {
+         $bundles = $this->entityTypeManager
+           ->getStorage($content_entity_bundle)
+diff --git a/admin_toolbar_tools/src/Plugin/Derivative/ExtraLinks.php b/admin_toolbar_tools/src/Plugin/Derivative/ExtraLinks.php
+index 00ad608..0e0ce9c 100644
+--- a/admin_toolbar_tools/src/Plugin/Derivative/ExtraLinks.php
++++ b/admin_toolbar_tools/src/Plugin/Derivative/ExtraLinks.php
+@@ -111,7 +111,7 @@ class ExtraLinks extends DeriverBase implements ContainerDeriverInterface {
+       $content_entity_bundle = $entities['content_entity_bundle'];
+       $content_entity = $entities['content_entity'];
+       $content_entity_bundle_storage = $this->entityTypeManager->getStorage($content_entity_bundle);
+-      $bundles_ids = $content_entity_bundle_storage->getQuery()->sort('weight')->pager($max_bundle_number)->execute();
++      $bundles_ids = $content_entity_bundle_storage->getQuery()->accessCheck(FALSE)->sort('weight')->pager($max_bundle_number)->execute();
+       $bundles = $this->entityTypeManager->getStorage($content_entity_bundle)->loadMultiple($bundles_ids);
+       if (count($bundles) == $max_bundle_number && $this->routeExists('entity.' . $content_entity_bundle . '.collection')) {
+         $links[$content_entity_bundle . '.collection'] = [

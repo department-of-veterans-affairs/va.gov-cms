@@ -1,7 +1,7 @@
 These instructions are not tested yet (from memory), proceed with caution.
 
 ## Scenarios
-### 1) A `drush deploy` fails because of a boostrap failure (open upstream issue https://github.com/drush-ops/drush/issues/4702)
+### 1) A `drush deploy` fails because of a bootstrap failure (open upstream issue https://github.com/drush-ops/drush/issues/4702)
 Continue the deployment manually:
 1. `source /etc/sysconfig/httpd; /usr/local/bin/drush deploy`
 1. `source /etc/sysconfig/httpd; /usr/local/bin/drush va-gov-enable-deploy-mode`

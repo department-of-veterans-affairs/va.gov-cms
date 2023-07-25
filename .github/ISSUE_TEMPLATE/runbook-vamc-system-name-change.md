@@ -2,7 +2,7 @@
 name: Runbook - VAMC system name change
 about: How to update the name of a VAMC.
 title: 'VAMC system name change: <insert_name_of_vamc>'
-labels: Change request
+labels: Change request, Drupal engineering, Facilities, User support, VA.gov frontend, VAMC
 assignees: ''
 
 ---
@@ -18,10 +18,11 @@ Help desk ticket: <insert_help_desk_link>
 Submitter: <insert_name>
 
 - [ ] Link to system in production:
-System link: <insert_facility_link>
+System CMS link: <insert_facility_link>
+System API ID: <insert_facility_API_ID>
 
 ## Steps before proceeding
-
+**Note: If the help desk is waiting on information from the facility staff or editor, add the "Awaiting editor" flag to the facility with a log message that includes a link to this ticket. Remove the flag when the ticket is ready to be worked by the Facilities team. Be sure to preserve the current moderation state of the node when adding or removing the flag.**
 - [ ] Check with Facilities team Product Owner to get approval of name change.
 - [ ] Check with VHA Digital Media.
 
@@ -30,25 +31,18 @@ System link: <insert_facility_link>
 Timing around these is critical and we may need more detail here.
 
 #### CMS help desk steps
-- [ ] 1. CMS team submits [Redirect request](https://github.com/department-of-veterans-affairs/va.gov-team/issues/new?assignees=mnorthuis&labels=ia&template=redirect-request.md&title=Redirect+Request) from old system URL to new system URL.
-- [ ] 2. Once timing of Redirect going live is known, alert CMS engineers to carry out the other steps
+- [ ] 1. Create a [URL change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old facility URL to the new facility URL. (**Note: The URL change request ticket blocks the completion of this ticket.**)
 
-<insert_redirect_request_link>
+<insert_url_change_request_link>
+
+(Redirects deploy weekly on Wed. at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. Coordinate the items below and canonical URL change after URL change ticket is merged, deployed, and verified in prod.)
 
 #### CMS engineer steps
-- [ ] 3. CMS engineer updates the Section name
-- [ ] 4. CMS engineer bulk alias changes all nodes within the system. (https://prod.cms.va.gov/admin/content/bulk)
-- [ ] 5. CMS engineer bulk saves to fix titles for all nodes within system. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
-- [ ] 6. CMS engineer creates a PR to rename the menu for the system accordingly.  (In the future, they may need to rebuild the menu so that name and machine name match.)
-- [ ] 7. CMS engineer updates the [CSV in Lighthouse](https://github.com/department-of-veterans-affairs/lighthouse-facilities/blob/master/facilities/src/main/resources/websites.csv) with the changed URL, creating a PR, tagging the Lighthouse team and linking to it in Slack with an @mention to a Lighthouse team member
+- [ ] 2. Execute the steps of the URL change request ticket from step 1.
+- [ ] 3. Update the Section name.
+- [ ] 3. Bulk alias change all nodes within the system. (https://prod.cms.va.gov/admin/content/bulk)
+- [ ] 4. Bulk save to fix titles for all nodes within system. (https://prod.cms.va.gov/admin/content/bulk?type=health_care_local_health_service)
+- [ ] 5. Create a PR to rename the menu for the system accordingly.  (In the future, they may need to rebuild the menu so that name and machine name match.)
 
 #### CMS Help desk (wrap up)
-- [ ] Help desk notifies editor and any other stakeholders.
-
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [x] `Facilities`
-- [x] `User support`
+- [ ] 6. Notify editor and any other stakeholders.

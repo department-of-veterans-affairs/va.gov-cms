@@ -2,37 +2,28 @@
 name: Runbook - VBA Facility name change
 about: Steps for updating names and URLs
 title: 'VBA Facility name change: <insert_name>'
-labels: Change request
+labels: Change request, Drupal engineering, Facilities, User support, VA.gov frontend, VBA
 assignees: ''
 
 ---
 
 ## Intake
-- [ ] What triggered this runbook? (Flag in CMS, Help desk ticket, Product team, VHA Digital Media)
+- [ ] What triggered this runbook? (Flag in CMS via Lighthouse migration)
 Trigger: <insert_trigger>
 
-- [ ] Link to associated help desk ticket (if applicable)
-Help desk ticket: <insert_help_desk_link>
-
-- [ ] Name of submitter (if applicable)
-Submitter: <insert_name>
-
-- [ ] If the submitter is an editor, send them links to any relevate KB articles for the VBA product. Let them know that facility changes can take between 75 days and 4 months after submitting a request, according to VAST administrators.
-KB articles: <insert_kb_article_links>
-
 - [ ] Link to facility in production:
-Facility link: <insert_facility_link>
+Facility CMS link: <insert_facility_link>
+Facility API ID: <insert_facility_API_ID>
 
 ## Acceptance criteria
 
 ## VBA Facility name change
 
-[@TODO: DRAFT FOR HELP DESK AND DEV STEPS]
 
-### Team
-Please check the team(s) that will do this work.
+### Drupal Admin steps
+- [ ] Edit the node and update the alias to match the new facility name, lowercase with dashes.
+- [ ] Edit the facility node, remove the `Changed name` flag, save the node with revision log
 
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [x] `Facilities`
-- [x] `User support`
+If this facility is a Regional Office
+- [ ] Go to [Sections taxonomy]( https://prod.cms.va.gov/admin/structure/taxonomy/manage/administration/overview), VBA > Rename the term that matches the old Facility name to use the new Facility name
+    * If this process gets automated, this runbook can be retired.

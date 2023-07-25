@@ -1,0 +1,33 @@
+uuid: ea7b5c44-4d74-4c5c-a658-5bbf7d7ca4fe
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.message.vamc_outdated_content.field_editor_username
+    - field.field.message.vamc_outdated_content.field_subject
+    - message.template.vamc_outdated_content
+  module:
+    - user
+id: message.vamc_outdated_content.default
+targetEntityType: message
+bundle: vamc_outdated_content
+mode: default
+content:
+  field_editor_username:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_subject:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  search_api_excerpt: true

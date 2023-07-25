@@ -2,9 +2,7 @@ services:
   # What to call the service hosting the site.
   php:
     # Use PHP 8.1 with Apache; this syntax pulls in the latest version of PHP 8.1.
-    # Currently, using Buster because of an issue with Bullseye and PHP 8.1 on Tugboat.
-    # See https://github.com/department-of-veterans-affairs/va.gov-cms/issues/7667
-    image: tugboatqa/php:8.1-apache-buster
+    image: tugboatqa/php:8.1-apache-bullseye
 
     aliases:
       - cms
@@ -24,9 +22,9 @@ services:
     # A set of commands to run while building this service
     commands:
       # Commands that set up the basic preview infrastructure
-      
+
       # Changes made in this section will _not_ automatically take effect when
-      # base previews are refreshed through the scheduled process! A manual 
+      # base previews are refreshed through the scheduled process! A manual
       # rebuild of the base preview is necessary.
       init:
         - apt-get update
@@ -34,7 +32,7 @@ services:
         # TODO: Add "Why" comment for Python, was this for the FE dependencies `yarn install`, if so which dependencies
         # so we can remove if they are removed in the future.
         - apt-get install python
-        
+
         # General useful development tools
         - apt-get install jq nano
 
@@ -127,9 +125,13 @@ services:
         - echo "apc.enable=1" >> /usr/local/etc/php/conf.d/php-cli.ini
         - echo "apc.enable_cli=1" >> /usr/local/etc/php/conf.d/php-cli.ini
 
-        # Install memcache extension
-        - pecl install memcache-8.0
-        - docker-php-ext-enable memcache
+        # Install memcached extension
+        - apt-get install libmemcached-dev
+        - yes '' | pecl install -f memcached
+        - docker-php-ext-enable memcached
+
+        # Install node and npm.
+        - ./scripts/install-nvm.sh
 
         # Ensure that we're using version 2 of composer.
         - composer self-update --2
@@ -151,9 +153,10 @@ services:
         # Install/update packages managed by composer, including drush.
         # Composer options are in composer.json, 'config' key.
         - composer install
-        - ./bin/npm install
-        - composer va:theme:compile
-        - composer va:web:install
+        - bash -lc 'nvm install'
+        - bash -lc 'npm install'
+        - bash -lc 'composer va:theme:compile'
+        - bash -lc 'composer va:web:install'
 
         - curl --remote-name https://dsva-vagov-prod-cms-backup-sanitized.s3-us-gov-west-1.amazonaws.com/files/cms-prod-files-latest.tgz
         - tar --extract --gunzip --file cms-prod-files-latest.tgz --directory "${DOCROOT}/sites/default/files/"
@@ -182,11 +185,15 @@ services:
         - j2 "${TUGBOAT_ROOT}/.web/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.web/403-error-document.html"
         - j2 "${TUGBOAT_ROOT}/.storybook/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.storybook/403-error-document.html"
         - composer install
-        - ./bin/npm install
-        - composer va:theme:compile
-        - composer va:web:install
+        - bash -lc 'nvm install'
+        - bash -lc 'npm install'
+        - bash -lc 'composer va:theme:compile'
+        - bash -lc 'composer va:web:install'
         # https://www.drush.org/latest/deploycommand/ (updatedb, cache:rebuild, config:import, deploy:hook)
         - drush deploy
+
+        # Disable sitewide alerts so as not to interfere with testing.
+        - drush sitewide-alert:disable
 
         # Prevent continuous releases from running on Tugboat, and reset to ready.
         - drush sset va_gov_build_trigger.continuous_release_enabled 0

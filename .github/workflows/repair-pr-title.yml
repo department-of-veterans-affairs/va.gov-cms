@@ -1,0 +1,46 @@
+name: "Repair PR Title"
+
+on:
+  pull_request:
+    types: [opened, edited]
+
+jobs:
+  repair_pr_title:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Repair PR title
+        run: |
+          PR_API_URL="https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}"
+
+          # Retrieve the PR object.
+          PR="$(curl \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "${PR_API_URL}")"
+          echo "PR: $PR"
+
+          # This will be a JSON-quoted string. We do _not_ strip the quotes.
+          # For instance (pathological example):
+          # "Bump drupal/coder from 8.3.17 to 8.3.18\" ' } \\\" ' 4"
+          ORIGINAL_TITLE="$(jq '.title' <<< "$PR")"
+          echo "ORIGINAL_TITLE: $ORIGINAL_TITLE"
+
+          # Fix the prefix. This should preserve everything else.
+          UPDATED_TITLE="$(echo "$ORIGINAL_TITLE" | sed -E 's/vacms ([0-9]+) /VACMS-\1: /I')"
+          echo "UPDATED_TITLE: $UPDATED_TITLE"
+
+          if [ "$ORIGINAL_TITLE" != "$UPDATED_TITLE" ]; then
+            echo "Updating PR title from $ORIGINAL_TITLE to $UPDATED_TITLE"
+
+            # $UPDATED_TITLE is already quoted, so we must not quote it again.
+            curl \
+              -X PATCH \
+              -H "Accept: application/vnd.github.v3+json" \
+              -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              "${PR_API_URL}" \
+              -d "{\"title\":$UPDATED_TITLE}"
+          fi
+
+        shell: bash

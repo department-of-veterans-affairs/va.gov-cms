@@ -2,6 +2,8 @@
 
 // phpcs:ignoreFile
 
+$settings['va_gov_environment']['environment'] = 'staging';
+
 include dirname(__FILE__) . '/settings.brd_common.php';
 
 $settings['jenkins_build_job_path'] = '/job/builds/job/content-build-content-only-vagov' . $settings['jenkins_build_env'];
@@ -28,6 +30,7 @@ $config['environment_indicator.indicator']['fg_color'] = '#212121';
 $config['environment_indicator.indicator']['name'] = 'Staging';
 
 $webhost_on_cli = 'https://staging.cms.va.gov';
+$settings['webhost'] = $webhost_on_cli;
 
 $settings['trusted_host_patterns'] = [
     // For ALB/ELB Healthchecks.

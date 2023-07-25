@@ -59,14 +59,14 @@ forth.
 
 At present, these include:
 
-- **Behat**, a PHP behavior-driven test framework.  Behat performs some tests
-  of user roles and permissions.
 - **Content-Build: GraphQL** or `content-build-gql`, a script that performs the
   initial retrieval of content-build data from Drupal via GraphQL, in order to
   verify compatibility.
 - **Cypress**, a behavioral test framework that verifies correct behavior by
   puppeteering a headless Chromium browser.  This is the preferred location for
   new behavioral tests and is extensible with JavaScript rather than PHP.
+  To run a single test feature use:
+  `ddev composer va:test:cypress -- --spec=tests/cypress/integration/<feature file name>`
 - **PHPUnit**, in a separate suite from the PHPUnit tests mentioned above, runs
   functional, security, and other tests.  This is an appropriate place for some
   tests, especially those that operate at the request level, API level, etc.

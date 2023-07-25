@@ -2,6 +2,8 @@
 
 // phpcs:ignoreFile
 
+$settings['va_gov_environment']['environment'] = 'prod';
+
 include dirname(__FILE__) . '/settings.brd_common.php';
 
 $settings['jenkins_build_job_path'] = '/job/deploys/job/vets-gov-autodeploy-content-build';
@@ -28,6 +30,7 @@ $config['environment_indicator.indicator']['fg_color'] = '#ffffff';
 $config['environment_indicator.indicator']['name'] = 'Production';
 
 $webhost_on_cli = 'https://prod.cms.va.gov';
+$settings['webhost'] = $webhost_on_cli;
 
 $settings['trusted_host_patterns'] = [
     // For ALB/ELB Healthchecks.

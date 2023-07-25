@@ -114,7 +114,7 @@ $settings['va_cms_bot_github_auth_token'] = getenv('CMS_GITHUB_VA_CMS_BOT_TOKEN'
 $settings['va_gov_composer_home'] = getenv('COMPOSER_HOME');
 $settings['va_gov_path_to_composer'] = '/usr/local/bin/composer';
 // The default BRD locations. These settings are currently only used on tugboat/local
-$settings['va_gov_web_root'] = '/var/www/cms/docroot/web';
+$settings['va_gov_web_root'] = '/var/www/cms/web';
 $settings['va_gov_app_root'] = '/var/www/cms';
 
 // Defaults (should only be local that doesn't set these), default to dev for config_split
@@ -137,6 +137,15 @@ $config['environment_indicator.indicator']['name'] = 'Local';
 $settings['config_sync_directory'] = '../config/sync';
 
 $env_type = getenv('CMS_ENVIRONMENT_TYPE') ?: 'ci';
+
+/**
+ * Environment discovery service settings, vended by the Environment Discovery
+ * service (`va_gov.environment_discovery`).
+ */
+$settings['va_gov_environment'] = [
+  'environment_raw' => $env_type,
+  'is_cms_test' => getenv('CMS_APP_NAME') ?? '' === 'cms-test',
+];
 
 $config['govdelivery_bulletins.settings']['govdelivery_endpoint'] = getenv('CMS_GOVDELIVERY_ENDPOINT') ?: FALSE;
 $config['govdelivery_bulletins.settings']['govdelivery_username'] = getenv('CMS_GOVDELIVERY_USERNAME') ?: FALSE;
@@ -186,8 +195,6 @@ $error_reporting = (int) ini_get('error_reporting');
 ini_set('error_reporting', $error_reporting & ~E_DEPRECATED & ~E_USER_DEPRECATED);
 
 $settings_files = [
-  // Flysistem settings
-  __DIR__ . '/settings/settings.flysystem.php',
   // Environment specific settings
   __DIR__ . '/settings/settings.' . $env_type . '.php',
   // Fast 404 settings
@@ -200,7 +207,7 @@ $settings_files = [
 
 foreach ($settings_files as $file) {
   if (file_exists($file)) {
-    include_once $file;
+    include $file;
   }
 }
 
@@ -243,7 +250,7 @@ if (!empty($webhost_on_cli)) {
 $settings['container_yamls'][] = __DIR__ . '/services/services.monolog.yml';
 
 // Memcache-specific settings
-if (extension_loaded('memcache') && !empty($settings['memcache']['servers'])) {
+if ((extension_loaded('memcache') || extension_loaded('memcached')) && !empty($settings['memcache']['servers'])) {
   $settings['cache']['default'] = 'cache.backend.memcache';
   $settings['memcache']['bins'] = [
     'default' => 'default',

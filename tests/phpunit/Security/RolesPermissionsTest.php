@@ -31,10 +31,14 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
       $message = 'The ' . $roleMatch . ' role is missing from the system.';
     }
 
-    // Test assertion.
-    $match = ($expectedPerms == $permissions);
+    // Copy $expectedPerms to a new array, then sort it.
+    // Doing this without copying the array can cause segmentation faults.
+    $expected = $expectedPerms;
+    sort($expected);
+    // Sort $permissions for consistency.
+    sort($permissions);
 
-    $this->assertTrue($match, $message);
+    $this->assertEquals($permissions, $expected, $message);
   }
 
   /**
@@ -94,6 +98,7 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
       [
         'content_admin',
         [
+          'accept translation jobs',
           'access administration pages',
           'access files overview',
           'access media overview',
@@ -179,7 +184,6 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
           'update any news_promo block content',
           'update any promo block content',
           'update content translations',
-          'update home_page_hub_list entityqueue',
           'update media',
           'use editorial transition approve',
           'use editorial transition archive',
@@ -411,8 +415,8 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
           'view vet_center_mobile_vet_center revisions',
           'view vet_center_outstation revisions',
           'view vha_facility_nonclinical_service revisions',
-          'view vha_facility_nonclinical_service revisions',
           'view video revisions',
+          'view vha_facility_nonclinical_service revisions',
           'view workbench access information',
         ],
       ],
@@ -562,8 +566,8 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
           'view vet_center_mobile_vet_center revisions',
           'view vet_center_outstation revisions',
           'view vha_facility_nonclinical_service revisions',
-          'view vha_facility_nonclinical_service revisions',
           'view video revisions',
+          'view vha_facility_nonclinical_service revisions',
           'view workbench access information',
         ],
       ],
@@ -885,11 +889,26 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
       [
         'translation_manager',
         [
+          'accept translation jobs',
           'create content translations',
+          'create translation jobs',
+          'delete translation jobs',
+          'submit translation jobs',
           'translate any entity',
           'translate configuration',
           'translate interface',
           'update content translations',
+          'use editorial transition approve',
+          'use editorial transition archive',
+          'use editorial transition create_new_draft',
+          'use editorial transition publish',
+          'use editorial transition archived_published',
+          'use editorial transition review',
+          'view any unpublished content',
+          'view latest version',
+          'access content overview',
+          'administer nodes',
+          'bypass node access',
         ],
       ],
     ];

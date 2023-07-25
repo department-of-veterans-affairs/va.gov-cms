@@ -28,6 +28,11 @@
 
 
 <div role="region" aria-label="Status message" {{ attributes.addClass(classes)|without('role', 'aria-label') }}>
+  {# attributes is not local to this template's scope, so the classes added above subsequently get passed back out. #}
+  {# This is a problem if multiple messages of different types are passed in. If we added messages--error here, #}
+  {# it will still be present when this template is called with a different type. Removing the classes here is cleanup. #}
+  {# See status-messages.html.twig and how it sends attributes to alert.twig. #}
+  {{ attributes.removeClass(classes) }}
   {% if type == 'error' %}
   {% set alert_icon = 'ban' %}
   <div role="alert">

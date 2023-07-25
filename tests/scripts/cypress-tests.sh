@@ -11,6 +11,9 @@ pushd "${repo_root}" > /dev/null
 
 ./node_modules/.bin/cypress install
 
+export CYPRESS_VERIFY_TIMEOUT=100000
+npm run test:cypress:verify
+
 npm run test:cypress -- "${@}"
 
 popd > /dev/null

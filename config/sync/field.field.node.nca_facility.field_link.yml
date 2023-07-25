@@ -1,0 +1,27 @@
+uuid: 805c01b5-6842-4f3b-927a-91d3caadf6bb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_link
+    - node.type.nca_facility
+  module:
+    - link
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.nca_facility.field_link
+field_name: field_link
+entity_type: node
+bundle: nca_facility
+label: Website
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 1
+  link_type: 17
+field_type: link

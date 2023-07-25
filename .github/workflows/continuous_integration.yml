@@ -8,14 +8,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - name: Check Corresponding Entity Reference Fields
         # See also `composer va:test:check-cer` in composer.json
         run: ./tests/scripts/check-cer.sh
       - name: Check Revision Log fields
-        # See also `composer va:test:check-revision-logs` in composer.json
-        run: ./tests/scripts/check-revision-logs.sh
+        # See also `composer va:test:check-node-revision-logs` in composer.json
+        # See also `composer va:test:check-taxonomy-revision-logs` in composer.json
+        run: |
+          ./tests/scripts/check-node-revision-logs.sh
+          ./tests/scripts/check-taxonomy-revision-logs.sh
 
   # Validate that the `composer.lock` hash is up-to-date.
   composer-validate:
@@ -23,8 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - name: Composer Validate
         run: composer validate
 
@@ -34,14 +35,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
       - name: ReviewDog
-        # https://github.com/reviewdog/action-eslint/releases/tag/v1.17.0
         # See also `composer va:test:eslint` in composer.json
-        uses: reviewdog/action-eslint@d3395027ea2cfc5cf8f460b1ea939b6c86fea656
+        uses: reviewdog/action-eslint@f2ee6727e05e6f0e46ea1d06a16f6685d3d7fb37 # v1.19.2
         with:
           reporter: github-pr-review
           eslint_flags: '--max-warnings 0 -c .eslintrc.json --no-eslintrc docroot/modules/custom/**/*.es6.js docroot/themes/custom/**/*.es6.js tests/cypress/**/*.js'
@@ -53,8 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
       - name: Run PHP_CodeSniffer and ReviewDog
@@ -78,8 +76,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
       - name: Run PHPLint
@@ -92,8 +89,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
       - name: Run PHPStan and ReviewDog
@@ -119,8 +115,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
       - name: Run PHPUnit (Unit Tests only)
@@ -137,12 +132,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # https://github.com/actions/cache/releases/tag/v3.0.10
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       - name: Stylelint modules
-        # https://github.com/reviewdog/action-stylelint/releases/tag/v1.14.0 
         # See also `composer va:test:stylelint-modules` in composer.json
-        uses: reviewdog/action-stylelint@a45bf7c5a91efc6f9443ae59b9cf7387b7868492
+        uses: reviewdog/action-stylelint@e45410880466232c34ec6ab2e0fbc15f5ce3fdd2 # v1.17.1
         with:
           fail_on_error: true
           github_token: ${{ secrets.github_token }}
@@ -151,9 +144,8 @@ jobs:
           stylelint_config: '.stylelintrc'
           stylelint_input: 'docroot/modules/custom/**/*.css'
       - name: Stylelint themes
-        # https://github.com/reviewdog/action-stylelint/releases/tag/v1.14.0 
         # See also `composer va:test:stylelint-themes` in composer.json
-        uses: reviewdog/action-stylelint@a45bf7c5a91efc6f9443ae59b9cf7387b7868492
+        uses: reviewdog/action-stylelint@e45410880466232c34ec6ab2e0fbc15f5ce3fdd2 # v1.17.1
         with:
           fail_on_error: true
           github_token: ${{ secrets.github_token }}
@@ -161,3 +153,26 @@ jobs:
           reporter: github-pr-review
           stylelint_config: '.stylelintrc'
           stylelint_input: 'docroot/themes/custom/**/*.scss'
+
+  # Analyze the codebase with GitHub's CodeQL tool.
+  codeql:
+    name: CodeQL Analyze
+    # Unlike most of our continuous integration tests, this test does not have
+    # a direct analog outside of GitHub Actions.
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        language:
+          - javascript
+    steps:
+      - name: Checkout
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+      - name: CodeQL Init
+        uses: github/codeql-action/init@cdcdbb579706841c47f7063dda365e292e5cad7a # v2.13.4
+        with:
+          languages: ${{ matrix.language }}
+      - name: CodeQL Analyze
+        uses: github/codeql-action/analyze@cdcdbb579706841c47f7063dda365e292e5cad7a # v2.13.4
+        with:
+          category: "/language:${{matrix.language}}"

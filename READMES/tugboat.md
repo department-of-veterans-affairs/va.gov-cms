@@ -19,7 +19,7 @@ At VA, our lower environments are each built from a Tugboat Base Preview, in som
         2. **Previews**: [content-build-branch-builds](https://tugboat.vfs.va.gov/6189a9af690c68dad4877ea5) — This Prod mirror snapshot of code + data backups is the base for building Staging.
 1. **Project**: [CMS](https://tugboat.vfs.va.gov/5fd3b8ee7b465711575722d5)
     1. **Repository**: [CMS Demo Environments](https://tugboat.vfs.va.gov/5ffe2f4dfa1ca136135134f6) — Is used for building Demo & Training Previews, manually triggered.
-    2. **Repository**: [CMS Pull Request Environments](https://tugboat.vfs.va.gov/5fd3b8ee7b4657022b5722d6) — Is used for managing PR Previews, automatically trigged by Pull Requests in va.gov-cms or content-build repos.
+    2. **Repository**: [CMS Pull Request Environments](https://tugboat.vfs.va.gov/5fd3b8ee7b4657022b5722d6) — Is used for managing PR Previews, automatically triggered by Pull Requests in va.gov-cms or content-build repos.
         1. **Base Preview**: Built nightly at 10am UTC (5am EST, 4am EDT). This data will then be used for all va.gov-cms and content-build PR Preview envs until the next time this Base Preview is refreshed.
  
 **Refresh**:
@@ -138,13 +138,13 @@ For example, when creating the 'Wilmington health care' demo environment, these 
 1. Generate API key at https://tugboat.vfs.va.gov/access-tokens
 1. Add token to $HOME/.tugboat.yml
 1. Start SOCKS connection
-1. Test with `tugboat help`, use `-v` for verboseness
+1. Test with `tugboat --help`.
 1. See more Tugboat CLI documentation [here](https://docs.tugboat.qa/tugboat-cli/)
 
 ## Known issues
 1. The generated URLs have only been observed to change when the file .tugboat/config.yml is modified by changing the name of a defined service, or changes the default service.
 1. You cannot search logs with a browser right now, it is a known issue. The alternative is to use the `tugboat` CLI tool to view logs. e.g. `tugboat log 6148dc56690c680da87db5f2 | grep -i 'error'`. You can get the service ID from the URL bar in the UI. 
 1. You cannot scroll the logs while they are outputting, you can only scroll once they are done. If you want to see previous output then use the Tugboat CLI tool with `tugboat log <service id>` and scroll that way. You can get the service ID from the URL bar in the UI. 
-1. Email cannot be sent to existing users, as their email addresses are blanked during the database sanitization process (see [#6100](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/6100)).  Email to new users, or users whose email addresses have been updated, can be sent and will be captured in the Tugboat interface.
+1. Email won't be sent to existing users as their email addresses are blanked during the database sanitization process for the developer database snapshot (see [#6100](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/6100)).  Email to new users, or users whose email addresses have been updated, can be sent and will be captured in the Tugboat interface. If you need to test email in Tugboat then edit a user and add an @example.com email address.
 1. Base preview images are **refreshed** automatically, not **rebuilt**.  This means that certain changes to Tugboat config, e.g. in the `init` phase, must be followed by a manual rebuild operation.  The nightly refresh will not incorporate the new changes.
-1. Pull requests with code in the body may cause a false alarm on the TIC and be rejected silently, and thus the Tugboat environment will not build automatically.  This is not an issue we or Tugboat can solve.  The only workaround is to build the PR branch manually.
+1. Pull requests with code in the body may cause a false alarm on the TIC and be rejected silently, and thus the Tugboat environment will not build automatically.  This is not an issue we or Tugboat can solve.  The only workaround is to build the PR branch manually. See this example of the string `filter_var()` in the webhook POST body causing a firewall block > https://dsva.slack.com/archives/C01A35JDH88/p1675984628181769?thread_ts=1675868445.789729&cid=C01A35JDH88. 

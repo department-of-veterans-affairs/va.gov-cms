@@ -38,6 +38,7 @@ dependencies:
     - tablefield
     - taxonomy
     - taxonomy_diff_ui
+    - tmgmt
     - toolbar_menu
     - va_gov_backend
     - va_gov_build_trigger
@@ -50,6 +51,7 @@ label: 'Content admin'
 weight: 1
 is_admin: null
 permissions:
+  - 'accept translation jobs'
   - 'access administration pages'
   - 'access files overview'
   - 'access media overview'
@@ -135,7 +137,6 @@ permissions:
   - 'update any news_promo block content'
   - 'update any promo block content'
   - 'update content translations'
-  - 'update home_page_hub_list entityqueue'
   - 'update media'
   - 'use editorial transition approve'
   - 'use editorial transition archive'
