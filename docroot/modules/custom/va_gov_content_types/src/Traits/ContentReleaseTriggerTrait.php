@@ -104,17 +104,11 @@ trait ContentReleaseTriggerTrait {
    *   TRUE if state change needs a release.  FALSE otherwise.
    */
   public function hasTriggeringChanges(): bool {
-    $isModerated = $this->isModerated();
-    $wasPublished = $this->isUnmoderatedAndWasPreviouslyPublished();
     switch (TRUE) {
-      case $isModerated && $this->isCmPublished():
-        // If the node is currently published under content moderation...
-      case $isModerated && $this->didTransitionFromPublishedToArchived():
-        // If we archived a published node...
-      case !$isModerated && $this->isPublished():
-        // If we published a node that is not under content moderation...
-      case !$isModerated && !$this->isPublished() && $wasPublished:
-        // If we unpublished a node that is not under content moderation...
+      case $this->isModeratedAndPublished():
+      case $this->isModeratedAndTransitionedFromPublishedToArchived():
+      case $this->isUnmoderatedAndPublished():
+      case $this->isUnmoderatedAndWasPreviouslyPublished():
         return TRUE;
 
       default:
@@ -132,6 +126,39 @@ trait ContentReleaseTriggerTrait {
    */
   public function alwaysTriggersContentRelease(): bool {
     return in_array($this->getType(), ContentReleaseTriggerInterface::ALWAYS_TRIGGERING_TYPES);
+  }
+
+  /**
+   * Is this node moderated and published?
+   *
+   * @return bool
+   *   TRUE if this node is moderated and published, or
+   *   FALSE otherwise.
+   */
+  public function isModeratedAndPublished(): bool {
+    return $this->isModerated() && $this->isCmPublished();
+  }
+
+  /**
+   * Is this node moderated, and did it transition from published to archived?
+   *
+   * @return bool
+   *   TRUE if this node is moderated and transitioned from published to
+   *   archived, or FALSE otherwise.
+   */
+  public function isModeratedAndTransitionedFromPublishedToArchived(): bool {
+    return $this->isModerated() && $this->didTransitionFromPublishedToArchived();
+  }
+
+  /**
+   * Is this node unmoderated and currently published?
+   *
+   * @return bool
+   *   TRUE if this node is unmoderated and currently published, or
+   *   FALSE otherwise.
+   */
+  public function isUnmoderatedAndPublished(): bool {
+    return !$this->isModerated() && $this->isPublished();
   }
 
   /**

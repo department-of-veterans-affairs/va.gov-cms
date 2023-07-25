@@ -19,6 +19,81 @@ use Drupal\va_gov_content_types\Entity\VaNodeInterface;
 class VerboseFalse extends StrategyPluginBase {
 
   /**
+   * Safely get a detail about the node and its changes.
+   *
+   * @param \Drupal\va_gov_content_types\Entity\VaNodeInterface $node
+   *   The node.
+   * @param callable $callback
+   *   The callback to invoke.
+   * @param mixed $default
+   *   The default value to return if the callback throws an exception.
+   *
+   * @return mixed
+   *   The value returned by the callback, or the default value if the callback
+   *   threw an exception.
+   */
+  protected function safelyGetNodeDetail(VaNodeInterface $node, callable $callback, $default = NULL) {
+    try {
+      return $callback($node);
+    }
+    catch (\Exception $e) {
+      return $default;
+    }
+  }
+
+  /**
+   * Get details about the node and changes thereto.
+   *
+   * @param \Drupal\va_gov_content_types\Entity\VaNodeInterface $node
+   *   The node.
+   *
+   * @return array
+   *   The details, as an associative array.
+   */
+  public function getNodeDetails(VaNodeInterface $node): array {
+    $details = [
+      'isFacility',
+      'isModerated',
+      'hasOriginal',
+      'didChangeOperatingStatus',
+      'alwaysTriggersContentRelease',
+      'isModeratedAndPublished',
+      'isModeratedAndTransitionedFromPublishedToArchived',
+      'isUnmoderatedAndPublished',
+      'isUnmoderatedAndWasPreviouslyPublished',
+      'didTransitionFromPublishedToArchived',
+      'isCmPublished',
+      'isPublished',
+      'isArchived',
+      'isDraft',
+      'wasPublished',
+    ];
+    $detailValues = [];
+    foreach ($details as $detail) {
+      $detailValues[$detail] = $this->safelyGetNodeDetail($node, function () use ($node, $detail) {
+        return call_user_func([$node, $detail]);
+      }, FALSE);
+    }
+    return [
+      'isFacility' => $detailValues['isFacility'],
+      'isModerated' => $detailValues['isModerated'],
+      'hasOriginal' => $detailValues['hasOriginal'],
+      'didChangeOperatingStatus' => $detailValues['isFacility'] && $detailValues['didChangeOperatingStatus'],
+      'alwaysTriggersContentRelease' => $detailValues['alwaysTriggersContentRelease'],
+      'isModeratedAndPublished' => $detailValues['isModeratedAndPublished'],
+      'isModeratedAndTransitionedFromPublishedToArchived' => $detailValues['isModeratedAndTransitionedFromPublishedToArchived'],
+      'isUnmoderatedAndPublished' => $detailValues['isUnmoderatedAndPublished'],
+      'isUnmoderatedAndWasPreviouslyPublished' => $detailValues['isUnmoderatedAndWasPreviouslyPublished'],
+      'didTransitionFromPublishedToArchived' => $detailValues['isModerated'] && $detailValues['hasOriginal'] && $detailValues['didTransitionFromPublishedToArchived'],
+      'isCmPublished' => $detailValues['isModerated'] && $detailValues['isCmPublished'],
+      'isPublished' => $detailValues['isPublished'],
+      'isArchived' => $detailValues['isModerated'] && $detailValues['isArchived'],
+      'isDraft' => $detailValues['isModerated'] && $detailValues['isDraft'],
+      'wasPublished' => $detailValues['isModerated'] && $detailValues['hasOriginal'] && $detailValues['wasPublished'],
+    ];
+  }
+
+  /**
    * Calculate variables for a specified node.
    *
    * @param \Drupal\va_gov_content_types\Entity\VaNodeInterface $node
@@ -27,11 +102,13 @@ class VerboseFalse extends StrategyPluginBase {
    * @return array
    *   The variables.
    */
-  protected function calculateVariables(VaNodeInterface $node) : array {
+  public function calculateVariables(VaNodeInterface $node): array {
+    $details = $this->getNodeDetails($node);
     return [
       '%link_to_node' => $node->toLink(NULL, 'canonical', ['absolute' => TRUE])->toString(),
       '%nid' => $node->id(),
       '%type' => $node->getType(),
+      '%details' => json_encode($details, JSON_PRETTY_PRINT),
     ];
   }
 
@@ -44,7 +121,8 @@ class VerboseFalse extends StrategyPluginBase {
   public function logContentReleaseTriggerDecision(VaNodeInterface $node) {
     $wouldHaveBeenTriggered = $node->shouldTriggerContentRelease();
     $variables['@would'] = $wouldHaveBeenTriggered ? 'would have' : 'would not have';
-    $this->logger->info('A content release @would been triggered by a change to %type: %link_to_node (node%nid).', $variables);
+    $message = $this->t('A content release @would been triggered by a change to %type: %link_to_node (node%nid) (%details).', $variables);
+    $this->logger->info($message);
   }
 
   /**
