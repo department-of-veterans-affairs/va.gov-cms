@@ -96,7 +96,7 @@ trait ContentReleaseTriggerTrait {
     $isModerated = $this->isModerated();
     // If the node is not under content moderation, we need to check if the
     // node was published before and is not published now.
-    $wasPublished = !$this->isPublished && $this->getOriginal()->isPublished();
+    $wasPublished = !$this->isPublished() && $this->getOriginal()->isPublished();
     switch (TRUE) {
       case $isModerated && $this->isCmPublished():
         // If the node is currently published under content moderation...
