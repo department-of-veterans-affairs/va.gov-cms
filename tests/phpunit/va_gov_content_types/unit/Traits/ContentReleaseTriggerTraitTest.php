@@ -50,6 +50,13 @@ class ContentReleaseTriggerTraitTest extends VaGovUnitTestBase {
     bool $expected
   ) {
     $node = $this->getMockForTrait(ContentReleaseTriggerTrait::class);
+    $original = $this->getMockBuilder(VaNodeInterface::class)
+      ->disableOriginalConstructor()
+      ->getMock();
+    $original->expects($this->any())
+      ->method('isPublished')
+      ->willReturn($wasPublished);
+    $node->expects($this->any())->method('getOriginal')->will($this->returnValue($original));
     $node->expects($this->any())->method('isModerated')->will($this->returnValue($isModerated));
     $node->expects($this->any())->method('isCmPublished')->will($this->returnValue($isCmPublished));
     $node->expects($this->any())->method('isPublished')->will($this->returnValue($isPublished));
