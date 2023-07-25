@@ -56,8 +56,8 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('va_gov_github.api_client.content_build'),
       $container->get('va_gov_git.branch_search.content_build'),
+      $container->get('va_gov_github.api_client.content_build'),
       $container->get('logger.factory')
     );
   }
