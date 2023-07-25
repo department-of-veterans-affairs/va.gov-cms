@@ -20,8 +20,8 @@ fi
 cd $reporoot
 
 # Make sure that we're ready to start a build.
-releasestate=$(drush va-gov:content-release:get-state)
-if [ "$releasestate" != "dispatched" ]; then
+releasestate=$(drush va-gov:content-release:get-state | grep -c 'dispatched')
+if [ "$releasestate" -ne 1 ]; then
   echo "[!] Build hasn't been requested by the site. Aborting!"
   exit 1
 fi
@@ -43,6 +43,8 @@ logfile="${reporoot}/docroot/sites/default/files/build.txt"
 [ -f "${logfile}" ] && rm ${logfile}
 touch ${logfile}
 
+date >> ${logfile}
+
 # Tell the frontend (and the user) that we're starting.
 drush va-gov:content-release:advance-state starting
 echo "==> Starting a frontend build. This file will be updated as the build progresses." >> ${logfile}
@@ -53,7 +55,7 @@ rm -rf ${reporoot}/docroot/vendor/va-gov
 composer install --no-scripts &>> ${logfile}
 
 # Get the requested frontend version
-feversion=$(drush va-gov:content-release:get-frontend-version)
+feversion=$(drush va-gov:content-release:get-frontend-version | tail -1)
 if [ "${feversion}" != "__default" ]; then
   echo "==> Checking out the requested frontend version" >> ${logfile}
   pushd ${reporoot}/docroot/vendor/va-gov/content-build
