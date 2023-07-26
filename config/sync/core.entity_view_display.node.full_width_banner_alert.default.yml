@@ -13,11 +13,13 @@ dependencies:
     - field.field.node.full_width_banner_alert.field_banner_alert_situationinfo
     - field.field.node.full_width_banner_alert.field_banner_alert_vamcs
     - field.field.node.full_width_banner_alert.field_body
+    - field.field.node.full_width_banner_alert.field_enforce_unique_combo
     - field.field.node.full_width_banner_alert.field_last_saved_by_an_editor
     - field.field.node.full_width_banner_alert.field_operating_status_sendemail
     - field.field.node.full_width_banner_alert.field_situation_updates
     - node.type.full_width_banner_alert
   module:
+    - allow_only_one
     - entity_reference_revisions
     - field_group
     - options
@@ -141,6 +143,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 7
+    region: content
+  field_enforce_unique_combo:
+    type: allow_only_one
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 15
     region: content
   field_operating_status_sendemail:
     type: boolean
