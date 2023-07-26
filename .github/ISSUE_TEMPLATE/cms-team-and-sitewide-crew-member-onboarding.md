@@ -179,6 +179,7 @@ Drupal is the VA's content management system of choice. For anyone on our team, 
   - [ ] [View short presentations on specific topics](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/1714094110/CMS+Topic+Dives). Topics include site alerts, release and deploy, Facility API, etc.
   - [ ] [Browse the VA Drupal CMS Knowledge Base articles](https://prod.cms.va.gov/help/).
   - [ ] What is Drupal? [Link list for Drupal context and community](https://docs.google.com/spreadsheets/d/11ppWiIggKJh-YAWia28utZXW48tJZGCEg-sFJ6eIl9c)
+  - [ ] If you have a Drupal.org account, add your Agency & VA. Drupal.org > Login > My Account > Edit profile > Work tab > Add your agency, and "Department of Veterans Affairs" & save. This will help our team track Drupal open source contributions.
 
 ##### Tugboat demo environments (Drupal)
 Tugboat is a development server platform where you can preview CMS code changes pre-production.
