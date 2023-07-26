@@ -13,6 +13,7 @@ dependencies:
     - paragraphs.paragraphs_type.media
     - paragraphs.paragraphs_type.number_callout
     - paragraphs.paragraphs_type.process
+    - paragraphs.paragraphs_type.q_a_group
     - paragraphs.paragraphs_type.q_a_section
     - paragraphs.paragraphs_type.react_widget
     - paragraphs.paragraphs_type.spanish_translation_summary
@@ -20,6 +21,10 @@ dependencies:
     - paragraphs.paragraphs_type.wysiwyg
   module:
     - entity_reference_revisions
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
 id: node.page.field_content_block
 field_name: field_content_block
 entity_type: node
@@ -36,10 +41,10 @@ settings:
     target_bundles:
       table: table
       react_widget: react_widget
-      wysiwyg: wysiwyg
       list_of_link_teasers: list_of_link_teasers
-      q_a_section: q_a_section
+      wysiwyg: wysiwyg
       alert: alert
+      q_a_section: q_a_section
       process: process
       spanish_translation_summary: spanish_translation_summary
       collapsible_panel: collapsible_panel
@@ -47,6 +52,7 @@ settings:
       media: media
       downloadable_file: downloadable_file
       lists_of_links: lists_of_links
+      q_a_group: q_a_group
     negate: 0
     target_bundles_drag_drop:
       address:
@@ -55,8 +61,20 @@ settings:
       alert:
         weight: -30
         enabled: true
+      alert_single:
+        weight: 47
+        enabled: false
+      audience_topics:
+        weight: 48
+        enabled: false
+      basic_accordion:
+        weight: 49
+        enabled: false
       button:
         weight: 35
+        enabled: false
+      centralized_content_descriptor:
+        weight: 51
         enabled: false
       checklist:
         weight: 36
@@ -70,17 +88,32 @@ settings:
       collapsible_panel_item:
         weight: -25
         enabled: false
+      contact_information:
+        weight: 56
+        enabled: false
       downloadable_file:
         weight: 23
         enabled: true
+      email_contact:
+        weight: 58
+        enabled: false
+      embedded_video:
+        weight: 59
+        enabled: false
       expandable_text:
         weight: -20
+        enabled: false
+      featured_content:
+        weight: 61
         enabled: false
       health_care_local_facility_servi:
         weight: -25
         enabled: false
       link_teaser:
         weight: -24
+        enabled: false
+      link_teaser_with_image:
+        weight: 64
         enabled: false
       list_of_link_teasers:
         weight: -31
@@ -94,6 +127,15 @@ settings:
       media:
         weight: -24
         enabled: true
+      media_list_images:
+        weight: 69
+        enabled: false
+      media_list_videos:
+        weight: 70
+        enabled: false
+      non_reusable_alert:
+        weight: 71
+        enabled: false
       number_callout:
         weight: -26
         enabled: true
@@ -108,13 +150,16 @@ settings:
         enabled: false
       q_a_group:
         weight: 52
-        enabled: false
+        enabled: true
       q_a_section:
         weight: -30
         enabled: true
       react_widget:
         weight: -32
         enabled: true
+      rich_text_char_limit_1000:
+        weight: 79
+        enabled: false
       service_location:
         weight: 55
         enabled: false
@@ -129,9 +174,6 @@ settings:
         enabled: true
       staff_profile:
         weight: 39
-        enabled: false
-      starred_horizontal_rule:
-        weight: -19
         enabled: false
       step:
         weight: 61
