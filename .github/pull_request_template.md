@@ -10,9 +10,9 @@ Relates to #_issueid_. (or closes?)
 
 ## QA steps
 
-What needs to be checked to prove this works?  
-What needs to be checked to prove it didn't break any related things?  
-What variations of circumstances (users, actions, values) need to be checked?  
+What needs to be checked to prove this works?
+What needs to be checked to prove it didn't break any related things?
+What variations of circumstances (users, actions, values) need to be checked?
 
 As user _uid_ with _user_role_
 1. Do this
@@ -39,6 +39,7 @@ As user _uid_ with _user_role_
 - [ ] `Public websites`
 - [ ] `Facilities`
 - [ ] `User support`
+- [ ] `Accelerated Publishing`
 
 
 ### Is this PR blocked by another PR?

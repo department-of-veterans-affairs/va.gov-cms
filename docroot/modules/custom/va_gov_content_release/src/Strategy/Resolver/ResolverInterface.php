@@ -21,9 +21,4 @@ interface ResolverInterface {
    */
   public function getStrategyId() : string;
 
-  /**
-   * Trigger the content release using the appropriate strategy.
-   */
-  public function triggerContentRelease() : void;
-
 }

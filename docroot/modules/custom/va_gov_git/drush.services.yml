@@ -1,0 +1,13 @@
+services:
+  va_gov_git.repository_commands:
+    class: \Drupal\va_gov_git\Commands\RepositoryCommands
+    arguments:
+      - '@va_gov_git.branch_search_factory'
+      - '@va_gov_git.repository_factory'
+    tags:
+      - { name: drush.command }
+  va_gov_git.repository_settings_commands:
+    class: \Drupal\va_gov_git\Commands\RepositorySettingsCommands
+    arguments: ['@va_gov_git.repository_settings']
+    tags:
+      - { name: drush.command }

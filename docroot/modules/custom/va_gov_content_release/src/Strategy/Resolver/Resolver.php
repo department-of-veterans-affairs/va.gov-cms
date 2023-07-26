@@ -2,8 +2,7 @@
 
 namespace Drupal\va_gov_content_release\Strategy\Resolver;
 
-use Drupal\va_gov_environment\Service\DiscoveryInterface;
-use Drupal\va_gov_content_release\Strategy\Plugin\StrategyPluginManagerInterface;
+use Drupal\va_gov_environment\Discovery\DiscoveryInterface;
 use Drupal\va_gov_content_release\Exception\CouldNotDetermineStrategyException;
 
 /**
@@ -15,32 +14,21 @@ use Drupal\va_gov_content_release\Exception\CouldNotDetermineStrategyException;
 class Resolver implements ResolverInterface {
 
   /**
-   * The strategy plugin manager.
-   *
-   * @var \Drupal\va_gov_content_release\Strategy\Plugin\StrategyPluginManagerInterface
-   */
-  protected $strategyPluginManager;
-
-  /**
    * The environment discovery service.
    *
-   * @var \Drupal\va_gov_environment\Service\DiscoveryInterface
+   * @var \Drupal\va_gov_environment\Discovery\DiscoveryInterface
    */
   protected $environmentDiscovery;
 
   /**
    * Constructor.
    *
-   * @param \Drupal\va_gov_content_release\Strategy\Plugin\StrategyPluginManagerInterface $strategyPluginManager
-   *   The strategy plugin manager.
-   * @param \Drupal\va_gov_environment\Service\DiscoveryInterface $environmentDiscovery
+   * @param \Drupal\va_gov_environment\Discovery\DiscoveryInterface $environmentDiscovery
    *   The environment discovery service.
    */
   public function __construct(
-    StrategyPluginManagerInterface $strategyPluginManager,
     DiscoveryInterface $environmentDiscovery
   ) {
-    $this->strategyPluginManager = $strategyPluginManager;
     $this->environmentDiscovery = $environmentDiscovery;
   }
 
@@ -55,14 +43,6 @@ class Resolver implements ResolverInterface {
       $environment->isLocalDev() => static::STRATEGY_LOCAL_FILESYSTEM_BUILD_FILE,
       default => throw new CouldNotDetermineStrategyException('Could not determine a valid content release strategy for environment: ' . $environment->getRawValue()),
     };
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public function triggerContentRelease() : void {
-    $strategyId = $this->getStrategyId();
-    $this->strategyPluginManager->triggerContentRelease($strategyId);
   }
 
 }

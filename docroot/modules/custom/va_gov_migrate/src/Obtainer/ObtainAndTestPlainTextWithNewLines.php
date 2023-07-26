@@ -8,7 +8,10 @@ use Drupal\va_gov_migrate\AnomalyMessage;
 use QueryPath\DOMQuery;
 
 /**
- * Class ObtainAndTestPlainTextWithNewLines.
+ * PlainText Obtainer w/ Unsupported HTML Element Warning Support.
+ *
+ * Tests for unsupported HTML elements within plain text. Emits warning
+ * messages if found.
  *
  * @package Drupal\va_gov_migrate\Obtainer
  */
@@ -35,11 +38,10 @@ class ObtainAndTestPlainTextWithNewLines extends ObtainPlainTextWithNewLines {
     $this->title = $title;
     $this->url = $url;
 
-    $text = '';
     $n = ($n > 0) ? $n - 1 : 0;
     if (!empty($selector)) {
       $elements = $this->queryPath->find($selector);
-      /* @var \QueryPath\DOMQuery $element */
+      /** @var \QueryPath\DOMQuery $element */
       foreach ((is_object($elements)) ? $elements : [] as $i => $element) {
         if ($i == $n) {
           $this->test($element);
@@ -67,7 +69,7 @@ class ObtainAndTestPlainTextWithNewLines extends ObtainPlainTextWithNewLines {
     else {
       return;
     }
-    /* @var \QueryPath\DOMQuery $element */
+    /** @var \QueryPath\DOMQuery $element */
     foreach ($elements as $element) {
       if (!in_array($element->tag(), $allowed_tags)) {
         switch ($element->tag()) {

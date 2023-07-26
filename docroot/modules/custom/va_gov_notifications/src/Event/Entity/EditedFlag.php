@@ -6,7 +6,6 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
-use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\node\NodeInterface;
 use Drupal\va_gov_notifications\Service\FlaggingInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

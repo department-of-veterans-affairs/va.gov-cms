@@ -2,11 +2,10 @@
 
 namespace tests\phpunit\va_gov_environment\unit\Strategy\Resolver;
 
-use Drupal\va_gov_content_release\Strategy\Plugin\StrategyPluginManagerInterface;
 use Drupal\va_gov_content_release\Strategy\Resolver\Resolver;
 use Drupal\va_gov_content_release\Strategy\Resolver\ResolverInterface;
 use Drupal\va_gov_environment\Environment\Environment;
-use Drupal\va_gov_environment\Service\DiscoveryInterface;
+use Drupal\va_gov_environment\Discovery\DiscoveryInterface;
 use Tests\Support\Classes\VaGovUnitTestBase;
 
 /**
@@ -27,9 +26,7 @@ class ResolverTest extends VaGovUnitTestBase {
   public function testConstruct() {
     $environmentDiscoveryProphecy = $this->prophesize(DiscoveryInterface::class);
     $environmentDiscovery = $environmentDiscoveryProphecy->reveal();
-    $strategyPluginManagerProphecy = $this->prophesize(StrategyPluginManagerInterface::class);
-    $strategyPluginManager = $strategyPluginManagerProphecy->reveal();
-    $resolver = new Resolver($strategyPluginManager, $environmentDiscovery);
+    $resolver = new Resolver($environmentDiscovery);
     $this->assertInstanceOf(Resolver::class, $resolver);
   }
 
@@ -53,9 +50,7 @@ class ResolverTest extends VaGovUnitTestBase {
     $environmentDiscoveryProphecy = $this->prophesize(DiscoveryInterface::class);
     $environmentDiscoveryProphecy->getEnvironment()->willReturn(Environment::from($environmentId));
     $environmentDiscovery = $environmentDiscoveryProphecy->reveal();
-    $strategyPluginManagerProphecy = $this->prophesize(StrategyPluginManagerInterface::class);
-    $strategyPluginManager = $strategyPluginManagerProphecy->reveal();
-    $resolver = new Resolver($strategyPluginManager, $environmentDiscovery);
+    $resolver = new Resolver($environmentDiscovery);
     $this->assertEquals($strategyId, $resolver->getStrategyId());
   }
 
@@ -93,22 +88,6 @@ class ResolverTest extends VaGovUnitTestBase {
         new \ValueError('Invalid environment ID: invalid'),
       ],
     ];
-  }
-
-  /**
-   * Test triggering a content release.
-   *
-   * @covers ::triggerContentRelease
-   */
-  public function testTriggerContentRelease() {
-    $environmentDiscoveryProphecy = $this->prophesize(DiscoveryInterface::class);
-    $environmentDiscoveryProphecy->getEnvironment()->willReturn(Environment::from('ddev'));
-    $environmentDiscovery = $environmentDiscoveryProphecy->reveal();
-    $strategyPluginManagerProphecy = $this->prophesize(StrategyPluginManagerInterface::class);
-    $strategyPluginManager = $strategyPluginManagerProphecy->reveal();
-    $resolver = new Resolver($strategyPluginManager, $environmentDiscovery);
-    $resolver->triggerContentRelease();
-    $strategyPluginManagerProphecy->triggerContentRelease(ResolverInterface::STRATEGY_LOCAL_FILESYSTEM_BUILD_FILE)->shouldHaveBeenCalled();
   }
 
 }

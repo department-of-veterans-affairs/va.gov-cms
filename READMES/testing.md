@@ -59,8 +59,6 @@ forth.
 
 At present, these include:
 
-- **Behat**, a PHP behavior-driven test framework.  Behat performs some tests
-  of user roles and permissions.
 - **Content-Build: GraphQL** or `content-build-gql`, a script that performs the
   initial retrieval of content-build data from Drupal via GraphQL, in order to
   verify compatibility.

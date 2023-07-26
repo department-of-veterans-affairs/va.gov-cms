@@ -36,9 +36,9 @@ class SupportService extends MetalsmithSource {
       foreach ($row['social'][0]['subsections'] as $subsection) {
         foreach ($subsection['links'] as $service) {
           $this->serviceRows[] = [
-            'service_name' => isset($service['label']) ? $service['label'] : $service['title'],
+            'service_name' => $service['label'] ?? $service['title'],
             'service_url' => $service['url'],
-            'service_number' => isset($service['number']) ? $service['number'] : '',
+            'service_number' => $service['number'] ?? '',
             'url' => $row['url'],
           ];
         }
@@ -71,7 +71,7 @@ class SupportService extends MetalsmithSource {
         ->condition('title', $unique_row['service_name'])
         ->count();
 
-      if (empty($query->execute())) {
+      if (empty($query->accessCheck(FALSE)->execute())) {
         $new_rows[] = $unique_row;
       }
     }

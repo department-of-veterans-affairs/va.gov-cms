@@ -18,4 +18,11 @@ Given(`I uncheck the {string} checkbox within {string}`, (text, selector) => {
     .parent()
     .find("input")
     .uncheck({ force: true });
+
+Given(`I check the checkbox with selector {string}`, (selector) => {
+  cy.get(selector).check({ force: true });
+});
+
+Given(`I uncheck the checkbox with selector {string}`, (selector) => {
+  cy.get(selector).uncheck({ force: true });
 });
