@@ -304,7 +304,7 @@ Each repository includes READMEs to help with setup.
 
 **VA Platform Collab Cycle**
  - [ ] [Platform Collab Cycle documentation](https://depo-platform-documentation.scrollhelp.site/collaboration-cycle/)
- - [ ] [Platform Collab Cycle calendar](https://calendar.google.com/calendar/u/0/embed?src=c_7iurst2mk3hdhfuto5u7lemgbk@group.calendar.google.com&ctz=America/New_York]
+ - [ ] [Platform Collab Cycle calendar](https://calendar.google.com/calendar/u/0/embed?src=c_7iurst2mk3hdhfuto5u7lemgbk@group.calendar.google.com&ctz=America/New_York)
 
 **CMS Collab Cycle**
 - [ ] [CMS Collab Cycle documentation](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/1791459333/CMS+Collaboration+Flow#like-section)
