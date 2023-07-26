@@ -2,9 +2,8 @@
 
 namespace tests\phpunit\va_gov_environment\unit\Form\Resolver;
 
-use Drupal\va_gov_build_trigger\Form\BrdBuildTriggerForm;
-use Drupal\va_gov_build_trigger\Form\LocalBuildTriggerForm;
-use Drupal\va_gov_build_trigger\Form\TugboatBuildTriggerForm;
+use Drupal\va_gov_content_release\Form\SimpleForm;
+use Drupal\va_gov_content_release\Form\GitForm;
 use Drupal\va_gov_content_release\Form\Resolver\Resolver;
 use Drupal\va_gov_environment\Environment\Environment;
 use Drupal\va_gov_environment\Discovery\DiscoveryInterface;
@@ -66,27 +65,27 @@ class ResolverTest extends VaGovUnitTestBase {
     return [
       'ddev' => [
         'ddev',
-        LocalBuildTriggerForm::class,
+        GitForm::class,
         NULL,
       ],
       'prod' => [
         'prod',
-        BrdBuildTriggerForm::class,
+        SimpleForm::class,
         NULL,
       ],
       'staging' => [
         'staging',
-        BrdBuildTriggerForm::class,
+        SimpleForm::class,
         NULL,
       ],
       'dev' => [
         'dev',
-        BrdBuildTriggerForm::class,
+        SimpleForm::class,
         NULL,
       ],
       'tugboat' => [
         'tugboat',
-        TugboatBuildTriggerForm::class,
+        GitForm::class,
         NULL,
       ],
       'invalid' => [

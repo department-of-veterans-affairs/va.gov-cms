@@ -9,6 +9,9 @@ assignees: ''
 
 # Vet Center Community Access Point becomes an Outstation
 ## Background
+
+   **Note: This is likely not a thing, so we may be building a runbook for something that will never happen. A CAP is space in an existing location (e.g. YMCA, or VFW, etc). A Outstation is VA leased space. So the address will likely change anyhow. We likely need to revisit this runbook when we have an actual use-case to evaluate.  **
+
   A Vet Center - Community Access Point (CAP) is a lighter, more fluid version of
   an Outstation.  They are created on-demand by the Vet Center.  If they prove
   popular, the CAP may be upgraded to an Outstation.  CAPs are not in VAST, and
