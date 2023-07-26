@@ -296,11 +296,20 @@ Each repository includes READMEs to help with setup.
    - [ ] [Watch the training video that Vet Center editors have to complete](https://youtu.be/scuC5lSHZuw).
 </details>
 
-<details><summary>Onboarding for Product Management members</summary>
+<details><summary>Onboarding for Product Managers</summary>
 
  - [ ] Review [onboarding docs](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/PM/)
  - [ ] [VA doc: Expectations for how VA internal Product Lead / Product Owners work with contractor PMs](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/octo/product/Product%20Expectations.md)
  - [ ] [Request access to Google Analytics](https://depo-platform-documentation.scrollhelp.site/analytics-monitoring/New-Users-to-Google-Analytics.1877704964.html)
+
+**VA Platform Collab Cycle**
+ - [ ] [Platform Collab Cycle documentation](https://depo-platform-documentation.scrollhelp.site/collaboration-cycle/)
+ - [ ] [Platform Collab Cycle calendar](https://calendar.google.com/calendar/u/0/embed?src=c_7iurst2mk3hdhfuto5u7lemgbk@group.calendar.google.com&ctz=America/New_York]
+
+**CMS Collab Cycle**
+- [ ] [CMS Collab Cycle documentation](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/1791459333/CMS+Collaboration+Flow#like-section)
+- [ ] [CMS Collab Cycle kanban board](https://github.com/department-of-veterans-affairs/va.gov-cms#workspaces/cms-collaboration-cycle-reviews-62f50368ef32b60022d76d64/board?repos=154174777)
+
 </details>
 
 <details><summary>Onboarding for UX members</summary>
