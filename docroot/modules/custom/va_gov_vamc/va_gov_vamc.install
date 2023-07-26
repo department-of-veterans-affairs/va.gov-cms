@@ -266,3 +266,32 @@ function va_gov_vamc_update_9006(&$sandbox) {
   _va_gov_vamc_create_top_task_pages($sandbox, $build_bundle);
   return _va_gov_vamc_sandbox_complete($sandbox, "Created @total {$build_bundle} nodes.");
 }
+
+/**
+ * Update the alert body field to only rich_text_limited.
+ */
+function va_gov_vamc_update_9007() {
+  $storage_handler = \Drupal::entityTypeManager()->getStorage('node');
+  $alerts = $storage_handler->loadByProperties(['type' => 'full_width_banner_alert']);
+  $updated = 0;
+  foreach ($alerts as $alert) {
+    $alert->field_body->format = 'rich_text_limited';
+    $alert->setNewRevision(TRUE);
+    // New revision will inherit content moderation status from default rev.
+    $alert->isDefaultRevision(TRUE);
+    $alert->setRevisionLogMessage('VACMS Facilities Team: Updated Alert body text format to Rich Text Limited');
+    $alert->setRevisionCreationTime(Drupal::time()->getRequestTime());
+    $alert->setChangedTime(Drupal::time()->getRequestTime());
+    // Set revision author to uid 1317 (CMS Migrator user).
+    $alert->setRevisionUserId(1317);
+    $saved = $alert->save();
+    $updated = (is_int($saved) && $saved > 0) ? $updated + 1 : $updated;
+  }
+
+  $log_level = ($updated === count($alerts)) ? LogLevel::INFO : LogLevel::ERROR;
+
+  Drupal::logger('va_gov_vamc')->log($log_level, 'Alert body update: Successfully updated %ct_updated out of %ct_count alerts.', [
+    '%ct_count' => count($alerts),
+    '%ct_updated' => $updated,
+  ]);
+}
