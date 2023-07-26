@@ -1,6 +1,5 @@
+/* eslint-disable no-console */
 const path = require("path");
-const autoprefixer = require("autoprefixer");
-const cssnano = require("cssnano");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const FileManagerPlugin = require("filemanager-webpack-plugin");
 const WebpackShellPluginNext = require("webpack-shell-plugin-next");
