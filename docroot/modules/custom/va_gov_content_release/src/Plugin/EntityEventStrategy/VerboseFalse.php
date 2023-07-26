@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_content_release\Plugin\EntityEventStrategy;
 
+use Drupal\Component\Render\FormattableMarkup;
 use Drupal\va_gov_content_release\EntityEvent\Strategy\Plugin\StrategyPluginBase;
 use Drupal\va_gov_content_types\Entity\VaNodeInterface;
 
@@ -19,41 +20,26 @@ use Drupal\va_gov_content_types\Entity\VaNodeInterface;
 class VerboseFalse extends StrategyPluginBase {
 
   /**
-   * Construct a text link to a node.
-   *
-   * @param \Drupal\va_gov_content_types\Entity\VaNodeInterface $node
-   *   The node.
-   *
-   * @return string
-   *   The link.
-   */
-  public function getNodeLink(VaNodeInterface $node): string {
-    try {
-      return $node->toLink(NULL, 'canonical', ['absolute' => TRUE])->toString();
-    }
-    catch (\Throwable $exception) {
-      // No link could be created, likely because we're in a test environment.
-      return 'http://invalid-link.example.com/';
-    }
-  }
-
-  /**
    * Calculate variables for a specified node.
    *
    * @param \Drupal\va_gov_content_types\Entity\VaNodeInterface $node
    *   The node.
    *
-   * @return array
-   *   The variables.
+   * @return string
+   *   The log message.
    */
-  public function getNodeVariables(VaNodeInterface $node): array {
+  public function getMessage(VaNodeInterface $node): string {
+    $wouldTrigger = $node->shouldTriggerContentRelease();
     $details = $node->getContentReleaseTriggerDetails();
-    return [
-      '%link_to_node' => $this->getNodeLink($node),
+    $prettyPrintedDetails = nl2br(json_encode($details, JSON_PRETTY_PRINT));
+    $prettyPrintedDetails = new FormattableMarkup($prettyPrintedDetails, []);
+    return $this->t('A content release %would have been triggered by a change to %type: %link_to_node (node %nid) (@details).', [
+      '%link_to_node' => $node->toLink(NULL, 'canonical', ['absolute' => TRUE])->toString(),
       '%nid' => $node->id(),
       '%type' => $node->getType(),
-      '%details' => json_encode($details, JSON_PRETTY_PRINT),
-    ];
+      '%would' => $wouldTrigger ? 'would' : 'would not',
+      '@details' => $prettyPrintedDetails,
+    ]);
   }
 
   /**
@@ -63,10 +49,7 @@ class VerboseFalse extends StrategyPluginBase {
    *   The node.
    */
   public function logTriggerDecision(VaNodeInterface $node) {
-    $wouldHaveBeenTriggered = $node->shouldTriggerContentRelease();
-    $variables = $this->getNodeVariables($node);
-    $variables['@would'] = $wouldHaveBeenTriggered ? 'would have' : 'would not have';
-    $message = $this->t('A content release @would been triggered by a change to %type: %link_to_node (node%nid) (%details).', $variables);
+    $message = $this->getMessage($node);
     $this->logger->info($message);
   }
 

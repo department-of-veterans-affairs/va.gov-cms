@@ -89,7 +89,7 @@ class VerboseFalseTest extends VaGovUnitTestBase {
     $loggerProphecy = $this->prophesize(LoggerInterface::class);
     $test = $this;
     $loggerProphecy->info(Argument::cetera())->will(function ($args) use ($test, $expected) {
-      $expectedText = $expected ? 'would have' : 'would not have';
+      $expectedText = $expected ? 'would</em> have' : 'would not</em> have';
       $test->assertTrue(str_contains((string) $args[0], $expectedText));
     });
     $logger = $loggerProphecy->reveal();
@@ -161,16 +161,17 @@ class VerboseFalseTest extends VaGovUnitTestBase {
   }
 
   /**
-   * Test getNodeVariables().
+   * Test getMessage().
    *
-   * @covers ::getNodeVariables
+   * @covers ::getMessage
    */
-  public function testGetNodeVariables() {
+  public function testGetMessage() {
     $nodeProphecy = $this->prophesize(VaNodeInterface::class);
     $nodeProphecy->label()->willReturn('Test Node');
     $nodeProphecy->id()->willReturn('123');
     $nodeProphecy->getEntityTypeId()->willReturn('node');
     $nodeProphecy->getType()->willReturn('va_node');
+    $nodeProphecy->shouldTriggerContentRelease()->willReturn(TRUE);
     $nodeProphecy->getContentReleaseTriggerDetails()->willReturn(['foo' => 'bar']);
 
     $link = $this->getMockBuilder(Link::class)
@@ -182,15 +183,17 @@ class VerboseFalseTest extends VaGovUnitTestBase {
     $nodeProphecy->toLink(Argument::cetera())->willReturn($link);
 
     $node = $nodeProphecy->reveal();
-    $expected = [
-      '%link_to_node' => 'https://fake.link/',
-      '%nid' => '123',
-      '%type' => 'va_node',
-      '%details' => json_encode([
-        'foo' => 'bar',
-      ], JSON_PRETTY_PRINT),
+    $actual = $this->getPlugin()->getMessage($node);
+    $expectedTexts = [
+      'A content release <em class="placeholder">would</em> have been triggered by a change',
+      '<em class="placeholder">va_node</em>',
+      '<em class="placeholder">https://fake.link/</em>',
+      '(node <em class="placeholder">123</em>)',
+      '}).',
     ];
-    $this->assertEquals($expected, $this->getPlugin()->getNodeVariables($node));
+    foreach ($expectedTexts as $expectedText) {
+      $this->assertTrue(str_contains($actual, $expectedText), "$actual does not contain $expectedText");
+    }
   }
 
 }
