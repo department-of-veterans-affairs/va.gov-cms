@@ -13,7 +13,7 @@ pushd "${repo_root}" > /dev/null
 export CYPRESS_VERIFY_TIMEOUT=100000
 npm run test:cypress:verify
 
-npm run test:cypress-parallel -- "${@}"
+npm run test:cypress:parallel -- "${@}"
 exit_code=$?
 
 popd > /dev/null
