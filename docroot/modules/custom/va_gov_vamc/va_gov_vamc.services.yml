@@ -10,6 +10,15 @@ services:
       - '@va_gov_notifications.notifications_manager'
     tags:
       - { name: event_subscriber }
+  va_gov_vamc.entity_prevent_reuse:
+    class: Drupal\va_gov_vamc\EventSubscriber\VAMCEntityPreventReuse
+    arguments:
+      - '@database'
+      - '@messenger'
+      - '@current_route_match'
+      - '@va_gov_user.user_perms'
+    tags:
+      - { name: event_subscriber }
   va_gov_vamc.content_hardening_deduper:
     class: Drupal\va_gov_vamc\Service\ContentHardeningDeduper
     arguments: ['@current_user', '@entity_type.manager', '@logger.factory', '@messenger']
