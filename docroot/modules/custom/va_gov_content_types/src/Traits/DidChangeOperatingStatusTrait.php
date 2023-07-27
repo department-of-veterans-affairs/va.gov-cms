@@ -11,6 +11,21 @@ use Drupal\va_gov_content_types\Interfaces\DidChangeOperatingStatusInterface;
 trait DidChangeOperatingStatusTrait {
 
   /**
+   * {@inheritDoc}
+   */
+  abstract public function hasField($fieldName);
+
+  /**
+   * {@inheritDoc}
+   */
+  abstract public function isFacility(): bool;
+
+  /**
+   * {@inheritDoc}
+   */
+  abstract public function didChangeField(string $fieldName): bool;
+
+  /**
    * Did this facility change operating status?
    *
    * @return bool
@@ -23,7 +38,7 @@ trait DidChangeOperatingStatusTrait {
     if (!$this->isFacility()) {
       throw new NonFacilityException('This node is not a facility.');
     }
-    if (!$this->hasField(static::STATUS_FIELD)) {
+    if (!$this->hasField(DidChangeOperatingStatusInterface::STATUS_FIELD)) {
       return FALSE;
     }
     return $this->didChangeField(DidChangeOperatingStatusInterface::STATUS_FIELD) || $this->didChangeField(DidChangeOperatingStatusInterface::STATUS_INFO_FIELD);

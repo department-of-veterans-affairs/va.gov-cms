@@ -15,7 +15,7 @@ interface ContentModerationTransitionsInterface {
    *
    * @throws \Drupal\va_gov_content_types\Exception\NoOriginalExistsException
    *   Thrown when the node has no original version.
-   * @throws \Drupal\va_gov_content_types\Exception\NotModeratedContentTypeException
+   * @throws \Drupal\va_gov_content_types\Exception\UnmoderatedContentTypeException
    *   Thrown when the node is not under content moderation.
    */
   public function getOriginalModerationState(): string;

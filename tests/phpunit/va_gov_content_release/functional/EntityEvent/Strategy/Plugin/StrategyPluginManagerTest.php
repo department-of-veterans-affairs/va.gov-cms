@@ -123,6 +123,7 @@ class StrategyPluginManagerTest extends VaGovExistingSiteBase {
       ['test_false'],
       ['test_exception'],
       ['on_demand'],
+      ['verbose_false'],
     ];
   }
 

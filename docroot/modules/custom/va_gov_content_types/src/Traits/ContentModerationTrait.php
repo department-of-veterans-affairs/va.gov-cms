@@ -11,6 +11,16 @@ use Drupal\va_gov_content_types\Interfaces\ContentModerationInterface;
 trait ContentModerationTrait {
 
   /**
+   * {@inheritDoc}
+   */
+  abstract public function hasField($fieldName);
+
+  /**
+   * {@inheritDoc}
+   */
+  abstract public function get($fieldName);
+
+  /**
    * Indicate whether this node is moderated.
    *
    * @return bool

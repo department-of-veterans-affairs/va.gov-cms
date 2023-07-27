@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit\va_gov_environment\unit\Service;
+namespace tests\phpunit\va_gov_environment\unit\Discovery;
 
 use Drupal\Core\Site\Settings;
 use Drupal\va_gov_environment\Environment\Environment;
@@ -24,7 +24,9 @@ class DiscoveryTest extends VaGovUnitTestBase {
    * DDEV uses the string "local" rather than "ddev". This will change in the
    * processed environment.
    *
+   * @covers ::__construct
    * @covers ::getRawEnvironment
+   * @covers ::getRawValue
    */
   public function testGetRawEnvironment() {
     $settings = new Settings([
@@ -35,6 +37,7 @@ class DiscoveryTest extends VaGovUnitTestBase {
     ]);
     $discoveryService = new Discovery($settings);
     $this->assertEquals('local', $discoveryService->getRawEnvironment());
+    $this->assertEquals('ddev', $discoveryService->getRawValue());
   }
 
   /**
@@ -136,6 +139,97 @@ class DiscoveryTest extends VaGovUnitTestBase {
           'environment' => 'staging',
         ],
         TRUE,
+      ],
+    ];
+  }
+
+  /**
+   * Confirm that environments are detected as intended.
+   *
+   * @param string $environmentName
+   *   The name of the environment.
+   * @param bool $isProduction
+   *   Whether the environment is expected to be production.
+   * @param bool $isStaging
+   *   Whether the environment is expected to be staging.
+   * @param bool $isDev
+   *   Whether the environment is expected to be dev.
+   * @param bool $isTugboat
+   *   Whether the environment is expected to be Tugboat.
+   * @param bool $isDdev
+   *   Whether the environment is expected to be DDEV.
+   *
+   * @covers ::isProduction
+   * @covers ::isStaging
+   * @covers ::isDev
+   * @covers ::isTugboat
+   * @covers ::isLocalDev
+   * @covers ::isBrd
+   * @dataProvider isWhateverDataProvider
+   */
+  public function testIsWhatever(string $environmentName, bool $isProduction, bool $isStaging, bool $isDev, bool $isTugboat, bool $isDdev) {
+    $settings = new Settings([
+      'va_gov_environment' => [
+        'environment' => $environmentName,
+      ],
+    ]);
+    $discovery = new Discovery($settings);
+
+    $this->assertEquals($isProduction, $discovery->isProduction());
+    $this->assertEquals($isStaging, $discovery->isStaging());
+    $this->assertEquals($isDev, $discovery->isDev());
+    $this->assertEquals($isTugboat, $discovery->isTugboat());
+    $this->assertEquals($isDdev, $discovery->isLocalDev());
+    $this->assertEquals($isProduction || $isStaging || $isDev, $discovery->isBrd());
+  }
+
+  /**
+   * Data provider for testIsWhatever.
+   *
+   * @return array
+   *   The data.
+   */
+  public function isWhateverDataProvider() {
+    return [
+      'ddev' => [
+        'environmentName' => 'ddev',
+        'isProduction' => FALSE,
+        'isStaging' => FALSE,
+        'isDev' => FALSE,
+        'isTugboat' => FALSE,
+        'isDdev' => TRUE,
+      ],
+      'tugboat' => [
+        'environmentName' => 'tugboat',
+        'isProduction' => FALSE,
+        'isStaging' => FALSE,
+        'isDev' => FALSE,
+        'isTugboat' => TRUE,
+        'isDdev' => FALSE,
+      ],
+      'dev' => [
+        'environmentName' => 'dev',
+        'isProduction' => FALSE,
+        'isStaging' => FALSE,
+        'isDev' => TRUE,
+        'isTugboat' => FALSE,
+        'isDdev' => FALSE,
+      ],
+      'staging' => [
+        'environmentName' => 'staging',
+        'isProduction' => FALSE,
+        'isStaging' => TRUE,
+        'isDev' => FALSE,
+        'isTugboat' => FALSE,
+        'isDdev' => FALSE,
+      ],
+      'prod' => [
+        'environmentName' => 'prod',
+        'isProduction' => TRUE,
+        'isStaging' => FALSE,
+        'isDev' => FALSE,
+        'isTugboat' => FALSE,
+        'isDdev' => FALSE,
       ],
     ];
   }
