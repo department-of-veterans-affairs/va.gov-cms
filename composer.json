@@ -760,6 +760,11 @@
             "! ./scripts/should-run-directly.sh || bin/phpunit --group unit --exclude-group disabled tests/phpunit --",
             "./scripts/should-run-directly.sh || ddev composer va:test:phpunit-unit --"
         ],
+        "va:test:phpunit-coverage": [
+            "# Run PHPUnit (unit) tests.",
+            "! ./scripts/should-run-directly.sh || ./tests/scripts/phpunit-coverage.sh",
+            "./scripts/should-run-directly.sh || ddev composer va:test:phpunit-coverage --"
+        ],
         "va:test:status-error": [
             "# Check Drupal status for errors.",
             "! ./scripts/should-run-directly.sh || ./tests/scripts/status-error.sh",
