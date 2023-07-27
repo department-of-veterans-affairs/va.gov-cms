@@ -301,7 +301,7 @@ Each repository includes READMEs to help with setup.
 
  - [ ] Review [onboarding docs](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/PM/)
  - [ ] [VA doc: Expectations for how VA internal Product Lead / Product Owners work with contractor PMs](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/octo/product/Product%20Expectations.md)
- - [ ] [Request access to Google Analytics](https://depo-platform-documentation.scrollhelp.site/analytics-monitoring/New-Users-to-Google-Analytics.1877704964.html)
+ - [ ] [Request access to Google Analytics and Domo](https://depo-platform-documentation.scrollhelp.site/analytics-monitoring/New-Users-to-Google-Analytics.1877704964.html)
 
 **VA Platform Collab Cycle**
  - [ ] [Platform Collab Cycle documentation](https://depo-platform-documentation.scrollhelp.site/collaboration-cycle/)
