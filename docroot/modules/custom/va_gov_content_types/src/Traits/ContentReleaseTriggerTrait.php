@@ -208,7 +208,7 @@ trait ContentReleaseTriggerTrait {
     foreach ($details as $detail) {
       $result[$detail] = $this->safelyGetContentReleaseDetail(function ($node) use ($detail) {
         return call_user_func([$node, $detail]);
-      }, 'exception occurred');
+      }, 'Not Applicable');
     }
     return $result;
   }
