@@ -126,9 +126,6 @@ class ContentReleaseTriggerTraitTest extends VaGovUnitTestBase {
           $expected = TRUE;
           break;
       }
-      if (!$expected || $isModerated || $isPublished || !(!$isModerated && $wasPublished && !$isPublished)) {
-        continue;
-      }
       $name = sprintf(
         "%sisModerated, %sisCmPublished, %sisPublished, %sisArchived, %sisDraft, %swasPublished, %sexpected",
         $isModerated ? '' : '!',
