@@ -64,7 +64,7 @@ class ResolverTest extends VaGovUnitTestBase {
     return [
       'ddev' => [
         'ddev',
-        ResolverInterface::STRATEGY_NEVER,
+        ResolverInterface::STRATEGY_VERBOSE_NEVER,
         NULL,
       ],
       'prod' => [
@@ -79,7 +79,7 @@ class ResolverTest extends VaGovUnitTestBase {
       ],
       'tugboat' => [
         'tugboat',
-        ResolverInterface::STRATEGY_NEVER,
+        ResolverInterface::STRATEGY_VERBOSE_NEVER,
         NULL,
       ],
       'invalid' => [

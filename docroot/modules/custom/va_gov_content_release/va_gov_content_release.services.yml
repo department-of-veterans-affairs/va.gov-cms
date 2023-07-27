@@ -34,3 +34,11 @@ services:
   va_gov_content_release.frontend_version:
     class: Drupal\va_gov_content_release\FrontendVersion\FrontendVersion
     arguments: ['@state']
+  va_gov_content_release.entity_event_subscriber:
+    class: Drupal\va_gov_content_release\EventSubscriber\EntityEventSubscriber
+    arguments:
+      - '@plugin.manager.va_gov_content_release.entity_event_strategy'
+      - '@va_gov_content_release.entity_event_strategy_resolver'
+      - '@va_gov_content_release.request'
+    tags:
+      - { name: event_subscriber }

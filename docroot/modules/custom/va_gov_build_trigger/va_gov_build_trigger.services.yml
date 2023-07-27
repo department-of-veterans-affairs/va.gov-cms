@@ -2,11 +2,6 @@ services:
   logger.channel.va_gov_build_trigger:
     parent: logger.channel_base
     arguments: ['va_gov_build_trigger']
-  va_gov_build_trigger.entity_event_subscriber:
-    class: Drupal\va_gov_build_trigger\EventSubscriber\EntityEventSubscriber
-    arguments: ['@va_gov_build_trigger.build_requester', '@va_gov.build_trigger.environment_discovery']
-    tags:
-      - { name: event_subscriber }
   va_gov.build_trigger.environment_discovery:
     class: Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery
     arguments: [ '@plugin.manager.va_gov.environment' ]

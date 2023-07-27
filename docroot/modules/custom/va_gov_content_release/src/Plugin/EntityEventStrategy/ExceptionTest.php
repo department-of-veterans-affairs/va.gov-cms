@@ -25,4 +25,11 @@ class ExceptionTest extends StrategyPluginBase {
     throw new StrategyErrorException('This is a test exception.');
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  public function getReasonMessage(VaNodeInterface $node) : string {
+    return $this->t('This should never be reached because shouldTriggerContentRelease() throws an exception.');
+  }
+
 }
