@@ -454,9 +454,6 @@
             "drupal/migration_tools": {
                "3366789 - Create convert to boolean process plugin": "https://www.drupal.org/files/issues/2023-06-20/add-convert-boolean-process_0.patch"
             },
-            "drupal/node_title_help_text": {
-                "3288788 - Automated Drupal 10 compatibility fixes": "https://www.drupal.org/files/issues/2022-06-16/node_title_help_text.1.x-dev.rector.patch"
-            },
             "drupal/openapi_jsonapi": {
                 "3110109 - Support renamed resource types Part 1": "https://git.drupalcode.org/project/openapi_jsonapi/-/commit/17070f1ef70ff89f732619a11c29730107a2083e.patch",
                 "3110109 - Support renamed resource types Part 2": "https://git.drupalcode.org/project/openapi_jsonapi/-/commit/9b02c70521c499152c915e481aaf4925992bc8f9.patch",
@@ -551,6 +548,7 @@
         "va:test:cypress": "Run Cypress tests.",
         "va:test:cypress-ci": "Run Cypress tests with CI-specific functionality.",
         "va:test:cypress-interactive": "Run Cypress tests interactively (on host web browser).",
+        "va:test:cypress-parallel": "Run Cypress tests in parallel.",
         "va:test:eslint": "Run ESLint tests.",
         "va:test:lint-php": "Lint PHP files.",
         "va:test:scaling_performance": "Perform a test of the CMS' ability to scale.",
@@ -721,6 +719,11 @@
             "# Run Cypress tests interactively (on host web browser).",
             "! ./scripts/should-run-directly.sh || echo 'This command should only be run from a local development machine.'",
             "./scripts/should-run-directly.sh || npm run test:cypress:interactive --"
+        ],
+        "va:test:cypress-parallel": [
+            "# Run Cypress tests interactively (on host web browser).",
+            "! ./scripts/should-run-directly.sh || ./tests/scripts/cypress-parallel-tests.sh",
+            "./scripts/should-run-directly.sh || ddev composer va:test:cypress-parallel --"
         ],
         "va:test:eslint": [
             "# Run ESLint tests.",
