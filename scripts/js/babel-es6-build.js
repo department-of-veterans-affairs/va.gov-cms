@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /**
  * @file
  *
@@ -14,19 +15,16 @@
  * meant to be used in that context.
  */
 
-'use strict';
-
-const glob = require('glob');
-const argv = require('minimist')(process.argv.slice(2));
-const changeOrAdded = require('./changeOrAdded');
-const check = require('./check');
-const log = require('./log');
+const glob = require("glob");
+const argv = require("minimist")(process.argv.slice(2));
+const changeOrAdded = require("./changeOrAdded");
+const check = require("./check");
 
 // Match only on .es6.js files.
-const fileMatch = './docroot/{modules,themes}/custom/**/*.es6.js';
+const fileMatch = "./docroot/{modules,themes}/custom/**/*.es6.js";
 // Ignore everything in node_modules
 const globOptions = {
-  ignore: './**/node_modules/**'
+  ignore: "./**/node_modules/**",
 };
 const processFiles = (error, filePaths) => {
   if (error) {
@@ -42,8 +40,7 @@ const processFiles = (error, filePaths) => {
 
 if (argv.file) {
   processFiles(null, [].concat(argv.file));
-}
-else {
+} else {
   glob(fileMatch, globOptions, processFiles);
 }
 process.exitCode = 0;

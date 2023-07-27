@@ -179,6 +179,7 @@ Drupal is the VA's content management system of choice. For anyone on our team, 
   - [ ] [View short presentations on specific topics](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/1714094110/CMS+Topic+Dives). Topics include site alerts, release and deploy, Facility API, etc.
   - [ ] [Browse the VA Drupal CMS Knowledge Base articles](https://prod.cms.va.gov/help/).
   - [ ] What is Drupal? [Link list for Drupal context and community](https://docs.google.com/spreadsheets/d/11ppWiIggKJh-YAWia28utZXW48tJZGCEg-sFJ6eIl9c)
+  - [ ] If you have a Drupal.org account, add your Agency & VA. Drupal.org > Login > My Account > Edit profile > Work tab > Add your agency, and "Department of Veterans Affairs" & save. This will help our team track Drupal open source contributions.
 
 ##### Tugboat demo environments (Drupal)
 Tugboat is a development server platform where you can preview CMS code changes pre-production.
@@ -296,11 +297,20 @@ Each repository includes READMEs to help with setup.
    - [ ] [Watch the training video that Vet Center editors have to complete](https://youtu.be/scuC5lSHZuw).
 </details>
 
-<details><summary>Onboarding for Product Management members</summary>
+<details><summary>Onboarding for Product Managers</summary>
 
  - [ ] Review [onboarding docs](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/onboarding/PM/)
  - [ ] [VA doc: Expectations for how VA internal Product Lead / Product Owners work with contractor PMs](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/octo/product/Product%20Expectations.md)
  - [ ] [Request access to Google Analytics](https://depo-platform-documentation.scrollhelp.site/analytics-monitoring/New-Users-to-Google-Analytics.1877704964.html)
+
+**VA Platform Collab Cycle**
+ - [ ] [Platform Collab Cycle documentation](https://depo-platform-documentation.scrollhelp.site/collaboration-cycle/)
+ - [ ] [Platform Collab Cycle calendar](https://calendar.google.com/calendar/u/0/embed?src=c_7iurst2mk3hdhfuto5u7lemgbk@group.calendar.google.com&ctz=America/New_York)
+
+**CMS Collab Cycle**
+- [ ] [CMS Collab Cycle documentation](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/1791459333/CMS+Collaboration+Flow#like-section)
+- [ ] [CMS Collab Cycle kanban board](https://github.com/department-of-veterans-affairs/va.gov-cms#workspaces/cms-collaboration-cycle-reviews-62f50368ef32b60022d76d64/board?repos=154174777)
+
 </details>
 
 <details><summary>Onboarding for UX members</summary>
