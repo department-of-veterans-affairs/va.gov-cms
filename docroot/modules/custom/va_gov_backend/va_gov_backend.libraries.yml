@@ -32,18 +32,6 @@ field_group_tooltip:
     - core/once
     - core/drupalSettings
     - va_gov_backend/tippyjs
-gtm_tag_push:
-  version: 1.x
-  js:
-    js/gtm_tag_push.js: { header: 1 }
-gtm_tag_trackers:
-  version: 1.x
-  js:
-    js/gtm_tag_trackers.js: {}
-  dependencies:
-    - core/drupal
-    - core/jquery
-    - core/once
 help_text_treatments:
   js:
     js/help_text_treatments.js: { header: 1, weight: -10 }
