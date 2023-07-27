@@ -17,7 +17,8 @@
     "stylelint": "npx stylelint",
     "test:cypress": "cypress run -e \"TAGS=$CYPRESS_TAGS\"",
     "test:cypress:verify": "cypress verify",
-    "test:cypress:interactive": "cypress open -e \"TAGS=not @ignore and not @piv,VAGOV_INTERACTIVE=true\""
+    "test:cypress:interactive": "cypress open -e \"TAGS=not @ignore and not @piv,VAGOV_INTERACTIVE=true\"",
+    "test:cypress:parallel": "cypress-parallel --script test:cypress --threads 3 --strictMode false --specsDir tests/cypress/integration --weightsJson tests/cypress/integration/weights.json"
   },
   "repository": {
     "type": "git",
@@ -54,6 +55,7 @@
     "cypress-axe": "^1.4.0",
     "cypress-cucumber-preprocessor": "^4.3.1",
     "cypress-file-upload": "^5.0.8",
+    "cypress-parallel": "^0.13.0",
     "cypress-real-events": "^1.7.6",
     "cypress-visual-regression": "^2.1.1",
     "cypress-xpath": "^1.6.2",

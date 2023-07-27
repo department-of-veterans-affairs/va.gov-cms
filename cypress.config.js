@@ -10,6 +10,10 @@ module.exports = defineConfig({
     failSilently: false,
   },
   fixturesFolder: "tests/cypress/fixtures",
+  retries: {
+    runMode: 2,
+    openMode: 0,
+  },
   screenshotsFolder: "docroot/cypress/screenshots/actual",
   trashAssetsBeforeRuns: true,
   videoCompression: false,

@@ -548,6 +548,7 @@
         "va:test:cypress": "Run Cypress tests.",
         "va:test:cypress-ci": "Run Cypress tests with CI-specific functionality.",
         "va:test:cypress-interactive": "Run Cypress tests interactively (on host web browser).",
+        "va:test:cypress-parallel": "Run Cypress tests in parallel.",
         "va:test:eslint": "Run ESLint tests.",
         "va:test:lint-php": "Lint PHP files.",
         "va:test:scaling_performance": "Perform a test of the CMS' ability to scale.",
@@ -718,6 +719,11 @@
             "# Run Cypress tests interactively (on host web browser).",
             "! ./scripts/should-run-directly.sh || echo 'This command should only be run from a local development machine.'",
             "./scripts/should-run-directly.sh || npm run test:cypress:interactive --"
+        ],
+        "va:test:cypress-parallel": [
+            "# Run Cypress tests interactively (on host web browser).",
+            "! ./scripts/should-run-directly.sh || ./tests/scripts/cypress-parallel-tests.sh",
+            "./scripts/should-run-directly.sh || ddev composer va:test:cypress-parallel --"
         ],
         "va:test:eslint": [
             "# Run ESLint tests.",
