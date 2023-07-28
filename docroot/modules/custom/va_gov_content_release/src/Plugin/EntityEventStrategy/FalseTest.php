@@ -24,4 +24,11 @@ class FalseTest extends StrategyPluginBase {
     return FALSE;
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  public function getReasonMessage(VaNodeInterface $node) : string {
+    return $this->t('This should never be reached because the strategy always indicates that no content release should be triggered.');
+  }
+
 }
