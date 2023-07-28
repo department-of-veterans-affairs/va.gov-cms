@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit\va_gov_environment\unit\GitHub;
+namespace tests\phpunit\va_gov_content_release\unit\GitHub;
 
 use Drupal\va_gov_consumers\GitHub\GitHubClientInterface;
 use Drupal\va_gov_content_release\Exception\ContentReleaseInProgressException;

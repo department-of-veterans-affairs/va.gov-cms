@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit\va_gov_environment\unit\Form\Resolver;
+namespace tests\phpunit\va_gov_content_release\unit\Form\Resolver;
 
 use Drupal\va_gov_content_release\Form\SimpleForm;
 use Drupal\va_gov_content_release\Form\GitForm;

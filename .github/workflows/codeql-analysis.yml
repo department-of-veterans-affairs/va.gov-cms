@@ -1,13 +1,8 @@
 name: CodeQL
 'on':
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
-  schedule:
-    - cron: 42 6 * * 6
   workflow_dispatch: null
 jobs:
   analyze:
