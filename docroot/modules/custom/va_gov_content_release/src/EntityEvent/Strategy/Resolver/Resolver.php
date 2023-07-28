@@ -39,8 +39,8 @@ class Resolver implements ResolverInterface {
     $environment = $this->environmentDiscovery->getEnvironment();
     return match (TRUE) {
       $environment->isBrd() => static::STRATEGY_ON_DEMAND,
-      $environment->isTugboat() => static::STRATEGY_NEVER,
-      $environment->isLocalDev() => static::STRATEGY_NEVER,
+      $environment->isTugboat() => static::STRATEGY_VERBOSE_NEVER,
+      $environment->isLocalDev() => static::STRATEGY_VERBOSE_NEVER,
       default => throw new CouldNotDetermineStrategyException('Could not determine a valid content release strategy for environment: ' . $environment->getRawValue()),
     };
   }

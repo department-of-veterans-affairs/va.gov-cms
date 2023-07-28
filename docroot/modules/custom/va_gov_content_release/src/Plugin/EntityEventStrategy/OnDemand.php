@@ -25,4 +25,16 @@ class OnDemand extends StrategyPluginBase {
     return $node->shouldTriggerContentRelease();
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  public function getReasonMessage(VaNodeInterface $node) : string {
+    $variables = [
+      '%link_to_node' => $node->toLink(NULL, 'canonical', ['absolute' => TRUE])->toString(),
+      '%nid' => $node->id(),
+      '%type' => $node->getType(),
+    ];
+    return $this->t('A content release was triggered by a change to %type: %link_to_node (node%nid).', $variables);
+  }
+
 }

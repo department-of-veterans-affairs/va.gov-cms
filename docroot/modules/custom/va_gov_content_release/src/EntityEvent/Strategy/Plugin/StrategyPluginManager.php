@@ -17,6 +17,8 @@ class StrategyPluginManager extends DefaultPluginManager implements StrategyPlug
 
   /**
    * {@inheritdoc}
+   *
+   * @codeCoverageIgnore
    */
   public function __construct(
     \Traversable $namespaces,
