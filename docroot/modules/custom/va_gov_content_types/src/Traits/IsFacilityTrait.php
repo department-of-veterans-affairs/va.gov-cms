@@ -12,6 +12,11 @@ use Drupal\va_gov_content_types\Interfaces\IsFacilityInterface;
 trait IsFacilityTrait {
 
   /**
+   * {@inheritDoc}
+   */
+  abstract public function getType();
+
+  /**
    * Is this content type a facility content type?
    *
    * @return bool

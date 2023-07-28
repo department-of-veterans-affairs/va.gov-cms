@@ -62,7 +62,13 @@ class VaGovUrlServiceTest extends VaGovExistingSiteBase {
     parent::setUp();
 
     $this->newContainer = new ContainerBuilder();
-    $this->config = ['hash_salt' => 'SCVSPZNSKKK5XCRJ1WLE'];
+    $this->config = [
+      'hash_salt' => 'SCVSPZNSKKK5XCRJ1WLE',
+      // This is temporary. See #14338.
+      'va_gov_environment' => [
+        'environment' => 'staging',
+      ],
+    ];
     $this->settings = new Settings($this->config);
   }
 

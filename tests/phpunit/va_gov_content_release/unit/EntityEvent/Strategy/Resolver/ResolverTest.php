@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit\va_gov_environment\unit\EntityEvent\Strategy\Resolver;
+namespace tests\phpunit\va_gov_content_release\unit\EntityEvent\Strategy\Resolver;
 
 use Drupal\va_gov_content_release\EntityEvent\Strategy\Resolver\Resolver;
 use Drupal\va_gov_content_release\EntityEvent\Strategy\Resolver\ResolverInterface;
@@ -64,7 +64,7 @@ class ResolverTest extends VaGovUnitTestBase {
     return [
       'ddev' => [
         'ddev',
-        ResolverInterface::STRATEGY_NEVER,
+        ResolverInterface::STRATEGY_VERBOSE_NEVER,
         NULL,
       ],
       'prod' => [
@@ -79,7 +79,7 @@ class ResolverTest extends VaGovUnitTestBase {
       ],
       'tugboat' => [
         'tugboat',
-        ResolverInterface::STRATEGY_NEVER,
+        ResolverInterface::STRATEGY_VERBOSE_NEVER,
         NULL,
       ],
       'invalid' => [

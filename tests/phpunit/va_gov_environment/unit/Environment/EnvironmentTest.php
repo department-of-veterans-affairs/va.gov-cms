@@ -4,7 +4,7 @@ namespace tests\phpunit\va_gov_environment\unit\Environment;
 
 use Drupal\Core\Site\Settings;
 use Drupal\va_gov_environment\Environment\Environment;
-use Drupal\va_gov_environment\Discovery\Discovery;
+use Drupal\va_gov_environment\Exception\InvalidEnvironmentException;
 use Tests\Support\Classes\VaGovUnitTestBase;
 
 /**
@@ -24,6 +24,7 @@ class EnvironmentTest extends VaGovUnitTestBase {
    *   The name of the environment.
    *
    * @covers ::fromSettings
+   * @covers ::getRawValue
    * @dataProvider fromSettingsDataProvider
    */
   public function testFromSettings(string $environmentName) {
@@ -33,8 +34,17 @@ class EnvironmentTest extends VaGovUnitTestBase {
         'environment' => 'ddev',
       ],
     ]);
-    $discoveryService = new Discovery($settings);
-    $this->assertEquals('local', $discoveryService->getRawEnvironment());
+    $environment = Environment::fromSettings($settings);
+    $this->assertEquals('ddev', $environment->getRawValue());
+  }
+
+  /**
+   * Verify fromSettings() throws an exception when the environment is not set.
+   */
+  public function testFromSettingsException() {
+    $settings = new Settings([]);
+    $this->expectException(InvalidEnvironmentException::class);
+    Environment::fromSettings($settings);
   }
 
   /**
