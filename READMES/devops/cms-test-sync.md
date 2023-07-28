@@ -23,13 +23,15 @@ Once the build is done, you can manually trigger the CMS-TEST PROD deploy job he
 3. `cd /var/www/cms`
 4. `scripts/sync-files.sh`
 
+![image](https://github.com/department-of-veterans-affairs/va.gov-cms/assets/39352093/13c94408-3741-4bef-a8af-6d77890b240a)
+
 ## To restore an older version of the database to CMS-TEST PROD
 1. Pull latest main from va.gov-cms and push to va.gov-cms-test # `git push --force upstream-test` if needed, be careful
-1. Get commit from that was deployed at time of backup https://github.com/department-of-veterans-affairs/va.gov-cms-test/commits
+1. Get the commit ID of older deployment that is intended to be restored https://github.com/department-of-veterans-affairs/va.gov-cms-test/commits
 1. Copy S3 URL from https://us-gov-west-1.console.amazonaws-us-gov.com/s3/buckets/dsva-vagov-prod-cms-backup
 1. SSM into server with `ssm-session vagov-prod cms-test auto`
 1. `sudo su -u cms` # become apache user
-1. `git checkout <commit-from-above>`
+1. `git checkout <commit-id-from-above>`
 1. `composer va:nuke`
 1. `composer install`
 1. `drush status` # verify using the test database
