@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_git\BranchSearch;
 
 use Drupal\va_gov_git\Repository\RepositoryInterface;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 
 /**
  * The branch search service.
@@ -17,13 +18,26 @@ class BranchSearch implements BranchSearchInterface {
   protected $repository;
 
   /**
+   * The logger.
+   *
+   * @var \Psr\Log\LoggerInterface
+   */
+  protected $logger;
+
+  /**
    * Constructor.
    *
    * @param \Drupal\va_gov_git\Repository\RepositoryInterface $repository
    *   The repository.
+   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerFactory
+   *   The logger channel factory.
    */
-  public function __construct(RepositoryInterface $repository) {
+  public function __construct(
+    RepositoryInterface $repository,
+    LoggerChannelFactoryInterface $loggerFactory
+  ) {
     $this->repository = $repository;
+    $this->logger = $loggerFactory->get('va_gov_git');
   }
 
   /**
@@ -37,8 +51,7 @@ class BranchSearch implements BranchSearchInterface {
    */
   public function searchFrontEndBranches(string $string) : array {
     try {
-      $branches = $this->contentBuildRepository->getRemoteBranchNamesContaining($string);
-      return $branches;
+      return $this->getRemoteBranchNamesContaining($string);
     }
     catch (\Throwable $exception) {
       $this->logger->error('Error searching for branches: @message', [

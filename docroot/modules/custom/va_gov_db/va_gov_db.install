@@ -1158,3 +1158,12 @@ function va_gov_db_update_9013(&$sandbox) {
 function va_gov_db_update_9014(&$sandbox) {
   return _va_gov_db_publish_nodes([35029]);
 }
+
+/**
+ * Enable the `va_gov_github` module.
+ */
+function va_gov_db_update_9015(&$sandbox) {
+  _va_gov_db_install_modules([
+    'va_gov_github',
+  ]);
+}

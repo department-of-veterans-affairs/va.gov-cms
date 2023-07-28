@@ -7,7 +7,7 @@ use Drupal\Core\Site\Settings;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\va_gov_build_trigger\Environment\EnvironmentPluginBase;
 use Drupal\va_gov_build_trigger\Form\BrdBuildTriggerForm;
-use Drupal\va_gov_consumers\GitHub\GitHubClientInterface;
+use Drupal\va_gov_github\Api\Client\ApiClientInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -31,11 +31,11 @@ class BRD extends EnvironmentPluginBase {
   protected $settings;
 
   /**
-   * Github API adapter.
+   * Github API client for the `content-build` repository.
    *
-   * @var \Drupal\va_gov_consumers\GitHub\GitHubClientInterface
+   * @var \Drupal\va_gov_github\Api\Client\ApiClientInterface
    */
-  protected $gitHubAdapter;
+  protected $cbGitHubClient;
 
   /**
    * {@inheritDoc}
@@ -47,7 +47,7 @@ class BRD extends EnvironmentPluginBase {
     LoggerInterface $logger,
     FileSystemInterface $filesystem,
     Settings $settings,
-    GitHubClientInterface $gitHubAdapter
+    ApiClientInterface $cbGitHubClient
   ) {
     parent::__construct(
       $configuration,
@@ -57,7 +57,7 @@ class BRD extends EnvironmentPluginBase {
       $filesystem,
     );
     $this->settings = $settings;
-    $this->gitHubAdapter = $gitHubAdapter;
+    $this->cbGitHubClient = $cbGitHubClient;
   }
 
   /**
@@ -71,7 +71,7 @@ class BRD extends EnvironmentPluginBase {
       $container->get('logger.factory')->get('va_gov_build_trigger'),
       $container->get('file_system'),
       $container->get('settings'),
-      $container->get('va_gov.consumers.github.content_build')
+      $container->get('va_gov_github.api_client.content_build')
     );
   }
 
@@ -87,7 +87,7 @@ class BRD extends EnvironmentPluginBase {
         $message = $this->t('Changes will be included in a content release to VA.gov that\'s already in progress. <a href="@job_link">Check status</a>.', $vars);
       }
       else {
-        $this->gitHubAdapter->repositoryDispatchWorkflow('content-release');
+        $this->cbGitHubClient->triggerRepositoryDispatchEvent('content-release');
         $vars = [
           '@job_link' => 'https://github.com/department-of-veterans-affairs/content-build/actions/workflows/content-release.yml',
         ];
@@ -127,7 +127,7 @@ class BRD extends EnvironmentPluginBase {
         'status' => 'pending',
         'created' => '>=' . date('c', $check_time),
       ];
-      $workflow_runs = $this->gitHubAdapter->listWorkflowRuns('content-release.yml', $workflow_run_params);
+      $workflow_runs = $this->cbGitHubClient->getWorkflowRuns('content-release.yml', $workflow_run_params);
 
       // A well-formed response will have `total_count` set.
       return !empty($workflow_runs['total_count']) && $workflow_runs['total_count'] > 0;

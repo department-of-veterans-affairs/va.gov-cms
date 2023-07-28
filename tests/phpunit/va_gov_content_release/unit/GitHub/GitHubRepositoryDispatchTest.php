@@ -2,7 +2,7 @@
 
 namespace tests\phpunit\va_gov_content_release\unit\GitHub;
 
-use Drupal\va_gov_consumers\GitHub\GitHubClientInterface;
+use Drupal\va_gov_github\Api\Client\ApiClientInterface;
 use Drupal\va_gov_content_release\Exception\ContentReleaseInProgressException;
 use Drupal\va_gov_content_release\Exception\GitHubRepositoryDispatchException;
 use Drupal\va_gov_content_release\GitHub\GitHubRepositoryDispatch;
@@ -26,7 +26,7 @@ class GitHubRepositoryDispatchTest extends VaGovUnitTestBase {
    *   The object.
    */
   public function getGitHubRepositoryDispatch() {
-    $gitHubClientProphecy = $this->prophesize(GitHubClientInterface::class);
+    $gitHubClientProphecy = $this->prophesize(ApiClientInterface::class);
     $gitHubClient = $gitHubClientProphecy->reveal();
     return new GitHubRepositoryDispatch($gitHubClient);
   }
@@ -69,12 +69,12 @@ class GitHubRepositoryDispatchTest extends VaGovUnitTestBase {
    * @dataProvider isPendingDataProvider
    */
   public function testIsPending($workflowRuns, bool $expected, string $expectedException = NULL, \Throwable $throwException = NULL) {
-    $gitHubClientProphecy = $this->prophesize(GitHubClientInterface::class);
+    $gitHubClientProphecy = $this->prophesize(ApiClientInterface::class);
     if ($throwException) {
-      $gitHubClientProphecy->listWorkflowRuns('content-release.yml', Argument::any())->willThrow($throwException);
+      $gitHubClientProphecy->getWorkflowRuns('content-release.yml', Argument::any())->willThrow($throwException);
     }
     else {
-      $gitHubClientProphecy->listWorkflowRuns('content-release.yml', Argument::any())->willReturn($workflowRuns);
+      $gitHubClientProphecy->getWorkflowRuns('content-release.yml', Argument::any())->willReturn($workflowRuns);
     }
     if ($expectedException) {
       $this->expectException($expectedException);
@@ -136,14 +136,14 @@ class GitHubRepositoryDispatchTest extends VaGovUnitTestBase {
    * @dataProvider dispatchDataProvider
    */
   public function testDispatch($workflowRuns, int $expectedDispatchCount, string $expectedException = NULL, \Throwable $throwException = NULL) {
-    $gitHubClientProphecy = $this->prophesize(GitHubClientInterface::class);
+    $gitHubClientProphecy = $this->prophesize(ApiClientInterface::class);
     if (!$throwException) {
-      $gitHubClientProphecy->listWorkflowRuns('content-release.yml', Argument::any())->willReturn($workflowRuns);
+      $gitHubClientProphecy->getWorkflowRuns('content-release.yml', Argument::any())->willReturn($workflowRuns);
     }
     else {
-      $gitHubClientProphecy->listWorkflowRuns('content-release.yml', Argument::any())->willThrow($throwException);
+      $gitHubClientProphecy->getWorkflowRuns('content-release.yml', Argument::any())->willThrow($throwException);
     }
-    $gitHubClientProphecy->repositoryDispatchWorkflow('content-release')->shouldBeCalledTimes($expectedDispatchCount);
+    $gitHubClientProphecy->triggerRepositoryDispatchEvent('content-release')->shouldBeCalledTimes($expectedDispatchCount);
     if ($expectedException) {
       $this->expectException($expectedException);
     }
