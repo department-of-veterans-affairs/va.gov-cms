@@ -1,7 +1,7 @@
 services:
   va_gov_content_release.github_repository_dispatch:
     class: Drupal\va_gov_content_release\GitHub\GitHubRepositoryDispatch
-    arguments: ['@va_gov.consumers.github.content_build']
+    arguments: ['@va_gov_github.api_client.content_build']
   va_gov_content_release.local_filesystem_build_file:
     class: Drupal\va_gov_content_release\LocalFilesystem\LocalFilesystemBuildFile
     arguments: ['@file_system']

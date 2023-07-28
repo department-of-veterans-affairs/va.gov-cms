@@ -16,7 +16,7 @@ class RepositoryCommands extends DrushCommands {
   /**
    * The Branch Search Factory service.
    *
-   * @var \Drupal\va_gov_git\Repository\BranchSearch\Factory\BranchSearchFactoryInterface
+   * @var \Drupal\va_gov_git\BranchSearch\Factory\BranchSearchFactoryInterface
    */
   protected $branchSearchFactory;
 
@@ -30,7 +30,7 @@ class RepositoryCommands extends DrushCommands {
   /**
    * Constructor.
    *
-   * @param \Drupal\va_gov_git\Repository\BranchSearch\Factory\BranchSearchFactoryInterface $branchSearchFactory
+   * @param \Drupal\va_gov_git\BranchSearch\Factory\BranchSearchFactoryInterface $branchSearchFactory
    *   The branch search factory service.
    * @param \Drupal\va_gov_git\Repository\Factory\RepositoryFactoryInterface $repositoryFactory
    *   The repository factory service.
@@ -49,7 +49,7 @@ class RepositoryCommands extends DrushCommands {
    * @param string $repositoryName
    *   The name of the repository to get.
    *
-   * @return \Drupal\va_gov_git\Repository\BranchSearch\BranchSearchInterface
+   * @return \Drupal\va_gov_git\BranchSearch\BranchSearchInterface
    *   The branch service.
    */
   public function getBranchSearch(string $repositoryName): BranchSearchInterface {
