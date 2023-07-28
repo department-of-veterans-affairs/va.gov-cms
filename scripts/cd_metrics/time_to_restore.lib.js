@@ -4,7 +4,6 @@ import {
   getCommitTimestamp,
   getParentCommitSha,
   buildMetricsObject,
-  buildLeadTimeDataPoint,
   getStandardizedMetricName,
   startTime,
 } from "./common.js";
@@ -27,7 +26,7 @@ import {
  *    B. We calculate the accrued time in failure for the previous commit, that is,
  *    the time between the first failing commit and that commit.
  *    C. The time to restore service is equal to that accrued time in failure plus
- *    the time between the previous (last failing) commit and the current (first 
+ *    the time between the previous (last failing) commit and the current (first
  *    passing) commit.
  *
  * For example, if we have the following commits:
@@ -139,7 +138,7 @@ export async function calculateAccruedTimeInFailure(sha) {
  * This is equal to the accrued time in failure for the chain of failing commits
  * leading up to the current commit, plus the time between the most recent failing
  * commit and the current commit.
- * 
+ *
  * This assumes that the current commit has passed and the previous commit (at least)
  * has failed.
  *

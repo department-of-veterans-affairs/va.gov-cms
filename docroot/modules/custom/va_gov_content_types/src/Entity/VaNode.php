@@ -12,6 +12,8 @@ use Drupal\va_gov_content_types\Traits\IsFacilityTrait;
 
 /**
  * Provides an abstract base class for all project content types.
+ *
+ * @codeCoverageIgnore
  */
 class VaNode extends Node implements VaNodeInterface {
 
