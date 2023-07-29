@@ -133,4 +133,19 @@ class GetOriginalTraitTest extends VaGovExistingSiteBase {
     ];
   }
 
+  /**
+   * Confirm didChangeField() should return FALSE if the node is new.
+   *
+   * @covers ::didChangeField
+   */
+  public function testDidChangeFieldNew() {
+    $node = $this->createNode([
+      'bundle' => 'page',
+    ]);
+    $node->setNewRevision(TRUE);
+    $node->setTitle('Original Title');
+    $node->save();
+    $this->assertFalse($node->didChangeField('title'));
+  }
+
 }

@@ -83,8 +83,8 @@ trait GetOriginalTrait {
     $originalField = $this->getOriginalField($fieldName);
     $currentField = $this->get($fieldName);
     if (!$originalField) {
-      // Consider a new save (no original exists) to be a change of value.
-      return TRUE;
+      // Consider a new save (no original exists) to not be a change of value.
+      return FALSE;
     }
 
     return !$currentField->equals($originalField);
