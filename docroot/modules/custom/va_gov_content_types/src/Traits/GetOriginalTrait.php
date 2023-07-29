@@ -31,6 +31,8 @@ trait GetOriginalTrait {
   /**
    * Retrieve the original version of this node.
    *
+   * To fail gracefully, precede this with a separate check for ->hasOriginal().
+   *
    * @return \Drupal\va_gov_content_types\Entity\VaNodeInterface
    *   The original version of this node.
    *
@@ -54,12 +56,18 @@ trait GetOriginalTrait {
    * @param string $fieldName
    *   The machine name of the field to get.
    *
-   * @return \Drupal\Core\Field\FieldItemListInterface
-   *   The value of the field.
+   * @return \Drupal\Core\Field\FieldItemListInterface|null
+   *   The fieldItemList of the field if it exists. NULL otherwise.
    */
-  public function getOriginalField(string $fieldName): FieldItemListInterface {
-    $original = $this->getOriginal();
-    return $original->get($fieldName);
+  public function getOriginalField(string $fieldName): ?FieldItemListInterface {
+    $field = NULL;
+    if ($this->hasOriginal()) {
+      $original = $this->getOriginal();
+      if ($original->hasField($fieldName)) {
+        $field = $original->get($fieldName);
+      }
+    }
+    return $field;
   }
 
   /**
@@ -74,6 +82,11 @@ trait GetOriginalTrait {
   public function didChangeField(string $fieldName): bool {
     $originalField = $this->getOriginalField($fieldName);
     $currentField = $this->get($fieldName);
+    if (!$originalField) {
+      // Consider a new save (no original exists) to be a change of value.
+      return TRUE;
+    }
+
     return !$currentField->equals($originalField);
   }
 
