@@ -100,6 +100,9 @@ trait ContentReleaseTriggerTrait {
     if (!$this->hasOriginal()) {
       return FALSE;
     }
+    if ($this->isModeratedAndPublished()) {
+      return TRUE;
+    }
     return $this->didChangeOperatingStatus();
   }
 

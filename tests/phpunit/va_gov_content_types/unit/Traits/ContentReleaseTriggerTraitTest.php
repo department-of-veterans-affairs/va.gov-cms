@@ -243,7 +243,7 @@ class ContentReleaseTriggerTraitTest extends VaGovUnitTestBase {
           || (
             $isFacility
             && $hasOriginal
-            && $didChangeOperatingStatus
+            && ($hasTriggeringChanges || $didChangeOperatingStatus)
           )
         );
 
