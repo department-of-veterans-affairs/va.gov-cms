@@ -25,17 +25,26 @@ class DidChangeOperatingStatusTraitTest extends VaGovUnitTestBase {
    *   Whether the node has a status field.
    * @param bool $didChangeField
    *   Whether the status field changed.
+   * @param bool $hasOriginal
+   *   Whether the node has an original.
    * @param bool $expected
    *   The expected result.
    *
    * @covers ::didChangeOperatingStatus
    * @dataProvider didChangeOperatingStatusDataProvider
    */
-  public function testDidChangeOperatingStatus(bool $isFacility, bool $hasStatusField, bool $didChangeField, bool $expected) : void {
+  public function testDidChangeOperatingStatus(
+    bool $isFacility,
+    bool $hasStatusField,
+    bool $didChangeField,
+    bool $hasOriginal,
+    bool $expected
+  ) : void {
     $node = $this->getMockForTrait(DidChangeOperatingStatusTrait::class);
     $node->expects($this->any())->method('isFacility')->will($this->returnValue($isFacility));
     $node->expects($this->any())->method('hasField')->will($this->returnValue($hasStatusField));
     $node->expects($this->any())->method('didChangeField')->will($this->returnValue($didChangeField));
+    $node->expects($this->any())->method('hasOriginal')->will($this->returnValue($hasOriginal));
     if (!$isFacility) {
       $this->expectException(NonFacilityException::class);
     }
@@ -55,9 +64,11 @@ class DidChangeOperatingStatusTraitTest extends VaGovUnitTestBase {
         FALSE,
         FALSE,
         FALSE,
+        FALSE,
       ],
       'no field' => [
         TRUE,
+        FALSE,
         FALSE,
         FALSE,
         FALSE,
@@ -67,8 +78,10 @@ class DidChangeOperatingStatusTraitTest extends VaGovUnitTestBase {
         TRUE,
         FALSE,
         FALSE,
+        FALSE,
       ],
       'changed' => [
+        TRUE,
         TRUE,
         TRUE,
         TRUE,
@@ -78,6 +91,7 @@ class DidChangeOperatingStatusTraitTest extends VaGovUnitTestBase {
         TRUE,
         TRUE,
         FALSE,
+        TRUE,
         FALSE,
       ],
     ];

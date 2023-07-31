@@ -55,7 +55,7 @@ trait GetOriginalTrait {
    *   The machine name of the field to get.
    *
    * @return \Drupal\Core\Field\FieldItemListInterface
-   *   The value of the field.
+   *   The fieldItemList of the field.
    *
    * @throws \Drupal\va_gov_content_types\Exception\NoOriginalExistsException
    *   Propagated when the node has no original version.

@@ -26,6 +26,11 @@ trait DidChangeOperatingStatusTrait {
   abstract public function didChangeField(string $fieldName): bool;
 
   /**
+   * {@inheritDoc}
+   */
+  abstract public function hasOriginal(): bool;
+
+  /**
    * Did this facility change operating status?
    *
    * @return bool
@@ -39,6 +44,9 @@ trait DidChangeOperatingStatusTrait {
       throw new NonFacilityException('This node is not a facility.');
     }
     if (!$this->hasField(DidChangeOperatingStatusInterface::STATUS_FIELD)) {
+      return FALSE;
+    }
+    if (!$this->hasOriginal()) {
       return FALSE;
     }
     return $this->didChangeField(DidChangeOperatingStatusInterface::STATUS_FIELD) || $this->didChangeField(DidChangeOperatingStatusInterface::STATUS_INFO_FIELD);
