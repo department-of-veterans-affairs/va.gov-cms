@@ -38,7 +38,8 @@ trait DidChangeOperatingStatusTrait {
     if (!$this->isFacility()) {
       throw new NonFacilityException('This node is not a facility.');
     }
-    if (!$this->hasField(DidChangeOperatingStatusInterface::STATUS_FIELD)) {
+    if (!$this->hasField(DidChangeOperatingStatusInterface::STATUS_FIELD) || !$this->hasOriginal()) {
+      // It lacks either the field or the Original node (create or delete).
       return FALSE;
     }
     return $this->didChangeField(DidChangeOperatingStatusInterface::STATUS_FIELD) || $this->didChangeField(DidChangeOperatingStatusInterface::STATUS_INFO_FIELD);
