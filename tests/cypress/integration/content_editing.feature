@@ -6,6 +6,7 @@ Feature: CMS Users may effectively create & edit content
 
   Scenario: Log in and confirm that System-wide alerts can be created and edited
     When I am logged in as a user with the "content_admin" role
+    And I unlock node 1010
 
     # Create our initial draft
     # We need to target an existing node

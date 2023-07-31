@@ -5,8 +5,8 @@ namespace Drupal\va_gov_build_trigger\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Utility\Error;
-use Drupal\va_gov_consumers\GitHub\GitHubClientInterface;
 use Drupal\va_gov_git\BranchSearch\BranchSearchInterface;
+use Drupal\va_gov_github\Api\Client\ApiClientInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,11 +18,11 @@ use Symfony\Component\HttpFoundation\Response;
 class FrontEndBranchAutocompleteController extends ControllerBase {
 
   /**
-   * GitHub Client.
+   * GitHub Client for `content-build` repository.
    *
-   * @var \Drupal\va_gov_consumers\GitHub\GitHubClientInterface
+   * @var \Drupal\va_gov_github\Api\Client\ApiClientInterface
    */
-  protected $gitHubClient;
+  protected $cbGitHubClient;
 
   /**
    * Local checkout of Content Build Repository.
@@ -42,11 +42,11 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
    * {@inheritdoc}
    */
   public function __construct(
-    GitHubClientInterface $gitHubClient,
     BranchSearchInterface $cbBranchSearch,
+    ApiClientInterface $cbGitHubClient,
     LoggerChannelFactoryInterface $logger
   ) {
-    $this->gitHubClient = $gitHubClient;
+    $this->cbGitHubClient = $cbGitHubClient;
     $this->cbBranchSearch = $cbBranchSearch;
     $this->logger = $logger->get('va_gov_build_trigger');
   }
@@ -56,8 +56,8 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('va_gov.consumers.github.content_build'),
       $container->get('va_gov_git.branch_search.content_build'),
+      $container->get('va_gov_github.api_client.content_build'),
       $container->get('logger.factory')
     );
   }
@@ -111,7 +111,7 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
       }
     }
 
-    $frontEndPrs = $this->searchFrontEndPrs($string, $individual_count);
+    $frontEndPrs = $this->searchFrontEndPrs($string);
     for ($i = 0; $i < $individual_count; $i++) {
       if (!empty($frontEndPrs['items'][$i])) {
         $item = $frontEndPrs['items'][$i];
@@ -161,7 +161,7 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
     $results = [];
 
     try {
-      $results = $this->gitHubClient->searchPullRequests($string, $count);
+      $results = $this->cbGitHubClient->searchPullRequests($string);
     }
     catch (\Exception $e) {
       $variables = Error::decodeException($e);

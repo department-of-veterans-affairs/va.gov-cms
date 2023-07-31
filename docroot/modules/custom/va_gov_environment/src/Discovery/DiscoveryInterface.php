@@ -25,7 +25,7 @@ interface DiscoveryInterface extends EnvironmentInterface {
   /**
    * Get the current environment.
    *
-   * @return string
+   * @return \Drupal\va_gov_environment\Environment\EnvironmentInterface
    *   The current environment.
    */
   public function getEnvironment() : EnvironmentInterface;

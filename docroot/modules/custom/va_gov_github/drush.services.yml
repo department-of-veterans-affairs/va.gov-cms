@@ -1,0 +1,12 @@
+services:
+  va_gov_github.api_client_commands:
+    class: \Drupal\va_gov_github\Commands\ApiClientCommands
+    arguments:
+      - '@va_gov_github.api_client_factory'
+    tags:
+      - { name: drush.command }
+  va_gov_github.raw_api_client_commands:
+    class: \Drupal\va_gov_github\Commands\RawApiClientCommands
+    arguments: []
+    tags:
+      - { name: drush.command }

@@ -133,6 +133,12 @@ Cypress.Commands.add("drupalWatchdogHasNewErrors", (username, count) => {
   });
 });
 
+Cypress.Commands.add("drupalUnlockNode", (nid, language = "en") => {
+  return cy.drupalDrushEval(
+    `\\Drupal::service("content_lock")->release("${nid}", "${language}");`
+  );
+});
+
 Cypress.Commands.add("iframe", { prevSubject: "element" }, ($iframe) => {
   return cy
     .wrap($iframe)
