@@ -69,8 +69,8 @@ class GetOriginalTraitTest extends VaGovExistingSiteBase {
     $node->save();
     $node->original = $revision;
     $original = $node->getOriginal();
-    $this->assertEquals($node->id(), $original->id());
-    $this->assertEquals($node->get('title')->value, $original->get('title')->value);
+    $this->assertEquals($node->getOriginalField('nid')->value, $original->id());
+    $this->assertEquals($node->getOriginalField('title')->value, $original->get('title')->value);
   }
 
   /**
@@ -129,6 +129,47 @@ class GetOriginalTraitTest extends VaGovExistingSiteBase {
         'Original Title',
         'Original Title',
         FALSE,
+      ],
+    ];
+  }
+
+  /**
+   * Confirm didChangeField() throws an exception when no original exists.
+   *
+   * @param string $bundle
+   *   The bundle of the node.
+   *
+   * @covers ::didChangeField
+   * @dataProvider didChangeFieldNewDataProvider
+   */
+  public function testDidChangeFieldNew(string $bundle) {
+    $node = $this->createNode([
+      'bundle' => $bundle,
+    ]);
+    $node->setNewRevision(TRUE);
+    $node->setTitle('Original Title');
+    $node->save();
+    $this->expectException(NoOriginalExistsException::class);
+    $node->didChangeField('title');
+  }
+
+  /**
+   * Data provider for testDidChangeFieldNew.
+   *
+   * @return array
+   *   An array of arrays containing the parameters for the testDidChangeField
+   *   test method.
+   */
+  public function didChangeFieldNewDataProvider() {
+    return [
+      [
+        'page',
+      ],
+      [
+        'health_care_local_facility',
+      ],
+      [
+        'vet_center_cap',
       ],
     ];
   }

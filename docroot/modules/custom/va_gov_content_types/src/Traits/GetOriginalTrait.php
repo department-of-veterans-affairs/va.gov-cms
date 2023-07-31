@@ -56,6 +56,11 @@ trait GetOriginalTrait {
    *
    * @return \Drupal\Core\Field\FieldItemListInterface
    *   The value of the field.
+   *
+   * @throws \Drupal\va_gov_content_types\Exception\NoOriginalExistsException
+   *   Propagated when the node has no original version.
+   * @throws \InvalidArgumentException
+   *   Propagated when the field does not exist.
    */
   public function getOriginalField(string $fieldName): FieldItemListInterface {
     $original = $this->getOriginal();
@@ -72,8 +77,11 @@ trait GetOriginalTrait {
    *   TRUE if the value changed.  FALSE otherwise.
    */
   public function didChangeField(string $fieldName): bool {
+    // These will each throw their own exceptions, which is what we want.
+    // Don't make these defensive.
     $originalField = $this->getOriginalField($fieldName);
     $currentField = $this->get($fieldName);
+
     return !$currentField->equals($originalField);
   }
 

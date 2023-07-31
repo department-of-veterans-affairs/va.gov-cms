@@ -37,6 +37,11 @@ interface GetOriginalInterface {
    *
    * @return \Drupal\Core\Field\FieldItemListInterface
    *   The value of the field.
+   *
+   * @throws \Drupal\va_gov_content_types\Exception\NoOriginalExistsException
+   *   Thrown when the node has no original version.
+   * @throws \InvalidArgumentException
+   *   Thrown when the field does not exist.
    */
   public function getOriginalField(string $field_name): FieldItemListInterface;
 
