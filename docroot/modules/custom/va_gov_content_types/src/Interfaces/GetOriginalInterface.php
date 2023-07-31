@@ -36,7 +36,7 @@ interface GetOriginalInterface {
    *   The machine name of the field to get.
    *
    * @return \Drupal\Core\Field\FieldItemListInterface
-   *   The value of the field.
+   *   The fieldItemList of the field.
    */
   public function getOriginalField(string $field_name): FieldItemListInterface;
 

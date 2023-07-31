@@ -80,6 +80,9 @@ trait ContentReleaseTriggerTrait {
    * - where changes occurred
    * etc.
    *
+   * This method should always, always, always be safe to call. It should never
+   * throw or propagate exceptions.
+   *
    * @return bool
    *   TRUE if this node should trigger a content release event, or
    *   FALSE otherwise.
@@ -93,6 +96,12 @@ trait ContentReleaseTriggerTrait {
     }
     if (!$this->isFacility()) {
       return FALSE;
+    }
+    if (!$this->hasOriginal()) {
+      return FALSE;
+    }
+    if ($this->isModeratedAndPublished()) {
+      return TRUE;
     }
     return $this->didChangeOperatingStatus();
   }

@@ -160,6 +160,8 @@ class ContentReleaseTriggerTraitTest extends VaGovUnitTestBase {
    *   Whether the node is a facility.
    * @param bool $didChangeOperatingStatus
    *   Whether the node changed operating status.
+   * @param bool $hasOriginal
+   *   Whether the node has an original.
    * @param bool $expected
    *   The expected result.
    *
@@ -171,6 +173,7 @@ class ContentReleaseTriggerTraitTest extends VaGovUnitTestBase {
     bool $alwaysTriggersContentRelease,
     bool $isFacility,
     bool $didChangeOperatingStatus,
+    bool $hasOriginal,
     bool $expected
   ) {
     $node = $this->getMockForTrait(ContentReleaseTriggerTrait::class);
@@ -195,6 +198,7 @@ class ContentReleaseTriggerTraitTest extends VaGovUnitTestBase {
     $node->expects($this->any())->method('getType')->will($alwaysTriggersContentRelease ? $this->returnValue('banner') : $this->returnValue('page'));
 
     $node->expects($this->any())->method('isFacility')->will($this->returnValue($isFacility));
+    $node->expects($this->any())->method('hasOriginal')->will($this->returnValue($hasOriginal));
     $node->expects($this->any())->method('didChangeOperatingStatus')->will($this->returnValue($didChangeOperatingStatus));
     $this->assertEquals($expected, $node->shouldTriggerContentRelease());
   }
@@ -211,6 +215,7 @@ class ContentReleaseTriggerTraitTest extends VaGovUnitTestBase {
       'hasTriggeringChanges' => [TRUE, FALSE],
       'alwaysTriggersContentRelease' => [TRUE, FALSE],
       'isFacility' => [TRUE, FALSE],
+      'hasOriginal' => [TRUE, FALSE],
       'didChangeOperatingStatus' => [TRUE, FALSE],
     ];
     $permutations = $this->generatePermutations($combinations);
@@ -219,6 +224,7 @@ class ContentReleaseTriggerTraitTest extends VaGovUnitTestBase {
       $hasTriggeringChanges = $permutation['hasTriggeringChanges'];
       $alwaysTriggersContentRelease = $permutation['alwaysTriggersContentRelease'];
       $isFacility = $permutation['isFacility'];
+      $hasOriginal = $permutation['hasOriginal'];
       $didChangeOperatingStatus = $permutation['didChangeOperatingStatus'];
 
       /*
@@ -226,18 +232,28 @@ class ContentReleaseTriggerTraitTest extends VaGovUnitTestBase {
        * - anything with triggering changes that:
        *   - always triggers content release
        *     OR
-       *   - both of the following:
+       *   - all of the following:
        *     - is a facility
+       *     - has an original version
        *     - did change operating status
        */
-      $expected = $hasTriggeringChanges && ($alwaysTriggersContentRelease || ($isFacility && $didChangeOperatingStatus));
+      $expected = $hasTriggeringChanges
+        && (
+          $alwaysTriggersContentRelease
+          || (
+            $isFacility
+            && $hasOriginal
+            && ($hasTriggeringChanges || $didChangeOperatingStatus)
+          )
+        );
 
       $name = sprintf(
-        "%shasTriggeringChanges, %salwaysTriggersContentRelease, %sisFacility, %sdidChangeOperatingStatus, %sexpected",
+        "%shasTriggeringChanges, %salwaysTriggersContentRelease, %sisFacility, %sdidChangeOperatingStatus, %shasOriginal, %sexpected",
         $hasTriggeringChanges ? '' : '!',
         $alwaysTriggersContentRelease ? '' : '!',
         $isFacility ? '' : '!',
         $didChangeOperatingStatus ? '' : '!',
+        $hasOriginal ? '' : '!',
         $expected ? '' : '!'
       );
       $result[$name] = [
@@ -245,6 +261,7 @@ class ContentReleaseTriggerTraitTest extends VaGovUnitTestBase {
         'alwaysTriggersContentRelease' => $alwaysTriggersContentRelease,
         'isFacility' => $isFacility,
         'didChangeOperatingStatus' => $didChangeOperatingStatus,
+        'hasOriginal' => $hasOriginal,
         'expected' => $expected,
       ];
     }
