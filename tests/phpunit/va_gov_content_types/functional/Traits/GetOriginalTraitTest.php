@@ -69,8 +69,8 @@ class GetOriginalTraitTest extends VaGovExistingSiteBase {
     $node->save();
     $node->original = $revision;
     $original = $node->getOriginal();
-    $this->assertEquals($node->id(), $original->id());
-    $this->assertEquals($node->get('title')->value, $original->get('title')->value);
+    $this->assertEquals($node->getOriginalField('id')->value, $original->id());
+    $this->assertEquals($node->getOriginalField('title')->value, $original->get('title')->value);
   }
 
   /**
