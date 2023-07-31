@@ -74,6 +74,17 @@ class GetOriginalTraitTest extends VaGovExistingSiteBase {
   }
 
   /**
+   * Test that the getOriginalField method throws an exception appropriately.
+   */
+  public function testGetOriginalFieldException() {
+    $node = $this->createNode([
+      'bundle' => 'page',
+    ]);
+    $this->expectException(NoOriginalExistsException::class);
+    $node->getOriginalField('title');
+  }
+
+  /**
    * Test that the didChangeField method works.
    *
    * @param string $oldValue
