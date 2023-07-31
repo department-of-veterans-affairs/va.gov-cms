@@ -12,6 +12,11 @@ use Drupal\va_gov_content_types\Exception\NoOriginalExistsException;
 trait GetOriginalTrait {
 
   /**
+   * {@inheritDoc}
+   */
+  abstract public function get($fieldName);
+
+  /**
    * Indicates whether the node has an original version.
    *
    * @return bool
@@ -50,7 +55,7 @@ trait GetOriginalTrait {
    *   The machine name of the field to get.
    *
    * @return \Drupal\Core\Field\FieldItemListInterface
-   *   The value of the field.
+   *   The fieldItemList of the field.
    */
   public function getOriginalField(string $fieldName): FieldItemListInterface {
     $original = $this->getOriginal();
@@ -67,8 +72,11 @@ trait GetOriginalTrait {
    *   TRUE if the value changed.  FALSE otherwise.
    */
   public function didChangeField(string $fieldName): bool {
+    // These will each throw their own exceptions, which is what we want.
+    // Don't make these defensive.
     $originalField = $this->getOriginalField($fieldName);
     $currentField = $this->get($fieldName);
+
     return !$currentField->equals($originalField);
   }
 

@@ -2647,18 +2647,18 @@ display:
           form_step: true
           buttons: true
           action_title: ''
+          clear_on_exposed: true
+          force_selection_info: false
           selected_actions:
             29:
               action_id: views_bulk_edit
               preconfiguration:
-                add_confirmation: 1
-                get_bundles_from_results: 1
+                add_confirmation: true
+                get_bundles_from_results: true
             34:
               action_id: 'entity:save_action:node'
               preconfiguration:
-                add_confirmation: 1
-          clear_on_exposed: true
-          force_selection_info: 0
+                add_confirmation: true
         title:
           id: title
           table: node_field_data
@@ -5522,15 +5522,17 @@ display:
           form_step: true
           buttons: false
           action_title: Action
+          clear_on_exposed: true
+          force_selection_info: false
           selected_actions:
             -
               action_id: node_save_action
               preconfiguration:
-                add_confirmation: 0
+                add_confirmation: false
             -
               action_id: node_assign_owner_action
               preconfiguration:
-                add_confirmation: 0
+                add_confirmation: false
             -
               action_id: publish_latest_revision_action
             -
@@ -5538,16 +5540,14 @@ display:
             -
               action_id: views_bulk_edit
               preconfiguration:
-                add_confirmation: 0
-                get_bundles_from_results: 1
+                add_confirmation: false
+                get_bundles_from_results: true
             -
               action_id: views_bulk_operations_delete_entity
             -
               action_id: 'entity:pathauto_update_alias:node'
               preconfiguration:
-                add_confirmation: 0
-          clear_on_exposed: true
-          force_selection_info: 0
+                add_confirmation: false
         title:
           id: title
           table: node_field_data
@@ -7803,15 +7803,15 @@ display:
           form_step: true
           buttons: true
           action_title: ''
+          clear_on_exposed: true
+          force_selection_info: false
           selected_actions:
             25:
               action_id: views_bulk_edit
               preconfiguration:
+                add_confirmation: false
                 label_override: 'Update Operating status'
-                add_confirmation: 0
-                get_bundles_from_results: 1
-          clear_on_exposed: true
-          force_selection_info: 0
+                get_bundles_from_results: true
         title:
           id: title
           table: node_field_data
@@ -9052,15 +9052,15 @@ display:
           form_step: true
           buttons: true
           action_title: ''
+          clear_on_exposed: true
+          force_selection_info: false
           selected_actions:
             25:
               action_id: views_bulk_edit
               preconfiguration:
+                add_confirmation: false
                 label_override: 'Update Operating status'
-                add_confirmation: 0
-                get_bundles_from_results: 1
-          clear_on_exposed: true
-          force_selection_info: 0
+                get_bundles_from_results: true
         title:
           id: title
           table: node_field_data

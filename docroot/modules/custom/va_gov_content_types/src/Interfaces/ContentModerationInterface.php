@@ -25,7 +25,7 @@ interface ContentModerationInterface {
    * @return string
    *   The current moderation_state value.
    *
-   * @throws \Drupal\va_gov_content_types\Exception\NotModeratedContentTypeException
+   * @throws \Drupal\va_gov_content_types\Exception\UnmoderatedContentTypeException
    *   Thrown when the node is not under content moderation.
    */
   public function getModerationState(): string;

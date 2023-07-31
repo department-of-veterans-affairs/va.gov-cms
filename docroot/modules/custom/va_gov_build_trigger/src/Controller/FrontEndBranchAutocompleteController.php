@@ -5,8 +5,8 @@ namespace Drupal\va_gov_build_trigger\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Utility\Error;
-use Drupal\va_gov_consumers\Git\GitInterface;
-use Drupal\va_gov_consumers\GitHub\GitHubClientInterface;
+use Drupal\va_gov_git\BranchSearch\BranchSearchInterface;
+use Drupal\va_gov_github\Api\Client\ApiClientInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,11 +18,18 @@ use Symfony\Component\HttpFoundation\Response;
 class FrontEndBranchAutocompleteController extends ControllerBase {
 
   /**
-   * GitHub Client.
+   * GitHub Client for `content-build` repository.
    *
-   * @var \Drupal\va_gov_consumers\GitHub\GitHubClientInterface
+   * @var \Drupal\va_gov_github\Api\Client\ApiClientInterface
    */
-  protected $gitHubClient;
+  protected $cbGitHubClient;
+
+  /**
+   * Local checkout of Content Build Repository.
+   *
+   * @var \Drupal\va_gov_git\BranchSearch\BranchSearchInterface
+   */
+  private $cbBranchSearch;
 
   /**
    * Logger.
@@ -32,19 +39,16 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
   protected $logger;
 
   /**
-   * Git repository class.
-   *
-   * @var \Drupal\va_gov_consumers\Git\GitInterface
-   */
-  private $git;
-
-  /**
    * {@inheritdoc}
    */
-  public function __construct(GitHubClientInterface $gitHubClient, GitInterface $git, LoggerChannelFactoryInterface $logger) {
-    $this->gitHubClient = $gitHubClient;
+  public function __construct(
+    BranchSearchInterface $cbBranchSearch,
+    ApiClientInterface $cbGitHubClient,
+    LoggerChannelFactoryInterface $logger
+  ) {
+    $this->cbGitHubClient = $cbGitHubClient;
+    $this->cbBranchSearch = $cbBranchSearch;
     $this->logger = $logger->get('va_gov_build_trigger');
-    $this->git = $git;
   }
 
   /**
@@ -52,8 +56,8 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('va_gov.consumers.github.content_build'),
-      $container->get('va_gov.consumers.git.repository.factory')->getWebRepository(),
+      $container->get('va_gov_git.branch_search.content_build'),
+      $container->get('va_gov_github.api_client.content_build'),
       $container->get('logger.factory')
     );
   }
@@ -97,7 +101,7 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
 
     $individual_count = (int) ($count / 2);
 
-    $branches = $this->searchFrontEndBranches($string, $individual_count);
+    $branches = $this->searchFrontEndBranches($string);
     for ($i = 0; $i < $individual_count; $i++) {
       if (!empty($branches[$i])) {
         $results[] = [
@@ -107,7 +111,7 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
       }
     }
 
-    $frontEndPrs = $this->searchFrontEndPrs($string, $individual_count);
+    $frontEndPrs = $this->searchFrontEndPrs($string);
     for ($i = 0; $i < $individual_count; $i++) {
       if (!empty($frontEndPrs['items'][$i])) {
         $item = $frontEndPrs['items'][$i];
@@ -126,14 +130,20 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
    *
    * @param string $string
    *   Search string.
-   * @param int $count
-   *   Number of branch names to return.
    *
    * @return string[]
    *   Array of branch names.
    */
-  private function searchFrontEndBranches(string $string, int $count) : array {
-    return $this->git->searchBranches($string, $count);
+  private function searchFrontEndBranches(string $string) : array {
+    try {
+      return $this->cbBranchSearch->getRemoteBranchNamesContaining($string);
+    }
+    catch (\Throwable $exception) {
+      $this->logger->error('Error searching for branches: @message', [
+        '@message' => $exception->getMessage(),
+      ]);
+      return [];
+    }
   }
 
   /**
@@ -151,7 +161,7 @@ class FrontEndBranchAutocompleteController extends ControllerBase {
     $results = [];
 
     try {
-      $results = $this->gitHubClient->searchPullRequests($string, $count);
+      $results = $this->cbGitHubClient->searchPullRequests($string);
     }
     catch (\Exception $e) {
       $variables = Error::decodeException($e);
