@@ -35,10 +35,13 @@ interface GetOriginalInterface {
    * @param string $field_name
    *   The machine name of the field to get.
    *
-   * @return \Drupal\Core\Field\FieldItemListInterface|null
+   * @return \Drupal\Core\Field\FieldItemListInterface
    *   The fieldItemList of the field if it exists. NULL otherwise.
+   *
+   * @throws \Drupal\va_gov_content_types\Exception\NoOriginalExistsException
+   *   Thrown when the node has no original version.
    */
-  public function getOriginalField(string $field_name): ?FieldItemListInterface;
+  public function getOriginalField(string $field_name): FieldItemListInterface;
 
   /**
    * Checks if the value of the field on the node changed.

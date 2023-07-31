@@ -56,18 +56,21 @@ trait GetOriginalTrait {
    * @param string $fieldName
    *   The machine name of the field to get.
    *
-   * @return \Drupal\Core\Field\FieldItemListInterface|null
-   *   The fieldItemList of the field if it exists. NULL otherwise.
+   * @return \Drupal\Core\Field\FieldItemListInterface
+   *   The fieldItemList of the field if it exists.
+   *
+   * @throws \Drupal\va_gov_content_types\Exception\NoOriginalExistsException
+   *   Thrown when the node has no original version.
    */
-  public function getOriginalField(string $fieldName): ?FieldItemListInterface {
-    $field = NULL;
+  public function getOriginalField(string $fieldName): FieldItemListInterface {
     if ($this->hasOriginal()) {
       $original = $this->getOriginal();
       if ($original->hasField($fieldName)) {
-        $field = $original->get($fieldName);
+        return $original->get($fieldName);
       }
+      throw new \InvalidArgumentException('The field $fieldName does not exist.');
     }
-    return $field;
+    throw new NoOriginalExistsException('No original version exists for getting the field.');
   }
 
   /**
@@ -77,15 +80,13 @@ trait GetOriginalTrait {
    *   The machine name of the field to check.
    *
    * @return bool
-   *   TRUE if the value changed.  FALSE otherwise.
+   *   TRUE if the value changed. FALSE otherwise.
    */
   public function didChangeField(string $fieldName): bool {
+    // These will each throw their own exceptions, which is what we want.
+    // Don't make these defensive.
     $originalField = $this->getOriginalField($fieldName);
     $currentField = $this->get($fieldName);
-    if (!$originalField) {
-      // Consider a new save (no original exists) to not be a change of value.
-      return FALSE;
-    }
 
     return !$currentField->equals($originalField);
   }
