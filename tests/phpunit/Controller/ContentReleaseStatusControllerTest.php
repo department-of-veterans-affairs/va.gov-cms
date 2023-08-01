@@ -92,7 +92,7 @@ class ContentReleaseStatusControllerTest extends VaGovUnitTestBase {
     $responseProphecy = $this->prophesize(Response::CLASS);
     $responseProphecy->getBody()->willReturn($responseBody);
 
-    $prophecy->request(Argument::type('string'), Argument::type('string'))->willReturn($responseProphecy->reveal());
+    $prophecy->get(Argument::type('string'))->willReturn($responseProphecy->reveal());
 
     return $prophecy->reveal();
   }

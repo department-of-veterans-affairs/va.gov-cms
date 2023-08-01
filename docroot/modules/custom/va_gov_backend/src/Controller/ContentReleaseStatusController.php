@@ -123,7 +123,7 @@ class ContentReleaseStatusController extends ControllerBase {
    */
   public function getLastReleaseTimestamp(): int {
     /** @var \Psr\Http\Message\ResponseInterface $response */
-    $response = $this->httpClient->request('GET', 'https://www.va.gov/BUILD.txt');
+    $response = $this->httpClient->get('https://www.va.gov/BUILD.txt');
     if (preg_match('/BUILDTIME=([0-9]*)/', $response->getBody(), $matches)) {
       return $matches[1];
     }
