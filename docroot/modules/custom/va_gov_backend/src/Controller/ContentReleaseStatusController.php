@@ -4,7 +4,6 @@ namespace Drupal\va_gov_backend\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Render\HtmlResponse;
-use GuzzleHttp\Client;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -125,8 +124,8 @@ class ContentReleaseStatusController extends ControllerBase {
    *   If the build file could not be parsed.
    */
   public function getLastReleaseTimestamp(): int {
-    $client = new Client();
-    $response = $client->get('https://www.va.gov/BUILD.txt');
+    /** @var \Psr\Http\Message\ResponseInterface $response */
+    $response = $this->httpClient->get('https://www.va.gov/BUILD.txt');
     if (preg_match('/BUILDTIME=([0-9]*)/', $response->getBody(), $matches)) {
       return $matches[1];
     }
