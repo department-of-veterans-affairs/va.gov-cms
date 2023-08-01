@@ -1,0 +1,44 @@
+uuid: 421d1e37-357a-40dd-a94e-4b5223268776
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_enforce_unique_combo
+    - node.type.full_width_banner_alert
+  module:
+    - allow_only_one
+    - epp
+third_party_settings:
+  allow_only_one:
+    field_administration: 1
+    field_alert_dismissable: 0
+    field_alert_email_updates_button: 0
+    field_alert_find_facilities_cta: 0
+    field_alert_inheritance_subpages: 0
+    field_alert_operating_status_cta: 0
+    field_alert_type: 0
+    field_banner_alert_situationinfo: 0
+    field_banner_alert_vamcs: 1
+    field_body: 0
+    field_operating_status_sendemail: 0
+    field_situation_updates: 0
+    title: 0
+    case_sensitive: null
+    limit_validation_to_published: 1
+  epp:
+    value: ''
+    on_update: 0
+id: node.full_width_banner_alert.field_enforce_unique_combo
+field_name: field_enforce_unique_combo
+entity_type: node
+bundle: full_width_banner_alert
+label: 'Enforce unique combo'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings: {  }
+field_type: allow_only_one

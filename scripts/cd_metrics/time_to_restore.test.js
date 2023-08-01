@@ -217,32 +217,31 @@ describe("time_to_restore.lib.js", () => {
 
   describe("buildTimeToRestoreMetricSeries", () => {
     const PREVIOUS_ENV = process.env;
-  
+
     beforeEach(() => {
       jest.resetModules();
       process.env = { ...PREVIOUS_ENV };
     });
-  
+
     // eslint-disable-next-line no-undef
     afterAll(() => {
       process.env = PREVIOUS_ENV;
     });
-  
+
     it("should return a metric series with the correct name and data point", async () => {
       const now = 1700000000;
-      const restoreTimestamp = 1690000000;
       const expectedRestoreTime = 10000000;
-  
+
       jest.unstable_mockModule("./common.js", async () => {
         return {
           ...actualCommon,
           startTime: now,
         };
       });
-  
+
       const { buildTimeToRestoreMetricSeries } = await import("./time_to_restore.lib.js");
       const result = buildTimeToRestoreMetricSeries(expectedRestoreTime);
-  
+
       const expectedOutput = {
         metric: "cms_test.product_delivery.time_to_restore",
         points: [
@@ -263,16 +262,16 @@ describe("time_to_restore.lib.js", () => {
         ],
         type: 3,
       };
-  
+
       expect(result).toEqual(expectedOutput);
     });
   });
-  
+
   describe("calculateAccruedTimeInFailure", () => {
     beforeEach(() => {
       jest.resetModules();
     });
-  
+
     it("should calculate the accrued time in failure correctly", async () => {
       jest.unstable_mockModule("./common.js", () => {
         return {
@@ -311,13 +310,13 @@ describe("time_to_restore.lib.js", () => {
           }),
         };
       });
-  
+
       const { calculateAccruedTimeInFailure } = await import("./time_to_restore.lib.js");
       const result = await calculateAccruedTimeInFailure("failing-sha-2");
       const expectedOutput = 1000;
       expect(result).toEqual(expectedOutput);
     });
-  
+
     it("should calculate the accrued time in failure correctly with pending commits", async () => {
       jest.unstable_mockModule("./common.js", () => {
         return {
@@ -359,13 +358,13 @@ describe("time_to_restore.lib.js", () => {
           }),
         };
       });
-  
+
       const { calculateAccruedTimeInFailure } = await import("./time_to_restore.lib.js");
       const result = await calculateAccruedTimeInFailure("pending-sha-2");
       const expectedOutput = 1000;
       expect(result).toEqual(expectedOutput);
     });
-    
+
     it("should calculate the accrued time in failure correctly for three failing commits", async () => {
       jest.unstable_mockModule("./common.js", () => {
         return {
@@ -410,13 +409,13 @@ describe("time_to_restore.lib.js", () => {
           }),
         };
       });
-    
+
       const { calculateAccruedTimeInFailure } = await import("./time_to_restore.lib.js");
       const result = await calculateAccruedTimeInFailure("failing-sha-3");
       const expectedOutput = 2000;
       expect(result).toEqual(expectedOutput);
     });
-    
+
     it("should return zero if the previous commit was a success", async () => {
       jest.unstable_mockModule("./common.js", () => {
         return {
@@ -428,13 +427,13 @@ describe("time_to_restore.lib.js", () => {
           }),
         };
       });
-  
+
       const { calculateAccruedTimeInFailure } = await import("./time_to_restore.lib.js");
       const result = await calculateAccruedTimeInFailure("failing-sha-3");
       const expectedOutput = 0;
       expect(result).toEqual(expectedOutput);
     });
-    
+
     it("should calculate the accrued time in failure correctly for two failing commits separated by a pending commit", async () => {
       jest.unstable_mockModule("./common.js", () => {
         return {
@@ -482,20 +481,20 @@ describe("time_to_restore.lib.js", () => {
           }),
         };
       });
-    
+
       const { calculateAccruedTimeInFailure } = await import("./time_to_restore.lib.js");
       const result = await calculateAccruedTimeInFailure("failing-sha-3");
       const expectedOutput = 2000;
       expect(result).toEqual(expectedOutput);
     });
-    
+
   });
-  
+
   describe("calculateTimeToRestore", () => {
     beforeEach(() => {
       jest.resetModules();
     });
-  
+
     it("should calculate the time to restore service correctly", async () => {
       jest.unstable_mockModule("./common.js", () => {
         return {
@@ -540,13 +539,13 @@ describe("time_to_restore.lib.js", () => {
           }),
         };
       });
-  
+
       const { calculateTimeToRestore } = await import("./time_to_restore.lib.js");
       const result = await calculateTimeToRestore();
       const expectedOutput = 2000;
       expect(result).toEqual(expectedOutput);
     });
-  
+
     it("should calculate the time to restore service correctly when there are pending commits", async () => {
       jest.unstable_mockModule("./common.js", () => {
         return {
@@ -594,13 +593,13 @@ describe("time_to_restore.lib.js", () => {
           }),
         };
       });
-  
+
       const { calculateTimeToRestore } = await import("./time_to_restore.lib.js");
       const result = await calculateTimeToRestore();
       const expectedOutput = 2000;
       expect(result).toEqual(expectedOutput);
     });
-    
+
     it("should calculate the time to restore service correctly when there is no accrued failure time", async () => {
       jest.unstable_mockModule("./common.js", () => {
         return {
@@ -624,7 +623,7 @@ describe("time_to_restore.lib.js", () => {
             if (sha === "failing-sha-1") {
               return "passing-sha";
             }
-            if (sha === "passing-sha") { 
+            if (sha === "passing-sha") {
               return "some-sha";
             }
             throw new Error("Unexpected sha");
@@ -642,12 +641,12 @@ describe("time_to_restore.lib.js", () => {
           }),
         };
       });
-  
+
       const { calculateTimeToRestore } = await import("./time_to_restore.lib.js");
       const result = await calculateTimeToRestore();
       const expectedOutput = 1000;
       expect(result).toEqual(expectedOutput);
     });
   });
-  
+
 });

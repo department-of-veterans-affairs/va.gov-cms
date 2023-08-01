@@ -9,16 +9,17 @@ output: 'group'
 
 tasks:
 
-  # Any changes to test names or additions or removals must be updated in 
-  # .github/workflows/set-tugboat-tests-pending.yml as well for the 
+  # Any changes to test names or additions or removals must be updated in
+  # .github/workflows/set-tugboat-tests-pending.yml as well for the
   # test to be required effectively.
 
   va/tests/cypress:
     desc: Accessibility and Behavioral tests with Cypress
-    # See also `composer va:test:cypress-ci` in composer.json
+    # See also `composer va:test:cypress-parallel` in composer.json
     # For local (e.g. DDEV) use, invoke `composer va:test:cypress`.
+    # For interactive use, invoke `composer va:test:cypress-interactive`.
     cmds:
-      - ./tests/scripts/ci-wrapper.sh cypress 'va:test:cypress-ci'
+      - ./tests/scripts/ci-wrapper.sh cypress 'va:test:cypress-parallel'
 
   va/tests/phpunit:
     desc: PHPUnit
@@ -32,7 +33,6 @@ tasks:
     # For local (e.g. DDEV) use, invoke `composer va:test:status-error`.
     cmds:
       - ./tests/scripts/ci-wrapper.sh status-error 'va:test:status-error-ci'
-
 
   va/tests/content-build-gql:
     desc: Ensure that the content build graphql queries succeed

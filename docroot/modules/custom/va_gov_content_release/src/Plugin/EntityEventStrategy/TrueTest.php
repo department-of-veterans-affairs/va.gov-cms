@@ -24,4 +24,11 @@ class TrueTest extends StrategyPluginBase {
     return TRUE;
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  public function getReasonMessage(VaNodeInterface $node) : string {
+    return $this->t('This event strategy _always_ returns TRUE.');
+  }
+
 }
