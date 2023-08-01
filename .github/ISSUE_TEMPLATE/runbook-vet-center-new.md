@@ -33,7 +33,7 @@ Facility API ID: <insert_facility_API_ID>
 [@TODO: KB ARTICLE FOR ADDING VET CENTERS - SEE runbook-vamc-facility-new]
 
 #### CMS help desk steps
-**Note: If the help desk is waiting on information from the facility staff or editor, add the "Awaiting editor" flag to the facility** with a log message that includes a link to this ticket. Remove the flag when the ticket is ready to be worked by the Facilities team. **Be sure to preserve the current moderation state of the node when adding or removing the flag.**
+**Note: If the help desk is waiting on information from the facility staff or editor, add the `Awaiting editor` flag to the facility** with a log message that includes a link to this ticket. Remove the flag when the ticket is ready to be worked by the Facilities team. **Be sure to preserve the current moderation state of the node when adding or removing the flag.**
 
 **If a Mobile Vet Center:**
 - [ ] Confirm what Vet Center it belongs to, and set the "Main Vet Center location" field. The parent location may be derived by the Facility ID.
@@ -51,13 +51,13 @@ Facility API ID: <insert_facility_API_ID>
 - [ ] 3. In [Sections taxonomy](https://prod.cms.va.gov/admin/structure/taxonomy/manage/administration/overview), move the Vet Center Section to the appropriate district.
 - [ ] 4. Create accounts (or restrict existing accounts) with editor rights only for Vet Center Director and Outreach Specialist so that they cannot publish on their own.
 - [ ] 5. Contact Vet Center Director and Outreach specialist to onboard for training [@TODO write sample email - SEE runbook-vamc-facility-new] **Note: this should include instructions for adding content and preparing for publishing and RCS Central Office should be included as CC**
-- [ ] 6. Add flag "Waiting on editor" to this facility. Note: This is now blocked until RCS Central office approves.
+- [ ] 6. Add flag `Awaiting editor` to this facility. Note: This is now blocked until RCS Central office approves.
 - [ ] 7. **Once approved by RCS Central Office as complete, proceed to Drupal Admin publishing steps**
 
 
 **Drupal Admin steps**
 - [ ] 8. Bulk publish the nodes and facility.
-- [ ] 9. Edit the facility node: remove the `New facility` and 'Waiting on editor' flags, save the node.
+- [ ] 9. Edit the facility node: remove the `New facility` and `Awaiting editor` flags, save the node.
 - [ ] 10. Let Help desk know this has been done.
 
 #### CMS Help desk (wrap up)
