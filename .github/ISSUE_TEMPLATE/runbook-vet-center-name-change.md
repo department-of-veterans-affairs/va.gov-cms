@@ -50,7 +50,7 @@ _Help desk will complete these steps or escalate to request help from CMS engine
 
 ***CASE: Renamed, but named after a person, not a location***
 
-- [ ] 5. The new official name no longer matches the pattern "<location> Vet Center" so you need to change the common name to align with the <location> naming convention. (Generally this will already be the previous name and you may not need to change anything? plz verify)
+- [ ] 5. The new official name no longer matches the pattern "<location> Vet Center" so you need to change the common name to align with the <location> naming convention if it does not already.
 - [ ] Confirm on the Front-end that the <location> naming convention is the h1 followed by a "also known as" with the named-after-person name.
 
 **Proceed to step 10**
@@ -58,13 +58,10 @@ _Help desk will complete these steps or escalate to request help from CMS engine
 ***CASE: Renamed, but still location-based naming convention***
 
 - [ ] 5. In the [Sections taxonomy](https://prod.cms.va.gov/admin/structure/taxonomy/manage/administration/overview), Vet Centers: rename the Section for this Vet Center to match its new name
-- [ ] 6. If the new official name matches the pattern "<city> Vet Center", update the common name to match **Does this have to happen? I thought we could leave this blank? Plz confirm**
+- [ ] 6. If the new official name matches the pattern "<city> Vet Center", update the common name to match.
 - [ ] 7. Visit [bulk operations](https://prod.cms.va.gov/admin/content/bulk) page and filter by section = vet center name
 - [ ] 8. Update URLs for all content in that section by bulk operations
 - [ ] 9. Resave all content in that section by bulk operations
-
-**Do we need to do some sort of bulk update to any CAPs names?**
-
 
   
 **For all types**
