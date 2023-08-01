@@ -23,7 +23,7 @@ class ContentReleaseStrategy extends Plugin {
   public $id;
 
   /**
-   * The human-readable name of the environemnt.
+   * The human-readable name of the strategy.
    *
    * @var \Drupal\Core\Annotation\Translation
    */

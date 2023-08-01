@@ -11,7 +11,7 @@ assignees: jilladams
 Original request to set up new site for injected header/footer: 
 _Updates in this ticket should be made to the domain(s) listed / code updated in the original ticket._
 
-This ticket adds new domain(s) to allowlists that gate the injected header. When the requsting team confirms their testing is complete, Public Websites will 
+This ticket adds new domain(s) to allowlists that gate the injected header. When the requesting team confirms their testing is complete, Public Websites will 
 
 - [ ] update [proxy-rewrite-whitelist.json](https://github.com/department-of-veterans-affairs/vets-website/blob/main/src/applications/proxy-rewrite/proxy-rewrite-whitelist.json) code to `cookieOnly: false ` to permanently display the header 
 

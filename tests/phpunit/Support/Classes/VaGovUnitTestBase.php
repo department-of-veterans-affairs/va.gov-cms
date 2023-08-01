@@ -11,4 +11,5 @@ use Drupal\Tests\UnitTestCase;
 abstract class VaGovUnitTestBase extends UnitTestCase {
 
   use ProphecyTrait;
+
 }

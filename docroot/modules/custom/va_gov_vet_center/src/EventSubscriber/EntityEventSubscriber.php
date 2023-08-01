@@ -545,6 +545,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $term_tids = $term_storage->getQuery()
       ->condition('vid', 'health_care_service_taxonomy')
       ->condition('field_vet_center_required_servic', 1, '=')
+      ->accessCheck(FALSE)
       ->execute();
     $terms = $term_storage->loadMultiple($term_tids);
     $required_services = [];

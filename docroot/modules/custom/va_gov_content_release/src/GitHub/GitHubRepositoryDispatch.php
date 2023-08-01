@@ -2,7 +2,7 @@
 
 namespace Drupal\va_gov_content_release\GitHub;
 
-use Drupal\va_gov_consumers\GitHub\GitHubClientInterface;
+use Drupal\va_gov_github\Api\Client\ApiClientInterface;
 use Drupal\va_gov_content_release\Exception\ContentReleaseInProgressException;
 use Drupal\va_gov_content_release\Exception\GitHubRepositoryDispatchException;
 
@@ -18,19 +18,19 @@ use Drupal\va_gov_content_release\Exception\GitHubRepositoryDispatchException;
 class GitHubRepositoryDispatch implements GitHubRepositoryDispatchInterface {
 
   /**
-   * The GitHub client.
+   * The GitHub client for the `content-build` repository.
    *
-   * @var \Drupal\va_gov_consumers\GitHub\GitHubClientInterface
+   * @var \Drupal\va_gov_github\Api\Client\ApiClientInterface
    */
   protected $client;
 
   /**
    * Constructor.
    *
-   * @param \Drupal\va_gov_consumers\GitHub\GitHubClientInterface $client
-   *   The GitHub client.
+   * @param \Drupal\va_gov_github\Api\Client\ApiClientInterface $client
+   *   The GitHub client for the `content-build` repository.
    */
-  public function __construct(GitHubClientInterface $client) {
+  public function __construct(ApiClientInterface $client) {
     $this->client = $client;
   }
 
@@ -61,7 +61,7 @@ class GitHubRepositoryDispatch implements GitHubRepositoryDispatchInterface {
       if ($this->isPending()) {
         throw new ContentReleaseInProgressException('A workflow is already pending.');
       }
-      $this->client->repositoryDispatchWorkflow(static::EVENT_TYPE);
+      $this->client->triggerRepositoryDispatchEvent(static::EVENT_TYPE);
     }
     catch (ContentReleaseInProgressException $exception) {
       throw $exception;
@@ -77,7 +77,7 @@ class GitHubRepositoryDispatch implements GitHubRepositoryDispatchInterface {
   public function isPending() : bool {
     try {
       $parameters = $this->buildPendingWorkflowParams();
-      $workflowRuns = $this->client->listWorkflowRuns(static::EVENT_TYPE . '.yml', $parameters);
+      $workflowRuns = $this->client->getWorkflowRuns(static::EVENT_TYPE . '.yml', $parameters);
       return !empty($workflowRuns['total_count']) && $workflowRuns['total_count'] > 0;
     }
     catch (\Throwable $throwable) {

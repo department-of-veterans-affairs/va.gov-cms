@@ -9,7 +9,7 @@ assignees: ''
 ---
 
 The change represented by the super epic # will [copy selection from epic].
- 
+
 ## Change description from the perspective of CMS users
 - use plain language
 - describe what is the user going to experience with this change
@@ -59,3 +59,4 @@ Please check the team(s) that will do this work.
 - [ ] `Public Websites`
 - [ ] `Facilities`
 - [ ] `User support`
+- [ ] `Accelerated Publishing`

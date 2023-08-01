@@ -219,7 +219,7 @@ $ php -m | grep -i memcache                                  # Should not list t
 ...
 ```
 
-The Memcache extension will be restored on the next deploy, or the file can simply be moved back into place and Apache reloaded again to reenable it.
+The Memcache extension will be restored on the next deploy, or the file can simply be moved back into place and Apache reloaded again to re-enable it.
 
 ##### Across Deploys
 

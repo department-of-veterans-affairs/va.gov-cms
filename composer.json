@@ -6,12 +6,13 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require-dev": {
+        "behat/mink": "^1.10",
+        "behat/mink-browserkit-driver": "^2.1",
         "drupal/devel": "^5.0",
         "drupal/html_tag_usage": "^1.0@beta",
         "drupal/media_entity_generic": "^1.0"
     },
     "require": {
-        "acquia/drupal-spec-tool": "^5.0.0",
         "alchemy/zippy": "^1.0.0",
         "bower-asset/blazy": "^1.8",
         "bower-asset/cropper": "^4.1",
@@ -19,7 +20,7 @@
         "composer/installers": "^2.2.0",
         "consolidation/site-process": "^4.1",
         "cweagans/composer-patches": "^1.7",
-        "datadog/dd-trace": "^0.88.0",
+        "datadog/dd-trace": "^0.90.0",
         "dealerdirect/phpcodesniffer-composer-installer": "0.7.2",
         "drupal/address": "^1.4",
         "drupal/admin_feedback": "^2.2",
@@ -68,7 +69,7 @@
         "drupal/entityqueue": "^1.2",
         "drupal/environment_indicator": "^4.0",
         "drupal/epp": "^1.1",
-        "drupal/fast_404": "^2.0@alpha",
+        "drupal/fast_404": "^3.0@alpha",
         "drupal/feature_toggle": "^2.0",
         "drupal/field_group": "^3.4",
         "drupal/fieldhelptext": "^1.0@beta",
@@ -178,12 +179,12 @@
         "drupal/views_local_tasks": "^1.0",
         "drupal/workbench_access": "^2.0",
         "drupal/workbench_menu_access": "^2.0",
-        "drush-ops/behat-drush-endpoint": "^9.4.0",
         "drush/drush": "^11",
         "easyrdf/easyrdf": "1.1.1 as 0.9.1",
         "geocoder-php/mapbox-provider": "^1.3",
         "gitonomy/gitlib": "^1.2",
         "http-interop/http-factory-guzzle": "^1.0",
+        "knplabs/github-api": "^3.0",
         "mglaman/phpstan-drupal": "^1.0",
         "michelf/php-markdown": "^2.0",
         "mikey179/vfsstream": "^1.6",
@@ -200,12 +201,12 @@
         "querypath/querypath": "^3.0",
         "simplesamlphp/simplesamlphp": "^1.18",
         "squizlabs/php_codesniffer": "^3.5",
+        "symfony/browser-kit": "^6.3",
         "symfony/config": "^4.0",
         "symfony/phpunit-bridge": "^5.1",
         "symfony/process": "^4.0",
         "symfony/routing": "^4.0",
-        "traviscarden/behat-table-comparison": "~0.2",
-        "va-gov/content-build": "^0.0.3296",
+        "va-gov/content-build": "^0.0.3315",
         "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
@@ -214,11 +215,10 @@
     },
     "autoload": {
         "psr-4": {
-            "CustomDrupal\\": "tests/behat/Drupal",
             "Drupal\\va_gov_backend\\": "docroot/modules/custom/va_gov_backend/src",
             "Drupal\\va_gov_flags\\": "docroot/modules/custom/va_gov_flags/src",
-            "Tests\\Support\\": "tests/phpunit/Support",
-            "Traits\\": "tests/traits"
+            "Tests\\": "tests/phpunit",
+            "tests\\": "tests"
         },
         "files": [
             "scripts/composer/EnvironmentHandler.php"
@@ -408,10 +408,6 @@
             "drupal/entity_reference_validators": {
                 "3287297 - Automated Drupal 10 compatibility fixes": "https://www.drupal.org/files/issues/2022-06-15/entity_reference_validators.1.x-dev.rector.patch"
             },
-            "drupal/fast_404": {
-                "3287465 - Automated Drupal 10 compatibility fixes": "https://www.drupal.org/files/issues/2023-04-28/3287465-automated-drupal-10-compatibility-fixes-6.patch",
-                "3287465 - D10 .info.yml patch": "https://www.drupal.org/files/issues/2023-04-28/d10-fast-404-info-yml.patch"
-            },
             "drupal/field_group": {
                 "2787179 - Visibility of invalid fields": "https://www.drupal.org/files/issues/2021-01-05/2787179-highlight-html5-validation-59.patch",
                 "3053242 - Undefined index #description_display when adding a description to fieldset group type": "https://www.drupal.org/files/issues/2022-07-04/field_group-undefined-index-description-display-3053242-11.patch"
@@ -453,17 +449,11 @@
             "drupal/message_subscribe": {
                 "3279287 - PHP 8.1 Deprecated function notices": "https://www.drupal.org/files/issues/2022-11-03/php-81-deprecation-notices.patch"
             },
-            "drupal/message_ui": {
-                "3297649 - Automated Drupal 10 compatibility fixes": "https://www.drupal.org/files/issues/2023-02-16/message_ui-d10-compatibility-3297649-5.patch"
-            },
             "drupal/migrate_plus": {
-                "3368310 & 3113461, combined both patches, otherwise won't apply": "patches/combined-patches-for-migrate-plus.patch"
+                "3368310 - Fix str_replace for null values, post PHP 8.1": "patches/3368310-str-replace-throws-php-error-11.patch"
             },
             "drupal/migration_tools": {
                "3366789 - Create convert to boolean process plugin": "https://www.drupal.org/files/issues/2023-06-20/add-convert-boolean-process_0.patch"
-            },
-            "drupal/node_title_help_text": {
-                "3288788 - Automated Drupal 10 compatibility fixes": "https://www.drupal.org/files/issues/2022-06-16/node_title_help_text.1.x-dev.rector.patch"
             },
             "drupal/openapi_jsonapi": {
                 "3110109 - Support renamed resource types Part 1": "https://git.drupalcode.org/project/openapi_jsonapi/-/commit/17070f1ef70ff89f732619a11c29730107a2083e.patch",
@@ -502,9 +492,6 @@
             "drupal/social_media_links": {
                 "3044002 - Platform Name and Aria Label issue": "https://www.drupal.org/files/issues/2021-05-17/3044002-13.patch"
             },
-            "drupal/string_field_formatter": {
-                "3289855 - Automated Drupal 10 compatibility fixes": "https://www.drupal.org/files/issues/2022-11-01/string_field_formatter-3289855-6-d10_compat.patch"
-            },
             "drupal/subrequests": {
                 "63049395 - Get same results on different request": "https://www.drupal.org/files/issues/2019-07-18/change_request_type-63049395-09.patch"
             },
@@ -532,9 +519,6 @@
             "drupal/views_data_export": {
                 "3189135 - Use relative URL for export button": "https://www.drupal.org/files/issues/2022-08-06/use-relative-url-for-export-3189135-10.patch"
             },
-            "traviscarden/behat-table-comparison": {
-                "Throw meaningful message for duplicate entry. See https://github.com/TravisCarden/behat-table-comparison/pull/7": "patches/duplicate-row-message.patch"
-            },
             "drupal/sitewide_alert": {
                 "3290964 - Add drush commands for sitewide alerts": "https://www.drupal.org/files/issues/2023-06-22/3290964-add-drush-commands-2.patch"
             }
@@ -558,7 +542,6 @@
         "va:test": "Run all of the tests sequentially, stopping on the first failure.",
         "va:test:no-fail": "Run all of the tests sequentially, even if some fail.",
         "va:test:fast": "Runs the \"fast\" static analysis, linting, and unit tests.",
-        "va:test:behat": "Run Behat tests.",
         "va:test:check-cer": "Check the Corresponding Entity References fields.",
         "va:test:check-node-revision-logs": "Check the node revision log fields.",
         "va:test:check-taxonomy-revision-logs": "Check the taxonomy revision log fields.",
@@ -566,6 +549,7 @@
         "va:test:cypress": "Run Cypress tests.",
         "va:test:cypress-ci": "Run Cypress tests with CI-specific functionality.",
         "va:test:cypress-interactive": "Run Cypress tests interactively (on host web browser).",
+        "va:test:cypress-parallel": "Run Cypress tests in parallel.",
         "va:test:eslint": "Run ESLint tests.",
         "va:test:lint-php": "Lint PHP files.",
         "va:test:scaling_performance": "Perform a test of the CMS' ability to scale.",
@@ -655,7 +639,6 @@
         "va:test": [
             "# Run all of the tests sequentially, stopping on the first failure.",
             "@composer validate",
-            "@va:test:behat",
             "@va:test:check-cer",
             "@va:test:check-node-revision-logs",
             "@va:test:check-taxonomy-revision-logs",
@@ -688,7 +671,6 @@
         "va:test:no-fail": [
             "# Run all of the tests sequentially, even if some fail.",
             "@composer validate || true",
-            "@va:test:behat || true",
             "@va:test:check-cer || true",
             "@va:test:check-node-revision-logs || true",
             "@va:test:check-taxonomy-revision-logs || true",
@@ -703,11 +685,6 @@
             "@va:test:status-error || true",
             "@va:test:stylelint-modules || true",
             "@va:test:stylelint-themes || true"
-        ],
-        "va:test:behat": [
-            "# Run Behat tests.",
-            "! ./scripts/should-run-directly.sh || ./tests/scripts/behat-tests.sh",
-            "./scripts/should-run-directly.sh || ddev composer va:test:behat --"
         ],
         "va:test:check-cer": [
             "# Check the Corresponding Entity References fields.",
@@ -744,6 +721,11 @@
             "! ./scripts/should-run-directly.sh || echo 'This command should only be run from a local development machine.'",
             "./scripts/should-run-directly.sh || npm run test:cypress:interactive --"
         ],
+        "va:test:cypress-parallel": [
+            "# Run Cypress tests interactively (on host web browser).",
+            "! ./scripts/should-run-directly.sh || ./tests/scripts/cypress-parallel-tests.sh",
+            "./scripts/should-run-directly.sh || ddev composer va:test:cypress-parallel --"
+        ],
         "va:test:eslint": [
             "# Run ESLint tests.",
             "! ./scripts/should-run-directly.sh || npm run eslint --",
@@ -778,6 +760,11 @@
             "# Run PHPUnit (unit) tests.",
             "! ./scripts/should-run-directly.sh || bin/phpunit --group unit --exclude-group disabled tests/phpunit --",
             "./scripts/should-run-directly.sh || ddev composer va:test:phpunit-unit --"
+        ],
+        "va:test:phpunit-coverage": [
+            "# Run PHPUnit (unit) tests.",
+            "! ./scripts/should-run-directly.sh || ./tests/scripts/phpunit-coverage.sh",
+            "./scripts/should-run-directly.sh || ddev composer va:test:phpunit-coverage --"
         ],
         "va:test:status-error": [
             "# Check Drupal status for errors.",

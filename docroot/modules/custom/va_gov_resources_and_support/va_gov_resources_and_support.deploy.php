@@ -27,6 +27,7 @@ function va_gov_resources_and_support_deploy_create_field_lc_categories(&$sandbo
   if (empty($sandbox['total'])) {
     $sandbox['nids_process'] = \Drupal::entityQuery('node')
       ->condition('type', 'outreach_asset')
+      ->accessCheck(FALSE)
       ->execute();
     $sandbox['total'] = count($sandbox['nids_process']);
     $sandbox['current'] = 0;
@@ -36,6 +37,7 @@ function va_gov_resources_and_support_deploy_create_field_lc_categories(&$sandbo
     // Add all existing R&S Terms to $sandbox to avoid re-querying each time.
     $tids = \Drupal::entityQuery('taxonomy_term')
       ->condition('vid', 'lc_categories')
+      ->accessCheck(FALSE)
       ->execute();
     if (is_array($tids) && !empty($tids)) {
       $terms = $term_storage->loadMultiple($tids);
@@ -155,6 +157,7 @@ function va_gov_resources_and_support_deploy_populate_field_topic_id_terms(&$san
     $tid = \Drupal::entityQuery('taxonomy_term')
       ->condition('name', $name)
       ->condition('vid', 'lc_categories')
+      ->accessCheck(FALSE)
       ->execute();
     if (!empty($tid)) {
       $term = Term::load(reset($tid));

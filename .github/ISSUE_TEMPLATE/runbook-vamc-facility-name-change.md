@@ -17,8 +17,7 @@ Help desk ticket: <insert_help_desk_link>
 - [ ] Name of submitter (if applicable)
 Submitter: <insert_name>
 
-- [ ] If the submitter is an editor, send them links to any relevant KB articles for the VAMC product. Let them know that facility changes can take between 75 days and 4 months after submitting a request, according to VAST administrators.
-KB article: ["How Do I Update My VAMC Facility's Basic Location Data?"](https://prod.cms.va.gov/help/vamc/how-do-i-update-my-vamc-facilitys-basic-location-data)
+- [ ] If the submitter is an editor, send them link to KB article: ["How Do I Update My VAMC Facility's Basic Location Data?"](https://prod.cms.va.gov/help/vamc/how-do-i-update-my-vamc-facilitys-basic-location-data). Let them know that once VAST/Lighthouse has been updated 1/ the Facility Name will be automatically updated and 2/ we will use a Facility name change flag to update the facility's URL. We can notify them once we have been notified that VAST/Lighthouse has been updated.
 
 - [ ] Link to facility in production:
 Facility CMS link: <insert_facility_link>
@@ -31,7 +30,7 @@ Facility API ID: <insert_facility_API_ID>
 #### CMS help desk steps
 **Note: If the help desk is waiting on information from the facility staff or editor, add the "Awaiting editor" flag to the facility with a log message that includes a link to this ticket. Remove the flag when the ticket is ready to be worked by the Facilities team. Be sure to preserve the current moderation state of the node when adding or removing the flag.**
 What happens: The name change is made in VAST, that syncs to Lighthouse which syncs to Drupal.
-- [ ] 1. Check that the title change in name field on the VACM node has shown up in Drupal.
+- [ ] 1. Check that the title change in name field on the VAMC node has shown up in Drupal.
 - [ ] 2. Create a [URL change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E), changing the entry from the old facility URL to the new facility URL. (**Note: The URL change request ticket blocks the completion of this ticket.**)
 
 <insert_url_change_request_link>
@@ -56,4 +55,4 @@ _Help desk will complete these steps or escalate to request help from CMS engine
 - [ ] 13. Edit facility node and remove flag `Changed name` then save node (with moderation state = published)
 
 #### CMS Help desk (wrap up)
-- [ ] 14. Notify editor and any other stakeholders
+- [ ] 14. Notify editor and any other stakeholders. Ask editor to validate that the photo of the facility does not contain the old name in any signage, etc. and to replace if necessary.

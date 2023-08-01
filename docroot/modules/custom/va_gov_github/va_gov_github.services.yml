@@ -1,0 +1,15 @@
+services:
+  va_gov_github.api_settings:
+    class: Drupal\va_gov_github\Api\Settings\ApiSettings
+    arguments: ['@settings']
+  va_gov_github.api_client_factory:
+    class: Drupal\va_gov_github\Api\Client\Factory\ApiClientFactory
+    arguments: ['@va_gov_github.api_settings']
+  va_gov_github.api_client.va_gov_cms:
+    class: Drupal\va_gov_github\Api\Client\ApiClientInterface
+    factory: ['@va_gov_github.api_client_factory', 'getCms']
+    arguments: []
+  va_gov_github.api_client.content_build:
+    class: Drupal\va_gov_github\Api\Client\ApiClientInterface
+    factory: ['@va_gov_github.api_client_factory', 'getContentBuild']
+    arguments: []

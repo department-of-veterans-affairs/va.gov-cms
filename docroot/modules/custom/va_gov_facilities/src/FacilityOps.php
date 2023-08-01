@@ -28,6 +28,26 @@ class FacilityOps {
   }
 
   /**
+   * Returns the section for the requested facility type.
+   *
+   * @param string $section
+   *   Values: vamc, vet center, vba, nca.
+   *
+   * @return int
+   *   The section id of the facility type, or 0.
+   */
+  public static function getFacilityTypeSectionId($section) {
+    $sections = [
+      'vamc' => 8,
+      'vet center' => 190,
+      'vba' => 191,
+      'nca' => 192,
+    ];
+
+    return $sections[$section] ?? 0;
+  }
+
+  /**
    * Checks if the node is a facility.
    *
    * @param \Drupal\node\NodeInterface $node
