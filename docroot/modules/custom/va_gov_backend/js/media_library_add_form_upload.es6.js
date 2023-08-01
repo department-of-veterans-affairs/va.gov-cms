@@ -11,8 +11,7 @@
             $(".ui-dialog-buttonpane button").first().hide();
           }
         );
-        $("input.field_media_in_library")
-          .once()
+        $(once("vaGovMediaLibraryReusableSaveAndSelect", "input.field_media_in_library", context))
           .change((object) => {
             if (object.checked) {
               $(".ui-dialog-buttonpane button").first().show();

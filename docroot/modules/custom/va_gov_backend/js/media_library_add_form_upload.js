@@ -4,7 +4,6 @@
 * https://www.drupal.org/node/2815083
 * @preserve
 **/
-
 (function ($, Drupal) {
   Drupal.behaviors.vaGovMediaLibraryReusableSaveAndSelect = {
     attach: function attach() {
@@ -12,7 +11,7 @@
         $("input.field_media_in_library[type=checkbox]:not(:checked)").each(function () {
           $(".ui-dialog-buttonpane button").first().hide();
         });
-        $("input.field_media_in_library").once().change(function (object) {
+        $(once("vaGovMediaLibraryReusableSaveAndSelect", "input.field_media_in_library", context)).change(function (object) {
           if (object.checked) {
             $(".ui-dialog-buttonpane button").first().show();
           } else {

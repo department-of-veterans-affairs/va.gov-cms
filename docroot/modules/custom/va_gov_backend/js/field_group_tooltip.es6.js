@@ -2,12 +2,10 @@
  * @file
  */
 
-(($, Drupal, Tippy) => {
+(($, Drupal, once, Tippy) => {
   Drupal.behaviors.vaGovTooltip = {
     attach(context) {
-      $(document, context)
-        .once("tooltip-toggle")
-        .each(() => {
+      $(once("tooltip-toggle", "body", context)).each(() => {
           Tippy(".tooltip-toggle", {
             content(reference) {
               const title = reference.getAttribute("title");
@@ -22,4 +20,4 @@
         });
     },
   };
-})(jQuery, window.Drupal, window.tippy);
+})(jQuery, window.Drupal, once, window.tippy);
