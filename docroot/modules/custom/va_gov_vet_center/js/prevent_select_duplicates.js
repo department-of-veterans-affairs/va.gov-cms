@@ -57,14 +57,7 @@
     attach: function attach(context) {
       if (servicesFieldset) {
         winnower(context);
-        servicesFieldset.addEventListener("change", function onChange() {
-          winnower(context);
-        });
-
         alphaSortRows(context);
-        context.addEventListener("load", function onLoad() {
-          alphaSortRows(context);
-        });
       }
     }
   };
