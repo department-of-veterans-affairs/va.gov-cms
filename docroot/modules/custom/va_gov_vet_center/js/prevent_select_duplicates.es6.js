@@ -77,9 +77,9 @@
     attach(context) {
       if (servicesFieldset) {
         // When drags, edits, deletions, or additions happen, fire the winnower.
-        servicesFieldset.addEventListener("change", winnower(context));
+        servicesFieldset.addEventListener("change", () => winnower(context));
         // Run the alpha sort.
-        context.addEventListener("load", alphaSortRows(context));
+        context.addEventListener("load", () => alphaSortRows(context));
       }
     },
   };

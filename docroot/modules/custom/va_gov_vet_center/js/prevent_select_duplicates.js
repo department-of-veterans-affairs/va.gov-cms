@@ -56,9 +56,15 @@
   Drupal.behaviors.vaGovPreventSelectDuplicates = {
     attach: function attach(context) {
       if (servicesFieldset) {
-        servicesFieldset.addEventListener("change", winnower(context));
+        winnower(context);
+        servicesFieldset.addEventListener("change", function onChange() {
+          winnower(context);
+        });
 
-        context.addEventListener("load", alphaSortRows(context));
+        alphaSortRows(context);
+        context.addEventListener("load", function onLoad() {
+          alphaSortRows(context);
+        });
       }
     }
   };
