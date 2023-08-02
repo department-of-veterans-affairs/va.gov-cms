@@ -192,7 +192,7 @@
 
   Drupal.behaviors.vaGovEventFormHelpers = {
     attach() {
-      document.addEventListener("DOMContentLoaded", operate());
+      operate();
     },
   };
 })(Drupal);
