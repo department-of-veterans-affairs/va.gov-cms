@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9017b72d60b7872b5d3fe0cb9d0cf8bf",
+    "content-hash": "99287a309746887434e7df6750a81a58",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -13038,11 +13038,17 @@
         },
         {
             "name": "drupal/views_bulk_operations",
-            "version": "dev-4.2.x",
+            "version": "4.2.5",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/views_bulk_operations.git",
-                "reference": "539779babd4f9fbb28853f7f4188d352aed4d4a8"
+                "reference": "4.2.5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/views_bulk_operations-4.2.5.zip",
+                "reference": "4.2.5",
+                "shasum": "220479c5187b1619d5703f64c6f8c272afecf897"
             },
             "require": {
                 "drupal/core": "^9.4 || ^10",
@@ -13056,15 +13062,12 @@
             },
             "type": "drupal-module",
             "extra": {
-                "branch-alias": {
-                    "dev-4.2.x": "4.2.x-dev"
-                },
                 "drupal": {
-                    "version": "4.2.4+7-dev",
-                    "datestamp": "1691065378",
+                    "version": "4.2.5",
+                    "datestamp": "1691066184",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Dev releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 },
                 "drush": {
@@ -24981,7 +24984,6 @@
         "drupal/styleguide": 10,
         "drupal/user_history": 15,
         "drupal/viewfield": 10,
-        "drupal/views_bulk_operations": 20,
         "drupal/views_data_export": 10,
         "drupal/html_tag_usage": 10
     },
