@@ -1218,9 +1218,9 @@ function _va_gov_backend_restrict_qa_answer_types(array &$element) {
 }
 
 /**
- * Implements hook_field_widget_entity_reference_paragraphs_form_alter().
+ * Implements hook_field_widget_single_element_entity_reference_paragraphs_form_alter().
  */
-function va_gov_backend_field_widget_entity_reference_paragraphs_form_alter(&$element, FormStateInterface $form_state, $context) {
+function va_gov_backend_field_widget_single_element_entity_reference_paragraphs_form_alter(&$element, FormStateInterface $form_state, $context) {
   _va_gov_backend_modify_alert_single_states($element, $form_state, $context);
   _va_gov_backend_modify_contact_information_states($element, $form_state, $context);
 }
