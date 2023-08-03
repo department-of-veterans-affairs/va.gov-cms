@@ -107,19 +107,28 @@ class VaGovFacilityForceQueueForm extends FormBase {
       ->condition('moderation_state', 'archived', '!=')
       ->execute();
 
-    $vet_center_outstation = \Drupal::entityQuery('node')
+    $vet_center_outstation = $this->entityTypeManager
+      ->getStorage('node')
+      ->getQuery()
       ->condition('type', 'vet_center_outstation')
       ->condition('moderation_state', 'archived', '!=')
+      ->accessCheck(FALSE)
       ->execute();
 
-    $vet_center_mobile_vet_center = \Drupal::entityQuery('node')
+    $vet_center_mobile_vet_center = $this->entityTypeManager
+      ->getStorage('node')
+      ->getQuery()
       ->condition('type', 'vet_center_mobile_vet_center')
       ->condition('moderation_state', 'archived', '!=')
+      ->accessCheck(FALSE)
       ->execute();
 
-    $vet_center_cap = \Drupal::entityQuery('node')
+    $vet_center_cap = $this->entityTypeManager
+      ->getStorage('node')
+      ->getQuery()
       ->condition('type', 'vet_center_cap')
       ->condition('moderation_state', 'archived', '!=')
+      ->accessCheck(FALSE)
       ->execute();
 
     $form['description'] = [
