@@ -47,11 +47,22 @@ _Help desk will complete these steps or escalate to request help from CMS engine
 - [ ] 4. Verify which Vet Center it belongs to, and confirm that the "Main Vet Center Location" field is set correctly.
 
 **If a Vet Center**
+
+***CASE: Renamed, but named after a person, not a location***
+
+- [ ] 5. The new official name no longer matches the pattern "<location> Vet Center" so you need to change the common name to align with the <location> naming convention if it does not already.
+- [ ] Confirm on the Front-end that the <location> naming convention is the h1 followed by a "also known as" with the named-after-person name.
+
+**Proceed to step 10**
+
+***CASE: Renamed, but still location-based naming convention***
+
 - [ ] 5. In the [Sections taxonomy](https://prod.cms.va.gov/admin/structure/taxonomy/manage/administration/overview), Vet Centers: rename the Section for this Vet Center to match its new name
-- [ ] 6. If the new official name matches the pattern "<city> Vet Center", update the common name to match
+- [ ] 6. If the new official name matches the pattern "<city> Vet Center", update the common name to match.
 - [ ] 7. Visit [bulk operations](https://prod.cms.va.gov/admin/content/bulk) page and filter by section = vet center name
 - [ ] 8. Update URLs for all content in that section by bulk operations
 - [ ] 9. Resave all content in that section by bulk operations
+
   
 **For all types**
 - [ ] 10. Edit the Vet Center node by removing flag `Changed name`, and saves the node (with moderation state = published)

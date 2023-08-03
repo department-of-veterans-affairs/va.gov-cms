@@ -8,8 +8,7 @@ assignees: ''
 ---
 
 ## Intake
-- [ ] What triggered this runbook? (Flag in CMS, Help desk ticket, Product team, VHA Digital Media)
-Trigger: <insert_trigger>
+VAMC Systems only change name via acts of Congress. These sorts of changes are not automatically flagged, and this runbook must be manually identified to run.
 
 - [ ] Link to associated help desk ticket (if applicable)
 Help desk ticket: <insert_help_desk_link>
