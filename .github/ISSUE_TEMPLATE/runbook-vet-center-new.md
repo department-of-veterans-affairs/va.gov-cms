@@ -33,34 +33,33 @@ Facility API ID: <insert_facility_API_ID>
 [@TODO: KB ARTICLE FOR ADDING VET CENTERS - SEE runbook-vamc-facility-new]
 
 #### CMS help desk steps
-**Note: If the help desk is waiting on information from the facility staff or editor, add the "Awaiting editor" flag to the facility** with a log message that includes a link to this ticket. Remove the flag when the ticket is ready to be worked by the Facilities team. **Be sure to preserve the current moderation state of the node when adding or removing the flag.**
+**Note: If the help desk is waiting on information from the facility staff or editor, add the `Awaiting editor` flag to the facility** with a log message that includes a link to this ticket. Remove the flag when the ticket is ready to be worked by the Facilities team. **Be sure to preserve the current moderation state of the node when adding or removing the flag.**
 
 **If a Mobile Vet Center:**
-- [ ] Confirm what Vet Center it belongs to, and set the "Main Vet Center location" field. (This is the only step required for an MVC flagged as New.) 
+- [ ] Confirm what Vet Center it belongs to, and set the "Main Vet Center location" field. The parent location may be derived by the Facility ID.
+- [ ] Contact the Vet Center editor to remind them to (1) add a photo of the Mobile Vet Center and then they can publish when ready and (2) remind them that if this Mobile Vet Center is used by any other facilities to communicate with those Vet Center editors
+- [ ] Consider: Following up with Barb/RCS Central office to be sure that she's aware that the mobile Vet Center is in-flight
+
+**If a Outstation:**
+- [ ] Confirm what Vet Center it belongs to, and set the "Main Vet Center location" field. The parent location may be derived by the Facility ID.
+- [ ] Contact the Vet Center editor to remind them to (1) add a photo of the Outstation and then they can publish when ready
+- [ ] Consider: Following up with Barb/RCS Central office to be sure that she's aware that the Outstation is in-flight
 
 **If a Vet Center:**
 - [ ] 1. Become aware that the new facility is now on the Facility API (typically, via a Flag).
-- [ ] 2. Check with Readjustment Counseling Services to confirm what district the Vet Center belongs to. 
+- [ ] 2. Check with Readjustment Counseling Services to (1) confirm what district the Vet Center belongs and (2) Identify the Vet Center Director and Outreach Specialist (names/email addresses)
 - [ ] 3. In [Sections taxonomy](https://prod.cms.va.gov/admin/structure/taxonomy/manage/administration/overview), move the Vet Center Section to the appropriate district.
-- [ ] 4. Communicate with editor (do they need to be onboarded)
+- [ ] 4. Create accounts (or restrict existing accounts) with editor rights only for Vet Center Director and Outreach Specialist so that they cannot publish on their own.
+- [ ] 5. Contact Vet Center Director and Outreach specialist to onboard for training [@TODO write sample email - SEE runbook-vamc-facility-new] **Note: this should include instructions for adding content and preparing for publishing and RCS Central Office should be included as CC**
+- [ ] 6. Add flag `Awaiting editor` to this facility. Note: This is now blocked until RCS Central office approves.
+- [ ] 7. **Once approved by RCS Central Office as complete, proceed to Drupal Admin publishing steps**
 
-[@TODO write sample email - SEE runbook-vamc-facility-new]
-
-- [ ] 5. Create a [URL change request](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&template=runbook-facility-url-change.md&title=URL+Change+for%3A+%3Cinsert+facility+name%3E). (**Note: The URL change request ticket blocks the completion of this ticket.**)
-
-<insert_url_change_request_link>
-
-(Redirects deploy weekly on Wed. at 10am ET, or by requesting OOB deploy (of the revproxy job to prod) in #vfs-platform-support. Coordinate the items below and canonical URL change after URL change ticket is merged, deployed, and verified in prod.)
-
-- [ ] 6. When editor has prepared content and let help desk know, reassign this issue to appropriate CMS engineer on Product Support team, for bulk publishing.
-
-#### CMS engineer steps
-- [ ] 7. Execute the steps of the URL change request ticket from step 5.
 
 **Drupal Admin steps**
 - [ ] 8. Bulk publish the nodes and facility.
-- [ ] 9. Edit the facility node: remove the `New facility` flag, save the node.
+- [ ] 9. Edit the facility node: remove the `New facility` and `Awaiting editor` flags, save the node.
 - [ ] 10. Let Help desk know this has been done.
 
 #### CMS Help desk (wrap up)
-- [ ] 11. Notify editor and any other stakeholders.
+- [ ] 11. Upgrade the Vet Center Director and Outreach Specialist accounts to the publisher role for that Vet Center.
+- [ ] 12. Notify editor and any other stakeholders.

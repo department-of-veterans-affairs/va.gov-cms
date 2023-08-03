@@ -76,10 +76,8 @@
   Drupal.behaviors.vaGovPreventSelectDuplicates = {
     attach(context) {
       if (servicesFieldset) {
-        // When drags, edits, deletions, or additions happen, fire the winnower.
-        servicesFieldset.addEventListener("change", winnower(context));
-        // Run the alpha sort.
-        context.addEventListener("load", alphaSortRows(context));
+        winnower(context);
+        alphaSortRows(context);
       }
     },
   };
