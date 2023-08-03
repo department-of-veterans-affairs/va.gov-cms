@@ -444,3 +444,21 @@ function va_gov_backend_update_8012() {
   $table = $storage->load('50034');
   $table->delete();
 }
+
+/**
+ * Install entity_reference_hierarchy_revisions & entity_reference_hierarchy.
+ */
+function va_gov_backend_update_9001(&$sandbox) {
+  \Drupal::moduleHandler()->loadInclude('va_gov_db', 'install');
+  // These have to be installed programmatically, because there is a service
+  // dependency that is not met when waiting on config import to install.
+  $modules = [
+    'va_gov_magichead',
+    'entity_reference_hierarchy',
+    'entity_reference_hierarchy_revisions',
+  ];
+
+  $messages = _va_gov_db_install_modules($modules);
+
+  return $messages;
+}

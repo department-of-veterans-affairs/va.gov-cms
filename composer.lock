@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a450b7a0b2a6d57299f1fe7385de42e2",
+    "content-hash": "5b010eb236908a90ee28d40f7a018ab6",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -5379,6 +5379,62 @@
             "homepage": "https://www.drupal.org/project/entity_field_fetch",
             "support": {
                 "source": "https://git.drupalcode.org/project/entity_field_fetch"
+            }
+        },
+        {
+            "name": "drupal/entity_reference_hierarchy",
+            "version": "1.0.0-beta3",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/entity_reference_hierarchy.git",
+                "reference": "1.0.0-beta3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/entity_reference_hierarchy-1.0.0-beta3.zip",
+                "reference": "1.0.0-beta3",
+                "shasum": "a53423e364ee96a94af5328d9dfd4cd358c63f62"
+            },
+            "require": {
+                "drupal/core": "^9"
+            },
+            "require-dev": {
+                "drupal/entity_reference_hierarchy_revisions": "*",
+                "drupal/entity_reference_revisions": "*",
+                "drupal/inline_entity_form": "*",
+                "drupal/paragraphs": "*"
+            },
+            "suggest": {
+                "drupal/entity_reference_revisions": "^1.8",
+                "drupal/inline_entity_form": "^1.0",
+                "drupal/paragraphs": "^1.12"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.0-beta3",
+                    "datestamp": "1621678352",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "David Kitchen",
+                    "homepage": "https://www.drupal.org/user/367701",
+                    "email": "david@committeehq.com"
+                }
+            ],
+            "description": "Hierarchical entity references for Drupal",
+            "homepage": "https://www.drupal.org/project/entity_reference_hierarchy",
+            "support": {
+                "source": "https://git.drupalcode.org/project/entity_reference_hierarchy"
             }
         },
         {
@@ -27572,6 +27628,7 @@
         "drupal/entity_block": 10,
         "drupal/entity_clone": 10,
         "drupal/entity_field_fetch": 10,
+        "drupal/entity_reference_hierarchy": 10,
         "drupal/entity_reference_validators": 15,
         "drupal/entity_usage": 10,
         "drupal/fast_404": 15,
