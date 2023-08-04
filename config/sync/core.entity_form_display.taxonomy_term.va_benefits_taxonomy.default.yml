@@ -13,13 +13,12 @@ dependencies:
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_beneficiaries
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_brief_summary
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_coconsidered
-    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_eligibility_ov
+    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_eligibility
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_legislation
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_long_summary
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_plain_name
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_prerequisite
     - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefit_teaser_summary
-    - field.field.taxonomy_term.va_benefits_taxonomy.field_va_benefits_elig_intro
     - taxonomy.vocabulary.va_benefits_taxonomy
     - workflows.workflow.editorial
   module:
@@ -32,7 +31,6 @@ dependencies:
     - link
     - text
     - textfield_counter
-    - va_gov_magichead
 third_party_settings:
   field_group:
     group_va_benefit_name:
@@ -91,7 +89,7 @@ third_party_settings:
     group_va_benefit_eligibility:
       children:
         - field_va_benefit_beneficiaries
-        - group_va_benefit_elig_overview
+        - field_va_benefit_eligibility
       label: 'Benefit Eligibility'
       region: content
       parent_name: ''
@@ -143,29 +141,13 @@ third_party_settings:
       label: 'Editorial workflow'
       region: content
       parent_name: ''
-      weight: 6
+      weight: 8
       format_type: fieldset
       format_settings:
         classes: ''
         show_empty_fields: true
         id: sections
         description: ''
-        required_fields: true
-        description_display: after
-    group_va_benefit_elig_overview:
-      children:
-        - field_va_benefits_elig_intro
-        - field_va_benefit_eligibility_ov
-      label: 'Eligibility overview'
-      region: content
-      parent_name: group_va_benefit_eligibility
-      weight: 7
-      format_type: fieldset
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        description: 'Describe the eligibility rules that cover the most common scenarios. '
         required_fields: true
         description_display: after
 id: taxonomy_term.va_benefits_taxonomy.default
@@ -175,7 +157,7 @@ mode: default
 content:
   field_enforce_unique_id:
     type: allow_only_one_widget
-    weight: 5
+    weight: 4
     region: content
     settings:
       size: 1
@@ -189,7 +171,7 @@ content:
     third_party_settings: {  }
   field_va_benefit_after_applying:
     type: text_textarea
-    weight: 19
+    weight: 7
     region: content
     settings:
       rows: 5
@@ -241,13 +223,13 @@ content:
     third_party_settings: {  }
   field_va_benefit_beneficiaries:
     type: options_buttons
-    weight: 4
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
   field_va_benefit_brief_summary:
     type: text_textarea_with_counter
-    weight: 9
+    weight: 8
     region: content
     settings:
       rows: 5
@@ -263,7 +245,7 @@ content:
         hide_guidelines: '0'
   field_va_benefit_coconsidered:
     type: entity_reference_autocomplete
-    weight: 7
+    weight: 6
     region: content
     settings:
       match_operator: CONTAINS
@@ -275,25 +257,17 @@ content:
         limit_values: '0'
       change_labels:
         add_another: 'Add another link'
-  field_va_benefit_eligibility_ov:
-    type: magichead_paragraphs_classic
-    weight: 24
+  field_va_benefit_eligibility:
+    type: text_textarea
+    weight: 12
     region: content
     settings:
-      title: 'Eligibility overview section'
-      title_plural: 'Eligibility overview sections'
-      edit_mode: closed
-      add_mode: dropdown
-      form_display_mode: default
-      default_paragraph_type: _none
-    third_party_settings:
-      limited_field_widgets:
-        limit_values: '0'
-      change_labels:
-        add_another: 'Add another section'
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
   field_va_benefit_legislation:
     type: link_default
-    weight: 5
+    weight: 4
     region: content
     settings:
       placeholder_url: ''
@@ -305,7 +279,7 @@ content:
         add_another: 'Add another link'
   field_va_benefit_long_summary:
     type: text_textarea
-    weight: 10
+    weight: 9
     region: content
     settings:
       rows: 5
@@ -313,7 +287,7 @@ content:
     third_party_settings: {  }
   field_va_benefit_plain_name:
     type: string_textfield
-    weight: 6
+    weight: 14
     region: content
     settings:
       size: 60
@@ -325,7 +299,7 @@ content:
         add_another: 'Add another name'
   field_va_benefit_prerequisite:
     type: entity_reference_autocomplete
-    weight: 6
+    weight: 5
     region: content
     settings:
       match_operator: CONTAINS
@@ -349,14 +323,6 @@ content:
       js_prevent_submit: false
       count_html_characters: false
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
-    third_party_settings: {  }
-  field_va_benefits_elig_intro:
-    type: text_textarea
-    weight: 23
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
