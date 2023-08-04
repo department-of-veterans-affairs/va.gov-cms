@@ -5,7 +5,7 @@ namespace Drupal\va_gov_magichead\Plugin\Field\FieldFormatter;
 use Drupal\entity_reference_hierarchy_revisions\Plugin\Field\FieldFormatter\EntityReferenceHierarchyRevisionsEntityFormatter;
 
 /**
- * Plugin implementation of the 'entity reference rendered entity' formatter.
+ * Plugin implementation of the 'magichead_entity_view' formatter.
  *
  * @FieldFormatter(
  *   id = "magichead_entity_view",
