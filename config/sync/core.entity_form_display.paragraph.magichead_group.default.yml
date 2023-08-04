@@ -1,0 +1,38 @@
+uuid: 6e5e8ce9-990b-49aa-817d-5a993f51d83e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.magichead_group.field_magichead_body
+    - field.field.paragraph.magichead_group.field_magichead_heading
+    - paragraphs.paragraphs_type.magichead_group
+  module:
+    - allowed_formats
+    - text
+id: paragraph.magichead_group.default
+targetEntityType: paragraph
+bundle: magichead_group
+mode: default
+content:
+  field_magichead_body:
+    type: text_textarea
+    weight: 1
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings:
+      allowed_formats:
+        hide_help: '0'
+        hide_guidelines: '0'
+  field_magichead_heading:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true
