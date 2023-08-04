@@ -268,15 +268,20 @@ Each repository includes READMEs to help with setup.
 <details><summary>Onboarding for DevOps members</summary>
 
 ## Onboarding for DevOps members
- - [ ] [VA.gov tools overview](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html)
- - [ ] [IAM/SSO lower environment access](https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/blob/master/platform/cms/cms-sso-saml-iam-login-braindump.md#testing-login)
- - [ ] [Jenkins](http://jenkins.vfs.va.gov/) (SOCKS required)
- - [ ] [Grafana](http://grafana.vfs.va.gov/login) (SOCKS required)
- - [ ] [Sentry](http://sentry.vfs.va.gov.) (SOCKS required)
- - [ ] [AWS](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html#Requestaccesstotools-Requestaccess) (SOCKS required)
-   - [ ] And request to be added to the `adhoc-vetsgov-devops` group.
- - [ ] sshuttle
-- [ ] [Access to dev & staging to be able to replicate the SSO piece of the login experience](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/5838) (SOCKS or VA access required)
+- [ ] [VA.gov tools overview](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html)
+- [ ] [IAM/SSO lower environment access](https://github.com/department-of-veterans-affairs/va.gov-team-sensitive/blob/master/platform/cms/cms-sso-saml-iam-login-braindump.md#testing-login)
+- [ ] [Jenkins](http://jenkins.vfs.va.gov/) (SOCKS required)
+- [ ] [Grafana](http://grafana.vfs.va.gov/login) (SOCKS required)
+- [ ] [Sentry](http://sentry.vfs.va.gov.) (SOCKS required)
+- [ ] [AWS](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html#Requestaccesstotools-Requestaccess) (SOCKS required)
+  - [ ] And request to be added to the `adhoc-vetsgov-devops` group.
+- [ ] sshuttle
+- [ ] [Venafi access](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/14350)
+- [ ] [SSH access to CMS servers](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/14357)
+- [ ] [Okta access for Datadog](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/14396)
+- [ ] [Secure Access to GitHub Bot Account](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/14345)
+- [ ] [Access to dev & staging to be able to replicate the SSO piece of the login experience](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/14346) (SOCKS or VA access required)
+- [ ] [PagerDuty access](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/14393)
 - [ ] Browse the [CMS topic dives videos](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/1714094110/CMS+Topic+Dives)
 </details>
 
