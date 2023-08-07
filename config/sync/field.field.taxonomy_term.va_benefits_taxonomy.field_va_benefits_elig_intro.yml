@@ -1,0 +1,29 @@
+uuid: be967da3-56f0-45c8-9f49-34e645a8c265
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_va_benefits_elig_intro
+    - taxonomy.vocabulary.va_benefits_taxonomy
+  module:
+    - allowed_formats
+    - text
+    - tmgmt_content
+third_party_settings:
+  allowed_formats:
+    allowed_formats:
+      - rich_text_limited
+  tmgmt_content:
+    excluded: false
+id: taxonomy_term.va_benefits_taxonomy.field_va_benefits_elig_intro
+field_name: field_va_benefits_elig_intro
+entity_type: taxonomy_term
+bundle: va_benefits_taxonomy
+label: Introduction
+description: 'Provide a simple introduction to the eligibility overview if adding eligibility overview sections. If no sections will be added, use this space to write a brief summary of eligibility.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "99287a309746887434e7df6750a81a58",
+    "content-hash": "d29d703e0e95c586f0f35b676b1f6486",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5294,17 +5294,17 @@
         },
         {
             "name": "drupal/entity_field_fetch",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/entity_field_fetch.git",
-                "reference": "1.0.3"
+                "reference": "1.0.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/entity_field_fetch-1.0.3.zip",
-                "reference": "1.0.3",
-                "shasum": "538a8733c11ebea7509d07db5fbb95d70485d630"
+                "url": "https://ftp.drupal.org/files/projects/entity_field_fetch-1.0.4.zip",
+                "reference": "1.0.4",
+                "shasum": "a48fabc970c460d032e7ac017285d5b9e2f434d1"
             },
             "require": {
                 "drupal/core": "^8 || ^9 || ^10"
@@ -5312,8 +5312,8 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "1.0.3",
-                    "datestamp": "1682630876",
+                    "version": "1.0.4",
+                    "datestamp": "1691158258",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -5334,6 +5334,62 @@
             "homepage": "https://www.drupal.org/project/entity_field_fetch",
             "support": {
                 "source": "https://git.drupalcode.org/project/entity_field_fetch"
+            }
+        },
+        {
+            "name": "drupal/entity_reference_hierarchy",
+            "version": "1.0.0-beta3",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/entity_reference_hierarchy.git",
+                "reference": "1.0.0-beta3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/entity_reference_hierarchy-1.0.0-beta3.zip",
+                "reference": "1.0.0-beta3",
+                "shasum": "a53423e364ee96a94af5328d9dfd4cd358c63f62"
+            },
+            "require": {
+                "drupal/core": "^9"
+            },
+            "require-dev": {
+                "drupal/entity_reference_hierarchy_revisions": "*",
+                "drupal/entity_reference_revisions": "*",
+                "drupal/inline_entity_form": "*",
+                "drupal/paragraphs": "*"
+            },
+            "suggest": {
+                "drupal/entity_reference_revisions": "^1.8",
+                "drupal/inline_entity_form": "^1.0",
+                "drupal/paragraphs": "^1.12"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.0-beta3",
+                    "datestamp": "1621678352",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "David Kitchen",
+                    "homepage": "https://www.drupal.org/user/367701",
+                    "email": "david@committeehq.com"
+                }
+            ],
+            "description": "Hierarchical entity references for Drupal",
+            "homepage": "https://www.drupal.org/project/entity_reference_hierarchy",
+            "support": {
+                "source": "https://git.drupalcode.org/project/entity_reference_hierarchy"
             }
         },
         {
@@ -10873,17 +10929,17 @@
         },
         {
             "name": "drupal/raven",
-            "version": "4.0.17",
+            "version": "4.0.19",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/raven.git",
-                "reference": "4.0.17"
+                "reference": "4.0.19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/raven-4.0.17.zip",
-                "reference": "4.0.17",
-                "shasum": "db28b2e2e180beca0baec879b175036b912a12a8"
+                "url": "https://ftp.drupal.org/files/projects/raven-4.0.19.zip",
+                "reference": "4.0.19",
+                "shasum": "4facaf2a01e2ebbbc633073bb2e22de86749f9fb"
             },
             "require": {
                 "drupal/core": "^8 || ^9 || ^10",
@@ -10892,13 +10948,13 @@
             "require-dev": {
                 "drupal/csp": "^1.17",
                 "drupal/seckit": "^2.0",
-                "drush/drush": "^10.6 || ^11.0"
+                "drush/drush": "^10.6 || ^11.0 || ^12.0"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "4.0.17",
-                    "datestamp": "1689185885",
+                    "version": "4.0.19",
+                    "datestamp": "1691185796",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -10906,7 +10962,7 @@
                 },
                 "drush": {
                     "services": {
-                        "drush.services.yml": "^9 || ^10 || ^11"
+                        "drush.services.yml": "^9 || ^10 || ^11 || ^12"
                     }
                 }
             },
@@ -23970,16 +24026,16 @@
         },
         {
             "name": "va-gov/content-build",
-            "version": "v0.0.3317",
+            "version": "v0.0.3319",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/content-build.git",
-                "reference": "abf17b26d4e294b7cf28ccdd4cf4679bb0c4b3a6"
+                "reference": "204899fc180a052185fcefdbb4ede3027486c2a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/abf17b26d4e294b7cf28ccdd4cf4679bb0c4b3a6",
-                "reference": "abf17b26d4e294b7cf28ccdd4cf4679bb0c4b3a6",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/204899fc180a052185fcefdbb4ede3027486c2a5",
+                "reference": "204899fc180a052185fcefdbb4ede3027486c2a5",
                 "shasum": ""
             },
             "type": "node-project",
@@ -24006,9 +24062,9 @@
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/content-build, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
             "support": {
                 "issues": "https://github.com/department-of-veterans-affairs/content-build/issues",
-                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3317"
+                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3319"
             },
-            "time": "2023-08-01T20:35:30+00:00"
+            "time": "2023-08-04T16:33:34+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -24959,6 +25015,7 @@
         "drupal/entity_clone": 15,
         "drupal/entity_diff_ui": 20,
         "drupal/entity_field_fetch": 10,
+        "drupal/entity_reference_hierarchy": 10,
         "drupal/entity_reference_validators": 15,
         "drupal/entity_route_context": 5,
         "drupal/entity_usage": 10,
