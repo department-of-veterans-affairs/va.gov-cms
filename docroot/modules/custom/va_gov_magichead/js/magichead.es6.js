@@ -46,11 +46,15 @@
         return;
       }
 
-      // Somewhere in Drupal's render pipeline, #tabledrag render array
-      // properties are converted to drupalSetting values. During tableDrag.js
-      // initialization, it instantiates new Drupal.tableDrag objects by pulling
-      // all the tableDrag objects out of drupalSettings. The instances are then
-      // preserved in the Drupal global object at
+      // The Table element (Drupal\Core\Render\Element\Table) defines a
+      // pre_render method, Table::preRenderTable(), which calls
+      // drupal_attach_tabledrag(). drupal_attach_tabledrag() takes #tabledrag
+      // render array properties from the provided element and attaches them as
+      // objects in drupalSetting. On the frontend core
+      // tableDrag.js::initTableDrag() is called (part of tableDrag.js's
+      // attach() method) and instantiates new Drupal.tableDrag objects by
+      // pulling all the tableDrag objects out of drupalSettings. The instances
+      // are then preserved in the Drupal global object at the namespace
       // Drupal.tableDrag[instance-name] (The instance-name is derived from the
       // field name in the case of magichead). In the below code we dig the
       // instantiated tableDrag object out of the Drupal global and assign it to
