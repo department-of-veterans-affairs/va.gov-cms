@@ -24,10 +24,9 @@ class MagicHeadParagraphsClassicWidget extends InlineParagraphsHierarchyWidget {
    * {@inheritdoc}
    */
   public static function defaultSettings() {
-    $settings = parent::defaultSettings();
-    return $settings + [
+    return [
       'max_depth' => 3,
-    ];
+    ] + parent::defaultSettings();
   }
 
   /**
@@ -45,20 +44,24 @@ class MagicHeadParagraphsClassicWidget extends InlineParagraphsHierarchyWidget {
   }
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
+   *
+   * @see va_gov_magichead_preprocess_field_multiple_value_form()
    */
-  public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
-    $element = parent::formElement($items, $delta, $element, $form, $form_state);
-    $element['#attached']['library'][] = 'va_gov_magichead/magichead_tree_lines';
-    $element['#attached']['library'][] = 'va_gov_magichead/magichead';
-    $name = str_replace("_", "-", "{$this->fieldDefinition->getName()}-values");
-    $settings = [
-      'tablefield_target' => $name,
-      'field_name' => $this->fieldDefinition->getName(),
-      'max_depth' => $this->getSetting('max_depth'),
-    ];
-    $element['#attached']['drupalSettings']['magichead'][] = $settings;
-    return $element;
+  public function formMultipleElements(FieldItemListInterface $items, array &$form, FormStateInterface $form_state) {
+    $elements = parent::formMultipleElements($items, $form, $form_state);
+
+    // Attach our library.
+    $elements['#attached']['library'][] = 'va_gov_magichead/magichead_tree_lines';
+
+    // Set an arbitrary value for easy targeting in preprocess hook.
+    $elements['#magichead'] = TRUE;
+
+    // Set the max depth on the element. This allows for direct access of max
+    // depth in preprocess hooks.
+    $elements['#magichead_max_depth'] = $this->getSetting('max_depth');
+
+    return $elements;
   }
 
 }

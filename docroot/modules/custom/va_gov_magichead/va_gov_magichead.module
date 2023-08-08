@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * Module file for va_gov_magichead.
+ */
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function va_gov_magichead_preprocess_field_multiple_value_form(&$variables, $hook, $info) {
+  $element = $variables['element'];
+  $magic = isset($element['#magichead']);
+  $max_depth = isset($element['#magichead_max_depth']);
+  $tabledrag = isset($variables['table']['#tabledrag']) && (is_array($variables['table']['#tabledrag']));
+  if ($magic && $tabledrag && $max_depth) {
+    foreach ($variables['table']['#tabledrag'] as $index => $settings) {
+      if (isset($settings['action']) && $settings['action'] === 'depth') {
+        $variables['table']['#tabledrag'][$index]['limit'] = $element['#magichead_max_depth'];
+      }
+    }
+  }
+}
