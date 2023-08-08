@@ -133,9 +133,9 @@ class PostFacilityService extends PostFacilityBase {
         // endpoint.
         if (!empty($data['payload']) && !empty($facilityApiId)) {
           $this->postQueue->addToQueue($data, $this->shouldDedupe());
-          $log_message = date('Y-m-d H:i:s') . ' - ' . $facilityApiId . "\n";
-          $date = date('Y-m-d--H');
-          $file_name = 'public://post_api_force_queue' . $date . '.log';
+          $log_message = date('Y-m-d H:i:s') . '|' . $facilityApiId . '|' . $this->facilityService->title->value . "\n";
+          $date_hour_minute = date('Y-m-d--H-i');
+          $file_name = 'public://post_api_force_queue' . $date_hour_minute . '.log';
           file_put_contents($file_name, $log_message, FILE_APPEND);
           return 1;
         }
