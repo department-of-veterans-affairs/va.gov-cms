@@ -153,7 +153,7 @@ class VAMCEntityPreventReuse implements EventSubscriberInterface {
    * @return bool
    *   TRUE if it had previously published revisions. False otherwise.
    */
-  public static function hasPublishedRevisions($node): bool {
+  public static function hasPublishedRevisions(NodeInterface $node): bool {
     if ($node->isPublished()) {
       // This is still published so no need to look for previous publishes.
       return FALSE;
@@ -166,6 +166,7 @@ class VAMCEntityPreventReuse implements EventSubscriberInterface {
       ->condition('status', 1)
       ->allRevisions()
       ->count()
+      ->accessCheck(FALSE)
       ->execute();
     // This has a published revision.
     return $count >= 1;
