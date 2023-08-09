@@ -1,0 +1,167 @@
+uuid: f6cc1ba7-2b40-4507-a9ab-3073580f4924
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_va_benefit_eligibility_ov
+    - paragraphs.paragraphs_type.magichead_group
+    - taxonomy.vocabulary.va_benefits_taxonomy
+  module:
+    - tmgmt_content
+    - va_gov_magichead
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: taxonomy_term.va_benefits_taxonomy.field_va_benefit_eligibility_ov
+field_name: field_va_benefit_eligibility_ov
+entity_type: taxonomy_term
+bundle: va_benefits_taxonomy
+label: 'Eligibility overview sections'
+description: 'Use headings and optional paragraph content to group the eligibility information into logical sections. Sections can be organized into a hierarchy that you can control using section depth. The drag and drop feature that moves each section to the left and right controls section depth. Section depth determines the relative position of this section to other sections in the heading hierarchy.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: '0'
+    target_bundles:
+      magichead_group: magichead_group
+    target_bundles_drag_drop:
+      address:
+        weight: '46'
+        enabled: 0
+      alert:
+        weight: '47'
+        enabled: 0
+      alert_single:
+        weight: '48'
+        enabled: 0
+      audience_topics:
+        weight: '49'
+        enabled: 0
+      basic_accordion:
+        weight: '50'
+        enabled: 0
+      button:
+        weight: '51'
+        enabled: 0
+      centralized_content_descriptor:
+        weight: '52'
+        enabled: 0
+      checklist:
+        weight: '53'
+        enabled: 0
+      checklist_item:
+        weight: '54'
+        enabled: 0
+      collapsible_panel:
+        weight: '55'
+        enabled: 0
+      collapsible_panel_item:
+        weight: '56'
+        enabled: 0
+      contact_information:
+        weight: '57'
+        enabled: 0
+      downloadable_file:
+        weight: '58'
+        enabled: 0
+      email_contact:
+        weight: '59'
+        enabled: 0
+      embedded_video:
+        weight: '60'
+        enabled: 0
+      expandable_text:
+        weight: '61'
+        enabled: 0
+      featured_content:
+        weight: '62'
+        enabled: 0
+      health_care_local_facility_servi:
+        weight: '63'
+        enabled: 0
+      link_teaser:
+        weight: '64'
+        enabled: 0
+      link_teaser_with_image:
+        weight: '65'
+        enabled: 0
+      lists_of_links:
+        weight: '66'
+        enabled: 0
+      list_of_links:
+        weight: '67'
+        enabled: 0
+      list_of_link_teasers:
+        weight: '68'
+        enabled: 0
+      magichead_group:
+        enabled: '1'
+        weight: '69'
+      media:
+        weight: '70'
+        enabled: 0
+      media_list_images:
+        weight: '71'
+        enabled: 0
+      media_list_videos:
+        weight: '72'
+        enabled: 0
+      non_reusable_alert:
+        weight: '73'
+        enabled: 0
+      number_callout:
+        weight: '74'
+        enabled: 0
+      phone_number:
+        weight: '75'
+        enabled: 0
+      process:
+        weight: '76'
+        enabled: 0
+      q_a:
+        weight: '77'
+        enabled: 0
+      q_a_group:
+        weight: '78'
+        enabled: 0
+      q_a_section:
+        weight: '79'
+        enabled: 0
+      react_widget:
+        weight: '80'
+        enabled: 0
+      rich_text_char_limit_1000:
+        weight: '81'
+        enabled: 0
+      service_location:
+        weight: '82'
+        enabled: 0
+      service_location_address:
+        weight: '83'
+        enabled: 0
+      situation_update:
+        weight: '84'
+        enabled: 0
+      spanish_translation_summary:
+        weight: '85'
+        enabled: 0
+      staff_profile:
+        weight: '86'
+        enabled: 0
+      step:
+        weight: '87'
+        enabled: 0
+      step_by_step:
+        weight: '88'
+        enabled: 0
+      table:
+        weight: '89'
+        enabled: 0
+      wysiwyg:
+        weight: '90'
+        enabled: 0
+field_type: magichead

@@ -13,6 +13,41 @@ tasks:
   # .github/workflows/set-tugboat-tests-pending.yml as well for the
   # test to be required effectively.
 
+  # The following is necessary to ensure that the tests are set to "pending"
+  # when the staging post-deploy tests start. If the tests are not all set to
+  # pending, then there is a chance that the auto deploy Jenkins job will check
+  # and only see the status of the tests that have completed so far, and so see
+  # a "success" status, and then auto deploy. This is a problem because the
+  # tests that have not yet completed may fail, and so the auto deploy will
+  # deploy a broken site.
+  set-deploy-tests-pending:
+    deps:
+
+      # Any changes to test names or additions or removals above must be updated here as well for the Pending status to work.
+      - task: set-check-status
+        vars:
+          STATUS: pending
+          CONTEXT: va/tests/cypress
+          DESCRIPTION: 'Cypress Accessibility/Behavioral'
+
+      - task: set-check-status
+        vars:
+          STATUS: pending
+          CONTEXT: va/tests/phpunit
+          DESCRIPTION: 'PHPUnit'
+
+      - task: set-check-status
+        vars:
+          STATUS: pending
+          CONTEXT: va/tests/status-error
+          DESCRIPTION: 'Check for Drupal status errors'
+
+      - task: set-check-status
+        vars:
+          STATUS: pending
+          CONTEXT: va/tests/content-build-gql
+          DESCRIPTION: 'Ensure that the content build graphql queries succeed'
+
   va/tests/cypress:
     desc: Accessibility and Behavioral tests with Cypress
     # See also `composer va:test:cypress-parallel` in composer.json
@@ -40,9 +75,17 @@ tasks:
     cmds:
       - ./tests/scripts/ci-wrapper.sh content-build-gql 'va:test:content-build-gql'
 
+  set-check-status:
+    cmds:
+      - |
+        if [ "$SKIP_REPORTING" -ne 1 ]; then
+          github-status-updater -action=update_state -state="{{ .STATUS }}" -context="{{ .CONTEXT }}" -description="{{ .DESCRIPTION }}"
+        fi
+
   default:
     desc:
     deps:
+      - set-deploy-tests-pending
       - va/tests/cypress
       - va/tests/phpunit
       - va/tests/content-build-gql
