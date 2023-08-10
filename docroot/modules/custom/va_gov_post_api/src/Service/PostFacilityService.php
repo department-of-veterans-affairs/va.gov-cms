@@ -163,7 +163,7 @@ class PostFacilityService extends PostFacilityBase {
       $query = $this->entityTypeManager->getStorage('node')->getQuery();
       $result = $query->condition('type', 'regional_health_care_service_des')
         ->condition('field_service_name_and_descripti', $entity->id())
-        ->condition('status', 1)
+        ->condition('status', 1, '=')
         ->accessCheck(FALSE)
         ->execute();
 
