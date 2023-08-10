@@ -591,6 +591,8 @@ class PostFacilityService extends PostFacilityBase {
     switch (TRUE) {
       case LovellOps::isLovellTricareSection($entity):
         // Node is part of the Lovell-Tricare section, do not push.
+      case (!$defaultRevisionIsPublished && !$thisRevisionIsPublished):
+        // Draft services should not be pushed.
         $push = FALSE;
         break;
 
@@ -602,8 +604,6 @@ class PostFacilityService extends PostFacilityBase {
         // This revision is published, should be pushed.
       case $isArchived:
         // This node has been archived, got to push to remove it.
-      case (!$defaultRevisionIsPublished && !$thisRevisionIsPublished):
-        // Draft on node that has not been published, should be pushed.
         $push = TRUE;
         break;
 
