@@ -205,14 +205,16 @@ class PostFacilityService extends PostFacilityBase {
    *   Entity.
    * @param bool $forcePush
    *   Processing forced by referenced term.
+   * @param bool $isService
+   *   Determines whether the referenced entity is a service
    *
    * @return int
    *   The count of the number of items queued.
    */
-  public function queueSystemRelatedServices(EntityInterface $entity, bool $forcePush = FALSE) {
+  public function queueSystemRelatedServices(EntityInterface $entity, bool $forcePush = FALSE, bool $isService = TRUE) {
     $queued_count = 0;
     if (($entity->getEntityTypeId() === 'node') && ($entity->bundle() === 'regional_health_care_service_des')) {
-      if ($this->shouldPush($entity, $forcePush)) {
+      if ($this->shouldPush($entity, $forcePush, $isService)) {
         // Find all VAMC Facility Health Services referencing this node.
         $query = $this->entityTypeManager->getStorage('node')->getQuery();
         $nids = $query->condition('type', 'health_care_local_health_service')
@@ -237,15 +239,17 @@ class PostFacilityService extends PostFacilityBase {
    *
    * @param bool $forcePush
    *   Processing forced by referenced system service.
+   * @param bool $isService
+   *   Determines whether payload includes a service.
    *
    * @return array
    *   Payload array.
    */
-  protected function getPayload(bool $forcePush = FALSE) {
+  protected function getPayload(bool $forcePush = FALSE, bool $isService = TRUE) {
     // Default payload is an empty array.
     $payload = [];
 
-    if (empty($this->errors) && $this->shouldPush($this->facilityService, $forcePush)) {
+    if (empty($this->errors) && $this->shouldPush($this->facilityService, $forcePush, $isService)) {
       $service = new \stdClass();
       $service->name = $this->serviceTerm->getName();
       $service->active = ($this->facilityService->isPublished()) ? TRUE : FALSE;
@@ -575,11 +579,13 @@ class PostFacilityService extends PostFacilityBase {
    *   Entity.
    * @param bool $forcePush
    *   Process due to referenced entity updates.
+   * @param bool $isService
+   *   Determines whether the entity is a service.
    *
    * @return bool
    *   TRUE if should be pushed, FALSE otherwise.
    */
-  protected function shouldPush(EntityInterface $entity, bool $forcePush = FALSE) {
+  protected function shouldPush(EntityInterface $entity, bool $forcePush = FALSE, bool $isService = FALSE) {
     // Moderation state of what is being saved.
     $moderationState = $entity->moderation_state->value;
     $isArchived = ($moderationState === 'archived') ? TRUE : FALSE;
@@ -591,6 +597,11 @@ class PostFacilityService extends PostFacilityBase {
     switch (TRUE) {
       case LovellOps::isLovellTricareSection($entity):
         // Node is part of the Lovell-Tricare section, do not push.
+        $push = FALSE;
+        break;
+
+      case (!$defaultRevisionIsPublished && !$thisRevisionIsPublished && $isService):
+        // Draft services should not be pushed.
         $push = FALSE;
         break;
 

@@ -80,7 +80,7 @@ class VaGovFacilityForceQueueForm extends FormBase {
       ->getQuery('AND')
       ->condition('type', 'health_care_local_health_service')
       ->accessCheck(FALSE)
-      ->condition('moderation_state', 'archived', '!=')
+      ->condition('status', '1', '=')
       ->execute();
 
     $nca_facility = $this->entityTypeManager
