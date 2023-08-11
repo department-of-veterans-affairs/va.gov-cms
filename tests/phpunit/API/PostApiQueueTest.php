@@ -85,11 +85,11 @@ class PostApiQueueTest extends VaGovExistingSiteBase {
 
     $response = $this->processItem(NULL);
     // Payload is empty. Request should fail.
-    $this->assertEquals(404, $response, 'POST request is expected to fail with 404 due to incomplete endpoint URL.');
+    $this->assertEquals(404, $response->getStatusCode(), 'POST request is expected to fail with 404 due to incomplete endpoint URL.');
 
     $response = $this->processItem(self::$mockData);
     // Payload and credentials are available. POSt should return 200 OK.
-    $this->assertEquals(200, $response, 'POST request is successful.');
+    $this->assertEquals(200, $response->getStatusCode(), 'POST request is successful.');
 
     $queue->deleteQueue();
   }
