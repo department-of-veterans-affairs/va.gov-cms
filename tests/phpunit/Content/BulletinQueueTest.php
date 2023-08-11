@@ -83,7 +83,7 @@ class BulletinQueueTest extends VaGovExistingSiteBase {
       'field_alert_type' => 'warning',
       'field_body' => 'This is a test created by phpUnit.  Please disregard.',
       'field_banner_alert_vamcs' => [
-        'target_id' => 1010,
+        'target_id' => 2370,
       ],
       'status' => 1,
     ];
