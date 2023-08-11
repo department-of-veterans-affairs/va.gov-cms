@@ -66,70 +66,23 @@ class VaGovFacilityForceQueueForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    // Queries to get total number of nodes for each type for reference.
-    $health_care_local_facility = $this->entityTypeManager
-      ->getStorage('node')
-      ->getQuery('AND')
-      ->condition('type', 'health_care_local_facility')
-      ->accessCheck(FALSE)
-      ->condition('moderation_state', 'archived', '!=')
-      ->execute();
-
-    $health_care_facility_service = $this->entityTypeManager
-      ->getStorage('node')
-      ->getQuery('AND')
-      ->condition('type', 'health_care_local_health_service')
-      ->accessCheck(FALSE)
-      ->condition('status', '1', '=')
-      ->execute();
-
-    $nca_facility = $this->entityTypeManager
-      ->getStorage('node')
-      ->getQuery('AND')
-      ->condition('type', 'nca_facility')
-      ->accessCheck(FALSE)
-      ->condition('moderation_state', 'archived', '!=')
-      ->execute();
-
-    $vba_facility = $this->entityTypeManager
-      ->getStorage('node')
-      ->getQuery('AND')
-      ->condition('type', 'vba_facility')
-      ->accessCheck(FALSE)
-      ->condition('moderation_state', 'archived', '!=')
-      ->execute();
-
-    $vet_center = $this->entityTypeManager
-      ->getStorage('node')
-      ->getQuery('AND')
-      ->condition('type', 'vet_center')
-      ->accessCheck(FALSE)
-      ->condition('moderation_state', 'archived', '!=')
-      ->execute();
-
-    $vet_center_outstation = $this->entityTypeManager
-      ->getStorage('node')
-      ->getQuery()
-      ->condition('type', 'vet_center_outstation')
-      ->condition('moderation_state', 'archived', '!=')
-      ->accessCheck(FALSE)
-      ->execute();
-
-    $vet_center_mobile_vet_center = $this->entityTypeManager
-      ->getStorage('node')
-      ->getQuery()
-      ->condition('type', 'vet_center_mobile_vet_center')
-      ->condition('moderation_state', 'archived', '!=')
-      ->accessCheck(FALSE)
-      ->execute();
-
-    $vet_center_cap = $this->entityTypeManager
-      ->getStorage('node')
-      ->getQuery()
-      ->condition('type', 'vet_center_cap')
-      ->condition('moderation_state', 'archived', '!=')
-      ->accessCheck(FALSE)
-      ->execute();
+    // Get the nodes for each type for reference.
+    $health_care_local_facility =
+       $this->getArrayBasedOnBundleType('health_care_local_facility');
+    $health_care_facility_service =
+      $this->getArrayBasedOnBundleType('health_care_local_health_service');
+    $nca_facility =
+      $this->getArrayBasedOnBundleType('nca_facility');
+    $vba_facility =
+      $this->getArrayBasedOnBundleType('vba_facility');
+    $vet_center =
+      $this->getArrayBasedOnBundleType('vet_center');
+    $vet_center_outstation =
+      $this->getArrayBasedOnBundleType('vet_center_outstation');
+    $vet_center_mobile_vet_center =
+      $this->getArrayBasedOnBundleType('vet_center_mobile_vet_center');
+    $vet_center_cap =
+      $this->getArrayBasedOnBundleType('vet_center_cap');
 
     $form['description'] = [
       '#type' => 'markup',
@@ -173,13 +126,7 @@ class VaGovFacilityForceQueueForm extends FormBase {
       ->set('bypass_data_check', 1)
       ->save();
 
-    $sandbox['nids'] = $this->entityTypeManager
-      ->getStorage('node')
-      ->getQuery('AND')
-      ->condition('type', $bundle)
-      ->accessCheck(FALSE)
-      ->condition('moderation_state', 'archived', '!=')
-      ->execute();
+    $sandbox['nids'] = $this->getArrayBasedOnBundleType($bundle);
 
     if (!empty($sandbox['nids'])) {
       try {
@@ -238,6 +185,48 @@ class VaGovFacilityForceQueueForm extends FormBase {
       ->getEditable(static::SETTINGS)
       ->set('bypass_data_check', 0)
       ->save();
+  }
+
+  /**
+   * Gets an array of nodes, based on bundle type.
+   *
+   * @param string $bundleType
+   *   The type of bundle.
+   *
+   * @return array
+   *   Array of nodes.
+   */
+  protected function getArrayBasedOnBundleType(string $bundleType) {
+    switch ($bundleType) {
+      // If it's a facility type, we only want those not archived.
+      case "health_care_local_facility":
+      case "nca_facility":
+      case "vba_facility":
+      case "vet_center":
+      case "vet_center_outstation":
+      case "vet_center_mobile_vet_center":
+      case "vet_center_cap":
+        $nodes = $this->entityTypeManager
+          ->getStorage('node')
+          ->getQuery()
+          ->condition('type', $bundleType)
+          ->condition('moderation_state', 'archived', '!=')
+          ->accessCheck(FALSE)
+          ->execute();
+        break;
+
+      // If it's a facility service, we those that are published.
+      case "health_care_local_health_service":
+        $nodes = $this->entityTypeManager
+          ->getStorage('node')
+          ->getQuery('AND')
+          ->condition('type', 'health_care_local_health_service')
+          ->accessCheck(FALSE)
+          ->condition('status', 1, '=')
+          ->execute();
+        break;
+    }
+    return $nodes;
   }
 
 }
