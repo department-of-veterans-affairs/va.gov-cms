@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Class Event subscriber to act on post_api queue item processed.
+ * Class QueueItemProcessedEventSubscriber acts on post_api queue item processed.
  *
  * @package Drupal\va_gov_post_api\EventSubscriber
  */
