@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Class QueueItemProcessedEventSubscriber.
+ * Class QueueItemProcessedEventSubscriber acts on post_api queue item processed.
  *
  * @package Drupal\va_gov_post_api\EventSubscriber
  */
@@ -94,11 +94,21 @@ class QueueItemProcessedEventSubscriber implements EventSubscriberInterface, Con
    */
   public function onQueueItemProcessed(QueueItemProcessedEvent $event) {
     $response_code = $event->getResponseCode();
-    if (in_array($response_code, [201, 202])) {
-      $item_data = $event->getQueueItem();
-      $facility_id = str_replace('facility_status_', '', $item_data['uid']);
-      $message = sprintf('Post API: facility %s doesn\'t exist and was removed from queue. POST response code - %d. ENV: %s.', $facility_id, $response_code, getenv('CMS_ENVIRONMENT_TYPE'));
+    $response_phrase = $event->getReasonPhrase();
+    $size = $event->getResponseSize();
 
+    $item_data = $event->getQueueItem();
+    $facility_id = str_replace('facility_status_', '', $item_data['uid']);
+    if ($response_code === 200) {
+      if ($response_phrase !== 'OK' || $size > 0) {
+        // The response might have been 200 from the TIC not the Facility API.
+        $message = sprintf('Item %s Posted with a 200, but had an unexpected response with a size: %F phrase: %s', $item_data['uid'], $size, $response_phrase);
+        $this->logger->get('va_gov_post_api')->warning($message);
+      }
+    }
+    elseif (in_array($response_code, [201, 202])) {
+      // The post worked, but was not as expected.
+      $message = sprintf('Post API: facility %s doesn\'t exist and was removed from queue. POST response code - %d. ENV: %s.', $facility_id, $response_code, getenv('CMS_ENVIRONMENT_TYPE'));
       $this->logger->get('va_gov_post_api')->warning($message);
 
       if ($this->moduleHandler->moduleExists('slack')) {
