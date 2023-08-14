@@ -161,7 +161,7 @@ class PostFacilityService extends PostFacilityBase {
         // endpoint.
         if (!empty($data['payload']) && !empty($facilityApiId)) {
           $this->postQueue->addToQueue($data, $this->shouldDedupe());
-          $this->logService($facilityApiId,$this->facilityService);
+          $this->logService($facilityApiId, $this->facilityService);
           return 1;
         }
       }
@@ -221,9 +221,7 @@ class PostFacilityService extends PostFacilityBase {
           $message = sprintf('VA.gov Post API: Failed queuing items of type regional_health_care_service_des. %e', $e->getMessage());
           $this->loggerChannelFactory->get('va_gov_post_api')->error($message);
         }
-
       }
-
     }
 
     return $queued_count;
@@ -714,20 +712,19 @@ class PostFacilityService extends PostFacilityBase {
    * Log service by facility.
    *
    * @param string $facilityApiId
-   *   Facility API Id
+   *   Facility API Id.
    * @param \Drupal\Core\Entity\EntityInterface $facilityService
    *   Facility service.
    */
   protected function logService(string $facilityApiId, EntityInterface $facilityService) {
     $log_message = date('Y-m-d H:i:s') . '|' . $facilityApiId . '|' . $facilityService->title->value . "\n";
     $handle = fopen(self::$logFile, "a");
-    fwrite($handle,$log_message);
+    fwrite($handle, $log_message);
     fclose($handle);
   }
 
   /**
    * Create a log file.
-   *
    */
   public function createLogFile() {
     $date_hour_minute = date('Y-m-d--H-i');
