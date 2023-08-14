@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "853272abc88a6084b8110f01f7af6169",
+    "content-hash": "8560907dac1a035bd17f98537de25bed",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -12325,11 +12325,11 @@
         },
         {
             "name": "drupal/simplesamlphp_auth",
-            "version": "dev-3380262-support-simplesamlphp-2.1",
+            "version": "dev-4.x",
             "source": {
                 "type": "git",
-                "url": "https://git.drupalcode.org/issue/simplesamlphp_auth-3380262.git",
-                "reference": "31f4e26df4baf10180f4f7688a8472c69b0e7958"
+                "url": "https://git.drupalcode.org/project/simplesamlphp_auth.git",
+                "reference": "c97611b5a91b5daa10b3a02abaf8e58acec454bc"
             },
             "require": {
                 "drupal/core": "^9.4 || ^10",
@@ -12337,12 +12337,58 @@
                 "simplesamlphp/simplesamlphp": "^1.19 || ^2.1 || dev-simplesamlphp-2.1"
             },
             "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-4.x": "4.x-dev"
+                },
+                "drupal": {
+                    "version": "4.x-dev",
+                    "datestamp": "1691679324",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Dev releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
                 "GPL-2.0+"
             ],
+            "authors": [
+                {
+                    "name": "Berdir",
+                    "homepage": "https://www.drupal.org/user/214652"
+                },
+                {
+                    "name": "colan",
+                    "homepage": "https://www.drupal.org/user/58704"
+                },
+                {
+                    "name": "dakku",
+                    "homepage": "https://www.drupal.org/user/97634"
+                },
+                {
+                    "name": "geekwisdom",
+                    "homepage": "https://www.drupal.org/user/1662"
+                },
+                {
+                    "name": "japerry",
+                    "homepage": "https://www.drupal.org/user/45640"
+                },
+                {
+                    "name": "snufkin",
+                    "homepage": "https://www.drupal.org/user/58645"
+                },
+                {
+                    "name": "svendecabooter",
+                    "homepage": "https://www.drupal.org/user/35369"
+                }
+            ],
             "description": "Allows users to authenticate to a remote SAML identity provider (IdP) via a locally configured SimpleSAMLphp service point (SP).",
             "homepage": "https://www.drupal.org/project/simplesamlphp_auth",
-            "time": "2023-08-10T00:28:20+00:00"
+            "support": {
+                "source": "https://git.drupalcode.org/project/simplesamlphp_auth"
+            }
         },
         {
             "name": "drupal/sitewide_alert",
@@ -27172,12 +27218,6 @@
             "alias_normalized": "9.5.0.0"
         },
         {
-            "package": "drupal/simplesamlphp_auth",
-            "version": "dev-3380262-support-simplesamlphp-2.1",
-            "alias": "4.0.0-alpha2",
-            "alias_normalized": "4.0.0.0-alpha2"
-        },
-        {
             "package": "easyrdf/easyrdf",
             "version": "1.1.1.0",
             "alias": "0.9.1",
@@ -27231,8 +27271,8 @@
         "drupal/pathologic": 15,
         "drupal/prometheus_exporter": 10,
         "drupal/schemata": 10,
-        "drupal/simplesamlphp_auth": 20,
         "drupal/seven": 15,
+        "drupal/simplesamlphp_auth": 20,
         "drupal/styleguide": 10,
         "drupal/user_history": 15,
         "drupal/viewfield": 10,
