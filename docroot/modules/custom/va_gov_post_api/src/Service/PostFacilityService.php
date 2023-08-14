@@ -5,6 +5,7 @@ namespace Drupal\va_gov_post_api\Service;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\File\FileUrlGeneratorInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Render\Renderer;
@@ -76,6 +77,20 @@ class PostFacilityService extends PostFacilityBase {
   ];
 
   /**
+   * The path to the log files.
+   *
+   * @var string
+   */
+  protected $logPath;
+
+  /**
+   * The name of the log file.
+   *
+   * @var string
+   */
+  protected static $logFile;
+
+  /**
    * Constructs a new PostFacilityBase object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
@@ -90,10 +105,23 @@ class PostFacilityService extends PostFacilityBase {
    *   The PostAPI service.
    * @param \Drupal\Core\Render\Renderer $renderer
    *   Core renderer.
+   * @param Drupal\Core\File\FileUrlGeneratorInterface $file_url_generator
+   *   File URL generator.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_channel_factory, MessengerInterface $messenger, AddToQueue $post_queue, Renderer $renderer) {
+  public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_channel_factory, MessengerInterface $messenger, AddToQueue $post_queue, Renderer $renderer, FileUrlGeneratorInterface $file_url_generator) {
     parent::__construct($config_factory, $entity_type_manager, $logger_channel_factory, $messenger, $post_queue);
     $this->renderer = $renderer;
+
+    // Set the logging file path.
+    $file_url = $file_url_generator->generateAbsoluteString("public://post_api_force_queue");
+    $log_path = parse_url($file_url, PHP_URL_PATH);
+    // Strip leading slash.
+    $log_path = substr($log_path, 1);
+    if (!is_dir($log_path)) {
+      mkdir($log_path);
+    }
+    $this->logPath = $log_path;
+    $this->createLogFile();
   }
 
   /**
@@ -133,6 +161,7 @@ class PostFacilityService extends PostFacilityBase {
         // endpoint.
         if (!empty($data['payload']) && !empty($facilityApiId)) {
           $this->postQueue->addToQueue($data, $this->shouldDedupe());
+          $this->logService($facilityApiId, $this->facilityService);
           return 1;
         }
       }
@@ -673,6 +702,36 @@ class PostFacilityService extends PostFacilityBase {
     }
     else {
       $this->errors[] = "Unable to load health service term. Field 'field_service_name_and_descripti' not set.";
+    }
+  }
+
+  /**
+   * Log service by facility.
+   *
+   * @param string $facilityApiId
+   *   Facility API Id.
+   * @param \Drupal\Core\Entity\EntityInterface $facilityService
+   *   Facility service.
+   */
+  protected function logService(string $facilityApiId, EntityInterface $facilityService) {
+    $log_message = date('Y-m-d H:i:s') . '|' . $facilityApiId . '|' . $facilityService->title->value . "\n";
+    $handle = fopen(self::$logFile, "a");
+    fwrite($handle, $log_message);
+    fclose($handle);
+  }
+
+  /**
+   * Create a log file.
+   */
+  public function createLogFile() {
+    $date_hour_minute = date('Y-m-d--H-i');
+    self::$logFile = $this->logPath . "/services-{$date_hour_minute}.txt";
+    $handle = fopen(self::$logFile, "w");
+    fwrite($handle, "Time When Added to Log|Facility API ID|Facility Service\n");
+    fclose($handle);
+    if (file_exists(self::$logFile)) {
+      $message = sprintf('VA.gov Post API: A log file was created at %s', self::$logFile);
+      $this->loggerChannelFactory->get('va_gov_post_api')->info($message);
     }
   }
 
