@@ -1,6 +1,6 @@
 ---
 name: Task
-about: A task for the CMS team.
+about: A task
 title: "<Insert summary of task>"
 labels: Needs refining
 assignees: ''
@@ -10,7 +10,10 @@ assignees: ''
 ## User Story or Problem Statement
 
 
-## Description or Addtional Context 
+## Description or Additional Context
+
+
+## Steps for Implementation
 
 
 ## Acceptance Criteria
