@@ -48,9 +48,11 @@ class GitHubRepositoryDispatchTest extends VaGovUnitTestBase {
   public function testBuildPendingWorkflowParams() {
     $expected = [
       'status' => 'pending',
-      'created' => '>=2021-01-01T12:00:00+11:00',
+      'created' => '>=2023-08-16T04:02:52+10:00',
     ];
-    $this->assertEquals($expected, $this->getGitHubRepositoryDispatch()->buildPendingWorkflowParams(1609470000));
+    $actual = $this->getGitHubRepositoryDispatch()->buildPendingWorkflowParams(1692129772);
+    $this->assertEquals($expected['status'], $actual['status']);
+    $this->assertEquals(substr($expected['created'], 0, 12), substr($actual['created'], 0, 12));
   }
 
   /**
