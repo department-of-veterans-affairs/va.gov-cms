@@ -29,6 +29,14 @@ items in the queue are posted to the Lighthouse API.  Queueing logic is all
 handled in [PostFacilityService.php](../docroot/modules/custom/va_gov_post_api/src/Service/PostFacilityService.php).  This service is currently only using Covid-19
 Vaccines but is expandable to handle more or eventually all services.
 
+### Error logging
+There are several errors that can happen on the push of services to the Facility API
+- 200 Response from Lighthouse means the data was recieved and accepted. Item is removed from queue.
+- 200 Fake response from TIC, the item did not get processed.  The failure is logged to Dblog. Item is removed from queue.
+- 201, 202  The facility for this service no longer exists. Service accepted but discarded by Lighthouse. Logged to Dblog and alerted to Slack:CMS-notifications. Item is removed from queue.
+- Any other code, logs an error to dblog and leaves the item in the queue. Will also result in loud error from the next item down.
+- When the queue runs, if it ever has the same number of items at the end as when it started, it notifies Slack:CMS-notifications
+
 
 ## System Banner Alerts and Situation Updates to GovDelivery
 
