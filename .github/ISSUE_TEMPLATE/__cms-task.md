@@ -10,7 +10,10 @@ assignees: ''
 ## User Story or Problem Statement
 
 
-## Description or Addtional Context 
+## Description or Additional Context 
+
+
+## Steps for Implementation
 
 
 ## Acceptance Criteria
