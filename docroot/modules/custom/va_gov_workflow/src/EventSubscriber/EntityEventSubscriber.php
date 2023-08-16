@@ -67,6 +67,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     return [
       'hook_event_dispatcher.form_base_node_form.alter' => 'alterNodeForm',
       'hook_event_dispatcher.form_base_taxonomy_term_form.alter' => 'alterTermForm',
+      'hook_event_dispatcher.form_base_block_content_form.alter' => 'alterBlockContentForm',
       EntityHookEvents::ENTITY_DELETE => 'entityDelete',
       EntityHookEvents::ENTITY_INSERT => 'entityInsert',
       EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
@@ -125,6 +126,19 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     if ($form_state->getFormObject() instanceof EntityFormInterface) {
       $this->removeArchiveOption($event);
     }
+    $this->requireRevisionMessage($form, $form_state, $form_id);
+  }
+
+  /**
+   * Alters to be applied to all block content types.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormBaseAlterEvent $event
+   *   The event.
+   */
+  public function alterBlockContentForm(FormBaseAlterEvent $event) {
+    $form = &$event->getForm();
+    $form_state = $event->getFormState();
+    $form_id = $event->getFormId();
     $this->requireRevisionMessage($form, $form_state, $form_id);
   }
 
@@ -270,6 +284,9 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   protected function bypassRevisionLogValidationOnIef(array &$form, FormStateInterface $form_state): void {
     /** @var \Drupal\node\NodeInterface $node **/
     $node = $form_state->getFormObject()->getEntity();
+    if (!$node instanceof NodeInterface) {
+      return;
+    }
     $ief_fields = $this->getIefTypeFields($node);
     $operation_button_map = [
       'field_widget_edit' => 'edit_button',
