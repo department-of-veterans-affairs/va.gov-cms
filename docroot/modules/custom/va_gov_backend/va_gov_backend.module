@@ -31,6 +31,7 @@ use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
 use Drupal\va_gov_build_trigger\Form\PreviewForm;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Mime\MimeTypeGuesserInterface;
 
 /**
  * Implements hook_help().
@@ -1884,7 +1885,15 @@ function va_gov_backend_entity_presave(EntityInterface $entity) {
  */
 function _va_gov_backend_set_file_type(FieldableEntityInterface $entity) {
   $uri = $entity->get('field_media_external_file')->getValue()[0]['uri'];
-  $mime = \Drupal::service('file.mime_type.guesser')->guess($uri);
+  $guesser = \Drupal::service('file.mime_type.guesser');
+  $mime;
+  if ($guesser instanceof MimeTypeGuesserInterface) {
+    $mime = $guesser->guessMimeType($uri);
+  }
+  else {
+    $mime = $guesser->guess($uri);
+    @trigger_error('\Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface is deprecated in drupal:9.1.0 and will be removed in drupal:10.0.0. See https://www.drupal.org/node/3133341', E_USER_DEPRECATED);
+  }
   $entity->set('field_mime_type', $mime);
 }
 
