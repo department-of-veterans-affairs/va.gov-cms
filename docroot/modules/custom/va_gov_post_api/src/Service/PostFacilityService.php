@@ -160,8 +160,15 @@ class PostFacilityService extends PostFacilityBase {
         // endpoint.
         if (!empty($data['payload']) && !empty($facilityApiId)) {
           $this->postQueue->addToQueue($data, $this->shouldDedupe());
-          if ($data['payload']['detailed_services']['0']) {
-            $this->logService(self::$logFile, $facilityApiId, $data['payload']['detailed_services']['0']->service_api_id);
+          if ($data['payload']['detailed_services']['0'] && !is_null(self::$logFile)) {
+            try {
+              $this->logService(self::$logFile, $facilityApiId, $data['payload']['detailed_services']['0']->service_api_id);
+            }
+            catch (\Exception $e) {
+              $message = sprintf('VA.gov Post API: Failed to log the service. %e', $e->getMessage());
+              $this->loggerChannelFactory->get('va_gov_post_api')->error($message);
+            }
+
           }
           return 1;
         }
