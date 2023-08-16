@@ -7,6 +7,7 @@
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\node\NodeInterface;
+use Drupal\taxonomy\TermInterface;
 use Drupal\va_gov_facilities\FacilityOps;
 
 /**
@@ -18,6 +19,9 @@ function va_gov_post_api_entity_insert(EntityInterface $entity) {
   if ($entity instanceof NodeInterface) {
     _va_gov_post_api_add_facility_to_queue($entity);
     _va_gov_post_api_add_facility_service_to_queue($entity);
+  }
+  elseif ($entity instanceof TermInterface) {
+    _va_gov_post_api_add_facility_service_to_queue_due_to_term_change($entity);
   }
 }
 
@@ -31,13 +35,17 @@ function va_gov_post_api_entity_update(EntityInterface $entity) {
     _va_gov_post_api_add_facility_to_queue($entity);
     _va_gov_post_api_add_facility_service_to_queue($entity);
   }
+  elseif ($entity instanceof TermInterface) {
+    _va_gov_post_api_add_facility_service_to_queue_due_to_term_change($entity);
+  }
+
 }
 
 /**
  * Adds facility data to Post API queue.
  *
  * @param \Drupal\node\NodeInterface $node
- *   Entity.
+ *   Node entity.
  *
  * @return int
  *   The count of the number of items queued.
@@ -61,7 +69,7 @@ function _va_gov_post_api_add_facility_to_queue(NodeInterface $node) {
  * Adds facility service data to Post API queue to update Lighthouse.
  *
  * @param \Drupal\node\NodeInterface $node
- *   Node.
+ *   Node entity.
  *
  * @return int
  *   The count of the number of items queued.
@@ -70,11 +78,25 @@ function _va_gov_post_api_add_facility_service_to_queue(NodeInterface $node) {
   if ($node->bundle() === 'health_care_local_health_service') {
     return Drupal::service('va_gov_post_api.queue_service_updates')->queueFacilityService($node);
   }
-  elseif ($node->bundle() === 'health_care_service_taxonomy') {
-    return Drupal::service('va_gov_post_api.queue_service_updates')->queueServiceTermRelatedServices($node);
-  }
   elseif ($node->bundle() === 'regional_health_care_service_des') {
     return Drupal::service('va_gov_post_api.queue_service_updates')->queueSystemRelatedServices($node);
+  }
+
+  return 0;
+}
+
+/**
+ * Adds facility service data to Post API queue if service term changes.
+ *
+ * @param \Drupal\taxonomy\TermInterface $term
+ *   Term entity.
+ *
+ * @return int
+ *   The count of the number of items queued.
+ */
+function _va_gov_post_api_add_facility_service_to_queue_due_to_term_change(TermInterface $term):int {
+  if ($term->bundle() === 'health_care_service_taxonomy') {
+    return Drupal::service('va_gov_post_api.queue_service_updates')->queueServiceTermRelatedServices($term);
   }
 
   return 0;

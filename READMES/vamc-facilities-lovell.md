@@ -70,7 +70,7 @@ TBD
 Some Lovell facilities exist only in VA and some exist only in TRICARE.  Only VA facility statuses and health services are pushed to the Facility API when they are changed.  TRICARE facility data is not pushed, because those facilities do not exist in the Facility API.  They were hand created and have no connection to the Facility API.  Editing of data that normally comes from VAST will currently have to be performed by an admin, as the fields are locked down for everyone else.
 
 ## List Pages
-List pages for events, news releases, stories and staff will need some unique handling that has not happened yet.
+List pages for events, news releases, and stories operate on the concept that there are Lovell Lovell Federal Health Care list pages that provided any items that should appear in both VA and TRICARE.  These pages themselves are not built on the FE, but are pulled into the separate VA and TRICARE list pages.  This merging of the data happens on the FE and then the Federal page get removed from the data so that they do not get built.
 
 ----
 
