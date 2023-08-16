@@ -22,3 +22,12 @@ assignees: ''
 - [ ] Testable_Outcome_Z
 - [ ] Requires design review
 - [ ] Requires accessibility review
+
+## Team
+Please check the team(s) that will do this work.
+
+- [ ] CMS Team
+- [ ] Public Websites
+- [ ] Facilities
+- [ ] User support
+- [ ] Accelerated Publishing
