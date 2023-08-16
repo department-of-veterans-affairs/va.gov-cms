@@ -1,0 +1,54 @@
+uuid: de1a1178-b0e9-4b91-8152-b833d7e64e2a
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.full_width_banner_alert
+  module:
+    - content_moderation
+id: no_create
+label: 'No create'
+type: content_moderation
+type_settings:
+  states:
+    draft:
+      label: Draft
+      weight: 0
+      published: false
+      default_revision: false
+    published:
+      label: Published
+      weight: 1
+      published: true
+      default_revision: true
+    sleep_with_the_fishes:
+      label: 'Sleep with the fishes'
+      weight: 2
+      published: false
+      default_revision: false
+  transitions:
+    create_new_draft:
+      label: 'Create New Draft'
+      from:
+        - draft
+        - published
+      to: draft
+      weight: 0
+    publish:
+      label: Publish
+      from:
+        - draft
+        - published
+      to: published
+      weight: 1
+    romove_permanently:
+      label: 'Remove permanently'
+      from:
+        - draft
+        - published
+      to: sleep_with_the_fishes
+      weight: 2
+  entity_types:
+    node:
+      - full_width_banner_alert
+  default_moderation_state: draft
