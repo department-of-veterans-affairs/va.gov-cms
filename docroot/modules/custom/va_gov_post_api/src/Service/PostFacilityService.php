@@ -113,7 +113,14 @@ class PostFacilityService extends PostFacilityBase {
     parent::__construct($config_factory, $entity_type_manager, $logger_channel_factory, $messenger, $post_queue);
     $this->renderer = $renderer;
     $this->fileRepository = $file_repository;
-    self::$logFile = $this->createLogFile($this->fileRepository);
+    try {
+      self::$logFile = $this->createLogFile($this->fileRepository);
+    }
+    catch (\Exception $e) {
+      $message = sprintf('VA.gov Post API: Failed to create log file. %e', $e->getMessage());
+      $this->loggerChannelFactory->get('va_gov_post_api')->error($message);
+    }
+
   }
 
   /**
