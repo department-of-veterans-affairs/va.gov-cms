@@ -19,6 +19,10 @@ class DepthFieldConstraint extends Constraint {
    *
    * @var string
    */
-  public $errorMessage = 'Depth for a Section must be within 1 of highest depth above this Section';
+  public $skippedDeptherrorMessage = 'Depth for a Section must be within 1 of highest depth above this Section';
+
+  public $negativeDepthErrorMessage = 'Depth must be a positive integer';
+
+  public $maximumDepthErrorMessage = 'Maximum depth allowed is :max';
 
 }
