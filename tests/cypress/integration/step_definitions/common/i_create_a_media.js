@@ -66,16 +66,15 @@ const creators = {
         .data("ImageWidgetCrop").types[0];
       const { cropper } = cropperType;
       const { dragBox } = cropper;
-      cy.wrap(dragBox)
-        .trigger("mouseover", { force: true })
-        .wait(100)
-        .trigger(POINTER_DOWN, { which: 1, force: true })
-        .wait(100)
-        .trigger(POINTER_MOVE, 15, 15, { which: 1, force: true })
-        .wait(100)
-        .trigger(POINTER_MOVE, 50, 50, { which: 1, force: true })
-        .wait(100)
-        .trigger(POINTER_UP, { which: 1, force: true });
+      cy.wrap(dragBox).trigger("mouseover", { force: true });
+      cy.wait(100);
+      cy.wrap(dragBox).trigger(POINTER_DOWN, { which: 1, force: true });
+      cy.wait(100);
+      cy.wrap(dragBox).trigger(POINTER_MOVE, 15, 15, { which: 1, force: true });
+      cy.wait(100);
+      cy.wrap(dragBox).trigger(POINTER_MOVE, 50, 50, { which: 1, force: true });
+      cy.wait(100);
+      cy.wrap(dragBox).trigger(POINTER_UP, { which: 1, force: true });
     });
     cy.window().then((window) => {
       const mediaImageUrl = window

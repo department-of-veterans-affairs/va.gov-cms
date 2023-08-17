@@ -1,4 +1,4 @@
-@content_editing_vamc_banner_reuse
+@content_type__full_width_banner_alert
 Feature: VAMC full_width_banner_alert editors should not be able to reuse banners.
 
 Scenario: Log in and create VAMC Full Width Banner Alert

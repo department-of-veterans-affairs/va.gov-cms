@@ -1,4 +1,4 @@
-@content_editing_vamc_facility_service
+@content_type__regional_health_care_service_des
 Feature: CMS Users may effectively interact with the VAMC System Health Service form
   In order to confirm that cms users have access to the necessary functionality
   As anyone involved in the project

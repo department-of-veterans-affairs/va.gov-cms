@@ -27,7 +27,7 @@ module.exports = defineConfig({
       return require("./tests/cypress/plugins/index.js")(on, config);
     },
     baseUrl: "http://va-gov-cms.ddev.site",
-    specPattern: "tests/cypress/integration/**/*.{feature,features}",
+    specPattern: "tests/cypress/integration/features/**/*.{feature,features}",
     supportFile: "tests/cypress/support/index.js",
   },
 });
