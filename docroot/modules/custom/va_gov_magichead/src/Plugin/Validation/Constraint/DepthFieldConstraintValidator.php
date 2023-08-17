@@ -14,18 +14,18 @@ class DepthFieldConstraintValidator extends ConstraintValidator {
   /**
    * Validates the depth property is set correctly.
    *
-   * @param mixed $value
+   * @param mixed $items
    *   The field values.
    * @param \Symfony\Component\Validator\Constraint $constraint
    *   The constraint for the validation.
    */
-  public function validate($value, Constraint $constraint) {
-    if (!$value instanceof MagicheadFieldItemList) {
+  public function validate($items, Constraint $constraint) {
+    if (!$items instanceof MagicheadFieldItemList) {
       return;
     }
-    $values = $value->getValue();
+    $values = $items->getValue();
     $lastItemDepth = 0;
-    $fieldDefinition = $value->getFieldDefinition();
+    $fieldDefinition = $items->getFieldDefinition();
     $max_depth = $fieldDefinition->getSetting('max_depth');
     foreach ($values as $delta => $value) {
       $currentItemDepth = intval($value['depth']);
