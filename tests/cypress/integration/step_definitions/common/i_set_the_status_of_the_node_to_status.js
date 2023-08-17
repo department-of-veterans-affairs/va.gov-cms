@@ -1,4 +1,4 @@
-import { Given } from "cypress-cucumber-preprocessor/steps";
+import { Given } from "@badeball/cypress-cucumber-preprocessor";
 
 Given(`I set the status of the node to {string}`, (status) => {
   cy.get("@nodeId").then((nid) => {

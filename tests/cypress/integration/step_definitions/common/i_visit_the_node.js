@@ -1,4 +1,4 @@
-import { Given } from "cypress-cucumber-preprocessor/steps";
+import { Given } from "@badeball/cypress-cucumber-preprocessor";
 
 Given(`I visit the node`, () => {
   cy.get("@nodeId").then((nid) => cy.visit(`/node/${nid}`));

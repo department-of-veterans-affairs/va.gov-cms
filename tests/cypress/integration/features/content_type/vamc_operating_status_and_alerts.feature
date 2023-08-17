@@ -1,4 +1,4 @@
-@content_editing
+@content_type__vamc_operating_status_and_alerts
 Feature: Content Type: VAMC Operating Status
 
   Scenario: Log in and confirm that System-wide alerts can be created and edited

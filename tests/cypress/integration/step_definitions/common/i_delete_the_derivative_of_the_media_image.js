@@ -1,5 +1,5 @@
 /* eslint-disable max-nested-callbacks */
-import { Then } from "cypress-cucumber-preprocessor/steps";
+import { Then } from "@badeball/cypress-cucumber-preprocessor";
 
 Then(`I delete the {string} derivative of the media image`, (derivative) => {
   cy.get("@mediaImageUrl").then((url) => {

@@ -1,4 +1,4 @@
-import { Then } from "cypress-cucumber-preprocessor/steps";
+import { Then } from "@badeball/cypress-cucumber-preprocessor";
 
 Then(`I scroll to element {string}`, (element) => {
   cy.scrollToSelector(element);

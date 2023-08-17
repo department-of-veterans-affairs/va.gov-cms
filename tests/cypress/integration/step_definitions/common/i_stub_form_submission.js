@@ -1,5 +1,5 @@
 /* eslint-disable max-nested-callbacks */
-import { Given } from "cypress-cucumber-preprocessor/steps";
+import { Given } from "@badeball/cypress-cucumber-preprocessor";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import qs from "qs";
 

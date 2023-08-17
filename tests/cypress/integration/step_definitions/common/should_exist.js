@@ -1,4 +1,4 @@
-import { Then } from "cypress-cucumber-preprocessor/steps";
+import { Then } from "@badeball/cypress-cucumber-preprocessor";
 
 Then("an element with the selector {string} should exist", (selector) =>
   cy.get(selector).should("exist")

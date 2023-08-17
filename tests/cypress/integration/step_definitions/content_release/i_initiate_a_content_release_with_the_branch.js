@@ -1,4 +1,4 @@
-import { Given } from "cypress-cucumber-preprocessor/steps";
+import { Given } from "@badeball/cypress-cucumber-preprocessor";
 
 Given(`I initiate a content release with the branch {string}`, (branchName) => {
   cy.visit("/admin/content/deploy");

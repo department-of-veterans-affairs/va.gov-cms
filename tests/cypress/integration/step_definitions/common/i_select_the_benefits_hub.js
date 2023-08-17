@@ -1,4 +1,4 @@
-import { Given } from "cypress-cucumber-preprocessor/steps";
+import { Given } from "@badeball/cypress-cucumber-preprocessor";
 
 Given(`I select the {string} benefits hub`, (text) => {
   cy.contains("Select Benefit Hub(s)").click({ force: true });

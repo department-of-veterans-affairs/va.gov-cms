@@ -1,4 +1,4 @@
-import { Given } from "cypress-cucumber-preprocessor/steps";
+import { Given } from "@badeball/cypress-cucumber-preprocessor";
 
 Given(`I check the watchdog log`, function watchdogLogHandler() {
   cy.drupalGetWatchdogMessages(this.username).then(cy.log);

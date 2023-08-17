@@ -1,4 +1,4 @@
-import { Then } from "cypress-cucumber-preprocessor/steps";
+import { Then } from "@badeball/cypress-cucumber-preprocessor";
 
 Then(/(?: (a|an|the))? JSD widget should exist/, () =>
   cy.get("iframe#jsd-widget").iframe().should("exist")

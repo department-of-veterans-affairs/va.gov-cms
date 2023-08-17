@@ -1,4 +1,4 @@
-import { Given } from "cypress-cucumber-preprocessor/steps";
+import { Given } from "@badeball/cypress-cucumber-preprocessor";
 
 Given(`I click the {string} link`, (text) => {
   cy.contains(text).invoke("removeAttr", "target").click({ force: true });
