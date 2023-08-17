@@ -26,7 +26,8 @@ class DepthFieldConstraintValidator extends ConstraintValidator {
     $values = $value->getValue();
     $lastItemDepth = 0;
     $currentItemDepth = intval($value['depth']);
-    $max_depth = 4; // for now
+    $fieldDefinition = $value->getFieldDefinition();
+    $max_depth = $fieldDefinition->getSetting('max_depth');
     foreach ($values as $delta => $value) {
       // Validate depth is not negative.
       if ($currentItemDepth < 0) {

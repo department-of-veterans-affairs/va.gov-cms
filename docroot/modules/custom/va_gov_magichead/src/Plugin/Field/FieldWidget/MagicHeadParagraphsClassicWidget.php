@@ -24,29 +24,6 @@ class MagicHeadParagraphsClassicWidget extends InlineParagraphsHierarchyWidget {
 
   /**
    * {@inheritdoc}
-   */
-  public static function defaultSettings() {
-    return [
-      'max_depth' => 3,
-    ] + parent::defaultSettings();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function settingsForm(array $form, FormStateInterface $form_state) {
-    $form = parent::settingsForm($form, $form_state);
-    $form['max_depth'] = [
-      '#type' => 'number',
-      '#title' => $this->t('Max Depth'),
-      '#description' => $this->t('The maximum depth of a magichead item.'),
-      '#default_value' => $this->getSetting('max_depth'),
-    ];
-    return $form;
-  }
-
-  /**
-   * {@inheritdoc}
    *
    * @see va_gov_magichead_preprocess_field_multiple_value_form()
    */
@@ -62,7 +39,7 @@ class MagicHeadParagraphsClassicWidget extends InlineParagraphsHierarchyWidget {
 
     // Set the max depth on the element. This allows for direct access of max
     // depth in preprocess hooks.
-    $elements['#magichead_max_depth'] = $this->getSetting('max_depth');
+    $elements['#magichead_max_depth'] = $items->getFieldDefinition()->getSetting('max_depth');
 
     return $elements;
   }
