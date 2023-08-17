@@ -4,15 +4,16 @@
 * https://www.drupal.org/node/2815083
 * @preserve
 **/
-(function (Drupal, $) {
-  var showColumnsForErrors = function showColumnsForErrors(tableId) {
-    var $table = $(once.filter('tabledrag', "table#" + tableId));
-    $table.find('.tabledrag-hide').css('display', '');
-    $table.find('.tabledrag-handle').css('display', 'none');
-    $table.find('.tabledrag-has-colspan').each(function () {
+(function (Drupal, $, once) {
+  function showColumnsForErrors(tableId) {
+    var $table = $(once.filter("tabledrag", "table#" + tableId));
+    $table.find(".tabledrag-hide").css("display", "");
+    $table.find(".tabledrag-handle").css("display", "none");
+    $table.find(".tabledrag-has-colspan").each(function () {
       this.colSpan += 1;
     });
-  };
+  }
+  ;
   Drupal.behaviors.vaGovMagicheadShowErrors = {
     attach: function attach() {
       var magicheadTables = document.querySelectorAll("div.field--type-magichead table.field-multiple-table.draggable-table") || [];
@@ -21,7 +22,7 @@
         var $element = $(element);
         var tableId = element.id;
         var hasError = $element.find("td .form-item--error");
-        if (hasError && !(tableId in errors)) {
+        if (hasError.length > 0 && !(tableId in errors)) {
           errors[tableId] = tableId;
         }
       });
@@ -30,4 +31,4 @@
       });
     }
   };
-})(Drupal, jQuery);
+})(Drupal, jQuery, once);
