@@ -38,8 +38,9 @@ class MagicheadItem extends EntityReferenceHierarchyRevisionsItem {
       '#title' => $this->t('Max Depth'),
       '#description' => $this->t('The maximum depth of a magichead item.'),
       '#default_value' => $this->getSetting('max_depth'),
+      '#min' => 0,
+      '#weight' => -1,
     ];
-
     return $element;
   }
 

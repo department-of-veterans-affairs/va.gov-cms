@@ -25,10 +25,10 @@ class DepthFieldConstraintValidator extends ConstraintValidator {
     }
     $values = $value->getValue();
     $lastItemDepth = 0;
-    $currentItemDepth = intval($value['depth']);
     $fieldDefinition = $value->getFieldDefinition();
     $max_depth = $fieldDefinition->getSetting('max_depth');
     foreach ($values as $delta => $value) {
+      $currentItemDepth = intval($value['depth']);
       // Validate depth is not negative.
       if ($currentItemDepth < 0) {
         $this->context->buildViolation($constraint->negativeDepthErrorMessage)->atPath((string) $delta . '.depth')->addViolation();
@@ -37,11 +37,11 @@ class DepthFieldConstraintValidator extends ConstraintValidator {
       if (($currentItemDepth - $lastItemDepth) > 1) {
         $this->context->buildViolation($constraint->skippedDeptherrorMessage)->atPath((string) $delta . '.depth')->addViolation();
       }
-      $lastItemDepth = $currentItemDepth;
       // Validate depth is not exceeding max depth.
       if ($currentItemDepth > $max_depth) {
         $this->context->buildViolation($constraint->maximumDepthErrorMessage, [':max' => $max_depth])->atPath((string) $delta . '.depth')->addViolation();
       }
+      $lastItemDepth = $currentItemDepth;
     }
   }
 
