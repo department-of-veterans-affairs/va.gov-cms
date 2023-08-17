@@ -4,34 +4,30 @@
 * https://www.drupal.org/node/2815083
 * @preserve
 **/
-(function (Drupal) {
-  function isValidSwap() {
-    return true;
-  }
-  function onDrop() {
-    var dragObject = this;
-    var rowElement = dragObject.rowObject.element;
-    rowElement.classList.add("error");
-    var newElement = document.createElement("div");
-    newElement.textContent = "Max Depth Exceeded! 😡";
-    newElement.classList.add("form-item__error-message");
-    rowElement.insertAdjacentElement("afterend", newElement);
-    return null;
-  }
-  Drupal.behaviors.vaGovMagicheadMagichead = {
+(function (Drupal, $) {
+  var showColumnsForErrors = function showColumnsForErrors(tableId) {
+    var $table = $(once.filter('tabledrag', "table#" + tableId));
+    $table.find('.tabledrag-hide').css('display', '');
+    $table.find('.tabledrag-handle').css('display', 'none');
+    $table.find('.tabledrag-has-colspan').each(function () {
+      this.colSpan += 1;
+    });
+  };
+  Drupal.behaviors.vaGovMagicheadShowErrors = {
     attach: function attach() {
-      if (typeof Drupal.tableDrag === "undefined") {
-        return;
-      }
-      var tables = document.querySelectorAll("div.field--type-magichead table.field-multiple-table.draggable-table") || [];
-      tables.forEach(function (element) {
-        var id = element.getAttribute("id");
-        if (Drupal.tableDrag[id]) {
-          var tableDrag = Drupal.tableDrag[id];
-          tableDrag.row.prototype.isValidSwap = isValidSwap;
-          tableDrag.onDrop = onDrop;
+      var magicheadTables = document.querySelectorAll("div.field--type-magichead table.field-multiple-table.draggable-table") || [];
+      var errors = {};
+      magicheadTables.forEach(function (element) {
+        var $element = $(element);
+        var tableId = element.id;
+        var hasError = $element.find("td .form-item--error");
+        if (hasError && !(tableId in errors)) {
+          errors[tableId] = tableId;
         }
+      });
+      Object.values(errors).forEach(function (value) {
+        return showColumnsForErrors(value);
       });
     }
   };
-})(Drupal);
+})(Drupal, jQuery);

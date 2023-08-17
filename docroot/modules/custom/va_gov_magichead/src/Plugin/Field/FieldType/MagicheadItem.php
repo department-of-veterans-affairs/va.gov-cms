@@ -13,19 +13,7 @@ use Drupal\entity_reference_hierarchy_revisions\Plugin\Field\FieldType\EntityRef
  *   category = @Translation("Reference revisions"),
  *   default_widget = "magichead_paragraphs_classic",
  *   default_formatter = "entity_reference_label",
- *   list_class = "\Drupal\entity_reference_hierarchy_revisions\EntityReferenceHierarchyRevisionsFieldItemList",
+ *   list_class = "\Drupal\va_gov_magichead\MagicheadFieldItemList",
  * )
  */
-class MagicheadItem extends EntityReferenceHierarchyRevisionsItem {
-
-  /**
-   * {@inheritDoc}
-   */
-  public function getConstraints() {
-    $constraints = parent::getConstraints();
-    $constraint_manager = $this->getTypedDataManager()->getValidationConstraintManager();
-    $constraints[] = $constraint_manager->create('MagicheadDepthFieldConstraint', []);
-    return $constraints;
-  }
-
-}
+class MagicheadItem extends EntityReferenceHierarchyRevisionsItem {}

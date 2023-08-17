@@ -19,6 +19,6 @@ class DepthFieldConstraint extends Constraint {
    *
    * @var string
    */
-  public $errorMessage = 'Please enter a number +1, equal to, or -1 than previous section depth';
+  public $errorMessage = 'Depth for a Section must be within 1 of highest depth above this Section';
 
 }
