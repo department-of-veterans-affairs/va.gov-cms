@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_magichead\Plugin\Validation\Constraint;
 
+use Drupal\va_gov_magichead\MagicheadFieldItemList;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -19,14 +20,27 @@ class DepthFieldConstraintValidator extends ConstraintValidator {
    *   The constraint for the validation.
    */
   public function validate($value, Constraint $constraint) {
+    if (!$value instanceof MagicheadFieldItemList) {
+      return;
+    }
     $values = $value->getValue();
     $lastItemDepth = 0;
+    $currentItemDepth = intval($value['depth']);
+    $max_depth = 4; // for now
     foreach ($values as $delta => $value) {
-      $currentItemDepth = $value['depth'];
+      // Validate depth is not negative.
+      if ($currentItemDepth < 0) {
+        $this->context->buildViolation($constraint->negativeDepthErrorMessage)->atPath((string) $delta . '.depth')->addViolation();
+      }
+      // Validate depth is not skipped.
       if (($currentItemDepth - $lastItemDepth) > 1) {
-        $this->context->buildViolation($constraint->errorMessage)->atPath((string) $delta . '.depth')->addViolation();
+        $this->context->buildViolation($constraint->skippedDeptherrorMessage)->atPath((string) $delta . '.depth')->addViolation();
       }
       $lastItemDepth = $currentItemDepth;
+      // Validate depth is not exceeding max depth.
+      if ($currentItemDepth > $max_depth) {
+        $this->context->buildViolation($constraint->maximumDepthErrorMessage, [':max' => $max_depth])->atPath((string) $delta . '.depth')->addViolation();
+      }
     }
   }
 
