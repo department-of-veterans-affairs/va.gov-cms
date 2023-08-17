@@ -755,9 +755,9 @@ class PostFacilityService extends PostFacilityBase {
   public function createLogFile(FileRepositoryInterface $fileRepository) {
     $header = 'Time When Added to Log|Facility API ID|Facility Service' . PHP_EOL;
     $date_hour_minute = date('Y-m-d--H-i');
-    $directory = "post_api_force_queue";
+    $directory = "public://post_api_force_queue";
     $this->fileSystem->prepareDirectory($directory, FileSystemInterface::CREATE_DIRECTORY);
-    $filePath = "public://{$directory}/services-{$date_hour_minute}.txt";
+    $filePath = "{$directory}/services-{$date_hour_minute}.txt";
     $fileRepository->writeData($header, $filePath, FileSystemInterface::EXISTS_REPLACE);
     if (file_exists($filePath)) {
       $message = sprintf('VA.gov Post API: A log file was created at %s', $filePath);
