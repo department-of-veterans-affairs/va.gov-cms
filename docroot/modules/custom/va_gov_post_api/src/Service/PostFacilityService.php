@@ -78,6 +78,13 @@ class PostFacilityService extends PostFacilityBase {
   ];
 
   /**
+   * The service for creating a directory.
+   *
+   * @var \Drupal\Core\File\FileSystemInterface
+   */
+  protected $fileSystem;
+
+  /**
    * The service for creating the log file.
    *
    * @var \Drupal\file\FileRepositoryInterface
@@ -106,13 +113,16 @@ class PostFacilityService extends PostFacilityBase {
    *   The PostAPI service.
    * @param \Drupal\Core\Render\Renderer $renderer
    *   Core renderer.
+   * @param \Drupal\Core\File\FileSystemInterface $file_system
+   *   File system service.
    * @param \Drupal\file\FileRepositoryInterface $file_repository
    *   File repository service.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_channel_factory, MessengerInterface $messenger, AddToQueue $post_queue, Renderer $renderer, FileRepositoryInterface $file_repository) {
+  public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_channel_factory, MessengerInterface $messenger, AddToQueue $post_queue, Renderer $renderer, FileSystemInterface $file_system, FileRepositoryInterface $file_repository) {
     parent::__construct($config_factory, $entity_type_manager, $logger_channel_factory, $messenger, $post_queue);
     $this->renderer = $renderer;
     $this->fileRepository = $file_repository;
+    $this->fileSystem = $file_system;
     try {
       self::$logFile = $this->createLogFile($this->fileRepository);
     }
@@ -743,9 +753,11 @@ class PostFacilityService extends PostFacilityBase {
    *   File repository service.
    */
   public function createLogFile(FileRepositoryInterface $fileRepository) {
-    $header = 'Time When Added to Log|Facility API ID|Facility Service\n';
+    $header = 'Time When Added to Log|Facility API ID|Facility Service' . PHP_EOL;
     $date_hour_minute = date('Y-m-d--H-i');
-    $filePath = "public://post_api_force_queue/services-{$date_hour_minute}.txt";
+    $directory = "post_api_force_queue";
+    $this->fileSystem->prepareDirectory($directory, FileSystemInterface::CREATE_DIRECTORY);
+    $filePath = "public://{$directory}/services-{$date_hour_minute}.txt";
     $fileRepository->writeData($header, $filePath, FileSystemInterface::EXISTS_REPLACE);
     if (file_exists($filePath)) {
       $message = sprintf('VA.gov Post API: A log file was created at %s', $filePath);
