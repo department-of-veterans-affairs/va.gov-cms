@@ -170,7 +170,7 @@ class PostFacilityService extends PostFacilityBase {
         // endpoint.
         if (!empty($data['payload']) && !empty($facilityApiId)) {
           $this->postQueue->addToQueue($data, $this->shouldDedupe());
-          if ($data['payload']['detailed_services']['0'] && !is_null(self::$logFile)) {
+          if ($data['payload']['detailed_services']['0'] && (self::$logFile)) {
             try {
               $this->logService(self::$logFile, $facilityApiId, $data['payload']['detailed_services']['0']->service_api_id);
             }
@@ -753,15 +753,20 @@ class PostFacilityService extends PostFacilityBase {
    *   File repository service.
    */
   public function createLogFile(FileRepositoryInterface $fileRepository) {
+    $filePath = FALSE;
     $header = 'Time When Added to Log|Facility API ID|Facility Service' . PHP_EOL;
     $date_hour_minute = date('Y-m-d--H-i');
     $directory = "public://post_api_force_queue";
-    $this->fileSystem->prepareDirectory($directory, FileSystemInterface::CREATE_DIRECTORY);
-    $filePath = "{$directory}/services-{$date_hour_minute}.txt";
-    $fileRepository->writeData($header, $filePath, FileSystemInterface::EXISTS_REPLACE);
-    if (file_exists($filePath)) {
-      $message = sprintf('VA.gov Post API: A log file was created at %s', $filePath);
-      $this->loggerChannelFactory->get('va_gov_post_api')->info($message);
+    $directoryCreated = $this->fileSystem->prepareDirectory($directory, FileSystemInterface::CREATE_DIRECTORY);
+    if ($directoryCreated) {
+      $filePath = "{$directory}/services-{$date_hour_minute}.txt";
+      $fileRepository->writeData($header, $filePath, FileSystemInterface::EXISTS_REPLACE);
+      if (file_exists($filePath)) {
+        // Tried to create the URL with Url::fromUri($file),
+        // but could not get a path from toString().
+        $message = sprintf('VA.gov Post API: A log file was created at %s', "/sites/default/files/post_api_force_queue/services-{$date_hour_minute}.txt");
+        $this->loggerChannelFactory->get('va_gov_post_api')->info($message);
+      }
     }
     return $filePath;
   }
