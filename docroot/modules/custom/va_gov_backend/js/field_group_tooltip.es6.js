@@ -20,4 +20,4 @@
       });
     },
   };
-})(jQuery, window.Drupal, once, window.tippy);
+})(jQuery, window.Drupal, window.once, window.tippy);
