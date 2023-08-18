@@ -136,7 +136,7 @@ class PostFacilityService extends PostFacilityBase {
       self::$logFile = $this->createLogFile($this->fileRepository);
     }
     catch (\Exception $e) {
-      $message = sprintf('VA.gov Post API: Failed to create log file. %e', $e->getMessage());
+      $message = sprintf('VA.gov Post API: Failed to create log file. %s', $e->getMessage());
       $this->loggerChannelFactory->get('va_gov_post_api')->error($message);
     }
 
