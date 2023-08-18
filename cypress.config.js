@@ -49,7 +49,7 @@ module.exports = defineConfig({
     openMode: 0,
   },
   screenshotsFolder: "docroot/cypress/screenshots/actual",
-  trashAssetsBeforeRuns: true,
+  trashAssetsBeforeRuns: false,
   videoCompression: false,
   videoUploadOnPasses: false,
   videosFolder: "docroot/cypress/videos",
