@@ -69,6 +69,7 @@ class SupportService extends MetalsmithSource {
       $query = \Drupal::entityQuery('node');
       $query->condition('type', 'support_service')
         ->condition('title', $unique_row['service_name'])
+        ->accessCheck(FALSE)
         ->count();
 
       if (empty($query->accessCheck(FALSE)->execute())) {
