@@ -118,7 +118,16 @@ class PostFacilityService extends PostFacilityBase {
    * @param \Drupal\file\FileRepositoryInterface $file_repository
    *   File repository service.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_channel_factory, MessengerInterface $messenger, AddToQueue $post_queue, Renderer $renderer, FileSystemInterface $file_system, FileRepositoryInterface $file_repository) {
+  public function __construct(
+    ConfigFactoryInterface $config_factory,
+    EntityTypeManagerInterface $entity_type_manager,
+    LoggerChannelFactoryInterface $logger_channel_factory,
+    MessengerInterface $messenger,
+    AddToQueue $post_queue,
+    Renderer $renderer,
+    FileSystemInterface $file_system,
+    FileRepositoryInterface $file_repository
+  ) {
     parent::__construct($config_factory, $entity_type_manager, $logger_channel_factory, $messenger, $post_queue);
     $this->renderer = $renderer;
     $this->fileRepository = $file_repository;
