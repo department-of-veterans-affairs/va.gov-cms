@@ -2,7 +2,7 @@
  * @file
  */
 
-(($, Drupal) => {
+(($, Drupal, once) => {
   Drupal.behaviors.vaGovMediaLibraryReusableSaveAndSelect = {
     attach: () => {
       $(document).ajaxComplete(() => {
@@ -27,4 +27,4 @@
       });
     },
   };
-})(jQuery, window.Drupal);
+})(jQuery, window.Drupal, window.once);
