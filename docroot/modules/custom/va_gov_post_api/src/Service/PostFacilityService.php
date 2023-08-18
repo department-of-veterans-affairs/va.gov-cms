@@ -765,7 +765,7 @@ class PostFacilityService extends PostFacilityBase {
     $filePath = FALSE;
     $header = 'Time When Added to Log|Facility API ID|Facility Service' . PHP_EOL;
     $date_hour_minute = date('Y-m-d--H-i');
-    $directory = "public://post_api_force_queue";
+    $directory = 'public://post_api_force_queue';
     $directoryCreated = $this->fileSystem->prepareDirectory($directory, FileSystemInterface::CREATE_DIRECTORY);
     if ($directoryCreated) {
       $filePath = "{$directory}/services-{$date_hour_minute}.txt";
