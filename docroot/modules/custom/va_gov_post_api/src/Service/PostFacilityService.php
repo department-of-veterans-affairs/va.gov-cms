@@ -743,7 +743,7 @@ class PostFacilityService extends PostFacilityBase {
    *   Facility service.
    */
   protected function logService(string $logFile, string $facilityApiId, string $facilityService) {
-    $log_message = date('Y-m-d H:i:s') . '|' . $facilityApiId . '|' . $facilityService . "\n";
+    $log_message = date('Y-m-d H:i:s') . "|{$facilityApiId}|{$facilityService}\n";
     $handle = fopen($logFile, "a");
     if ($handle) {
       fwrite($handle, $log_message);
