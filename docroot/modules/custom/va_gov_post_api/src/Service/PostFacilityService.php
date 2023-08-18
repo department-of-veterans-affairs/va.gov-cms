@@ -184,7 +184,7 @@ class PostFacilityService extends PostFacilityBase {
               $this->logService(self::$logFile, $facilityApiId, $data['payload']['detailed_services']['0']->service_api_id);
             }
             catch (\Exception $e) {
-              $message = sprintf('VA.gov Post API: Failed to log the service. %e', $e->getMessage());
+              $message = sprintf('VA.gov Post API: Failed to log the service. %s', $e->getMessage());
               $this->loggerChannelFactory->get('va_gov_post_api')->error($message);
             }
 
