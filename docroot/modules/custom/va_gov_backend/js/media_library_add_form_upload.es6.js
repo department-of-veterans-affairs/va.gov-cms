@@ -11,15 +11,19 @@
             $(".ui-dialog-buttonpane button").first().hide();
           }
         );
-        $("input.field_media_in_library")
-          .once()
-          .change((object) => {
-            if (object.checked) {
-              $(".ui-dialog-buttonpane button").first().show();
-            } else {
-              $(".ui-dialog-buttonpane button").first().hide();
-            }
-          });
+        $(
+          once(
+            "vaGovMediaLibraryReusableSaveAndSelect",
+            "input.field_media_in_library",
+            context
+          )
+        ).change((object) => {
+          if (object.checked) {
+            $(".ui-dialog-buttonpane button").first().show();
+          } else {
+            $(".ui-dialog-buttonpane button").first().hide();
+          }
+        });
       });
     },
   };
