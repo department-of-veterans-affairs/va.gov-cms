@@ -755,7 +755,7 @@ class PostFacilityService extends PostFacilityBase {
   /**
    * Create a log file.
    */
-  public function createLogFile() {
+  protected function createLogFile() {
     $filePath = "";
     $date = date('Y-m-d--H-i');
     $header = 'Time When Added to Log|Facility API ID|Facility Service' . PHP_EOL;
