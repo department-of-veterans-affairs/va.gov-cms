@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - node.type.a_new_content_type
     - node.type.full_width_banner_alert
   module:
     - content_moderation
@@ -25,7 +26,7 @@ type_settings:
       label: 'Sleep with the fishes'
       weight: 2
       published: false
-      default_revision: false
+      default_revision: true
   transitions:
     create_new_draft:
       label: 'Create New Draft'
@@ -50,5 +51,6 @@ type_settings:
       weight: 2
   entity_types:
     node:
+      - a_new_content_type
       - full_width_banner_alert
   default_moderation_state: draft
