@@ -2,13 +2,25 @@
 
 namespace Drupal\va_gov_post_api\Service;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\File\FileSystemInterface;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Render\Renderer;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\file\FileRepositoryInterface;
+use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\post_api\Service\AddToQueue;
 use Drupal\va_gov_lovell\LovellOps;
 
 /**
  * Class PostFacilityService posts specific service info to Lighthouse.
  */
 class PostFacilityService extends PostFacilityBase {
+
+  use StringTranslationTrait;
 
   /**
    * A array of any errors in prepping the data.
@@ -18,11 +30,25 @@ class PostFacilityService extends PostFacilityBase {
   protected $errors = [];
 
   /**
+   * The facility node.
+   *
+   * @var \Drupal\Core\Entity\EntityInterface
+   */
+  protected $facility;
+
+  /**
    * The facility service node.
    *
    * @var \Drupal\Core\Entity\EntityInterface
    */
   protected $facilityService;
+
+  /**
+   * Core renderer.
+   *
+   * @var \Drupal\Core\Render\Renderer
+   */
+  protected $renderer;
 
   /**
    * The related system service node.
@@ -39,17 +65,82 @@ class PostFacilityService extends PostFacilityBase {
   protected $serviceTerm;
 
   /**
-   * The services that should be pushed to Lighthouse.
+   * The services that should be withheld from Lighthouse.
    *
-   * For now we are only pushing covid 19 services. The key is only for
-   * making sense of code, the TID is what is used for comparison.
+   * The key is for making sense of code, the TID is used for comparison.
    *
    * @var array
    */
-  protected $servicesToPush = [
+  protected $servicesToWithhold = [
     // Key: service name (not used) => Value: TID.
-    'COVID-19 vaccines' => 321,
+    'Caregiver support' => 48,
+    'Mental health care' => 43,
   ];
+
+  /**
+   * The service for creating a directory.
+   *
+   * @var \Drupal\Core\File\FileSystemInterface
+   */
+  protected $fileSystem;
+
+  /**
+   * The service for creating the log file.
+   *
+   * @var \Drupal\file\FileRepositoryInterface
+   */
+  protected $fileRepository;
+
+  /**
+   * The name of the log file.
+   *
+   * @var string
+   */
+  protected static $logFile;
+
+  /**
+   * Constructs a new PostFacilityBase object.
+   *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The config factory service.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager service.
+   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_channel_factory
+   *   The logger factory service.
+   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
+   *   The messenger interface.
+   * @param \Drupal\post_api\Service\AddToQueue $post_queue
+   *   The PostAPI service.
+   * @param \Drupal\Core\Render\Renderer $renderer
+   *   Core renderer.
+   * @param \Drupal\Core\File\FileSystemInterface $file_system
+   *   File system service.
+   * @param \Drupal\file\FileRepositoryInterface $file_repository
+   *   File repository service.
+   */
+  public function __construct(
+    ConfigFactoryInterface $config_factory,
+    EntityTypeManagerInterface $entity_type_manager,
+    LoggerChannelFactoryInterface $logger_channel_factory,
+    MessengerInterface $messenger,
+    AddToQueue $post_queue,
+    Renderer $renderer,
+    FileSystemInterface $file_system,
+    FileRepositoryInterface $file_repository
+  ) {
+    parent::__construct($config_factory, $entity_type_manager, $logger_channel_factory, $messenger, $post_queue);
+    $this->renderer = $renderer;
+    $this->fileRepository = $file_repository;
+    $this->fileSystem = $file_system;
+    try {
+      self::$logFile = $this->createLogFile($this->fileRepository);
+    }
+    catch (\Exception $e) {
+      $message = sprintf('VA.gov Post API: Failed to create log file. %s', $e->getMessage());
+      $this->loggerChannelFactory->get('va_gov_post_api')->error($message);
+    }
+
+  }
 
   /**
    * Adds facility service data to Post API queue.
@@ -78,8 +169,8 @@ class PostFacilityService extends PostFacilityBase {
         // There were no errors gathering data and it is pushable, so proceed.
         $data['nid'] = $this->facilityService->id();
         // Queue item's Unique ID.
-        $data['uid'] = "facility_service_{$this->Facility->id()}_{$this->facilityService->id()}";
-        $facilityApiId = $this->Facility->hasField('field_facility_locator_api_id') ? $this->Facility->get('field_facility_locator_api_id')->value : NULL;
+        $data['uid'] = "facility_service_{$this->facility->id()}_{$this->facilityService->id()}";
+        $facilityApiId = $this->facility->hasField('field_facility_locator_api_id') ? $this->facility->get('field_facility_locator_api_id')->value : NULL;
         $data['endpoint_path'] = ($facilityApiId) ? "/services/va_facilities/v0/facilities/{$facilityApiId}/cms-overlay" : NULL;
         $data['payload'] = $this->getPayload($forcePush);
 
@@ -88,10 +179,16 @@ class PostFacilityService extends PostFacilityBase {
         // endpoint.
         if (!empty($data['payload']) && !empty($facilityApiId)) {
           $this->postQueue->addToQueue($data, $this->shouldDedupe());
-          // @todo When this is expanded to more than just COVID we may want
-          // to remove the messenger as it will be too noisy.
-          $message = $this->t('The facility service data for %service_name is being sent to the Facility Locator.', ['%service_name' => $this->facilityService->getTitle()]);
-          $this->messenger->addStatus($message);
+          if (!empty($data['payload']['detailed_services'][0]) && (self::$logFile)) {
+            try {
+              $this->logService(self::$logFile, $facilityApiId, $data['payload']['detailed_services']['0']->service_api_id);
+            }
+            catch (\Exception $e) {
+              $message = sprintf('VA.gov Post API: Failed to log the service. %s', $e->getMessage());
+              $this->loggerChannelFactory->get('va_gov_post_api')->error($message);
+            }
+
+          }
           return 1;
         }
       }
@@ -209,12 +306,18 @@ class PostFacilityService extends PostFacilityBase {
       $service->name = $this->serviceTerm->getName();
       $service->active = ($this->facilityService->isPublished()) ? TRUE : FALSE;
       $service->description_national = $this->serviceTerm->getDescription();
-      $service->description_system = $this->systemService->get('field_body')->value;
-      $service->health_service_api_id = $this->serviceTerm->get('field_health_service_api_id')->value;
+      $service->description_system = $this->getProcessedHtmlFromField('field_body');
+      $service->service_api_id = $this->serviceTerm->get('field_health_service_api_id')->value;
       $service->appointment_leadin = $this->getAppointmentLeadin();
-      $service->appointment_phones = $this->getPhones();
+      $field_phone_numbers_paragraphs = $this->facilityService->get('field_phone_numbers_paragraph')->referencedEntities();
+      $service->appointment_phones = $this->getPhones(FALSE, $field_phone_numbers_paragraphs);
+      // These three fields are repeated here to support Facilty API V0
+      // for Covid-19 Vaccines.
       $service->referral_required = $this->getReferralRequired();
       $service->walk_ins_accepted = $this->getWalkInsAccepted();
+      $service->online_scheduling_available = $this->getOnlineSchedulingAvailable();
+
+      $service->service_locations = $this->getServiceLocations();
 
       $payload = [
         'detailed_services' => [$service],
@@ -225,18 +328,25 @@ class PostFacilityService extends PostFacilityBase {
   }
 
   /**
-   * Assembles the phone data and returns an array of objects.
+   * Assembles the phone data and returns an array of phone objects.
+   *
+   * @param bool $from_facility
+   *   Whether to include the phone from the facility.
+   * @param array $phone_paragraphs
+   *   Optional array of phone paragraphs.
    *
    * @return array
    *   An array of objects with properties type, label, number, extension.
    */
-  protected function getPhones() {
+  protected function getPhones($from_facility = FALSE, array $phone_paragraphs = []) {
     $assembled_phones = [];
-    // Grab phones from the facility service.
-    $phones = $this->facilityService->get('field_phone_numbers_paragraph')->referencedEntities();
-    if (empty($phones)) {
-      // The service has no phones, so use the facility's as fallback.
-      $phone_w_ext = $this->Facility->get('field_phone_number')->value;
+    if (!empty($phone_paragraphs)) {
+      $phones = $phone_paragraphs;
+    }
+
+    if ($from_facility) {
+      // We need to include the Facility's phone.
+      $phone_w_ext = $this->facility->get('field_phone_number')->value;
       // This field may have extension present like 555-555-1212 x 444.
       $phone_split = explode('x', $phone_w_ext);
       $assembledPhone = new \stdClass();
@@ -246,8 +356,9 @@ class PostFacilityService extends PostFacilityBase {
       $assembledPhone->extension = !empty($phone_split[1]) ? trim($phone_split[1]) : NULL;
       $assembled_phones[] = $assembledPhone;
     }
-    else {
-      // Process the phones from the facility health service.
+
+    if (!empty($phones)) {
+      // Assemble the phones.
       foreach ($phones as $phone) {
         $assembledPhone = new \stdClass();
         $assembledPhone->type = $phone->get('field_phone_number_type')->value;
@@ -287,7 +398,173 @@ class PostFacilityService extends PostFacilityBase {
         break;
     }
 
-    return $text;
+    return $this->stringNullify($text);
+  }
+
+  /**
+   * Builds the array of service locations.
+   *
+   * @return array
+   *   An array of 1 or more service location objects.
+   */
+  protected function getServiceLocations(): array {
+    $service_locations = [];
+    $field_service_locations = $this->facilityService->get('field_service_location')->referencedEntities();
+    $facility_location = new \stdClass();
+    $facility_location->office_name = NULL;
+    $facility_location->email_contacts = NULL;
+    $facility_location->fservice_hours = $this->getServiceHours();
+    $facility_location->additional_hours_info = NULL;
+    $facility_location->phones = $this->getPhones(TRUE);
+    $facility_location->service_location_address = $this->facility->get('field_address');
+    if (empty($field_service_locations)) {
+      // The service has no locations, so use the facility's as fallback.
+      $service_locations[] = $facility_location;
+    }
+    else {
+      // We have some locations.
+      foreach ($field_service_locations as $location) {
+        $service_location = new \stdClass();
+        $field_service_location_address = $location->get('field_service_location_address')->referencedEntities();
+        $address_paragraph = reset($field_service_location_address);
+        $service_location->office_name = $this->stringNullify($address_paragraph->get('field_clinic_name')->value);
+        $service_location->service_address = $this->getServiceAddress($address_paragraph);
+        $field_email_contacts = $location->get('field_email_contacts')->referencedEntities();
+
+        $service_location->email_contacts = $this->getEmailContacts($field_email_contacts);
+        if ($location->get('field_hours')->value === '0') {
+          // Use facility hours.
+          $service_location->service_hours = $this->getServiceHours();
+        }
+        elseif ($location->get('field_hours')->value === '2') {
+          // Use location hours.
+          $service_location->service_hours = $this->getServiceHours($location->field_office_hours->getValue());
+        }
+        else {
+          // Provide no hours.
+          $service_location->service_hours = NULL;
+        }
+
+        $service_location->additional_hours_info = $location->get('field_additional_hours_info')->value;
+        $use_facility_phone = $location->get('field_use_main_facility_phone')->value;
+        $service_location->phones = $this->getPhones($use_facility_phone, $location->get('field_phone')->referencedEntities());
+        // These three fields are here for Facilities API V1+
+        // They will eventually be part of the CMS service location, but are
+        // currently sourced from the facility service node.
+        $service_location->referral_required = $this->getReferralRequired();
+        $service_location->walk_ins_accepted = $this->getWalkInsAccepted();
+        $service_location->online_scheduling_available = $this->getOnlineSchedulingAvailable();
+
+        $service_locations[] = $service_location;
+      }
+    }
+
+    return $service_locations;
+  }
+
+  /**
+   * Gets the email addresses from the field data.
+   *
+   * @param array $field_email_contacts
+   *   An array of email_contact paragraphs.
+   *
+   * @return array
+   *   An array of stdClass objects containing label and address.
+   */
+  protected function getEmailContacts(array $field_email_contacts): array {
+    $email_contacts = [];
+    if (!empty($field_email_contacts)) {
+      foreach ($field_email_contacts as $field_email_contact) {
+        $contact = new \stdClass();
+        $contact->email_label = $field_email_contact->get('field_email_label')->value;
+        $contact->email_address = $field_email_contact->get('field_email_address')->value;
+
+        $email_contacts[] = $contact;
+      }
+    }
+
+    return $email_contacts;
+  }
+
+  /**
+   * Pull the address info from an address paragraph.
+   *
+   * @param \Drupal\paragraphs\Entity\Paragraph|bool $address_paragraph
+   *   A drupal paragraph object that should be the address paragraph.
+   *
+   * @return object
+   *   A stdClass object with address elements.
+   */
+  protected function getServiceAddress(Paragraph | bool $address_paragraph): object {
+    $address = new \stdClass();
+    if (empty($address_paragraph)) {
+      return $address;
+    }
+    // We made it this far so it must be a paragraph, so declare it.
+    /** @var \Drupal\paragraphs\Entity\Paragraph $address_paragraph */
+    // Prep the parts of the address not dependent on facility.
+    $address->building_name_number = $this->stringNullify($address_paragraph->get('field_building_name_number')->value);
+    $address->wing_floor_or_room_number = $this->stringNullify($address_paragraph->get('field_wing_floor_or_room_number')->value);
+    if ($address_paragraph->get('field_use_facility_address')->value) {
+      // Get info from the facility.
+      $field_address = $this->facility->field_address->getValue();
+      $use_address = reset($field_address);
+    }
+    else {
+      $field_address = $address_paragraph->field_address->getValue();
+      $use_address = reset($field_address);
+    }
+    $address->address_line1 = $use_address['address_line1'];
+    $address->address_line2 = $use_address['address_line2'];
+    $address->city = $use_address['locality'];
+    $address->state = $use_address['administrative_area'];
+    $address->zip_code = $use_address['postal_code'];
+    $address->country_code = $use_address['country_code'];
+
+    return $address;
+  }
+
+  /**
+   * Render html from field and make relative links va.gov specific.
+   *
+   * @param string $fieldname
+   *   The name of the field to retrieve.
+   *
+   * @return string
+   *   Whatever html was found.
+   */
+  protected function getProcessedHtmlFromField($fieldname) {
+    $html = '';
+    if (!empty($this->systemService->$fieldname)) {
+      $render_array = $this->systemService->$fieldname->view();
+      $html = (string) $this->renderer->renderPlain($render_array);
+      $html = $this->makeLinksVaGov($html);
+    }
+
+    return $html;
+  }
+
+  /**
+   * Swaps the href for relative links to be https://www.va.gov specific.
+   *
+   * @param string $html
+   *   The html that was passed in, with links' hrefs altered.
+   *
+   * @return string
+   *   Html with no relative links.
+   */
+  protected function makeLinksVaGov($html) {
+    $search_and_replace = [
+      // Accounts for pdf files but not images. Images can not be resolved.
+      '/sites/default/files/' => '/files/',
+      // Accounts for domain addition.
+      ' href="/' => ' href="https://www.va.gov/',
+    ];
+    $search = array_keys($search_and_replace);
+    $replace = array_values($search_and_replace);
+    $html_with_vagov_links = str_replace($search, $replace, $html);
+
+    return $html_with_vagov_links;
   }
 
   /**
@@ -329,6 +606,25 @@ class PostFacilityService extends PostFacilityBase {
   }
 
   /**
+   * Maps and returns the value of online scheduling.
+   *
+   * @return string
+   *   The mapped values of the field.  True, False, not applicable, NULL.
+   */
+  protected function getOnlineSchedulingAvailable() {
+    $raw = $this->facilityService->get('field_online_scheduling_availabl')->value;
+    $map = [
+      // Value => Return.
+      // Lighthouse decided to receive these as strings since non-bool options.
+      '0' => 'false',
+      '1' => 'true',
+      'not_applicable' => 'not applicable',
+    ];
+
+    return $map[$raw] ?? NULL;
+  }
+
+  /**
    * Determines if the data says a payload should be assembled and pushed.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
@@ -351,6 +647,8 @@ class PostFacilityService extends PostFacilityBase {
     switch (TRUE) {
       case LovellOps::isLovellTricareSection($entity):
         // Node is part of the Lovell-Tricare section, do not push.
+      case (!$defaultRevisionIsPublished && !$thisRevisionIsPublished):
+        // Draft services should not be pushed.
         $push = FALSE;
         break;
 
@@ -362,8 +660,6 @@ class PostFacilityService extends PostFacilityBase {
         // This revision is published, should be pushed.
       case $isArchived:
         // This node has been archived, got to push to remove it.
-      case (!$defaultRevisionIsPublished && !$thisRevisionIsPublished):
-        // Draft on node that has not been published, should be pushed.
         $push = TRUE;
         break;
 
@@ -390,7 +686,7 @@ class PostFacilityService extends PostFacilityBase {
    * Checks to see if this service is slated for pushing.
    */
   private function isPushable() {
-    return (!empty($this->serviceTerm) && in_array($this->serviceTerm->id(), $this->servicesToPush));
+    return (!empty($this->serviceTerm) && !in_array($this->serviceTerm->id(), $this->servicesToWithhold));
   }
 
   /**
@@ -400,7 +696,7 @@ class PostFacilityService extends PostFacilityBase {
     $field = $this->facilityService->get('field_facility_location');
     $facility = (!empty($field)) ? $field->referencedEntities() : NULL;
     if (!empty($facility)) {
-      $this->Facility = reset($facility);
+      $this->facility = reset($facility);
     }
     else {
       $this->errors[] = "Unable to load related facility. Field 'field_facility_location' not set.";
@@ -434,6 +730,54 @@ class PostFacilityService extends PostFacilityBase {
     else {
       $this->errors[] = "Unable to load health service term. Field 'field_service_name_and_descripti' not set.";
     }
+  }
+
+  /**
+   * Log service by facility.
+   *
+   * @param string $logFile
+   *   Path to the log file.
+   * @param string $facilityApiId
+   *   Facility API Id.
+   * @param string $facilityService
+   *   Facility service.
+   */
+  protected function logService(string $logFile, string $facilityApiId, string $facilityService) {
+    $log_message = date('Y-m-d H:i:s') . "|{$facilityApiId}|{$facilityService}\n";
+    $handle = fopen($logFile, "a");
+    if ($handle) {
+      fwrite($handle, $log_message);
+      fclose($handle);
+    }
+    else {
+      $message = sprintf('VA.gov Post API: The log file does not exist. No entry was made for the %s service at %s facility.', $facilityService, $facilityApiId);
+      $this->loggerChannelFactory->get('va_gov_post_api')->info($message);
+    }
+  }
+
+  /**
+   * Create a log file.
+   *
+   * @param \Drupal\file\FileRepositoryInterface $fileRepository
+   *   File repository service.
+   */
+  public function createLogFile(FileRepositoryInterface $fileRepository) {
+    $filePath = FALSE;
+    $header = 'Time When Added to Log|Facility API ID|Facility Service' . PHP_EOL;
+    $date_hour_minute = date('Y-m-d--H-i');
+    $directory = 'public://post_api_force_queue';
+    $directoryCreated = $this->fileSystem->prepareDirectory($directory, FileSystemInterface::CREATE_DIRECTORY);
+    if ($directoryCreated) {
+      $filePath = "{$directory}/services-{$date_hour_minute}.txt";
+      $fileRepository->writeData($header, $filePath, FileSystemInterface::EXISTS_REPLACE);
+      if (file_exists($filePath)) {
+        // Tried to create the URL with Url::fromUri($file),
+        // but could not get a path from toString().
+        $message = sprintf('VA.gov Post API: A log file was created at %s', "/sites/default/files/post_api_force_queue/services-{$date_hour_minute}.txt");
+        $this->loggerChannelFactory->get('va_gov_post_api')->info($message);
+      }
+    }
+    return $filePath;
   }
 
 }
