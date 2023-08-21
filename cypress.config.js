@@ -1,7 +1,41 @@
+/* eslint-disable import/no-unresolved */
+/* eslint-disable no-console */
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable global-require */
 /* eslint-disable import/extensions */
-// eslint-disable-next-line import/no-extraneous-dependencies
 const { defineConfig } = require("cypress");
+const cucumber = require("@badeball/cypress-cucumber-preprocessor");
+const getCompareSnapshotsPlugin = require("cypress-visual-regression/dist/plugin");
+const browserify = require("@badeball/cypress-cucumber-preprocessor/browserify");
+const cypressFailedLog = require("cypress-failed-log/on");
+
+// This function is called when a project is opened or re-opened (e.g. due to
+// the project's config changing)
+
+async function setupNodeEvents(on, config) {
+  // This is required for the preprocessor to be able to generate JSON reports after each run, and more,
+  await cucumber.addCucumberPreprocessorPlugin(on, config);
+
+  await getCompareSnapshotsPlugin(on, config);
+
+  await cypressFailedLog(on, config);
+
+  on("task", {
+    log(message) {
+      console.log(message);
+      return null;
+    },
+    table(message) {
+      console.table(message);
+      return null;
+    },
+  });
+
+  on("file:preprocessor", browserify.default(config));
+
+  // Make sure to return the config object as it might have been modified by the plugin.
+  return config;
+}
 
 module.exports = defineConfig({
   defaultCommandTimeout: 10000,
@@ -15,7 +49,7 @@ module.exports = defineConfig({
     openMode: 0,
   },
   screenshotsFolder: "docroot/cypress/screenshots/actual",
-  trashAssetsBeforeRuns: true,
+  trashAssetsBeforeRuns: false,
   videoCompression: false,
   videoUploadOnPasses: false,
   videosFolder: "docroot/cypress/videos",
@@ -23,11 +57,9 @@ module.exports = defineConfig({
   e2e: {
     // We've imported your old cypress plugins here.
     // You may want to clean this up later by importing these.
-    setupNodeEvents(on, config) {
-      return require("./tests/cypress/plugins/index.js")(on, config);
-    },
+    setupNodeEvents,
     baseUrl: "http://va-gov-cms.ddev.site",
-    specPattern: "tests/cypress/integration/**/*.{feature,features}",
+    specPattern: "tests/cypress/integration/features/**/*.{feature,features}",
     supportFile: "tests/cypress/support/index.js",
   },
 });
