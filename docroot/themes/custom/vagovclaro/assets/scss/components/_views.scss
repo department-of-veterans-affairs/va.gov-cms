@@ -134,3 +134,38 @@
     max-width: 30vw;
   }
 }
+
+.views-bulk-actions {
+  background: #F1F1F1;
+  border: 0.50px #DEDFE4 solid;
+  border-radius: 4px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  .views-bulk-actions__item {
+    color: var(--va-gray-darkest);
+
+    &.js-form-type-select {
+      order: 2;
+      margin-right: 60px;
+    }
+
+    &.form-actions {
+      order: 5;
+    }
+  }
+
+  .views-bulk-actions__item--status {
+    display: none;
+    order: 1;
+  }
+
+  .views-bulk-actions__item--preceding-actions {
+    order: 3;
+  }
+
+  details.vbo-multipage-selector {
+    flex: 0 0 100%;
+    order: 4;
+  }
+}
