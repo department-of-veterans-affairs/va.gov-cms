@@ -5981,28 +5981,28 @@ display:
           parent: 0
           level_labels: ''
           force_deepest: false
-        phase_filter:
-          id: phase_filter
+        moderation_state_multiple_workflow_filter:
+          id: moderation_state_multiple_workflow_filter
           table: node
-          field: phase_filter
+          field: moderation_state_multiple_workflow_filter
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: node
-          plugin_id: phase_views_filter
+          plugin_id: moderation_state_multiple_workflow_filter
           operator: or
           value: {  }
           group: 1
           exposed: true
           expose:
-            operator_id: phase_filter_op
-            label: 'Moderation State (multi-workflows)'
+            operator_id: moderation_state_multiple_workflow_filter_op
+            label: 'Moderation state'
             description: ''
             use_operator: false
-            operator: phase_filter_op
+            operator: moderation_state_multiple_workflow_filter_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: phase_filter
+            identifier: moderation_state
             required: false
             remember: false
             multiple: false
