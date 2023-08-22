@@ -186,7 +186,6 @@ class VaGovFacilityForceQueueForm extends FormBase {
       ->getEditable(static::SETTINGS)
       ->set('bypass_data_check', 0)
       ->save();
-
   }
 
   /**
