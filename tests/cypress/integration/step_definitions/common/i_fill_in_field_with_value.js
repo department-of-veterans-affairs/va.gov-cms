@@ -27,6 +27,11 @@ Then(
   }
 );
 
-Then("I fill in {string} with some fake text", (label) => {
+Then("I fill in {string} field with some fake text", (label) => {
   cy.findAllByLabelText(label).type(faker.lorem.sentence(), { force: true });
+});
+
+Then("I fill in field with selector {string} with fake text", (selector) => {
+  cy.get(selector).focus();
+  cy.get(selector).type(faker.lorem.sentence(), { force: true });
 });

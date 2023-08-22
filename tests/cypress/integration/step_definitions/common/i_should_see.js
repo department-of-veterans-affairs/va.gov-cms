@@ -73,6 +73,6 @@ Then(`I should see {string} in ckeditor {string}`, (value, label) => {
   });
 });
 
-Then("I should see button {string}", (text) => {
-  cy.contains("submit", text).should("be.visible");
+Then("I should see {string} button", (text) => {
+  cy.contains("input", text).parent().should("be.visible");
 });
