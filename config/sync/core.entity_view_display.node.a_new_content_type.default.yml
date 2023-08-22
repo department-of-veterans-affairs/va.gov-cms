@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.a_new_content_type.body
+    - field.field.node.a_new_content_type.field_administration
     - field.field.node.a_new_content_type.field_last_saved_by_an_editor
     - node.type.a_new_content_type
   module:
@@ -25,6 +26,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: -20
+    region: content
+  field_administration:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 103
     region: content
   field_last_saved_by_an_editor:
     type: timestamp

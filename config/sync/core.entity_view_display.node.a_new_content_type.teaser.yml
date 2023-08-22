@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.a_new_content_type.body
+    - field.field.node.a_new_content_type.field_administration
     - field.field.node.a_new_content_type.field_last_saved_by_an_editor
     - node.type.a_new_content_type
   module:
@@ -34,6 +35,7 @@ content:
     weight: 100
     region: content
 hidden:
+  field_administration: true
   field_last_saved_by_an_editor: true
   langcode: true
   search_api_excerpt: true

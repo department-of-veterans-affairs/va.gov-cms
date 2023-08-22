@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.a_new_content_type.body
+    - field.field.node.a_new_content_type.field_administration
     - field.field.node.a_new_content_type.field_last_saved_by_an_editor
     - node.type.a_new_content_type
     - workflows.workflow.no_create
@@ -51,6 +52,16 @@ content:
     weight: 3
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_administration:
+    type: entity_reference_autocomplete
+    weight: 26
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_last_saved_by_an_editor:
     type: datetime_timestamp
