@@ -1,4 +1,5 @@
 import { Then } from "@badeball/cypress-cucumber-preprocessor";
+import { faker } from "@faker-js/faker";
 
 Then(`I fill in {string} with {string}`, (label, value) => {
   cy.findByLabelText(label).focus();
@@ -25,3 +26,7 @@ Then(
     cy.get(selector).type(value, { force: true });
   }
 );
+
+Then("I fill in {string} with some fake text", (label) => {
+  cy.findAllByLabelText(label).type(faker.lorem.sentence(), { force: true });
+});
