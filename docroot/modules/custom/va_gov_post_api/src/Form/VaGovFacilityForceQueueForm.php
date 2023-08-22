@@ -140,7 +140,8 @@ class VaGovFacilityForceQueueForm extends FormBase {
           $nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
           foreach ($nodes as $node) {
             if ($bundle === 'health_care_local_health_service') {
-              $queued_count += _va_gov_post_api_add_facility_service_to_queue($node);
+              $force_push = TRUE;
+              $queued_count += _va_gov_post_api_add_facility_service_to_queue($node, $force_push);
             }
             else {
               $queued_count += _va_gov_post_api_add_facility_to_queue($node);

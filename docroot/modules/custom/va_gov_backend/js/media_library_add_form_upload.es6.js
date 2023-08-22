@@ -15,7 +15,6 @@
           once(
             "vaGovMediaLibraryReusableSaveAndSelect",
             "input.field_media_in_library",
-            // eslint-disable-next-line no-undef
             context
           )
         ).change((object) => {
