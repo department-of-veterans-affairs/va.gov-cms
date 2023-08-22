@@ -2,7 +2,7 @@
  * @file
  */
 
-(($, Drupal) => {
+(($, Drupal, once) => {
   Drupal.behaviors.vaGovMediaLibraryReusableSaveAndSelect = {
     attach: () => {
       $(document).ajaxComplete(() => {
@@ -11,16 +11,20 @@
             $(".ui-dialog-buttonpane button").first().hide();
           }
         );
-        $("input.field_media_in_library")
-          .once()
-          .change((object) => {
-            if (object.checked) {
-              $(".ui-dialog-buttonpane button").first().show();
-            } else {
-              $(".ui-dialog-buttonpane button").first().hide();
-            }
-          });
+        $(
+          once(
+            "vaGovMediaLibraryReusableSaveAndSelect",
+            "input.field_media_in_library",
+            context
+          )
+        ).change((object) => {
+          if (object.checked) {
+            $(".ui-dialog-buttonpane button").first().show();
+          } else {
+            $(".ui-dialog-buttonpane button").first().hide();
+          }
+        });
       });
     },
   };
-})(jQuery, window.Drupal);
+})(jQuery, window.Drupal, window.once);

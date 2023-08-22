@@ -4,18 +4,16 @@
 * https://www.drupal.org/node/2815083
 * @preserve
 **/
-
-(function ($, Drupal, Tippy) {
+(function ($, Drupal, once, Tippy) {
   Drupal.behaviors.vaGovTooltip = {
     attach: function attach(context) {
-      $(document, context).once("tooltip-toggle").each(function () {
+      $(once("tooltip-toggle", "body", context)).each(function () {
         Tippy(".tooltip-toggle", {
           content: function content(reference) {
             var title = reference.getAttribute("title");
             reference.removeAttribute("title");
             return title;
           },
-
           theme: "tippy_popover",
           placement: "right",
           arrow: true,
@@ -24,4 +22,4 @@
       });
     }
   };
-})(jQuery, window.Drupal, window.tippy);
+})(jQuery, window.Drupal, window.once, window.tippy);
