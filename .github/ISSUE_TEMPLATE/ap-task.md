@@ -1,5 +1,5 @@
 ---
-name: Accelerated Publishing Feature
+name: (AP) Feature
 about: New or work or enhancements
 title: "<brief summary of value/outcome>"
 labels: Needs refining, Accelerated Publishing
