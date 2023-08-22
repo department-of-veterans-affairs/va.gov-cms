@@ -126,12 +126,6 @@ class VaGovFacilityForceQueueForm extends FormBase {
       ->set('bypass_data_check', 1)
       ->save();
 
-    // Enable logging.
-    $this->configFactory()
-      ->getEditable(static::SETTINGS)
-      ->set('enable_logging', 1)
-      ->save();
-
     $sandbox['nids'] = $this->getNidsFromEntityBundleQuery($bundle);
 
     if (!empty($sandbox['nids'])) {
@@ -193,11 +187,6 @@ class VaGovFacilityForceQueueForm extends FormBase {
       ->set('bypass_data_check', 0)
       ->save();
 
-    // Disable logging.
-    $this->configFactory()
-      ->getEditable(static::SETTINGS)
-      ->set('enable_logging', 0)
-      ->save();
   }
 
   /**
