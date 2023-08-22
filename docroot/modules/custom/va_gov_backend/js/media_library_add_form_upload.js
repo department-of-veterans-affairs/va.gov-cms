@@ -4,7 +4,7 @@
 * https://www.drupal.org/node/2815083
 * @preserve
 **/
-(function ($, Drupal) {
+(function ($, Drupal, once) {
   Drupal.behaviors.vaGovMediaLibraryReusableSaveAndSelect = {
     attach: function attach() {
       $(document).ajaxComplete(function () {
@@ -21,4 +21,4 @@
       });
     }
   };
-})(jQuery, window.Drupal);
+})(jQuery, window.Drupal, window.once);
