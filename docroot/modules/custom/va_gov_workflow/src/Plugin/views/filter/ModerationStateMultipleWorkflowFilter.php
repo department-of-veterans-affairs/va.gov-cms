@@ -49,11 +49,17 @@ class ModerationStateMultipleWorkflowFilter extends ManyToOne {
     foreach ($workflows as $workflow) {
       $states = $workflow->getTypePlugin()->getStates();
       foreach ($states as $state_id => $state) {
-        // Two states with the same machine name but different label will
-        // cause the last one listed to win.
-        // General practice: is anything with the same machine name should
-        // have the same label.
-        $filter_items[$state_id] = $state->label();
+        // Merge labels if they diverge from the machine name.
+        // Otherwise, two states with the same machine name but different label
+        // will cause the last one listed to win.
+        if (empty($filter_items[$state_id])) {
+          // It is the first entry, so add it as is.
+          $filter_items[$state_id] = $state->label();
+        }
+        elseif (!empty($filter_items[$state_id]) && ($filter_items[$state_id] !== $state->label())) {
+          // This machine name exists with a different label, so combine them.
+          $filter_items[$state_id] = "{$filter_items[$state_id]} | {$state->label()}";
+        }
       }
     }
     return $filter_items;
