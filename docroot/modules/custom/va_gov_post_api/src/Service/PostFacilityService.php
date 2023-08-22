@@ -172,7 +172,7 @@ class PostFacilityService extends PostFacilityBase {
         if (!empty($data['payload']) && !empty($facilityApiId)) {
           $this->postQueue->addToQueue($data, $this->shouldDedupe());
           if (!empty($data['payload']['detailed_services'][0])
-              && $forcePush) {
+              && $this->shouldLog()) {
             try {
               $this->logService($facilityApiId, $data['payload']['detailed_services']['0']->service_api_id);
             }

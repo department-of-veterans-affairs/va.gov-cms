@@ -90,6 +90,16 @@ abstract class PostFacilityBase {
   }
 
   /**
+   * Checks to see if logging should be enabled.
+   *
+   * @return bool
+   *   TRUE if logging, FALSE if not logging.
+   */
+  protected function shouldLog() : bool {
+    return !empty($this->configFactory->get('va_gov_post_api.settings')->get('enable_logging'));
+  }
+
+  /**
    * Checks to see if the post queueing should dedupe.
    *
    * @return bool
