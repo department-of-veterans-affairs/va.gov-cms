@@ -1,5 +1,5 @@
 ---
-name: Accelerated Publishing Defect
+name: (AP) Defect
 about: Work to fix a problem with existing functionality
 title: "<Short description of the functional problem>"
 labels: Accelerated Publishing, Defect
