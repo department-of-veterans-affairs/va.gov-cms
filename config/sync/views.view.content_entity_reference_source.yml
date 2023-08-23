@@ -14,7 +14,9 @@ dependencies:
     - node.type.vet_center
     - node.type.vet_center_cap
     - node.type.vet_center_outstation
+    - workflows.workflow.editorial
   module:
+    - content_moderation
     - node
     - user
 id: content_entity_reference_source
@@ -1092,6 +1094,47 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        moderation_state:
+          id: moderation_state
+          table: node_field_data
+          field: moderation_state
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          plugin_id: moderation_state_filter
+          operator: 'not in'
+          value:
+            editorial-archived: editorial-archived
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       filter_groups:
         operator: AND
         groups:
@@ -1129,6 +1172,7 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.node.field_administration'
+        - 'config:workflow_list'
   entity_reference_7:
     id: entity_reference_7
     display_title: 'Entity Reference: Main Offices'
