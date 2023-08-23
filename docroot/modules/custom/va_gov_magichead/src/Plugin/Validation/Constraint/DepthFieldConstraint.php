@@ -15,14 +15,24 @@ use Symfony\Component\Validator\Constraint;
 class DepthFieldConstraint extends Constraint {
 
   /**
-   * Constraint error message.
+   * Skipped depth error message.
    *
    * @var string
    */
-  public $skippedDeptherrorMessage = 'Depth for a Section must be within 1 of highest depth above this Section';
+  public $skippedDepthErrorMessage = 'Depth for a Section cannot be more than 1 greater than the Section immediately above it';
 
+  /**
+   * Netative depth error message.
+   *
+   * @var string
+   */
   public $negativeDepthErrorMessage = 'Depth must be a positive integer';
 
+  /**
+   * Maximum depth exceeded error message.
+   *
+   * @var string
+   */
   public $maximumDepthErrorMessage = 'Maximum depth allowed is :max';
 
 }
