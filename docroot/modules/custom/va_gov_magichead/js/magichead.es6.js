@@ -10,16 +10,16 @@
    *  @param {string} tableId - The id of the table.
    */
   function showColumnsForErrors(tableId) {
-    const $table = $(once.filter("tabledrag", `table#${tableId}`));
+    const $table = $(once("magicheadTabledrag", `table#${tableId}`));
     // Show weight/parent cells and headers.
     $table.find(".tabledrag-hide").css("display", "");
     // Hide TableDrag handles.
     $table.find(".tabledrag-handle").css("display", "none");
     // Increase the colspan for any columns where it was previously reduced.
-    $table.find(".tabledrag-has-colspan").each(function () {
+    $table.find(".tabledrag-has-colspan").each(() => {
       this.colSpan += 1;
     });
-  };
+  }
 
   Drupal.behaviors.vaGovMagicheadShowErrors = {
     attach() {

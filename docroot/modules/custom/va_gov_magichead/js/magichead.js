@@ -6,14 +6,14 @@
 **/
 (function (Drupal, $, once) {
   function showColumnsForErrors(tableId) {
-    var $table = $(once.filter("tabledrag", "table#" + tableId));
+    var _this = this;
+    var $table = $(once("magicheadTabledrag", "table#" + tableId));
     $table.find(".tabledrag-hide").css("display", "");
     $table.find(".tabledrag-handle").css("display", "none");
     $table.find(".tabledrag-has-colspan").each(function () {
-      this.colSpan += 1;
+      _this.colSpan += 1;
     });
   }
-  ;
   Drupal.behaviors.vaGovMagicheadShowErrors = {
     attach: function attach() {
       var magicheadTables = document.querySelectorAll("div.field--type-magichead table.field-multiple-table.draggable-table") || [];

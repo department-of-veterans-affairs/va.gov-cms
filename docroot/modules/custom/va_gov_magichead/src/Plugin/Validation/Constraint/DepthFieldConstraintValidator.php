@@ -23,22 +23,21 @@ class DepthFieldConstraintValidator extends ConstraintValidator {
     if (!$items instanceof MagicheadFieldItemList) {
       return;
     }
-    $values = $items->getValue();
     $lastItemDepth = 0;
     $fieldDefinition = $items->getFieldDefinition();
     $max_depth = $fieldDefinition->getSetting('max_depth');
-    foreach ($values as $delta => $value) {
-      $currentItemDepth = intval($value['depth']);
+    foreach ($items as $delta => $item) {
+      $currentItemDepth = intval($item->get('depth')->getValue());
       // Validate depth is not negative.
       if ($currentItemDepth < 0) {
         $this->context->buildViolation($constraint->negativeDepthErrorMessage)->atPath((string) $delta . '.depth')->addViolation();
       }
       // Validate depth is not skipped.
       if (($currentItemDepth - $lastItemDepth) > 1) {
-        $this->context->buildViolation($constraint->skippedDeptherrorMessage)->atPath((string) $delta . '.depth')->addViolation();
+        $this->context->buildViolation($constraint->skippedDepthErrorMessage)->atPath((string) $delta . '.depth')->addViolation();
       }
-      // Validate depth is not exceeding max depth.
-      if ($currentItemDepth > $max_depth) {
+      // Validate depth does not exceed max depth.
+      if (isset($max_depth) && ($currentItemDepth > $max_depth)) {
         $this->context->buildViolation($constraint->maximumDepthErrorMessage, [':max' => $max_depth])->atPath((string) $delta . '.depth')->addViolation();
       }
       $lastItemDepth = $currentItemDepth;
