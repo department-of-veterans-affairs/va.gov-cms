@@ -1,5 +1,5 @@
 ---
-name: Accelerated Publishing Sprint Overview
+name: (AP) Sprint Overview
 about: High priority goals and tickets grouped by focus area
 title: "[AP] Sprint ##"
 labels: Needs refining, Accelerated Publishing
