@@ -104,15 +104,14 @@ class ArchiveNodeAction extends ActionBase implements ContainerFactoryPluginInte
    * {@inheritdoc}
    */
   public function access($object, AccountInterface $account = NULL, $return_as_object = FALSE) {
+    $access = AccessResult::neutral();
+
     if ($object->getEntityType() === 'node') {
       $access = $object->access('update', $account, TRUE)
         ->andIf($object->status->access('edit', $account, TRUE));
-      return $return_as_object ? $access : $access->isAllowed();
     }
 
-    // Other entity types may have different
-    // access methods and properties.
-    return TRUE;
+    return $return_as_object ? $access : $access->isAllowed();
   }
 
 }
