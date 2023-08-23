@@ -768,7 +768,7 @@ class PostFacilityService extends PostFacilityBase {
    */
   protected function createLogFile() {
     $filePath = "";
-    $date = date('Y-m-d--H-i');
+    $date = date('Y-m-d--H-i-s');
     $header = 'Time When Added to Log|Facility API ID|Facility Service' . PHP_EOL;
     $directory = 'public://post_api_force_queue';
     $directoryCreated = $this->fileSystem->prepareDirectory($directory, FileSystemInterface::CREATE_DIRECTORY);
