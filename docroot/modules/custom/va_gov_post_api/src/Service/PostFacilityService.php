@@ -734,26 +734,37 @@ class PostFacilityService extends PostFacilityBase {
    *   Facility service.
    */
   protected function logService(string $facilityApiId, string $facilityService) {
+    $filePath = $this->getLog();
+    $log_message = date('Y-m-d H:i:s') . "|{$facilityApiId}|{$facilityService}\n";
+    $handle = fopen($filePath, "a");
+    if ($handle) {
+      fwrite($handle, $log_message);
+      fclose($handle);
+    }
+    else {
+      $message = sprintf('VA.gov Post API: The log file does not exist. No entry was made for the %s service at %s facility.', $facilityService, $facilityApiId);
+      $this->loggerChannelFactory->get('va_gov_post_api')->info($message);
+    }
+  }
+
+  /**
+   * Gets the services log.
+   *
+   * @return string
+   *   The path to the log file.
+   */
+  protected function getLog() {
     if (empty($this->logFile)) {
       $this->logFile = $this->createLogFile();
     }
-    else {
-      $log_message = date('Y-m-d H:i:s') . "|{$facilityApiId}|{$facilityService}\n";
-      $handle = fopen($this->logFile, "a");
-      if ($handle) {
-        fwrite($handle, $log_message);
-        fclose($handle);
-      }
-      else {
-        $message = sprintf('VA.gov Post API: The log file does not exist. No entry was made for the %s service at %s facility.', $facilityService, $facilityApiId);
-        $this->loggerChannelFactory->get('va_gov_post_api')->info($message);
-      }
-    }
-
+    return $this->logFile;
   }
 
   /**
    * Create a log file.
+   *
+   * @return string
+   *   The path to the log file.
    */
   protected function createLogFile() {
     $filePath = "";
