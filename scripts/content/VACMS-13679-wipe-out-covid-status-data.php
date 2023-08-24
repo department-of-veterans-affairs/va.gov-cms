@@ -69,7 +69,7 @@ function va_gov_remove_covid_status_data(array &$sandbox, $revision_message) {
     /** @var \Drupal\node\NodeInterface $node */
     $nid = $node->id();
     $nvid = $node->getRevisionId();
-    $node->field_supplemental_status->target_id = null;
+    $node->field_supplemental_status->target_id = NULL;
     $node->field_supplemental_status_more_i->value = "";
 
     // Grab the latest revision before we save this one.
@@ -78,11 +78,11 @@ function va_gov_remove_covid_status_data(array &$sandbox, $revision_message) {
 
     // If a revision (draft) newer than the default exists, update it as well.
     if ($nvid !== $latest_revision->getRevisionId()) {
-      $latest_revision->field_supplemental_status->target_id = null;
+      $latest_revision->field_supplemental_status->target_id = NULL;
       $latest_revision->field_supplemental_status_more_i->value = "";
       save_node_revision($latest_revision, $revision_message, FALSE);
-        unset($latest_revision);
-      }
+      unset($latest_revision);
+    }
 
     $sandbox['updated']++;
     $nids[] = $nid;
@@ -93,19 +93,19 @@ function va_gov_remove_covid_status_data(array &$sandbox, $revision_message) {
 
   // Log the processed nodes.
   Drupal::logger('va_gov_db')
-  ->log(LogLevel::INFO, 'VAMC Facility nodes: %current supplemental status (COVID-19) field pairs updated. Nodes updated: %nids', [
-    '%current' => $sandbox['current'],
-    '%nids' => empty($nids) ? 'None' : implode(', ', $nids),
-  ]);
+    ->log(LogLevel::INFO, 'VAMC Facility nodes: %current supplemental status (COVID-19) field pairs updated. Nodes updated: %nids', [
+      '%current' => $sandbox['current'],
+      '%nids' => empty($nids) ? 'None' : implode(', ', $nids),
+    ]);
 
   $sandbox['#finished'] = ($sandbox['current'] / $sandbox['total']);
 
   // Log the all-finished notice.
   if ($sandbox['#finished'] == 1) {
-  Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'Processing all %count VAMC Facilities completed', [
-    '%count' => $sandbox['total'],
-  ]);
-  return "VAMC Facility node updates complete. {$sandbox['current']} / {$sandbox['total']} - Total updated: {$sandbox['updated']}\n";
+    Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'Processing all %count VAMC Facilities completed', [
+      '%count' => $sandbox['total'],
+    ]);
+    return "VAMC Facility node updates complete. {$sandbox['current']} / {$sandbox['total']} - Total updated: {$sandbox['updated']}\n";
   }
 
   return "Processed nodes... {$sandbox['current']} / {$sandbox['total']}.\n";
