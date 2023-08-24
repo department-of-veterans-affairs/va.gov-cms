@@ -4,18 +4,16 @@
 * https://www.drupal.org/node/2815083
 * @preserve
 **/
-
-(function ($, Drupal, Tippy) {
+(function ($, Drupal, once, Tippy) {
   Drupal.behaviors.vaGovToolbar = {
     attach: function attach(context) {
       var loadingText = "<div style='height: 20px; width: 40px;' class='claro-spinner'></div>";
-      $(document, context).once("content-release-status-icon").each(function () {
+      $(once("content-release-status-icon", "body", context)).each(function () {
         Tippy("#content-release-status-icon", {
           content: function content(reference) {
             reference.removeAttribute("title");
             return loadingText;
           },
-
           flipOnUpdate: true,
           onCreate: function onCreate(instance) {
             instance._isFetching = false;
@@ -29,9 +27,7 @@
             if (instance._isFetching || instance._src || instance._error) {
               return;
             }
-
             instance._isFetching = true;
-
             $.get("/admin/content/deploy/status", function (data) {
               instance.setContent(data);
             }).fail(function (jqXHR, textStatus, errorThrown) {
@@ -40,11 +36,10 @@
               instance._isFetching = false;
             });
           },
-
           theme: "tippy_popover tippy_popover_center",
           allowHTML: true
         });
       });
     }
   };
-})(jQuery, window.Drupal, window.tippy);
+})(jQuery, window.Drupal, window.once, window.tippy);

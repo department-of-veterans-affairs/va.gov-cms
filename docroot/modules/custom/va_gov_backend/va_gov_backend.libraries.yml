@@ -29,21 +29,9 @@ field_group_tooltip:
     js/field_group_tooltip.js: {}
   dependencies:
     - core/jquery
-    - core/jquery.once
+    - core/once
     - core/drupalSettings
     - va_gov_backend/tippyjs
-gtm_tag_push:
-  version: 1.x
-  js:
-    js/gtm_tag_push.js: { header: 1 }
-gtm_tag_trackers:
-  version: 1.x
-  js:
-    js/gtm_tag_trackers.js: {}
-  dependencies:
-    - core/drupal
-    - core/jquery
-    - core/jquery.once
 help_text_treatments:
   js:
     js/help_text_treatments.js: { header: 1, weight: -10 }
@@ -75,6 +63,18 @@ system_styles:
   css:
     component:
       css/system_style.css: {}
+popperjs:
+  remote: https://github.com/floating-ui/floating-ui
+  version: '2.11.6'
+  license:
+    name: MIT
+    url: https://github.com/floating-ui/floating-ui/blob/v2.x/LICENSE.md
+    gpl-compatible: true
+  directory: popperjs
+  cdn:
+    /libraries/popperjs/: https://unpkg.com/@popperjs/core@2.11.6/dist/umd/
+  js:
+    https://unpkg.com/@popperjs/core@2: { type: external, minified: true }
 tippyjs:
   remote: https://github.com/atomiks/tippyjs
   version: '6.2.6'
@@ -86,7 +86,7 @@ tippyjs:
   js:
     https://unpkg.com/tippy.js@6.2.6/dist/tippy-bundle.umd.min.js: { type: external, minified: true }
   dependencies:
-    - core/popperjs
+    - va_gov_backend/popperjs
 tippy_popover_theme:
   version: 1.x
   css:
@@ -101,6 +101,6 @@ toolbar:
     js/toolbar.js: {}
   dependencies:
     - core/jquery
-    - core/jquery.once
+    - core/once
     - core/drupalSettings
     - va_gov_backend/tippyjs
