@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_preview;
 
+use Drupal\Core\StackMiddleware\NegotiationMiddleware;
 use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Core\DependencyInjection\ServiceModifierInterface;
 
@@ -28,8 +29,9 @@ class StaticServiceProvider implements ServiceModifierInterface {
    * {@inheritdoc}
    */
   public function alter(ContainerBuilder $container) {
-    if ($container->has('http_middleware.negotiation') && is_a($container->getDefinition('http_middleware.negotiation')->getClass(), '\Drupal\Core\StackMiddleware\NegotiationMiddleware', TRUE)) {
-      $container->getDefinition('http_middleware.negotiation')->addMethodCall('registerFormat', ['html', ['application/static+html']]);
+    if ($container->has('http_middleware.negotiation') && is_a($container->getDefinition('http_middleware.negotiation')->getClass(), NegotiationMiddleware::class, TRUE)) {
+      $container->getDefinition('http_middleware.negotiation')
+        ->addMethodCall('registerFormat', ['html', ['application/static+html']]);
     }
   }
 
@@ -39,7 +41,7 @@ class StaticServiceProvider implements ServiceModifierInterface {
    * @param string $url_path
    *   Path requested by the browser.
    */
-  public static function urlPathToServerPath($url_path) {
+  public static function urlPathToServerPath(string $url_path) {
     return implode(DIRECTORY_SEPARATOR, [
       DRUPAL_ROOT,
       self::STATIC_DIRECTORY_NAME,
