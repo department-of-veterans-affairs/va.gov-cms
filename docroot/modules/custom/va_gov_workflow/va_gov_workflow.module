@@ -57,18 +57,3 @@ function va_gov_workflow_entity_base_field_info_alter(&$fields, ContentEntityTyp
       ->setDisplayOptions('form', $form_options);
   }
 }
-
-/**
- * Implements hook_views_data_alter().
- */
-function va_gov_workflow_views_data_alter(array &$data) {
-  $data['node']['moderation_state_multiple_workflow_filter'] = [
-    'title' => t('Moderation state across workflows'),
-    'filter' => [
-      'title' => t('Moderation state'),
-      'help' => t('Provides a filter for nodes by their moderation state across multiple workflows.'),
-      'field' => 'nid',
-      'id' => 'moderation_state_multiple_workflow_filter',
-    ],
-  ];
-}
