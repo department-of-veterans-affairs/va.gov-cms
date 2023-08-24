@@ -66,7 +66,7 @@ class VaGovPostApiSettingsForm extends FormBase {
     $form['config']['enable_logging'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Enable logging of services'),
-      '#description' => $this->t('If checked, all services pushed to Lighthouse will be logged.'),
+      '#description' => $this->t('If checked, all services queued for push to Facility API will be logged in a pipe delimited file.'),
       '#default_value' => $config->get('enable_logging'),
     ];
 
