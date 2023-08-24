@@ -9,7 +9,7 @@ use Drupal\Core\Site\Settings;
 use Drupal\Core\Url;
 
 /**
- * Class VaGovPostApiSettingsForm.
+ * Class VA.gov Post API Settings form.
  */
 class VaGovPostApiSettingsForm extends FormBase {
 
@@ -63,6 +63,13 @@ class VaGovPostApiSettingsForm extends FormBase {
       '#default_value' => $config->get('bypass_data_check'),
     ];
 
+    $form['config']['enable_logging'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Enable logging of services'),
+      '#description' => $this->t('If checked, all services queued for push to Facility API will be logged in a pipe delimited file.'),
+      '#default_value' => $config->get('enable_logging'),
+    ];
+
     $form['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Save'),
@@ -79,6 +86,7 @@ class VaGovPostApiSettingsForm extends FormBase {
     $config = self::configFactory()->getEditable('va_gov_post_api.settings');
     $config
       ->set('bypass_data_check', $form_state->getValue('bypass_data_check'))
+      ->set('enable_logging', $form_state->getValue('enable_logging'))
       ->save();
   }
 
