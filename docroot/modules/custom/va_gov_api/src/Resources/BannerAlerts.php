@@ -284,6 +284,11 @@ class BannerAlerts extends EntityResourceBase implements ContainerInjectionInter
       ->accessCheck(FALSE)
       ->execute();
 
+    // If there are no operating status nids, bail.
+    if (count($operating_status_nids) === 0) {
+      return;
+    }
+
     // Find any facility banners connected to the operating status nodes.
     $facility_banner_nids = $node_storage->getQuery()
       ->condition('type', 'full_width_banner_alert')

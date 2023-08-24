@@ -96,7 +96,7 @@ class PostFacilityService extends PostFacilityBase {
    *
    * @var string
    */
-  protected static $logFile;
+  protected $logFile = "";
 
   /**
    * Constructs a new PostFacilityBase object.
@@ -132,14 +132,6 @@ class PostFacilityService extends PostFacilityBase {
     $this->renderer = $renderer;
     $this->fileRepository = $file_repository;
     $this->fileSystem = $file_system;
-    try {
-      self::$logFile = $this->createLogFile($this->fileRepository);
-    }
-    catch (\Exception $e) {
-      $message = sprintf('VA.gov Post API: Failed to create log file. %s', $e->getMessage());
-      $this->loggerChannelFactory->get('va_gov_post_api')->error($message);
-    }
-
   }
 
   /**
@@ -179,9 +171,10 @@ class PostFacilityService extends PostFacilityBase {
         // endpoint.
         if (!empty($data['payload']) && !empty($facilityApiId)) {
           $this->postQueue->addToQueue($data, $this->shouldDedupe());
-          if (!empty($data['payload']['detailed_services'][0]) && (self::$logFile)) {
+          if (!empty($data['payload']['detailed_services'][0])
+              && $forcePush) {
             try {
-              $this->logService(self::$logFile, $facilityApiId, $data['payload']['detailed_services']['0']->service_api_id);
+              $this->logService($facilityApiId, $data['payload']['detailed_services']['0']->service_api_id);
             }
             catch (\Exception $e) {
               $message = sprintf('VA.gov Post API: Failed to log the service. %s', $e->getMessage());
@@ -735,45 +728,46 @@ class PostFacilityService extends PostFacilityBase {
   /**
    * Log service by facility.
    *
-   * @param string $logFile
-   *   Path to the log file.
    * @param string $facilityApiId
    *   Facility API Id.
    * @param string $facilityService
    *   Facility service.
    */
-  protected function logService(string $logFile, string $facilityApiId, string $facilityService) {
-    $log_message = date('Y-m-d H:i:s') . "|{$facilityApiId}|{$facilityService}\n";
-    $handle = fopen($logFile, "a");
-    if ($handle) {
-      fwrite($handle, $log_message);
-      fclose($handle);
+  protected function logService(string $facilityApiId, string $facilityService) {
+    if (empty($this->logFile)) {
+      $this->logFile = $this->createLogFile();
     }
     else {
-      $message = sprintf('VA.gov Post API: The log file does not exist. No entry was made for the %s service at %s facility.', $facilityService, $facilityApiId);
-      $this->loggerChannelFactory->get('va_gov_post_api')->info($message);
+      $log_message = date('Y-m-d H:i:s') . "|{$facilityApiId}|{$facilityService}\n";
+      $handle = fopen($this->logFile, "a");
+      if ($handle) {
+        fwrite($handle, $log_message);
+        fclose($handle);
+      }
+      else {
+        $message = sprintf('VA.gov Post API: The log file does not exist. No entry was made for the %s service at %s facility.', $facilityService, $facilityApiId);
+        $this->loggerChannelFactory->get('va_gov_post_api')->info($message);
+      }
     }
+
   }
 
   /**
    * Create a log file.
-   *
-   * @param \Drupal\file\FileRepositoryInterface $fileRepository
-   *   File repository service.
    */
-  public function createLogFile(FileRepositoryInterface $fileRepository) {
-    $filePath = FALSE;
+  protected function createLogFile() {
+    $filePath = "";
+    $date = date('Y-m-d--H-i');
     $header = 'Time When Added to Log|Facility API ID|Facility Service' . PHP_EOL;
-    $date_hour_minute = date('Y-m-d--H-i');
     $directory = 'public://post_api_force_queue';
     $directoryCreated = $this->fileSystem->prepareDirectory($directory, FileSystemInterface::CREATE_DIRECTORY);
     if ($directoryCreated) {
-      $filePath = "{$directory}/services-{$date_hour_minute}.txt";
-      $fileRepository->writeData($header, $filePath, FileSystemInterface::EXISTS_REPLACE);
+      $filePath = "{$directory}/services-{$date}.txt";
+      $this->fileRepository->writeData($header, $filePath, FileSystemInterface::EXISTS_REPLACE);
       if (file_exists($filePath)) {
         // Tried to create the URL with Url::fromUri($file),
         // but could not get a path from toString().
-        $message = sprintf('VA.gov Post API: A log file was created at %s', "/sites/default/files/post_api_force_queue/services-{$date_hour_minute}.txt");
+        $message = sprintf('VA.gov Post API: A log file was created at %s', "/sites/default/files/post_api_force_queue/services-{$date}.txt");
         $this->loggerChannelFactory->get('va_gov_post_api')->info($message);
       }
     }
