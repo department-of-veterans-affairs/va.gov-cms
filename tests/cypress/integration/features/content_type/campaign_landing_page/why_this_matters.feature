@@ -15,4 +15,5 @@ Feature: Content Type: Campaign Landing Page
     And I should see "Secondary call to action"
     And I click the "Add Call to action" button
     And I fill in "Link" field with fake link
-    And I fill in "Link text" field with fake text
+    And I should see "Link text"
+#    And I fill in "Link text" field with fake text

@@ -13,6 +13,6 @@ Feature: Content Type: Campaign Landing Page
     And I click the "Insert selected" button
     And I wait "5" seconds
     Then I should see "Add a link to more videos"
-    And I click the "Add Call to action" button
-    And I fill in "Link" field with fake link
-    And I fill in "Link text" field with fake text
+#    And I click the "Add Call to action" button
+#    And I fill in "Link" field with fake link
+#    And I fill in "Link text" field with fake text

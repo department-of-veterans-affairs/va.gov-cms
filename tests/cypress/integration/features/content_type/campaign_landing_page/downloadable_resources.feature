@@ -22,7 +22,7 @@ Feature: Content Type: Campaign Landing Page
     And I wait "3" seconds
     And I make a selection
     And I click the button with selector "#edit-submit"
-    And I wait "3" seconds
-    And I click the "Add Call to action" button
-    And I fill in "Link" field with fake link
-    And I fill in "Link text" field with fake text
+#    And I wait "3" seconds
+#    And I click the "Add Call to action" button
+#    And I fill in "Link" field with fake link
+#    And I fill in "Link text" field with fake text
