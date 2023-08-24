@@ -2,8 +2,9 @@
 
 /**
  * @file
- * Remove data from supplemental status and supplemental status more info,
- * which has been used for COVID-19.
+ * Remove data from supplemental status and supplemental status more info.
+ *
+ * These status fields have been used for COVID-19.
  *
  * VACMS-13679-wipe-out-covid-status-data.php.
  */
@@ -82,32 +83,30 @@ function va_gov_remove_covid_status_data(array &$sandbox, $revision_message) {
       save_node_revision($latest_revision, $revision_message, FALSE);
         unset($latest_revision);
       }
-    }
 
     $sandbox['updated']++;
     $nids[] = $nid;
 
+    unset($sandbox['nids_to_update']["node_{$nid}"]);
+    $sandbox['current'] = $sandbox['total'] - count($sandbox['nids_to_update']);
+  }
 
-  unset($sandbox['nids_to_update']["node_{$nid}"]);
-  $sandbox['current'] = $sandbox['total'] - count($sandbox['nids_to_update']);
-}
-
-// Log the processed nodes.
-Drupal::logger('va_gov_db')
+  // Log the processed nodes.
+  Drupal::logger('va_gov_db')
   ->log(LogLevel::INFO, 'VAMC Facility nodes: %current supplemental status (COVID-19) field pairs updated. Nodes updated: %nids', [
     '%current' => $sandbox['current'],
     '%nids' => empty($nids) ? 'None' : implode(', ', $nids),
   ]);
 
-$sandbox['#finished'] = ($sandbox['current'] / $sandbox['total']);
+  $sandbox['#finished'] = ($sandbox['current'] / $sandbox['total']);
 
-// Log the all-finished notice.
-if ($sandbox['#finished'] == 1) {
+  // Log the all-finished notice.
+  if ($sandbox['#finished'] == 1) {
   Drupal::logger('va_gov_db')->log(LogLevel::INFO, 'Processing all %count VAMC Facilities completed', [
     '%count' => $sandbox['total'],
   ]);
   return "VAMC Facility node updates complete. {$sandbox['current']} / {$sandbox['total']} - Total updated: {$sandbox['updated']}\n";
+  }
+
+  return "Processed nodes... {$sandbox['current']} / {$sandbox['total']}.\n";
 }
-
-return "Processed nodes... {$sandbox['current']} / {$sandbox['total']}.\n";
-
