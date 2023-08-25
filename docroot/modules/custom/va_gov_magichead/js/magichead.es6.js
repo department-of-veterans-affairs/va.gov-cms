@@ -39,4 +39,4 @@
       Object.values(errors).forEach((value) => showColumnsForErrors(value));
     },
   };
-})(Drupal, jQuery, once);
+})(window.Drupal, jQuery, window.once);

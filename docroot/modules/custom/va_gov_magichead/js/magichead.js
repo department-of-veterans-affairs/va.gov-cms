@@ -31,4 +31,4 @@
       });
     }
   };
-})(Drupal, jQuery, once);
+})(window.Drupal, jQuery, window.once);
