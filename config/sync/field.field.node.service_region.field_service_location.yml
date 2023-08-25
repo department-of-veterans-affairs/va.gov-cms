@@ -1,0 +1,23 @@
+uuid: 5939c756-7b7d-4df2-b18c-e8338621425f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_service_location
+    - node.type.service_region
+  module:
+    - entity_reference_revisions
+id: node.service_region.field_service_location
+field_name: field_service_location
+entity_type: node
+bundle: service_region
+label: 'Service locations'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings: {  }
+field_type: entity_reference_revisions

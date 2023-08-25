@@ -1,0 +1,127 @@
+uuid: dbbf69a4-8414-4338-befe-e314eb37b0e2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.service_region.body
+    - field.field.node.service_region.field_administration
+    - field.field.node.service_region.field_last_saved_by_an_editor
+    - field.field.node.service_region.field_office
+    - field.field.node.service_region.field_service_location
+    - field.field.node.service_region.field_service_name_and_descripti
+    - node.type.service_region
+  module:
+    - content_moderation
+    - field_group
+    - ief_table_view_mode
+    - path
+third_party_settings:
+  field_group:
+    group_service_region:
+      children:
+        - title
+        - field_service_name_and_descripti
+      label: 'Service region'
+      region: content
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: service-region
+        description: ''
+        required_fields: true
+        description_display: after
+    group_primary_facility:
+      children:
+        - field_office
+        - field_service_location
+      label: 'Primary facility'
+      region: content
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: primary-facility
+        description: ''
+        required_fields: true
+        description_display: after
+id: node.service_region.default
+targetEntityType: node
+bundle: service_region
+mode: default
+content:
+  field_administration:
+    type: options_select
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_office:
+    type: entity_reference_autocomplete
+    weight: 6
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_service_location:
+    type: inline_entity_form_complex_table_view_mode
+    weight: 7
+    region: content
+    settings:
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: false
+      match_operator: CONTAINS
+      allow_duplicate: false
+      collapsible: false
+      collapsed: false
+      revision: false
+      removed_reference: optional
+      allow_system_delete: false
+    third_party_settings: {  }
+  field_service_name_and_descripti:
+    type: options_select
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  body: true
+  created: true
+  field_last_saved_by_an_editor: true
+  langcode: true
+  promote: true
+  status: true
+  sticky: true
+  uid: true
+  url_redirects: true
