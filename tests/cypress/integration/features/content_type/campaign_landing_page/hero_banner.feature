@@ -10,6 +10,6 @@ Feature: Content Type: Campaign Landing Page
     And I fill in autocomplete field with selector "#edit-field-primary-call-to-action-0-subform-field-button-link-0-uri" with value "va.gov"
     And I fill in autocomplete field with selector "#edit-field-primary-call-to-action-0-subform-field-button-label-0-value" with value "VA Website"
     And I should see "Hero Image"
-    # basic_requirements.feature tests the add media button
+    #  TODO: Move Add media modal test from basic_requirements.feature to here
     And I should see the "Add media" button
     Then I click to collapse "Hero banner"

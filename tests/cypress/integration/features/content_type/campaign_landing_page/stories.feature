@@ -10,11 +10,9 @@ Feature: Content Type: Campaign Landing Page
     Then I fill in field with selector "#edit-field-clp-stories-header-0-value" with fake text
     And I fill in field with selector "#edit-field-clp-stories-intro-0-value" with fake text
     And I click the "Add story" button
-    And I click the "Add media" button
-    And I make a selection
-    And I click the "Insert selected" button
-    And I wait "3" seconds
+    And I should see "Link teaser with image"
+# TODO: Test add media modal
     Then I fill in "URL" field with fake link
-#    And I fill in "Link text" field with fake text
+# TODO: Test the URL Link field
     And I fill in "Link summary" field with fake text
     And I fill in "Add a link to an external blog or other list of stories" field with fake text

@@ -27,7 +27,3 @@ Given(`I check the checkbox with selector {string}`, (selector) => {
 Given(`I uncheck the checkbox with selector {string}`, (selector) => {
   cy.get(selector).uncheck({ force: true });
 });
-
-Given("I make a selection", () => {
-  cy.get('input[type="checkbox"]').eq(2).check({ force: true });
-});

@@ -11,6 +11,4 @@ Feature: Content Type: Campaign Landing Page
     And I fill in "Question" field with fake text
     And I fill in "Text" field with fake text
     And I should see "Add a link to more FAQs"
-#    Then I click the "Add Call to action" button
-#    And I fill in "Link" field with fake link
-#    And I fill in "Link text" field with fake text
+# TODO: Test the call to action button

@@ -10,3 +10,7 @@ Given(
     cy.get(selector).should("not.be.visible");
   }
 );
+
+Given("I wait until I see {string}", (text) => {
+  cy.get(text).should("be.visible");
+});

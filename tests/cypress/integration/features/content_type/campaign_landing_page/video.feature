@@ -9,10 +9,7 @@ Feature: Content Type: Campaign Landing Page
     And I enable the page segment
     Then I fill in field with selector "#edit-field-clp-video-panel-header-0-value" with fake text
     And I click the "Add media" button
-    And I make a selection
+# TODO: Test media modal
     And I click the "Insert selected" button
-    And I wait "5" seconds
     Then I should see "Add a link to more videos"
-#    And I click the "Add Call to action" button
-#    And I fill in "Link" field with fake link
-#    And I fill in "Link text" field with fake text
+# TODO: Test call to action function

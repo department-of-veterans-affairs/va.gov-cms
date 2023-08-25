@@ -10,7 +10,7 @@ Feature: Content Type: Campaign Landing Page
     And I fill in field with selector "#edit-field-clp-what-you-can-do-intro-0-value" with fake text
     And I should see "What you can do promos"
     And I click the "Add new Promo" button
-    # Promo feature is tested separately
+    # TODO: Test Promo feature separately
 
   Scenario: Test that "Add existing Promo" button is available in "What You Can Do" segment
     Given I am logged in as a user with the "content_admin" role
@@ -18,4 +18,4 @@ Feature: Content Type: Campaign Landing Page
     And I click to collapse "Hero banner"
     And I click to expand "What you can do"
     Then I click the "Add existing Promo" button
-    # Promo feature is tested separately
+    # TODO: Test Promo feature separately

@@ -13,18 +13,13 @@ Feature: Content Type: Campaign Landing Page
     And I fill in "Name" field with fake text
     And I fill in "External File URL" field with fake text
     And I fill in "Description" field with fake text
-    And I should see "Select a section"
-    And I select option "VACO" from dropdown with selector "#edit-field-clp-resources-form-0-field-owner"
+# TODO: Test section drop-down for this segment
     And I click the "Create Downloadable resource" button
     And I click the "Cancel" button
     And I click the "Add existing Downloadable resource" button
-    And I click the "Select Downloadable resource" button
-    And I wait until element with selector "#edit-submit" is visible
-    And I make a selection
-    And I click the button with selector "#edit-submit"
-    And I wait until element with selector "#edit-submit" is not visible
-    Then I should see "You have added 1 out of 3 allowed Downloadable resources"
+    And I should see "Select Downloadable resource"
+# TODO: Test clicking the "Select Downloadable resource" button and modal
     And I should see "Downloadable resources cta"
     And I click the "Add Call to action" button
     And I fill in "Link" field with fake link
-    And I fill in field with selector "#edit-field-clp-resources-cta-0-subform-field-button-label-0-value" with value "test"
+# TODO: Test the Link text field

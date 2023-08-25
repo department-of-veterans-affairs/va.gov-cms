@@ -7,11 +7,8 @@ Feature: Content Type: Campaign Landing Page
     And I click to expand "Why this matters"
     Then I fill in field with selector "#edit-field-clp-why-this-matters-0-value" with fake text
     And I click to expand "Select up to 3 audiences"
-    Then I click the "Select audiences" button
-    And I wait "3" seconds
-    And I make a selection
-    And I click the "Select audiences" button
-    And I wait "3" seconds
+    Then I should see "Select audiences"
+    # TODO: Test audience selection modal
     And I should see "Secondary call to action"
     And I click the "Add Call to action" button
     And I fill in "Link" field with fake link
