@@ -86,6 +86,8 @@ services:
         # .tugboat/.env.j2 Jinja2 template file support
         - apt-get install python3-apt python3-distutils python3
         - curl -O https://bootstrap.pypa.io/get-pip.py
+        # Remove externally managed script causing error in bookworm when python3 tries to install packages
+        - rm /usr/lib/python3.11/EXTERNALLY-MANAGED
         - python3 get-pip.py
         - echo "export PATH=/var/lib/tugboat/bin:~/.local/bin:$PATH" >> ~/.bashrc
         - pip3 install j2cli
