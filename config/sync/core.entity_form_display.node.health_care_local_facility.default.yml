@@ -49,7 +49,7 @@ third_party_settings:
       label: 'Section settings'
       region: content
       parent_name: ''
-      weight: 10
+      weight: 8
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -65,7 +65,7 @@ third_party_settings:
       label: 'Editorial Workflow'
       region: content
       parent_name: ''
-      weight: 11
+      weight: 9
       format_type: fieldset
       format_settings:
         classes: ''
@@ -78,7 +78,7 @@ third_party_settings:
       label: '"Prepare for your visit"'
       region: content
       parent_name: ''
-      weight: 8
+      weight: 6
       format_type: details
       format_settings:
         classes: ''
@@ -93,7 +93,7 @@ third_party_settings:
       label: 'VAMC system'
       region: content
       parent_name: ''
-      weight: 4
+      weight: 2
       format_type: fieldset
       format_settings:
         classes: ''
@@ -107,7 +107,7 @@ third_party_settings:
       label: 'Title and summary'
       region: content
       parent_name: ''
-      weight: 5
+      weight: 3
       format_type: fieldset
       format_settings:
         classes: ''
@@ -119,7 +119,7 @@ third_party_settings:
       label: 'Social Media'
       region: content
       parent_name: ''
-      weight: 7
+      weight: 5
       format_type: fieldset
       format_settings:
         classes: ''
@@ -130,13 +130,10 @@ third_party_settings:
       children:
         - field_operating_status_facility
         - field_operating_status_more_info
-        - group_covid_19_safety_guidelines
-        - field_supplemental_status
-        - field_supplemental_status_more_i
       label: 'Operating status'
       region: content
       parent_name: ''
-      weight: 3
+      weight: 1
       format_type: fieldset
       format_settings:
         classes: ''
@@ -151,7 +148,7 @@ third_party_settings:
       label: 'Meta Tags'
       region: content
       parent_name: ''
-      weight: 6
+      weight: 4
       format_type: fieldset
       format_settings:
         classes: ''
@@ -201,18 +198,20 @@ third_party_settings:
         label_element: h3
         attributes: ''
     group_covid_19_safety_guidelines:
-      children: {  }
+      children:
+        - field_supplemental_status
+        - field_supplemental_status_more_i
       label: 'COVID-19 health protection guidelines'
-      region: content
-      parent_name: group_operating_status
-      weight: 7
+      region: hidden
+      parent_name: ''
+      weight: 19
       format_type: html_element
       format_settings:
         classes: ''
-        show_empty_fields: true
+        show_empty_fields: false
         id: ''
         element: p
-        show_label: true
+        show_label: false
         label_element: h3
         label_element_classes: ''
         attributes: ''
@@ -286,7 +285,7 @@ content:
     third_party_settings: {  }
   field_last_saved_by_an_editor:
     type: datetime_timestamp
-    weight: 30
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -368,28 +367,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_supplemental_status:
-    type: options_buttons
-    weight: 9
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_supplemental_status_more_i:
-    type: text_textarea_with_counter
-    weight: 10
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-      maxlength: 500
-      counter_position: after
-      js_prevent_submit: true
-      count_html_characters: false
-      textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
-    third_party_settings:
-      allowed_formats:
-        hide_help: '1'
-        hide_guidelines: '1'
   field_timezone:
     type: tzfield_default
     weight: 30
@@ -409,7 +386,7 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 9
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -431,6 +408,8 @@ hidden:
   created: true
   field_local_health_care_service_: true
   field_meta_tags: true
+  field_supplemental_status: true
+  field_supplemental_status_more_i: true
   langcode: true
   promote: true
   status: true
