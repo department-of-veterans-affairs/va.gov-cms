@@ -1,20 +1,19 @@
 field.storage_settings.magichead:
   type: field.storage_settings.entity_reference_revisions
 
-field.widget.settings.magichead_paragraphs_classic:
+field.field_settings.magichead:
   type: mapping
+  label: 'Magichead field settings'
   mapping:
-    title:
-      type: label
-    title_plural:
-      type: label
-    edit_mode:
+    handler:
       type: string
-    add_mode:
-      type: string
-    form_display_mode:
-      type: string
-    default_paragraph_type:
-      type: string
+      label: 'Reference method'
+    handler_settings:
+      type: entity_reference_selection.[%parent.handler]
+      label: 'Entity reference selection plugin settings'
     max_depth:
       type: integer
+      label: 'The maximum depth of a magichead section'
+
+field.widget.settings.magichead_paragraphs_classic:
+  type: field.widget.settings.paragraphs
