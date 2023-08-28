@@ -269,6 +269,12 @@ This test is run by a GitHub Action.  Click the "Details" link in the row of
 the failed test.  This should take you to a view of the run details, which
 should contain the logged information.
 
+#### View a video recording or screenshot of a failed Cypress test?
+
+Just append `/cypress/` to the PR preview URL, e.g. `https://pr14763-bk1bdtbdtzgaipprqu6gzyeortznilju.ci.cms.va.gov/` would become `https://pr14763-bk1bdtbdtzgaipprqu6gzyeortznilju.ci.cms.va.gov/cypress/`. This will allow you to drill down into the recorded artifacts for tests.
+
+From there, select `/videos/` or `/screenshots/actual/`, and you should be able to access a directory structure with screenshots (only for failed tests) or videos (for failed _or_ successful tests). The directory structure should mirror that of the Cypress tests themselves, so a failed test for `facilities/facilities_api.feature` should create a video at `cypress/videos/facilities/facilities_api.feature.mp4`.
+
 ----
 
 [Table of Contents](../README.md)
