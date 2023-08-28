@@ -4,87 +4,25 @@ Feature: CMS Users may not unintentionally change information in fields populate
   As anyone involved in the project
   I need to have certain fields locked down
 
-# Content Admin
-Scenario: Log in and edit a VAMC facility
-  When I am logged in as a user with the roles "content_admin"
-  And my workbench access sections are set to "2,12,1013,1104"
-  # 2 = NCA (Louisiana National Cemetery)
-  # 12 = VA Pittsburgh health care (H. John Heinz III Department of Veterans Affairs Medical Center)
-  # 190 = Vet Centers
-  # 1104 = Cheyenne VA Regional Benefit Office (Cheyenne VA Regional Benefit Office)
+  # Content Admin
+  Scenario: Log in and edit a <contentType>: <title> (<nid>) as <roleTitle>
+    Given I am logged in as a user with the roles "<roles>"
+    And my workbench access sections are set to "<sections>"
+    When I unlock node <nid>
+    And I am at "/node/<nid>/edit"
+    Then the Facility Locator API ID field should not be editable
 
-  # NCA (Louisiana National Cemetery)
-  Then I am at "/node/4610/edit"
-  Then an element with the selector "#locations-and-contact-information .node__content > .not-editable" should exist
-  And an element with the selector '[data-drupal-selector="edit-field-facility-locator-api-id-0-value"]' should not exist
-
-  # VAMC Facility (H. John Heinz III Department of Veterans Affairs Medical Center)
-  Then I am at "/node/175/edit"
-  Then an element with the selector "#locations-and-contact-information .node__content > .not-editable" should exist
-  And an element with the selector '[data-drupal-selector="edit-field-facility-locator-api-id-0-value"]' should not exist
-
-  # Vet Center Outstation (Clarksville Vet Center Outstation)
-  Then I am at "/node/17533/edit"
-  Then an element with the selector "#locations-and-contact-information .node__content > .not-editable" should exist
-  And an element with the selector '[data-drupal-selector="edit-field-facility-locator-api-id-0-value"]' should not exist
-
-  # Vet Center (Cheyenne Vet Center)
-  Then I am at "/node/3769/edit"
-  Then an element with the selector "#locations-and-contact-information .node__content > .not-editable" should exist
-  And an element with the selector '[data-drupal-selector="edit-field-facility-locator-api-id-0-value"]' should not exist
-
-  # Mobile Vet Center (Evanston Mobile Vet Center)
-  Then I am at "/node/17503/edit"
-  Then an element with the selector "#locations-and-contact-information .node__content > .not-editable" should exist
-  And an element with the selector '[data-drupal-selector="edit-field-facility-locator-api-id-0-value"]' should not exist
-
-  # Mobile Vet Center (Cheyenne VA Regional Benefit Office)
-  Then I am at "/node/4338/edit"
-  Then an element with the selector ".node__content > #locations-and-contact-information .not-editable" should exist
-  And an element with the selector '[data-drupal-selector="edit-field-facility-locator-api-id-0-value"]' should not exist
-
-# Content Editor (VAMC)
-Scenario: Log in and edit a VAMC facility
-  When I am logged in as a user with the roles "vamc_content_creator, content_publisher"
-  And my workbench access sections are set to "12"
-
-  # VAMC Facility (H. John Heinz III Department of Veterans Affairs Medical Center)
-  Then I am at "/node/175/edit"
-  Then an element with the selector "#locations-and-contact-information .node__content > .not-editable" should exist
-  And an element with the selector '[data-drupal-selector="edit-field-facility-locator-api-id-0-value"]' should not exist
-
-# Content Editor (Vet Centers)
-Scenario: Log in and edit a Vet Center facility
-  When I am logged in as a user with the roles "content_creator_vet_center, content_publisher"
-  And my workbench access sections are set to "190"
-
-  # Vet Center Outstation (Clarksville Vet Center Outstation)
-  Then I am at "/node/17533/edit"
-  Then an element with the selector "#locations-and-contact-information .node__content > .not-editable" should exist
-  And an element with the selector '[data-drupal-selector="edit-field-facility-locator-api-id-0-value"]' should not exist
-
-  # Vet Center (Cheyenne Vet Center)
-  Then I am at "/node/3769/edit"
-  Then an element with the selector "#locations-and-contact-information .node__content > .not-editable" should exist
-  And an element with the selector '[data-drupal-selector="edit-field-facility-locator-api-id-0-value"]' should not exist
-
-  # Mobile Vet Center (Evanston Mobile Vet Center)
-  Then I am at "/node/17503/edit"
-  Then an element with the selector "#locations-and-contact-information .node__content > .not-editable" should exist
-  And an element with the selector '[data-drupal-selector="edit-field-facility-locator-api-id-0-value"]' should not exist
-
-# Content Editor (VBA & NCA)
-Scenario: Log in and edit a VBA facility and NCA facility
-  When I am logged in as a user with the roles "content_publisher, content_editor"
-  And my workbench access sections are set to "2,1104"
-
-  # NCA (Louisiana National Cemetery)
-  Then I am at "/node/4610/edit"
-  Then an element with the selector "#locations-and-contact-information .node__content > .not-editable" should exist
-  And an element with the selector '[data-drupal-selector="edit-field-facility-locator-api-id-0-value"]' should not exist
-
-  # Mobile Vet Center (Cheyenne VA Regional Benefit Office)
-  Then I am at "/node/4338/edit"
-  Then an element with the selector ".node__content > #locations-and-contact-information .not-editable" should exist
-  And an element with the selector '[data-drupal-selector="edit-field-facility-locator-api-id-0-value"]' should not exist
-
+  Examples:
+    | roles                                           | roleTitle                    | sections  | contentType           | nid     | title                                                             |
+    | content_admin                                   | Content Admin                | 2         | NCA                   | 4610    | Louisiana National Cemetery                                       |
+    | content_admin                                   | Content Admin                | 12        | VAMC facility         | 175     | H. John Heinz III Department of Veterans Affairs Medical Center   |
+    | content_admin                                   | Content Admin                | 190       | Vet Center Outstation | 17533   | Clarksville Vet Center Outstation                                 |
+    | content_admin                                   | Content Admin                | 190       | Vet Center            | 3769    | Cheyenne Vet Center                                               |
+    | content_admin                                   | Content Admin                | 190       | Mobile Vet Center     | 17503   | Evanston Mobile Vet Center                                        |
+    | content_admin                                   | Content Admin                | 190       | Mobile Vet Center     | 4338    | Cheyenne VA Regional Benefit Office                               |
+    | vamc_content_creator, content_publisher         | Content Editor (VAMC)        | 12        | VAMC facility         | 175     | H. John Heinz III Department of Veterans Affairs Medical Center   |
+    | content_creator_vet_center, content_publisher   | Content Editor (Vet Centers) | 190       | Vet Center Outstation | 17533   | Clarksville Vet Center Outstation                                 |
+    | content_creator_vet_center, content_publisher   | Content Editor (Vet Centers) | 190       | Vet Center            | 3769    | Cheyenne Vet Center                                               |
+    | content_creator_vet_center, content_publisher   | Content Editor (Vet Centers) | 190       | Mobile Vet Center     | 17503   | Evanston Mobile Vet Center                                        |
+    | content_publisher, content_editor               | Content Editor (VBA & NCA)   | 2         | NCA                   | 4610    | Louisiana National Cemetery                                       |
+    | content_publisher, content_editor               | Content Editor (VBA & NCA)   | 1104      | Mobile Vet Center     | 4338    | Cheyenne VA Regional Benefit Office                               |

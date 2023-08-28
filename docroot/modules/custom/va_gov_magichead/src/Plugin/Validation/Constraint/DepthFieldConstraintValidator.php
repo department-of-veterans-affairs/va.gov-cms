@@ -2,7 +2,7 @@
 
 namespace Drupal\va_gov_magichead\Plugin\Validation\Constraint;
 
-use Drupal\va_gov_magichead\Plugin\Field\FieldType\MagicheadItem;
+use Drupal\va_gov_magichead\MagicheadFieldItemList;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -12,37 +12,35 @@ use Symfony\Component\Validator\ConstraintValidator;
 class DepthFieldConstraintValidator extends ConstraintValidator {
 
   /**
-   * The depth of the previous item.
-   *
-   * @var int
-   */
-  protected static int $lastItemDepth;
-
-  /**
    * Validates the depth property is set correctly.
    *
-   * @param mixed $value
+   * @param mixed $items
    *   The field values.
    * @param \Symfony\Component\Validator\Constraint $constraint
    *   The constraint for the validation.
    */
-  public function validate($value, Constraint $constraint) {
-    // Return early if we don't have the right type of field.
-    if (!$value instanceof MagicheadItem) {
+  public function validate($items, Constraint $constraint) {
+    if (!$items instanceof MagicheadFieldItemList) {
       return;
     }
-    // Return early if we are validating the first item, and set the itemDepth
-    // cache for future iterations.
-    if ($value->getName() === 0) {
-      self::$lastItemDepth = 0;
-    }
-    elseif (isset(self::$lastItemDepth)) {
-      $values = $value->getValue();
-      $currentItemDepth = $values['depth'];
-      if (($currentItemDepth - self::$lastItemDepth) > 1) {
-        $this->context->buildViolation($constraint->errorMessage)->addViolation();
+    $lastItemDepth = 0;
+    $fieldDefinition = $items->getFieldDefinition();
+    $max_depth = $fieldDefinition->getSetting('max_depth');
+    foreach ($items as $delta => $item) {
+      $currentItemDepth = intval($item->get('depth')->getValue());
+      // Validate depth is not negative.
+      if ($currentItemDepth < 0) {
+        $this->context->buildViolation($constraint->negativeDepthErrorMessage)->atPath((string) $delta . '.depth')->addViolation();
       }
-      self::$lastItemDepth = $currentItemDepth;
+      // Validate depth is not skipped.
+      if (($currentItemDepth - $lastItemDepth) > 1) {
+        $this->context->buildViolation($constraint->skippedDepthErrorMessage)->atPath((string) $delta . '.depth')->addViolation();
+      }
+      // Validate depth does not exceed max depth.
+      if (isset($max_depth) && ($currentItemDepth > $max_depth)) {
+        $this->context->buildViolation($constraint->maximumDepthErrorMessage, [':max' => $max_depth])->atPath((string) $delta . '.depth')->addViolation();
+      }
+      $lastItemDepth = $currentItemDepth;
     }
   }
 

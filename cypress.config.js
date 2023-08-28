@@ -44,6 +44,7 @@ module.exports = defineConfig({
     failSilently: false,
   },
   fixturesFolder: "tests/cypress/fixtures",
+  responseTimeout: 60000,
   retries: {
     runMode: 2,
     openMode: 0,

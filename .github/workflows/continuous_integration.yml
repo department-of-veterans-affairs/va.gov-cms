@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
       - name: Check Corresponding Entity Reference Fields
         # See also `composer va:test:check-cer` in composer.json
         run: ./tests/scripts/check-cer.sh
@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
       - name: Composer Validate
         run: composer validate
 
@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
       - name: ReviewDog
@@ -52,7 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
       - name: Run PHP_CodeSniffer and ReviewDog
@@ -76,7 +76,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
       - name: Run PHPLint
@@ -89,7 +89,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
       - name: Run PHPStan and ReviewDog
@@ -115,7 +115,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
       - name: Run PHPUnit (Unit Tests only)
@@ -132,7 +132,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
       - name: Stylelint modules
         # See also `composer va:test:stylelint-modules` in composer.json
         uses: reviewdog/action-stylelint@e45410880466232c34ec6ab2e0fbc15f5ce3fdd2 # v1.17.1
@@ -167,7 +167,7 @@ jobs:
           - javascript
     steps:
       - name: Checkout
-        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
       - name: CodeQL Init
         uses: github/codeql-action/init@cdcdbb579706841c47f7063dda365e292e5cad7a # v2.13.4
         with:
