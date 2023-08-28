@@ -153,26 +153,4 @@ jobs:
           reporter: github-pr-review
           stylelint_config: '.stylelintrc'
           stylelint_input: 'docroot/themes/custom/**/*.scss'
-
-  # Analyze the codebase with GitHub's CodeQL tool.
-  codeql:
-    name: CodeQL Analyze
-    # Unlike most of our continuous integration tests, this test does not have
-    # a direct analog outside of GitHub Actions.
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        language:
-          - javascript
-    steps:
-      - name: Checkout
-        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
-      - name: CodeQL Init
-        uses: github/codeql-action/init@cdcdbb579706841c47f7063dda365e292e5cad7a # v2.13.4
-        with:
-          languages: ${{ matrix.language }}
-      - name: CodeQL Analyze
-        uses: github/codeql-action/analyze@cdcdbb579706841c47f7063dda365e292e5cad7a # v2.13.4
-        with:
-          category: "/language:${{matrix.language}}"
+    
