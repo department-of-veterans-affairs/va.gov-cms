@@ -13,7 +13,7 @@ require_once __DIR__ . '/script-library.php';
 
 use Psr\Log\LogLevel;
 
-$revision_message = 'Removed COVID-19 status and details';
+$revision_message = 'In a separate action, COVID-19 status and details were removed via a script.';
 $sandbox = ['#finished' => 0];
 do {
   print(va_gov_remove_covid_status_data($sandbox, $revision_message));
@@ -40,7 +40,6 @@ function va_gov_remove_covid_status_data(array &$sandbox, $revision_message) {
   if (!isset($sandbox['total'])) {
     $query = $node_storage->getQuery();
     $query->condition('type', 'health_care_local_facility');
-    $query->condition('moderation_state', 'archived', '!=');
     $nids_to_update = $query->execute();
     $result_count = count($nids_to_update);
     $sandbox['total'] = $result_count;

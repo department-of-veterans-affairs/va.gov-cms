@@ -165,21 +165,22 @@ function normalize_crisis_number($input, $plain = FALSE): string {
  * @return int
  *   Either SAVED_NEW or SAVED_UPDATED, depending on the operation performed.
  */
-function save_node_revision(NodeInterface $node, $message = '', $new = FALSE): int {
-  $states = [
-    'draft',
-    'review',
-  ];
+function save_node_revision(NodeInterface $node, $message = '', $new = TRUE): int {
   $moderation_state = $node->get('moderation_state')->value;
   $node->setNewRevision($new);
   $node->setSyncing(TRUE);
+  $node->setValidationRequired(FALSE);
   // New revisions deserve special treatment.
   if ($new) {
-    $node->enforceIsNew(FALSE);
-    $node->setValidationRequired(FALSE);
+    $node->enforceIsNew(TRUE);
+    $node->setChangedTime(time());
+    $node->setRevisionCreationTime(time());
+    $uid = CMS_MIGRATOR_ID;
   }
-  // If draft or review preserve the user from revision, otherwise CMS Migrator.
-  $uid = (in_array($moderation_state, $states)) ? $node->getRevisionUserId() : CMS_MIGRATOR_ID;
+  else {
+    $node->enforceIsNew(FALSE);
+    $uid = $node->getRevisionUserId();
+  }
   $node->setRevisionUserId($uid);
   $revision_time = $node->getRevisionCreationTime();
   // Incrementing by a nano second to bypass Drupal core logic
@@ -216,35 +217,6 @@ function save_node_existing_revision_without_log(NodeInterface $revision): int {
   $revision_time++;
   $revision->setRevisionCreationTime($revision_time);
   $revision->setChangedTime($revision_time);
-  return $revision->save();
-}
-
-/**
- * Updates a node revision with appended log.
- *
- * @param \Drupal\node\NodeInterface $revision
- *   The node to serialize.
- *
- * @return int
- *   Either SAVED_NEW or SAVED_UPDATED, depending on the operation performed.
- */
-function update_node_existing_revision_append_log(NodeInterface $revision): int {
-  $revision->setNewRevision(FALSE);
-  $revision->enforceIsNew(FALSE);
-  $revision->setSyncing(TRUE);
-  $revision->setValidationRequired(FALSE);
-  $revision_time = $revision->getRevisionCreationTime();
-  // Incrementing by a nano second to bypass Drupal core logic
-  // that will update the "changed" value to request time if
-  // the value is not different from the original value.
-  $revision_time++;
-  $revision->setRevisionCreationTime($revision_time);
-  $revision->setChangedTime($revision_time);
-  $moderation_state = $revision->get('moderation_state')->value;
-  $prefix = (in_array($moderation_state, $states)) ? $revision->getRevisionLogMessage() . ' - ' : '';
-  $revision->setRevisionLogMessage($prefix . $message);
-  $revision->set('moderation_state', $moderation_state);
-
   return $revision->save();
 }
 
