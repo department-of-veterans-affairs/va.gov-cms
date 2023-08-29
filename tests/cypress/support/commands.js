@@ -152,7 +152,7 @@ Cypress.Commands.add("get_ckeditor", (element) => {
     const editors = [];
     let instance = {};
     win.Drupal.CKEditor5Instances.forEach((editor, key) => {
-      let sourceElement = {
+      const sourceElement = {
         element: editor.sourceElement.dataset.drupalSelector,
         key,
       };

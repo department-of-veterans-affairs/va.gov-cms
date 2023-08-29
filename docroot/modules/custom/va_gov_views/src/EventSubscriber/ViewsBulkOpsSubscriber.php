@@ -2,7 +2,6 @@
 
 namespace Drupal\va_gov_views\EventSubscriber;
 
-use Drupal\Core\DependencyInjection\DependencySerializationTrait;
 use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
 use Drupal\core_event_dispatcher\FormHookEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -11,7 +10,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  * VA Gov Views event subscriber.
  */
 class ViewsBulkOpsSubscriber implements EventSubscriberInterface {
-  
+
   /**
    * Form alter Event call.
    *
