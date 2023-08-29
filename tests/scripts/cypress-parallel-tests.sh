@@ -13,7 +13,15 @@ pushd "${repo_root}" > /dev/null
 export CYPRESS_VERIFY_TIMEOUT=100000
 npm run test:cypress:verify
 
-npm run test:cypress:parallel -- "${@}"
+npm run test:cypress:parallel -- \
+  --script test:cypress \
+  --threads 3 \
+  --strictMode false \
+  --specsDir tests/cypress/integration \
+  --weightsJson tests/cypress/integration/weights.json \
+  --reporter cypress-multi-reporters \
+  --reporter-options configFile=cypress.reporter.config.json \
+  "${@}"
 exit_code=$?
 
 popd > /dev/null
