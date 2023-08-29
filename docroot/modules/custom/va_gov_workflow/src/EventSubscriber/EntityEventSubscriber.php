@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_workflow\EventSubscriber;
 
+use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
@@ -11,7 +12,6 @@ use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\node\NodeForm;
 use Drupal\node\NodeInterface;
 use Drupal\va_gov_notifications\Service\NotificationsManager;
 use Drupal\va_gov_user\Service\UserPermsService;
@@ -140,6 +140,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $form_state = $event->getFormState();
     $form_id = $event->getFormId();
     $this->requireRevisionMessage($form, $form_state, $form_id);
+    $this->removeArchiveOption($event);
   }
 
   /**
@@ -172,7 +173,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Removes archive option for non-admins on certain content types.
+   * Removes archive option for non-admins on certain entity types.
    *
    * @param \Drupal\core_event_dispatcher\Event\Form\FormBaseAlterEvent $event
    *   The event.
@@ -180,12 +181,13 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   private function removeArchiveOption(FormBaseAlterEvent $event) {
     $form = &$event->getForm();
     $form_state = $event->getFormState();
-    if ($form_state->getFormObject() instanceof NodeForm) {
-      /** @var \Drupal\node\NodeInterface $node **/
-      $node = $form_state->getFormObject()->getEntity();
-      $bundle = $node->bundle();
+    if ($form_state->getFormObject() instanceof ContentEntityForm) {
+      /** @var \Drupal\Core\Entity\EntityInterface $entity */
+      $entity = $form_state->getFormObject()->getEntity();
+      $entity_type = $entity->getEntityType()->id();
+      $bundle = $entity->bundle();
       $is_admin = $this->userPermsService->hasAdminRole();
-      $is_archiveable = $this->workflowContentControl->isBundleArchiveableByNonAdmins($bundle);
+      $is_archiveable = $this->workflowContentControl->isBundleArchiveableByNonAdmins($bundle, $entity_type);
       if (!$is_admin && !$is_archiveable) {
         unset($form['moderation_state']['widget'][0]['state']['#options']['archived']);
       }
