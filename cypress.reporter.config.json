@@ -1,11 +1,14 @@
 {
-  "reporterEnabled": "spec, json, mochawesome",
-  "mochawesomeReporterOptions": {
-    "reportDir": "./docroot/cypress/reports/mochawesome",
+  "reporterEnabled": "cypress-mochawesome-reporter",
+  "cypressMochawesomeReporterReporterOptions": {
     "charts": true,
-    "reportPageTitle": "VA.gov CMS",
     "embeddedScreenshots": true,
+    "html": true,
     "inlineAssets": true,
-    "saveAllAttempts": false
+    "json": true,
+    "overwrite": false,
+    "reportDir": "./docroot/cypress/reports/mochawesome",
+    "reportPageTitle": "VA.gov CMS",
+    "saveAllAttempts": true
   }
 }
