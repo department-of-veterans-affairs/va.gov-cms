@@ -29,40 +29,47 @@ class WorkflowContentControl {
   }
 
   /**
-   * An array of node bundles that only Admins can archive.
+   * An array of entity bundles that only Admins can archive.
    *
    * @return array
    *   The content type array.
    */
-  public function getBundlesArchiveableByAdmins() {
-    return [
-      'basic_landing_page',
-      'centralized_content',
-      'documentation_page',
-      'event_listing',
-      'health_care_local_facility',
-      'health_care_region_page',
-      'health_services_listing',
-      'landing_page',
-      'leadership_listing',
-      'locations_listing',
-      'nca_facility',
-      'office',
-      'page',
-      'press_releases_listing',
-      'publication_listing',
-      'story_listing',
-      'support_service',
-      'va_form',
-      'vamc_operating_status_and_alerts',
-      'vamc_system_policies_page',
-      'vamc_system_register_for_care',
-      'vamc_system_medical_records_offi',
-      'vamc_system_billing_insurance',
-      'vba_facility',
-      'vet_center',
-      'vet_center_locations_list',
+  public function getBundlesArchiveableByAdmins($entity_type = 'node'): array {
+    $bundles = [
+      'node' => [
+        'basic_landing_page',
+        'centralized_content',
+        'documentation_page',
+        'event_listing',
+        'health_care_local_facility',
+        'health_care_region_page',
+        'health_services_listing',
+        'landing_page',
+        'leadership_listing',
+        'locations_listing',
+        'nca_facility',
+        'office',
+        'page',
+        'press_releases_listing',
+        'publication_listing',
+        'story_listing',
+        'support_service',
+        'va_form',
+        'vamc_operating_status_and_alerts',
+        'vamc_system_policies_page',
+        'vamc_system_register_for_care',
+        'vamc_system_medical_records_offi',
+        'vamc_system_billing_insurance',
+        'vba_facility',
+        'vet_center',
+        'vet_center_locations_list',
+      ],
+      'block_content' => [
+        'benefit_promo',
+        'news_promo',
+      ],
     ];
+    return $bundles[$entity_type] ?? [];
   }
 
   /**
@@ -70,12 +77,14 @@ class WorkflowContentControl {
    *
    * @param string $bundle
    *   The entity bundle type.
+   * @param string $entity_type
+   *   The entity type.
    *
    * @return bool
    *   Returns true if non-admin can archive, false if non-admin can not.
    */
-  public function isBundleArchiveableByNonAdmins($bundle) {
-    return in_array($bundle, $this->getBundlesArchiveableByAdmins()) ? FALSE : TRUE;
+  public function isBundleArchiveableByNonAdmins(string $bundle, string $entity_type = 'node') {
+    return in_array($bundle, $this->getBundlesArchiveableByAdmins($entity_type)) ? FALSE : TRUE;
   }
 
 }
