@@ -59,7 +59,7 @@ third_party_settings:
       label: 'Operating status'
       parent_name: ''
       region: content
-      weight: 4
+      weight: 3
       format_type: fieldset
       format_settings:
         classes: ''
@@ -71,7 +71,7 @@ third_party_settings:
       label: 'Social media'
       parent_name: ''
       region: content
-      weight: 7
+      weight: 6
       format_type: details
       format_settings:
         classes: ''
@@ -85,7 +85,7 @@ third_party_settings:
       label: 'Prepare for your visit'
       parent_name: ''
       region: content
-      weight: 6
+      weight: 5
       format_type: details
       format_settings:
         classes: ''
@@ -98,7 +98,7 @@ third_party_settings:
       label: 'Locations and contact information'
       parent_name: ''
       region: content
-      weight: 5
+      weight: 4
       format_type: fieldset
       format_settings:
         classes: ''
@@ -137,8 +137,8 @@ third_party_settings:
         - field_supplemental_status_more_i
       label: 'COVID-19 health protection guidelines'
       parent_name: ''
-      region: content
-      weight: 3
+      region: hidden
+      weight: 24
       format_type: fieldset
       format_settings:
         classes: ''
@@ -156,7 +156,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 16
+    weight: 17
     region: content
   field_description:
     type: string
@@ -207,7 +207,7 @@ content:
     settings:
       title: ''
     third_party_settings: {  }
-    weight: 19
+    weight: 20
     region: content
   field_mobile:
     type: boolean
@@ -217,7 +217,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 18
+    weight: 19
     region: content
   field_office_hours:
     type: office_hours
@@ -248,7 +248,7 @@ content:
       schema:
         enabled: false
     third_party_settings: {  }
-    weight: 20
+    weight: 21
     region: content
   field_operating_status_facility:
     type: list_default
@@ -270,29 +270,14 @@ content:
     settings:
       title: ''
     third_party_settings: {  }
-    weight: 17
-    region: content
-  field_supplemental_status:
-    type: entity_reference_label
-    label: hidden
-    settings:
-      link: false
-    third_party_settings: {  }
     weight: 18
-    region: content
-  field_supplemental_status_more_i:
-    type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 19
     region: content
   field_timezone:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 21
+    weight: 22
     region: content
   flag_email_node:
     settings: {  }
@@ -314,6 +299,8 @@ hidden:
   field_main_location: true
   field_meta_tags: true
   field_region_page: true
+  field_supplemental_status: true
+  field_supplemental_status_more_i: true
   flag_awaiting_csv: true
   flag_awaiting_editor: true
   flag_awaiting_redirect: true
