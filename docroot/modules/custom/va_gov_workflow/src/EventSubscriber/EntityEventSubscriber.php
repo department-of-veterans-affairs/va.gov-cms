@@ -140,6 +140,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $form_state = $event->getFormState();
     $form_id = $event->getFormId();
     $this->requireRevisionMessage($form, $form_state, $form_id);
+    $this->removeArchiveOption($event);
   }
 
   /**
