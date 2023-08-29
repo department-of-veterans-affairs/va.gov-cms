@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.service_region.field_office
     - field.field.node.service_region.field_service_location
     - field.field.node.service_region.field_service_name_and_descripti
+    - field.field.node.service_region.field_vba_region_facility_list
     - node.type.service_region
   module:
     - entity_reference_revisions
@@ -22,7 +23,7 @@ third_party_settings:
       label: 'Service region'
       parent_name: ''
       region: content
-      weight: 1
+      weight: 0
       format_type: fieldset
       format_settings:
         classes: ''
@@ -37,7 +38,7 @@ third_party_settings:
       label: 'Primary facility'
       parent_name: ''
       region: content
-      weight: 2
+      weight: 1
       format_type: fieldset
       format_settings:
         classes: ''
@@ -56,7 +57,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 6
+    weight: 4
     region: content
   field_last_saved_by_an_editor:
     type: timestamp
@@ -66,7 +67,7 @@ content:
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }
-    weight: 5
+    weight: 3
     region: content
   field_office:
     type: entity_reference_label
@@ -83,7 +84,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 4
+    weight: 5
     region: content
   field_service_name_and_descripti:
     type: entity_reference_label
@@ -93,12 +94,17 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
-  links:
-    settings: {  }
+  field_vba_region_facility_list:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
     third_party_settings: {  }
-    weight: 0
+    weight: 2
     region: content
 hidden:
   body: true
+  content_moderation_control: true
   langcode: true
+  links: true
   search_api_excerpt: true

@@ -6,6 +6,8 @@ dependencies:
     - field.storage.node.field_administration
     - node.type.service_region
     - taxonomy.vocabulary.administration
+  content:
+    - 'taxonomy_term:administration:85c438e3-b5a1-48bb-ba4f-7d48bb436c1e'
   module:
     - entity_reference_validators
     - tmgmt_content
@@ -24,7 +26,9 @@ label: Section
 description: ''
 required: false
 translatable: true
-default_value: {  }
+default_value:
+  -
+    target_uuid: 85c438e3-b5a1-48bb-ba4f-7d48bb436c1e
 default_value_callback: ''
 settings:
   handler: 'default:taxonomy_term'

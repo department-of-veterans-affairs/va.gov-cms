@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.service_region.field_office
     - field.field.node.service_region.field_service_location
     - field.field.node.service_region.field_service_name_and_descripti
+    - field.field.node.service_region.field_vba_region_facility_list
     - node.type.service_region
   module:
     - text
@@ -27,6 +28,11 @@ content:
     third_party_settings: {  }
     weight: 101
     region: content
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
+    region: content
   links:
     settings: {  }
     third_party_settings: {  }
@@ -38,5 +44,6 @@ hidden:
   field_office: true
   field_service_location: true
   field_service_name_and_descripti: true
+  field_vba_region_facility_list: true
   langcode: true
   search_api_excerpt: true

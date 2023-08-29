@@ -9,12 +9,16 @@ dependencies:
     - field.field.node.service_region.field_office
     - field.field.node.service_region.field_service_location
     - field.field.node.service_region.field_service_name_and_descripti
+    - field.field.node.service_region.field_vba_region_facility_list
     - node.type.service_region
+    - workflows.workflow.editorial
   module:
+    - change_labels
     - content_moderation
     - field_group
-    - ief_table_view_mode
-    - path
+    - limited_field_widgets
+    - paragraphs
+    - paragraphs_features
 third_party_settings:
   field_group:
     group_service_region:
@@ -49,6 +53,38 @@ third_party_settings:
         description: ''
         required_fields: true
         description_display: after
+    group_section_settings:
+      children:
+        - field_administration
+      label: 'Section settings'
+      region: content
+      parent_name: ''
+      weight: 3
+      format_type: details_sidebar
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        open: true
+        description: ''
+        required_fields: true
+        weight: -10
+    group_editorial_workflow:
+      children:
+        - moderation_state
+        - revision_log
+      label: 'Editorial Workflow'
+      region: content
+      parent_name: ''
+      weight: 4
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        description: ''
+        required_fields: true
+        description_display: after
 id: node.service_region.default
 targetEntityType: node
 bundle: service_region
@@ -56,7 +92,7 @@ mode: default
 content:
   field_administration:
     type: options_select
-    weight: 4
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -71,39 +107,52 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_service_location:
-    type: inline_entity_form_complex_table_view_mode
-    weight: 7
+    type: paragraphs
+    weight: 26
     region: content
     settings:
-      form_mode: default
-      override_labels: false
-      label_singular: ''
-      label_plural: ''
-      allow_new: true
-      allow_existing: false
-      match_operator: CONTAINS
-      allow_duplicate: false
-      collapsible: false
-      collapsed: false
-      revision: false
-      removed_reference: optional
-      allow_system_delete: false
-    third_party_settings: {  }
+      title: 'Service location'
+      title_plural: 'Service locations'
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: service_location
+      features:
+        add_above: '0'
+        collapse_edit_all: collapse_edit_all
+        duplicate: '0'
+    third_party_settings:
+      paragraphs_features:
+        add_in_between: false
+        add_in_between_link_count: 3
+        delete_confirmation: true
+        show_drag_and_drop: true
+      limited_field_widgets:
+        limit_values: '0'
+      change_labels:
+        add_another: ''
   field_service_name_and_descripti:
     type: options_select
     weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_vba_region_facility_list:
+    type: entity_reference_autocomplete
+    weight: 2
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 3
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  path:
-    type: path
-    weight: 2
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -120,6 +169,7 @@ hidden:
   created: true
   field_last_saved_by_an_editor: true
   langcode: true
+  path: true
   promote: true
   status: true
   sticky: true
