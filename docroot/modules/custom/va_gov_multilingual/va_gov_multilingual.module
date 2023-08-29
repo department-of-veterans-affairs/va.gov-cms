@@ -7,6 +7,11 @@
 
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\textfield_counter\Plugin\Field\FieldWidget\StringTextareaWithCounterWidget;
+use Drupal\textfield_counter\Plugin\Field\FieldWidget\StringTextfieldWithCounterWidget;
+use Drupal\textfield_counter\Plugin\Field\FieldWidget\TextareaWithCounterWidget;
+use Drupal\textfield_counter\Plugin\Field\FieldWidget\TextfieldWithSummaryAndCounterWidget;
+use Drupal\textfield_counter\Plugin\Field\FieldWidget\TextFieldWithCounterWidget;
 
 /**
  * Implements hook_field_widget_single_element_form_alter().
@@ -66,8 +71,15 @@ function va_gov_multilingual_field_widget_single_element_form_alter(array &$elem
         }
       }
       if (isset($element['#element_validate'])) {
+        $widgetClasses = [
+          StringTextareaWithCounterWidget::class,
+          StringTextfieldWithCounterWidget::class,
+          TextareaWithCounterWidget::class,
+          TextfieldWithSummaryAndCounterWidget::class,
+          TextFieldWithCounterWidget::class,
+        ];
         foreach ($element['#element_validate'] as $index => $validation_hook) {
-          if (is_array($validation_hook) && str_contains($validation_hook[0], 'TextFieldCounterWidgetTrait') && $validation_hook[1] === 'validateFieldFormElement') {
+          if (is_array($validation_hook) && in_array($validation_hook[0], $widgetClasses) && $validation_hook[1] === 'validateFieldFormElement') {
             unset($element['#element_validate'][$index]);
           }
         }

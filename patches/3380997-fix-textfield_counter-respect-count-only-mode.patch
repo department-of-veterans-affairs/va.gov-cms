@@ -1,0 +1,15 @@
+diff --git a/src/Plugin/Field/FieldWidget/TextareaWithSummaryAndCounterWidget.php b/src/Plugin/Field/FieldWidget/TextareaWithSummaryAndCounterWidget.php
+index f18ec5b2a783fcdc6c33add07a8ec5085c2020db..794987a1182262423484da74c1126eb3a86649e9 100644
+--- a/src/Plugin/Field/FieldWidget/TextareaWithSummaryAndCounterWidget.php
++++ b/src/Plugin/Field/FieldWidget/TextareaWithSummaryAndCounterWidget.php
+@@ -152,7 +152,9 @@ class TextareaWithSummaryAndCounterWidget extends TextareaWithSummaryWidget {
+       }
+       $element['#textfield-maxlength'] = $maxlength;
+       $element['#textfield-count-html'] = $count_html_characters;
+-      $element['#element_validate'][] = [static::class, 'validateFieldFormElement'];
++      if (!$this->getSetting('count_only_mode')) {
++        $element['#element_validate'][] = [static::class, 'validateFieldFormElement'];
++      }
+     }
+ 
+     if ($summary_maxlength = $this->getSetting('summary_maxlength')) {
