@@ -13,4 +13,3 @@ Feature: Content Type: Campaign Landing Page
     And I should see "Add a link to more videos"
     When I click the "Add Call to action" button
     Then I can fill in "Link" field with fake link
-    And I can fill in "Link text" field with fake text
