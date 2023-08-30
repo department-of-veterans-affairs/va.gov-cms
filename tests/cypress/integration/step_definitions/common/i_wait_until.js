@@ -1,16 +1,16 @@
-import { Given } from "@badeball/cypress-cucumber-preprocessor";
+import { Then } from "@badeball/cypress-cucumber-preprocessor";
 
-Given("I wait until element with selector {string} is visible", (selector) => {
+Then("I wait until element with selector {string} is visible", (selector) => {
   cy.get(selector).should("be.visible");
 });
 
-Given(
+Then(
   "I wait until element with selector {string} is not visible",
   (selector) => {
     cy.get(selector).should("not.be.visible");
   }
 );
 
-Given("I wait until I see {string}", (text) => {
+Then("I wait until I see {string}", (text) => {
   cy.get(text).should("be.visible");
 });
