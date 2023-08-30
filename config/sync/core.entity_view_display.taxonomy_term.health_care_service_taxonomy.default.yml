@@ -85,12 +85,24 @@ content:
     third_party_settings: {  }
     weight: 4
     region: content
+  field_online_self_service:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 21
+    region: content
   field_service_type_of_care:
     type: list_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 5
     region: content
   field_show_for_vamc_facilities:
     type: boolean
@@ -110,7 +122,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 17
+    weight: 16
     region: content
   field_show_for_vet_centers:
     type: boolean
@@ -120,7 +132,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 16
+    weight: 15
     region: content
   field_tricare_description:
     type: basic_string
@@ -137,7 +149,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 20
+    weight: 23
     region: content
   field_vba_com_conditions:
     type: string
@@ -160,7 +172,22 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 19
+    weight: 20
+    region: content
+  field_vba_service_regions:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 22
+    region: content
+  field_vba_type_of_care:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 17
     region: content
   field_vet_center_com_conditions:
     type: string

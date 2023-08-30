@@ -99,8 +99,8 @@ third_party_settings:
         - field_vba_friendly_name
         - field_vba_com_conditions
         - field_vba_service_descrip
-        - field_vba_service_regions
         - field_online_self_service
+        - field_vba_service_regions
       label: VBA
       region: content
       parent_name: ''
@@ -249,7 +249,7 @@ content:
     third_party_settings: {  }
   field_vba_service_regions:
     type: entity_reference_autocomplete
-    weight: 11
+    weight: 13
     region: content
     settings:
       match_operator: CONTAINS
