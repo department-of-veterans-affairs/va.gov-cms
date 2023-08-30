@@ -72,3 +72,7 @@ Then(`I should see {string} in ckeditor {string}`, (value, label) => {
     expect(actual).to.contain(value);
   });
 });
+
+Then("I should see the {string} button", (text) => {
+  cy.contains("input", text).parent().should("be.visible");
+});
