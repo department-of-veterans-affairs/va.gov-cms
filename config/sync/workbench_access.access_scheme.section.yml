@@ -42,6 +42,7 @@ dependencies:
     - field.field.node.publication_listing.field_administration
     - field.field.node.q_a.field_administration
     - field.field.node.regional_health_care_service_des.field_administration
+    - field.field.node.service_region.field_administration
     - field.field.node.step_by_step.field_administration
     - field.field.node.story_listing.field_administration
     - field.field.node.support_resources_detail_page.field_administration
@@ -302,6 +303,10 @@ scheme_settings:
     -
       entity_type: node
       bundle: vba_facility_service
+      field: field_administration
+    -
+      entity_type: node
+      bundle: service_region
       field: field_administration
     -
       entity_type: taxonomy_term

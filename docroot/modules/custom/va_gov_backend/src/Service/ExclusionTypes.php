@@ -32,8 +32,8 @@ class ExclusionTypes implements ExclusionTypesInterface {
   public function getExcludedTypes() : array {
     $excluded_types = [];
 
-    if (!empty($this->configFactory->get('exclusion_types_admin.settings')->get('types_to_exclude'))) {
-      $excluded_types = $this->configFactory->get('exclusion_types_admin.settings')->get('types_to_exclude');
+    if (!empty($this->configFactory->get('va_gov_backend.exclusion_settings')->get('types_to_exclude'))) {
+      $excluded_types = $this->configFactory->get('va_gov_backend.exclusion_settings')->get('types_to_exclude');
     }
 
     return $excluded_types;

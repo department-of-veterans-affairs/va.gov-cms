@@ -23,7 +23,7 @@ class MaxDepthTest extends VaGovExistingSiteBase {
     $this->assertSession()->pageTextContains('The maximum depth of a magichead item.');
     $elements = $this->cssSelect('#edit-settings-max-depth');
     $this->assertCount(1, $elements);
-    $this->assertSame($elements[0]->getValue(), '3');
+    $this->assertSame($elements[0]->getValue(), '2');
   }
 
 }

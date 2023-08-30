@@ -131,16 +131,22 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
    *   Render array
    */
   public static function createRenderArrayFromFieldOnRefdEntity(NodeInterface $node, $related_field, $field_to_render) {
-    // @phpstan-ignore-next-line Test is unclear what get() we are using
-    $referenced_entities = $node->get($related_field)->referencedEntities();
     $output = [];
-    if (isset($referenced_entities[0])) {
-      $referenced_entity = $referenced_entities[0];
-      $value = $referenced_entity->get($field_to_render);
-      $viewBuilder = \Drupal::entityTypeManager()->getViewBuilder($referenced_entity->getEntityTypeId());
-      $output = $viewBuilder->viewField($value, 'full');
-      $output['content']['#weight'] = 10;
-      $output['#cache']['tags'] = $referenced_entity->getCacheTags();
+    // @phpstan-ignore-next-line Test is unclear what get() we are using
+    if ($node->hasField($related_field)) {
+      // It has the related field. Proceed with trying to grab the reference.
+      $referenced_entities = $node->get($related_field)->referencedEntities();
+      if (isset($referenced_entities[0])) {
+        $referenced_entity = $referenced_entities[0];
+        if ($referenced_entity->hasField($field_to_render)) {
+          // It has the field we want to render, so proceed.
+          $value = $referenced_entity->get($field_to_render);
+          $viewBuilder = \Drupal::entityTypeManager()->getViewBuilder($referenced_entity->getEntityTypeId());
+          $output = $viewBuilder->viewField($value, 'full');
+          $output['content']['#weight'] = 10;
+          $output['#cache']['tags'] = $referenced_entity->getCacheTags();
+        }
+      }
     }
     return $output;
   }

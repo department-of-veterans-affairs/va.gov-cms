@@ -18,6 +18,7 @@ dependencies:
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vba_com_conditions
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vba_friendly_name
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vba_service_descrip
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_vba_service_regions
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vet_center_com_conditions
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vet_center_friendly_name
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vet_center_required_servic
@@ -57,6 +58,11 @@ targetEntityType: taxonomy_term
 bundle: health_care_service_taxonomy
 mode: vet_center_service
 content:
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
+    region: content
   field_vet_center_service_descrip:
     type: basic_string
     label: hidden
@@ -80,6 +86,7 @@ hidden:
   field_vba_com_conditions: true
   field_vba_friendly_name: true
   field_vba_service_descrip: true
+  field_vba_service_regions: true
   field_vet_center_com_conditions: true
   field_vet_center_friendly_name: true
   field_vet_center_required_servic: true

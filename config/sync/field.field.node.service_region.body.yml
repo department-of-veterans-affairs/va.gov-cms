@@ -1,0 +1,31 @@
+uuid: 51661832-4338-4855-a42b-1e67013bad60
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.service_region
+  module:
+    - allowed_formats
+    - text
+    - tmgmt_content
+third_party_settings:
+  allowed_formats:
+    allowed_formats:
+      - rich_text_limited
+  tmgmt_content:
+    excluded: false
+id: node.service_region.body
+field_name: body
+entity_type: node
+bundle: service_region
+label: 'Regional service description'
+description: 'Add a short paragraph and up to six bullet points detailing the tasks beneficiaries can accomplish by contacting the regional service center.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+  required_summary: false
+field_type: text_with_summary

@@ -17,6 +17,7 @@ dependencies:
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vba_com_conditions
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vba_friendly_name
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vba_service_descrip
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_vba_service_regions
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vet_center_com_conditions
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vet_center_friendly_name
     - field.field.taxonomy_term.health_care_service_taxonomy.field_vet_center_required_servic
@@ -94,6 +95,7 @@ third_party_settings:
         - field_vba_friendly_name
         - field_vba_com_conditions
         - field_vba_service_descrip
+        - field_vba_service_regions
       label: VBA
       region: content
       parent_name: ''
@@ -230,6 +232,16 @@ content:
     region: content
     settings:
       rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_vba_service_regions:
+    type: entity_reference_autocomplete
+    weight: 11
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
       placeholder: ''
     third_party_settings: {  }
   field_vet_center_com_conditions:
