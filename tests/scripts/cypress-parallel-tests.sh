@@ -24,6 +24,8 @@ npm run test:cypress:parallel -- \
   "${@}"
 exit_code=$?
 
+npx generate-mochawesome-report
+
 popd > /dev/null
 
 exit "${exit_code}"

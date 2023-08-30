@@ -8,6 +8,7 @@ const cucumber = require("@badeball/cypress-cucumber-preprocessor");
 const getCompareSnapshotsPlugin = require("cypress-visual-regression/dist/plugin");
 const browserify = require("@badeball/cypress-cucumber-preprocessor/browserify");
 const cypressFailedLog = require("cypress-failed-log/on");
+const { mochawesomeBeforeRunHook } = require("cypress-mochawesome-reporter/lib");
 
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
@@ -19,6 +20,10 @@ async function setupNodeEvents(on, config) {
   await getCompareSnapshotsPlugin(on, config);
 
   await cypressFailedLog(on, config);
+
+  on("before:run", async (details) => {
+    await mochawesomeBeforeRunHook(details);
+  });
 
   on("task", {
     log(message) {
