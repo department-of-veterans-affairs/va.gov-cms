@@ -15,7 +15,7 @@ Feature: Content Type: Campaign Landing Page
     And I can fill in "External File URL" field with fake text
     And I can fill in "Description" field with fake text
 # TODO: Test section drop-down for this segment
-    And I click the "Cancel" button
+    When I click the "Cancel" button
     Then I click the "Add existing Downloadable resource" button
     And I should see "Select Downloadable resource"
 # TODO: Test clicking the "Select Downloadable resource" button and modal
