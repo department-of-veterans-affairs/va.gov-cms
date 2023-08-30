@@ -3,14 +3,13 @@ Feature: Content Type: Campaign Landing Page
 
   Scenario: Test that expected form elements are present in Why This Matters segment
     Given I am logged in as a user with the "content_admin" role
-    And I am at "node/add/campaign_landing_page"
+    When I am at "node/add/campaign_landing_page"
     And I click to expand "Why this matters"
-    Then I fill in field with selector "#edit-field-clp-why-this-matters-0-value" with fake text
-    And I click to expand "Select up to 3 audiences"
+    Then I can fill in field with selector "#edit-field-clp-why-this-matters-0-value" with fake text
+    When I click to expand "Select up to 3 audiences"
     Then I should see "Select audiences"
     # TODO: Test audience selection modal
     And I should see "Secondary call to action"
-    And I click the "Add Call to action" button
-    And I fill in "Link" field with fake link
+    When I click the "Add Call to action" button
+    Then I can fill in "Link" field with fake link
     And I should see "Link text"
-#    And I fill in "Link text" field with fake text
