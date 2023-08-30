@@ -1,8 +1,9 @@
-uuid: a017117f-072c-4726-822a-d9e1d448b073
+uuid: 8a96ccac-9171-411a-9b7e-e9ebb103a6ee
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.full
     - field.field.node.service_region.body
     - field.field.node.service_region.field_administration
     - field.field.node.service_region.field_facility_location
@@ -14,6 +15,7 @@ dependencies:
   module:
     - entity_reference_revisions
     - field_group
+    - layout_builder
     - user
 third_party_settings:
   field_group:
@@ -46,10 +48,13 @@ third_party_settings:
         id: primary-facility
         description: ''
         description_display: after
-id: node.service_region.default
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.service_region.full
 targetEntityType: node
 bundle: service_region
-mode: default
+mode: full
 content:
   field_administration:
     type: entity_reference_label
@@ -57,7 +62,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 3
+    weight: 4
     region: content
   field_facility_location:
     type: entity_reference_label
@@ -66,6 +71,16 @@ content:
       link: true
     third_party_settings: {  }
     weight: 4
+    region: content
+  field_last_saved_by_an_editor:
+    type: timestamp
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 3
     region: content
   field_service_location:
     type: entity_reference_revisions_entity_view
@@ -95,7 +110,6 @@ content:
 hidden:
   body: true
   content_moderation_control: true
-  field_last_saved_by_an_editor: true
   langcode: true
   links: true
   search_api_excerpt: true
