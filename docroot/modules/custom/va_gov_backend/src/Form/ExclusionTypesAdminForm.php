@@ -46,7 +46,7 @@ class ExclusionTypesAdminForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $config = $this->config('exclusion_types_admin.settings');
+    $config = $this->config('va_gov_backend.exclusion_settings');
     $options = [];
     $types = $this->entityTypeManager
       ->getStorage('node_type')
@@ -84,7 +84,7 @@ class ExclusionTypesAdminForm extends FormBase {
         $values[$key] = $item;
       }
     }
-    $config = $this->configFactory()->getEditable('exclusion_types_admin.settings');
+    $config = $this->configFactory()->getEditable('va_gov_backend.exclusion_settings');
     $config
       ->set('types_to_exclude', $values)
       ->save();
