@@ -5,8 +5,8 @@ dependencies:
   config:
     - field.field.node.service_region.body
     - field.field.node.service_region.field_administration
+    - field.field.node.service_region.field_facility_location
     - field.field.node.service_region.field_last_saved_by_an_editor
-    - field.field.node.service_region.field_office
     - field.field.node.service_region.field_service_location
     - field.field.node.service_region.field_service_name_and_descripti
     - field.field.node.service_region.field_vba_region_facility_list
@@ -40,6 +40,7 @@ third_party_settings:
     group_primary_facility:
       children:
         - field_office
+        - field_facility_location
         - field_service_location
       label: 'Primary facility'
       region: content
@@ -96,19 +97,19 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_office:
+  field_facility_location:
     type: entity_reference_autocomplete
-    weight: 6
+    weight: 7
     region: content
     settings:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
-      placeholder: ''
+      placeholder: 'Choose the VBA Facility that oversees this Service Region'
     third_party_settings: {  }
   field_service_location:
     type: paragraphs
-    weight: 26
+    weight: 8
     region: content
     settings:
       title: 'Service location'

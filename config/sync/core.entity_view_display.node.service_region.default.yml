@@ -5,8 +5,8 @@ dependencies:
   config:
     - field.field.node.service_region.body
     - field.field.node.service_region.field_administration
+    - field.field.node.service_region.field_facility_location
     - field.field.node.service_region.field_last_saved_by_an_editor
-    - field.field.node.service_region.field_office
     - field.field.node.service_region.field_service_location
     - field.field.node.service_region.field_service_name_and_descripti
     - field.field.node.service_region.field_vba_region_facility_list
@@ -34,6 +34,7 @@ third_party_settings:
     group_primary_facility:
       children:
         - field_office
+        - field_facility_location
         - field_service_location
       label: 'Primary facility'
       parent_name: ''
@@ -59,6 +60,14 @@ content:
     third_party_settings: {  }
     weight: 4
     region: content
+  field_facility_location:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 4
+    region: content
   field_last_saved_by_an_editor:
     type: timestamp
     label: above
@@ -66,14 +75,6 @@ content:
       date_format: medium
       custom_date_format: ''
       timezone: ''
-    third_party_settings: {  }
-    weight: 3
-    region: content
-  field_office:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
     third_party_settings: {  }
     weight: 3
     region: content

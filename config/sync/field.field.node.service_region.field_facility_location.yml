@@ -1,9 +1,9 @@
-uuid: db6ff540-1aba-449c-9647-43ca00a4188c
+uuid: 59eea87d-dc50-4492-bf12-2bf7f34a2686
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_office
+    - field.storage.node.field_facility_location
     - node.type.service_region
     - node.type.vba_facility
   module:
@@ -16,13 +16,13 @@ third_party_settings:
     duplicate_reference: false
   tmgmt_content:
     excluded: false
-id: node.service_region.field_office
-field_name: field_office
+id: node.service_region.field_facility_location
+field_name: field_facility_location
 entity_type: node
 bundle: service_region
 label: 'Primary VBA facility'
-description: 'Chose the VBA Facility that oversees this Service Region'
-required: false
+description: ''
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''
