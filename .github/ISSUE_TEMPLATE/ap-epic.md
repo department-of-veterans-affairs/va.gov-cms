@@ -1,13 +1,12 @@
 ---
-name: "(AP) Epic"
+name: (AP) Epic
 about: A collection of work towards a defined goal
 title: "[Epic][AP] <brief description of value>"
-labels: Accelerated Publishing, Epic, Needs refining
-assignees: ''
+labels: Needs refining, Accelerated Publishing, Epic
 
 ---
 
-## Requirements & Goals test
+## Requirements & Goals
 <!-- Two to three sentences maximum describing what we are trying to achieve. Epics should be outcome-focused and they should be closeable. --> 
 
 <!-- For the next section, if the outcome is a deliverable, i.e. a new content type or template is delivered, just state that. -->

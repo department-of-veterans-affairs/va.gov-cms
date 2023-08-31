@@ -1,9 +1,8 @@
 ---
-name: "(AP) Defect"
+name: (AP) Defect
 about: Work to fix a problem with existing functionality
 title: "<Short description of the functional problem>"
 labels: Accelerated Publishing, Defect
-assignees: ''
 
 ---
 
@@ -44,3 +43,4 @@ Log messages here
 <!-- Provide any information about why the bug is happening. Links to tickets where the work was originally done are helpful. -->
 <!-- This is the place for info about the technical failure. -->
 <!-- This probably will not be filled out when the ticket is initially created. -->
+

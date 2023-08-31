@@ -1,9 +1,8 @@
 ---
-name: "(AP) Sprint Overview"
+name: (AP) Sprint Overview
 about: High priority goals and tickets grouped by focus area
 title: "[AP] Sprint ##"
-labels: Accelerated Publishing, Needs refining
-assignees: ''
+labels: Needs refining, Accelerated Publishing
 
 ---
 
