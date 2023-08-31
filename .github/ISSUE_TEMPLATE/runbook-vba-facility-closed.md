@@ -2,8 +2,7 @@
 name: Runbook - VBA Facility closed
 about: Steps for archiving a VBA facility in VA.gov CMS.
 title: 'VBA Facility closed: <insert_name>'
-labels: Change request, Drupal engineering, Facilities, User support, VA.gov frontend,
-  VBA
+labels: Change request, Drupal engineering, Facilities, User support, VA.gov frontend, VBA
 assignees: ''
 
 ---

@@ -1,12 +1,10 @@
 ---
-name: "(AP) Feature"
+name: (AP) Feature
 about: New or work or enhancements
 title: "<brief summary of value/outcome>"
-labels: Accelerated Publishing, Needs refining
-assignees: ''
+labels: Needs refining, Accelerated Publishing
 
 ---
-
 ## Requirements
 <!-- one to two sentences about the value being delivered; why are we doing this? -->
 <!-- for very technical implementation tasks a more direct explanation is fine, but otherwise avoid solutions here. -->
