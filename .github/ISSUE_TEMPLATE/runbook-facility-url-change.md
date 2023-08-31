@@ -2,10 +2,11 @@
 name: Runbook - Facility URL Change
 about: Submit a request to change the URL of a facility
 title: 'URL Change for: <insert facility name>'
-labels: Facilities, Drupal engineering, Redirect request, URL Change, User support, VA.gov frontend
+labels: Drupal engineering, Facilities, Redirect request, User support, VA.gov frontend
 assignees: ''
 
 ---
+
 ### Implementation date
 When does this request need to be live:
 [MM/DD/YYYY]
@@ -59,4 +60,3 @@ When does this request need to be live:
 | Facility API ID  |  Full VA.gov URL |
 | ---  |  --- |
 | vha_691GM | https://www.va.gov/greater-los-angeles-health-care/locations/oxnard-va-clinic |
-

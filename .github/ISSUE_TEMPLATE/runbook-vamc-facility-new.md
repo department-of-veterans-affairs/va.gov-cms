@@ -2,7 +2,8 @@
 name: Runbook - New VAMC Facility
 about: changing facility information in the CMS for VAMC facilities
 title: 'New VAMC Facility: <insert_name_of_facility>'
-labels: Change request, Drupal engineering, Facilities, User support, VA.gov frontend, VAMC
+labels: Change request, Drupal engineering, Facilities, User support, VA.gov frontend,
+  VAMC
 assignees: ''
 
 ---

@@ -1,8 +1,9 @@
 ---
-name: (AP) Epic
+name: "(AP) Epic"
 about: A collection of work towards a defined goal
 title: "[Epic][AP] <brief description of value>"
-labels: Needs refining, Accelerated Publishing, Epic
+labels: Accelerated Publishing, Epic, Needs refining
+assignees: ''
 
 ---
 

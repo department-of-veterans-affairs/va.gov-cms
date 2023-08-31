@@ -1,8 +1,8 @@
 ---
 name: CMS Design System Documentation
 about: Use this template for a designer to update the CMS design system documentation.
-title: 'Update/add <insert topic here> in the design system documentation.'
-labels: CMS design system, CMS design, CMS Team, Needs refining
+title: Update/add <insert topic here> in the design system documentation.
+labels: CMS design system, CMS Team, Needs refining
 assignees: BlakeOrgan
 
 ---

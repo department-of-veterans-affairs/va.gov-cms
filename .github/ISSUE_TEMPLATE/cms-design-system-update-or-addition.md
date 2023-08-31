@@ -1,8 +1,8 @@
 ---
 name: CMS Design System Update or Addition
 about: Use this template for a designer to update the CMS design system.
-title: 'Update/add <insert topic here> in the design system.'
-labels: CMS design system, CMS design, CMS Team, Needs refining
+title: Update/add <insert topic here> in the design system.
+labels: CMS design system, CMS Team, Needs refining
 assignees: BlakeOrgan
 
 ---

@@ -20,4 +20,3 @@ _Semi-frequently (at least a few times per sprint), read through the production 
 | Date | Issue(s) |
 | ---- | -------- |
 | | |
-  
