@@ -19,5 +19,5 @@ _Semi-frequently (at least a few times per sprint), read through the production 
 ### Production Logs Check
 | Date | Issue(s) |
 | ---- | -------- |
-| | |  
-
+| | |
+  
