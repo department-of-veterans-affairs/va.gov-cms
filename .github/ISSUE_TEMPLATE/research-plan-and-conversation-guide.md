@@ -16,7 +16,7 @@ Use the appropriate templates for the type of research you are conducting:
 - [Veteran-facing Conversation Guide Template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/research/planning/conversation-guide-template.md)
 
 Suggested workflow:
-- [ ] Create your initial drafts in =Sharepoint for collaborative editing
+- [ ] Create your initial drafts in Sharepoint for collaborative editing
 - [ ] Solicit feedback on artifacts from Design Team and Product Manager
 - [ ] Schedule a 1-hour meeting with the Product Owner to review artifacts (also invite Product Manager) 
 - [ ] Send artifacts to PO for review at least 24 hours in advance of the review meeting
