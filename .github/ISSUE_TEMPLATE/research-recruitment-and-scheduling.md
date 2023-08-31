@@ -46,10 +46,3 @@ assignees: ''
 - [ ] Schedule Pilot session
 - [ ] Schedule Daily Research Debriefs and invite relevant team members 
 
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [ ] `Facilities`
-- [ ] `User support`

@@ -24,7 +24,7 @@ Topline Summary:
 - This is just a summary of findings, no recommendations
 
 Next Steps:
-- The Research Lead should work with the Design Team & PM to create recommendations 
+- The Research Lead should work with the UX Team & PM to create recommendations 
 - The PM & PO should decide if a full research readout is required and who needs to be invited
 
 ## Acceptance Criteria
