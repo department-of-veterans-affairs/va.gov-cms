@@ -3,7 +3,7 @@
 namespace Drupal\va_gov_backend\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Symfony\Component\HttpFoundation\Response;
+use Drupal\Core\Render\HtmlResponse;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -67,10 +67,10 @@ class ContentReleaseStatusController extends ControllerBase {
   /**
    * Get last release status response.
    *
-   * @return \Symfony\Component\HttpFoundation\Response
+   * @return \Drupal\Core\Render\HtmlResponse
    *   Return release status response.
    */
-  public function getDefault(): Response {
+  public function getDefault(): HtmlResponse {
     $renderArray = $this->getLastReleaseStatus();
     return $this->getLastReleaseResponse($renderArray);
   }
@@ -102,12 +102,12 @@ class ContentReleaseStatusController extends ControllerBase {
    * @param array $status
    *   The last release status render array.
    *
-   * @return \Symfony\Component\HttpFoundation\Response
+   * @return \Drupal\Core\Render\HtmlResponse
    *   A response encapsulating the last release status message.
    */
-  public function getLastReleaseResponse(array $status): Response {
+  public function getLastReleaseResponse(array $status): HtmlResponse {
     $output = $this->renderer->renderPlain($status);
-    $response = Response::create($output);
+    $response = new HtmlResponse($output);
     $response->setCache(['max_age' => 60]);
     return $response;
   }
