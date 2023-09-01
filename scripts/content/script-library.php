@@ -159,26 +159,40 @@ function normalize_crisis_number($input, $plain = FALSE): string {
  *   The node to serialize.
  * @param string $message
  *   The log message for the new revision.
+ * @param bool $new
+ *   Whether the revision should be created or updated.
  *
  * @return int
  *   Either SAVED_NEW or SAVED_UPDATED, depending on the operation performed.
  */
-function save_node_revision(NodeInterface $node, $message): int {
-  $states = [
-    'draft',
-    'review',
-  ];
+function save_node_revision(NodeInterface $node, $message = '', $new = TRUE): int {
   $moderation_state = $node->get('moderation_state')->value;
-  $node->setNewRevision(TRUE);
-  // If draft or review preserve the user from revision, otherwise CMS Migrator.
-  $uid = (in_array($moderation_state, $states)) ? $node->getRevisionUserId() : CMS_MIGRATOR_ID;
+  $node->setNewRevision($new);
+  $node->setSyncing(TRUE);
+  $node->setValidationRequired(FALSE);
+  // New revisions deserve special treatment.
+  if ($new) {
+    $node->enforceIsNew(TRUE);
+    $node->setChangedTime(time());
+    $node->setRevisionCreationTime(time());
+    $uid = CMS_MIGRATOR_ID;
+  }
+  else {
+    $node->enforceIsNew(FALSE);
+    $uid = $node->getRevisionUserId();
+  }
   $node->setRevisionUserId($uid);
-  $node->setChangedTime(time());
-  $node->setRevisionCreationTime(time());
-  // If draft or review append new log message to previous log message.
-  $prefix = (in_array($moderation_state, $states)) ? $node->getRevisionLogMessage() . ' - ' : '';
+  $revision_time = $node->getRevisionCreationTime();
+  // Incrementing by a nano second to bypass Drupal core logic
+  // that will update the "changed" value to request time if
+  // the value is not different from the original value.
+  $revision_time++;
+  $node->setRevisionCreationTime($revision_time);
+  // Append new log message to previous log message.
+  $prefix = !empty($message) ? $node->getRevisionLogMessage() . ' - ' : '';
   $node->setRevisionLogMessage($prefix . $message);
   $node->set('moderation_state', $moderation_state);
+
   return $node->save();
 }
 

@@ -33,9 +33,8 @@ class ExclusionTypesServiceTest extends VaGovUnitTestBase {
    */
   public function setUp() : void {
     parent::setUp();
-
     $this->configFactory = $this->getConfigFactoryStub([
-      'exclusion_types_admin.settings' => [
+      'va_gov_backend.exclusion_settings' => [
         'types_to_exclude' => [
           'page' => 'page',
           'office' => 'office',

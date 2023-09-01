@@ -1,0 +1,22 @@
+uuid: 2a823937-cc75-4fcf-9dd1-ae0fc34df3f4
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: service_regions
+label: 'Service Region'
+type: 'canonical_entities:node'
+pattern: 'cms-internal/service-region/[node:field_service_name_and_descripti:entity:name]/[node:title]'
+selection_criteria:
+  f2c91db5-f546-4a77-8164-fc6321577cc9:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: f2c91db5-f546-4a77-8164-fc6321577cc9
+    context_mapping:
+      node: node
+    bundles:
+      service_region: service_region
+selection_logic: and
+weight: -5
+relationships: {  }

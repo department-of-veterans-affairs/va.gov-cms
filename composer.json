@@ -207,7 +207,7 @@
         "symfony/phpunit-bridge": "^5.1",
         "symfony/process": "^4.0",
         "symfony/routing": "^4.0",
-        "va-gov/content-build": "^0.0.3328",
+        "va-gov/content-build": "^0.0.3337",
         "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
@@ -408,6 +408,10 @@
             "drupal/entity_diff_ui": {
                 "3315629 - Remove deprecated MediaRevisionAccessCheck": "https://www.drupal.org/files/issues/2023-01-31/3315629-remove-deprecated-media-revision-access-check-5.patch"
             },
+            "drupal/entity_reference_hierarchy": {
+                "3346631 - D10 compatbility": "https://www.drupal.org/files/issues/2023-08-17/3346631-entity-referency-hierarchy-d10-compatibility-12.patch",
+                "3219011 - reference fields are shown twice when ERwH is installed": "https://www.drupal.org/files/issues/2023-08-22/3219011-ERwH-removes-preconfigured-fields-06.patch"
+            },
             "drupal/entity_reference_revisions": {
                 "2984027 - Incorrect manipulation of default revision flag": "https://www.drupal.org/files/issues/2020-09-03/entity_reference_revisions-default_revision-2984027-10.patch"
             },
@@ -477,6 +481,9 @@
                 "3204586 - Update URL Alias action is only available for nodes + users and does not work with views_bulk_operations": "https://www.drupal.org/files/issues/2022-10-28/pathauto-add_deriver_for_alias_update_action-3204586-28_0.patch",
                 "3214658 - Omit nolink items from url path args and add token that uses parent url": "https://www.drupal.org/files/issues/2022-05-08/remove-nolink-args-use-parent-entity-url-3214658-18.patch"
             },
+            "drupal/path_redirect_import": {
+                "3373025 - Update to support path redirect import migrate_tools 6.0.2": "https://www.drupal.org/files/issues/2023-07-06/path_redirect_import-3373025.patch"
+            },
             "drupal/prometheus_exporter": {
                 "3214628 - Add published/unpublished node statistics to NodeCount.": "https://www.drupal.org/files/issues/2021-06-29/prometheus_exporter-add_status_metrics_to_node_count-3214628-3.patch"
             },
@@ -509,9 +516,7 @@
 		"3341971 - Drag & drop addition adds meaningless numbers to table data, could break integrating code": "https://www.drupal.org/files/issues/2023-03-23/tablefield-disable-drag-drop-controls.patch"
             },
             "drupal/textfield_counter": {
-                "3004457 - Prevent form submission when character limit exceeded option does not work": "https://www.drupal.org/files/issues/2018-10-04/textfield_counter-prevent_form_submission_does_not_work-3004457-2.patch",
-                "3182675 - Incompatibilities with Claro and Claro-based (e.g. Gin) themes": "https://www.drupal.org/files/issues/2022-08-04/textfield-counter-incompatible-with-claro-3182675-10.patch",
-                "3272128 - Calling a static method, or accessing a static property directly on a trait is deprecated": "https://www.drupal.org/files/issues/2022-04-27/deprecated-static-function-call-in-trait-3272128.patch"
+                "3380997 - Textarea with summary and counter doesn't respect count only setting": "patches/3380997-fix-textfield_counter-respect-count-only-mode.patch"
             },
             "drupal/viewfield": {
                 "3252356 - Add option to display default view on node edit when always use default value selected": "https://www.drupal.org/files/issues/2023-02-07/viewfield-option-display-default-view-on-node-edit-3252356-5.patch"

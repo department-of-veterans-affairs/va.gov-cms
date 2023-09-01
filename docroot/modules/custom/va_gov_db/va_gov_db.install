@@ -789,7 +789,7 @@ function va_gov_db_update_8031(&$sandbox) {
   }
 
   // Get all of the vet centers.
-  $vc_nids = \Drupal::entityQuery('node')->condition('type', 'vet_center')->execute();
+  $vc_nids = \Drupal::entityQuery('node')->condition('type', 'vet_center')->accessCheck(FALSE)->execute();
   $vc_nodes = Node::loadMultiple($vc_nids);
   $vcs_ids = [];
   $vc_term_loader = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
