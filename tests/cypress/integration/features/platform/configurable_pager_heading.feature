@@ -3,6 +3,7 @@ Feature: Configurable Pager Heading
   As an administrator
   I need to be able to change a view pager's heading element for a given view
 
+  @skip_on_brd
   Scenario: The View Administrator should configure a view pager's heading element
     Given I am logged in as a user with the "administrator" role
     When I am at "/admin/structure/views/view/content"
