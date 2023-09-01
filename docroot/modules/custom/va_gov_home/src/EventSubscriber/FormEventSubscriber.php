@@ -35,12 +35,15 @@ class FormEventSubscriber implements EventSubscriberInterface {
    * @param \Drupal\core_event_dispatcher\Event\Form\FormAlterEvent $event
    *   The form event.
    */
-  public function formAlter(FormAlterEvent $event) {
+  public function formAlter(FormAlterEvent $event): void {
+    $form = &$event->getForm();
     if ($event->getFormId() === 'menu_link_content_home-page-hub-list_form') {
-      $form = &$event->getForm();
       $admin = $this->permsService->hasAdminRole(TRUE);
       $this->hubMenuFormAlter($form, $admin);
-    };
+    }
+    if ($event->getFormId() === 'menu_link_content_va-gov-footer_form' || $event->getFormId() === 'menu-link-content-footer-bottom-rail-form') {
+      $this->hideMenuLinkDescriptionField($form, $admin);
+    }
   }
 
   /**
@@ -51,7 +54,7 @@ class FormEventSubscriber implements EventSubscriberInterface {
    * @param bool $admin
    *   TRUE if current user is an admin.
    */
-  public function hubMenuFormAlter(array &$form, bool $admin) {
+  public function hubMenuFormAlter(array &$form, bool $admin): void {
     $this->hubMenuHideAddtributes($form)
       ->hubMenuHideExpanded($form)
       ->hubMenuHideViewMode($form, $admin)
@@ -120,6 +123,16 @@ class FormEventSubscriber implements EventSubscriberInterface {
       $form['menu_parent']['#access'] = $admin;
     }
     return $this;
+  }
+
+  /**
+   * Hides the description field on certain menu link forms.
+   *
+   * @param array $form
+   *   The form element array.
+   */
+  public function hideMenuLinkDescriptionField(array &$form): void {
+    $form['description']['#access'] = FALSE;
   }
 
   /**
