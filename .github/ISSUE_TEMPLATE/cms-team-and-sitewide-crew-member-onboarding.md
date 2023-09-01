@@ -43,9 +43,15 @@ Your top priority is any onboarding paperwork provided by Contract Onboarding fo
 ### People
 - [ ] Meet with A6 Contract Onboarding Specialists (COS) to get an introduction to the paperwork process. They'll schedule.
 - [ ] Who is our team? [View & bookmark this Mural org chart](https://app.mural.co/t/departmentofveteransaffairs9999/m/vagov6717/1653588059793/7a260edabca9535d25d71fac1035c979261c223c?sender=u0b235d03cbd64f7f93673243)
-- [ ] Complete your personal information & bookmark the [official team roster](https://docs.google.com/spreadsheets/d/1S31-cj0TPczh4K9r2G--kERqZStOOECX_W2VrQy3kRA/edit#gid=0). Note: this is separate from the Platform roster mentioned in Day 1 section.
-    * Your DM will ask you to update your paperwork status until you receive official clearance.
-    - [ ] Get the sharable link for your Google Calendar from Settings/"Access permissions for events" and add it to your Slack Profile. This will allow team members in other organizations to easily schedule with you. 
+- [ ] DSVA Slack: Update your profile, to include at minimum:
+    - [ ] Profile photo
+    - [ ] Title, Team, Agency (in Title)
+    - [ ] Time zone
+    - [ ] Contact information: agency email, and phone if you're willing
+    - [ ] About me: VA email once you have one
+    - [ ] Calendar URL - Get the sharable link for your Google Calendar from Settings/"Access permissions for events" and add it to your Slack Profile. This will allow team members in other organizations to easily schedule with you. 
+    - [ ] Github alias
+    - [ ] Working hours
 - [ ] Who is on the team? Read your [team members' user manuals](https://drive.google.com/drive/u/0/folders/195otsT1IUxi_k8oEU21TUkvEG-6p5YQj?ths)
 - [ ] Create your own User Manual: duplicate [the template](https://docs.google.com/document/d/1Rvtoo8CQvE7dptcqmMVqmJ_hbKSNWJ983NXkDj_gVg0/edit?usp=share_link), fill it out, and save your manual in your team's folder.
    - [ ] Share your user manual with your team in Slack, once you've created it!
