@@ -9,6 +9,23 @@ import "./main_content_blocks";
 
 const compareSnapshotCommand = require("cypress-visual-regression/dist/command");
 
+let testFailed = false;
+
+beforeEach(() => {
+  testFailed = false;
+});
+
+afterEach(() => {
+  if (testFailed) {
+    cy.dumpWatchdogToStdout(5); // Replace with the actual number of logs you want
+  }
+});
+
+Cypress.on("fail", (error) => {
+  testFailed = true;
+  throw error; // Continue to fail the test
+});
+
 Cypress.Commands.add("drupalLogin", (username, password) => {
   cy.visit("/user/login");
 
@@ -101,6 +118,36 @@ Cypress.Commands.add(
     });
   }
 );
+
+// Add this in your commands.js file
+Cypress.Commands.add("dumpWatchdogToStdout", (limit = 5) => {
+  // Modify the Drush command as needed
+  const command = `watchdog:show --format=json --limit=${limit}`;
+
+  return cy
+    .exec(`drush ${command}`)
+    .then((output) => {
+      if (output.code !== 0) {
+        throw new Error(`Drush command failed with code ${output.code}`);
+      }
+
+      let parsedOutput;
+      try {
+        parsedOutput = JSON.parse(output.stdout);
+      } catch (e) {
+        throw new Error("Failed to parse watchdog output to JSON");
+      }
+
+      console.log(`Last ${limit} Watchdog Entries:`);
+      console.log(parsedOutput);
+
+      return parsedOutput;
+    })
+    .catch((error) => {
+      console.error("An error occurred:", error); // Output error to stdout
+      cy.log(`An error occurred: ${error.message}`);
+    });
+});
 
 Cypress.Commands.add("drupalWatchdogHasNoNewMessages", (username, severity) => {
   cy.drupalGetWatchdogMessages(username, severity).then((messages) => {
