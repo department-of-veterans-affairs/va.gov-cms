@@ -13,12 +13,11 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\file\FileRepositoryInterface;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\post_api\Service\AddToQueue;
-use Drupal\va_gov_lovell\LovellOps;
 
 /**
  * Class PostFacilityService posts specific service info to Lighthouse.
  */
-class PostFacilityService extends PostFacilityBase {
+class PostFacilityServiceVetCenter extends PostFacilityServiceBase {
 
   use StringTranslationTrait;
 
@@ -63,19 +62,6 @@ class PostFacilityService extends PostFacilityBase {
    * @var \Drupal\Core\Entity\EntityInterface
    */
   protected $serviceTerm;
-
-  /**
-   * The services that should be withheld from Lighthouse.
-   *
-   * The key is for making sense of code, the TID is used for comparison.
-   *
-   * @var array
-   */
-  protected $servicesToWithhold = [
-    // Key: service name (not used) => Value: TID.
-    'Caregiver support' => 48,
-    'Mental health care' => 43,
-  ];
 
   /**
    * The service for creating a directory.
@@ -128,10 +114,7 @@ class PostFacilityService extends PostFacilityBase {
     FileSystemInterface $file_system,
     FileRepositoryInterface $file_repository
   ) {
-    parent::__construct($config_factory, $entity_type_manager, $logger_channel_factory, $messenger, $post_queue);
-    $this->renderer = $renderer;
-    $this->fileRepository = $file_repository;
-    $this->fileSystem = $file_system;
+    parent::__construct($config_factory, $entity_type_manager, $logger_channel_factory, $messenger, $post_queue, $renderer, $file_system, $file_repository);
   }
 
   /**
@@ -147,7 +130,7 @@ class PostFacilityService extends PostFacilityBase {
    */
   public function queueFacilityService(EntityInterface $entity, bool $forcePush = FALSE) {
     $this->errors = [];
-    if (($entity->getEntityTypeId() === 'node') && ($entity->bundle() === 'health_care_local_health_service')) {
+    if (($entity->getEntityTypeId() === 'node') && ($entity->bundle() === 'vet_center')) {
       // This is an appropriate service so begin gathering data to process.
       $this->facilityService = $entity;
 
@@ -321,51 +304,6 @@ class PostFacilityService extends PostFacilityBase {
   }
 
   /**
-   * Assembles the phone data and returns an array of phone objects.
-   *
-   * @param bool $from_facility
-   *   Whether to include the phone from the facility.
-   * @param array $phone_paragraphs
-   *   Optional array of phone paragraphs.
-   *
-   * @return array
-   *   An array of objects with properties type, label, number, extension.
-   */
-  protected function getPhones($from_facility = FALSE, array $phone_paragraphs = []) {
-    $assembled_phones = [];
-    if (!empty($phone_paragraphs)) {
-      $phones = $phone_paragraphs;
-    }
-
-    if ($from_facility) {
-      // We need to include the Facility's phone.
-      $phone_w_ext = $this->facility->get('field_phone_number')->value;
-      // This field may have extension present like 555-555-1212 x 444.
-      $phone_split = explode('x', $phone_w_ext);
-      $assembledPhone = new \stdClass();
-      $assembledPhone->type = 'tel';
-      $assembledPhone->label = "Main phone";
-      $assembledPhone->number = !empty($phone_split[0]) ? trim($phone_split[0]) : NULL;
-      $assembledPhone->extension = !empty($phone_split[1]) ? trim($phone_split[1]) : NULL;
-      $assembled_phones[] = $assembledPhone;
-    }
-
-    if (!empty($phones)) {
-      // Assemble the phones.
-      foreach ($phones as $phone) {
-        $assembledPhone = new \stdClass();
-        $assembledPhone->type = $phone->get('field_phone_number_type')->value;
-        $assembledPhone->label = $phone->get('field_phone_label')->value;
-        $assembledPhone->number = $phone->get('field_phone_number')->value;
-        $assembledPhone->extension = $phone->get('field_phone_extension')->value;
-        $assembled_phones[] = $assembledPhone;
-      }
-    }
-
-    return $assembled_phones;
-  }
-
-  /**
    * Gets the appropriate appointment intro text.
    *
    * @return string
@@ -518,49 +456,6 @@ class PostFacilityService extends PostFacilityBase {
   }
 
   /**
-   * Render html from field and make relative links va.gov specific.
-   *
-   * @param string $fieldname
-   *   The name of the field to retrieve.
-   *
-   * @return string
-   *   Whatever html was found.
-   */
-  protected function getProcessedHtmlFromField($fieldname) {
-    $html = '';
-    if (!empty($this->systemService->$fieldname)) {
-      $render_array = $this->systemService->$fieldname->view();
-      $html = (string) $this->renderer->renderPlain($render_array);
-      $html = $this->makeLinksVaGov($html);
-    }
-
-    return $html;
-  }
-
-  /**
-   * Swaps the href for relative links to be https://www.va.gov specific.
-   *
-   * @param string $html
-   *   The html that was passed in, with links' hrefs altered.
-   *
-   * @return string
-   *   Html with no relative links.
-   */
-  protected function makeLinksVaGov($html) {
-    $search_and_replace = [
-      // Accounts for pdf files but not images. Images can not be resolved.
-      '/sites/default/files/' => '/files/',
-      // Accounts for domain addition.
-      ' href="/' => ' href="https://www.va.gov/',
-    ];
-    $search = array_keys($search_and_replace);
-    $replace = array_values($search_and_replace);
-    $html_with_vagov_links = str_replace($search, $replace, $html);
-
-    return $html_with_vagov_links;
-  }
-
-  /**
    * Maps and returns the value of referral required.
    *
    * @return string
@@ -618,81 +513,16 @@ class PostFacilityService extends PostFacilityBase {
   }
 
   /**
-   * Determines if the data says a payload should be assembled and pushed.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   Entity.
-   * @param bool $forcePush
-   *   Process due to referenced entity updates.
-   *
-   * @return bool
-   *   TRUE if should be pushed, FALSE otherwise.
-   */
-  protected function shouldPush(EntityInterface $entity, bool $forcePush = FALSE) {
-    // Moderation state of what is being saved.
-    $moderationState = $entity->moderation_state->value;
-    $isArchived = ($moderationState === 'archived') ? TRUE : FALSE;
-    $thisRevisionIsPublished = $entity->isPublished();
-    $defaultRevisionIsPublished = (isset($entity->original) && ($entity->original instanceof EntityInterface)) ? (bool) $entity->original->status->value : (bool) $entity->status->value;
-    $isNew = $entity->isNew();
-
-    // Case race. First to evaluate to TRUE wins.
-    switch (TRUE) {
-      case LovellOps::isLovellTricareSection($entity):
-        // Node is part of the Lovell-Tricare section, do not push.
-      case (!$defaultRevisionIsPublished && !$thisRevisionIsPublished):
-        // Draft services should not be pushed.
-        $push = FALSE;
-        break;
-
-      case $forcePush && $thisRevisionIsPublished:
-        // Forced push from updates to referenced entity.
-      case $isNew:
-        // A new node, should be pushed to initiate the value.
-      case $thisRevisionIsPublished:
-        // This revision is published, should be pushed.
-      case $isArchived:
-        // This node has been archived, got to push to remove it.
-        $push = TRUE;
-        break;
-
-      case ($defaultRevisionIsPublished && !$thisRevisionIsPublished):
-        // Draft revision on published node, should not push, even w/bypass.
-        $push = FALSE;
-        break;
-
-      case ($this->shouldBypass()):
-        // Bypass is activated.
-        $push = TRUE;
-        break;
-
-      default:
-        // Anything that makes it this far should not be pushed.
-        $push = FALSE;
-        break;
-    }
-
-    return $push;
-  }
-
-  /**
-   * Checks to see if this service is slated for pushing.
-   */
-  private function isPushable() {
-    return (!empty($this->serviceTerm) && !in_array($this->serviceTerm->id(), $this->servicesToWithhold));
-  }
-
-  /**
    * Load and set the facility node that this service belongs to.
    */
   protected function setFacility() {
-    $field = $this->facilityService->get('field_facility_location');
+    $field = $this->facilityService->get('field_office');
     $facility = (!empty($field)) ? $field->referencedEntities() : NULL;
     if (!empty($facility)) {
       $this->facility = reset($facility);
     }
     else {
-      $this->errors[] = "Unable to load related facility. Field 'field_facility_location' not set.";
+      $this->errors[] = "Unable to load related facility. Field 'field_office' not set.";
     }
   }
 
@@ -723,66 +553,6 @@ class PostFacilityService extends PostFacilityBase {
     else {
       $this->errors[] = "Unable to load health service term. Field 'field_service_name_and_descripti' not set.";
     }
-  }
-
-  /**
-   * Log service by facility.
-   *
-   * @param string $facilityApiId
-   *   Facility API Id.
-   * @param string $facilityService
-   *   Facility service.
-   */
-  protected function logService(string $facilityApiId, string $facilityService) {
-    $filePath = $this->getLog();
-    $log_message = date('Y-m-d H:i:s') . "|{$facilityApiId}|{$facilityService}\n";
-    $handle = fopen($filePath, "a");
-    if ($handle) {
-      fwrite($handle, $log_message);
-      fclose($handle);
-    }
-    else {
-      $message = sprintf('VA.gov Post API: The log file does not exist. No entry was made for the %s service at %s facility.', $facilityService, $facilityApiId);
-      $this->loggerChannelFactory->get('va_gov_post_api')->info($message);
-    }
-  }
-
-  /**
-   * Gets the services log.
-   *
-   * @return string
-   *   The path to the log file.
-   */
-  protected function getLog() {
-    if (empty($this->logFile)) {
-      $this->logFile = $this->createLogFile();
-    }
-    return $this->logFile;
-  }
-
-  /**
-   * Create a log file.
-   *
-   * @return string
-   *   The path to the log file.
-   */
-  protected function createLogFile() {
-    $filePath = "";
-    $date = date('Y-m-d--H-i-s');
-    $header = 'Time When Added to Log|Facility API ID|Facility Service' . PHP_EOL;
-    $directory = 'public://post_api_force_queue';
-    $directoryCreated = $this->fileSystem->prepareDirectory($directory, FileSystemInterface::CREATE_DIRECTORY);
-    if ($directoryCreated) {
-      $filePath = "{$directory}/services-{$date}.txt";
-      $this->fileRepository->writeData($header, $filePath, FileSystemInterface::EXISTS_REPLACE);
-      if (file_exists($filePath)) {
-        // Tried to create the URL with Url::fromUri($file),
-        // but could not get a path from toString().
-        $message = sprintf('VA.gov Post API: A log file was created at %s', "/sites/default/files/post_api_force_queue/services-{$date}.txt");
-        $this->loggerChannelFactory->get('va_gov_post_api')->info($message);
-      }
-    }
-    return $filePath;
   }
 
 }

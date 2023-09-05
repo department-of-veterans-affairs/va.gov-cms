@@ -10,8 +10,11 @@ services:
     arguments: ['@config.factory', '@logger.factory', '@module_handler', '@slack.slack_service']
     tags:
       - { name: 'event_subscriber' }
-  va_gov_post_api.queue_service_updates:
-    class: '\Drupal\va_gov_post_api\Service\PostFacilityService'
+  va_gov_post_api.queue_vamc_service_updates:
+    class: '\Drupal\va_gov_post_api\Service\PostFacilityServiceVamc'
+    arguments: ['@config.factory', '@entity_type.manager', '@logger.factory', '@messenger', '@post_api.add_to_queue', '@renderer', '@file_system', '@file.repository']
+  va_gov_post_api.queue_vet_center_service_updates:
+    class: '\Drupal\va_gov_post_api\Service\PostFacilityServiceVetCenter'
     arguments: ['@config.factory', '@entity_type.manager', '@logger.factory', '@messenger', '@post_api.add_to_queue', '@renderer', '@file_system', '@file.repository']
   va_gov_post_api.queue_facility_status_updates:
     class: '\Drupal\va_gov_post_api\Service\PostFacilityStatus'

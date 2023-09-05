@@ -77,6 +77,8 @@ class VaGovFacilityForceQueueForm extends FormBase {
       $this->getNidsFromEntityBundleQuery('vba_facility');
     $vet_center =
       $this->getNidsFromEntityBundleQuery('vet_center');
+    $vet_center_facility_health_servi =
+      $this->getNidsFromEntityBundleQuery('vet_center_facility_health_servi');
     $vet_center_outstation =
       $this->getNidsFromEntityBundleQuery('vet_center_outstation');
     $vet_center_mobile_vet_center =
@@ -99,6 +101,7 @@ class VaGovFacilityForceQueueForm extends FormBase {
         'nca_facility' => $this->t('NCA facilities') . ' (' . count($nca_facility) . ')',
         'vba_facility' => $this->t('VBA facilities') . ' (' . count($vba_facility) . ')',
         'vet_center' => $this->t('Vet Centers') . ' (' . count($vet_center) . ')',
+        'vet_center_facility_health_servi' => ' - ' . $this->t('Vet Center facility services') . ' (' . count($vet_center_facility_health_servi) . ')',
         'vet_center_outstation' => $this->t('Vet Center Outstations') . ' (' . count($vet_center_outstation) . ')',
         'vet_center_mobile_vet_center' => $this->t('Vet Center Mobile Vet Centers') . ' (' . count($vet_center_mobile_vet_center) . ')',
       ],
@@ -216,12 +219,23 @@ class VaGovFacilityForceQueueForm extends FormBase {
           ->execute();
         break;
 
-      // If it's a facility service, we those that are published.
+      // If it's a VAMC facility service, we only want those that are published.
       case "health_care_local_health_service":
         $nodes = $this->entityTypeManager
           ->getStorage('node')
           ->getQuery('AND')
           ->condition('type', 'health_care_local_health_service')
+          ->accessCheck(FALSE)
+          ->condition('status', 1, '=')
+          ->execute();
+        break;
+
+      // If it's a Vet Center facility service, we only want those that are published.
+      case "vet_center_facility_health_servi":
+        $nodes = $this->entityTypeManager
+          ->getStorage('node')
+          ->getQuery('AND')
+          ->condition('type', 'vet_center_facility_health_servi')
           ->accessCheck(FALSE)
           ->condition('status', 1, '=')
           ->execute();

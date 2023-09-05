@@ -78,12 +78,14 @@ function _va_gov_post_api_add_facility_to_queue(NodeInterface $node) {
  */
 function _va_gov_post_api_add_facility_service_to_queue(NodeInterface $node, bool $force_push = FALSE) {
   if ($node->bundle() === 'health_care_local_health_service') {
-    return Drupal::service('va_gov_post_api.queue_service_updates')->queueFacilityService($node, $force_push);
+    return Drupal::service('va_gov_post_api.queue_vamc_service_updates')->queueFacilityService($node, $force_push);
   }
   elseif ($node->bundle() === 'regional_health_care_service_des') {
-    return Drupal::service('va_gov_post_api.queue_service_updates')->queueSystemRelatedServices($node);
+    return Drupal::service('va_gov_post_api.queue_vamc_service_updates')->queueSystemRelatedServices($node);
   }
-
+  elseif ($node->bundle() === 'vet_center') {
+    return Drupal::service('va_gov_post_api.queue_vet_center_service_updates')->queueSystemRelatedServices($node);
+  }
   return 0;
 }
 
