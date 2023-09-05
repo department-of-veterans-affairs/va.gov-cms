@@ -17,7 +17,7 @@ beforeEach(() => {
 
 afterEach(() => {
   if (testFailed) {
-    cy.dumpWatchdogToStdout(5); // Replace with the actual number of logs you want
+    cy.dumpWatchdogToStdout(this.username, 5);
   }
 });
 
@@ -120,8 +120,7 @@ Cypress.Commands.add(
 );
 
 // Add this in your commands.js file
-Cypress.Commands.add("dumpWatchdogToStdout", (limit = 5) => {
-  // Modify the Drush command as needed
+Cypress.Commands.add("dumpWatchdogToStdout", (username, limit = 5) => {
   const command = `watchdog:show --format=json --limit=${limit}`;
 
   return cy
@@ -138,13 +137,19 @@ Cypress.Commands.add("dumpWatchdogToStdout", (limit = 5) => {
         throw new Error("Failed to parse watchdog output to JSON");
       }
 
-      console.log(`Last ${limit} Watchdog Entries:`);
-      console.log(parsedOutput);
+      // Filter the entries by the username
+      const filteredOutput = parsedOutput.filter(
+        (entry) => entry.username === username
+      );
 
-      return parsedOutput;
+      // Log the output to the Cypress log
+      cy.log(`Last ${limit} Watchdog Entries for user ${username}:`);
+      cy.log(JSON.stringify(filteredOutput, null, 2));
+
+      return filteredOutput;
     })
     .catch((error) => {
-      console.error("An error occurred:", error); // Output error to stdout
+      // Output error to the Cypress log
       cy.log(`An error occurred: ${error.message}`);
     });
 });
