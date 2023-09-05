@@ -11,6 +11,7 @@ use Drupal\va_gov_backend\Controller\ContentReleaseStatusController;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Psr7\Utils;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Tests\Support\Classes\VaGovUnitTestBase;
@@ -90,7 +91,7 @@ class ContentReleaseStatusControllerTest extends VaGovUnitTestBase {
     $prophecy = $this->prophesize(Client::CLASS);
 
     $responseProphecy = $this->prophesize(Response::CLASS);
-    $responseProphecy->getBody()->willReturn($responseBody);
+    $responseProphecy->getBody()->willReturn(Utils::streamFor($responseBody));
 
     $prophecy->get(Argument::type('string'))->willReturn($responseProphecy->reveal());
 

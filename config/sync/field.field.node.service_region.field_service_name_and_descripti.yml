@@ -1,0 +1,35 @@
+uuid: 7e57d913-ae3c-446b-a84d-72d484e9da9e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_service_name_and_descripti
+    - node.type.service_region
+  module:
+    - entity_reference_validators
+    - tmgmt_content
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: false
+  tmgmt_content:
+    excluded: false
+id: node.service_region.field_service_name_and_descripti
+field_name: field_service_name_and_descripti
+entity_type: node
+bundle: service_region
+label: 'VA service'
+description: 'Choose the VA Service this Service Region is related to.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: health_care_service_names_and_descriptions
+      display_name: entity_reference_vba_services
+      arguments: {  }
+field_type: entity_reference

@@ -49,7 +49,7 @@ class DeployServiceTest extends VaGovUnitTestBase {
     DeployService::create($orig_settings);
 
     $settings = Settings::getAll();
-    $this->assertArrayEquals(
+    $this->assertEquals(
       $orig_settings,
       $settings,
       'Deploy Serviced initiated Settings correctly.'
