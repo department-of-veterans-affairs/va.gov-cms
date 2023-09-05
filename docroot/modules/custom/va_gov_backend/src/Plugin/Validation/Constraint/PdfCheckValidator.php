@@ -19,8 +19,7 @@ class PdfCheckValidator extends ConstraintValidator {
     // work well with constraints.
     // Drupal contrib constraint modules call services directly.
     // Okay to follow this pattern.
-    $guess = \Drupal::service('file.mime_type.guesser')->guess($item->uri);
-    if ($guess !== 'application/pdf') {
+    if (\Drupal::service('file.mime_type.guesser')->guess($item->uri) !== 'application/pdf') {
       $this->context->addViolation($constraint->notPdfFile, [':file' => $item->uri]);
     }
 
