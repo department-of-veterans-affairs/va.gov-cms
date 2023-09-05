@@ -6,7 +6,7 @@ use Github\Client;
 use Github\HttpClient\Builder;
 use Github\HttpClient\Plugin\Authentication;
 use GuzzleHttp\Psr7\Response;
-use function GuzzleHttp\Psr7\stream_for;
+use GuzzleHttp\Psr7\Utils;
 use Http\Client\Common\HttpMethodsClientInterface;
 use Psr\Http\Client\ClientInterface;
 
@@ -150,7 +150,7 @@ trait RawGitHubApiClientTrait {
     return new Response(
       200,
       ['Content-Type' => 'application/json'],
-      stream_for(json_encode($value))
+      Utils::streamFor(json_encode($value))
     );
   }
 

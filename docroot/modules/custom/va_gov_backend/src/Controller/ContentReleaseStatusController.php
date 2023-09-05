@@ -4,7 +4,6 @@ namespace Drupal\va_gov_backend\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Render\HtmlResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -68,10 +67,10 @@ class ContentReleaseStatusController extends ControllerBase {
   /**
    * Get last release status response.
    *
-   * @return \Symfony\Component\HttpFoundation\Response
+   * @return \Drupal\Core\Render\HtmlResponse
    *   Return release status response.
    */
-  public function getDefault(): Response {
+  public function getDefault(): HtmlResponse {
     $renderArray = $this->getLastReleaseStatus();
     return $this->getLastReleaseResponse($renderArray);
   }
