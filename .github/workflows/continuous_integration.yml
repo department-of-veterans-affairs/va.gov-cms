@@ -95,7 +95,6 @@ jobs:
       - name: Run PHPStan and ReviewDog
         # See also `composer va:test:phpstan` in composer.json
         run: |
-          export REVIEWDOG_GITHUB_API_TOKEN="${GITHUB_TOKEN}"
           bin/phpstan analyze \
             --no-progress \
             --no-interaction \
@@ -105,9 +104,10 @@ jobs:
               -name="PHPStan" \
               -f=phpstan \
               -reporter=github-pr-review \
+              -fail-on-error=true \
               -diff='git diff'
         env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          REVIEWDOG_GITHUB_API_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
   # Run unit tests against codebase with PHPUnit.
   phpunit:
@@ -153,4 +153,4 @@ jobs:
           reporter: github-pr-review
           stylelint_config: '.stylelintrc'
           stylelint_input: 'docroot/themes/custom/**/*.scss'
-    
+
