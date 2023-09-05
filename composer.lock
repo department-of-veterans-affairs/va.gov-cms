@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "de4fc256bb8445cbe5707ecd7056481c",
+    "content-hash": "f6a1c3be0e196d6a87eba9a65bdc821e",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5598,6 +5598,70 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/entity_route_context",
                 "issues": "https://www.drupal.org/project/issues/entity_route_context"
+            }
+        },
+        {
+            "name": "drupal/entity_update",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/entity_update.git",
+                "reference": "3.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/entity_update-3.0.0.zip",
+                "reference": "3.0.0",
+                "shasum": "7f8041651d30dfd28bb4339f969e2d2af8d74131"
+            },
+            "require": {
+                "drupal/core": "^9.4 || ^10"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "3.0.0",
+                    "datestamp": "1689572947",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                },
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                },
+                "drush": {
+                    "services": {
+                        "drush.services.yml": "^10 || ^11"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL"
+            ],
+            "authors": [
+                {
+                    "name": "Nuwantha",
+                    "homepage": "https://www.drupal.org/u/iwsp",
+                    "role": "Owner"
+                },
+                {
+                    "name": "NuWans",
+                    "homepage": "https://www.drupal.org/u/nuwans",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Siva Karthik Reddy",
+                    "homepage": "https://www.drupal.org/u/sivakarthik229",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "Update Drupal Entity schema.",
+            "homepage": "https://www.drupal.org/project/entity_update",
+            "support": {
+                "source": "http://git.drupal.org/project/entity_update.git",
+                "issues": "https://www.drupal.org/project/issues/entity_update"
             }
         },
         {
@@ -11901,17 +11965,17 @@
         },
         {
             "name": "drupal/smart_date",
-            "version": "4.1.0-rc2",
+            "version": "4.0.3",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/smart_date.git",
-                "reference": "4.1.0-rc2"
+                "reference": "4.0.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/smart_date-4.1.0-rc2.zip",
-                "reference": "4.1.0-rc2",
-                "shasum": "dcb2898092bdde2aa4e09a8a8fda00c2b4cd7851"
+                "url": "https://ftp.drupal.org/files/projects/smart_date-4.0.3.zip",
+                "reference": "4.0.3",
+                "shasum": "9f8fd56690eae5b5ae7231ab17641fa1d57ec261"
             },
             "require": {
                 "drupal/core": "^9 || ^10",
@@ -11924,11 +11988,11 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "4.1.0-rc2",
-                    "datestamp": "1692978775",
+                    "version": "4.0.3",
+                    "datestamp": "1689755800",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "RC releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 },
                 "drush": {
@@ -25060,7 +25124,6 @@
         "drupal/prometheus_exporter": 10,
         "drupal/schemata": 10,
         "drupal/seven": 15,
-        "drupal/smart_date": 5,
         "drupal/styleguide": 10,
         "drupal/user_history": 15,
         "drupal/viewfield": 10,
