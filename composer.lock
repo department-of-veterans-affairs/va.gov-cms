@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b9ae26e15666de21bf85b723a5e3d68b",
+    "content-hash": "9a4db450cfbac8ae135ce9eeaf598d54",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -3786,6 +3786,7 @@
         },
         {
             "name": "drupal/content_model_documentation",
+<<<<<<< HEAD
             "version": "1.0.16",
             "source": {
                 "type": "git",
@@ -3797,6 +3798,19 @@
                 "url": "https://ftp.drupal.org/files/projects/content_model_documentation-1.0.16.zip",
                 "reference": "1.0.16",
                 "shasum": "c39abee809e1a328e4304a6627090b5fc0607726"
+=======
+            "version": "1.0.14",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/content_model_documentation.git",
+                "reference": "1.0.14"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/content_model_documentation-1.0.14.zip",
+                "reference": "1.0.14",
+                "shasum": "f01554238781ecf39f3c508ee7604f2ab69e302e"
+>>>>>>> 8c1cc84e2 (VACMS-15055: AP Install and enable computed_breadcrumbs. Resolve conflict.)
             },
             "require": {
                 "drupal/config_views": "~2.1",
@@ -3805,8 +3819,13 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
+<<<<<<< HEAD
                     "version": "1.0.16",
                     "datestamp": "1696146736",
+=======
+                    "version": "1.0.14",
+                    "datestamp": "1695308243",
+>>>>>>> 8c1cc84e2 (VACMS-15055: AP Install and enable computed_breadcrumbs. Resolve conflict.)
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -19174,16 +19193,16 @@
         },
         {
             "name": "psr/http-client",
-            "version": "1.0.3",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-client.git",
-                "reference": "bb5906edc1c324c9a05aa0873d40117941e5fa90"
+                "reference": "0955afe48220520692d2d09f7ab7e0f93ffd6a31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-client/zipball/bb5906edc1c324c9a05aa0873d40117941e5fa90",
-                "reference": "bb5906edc1c324c9a05aa0873d40117941e5fa90",
+                "url": "https://api.github.com/repos/php-fig/http-client/zipball/0955afe48220520692d2d09f7ab7e0f93ffd6a31",
+                "reference": "0955afe48220520692d2d09f7ab7e0f93ffd6a31",
                 "shasum": ""
             },
             "require": {
@@ -19220,9 +19239,9 @@
                 "psr-18"
             ],
             "support": {
-                "source": "https://github.com/php-fig/http-client"
+                "source": "https://github.com/php-fig/http-client/tree/1.0.2"
             },
-            "time": "2023-09-23T14:17:50+00:00"
+            "time": "2023-04-10T20:12:12+00:00"
         },
         {
             "name": "psr/http-factory",
@@ -26927,7 +26946,15 @@
         },
         {
             "name": "va-gov/content-build",
+<<<<<<< HEAD
             "version": "v0.0.3355",
+=======
+<<<<<<< HEAD
+            "version": "v0.0.3352",
+=======
+            "version": "v0.0.3350",
+>>>>>>> f76c4785d (VACMS-15055: AP Install and enable computed_breadcrumbs. Resolve conflict.)
+>>>>>>> 8c1cc84e2 (VACMS-15055: AP Install and enable computed_breadcrumbs. Resolve conflict.)
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/content-build.git",
@@ -26963,7 +26990,15 @@
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/content-build, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
             "support": {
                 "issues": "https://github.com/department-of-veterans-affairs/content-build/issues",
+<<<<<<< HEAD
                 "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3355"
+=======
+<<<<<<< HEAD
+                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3352"
+=======
+                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3350"
+>>>>>>> f76c4785d (VACMS-15055: AP Install and enable computed_breadcrumbs. Resolve conflict.)
+>>>>>>> 8c1cc84e2 (VACMS-15055: AP Install and enable computed_breadcrumbs. Resolve conflict.)
             },
             "time": "2023-09-29T16:33:39+00:00"
         },
@@ -27821,5 +27856,5 @@
     "platform-overrides": {
         "php": "8.1"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
