@@ -11,10 +11,6 @@ use Symfony\Component\Validator\Constraint;
  *   id = "NonZeroEventDate",
  *   label = @Translation("NonZeroEventDate", context = "Validation"),
  * )
- *
- * @DCG
- * To apply this constraint on third party entity types implement either
- * hook_entity_base_field_info_alter() or hook_entity_bundle_field_info_alter().
  */
 class NonZeroEventDateConstraint extends Constraint {
 

@@ -53,7 +53,6 @@ function _va_gov_events_move_country_select_to_bottom(array $form) {
 function va_gov_events_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $entity_type, $bundle) {
   if ($entity_type->id() === 'node' && $bundle === 'event') {
     if (isset($fields['field_datetime_range_timezone'])) {
-      // Use the ID as defined in the annotation of the constraint definition.
       $fields['field_datetime_range_timezone']->addConstraint('NonZeroEventDate', []);
     }
   }
