@@ -105,7 +105,8 @@ jobs:
               -f=phpstan \
               -reporter=github-pr-review \
               -fail-on-error=true \
-              -diff='git diff'
+              -diff='git diff' \
+              -tee
         env:
           REVIEWDOG_GITHUB_API_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
