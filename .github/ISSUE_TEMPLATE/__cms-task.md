@@ -7,7 +7,13 @@ assignees: ''
 
 ---
 
-## Description
+## User Story or Problem Statement
+
+
+## Description or Additional Context 
+
+
+## Steps for Implementation
 
 
 ## Acceptance Criteria
@@ -15,12 +21,13 @@ assignees: ''
 - [ ] Testable_Outcome_Y
 - [ ] Testable_Outcome_Z
 - [ ] Requires design review
+- [ ] Requires accessibility review
 
-### Team
+## Team
 Please check the team(s) that will do this work.
 
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [ ] `Facilities`
-- [ ] `User support`
-- [ ] `Accelerated Publishing`
+- [ ] CMS Team
+- [ ] Public Websites
+- [ ] Facilities
+- [ ] User support
+- [ ] Accelerated Publishing

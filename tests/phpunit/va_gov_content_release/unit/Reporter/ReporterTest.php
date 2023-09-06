@@ -48,7 +48,7 @@ class ReporterTest extends VaGovUnitTestBase {
     $messengerProphecy->addError('message')->shouldBeCalled();
     $messenger = $messengerProphecy->reveal();
     $loggerProphecy = $this->prophesize(LoggerInterface::class);
-    $loggerProphecy->error('message')->shouldBeCalled();
+    $loggerProphecy->error('message', Argument::cetera())->shouldBeCalled();
     $loggerProphecy->log(Argument::cetera())->shouldBeCalled();
     $logger = $loggerProphecy->reveal();
     $stringTranslationProphecy = $this->prophesize(TranslationInterface::class);
@@ -78,7 +78,7 @@ class ReporterTest extends VaGovUnitTestBase {
     $messengerProphecy->addStatus('message')->shouldBeCalled();
     $messenger = $messengerProphecy->reveal();
     $loggerProphecy = $this->prophesize(LoggerInterface::class);
-    $loggerProphecy->info('message')->shouldBeCalled();
+    $loggerProphecy->info('message', Argument::cetera())->shouldBeCalled();
     $logger = $loggerProphecy->reveal();
     $loggerChannelFactoryProphecy = $this->prophesize(LoggerChannelFactoryInterface::class);
     $loggerChannelFactoryProphecy->get('va_gov_content_release')->willReturn($logger);

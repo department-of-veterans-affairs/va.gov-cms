@@ -1,0 +1,39 @@
+uuid: 5b2e17e2-b268-47cf-b326-15d9c07d780e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_vba_service_regions
+    - node.type.service_region
+    - taxonomy.vocabulary.health_care_service_taxonomy
+  module:
+    - entity_reference_validators
+    - tmgmt_content
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: true
+  tmgmt_content:
+    excluded: false
+id: taxonomy_term.health_care_service_taxonomy.field_vba_service_regions
+field_name: field_vba_service_regions
+entity_type: taxonomy_term
+bundle: health_care_service_taxonomy
+label: 'VBA Service Regions'
+description: 'Add all the service regions that exist for this service.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      service_region: service_region
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

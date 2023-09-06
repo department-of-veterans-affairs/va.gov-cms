@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_workflow\EventSubscriber;
 
+use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
@@ -11,7 +12,6 @@ use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\node\NodeForm;
 use Drupal\node\NodeInterface;
 use Drupal\va_gov_notifications\Service\NotificationsManager;
 use Drupal\va_gov_user\Service\UserPermsService;
@@ -67,6 +67,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     return [
       'hook_event_dispatcher.form_base_node_form.alter' => 'alterNodeForm',
       'hook_event_dispatcher.form_base_taxonomy_term_form.alter' => 'alterTermForm',
+      'hook_event_dispatcher.form_base_block_content_form.alter' => 'alterBlockContentForm',
       EntityHookEvents::ENTITY_DELETE => 'entityDelete',
       EntityHookEvents::ENTITY_INSERT => 'entityInsert',
       EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
@@ -129,6 +130,20 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Alters to be applied to all block content types.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormBaseAlterEvent $event
+   *   The event.
+   */
+  public function alterBlockContentForm(FormBaseAlterEvent $event) {
+    $form = &$event->getForm();
+    $form_state = $event->getFormState();
+    $form_id = $event->getFormId();
+    $this->requireRevisionMessage($form, $form_state, $form_id);
+    $this->removeArchiveOption($event);
+  }
+
+  /**
    * Alters to be applied to all content types.
    *
    * @param \Drupal\core_event_dispatcher\Event\Form\FormBaseAlterEvent $event
@@ -158,7 +173,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Removes archive option for non-admins on certain content types.
+   * Removes archive option for non-admins on certain entity types.
    *
    * @param \Drupal\core_event_dispatcher\Event\Form\FormBaseAlterEvent $event
    *   The event.
@@ -166,12 +181,13 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   private function removeArchiveOption(FormBaseAlterEvent $event) {
     $form = &$event->getForm();
     $form_state = $event->getFormState();
-    if ($form_state->getFormObject() instanceof NodeForm) {
-      /** @var \Drupal\node\NodeInterface $node **/
-      $node = $form_state->getFormObject()->getEntity();
-      $bundle = $node->bundle();
+    if ($form_state->getFormObject() instanceof ContentEntityForm) {
+      /** @var \Drupal\Core\Entity\EntityInterface $entity */
+      $entity = $form_state->getFormObject()->getEntity();
+      $entity_type = $entity->getEntityType()->id();
+      $bundle = $entity->bundle();
       $is_admin = $this->userPermsService->hasAdminRole();
-      $is_archiveable = $this->workflowContentControl->isBundleArchiveableByNonAdmins($bundle);
+      $is_archiveable = $this->workflowContentControl->isBundleArchiveableByNonAdmins($bundle, $entity_type);
       if (!$is_admin && !$is_archiveable) {
         unset($form['moderation_state']['widget'][0]['state']['#options']['archived']);
       }
@@ -270,6 +286,9 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   protected function bypassRevisionLogValidationOnIef(array &$form, FormStateInterface $form_state): void {
     /** @var \Drupal\node\NodeInterface $node **/
     $node = $form_state->getFormObject()->getEntity();
+    if (!$node instanceof NodeInterface) {
+      return;
+    }
     $ief_fields = $this->getIefTypeFields($node);
     $operation_button_map = [
       'field_widget_edit' => 'edit_button',

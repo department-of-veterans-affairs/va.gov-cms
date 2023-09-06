@@ -1,0 +1,39 @@
+uuid: 32d383f3-3d1b-45f1-bec7-861f53c5e9bf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_vba_region_facility_list
+    - node.type.service_region
+    - node.type.vba_facility
+  module:
+    - entity_reference_validators
+    - tmgmt_content
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: true
+  tmgmt_content:
+    excluded: false
+id: node.service_region.field_vba_region_facility_list
+field_name: field_vba_region_facility_list
+entity_type: node
+bundle: service_region
+label: 'VBA facilities in this region'
+description: 'Add all VBA Facilities that are within this Service Region'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      vba_facility: vba_facility
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

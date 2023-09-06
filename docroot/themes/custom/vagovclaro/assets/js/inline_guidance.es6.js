@@ -12,7 +12,7 @@
 
   Drupal.behaviors.vaGovInlineGuidance = {
     attach: () => {
-      $(once("inline-guidance", "#inline-guidance-trigger")).click((e) => {
+      $(once("vaGovInlineGuidance", "#inline-guidance-trigger")).click((e) => {
         e.preventDefault();
         if ($("#inline-guidance-text-box").hasClass("hide")) {
           $("#inline-guidance-text-box").removeClass("hide");
@@ -32,4 +32,4 @@
       });
     },
   };
-})(jQuery, Drupal, once);
+})(jQuery, window.Drupal, window.once);

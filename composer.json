@@ -149,7 +149,7 @@
         "drupal/pathauto": "^1.6",
         "drupal/pathologic": "^2.0@alpha",
         "drupal/pfm": "^2.0",
-        "drupal/post_api": "^2.0.2",
+        "drupal/post_api": "^2.0.3",
         "drupal/prometheus_exporter": "^2.0@beta",
         "drupal/raven": "^4.0",
         "drupal/rdf": "^2.1",
@@ -216,7 +216,7 @@
         "symfony/process": "^6.3",
         "symfony/routing": "^6.3",
         "twig/twig": "3.7.0 as 3.6",
-        "va-gov/content-build": "^0.0.3322",
+        "va-gov/content-build": "^0.0.3339",
         "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
@@ -392,7 +392,8 @@
                 "3047110 - Add workflow to taxonomy" : "https://www.drupal.org/files/issues/2023-04-14/3047110-45.patch",
                 "3106205 - Length of menu_tree.url and menu_tree.route_param_key are too short (255 characters)": "https://www.drupal.org/files/issues/2023-05-24/3106205-length-menu-tree-too-short.patch",
                 "3378091 - Disabled primary button in views area has grey text on blue background (bad contrast)": "https://www.drupal.org/files/issues/2023-08-02/3378091-disabled-primary-button-gray-text-blue-background-bad-contrast-12.patch",
-                "3274419 - Make BaseFieldOverride inherit internal property from the base field": "https://www.drupal.org/files/issues/2023-03-13/3274419-45.patch"
+                "3274419 - Make BaseFieldOverride inherit internal property from the base field": "https://www.drupal.org/files/issues/2023-03-13/3274419-45.patch",
+                "3333401 - Pager h4 cause accessibility flag on many pages": "https://www.drupal.org/files/issues/2023-07-27/3333401-56-configurable-heading-pager.patch"
             },
             "drupal/danse": {
                 "3364925 - added explicit access check": "https://www.drupal.org/files/issues/2023-06-05/3364925-added-explicit-access-check.patch"
@@ -413,6 +414,13 @@
             },
             "drupal/entity_clone": {
                 "3112577 - Cloning child references to nodes has potential to cause memory resource issues": "https://www.drupal.org/files/issues/2020-02-10/entity_clone-child-node-system-drain-3112577-1.patch"
+            },
+            "drupal/entity_diff_ui": {
+                "3315629 - Remove deprecated MediaRevisionAccessCheck": "https://www.drupal.org/files/issues/2023-01-31/3315629-remove-deprecated-media-revision-access-check-5.patch"
+            },
+            "drupal/entity_reference_hierarchy": {
+                "3346631 - D10 compatbility": "https://www.drupal.org/files/issues/2023-08-17/3346631-entity-referency-hierarchy-d10-compatibility-12.patch",
+                "3219011 - reference fields are shown twice when ERwH is installed": "https://www.drupal.org/files/issues/2023-08-22/3219011-ERwH-removes-preconfigured-fields-06.patch"
             },
             "drupal/entity_reference_revisions": {
                 "2984027 - Incorrect manipulation of default revision flag": "https://www.drupal.org/files/issues/2020-09-03/entity_reference_revisions-default_revision-2984027-10.patch"
@@ -531,6 +539,9 @@
                 "3176982 - Tablefield input elements have no title or label": "https://www.drupal.org/files/issues/2020-10-14/tablefield-add_title_to_input_elements-3176982-2.patch",
                 "3195203 - Copying caption to value breaks some data exports 3195203": "https://www.drupal.org/files/issues/2021-01-28/tablefield-caption-copied-to-value-3195203-2.patch",
 		"3341971 - Drag & drop addition adds meaningless numbers to table data, could break integrating code": "https://www.drupal.org/files/issues/2023-03-23/tablefield-disable-drag-drop-controls.patch"
+            },
+            "drupal/textfield_counter": {
+                "3380997 - Textarea with summary and counter doesn't respect count only setting": "patches/3380997-fix-textfield_counter-respect-count-only-mode.patch"
             },
             "drupal/viewfield": {
                 "3252356 - Add option to display default view on node edit when always use default value selected": "https://www.drupal.org/files/issues/2023-02-07/viewfield-option-display-default-view-on-node-edit-3252356-5.patch"

@@ -1,0 +1,49 @@
+uuid: 3f7c14f0-fd65-4c02-82c9-00121bd5cce6
+langcode: en
+status: false
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.service_region.body
+    - field.field.node.service_region.field_administration
+    - field.field.node.service_region.field_facility_location
+    - field.field.node.service_region.field_last_saved_by_an_editor
+    - field.field.node.service_region.field_service_location
+    - field.field.node.service_region.field_service_name_and_descripti
+    - field.field.node.service_region.field_vba_region_facility_list
+    - node.type.service_region
+  module:
+    - text
+    - user
+id: node.service_region.teaser
+targetEntityType: node
+bundle: service_region
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  content_moderation_control:
+    settings: {  }
+    third_party_settings: {  }
+    weight: -20
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_administration: true
+  field_facility_location: true
+  field_last_saved_by_an_editor: true
+  field_service_location: true
+  field_service_name_and_descripti: true
+  field_vba_region_facility_list: true
+  langcode: true
+  search_api_excerpt: true

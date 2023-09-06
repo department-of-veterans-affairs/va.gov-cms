@@ -70,13 +70,15 @@ function _va_gov_post_api_add_facility_to_queue(NodeInterface $node) {
  *
  * @param \Drupal\node\NodeInterface $node
  *   Node entity.
+ * @param bool $force_push
+ *   Sets whether the push is a force push. False, by default.
  *
  * @return int
  *   The count of the number of items queued.
  */
-function _va_gov_post_api_add_facility_service_to_queue(NodeInterface $node) {
+function _va_gov_post_api_add_facility_service_to_queue(NodeInterface $node, bool $force_push = FALSE) {
   if ($node->bundle() === 'health_care_local_health_service') {
-    return Drupal::service('va_gov_post_api.queue_service_updates')->queueFacilityService($node);
+    return Drupal::service('va_gov_post_api.queue_service_updates')->queueFacilityService($node, $force_push);
   }
   elseif ($node->bundle() === 'regional_health_care_service_des') {
     return Drupal::service('va_gov_post_api.queue_service_updates')->queueSystemRelatedServices($node);
