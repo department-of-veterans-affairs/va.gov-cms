@@ -84,7 +84,7 @@ class StaticEncoder implements SerializerAwareInterface, EncoderInterface {
   /**
    * {@inheritdoc}
    */
-  public function supportsEncoding($format) {
+  public function supportsEncoding($format): bool {
     return in_array($format, static::$format);
   }
 

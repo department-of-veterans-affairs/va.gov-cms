@@ -2,8 +2,8 @@
 
 namespace Drupal\va_gov_backend\Plugin\views\access;
 
-use Drupal\views\Plugin\views\access\AccessPluginBase;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\views\Plugin\views\access\AccessPluginBase;
 use Symfony\Component\Routing\Route;
 
 /**

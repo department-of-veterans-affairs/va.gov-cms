@@ -9,7 +9,6 @@
    *
    * @type {Drupal~behavior}
    */
-
   Drupal.behaviors.vaGovInlineGuidance = {
     attach: () => {
       $(once("vaGovInlineGuidance", "#inline-guidance-trigger")).click((e) => {
