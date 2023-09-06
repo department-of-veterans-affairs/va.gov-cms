@@ -305,6 +305,51 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
   }
 
   /**
+   * Assembles the phone data and returns an array of phone objects.
+   *
+   * @param bool $from_facility
+   *   Whether to include the phone from the facility.
+   * @param array $phone_paragraphs
+   *   Optional array of phone paragraphs.
+   *
+   * @return array
+   *   An array of objects with properties type, label, number, extension.
+   */
+  protected function getPhones($from_facility = FALSE, array $phone_paragraphs = []) {
+    $assembled_phones = [];
+    if (!empty($phone_paragraphs)) {
+      $phones = $phone_paragraphs;
+    }
+
+    if ($from_facility) {
+      // We need to include the Facility's phone.
+      $phone_w_ext = $this->facility->get('field_phone_number')->value;
+      // This field may have extension present like 555-555-1212 x 444.
+      $phone_split = explode('x', $phone_w_ext);
+      $assembledPhone = new \stdClass();
+      $assembledPhone->type = 'tel';
+      $assembledPhone->label = "Main phone";
+      $assembledPhone->number = !empty($phone_split[0]) ? trim($phone_split[0]) : NULL;
+      $assembledPhone->extension = !empty($phone_split[1]) ? trim($phone_split[1]) : NULL;
+      $assembled_phones[] = $assembledPhone;
+    }
+
+    if (!empty($phones)) {
+      // Assemble the phones.
+      foreach ($phones as $phone) {
+        $assembledPhone = new \stdClass();
+        $assembledPhone->type = $phone->get('field_phone_number_type')->value;
+        $assembledPhone->label = $phone->get('field_phone_label')->value;
+        $assembledPhone->number = $phone->get('field_phone_number')->value;
+        $assembledPhone->extension = $phone->get('field_phone_extension')->value;
+        $assembled_phones[] = $assembledPhone;
+      }
+    }
+
+    return $assembled_phones;
+  }
+
+  /**
    * Gets the appropriate appointment intro text.
    *
    * @return string

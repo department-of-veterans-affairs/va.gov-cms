@@ -50,13 +50,6 @@ class PostFacilityServiceVetCenter extends PostFacilityServiceBase {
   protected $renderer;
 
   /**
-   * The related system service node.
-   *
-   * @var \Drupal\Core\Entity\EntityInterface
-   */
-  protected $systemService;
-
-  /**
    * The related health system taxonomy service term.
    *
    * @var \Drupal\Core\Entity\EntityInterface
@@ -130,7 +123,7 @@ class PostFacilityServiceVetCenter extends PostFacilityServiceBase {
    */
   public function queueFacilityService(EntityInterface $entity, bool $forcePush = FALSE) {
     $this->errors = [];
-    if (($entity->getEntityTypeId() === 'node') && ($entity->bundle() === 'vet_center')) {
+    if (($entity->getEntityTypeId() === 'node') && ($entity->bundle() === 'vet_center_facility_health_servi')) {
       // This is an appropriate service so begin gathering data to process.
       $this->facilityService = $entity;
 
@@ -138,7 +131,6 @@ class PostFacilityServiceVetCenter extends PostFacilityServiceBase {
       // They must be derived from the facility and system service nodes
       // and the health service taxonomy.
       $this->setFacility();
-      $this->setSystemService();
 
       if (empty($this->errors) && ($this->isPushable())) {
         // There were no errors gathering data and it is pushable, so proceed.
@@ -191,9 +183,9 @@ class PostFacilityServiceVetCenter extends PostFacilityServiceBase {
   public function queueServiceTermRelatedServices(EntityInterface $entity) {
     $queued_count = 0;
     if (($entity->getEntityTypeId() === 'taxonomy_term') && ($entity->bundle() === 'health_care_service_taxonomy')) {
-      // Find all VAMC System Health Services referencing this term.
+      // Find all Vet Center Facility services referencing this term.
       $query = $this->entityTypeManager->getStorage('node')->getQuery();
-      $result = $query->condition('type', 'regional_health_care_service_des')
+      $result = $query->condition('type', 'vet_center_facility_health_servi')
         ->condition('field_service_name_and_descripti', $entity->id())
         ->condition('status', 1)
         ->accessCheck(FALSE)
@@ -211,52 +203,18 @@ class PostFacilityServiceVetCenter extends PostFacilityServiceBase {
             $system_service_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
             foreach ($system_service_nodes as $node) {
               // Process each VAMC System Health Service using this term.
-              $queued_count += $this->queueSystemRelatedServices($node, TRUE);
+              $queued_count += $this->queueFacilityService($node, TRUE);
               $current++;
             }
 
-            $message = sprintf('VA.gov Post API: %s of %d regional_health_care_service_des nodes processed. Queued %s health_care_local_health_service nodes for sync to Lighthouse.', $current, $total, $queued_count);
+            $message = sprintf('VA.gov Post API: %s of %d vet_center_facility_health_servi nodes processed. Queued %s vet_center_facility_health_servi nodes for sync to Lighthouse.', $current, $total, $queued_count);
             $this->loggerChannelFactory->get('va_gov_post_api')->info($message);
 
           }
         }
         catch (\Exception $e) {
-          $message = sprintf('VA.gov Post API: Failed queuing items of type regional_health_care_service_des. %e', $e->getMessage());
+          $message = sprintf('VA.gov Post API: Failed queuing items of type vet_center_facility_health_servi. %e', $e->getMessage());
           $this->loggerChannelFactory->get('va_gov_post_api')->error($message);
-        }
-      }
-    }
-
-    return $queued_count;
-  }
-
-  /**
-   * Adds facility service data to Post API queue by system health service.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   Entity.
-   * @param bool $forcePush
-   *   Processing forced by referenced term.
-   *
-   * @return int
-   *   The count of the number of items queued.
-   */
-  public function queueSystemRelatedServices(EntityInterface $entity, bool $forcePush = FALSE) {
-    $queued_count = 0;
-    if (($entity->getEntityTypeId() === 'node') && ($entity->bundle() === 'regional_health_care_service_des')) {
-      if ($this->shouldPush($entity, $forcePush)) {
-        // Find all VAMC Facility Health Services referencing this node.
-        $query = $this->entityTypeManager->getStorage('node')->getQuery();
-        $nids = $query->condition('type', 'health_care_local_health_service')
-          ->condition('field_regional_health_service', $entity->id())
-          ->condition('status', 1)
-          ->accessCheck(FALSE)
-          ->execute();
-
-        $facility_health_service_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
-        foreach ($facility_health_service_nodes as $node) {
-          // Process each VAMC Facility Health Service referencing this node.
-          $queued_count += $this->queueFacilityService($node, $forcePush);
         }
       }
     }
@@ -281,18 +239,10 @@ class PostFacilityServiceVetCenter extends PostFacilityServiceBase {
       $service = new \stdClass();
       $service->name = $this->serviceTerm->getName();
       $service->active = ($this->facilityService->isPublished()) ? TRUE : FALSE;
-      $service->description_national = $this->serviceTerm->getDescription();
+      $service->description_national = $this->serviceTerm->get('field_vet_center_service_descrip')->value;
       $service->description_system = $this->getProcessedHtmlFromField('field_body');
       $service->service_api_id = $this->serviceTerm->get('field_health_service_api_id')->value;
-      $service->appointment_leadin = $this->getAppointmentLeadin();
-      $field_phone_numbers_paragraphs = $this->facilityService->get('field_phone_numbers_paragraph')->referencedEntities();
-      $service->appointment_phones = $this->getPhones(FALSE, $field_phone_numbers_paragraphs);
-      // These three fields are repeated here to support Facilty API V0
-      // for Covid-19 Vaccines.
-      $service->referral_required = $this->getReferralRequired();
-      $service->walk_ins_accepted = $this->getWalkInsAccepted();
-      $service->online_scheduling_available = $this->getOnlineSchedulingAvailable();
-
+      $service->appointment_phones = $this->getPhones();
       $service->service_locations = $this->getServiceLocations();
 
       $payload = [
@@ -304,32 +254,25 @@ class PostFacilityServiceVetCenter extends PostFacilityServiceBase {
   }
 
   /**
-   * Gets the appropriate appointment intro text.
+   * Assembles the phone data and returns an array of phone objects.
    *
-   * @return string
-   *   The mapped values of the field.  True, False, not applicable, NULL.
+   * @return array
+   *   An array of objects with properties type, label, number, extension.
    */
-  protected function getAppointmentLeadin() {
-    $selection = $this->facilityService->get('field_hservice_appt_intro_select')->value;
+  protected function getPhones() {
+    $assembled_phones = [];
+    // We need to include the Facility's phone.
+    $phone_w_ext = $this->facility->get('field_phone_number')->value;
+    // This field may have extension present like 555-555-1212 x 444.
+    $phone_split = explode('x', $phone_w_ext);
+    $assembledPhone = new \stdClass();
+    $assembledPhone->type = 'tel';
+    $assembledPhone->label = "Main phone";
+    $assembledPhone->number = !empty($phone_split[0]) ? trim($phone_split[0]) : NULL;
+    $assembledPhone->extension = !empty($phone_split[1]) ? trim($phone_split[1]) : NULL;
+    $assembled_phones[] = $assembledPhone;
 
-    switch ($selection) {
-      case 'custom_intro_text':
-        $text = $this->facilityService->get('field_hservice_appt_leadin')->value;
-        break;
-
-      case 'no_intro_text':
-        $text = NULL;
-        break;
-
-      case 'default_intro_text':
-      default:
-        $markupField = $this->facilityService->get('field_hservices_lead_in_default');
-        $text = $markupField->getSetting('markup')['value'] ?? NULL;
-
-        break;
-    }
-
-    return $this->stringNullify($text);
+    return $assembled_phones;
   }
 
   /**
@@ -340,81 +283,14 @@ class PostFacilityServiceVetCenter extends PostFacilityServiceBase {
    */
   protected function getServiceLocations(): array {
     $service_locations = [];
-    $field_service_locations = $this->facilityService->get('field_service_location')->referencedEntities();
     $facility_location = new \stdClass();
-    $facility_location->office_name = NULL;
-    $facility_location->email_contacts = NULL;
     $facility_location->fservice_hours = $this->getServiceHours();
-    $facility_location->additional_hours_info = NULL;
-    $facility_location->phones = $this->getPhones(TRUE);
+    $facility_location->phones = $this->getPhones();
     $facility_location->service_location_address = $this->facility->get('field_address');
-    if (empty($field_service_locations)) {
-      // The service has no locations, so use the facility's as fallback.
-      $service_locations[] = $facility_location;
-    }
-    else {
-      // We have some locations.
-      foreach ($field_service_locations as $location) {
-        $service_location = new \stdClass();
-        $field_service_location_address = $location->get('field_service_location_address')->referencedEntities();
-        $address_paragraph = reset($field_service_location_address);
-        $service_location->office_name = $this->stringNullify($address_paragraph->get('field_clinic_name')->value);
-        $service_location->service_address = $this->getServiceAddress($address_paragraph);
-        $field_email_contacts = $location->get('field_email_contacts')->referencedEntities();
 
-        $service_location->email_contacts = $this->getEmailContacts($field_email_contacts);
-        if ($location->get('field_hours')->value === '0') {
-          // Use facility hours.
-          $service_location->service_hours = $this->getServiceHours();
-        }
-        elseif ($location->get('field_hours')->value === '2') {
-          // Use location hours.
-          $service_location->service_hours = $this->getServiceHours($location->field_office_hours->getValue());
-        }
-        else {
-          // Provide no hours.
-          $service_location->service_hours = NULL;
-        }
-
-        $service_location->additional_hours_info = $location->get('field_additional_hours_info')->value;
-        $use_facility_phone = $location->get('field_use_main_facility_phone')->value;
-        $service_location->phones = $this->getPhones($use_facility_phone, $location->get('field_phone')->referencedEntities());
-        // These three fields are here for Facilities API V1+
-        // They will eventually be part of the CMS service location, but are
-        // currently sourced from the facility service node.
-        $service_location->referral_required = $this->getReferralRequired();
-        $service_location->walk_ins_accepted = $this->getWalkInsAccepted();
-        $service_location->online_scheduling_available = $this->getOnlineSchedulingAvailable();
-
-        $service_locations[] = $service_location;
-      }
-    }
+    $service_locations[] = $facility_location;
 
     return $service_locations;
-  }
-
-  /**
-   * Gets the email addresses from the field data.
-   *
-   * @param array $field_email_contacts
-   *   An array of email_contact paragraphs.
-   *
-   * @return array
-   *   An array of stdClass objects containing label and address.
-   */
-  protected function getEmailContacts(array $field_email_contacts): array {
-    $email_contacts = [];
-    if (!empty($field_email_contacts)) {
-      foreach ($field_email_contacts as $field_email_contact) {
-        $contact = new \stdClass();
-        $contact->email_label = $field_email_contact->get('field_email_label')->value;
-        $contact->email_address = $field_email_contact->get('field_email_address')->value;
-
-        $email_contacts[] = $contact;
-      }
-    }
-
-    return $email_contacts;
   }
 
   /**
@@ -456,63 +332,6 @@ class PostFacilityServiceVetCenter extends PostFacilityServiceBase {
   }
 
   /**
-   * Maps and returns the value of referral required.
-   *
-   * @return string
-   *   The mapped values of the field.  True, False, not applicable, NULL.
-   */
-  protected function getReferralRequired() {
-    $raw = $this->facilityService->get('field_referral_required')->value;
-    $map = [
-      // Value => Return.
-      // Lighthouse decided to receive these as strings since non-bool options.
-      '0' => 'false',
-      '1' => 'true',
-      'not_applicable' => 'not applicable',
-    ];
-
-    return $map[$raw] ?? NULL;
-  }
-
-  /**
-   * Maps and returns the value of walk ins accepted.
-   *
-   * @return string
-   *   The mapped values of the field.  True, False, not applicable, NULL.
-   */
-  protected function getWalkInsAccepted() {
-    $raw = $this->facilityService->get('field_walk_ins_accepted')->value;
-    $map = [
-      // Value => Return.
-      // Lighthouse decided to receive these as strings since non-bool options.
-      '0' => 'false',
-      '1' => 'true',
-      'not_applicable' => 'not applicable',
-    ];
-
-    return $map[$raw] ?? NULL;
-  }
-
-  /**
-   * Maps and returns the value of online scheduling.
-   *
-   * @return string
-   *   The mapped values of the field.  True, False, not applicable, NULL.
-   */
-  protected function getOnlineSchedulingAvailable() {
-    $raw = $this->facilityService->get('field_online_scheduling_availabl')->value;
-    $map = [
-      // Value => Return.
-      // Lighthouse decided to receive these as strings since non-bool options.
-      '0' => 'false',
-      '1' => 'true',
-      'not_applicable' => 'not applicable',
-    ];
-
-    return $map[$raw] ?? NULL;
-  }
-
-  /**
    * Load and set the facility node that this service belongs to.
    */
   protected function setFacility() {
@@ -530,7 +349,7 @@ class PostFacilityServiceVetCenter extends PostFacilityServiceBase {
    * Load and set the system health service node that belongs with this service.
    */
   protected function setSystemService() {
-    $system_health_service = $this->facilityService->get('field_regional_health_service')->referencedEntities();
+    $system_health_service = $this->facilityService->get('field_service_name_and_descripti')->referencedEntities();
     if (!empty($system_health_service)) {
       $this->systemService = reset($system_health_service);
       $this->setServiceTerm();
@@ -544,14 +363,14 @@ class PostFacilityServiceVetCenter extends PostFacilityServiceBase {
    * Load and set the health service taxonomy term for this service.
    */
   protected function setServiceTerm() {
-    $health_service_term_field = $this->systemService->get('field_service_name_and_descripti');
-    $health_service_term = (!empty($health_service_term_field)) ? $health_service_term_field->referencedEntities() : NULL;
+    $service_term_field = $this->facilityService->get('field_service_name_and_descripti');
+    $service_term = (!empty($service_term_field)) ? $service_term_field->referencedEntities() : NULL;
 
-    if (!empty($health_service_term)) {
-      $this->serviceTerm = reset($health_service_term);
+    if (!empty($service_term)) {
+      $this->serviceTerm = reset($service_term);
     }
     else {
-      $this->errors[] = "Unable to load health service term. Field 'field_service_name_and_descripti' not set.";
+      $this->errors[] = "Unable to load service term. Field 'field_service_name_and_descripti' not set.";
     }
   }
 
