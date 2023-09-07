@@ -142,7 +142,11 @@ class VaGovFacilityForceQueueForm extends FormBase {
 
           $nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
           foreach ($nodes as $node) {
-            if ($bundle === 'health_care_local_health_service') {
+            $services_to_push = [
+              'health_care_local_health_service',
+              'vet_center_facility_health_servi',
+            ];
+            if (in_array($bundle, $services_to_push)) {
               $force_push = TRUE;
               $queued_count += _va_gov_post_api_add_facility_service_to_queue($node, $force_push);
             }
@@ -219,7 +223,7 @@ class VaGovFacilityForceQueueForm extends FormBase {
           ->execute();
         break;
 
-      // If it's a VAMC facility service, we only want those that are published.
+      // Only the published VAMC facility services.
       case "health_care_local_health_service":
         $nodes = $this->entityTypeManager
           ->getStorage('node')
@@ -230,7 +234,7 @@ class VaGovFacilityForceQueueForm extends FormBase {
           ->execute();
         break;
 
-      // If it's a Vet Center facility service, we only want those that are published.
+      // Only the published Vet Center facility services.
       case "vet_center_facility_health_servi":
         $nodes = $this->entityTypeManager
           ->getStorage('node')
