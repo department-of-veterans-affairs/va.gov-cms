@@ -95,7 +95,6 @@ jobs:
       - name: Run PHPStan and ReviewDog
         # See also `composer va:test:phpstan` in composer.json
         run: |
-          export REVIEWDOG_GITHUB_API_TOKEN="${GITHUB_TOKEN}"
           bin/phpstan analyze \
             --no-progress \
             --no-interaction \
@@ -105,9 +104,11 @@ jobs:
               -name="PHPStan" \
               -f=phpstan \
               -reporter=github-pr-review \
-              -diff='git diff'
+              -fail-on-error=true \
+              -diff='git diff' \
+              -tee
         env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          REVIEWDOG_GITHUB_API_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
   # Run unit tests against codebase with PHPUnit.
   phpunit:
@@ -190,5 +191,3 @@ jobs:
             - Threshold: ${{ env.THRESHOLD }}
 
             This is a warning only. Please review the changes and ensure that they are acceptable.
-
-
