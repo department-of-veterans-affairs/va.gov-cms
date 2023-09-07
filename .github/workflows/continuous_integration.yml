@@ -176,7 +176,7 @@ jobs:
           THRESHOLD=200
           >&2 echo "LINES CHANGED=$LINES_CHANGED"
           >&2 echo "THRESHOLD=$THRESHOLD"
-          echo "LINE CHANGES=$LINES_CHANGED" >> $GITHUB_ENV
+          echo "LINES_CHANGED=$LINES_CHANGED" >> $GITHUB_ENV
           echo "THRESHOLD=$THRESHOLD" >> $GITHUB_ENV
       - name: Comment if composer.lock changes exceed threshold.
         uses: thollander/actions-comment-pull-request@d61db783da9abefc3437960d0cce08552c7c004f # v2.4.2
