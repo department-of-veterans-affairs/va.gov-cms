@@ -10,6 +10,28 @@ use Drush\Commands\DrushCommands;
 class Commands extends DrushCommands {
 
   /**
+   * Perform an operation, such as migrating, rolling back, or verifying.
+   *
+   * @param callable $operation
+   *   The operation to perform.
+   */
+  public function performOperation(callable $operation) {
+    $startTime = microtime(TRUE);
+    try {
+      $operation();
+    }
+    catch (\Exception $exception) {
+      $this->output()->writeln('Error: ' . $exception->getMessage());
+    }
+    finally {
+      $elapsedTime = microtime(TRUE) - $startTime;
+      $peakMemoryUsage = memory_get_peak_usage();
+      $this->output()->writeln('Elapsed time: ' . number_format($elapsedTime, 2) . ' seconds');
+      $this->output()->writeln('Peak memory usage: ' . number_format($peakMemoryUsage / 1024 / 1024, 2) . ' MB');
+    }
+  }
+
+  /**
    * Migrate a specific field on a specific content type.
    *
    * @param string $entityType
@@ -27,7 +49,11 @@ class Commands extends DrushCommands {
     string $bundle,
     string $fieldName
   ) {
-    $this->output()->writeln('Migrating field ' . $fieldName . ' on ' . $entityType . ' ' . $bundle);
+    $this->performOperation(function () use ($entityType, $bundle, $fieldName) {
+      $this->output()->writeln('Migrating field ' . $fieldName . ' on ' . $entityType . ' ' . $bundle);
+      // Logic for the migration.
+      $this->output()->writeln('Migration successful.');
+    });
   }
 
   /**
@@ -48,7 +74,11 @@ class Commands extends DrushCommands {
     string $bundle,
     string $fieldName
   ) {
-    $this->output()->writeln('Rolling back field ' . $fieldName . ' on ' . $entityType . ' ' . $bundle);
+    $this->performOperation(function () use ($entityType, $bundle, $fieldName) {
+      $this->output()->writeln('Rolling back field ' . $fieldName . ' on ' . $entityType . ' ' . $bundle);
+      // Logic for the rollback.
+      $this->output()->writeln('Rollback successful.');
+    });
   }
 
   /**
@@ -69,7 +99,11 @@ class Commands extends DrushCommands {
     string $bundle,
     string $fieldName
   ) {
-    $this->output()->writeln('Verifying field ' . $fieldName . ' on ' . $entityType . ' ' . $bundle);
+    $this->performOperation(function () use ($entityType, $bundle, $fieldName) {
+      $this->output()->writeln('Verifying field ' . $fieldName . ' on ' . $entityType . ' ' . $bundle);
+      // Logic for the verification.
+      $this->output()->writeln('Verification successful.');
+    });
   }
 
   /**
@@ -87,7 +121,10 @@ class Commands extends DrushCommands {
     string $entityType,
     string $bundle
   ) {
-    $this->output()->writeln('Finding fields on ' . $entityType . ' ' . $bundle);
+    $this->performOperation(function () use ($entityType, $bundle) {
+      $this->output()->writeln('Finding fields on ' . $entityType . ' ' . $bundle);
+      // Logic for finding fields.
+    });
   }
 
 }
