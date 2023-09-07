@@ -2,8 +2,9 @@
 
 namespace Drupal\va_gov_backend\Plugin\views\access;
 
-use Drupal\views\Plugin\views\access\AccessPluginBase;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\views\Plugin\views\access\AccessPluginBase;
 use Symfony\Component\Routing\Route;
 
 /**
@@ -22,31 +23,18 @@ class PdfAuditAccess extends AccessPluginBase {
   /**
    * {@inheritdoc}
    */
-  public function summaryTitle() {
+  public function summaryTitle(): TranslatableMarkup {
     return $this->t('Customised Settings for the PDF Audit');
   }
 
   /**
    * {@inheritdoc}
    */
-  public function access(AccountInterface $account) {
-    $vha_ids = [
-      '29',
-      '80',
-      '2046',
-      // Erika washburn.
-      '4433',
-      // Dave conlon.
-      '1203',
-      // Michelle middaugh.
-      '1342',
-      // Danielle Thierry.
-      '1341',
-    ];
+  public function access(AccountInterface $account): bool {
     $account_roles = $account->getRoles();
-    $account_id = $account->id();
     $is_super_admin = in_array('administrator', $account_roles);
-    if ($is_super_admin || in_array($account_id, $vha_ids)) {
+    $has_pdf_role = in_array('pdf_audit_access', $account_roles);
+    if ($is_super_admin || $has_pdf_role) {
       return TRUE;
     }
     return FALSE;
@@ -55,7 +43,7 @@ class PdfAuditAccess extends AccessPluginBase {
   /**
    * {@inheritdoc}
    */
-  public function alterRouteDefinition(Route $route) {
+  public function alterRouteDefinition(Route $route): void {
     $route->setRequirement('_access', 'TRUE');
   }
 

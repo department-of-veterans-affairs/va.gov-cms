@@ -1,0 +1,14 @@
+uuid: f5bcb48a-a855-4ff5-9eb2-78ed77795f25
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.pdf_audit_access
+  module:
+    - user
+id: user_remove_role_action.pdf_audit_access
+label: 'Remove the PDF Audit Access role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: pdf_audit_access
