@@ -1,0 +1,14 @@
+uuid: d385dda5-41e0-450b-9a77-9d7729b5e356
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.next_js_consumer
+  module:
+    - user
+id: user_add_role_action.next_js_consumer
+label: 'Add the Next.js consumer role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: next_js_consumer

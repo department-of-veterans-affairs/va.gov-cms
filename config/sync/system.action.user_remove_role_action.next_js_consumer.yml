@@ -1,0 +1,14 @@
+uuid: aa0f54ee-7635-4ada-8fee-2ac7a554c6dc
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.next_js_consumer
+  module:
+    - user
+id: user_remove_role_action.next_js_consumer
+label: 'Remove the Next.js consumer role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: next_js_consumer

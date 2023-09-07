@@ -1,0 +1,19 @@
+uuid: d43dcdb9-8aa5-41fb-a769-154381b4cbf9
+langcode: en
+status: true
+dependencies:
+  module:
+    - message_ui
+    - subrequests
+    - va_gov_backend
+third_party_settings:
+  va_gov_backend:
+    vgb_description: 'Used by next-build to generate content preview routes'
+id: next_js_consumer
+label: 'Next.js consumer'
+weight: 7
+is_admin: null
+permissions:
+  - 'access user profiles'
+  - 'bypass message access control'
+  - 'issue subrequests'
