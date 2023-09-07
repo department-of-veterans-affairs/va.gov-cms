@@ -168,6 +168,8 @@ jobs:
         with:
           comment_tag: check-composer-lock-changes
           mode: delete
+          message: |
+            Checking composer.lock changes...
       - name: Check changes in composer.lock.
         run: |
           LINES_CHANGED=$(git diff --numstat origin/main..HEAD -- composer.lock | awk '{print $1+$2}')
