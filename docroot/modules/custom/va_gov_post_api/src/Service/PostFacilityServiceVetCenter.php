@@ -11,7 +11,6 @@ use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Render\Renderer;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\file\FileRepositoryInterface;
-use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\post_api\Service\AddToQueue;
 
 /**
@@ -130,7 +129,8 @@ class PostFacilityServiceVetCenter extends PostFacilityServiceBase {
       // Many service details do not reside with the facility service node.
       // They must be derived from the facility and system service nodes
       // and the health service taxonomy.
-      $this->setFacility();
+      $this->setFacility('field_office');
+      $this->setSystemService('vet_center_facility_health_servi');
 
       if (empty($this->errors) && ($this->isPushable())) {
         // There were no errors gathering data and it is pushable, so proceed.
@@ -240,9 +240,8 @@ class PostFacilityServiceVetCenter extends PostFacilityServiceBase {
       $service->name = $this->serviceTerm->getName();
       $service->active = ($this->facilityService->isPublished()) ? TRUE : FALSE;
       $service->description_national = $this->serviceTerm->get('field_vet_center_service_descrip')->value;
-      $service->description_system = $this->getProcessedHtmlFromField('field_body');
+      $service->description_system = $this->getProcessedHtmlFromField('facilityService', 'field_body');
       $service->service_api_id = $this->serviceTerm->get('field_health_service_api_id')->value;
-      $service->appointment_phones = $this->getPhones();
       $service->service_locations = $this->getServiceLocations();
 
       $payload = [
@@ -254,28 +253,6 @@ class PostFacilityServiceVetCenter extends PostFacilityServiceBase {
   }
 
   /**
-   * Assembles the phone data and returns an array of phone objects.
-   *
-   * @return array
-   *   An array of objects with properties type, label, number, extension.
-   */
-  protected function getPhones() {
-    $assembled_phones = [];
-    // We need to include the Facility's phone.
-    $phone_w_ext = $this->facility->get('field_phone_number')->value;
-    // This field may have extension present like 555-555-1212 x 444.
-    $phone_split = explode('x', $phone_w_ext);
-    $assembledPhone = new \stdClass();
-    $assembledPhone->type = 'tel';
-    $assembledPhone->label = "Main phone";
-    $assembledPhone->number = !empty($phone_split[0]) ? trim($phone_split[0]) : NULL;
-    $assembledPhone->extension = !empty($phone_split[1]) ? trim($phone_split[1]) : NULL;
-    $assembled_phones[] = $assembledPhone;
-
-    return $assembled_phones;
-  }
-
-  /**
    * Builds the array of service locations.
    *
    * @return array
@@ -284,10 +261,9 @@ class PostFacilityServiceVetCenter extends PostFacilityServiceBase {
   protected function getServiceLocations(): array {
     $service_locations = [];
     $facility_location = new \stdClass();
-    $facility_location->fservice_hours = $this->getServiceHours();
+    $facility_location->service_address = $this->getServiceAddress();
+    $facility_location->service_hours = $this->getServiceHours();
     $facility_location->phones = $this->getPhones();
-    $facility_location->service_location_address = $this->facility->get('field_address');
-
     $service_locations[] = $facility_location;
 
     return $service_locations;
@@ -296,66 +272,40 @@ class PostFacilityServiceVetCenter extends PostFacilityServiceBase {
   /**
    * Pull the address info from an address paragraph.
    *
-   * @param \Drupal\paragraphs\Entity\Paragraph|bool $address_paragraph
-   *   A drupal paragraph object that should be the address paragraph.
-   *
    * @return object
    *   A stdClass object with address elements.
    */
-  protected function getServiceAddress(Paragraph | bool $address_paragraph): object {
+  protected function getServiceAddress(): object {
     $address = new \stdClass();
-    if (empty($address_paragraph)) {
-      return $address;
-    }
-    // We made it this far so it must be a paragraph, so declare it.
-    /** @var \Drupal\paragraphs\Entity\Paragraph $address_paragraph */
-    // Prep the parts of the address not dependent on facility.
-    $address->building_name_number = $this->stringNullify($address_paragraph->get('field_building_name_number')->value);
-    $address->wing_floor_or_room_number = $this->stringNullify($address_paragraph->get('field_wing_floor_or_room_number')->value);
-    if ($address_paragraph->get('field_use_facility_address')->value) {
-      // Get info from the facility.
-      $field_address = $this->facility->field_address->getValue();
-      $use_address = reset($field_address);
-    }
-    else {
-      $field_address = $address_paragraph->field_address->getValue();
-      $use_address = reset($field_address);
-    }
-    $address->address_line1 = $use_address['address_line1'];
-    $address->address_line2 = $use_address['address_line2'];
-    $address->city = $use_address['locality'];
-    $address->state = $use_address['administrative_area'];
-    $address->zip_code = $use_address['postal_code'];
-    $address->country_code = $use_address['country_code'];
+    $field_address = $this->facility->get('field_address')->getValue();
+    $use_address = reset($field_address);
+    $address = $this->getFacilityAddress($address, $use_address);
 
     return $address;
   }
 
   /**
-   * Load and set the facility node that this service belongs to.
+   * Assembles the phone data and returns an array of phone objects.
+   *
+   * @return array
+   *   An array of objects with properties type, label, number, extension.
    */
-  protected function setFacility() {
-    $field = $this->facilityService->get('field_office');
-    $facility = (!empty($field)) ? $field->referencedEntities() : NULL;
-    if (!empty($facility)) {
-      $this->facility = reset($facility);
-    }
-    else {
-      $this->errors[] = "Unable to load related facility. Field 'field_office' not set.";
-    }
+  protected function getPhones() {
+    $assembled_phones[] = $this->getFacilityPhone();
+    return $assembled_phones;
   }
 
   /**
    * Load and set the system health service node that belongs with this service.
    */
   protected function setSystemService() {
-    $system_health_service = $this->facilityService->get('field_service_name_and_descripti')->referencedEntities();
+    $system_health_service = $this->facilityService;
     if (!empty($system_health_service)) {
       $this->systemService = reset($system_health_service);
       $this->setServiceTerm();
     }
     else {
-      $this->errors[] = "Unable to load system service. Field 'field_regional_health_service' not set.";
+      $this->errors[] = "Unable to load system service. Field s'field_regional_health_service' not set.";
     }
   }
 

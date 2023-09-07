@@ -11,7 +11,6 @@ use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Render\Renderer;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\file\FileRepositoryInterface;
-use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\post_api\Service\AddToQueue;
 use Drupal\va_gov_lovell\LovellOps;
 
@@ -321,6 +320,53 @@ abstract class PostFacilityServiceBase extends PostFacilityBase {
   }
 
   /**
+   * Load and set the facility node that this service belongs to.
+   */
+  protected function setFacility(string $associated_facility) {
+    $field = $this->facilityService->get($associated_facility);
+    $facility = (!empty($field)) ? $field->referencedEntities() : NULL;
+    if (!empty($facility)) {
+      $this->facility = reset($facility);
+    }
+    else {
+      $this->errors[] = "Unable to load related facility. Field \'{$associated_facility}\' not set.";
+    }
+  }
+
+  /**
+   * Get the facility phone number.
+   *
+   * @return array
+   *   Facility phone information.
+   */
+  protected function getFacilityPhone() {
+    // We need to include the Facility's phone.
+    $phone_w_ext = $this->facility->get('field_phone_number')->value;
+    // This field may have extension present like 555-555-1212 x 444.
+    $phone_split = explode('x', $phone_w_ext);
+    $assembledPhone = new \stdClass();
+    $assembledPhone->type = 'tel';
+    $assembledPhone->label = "Main phone";
+    $assembledPhone->number = !empty($phone_split[0]) ? trim($phone_split[0]) : NULL;
+    $assembledPhone->extension = !empty($phone_split[1]) ? trim($phone_split[1]) : NULL;
+    return $assembledPhone;
+  }
+
+  /**
+   * Get the facility address.
+   */
+  protected function getFacilityAddress(object &$address, array $use_address) {
+    $address->address_line1 = $use_address['address_line1'];
+    $address->address_line2 = $use_address['address_line2'];
+    $address->city = $use_address['locality'];
+    $address->state = $use_address['administrative_area'];
+    $address->zip_code = $use_address['postal_code'];
+    $address->country_code = $use_address['country_code'];
+
+    return $address;
+  }
+
+  /**
    * Render html from field and make relative links va.gov specific.
    *
    * @param string $fieldname
@@ -329,10 +375,10 @@ abstract class PostFacilityServiceBase extends PostFacilityBase {
    * @return string
    *   Whatever html was found.
    */
-  protected function getProcessedHtmlFromField($fieldname) {
+  protected function getProcessedHtmlFromField($serviceType, $fieldname) {
     $html = '';
-    if (!empty($this->systemService->$fieldname)) {
-      $render_array = $this->systemService->$fieldname->view();
+    if (!empty($this->{$serviceType}->$fieldname)) {
+      $render_array = $this->{$serviceType}->$fieldname->view();
       $html = (string) $this->renderer->renderPlain($render_array);
       $html = $this->makeLinksVaGov($html);
     }
@@ -426,21 +472,6 @@ abstract class PostFacilityServiceBase extends PostFacilityBase {
    */
   protected function isPushable() {
     return (!empty($this->serviceTerm) && !in_array($this->serviceTerm->id(), $this->servicesToWithhold));
-  }
-
-  /**
-   * Load and set the health service taxonomy term for this service.
-   */
-  protected function setServiceTerm() {
-    $health_service_term_field = $this->systemService->get('field_service_name_and_descripti');
-    $health_service_term = (!empty($health_service_term_field)) ? $health_service_term_field->referencedEntities() : NULL;
-
-    if (!empty($health_service_term)) {
-      $this->serviceTerm = reset($health_service_term);
-    }
-    else {
-      $this->errors[] = "Unable to load health service term. Field 'field_service_name_and_descripti' not set.";
-    }
   }
 
   /**

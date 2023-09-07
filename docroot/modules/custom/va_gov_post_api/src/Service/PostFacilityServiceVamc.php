@@ -138,7 +138,7 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
       // Many service details do not reside with the facility service node.
       // They must be derived from the facility and system service nodes
       // and the health service taxonomy.
-      $this->setFacility();
+      $this->setFacility('field_facility_location');
       $this->setSystemService();
 
       if (empty($this->errors) && ($this->isPushable())) {
@@ -283,7 +283,7 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
       $service->name = $this->serviceTerm->getName();
       $service->active = ($this->facilityService->isPublished()) ? TRUE : FALSE;
       $service->description_national = $this->serviceTerm->getDescription();
-      $service->description_system = $this->getProcessedHtmlFromField('field_body');
+      $service->description_system = $this->getProcessedHtmlFromField('systemService', 'field_body');
       $service->service_api_id = $this->serviceTerm->get('field_health_service_api_id')->value;
       $service->appointment_leadin = $this->getAppointmentLeadin();
       $field_phone_numbers_paragraphs = $this->facilityService->get('field_phone_numbers_paragraph')->referencedEntities();
@@ -323,15 +323,7 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
 
     if ($from_facility) {
       // We need to include the Facility's phone.
-      $phone_w_ext = $this->facility->get('field_phone_number')->value;
-      // This field may have extension present like 555-555-1212 x 444.
-      $phone_split = explode('x', $phone_w_ext);
-      $assembledPhone = new \stdClass();
-      $assembledPhone->type = 'tel';
-      $assembledPhone->label = "Main phone";
-      $assembledPhone->number = !empty($phone_split[0]) ? trim($phone_split[0]) : NULL;
-      $assembledPhone->extension = !empty($phone_split[1]) ? trim($phone_split[1]) : NULL;
-      $assembled_phones[] = $assembledPhone;
+      $assembled_phones[] = $this->getFacilityPhone();
     }
 
     if (!empty($phones)) {
@@ -491,12 +483,7 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
       $field_address = $address_paragraph->field_address->getValue();
       $use_address = reset($field_address);
     }
-    $address->address_line1 = $use_address['address_line1'];
-    $address->address_line2 = $use_address['address_line2'];
-    $address->city = $use_address['locality'];
-    $address->state = $use_address['administrative_area'];
-    $address->zip_code = $use_address['postal_code'];
-    $address->country_code = $use_address['country_code'];
+    $address = $this->getFacilityAddress($address, $use_address);
 
     return $address;
   }
@@ -556,20 +543,6 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
     ];
 
     return $map[$raw] ?? NULL;
-  }
-
-  /**
-   * Load and set the facility node that this service belongs to.
-   */
-  protected function setFacility() {
-    $field = $this->facilityService->get('field_facility_location');
-    $facility = (!empty($field)) ? $field->referencedEntities() : NULL;
-    if (!empty($facility)) {
-      $this->facility = reset($facility);
-    }
-    else {
-      $this->errors[] = "Unable to load related facility. Field 'field_facility_location' not set.";
-    }
   }
 
   /**
