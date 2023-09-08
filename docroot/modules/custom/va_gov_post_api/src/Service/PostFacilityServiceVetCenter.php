@@ -22,6 +22,7 @@ class PostFacilityServiceVetCenter extends PostFacilityServiceBase {
    */
   public function queueFacilityService(EntityInterface $entity, bool $forcePush = FALSE) {
     $this->errors = [];
+    $numberOfFacilitiesQueued = 0;
     if (($entity->getEntityTypeId() === 'node') && ($entity->bundle() === 'vet_center_facility_health_servi')) {
       // This is an appropriate service so begin gathering data to process.
       $this->facilityService = $entity;
@@ -56,7 +57,7 @@ class PostFacilityServiceVetCenter extends PostFacilityServiceBase {
             }
 
           }
-          return 1;
+          $numberOfFacilitiesQueued = 1;
         }
       }
       elseif (!empty($this->errors) && ($this->isPushable())) {
@@ -64,11 +65,12 @@ class PostFacilityServiceVetCenter extends PostFacilityServiceBase {
         $errors = implode(' ', $this->errors);
         $message = sprintf('Post API: attempted to add a system  NID %d to queue, but ran into errors: %s', $this->facilityService->id(), $errors);
         $this->loggerChannelFactory->get('va_gov_post_api')->error($message);
-
-        return 0;
       }
     }
+
+    return $numberOfFacilitiesQueued;
   }
+
 
   /**
    * Adds facility service data to Post API queue by term.
@@ -101,7 +103,7 @@ class PostFacilityServiceVetCenter extends PostFacilityServiceBase {
 
             $system_service_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
             foreach ($system_service_nodes as $node) {
-              // Process each VAMC System Health Service using this term.
+              // Process each Vet Center Facility Service using this term.
               $queued_count += $this->queueFacilityService($node, TRUE);
               $current++;
             }
@@ -213,13 +215,8 @@ class PostFacilityServiceVetCenter extends PostFacilityServiceBase {
    */
   protected function setSystemService() {
     $system_health_service = $this->facilityService;
-    if (!empty($system_health_service)) {
-      $this->systemService = reset($system_health_service);
-      $this->setServiceTerm();
-    }
-    else {
-      $this->errors[] = "Unable to load system service. Field s'field_regional_health_service' not set.";
-    }
+    $this->systemService = reset($system_health_service);
+    $this->setServiceTerm();
   }
 
   /**

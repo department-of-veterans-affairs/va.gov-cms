@@ -140,7 +140,6 @@ abstract class PostFacilityServiceBase extends PostFacilityBase {
    *   Facility phone information.
    */
   protected function getFacilityPhone() {
-    // We need to include the Facility's phone.
     $phone_w_ext = $this->facility->get('field_phone_number')->value;
     // This field may have extension present like 555-555-1212 x 444.
     $phone_split = explode('x', $phone_w_ext);
