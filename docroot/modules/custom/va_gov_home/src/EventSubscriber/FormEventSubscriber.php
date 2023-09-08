@@ -41,8 +41,8 @@ class FormEventSubscriber implements EventSubscriberInterface {
       $admin = $this->permsService->hasAdminRole(TRUE);
       $this->hubMenuFormAlter($form, $admin);
     }
-    if ($event->getFormId() === 'menu_link_content_va-gov-footer_form' || $event->getFormId() === 'menu-link-content-footer-bottom-rail-form') {
-      $this->hideMenuLinkDescriptionField($form, $admin);
+    if ($event->getFormId() === 'menu_link_content_va-gov-footer_form' || $event->getFormId() === 'menu_link_content_footer-bottom-rail_form') {
+      $this->hideMenuLinkDescriptionField($form);
     }
   }
 
