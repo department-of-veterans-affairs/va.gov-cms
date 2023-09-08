@@ -17,25 +17,9 @@ $metadata['VA_SSOi_IDP'] = array (
         ),
     'metadata-set' => 'saml20-idp-remote',
     'sign.authnrequest' => true,
-    'SingleSignOnService' =>
-        array (
-            0 =>
-                array (
-                    'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
-                    'Location' => 'https://logon.iam.va.gov/affwebservices/public/saml2sso',
-                ),
-            1 =>
-                array (
-                    'Binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST',
-                    'Location' => 'https://logon.iam.va.gov/affwebservices/public/saml2sso',
-                ),
-        ),
-    'SingleLogoutService' =>
-        array (
-        ),
-    'ArtifactResolutionService' =>
-        array (
-        ),
+    'SingleSignOnService' => 'https://logon.iam.va.gov/affwebservices/public/saml2sso',
+    'SingleLogoutService' => [],
+    'ArtifactResolutionService' => [],
     'NameIDFormats' =>
         array (
             0 => 'urn:oasis:names:tc:SAML:2.0:nameid-format:unspecified',
