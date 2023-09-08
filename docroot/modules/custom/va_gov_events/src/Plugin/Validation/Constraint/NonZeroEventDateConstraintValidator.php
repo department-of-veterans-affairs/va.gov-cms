@@ -29,7 +29,7 @@ class NonZeroEventDateConstraintValidator extends ConstraintValidator {
       $rrule = SmartDateRule::load($rruleId);
       $instances = $rrule->getRuleInstances();
       if (count($instances) < 1) {
-        $this->context->buildViolation($constraint->errorMessage)->atPath((string) '0.value')->addViolation();
+        $this->context->buildViolation($constraint->errorMessage)->atPath((string) '0.make_recurring')->addViolation();
       }
     }
   }
