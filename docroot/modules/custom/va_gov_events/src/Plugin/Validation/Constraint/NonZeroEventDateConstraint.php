@@ -19,6 +19,6 @@ class NonZeroEventDateConstraint extends Constraint {
    *
    * @var string
    */
-  public $errorMessage = 'Events cannot be created without a start and end date.';
+  public $errorMessage = 'Please enter a start and end date.';
 
 }
