@@ -2,6 +2,14 @@
  * Tabledrag overrides.
  */
 
-.tabledrag-cell-content > * {
-  border-left: #ccc 1px dashed;
+.field--widget-magichead-paragraphs-classic .tabledrag-cell-content > * {
+  border-left: 1px dashed var(--va-gray-dark);
+}
+
+.field--widget-magichead-paragraphs-classic .tabledrag-cell-content .indentation {
+  border-left: 0;
+}
+
+.field--widget-magichead-paragraphs-classic .tabledrag-cell-content__item:empty {
+  display: table-cell;
 }
