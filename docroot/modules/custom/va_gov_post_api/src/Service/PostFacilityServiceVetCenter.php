@@ -68,7 +68,7 @@ class PostFacilityServiceVetCenter extends PostFacilityServiceBase {
       }
     }
 
-    return $$queued_count;
+    return $queued_count;
   }
 
   /**
