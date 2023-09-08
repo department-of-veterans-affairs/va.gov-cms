@@ -23,6 +23,7 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
    */
   public function queueFacilityService(EntityInterface $entity, bool $forcePush = FALSE) {
     $this->errors = [];
+    $queued_count = 0;
     if (($entity->getEntityTypeId() === 'node') && ($entity->bundle() === 'health_care_local_health_service')) {
       // This is an appropriate service so begin gathering data to process.
       $this->facilityService = $entity;
@@ -58,7 +59,7 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
             }
 
           }
-          return 1;
+          $queued_count = 1;
         }
       }
       elseif (!empty($this->errors) && ($this->isPushable())) {
@@ -66,10 +67,10 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
         $errors = implode(' ', $this->errors);
         $message = sprintf('Post API: attempted to add a system  NID %d to queue, but ran into errors: %s', $this->facilityService->id(), $errors);
         $this->loggerChannelFactory->get('va_gov_post_api')->error($message);
-
-        return 0;
       }
     }
+
+    return $queued_count;
   }
 
   /**

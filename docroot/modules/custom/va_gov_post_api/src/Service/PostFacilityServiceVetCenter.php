@@ -22,7 +22,7 @@ class PostFacilityServiceVetCenter extends PostFacilityServiceBase {
    */
   public function queueFacilityService(EntityInterface $entity, bool $forcePush = FALSE) {
     $this->errors = [];
-    $numberOfFacilitiesQueued = 0;
+    $queued_count = 0;
     if (($entity->getEntityTypeId() === 'node') && ($entity->bundle() === 'vet_center_facility_health_servi')) {
       // This is an appropriate service so begin gathering data to process.
       $this->facilityService = $entity;
@@ -57,7 +57,7 @@ class PostFacilityServiceVetCenter extends PostFacilityServiceBase {
             }
 
           }
-          $numberOfFacilitiesQueued = 1;
+          $queued_count = 1;
         }
       }
       elseif (!empty($this->errors) && ($this->isPushable())) {
@@ -68,9 +68,8 @@ class PostFacilityServiceVetCenter extends PostFacilityServiceBase {
       }
     }
 
-    return $numberOfFacilitiesQueued;
+    return $$queued_count;
   }
-
 
   /**
    * Adds facility service data to Post API queue by term.
