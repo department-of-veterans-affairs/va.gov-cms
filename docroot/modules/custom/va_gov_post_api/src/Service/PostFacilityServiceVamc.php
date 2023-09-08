@@ -2,121 +2,13 @@
 
 namespace Drupal\va_gov_post_api\Service;
 
-use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\File\FileSystemInterface;
-use Drupal\Core\Logger\LoggerChannelFactoryInterface;
-use Drupal\Core\Messenger\MessengerInterface;
-use Drupal\Core\Render\Renderer;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\file\FileRepositoryInterface;
 use Drupal\paragraphs\Entity\Paragraph;
-use Drupal\post_api\Service\AddToQueue;
 
 /**
  * Class PostFacilityService posts specific service info to Lighthouse.
  */
 class PostFacilityServiceVamc extends PostFacilityServiceBase {
-
-  use StringTranslationTrait;
-
-  /**
-   * A array of any errors in prepping the data.
-   *
-   * @var array
-   */
-  protected $errors = [];
-
-  /**
-   * The facility node.
-   *
-   * @var \Drupal\Core\Entity\EntityInterface
-   */
-  protected $facility;
-
-  /**
-   * The facility service node.
-   *
-   * @var \Drupal\Core\Entity\EntityInterface
-   */
-  protected $facilityService;
-
-  /**
-   * Core renderer.
-   *
-   * @var \Drupal\Core\Render\Renderer
-   */
-  protected $renderer;
-
-  /**
-   * The related system service node.
-   *
-   * @var \Drupal\Core\Entity\EntityInterface
-   */
-  protected $systemService;
-
-  /**
-   * The related health system taxonomy service term.
-   *
-   * @var \Drupal\Core\Entity\EntityInterface
-   */
-  protected $serviceTerm;
-
-
-  /**
-   * The service for creating a directory.
-   *
-   * @var \Drupal\Core\File\FileSystemInterface
-   */
-  protected $fileSystem;
-
-  /**
-   * The service for creating the log file.
-   *
-   * @var \Drupal\file\FileRepositoryInterface
-   */
-  protected $fileRepository;
-
-  /**
-   * The name of the log file.
-   *
-   * @var string
-   */
-  protected $logFile = "";
-
-  /**
-   * Constructs a new PostFacilityBase object.
-   *
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
-   *   The config factory service.
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   The entity type manager service.
-   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_channel_factory
-   *   The logger factory service.
-   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
-   *   The messenger interface.
-   * @param \Drupal\post_api\Service\AddToQueue $post_queue
-   *   The PostAPI service.
-   * @param \Drupal\Core\Render\Renderer $renderer
-   *   Core renderer.
-   * @param \Drupal\Core\File\FileSystemInterface $file_system
-   *   File system service.
-   * @param \Drupal\file\FileRepositoryInterface $file_repository
-   *   File repository service.
-   */
-  public function __construct(
-    ConfigFactoryInterface $config_factory,
-    EntityTypeManagerInterface $entity_type_manager,
-    LoggerChannelFactoryInterface $logger_channel_factory,
-    MessengerInterface $messenger,
-    AddToQueue $post_queue,
-    Renderer $renderer,
-    FileSystemInterface $file_system,
-    FileRepositoryInterface $file_repository
-  ) {
-    parent::__construct($config_factory, $entity_type_manager, $logger_channel_factory, $messenger, $post_queue, $renderer, $file_system, $file_repository);
-  }
 
   /**
    * Adds facility service data to Post API queue.
@@ -138,7 +30,7 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
       // Many service details do not reside with the facility service node.
       // They must be derived from the facility and system service nodes
       // and the health service taxonomy.
-      $this->setFacility('field_facility_location');
+      $this->setFacility();
       $this->setSystemService();
 
       if (empty($this->errors) && ($this->isPushable())) {
@@ -543,6 +435,20 @@ class PostFacilityServiceVamc extends PostFacilityServiceBase {
     ];
 
     return $map[$raw] ?? NULL;
+  }
+
+  /**
+   * Load and set the facility node that this service belongs to.
+   */
+  protected function setFacility() {
+    $field = $this->facilityService->get('field_facility_location');
+    $facility = (!empty($field)) ? $field->referencedEntities() : NULL;
+    if (!empty($facility)) {
+      $this->facility = reset($facility);
+    }
+    else {
+      $this->errors[] = "Unable to load related facility. Field 'field_facility_location' not set.";
+    }
   }
 
   /**

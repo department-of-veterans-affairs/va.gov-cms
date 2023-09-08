@@ -134,206 +134,6 @@ abstract class PostFacilityServiceBase extends PostFacilityBase {
   }
 
   /**
-   * Adds facility service data to Post API queue.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   Entity.
-   * @param bool $forcePush
-   *   Processing forced by referenced system service.
-   *
-   * @return int
-   *   The count of the number of items queued (1,0).
-   */
-  public function queueFacilityService(EntityInterface $entity, bool $forcePush = FALSE) {
-    $this->errors = [];
-    if (($entity->getEntityTypeId() === 'node') && ($entity->bundle() === 'health_care_local_health_service')) {
-      // This is an appropriate service so begin gathering data to process.
-      $this->facilityService = $entity;
-
-      // Many service details do not reside with the facility service node.
-      // They must be derived from the facility and system service nodes
-      // and the health service taxonomy.
-      $this->setFacility();
-      $this->setSystemService();
-
-      if (empty($this->errors) && ($this->isPushable())) {
-        // There were no errors gathering data and it is pushable, so proceed.
-        $data['nid'] = $this->facilityService->id();
-        // Queue item's Unique ID.
-        $data['uid'] = "facility_service_{$this->facility->id()}_{$this->facilityService->id()}";
-        $facilityApiId = $this->facility->hasField('field_facility_locator_api_id') ? $this->facility->get('field_facility_locator_api_id')->value : NULL;
-        $data['endpoint_path'] = ($facilityApiId) ? "/services/va_facilities/v0/facilities/{$facilityApiId}/cms-overlay" : NULL;
-        $data['payload'] = $this->getPayload($forcePush);
-
-        // Only add to queue if payload is not empty.
-        // If its empty, it means that there is no new information to send to
-        // endpoint.
-        if (!empty($data['payload']) && !empty($facilityApiId)) {
-          $this->postQueue->addToQueue($data, $this->shouldDedupe());
-          if (!empty($data['payload']['detailed_services'][0])
-              && $this->shouldLog()) {
-            try {
-              $this->logService($facilityApiId, $data['payload']['detailed_services']['0']->service_api_id);
-            }
-            catch (\Exception $e) {
-              $message = sprintf('VA.gov Post API: Failed to log the service. %s', $e->getMessage());
-              $this->loggerChannelFactory->get('va_gov_post_api')->error($message);
-            }
-
-          }
-          return 1;
-        }
-      }
-      elseif (!empty($this->errors) && ($this->isPushable())) {
-        // We were supposed to push it, but there was a problem.
-        $errors = implode(' ', $this->errors);
-        $message = sprintf('Post API: attempted to add a system  NID %d to queue, but ran into errors: %s', $this->facilityService->id(), $errors);
-        $this->loggerChannelFactory->get('va_gov_post_api')->error($message);
-
-        return 0;
-      }
-    }
-  }
-
-  /**
-   * Adds facility service data to Post API queue by term.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   Entity.
-   *
-   * @return int
-   *   The count of the number of items queued.
-   */
-  public function queueServiceTermRelatedServices(EntityInterface $entity) {
-    $queued_count = 0;
-    if (($entity->getEntityTypeId() === 'taxonomy_term') && ($entity->bundle() === 'health_care_service_taxonomy')) {
-      // Find all VAMC System Health Services referencing this term.
-      $query = $this->entityTypeManager->getStorage('node')->getQuery();
-      $result = $query->condition('type', 'regional_health_care_service_des')
-        ->condition('field_service_name_and_descripti', $entity->id())
-        ->condition('status', 1)
-        ->accessCheck(FALSE)
-        ->execute();
-
-      if (!empty($result)) {
-        try {
-          $total = count($result);
-          $current = 0;
-
-          while ($current < $total) {
-            // Run through a batch of 50.
-            $nids = array_slice($result, $current, 50, FALSE);
-
-            $system_service_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
-            foreach ($system_service_nodes as $node) {
-              // Process each VAMC System Health Service using this term.
-              $queued_count += $this->queueSystemRelatedServices($node, TRUE);
-              $current++;
-            }
-
-            $message = sprintf('VA.gov Post API: %s of %d regional_health_care_service_des nodes processed. Queued %s health_care_local_health_service nodes for sync to Lighthouse.', $current, $total, $queued_count);
-            $this->loggerChannelFactory->get('va_gov_post_api')->info($message);
-
-          }
-        }
-        catch (\Exception $e) {
-          $message = sprintf('VA.gov Post API: Failed queuing items of type regional_health_care_service_des. %e', $e->getMessage());
-          $this->loggerChannelFactory->get('va_gov_post_api')->error($message);
-        }
-      }
-    }
-
-    return $queued_count;
-  }
-
-  /**
-   * Adds facility service data to Post API queue by system health service.
-   *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   Entity.
-   * @param bool $forcePush
-   *   Processing forced by referenced term.
-   *
-   * @return int
-   *   The count of the number of items queued.
-   */
-  public function queueSystemRelatedServices(EntityInterface $entity, bool $forcePush = FALSE) {
-    $queued_count = 0;
-    if (($entity->getEntityTypeId() === 'node') && ($entity->bundle() === 'regional_health_care_service_des')) {
-      if ($this->shouldPush($entity, $forcePush)) {
-        // Find all VAMC Facility Health Services referencing this node.
-        $query = $this->entityTypeManager->getStorage('node')->getQuery();
-        $nids = $query->condition('type', 'health_care_local_health_service')
-          ->condition('field_regional_health_service', $entity->id())
-          ->condition('status', 1)
-          ->accessCheck(FALSE)
-          ->execute();
-
-        $facility_health_service_nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
-        foreach ($facility_health_service_nodes as $node) {
-          // Process each VAMC Facility Health Service referencing this node.
-          $queued_count += $this->queueFacilityService($node, $forcePush);
-        }
-      }
-    }
-
-    return $queued_count;
-  }
-
-  /**
-   * Compose and return payload array for facility service.
-   *
-   * @param bool $forcePush
-   *   Processing forced by referenced system service.
-   *
-   * @return array
-   *   Payload array.
-   */
-  protected function getPayload(bool $forcePush = FALSE) {
-    // Default payload is an empty array.
-    $payload = [];
-
-    if (empty($this->errors) && $this->shouldPush($this->facilityService, $forcePush)) {
-      $service = new \stdClass();
-      $service->name = $this->serviceTerm->getName();
-      $service->active = ($this->facilityService->isPublished()) ? TRUE : FALSE;
-      $service->description_national = $this->serviceTerm->getDescription();
-      $service->description_system = $this->getProcessedHtmlFromField('field_body');
-      $service->service_api_id = $this->serviceTerm->get('field_health_service_api_id')->value;
-      $service->appointment_leadin = $this->getAppointmentLeadin();
-      $field_phone_numbers_paragraphs = $this->facilityService->get('field_phone_numbers_paragraph')->referencedEntities();
-      $service->appointment_phones = $this->getPhones(FALSE, $field_phone_numbers_paragraphs);
-      // These three fields are repeated here to support Facilty API V0
-      // for Covid-19 Vaccines.
-      $service->referral_required = $this->getReferralRequired();
-      $service->walk_ins_accepted = $this->getWalkInsAccepted();
-      $service->online_scheduling_available = $this->getOnlineSchedulingAvailable();
-
-      $service->service_locations = $this->getServiceLocations();
-
-      $payload = [
-        'detailed_services' => [$service],
-      ];
-    }
-
-    return $payload;
-  }
-
-  /**
-   * Load and set the facility node that this service belongs to.
-   */
-  protected function setFacility(string $associated_facility) {
-    $field = $this->facilityService->get($associated_facility);
-    $facility = (!empty($field)) ? $field->referencedEntities() : NULL;
-    if (!empty($facility)) {
-      $this->facility = reset($facility);
-    }
-    else {
-      $this->errors[] = "Unable to load related facility. Field \'{$associated_facility}\' not set.";
-    }
-  }
-
-  /**
    * Get the facility phone number.
    *
    * @return array
@@ -369,16 +169,19 @@ abstract class PostFacilityServiceBase extends PostFacilityBase {
   /**
    * Render html from field and make relative links va.gov specific.
    *
-   * @param string $fieldname
+   * @param string $serviceType
+   *   The type of facility service.
+   *   Examples: 'systemService' or 'facilityService'.
+   * @param string $fieldName
    *   The name of the field to retrieve.
    *
    * @return string
    *   Whatever html was found.
    */
-  protected function getProcessedHtmlFromField($serviceType, $fieldname) {
+  protected function getProcessedHtmlFromField(string $serviceType, string $fieldName) {
     $html = '';
-    if (!empty($this->{$serviceType}->$fieldname)) {
-      $render_array = $this->{$serviceType}->$fieldname->view();
+    if (!empty($this->{$serviceType}->$fieldName)) {
+      $render_array = $this->{$serviceType}->$fieldName->view();
       $html = (string) $this->renderer->renderPlain($render_array);
       $html = $this->makeLinksVaGov($html);
     }
