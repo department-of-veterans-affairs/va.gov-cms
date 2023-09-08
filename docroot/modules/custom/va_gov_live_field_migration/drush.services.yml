@@ -1,0 +1,6 @@
+services:
+  va_gov_live_field_migration.commands:
+    class: \Drupal\va_gov_live_field_migration\Commands\Commands
+    arguments: []
+    tags:
+      - { name: drush.command }
