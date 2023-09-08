@@ -184,6 +184,11 @@ abstract class PostFacilityServiceBase extends PostFacilityBase {
       $html = (string) $this->renderer->renderPlain($render_array);
       $html = $this->makeLinksVaGov($html);
     }
+    else {
+      $message = sprintf('VA.gov Post API: The %s field does not exist in the %s service.', $fieldName, $serviceType);
+      $this->loggerChannelFactory->get('va_gov_post_api')->error($message);
+
+    }
 
     return $html;
   }
@@ -225,7 +230,7 @@ abstract class PostFacilityServiceBase extends PostFacilityBase {
   protected function shouldPush(EntityInterface $entity, bool $forcePush = FALSE) {
     // Moderation state of what is being saved.
     $moderationState = $entity->moderation_state->value;
-    $isArchived = ($moderationState === 'archived') ? TRUE : FALSE;
+    $isArchived = ($moderationState === 'archived');
     $thisRevisionIsPublished = $entity->isPublished();
     $defaultRevisionIsPublished = (isset($entity->original) && ($entity->original instanceof EntityInterface)) ? (bool) $entity->original->status->value : (bool) $entity->status->value;
     $isNew = $entity->isNew();

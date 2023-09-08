@@ -5,7 +5,7 @@ namespace Drupal\va_gov_post_api\Service;
 use Drupal\Core\Entity\EntityInterface;
 
 /**
- * Class PostFacilityService posts specific service info to Lighthouse.
+ * Class PostFacilityServiceVetCenter posts specific service info to Lighthouse.
  */
 class PostFacilityServiceVetCenter extends PostFacilityServiceBase {
 
@@ -30,7 +30,7 @@ class PostFacilityServiceVetCenter extends PostFacilityServiceBase {
       // Many service details do not reside with the facility service node.
       // They must be derived from the facility.
       $this->setFacility();
-      $this->setSystemService();
+      $this->setServiceTerm();
 
       if (empty($this->errors) && ($this->isPushable())) {
         // There were no errors gathering data and it is pushable, so proceed.
@@ -205,17 +205,8 @@ class PostFacilityServiceVetCenter extends PostFacilityServiceBase {
       $this->facility = reset($facility);
     }
     else {
-      $this->errors[] = "Unable to load related facility. Field 'field_facility_location' not set.";
+      $this->errors[] = "Unable to load related facility. Field 'field_office' not set.";
     }
-  }
-
-  /**
-   * Load and set the system health service node that belongs with this service.
-   */
-  protected function setSystemService() {
-    $system_health_service = $this->facilityService;
-    $this->systemService = reset($system_health_service);
-    $this->setServiceTerm();
   }
 
   /**
