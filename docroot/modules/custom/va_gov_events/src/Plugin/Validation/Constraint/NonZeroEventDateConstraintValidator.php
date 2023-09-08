@@ -16,9 +16,14 @@ class NonZeroEventDateConstraintValidator extends ConstraintValidator {
    * {@inheritdoc}
    */
   public function validate($items, Constraint $constraint) {
+    /** @var \Drupal\va_gov_events\Plugin\Validation\Constraint\NonZeroEventDateConstraint $constraint */
     if (!$items instanceof SmartDateFieldItemList) {
       return;
     }
+    if (!$constraint instanceof NonZeroEventDateConstraint) {
+      return;
+    }
+    // @phpstan-ignore-next-line/
     $rruleId = $items->rrule;
     if (isset($rruleId)) {
       $rrule = SmartDateRule::load($rruleId);
