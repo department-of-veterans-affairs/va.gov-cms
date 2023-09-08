@@ -5,6 +5,7 @@
  * Contains va_gov_events.module.
  */
 
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 
@@ -44,4 +45,15 @@ function va_gov_events_field_widget_form_alter(&$element, FormStateInterface $fo
 function _va_gov_events_move_country_select_to_bottom(array $form) {
   $form['country_code']['#weight'] = 100;
   return $form;
+}
+
+/**
+ * Implements hook_entity_bundle_field_info_alter().
+ */
+function va_gov_events_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $entity_type, $bundle) {
+  if ($entity_type->id() === 'node' && $bundle === 'event') {
+    if (isset($fields['field_datetime_range_timezone'])) {
+      $fields['field_datetime_range_timezone']->addConstraint('NonZeroEventDate', []);
+    }
+  }
 }
