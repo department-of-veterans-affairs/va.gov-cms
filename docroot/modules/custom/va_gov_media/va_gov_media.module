@@ -88,9 +88,39 @@ function _va_gov_media_image_style_warmer_warm_up(EntityInterface $entity) {
  */
 function _va_gov_media_image_field_widget_process(array $element, FormStateInterface &$form_state, array $form) {
   if (isset($element['alt'])) {
-    $element['alt']['#description'] = t('Adding a clear and meaningful description of the image is important for accessibility.');
+    $element['alt']['#description'] = t('Hello! Adding a clear and meaningful description of the image is important for accessibility.');
   }
 
   // Return the altered element.
   return $element;
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function va_gov_media_form_alter(&$form, FormStateInterface $form_state, string $form_id): void {
+  va_gov_media_remove_clientside_validation_globally($form);
+}
+
+/**
+ * Removes clientside validation injection function from forms.
+ *
+ * @param $form array
+ *   The form to be processed
+ */
+function va_gov_media_remove_clientside_validation_globally(array $form) {
+  $cvAfterBuildIndex = array_search('clientside_validation_form_after_build', $form['#after_build']);
+  if ($cvAfterBuildIndex !== FALSE) {
+    unset($form['#after_build'][$cvAfterBuildIndex]);
+  }
+}
+
+/**
+ * Implements hook_clientside_validation_should_validate().
+ */
+function va_gov_media_clientside_validation_should_validate($element, FormStateInterface &$form_state, $form_id) {
+  if ($form_id === 'media_library_add_form_dropzonejs') {
+    return TRUE;
+  }
+  return FALSE;
 }
