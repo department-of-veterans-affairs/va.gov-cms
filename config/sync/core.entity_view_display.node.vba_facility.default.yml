@@ -55,7 +55,7 @@ third_party_settings:
       label: 'Locations and contact information'
       parent_name: ''
       region: content
-      weight: 1
+      weight: 2
       format_type: fieldset
       format_settings:
         classes: ''
@@ -93,7 +93,7 @@ third_party_settings:
       label: 'Facility Intro and Photo'
       parent_name: ''
       region: content
-      weight: 2
+      weight: 1
       format_type: fieldset
       format_settings:
         classes: ''
@@ -110,7 +110,7 @@ third_party_settings:
       label: 'DB data'
       parent_name: group_facility_data
       region: content
-      weight: 11
+      weight: 9
       format_type: fieldset
       format_settings:
         classes: not-editable
@@ -128,7 +128,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 5
     region: content
   field_facility_locator_api_id:
     type: string
@@ -221,7 +221,7 @@ content:
       schema:
         enabled: false
     third_party_settings: {  }
-    weight: 6
+    weight: 7
     region: content
   field_operating_status_facility:
     type: list_default
@@ -243,7 +243,7 @@ content:
     settings:
       title: ''
     third_party_settings: {  }
-    weight: 5
+    weight: 6
     region: content
   field_shared_vha_location:
     type: entity_reference_label
@@ -258,7 +258,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 7
+    weight: 8
     region: content
 hidden:
   content_moderation_control: true
