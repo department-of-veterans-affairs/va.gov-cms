@@ -158,6 +158,7 @@ jobs:
   # Warn strongly if the `composer.lock` lines changed exceed a threshold.
   check-composer-lock-changes:
     name: Check composer.lock changes
+    if: ${{ github.actor != 'dependabot[bot]' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
