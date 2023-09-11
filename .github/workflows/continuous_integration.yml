@@ -167,6 +167,7 @@ jobs:
           fetch-depth: 0
       - name: Delete any existing comment.
         uses: thollander/actions-comment-pull-request@d61db783da9abefc3437960d0cce08552c7c004f # v2.4.2
+        continue-on-error: true
         with:
           comment_tag: check-composer-lock-changes
           mode: delete
