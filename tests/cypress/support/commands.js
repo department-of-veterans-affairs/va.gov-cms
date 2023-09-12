@@ -21,29 +21,25 @@ afterEach(() => {
   if (testFailed) {
     cy.dumpWatchdogToStdout();
 
-    cy.document().then((document) => {
-      const htmlContent = document.documentElement.outerHTML;
-      // Get the current test title
-
-      // Replace all non-alphanumeric characters with hyphens
-      const sanitizedTitle = currentTestName
-        .replace(/[^a-z0-9]/gi, "-")
-        .toLowerCase();
-
-      // Create a unique filename based on the test title and a timestamp
-      const fileName = `${sanitizedTitle}-${new Date().toISOString()}.html`;
-
-      cy.task("saveHtmlToFile", { htmlContent, fileName }).then((message) => {
-        cy.log(message);
-        cy.task("log", message);
-      });
-    });
+    cy.saveHtmlSnapshot(currentTestName);
   }
 });
 
-Cypress.on("fail", (error) => {
-  testFailed = true;
-  throw error; // Continue to fail the test
+Cypress.Commands.add("saveHtmlSnapshot", (testName) => {
+  cy.document().then((document) => {
+    const htmlContent = document.documentElement.outerHTML;
+
+    // Replace all non-alphanumeric characters with hyphens
+    const sanitizedTitle = testName.replace(/[^a-z0-9]/gi, "-").toLowerCase();
+
+    // Create a unique filename based on the test title and a timestamp
+    const fileName = `${sanitizedTitle}-${new Date().toISOString()}.html`;
+
+    cy.task("saveHtmlToFile", { htmlContent, fileName }).then((message) => {
+      cy.log(message);
+      cy.task("log", message);
+    });
+  });
 });
 
 Cypress.Commands.add("drupalLogin", (username, password) => {
