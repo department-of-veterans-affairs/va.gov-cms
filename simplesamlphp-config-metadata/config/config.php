@@ -519,7 +519,7 @@ $config = [
      * one of the functionalities below, but in some cases you could run multiple functionalities.
      * In example when you are setting up a federation bridge.
      */
-    'enable.saml20-idp' => true,
+    'enable.saml20-idp' => false,
     'enable.adfs-idp' => false,
     /*
      * Whether SimpleSAMLphp should sign the response or the assertion in SAML 1.1 authentication
@@ -611,7 +611,7 @@ $config = [
      * Example:
      *  'session.cookie.domain' => '.example.org',
      */
-    'session.cookie.domain' => '',
+    'session.cookie.domain' => '.va.gov',
 
     /*
      * Set the secure flag in the cookie.
@@ -1197,7 +1197,7 @@ $config = [
      * See http://www.php.net/manual/en/pdo.drivers.php for the various
      * syntaxes.
      */
-    'store.sql.dsn'                 => 'sqlite:{$_SERVER[\'DOCUMENT_ROOT\']}/../samlsessiondb.sq3',
+    'store.sql.dsn'                 => "sqlite:{$_SERVER['DOCUMENT_ROOT']}/../samlsessiondb.sq3",
 
     /*
      * The username and password to use when connecting to the database.
