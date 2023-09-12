@@ -19,7 +19,7 @@ function va_gov_block_types_preprocess_details__node_page_edit_form__field_alert
   }
 
   // Attach the CSS library.
-  $variables['#attached']['library'][] = 'va_gov_block_types/library';
+  $variables['#attached']['library'][] = 'va_gov_block_types/block_styles';
 
   // Get the alert block status.
   $block = $items['#block_content'];
