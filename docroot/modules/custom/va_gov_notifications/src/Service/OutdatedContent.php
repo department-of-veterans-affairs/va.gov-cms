@@ -3,10 +3,10 @@
 namespace Drupal\va_gov_notifications\Service;
 
 use Drupal\advancedqueue\Job;
-use Drupal\workbench_access\Entity\AccessSchemeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\workbench_access\Entity\AccessSchemeInterface;
 use Drupal\workbench_access\UserSectionStorageInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -27,7 +27,7 @@ class OutdatedContent implements OutdatedContentInterface {
    *
    * @var \Drupal\Core\Logger\LoggerChannelInterface
    */
-  protected $vaGovNotifications;
+  protected $vaGovNotificationsLogger;
 
   /**
    * The user section storage service.
@@ -41,18 +41,18 @@ class OutdatedContent implements OutdatedContentInterface {
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
-   * @param \Drupal\Core\Logger\LoggerChannelInterface $va_gov_notifications
+   * @param \Drupal\Core\Logger\LoggerChannelInterface $va_gov_notifications_logger
    *   The logger.channel.va_gov_notifications service.
    * @param \Drupal\workbench_access\UserSectionStorageInterface $user_section_storage
    *   The user section storage service.
    */
   public function __construct(
     EntityTypeManagerInterface $entity_type_manager,
-    LoggerChannelInterface $va_gov_notifications,
+    LoggerChannelInterface $va_gov_notifications_logger,
     UserSectionStorageInterface $user_section_storage
   ) {
     $this->entityTypeManager = $entity_type_manager;
-    $this->vaGovNotifications = $va_gov_notifications;
+    $this->vaGovNotificationsLogger = $va_gov_notifications_logger;
     $this->userSectionStorage = $user_section_storage;
   }
 
@@ -82,7 +82,7 @@ class OutdatedContent implements OutdatedContentInterface {
         if (!empty($outdated_content) && $product === '284') {
           $editorName = $editor->getAccountName();
           $sectionName = $this->getSectionName($section);
-          $this->vaGovNotifications
+          $this->vaGovNotificationsLogger
             ->info('Outdated content found for @sectionName editor: @editor',
             ['@editor' => $editorName, '@sectionName' => $sectionName]);
           $this->queueNotification($editor, 'vamc_outdated_content', 'vamc_outdated_content');
@@ -113,7 +113,7 @@ class OutdatedContent implements OutdatedContentInterface {
         if (!empty($outdated_content) && $product === '289') {
           $editorName = $editor->getAccountName();
           $sectionName = $this->getSectionName($section);
-          $this->vaGovNotifications
+          $this->vaGovNotificationsLogger
             ->info('Outdated content found for @sectionName editor: @editor',
             ['@editor' => $editorName, '@sectionName' => $sectionName]);
           $this->queueNotification($editor, 'vet_center_outdated_content', 'vet_center_outdated_content');
