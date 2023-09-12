@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_form_mode.node.inline_entity_form
     - field.field.node.vba_facility.field_address
     - field.field.node.vba_facility.field_administration
     - field.field.node.vba_facility.field_facility_locator_api_id
@@ -11,6 +10,7 @@ dependencies:
     - field.field.node.vba_facility.field_geolocation
     - field.field.node.vba_facility.field_intro_text
     - field.field.node.vba_facility.field_last_saved_by_an_editor
+    - field.field.node.vba_facility.field_location_services
     - field.field.node.vba_facility.field_media
     - field.field.node.vba_facility.field_non_va_location_url
     - field.field.node.vba_facility.field_non_va_official_name
@@ -20,21 +20,22 @@ dependencies:
     - field.field.node.vba_facility.field_operating_status_more_info
     - field.field.node.vba_facility.field_phone_number
     - field.field.node.vba_facility.field_shared_vha_location
+    - field.field.node.vba_facility.field_table_of_contents
     - field.field.node.vba_facility.field_timezone
-    - field.field.node.vba_facility.field_vba_services
     - node.type.vba_facility
     - workflows.workflow.editorial
   module:
     - address
+    - change_labels
     - content_moderation
-    - entity_browser_entity_form
     - field_group
     - geofield
-    - ief_table_view_mode
     - limited_field_widgets
     - link
+    - markup
     - media_library
     - office_hours
+    - paragraphs
     - telephone
     - textfield_counter
     - tzfield
@@ -51,8 +52,8 @@ third_party_settings:
       format_type: fieldset
       format_settings:
         classes: ''
-        show_empty_fields: false
-        id: ''
+        show_empty_fields: true
+        id: operating-status
         description: 'Use this status for weather or other events that impact your facility''s operations. Don''t duplicate information contained in your COVID-19 status. This status will display on the facility''s location page and operating status page.'
         required_fields: true
         description_display: after
@@ -62,7 +63,7 @@ third_party_settings:
       label: 'Section settings'
       region: content
       parent_name: ''
-      weight: 4
+      weight: 5
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -92,7 +93,7 @@ third_party_settings:
       label: 'Locations and contact information'
       region: content
       parent_name: ''
-      weight: 0
+      weight: 3
       format_type: fieldset
       format_settings:
         classes: ''
@@ -111,6 +112,10 @@ third_party_settings:
         - field_phone_number
         - field_office_hours
         - field_timezone
+        - field_non_va_official_name
+        - field_non_va_location_url
+        - field_office
+        - field_shared_vha_location
       label: 'Facility data'
       region: content
       parent_name: group_locations_and_contact_info
@@ -119,48 +124,45 @@ third_party_settings:
       format_settings:
         show_label: '1'
         tooltip_description: "Why can’t I edit this?\r\nThis content is automatically populated from centralized databases, and helps maintain consistent information across all of VA.gov."
-        description: '<a class="admin-help-email-tpl" href="/help/vamc/how-do-i-update-my-vamc-facilitys-basic-location-data">Learn how to correct or update centrally-managed data</a>.'
+        description: '<a class="admin-help-email-tpl" href="/help/va-benefit-facilities-vba/how-do-i-update-my-vba-facility-basic-location-data">Learn how to correct or update centrally-managed data</a>.'
         required_fields: '1'
         id: external-content
-        classes: ''
+        classes: not-editable
         show_empty_fields: 0
         element: div
         label_element: h3
         attributes: ''
-    group_vba_db:
-      children:
-        - field_shared_vha_location
-        - field_non_va_official_name
-        - field_non_va_location_url
-        - field_office
-      label: 'VBA DB'
-      region: content
-      parent_name: ''
-      weight: 3
-      format_type: fieldset
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        description: ''
-        required_fields: true
-        description_display: after
     group_vba_editable_fields:
       children:
         - field_intro_text
         - field_media
-      label: 'Facility Intro and Photo'
+      label: 'Top of page information'
       region: content
       parent_name: ''
       weight: 2
       format_type: fieldset
       format_settings:
         classes: ''
-        show_empty_fields: false
-        id: facility-intro-photo
+        show_empty_fields: true
+        id: top-of-page-information
         description: ''
         required_fields: true
         description_display: after
+    group_prepare_for_your_visit:
+      children:
+        - field_location_services
+      label: 'Prepare for your visit'
+      region: content
+      parent_name: ''
+      weight: 4
+      format_type: details
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: prepare-for-your-visit
+        open: true
+        description: 'Add location services available at this facility such as transportation, parking, visiting hours, lodging options, food options, etc. Do not use this for benefit services.'
+        required_fields: true
 id: node.vba_facility.default
 targetEntityType: node
 bundle: vba_facility
@@ -168,7 +170,7 @@ mode: default
 content:
   field_address:
     type: address_default
-    weight: 4
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -180,7 +182,7 @@ content:
     third_party_settings: {  }
   field_facility_locator_api_id:
     type: string_textfield
-    weight: 2
+    weight: 5
     region: content
     settings:
       size: 60
@@ -188,13 +190,13 @@ content:
     third_party_settings: {  }
   field_facility_vba_classificatio:
     type: options_select
-    weight: 3
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
   field_geolocation:
     type: geofield_latlon
-    weight: 5
+    weight: 8
     region: content
     settings:
       html5_geolocation: false
@@ -209,10 +211,26 @@ content:
     third_party_settings: {  }
   field_last_saved_by_an_editor:
     type: datetime_timestamp
-    weight: 26
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_location_services:
+    type: entity_reference_paragraphs
+    weight: 5
+    region: content
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: closed
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
+    third_party_settings:
+      limited_field_widgets:
+        limit_values: '0'
+      change_labels:
+        add_another: ''
   field_media:
     type: media_library_widget
     weight: 9
@@ -222,7 +240,7 @@ content:
     third_party_settings: {  }
   field_non_va_location_url:
     type: link_default
-    weight: 12
+    weight: 13
     region: content
     settings:
       placeholder_url: ''
@@ -230,7 +248,7 @@ content:
     third_party_settings: {  }
   field_non_va_official_name:
     type: string_textfield
-    weight: 11
+    weight: 12
     region: content
     settings:
       size: 60
@@ -238,15 +256,16 @@ content:
     third_party_settings: {  }
   field_office:
     type: options_select
-    weight: 13
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
   field_office_hours:
     type: office_hours_default
-    weight: 7
+    weight: 10
     region: content
-    settings: {  }
+    settings:
+      collapsed: false
     third_party_settings: {  }
   field_operating_status_facility:
     type: options_select
@@ -264,19 +283,20 @@ content:
       maxlength: 300
       counter_position: after
       js_prevent_submit: true
+      count_only_mode: false
       count_html_characters: true
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
   field_phone_number:
     type: telephone_default
-    weight: 6
+    weight: 9
     region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
   field_shared_vha_location:
     type: entity_reference_autocomplete
-    weight: 10
+    weight: 15
     region: content
     settings:
       match_operator: CONTAINS
@@ -284,34 +304,18 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_timezone:
-    type: tzfield_default
-    weight: 8
+  field_table_of_contents:
+    type: markup
+    weight: 0
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_vba_services:
-    type: inline_entity_form_complex_table_view_mode
-    weight: 5
+  field_timezone:
+    type: tzfield_default
+    weight: 11
     region: content
-    settings:
-      form_mode: inline_entity_form
-      override_labels: true
-      label_singular: service
-      label_plural: services
-      allow_new: true
-      allow_existing: false
-      match_operator: CONTAINS
-      allow_duplicate: false
-      collapsible: false
-      collapsed: false
-      revision: false
-      allow_system_delete: 0
-    third_party_settings:
-      entity_browser_entity_form:
-        entity_browser_id: _none
-      limited_field_widgets:
-        limit_values: '0'
+    settings: {  }
+    third_party_settings: {  }
   flag:
     weight: 6
     region: content
@@ -325,7 +329,7 @@ content:
     third_party_settings: {  }
   title:
     type: string_textfield_with_counter
-    weight: 1
+    weight: 4
     region: content
     settings:
       size: 60
@@ -334,6 +338,7 @@ content:
       maxlength: 150
       counter_position: after
       js_prevent_submit: false
+      count_only_mode: false
       count_html_characters: false
       textcount_status_message: '<span class="remaining_count">@remaining_count</span> characters remaining'
     third_party_settings: {  }
