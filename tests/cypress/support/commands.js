@@ -68,9 +68,9 @@ Cypress.Commands.add("drupalLogout", () => {
 
 Cypress.Commands.add("drupalDrushCommand", (command) => {
   let cmd = "drush %command";
-  // if (Cypress.env("VAGOV_INTERACTIVE")) {
-  cmd = "ddev drush %command";
-  // }
+  if (Cypress.env("VAGOV_INTERACTIVE")) {
+    cmd = "ddev drush %command";
+  }
   if (typeof command === "string") {
     command = [command];
   }
