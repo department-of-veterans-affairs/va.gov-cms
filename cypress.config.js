@@ -8,7 +8,8 @@ const cucumber = require("@badeball/cypress-cucumber-preprocessor");
 const getCompareSnapshotsPlugin = require("cypress-visual-regression/dist/plugin");
 const browserify = require("@badeball/cypress-cucumber-preprocessor/browserify");
 const cypressFailedLog = require("cypress-failed-log/on");
-
+const fs = require("fs");
+const path = require("path");
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
@@ -28,6 +29,25 @@ async function setupNodeEvents(on, config) {
     table(message) {
       console.table(message);
       return null;
+    },
+    saveHtmlToFile({ htmlContent, fileName }) {
+      // Define the directory where you want to save the HTML files
+      const dirPath = path.join(
+        process.cwd(),
+        "tests/cypress/fail-html-snapshots"
+      );
+
+      // Check if the directory exists, and if not, create it
+      if (!fs.existsSync(dirPath)) {
+        fs.mkdirSync(dirPath);
+      }
+      // Define the full path of the file
+      const filePath = path.join(dirPath, fileName);
+
+      // Write the HTML content to the file
+      fs.writeFileSync(filePath, htmlContent, "utf8");
+
+      return `HTML has been saved to ${filePath}`;
     },
   });
 

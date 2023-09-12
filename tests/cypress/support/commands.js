@@ -10,14 +10,34 @@ import "./main_content_blocks";
 const compareSnapshotCommand = require("cypress-visual-regression/dist/command");
 
 let testFailed = false;
+let currentTestName = ""; // Declare this variable at the top level of your test suite
 
 beforeEach(() => {
   testFailed = false;
+  currentTestName = Cypress.mocha.getRunner().suite.ctx.currentTest.title;
 });
 
 afterEach(() => {
   if (testFailed) {
-    cy.dumpWatchdogToStdout(this.username, 5);
+    cy.dumpWatchdogToStdout();
+
+    cy.document().then((document) => {
+      const htmlContent = document.documentElement.outerHTML;
+      // Get the current test title
+
+      // Replace all non-alphanumeric characters with hyphens
+      const sanitizedTitle = currentTestName
+        .replace(/[^a-z0-9]/gi, "-")
+        .toLowerCase();
+
+      // Create a unique filename based on the test title and a timestamp
+      const fileName = `${sanitizedTitle}-${new Date().toISOString()}.html`;
+
+      cy.task("saveHtmlToFile", { htmlContent, fileName }).then((message) => {
+        cy.log(message);
+        cy.task("log", message);
+      });
+    });
   }
 });
 
@@ -52,9 +72,9 @@ Cypress.Commands.add("drupalLogout", () => {
 
 Cypress.Commands.add("drupalDrushCommand", (command) => {
   let cmd = "drush %command";
-  if (Cypress.env("VAGOV_INTERACTIVE")) {
-    cmd = "ddev drush %command";
-  }
+  // if (Cypress.env("VAGOV_INTERACTIVE")) {
+  cmd = "ddev drush %command";
+  // }
   if (typeof command === "string") {
     command = [command];
   }
@@ -119,39 +139,42 @@ Cypress.Commands.add(
   }
 );
 
-// Add this in your commands.js file
-Cypress.Commands.add("dumpWatchdogToStdout", (username, limit = 5) => {
-  const command = `watchdog:show --format=json --limit=${limit}`;
+Cypress.Commands.add("dumpWatchdogToStdout", (severity = "Warning") => {
+  const fields = ["wid", "date", "type", "severity", "message"];
+  const command = `watchdog:show --format=json --severity=${severity} --fields=${fields.join(
+    ","
+  )}`;
 
-  return cy
-    .exec(`drush ${command}`)
-    .then((output) => {
-      if (output.code !== 0) {
-        throw new Error(`Drush command failed with code ${output.code}`);
-      }
+  return cy.drupalDrushCommand(command).then((output) => {
+    return cy
+      .log(output)
+      .then(() => {
+        return JSON.parse(output.stdout || "{}");
+      })
+      .then((json) => {
+        const entries = json ? Object.values(json) : [];
+        const lastFiveEntries = entries.slice(-5);
 
-      let parsedOutput;
-      try {
-        parsedOutput = JSON.parse(output.stdout);
-      } catch (e) {
-        throw new Error("Failed to parse watchdog output to JSON");
-      }
+        const formattedEntries = lastFiveEntries
+          .map((entry) => {
+            return `Wid: ${entry.wid}, Date: ${entry.date}, Type: ${entry.type}, Severity: ${entry.severity}, Message: ${entry.message}`;
+          })
+          .join("\n");
 
-      // Filter the entries by the username
-      const filteredOutput = parsedOutput.filter(
-        (entry) => entry.username === username
-      );
+        const logMessage = [
+          "──────────────────────────────────────",
+          "📋 Last Watchdog Entries:",
+          formattedEntries,
+          "──────────────────────────────────────",
+        ].join("\n");
 
-      // Log the output to the Cypress log
-      cy.log(`Last ${limit} Watchdog Entries for user ${username}:`);
-      cy.log(JSON.stringify(filteredOutput, null, 2));
+        cy.task("log", logMessage);
 
-      return filteredOutput;
-    })
-    .catch((error) => {
-      // Output error to the Cypress log
-      cy.log(`An error occurred: ${error.message}`);
-    });
+        cy.log(logMessage);
+
+        return cy.wrap(lastFiveEntries);
+      });
+  });
 });
 
 Cypress.Commands.add("drupalWatchdogHasNoNewMessages", (username, severity) => {
