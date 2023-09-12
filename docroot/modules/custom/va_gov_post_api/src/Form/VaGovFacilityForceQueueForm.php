@@ -77,6 +77,8 @@ class VaGovFacilityForceQueueForm extends FormBase {
       $this->getNidsFromEntityBundleQuery('vba_facility');
     $vet_center =
       $this->getNidsFromEntityBundleQuery('vet_center');
+    $vet_center_facility_health_servi =
+      $this->getNidsFromEntityBundleQuery('vet_center_facility_health_servi');
     $vet_center_outstation =
       $this->getNidsFromEntityBundleQuery('vet_center_outstation');
     $vet_center_mobile_vet_center =
@@ -99,6 +101,7 @@ class VaGovFacilityForceQueueForm extends FormBase {
         'nca_facility' => $this->t('NCA facilities') . ' (' . count($nca_facility) . ')',
         'vba_facility' => $this->t('VBA facilities') . ' (' . count($vba_facility) . ')',
         'vet_center' => $this->t('Vet Centers') . ' (' . count($vet_center) . ')',
+        'vet_center_facility_health_servi' => ' - ' . $this->t('Vet Center facility services') . ' (' . count($vet_center_facility_health_servi) . ')',
         'vet_center_outstation' => $this->t('Vet Center Outstations') . ' (' . count($vet_center_outstation) . ')',
         'vet_center_mobile_vet_center' => $this->t('Vet Center Mobile Vet Centers') . ' (' . count($vet_center_mobile_vet_center) . ')',
       ],
@@ -139,7 +142,11 @@ class VaGovFacilityForceQueueForm extends FormBase {
 
           $nodes = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
           foreach ($nodes as $node) {
-            if ($bundle === 'health_care_local_health_service') {
+            $services_to_push = [
+              'health_care_local_health_service',
+              'vet_center_facility_health_servi',
+            ];
+            if (in_array($bundle, $services_to_push)) {
               $force_push = TRUE;
               $queued_count += _va_gov_post_api_add_facility_service_to_queue($node, $force_push);
             }
@@ -216,12 +223,23 @@ class VaGovFacilityForceQueueForm extends FormBase {
           ->execute();
         break;
 
-      // If it's a facility service, we those that are published.
+      // Only the published VAMC facility services.
       case "health_care_local_health_service":
         $nodes = $this->entityTypeManager
           ->getStorage('node')
           ->getQuery('AND')
           ->condition('type', 'health_care_local_health_service')
+          ->accessCheck(FALSE)
+          ->condition('status', 1, '=')
+          ->execute();
+        break;
+
+      // Only the published Vet Center facility services.
+      case "vet_center_facility_health_servi":
+        $nodes = $this->entityTypeManager
+          ->getStorage('node')
+          ->getQuery('AND')
+          ->condition('type', 'vet_center_facility_health_servi')
           ->accessCheck(FALSE)
           ->condition('status', 1, '=')
           ->execute();
