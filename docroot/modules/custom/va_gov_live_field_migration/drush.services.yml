@@ -1,6 +1,8 @@
 services:
   va_gov_live_field_migration.commands:
     class: \Drupal\va_gov_live_field_migration\Commands\Commands
-    arguments: []
+    arguments:
+      - '@va_gov_live_field_migration.field_provider_resolver'
+      - '@va_gov_live_field_migration.migration_resolver'
     tags:
       - { name: drush.command }

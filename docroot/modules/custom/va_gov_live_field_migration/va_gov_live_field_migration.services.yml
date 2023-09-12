@@ -1,0 +1,22 @@
+services:
+  plugin.manager.va_gov_live_field_migration.field_provider:
+    class: Drupal\va_gov_live_field_migration\FieldProvider\Plugin\FieldProviderPluginManager
+    parent: default_plugin_manager
+  plugin.manager.va_gov_live_field_migration.migration:
+    class: Drupal\va_gov_live_field_migration\Migration\Plugin\MigrationPluginManager
+    parent: default_plugin_manager
+  va_gov_live_field_migration.field_provider_resolver:
+    class: Drupal\va_gov_live_field_migration\FieldProvider\Resolver\Resolver
+    arguments:
+      - '@plugin.manager.va_gov_live_field_migration.field_provider'
+  va_gov_live_field_migration.migration_resolver:
+    class: Drupal\va_gov_live_field_migration\Migration\Resolver\Resolver
+    arguments:
+      - '@plugin.manager.va_gov_live_field_migration.migration'
+      - '@entity_field.manager'
+  va_gov_live_field_migration.reporter:
+    class: Drupal\va_gov_live_field_migration\Reporter\Reporter
+    arguments: ['@messenger', '@logger.factory']
+  va_gov_live_field_migration.state:
+    class: Drupal\va_gov_live_field_migration\State\State
+    arguments: ['@state']

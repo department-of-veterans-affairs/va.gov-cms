@@ -2,12 +2,44 @@
 
 namespace Drupal\va_gov_live_field_migration\Commands;
 
+use Drupal\va_gov_live_field_migration\FieldProvider\Resolver\ResolverInterface as FieldProviderResolverInterface;
+use Drupal\va_gov_live_field_migration\Migration\Resolver\ResolverInterface as MigrationResolverInterface;
 use Drush\Commands\DrushCommands;
 
 /**
  * Drush commands for live field migrations.
  */
 class Commands extends DrushCommands {
+
+  /**
+   * The field provider resolver service.
+   *
+   * @var \Drupal\va_gov_live_field_migration\FieldProvider\Resolver\ResolverInterface
+   */
+  protected $fieldProviderResolver;
+
+  /**
+   * The migration resolver service.
+   *
+   * @var \Drupal\va_gov_live_field_migration\Migration\Resolver\ResolverInterface
+   */
+  protected $migrationResolver;
+
+  /**
+   * Commands constructor.
+   *
+   * @param \Drupal\va_gov_live_field_migration\FieldProvider\Resolver\ResolverInterface $fieldProviderResolver
+   *   The field provider resolver service.
+   * @param \Drupal\va_gov_live_field_migration\Migration\Resolver\ResolverInterface $migrationResolver
+   *   The migration resolver service.
+   */
+  public function __construct(
+    FieldProviderResolverInterface $fieldProviderResolver,
+    MigrationResolverInterface $migrationResolver
+  ) {
+    $this->migrationResolver = $migrationResolver;
+    $this->fieldProviderResolver = $fieldProviderResolver;
+  }
 
   /**
    * Perform an operation, such as migrating, rolling back, or verifying.
@@ -32,12 +64,10 @@ class Commands extends DrushCommands {
   }
 
   /**
-   * Migrate a specific field on a specific content type.
+   * Migrate a specific field on a specific entity type.
    *
    * @param string $entityType
    *   The entity type.
-   * @param string $bundle
-   *   The entity bundle or content type.
    * @param string $fieldName
    *   The field name.
    *
@@ -46,23 +76,22 @@ class Commands extends DrushCommands {
    */
   public function migrateField(
     string $entityType,
-    string $bundle,
     string $fieldName
   ) {
-    $this->performOperation(function () use ($entityType, $bundle, $fieldName) {
-      $this->output()->writeln('Migrating field ' . $fieldName . ' on ' . $entityType . ' ' . $bundle);
-      // Logic for the migration.
+    $this->performOperation(function () use ($entityType, $fieldName) {
+      $this->output()->writeln('Migrating field "' . $fieldName . '" on entity type "' . $entityType . '"...');
+      $this->migrationResolver
+        ->getMigration($entityType, $fieldName)
+        ->runMigration($entityType, $fieldName);
       $this->output()->writeln('Migration successful.');
     });
   }
 
   /**
-   * Rollback a specific field on a specific content type.
+   * Rollback a specific field on a specific entity type.
    *
    * @param string $entityType
    *   The entity type.
-   * @param string $bundle
-   *   The entity bundle or content type.
    * @param string $fieldName
    *   The field name.
    *
@@ -71,12 +100,13 @@ class Commands extends DrushCommands {
    */
   public function rollbackField(
     string $entityType,
-    string $bundle,
     string $fieldName
   ) {
-    $this->performOperation(function () use ($entityType, $bundle, $fieldName) {
-      $this->output()->writeln('Rolling back field ' . $fieldName . ' on ' . $entityType . ' ' . $bundle);
-      // Logic for the rollback.
+    $this->performOperation(function () use ($entityType, $fieldName) {
+      $this->output()->writeln('Rolling back migration of field "' . $fieldName . '" on entity type "' . $entityType . '"...');
+      $this->migrationResolver
+        ->getMigration($entityType, $fieldName)
+        ->rollbackMigration($entityType, $fieldName);
       $this->output()->writeln('Rollback successful.');
     });
   }
@@ -86,8 +116,6 @@ class Commands extends DrushCommands {
    *
    * @param string $entityType
    *   The entity type.
-   * @param string $bundle
-   *   The entity bundle or content type.
    * @param string $fieldName
    *   The field name.
    *
@@ -96,12 +124,13 @@ class Commands extends DrushCommands {
    */
   public function verify(
     string $entityType,
-    string $bundle,
     string $fieldName
   ) {
-    $this->performOperation(function () use ($entityType, $bundle, $fieldName) {
-      $this->output()->writeln('Verifying field ' . $fieldName . ' on ' . $entityType . ' ' . $bundle);
-      // Logic for the verification.
+    $this->performOperation(function () use ($entityType, $fieldName) {
+      $this->output()->writeln('Verifying migration of field "' . $fieldName . '" on entity type "' . $entityType . '"...');
+      $this->migrationResolver
+        ->getMigration($entityType, $fieldName)
+        ->verifyMigration($entityType, $fieldName);
       $this->output()->writeln('Verification successful.');
     });
   }
@@ -109,21 +138,36 @@ class Commands extends DrushCommands {
   /**
    * Find fields that haven't been migrated yet.
    *
-   * @param string $entityType
+   * @param string|null $fieldProvider
+   *   The field provider.
+   * @param string|null $entityType
    *   The entity type.
-   * @param string $bundle
+   * @param string|null $bundle
    *   The entity bundle or content type.
    *
    * @command va-gov-live-field-migration:find
    * @aliases va-gov-live-field-migration-find
    */
   public function find(
-    string $entityType,
-    string $bundle
+    string $fieldProvider = NULL,
+    string $entityType = NULL,
+    string $bundle = NULL
   ) {
-    $this->performOperation(function () use ($entityType, $bundle) {
-      $this->output()->writeln('Finding fields on ' . $entityType . ' ' . $bundle);
-      // Logic for finding fields.
+    if ($fieldProvider === NULL) {
+      $fieldProvider = 'test_empty_list';
+    }
+    if ($entityType === NULL) {
+      $entityType = 'node';
+    }
+    $this->performOperation(function () use ($fieldProvider, $entityType, $bundle) {
+      $this->output()->writeln('Finding fields on entity type "' . $entityType . '", bundle "' . ($bundle ?: 'NULL') . '"...');
+      $fields = $this->fieldProviderResolver
+        ->getFieldProvider($fieldProvider)
+        ->getFields($entityType, $bundle);
+      $this->output()->writeln('Found ' . count($fields) . ' fields.');
+      foreach ($fields as $field) {
+        $this->output()->writeln($field);
+      }
     });
   }
 
