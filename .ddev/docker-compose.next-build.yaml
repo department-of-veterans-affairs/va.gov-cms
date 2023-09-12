@@ -1,0 +1,6 @@
+services:
+  next-build:
+    container_name: ddev-${DDEV_SITENAME}-next-build
+    image: ubuntu:latest
+    ports:
+      - "3000:3000"
