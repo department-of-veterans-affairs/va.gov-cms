@@ -43,9 +43,15 @@ Your top priority is any onboarding paperwork provided by Contract Onboarding fo
 ### People
 - [ ] Meet with A6 Contract Onboarding Specialists (COS) to get an introduction to the paperwork process. They'll schedule.
 - [ ] Who is our team? [View & bookmark this Mural org chart](https://app.mural.co/t/departmentofveteransaffairs9999/m/vagov6717/1653588059793/7a260edabca9535d25d71fac1035c979261c223c?sender=u0b235d03cbd64f7f93673243)
-- [ ] Complete your personal information & bookmark the [official team roster](https://docs.google.com/spreadsheets/d/1S31-cj0TPczh4K9r2G--kERqZStOOECX_W2VrQy3kRA/edit#gid=0). Note: this is separate from the Platform roster mentioned in Day 1 section.
-    * Your DM will ask you to update your paperwork status until you receive official clearance.
-    - [ ] Get the sharable link for your Google Calendar from Settings/"Access permissions for events" and add it to your Slack Profile. This will allow team members in other organizations to easily schedule with you. 
+- [ ] DSVA Slack: Update your profile, to include at minimum:
+    - [ ] Profile photo
+    - [ ] Title, Team, Agency (in Title)
+    - [ ] Time zone
+    - [ ] Contact information: agency email, and phone if you're willing
+    - [ ] About me: VA email once you have one
+    - [ ] Calendar URL - Get the sharable link for your Google Calendar from Settings/"Access permissions for events" and add it to your Slack Profile. This will allow team members in other organizations to easily schedule with you. 
+    - [ ] Github alias
+    - [ ] Working hours
 - [ ] Who is on the team? Read your [team members' user manuals](https://drive.google.com/drive/u/0/folders/195otsT1IUxi_k8oEU21TUkvEG-6p5YQj?ths)
 - [ ] Create your own User Manual: duplicate [the template](https://docs.google.com/document/d/1Rvtoo8CQvE7dptcqmMVqmJ_hbKSNWJ983NXkDj_gVg0/edit?usp=share_link), fill it out, and save your manual in your team's folder.
    - [ ] Share your user manual with your team in Slack, once you've created it!
@@ -264,8 +270,9 @@ Each repository includes READMEs to help with setup.
 - [ ] [VA.gov tools overview](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html)
   - [ ] [Access to dev & staging to be able to replicate the SSO piece of the login experience](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/5838) (SOCKS or VA access with PIV card required)
   - [ ] Test User Dashboard: https://tud.vfs.va.gov/ and [Test User Dashboard docs](https://depo-platform-documentation.scrollhelp.site/developer-docs/test-user-dashboard-guide). In lower environments, we are encouraged not to use our actual login credentials to test authed work. The TUD provides a set of test users you can use to login to various environments for testing.
-  - [ ] [Datadog](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html#Requestaccesstotools-Requestaccess) to access monitoring metrics (as of 8/5/22 this is TBD. reach out to your DM for details)
-- [ ] Browse the [Topic Dives videos](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/1714094110/CMS+Topic+Dives) - includes CMS content, and non-CMS topics for Facilities & Public Websites teams as well
+  - [ ] [Datadog](https://depo-platform-documentation.scrollhelp.site/developer-docs/get-access-to-datadog) to access monitoring metrics (write licenses are limited, so only read-only might be available)
+- [ ] [GraphQL Explorer](https://staging.cms.va.gov/graphql/explorer) - GraphQL acts as the Drupal content API, for building queries that can be used in FE templates. The Explorer (on Staging) will allow you to test those queries.
+- [ ] Browse the [Topic Dives videos](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/teams/sitewide/topic-dives) - includes CMS content, and non-CMS topics for Facilities & Public Websites teams as well
 
 </details>
 

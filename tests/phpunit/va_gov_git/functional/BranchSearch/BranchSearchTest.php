@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit\va_gov_git\functional\BranchSearch\Factory;
+namespace tests\phpunit\va_gov_git\functional\BranchSearch;
 
 use Drupal\va_gov_git\BranchSearch\BranchSearch;
 use Tests\Support\Classes\VaGovExistingSiteBase;

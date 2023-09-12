@@ -1,0 +1,33 @@
+uuid: 92c15cd6-ae1f-4e78-a514-775ed84437c3
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - taxonomy
+id: taxonomy_term.field_vba_type_of_care
+field_name: field_vba_type_of_care
+entity_type: taxonomy_term
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: vba_veteran_benefits
+      label: 'Veteran benefits'
+    -
+      value: vba_family_member_caregiver_benefits
+      label: 'Family member & caregiver benefits'
+    -
+      value: vba_service_member_benefits
+      label: 'Service member benefits'
+    -
+      value: vba_other_services
+      label: 'Other services'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

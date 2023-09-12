@@ -43,7 +43,7 @@
  *     teaser listings.
  *   - node--unpublished: Appears on unpublished nodes visible only to site
  *     admins.
- *     NOTE: This is intentionally removed from this template so that 
+ *     NOTE: This is intentionally removed from this template so that
  *     the content that is visible on VA.gov whether it is published
  *     or not, does no confuse editors by appearing unpublished.
  * - title_attributes: Same as attributes, except applied to the main title
@@ -82,7 +82,7 @@
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
   ]
 %}
-{{ attach_library('classy/node') }}
+{{ attach_library('claro/classy.node') }}
 <article{{ attributes.addClass(classes) }}>
   <h3>Connect with us</h3>
   {{content.field_external_link}}
@@ -93,5 +93,5 @@
   {% if node.field_social_media_links.0 %}
     <h4>Follow us</h4>
     {{content.field_social_media_links}}
-  {% endif %}  
+  {% endif %}
 </article>

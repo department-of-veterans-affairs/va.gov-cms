@@ -1,0 +1,43 @@
+uuid: f9231ec9-33e2-4866-89ac-d4f0c31b88e2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_administration
+    - node.type.service_region
+    - taxonomy.vocabulary.administration
+  content:
+    - 'taxonomy_term:administration:580cdaa3-9764-447f-892a-2b9ee76923e0'
+  module:
+    - entity_reference_validators
+    - tmgmt_content
+third_party_settings:
+  entity_reference_validators:
+    circular_reference: false
+    circular_reference_deep: false
+    duplicate_reference: false
+  tmgmt_content:
+    excluded: false
+id: node.service_region.field_administration
+field_name: field_administration
+entity_type: node
+bundle: service_region
+label: Section
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    target_uuid: 580cdaa3-9764-447f-892a-2b9ee76923e0
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      administration: administration
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

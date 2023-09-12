@@ -1,0 +1,115 @@
+uuid: 8a96ccac-9171-411a-9b7e-e9ebb103a6ee
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.full
+    - field.field.node.service_region.body
+    - field.field.node.service_region.field_administration
+    - field.field.node.service_region.field_facility_location
+    - field.field.node.service_region.field_last_saved_by_an_editor
+    - field.field.node.service_region.field_service_location
+    - field.field.node.service_region.field_service_name_and_descripti
+    - field.field.node.service_region.field_vba_region_facility_list
+    - node.type.service_region
+  module:
+    - entity_reference_revisions
+    - field_group
+    - layout_builder
+    - user
+third_party_settings:
+  field_group:
+    group_service_region:
+      children:
+        - field_service_name_and_descripti
+      label: 'Service region'
+      parent_name: ''
+      region: content
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: service-region
+        description: ''
+        description_display: after
+    group_primary_facility:
+      children:
+        - field_facility_location
+        - field_service_location
+      label: 'Primary facility'
+      parent_name: ''
+      region: content
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: primary-facility
+        description: ''
+        description_display: after
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.service_region.full
+targetEntityType: node
+bundle: service_region
+mode: full
+content:
+  field_administration:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_facility_location:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_last_saved_by_an_editor:
+    type: timestamp
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_service_location:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_service_name_and_descripti:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_vba_region_facility_list:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  body: true
+  content_moderation_control: true
+  langcode: true
+  links: true
+  search_api_excerpt: true

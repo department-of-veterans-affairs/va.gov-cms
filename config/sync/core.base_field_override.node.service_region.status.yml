@@ -1,0 +1,22 @@
+uuid: 79d375ba-61d9-47af-941e-e090b1d3732f
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.service_region
+id: node.service_region.status
+field_name: status
+entity_type: node
+bundle: service_region
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

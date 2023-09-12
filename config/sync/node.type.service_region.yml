@@ -1,0 +1,29 @@
+uuid: 09a9a2d7-d4ab-4f43-a825-cf5194e3c60c
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_force
+    - menu_ui
+    - node_revision_delete
+    - node_title_help_text
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+  node_revision_delete:
+    minimum_revisions_to_keep: 50
+    minimum_age_to_delete: 0
+    when_to_delete: 0
+  node_title_help_text:
+    title_help: ''
+  menu_force:
+    menu_force: false
+    menu_force_parent: false
+name: 'Service Region'
+type: service_region
+description: 'Facility service regions are for declaring information about service assigned to a region.'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: false

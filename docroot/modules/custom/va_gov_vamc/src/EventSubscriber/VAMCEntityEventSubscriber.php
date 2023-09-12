@@ -260,12 +260,6 @@ class VAMCEntityEventSubscriber implements EventSubscriberInterface {
       $form['#attached']['library'][] = 'va_gov_vamc/set_covid_term_text';
       $form['#attached']['drupalSettings']['vamcCovidStatusTermText'] = $terms_text;
     }
-    $form['group_covid_19_safety_guidelines'] = [
-      '#type' => 'textfield',
-      '#prefix' => '<hr /><br>',
-      '#suffix' => '<p class="fieldset__description">Use these levels to help Veterans understand the current COVID-19 health protection guidelines at your facility. This content will display on
-      the facility\'s location page and operating status page.</p><br>',
-    ];
   }
 
   /**
