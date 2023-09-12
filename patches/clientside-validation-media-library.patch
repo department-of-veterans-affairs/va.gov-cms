@@ -1,0 +1,39 @@
+diff --git a/clientside_validation.module b/clientside_validation.module
+index 50fa8b3..b47a5ce 100644
+--- a/clientside_validation.module
++++ b/clientside_validation.module
+@@ -12,7 +12,33 @@ use Drupal\Core\Render\Element;
+  * Implements hook_form_alter().
+  */
+ function clientside_validation_form_alter(&$form, FormStateInterface &$form_state, $form_id) {
+-  $form['#after_build'][] = 'clientside_validation_form_after_build';
++  if (node_form_contains_media($form_id)) {
++    $form['#after_build'][] = 'clientside_validation_form_after_build';
++  }
++}
++
++function node_form_contains_media(string $form_id): bool {
++  $entities = [
++    "event",
++    "campaign_landing_page",
++    "press_release",
++    "outreach_asset",
++    "news_story",
++    "health_care_local_facility",
++    "health_care_region_page",
++    "vba_facility",
++    "vet_center",
++    "vet_center_cap",
++    "vet_center_mobile_vet_center",
++    "vet_center_outstation",
++  ];
++
++  foreach ($entities as $entity) {
++    if (str_contains($form_id, "node_${entity}") !== FALSE) {
++      return TRUE;
++    }
++  }
++  return FALSE;
+ }
+
+ /**
