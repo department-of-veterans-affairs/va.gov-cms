@@ -9,20 +9,16 @@ import "./main_content_blocks";
 
 const compareSnapshotCommand = require("cypress-visual-regression/dist/command");
 
-let testFailed = false;
 let currentTestName = ""; // Declare this variable at the top level of your test suite
 
 beforeEach(() => {
-  testFailed = false;
   currentTestName = Cypress.mocha.getRunner().suite.ctx.currentTest.title;
 });
 
-afterEach(() => {
-  if (testFailed) {
-    cy.dumpWatchdogToStdout();
-
-    cy.saveHtmlSnapshot(currentTestName);
-  }
+Cypress.on("fail", (error) => {
+  cy.dumpWatchdogToStdout();
+  cy.saveHtmlSnapshot(currentTestName);
+  throw error;
 });
 
 Cypress.Commands.add("saveHtmlSnapshot", (testName) => {

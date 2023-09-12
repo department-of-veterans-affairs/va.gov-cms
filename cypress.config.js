@@ -31,20 +31,16 @@ async function setupNodeEvents(on, config) {
       return null;
     },
     saveHtmlToFile({ htmlContent, fileName }) {
-      // Define the directory where you want to save the HTML files
       const dirPath = path.join(
         process.cwd(),
-        "tests/cypress/fail-html-snapshots"
+        "docroot/sites/fail-html-snapshots"
       );
 
-      // Check if the directory exists, and if not, create it
       if (!fs.existsSync(dirPath)) {
         fs.mkdirSync(dirPath);
       }
-      // Define the full path of the file
       const filePath = path.join(dirPath, fileName);
 
-      // Write the HTML content to the file
       fs.writeFileSync(filePath, htmlContent, "utf8");
 
       return `HTML has been saved to ${filePath}`;
