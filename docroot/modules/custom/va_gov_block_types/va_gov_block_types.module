@@ -11,7 +11,7 @@ use Drupal\block_content\Entity\BlockContent;
 /**
  * Implements hook_preprocess_details().
  */
-function va_gov_block_types_preprocess_details__node_page_edit_form__field_alert(array &$variables): void {
+function va_gov_block_types_preprocess_details__node_page_edit_form__field_alert(&$variables) {
   // Get the variables for the alert block entity reference field.
   $items = $variables['element']['current']['items'][0]['display'] ?? NULL;
   if (!$items || !($items['#block_content'] instanceof BlockContent)) {
@@ -21,9 +21,10 @@ function va_gov_block_types_preprocess_details__node_page_edit_form__field_alert
   // Get the alert block status.
   $block = $items['#block_content'];
   if (!$block->hasField('status')) {
-    return;
+    return 'No field block status';
   }
   $status = $block->get('status')->value;
+  echo $status;
 
   // If block is not published, provide a custom class.
   if (intval($status) === 0) {
