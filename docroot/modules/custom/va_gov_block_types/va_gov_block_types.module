@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * Implements hook preprocess.
+ */
+function va_gov_block_types_preprocess_details__node_page_edit_form__field_alert(&$variables): array {
+  $block = $variables['element']['current']['items'][0]['display']['#block_content'];
+  $status = $block->get('status')->value;
+  if (intval($status) === 0) {
+    // Yes, 'attributes' and not '#attributes', for some reason.
+    $variables['attributes']['class'][] = 'block--unpublished';
+  }
+  return $variables;
+}
