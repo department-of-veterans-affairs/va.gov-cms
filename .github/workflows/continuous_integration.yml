@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4.0.0
       - name: Check Corresponding Entity Reference Fields
         # See also `composer va:test:check-cer` in composer.json
         run: ./tests/scripts/check-cer.sh
@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4.0.0
       - name: Composer Validate
         run: composer validate
 
@@ -35,12 +35,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4.0.0
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
       - name: ReviewDog
         # See also `composer va:test:eslint` in composer.json
-        uses: reviewdog/action-eslint@f2ee6727e05e6f0e46ea1d06a16f6685d3d7fb37 # v1.19.2
+        uses: reviewdog/action-eslint@10ca150f51dbbb963467c37a03c873ba1fa75f91 # v1.20.0
         with:
           reporter: github-pr-review
           eslint_flags: '--max-warnings 0 -c .eslintrc.json --no-eslintrc docroot/modules/custom/**/*.es6.js docroot/themes/custom/**/*.es6.js tests/cypress/**/*.js'
@@ -52,7 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4.0.0
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
       - name: Run PHP_CodeSniffer and ReviewDog
@@ -76,7 +76,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4.0.0
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
       - name: Run PHPLint
@@ -89,13 +89,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4.0.0
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
       - name: Run PHPStan and ReviewDog
         # See also `composer va:test:phpstan` in composer.json
         run: |
-          export REVIEWDOG_GITHUB_API_TOKEN="${GITHUB_TOKEN}"
           bin/phpstan analyze \
             --no-progress \
             --no-interaction \
@@ -105,9 +104,11 @@ jobs:
               -name="PHPStan" \
               -f=phpstan \
               -reporter=github-pr-review \
-              -diff='git diff'
+              -fail-on-error=true \
+              -diff='git diff' \
+              -tee
         env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          REVIEWDOG_GITHUB_API_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
   # Run unit tests against codebase with PHPUnit.
   phpunit:
@@ -115,7 +116,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4.0.0
       - name: Post-Checkout Actions
         uses: ./.github/actions/post-checkout
       - name: Run PHPUnit (Unit Tests only)
@@ -132,10 +133,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4.0.0
       - name: Stylelint modules
         # See also `composer va:test:stylelint-modules` in composer.json
-        uses: reviewdog/action-stylelint@e45410880466232c34ec6ab2e0fbc15f5ce3fdd2 # v1.17.1
+        uses: reviewdog/action-stylelint@548276a94275c7865effa8d72fa8b6983d9f47c4 # v1.18.1
         with:
           fail_on_error: true
           github_token: ${{ secrets.github_token }}
@@ -145,7 +146,7 @@ jobs:
           stylelint_input: 'docroot/modules/custom/**/*.css'
       - name: Stylelint themes
         # See also `composer va:test:stylelint-themes` in composer.json
-        uses: reviewdog/action-stylelint@e45410880466232c34ec6ab2e0fbc15f5ce3fdd2 # v1.17.1
+        uses: reviewdog/action-stylelint@548276a94275c7865effa8d72fa8b6983d9f47c4 # v1.18.1
         with:
           fail_on_error: true
           github_token: ${{ secrets.github_token }}
@@ -153,4 +154,42 @@ jobs:
           reporter: github-pr-review
           stylelint_config: '.stylelintrc'
           stylelint_input: 'docroot/themes/custom/**/*.scss'
-    
+
+  # Warn strongly if the `composer.lock` lines changed exceed a threshold.
+  check-composer-lock-changes:
+    name: Check composer.lock changes
+    if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4.0.0
+        with:
+          fetch-depth: 0
+      - name: Delete any existing comment.
+        uses: thollander/actions-comment-pull-request@d61db783da9abefc3437960d0cce08552c7c004f # v2.4.2
+        continue-on-error: true
+        with:
+          comment_tag: check-composer-lock-changes
+          mode: delete
+          message: |
+            Checking composer.lock changes...
+      - name: Check changes in composer.lock.
+        run: |
+          LINES_CHANGED=$(git diff --numstat origin/main..HEAD -- composer.lock | awk '{print $1+$2}')
+          THRESHOLD=200
+          >&2 echo "LINES CHANGED=$LINES_CHANGED"
+          >&2 echo "THRESHOLD=$THRESHOLD"
+          echo "LINES_CHANGED=$LINES_CHANGED" >> $GITHUB_ENV
+          echo "THRESHOLD=$THRESHOLD" >> $GITHUB_ENV
+      - name: Comment if composer.lock changes exceed threshold.
+        uses: thollander/actions-comment-pull-request@d61db783da9abefc3437960d0cce08552c7c004f # v2.4.2
+        if: env.LINES_CHANGED > env.THRESHOLD
+        with:
+          comment_tag: check-composer-lock-changes
+          message: |
+            The number of lines changed in composer.lock exceeds the acceptable threshold.
+
+            - Lines changed: ${{ env.LINES_CHANGED }}
+            - Threshold: ${{ env.THRESHOLD }}
+
+            This is a warning only. Please review the changes and ensure that they are acceptable.

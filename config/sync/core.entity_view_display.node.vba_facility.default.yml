@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.vba_facility.field_geolocation
     - field.field.node.vba_facility.field_intro_text
     - field.field.node.vba_facility.field_last_saved_by_an_editor
+    - field.field.node.vba_facility.field_location_services
     - field.field.node.vba_facility.field_media
     - field.field.node.vba_facility.field_non_va_location_url
     - field.field.node.vba_facility.field_non_va_official_name
@@ -19,11 +20,12 @@ dependencies:
     - field.field.node.vba_facility.field_operating_status_more_info
     - field.field.node.vba_facility.field_phone_number
     - field.field.node.vba_facility.field_shared_vha_location
+    - field.field.node.vba_facility.field_table_of_contents
     - field.field.node.vba_facility.field_timezone
-    - field.field.node.vba_facility.field_vba_services
     - node.type.vba_facility
   module:
     - address
+    - entity_reference_revisions
     - field_group
     - link
     - office_hours
@@ -53,7 +55,7 @@ third_party_settings:
       label: 'Locations and contact information'
       parent_name: ''
       region: content
-      weight: 1
+      weight: 2
       format_type: fieldset
       format_settings:
         classes: ''
@@ -68,6 +70,7 @@ third_party_settings:
         - field_phone_number
         - field_office_hours
         - field_timezone
+        - group_db_data
       label: 'Facility data'
       parent_name: group_locations_and_contact_info
       region: content
@@ -83,23 +86,6 @@ third_party_settings:
         element: div
         label_element: h3
         attributes: ''
-    group_vba_db:
-      children:
-        - field_shared_vha_location
-        - field_non_va_official_name
-        - field_non_va_location_url
-        - field_office
-      label: 'VBA DB'
-      parent_name: ''
-      region: content
-      weight: 3
-      format_type: fieldset
-      format_settings:
-        classes: ''
-        show_empty_fields: false
-        id: ''
-        description: ''
-        description_display: after
     group_editable_fields:
       children:
         - field_intro_text
@@ -107,12 +93,29 @@ third_party_settings:
       label: 'Facility Intro and Photo'
       parent_name: ''
       region: content
-      weight: 2
+      weight: 1
       format_type: fieldset
       format_settings:
         classes: ''
         show_empty_fields: false
         id: facility-intro-photo
+        description: ''
+        description_display: after
+    group_db_data:
+      children:
+        - field_non_va_official_name
+        - field_non_va_location_url
+        - field_office
+        - field_shared_vha_location
+      label: 'DB data'
+      parent_name: group_facility_data
+      region: content
+      weight: 9
+      format_type: fieldset
+      format_settings:
+        classes: not-editable
+        show_empty_fields: false
+        id: ''
         description: ''
         description_display: after
 id: node.vba_facility.default
@@ -125,7 +128,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 5
     region: content
   field_facility_locator_api_id:
     type: string
@@ -141,6 +144,15 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 7
+    region: content
+  field_location_services:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 3
     region: content
   field_media:
     type: entity_reference_entity_view
@@ -161,7 +173,7 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 5
+    weight: 10
     region: content
   field_non_va_official_name:
     type: string
@@ -169,7 +181,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 4
+    weight: 9
     region: content
   field_office:
     type: entity_reference_label
@@ -177,7 +189,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 6
+    weight: 11
     region: content
   field_office_hours:
     type: office_hours
@@ -189,6 +201,7 @@ content:
       grouped: false
       show_closed: all
       closed_format: Closed
+      all_day_format: 'All day open'
       separator:
         days: '<br />'
         grouped_days: ' - '
@@ -200,15 +213,15 @@ content:
         open_text: 'Currently open!'
         closed_text: 'Currently closed'
       exceptions:
+        title: 'Exception hours'
         restrict_exceptions_to_num_days: 7
         date_format: long
-        title: 'Exception hours'
       timezone_field: ''
       office_hours_first_day: ''
       schema:
         enabled: false
     third_party_settings: {  }
-    weight: 6
+    weight: 7
     region: content
   field_operating_status_facility:
     type: list_default
@@ -230,7 +243,7 @@ content:
     settings:
       title: ''
     third_party_settings: {  }
-    weight: 5
+    weight: 6
     region: content
   field_shared_vha_location:
     type: entity_reference_label
@@ -238,22 +251,14 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 3
+    weight: 12
     region: content
   field_timezone:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 7
-    region: content
-  field_vba_services:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 4
+    weight: 8
     region: content
 hidden:
   content_moderation_control: true
@@ -261,6 +266,7 @@ hidden:
   field_facility_vba_classificatio: true
   field_geolocation: true
   field_last_saved_by_an_editor: true
+  field_table_of_contents: true
   flag_awaiting_csv: true
   flag_awaiting_editor: true
   flag_awaiting_redirect: true
