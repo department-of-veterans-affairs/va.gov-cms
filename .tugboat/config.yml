@@ -125,7 +125,8 @@ services:
         - echo "apc.enable_cli=1" >> /usr/local/etc/php/conf.d/php-cli.ini
 
         # Install memcached extension
-        - apt-get install libmemcached-dev
+        #- apt-get install libmemcached-dev
+        - apt install -y libmemcached-dev zlib1g-dev libssl-dev
         - yes '' | pecl install -f memcached
         - docker-php-ext-enable memcached
 
