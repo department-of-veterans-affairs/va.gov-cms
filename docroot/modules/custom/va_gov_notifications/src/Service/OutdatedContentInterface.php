@@ -3,18 +3,24 @@
 namespace Drupal\va_gov_notifications\Service;
 
 /**
- * Checks for outdated content and sends notifications to editors.
+ * Checks for outdated content and queues notifications to editors.
  */
 interface OutdatedContentInterface {
 
   /**
-   * Checks if VAMC editors have outdated content.
+   * Queues notifications for VAMC editors with outdated content.
+   *
+   * @return array
+   *   An array of editor names and section for logging purposes.
    */
-  public function checkForOutdatedVamcContent();
+  public function queueOutdatedVamcContentNotifications();
 
   /**
-   * Checks if Vet Center editors have outdated content.
+   * Queues notifications for Vet Center editors with outdated content.
+   *
+   * @return array
+   *   An array of editor names and section for logging purposes.
    */
-  public function checkForOutdatedVetCenterContent();
+  public function queueOutdatedVetCenterContentNotifications();
 
 }

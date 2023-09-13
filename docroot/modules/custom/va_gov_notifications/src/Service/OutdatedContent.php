@@ -11,7 +11,7 @@ use Drupal\workbench_access\UserSectionStorageInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Service description.
+ * Service for gathering users with outdated content.
  */
 class OutdatedContent implements OutdatedContentInterface {
 
