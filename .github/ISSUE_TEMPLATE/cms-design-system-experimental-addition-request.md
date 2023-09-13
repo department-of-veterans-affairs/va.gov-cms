@@ -31,6 +31,9 @@ Include any accessibility considerations.
 ## Guidance
 What would you want to tell other teams about this component or pattern?
 
+## CMS Collab Cycle
+Please specify if this new component or pattern has gone through a CMS Collaboration Cycle. If it has, please provide a link to the CMS Collaboration Cycle ticket. If it has not, please fill out the [CMS Collaboration Cycle Intake](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=ewashb%2Cdawnpruitt&labels=CMS+Team&projects=&template=sitewide-cms-collab.yml&title=%5BCMS+COLLAB+CYCLE+INTAKE%5D+%28Team+Name%2C+Product+Name%2C+Feature+Name%29) ticket template.
+
 ## Research (optional)
 Include any research you have already conducted, or plan to conduct, on this component or pattern.
 
@@ -38,7 +41,7 @@ Include any research you have already conducted, or plan to conduct, on this com
 Include any existing code.
 
 ## Next steps
-Send a message in the #cms-design channel letting the CMS team know that this request has been submitted and include a link to this ticket.
+Send a message in the [#cms-design](https://dsva.slack.com/archives/CDKB88PS8) channel letting the CMS team know that this request has been submitted and include a link to this ticket.
 A designer on the CMS team will review this request and will reach out to you if they have questions/comments/concerns.
 If your request is approved, you can add your component or pattern to the system.
-If you have any questions on how to add your component or pattern to the system, please reach out in the #cms-design channel.
+If you have any questions on how to add your component or pattern to the system, please reach out in the [#cms-design](https://dsva.slack.com/archives/CDKB88PS8) channel.
