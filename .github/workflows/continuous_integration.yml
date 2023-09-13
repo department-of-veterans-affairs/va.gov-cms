@@ -1,5 +1,8 @@
 name: Continuous Integration
 on: [pull_request]
+permissions:
+  pull-requests: write
+  issues: write
 jobs:
 
   # Check whether certain fields exist in the CMS configuration.
