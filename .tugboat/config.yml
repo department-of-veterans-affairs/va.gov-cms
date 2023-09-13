@@ -2,7 +2,7 @@ services:
   # What to call the service hosting the site.
   php:
     # Use PHP 8.1 with Apache; this syntax pulls in the latest version of PHP 8.1.
-    image: tugboatqa/php:8.1-apache-bullseye
+    image: tugboatqa/php:8.1-apache-bookworm
 
     aliases:
       - cms
@@ -31,7 +31,7 @@ services:
 
         # TODO: Add "Why" comment for Python, was this for the FE dependencies `yarn install`, if so which dependencies
         # so we can remove if they are removed in the future.
-        - apt-get install python
+        #- apt-get install python
 
         # General useful development tools
         - apt-get install jq nano
@@ -86,6 +86,8 @@ services:
         # .tugboat/.env.j2 Jinja2 template file support
         - apt-get install python3-apt python3-distutils python3
         - curl -O https://bootstrap.pypa.io/get-pip.py
+        # Remove externally managed script causing error in bookworm when python3 tries to install packages
+        - rm /usr/lib/python3.11/EXTERNALLY-MANAGED
         - python3 get-pip.py
         - echo "export PATH=/var/lib/tugboat/bin:~/.local/bin:$PATH" >> ~/.bashrc
         - pip3 install j2cli
@@ -123,7 +125,8 @@ services:
         - echo "apc.enable_cli=1" >> /usr/local/etc/php/conf.d/php-cli.ini
 
         # Install memcached extension
-        - apt-get install libmemcached-dev
+        #- apt-get install libmemcached-dev
+        - apt install -y libmemcached-dev zlib1g-dev libssl-dev
         - yes '' | pecl install -f memcached
         - docker-php-ext-enable memcached
 

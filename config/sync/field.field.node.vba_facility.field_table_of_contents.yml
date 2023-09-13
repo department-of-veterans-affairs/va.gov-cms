@@ -1,0 +1,30 @@
+uuid: 45c38eb9-9568-4460-a9dc-762171bbd071
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_table_of_contents
+    - node.type.vba_facility
+  module:
+    - markup
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.vba_facility.field_table_of_contents
+field_name: field_table_of_contents
+entity_type: node
+bundle: vba_facility
+label: 'Table of contents'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    markup: null
+default_value_callback: ''
+settings:
+  markup:
+    value: "<h3>Editing this content</h3>\r\n\r\n<p>Provide Veterans with the basic information they need to plan a visit to a VBA facility. Some content won’t be editable because it comes from other sources. Learn more by hovering over the “?.”</p>\r\n\r\n<p>For full guidance, see <a href=\"/help/va-benefit-facilities-vba\" target=\"_blank\">How to edit VBA facility pages</a>.</p>\r\n\r\n<h3>Jump to edit...</h3>\r\n\r\n<p>↓<a href=\"#operating-status\"> Operating status</a></p>\r\n\r\n<p>↓<a href=\"#top-of-page-information\"> Top of page information</a></p>\r\n\r\n<p>↓<a href=\"#locations-and-contact-information\"> Locations and contact information</a></p>\r\n\r\n<p>↓<a href=\"#edit-field-vba-services\"> Services</a></p>\r\n\r\n<h3>Content</h3>\r\n"
+    format: rich_text
+field_type: markup

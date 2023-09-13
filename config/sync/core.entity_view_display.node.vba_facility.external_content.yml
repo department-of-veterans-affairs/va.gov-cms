@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.vba_facility.field_geolocation
     - field.field.node.vba_facility.field_intro_text
     - field.field.node.vba_facility.field_last_saved_by_an_editor
+    - field.field.node.vba_facility.field_location_services
     - field.field.node.vba_facility.field_media
     - field.field.node.vba_facility.field_non_va_location_url
     - field.field.node.vba_facility.field_non_va_official_name
@@ -20,14 +21,17 @@ dependencies:
     - field.field.node.vba_facility.field_operating_status_more_info
     - field.field.node.vba_facility.field_phone_number
     - field.field.node.vba_facility.field_shared_vha_location
+    - field.field.node.vba_facility.field_table_of_contents
     - field.field.node.vba_facility.field_timezone
-    - field.field.node.vba_facility.field_vba_services
     - node.type.vba_facility
   module:
     - address
     - field_group
+    - geofield
     - layout_builder
+    - link
     - office_hours
+    - options
     - telephone
     - user
 third_party_settings:
@@ -54,7 +58,7 @@ third_party_settings:
       label: ''
       parent_name: ''
       region: hidden
-      weight: 1
+      weight: 19
       format_type: fieldset
       format_settings:
         classes: ''
@@ -65,9 +69,13 @@ third_party_settings:
     group_facility_data:
       children:
         - field_facility_locator_api_id
+        - field_facility_vba_classificatio
         - field_address
         - field_phone_number
         - field_office_hours
+        - field_timezone
+        - field_geolocation
+        - group_db_data
       label: 'Location information'
       parent_name: group_locations_and_contact_info
       region: content
@@ -83,6 +91,23 @@ third_party_settings:
         element: div
         label_element: h3
         attributes: ''
+    group_db_data:
+      children:
+        - field_non_va_official_name
+        - field_non_va_location_url
+        - field_office
+        - field_shared_vha_location
+      label: 'DB data'
+      parent_name: group_facility_data
+      region: content
+      weight: 10
+      format_type: fieldset
+      format_settings:
+        classes: not-editable
+        show_empty_fields: true
+        id: ''
+        description: ''
+        description_display: after
   layout_builder:
     enabled: false
     allow_custom: false
@@ -96,7 +121,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 5
     region: content
   field_facility_locator_api_id:
     type: string
@@ -105,6 +130,50 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 3
+    region: content
+  field_facility_vba_classificatio:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_geolocation:
+    type: geofield_default
+    label: above
+    settings:
+      output_format: wkt
+      output_escape: true
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  field_non_va_location_url:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_non_va_official_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_office:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 9
     region: content
   field_office_hours:
     type: office_hours
@@ -116,6 +185,7 @@ content:
       grouped: false
       show_closed: all
       closed_format: Closed
+      all_day_format: 'All day open'
       separator:
         days: '<br />'
         grouped_days: ' - '
@@ -127,15 +197,15 @@ content:
         open_text: 'Currently open!'
         closed_text: 'Currently closed'
       exceptions:
+        title: 'Exception hours'
         restrict_exceptions_to_num_days: 7
         date_format: long
-        title: 'Exception hours'
       timezone_field: ''
       office_hours_first_day: ''
       schema:
         enabled: false
     third_party_settings: {  }
-    weight: 6
+    weight: 7
     region: content
   field_phone_number:
     type: telephone_link
@@ -143,24 +213,33 @@ content:
     settings:
       title: ''
     third_party_settings: {  }
-    weight: 5
+    weight: 6
+    region: content
+  field_shared_vha_location:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  field_timezone:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 8
     region: content
 hidden:
   content_moderation_control: true
   field_administration: true
-  field_facility_vba_classificatio: true
-  field_geolocation: true
   field_intro_text: true
   field_last_saved_by_an_editor: true
+  field_location_services: true
   field_media: true
-  field_non_va_location_url: true
-  field_non_va_official_name: true
-  field_office: true
   field_operating_status_facility: true
   field_operating_status_more_info: true
-  field_shared_vha_location: true
-  field_timezone: true
-  field_vba_services: true
+  field_table_of_contents: true
   flag_awaiting_csv: true
   flag_awaiting_editor: true
   flag_awaiting_redirect: true
