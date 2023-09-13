@@ -158,7 +158,6 @@ jobs:
   # Warn strongly if the `composer.lock` lines changed exceed a threshold.
   check-composer-lock-changes:
     name: Check composer.lock changes
-    if: github.event.pull_request.head.repo.full_name == 'department-of-veterans-affairs/va.gov-cms'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -184,6 +183,7 @@ jobs:
       - name: Comment if composer.lock changes exceed threshold.
         uses: thollander/actions-comment-pull-request@d61db783da9abefc3437960d0cce08552c7c004f # v2.4.2
         if: env.LINES_CHANGED > env.THRESHOLD
+        continue-on-error: true
         with:
           comment_tag: check-composer-lock-changes
           message: |
