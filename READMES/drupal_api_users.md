@@ -22,7 +22,7 @@ This document lists known services which depend on the CMS and the Drupal users 
   - include desired permissions
   - include any other information that may be desirable
   - any IAM users/roles/etc that may need access to the username and password
-4. DevOps engineers will perform the following procedure:
+3. DevOps engineers will perform the following procedure:
   - create a new user in Drupal
   - assign it appropriate roles and permissions
   - assign it a temporary password
@@ -30,7 +30,7 @@ This document lists known services which depend on the CMS and the Drupal users 
     - the username (`cms/prod/drupal_api_users/<name>/username`)
     - the password (`cms/prod/drupal_api_users/<name>/password`)
   - communicate the name of the user to you.
-3. Followup issue(s) should be opened for:
+4. Followup issue(s) should be opened for:
   - tests to ensure accurate roles and permissions
   - tests to ensure retrievability of the SSM Parameter Store values
   - additional desired role- or permission-related functionality (e.g. a new role, etc)
