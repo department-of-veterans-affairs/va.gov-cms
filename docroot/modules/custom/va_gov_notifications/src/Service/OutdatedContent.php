@@ -68,55 +68,55 @@ class OutdatedContent implements OutdatedContentInterface {
   }
 
   /**
-   * {@inheritdoc}
+   * Gets the product id from a product name.
+   *
+   * @param string $product_name
+   *   The simple name of the product.
+   *
+   * @return string
+   *   A term id matching the appropriate product.
+   *
+   * @throws \InvalidArgumentException
+   *   Thrown when a product_name has not been defined in the map.
    */
-  public function checkForOutdatedVamcContent(): array {
-    $have_outdated_content = [];
-    $editors = $this->getAllEditors();
-    foreach ($editors as $editor) {
-      $editor_sections = $this->getEditorsSections($editor);
-      foreach ($editor_sections as $section) {
-        $product = $this->getSectionProduct($section);
-        $outdated_content = $this->getOutdatedContentForSection($section);
-        // VAMCs are product 284.
-        if (!empty($outdated_content) && $product === '284') {
-          $editorName = $editor->getAccountName();
-          $sectionName = $this->getSectionName($section);
-          $this->vaGovNotificationsLogger
-            ->info('Outdated content found for @sectionName editor: @editor',
-            ['@editor' => $editorName, '@sectionName' => $sectionName]);
-          $this->queueNotification($editor, 'vamc_outdated_content', 'vamc_outdated_content');
-          $have_outdated_content[] = [
-            'editor' => $editorName,
-            'section' => $sectionName,
-          ];
-        }
-        break;
-      }
+  protected function getProductId(string $product_name):string {
+    // Update the map as new outdated notifications are added.
+    // We don't look them up in drupal by name because a name is content and
+    // if changed, would break this.
+    $map = [
+      // 'name' => 'product term id'.
+      'nca' => '1000',
+      'vamc' => '284',
+      'vba' => '1050',
+      'vet_center' => '289',
+    ];
+    if (!empty($map[$product_name])) {
+      return $map[$product_name]
     }
-    // This is to provide output for the drush command only.
-    return $have_outdated_content;
+    else {
+      throw new InvalidArgumentException("'{$product_name}' is not a defined product name.");
+    }
   }
 
   /**
    * {@inheritdoc}
    */
-  public function checkForOutdatedVetCenterContent(): array {
+  public function queueOutdatedContentNotifications(string $product_name, string $template_name): array {
     $have_outdated_content = [];
+    $product_id = $this->getProductId($product_name);
     $editors = $this->getAllEditors();
     foreach ($editors as $editor) {
       $editor_sections = $this->getEditorsSections($editor);
       foreach ($editor_sections as $section) {
         $product = $this->getSectionProduct($section);
         $outdated_content = $this->getOutdatedContentForSection($section);
-        // Vet Centers are product 289.
-        if (!empty($outdated_content) && $product === '289') {
+        if (!empty($outdated_content) && $product === $product_id) {
           $editorName = $editor->getAccountName();
           $sectionName = $this->getSectionName($section);
           $this->vaGovNotificationsLogger
             ->info('Outdated content found for @sectionName editor: @editor',
             ['@editor' => $editorName, '@sectionName' => $sectionName]);
-          $this->queueNotification($editor, 'vet_center_outdated_content', 'vet_center_outdated_content');
+          $this->queueNotification($editor, $template_name, $template_name);
           $have_outdated_content[] = [
             'editor' => $editorName,
             'section' => $sectionName,

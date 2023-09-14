@@ -8,19 +8,16 @@ namespace Drupal\va_gov_notifications\Service;
 interface OutdatedContentInterface {
 
   /**
-   * Queues notifications for VAMC editors with outdated content.
+   * Queues notifications for editors that have outdated content.
+   *
+   * @param string $product_name
+   *   The product name to connect to the product id.
+   * @param string $template_name
+   *   The machine name of the email template.
    *
    * @return array
-   *   An array of editor names and section for logging purposes.
+   *   An array of editor names and section for logging purposes only.
    */
-  public function queueOutdatedVamcContentNotifications();
-
-  /**
-   * Queues notifications for Vet Center editors with outdated content.
-   *
-   * @return array
-   *   An array of editor names and section for logging purposes.
-   */
-  public function queueOutdatedVetCenterContentNotifications();
+  public function queueOutdatedContentNotifications(string $product_name, string $template_name);
 
 }
