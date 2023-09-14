@@ -187,6 +187,7 @@
           );
           const advancedWhichRepeatWrap =
             document.getElementById(`repeat-on-the-wrap`);
+
           const allWrapsArray = [daysWrap, advancedWhichRepeatWrap];
           // Disallow toggle off when instances present.
           toggle.addEventListener("click", recurringWatchers);

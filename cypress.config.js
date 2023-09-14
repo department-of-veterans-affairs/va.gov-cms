@@ -13,6 +13,8 @@ const path = require("path");
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
+const BASE_URL = "http://va-gov-cms.ddev.site";
+
 async function setupNodeEvents(on, config) {
   // This is required for the preprocessor to be able to generate JSON reports after each run, and more,
   await cucumber.addCucumberPreprocessorPlugin(on, config);
@@ -33,7 +35,7 @@ async function setupNodeEvents(on, config) {
     saveHtmlToFile({ htmlContent, fileName }) {
       const dirPath = path.join(
         process.cwd(),
-        "docroot/sites/fail-html-snapshots"
+        "docroot/cypress/fail-html-snapshots"
       );
 
       if (!fs.existsSync(dirPath)) {
@@ -43,7 +45,10 @@ async function setupNodeEvents(on, config) {
 
       fs.writeFileSync(filePath, htmlContent, "utf8");
 
-      return `HTML has been saved to ${filePath}`;
+      const httpsUrl = filePath
+        .replace(process.cwd(), BASE_URL)
+        .replace("docroot/", "");
+      return `HTML has been saved to ${httpsUrl}`;
     },
   });
 
@@ -75,7 +80,7 @@ module.exports = defineConfig({
     // We've imported your old cypress plugins here.
     // You may want to clean this up later by importing these.
     setupNodeEvents,
-    baseUrl: "http://va-gov-cms.ddev.site",
+    baseUrl: BASE_URL,
     specPattern: "tests/cypress/integration/features/**/*.{feature,features}",
     supportFile: "tests/cypress/support/index.js",
   },
