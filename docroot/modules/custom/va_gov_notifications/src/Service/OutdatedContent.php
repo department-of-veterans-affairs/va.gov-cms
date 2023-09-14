@@ -208,16 +208,19 @@ class OutdatedContent implements OutdatedContentInterface {
 
   /**
    * Get the Outdated Content for a Section.
+   *
+   * @return array
+   *   An array of node ids for nodes that are outdated and need editing.
    */
-  protected function getOutdatedContentForSection($section): array|int {
+  protected function getOutdatedContentForSection($section): array {
     $offset = strtotime('-12 month');
-    $types = [
+    $exempt_types = [
       'event',
       'news_story',
       'press_release',
     ];
     $query = $this->entityTypeManager->getStorage('node')->getQuery()
-      ->condition('type', $types, 'NOT IN')
+      ->condition('type', $exempt_types, 'NOT IN')
       ->condition('status', 1)
       ->condition('field_last_saved_by_an_editor', $offset, '<=')
       ->condition('field_administration', $section, '=');
@@ -226,6 +229,9 @@ class OutdatedContent implements OutdatedContentInterface {
 
   /**
    * Gets all editors.
+   *
+   * @return \Drupal\Core\Entity\EntityInterface[]
+   *   An array of all active users in the CMS.
    */
   protected function getAllEditors(): array {
     $userStorage = $this->entityTypeManager->getStorage('user');
@@ -243,7 +249,7 @@ class OutdatedContent implements OutdatedContentInterface {
    *   The editor user object.
    *
    * @return array
-   *   The sections for the editor.
+   *   The section ids assigned to the editor.
    */
   protected function getEditorsSections(AccountInterface $editor): array {
     return $this->userSectionStorage->getUserSections($this->getScheme(), $editor, FALSE);
@@ -251,6 +257,9 @@ class OutdatedContent implements OutdatedContentInterface {
 
   /**
    * Gets the access scheme for the section.
+   *
+   * @return \Drupal\workbench_access\Entity\AccessSchemeInterface
+   *   The Access scheme for the section.
    */
   protected function getScheme(): AccessSchemeInterface {
     /** @var \Drupal\Core\Config\Entity\ConfigEntityStorageInterface $scheme_storage */
