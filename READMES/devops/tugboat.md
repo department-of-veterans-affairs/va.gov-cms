@@ -4,15 +4,14 @@ The CI tool used for Pull Requests and DEMO environments is called [Tugboat](htt
 Also see [/READMES/tugboat.md](/READMES/tugboat.md) for Tugboat user documentation.
 
 ## Local Setup
-1. Pull down the private key from credstash and save to ~/.ssh/tugboat.key:
- `credstash -r us-gov-west-1 get cms.github.tugboat.ssh_deploy_key.private > ~/.ssh/tugboat.key`
+1. Pull down the private key from SSM Parameter Store at `/cms/tugboat/ssh_deploy_key.private` and save to `~/.ssh/tugboat.key`:
 
 1. Add below to ~/.ssh/config to use IdentityFile tugboat.key for host tugboat.github.com:
    ```
    Host tugboat.github.com
       HostName github.com
       User git
-      Identityfile /home/elijah/.ssh/tugboat.key
+      Identityfile /home/<your username>/.ssh/tugboat.key
       IdentitiesOnly yes
    ```
 
