@@ -4,6 +4,7 @@ namespace Drupal\va_gov_live_field_migration\Commands;
 
 use Drupal\va_gov_live_field_migration\FieldProvider\Resolver\ResolverInterface as FieldProviderResolverInterface;
 use Drupal\va_gov_live_field_migration\Migration\Runner\RunnerInterface;
+use Drush\Attributes as CLI;
 use Drush\Commands\DrushCommands;
 
 /**
@@ -48,10 +49,10 @@ class Commands extends DrushCommands {
    *   The entity type.
    * @param string $fieldName
    *   The field name.
-   *
-   * @command va-gov-live-field-migration:migrate
-   * @aliases va-gov-live-field-migration-migrate
    */
+  #[CLI\Command(name: 'va-gov-live-field-migration:migrate', aliases: ['va-gov-live-field-migration-migrate'])]
+  #[CLI\Argument(name: 'entityType', description: 'The entity type')]
+  #[CLI\Argument(name: 'fieldName', description: 'The field name')]
   public function migrate(
     string $entityType,
     string $fieldName
@@ -67,10 +68,10 @@ class Commands extends DrushCommands {
    *   The entity type.
    * @param string $fieldName
    *   The field name.
-   *
-   * @command va-gov-live-field-migration:rollback
-   * @aliases va-gov-live-field-migration-rollback
    */
+  #[CLI\Command(name: 'va-gov-live-field-migration:rollback', aliases: ['va-gov-live-field-migration-rollback'])]
+  #[CLI\Argument(name: 'entityType', description: 'The entity type')]
+  #[CLI\Argument(name: 'fieldName', description: 'The field name')]
   public function rollback(
     string $entityType,
     string $fieldName
@@ -86,10 +87,10 @@ class Commands extends DrushCommands {
    *   The entity type.
    * @param string $fieldName
    *   The field name.
-   *
-   * @command va-gov-live-field-migration:verify
-   * @aliases va-gov-live-field-migration-verify
    */
+  #[CLI\Command(name: 'va-gov-live-field-migration:verify', aliases: ['va-gov-live-field-migration-verify'])]
+  #[CLI\Argument(name: 'entityType', description: 'The entity type')]
+  #[CLI\Argument(name: 'fieldName', description: 'The field name')]
   public function verify(
     string $entityType,
     string $fieldName
@@ -100,29 +101,22 @@ class Commands extends DrushCommands {
 
   /**
    * Find fields that haven't been migrated yet.
-   *
-   * @param string|null $fieldProvider
-   *   The field provider.
-   * @param string|null $entityType
-   *   The entity type.
-   * @param string|null $bundle
-   *   The entity bundle or content type.
-   *
-   * @command va-gov-live-field-migration:find
-   * @aliases va-gov-live-field-migration-find
    */
-  public function find(
-    string $fieldProvider = NULL,
-    string $entityType = NULL,
-    string $bundle = NULL
-  ) {
-    if ($fieldProvider === NULL) {
-      $fieldProvider = 'test_empty_list';
-    }
-    if ($entityType === NULL) {
-      $entityType = 'node';
-    }
-    $this->output()->writeln('Finding fields on entity type "' . $entityType . '", bundle "' . ($bundle ?: 'NULL') . '"...');
+  #[CLI\Command(name: 'va-gov-live-field-migration:find', aliases: ['va-gov-live-field-migration-find'])]
+  #[CLI\Option(name: 'field-provider', description: 'The field provider to use')]
+  #[CLI\Option(name: 'entity-type', description: 'The entity type to use')]
+  #[CLI\Option(name: 'bundle', description: 'The bundle to use')]
+  public function find($options = [
+    // Default to the issue 14995 field provider.
+    // @see https://github.com/department-of-veterans-affairs/va-gov-cms/issues/14995
+    'field-provider' => 'issue_14995',
+    'entity-type' => 'node',
+    'bundle' => NULL,
+  ]) {
+    $fieldProvider = $options['field-provider'];
+    $entityType = $options['entity-type'];
+    $bundle = $options['bundle'];
+    $this->output()->writeln('Finding fields with field provider "' . $fieldProvider . '" on entity type "' . $entityType . '", bundle "' . ($bundle ?: 'NULL') . '"...');
     $fields = $this->fieldProviderResolver
       ->getFieldProvider($fieldProvider)
       ->getFields($entityType, $bundle);

@@ -107,7 +107,7 @@ class Runner implements RunnerInterface {
    */
   public function runMigration(MigrationPluginInterface $migration, string $entityType, string $fieldName) : void {
     $this->performOperation(function () use ($migration, $entityType, $fieldName) {
-      $this->reporter->reportInfo('Migrating field "' . $fieldName . '" on entity type "' . $entityType . '"...');
+      $this->reporter->reportInfo('Migrating field "' . $fieldName . '" on entity type "' . $entityType . '" with migration "' . $migration->getPluginId() . '"...');
       $migration->runMigration($entityType, $fieldName);
       $this->reporter->reportInfo('Migration successful.');
     });
@@ -118,7 +118,7 @@ class Runner implements RunnerInterface {
    */
   public function rollbackMigration(MigrationPluginInterface $migration, string $entityType, string $fieldName) : void {
     $this->performOperation(function () use ($migration, $entityType, $fieldName) {
-      $this->reporter->reportInfo('Rolling back field "' . $fieldName . '" on entity type "' . $entityType . '"...');
+      $this->reporter->reportInfo('Rolling back field "' . $fieldName . '" on entity type "' . $entityType . '" with migration "' . $migration->getPluginId() . '"...');
       $migration->rollbackMigration($entityType, $fieldName);
       $this->reporter->reportInfo('Rollback successful.');
     });
@@ -129,7 +129,7 @@ class Runner implements RunnerInterface {
    */
   public function verifyMigration(MigrationPluginInterface $migration, string $entityType, string $fieldName) : void {
     $this->performOperation(function () use ($migration, $entityType, $fieldName) {
-      $this->reporter->reportInfo('Verifying field "' . $fieldName . '" on entity type "' . $entityType . '"...');
+      $this->reporter->reportInfo('Verifying field "' . $fieldName . '" on entity type "' . $entityType . '" with migration "' . $migration->getPluginId() . '"...');
       $migration->rollbackMigration($entityType, $fieldName);
       $this->reporter->reportInfo('Verification successful.');
     });
