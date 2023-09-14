@@ -91,10 +91,10 @@ class OutdatedContent implements OutdatedContentInterface {
       'vet_center' => '289',
     ];
     if (!empty($map[$product_name])) {
-      return $map[$product_name]
+      return $map[$product_name];
     }
     else {
-      throw new InvalidArgumentException("'{$product_name}' is not a defined product name.");
+      throw new \InvalidArgumentException("'{$product_name}' is not a defined product name.");
     }
   }
 
