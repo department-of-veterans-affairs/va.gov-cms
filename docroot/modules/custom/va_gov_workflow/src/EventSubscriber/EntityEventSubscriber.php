@@ -2,16 +2,17 @@
 
 namespace Drupal\va_gov_workflow\EventSubscriber;
 
+use Drupal\block_content\BlockContentInterface;
 use Drupal\Core\Entity\ContentEntityForm;
+use Drupal\Core\Entity\EntityFormInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityDeleteEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
 use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormBaseAlterEvent;
-use Drupal\Core\Entity\EntityFormInterface;
-use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\NodeInterface;
 use Drupal\va_gov_notifications\Service\NotificationsManager;
 use Drupal\va_gov_user\Service\UserPermsService;
@@ -265,6 +266,17 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The form id.
    */
   public function requireRevisionMessage(array &$form, FormStateInterface &$form_state, $form_id) {
+    // Check if the block-content form is of type promo and exit (#15187)
+    $formObject = $form_state->getFormObject();
+    if ($formObject instanceof EntityFormInterface) {
+      $entity = $formObject->getEntity();
+      if ($entity instanceof BlockContentInterface) {
+        if ($entity->bundle() === 'promo') {
+          return;
+        }
+      }
+    }
+
     $form['revision_log']['#required'] = TRUE;
     $form['revision_log']['widget']['#required'] = TRUE;
     $form['revision_log']['widget'][0]['#required'] = TRUE;

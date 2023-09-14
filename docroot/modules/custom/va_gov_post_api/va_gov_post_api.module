@@ -77,14 +77,19 @@ function _va_gov_post_api_add_facility_to_queue(NodeInterface $node) {
  *   The count of the number of items queued.
  */
 function _va_gov_post_api_add_facility_service_to_queue(NodeInterface $node, bool $force_push = FALSE) {
-  if ($node->bundle() === 'health_care_local_health_service') {
-    return Drupal::service('va_gov_post_api.queue_service_updates')->queueFacilityService($node, $force_push);
-  }
-  elseif ($node->bundle() === 'regional_health_care_service_des') {
-    return Drupal::service('va_gov_post_api.queue_service_updates')->queueSystemRelatedServices($node);
-  }
+  switch ($node->bundle()) {
+    case 'health_care_local_health_service':
+      return Drupal::service('va_gov_post_api.queue_vamc_service_updates')->queueFacilityService($node, $force_push);
 
-  return 0;
+    case 'regional_health_care_service_des':
+      return Drupal::service('va_gov_post_api.queue_vamc_service_updates')->queueSystemRelatedServices($node);
+
+    case 'vet_center_facility_health_servi':
+      return Drupal::service('va_gov_post_api.queue_vet_center_service_updates')->queueFacilityService($node);
+
+    default:
+      return 0;
+  }
 }
 
 /**
@@ -97,8 +102,11 @@ function _va_gov_post_api_add_facility_service_to_queue(NodeInterface $node, boo
  *   The count of the number of items queued.
  */
 function _va_gov_post_api_add_facility_service_to_queue_due_to_term_change(TermInterface $term):int {
+  $total_nids = 0;
   if ($term->bundle() === 'health_care_service_taxonomy') {
-    return Drupal::service('va_gov_post_api.queue_service_updates')->queueServiceTermRelatedServices($term);
+    $total_nids += Drupal::service('va_gov_post_api.queue_vamc_service_updates')->queueServiceTermRelatedServices($term);
+    $total_nids += Drupal::service('va_gov_post_api.queue_vet_center_service_updates')->queueServiceTermRelatedServices($term);
+    return $total_nids;
   }
 
   return 0;

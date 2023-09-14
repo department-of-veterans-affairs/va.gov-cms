@@ -20,7 +20,7 @@
         "composer/installers": "^2.2.0",
         "consolidation/site-process": "^4.1",
         "cweagans/composer-patches": "^1.7",
-        "datadog/dd-trace": "^0.90.0",
+        "datadog/dd-trace": "^0.91.0",
         "dealerdirect/phpcodesniffer-composer-installer": "0.7.2",
         "drupal/address": "^1.4",
         "drupal/admin_feedback": "^2.2",
@@ -82,7 +82,7 @@
         "drupal/geofield_map": "^3.0",
         "drupal/google_analytics": "^4.0",
         "drupal/govdelivery_bulletins": "^1.2",
-        "drupal/graphql": "^3.0",
+        "drupal/graphql": "3.1.0",
         "drupal/graphql_core": "^3.1.0",
         "drupal/graphql_menu": "^1.0@alpha",
         "drupal/graphql_metatag": "^1.0",
@@ -200,14 +200,14 @@
         "phpstan/phpstan-deprecation-rules": "^1.0",
         "phpunit/phpunit": "^9.3.0",
         "querypath/querypath": "^3.0",
-        "simplesamlphp/simplesamlphp": "^1.18",
+        "simplesamlphp/simplesamlphp": "^1.19",
         "squizlabs/php_codesniffer": "^3.5",
         "symfony/browser-kit": "^6.3",
         "symfony/config": "^4.0",
         "symfony/phpunit-bridge": "^5.1",
         "symfony/process": "^4.0",
         "symfony/routing": "^4.0",
-        "va-gov/content-build": "^0.0.3335",
+        "va-gov/content-build": "^0.0.3345",
         "vlucas/phpdotenv": "^5.3",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3",
@@ -295,8 +295,8 @@
     "extra": {
         "drupal-scaffold": {
             "file-mapping": {
+                "[project-root]/.gitattributes": false,
                 "[web-root]/.editorconfig": false,
-                "[web-root]/.gitattributes": false,
                 "[web-root]/.htaccess": false,
                 "[web-root]/INSTALL.txt": false,
                 "[web-root]/README.txt": false,
@@ -382,7 +382,8 @@
                 "3351638 - Remove truncation of path alias in table." : "https://www.drupal.org/files/issues/2023-04-05/3351638-23.patch",
                 "3047110 - Add workflow to taxonomy" : "https://www.drupal.org/files/issues/2023-04-14/3047110-45.patch",
                 "3106205 - Length of menu_tree.url and menu_tree.route_param_key are too short (255 characters)": "https://www.drupal.org/files/issues/2023-05-24/3106205-length-menu-tree-too-short.patch",
-                "3274419 - Make BaseFieldOverride inherit internal property from the base field": "https://www.drupal.org/files/issues/2023-03-13/3274419-45.patch"
+                "3274419 - Make BaseFieldOverride inherit internal property from the base field": "https://www.drupal.org/files/issues/2023-03-13/3274419-45.patch",
+                "3333401 - Pager h4 cause accessibility flag on many pages": "https://www.drupal.org/files/issues/2023-07-27/3333401-56-configurable-heading-pager.patch"
             },
             "drupal/danse": {
                 "3364925 - added explicit access check": "https://www.drupal.org/files/issues/2023-06-05/3364925-added-explicit-access-check.patch"
@@ -413,9 +414,6 @@
             },
             "drupal/entity_reference_revisions": {
                 "2984027 - Incorrect manipulation of default revision flag": "https://www.drupal.org/files/issues/2020-09-03/entity_reference_revisions-default_revision-2984027-10.patch"
-            },
-            "drupal/entity_reference_validators": {
-                "3287297 - Automated Drupal 10 compatibility fixes": "https://www.drupal.org/files/issues/2022-06-15/entity_reference_validators.1.x-dev.rector.patch"
             },
             "drupal/field_group": {
                 "2787179 - Visibility of invalid fields": "https://www.drupal.org/files/issues/2021-01-05/2787179-highlight-html5-validation-59.patch",
@@ -505,7 +503,8 @@
                 "63049395 - Get same results on different request": "https://www.drupal.org/files/issues/2019-07-18/change_request_type-63049395-09.patch"
             },
             "drupal/smart_date": {
-                "3260965 - Undefined index: #value": "https://www.drupal.org/files/issues/2022-01-27/smart_date_undefined_value_in_validation.patch"
+                "3260965 - Undefined index: #value": "https://www.drupal.org/files/issues/2022-01-27/smart_date_undefined_value_in_validation.patch",
+                "3385720 - Implement errorElement() in Widgets": "https://www.drupal.org/files/issues/2023-09-08/smart_date-implement-errorelement-3385720-3.patch"
             },
             "drupal/tablefield": {
                 "3100109 - 0 string value in cell throws empty error": "https://www.drupal.org/files/issues/2019-12-10/0-value-throwing-empty-error.patch",

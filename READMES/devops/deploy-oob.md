@@ -40,13 +40,13 @@ For ease of reference, the following is a breakdown of our current product deplo
 
 | Step | Time to Complete | Time Remaining After Completion |
 | ---- | ---------------- | ------------------------------- |
-| Create a PR | ~5 minutes | ~3 hours, 30 minutes |
-| Pull Request CI Tests | ~50 minutes | ~2 hours, 30 minutes |
-| [`testing/cms`](http://jenkins.vfs.va.gov/job/testing/job/cms/) Jenkins job | ~25 minutes | ~2 hours, 10 minutes |
-| [`deploys/cms-vagov-staging`](http://jenkins.vfs.va.gov/job/deploys/job/cms-vagov-staging/) Jenkins job | ~35 minutes | ~90 minutes |
-| [`cms/deploy-live-staging`](http://jenkins.vfs.va.gov/job/cms/job/deploy-live-staging/) Jenkins job | ~1 minute | ~90 minutes |
-| [`testing/cms-post-deploy-tests-staging`](http://jenkins.vfs.va.gov/job/testing/job/cms-post-deploy-tests-staging/) Jenkins job | ~55 minutes | ~35 minutes |
-| [`deploys/cms-auto-deploy`](http://jenkins.vfs.va.gov/job/deploys/job/cms-auto-deploy/) Jenkins job | ~15 minutes | ~20 minutes |
+| Create a PR | ~5 minutes | ~2 hours, 30 minutes |
+| Pull Request CI Tests | ~20 minutes | ~2 hours, 10 minutes |
+| [`testing/cms`](http://jenkins.vfs.va.gov/job/testing/job/cms/) Jenkins job | ~30 minutes | ~1 hour, 40 minutes |
+| [`deploys/cms-vagov-staging`](http://jenkins.vfs.va.gov/job/deploys/job/cms-vagov-staging/) Jenkins job | ~40 minutes | ~60 minutes |
+| [`cms/deploy-live-staging`](http://jenkins.vfs.va.gov/job/cms/job/deploy-live-staging/) Jenkins job | ~1 minute | ~60 minutes |
+| [`testing/cms-post-deploy-tests-staging`](http://jenkins.vfs.va.gov/job/testing/job/cms-post-deploy-tests-staging/) Jenkins job | ~30 minutes | ~30 minutes |
+| [`deploys/cms-auto-deploy`](http://jenkins.vfs.va.gov/job/deploys/job/cms-auto-deploy/) Jenkins job | ~15 minutes | ~15 minutes |
 | [`cms/cms-full-pipeline`](http://jenkins.vfs.va.gov/job/cms/job/cms-full-pipeline/) Jenkins job | ~7 minutes | ~10 minutes |
 | [`releases/cms`](http://jenkins.vfs.va.gov/job/releases/job/cms/) Jenkins job | ~1 minute | ~10 minutes |
 | [`deploys/cms-vagov-prod`](http://jenkins.vfs.va.gov/job/deploys/job/cms-vagov-prod/) Jenkins job | ~7 minutes | |
