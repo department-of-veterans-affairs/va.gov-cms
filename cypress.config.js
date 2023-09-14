@@ -48,7 +48,7 @@ async function setupNodeEvents(on, config) {
       const httpsUrl = filePath
         .replace(process.cwd(), BASE_URL)
         .replace("docroot/", "");
-        
+
       return `HTML has been saved to ${httpsUrl}`;
     },
   });
