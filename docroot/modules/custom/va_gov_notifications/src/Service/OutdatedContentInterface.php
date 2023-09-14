@@ -15,7 +15,7 @@ interface OutdatedContentInterface {
    * @param string $template_name
    *   The machine name of the email template.
    *
-   * @return array
+   * @return array['editor' => string,'section' => string]
    *   An array of editor names and section for logging purposes only.
    */
   public function queueOutdatedContentNotifications(string $product_name, string $template_name);

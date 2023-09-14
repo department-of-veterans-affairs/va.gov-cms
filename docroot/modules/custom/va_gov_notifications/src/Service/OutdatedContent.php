@@ -3,6 +3,7 @@
 namespace Drupal\va_gov_notifications\Service;
 
 use Drupal\advancedqueue\Job;
+use Drupal\Core\DependencyInjection\ServiceProviderBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Session\AccountInterface;
@@ -11,9 +12,9 @@ use Drupal\workbench_access\UserSectionStorageInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Service for gathering users with outdated content.
+ * Gathers and queues outdated content email notifications to product editors.
  */
-class OutdatedContent implements OutdatedContentInterface {
+class OutdatedContent extends ServiceProviderBase implements OutdatedContentInterface {
 
   /**
    * The entity type manager.
@@ -79,7 +80,7 @@ class OutdatedContent implements OutdatedContentInterface {
    * @throws \InvalidArgumentException
    *   Thrown when a product_name has not been defined in the map.
    */
-  protected function getProductId(string $product_name):string {
+  protected function getProductId(string $product_name): string {
     // Update the map as new outdated notifications are added.
     // We don't look them up in drupal by name because a name is content and
     // if changed, would break this.
@@ -99,6 +100,38 @@ class OutdatedContent implements OutdatedContentInterface {
   }
 
   /**
+   * Gets a list of content types to exclude from the expired query.
+   *
+   * @param string $product_name
+   *   The simple name of the product. See getProductId() for the accepted list.
+   *
+   * @return string[]
+   *   An array of node bundle machine names to exclude.
+   */
+  protected function getExcludedContentTypes(string $product_name): array {
+    $exclusion_types = [];
+    // Update the cases as new product outdated notifications are added.
+    switch ($product_name) {
+      case 'nca':
+      case 'vamc':
+      case 'vba':
+      case 'vet_center':
+      default:
+        // We usually exclude these because this content is intended to age
+        // without needing updating.  They represent and instant in time
+        // not evergreen content.
+        $exclusion_types = [
+          'event',
+          'news_story',
+          'press_release',
+        ];
+        break;
+    }
+
+    return $exclusion_types;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function queueOutdatedContentNotifications(string $product_name, string $template_name): array {
@@ -109,7 +142,9 @@ class OutdatedContent implements OutdatedContentInterface {
       $editor_sections = $this->getEditorsSections($editor);
       foreach ($editor_sections as $section) {
         $product = $this->getSectionProduct($section);
-        $outdated_content = $this->getOutdatedContentForSection($section);
+        // These are content types that should be allowed to become outdated.
+        $exempt_types = $this->getExcludedContentTypes($product_name);
+        $outdated_content = $this->getOutdatedContentForSection($section, $exempt_types);
         if (!empty($outdated_content) && $product === $product_id) {
           $editorName = $editor->getAccountName();
           $sectionName = $this->getSectionName($section);
@@ -173,7 +208,7 @@ class OutdatedContent implements OutdatedContentInterface {
   }
 
   /**
-   * Sends a notification to VAMC editors.
+   * Sends a notification to an editor.
    *
    * @param \Drupal\Core\Session\AccountInterface $editor
    *   The editor user object.
@@ -209,16 +244,16 @@ class OutdatedContent implements OutdatedContentInterface {
   /**
    * Get the Outdated Content for a Section.
    *
-   * @return array
+   * @param string $section
+   *   The term id of the section to gather content from.
+   * @param array $exempt_types
+   *   An array of content types (bundles) to ignore.
+   *
+   * @return string[]
    *   An array of node ids for nodes that are outdated and need editing.
    */
-  protected function getOutdatedContentForSection($section): array {
+  protected function getOutdatedContentForSection(string $section, array $exempt_types): array {
     $offset = strtotime('-12 month');
-    $exempt_types = [
-      'event',
-      'news_story',
-      'press_release',
-    ];
     $query = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', $exempt_types, 'NOT IN')
       ->condition('status', 1)
@@ -248,7 +283,7 @@ class OutdatedContent implements OutdatedContentInterface {
    * @param \Drupal\Core\Session\AccountInterface $editor
    *   The editor user object.
    *
-   * @return array
+   * @return string[]
    *   The section ids assigned to the editor.
    */
   protected function getEditorsSections(AccountInterface $editor): array {
