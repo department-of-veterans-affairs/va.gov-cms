@@ -3,7 +3,7 @@
 namespace Drupal\va_gov_live_field_migration\Commands;
 
 use Drupal\va_gov_live_field_migration\FieldProvider\Resolver\ResolverInterface as FieldProviderResolverInterface;
-use Drupal\va_gov_live_field_migration\Migration\Resolver\ResolverInterface as MigrationResolverInterface;
+use Drupal\va_gov_live_field_migration\Migration\Runner\RunnerInterface;
 use Drush\Commands\DrushCommands;
 
 /**
@@ -19,48 +19,26 @@ class Commands extends DrushCommands {
   protected $fieldProviderResolver;
 
   /**
-   * The migration resolver service.
+   * The migration runner service.
    *
-   * @var \Drupal\va_gov_live_field_migration\Migration\Resolver\ResolverInterface
+   * @var \Drupal\va_gov_live_field_migration\Migration\Runner\RunnerInterface
    */
-  protected $migrationResolver;
+  protected $migrationRunner;
 
   /**
    * Commands constructor.
    *
    * @param \Drupal\va_gov_live_field_migration\FieldProvider\Resolver\ResolverInterface $fieldProviderResolver
    *   The field provider resolver service.
-   * @param \Drupal\va_gov_live_field_migration\Migration\Resolver\ResolverInterface $migrationResolver
-   *   The migration resolver service.
+   * @param \Drupal\va_gov_live_field_migration\Migration\Runner\RunnerInterface $migrationRunner
+   *   The migration runner service.
    */
   public function __construct(
     FieldProviderResolverInterface $fieldProviderResolver,
-    MigrationResolverInterface $migrationResolver
+    RunnerInterface $migrationRunner
   ) {
-    $this->migrationResolver = $migrationResolver;
     $this->fieldProviderResolver = $fieldProviderResolver;
-  }
-
-  /**
-   * Perform an operation, such as migrating, rolling back, or verifying.
-   *
-   * @param callable $operation
-   *   The operation to perform.
-   */
-  public function performOperation(callable $operation) {
-    $startTime = microtime(TRUE);
-    try {
-      $operation();
-    }
-    catch (\Exception $exception) {
-      $this->output()->writeln('Error: ' . $exception->getMessage());
-    }
-    finally {
-      $elapsedTime = microtime(TRUE) - $startTime;
-      $peakMemoryUsage = memory_get_peak_usage();
-      $this->output()->writeln('Elapsed time: ' . number_format($elapsedTime, 2) . ' seconds');
-      $this->output()->writeln('Peak memory usage: ' . number_format($peakMemoryUsage / 1024 / 1024, 2) . ' MB');
-    }
+    $this->migrationRunner = $migrationRunner;
   }
 
   /**
@@ -71,20 +49,15 @@ class Commands extends DrushCommands {
    * @param string $fieldName
    *   The field name.
    *
-   * @command va-gov-live-field-migration:migrate-field
-   * @aliases va-gov-live-field-migration-migrate-field
+   * @command va-gov-live-field-migration:migrate
+   * @aliases va-gov-live-field-migration-migrate
    */
-  public function migrateField(
+  public function migrate(
     string $entityType,
     string $fieldName
   ) {
-    $this->performOperation(function () use ($entityType, $fieldName) {
-      $this->output()->writeln('Migrating field "' . $fieldName . '" on entity type "' . $entityType . '"...');
-      $this->migrationResolver
-        ->getMigration($entityType, $fieldName)
-        ->runMigration($entityType, $fieldName);
-      $this->output()->writeln('Migration successful.');
-    });
+    $migration = $this->migrationRunner->getMigration($entityType, $fieldName);
+    $this->migrationRunner->runMigration($migration, $entityType, $fieldName);
   }
 
   /**
@@ -95,20 +68,15 @@ class Commands extends DrushCommands {
    * @param string $fieldName
    *   The field name.
    *
-   * @command va-gov-live-field-migration:rollback-field
-   * @aliases va-gov-live-field-migration-rollback-field
+   * @command va-gov-live-field-migration:rollback
+   * @aliases va-gov-live-field-migration-rollback
    */
-  public function rollbackField(
+  public function rollback(
     string $entityType,
     string $fieldName
   ) {
-    $this->performOperation(function () use ($entityType, $fieldName) {
-      $this->output()->writeln('Rolling back migration of field "' . $fieldName . '" on entity type "' . $entityType . '"...');
-      $this->migrationResolver
-        ->getMigration($entityType, $fieldName)
-        ->rollbackMigration($entityType, $fieldName);
-      $this->output()->writeln('Rollback successful.');
-    });
+    $migration = $this->migrationRunner->getMigration($entityType, $fieldName);
+    $this->migrationRunner->rollbackMigration($migration, $entityType, $fieldName);
   }
 
   /**
@@ -126,13 +94,8 @@ class Commands extends DrushCommands {
     string $entityType,
     string $fieldName
   ) {
-    $this->performOperation(function () use ($entityType, $fieldName) {
-      $this->output()->writeln('Verifying migration of field "' . $fieldName . '" on entity type "' . $entityType . '"...');
-      $this->migrationResolver
-        ->getMigration($entityType, $fieldName)
-        ->verifyMigration($entityType, $fieldName);
-      $this->output()->writeln('Verification successful.');
-    });
+    $migration = $this->migrationRunner->getMigration($entityType, $fieldName);
+    $this->migrationRunner->verifyMigration($migration, $entityType, $fieldName);
   }
 
   /**
@@ -159,16 +122,14 @@ class Commands extends DrushCommands {
     if ($entityType === NULL) {
       $entityType = 'node';
     }
-    $this->performOperation(function () use ($fieldProvider, $entityType, $bundle) {
-      $this->output()->writeln('Finding fields on entity type "' . $entityType . '", bundle "' . ($bundle ?: 'NULL') . '"...');
-      $fields = $this->fieldProviderResolver
-        ->getFieldProvider($fieldProvider)
-        ->getFields($entityType, $bundle);
-      $this->output()->writeln('Found ' . count($fields) . ' fields.');
-      foreach ($fields as $field) {
-        $this->output()->writeln($field);
-      }
-    });
+    $this->output()->writeln('Finding fields on entity type "' . $entityType . '", bundle "' . ($bundle ?: 'NULL') . '"...');
+    $fields = $this->fieldProviderResolver
+      ->getFieldProvider($fieldProvider)
+      ->getFields($entityType, $bundle);
+    $this->output()->writeln('Found ' . count($fields) . ' fields.');
+    foreach ($fields as $field) {
+      $this->output()->writeln($field);
+    }
   }
 
 }

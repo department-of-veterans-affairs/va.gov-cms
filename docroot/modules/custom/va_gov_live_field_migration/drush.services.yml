@@ -3,6 +3,6 @@ services:
     class: \Drupal\va_gov_live_field_migration\Commands\Commands
     arguments:
       - '@va_gov_live_field_migration.field_provider_resolver'
-      - '@va_gov_live_field_migration.migration_resolver'
+      - '@va_gov_live_field_migration.migration_runner'
     tags:
       - { name: drush.command }

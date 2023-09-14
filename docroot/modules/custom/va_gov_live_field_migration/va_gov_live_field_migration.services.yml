@@ -14,6 +14,13 @@ services:
     arguments:
       - '@plugin.manager.va_gov_live_field_migration.migration'
       - '@entity_field.manager'
+  va_gov_live_field_migration.migration_runner:
+    class: Drupal\va_gov_live_field_migration\Migration\Runner\Runner
+    arguments:
+      - '@va_gov_live_field_migration.field_provider_resolver'
+      - '@va_gov_live_field_migration.migration_resolver'
+      - '@va_gov_live_field_migration.reporter'
+      - '@va_gov_live_field_migration.state'
   va_gov_live_field_migration.reporter:
     class: Drupal\va_gov_live_field_migration\Reporter\Reporter
     arguments: ['@messenger', '@logger.factory']

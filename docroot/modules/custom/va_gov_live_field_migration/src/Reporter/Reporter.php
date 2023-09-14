@@ -4,6 +4,7 @@ namespace Drupal\va_gov_live_field_migration\Reporter;
 
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drush\Drush;
 
 /**
  * The live field migration reporter service.
@@ -42,10 +43,25 @@ class Reporter implements ReporterInterface {
   }
 
   /**
+   * Check if we're in a Drush environment.
+   *
+   * @return bool
+   *   TRUE if in a Drush environment, FALSE otherwise.
+   */
+  protected function isDrushEnvironment() : bool {
+    return class_exists(Drush::class);
+  }
+
+  /**
    * {@inheritDoc}
    */
   public function reportInfo(string $message) : void {
-    $this->messenger->addStatus($message);
+    if ($this->isDrushEnvironment()) {
+      Drush::service('output')->writeln($message);
+    }
+    else {
+      $this->messenger->addStatus($message);
+    }
     $this->logger->info($message);
   }
 
@@ -53,7 +69,12 @@ class Reporter implements ReporterInterface {
    * {@inheritDoc}
    */
   public function reportError(string $message, \Throwable $exception = NULL) : void {
-    $this->messenger->addError($message);
+    if ($this->isDrushEnvironment()) {
+      Drush::service('output')->writeln("<error>$message</error>");
+    }
+    else {
+      $this->messenger->addError($message);
+    }
     $this->logger->error($message);
     if ($exception) {
       // When we are on Drupal 10.0.0, we can use the following:
