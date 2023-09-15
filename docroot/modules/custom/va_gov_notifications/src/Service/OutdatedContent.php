@@ -134,10 +134,11 @@ class OutdatedContent extends ServiceProviderBase implements OutdatedContentInte
   /**
    * {@inheritdoc}
    */
-  public function queueOutdatedContentNotifications(string $product_name, string $template_name): array {
+  public function queueOutdatedContentNotifications(string $product_name, string $template_name, array $test_users = []): array {
     $have_outdated_content = [];
     $product_id = $this->getProductId($product_name);
-    $editors = $this->getAllEditors();
+    // If test users are not provided, look up all the users.
+    $editors = $this->getAllEditors($test_users);
     foreach ($editors as $editor) {
       $editor_sections = $this->getEditorsSections($editor);
       foreach ($editor_sections as $section) {
@@ -263,17 +264,24 @@ class OutdatedContent extends ServiceProviderBase implements OutdatedContentInte
   }
 
   /**
-   * Gets all editors.
+   * Gets specified editors or all editors.
+   *
+   * @param string[] $uids
+   *   (optional) User ids to look up explicitly.
    *
    * @return \Drupal\Core\Entity\EntityInterface[]
    *   An array of all active users in the CMS.
    */
-  protected function getAllEditors(): array {
+  protected function getAllEditors(array $uids): array {
     $userStorage = $this->entityTypeManager->getStorage('user');
-    $uids = $userStorage->getQuery()
-      ->condition('status', 1)
-      ->accessCheck(FALSE)
-      ->execute();
+    if (empty($uids)) {
+      // No uids provided, so get them all.
+      $uids = $userStorage->getQuery()
+        ->condition('status', 1)
+        ->accessCheck(FALSE)
+        ->execute();
+    }
+
     return $userStorage->loadMultiple($uids);
   }
 

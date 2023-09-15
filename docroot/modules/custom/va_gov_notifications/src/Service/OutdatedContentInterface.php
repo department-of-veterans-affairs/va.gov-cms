@@ -14,10 +14,12 @@ interface OutdatedContentInterface {
    *   The product name to connect to the product id.
    * @param string $template_name
    *   The machine name of the email template.
+   * @param string[] $test_users
+   *   An array of user ids to send to instead of the actual lookups.
    *
    * @return array['editor' => string,'section' => string]
    *   An array of editor names and section for logging purposes only.
    */
-  public function queueOutdatedContentNotifications(string $product_name, string $template_name);
+  public function queueOutdatedContentNotifications(string $product_name, string $template_name, array $test_users = []);
 
 }
