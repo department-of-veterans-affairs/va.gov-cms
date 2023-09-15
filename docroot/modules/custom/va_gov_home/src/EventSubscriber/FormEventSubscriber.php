@@ -41,9 +41,6 @@ class FormEventSubscriber implements EventSubscriberInterface {
       $admin = $this->permsService->hasAdminRole(TRUE);
       $this->hubMenuFormAlter($form, $admin);
     }
-    if ($event->getFormId() === 'menu_link_content_va-gov-footer_form' || $event->getFormId() === 'menu_link_content_footer-bottom-rail_form') {
-      $this->hideMenuLinkDescriptionField($form);
-    }
   }
 
   /**
@@ -123,16 +120,6 @@ class FormEventSubscriber implements EventSubscriberInterface {
       $form['menu_parent']['#access'] = $admin;
     }
     return $this;
-  }
-
-  /**
-   * Hides the description field on certain menu link forms.
-   *
-   * @param array $form
-   *   The form element array.
-   */
-  public function hideMenuLinkDescriptionField(array &$form): void {
-    $form['description']['#access'] = FALSE;
   }
 
   /**
