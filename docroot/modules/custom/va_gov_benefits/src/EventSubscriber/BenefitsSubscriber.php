@@ -2,12 +2,12 @@
 
 namespace Drupal\va_gov_benefits\EventSubscriber;
 
-use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
-use Drupal\core_event_dispatcher\FormHookEvents;
 use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\va_gov_user\Service\UserPermsService;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
+use Drupal\core_event_dispatcher\FormHookEvents;
+use Drupal\va_gov_user\Service\UserPermsService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -65,14 +65,19 @@ class BenefitsSubscriber implements EventSubscriberInterface {
    */
   public function protectSelectFields(array &$form, FormStateInterface $form_state): void {
     $form_object = $form_state->getFormObject();
-    if ($form_object instanceof ContentEntityForm) {
-      $bundle = $form_object->getEntity()->bundle();
-      if (!$this->userPermsService->hasAdminRole(TRUE) && $bundle === 'va_benefits_taxonomy') {
-        // Disable Official Benefit name field from non-editors.
+    if ($form_object instanceof ContentEntityForm
+      && $form_object->getEntity()->bundle() === 'va_benefits_taxonomy') {
+      // Distinguish between admins and lock down accordingly.
+      $is_admin = $this->userPermsService->hasAdminRole();
+      $is_administrator_only = $this->userPermsService->hasAdminRole(TRUE);
+      if (!$is_admin) {
+        // Disable Official Benefit name field from non-admins.
         $form['name']['#disabled'] = TRUE;
-        // Hide API ID field from non-editors.
-        $form['field_va_benefit_api_id']['#access'] = FALSE;
-        // Hide taxonomy Relations field from non-editors.
+        // Disable API ID field from non-admins.
+        $form['field_va_benefit_api_id']['#disabled'] = TRUE;
+      }
+      if (!$is_administrator_only) {
+        // Hide taxonomy Relations field.
         $form['relations']['#access'] = FALSE;
       }
     }
