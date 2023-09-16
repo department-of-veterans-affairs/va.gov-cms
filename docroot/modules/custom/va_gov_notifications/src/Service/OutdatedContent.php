@@ -100,6 +100,34 @@ class OutdatedContent extends ServiceProviderBase implements OutdatedContentInte
   }
 
   /**
+   * Gets the email subject based on the product.
+   *
+   * @param string $product_name
+   *   The simple name of the product. See getProductId() for the accepted list.
+   *
+   * @return string[]
+   *   An array of node bundle machine names to exclude.
+   */
+  protected function getSubject(string $product_name) {
+    // Update the cases as new product outdated notifications are added.
+    switch ($product_name) {
+      case 'vet_center':
+        $subject = '[ACTION REQUIRED] Vet Center Website Content Review';
+        break;
+
+      case 'nca':
+      case 'vamc':
+      case 'vba':
+      default:
+        $subject = '[ACTION REQUIRED] Review Content Report';
+        break;
+    }
+
+    return $subject;
+
+  }
+
+  /**
    * Gets a list of content types to exclude from the expired query.
    *
    * @param string $product_name
@@ -109,7 +137,6 @@ class OutdatedContent extends ServiceProviderBase implements OutdatedContentInte
    *   An array of node bundle machine names to exclude.
    */
   protected function getExcludedContentTypes(string $product_name): array {
-    $exclusion_types = [];
     // Update the cases as new product outdated notifications are added.
     switch ($product_name) {
       case 'nca':
@@ -118,7 +145,7 @@ class OutdatedContent extends ServiceProviderBase implements OutdatedContentInte
       case 'vet_center':
       default:
         // We usually exclude these because this content is intended to age
-        // without needing updating.  They represent and instant in time
+        // without needing updating.  They represent an instant in time,
         // not evergreen content.
         $exclusion_types = [
           'event',
@@ -152,13 +179,15 @@ class OutdatedContent extends ServiceProviderBase implements OutdatedContentInte
           $this->vaGovNotificationsLogger
             ->info('Outdated content found for @sectionName editor: @editor',
             ['@editor' => $editorName, '@sectionName' => $sectionName]);
-          $this->queueNotification($editor, $template_name, $template_name);
+          $this->queueNotification($editor, $product_name, $template_name, $template_name);
           $have_outdated_content[] = [
             'editor' => $editorName,
             'section' => $sectionName,
           ];
+          // Once we find some outdated content that matches, it is good enough
+          // to trigger. No need to keep digging.
+          break;
         }
-        break;
       }
     }
     // This is to provide output for the drush command only.
@@ -213,6 +242,8 @@ class OutdatedContent extends ServiceProviderBase implements OutdatedContentInte
    *
    * @param \Drupal\Core\Session\AccountInterface $editor
    *   The editor user object.
+   * @param string $product_name
+   *   The name of the product.
    * @param string $queue
    *   The queue to use.
    * @param string $template
@@ -221,7 +252,7 @@ class OutdatedContent extends ServiceProviderBase implements OutdatedContentInte
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  protected function queueNotification(AccountInterface $editor, string $queue, string $template): void {
+  protected function queueNotification(AccountInterface $editor, string $product_name, string $queue, string $template): void {
     // Get the queue.
     /** @var \Drupal\advancedqueue\Entity\Queue $queue */
     $queue = $this->entityTypeManager
@@ -234,7 +265,7 @@ class OutdatedContent extends ServiceProviderBase implements OutdatedContentInte
     $template_values = compact('template', 'uid');
     $values = [
       'field_editor_username' => $editor_username,
-      'field_subject' => '[ACTION REQUIRED] Review Content Report',
+      'field_subject' => $this->getSubject($product_name),
     ];
 
     // Create the job.
@@ -269,7 +300,7 @@ class OutdatedContent extends ServiceProviderBase implements OutdatedContentInte
    * @param string[] $uids
    *   (optional) User ids to look up explicitly.
    *
-   * @return \Drupal\Core\Entity\EntityInterface[]
+   * @return \Drupal\user\UserInterface[]
    *   An array of all active users in the CMS.
    */
   protected function getAllEditors(array $uids): array {
