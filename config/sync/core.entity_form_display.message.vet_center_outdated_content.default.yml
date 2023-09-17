@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.message.vet_center_outdated_content.field_editor_username
     - field.field.message.vet_center_outdated_content.field_subject
+    - field.field.message.vet_center_outdated_content.field_webhost
     - message.template.vet_center_outdated_content
 id: message.vet_center_outdated_content.default
 targetEntityType: message
@@ -39,3 +40,4 @@ content:
     '#group': advanced
 hidden:
   field_editor_username: true
+  field_webhost: true

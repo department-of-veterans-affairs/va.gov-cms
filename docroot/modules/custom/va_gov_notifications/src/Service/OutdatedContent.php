@@ -7,6 +7,7 @@ use Drupal\Core\DependencyInjection\ServiceProviderBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Site\Settings;
 use Drupal\workbench_access\Entity\AccessSchemeInterface;
 use Drupal\workbench_access\UserSectionStorageInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -266,6 +267,7 @@ class OutdatedContent extends ServiceProviderBase implements OutdatedContentInte
     $values = [
       'field_editor_username' => $editor_username,
       'field_subject' => $this->getSubject($product_name),
+      'field_webhost' => Settings::get('webhost', 'https://prod.cms.va.gov'),
     ];
 
     // Create the job.

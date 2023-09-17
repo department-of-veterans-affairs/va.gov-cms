@@ -46,6 +46,6 @@ Once email notifications have been queued, The queue can be processed. To proces
    - getExcludedContentTypes()
 7. Add a new appropriately named template to docroot/modules/custom/va_gov_notifications/templates/
 8. Register your new template by adding it to va_gov_notifications_theme() in the .module file.
-9. Add a pre-process to manage the body variables in the .module file.
+9. Add template name to '$types' in va_gov_notifications_mail_alter() in the .module file.
 10. Test with `drush php-eval "print_r(\Drupal::service('va_gov_notifications.outdated_content')->queueOutdatedContentNotifications('<product name>', '<template_name>', [<test user ids>]));"`
 11. Add entry to 'every month' task in [tasks-periodic.yml](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/tasks-periodic.yml#L92).
