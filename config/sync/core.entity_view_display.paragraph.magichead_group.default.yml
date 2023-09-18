@@ -8,7 +8,6 @@ dependencies:
     - paragraphs.paragraphs_type.magichead_group
   module:
     - layout_builder
-    - layout_discovery
     - text
 third_party_settings:
   layout_builder:
@@ -28,7 +27,7 @@ content:
     region: content
   field_magichead_heading:
     type: string
-    label: inline
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
