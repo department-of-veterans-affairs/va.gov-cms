@@ -4,7 +4,7 @@ namespace Drupal\va_gov_header_footer\EventSubscriber;
 
 use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
 use Drupal\core_event_dispatcher\FormHookEvents;
-use Drupal\va_gov_header_footer\Traits\MenuFormAlter;
+use Drupal\va_gov_header_footer\Traits\MenuFormAlterTrait;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -13,7 +13,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class FormEventSubscriber implements EventSubscriberInterface {
 
-  use MenuFormAlter;
+  use MenuFormAlterTrait;
 
   /**
    * The VA user permission service.

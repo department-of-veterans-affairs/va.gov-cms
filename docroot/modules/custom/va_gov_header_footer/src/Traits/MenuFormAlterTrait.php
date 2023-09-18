@@ -5,7 +5,7 @@ namespace Drupal\va_gov_header_footer\Traits;
 /**
  * Provides centralized menu form alter methods.
  */
-trait MenuFormAlter {
+trait MenuFormAlterTrait {
 
   /**
    * Hides the description field on certain menu link forms.
