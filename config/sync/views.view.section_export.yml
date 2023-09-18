@@ -85,14 +85,14 @@ display:
           form_step: true
           buttons: false
           action_title: Action
+          clear_on_exposed: true
+          force_selection_info: false
           selected_actions:
             1:
               action_id: views_bulk_edit
               preconfiguration:
-                add_confirmation: 0
-                get_bundles_from_results: 1
-          clear_on_exposed: true
-          force_selection_info: 0
+                add_confirmation: false
+                get_bundles_from_results: true
         tid:
           id: tid
           table: taxonomy_term_field_revision
