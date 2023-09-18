@@ -36,7 +36,7 @@ Once email notifications have been queued, The queue can be processed. To proces
 
 ## How to add a new monthly outdated content email?
 1. [Create the messages template](/admin/structure/message).
-2. Set up the body and subject view modes for the message.  Tip: 'Partial 0' is the message text from the template.
+2. Set up the body and subject view modes for the message.  Tip: 'Partial 0' is the message text from the message template (not the twig template).  The message template text is "{{ content }}" on the twig template.
 3. [Add a new queue](/admin/config/system/queues)
 4. [Add a new mime mailer entry](/admin/config/system/mailsystem)
 5. Export your config. 'drush cex'
@@ -44,8 +44,9 @@ Once email notifications have been queued, The queue can be processed. To proces
    - getProductId()
    - getSubject()
    - getExcludedContentTypes()
-7. Add a new appropriately named template to docroot/modules/custom/va_gov_notifications/templates/
+7. Add a new appropriately named twig template to docroot/modules/custom/va_gov_notifications/templates/
 8. Register your new template by adding it to va_gov_notifications_theme() in the .module file.
 9. Add template name to '$types' in va_gov_notifications_mail_alter() in the .module file.
-10. Test with `drush php-eval "print_r(\Drupal::service('va_gov_notifications.outdated_content')->queueOutdatedContentNotifications('<product name>', '<template_name>', [<test user ids>]));"`
-11. Add entry to 'every month' task in [tasks-periodic.yml](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/tasks-periodic.yml#L92).
+10. Edit the section taxonomy term that represents the product you are adding, Make sure it has the right product assigned to it.
+11. Test with `drush php-eval "print_r(\Drupal::service('va_gov_notifications.outdated_content')->queueOutdatedContentNotifications('<product name>', '<template_name>', [<test user ids>]));"`
+12. Add entry to 'every_month' task in [tasks-periodic.yml](https://github.com/department-of-veterans-affairs/va.gov-cms/blob/main/tasks-periodic.yml#L92).
