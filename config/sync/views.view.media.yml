@@ -4464,17 +4464,17 @@ display:
           form_step: true
           buttons: true
           action_title: Action
+          clear_on_exposed: true
           selected_actions:
             -
               action_id: views_bulk_edit
               preconfiguration:
                 label_override: ''
-                get_bundles_from_results: 1
+                get_bundles_from_results: true
             -
               action_id: 'entity:delete_action:media'
               preconfiguration:
                 label_override: ''
-          clear_on_exposed: true
         thumbnail__target_id:
           id: thumbnail__target_id
           table: media_field_data
