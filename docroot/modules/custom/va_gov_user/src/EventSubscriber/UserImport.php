@@ -166,7 +166,10 @@ class UserImport implements EventSubscriberInterface {
 
     $this->addUserToSections($row, $user);
 
-    if (!$this->environmentDiscovery->isBRD()) {
+    if ($this->environmentDiscovery->isBRD()) {
+      $this->enableSamlAuth($user);
+    }
+    else {
       $user->setPassword('drupal8');
     }
 
@@ -231,7 +234,6 @@ class UserImport implements EventSubscriberInterface {
    */
   private function addUserToSections(Row $row, UserInterface $user) {
     if ($section_ids = $this->getSectionIds($row->getDestinationProperty('sections'))) {
-      /** @var \Drupal\workbench_access\Entity\AccessSchemeInterface $user_section_scheme */
       $user_section_scheme = $this->entityTypeManager->getStorage('access_scheme')->load('section');
       $this->userSectionStorage->addUser($user_section_scheme, $user, $section_ids);
     }
@@ -245,7 +247,8 @@ class UserImport implements EventSubscriberInterface {
    */
   private function enableSamlAuth(UserInterface $user) {
     $authname = $user->getAccountName();
-    $this->externalAuth->linkExistingAccount($authname, 'samlauth', $user);
+    $this->moduleHandler->alter('simplesamlphp_auth_account_authname', $authname, $user);
+    $this->externalAuth->linkExistingAccount($authname, 'simplesamlphp_auth', $user);
   }
 
   /**

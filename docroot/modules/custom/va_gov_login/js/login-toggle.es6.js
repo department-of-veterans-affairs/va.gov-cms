@@ -33,7 +33,7 @@
 
           // Move focus back to top of form when toggled.
           if (loginForm.classList.contains("piv-login")) {
-            document.querySelector("a.samlauth-login-link").focus();
+            document.querySelector("a.simplesamlphp-auth-login-link").focus();
           } else {
             document.querySelector(".js-login-username input").focus();
           }
