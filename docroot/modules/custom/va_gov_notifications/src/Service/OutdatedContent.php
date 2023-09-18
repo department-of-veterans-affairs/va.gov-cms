@@ -306,6 +306,7 @@ class OutdatedContent extends ServiceProviderBase implements OutdatedContentInte
    *   An array of all active users in the CMS.
    */
   protected function getAllEditors(array $uids): array {
+    $explicit = !empty($uids);
     $userStorage = $this->entityTypeManager->getStorage('user');
     if (empty($uids)) {
       // No uids provided, so get them all.
@@ -314,8 +315,34 @@ class OutdatedContent extends ServiceProviderBase implements OutdatedContentInte
         ->accessCheck(FALSE)
         ->execute();
     }
+    $users = $userStorage->loadMultiple($uids);
+    $users = $this->removeBlockedUsers($users, $explicit);
 
-    return $userStorage->loadMultiple($uids);
+    return $users;
+  }
+
+  /**
+   * Removes any blocked users from the users if they were explicitly called.
+   *
+   * @param \Drupal\user\UserInterface[] $users
+   *   CMS users.
+   * @param bool $explicit
+   *   A bool indicating whether the data was explicitly set by a caller.
+   *
+   * @return \Drupal\user\UserInterface[]
+   *   Users with any blocked users removed if it was explicitly called.
+   */
+  protected function removeBlockedUsers(array $users, bool $explicit): array {
+    if ($explicit) {
+      // These users were hand specified.  Some of them might be blocked.
+      foreach ($users as $key => $user) {
+        if ($user->isBlocked()) {
+          unset($users[$key]);
+        }
+      }
+    }
+
+    return $users;
   }
 
   /**
