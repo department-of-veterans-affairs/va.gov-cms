@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\va_gov_header_footer\Traits;
+namespace Drupal\va_gov_menus\Traits;
 
 /**
  * Provides centralized menu form alter methods.
