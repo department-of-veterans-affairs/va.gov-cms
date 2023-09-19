@@ -51,7 +51,7 @@ services:
         - docker-php-ext-install opcache
         - a2enmod headers rewrite vhost_alias
         # Install datadog agent for application tracing and profiling.
-        - DD_AGENT_MAJOR_VERSION=7 DD_API_KEY=" " DD_INSTALL_ONLY=true DD_SITE="ddog-gov.com" bash -c "$(curl -L https://s3.amazonaws.com/dd-agent/scripts/install_script.sh)"
+        - DD_API_KEY=" " DD_INSTALL_ONLY=true DD_SITE="ddog-gov.com" bash -c "$(curl -L https://s3.amazonaws.com/dd-agent/scripts/install_script_agent7.sh)"
 
         # Install Datadog application tracing PHP extension
         - php $(curl -w "%{filename_effective}" -LO $(curl -s https://api.github.com/repos/DataDog/dd-trace-php/releases | grep browser_download_url | grep 'setup[.]php' | head -n 1 | cut -d '"' -f 4)) --enable-profiling --php-bin=php
