@@ -19,17 +19,12 @@ targetEntityType: node
 bundle: vba_facility_service
 mode: default
 content:
-  content_moderation_control:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
-    region: content
   field_enforce_unique_combo:
     type: allow_only_one
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 0
     region: content
   field_office:
     type: entity_reference_label
@@ -46,7 +41,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 6
+    weight: 3
     region: content
   field_service_name_and_descripti:
     type: entity_reference_label
@@ -54,15 +49,12 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 3
-    region: content
-  links:
-    settings: {  }
-    third_party_settings: {  }
     weight: 1
     region: content
 hidden:
+  content_moderation_control: true
   field_administration: true
   field_last_saved_by_an_editor: true
   langcode: true
+  links: true
   search_api_excerpt: true
