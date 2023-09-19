@@ -9,7 +9,6 @@
     var _this = this;
     var $table = $(once("magicheadTabledrag", "table#" + tableId));
     $table.find(".tabledrag-hide").css("display", "");
-    $table.find(".tabledrag-handle").css("display", "none");
     $table.find(".tabledrag-has-colspan").each(function () {
       _this.colSpan += 1;
     });
