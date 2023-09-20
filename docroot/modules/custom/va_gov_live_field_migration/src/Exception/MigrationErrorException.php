@@ -3,6 +3,6 @@
 namespace Drupal\va_gov_live_field_migration\Exception;
 
 /**
- * Exception thrown when a migration plugin cannot be found.
+ * General exception thrown when a migration fails.
  */
 class MigrationErrorException extends \Exception {}

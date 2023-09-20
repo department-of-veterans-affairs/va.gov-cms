@@ -2,8 +2,8 @@
 
 namespace Drupal\va_gov_live_field_migration\Plugin\Migration;
 
-use Drupal\va_gov_live_field_migration\Exception\MigrationErrorException;
 use Drupal\va_gov_live_field_migration\Exception\MigrationRollbackException;
+use Drupal\va_gov_live_field_migration\Exception\MigrationRunException;
 use Drupal\va_gov_live_field_migration\Exception\MigrationVerificationException;
 use Drupal\va_gov_live_field_migration\Migration\Plugin\MigrationPluginBase;
 
@@ -23,7 +23,7 @@ class TestException extends MigrationPluginBase {
    * {@inheritDoc}
    */
   public function runMigration(string $entityType, string $fieldName) : void {
-    throw new MigrationErrorException('This is a test exception.');
+    throw new MigrationRunException('This is a test exception.');
   }
 
   /**

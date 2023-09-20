@@ -45,6 +45,15 @@ class State implements StateInterface {
   /**
    * {@inheritDoc}
    */
+  public function createStatus(string $migrationId, string $entityType, string $fieldName): StatusInterface {
+    $status = new Status($migrationId, $entityType, $fieldName);
+    $this->setStatus($status);
+    return $this->getStatus($migrationId, $entityType, $fieldName);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   public function setStatus(StatusInterface $status): void {
     $this->coreState->set($status->getKey(), $status->toJson());
   }

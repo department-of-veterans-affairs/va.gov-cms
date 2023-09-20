@@ -105,6 +105,9 @@ class Issue14995 extends FieldProviderPluginBase {
    */
   public function isStillValid(string $entityType, string $fieldName) : bool {
     $fieldStorage = $this->entityFieldManager->getFieldStorageDefinitions($entityType)[$fieldName];
+    if ($fieldStorage === NULL) {
+      return FALSE;
+    }
     return in_array($fieldStorage->getType(), static::VALID_FIELD_TYPES);
   }
 
@@ -122,8 +125,8 @@ class Issue14995 extends FieldProviderPluginBase {
    *   Whether this field exists on a specified bundle.
    */
   public function fieldExistsOnBundle(string $entityType, string $fieldName, string $bundle) : bool {
-    $fieldMap = $this->entityFieldManager->getFieldMapByFieldType($entityType, $fieldName);
-    return in_array($bundle, array_keys($fieldMap));
+    $fieldConfig = $this->entityFieldManager->getFieldDefinitions($entityType, $bundle)[$fieldName];
+    return $fieldConfig !== NULL;
   }
 
   /**
@@ -132,7 +135,7 @@ class Issue14995 extends FieldProviderPluginBase {
   public function getFields(string $entityType, string $bundle = NULL) : array {
     $fields = static::FIELDS[$entityType] ?? [];
     if ($bundle !== NULL) {
-      $fields = array_filter($fields, function ($field) use ($bundle) {
+      $fields = array_filter($fields, function ($field) use ($entityType, $bundle) {
         return $this->fieldExistsOnBundle($entityType, $field, $bundle);
       });
     }

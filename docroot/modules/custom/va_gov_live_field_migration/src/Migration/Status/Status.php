@@ -2,6 +2,7 @@
 
 namespace Drupal\va_gov_live_field_migration\Migration\Status;
 
+use Drupal\va_gov_live_field_migration\Exception\StatusDeserializationException;
 use Drupal\va_gov_live_field_migration\Migration\Status\Key\Key;
 
 /**
@@ -161,7 +162,7 @@ class Status implements StatusInterface, \JsonSerializable {
   /**
    * {@inheritDoc}
    */
-  public function jsonSerialize() {
+  public function jsonSerialize(): mixed {
     return [
       'entityType' => $this->getEntityType(),
       'fieldName' => $this->getFieldName(),

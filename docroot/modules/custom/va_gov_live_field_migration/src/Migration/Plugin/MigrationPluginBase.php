@@ -6,6 +6,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Plugin\PluginBase;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\va_gov_live_field_migration\Migrator\Factory\FactoryInterface;
 use Drupal\va_gov_live_field_migration\Reporter\ReporterInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -24,6 +25,13 @@ abstract class MigrationPluginBase extends PluginBase implements MigrationPlugin
   protected $reporter;
 
   /**
+   * The migration factory service.
+   *
+   * @var \Drupal\va_gov_live_field_migration\Migrator\Factory\FactoryInterface
+   */
+  protected $migratorFactory;
+
+  /**
    * {@inheritDoc}
    *
    * @codeCoverageIgnore
@@ -32,12 +40,14 @@ abstract class MigrationPluginBase extends PluginBase implements MigrationPlugin
     array $configuration,
     $plugin_id,
     $plugin_definition,
+    TranslationInterface $stringTranslation,
     ReporterInterface $reporter,
-    TranslationInterface $stringTranslation
+    FactoryInterface $migratorFactory
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->reporter = $reporter;
     $this->stringTranslation = $stringTranslation;
+    $this->reporter = $reporter;
+    $this->migratorFactory = $migratorFactory;
   }
 
   /**
@@ -55,8 +65,9 @@ abstract class MigrationPluginBase extends PluginBase implements MigrationPlugin
       $configuration,
       $plugin_id,
       $plugin_definition,
+      $container->get('string_translation'),
       $container->get('va_gov_live_field_migration.reporter'),
-      $container->get('string_translation')
+      $container->get('va_gov_live_field_migration.migrator_factory')
     );
   }
 

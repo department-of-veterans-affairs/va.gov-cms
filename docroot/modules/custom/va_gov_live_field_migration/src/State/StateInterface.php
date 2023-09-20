@@ -28,6 +28,21 @@ interface StateInterface {
   public function getStatus(string $migrationId, string $entityType, string $fieldName): StatusInterface;
 
   /**
+   * Create a status object for the specified migration.
+   *
+   * @param string $migrationId
+   *   The migration ID.
+   * @param string $entityType
+   *   The entity type.
+   * @param string $fieldName
+   *   The field name.
+   *
+   * @return \Drupal\va_gov_live_field_migration\Migration\Status\StatusInterface
+   *   A new object containing information about the migration.
+   */
+  public function createStatus(string $migrationId, string $entityType, string $fieldName): StatusInterface;
+
+  /**
    * Set information about the specified migration.
    *
    * @param \Drupal\va_gov_live_field_migration\Migration\Status\StatusInterface $status

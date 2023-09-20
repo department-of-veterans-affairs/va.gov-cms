@@ -5,10 +5,17 @@ services:
   plugin.manager.va_gov_live_field_migration.migration:
     class: Drupal\va_gov_live_field_migration\Migration\Plugin\MigrationPluginManager
     parent: default_plugin_manager
+  va_gov_live_field_migration.database:
+    class: Drupal\va_gov_live_field_migration\Database\Database
+    arguments:
+      - '@database'
   va_gov_live_field_migration.field_provider_resolver:
     class: Drupal\va_gov_live_field_migration\FieldProvider\Resolver\Resolver
     arguments:
       - '@plugin.manager.va_gov_live_field_migration.field_provider'
+  va_gov_live_field_migration.field_purger:
+    class: Drupal\va_gov_live_field_migration\FieldPurger\FieldPurger
+    arguments: []
   va_gov_live_field_migration.migration_resolver:
     class: Drupal\va_gov_live_field_migration\Migration\Resolver\Resolver
     arguments:
@@ -21,6 +28,18 @@ services:
       - '@va_gov_live_field_migration.migration_resolver'
       - '@va_gov_live_field_migration.reporter'
       - '@va_gov_live_field_migration.state'
+  va_gov_live_field_migration.migrator_factory:
+    class: Drupal\va_gov_live_field_migration\Migrator\Factory\Factory
+    arguments:
+      - '@string_translation'
+      - '@va_gov_live_field_migration.reporter'
+      - '@va_gov_live_field_migration.state'
+      - '@va_gov_live_field_migration.database'
+      - '@entity_display.repository'
+      - '@entity_field.manager'
+      - '@entity_type.manager'
+      - '@entity_type.repository'
+      - '@va_gov_live_field_migration.field_purger'
   va_gov_live_field_migration.reporter:
     class: Drupal\va_gov_live_field_migration\Reporter\Reporter
     arguments: ['@messenger', '@logger.factory']

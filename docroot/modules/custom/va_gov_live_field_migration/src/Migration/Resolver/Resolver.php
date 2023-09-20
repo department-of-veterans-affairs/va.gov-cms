@@ -62,6 +62,9 @@ class Resolver implements ResolverInterface {
    */
   public function getMigrationId(string $entityType, string $fieldName): string {
     $fieldStorage = $this->entityFieldManager->getFieldStorageDefinitions($entityType)[$fieldName];
+    if ($fieldStorage === NULL) {
+      throw new MigrationNotFoundException(sprintf('Field %s not found on entity type %s.', $fieldName, $entityType));
+    }
     if ($fieldStorage->getType() === 'string') {
       return 'string_to_string_long';
     }
