@@ -27,7 +27,13 @@
         const serviceSelector = context.querySelector(
           ".field--name-field-service-name-and-descripti select"
         );
-        const wysiwyg = context.getElementById("edit-field-body-wrapper");
+        let wysiwyg = "";
+        if (context.getElementById("edit-field-body-wrapper") !== null) {
+          wysiwyg = context.getElementById("edit-field-body-wrapper");
+        } else if (context.getElementById("edit-group-service-details") !== null) {
+          wysiwyg = context.getElementById("edit-group-service-details");
+        }
+
         // Use the selection from first selector to determine whether or
         // not we show the taxonomy fields div and wysiwyg.
         let serviceSelectorSelectionClass = "empty-display-none";
