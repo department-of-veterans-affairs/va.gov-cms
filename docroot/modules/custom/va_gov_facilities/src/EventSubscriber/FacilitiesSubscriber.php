@@ -517,14 +517,40 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
       $bundle = $form_state->getFormObject()->getEntity()->bundle();
       // Make the bundle available to displayServiceDescriptions.js.
       $form['#attached']['drupalSettings']['currentNodeBundle'] = $bundle;
-      $fields = [
-        'type' => $bundle === 'vet_center' ? 'field_vet_center_type_of_care' : 'field_service_type_of_care',
-        'name' => $bundle === 'vet_center' ? 'field_vet_center_friendly_name' : 'field_also_known_as',
-        'conditions' => $bundle === 'vet_center' ? 'field_vet_center_com_conditions' : 'field_commonly_treated_condition',
-        'description' => $bundle === 'vet_center' ? 'field_vet_center_service_descrip' : 'description',
-      ];
+      $fields = $this->getProductServicesTaxonomyFields($bundle);
     }
     return $fields;
   }
 
+  public function getProductServicesTaxonomyFields(string $bundle_name) : array {
+    $vaServicesFields = [];
+    switch ($bundle_name) {
+      case 'regional_health_care_service_des' :
+        $vaServicesFields = [
+          'type' => 'field_service_type_of_care',
+          'name' => 'field_also_known_as',
+          'conditions' => 'field_commonly_treated_condition',
+          'description' => 'description'
+        ];
+        break;
+      case 'vet_center' :
+        $vaServicesFields = [
+          'type' => 'field_vet_center_type_of_care',
+          'name' => 'field_vet_center_friendly_name',
+          'conditions' => 'field_vet_center_com_conditions',
+          'description' => 'field_vet_center_service_descrip'
+        ];
+        break;
+
+      case 'vba_facility_service' :
+        $vaServicesFields = [
+          'type' => 'field_vba_type_of_care',
+          'name' => 'field_vba_friendly_name',
+          'conditions' => 'field_vba_com_conditions',
+          'description' => 'field_vba_service_descrip'
+        ];
+        break;
+    }
+    return $vaServicesFields;
+  }
 }
