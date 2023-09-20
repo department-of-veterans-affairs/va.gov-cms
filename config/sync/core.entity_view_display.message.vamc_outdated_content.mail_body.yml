@@ -6,6 +6,7 @@ dependencies:
     - core.entity_view_mode.message.mail_body
     - field.field.message.vamc_outdated_content.field_editor_username
     - field.field.message.vamc_outdated_content.field_subject
+    - field.field.message.vamc_outdated_content.field_webhost
     - message.template.vamc_outdated_content
   module:
     - layout_builder
@@ -19,11 +20,16 @@ targetEntityType: message
 bundle: vamc_outdated_content
 mode: mail_body
 content:
+  partial_0:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
   partial_1:
     weight: 0
     region: content
 hidden:
   field_editor_username: true
   field_subject: true
-  partial_0: true
+  field_webhost: true
   search_api_excerpt: true
