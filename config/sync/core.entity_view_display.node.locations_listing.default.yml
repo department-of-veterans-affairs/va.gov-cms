@@ -17,8 +17,7 @@ dependencies:
 third_party_settings:
   field_group:
     group_content:
-      children:
-        - field_intro_text
+      children: {  }
       label: Content
       parent_name: ''
       region: content
@@ -44,7 +43,6 @@ third_party_settings:
     group_meta:
       children:
         - field_description
-        - field_meta_title
       label: Meta
       parent_name: ''
       region: content
@@ -75,6 +73,7 @@ content:
     weight: 2
     region: content
 hidden:
+  breadcrumbs: true
   content_moderation_control: true
   field_administration: true
   field_last_saved_by_an_editor: true

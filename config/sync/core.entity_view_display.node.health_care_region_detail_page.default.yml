@@ -23,7 +23,6 @@ third_party_settings:
   field_group:
     group_meta:
       children:
-        - field_meta_title
         - field_description
       label: Meta
       parent_name: ''
@@ -117,6 +116,7 @@ content:
     weight: 6
     region: content
 hidden:
+  breadcrumbs: true
   content_moderation_control: true
   field_administration: true
   field_last_saved_by_an_editor: true

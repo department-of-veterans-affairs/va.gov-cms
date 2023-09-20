@@ -36,7 +36,6 @@ dependencies:
     - office_hours
     - options
     - telephone
-    - text
     - user
 third_party_settings:
   field_group:
@@ -229,6 +228,7 @@ content:
       grouped: false
       show_closed: all
       closed_format: Closed
+      all_day_format: 'All day open'
       separator:
         days: '<br />'
         grouped_days: ' - '
@@ -290,6 +290,7 @@ content:
     weight: 10
     region: content
 hidden:
+  breadcrumbs: true
   content_moderation_control: true
   field_administration: true
   field_facility_classification: true
