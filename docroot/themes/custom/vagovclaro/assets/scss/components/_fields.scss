@@ -204,7 +204,7 @@ body:not(.role-admin) {
     .leaflet-marker-icon {
       pointer-events: none;
     }
-    
+
     .js-form-type-textfield {
       display: none;
     }
@@ -213,4 +213,16 @@ body:not(.role-admin) {
   .field--widget-geofield-latlon {
     display: none;
   }
+}
+
+.field--name-field-magichead-heading {
+  font-weight: 600;
+}
+
+.magichead .fieldset__label {
+  @include va-subsection-heading;
+}
+
+.magichead .fieldset__wrapper {
+  margin-left: var(--spacing-xl);
 }

@@ -70,8 +70,13 @@ tr:only-child {
   border-bottom: 0;
 }
 
-// adjust spacing on unpublished nodes
-.node--unpublished {
+/* adjust spacing on unpublished nodes & certain block entity reference fields */
+.node--unpublished,
+.block--unpublished {
   background-color: var(--va-red-lightest);
   padding: var(--spacing-m);
+}
+
+#block-vagovclaro-content .block--unpublished.field--name-field-alert > .field__item {
+  background-color: unset !important;
 }
