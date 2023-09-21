@@ -9,6 +9,35 @@ import "./main_content_blocks";
 
 const compareSnapshotCommand = require("cypress-visual-regression/dist/command");
 
+let currentTestName = ""; // Declare this variable at the top level of your test suite
+
+beforeEach(() => {
+  currentTestName = Cypress.mocha.getRunner().suite.ctx.currentTest.title;
+});
+
+Cypress.on("fail", (error) => {
+  cy.dumpWatchdogToStdout();
+  cy.saveHtmlSnapshot(currentTestName);
+  throw error;
+});
+
+Cypress.Commands.add("saveHtmlSnapshot", (testName) => {
+  cy.document().then((document) => {
+    const htmlContent = document.documentElement.outerHTML;
+
+    // Replace all non-alphanumeric characters with hyphens
+    const sanitizedTitle = testName.replace(/[^a-z0-9]/gi, "-").toLowerCase();
+
+    // Create a unique filename based on the test title and a timestamp
+    const fileName = `${sanitizedTitle}-${new Date().toISOString()}.html`;
+
+    cy.task("saveHtmlToFile", { htmlContent, fileName }).then((message) => {
+      cy.log(message);
+      cy.task("log", message);
+    });
+  });
+});
+
 Cypress.Commands.add("drupalLogin", (username, password) => {
   cy.visit("/user/login");
 
@@ -101,6 +130,44 @@ Cypress.Commands.add(
     });
   }
 );
+
+Cypress.Commands.add("dumpWatchdogToStdout", (severity = "Warning") => {
+  const fields = ["wid", "date", "type", "severity", "message"];
+  const command = `watchdog:show --format=json --severity=${severity} --fields=${fields.join(
+    ","
+  )}`;
+
+  return cy.drupalDrushCommand(command).then((output) => {
+    return cy
+      .log(output)
+      .then(() => {
+        return JSON.parse(output.stdout || "{}");
+      })
+      .then((json) => {
+        const entries = json ? Object.values(json) : [];
+        const lastFiveEntries = entries.slice(-5);
+
+        const formattedEntries = lastFiveEntries
+          .map((entry) => {
+            return `Wid: ${entry.wid}, Date: ${entry.date}, Type: ${entry.type}, Severity: ${entry.severity}, Message: ${entry.message}`;
+          })
+          .join("\n");
+
+        const logMessage = [
+          "──────────────────────────────────────",
+          "📋 Last Watchdog Entries:",
+          formattedEntries,
+          "──────────────────────────────────────",
+        ].join("\n");
+
+        cy.task("log", logMessage);
+
+        cy.log(logMessage);
+
+        return cy.wrap(lastFiveEntries);
+      });
+  });
+});
 
 Cypress.Commands.add("drupalWatchdogHasNoNewMessages", (username, severity) => {
   cy.drupalGetWatchdogMessages(username, severity).then((messages) => {

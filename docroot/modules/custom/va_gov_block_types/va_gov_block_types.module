@@ -1,0 +1,59 @@
+<?php
+
+/**
+ * @file
+ * Contains preprocess functions and other theme functions for the module.
+ */
+
+use Drupal\block_content\BlockContentInterface;
+use Drupal\block_content\Entity\BlockContent;
+
+/**
+ * Implements hook_preprocess_details().
+ */
+function va_gov_block_types_preprocess_details__node_page_edit_form__field_alert(&$variables) {
+  // Get the variables for the alert block entity reference field.
+  $items = $variables['element']['current']['items'][0]['display'] ?? NULL;
+  if (!$items || !($items['#block_content'] instanceof BlockContent)) {
+    return;
+  }
+
+  // Get the alert block status.
+  $block = $items['#block_content'];
+  if (!$block->hasField('status')) {
+    return 'No field block status';
+  }
+  $status = $block->get('status')->value;
+  echo $status;
+
+  // If block is not published, provide a custom class.
+  if (intval($status) === 0) {
+    $variables['attributes']['class'][] = 'block--unpublished';
+  }
+}
+
+/**
+ * Implements hook_preprocess_node__node_type().
+ */
+function va_gov_block_types_preprocess_node__page(array &$variables): void {
+  $node = $variables['node'];
+
+  // Ensure the node has the 'field_alert' field, and it's not empty.
+  if (!$node->hasField('field_alert') || $node->get('field_alert')->isEmpty()) {
+    return;
+  }
+
+  foreach ($node->get('field_alert')->referencedEntities() as $block_content) {
+    if (!$block_content instanceof BlockContentInterface || $block_content->bundle() != 'alert') {
+      continue;
+    }
+
+    // Check the block's status.
+    $status = $block_content->get('status')->value;
+
+    // If block is not published, provide a custom class.
+    if (intval($status) === 0) {
+      $variables['content']['field_alert']['#attributes']['class'][] = 'block--unpublished';
+    }
+  }
+}
