@@ -4,7 +4,6 @@ namespace Drupal\va_gov_header_footer\EventSubscriber;
 
 use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
 use Drupal\core_event_dispatcher\FormHookEvents;
-use Drupal\va_gov_menus\Traits\MenuFormAlterTrait;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -12,8 +11,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  * Va gov header footer event subscriber.
  */
 class FormEventSubscriber implements EventSubscriberInterface {
-
-  use MenuFormAlterTrait;
 
   /**
    * The VA user permission service.
@@ -62,7 +59,7 @@ class FormEventSubscriber implements EventSubscriberInterface {
     $formId = $event->getFormId();
     $admin = $this->permsService->hasAdminRole(TRUE);
     if (in_array($formId, $this->menus) && !$admin) {
-      $this->hideMenuLinkDescriptionField($form);
+      $form['description']['#access'] = FALSE;
     }
   }
 
