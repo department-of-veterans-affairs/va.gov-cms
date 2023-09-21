@@ -517,40 +517,51 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
       $bundle = $form_state->getFormObject()->getEntity()->bundle();
       // Make the bundle available to displayServiceDescriptions.js.
       $form['#attached']['drupalSettings']['currentNodeBundle'] = $bundle;
-      $fields = $this->getProductServicesTaxonomyFields($bundle);
+      $fields = $this->getVaServicesTaxonomyFieldNames($bundle);
     }
     return $fields;
   }
 
-  public function getProductServicesTaxonomyFields(string $bundle_name) : array {
+  /**
+   * Gets the VA Services field names for each type of product.
+   *
+   * @param string $node_type
+   *   The type of node.
+   *
+   * @return array
+   *   The field names of the service of the node type.
+   */
+  public function getVaServicesTaxonomyFieldNames(string $node_type) : array {
     $vaServicesFields = [];
-    switch ($bundle_name) {
-      case 'regional_health_care_service_des' :
+    switch ($node_type) {
+      case 'regional_health_care_service_des':
         $vaServicesFields = [
           'type' => 'field_service_type_of_care',
           'name' => 'field_also_known_as',
           'conditions' => 'field_commonly_treated_condition',
-          'description' => 'description'
+          'description' => 'description',
         ];
         break;
-      case 'vet_center' :
+
+      case 'vet_center':
         $vaServicesFields = [
           'type' => 'field_vet_center_type_of_care',
           'name' => 'field_vet_center_friendly_name',
           'conditions' => 'field_vet_center_com_conditions',
-          'description' => 'field_vet_center_service_descrip'
+          'description' => 'field_vet_center_service_descrip',
         ];
         break;
 
-      case 'vba_facility_service' :
+      case 'vba_facility_service':
         $vaServicesFields = [
           'type' => 'field_vba_type_of_care',
           'name' => 'field_vba_friendly_name',
           'conditions' => 'field_vba_com_conditions',
-          'description' => 'field_vba_service_descrip'
+          'description' => 'field_vba_service_descrip',
         ];
         break;
     }
     return $vaServicesFields;
   }
+
 }
