@@ -49,18 +49,92 @@ if [ -n "${socks_proxy}" ]; then
   socks_option="--socks5-hostname ${socks_proxy}";
 fi;
 
+# Fetch URLs from the API.
+fetch_urls() {
+  local content_type="${1}";
+  local count="${2:-100}";
+  curl \
+    --user "${username}:${password}" \
+    ${socks_option:-} \
+    --silent ${base_url}/jsonapi/node/${content_type}\?fields%5Bnode--${content_type}%5D\=path%2Ctitle\&page%5Blimit%5D\=${count} \
+    | jq -r '.data[].links.self.href';
+}
+
+# This list of content types omits `news_story` because it is the default
+# content type.
+content_types=(
+  banner
+  basic_landing_page
+  campaign_landing_page
+  centralized_content
+  checklist
+  documentation_page
+  event
+  event_listing
+  faq_multiple_q_a
+  full_width_banner_alert
+  health_care_local_facility
+  health_care_local_health_service
+  health_care_region_detail_page
+  health_care_region_page
+  health_services_listing
+  landing_page
+  leadership_listing
+  locations_listing
+  media_list_images
+  media_list_videos
+  nca_facility
+  office
+  outreach_asset
+  page
+  person_profile
+  press_release
+  press_releases_listing
+  promo_banner
+  publication_listing
+  q_a
+  regional_health_care_service_des
+  service_region
+  step_by_step
+  story_listing
+  support_resources_detail_page
+  support_service
+  va_form
+  vamc_operating_status_and_alerts
+  vamc_system_billing_insurance
+  vamc_system_medical_records_offi
+  vamc_system_policies_page
+  vamc_system_register_for_care
+  vba_facility
+  vba_facility_service
+  vet_center
+  vet_center_cap
+  vet_center_facility_health_servi
+  vet_center_locations_list
+  vet_center_mobile_vet_center
+  vet_center_outstation
+  vha_facility_nonclinical_service
+);
+
 # An array of JSON:API URLs to request.
 echo "Getting URLs...";
-request_urls=( $(curl --user "${username}:${password}" ${socks_option:-} --silent ${base_url}/jsonapi/node/news_story\?fields%5Bnode--news_story%5D\=path%2Ctitle\&page%5Blimit%5D\=${total_requests} | jq -r '.data[].links.self.href') );
-echo "Got ${#request_urls[@]} URLs.";
+request_urls=( $(fetch_urls "news_story" "${total_requests}") );
+echo "Retrieved ${#request_urls[@]} URLs from the 'news_story' content type.";
 
 # If there aren't sufficient URLs, pad the list.
 if [ "${#request_urls[@]}" -lt "${total_requests}" ]; then
-  echo "Not enough URLs (have ${#request_urls[@]}, want ${total_requests}). Padding URLs...";
-  while [ "${#request_urls[@]}" -lt "${total_requests}" ]; do
-    request_urls+=( "${request_urls[@]}" );
+  # The remaining number of URLs we need.
+  remaining=$((total_requests - ${#request_urls[@]}));
+  while [[ "${remaining}" -gt 0 && "${#content_types[@]}" -gt 0 ]]; do
+    # Get the next content type from the list.
+    content_type="${content_types[0]}";
+    echo "Not enough URLs (have ${#request_urls[@]}, want ${total_requests}). Retrieving more URLs from content type ${content_type}...";
+    # Remove the content type from the list.
+    content_types=( "${content_types[@]:1}" );
+    request_urls+=( $(fetch_urls "${content_type}" "${remaining}") );
+    remaining=$((total_requests - ${#request_urls[@]}));
   done;
-  echo "Padded URLs to ${#request_urls[@]}.";
+  echo "Retrieved ${#request_urls[@]}.";
 fi;
 
 # Make the request to the server.
