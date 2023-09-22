@@ -111,8 +111,10 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
           '<div><strong>Notice: The national service description was not found.</strong></div>',
             []);
       }
-      $formatted_markup = new FormattableMarkup($description, []);
-      $build['field_service_name_and_descripti']['#suffix'] = $formatted_markup;
+      if ($description) {
+        $formatted_markup = new FormattableMarkup($description, []);
+        $build['field_service_name_and_descripti']['#suffix'] = $formatted_markup;
+      }
     }
   }
 
