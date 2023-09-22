@@ -277,9 +277,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       return;
     }
 
-    // Disable the checkbox functionality.
-    unset($form['revision_log']['#states']);
-
     // Hide the checkbox that lets you opt into making a revision.
     // Promo blocks have a different form structure.
     if ($entity->bundle() === 'promo') {
