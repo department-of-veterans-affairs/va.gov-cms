@@ -1,19 +1,4 @@
-uuid: 69ae3597-f3f0-4ed5-ad51-42c608ba54d2
-langcode: en
-status: true
-dependencies:
-  config:
-    - filter.format.rich_text
-template: vamc_outdated_content
-label: 'VAMC Outdated Content'
-description: 'Email for VAMC section members, notifying them of outdated content. '
 text:
   -
     value: "<p>VA Directive 6102 requires that VA content be reviewed yearly to ensure information is still relevant. Outdated content will need to be updated or removed to be compliant.&nbsp;<a href=\"https://prod.cms.va.gov/help/va-directive-6102\" target=\"_blank\">Learn more about VA Directive 6102.</a></p>\r\n\r\n<hr />\r\n<p>To assist with getting your content 6102 compliant within the next year, we are sending you this monthly reminder to view your outdated content report. To view this report, log in to the Drupal CMS or click “Review” below to go directly to the outdated content tool.</p>\r\n\r\n<p>For more information, you can read this <a href=\"https://prod.cms.va.gov/help/cms-basics/outdated-content-audit-tool\">Knowledge Base article on using the outdated content tool</a> to manage compliance.</p>\r\n\r\n<p>By reviewing an average of at least 25 pieces of content per month, your site will become compliant with VA Directive 6102 within the next year. Continuing to review your content at this rate will also help to ensure that you maintain compliance going forward without feeling overwhelmed.</p>\r\n"
     format: rich_text
-settings:
-  'token options':
-    clear: false
-    'token replace': true
-  purge_override: false
-  purge_methods: {  }

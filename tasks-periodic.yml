@@ -92,7 +92,8 @@ tasks:
   every_month:
     cmds:
       - drush php-eval "\Drupal::logger('va_gov_notifications')->alert('Monthly cron fired');"
-      - drush php-eval "print_r(\Drupal::service('va_gov_notifications.outdated_content')->checkForOutdatedVamcContent());"
+      - drush php-eval "print_r(\Drupal::service('va_gov_notifications.outdated_content')->queueOutdatedContentNotifications('vamc', 'vamc_outdated_content'));"
+      - drush php-eval "print_r(\Drupal::service('va_gov_notifications.outdated_content')->queueOutdatedContentNotifications('vet_center', 'vet_center_outdated_content'));"
 
   va/background/daily/migrate_copy/va_forms_csv_source:
     desc: This is because we cannot access the server on the SOCKS proxy right now.
