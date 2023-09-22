@@ -129,7 +129,7 @@ for ((i=1; i<=batches; i++)); do
 
   # Clear cache.
   echo "Clearing cache...";
-  # ${clear_cache_command};
+  ${clear_cache_command};
 
   # Run the threads.
   echo "Running ${threads} threads...";
