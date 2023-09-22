@@ -67,7 +67,7 @@ do_curl() {
     cat "${error_output_file}";
   fi;
   failures=0;
-  echo "$response" | tr ";;" "\n" | while IFS= read -r line; do
+  echo "$response" | grep -v '^$' | while read -r line; do
     http_code="$(echo "$line" | awk '{print $1}')";
     if [[ "${http_code}" -le 299 ]]; then
       :
@@ -90,7 +90,7 @@ export -f do_curl;
 configuration="
 user = \"${username}:${password}\"
 max-time = ${request_timeout}
-write-out = \"%{http_code} %{http_connect} %{url_effective} %{time_appconnect} %{time_connect} %{time_pretransfer} %{time_redirect} %{time_starttransfer} %{time_total};;\"
+write-out = \"%{http_code} %{http_connect} %{url_effective} %{time_appconnect} %{time_connect} %{time_pretransfer} %{time_redirect} %{time_starttransfer} %{time_total}\n\"
 location-trusted
 silent
 ${socks_config:-}
