@@ -113,7 +113,6 @@ for ((i=1; i<=batches; i++)); do
     start_index=$(( (j - 1) * requests ));
     these_request_urls=( "${request_urls[@]:start_index:requests}" );
     urls_file="${urls_file_prefix}${j}";
-    echo "${urls_file}";
     for url in "${these_request_urls[@]}"; do
       echo -n "--output /dev/null ${url} " >> "${urls_file}";
     done;
@@ -121,7 +120,7 @@ for ((i=1; i<=batches; i++)); do
 
   # Clear cache.
   echo "Clearing cache...";
-  # ${clear_cache_command};
+  ${clear_cache_command};
 
   # Run the threads.
   echo "Running ${threads} threads...";
