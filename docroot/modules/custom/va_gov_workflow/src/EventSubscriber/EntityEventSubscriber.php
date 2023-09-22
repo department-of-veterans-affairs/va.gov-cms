@@ -265,26 +265,37 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    * @param string $form_id
    *   The form id.
    */
-  public function requireRevisionMessage(array &$form, FormStateInterface &$form_state, $form_id) {
-    // Check if the block-content form is of type promo and exit (#15187)
+  public function requireRevisionMessage(array &$form, FormStateInterface &$form_state, $form_id): void {
+    // See what kind of form we are dealing with and do some safety checks.
     $formObject = $form_state->getFormObject();
-    if ($formObject instanceof EntityFormInterface) {
-      $entity = $formObject->getEntity();
-      if ($entity instanceof BlockContentInterface) {
-        if ($entity->bundle() === 'promo') {
-          return;
-        }
-      }
+    if (!$formObject instanceof EntityFormInterface) {
+      return;
     }
 
+    $entity = $formObject->getEntity();
+    if (!$entity instanceof BlockContentInterface) {
+      return;
+    }
+
+    // Disable the checkbox functionality.
+    unset($form['revision_log']['#states']);
+
+    // Hide the checkbox that lets you opt into making a revision.
+    // Promo blocks have a different form structure.
+    if ($entity->bundle() === 'promo') {
+      $form['revision']['#access'] = FALSE;
+    }
+    else {
+      $form["revision_information"]["#attributes"]['class'][] = 'visually-hidden';
+      $this->bypassRevisionLogValidationOnIef($form, $form_state);
+    }
+
+    // Make revision log required.
     $form['revision_log']['#required'] = TRUE;
     $form['revision_log']['widget']['#required'] = TRUE;
     $form['revision_log']['widget'][0]['#required'] = TRUE;
     $form['revision_log']['widget'][0]['value']['#required'] = TRUE;
     $form['#validate'][] = '_va_gov_workflow_validate_required_revision_message';
-    // Hide the checkbox that lets you opt into making a revision.
-    $form["revision_information"]["#attributes"]['class'][] = 'visually-hidden';
-    $this->bypassRevisionLogValidationOnIef($form, $form_state);
   }
 
   /**
