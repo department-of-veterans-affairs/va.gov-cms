@@ -109,12 +109,11 @@ for ((i=1; i<=batches; i++)); do
   urls_file_prefix="$(mktemp -d)/urls-";
 
   # Chunk the URLs into individual files.
-  url_chunks=();
-  chunk_count=$(( ${#request_urls[@]} / requests ));
-  for (( j=0; j<chunk_count; j+=1 )); do
-    start_index=$(( j * requests ));
+  for (( j=1; j<=threads; j+=1 )); do
+    start_index=$(( (j - 1) * requests ));
     these_request_urls=( "${request_urls[@]:start_index:requests}" );
     urls_file="${urls_file_prefix}${j}";
+    echo "${urls_file}";
     for url in "${these_request_urls[@]}"; do
       echo -n "--output /dev/null ${url} " >> "${urls_file}";
     done;
@@ -122,7 +121,7 @@ for ((i=1; i<=batches; i++)); do
 
   # Clear cache.
   echo "Clearing cache...";
-  ${clear_cache_command};
+  # ${clear_cache_command};
 
   # Run the threads.
   echo "Running ${threads} threads...";
@@ -134,7 +133,7 @@ for ((i=1; i<=batches; i++)); do
       --timeout "${batch_timeout}" \
       --halt now,fail=1 \
       --delay "${thread_wait}" \
-      do_curl "${config_file}" "${urls_file_prefix}{}" ::: "$(seq 0 $((threads - 1)))";
+      do_curl "${config_file}" "${urls_file_prefix}{}" ::: "$(seq ${threads})";
 
   echo "Batch ${i} of ${batches} complete.";
 
