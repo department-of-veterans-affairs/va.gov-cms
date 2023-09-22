@@ -54,6 +54,15 @@ echo "Getting URLs...";
 request_urls=( $(curl --user "${username}:${password}" ${socks_option:-} --silent ${base_url}/jsonapi/node/news_story\?fields%5Bnode--news_story%5D\=path%2Ctitle\&page%5Blimit%5D\=${total_requests} | jq -r '.data[].links.self.href') );
 echo "Got ${#request_urls[@]} URLs.";
 
+# If there aren't sufficient URLs, pad the list.
+if [ "${#request_urls[@]}" -lt "${total_requests}" ]; then
+  echo "Not enough URLs (have ${#request_urls[@]}, want ${total_requests}). Padding URLs...";
+  while [ "${#request_urls[@]}" -lt "${total_requests}" ]; do
+    request_urls+=( "${request_urls[@]}" );
+  done;
+  echo "Padded URLs to ${#request_urls[@]}.";
+fi;
+
 # Make the request to the server.
 do_curl() {
   local config_file="${1}";
@@ -120,7 +129,7 @@ for ((i=1; i<=batches; i++)); do
 
   # Clear cache.
   echo "Clearing cache...";
-  ${clear_cache_command};
+  # ${clear_cache_command};
 
   # Run the threads.
   echo "Running ${threads} threads...";
