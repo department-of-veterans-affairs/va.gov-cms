@@ -24,6 +24,23 @@ class MagicHeadParagraphsWidget extends ParagraphsWidget {
 
   /**
    * {@inheritdoc}
+   */
+  public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
+    $element = parent::formElement($items, $delta, $element, $form, $form_state);
+
+    $element['depth'] = [
+      '#type' => 'textfield',
+      '#size' => 3,
+      '#title' => $this->t('Depth for row @number', ['@number' => $delta + 1]),
+      '#title_display' => 'invisible',
+      '#default_value' => !empty($items[$delta]->depth) ? $items[$delta]->depth : 0,
+    ];
+
+    return $element;
+  }
+
+  /**
+   * {@inheritdoc}
    *
    * @see va_gov_magichead_preprocess_field_multiple_value_form()
    */
