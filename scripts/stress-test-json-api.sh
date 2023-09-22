@@ -23,6 +23,9 @@ total_requests=${total_requests:-$((requests * threads))};
 # Set the base URL to use for the requests. Default is http://localhost:8080.
 base_url=${base_url:-http://va-gov-cms.ddev.site};
 
+# Set the base hostname for the requests, if different than the base URL.
+base_hostname=${base_hostname:-$(echo "${base_url}" | sed -e 's/^[^/]*\/\///' -e 's/\/.*$//')};
+
 # Set the timeout for each request. Default is 60 seconds.
 request_timeout=${request_timeout:-60};
 
@@ -55,7 +58,11 @@ fetch_urls() {
   local count="${2:-100}";
   curl \
     --user "${username}:${password}" \
+    --max-time "${request_timeout}" \
     ${socks_option:-} \
+    --insecure \
+    --location-trusted \
+    --header "Host: ${base_hostname}" \
     --silent ${base_url}/jsonapi/node/${content_type}\?fields%5Bnode--${content_type}%5D\=path%2Ctitle\&page%5Blimit%5D\=${count} \
     | jq -r '.data[].links.self.href';
 }
@@ -173,9 +180,11 @@ export -f do_curl;
 configuration="
 user = \"${username}:${password}\"
 max-time = ${request_timeout}
-write-out = \"%{http_code} %{http_connect} %{url_effective} %{time_appconnect} %{time_connect} %{time_pretransfer} %{time_redirect} %{time_starttransfer} %{time_total}\n\"
+write-out = \"%{http_code} %{http_connect} %{url} %{time_appconnect} %{time_connect} %{time_pretransfer} %{time_redirect} %{time_starttransfer} %{time_total}\n\"
 location-trusted
 silent
+insecure
+header = \"Host: ${base_hostname}\"
 ${socks_config:-}
 ";
 
