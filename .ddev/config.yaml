@@ -18,6 +18,7 @@ hooks:
   post-import-db:
   - exec: drush deploy
   post-start:
+  - exec: git config --global --add safe.directory /var/www/html
   - exec: ./scripts/install_task_runner.sh
   - exec: ./scripts/install-nvm.sh
   - composer: install

@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.message.vet_center_outdated_content.field_editor_username
     - field.field.message.vet_center_outdated_content.field_subject
+    - field.field.message.vet_center_outdated_content.field_webhost
     - message.template.vet_center_outdated_content
   module:
     - user
@@ -19,13 +20,26 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 1
+    weight: 0
     region: content
   field_subject:
     type: string
     label: above
     settings:
       link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_webhost:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  partial_0:
+    settings: {  }
     third_party_settings: {  }
     weight: 2
     region: content

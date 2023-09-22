@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit\va_gov_content_types\unit\Traits;
+namespace tests\phpunit\va_gov_content_types\unit;
 
 use Drupal\Tests\Traits\Core\GeneratePermutationsTrait;
 use Drupal\va_gov_content_types\Entity\HealthCareLocalFacility;
@@ -10,7 +10,7 @@ use Tests\Support\Classes\VaGovUnitTestBase;
 require __DIR__ . '/../../../../docroot/modules/custom/va_gov_content_types/va_gov_content_types.module';
 
 /**
- * Unit test of the ContentReleaseTriggerTrait trait.
+ * Unit test of the va_gov_content_types module hooks.
  *
  * @group unit
  * @group all

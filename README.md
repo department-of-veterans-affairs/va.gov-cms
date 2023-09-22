@@ -68,6 +68,7 @@ The VA.gov CMS Team
 1. **CMS Users**
    1. [Login / SSOi](READMES/cms-login.md)
    2. [CMS User Notification Systems](READMES/cms-editor-notifications.md)
+   3. [Drupal API Users](READMES/drupal_api_users.md)
 1. **CMS Content**
    1. [Workflow](READMES/cms-content-workflow.md)
       1. [Alias Lockdown](READMES/cms-content-workflow.md#alias-lockdown)

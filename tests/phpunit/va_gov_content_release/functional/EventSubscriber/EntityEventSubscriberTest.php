@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\phpunit\va_gov_content_release\functional\Form\Resolver;
+namespace tests\phpunit\va_gov_content_release\functional\EventSubscriber;
 
 use Drupal\va_gov_content_release\EventSubscriber\EntityEventSubscriber;
 use Tests\Support\Classes\VaGovExistingSiteBase;

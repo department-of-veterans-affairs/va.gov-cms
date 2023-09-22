@@ -30,7 +30,7 @@ class OnDemandTest extends VaGovUnitTestBase {
     $containerProphecy->get('string_translation')->willReturn($stringTranslation);
 
     $loggerProphecy = $this->prophesize(LoggerInterface::class);
-    $loggerProphecy->info(Argument::cetera())->willReturn(NULL);
+    $loggerProphecy->info(Argument::cetera());
     $logger = $loggerProphecy->reveal();
     $loggerChannelFactoryProphecy = $this->prophesize(LoggerChannelFactoryInterface::class);
     $loggerChannelFactoryProphecy->get('va_gov_content_release')->willReturn($logger);

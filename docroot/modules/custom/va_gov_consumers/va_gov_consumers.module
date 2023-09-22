@@ -188,12 +188,10 @@ function _va_gov_consumers_modify_facility_fields(array &$form, $form_id, FormSt
   // We want to confirm we are on a specific form.
   if (in_array($form_id, $external_content_form_ids)) {
     $node = $form_state->getformObject()->getEntity();
-    $get_help = '<div id="top-get-help-email">To request a correction or update to this centrally-managed data, <a class="admin-help-email-tpl" href="mailto:api@va.gov?bcc=vadrupalcms@va.gov&subject=Requested updates to [js_entry_facility_name] facility data&body=Dear API team,%0D%0A%0D%0AI would like to request an update to data for my facility.%0D%0A%0D%0AFacility%0D%0AFacility Name: [js_entry_facility_name]%0D%0AFacility ID: [js_entry_facility_id]%0D%0A%0D%0AAffected data%0D%0AThe following type of information needs to be updated:%0D%0A[Add your response here, for example: facility name, address, phone number, etc.]%0D%0A%0D%0ARequested Update%0D%0APlease make the following changes:%0D%0A[Add your response here, for example, \'change street address from 123 Fake Street to 456 Real Street.\']">email an administrator</a>.</div>';
-    $title = "<p>{$node->getTitle()}</p>";
+    $title = "<h4>{$node->getTitle()}</h4>";
 
     $form['top_of_page_information'] = [
       '#weight' => 1,
-      '#prefix' => $get_help,
       'title' => [
         '#markup' => $title,
       ],
