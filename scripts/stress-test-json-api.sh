@@ -108,15 +108,12 @@ for ((i=1; i<=batches; i++)); do
 
   urls_file_prefix="$(mktemp -d)/urls-";
 
-  # Calculate the number of URLs each thread will handle.
-  urls_per_thread=$(( requests / threads ));
-
   # Chunk the URLs into individual files.
   url_chunks=();
-  chunk_count=$(( ${#request_urls[@]} / urls_per_thread ));
+  chunk_count=$(( ${#request_urls[@]} / requests ));
   for (( j=0; j<chunk_count; j+=1 )); do
-    start_index=$(( j * urls_per_thread ));
-    these_request_urls=( "${request_urls[@]:start_index:urls_per_thread}" );
+    start_index=$(( j * requests ));
+    these_request_urls=( "${request_urls[@]:start_index:requests}" );
     urls_file="${urls_file_prefix}${j}";
     for url in "${these_request_urls[@]}"; do
       echo -n "--output /dev/null ${url} " >> "${urls_file}";
