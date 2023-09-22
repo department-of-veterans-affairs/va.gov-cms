@@ -99,6 +99,7 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
       $referenced_terms = $service_node->get('field_service_name_and_descripti')->referencedEntities();
       // Render the national service term description (if available).
       if (!empty($referenced_terms)) {
+        $description = new FormattableMarkup("", []);
         $referenced_term = reset($referenced_terms);
         if ($referenced_term) {
           $view_builder = $this->entityTypeManager->getViewBuilder('taxonomy_term');
@@ -111,10 +112,11 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
           '<div><strong>Notice: The national service description was not found.</strong></div>',
             []);
       }
-      if ($description) {
+      if (!empty($description)) {
         $formatted_markup = new FormattableMarkup($description, []);
         $build['field_service_name_and_descripti']['#suffix'] = $formatted_markup;
       }
+
     }
   }
 
