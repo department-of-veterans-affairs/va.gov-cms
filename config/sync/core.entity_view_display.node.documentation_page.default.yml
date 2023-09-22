@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.base_field_override.node.documentation_page.changed
     - field.field.node.documentation_page.field_administration
     - field.field.node.documentation_page.field_content_block
     - field.field.node.documentation_page.field_intro_text
@@ -17,7 +16,6 @@ dependencies:
     - entity_reference_revisions
     - layout_builder
     - layout_discovery
-    - link
     - user
 third_party_settings:
   layout_builder:
@@ -117,44 +115,12 @@ third_party_settings:
                 third_party_settings: {  }
             weight: 2
             additional: {  }
-          6ea442cc-0549-4219-99e9-556cf74fa93f:
-            uuid: 6ea442cc-0549-4219-99e9-556cf74fa93f
-            region: content
-            configuration:
-              id: 'field_block:node:documentation_page:breadcrumbs'
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              formatter:
-                type: link
-                label: hidden
-                settings:
-                  trim_length: 80
-                  url_only: false
-                  url_plain: false
-                  rel: ''
-                  target: ''
-                third_party_settings: {  }
-            weight: 7
-            additional: {  }
         third_party_settings: {  }
 id: node.documentation_page.default
 targetEntityType: node
 bundle: documentation_page
 mode: default
 content:
-  breadcrumbs:
-    type: link
-    label: hidden
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    weight: -5
-    region: content
   field_content_block:
     type: entity_reference_revisions_entity_view
     label: hidden
