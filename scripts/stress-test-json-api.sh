@@ -176,7 +176,7 @@ export -f do_curl;
 configuration="
 user = \"${username}:${password}\"
 max-time = ${request_timeout}
-write-out = \"%{http_code} %header{date} %{http_connect} %{url_effective} %{time_appconnect} %{time_connect} %{time_pretransfer} %{time_redirect} %{time_starttransfer} %{time_total}\n\"
+write-out = \"%{http_code} %header{Date} %{http_connect} %{url_effective} %{time_appconnect} %{time_connect} %{time_pretransfer} %{time_redirect} %{time_starttransfer} %{time_total}\n\"
 location-trusted
 insecure
 silent
@@ -210,6 +210,7 @@ for ((i=1; i<=batches; i++)); do
   ${clear_cache_command};
 
   # Run the threads.
+  echo "Starting at $(date)...";
   echo "Running ${threads} threads...";
   time \
     parallel \
