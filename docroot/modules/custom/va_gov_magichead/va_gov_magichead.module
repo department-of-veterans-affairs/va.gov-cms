@@ -21,3 +21,83 @@ function va_gov_magichead_preprocess_field_multiple_value_form(&$variables, $hoo
     }
   }
 }
+
+/**
+ * Prepares variables for `field-multiple-value-form.html.twig`.
+ *
+ * Just stashing my changes to
+ * entity_reference_hierarchy_paragraphs_preprocess_field_multiple_value_form()
+ * for VACMS-14534 temporarily, so I don't lose them.
+ */
+function _entity_reference_hierarchy_paragraphs_preprocess_field_multiple_value_form(&$variables) {
+  $element = $variables['element'];
+  if ($variables['multiple'] && isset($element['#entity_reference_hierarchy_paragraphs'])) {
+    $order_class = $element['#field_name'] . '-delta-order';
+    $depth_class = $element['#field_name'] . '-delta-depth';
+
+    $variables['table']['#header'][] = t('Depth');
+
+    $items = [];
+    foreach (Element::children($element) as $key) {
+      if ($key !== 'add_more' && $key !== 'header_actions') {
+        $items[] =& $element[$key];
+      }
+    }
+
+    usort($items, '_field_multiple_value_form_sort_helper');
+
+    foreach ($items as $key => $item) {
+
+      $item['depth']['#attributes']['class'] = [
+        $depth_class,
+      ];
+
+      $variables['table']['#rows'][$key]['data'][0]['style'] = 'width: auto; min-width: 30px';
+
+      if ($item['depth']['#value'] > 0) {
+        $indentation = [
+          '#theme' => 'indentation',
+          '#size' => $item['depth']['#value'],
+        ];
+
+        // Inject indentation into the content cell.
+        //        $variables['table']['#rows'][$key]['data'][0]['data'] = $indentation;
+
+        $variables['table']['#rows'][$key + 1]['data'][0]['data'] = $indentation;
+      }
+
+      // This one works.
+      //      unset($variables["table"]["#rows"][1]["data"][1]["data"]["depth"]);
+
+      // Add the depth column to the table.
+      //      $variables['table']['#rows'][$key]['data'][]['data'] = $item['depth'];
+      $variables['table']['#rows'][$key + 1]['data'][]['data'] = $item['depth'];
+      //
+      //      // Remove the depth field from the item.
+      //      unset($variables['table']['#rows'][$key]['data'][1]['data']['depth']);
+
+      unset($variables['table']['#rows'][$key + 1]['data'][1]['data']['depth']);
+    }
+
+    $variables['table']['#tabledrag'] = [
+      [
+        'action' => 'order',
+        'relationship' => 'all',
+        'group' => $order_class,
+      ],
+      [
+        'action' => 'depth',
+        'relationship' => 'group',
+        'group' => $depth_class,
+      ],
+      [
+        'action' => 'match',
+        'relationship' => 'parent',
+        'group' => $order_class,
+      ],
+    ];
+
+    $variables['table']['#attached']['library'][] = 'entity_reference_hierarchy/tabledrag.relationship-all';
+  }
+}
+
