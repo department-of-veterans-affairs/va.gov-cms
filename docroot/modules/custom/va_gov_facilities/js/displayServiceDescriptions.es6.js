@@ -27,26 +27,9 @@
         const serviceSelector = context.querySelector(
           ".field--name-field-service-name-and-descripti select"
         );
-        let wysiwyg = "";
-        let nationalEditor = "";
-        // VAMC System Health service has "edit-field-body-wrapper"
-        if (context.getElementById("edit-field-body-wrapper") !== null) {
-          wysiwyg = context.getElementById("edit-field-body-wrapper");
-          nationalEditor = "VHA";
-          // VBA Facility service has "edit-group-service-details"
-        } else if (
-          context.getElementById("edit-group-service-details") !== null
-        ) {
-          wysiwyg = context.getElementById("edit-group-service-details");
-          nationalEditor = "VBA";
-        }
-
         // Use the selection from first selector to determine whether or
-        // not we show the taxonomy fields div and wysiwyg.
+        // not we show the taxonomy fields div.
         let serviceSelectorSelectionClass = "empty-display-none";
-        if (wysiwyg !== null) {
-          wysiwyg.classList.add("empty-display-none");
-        }
         if (
           serviceSelector !== undefined &&
           serviceSelector.options !== undefined &&
@@ -54,21 +37,18 @@
             "_none"
         ) {
           serviceSelectorSelectionClass = "not-empty-display-block";
-          if (wysiwyg !== null) {
-            wysiwyg.classList.remove("empty-display-none");
-          }
         }
         // Build up our "?" button and tooltip text.
         const div = context.createElement("div");
         const button = context.createElement("button");
         button.className = "tooltip-toggle css-tooltip-toggle";
-        button.value = `Why can't I edit this? ${nationalEditor} keeps these descriptions standardized to help Veterans identify the services they need.`;
+        button.value = `Why can't I edit this? National editors keep these descriptions standardized to help Veterans identify the services they need.`;
         button.type = "button";
         // Add css formatting from "tippy" css library.
         button.ariaLabel = "tooltip";
         button.setAttribute(
           "data-tippy",
-          `Why can't I edit this?\n${nationalEditor} keeps these descriptions standardized to help Veterans identify the services they need.`
+          `Why can't I edit this?\nNational editors keep these descriptions standardized to help Veterans identify the services they need.`
         );
         button.setAttribute("data-tippy-pos", "right");
         button.setAttribute("data-tippy-animate", "fade");

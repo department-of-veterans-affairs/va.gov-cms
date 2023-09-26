@@ -16,32 +16,17 @@
         }
         var tricareSystem = Drupal.isTricareSystem(context);
         var serviceSelector = context.querySelector(".field--name-field-service-name-and-descripti select");
-        var wysiwyg = "";
-        var nationalEditor = "";
-        if (context.getElementById("edit-field-body-wrapper") !== null) {
-          wysiwyg = context.getElementById("edit-field-body-wrapper");
-          nationalEditor = "VHA";
-        } else if (context.getElementById("edit-group-service-details") !== null) {
-          wysiwyg = context.getElementById("edit-group-service-details");
-          nationalEditor = "VBA";
-        }
         var serviceSelectorSelectionClass = "empty-display-none";
-        if (wysiwyg !== null) {
-          wysiwyg.classList.add("empty-display-none");
-        }
         if (serviceSelector !== undefined && serviceSelector.options !== undefined && serviceSelector.options[serviceSelector.selectedIndex].value !== "_none") {
           serviceSelectorSelectionClass = "not-empty-display-block";
-          if (wysiwyg !== null) {
-            wysiwyg.classList.remove("empty-display-none");
-          }
         }
         var div = context.createElement("div");
         var button = context.createElement("button");
         button.className = "tooltip-toggle css-tooltip-toggle";
-        button.value = "Why can't I edit this? " + nationalEditor + " keeps these descriptions standardized to help Veterans identify the services they need.";
+        button.value = "Why can't I edit this? National editors keep these descriptions standardized to help Veterans identify the services they need.";
         button.type = "button";
         button.ariaLabel = "tooltip";
-        button.setAttribute("data-tippy", "Why can't I edit this?\n" + nationalEditor + " keeps these descriptions standardized to help Veterans identify the services they need.");
+        button.setAttribute("data-tippy", "Why can't I edit this?\nNational editors keep these descriptions standardized to help Veterans identify the services they need.");
         button.setAttribute("data-tippy-pos", "right");
         button.setAttribute("data-tippy-animate", "fade");
         button.setAttribute("data-tippy-size", "large");
