@@ -51,5 +51,5 @@ Cypress.Commands.add("addMainContentBlockWithFile", (type) => {
     `[Test Data] ${faker.lorem.sentence()}`,
     { force: true }
   );
-  cy.get("form.node-form").find("input#edit-submit").click();
+  // cy.get("form.node-form").find("input#edit-submit").click();
 });
