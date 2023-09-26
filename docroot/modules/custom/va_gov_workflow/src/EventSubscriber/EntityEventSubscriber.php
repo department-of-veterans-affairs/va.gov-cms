@@ -271,7 +271,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     if (!$formObject instanceof EntityFormInterface) {
       return;
     }
-
     $entity = $formObject->getEntity();
     if (!$entity instanceof BlockContentInterface) {
       return;
@@ -279,8 +278,11 @@ class EntityEventSubscriber implements EventSubscriberInterface {
 
     // Hide the checkbox that lets you opt into making a revision.
     // Promo blocks have a different form structure.
-    if ($entity->bundle() === 'promo') {
-      $form['revision']['#access'] = FALSE;
+    if (in_array($entity->bundle(), ['promo', 'cms_announcement'])) {
+      $form["revision_information"]["#access"] = TRUE;
+      unset($form['revision_log']['#states']);
+      $form["revision"]["#access"] = FALSE;
+      $form["revision_log"]["#access"] = TRUE;
     }
     else {
       $form["revision_information"]["#attributes"]['class'][] = 'visually-hidden';
