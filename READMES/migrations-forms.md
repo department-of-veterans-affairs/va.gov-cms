@@ -19,7 +19,7 @@ All times in ET.
     csv3 -- "midnight migration (pull)" --> cms[CMS]
     cms-- "1AM (pull)" -->formapi[("VA Forms API (Lighthouse)")]
     cms -- va.gov content release --->fe[[VA.gov Form Detail pages]]
-    formapi-->formsearch[[VA.gov Form Search]]
+    formapi-- Vets API -->formsearch[[VA.gov Form Search]]
 ```
 
 ## Forms Migration
