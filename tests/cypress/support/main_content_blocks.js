@@ -1,10 +1,9 @@
 import { faker } from "@faker-js/faker";
 
 Cypress.Commands.add("addMainContentBlockWithRichText", (text) => {
-  cy.get("#edit-field-content-block-add-more-browse")
-    .scrollIntoView()
-    .should("be.visible")
-    .click();
+  cy.get("#edit-field-content-block-add-more-browse").scrollIntoView();
+  cy.get("#edit-field-content-block-add-more-browse").should("be.visible");
+  cy.get("#edit-field-content-block-add-more-browse").click();
   cy.wait(1000);
   cy.get("div#drupal-modal").within(() => {
     cy.wait(1000);
@@ -18,10 +17,9 @@ Cypress.Commands.add("addMainContentBlockWithRichText", (text) => {
 });
 
 Cypress.Commands.add("addMainContentBlockWithFile", (type) => {
-  cy.get("#edit-field-content-block-add-more-browse")
-    .scrollIntoView()
-    .should("be.visible")
-    .click();
+  cy.get("#edit-field-content-block-add-more-browse").scrollIntoView();
+  cy.get("#edit-field-content-block-add-more-browse").should("be.visible");
+  cy.get("#edit-field-content-block-add-more-browse").click();
   cy.wait(1000);
   cy.get("div#drupal-modal").within(() => {
     cy.wait(1000);
