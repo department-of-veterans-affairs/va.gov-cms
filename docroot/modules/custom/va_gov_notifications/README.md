@@ -2,6 +2,7 @@
 
 This module orchestrates the [messages stack](https://www.drupal.org/node/2180145) for email and Slack notifications.
 
+- [6102 Details and design intent](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/product-outlines/VA-Directive-6102-Notifications.md)
 - [How to send and see email?](#how-to-send-and-see-email)
 - [How to add a new monthly outdated content email?](#how-to-add-a-new-monthly-outdated-content-email)
 - [Cautions and Notes](#cautions-and-notes)
