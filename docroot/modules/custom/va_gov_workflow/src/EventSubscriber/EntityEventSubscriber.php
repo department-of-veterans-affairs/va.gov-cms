@@ -264,31 +264,15 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    * @param string $form_id
    *   The form id.
    */
-  public function requireRevisionMessage(array &$form, FormStateInterface &$form_state, $form_id): void {
-    // Hide the checkbox that lets user opt into making a revision.
-    $formObject = $form_state->getFormObject();
-    if ($formObject instanceof EntityFormInterface) {
-      $entity = $formObject->getEntity();
-      if ($entity->bundle() === 'promo') {
-        // Hide revision checkbox on Promo blocks.
-        $form["revision_information"]["#access"] = TRUE;
-        unset($form['revision_log']['#states']);
-        $form["revision"]["#access"] = FALSE;
-        $form["revision_log"]["#access"] = TRUE;
-      }
-      else {
-        // Hide revision checkbox on all other custom blocks.
-        $form["revision_information"]["#attributes"]['class'][] = 'visually-hidden';
-        $this->bypassRevisionLogValidationOnIef($form, $form_state);
-      }
-    }
-
-    // Make revision log required.
+  public function requireRevisionMessage(array &$form, FormStateInterface &$form_state, $form_id) {
     $form['revision_log']['#required'] = TRUE;
     $form['revision_log']['widget']['#required'] = TRUE;
     $form['revision_log']['widget'][0]['#required'] = TRUE;
     $form['revision_log']['widget'][0]['value']['#required'] = TRUE;
     $form['#validate'][] = '_va_gov_workflow_validate_required_revision_message';
+    // Hide the checkbox that lets you opt into making a revision.
+    $form["revision_information"]["#attributes"]['class'][] = 'visually-hidden';
+    $this->bypassRevisionLogValidationOnIef($form, $form_state);
   }
 
   /**
