@@ -819,10 +819,15 @@
             "! ./scripts/should-run-directly.sh || ./scripts/web-prepare-dotenv.sh",
             "./scripts/should-run-directly.sh || ddev composer va:web:prepare-dotenv --"
         ],
-        "va:next-preview": [
-            "# Prepare the next preview server",
-			"! ./scripts/should-run-directly.sh || ./scripts/next-preview.sh",
-            "./scripts/should-run-directly.sh || ddev composer va:next-preview --"
+		"va:next:install": [
+            "# Prepare the next build project",
+			"! ./scripts/should-run-directly.sh || ./scripts/next-install.sh",
+            "./scripts/should-run-directly.sh || ddev composer va:next-install --"
+        ]
+        "va:next:build": [
+            "# Prepare the next build server",
+			"! ./scripts/should-run-directly.sh || ./scripts/next-build.sh",
+            "./scripts/should-run-directly.sh || ddev composer va:next-build --"
         ]
     }
 }
