@@ -6,6 +6,7 @@ dependencies:
     - core.entity_view_mode.message.mail_subject
     - field.field.message.vamc_outdated_content.field_editor_username
     - field.field.message.vamc_outdated_content.field_subject
+    - field.field.message.vamc_outdated_content.field_webhost
     - message.template.vamc_outdated_content
   module:
     - layout_builder
@@ -27,10 +28,9 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
-  partial_0:
-    weight: 0
-    region: content
 hidden:
   field_editor_username: true
+  field_webhost: true
+  partial_0: true
   partial_1: true
   search_api_excerpt: true

@@ -2,7 +2,7 @@
 name: Research Sessions
 about: Use this template when you are conducting research session
 title: Conduct [PRODUCT/INITIATIVE] Research Sessions
-labels: Design, Research
+labels: UX, Research
 assignees: ''
 
 ---
@@ -14,7 +14,7 @@ assignees: ''
   - [Research Safety guidelines](https://depo-platform-documentation.scrollhelp.site/research-design/research-safety-and-emergency-exit-strategies) 
 - [Notetaker guidelines](https://depo-platform-documentation.scrollhelp.site/research-design/observer-guidelines#Observerguidelines-Howtobeagoodnotetaker)
   - For Veteran-facing research, Perigean can provide a notetaker
-  - For Editor-facing research, the Product Manager or a member of the Design Team should take notes
+  - For Editor-facing research, the Product Manager or a member of the UX Team should take notes
 - [Observer guidelines](https://depo-platform-documentation.scrollhelp.site/research-design/observer-guidelines)
 
 **Recruitment Trackers**
@@ -46,10 +46,3 @@ assignees: ''
 - [ ] You have conducted enough sessions to satisfy our intended demographics from research plan 
   - [ ] OR Product Owner has signed off that you've done enough to move forward
 
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [ ] `Facilities`
-- [ ] `User support`
