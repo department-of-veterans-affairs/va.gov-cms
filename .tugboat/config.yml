@@ -8,6 +8,7 @@ services:
       - cms
       - web
       - storybook
+	  - next
 
     # Set this as the default service. This does a few things
     #   1. Clones the git repository into the service container
@@ -61,6 +62,9 @@ services:
 
         # Setup storybook-*. vhost to serve static website.
         - cp "${TUGBOAT_ROOT}"/.tugboat/vhost-storybook.conf /etc/apache2/sites-enabled/
+
+		# Setup next-*. vhost to serve static website.
+        - cp "${TUGBOAT_ROOT}"/.tugboat/vhost-next.conf /etc/apache2/sites-enabled/
 
         # Configure KeepAliveTimeout in apache2.conf. This is set 5 seconds longer than the internal tools ALB.
         # The internal tools ALB idle timeout is set to longer than a typical GQL query takes.
@@ -224,7 +228,7 @@ services:
         - find -L "${DOCROOT}/vendor/va-gov/content-build/node_modules/.bin" -type f -exec chmod +x {} \+
         - find "${DOCROOT}/vendor/va-gov/content-build/script" -type f -exec chmod +x {} \+
 
-        # Build storybook and the frontend in parallel
+        # Build storybook and the frontends in parallel
         - bash -lc 'time task --taskfile=tugboat.yml'
 
   memcache:

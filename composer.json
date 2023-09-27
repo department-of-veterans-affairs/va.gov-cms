@@ -571,7 +571,8 @@
         "va:theme:watch": "Watch VA.gov Claro theme source and compile as needed.",
         "va:web:build": "Perform a content build.",
         "va:web:install": "Prepare the content-build project.",
-        "va:web:prepare-dotenv": "Prepare the ./web/.env file."
+        "va:web:prepare-dotenv": "Prepare the ./web/.env file.",
+		"va:next-preview": "Prepare the next preview server"
     },
     "scripts": {
         "pre-install-cmd": [
@@ -817,6 +818,11 @@
             "# Prepare the ./web/.env file.",
             "! ./scripts/should-run-directly.sh || ./scripts/web-prepare-dotenv.sh",
             "./scripts/should-run-directly.sh || ddev composer va:web:prepare-dotenv --"
+        ],
+		"va:next-preview": [
+            "# Prepare the next preview server",
+			"! ./scripts/should-run-directly.sh || ./scripts/next-preview.sh",
+            "./scripts/should-run-directly.sh || ddev composer va:next-preview --"
         ]
     }
 }
