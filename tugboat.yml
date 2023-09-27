@@ -14,15 +14,15 @@ tasks:
       - drush va-gov:content-release:request-frontend-build
 	  
   build-next:
-	desc: build next.js preview server
-	cmds:
-	  - composer va:next-preview
+    desc: build next.js preview server
+    cmds:
+      - composer va:next-preview
 
   build:
     deps:
       - build-storybook
       - build-frontend
-	  - build-next
+      - build-next
 
   default:
     cmds:

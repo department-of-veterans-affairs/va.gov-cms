@@ -8,7 +8,7 @@ services:
       - cms
       - web
       - storybook
-	  - next
+      - next
 
     # Set this as the default service. This does a few things
     #   1. Clones the git repository into the service container
@@ -63,7 +63,7 @@ services:
         # Setup storybook-*. vhost to serve static website.
         - cp "${TUGBOAT_ROOT}"/.tugboat/vhost-storybook.conf /etc/apache2/sites-enabled/
 
-		# Setup next-*. vhost to serve static website.
+        # Setup next-*. vhost to serve static website.
         - cp "${TUGBOAT_ROOT}"/.tugboat/vhost-next.conf /etc/apache2/sites-enabled/
 
         # Configure KeepAliveTimeout in apache2.conf. This is set 5 seconds longer than the internal tools ALB.
