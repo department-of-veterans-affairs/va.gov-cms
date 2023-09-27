@@ -17,7 +17,9 @@ This document lists known services which depend on the CMS and the Drupal users 
 ## Creating a New API User
 
 1. Discuss the need for a new user with the Platform CMS tech lead (currently @ndouglas) and propose a name.
-2. Create a task issue for the account, assign it to `CMS Team` and `DevOps`, and assign the tech lead.
+2. Complete/approve/merge any pull requests providing functionality the user account will rely upon:
+  - roles, permissions, etc that should be assigned to the user at creation 
+4. Create a task issue for the account, assign it to `CMS Team` and `DevOps`, and assign the tech lead.
   - include the name
   - include desired permissions
   - include any other information that may be desirable
@@ -33,4 +35,4 @@ This document lists known services which depend on the CMS and the Drupal users 
 4. Followup issue(s) should be opened for:
   - tests to ensure accurate roles and permissions
   - tests to ensure retrievability of the SSM Parameter Store values
-  - additional desired role- or permission-related functionality (e.g. a new role, etc)
+  - additional functionality
