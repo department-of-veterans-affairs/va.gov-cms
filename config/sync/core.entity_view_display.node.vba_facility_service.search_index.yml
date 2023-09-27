@@ -5,16 +5,15 @@ dependencies:
   config:
     - core.entity_view_mode.node.search_index
     - field.field.node.vba_facility_service.field_administration
-    - field.field.node.vba_facility_service.field_body
     - field.field.node.vba_facility_service.field_enforce_unique_combo
     - field.field.node.vba_facility_service.field_last_saved_by_an_editor
     - field.field.node.vba_facility_service.field_office
+    - field.field.node.vba_facility_service.field_service_location
     - field.field.node.vba_facility_service.field_service_name_and_descripti
     - node.type.vba_facility_service
   module:
     - allow_only_one
     - layout_builder
-    - text
     - user
 third_party_settings:
   layout_builder:
@@ -25,24 +24,12 @@ targetEntityType: node
 bundle: vba_facility_service
 mode: search_index
 content:
-  content_moderation_control:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
-    region: content
-  field_body:
-    type: text_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 4
-    region: content
   field_enforce_unique_combo:
     type: allow_only_one
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 2
     region: content
   field_office:
     type: entity_reference_label
@@ -50,7 +37,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 2
+    weight: 0
     region: content
   field_service_name_and_descripti:
     type: entity_reference_label
@@ -58,15 +45,13 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 3
-    region: content
-  links:
-    settings: {  }
-    third_party_settings: {  }
     weight: 1
     region: content
 hidden:
+  content_moderation_control: true
   field_administration: true
   field_last_saved_by_an_editor: true
+  field_service_location: true
   langcode: true
+  links: true
   search_api_excerpt: true
