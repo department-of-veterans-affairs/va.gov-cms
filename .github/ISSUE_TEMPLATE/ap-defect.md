@@ -16,6 +16,7 @@ labels: Accelerated Publishing, Defect
 Critical / Major / Minor
 
 ```[tasklist]
+###
 - [ ] The problem as described is fixed
 - [ ] The repro steps result in 'expected result'
 - [ ] An automated test is written to catch the problem, if appropriate
