@@ -2,7 +2,6 @@
 
 namespace Drupal\va_gov_workflow\EventSubscriber;
 
-use Drupal\block_content\BlockContentInterface;
 use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityInterface;
@@ -266,27 +265,22 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The form id.
    */
   public function requireRevisionMessage(array &$form, FormStateInterface &$form_state, $form_id): void {
-    // See what kind of form we are dealing with and do some safety checks.
+    // Hide the checkbox that lets user opt into making a revision.
     $formObject = $form_state->getFormObject();
-    if (!$formObject instanceof EntityFormInterface) {
-      return;
-    }
-    $entity = $formObject->getEntity();
-    if (!$entity instanceof BlockContentInterface) {
-      return;
-    }
-
-    // Hide the checkbox that lets you opt into making a revision.
-    // Promo blocks have a different form structure.
-    if (in_array($entity->bundle(), ['promo', 'cms_announcement'])) {
-      $form["revision_information"]["#access"] = TRUE;
-      unset($form['revision_log']['#states']);
-      $form["revision"]["#access"] = FALSE;
-      $form["revision_log"]["#access"] = TRUE;
-    }
-    else {
-      $form["revision_information"]["#attributes"]['class'][] = 'visually-hidden';
-      $this->bypassRevisionLogValidationOnIef($form, $form_state);
+    if ($formObject instanceof EntityFormInterface) {
+      $entity = $formObject->getEntity();
+      if ($entity->bundle() === 'promo') {
+        // Hide revision checkbox on Promo blocks.
+        $form["revision_information"]["#access"] = TRUE;
+        unset($form['revision_log']['#states']);
+        $form["revision"]["#access"] = FALSE;
+        $form["revision_log"]["#access"] = TRUE;
+      }
+      else {
+        // Hide revision checkbox on all other custom blocks.
+        $form["revision_information"]["#attributes"]['class'][] = 'visually-hidden';
+        $this->bypassRevisionLogValidationOnIef($form, $form_state);
+      }
     }
 
     // Make revision log required.
