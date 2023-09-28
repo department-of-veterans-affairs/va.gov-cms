@@ -2,9 +2,14 @@
 
 namespace Drupal\va_gov_events\EventSubscriber;
 
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Session\AccountProxy;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\core_event_dispatcher\EntityHookEvents;
+use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
+use Drupal\node\NodeInterface;
+use Drupal\va_gov_user\Service\UserPermsService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -15,13 +20,51 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   use StringTranslationTrait;
 
   /**
+   * The User Perms Service.
+   *
+   * @var \Drupal\va_gov_user\Service\UserPermsService
+   */
+  protected $userPermsService;
+
+  /**
+   * The 'publish to the national outreach calendar' field name.
+   *
+   * @var string
+   */
+  protected string $publishToOutreachCalField = 'field_publish_to_outreach_cal';
+
+  /**
+   * The 'field_listing' field anem.
+   *
+   * @var string
+   */
+  protected string $listingField = 'field_listing';
+
+  /**
+   * The National Outreach Calendar node id.
+   *
+   * @var int
+   */
+  protected int $outreachCalendarNid = 736;
+
+  /**
+   * The current user.
+   *
+   * @var \Drupal\Core\Session\AccountInterface
+   */
+  protected AccountInterface $currentUser;
+
+  /**
    * Constructs the EventSubscriber object.
    *
-   * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
-   *   The string translation service.
+   * @param \Drupal\va_gov_user\Service\UserPermsService $user_perms_service
+   *   The current user perms service.
+   * @param \Drupal\Core\Session\AccountProxy $account_proxy
+   *   The account proxy service.
    */
-  public function __construct(TranslationInterface $string_translation) {
-    $this->stringTranslation = $string_translation;
+  public function __construct(UserPermsService $user_perms_service, AccountProxy $account_proxy) {
+    $this->userPermsService = $user_perms_service;
+    $this->currentUser = $account_proxy->getAccount();
   }
 
   /**
@@ -31,7 +74,21 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     return [
       'hook_event_dispatcher.form_node_event_form.alter' => 'alterEventNodeForm',
       'hook_event_dispatcher.form_node_event_edit_form.alter' => 'alterEventNodeForm',
+      EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
     ];
+  }
+
+  /**
+   * Entity presave Event call.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
+   *   The event.
+   */
+  public function entityPresave(EntityPresaveEvent $event): void {
+    $entity = $event->getEntity();
+    if ($entity instanceof NodeInterface) {
+      $this->addToNationalOutreachCalendar($entity);
+    }
   }
 
   /**
@@ -45,6 +102,45 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $this->addDisplayManagementToEventFields($form);
     $this->modifyFormFieldsetElements($form);
     $this->modifyRecurringEventsWidgetFieldPresentation($form);
+    $this->modifyAddToOutreachCalendarElement($form);
+  }
+
+  /**
+   * Adds the event to the National Outreach Calendar (event_listing).
+   *
+   * The purpose of this method is to add the current node event to the National
+   * Outreach Calendar (an event listing node) if the $listingField
+   * checkbox/boolean has been set.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The node to be modified.
+   */
+  public function addToNationalOutreachCalendar(NodeInterface $node) {
+    if ($node->hasField($this->listingField) && $node->hasField($this->publishToOutreachCalField)) {
+      $addToCalValue = $node->get($this->publishToOutreachCalField)->first()->getValue();
+      if (isset($addToCalValue['value']) && $addToCalValue['value'] === 1) {
+        $listings = $node->get($this->listingField)->getValue();
+        // @todo check if the field already has teh Outreach cal sselected.
+        $listings[] = [
+          'target_id' => $this->outreachCalendarNid,
+        ];
+        $node->set($this->listingField, $listings);
+      }
+    }
+  }
+
+  /**
+   * Modify the 'Publish to National Outreach Calendar' field element.
+   *
+   * @param array $form
+   *   The form array.
+   */
+  public function modifyAddToOutreachCalendarElement(array &$form) :void {
+    // If the user has only the 'Outreach Hub' section, disable the checkbox.
+    $sections = $this->userPermsService->getSections($this->currentUser);
+    if (count($sections) === 1 && array_key_first($sections) === 7) {
+      $form[$this->publishToOutreachCalField]['#disabled'] = TRUE;
+    }
   }
 
   /**
