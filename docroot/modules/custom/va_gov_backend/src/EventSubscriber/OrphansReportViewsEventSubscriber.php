@@ -152,7 +152,8 @@ class OrphansReportViewsEventSubscriber implements EventSubscriberInterface {
       foreach ($view->result as $key => $value) {
         /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
         $paragraph = $value->_entity;
-        $top_parent = va_gov_backend_get_top_parent_entity($paragraph);
+        $tree = [];
+        $top_parent = va_gov_backend_get_top_parent_entity($paragraph, $tree);
         $used = $this->purger->isUsed($paragraph);
         if (!$used && !$top_parent) {
           $link = $this->getTopParentEntityLink($paragraph);
