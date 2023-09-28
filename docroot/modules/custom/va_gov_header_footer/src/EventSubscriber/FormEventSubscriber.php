@@ -61,8 +61,6 @@ class FormEventSubscriber implements EventSubscriberInterface {
     if (in_array($formId, $this->menus) && !$admin) {
       $form['description']['#access'] = FALSE;
     }
-    $form["field_add_to_outreach_calendar"]["widget"]["value"]["#title"] = "Your event will automatically be added to the Outreach Events calendar.";
-    $form["field_add_to_outreach_calendar"]["#disabled"] = TRUE;
   }
 
 }
