@@ -29,5 +29,4 @@ Please check the team(s) that will do this work.
 - [ ] CMS Team
 - [ ] Public Websites
 - [ ] Facilities
-- [ ] User support
 - [ ] Accelerated Publishing
