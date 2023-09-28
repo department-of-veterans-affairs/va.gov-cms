@@ -12,7 +12,7 @@ dependencies:
     - media.type.image
   module:
     - field_group
-    - image_widget_crop
+    - focal_point
     - markup
     - textfield_counter
 third_party_settings:
@@ -47,6 +47,7 @@ content:
       maxlength: 300
       counter_position: after
       js_prevent_submit: true
+      count_only_mode: false
       count_html_characters: true
       textcount_status_message: 'Characters Remaining: <span class="remaining_count">@remaining_count</span>'
     third_party_settings: {  }
@@ -63,18 +64,14 @@ content:
     settings: {  }
     third_party_settings: {  }
   image:
-    type: image_widget_crop
+    type: image_focal_point
     weight: 3
     region: content
     settings:
       progress_indicator: throbber
       preview_image_style: 3_2_medium_thumbnail
-      crop_preview_image_style: crop_thumbnail
-      crop_list: {  }
-      crop_types_required: {  }
-      warn_multiple_usages: false
-      show_crop_area: true
-      show_default_crop: true
+      preview_link: true
+      offsets: '50,50'
     third_party_settings: {  }
   name:
     type: string_textfield
@@ -83,6 +80,11 @@ content:
     settings:
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  translation:
+    weight: 10
+    region: content
+    settings: {  }
     third_party_settings: {  }
 hidden:
   created: true
