@@ -23,6 +23,7 @@ dependencies:
     - field.field.node.event.field_media
     - field.field.node.event.field_meta_tags
     - field.field.node.event.field_order
+    - field.field.node.event.field_publish_to_outreach_cal
     - field.field.node.event.field_url_of_an_online_event
     - node.type.event
   module:
@@ -146,6 +147,15 @@ content:
       force_chronological: false
       add_classes: false
       time_wrapper: true
+      localize: false
+      parts:
+        - start
+        - end
+      duration:
+        separator: ' | '
+        unit: ''
+        decimals: 2
+        suffix: h
     third_party_settings: {  }
     weight: 23
     region: content
@@ -272,6 +282,7 @@ hidden:
   field_last_saved_by_an_editor: true
   field_listing: true
   field_meta_tags: true
+  field_publish_to_outreach_cal: true
   langcode: true
   links: true
   search_api_excerpt: true
