@@ -75,6 +75,14 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public function entityPresave(EntityPresaveEvent $event): void {
     $entity = $event->getEntity();
     if ($entity instanceof NodeInterface) {
+      if ($entity->hasField('field_listing')) {
+        $field_listings = $entity->get('field_listing')->getValue();
+        $field_listings[] = [
+          'target_id' => 736,
+        ];
+        $entity->set('field_listing', $field_listings);
+      }
+
       $this->trimNodeTitleWhitespace($entity);
     }
   }
