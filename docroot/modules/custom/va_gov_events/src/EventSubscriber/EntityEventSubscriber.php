@@ -20,32 +20,31 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   use StringTranslationTrait;
 
   /**
+   * The 'publish to the national outreach calendar' field name.
+   */
+  const PUBLISH_TO_OUTREACH_CAL_FIELD = 'field_publish_to_outreach_cal';
+
+  /**
+   * The 'field_listing' field name.
+   */
+  const LISTING_FIELD = 'field_listing';
+
+  /**
+   * The National Outreach Calendar node id.
+   */
+  const OUTREACH_CAL_NID = 736;
+
+  /**
+   * The 'Outreach Hub' Section term id.
+   */
+  const OUTREACH_HUB_TID = 7;
+
+  /**
    * The User Perms Service.
    *
    * @var \Drupal\va_gov_user\Service\UserPermsService
    */
   protected $userPermsService;
-
-  /**
-   * The 'publish to the national outreach calendar' field name.
-   *
-   * @var string
-   */
-  protected string $publishToOutreachCalField = 'field_publish_to_outreach_cal';
-
-  /**
-   * The 'field_listing' field anem.
-   *
-   * @var string
-   */
-  protected string $listingField = 'field_listing';
-
-  /**
-   * The National Outreach Calendar node id.
-   *
-   * @var int
-   */
-  protected int $outreachCalendarNid = 736;
 
   /**
    * The current user.
@@ -79,6 +78,21 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Determines if the current user is an 'Outreach Hub' only user.
+   *
+   * @return bool
+   *   TRUE if the current user only has the 'Outreach Hub' section.
+   */
+  protected function outreachHubOnlyUser() {
+    // If the user has only the 'Outreach Hub' section, remove the checkbox.
+    $sections = $this->userPermsService->getSections($this->currentUser);
+    if (count($sections) === 1 && array_key_first($sections) === self::OUTREACH_HUB_TID) {
+      return TRUE;
+    }
+    return FALSE;
+  }
+
+  /**
    * Entity presave Event call.
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
@@ -92,7 +106,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Form alterations for eventcontent type.
+   * Form alterations for event content type.
    *
    * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
    *   The event.
@@ -110,21 +124,29 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *
    * The purpose of this method is to add the current node event to the National
    * Outreach Calendar (an event listing node) if the $listingField
-   * checkbox/boolean has been set.
+   * checkbox/boolean has been set, or if the current user is an Outreach Hub
+   * user.
    *
    * @param \Drupal\node\NodeInterface $node
    *   The node to be modified.
+   *
+   * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */
   public function addToNationalOutreachCalendar(NodeInterface $node) {
-    if ($node->hasField($this->listingField) && $node->hasField($this->publishToOutreachCalField)) {
-      $addToCalValue = $node->get($this->publishToOutreachCalField)->first()->getValue();
-      if (isset($addToCalValue['value']) && $addToCalValue['value'] === 1) {
-        $listings = $node->get($this->listingField)->getValue();
-        // @todo check if the field already has teh Outreach cal sselected.
-        $listings[] = [
-          'target_id' => $this->outreachCalendarNid,
-        ];
-        $node->set($this->listingField, $listings);
+    if ($node->hasField(self::LISTING_FIELD) && $node->hasField(self::PUBLISH_TO_OUTREACH_CAL_FIELD)) {
+      $addToCalValue = $node->get(self::PUBLISH_TO_OUTREACH_CAL_FIELD)->first()->getValue();
+      if (isset($addToCalValue['value'])) {
+        $listings = $node->get(self::LISTING_FIELD)->getValue();
+        if ($addToCalValue['value'] === 1 || $this->outreachHubOnlyUser()) {
+          // Add to Outreach calendar selected, or user is Outreach Hub only
+          // user.
+          if (!in_array(self::OUTREACH_CAL_NID, array_column($listings, 'target_id'))) {
+            $listings[] = [
+              'target_id' => self::OUTREACH_CAL_NID,
+            ];
+          }
+        }
+        $node->set(self::LISTING_FIELD, $listings);
       }
     }
   }
@@ -136,10 +158,9 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The form array.
    */
   public function modifyAddToOutreachCalendarElement(array &$form) :void {
-    // If the user has only the 'Outreach Hub' section, disable the checkbox.
-    $sections = $this->userPermsService->getSections($this->currentUser);
-    if (count($sections) === 1 && array_key_first($sections) === 7) {
-      $form[$this->publishToOutreachCalField]['#disabled'] = TRUE;
+    // If the user has only the 'Outreach Hub' section, remove the checkbox.
+    if ($this->outreachHubOnlyUser()) {
+      $form[self::PUBLISH_TO_OUTREACH_CAL_FIELD]['#access'] = FALSE;
     }
   }
 
