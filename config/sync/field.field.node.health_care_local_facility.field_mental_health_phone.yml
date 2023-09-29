@@ -7,12 +7,16 @@ dependencies:
     - node.type.health_care_local_facility
   module:
     - telephone
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
 id: node.health_care_local_facility.field_mental_health_phone
 field_name: field_mental_health_phone
 entity_type: node
 bundle: health_care_local_facility
 label: 'Mental Health Phone'
-description: ''
+description: 'Please enter you facility''s or system''s official phone number for veterans to use for mental health services.  This is required by federal law.'
 required: false
 translatable: false
 default_value: {  }
