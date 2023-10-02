@@ -160,7 +160,9 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public function modifyAddToOutreachCalendarElement(array &$form) :void {
     // If the user has only the 'Outreach Hub' section, remove the checkbox.
     if ($this->outreachHubOnlyUser()) {
-      $form[self::PUBLISH_TO_OUTREACH_CAL_FIELD]['#access'] = FALSE;
+      $form[self::PUBLISH_TO_OUTREACH_CAL_FIELD]['#disabled'] = TRUE;
+      $form[self::PUBLISH_TO_OUTREACH_CAL_FIELD]['widget']['value']['#default_value'] = TRUE;
+      $form[self::PUBLISH_TO_OUTREACH_CAL_FIELD]['widget']['value']['#title'] = $this->t('This event will automatically be published to the National Outreach Calendar');
     }
   }
 
