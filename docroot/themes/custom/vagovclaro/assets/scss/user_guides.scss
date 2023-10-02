@@ -132,7 +132,7 @@ h2.section-header {
   }
 
   li.menu-item {
-    border-top: 1px solid var(--va-gray-lighter);
+    border-top: 1px solid var(--va-gray-lightest);
     list-style: none;
     margin-bottom: 0;
     max-width: unset;
@@ -151,11 +151,11 @@ h2.section-header {
     a {
       background-color: transparent;
       border: 1px solid transparent;
-      color: var(--va-gray-med);
+      color: var(--va-gray-darkest);
 
       &:hover {
-        background-color: var(--va-gray-lighter);
-        color: var(--va-blue);
+        background-color: var(--va-gray-lightest);
+        color: var(--va-blue-dark);
         text-decoration: none;
       }
     }
@@ -182,7 +182,7 @@ h2.section-header {
 
 
         a {
-          color: var(--color-blue);
+          color: var(--va-blue-dark);
           font-weight: normal;
           text-decoration: none;
         }
@@ -191,14 +191,14 @@ h2.section-header {
   }
 
   .knowledge_base__menu__section_label {
-    color: var(--color-black);
+    color: var(--va-black);
     display: block;
     font-weight: bold;
     margin-top: 1em;
 
     &:hover {
       background: none;
-      color: var(--color-black);
+      color: var(--va-black);
     }
   }
 }
@@ -206,7 +206,7 @@ h2.section-header {
 // Last updated
 .last_updated {
   @include va-body-font;
-  border-top: 2px solid var(--va-gray-cool-med);
+  border-top: 2px solid var(--va-gray-darkest);
   margin-top: 1.5rem;
   padding-top: 1em;
   width: 100%;
@@ -215,7 +215,7 @@ h2.section-header {
 
 // Search
 .kb__search-result {
-  border-bottom: 1px solid var(--va-gray-cool-med);
+  border-bottom: 1px solid var(--va-gray-darkest);
   padding: 1em 0;
 
   &__title {
