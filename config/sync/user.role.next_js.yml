@@ -1,0 +1,19 @@
+uuid: 00d9751d-7064-4ea6-924b-bde09ca03bad
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - subrequests
+    - va_gov_backend
+third_party_settings:
+  va_gov_backend:
+    vgb_description: 'Role for Next.js JSON API data access.'
+id: next_js
+label: Next.js
+weight: 7
+is_admin: null
+permissions:
+  - 'access user profiles'
+  - 'bypass node access'
+  - 'issue subrequests'
