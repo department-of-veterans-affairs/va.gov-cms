@@ -117,7 +117,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $this->addDisplayManagementToEventFields($form);
     $this->modifyFormFieldsetElements($form);
     $this->modifyRecurringEventsWidgetFieldPresentation($form);
-    $this->modifyAddToOutreachCalendarElement($form);
+    $this->modifyAddToOutreachCalendarElements($form);
   }
 
   /**
@@ -153,17 +153,29 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Modify the 'Publish to National Outreach Calendar' field element.
+   * Form changes for 'Publish to National Outreach Calendar' related elements.
    *
    * @param array $form
    *   The form array.
    */
-  public function modifyAddToOutreachCalendarElement(array &$form) :void {
-    // If the user has only the 'Outreach Hub' section, remove the checkbox.
+  public function modifyAddToOutreachCalendarElements(array &$form) :void {
     if ($this->outreachHubOnlyUser()) {
+      // Disable the checkbox.
       $form[self::PUBLISH_TO_OUTREACH_CAL_FIELD]['#disabled'] = TRUE;
+      // Set the default value of the checkbox.
       $form[self::PUBLISH_TO_OUTREACH_CAL_FIELD]['widget']['value']['#default_value'] = TRUE;
+      // Override the field label for the checkbox.
       $form[self::PUBLISH_TO_OUTREACH_CAL_FIELD]['widget']['value']['#title'] = $this->t('This event will automatically be published to the National Outreach Calendar');
+      // Set the default value to the Outreach cal on the dropdown if is not
+      // already set.
+      if (empty($form[self::LISTING_FIELD]['widget']['#default_value'])) {
+        $form[self::LISTING_FIELD]['widget']['#default_value'] = self::OUTREACH_CAL_NID;
+      }
+    }
+    // Add the '- Select a value -' option (_none) since it was removed by
+    // the Limited Widgets for Unlimited Field module.
+    if (isset($form[self::LISTING_FIELD]['widget']['#options']) && !array_key_exists('_none', $form[self::LISTING_FIELD]['widget']['#options'])) {
+      $form[self::LISTING_FIELD]['widget']['#options'] = ['_none' => '- Select a value -'] + $form[self::LISTING_FIELD]['widget']['#options'];
     }
   }
 
