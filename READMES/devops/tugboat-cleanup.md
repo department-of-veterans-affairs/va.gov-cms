@@ -67,7 +67,7 @@ for x in $(find /opt/tugboat.local/data/ -regextype posix-extended -regex '.*/[0
 done
 ```
 
-#@ Stop containers that belong to suspended previews
+## Stop containers that belong to suspended previews
 
 :information_source: If a server is experiencing high CPU load or memory usage, this section of snippets is helpful to stop any running containers that shouldn’t be running to free up CPU and memory.
 
