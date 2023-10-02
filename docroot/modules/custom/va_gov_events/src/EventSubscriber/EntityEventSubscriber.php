@@ -83,8 +83,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    * @return bool
    *   TRUE if the current user only has the 'Outreach Hub' section.
    */
-  protected function outreachHubOnlyUser() {
-    // If the user has only the 'Outreach Hub' section, remove the checkbox.
+  protected function outreachHubOnlyUser(): bool {
     $sections = $this->userPermsService->getSections($this->currentUser);
     if (count($sections) === 1 && array_key_first($sections) === self::OUTREACH_HUB_TID) {
       return TRUE;
@@ -97,6 +96,8 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
    *   The event.
+   *
+   * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */
   public function entityPresave(EntityPresaveEvent $event): void {
     $entity = $event->getEntity();
@@ -132,7 +133,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *
    * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */
-  public function addToNationalOutreachCalendar(NodeInterface $node) {
+  public function addToNationalOutreachCalendar(NodeInterface $node): void {
     if ($node->hasField(self::LISTING_FIELD) && $node->hasField(self::PUBLISH_TO_OUTREACH_CAL_FIELD)) {
       $addToCalValue = $node->get(self::PUBLISH_TO_OUTREACH_CAL_FIELD)->first()->getValue();
       if (isset($addToCalValue['value'])) {
@@ -172,7 +173,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    * @param array $form
    *   The form.
    */
-  public function modifyRecurringEventsWidgetFieldPresentation(array &$form) {
+  public function modifyRecurringEventsWidgetFieldPresentation(array &$form): void {
     // Add our js for toggling items depending on duration choices.
     $form['#attached']['library'][] = 'va_gov_events/recurring_dates';
 
@@ -245,7 +246,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    * @param array $form
    *   The form.
    */
-  public function addDisplayManagementToEventFields(array &$form) {
+  public function addDisplayManagementToEventFields(array &$form): void {
     $form['#attached']['library'][] = 'va_gov_events/event_form_states_helpers';
   }
 
@@ -259,7 +260,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    * @param array $form
    *   The form.
    */
-  public function modifyFormFieldSetElements(array &$form) {
+  public function modifyFormFieldSetElements(array &$form): void {
     // Remove the wrap and title around address widget.
     $form['field_address']['widget'][0]['#type'] = 'div';
     unset($form['field_address']['widget'][0]['#title']);
