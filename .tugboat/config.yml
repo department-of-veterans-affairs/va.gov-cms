@@ -199,6 +199,9 @@ services:
         - drush sset va_gov_build_trigger.continuous_release_enabled 0
         - drush sset va_gov_build_trigger.release_state ready
 
+        # Set up vets-website (see #6434).
+        - git clone https://github.com/department-of-veterans-affairs/vets-website "${TUGBOAT_ROOT}/vets-website"
+
         # Setup background processing service.  This uses runit to keep process up
         # See https://docs.tugboat.qa/setting-up-services/how-to-set-up-services/running-a-background-process
         - mkdir -p /etc/service/drupal_events
