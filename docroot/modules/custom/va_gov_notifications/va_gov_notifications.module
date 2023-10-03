@@ -5,7 +5,8 @@
  * Primary module hooks for VA.gov Notifications module.
  */
 
-use Drupal\Core\Site\Settings;
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
  * Sets up twig template fore Outdated Content notifications.
@@ -22,34 +23,6 @@ function va_gov_notifications_theme() {
 }
 
 /**
- * Passes variables into twig template for Outdated Content notifications.
- */
-function va_gov_notifications_preprocess_message__vamc_outdated_content__mail_body(array &$variables) {
-  // Any fields on the message can be made available as template variables.
-  $message = $variables['message'];
-
-  $module_handler = \Drupal::service('module_handler');
-  $path = $module_handler->getModule('va_gov_notifications')->getPath();
-  $variables['user_name'] = $message->get('field_editor_username')->getString();
-  $variables['banner'] = '/' . $path . '/assets/outdated-content-email-banner.png';
-  $variables['webhost'] = Settings::get('webhost', 'https://prod.cms.va.gov');
-}
-
-/**
- * Passes variables into twig template for Outdated Content notifications.
- */
-function va_gov_notifications_preprocess_message__vet_center_outdated_content__mail_body(array &$variables) {
-  // Any fields on the message can be made available as template variables.
-  $message = $variables['message'];
-
-  $module_handler = \Drupal::service('module_handler');
-  $path = $module_handler->getModule('va_gov_notifications')->getPath();
-  $variables['user_name'] = $message->get('field_editor_username')->getString();
-  $variables['banner'] = '/' . $path . '/assets/outdated-content-email-banner.png';
-  $variables['webhost'] = Settings::get('webhost', 'https://prod.cms.va.gov');
-}
-
-/**
  * Implements hook_mail_alter().
  */
 function va_gov_notifications_mail_alter(&$message) {
@@ -60,4 +33,26 @@ function va_gov_notifications_mail_alter(&$message) {
   if (in_array($message['key'], $types) && !empty($message['params']['message_entity'])) {
     $message['headers']['Content-Type'] = 'multipart/related; charset=UTF-8; format=flowed; delsp=yes';
   }
+}
+
+/**
+ * Implements hook_help().
+ */
+function va_gov_notifications_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.va_gov_notifications':
+      $text = file_get_contents(__DIR__ . '/README.md');
+      if (!\Drupal::moduleHandler()->moduleExists('markdown')) {
+        return '<pre>' . Html::escape($text) . '</pre>';
+      }
+      else {
+        // Use the Markdown filter to render the README.
+        $filter_manager = \Drupal::service('plugin.manager.filter');
+        $settings = \Drupal::configFactory()->get('markdown.settings')->getRawData();
+        $config = ['settings' => $settings];
+        $filter = $filter_manager->createInstance('markdown', $config);
+        return $filter->process($text, 'en');
+      }
+  }
+  return NULL;
 }

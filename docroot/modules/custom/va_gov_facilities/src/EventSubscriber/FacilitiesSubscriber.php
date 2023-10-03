@@ -3,12 +3,6 @@
 namespace Drupal\va_gov_facilities\EventSubscriber;
 
 use Drupal\Component\Render\FormattableMarkup;
-use Drupal\core_event_dispatcher\EntityHookEvents;
-use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
-use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
-use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
-use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
-use Drupal\core_event_dispatcher\FormHookEvents;
 use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Entity\EntityFieldManager;
 use Drupal\Core\Entity\EntityFormInterface;
@@ -19,6 +13,12 @@ use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\core_event_dispatcher\EntityHookEvents;
+use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
+use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
+use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
+use Drupal\core_event_dispatcher\FormHookEvents;
 use Drupal\field_event_dispatcher\Event\Field\WidgetCompleteFormAlterEvent;
 use Drupal\field_event_dispatcher\FieldHookEvents;
 use Drupal\node\NodeInterface;
@@ -110,6 +110,8 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
       'hook_event_dispatcher.form_node_regional_health_care_service_des_form.alter' => 'alterRegionalHealthServiceNodeForm',
       'hook_event_dispatcher.form_node_vet_center_edit_form.alter' => 'alterVetCenterNodeForm',
       'hook_event_dispatcher.form_node_vet_center_form.alter' => 'alterVetCenterNodeForm',
+      'hook_event_dispatcher.form_node_vba_facility_service_edit_form.alter' => 'alterVbaFacilityServiceNodeForm',
+      'hook_event_dispatcher.form_node_vba_facility_service_form.alter' => 'alterVbaFacilityServiceNodeForm',
       EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
       EntityHookEvents::ENTITY_UPDATE => 'entityUpdate',
       FieldHookEvents::WIDGET_COMPLETE_FORM_ALTER => 'widgetCompleteFormAlter',
@@ -433,6 +435,16 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Alterations to VBA Facility service node forms.
+   *
+   * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
+   *   The event.
+   */
+  public function alterVbaFacilityServiceNodeForm(FormIdAlterEvent $event): void {
+    $this->buildHealthServicesDescriptionArrayAddToSettings($event);
+  }
+
+  /**
    * Builds an array of descriptions from health services available on form.
    *
    * Adds the descriptions array built by this method to drupalSettings.
@@ -505,14 +517,51 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
       $bundle = $form_state->getFormObject()->getEntity()->bundle();
       // Make the bundle available to displayServiceDescriptions.js.
       $form['#attached']['drupalSettings']['currentNodeBundle'] = $bundle;
-      $fields = [
-        'type' => $bundle === 'vet_center' ? 'field_vet_center_type_of_care' : 'field_service_type_of_care',
-        'name' => $bundle === 'vet_center' ? 'field_vet_center_friendly_name' : 'field_also_known_as',
-        'conditions' => $bundle === 'vet_center' ? 'field_vet_center_com_conditions' : 'field_commonly_treated_condition',
-        'description' => $bundle === 'vet_center' ? 'field_vet_center_service_descrip' : 'description',
-      ];
+      $fields = $this->getVaServicesTaxonomyFieldNames($bundle);
     }
     return $fields;
+  }
+
+  /**
+   * Gets the VA Services field names for each type of product.
+   *
+   * @param string $node_type
+   *   The type of node.
+   *
+   * @return array
+   *   The field names of the service of the node type.
+   */
+  public function getVaServicesTaxonomyFieldNames(string $node_type) : array {
+    $vaServicesFields = [];
+    switch ($node_type) {
+      case 'regional_health_care_service_des':
+        $vaServicesFields = [
+          'type' => 'field_service_type_of_care',
+          'name' => 'field_also_known_as',
+          'conditions' => 'field_commonly_treated_condition',
+          'description' => 'description',
+        ];
+        break;
+
+      case 'vet_center':
+        $vaServicesFields = [
+          'type' => 'field_vet_center_type_of_care',
+          'name' => 'field_vet_center_friendly_name',
+          'conditions' => 'field_vet_center_com_conditions',
+          'description' => 'field_vet_center_service_descrip',
+        ];
+        break;
+
+      case 'vba_facility_service':
+        $vaServicesFields = [
+          'type' => 'field_vba_type_of_care',
+          'name' => 'field_vba_friendly_name',
+          'conditions' => 'field_vba_com_conditions',
+          'description' => 'field_vba_service_descrip',
+        ];
+        break;
+    }
+    return $vaServicesFields;
   }
 
 }
