@@ -255,7 +255,6 @@ class PostFacilityStatus extends PostFacilityBase implements PostServiceInterfac
         $payload['system'] = [
           'name' => $systemNode->get('title')->value,
           'url' => 'https://www.va.gov' . $systemUrl,
-          'covid_url' => "https://www.va.gov{$systemUrl}/programs/covid-19-vaccines",
           'va_health_connect_phone' => $systemNode->get('field_va_health_connect_phone')->value,
         ];
       }
