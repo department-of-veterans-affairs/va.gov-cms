@@ -3,7 +3,7 @@ name: Research Readout and Documentation
 about: Use this template when reporting your research via readouts and documentation.
 title: Conduct [PRODUCT/INITIATIVE] Research Readout and Document Findings in Research
   Repository
-labels: Design, Research
+labels: Research, UX
 assignees: ''
 
 ---
@@ -12,7 +12,7 @@ assignees: ''
 
 **Crafting Recommendations**
 
-Recommendations are key outputs of the research process. They connect your findings back to the product roadmap(s) and shape the experience of future users. Depending on the type of research conducted, recommendations might be narrowly focused on improving a specific interface component of your team's product, or they might have broad implications for multiple parts of the VA.gov ecosystem. Work with your Design team, Product Manager, & Product Owner to generate, refine, and categorize recommendations. PMs and POs also play a key role in socializing recommendations to other teams.
+Recommendations are key outputs of the research process. They connect your findings back to the product roadmap(s) and shape the experience of future users. Depending on the type of research conducted, recommendations might be narrowly focused on improving a specific interface component of your team's product, or they might have broad implications for multiple parts of the VA.gov ecosystem. Work with your UX team, Product Manager, & Product Owner to generate, refine, and categorize recommendations. PMs and POs also play a key role in socializing recommendations to other teams.
 
 **Research Readout(s)**
 - Work with PM & PO to determine audience(s) and meeting length(s)
@@ -24,7 +24,7 @@ Recommendations are key outputs of the research process. They connect your findi
   - Message Naomi Marcussen on Slack to sign up
 
 **Documenting Findings**
-- Building off the Topline Report, fill out the [Research Findings Template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/research/sharing-research/research-findings-template.md) and add it to your Research Folder
+- Building off the Topline Summary, fill out the [Research Findings Template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/research/sharing-research/research-findings-template.md) and add it to your Research Folder
 - Once your findings are fully written up, make sure they are linked to from the relevant research repository
 - Veteran-facing research:[How to add reserach to Platform Repo](https://github.com/department-of-veterans-affairs/va.gov-research-repository/issues/70)
 - Editor-facing research: [CMS Research Repository](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/platform/cms/research)
@@ -38,11 +38,3 @@ Recommendations are key outputs of the research process. They connect your findi
 - [ ] Conduct readout(s)
 - [ ] Document findings in Research Repo
 - [ ] Destroy or archive research materials
-
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [ ] `Public Websites`
-- [ ] `Facilities`
-- [ ] `User support`

@@ -185,9 +185,9 @@
           const daysWrap = document.getElementById(
             `edit-field-datetime-range-timezone-0-repeat-advanced-byday--wrapper`
           );
-          const advancedWhichRepeatWrap = document.getElementById(
-            `repeat-on-the-wrap`
-          );
+          const advancedWhichRepeatWrap =
+            document.getElementById(`repeat-on-the-wrap`);
+
           const allWrapsArray = [daysWrap, advancedWhichRepeatWrap];
           // Disallow toggle off when instances present.
           toggle.addEventListener("click", recurringWatchers);

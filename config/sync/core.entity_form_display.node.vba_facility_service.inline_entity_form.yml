@@ -5,15 +5,14 @@ dependencies:
   config:
     - core.entity_form_mode.node.inline_entity_form
     - field.field.node.vba_facility_service.field_administration
-    - field.field.node.vba_facility_service.field_body
     - field.field.node.vba_facility_service.field_enforce_unique_combo
     - field.field.node.vba_facility_service.field_last_saved_by_an_editor
     - field.field.node.vba_facility_service.field_office
+    - field.field.node.vba_facility_service.field_service_location
     - field.field.node.vba_facility_service.field_service_name_and_descripti
     - node.type.vba_facility_service
   module:
     - field_group
-    - text
 third_party_settings:
   field_group:
     group_section_settings:
@@ -67,14 +66,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_body:
-    type: text_textarea
-    weight: 4
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
   field_office:
     type: options_select
     weight: 1
@@ -99,6 +90,7 @@ hidden:
   created: true
   field_enforce_unique_combo: true
   field_last_saved_by_an_editor: true
+  field_service_location: true
   langcode: true
   moderation_state: true
   path: true

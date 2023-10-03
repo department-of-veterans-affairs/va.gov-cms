@@ -4,7 +4,6 @@
 * https://www.drupal.org/node/2815083
 * @preserve
 **/
-
 (function ($, Drupal) {
   Drupal.behaviors.vaGovDisplayServiceDescriptions = {
     attach: function attach(context) {
@@ -15,40 +14,26 @@
         if (context.getElementById(service.id + "-services-general-description")) {
           context.getElementById(service.id + "-services-general-description").remove();
         }
-
         var tricareSystem = Drupal.isTricareSystem(context);
-
         var serviceSelector = context.querySelector(".field--name-field-service-name-and-descripti select");
-        var wysiwyg = context.getElementById("edit-field-body-wrapper");
-
         var serviceSelectorSelectionClass = "empty-display-none";
-        if (wysiwyg !== null) {
-          wysiwyg.classList.add("empty-display-none");
-        }
         if (serviceSelector !== undefined && serviceSelector.options !== undefined && serviceSelector.options[serviceSelector.selectedIndex].value !== "_none") {
           serviceSelectorSelectionClass = "not-empty-display-block";
-          if (wysiwyg !== null) {
-            wysiwyg.classList.remove("empty-display-none");
-          }
         }
-
         var div = context.createElement("div");
         var button = context.createElement("button");
         button.className = "tooltip-toggle css-tooltip-toggle";
-        button.value = "Why can't I edit this? VHA keeps these descriptions standardized to help Veterans identify the services they need.";
+        button.value = "Why can't I edit this? National editors keep these descriptions standardized to help Veterans identify the services they need.";
         button.type = "button";
-
         button.ariaLabel = "tooltip";
-        button.setAttribute("data-tippy", "Why can't I edit this?\nVHA keeps these descriptions standardized to help Veterans identify the services they need.");
+        button.setAttribute("data-tippy", "Why can't I edit this?\nNational editors keep these descriptions standardized to help Veterans identify the services they need.");
         button.setAttribute("data-tippy-pos", "right");
         button.setAttribute("data-tippy-animate", "fade");
         button.setAttribute("data-tippy-size", "large");
         button.id = "service-tooltip css-tooltip";
         div.id = service.id + "-health_service_text_container";
         div.className = "no-content health_service_text_container field-group-tooltip tooltip-layout centralized css-tooltip " + serviceSelectorSelectionClass;
-
         div.appendChild(button);
-
         if (drupalSettings.availableHealthServices[service.value] !== undefined && drupalSettings.availableHealthServices[service.value].type !== "") {
           var p1 = context.createElement("p");
           var s1 = context.createElement("strong");
@@ -80,7 +65,6 @@
         if (drupalSettings.availableHealthServices[service.value] !== undefined && (drupalSettings.availableHealthServices[service.value].description !== "" || drupalSettings.availableHealthServices[service.value].tricare_description !== "")) {
           var p4 = context.createElement("p");
           var s4 = context.createElement("strong");
-
           if (tricareSystem === true && drupalSettings.availableHealthServices[service.value].tricare_description !== "") {
             p4.textContent = drupalSettings.availableHealthServices[service.value].tricare_description.replace(/&nbsp;/g, " ");
           }
@@ -94,9 +78,7 @@
             p4.prepend(s4);
           }
         }
-
         service.after(div);
-
         if (div.textContent.length > 0) {
           var p = context.createElement("p");
           var d = context.createElement("div");
@@ -104,13 +86,11 @@
           p.className = "services-general-description";
           p.textContent = "General service description";
           d.className = "description ief-service-type";
-
           d.textContent = drupalSettings.availableHealthServices[service.value].vc_vocabulary_description_help_text;
           p.appendChild(d);
           service.after(p);
         }
       };
-
       var descriptionFill = function descriptionFill(ss) {
         if (ss && ss.length > 0) {
           ss.forEach(function (service) {
@@ -121,14 +101,11 @@
           });
         }
       };
-
       $(context).ajaxComplete(function () {
         descriptionFill(context.querySelectorAll(".field--name-field-service-name-and-descripti select"));
       });
-
       window.addEventListener("DOMContentLoaded", function () {
         descriptionFill(context.querySelectorAll(".field--name-field-service-name-and-descripti select"));
-
         var systemSelect = context.getElementById("edit-field-region-page");
         if (systemSelect !== null) {
           systemSelect.addEventListener("change", function () {

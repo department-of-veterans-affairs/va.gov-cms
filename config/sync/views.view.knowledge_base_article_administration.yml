@@ -86,11 +86,13 @@ display:
           form_step: true
           buttons: false
           action_title: Action
+          clear_on_exposed: true
+          force_selection_info: false
           selected_actions:
             3:
               action_id: node_assign_owner_action
               preconfiguration:
-                add_confirmation: 1
+                add_confirmation: true
             12:
               action_id: archive_node_action
             13:
@@ -98,18 +100,16 @@ display:
             14:
               action_id: views_bulk_edit
               preconfiguration:
-                add_confirmation: 1
-                get_bundles_from_results: 1
+                add_confirmation: true
+                get_bundles_from_results: true
             16:
               action_id: 'entity:pathauto_update_alias:node'
               preconfiguration:
-                add_confirmation: 1
+                add_confirmation: true
             18:
               action_id: 'entity:save_action:node'
               preconfiguration:
-                add_confirmation: 1
-          clear_on_exposed: true
-          force_selection_info: 0
+                add_confirmation: true
         title:
           id: title
           table: node_field_data

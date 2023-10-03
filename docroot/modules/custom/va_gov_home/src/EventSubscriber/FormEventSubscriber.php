@@ -35,12 +35,12 @@ class FormEventSubscriber implements EventSubscriberInterface {
    * @param \Drupal\core_event_dispatcher\Event\Form\FormAlterEvent $event
    *   The form event.
    */
-  public function formAlter(FormAlterEvent $event) {
+  public function formAlter(FormAlterEvent $event): void {
+    $form = &$event->getForm();
     if ($event->getFormId() === 'menu_link_content_home-page-hub-list_form') {
-      $form = &$event->getForm();
       $admin = $this->permsService->hasAdminRole(TRUE);
       $this->hubMenuFormAlter($form, $admin);
-    };
+    }
   }
 
   /**
@@ -51,7 +51,7 @@ class FormEventSubscriber implements EventSubscriberInterface {
    * @param bool $admin
    *   TRUE if current user is an admin.
    */
-  public function hubMenuFormAlter(array &$form, bool $admin) {
+  public function hubMenuFormAlter(array &$form, bool $admin): void {
     $this->hubMenuHideAddtributes($form)
       ->hubMenuHideExpanded($form)
       ->hubMenuHideViewMode($form, $admin)

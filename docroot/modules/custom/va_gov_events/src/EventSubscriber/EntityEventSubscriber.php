@@ -121,7 +121,9 @@ class EntityEventSubscriber implements EventSubscriberInterface {
 
     // Remove the extra fieldset and add more button.
     $extra_fieldset = $form['field_datetime_range_timezone']['widget']['#max_delta'];
-    unset($form['field_datetime_range_timezone']['widget'][$extra_fieldset]);
+    if ($extra_fieldset > 0) {
+      unset($form['field_datetime_range_timezone']['widget'][$extra_fieldset]);
+    }
     unset($form['field_datetime_range_timezone']['widget']['add_more']);
   }
 

@@ -129,12 +129,6 @@
           targetFieldGroup.insertBefore(legend, targetFieldGroup.firstChild);
           // Plug our wrapper into the tooltip div.
           targetFieldGroup.appendChild(facilityDataFieldGroup);
-          // Move our description above the Top of Page Legend.
-          const topOfPage = context.querySelector(
-            "#top-of-page-information .tooltip-layout"
-          );
-          const topOfPageHelp = context.getElementById("top-get-help-email");
-          topOfPage.insertBefore(topOfPageHelp, topOfPage.firstChild);
         }
       }
     },

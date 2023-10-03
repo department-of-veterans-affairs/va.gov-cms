@@ -270,8 +270,9 @@ Each repository includes READMEs to help with setup.
 - [ ] [VA.gov tools overview](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html)
   - [ ] [Access to dev & staging to be able to replicate the SSO piece of the login experience](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/5838) (SOCKS or VA access with PIV card required)
   - [ ] Test User Dashboard: https://tud.vfs.va.gov/ and [Test User Dashboard docs](https://depo-platform-documentation.scrollhelp.site/developer-docs/test-user-dashboard-guide). In lower environments, we are encouraged not to use our actual login credentials to test authed work. The TUD provides a set of test users you can use to login to various environments for testing.
-  - [ ] [Datadog](https://depo-platform-documentation.scrollhelp.site/getting-started/Request-access-to-tools.969605215.html#Requestaccesstotools-Requestaccess) to access monitoring metrics (as of 8/5/22 this is TBD. reach out to your DM for details)
-- [ ] Browse the [Topic Dives videos](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/1714094110/CMS+Topic+Dives) - includes CMS content, and non-CMS topics for Facilities & Public Websites teams as well
+  - [ ] [Datadog](https://depo-platform-documentation.scrollhelp.site/developer-docs/get-access-to-datadog) to access monitoring metrics (write licenses are limited, so only read-only might be available)
+- [ ] [GraphQL Explorer](https://staging.cms.va.gov/graphql/explorer) - GraphQL acts as the Drupal content API, for building queries that can be used in FE templates. The Explorer (on Staging) will allow you to test those queries.
+- [ ] Browse the [Topic Dives videos](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/teams/sitewide/topic-dives) - includes CMS content, and non-CMS topics for Facilities & Public Websites teams as well
 
 </details>
 
@@ -327,6 +328,10 @@ Each repository includes READMEs to help with setup.
 **CMS Collab Cycle**
 - [ ] [CMS Collab Cycle documentation](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/1791459333/CMS+Collaboration+Flow#like-section)
 - [ ] [CMS Collab Cycle kanban board](https://github.com/department-of-veterans-affairs/va.gov-cms#workspaces/cms-collaboration-cycle-reviews-62f50368ef32b60022d76d64/board?repos=154174777)
+
+**Tracking features**
+- [ ] [CMS & Front-end Repos & Build jobs - cheatsheet](https://docs.google.com/spreadsheets/d/164H07n4FChg-JxJZu964nfg2wAX0kPD0SjTfZMhzj_I/edit#gid=0) - unofficial documentation to help navigate understanding our build systems & channels for notifications
+- [ ] [Front-end deployment dashboard](https://department-of-veterans-affairs.github.io/veteran-facing-services-tools/frontend-support-dashboard/) - **bookmark this** - displays the status of fixes/enhancements as they deploy through Dev > Staging > Prod (for both content-build and vets-website)
 
 </details>
 

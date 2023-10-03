@@ -74,10 +74,6 @@
           targetFieldGroup.insertBefore(legend, targetFieldGroup.firstChild);
 
           targetFieldGroup.appendChild(facilityDataFieldGroup);
-
-          var topOfPage = context.querySelector("#top-of-page-information .tooltip-layout");
-          var topOfPageHelp = context.getElementById("top-get-help-email");
-          topOfPage.insertBefore(topOfPageHelp, topOfPage.firstChild);
         }
       }
     }
@@ -174,4 +170,3 @@
     }
   };
 })(jQuery, window.Drupal);
-

@@ -10,13 +10,13 @@ labels: Accelerated Publishing, Defect
 <!-- Describe the problem in a few sentences or less, focusing on the functional issue rather than the technical failure. -->
 
 ### Who is affected?
-<!-- What is the user prevented from doing? About how many users are affected? --> 
+<!-- What is the user prevented from doing? About how many users are affected? -->
 
-### How urgent is the issue? 
+### How urgent is the issue?
 Critical / Major / Minor
 
 ```[tasklist]
-### 
+###
 - [ ] The problem as described is fixed
 - [ ] The repro steps result in 'expected result'
 - [ ] An automated test is written to catch the problem, if appropriate
