@@ -46,6 +46,7 @@ class RepositorySettingsTest extends VaGovExistingSiteBase {
     $repositorySettings = \Drupal::service('va_gov_git.repository_settings');
     $this->assertEquals(RepositorySettingsInterface::PATH_KEYS['va.gov-cms'], $repositorySettings->getPathKey('va.gov-cms'));
     $this->assertEquals(RepositorySettingsInterface::PATH_KEYS['content-build'], $repositorySettings->getPathKey('content-build'));
+    $this->assertEquals(RepositorySettingsInterface::PATH_KEYS['vets-website'], $repositorySettings->getPathKey('vets-website'));
   }
 
   /**
@@ -63,6 +64,10 @@ class RepositorySettingsTest extends VaGovExistingSiteBase {
       [
         'name' => RepositorySettingsInterface::CONTENT_BUILD,
         'path' => Settings::get('va_gov_web_root'),
+      ],
+      [
+        'name' => RepositorySettingsInterface::VETS_WEBSITE,
+        'path' => Settings::get('va_gov_vets_website_root'),
       ],
     ], $repositorySettings->list());
   }

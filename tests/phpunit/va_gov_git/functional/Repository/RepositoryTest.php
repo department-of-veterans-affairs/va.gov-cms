@@ -36,6 +36,16 @@ class RepositoryTest extends VaGovExistingSiteBase {
   }
 
   /**
+   * Test that we can instantiate the Vets-Website repository.
+   */
+  public function testConstructVetsWebsite() {
+    $repository = \Drupal::service('va_gov_git.repository_factory')->getContentBuild();
+    $this->assertInstanceOf(RepositoryInterface::class, $repository);
+    $repository = \Drupal::service('va_gov_git.repository.vets_website');
+    $this->assertInstanceOf(RepositoryInterface::class, $repository);
+  }
+
+  /**
    * Test that each repository has remote branches.
    *
    * @param string $repositoryName
@@ -84,6 +94,16 @@ class RepositoryTest extends VaGovExistingSiteBase {
       ],
       [
         'content-build',
+        'refs/remotes/origin/this-branch-does-not-exist',
+        FALSE,
+      ],
+      [
+        'vets-website',
+        'refs/remotes/origin/main',
+        TRUE,
+      ],
+      [
+        'vets-website',
         'refs/remotes/origin/this-branch-does-not-exist',
         FALSE,
       ],

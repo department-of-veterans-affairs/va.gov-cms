@@ -13,9 +13,10 @@ use Drupal\va_gov_git\Repository\Factory\RepositoryFactoryInterface;
  * This service provides a way to create branch search services corresponding
  * to specific Git repositories.
  *
- * At this time, we're primarily interested in two repositories:
+ * At this time, we're primarily interested in three repositories:
  * - The `va.gov-cms` repository.
  * - The `content-build` repository.
+ * - The `vets-website` repository.
  */
 class BranchSearchFactory implements BranchSearchFactoryInterface {
 
