@@ -329,6 +329,10 @@ Each repository includes READMEs to help with setup.
 - [ ] [CMS Collab Cycle documentation](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/1791459333/CMS+Collaboration+Flow#like-section)
 - [ ] [CMS Collab Cycle kanban board](https://github.com/department-of-veterans-affairs/va.gov-cms#workspaces/cms-collaboration-cycle-reviews-62f50368ef32b60022d76d64/board?repos=154174777)
 
+**Tracking features**
+- [ ] [CMS & Front-end Repos & Build jobs - cheatsheet](https://docs.google.com/spreadsheets/d/164H07n4FChg-JxJZu964nfg2wAX0kPD0SjTfZMhzj_I/edit#gid=0) - unofficial documentation to help navigate understanding our build systems & channels for notifications
+- [ ] [Front-end deployment dashboard](https://department-of-veterans-affairs.github.io/veteran-facing-services-tools/frontend-support-dashboard/) - **bookmark this** - displays the status of fixes/enhancements as they deploy through Dev > Staging > Prod (for both content-build and vets-website)
+
 </details>
 
 <details><summary>Onboarding for UX members</summary>

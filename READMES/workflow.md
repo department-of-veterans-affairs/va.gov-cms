@@ -47,7 +47,7 @@ _Example: VACMS-1234 Add configuration for menu reduction._
 ### Pull Request Norms
 * Pull requests should be made against the `main` branch.
 * Pull Request title should be in the format: "VACMS-123: ticket title, starting with an action verb and ending with punctuation."
-* If your PR is a work in progress or should not be merged, prefix the pull request title with "WIP: " and use the Draft feature.
+* If your PR is a work in progress or should not be merged, use the Draft feature.
 * Put a link to the ticket at the top of the PR description.
 * Add required notes in the PR description:
   1. If the PR requires manual deployment steps (this should rarely happen).

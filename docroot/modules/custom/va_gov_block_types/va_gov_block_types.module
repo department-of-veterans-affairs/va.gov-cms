@@ -24,7 +24,6 @@ function va_gov_block_types_preprocess_details__node_page_edit_form__field_alert
     return 'No field block status';
   }
   $status = $block->get('status')->value;
-  echo $status;
 
   // If block is not published, provide a custom class.
   if (intval($status) === 0) {

@@ -13,7 +13,7 @@ use Drupal\message\Entity\Message;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * AdvancedQueue queue processor plugin for content release dispatch.
+ * AdvancedQueue queue processor plugin for outdated content notifications.
  *
  * @AdvancedQueueJobType(
  *  id = "va_gov_outdated_content_notification",
