@@ -6,7 +6,6 @@ use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\State\StateInterface;
 use Drupal\va_gov_build_trigger\Controller\ContentReleaseNotificationController;
 use Drupal\va_gov_build_trigger\EventSubscriber\ContinuousReleaseSubscriber;
-use Drupal\va_gov_build_trigger\Service\BuildRequester;
 use Drupal\va_gov_build_trigger\Service\BuildRequesterInterface;
 use Drupal\va_gov_build_trigger\Service\BuildSchedulerInterface;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManager;
@@ -92,19 +91,6 @@ class ContentReleaseCommands extends DrushCommands {
   }
 
   /**
-   * Reset the content release frontend version.
-   *
-   * @command va-gov:content-release:reset-frontend-version
-   * @aliases va-gov-content-release-reset-frontend-version
-   */
-  public function resetFrontendVersion() {
-    $this->state->delete(BuildRequester::VA_GOV_FRONTEND_VERSION);
-    $this->logger()->info('Content release state has been reset to @state.', [
-      '@state' => ReleaseStateManager::STATE_DEFAULT,
-    ]);
-  }
-
-  /**
    * Advance the state like an external system would do through HTTP.
    *
    * @param string $state
@@ -129,17 +115,6 @@ class ContentReleaseCommands extends DrushCommands {
     $this->logger()->info('State has been advanced to @state', [
       '@state' => $state,
     ]);
-  }
-
-  /**
-   * Get the frontend version that was requested by the user.
-   *
-   * @command va-gov:content-release:get-frontend-version
-   * @aliases va-gov-content-release-get-frontend-version
-   */
-  public function getFrontendVersion() {
-    $state = $this->state->get(BuildRequester::VA_GOV_FRONTEND_VERSION, '__default');
-    $this->io()->write($state);
   }
 
   /**

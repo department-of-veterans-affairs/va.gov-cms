@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\va_gov_build_trigger\Plugin\Block;
+namespace Drupal\va_gov_content_release\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Datetime\DateFormatterInterface;
@@ -8,16 +8,14 @@ use Drupal\Core\Link;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\State\StateInterface;
 use Drupal\Core\Url;
-use Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\va_gov_build_trigger\Service\BuildRequester;
 
 /**
- * Provides a 'ContentReleaseStatusBlock' block.
+ * Provides a Content Release Status block.
  *
  * @Block(
  *  id = "content_release_status_block",
- *  admin_label = @Translation("Recent updates"),
+ *  admin_label = @Translation("Content Release Status"),
  * )
  */
 class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPluginInterface {
@@ -128,7 +126,6 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
 
     if ($this->environmentDiscovery->shouldDisplayBuildDetails()) {
       $current_frontend_version = $this->state->get(BuildRequester::VA_GOV_FRONTEND_VERSION, '[default]');
-      $build_log_link =
 
       $items['front_end_version'] = [
         'title' => $this->t('Front end version'),
