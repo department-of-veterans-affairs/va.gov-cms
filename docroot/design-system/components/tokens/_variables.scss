@@ -1,3 +1,8 @@
+@use 'sass:color';
+
+$va-blue-dark: #004795;
+$hover: darken($va-blue-dark, 10%);
+
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Bitter:400,600&display=swap&subset=latin-ext');
 
@@ -8,7 +13,7 @@
   --va-gray-lightest: #f1f1f1;
   --va-gray-darkest: #212121;
   --va-blue-lightest: #f0f6fb;
-  --va-blue-dark: #004795;
+  --va-blue-dark: #{$va-blue-dark};
   --va-blue-darkest: #112e51;
   --va-gold-lightest: #fff1d2;
   --va-gold-med: #fdb81e;
@@ -18,7 +23,7 @@
   --va-red-lightest: #f9dede;
   --va-red-dark: #cd2026;
   --va-red-darker: #981b1e;
-  --va-white: #fff;
+  --va-white: #ffffff;
   --va-black: #212121;
 
   /* Colors for textfield_counter overrides */
@@ -62,6 +67,9 @@
   --color-davysgray: var(--va-gray-darkest);
   --color-bgblue-hover: var(--va-blue-lightest);
   --color-bgblue-active: var(--va-blue-lightest);
+  --button-fg-color--primary: var(--va-white);
+  --button--hover-bg-color--primary: #{$hover};
+  --button-bg-color--primary: var(--va-blue-dark);
 
   --messages__text-margin: 0;
 
@@ -72,4 +80,3 @@
   --focus-outline: 2px dotted transparent;
   --focus-box-shadow:0 0 0 2px #fff, 0 0 0 5px #26a769;
 }
-
