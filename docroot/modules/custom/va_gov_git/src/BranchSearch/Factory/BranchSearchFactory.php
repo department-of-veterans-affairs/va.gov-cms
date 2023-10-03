@@ -80,4 +80,11 @@ class BranchSearchFactory implements BranchSearchFactoryInterface {
     return new BranchSearch($this->repositoryFactory->getContentBuild(), $this->loggerFactory);
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  public function getVetsWebsite(): BranchSearchInterface {
+    return new BranchSearch($this->repositoryFactory->getVetsWebsite(), $this->loggerFactory);
+  }
+
 }
