@@ -8,6 +8,8 @@ use Drupal\Core\Link;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\State\StateInterface;
 use Drupal\Core\Url;
+use Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery;
+use Drupal\va_gov_build_trigger\Service\BuildRequester;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -159,10 +161,10 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
       ],
     ];
 
-    $build['#attached']['library'][] = 'va_gov_build_trigger/content_release_status_block';
-    $build['#attached']['drupalSettings']['contentReleaseStatusBlock'] = [
+    $build['#attached']['library'][] = 'va_gov_content_release/status_block';
+    $build['#attached']['drupalSettings']['contentRelease']['statusBlock'] = [
       'blockRefreshPath' => Url::fromRoute(
-        'va_gov_build_trigger.content_release_status_block_controller_get_block'
+        'va_gov_content_release.status_block_controller_get_block'
       )->toString(),
     ];
 
