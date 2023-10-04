@@ -17,9 +17,9 @@ use Symfony\Component\HttpFoundation\Response;
 class FrontendVersionAutocompleteController extends ControllerBase {
 
   /**
-   * GitHub Clients for `content-build` repository.
+   * Frontend version search service.
    *
-   * @var \Drupal\va_gov_github\Api\Client\ApiClientInterface
+   * @var \Drupal\va_gov_content_release\FrontendVersionSearch\FrontendVersionSearchInterface
    */
   protected $frontendVersionSearch;
   /**
