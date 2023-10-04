@@ -31,6 +31,25 @@ class FrontendVersionCommands extends DrushCommands {
   }
 
   /**
+   * Get the frontend.
+   *
+   * @param string $frontend
+   *   The frontend whose version we are getting.
+   *
+   * @return \Drupal\va_gov_content_release\Frontend\Frontend
+   *   The frontend.
+   */
+  public function getFrontend(string $frontend) {
+    try {
+      return Frontend::from($frontend);
+    }
+    catch (\Throwable $exception) {
+      $this->io()->error($exception->getMessage());
+      exit(1);
+    }
+  }
+
+  /**
    * Get the frontend version.
    *
    * @param string $frontend
@@ -40,7 +59,7 @@ class FrontendVersionCommands extends DrushCommands {
    * @aliases va-gov-content-release-frontend-version-get
    */
   public function get(string $frontend = 'content_build') {
-    $frontend = Frontend::fromRawValue($frontend);
+    $frontend = $this->getFrontend($frontend);
     $value = $this->frontendVersion->getVersion($frontend);
     $this->io()->write($value);
   }
@@ -55,7 +74,7 @@ class FrontendVersionCommands extends DrushCommands {
    * @aliases va-gov-content-release-frontend-version-reset
    */
   public function reset(string $frontend = 'content_build') {
-    $frontend = Frontend::fromRawValue($frontend);
+    $frontend = $this->getFrontend($frontend);
     $this->frontendVersion->resetVersion($frontend);
     $this->io()->success('Frontend version reset.');
   }
@@ -72,7 +91,7 @@ class FrontendVersionCommands extends DrushCommands {
    * @aliases va-gov-content-release-frontend-version-set
    */
   public function setVersion(string $frontend = 'content_build', $version = '_default') {
-    $frontend = Frontend::fromRawValue($frontend);
+    $frontend = $this->getFrontend($frontend);
     $this->frontendVersion->setVersion($frontend, $version);
     $this->io()->success('Frontend version set to ' . $version);
   }

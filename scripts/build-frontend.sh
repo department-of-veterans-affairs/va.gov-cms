@@ -55,24 +55,40 @@ rm -rf ${reporoot}/docroot/vendor/va-gov
 composer install --no-scripts &>> ${logfile}
 
 # Get the requested frontend version
-feversion=$(drush va-gov:content-release:get-frontend-version | tail -1)
+feversion=$(drush va-gov-content-release:frontend-version:get content_build | tail -1)
 if [ "${feversion}" != "__default" ]; then
   echo "==> Checking out the requested frontend version" >> ${logfile}
   pushd ${reporoot}/docroot/vendor/va-gov/content-build
-    if echo "$feversion" | grep -qE '^[0-9]+$' > /dev/null; then
-      echo "==> Checking out PR #${feversion}"
-      git fetch origin pull/${feversion}/head &>> ${logfile}
-    else
-      echo "==> Checking out git ref ${feversion}"
-      git fetch origin ${feversion} &>> ${logfile}
-    fi
-    git checkout FETCH_HEAD &>> ${logfile}
+  if echo "$feversion" | grep -qE '^[0-9]+$' > /dev/null; then
+    echo "==> Checking out PR #${feversion}"
+    git fetch origin pull/${feversion}/head &>> ${logfile}
+  else
+    echo "==> Checking out git ref ${feversion}"
+    git fetch origin ${feversion} &>> ${logfile}
+  fi
+  git checkout FETCH_HEAD &>> ${logfile}
   popd
 fi
 
 # Install 3rd party deps.
 echo "==> Installing yarn dependencies" >> ${logfile}
 composer va:web:install &>> ${logfile}
+
+# Get the requested vets-website version
+vwversion=$(drush va-gov-content-release:vets-website-version:get vets_website | tail -1)
+if [ "${vwversion}" != "__default" ]; then
+  echo "==> Checking out the requested vets-website version" >> ${logfile}
+  pushd ${reporoot}/docroot/vendor/va-gov/vets-website
+  if echo "$vwversion" | grep -qE '^[0-9]+$' > /dev/null; then
+    echo "==> Checking out PR #${vwversion}"
+    git fetch origin pull/${vwversion}/head &>> ${logfile}
+  else
+    echo "==> Checking out git ref ${vwversion}"
+    git fetch origin ${vwversion} &>> ${logfile}
+  fi
+  git checkout FETCH_HEAD &>> ${logfile}
+  popd
+fi
 
 # Run the build.
 echo "==> Starting build" >> ${logfile}
