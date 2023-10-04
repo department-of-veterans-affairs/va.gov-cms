@@ -7,6 +7,7 @@
 1. [CMS Forms Data to Lighthouse](#cms-forms-data-to-lighthouse)
 1. [Points of Failure](#points-of-failure)
 
+More Forms product / technical information: [va.gov-team/products/find-a-va-form/engineering](https://github.com/department-of-veterans-affairs/va.gov-team/edit/master/products/find-a-va-form/engineering/engineering.md)
 ## Data Flow
 
 All times in ET.
@@ -14,13 +15,16 @@ All times in ET.
 ```mermaid
   graph TD;
     fdb[(Forms DB)] -- "11:30PM (push)" --> csv1[CSV]
-    csv1 -. midnight .-> csv2[CSV copied to cms]
+    csv1 -. midnight .-> csv2[CSV copied to Drupal CMS]
     csv2 -. periodic task .-> csv3[validation tests run on csv copy]
-    csv3 -- "midnight migration (pull)" --> cms[CMS]
+    csv3 -- "midnight migration (pull)" --> cms[Drupal CMS]
     cms-- "1AM (pull)" -->formapi[("VA Forms API (Lighthouse)")]
     cms -- va.gov content release --->fe[[VA.gov Form Detail pages]]
     formapi-- Vets API -->formsearch[[VA.gov Form Search]]
 ```
+
+* Forms DB infrastructure is owned by Office of Information Technology (OIT). Forms DB content is owned by Forms Managers from each VA administration. [Contacts](https://github.com/department-of-veterans-affairs/va.gov-team/tree/master/products/find-a-va-form#va-forms-contacts)
+* Drupal CMS is responsible for Forms content model, governance, and editorial experience.
 
 ## Forms Migration
 
