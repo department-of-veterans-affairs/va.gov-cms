@@ -13,7 +13,7 @@ find . \
   -not \
   \( \
     -path './docroot/vendor/va-gov/content-build/.git' \
-    -o -path './docroot/vendor/va-gov/vets-website/.git' \
+    -or -path './docroot/vendor/va-gov/vets-website/.git' \
   \) \
   -print \
   -exec rm -rf {} +
