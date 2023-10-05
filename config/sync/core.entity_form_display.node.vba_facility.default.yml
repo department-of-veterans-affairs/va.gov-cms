@@ -5,21 +5,15 @@ dependencies:
   config:
     - field.field.node.vba_facility.field_address
     - field.field.node.vba_facility.field_administration
-    - field.field.node.vba_facility.field_benefit_office_hours_may_v
-    - field.field.node.vba_facility.field_can_t_find_benefits
     - field.field.node.vba_facility.field_cc_benefits_hotline
     - field.field.node.vba_facility.field_cc_vba_facility_overview
     - field.field.node.vba_facility.field_facility_locator_api_id
     - field.field.node.vba_facility.field_facility_vba_classificatio
     - field.field.node.vba_facility.field_geolocation
-    - field.field.node.vba_facility.field_get_updates_from_vba
     - field.field.node.vba_facility.field_intro_text
     - field.field.node.vba_facility.field_last_saved_by_an_editor
     - field.field.node.vba_facility.field_location_services
     - field.field.node.vba_facility.field_media
-    - field.field.node.vba_facility.field_national_spotlight_1
-    - field.field.node.vba_facility.field_national_spotlight_2
-    - field.field.node.vba_facility.field_national_spotlight_3
     - field.field.node.vba_facility.field_non_va_location_url
     - field.field.node.vba_facility.field_non_va_official_name
     - field.field.node.vba_facility.field_office
@@ -211,7 +205,7 @@ third_party_settings:
         required_fields: 1
         attributes: ''
         description: ''
-        tooltip_description: "Why can’t I edit this?\r\nNational editors keep this content standardized to provide consistent messaging for facilities nationwide."
+        tooltip_description: "Why can’t I edit this?\r\nInternational editors keep this content standardized to provide consistent messaging for facilities nationwide."
         open: false
     group_benefit_office_hours_may_v:
       children:
@@ -312,24 +306,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_benefit_office_hours_may_v:
-    type: entity_field_fetch_widget
-    weight: 13
-    region: content
-    settings:
-      show_field_label: true
-      show_link_to_source: false
-      show_source_updated_date: false
-    third_party_settings: {  }
-  field_can_t_find_benefits:
-    type: entity_field_fetch_widget
-    weight: 11
-    region: content
-    settings:
-      show_field_label: true
-      show_link_to_source: false
-      show_source_updated_date: false
-    third_party_settings: {  }
   field_cc_benefits_hotline:
     type: entity_field_fetch_widget
     weight: 26
@@ -369,15 +345,6 @@ content:
     settings:
       html5_geolocation: false
     third_party_settings: {  }
-  field_get_updates_from_vba:
-    type: entity_field_fetch_widget
-    weight: 11
-    region: content
-    settings:
-      show_field_label: true
-      show_link_to_source: false
-      show_source_updated_date: false
-    third_party_settings: {  }
   field_intro_text:
     type: string_textarea
     weight: 3
@@ -414,33 +381,6 @@ content:
     region: content
     settings:
       media_types: {  }
-    third_party_settings: {  }
-  field_national_spotlight_1:
-    type: entity_field_fetch_widget
-    weight: 10
-    region: content
-    settings:
-      show_field_label: true
-      show_link_to_source: false
-      show_source_updated_date: false
-    third_party_settings: {  }
-  field_national_spotlight_2:
-    type: entity_field_fetch_widget
-    weight: 11
-    region: content
-    settings:
-      show_field_label: true
-      show_link_to_source: false
-      show_source_updated_date: false
-    third_party_settings: {  }
-  field_national_spotlight_3:
-    type: entity_field_fetch_widget
-    weight: 12
-    region: content
-    settings:
-      show_field_label: true
-      show_link_to_source: false
-      show_source_updated_date: false
     third_party_settings: {  }
   field_non_va_location_url:
     type: link_default
