@@ -8,6 +8,7 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\core_event_dispatcher\EntityHookEvents;
 use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
+use Drupal\feature_toggle\FeatureStatus;
 use Drupal\node\NodeInterface;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -40,6 +41,11 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   const OUTREACH_HUB_TID = 7;
 
   /**
+   * The Feature toggle name for outreach checkbox.
+   */
+  const OUTREACH_FEATURE = 'FEATURE_EVENT_OUTREACH_CHECKBOX';
+
+  /**
    * The User Perms Service.
    *
    * @var \Drupal\va_gov_user\Service\UserPermsService
@@ -54,16 +60,26 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   protected AccountInterface $currentUser;
 
   /**
+   * The Feature Toggle Service.
+   *
+   * @var \Drupal\feature_toggle\FeatureStatus
+   */
+  protected featureStatus $featureStatus;
+
+  /**
    * Constructs the EventSubscriber object.
    *
    * @param \Drupal\va_gov_user\Service\UserPermsService $user_perms_service
    *   The current user perms service.
    * @param \Drupal\Core\Session\AccountProxy $account_proxy
    *   The account proxy service.
+   * @param \Drupal\feature_toggle\FeatureStatus $featureStatus
+   *   The feature status service.
    */
-  public function __construct(UserPermsService $user_perms_service, AccountProxy $account_proxy) {
+  public function __construct(UserPermsService $user_perms_service, AccountProxy $account_proxy, FeatureStatus $featureStatus) {
     $this->userPermsService = $user_perms_service;
     $this->currentUser = $account_proxy->getAccount();
+    $this->featureStatus = $featureStatus;
   }
 
   /**
@@ -101,7 +117,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function entityPresave(EntityPresaveEvent $event): void {
     $entity = $event->getEntity();
-    if ($entity instanceof NodeInterface) {
+    if ($entity instanceof NodeInterface && $this->featureStatus->getStatus(self::OUTREACH_FEATURE)) {
       $this->addToNationalOutreachCalendar($entity);
     }
   }
@@ -159,7 +175,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The form array.
    */
   public function modifyAddToOutreachCalendarElements(array &$form) :void {
-    if ($this->outreachHubOnlyUser()) {
+    if ($this->outreachHubOnlyUser() && $this->featureStatus->getStatus(self::OUTREACH_FEATURE)) {
       // Disable the checkbox.
       $form[self::PUBLISH_TO_OUTREACH_CAL_FIELD]['#disabled'] = TRUE;
       // Set the default value of the checkbox.
@@ -176,6 +192,9 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     // the Limited Widgets for Unlimited Field module.
     if (isset($form[self::LISTING_FIELD]['widget']['#options']) && !array_key_exists('_none', $form[self::LISTING_FIELD]['widget']['#options'])) {
       $form[self::LISTING_FIELD]['widget']['#options'] = ['_none' => '- Select a value -'] + $form[self::LISTING_FIELD]['widget']['#options'];
+    }
+    if (!$this->featureStatus->getStatus(self::OUTREACH_FEATURE)) {
+      $form[self::PUBLISH_TO_OUTREACH_CAL_FIELD]['#access'] = FALSE;
     }
   }
 
