@@ -38,6 +38,16 @@ body:
     validations:
       required: true
   - type: dropdown
+    id: UX
+    attributes:
+      label: Will your work result in visible changes to the user experience?
+      multiple: false
+      options:
+        - "Yes"
+        - "No"
+    validations:
+      required: true    
+  - type: dropdown
     id: research
     attributes:
       label: Are you doing research with VA.gov users or editors?
