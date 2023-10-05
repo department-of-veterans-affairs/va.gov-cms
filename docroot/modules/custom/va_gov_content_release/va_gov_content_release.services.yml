@@ -55,4 +55,9 @@ services:
       - { name: event_subscriber }
   va_gov_content_release.status:
     class: Drupal\va_gov_content_release\Status\Status
-    arguments: ['@string_translation', '@va_gov_build_trigger.release_state_manager', '@va_gov_content_release.frontend_url']
+    arguments:
+      - '@string_translation'
+      - '@date.formatter'
+      - '@va_gov_build_trigger.release_state_manager'
+      - '@va_gov_content_release.strategy_resolver'
+      - '@va_gov_content_release.frontend_version'
