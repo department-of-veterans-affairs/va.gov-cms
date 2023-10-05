@@ -1,7 +1,10 @@
 @use 'sass:color';
 
 $va-blue-dark: #004795;
-$hover: darken($va-blue-dark, 10%);
+$blue-hover: darken($va-blue-dark, 10%);
+$va-gray-med: #aeb0b5;
+$gray-hover: darken($va-gray-med, 10%);
+
 
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Bitter:400,600&display=swap&subset=latin-ext');
@@ -11,6 +14,7 @@ $hover: darken($va-blue-dark, 10%);
    * Our unique design system variables.
    */
   --va-gray-lightest: #f1f1f1;
+  --va-gray-med: #{$va-gray-med};
   --va-gray-darkest: #212121;
   --va-blue-lightest: #f0f6fb;
   --va-blue-dark: #{$va-blue-dark};
@@ -19,6 +23,7 @@ $hover: darken($va-blue-dark, 10%);
   --va-gold-med: #fdb81e;
   --va-gold-dark: #c58702;
   --va-green-lightest: #e7f4e4;
+  --va-green: #2e8540;
   --va-green-dark: #195c27;
   --va-red-lightest: #f9dede;
   --va-red-dark: #cd2026;
@@ -27,8 +32,31 @@ $hover: darken($va-blue-dark, 10%);
   --va-black: #212121;
 
   /* Colors for textfield_counter overrides */
-  --color-textfield-counter-warning: #C58702;
-  --color-textfield-counter-over: #B20D01;
+  --color-textfield-counter-warning: var(--va-gold-dark);
+  --color-textfield-counter-over: var(--va-red-dark);
+
+  /* claro overrides */
+  --color-absolutezero: var(--va-blue-dark);
+  --color-absolutezero-hover: var(--va-blue-dark);
+  --color-absolutezero-active: var(--va-blue-darkest);
+  --color-sunglow: var(--va-gold-med);
+  --color-maximumred: var(--va-red-dark);
+  --color-lightninggreen: var(--va-green-dark);
+  --color-lightgray: var(--va-gray-lightest);
+  --color-whitesmoke: var(--va-gray-lightest);
+  --color-text: var(--va-gray-darkest);
+  --color-grayblue: var(--va-gray-lightest);
+  --color-davysgray: var(--va-gray-darkest);
+  --color-bgblue-hover: var(--va-blue-lightest);
+  --color-bgblue-active: var(--va-blue-lightest);
+  --button-fg-color--primary: var(--va-white);
+  --button--hover-bg-color--primary: #{$blue-hover};
+  --button-bg-color--primary: var(--va-blue-dark);
+  --button-bg-color: var(--va-gray-med);
+  --button--hover-bg-color: #{$gray-hover};
+  --input-fg-color-description--alt: var(--va-gray-darkest);
+  --input--hover-border-color: var(--va-blue-darkest);
+  --input--disabled-fg-color: var(--va-gray-darkest);
 
   /* rem size based on :root font-size of 16px, so 1rem = 16px */
   --spacing-xxs: 0.25rem;
@@ -53,30 +81,8 @@ $hover: darken($va-blue-dark, 10%);
   --va-text: 18px;
   --va-helptext: 14px;
 
-  /* claro overrides */
-  --color-absolutezero: var(--va-blue-dark);
-  --color-absolutezero-hover: var(--va-blue-dark);
-  --color-absolutezero-active: var(--va-blue-darkest);
-  --color-sunglow: var(--va-gold-med);
-  --color-maximumred: var(--va-red-dark);
-  --color-lightninggreen: var(--va-green-dark);
-  --color-lightgray: var(--va-gray-lightest);
-  --color-whitesmoke: var(--va-gray-lightest);
-  --color-text: var(--va-gray-darkest);
-  --color-grayblue: var(--va-gray-lightest);
-  --color-davysgray: var(--va-gray-darkest);
-  --color-bgblue-hover: var(--va-blue-lightest);
-  --color-bgblue-active: var(--va-blue-lightest);
-  --button-fg-color--primary: var(--va-white);
-  --button--hover-bg-color--primary: #{$hover};
-  --button-bg-color--primary: var(--va-blue-dark);
-
   --messages__text-margin: 0;
 
-  --input-fg-color-description--alt: var(--va-gray-darkest);
-  --input--hover-border-color: var(--va-blue-darkest);
-  --input--disabled-fg-color: var(--va-gray-darkest);
-
   --focus-outline: 2px dotted transparent;
-  --focus-box-shadow:0 0 0 2px #fff, 0 0 0 5px #26a769;
+  --focus-box-shadow:0 0 0 2px #fff, 0 0 0 5px var(--va-green);
 }
