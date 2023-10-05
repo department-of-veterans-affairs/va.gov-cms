@@ -64,7 +64,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *
    * @var \Drupal\feature_toggle\FeatureStatus
    */
-  protected featureStatus $feature_status;
+  protected featureStatus $outreachFeatureToggle;
 
   /**
    * Constructs the EventSubscriber object.
@@ -79,7 +79,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public function __construct(UserPermsService $user_perms_service, AccountProxy $account_proxy, FeatureStatus $feature_status) {
     $this->userPermsService = $user_perms_service;
     $this->currentUser = $account_proxy->getAccount();
-    $this->feature_status = $feature_status;
+    $this->outreachFeatureToggle = $feature_status;
   }
 
   /**
@@ -117,7 +117,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    */
   public function entityPresave(EntityPresaveEvent $event): void {
     $entity = $event->getEntity();
-    if ($entity instanceof NodeInterface && $this->feature_status->getStatus(self::OUTREACH_FEATURE)) {
+    if ($entity instanceof NodeInterface && $this->outreachFeatureToggle->getStatus(self::OUTREACH_FEATURE)) {
       $this->addToNationalOutreachCalendar($entity);
     }
   }
@@ -175,7 +175,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The form array.
    */
   public function modifyAddToOutreachCalendarElements(array &$form) :void {
-    if ($this->outreachHubOnlyUser() && $this->feature_status->getStatus(self::OUTREACH_FEATURE)) {
+    if ($this->outreachHubOnlyUser() && $this->outreachFeatureToggle->getStatus(self::OUTREACH_FEATURE)) {
       // Disable the checkbox.
       $form[self::PUBLISH_TO_OUTREACH_CAL_FIELD]['#disabled'] = TRUE;
       // Set the default value of the checkbox.
@@ -193,7 +193,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     if (isset($form[self::LISTING_FIELD]['widget']['#options']) && !array_key_exists('_none', $form[self::LISTING_FIELD]['widget']['#options'])) {
       $form[self::LISTING_FIELD]['widget']['#options'] = ['_none' => '- Select a value -'] + $form[self::LISTING_FIELD]['widget']['#options'];
     }
-    if (!$this->feature_status->getStatus(self::OUTREACH_FEATURE)) {
+    if (!$this->outreachFeatureToggle->getStatus(self::OUTREACH_FEATURE)) {
       $form[self::PUBLISH_TO_OUTREACH_CAL_FIELD]['#access'] = FALSE;
     }
   }
