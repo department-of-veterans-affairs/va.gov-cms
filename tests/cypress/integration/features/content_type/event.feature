@@ -3,7 +3,7 @@ Feature: Content Type: Event
 
   Scenario: Log in and create an event.
     Given I am logged in as a user with the "content_admin" role
-    Then I create a "event" node
+    And I create a "event" node
 
   Scenario: Confirm that event form conditional fields are cleared out if parent options change
     Given I am logged in as a user with the "content_admin" role
@@ -33,7 +33,6 @@ Feature: Content Type: Event
     And the option "- None -" from dropdown "State" should be selected
     When I select the "Online" radio button
     Then an element with the selector "#edit-field-url-of-an-online-event-0-uri" should be empty
-  # EVENT FORM SPECS
 
   Scenario: Confirm that the default time zone when creating an event is set explicitly to Eastern.
     Given I am logged in as a user with the "content_admin" role
@@ -42,7 +41,7 @@ Feature: Content Type: Event
 
   Scenario: Confirm that the event form conditional elements are shown or hidden appropriately
     Given I am logged in as a user with the "content_admin" role
-    And I am at "node/add/event"
+    When I am at "node/add/event"
 
     And I select the "At a VA facility" radio button
     Then I should see "Facility location"
@@ -79,13 +78,13 @@ Feature: Content Type: Event
 
     When I select option "Register" from dropdown "Call to action"
     Then I should see an element with the selector "#edit-field-link-0-uri"
-    And I select option "Apply" from dropdown "Call to action"
+    When I select option "Apply" from dropdown "Call to action"
     Then I should see an element with the selector "#edit-field-link-0-uri"
-    And I select option "RSVP" from dropdown "Call to action"
+    When I select option "RSVP" from dropdown "Call to action"
     Then I should see an element with the selector "#edit-field-link-0-uri"
-    And I select option "More Details" from dropdown "Call to action"
+    When I select option "More Details" from dropdown "Call to action"
     Then I should see an element with the selector "#edit-field-link-0-uri"
-    And I select option "- None -" from dropdown "Call to action"
+    When I select option "- None -" from dropdown "Call to action"
     Then I should not see an element with the selector "#edit-field-link-0-uri"
 
     When I uncheck the "Include registration information" checkbox
@@ -93,3 +92,9 @@ Feature: Content Type: Event
     And I should not see "Registration is required for this event"
     And I should not see "Call to action"
     And I should not see an element with the selector "#edit-field-link-0-uri"
+
+  Scenario: Users who can only publish to National Outreach Calendar do not see the "Publish to the National Outreach Calendar" checkbox
+    Given I am logged in as a user with the roles "office_content_creator, content_publisher"
+    When my workbench access sections are set to "7"
+    And I am at "node/add/event"
+    Then I should see "This event will automatically be published to the National Outreach Calendar"
