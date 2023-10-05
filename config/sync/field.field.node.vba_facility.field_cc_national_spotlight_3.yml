@@ -1,0 +1,31 @@
+uuid: 0ecb8937-f1bf-486f-8480-2739260cba81
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cc_national_spotlight_3
+    - node.type.vba_facility
+  module:
+    - entity_field_fetch
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.vba_facility.field_cc_national_spotlight_3
+field_name: field_cc_national_spotlight_3
+entity_type: node
+bundle: vba_facility
+label: 'National spotlight 3'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: null
+default_value_callback: ''
+settings:
+  target_entity_type: node
+  target_entity_id: '61744'
+  field_to_fetch: field_content_block
+  target_paragraph_uuid: feba896f-21e5-4714-abca-886333cd396b
+field_type: entity_field_fetch

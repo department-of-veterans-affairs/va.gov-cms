@@ -5,15 +5,21 @@ dependencies:
   config:
     - field.field.node.vba_facility.field_address
     - field.field.node.vba_facility.field_administration
+    - field.field.node.vba_facility.field_cc_benefit_office_hours_va
+    - field.field.node.vba_facility.field_cc_cant_find_benefits
     - field.field.node.vba_facility.field_cc_benefits_hotline
     - field.field.node.vba_facility.field_cc_vba_facility_overview
     - field.field.node.vba_facility.field_facility_locator_api_id
     - field.field.node.vba_facility.field_facility_vba_classificatio
     - field.field.node.vba_facility.field_geolocation
+    - field.field.node.vba_facility.field_cc_get_updates_from_vba
     - field.field.node.vba_facility.field_intro_text
     - field.field.node.vba_facility.field_last_saved_by_an_editor
     - field.field.node.vba_facility.field_location_services
     - field.field.node.vba_facility.field_media
+    - field.field.node.vba_facility.field_cc_national_spotlight_1
+    - field.field.node.vba_facility.field_cc_national_spotlight_2
+    - field.field.node.vba_facility.field_cc_national_spotlight_3
     - field.field.node.vba_facility.field_non_va_location_url
     - field.field.node.vba_facility.field_non_va_official_name
     - field.field.node.vba_facility.field_office
@@ -163,7 +169,7 @@ third_party_settings:
         required_fields: false
     group_benefit_office_hours_may_v:
       children:
-        - field_benefit_office_hours_may_v
+        - field_cc_benefit_office_hours_va
       label: 'Benefit office hours may vary'
       parent_name: group_facility_data
       region: content
@@ -183,9 +189,9 @@ third_party_settings:
         required_fields: false
     group_national_spotlight:
       children:
-        - field_national_spotlight_1
-        - field_national_spotlight_2
-        - field_national_spotlight_3
+        - field_cc_national_spotlight_1
+        - field_cc_national_spotlight_2
+        - field_cc_national_spotlight_3
       label: 'National spotlight'
       parent_name: ''
       region: content
@@ -205,7 +211,7 @@ third_party_settings:
         required_fields: false
     group_can_t_find_benefits:
       children:
-        - field_can_t_find_benefits
+        - field_cc_cant_find_benefits
       label: 'Can''t find benefits'
       parent_name: ''
       region: content
@@ -225,7 +231,7 @@ third_party_settings:
         required_fields: false
     group_get_updates_from_vba:
       children:
-        - field_get_updates_from_vba
+        - field_cc_get_updates_from_vba
       label: 'Get updates from VBA'
       parent_name: ''
       region: content
@@ -255,6 +261,20 @@ content:
     third_party_settings: {  }
     weight: 4
     region: content
+  field_cc_benefit_office_hours_va:
+    type: entity_field_fetch
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  field_cc_cant_find_benefits:
+    type: entity_field_fetch
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 7
+    region: content
   field_cc_benefits_hotline:
     type: entity_field_fetch
     label: above
@@ -276,6 +296,13 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 3
+    region: content
+  field_cc_get_updates_from_vba:
+    type: entity_field_fetch
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 8
     region: content
   field_intro_text:
     type: basic_string
@@ -301,6 +328,27 @@ content:
       link: true
     third_party_settings: {  }
     weight: 15
+    region: content
+  field_cc_national_spotlight_1:
+    type: entity_field_fetch
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_cc_national_spotlight_2:
+    type: entity_field_fetch
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_cc_national_spotlight_3:
+    type: entity_field_fetch
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 8
     region: content
   field_non_va_location_url:
     type: link
