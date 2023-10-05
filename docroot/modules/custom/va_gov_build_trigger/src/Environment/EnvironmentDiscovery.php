@@ -151,16 +151,6 @@ class EnvironmentDiscovery {
   }
 
   /**
-   * Returns the Build Trigger Form class for the current environment.
-   *
-   * @return string
-   *   Class name.
-   */
-  public function getBuildTriggerFormClass() : string {
-    return $this->getEnvironment()->getBuildTriggerFormClass();
-  }
-
-  /**
    * Determine whether or not build log and frontend version are displayed.
    *
    * This mainly affects the content release form at /admin/content/deploy.

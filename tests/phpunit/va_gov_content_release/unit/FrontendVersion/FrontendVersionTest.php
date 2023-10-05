@@ -34,7 +34,7 @@ class FrontendVersionTest extends VaGovUnitTestBase {
     $this->assertEquals(FrontendVersionInterface::FRONTEND_VERSION_DEFAULT, $frontendVersion->getVersion($frontend));
     $frontendVersion->setVersion($frontend, '1.2.3');
     $this->assertEquals('1.2.3', $frontendVersion->getVersion($frontend));
-    $frontendVersion->reset();
+    $frontendVersion->resetVersion($frontend);
     $this->assertEquals(FrontendVersionInterface::FRONTEND_VERSION_DEFAULT, $frontendVersion->getVersion($frontend));
   }
 

@@ -7,8 +7,8 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\va_gov_build_trigger\Service\ReleaseStateManagerInterface;
-use Drupal\va_gov_content_release\Request\RequestInterface;
 use Drupal\va_gov_content_release\Reporter\ReporterInterface;
+use Drupal\va_gov_content_release\Request\RequestInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**

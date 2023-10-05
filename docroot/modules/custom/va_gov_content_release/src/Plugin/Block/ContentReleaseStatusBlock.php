@@ -3,13 +3,11 @@
 namespace Drupal\va_gov_content_release\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\State\StateInterface;
 use Drupal\Core\Url;
-use Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery;
-use Drupal\va_gov_build_trigger\Service\BuildRequester;
+use Drupal\va_gov_content_release\FrontendUrl\FrontendUrlInterface;
+use Drupal\va_gov_content_release\Status\StatusInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -22,40 +20,21 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
-  /**
-   * State service.
-   *
-   * @var \Drupal\Core\State\StateInterface
-   */
-  protected $state;
+  const BLOCK_REFRESH_ROUTE = 'va_gov_content_release.status_block_controller_get_block';
 
   /**
-   * Environment discovery service.
+   * The content release status service.
    *
-   * @var \Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery
+   * @var \Drupal\va_gov_content_release\Status\StatusInterface
    */
-  protected $environmentDiscovery;
+  protected $status;
 
   /**
-   * The date formatter service.
+   * The frontend URL service.
    *
-   * @var \Drupal\Core\Datetime\DateFormatterInterface
+   * @var \Drupal\va_gov_content_release\FrontendUrl\FrontendUrlInterface
    */
-  protected $dateFormatter;
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    return new static(
-      $configuration,
-      $plugin_id,
-      $plugin_definition,
-      $container->get('state'),
-      $container->get('date.formatter'),
-      $container->get('va_gov.build_trigger.environment_discovery'),
-    );
-  }
+  protected $frontendUrl;
 
   /**
    * Constructs a \Drupal\Component\Plugin\PluginBase object.
@@ -66,157 +45,234 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
    *   The plugin_id for the plugin instance.
    * @param mixed $plugin_definition
    *   The plugin implementation definition.
-   * @param \Drupal\Core\State\StateInterface $state
-   *   The state service.
-   * @param \Drupal\Core\Datetime\DateFormatterInterface $dateFormatter
-   *   The date formatter service.
-   * @param \Drupal\va_gov_build_trigger\Environment\EnvironmentDiscovery $environmentDiscovery
-   *   The environment discovery service.
+   * @param \Drupal\va_gov_content_release\Status\StatusInterface $status
+   *   The content release status service.
+   * @param \Drupal\va_gov_content_release\FrontendUrl\FrontendUrlInterface $frontendUrl
+   *   The frontend URL service.
    */
   public function __construct(
     array $configuration,
     $plugin_id,
     $plugin_definition,
-    StateInterface $state,
-    DateFormatterInterface $dateFormatter,
-    EnvironmentDiscovery $environmentDiscovery
+    StatusInterface $status,
+    FrontendUrlInterface $frontendUrl
   ) {
     $this->configuration = $configuration;
     $this->pluginId = $plugin_id;
     $this->pluginDefinition = $plugin_definition;
-    $this->state = $state;
-    $this->dateFormatter = $dateFormatter;
-    $this->environmentDiscovery = $environmentDiscovery;
+    $this->status = $status;
+    $this->frontendUrl = $frontendUrl;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('va_gov_content_release.status'),
+      $container->get('va_gov_content_release.frontend_url')
+    );
   }
 
   /**
    * {@inheritdoc}
    */
   public function build() {
+    $build = $this->buildStatusBlock();
+    $this->attachStatusBlockLibrary($build);
+    return $build;
+  }
+
+  /**
+   * Build the status block.
+   *
+   * @return array
+   *   The status block.
+   */
+  public function buildStatusBlock(): array {
     $build = [];
-
-    $release_state = $this->state->get('va_gov_build_trigger.release_state', 'ready');
-    $last_release = $this->state->get('va_gov_build_trigger.last_release_complete', 0);
-
-    $items = [];
-
-    // If the frontend has been built, display a link to the environment.
-    $front_end_link = $this->t('Front end has not been built yet.');
-    $front_end_description = $this->t('Once a release is completed successfully, this section will update with a link to the newly built VA.gov front end.');
-    if ($last_release !== 0) {
-      $target = $this->environmentDiscovery->getWebUrl();
-      $target_url = Url::fromUri($target, ['attributes' => ['target' => '_blank']]);
-      $front_end_link = Link::fromTextAndUrl($this->t('View front end'), $target_url);
-      $front_end_description = $this->t('See how your content will appear to site visitors on the front end.');
-    }
-
-    $items['frontend_link'] = [
-      'title' => $this->t('Front end link'),
-      'description' => $front_end_description,
-      'value' => $front_end_link,
-    ];
-
-    $items['release_state'] = [
-      'title' => $this->t('Release state'),
-      'value' => $this->getHumanReadableState($release_state),
-    ];
-
-    $items['last_release'] = [
-      'title' => $this->t('Last release'),
-      'value' => $this->formatTimestamp($last_release),
-    ];
-
-    if ($this->environmentDiscovery->shouldDisplayBuildDetails()) {
-      $current_frontend_version = $this->state->get(BuildRequester::VA_GOV_FRONTEND_VERSION, '[default]');
-
-      $items['front_end_version'] = [
-        'title' => $this->t('Front end version'),
-        'value' => $current_frontend_version,
-      ];
-
-      // If the frontend has been built, display a link to the environment.
-      $build_log_link = $this->t('No build log available');
-      $build_log_description = $this->t('Once a release is completed successfully, this section will update with a link to the full log output of the content release (including a broken link report).');
-      if ($last_release !== 0) {
-        $target = $this->environmentDiscovery->getWebUrl();
-        $target_url = Url::fromUserInput('/sites/default/files/build.txt', ['attributes' => ['target' => '_blank']]);
-        $build_log_link = Link::fromTextAndUrl($this->t('Build log'), $target_url);
-        $build_log_description = $this->t('View the full output of the last completed build process (including a broken link report).');
-      }
-      $items['build_log'] = [
-        'title' => $this->t('Build log'),
-        'description' => $build_log_description,
-        'value' => $build_log_link,
-      ];
-    }
-
-    $status = [
+    $build['content_release_status_block'] = [
       '#theme' => 'status_report_grouped',
       '#grouped_requirements' => [
         [
           'title' => $this->t('Content release status'),
           'type' => 'content-release-status',
-          'items' => $items,
+          'items' => $this->getItems(),
         ],
       ],
     ];
-
-    $build['#attached']['library'][] = 'va_gov_content_release/status_block';
-    $build['#attached']['drupalSettings']['contentRelease']['statusBlock'] = [
-      'blockRefreshPath' => Url::fromRoute(
-        'va_gov_content_release.status_block_controller_get_block'
-      )->toString(),
-    ];
-
-    $build['content_release_status_block'] = $status;
-
     return $build;
   }
 
   /**
-   * Formats our internal state names for end-user consumption.
+   * Get the status items.
    *
-   * @param string $state
-   *   Internal content release state.
-   *
-   * @return string
-   *   User-facing content release state.
+   * @return array
+   *   The status items.
    */
-  protected function getHumanReadableState(string $state) : string {
-    switch ($state) {
-      case 'ready':
-      case 'requested':
-        return $this->t('Ready');
-
-      case 'dispatched':
-      case 'starting':
-        return $this->t('Preparing');
-
-      case 'inprogress':
-        return $this->t('In Progress');
-
-      case 'complete':
-        return $this->t('Complete');
+  public function getItems(): array {
+    $items = [];
+    $items['frontend_link'] = $this->buildFrontendLinkItem();
+    $items['release_state'] = $this->getReleaseStateItem();
+    $items['last_release'] = $this->getLastReleaseItem();
+    $items['content_build_version'] = $this->getContentBuildVersionItem();
+    if ($this->status->hasAdditionalBuildDetails()) {
+      $items = array_merge($items, $this->getAdditionalBuildDetailsItems());
     }
-
-    return 'unknown';
+    return $items;
   }
 
   /**
-   * Format a timestamp using the site standard date format and timezone.
+   * Build and insert the frontend link.
    *
-   * @param int $timestamp
-   *   A unix timestamp.
-   *
-   * @return string
-   *   A formatted date/time.
+   * @return array
+   *   The frontend link item.
    */
-  protected function formatTimestamp(int $timestamp) : string {
-    if ($timestamp === 0) {
-      return $this->t('Never');
+  public function buildFrontendLinkItem(): array {
+    if (!$this->hasEverCompletedRelease()) {
+      return $this->getDefaultFrontendLinkItem();
     }
+    $targetUrl = $this->frontendUrl->getBaseUrl();
+    $targetUrl = Url::fromUri($targetUrl, ['attributes' => ['target' => '_blank']]);
+    return [
+      'title' => $this->t('Front end link'),
+      'description' => $this->t('See how your content will appear to site visitors on the front end.'),
+      'value' => Link::fromTextAndUrl($this->t('View front end'), $targetUrl),
+    ];
+  }
 
-    return $this->dateFormatter->format($timestamp, 'standard');
+  /**
+   * Has a release completed? Like, ever?
+   *
+   * @return bool
+   *   TRUE if a release has ever completed, FALSE otherwise.
+   */
+  public function hasEverCompletedRelease() : bool {
+    return $this->status->getLastReleaseCompleteTimestamp() !== 0;
+  }
+
+  /**
+   * Get the default frontend link item.
+   *
+   * This is used if we've never completed a frontend build and the frontend
+   * is not available.
+   *
+   * @return array
+   *   The default frontend link item.
+   */
+  public function getDefaultFrontendLinkItem() : array {
+    return [
+      'title' => $this->t('Front end link'),
+      'description' => $this->t('Once a release is completed successfully, this section will update with a link to the newly built VA.gov front end.'),
+      'value' => $this->t('Front end has not been built yet.'),
+    ];
+  }
+
+  /**
+   * Get the release state item.
+   *
+   * @return array
+   *   The release state item.
+   */
+  public function getReleaseStateItem(): array {
+    return [
+      'title' => $this->t('Release state'),
+      'value' => $this->status->getHumanReadableCurrentReleaseState(),
+    ];
+  }
+
+  /**
+   * Get the last release item.
+   *
+   * @return array
+   *   The last release item.
+   */
+  public function getLastReleaseItem(): array {
+    return [
+      'title' => $this->t('Last release'),
+      'value' => $this->status->getLastReleaseCompleteDate(),
+    ];
+  }
+
+  /**
+   * Get additional build details items.
+   *
+   * @return array
+   *   The additional build details items.
+   */
+  public function getAdditionalBuildDetailsItems(): array {
+    $items = [];
+    $items['content_build_version'] = $this->getContentBuildVersionItem();
+    $items['vets_website_version'] = $this->getVetsWebsiteVersionItem();
+    $items['build_log'] = $this->getBuildLogItem();
+    return $items;
+  }
+
+  /**
+   * Get the content build version item.
+   *
+   * @return array
+   *   The content build version item.
+   */
+  public function getContentBuildVersionItem(): array {
+    return [
+      'title' => $this->t('<code>content-build</code> version'),
+      'value' => $this->status->getContentBuildVersion(),
+    ];
+  }
+
+  /**
+   * Get the vets-website version item.
+   *
+   * @return array
+   *   The vets-website version item.
+   */
+  public function getVetsWebsiteVersionItem(): array {
+    return [
+      'title' => $this->t('<code>vets-website</code> version'),
+      'value' => $this->status->getVetsWebsiteVersion(),
+    ];
+  }
+
+  /**
+   * Get the build log item.
+   *
+   * @return array
+   *   The build log item.
+   */
+  public function getBuildLogItem(): array {
+    return [
+      'title' => $this->t('Build log'),
+      'value' => $this->getBuildLogLink(),
+    ];
+  }
+
+  /**
+   * Get the build log link.
+   *
+   * @return \Drupal\Core\GeneratedLink
+   *   The build log link.
+   */
+  public function getBuildLogLink() {
+    $buildLogUrl = $this->status->getBuildLogUrl();
+    $buildLogUrl = Url::fromUri($buildLogUrl, ['attributes' => ['target' => '_blank']]);
+    return Link::fromTextAndUrl($this->t('View build log'), $buildLogUrl);
+  }
+
+  /**
+   * Attach the status block library.
+   *
+   * @param array $build
+   *   The render array.
+   */
+  public function attachStatusBlockLibrary(array &$build) {
+    $build['#attached']['library'][] = 'va_gov_content_release/status_block';
+    $build['#attached']['drupalSettings']['contentRelease']['statusBlock'] = [
+      'blockRefreshPath' => Url::fromRoute(static::BLOCK_REFRESH_ROUTE)->toString(),
+    ];
   }
 
 }

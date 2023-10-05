@@ -58,7 +58,7 @@ class FrontendVersionCommands extends DrushCommands {
    * @command va-gov-content-release:frontend-version:get
    * @aliases va-gov-content-release-frontend-version-get
    */
-  public function get(string $frontend = 'content_build') {
+  public function getVersion(string $frontend = 'content_build') {
     $frontend = $this->getFrontend($frontend);
     $value = $this->frontendVersion->getVersion($frontend);
     $this->io()->write($value);
@@ -73,7 +73,7 @@ class FrontendVersionCommands extends DrushCommands {
    * @command va-gov-content-release:frontend-version:reset
    * @aliases va-gov-content-release-frontend-version-reset
    */
-  public function reset(string $frontend = 'content_build') {
+  public function resetVersion(string $frontend = 'content_build') {
     $frontend = $this->getFrontend($frontend);
     $this->frontendVersion->resetVersion($frontend);
     $this->io()->success('Frontend version reset.');
