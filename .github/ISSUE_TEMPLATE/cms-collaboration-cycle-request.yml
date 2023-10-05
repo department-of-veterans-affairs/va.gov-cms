@@ -1,16 +1,18 @@
-name: Sitewide CMS Collaboration Cycle Intake
-description: As a member of a VA team I can fill out a form to get information or begin a collaboration cycle with the Sitewide CMS team.
-title: "[CMS COLLAB CYCLE INTAKE] (Team Name, Product Name, Feature Name)"
-labels: "CMS Team"
+
+name: CMS Collaboration Cycle Request
+description: Begin engaging with the CMS Collaboration Cycle.
+title: "CMS Collaboration Cycle for [Team Name, Product Name, Feature Name]"
+labels: CMS Team, Needs Analysis, CMS-Collab-Cycle, Epic
 assignees:
-  - ewashb
-  - dawnpruitt
+  - BerniXiongA6
+
 
 body:
   - type: markdown
     attributes:
       value: |
-        Please fill out the form below to submit a request for a Sitewide CMS Collaboration Cycle kickoff.  
+        Before engaging with the CMS Collaboration Cycle, please fill out the form below to help the CMS Team determine what level of support and which touchpoints are needed for your work.
+
   - type: checkboxes
     id: type
     attributes:
@@ -21,20 +23,6 @@ body:
         - label: Content audit (either one time audits or resuable tools)
         - label: Change Management review (for any visible changes to the CMS, workflow or content model)
         - label: Other
-    validations:
-      required: true
-  - type: dropdown
-    id: team
-    attributes:
-      label: Please choose the team that is requesting the Collab Cycle kickoff.
-      multiple: false
-      options:
-        - CMS Program
-        - Platform CMS
-        - Facilities
-        - Public Websites
-        - Sitewide Content
-        - Other
     validations:
       required: true
   - type: input
@@ -49,6 +37,16 @@ body:
       label: When will your feature need to launch? 
     validations:
       required: true
+  - type: dropdown
+    id: UX
+    attributes:
+      label: Will your work result in visible changes to the user experience?
+      multiple: false
+      options:
+        - "Yes"
+        - "No"
+    validations:
+      required: true    
   - type: dropdown
     id: research
     attributes:
