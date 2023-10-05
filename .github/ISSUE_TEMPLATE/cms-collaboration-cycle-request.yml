@@ -20,9 +20,7 @@ body:
       options:
         - label: Update to an existing CMS feature (including product iterations, updating DS components or page layouts and nav changes)
         - label: New CMS feature (New content types, DS components, workflows or products)
-        - label: Content audit (either one time audits or resuable tools)
-        - label: Change Management review (for any visible changes to the CMS, workflow or content model)
-        - label: Other
+        - label: Other (Leave notes in the Additional Information section of this form)
     validations:
       required: true
   - type: input
@@ -34,7 +32,17 @@ body:
   - type: input
     id: end-date
     attributes:
-      label: When will your feature need to launch? 
+      label: When will your product/feature need to launch? 
+    validations:
+      required: true
+  - type: dropdown
+    id: research
+    attributes:
+      label: Are you doing user research with CMS editors?
+      multiple: false
+      options:
+        - "Yes"
+        - "No"
     validations:
       required: true
   - type: dropdown
@@ -46,11 +54,11 @@ body:
         - "Yes"
         - "No"
     validations:
-      required: true    
+      required: true
   - type: dropdown
-    id: research
+    id: analytics
     attributes:
-      label: Are you doing research with VA.gov users or editors?
+      label: Do you need to capture any analytics or metrics?
       multiple: false
       options:
         - "Yes"
@@ -71,8 +79,8 @@ body:
   - type: input
     id: product-outline
     attributes:
-      label: Please add a link to your product outline issue. 
-      description: You can find that issue template [here](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Needs+refining&template=product-outline.md&title=Product+Outline+for+%3Cinsert+product+or+feature+name%3E)
+      label: Please add a link to your product outline. 
+      description: If you have not already made one, you can use this [product outline template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/product-management/product-outline-template.md)
     validations:
       required: true
   - type: textarea
@@ -83,7 +91,7 @@ body:
   - type: checkboxes
     id: terms
     attributes:
-      label:  Notify the Sitewide CMS team of this ticket in the cms-support Slack channel. 
+      label:  Notify the CMS Team that you have created this Epic in the cms-support Slack channel. 
       options:
         - label: I acknowledge that I must notify `#cms-support` after submitting this issue.
           required: true
