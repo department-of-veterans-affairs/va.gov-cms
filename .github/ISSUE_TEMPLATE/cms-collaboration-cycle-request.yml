@@ -12,7 +12,13 @@ body:
     attributes:
       value: |
         Before engaging with the CMS Collaboration Cycle, please fill out the form below to help the CMS Team determine what level of support and which touchpoints are needed for your work.
-
+  - type: input
+    id: product-outline
+    attributes:
+      label: Please add a link to your product outline. 
+      description: If you have not already made one, you can use this [product outline template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/product-management/product-outline-template.md).
+    validations:
+      required: true
   - type: checkboxes
     id: type
     attributes:
@@ -74,13 +80,6 @@ body:
         - CMS design system
         - CMS content model
         - CMS features that span multiple products or work streams
-    validations:
-      required: true
-  - type: input
-    id: product-outline
-    attributes:
-      label: Please add a link to your product outline. 
-      description: If you have not already made one, you can use this [product outline template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/product-management/product-outline-template.md).
     validations:
       required: true
   - type: input
