@@ -48,7 +48,7 @@ body:
   - type: dropdown
     id: UX
     attributes:
-      label: Will your work result in visible changes to the user experience?
+      label: Will your work result in visible changes to the user experience of the CMS?
       multiple: false
       options:
         - "Yes"
@@ -83,6 +83,13 @@ body:
       description: If you have not already made one, you can use this [product outline template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/product-management/product-outline-template.md)
     validations:
       required: true
+    - type: input
+    id: current-implementation
+    attributes:
+      label: Please add a link to the current implementation of this product/feature, if applicable. 
+      description: Only leave this blank if there is nothing that currently exists in the CMS.
+    validations:
+      required: false
   - type: textarea
     id: additional-information
     attributes:
@@ -91,8 +98,8 @@ body:
   - type: checkboxes
     id: terms
     attributes:
-      label:  Notify the CMS Team that you have created this Epic in the cms-support Slack channel. 
+      label:  Submit this form as an Epic and notify the @cms-team user group in the [#cms-support Slack channel](https://dsva.slack.com/archives/CDHBKAL9W) that this epic has been created and needs review by the CMS Team. 
       options:
-        - label: I acknowledge that I must notify `#cms-support` after submitting this issue.
+        - label: I acknowledge that I must include a link to this epic in my message to the `#cms-support` channel.
           required: true
           
