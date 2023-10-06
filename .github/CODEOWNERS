@@ -27,10 +27,17 @@
 /.vscode/                                                           # @department-of-veterans-affairs/platform-cms-drupal-engineers
 /bin/                                                               @department-of-veterans-affairs/platform-cms-devops-engineers
 
-# Config belongs to everyone, because I haven't figured out a way for this not to be a pain in the butt.
+# Config belongs to anyone by default.
 /config/                                                            @department-of-veterans-affairs/vfs-cms-team
 /config/sync/                                                       # @department-of-veterans-affairs/vfs-cms-team
+# aka VAMC System Banner Alert with Situation Updates
+/config/sync/*full_width_banner_alert*                              @department-of-veterans-affairs/facilities-cms
+# To catch VAMC stuff with older naming convention
+/config/sync/*health_care*                                          @department-of-veterans-affairs/facilities-cms
 /config/sync/*jsonapi*                                              @department-of-veterans-affairs/accelerated-publishing
+# aka VAMC System Locations List
+/config/sync/*locations_listing*                                    @department-of-veterans-affairs/facilities-cms
+/config/sync/*nca*                                                  @department-of-veterans-affairs/facilities-cms
 /config/sync/*vamc*                                                 @department-of-veterans-affairs/facilities-cms
 /config/sync/*vba*                                                  @department-of-veterans-affairs/facilities-cms
 /config/sync/*vet_center*                                           @department-of-veterans-affairs/facilities-cms
