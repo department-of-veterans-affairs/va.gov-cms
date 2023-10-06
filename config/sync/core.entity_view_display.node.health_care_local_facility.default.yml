@@ -94,6 +94,7 @@ third_party_settings:
     group_locations_and_contact_info:
       children:
         - group_facility_data_from_vast
+        - field_mental_health_phone
       label: 'Locations and contact information'
       parent_name: ''
       region: content
@@ -110,7 +111,6 @@ third_party_settings:
         - field_address
         - field_phone_number
         - field_mobile
-        - field_mental_health_phone
         - field_office_hours
         - field_timezone
       label: 'Facility data'
@@ -155,7 +155,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 17
+    weight: 16
     region: content
   field_description:
     type: string
@@ -216,7 +216,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 19
+    weight: 18
     region: content
   field_office_hours:
     type: office_hours
@@ -249,7 +249,7 @@ content:
       schema:
         enabled: false
     third_party_settings: {  }
-    weight: 21
+    weight: 19
     region: content
   field_operating_status_facility:
     type: list_default
@@ -271,14 +271,14 @@ content:
     settings:
       title: ''
     third_party_settings: {  }
-    weight: 18
+    weight: 17
     region: content
   field_timezone:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 22
+    weight: 20
     region: content
   flag_email_node:
     settings: {  }
