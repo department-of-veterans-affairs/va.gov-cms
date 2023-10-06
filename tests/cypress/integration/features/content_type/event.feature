@@ -93,8 +93,9 @@ Feature: Content Type: Event
     And I should not see "Call to action"
     And I should not see an element with the selector "#edit-field-link-0-uri"
 
-  Scenario: Users who can only publish to National Outreach Calendar do not see the "Publish to the National Outreach Calendar" checkbox
-    Given I am logged in as a user with the roles "office_content_creator, content_publisher"
-    When my workbench access sections are set to "7"
-    And I am at "node/add/event"
-    Then I should see "This event will automatically be published to the National Outreach Calendar"
+# Commented out until the `feature_event_outreach_checkbox` feature toggle is removed.
+#  Scenario: Users who can only publish to National Outreach Calendar do not see the "Publish to the National Outreach Calendar" checkbox
+#    Given I am logged in as a user with the roles "office_content_creator, content_publisher"
+#    When my workbench access sections are set to "7"
+#    And I am at "node/add/event"
+#    Then I should see "This event will automatically be published to the National Outreach Calendar"

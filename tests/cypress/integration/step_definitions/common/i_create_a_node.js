@@ -280,7 +280,9 @@ const creators = {
     ).should("exist");
     cy.get("form.node-form").find("input#edit-submit").click();
     cy.get(".node__content").contains("Sun, Nov 5 2023, 10:00am - 11:00am MST");
-    cy.get(".node__content").contains("Outreach events");
+    // Removing this step until the `feature_event_outreach_checkbox` is
+    // removed.
+    // cy.get(".node__content").contains("Outreach events");
     cy.scrollTo("top", { ensureScrollable: false });
     cy.get(".tabs__tab a").contains("Edit").click({ force: true });
     cy.get("#edit-field-datetime-range-timezone-0-manage-instances").click();
