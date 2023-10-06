@@ -2,6 +2,9 @@
 Feature: Content Type: Event
 
   Scenario: Log in and create an event.
+    Given I am logged in as a user with the "administrator" role
+    When I set the "feature_event_outreach_checkbox" feature toggle to "on"
+    And I log out
     Given I am logged in as a user with the "content_admin" role
     And I create a "event" node
 
@@ -34,7 +37,6 @@ Feature: Content Type: Event
     When I select the "Online" radio button
     Then an element with the selector "#edit-field-url-of-an-online-event-0-uri" should be empty
 
- # Commented out until the `feature_event_outreach_checkbox` feature toggle is removed.
   Scenario: Users who can only publish to National Outreach Calendar do not see the "Publish to the National Outreach Calendar" checkbox
     Given I am logged in as a user with the "administrator" role
     When I set the "feature_event_outreach_checkbox" feature toggle to "on"
