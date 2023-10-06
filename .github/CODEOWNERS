@@ -29,7 +29,10 @@
 
 # Config belongs to everyone, because I haven't figured out a way for this not to be a pain in the butt.
 /config/                                                            @department-of-veterans-affairs/vfs-cms-team
-
+/config/sync/                                                       # @department-of-veterans-affairs/vfs-cms-team
+/config/sync/*vamc*                                                 @department-of-veterans-affairs/facilities-cms
+/config/sync/*vba*                                                  @department-of-veterans-affairs/facilities-cms
+/config/sync/*vet_center*                                           @department-of-veterans-affairs/facilities-cms
 /docroot/                                                           # @department-of-veterans-affairs/platform-cms-drupal-engineers
 /docroot/cypress/                                                   @department-of-veterans-affairs/platform-cms-qa
 /docroot/design-system/                                             @department-of-veterans-affairs/platform-cms-ux
