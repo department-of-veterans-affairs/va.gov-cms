@@ -12,7 +12,13 @@ body:
     attributes:
       value: |
         Before engaging with the CMS Collaboration Cycle, please fill out the form below to help the CMS Team determine what level of support and which touchpoints are needed for your work.
-
+  - type: input
+    id: product-outline
+    attributes:
+      label: Please add a link to your product outline. 
+      description: If you have not already made one, you can use this [product outline template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/product-management/product-outline-template.md).
+    validations:
+      required: true
   - type: checkboxes
     id: type
     attributes:
@@ -20,9 +26,7 @@ body:
       options:
         - label: Update to an existing CMS feature (including product iterations, updating DS components or page layouts and nav changes)
         - label: New CMS feature (New content types, DS components, workflows or products)
-        - label: Content audit (either one time audits or resuable tools)
-        - label: Change Management review (for any visible changes to the CMS, workflow or content model)
-        - label: Other
+        - label: Other (Leave notes in the Additional Information section of this form)
     validations:
       required: true
   - type: input
@@ -34,23 +38,33 @@ body:
   - type: input
     id: end-date
     attributes:
-      label: When will your feature need to launch? 
+      label: When will your product/feature need to launch? 
     validations:
       required: true
   - type: dropdown
-    id: UX
+    id: research
     attributes:
-      label: Will your work result in visible changes to the user experience?
+      label: Are you doing user research with CMS editors?
       multiple: false
       options:
         - "Yes"
         - "No"
     validations:
-      required: true    
+      required: true
   - type: dropdown
-    id: research
+    id: UX
     attributes:
-      label: Are you doing research with VA.gov users or editors?
+      label: Will your work result in visible changes to the user experience of the CMS?
+      multiple: false
+      options:
+        - "Yes"
+        - "No"
+    validations:
+      required: true
+  - type: dropdown
+    id: analytics
+    attributes:
+      label: Do you need to capture any analytics or metrics?
       multiple: false
       options:
         - "Yes"
@@ -69,12 +83,12 @@ body:
     validations:
       required: true
   - type: input
-    id: product-outline
+    id: current-implementation
     attributes:
-      label: Please add a link to your product outline issue. 
-      description: You can find that issue template [here](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Needs+refining&template=product-outline.md&title=Product+Outline+for+%3Cinsert+product+or+feature+name%3E)
+      label: Please add a link to the current implementation of this product/feature, if applicable. 
+      description: Only leave this blank if there is nothing that currently exists in the CMS.
     validations:
-      required: true
+      required: false
   - type: textarea
     id: additional-information
     attributes:
@@ -83,8 +97,11 @@ body:
   - type: checkboxes
     id: terms
     attributes:
-      label:  Notify the Sitewide CMS team of this ticket in the cms-support Slack channel. 
+      label:  Please agree to the terms of this form.
+      description: I acknowledge that I must submit this form as an Epic and notify the cms-team user group in the cms-support Slack channel with a link to the epic that is created.
       options:
-        - label: I acknowledge that I must notify `#cms-support` after submitting this issue.
-          required: true
+        - label: I agree.
+    validations:
+      required: true
+          
           
