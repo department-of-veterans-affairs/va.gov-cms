@@ -1,0 +1,25 @@
+uuid: df54ca75-47e6-4ee2-b7d5-7359c6047582
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.cm_document.field_diagram
+  module:
+    - content_model_documentation
+    - mermaid_diagram_field
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: cm_document.cm_document.field_diagram
+field_name: field_diagram
+entity_type: cm_document
+bundle: cm_document
+label: Diagrams
+description: 'Add any diagrams that can augment the documentation.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: mermaid_diagram
