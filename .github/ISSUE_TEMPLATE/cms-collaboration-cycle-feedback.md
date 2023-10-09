@@ -9,7 +9,7 @@ labels: CMS Team, CMS-Collab-Cycle, collab-cycle-feedback
 ## VFS actions
 - [ ] Assign this ticket to the team member(s) responsible for addressing feedback provided by the CMS Team.
 - [ ] Comment on this ticket:
-  - [ ] If the Platform reviewer has any **Thoughts/Questions** that require responses.
+  - [ ] If the CMS Team reviewer has any **Thoughts/Questions** that require responses.
   - [ ] When **Must** feedback has been incorporated. As appropriate, link to any other GitHub issues or PRs related to this feedback.
   - [ ] When **Should/Consider** feedback has been incorporated, or if any feedback will not be addressed. As appropriate, link to any other GitHub issues or PRs related to this feedback.
 - [ ] Close the ticket when all feedback has been addressed.
