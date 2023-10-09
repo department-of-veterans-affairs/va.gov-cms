@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "34c625869d74ac6d5de38dad69bfe50d",
+    "content-hash": "df95b2c6652cd4eaa5ec904710d167c8",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -3786,27 +3786,28 @@
         },
         {
             "name": "drupal/content_model_documentation",
-            "version": "1.0.18",
+            "version": "1.0.19",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/content_model_documentation.git",
-                "reference": "1.0.18"
+                "reference": "1.0.19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/content_model_documentation-1.0.18.zip",
-                "reference": "1.0.18",
-                "shasum": "be9d9e285a4c78a1e712cfb510684a530e4c2c40"
+                "url": "https://ftp.drupal.org/files/projects/content_model_documentation-1.0.19.zip",
+                "reference": "1.0.19",
+                "shasum": "bac03355471ad98736c8894ca63f296a873ce5f9"
             },
             "require": {
                 "drupal/config_views": "~2.1",
-                "drupal/core": "^9.3 || ^10"
+                "drupal/core": "^9.3 || ^10",
+                "drupal/mermaid_diagram_field": "~1.0"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "1.0.18",
-                    "datestamp": "1696484242",
+                    "version": "1.0.19",
+                    "datestamp": "1696860039",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -9173,6 +9174,50 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/menu_normalizer",
                 "issues": "https://drupal.org/project/issues/menu_normalizer"
+            }
+        },
+        {
+            "name": "drupal/mermaid_diagram_field",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/mermaid_diagram_field.git",
+                "reference": "1.0.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/mermaid_diagram_field-1.0.1.zip",
+                "reference": "1.0.1",
+                "shasum": "252258541e1b14af01b54ea00ae0020e10b11f98"
+            },
+            "require": {
+                "drupal/core": "^9 || ^10"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.1",
+                    "datestamp": "1696824307",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "swirt",
+                    "homepage": "https://www.drupal.org/user/138230"
+                }
+            ],
+            "description": "Adds a Mermaid diagram field capable of rendering Mermaid",
+            "homepage": "https://www.drupal.org/project/mermaid_diagram_field",
+            "support": {
+                "source": "https://git.drupalcode.org/project/mermaid_diagram_field"
             }
         },
         {
@@ -27779,7 +27824,6 @@
         "drupal/cer": 10,
         "drupal/change_labels": 20,
         "drupal/components": 10,
-        "drupal/content_model_documentation": 15,
         "drupal/danse_content_moderation": 10,
         "drupal/entity_block": 10,
         "drupal/entity_clone": 10,
@@ -27823,5 +27867,5 @@
     "platform-overrides": {
         "php": "8.1"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
