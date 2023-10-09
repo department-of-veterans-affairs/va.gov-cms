@@ -9,7 +9,9 @@ dependencies:
     - field.field.paragraph.service_location.field_office_hours
     - field.field.paragraph.service_location.field_phone
     - field.field.paragraph.service_location.field_service_location_address
+    - field.field.paragraph.service_location.field_service_location_descripti
     - field.field.paragraph.service_location.field_service_modalities
+    - field.field.paragraph.service_location.field_task_oriented_header
     - field.field.paragraph.service_location.field_use_main_facility_phone
     - paragraphs.paragraphs_type.service_location
   module:
@@ -28,7 +30,7 @@ third_party_settings:
       label: Hours
       parent_name: group_service_location
       region: content
-      weight: 2
+      weight: 8
       format_type: fieldset
       format_settings:
         classes: ''
@@ -43,7 +45,7 @@ third_party_settings:
       label: 'Contact info'
       parent_name: group_service_location
       region: content
-      weight: 3
+      weight: 9
       format_type: fieldset
       format_settings:
         classes: ''
@@ -56,7 +58,7 @@ third_party_settings:
       label: Address
       parent_name: group_service_location
       region: content
-      weight: 1
+      weight: 7
       format_type: fieldset
       format_settings:
         classes: ''
@@ -65,9 +67,13 @@ third_party_settings:
         open: true
     group_service_location:
       children:
+        - field_task_oriented_header
+        - field_service_location_descripti
+        - field_service_modalities
         - group_address
         - group_hours
         - group_contact_info
+        - field_appointments
       label: 'Service location'
       parent_name: ''
       region: content
@@ -116,6 +122,7 @@ content:
       grouped: false
       show_closed: all
       closed_format: Closed
+      all_day_format: 'All day open'
       separator:
         days: '<br />'
         grouped_days: ' - '
@@ -126,6 +133,11 @@ content:
         position: ''
         open_text: 'Currently open!'
         closed_text: 'Currently closed'
+      exceptions:
+        title: 'Exception hours'
+        restrict_exceptions_to_num_days: 7
+        date_format: long
+        all_day_format: 'All day open'
       timezone_field: ''
       office_hours_first_day: ''
       schema:
@@ -151,13 +163,29 @@ content:
     third_party_settings: {  }
     weight: 7
     region: content
+  field_service_location_descripti:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 5
+    region: content
   field_service_modalities:
     type: dynamic_entity_reference_label
     label: above
     settings:
       link: true
     third_party_settings: {  }
-    weight: 8
+    weight: 6
+    region: content
+  field_task_oriented_header:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 4
     region: content
   field_use_main_facility_phone:
     type: boolean
