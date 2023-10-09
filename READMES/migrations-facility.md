@@ -13,7 +13,7 @@
   graph TD;
     vast[VAST, Access To Care, etc]-- 7:30AM -->fapi;
     fapi[(Facility API)]-- 8:00AM -->migrations[CMS migrations];
-    fapi-->fl[[Facility Locator App]];
+    fapi-- Vets API -->fl[[Facility Locator App]];
     migrations-->nodes[Nodes: VAMC, Vet Centers, VBA, NCA];
     nodes-->FE[[FE pages]];
     nodes-->data

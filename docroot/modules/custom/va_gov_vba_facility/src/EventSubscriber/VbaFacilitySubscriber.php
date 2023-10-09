@@ -3,12 +3,12 @@
 namespace Drupal\va_gov_vba_facility\EventSubscriber;
 
 use Drupal\Component\Render\FormattableMarkup;
-use Drupal\core_event_dispatcher\EntityHookEvents;
-use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\core_event_dispatcher\EntityHookEvents;
+use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -82,7 +82,7 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
    *   The entity view alter service.
    */
   public function entityViewAlter(EntityViewAlterEvent $event):void {
-    $this->appendServiceTermDescriptionToVbaFacility($event);
+    $this->appendServiceTermDescriptionToVbaFacilityService($event);
   }
 
   /**
@@ -91,36 +91,29 @@ class VbaFacilitySubscriber implements EventSubscriberInterface {
    * @param \Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent $event
    *   The entity view alter service.
    */
-  public function appendServiceTermDescriptionToVbaFacility(EntityViewAlterEvent $event):void {
+  public function appendServiceTermDescriptionToVbaFacilityService(EntityViewAlterEvent $event):void {
     $display = $event->getDisplay();
-    if (($display->getTargetBundle() === 'vba_facility') && ($display->getOriginalMode() === 'full')) {
+    if (($display->getTargetBundle() === 'vba_facility_service') && ($display->getOriginalMode() === 'full')) {
       $build = &$event->getBuild();
-      $services = $build['field_vba_services'] ?? [];
-      foreach ($services as $key => $service) {
-        $description = new FormattableMarkup('', []);
-        if (is_numeric($key) && !empty($service['#options']['entity'])) {
-          $service_node = $service['#options']['entity'];
-          $referenced_terms = $service_node->get('field_service_name_and_descripti')->referencedEntities();
-          // Render the national service term description (if available).
-          if (!empty($referenced_terms)) {
-            $referenced_term = reset($referenced_terms);
-            if ($referenced_term) {
-              $view_builder = $this->entityTypeManager->getViewBuilder('taxonomy_term');
-              $referenced_term_content = $view_builder->view($referenced_term, 'vba_facility_service');
-              $description = $this->renderer->renderRoot($referenced_term_content);
-            }
-          }
-          else {
-            $description = new FormattableMarkup(
-              '<div><strong>Notice: The national service description was not found.</strong></div>',
-                []);
-          }
-          // Append the facility-specific service description (no matter what).
-          $description .= $service_node->get('field_body')->value;
-          $formatted_markup = new FormattableMarkup($description, []);
-          $build['field_vba_services'][$key]['#suffix'] = $formatted_markup;
+      $service_node = $event->getEntity();
+      $referenced_terms = $service_node->get('field_service_name_and_descripti')->referencedEntities();
+      // Render the national service term description (if available).
+      if (!empty($referenced_terms)) {
+        $description = "";
+        $referenced_term = reset($referenced_terms);
+        if ($referenced_term) {
+          $view_builder = $this->entityTypeManager->getViewBuilder('taxonomy_term');
+          $referenced_term_content = $view_builder->view($referenced_term, 'vba_facility_service');
+          $description = $this->renderer->renderRoot($referenced_term_content);
         }
       }
+      else {
+        $description = new FormattableMarkup(
+          '<div><strong>Notice: The national service description was not found.</strong></div>',
+            []);
+      }
+      $formatted_markup = new FormattableMarkup($description, []);
+      $build['field_service_name_and_descripti']['#suffix'] = $formatted_markup;
     }
   }
 

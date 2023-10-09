@@ -10,8 +10,28 @@ dependencies:
     - workflows.workflow.editorial
   module:
     - content_moderation
+    - field_group
     - inline_entity_form
     - media_library
+third_party_settings:
+  field_group:
+    group_section_settings:
+      children:
+        - field_owner
+        - moderation_state
+        - revision_log
+      label: 'Section settings'
+      region: content
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        description: ''
+        required_fields: true
+        description_display: after
 id: block_content.promo.default
 targetEntityType: block_content
 bundle: promo
@@ -45,7 +65,7 @@ content:
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 3
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
