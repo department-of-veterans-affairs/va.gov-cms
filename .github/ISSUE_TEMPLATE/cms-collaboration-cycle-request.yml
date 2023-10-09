@@ -86,12 +86,24 @@ body:
   - type: dropdown
     id: cms-areas
     attributes:
-      label:  Will your work involve changes to...?
+      label:  Select if your work will involve changes to any of the following.
       multiple: true
       options:
         - CMS design system
         - CMS content model
         - CMS features that span multiple products or work streams
+        - None of the above
+    validations:
+      required: true
+  - type: dropdown
+    id: request-type
+    attributes:
+      label:  What type of request are you making?
+      multiple: true
+      options:
+        - Update to an existing CMS feature (including product iterations, updating DS components or page layouts and nav changes)
+        - New CMS feature (New content types, DS components, workflows or products)
+        - Other (Leave notes in the Additional Information section of this form)
     validations:
       required: true
   - type: input
