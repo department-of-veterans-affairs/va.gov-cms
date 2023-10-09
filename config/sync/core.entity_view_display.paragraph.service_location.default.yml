@@ -9,9 +9,11 @@ dependencies:
     - field.field.paragraph.service_location.field_office_hours
     - field.field.paragraph.service_location.field_phone
     - field.field.paragraph.service_location.field_service_location_address
+    - field.field.paragraph.service_location.field_service_modalities
     - field.field.paragraph.service_location.field_use_main_facility_phone
     - paragraphs.paragraphs_type.service_location
   module:
+    - dynamic_entity_reference
     - entity_reference_revisions
     - field_group
     - office_hours
@@ -148,6 +150,14 @@ content:
       link: ''
     third_party_settings: {  }
     weight: 7
+    region: content
+  field_service_modalities:
+    type: dynamic_entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 8
     region: content
   field_use_main_facility_phone:
     type: boolean

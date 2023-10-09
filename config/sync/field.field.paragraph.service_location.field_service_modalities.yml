@@ -1,0 +1,129 @@
+uuid: 05846d05-5f55-4c05-8ad2-149094bd8e71
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_service_modalities
+    - paragraphs.paragraphs_type.service_location
+    - taxonomy.vocabulary.service_modalities
+  module:
+    - dynamic_entity_reference
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: paragraph.service_location.field_service_modalities
+field_name: field_service_modalities
+entity_type: paragraph
+bundle: service_location
+label: 'Service modalities'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  taxonomy_term:
+    handler: 'default:taxonomy_term'
+    handler_settings:
+      target_bundles:
+        service_modalities: service_modalities
+      sort:
+        field: name
+        direction: asc
+      auto_create: false
+      auto_create_bundle: ''
+  consumer:
+    handler: 'default:consumer'
+    handler_settings: {  }
+  node:
+    handler: 'default:node'
+    handler_settings: {  }
+  cm_document:
+    handler: 'default:cm_document'
+    handler_settings: {  }
+  content_moderation_state:
+    handler: 'default:content_moderation_state'
+    handler_settings: {  }
+  crop:
+    handler: 'default:crop'
+    handler_settings: {  }
+  block_content:
+    handler: 'default:block_content'
+    handler_settings: {  }
+  menu_link_content:
+    handler: 'default:menu_link_content'
+    handler_settings: {  }
+  entity_subqueue:
+    handler: 'default:entity_subqueue'
+    handler_settings: {  }
+  danse_event:
+    handler: 'default:danse_event'
+    handler_settings: {  }
+  file:
+    handler: 'default:file'
+    handler_settings: {  }
+  flagging:
+    handler: 'default:flagging'
+    handler_settings: {  }
+  linky:
+    handler: 'default:linky'
+    handler_settings: {  }
+  media:
+    handler: 'default:media'
+    handler_settings: {  }
+  message:
+    handler: 'default:message'
+    handler_settings: {  }
+  danse_notification:
+    handler: 'default:danse_notification'
+    handler_settings: {  }
+  danse_notification_action:
+    handler: 'default:danse_notification_action'
+    handler_settings: {  }
+  oauth2_token:
+    handler: 'default:oauth2_token'
+    handler_settings: {  }
+  paragraph:
+    handler: 'default:paragraph'
+    handler_settings: {  }
+  redirect:
+    handler: 'default:redirect'
+    handler_settings: {  }
+  search_api_task:
+    handler: 'default:search_api_task'
+    handler_settings: {  }
+  section_association:
+    handler: 'default:section_association'
+    handler_settings: {  }
+  sitewide_alert:
+    handler: 'default:sitewide_alert'
+    handler_settings: {  }
+  smart_date_override:
+    handler: 'default:smart_date_override'
+    handler_settings: {  }
+  smart_date_rule:
+    handler: 'default:smart_date_rule'
+    handler_settings: {  }
+  tmgmt_job:
+    handler: 'default:tmgmt_job'
+    handler_settings: {  }
+  tmgmt_job_item:
+    handler: 'default:tmgmt_job_item'
+    handler_settings: {  }
+  tmgmt_message:
+    handler: 'default:tmgmt_message'
+    handler_settings: {  }
+  tmgmt_remote:
+    handler: 'default:tmgmt_remote'
+    handler_settings: {  }
+  path_alias:
+    handler: 'default:path_alias'
+    handler_settings: {  }
+  user:
+    handler: 'default:user'
+    handler_settings: {  }
+  user_history:
+    handler: 'default:user_history'
+    handler_settings: {  }
+field_type: dynamic_entity_reference
