@@ -91,6 +91,16 @@ body:
         - "No"
     validations:
       required: true
+  - type: dropdown
+    id: KB
+    attributes:
+      label: Will you be creating/editing any CMS Knowledge Base articles?
+      multiple: false
+      options:
+        - "Yes"
+        - "No"
+    validations:
+      required: true
   - type: textarea
     id: additional-information
     attributes:
