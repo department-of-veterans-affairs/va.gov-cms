@@ -34,8 +34,8 @@ description: ''
 tag: ''
 base_table: taxonomy_term_field_data
 base_field: tid
-display: THIS IS WHERE I WIL>L BEGIN MY WORK
-  default:
+display: # THIS IS WHERE I WILL BEGIN MY WORK
+  default: #begining of default Display
     id: default
     display_title: Master
     display_plugin: default
@@ -207,7 +207,7 @@ display: THIS IS WHERE I WIL>L BEGIN MY WORK
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_vha_healthservice_stopcode:
+        field_vha_healthservice_stopcode: #stopcode bundle 1
           id: field_vha_healthservice_stopcode
           table: taxonomy_term__field_vha_healthservice_stopcode
           field: field_vha_healthservice_stopcode
@@ -1110,7 +1110,7 @@ display: THIS IS WHERE I WIL>L BEGIN MY WORK
             operator_list: {  }
         type:
           id: type
-          table: node_field_data
+          table: node_field_data #this is the filter to change
           field: type
           relationship: reverse__node__field_service_name_and_descripti
           group_type: group
@@ -1357,7 +1357,7 @@ display: THIS IS WHERE I WIL>L BEGIN MY WORK
         - 'config:field.storage.taxonomy_term.field_vet_center_service_descrip'
         - 'config:field.storage.taxonomy_term.field_vet_center_type_of_care'
         - 'config:field.storage.taxonomy_term.field_vha_healthservice_stopcode'
-  data_export_1:
+  data_export_1: # THIS IS WHERE Diplay 2 begins ?
     id: data_export_1
     display_title: 'Data export'
     display_plugin: data_export
@@ -1493,7 +1493,7 @@ display: THIS IS WHERE I WIL>L BEGIN MY WORK
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_vha_healthservice_stopcode:
+        field_vha_healthservice_stopcode: #stopcode bundle 2
           id: field_vha_healthservice_stopcode
           table: taxonomy_term__field_vha_healthservice_stopcode
           field: field_vha_healthservice_stopcode
@@ -2520,7 +2520,7 @@ display: THIS IS WHERE I WIL>L BEGIN MY WORK
         - 'languages:language_content'
         - 'languages:language_interface'
       tags: {  }
-  page_1:
+  page_1: # What's the difference between Page 1 and default
     id: page_1
     display_title: Page
     display_plugin: page
@@ -2577,7 +2577,7 @@ display: THIS IS WHERE I WIL>L BEGIN MY WORK
           convert_spaces: false
         edit_taxonomy_term:
           id: edit_taxonomy_term
-          table: taxonomy_term_data
+          table: taxonomy_term_data # a likely suspect
           field: edit_taxonomy_term
           relationship: none
           group_type: group
@@ -2691,7 +2691,7 @@ display: THIS IS WHERE I WIL>L BEGIN MY WORK
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_vha_healthservice_stopcode:
+        field_vha_healthservice_stopcode: #stopcode bundle 3
           id: field_vha_healthservice_stopcode
           table: taxonomy_term__field_vha_healthservice_stopcode
           field: field_vha_healthservice_stopcode
