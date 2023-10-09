@@ -25,7 +25,7 @@ echo "Node $(node -v)"
 echo "NPM $(npm -v)"
 echo "Yarn $(yarn -v)"
 
-
+#not sure how popd works
 #pushd "./next"
 yarn install
 #popd
