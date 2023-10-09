@@ -103,5 +103,17 @@ body:
         - label: I agree.
     validations:
       required: true
+
+  - type: checkboxes
+    id: changes-to
+    attributes:
+      label: Select if your work will involve changes to any of the following.
+      options:
+        - label: CMS design system
+        - label: CMS content model
+        - label: CMS features that span multiple products or work streams
+        - label: Other (Leave notes in the Additional Information section of this form)
+    validations:
+      required: false
           
           
