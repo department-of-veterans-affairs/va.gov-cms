@@ -61,28 +61,6 @@ body:
       description: Only leave this blank if there is nothing that currently exists in the CMS.
     validations:
       required: false
-  - type: checkboxes
-    id: type
-    attributes:
-      label: What type of request are you making?
-      options:
-        - label: Update to an existing CMS feature (including product iterations, updating DS components or page layouts and nav changes)
-        - label: New CMS feature (New content types, DS components, workflows or products)
-        - label: Other (Leave notes in the Additional Information section of this form)
-    validations:
-      required: true
-  - type: checkboxes
-    id: changes-to
-    attributes:
-      label: Select if your work will involve changes to any of the following.
-      options:
-        - label: CMS design system
-        - label: CMS content model
-        - label: CMS features that span multiple products or work streams
-        - label: Other (Leave notes in the Additional Information section of this form)
-        - label: None of the above
-    validations:
-      required: true
   - type: dropdown
     id: research
     attributes:
