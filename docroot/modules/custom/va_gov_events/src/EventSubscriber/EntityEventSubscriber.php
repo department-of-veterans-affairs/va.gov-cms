@@ -2,15 +2,9 @@
 
 namespace Drupal\va_gov_events\EventSubscriber;
 
-use Drupal\Core\Session\AccountInterface;
-use Drupal\Core\Session\AccountProxy;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\core_event_dispatcher\EntityHookEvents;
-use Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent;
+use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
-use Drupal\feature_toggle\FeatureStatus;
-use Drupal\node\NodeInterface;
-use Drupal\va_gov_user\Service\UserPermsService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -21,65 +15,13 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   use StringTranslationTrait;
 
   /**
-   * The 'publish to the national outreach calendar' field name.
-   */
-  const PUBLISH_TO_OUTREACH_CAL_FIELD = 'field_publish_to_outreach_cal';
-
-  /**
-   * The 'field_listing' field name.
-   */
-  const LISTING_FIELD = 'field_listing';
-
-  /**
-   * The National Outreach Calendar node id.
-   */
-  const OUTREACH_CAL_NID = 736;
-
-  /**
-   * The 'Outreach Hub' Section term id.
-   */
-  const OUTREACH_HUB_TID = 7;
-
-  /**
-   * The Feature toggle name for outreach checkbox.
-   */
-  const OUTREACH_CHECKBOX_FEATURE_NAME = 'feature_event_outreach_checkbox';
-
-  /**
-   * The User Perms Service.
-   *
-   * @var \Drupal\va_gov_user\Service\UserPermsService
-   */
-  protected UserPermsService $userPermsService;
-
-  /**
-   * The current user.
-   *
-   * @var \Drupal\Core\Session\AccountInterface
-   */
-  protected AccountInterface $currentUser;
-
-  /**
-   * TRUE if the outreach checkbox feature toggle is enabled.
-   *
-   * @var bool
-   */
-  private bool $outreachCheckboxEnabled;
-
-  /**
    * Constructs the EventSubscriber object.
    *
-   * @param \Drupal\va_gov_user\Service\UserPermsService $user_perms_service
-   *   The current user perms service.
-   * @param \Drupal\Core\Session\AccountProxy $account_proxy
-   *   The account proxy service.
-   * @param \Drupal\feature_toggle\FeatureStatus $feature_status
-   *   The feature status service.
+   * @param \Drupal\Core\StringTranslation\TranslationInterface $string_translation
+   *   The string translation service.
    */
-  public function __construct(UserPermsService $user_perms_service, AccountProxy $account_proxy, FeatureStatus $feature_status) {
-    $this->userPermsService = $user_perms_service;
-    $this->currentUser = $account_proxy->getAccount();
-    $this->outreachCheckboxEnabled = $feature_status->getStatus(self::OUTREACH_CHECKBOX_FEATURE_NAME);
+  public function __construct(TranslationInterface $string_translation) {
+    $this->stringTranslation = $string_translation;
   }
 
   /**
@@ -89,41 +31,11 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     return [
       'hook_event_dispatcher.form_node_event_form.alter' => 'alterEventNodeForm',
       'hook_event_dispatcher.form_node_event_edit_form.alter' => 'alterEventNodeForm',
-      EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
     ];
   }
 
   /**
-   * Determines if the current user is an 'Outreach Hub' only user.
-   *
-   * @return bool
-   *   TRUE if the current user only has the 'Outreach Hub' section.
-   */
-  protected function outreachHubOnlyUser(): bool {
-    $sections = $this->userPermsService->getSections($this->currentUser);
-    if (count($sections) === 1 && array_key_first($sections) === self::OUTREACH_HUB_TID) {
-      return TRUE;
-    }
-    return FALSE;
-  }
-
-  /**
-   * Entity presave Event call.
-   *
-   * @param \Drupal\core_event_dispatcher\Event\Entity\EntityPresaveEvent $event
-   *   The event.
-   *
-   * @throws \Drupal\Core\TypedData\Exception\MissingDataException
-   */
-  public function entityPresave(EntityPresaveEvent $event): void {
-    $entity = $event->getEntity();
-    if ($entity instanceof NodeInterface) {
-      $this->addToNationalOutreachCalendar($entity);
-    }
-  }
-
-  /**
-   * Form alterations for event content type.
+   * Form alterations for eventcontent type.
    *
    * @param \Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent $event
    *   The event.
@@ -133,68 +45,6 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     $this->addDisplayManagementToEventFields($form);
     $this->modifyFormFieldsetElements($form);
     $this->modifyRecurringEventsWidgetFieldPresentation($form);
-    $this->modifyAddToOutreachCalendarElements($form);
-  }
-
-  /**
-   * Adds the event to the National Outreach Calendar (event_listing).
-   *
-   * The purpose of this method is to add the current node event to the National
-   * Outreach Calendar (an event listing node) if the $listingField
-   * checkbox/boolean has been set, or if the current user is an Outreach Hub
-   * user.
-   *
-   * @param \Drupal\node\NodeInterface $node
-   *   The node to be modified.
-   *
-   * @throws \Drupal\Core\TypedData\Exception\MissingDataException
-   */
-  public function addToNationalOutreachCalendar(NodeInterface $node): void {
-    if ($node->hasField(self::LISTING_FIELD) && $node->hasField(self::PUBLISH_TO_OUTREACH_CAL_FIELD) && $this->outreachCheckboxEnabled) {
-      $addToCalValue = $node->get(self::PUBLISH_TO_OUTREACH_CAL_FIELD)->first()->getValue();
-      if (isset($addToCalValue['value'])) {
-        $listings = $node->get(self::LISTING_FIELD)->getValue();
-        if ($addToCalValue['value'] === 1 || $this->outreachHubOnlyUser()) {
-          // Add to Outreach calendar selected, or user is Outreach Hub only
-          // user.
-          if (!in_array(self::OUTREACH_CAL_NID, array_column($listings, 'target_id'))) {
-            $listings[] = [
-              'target_id' => self::OUTREACH_CAL_NID,
-            ];
-          }
-        }
-        $node->set(self::LISTING_FIELD, $listings);
-      }
-    }
-  }
-
-  /**
-   * Form changes for 'Publish to National Outreach Calendar' related elements.
-   *
-   * @param array $form
-   *   The form array.
-   */
-  public function modifyAddToOutreachCalendarElements(array &$form) :void {
-    if ($this->outreachHubOnlyUser() && $this->outreachCheckboxEnabled) {
-      // Disable the checkbox.
-      $form[self::PUBLISH_TO_OUTREACH_CAL_FIELD]['#disabled'] = TRUE;
-      // Set the default value of the checkbox.
-      $form[self::PUBLISH_TO_OUTREACH_CAL_FIELD]['widget']['value']['#default_value'] = TRUE;
-      // Override the field label for the checkbox.
-      $form[self::PUBLISH_TO_OUTREACH_CAL_FIELD]['widget']['value']['#title'] = $this->t('This event will automatically be published to the National Outreach Calendar');
-      // Set the default value to the Outreach cal on the dropdown if is not
-      // already set.
-      if (empty($form[self::LISTING_FIELD]['widget']['#default_value'])) {
-        $form[self::LISTING_FIELD]['widget']['#default_value'] = self::OUTREACH_CAL_NID;
-      }
-    }
-    // Add the '- Select a value -' option (_none) since it was removed by
-    // the Limited Widgets for Unlimited Field module.
-    if (isset($form[self::LISTING_FIELD]['widget']['#options']) && !array_key_exists('_none', $form[self::LISTING_FIELD]['widget']['#options'])) {
-      $form[self::LISTING_FIELD]['widget']['#options'] = ['_none' => '- Select a value -'] + $form[self::LISTING_FIELD]['widget']['#options'];
-    }
-    // Disable the checkbox element until the feature toggle is on.
-    $form[self::PUBLISH_TO_OUTREACH_CAL_FIELD]['#access'] = $this->outreachCheckboxEnabled;
   }
 
   /**
@@ -203,7 +53,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    * @param array $form
    *   The form.
    */
-  public function modifyRecurringEventsWidgetFieldPresentation(array &$form): void {
+  public function modifyRecurringEventsWidgetFieldPresentation(array &$form) {
     // Add our js for toggling items depending on duration choices.
     $form['#attached']['library'][] = 'va_gov_events/recurring_dates';
 
@@ -276,7 +126,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    * @param array $form
    *   The form.
    */
-  public function addDisplayManagementToEventFields(array &$form): void {
+  public function addDisplayManagementToEventFields(array &$form) {
     $form['#attached']['library'][] = 'va_gov_events/event_form_states_helpers';
   }
 
@@ -290,7 +140,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    * @param array $form
    *   The form.
    */
-  public function modifyFormFieldSetElements(array &$form): void {
+  public function modifyFormFieldSetElements(array &$form) {
     // Remove the wrap and title around address widget.
     $form['field_address']['widget'][0]['#type'] = 'div';
     unset($form['field_address']['widget'][0]['#title']);
