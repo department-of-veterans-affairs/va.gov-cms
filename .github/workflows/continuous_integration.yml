@@ -167,14 +167,6 @@ jobs:
         uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4.1.0
         with:
           fetch-depth: 0
-      - name: Delete any existing comment.
-        uses: thollander/actions-comment-pull-request@d61db783da9abefc3437960d0cce08552c7c004f # v2.4.2
-        continue-on-error: true
-        with:
-          comment_tag: check-composer-lock-changes
-          mode: delete
-          message: |
-            Checking composer.lock changes...
       - name: Check changes in composer.lock.
         run: |
           LINES_CHANGED=$(git diff --numstat origin/main..HEAD -- composer.lock | awk '{print $1+$2}')
@@ -183,16 +175,37 @@ jobs:
           >&2 echo "THRESHOLD=$THRESHOLD"
           echo "LINES_CHANGED=$LINES_CHANGED" >> $GITHUB_ENV
           echo "THRESHOLD=$THRESHOLD" >> $GITHUB_ENV
+
       - name: Comment if composer.lock changes exceed threshold.
-        uses: thollander/actions-comment-pull-request@d61db783da9abefc3437960d0cce08552c7c004f # v2.4.2
         if: env.LINES_CHANGED > env.THRESHOLD
         continue-on-error: true
-        with:
-          comment_tag: check-composer-lock-changes
-          message: |
+        run: |
+          # Find comments containing token, if any, and delete them.
+          gh api \
+            -H "Accept: application/vnd.github+json" \
+            /repos/${GITHUB_REPOSITORY}/issues/${GITHUB_PR}/comments \
+            | jq '.[] | select(.body | contains("<!-- Composer.lock Changes -->")).id' \
+            | while read -r pr_comment; do \
+              gh api \
+                --method DELETE \
+                -H "Accept: application/vnd.github+json" \
+                "/repos/${GITHUB_REPOSITORY}/issues/comments/${pr_comment}"; \
+              done;
+
+          body="$(awk 'FNR==1 && NR!=1 {print "\n<hr/>\n"}{print}' ./.pr_advice/*.md)";
+
+          # Create a new comment containing the compiled advice.
+          gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            /repos/${GITHUB_REPOSITORY}/issues/${GITHUB_PR}/comments \
+            -f body="<!-- Composer.lock Changes -->
             The number of lines changed in composer.lock exceeds the acceptable threshold.
 
             - Lines changed: ${{ env.LINES_CHANGED }}
             - Threshold: ${{ env.THRESHOLD }}
 
-            This is a warning only. Please review the changes and ensure that they are acceptable.
+            This is a warning only. Please review the changes and ensure that they are acceptable.";
+        env:
+          GITHUB_PR: "${{ github.event.pull_request.number }}"
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
