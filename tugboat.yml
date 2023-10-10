@@ -2,7 +2,6 @@ version: '3'
 dotenv: ['.env']
 output: 'group'
 
-
 tasks:
   build-storybook:
     desc: Build storybook
@@ -13,7 +12,7 @@ tasks:
     desc: Request a frontend build
     cmds:
       - drush va-gov:content-release:request-frontend-build
-	  
+
   build-next:
     desc: build next.js preview server
     cmds:
