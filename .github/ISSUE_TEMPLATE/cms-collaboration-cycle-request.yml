@@ -11,7 +11,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Before engaging with the CMS Collaboration Cycle, please fill out the form below to help the CMS Team determine what level of support and which touchpoints are needed for your work.
+        Before engaging with the CMS Collaboration Cycle, please fill out the form below to help the CMS Team determine what level of support and which touchpoints are needed for your work. Have questions about this form? Reach out to the CMS Team in the cms-support Slack channel.
   - type: input
     id: product-outline
     attributes:
@@ -69,6 +69,7 @@ body:
       options:
         - "Yes"
         - "No"
+        - "Maybe (Leave notes in the Additional Information section of this form)"
     validations:
       required: true
   - type: dropdown
@@ -79,6 +80,18 @@ body:
       options:
         - "Yes"
         - "No"
+        - "Maybe (Leave notes in the Additional Information section of this form)"
+    validations:
+      required: true
+  - type: dropdown
+    id: modules
+    attributes:
+      label: Will your work require introducing a new Drupal module or changes to an existing module?
+      multiple: false
+      options:
+        - "Yes"
+        - "No"
+        - "Maybe (Leave notes in the Additional Information section of this form)"
     validations:
       required: true
   - type: dropdown
@@ -89,6 +102,7 @@ body:
       options:
         - "Yes"
         - "No"
+        - "Maybe (Leave notes in the Additional Information section of this form)"
     validations:
       required: true
   - type: dropdown
@@ -99,6 +113,7 @@ body:
       options:
         - "Yes"
         - "No"
+        - "Maybe (Leave notes in the Additional Information section of this form)"
     validations:
       required: true
   - type: textarea
@@ -107,13 +122,11 @@ body:
       label: Additional Information
       description: Please include any additional information or context that may be relevant to your request.
   - type: checkboxes
-    id: terms
+    id: terms-agreement
     attributes:
-      label:  Please agree to the terms of this form.
-      description: I acknowledge that I must submit this form as an Epic and notify the cms-team user group in the cms-support Slack channel with a link to the epic that is created.
+      label:  I acknowledge that I must submit this form as an Epic and notify the cms-team user group in the cms-support Slack channel with a link to the Epic that is created.
       options:
         - label: I agree.
-    validations:
-      required: true
+          required: true
           
           
