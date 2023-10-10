@@ -23,6 +23,7 @@ dependencies:
     - field.field.node.event.field_media
     - field.field.node.event.field_meta_tags
     - field.field.node.event.field_order
+    - field.field.node.event.field_publish_to_outreach_cal
     - field.field.node.event.field_url_of_an_online_event
     - node.type.event
     - workflows.workflow.editorial
@@ -46,7 +47,7 @@ third_party_settings:
       label: 'Section settings'
       region: content
       parent_name: ''
-      weight: 8
+      weight: 9
       format_type: details_sidebar
       format_settings:
         classes: ''
@@ -64,7 +65,7 @@ third_party_settings:
       label: Location
       region: content
       parent_name: ''
-      weight: 7
+      weight: 8
       format_type: details
       format_settings:
         classes: ''
@@ -81,7 +82,7 @@ third_party_settings:
       label: Registration
       region: content
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: fieldset
       format_settings:
         classes: ''
@@ -142,7 +143,7 @@ third_party_settings:
       label: 'Meta Tags'
       region: content
       parent_name: ''
-      weight: 5
+      weight: 6
       format_type: fieldset
       format_settings:
         classes: ''
@@ -173,7 +174,7 @@ third_party_settings:
       label: Free
       region: content
       parent_name: group_all_events_are_free
-      weight: 15
+      weight: 32
       format_type: html_element
       format_settings:
         classes: ''
@@ -200,7 +201,7 @@ content:
     third_party_settings: {  }
   field_additional_information_abo:
     type: text_textarea
-    weight: 31
+    weight: 32
     region: content
     settings:
       rows: 5
@@ -220,7 +221,7 @@ content:
     third_party_settings: {  }
   field_body:
     type: text_textarea
-    weight: 4
+    weight: 5
     region: content
     settings:
       rows: 5
@@ -258,7 +259,10 @@ content:
         custom
       show_extra: true
       hide_date: false
+      separator: to
       add_abbreviations: ''
+      allday: true
+      remove_seconds: false
     third_party_settings:
       smart_date_recur:
         modal: true
@@ -318,7 +322,7 @@ content:
     third_party_settings: {  }
   field_last_saved_by_an_editor:
     type: datetime_timestamp
-    weight: 44
+    weight: 16
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -337,7 +341,11 @@ content:
     weight: 2
     region: content
     settings: {  }
-    third_party_settings: {  }
+    third_party_settings:
+      limited_field_widgets:
+        limit_values: '1'
+      change_labels:
+        add_another: ''
   field_location_humanreadable:
     type: string_textfield
     weight: 16
@@ -354,7 +362,7 @@ content:
     third_party_settings: {  }
   field_media:
     type: media_library_widget
-    weight: 3
+    weight: 4
     region: content
     settings:
       media_types: {  }
@@ -364,6 +372,13 @@ content:
     weight: 11
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_publish_to_outreach_cal:
+    type: boolean_checkbox
+    weight: 3
+    region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   field_url_of_an_online_event:
     type: linkit
