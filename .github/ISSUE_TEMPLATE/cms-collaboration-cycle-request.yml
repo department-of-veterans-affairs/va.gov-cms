@@ -84,6 +84,17 @@ body:
     validations:
       required: true
   - type: dropdown
+    id: modules
+    attributes:
+      label: Will your work require introducing a new Drupal module or require changes to an existing module?
+      multiple: false
+      options:
+        - "Yes"
+        - "No"
+        - "Maybe (Leave notes in the Additional Information section of this form)"
+    validations:
+      required: true
+  - type: dropdown
     id: analytics
     attributes:
       label: Do you need to capture any analytics or metrics?
