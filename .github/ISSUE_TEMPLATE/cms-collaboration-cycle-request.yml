@@ -1,0 +1,119 @@
+
+name: CMS Collaboration Cycle Request
+description: Use this template to begin engaging with the CMS Collaboration Cycle.
+title: "CMS Collaboration Cycle for [Team Name, Product Name, Feature Name]"
+labels: CMS Team, Needs Analysis, CMS-Collab-Cycle, Epic
+assignees:
+  - BerniXiongA6
+
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before engaging with the CMS Collaboration Cycle, please fill out the form below to help the CMS Team determine what level of support and which touchpoints are needed for your work.
+  - type: input
+    id: product-outline
+    attributes:
+      label: Please add a link to your product outline. 
+      description: If you have not already made one, you can use this [product outline template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/product-management/product-outline-template.md).
+    validations:
+      required: true
+  - type: input
+    id: start-date
+    attributes:
+      label: When did/will you start working on this product/feature? 
+    validations:
+      required: true
+  - type: input
+    id: end-date
+    attributes:
+      label: When will your product/feature need to launch? 
+    validations:
+      required: true
+  - type: dropdown
+    id: cms-areas
+    attributes:
+      label:  Select if your work will involve changes to any of the following.
+      multiple: true
+      options:
+        - CMS design system
+        - CMS content model
+        - CMS features that span multiple products or work streams
+        - None of the above
+    validations:
+      required: true
+  - type: dropdown
+    id: request-type
+    attributes:
+      label:  What type of request are you making?
+      multiple: true
+      options:
+        - Update to an existing CMS feature (including product iterations, updating DS components or page layouts and nav changes)
+        - New CMS feature (New content types, DS components, workflows or products)
+        - Other (Leave notes in the Additional Information section of this form)
+    validations:
+      required: true
+  - type: input
+    id: current-implementation
+    attributes:
+      label: Please add a link to the current implementation of this product/feature, if applicable. 
+      description: Only leave this blank if there is nothing that currently exists in the CMS.
+    validations:
+      required: false
+  - type: dropdown
+    id: research
+    attributes:
+      label: Are you doing user research with CMS editors?
+      multiple: false
+      options:
+        - "Yes"
+        - "No"
+    validations:
+      required: true
+  - type: dropdown
+    id: UX
+    attributes:
+      label: Will your work result in visible changes to the user experience of the CMS?
+      multiple: false
+      options:
+        - "Yes"
+        - "No"
+    validations:
+      required: true
+  - type: dropdown
+    id: analytics
+    attributes:
+      label: Do you need to capture any analytics or metrics?
+      multiple: false
+      options:
+        - "Yes"
+        - "No"
+    validations:
+      required: true
+  - type: dropdown
+    id: KB
+    attributes:
+      label: Will this work require creating/editing any CMS Knowledge Base articles?
+      multiple: false
+      options:
+        - "Yes"
+        - "No"
+    validations:
+      required: true
+  - type: textarea
+    id: additional-information
+    attributes:
+      label: Additional Information
+      description: Please include any additional information or context that may be relevant to your request.
+  - type: checkboxes
+    id: terms
+    attributes:
+      label:  Please agree to the terms of this form.
+      description: I acknowledge that I must submit this form as an Epic and notify the cms-team user group in the cms-support Slack channel with a link to the epic that is created.
+      options:
+        - label: I agree.
+    validations:
+      required: true
+          
+          

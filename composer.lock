@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "06c550e1c8ba6a79e889b88088e4ae53",
+    "content-hash": "40cb617afcd249b5e4fcd1a637abffc1",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -3786,27 +3786,28 @@
         },
         {
             "name": "drupal/content_model_documentation",
-            "version": "1.0.17",
+            "version": "1.0.19",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/content_model_documentation.git",
-                "reference": "1.0.17"
+                "reference": "1.0.19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/content_model_documentation-1.0.17.zip",
-                "reference": "1.0.17",
-                "shasum": "99c0faaa574bf3678f9249d704f41a8d3099778e"
+                "url": "https://ftp.drupal.org/files/projects/content_model_documentation-1.0.19.zip",
+                "reference": "1.0.19",
+                "shasum": "bac03355471ad98736c8894ca63f296a873ce5f9"
             },
             "require": {
                 "drupal/config_views": "~2.1",
-                "drupal/core": "^9.3 || ^10"
+                "drupal/core": "^9.3 || ^10",
+                "drupal/mermaid_diagram_field": "~1.0"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "1.0.17",
-                    "datestamp": "1696295408",
+                    "version": "1.0.19",
+                    "datestamp": "1696860039",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -8251,29 +8252,29 @@
         },
         {
             "name": "drupal/limited_field_widgets",
-            "version": "2.0.5",
+            "version": "2.1.0-alpha1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/limited_field_widgets.git",
-                "reference": "2.0.5"
+                "reference": "2.1.0-alpha1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/limited_field_widgets-2.0.5.zip",
-                "reference": "2.0.5",
-                "shasum": "410632dba3b6fb1783c3c61f00b4d5ddc35215d1"
+                "url": "https://ftp.drupal.org/files/projects/limited_field_widgets-2.1.0-alpha1.zip",
+                "reference": "2.1.0-alpha1",
+                "shasum": "e1f7844901412ae96369af5c315e605b445866f3"
             },
             "require": {
-                "drupal/core": "^8 || ^9 || ^10"
+                "drupal/core": ">=9.2"
             },
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "2.0.5",
-                    "datestamp": "1674048090",
+                    "version": "2.1.0-alpha1",
+                    "datestamp": "1675686521",
                     "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
+                        "status": "not-covered",
+                        "message": "Alpha releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -9173,6 +9174,50 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/menu_normalizer",
                 "issues": "https://drupal.org/project/issues/menu_normalizer"
+            }
+        },
+        {
+            "name": "drupal/mermaid_diagram_field",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/mermaid_diagram_field.git",
+                "reference": "1.0.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/mermaid_diagram_field-1.0.1.zip",
+                "reference": "1.0.1",
+                "shasum": "252258541e1b14af01b54ea00ae0020e10b11f98"
+            },
+            "require": {
+                "drupal/core": "^9 || ^10"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "1.0.1",
+                    "datestamp": "1696824307",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "swirt",
+                    "homepage": "https://www.drupal.org/user/138230"
+                }
+            ],
+            "description": "Adds a Mermaid diagram field capable of rendering Mermaid",
+            "homepage": "https://www.drupal.org/project/mermaid_diagram_field",
+            "support": {
+                "source": "https://git.drupalcode.org/project/mermaid_diagram_field"
             }
         },
         {
@@ -18411,16 +18456,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.36",
+            "version": "1.10.37",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "ffa3089511121a672e62969404e4fddc753f9b15"
+                "reference": "058ba07e92f744d4dcf6061ae75283d0c6456f2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/ffa3089511121a672e62969404e4fddc753f9b15",
-                "reference": "ffa3089511121a672e62969404e4fddc753f9b15",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/058ba07e92f744d4dcf6061ae75283d0c6456f2e",
+                "reference": "058ba07e92f744d4dcf6061ae75283d0c6456f2e",
                 "shasum": ""
             },
             "require": {
@@ -18469,7 +18514,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-09-29T14:07:45+00:00"
+            "time": "2023-10-02T16:18:37+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -26927,16 +26972,16 @@
         },
         {
             "name": "va-gov/content-build",
-            "version": "v0.0.3357",
+            "version": "v0.0.3361",
             "source": {
                 "type": "git",
                 "url": "https://github.com/department-of-veterans-affairs/content-build.git",
-                "reference": "ed63ada20065f6e5ee92a5f1f5785d4d312b1e66"
+                "reference": "0ed083795827bf0d7b2c4d0fd116d3352c50521a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/ed63ada20065f6e5ee92a5f1f5785d4d312b1e66",
-                "reference": "ed63ada20065f6e5ee92a5f1f5785d4d312b1e66",
+                "url": "https://api.github.com/repos/department-of-veterans-affairs/content-build/zipball/0ed083795827bf0d7b2c4d0fd116d3352c50521a",
+                "reference": "0ed083795827bf0d7b2c4d0fd116d3352c50521a",
                 "shasum": ""
             },
             "type": "node-project",
@@ -26963,9 +27008,9 @@
             "description": "Front-end for VA.gov. This repository contains the code that generates the www.va.gov website. It contains a Metalsmith static site builder that uses a Drupal CMS for content. This file is here to publish releases to https://packagist.org/packages/va-gov/content-build, so that the CMS CI system can install it and update it using standard composer processes, and so that we can run tests across both systems. See https://github.com/department-of-veterans-affairs/va.gov-cms for the CMS repo, and stand by for more documentation.",
             "support": {
                 "issues": "https://github.com/department-of-veterans-affairs/content-build/issues",
-                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3357"
+                "source": "https://github.com/department-of-veterans-affairs/content-build/tree/v0.0.3361"
             },
-            "time": "2023-10-02T19:51:11+00:00"
+            "time": "2023-10-06T17:03:27+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -27779,7 +27824,6 @@
         "drupal/cer": 10,
         "drupal/change_labels": 20,
         "drupal/components": 10,
-        "drupal/content_model_documentation": 15,
         "drupal/danse_content_moderation": 10,
         "drupal/entity_block": 10,
         "drupal/entity_clone": 10,
@@ -27795,6 +27839,7 @@
         "drupal/image_style_warmer": 5,
         "drupal/jsonapi_resources": 10,
         "drupal/libraries": 15,
+        "drupal/limited_field_widgets": 15,
         "drupal/linkit": 5,
         "drupal/linky": 10,
         "drupal/linkychecker": 10,
