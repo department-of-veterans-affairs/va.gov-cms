@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8695d165f097a731d99895772c2cbe7c",
+    "content-hash": "c5424d5adf9f1af5b737b38738073ad2",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -6274,6 +6274,10 @@
             ],
             "authors": [
                 {
+                    "name": "Anybody",
+                    "homepage": "https://www.drupal.org/user/291091"
+                },
+                {
                     "name": "Hydra",
                     "homepage": "https://www.drupal.org/user/647364"
                 },
@@ -10789,7 +10793,7 @@
             },
             "require": {
                 "bjeavons/zxcvbn-php": "^1.3",
-                "drupal/core": "^8 || ^9",
+                "drupal/core": "^8 || ^9 || ^10",
                 "drupal/password_policy": "^3.1|^4.0"
             },
             "type": "drupal-module",
@@ -10798,8 +10802,8 @@
                     "dev-2.x": "2.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-2.0-beta1+4-dev",
-                    "datestamp": "1668804356",
+                    "version": "8.x-2.0-beta2+1-dev",
+                    "datestamp": "1696647229",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -10826,6 +10830,10 @@
                 {
                     "name": "nerdstein",
                     "homepage": "https://www.drupal.org/user/1557710"
+                },
+                {
+                    "name": "nord102",
+                    "homepage": "https://www.drupal.org/user/3471419"
                 },
                 {
                     "name": "scor",
@@ -12034,11 +12042,17 @@
         },
         {
             "name": "drupal/simplesamlphp_auth",
-            "version": "dev-4.x",
+            "version": "4.0.0-rc1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/simplesamlphp_auth.git",
-                "reference": "c97611b5a91b5daa10b3a02abaf8e58acec454bc"
+                "reference": "4.0.0-rc1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/simplesamlphp_auth-4.0.0-rc1.zip",
+                "reference": "4.0.0-rc1",
+                "shasum": "f34d7237bdabf05b1c8f6bbf7d143f227d07c13e"
             },
             "require": {
                 "drupal/core": "^9.4 || ^10",
@@ -12047,15 +12061,12 @@
             },
             "type": "drupal-module",
             "extra": {
-                "branch-alias": {
-                    "dev-4.x": "4.x-dev"
-                },
                 "drupal": {
-                    "version": "4.x-dev",
-                    "datestamp": "1691679324",
+                    "version": "4.0.0-rc1",
+                    "datestamp": "1696369670",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Dev releases are not covered by Drupal security advisories."
+                        "message": "RC releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -12365,6 +12376,10 @@
                 {
                     "name": "Denes.Szabo",
                     "homepage": "https://www.drupal.org/user/582668"
+                },
+                {
+                    "name": "xmacinfo",
+                    "homepage": "https://www.drupal.org/user/12131"
                 }
             ],
             "description": "Adds formatters to plain string type field.",
@@ -26630,7 +26645,6 @@
         "drupal/change_labels": 20,
         "drupal/ckeditor_abbreviation": 15,
         "drupal/components": 10,
-        "drupal/content_model_documentation": 15,
         "drupal/danse_content_moderation": 10,
         "drupal/entity_block": 10,
         "drupal/entity_clone": 15,
@@ -26646,7 +26660,6 @@
         "drupal/hook_event_dispatcher": 10,
         "drupal/image_style_warmer": 5,
         "drupal/jsonapi_resources": 10,
-        "drupal/libraries": 15,
         "drupal/limited_field_widgets": 15,
         "drupal/linkit": 5,
         "drupal/linky": 10,
@@ -26661,7 +26674,7 @@
         "drupal/prometheus_exporter": 10,
         "drupal/schemata": 10,
         "drupal/seven": 15,
-        "drupal/simplesamlphp_auth": 20,
+        "drupal/simplesamlphp_auth": 5,
         "drupal/styleguide": 10,
         "drupal/user_history": 15,
         "drupal/viewfield": 10,
