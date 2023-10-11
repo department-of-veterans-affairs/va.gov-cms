@@ -23,6 +23,7 @@ dependencies:
     - field.field.node.event.field_media
     - field.field.node.event.field_meta_tags
     - field.field.node.event.field_order
+    - field.field.node.event.field_publish_to_outreach_cal
     - field.field.node.event.field_url_of_an_online_event
     - node.type.event
   module:
@@ -50,6 +51,7 @@ third_party_settings:
     group_c:
       children:
         - field_datetime_range_timezone
+        - field_listing
         - field_media
         - field_body
         - field_url_of_an_online_event
@@ -74,7 +76,7 @@ third_party_settings:
       label: Location-related
       parent_name: group_c
       region: content
-      weight: 28
+      weight: 7
       format_type: fieldset
       format_settings:
         classes: ''
@@ -89,7 +91,7 @@ third_party_settings:
       label: 'Registration related'
       parent_name: group_c
       region: content
-      weight: 29
+      weight: 8
       format_type: fieldset
       format_settings:
         classes: ''
@@ -134,7 +136,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 25
+    weight: 4
     region: content
   field_datetime_range_timezone:
     type: smartdate_default
@@ -146,8 +148,17 @@ content:
       force_chronological: false
       add_classes: false
       time_wrapper: true
+      localize: false
+      parts:
+        - start
+        - end
+      duration:
+        separator: ' | '
+        unit: ''
+        decimals: 2
+        suffix: h
     third_party_settings: {  }
-    weight: 23
+    weight: 1
     region: content
   field_description:
     type: string
@@ -170,7 +181,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 27
+    weight: 6
     region: content
   field_event_registrationrequired:
     type: boolean
@@ -222,6 +233,14 @@ content:
     third_party_settings: {  }
     weight: 17
     region: content
+  field_listing:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
   field_location_humanreadable:
     type: string
     label: above
@@ -244,7 +263,7 @@ content:
       view_mode: default
       link: false
     third_party_settings: {  }
-    weight: 24
+    weight: 3
     region: content
   field_order:
     type: list_default
@@ -263,15 +282,15 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    weight: 26
+    weight: 5
     region: content
 hidden:
   breadcrumbs: true
   content_moderation_control: true
   field_administration: true
   field_last_saved_by_an_editor: true
-  field_listing: true
   field_meta_tags: true
+  field_publish_to_outreach_cal: true
   langcode: true
   links: true
   search_api_excerpt: true
