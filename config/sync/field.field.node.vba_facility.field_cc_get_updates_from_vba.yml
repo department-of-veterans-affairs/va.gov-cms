@@ -1,0 +1,31 @@
+uuid: 59d1fd68-d695-4e23-ac71-dedc8f890d56
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cc_get_updates_from_vba
+    - node.type.vba_facility
+  module:
+    - entity_field_fetch
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.vba_facility.field_cc_get_updates_from_vba
+field_name: field_cc_get_updates_from_vba
+entity_type: node
+bundle: vba_facility
+label: 'Get updates from VBA'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: null
+default_value_callback: ''
+settings:
+  target_entity_type: node
+  target_entity_id: '61744'
+  field_to_fetch: field_content_block
+  target_paragraph_uuid: 5bc10434-a9f2-4d39-9fbc-c0b6bbf635d5
+field_type: entity_field_fetch
