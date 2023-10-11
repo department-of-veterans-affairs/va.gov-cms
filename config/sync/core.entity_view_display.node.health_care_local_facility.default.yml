@@ -36,6 +36,7 @@ dependencies:
     - office_hours
     - options
     - telephone
+    - text
     - user
 third_party_settings:
   field_group:
@@ -94,7 +95,6 @@ third_party_settings:
     group_locations_and_contact_info:
       children:
         - group_facility_data_from_vast
-        - field_mental_health_phone
       label: 'Locations and contact information'
       parent_name: ''
       region: content
@@ -111,6 +111,7 @@ third_party_settings:
         - field_address
         - field_phone_number
         - field_mobile
+        - field_mental_health_phone
         - field_office_hours
         - field_timezone
       label: 'Facility data'
@@ -155,7 +156,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 16
+    weight: 17
     region: content
   field_description:
     type: string
@@ -216,7 +217,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 18
+    weight: 19
     region: content
   field_office_hours:
     type: office_hours
@@ -228,7 +229,6 @@ content:
       grouped: false
       show_closed: all
       closed_format: Closed
-      all_day_format: 'All day open'
       separator:
         days: '<br />'
         grouped_days: ' - '
@@ -248,7 +248,7 @@ content:
       schema:
         enabled: false
     third_party_settings: {  }
-    weight: 19
+    weight: 21
     region: content
   field_operating_status_facility:
     type: list_default
@@ -270,14 +270,14 @@ content:
     settings:
       title: ''
     third_party_settings: {  }
-    weight: 17
+    weight: 18
     region: content
   field_timezone:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 20
+    weight: 22
     region: content
   flag_email_node:
     settings: {  }
