@@ -519,7 +519,7 @@ $config = [
      * one of the functionalities below, but in some cases you could run multiple functionalities.
      * In example when you are setting up a federation bridge.
      */
-    'enable.saml20-idp' => false,
+    'enable.saml20-idp' => true,
     'enable.adfs-idp' => false,
     /*
      * Whether SimpleSAMLphp should sign the response or the assertion in SAML 1.1 authentication
@@ -620,7 +620,7 @@ $config = [
      * through https. If the user can access the service through
      * both http and https, this must be set to FALSE.
      */
-    'session.cookie.secure' => false,
+    'session.cookie.secure' => true,
 
     /*
      * Set the SameSite attribute in the cookie.
