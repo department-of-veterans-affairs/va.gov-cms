@@ -830,6 +830,11 @@
             "# Prepare the next build server",
 			"! ./scripts/should-run-directly.sh || ./scripts/next-build.sh",
             "./scripts/should-run-directly.sh || ddev composer va:next:build --"
+        ],
+        "va:next:start": [
+            "# Start the next build server",
+			"! ./scripts/should-run-directly.sh || yarn start",
+            "./scripts/should-run-directly.sh || ddev composer va:next:start--"
         ]
     }
 }
