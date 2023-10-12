@@ -9,3 +9,4 @@ source ~/.bashrc
 cd next
 
 APP_ENV=tugboat yarn build:preview
+yarn start
