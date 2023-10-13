@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-#preview
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
@@ -8,4 +7,4 @@ source ~/.bashrc
 
 cd next
 
-APP_ENV=tugboat yarn build:preview
+APP_ENV=tugboat yarn start

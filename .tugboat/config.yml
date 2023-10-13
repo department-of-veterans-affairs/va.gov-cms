@@ -232,6 +232,8 @@ services:
 
         # Build storybook and the frontends in parallel
         - bash -lc 'time task --taskfile=tugboat.yml'
+        # Build next build server
+        - bash -lc 'composer va:next:start'
 
   memcache:
     image: tugboatqa/memcached:1.6
