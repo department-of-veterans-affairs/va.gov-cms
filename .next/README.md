@@ -1,1 +1,1 @@
-See /.tugboat/vhost-storybook.conf.
+See /.tugboat/vhost-next.conf.

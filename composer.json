@@ -574,7 +574,9 @@
         "va:web:build": "Perform a content build.",
         "va:web:install": "Prepare the content-build project.",
         "va:web:prepare-dotenv": "Prepare the ./web/.env file.",
-        "va:next-preview": "Prepare the next preview server"
+        "va:next:install": "Prepare the next-build project",
+        "va:next:build": "Build the next-build server for preview",
+        "va:next:start": "Start the next-build server for preview"
     },
     "scripts": {
         "pre-install-cmd": [
@@ -834,7 +836,7 @@
         "va:next:start": [
             "# Start the next build server",
             "! ./scripts/should-run-directly.sh || next-start.sh",
-            "./scripts/should-run-directly.sh || ddev composer va:next:start--"
+            "./scripts/should-run-directly.sh || ddev composer va:next:start --"
         ]
     }
 }
