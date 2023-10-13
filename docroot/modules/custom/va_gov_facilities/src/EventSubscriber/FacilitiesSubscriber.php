@@ -480,6 +480,10 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
         'tricare_description' => trim(strip_tags($tricare_description)),
         'vc_vocabulary_service_description_label' => $vocabulary_definition['field_vet_center_service_descrip']->getLabel(),
         'vc_vocabulary_description_help_text' => $vocabulary_definition['field_vet_center_service_descrip']->getDescription(),
+        'vba_regional_service_header' => trim($service_term->get($fields['regional_service_header'])->getString()),
+        'vba_regional_service_description' => trim($service_term->get($fields['regional_service_description'])->getString()),
+        'vba_facility_service_header' => trim($service_term->get($fields['facility_service_header'])->getString()),
+        'vba_facility_service_description' => trim($service_term->get($fields['facility_service_description'])->getString()),
       ];
     }
     $form['#attached']['drupalSettings']['availableHealthServices'] = $descriptions;
@@ -558,6 +562,10 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
           'name' => 'field_vba_friendly_name',
           'conditions' => 'field_vba_com_conditions',
           'description' => 'field_vba_service_descrip',
+          'regional_service_header' => 'field_regional_service_header',
+          'regional_service_description' => 'field_regional_service_descripti',
+          'facility_service_header' => 'field_facility_service_header',
+          'facility_service_description' => 'field_facility_service_descripti',
         ];
         break;
     }
