@@ -835,7 +835,7 @@
         ],
         "va:next:start": [
             "# Start the next build server",
-            "! ./scripts/should-run-directly.sh || next-start.sh",
+            "! ./scripts/should-run-directly.sh || ./scripts/next-start.sh",
             "./scripts/should-run-directly.sh || ddev composer va:next:start --"
         ]
     }
