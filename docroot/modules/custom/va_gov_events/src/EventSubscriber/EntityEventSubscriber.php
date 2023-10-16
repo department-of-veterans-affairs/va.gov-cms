@@ -46,6 +46,24 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   const OUTREACH_CHECKBOX_FEATURE_NAME = 'feature_event_outreach_checkbox';
 
   /**
+   * The list of users allowed to view the outreach checkbox.
+   */
+  const OUTREACH_CHECKBOX_TEST_USERS = [
+    2910,
+    1448,
+    4356,
+    2861,
+    2922,
+    3421,
+    3314,
+    4573,
+    3864,
+    1583,
+    3610,
+    2927,
+  ];
+
+  /**
    * The User Perms Service.
    *
    * @var \Drupal\va_gov_user\Service\UserPermsService
@@ -64,7 +82,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *
    * @var bool
    */
-  private bool $outreachCheckboxEnabled;
+  private bool $outreachCheckboxFeatureEnabled;
 
   /**
    * Constructs the EventSubscriber object.
@@ -79,7 +97,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public function __construct(UserPermsService $user_perms_service, AccountProxy $account_proxy, FeatureStatus $feature_status) {
     $this->userPermsService = $user_perms_service;
     $this->currentUser = $account_proxy->getAccount();
-    $this->outreachCheckboxEnabled = $feature_status->getStatus(self::OUTREACH_CHECKBOX_FEATURE_NAME);
+    $this->outreachCheckboxFeatureEnabled = $feature_status->getStatus(self::OUTREACH_CHECKBOX_FEATURE_NAME);
   }
 
   /**
@@ -91,6 +109,19 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       'hook_event_dispatcher.form_node_event_edit_form.alter' => 'alterEventNodeForm',
       EntityHookEvents::ENTITY_PRE_SAVE => 'entityPresave',
     ];
+  }
+
+  /**
+   * Determines if the 'add to National Outreach Calendar' checkbox is enabled.
+   *
+   * @return bool
+   *   TRUE if the outreach checkbox should be enabled.
+   */
+  protected function outreachCheckboxEnabled(): bool {
+    return (
+      $this->outreachCheckboxFeatureEnabled
+      && in_array($this->currentUser->id(), self::OUTREACH_CHECKBOX_TEST_USERS)
+    );
   }
 
   /**
@@ -150,7 +181,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */
   public function addToNationalOutreachCalendar(NodeInterface $node): void {
-    if ($node->hasField(self::LISTING_FIELD) && $node->hasField(self::PUBLISH_TO_OUTREACH_CAL_FIELD) && $this->outreachCheckboxEnabled) {
+    if ($node->hasField(self::LISTING_FIELD) && $node->hasField(self::PUBLISH_TO_OUTREACH_CAL_FIELD) && $this->outreachCheckboxEnabled()) {
       $addToCalValue = $node->get(self::PUBLISH_TO_OUTREACH_CAL_FIELD)->first()->getValue();
       if (isset($addToCalValue['value'])) {
         $listings = $node->get(self::LISTING_FIELD)->getValue();
@@ -175,7 +206,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   The form array.
    */
   public function modifyAddToOutreachCalendarElements(array &$form) :void {
-    if ($this->outreachHubOnlyUser() && $this->outreachCheckboxEnabled) {
+    if ($this->outreachHubOnlyUser() && $this->outreachCheckboxEnabled()) {
       // Disable the checkbox.
       $form[self::PUBLISH_TO_OUTREACH_CAL_FIELD]['#disabled'] = TRUE;
       // Set the default value of the checkbox.
@@ -194,7 +225,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
       $form[self::LISTING_FIELD]['widget']['#options'] = ['_none' => '- Select a value -'] + $form[self::LISTING_FIELD]['widget']['#options'];
     }
     // Disable the checkbox element until the feature toggle is on.
-    $form[self::PUBLISH_TO_OUTREACH_CAL_FIELD]['#access'] = $this->outreachCheckboxEnabled;
+    $form[self::PUBLISH_TO_OUTREACH_CAL_FIELD]['#access'] = $this->outreachCheckboxEnabled();
   }
 
   /**
