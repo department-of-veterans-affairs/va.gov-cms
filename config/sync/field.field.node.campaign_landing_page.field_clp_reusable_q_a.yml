@@ -1,23 +1,23 @@
-uuid: 467c05ca-1887-4ca7-a617-b249330a1518
+uuid: 22948d35-29e6-4cbe-bad7-c47bf260b4fa
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_clp_faq_paragraphs
+    - field.storage.node.field_clp_reusable_q_a
     - node.type.campaign_landing_page
-    - paragraphs.paragraphs_type.q_a
+    - paragraphs.paragraphs_type.q_a_group
   module:
     - entity_reference_revisions
     - tmgmt_content
 third_party_settings:
   tmgmt_content:
     excluded: false
-id: node.campaign_landing_page.field_clp_faq_paragraphs
-field_name: field_clp_faq_paragraphs
+id: node.campaign_landing_page.field_clp_reusable_q_a
+field_name: field_clp_reusable_q_a
 entity_type: node
 bundle: campaign_landing_page
-label: 'Page-Specific Q&A'
-description: 'Add questions and answers that provide information specific to the page content.'
+label: 'Reusable Q&A'
+description: 'Choose from questions and answers that are stored in the CMS and used on multiple pages.'
 required: false
 translatable: false
 default_value: {  }
@@ -26,142 +26,142 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     target_bundles:
-      q_a: q_a
+      q_a_group: q_a_group
     negate: 0
     target_bundles_drag_drop:
       address:
-        weight: 42
+        weight: 46
         enabled: false
       alert:
-        weight: 43
+        weight: 47
         enabled: false
       alert_single:
-        weight: 44
+        weight: 48
         enabled: false
       audience_topics:
-        weight: 45
+        weight: 49
         enabled: false
       basic_accordion:
         weight: 50
         enabled: false
       button:
-        weight: 46
+        weight: 51
         enabled: false
       centralized_content_descriptor:
         weight: 52
         enabled: false
       checklist:
-        weight: 47
+        weight: 53
         enabled: false
       checklist_item:
-        weight: 48
+        weight: 54
         enabled: false
       collapsible_panel:
-        weight: 49
+        weight: 55
         enabled: false
       collapsible_panel_item:
-        weight: 50
+        weight: 56
         enabled: false
       contact_information:
-        weight: 51
+        weight: 57
         enabled: false
       downloadable_file:
-        weight: 52
+        weight: 58
         enabled: false
       email_contact:
-        weight: 53
+        weight: 59
         enabled: false
       embedded_video:
         weight: 60
         enabled: false
       expandable_text:
-        weight: 54
+        weight: 61
         enabled: false
       featured_content:
         weight: 62
         enabled: false
       health_care_local_facility_servi:
-        weight: 55
+        weight: 63
         enabled: false
       link_teaser:
-        weight: 56
+        weight: 64
         enabled: false
       link_teaser_with_image:
-        weight: 57
+        weight: 65
         enabled: false
       list_of_link_teasers:
-        weight: 60
+        weight: 68
         enabled: false
       list_of_links:
-        weight: 59
+        weight: 67
         enabled: false
       lists_of_links:
-        weight: 58
+        weight: 66
         enabled: false
       magichead_group:
         weight: 69
         enabled: false
       media:
-        weight: 61
-        enabled: false
-      media_list_images:
-        weight: 62
-        enabled: false
-      media_list_videos:
-        weight: 63
-        enabled: false
-      non_reusable_alert:
-        weight: 64
-        enabled: false
-      number_callout:
-        weight: 65
-        enabled: false
-      phone_number:
-        weight: 66
-        enabled: false
-      process:
-        weight: 67
-        enabled: false
-      q_a:
-        weight: 68
-        enabled: true
-      q_a_group:
-        weight: 69
-        enabled: false
-      q_a_section:
         weight: 70
         enabled: false
-      react_widget:
+      media_list_images:
         weight: 71
         enabled: false
-      rich_text_char_limit_1000:
+      media_list_videos:
         weight: 72
         enabled: false
-      service_location:
+      non_reusable_alert:
         weight: 73
         enabled: false
-      service_location_address:
+      number_callout:
         weight: 74
         enabled: false
-      situation_update:
+      phone_number:
         weight: 75
         enabled: false
-      spanish_translation_summary:
+      process:
         weight: 76
         enabled: false
-      staff_profile:
+      q_a:
         weight: 77
         enabled: false
-      step:
+      q_a_group:
+        weight: 78
+        enabled: true
+      q_a_section:
         weight: 79
         enabled: false
-      step_by_step:
+      react_widget:
         weight: 80
         enabled: false
-      table:
+      rich_text_char_limit_1000:
         weight: 81
         enabled: false
-      wysiwyg:
+      service_location:
         weight: 82
+        enabled: false
+      service_location_address:
+        weight: 83
+        enabled: false
+      situation_update:
+        weight: 84
+        enabled: false
+      spanish_translation_summary:
+        weight: 85
+        enabled: false
+      staff_profile:
+        weight: 86
+        enabled: false
+      step:
+        weight: 87
+        enabled: false
+      step_by_step:
+        weight: 88
+        enabled: false
+      table:
+        weight: 89
+        enabled: false
+      wysiwyg:
+        weight: 90
         enabled: false
 field_type: entity_reference_revisions

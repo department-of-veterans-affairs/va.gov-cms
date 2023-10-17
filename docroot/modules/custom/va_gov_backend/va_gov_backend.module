@@ -24,8 +24,8 @@ use Drupal\Core\Url;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\FieldStorageConfigInterface;
 use Drupal\file\Entity\File;
-use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\node\NodeInterface;
+use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\taxonomy\TermInterface;
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
@@ -252,6 +252,9 @@ function _va_gov_backend_get_clp_toggles() {
           'field_clp_faq_paragraphs' => [
             'required' => TRUE,
             'show-indicator' => TRUE,
+          ],
+          'field_clp_reusable_q_a' => [
+            'required' => FALSE,
           ],
           'field_clp_faq_cta' => [
             'required' => FALSE,
