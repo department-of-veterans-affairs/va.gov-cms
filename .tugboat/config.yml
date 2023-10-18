@@ -50,7 +50,7 @@ services:
 
         # Install opcache, and Apache modules
         - docker-php-ext-install opcache
-        - a2enmod headers rewrite vhost_alias
+        - a2enmod headers rewrite vhost_alias proxy proxy_http
         # Install datadog agent for application tracing and profiling.
         - DD_API_KEY=" " DD_INSTALL_ONLY=true DD_SITE="ddog-gov.com" bash -c "$(curl -L https://s3.amazonaws.com/dd-agent/scripts/install_script_agent7.sh)"
 
