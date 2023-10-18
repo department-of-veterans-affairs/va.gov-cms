@@ -116,7 +116,7 @@ class QueueItemProcessedEventSubscriber implements EventSubscriberInterface, Con
         // The response might have been 200 from the TIC not the Facility API.
         $message = sprintf('Item %s Posted with a 200, but had an unexpected response with a size: %F phrase: %s', $item_data['uid'], $size, $response_phrase);
         $this->logger->get('va_gov_post_api')->warning($message);
-        // Add the item that did not get processed back to the queue.
+        // Add the item that might not have been processed back to the queue.
         $this->postQueue->addToQueue($item_data);
       }
     }
