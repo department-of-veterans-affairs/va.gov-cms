@@ -189,6 +189,7 @@ services:
         - j2 "${TUGBOAT_ROOT}/.web/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.web/403-error-document.html"
         - j2 "${TUGBOAT_ROOT}/.storybook/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.storybook/403-error-document.html"
         - j2 "${TUGBOAT_ROOT}/.next/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.next/403-error-document.html"
+        - j2 "${TUGBOAT_ROOT}/.next/503-error-document.j2.html" -o "${TUGBOAT_ROOT}/.next/503-error-document.html"
         - composer install
         - bash -lc 'nvm install'
         - bash -lc 'npm install'
@@ -219,6 +220,8 @@ services:
         - j2 "${TUGBOAT_ROOT}/.web/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.web/403-error-document.html"
         - j2 "${TUGBOAT_ROOT}/.storybook/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.storybook/403-error-document.html"
         - j2 "${TUGBOAT_ROOT}/.next/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.next/403-error-document.html"
+        - j2 "${TUGBOAT_ROOT}/.next/503-error-document.j2.html" -o "${TUGBOAT_ROOT}/.next/503-error-document.html"
+
       online:
         # We only want tests running on PRs, not branches like the base preview build of main.
         - if [ "$TUGBOAT_PREVIEW_TYPE" = "pullrequest" ]; then bash -lc 'time task --taskfile=tests.yml'; fi
