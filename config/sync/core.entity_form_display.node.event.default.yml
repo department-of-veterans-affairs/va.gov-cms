@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.event.field_additional_information_abo
+    - field.field.node.event.field_additional_listings
     - field.field.node.event.field_address
     - field.field.node.event.field_administration
     - field.field.node.event.field_body
@@ -94,7 +95,6 @@ third_party_settings:
     group_editorial_workflow:
       children:
         - moderation_state
-        - revision_log
       label: 'Editorial Workflow'
       region: content
       parent_name: ''
@@ -426,6 +426,7 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_additional_listings: true
   field_event_cost: true
   field_meta_tags: true
   langcode: true
