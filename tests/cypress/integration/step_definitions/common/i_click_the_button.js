@@ -1,7 +1,7 @@
 import { Given } from "@badeball/cypress-cucumber-preprocessor";
 
 Given(`I click the {string} button`, (text) => {
-  cy.contains("input", "null").click({ force: true });
+  cy.contains("input", text).click({ force: true });
 });
 
 Given(`I click the button with selector {string}`, (selector) => {
