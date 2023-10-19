@@ -6,15 +6,15 @@ labels: Content, Content governance
 
 body:
 
-- type: dropdown
+- type: textarea
   id: which-taxonomy
   attributes:
     label:  Which Taxonomy is this term for?
-    multiple: false
-    options:
-      - VA benefit taxonomy
-      - VA service taxonomy
-      - Other
+    render: markdown
+    value:
+      |- [ ] VA Benefits taxonomy
+      |- [ ] VA services taxonomy
+      |- [ ] Other
   validations:
     required: true
 - type: input
@@ -88,3 +88,4 @@ body:
     description: 
   validations:
     required: false
+
