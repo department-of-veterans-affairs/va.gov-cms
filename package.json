@@ -19,7 +19,6 @@
     "test:cypress:verify": "cypress verify",
     "test:cypress:interactive": "cypress open -e \"TAGS=not @ignore and not @piv,VAGOV_INTERACTIVE=true\"",
     "test:cypress:parallel": "cypress-parallel --reporter 'spec' --script test:cypress --threads 3 --strictMode false --specsDir tests/cypress/integration --weightsJson tests/cypress/integration/weights.json",
-    "cy:parallel:all": "npx cypress-parallel -s cy:run -t 6 -d 'cypress/e2e/feature-tests/**' --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json"
   },
   "repository": {
     "type": "git",
