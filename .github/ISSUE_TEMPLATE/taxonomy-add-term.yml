@@ -6,7 +6,7 @@ labels: Content, Content governance
 
 body:
 
-  - type: dropdown
+- type: dropdown
     id: which-taxonomy
     attributes:
       label:  Which Taxonomy is this term for?
@@ -17,21 +17,21 @@ body:
         - Other
      validations:
       required: true
-  - type: input
+- type: input
     id: term-name
     attributes:
       label: Proposed term name/label
       description: e.g. Veterans Pension
     validations:
       required: true
-  - type: input
+- type: input
     id: machine-name
     attributes:
       label: Proposed machine name/ API ID
       description: va_service_veterans_pension
     validations:
       required: false 
-  - type: dropdown
+- type: dropdown
     id: overlap
     attributes:
       label: Does this overlap with any existing term in the taxonomy?
@@ -41,14 +41,14 @@ body:
         - No
     validations:
       required: true
-  - type: textarea
+- type: textarea
     id: rationale
     attributes:
       label: Rationale for adding this term
       description: Write a short explanation of why this term is needed. Include links to any relevant issues, research findings, etc.
     validations:
       required: true 
-  - type: dropdown
+- type: dropdown
     id: products
     attributes:
       label: Which products will this term impact?
@@ -61,7 +61,7 @@ body:
         - Other
     validations:
       required: false 
-  - type: dropdown
+- type: dropdown
     id: stakeholders
     attributes:
       label: Have stakeholders from impacted products been consulted?
@@ -71,7 +71,7 @@ body:
         - No
     validations:
       required: true  
-  - type: dropdown
+- type: dropdown
     id: subfields
     attributes:
       label: Have you drafted content for all the relevant subfields?
@@ -81,7 +81,7 @@ body:
         - No
     validations:
       required: true   
-  - type: textarea
+- type: textarea
     id: extra
     attributes:
       label: Additional notes
