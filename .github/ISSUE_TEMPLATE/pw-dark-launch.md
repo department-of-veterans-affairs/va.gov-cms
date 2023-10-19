@@ -4,7 +4,7 @@ about: Request to dark launch CMS content that includes React widget, owned by P
   Websites team
 title: 'CMS/React content dark launch request: <content info>'
 labels: Drupal engineering, Needs refining, Public Websites, VA.gov frontend
-assignees: jilladams, wesrowe
+assignees: jilladams, FranECross
 
 ---
 

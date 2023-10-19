@@ -4,7 +4,7 @@ about: Request a new Campaign Landing Page, owned by Public
   Websites team
 title: 'Campaign Landing Page request: <content info>'
 labels: Needs refining, Public Websites, VA.gov frontend, User support, CLP
-assignees: jilladams, wesrowe
+assignees: jilladams, FranECross
 
 ---
 
