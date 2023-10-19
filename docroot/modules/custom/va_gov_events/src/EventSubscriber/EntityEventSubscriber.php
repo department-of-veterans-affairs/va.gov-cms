@@ -123,9 +123,10 @@ class EntityEventSubscriber implements EventSubscriberInterface {
    *   TRUE if the outreach checkbox should be enabled.
    */
   protected function outreachCheckboxEnabled(): bool {
+    $admin = $this->userPermsService->hasAdminRole(TRUE);
     return (
       $this->outreachCheckboxFeatureEnabled
-      && in_array($this->currentUser->id(), self::OUTREACH_CHECKBOX_TEST_USERS)
+      && (in_array($this->currentUser->id(), self::OUTREACH_CHECKBOX_TEST_USERS) || $admin)
     );
   }
 
