@@ -1,6 +1,6 @@
 @facilities_api
 Feature: CMS Users may not unintentionally change information in fields populated by the Facilities API
-  In order to confirm that cms users can change Facilities API data
+  In order to confirm that cms users cannot change Facilities API data
   As anyone involved in the project
   I need to have certain fields locked down
 
