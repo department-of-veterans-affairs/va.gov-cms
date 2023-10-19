@@ -6,11 +6,12 @@ labels: Content, Content governance
 
 body:
 
-- type: textarea
+- type: dropdown
   id: which-taxonomy
   attributes:
     label:  Which Taxonomy is this term for?
-    value:
+    multiple: false
+    options:
       - VA Benefits taxonomy
       - VA services taxonomy
       - Other
