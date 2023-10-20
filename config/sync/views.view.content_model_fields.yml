@@ -2,8 +2,6 @@ uuid: 9cce4e26-7273-40be-99c0-9fb19a6823c3
 langcode: en
 status: true
 dependencies:
-  config:
-    - system.menu.admin
   module:
     - config_views
     - content_model_documentation
@@ -1093,7 +1091,7 @@ display:
           enabled: false
       path: admin/reports/content-model/fields
       menu:
-        type: normal
+        type: none
         title: Fields
         description: 'Displays field settings of the content model.'
         weight: 0

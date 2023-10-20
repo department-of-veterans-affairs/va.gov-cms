@@ -5,6 +5,14 @@ dependencies:
   config:
     - field.field.node.vba_facility.field_address
     - field.field.node.vba_facility.field_administration
+    - field.field.node.vba_facility.field_cc_benefit_office_hours_va
+    - field.field.node.vba_facility.field_cc_benefits_hotline
+    - field.field.node.vba_facility.field_cc_cant_find_benefits
+    - field.field.node.vba_facility.field_cc_get_updates_from_vba
+    - field.field.node.vba_facility.field_cc_national_spotlight_1
+    - field.field.node.vba_facility.field_cc_national_spotlight_2
+    - field.field.node.vba_facility.field_cc_national_spotlight_3
+    - field.field.node.vba_facility.field_cc_vba_facility_overview
     - field.field.node.vba_facility.field_facility_locator_api_id
     - field.field.node.vba_facility.field_facility_vba_classificatio
     - field.field.node.vba_facility.field_geolocation
@@ -25,6 +33,7 @@ dependencies:
     - node.type.vba_facility
   module:
     - address
+    - entity_field_fetch
     - entity_reference_revisions
     - field_group
     - link
@@ -55,7 +64,7 @@ third_party_settings:
       label: 'Locations and contact information'
       parent_name: ''
       region: content
-      weight: 2
+      weight: 3
       format_type: fieldset
       format_settings:
         classes: ''
@@ -93,7 +102,7 @@ third_party_settings:
       label: 'Facility Intro and Photo'
       parent_name: ''
       region: content
-      weight: 1
+      weight: 2
       format_type: fieldset
       format_settings:
         classes: ''
@@ -110,7 +119,7 @@ third_party_settings:
       label: 'DB data'
       parent_name: group_facility_data
       region: content
-      weight: 9
+      weight: 11
       format_type: fieldset
       format_settings:
         classes: not-editable
@@ -118,6 +127,126 @@ third_party_settings:
         id: ''
         description: ''
         description_display: after
+    group_benefit_office_overview:
+      children:
+        - field_cc_vba_facility_overview
+      label: 'Benefit office overview'
+      parent_name: ''
+      region: content
+      weight: 1
+      format_type: tooltip
+      format_settings:
+        show_empty_fields: '1'
+        show_label: '0'
+        tooltip_description: "Why can’t I edit this?\r\nNational editors keep this content standardized to provide consistent messaging for facilities nationwide."
+        description: ''
+        id: ''
+        classes: centralized
+        element: div
+        label_element: h3
+        attributes: ''
+    group_benefits_hotline:
+      children:
+        - field_cc_benefits_hotline
+      label: 'Benefits hotline'
+      parent_name: ''
+      region: content
+      weight: 5
+      format_type: tooltip
+      format_settings:
+        show_empty_fields: 0
+        id: ''
+        classes: centralized
+        element: div
+        show_label: '0'
+        label_element: h3
+        attributes: ''
+        description: ''
+        tooltip_description: "Why can’t I edit this?\r\nNational editors keep this content standardized to provide consistent messaging for facilities nationwide."
+        open: false
+        required_fields: false
+    group_benefit_office_hours_vary:
+      children:
+        - field_cc_benefit_office_hours_va
+      label: 'Benefit office hours may vary'
+      parent_name: ''
+      region: content
+      weight: 4
+      format_type: tooltip
+      format_settings:
+        show_empty_fields: 0
+        id: ''
+        classes: centralized
+        element: div
+        show_label: '0'
+        label_element: h3
+        attributes: ''
+        description: ''
+        tooltip_description: "Why can’t I edit this?\r\nNational editors keep this content standardized to provide consistent messaging for facilities nationwide."
+        open: false
+        required_fields: false
+    group_national_spotlight:
+      children:
+        - field_cc_national_spotlight_1
+        - field_cc_national_spotlight_2
+        - field_cc_national_spotlight_3
+      label: 'National spotlight'
+      parent_name: ''
+      region: content
+      weight: 7
+      format_type: tooltip
+      format_settings:
+        show_empty_fields: 0
+        id: ''
+        classes: centralized
+        element: div
+        show_label: '0'
+        label_element: h3
+        attributes: ''
+        description: ''
+        tooltip_description: "Why can’t I edit this? \r\nNational editors keep this content standardized to provide consistent messaging for facilities nationwide."
+        open: false
+        required_fields: false
+    group_can_t_find_benefits:
+      children:
+        - field_cc_cant_find_benefits
+      label: 'Can''t find benefits'
+      parent_name: ''
+      region: content
+      weight: 8
+      format_type: tooltip
+      format_settings:
+        show_empty_fields: 0
+        id: ''
+        classes: centralized
+        element: div
+        show_label: '0'
+        label_element: h3
+        attributes: ''
+        description: ''
+        tooltip_description: "Why can’t I edit this? \r\nNational editors keep this content standardized to provide consistent messaging for facilities nationwide."
+        open: false
+        required_fields: false
+    group_get_updates_from_vba:
+      children:
+        - field_cc_get_updates_from_vba
+      label: 'Get updates from VBA'
+      parent_name: ''
+      region: content
+      weight: 9
+      format_type: tooltip
+      format_settings:
+        show_empty_fields: 0
+        id: ''
+        classes: centralized
+        element: div
+        show_label: '0'
+        label_element: h3
+        attributes: ''
+        description: ''
+        tooltip_description: "Why can’t I edit this? \r\nNational editors keep this content standardized to provide consistent messaging for facilities nationwide."
+        open: false
+        required_fields: false
 id: node.vba_facility.default
 targetEntityType: node
 bundle: vba_facility
@@ -128,7 +257,63 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 4
+    region: content
+  field_cc_benefit_office_hours_va:
+    type: entity_field_fetch
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  field_cc_benefits_hotline:
+    type: entity_field_fetch
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 16
+    region: content
+  field_cc_cant_find_benefits:
+    type: entity_field_fetch
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_cc_get_updates_from_vba:
+    type: entity_field_fetch
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_cc_national_spotlight_1:
+    type: entity_field_fetch
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_cc_national_spotlight_2:
+    type: entity_field_fetch
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_cc_national_spotlight_3:
+    type: entity_field_fetch
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_cc_vba_facility_overview:
+    type: entity_field_fetch
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
     region: content
   field_facility_locator_api_id:
     type: string
@@ -143,7 +328,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 7
+    weight: 14
     region: content
   field_location_services:
     type: entity_reference_revisions_entity_view
@@ -152,7 +337,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 3
+    weight: 6
     region: content
   field_media:
     type: entity_reference_entity_view
@@ -161,7 +346,7 @@ content:
       view_mode: default
       link: true
     third_party_settings: {  }
-    weight: 8
+    weight: 15
     region: content
   field_non_va_location_url:
     type: link
@@ -243,7 +428,7 @@ content:
     settings:
       title: ''
     third_party_settings: {  }
-    weight: 6
+    weight: 5
     region: content
   field_shared_vha_location:
     type: entity_reference_label
@@ -258,7 +443,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 8
+    weight: 9
     region: content
 hidden:
   breadcrumbs: true

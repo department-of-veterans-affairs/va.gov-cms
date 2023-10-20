@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.cm_document.cm_document.field_data_pulled_from
     - field.field.cm_document.cm_document.field_data_pushed_to
+    - field.field.cm_document.cm_document.field_diagram
     - field.field.cm_document.cm_document.field_link_to_cms_design_system
     - field.field.cm_document.cm_document.field_link_to_va_design_system
     - field.field.cm_document.cm_document.field_links_to_design
@@ -21,6 +22,7 @@ dependencies:
     - image
     - limited_field_widgets
     - link
+    - mermaid_diagram_field
     - text
 third_party_settings:
   field_group:
@@ -33,7 +35,7 @@ third_party_settings:
       label: Design
       region: content
       parent_name: ''
-      weight: 1
+      weight: 2
       format_type: fieldset
       format_settings:
         classes: ''
@@ -49,7 +51,7 @@ third_party_settings:
       label: Data
       region: content
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: fieldset
       format_settings:
         classes: ''
@@ -83,6 +85,16 @@ content:
         limit_values: '0'
       change_labels:
         add_another: 'Add another destination'
+  field_diagram:
+    type: mermaid_diagram_widget
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings:
+      limited_field_widgets:
+        limit_values: '0'
+      change_labels:
+        add_another: 'Add another diagram'
   field_link_to_cms_design_system:
     type: link_default
     weight: 5
@@ -133,7 +145,7 @@ content:
         add_another: 'Add another link to research'
   field_other_links:
     type: link_default
-    weight: 4
+    weight: 5
     region: content
     settings:
       placeholder_url: ''
@@ -145,7 +157,7 @@ content:
         add_another: 'Add another link'
   field_related_knowledgebase:
     type: entity_reference_autocomplete
-    weight: 2
+    weight: 3
     region: content
     settings:
       match_operator: CONTAINS
@@ -159,7 +171,7 @@ content:
         add_another: 'Add another Knowledge Base article link'
   field_screenshots:
     type: image_image
-    weight: 5
+    weight: 6
     region: content
     settings:
       progress_indicator: throbber
@@ -172,7 +184,7 @@ content:
         remove_label: ''
   field_stakeholders:
     type: options_buttons
-    weight: 3
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
