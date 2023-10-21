@@ -1095,25 +1095,25 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        moderation_state:
-          id: moderation_state
-          table: node_field_data
-          field: moderation_state
+        moderation_state_multiple_workflow_filter:
+          id: moderation_state_multiple_workflow_filter
+          table: node
+          field: moderation_state_multiple_workflow_filter
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: node
-          plugin_id: moderation_state_filter
-          operator: in
+          plugin_id: moderation_state_multiple_workflow_filter
+          operator: or
           value: {  }
           group: 1
           exposed: true
           expose:
-            operator_id: moderation_state_op
+            operator_id: moderation_state_multiple_workflow_filter_op
             label: 'Moderation state'
             description: ''
             use_operator: false
-            operator: moderation_state_op
+            operator: moderation_state_multiple_workflow_filter_op
             operator_limit_selection: false
             operator_list: {  }
             identifier: moderation_state
@@ -1136,7 +1136,10 @@ display:
               redirect_administrator: '0'
               admnistrator_users: '0'
               administrator: '0'
-            reduce: false
+              homepage_manager: '0'
+              translation_manager: '0'
+              next_js: '0'
+            reduce: 0
           is_grouped: false
           group_info:
             label: ''
@@ -1149,6 +1152,7 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+          reduce_duplicates: 0
         workbench_access_section__section:
           id: workbench_access_section__section
           table: node
@@ -1368,6 +1372,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - 'user.node_grants:view'
         - user.permissions
       tags:
@@ -1377,7 +1382,7 @@ display:
         - 'config:field.storage.node.field_intro_text'
         - 'config:field.storage.node.field_media'
         - 'config:field.storage.node.field_meta_tags'
-        - 'config:workflow_list'
+        - workbench_access_view
   metatag_audit:
     id: metatag_audit
     display_title: 'Metatag Audit'
@@ -1394,6 +1399,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - 'user.node_grants:view'
         - user.permissions
       tags:
@@ -1403,4 +1409,4 @@ display:
         - 'config:field.storage.node.field_intro_text'
         - 'config:field.storage.node.field_media'
         - 'config:field.storage.node.field_meta_tags'
-        - 'config:workflow_list'
+        - workbench_access_view
