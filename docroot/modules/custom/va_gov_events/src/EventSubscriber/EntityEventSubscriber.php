@@ -204,6 +204,10 @@ class EntityEventSubscriber implements EventSubscriberInterface {
             ];
           }
         }
+        else {
+          // Checkbox is unset. Ensure that additional listings are removed.
+          $additionalListings = [];
+        }
         $node->set(self::ADDITIONAL_LISTING_FIELD, $additionalListings);
       }
     }
