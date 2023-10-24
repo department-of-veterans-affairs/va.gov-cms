@@ -35,7 +35,7 @@ The VA.gov CMS Team
       1. [BRD Environments](READMES/brd.md)
       1. [HTTPS](READMES/https.md)
       1. [Environment Variables](READMES/environment-variables.md)
-      1. [Kubernetes](READMES/kubernetes.md)
+      1. [Kubernetes](READMES/historical/kubernetes.md)
    1. [Alerts](READMES/alerts.md)
    1. [GitHub Workflows](READMES/github-workflows.md)
    1. [Logging into BRD (e.g. production, staging) instances](READMES/brd-login.md)
