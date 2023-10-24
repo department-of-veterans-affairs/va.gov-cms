@@ -45,7 +45,7 @@
         });
 
         const adminRoles = ["content_admin", "administrator"];
-        const targetTypes = ["vet_center"];
+        const targetTypes = ["vet_center", "vet_center_outstation"];
         // If we are on a target type and user isn't admin, add a title,
         // and label to fieldgroup.
         if (
