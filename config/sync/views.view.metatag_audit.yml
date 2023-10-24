@@ -1002,19 +1002,6 @@ display:
           granularity: second
       arguments: {  }
       filters:
-        status:
-          id: status
-          table: node_field_data
-          field: status
-          entity_type: node
-          entity_field: status
-          plugin_id: boolean
-          value: '1'
-          group: 1
-          expose:
-            operator: ''
-            operator_limit_selection: false
-            operator_list: {  }
         type:
           id: type
           table: node_field_data
@@ -1228,15 +1215,14 @@ display:
             changed: changed
             moderation_state: moderation_state
             field_administration: field_administration
-            nothing_2: nothing_2
-            nothing: nothing
-            nothing_1: nothing_1
-            field_meta_tags: field_meta_tags
-            field_meta_title: field_meta_title
             field_description: field_description
             field_intro_text: field_intro_text
             field_hero_image: field_hero_image
             field_media: field_media
+            nothing_2: nothing_2
+            nothing: nothing
+            nothing_1: nothing_1
+            field_meta_tags: field_meta_tags
           default: '-1'
           info:
             title:
@@ -1288,35 +1274,6 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            nothing_2:
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            nothing:
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            nothing_1:
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_meta_tags:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_meta_title:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
             field_description:
               sortable: false
               default_sort_order: asc
@@ -1345,11 +1302,33 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
+            nothing_2:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            nothing:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            nothing_1:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_meta_tags:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
           override: true
           sticky: false
           summary: ''
           empty_table: false
-          caption: ''
+          caption: 'Metatag audit results'
           description: ''
       row:
         type: fields
@@ -1390,8 +1369,24 @@ display:
     position: 1
     display_options:
       display_description: ''
-      display_extenders: {  }
+      display_extenders:
+        jsonapi_views:
+          enabled: true
       path: admin/content/audit/metatag
+      menu:
+        type: tab
+        title: Metatags
+        description: ''
+        weight: 0
+        expanded: false
+        menu_name: main
+        parent: ''
+        context: '0'
+        as_local_task: true
+        local_task_link_title: Metatags
+        local_task_parent: 'views_view:view.content.content_audit_page'
+        local_task_weight: 3
+        local_task_custom_parent_route: ''
     cache_metadata:
       max-age: -1
       contexts:
