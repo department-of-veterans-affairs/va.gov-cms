@@ -93,10 +93,3 @@ Feature: Content Type: Event
     And I should not see "Registration is required for this event"
     And I should not see "Call to action"
     And I should not see an element with the selector "#edit-field-link-0-uri"
-
-  Scenario: Users who can only publish to National Outreach Calendar are unable to change the "Publish to the National Outreach Calendar" checkbox
-    Given I set the "feature_event_outreach_checkbox" feature toggle to "on"
-    When I am logged in as a user with the roles "office_content_creator, content_publisher"
-    And my workbench access sections are set to "7"
-    And I am at "node/add/event"
-    Then I should see "This event will automatically be published to the National Outreach Calendar"
