@@ -321,6 +321,14 @@ Cypress.Commands.add("setWorkbenchAccessSections", (value) => {
     });
 });
 
+Cypress.Commands.add("setAFeatureToggle", (name, label, value) => {
+  const command = `
+    $feature = new \\Drupal\\feature_toggle\\Feature('${name}', '${label}');
+    $service = \\Drupal::service('feature_toggle.feature_status')->setStatus($feature, ${value});
+  `;
+  return cy.drupalDrushEval(command);
+});
+
 compareSnapshotCommand();
 
 Cypress.on("uncaught:exception", () => {
