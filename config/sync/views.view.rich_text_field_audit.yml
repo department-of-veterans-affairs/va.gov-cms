@@ -1448,12 +1448,11 @@ display:
             nid: nid
             edit_node_1: edit_node_1
             type: type
+            revision_uid: revision_uid
             changed: changed
             moderation_state: moderation_state
             field_administration: field_administration
-            field_phone_number: field_phone_number
-            field_mental_health_phone: field_mental_health_phone
-            field_va_health_connect_phone: field_va_health_connect_phone
+            field_content_block: field_content_block
           default: '-1'
           info:
             title:
@@ -1484,6 +1483,13 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
+            revision_uid:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
             changed:
               sortable: true
               default_sort_order: asc
@@ -1505,22 +1511,8 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_phone_number:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_mental_health_phone:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_va_health_connect_phone:
-              sortable: true
+            field_content_block:
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
@@ -1530,7 +1522,7 @@ display:
           sticky: false
           summary: ''
           empty_table: false
-          caption: 'Phone number audit results'
+          caption: 'Button audit results'
           description: ''
       row:
         type: fields
@@ -2228,18 +2220,17 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        moderation_state:
-          id: moderation_state
-          table: node_field_data
-          field: moderation_state
+        moderation_state_multiple_workflow_filter:
+          id: moderation_state_multiple_workflow_filter
+          table: node
+          field: moderation_state_multiple_workflow_filter
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: node
-          plugin_id: moderation_state_filter
-          operator: in
-          value:
-            all: all
+          plugin_id: moderation_state_multiple_workflow_filter
+          operator: or
+          value: {  }
           group: 1
           exposed: true
           expose:
@@ -2247,7 +2238,7 @@ display:
             label: 'Moderation state'
             description: ''
             use_operator: false
-            operator: moderation_state_op
+            operator: moderation_state_multiple_workflow_filter_op
             operator_limit_selection: false
             operator_list: {  }
             identifier: moderation_state
@@ -2270,7 +2261,10 @@ display:
               redirect_administrator: '0'
               admnistrator_users: '0'
               administrator: '0'
-            reduce: false
+              homepage_manager: '0'
+              translation_manager: '0'
+              next_js: '0'
+            reduce: 0
           is_grouped: false
           group_info:
             label: ''
@@ -2283,6 +2277,7 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+          reduce_duplicates: 0
         workbench_access_section__section:
           id: workbench_access_section__section
           table: node
@@ -2466,7 +2461,6 @@ display:
       tags:
         - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_content_block'
-        - 'config:workflow_list'
         - workbench_access_view
   content_audit_buttons:
     id: content_audit_buttons
@@ -3185,18 +3179,17 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        moderation_state:
-          id: moderation_state
-          table: node_field_data
-          field: moderation_state
+        moderation_state_multiple_workflow_filter:
+          id: moderation_state_multiple_workflow_filter
+          table: node
+          field: moderation_state_multiple_workflow_filter
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: node
-          plugin_id: moderation_state_filter
-          operator: in
-          value:
-            all: all
+          plugin_id: moderation_state_multiple_workflow_filter
+          operator: or
+          value: {  }
           group: 1
           exposed: true
           expose:
@@ -3204,7 +3197,7 @@ display:
             label: 'Moderation state'
             description: ''
             use_operator: false
-            operator: moderation_state_op
+            operator: moderation_state_multiple_workflow_filter_op
             operator_limit_selection: false
             operator_list: {  }
             identifier: moderation_state
@@ -3227,7 +3220,10 @@ display:
               redirect_administrator: '0'
               admnistrator_users: '0'
               administrator: '0'
-            reduce: false
+              homepage_manager: '0'
+              translation_manager: '0'
+              next_js: '0'
+            reduce: 0
           is_grouped: false
           group_info:
             label: ''
@@ -3240,6 +3236,7 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+          reduce_duplicates: 0
         workbench_access_section__section:
           id: workbench_access_section__section
           table: node
@@ -3354,8 +3351,100 @@ display:
         operator: AND
         groups:
           1: AND
+      style:
+        type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          columns:
+            title: title
+            nid: nid
+            edit_node_1: edit_node_1
+            type: type
+            revision_uid: revision_uid
+            changed: changed
+            moderation_state: moderation_state
+            field_administration: field_administration
+            field_content_block: field_content_block
+          default: '-1'
+          info:
+            title:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            nid:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            edit_node_1:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            type:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            revision_uid:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            changed:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            moderation_state:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_administration:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_content_block:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          override: true
+          sticky: false
+          summary: ''
+          empty_table: false
+          caption: 'Button audit results'
+          description: ''
+      row:
+        type: fields
+        options: {  }
       defaults:
         title: false
+        style: false
+        row: false
         relationships: false
         fields: false
         filters: false
@@ -3383,7 +3472,9 @@ display:
           plugin_id: result
           empty: false
           content: "<p>Displaying @start - @end of @total</p>\r\n<p>This audit searches through all field_wysiwyg to find instances of 'usa-button' within the content which is used to create buttons. </p>"
-      display_extenders: {  }
+      display_extenders:
+        jsonapi_views:
+          enabled: true
       path: admin/content/audit/buttons
       menu:
         type: tab
@@ -3412,7 +3503,6 @@ display:
       tags:
         - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_content_block'
-        - 'config:workflow_list'
         - workbench_access_view
   content_audit_phone_numbers:
     id: content_audit_phone_numbers
@@ -3420,6 +3510,7 @@ display:
     display_plugin: page
     position: 3
     display_options:
+      title: 'Content Audit - Phone Numbers'
       fields:
         title:
           id: title
@@ -4354,7 +4445,108 @@ display:
         operator: AND
         groups:
           1: AND
+      style:
+        type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          columns:
+            title: title
+            nid: nid
+            edit_node_1: edit_node_1
+            type: type
+            changed: changed
+            moderation_state: moderation_state
+            field_administration: field_administration
+            field_phone_number: field_phone_number
+            field_mental_health_phone: field_mental_health_phone
+            field_va_health_connect_phone: field_va_health_connect_phone
+          default: '-1'
+          info:
+            title:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            nid:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            edit_node_1:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            type:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            changed:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            moderation_state:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_administration:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_phone_number:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_mental_health_phone:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_va_health_connect_phone:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          override: true
+          sticky: false
+          summary: ''
+          empty_table: false
+          caption: 'Phone number audit results'
+          description: ''
+      row:
+        type: fields
+        options: {  }
       defaults:
+        title: false
+        style: false
+        row: false
         fields: false
         filters: false
         filter_groups: false
@@ -5236,61 +5428,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        moderation_state:
-          id: moderation_state
-          table: node_field_data
-          field: moderation_state
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          plugin_id: moderation_state_filter
-          operator: in
-          value:
-            all: all
-          group: 1
-          exposed: true
-          expose:
-            operator_id: moderation_state_op
-            label: 'Moderation state'
-            description: ''
-            use_operator: false
-            operator: moderation_state_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: moderation_state
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_api_consumer: '0'
-              content_creator_benefits_hubs: '0'
-              content_creator_resources_and_support: '0'
-              office_content_creator: '0'
-              vamc_content_creator: '0'
-              content_creator_vet_center: '0'
-              content_editor: '0'
-              content_reviewer: '0'
-              content_publisher: '0'
-              content_admin: '0'
-              redirect_administrator: '0'
-              admnistrator_users: '0'
-              administrator: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
         workbench_access_section__section:
           id: workbench_access_section__section
           table: node
@@ -5405,6 +5542,64 @@ display:
             field_phone_number: field_phone_number
             field_mental_health_phone: field_mental_health_phone
             field_va_health_connect_phone: field_va_health_connect_phone
+        moderation_state_multiple_workflow_filter:
+          id: moderation_state_multiple_workflow_filter
+          table: node
+          field: moderation_state_multiple_workflow_filter
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          plugin_id: moderation_state_multiple_workflow_filter
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: moderation_state_op
+            label: 'Moderation state'
+            description: ''
+            use_operator: false
+            operator: moderation_state_multiple_workflow_filter_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: moderation_state
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+              homepage_manager: '0'
+              translation_manager: '0'
+              next_js: '0'
+            reduce: 0
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: 0
       filter_groups:
         operator: AND
         groups:
@@ -5459,5 +5654,4 @@ display:
         - 'config:field.storage.node.field_mental_health_phone'
         - 'config:field.storage.node.field_phone_number'
         - 'config:field.storage.node.field_va_health_connect_phone'
-        - 'config:workflow_list'
         - workbench_access_view
