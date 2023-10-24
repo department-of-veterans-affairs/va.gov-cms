@@ -3,13 +3,6 @@
 namespace Drupal\va_gov_vet_center\EventSubscriber;
 
 use Drupal\Component\Render\FormattableMarkup;
-use Drupal\core_event_dispatcher\EntityHookEvents;
-use Drupal\core_event_dispatcher\FormHookEvents;
-use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
-use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
-use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
-use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
-use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
 use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\FormStateInterface;
@@ -17,6 +10,13 @@ use Drupal\Core\Render\Element;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\core_event_dispatcher\EntityHookEvents;
+use Drupal\core_event_dispatcher\Event\Entity\EntityInsertEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityUpdateEvent;
+use Drupal\core_event_dispatcher\Event\Entity\EntityViewAlterEvent;
+use Drupal\core_event_dispatcher\Event\Form\FormAlterEvent;
+use Drupal\core_event_dispatcher\Event\Form\FormIdAlterEvent;
+use Drupal\core_event_dispatcher\FormHookEvents;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\va_gov_user\Service\UserPermsService;
 use Drupal\va_gov_vet_center\Service\RequiredServices;
@@ -278,6 +278,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
   public function alterVetCenterOutstationNodeForm(FormIdAlterEvent $event): void {
     $form = &$event->getForm();
     $form['#attached']['library'][] = 'va_gov_vet_center/limit_vet_service_selections';
+    $this->disableNameFieldForNonAdmins($form);
   }
 
   /**

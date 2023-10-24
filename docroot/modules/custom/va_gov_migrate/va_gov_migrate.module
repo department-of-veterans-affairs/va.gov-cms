@@ -54,18 +54,19 @@ function _va_gov_migrate_process_va_form(EntityInterface &$entity) {
 }
 
 /**
- * Set default Vet Center title.
+ * Set default Vet Center or Vet Center - Outstation title.
  *
  * @param \Drupal\Core\Entity\EntityInterface $entity
  *   Entity.
  */
 function _va_gov_migrate_set_default_vet_center_title(EntityInterface &$entity) {
-  if ($entity->bundle() !== 'vet_center' || (!$entity instanceof NodeInterface)) {
+  $bundles = ['vet_center', 'vet_center_outstation'];
+  if (!in_array($entity->bundle(), $bundles) || (!$entity instanceof NodeInterface)) {
     return;
   }
 
   /** @var \Drupal\node\NodeInterface $entity */
-  // If a Vet Center title is empty copy the value from field_official_name.
+  // If a title is empty, copy the value from field_official_name.
   if (empty($entity->getTitle())) {
     $default_title = $entity->get('field_official_name')->value ?: '- none -';
     $entity->setTitle($default_title);
