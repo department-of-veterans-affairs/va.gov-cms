@@ -108,7 +108,7 @@ process:
     method: row
     value:
       - OS
-  title:
+  field_official_name:
     plugin: skip_on_empty
     method: row
     source: name
@@ -251,13 +251,13 @@ destination:
     - 'field_geolocation'
     - field_phone_number
     - field_office_hours
+    - field_official_name
     - field_timezone
     - new_revision
     - revision_default
     - revision_log
     - revision_timestamp
     - revision_uid
-    - title
     - uid
 # Dependency on other migrations.
 migration_dependencies:
