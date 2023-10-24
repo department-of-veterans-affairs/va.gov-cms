@@ -7,7 +7,7 @@ services:
       - { name: 'event_subscriber' }
   va_gov_post_api.queue_item_processed_subsriber:
     class: '\Drupal\va_gov_post_api\EventSubscriber\QueueItemProcessedEventSubscriber'
-    arguments: ['@config.factory', '@logger.factory', '@module_handler', '@slack.slack_service']
+    arguments: ['@config.factory', '@logger.factory', '@module_handler', '@slack.slack_service', '@post_api.add_to_queue']
     tags:
       - { name: 'event_subscriber' }
   va_gov_post_api.queue_vamc_service_updates:

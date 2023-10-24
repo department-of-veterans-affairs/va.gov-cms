@@ -10,5 +10,5 @@ Feature: Content Type: Campaign Landing Page
     And I click the "Add Page-Specific Q&A" button
     Then I can fill in "Question" field with fake text
     And I can fill in "Text" field with fake text
+    And I should see "Add Reusable Q&A"
     And I should see "Add a link to more FAQs"
-# TODO: Test the call to action button
