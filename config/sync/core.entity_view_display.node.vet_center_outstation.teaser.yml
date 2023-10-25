@@ -26,18 +26,6 @@ targetEntityType: node
 bundle: vet_center_outstation
 mode: teaser
 content:
-  breadcrumbs:
-    type: link
-    label: hidden
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    weight: -5
-    region: content
   content_moderation_control:
     settings: {  }
     third_party_settings: {  }
@@ -49,6 +37,7 @@ content:
     weight: 100
     region: content
 hidden:
+  breadcrumbs: true
   field_address: true
   field_administration: true
   field_facility_locator_api_id: true

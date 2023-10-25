@@ -28,18 +28,6 @@ content:
     third_party_settings: {  }
     weight: 101
     region: content
-  breadcrumbs:
-    type: link
-    label: hidden
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    weight: -5
-    region: content
   content_moderation_control:
     settings: {  }
     third_party_settings: {  }
@@ -51,6 +39,7 @@ content:
     weight: 100
     region: content
 hidden:
+  breadcrumbs: true
   field_administration: true
   field_facility_location: true
   field_last_saved_by_an_editor: true
