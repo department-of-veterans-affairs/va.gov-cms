@@ -53,18 +53,6 @@ targetEntityType: node
 bundle: vet_center_outstation
 mode: external_content
 content:
-  breadcrumbs:
-    type: link
-    label: hidden
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    weight: -5
-    region: content
   field_address:
     type: address_default
     label: above
@@ -90,6 +78,7 @@ content:
       grouped: false
       show_closed: all
       closed_format: ''
+      all_day_format: 'All day open'
       separator:
         days: '<br />'
         grouped_days: ' - '
@@ -100,6 +89,11 @@ content:
         position: ''
         open_text: 'Currently open!'
         closed_text: 'Currently closed'
+      exceptions:
+        title: 'Exception hours'
+        restrict_exceptions_to_num_days: 7
+        date_format: long
+        all_day_format: 'All day open'
       timezone_field: ''
       office_hours_first_day: ''
       schema:
@@ -116,6 +110,7 @@ content:
     weight: 5
     region: content
 hidden:
+  breadcrumbs: true
   content_moderation_control: true
   field_administration: true
   field_geolocation: true

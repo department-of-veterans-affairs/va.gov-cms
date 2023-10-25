@@ -7,20 +7,20 @@ dependencies:
     - field.field.node.vba_facility.field_address
     - field.field.node.vba_facility.field_administration
     - field.field.node.vba_facility.field_cc_benefit_office_hours_va
-    - field.field.node.vba_facility.field_cc_cant_find_benefits
     - field.field.node.vba_facility.field_cc_benefits_hotline
+    - field.field.node.vba_facility.field_cc_cant_find_benefits
+    - field.field.node.vba_facility.field_cc_get_updates_from_vba
+    - field.field.node.vba_facility.field_cc_national_spotlight_1
+    - field.field.node.vba_facility.field_cc_national_spotlight_2
+    - field.field.node.vba_facility.field_cc_national_spotlight_3
     - field.field.node.vba_facility.field_cc_vba_facility_overview
     - field.field.node.vba_facility.field_facility_locator_api_id
     - field.field.node.vba_facility.field_facility_vba_classificatio
     - field.field.node.vba_facility.field_geolocation
-    - field.field.node.vba_facility.field_cc_get_updates_from_vba
     - field.field.node.vba_facility.field_intro_text
     - field.field.node.vba_facility.field_last_saved_by_an_editor
     - field.field.node.vba_facility.field_location_services
     - field.field.node.vba_facility.field_media
-    - field.field.node.vba_facility.field_cc_national_spotlight_1
-    - field.field.node.vba_facility.field_cc_national_spotlight_2
-    - field.field.node.vba_facility.field_cc_national_spotlight_3
     - field.field.node.vba_facility.field_non_va_location_url
     - field.field.node.vba_facility.field_non_va_official_name
     - field.field.node.vba_facility.field_office
@@ -102,28 +102,16 @@ targetEntityType: node
 bundle: vba_facility
 mode: ief_table
 content:
-  breadcrumbs:
-    type: link
-    label: hidden
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    weight: -5
-    region: content
   field_address:
     type: address_default
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     weight: 4
     region: content
   field_facility_locator_api_id:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -131,7 +119,7 @@ content:
     region: content
   field_office_hours:
     type: office_hours
-    label: above
+    label: hidden
     settings:
       day_format: long
       time_format: g
@@ -139,6 +127,7 @@ content:
       grouped: false
       show_closed: all
       closed_format: Closed
+      all_day_format: 'All day open'
       separator:
         days: '<br />'
         grouped_days: ' - '
@@ -162,27 +151,28 @@ content:
     region: content
   field_operating_status_facility:
     type: list_default
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     weight: 2
     region: content
   field_operating_status_more_info:
     type: basic_string
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     weight: 3
     region: content
   field_phone_number:
     type: telephone_link
-    label: above
+    label: hidden
     settings:
       title: ''
     third_party_settings: {  }
     weight: 5
     region: content
 hidden:
+  breadcrumbs: true
   content_moderation_control: true
   field_administration: true
   field_cc_benefit_office_hours_va: true
@@ -212,6 +202,8 @@ hidden:
   flag_changed_title: true
   flag_new: true
   flag_removed_from_source: true
+  label: true
   langcode: true
   links: true
   search_api_excerpt: true
+  status: true
