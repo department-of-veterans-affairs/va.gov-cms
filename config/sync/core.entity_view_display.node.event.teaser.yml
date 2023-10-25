@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.event.field_additional_information_abo
+    - field.field.node.event.field_additional_listings
     - field.field.node.event.field_address
     - field.field.node.event.field_administration
     - field.field.node.event.field_body
@@ -24,6 +25,7 @@ dependencies:
     - field.field.node.event.field_media
     - field.field.node.event.field_meta_tags
     - field.field.node.event.field_order
+    - field.field.node.event.field_publish_to_outreach_cal
     - field.field.node.event.field_url_of_an_online_event
     - node.type.event
   module:
@@ -35,6 +37,18 @@ targetEntityType: node
 bundle: event
 mode: teaser
 content:
+  breadcrumbs:
+    type: link
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: -5
+    region: content
   field_body:
     type: text_default
     label: hidden
@@ -56,6 +70,7 @@ content:
 hidden:
   content_moderation_control: true
   field_additional_information_abo: true
+  field_additional_listings: true
   field_address: true
   field_administration: true
   field_description: true
@@ -73,6 +88,7 @@ hidden:
   field_media: true
   field_meta_tags: true
   field_order: true
+  field_publish_to_outreach_cal: true
   field_url_of_an_online_event: true
   langcode: true
   links: true

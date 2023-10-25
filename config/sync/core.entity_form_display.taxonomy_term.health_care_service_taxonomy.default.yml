@@ -6,9 +6,13 @@ dependencies:
     - field.field.taxonomy_term.health_care_service_taxonomy.field_also_known_as
     - field.field.taxonomy_term.health_care_service_taxonomy.field_commonly_treated_condition
     - field.field.taxonomy_term.health_care_service_taxonomy.field_enforce_unique_combo_servi
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_facility_service_descripti
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_facility_service_header
     - field.field.taxonomy_term.health_care_service_taxonomy.field_health_service_api_id
     - field.field.taxonomy_term.health_care_service_taxonomy.field_online_self_service
     - field.field.taxonomy_term.health_care_service_taxonomy.field_owner
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_regional_service_descripti
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_regional_service_header
     - field.field.taxonomy_term.health_care_service_taxonomy.field_service_type_of_care
     - field.field.taxonomy_term.health_care_service_taxonomy.field_show_for_vamc_facilities
     - field.field.taxonomy_term.health_care_service_taxonomy.field_show_for_vba_facilities
@@ -99,6 +103,10 @@ third_party_settings:
         - field_vba_friendly_name
         - field_vba_com_conditions
         - field_vba_service_descrip
+        - field_regional_service_header
+        - field_regional_service_descripti
+        - field_facility_service_header
+        - field_facility_service_descripti
         - field_online_self_service
         - field_vba_service_regions
       label: VBA
@@ -165,6 +173,22 @@ content:
     settings:
       size: 1
     third_party_settings: {  }
+  field_facility_service_descripti:
+    type: string_textfield
+    weight: 15
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_facility_service_header:
+    type: string_textfield
+    weight: 14
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_health_service_api_id:
     type: string_textfield
     weight: 2
@@ -175,11 +199,27 @@ content:
     third_party_settings: {  }
   field_online_self_service:
     type: link_default
-    weight: 12
+    weight: 16
     region: content
     settings:
       placeholder_url: ''
       placeholder_title: ''
+    third_party_settings: {  }
+  field_regional_service_descripti:
+    type: string_textfield
+    weight: 13
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_regional_service_header:
+    type: string_textfield
+    weight: 12
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_service_type_of_care:
     type: options_select
@@ -249,7 +289,7 @@ content:
     third_party_settings: {  }
   field_vba_service_regions:
     type: entity_reference_autocomplete
-    weight: 13
+    weight: 17
     region: content
     settings:
       match_operator: CONTAINS
