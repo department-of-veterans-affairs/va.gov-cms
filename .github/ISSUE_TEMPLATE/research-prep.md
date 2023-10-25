@@ -1,5 +1,5 @@
 ---
-name: Research Recruitment and Scheduling
+name: Research Prep Tasks
 about: Use this template when recruting and scheduling participants for a research
   study
 title: Recruit and schedule participants for [PRODUCT/INITIATIVE] research
