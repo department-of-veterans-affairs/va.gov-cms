@@ -53,6 +53,18 @@ targetEntityType: node
 bundle: vet_center_outstation
 mode: external_content
 content:
+  breadcrumbs:
+    type: link
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: -5
+    region: content
   field_address:
     type: address_default
     label: above

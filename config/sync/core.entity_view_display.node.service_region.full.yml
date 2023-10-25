@@ -56,6 +56,18 @@ targetEntityType: node
 bundle: service_region
 mode: full
 content:
+  breadcrumbs:
+    type: link
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: -5
+    region: content
   field_administration:
     type: entity_reference_label
     label: above
