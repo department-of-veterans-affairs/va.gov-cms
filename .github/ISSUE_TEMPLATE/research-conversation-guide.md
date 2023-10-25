@@ -1,7 +1,7 @@
 ---
-name: Research Plan and Conversation Guide
-about: Use this template when you are drafting a research plan & conversation guide
-title: Draft [PRODUCT/INITIATIVE] Research Plan & Conversation Guide
+name: Research Conversation Guide
+about: Use this template when you are drafting a conversation guide
+title: Draft [PRODUCT/INITIATIVE] conversation guide
 labels: UX, Research
 assignees: ''
 
@@ -9,10 +9,8 @@ assignees: ''
 
 ## Description
 
-DEMO Use the appropriate templates for the type of research you are conducting:
-- [Editor-facing Research Plan Template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/research/sitewide-cms-editor-research-plan-template.md)
+Use the appropriate templates for the type of research you are conducting:
 - [Editor-facing Conversation Guide Template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/cms/research/editor-moderation-guide.md)
-- [Veteran-facing Research Plan Template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/research/research-plan-template.md)
 - [Veteran-facing Conversation Guide Template](https://github.com/department-of-veterans-affairs/va.gov-team/blob/master/platform/research/planning/conversation-guide-template.md)
 
 Suggested workflow:
