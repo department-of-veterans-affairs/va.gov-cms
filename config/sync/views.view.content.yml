@@ -29,7 +29,6 @@ dependencies:
     - user.role.content_admin
     - user.role.content_creator_resources_and_support
     - user.role.redirect_administrator
-    - workflows.workflow.editorial
   module:
     - content_lock
     - content_moderation
@@ -117,15 +116,17 @@ display:
           form_step: true
           buttons: false
           action_title: Action
+          clear_on_exposed: true
+          force_selection_info: false
           selected_actions:
             -
               action_id: node_save_action
               preconfiguration:
-                add_confirmation: 0
+                add_confirmation: false
             -
               action_id: node_assign_owner_action
               preconfiguration:
-                add_confirmation: 0
+                add_confirmation: false
             -
               action_id: publish_latest_revision_action
             -
@@ -133,16 +134,14 @@ display:
             -
               action_id: views_bulk_edit
               preconfiguration:
-                add_confirmation: 0
-                get_bundles_from_results: 1
+                add_confirmation: false
+                get_bundles_from_results: true
             -
               action_id: views_bulk_operations_delete_entity
             -
               action_id: 'entity:pathauto_update_alias:node'
               preconfiguration:
-                add_confirmation: 0
-          clear_on_exposed: true
-          force_selection_info: 0
+                add_confirmation: false
         title:
           id: title
           table: node_field_data
@@ -637,22 +636,17 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        moderation_state:
-          id: moderation_state
-          table: node_field_data
-          field: moderation_state
+        moderation_state_multiple_workflow_filter:
+          id: moderation_state_multiple_workflow_filter
+          table: node
+          field: moderation_state_multiple_workflow_filter
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: node
-          plugin_id: moderation_state_filter
-          operator: in
-          value:
-            all: all
-            editorial-draft: editorial-draft
-            editorial-review: editorial-review
-            editorial-published: editorial-published
-            editorial-archived: editorial-archived
+          plugin_id: moderation_state_multiple_workflow_filter
+          operator: or
+          value: {  }
           group: 1
           exposed: true
           expose:
@@ -660,7 +654,7 @@ display:
             label: 'Moderation state'
             description: ''
             use_operator: false
-            operator: moderation_state_op
+            operator: moderation_state_multiple_workflow_filter_op
             operator_limit_selection: false
             operator_list: {  }
             identifier: moderation_state
@@ -670,15 +664,23 @@ display:
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
               administrator: '0'
-              page_creator: '0'
-              layout_manager: '0'
-              page_reviewer: '0'
-              landing_page_creator: '0'
-              landing_page_reviewer: '0'
-              media_creator: '0'
-              media_manager: '0'
-            reduce: false
+              homepage_manager: '0'
+              translation_manager: '0'
+              next_js: '0'
+            reduce: 0
           is_grouped: false
           group_info:
             label: ''
@@ -691,6 +693,7 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+          reduce_duplicates: 0
         taxonomy_entity_index_tid_depth:
           id: taxonomy_entity_index_tid_depth
           table: node
@@ -926,7 +929,6 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.node.field_administration'
-        - 'config:workflow_list'
   content_audit_csv_export:
     id: content_audit_csv_export
     display_title: 'Content audit CSV export'
@@ -1460,16 +1462,16 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        moderation_state:
-          id: moderation_state
-          table: node_field_data
-          field: moderation_state
+        moderation_state_multiple_workflow_filter:
+          id: moderation_state_multiple_workflow_filter
+          table: node
+          field: moderation_state_multiple_workflow_filter
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: node
-          plugin_id: moderation_state_filter
-          operator: in
+          plugin_id: moderation_state_multiple_workflow_filter
+          operator: or
           value: {  }
           group: 1
           exposed: true
@@ -1478,7 +1480,7 @@ display:
             label: 'Moderation state'
             description: ''
             use_operator: true
-            operator: moderation_state_op
+            operator: moderation_state_multiple_workflow_filter_op
             operator_limit_selection: false
             operator_list: {  }
             identifier: moderation_state
@@ -1501,7 +1503,10 @@ display:
               redirect_administrator: '0'
               admnistrator_users: '0'
               administrator: '0'
-            reduce: false
+              homepage_manager: '0'
+              translation_manager: '0'
+              next_js: '0'
+            reduce: 0
           is_grouped: false
           group_info:
             label: ''
@@ -1514,6 +1519,7 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+          reduce_duplicates: 0
         workbench_access_section__section:
           id: workbench_access_section__section
           table: node
@@ -1639,7 +1645,6 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.node.field_administration'
-        - 'config:workflow_list'
         - workbench_access_view
     deleted: false
   content_audit_page:
@@ -2172,16 +2177,16 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        moderation_state:
-          id: moderation_state
-          table: node_field_data
-          field: moderation_state
+        moderation_state_multiple_workflow_filter:
+          id: moderation_state_multiple_workflow_filter
+          table: node
+          field: moderation_state_multiple_workflow_filter
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: node
-          plugin_id: moderation_state_filter
-          operator: in
+          plugin_id: moderation_state_multiple_workflow_filter
+          operator: or
           value: {  }
           group: 1
           exposed: true
@@ -2190,7 +2195,7 @@ display:
             label: 'Moderation state'
             description: ''
             use_operator: true
-            operator: moderation_state_op
+            operator: moderation_state_multiple_workflow_filter_op
             operator_limit_selection: false
             operator_list: {  }
             identifier: moderation_state
@@ -2213,7 +2218,10 @@ display:
               redirect_administrator: '0'
               admnistrator_users: '0'
               administrator: '0'
-            reduce: false
+              homepage_manager: '0'
+              translation_manager: '0'
+              next_js: '0'
+            reduce: 0
           is_grouped: false
           group_info:
             label: ''
@@ -2226,6 +2234,7 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+          reduce_duplicates: 0
         workbench_access_section__section:
           id: workbench_access_section__section
           table: node
@@ -2338,7 +2347,6 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.node.field_administration'
-        - 'config:workflow_list'
         - workbench_access_view
     deleted: false
   events_page:
@@ -2403,6 +2411,7 @@ display:
           form_step: true
           buttons: false
           action_title: Action
+          clear_on_exposed: true
           selected_actions:
             -
               action_id: publish_latest_revision_action
@@ -2416,8 +2425,7 @@ display:
               action_id: views_bulk_edit
               preconfiguration:
                 label_override: ''
-                get_bundles_from_results: 1
-          clear_on_exposed: true
+                get_bundles_from_results: true
         title:
           id: title
           table: node_field_data
@@ -2935,22 +2943,17 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        moderation_state:
-          id: moderation_state
-          table: node_field_data
-          field: moderation_state
+        moderation_state_multiple_workflow_filter:
+          id: moderation_state_multiple_workflow_filter
+          table: node
+          field: moderation_state_multiple_workflow_filter
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: node
-          plugin_id: moderation_state_filter
-          operator: in
-          value:
-            all: all
-            editorial-draft: editorial-draft
-            editorial-review: editorial-review
-            editorial-published: editorial-published
-            editorial-archived: editorial-archived
+          plugin_id: moderation_state_multiple_workflow_filter
+          operator: or
+          value: {  }
           group: 1
           exposed: true
           expose:
@@ -2958,7 +2961,7 @@ display:
             label: 'Moderation state'
             description: ''
             use_operator: false
-            operator: moderation_state_op
+            operator: moderation_state_multiple_workflow_filter_op
             operator_limit_selection: false
             operator_list: {  }
             identifier: moderation_state
@@ -2968,15 +2971,23 @@ display:
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
               administrator: '0'
-              page_creator: '0'
-              layout_manager: '0'
-              page_reviewer: '0'
-              landing_page_creator: '0'
-              landing_page_reviewer: '0'
-              media_creator: '0'
-              media_manager: '0'
-            reduce: false
+              homepage_manager: '0'
+              translation_manager: '0'
+              next_js: '0'
+            reduce: 0
           is_grouped: false
           group_info:
             label: ''
@@ -2989,6 +3000,7 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+          reduce_duplicates: 0
         taxonomy_entity_index_tid_depth:
           id: taxonomy_entity_index_tid_depth
           table: node
@@ -3225,7 +3237,6 @@ display:
       tags:
         - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_facility_location'
-        - 'config:workflow_list'
     deleted: false
   outdated_content:
     id: outdated_content
@@ -5924,22 +5935,17 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        moderation_state:
-          id: moderation_state
-          table: node_field_data
-          field: moderation_state
+        moderation_state_multiple_workflow_filter:
+          id: moderation_state_multiple_workflow_filter
+          table: node
+          field: moderation_state_multiple_workflow_filter
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: node
-          plugin_id: moderation_state_filter
-          operator: in
-          value:
-            all: all
-            editorial-draft: editorial-draft
-            editorial-review: editorial-review
-            editorial-published: editorial-published
-            editorial-archived: editorial-archived
+          plugin_id: moderation_state_multiple_workflow_filter
+          operator: or
+          value: {  }
           group: 1
           exposed: true
           expose:
@@ -5947,7 +5953,7 @@ display:
             label: 'Moderation state'
             description: ''
             use_operator: false
-            operator: moderation_state_op
+            operator: moderation_state_multiple_workflow_filter_op
             operator_limit_selection: false
             operator_list: {  }
             identifier: moderation_state
@@ -5957,15 +5963,23 @@ display:
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
               administrator: '0'
-              page_creator: '0'
-              layout_manager: '0'
-              page_reviewer: '0'
-              landing_page_creator: '0'
-              landing_page_reviewer: '0'
-              media_creator: '0'
-              media_manager: '0'
-            reduce: false
+              homepage_manager: '0'
+              translation_manager: '0'
+              next_js: '0'
+            reduce: 0
           is_grouped: false
           group_info:
             label: ''
@@ -5978,6 +5992,7 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+          reduce_duplicates: 0
         field_administration_target_id:
           id: field_administration_target_id
           table: node__field_administration
@@ -6087,7 +6102,6 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.node.field_administration'
-        - 'config:workflow_list'
     deleted: false
   page_2:
     id: page_2
@@ -6151,11 +6165,13 @@ display:
           form_step: true
           buttons: false
           action_title: Action
+          clear_on_exposed: true
+          force_selection_info: false
           selected_actions:
             3:
               action_id: node_assign_owner_action
               preconfiguration:
-                add_confirmation: 1
+                add_confirmation: true
             9:
               action_id: archive_node_action
             10:
@@ -6163,21 +6179,19 @@ display:
             11:
               action_id: views_bulk_edit
               preconfiguration:
-                add_confirmation: 1
-                get_bundles_from_results: 1
+                add_confirmation: true
+                get_bundles_from_results: true
             12:
               action_id: views_bulk_operations_delete_entity
             13:
               action_id: 'entity:pathauto_update_alias:node'
               preconfiguration:
-                add_confirmation: 1
+                add_confirmation: true
             15:
               action_id: 'entity:save_action:node'
               preconfiguration:
+                add_confirmation: true
                 label_override: 'Resave content'
-                add_confirmation: 1
-          clear_on_exposed: true
-          force_selection_info: 0
         title:
           id: title
           table: node_field_data
@@ -6619,7 +6633,6 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.node.field_administration'
-        - 'config:workflow_list'
     deleted: false
   resources_support_dashboard:
     id: resources_support_dashboard
@@ -6683,12 +6696,12 @@ display:
           form_step: true
           buttons: false
           action_title: Action
+          clear_on_exposed: true
           selected_actions:
             -
               action_id: publish_latest_revision_action
               preconfiguration:
                 label_override: ''
-          clear_on_exposed: true
         title:
           id: title
           table: node_field_data
@@ -7501,22 +7514,17 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        moderation_state:
-          id: moderation_state
-          table: node_field_data
-          field: moderation_state
+        moderation_state_multiple_workflow_filter:
+          id: moderation_state_multiple_workflow_filter
+          table: node
+          field: moderation_state_multiple_workflow_filter
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: node
-          plugin_id: moderation_state_filter
-          operator: in
-          value:
-            all: all
-            editorial-draft: editorial-draft
-            editorial-review: editorial-review
-            editorial-published: editorial-published
-            editorial-archived: editorial-archived
+          plugin_id: moderation_state_multiple_workflow_filter
+          operator: or
+          value: {  }
           group: 1
           exposed: true
           expose:
@@ -7524,7 +7532,7 @@ display:
             label: 'Moderation state'
             description: ''
             use_operator: false
-            operator: moderation_state_op
+            operator: moderation_state_multiple_workflow_filter_op
             operator_limit_selection: false
             operator_list: {  }
             identifier: moderation_state
@@ -7534,15 +7542,23 @@ display:
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
               administrator: '0'
-              page_creator: '0'
-              layout_manager: '0'
-              page_reviewer: '0'
-              landing_page_creator: '0'
-              landing_page_reviewer: '0'
-              media_creator: '0'
-              media_manager: '0'
-            reduce: false
+              homepage_manager: '0'
+              translation_manager: '0'
+              next_js: '0'
+            reduce: 0
           is_grouped: false
           group_info:
             label: ''
@@ -7555,6 +7571,7 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+          reduce_duplicates: 0
         taxonomy_entity_index_tid_depth:
           id: taxonomy_entity_index_tid_depth
           table: node
@@ -7871,5 +7888,4 @@ display:
         - 'config:field.storage.node.field_other_categories'
         - 'config:field.storage.node.field_primary_category'
         - 'config:field.storage.paragraph.field_topics'
-        - 'config:workflow_list'
     deleted: false
