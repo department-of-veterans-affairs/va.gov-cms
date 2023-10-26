@@ -104,14 +104,14 @@ mode: ief_table
 content:
   field_address:
     type: address_default
-    label: hidden
+    label: above
     settings: {  }
     third_party_settings: {  }
     weight: 4
     region: content
   field_facility_locator_api_id:
     type: string
-    label: hidden
+    label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -119,7 +119,7 @@ content:
     region: content
   field_office_hours:
     type: office_hours
-    label: hidden
+    label: above
     settings:
       day_format: long
       time_format: g
@@ -152,21 +152,21 @@ content:
     region: content
   field_operating_status_facility:
     type: list_default
-    label: hidden
+    label: above
     settings: {  }
     third_party_settings: {  }
     weight: 2
     region: content
   field_operating_status_more_info:
     type: basic_string
-    label: hidden
+    label: above
     settings: {  }
     third_party_settings: {  }
     weight: 3
     region: content
   field_phone_number:
     type: telephone_link
-    label: hidden
+    label: above
     settings:
       title: ''
     third_party_settings: {  }
@@ -203,8 +203,6 @@ hidden:
   flag_changed_title: true
   flag_new: true
   flag_removed_from_source: true
-  label: true
   langcode: true
   links: true
   search_api_excerpt: true
-  status: true
