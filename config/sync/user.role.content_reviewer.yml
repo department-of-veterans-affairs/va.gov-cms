@@ -48,7 +48,10 @@ dependencies:
     - node.type.support_service
     - node.type.va_form
     - node.type.vamc_operating_status_and_alerts
+    - node.type.vamc_system_billing_insurance
+    - node.type.vamc_system_medical_records_offi
     - node.type.vamc_system_policies_page
+    - node.type.vamc_system_register_for_care
     - node.type.vba_facility
     - node.type.vba_facility_service
     - node.type.vet_center
@@ -59,6 +62,7 @@ dependencies:
     - node.type.vet_center_outstation
     - node.type.vha_facility_nonclinical_service
     - workflows.workflow.editorial
+    - workflows.workflow.restricted_archive
   module:
     - actions_permissions
     - block_content_permissions
@@ -165,6 +169,9 @@ permissions:
   - 'use editorial transition approve'
   - 'use editorial transition create_new_draft'
   - 'use editorial transition review'
+  - 'use restricted_archive transition approve'
+  - 'use restricted_archive transition create_new_draft'
+  - 'use restricted_archive transition review'
   - 'use text format rich_text'
   - 'use text format rich_text_limited'
   - 'use workbench access'

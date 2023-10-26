@@ -13,6 +13,7 @@ dependencies:
     - node.type.vamc_system_medical_records_offi
     - node.type.vamc_system_register_for_care
     - workflows.workflow.editorial
+    - workflows.workflow.restricted_archive
   module:
     - actions_permissions
     - block_content_permissions
@@ -144,6 +145,13 @@ permissions:
   - 'use editorial transition create_new_draft'
   - 'use editorial transition publish'
   - 'use editorial transition review'
+  - 'use restricted_archive transition approve'
+  - 'use restricted_archive transition archive'
+  - 'use restricted_archive transition archived_draft'
+  - 'use restricted_archive transition archived_published'
+  - 'use restricted_archive transition create_new_draft'
+  - 'use restricted_archive transition publish'
+  - 'use restricted_archive transition review'
   - 'use text format rich_text'
   - 'use text format rich_text_limited'
   - 'use workbench access'

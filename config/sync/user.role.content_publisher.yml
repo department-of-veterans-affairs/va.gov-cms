@@ -62,6 +62,7 @@ dependencies:
     - node.type.vet_center_outstation
     - node.type.vha_facility_nonclinical_service
     - workflows.workflow.editorial
+    - workflows.workflow.restricted_archive
   module:
     - actions_permissions
     - block_content_permissions
@@ -246,6 +247,10 @@ permissions:
   - 'use editorial transition create_new_draft'
   - 'use editorial transition publish'
   - 'use editorial transition review'
+  - 'use restricted_archive transition approve'
+  - 'use restricted_archive transition create_new_draft'
+  - 'use restricted_archive transition publish'
+  - 'use restricted_archive transition review'
   - 'use text format rich_text'
   - 'use text format rich_text_limited'
   - 'use workbench access'
