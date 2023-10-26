@@ -2,6 +2,8 @@ uuid: 8755942a-7c8b-442b-9bef-3e5260b8db39
 langcode: en
 status: true
 dependencies:
+  config:
+    - node.type.service_region
   module:
     - content_moderation
 id: restricted_archive
@@ -86,4 +88,7 @@ type_settings:
         - review
       to: review
       weight: 2
-  entity_types: {  }
+  entity_types:
+    node:
+      - service_region
+  default_moderation_state: draft
