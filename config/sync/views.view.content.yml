@@ -9,6 +9,7 @@ dependencies:
     - field.storage.node.field_last_saved_by_an_editor
     - field.storage.node.field_other_categories
     - field.storage.node.field_primary_category
+    - field.storage.paragraph.field_questions
     - field.storage.paragraph.field_topics
     - node.type.basic_landing_page
     - node.type.checklist
@@ -34,6 +35,7 @@ dependencies:
     - content_lock
     - content_moderation
     - csv_serialization
+    - entity_reference_revisions
     - node
     - paragraphs
     - rest
@@ -6635,8 +6637,8 @@ display:
       tags:
         - 'config:field.storage.node.field_administration'
     deleted: false
-  page_3:
-    id: page_3
+  page_qa:
+    id: page_qa
     display_title: 'Q&A'
     display_plugin: page
     position: 9
@@ -7073,15 +7075,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_clp_faq_paragraphs:
-          id: field_clp_faq_paragraphs
-          table: node__field_clp_faq_paragraphs
-          field: field_clp_faq_paragraphs
-          relationship: none
+        field_questions:
+          id: field_questions
+          table: paragraph__field_questions
+          field: field_questions
+          relationship: field_content_block
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Page-Specific Q&A'
+          label: 'Content Block'
           exclude: false
           alter:
             alter_text: false
@@ -7123,8 +7125,72 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: target_id
-          type: paragraph_summary
-          settings: {  }
+          type: entity_reference_revisions_entity_view
+          settings:
+            view_mode: default
+          group_column: ''
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_clp_faq_paragraphs:
+          id: field_clp_faq_paragraphs
+          table: node__field_clp_faq_paragraphs
+          field: field_clp_faq_paragraphs
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'FAQ Segments'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_revisions_entity_view
+          settings:
+            view_mode: default
           group_column: ''
           group_columns: {  }
           group_rows: true
@@ -7367,6 +7433,45 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        field_section_header_value:
+          id: field_section_header_value
+          table: paragraph__field_section_header
+          field: field_section_header_value
+          relationship: field_content_block
+          group_type: group
+          admin_label: ''
+          plugin_id: string
+          operator: 'not empty'
+          value: ''
+          group: 2
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       filter_groups:
         operator: AND
         groups:
@@ -7413,6 +7518,15 @@ display:
           admin_label: 'field_content_block: Paragraph'
           plugin_id: standard
           required: false
+        field_questions:
+          id: field_questions
+          table: paragraph__field_questions
+          field: field_questions
+          relationship: field_content_block
+          group_type: group
+          admin_label: 'field_questions: Paragraph'
+          plugin_id: standard
+          required: false
       display_description: ''
       display_extenders:
         jsonapi_views:
@@ -7444,6 +7558,7 @@ display:
       tags:
         - 'config:field.storage.node.field_administration'
         - 'config:field.storage.node.field_clp_faq_paragraphs'
+        - 'config:field.storage.paragraph.field_questions'
         - 'config:workflow_list'
   resources_support_dashboard:
     id: resources_support_dashboard
