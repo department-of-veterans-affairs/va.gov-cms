@@ -37,7 +37,7 @@ Calling it without the optional array of user ids will send it to all editors th
 It is recommended when testing that you use at least 2 users, one who is assigned to a VAMC section, and one that is not.  Only one email should be queued.  You can validate what is in [the queue here](https://prod.cms.va.gov/admin/config/system/queues/jobs/vet_center_outdated_content)
 
 ## How to send and see email?
-Once email notifications have been queued, The queue can be processed. To process the items in the queue, run `drush cron` Then use MailHog locally or the "captured mail" section in Tugboat to see the mail that was sent.
+Once email notifications have been queued, The queue can be processed. To process the items in the queue, run `drush cron` Then use MailPit locally or the "captured mail" section in Tugboat to see the mail that was sent.
 
 ## How to add a new monthly outdated content email?
 1. [Create the messages template](https://prod.cms.va.gov/admin/structure/message).
@@ -58,7 +58,7 @@ Once email notifications have been queued, The queue can be processed. To proces
 
 ## Cautions and Notes
 - On prod, mail can only be sent to va.gov email addresses.
-- Locally mail gets sent to Mailhog (type `ddev status` to get the address), On tugboat mail gets captured and can be seen from the tugboat instance dashboard.  Staging does not send mail.
+- Locally mail gets sent to MailPit (type `ddev status` to get the address), On tugboat mail gets captured and can be seen from the tugboat instance dashboard.  Staging does not send mail.
 - Message variable tokens can not be used in a link url because CKE editor will mangle tokens in href.
 - H1 can not be used in the message content because the "Rich Text" filter does not allow it, so it has to go on the twig template.
-- To test html on va.gov email (Outlook) while running locally, you can copy the html displayed in Mailhog, paste it into gmail, then send it to your VA.gov email. Formatting is preserved.
+- To test html on va.gov email (Outlook) while running locally, you can copy the html displayed in MailPit, paste it into gmail, then send it to your VA.gov email. Formatting is preserved.
