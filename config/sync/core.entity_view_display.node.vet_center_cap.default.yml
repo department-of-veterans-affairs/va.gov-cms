@@ -98,6 +98,8 @@ content:
     settings:
       image_link: ''
       image_style: crop_3_2
+      image_loading:
+        attribute: lazy
     third_party_settings: {  }
     weight: 3
     region: content
@@ -119,6 +121,7 @@ content:
       grouped: false
       show_closed: all
       closed_format: ''
+      all_day_format: 'All day open'
       separator:
         days: '<br />'
         grouped_days: ' - '
@@ -129,6 +132,11 @@ content:
         position: ''
         open_text: 'Currently open!'
         closed_text: 'Currently closed'
+      exceptions:
+        title: 'Exception hours'
+        restrict_exceptions_to_num_days: 7
+        date_format: long
+        all_day_format: 'All day open'
       timezone_field: ''
       office_hours_first_day: ''
       schema:

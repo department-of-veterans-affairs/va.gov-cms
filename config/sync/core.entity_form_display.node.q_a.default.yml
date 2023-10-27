@@ -254,25 +254,20 @@ content:
       field_widget_replace: 0
       open: 0
       field_widget_display_settings: {  }
+      additional_fields:
+        options: null
     third_party_settings: {  }
   field_related_information:
-    type: paragraphs
+    type: entity_reference_paragraphs
     weight: 7
     region: content
     settings:
       title: 'Link teaser'
       title_plural: 'Link teasers'
       edit_mode: open
-      closed_mode: summary
-      autocollapse: none
-      closed_mode_threshold: 0
       add_mode: dropdown
       form_display_mode: default
       default_paragraph_type: link_teaser
-      features:
-        add_above: '0'
-        collapse_edit_all: collapse_edit_all
-        duplicate: '0'
     third_party_settings: {  }
   field_standalone_page:
     type: boolean_checkbox
@@ -316,8 +311,14 @@ content:
       maxlength: 70
       counter_position: after
       js_prevent_submit: true
+      count_only_mode: false
       count_html_characters: false
       textcount_status_message: 'Characters remaining: <span class="remaining_count">@remaining_count</span>'
+    third_party_settings: {  }
+  translation:
+    weight: 10
+    region: content
+    settings: {  }
     third_party_settings: {  }
   url_redirects:
     weight: 6

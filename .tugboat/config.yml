@@ -8,6 +8,7 @@ services:
       - cms
       - web
       - storybook
+      - next
 
     # Set this as the default service. This does a few things
     #   1. Clones the git repository into the service container
@@ -49,7 +50,7 @@ services:
 
         # Install opcache, and Apache modules
         - docker-php-ext-install opcache
-        - a2enmod headers rewrite vhost_alias
+        - a2enmod headers rewrite vhost_alias proxy proxy_http
         # Install datadog agent for application tracing and profiling.
         - DD_API_KEY=" " DD_INSTALL_ONLY=true DD_SITE="ddog-gov.com" bash -c "$(curl -L https://s3.amazonaws.com/dd-agent/scripts/install_script_agent7.sh)"
 
@@ -61,6 +62,9 @@ services:
 
         # Setup storybook-*. vhost to serve static website.
         - cp "${TUGBOAT_ROOT}"/.tugboat/vhost-storybook.conf /etc/apache2/sites-enabled/
+
+        # Setup next-*. vhost to serve static website.
+        - cp "${TUGBOAT_ROOT}"/.tugboat/vhost-next.conf /etc/apache2/sites-enabled/
 
         # Configure KeepAliveTimeout in apache2.conf. This is set 5 seconds longer than the internal tools ALB.
         # The internal tools ALB idle timeout is set to longer than a typical GQL query takes.
@@ -184,11 +188,14 @@ services:
         # This command is shared by the clone and build stages, make sure to update both stages.
         - j2 "${TUGBOAT_ROOT}/.web/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.web/403-error-document.html"
         - j2 "${TUGBOAT_ROOT}/.storybook/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.storybook/403-error-document.html"
+        - j2 "${TUGBOAT_ROOT}/.next/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.next/403-error-document.html"
+        - j2 "${TUGBOAT_ROOT}/.next/503-error-document.j2.html" -o "${TUGBOAT_ROOT}/.next/503-error-document.html"
         - composer install
         - bash -lc 'nvm install'
         - bash -lc 'npm install'
         - bash -lc 'composer va:theme:compile'
         - bash -lc 'composer va:web:install'
+        - bash -lc 'composer va:next:install'
         # https://www.drush.org/latest/deploycommand/ (updatedb, cache:rebuild, config:import, deploy:hook)
         - drush deploy
 
@@ -212,6 +219,8 @@ services:
         # This command is shared by the clone and build stages, make sure to update both stages.
         - j2 "${TUGBOAT_ROOT}/.web/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.web/403-error-document.html"
         - j2 "${TUGBOAT_ROOT}/.storybook/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.storybook/403-error-document.html"
+        - j2 "${TUGBOAT_ROOT}/.next/403-error-document.j2.html" -o "${TUGBOAT_ROOT}/.next/403-error-document.html"
+        - j2 "${TUGBOAT_ROOT}/.next/503-error-document.j2.html" -o "${TUGBOAT_ROOT}/.next/503-error-document.html"
 
       online:
         # We only want tests running on PRs, not branches like the base preview build of main.
@@ -224,8 +233,10 @@ services:
         - find -L "${DOCROOT}/vendor/va-gov/content-build/node_modules/.bin" -type f -exec chmod +x {} \+
         - find "${DOCROOT}/vendor/va-gov/content-build/script" -type f -exec chmod +x {} \+
 
-        # Build storybook and the frontend in parallel
+        # Build storybook and the frontends in parallel
         - bash -lc 'time task --taskfile=tugboat.yml'
+        # Build next build server
+        - bash -lc 'composer va:next:start'
 
   memcache:
     image: tugboatqa/memcached:1.6
