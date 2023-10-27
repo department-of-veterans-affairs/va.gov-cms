@@ -4,13 +4,14 @@
 * https://www.drupal.org/node/2815083
 * @preserve
 **/
+var _this = this;
 (function ($, Drupal, once, drupalSettings) {
   if (typeof drupalSettings.cvJqueryValidateOptions === "undefined") {
     drupalSettings.cvJqueryValidateOptions = {};
   }
   if (drupalSettings.clientside_validation_jquery.force_validate_on_blur) {
     drupalSettings.cvJqueryValidateOptions.onfocusout = function (element) {
-      this.element(element);
+      _this.element(element);
     };
   }
   drupalSettings.cvJqueryValidateOptions.rules = {

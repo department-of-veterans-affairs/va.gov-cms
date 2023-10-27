@@ -8,7 +8,7 @@
   }
 
   if (drupalSettings.clientside_validation_jquery.force_validate_on_blur) {
-    drupalSettings.cvJqueryValidateOptions.onfocusout = function (element) {
+    drupalSettings.cvJqueryValidateOptions.onfocusout = (element) => {
       // "eager" validation
       this.element(element);
     };
@@ -74,4 +74,5 @@
       });
     },
   };
+  // eslint-disable-next-line no-undef
 })(jQuery, Drupal, once, drupalSettings);
