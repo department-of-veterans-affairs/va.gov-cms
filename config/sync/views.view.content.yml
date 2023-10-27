@@ -7468,6 +7468,68 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: 0
+        field_administration_target_id:
+          id: field_administration_target_id
+          table: node__field_administration
+          field: field_administration_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_administration_target_id_op
+            label: Section
+            description: ''
+            use_operator: false
+            operator: field_administration_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: owner
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+              homepage_manager: '0'
+              translation_manager: '0'
+              next_js: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: administration
+          type: select
+          hierarchy: true
+          limit: true
+          error_message: true
       filter_groups:
         operator: AND
         groups:
@@ -7558,6 +7620,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - 'user.node_grants:view'
         - user.roles
       tags:
