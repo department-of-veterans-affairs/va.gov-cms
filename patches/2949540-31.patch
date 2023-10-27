@@ -1,0 +1,219 @@
+diff --git a/clientside_validation.links.menu.yml b/clientside_validation.links.menu.yml
+new file mode 100644
+index 0000000..0803f80
+--- /dev/null
++++ b/clientside_validation.links.menu.yml
+@@ -0,0 +1,5 @@
++clientside_validation.settings_form:
++  title: 'Clientside Validation Settings'
++  description: 'Configure clientside validation settings.'
++  route_name: clientside_validation.settings_form
++  parent: system.admin_config_ui
+diff --git a/clientside_validation.module b/clientside_validation.module
+index 50fa8b3..6da4e71 100644
+--- a/clientside_validation.module
++++ b/clientside_validation.module
+@@ -12,7 +12,49 @@ use Drupal\Core\Render\Element;
+  * Implements hook_form_alter().
+  */
+ function clientside_validation_form_alter(&$form, FormStateInterface &$form_state, $form_id) {
+-  $form['#after_build'][] = 'clientside_validation_form_after_build';
++  $config = \Drupal::config('clientside_validation.settings');
++
++  // Add cache tags for the config.
++  if (!empty($form['#cache']['tags'])) {
++    $form['#cache']['tags'] = array_merge($form['#cache']['tags'], $config->getCacheTags());
++  }
++  else {
++    $form['#cache']['tags'] = $config->getCacheTags();
++  }
++
++  // If enabled for all forms, add the after build function.
++  $enable_all_forms = $config->get('enable_all_forms');
++  if ($enable_all_forms) {
++    $form['#after_build'][] = 'clientside_validation_form_after_build';
++  }
++  // Else, add it only if the form ID was added in configuration.
++  else {
++    $enabled_forms = $config->get('enabled_forms');
++    if (!empty($enabled_forms) && in_array($form_id, $enabled_forms)) {
++      $form['#after_build'][] = 'clientside_validation_form_after_build';
++    }
++  }
++
++  // Webform has its own checkbox for disabling clientside validation,
++  // making it always enabled unless there is a novalidate attribute.
++  if (
++    substr($form_id, 0, 19) == 'webform_submission_' &&
++    !empty($form['#webform_id']) &&
++    isset($form['#after_build']) &&
++    !in_array('clientside_validation_form_after_build', $form['#after_build'])
++  ) {
++    $form['#after_build'][] = 'clientside_validation_form_after_build';
++  }
++
++  // Remove the clientside validation if the novalidate attribute was set.
++  if (
++    isset($form['#attributes']['novalidate']) &&
++    isset($form['#after_build']) &&
++    in_array('clientside_validation_form_after_build', $form['#after_build'])
++  ) {
++    $validation_key = array_search('clientside_validation_form_after_build', $form['#after_build']);
++    unset($form['#after_build'][$validation_key]);
++  }
+ }
+ 
+ /**
+diff --git a/clientside_validation.permissions.yml b/clientside_validation.permissions.yml
+new file mode 100644
+index 0000000..579ecaa
+--- /dev/null
++++ b/clientside_validation.permissions.yml
+@@ -0,0 +1,4 @@
++administer clientside validation:
++  description: 'Grants access to the clientside validation configuration form.'
++  title: 'Administer clientside validation'
++  restrict access: TRUE
+diff --git a/clientside_validation.routing.yml b/clientside_validation.routing.yml
+new file mode 100644
+index 0000000..9cf0f16
+--- /dev/null
++++ b/clientside_validation.routing.yml
+@@ -0,0 +1,7 @@
++clientside_validation.settings_form:
++  path: '/admin/config/user-interface/clientside-validation'
++  defaults:
++    _form: '\Drupal\clientside_validation\Form\ClientsideValidationSettingsForm'
++    _title: 'Clientside Validation Settings'
++  requirements:
++    _permission: 'administer clientside validation'
+diff --git a/config/install/clientside_validation.settings.yml b/config/install/clientside_validation.settings.yml
+new file mode 100644
+index 0000000..dd9fdb9
+--- /dev/null
++++ b/config/install/clientside_validation.settings.yml
+@@ -0,0 +1,2 @@
++enable_all_forms: true
++enabled_forms: { }
+diff --git a/config/schema/clientside_validation.schema.yml b/config/schema/clientside_validation.schema.yml
+new file mode 100644
+index 0000000..6f8ec51
+--- /dev/null
++++ b/config/schema/clientside_validation.schema.yml
+@@ -0,0 +1,12 @@
++clientside_validation.settings:
++  type: config_object
++  mapping:
++    enable_all_forms:
++      type: boolean
++      label: 'Setting to enable all forms for clientside validation'
++    enabled_forms:
++      type: sequence
++      label: 'A list of clientside validation enabled forms'
++      sequence:
++        type: string
++        label: 'The form ID'
+diff --git a/src/Form/ClientsideValidationSettingsForm.php b/src/Form/ClientsideValidationSettingsForm.php
+new file mode 100644
+index 0000000..36b2547
+--- /dev/null
++++ b/src/Form/ClientsideValidationSettingsForm.php
+@@ -0,0 +1,98 @@
++<?php
++
++namespace Drupal\clientside_validation\Form;
++
++use Drupal\Core\Form\ConfigFormBase;
++use Drupal\Core\Form\FormStateInterface;
++
++/**
++ * Class ClientsideValidationSettingsForm.
++ */
++class ClientsideValidationSettingsForm extends ConfigFormBase {
++
++  /**
++   * {@inheritdoc}
++   */
++  public function getFormId() {
++    return 'clientside_validation_settings_form';
++  }
++
++  /**
++   * {@inheritdoc}
++   */
++  public function getEditableConfigNames() {
++    return ['clientside_validation.settings'];
++  }
++
++  /**
++   * Check if form is enabled for clientside validation.
++   *
++   * @return bool
++   *   TRUE if form is enabled for clientside validation, FALSE otherwise.
++   */
++  public function isFormEnabledForClientsideValidation($form_settings, $form_id) {
++    // If there are settings in the array and the form ID already has a setting,
++    // return the saved setting for the form ID.
++    if (!empty($form_settings) && isset($form_settings[$form_id])) {
++      return $form_settings[$form_id];
++    }
++    // Default to false.
++    else {
++      return FALSE;
++    }
++  }
++
++  /**
++   * {@inheritdoc}
++   */
++  public function buildForm(array $form, FormStateInterface $form_state) {
++    $form = parent::buildForm($form, $form_state);
++    $config = $this->config('clientside_validation.settings');
++
++    // Add a note in regards to the overrides with the novalidate attribute.
++    $form['novalidate_note'] = [
++      '#markup' => $this->t('Forms with the "novalidate" attribute will <strong>not</strong> have clientside validation enabled, regardless of these settings.'),
++    ];
++
++    // General enabling for all forms.
++    $form['enable_all_forms'] = [
++      '#type' => 'checkbox',
++      '#title' => $this->t('Use Clientside Validation in all forms'),
++      '#description' => $this->t('Enable Clientside Validation for all forms on this site.'),
++      '#default_value' => $config->get('enable_all_forms'),
++    ];
++
++    // Enabled forms.
++    $enabled_forms = (!empty($config->get('enabled_forms'))) ? $config->get('enabled_forms') : [];
++    $form['enabled_forms'] = [
++      '#type' => 'textarea',
++      '#title' => $this->t('Clientside Validation Enabled Forms'),
++      '#description' => $this->t('Enter form IDs for all forms that should have clientside validation enabled, separated by a new line.'),
++      '#default_value' => implode(PHP_EOL, $enabled_forms),
++      '#states' => [
++        // Hide this textarea when all forms are enabled.
++        'invisible' => [
++          'input[name="enable_all_forms"]' => ['checked' => TRUE],
++        ],
++      ],
++    ];
++
++    return $form;
++  }
++
++  /**
++   * {@inheritdoc}
++   */
++  public function submitForm(array &$form, FormStateInterface $form_state) {
++    parent::submitForm($form, $form_state);
++    $config = $this->config('clientside_validation.settings');
++    $values = $form_state->getValues();
++
++    $config->set('enable_all_forms', $values['enable_all_forms']);
++    $enabled_forms = preg_split("[\n|\r]", $values['enabled_forms']);
++    $enabled_forms = array_filter($enabled_forms);
++    $config->set('enabled_forms', $enabled_forms);
++    $config->save();
++  }
++
++}

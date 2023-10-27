@@ -66,6 +66,14 @@ class MediaEventSubscriber implements EventSubscriberInterface {
       $element['alt']['#element_validate'] = [
         [static::class, 'validateAltText'],
       ];
+//      $element['alt']['#max'] = 150;
+//      $element['alt']['#maxlength'] = 150;
+//      $element['alt']['#size'] = 180;
+//      $element['alt']['#attributes']['file-name'] = 'file-name';
+//      $element['alt']['#attributes']['redundant-phrase'] = 'redundant-phrase';
+//      $element['alt']['#attributes']['character-count'] = 'character-count';
+//      $element['alt']['#attached']['library'][] = 'clientside_validation_jquery/cv.jquery.validate';
+//      $element['alt']['#attached']['library'][] = 'clientside_validation_jquery/cv.jquery.ife';
 
       // Add the textfield counter to the alt text field.
       $position = 'after';
@@ -75,7 +83,10 @@ class MediaEventSubscriber implements EventSubscriberInterface {
         $entity = $form_storage['media'][0];
       }
       else {
-        $entity = $form_state->getFormObject()->getEntity();
+        /* var $form_object \Drupal\media\MediaForm */
+        $form_object = $form_state->getFormObject();
+        /* var $entity \Drupal\media\MediaInterface */
+        $entity = $form_object->getEntity();
       }
 
       $delta = $element['#delta'];
@@ -146,35 +157,33 @@ class MediaEventSubscriber implements EventSubscriberInterface {
 
     $logger = \Drupal::logger('va_gov_media');
     $value = $formState->getValue($element['#parents']);
-    $value_length = static::getLengthOfSubmittedValue($element, $value);
+    $value_length = static::getLengthOfSubmittedValue($value);
     if ($value_length > self::MAX_LENGTH) {
       $formState->setErrorByName(implode('][', $element['#parents']), t('Alternative text cannot be longer than 150 characters.'));
-      $logger->error("Alternative text ({$value}) cannot be longer than 150 characters. {$value_length} characters were submitted.");
+      $logger->error("[CC] Alternative text ({$value}) cannot be longer than 150 characters. {$value_length} characters were submitted.");
     }
 
     if (preg_match('/\.(jpg|jpeg|png|gif)$/i', $value)) {
       $formState->setErrorByName(implode('][', $element['#parents']), t('Alternative text cannot contain file names.'));
-      $logger->error("Alternative text cannot contain file names. {$value} was submitted.");
+      $logger->error("[FN] Alternative text cannot contain file names. {$value} was submitted.");
     }
 
     if (preg_match('/(image|photo|graphic|picture) of/i', $value)) {
       $formState->setErrorByName(implode('][', $element['#parents']), t('Alternative text cannot contain phrases like “image of”, “photo of”, “graphic of”, “picture of”, etc.'));
-      $logger->error("Alternative text cannot contain repetitive phrases. {$value} was submitted.");
+      $logger->error("[RP] Alternative text cannot contain repetitive phrases. {$value} was submitted.");
     }
   }
 
   /**
    * Get the length of the submitted text value.
    *
-   * @param array $element
-   *   The form element.
    * @param string $value
    *   The value whose length is to be calculated.
    *
    * @return int
    *   The length of the value.
    */
-  protected static function getLengthOfSubmittedValue(array $element, string $value): int {
+  public static function getLengthOfSubmittedValue(string $value): int {
     $parts = explode(PHP_EOL, $value);
     $newline_count = count($parts) - 1;
 

@@ -72,3 +72,12 @@ function _va_gov_media_image_style_warmer_warm_up(EntityInterface $entity) {
     }
   }
 }
+
+/**
+ * Implements hook_clientside_validation_validator_info_alter().
+ */
+function va_gov_media_clientside_validation_validator_info_alter(&$validators) {
+  foreach ($validators as &$validator) {
+    $validator['attachments']['library'][] = 'va_gov_media/cv.alt-text.validate';
+  }
+}
