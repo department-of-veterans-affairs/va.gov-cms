@@ -2,10 +2,8 @@
  * @file
  * Attaches behaviors VA GOv Media module.
  */
-(function ($, Drupal, once, drupalSettings) {
-  'use strict';
-
-  if (typeof drupalSettings.cvJqueryValidateOptions === 'undefined') {
+(($, Drupal, once, drupalSettings) => {
+  if (typeof drupalSettings.cvJqueryValidateOptions === "undefined") {
     drupalSettings.cvJqueryValidateOptions = {};
   }
 
@@ -22,7 +20,7 @@
         url: `${drupalSettings.path.baseUrl}media/validate`,
         type: "post",
         data: {
-          value: function () {
+          value() {
             return $("input[data-drupal-selector='edit-image-0-alt']").val();
           },
         },
@@ -34,7 +32,7 @@
         url: `${drupalSettings.path.baseUrl}media/validate`,
         type: "post",
         data: {
-          value: function () {
+          value() {
             return $(
               "input[data-drupal-selector='edit-media-0-fields-image-0-alt']"
             ).val();
@@ -46,7 +44,10 @@
   };
 
   // Add messages with translations from backend.
-  $.extend($.validator.messages, drupalSettings.clientside_validation_jquery.messages);
+  $.extend(
+    $.validator.messages,
+    drupalSettings.clientside_validation_jquery.messages
+  );
 
   /**
    * Attaches jQuery validate behavior to forms.
@@ -57,16 +58,19 @@
    *  Attaches the outline behavior to the right context.
    */
   Drupal.behaviors.altTextValidate = {
-    attach: function (context) {
+    attach(context) {
       // Allow all modules to update the validate options.
       // Example of how to do this is shown below.
-      $(document).trigger('cv-jquery-validate-options-update', drupalSettings.cvJqueryValidateOptions);
+      $(document).trigger(
+        "cv-jquery-validate-options-update",
+        drupalSettings.cvJqueryValidateOptions
+      );
 
       // Process for all the forms on the page everytime,
       // we already use once so we should be good.
-      once('altTextValidate', 'body form').forEach(function(element) {
+      once("altTextValidate", "body form").forEach((element) => {
         $(element).validate(drupalSettings.cvJqueryValidateOptions);
       });
-    }
+    },
   };
 })(jQuery, Drupal, once, drupalSettings);

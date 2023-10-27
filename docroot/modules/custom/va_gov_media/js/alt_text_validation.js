@@ -5,9 +5,7 @@
 * @preserve
 **/
 (function ($, Drupal, once, drupalSettings) {
-  'use strict';
-
-  if (typeof drupalSettings.cvJqueryValidateOptions === 'undefined') {
+  if (typeof drupalSettings.cvJqueryValidateOptions === "undefined") {
     drupalSettings.cvJqueryValidateOptions = {};
   }
   if (drupalSettings.clientside_validation_jquery.force_validate_on_blur) {
@@ -44,8 +42,8 @@
   $.extend($.validator.messages, drupalSettings.clientside_validation_jquery.messages);
   Drupal.behaviors.altTextValidate = {
     attach: function attach(context) {
-      $(document).trigger('cv-jquery-validate-options-update', drupalSettings.cvJqueryValidateOptions);
-      once('altTextValidate', 'body form').forEach(function (element) {
+      $(document).trigger("cv-jquery-validate-options-update", drupalSettings.cvJqueryValidateOptions);
+      once("altTextValidate", "body form").forEach(function (element) {
         $(element).validate(drupalSettings.cvJqueryValidateOptions);
       });
     }

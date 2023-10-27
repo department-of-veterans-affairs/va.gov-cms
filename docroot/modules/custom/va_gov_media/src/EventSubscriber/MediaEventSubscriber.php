@@ -66,14 +66,6 @@ class MediaEventSubscriber implements EventSubscriberInterface {
       $element['alt']['#element_validate'] = [
         [static::class, 'validateAltText'],
       ];
-//      $element['alt']['#max'] = 150;
-//      $element['alt']['#maxlength'] = 150;
-//      $element['alt']['#size'] = 180;
-//      $element['alt']['#attributes']['file-name'] = 'file-name';
-//      $element['alt']['#attributes']['redundant-phrase'] = 'redundant-phrase';
-//      $element['alt']['#attributes']['character-count'] = 'character-count';
-//      $element['alt']['#attached']['library'][] = 'clientside_validation_jquery/cv.jquery.validate';
-//      $element['alt']['#attached']['library'][] = 'clientside_validation_jquery/cv.jquery.ife';
 
       // Add the textfield counter to the alt text field.
       $position = 'after';

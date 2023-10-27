@@ -284,3 +284,8 @@ parameters:
 			message: "#^Access to an undefined property Drupal\\\\Core\\\\Field\\\\FieldItemInterface\\:\\:\\$value\\.$#"
 			count: 2
 			path: docroot/modules/custom/va_gov_resources_and_support/va_gov_resources_and_support.deploy.php
+
+		-
+		  message: "#^Call to an undefined method Drupal\\\\Core\\\\\Form\\\\\FormInterface\\:\\:getEntity\\(\\)\\.$#"
+		  count: 1
+		  path: docroot/modules/custom/va_gov_media/src/EventSubscriber/MediaEventSubscriber.php

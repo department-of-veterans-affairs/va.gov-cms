@@ -3,7 +3,9 @@
 namespace Drupal\va_gov_media\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\va_gov_media\EventSubscriber\MediaEventSubscriber;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -13,10 +15,36 @@ use Symfony\Component\HttpFoundation\Request;
 class AltTextValidationController extends ControllerBase {
 
   /**
+   * Logger Factory.
+   *
+   * @var \Drupal\Core\Logger\LoggerChannelFactoryInterface
+   */
+  protected $loggerFactory;
+
+  /**
+   * Constructor for Alt Text Validator.
+   *
+   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerFactory
+   *   The Drupal Logger Factory.
+   */
+  public function __construct(LoggerChannelFactoryInterface $loggerFactory) {
+    $this->loggerFactory = $loggerFactory;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('logger.factory')
+    );
+  }
+
+  /**
    * Validate the alt text.
    */
   public function validate(Request $req) {
-    $logger = \Drupal::logger('va_gov_media');
+    $logger = $this->loggerFactory->get('va_gov_media');
     $value = $req->request->get('value');
     $value_length = MediaEventSubscriber::getLengthOfSubmittedValue($value);
     $res = TRUE;
