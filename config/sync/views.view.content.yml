@@ -765,9 +765,9 @@ display:
             title: title
             operations: operations
             type: type
-            changed: changed
             moderation_state: moderation_state
             field_administration: field_administration
+            changed: changed
             revision_uid: revision_uid
             field_question_1: field_question_1
             field_question: field_question
@@ -798,13 +798,6 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            changed:
-              sortable: true
-              default_sort_order: desc
-              align: ''
-              separator: ' by '
-              empty_column: false
-              responsive: priority-low
             moderation_state:
               sortable: false
               default_sort_order: asc
@@ -819,6 +812,13 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
+            changed:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: ' by '
+              empty_column: false
+              responsive: priority-low
             revision_uid:
               sortable: false
               default_sort_order: asc
