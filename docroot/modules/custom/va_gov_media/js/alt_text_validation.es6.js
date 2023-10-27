@@ -58,6 +58,7 @@
    *  Attaches the outline behavior to the right context.
    */
   Drupal.behaviors.altTextValidate = {
+    // eslint-disable-next-line no-unused-vars
     attach(context) {
       // Allow all modules to update the validate options.
       // Example of how to do this is shown below.
