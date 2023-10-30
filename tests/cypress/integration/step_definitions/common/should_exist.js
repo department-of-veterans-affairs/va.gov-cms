@@ -3,6 +3,25 @@ import { Then } from "@badeball/cypress-cucumber-preprocessor";
 Then("an element with the selector {string} should exist", (selector) =>
   cy.get(selector).should("exist")
 );
+
+Then("I wait for an element with the selector {string} to exist", (selector) =>
+  cy
+    .get(selector, {
+      timeout: 30000,
+    })
+    .should("exist")
+);
+
+Then(
+  "I wait for an element with the selector {string} to not exist",
+  (selector) =>
+    cy
+      .get(selector, {
+        timeout: 30000,
+      })
+      .should("not.exist")
+);
+
 Then("an element with the selector {string} should not exist", (selector) =>
   cy.get(selector).should("not.exist")
 );
