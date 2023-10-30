@@ -249,7 +249,9 @@ Cypress.Commands.add("scrollToSelector", (selector) => {
     if (htmlElement) {
       htmlElement.style.scrollBehavior = "inherit";
     }
-    cy.get(selector).scrollIntoView({ offset: { top: 0 } });
+    cy.get(selector)
+      .first()
+      .scrollIntoView({ offset: { top: 0 } });
     return cy.get(selector);
   });
 });
