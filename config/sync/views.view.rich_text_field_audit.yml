@@ -9,6 +9,7 @@ dependencies:
     - field.storage.node.field_banner_alert_situationinfo
     - field.storage.node.field_content_block
     - field.storage.node.field_full_story
+    - field.storage.node.field_mental_health_contact_phon
     - field.storage.node.field_mental_health_phone
     - field.storage.node.field_phone_number
     - field.storage.node.field_press_release_blurb
@@ -57,7 +58,6 @@ dependencies:
     - node.type.vamc_system_policies_page
     - node.type.vamc_system_register_for_care
     - node.type.vba_facility
-    - node.type.vba_facility_service
     - node.type.vet_center
     - node.type.vet_center_cap
     - node.type.vet_center_facility_health_servi
@@ -4007,7 +4007,70 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Mental Health Phone'
+          label: 'Mental health phone (FAPI)'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: telephone_link
+          settings:
+            title: ''
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_mental_health_contact_phon:
+          id: field_mental_health_contact_phon
+          table: node__field_mental_health_contact_phon
+          field: field_mental_health_contact_phon
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Mental health phone (editable)'
           exclude: false
           alter:
             alter_text: false
@@ -4070,7 +4133,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'VA Health Connect phone number'
+          label: 'VA Health Connect phone (system)'
           exclude: false
           alter:
             alter_text: false
@@ -4193,34 +4256,13 @@ display:
           plugin_id: bundle
           operator: in
           value:
-            page: page
-            centralized_content: centralized_content
-            basic_landing_page: basic_landing_page
             nca_facility: nca_facility
-            press_release: press_release
-            press_releases_listing: press_releases_listing
-            support_resources_detail_page: support_resources_detail_page
-            person_profile: person_profile
-            step_by_step: step_by_step
-            support_service: support_service
-            health_care_region_detail_page: health_care_region_detail_page
             health_care_local_facility: health_care_local_facility
-            health_care_local_health_service: health_care_local_health_service
-            vha_facility_nonclinical_service: vha_facility_nonclinical_service
             health_care_region_page: health_care_region_page
-            full_width_banner_alert: full_width_banner_alert
             vamc_system_billing_insurance: vamc_system_billing_insurance
-            regional_health_care_service_des: regional_health_care_service_des
-            vamc_system_medical_records_offi: vamc_system_medical_records_offi
-            vamc_operating_status_and_alerts: vamc_operating_status_and_alerts
-            vamc_system_policies_page: vamc_system_policies_page
-            vamc_system_register_for_care: vamc_system_register_for_care
             vba_facility: vba_facility
-            vba_facility_service: vba_facility_service
             vet_center: vet_center
             vet_center_cap: vet_center_cap
-            vet_center_facility_health_servi: vet_center_facility_health_servi
-            vet_center_locations_list: vet_center_locations_list
             vet_center_mobile_vet_center: vet_center_mobile_vet_center
             vet_center_outstation: vet_center_outstation
           group: 1
@@ -4398,7 +4440,7 @@ display:
           exposed: true
           expose:
             operator_id: combine_op
-            label: 'Phone Number contains'
+            label: 'Any phone number contains'
             description: ''
             use_operator: false
             operator: combine_op
@@ -4424,6 +4466,9 @@ display:
               redirect_administrator: '0'
               admnistrator_users: '0'
               administrator: '0'
+              homepage_manager: '0'
+              translation_manager: '0'
+              next_js: '0'
             placeholder: ''
           is_grouped: false
           group_info:
@@ -4440,7 +4485,67 @@ display:
           fields:
             field_phone_number: field_phone_number
             field_mental_health_phone: field_mental_health_phone
+            field_mental_health_contact_phon: field_mental_health_contact_phon
             field_va_health_connect_phone: field_va_health_connect_phone
+        field_mental_health_contact_phon_value:
+          id: field_mental_health_contact_phon_value
+          table: node__field_mental_health_contact_phon
+          field: field_mental_health_contact_phon_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: string
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: mh_editable_op
+            label: 'Editable mental health contact phone'
+            description: ''
+            use_operator: true
+            operator: field_mental_health_contact_phon_value_op
+            operator_limit_selection: true
+            operator_list:
+              contains: contains
+              empty: empty
+              'not empty': 'not empty'
+            identifier: mh_editable
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+              homepage_manager: '0'
+              translation_manager: '0'
+              next_js: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       filter_groups:
         operator: AND
         groups:
@@ -4461,6 +4566,7 @@ display:
             field_administration: field_administration
             field_phone_number: field_phone_number
             field_mental_health_phone: field_mental_health_phone
+            field_mental_health_contact_phon: field_mental_health_contact_phon
             field_va_health_connect_phone: field_va_health_connect_phone
           default: '-1'
           info:
@@ -4514,21 +4620,28 @@ display:
               empty_column: false
               responsive: ''
             field_phone_number:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             field_mental_health_phone:
-              sortable: false
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_mental_health_contact_phon:
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             field_va_health_connect_phone:
-              sortable: false
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
@@ -4581,6 +4694,7 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.node.field_administration'
+        - 'config:field.storage.node.field_mental_health_contact_phon'
         - 'config:field.storage.node.field_mental_health_phone'
         - 'config:field.storage.node.field_phone_number'
         - 'config:field.storage.node.field_va_health_connect_phone'
@@ -5087,7 +5201,70 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Mental Health Phone'
+          label: 'Mental health phone (FAPI)'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: telephone_link
+          settings:
+            title: ''
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_mental_health_contact_phon:
+          id: field_mental_health_contact_phon
+          table: node__field_mental_health_contact_phon
+          field: field_mental_health_contact_phon
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: 'Mental health contact phone (editable)'
           exclude: false
           alter:
             alter_text: false
@@ -5150,7 +5327,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'VA Health Connect phone number'
+          label: 'VA Health Connect phone (system)'
           exclude: false
           alter:
             alter_text: false
@@ -5365,26 +5542,21 @@ display:
           plugin_id: bundle
           operator: in
           value:
-            page: page
             centralized_content: centralized_content
             event: event
-            faq_multiple_q_a: faq_multiple_q_a
-            banner: banner
-            basic_landing_page: basic_landing_page
-            media_list_images: media_list_images
-            media_list_videos: media_list_videos
             press_release: press_release
-            press_releases_listing: press_releases_listing
-            support_resources_detail_page: support_resources_detail_page
             person_profile: person_profile
-            step_by_step: step_by_step
-            news_story: news_story
-            health_care_region_detail_page: health_care_region_detail_page
+            health_care_local_facility: health_care_local_facility
             health_care_local_health_service: health_care_local_health_service
             health_care_region_page: health_care_region_page
-            full_width_banner_alert: full_width_banner_alert
             regional_health_care_service_des: regional_health_care_service_des
-            vamc_operating_status_and_alerts: vamc_operating_status_and_alerts
+            vba_facility: vba_facility
+            vet_center: vet_center
+            vet_center_cap: vet_center_cap
+            vet_center_facility_health_servi: vet_center_facility_health_servi
+            vet_center_locations_list: vet_center_locations_list
+            vet_center_mobile_vet_center: vet_center_mobile_vet_center
+            vet_center_outstation: vet_center_outstation
           group: 1
           exposed: true
           expose:
@@ -5415,6 +5587,9 @@ display:
               redirect_administrator: '0'
               admnistrator_users: '0'
               administrator: '0'
+              homepage_manager: '0'
+              translation_manager: '0'
+              next_js: '0'
             reduce: true
           is_grouped: false
           group_info:
@@ -5525,6 +5700,9 @@ display:
               redirect_administrator: '0'
               admnistrator_users: '0'
               administrator: '0'
+              homepage_manager: '0'
+              translation_manager: '0'
+              next_js: '0'
             placeholder: ''
           is_grouped: false
           group_info:
@@ -5541,6 +5719,7 @@ display:
           fields:
             field_phone_number: field_phone_number
             field_mental_health_phone: field_mental_health_phone
+            field_mental_health_contact_phon: field_mental_health_contact_phon
             field_va_health_connect_phone: field_va_health_connect_phone
         moderation_state_multiple_workflow_filter:
           id: moderation_state_multiple_workflow_filter
@@ -5600,6 +5779,65 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: 0
+        field_mental_health_contact_phon_value:
+          id: field_mental_health_contact_phon_value
+          table: node__field_mental_health_contact_phon
+          field: field_mental_health_contact_phon_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: string
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: mh_editable_op
+            label: 'Editable Mental health contact phone number'
+            description: ''
+            use_operator: true
+            operator: field_mental_health_contact_phon_value_op
+            operator_limit_selection: true
+            operator_list:
+              contains: contains
+              empty: empty
+              'not empty': 'not empty'
+            identifier: mh_editable
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_api_consumer: '0'
+              content_creator_benefits_hubs: '0'
+              content_creator_resources_and_support: '0'
+              office_content_creator: '0'
+              vamc_content_creator: '0'
+              content_creator_vet_center: '0'
+              content_editor: '0'
+              content_reviewer: '0'
+              content_publisher: '0'
+              content_admin: '0'
+              redirect_administrator: '0'
+              admnistrator_users: '0'
+              administrator: '0'
+              homepage_manager: '0'
+              translation_manager: '0'
+              next_js: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       filter_groups:
         operator: AND
         groups:
@@ -5651,6 +5889,7 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.node.field_administration'
+        - 'config:field.storage.node.field_mental_health_contact_phon'
         - 'config:field.storage.node.field_mental_health_phone'
         - 'config:field.storage.node.field_phone_number'
         - 'config:field.storage.node.field_va_health_connect_phone'
