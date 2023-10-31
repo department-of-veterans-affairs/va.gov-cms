@@ -16,14 +16,14 @@ Here are the steps to follow when setting up a new UX research epic:
 - [ ] Read and understand [Platform's Research Guidleines](https://depo-platform-documentation.scrollhelp.site/research-design/). This runbook is meant help reduce time creating tickets, not to replace or overrule those guidelines.
 - [ ] Create a Research [Epic](https://github.com/department-of-veterans-affairs/va.gov-cms/issues/new?assignees=&labels=Epic%2C+Needs+refining&template=cms-epic.md&title=%3CInsert+summary+of+epic%3E) for your product/initiative
 - [ ] Create a Research Folder following [Platform's Research guidance](https://depo-platform-documentation.scrollhelp.site/research-design/research-checklist#ResearchChecklist-1.Planningforresearch)
-- [ ] Create a [Research Discovery]() issue
-- [ ] Create a [Research Plan]() issue
-- [ ] Create a [Research Conversation Guide]() issue
-- [ ] Create a [Research Review Cycle]() issue
-- [ ] Create a [Research Prep]() issue
-- [ ] Create a [Research Sessions]() issue
-- [ ] Create a [Research Synthesis & Reporting]() issue
-- [ ] Create a [Research Readout & Post-tasks]() issue
+- [ ] Create a [Research Discovery](ADD LINK AS LAST STEP) issue
+- [ ] Create a [Research Plan](ADD LINK AS LAST STEP) issue
+- [ ] Create a [Research Conversation Guide](ADD LINK AS LAST STEP) issue
+- [ ] Create a [Research Review Cycle](ADD LINK AS LAST STEP) issue
+- [ ] Create a [Research Prep](ADD LINK AS LAST STEP) issue
+- [ ] Create a [Research Sessions](ADD LINK AS LAST STEP) issue
+- [ ] Create a [Research Synthesis & Reporting](ADD LINK AS LAST STEP) issue
+- [ ] Create a [Research Readout & Post-tasks](ADD LINK AS LAST STEP) issue
 - [ ] Add all the above issues to the Research Epic and add dependencies
 
 ## Acceptance Criteria
