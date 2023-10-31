@@ -480,6 +480,15 @@ class FacilitiesSubscriber implements EventSubscriberInterface {
         'tricare_description' => trim(strip_tags($tricare_description)),
         'vc_vocabulary_service_description_label' => $vocabulary_definition['field_vet_center_service_descrip']->getLabel(),
         'vc_vocabulary_description_help_text' => $vocabulary_definition['field_vet_center_service_descrip']->getDescription(),
+        // VBA has nationalized content we want to show from the vocabulary.
+        'vba_regional_service_header' => $service_term->hasField('field_regional_service_header')
+          ? trim($service_term->get('field_regional_service_header')->getString()) : '',
+        'vba_regional_service_description' => $service_term->hasField('field_regional_service_descripti')
+          ? trim($service_term->get('field_regional_service_descripti')->getString()) : '',
+        'vba_facility_service_header' => $service_term->hasField('field_facility_service_header')
+          ? trim($service_term->get('field_facility_service_header')->getString()) : '',
+        'vba_facility_service_description' => $service_term->hasField('field_facility_service_descripti')
+          ? trim($service_term->get('field_facility_service_descripti')->getString()) : '',
       ];
     }
     $form['#attached']['drupalSettings']['availableHealthServices'] = $descriptions;

@@ -2,15 +2,16 @@
 Feature: Content Type: Event
 
   Scenario: Log in and create an event.
-    Given I am logged in as a user with the "content_admin" role
+    Given I am logged in as a user with the "administrator" role
+    When I set the "feature_event_outreach_checkbox" feature toggle to "on"
     Then I create a "event" node
 
   Scenario: Confirm that event form conditional fields are cleared out if parent options change
     Given I am logged in as a user with the "content_admin" role
-    And I am at "node/add/event"
+    When I am at "node/add/event"
 
     # Check registration call to action conditional field
-    When I select option "Register" from dropdown "Call to action"
+    And I select option "Register" from dropdown "Call to action"
     And I fill in autocomplete field with selector "#edit-field-url-of-an-online-event-0-uri" with value "/node/5016"
     And I select option "- None -" from dropdown "Call to action"
     And I select option "Register" from dropdown "Call to action"
@@ -33,7 +34,6 @@ Feature: Content Type: Event
     And the option "- None -" from dropdown "State" should be selected
     When I select the "Online" radio button
     Then an element with the selector "#edit-field-url-of-an-online-event-0-uri" should be empty
-  # EVENT FORM SPECS
 
   Scenario: Confirm that the default time zone when creating an event is set explicitly to Eastern.
     Given I am logged in as a user with the "content_admin" role
@@ -42,7 +42,7 @@ Feature: Content Type: Event
 
   Scenario: Confirm that the event form conditional elements are shown or hidden appropriately
     Given I am logged in as a user with the "content_admin" role
-    And I am at "node/add/event"
+    When I am at "node/add/event"
 
     And I select the "At a VA facility" radio button
     Then I should see "Facility location"
@@ -71,7 +71,7 @@ Feature: Content Type: Event
     And I should not see "Country"
     And I should see an element with the selector "#edit-field-url-of-an-online-event-0-uri"
 
-    # Registration checkbox reveals conditional form elements
+#     Registration checkbox reveals conditional form elements
     When I check the "Include registration information" checkbox
     Then "Cost" should be visible
     And I should see "Registration is required for this event"

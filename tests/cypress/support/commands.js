@@ -249,7 +249,9 @@ Cypress.Commands.add("scrollToSelector", (selector) => {
     if (htmlElement) {
       htmlElement.style.scrollBehavior = "inherit";
     }
-    cy.get(selector).scrollIntoView({ offset: { top: 0 } });
+    cy.get(selector)
+      .first()
+      .scrollIntoView({ offset: { top: 0 } });
     return cy.get(selector);
   });
 });
@@ -319,6 +321,14 @@ Cypress.Commands.add("setWorkbenchAccessSections", (value) => {
       `;
       return cy.drupalDrushEval(command);
     });
+});
+
+Cypress.Commands.add("setAFeatureToggle", (name, label, value) => {
+  const command = `
+    $feature = new \\Drupal\\feature_toggle\\Feature('${name}', '${label}');
+    $service = \\Drupal::service('feature_toggle.feature_status')->setStatus($feature, ${value});
+  `;
+  return cy.drupalDrushEval(command);
 });
 
 compareSnapshotCommand();

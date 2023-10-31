@@ -18,7 +18,7 @@
     "test:cypress": "cypress run -e \"TAGS=$CYPRESS_TAGS\"",
     "test:cypress:verify": "cypress verify",
     "test:cypress:interactive": "cypress open -e \"TAGS=not @ignore and not @piv,VAGOV_INTERACTIVE=true\"",
-    "test:cypress:parallel": "cypress-parallel --script test:cypress --threads 3 --strictMode false --specsDir tests/cypress/integration --weightsJson tests/cypress/integration/weights.json"
+    "test:cypress:parallel": "cypress-parallel -v --reporter 'spec' --script test:cypress --threads 3 --strictMode false --specsDir tests/cypress/integration --weightsJson tests/cypress/integration/weights.json"
   },
   "repository": {
     "type": "git",
