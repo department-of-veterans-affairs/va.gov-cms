@@ -142,7 +142,7 @@ class Status implements StatusInterface {
   /**
    * {@inheritDoc}
    */
-  public function getBuildLogUrl() : string {
+  public function getBuildLogPath() : string {
     return '/sites/default/files/build.txt';
   }
 

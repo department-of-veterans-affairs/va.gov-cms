@@ -257,8 +257,9 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
    *   The build log link.
    */
   public function getBuildLogLink() {
-    $buildLogUrl = $this->status->getBuildLogUrl();
-    $buildLogUrl = Url::fromUri($buildLogUrl, ['attributes' => ['target' => '_blank']]);
+    $buildLogPath = $this->status->getBuildLogPath();
+    $buildLogUri = $this->frontendUrl->getBaseUrl() . $buildLogPath;
+    $buildLogUrl = Url::fromUri($buildLogUri, ['attributes' => ['target' => '_blank']]);
     return Link::fromTextAndUrl($this->t('View build log'), $buildLogUrl);
   }
 

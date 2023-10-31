@@ -79,11 +79,13 @@ interface StatusInterface {
   public function getVetsWebsiteVersion() : string;
 
   /**
-   * Get the build log URL.
+   * Get the build log path.
+   *
+   * This is relative to the docroot, but starts with a slash.
    *
    * @return string
-   *   The build log URL.
+   *   The build log path.
    */
-  public function getBuildLogUrl() : string;
+  public function getBuildLogPath() : string;
 
 }
