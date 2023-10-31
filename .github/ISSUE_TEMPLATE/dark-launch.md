@@ -1,10 +1,9 @@
 ---
-name: "(PW) Dark launch request"
-about: Request to dark launch CMS content that includes React widget, owned by Public
-  Websites team
+name: "Dark launch request"
+about: Request to dark launch CMS content that includes React widget, owned by CMS team
 title: 'CMS/React content dark launch request: <content info>'
-labels: Drupal engineering, Needs refining, Public Websites, VA.gov frontend
-assignees: jilladams, FranECross
+labels: Drupal engineering, Needs analysis, CMS Team
+assignees: BerniXiongA6
 
 ---
 
@@ -27,7 +26,7 @@ CMS team does not want to get in the habit of having staged nodes that will not 
 * **Target production launch date:** 
 * **What is driving and/or blocking prod launch date?** 
   
-# For PW use
+# For CMS Team use
 ## Tasks
 Please tick the boxes for completed steps as we go, for cross-team visibility.
 - [ ] Technical POC has merged vets-website code to main & confirmed deploy to prod
@@ -41,11 +40,3 @@ Please tick the boxes for completed steps as we go, for cross-team visibility.
 - [ ] Page is verified: Live on Staging
 - [ ] Page is **not** live on Prod
 - [ ] Ticket is cut for production launch planning, e.g. #10627 
-
-### Team
-Please check the team(s) that will do this work.
-
-- [ ] `CMS Team`
-- [X] `Public Websites`
-- [ ] `Facilities`
-- [ ] `User support`
