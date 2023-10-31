@@ -2,7 +2,7 @@
 name: Research Prep Tasks
 about: Use this template when prepping for a research study
 title: Prep for [PRODUCT/INITIATIVE] research
-labels: Design, Research
+labels: UX, Research
 assignees: ''
 
 ---
