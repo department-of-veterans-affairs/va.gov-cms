@@ -209,8 +209,8 @@ class GitForm extends BaseForm {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    $this->validateForm(Frontend::ContentBuild, $form_state);
-    $this->validateForm(Frontend::VetsWebsite, $form_state);
+    $this->validateFormForFrontend(Frontend::ContentBuild, $form_state);
+    $this->validateFormForFrontend(Frontend::VetsWebsite, $form_state);
   }
 
   /**

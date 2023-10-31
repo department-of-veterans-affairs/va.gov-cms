@@ -9,6 +9,7 @@ use Drupal\Core\Url;
 use Drupal\va_gov_content_release\FrontendUrl\FrontendUrlInterface;
 use Drupal\va_gov_content_release\Status\StatusInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Provides a Content Release Status block.
@@ -37,6 +38,13 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
   protected $frontendUrl;
 
   /**
+   * The backend base URL.
+   *
+   * @var string
+   */
+  protected $backendBaseUrl;
+
+  /**
    * Constructs a \Drupal\Component\Plugin\PluginBase object.
    *
    * @param array $configuration
@@ -49,19 +57,23 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
    *   The content release status service.
    * @param \Drupal\va_gov_content_release\FrontendUrl\FrontendUrlInterface $frontendUrl
    *   The frontend URL service.
+   * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
+   *   The request stack.
    */
   public function __construct(
     array $configuration,
     $plugin_id,
     $plugin_definition,
     StatusInterface $status,
-    FrontendUrlInterface $frontendUrl
+    FrontendUrlInterface $frontendUrl,
+    RequestStack $requestStack
   ) {
     $this->configuration = $configuration;
     $this->pluginId = $plugin_id;
     $this->pluginDefinition = $plugin_definition;
     $this->status = $status;
     $this->frontendUrl = $frontendUrl;
+    $this->backendBaseUrl = $requestStack->getCurrentRequest()->getSchemeAndHttpHost();
   }
 
   /**
@@ -73,7 +85,8 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
       $plugin_id,
       $plugin_definition,
       $container->get('va_gov_content_release.status'),
-      $container->get('va_gov_content_release.frontend_url')
+      $container->get('va_gov_content_release.frontend_url'),
+      $container->get('request_stack')
     );
   }
 
@@ -258,7 +271,7 @@ class ContentReleaseStatusBlock extends BlockBase implements ContainerFactoryPlu
    */
   public function getBuildLogLink() {
     $buildLogPath = $this->status->getBuildLogPath();
-    $buildLogUri = $this->frontendUrl->getBaseUrl() . $buildLogPath;
+    $buildLogUri = $this->backendBaseUrl . $buildLogPath;
     $buildLogUrl = Url::fromUri($buildLogUri, ['attributes' => ['target' => '_blank']]);
     return Link::fromTextAndUrl($this->t('View build log'), $buildLogUrl);
   }
