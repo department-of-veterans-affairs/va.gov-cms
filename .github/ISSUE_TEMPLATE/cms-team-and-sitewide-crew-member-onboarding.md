@@ -194,7 +194,6 @@ Tugboat is a development server platform where you can preview CMS code changes 
   - [ ] [Tugboat for non-engineers](https://prod.cms.va.gov/help/demo-environments-tugboat-guides) SOCKS required
 
 #### Other tools / access
-- [ ] [Confluence](https://va-gov.atlassian.net/wiki/spaces/VAGOV/pages/179765342/2020-2021?NO_SSR=1) for team calendar, demo run of show, and reporting.
 - [ ] [Google Drive](https://drive.google.com/drive/u/0/folders/0ADx85_gnl3Y4Uk9PVA?ths=true) for team documents. VA doesn't have access to view Google products while on the VA network. Use Github or downloadable files when sharing with VA.
 - [ ] [Trello](https://trello.com/vacmsteam) for retro boards
 
