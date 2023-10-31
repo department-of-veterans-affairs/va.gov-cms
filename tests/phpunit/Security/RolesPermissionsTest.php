@@ -263,6 +263,7 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
         'content_creator_vba',
         [
           'create vba_facility_service content',
+          'view node link report',
         ],
       ],
       [
@@ -840,6 +841,7 @@ class RolesPermissionsTest extends VaGovExistingSiteBase {
           'assign content_api_consumer role',
           'assign content_creator_benefits_hubs role',
           'assign content_creator_resources_and_support role',
+          'assign content_creator_vba role',
           'assign content_creator_vet_center role',
           'assign content_editor role',
           'assign content_publisher role',
