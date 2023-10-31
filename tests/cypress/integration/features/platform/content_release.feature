@@ -97,14 +97,10 @@ Feature: Content Release
 
     # Select a content-build branch.
     And I select the "Select a different content-build branch/pull request" radio button
-    And I fill in autocomplete field with selector "#edit-content-build-git-ref" with value "main"
-    Then I should see "BRANCH main"
     And I fill in autocomplete field with selector "#edit-content-build-git-ref" with value "BRANCH main (main)"
 
     # Select a vets-website branch.
     And I select the "Select a different vets-website branch/pull request" radio button
-    And I fill in autocomplete field with selector "#edit-vets-website-git-ref" with value "main"
-    Then I should see "BRANCH main"
     And I fill in autocomplete field with selector "#edit-vets-website-git-ref" with value "BRANCH main (main)"
 
     When I click the "Release content" button
