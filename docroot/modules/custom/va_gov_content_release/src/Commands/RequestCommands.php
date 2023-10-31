@@ -36,7 +36,8 @@ class RequestCommands extends DrushCommands {
    *   The reason for the request.
    *
    * @command va-gov-content-release:request:submit
-   * @aliases va-gov-content-release-request:submit
+   * @aliases va-gov-content-release-request-submit
+   *   va-gov-content-release-request-submit
    */
   public function submitRequest(string $reason = 'Build requested via Drush.') {
     $this->requestService->submitRequest($reason);
