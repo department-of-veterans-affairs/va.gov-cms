@@ -6,9 +6,13 @@ dependencies:
     - field.field.taxonomy_term.health_care_service_taxonomy.field_also_known_as
     - field.field.taxonomy_term.health_care_service_taxonomy.field_commonly_treated_condition
     - field.field.taxonomy_term.health_care_service_taxonomy.field_enforce_unique_combo_servi
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_facility_service_descripti
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_facility_service_header
     - field.field.taxonomy_term.health_care_service_taxonomy.field_health_service_api_id
     - field.field.taxonomy_term.health_care_service_taxonomy.field_online_self_service
     - field.field.taxonomy_term.health_care_service_taxonomy.field_owner
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_regional_service_descripti
+    - field.field.taxonomy_term.health_care_service_taxonomy.field_regional_service_header
     - field.field.taxonomy_term.health_care_service_taxonomy.field_service_type_of_care
     - field.field.taxonomy_term.health_care_service_taxonomy.field_show_for_vamc_facilities
     - field.field.taxonomy_term.health_care_service_taxonomy.field_show_for_vba_facilities
@@ -77,6 +81,22 @@ content:
     third_party_settings: {  }
     weight: 13
     region: content
+  field_facility_service_descripti:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 24
+    region: content
+  field_facility_service_header:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 23
+    region: content
   field_health_service_api_id:
     type: string
     label: above
@@ -94,6 +114,22 @@ content:
       url_plain: false
       rel: ''
       target: ''
+    third_party_settings: {  }
+    weight: 25
+    region: content
+  field_regional_service_descripti:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 22
+    region: content
+  field_regional_service_header:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
     third_party_settings: {  }
     weight: 21
     region: content
@@ -149,7 +185,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 23
+    weight: 27
     region: content
   field_vba_com_conditions:
     type: string
@@ -180,7 +216,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 22
+    weight: 26
     region: content
   field_vba_type_of_care:
     type: list_default
