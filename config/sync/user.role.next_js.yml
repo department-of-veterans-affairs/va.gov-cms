@@ -3,8 +3,10 @@ langcode: en
 status: true
 dependencies:
   module:
+    - content_moderation
     - node
     - subrequests
+    - system
     - va_gov_backend
 third_party_settings:
   va_gov_backend:
@@ -14,6 +16,8 @@ label: Next.js
 weight: 7
 is_admin: null
 permissions:
+  - 'access content'
   - 'access user profiles'
-  - 'bypass node access'
   - 'issue subrequests'
+  - 'view all revisions'
+  - 'view any unpublished content'
