@@ -66,6 +66,8 @@ function _va_gov_consumers_return_vet_center_form_names() {
   return [
     'node_vet_center_edit_form',
     'node_vet_center_form',
+    'node_vet_center_outstation_edit_form',
+    'node_vet_center_outstation_form',
   ];
 }
 
@@ -201,6 +203,7 @@ function _va_gov_consumers_modify_facility_fields(array &$form, $form_id, FormSt
     $content_types_hiding_title = [
       'health_care_local_facility',
       'nca_facility',
+      'vet_center_outstation',
     ];
     if (!in_array($node->getType(), $content_types_hiding_title)) {
       $form['group_page_title_tooltip']['top_of_page_information'] = $form['top_of_page_information'];
