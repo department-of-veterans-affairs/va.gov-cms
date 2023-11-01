@@ -88,7 +88,7 @@ The VA.gov CMS Team
 
 ### About the CMS
 
-This repository hosts the source code for the _Content Management System_ (**CMS** or **CMS-API**) utilized by [VA.gov](https://www.va.gov). 
+This repository hosts the source code for the _Content Management System_ (**CMS** or **CMS-API**) utilized by [VA.gov](https://www.va.gov).
 
 The production instance can be found at [prod.cms.va.gov](https://prod.cms.va.gov/). Please note that access to the production CMS is limited; refer to [Getting Access](READMES/access.md) for more information.
 
@@ -124,7 +124,7 @@ The production instance of the CMS is utilized in two main ways:
 
 #### Build and Release Process
 
-In a continuous integration context, the `content-build` project is managed as a dependency of the CMS project; the build script is executed targeting the local instance and runs all of the content queries performed as part of the normal content release process, to ensure no changes have been introduced to the CMS codebase that break compatibility. A full content build happens at the conclusion of the testing pipeline on our [Tugboat](https://tugboat.qa/) preview environments.
+In a continuous integration context, the `content-build` project is managed as a dependency of the CMS project; the build script is executed targeting the local instance--the database and code of which is from the day before--and runs all of the content queries performed as part of the normal content release process, to ensure no changes have been introduced to the CMS codebase that break compatibility. A full content build happens at the conclusion of the testing pipeline on our [Tugboat](https://tugboat.qa/) preview environments.
 
 In the normal content release process, GitHub Actions triggers a workflow that targets a mirror (hosted in [Tugboat](https://tugboat.qa/)) of the production CMS instance. It retrieves content from the [CMS](https://cms.va.gov) via GraphQL (and other sources) and generates HTML, CSS, JavaScript, and images. These artifacts are then copied to an s3 bucket, which is then rotated into service to serve website visitors.
 
