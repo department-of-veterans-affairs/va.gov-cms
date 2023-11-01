@@ -25,14 +25,28 @@ dependencies:
     - field.field.node.health_care_region_page.field_va_health_connect_phone
     - field.field.node.health_care_region_page.field_vamc_ehr_system
     - field.field.node.health_care_region_page.field_vamc_system_official_name
+    - field.field.node.health_care_region_page.field_youtube
     - node.type.health_care_region_page
   module:
+    - link
     - user
 id: node.health_care_region_page.teaser
 targetEntityType: node
 bundle: health_care_region_page
 mode: teaser
 content:
+  breadcrumbs:
+    type: link
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: -5
+    region: content
   links:
     settings: {  }
     third_party_settings: {  }
@@ -66,5 +80,6 @@ hidden:
   field_va_health_connect_phone: true
   field_vamc_ehr_system: true
   field_vamc_system_official_name: true
+  field_youtube: true
   langcode: true
   search_api_excerpt: true
