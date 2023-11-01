@@ -1,0 +1,24 @@
+uuid: c0d320aa-e37e-4745-9af0-157e4fdc6c7f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_official_name
+    - node.type.vet_center_outstation
+  module:
+    - tmgmt_content
+third_party_settings:
+  tmgmt_content:
+    excluded: false
+id: node.vet_center_outstation.field_official_name
+field_name: field_official_name
+entity_type: node
+bundle: vet_center_outstation
+label: 'Name of Vet Center - Oustation'
+description: 'The official name of the Vet Center. To request a correction or update, <a class="admin-help-email-tpl" target="_blank" href="mailto:api@va.gov?bcc=vadrupalcms@va.gov&subject=Requested updates to [js_entry_facility_name] facility data&body=Dear API team,%0D%0A%0D%0AI would like to request an update to data for my facility.%0D%0A%0D%0AFacility%0D%0AFacility Name: [js_entry_facility_name]%0D%0AFacility ID: [js_entry_facility_id]%0D%0A%0D%0AAffected data%0D%0AThe following type of information needs to be updated:%0D%0A[Add your response here, for example: facility name, address, phone number, etc.]%0D%0A%0D%0ARequested Update%0D%0APlease make the following changes:%0D%0A[Add your response here, for example, ''change street address from 123 Fake Street to 456 Real Street.'']">email an administrator</a>.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

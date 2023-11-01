@@ -11,7 +11,7 @@ use Drupal\Core\State\StateInterface;
  */
 class BuildRequester implements BuildRequesterInterface {
 
-  public const VA_GOV_FRONTEND_VERSION = 'va_gov_build_trigger.frontend_version';
+  public const VA_GOV_FRONTEND_VERSION = 'va_gov_content_release.frontend_version';
 
   /**
    * The content release queue entity.

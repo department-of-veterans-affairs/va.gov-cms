@@ -9,7 +9,9 @@ pushd "${repo_root}" > /dev/null
 : "${RETURN_EXIT_CODE:=0}"
 
 set -o allexport
+set +x
 source "${repo_root}/.env"
+set -x
 set +o allexport
 
 test_name="${1}"
@@ -23,7 +25,7 @@ echo "Status name: ${status_name}"
 time composer "${composer_name}" 2>&1
 exit_code=$?
 
-if [ -n "${GITHUB_TOKEN}" ]; then 
+if [ -n "${GITHUB_TOKEN}" ]; then
   if [ "${exit_code}" -eq 0 ]; then
     github-status-updater \
       -action=update_state \

@@ -32,6 +32,7 @@ As user _uid_ with _user_role_
 - [ ] Code Quality Tests have passed.
 - [ ] Acceptance Criteria in related issue are met.
 - [ ] Manual Code Review Approved.
+- [ ] If there are field changes, front end output has been thoroughly checked.
 
 ### Select Team for PR review
 
