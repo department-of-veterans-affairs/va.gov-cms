@@ -41,6 +41,7 @@ dependencies:
     - node.type.publication_listing
     - node.type.q_a
     - node.type.regional_health_care_service_des
+    - node.type.service_region
     - node.type.step_by_step
     - node.type.story_listing
     - node.type.support_resources_detail_page
@@ -52,6 +53,7 @@ dependencies:
     - node.type.vamc_system_policies_page
     - node.type.vamc_system_register_for_care
     - node.type.vba_facility
+    - node.type.vba_facility_service
     - node.type.vet_center
     - node.type.vet_center_cap
     - node.type.vet_center_facility_health_servi
@@ -60,6 +62,7 @@ dependencies:
     - node.type.vet_center_outstation
     - node.type.vha_facility_nonclinical_service
     - workflows.workflow.editorial
+    - workflows.workflow.restricted_archive
   module:
     - actions_permissions
     - block_content_permissions
@@ -86,7 +89,7 @@ third_party_settings:
     vgb_description: 'Can publish content.'
 id: content_publisher
 label: 'Content publisher'
-weight: 0
+weight: 1
 is_admin: null
 permissions:
   - 'access administration pages'
@@ -139,6 +142,7 @@ permissions:
   - 'edit any publication_listing content'
   - 'edit any q_a content'
   - 'edit any regional_health_care_service_des content'
+  - 'edit any service_region content'
   - 'edit any step_by_step content'
   - 'edit any story_listing content'
   - 'edit any support_resources_detail_page content'
@@ -150,6 +154,7 @@ permissions:
   - 'edit any vamc_system_policies_page content'
   - 'edit any vamc_system_register_for_care content'
   - 'edit any vba_facility content'
+  - 'edit any vba_facility_service content'
   - 'edit any vet_center content'
   - 'edit any vet_center_cap content'
   - 'edit any vet_center_facility_health_servi content'
@@ -204,6 +209,7 @@ permissions:
   - 'revert publication_listing revisions'
   - 'revert q_a revisions'
   - 'revert regional_health_care_service_des revisions'
+  - 'revert service_region revisions'
   - 'revert step_by_step revisions'
   - 'revert story_listing revisions'
   - 'revert support_resources_detail_page revisions'
@@ -215,6 +221,7 @@ permissions:
   - 'revert vamc_system_policies_page revisions'
   - 'revert vamc_system_register_for_care revisions'
   - 'revert vba_facility revisions'
+  - 'revert vba_facility_service revisions'
   - 'revert vet_center revisions'
   - 'revert vet_center_cap revisions'
   - 'revert vet_center_facility_health_servi revisions'
@@ -240,6 +247,10 @@ permissions:
   - 'use editorial transition create_new_draft'
   - 'use editorial transition publish'
   - 'use editorial transition review'
+  - 'use restricted_archive transition approve'
+  - 'use restricted_archive transition create_new_draft'
+  - 'use restricted_archive transition publish'
+  - 'use restricted_archive transition review'
   - 'use text format rich_text'
   - 'use text format rich_text_limited'
   - 'use workbench access'
@@ -286,6 +297,7 @@ permissions:
   - 'view q_a revisions'
   - 'view regional_health_care_service_des revisions'
   - 'view sections in toolbar'
+  - 'view service_region revisions'
   - 'view step_by_step revisions'
   - 'view story_listing revisions'
   - 'view support_resources_detail_page revisions'
@@ -299,6 +311,7 @@ permissions:
   - 'view vamc_system_policies_page revisions'
   - 'view vamc_system_register_for_care revisions'
   - 'view vba_facility revisions'
+  - 'view vba_facility_service revisions'
   - 'view vet_center revisions'
   - 'view vet_center_cap revisions'
   - 'view vet_center_facility_health_servi revisions'
