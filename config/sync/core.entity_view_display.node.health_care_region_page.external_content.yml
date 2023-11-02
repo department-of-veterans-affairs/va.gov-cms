@@ -25,10 +25,12 @@ dependencies:
     - field.field.node.health_care_region_page.field_va_health_connect_phone
     - field.field.node.health_care_region_page.field_vamc_ehr_system
     - field.field.node.health_care_region_page.field_vamc_system_official_name
+    - field.field.node.health_care_region_page.field_youtube
     - node.type.health_care_region_page
   module:
     - field_group
     - layout_builder
+    - link
     - options
     - telephone
     - user
@@ -132,6 +134,18 @@ targetEntityType: node
 bundle: health_care_region_page
 mode: external_content
 content:
+  breadcrumbs:
+    type: link
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: -5
+    region: content
   field_va_health_connect_phone:
     type: telephone_link
     label: above
@@ -169,6 +183,7 @@ hidden:
   field_system_menu: true
   field_twitter: true
   field_vamc_system_official_name: true
+  field_youtube: true
   langcode: true
   links: true
   search_api_excerpt: true
