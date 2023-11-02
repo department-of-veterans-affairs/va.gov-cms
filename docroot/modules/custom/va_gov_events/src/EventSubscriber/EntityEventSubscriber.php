@@ -66,6 +66,18 @@ class EntityEventSubscriber implements EventSubscriberInterface {
     1583,
     3610,
     2927,
+    2955,
+    3314,
+    2957,
+    3420,
+    2962,
+    2719,
+    4356,
+    1448,
+    2574,
+    1444,
+    2906,
+    31,
   ];
 
   /**
